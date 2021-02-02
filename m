@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A748D30C8A4
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 18:57:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80683.147748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286B430C91D
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 19:12:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80685.147761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6zvW-00026X-IG; Tue, 02 Feb 2021 17:57:22 +0000
+	id 1l709u-00046d-Th; Tue, 02 Feb 2021 18:12:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80683.147748; Tue, 02 Feb 2021 17:57:22 +0000
+Received: by outflank-mailman (output) from mailman id 80685.147761; Tue, 02 Feb 2021 18:12:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6zvW-00026C-Ey; Tue, 02 Feb 2021 17:57:22 +0000
-Received: by outflank-mailman (input) for mailman id 80683;
- Tue, 02 Feb 2021 17:57:21 +0000
+	id 1l709u-00046G-Q9; Tue, 02 Feb 2021 18:12:14 +0000
+Received: by outflank-mailman (input) for mailman id 80685;
+ Tue, 02 Feb 2021 18:12:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>) id 1l6zvV-000267-5h
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 17:57:21 +0000
+ (envelope-from <julien@xen.org>) id 1l709t-00046B-85
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 18:12:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1l6zvU-0002dh-MJ; Tue, 02 Feb 2021 17:57:20 +0000
-Received: from host86-190-149-163.range86-190.btcentralplus.com
- ([86.190.149.163] helo=ubuntu.home)
+ (envelope-from <julien@xen.org>)
+ id 1l709r-0002yA-8y; Tue, 02 Feb 2021 18:12:11 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1l6zvU-0006HU-Ac; Tue, 02 Feb 2021 17:57:20 +0000
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l709r-0007QK-1e; Tue, 02 Feb 2021 18:12:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,160 +41,90 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=U9LFyj567L8ODDmpt5H9dtpTYleJRBeis5xuYap+UEk=; b=IUMNPYDqTYI1m8BX1jWz/P2whH
-	oNjab1nTmbSWf0fqWGhwZLs6Uc9oaLgtwwALS9GMpNWg813Ba3WGqoY7+YjCijfTBCWYjCI1WyMsn
-	cso0MzQS3/uM9+n28VjVJBo9A0oF72aK2lv2qOP7xALJK5tiE97jvyjlF+mJbRox/L1U=;
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH v3] xen-blkback: fix compatibility bug with single page rings
-Date: Tue,  2 Feb 2021 17:56:59 +0000
-Message-Id: <20210202175659.18452-1-paul@xen.org>
-X-Mailer: git-send-email 2.17.1
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=3ao1A6dDpSArxpBrWSwd2BFC+8CJxPMrIxJHfLjHuuQ=; b=ieZG9MYo4OpgSIbNeVWkeH9LLh
+	GPHWXzwlws5kNYCW5bbIBSaW3eOkSD0e9clXcjV2Y6gtERXj5+39UpL7ckcMfK6fCpUQ5sJQniQ6a
+	AP/cL0qOSUyimJuGyLZQ04tpgFoR1LRtx2mFiU1zQs5kqfTX5ahwkaoHfBdVKNMiU5QE=;
+Subject: Re: [PATCH] xen/arm: domain_build: Ignore device nodes with invalid
+ addresses
+To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org>
+Date: Tue, 2 Feb 2021 18:12:09 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <YBmQQ3Tzu++AadKx@mattapan.m5p.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-From: Paul Durrant <pdurrant@amazon.com>
+Hi,
 
-Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid
-inconsistent xenstore 'ring-page-order' set by malicious blkfront"), the
-behaviour of xen-blkback when connecting to a frontend was:
+On 02/02/2021 17:47, Elliott Mitchell wrote:
+> The handle_device() function has been returning failure upon
+> encountering a device address which was invalid.  A device tree which
+> had such an entry has now been seen in the wild.  As it causes no
+> failures to simply ignore the entries, ignore them. >
+> Signed-off-by: Elliott Mitchell <ehem+xenn@m5p.com>
+> 
+> ---
+> I'm starting to suspect there are an awful lot of places in the various
+> domain_build.c files which should simply ignore errors.  This is now the
+> second place I've encountered in 2 months where ignoring errors was the
+> correct action.
 
-- read 'ring-page-order'
-- if not present then expect a single page ring specified by 'ring-ref'
-- else expect a ring specified by 'ring-refX' where X is between 0 and
-  1 << ring-page-order
+Right, as a counterpoint, we run Xen on Arm HW for several years now and 
+this is the first time I heard about issue parsing the DT. So while I 
+appreciate that you are eager to run Xen on the RPI...
 
-This was correct behaviour, but was broken by the afforementioned commit to
-become:
+>  I know failing in case of error is an engineer's
+> favorite approach, but there seem an awful lot of harmless failures
+> causing panics.
+> 
+> This started as the thread "[RFC PATCH] xen/arm: domain_build: Ignore
+> empty memory bank".  Now it seems clear the correct approach is to simply
+> ignore these entries.
 
-- read 'ring-page-order'
-- if not present then expect a single page ring (i.e. ring-page-order = 0)
-- expect a ring specified by 'ring-refX' where X is between 0 and
-  1 << ring-page-order
-- if that didn't work then see if there's a single page ring specified by
-  'ring-ref'
+... we first need to fully understand the issues. Here a few questions:
+    1) Can you provide more information why you believe the address is 
+invalid?
+    2) How does Linux use the node?
+    3) Is it happening with all the RPI DT? If not, what are the 
+differences?
 
-This incorrect behaviour works most of the time but fails when a frontend
-that sets 'ring-page-order' is unloaded and replaced by one that does not
-because, instead of reading 'ring-ref', xen-blkback will read the stale
-'ring-ref0' left around by the previous frontend will try to map the wrong
-grant reference.
+> 
+> This seems a good candidate for backport to 4.14 and certainly should be
+> in 4.15.
+> ---
+>   xen/arch/arm/domain_build.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 374bf655ee..c0568b7579 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1407,9 +1407,9 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
+>           res = dt_device_get_address(dev, i, &addr, &size);
+>           if ( res )
+>           {
+> -            printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
+> -                   i, dt_node_full_name(dev));
+> -            return res;
+> +            printk(XENLOG_ERR "Unable to retrieve address of %s, index %u\n",
+> +                   dt_node_full_name(dev), i);
+> +            continue;
+>           }
+>   
+>           res = map_range_to_domain(dev, addr, size, &mr_data);
+> 
 
-This patch restores the original behaviour.
+Cheers,
 
-Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid inconsistent xenstore 'ring-page-order' set by malicious blkfront")
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Reviewed-by: Dongli Zhang <dongli.zhang@oracle.com>
-Reviewed-by: "Roger Pau Monné" <roger.pau@citrix.com>
----
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-
-v3:
- - Whitespace fix
-
-v2:
- - Remove now-spurious error path special-case when nr_grefs == 1
----
- drivers/block/xen-blkback/common.h |  1 +
- drivers/block/xen-blkback/xenbus.c | 38 +++++++++++++-----------------
- 2 files changed, 17 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
-index b0c71d3a81a0..bda5c815e441 100644
---- a/drivers/block/xen-blkback/common.h
-+++ b/drivers/block/xen-blkback/common.h
-@@ -313,6 +313,7 @@ struct xen_blkif {
- 
- 	struct work_struct	free_work;
- 	unsigned int 		nr_ring_pages;
-+	bool			multi_ref;
- 	/* All rings for this device. */
- 	struct xen_blkif_ring	*rings;
- 	unsigned int		nr_rings;
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 9860d4842f36..6c5e9373e91c 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -998,14 +998,17 @@ static int read_per_ring_refs(struct xen_blkif_ring *ring, const char *dir)
- 	for (i = 0; i < nr_grefs; i++) {
- 		char ring_ref_name[RINGREF_NAME_LEN];
- 
--		snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref%u", i);
-+		if (blkif->multi_ref)
-+			snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref%u", i);
-+		else {
-+			WARN_ON(i != 0);
-+			snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref");
-+		}
-+
- 		err = xenbus_scanf(XBT_NIL, dir, ring_ref_name,
- 				   "%u", &ring_ref[i]);
- 
- 		if (err != 1) {
--			if (nr_grefs == 1)
--				break;
--
- 			err = -EINVAL;
- 			xenbus_dev_fatal(dev, err, "reading %s/%s",
- 					 dir, ring_ref_name);
-@@ -1013,18 +1016,6 @@ static int read_per_ring_refs(struct xen_blkif_ring *ring, const char *dir)
- 		}
- 	}
- 
--	if (err != 1) {
--		WARN_ON(nr_grefs != 1);
--
--		err = xenbus_scanf(XBT_NIL, dir, "ring-ref", "%u",
--				   &ring_ref[0]);
--		if (err != 1) {
--			err = -EINVAL;
--			xenbus_dev_fatal(dev, err, "reading %s/ring-ref", dir);
--			return err;
--		}
--	}
--
- 	err = -ENOMEM;
- 	for (i = 0; i < nr_grefs * XEN_BLKIF_REQS_PER_PAGE; i++) {
- 		req = kzalloc(sizeof(*req), GFP_KERNEL);
-@@ -1129,10 +1120,15 @@ static int connect_ring(struct backend_info *be)
- 		 blkif->nr_rings, blkif->blk_protocol, protocol,
- 		 blkif->vbd.feature_gnt_persistent ? "persistent grants" : "");
- 
--	ring_page_order = xenbus_read_unsigned(dev->otherend,
--					       "ring-page-order", 0);
--
--	if (ring_page_order > xen_blkif_max_ring_order) {
-+	err = xenbus_scanf(XBT_NIL, dev->otherend, "ring-page-order", "%u",
-+			   &ring_page_order);
-+	if (err != 1) {
-+		blkif->nr_ring_pages = 1;
-+		blkif->multi_ref = false;
-+	} else if (ring_page_order <= xen_blkif_max_ring_order) {
-+		blkif->nr_ring_pages = 1 << ring_page_order;
-+		blkif->multi_ref = true;
-+	} else {
- 		err = -EINVAL;
- 		xenbus_dev_fatal(dev, err,
- 				 "requested ring page order %d exceed max:%d",
-@@ -1141,8 +1137,6 @@ static int connect_ring(struct backend_info *be)
- 		return err;
- 	}
- 
--	blkif->nr_ring_pages = 1 << ring_page_order;
--
- 	if (blkif->nr_rings == 1)
- 		return read_per_ring_refs(&blkif->rings[0], dev->otherend);
- 	else {
 -- 
-2.17.1
-
+Julien Grall
 
