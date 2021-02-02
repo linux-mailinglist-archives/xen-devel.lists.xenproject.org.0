@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FE0D30C836
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 18:48:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80675.147718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C2930C864
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 18:50:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80679.147734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6zmY-0000w2-Ay; Tue, 02 Feb 2021 17:48:06 +0000
+	id 1l6zox-0001uf-PQ; Tue, 02 Feb 2021 17:50:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80675.147718; Tue, 02 Feb 2021 17:48:06 +0000
+Received: by outflank-mailman (output) from mailman id 80679.147734; Tue, 02 Feb 2021 17:50:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6zmY-0000vg-7Z; Tue, 02 Feb 2021 17:48:06 +0000
-Received: by outflank-mailman (input) for mailman id 80675;
- Tue, 02 Feb 2021 17:48:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l6zox-0001uG-M7; Tue, 02 Feb 2021 17:50:35 +0000
+Received: by outflank-mailman (input) for mailman id 80679;
+ Tue, 02 Feb 2021 17:50:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TyQM=HE=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1l6zmW-0000vb-Fy
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 17:48:04 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c5c730fc-f88f-4553-aaf0-ffa11e86cc42;
- Tue, 02 Feb 2021 17:48:01 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 112HllcC022963
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 2 Feb 2021 12:47:53 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 112HllHT022962;
- Tue, 2 Feb 2021 09:47:47 -0800 (PST) (envelope-from ehem)
+ (envelope-from <julien@xen.org>) id 1l6zov-0001uB-Nh
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 17:50:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l6zou-0002Vy-Na; Tue, 02 Feb 2021 17:50:32 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l6zou-0005qx-HV; Tue, 02 Feb 2021 17:50:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5c730fc-f88f-4553-aaf0-ffa11e86cc42
-Date: Tue, 2 Feb 2021 09:47:47 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: domain_build: Ignore device nodes with invalid
- addresses
-Message-ID: <YBmQQ3Tzu++AadKx@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=lcy2N9XuXSWSqalYRLS1T/ccGfxxM6G/C6AQaaGTGwM=; b=UFiRPikbD1sqNmtUchdtO+inFo
+	UM3dLL8WkLKuk6oOfXYiNK9CrS1m5NQ4rX6w5GhKShb5U9AsDbDiU+sqI77fLqdWexEWVjineBQjr
+	Ee95YYckgzFMHfVUgfgxUMZ0UjXy2s3NbKl8Q7djWV4KfS/izXJ4yDvlMyIPxnBBVzH4=;
+Subject: Re: [PATCH v3 0/3] Generic SMMU Bindings
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Rahul Singh <Rahul.Singh@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ "brian.woods@xilinx.com" <brian.woods@xilinx.com>
+References: <alpine.DEB.2.21.2101261435550.2568@sstabellini-ThinkPad-T480s>
+ <C094E054-885F-4363-ABF3-E0FB4DDD7A2A@arm.com>
+ <alpine.DEB.2.21.2102020937480.29047@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7ddc6e1b-41ce-37ae-f86e-39893f53a0ec@xen.org>
+Date: Tue, 2 Feb 2021 17:50:29 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+In-Reply-To: <alpine.DEB.2.21.2102020937480.29047@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-The handle_device() function has been returning failure upon
-encountering a device address which was invalid.  A device tree which
-had such an entry has now been seen in the wild.  As it causes no
-failures to simply ignore the entries, ignore them.
+Hi,
 
-Signed-off-by: Elliott Mitchell <ehem+xenn@m5p.com>
+On 02/02/2021 17:44, Stefano Stabellini wrote:
+> On Tue, 2 Feb 2021, Rahul Singh wrote:
+>> Hello Stefano,
+>>
+>>> On 26 Jan 2021, at 10:58 pm, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>>>
+>>> Hi all,
+>>>
+>>> This series introduces support for the generic SMMU bindings to
+>>> xen/drivers/passthrough/arm/smmu.c.
+>>>
+>>> The last version of the series was
+>>> https://marc.info/?l=xen-devel&m=159539053406643
+>>>
+>>> I realize that it is late for 4.15 -- I think it is OK if this series
+>>> goes in afterwards.
+>>
+>> I tested the series on the Juno board it is woking fine.
+>> I found one issue in SMMU driver while testing this series that is not related to this series but already existing issue in SMMU driver.
+>>
+>> If there are more than one device behind SMMU and they share the same Stream-Id, SMMU driver is creating the new SMR entry without checking the already configured SMR entry if SMR entry correspond to stream-id is already configured.  Because of this I observed the stream match conflicts on Juno board.
+>>
+>> (XEN) smmu: /iommu@7fb30000: Unexpected global fault, this could be serious
+>> (XEN) smmu: /iommu@7fb30000: 	GFSR 0x00000004, GFSYNR0 0x00000006, GFSYNR1 0x00000000, GFSYNR2 0x00000000
+>>
+>>
+>> Below two patches is required to be ported to Xen to fix the issue from Linux driver.
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/iommu/arm-smmu.c?h=linux-5.8.y&id=1f3d5ca43019bff1105838712d55be087d93c0da
+>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/iommu/arm-smmu.c?h=linux-5.8.y&id=21174240e4f4439bb8ed6c116cdbdc03eba2126e
+> 
+> 
+> Good catch and thanks for the pointers! Do you have any interest in
+> backporting these two patches or should I put them on my TODO list?
+> 
+> Unrelated to who does the job, we should discuss if it makes sense to
+> try to fix the bug for 4.15. The patches don't seem trivial so I am
+> tempted to say that it might be best to leave the bug unfixed for 4.15
+> and fix it later.
 
----
-I'm starting to suspect there are an awful lot of places in the various
-domain_build.c files which should simply ignore errors.  This is now the
-second place I've encountered in 2 months where ignoring errors was the
-correct action.  I know failing in case of error is an engineer's
-favorite approach, but there seem an awful lot of harmless failures
-causing panics.
+SMMU support on Juno is not that interesting because IIRC the stream-ID 
+is the same for all the devices. So it is all or nothing passthrough.
 
-This started as the thread "[RFC PATCH] xen/arm: domain_build: Ignore
-empty memory bank".  Now it seems clear the correct approach is to simply
-ignore these entries.
+For other HW, this may be a useful feature. Yet we would need a way to 
+group the devices for passthrough.
 
-This seems a good candidate for backport to 4.14 and certainly should be
-in 4.15.
----
- xen/arch/arm/domain_build.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+In this context, I would consider it more a feature than a bug because 
+the SMMU driver never remotely work on such HW.
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 374bf655ee..c0568b7579 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1407,9 +1407,9 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
-         res = dt_device_get_address(dev, i, &addr, &size);
-         if ( res )
-         {
--            printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
--                   i, dt_node_full_name(dev));
--            return res;
-+            printk(XENLOG_ERR "Unable to retrieve address of %s, index %u\n",
-+                   dt_node_full_name(dev), i);
-+            continue;
-         }
- 
-         res = map_range_to_domain(dev, addr, size, &mr_data);
+Cheers,
+
 -- 
-2.20.1
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Julien Grall
 
