@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD0BE30BC0A
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 11:31:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80460.147213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C045530BCD3
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 12:22:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80495.147269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6sxz-0005ZK-JZ; Tue, 02 Feb 2021 10:31:27 +0000
+	id 1l6tkX-0002La-6J; Tue, 02 Feb 2021 11:21:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80460.147213; Tue, 02 Feb 2021 10:31:27 +0000
+Received: by outflank-mailman (output) from mailman id 80495.147269; Tue, 02 Feb 2021 11:21:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6sxz-0005Yr-Fi; Tue, 02 Feb 2021 10:31:27 +0000
-Received: by outflank-mailman (input) for mailman id 80460;
- Tue, 02 Feb 2021 10:31:26 +0000
+	id 1l6tkX-0002LB-2k; Tue, 02 Feb 2021 11:21:37 +0000
+Received: by outflank-mailman (input) for mailman id 80495;
+ Tue, 02 Feb 2021 11:21:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l6sxy-0005Yj-EZ; Tue, 02 Feb 2021 10:31:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1l6tkV-0002L6-Hl
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 11:21:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l6sxy-0002vO-96; Tue, 02 Feb 2021 10:31:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l6sxx-0008Ia-VN; Tue, 02 Feb 2021 10:31:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l6sxx-0007rI-Uq; Tue, 02 Feb 2021 10:31:25 +0000
+ (envelope-from <iwj@xenproject.org>) id 1l6tkV-0003jP-Ga
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 11:21:35 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l6tkV-000125-DG
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 11:21:35 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l6tkS-0001rb-54; Tue, 02 Feb 2021 11:21:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,145 +42,33 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=evqPNll06rVnZGbBZShBqQX5nWAd0rT3zZyuikjSxhg=; b=RQjhq/M9Yl2/haHLG6ZGvB2s/R
-	KxmTQ4X/wQb0ghhh3KvIXs9tcHeTsKINcPXyVcK2GUUGwFplKOQXHAHJrRhO1yRC3t15myszD8iKP
-	Wh/dQgtrcj0fxS00N+NLB8wMpAxOPHGUZ35jj9TUQnMY1Cfz6JrMJV030GiGaWG2h9hE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158946-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=a6OB6ReDxGsFWtrMM+RFjzdpQ9rx5NiYkJ75O5McMwU=; b=M5C8ywgg91p0R5jN2v8jalRDK/
+	50FN9x0LJmfs/z/CLMnWg4NjrJEFKvYUfXUad/5JRh9/yKdlJyxQcDuP+VZXwr/SXOMSH9SK9hdrR
+	f44m+dose21gl6h0lSCFbmmWvGU7XAP6k5Lx6resx5ZNBOvLh7Yc6BBUCLjXmJJerqnc=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158946: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=ffbb8aa282de262403275f2395d8540818cf576e
-X-Osstest-Versions-That:
-    xen=9dc687f155a57216b83b17f9cde55dd43e06b0cd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 02 Feb 2021 10:31:25 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24601.13755.876115.891026@mariner.uk.xensource.com>
+Date: Tue, 2 Feb 2021 11:21:31 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: [PATCH] xenstore: Fix all builds
+In-Reply-To: <20210201233513.30923-1-andrew.cooper3@citrix.com>
+References: <20210201233513.30923-1-andrew.cooper3@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-flight 158946 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158946/
+Andrew Cooper writes ("[PATCH] xenstore: Fix all builds"):
+> This diff is easier viewed through `cat -A`
+...
+> A non-breaking space isn't a valid C preprocessor token.
 
-Regressions :-(
+Yikes.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 158804
- build-arm64-xsm               6 xen-build                fail REGR. vs. 158804
- build-armhf                   6 xen-build                fail REGR. vs. 158804
+Thanks!
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- xen                  ffbb8aa282de262403275f2395d8540818cf576e
-baseline version:
- xen                  9dc687f155a57216b83b17f9cde55dd43e06b0cd
-
-Last test of basis   158804  2021-01-30 04:00:24 Z    3 days
-Failing since        158892  2021-02-01 16:00:25 Z    0 days   11 attempts
-Testing same since   158897  2021-02-01 19:02:25 Z    0 days   10 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit ffbb8aa282de262403275f2395d8540818cf576e
-Author: Roger Pau Monne <roger.pau@citrix.com>
-Date:   Mon Feb 1 16:53:17 2021 +0100
-
-    xenstore: fix build on {Net/Free}BSD
-    
-    The endian.h header is in sys/ on NetBSD and FreeBSD.
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 419cd07895891c6642f29085aee07be72413f08c
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Mon Feb 1 15:18:36 2021 +0000
-
-    xenpmd.c: Remove hard tab
-    
-    bbed98e7cedc "xenpmd.c: use dynamic allocation" had a hard tab.
-    I thought we had fixed that and I thought I had checked.
-    Remove it now.
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-
-commit bbed98e7cedcd5072671c21605330075740382d3
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Sat Jan 30 19:27:10 2021 +0100
-
-    xenpmd.c: use dynamic allocation
-    
-    On NetBSD, d_name is larger than 256, so file_name[284] may not be large
-    enough (and gcc emits a format-truncation error).
-    Use asprintf() instead of snprintf() on a static on-stack buffer.
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-    
-    Plus
-    
-    define GNU_SOURCE for asprintf()
-    
-    Harmless on NetBSD.
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-(qemu changes not included)
+Ian.
 
