@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569F930E162
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 18:48:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81014.148894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB56030E172
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 18:51:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81016.148906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7MGO-0001vo-9f; Wed, 03 Feb 2021 17:48:24 +0000
+	id 1l7MJD-0002wM-Nc; Wed, 03 Feb 2021 17:51:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81014.148894; Wed, 03 Feb 2021 17:48:24 +0000
+Received: by outflank-mailman (output) from mailman id 81016.148906; Wed, 03 Feb 2021 17:51:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7MGO-0001vP-6H; Wed, 03 Feb 2021 17:48:24 +0000
-Received: by outflank-mailman (input) for mailman id 81014;
- Wed, 03 Feb 2021 17:48:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3m8k=HF=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1l7MGN-0001vJ-7S
- for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 17:48:23 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c29c372e-45da-405d-82a1-ec7707f27b3d;
- Wed, 03 Feb 2021 17:48:20 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne [10.0.0.1])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 113HmJS3022557;
- Wed, 3 Feb 2021 18:48:19 +0100 (MET)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id B8330281D; Wed,  3 Feb 2021 18:48:18 +0100 (CET)
+	id 1l7MJD-0002vx-KL; Wed, 03 Feb 2021 17:51:19 +0000
+Received: by outflank-mailman (input) for mailman id 81016;
+ Wed, 03 Feb 2021 17:51:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l7MJB-0002vr-SJ
+ for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 17:51:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l7MJB-0005Gk-R9
+ for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 17:51:17 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l7MJB-0002FE-Pz
+ for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 17:51:17 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l7MJ8-0005et-JZ; Wed, 03 Feb 2021 17:51:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,64 +41,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c29c372e-45da-405d-82a1-ec7707f27b3d
-Date: Wed, 3 Feb 2021 18:48:11 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-        Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] xenstored: close socket connections on error
-Message-ID: <20210203174811.GB192@antioche.eu.org>
-References: <20210203165421.1550-1-bouyer@netbsd.org>
- <20210203165421.1550-2-bouyer@netbsd.org>
- <24602.56402.42441.687037@mariner.uk.xensource.com>
- <24602.57267.471477.281218@mariner.uk.xensource.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=f1PPwg52iFe6CeB8p0HVZUd00ZOwwpd/rT0J5pYLUfc=; b=Nq/PQ0jyy27xFFtiN+exz2YkYl
+	tsu5gGOUGpOC0uu3GO527YZOrJy4QhSDEqaCtPcHFAaOCmtmcWSNpIqUVqq2lRfUx/am0ALgoDv/E
+	NdMbp6LdqLOajO79iOACaed6o/l4nvuSVYiS2wK2yTL15evqsQrUR97zBJ2CuJvB2eX0=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24602.57267.471477.281218@mariner.uk.xensource.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 03 Feb 2021 18:48:19 +0100 (MET)
+Content-Transfer-Encoding: 7bit
+Message-ID: <24602.58002.389945.787614@mariner.uk.xensource.com>
+Date: Wed, 3 Feb 2021 17:51:14 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    Manuel Bouyer <bouyer@netbsd.org>
+Subject: Re: [PATCH for-4.15 2/2] libs/foreignmem: Fix/simplify errno handling for map_resource
+In-Reply-To: <20210203163750.7564-2-andrew.cooper3@citrix.com>
+References: <20210203163750.7564-1-andrew.cooper3@citrix.com>
+	<20210203163750.7564-2-andrew.cooper3@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On Wed, Feb 03, 2021 at 05:38:59PM +0000, Ian Jackson wrote:
-> > [...]
-> > broken on Linux too ?
+Andrew Cooper writes ("[PATCH for-4.15 2/2] libs/foreignmem: Fix/simplify errno handling for map_resource"):
+> Simplify the FreeBSD logic, and duplicate it for NetBSD as the userpace ABI
+> appears to be to consistently provide EOPNOTSUPP for missing Xen/Kernel
+> support.
 > 
-> Andy pointed me to the recent thread "xenstored file descriptor leak"
-> which answers all these questions.  I think it would have been nice if
-> some tools maintainer(s) had been CC'd on that :-).
+> The Linux logic was contorted in what appears to be a deliberate attempt to
+> skip the now-deleted logic for the EOPNOTSUPP case.  Simplify it.
 
-I did use add_maintainers.pl against it (or at last it was my intent)
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
-> 
-> Juergen, I guess I will get a formal R-b from you ?
-> 
-> Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-> 
-> 
-> Manuel, in response to this:
-> 
-> > When I started, I looked at the wiki for instructions about
-> > patches, but didn't find any ...
-> 
-> Earlier I offered you help with git, in private email.  I agree that
-> git is confusing and sometimes impenetrable.  But it seems that what
-> you are doing now is worse!  Please take me up on my offer of help.
+Sorry for my earlier confusion.  I had lost the context between the
+two patches.  I will explain my reasoning for the R-A:
 
-I didn't forget. It's just that I don't even know what to ask to start
-with.  It seems that StGit will help a lot though.
+For the first two hunks (freebsd.c): these are consequential cleanup
+from patch 1/2 of this series.  Splitting this up made this easier to
+review and we don't want to leave the rather unfortunate constructs
+which arise from some hunks of 1/1.  IOW, the combination of 1/1 plus
+the first two hunks here is definitely release-worthy and the split
+has helped review.
 
-> 
-> Our wiki doesn't give instructions on how to use git to maintain a
-> patch series.  Those instructions would not be Xen-specific.  Perhaps
-> we could have a pointer or two, but everyone has their own pet methods
-> and tooling so the result would perhaps be more confusing than
-> helpful.
+The final hunk is a straightforward bugfix.
 
-a howto is alwaus helpfull. Even if it's not the one and only way
-to do, at last it gives a start point.
+This combination of two completely different kinds of thing is a bit
+confusing but now that I have explained it to myself I'm satisfied.
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Ian.
 
