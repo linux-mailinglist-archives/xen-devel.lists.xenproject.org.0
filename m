@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F3530E5D9
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 23:13:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81076.149142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9897030E5F3
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 23:19:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81078.149154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7QOH-0005eX-Dw; Wed, 03 Feb 2021 22:12:49 +0000
+	id 1l7QU7-0005rC-44; Wed, 03 Feb 2021 22:18:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81076.149142; Wed, 03 Feb 2021 22:12:49 +0000
+Received: by outflank-mailman (output) from mailman id 81078.149154; Wed, 03 Feb 2021 22:18:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7QOH-0005e8-Ar; Wed, 03 Feb 2021 22:12:49 +0000
-Received: by outflank-mailman (input) for mailman id 81076;
- Wed, 03 Feb 2021 22:12:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vpkB=HF=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1l7QOF-0005e2-88
- for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 22:12:47 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a677cac6-3a78-45b8-b6e9-97e4b4bffafe;
- Wed, 03 Feb 2021 22:12:43 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 113MCTuu030536
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 3 Feb 2021 17:12:35 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 113MCThF030535;
- Wed, 3 Feb 2021 14:12:29 -0800 (PST) (envelope-from ehem)
+	id 1l7QU7-0005qn-12; Wed, 03 Feb 2021 22:18:51 +0000
+Received: by outflank-mailman (input) for mailman id 81078;
+ Wed, 03 Feb 2021 22:18:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1qtc=HF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l7QU6-0005qi-95
+ for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 22:18:50 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 339fe853-52fc-4719-a9e8-a4bc45d04afd;
+ Wed, 03 Feb 2021 22:18:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EBC2664DF0;
+ Wed,  3 Feb 2021 22:18:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +38,377 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a677cac6-3a78-45b8-b6e9-97e4b4bffafe
-Date: Wed, 3 Feb 2021 14:12:29 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jukka Kaartinen <jukka.kaartinen@unikie.com>,
-        Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>,
-        Xen-devel <xen-devel@lists.xenproject.org>,
-        Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: Question about xen and Rasp 4B
-Message-ID: <YBsfzZ6fI40bXo7/@mattapan.m5p.com>
-References: <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
- <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s>
- <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
- <5a33e663-4a6d-6247-769a-8f14db4810f2@xen.org>
- <b9247831-335a-f791-1664-abed6b400a42@unikie.com>
- <CAMmSBy-54qtu_oVVT=KB8GeKP0SW0uK+4wQ_LooHE0y_MZKJQg@mail.gmail.com>
- <3ec2b0cb-3685-384e-94df-28eaf8b57c42@unikie.com>
- <alpine.DEB.2.21.2102021552380.29047@sstabellini-ThinkPad-T480s>
- <3c98d8d0-ca4e-b177-1e2b-5f3eb454722d@unikie.com>
- <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
+X-Inumbo-ID: 339fe853-52fc-4719-a9e8-a4bc45d04afd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1612390728;
+	bh=yyIRAdp9HTCLKYMLp8vzMTGuEyMMqbW0akmu5TfQk9E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=jdb28UDAbopek7XmGT5z1jxAQOX0/dYcCOROTXdMftB/hM4+mDKx+nSqEWJQe4lSQ
+	 kE+VIHIAUNZyl9WYGui+1ISgGAwhMAO06NLr/4k2pT9XEJUHhVHIV7PsUQq0jP43yO
+	 bSB//6vTMv12D1qkPZSrKx7we63sjN6zqUehHMrl/HiMGhOWUug3Hzdfi7ikcJdF8V
+	 cMj7rZ/O4DI/9DoFKLa0JDFrIbggHbPVG1/FW8MpOA7uS7FuamK8BEMUcSbDLSpXKt
+	 kSgeonKaurg2PVcXE655IDjUA7Gq1bIOgOeiIdZ6zxb6hDqy2Dm90j3fCE1t7QnlfL
+	 RcTs67gkCUkBg==
+Date: Wed, 3 Feb 2021 14:18:47 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: domain_build: Ignore device nodes with invalid
+ addresses
+In-Reply-To: <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org>
+Message-ID: <alpine.DEB.2.21.2102031315350.29047@sstabellini-ThinkPad-T480s>
+References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com> <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org> <b6d342f8-c833-db88-9808-cdc946999300@xen.org> <alpine.DEB.2.21.2102021412480.29047@sstabellini-ThinkPad-T480s> <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+Content-Type: multipart/mixed; BOUNDARY="8323329-1596983874-1612387817=:29047"
+Content-ID: <alpine.DEB.2.21.2102031331460.29047@sstabellini-ThinkPad-T480s>
 
-On Wed, Feb 03, 2021 at 12:55:40PM -0800, Stefano Stabellini wrote:
-> On Wed, 3 Feb 2021, Jukka Kaartinen wrote:
-> > On 3.2.2021 2.18, Stefano Stabellini wrote:
-> > > How are you configuring and installing the kernel?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1596983874-1612387817=:29047
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2102031331461.29047@sstabellini-ThinkPad-T480s>
+
+On Wed, 3 Feb 2021, Julien Grall wrote:
+> On 03/02/2021 00:18, Stefano Stabellini wrote:
+> > On Tue, 2 Feb 2021, Julien Grall wrote:
+> > > On 02/02/2021 18:12, Julien Grall wrote:
+> > > > On 02/02/2021 17:47, Elliott Mitchell wrote:
+> > > > > The handle_device() function has been returning failure upon
+> > > > > encountering a device address which was invalid.  A device tree which
+> > > > > had such an entry has now been seen in the wild.  As it causes no
+> > > > > failures to simply ignore the entries, ignore them. >
+> > > > > Signed-off-by: Elliott Mitchell <ehem+xenn@m5p.com>
+> > > > > 
+> > > > > ---
+> > > > > I'm starting to suspect there are an awful lot of places in the
+> > > > > various
+> > > > > domain_build.c files which should simply ignore errors.  This is now
+> > > > > the
+> > > > > second place I've encountered in 2 months where ignoring errors was
+> > > > > the
+> > > > > correct action.
+> > > > 
+> > > > Right, as a counterpoint, we run Xen on Arm HW for several years now and
+> > > > this is the first time I heard about issue parsing the DT. So while I
+> > > > appreciate that you are eager to run Xen on the RPI...
+> > > > 
+> > > > >   I know failing in case of error is an engineer's
+> > > > > favorite approach, but there seem an awful lot of harmless failures
+> > > > > causing panics.
+> > > > > 
+> > > > > This started as the thread "[RFC PATCH] xen/arm: domain_build: Ignore
+> > > > > empty memory bank".  Now it seems clear the correct approach is to
+> > > > > simply
+> > > > > ignore these entries.
+> > > > 
+> > > > ... we first need to fully understand the issues. Here a few questions:
+> > > >      1) Can you provide more information why you believe the address is
+> > > > invalid?
+> > > >      2) How does Linux use the node?
+> > > >      3) Is it happening with all the RPI DT? If not, what are the
+> > > > differences?
 > > > 
-> > > make bcm2711_defconfig
-> > > make Image.gz
-> > > make modules_install
+> > > So I had another look at the device-tree you provided earlier on. The node
+> > > is
+> > > the following (copied directly from the DTS):
 > > > 
-> > > ?
+> > > &pcie0 {
+> > >          pci@1,0 {
+> > >                  #address-cells = <3>;
+> > >                  #size-cells = <2>;
+> > >                  ranges;
 > > > 
-> > > The device tree is the one from the rpi-5.9.y build? How are you loading
-> > > the kernel and device tree with uboot? Do you have any interesting
-> > > changes to config.txt?
+> > >                  reg = <0 0 0 0 0>;
 > > > 
-> > > I am asking because I cannot get to the point of reproducing what you
-> > > are seeing: I can boot my rpi-5.9.y kernel on recent Xen but I cannot
-> > > get any graphics output on my screen. (The serial works.) I am using the
-> > > default Ubuntu Desktop rpi-install target as rootfs and uboot master.
+> > >                  usb@1,0 {
+> > >                          reg = <0x10000 0 0 0 0>;
+> > >                          resets = <&reset
+> > > RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+> > >                  };
+> > >          };
+> > > };
 > > > 
+> > > pcie0: pcie@7d500000 {
+> > >     compatible = "brcm,bcm2711-pcie";
+> > >     reg = <0x0 0x7d500000  0x0 0x9310>;
+> > >     device_type = "pci";
+> > >     #address-cells = <3>;
+> > >     #interrupt-cells = <1>;
+> > >     #size-cells = <2>;
+> > >     interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+> > >                  <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+> > >     interrupt-names = "pcie", "msi";
+> > >     interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+> > >     interrupt-map = <0 0 0 1 &gicv2 GIC_SPI 143
+> > >                                                       IRQ_TYPE_LEVEL_HIGH>;
+> > >     msi-controller;
+> > >     msi-parent = <&pcie0>;
+> > > 
+> > >     ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000
+> > >               0x0 0x40000000>;
+> > >     /*
+> > >      * The wrapper around the PCIe block has a bug
+> > >      * preventing it from accessing beyond the first 3GB of
+> > >      * memory.
+> > >      */
+> > >     dma-ranges = <0x02000000 0x0 0x00000000 0x0 0x00000000
+> > >                   0x0 0xc0000000>;
+> > >     brcm,enable-ssc;
+> > > };
+> > > 
+> > > The interpretation of "reg" depends on the context. In this case, we are
+> > > trying to interpret as a memory address from the CPU PoV when it has a
+> > > different meaning (I am not exactly sure what).
+> > > 
+> > > In fact, you are lucky that Xen doesn't manage to interpret it. Xen should
+> > > really stop trying to look region to map when it discover a PCI bus. I
+> > > wrote a
+> > > quick hack patch that should ignore it:
 > > 
-> > This is what I do:
-> > 
-> > make bcm2711_defconfig
-> > cat "xen_additions" >> .config
-> > make Image  modules dtbs
-> > 
-> > make INSTALL_MOD_PATH=rootfs modules_install
-> > depmod -a
-> > 
-> > cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb boot/
-> > cp arch/arm64/boot/dts/overlays/*.dtbo boot/overlays/
+> > Yes, I think you are right. There are a few instances where "reg" is not
+> > a address ready to be remapped. It is not just PCI, although that's the
+> > most common.  Maybe we need a list, like skip_matches in handle_node.
 > 
-> Thanks for the detailed instructions. This helps a lot. I saw below in
-> boot2.source that you are using ${fdt_addr} as DTB source (instead of
-> loading one), which means you are using the DTB as provided by U-Boot at
-> runtime, instead of loading your own file.
+> From my understanding, "reg" can be considered as an MMIO region only if all
+> the *parents up to the root have the property "ranges" and they are not on a
+> different bus (e.g. pci).
 > 
-> With these two copies, I take you meant to update the first partition on
-> the SD card, the one where config.txt lives, right? So that Xen is
-> getting the DTB and overlays from the rpi-5.9.y kernel tree but passed
-> down by the RPi loader and U-Boot?
+> Do you have example where this is not the case?
+
+The famous one is CPUs. These are some other examples I could find with
+a quick search:
+
+			nvmem_firmware {
+				compatible = "xlnx,zynqmp-nvmem-fw";
+				#address-cells = <0x1>;
+				#size-cells = <0x1>;
+
+				soc_revision@0 {
+					reg = <0x0 0x4>;
+				};
+			};
+
+		cci@fd6e0000 {
+			compatible = "arm,cci-400";
+			reg = <0x0 0xfd6e0000 0x0 0x9000>;
+			ranges = <0x0 0x0 0xfd6e0000 0x10000>;
+			#address-cells = <0x1>;
+			#size-cells = <0x1>;
+
+			pmu@9000 {
+				compatible = "arm,cci-400-pmu,r1";
+				reg = <0x9000 0x5000>;
+				interrupt-parent = <0x4>;
+				interrupts = <0x0 0x7b 0x4 0x0 0x7b 0x4 0x0 0x7b 0x4 0x0 0x7b 0x4 0x0 0x7b 0x4>;
+			};
+		};
+
+
+		i2c@ff020000 {
+			compatible = "cdns,i2c-r1p14";
+			status = "okay";
+			interrupt-parent = <0x4>;
+			interrupts = <0x0 0x11 0x4>;
+			reg = <0x0 0xff020000 0x0 0x1000>;
+			#address-cells = <0x1>;
+			#size-cells = <0x0>;
+			clocks = <0x3 0x3d>;
+			clock-frequency = <0x61a80>;
+
+			gpio@20 {
+				compatible = "ti,tca6416";
+				reg = <0x20>;
+
+
+		ethernet@ff0e0000 {
+			compatible = "cdns,zynqmp-gem", "cdns,gem";
+			status = "okay";
+			interrupt-parent = <0x4>;
+			interrupts = <0x0 0x3f 0x4 0x0 0x3f 0x4>;
+			reg = <0x0 0xff0e0000 0x0 0x1000>;
+			clock-names = "pclk", "hclk", "tx_clk";
+			#address-cells = <0x1>;
+			#size-cells = <0x0>;
+			iommus = <0xd 0x877>;
+			clocks = <0xc 0xc 0xc>;
+			phy-handle = <0xe>;
+			phy-mode = "rgmii-id";
+			#stream-id-cells = <0x1>;
+			phandle = <0x16>;
+
+			ethernet-phy@c {
+				reg = <0xc>;
+				ti,rx-internal-delay = <0x8>;
+				ti,tx-internal-delay = <0xa>;
+				ti,fifo-depth = <0x1>;
+				ti,dp83867-rxctrl-strap-quirk;
+				phandle = <0xe>;
+			};
+		};
+
+
+The rule that *parents up to the root have the property "ranges"* seems
+to apply correctly to all these cases. Good.
+
+
+> Whether Xen does it correctly is another question :).
 > 
-> I think the DTB must be the issue as I wasn't applying any overlays
-> before. I ran a test to use the DTB and overlay from U-Boot but maybe I
-> haven't updated them properly because I still don't see any output.
+> > 
+> > 
+> > > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > > index 374bf655ee34..937fd1e387b7 100644
+> > > --- a/xen/arch/arm/domain_build.c
+> > > +++ b/xen/arch/arm/domain_build.c
+> > > @@ -1426,7 +1426,7 @@ static int __init handle_device(struct domain *d,
+> > > struct
+> > > dt_device_node *dev,
+> > > 
+> > >   static int __init handle_node(struct domain *d, struct kernel_info
+> > > *kinfo,
+> > >                                 struct dt_device_node *node,
+> > > -                              p2m_type_t p2mt)
+> > > +                              p2m_type_t p2mt, bool pci_bus)
+> > >   {
+> > >       static const struct dt_device_match skip_matches[] __initconst =
+> > >       {
+> > > @@ -1532,9 +1532,14 @@ static int __init handle_node(struct domain *d,
+> > > struct
+> > > kernel_info *kinfo,
+> > >                  "WARNING: Path %s is reserved, skip the node as we may
+> > > re-use
+> > > the path.\n",
+> > >                  path);
+> > > 
+> > > -    res = handle_device(d, node, p2mt);
+> > > -    if ( res)
+> > > -        return res;
+> > > +    if ( !pci_bus )
+> > > +    {
+> > > +        res = handle_device(d, node, p2mt);
+> > > +        if ( res)
+> > > +           return res;
+> > > +
+> > > +        pci_bus = dt_device_type_is_equal(node, "pci");
+> > > +    }
+> > > 
+> > >       /*
+> > >        * The property "name" is used to have a different name on older FDT
+> > > @@ -1554,7 +1559,7 @@ static int __init handle_node(struct domain *d,
+> > > struct
+> > > kernel_info *kinfo,
+> > > 
+> > >       for ( child = node->child; child != NULL; child = child->sibling )
+> > >       {
+> > > -        res = handle_node(d, kinfo, child, p2mt);
+> > > +        res = handle_node(d, kinfo, child, p2mt, pci_bus);
+> > >           if ( res )
+> > >               return res;
+> > >       }
+> > > @@ -2192,7 +2197,7 @@ static int __init prepare_dtb_hwdom(struct domain
+> > > *d,
+> > > struct kernel_info *kinfo)
+> > > 
+> > >       fdt_finish_reservemap(kinfo->fdt);
+> > > 
+> > > -    ret = handle_node(d, kinfo, dt_host, default_p2mt);
+> > > +    ret = handle_node(d, kinfo, dt_host, default_p2mt, false);
+> > >       if ( ret )
+> > >           goto err;
+> > > 
+> > > A less hackish possibility would be to modify dt_number_of_address() and
+> > > return 0 when the device is a child of a PCI below.
+> > > 
+> > > Stefano, do you have any opinions?
+> > 
+> > Would PCIe even work today? Because if it doesn't, we could just add it
+> > to skip_matches until we get PCI passthrough properly supported.
+> PCIe (or PCI) definitely works in dom0 today but Xen is not aware of the
+> hostbridge. So you would break quite a few uses cases by skipping the nodes.
 
-Seeing no graphics output from U-Boot is okay.  If the device-tree files
-get sufficiently updated you can end up with no output from U-Boot, but
-will get output once the Linux kernel's driver is operational (I've seen
-this occur).
-
-The most important part is having a HDMI display plugged in during the
-early boot stages.  Unless the bootloader sees the display the output
-won't get initialized and the Linux driver doesn't handle that.
+Never mind my suggestion
 
 
-> > dtoverlay=vc4-fkms-v3d,cma-64
+> > But aside from PCIe, let's say that we know of a few nodes for which
+> > "reg" needs a special treatment. I am not sure it makes sense to proceed
+> > with parsing those nodes without knowing how to deal with that.
+> 
+> I believe that most of the time the "special" treatment would be to ignore the
+> property "regs" as it will not be an CPU memory address.
+> 
+> > So maybe
+> > we should add those nodes to skip_matches until we know what to do with
+> > them. At that point, I would imagine we would introduce a special
+> > handle_device function that knows what to do. In the case of PCIe,
+> > something like "handle_device_pcie".
+> Could you outline how "handle_device_pcie()" will differ with handle_node()?
+> 
+> In fact, the problem is not the PCIe node directly. Instead, it is the second
+> level of nodes below it (i.e usb@...).
+> 
+> The current implementation of dt_number_of_address() only look at the bus type
+> of the parent. As the parent has no bus type and "ranges" then it thinks this
+> is something we can translate to a CPU address.
+> 
+> However, this is below a PCI bus so the meaning of "reg" is completely
+> different. In this case, we only need to ignore "reg".
 
-This is odd.  My understanding is this is appropriate for RP3, but not
-RP4.  For RP4 you can have "dtoverlay=disable-vc4" and still get graphics
-output (hmm, I'm starting to think I need to double-check this...).
+I see what you are saying and I agree: if we had to introduce a special
+case for PCI, then  dt_number_of_address() seems to be a good place.  In
+fact, we already have special PCI handling, see our
+__dt_translate_address function and xen/common/device_tree.c:dt_busses.
+
+Which brings the question: why is this actually failing?
+
+pcie0 {
+     ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000 0x0 0x40000000>;
+
+Which means that PCI addresses 0xc0000000-0x100000000 become 0x600000000-0x700000000.
+
+The offending DT is:
+
+&pcie0 {
+         pci@1,0 {
+                 #address-cells = <3>;
+                 #size-cells = <2>;
+                 ranges;
+
+                 reg = <0 0 0 0 0>;
+
+                 usb@1,0 {
+                         reg = <0x10000 0 0 0 0>;
+                         resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+                 };
+         };
+};
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+reg = <0x10000 0 0 0 0> means that usb@1,0 is PCI device 01:00.0.
+However, the rest of the regs cells are left as zero. It shouldn't be an
+issue because usb@1,0 is a child of pci@1,0 but pci@1,0 is not a bus. So
+in theory dt_number_of_address() should already return 0 for it.
 
+Maybe reg = <0 0 0 0 0> is the problem. In that case, we could simply
+add a check to skip 0 size ranges. Just a hack to explain what I mean:
 
+diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+index 18825e333e..236b30675b 100644
+--- a/xen/common/device_tree.c
++++ b/xen/common/device_tree.c
+@@ -866,6 +866,9 @@ int dt_device_get_address(const struct dt_device_node *dev, unsigned int index,
+     unsigned int flags;
+ 
+     addrp = dt_get_address(dev, index, size, &flags);
++    if ( *size == 0 )
++        return 0;
++
+     if ( addrp == NULL )
+         return -EINVAL;
+ 
+--8323329-1596983874-1612387817=:29047--
 
