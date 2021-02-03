@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D53C30E58E
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 23:04:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81074.149129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F3530E5D9
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 23:13:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81076.149142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7QG4-0004Yq-J2; Wed, 03 Feb 2021 22:04:20 +0000
+	id 1l7QOH-0005eX-Dw; Wed, 03 Feb 2021 22:12:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81074.149129; Wed, 03 Feb 2021 22:04:20 +0000
+Received: by outflank-mailman (output) from mailman id 81076.149142; Wed, 03 Feb 2021 22:12:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7QG4-0004YT-G3; Wed, 03 Feb 2021 22:04:20 +0000
-Received: by outflank-mailman (input) for mailman id 81074;
- Wed, 03 Feb 2021 22:04:18 +0000
+	id 1l7QOH-0005e8-Ar; Wed, 03 Feb 2021 22:12:49 +0000
+Received: by outflank-mailman (input) for mailman id 81076;
+ Wed, 03 Feb 2021 22:12:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mAwm=HF=linuxfoundation.org=skhan@srs-us1.protection.inumbo.net>)
- id 1l7QG2-0004YO-B2
- for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 22:04:18 +0000
-Received: from mail-il1-x135.google.com (unknown [2607:f8b0:4864:20::135])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vpkB=HF=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1l7QOF-0005e2-88
+ for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 22:12:47 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6cc6e749-c74e-43b5-b41c-1df236d64522;
- Wed, 03 Feb 2021 22:04:17 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id g7so743994iln.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Feb 2021 14:04:17 -0800 (PST)
-Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
- [24.9.64.241])
- by smtp.gmail.com with ESMTPSA id x1sm1530260ilj.61.2021.02.03.14.04.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Feb 2021 14:04:16 -0800 (PST)
+ id a677cac6-3a78-45b8-b6e9-97e4b4bffafe;
+ Wed, 03 Feb 2021 22:12:43 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 113MCTuu030536
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Wed, 3 Feb 2021 17:12:35 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 113MCThF030535;
+ Wed, 3 Feb 2021 14:12:29 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cc6e749-c74e-43b5-b41c-1df236d64522
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=TS3LrDoJycQjV29QvWKYiqYYnfjPrvlJnAgde44hakc=;
-        b=JPfgN/cQckDAKBwY/QR67Thxr7yUmncDVdAEsxV3tW1GqAhZtNxf/7bZqZJVPEURM6
-         gNf0epse2/nHHkPtKoQQWAnhZ3lTN5HVHAGrSumWmnDcgNuIZSHw05vo4N0d8nomOXBu
-         KzI/w+18TtoWfFSVKCquRr94u7944j42U7Pv0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=TS3LrDoJycQjV29QvWKYiqYYnfjPrvlJnAgde44hakc=;
-        b=kob4VGDzwGNzM+BJ7Wr26tTsDkMLf/m0w1j1t5ioOynY0IdQxt3KFpL6OHNNu/8mWN
-         762udUzjEu4j17A5m3bBjgVQ2Z8S2M1CMdTv1ixZYmA+kf6oAZTNV2SCL8QE41JdF/DM
-         4cFkQ1AgK8xUZJMboGId8MNhAEYF8CM2+uBXw3BXWrR3UKrZvSXYSyCFRpNBv/T5pmZv
-         zAQIE1ntFZBH0cej0UbfFKhgmSidAr9G8bCpRmIpokW0wnfiJOGWX88AuDLjF9xlgIZo
-         V+pbOjZ4YI3liPTsz4co2NtFlja2oq5Cmhd5DQkwYzA4PboRfuLESzbYjTj5PL53snZL
-         0Y/A==
-X-Gm-Message-State: AOAM5314Sf01Hi6dai99zPqquhSkQPmHgFh5WyOugosILWB1+47v7JBk
-	VkHjvxZiahhuyUqgngb4zxIPng==
-X-Google-Smtp-Source: ABdhPJyvZIEoiVKF4EWNvGXWyeEJte1usTtNJqqzhvl2jiJPmeCqXs4hHX0a7+80gvQ0IkJH1UvQjw==
-X-Received: by 2002:a05:6e02:2189:: with SMTP id j9mr4197510ila.98.1612389856937;
-        Wed, 03 Feb 2021 14:04:16 -0800 (PST)
-Subject: Re: Linux 5.11-rc6 compile error
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Shuah Khan <skhan@linuxfoundation.org>
-References: <8a358ee4-56bc-8e64-3176-88fd0d66176f@linuxfoundation.org>
- <CAHk-=wg983RfAiSSo4zLMADEfzLEuoBi+rye30Zrq7Bor8zg_Q@mail.gmail.com>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <7e05fe6d-9bf3-7d8d-5cda-8f4745bb144d@linuxfoundation.org>
-Date: Wed, 3 Feb 2021 15:04:15 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: a677cac6-3a78-45b8-b6e9-97e4b4bffafe
+Date: Wed, 3 Feb 2021 14:12:29 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jukka Kaartinen <jukka.kaartinen@unikie.com>,
+        Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>,
+        Xen-devel <xen-devel@lists.xenproject.org>,
+        Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: Question about xen and Rasp 4B
+Message-ID: <YBsfzZ6fI40bXo7/@mattapan.m5p.com>
+References: <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
+ <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
+ <5a33e663-4a6d-6247-769a-8f14db4810f2@xen.org>
+ <b9247831-335a-f791-1664-abed6b400a42@unikie.com>
+ <CAMmSBy-54qtu_oVVT=KB8GeKP0SW0uK+4wQ_LooHE0y_MZKJQg@mail.gmail.com>
+ <3ec2b0cb-3685-384e-94df-28eaf8b57c42@unikie.com>
+ <alpine.DEB.2.21.2102021552380.29047@sstabellini-ThinkPad-T480s>
+ <3c98d8d0-ca4e-b177-1e2b-5f3eb454722d@unikie.com>
+ <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
 MIME-Version: 1.0
-In-Reply-To: <CAHk-=wg983RfAiSSo4zLMADEfzLEuoBi+rye30Zrq7Bor8zg_Q@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-On 2/3/21 1:06 PM, Linus Torvalds wrote:
-> On Wed, Feb 3, 2021 at 11:58 AM Shuah Khan <skhan@linuxfoundation.org> wrote:
->>
->> ld: arch/x86/built-in.a: member arch/x86/kernel/pci-swiotlb.o in archive
->> is not an object
->> make: *** [Makefile:1170: vmlinux] Error 1
+On Wed, Feb 03, 2021 at 12:55:40PM -0800, Stefano Stabellini wrote:
+> On Wed, 3 Feb 2021, Jukka Kaartinen wrote:
+> > On 3.2.2021 2.18, Stefano Stabellini wrote:
+> > > How are you configuring and installing the kernel?
+> > > 
+> > > make bcm2711_defconfig
+> > > make Image.gz
+> > > make modules_install
+> > > 
+> > > ?
+> > > 
+> > > The device tree is the one from the rpi-5.9.y build? How are you loading
+> > > the kernel and device tree with uboot? Do you have any interesting
+> > > changes to config.txt?
+> > > 
+> > > I am asking because I cannot get to the point of reproducing what you
+> > > are seeing: I can boot my rpi-5.9.y kernel on recent Xen but I cannot
+> > > get any graphics output on my screen. (The serial works.) I am using the
+> > > default Ubuntu Desktop rpi-install target as rootfs and uboot master.
+> > > 
+> > 
+> > This is what I do:
+> > 
+> > make bcm2711_defconfig
+> > cat "xen_additions" >> .config
+> > make Image  modules dtbs
+> > 
+> > make INSTALL_MOD_PATH=rootfs modules_install
+> > depmod -a
+> > 
+> > cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb boot/
+> > cp arch/arm64/boot/dts/overlays/*.dtbo boot/overlays/
 > 
-> That honestly sounds like something went wrong earlier - things like
-> doing a system upgrade in the middle of the build, or perhaps running
-> out of disk space or similar.
+> Thanks for the detailed instructions. This helps a lot. I saw below in
+> boot2.source that you are using ${fdt_addr} as DTB source (instead of
+> loading one), which means you are using the DTB as provided by U-Boot at
+> runtime, instead of loading your own file.
 > 
-> I've not seen any other reports of the same, and google doesn't find
-> anything like that either.
+> With these two copies, I take you meant to update the first partition on
+> the SD card, the one where config.txt lives, right? So that Xen is
+> getting the DTB and overlays from the rpi-5.9.y kernel tree but passed
+> down by the RPi loader and U-Boot?
 > 
-> Does it keep happening if you do a "git clean -dqfx" to make sure you
-> have no old corrupt object files sound and re-do the whole build?
-> 
->              Linus
-> 
+> I think the DTB must be the issue as I wasn't applying any overlays
+> before. I ran a test to use the DTB and overlay from U-Boot but maybe I
+> haven't updated them properly because I still don't see any output.
 
-My bad. I was playing with two test systems this morning and totally
-lost track. All is well after a "make clean" and make.
+Seeing no graphics output from U-Boot is okay.  If the device-tree files
+get sufficiently updated you can end up with no output from U-Boot, but
+will get output once the Linux kernel's driver is operational (I've seen
+this occur).
 
-Sorry for the noise.
+The most important part is having a HDMI display plugged in during the
+early boot stages.  Unless the bootloader sees the display the output
+won't get initialized and the Linux driver doesn't handle that.
 
-thanks,
--- Shuah
+
+> > dtoverlay=vc4-fkms-v3d,cma-64
+
+This is odd.  My understanding is this is appropriate for RP3, but not
+RP4.  For RP4 you can have "dtoverlay=disable-vc4" and still get graphics
+output (hmm, I'm starting to think I need to double-check this...).
+
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
