@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2350C30D31A
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 06:38:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80809.148013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E6BD30D356
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 07:19:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80811.148025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7Aqa-0007J3-J8; Wed, 03 Feb 2021 05:37:00 +0000
+	id 1l7BVA-0002s9-Io; Wed, 03 Feb 2021 06:18:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80809.148013; Wed, 03 Feb 2021 05:37:00 +0000
+Received: by outflank-mailman (output) from mailman id 80811.148025; Wed, 03 Feb 2021 06:18:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7Aqa-0007Ie-FI; Wed, 03 Feb 2021 05:37:00 +0000
-Received: by outflank-mailman (input) for mailman id 80809;
- Wed, 03 Feb 2021 05:36:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uxJz=HF=gmail.com=pankaj.gupta.linux@srs-us1.protection.inumbo.net>)
- id 1l7AqZ-0007IZ-C6
- for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 05:36:59 +0000
-Received: from mail-io1-xd2c.google.com (unknown [2607:f8b0:4864:20::d2c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a000cab-8888-4dde-8355-6bf540b869ad;
- Wed, 03 Feb 2021 05:36:58 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id u17so24021949iow.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Feb 2021 21:36:57 -0800 (PST)
+	id 1l7BVA-0002rk-Fn; Wed, 03 Feb 2021 06:18:56 +0000
+Received: by outflank-mailman (input) for mailman id 80811;
+ Wed, 03 Feb 2021 06:18:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dUjn=HF=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l7BV9-0002pp-4C
+ for xen-devel@lists.xen.org; Wed, 03 Feb 2021 06:18:55 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id daf6892a-fbc7-458b-a8fd-3d62486c466a;
+ Wed, 03 Feb 2021 06:18:53 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8805CAC55;
+ Wed,  3 Feb 2021 06:18:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,151 +39,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a000cab-8888-4dde-8355-6bf540b869ad
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=QOAFG5e83xgmf8k0DWJGMDL7RfKZ3CHVYa0GrtuyQBw=;
-        b=WZXVoX6SBgnC737ppEU8/8migVv7IeXjPzQUQq2rQmRHGbhY89dPWxCwx+Wmj9UwGC
-         lc/ACKgBxCQOBOR8RUH5eS+ZPszj1UvGL6thVaamq885PN7G9pFlhBvZt/UjpdnwUrZg
-         FDRP03+Qs+KKS0ZCfxVEv4+Z4/KVByyF72r3O200gqOcdZmCVoRhsevpy2Kep1gmtYrX
-         Q+vutsQ/UKBFRtLGqSfujBUn6z8YXtBb9x+4Re1py20oDhkh+JYoKAnMoNlcqsZD6Vhz
-         bSwoRNFfqOu/YSNSWO+PLMoufPlB/CQGXyPhvVpQUklr9CoM4qVkcvUe703e7h5kz2Ur
-         uszA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=QOAFG5e83xgmf8k0DWJGMDL7RfKZ3CHVYa0GrtuyQBw=;
-        b=BcIgkP6sNxKDY6mLd4hlqMoMFFsMDvxdtjxiwZMCm9IqJPjCjei2KNr4sEOqZZTCYC
-         mqXu2y0aHIpMRtGyclUMo6zvpCsrh/glHB+MSGT3qNQ0WbCVldGfKxDr/JTVSeYtmmF6
-         k8jMkBDmrTHf+D5Nqd5pyR1TQ0ecJFWziY4iLgiGDAPcH3YLKLHBRGXeQiH2WuK5pWQ9
-         UTQucq5HBp1S9CPNOCxNMNNLXZBeLCLSVkRwm8Pj6NcYGFjrRT74SQAyprKYiISl7bdE
-         QSO0KnVxU81LlvjT+mgiLdCuKyrCIO+R1u7SF3/o/Rf7A0k7J5YlfGQTAdO2p+5rHcwd
-         CBXQ==
-X-Gm-Message-State: AOAM5316cVmpzhJViHgeU/Pu/aTAAG9OZo0FsyLoSDgc6nHPaAmvlX0T
-	32LaFoM3rgXA/Ku1gOMV7II6ZzzLPQBVNM7fPdw=
-X-Google-Smtp-Source: ABdhPJzDAiiFwtpxbYTCU0PBMsJeg/lZf0roQ6HxhxuikJq6gsCG0p+pEyAta6N+UlSj2M5K1LhBFUYNd+rK32Rpbt8=
-X-Received: by 2002:a05:6638:33aa:: with SMTP id h42mr1547914jav.124.1612330617400;
- Tue, 02 Feb 2021 21:36:57 -0800 (PST)
+X-Inumbo-ID: daf6892a-fbc7-458b-a8fd-3d62486c466a
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612333132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=agnCdG+yE8W9o2rLyktiMQiKSvmoPTMMb/dtschoNQU=;
+	b=mnoXJs8GYbKWEG8XhWIZvzAnHaTUEDDEZM5zZUlhoPxgkCEbFv5Xa/qtrezaBeOKSwR33s
+	6UiBx8WL9SmZlidXQwkHhvP3SsbUKMeeMOiZHkfy4Faq03gA0zLzHSGKaGsn7NS/jj2PHB
+	dQKgwG/vTw1/GtQL6YelQ4tfVEIwVkw=
+To: Manuel Bouyer <bouyer@antioche.eu.org>, xen-devel@lists.xen.org
+References: <20210202183735.GA25046@mail.soc.lip6.fr>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: xenstored file descriptor leak
+Message-ID: <b6ed10d4-7976-6a61-434d-35e467763deb@suse.com>
+Date: Wed, 3 Feb 2021 07:18:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-References: <20210126115829.10909-1-david@redhat.com>
-In-Reply-To: <20210126115829.10909-1-david@redhat.com>
-From: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Date: Wed, 3 Feb 2021 06:36:45 +0100
-Message-ID: <CAM9Jb+hQMqBmHOQoME+ro4K82v6bVe9Fhcjmkp4bxFtighVo8w@mail.gmail.com>
-Subject: Re: [PATCH v1] mm/memory_hotplug: MEMHP_MERGE_RESOURCE -> MHP_MERGE_RESOURCE
-To: David Hildenbrand <david@redhat.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Linux MM <linux-mm@kvack.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "K. Y. Srinivasan" <kys@microsoft.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>, 
-	Wei Liu <wei.liu@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Oscar Salvador <osalvador@suse.de>, Anshuman Khandual <anshuman.khandual@arm.com>, 
-	Wei Yang <richard.weiyang@linux.alibaba.com>, linux-hyperv@vger.kernel.org, 
-	virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210202183735.GA25046@mail.soc.lip6.fr>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="HMyAnnFbcawsWSY5v1w65020AJa86Xat5"
 
-> Let's make "MEMHP_MERGE_RESOURCE" consistent with "MHP_NONE", "mhp_t" and
-> "mhp_flags". As discussed recently [1], "mhp" is our internal
-> acronym for memory hotplug now.
->
-> [1] https://lore.kernel.org/linux-mm/c37de2d0-28a1-4f7d-f944-cfd7d81c334d@redhat.com/
->
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
-> Cc: Haiyang Zhang <haiyangz@microsoft.com>
-> Cc: Stephen Hemminger <sthemmin@microsoft.com>
-> Cc: Wei Liu <wei.liu@kernel.org>
-> Cc: "Michael S. Tsirkin" <mst@redhat.com>
-> Cc: Jason Wang <jasowang@redhat.com>
-> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-> Cc: Michal Hocko <mhocko@kernel.org>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-> Cc: linux-hyperv@vger.kernel.org
-> Cc: virtualization@lists.linux-foundation.org
-> Cc: xen-devel@lists.xenproject.org
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->  drivers/hv/hv_balloon.c        | 2 +-
->  drivers/virtio/virtio_mem.c    | 2 +-
->  drivers/xen/balloon.c          | 2 +-
->  include/linux/memory_hotplug.h | 2 +-
->  mm/memory_hotplug.c            | 2 +-
->  5 files changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/hv/hv_balloon.c b/drivers/hv/hv_balloon.c
-> index 8c471823a5af..2f776d78e3c1 100644
-> --- a/drivers/hv/hv_balloon.c
-> +++ b/drivers/hv/hv_balloon.c
-> @@ -726,7 +726,7 @@ static void hv_mem_hot_add(unsigned long start, unsigned long size,
->
->                 nid = memory_add_physaddr_to_nid(PFN_PHYS(start_pfn));
->                 ret = add_memory(nid, PFN_PHYS((start_pfn)),
-> -                               (HA_CHUNK << PAGE_SHIFT), MEMHP_MERGE_RESOURCE);
-> +                               (HA_CHUNK << PAGE_SHIFT), MHP_MERGE_RESOURCE);
->
->                 if (ret) {
->                         pr_err("hot_add memory failed error is %d\n", ret);
-> diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
-> index 85a272c9978e..148bea39b09a 100644
-> --- a/drivers/virtio/virtio_mem.c
-> +++ b/drivers/virtio/virtio_mem.c
-> @@ -623,7 +623,7 @@ static int virtio_mem_add_memory(struct virtio_mem *vm, uint64_t addr,
->         /* Memory might get onlined immediately. */
->         atomic64_add(size, &vm->offline_size);
->         rc = add_memory_driver_managed(vm->nid, addr, size, vm->resource_name,
-> -                                      MEMHP_MERGE_RESOURCE);
-> +                                      MHP_MERGE_RESOURCE);
->         if (rc) {
->                 atomic64_sub(size, &vm->offline_size);
->                 dev_warn(&vm->vdev->dev, "adding memory failed: %d\n", rc);
-> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-> index b57b2067ecbf..671c71245a7b 100644
-> --- a/drivers/xen/balloon.c
-> +++ b/drivers/xen/balloon.c
-> @@ -331,7 +331,7 @@ static enum bp_state reserve_additional_memory(void)
->         mutex_unlock(&balloon_mutex);
->         /* add_memory_resource() requires the device_hotplug lock */
->         lock_device_hotplug();
-> -       rc = add_memory_resource(nid, resource, MEMHP_MERGE_RESOURCE);
-> +       rc = add_memory_resource(nid, resource, MHP_MERGE_RESOURCE);
->         unlock_device_hotplug();
->         mutex_lock(&balloon_mutex);
->
-> diff --git a/include/linux/memory_hotplug.h b/include/linux/memory_hotplug.h
-> index 3d99de0db2dd..4b834f5d032e 100644
-> --- a/include/linux/memory_hotplug.h
-> +++ b/include/linux/memory_hotplug.h
-> @@ -53,7 +53,7 @@ typedef int __bitwise mhp_t;
->   * with this flag set, the resource pointer must no longer be used as it
->   * might be stale, or the resource might have changed.
->   */
-> -#define MEMHP_MERGE_RESOURCE   ((__force mhp_t)BIT(0))
-> +#define MHP_MERGE_RESOURCE     ((__force mhp_t)BIT(0))
->
->  /*
->   * Extended parameters for memory hotplug:
-> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-> index 710e469fb3a1..ae497e3ff77c 100644
-> --- a/mm/memory_hotplug.c
-> +++ b/mm/memory_hotplug.c
-> @@ -1153,7 +1153,7 @@ int __ref add_memory_resource(int nid, struct resource *res, mhp_t mhp_flags)
->          * In case we're allowed to merge the resource, flag it and trigger
->          * merging now that adding succeeded.
->          */
-> -       if (mhp_flags & MEMHP_MERGE_RESOURCE)
-> +       if (mhp_flags & MHP_MERGE_RESOURCE)
->                 merge_system_ram_resource(res);
->
->         /* online pages if requested */
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--HMyAnnFbcawsWSY5v1w65020AJa86Xat5
+Content-Type: multipart/mixed; boundary="UBpALOHG4koNejao7WISFnVg2yKlct4lY";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>, xen-devel@lists.xen.org
+Message-ID: <b6ed10d4-7976-6a61-434d-35e467763deb@suse.com>
+Subject: Re: xenstored file descriptor leak
+References: <20210202183735.GA25046@mail.soc.lip6.fr>
+In-Reply-To: <20210202183735.GA25046@mail.soc.lip6.fr>
 
- Reviewed-by: Pankaj Gupta <pankaj.gupta@cloud.ionos.com>
+--UBpALOHG4koNejao7WISFnVg2yKlct4lY
+Content-Type: multipart/mixed;
+ boundary="------------F325049DE409B717F4744AFE"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------F325049DE409B717F4744AFE
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 02.02.21 19:37, Manuel Bouyer wrote:
+> Hello,
+> on NetBSD I'm tracking down an issue where xenstored never closes its
+> file descriptor to /var/run/xenstored/socket and instead loops at 100%
+> CPU on these descriptors.
+>=20
+> xenstored loops because poll(2) returns a POLLIN event for these
+> descriptors but they are marked is_ignored =3D true.
+>=20
+> I'm seeing this with xen 4.15, 4.13 and has also been reported with 4.1=
+1
+> with latest security patches.
+> It seems to have started with patches for XSA-115 (A user reported this=
+
+> for 4.11)
+>=20
+> I've tracked it down to a difference in poll(2) implementation; it seem=
+s
+> that linux will return something that is not (POLLIN|POLLOUT) when a
+> socket if closed; while NetBSD returns POLLIN (this matches the NetBSD'=
+s
+> man page).
+
+Yeah, Linux seems to return POLLHUP additionally.
+
+>=20
+> First I think there may be a security issue here, as, even on linux it =
+should
+> be possible for a client to cause a socket to go to the is_ignored stat=
+e,
+> while still sending data and cause xenstored to go to a 100% CPU loop.
+
+No security issue, as sockets are restricted to dom0 and user root.
+
+In case you are suspecting a security issue, please don't send such
+mails to xen-devel in future, but to security@lists.xenproject.org.
+
+> I think this is needed anyway:
+>=20
+> --- xenstored_core.c.orig	2021-02-02 18:06:33.389316841 +0100
+> +++ xenstored_core.c	2021-02-02 19:27:43.761877371 +0100
+> @@ -397,9 +397,12 @@
+>   			     !list_empty(&conn->out_list)))
+>   				*ptimeout =3D 0;
+>   		} else {
+> -			short events =3D POLLIN|POLLPRI;
+> -			if (!list_empty(&conn->out_list))
+> -				events |=3D POLLOUT;
+> +			short events =3D 0;
+> +			if (!conn->is_ignored) {
+> +				events |=3D POLLIN|POLLPRI;
+> +			        if (!list_empty(&conn->out_list))
+> +				        events |=3D POLLOUT;
+> +			}
+>   			conn->pollfd_idx =3D set_fd(conn->fd, events);
+>   		}
+>   	}
+
+Yes, I think this is a good idea.
+
+>=20
+> Now I wonder if, on NetBSD at last, a read error or short read shouldn'=
+t
+> cause the socket to be closed, as with:
+>=20
+> @@ -1561,6 +1565,8 @@
+>  =20
+>   bad_client:
+>   	ignore_connection(conn);
+> +	/* we don't want to keep this connection alive */
+> +	talloc_free(conn);
+>   }
+
+This is wrong for non-socket connections, as we want to keep the domain
+in question to be known to xenstored.
+
+For socket connections this should be okay, though.
+
+
+Juergen
+
+--------------F325049DE409B717F4744AFE
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------F325049DE409B717F4744AFE--
+
+--UBpALOHG4koNejao7WISFnVg2yKlct4lY--
+
+--HMyAnnFbcawsWSY5v1w65020AJa86Xat5
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAaQEsFAwAAAAAACgkQsN6d1ii/Ey+B
+jAf9Fz6myhY1UgusTb2PWf+t5daZaqpwtjBZ4920cO0r0kc1S5x7jaje9bVxxE2KrqqW3ofxqPAP
+JP7H/mqJ2pm9HjHkbsKrDxRkaxMFLlSOdTQHnpkrVsD7CSwNimvU7VlfyIAb9xbIQoTRo3HRfDO8
+UHPdhCQK25hUoOWnnGALkD7wyDu/cceS8oChGJVg4Ro8GTHFzkDl15g7NHym1M/Gg8tNwFe/abt8
+x9IT3aLWdVcfSK8lLjWxDpznnrsiqRfUbxarO1eJBjFFFeMkBzXRYJThk7VcSl5BQVvvIqtOTVNy
+Jxl0lDgEpMVzyPtRhbdeOZ7/BddwShWrfe/we2qYSg==
+=N/Qe
+-----END PGP SIGNATURE-----
+
+--HMyAnnFbcawsWSY5v1w65020AJa86Xat5--
 
