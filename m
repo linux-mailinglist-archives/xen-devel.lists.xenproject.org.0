@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E33430D935
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 12:54:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80895.148323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 420D730D973
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Feb 2021 13:03:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80900.148339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7Gjs-0004Xf-Ae; Wed, 03 Feb 2021 11:54:28 +0000
+	id 1l7Grn-0005dN-DR; Wed, 03 Feb 2021 12:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80895.148323; Wed, 03 Feb 2021 11:54:28 +0000
+Received: by outflank-mailman (output) from mailman id 80900.148339; Wed, 03 Feb 2021 12:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7Gjs-0004XJ-7f; Wed, 03 Feb 2021 11:54:28 +0000
-Received: by outflank-mailman (input) for mailman id 80895;
- Wed, 03 Feb 2021 11:54:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l7Grn-0005cy-A1; Wed, 03 Feb 2021 12:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 80900;
+ Wed, 03 Feb 2021 12:02:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUjn=HF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l7Gjq-0004XE-R3
- for xen-devel@lists.xen.org; Wed, 03 Feb 2021 11:54:26 +0000
+ id 1l7Grl-0005ct-4n
+ for xen-devel@lists.xenproject.org; Wed, 03 Feb 2021 12:02:37 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e9ba26b0-9ed2-407d-8e85-0f78477dc66b;
- Wed, 03 Feb 2021 11:54:25 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9ad6f6a4-78ec-4a2f-85f4-a115add573fb;
+ Wed, 03 Feb 2021 12:02:36 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72F1CAFFA;
- Wed,  3 Feb 2021 11:54:24 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 113EDAD78;
+ Wed,  3 Feb 2021 12:02:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +38,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9ba26b0-9ed2-407d-8e85-0f78477dc66b
+X-Inumbo-ID: 9ad6f6a4-78ec-4a2f-85f4-a115add573fb
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612353264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1612353755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pWhnz+bTxdbZTyJEHH9/dFp0wsiLakxt/gAbvkMOkOQ=;
-	b=s6lpqYCZk6Ew0WTkUwsg3UPKOzQyuOPZZhbx7dxjsJgWyVZpD/FLZ8IS/lP4tPOv1UeDZD
-	b6S7MZJECbtJWsuD0DrOcpyEhjraJBM5j/xNK08q1sk0wwCalvn73jZ9N0Pc5Mm3KPvdAY
-	b8clGfmwezmNh3hsB9//CdOx+2BtAR0=
-Subject: Re: xenstored file descriptor leak
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-Cc: xen-devel@lists.xen.org
-References: <20210202183735.GA25046@mail.soc.lip6.fr>
- <b6ed10d4-7976-6a61-434d-35e467763deb@suse.com>
- <20210203075721.GB445@antioche.eu.org>
- <7768ff4b-837d-965b-61c7-b6794f677d9e@suse.com>
- <20210203081621.GD445@antioche.eu.org>
- <89ddaac0-eb05-8ddb-465a-60d78e4009eb@suse.com>
- <20210203114832.GA1549@antioche.eu.org>
+	bh=2kTGFphc2LZJ2ATGCnVNW5wh5u84pzQBs/EFF3UgR/k=;
+	b=m5xiyPN/zmrdlZOrczt+uqGnGR6zP43X4ZuOTXyaLakz1+NGQUrcunbdcm+j5FiR32O8gK
+	PTTHDzAyYBKw5psqHVqS6Gv1Vcr1myMwkj6D29TwiJDFpTky2XjYu0VdI8oiT/D1iMRDBF
+	dSCKv+bK6GOG6pGfqBKREC5f62QF11U=
+To: Julien Grall <julien@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ =?UTF-8?Q?Anders_T=c3=b6rnqvist?= <anders.tornqvist@codiax.se>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
+ <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
+ <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
+ <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
+ <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
+ <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
+ <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
+ <c9a4e132-5bca-aa76-ab8b-bfeee1cd5a9e@codiax.se>
+ <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
+ <18ef4619-19ae-90d2-459c-9b5282b49176@codiax.se>
+ <a9d80e262760f6692f7086c9b6a0622caf19e795.camel@suse.com>
+ <4760cbac-b006-78bc-b064-3265384f6707@xen.org>
+ <311bb201bcacfd356f0c0b67856754eceae39e37.camel@suse.com>
+ <7f2ec84a-9814-ffb1-0940-e936a80afbbb@xen.org>
+ <501664dbdb736eaa4d9c05255dedfd7ad3e694fa.camel@suse.com>
+ <1ab7ad80-c027-ffdd-8188-e1ab1fd53335@xen.org>
+ <5ad8befd-75a1-4995-e0bb-e1a438f7556d@suse.com>
+ <aa46d1ce-cc41-4bda-acbf-0d39a30be289@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <73c0dd26-d3a5-221f-84b8-06055ee62889@suse.com>
-Date: Wed, 3 Feb 2021 12:54:23 +0100
+Subject: Re: Null scheduler and vwfi native problem
+Message-ID: <9a144000-e429-b9be-6562-ef8ba11b54ba@suse.com>
+Date: Wed, 3 Feb 2021 13:02:33 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <20210203114832.GA1549@antioche.eu.org>
+In-Reply-To: <aa46d1ce-cc41-4bda-acbf-0d39a30be289@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="TYhajP37nsuqwMSyTBE6PLtPSD4JknCgC"
+ boundary="7wxiMZchvXXR5GW2xwgbBGrPq9ZxYCspR"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---TYhajP37nsuqwMSyTBE6PLtPSD4JknCgC
-Content-Type: multipart/mixed; boundary="PdBqg37MD83ieF1ftk1LroFx5vD8ZJhtO";
+--7wxiMZchvXXR5GW2xwgbBGrPq9ZxYCspR
+Content-Type: multipart/mixed; boundary="3nxcv8NOxFK7IFjUud9Ja1aV6lqovGwjW";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-Cc: xen-devel@lists.xen.org
-Message-ID: <73c0dd26-d3a5-221f-84b8-06055ee62889@suse.com>
-Subject: Re: xenstored file descriptor leak
-References: <20210202183735.GA25046@mail.soc.lip6.fr>
- <b6ed10d4-7976-6a61-434d-35e467763deb@suse.com>
- <20210203075721.GB445@antioche.eu.org>
- <7768ff4b-837d-965b-61c7-b6794f677d9e@suse.com>
- <20210203081621.GD445@antioche.eu.org>
- <89ddaac0-eb05-8ddb-465a-60d78e4009eb@suse.com>
- <20210203114832.GA1549@antioche.eu.org>
-In-Reply-To: <20210203114832.GA1549@antioche.eu.org>
+To: Julien Grall <julien@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ =?UTF-8?Q?Anders_T=c3=b6rnqvist?= <anders.tornqvist@codiax.se>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <9a144000-e429-b9be-6562-ef8ba11b54ba@suse.com>
+Subject: Re: Null scheduler and vwfi native problem
+References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
+ <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
+ <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
+ <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
+ <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
+ <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
+ <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
+ <c9a4e132-5bca-aa76-ab8b-bfeee1cd5a9e@codiax.se>
+ <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
+ <18ef4619-19ae-90d2-459c-9b5282b49176@codiax.se>
+ <a9d80e262760f6692f7086c9b6a0622caf19e795.camel@suse.com>
+ <4760cbac-b006-78bc-b064-3265384f6707@xen.org>
+ <311bb201bcacfd356f0c0b67856754eceae39e37.camel@suse.com>
+ <7f2ec84a-9814-ffb1-0940-e936a80afbbb@xen.org>
+ <501664dbdb736eaa4d9c05255dedfd7ad3e694fa.camel@suse.com>
+ <1ab7ad80-c027-ffdd-8188-e1ab1fd53335@xen.org>
+ <5ad8befd-75a1-4995-e0bb-e1a438f7556d@suse.com>
+ <aa46d1ce-cc41-4bda-acbf-0d39a30be289@xen.org>
+In-Reply-To: <aa46d1ce-cc41-4bda-acbf-0d39a30be289@xen.org>
 
---PdBqg37MD83ieF1ftk1LroFx5vD8ZJhtO
+--3nxcv8NOxFK7IFjUud9Ja1aV6lqovGwjW
 Content-Type: multipart/mixed;
- boundary="------------23149E6BAA186FEA49F90BD9"
+ boundary="------------35435530B3D7394E53ECF621"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------23149E6BAA186FEA49F90BD9
-Content-Type: text/plain; charset=windows-1252; format=flowed
+--------------35435530B3D7394E53ECF621
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 03.02.21 12:48, Manuel Bouyer wrote:
-> On Wed, Feb 03, 2021 at 09:21:32AM +0100, J=FCrgen Gro=DF wrote:
->> [...]
->> This shouldn't happen in case we are closing the socket actively.
+On 03.02.21 12:20, Julien Grall wrote:
+> Hi Juergen,
+>=20
+> On 03/02/2021 11:00, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 03.02.21 10:19, Julien Grall wrote:
+>>> Hi,
+>>>
+>>> On 03/02/2021 07:31, Dario Faggioli wrote:
+>>>> On Tue, 2021-02-02 at 15:23 +0000, Julien Grall wrote:
+>>>>> In reality, it is probably still too early as a pCPU can be
+>>>>> considered
+>>>>> quiesced until a call to rcu_lock*() (such rcu_lock_domain()).
+>>>>>
+>>>> Well, yes, in theory, we could track down which is the first RCU rea=
+d
+>>>> side crit. section on this path, and put the call right before that =
+(if
+>>>> I understood what you mean).
+>>>
+>>> Oh, that's not what I meant. This will indeed be far more complex=20
+>>> than I originally had in mind.
+>>>
+>>> AFAIU, the RCU uses critical section to protect data. So the=20
+>>> "entering" could be used as "the pCPU is not quiesced" and "exiting" =
+
+>>> could be used as "the pCPU is quiesced".
+>>>
+>>> The concern with my approach is we would need to make sure that Xen=20
+>>> correctly uses the rcu helpers. I know Juergen worked on that=20
+>>> recently, but I don't know whether this is fully complete.
 >>
->> In the end we should just do a talloc_free(conn) in
->> ignore_connection() if it is a socket based one. This should revert
->> the critical modification of the XSA-115 fixes for sockets while
->> keeping the desired effect for domain connections.
+>> I think it is complete, but I can't be sure, of course.
+>>
+>> One bit missing (for catching some wrong uses of the helpers) is this
+>> patch:
+>>
+>> https://lists.xen.org/archives/html/xen-devel/2020-03/msg01759.html
+>>
+>> I don't remember why it hasn't been taken, but I think there was a
+>> specific reason for that.
 >=20
-> Hello
-> here's an updated patch which works for me. Does anyone see a problem
-> with it ? If not I will submit it for commit.
+> Looking at v8 and the patch is suitably reviewed by Jan. So I am a bit =
+
+> puzzled to why this wasn't committed... I had to go to v6 and notice th=
+e=20
+> following message:
 >=20
+> "albeit to be honest I'm not fully convinced we need to go this far."
+>=20
+> Was the implication that his reviewed-by was conditional to someone els=
+e=20
+> answering to the e-mail?
 
-Do you really need the first hunk? I would have thought just freeing
-conn in ignore_connection() is enough.
+I have no record for that being the case.
 
-In case you are seeing problems without the first hunk, please say so
-in a comment added to this hunk in order to avoid it being removed
-sometimes in the future.
+Patches 1-3 of that series were needed for getting rid of
+stop_machine_run() in rcu handling and to fix other problems. Patch 4
+was adding some additional ASSERT()s for making sure no potential
+deadlocks due to wrong rcu usage could creep in again.
+
+Patch 5 was more a "nice to have" addition in order to avoid any
+wrong usage of rcu which should have no real negative impact on the
+system stability.
+
+So I believe Jan as the committer didn't want to commit it himself, but
+was fine with the overall idea and implementation.
+
+I still think for code sanity it would be nice, but I was rather busy
+with Xenstore and event channel security work at that time, so I didn't
+urge anyone to take this patch.
 
 
 Juergen
 
---------------23149E6BAA186FEA49F90BD9
+--------------35435530B3D7394E53ECF621
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -214,25 +288,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------23149E6BAA186FEA49F90BD9--
+--------------35435530B3D7394E53ECF621--
 
---PdBqg37MD83ieF1ftk1LroFx5vD8ZJhtO--
+--3nxcv8NOxFK7IFjUud9Ja1aV6lqovGwjW--
 
---TYhajP37nsuqwMSyTBE6PLtPSD4JknCgC
+--7wxiMZchvXXR5GW2xwgbBGrPq9ZxYCspR
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAaju8FAwAAAAAACgkQsN6d1ii/Ey9Z
-RQf/aSFmW8qoPopN2sy79FfSn8RNatyEO6F7ZT45I4lxy6B7cdohwm4kI9u9uGin7ZpaugRvBxwA
-v9pqyaI8Hlzwe7hs53wyV6c8iUOaTfcRkB/AzNC388eoIX+Gz7AuyFflQOxDrBons1OxOYbgvM4H
-KyJiHBHZqdPZJmLhTIGiNFBgcD+vlNFAjrk5bzMeOo9uX561vEJIa1qaXlBRSM9YmkbAd9lU1G2V
-RLpyZCmPCG9a6ykFzEX30tp1i/aTp2JYsf6PbfqnOa0cK/aGQS+bw5W0Pbwh5uWkRnJQpsemsGiv
-DMm61/TRSIRTvoRbuxGSSlTvGR0B0CJTohSt6kMflg==
-=grwF
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAakNoFAwAAAAAACgkQsN6d1ii/Ey8u
+Ewf+PJYeZ/LnUh25BGqGhFLRIEN69n2k74WbllemBha+ICE1nSa+EPz8/ejQmfdGScOXqivQNY9c
+hs85z9b3eV7cfTvpMhQ9xPbTgXDxm9bFatYge2D2daL8QLXDJGfyOYDE2qTFqgBC4EdjoBkZtTmE
+s0fwgFr3fKh0wUGxmHWoJMt+2C6rPAAvgqyG9WVKlA72nRh8E9XhyA/bljcqek6m53ww+P1Z3tEz
+GjS3/uW57UspyKy5W5ES2PterQ3zlDdJHIZ4dIPkdTNJgJSY2n5aaWNwyS7+mQdhJiRktgZ2GxCs
+aX2tXNjC/A5ChQtPDHznqxE9Pw1RfcYHPkPh4J8SMw==
+=5k71
 -----END PGP SIGNATURE-----
 
---TYhajP37nsuqwMSyTBE6PLtPSD4JknCgC--
+--7wxiMZchvXXR5GW2xwgbBGrPq9ZxYCspR--
 
