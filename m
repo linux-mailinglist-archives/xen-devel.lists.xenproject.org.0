@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB2A930EC0E
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 06:33:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81153.149390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D2630ECA7
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 07:45:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81159.149408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7XFx-0006DR-Sc; Thu, 04 Feb 2021 05:32:41 +0000
+	id 1l7YNE-0005CV-8k; Thu, 04 Feb 2021 06:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81153.149390; Thu, 04 Feb 2021 05:32:41 +0000
+Received: by outflank-mailman (output) from mailman id 81159.149408; Thu, 04 Feb 2021 06:44:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7XFx-0006D2-PW; Thu, 04 Feb 2021 05:32:41 +0000
-Received: by outflank-mailman (input) for mailman id 81153;
- Thu, 04 Feb 2021 05:32:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hI3K=HG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l7XFv-0006Cx-QP
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 05:32:39 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5e58f294-6078-4158-966e-72bc065a6331;
- Thu, 04 Feb 2021 05:32:34 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DE6EBAD37;
- Thu,  4 Feb 2021 05:32:33 +0000 (UTC)
+	id 1l7YNE-0005C9-5R; Thu, 04 Feb 2021 06:44:16 +0000
+Received: by outflank-mailman (input) for mailman id 81159;
+ Thu, 04 Feb 2021 06:44:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CKvr=HG=unikie.com=jukka.kaartinen@srs-us1.protection.inumbo.net>)
+ id 1l7YNB-0005C4-Vi
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 06:44:14 +0000
+Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id abbf19b1-c419-4c44-b29a-780646808fd9;
+ Thu, 04 Feb 2021 06:44:12 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id f1so2946912lfu.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Feb 2021 22:44:12 -0800 (PST)
+Received: from [192.168.1.76] (91-153-193-91.elisa-laajakaista.fi.
+ [91.153.193.91])
+ by smtp.gmail.com with ESMTPSA id d9sm483062lfm.293.2021.02.03.22.44.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Feb 2021 22:44:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,197 +42,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e58f294-6078-4158-966e-72bc065a6331
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612416754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7bOPQvy7qTInyB9wYQ9IL2fnW0fKtEjyxYEe1vYqV0c=;
-	b=Hi8wPm5pIzWzXmj5NK+rF+oJbT/b2+PtaRhTiXfHfgTJfcncJB2ngC2gblQQ+UlJDKjA6U
-	CHZAYXOeQmqs2CBkbHEiGWKGL51DEt+JrhuhjLB0DwK6KguPPHTWUQD26pv1uDqNCSdw40
-	X6zsvPzYwLsYdBde0wCHKwQNNwb7FRk=
-Subject: Re: [PATCH] xen/netback: avoid race in
- xenvif_rx_ring_slots_available()
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
- Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
- Igor Druzhinin <igor.druzhinin@citrix.com>, stable@vger.kernel.org
-References: <20210202070938.7863-1-jgross@suse.com>
- <20210203154800.4c6959d6@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <f6fa1533-0646-e8b1-b7f8-51ad70691cae@suse.com>
-Date: Thu, 4 Feb 2021 06:32:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+X-Inumbo-ID: abbf19b1-c419-4c44-b29a-780646808fd9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=unikie-com.20150623.gappssmtp.com; s=20150623;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=S7HJaE6uEyGqiWmBXa1meiKhQVc3HhcnUTxG1aVlbZw=;
+        b=x4XujDwvV0gNcy+FlrWZFE1G3yCH4Iij3G16v6QsTwv3lOsDw9raSKDAUFXuyE4lcD
+         CkIjSA4tLnt0pjpNu5xmsNRK8VEA4aNmhYx++TlIciwoMj+lyBNfUABReEPsLUvrlHGE
+         g+lzFTq4Mog0tINVSjkVIV1Qe4Xrk4E4O1lThE+AFGPc3o6kyNHJajBpqlA3OSn7V4/a
+         ZoKVotuc/pF3ERvDQN2LDI0F20edwZGhL8aqIeg2YrsQVRzn3JR8FLunYsWbalEPw6rg
+         C/qC/G9uqOTzYyGD/pTR75RsOWbuB/NyGyWu/GL1TRPST4OfjtpdsPACzbJx0H4s6MS0
+         4mlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=S7HJaE6uEyGqiWmBXa1meiKhQVc3HhcnUTxG1aVlbZw=;
+        b=nqYhti7JfEOV74ZuFJImLgpXo9d76zAQ9PEfY1A3HswQ4lG9HW3Itb1xO1tP9RK3p6
+         1t7+Pjyr43g1VZ5g27RbHn6IIl2+NlFMBUcI1Mqn166lOLXMMrKvr1zvqzhokXrZoc3I
+         J+8YklDxwfSU50MMboOPuR/Mng7swOOK8Ts+VW8z9O4462V6EHj7A6xdJlijNH4pLd0r
+         SQw4mHEJLnmvHVE8s7c7ppVcOBk9HJqxCRg7BMRKwHu13HNii4ugPC5uiIUbN4xSLnIA
+         vLkqoBF2JajZjwQmWPN4+WKxL9ZC9mppySJNuntNf7d+sVfxqNHtoaZDK2q3zY9hqE+W
+         sp0w==
+X-Gm-Message-State: AOAM5316BeHiRC9N1uncrcWN++6SOYBwuf2ezWVTMjVY+v1QiVNea9yp
+	osqzRn5CReXMOoIYrfuBfqnw7Q==
+X-Google-Smtp-Source: ABdhPJycO0rdV1B99xiY/VZXF+G8x/t91o3408y6SriflFOOfDsH5VLjxLa1wHMqTVbavABHU0c4HQ==
+X-Received: by 2002:a19:992:: with SMTP id 140mr3907187lfj.158.1612421051018;
+        Wed, 03 Feb 2021 22:44:11 -0800 (PST)
+Subject: Re: Question about xen and Rasp 4B
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
+ <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
+ <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com>
+ <alpine.DEB.2.21.2101251646470.20638@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
+ <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
+ <5a33e663-4a6d-6247-769a-8f14db4810f2@xen.org>
+ <b9247831-335a-f791-1664-abed6b400a42@unikie.com>
+ <CAMmSBy-54qtu_oVVT=KB8GeKP0SW0uK+4wQ_LooHE0y_MZKJQg@mail.gmail.com>
+ <3ec2b0cb-3685-384e-94df-28eaf8b57c42@unikie.com>
+ <alpine.DEB.2.21.2102021552380.29047@sstabellini-ThinkPad-T480s>
+ <3c98d8d0-ca4e-b177-1e2b-5f3eb454722d@unikie.com>
+ <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
+From: Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Message-ID: <96a3d996-b7bd-fe5f-39ce-3fdd7d4e3604@unikie.com>
+Date: Thu, 4 Feb 2021 08:44:09 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210203154800.4c6959d6@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="mHapG4vhTCP36nbTdrhUC7cqDD240Fsgi"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---mHapG4vhTCP36nbTdrhUC7cqDD240Fsgi
-Content-Type: multipart/mixed; boundary="3tMIMW2EI4iG1ylfu3D1bWpPCgMh1TUEY";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
- Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
- Igor Druzhinin <igor.druzhinin@citrix.com>, stable@vger.kernel.org
-Message-ID: <f6fa1533-0646-e8b1-b7f8-51ad70691cae@suse.com>
-Subject: Re: [PATCH] xen/netback: avoid race in
- xenvif_rx_ring_slots_available()
-References: <20210202070938.7863-1-jgross@suse.com>
- <20210203154800.4c6959d6@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20210203154800.4c6959d6@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-
---3tMIMW2EI4iG1ylfu3D1bWpPCgMh1TUEY
-Content-Type: multipart/mixed;
- boundary="------------0650DBEFF4F58FCE9BE6C4D9"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------0650DBEFF4F58FCE9BE6C4D9
+In-Reply-To: <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 04.02.21 00:48, Jakub Kicinski wrote:
-> On Tue,  2 Feb 2021 08:09:38 +0100 Juergen Gross wrote:
->> Since commit 23025393dbeb3b8b3 ("xen/netback: use lateeoi irq binding"=
-)
->> xenvif_rx_ring_slots_available() is no longer called only from the rx
->> queue kernel thread, so it needs to access the rx queue with the
->> associated queue held.
+
+
+On 3.2.2021 22.55, Stefano Stabellini wrote:
+> On Wed, 3 Feb 2021, Jukka Kaartinen wrote:
+>> On 3.2.2021 2.18, Stefano Stabellini wrote:
+>>> On Tue, 2 Feb 2021, Jukka Kaartinen wrote:
+>>>>>> Good catch.
+>>>>>> GPU works now and I can start X! Thanks! I was also able to create
+>>>>>> domU
+>>>>>> that runs Raspian OS.
+>>>>>
+>>>>> This is very interesting that you were able to achieve that - congrats!
+>>>>>
+>>>>> Now, sorry to be a bit dense -- but since this thread went into all
+>>>>> sorts of interesting
+>>>>> directions all at once -- I just have a very particular question: what
+>>>>> is
+>>>>> exact
+>>>>> combination of versions of Xen, Linux kernel and a set of patches that
+>>>>> went
+>>>>> on top that allowed you to do that? I'd love to obviously see it
+>>>>> productized in Xen
+>>>>> upstream, but for now -- I'd love to make available to Project EVE/Xen
+>>>>> community
+>>>>> since there seems to be a few folks interested in EVE/Xen combo being
+>>>>> able
+>>>>> to
+>>>>> do that.
+>>>>
+>>>> I have tried Xen Release 4.14.0, 4.14.1 and master (from week 4, 2021).
+>>>>
+>>>> Kernel rpi-5.9.y and rpi-5.10.y branches from
+>>>> https://github.com/raspberrypi/linux
+>>>>
+>>>> and
+>>>>
+>>>> U-boot (master).
+>>>>
+>>>> For the GPU to work it was enough to disable swiotlb from the kernel(s) as
+>>>> suggested in this thread.
+>>>
+>>> How are you configuring and installing the kernel?
+>>>
+>>> make bcm2711_defconfig
+>>> make Image.gz
+>>> make modules_install
+>>>
+>>> ?
+>>>
+>>> The device tree is the one from the rpi-5.9.y build? How are you loading
+>>> the kernel and device tree with uboot? Do you have any interesting
+>>> changes to config.txt?
+>>>
+>>> I am asking because I cannot get to the point of reproducing what you
+>>> are seeing: I can boot my rpi-5.9.y kernel on recent Xen but I cannot
+>>> get any graphics output on my screen. (The serial works.) I am using the
+>>> default Ubuntu Desktop rpi-install target as rootfs and uboot master.
+>>>
 >>
->> Reported-by: Igor Druzhinin <igor.druzhinin@citrix.com>
->> Fixes: 23025393dbeb3b8b3 ("xen/netback: use lateeoi irq binding")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> Should we route this change via networking trees? I see the bug did not=
+>> This is what I do:
+>>
+>> make bcm2711_defconfig
+>> cat "xen_additions" >> .config
+>> make Image  modules dtbs
+>>
+>> make INSTALL_MOD_PATH=rootfs modules_install
+>> depmod -a
+>>
+>> cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb boot/
+>> cp arch/arm64/boot/dts/overlays/*.dtbo boot/overlays/
+> 
+> Thanks for the detailed instructions. This helps a lot. I saw below in
+> boot2.source that you are using ${fdt_addr} as DTB source (instead of
+> loading one), which means you are using the DTB as provided by U-Boot at
+> runtime, instead of loading your own file.
+> 
+> With these two copies, I take you meant to update the first partition on
+> the SD card, the one where config.txt lives, right? So that Xen is
+> getting the DTB and overlays from the rpi-5.9.y kernel tree but passed
+> down by the RPi loader and U-Boot?
+> 
+> I think the DTB must be the issue as I wasn't applying any overlays
+> before. I ran a test to use the DTB and overlay from U-Boot but maybe I
+> haven't updated them properly because I still don't see any output.
+I'm using ${fdt_addr} has the changes that FW will do according to your 
+congig.txt for example the overlay is applied. I tried to load and apply 
+the overlay in the u-boot but there were strange errors so I decided to 
+go the easy way.
 
-> go through networking :)
->=20
+I the overlay (vc4-fkms-v3d) is not applied GPU (v3d) driver is not probed.
 
-I'm fine with either networking or the Xen tree. It should be included
-in 5.11, though. So if you are willing to take it, please do so.
+I always see output from u-boot from the serial port. If not then there 
+has been something wrong with the device-tree. And it has been because 
+u-boot was not able to read from the SSD.
 
-
-Juergen
-
---------------0650DBEFF4F58FCE9BE6C4D9
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------0650DBEFF4F58FCE9BE6C4D9--
-
---3tMIMW2EI4iG1ylfu3D1bWpPCgMh1TUEY--
-
---mHapG4vhTCP36nbTdrhUC7cqDD240Fsgi
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAbhvAFAwAAAAAACgkQsN6d1ii/Ey+E
-Uwf+JIObFNlFrVyuHtDT+OqNp02a0vcUZ8IKMz8XFYYcfdtdav0EZnV00K6OwsrnBd8bhwUrIoxz
-DkrxX5HfAqIUn1y1djZg7Abh0RGnGPACceKkr77Cjxi43nw1+UQxRdoHDvAj2xHzijp2fLdolK34
-RtPlDFV0N29+qoyRv1Mhe3d5RvL4nSSMuxtOEvOnn5JAWqC95UUS32RymaLzdWIaz21MBzlpsa9s
-AbGGcJZikD6wvIB81Py/CYj00R5fWI+o5ztTTfh1YKOjQuAr7GFWDSPF9KWaPFkUt48mrIzvkJ9V
-Sqnjj4uQN9tD4WhouG8EKl9FyXDrtwt773lKKvpaPg==
-=ujiM
------END PGP SIGNATURE-----
-
---mHapG4vhTCP36nbTdrhUC7cqDD240Fsgi--
+> 
+> 
+>> config.txt:
+>>
+>> [pi4]
+>> max_framebuffers=2
+>> enable_uart=1
+>> arm_freq=1500
+>> force_turbo=1
+>>
+>> [all]
+>> arm_64bit=1
+>> kernel=u-boot.bin
+>>
+>> start_file=start4.elf
+>> fixup_file=fixup4.dat
+>>
+>> # Enable the audio output, I2C and SPI interfaces on the GPIO header
+>> dtparam=audio=on
+>> dtparam=i2c_arm=on
+>> dtparam=spi=on
+>>
+>> # Enable the FKMS ("Fake" KMS) graphics overlay, enable the camera firmware
+>> # and allocate 128Mb to the GPU memory
+>> dtoverlay=vc4-fkms-v3d,cma-64
+>> gpu_mem=128
+>>
+>> # Comment out the following line if the edges of the desktop appear outside
+>> # the edges of your display
+>> disable_overscan=1
+>>
+>>
+>> boot.source:
+>> setenv serverip 10.42.0.1
+>> setenv ipaddr 10.42.0.231
+>> tftpb 0xC00000 boot2.scr
+>> source 0xC00000
+>>
+>> boot2.source:
+>> tftpb 0xE00000 xen
+>> tftpb 0x1000000 Image
+>> setenv lin_size $filesize
+>>
+>> fdt addr ${fdt_addr}
+>> fdt resize 1024
+>>
+>> fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 sync_console
+>> dom0_mem=1024M dom0_max_vcpus=1 bootscrub=0 vwfi=native sched=credit2"
+>>
+>> fdt mknod /chosen dom0
+>>
+>> # These will break the default framebuffer@3e2fe000 that
+>> # is the same chosen -node.
+>> #fdt set /chosen/dom0 \#address-cells <0x2>
+>> #fdt set /chosen/dom0 \#size-cells <0x2>
+>>
+>> fdt set /chosen/dom0 compatible "xen,linux-zimage" "xen,multiboot-module"
+>> fdt set /chosen/dom0 reg <0x1000000 0x${lin_size}>
+>>
+>> fdt set /chosen xen,dom0-bootargs "dwc_otg.lpm_enable=0 console=hvc0
+>> earlycon=xen earlyprintk=xen root=/dev/sda4 elevator=deadline rootwait fixrtc
+>> quiet splash"
+>>
+>> setenv fdt_high 0xffffffffffffffff
+>>
+>> fdt print /chosen
+>>
+>> #xen
+>> booti 0xE00000 - ${fdt_addr}
+>>
 
