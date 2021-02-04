@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D2630ECA7
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 07:45:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81159.149408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B81630ECA8
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 07:46:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81160.149420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7YNE-0005CV-8k; Thu, 04 Feb 2021 06:44:16 +0000
+	id 1l7YP5-0005JI-Kl; Thu, 04 Feb 2021 06:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81159.149408; Thu, 04 Feb 2021 06:44:16 +0000
+Received: by outflank-mailman (output) from mailman id 81160.149420; Thu, 04 Feb 2021 06:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7YNE-0005C9-5R; Thu, 04 Feb 2021 06:44:16 +0000
-Received: by outflank-mailman (input) for mailman id 81159;
- Thu, 04 Feb 2021 06:44:14 +0000
+	id 1l7YP5-0005It-Ha; Thu, 04 Feb 2021 06:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 81160;
+ Thu, 04 Feb 2021 06:46:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CKvr=HG=unikie.com=jukka.kaartinen@srs-us1.protection.inumbo.net>)
- id 1l7YNB-0005C4-Vi
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 06:44:14 +0000
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ id 1l7YP3-0005Im-8x
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 06:46:09 +0000
+Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id abbf19b1-c419-4c44-b29a-780646808fd9;
- Thu, 04 Feb 2021 06:44:12 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id f1so2946912lfu.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Feb 2021 22:44:12 -0800 (PST)
+ id b0e130ba-8be3-4237-b0d8-18064abee8cd;
+ Thu, 04 Feb 2021 06:46:08 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id a12so2987288lfb.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Feb 2021 22:46:08 -0800 (PST)
 Received: from [192.168.1.76] (91-153-193-91.elisa-laajakaista.fi.
  [91.153.193.91])
- by smtp.gmail.com with ESMTPSA id d9sm483062lfm.293.2021.02.03.22.44.10
+ by smtp.gmail.com with ESMTPSA id a30sm531644ljq.96.2021.02.03.22.46.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Feb 2021 22:44:10 -0800 (PST)
+ Wed, 03 Feb 2021 22:46:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,45 +42,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abbf19b1-c419-4c44-b29a-780646808fd9
+X-Inumbo-ID: b0e130ba-8be3-4237-b0d8-18064abee8cd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=unikie-com.20150623.gappssmtp.com; s=20150623;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=S7HJaE6uEyGqiWmBXa1meiKhQVc3HhcnUTxG1aVlbZw=;
-        b=x4XujDwvV0gNcy+FlrWZFE1G3yCH4Iij3G16v6QsTwv3lOsDw9raSKDAUFXuyE4lcD
-         CkIjSA4tLnt0pjpNu5xmsNRK8VEA4aNmhYx++TlIciwoMj+lyBNfUABReEPsLUvrlHGE
-         g+lzFTq4Mog0tINVSjkVIV1Qe4Xrk4E4O1lThE+AFGPc3o6kyNHJajBpqlA3OSn7V4/a
-         ZoKVotuc/pF3ERvDQN2LDI0F20edwZGhL8aqIeg2YrsQVRzn3JR8FLunYsWbalEPw6rg
-         C/qC/G9uqOTzYyGD/pTR75RsOWbuB/NyGyWu/GL1TRPST4OfjtpdsPACzbJx0H4s6MS0
-         4mlQ==
+        bh=V+d1VBMMtSg8eoCFcrTHC37S2rL+yPLwXHMCT1l+IUs=;
+        b=s4NJQhLMLKe5berQPXdQY6rBH0udY5oIxq47AlLicWTh68nNa6nD+/Dgh0BEofEqz3
+         2/hpjV89mxj30vt7W9dnibJ29lv0JQsc7qskQnl3BcvJj/1z3STBS5EBOMqamIh9f3Uk
+         Zmk/i0q6UKKxYLnara8SDO6F1WdeBhwzYWz4jHbJW3sdfCgXHkROQZ10e+BeCspzeBV4
+         SUlxEtk6uYTl0cyYCHa+6lQH99Pp3wugpwjIMUweZyfhNYTqBv65oOqmBaTHAy3VgC7b
+         6Jl1YH4XwwgSfN1C7uTLB5iStD+tFaW3LluIGVNUrw26wku0ZpxstigKyIZSRn3VV6ga
+         jJtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=S7HJaE6uEyGqiWmBXa1meiKhQVc3HhcnUTxG1aVlbZw=;
-        b=nqYhti7JfEOV74ZuFJImLgpXo9d76zAQ9PEfY1A3HswQ4lG9HW3Itb1xO1tP9RK3p6
-         1t7+Pjyr43g1VZ5g27RbHn6IIl2+NlFMBUcI1Mqn166lOLXMMrKvr1zvqzhokXrZoc3I
-         J+8YklDxwfSU50MMboOPuR/Mng7swOOK8Ts+VW8z9O4462V6EHj7A6xdJlijNH4pLd0r
-         SQw4mHEJLnmvHVE8s7c7ppVcOBk9HJqxCRg7BMRKwHu13HNii4ugPC5uiIUbN4xSLnIA
-         vLkqoBF2JajZjwQmWPN4+WKxL9ZC9mppySJNuntNf7d+sVfxqNHtoaZDK2q3zY9hqE+W
-         sp0w==
-X-Gm-Message-State: AOAM5316BeHiRC9N1uncrcWN++6SOYBwuf2ezWVTMjVY+v1QiVNea9yp
-	osqzRn5CReXMOoIYrfuBfqnw7Q==
-X-Google-Smtp-Source: ABdhPJycO0rdV1B99xiY/VZXF+G8x/t91o3408y6SriflFOOfDsH5VLjxLa1wHMqTVbavABHU0c4HQ==
-X-Received: by 2002:a19:992:: with SMTP id 140mr3907187lfj.158.1612421051018;
-        Wed, 03 Feb 2021 22:44:11 -0800 (PST)
+        bh=V+d1VBMMtSg8eoCFcrTHC37S2rL+yPLwXHMCT1l+IUs=;
+        b=jkTc1RVJV/BnSJwHT85e/MDmFt6a6TR4VHKytjVCrcrTrekqeldRNUzADyn9FdwkM1
+         UmZQNgPlWrSdvQF2oUq2lmByOFv+LzZAES18taIMfIQN8OAuArX+zEAnRKElyiJStA42
+         DB6JyaCpgn0iL/DYvKWS1MrQxD6wlVdgx876Jk0I3hED2910FivoNOlc6OL1hE7dsvCx
+         LUYFMeubBX+IV9LVRExtMoOjyX4Pt1wyyZzn+jOdhhK3j1bnIDSO113dLVe8/aced43V
+         1NOWSBdAMLsf0iJ/6EfHNe9YPOlOFcI+7Xv0gwlMLvQfS8ww8lOgcfe+J6iW7IXQMk4B
+         Tdcg==
+X-Gm-Message-State: AOAM531mOorzHNnie7aiPvyerKbt8w0lmXcgpMq/wfeFcz5j5Eq+43bw
+	bU/3zp4lXVZ8w8vPUgO+QF/q4g==
+X-Google-Smtp-Source: ABdhPJyTbHkj2YupoWcyp/TU3DNaYCAE11euVEFW6evIc9dYm2uUlxa05LG0/B2oVMwIwTmFHuFhfQ==
+X-Received: by 2002:ac2:4569:: with SMTP id k9mr3637799lfm.461.1612421167261;
+        Wed, 03 Feb 2021 22:46:07 -0800 (PST)
 Subject: Re: Question about xen and Rasp 4B
-To: Stefano Stabellini <sstabellini@kernel.org>
+To: Elliott Mitchell <ehem+xen@m5p.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 Cc: Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>,
  Xen-devel <xen-devel@lists.xenproject.org>,
  Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
- <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
- <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com>
- <alpine.DEB.2.21.2101251646470.20638@sstabellini-ThinkPad-T480s>
- <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
+References: <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
  <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s>
  <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
  <5a33e663-4a6d-6247-769a-8f14db4810f2@xen.org>
@@ -90,180 +87,83 @@ References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
  <alpine.DEB.2.21.2102021552380.29047@sstabellini-ThinkPad-T480s>
  <3c98d8d0-ca4e-b177-1e2b-5f3eb454722d@unikie.com>
  <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
+ <YBsfzZ6fI40bXo7/@mattapan.m5p.com>
 From: Jukka Kaartinen <jukka.kaartinen@unikie.com>
-Message-ID: <96a3d996-b7bd-fe5f-39ce-3fdd7d4e3604@unikie.com>
-Date: Thu, 4 Feb 2021 08:44:09 +0200
+Message-ID: <e4a25631-61aa-bf31-a50e-c87d69a0888d@unikie.com>
+Date: Thu, 4 Feb 2021 08:46:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2102031249090.29047@sstabellini-ThinkPad-T480s>
+In-Reply-To: <YBsfzZ6fI40bXo7/@mattapan.m5p.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 
 
-On 3.2.2021 22.55, Stefano Stabellini wrote:
-> On Wed, 3 Feb 2021, Jukka Kaartinen wrote:
->> On 3.2.2021 2.18, Stefano Stabellini wrote:
->>> On Tue, 2 Feb 2021, Jukka Kaartinen wrote:
->>>>>> Good catch.
->>>>>> GPU works now and I can start X! Thanks! I was also able to create
->>>>>> domU
->>>>>> that runs Raspian OS.
->>>>>
->>>>> This is very interesting that you were able to achieve that - congrats!
->>>>>
->>>>> Now, sorry to be a bit dense -- but since this thread went into all
->>>>> sorts of interesting
->>>>> directions all at once -- I just have a very particular question: what
->>>>> is
->>>>> exact
->>>>> combination of versions of Xen, Linux kernel and a set of patches that
->>>>> went
->>>>> on top that allowed you to do that? I'd love to obviously see it
->>>>> productized in Xen
->>>>> upstream, but for now -- I'd love to make available to Project EVE/Xen
->>>>> community
->>>>> since there seems to be a few folks interested in EVE/Xen combo being
->>>>> able
->>>>> to
->>>>> do that.
+On 4.2.2021 0.12, Elliott Mitchell wrote:
+> On Wed, Feb 03, 2021 at 12:55:40PM -0800, Stefano Stabellini wrote:
+>> On Wed, 3 Feb 2021, Jukka Kaartinen wrote:
+>>> On 3.2.2021 2.18, Stefano Stabellini wrote:
+>>>> How are you configuring and installing the kernel?
 >>>>
->>>> I have tried Xen Release 4.14.0, 4.14.1 and master (from week 4, 2021).
+>>>> make bcm2711_defconfig
+>>>> make Image.gz
+>>>> make modules_install
 >>>>
->>>> Kernel rpi-5.9.y and rpi-5.10.y branches from
->>>> https://github.com/raspberrypi/linux
+>>>> ?
 >>>>
->>>> and
+>>>> The device tree is the one from the rpi-5.9.y build? How are you loading
+>>>> the kernel and device tree with uboot? Do you have any interesting
+>>>> changes to config.txt?
 >>>>
->>>> U-boot (master).
+>>>> I am asking because I cannot get to the point of reproducing what you
+>>>> are seeing: I can boot my rpi-5.9.y kernel on recent Xen but I cannot
+>>>> get any graphics output on my screen. (The serial works.) I am using the
+>>>> default Ubuntu Desktop rpi-install target as rootfs and uboot master.
 >>>>
->>>> For the GPU to work it was enough to disable swiotlb from the kernel(s) as
->>>> suggested in this thread.
 >>>
->>> How are you configuring and installing the kernel?
+>>> This is what I do:
 >>>
 >>> make bcm2711_defconfig
->>> make Image.gz
->>> make modules_install
+>>> cat "xen_additions" >> .config
+>>> make Image  modules dtbs
 >>>
->>> ?
+>>> make INSTALL_MOD_PATH=rootfs modules_install
+>>> depmod -a
 >>>
->>> The device tree is the one from the rpi-5.9.y build? How are you loading
->>> the kernel and device tree with uboot? Do you have any interesting
->>> changes to config.txt?
->>>
->>> I am asking because I cannot get to the point of reproducing what you
->>> are seeing: I can boot my rpi-5.9.y kernel on recent Xen but I cannot
->>> get any graphics output on my screen. (The serial works.) I am using the
->>> default Ubuntu Desktop rpi-install target as rootfs and uboot master.
->>>
+>>> cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb boot/
+>>> cp arch/arm64/boot/dts/overlays/*.dtbo boot/overlays/
 >>
->> This is what I do:
+>> Thanks for the detailed instructions. This helps a lot. I saw below in
+>> boot2.source that you are using ${fdt_addr} as DTB source (instead of
+>> loading one), which means you are using the DTB as provided by U-Boot at
+>> runtime, instead of loading your own file.
 >>
->> make bcm2711_defconfig
->> cat "xen_additions" >> .config
->> make Image  modules dtbs
+>> With these two copies, I take you meant to update the first partition on
+>> the SD card, the one where config.txt lives, right? So that Xen is
+>> getting the DTB and overlays from the rpi-5.9.y kernel tree but passed
+>> down by the RPi loader and U-Boot?
 >>
->> make INSTALL_MOD_PATH=rootfs modules_install
->> depmod -a
->>
->> cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb boot/
->> cp arch/arm64/boot/dts/overlays/*.dtbo boot/overlays/
+>> I think the DTB must be the issue as I wasn't applying any overlays
+>> before. I ran a test to use the DTB and overlay from U-Boot but maybe I
+>> haven't updated them properly because I still don't see any output.
 > 
-> Thanks for the detailed instructions. This helps a lot. I saw below in
-> boot2.source that you are using ${fdt_addr} as DTB source (instead of
-> loading one), which means you are using the DTB as provided by U-Boot at
-> runtime, instead of loading your own file.
+> Seeing no graphics output from U-Boot is okay.  If the device-tree files
+> get sufficiently updated you can end up with no output from U-Boot, but
+> will get output once the Linux kernel's driver is operational (I've seen
+> this occur).
 > 
-> With these two copies, I take you meant to update the first partition on
-> the SD card, the one where config.txt lives, right? So that Xen is
-> getting the DTB and overlays from the rpi-5.9.y kernel tree but passed
-> down by the RPi loader and U-Boot?
-> 
-> I think the DTB must be the issue as I wasn't applying any overlays
-> before. I ran a test to use the DTB and overlay from U-Boot but maybe I
-> haven't updated them properly because I still don't see any output.
-I'm using ${fdt_addr} has the changes that FW will do according to your 
-congig.txt for example the overlay is applied. I tried to load and apply 
-the overlay in the u-boot but there were strange errors so I decided to 
-go the easy way.
-
-I the overlay (vc4-fkms-v3d) is not applied GPU (v3d) driver is not probed.
-
-I always see output from u-boot from the serial port. If not then there 
-has been something wrong with the device-tree. And it has been because 
-u-boot was not able to read from the SSD.
-
+> The most important part is having a HDMI display plugged in during the
+> early boot stages.  Unless the bootloader sees the display the output
+> won't get initialized and the Linux driver doesn't handle that.
 > 
 > 
->> config.txt:
->>
->> [pi4]
->> max_framebuffers=2
->> enable_uart=1
->> arm_freq=1500
->> force_turbo=1
->>
->> [all]
->> arm_64bit=1
->> kernel=u-boot.bin
->>
->> start_file=start4.elf
->> fixup_file=fixup4.dat
->>
->> # Enable the audio output, I2C and SPI interfaces on the GPIO header
->> dtparam=audio=on
->> dtparam=i2c_arm=on
->> dtparam=spi=on
->>
->> # Enable the FKMS ("Fake" KMS) graphics overlay, enable the camera firmware
->> # and allocate 128Mb to the GPU memory
->> dtoverlay=vc4-fkms-v3d,cma-64
->> gpu_mem=128
->>
->> # Comment out the following line if the edges of the desktop appear outside
->> # the edges of your display
->> disable_overscan=1
->>
->>
->> boot.source:
->> setenv serverip 10.42.0.1
->> setenv ipaddr 10.42.0.231
->> tftpb 0xC00000 boot2.scr
->> source 0xC00000
->>
->> boot2.source:
->> tftpb 0xE00000 xen
->> tftpb 0x1000000 Image
->> setenv lin_size $filesize
->>
->> fdt addr ${fdt_addr}
->> fdt resize 1024
->>
->> fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 sync_console
->> dom0_mem=1024M dom0_max_vcpus=1 bootscrub=0 vwfi=native sched=credit2"
->>
->> fdt mknod /chosen dom0
->>
->> # These will break the default framebuffer@3e2fe000 that
->> # is the same chosen -node.
->> #fdt set /chosen/dom0 \#address-cells <0x2>
->> #fdt set /chosen/dom0 \#size-cells <0x2>
->>
->> fdt set /chosen/dom0 compatible "xen,linux-zimage" "xen,multiboot-module"
->> fdt set /chosen/dom0 reg <0x1000000 0x${lin_size}>
->>
->> fdt set /chosen xen,dom0-bootargs "dwc_otg.lpm_enable=0 console=hvc0
->> earlycon=xen earlyprintk=xen root=/dev/sda4 elevator=deadline rootwait fixrtc
->> quiet splash"
->>
->> setenv fdt_high 0xffffffffffffffff
->>
->> fdt print /chosen
->>
->> #xen
->> booti 0xE00000 - ${fdt_addr}
->>
+>>> dtoverlay=vc4-fkms-v3d,cma-64
+> 
+> This is odd.  My understanding is this is appropriate for RP3, but not
+> RP4.  For RP4 you can have "dtoverlay=disable-vc4" and still get graphics
+> output (hmm, I'm starting to think I need to double-check this...).
+Without the overlay GPU driver (v3d) was not probed. And you need to use 
+the fakekms.
 
