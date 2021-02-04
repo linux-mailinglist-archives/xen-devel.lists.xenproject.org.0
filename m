@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D430E30EF0C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 09:53:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81187.149523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3413530EFA2
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 10:26:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81190.149536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7aN6-0002lf-Ey; Thu, 04 Feb 2021 08:52:16 +0000
+	id 1l7atv-00060O-4s; Thu, 04 Feb 2021 09:26:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81187.149523; Thu, 04 Feb 2021 08:52:16 +0000
+Received: by outflank-mailman (output) from mailman id 81190.149536; Thu, 04 Feb 2021 09:26:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7aN6-0002lG-BT; Thu, 04 Feb 2021 08:52:16 +0000
-Received: by outflank-mailman (input) for mailman id 81187;
- Thu, 04 Feb 2021 08:52:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+S2h=HG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l7aN4-0002lB-NR
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 08:52:14 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 93328794-f744-4eae-9f5f-0fc70b945762;
- Thu, 04 Feb 2021 08:52:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7F2B3ABD5;
- Thu,  4 Feb 2021 08:52:12 +0000 (UTC)
+	id 1l7atv-0005zz-1m; Thu, 04 Feb 2021 09:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 81190;
+ Thu, 04 Feb 2021 09:26:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SI1E=HG=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l7att-0005zu-Kp
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 09:26:09 +0000
+Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 738f4b5e-d347-4486-8735-4827e2d7c01e;
+ Thu, 04 Feb 2021 09:26:07 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id v15so2637207wrx.4
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Feb 2021 01:26:07 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-190-149-163.range86-190.btcentralplus.com.
+ [86.190.149.163])
+ by smtp.gmail.com with ESMTPSA id l1sm4921463wmq.17.2021.02.04.01.26.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 04 Feb 2021 01:26:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +42,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93328794-f744-4eae-9f5f-0fc70b945762
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612428732; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vt37sF7uqc2BxJ/7ttb8QONpFZzTlYene6dWE/QzuvE=;
-	b=kANorCpj/J7Yd62nQ6DXK5kp8apxZfcDCa3KIQy0ApZaxBzIkvE5Q/nTssdbqswRWii4YM
-	v1WcCRrB7hHlyf6L2BNwri/ZgukZcLnKW+OQ1TUMVOmw1Boke442LeC9rHWKqIA7TZkVF+
-	NL9he0v3Sy2VW7uqhkLzjP22+/63GvA=
-Subject: Re: VIRIDIAN CRASH: 3b c0000096 75b12c5 9e7f1580 0
-To: James Dingwall <james@dingwall.me.uk>
-Cc: James Dingwall <james-xen@dingwall.me.uk>, xen-devel@lists.xenproject.org
-References: <20210201152655.GA3922797@dingwall.me.uk>
- <d30b5ee3-1fd9-a64b-1d9a-f79b6b333169@suse.com>
- <20210204084636.GA3781256@dingwall.me.uk>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <fc022dd1-a5cc-62d3-49ae-bd24f22fe83a@suse.com>
-Date: Thu, 4 Feb 2021 09:52:12 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+X-Inumbo-ID: 738f4b5e-d347-4486-8735-4827e2d7c01e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=YgMIO4QlRwtCHJVXKAiPwTXPhhYr/y0FarmhJ4l+GWg=;
+        b=KWPFBkvXrwU8Ckk1aSirKduTBDoltf2vZN3HLAhSMk0QmNsB9Pa94Z3KeOVn8Pehw5
+         juv7N+7qcwIbqQuQNUh1jaZErsuD41jObLSNbru/Ebkz2qcqWJy7Nor+Bu6DH+oQTFAk
+         xcRm5y6EbVHHDqr8p9qMNyemlfVriWjTrbAa1+xJ1CnizVW6meAa2Dcg1AhZQZq9JKjq
+         j5SZAEbV3YY7RdRgMhf07NRvLbVnJA5/zZSwHbh+OPq7D89ZV7YqoEwfxrf+n3j+Ven4
+         rrEx2/KjrT2/K7eOBpQVkcOwzNEqkd/9SUVAUO07+jIi/wKZuB1wB77s/ZKzpfas0fz0
+         Q5hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=YgMIO4QlRwtCHJVXKAiPwTXPhhYr/y0FarmhJ4l+GWg=;
+        b=CfW/upeNILWtyyPlP45cBV+4R5+mILkDcmQTAa0r8hxSTE8Oe3cKTpfCxu+GFhwDiH
+         8beTK75q0xaYKRrho93cT6fEG1lxdJxXUdgmC9zEJaxg30HsptqhjhJv6LM6y8Ud0WXI
+         wkWiRQ4jCBaBA0AmBv5A3ADuG6rkZqd9VVdoredQH9TKfoJ+JWBNBmUwGcFpjMzCS8Vj
+         w+CMH9EEL8aPi7ieLs3bVGuClmK+Yejv6QqodT8mQ50K9NJBp54y+VBZ9RZPXIkSuSGX
+         XUz8pRMn3bv3nbYSn/u5GvCcOsWxJAmJTF8qb7Xw4ERH/f2kvHkhxLhQZEou7rWMofDs
+         eRxQ==
+X-Gm-Message-State: AOAM533DfVjOcyX5T7NI8IaaGd2URsu2WnpqMozGfQUTi+TnjY9m283X
+	3Gy4GluJKzvbtQXDV8e/oIs=
+X-Google-Smtp-Source: ABdhPJw3yoDv4R0uoiSYO+6vjaWmMyHJ2+Oewx7bQpV8FIdzH8YG2PDLfJ8YJd4hUfJtZVmiaj/Y0w==
+X-Received: by 2002:adf:8b47:: with SMTP id v7mr8119940wra.133.1612430766601;
+        Thu, 04 Feb 2021 01:26:06 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'Wei Liu'" <wl@xen.org>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'George Dunlap'" <george.dunlap@citrix.com>
+References: <0e7265fe-8d89-facb-790d-9232c742c3fa@suse.com> <e2682f84-b3bb-b9fb-edd8-863b9036de95@suse.com>
+In-Reply-To: <e2682f84-b3bb-b9fb-edd8-863b9036de95@suse.com>
+Subject: RE: [PATCH v2 2/2] IOREQ: refine when to send mapcache invalidation request
+Date: Thu, 4 Feb 2021 09:26:04 -0000
+Message-ID: <03fb01d6fad7$c39087b0$4ab19710$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20210204084636.GA3781256@dingwall.me.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQHgg/zPp1o/mkuzupLKGuAOuFa3bwGR/APtqigXZrA=
+Content-Language: en-gb
 
-On 04.02.2021 09:46, James Dingwall wrote:
-> On Wed, Feb 03, 2021 at 03:55:07PM +0100, Jan Beulich wrote:
->> On 01.02.2021 16:26, James Dingwall wrote:
->>> I am building the xen 4.11 branch at 
->>> 310ab79875cb705cc2c7daddff412b5a4899f8c9 which includes commit 
->>> 3b5de119f0399cbe745502cb6ebd5e6633cc139c "86/msr: fix handling of 
->>> MSR_IA32_PERF_{STATUS/CTL}".  I think this should address this error 
->>> recorded in xen's dmesg:
->>>
->>> (XEN) d11v0 VIRIDIAN CRASH: 3b c0000096 75b12c5 9e7f1580 0
->>
->> It seems to me that you imply some information here which might
->> better be spelled out. As it stands I do not see the immediate
->> connection between the cited commit and the crash. C0000096 is
->> STATUS_PRIVILEGED_INSTRUCTION, which to me ought to be impossible
->> for code running in ring 0. Of course I may simply not know enough
->> about modern Windows' internals to understand the connection.
-> 
-> Searching for "VIRIDIAN CRASH: 3b" led me to this thread and then to the commit based on the commit log message.
-> 
-> https://patchwork.kernel.org/project/xen-devel/patch/20201007102032.98565-1-roger.pau@citrix.com/
-> 
-> I have naively assumed that the RCX register indicated MSR_IA32_PERF_CTL based on:
-> 
-> #define MSR_IA32_PERF_CTL             0x00000199
-> 
-> I've added this patch:
-> 
-> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-> index 99c848ff41..7a764907d5 100644
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -232,12 +232,16 @@ int guest_rdmsr(const struct vcpu *v, uint32_t msr, uint64_t *val)
->           */
->      case MSR_IA32_PERF_STATUS:
->      case MSR_IA32_PERF_CTL:
-> -        if ( !(cp->x86_vendor & (X86_VENDOR_INTEL | X86_VENDOR_CENTAUR)) )
-> +        if ( !(cp->x86_vendor & (X86_VENDOR_INTEL | X86_VENDOR_CENTAUR)) ) {
-> +            printk(KERN_DEBUG "JKD: MSR %#x FAULT1: %#x & %#x\n", msr, cp->x86_vendor, (X86_VENDOR_INTEL | X86_VENDOR_CENTAUR));
-> +
->              goto gp_fault;
-> +        }
->  
->          *val = 0;
->          if ( likely(!is_cpufreq_controller(d)) || rdmsr_safe(msr, *val) == 0 )
->              break;
-> +        printk(KERN_DEBUG "JKD: MSR FAULT2\n");
->          goto gp_fault;
->  
->          /*
-> 
-> and now in the hypervisor log when the domain crashes:
-> 
-> (XEN) JKD: MSR 0x199 FAULT1: 0 & 0x2
-> (XEN) d11v0 VIRIDIAN CRASH: 3b c0000096 1146d2c5 6346d580 0
-> (XEN) avc:  denied  { reset } for domid=11 scontext=system_u:system_r:domU_t tcontext=system_u:system_r:domU_t_self tclass=event
-> 
-> I'm not sure what is expected in cp->x86_vendor but this is running on an Intel CPU so I would have thought 0x1 based on
-> 
-> #define X86_VENDOR_INTEL (1 << 0)
 
-This is the problem - a bad backport. Therefore ...
 
->> The hypervisor log (at maximum log levels) accompanying this might
->> help some. And of course, if possible, trying on a newer Xen (ideally
->> current master).
-> 
-> We have a separate upgrade to 4.14.1 in progress and I will test on that too.
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 02 February 2021 15:15
+> To: xen-devel@lists.xenproject.org
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; =
+Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Paul Durrant <paul@xen.org>; Julien Grall =
+<julien@xen.org>; Stefano Stabellini
+> <sstabellini@kernel.org>; George Dunlap <george.dunlap@citrix.com>
+> Subject: [PATCH v2 2/2] IOREQ: refine when to send mapcache =
+invalidation request
+>=20
+> XENMEM_decrease_reservation isn't the only means by which pages can =
+get
+> removed from a guest, yet all removals ought to be signaled to qemu. =
+Put
+> setting of the flag into the central p2m_remove_page() underlying all
+> respective hypercalls as well as a few similar places, mainly in PoD
+> code.
+>=20
+> Additionally there's no point sending the request for the local domain
+> when the domain acted upon is a different one. The latter domain's =
+ioreq
+> server mapcaches need invalidating. We assume that domain to be paused
+> at the point the operation takes place, so sending the request in this
+> case happens from the hvm_do_resume() path, which as one of its first
+> steps calls handle_hvm_io_completion().
+>=20
+> Even without the remote operation aspect a single domain-wide flag
+> doesn't do: Guests may e.g. decrease-reservation on multiple vCPU-s in
+> parallel. Each of them needs to issue an invalidation request in due
+> course, in particular because exiting to guest context should not =
+happen
+> before the request was actually seen by (all) the emulator(s).
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Preemption related adjustment split off. Make flag per-vCPU. More
+>     places to set the flag. Also handle acting on a remote domain.
+>     Re-base.
 
-I'm sure you'll find this work there. I'll make a patch for the affected
-older tree(s).
+I'm wondering if a per-vcpu flag is overkill actually. We just need to =
+make sure that we don't miss sending an invalidation where multiple =
+vcpus are in play. The mapcache in the emulator is global so issuing an =
+invalidate for every vcpu is going to cause an unnecessary storm of =
+ioreqs, isn't it? Could we get away with the per-domain atomic counter?
 
-Jan
+  Paul
+
 
