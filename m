@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CF7430FF42
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 22:24:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81437.150556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54CC830FF57
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 22:33:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81442.150575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7m6L-0004Nc-BF; Thu, 04 Feb 2021 21:23:45 +0000
+	id 1l7mFb-0005Xh-G7; Thu, 04 Feb 2021 21:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81437.150556; Thu, 04 Feb 2021 21:23:45 +0000
+Received: by outflank-mailman (output) from mailman id 81442.150575; Thu, 04 Feb 2021 21:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7m6L-0004ND-7a; Thu, 04 Feb 2021 21:23:45 +0000
-Received: by outflank-mailman (input) for mailman id 81437;
- Thu, 04 Feb 2021 21:23:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l7mFb-0005XI-Cw; Thu, 04 Feb 2021 21:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 81442;
+ Thu, 04 Feb 2021 21:33:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KAxh=HG=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l7m6J-0004N8-Po
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 21:23:44 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 226ca2ba-08de-4096-afad-1d2d230f74de;
- Thu, 04 Feb 2021 21:23:42 +0000 (UTC)
+ <SRS0=G7BZ=HG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l7mFZ-0005X7-Ng
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 21:33:17 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c7dc51cf-e00c-421d-a16b-5c5c0e6a71a2;
+ Thu, 04 Feb 2021 21:33:17 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E680564FA7;
+ Thu,  4 Feb 2021 21:33:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,237 +37,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 226ca2ba-08de-4096-afad-1d2d230f74de
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612473822;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=E6QeFw8xwAcE5+K8wHwb/uaOF+w+rMLsifm2BpSDz7s=;
-  b=He2Q2Q52G3IaoWjj+qX9gYuFJyr1P3Wl8vJKuo9QQWFrv6FhV4vRIKd7
-   7ZFmkc4fH1yo/Yg4GpCh6ZCkqOXm9ixNcUzMX5roFRkLQV7xiaHzsNuEV
-   g28Q1xlxOyM1GfOcoi+BnDxNYOOgCHYfknpnNPgEbFzfPScLJh2EHPbI/
-   E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: jaGDq4Xg0cAu1SqeIXRqTQOSGy8qqt/Ctuke8NqtZ+scDLh/DTlUmqiuPb2TEILbakeW34sxT7
- hCTFB59qeeMn+sRpZ1nTryBmM2TooYX0QgZQgQvCzjvakgcC+7QZTHwrY/hR1xauWaeFYu8C0a
- ycbG38jKK93Wo+I0Mryb6XYPZOo5RyzwVMKvpuGIjKOnGqOTv0ptImhWQvfa5U0pHsqE3kWDO9
- +tShPugQaNxkcIBz9hIEMORGqC9CKAZ+B6jNcOHJyeIx+RmlDFNJa1haF+OSXXsTeNzGrIcv73
- t40=
-X-SBRS: 5.2
-X-MesageID: 36547878
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,153,1610427600"; 
-   d="scan'208";a="36547878"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oQiH8ImkkrAOPHslBF0GX9P1w5RbTiM1ZFAMYh52HIQ1rFe1QUQRLYWHOWx9HgmSTH6pn4+S38N/IIAzh/w69dDbDct+sbWnLSuW06Nkt1RBJ3CAi8weoiRR7cMmb6MxeDyLXWGEh+Mv6QKlC6eO+cUYdL4KfgpYK1r2DP4fveS9BQB61PYk3Bvc6BV+mbH7ye9CXDMoyzMSVzw0/R5lj1+sBJ9zE80o+C+dGtZtzatzf95cAdq1jkRITSvCLVTlHPBKd7bRhbEjA8sZgAwJ3oJc67i7VOSze3EO1DNqMw1h3bSCeuo9uYUwMOOaoHvi13XNDJNelwfchjgMPqDHFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VMv3LYQK/0CHBXpc5n3kLk7zi6yi7umBpDakIZDZya8=;
- b=OvPCLXVNFHGctWmoECrE5tEp/asAGKuzwfu7p+M9b1cIOjkxQaVEhk8Wtb5J2eXk2EfUVe1l0Bj9YplyLHCEIhrObzMDHRVmlYpknSHNyTzsMlh2/JveBDL5qiq70bQWo15npjgdb+LOHex8jAwFk7iNAnePt78m2lRVP2DyWAoY1YUx9mB/yCkVImMrNhvQOlWspCjw1Ov9QLPhW63PjhMBl/yh/ah82u5m37agk7DsGm/nwjQn2J9Khdv0k2SBu035pA8mx4PaEGLdXNBzBm7mq2z1JLuRZFDkT4pe41mtTa/0fZ6kjmKhymgCYDvqcFYyVb1Q1qby+Y+8OVypSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VMv3LYQK/0CHBXpc5n3kLk7zi6yi7umBpDakIZDZya8=;
- b=IXJET+s3zxVxMZziMFhnfTl7Haz3CctbRNbny85PSvPtVo18wuP+YFVVWZF3JcK9A0nb4ncTcMG7up5ydNJQxg5bYPwQhe+0aJ/5u2e+4JFXGFTZNK46xlFQK2kgxHlGHyT3zat7e6E2QxcBEHGJ4PawHMMfrceW01o2iyIAVLs=
-Subject: Re: [PATCH v9 01/11] xen/memory: Fix mapping grant tables with
- XENMEM_acquire_resource
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>, Paul Durrant <paul@xen.org>,
-	=?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>, Hubert
- Jasudowicz <hubert.jasudowicz@cert.pl>, Tamas K Lengyel <tamas@tklengyel.com>
-References: <20210201232703.29275-1-andrew.cooper3@citrix.com>
- <20210201232703.29275-2-andrew.cooper3@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <86f9845f-f0a5-93c7-0703-c3a51d50febc@citrix.com>
-Date: Thu, 4 Feb 2021 21:23:31 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <20210201232703.29275-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0423.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18b::14) To BYAPR03MB4728.namprd03.prod.outlook.com
- (2603:10b6:a03:13a::24)
+X-Inumbo-ID: c7dc51cf-e00c-421d-a16b-5c5c0e6a71a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1612474396;
+	bh=jmj08TIm0grS0knSKsUh67sTTwFFaEtBO6MV6j+TXiw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=GSmpTvqSt0YKRHqQXmEd7W4UXXaQyXBj+ANb0f8TXqPzho/F+RsF9whg6790wKkqn
+	 uVbeUoTA5DlB9zt9HP6fVGWiqpi5u3ezpkVqxJHyJBTQyjnd/FWBKiRXwbYc2/T++s
+	 QlOWYN+ZHmDQoEFZ6jkfaCpOynbgOI7avHIGLi+WRH5xLB2m3l2QY67RW1wtdit3Rh
+	 3HJXYMMre2DWva4RBA+5aJ5noLZu8lBK9ZOTT/pPWz3YM0n4jpm3UH00Jzz7lM2O4u
+	 YYWL8IL7BRU8k0THZGLsDdqEk5r+xZJBNsTDUE94eyGtBco+90KASWRIdPvfili60Q
+	 PLBG7XJJ8rbpw==
+Date: Thu, 4 Feb 2021 13:33:15 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rob Herring <robh@kernel.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien.grall.oss@gmail.com>, 
+    Elliott Mitchell <ehem+xen@m5p.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, julien@xen.org
+Subject: Re: Question on PCIe Device Tree bindings, Was: [PATCH] xen/arm:
+ domain_build: Ignore device nodes with invalid addresses
+In-Reply-To: <CAL_JsqKTz8J3txk9W5ekqmfON_g_TdLYsLi0YXYU3rmiyubL2A@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2102041309430.29047@sstabellini-ThinkPad-T480s>
+References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com> <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org> <b6d342f8-c833-db88-9808-cdc946999300@xen.org> <alpine.DEB.2.21.2102021412480.29047@sstabellini-ThinkPad-T480s> <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org>
+ <alpine.DEB.2.21.2102031315350.29047@sstabellini-ThinkPad-T480s> <CAJ=z9a1LsqOMFXV5GLYEkF7=akMx7fT_vpgVtT6xP6MPfmP9vQ@mail.gmail.com> <alpine.DEB.2.21.2102031519540.29047@sstabellini-ThinkPad-T480s> <9b97789b-5560-0186-642a-0501789830e5@xen.org>
+ <alpine.DEB.2.21.2102040944520.29047@sstabellini-ThinkPad-T480s> <CAL_JsqJuvZPheRkacaopHtbATj8uRua=wj_XU5ib41sSpVO-ug@mail.gmail.com> <alpine.DEB.2.21.2102041228560.29047@sstabellini-ThinkPad-T480s>
+ <CAL_JsqKTz8J3txk9W5ekqmfON_g_TdLYsLi0YXYU3rmiyubL2A@mail.gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 038c8a9e-76da-49ff-1b39-08d8c9532311
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5646:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB5646A8F6E7873EA1DF51DB16BAB39@SJ0PR03MB5646.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Uep/unc3UYteG5qYV6jM/xXGxsR04GucYayIJ45Lbj4002HgQ5um9MSe/pSKbMgJ1V8Ey5bVw2JEZIff+vLKCz42aa9FW9Da5+9AuxlhxGSHiRUhFo5gEqXzCgexaWD94CdwU2uVp4nzUEBU2bbf4l4XgCVmf45W3Aac5l2wxllB0oG5J+ax4swQTR4awmvYhx5eLFq3bvqpVbz6yCDpO2yB6DWSMxIFDb3+Q4pOEQwfAollp5yBntPSL0zFGMaPDGiCj67Mli0WfPE+VCDrr0IbwQ/I/vMBSQIaOQFYtTKuL50HaFrXCB84DnbTZXXX5MiATRzMBsRp/XY8z6AOOpl4mrgStTFloBjQpNHSkjbL7EdIZlaGV+iObUIQkEnYQmvEHrWcgPq5QmrWTBQCqEX7Z0mWdgxr58uBdVDYt6rdW7/ac6ijvM3DqaLW7wfu0bzhc8pj83S+jAjeww91Xq19pWKUR+Xu+WVxe7qgdg5AfxKsWnPe0iNholxipQzJhoezx7yXfITJlZbzmJOtzXFihVBdZx+e/Cg0Xuprk8fm7FS0LedZug0DJ03dOBW4HKAPHVVDVpM1E1RpuF5WmcX9P2TbuRA9ba1GXduH67Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(396003)(346002)(376002)(136003)(366004)(6666004)(86362001)(956004)(66476007)(31686004)(16576012)(8676002)(4326008)(66946007)(478600001)(316002)(2616005)(6916009)(53546011)(7416002)(8936002)(83380400001)(2906002)(66574015)(5660300002)(31696002)(66556008)(6486002)(16526019)(26005)(186003)(36756003)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MGYrRklEWWpZdUdmM01VWlFNa0MrMnJjOURWdVE5ZmJwTnltNlhmbGN1Wjhs?=
- =?utf-8?B?bDFCM0s1MHVMSTR3aWJZd2lmbjVIcUxydVlwNkFxbktENHdVTXJNQzNHdjZG?=
- =?utf-8?B?UFFmTGVNRzcyeGQyNFVFaDNkZ2ZXWkxwWHZ1T1dNbFVRaDZ0Q3c1cExJTjYy?=
- =?utf-8?B?THo3Ty9NY3JQVzdGWUdJUWNjMGxOTndlaW94Q2tSMWlqODAyelRaZXRXeG9u?=
- =?utf-8?B?R1lMelNRcmFaQjhrT2VucVM5bFRRbWo0UHgxZFZqazFHeDhOUTVXQWwxYmZl?=
- =?utf-8?B?VWMyUHEwaS9RQ1NUSWJkODh2Q2t2a0NZNm8zaFpCcCtqaE1ET0FTVkVBbG9l?=
- =?utf-8?B?SDBzcnNMZDU5VVhYRXExYk9kbGUvK1JQTEhrT1kyblY3OEpWZEJla0svUmNH?=
- =?utf-8?B?dExQZkhsMmJvcWlzeDZpeW12YWdjTWQzV05SbDJYaXFUcVRSZ010VUF3dVNq?=
- =?utf-8?B?Y2dVY2gwMkZyWTBOSEVYL215Nkw2bkdtN3h6SlZnejdhdTZQQjRkanRUR0pu?=
- =?utf-8?B?bm8yN1A1R0Z3K1VHbk1YNVpQWTdYcTBlM0xNOGRXdlhHSFZScVkvdUwrdW1l?=
- =?utf-8?B?K2JwUFdjZ0JCZ2ZXa1E0a2ZsSVIxZS8xZnBVaFBSN1haREFCc0Z5OUJtbWxs?=
- =?utf-8?B?bWg1V0p4cEUwQk16d3NaazhuQTk0blVrNHg3NmRYRUxNYW5GZnRVNkp2TUlF?=
- =?utf-8?B?QUtjRUU3ZUp3VkIzZDhoZEF5UHVxbXloWHNyMVJObW1MVkZnL0ZWMDBKSlZu?=
- =?utf-8?B?RU1KTWxCbVdIY0FnOGxBbW1aWlRPeUVuS2hpYzM3Mzd3RWFBc215WXloMlVG?=
- =?utf-8?B?cHdhVEFOazdEdU00RjZiUlBwWVF6a1BXaitoL0xUMkxqcjBFYjdpVlYvUCsx?=
- =?utf-8?B?a1hqR3BiVXkxT29ONXZ4YzZVWUtUd2gyZGpibmoxYlFsa3p4dndEbDdvdTNU?=
- =?utf-8?B?SUIwZWlwNDVlQmhSdEY5R3kwZFp3WERpeFFTUm9uMDdsR2l1dEYyWi95WlBS?=
- =?utf-8?B?Vk5mdGZHTCsxT21TcmdUS2JkYUhIQXFJNVMrL0JOcVJZamlJMStYOGxCYlN1?=
- =?utf-8?B?NzdKUnhwdFBHY1NRVXNpOWVldUlqbWtOSC9yb3ZVcDRWT3dNYnhSU1RVM0R2?=
- =?utf-8?B?SzI1QjhySFF6NzNOcGhVOUd1c0dHVUhMeURuM2JXUE0rUlIrR1JQSWZHZytv?=
- =?utf-8?B?SHdZcEl4bmRxc0NjWDdrMzIwZ2kwMHY2emhxUk9Tb1d5TXd6V2JuT2MzSDdC?=
- =?utf-8?B?TzVsTHpBeUNnd2ZjZVg1WDZCcE5ScDhoWlRNdFI2QXlNNi8wUS9yb1FkRDBY?=
- =?utf-8?B?MExadnk2S0MzaXF3Q1J6SE4rWE9kNHAzZGx2aFdwUG1YUlkzd2lSV1dZVjRF?=
- =?utf-8?B?UkE4VG9GT2NDRXFzbzRVVmRHTW5GSUplbTJWZk1MUzFqZk8zUnN0d1IwTHlW?=
- =?utf-8?Q?28FFhLoP?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 038c8a9e-76da-49ff-1b39-08d8c9532311
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2021 21:23:38.2406
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mLeQND0luqiMwRMMJQPCwoY+rBQbxp9xMp5VSiKb6lL1A3twmmiNDL817o/vbz3PowV96Fla6LNxL+vpOSHtB9Tvt+t7unG+hMWbUnBqv4c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5646
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=US-ASCII
 
-On 01/02/2021 23:26, Andrew Cooper wrote:
-> A guest's default number of grant frames is 64, and XENMEM_acquire_resource
-> will reject an attempt to map more than 32 frames.  This limit is caused by
-> the size of mfn_list[] on the stack.
->
-> Fix mapping of arbitrary size requests by looping over batches of 32 in
-> acquire_resource(), and using hypercall continuations when necessary.
->
-> To start with, break _acquire_resource() out of acquire_resource() to cope
-> with type-specific dispatching, and update the return semantics to indicate
-> the number of mfns returned.  Update gnttab_acquire_resource() and x86's
-> arch_acquire_resource() to match these new semantics.
->
-> Have do_memory_op() pass start_extent into acquire_resource() so it can pick
-> up where it left off after a continuation, and loop over batches of 32 until
-> all the work is done, or a continuation needs to occur.
->
-> compat_memory_op() is a bit more complicated, because it also has to marshal
-> frame_list in the XLAT buffer.  Have it account for continuation information
-> itself and hide details from the upper layer, so it can marshal the buffer in
-> chunks if necessary.
->
-> With these fixes in place, it is now possible to map the whole grant table for
-> a guest.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <iwj@xenproject.org>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Paul Durrant <paul@xen.org>
-> CC: Michał Leszczyński <michal.leszczynski@cert.pl>
-> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-> CC: Tamas K Lengyel <tamas@tklengyel.com>
->
-> v9:
->  * Crash domain rather than returning late with -ERANGE/-EFAULT.
->
-> v8:
->  * nat => cmp change in the start_extent check.
->  * Rebase over 'frame' and ARM/IOREQ series.
->
-> v3:
->  * Spelling fixes
-> ---
->  xen/common/compat/memory.c | 114 +++++++++++++++++++++++++++++++++--------
->  xen/common/grant_table.c   |   3 ++
->  xen/common/memory.c        | 124 +++++++++++++++++++++++++++++++++------------
->  3 files changed, 187 insertions(+), 54 deletions(-)
+On Thu, 4 Feb 2021, Rob Herring wrote:
+> On Thu, Feb 4, 2021 at 2:36 PM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+> >
+> > On Thu, 4 Feb 2021, Rob Herring wrote:
+> > > On Thu, Feb 4, 2021 at 11:56 AM Stefano Stabellini
+> > > <sstabellini@kernel.org> wrote:
+> > > >
+> > > > Hi Rob,
+> > > >
+> > > > We have a question on the PCIe device tree bindings. In summary, we have
+> > > > come across the Raspberry Pi 4 PCIe description below:
+> > > >
+> > > >
+> > > > pcie0: pcie@7d500000 {
+> > > >    compatible = "brcm,bcm2711-pcie";
+> > > >    reg = <0x0 0x7d500000  0x0 0x9310>;
+> > > >    device_type = "pci";
+> > > >    #address-cells = <3>;
+> > > >    #interrupt-cells = <1>;
+> > > >    #size-cells = <2>;
+> > > >    interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+> > > >                 <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+> > > >    interrupt-names = "pcie", "msi";
+> > > >    interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+> > > >    interrupt-map = <0 0 0 1 &gicv2 GIC_SPI 143
+> > > >                                                      IRQ_TYPE_LEVEL_HIGH>;
+> > > >    msi-controller;
+> > > >    msi-parent = <&pcie0>;
+> > > >
+> > > >    ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000
+> > > >              0x0 0x40000000>;
+> > > >    /*
+> > > >     * The wrapper around the PCIe block has a bug
+> > > >     * preventing it from accessing beyond the first 3GB of
+> > > >     * memory.
+> > > >     */
+> > > >    dma-ranges = <0x02000000 0x0 0x00000000 0x0 0x00000000
+> > > >                  0x0 0xc0000000>;
+> > > >    brcm,enable-ssc;
+> > > >
+> > > >    pci@1,0 {
+> > > >            #address-cells = <3>;
+> > > >            #size-cells = <2>;
+> > > >            ranges;
+> > > >
+> > > >            reg = <0 0 0 0 0>;
+> > > >
+> > > >            usb@1,0 {
+> > > >                    reg = <0x10000 0 0 0 0>;
+> > > >                    resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+> > > >            };
+> > > >    };
+> > > > };
+> > > >
+> > > >
+> > > > Xen fails to parse it with an error because it tries to remap reg =
+> > > > <0x10000 0 0 0 0> as if it was a CPU address and of course it fails.
+> > > >
+> > > > Reading the device tree description in details, I cannot tell if Xen has
+> > > > a bug: the ranges property under pci@1,0 means that pci@1,0 is treated
+> > > > like a default bus (not a PCI bus), hence, the children regs are
+> > > > translated using the ranges property of the parent (pcie@7d500000).
+> > > >
+> > > > Is it possible that the device tree is missing device_type =
+> > > > "pci" under pci@1,0? Or is it just implied because pci@1,0 is a child of
+> > > > pcie@7d500000?
+> > >
+> > > Indeed, it should have device_type. Linux (only recently due to
+> > > another missing device_type case) will also look at node name, but
+> > > only 'pcie'.
+> > >
+> > > We should be able to create (or extend pci-bus.yaml) a schema to catch
+> > > this case.
+> >
+> > Ah, that is what I needed to know, thank you!  Is Linux considering a
+> > node named "pcie" as if it has device_type = "pci"?
+> 
+> Yes, it was added for Rockchip RK3399 to avoid a DT update and regression.
+> 
+> > In Xen, also to cover the RPi4 case, maybe I could add a check for the
+> > node name to be "pci" or "pcie" and if so Xen could assume device_type =
+> > "pci".
+> 
+> I assume this never worked for RPi4 (and Linux will have the same
+> issue), so can't we just update the DT in this case?
 
-Attempt at release-ack paperwork.
+I am not sure where the DT is coming from, probably from the RPi4 kernel
+trees or firmware. I think it would be good if somebody got in touch to
+tell them they have an issue.
 
-This is a bugfix for an issue which doesn't manifest by in-tree default
-callers, but does manifest when using the
-xenforeignmemory_map_resource() interface in the expected manner.
-
-The hypercall is made of a metadata structure, and an array of frames. 
-The bug is that Xen only tolerates a maximum of 32 frames, and the
-bugfix is to accept an arbitrary number of frames.
+Elliot, where was that device tree coming from originally?
 
 
-What can go wrong (other than the theoretical base case of everything,
-seeing as we're talking about C in system context)?
-
-The bugfix is basically "do { chunk_of_32(); } while ( !done );", so
-we're adding in an extra loop into the hypervisor.  We could fail to
-terminate the loop (possible livelock in the hypervisor), or we could
-incorrectly marshal the buffer (guest kernel might receive junk instead
-of the mapping they expected).
-
-The majority of the complexity actually comes from the fact there are
-two nested loops, one in the compat layer doing 32=>64 (and back)
-marshalling, and one in the main layer, looping over chunks of 32
-frames.  Therefore, the same risks apply at both layers.
-
-I am certain the code is not bug free.  The compat layer here is
-practically impossible to follow, and has (self inflicted) patterns
-where we have to crash the guest rather than raise a clean failure, due
-to an inability to unwind the fact that the upper layer decided to issue
-a continuation.
-
-There is also one bit where I literally had to give up, and put this
-logic in:
-> +            /*
-> +             * Well... Somethings gone wrong with the two levels of chunking.
-> +             * My condolences to whomever next has to debug this mess.
-> +             */
-> +            ASSERT_UNREACHABLE();
-> +            domain_crash(current->domain);
-> +            split = 0;
->              break;
-
-Mitigations to these risks are thus:
-
-* Explicit use of failsafe coding patterns, will break out of the loops
-and pass -EINVAL back to the caller, or crashing the domain when we
-can't figure out how to pass an error back safely.
-
-* This codepath codepath gets used multiple times on every single VM
-boot, so will get ample testing from the in-tree caller point of view,
-as soon as OSSTest starts running.
-
-* The IPT series (which discovered this mess to start with) shows that,
-in addition to the in-tree paths working, the >32 frame mappings appear
-to work correctly.
-
-* An in-tree unit test exercising this codepath in a way which
-demonstrates this bug.  Further work planned for this test.
-
-* Some incredibly invasive Xen+XTF testing to prove the correctness of
-the marshalling.  Not suitable for committing, but available for
-inspection/query.  In particular, this covers aspects of the logic with
-won't get any practical testing elsewhere.
-
-
-Overall, if there are bugs, they're very likely to be spotted by OSSTest
-in short order.
-
-~Andrew
+From a Xen perspective, for the sake of minimizing user pains (given
+that it might take a while to update those DTs) and to introduce as few
+ties as possible with kernel versions, it might be best to add the
+"pci" name workaround maybe with a /* HACK */ comment on top.
 
