@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8611730F7CF
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 17:30:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81368.150288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DCAA30F7F2
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 17:33:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81370.150300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7hVs-0005UQ-Ei; Thu, 04 Feb 2021 16:29:48 +0000
+	id 1l7hZC-0006Ic-Vt; Thu, 04 Feb 2021 16:33:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81368.150288; Thu, 04 Feb 2021 16:29:48 +0000
+Received: by outflank-mailman (output) from mailman id 81370.150300; Thu, 04 Feb 2021 16:33:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7hVs-0005U1-BL; Thu, 04 Feb 2021 16:29:48 +0000
-Received: by outflank-mailman (input) for mailman id 81368;
- Thu, 04 Feb 2021 16:29:46 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l7hVq-0005Tv-0k
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 16:29:46 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l7hVn-0007Bf-6p; Thu, 04 Feb 2021 16:29:43 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l7hVm-0006Oc-Ru; Thu, 04 Feb 2021 16:29:43 +0000
+	id 1l7hZC-0006IF-Rf; Thu, 04 Feb 2021 16:33:14 +0000
+Received: by outflank-mailman (input) for mailman id 81370;
+ Thu, 04 Feb 2021 16:33:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gi2U=HG=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l7hZB-0006IA-6s
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 16:33:13 +0000
+Received: from mail-wm1-x334.google.com (unknown [2a00:1450:4864:20::334])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id feb93a3f-4be1-42b9-a9c7-eb8897fae5a0;
+ Thu, 04 Feb 2021 16:33:10 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id j11so3679912wmi.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Feb 2021 08:33:10 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id n15sm8551843wrx.2.2021.02.04.08.33.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Feb 2021 08:33:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,221 +41,432 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=ijO9rP/V6JlFPhd7aySuFgmF/jjyZb2ilQfvIGxL4j8=; b=ICJ06rhrpoNLSxjDTjhRLLu72G
-	FSns4KuoQyH8cQ08yE/WdKEYGlqwzU3B9jkWkelpHlB6+6XHrL8A5VB2ClfV5rdxmP65AWOs3qPJJ
-	A56m/Cz9ZMYzt1V5NgK5cYpnh9zAzaZVDqKhgPPow/0G5pjWeXzwC2zDipZLL1OAe5XY=;
-Subject: Re: [PATCH] xen/arm: domain_build: Ignore device nodes with invalid
- addresses
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com>
- <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org>
- <b6d342f8-c833-db88-9808-cdc946999300@xen.org>
- <alpine.DEB.2.21.2102021412480.29047@sstabellini-ThinkPad-T480s>
- <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org>
- <alpine.DEB.2.21.2102031315350.29047@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1LsqOMFXV5GLYEkF7=akMx7fT_vpgVtT6xP6MPfmP9vQ@mail.gmail.com>
- <alpine.DEB.2.21.2102031519540.29047@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9b97789b-5560-0186-642a-0501789830e5@xen.org>
-Date: Thu, 4 Feb 2021 16:29:41 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.0
+X-Inumbo-ID: feb93a3f-4be1-42b9-a9c7-eb8897fae5a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language;
+        bh=IaYqqD0brpgLP4Ux8g9ZMnx7iqcXn2aIzlPEt1C0O/E=;
+        b=ejVngN8lTTPlO075/fISpieC/0a4qTf4RZLqmKxkuZa/IeVmJZwmO9NyEQ4IL1pMo2
+         ZmtpcKSxaSCxavzGAR94jWp5alrBmxcn5aqGyIfyn2bn70bxLXp9J6Q8DD/RaVty5ozS
+         HnWuw69ojC+5Qy76TCTxO14cNjf8utMhLgBYZp0IeCvJAO0I5PbxQvDzX9vjs1Yr0/Wg
+         vQUdB0P4Ur3+zJA+TDNgTHcGVg91H0YUSpRCNZyvxOL4OxVVlH7bcEu4qEfl8Xl/HcWK
+         gaIdSEpUsEm/jtLP8l7RScIfDx1VpVMNd302kPcFmrmeb6Ny2P8PdjVs1L5IMD77cynm
+         QaqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language;
+        bh=IaYqqD0brpgLP4Ux8g9ZMnx7iqcXn2aIzlPEt1C0O/E=;
+        b=PLbVW4uhQFYRsDkIOwg9x7L76s6eDjT2eedLLvmR3ferr1DI4WJS3dwyp3A35OmzKI
+         A1Iy/M8KXKMz9teAJLXRT6F3YlvxeFnXMORvdaqyXMUWirp4L3fv+sV786q7iVcjUddI
+         QGTJfTt6WAsvoLk2nDQlTHmbuh1/U+eyUibhCJVqHwb3fe29472JfiEdNdY+9XabuQ5M
+         jQB5Vz8Cem/gNeISkql9vEFwy+R9IjICWqSGxbBpoz3Tp0wAIyPgqkdT/TPSK+DbQ4MK
+         fQUM3OevDGs+F1qtHCUTDx1hFZkRU8HH+prhBl2vOGUfbtEh2q6hfsxxtHCYwcJaWled
+         aDNw==
+X-Gm-Message-State: AOAM531f63SEUSYfnRnsSgDs+1+M1hUnMJu7jalv9iWe6hTQs0SpIEGR
+	QB8+U3dC80VHobCa1+/DDYo=
+X-Google-Smtp-Source: ABdhPJypB+d860YRntiqKja7EFschxMvzk/CbBWJji6zyTRZcC4VB+OU1gz7agSSGpeh46afhw9Q7A==
+X-Received: by 2002:a1c:c308:: with SMTP id t8mr17589wmf.7.1612456389851;
+        Thu, 04 Feb 2021 08:33:09 -0800 (PST)
+Subject: Re: [PATCH for-4.15] tools/tests: Introduce a test for
+ acquire_resource
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20210202190937.30206-1-andrew.cooper3@citrix.com>
+ <CAPD2p-nPr_OD7cMT-Ny6vyGsY4nMXuENgrqv0pfYRYtE5srnkQ@mail.gmail.com>
+ <6586dd8a-8596-0226-f3d3-02cd9e361a52@gmail.com>
+ <79a41e5b-0717-f31b-3cec-60b716777603@citrix.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <3c103959-880d-ce25-6993-65b93d248bcf@gmail.com>
+Date: Thu, 4 Feb 2021 18:33:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2102031519540.29047@sstabellini-ThinkPad-T480s>
+In-Reply-To: <79a41e5b-0717-f31b-3cec-60b716777603@citrix.com>
+Content-Type: multipart/alternative;
+ boundary="------------A0AB5F0E1BCAA8CBCA232859"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A0AB5F0E1BCAA8CBCA232859
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
+Hi Andrew
 
-On 04/02/2021 00:13, Stefano Stabellini wrote:
-> On Wed, 3 Feb 2021, Julien Grall wrote:
->> On Wed, 3 Feb 2021 at 22:18, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>>> But aside from PCIe, let's say that we know of a few nodes for which
->>>>> "reg" needs a special treatment. I am not sure it makes sense to proceed
->>>>> with parsing those nodes without knowing how to deal with that.
->>>>
->>>> I believe that most of the time the "special" treatment would be to ignore the
->>>> property "regs" as it will not be an CPU memory address.
->>>>
->>>>> So maybe
->>>>> we should add those nodes to skip_matches until we know what to do with
->>>>> them. At that point, I would imagine we would introduce a special
->>>>> handle_device function that knows what to do. In the case of PCIe,
->>>>> something like "handle_device_pcie".
->>>> Could you outline how "handle_device_pcie()" will differ with handle_node()?
->>>>
->>>> In fact, the problem is not the PCIe node directly. Instead, it is the second
->>>> level of nodes below it (i.e usb@...).
->>>>
->>>> The current implementation of dt_number_of_address() only look at the bus type
->>>> of the parent. As the parent has no bus type and "ranges" then it thinks this
->>>> is something we can translate to a CPU address.
->>>>
->>>> However, this is below a PCI bus so the meaning of "reg" is completely
->>>> different. In this case, we only need to ignore "reg".
->>>
->>> I see what you are saying and I agree: if we had to introduce a special
->>> case for PCI, then  dt_number_of_address() seems to be a good place.  In
->>> fact, we already have special PCI handling, see our
->>> __dt_translate_address function and xen/common/device_tree.c:dt_busses.
->>>
->>> Which brings the question: why is this actually failing?
->>
->> I already hinted at the reason in my previous e-mail :). Let me expand
->> a bit more.
->>
->>>
->>> pcie0 {
->>>       ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000 0x0 0x40000000>;
->>>
->>> Which means that PCI addresses 0xc0000000-0x100000000 become 0x600000000-0x700000000.
->>>
->>> The offending DT is:
->>>
->>> &pcie0 {
->>>           pci@1,0 {
->>>                   #address-cells = <3>;
->>>                   #size-cells = <2>;
->>>                   ranges;
->>>
->>>                   reg = <0 0 0 0 0>;
->>>
->>>                   usb@1,0 {
->>>                           reg = <0x10000 0 0 0 0>;
->>>                           resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
->>>                   };
->>>           };
->>> };
->>>
->>>
->>> reg = <0x10000 0 0 0 0> means that usb@1,0 is PCI device 01:00.0.
->>> However, the rest of the regs cells are left as zero. It shouldn't be an
->>> issue because usb@1,0 is a child of pci@1,0 but pci@1,0 is not a bus.
->>
->> The property "ranges" is used to define a mapping or translation
->> between the address space of the "bus" (here pci@1,0) and the address
->> space of the bus node's parent (&pcie0).
->> IOW, it means "reg" in usb@1,0 is an address on the PCI bus (i.e. BDF).
->>
->> The problem is dt_number_of_address() will only look at the "bus" type
->> of the parent using dt_match_bus(). This will return the default bus
->> (see dt_bus_default_match()), because this is a property "ranges" in
->> the parent node (i.e. pci@1,0). Therefore...
->>
->>> So
->>> in theory dt_number_of_address() should already return 0 for it.
->>
->> ... dt_number_of_address() will return 1 even if the address is not a
->> CPU address. So when Xen will try to translate it, it will fail.
->>
->>>
->>> Maybe reg = <0 0 0 0 0> is the problem. In that case, we could simply
->>> add a check to skip 0 size ranges. Just a hack to explain what I mean:
->>
->> The parent of pci@1,0 is a PCI bridge (see the property type), so the
->> CPU addresses are found not via "regs" but "assigned-addresses".
->>
->> In this situation, "regs" will have a different meaning and therefore
->> there is no promise that the size will be 0.
-> 
-> I copy/pasted the following:
-> 
->         pci@1,0 {
->                 #address-cells = <3>;
->                 #size-cells = <2>;
->                 ranges;
-> 
->                 reg = <0 0 0 0 0>;
-> 
->                 usb@1,0 {
->                         reg = <0x10000 0 0 0 0>;
->                         resets = <&reset
->                         RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
->                 };
->         };
-> 
-> under pcie0 in my DTS to see what happens (the node is not there in the
-> device tree for the rpi-5.9.y kernel.) It results in the expected error:
-> 
-> (XEN) Unable to retrieve address 0 for /scb/pcie@7d500000/pci@1,0/usb@1,0
-> (XEN) Device tree generation failed (-22).
-> 
-> I could verify that pci@1,0 is seen as "default" bus due to the range
-> property, thus dt_number_of_address() returns 1.
-> 
-> 
-> I can see that reg = <0 0 0 0 0> is not a problem because it is ignored
-> given that the parent is a PCI bus. assigned-addresses is the one that
-> is read.
-> 
-> 
-> But from a device tree perspective I am actually confused by the
-> presence of the "ranges" property under pci@1,0. Is that correct? It is
-> stating that addresses of children devices will be translated to the
-> address space of the parent (pcie0) using the parent translation rules.
-> I mean -- it looks like Xen is right in trying to translate reg =
-> <0x10000 0 0 0 0> using ranges = <0x02000000 0x0 0xc0000000 0x6
-> 0x00000000 0x0 0x40000000>.
-> 
-> Or maybe since pcie0 is a PCI bus all the children addresses, even
-> grand-children, are expected to be specified using "assigned-addresses"?
-> 
-> 
-> Looking at other examples [1][2] maybe the mistake is that pci@1,0 is
-> missing device_type = "pci"?  Of course, if I add that, the error
-> disappear.
 
-I am afraid, I don't know the answer. I think it would be best to ask 
-the Linux DT folks about it.
+On 04.02.21 17:44, Andrew Cooper wrote:
+> On 04/02/2021 15:38, Oleksandr wrote:
+>>>
+>>> Hi Andrew.
+>>> [Sorry for the possible format issues]
+>>>
+>>> On Tue, Feb 2, 2021 at 9:10 PM Andrew Cooper 
+>>> <andrew.cooper3@citrix.com <mailto:andrew.cooper3@citrix.com>> wrote:
+>>>
+>>>     For now, simply try to map 40 frames of grant table.  This
+>>>     catches most of the
+>>>     basic errors with resource sizes found and fixed through the
+>>>     4.15 dev window.
+>>>
+>>>     Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com
+>>>     <mailto:andrew.cooper3@citrix.com>>
+>>>     ---
+>>>     CC: Ian Jackson <iwj@xenproject.org <mailto:iwj@xenproject.org>>
+>>>     CC: Wei Liu <wl@xen.org <mailto:wl@xen.org>>
+>>>     CC: Jan Beulich <JBeulich@suse.com <mailto:JBeulich@suse.com>>
+>>>     CC: Roger Pau Monné <roger.pau@citrix.com
+>>>     <mailto:roger.pau@citrix.com>>
+>>>     CC: Wei Liu <wl@xen.org <mailto:wl@xen.org>>
+>>>     CC: Stefano Stabellini <sstabellini@kernel.org
+>>>     <mailto:sstabellini@kernel.org>>
+>>>     CC: Julien Grall <julien@xen.org <mailto:julien@xen.org>>
+>>>     CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com
+>>>     <mailto:Volodymyr_Babchuk@epam.com>>
+>>>     CC: Oleksandr <olekstysh@gmail.com <mailto:olekstysh@gmail.com>>
+>>>
+>>>     Fails against current staging:
+>>>
+>>>       XENMEM_acquire_resource tests
+>>>       Test x86 PV
+>>>         d7: grant table
+>>>           Fail: Map 7 - Argument list too long
+>>>       Test x86 PVH
+>>>         d8: grant table
+>>>           Fail: Map 7 - Argument list too long
+>>>
+>>>     The fix has already been posted:
+>>>       [PATCH v9 01/11] xen/memory: Fix mapping grant tables with
+>>>     XENMEM_acquire_resource
+>>>
+>>>     and the fixed run is:
+>>>
+>>>       XENMEM_acquire_resource tests
+>>>       Test x86 PV
+>>>         d7: grant table
+>>>       Test x86 PVH
+>>>         d8: grant table
+>>>
+>>>     ARM folk: would you mind testing this?  I'm pretty sure the
+>>>     create parameters
+>>>     are suitable, but I don't have any way to test this.
+>>>
+>>> Yes, as it was agreed on IRC, I will test this today's evening and 
+>>> inform about the results)
+>>
+>>
+>> OK, well, I decided to test right away because going to be busy in 
+>> the evening)
+>>
+>> I am based on:
+>> 9dc687f x86/debug: fix page-overflow bug in dbg_rw_guest_mem
+>>
+>> I noticed the error during building this test in my Yocto environment 
+>> on Arm:
+>>
+>>
+>> /media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld: 
+>> test-resource.o: undefined reference to symbol 
+>> 'xendevicemodel_open@@VERS_1.0'
+>> /media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld: 
+>> /media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/git/tools/tests/resource/../../../tools/libs/devicemodel/libxendevicemodel.so.1: 
+>> error adding symbols: DSO missing from command line
+>> collect2: error: ld returned 1 exit status
+>> Makefile:38: recipe for target 'test-resource' failed
+>>
+>>
+>> I didn't investigate whether it is related or not. I just added as 
+>> following:
+>>
+>> diff --git a/tools/tests/resource/Makefile 
+>> b/tools/tests/resource/Makefile
+>> index 8a3373e..03b19ef 100644
+>> --- a/tools/tests/resource/Makefile
+>> +++ b/tools/tests/resource/Makefile
+>> @@ -32,6 +32,7 @@ CFLAGS += $(APPEND_CFLAGS)
+>>
+>>  LDFLAGS += $(LDLIBS_libxenctrl)
+>>  LDFLAGS += $(LDLIBS_libxenforeignmemory)
+>> +LDFLAGS += $(LDLIBS_libxendevicemodel)
+>>  LDFLAGS += $(APPEND_LDFLAGS)
+>>
+>>  test-resource: test-resource.o
+>>
+>
+> Urgh yes - I didn't fully strip out the libxendevicemodel uses. I'll 
+> fix that, rather than having this test link against a library which it 
+> doesn't use (yet).
+>
+>>
+>> I got the following result without and with "[PATCH v9 01/11] 
+>> xen/memory: Fix mapping grant tables with XENMEM_acquire_resource"
+>>
+>> root@generic-armv8-xt-dom0:~# test-resource
+>> XENMEM_acquire_resource tests
+>> Test ARM
+>>   d3: grant table
+>> xenforeignmemory: error: ioctl failed: Invalid argument
+>>     Fail: Get size: 22 - Invalid argument
+>>
+>
+> Ah yes - you also need a bugfix in the dom0 kernel.  "xen/privcmd: 
+> allow fetching resource sizes" which is in mainline, and also 
+> backported to the LTS trees.
 
-> 
-> [1] Documentation/devicetree/bindings/pci/mvebu-pci.txt
-> [2] Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
-> 
-> For the sake of making Xen more resilient to possible DTSes, maybe we
-> should try to extend the dt_bus_pci_match check? See for instance the
-> change below, but we might be able to come up with better ideas.
-> 
-> 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 18825e333e..24d998f725 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -565,12 +565,21 @@ static unsigned int dt_bus_default_get_flags(const __be32 *addr)
->   
->   static bool_t dt_bus_pci_match(const struct dt_device_node *np)
->   {
-> +    bool ret = false;
-> +
->       /*
->        * "pciex" is PCI Express "vci" is for the /chaos bridge on 1st-gen PCI
->        * powermacs "ht" is hypertransport
->        */
-> -    return !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
-> +    ret = !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
->           !strcmp(np->type, "vci") || !strcmp(np->type, "ht");
-> +
-> +    if ( ret ) return ret;
-> +
-> +    if ( !strcmp(np->name, "pci") )
-> +        ret = dt_bus_pci_match(dt_get_parent(np));
+Well, my dom0 Linux is old)
 
-It is probably safe to assume that a PCI device (not hostbridge) will 
-start with "pci". Although, I don't much like the idea because the name 
-is not meant to be stable.
+uname -a
+Linux generic-armv8-xt-dom0 4.14.75-ltsi-yocto-tiny #1 SMP PREEMPT Thu 
+Nov 5 10:52:32 UTC 2020 aarch64 GNU/Linux
+so I use ported "xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE".
+I didn't find "xen/privcmd: allow fetching resource sizes" for my Linux 
+version, so I backported it by myself.
 
-AFAICT, we can only rely on "compatible" and "type".
+So, with "[PATCH v9 01/11] xen/memory: Fix mapping grant tables with 
+XENMEM_acquire_resource"
 
-Cheers,
+root@generic-armv8-xt-dom0:~# test-resource
+XENMEM_acquire_resource tests
+Test ARM
+   d7: grant table
+(XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 1 to 32 frames
+(XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 32 to 40 frames
+
+[I didn't test without your patch]
+
+
+Hope that helps.
+
+
+>
+> However, this did get past the bit I wasn't sure about for ARM, which 
+> is good.
+>
+> ~Andrew
 
 -- 
-Julien Grall
+Regards,
+
+Oleksandr Tyshchenko
+
+
+--------------A0AB5F0E1BCAA8CBCA232859
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <p>Hi Andrew<br>
+    </p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 04.02.21 17:44, Andrew Cooper wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:79a41e5b-0717-f31b-3cec-60b716777603@citrix.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div class="moz-cite-prefix">On 04/02/2021 15:38, Oleksandr wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:6586dd8a-8596-0226-f3d3-02cd9e361a52@gmail.com">
+        <blockquote type="cite"
+cite="mid:CAPD2p-nPr_OD7cMT-Ny6vyGsY4nMXuENgrqv0pfYRYtE5srnkQ@mail.gmail.com">
+          <div dir="ltr">
+            <div dir="ltr"><br>
+            </div>
+            <div>Hi Andrew.</div>
+            <div>[Sorry for the possible format issues]</div>
+            <br>
+            <div class="gmail_quote">
+              <div dir="ltr" class="gmail_attr">On Tue, Feb 2, 2021 at
+                9:10 PM Andrew Cooper &lt;<a
+                  href="mailto:andrew.cooper3@citrix.com"
+                  moz-do-not-send="true">andrew.cooper3@citrix.com</a>&gt;
+                wrote:<br>
+              </div>
+              <blockquote class="gmail_quote" style="margin:0px 0px 0px
+                0.8ex;border-left:1px solid
+                rgb(204,204,204);padding-left:1ex">For now, simply try
+                to map 40 frames of grant table.  This catches most of
+                the<br>
+                basic errors with resource sizes found and fixed through
+                the 4.15 dev window.<br>
+                <br>
+                Signed-off-by: Andrew Cooper &lt;<a
+                  href="mailto:andrew.cooper3@citrix.com"
+                  target="_blank" moz-do-not-send="true">andrew.cooper3@citrix.com</a>&gt;<br>
+                ---<br>
+                CC: Ian Jackson &lt;<a href="mailto:iwj@xenproject.org"
+                  target="_blank" moz-do-not-send="true">iwj@xenproject.org</a>&gt;<br>
+                CC: Wei Liu &lt;<a href="mailto:wl@xen.org"
+                  target="_blank" moz-do-not-send="true">wl@xen.org</a>&gt;<br>
+                CC: Jan Beulich &lt;<a href="mailto:JBeulich@suse.com"
+                  target="_blank" moz-do-not-send="true">JBeulich@suse.com</a>&gt;<br>
+                CC: Roger Pau Monné &lt;<a
+                  href="mailto:roger.pau@citrix.com" target="_blank"
+                  moz-do-not-send="true">roger.pau@citrix.com</a>&gt;<br>
+                CC: Wei Liu &lt;<a href="mailto:wl@xen.org"
+                  target="_blank" moz-do-not-send="true">wl@xen.org</a>&gt;<br>
+                CC: Stefano Stabellini &lt;<a
+                  href="mailto:sstabellini@kernel.org" target="_blank"
+                  moz-do-not-send="true">sstabellini@kernel.org</a>&gt;<br>
+                CC: Julien Grall &lt;<a href="mailto:julien@xen.org"
+                  target="_blank" moz-do-not-send="true">julien@xen.org</a>&gt;<br>
+                CC: Volodymyr Babchuk &lt;<a
+                  href="mailto:Volodymyr_Babchuk@epam.com"
+                  target="_blank" moz-do-not-send="true">Volodymyr_Babchuk@epam.com</a>&gt;<br>
+                CC: Oleksandr &lt;<a href="mailto:olekstysh@gmail.com"
+                  target="_blank" moz-do-not-send="true">olekstysh@gmail.com</a>&gt;<br>
+                <br>
+                Fails against current staging:<br>
+                <br>
+                  XENMEM_acquire_resource tests<br>
+                  Test x86 PV<br>
+                    d7: grant table<br>
+                      Fail: Map 7 - Argument list too long<br>
+                  Test x86 PVH<br>
+                    d8: grant table<br>
+                      Fail: Map 7 - Argument list too long<br>
+                <br>
+                The fix has already been posted:<br>
+                  [PATCH v9 01/11] xen/memory: Fix mapping grant tables
+                with XENMEM_acquire_resource<br>
+                <br>
+                and the fixed run is:<br>
+                <br>
+                  XENMEM_acquire_resource tests<br>
+                  Test x86 PV<br>
+                    d7: grant table<br>
+                  Test x86 PVH<br>
+                    d8: grant table<br>
+                <br>
+                ARM folk: would you mind testing this?  I'm pretty sure
+                the create parameters<br>
+                are suitable, but I don't have any way to test this.<br>
+              </blockquote>
+              <div>Yes, as it was agreed on IRC, I will test this
+                today's evening and inform about the results)</div>
+            </div>
+          </div>
+        </blockquote>
+        <p><br>
+        </p>
+        <p>OK, well, I decided to test right away because going to be
+          busy in the evening)<br>
+          <br>
+          I am based on:<br>
+          9dc687f x86/debug: fix page-overflow bug in dbg_rw_guest_mem</p>
+        <p>I noticed the error during building this test in my Yocto
+          environment on Arm:<br>
+        </p>
+        <p><br>
+        </p>
+        <p>/media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld:
+          test-resource.o: undefined reference to symbol '<a
+            class="moz-txt-link-abbreviated"
+            href="mailto:xendevicemodel_open@@VERS_1.0"
+            moz-do-not-send="true">xendevicemodel_open@@VERS_1.0</a>'<br>
+/media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld:
+/media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/git/tools/tests/resource/../../../tools/libs/devicemodel/libxendevicemodel.so.1:
+          error adding symbols: DSO missing from command line<br>
+          collect2: error: ld returned 1 exit status<br>
+          Makefile:38: recipe for target 'test-resource' failed<br>
+        </p>
+        <p><br>
+        </p>
+        <p>I didn't investigate whether it is related or not. I just
+          added as following:<br>
+        </p>
+        <p>diff --git a/tools/tests/resource/Makefile
+          b/tools/tests/resource/Makefile<br>
+          index 8a3373e..03b19ef 100644<br>
+          --- a/tools/tests/resource/Makefile<br>
+          +++ b/tools/tests/resource/Makefile<br>
+          @@ -32,6 +32,7 @@ CFLAGS += $(APPEND_CFLAGS)<br>
+           <br>
+           LDFLAGS += $(LDLIBS_libxenctrl)<br>
+           LDFLAGS += $(LDLIBS_libxenforeignmemory)<br>
+          +LDFLAGS += $(LDLIBS_libxendevicemodel)<br>
+           LDFLAGS += $(APPEND_LDFLAGS)<br>
+           <br>
+           test-resource: test-resource.o</p>
+      </blockquote>
+      <br>
+      Urgh yes - I didn't fully strip out the libxendevicemodel uses. 
+      I'll fix that, rather than having this test link against a library
+      which it doesn't use (yet).<br>
+      <br>
+      <blockquote type="cite"
+        cite="mid:6586dd8a-8596-0226-f3d3-02cd9e361a52@gmail.com">
+        <p><br>
+        </p>
+        <p>I got the following result without and with "[PATCH v9 01/11]
+          xen/memory: Fix mapping grant tables with
+          XENMEM_acquire_resource"<br>
+        </p>
+        <p>root@generic-armv8-xt-dom0:~# test-resource <br>
+          XENMEM_acquire_resource tests<br>
+          Test ARM<br>
+            d3: grant table<br>
+          xenforeignmemory: error: ioctl failed: Invalid argument<br>
+              Fail: Get size: 22 - Invalid argument</p>
+      </blockquote>
+      <br>
+      Ah yes - you also need a bugfix in the dom0 kernel.  "xen/privcmd:
+      allow fetching resource sizes" which is in mainline, and also
+      backported to the LTS trees.<br>
+    </blockquote>
+    <br>
+    Well, my dom0 Linux is old)<br>
+    <br>
+    uname -a<br>
+    Linux generic-armv8-xt-dom0 4.14.75-ltsi-yocto-tiny #1 SMP PREEMPT
+    Thu Nov 5 10:52:32 UTC 2020 aarch64 GNU/Linux<br>
+    so I use ported "xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE".<br>
+    I didn't find "xen/privcmd: allow fetching resource sizes" for my
+    Linux version, so I backported it by myself.<br>
+    <p>So, with "[PATCH v9 01/11] xen/memory: Fix mapping grant tables
+      with XENMEM_acquire_resource"<br>
+    </p>
+    <p>root@generic-armv8-xt-dom0:~# test-resource <br>
+      XENMEM_acquire_resource tests<br>
+      Test ARM<br>
+        d7: grant table<br>
+      (XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 1 to
+      32 frames<br>
+      (XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 32 to
+      40 frames</p>
+    <p>[I didn't test without your patch]</p>
+    <p><br>
+    </p>
+    <p>Hope that helps.<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:79a41e5b-0717-f31b-3cec-60b716777603@citrix.com"> <br>
+      However, this did get past the bit I wasn't sure about for ARM,
+      which is good.<br>
+      <br>
+      ~Andrew<br>
+    </blockquote>
+    <pre class="moz-signature" cols="72">-- 
+Regards,
+
+Oleksandr Tyshchenko</pre>
+  </body>
+</html>
+
+--------------A0AB5F0E1BCAA8CBCA232859--
 
