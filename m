@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431D230E85C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 01:14:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81129.149324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC3330EBAF
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 06:01:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81146.149370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7SH7-0003Rg-BW; Thu, 04 Feb 2021 00:13:33 +0000
+	id 1l7Wki-0002y5-7I; Thu, 04 Feb 2021 05:00:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81129.149324; Thu, 04 Feb 2021 00:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 81146.149370; Thu, 04 Feb 2021 05:00:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7SH7-0003RI-8O; Thu, 04 Feb 2021 00:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 81129;
- Thu, 04 Feb 2021 00:13:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G7BZ=HG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l7SH5-0003RD-0v
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 00:13:31 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8ad4dbaa-94fd-4a2e-a9c3-d4e3b092dc10;
- Thu, 04 Feb 2021 00:13:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A7A7664F4C;
- Thu,  4 Feb 2021 00:13:28 +0000 (UTC)
+	id 1l7Wki-0002xd-1y; Thu, 04 Feb 2021 05:00:24 +0000
+Received: by outflank-mailman (input) for mailman id 81146;
+ Thu, 04 Feb 2021 05:00:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l7Wkg-0002xV-Rn; Thu, 04 Feb 2021 05:00:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l7Wkg-0002lO-MX; Thu, 04 Feb 2021 05:00:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l7Wkg-0003kI-FZ; Thu, 04 Feb 2021 05:00:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l7Wkg-0002Vr-Ep; Thu, 04 Feb 2021 05:00:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,205 +42,314 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ad4dbaa-94fd-4a2e-a9c3-d4e3b092dc10
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1612397609;
-	bh=/H9cSDc2XoQsKl4+NaDVz1blmhcCUBcWQhZbh+ELGZQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=V4l9h2RZcFGtswC8sqrlNicxgV8aeZd4rE56Y4nlpRyZ9Oy8dx0Bexa+VZZzngqKu
-	 FjmNpHCKJopB53e/R1qQPq4Fi16nNm9vxZsH0TMtlDHkMNHk+6Rojdc/VfaM3zSOsA
-	 7IEA8nCwLl/xCygfKjY0C2811W6SY+skRsEXK6LucNnil+0hm1bStLZxvjtFl/q/K9
-	 3GLuIF4031VrUsKJyULzmN12Kn3LpjO5TDdaXG7p4pbJwwtIZ5RO8EeYADZr9T25HP
-	 MzGxQ4m4yeNOgtKp6CYVH1Prfb2Vj38vqV1JmbKpqvojO7G03RrPOShd7q1EbMgVrC
-	 bTIIUaOXQoMdQ==
-Date: Wed, 3 Feb 2021 16:13:28 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall.oss@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Elliott Mitchell <ehem+xen@m5p.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: domain_build: Ignore device nodes with invalid
- addresses
-In-Reply-To: <CAJ=z9a1LsqOMFXV5GLYEkF7=akMx7fT_vpgVtT6xP6MPfmP9vQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2102031519540.29047@sstabellini-ThinkPad-T480s>
-References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com> <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org> <b6d342f8-c833-db88-9808-cdc946999300@xen.org> <alpine.DEB.2.21.2102021412480.29047@sstabellini-ThinkPad-T480s> <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org>
- <alpine.DEB.2.21.2102031315350.29047@sstabellini-ThinkPad-T480s> <CAJ=z9a1LsqOMFXV5GLYEkF7=akMx7fT_vpgVtT6xP6MPfmP9vQ@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=X/dUadK6RHt+TqEIpiaNvn6nUIEwIuWv+phPi7bBVDY=; b=XMDjqJbqsf7OsC7RFMTsq1F9cH
+	3nSQ0bcX35y8sRmqWutYnBewG+fBRX1Pqq8EFIOcr89ppvkcG+IFb3G4aGtdrZUaWLjFhHZxt7rsw
+	mrUhT8OzSaDSY/7ELWXFjmuVRfWsVpRdqoyVrnbt/SNLKwqu/x64YkJ9tUADvNBhXVfo=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158987-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 158987: regressions - trouble: blocked/broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:build-arm64-xsm:<job status>:broken:regression
+    linux-linus:build-arm64-xsm:host-install(4):broken:regression
+    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:debian-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-stop:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:guest-start:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:host-ping-check-xen:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:leak-check/basis(11):fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:leak-check/basis(11):fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=3aaf0a27ffc29b19a62314edd684b9bc6346f9a8
+X-Osstest-Versions-That:
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 04 Feb 2021 05:00:22 +0000
 
-On Wed, 3 Feb 2021, Julien Grall wrote:
-> On Wed, 3 Feb 2021 at 22:18, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > > > But aside from PCIe, let's say that we know of a few nodes for which
-> > > > "reg" needs a special treatment. I am not sure it makes sense to proceed
-> > > > with parsing those nodes without knowing how to deal with that.
-> > >
-> > > I believe that most of the time the "special" treatment would be to ignore the
-> > > property "regs" as it will not be an CPU memory address.
-> > >
-> > > > So maybe
-> > > > we should add those nodes to skip_matches until we know what to do with
-> > > > them. At that point, I would imagine we would introduce a special
-> > > > handle_device function that knows what to do. In the case of PCIe,
-> > > > something like "handle_device_pcie".
-> > > Could you outline how "handle_device_pcie()" will differ with handle_node()?
-> > >
-> > > In fact, the problem is not the PCIe node directly. Instead, it is the second
-> > > level of nodes below it (i.e usb@...).
-> > >
-> > > The current implementation of dt_number_of_address() only look at the bus type
-> > > of the parent. As the parent has no bus type and "ranges" then it thinks this
-> > > is something we can translate to a CPU address.
-> > >
-> > > However, this is below a PCI bus so the meaning of "reg" is completely
-> > > different. In this case, we only need to ignore "reg".
-> >
-> > I see what you are saying and I agree: if we had to introduce a special
-> > case for PCI, then  dt_number_of_address() seems to be a good place.  In
-> > fact, we already have special PCI handling, see our
-> > __dt_translate_address function and xen/common/device_tree.c:dt_busses.
-> >
-> > Which brings the question: why is this actually failing?
-> 
-> I already hinted at the reason in my previous e-mail :). Let me expand
-> a bit more.
-> 
-> >
-> > pcie0 {
-> >      ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000 0x0 0x40000000>;
-> >
-> > Which means that PCI addresses 0xc0000000-0x100000000 become 0x600000000-0x700000000.
-> >
-> > The offending DT is:
-> >
-> > &pcie0 {
-> >          pci@1,0 {
-> >                  #address-cells = <3>;
-> >                  #size-cells = <2>;
-> >                  ranges;
-> >
-> >                  reg = <0 0 0 0 0>;
-> >
-> >                  usb@1,0 {
-> >                          reg = <0x10000 0 0 0 0>;
-> >                          resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
-> >                  };
-> >          };
-> > };
-> >
-> >
-> > reg = <0x10000 0 0 0 0> means that usb@1,0 is PCI device 01:00.0.
-> > However, the rest of the regs cells are left as zero. It shouldn't be an
-> > issue because usb@1,0 is a child of pci@1,0 but pci@1,0 is not a bus.
-> 
-> The property "ranges" is used to define a mapping or translation
-> between the address space of the "bus" (here pci@1,0) and the address
-> space of the bus node's parent (&pcie0).
-> IOW, it means "reg" in usb@1,0 is an address on the PCI bus (i.e. BDF).
-> 
-> The problem is dt_number_of_address() will only look at the "bus" type
-> of the parent using dt_match_bus(). This will return the default bus
-> (see dt_bus_default_match()), because this is a property "ranges" in
-> the parent node (i.e. pci@1,0). Therefore...
-> 
-> > So
-> > in theory dt_number_of_address() should already return 0 for it.
-> 
-> ... dt_number_of_address() will return 1 even if the address is not a
-> CPU address. So when Xen will try to translate it, it will fail.
-> 
-> >
-> > Maybe reg = <0 0 0 0 0> is the problem. In that case, we could simply
-> > add a check to skip 0 size ranges. Just a hack to explain what I mean:
-> 
-> The parent of pci@1,0 is a PCI bridge (see the property type), so the
-> CPU addresses are found not via "regs" but "assigned-addresses".
-> 
-> In this situation, "regs" will have a different meaning and therefore
-> there is no promise that the size will be 0.
+flight 158987 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158987/
 
-I copy/pasted the following:
+Regressions :-(
 
-       pci@1,0 {
-               #address-cells = <3>;
-               #size-cells = <2>;
-               ranges;
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm                 <job status>                 broken
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 152332
+ test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
+ test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
+ test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-arm64-arm64-xl-seattle  12 debian-install           fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 152332
+ test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-amd64-pvgrub 20 guest-stop              fail REGR. vs. 152332
+ test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 152332
+ test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
+ test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 152332
+ test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 152332
+ test-armhf-armhf-xl-vhd      13 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-libvirt-raw 13 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-libvirt-xsm  8 xen-boot       fail in 158971 REGR. vs. 152332
+ test-arm64-arm64-xl-xsm       8 xen-boot       fail in 158971 REGR. vs. 152332
 
-               reg = <0 0 0 0 0>;
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-credit2  10 host-ping-check-xen        fail pass in 158971
 
-               usb@1,0 {
-                       reg = <0x10000 0 0 0 0>;
-                       resets = <&reset
-                       RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
-               };
-       };
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 152332
 
-under pcie0 in my DTS to see what happens (the node is not there in the
-device tree for the rpi-5.9.y kernel.) It results in the expected error:
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle 11 leak-check/basis(11) fail in 158971 blocked in 152332
+ test-arm64-arm64-xl-credit2 11 leak-check/basis(11) fail in 158971 blocked in 152332
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
 
-(XEN) Unable to retrieve address 0 for /scb/pcie@7d500000/pci@1,0/usb@1,0
-(XEN) Device tree generation failed (-22).
+version targeted for testing:
+ linux                3aaf0a27ffc29b19a62314edd684b9bc6346f9a8
+baseline version:
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
 
-I could verify that pci@1,0 is seen as "default" bus due to the range
-property, thus dt_number_of_address() returns 1.
+Last test of basis   152332  2020-07-31 19:41:23 Z  187 days
+Failing since        152366  2020-08-01 20:49:34 Z  186 days  333 attempts
+Testing same since   158971  2021-02-03 01:39:37 Z    1 days    2 attempts
+
+------------------------------------------------------------
+4515 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              broken  
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                fail    
+ test-amd64-amd64-i386-pvgrub                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-I can see that reg = <0 0 0 0 0> is not a problem because it is ignored
-given that the parent is a PCI bus. assigned-addresses is the one that
-is read.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-But from a device tree perspective I am actually confused by the
-presence of the "ranges" property under pci@1,0. Is that correct? It is
-stating that addresses of children devices will be translated to the
-address space of the parent (pcie0) using the parent translation rules.
-I mean -- it looks like Xen is right in trying to translate reg =
-<0x10000 0 0 0 0> using ranges = <0x02000000 0x0 0xc0000000 0x6
-0x00000000 0x0 0x40000000>.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Or maybe since pcie0 is a PCI bus all the children addresses, even
-grand-children, are expected to be specified using "assigned-addresses"?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+broken-job build-arm64-xsm broken
+broken-step build-arm64-xsm host-install(4)
 
-Looking at other examples [1][2] maybe the mistake is that pci@1,0 is
-missing device_type = "pci"?  Of course, if I add that, the error
-disappear.
+Not pushing.
 
-[1] Documentation/devicetree/bindings/pci/mvebu-pci.txt
-[2] Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
-
-For the sake of making Xen more resilient to possible DTSes, maybe we
-should try to extend the dt_bus_pci_match check? See for instance the
-change below, but we might be able to come up with better ideas.
-
-
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 18825e333e..24d998f725 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -565,12 +565,21 @@ static unsigned int dt_bus_default_get_flags(const __be32 *addr)
- 
- static bool_t dt_bus_pci_match(const struct dt_device_node *np)
- {
-+    bool ret = false;
-+
-     /*
-      * "pciex" is PCI Express "vci" is for the /chaos bridge on 1st-gen PCI
-      * powermacs "ht" is hypertransport
-      */
--    return !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
-+    ret = !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
-         !strcmp(np->type, "vci") || !strcmp(np->type, "ht");
-+    
-+    if ( ret ) return ret;
-+
-+    if ( !strcmp(np->name, "pci") )
-+        ret = dt_bus_pci_match(dt_get_parent(np));
-+
-+    return ret;
- }
- 
- static void dt_bus_pci_count_cells(const struct dt_device_node *np,
+(No revision log; it would be 1022596 lines long.)
 
