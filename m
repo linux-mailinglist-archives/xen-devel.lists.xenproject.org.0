@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 674BF30F987
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 18:24:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81385.150370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 341D330FA67
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 18:57:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81393.150386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7iM3-0003YY-TY; Thu, 04 Feb 2021 17:23:43 +0000
+	id 1l7is6-0006oO-Hw; Thu, 04 Feb 2021 17:56:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81385.150370; Thu, 04 Feb 2021 17:23:43 +0000
+Received: by outflank-mailman (output) from mailman id 81393.150386; Thu, 04 Feb 2021 17:56:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7iM3-0003Y9-Pw; Thu, 04 Feb 2021 17:23:43 +0000
-Received: by outflank-mailman (input) for mailman id 81385;
- Thu, 04 Feb 2021 17:23:42 +0000
+	id 1l7is6-0006nz-EW; Thu, 04 Feb 2021 17:56:50 +0000
+Received: by outflank-mailman (input) for mailman id 81393;
+ Thu, 04 Feb 2021 17:56:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KAxh=HG=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l7iM1-0003Y4-Vq
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 17:23:42 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=G7BZ=HG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l7is5-0006nu-BL
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 17:56:49 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 393191c6-8dae-46ca-8394-98991b1fe66d;
- Thu, 04 Feb 2021 17:23:39 +0000 (UTC)
+ id cec07597-dbc1-450e-8040-1f4b45438823;
+ Thu, 04 Feb 2021 17:56:48 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1FDCB64E16;
+ Thu,  4 Feb 2021 17:56:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,147 +38,302 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 393191c6-8dae-46ca-8394-98991b1fe66d
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612459419;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=XfZrpF4GOpEMLUruKR263/iHDqaN1rob3im39dLDKmk=;
-  b=FCLJgVu+1tiv3/JfhgvOqmEpaKoP4MeBfZUgLmkB2l6kBRN1tdoarY1K
-   nli/9wyasTZowHOi8g5wuhn7fwBz1+iMwxNdRsr2bUK1WrJrsEBUE1L3f
-   /TnbGTZb6Dj38fWeAUYEU/7QxzAVKxmMSMtzi35hicUy9T3XAYCvYtizA
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 7hmTvfHjU9qRwlFqlhuuhZKw9Xgofh0gILSO/PeYL1NnVe+2pn6FosI+9abhOrmNCbWIBLHdk4
- ShovRc+lIQFiDwbTGC38YmuzfSENlB2U+qGIWaSp9IpGKsQ/Z5n3JWp1Mk7YgTh3K4Nel1Sje6
- qWwf/enzQ83zdKvIsewLzVrcEZ8wKkzXRygoTFreVhe5hbDO1sDo7eg3Lu3ZOhl/aLvTJsPpag
- LQq/YSR91H0A75RINlpZWwhy9znVFRp2e4Y/IHePzRtvoMKtxRl/Bb7JnDIoBPpyRWSk5W/FRg
- 4bg=
-X-SBRS: 5.2
-X-MesageID: 36526353
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,401,1610427600"; 
-   d="scan'208";a="36526353"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HKDLClN5LrVKlf3Wv9cCOMTWrVB/JjS7iRlSDXa21UEThqSz57m7ofCLb7o4lopoXW+Phhsmg5GcSu5Od/IuRBMP/DhaE3xQjNYWGrQT+AHE263hbRMaTdkhhWd0vtzQYr77CB8zlNIxismso4WS58MFtqTcncfKFqxq/2MU8EgnKgEhYZtjiBa1FBIPJuq2Z+jyW8sI4Bk3CkTLlEGFyQRXqsnwvssEO5wNBHUEWI9UxEqNKjZAyeQyS40S8g601rwWGfvjR9uP+YrC1zH9liLxrvp2GSMNACCKQsLzqNaT8oCccsUHQsz2YQauvHa3+B5E4t7k7QCCyTkJf8mFJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XfZrpF4GOpEMLUruKR263/iHDqaN1rob3im39dLDKmk=;
- b=ayzfpc6AAUJEEynlhbKMZbpdXwNyqIHyd3pRJJ8c58zwvYHVis3eKsrJgIxW2VS5o/1CGO2Qi47uHqpe9xHmfUFAqtWi3FlPo1SaJUqVGYo23za4vUdBc4PCe/+KjkLqtl/7R9tWrzO2wq5CvLmnxA7J2d/l3R/q15EnqCZc5AxMozs0M6pyBsLms0YmS3fPSmQef7S4C9D7l2Rdm8/ThtjPEBDiZCyTDH8LJDvEZ/YmcadFeimLhaiTuQshoRd2yD6I09p7CwuZGb1ctac3cnSgAX+6B6fq/pmaMvFpy2u7/Zn2wj5yMkVs78ksfGHhEc3lfZq5sGQk+EvFkasbtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XfZrpF4GOpEMLUruKR263/iHDqaN1rob3im39dLDKmk=;
- b=YaV9mNQvzJwTEPnZ6PU/UZQRghGhdRsLvh770OSq1Hj204eSji73e2p6JUX5mZMK10WE/+TU98jvr0rQDNxr46J/4kxisFG4hluMkLYijsBRAOrzuGebTsdDDn6U0FqjiYwbKx+BUYwdSV7Gin4K84SDM1TBpQ5Q//p+wwbHcI8=
-Subject: Re: [PATCH for-4.15] libs/devicemodel: Fix ABI breakage from
- xendevicemodel_set_irq_level()
-To: Oleksandr <olekstysh@gmail.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien.grall@arm.com>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>
-References: <20210204155850.23649-1-andrew.cooper3@citrix.com>
- <eee99c85-4581-87d0-a48d-06619624c8b5@gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <fe174e27-9f86-f476-6192-f2e62c9a7e3f@citrix.com>
-Date: Thu, 4 Feb 2021 17:23:27 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <eee99c85-4581-87d0-a48d-06619624c8b5@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0437.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:e::17) To BYAPR03MB4728.namprd03.prod.outlook.com
- (2603:10b6:a03:13a::24)
+X-Inumbo-ID: cec07597-dbc1-450e-8040-1f4b45438823
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1612461407;
+	bh=PZM7++DFciYJIXwmZYWX3m9pNq4vqDJHiX8c5FbyRVw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=hC/QRiIIhtm/wXGBYt57q9XtXIt/TFPFk6AsS5IEUkhd3ji+QTpYFMsKnEsUMjn9x
+	 b0u9J97Kj5hQZXpb9c2CXKCQ49pNr3FX3pQrQ6m+NV/WbBhDHQZCKx14M9MQnXbtji
+	 VMbEvHX7LDWfA3ot6CYck/4zA3NpQyxaLI/8xMyh8R13/5K47NrZxAfhQqL16Tq/hM
+	 VKDqJ13umW4ye4mG3lWGmbM1NFudbltXa/Nh5BRaD/VHEdv1HXssi9b/KGM+IOxiQw
+	 3qxoDYV3P0tLklr5wBwP9e7OVTMAe45mhRfutPsOKJorfmKGT7cwH2zgMfveLAYHuJ
+	 83Cw2HxwAU3gg==
+Date: Thu, 4 Feb 2021 09:56:46 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: robh@kernel.org
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien.grall.oss@gmail.com>, 
+    Elliott Mitchell <ehem+xen@m5p.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, julien@xen.org
+Subject: Question on PCIe Device Tree bindings,  Was: [PATCH] xen/arm:
+ domain_build: Ignore device nodes with invalid addresses
+In-Reply-To: <9b97789b-5560-0186-642a-0501789830e5@xen.org>
+Message-ID: <alpine.DEB.2.21.2102040944520.29047@sstabellini-ThinkPad-T480s>
+References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com> <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org> <b6d342f8-c833-db88-9808-cdc946999300@xen.org> <alpine.DEB.2.21.2102021412480.29047@sstabellini-ThinkPad-T480s> <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org>
+ <alpine.DEB.2.21.2102031315350.29047@sstabellini-ThinkPad-T480s> <CAJ=z9a1LsqOMFXV5GLYEkF7=akMx7fT_vpgVtT6xP6MPfmP9vQ@mail.gmail.com> <alpine.DEB.2.21.2102031519540.29047@sstabellini-ThinkPad-T480s> <9b97789b-5560-0186-642a-0501789830e5@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dc487f2c-99fd-4c6c-ff77-08d8c931998d
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3608:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB3608E1B01D50EDBCD4661908BAB39@BYAPR03MB3608.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DTeZtQo3Nv3YPo6c6W1aDKTr6hVkAce4WE45jPaDvGlzXJ/nX+WXEMK2OqtLXfCe1VrLNb2LZa0HhIosc2xJFdoQ7G1WB0mxojxv2HmeeHYueHsNzOi2eKC512bz8ahJ0fjqwQlU7tpE/7UfSkHnRCmhoQh6xiPFbp8/DvMb+BzwXcqzqD6Lebm/aoLls9ls9gtpP4KcWmUxat9UcgmxLfOLtSL1HFE7UJZlUTetrhbSi7VfcntJhU7ht0peK/8b4ZqscDiP8tqsJh3Kgzan7iSoUk03Xw1dAi7yyFGLjr1jXnF04NaxMQmLsPG6Oll9PoIt+KvIz23wAXR7g9Aq1Hu50oFFk/pY8rEnycSVNbcB48IooYba/r0omuHG2EelCX9tErlSCWWJtDLe6N9+MRTJEl6MMB/Dvog56ExOVR7SHCPbNq9osifpXB4FGFGjbysFJuYgRI520T2MxxJ3P8mOIjOkWAZheWE2yQ9lLycFw6v+2O13F6r2V4NeFdfBwet3YZiKoMZgFHq3WHrYR17wi5pMKTUnC3mxzyxlxjh781fwlAi3xIfSt4MH04rxFOAY3nosy9fk9s2rG9JfICkaiBd+m/gTbzNaaDaxWII=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(346002)(136003)(376002)(39860400002)(366004)(186003)(478600001)(36756003)(16526019)(8936002)(6916009)(316002)(2906002)(8676002)(66946007)(5660300002)(53546011)(16576012)(26005)(4326008)(66556008)(86362001)(31696002)(6486002)(54906003)(956004)(66476007)(6666004)(31686004)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?R0FOWEs0NWx1ZlFLQXM0ODZZd25QRW9FNnlwcTFkcjRoWGpkNisyNnFldHNv?=
- =?utf-8?B?WUpLcW5NNm5ISUkvZWZCR01sM2d6RHJMQXc4Rk9vWU9kL2ozY2pEQWN3Tmhi?=
- =?utf-8?B?VitBdmF1a0xlSXZTM3REL1pBUEFlU29wNnFDc1REdnYxckZPTVNEU2ZxOEFZ?=
- =?utf-8?B?cm10bDRobmVGSFVseGFPMWVsaXRHd0Jsai9oM0UvT1N5Y0tReUNkeFc0a3ZI?=
- =?utf-8?B?aEVVZ2RSb3dkemVDYlNpSC9Tc3pNeERzNkFUUVRpUVRpTlZqLzU3bmd3Z2dK?=
- =?utf-8?B?TzRRNmxVQkcvMmU5NnltUnhKOGNwKzFuQWlMUStIQzZBNkxEZUllM2YyODQr?=
- =?utf-8?B?R2ZFSXl3TUlUSnVFMDM1Yk1wdDVJalN6Slc1RzMrWmF5YXNFY3YreEZ4enpX?=
- =?utf-8?B?dVVNbnpOY24rcUdNaGFOZjdIQkxXY3l4ajJpZGRKUzlyMFVPT2dDQUdzOGFY?=
- =?utf-8?B?NTRKZFhqTlJDZDdsYzBzcFNmWDc0MmdZak02SURVV1B5NUNXTGdFVlpIczBh?=
- =?utf-8?B?WkdVVktlUVBxOGdsMlhMK2NDUmRtQklEK0w5UFhqMllzL3FUOXJlbldmUm41?=
- =?utf-8?B?Mlo1cmxBa1cvRGl2VnIwQWhDc2xkSDl3UnF6aE5qZ29ZTVorOVFtc2pWSkFS?=
- =?utf-8?B?OW9VTlQxYnQrNzNVZHY3ZlRBamVOemhiVzk1WFhOUzk5UERrYjRtNnMwbnky?=
- =?utf-8?B?WDNUZFVnRks2L29NQlVaS29TcFBuMjV1c0F0K2ZpR3dMTEdYUkdrMHV4Ui9s?=
- =?utf-8?B?ODRxUHFEY1BXejFFc0hFZ01FcnV5V05Jb1NDUm1hM1F5ejhzR2ZUQTVDbkoy?=
- =?utf-8?B?aGVQUElRYmV2b202Um5OU05mTjZRSjZwalE0cmNzaHlmcDlHcm45YWo5K2N5?=
- =?utf-8?B?bnpReWR3aTNYRmQ5OWpib2NMS1ZzOG9ZN0pIZ2NJNG9pUUsrVndpWUZWQUhN?=
- =?utf-8?B?bXpRL01iMm5MRjhKckFKcFB2WmM5dGpxVVZxTXJackJmTmw4K0VWK2p3NGJj?=
- =?utf-8?B?WjUza0J5YWluRHZqUjExbXgxdHhudDlsNzJsYTZvRXBrOWZJbmVHTm8zVnFF?=
- =?utf-8?B?SGZTeTJmSlBPZG1iTXpHajlHR3F5eURMVzdXMlBrV1A3VFRTdFUxVi9QWG4x?=
- =?utf-8?B?VDB6L3BoZmN1ZC8rU05BZTRyVGlQWDZnRXg2OENDYTlIRnc0QS9MWTZscjJD?=
- =?utf-8?B?aTROWStmYzRZTTlXM2hja3pYZWVzVmU1NXF1cWQzZ1cxL09FdDBmUnM3TW1P?=
- =?utf-8?B?U1RYMU8wMWdyY0hhbVdhM0RYeGxKR2c2ZFhlZys1djNtYkIxY1JDMUxLQUVu?=
- =?utf-8?B?NWVCQUdHRk1GVGxnZTRMVm9RYktpNDlZRHQ2VHB4alhhOGo0amNwMVVxSjZK?=
- =?utf-8?B?NXhpa2NvOCtSaHQrY0Z0QUp2bUpTcVVpUW1VUjBIcFpvd2xCY1dDZjhQU0ti?=
- =?utf-8?Q?4s3yqTvI?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc487f2c-99fd-4c6c-ff77-08d8c931998d
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2021 17:23:34.1814
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w7ZMRqJKtLy/7Agiap6us2jc3xcqF3zM5mppM++U9q1YU0gMnGTWRnl+euR60cJQy8uNroTXtFt+lWao90Q88PoDLUUAGVhXJTUa0MU0vf0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3608
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=US-ASCII
 
-On 04/02/2021 16:50, Oleksandr wrote:
->
-> On 04.02.21 17:58, Andrew Cooper wrote:
->
-> Hi Andrew
->
->> It is not permitted to edit the VERS clause for a version in a
->> release of Xen.
->>
->> Revert xendevicemodel_set_irq_level()'s inclusion in .so.1.2 and bump
->> the the
->> library minor version to .so.1.4 instead.
->>
->> Fixes: 5d752df85f ("xen/dm: Introduce xendevicemodel_set_irq_level DM
->> op")
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Ian Jackson <iwj@xenproject.org>
->> CC: Wei Liu <wl@xen.org>
->> CC: Julien Grall <julien.grall@arm.com>
->> CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Wei Chen <Wei.Chen@arm.com>
->>
->> Critical to include in 4.15, as this is an ABI breakage.
-> I am sorry for the breakage, I admit I didn't know that
-> "It is not permitted to edit the VERS clause for a version in a
-> release of Xen."
+Hi Rob,
 
-To be honest, its not Xen specific.  Its any shared object with a stable
-API/ABI.
+We have a question on the PCIe device tree bindings. In summary, we have
+come across the Raspberry Pi 4 PCIe description below:
 
-It is explicitly fine to bump the minor version to add new things, but
-you must never change the ABI of one which has been released.
 
-~Andrew
+pcie0: pcie@7d500000 {
+   compatible = "brcm,bcm2711-pcie";
+   reg = <0x0 0x7d500000  0x0 0x9310>;
+   device_type = "pci";
+   #address-cells = <3>;
+   #interrupt-cells = <1>;
+   #size-cells = <2>;
+   interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+                <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+   interrupt-names = "pcie", "msi";
+   interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+   interrupt-map = <0 0 0 1 &gicv2 GIC_SPI 143
+                                                     IRQ_TYPE_LEVEL_HIGH>;
+   msi-controller;
+   msi-parent = <&pcie0>;
+
+   ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000
+             0x0 0x40000000>;
+   /*
+    * The wrapper around the PCIe block has a bug
+    * preventing it from accessing beyond the first 3GB of
+    * memory.
+    */
+   dma-ranges = <0x02000000 0x0 0x00000000 0x0 0x00000000
+                 0x0 0xc0000000>;
+   brcm,enable-ssc;
+
+   pci@1,0 {
+           #address-cells = <3>;
+           #size-cells = <2>;
+           ranges;
+
+           reg = <0 0 0 0 0>;
+
+           usb@1,0 {
+                   reg = <0x10000 0 0 0 0>;
+                   resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+           };
+   };
+};
+
+
+Xen fails to parse it with an error because it tries to remap reg =
+<0x10000 0 0 0 0> as if it was a CPU address and of course it fails.
+
+Reading the device tree description in details, I cannot tell if Xen has
+a bug: the ranges property under pci@1,0 means that pci@1,0 is treated
+like a default bus (not a PCI bus), hence, the children regs are
+translated using the ranges property of the parent (pcie@7d500000).
+
+Is it possible that the device tree is missing device_type =
+"pci" under pci@1,0? Or is it just implied because pci@1,0 is a child of
+pcie@7d500000?
+
+I'd like to make Xen able to parse this device tree without errors but I
+am not sure what is the best way to fix it.
+
+Thanks for any help you can provide!
+
+Cheers,
+
+Stefano
+
+
+
+On Thu, 4 Feb 2021, Julien Grall wrote:
+> On 04/02/2021 00:13, Stefano Stabellini wrote:
+> > On Wed, 3 Feb 2021, Julien Grall wrote:
+> > > On Wed, 3 Feb 2021 at 22:18, Stefano Stabellini <sstabellini@kernel.org>
+> > > wrote:
+> > > > > > But aside from PCIe, let's say that we know of a few nodes for which
+> > > > > > "reg" needs a special treatment. I am not sure it makes sense to
+> > > > > > proceed
+> > > > > > with parsing those nodes without knowing how to deal with that.
+> > > > > 
+> > > > > I believe that most of the time the "special" treatment would be to
+> > > > > ignore the
+> > > > > property "regs" as it will not be an CPU memory address.
+> > > > > 
+> > > > > > So maybe
+> > > > > > we should add those nodes to skip_matches until we know what to do
+> > > > > > with
+> > > > > > them. At that point, I would imagine we would introduce a special
+> > > > > > handle_device function that knows what to do. In the case of PCIe,
+> > > > > > something like "handle_device_pcie".
+> > > > > Could you outline how "handle_device_pcie()" will differ with
+> > > > > handle_node()?
+> > > > > 
+> > > > > In fact, the problem is not the PCIe node directly. Instead, it is the
+> > > > > second
+> > > > > level of nodes below it (i.e usb@...).
+> > > > > 
+> > > > > The current implementation of dt_number_of_address() only look at the
+> > > > > bus type
+> > > > > of the parent. As the parent has no bus type and "ranges" then it
+> > > > > thinks this
+> > > > > is something we can translate to a CPU address.
+> > > > > 
+> > > > > However, this is below a PCI bus so the meaning of "reg" is completely
+> > > > > different. In this case, we only need to ignore "reg".
+> > > > 
+> > > > I see what you are saying and I agree: if we had to introduce a special
+> > > > case for PCI, then  dt_number_of_address() seems to be a good place.  In
+> > > > fact, we already have special PCI handling, see our
+> > > > __dt_translate_address function and xen/common/device_tree.c:dt_busses.
+> > > > 
+> > > > Which brings the question: why is this actually failing?
+> > > 
+> > > I already hinted at the reason in my previous e-mail :). Let me expand
+> > > a bit more.
+> > > 
+> > > > 
+> > > > pcie0 {
+> > > >       ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000 0x0
+> > > > 0x40000000>;
+> > > > 
+> > > > Which means that PCI addresses 0xc0000000-0x100000000 become
+> > > > 0x600000000-0x700000000.
+> > > > 
+> > > > The offending DT is:
+> > > > 
+> > > > &pcie0 {
+> > > >           pci@1,0 {
+> > > >                   #address-cells = <3>;
+> > > >                   #size-cells = <2>;
+> > > >                   ranges;
+> > > > 
+> > > >                   reg = <0 0 0 0 0>;
+> > > > 
+> > > >                   usb@1,0 {
+> > > >                           reg = <0x10000 0 0 0 0>;
+> > > >                           resets = <&reset
+> > > > RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+> > > >                   };
+> > > >           };
+> > > > };
+> > > > 
+> > > > 
+> > > > reg = <0x10000 0 0 0 0> means that usb@1,0 is PCI device 01:00.0.
+> > > > However, the rest of the regs cells are left as zero. It shouldn't be an
+> > > > issue because usb@1,0 is a child of pci@1,0 but pci@1,0 is not a bus.
+> > > 
+> > > The property "ranges" is used to define a mapping or translation
+> > > between the address space of the "bus" (here pci@1,0) and the address
+> > > space of the bus node's parent (&pcie0).
+> > > IOW, it means "reg" in usb@1,0 is an address on the PCI bus (i.e. BDF).
+> > > 
+> > > The problem is dt_number_of_address() will only look at the "bus" type
+> > > of the parent using dt_match_bus(). This will return the default bus
+> > > (see dt_bus_default_match()), because this is a property "ranges" in
+> > > the parent node (i.e. pci@1,0). Therefore...
+> > > 
+> > > > So
+> > > > in theory dt_number_of_address() should already return 0 for it.
+> > > 
+> > > ... dt_number_of_address() will return 1 even if the address is not a
+> > > CPU address. So when Xen will try to translate it, it will fail.
+> > > 
+> > > > 
+> > > > Maybe reg = <0 0 0 0 0> is the problem. In that case, we could simply
+> > > > add a check to skip 0 size ranges. Just a hack to explain what I mean:
+> > > 
+> > > The parent of pci@1,0 is a PCI bridge (see the property type), so the
+> > > CPU addresses are found not via "regs" but "assigned-addresses".
+> > > 
+> > > In this situation, "regs" will have a different meaning and therefore
+> > > there is no promise that the size will be 0.
+> > 
+> > I copy/pasted the following:
+> > 
+> >         pci@1,0 {
+> >                 #address-cells = <3>;
+> >                 #size-cells = <2>;
+> >                 ranges;
+> > 
+> >                 reg = <0 0 0 0 0>;
+> > 
+> >                 usb@1,0 {
+> >                         reg = <0x10000 0 0 0 0>;
+> >                         resets = <&reset
+> >                         RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+> >                 };
+> >         };
+> > 
+> > under pcie0 in my DTS to see what happens (the node is not there in the
+> > device tree for the rpi-5.9.y kernel.) It results in the expected error:
+> > 
+> > (XEN) Unable to retrieve address 0 for /scb/pcie@7d500000/pci@1,0/usb@1,0
+> > (XEN) Device tree generation failed (-22).
+> > 
+> > I could verify that pci@1,0 is seen as "default" bus due to the range
+> > property, thus dt_number_of_address() returns 1.
+> > 
+> > 
+> > I can see that reg = <0 0 0 0 0> is not a problem because it is ignored
+> > given that the parent is a PCI bus. assigned-addresses is the one that
+> > is read.
+> > 
+> > 
+> > But from a device tree perspective I am actually confused by the
+> > presence of the "ranges" property under pci@1,0. Is that correct? It is
+> > stating that addresses of children devices will be translated to the
+> > address space of the parent (pcie0) using the parent translation rules.
+> > I mean -- it looks like Xen is right in trying to translate reg =
+> > <0x10000 0 0 0 0> using ranges = <0x02000000 0x0 0xc0000000 0x6
+> > 0x00000000 0x0 0x40000000>.
+> > 
+> > Or maybe since pcie0 is a PCI bus all the children addresses, even
+> > grand-children, are expected to be specified using "assigned-addresses"?
+> > 
+> > 
+> > Looking at other examples [1][2] maybe the mistake is that pci@1,0 is
+> > missing device_type = "pci"?  Of course, if I add that, the error
+> > disappear.
+> 
+> I am afraid, I don't know the answer. I think it would be best to ask the
+> Linux DT folks about it.
+> 
+> > 
+> > [1] Documentation/devicetree/bindings/pci/mvebu-pci.txt
+> > [2] Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
+> > 
+> > For the sake of making Xen more resilient to possible DTSes, maybe we
+> > should try to extend the dt_bus_pci_match check? See for instance the
+> > change below, but we might be able to come up with better ideas.
+> > 
+> > 
+> > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> > index 18825e333e..24d998f725 100644
+> > --- a/xen/common/device_tree.c
+> > +++ b/xen/common/device_tree.c
+> > @@ -565,12 +565,21 @@ static unsigned int dt_bus_default_get_flags(const
+> > __be32 *addr)
+> >     static bool_t dt_bus_pci_match(const struct dt_device_node *np)
+> >   {
+> > +    bool ret = false;
+> > +
+> >       /*
+> >        * "pciex" is PCI Express "vci" is for the /chaos bridge on 1st-gen
+> > PCI
+> >        * powermacs "ht" is hypertransport
+> >        */
+> > -    return !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
+> > +    ret = !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
+> >           !strcmp(np->type, "vci") || !strcmp(np->type, "ht");
+> > +
+> > +    if ( ret ) return ret;
+> > +
+> > +    if ( !strcmp(np->name, "pci") )
+> > +        ret = dt_bus_pci_match(dt_get_parent(np));
+> 
+> It is probably safe to assume that a PCI device (not hostbridge) will start
+> with "pci". Although, I don't much like the idea because the name is not meant
+> to be stable.
+> 
+> AFAICT, we can only rely on "compatible" and "type".
+> 
+> Cheers,
+> 
+> -- 
+> Julien Grall
+> 
 
