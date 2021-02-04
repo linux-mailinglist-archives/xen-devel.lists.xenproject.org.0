@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB4530FB27
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 19:22:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81399.150410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6206230FB72
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 19:32:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81403.150430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7jGi-0001ds-IP; Thu, 04 Feb 2021 18:22:16 +0000
+	id 1l7jPl-0002oD-KF; Thu, 04 Feb 2021 18:31:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81399.150410; Thu, 04 Feb 2021 18:22:16 +0000
+Received: by outflank-mailman (output) from mailman id 81403.150430; Thu, 04 Feb 2021 18:31:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7jGi-0001dT-Ew; Thu, 04 Feb 2021 18:22:16 +0000
-Received: by outflank-mailman (input) for mailman id 81399;
- Thu, 04 Feb 2021 18:22:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YSLV=HG=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1l7jGg-0001dO-Fz
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 18:22:14 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3d617343-9321-4ca4-bf83-8d19b4f65e38;
- Thu, 04 Feb 2021 18:22:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3C3A8AE95;
- Thu,  4 Feb 2021 18:22:12 +0000 (UTC)
+	id 1l7jPl-0002np-Fg; Thu, 04 Feb 2021 18:31:37 +0000
+Received: by outflank-mailman (input) for mailman id 81403;
+ Thu, 04 Feb 2021 18:31:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x+ZK=HG=kernel.org=robh@srs-us1.protection.inumbo.net>)
+ id 1l7jPk-0002nk-05
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 18:31:36 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 79e56288-507c-4de7-9684-54f967ad26a9;
+ Thu, 04 Feb 2021 18:31:34 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B002464F58
+ for <xen-devel@lists.xenproject.org>; Thu,  4 Feb 2021 18:31:33 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id z22so5400125edb.9
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Feb 2021 10:31:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,107 +40,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d617343-9321-4ca4-bf83-8d19b4f65e38
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612462932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mySUJzLqMMp5dhbVZgKoKySONi5gQVEHn+PHotScFBY=;
-	b=J+8f0n1N4zmA8i9J2BVgIpZ3TERksCAZCcUonXsaDOSPbA9BT/jI8R011O9+/py8dhW3UC
-	68aI3RMKL0FYwJKS9q1W884OPw2yY6rDPkPUkqBloaxcObgwzi72eKRf7jmK9CRCmtjZwQ
-	fHvNAC2MIB3fNaYCC6oSDsZBTRvh2n4=
-Message-ID: <c3f4d5f15a6be36388e10bbf1e0e38b247f190aa.camel@suse.com>
-Subject: Re: [ANNOUNCE] Xen 4.15 - call for notification/status of
- significant bugs
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Committers
- <committers@xenproject.org>,  Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>,  community.manager@xenproject.org
-Date: Thu, 04 Feb 2021 19:22:10 +0100
-In-Reply-To: <CABfawhkT5JBsT2-reSLB-bNFhP1em5U3vBs+z_FM6_Kcd7TSiQ@mail.gmail.com>
-References: <24600.8030.769396.165224@mariner.uk.xensource.com>
-	 <24603.58528.901884.980466@mariner.uk.xensource.com>
-	 <6d0d7181bad79259aff28351621d2ac1eeaca113.camel@suse.com>
-	 <CABfawhkT5JBsT2-reSLB-bNFhP1em5U3vBs+z_FM6_Kcd7TSiQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-lW61QBr3CT5ho3U8Z+Tw"
-User-Agent: Evolution 3.38.3 (by Flathub.org) 
+X-Inumbo-ID: 79e56288-507c-4de7-9684-54f967ad26a9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1612463494;
+	bh=/bh8XlhA+JNa4dohvJBRDXcaAfqBsnpkGE0rzhB8TAc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=bM9sM/pVXS9QSTwnD2yjn6N3dmJFrWzVH7itdfQ51i7URmPEDFCeXvEcEbLiJ27zV
+	 IjfQoyG0qCTobz/loZJAWCOLto5VKS3Tt1ELgfljYqP/w7R2KZscf+UBTUpEluowzq
+	 o09VvuPx/gijSEAe6Mk180yKGCWZlLDYo49F95N5n8FqXJMS2Jakh8kYqsT8b+UAGx
+	 J7PFSg6HJk+SOWcIQYC0Bm4+8JKYyS8zWI4zd0sO/P4OUX9059dAWp6OZP477329cq
+	 8bmQe5JMScgUVuESpTkETXIi00qJhAy+kpaCYRVMCOMQTOwOVs47/r6uwRR8pIWtQM
+	 EWz0G90/Cny9Q==
+X-Gm-Message-State: AOAM533Rl9weCtft8vjDfANTB+wQ3/ZG/TbE9Uu21ld8/dQjpcALJmvs
+	QJnpSilnqXDwOR4yGq6d54mABQ15xNqgnghUKA==
+X-Google-Smtp-Source: ABdhPJyTeTqt3wsKaS/LrOi4IKSEE9n34P3nXMK2EJsB2x4I4qtYzH+lCd1prfobtzo3uz2Ejn8KXs+1hFxMkwUWmt8=
+X-Received: by 2002:a50:ee10:: with SMTP id g16mr329305eds.62.1612463492094;
+ Thu, 04 Feb 2021 10:31:32 -0800 (PST)
 MIME-Version: 1.0
-
-
---=-lW61QBr3CT5ho3U8Z+Tw
+References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com> <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org>
+ <b6d342f8-c833-db88-9808-cdc946999300@xen.org> <alpine.DEB.2.21.2102021412480.29047@sstabellini-ThinkPad-T480s>
+ <06d6b9ec-0db9-d6da-e30b-df9f9381157d@xen.org> <alpine.DEB.2.21.2102031315350.29047@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a1LsqOMFXV5GLYEkF7=akMx7fT_vpgVtT6xP6MPfmP9vQ@mail.gmail.com>
+ <alpine.DEB.2.21.2102031519540.29047@sstabellini-ThinkPad-T480s>
+ <9b97789b-5560-0186-642a-0501789830e5@xen.org> <alpine.DEB.2.21.2102040944520.29047@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2102040944520.29047@sstabellini-ThinkPad-T480s>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 4 Feb 2021 12:31:20 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJuvZPheRkacaopHtbATj8uRua=wj_XU5ib41sSpVO-ug@mail.gmail.com>
+Message-ID: <CAL_JsqJuvZPheRkacaopHtbATj8uRua=wj_XU5ib41sSpVO-ug@mail.gmail.com>
+Subject: Re: Question on PCIe Device Tree bindings, Was: [PATCH] xen/arm:
+ domain_build: Ignore device nodes with invalid addresses
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien.grall.oss@gmail.com>, Elliott Mitchell <ehem+xen@m5p.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, julien@xen.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2021-02-04 at 10:00 -0500, Tamas K Lengyel wrote:
-> On Thu, Feb 4, 2021 at 9:21 AM Dario Faggioli <dfaggioli@suse.com>
-> wrote:
-> >=20
-> > On Thu, 2021-02-04 at 12:12 +0000, Ian Jackson wrote:
-> > > B. "scheduler broken" bugs.
-> >=20
-> > - Null scheduler and vwfi native problem
-> >   =20
-> > https://lists.xenproject.org/archives/html/xen-devel/2021-01/msg01634.h=
-tml
-> >=20
-> > =C2=A0 RCU issues, but manifests due to scheduler behavior (especially
-> > =C2=A0 NULL scheduler, especially on ARM).
-> > =C2=A0 I'm actively working on it.
-> >=20
-> > =C2=A0 Patches that should solve the issue for ARM posted already. They
-> > =C2=A0 will need to be slightly adjusted to cover x86 as well. Waiting =
-a
-> > =C2=A0 couple days more for a confirmation from the reporter that the
-> > =C2=A0 patches do help, at least on ARM.
-> >=20
->=20
-> I've run into null-scheduler causing CPU lockups as well on x86.
-> Required physical machine reboot. Seems to be triggered with domain
-> destruction when destroying fork vms. Happens only intermittently.
->=20
-Yes, we know that it's generic and not ARM-only. It's just that on ARM
-is easier (or I should say deterministic) to trigger it.
+On Thu, Feb 4, 2021 at 11:56 AM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> Hi Rob,
+>
+> We have a question on the PCIe device tree bindings. In summary, we have
+> come across the Raspberry Pi 4 PCIe description below:
+>
+>
+> pcie0: pcie@7d500000 {
+>    compatible = "brcm,bcm2711-pcie";
+>    reg = <0x0 0x7d500000  0x0 0x9310>;
+>    device_type = "pci";
+>    #address-cells = <3>;
+>    #interrupt-cells = <1>;
+>    #size-cells = <2>;
+>    interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+>                 <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+>    interrupt-names = "pcie", "msi";
+>    interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+>    interrupt-map = <0 0 0 1 &gicv2 GIC_SPI 143
+>                                                      IRQ_TYPE_LEVEL_HIGH>;
+>    msi-controller;
+>    msi-parent = <&pcie0>;
+>
+>    ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000
+>              0x0 0x40000000>;
+>    /*
+>     * The wrapper around the PCIe block has a bug
+>     * preventing it from accessing beyond the first 3GB of
+>     * memory.
+>     */
+>    dma-ranges = <0x02000000 0x0 0x00000000 0x0 0x00000000
+>                  0x0 0xc0000000>;
+>    brcm,enable-ssc;
+>
+>    pci@1,0 {
+>            #address-cells = <3>;
+>            #size-cells = <2>;
+>            ranges;
+>
+>            reg = <0 0 0 0 0>;
+>
+>            usb@1,0 {
+>                    reg = <0x10000 0 0 0 0>;
+>                    resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+>            };
+>    };
+> };
+>
+>
+> Xen fails to parse it with an error because it tries to remap reg =
+> <0x10000 0 0 0 0> as if it was a CPU address and of course it fails.
+>
+> Reading the device tree description in details, I cannot tell if Xen has
+> a bug: the ranges property under pci@1,0 means that pci@1,0 is treated
+> like a default bus (not a PCI bus), hence, the children regs are
+> translated using the ranges property of the parent (pcie@7d500000).
+>
+> Is it possible that the device tree is missing device_type =
+> "pci" under pci@1,0? Or is it just implied because pci@1,0 is a child of
+> pcie@7d500000?
 
-Thanks for reporting, though.
+Indeed, it should have device_type. Linux (only recently due to
+another missing device_type case) will also look at node name, but
+only 'pcie'.
 
-I'll add you in Cc when I send the updated version of the patches that
-covers x86 as well, in case you want to test. :-)
+We should be able to create (or extend pci-bus.yaml) a schema to catch
+this case.
 
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+Rob
 
---=-lW61QBr3CT5ho3U8Z+Tw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmAcO1IACgkQFkJ4iaW4
-c+7pFA/+PHla4bOzIEJy6rSwvLpSNEWzxN1RoIjMLiQgsOK6iFXe3FN2dDXAKNtE
-vNxT1jYtqxGdAR+FasSDLa3qmiLMDIaa4fb6ivk03AJ9Q6YlRd6PHdWqh0b816C8
-iP/yMuXCYBIiAcKZURUpJgaBjLhF/3E51no8NV1NtMSa0ZhkyMsOKRy/tfHqTFdx
-XHaw9zNzpDSDlxzY3VhLI+H6315oUEAIesNI0qC+hed53bjuQy80d44tD9ER+r3q
-kaaMSNzLakE+XnpEh0AT1B/7dd/QeskAGpwqeK3ESeU0UMg5wHyoZSwAC+gO9cp0
-JLEYGqx7frH93zC/OS3cVdjTs7/wtkvQJRybzrPVnCSWPCoW/5uBsxbDuiybjlQS
-3xyazNnA4Hr/nZgkSTc36UktigsJz+CpovYWcGA1mFwVp6RpVl/NMyOkBCZViG2l
-Adv6dOyyBzMbBiuZBosBnQ0EnTZutSRYiEUjsWq7nIy2rLY9nXD0hNaJ7A+/1v6d
-V12mkxj2nNfWoFWRKa8UTFXevqp9GAPpcziGzmRSbHvGqNxbww6fjXkdlVRHUgsZ
-l/5q0fGwexiSZeBJX8vP3tXQ2jh7Z2vddVnSYY1weAmJ1JF497URzY+cHB77bIve
-SVzezk+OnKiyWglaCRxxjzNs+4ZAyXz14mWWgwqN7rVTOZCCnaM=
-=V/Wy
------END PGP SIGNATURE-----
-
---=-lW61QBr3CT5ho3U8Z+Tw--
-
+> I'd like to make Xen able to parse this device tree without errors but I
+> am not sure what is the best way to fix it.
+>
+> Thanks for any help you can provide!
+>
+> Cheers,
+>
+> Stefano
+>
+>
+>
+> On Thu, 4 Feb 2021, Julien Grall wrote:
+> > On 04/02/2021 00:13, Stefano Stabellini wrote:
+> > > On Wed, 3 Feb 2021, Julien Grall wrote:
+> > > > On Wed, 3 Feb 2021 at 22:18, Stefano Stabellini <sstabellini@kernel.org>
+> > > > wrote:
+> > > > > > > But aside from PCIe, let's say that we know of a few nodes for which
+> > > > > > > "reg" needs a special treatment. I am not sure it makes sense to
+> > > > > > > proceed
+> > > > > > > with parsing those nodes without knowing how to deal with that.
+> > > > > >
+> > > > > > I believe that most of the time the "special" treatment would be to
+> > > > > > ignore the
+> > > > > > property "regs" as it will not be an CPU memory address.
+> > > > > >
+> > > > > > > So maybe
+> > > > > > > we should add those nodes to skip_matches until we know what to do
+> > > > > > > with
+> > > > > > > them. At that point, I would imagine we would introduce a special
+> > > > > > > handle_device function that knows what to do. In the case of PCIe,
+> > > > > > > something like "handle_device_pcie".
+> > > > > > Could you outline how "handle_device_pcie()" will differ with
+> > > > > > handle_node()?
+> > > > > >
+> > > > > > In fact, the problem is not the PCIe node directly. Instead, it is the
+> > > > > > second
+> > > > > > level of nodes below it (i.e usb@...).
+> > > > > >
+> > > > > > The current implementation of dt_number_of_address() only look at the
+> > > > > > bus type
+> > > > > > of the parent. As the parent has no bus type and "ranges" then it
+> > > > > > thinks this
+> > > > > > is something we can translate to a CPU address.
+> > > > > >
+> > > > > > However, this is below a PCI bus so the meaning of "reg" is completely
+> > > > > > different. In this case, we only need to ignore "reg".
+> > > > >
+> > > > > I see what you are saying and I agree: if we had to introduce a special
+> > > > > case for PCI, then  dt_number_of_address() seems to be a good place.  In
+> > > > > fact, we already have special PCI handling, see our
+> > > > > __dt_translate_address function and xen/common/device_tree.c:dt_busses.
+> > > > >
+> > > > > Which brings the question: why is this actually failing?
+> > > >
+> > > > I already hinted at the reason in my previous e-mail :). Let me expand
+> > > > a bit more.
+> > > >
+> > > > >
+> > > > > pcie0 {
+> > > > >       ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000 0x0
+> > > > > 0x40000000>;
+> > > > >
+> > > > > Which means that PCI addresses 0xc0000000-0x100000000 become
+> > > > > 0x600000000-0x700000000.
+> > > > >
+> > > > > The offending DT is:
+> > > > >
+> > > > > &pcie0 {
+> > > > >           pci@1,0 {
+> > > > >                   #address-cells = <3>;
+> > > > >                   #size-cells = <2>;
+> > > > >                   ranges;
+> > > > >
+> > > > >                   reg = <0 0 0 0 0>;
+> > > > >
+> > > > >                   usb@1,0 {
+> > > > >                           reg = <0x10000 0 0 0 0>;
+> > > > >                           resets = <&reset
+> > > > > RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+> > > > >                   };
+> > > > >           };
+> > > > > };
+> > > > >
+> > > > >
+> > > > > reg = <0x10000 0 0 0 0> means that usb@1,0 is PCI device 01:00.0.
+> > > > > However, the rest of the regs cells are left as zero. It shouldn't be an
+> > > > > issue because usb@1,0 is a child of pci@1,0 but pci@1,0 is not a bus.
+> > > >
+> > > > The property "ranges" is used to define a mapping or translation
+> > > > between the address space of the "bus" (here pci@1,0) and the address
+> > > > space of the bus node's parent (&pcie0).
+> > > > IOW, it means "reg" in usb@1,0 is an address on the PCI bus (i.e. BDF).
+> > > >
+> > > > The problem is dt_number_of_address() will only look at the "bus" type
+> > > > of the parent using dt_match_bus(). This will return the default bus
+> > > > (see dt_bus_default_match()), because this is a property "ranges" in
+> > > > the parent node (i.e. pci@1,0). Therefore...
+> > > >
+> > > > > So
+> > > > > in theory dt_number_of_address() should already return 0 for it.
+> > > >
+> > > > ... dt_number_of_address() will return 1 even if the address is not a
+> > > > CPU address. So when Xen will try to translate it, it will fail.
+> > > >
+> > > > >
+> > > > > Maybe reg = <0 0 0 0 0> is the problem. In that case, we could simply
+> > > > > add a check to skip 0 size ranges. Just a hack to explain what I mean:
+> > > >
+> > > > The parent of pci@1,0 is a PCI bridge (see the property type), so the
+> > > > CPU addresses are found not via "regs" but "assigned-addresses".
+> > > >
+> > > > In this situation, "regs" will have a different meaning and therefore
+> > > > there is no promise that the size will be 0.
+> > >
+> > > I copy/pasted the following:
+> > >
+> > >         pci@1,0 {
+> > >                 #address-cells = <3>;
+> > >                 #size-cells = <2>;
+> > >                 ranges;
+> > >
+> > >                 reg = <0 0 0 0 0>;
+> > >
+> > >                 usb@1,0 {
+> > >                         reg = <0x10000 0 0 0 0>;
+> > >                         resets = <&reset
+> > >                         RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+> > >                 };
+> > >         };
+> > >
+> > > under pcie0 in my DTS to see what happens (the node is not there in the
+> > > device tree for the rpi-5.9.y kernel.) It results in the expected error:
+> > >
+> > > (XEN) Unable to retrieve address 0 for /scb/pcie@7d500000/pci@1,0/usb@1,0
+> > > (XEN) Device tree generation failed (-22).
+> > >
+> > > I could verify that pci@1,0 is seen as "default" bus due to the range
+> > > property, thus dt_number_of_address() returns 1.
+> > >
+> > >
+> > > I can see that reg = <0 0 0 0 0> is not a problem because it is ignored
+> > > given that the parent is a PCI bus. assigned-addresses is the one that
+> > > is read.
+> > >
+> > >
+> > > But from a device tree perspective I am actually confused by the
+> > > presence of the "ranges" property under pci@1,0. Is that correct? It is
+> > > stating that addresses of children devices will be translated to the
+> > > address space of the parent (pcie0) using the parent translation rules.
+> > > I mean -- it looks like Xen is right in trying to translate reg =
+> > > <0x10000 0 0 0 0> using ranges = <0x02000000 0x0 0xc0000000 0x6
+> > > 0x00000000 0x0 0x40000000>.
+> > >
+> > > Or maybe since pcie0 is a PCI bus all the children addresses, even
+> > > grand-children, are expected to be specified using "assigned-addresses"?
+> > >
+> > >
+> > > Looking at other examples [1][2] maybe the mistake is that pci@1,0 is
+> > > missing device_type = "pci"?  Of course, if I add that, the error
+> > > disappear.
+> >
+> > I am afraid, I don't know the answer. I think it would be best to ask the
+> > Linux DT folks about it.
+> >
+> > >
+> > > [1] Documentation/devicetree/bindings/pci/mvebu-pci.txt
+> > > [2] Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
+> > >
+> > > For the sake of making Xen more resilient to possible DTSes, maybe we
+> > > should try to extend the dt_bus_pci_match check? See for instance the
+> > > change below, but we might be able to come up with better ideas.
+> > >
+> > >
+> > > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> > > index 18825e333e..24d998f725 100644
+> > > --- a/xen/common/device_tree.c
+> > > +++ b/xen/common/device_tree.c
+> > > @@ -565,12 +565,21 @@ static unsigned int dt_bus_default_get_flags(const
+> > > __be32 *addr)
+> > >     static bool_t dt_bus_pci_match(const struct dt_device_node *np)
+> > >   {
+> > > +    bool ret = false;
+> > > +
+> > >       /*
+> > >        * "pciex" is PCI Express "vci" is for the /chaos bridge on 1st-gen
+> > > PCI
+> > >        * powermacs "ht" is hypertransport
+> > >        */
+> > > -    return !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
+> > > +    ret = !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
+> > >           !strcmp(np->type, "vci") || !strcmp(np->type, "ht");
+> > > +
+> > > +    if ( ret ) return ret;
+> > > +
+> > > +    if ( !strcmp(np->name, "pci") )
+> > > +        ret = dt_bus_pci_match(dt_get_parent(np));
+> >
+> > It is probably safe to assume that a PCI device (not hostbridge) will start
+> > with "pci". Although, I don't much like the idea because the name is not meant
+> > to be stable.
+> >
+> > AFAICT, we can only rely on "compatible" and "type".
+> >
+> > Cheers,
+> >
+> > --
+> > Julien Grall
+> >
 
