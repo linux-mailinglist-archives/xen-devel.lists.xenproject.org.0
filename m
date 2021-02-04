@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DCAA30F7F2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 17:33:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81370.150300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF6A030F82C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 17:40:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81373.150312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7hZC-0006Ic-Vt; Thu, 04 Feb 2021 16:33:14 +0000
+	id 1l7hfk-0006kC-Qd; Thu, 04 Feb 2021 16:40:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81370.150300; Thu, 04 Feb 2021 16:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 81373.150312; Thu, 04 Feb 2021 16:40:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7hZC-0006IF-Rf; Thu, 04 Feb 2021 16:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 81370;
- Thu, 04 Feb 2021 16:33:13 +0000
+	id 1l7hfk-0006jn-N4; Thu, 04 Feb 2021 16:40:00 +0000
+Received: by outflank-mailman (input) for mailman id 81373;
+ Thu, 04 Feb 2021 16:39:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gi2U=HG=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l7hZB-0006IA-6s
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 16:33:13 +0000
-Received: from mail-wm1-x334.google.com (unknown [2a00:1450:4864:20::334])
+ <SRS0=KAxh=HG=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l7hfj-0006ji-GX
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 16:39:59 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id feb93a3f-4be1-42b9-a9c7-eb8897fae5a0;
- Thu, 04 Feb 2021 16:33:10 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id j11so3679912wmi.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Feb 2021 08:33:10 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id n15sm8551843wrx.2.2021.02.04.08.33.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Feb 2021 08:33:08 -0800 (PST)
+ id 42fec056-5bb3-4ef6-a269-76028654a015;
+ Thu, 04 Feb 2021 16:39:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,432 +35,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: feb93a3f-4be1-42b9-a9c7-eb8897fae5a0
+X-Inumbo-ID: 42fec056-5bb3-4ef6-a269-76028654a015
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1612456798;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=b+ohvtkQ6WIL6lyHcHQX1ywWa3j8CpFE9vJ1L1NZCuQ=;
+  b=a/5LA5rPo7DUw/S+7W7N4zACsFcouinmEtkOmWHURN4rnOFszEagwGLy
+   o5jYacL9bxW4TXdyMSAX6OKAFkcE5m3yQvvemrETNCztilNSEEh52kdp2
+   NUME7xyZR57/Iu0TrT/1Y/8ycD5NPWZTjFzmOvp510A/t/HXK2C4e0IUi
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: rWpVNWfGsy+Ejq/Jxndnnz4grAutGk1AcZsKPPOqZRZdPP5mVnt3sKpr5H6Ixs16R9+NvQ7lzZ
+ +N7McoNZ9t1MUSlE7mRbG1GOf67sSV1T8F/vyuHXAbBRYdbvMah+YqdP+YSTVsZLOww0XsQsen
+ um0IUp40J60du0wSuXmpozNqFvLbbvmrZvGJL+CnWcuMEZmvNnjfBfTz/1rgLIUDWj0gRC1gmc
+ Ksp457jXC8kpuhZirs2WMKGIu6vO9J8CV15Aa+3T7uxGpwPe72z7Qe+aa4d7KHFjHIo/aU1hQ6
+ 6a0=
+X-SBRS: 5.2
+X-MesageID: 36572465
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,401,1602561600"; 
+   d="scan'208";a="36572465"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QJDFa6x3WM1wxU7B5kLJcXUopys0t1Cnj8PKOSi7RJJu6aiRVc4hZQqu1TwQay7sYmzy52+E4PiP4KkoFllEIfgKdsSuTVMY+90vkCwlZBJl5xH13r4MItWlgC3Af1Y2ypNvjesxWAG7p2mEo9ESpi0XM40enMgnu9df4PTRzjm3k/dTRnXQtD44gZCiVDqkG1zjNaOVi6gJQH1JLJesDh1SLdUeaCunmmE+qDaoCZBsf734W/Vyp/APlEXWMjBMKnMRXzyCeXxM81Ic3EpDGHatRNI/qhK6RueS1p7aN0wKg+F9RPg/NwweL2/oYpPdQzoFmQkuN4vOCZZN9vqR1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b+ohvtkQ6WIL6lyHcHQX1ywWa3j8CpFE9vJ1L1NZCuQ=;
+ b=OiaZb0AMwmwh2cxESzl+v4ux1XAzVhMpcxoFoItoK3idDwTpRDFuRZNIO4moyV1UBKfOlnerCACzE4oHH2wJ6OYBxfbzIN5VsYNP9aINXTpSxl9RjFTEPB0z/8oQMlBA24/9md1UN45nlmFA+PEphLJceQWK1JaYK/4fnOFWbZkf++BBGarlqG9EJ3cPGdROvxYJyp9KJvepq8ShaUWXElOIvENY0MMiM1k8QEGnlcUjl0DdM1/Ma/DUsl99FOVKntL/b+r7vn2dqDv/4PFJBPD5eOBoJjlwXZ9vakix4FwkjhU1l+odvVsnK48nG3xgTssk5DvNKAMP+9RYtNX89w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language;
-        bh=IaYqqD0brpgLP4Ux8g9ZMnx7iqcXn2aIzlPEt1C0O/E=;
-        b=ejVngN8lTTPlO075/fISpieC/0a4qTf4RZLqmKxkuZa/IeVmJZwmO9NyEQ4IL1pMo2
-         ZmtpcKSxaSCxavzGAR94jWp5alrBmxcn5aqGyIfyn2bn70bxLXp9J6Q8DD/RaVty5ozS
-         HnWuw69ojC+5Qy76TCTxO14cNjf8utMhLgBYZp0IeCvJAO0I5PbxQvDzX9vjs1Yr0/Wg
-         vQUdB0P4Ur3+zJA+TDNgTHcGVg91H0YUSpRCNZyvxOL4OxVVlH7bcEu4qEfl8Xl/HcWK
-         gaIdSEpUsEm/jtLP8l7RScIfDx1VpVMNd302kPcFmrmeb6Ny2P8PdjVs1L5IMD77cynm
-         QaqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language;
-        bh=IaYqqD0brpgLP4Ux8g9ZMnx7iqcXn2aIzlPEt1C0O/E=;
-        b=PLbVW4uhQFYRsDkIOwg9x7L76s6eDjT2eedLLvmR3ferr1DI4WJS3dwyp3A35OmzKI
-         A1Iy/M8KXKMz9teAJLXRT6F3YlvxeFnXMORvdaqyXMUWirp4L3fv+sV786q7iVcjUddI
-         QGTJfTt6WAsvoLk2nDQlTHmbuh1/U+eyUibhCJVqHwb3fe29472JfiEdNdY+9XabuQ5M
-         jQB5Vz8Cem/gNeISkql9vEFwy+R9IjICWqSGxbBpoz3Tp0wAIyPgqkdT/TPSK+DbQ4MK
-         fQUM3OevDGs+F1qtHCUTDx1hFZkRU8HH+prhBl2vOGUfbtEh2q6hfsxxtHCYwcJaWled
-         aDNw==
-X-Gm-Message-State: AOAM531f63SEUSYfnRnsSgDs+1+M1hUnMJu7jalv9iWe6hTQs0SpIEGR
-	QB8+U3dC80VHobCa1+/DDYo=
-X-Google-Smtp-Source: ABdhPJypB+d860YRntiqKja7EFschxMvzk/CbBWJji6zyTRZcC4VB+OU1gz7agSSGpeh46afhw9Q7A==
-X-Received: by 2002:a1c:c308:: with SMTP id t8mr17589wmf.7.1612456389851;
-        Thu, 04 Feb 2021 08:33:09 -0800 (PST)
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b+ohvtkQ6WIL6lyHcHQX1ywWa3j8CpFE9vJ1L1NZCuQ=;
+ b=g620PBcpZui6CoJ67lsBjBqmWkYmPrSYy7N8nvo/H8I8rPym3/Mo7jq7yVxzID//YUN8HpcFogVUpouO0451delIfTET24SI38DYSfqf5W1xoA0c6vAO/vrSnHmKDojljxvl4Dr7f6m53GjWbbm5ZwETwvdBAS9EUTHOqjHgHiU=
 Subject: Re: [PATCH for-4.15] tools/tests: Introduce a test for
  acquire_resource
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Oleksandr <olekstysh@gmail.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
 References: <20210202190937.30206-1-andrew.cooper3@citrix.com>
  <CAPD2p-nPr_OD7cMT-Ny6vyGsY4nMXuENgrqv0pfYRYtE5srnkQ@mail.gmail.com>
  <6586dd8a-8596-0226-f3d3-02cd9e361a52@gmail.com>
  <79a41e5b-0717-f31b-3cec-60b716777603@citrix.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <3c103959-880d-ce25-6993-65b93d248bcf@gmail.com>
-Date: Thu, 4 Feb 2021 18:33:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <3c103959-880d-ce25-6993-65b93d248bcf@gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <8b1a781a-598c-ae4a-a102-e3ebbb710f6b@citrix.com>
+Date: Thu, 4 Feb 2021 16:39:45 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+In-Reply-To: <3c103959-880d-ce25-6993-65b93d248bcf@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0371.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a3::23) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
 MIME-Version: 1.0
-In-Reply-To: <79a41e5b-0717-f31b-3cec-60b716777603@citrix.com>
-Content-Type: multipart/alternative;
- boundary="------------A0AB5F0E1BCAA8CBCA232859"
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 60c61544-3c88-4901-73c7-08d8c92b7f1f
+X-MS-TrafficTypeDiagnostic: BY5PR03MB5236:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BY5PR03MB52363BDEE67AE8BDAF54B384BAB39@BY5PR03MB5236.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:63;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JY1ctFMIMXxKERoH1uHOB+1YhPfiTTMiAicSHhROhW7xlOxLxHZRMts/ST1EUnPsTgDkJG7u3uHlANi6+sVwVjdj/W7WMeOwiOkVy3JP/+W/Tdk+Xucg7U5JkldnFlEDc+JhzmvxzmLA4/n5d3QiBc7rtUhxXQGSUgDxZBEzYy7pYM5rdC3e/SVrR1f0YSZt0SPyExjx2Qewo4eEk+7HjkXJ3KIjI8e5jX1erPBBVOOE922u+1F1Y7Gish9/J0xZ1DOFVvlTUVv8Ju0fL6Rd6pzcNeYAYEHa3BdRRN1fi4AHp5mhXLNEqIylu0JLWpDRXIsVDeNgONDQlXo1vPNWDS7RGqKBdQlWhq/AE3O8kl1OaaTo2vvFG1zI++3cFJVJNqmrtIPuc+Me9JBPnjvRKO1o8lON7u1PQNfpM5cbZE9CGwlMMqR82ts8RtbBc3MOjzjERfcPQFrOveugoQlHkgdKrYKs2YbKyWld2YaEN+gsFz9rQKHGQZXeB/jfB3nSZFWQawdytVkdtYoavG+oKS7iTpwAyey/AnsyRdmwKAUs54xu2Ec6+LcdGLpaig0nGCcEh3THTpX35Inv4XYV07mVfgtnAqKHUdAIRFEug7g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(39860400002)(366004)(376002)(396003)(136003)(8676002)(186003)(26005)(54906003)(31686004)(66946007)(8936002)(16576012)(31696002)(4326008)(6916009)(316002)(2616005)(6486002)(66476007)(86362001)(66556008)(36756003)(6666004)(478600001)(5660300002)(53546011)(956004)(16526019)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dU5rZERha0xLK1IyZEZxMXg3YmV1dTRURVMzOVc2bkgrV0Fhay9OZUpsQXIy?=
+ =?utf-8?B?c0o0Y0FzQzhuRlcwMHVCT1dqb3dZVXR3dzYvMm9ZSFE5SkFlSTFjRFJSL3BS?=
+ =?utf-8?B?bFUwNCtNMGV0LzdIdDhxcU1CRXRKRVNYNDVTSmdpWjJ2ZDM5Uis3OFdRMzg1?=
+ =?utf-8?B?cTVJbkNYbk56OUVuUW5aUUp5enJPejlWK05JdzFQUlZiYTh0bHRNRHlackEv?=
+ =?utf-8?B?dG1SeGZ0cFM3aUtCWnIvZHE0TE90SUtoU0ZRMER2WHFQQWJYSndKb080eno4?=
+ =?utf-8?B?amEyL210K2FtVXJuSmpGTmZ4VnlXaVBtQ0dUREtLMlk3dWllT1QrUDJ2eDQ4?=
+ =?utf-8?B?WURPWTIyK1hkK1J3WFZvckpRRlNmZ0hXZW03bEIxNFhHSExzKyswV2czeXFx?=
+ =?utf-8?B?VmJrYnlsMHlkOFBLdG1oVGd6QTdEdUhzeFFxbSt5Y3h3UFNCRzdtblEzSEM0?=
+ =?utf-8?B?dE5EbnNCaTBpajF4OUt4N1dlcEZoOFQ3UVZIS0RrQkJEZ3oyR3hFTDhtR3Rj?=
+ =?utf-8?B?VEVMTTVOenBHNzhhZGpWUXJhNEFKaHNVMEgxV0Y3bXJEZXFFb0pTWVBvQ050?=
+ =?utf-8?B?VGREZkZCc09WdWdOS2lhS3JVcjRvVldBV3lqODAraVRhNE9QM1pRYk80NCsr?=
+ =?utf-8?B?ZXV4M2N6a1pzbkYvQ2IySWtzMmsyQWZiaVREc003eDVxOUJvWkduVTV6OFY4?=
+ =?utf-8?B?NHdmTDZLcWJ5clcxWDFLY2lleWxVRXlENkJnTlhkTmJnQWphWWFwQUZ4QkNF?=
+ =?utf-8?B?d2F3QnNFaE1mVDdibFc3NkFOZXpFQUYwdXBjK28zV2Q3WmdBQXhGOUxHTXJJ?=
+ =?utf-8?B?TW4rNnI2cysyRUlOTHRuL1U2U0cyRm10MFFTdnpNSG1NdVRtTGZwS2RLeExE?=
+ =?utf-8?B?aXRTSVdTT2sybmQvcTNITm1rS3drK1ExVzV6Zy9SNGV6VkJ5Q2x2c0JEQW5K?=
+ =?utf-8?B?cFN3ckU0b2QzUVE3YVU4T1VVams2NWpLaUpEWHlSYjVISWtiV3E1R2YzNTdH?=
+ =?utf-8?B?S0VBaDBKOHFITlVoNk9nYlpoNFpNeFYvemh3K0lLM0EvK3VUNE5DK05OdUFJ?=
+ =?utf-8?B?c3J2bEpiS1ZPSk8rVHBMUk5LMHZPZ1p3aytyd1dlQkd5b3h3ckdSaGZyTUN2?=
+ =?utf-8?B?TVBYQlBHMnB2SE5IVGJuS2MvZWlhc0U3Mjlaa0o0QXpCdWM3MTdLS3ZDdmpL?=
+ =?utf-8?B?Wk5yN3hwRzlUeURkaHk2Qm9UNW8zNWROd08wdXFnZTdjT0dkQjBaYUpnaXdP?=
+ =?utf-8?B?SDJOZHFBcWJBS1kzbVFDZmxJMGlnUTRoUlNOMkI0dEJpZmFmLytWY1prajZY?=
+ =?utf-8?B?cnJJZTZrclRhUXgwcm0xMzBSWmRmOXZIS1ZGVWpPQkw0dWhsaENIVEQwcVph?=
+ =?utf-8?B?MzJhRHQzSmVxaUJ6Y29ENFljS2s0NC9CSDM2M3YrWUlIOWxNbFNFZ3hZbjBC?=
+ =?utf-8?B?SFNnUkxTRFdwbXg5TEV1Nkx6dXVUajBjOW5ST2VnPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60c61544-3c88-4901-73c7-08d8c92b7f1f
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2021 16:39:52.8528
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kOy12RFGKT7a2yYVb9zs46VqWd63w6HeVTu8N4xP2HcLpH3iLC5YB5Ak4VpwKXDi58lyUYPG1cH384D2xp/BPh8uyG7EWf8m+7xyqj/w/qk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5236
+X-OriginatorOrg: citrix.com
 
-This is a multi-part message in MIME format.
---------------A0AB5F0E1BCAA8CBCA232859
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-Hi Andrew
-
-
-On 04.02.21 17:44, Andrew Cooper wrote:
-> On 04/02/2021 15:38, Oleksandr wrote:
+On 04/02/2021 16:33, Oleksandr wrote:
+> On 04.02.21 17:44, Andrew Cooper wrote:
+>> On 04/02/2021 15:38, Oleksandr wrote:
 >>>
->>> Hi Andrew.
->>> [Sorry for the possible format issues]
 >>>
->>> On Tue, Feb 2, 2021 at 9:10 PM Andrew Cooper 
->>> <andrew.cooper3@citrix.com <mailto:andrew.cooper3@citrix.com>> wrote:
+>>> I got the following result without and with "[PATCH v9 01/11]
+>>> xen/memory: Fix mapping grant tables with XENMEM_acquire_resource"
 >>>
->>>     For now, simply try to map 40 frames of grant table.  This
->>>     catches most of the
->>>     basic errors with resource sizes found and fixed through the
->>>     4.15 dev window.
+>>> root@generic-armv8-xt-dom0:~# test-resource
+>>> XENMEM_acquire_resource tests
+>>> Test ARM
+>>>   d3: grant table
+>>> xenforeignmemory: error: ioctl failed: Invalid argument
+>>>     Fail: Get size: 22 - Invalid argument
 >>>
->>>     Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com
->>>     <mailto:andrew.cooper3@citrix.com>>
->>>     ---
->>>     CC: Ian Jackson <iwj@xenproject.org <mailto:iwj@xenproject.org>>
->>>     CC: Wei Liu <wl@xen.org <mailto:wl@xen.org>>
->>>     CC: Jan Beulich <JBeulich@suse.com <mailto:JBeulich@suse.com>>
->>>     CC: Roger Pau Monné <roger.pau@citrix.com
->>>     <mailto:roger.pau@citrix.com>>
->>>     CC: Wei Liu <wl@xen.org <mailto:wl@xen.org>>
->>>     CC: Stefano Stabellini <sstabellini@kernel.org
->>>     <mailto:sstabellini@kernel.org>>
->>>     CC: Julien Grall <julien@xen.org <mailto:julien@xen.org>>
->>>     CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com
->>>     <mailto:Volodymyr_Babchuk@epam.com>>
->>>     CC: Oleksandr <olekstysh@gmail.com <mailto:olekstysh@gmail.com>>
->>>
->>>     Fails against current staging:
->>>
->>>       XENMEM_acquire_resource tests
->>>       Test x86 PV
->>>         d7: grant table
->>>           Fail: Map 7 - Argument list too long
->>>       Test x86 PVH
->>>         d8: grant table
->>>           Fail: Map 7 - Argument list too long
->>>
->>>     The fix has already been posted:
->>>       [PATCH v9 01/11] xen/memory: Fix mapping grant tables with
->>>     XENMEM_acquire_resource
->>>
->>>     and the fixed run is:
->>>
->>>       XENMEM_acquire_resource tests
->>>       Test x86 PV
->>>         d7: grant table
->>>       Test x86 PVH
->>>         d8: grant table
->>>
->>>     ARM folk: would you mind testing this?  I'm pretty sure the
->>>     create parameters
->>>     are suitable, but I don't have any way to test this.
->>>
->>> Yes, as it was agreed on IRC, I will test this today's evening and 
->>> inform about the results)
 >>
->>
->> OK, well, I decided to test right away because going to be busy in 
->> the evening)
->>
->> I am based on:
->> 9dc687f x86/debug: fix page-overflow bug in dbg_rw_guest_mem
->>
->> I noticed the error during building this test in my Yocto environment 
->> on Arm:
->>
->>
->> /media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld: 
->> test-resource.o: undefined reference to symbol 
->> 'xendevicemodel_open@@VERS_1.0'
->> /media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld: 
->> /media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/git/tools/tests/resource/../../../tools/libs/devicemodel/libxendevicemodel.so.1: 
->> error adding symbols: DSO missing from command line
->> collect2: error: ld returned 1 exit status
->> Makefile:38: recipe for target 'test-resource' failed
->>
->>
->> I didn't investigate whether it is related or not. I just added as 
->> following:
->>
->> diff --git a/tools/tests/resource/Makefile 
->> b/tools/tests/resource/Makefile
->> index 8a3373e..03b19ef 100644
->> --- a/tools/tests/resource/Makefile
->> +++ b/tools/tests/resource/Makefile
->> @@ -32,6 +32,7 @@ CFLAGS += $(APPEND_CFLAGS)
->>
->>  LDFLAGS += $(LDLIBS_libxenctrl)
->>  LDFLAGS += $(LDLIBS_libxenforeignmemory)
->> +LDFLAGS += $(LDLIBS_libxendevicemodel)
->>  LDFLAGS += $(APPEND_LDFLAGS)
->>
->>  test-resource: test-resource.o
->>
+>> Ah yes - you also need a bugfix in the dom0 kernel.  "xen/privcmd:
+>> allow fetching resource sizes" which is in mainline, and also
+>> backported to the LTS trees.
 >
-> Urgh yes - I didn't fully strip out the libxendevicemodel uses. I'll 
-> fix that, rather than having this test link against a library which it 
-> doesn't use (yet).
+> Well, my dom0 Linux is old)
 >
->>
->> I got the following result without and with "[PATCH v9 01/11] 
->> xen/memory: Fix mapping grant tables with XENMEM_acquire_resource"
->>
->> root@generic-armv8-xt-dom0:~# test-resource
->> XENMEM_acquire_resource tests
->> Test ARM
->>   d3: grant table
->> xenforeignmemory: error: ioctl failed: Invalid argument
->>     Fail: Get size: 22 - Invalid argument
->>
+> uname -a
+> Linux generic-armv8-xt-dom0 4.14.75-ltsi-yocto-tiny #1 SMP PREEMPT Thu
+> Nov 5 10:52:32 UTC 2020 aarch64 GNU/Linux
+> so I use ported "xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE".
+> I didn't find "xen/privcmd: allow fetching resource sizes" for my
+> Linux version, so I backported it by myself.
 >
-> Ah yes - you also need a bugfix in the dom0 kernel.  "xen/privcmd: 
-> allow fetching resource sizes" which is in mainline, and also 
-> backported to the LTS trees.
-
-Well, my dom0 Linux is old)
-
-uname -a
-Linux generic-armv8-xt-dom0 4.14.75-ltsi-yocto-tiny #1 SMP PREEMPT Thu 
-Nov 5 10:52:32 UTC 2020 aarch64 GNU/Linux
-so I use ported "xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE".
-I didn't find "xen/privcmd: allow fetching resource sizes" for my Linux 
-version, so I backported it by myself.
-
-So, with "[PATCH v9 01/11] xen/memory: Fix mapping grant tables with 
-XENMEM_acquire_resource"
-
-root@generic-armv8-xt-dom0:~# test-resource
-XENMEM_acquire_resource tests
-Test ARM
-   d7: grant table
-(XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 1 to 32 frames
-(XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 32 to 40 frames
-
-[I didn't test without your patch]
-
-
-Hope that helps.
-
-
+> So, with "[PATCH v9 01/11] xen/memory: Fix mapping grant tables with
+> XENMEM_acquire_resource"
 >
-> However, this did get past the bit I wasn't sure about for ARM, which 
-> is good.
+> root@generic-armv8-xt-dom0:~# test-resource
+> XENMEM_acquire_resource tests
+> Test ARM
+>   d7: grant table
+> (XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 1 to 32 frames
+> (XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 32 to 40
+> frames
 >
-> ~Andrew
+> [I didn't test without your patch]
+>
+> Hope that helps.
+>
 
--- 
-Regards,
+Yup - fantastic thankyou.
 
-Oleksandr Tyshchenko
-
-
---------------A0AB5F0E1BCAA8CBCA232859
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <p>Hi Andrew<br>
-    </p>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 04.02.21 17:44, Andrew Cooper wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:79a41e5b-0717-f31b-3cec-60b716777603@citrix.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <div class="moz-cite-prefix">On 04/02/2021 15:38, Oleksandr wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:6586dd8a-8596-0226-f3d3-02cd9e361a52@gmail.com">
-        <blockquote type="cite"
-cite="mid:CAPD2p-nPr_OD7cMT-Ny6vyGsY4nMXuENgrqv0pfYRYtE5srnkQ@mail.gmail.com">
-          <div dir="ltr">
-            <div dir="ltr"><br>
-            </div>
-            <div>Hi Andrew.</div>
-            <div>[Sorry for the possible format issues]</div>
-            <br>
-            <div class="gmail_quote">
-              <div dir="ltr" class="gmail_attr">On Tue, Feb 2, 2021 at
-                9:10 PM Andrew Cooper &lt;<a
-                  href="mailto:andrew.cooper3@citrix.com"
-                  moz-do-not-send="true">andrew.cooper3@citrix.com</a>&gt;
-                wrote:<br>
-              </div>
-              <blockquote class="gmail_quote" style="margin:0px 0px 0px
-                0.8ex;border-left:1px solid
-                rgb(204,204,204);padding-left:1ex">For now, simply try
-                to map 40 frames of grant table.  This catches most of
-                the<br>
-                basic errors with resource sizes found and fixed through
-                the 4.15 dev window.<br>
-                <br>
-                Signed-off-by: Andrew Cooper &lt;<a
-                  href="mailto:andrew.cooper3@citrix.com"
-                  target="_blank" moz-do-not-send="true">andrew.cooper3@citrix.com</a>&gt;<br>
-                ---<br>
-                CC: Ian Jackson &lt;<a href="mailto:iwj@xenproject.org"
-                  target="_blank" moz-do-not-send="true">iwj@xenproject.org</a>&gt;<br>
-                CC: Wei Liu &lt;<a href="mailto:wl@xen.org"
-                  target="_blank" moz-do-not-send="true">wl@xen.org</a>&gt;<br>
-                CC: Jan Beulich &lt;<a href="mailto:JBeulich@suse.com"
-                  target="_blank" moz-do-not-send="true">JBeulich@suse.com</a>&gt;<br>
-                CC: Roger Pau Monné &lt;<a
-                  href="mailto:roger.pau@citrix.com" target="_blank"
-                  moz-do-not-send="true">roger.pau@citrix.com</a>&gt;<br>
-                CC: Wei Liu &lt;<a href="mailto:wl@xen.org"
-                  target="_blank" moz-do-not-send="true">wl@xen.org</a>&gt;<br>
-                CC: Stefano Stabellini &lt;<a
-                  href="mailto:sstabellini@kernel.org" target="_blank"
-                  moz-do-not-send="true">sstabellini@kernel.org</a>&gt;<br>
-                CC: Julien Grall &lt;<a href="mailto:julien@xen.org"
-                  target="_blank" moz-do-not-send="true">julien@xen.org</a>&gt;<br>
-                CC: Volodymyr Babchuk &lt;<a
-                  href="mailto:Volodymyr_Babchuk@epam.com"
-                  target="_blank" moz-do-not-send="true">Volodymyr_Babchuk@epam.com</a>&gt;<br>
-                CC: Oleksandr &lt;<a href="mailto:olekstysh@gmail.com"
-                  target="_blank" moz-do-not-send="true">olekstysh@gmail.com</a>&gt;<br>
-                <br>
-                Fails against current staging:<br>
-                <br>
-                  XENMEM_acquire_resource tests<br>
-                  Test x86 PV<br>
-                    d7: grant table<br>
-                      Fail: Map 7 - Argument list too long<br>
-                  Test x86 PVH<br>
-                    d8: grant table<br>
-                      Fail: Map 7 - Argument list too long<br>
-                <br>
-                The fix has already been posted:<br>
-                  [PATCH v9 01/11] xen/memory: Fix mapping grant tables
-                with XENMEM_acquire_resource<br>
-                <br>
-                and the fixed run is:<br>
-                <br>
-                  XENMEM_acquire_resource tests<br>
-                  Test x86 PV<br>
-                    d7: grant table<br>
-                  Test x86 PVH<br>
-                    d8: grant table<br>
-                <br>
-                ARM folk: would you mind testing this?  I'm pretty sure
-                the create parameters<br>
-                are suitable, but I don't have any way to test this.<br>
-              </blockquote>
-              <div>Yes, as it was agreed on IRC, I will test this
-                today's evening and inform about the results)</div>
-            </div>
-          </div>
-        </blockquote>
-        <p><br>
-        </p>
-        <p>OK, well, I decided to test right away because going to be
-          busy in the evening)<br>
-          <br>
-          I am based on:<br>
-          9dc687f x86/debug: fix page-overflow bug in dbg_rw_guest_mem</p>
-        <p>I noticed the error during building this test in my Yocto
-          environment on Arm:<br>
-        </p>
-        <p><br>
-        </p>
-        <p>/media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld:
-          test-resource.o: undefined reference to symbol '<a
-            class="moz-txt-link-abbreviated"
-            href="mailto:xendevicemodel_open@@VERS_1.0"
-            moz-do-not-send="true">xendevicemodel_open@@VERS_1.0</a>'<br>
-/media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/recipe-sysroot-native/usr/bin/aarch64-poky-linux/../../libexec/aarch64-poky-linux/gcc/aarch64-poky-linux/8.2.0/ld:
-/media/b/build/build/tmp/work/x86_64-xt-linux/dom0-image-thin-initramfs/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+e00e0f38c3-r0/git/tools/tests/resource/../../../tools/libs/devicemodel/libxendevicemodel.so.1:
-          error adding symbols: DSO missing from command line<br>
-          collect2: error: ld returned 1 exit status<br>
-          Makefile:38: recipe for target 'test-resource' failed<br>
-        </p>
-        <p><br>
-        </p>
-        <p>I didn't investigate whether it is related or not. I just
-          added as following:<br>
-        </p>
-        <p>diff --git a/tools/tests/resource/Makefile
-          b/tools/tests/resource/Makefile<br>
-          index 8a3373e..03b19ef 100644<br>
-          --- a/tools/tests/resource/Makefile<br>
-          +++ b/tools/tests/resource/Makefile<br>
-          @@ -32,6 +32,7 @@ CFLAGS += $(APPEND_CFLAGS)<br>
-           <br>
-           LDFLAGS += $(LDLIBS_libxenctrl)<br>
-           LDFLAGS += $(LDLIBS_libxenforeignmemory)<br>
-          +LDFLAGS += $(LDLIBS_libxendevicemodel)<br>
-           LDFLAGS += $(APPEND_LDFLAGS)<br>
-           <br>
-           test-resource: test-resource.o</p>
-      </blockquote>
-      <br>
-      Urgh yes - I didn't fully strip out the libxendevicemodel uses. 
-      I'll fix that, rather than having this test link against a library
-      which it doesn't use (yet).<br>
-      <br>
-      <blockquote type="cite"
-        cite="mid:6586dd8a-8596-0226-f3d3-02cd9e361a52@gmail.com">
-        <p><br>
-        </p>
-        <p>I got the following result without and with "[PATCH v9 01/11]
-          xen/memory: Fix mapping grant tables with
-          XENMEM_acquire_resource"<br>
-        </p>
-        <p>root@generic-armv8-xt-dom0:~# test-resource <br>
-          XENMEM_acquire_resource tests<br>
-          Test ARM<br>
-            d3: grant table<br>
-          xenforeignmemory: error: ioctl failed: Invalid argument<br>
-              Fail: Get size: 22 - Invalid argument</p>
-      </blockquote>
-      <br>
-      Ah yes - you also need a bugfix in the dom0 kernel.  "xen/privcmd:
-      allow fetching resource sizes" which is in mainline, and also
-      backported to the LTS trees.<br>
-    </blockquote>
-    <br>
-    Well, my dom0 Linux is old)<br>
-    <br>
-    uname -a<br>
-    Linux generic-armv8-xt-dom0 4.14.75-ltsi-yocto-tiny #1 SMP PREEMPT
-    Thu Nov 5 10:52:32 UTC 2020 aarch64 GNU/Linux<br>
-    so I use ported "xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE".<br>
-    I didn't find "xen/privcmd: allow fetching resource sizes" for my
-    Linux version, so I backported it by myself.<br>
-    <p>So, with "[PATCH v9 01/11] xen/memory: Fix mapping grant tables
-      with XENMEM_acquire_resource"<br>
-    </p>
-    <p>root@generic-armv8-xt-dom0:~# test-resource <br>
-      XENMEM_acquire_resource tests<br>
-      Test ARM<br>
-        d7: grant table<br>
-      (XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 1 to
-      32 frames<br>
-      (XEN) grant_table.c:1854:d0v1 Expanding d7 grant table from 32 to
-      40 frames</p>
-    <p>[I didn't test without your patch]</p>
-    <p><br>
-    </p>
-    <p>Hope that helps.<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:79a41e5b-0717-f31b-3cec-60b716777603@citrix.com"> <br>
-      However, this did get past the bit I wasn't sure about for ARM,
-      which is good.<br>
-      <br>
-      ~Andrew<br>
-    </blockquote>
-    <pre class="moz-signature" cols="72">-- 
-Regards,
-
-Oleksandr Tyshchenko</pre>
-  </body>
-</html>
-
---------------A0AB5F0E1BCAA8CBCA232859--
+~Andrew
 
