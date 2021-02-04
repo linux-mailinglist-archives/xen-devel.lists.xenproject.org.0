@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 827F130F197
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 12:09:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81247.149758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6181030F1A3
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 12:10:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81248.149769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7cVu-0001Yw-J2; Thu, 04 Feb 2021 11:09:30 +0000
+	id 1l7cWf-0002Kc-UX; Thu, 04 Feb 2021 11:10:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81247.149758; Thu, 04 Feb 2021 11:09:30 +0000
+Received: by outflank-mailman (output) from mailman id 81248.149769; Thu, 04 Feb 2021 11:10:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7cVu-0001Y6-Ez; Thu, 04 Feb 2021 11:09:30 +0000
-Received: by outflank-mailman (input) for mailman id 81247;
- Thu, 04 Feb 2021 11:09:29 +0000
+	id 1l7cWf-0002KD-Pw; Thu, 04 Feb 2021 11:10:17 +0000
+Received: by outflank-mailman (input) for mailman id 81248;
+ Thu, 04 Feb 2021 11:10:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hI3K=HG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l7cVt-0001Y1-Sz
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 11:09:29 +0000
+ id 1l7cWe-0002K4-40
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 11:10:16 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ff7d234-b87c-4dd5-a0e4-1dc1bacb3688;
- Thu, 04 Feb 2021 11:09:28 +0000 (UTC)
+ id cb49948b-3f56-4378-9fcc-8f504e61fcc3;
+ Thu, 04 Feb 2021 11:10:15 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DB6B5AC9B;
- Thu,  4 Feb 2021 11:09:27 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 75BC4B112;
+ Thu,  4 Feb 2021 11:10:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,82 +38,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ff7d234-b87c-4dd5-a0e4-1dc1bacb3688
+X-Inumbo-ID: cb49948b-3f56-4378-9fcc-8f504e61fcc3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612436968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1612437014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=L38mQwxRm7OXz1bZGmxvDyR31jH2h3gLbIvIS9II5W8=;
-	b=KD9cRA413tks5HsHfBvnLwfhR8xvvv1jPn5ZWqAu0GVpAgHXvNyVTCk1A0VUALKpupdmNf
-	kwB2LTtNVZn0ICZWt9Vs7dZlm5zgN8RtS4iE1UBHt2Jsj7Eaf5sijLbTy2yzabIgx7JZo0
-	CW6ZJEQ/8UhtHyjBfNN25MbBBsmH9Ww=
-Subject: Re: [PATCH] drivers: net: xen-netfront: Simplify the calculation of
- variables
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- boris.ostrovsky@oracle.com
-Cc: sstabellini@kernel.org, davem@davemloft.net, kuba@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, andrii@kernel.org, kafai@fb.com,
- songliubraving@fb.com, yhs@fb.com, kpsingh@kernel.org,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-References: <1612261069-13315-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+	bh=CGeSW0mPFOp4YPPV7gJG97JzJYmCP9z187rfe/wDaTw=;
+	b=f7PhI5iHwvPX+79zoE8lrkDLww+wsaWCQvjBsoEISra90vslB8VbUvwwT0pQ9fsi3crBFv
+	u59iTBuEw6FVKaeIgbG/ZOuSWqkEqAVzXhEwjCFmaF1adnj/QcC6hEhBIti1h9f2Arg2Um
+	hhQP60OjXpy8Dn5Pjs93w0wtvTnOlds=
+Subject: Re: [PATCH v2] xen: Add RING_COPY_RESPONSE()
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20210128155030.1831483-1-marmarek@invisiblethingslab.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <9598a7b4-a0f1-3f64-b239-50612cc5caae@suse.com>
-Date: Thu, 4 Feb 2021 12:09:26 +0100
+Message-ID: <b37ac2f6-312e-51b7-1606-8e487430d749@suse.com>
+Date: Thu, 4 Feb 2021 12:10:13 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <1612261069-13315-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20210128155030.1831483-1-marmarek@invisiblethingslab.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="P6FL2Y36uCwjeFBydgkFMsiTtKLR3rpRp"
+ boundary="ma5KRMgur0NhOuKDnO4gsTwuqO3vdg4JR"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---P6FL2Y36uCwjeFBydgkFMsiTtKLR3rpRp
-Content-Type: multipart/mixed; boundary="BeuoqNxIjP0OuLOIDiBTLrrgbZeZwwxG8";
+--ma5KRMgur0NhOuKDnO4gsTwuqO3vdg4JR
+Content-Type: multipart/mixed; boundary="uxF7IjwPVqXRIicvSAzNPX1KGSAUpVQRi";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- boris.ostrovsky@oracle.com
-Cc: sstabellini@kernel.org, davem@davemloft.net, kuba@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, andrii@kernel.org, kafai@fb.com,
- songliubraving@fb.com, yhs@fb.com, kpsingh@kernel.org,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Message-ID: <9598a7b4-a0f1-3f64-b239-50612cc5caae@suse.com>
-Subject: Re: [PATCH] drivers: net: xen-netfront: Simplify the calculation of
- variables
-References: <1612261069-13315-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <1612261069-13315-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Message-ID: <b37ac2f6-312e-51b7-1606-8e487430d749@suse.com>
+Subject: Re: [PATCH v2] xen: Add RING_COPY_RESPONSE()
+References: <20210128155030.1831483-1-marmarek@invisiblethingslab.com>
+In-Reply-To: <20210128155030.1831483-1-marmarek@invisiblethingslab.com>
 
---BeuoqNxIjP0OuLOIDiBTLrrgbZeZwwxG8
+--uxF7IjwPVqXRIicvSAzNPX1KGSAUpVQRi
 Content-Type: multipart/mixed;
- boundary="------------5BC026031DA004FDEC7F39E2"
+ boundary="------------5C2C65F6DCA84D83F36FACA6"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------5BC026031DA004FDEC7F39E2
+--------------5C2C65F6DCA84D83F36FACA6
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 02.02.21 11:17, Jiapeng Chong wrote:
-> Fix the following coccicheck warnings:
+On 28.01.21 16:50, Marek Marczykowski-G=C3=B3recki wrote:
+> Using RING_GET_RESPONSE() on a shared ring is easy to use incorrectly
+> (i.e., by not considering that the other end may alter the data in the
+> shared ring while it is being inspected). Safe usage of a response
+> generally requires taking a local copy.
 >=20
-> ./drivers/net/xen-netfront.c:1816:52-54: WARNING !A || A && B is
-> equivalent to !A || B.
+> Provide a RING_COPY_RESPONSE() macro to use instead of
+> RING_GET_RESPONSE() and an open-coded memcpy().  This takes care of
+> ensuring that the copy is done correctly regardless of any possible
+> compiler optimizations.
 >=20
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> Use a volatile source to prevent the compiler from reordering or
+> omitting the copy.
+>=20
+> This generalizes similar RING_COPY_REQUEST() macro added in 3f20b8def0.=
+
+>=20
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
 
 Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------5BC026031DA004FDEC7F39E2
+--------------5C2C65F6DCA84D83F36FACA6
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -204,25 +201,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------5BC026031DA004FDEC7F39E2--
+--------------5C2C65F6DCA84D83F36FACA6--
 
---BeuoqNxIjP0OuLOIDiBTLrrgbZeZwwxG8--
+--uxF7IjwPVqXRIicvSAzNPX1KGSAUpVQRi--
 
---P6FL2Y36uCwjeFBydgkFMsiTtKLR3rpRp
+--ma5KRMgur0NhOuKDnO4gsTwuqO3vdg4JR
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAb1eYFAwAAAAAACgkQsN6d1ii/Ey+G
-swf7BiPLhOCdblIHtTfq8JmOqYP0/R82Hcc37LjlclTdT23Zl/WL2nbvw0cA+hQF5/6tJUytXifV
-B93gA0maGsZFbhNH8fo/vTZ2nQjpplhHdRaaLux+Rzmrof/is7H1eu/m4F/D2SOG7bYiS51hdHA/
-Q7ncG5p8rsjyPPLXKTksS+tNnMWMQ0k6a3DPIDzmJHt2cmxs9z5bIEDIc6l4F+AWhviYnJx+HXaW
-E5f576FZhnYCdMV5oIR9E+SfaVEU7Ps+qOAXZNLq3kxzZd2BVKYSxEahmV1+VPcmTaIZMIvgNLHS
-84/zTsja53kecocbbhSMnZEgAJ47Hqv4XqemBdm68g==
-=5Yma
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAb1hUFAwAAAAAACgkQsN6d1ii/Ey9A
+ZQf+IM0nfKKmh9F2qcMYygssAmYidus+tlNlTQ6fQ7mnXZHqM1+F2gIfYXi1ASsP4eWIEPFUszQW
+xG1FHL+5MXvSMoiAhdFoS8PZXG4U0W7kJrBL2A2CpCmYtPcq6OCZgOWUCe4ZBPpK1ydXGnlRCnxI
+47eK7U6NL95xoC7+bK2v+LxzjBsE/bk90f005qAOjaiSIvwoso/mgnphZGggGQ+KFqMloxVdqY3v
+55Qp56HIAkpk44sNCIQ5ufQwZ7Jmx6d+bd4qRNakI/4V1ymFywzVB7b5qv7OfCtr03XtHnCPhJ0u
+z1QcuPV29KZhFtHMWYCgq4sumHwMH+LabEffkeCmRQ==
+=O9C0
 -----END PGP SIGNATURE-----
 
---P6FL2Y36uCwjeFBydgkFMsiTtKLR3rpRp--
+--ma5KRMgur0NhOuKDnO4gsTwuqO3vdg4JR--
 
