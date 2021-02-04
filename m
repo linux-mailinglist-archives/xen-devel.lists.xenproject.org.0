@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8E030EE98
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 09:41:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81176.149478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C2430EEB8
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Feb 2021 09:45:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81180.149497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7aBj-0001O7-KQ; Thu, 04 Feb 2021 08:40:31 +0000
+	id 1l7aGI-0001as-AF; Thu, 04 Feb 2021 08:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81176.149478; Thu, 04 Feb 2021 08:40:31 +0000
+Received: by outflank-mailman (output) from mailman id 81180.149497; Thu, 04 Feb 2021 08:45:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7aBj-0001Ni-H0; Thu, 04 Feb 2021 08:40:31 +0000
-Received: by outflank-mailman (input) for mailman id 81176;
- Thu, 04 Feb 2021 08:40:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VauU=HG=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1l7aBh-0001Nb-Sq
- for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 08:40:29 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ecce8bd5-4ca9-4aa1-90f8-edddb2f725e6;
- Thu, 04 Feb 2021 08:40:28 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 77E4067373; Thu,  4 Feb 2021 09:40:23 +0100 (CET)
+	id 1l7aGI-0001aT-6b; Thu, 04 Feb 2021 08:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 81180;
+ Thu, 04 Feb 2021 08:45:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SI1E=HG=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l7aGG-0001aO-Lh
+ for xen-devel@lists.xenproject.org; Thu, 04 Feb 2021 08:45:12 +0000
+Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5ba4fb6e-db36-4ec8-b43a-72aad967e217;
+ Thu, 04 Feb 2021 08:45:11 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id c12so2458370wrc.7
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Feb 2021 00:45:11 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-190-149-163.range86-190.btcentralplus.com.
+ [86.190.149.163])
+ by smtp.gmail.com with ESMTPSA id q9sm6050638wme.18.2021.02.04.00.45.09
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 04 Feb 2021 00:45:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,49 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecce8bd5-4ca9-4aa1-90f8-edddb2f725e6
-Date: Thu, 4 Feb 2021 09:40:23 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Dongli Zhang <dongli.zhang@oracle.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-	iommu@lists.linux-foundation.org, linux-mips@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, nouveau@lists.freedesktop.org,
-	x86@kernel.org, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, adrian.hunter@intel.com,
-	akpm@linux-foundation.org, benh@kernel.crashing.org,
-	bskeggs@redhat.com, bhelgaas@google.com, bp@alien8.de,
-	boris.ostrovsky@oracle.com, hch@lst.de, chris@chris-wilson.co.uk,
-	daniel@ffwll.ch, airlied@linux.ie, hpa@zytor.com, mingo@kernel.org,
-	mingo@redhat.com, jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com, jgross@suse.com,
-	konrad.wilk@oracle.com, m.szyprowski@samsung.com,
-	matthew.auld@intel.com, mpe@ellerman.id.au, rppt@kernel.org,
-	paulus@samba.org, peterz@infradead.org, robin.murphy@arm.com,
-	rodrigo.vivi@intel.com, sstabellini@kernel.org,
-	bauerman@linux.ibm.com, tsbogend@alpha.franken.de,
-	tglx@linutronix.de, ulf.hansson@linaro.org, joe.jin@oracle.com,
-	thomas.lendacky@amd.com
-Subject: Re: [PATCH RFC v1 5/6] xen-swiotlb: convert variables to arrays
-Message-ID: <20210204084023.GA32328@lst.de>
-References: <20210203233709.19819-1-dongli.zhang@oracle.com> <20210203233709.19819-6-dongli.zhang@oracle.com>
+X-Inumbo-ID: 5ba4fb6e-db36-4ec8-b43a-72aad967e217
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=mg7W0VLw0FK4HNewxQamfD32hSX90m7wUkSk0nDAHMY=;
+        b=IuGP2Uj2Kw+lpz2wE7Ay44A6PGGuhRjkQlQ1eA/TZFGLycY60Gz8+EZQzEsZ/whyvl
+         rnw0HUr2RoE5bYhGKddYKOSNV8STqa+parCcrasVmaGl/jLERAvyRMBLXX767rBp0oay
+         /NiYxiyuJwmUddcQflYhSjDrfkEtiMAs5CUBnp5R/SY2iVYzO+dER17CeZUxINEkdj9s
+         QCUUOabRb0ZCKaMF+Xxpqvxcs6jbc6M59MYOlkMJ6gBVJF3Bx7WBgQyFpjs5OuIkt2s0
+         fJ+z0kvnTo1BZbK2DgZ0gFvYTReqUk3+K0F9k/NfTTPEE226CxcOYqMDVwVO75zPHUcj
+         QtlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=mg7W0VLw0FK4HNewxQamfD32hSX90m7wUkSk0nDAHMY=;
+        b=DA/CXQ7UKbcrweECCMOs1jMYqOT/4GaR0Ye6+9JNIMCl3qoXYAcNL08Iis4zZeIbka
+         vfm+EUD6shnLdCoiuZkgXKVPuLEOQfpXqMwCJBoj38CiW0FL2vFq+QMABt/I5fpAsjZ5
+         ffyjoggzhWgJiL3JiqkUWZlOqtLairHnSZpkATxN5mOv5t51MhNZU6ucgecQBDn6YXGG
+         01clMVjlHcI/ymtPp1PDxUPyFjOgTxlW8Dij0d3rBr7ggUzk88bq1PCNeGBjYabSjmaA
+         aQydf2arrgV/Q71EqZ3zyaalMP9Ts/0yCHLVy5O5XxWWD7a957qqMw00uke6unHbLgHE
+         bN7g==
+X-Gm-Message-State: AOAM5333ESPOQijWD1ef5QVK/2CfD4e0PM+hioMVtU7xBWgLoAPby+wD
+	5swg7P+oZYpXeTO7I+V02jE=
+X-Google-Smtp-Source: ABdhPJzHeeEWrCe/8QCs9u/g9R21SuE0grv7LBCKKxSSdLPWkozsnpZRxQ7oLr+VvNmZDDsv7xkQqw==
+X-Received: by 2002:a5d:6686:: with SMTP id l6mr7976648wru.236.1612428311037;
+        Thu, 04 Feb 2021 00:45:11 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'George Dunlap'" <george.dunlap@citrix.com>
+References: <0e7265fe-8d89-facb-790d-9232c742c3fa@suse.com> <3365a9a1-92c0-8917-1632-b88f1c055392@suse.com>
+In-Reply-To: <3365a9a1-92c0-8917-1632-b88f1c055392@suse.com>
+Subject: RE: [PATCH v2 1/2] IOREQ: fix waiting for broadcast completion
+Date: Thu, 4 Feb 2021 08:45:09 -0000
+Message-ID: <03f401d6fad2$0bbb9fd0$2332df70$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210203233709.19819-6-dongli.zhang@oracle.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQHgg/zPp1o/mkuzupLKGuAOuFa3bwFnX6eiqilg1nA=
+Content-Language: en-gb
 
-So one thing that has been on my mind for a while:  I'd really like
-to kill the separate dma ops in Xen swiotlb.  If we compare xen-swiotlb
-to swiotlb the main difference seems to be:
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 02 February 2021 15:14
+> To: xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <paul@xen.org>; George Dunlap <george.dunlap@citrix.com>
+> Subject: [PATCH v2 1/2] IOREQ: fix waiting for broadcast completion
+> 
+> Checking just a single server is not enough - all of them must have
+> signaled that they're done processing the request.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
- - additional reasons to bounce I/O vs the plain DMA capable
- - the possibility to do a hypercall on arm/arm64
- - an extra translation layer before doing the phys_to_dma and vice
-   versa
- - an special memory allocator
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-I wonder if inbetween a few jump labels or other no overhead enablement
-options and possibly better use of the dma_range_map we could kill
-off most of swiotlb-xen instead of maintaining all this code duplication?
+> ---
+> v2: New.
+> 
+> --- a/xen/common/ioreq.c
+> +++ b/xen/common/ioreq.c
+> @@ -213,9 +213,9 @@ bool vcpu_ioreq_handle_completion(struct
+>          return false;
+>      }
+> 
+> -    sv = get_pending_vcpu(v, &s);
+> -    if ( sv && !wait_for_io(sv, get_ioreq(s, v)) )
+> -        return false;
+> +    while ( (sv = get_pending_vcpu(v, &s)) != NULL )
+> +        if ( !wait_for_io(sv, get_ioreq(s, v)) )
+> +            return false;
+> 
+>      vio->req.state = ioreq_needs_completion(&vio->req) ?
+>          STATE_IORESP_READY : STATE_IOREQ_NONE;
+
+
 
