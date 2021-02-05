@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B2EE310AAD
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Feb 2021 12:54:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81648.150968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C8D310ACA
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Feb 2021 13:00:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81651.150980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7zgH-0008Nb-Fi; Fri, 05 Feb 2021 11:53:45 +0000
+	id 1l7zmJ-0000Mo-91; Fri, 05 Feb 2021 11:59:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81648.150968; Fri, 05 Feb 2021 11:53:45 +0000
+Received: by outflank-mailman (output) from mailman id 81651.150980; Fri, 05 Feb 2021 11:59:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7zgH-0008NB-Aw; Fri, 05 Feb 2021 11:53:45 +0000
-Received: by outflank-mailman (input) for mailman id 81648;
- Fri, 05 Feb 2021 11:53:44 +0000
+	id 1l7zmJ-0000MP-5Y; Fri, 05 Feb 2021 11:59:59 +0000
+Received: by outflank-mailman (input) for mailman id 81651;
+ Fri, 05 Feb 2021 11:59:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cB+w=HH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l7zgF-0008N6-Qz
- for xen-devel@lists.xenproject.org; Fri, 05 Feb 2021 11:53:44 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=v9N4=HH=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l7zmH-0000MK-Pr
+ for xen-devel@lists.xenproject.org; Fri, 05 Feb 2021 11:59:57 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8a859675-05a5-4dfd-b7d3-a25b7ca76046;
- Fri, 05 Feb 2021 11:53:42 +0000 (UTC)
+ id 54b79f53-e88a-484c-a2d1-d9285d649574;
+ Fri, 05 Feb 2021 11:59:56 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B2D3EAD4E;
+ Fri,  5 Feb 2021 11:59:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,148 +38,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a859675-05a5-4dfd-b7d3-a25b7ca76046
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612526022;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=70OolYbpJ0TB3JCeqVXbodRWpdm1hyzWa9tahDBVDJw=;
-  b=X2wLtKGgkzkUQgTc/3309ZJwrAtBfqxHzAjLOAStILaT1zkGVeBe2hew
-   +QpzX5g1qUP4K8m4Bb5tm46RrwJuVFOCj5BWXq9TspW9ecjmnP+m/sEgD
-   fqcWW3p4Up7s6r2HqVcWbeoQYjPWJV4d3L3WOLXm/gP2dNt741OeCewhN
-   k=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 8uIUkoKrRC9V5hN7rQYmNtukNB3Vlx6J4kGgobe7TZBlkwqRzJuBQ2I4W9/G2YCnoNLOYu6+5Y
- vKbeiT5oFU8Y5EqJPjTESij5CLlKOo85ZoLOTvw1isY2GTc9QM8YoF8TZUy8RmmHqsmNychLUq
- xx4sMJZ/x7FoTzSOpKE0S24Sm4sbFeWVMkfHdA0jGKK7lfoK0+vWulBONKADeYwJ6HZUouUoi/
- XoULeBuPEOeGPUU+hvGnYWkWrvTysIelsiISBmWIhyPNVuSDyqbLbVtu9J+c1Wdh1rgg36D4SO
- ZAI=
-X-SBRS: 5.2
-X-MesageID: 36587093
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,154,1610427600"; 
-   d="scan'208";a="36587093"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cCxMluIOBOxS9dcifZg2bkMFGByVWnhPT78YY9v6XO00iRWJYGIFqnw4F40maGf02cisJMW2mFemjM0qy4Amyas/ANQB/1Pwk5V0d+AdF+o1Ud/su7fFWzXP+/Q8gxeDYZ/FLYluchItxv9pAaVX8FMi7AZAdYxG6RdkfjnBCePK58WZCZJ6ToFPhEIvZc3UJ1MCQYZo75MjT99YPGQPCorrgVzgFJIKEh6ighUlZK2DyFxRK+5GeBwbZbwVhqYmGefHDpAc+3TrnBF+LugjPHVUZI+2inCvllZZLW0+V2jm9yoJZC5IlMBSlnxL467iCGofbMWZbkTlAF7+GE8ebg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=msA6GqCa+9D1/ZVUvtfAvMVUNgubP3GI27ive4wtEts=;
- b=UcZbD50GLYFGc5vCkvgOSUyw6SCYzzFILjIpOPiGmSD/UV8W96AdsDJc0z5bepfjlVncxOMfM9zE7go0gYs2MkD6SDdpPWUGvJ4LZEIptqu+2TldqaQ+pexAXBBD9LAqjlCtuEwKMmeJT9OrdrrL0FU64cPNtGfuSGFvsoqpFqNqhePkyIkJrANx2n/cUhLP4kkFaarAGJllIeNh4FU4zkWzusiDZPNJK5TT4eUxftTgXwFyorZ8H7cQ4wn4ov5ryKU/oaVDFsvDR4qpEZXcgtONh6IMoYKJ0djrkp3CTwBf7zTzZdDA/vEYpNfogFlprUY84NbsriaheaLcw4Dz8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=msA6GqCa+9D1/ZVUvtfAvMVUNgubP3GI27ive4wtEts=;
- b=gGliNeMFqxq3VsY862vazrXMmAs8TjJoCb43vLX+9TBW6E7xWzM24Qm9QOQT+tcKn+4EnpDcm6DLihR0Koena5+WFp6dWtuOBhDS+3ZOIoUpK+EsilmtXcsYZh3FDXNhFzfLaiTsE+ay2KhgMTfP7+B5JQYHVbUgsEXtnZs9kxY=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH for-4.15] tools/configure: add bison as mandatory
-Date: Fri,  5 Feb 2021 12:53:27 +0100
-Message-ID: <20210205115327.4086-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.29.2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR2P264CA0046.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::34)
- To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 54b79f53-e88a-484c-a2d1-d9285d649574
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612526395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cHaQ1mgKnkADJHg5lWEVnDaP95vX1UErggdff0BFbjM=;
+	b=P5FWX4a3vpbBwZliohutbraFAI/5k8c2dcMxzLFks5lL2VDPDblNYotNswwhv0IfPnbCMb
+	Uvka14HPlkhP+aXo1oRnW46nTmzU4hwD02DUND/Dd+r0enynBGreSjjIM6ZItn0Gbp1Mld
+	+l5smDBZhhbaJXzH0dsrEgtKeQuRZek=
+Subject: =?UTF-8?Q?Re=3a_Ping=c2=b2=3a_=5bPATCH=5d_x86/PV=3a_conditionally_a?=
+ =?UTF-8?Q?void_raising_=23GP_for_early_guest_MSR_accesses?=
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <7e69db81-cee7-3c7b-be64-4f5ff50fbe9c@suse.com>
+ <cf814663-0319-6a30-f3a2-dc43432eedb1@citrix.com>
+ <cf24a63e-afe9-be6a-3ab9-cc65e19a7a0f@suse.com>
+ <aad25a24-b598-4c35-05f0-80f39152c11e@suse.com>
+ <d4be9aea-0c14-dac6-5fb6-431f7899f075@suse.com>
+ <7fdfac30-0c7f-f07d-fc7c-f7bb87b71a28@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <ce11e82c-a80b-60fd-73a3-f9212f975767@suse.com>
+Date: Fri, 5 Feb 2021 12:59:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7c7fd90a-6a1a-4f6c-e54c-08d8c9ccac0f
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4844:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4844FDB0F163187E7360FD7C8FB29@DM6PR03MB4844.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8idbAkSt118zAAyrbbdXrM1t3o9OwTXKmobxY+WKGPUG1b4YoT7eGmv/Kos0QX5Ij+FYVScqVbJ/yE5/kjxQynbPYgRoFWwdj03bozq22EB9V0nI2he9pAqb8sei3MAs6aT1zWtwUhc/FV5//Ho6qnDClhJLQqQtucjjJqP7WX4FtPoHlYZy2PWq6y0Q9HrPo+5l3LN9/MdK5U7OfnjHD8sttzqg1ZAXC9E8MTe6uxc2bHIVbieYOZNK5eiCQX16XNcRe+fbgs7pbYVw897xxC/Jx23y6+EtsMW9Twx2EtSdSRA4e3dEnLUvEnTjWvUZgU0Yr2dYZPpTnwvxoN+KxcSBIiwERnFyglS74139spS3vBNRi2XDo4kojIQXUontGc9i3VRh8GoPDYRTDgyoKyqCbiV9Gyi+hfurmjmrZ5uxle6n+xYJDnihXFsxMoDGSnVc2QxhVwAD30XpPbxjZtbIkVQZB3cnWQOAYuVv5Iqv4ksEWIUg5p6LqYmEgOEsWr7Mv0VHvwcOc4qgAKOeGA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(136003)(346002)(376002)(396003)(366004)(1076003)(83380400001)(2906002)(26005)(478600001)(4326008)(54906003)(36756003)(6496006)(6486002)(316002)(956004)(186003)(6916009)(8936002)(8676002)(6666004)(66946007)(16526019)(2616005)(66476007)(86362001)(5660300002)(66556008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Rk8wZ2J3K1RzdThYUEYvYVhISG5BM1hLSHV2YmpxazBuODVSejd0eDlVcDN6?=
- =?utf-8?B?WVZlL1IxVWVzSDZLYytDcFpEa2JNenlWeTQxeGorYmpWZmoreWdrSjVLdjUv?=
- =?utf-8?B?VmpSR2tiZkUyWnhNd2xJNEljOXRwVlN6bTJNeC93WWFyVWYwVlVZcU1GK3du?=
- =?utf-8?B?RWU5OTl3L1VoSFFvUEc0YWRZRXJQNnlzdm1Da3dKN2pNZkFmemJhTEF0d1F0?=
- =?utf-8?B?K0s3Qk5QeGdHcXloWis3Z1czZDJIL2VxWXRrZmRqZXBQbjhZVEtaRkNNTm5u?=
- =?utf-8?B?b0M0bW9nUy9aTzJHbGcrZEJkQWxnYkt5WlZPVGZpcXlKRUs3a3dSNS8zUkhR?=
- =?utf-8?B?TWhxVExFTXlLeThSWTA5UkxkMkpjaTZGa1czVkNFbEI1eXFrenVYSkFCUUhm?=
- =?utf-8?B?S2tQdHp4UldYdXVKYjcwZEpPUjAzMTdVTHUyWnZWbmpYR1FCNVhvRlYrSTdZ?=
- =?utf-8?B?ZFNJMUFuQ1FNdUJHZC9peE1jVzRWTEFWRVN2V0d3cEVjNzZtb3c0NDFqd0pl?=
- =?utf-8?B?UEJDUHlRWW5GUXpGYTN2U2ZBTGMzeUZmZDhncDgyb0tPU2J6OW8reTJzRnhm?=
- =?utf-8?B?RFhlYk5DOE1JWUwwWXYyOEg0ME9IYzhxTHdxWHlqbDF6dkp4SWdOVkluUWhD?=
- =?utf-8?B?cktuVVlSL0N3UzdBV0VMUzhiSzRFc2JFQyt0OFZGWnUzbnZ6R29rUC9yTWQ5?=
- =?utf-8?B?NHdxNFQxdmlhOS9QMjZFOHRoKy81OGtsdE1QMld6dVZwWUZlbHZnUU5rQkFx?=
- =?utf-8?B?bmo5cEQxQXE0YzdPOU1jais2V1RkTCtLajRCdS9IOXlrVXJaNmJJNElUU0hP?=
- =?utf-8?B?aEZpYVhUNnJqaUR4Z1NWSDBwclB2MlZ1V3BVZEcxRFVDNzdLUnE1K1JVM05K?=
- =?utf-8?B?RzhwOGlIVkM1eGpUV09Lakdadkk3UVpWNFhxL3JXNTdxVlRyVStacUo0M2Z3?=
- =?utf-8?B?NkpjZk12bmRYQllrNEV5YzdIOENQcGNpdlRaTnFDK3N4Zlc3TEUyVlpHdmpG?=
- =?utf-8?B?Z0tqYnpUcHlRNTRKMmVNTFJpcjlWdERyOThXejVrZDhMQzd2Qk9odkh4bGFO?=
- =?utf-8?B?b3NKVHlaNEFUR1o2TENyTE9Xc1lmaG9jSlF1UE1EaGZRY1hhRmZncDJweEo1?=
- =?utf-8?B?MHJrUjdVNWpjcmJ3WnRFdWswcnF1L25hTHJuQWlKc0Y4R3QwTHRaZVRLb1ln?=
- =?utf-8?B?aVJXanVIY3AxVXdDWUVYc2F5N1RlcTFjaDNxVFBCNURmNHhrQWJpSzdOTTBu?=
- =?utf-8?B?VUt4UktGMnRlRnlJVVFBcHB2VkFLUmJiMVVyMjFNKzg2Z1BiMnVSblVkRWMy?=
- =?utf-8?B?c2c1dTRKZjVmU2JlT0pqM1FTZjBEVThINkQ4cWJ5Rmc3SUN3Mk13MVk4cllj?=
- =?utf-8?B?RlplSllKNHpyTlFCa1VRM3d2Vkh5RUlqQnZsdHc4ODRiSkJBYlZuanplVlYr?=
- =?utf-8?B?VEx6QTVrR3hzSVlodkh4azE1cHJINForWDFaOE44a2JRV1ZyeDFNTjB4eXFL?=
- =?utf-8?B?RHNUL2Y5Mk03MWgzNmVPUUVkd3FWZkd0dHJrMU9PekczNUFWaUphWFNQSTZy?=
- =?utf-8?B?SGNhQU9UT2NKTmxBT1Evb0ZzdVJIRzlvOWJzeS85bVVVZnVZbFh5M200VGl4?=
- =?utf-8?B?Vzg3b3RVZkdsVVJySEM3MEpCZG9FMW5WSTRYYzJmdExjRnlaSDY5L1dBWVBw?=
- =?utf-8?B?a1V0dXN2ZW5iN2g2aDNmOWFMYjVBK1JJQlAzUG1PRk9DUERjb1VoN2pxdytM?=
- =?utf-8?Q?k7iWj2Wqqls5UR7bQtFWjEAlDoUeRLUk42k4D0O?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c7fd90a-6a1a-4f6c-e54c-08d8c9ccac0f
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2021 11:53:37.3086
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bfQxKTxd5FOLW40m0UZ4DvFNAkYtTAIV+NcrjkGtmaspssvItqMjziMIzN7EpSHQYeCmmZ6YgXQWkC8hE0ZzaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4844
-X-OriginatorOrg: citrix.com
+In-Reply-To: <7fdfac30-0c7f-f07d-fc7c-f7bb87b71a28@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="7ukG6CC3P3LCc6ClqkY6hbZsGInvdqvC5"
 
-Bison is now mandatory when the pvshim build is enabled in order to
-generate the Kconfig.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--7ukG6CC3P3LCc6ClqkY6hbZsGInvdqvC5
+Content-Type: multipart/mixed; boundary="yVfWrfIlRbVKu29Wujrq1zmFX9vSIR4D7";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <ce11e82c-a80b-60fd-73a3-f9212f975767@suse.com>
+Subject: =?UTF-8?Q?Re=3a_Ping=c2=b2=3a_=5bPATCH=5d_x86/PV=3a_conditionally_a?=
+ =?UTF-8?Q?void_raising_=23GP_for_early_guest_MSR_accesses?=
+References: <7e69db81-cee7-3c7b-be64-4f5ff50fbe9c@suse.com>
+ <cf814663-0319-6a30-f3a2-dc43432eedb1@citrix.com>
+ <cf24a63e-afe9-be6a-3ab9-cc65e19a7a0f@suse.com>
+ <aad25a24-b598-4c35-05f0-80f39152c11e@suse.com>
+ <d4be9aea-0c14-dac6-5fb6-431f7899f075@suse.com>
+ <7fdfac30-0c7f-f07d-fc7c-f7bb87b71a28@citrix.com>
+In-Reply-To: <7fdfac30-0c7f-f07d-fc7c-f7bb87b71a28@citrix.com>
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Please re-run autogen.sh after applying.
+--yVfWrfIlRbVKu29Wujrq1zmFX9vSIR4D7
+Content-Type: multipart/mixed;
+ boundary="------------3E654E1D7EF6826373AC9B2B"
+Content-Language: en-US
 
-Fallout from this patch can lead to broken configure script being
-generated or bison not detected correctly, but those will be cached
-quite quickly by the automated testing.
----
- tools/configure.ac | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+This is a multi-part message in MIME format.
+--------------3E654E1D7EF6826373AC9B2B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/tools/configure.ac b/tools/configure.ac
-index 5b328700e0..f4e3fccdb0 100644
---- a/tools/configure.ac
-+++ b/tools/configure.ac
-@@ -308,7 +308,6 @@ AC_ARG_VAR([AWK], [Path to awk tool])
- AC_PROG_CC
- AC_PROG_MAKE_SET
- AC_PROG_INSTALL
--AC_PATH_PROG([BISON], [bison])
- AC_PATH_PROG([FLEX], [flex])
- AX_PATH_PROG_OR_FAIL([PERL], [perl])
- AX_PATH_PROG_OR_FAIL([AWK], [awk])
-@@ -516,5 +515,10 @@ AC_ARG_ENABLE([pvshim],
-     esac
- ])
- AC_SUBST(pvshim)
-+AS_IF([test "x$pvshim" = "xy"], [
-+    AX_PATH_PROG_OR_FAIL([BISON], [bison])
-+], [
-+    AC_PATH_PROG([BISON], [bison])
-+])
- 
- AC_OUTPUT()
--- 
-2.29.2
+On 05.02.21 12:32, Andrew Cooper wrote:
+> On 05/02/2021 10:56, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 05.02.21 11:14, Jan Beulich wrote:
+>>> (simply re-sending what was sent over 2 months ago)
+>>>
+>>> On 04.11.2020 11:50, Jan Beulich wrote:
+>>>> On 03.11.2020 18:31, Andrew Cooper wrote:
+>>>>> On 03/11/2020 17:06, Jan Beulich wrote:
+>>>>>> Prior to 4.15 Linux, when running in PV mode, did not install a #G=
+P
+>>>>>> handler early enough to cover for example the rdmsrl_safe() of
+>>>>>> MSR_K8_TSEG_ADDR in bsp_init_amd() (not to speak of the unguarded
+>>>>>> read
+>>>>>> of MSR_K7_HWCR later in the same function). The respective change
+>>>>>> (42b3a4cb5609 "x86/xen: Support early interrupts in xen pv
+>>>>>> guests") was
+>>>>>> backported to 4.14, but no further - presumably since it wasn't
+>>>>>> really
+>>>>>> easy because of other dependencies.
+>>>>>>
+>>>>>> Therefore, to prevent our change in the handling of guest MSR
+>>>>>> accesses
+>>>>>> to render PV Linux 4.13 and older unusable on at least AMD
+>>>>>> systems, make
+>>>>>> the raising of #GP on these paths conditional upon the guest havin=
+g
+>>>>>> installed a handler. Producing zero for reads and discarding write=
+s
+>>>>>> isn't necessarily correct and may trip code trying to detect
+>>>>>> presence of
+>>>>>> MSRs early, but since such detection logic won't work without a #G=
+P
+>>>>>> handler anyway, this ought to be a fair workaround.
+>>>>>>
+>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>>
+>>>>> I appreciate that we probably have to do something, but I don't thi=
+nk
+>>>>> this is a wise move.
+>>>>
+>>>> I wouldn't call it wise either, but I'm afraid something along
+>>>> these lines is necessary.
+>>>>
+>>>>> Linux is fundamentally buggy.=C2=A0 It is deliberately looking for =
+a
+>>>>> potential #GP fault given its use of rdmsrl_safe().=C2=A0 The reaso=
+n
+>>>>> this bug
+>>>>> stayed hidden for so long was as a consequence of Xen's inappropria=
+te
+>>>>> MSR handling for guests, and the reasons for changing Xen's behavio=
+ur
+>>>>> still stand.
+>>>>
+>>>> I agree.
+>>>>
+>>>>> This change, in particular, does not apply to any explicitly handle=
+d
+>>>>> MSRs, and therefore is not a comprehensive fix.
+>>>>
+>>>> But it's intentional that this deals with the situation in a
+>>>> generic way, not on a per-MSR basis. If we did as you suggest
+>>>> further down, we'd have to audit all Linux versions up to 4.14
+>>>> for similar issues with other MSRs. I don't think this would
+>>>> be a practical thing to do, and I also don't think that leaving
+>>>> things as they are until we have concrete reports of problems
+>>>> is a viable option either.
+>>>>
+>>>> Adding explicit handling for the two offending MSRs (and any
+>>>> possible further ones we discover) would imo only be to avoid
+>>>> issuing the respective log messages.
+>>>>
+>>>>>  =C2=A0=C2=A0 Nor is it robust to
+>>>>> someone adding code to explicitly handling the impacted MSRs at a
+>>>>> later
+>>>>> date (which are are likely to need to do for HWCR), and which would=
 
+>>>>> reintroduce this failure to boot.
+>>>>
+>>>> I'm afraid I don't understand. Looking at the two functions
+>>>> the patch alters, only X86EMUL_OKAY is used in return statements
+>>>> other than the final one. If this model is to be followed by
+>>>> future additions (which I think it ought to be; perhaps we
+>>>> should add comments to this effect), the code introduced here
+>>>> will take care of the situation nevertheless.
+>>>>
+>>>>> We should have the impacted MSRs handled explicitly, with a note
+>>>>> stating
+>>>>> this was a bug in Linux 4.14 and older.=C2=A0 We already have worka=
+round
+>>>>> for
+>>>>> similar bugs in Windows, and it also gives us a timeline to eventua=
+lly
+>>>>> removing support for obsolete workarounds, rather than having a
+>>>>> "now and
+>>>>> in the future, we'll explicitly tolerate broken PV behaviour for
+>>>>> one bug
+>>>>> back in ancient linux".
+>>>>
+>>>> Comparing with Windows isn't very helpful; the patch here is
+>>>> specifically about PV, and would help other OSes as well in
+>>>> case they would have missed setting up exceptions early in
+>>>> just the PV-on-Xen case. For the HVM case I'd indeed rather
+>>>> see us go the route we've gone for Windows, if need be.
+>>>
+>>> As can be seen from this reply, we're not in agreement what to
+>>> do here. But we need to do something. I'm not sure how to get
+>>> unstuck discussions like this one ...
+>>>
+>>> Besides this suggestion of yours I also continue to have
+>>> trouble seeing what good it will do to record an exception to
+>>> inject into a guest when we know it didn't install a handler
+>>> yet.
+>>
+>> As we need to consider backports of processor bug mitigations
+>> in old guests, too, I think we need to have a "catch-all"
+>> fallback.
+>>
+>> Not being able to run an old updated guest until we add handling
+>> for a new MSR isn't a viable option IMO.
+>=20
+> You're trading off against issuing XSAs for all the unknown quantities
+> of sensitive in MSRs on all past and future platforms.=C2=A0 This has
+> unbounded scope.
+>=20
+> Xen's previous behaviour was astoundingly stupid, and yes - we're
+> playing more than a decades worth of catchup in one release cycle.
+>=20
+> I'll absolutely take "care/tweaks need to happen crossing the Xen
+> 4.14=3D>4.15 boundary" over whack-a-mole for MSRs in the form of securi=
+ty
+> advisories.
+
+What about making this behavior controllable via a boot parameter?
+
+Selecting that could result in a boot warning issued via warning_add().
+
+
+Juergen
+
+--------------3E654E1D7EF6826373AC9B2B
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------3E654E1D7EF6826373AC9B2B--
+
+--yVfWrfIlRbVKu29Wujrq1zmFX9vSIR4D7--
+
+--7ukG6CC3P3LCc6ClqkY6hbZsGInvdqvC5
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAdMzsFAwAAAAAACgkQsN6d1ii/Ey/1
+JQf/ft0XjgpftpveKAx6MkxCafxb6H1FzCPc2uZaiHHKGaZr7tepJcXGR+Y05fEKA+8AO1Xnk01s
+iMKgV5VNxcjwHWH2yNNvvBw1CPIOADMCTRpI4iyjmTtPvKtoAiNs1JKcRl162MiT0bhru/izrGMn
+RYPujuIcj+CgmFiWa2EGsQtqzdaL2Apdf5+MlZhZLOmwpVyVeCg2EMxhWR10vZwocfF+CilidR9K
+9T7TgjY2n3qflb7UAFQbha4kslXm+P+y4lc55IkdHHQytlcBJ3wWLczPe0kNjOwhWrcMqSCWvjWW
+jHSC3D+N/BD6Oq+p0uUfHqYrCeIRDwSO2C96vRr6YQ==
+=Ameg
+-----END PGP SIGNATURE-----
+
+--7ukG6CC3P3LCc6ClqkY6hbZsGInvdqvC5--
 
