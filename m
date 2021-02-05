@@ -2,31 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B033108C3
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Feb 2021 11:14:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.81572.150842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96995310924
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Feb 2021 11:33:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.81580.150857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7y7q-0005Wj-Iq; Fri, 05 Feb 2021 10:14:06 +0000
+	id 1l7yQQ-0007dq-8c; Fri, 05 Feb 2021 10:33:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 81572.150842; Fri, 05 Feb 2021 10:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 81580.150857; Fri, 05 Feb 2021 10:33:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l7y7q-0005WK-Ff; Fri, 05 Feb 2021 10:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 81572;
- Fri, 05 Feb 2021 10:14:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IalI=HH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l7y7p-0005WE-GC
- for xen-devel@lists.xenproject.org; Fri, 05 Feb 2021 10:14:05 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6a71c240-d41f-4c0f-8132-69e3fe14b935;
- Fri, 05 Feb 2021 10:14:04 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 902D0AD2B;
- Fri,  5 Feb 2021 10:14:03 +0000 (UTC)
+	id 1l7yQQ-0007dR-54; Fri, 05 Feb 2021 10:33:18 +0000
+Received: by outflank-mailman (input) for mailman id 81580;
+ Fri, 05 Feb 2021 10:33:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jdnZ=HH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l7yQP-0007dM-0N
+ for xen-devel@lists.xenproject.org; Fri, 05 Feb 2021 10:33:17 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4313d5ea-b0e1-402b-8c21-fd777791c127;
+ Fri, 05 Feb 2021 10:33:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,166 +36,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a71c240-d41f-4c0f-8132-69e3fe14b935
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612520043; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uGatrluN+l13sHAAB/WmEAoA7zhX5k2q+5XeoUQvkWc=;
-	b=X3N8t2oZvb00UsOlBg1cqP+RCYSoh0WSNpDVHdnipEZTIfKkGGYNmJ+eokO5VgSs3T/sbq
-	6d7byI6V4hhVGpmXosNs3Rh3gvyeTsQ/t0FpAF3cw1YfB+f2NqxVX4AP6j+e0g+GN2XhAK
-	8let0xOBxfa8yRB6zEXybG5665Wv17o=
-From: Jan Beulich <jbeulich@suse.com>
-Subject: =?UTF-8?Q?Ping=c2=b2=3a_=5bPATCH=5d_x86/PV=3a_conditionally_avoid_r?=
- =?UTF-8?Q?aising_=23GP_for_early_guest_MSR_accesses?=
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <7e69db81-cee7-3c7b-be64-4f5ff50fbe9c@suse.com>
- <cf814663-0319-6a30-f3a2-dc43432eedb1@citrix.com>
- <cf24a63e-afe9-be6a-3ab9-cc65e19a7a0f@suse.com>
-Message-ID: <aad25a24-b598-4c35-05f0-80f39152c11e@suse.com>
-Date: Fri, 5 Feb 2021 11:14:03 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <cf24a63e-afe9-be6a-3ab9-cc65e19a7a0f@suse.com>
+X-Inumbo-ID: 4313d5ea-b0e1-402b-8c21-fd777791c127
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1612521194;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Yk+9SVcFZXJKfIzm15IKOvJ062xTXMZ7E/og3oxBvQo=;
+  b=f/l8v8Me72TwM+2jAu5aQ9DAWQkPOV16aV0CwDs0S5lCB9rjAltV888U
+   mvDqIo84goT8xyIWrIdco5X4Yj9Sz/2A2/9YR+5FJ2mwvTzL5mVwFdAHR
+   +PxqY1IPpMVBdkLzynhUQ94eUvItYZXUR1Bzz0QBgJ6NLdSSi99tPZaVJ
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: ttwBhKGBOe4P8Evt0nYvbhIHXX9QqvJIQf7DQ1vOqR8cSoQ33Vj3qkJFoQIztPOFPNJHQCcU6+
+ PTaWFY8V2EsEPInI+TLsY+uH9qZW3RBps8QCf4AjcHITIw0KDZeCbxWcMzBLz80/erIM+goTqU
+ HXPzT1ibwZeFbAejPIh4gnF2PP202S67MbszXQqAVzvRjkwuCqppUI9ZXZgrZnig91bhHvky4G
+ 2l82H4WSMmB9IUGbID2Z24mQFGIouSzXUWinPN/BowCwaiwFFocj3BLaHFpYWaWLvejllcYRuU
+ 0Vs=
+X-SBRS: 5.2
+X-MesageID: 36833515
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,154,1610427600"; 
+   d="scan'208";a="36833515"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cSDF0CvYPnhN0EybmxeT+CmH1EL27x7EZaFDFlVfUPZoQhNh2WnFQsHuwtXGtIQQ8L6m/qqA4h8sNKlhxXIDqhk6F94qOdRuWukXzwJ3qOs4ZJNQBw1gDlxTLxEtMPEVCc1saM1Sv7FoRupjXAsDrjHLbxnEADwrO5zaBsRHa87yobQ7baOehla6MYG4mUbPkJhxMbRGg7/8JYAF62KRQq4XPaAWlOfdZhSoNpXqwIUp1/fSNuxjmTw2ZLvRiZhRjqiZJf/fgWrerwybNXDQd2qqAbkpSU6IZPxrAZK+z/cNEYccdL8dP5dGUapMyYr3KP+VjjbpceLIDOqJ3ta/xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5t1y/vW/EGERf7/B9L7HaSU5tqPV3o8mDIH/V5sGE/U=;
+ b=P0FBsMOuduL+RwdNsWv+rA7weKhzEkQeGakjik6zeJbzMzEQvX2QUQufrlD6n2V0lC883hTKbImxl9xb/ec6S7+X2LiIwyUavfP0skmSc1nzoRvibU3V+BW5Lj4O5TyTNT2ocPJQeQLrtBprSzV4MRlIWR9PQZzB/H2lYnQ74EDNnrhOF1tlNlcQid66SXaiEAqjR4VwlifkrNHow60hscxoBQwufhgPC7brSg2S5RzgQ+lm7Y/irY3hIurUsQcYajTLM5bED0aEBA2YZJrx+qeDY28npczub9FGM5718Jwyu1g6xDoIom8TfoxAn4hx3j73jBIAcBWCO+mIkkQ93A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5t1y/vW/EGERf7/B9L7HaSU5tqPV3o8mDIH/V5sGE/U=;
+ b=vcPdSJflPFdNZag6D1sauLwsQFxgHXW+XEhUXN3FQcW55gCFjnpjjlxNGejni8DzznnO0+OTqXO/MsPnUSzPvUZx9dG0mCrpWj5cWlFLmosDB+gcfL6sUfaqNG2D62DDkO20sRcK4svHwGWOw43kgyVLJoVvvOc2ChFLiRMdUMM=
+Subject: Re: [PATCH] x86/EFI: work around GNU ld 2.36 issue
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+	<roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>
+References: <e6d59277-35b2-e7df-0e68-a794c8855ac0@suse.com>
+ <8450b84d-93f2-7568-362e-af27954e5157@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <881b97a1-a4e3-f213-f81b-ac07ca46ed27@citrix.com>
+Date: Fri, 5 Feb 2021 10:33:01 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+In-Reply-To: <8450b84d-93f2-7568-362e-af27954e5157@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0315.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a4::15) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: acca0212-23f5-47bc-563c-08d8c9c16d53
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4726:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4726666B40928DDC1F7ABD79BAB29@BYAPR03MB4726.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Tc8FHiTMl1fAM/DG1RHMDlA2QlewlpkaWfzhoPgNLUJWiclGG4PymoIIPtW+Eb6X050sFB/Rmn3M1ANvma3Knn51wDhiOk2NBe1MbdaEXBb+tSeGtqyjHlnws6zukTiKhmV1iqzkxGrzZerc/xS2iLvI/kiAPUson50fdtCO8j2v00rDtr0fdiJ0QlBG6bwGpXUfpJ+uRtCG3Iv9bFJoM+OC7+Bqtvc5VqSDuL77yxdSVpf1DfrO0XKUXP0FIWsMvatLe9PeSvX2b7KbEJbxyKJ+aDXc0Ea+CSAs6AkoKSS3Wn/9XGQAP6r98dyRR54jvGtQ/8a1ESmyJ9jDwp48pQIjJi7x6FMDlmw4dJRGO0nZXzvRbBbSMZKrXg7FB3boS5j9o0JZ5gXEehBEEu/pAVywn9etl18PNe3oOR4pE6dqzoIB/qItpuhguyNgR/KZcRy5c2zFDou1+cUg77XP2oYI2yPQ37UwlalqkDxbln2Dg7lLIOvgW23sZcmrraWnt1Xawpxvv2ZBZx0OGqGp8y4D2kgard5iXDjEdQ6pS1KAvSL8yXj4ZWvpBOSVJk2QvlHh19p8kVvcWgL2JG5C5wRshmez+4xyz/ZqSKHYXs4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(396003)(346002)(366004)(39850400004)(66556008)(66476007)(83380400001)(66946007)(5660300002)(478600001)(16526019)(4326008)(186003)(2906002)(31686004)(86362001)(8936002)(36756003)(26005)(16576012)(956004)(54906003)(8676002)(316002)(2616005)(53546011)(6486002)(31696002)(6666004)(110136005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?cGRuTWZzb0ZxZ3g1UkpQYjNVczRkN2Rvb3dCQzFWNzArUks0UlhhVUJFejQy?=
+ =?utf-8?B?UzlodGVLMXE2aGhmMlhRK1M5QjZsYjU2SmtQN0psUlE2SEFMUlA2VTBDNEli?=
+ =?utf-8?B?UHFPM0NaWk5Ra0QvNy81cll6MisvM3lOaEVSZmNGd0hrWjdnQzFxSHJHY0hr?=
+ =?utf-8?B?QlhRMzFoVmQzMHJVeHVDUjJSR1dvaXQydDhTd0JxOE9vVmVkZmdPNzU1UUN3?=
+ =?utf-8?B?S1NLR3lvazlqSVV0cHU5MXBVSUt3czVyTTdDOGxTV1Rac2RkbG9jZTkxMjl4?=
+ =?utf-8?B?Siszb0VFSGRkb3F4STB4OXFwMkNxZDJETm16VXM1OVJQZ3E4RXFJUkE1d2py?=
+ =?utf-8?B?L2xEclRkV0p1dUJjSzNpWUY4Tkd0OGZrZ2RacDhETS9scXJ1aTEvQ0liWnR6?=
+ =?utf-8?B?cTd1eG1XK1JIcnhUeGJzYUhXSytZUUhMWHhQQnlOaDJyOElVcUVUVktDRUtr?=
+ =?utf-8?B?N0x3OFJHTWFBVTVPSkxUbkhaM2xzbW5zeSsxZFNiSVl2TjVFQUFMYzRGeXNl?=
+ =?utf-8?B?M1F1aWNTbU1YYTJpMWRCSXc5V0Y5dTRZTDhMVHlleWhDTGlzQk9qdEhZSzFs?=
+ =?utf-8?B?VnlkN2U2YTNjdE5Sb2hrMGlPN2Q4WGYyRUtURnVnYnR3V01iN2pkbXBPMkl2?=
+ =?utf-8?B?WW9Ha2xJSk1mWkZ6N0VDdTdmd2I0MlFSeUlmdXNZN1l6NjVUaGxrSTNxK01H?=
+ =?utf-8?B?MzQxVnh2OHh2MXo2TVFiSk9HT1UzOW1JNUdhdG5McFBrOEZwYXFYTkM1Nk5X?=
+ =?utf-8?B?MXgrTjZpNForekdwZ2x4VVNYN3I4NEhHK1NrMno2djBhMVM1V3JYblZ6QUVH?=
+ =?utf-8?B?TkR6U2QzM0g5ZVNxazZ1SW1YcS9WQlNqRDVtMk9jVFMxZ1JJVlpYMlFSVVdq?=
+ =?utf-8?B?ZUhsWTMya1RVVzB6cHllUnEwekhWMjZDMEtGaDRDRU9zWUswZWo0V1llbHZG?=
+ =?utf-8?B?cDRlUFo4V1VOR0pMLzE2N0hPRTVSb0VGLzFvelRXS3VmeGszOXI3N1FGMG84?=
+ =?utf-8?B?U0k0Z0pMa0pHVE1HYnIvWGlkMGQ2MTJzZDl5YjlkMDJQQVphQXh4dnRzb0Qw?=
+ =?utf-8?B?SkVkdDQzWnkxUEM2ZGRHdWU1ZXA4TG04cW15RUw2eFpSTUVXZ0tMdEsweUN5?=
+ =?utf-8?B?L0JnaVFnT0F6Rm1FdGpYTjNSaWw3MWFENW1NVjNzV0xPSHQwbUNlT3lXUzdx?=
+ =?utf-8?B?UlJGa0Z3elJzMlNrVE9DeXZQTzllVlZYVGFOdTArNlRSU29rNjVHMzBVcDVB?=
+ =?utf-8?B?ZGdLSDUwVDJxSU4vdHlqbmdhQ25Rdy92cmQxeGYzbGlxQWY1a2FhRytoWXA5?=
+ =?utf-8?B?ZjZ3cEFyZjJjTjhDc28rSkhxTEYxcnArU3laVmpxb1VGQUNINExOZjhzd0Zv?=
+ =?utf-8?B?WWFUa05ENVdUTnFOdFhVR1BFbzlvODJEYzkvd2U0VXQ5NjRGUDFNOTdMOTJT?=
+ =?utf-8?B?cDk5RTY4MDFxTG9VRzl5OWY0UUhISmJUNStkempBYVU4T0ZkaFl4a3ltSEJJ?=
+ =?utf-8?B?dkZoVVhtZGVmWGNPVE13aU1mNHpZQ2ZCUk9rWEdGN081Z09pbmtmNkQrcS9x?=
+ =?utf-8?B?V29jaXJIblQrK3JZV1VyNUcrN1BHM2hsV3Z1cXFiRTE5NGR4dE81NTdxS0Ey?=
+ =?utf-8?B?ZVZYdGJ4VGNsV2JYQ0txU2hpUldNKzNtelEvWVRIc2libUFxMExPYU50K0NR?=
+ =?utf-8?B?MitrZTNXV256SnJZLzl1cDZqcGE0NzEwTUkvcktsVU5uZDQ3cyt2MWVCc1VU?=
+ =?utf-8?Q?02QIPDOSMcdbvRUPfFXOq7XCjM3+uo975XqHl0D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: acca0212-23f5-47bc-563c-08d8c9c16d53
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2021 10:33:07.4503
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t0MWxunAkLKhfyvBg7BxUVAuRhLLRWALF2X9omH26uR9zm1Gtw/rR52FRDoRg5LYdGoiKy444ZuPednxRx/fA5VYHL7K6unK5Y1KUjJ2fqQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4726
+X-OriginatorOrg: citrix.com
 
-(simply re-sending what was sent over 2 months ago)
-
-On 04.11.2020 11:50, Jan Beulich wrote:
-> On 03.11.2020 18:31, Andrew Cooper wrote:
->> On 03/11/2020 17:06, Jan Beulich wrote:
->>> Prior to 4.15 Linux, when running in PV mode, did not install a #GP
->>> handler early enough to cover for example the rdmsrl_safe() of
->>> MSR_K8_TSEG_ADDR in bsp_init_amd() (not to speak of the unguarded read
->>> of MSR_K7_HWCR later in the same function). The respective change
->>> (42b3a4cb5609 "x86/xen: Support early interrupts in xen pv guests") was
->>> backported to 4.14, but no further - presumably since it wasn't really
->>> easy because of other dependencies.
->>>
->>> Therefore, to prevent our change in the handling of guest MSR accesses
->>> to render PV Linux 4.13 and older unusable on at least AMD systems, make
->>> the raising of #GP on these paths conditional upon the guest having
->>> installed a handler. Producing zero for reads and discarding writes
->>> isn't necessarily correct and may trip code trying to detect presence of
->>> MSRs early, but since such detection logic won't work without a #GP
->>> handler anyway, this ought to be a fair workaround.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 05/02/2021 08:11, Jan Beulich wrote:
+> On 04.02.2021 14:38, Jan Beulich wrote:
+>> Our linker capability check fails with the recent binutils release's ld:
 >>
->> I appreciate that we probably have to do something, but I don't think
->> this is a wise move.
-> 
-> I wouldn't call it wise either, but I'm afraid something along
-> these lines is necessary.
-> 
->> Linux is fundamentally buggy.  It is deliberately looking for a
->> potential #GP fault given its use of rdmsrl_safe().  The reason this bug
->> stayed hidden for so long was as a consequence of Xen's inappropriate
->> MSR handling for guests, and the reasons for changing Xen's behaviour
->> still stand.
-> 
-> I agree.
-> 
->> This change, in particular, does not apply to any explicitly handled
->> MSRs, and therefore is not a comprehensive fix.
-> 
-> But it's intentional that this deals with the situation in a
-> generic way, not on a per-MSR basis. If we did as you suggest
-> further down, we'd have to audit all Linux versions up to 4.14
-> for similar issues with other MSRs. I don't think this would
-> be a practical thing to do, and I also don't think that leaving
-> things as they are until we have concrete reports of problems
-> is a viable option either.
-> 
-> Adding explicit handling for the two offending MSRs (and any
-> possible further ones we discover) would imo only be to avoid
-> issuing the respective log messages.
-> 
->>   Nor is it robust to
->> someone adding code to explicitly handling the impacted MSRs at a later
->> date (which are are likely to need to do for HWCR), and which would
->> reintroduce this failure to boot.
-> 
-> I'm afraid I don't understand. Looking at the two functions
-> the patch alters, only X86EMUL_OKAY is used in return statements
-> other than the final one. If this model is to be followed by
-> future additions (which I think it ought to be; perhaps we
-> should add comments to this effect), the code introduced here
-> will take care of the situation nevertheless.
-> 
->> We should have the impacted MSRs handled explicitly, with a note stating
->> this was a bug in Linux 4.14 and older.  We already have workaround for
->> similar bugs in Windows, and it also gives us a timeline to eventually
->> removing support for obsolete workarounds, rather than having a "now and
->> in the future, we'll explicitly tolerate broken PV behaviour for one bug
->> back in ancient linux".
-> 
-> Comparing with Windows isn't very helpful; the patch here is
-> specifically about PV, and would help other OSes as well in
-> case they would have missed setting up exceptions early in
-> just the PV-on-Xen case. For the HVM case I'd indeed rather
-> see us go the route we've gone for Windows, if need be.
+>> .../check.o:(.debug_aranges+0x6): relocation truncated to fit: R_X86_64_32 against `.debug_info'
+>> .../check.o:(.debug_info+0x6): relocation truncated to fit: R_X86_64_32 against `.debug_abbrev'
+>> .../check.o:(.debug_info+0xc): relocation truncated to fit: R_X86_64_32 against `.debug_str'+76
+>> .../check.o:(.debug_info+0x11): relocation truncated to fit: R_X86_64_32 against `.debug_str'+d
+>> .../check.o:(.debug_info+0x15): relocation truncated to fit: R_X86_64_32 against `.debug_str'+2b
+>> .../check.o:(.debug_info+0x29): relocation truncated to fit: R_X86_64_32 against `.debug_line'
+>> .../check.o:(.debug_info+0x30): relocation truncated to fit: R_X86_64_32 against `.debug_str'+19
+>> .../check.o:(.debug_info+0x37): relocation truncated to fit: R_X86_64_32 against `.debug_str'+71
+>> .../check.o:(.debug_info+0x3e): relocation truncated to fit: R_X86_64_32 against `.debug_str'
+>> .../check.o:(.debug_info+0x45): relocation truncated to fit: R_X86_64_32 against `.debug_str'+5e
+>> .../check.o:(.debug_info+0x4c): additional relocation overflows omitted from the output
+>>
+>> Tell the linker to strip debug info as a workaround. Oddly enough debug
+>> info has been getting stripped when linking the actual xen.efi, without
+>> me being able to tell why this would be.
+> I've changed this to
+>
+> "Tell the linker to strip debug info as a workaround. Debug info has been
+>  getting stripped already anyway when linking the actual xen.efi."
+>
+> as I noticed I did look for -S only yesterday, while we have
+>
+> EFI_LDFLAGS += --image-base=$(1) --stack=0,0 --heap=0,0 --strip-debug
 
-As can be seen from this reply, we're not in agreement what to
-do here. But we need to do something. I'm not sure how to get
-unstuck discussions like this one ...
+So, in terms of the bugfix, Acked-by: Andrew Cooper
+<andrew.cooper3@citrix.com>
 
-Besides this suggestion of yours I also continue to have
-trouble seeing what good it will do to record an exception to
-inject into a guest when we know it didn't install a handler
-yet.
+However, we ought be keeping the debug symbols for xen-syms.efi (or
+equiv) seeing as there is logic included here which isn't in the regular
+xen-syms.
 
-Jan
-
-> There's one adjustment to the logic here that I've been
-> considering, but I'm still undecided due to the downsides:
-> Without exposing the value, we could make the decision to zap
-> the #GP dependent upon us being able to read the MSR.
-> 
-> The other possible adjustment would be to avoid issuing two
-> log messages for the same operation (affecting debug builds
-> only). But the code structure (which isn't really consistent
-> about when the pre-existing message would get issued)
-> doesn't directly lend itself to such an adjustment without
-> altering the behavior for some of the MSRs explicitly
-> handled.
-> 
-> As a tangent, while discussing this situation, please let's
-> not forget about this code in Linux:
-> 
-> static u64 xen_read_msr(unsigned int msr)
-> {
-> 	/*
-> 	 * This will silently swallow a #GP from RDMSR.  It may be worth
-> 	 * changing that.
-> 	 */
-> 	int err;
-> 
-> 	return xen_read_msr_safe(msr, &err);
-> }
-> 
-> static void xen_write_msr(unsigned int msr, unsigned low, unsigned high)
-> {
-> 	/*
-> 	 * This will silently swallow a #GP from WRMSR.  It may be worth
-> 	 * changing that.
-> 	 */
-> 	xen_write_msr_safe(msr, low, high);
-> }
-> 
-> Imo this "silent swallowing" has always been the wrong thing
-> to do, and hence ought to be dropped. Of course right now it
-> saves the kernel from dying on the HWCR read.
-> 
-> Jan
-> 
-
+~Andrew
 
