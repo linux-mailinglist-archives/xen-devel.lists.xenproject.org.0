@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965C7311CAD
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Feb 2021 11:50:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82123.151806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EFF3311CB4
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Feb 2021 11:50:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82120.151771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l8LA7-0005dB-TY; Sat, 06 Feb 2021 10:49:59 +0000
+	id 1l8L9x-0005W2-ST; Sat, 06 Feb 2021 10:49:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82123.151806; Sat, 06 Feb 2021 10:49:59 +0000
+Received: by outflank-mailman (output) from mailman id 82120.151771; Sat, 06 Feb 2021 10:49:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l8LA7-0005cb-PR; Sat, 06 Feb 2021 10:49:59 +0000
-Received: by outflank-mailman (input) for mailman id 82123;
- Sat, 06 Feb 2021 10:49:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l8L9x-0005Vd-PK; Sat, 06 Feb 2021 10:49:49 +0000
+Received: by outflank-mailman (input) for mailman id 82120;
+ Sat, 06 Feb 2021 10:49:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gVlU=HI=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l8LA6-0005Wo-9C
- for xen-devel@lists.xenproject.org; Sat, 06 Feb 2021 10:49:58 +0000
+ id 1l8L9w-0005VY-Of
+ for xen-devel@lists.xenproject.org; Sat, 06 Feb 2021 10:49:48 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 819c7b88-760f-48f6-b9e9-d19095e75ee2;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2769dbec-4bb6-4c28-870b-700ba0aab103;
  Sat, 06 Feb 2021 10:49:47 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DD5BDAD29;
+ by mx2.suse.de (Postfix) with ESMTP id B8C33AC43;
  Sat,  6 Feb 2021 10:49:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,70 +38,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 819c7b88-760f-48f6-b9e9-d19095e75ee2
+X-Inumbo-ID: 2769dbec-4bb6-4c28-870b-700ba0aab103
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612608587; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=dE46dgUQjvo/vJLSEaUtAdX4bEkarOQCB+4cTFCnP1M=;
-	b=QrCfkhZ9kH6dd3p0kbDY5etXQLR7YA6fF7S4sBCvIYn3HsEhD8zDi8/nrJAkjr+5OiuNsO
-	qR+sdnPHE3sVhc6pMZV3asmTaXx7t2OGH0pSGgLCV/LVP9RbwfgXXcjXrnMW/fO54ZX1ek
-	UhKlmhgCima7ddr5rYrpiYWaVy5Ib8M=
+	t=1612608586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TI/KsWCKGxrmPABhxI8VTW9N3/J68xoTHMjTIJFsX+o=;
+	b=tDYiLQHQ2Y3VHKT6bGCTthGsTkWsSP79d3wVp5yBPPuyeVHOi0AtUJVqbLwz1XXqsFNptC
+	QG67jJ0rLSBrGdI/inYBfrWSl8RL6fq4NHsMgaa+tnF5n4VCoJqieLOjwsjXVUNIWTcS/w
+	ZljrX2l+lSX/iIl9WKpsEVz8MKCRhs0=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-scsi@vger.kernel.org
+	linux-kernel@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	stable@vger.kernel.org,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Wei Liu <wei.liu@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
-Date: Sat,  6 Feb 2021 11:49:25 +0100
-Message-Id: <20210206104932.29064-1-jgross@suse.com>
+	Julien Grall <julien@xen.org>
+Subject: [PATCH 1/7] xen/events: reset affinity of 2-level event initially
+Date: Sat,  6 Feb 2021 11:49:26 +0100
+Message-Id: <20210206104932.29064-2-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210206104932.29064-1-jgross@suse.com>
+References: <20210206104932.29064-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The first three patches are fixes for XSA-332. The avoid WARN splats
-and a performance issue with interdomain events.
+When creating a new event channel with 2-level events the affinity
+needs to be reset initially in order to avoid using an old affinity
+from earlier usage of the event channel port.
 
-Patches 4 and 5 are some additions to event handling in order to add
-some per pv-device statistics to sysfs and the ability to have a per
-backend device spurious event delay control.
+The same applies to the affinity when onlining a vcpu: all old
+affinity settings for this vcpu must be reset. As percpu events get
+initialized before the percpu event channel hook is called,
+resetting of the affinities happens after offlining a vcpu (this is
+working, as initial percpu memory is zeroed out).
 
-Patches 6 and 7 are minor fixes I had lying around.
+Cc: stable@vger.kernel.org
+Reported-by: Julien Grall <julien@xen.org>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/xen/events/events_2l.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Juergen Gross (7):
-  xen/events: reset affinity of 2-level event initially
-  xen/events: don't unmask an event channel when an eoi is pending
-  xen/events: fix lateeoi irq acknowledgement
-  xen/events: link interdomain events to associated xenbus device
-  xen/events: add per-xenbus device event statistics and settings
-  xen/evtch: use smp barriers for user event ring
-  xen/evtchn: read producer index only once
-
- drivers/block/xen-blkback/xenbus.c  |   2 +-
- drivers/net/xen-netback/interface.c |  16 ++--
- drivers/xen/events/events_2l.c      |  20 +++++
- drivers/xen/events/events_base.c    | 133 ++++++++++++++++++++++------
- drivers/xen/evtchn.c                |   6 +-
- drivers/xen/pvcalls-back.c          |   4 +-
- drivers/xen/xen-pciback/xenbus.c    |   2 +-
- drivers/xen/xen-scsiback.c          |   2 +-
- drivers/xen/xenbus/xenbus_probe.c   |  66 ++++++++++++++
- include/xen/events.h                |   7 +-
- include/xen/xenbus.h                |   7 ++
- 11 files changed, 217 insertions(+), 48 deletions(-)
-
+diff --git a/drivers/xen/events/events_2l.c b/drivers/xen/events/events_2l.c
+index da87f3a1e351..23217940144a 100644
+--- a/drivers/xen/events/events_2l.c
++++ b/drivers/xen/events/events_2l.c
+@@ -47,6 +47,16 @@ static unsigned evtchn_2l_max_channels(void)
+ 	return EVTCHN_2L_NR_CHANNELS;
+ }
+ 
++static int evtchn_2l_setup(evtchn_port_t evtchn)
++{
++	unsigned int cpu;
++
++	for_each_online_cpu(cpu)
++		clear_bit(evtchn, BM(per_cpu(cpu_evtchn_mask, cpu)));
++
++	return 0;
++}
++
+ static void evtchn_2l_bind_to_cpu(evtchn_port_t evtchn, unsigned int cpu,
+ 				  unsigned int old_cpu)
+ {
+@@ -355,9 +365,18 @@ static void evtchn_2l_resume(void)
+ 				EVTCHN_2L_NR_CHANNELS/BITS_PER_EVTCHN_WORD);
+ }
+ 
++static int evtchn_2l_percpu_deinit(unsigned int cpu)
++{
++	memset(per_cpu(cpu_evtchn_mask, cpu), 0, sizeof(xen_ulong_t) *
++			EVTCHN_2L_NR_CHANNELS/BITS_PER_EVTCHN_WORD);
++
++	return 0;
++}
++
+ static const struct evtchn_ops evtchn_ops_2l = {
+ 	.max_channels      = evtchn_2l_max_channels,
+ 	.nr_channels       = evtchn_2l_max_channels,
++	.setup             = evtchn_2l_setup,
+ 	.bind_to_cpu       = evtchn_2l_bind_to_cpu,
+ 	.clear_pending     = evtchn_2l_clear_pending,
+ 	.set_pending       = evtchn_2l_set_pending,
+@@ -367,6 +386,7 @@ static const struct evtchn_ops evtchn_ops_2l = {
+ 	.unmask            = evtchn_2l_unmask,
+ 	.handle_events     = evtchn_2l_handle_events,
+ 	.resume	           = evtchn_2l_resume,
++	.percpu_deinit     = evtchn_2l_percpu_deinit,
+ };
+ 
+ void __init xen_evtchn_2l_init(void)
 -- 
 2.26.2
 
