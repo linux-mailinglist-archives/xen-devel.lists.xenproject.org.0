@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF42311F6A
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Feb 2021 19:47:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82258.152013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B5B311FD5
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Feb 2021 21:04:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82268.152032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l8SbQ-0003Si-7J; Sat, 06 Feb 2021 18:46:40 +0000
+	id 1l8Tnt-0002fq-Sk; Sat, 06 Feb 2021 20:03:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82258.152013; Sat, 06 Feb 2021 18:46:40 +0000
+Received: by outflank-mailman (output) from mailman id 82268.152032; Sat, 06 Feb 2021 20:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l8SbQ-0003SL-47; Sat, 06 Feb 2021 18:46:40 +0000
-Received: by outflank-mailman (input) for mailman id 82258;
- Sat, 06 Feb 2021 18:46:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l8Tnt-0002fT-PL; Sat, 06 Feb 2021 20:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 82268;
+ Sat, 06 Feb 2021 20:03:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l8SbP-0003SG-II
- for xen-devel@lists.xenproject.org; Sat, 06 Feb 2021 18:46:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l8SbJ-0006wh-UU; Sat, 06 Feb 2021 18:46:33 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l8SbJ-0001KW-JY; Sat, 06 Feb 2021 18:46:33 +0000
+ (envelope-from <SRS0=SMBC=HI=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1l8Tns-0002fO-6u
+ for xen-devel@lists.xenproject.org; Sat, 06 Feb 2021 20:03:36 +0000
+Received: from mail-qk1-x72b.google.com (unknown [2607:f8b0:4864:20::72b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 367b384a-c30a-454b-8e79-9fa8e1ce46dc;
+ Sat, 06 Feb 2021 20:03:35 +0000 (UTC)
+Received: by mail-qk1-x72b.google.com with SMTP id u20so10538909qku.7
+ for <xen-devel@lists.xenproject.org>; Sat, 06 Feb 2021 12:03:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,98 +37,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=t6RLyrgrl+6icHjlUcT9RbYfFIeBzwHbjcRTiWQRm98=; b=43EaaP4+j2FIHADQ+iNmhrZtp0
-	GLLA9A9bhzBLCUTEmZpoYo6oq6x56VWfSamlcEe/O4+HBPeu8pCDytu4q9Bzkgv7ilF9il4FX1NOD
-	K7jLFGXa7skQOkAsb39MmrKdRzJI8/tOs0ZLz1rkmDtI72Y9XJ/WSlFNsht6iZoWXYVs=;
-Subject: Re: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Wei Liu <wei.liu@kernel.org>,
- Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>
-References: <20210206104932.29064-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bd63694e-ac0c-7954-ec00-edad05f8da1c@xen.org>
-Date: Sat, 6 Feb 2021 18:46:30 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.0
+X-Inumbo-ID: 367b384a-c30a-454b-8e79-9fa8e1ce46dc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=lTAa5xIKptH7yVh7rmoF3zRc9qlRhOfeqFHTB4JCXjc=;
+        b=J88jMf6tXnY7c7DkCNPiQhhVJ0Trdm/lDEbTvmo4B1RIC4nE7+E6relvm9ou1YKgUu
+         +h8LMav2VhywXmTd7f03/NuItdY0rAnazi9+QV1HP0Q6VlqGppMSl2NfFPADWBwHQUDc
+         fHiIdOXJzuP80urERBhCsdFj8m/pm+RYR0dSf8LEXGe4M2JVSWI12R7EB73OmuhOkaRU
+         eBeGE+pdw0Dh8h0D5OUydN+ZtgLPD55L3NIfsdecBUq7Cm7JLOzu2IJUM3oP9UaDIcLh
+         pXbEnDiRmBilf1GssJwpgGPf62LkFtXLVeWU4FlHFoGcktQFXKk4lKJs2idPLIG/Y5p7
+         Untw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=lTAa5xIKptH7yVh7rmoF3zRc9qlRhOfeqFHTB4JCXjc=;
+        b=TLdHKW+cTuZo6YDm1pk+YETbabW80bmuz6dNDNHILKNCGeVUvl7k9P56RaAHqOkHF7
+         Zp0WvC8TR/liQtAapYcM/p5arAs4bRg5qroxY5bdKRRj4mKkBIGkeKK938VExTej36A9
+         6u305lDh9U4Grk/4TnbHvQCC+1LZKKoq/oXCMAi+eLD+GsuGLWXvtuKXvK+JopfJpkEk
+         4chgyH5FsfH/B7ogtnU8Pefx5E03B7eGU5S+oWxXcMMJ5yJpXy4DO49VtjYG0WtuOzph
+         QeU0Wf4oX9ffP6v1Fht0dMoYdZ1xN4ohlIyX+aZWx+XU5lRVSTy9w/0lTDNyHOpeqh2s
+         7F2w==
+X-Gm-Message-State: AOAM533CFKYzftEgij/AEOw47vKgc1eiG0QspR9O7uooma0KPG+szi39
+	DxL/xBAVt2x9jxh9S46PUzLcV0jgNDrD1RVAzE6GQlM3AK7l+A==
+X-Google-Smtp-Source: ABdhPJwoDdkst/4e0ogd8xJP8lbu2ldiv6QfpwVSuKHWjb6XnVvSlFuqj+BlRwH+rL+dYypEg7yv8+P1BD8/nxfO120=
+X-Received: by 2002:a05:620a:152b:: with SMTP id n11mr9908742qkk.267.1612641814097;
+ Sat, 06 Feb 2021 12:03:34 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210206104932.29064-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Sat, 6 Feb 2021 12:03:23 -0800
+Message-ID: <CAMmSBy-_UOK6DTrwGNOw8Y59Muv8H8wxmsc4-BXcv3N_u5USBA@mail.gmail.com>
+Subject: Linux DomU freezes and dies under heavy memory shuffling
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Roman Shaposhnik <roman@zededa.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Juergen,
+Hi!
 
-On 06/02/2021 10:49, Juergen Gross wrote:
-> The first three patches are fixes for XSA-332. The avoid WARN splats
-> and a performance issue with interdomain events.
+all of a sudden (but only after a few days of running normally), on a stock
+Ubuntu 18.04 (Bionic with 4.15.0 kernel) DomU I'm seeing Microsoft's .net
+runtime go into a heave GC cycle and then freeze and die like what is
+shown below. This is under stock Xen 4.14.0 on a pretty unremarkable
+x86_64 box made by Supermicro.
 
-Thanks for helping to figure out the problem. Unfortunately, I still see 
-reliably the WARN splat with the latest Linux master (1e0d27fce010) + 
-your first 3 patches.
+I would really appreciate any thoughts on the subject or at least directions
+in which I should go to investigate this. At this point -- this part
+of Xen is a
+bit of a mystery to me -- but I'm very much willing to learn ;-)
 
-I am using Xen 4.11 (1c7d984645f9) and dom0 is forced to use the 2L 
-events ABI.
+From my completely uneducated guess it feels like some kind of an issue
+between DomU shuffling memory much more than normal and Xen somehow
+getting unhappy about that:
 
-After some debugging, I think I have an idea what's went wrong. The 
-problem happens when the event is initially bound from vCPU0 to a 
-different vCPU.
+[376900.874560] watchdog: BUG: soft lockup - CPU#0 stuck for 23s! [dotnet:3518]
+[376900.874764] Kernel panic - not syncing: softlockup: hung tasks
+[376900.874793] CPU: 0 PID: 3518 Comm: dotnet Tainted: G L
+4.15.0-112-generic #113-Ubuntu
+[376900.874824] Hardware name: Xen HVM domU, BIOS 4.14.0 12/15/2020
+[376900.874847] Call Trace:
+[376900.874860] <IRQ>
+[376900.874874] dump_stack+0x6d/0x8e
+[376900.874892] panic+0xe4/0x254
+[376900.874911] watchdog_timer_fn+0x21e/0x230
+[376900.874928] ? watchdog+0x30/0x30
+[376900.874947] __hrtimer_run_queues+0xdf/0x230
+[376900.874970] hrtimer_interrupt+0xa0/0x1d0
+[376900.874989] xen_timer_interrupt+0x20/0x30
+[376900.875008] __handle_irq_event_percpu+0x44/0x1a0
+[376900.875031] handle_irq_event_percpu+0x32/0x80
+[376900.875053] handle_percpu_irq+0x3d/0x60
+[376900.875071] generic_handle_irq+0x28/0x40
+[376900.875090] __evtchn_fifo_handle_events+0x172/0x190
+[376900.875112] evtchn_fifo_handle_events+0x10/0x20
+[376900.875133] __xen_evtchn_do_upcall+0x49/0x80
+[376900.875156] xen_evtchn_do_upcall+0x2b/0x50
+[376900.875177] xen_hvm_callback_vector+0x90/0xa0
+[376900.875197] </IRQ>
+[376900.875211] RIP: 0010:smp_call_function_single+0xdc/0x100
+[376900.875230] RSP: 0018:ffffaaa3c1807c20 EFLAGS: 00000202 ORIG_RAX:
+ffffffffffffff0c
+[376900.875261] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
+0000000000000000
+[376900.875288] RDX: 0000000000000001 RSI: 0000000000000003 RDI:
+0000000000000003
+[376900.875314] RBP: ffffaaa3c1807c70 R08: fffffffffffffffc R09:
+0000000000000002
+[376900.875341] R10: 0000000000000040 R11: 0000000000000000 R12:
+ffff8e0ab2c1de70
+[376900.875368] R13: 0000000000000000 R14: ffffffff95a7ecd0 R15:
+ffffaaa3c1807d08
+[376900.875396] ? flush_tlb_func_common.constprop.10+0x230/0x230
+[376900.875424] ? flush_tlb_func_common.constprop.10+0x230/0x230
+[376900.875449] ? unmap_page_range+0xbbc/0xd00
+[376900.875470] smp_call_function_many+0x1cc/0x250
+[376900.875491] ? smp_call_function_many+0x1cc/0x250
+[376900.875513] native_flush_tlb_others+0x3c/0xf0
+[376900.875534] flush_tlb_mm_range+0xae/0x110
+[376900.875552] tlb_flush_mmu_tlbonly+0x5f/0xc0
+[376900.875574] arch_tlb_finish_mmu+0x3f/0x80
+[376900.875592] tlb_finish_mmu+0x23/0x30
+[376900.875610] unmap_region+0xf7/0x130
+[376900.875629] do_munmap+0x276/0x450
+[376900.875647] vm_munmap+0x69/0xb0
+[376900.875664] SyS_munmap+0x22/0x30
+[376900.875682] do_syscall_64+0x73/0x130
+[376900.875701] entry_SYSCALL_64_after_hwframe+0x41/0xa6
+[376900.875721] RIP: 0033:0x7f05ad52dd59
+[376900.875737] RSP: 002b:00007f05a8037150 EFLAGS: 00000246 ORIG_RAX:
+000000000000000b
+[376900.875765] RAX: ffffffffffffffda RBX: 000056517e2a08c0 RCX:
+00007f05ad52dd59
+[376900.875791] RDX: 0000000000000000 RSI: 0000000000006a00 RDI:
+00007f05aad8f000
+[376900.875818] RBP: 0000000000006a00 R08: 0000000000020b18 R09:
+0000000000000000
+[376900.875844] R10: 0000000000020ad0 R11: 0000000000000246 R12:
+0000000000000001
+[376900.875870] R13: 0000000000000000 R14: 000056517eb02300 R15:
+00007f05aad8f000
 
- From the comment in xen_rebind_evtchn_to_cpu(), we are masking the 
-event to prevent it being delivered on an unexpected vCPU. However, I 
-believe the following can happen:
-
-vCPU0				| vCPU1
-				|
-				| Call xen_rebind_evtchn_to_cpu()
-receive event X			|
-				| mask event X
-				| bind to vCPU1
-<vCPU descheduled>		| unmask event X
-				|
-				| receive event X
-				|
-				| handle_edge_irq(X)
-handle_edge_irq(X)		|  -> handle_irq_event()
-				|   -> set IRQD_IN_PROGRESS
-  -> set IRQS_PENDING		|
-				|   -> evtchn_interrupt()
-				|   -> clear IRQD_IN_PROGRESS
-				|  -> IRQS_PENDING is set
-				|  -> handle_irq_event()
-				|   -> evtchn_interrupt()
-				|     -> WARN()
-				|
-
-All the lateeoi handlers expect a ONESHOT semantic and 
-evtchn_interrupt() is doesn't tolerate any deviation.
-
-I think the problem was introduced by 7f874a0447a9 ("xen/events: fix 
-lateeoi irq acknowledgment") because the interrupt was disabled 
-previously. Therefore we wouldn't do another iteration in handle_edge_irq().
-
-Aside the handlers, I think it may impact the defer EOI mitigation 
-because in theory if a 3rd vCPU is joining the party (let say vCPU A 
-migrate the event from vCPU B to vCPU C). So info->{eoi_cpu, irq_epoch, 
-eoi_time} could possibly get mangled?
-
-For a fix, we may want to consider to hold evtchn_rwlock with the write 
-permission. Although, I am not 100% sure this is going to prevent 
-everything.
-
-Does my write-up make sense to you?
-
-Cheers,
-
--- 
-Julien Grall
+Thanks,
+Roman.
 
