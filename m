@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D493125A6
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Feb 2021 16:57:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82424.152209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1685C3125D5
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Feb 2021 17:10:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82428.152221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l8mQ0-0002Kq-5M; Sun, 07 Feb 2021 15:56:12 +0000
+	id 1l8md9-00042z-C4; Sun, 07 Feb 2021 16:09:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82424.152209; Sun, 07 Feb 2021 15:56:12 +0000
+Received: by outflank-mailman (output) from mailman id 82428.152221; Sun, 07 Feb 2021 16:09:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l8mQ0-0002KR-1w; Sun, 07 Feb 2021 15:56:12 +0000
-Received: by outflank-mailman (input) for mailman id 82424;
- Sun, 07 Feb 2021 15:56:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Evt2=HJ=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1l8mPz-0002KM-5n
- for xen-devel@lists.xenproject.org; Sun, 07 Feb 2021 15:56:11 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3e0603dc-e1a6-405a-afa1-61ad820dc84d;
- Sun, 07 Feb 2021 15:56:08 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 3732F68B02; Sun,  7 Feb 2021 16:56:02 +0100 (CET)
+	id 1l8md9-00042c-8h; Sun, 07 Feb 2021 16:09:47 +0000
+Received: by outflank-mailman (input) for mailman id 82428;
+ Sun, 07 Feb 2021 16:09:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QIBx=HJ=casper.srs.infradead.org=batv+661ee30cee4f8a507613+6377+infradead.org+hch@srs-us1.protection.inumbo.net>)
+ id 1l8md7-00042X-RU
+ for xen-devel@lists.xenproject.org; Sun, 07 Feb 2021 16:09:46 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c7d135a5-d412-43ec-be84-3a518bb3d43e;
+ Sun, 07 Feb 2021 16:09:42 +0000 (UTC)
+Received: from [2001:4bb8:184:7d04:4590:5583:6cb7:77c7] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1l8mcx-004tm1-ER; Sun, 07 Feb 2021 16:09:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,76 +38,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e0603dc-e1a6-405a-afa1-61ad820dc84d
-Date: Sun, 7 Feb 2021 16:56:01 +0100
+X-Inumbo-ID: c7d135a5-d412-43ec-be84-3a518bb3d43e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=JfVmnK29gWEUJ5mUlngz+CH9M4JMM7XULZkTDufyTkA=; b=ZpbuHAq6KrjfrtW0zuLMXzIh3N
+	4cIjBdabhl28Sk7wP/iiwRa2v76qNjRIpgRlC8HWkcgB0CG7d3l24sOFA7L6QMRSl7R+SIgU1GniZ
+	SD3B3vfnVEQM1TqvpPdTCYbQM4LUpBE1GSr7bAxUAL5pxA6tM9ejZ89S1aE6/rBJ0gJIiDKUj5ZpG
+	hgUsZi32qvg/MGkxiHRJOpQLU2tzbK6xO7Ui2oeEHS8EwDgQUGCO/FWqzI3m30RRBswiQKnsIkqSY
+	msDQiTUDyK/2HG5ocr0uGX6DsGHD9/yvzpvRx7dHp46JjY6TbE3yL+8YqgmatGvKVz5WNC02frig9
+	oh/LyeNg==;
 From: Christoph Hellwig <hch@lst.de>
-To: Dongli Zhang <dongli.zhang@oracle.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-	iommu@lists.linux-foundation.org, linux-mips@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, nouveau@lists.freedesktop.org,
-	x86@kernel.org, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, adrian.hunter@intel.com,
-	akpm@linux-foundation.org, benh@kernel.crashing.org,
-	bskeggs@redhat.com, bhelgaas@google.com, bp@alien8.de,
-	boris.ostrovsky@oracle.com, hch@lst.de, chris@chris-wilson.co.uk,
-	daniel@ffwll.ch, airlied@linux.ie, hpa@zytor.com, mingo@kernel.org,
-	mingo@redhat.com, jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com, jgross@suse.com,
-	konrad.wilk@oracle.com, m.szyprowski@samsung.com,
-	matthew.auld@intel.com, mpe@ellerman.id.au, rppt@kernel.org,
-	paulus@samba.org, peterz@infradead.org, robin.murphy@arm.com,
-	rodrigo.vivi@intel.com, sstabellini@kernel.org,
-	bauerman@linux.ibm.com, tsbogend@alpha.franken.de,
-	tglx@linutronix.de, ulf.hansson@linaro.org, joe.jin@oracle.com,
-	thomas.lendacky@amd.com
-Subject: Re: [PATCH RFC v1 5/6] xen-swiotlb: convert variables to arrays
-Message-ID: <20210207155601.GA25111@lst.de>
-References: <20210203233709.19819-1-dongli.zhang@oracle.com> <20210203233709.19819-6-dongli.zhang@oracle.com> <20210204084023.GA32328@lst.de>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+	Dongli Zhang <dongli.zhang@oracle.com>,
+	Claire Chang <tientzu@chromium.org>,
+	xen-devel@lists.xenproject.org,
+	linuxppc-dev@lists.ozlabs.org,
+	iommu@lists.linux-foundation.org
+Subject: swiotlb cleanups
+Date: Sun,  7 Feb 2021 17:09:26 +0100
+Message-Id: <20210207160934.2955931-1-hch@lst.de>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210204084023.GA32328@lst.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, Feb 04, 2021 at 09:40:23AM +0100, Christoph Hellwig wrote:
-> So one thing that has been on my mind for a while:  I'd really like
-> to kill the separate dma ops in Xen swiotlb.  If we compare xen-swiotlb
-> to swiotlb the main difference seems to be:
-> 
->  - additional reasons to bounce I/O vs the plain DMA capable
->  - the possibility to do a hypercall on arm/arm64
->  - an extra translation layer before doing the phys_to_dma and vice
->    versa
->  - an special memory allocator
-> 
-> I wonder if inbetween a few jump labels or other no overhead enablement
-> options and possibly better use of the dma_range_map we could kill
-> off most of swiotlb-xen instead of maintaining all this code duplication?
+Hi Konrad,
 
-So I looked at this a bit more.
-
-For x86 with XENFEAT_auto_translated_physmap (how common is that?)
-pfn_to_gfn is a nop, so plain phys_to_dma/dma_to_phys do work as-is.
-
-xen_arch_need_swiotlb always returns true for x86, and
-range_straddles_page_boundary should never be true for the
-XENFEAT_auto_translated_physmap case.
-
-So as far as I can tell the mapping fast path for the
-XENFEAT_auto_translated_physmap can be trivially reused from swiotlb.
-
-That leaves us with the next more complicated case, x86 or fully cache
-coherent arm{,64} without XENFEAT_auto_translated_physmap.  In that case
-we need to patch in a phys_to_dma/dma_to_phys that performs the MFN
-lookup, which could be done using alternatives or jump labels.
-I think if that is done right we should also be able to let that cover
-the foreign pages in is_xen_swiotlb_buffer/is_swiotlb_buffer, but
-in that worst case that would need another alternative / jump label.
-
-For non-coherent arm{,64} we'd also need to use alternatives or jump
-labels to for the cache maintainance ops, but that isn't a hard problem
-either.
-
-
+this series contains a bunch of swiotlb cleanups, mostly to reduce the
+amount of internals exposed to code outside of swiotlb.c, which should
+helper to prepare for supporting multiple different bounce buffer pools.
 
