@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE42F313161
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 12:51:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82810.153070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85263313172
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 12:55:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82814.153082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l954I-00016c-Qk; Mon, 08 Feb 2021 11:51:02 +0000
+	id 1l957r-0001Hi-BU; Mon, 08 Feb 2021 11:54:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82810.153070; Mon, 08 Feb 2021 11:51:02 +0000
+Received: by outflank-mailman (output) from mailman id 82814.153082; Mon, 08 Feb 2021 11:54:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l954I-00016A-Nm; Mon, 08 Feb 2021 11:51:02 +0000
-Received: by outflank-mailman (input) for mailman id 82810;
- Mon, 08 Feb 2021 11:51:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l957r-0001HJ-7c; Mon, 08 Feb 2021 11:54:43 +0000
+Received: by outflank-mailman (input) for mailman id 82814;
+ Mon, 08 Feb 2021 11:54:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l954H-000162-3j
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 11:51:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l954G-0002lN-Lq; Mon, 08 Feb 2021 11:51:00 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l954G-0001gh-EF; Mon, 08 Feb 2021 11:51:00 +0000
+ (envelope-from <SRS0=ZIyB=HK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l957q-0001HE-5k
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 11:54:42 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 07405e04-481f-42f0-87cf-d175b5c9ff81;
+ Mon, 08 Feb 2021 11:54:41 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 400A8AEC2;
+ Mon,  8 Feb 2021 11:54:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,15 +38,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Yb8hwLCySjNi2+iqUZJlgDYQEPN0SidS4NbLYbSWASA=; b=0EP9GAFGUUaHqcqmkHxhIkNS/2
-	q+12rHMTFSmo7vkP8d46/QLtWVzWHba1fqhtQm1Y2z2JOKDtsVDeBpzFAfxoAa3D6PPfX4bAD4ndV
-	7rpEDV3zOiQ3K+NGx7pWQziyno6q4hapeUafIHQy//JxAUSFNREMC7hY5efEE6w/wgmo=;
+X-Inumbo-ID: 07405e04-481f-42f0-87cf-d175b5c9ff81
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612785280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Lzj0M0ODVg7irUOYnOdjiNxBrgsVBdOtnhI9h2vRceY=;
+	b=GqVgYoTCsAEXTwhIkrKe4y4fnUSBbqbfH23KdRhYyjhWoTUQxU2YjCKiSMxHC0q7DR7pAj
+	BjGXzvTTXLSBHZOJetheHO6MsUo02OPb8NcEhBwEO5KrdYtca0SdCU0+ZoRAlBl5pJ6eUr
+	VBFfB0utZwpC7HNrBYRpT1Y4P/IPkW8=
 Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Jan Beulich <jbeulich@suse.com>
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
  xen-devel@lists.xenproject.org
@@ -57,48 +60,89 @@ References: <20210206104932.29064-1-jgross@suse.com>
  <626f500a-494a-0141-7bf3-94fb86b47ed4@suse.com>
  <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
  <d0ca217c-ecc9-55f7-abb1-30a687a46b31@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <42e15cc4-56d1-b34b-d97e-d579e771788a@xen.org>
-Date: Mon, 8 Feb 2021 11:50:58 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a30db278-087b-554c-d5bf-1317e14e8508@suse.com>
+Date: Mon, 8 Feb 2021 12:54:39 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
 In-Reply-To: <d0ca217c-ecc9-55f7-abb1-30a687a46b31@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-
-
-On 08/02/2021 10:59, Jürgen Groß wrote:
+On 08.02.2021 11:59, Jürgen Groß wrote:
 > On 08.02.21 11:51, Jan Beulich wrote:
-> Yes, but I don't see an urgent need to fix that, as there would
-> be thousands of accesses in the kernel needing a fix. A compiler
-> tearing a naturally aligned access into multiple memory accesses
-> would be rejected as buggy from the kernel community IMO.
-
-I would not be so sure. From lwn [1]:
-
-"In the Linux kernel, tearing of plain C-language loads has been 
-observed even given properly aligned and machine-word-sized loads.)"
-
-And for store tearing:
-
-"Note that this tearing can happen even on properly aligned and 
-machine-word-sized accesses, and in this particular case, even for 
-volatile stores. Some might argue that this behavior constitutes a bug 
-in the compiler, but either way it illustrates the perceived value of 
-store tearing from a compiler-writer viewpoint. [...] But for properly 
-aligned machine-sized stores, WRITE_ONCE() will prevent store tearing."
-
-Cheers,
-
-[1] https://lwn.net/Articles/793253/#Load%20Tearing
-
+>> On 08.02.2021 11:41, Jürgen Groß wrote:
+>>> On 08.02.21 10:48, Jan Beulich wrote:
+>>>> On 06.02.2021 11:49, Juergen Gross wrote:
+>>>>> In evtchn_read() use READ_ONCE() for reading the producer index in
+>>>>> order to avoid the compiler generating multiple accesses.
+>>>>>
+>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>>> ---
+>>>>>    drivers/xen/evtchn.c | 2 +-
+>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
+>>>>> index 421382c73d88..f6b199b597bf 100644
+>>>>> --- a/drivers/xen/evtchn.c
+>>>>> +++ b/drivers/xen/evtchn.c
+>>>>> @@ -211,7 +211,7 @@ static ssize_t evtchn_read(struct file *file, char __user *buf,
+>>>>>    			goto unlock_out;
+>>>>>    
+>>>>>    		c = u->ring_cons;
+>>>>> -		p = u->ring_prod;
+>>>>> +		p = READ_ONCE(u->ring_prod);
+>>>>>    		if (c != p)
+>>>>>    			break;
+>>>>
+>>>> Why only here and not also in
+>>>>
+>>>> 		rc = wait_event_interruptible(u->evtchn_wait,
+>>>> 					      u->ring_cons != u->ring_prod);
+>>>>
+>>>> or in evtchn_poll()? I understand it's not needed when
+>>>> ring_prod_lock is held, but that's not the case in the two
+>>>> afaics named places. Plus isn't the same then true for
+>>>> ring_cons and ring_cons_mutex, i.e. aren't the two named
+>>>> places plus evtchn_interrupt() also in need of READ_ONCE()
+>>>> for ring_cons?
+>>>
+>>> The problem solved here is the further processing using "p" multiple
+>>> times. p must not be silently replaced with u->ring_prod by the
+>>> compiler, so I probably should reword the commit message to say:
+>>>
+>>> ... in order to not allow the compiler to refetch p.
+>>
+>> I still wouldn't understand the change (and the lack of
+>> further changes) then: The first further use of p is
+>> outside the loop, alongside one of c. IOW why would c
+>> then not need treating the same as p?
 > 
+> Its value wouldn't change, as ring_cons is being modified only at
+> the bottom of this function, and nowhere else (apart from the reset
+> case, but this can't run concurrently due to ring_cons_mutex).
 > 
-> Juergen
+>> I also still don't see the difference between latching a
+>> value into a local variable vs a "freestanding" access -
+>> neither are guaranteed to result in exactly one memory
+>> access afaict.
+> 
+> READ_ONCE() is using a pointer to volatile, so any refetching by
+> the compiler would be a bug.
 
--- 
-Julien Grall
+Of course, but this wasn't my point. I was contrasting
+
+		c = u->ring_cons;
+		p = u->ring_prod;
+
+which you change with
+
+		rc = wait_event_interruptible(u->evtchn_wait,
+					      u->ring_cons != u->ring_prod);
+
+which you leave alone.
+
+Jan
 
