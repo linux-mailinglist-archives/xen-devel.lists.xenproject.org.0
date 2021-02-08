@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42388312D84
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 10:41:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82666.152653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE95C312D91
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 10:44:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82670.152665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l933G-0002JT-0t; Mon, 08 Feb 2021 09:41:50 +0000
+	id 1l935Z-0002Uv-EY; Mon, 08 Feb 2021 09:44:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82666.152653; Mon, 08 Feb 2021 09:41:49 +0000
+Received: by outflank-mailman (output) from mailman id 82670.152665; Mon, 08 Feb 2021 09:44:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l933F-0002J4-Tk; Mon, 08 Feb 2021 09:41:49 +0000
-Received: by outflank-mailman (input) for mailman id 82666;
- Mon, 08 Feb 2021 09:41:48 +0000
+	id 1l935Z-0002UW-BB; Mon, 08 Feb 2021 09:44:13 +0000
+Received: by outflank-mailman (input) for mailman id 82670;
+ Mon, 08 Feb 2021 09:44:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l933E-0002Iv-Fz
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 09:41:48 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0k8o=HK=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l935X-0002UR-TL
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 09:44:11 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 940ae044-306e-40c1-9ba1-b7071aeb047d;
- Mon, 08 Feb 2021 09:41:47 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 711D8AC6E;
- Mon,  8 Feb 2021 09:41:46 +0000 (UTC)
+ id 8d700b4a-5c21-4089-ad6e-2f95fa6e0d54;
+ Mon, 08 Feb 2021 09:44:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,193 +36,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 940ae044-306e-40c1-9ba1-b7071aeb047d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612777306; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YaeR6Sf39P/hrf0A7inZDxmPB1YsERyszTlFed0deJU=;
-	b=pWrqjYnezRo0PoPhcVw9QuSNgJifli2QlnLsEJQrCcw5HE7QUTr/5Lo1iSqjtSGGgYueXc
-	aXpT52NG9XEikW51RtksFPuwAvd1IFkQuyTzIENfyoMA1Vnrf3gDP83lABMKGDd0OrwrL+
-	tE8Elzg+YQgSJKabi8BOC4w0jTjS3jQ=
+X-Inumbo-ID: 8d700b4a-5c21-4089-ad6e-2f95fa6e0d54
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1612777450;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=1CILNLGQk+nV1NwutoxKVcy4yXu72qzm4UlRJNpn/QE=;
+  b=P5/lLBzcZurcFuSE5XCkfgJIUtmv4MZt3D72950hjo8fcNijvYsnskSC
+   8zWQnObVjLEa8Ud9ReRWJGzijK1g+NdYXk/+nI70speeyRtSdhZ1vGfXF
+   dXFpix/rlbW6WTQ9qmxaUXEQdFnslDscq88Ob7Eyizo+yROId31p58B1G
+   E=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: VacezOIW4l9LHyr1wEJF/5aOIJrH9RGzuijKW0bRL2rR4n7XcTT2YPLKn9TNsJ5L0Qkjcdl85C
+ V8SxRfMMhpcnvDkIBizyAB7VdCbbXLtxERD8z16SSXdmEwPlCsnTyy293HKgBFL+RQUlLGv5f/
+ KneKc2Dh11A/ZiSvVeLd1WPI1ybzTS7j/cjaeS+7ouhU7vv49mVmrKmfQ+8ecJWsz2x/TnTaOZ
+ RgBDgwpGlhMV7xj5OFCJs3XMEHRScGm6iawRY5SDMJbiMDieof70S18o+2lX138wn9Zxmqu+k6
+ deE=
+X-SBRS: 5.2
+X-MesageID: 38106338
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,161,1610427600"; 
+   d="scan'208";a="38106338"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V6mxGID9lcHLwDItkqUjJNKevM3lvZ32G4rDUWrUlbJxxyuHGmpQwPR8o9RkxfBHVuDExjNNy9dI85QF5tObDXWWDenE4kdi+RZsctYtNpQpwrQiSRzMH3XSVh85pcjeqXREGYYhwGNCl65wo64xoLWzW/zsF3Iewdty5s24IhQ0exPo1+QCKTWBRDKpJUa5v492Y3st9hmie64BkWLzVjhS0/H1U1UPE4dF5GZVFkAYpwGo/kQ2gOeLQpcGzmPpL7VPPmqrunKQgoeeR9nzbMJaJcFGRwDMubyLtgqtd1pf0yzetrw/tqhHyVJIEP/2lRnmfLeju7cwKI9+W7Ziew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1CILNLGQk+nV1NwutoxKVcy4yXu72qzm4UlRJNpn/QE=;
+ b=SKiBmjD+qT7e5aq3pFLZg13sE6Xs/NsUX1aIA5lEG/nOqzeU+JyDLDIQ+fnpBPsUhgo/Clnp/UD+okUwGQXSuKA+2JnwqQvxqmlBd0kztfGWQfbQtH6wDTQI8UKoI4ofgQOX8kbuMIPjOcupu2rJSjyLxCxD8oAvuYLjAYcagnzhu+IhGqS6mvApUerzKCHMSQ0YJa/OSCc4EnJFR2xz/AZT/i0TGPwQxbjNxV2vU5uRP3AynjlpK2a7UJE+onOJjsUwixtchoZrYNxsukItwOkNo+abzsvsguJEEVO5pDg4tazVgqLYdAeCnScyMcPGs8O+gYcC3RSmV8Lqzg8HoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1CILNLGQk+nV1NwutoxKVcy4yXu72qzm4UlRJNpn/QE=;
+ b=geA3bPxxeh0tL4JbDcnwsOA7ZP0Kh8BwLCBfH5DxQHFXbHkwlH9zPkKjsC9Gu0VhquQt9/0UB3F8lGPw0svTsDhPG2GJy2lXt11UhXIvNJ1g9b8r4XmIaf/QqdbfKt2Q88kUL2D+uz7NXU7bNZ4rWWEeoeXyr3mLP0lnFvpwRGo=
 Subject: Re: [PATCH 6/7] xen/evtch: use smp barriers for user event ring
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
 References: <20210206104932.29064-1-jgross@suse.com>
  <20210206104932.29064-7-jgross@suse.com>
- <5cef0d0e-8f03-7cd2-4246-268a67a87dc5@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <bbe51b26-6087-efef-b8a6-1922600e67ab@suse.com>
-Date: Mon, 8 Feb 2021 10:41:45 +0100
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <2d354cad-3413-a416-0bc1-01d03e1f41cd@citrix.com>
+Date: Mon, 8 Feb 2021 09:44:00 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ Thunderbird/78.6.1
+In-Reply-To: <20210206104932.29064-7-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0491.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1ab::10) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
 MIME-Version: 1.0
-In-Reply-To: <5cef0d0e-8f03-7cd2-4246-268a67a87dc5@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="FEcWlBCP1PpGWxpo0v5xgNDeGJK5sgUIN"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d483c7b6-d667-4a94-6409-08d8cc161408
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3605:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB3605FAFBF11171785F2383DBBA8F9@BYAPR03MB3605.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZPHs0Tmovse6ARD9nnZc2iqacjO64VmEwBLVzbikoN2rK6f3jTFVvrUtqFn9AbnC6nqleSmasS+K2QUYdc8vTolHpKJfUqEH25/rpsGKxy6PE1fEm7PJ6guqKNamcaPSGVfHWVrEZEfu8pY+QfDfdPzNoa5XPiK9/0PAialQMJNMyDiC5rwqUtlCqRfgj5YxPCq3aRScblwl5E8VN3ZLUNFVdCC0XBjpQVxFd/jbG9zWsthas090KpxPc0GcO1XYnnwaQm5SwbnRAu+xbLRstkw8nNU0Kd4HbxYAYXXP9Q81GxHRpDOhsg+cbXLLBq7j12FAosVdaTVOSgmWsGSjrIW+vQXfGqRtcx+uU0MTq7YDKd441pW0T5KLCifLGrdl/CPbzIInrN1pOY7+CqeBkRxGZje7sUsBbxrLRZrV1ztZY9ZRnkiw+kcmo/5ng4ijTF8J8TKA73yIZKiLAGg8kxSXZ0ADfDaKzWVR7IviY3yI//eBE3hjih5HyDgwSptMjuL0fRqsrI/zVYmKBoBg+TngX6D8H7WPXv97rmQnP06LD6e7HQP46QGLrT7ZZ0uXeigWIg1vXstOkRK2+ZDjeMTWjHw7g7aQpNa5mFD76j4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(39860400002)(396003)(366004)(346002)(376002)(186003)(16526019)(316002)(2906002)(26005)(4744005)(6486002)(53546011)(54906003)(8676002)(36756003)(956004)(478600001)(31686004)(16576012)(66476007)(6666004)(4326008)(66556008)(8936002)(5660300002)(31696002)(66946007)(86362001)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?aGNCNUJMYkVhMk1hVVU2YTFCcWRrMS9hcmh5dWdZVkZoZWtQZ24vSkFDclZL?=
+ =?utf-8?B?VzhhaURrU292UnV2QmNrcGxFQVgvSGhKZlNCU2pyamRuTkhHeHdhUWZ4dHNR?=
+ =?utf-8?B?TGhiQmlJMDl4clo5ZjV1RUlvdkNrVVpXcU5NZExYUUl3U1RMVExGMWgvcXQz?=
+ =?utf-8?B?Vy83b0o1ZVVQUU5XWHJXY0J2aFZzbXlISDNaWktneTM5WE9ITDlhdjhWYVZv?=
+ =?utf-8?B?M1ZnOUV5TFRER2JCT1pZYXRkUzBNeWdEeUs2WWU5ckFiY2JWMDNINW1XUDhJ?=
+ =?utf-8?B?VmdzYVVwV1hyVEVwTUVUZmNxRTA4YjNUVzM3WTFqQTVmaDMxWjdlNGdTc0hS?=
+ =?utf-8?B?anJ1cWtiMkswN3l6ZVNNVE9VblV0Q3ZWTGJiaVF2NlAydnp0WjFhYUM4ZWFF?=
+ =?utf-8?B?MFVLOXNwcm5JZGkzb1JZMlFTamg3QXBIWWZraDhjTGJZK3R6cGtjbG9tOGcw?=
+ =?utf-8?B?dlNORklQRUpkWGtXd01Fc3VDY2oyU3hwalRxK2Q4eisyY1dVS3czaEkrdVBE?=
+ =?utf-8?B?NG83ZEoxMnZ2dEJTKzJmZ3o1OEIvaFQrQVZScW1pRE4wcVZBMmtHR2FPNkFa?=
+ =?utf-8?B?OStYQVg4NzdNM0kxOXI0a3kxTmxTcFJYdms2Ni9EWU5sWGtLWE1hajVIaklW?=
+ =?utf-8?B?Wm9BbFRlQ2ZFY1JRN21ZbTFOOHBlUFBmVEZ2NW02VE5NbURMSWd2dUhtN2pt?=
+ =?utf-8?B?U0tWUy84SWhTNU1JdlN0S3ZrQmJoNWVuaTNaV0pMUTZob1Vmc1NrbVZOQ3Z5?=
+ =?utf-8?B?N2Z6WW5DNHYxblZXQjRySytJWjVnWHo4Zmhkakl6VmQzWWdhQVYwa3A5Vmp3?=
+ =?utf-8?B?NzRpZnl5YStSeUtmMVNONWNZdzIrTHZ1MFNuRi9heHhPd0lVV21MN2NvTHlN?=
+ =?utf-8?B?c1M3WEcrTi9KWVNMY1NzUk11OUloWHRnQzFnQlMrL2RWenNMN1BDTlhkTUJV?=
+ =?utf-8?B?dVhhY3YxZTRkNjVwTkxSVXI2WDRuQkNIM3pMUTBJcVJMcE42aWh1cnB6dDdC?=
+ =?utf-8?B?eTIrMTdGS1RaaEpiVlk3d2t0VndtdHJpWDRacllOanpnTWpKTENnajhmS3My?=
+ =?utf-8?B?WjYvbGFtSHAvMUc0NnBvaE43WTBrdlRVWEVZUkR5QlJVM2VnTTd0Q0pNQWdF?=
+ =?utf-8?B?d2pDU21ub0JoOWN2SDFmcHhxZXFXc0R1MW9DWnRVSWFSbkIwVXZyK3BCeDYy?=
+ =?utf-8?B?ZXBvVVBHUFpNY1h3d0NRdDZpeFY2KzIyaW1GY0Fyak9GK2ZwVHYxRGlwa0Zy?=
+ =?utf-8?B?ZlNwSTkyUm1LUWhMam8vYlV5bGl6bGZobkFDTUljdnlUem03ZW5vOUgyaHlm?=
+ =?utf-8?B?VWMzeUxWcERQMi9leUxyRXBCZkdZNENRYzNXcG0rU2RlcE16cnVOejA5UVkz?=
+ =?utf-8?B?MStkSDloVmV0d25vNDNzWEozVSs4ejdFTUtNc2RETFNFUytJRjdDcHpBK1ZC?=
+ =?utf-8?B?Qnh5bEIramYxei9VWkhqNUYwSjdFMUFvUDNxZmJmVHR3RDNQVURjSjEranhJ?=
+ =?utf-8?B?WjFsRmRtUUo4bEp1V3N0Z1IyV01PMk81Z1hyUDhHVUpxNm80dUUvRUIzWDZN?=
+ =?utf-8?B?ZVdMZW50VEZWNytXTXZIMlp0S3BYQ1NMUXRqRUpzZmNSQ2graWlqQlozWk04?=
+ =?utf-8?B?QWJXTTBmUUZqdjR0Ti82bDFxMkRRM1RNTGh3SkNkUnRqZEF1U0IxTHRhbkVG?=
+ =?utf-8?B?ckZZSmpQWEtOSEFPbFlqd0JDUk0vZzlxMUIybXBKcnVFeHY4bCtDYXNveE9K?=
+ =?utf-8?Q?G+a9CEqSRUGlPYsdYx11RlUc3/IejuYUoQnSZHF?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d483c7b6-d667-4a94-6409-08d8cc161408
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2021 09:44:07.4144
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I2qwwHcm6xgSTbtc3A8SGTcTYmPn1ta+YjNfIfii/bzxZOyF/WX+b83noIHbVkkJ5xC0zKj8QrY/BrZZfvd0nDP0Oh4zavpTXuntU45+bHw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3605
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---FEcWlBCP1PpGWxpo0v5xgNDeGJK5sgUIN
-Content-Type: multipart/mixed; boundary="ydmzFB2GhA1BIAETK1krrsw0CA38D0rEJ";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Message-ID: <bbe51b26-6087-efef-b8a6-1922600e67ab@suse.com>
-Subject: Re: [PATCH 6/7] xen/evtch: use smp barriers for user event ring
-References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-7-jgross@suse.com>
- <5cef0d0e-8f03-7cd2-4246-268a67a87dc5@suse.com>
-In-Reply-To: <5cef0d0e-8f03-7cd2-4246-268a67a87dc5@suse.com>
+On 06/02/2021 10:49, Juergen Gross wrote:
+> The ring buffer for user events is used in the local system only, so
+> smp barriers are fine for ensuring consistency.
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
---ydmzFB2GhA1BIAETK1krrsw0CA38D0rEJ
-Content-Type: multipart/mixed;
- boundary="------------BC7EC0D4E1E8BDD8BDAD82E2"
-Content-Language: en-US
+These need to be virt_* to not break in UP builds (on non-x86).
 
-This is a multi-part message in MIME format.
---------------BC7EC0D4E1E8BDD8BDAD82E2
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 08.02.21 10:38, Jan Beulich wrote:
-> On 06.02.2021 11:49, Juergen Gross wrote:
->> The ring buffer for user events is used in the local system only, so
->> smp barriers are fine for ensuring consistency.
->>
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->=20
-> Albeit I think "local system" is at least ambiguous (physical
-> machine? VM?). How about something like "is local to the given
-> kernel instance"?
-
-Yes.
-
-
-Juergen
-
-
---------------BC7EC0D4E1E8BDD8BDAD82E2
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------BC7EC0D4E1E8BDD8BDAD82E2--
-
---ydmzFB2GhA1BIAETK1krrsw0CA38D0rEJ--
-
---FEcWlBCP1PpGWxpo0v5xgNDeGJK5sgUIN
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhB1kFAwAAAAAACgkQsN6d1ii/Ey+N
-OQf+K99vfasrxwrBqPZYl5blFMkB7uu+UM297px3zQIAp6o0uI7N3x+nLkkUwt9884/bc4E40JdQ
-Oq+UKcKQ0P6dx3cm0yYOi5rr4J4cnKWTRtUaAc9jwM6PbsalHri2zIPfZg/6GsCy/2Kjtfe/W4sq
-yPUG4Wd6598DXmxXHlJlbF/pTKCXeqBEFrpNgruEaQVyv6/hcy75dEEXf2tYN/ThHarNue0Fe2ts
-DPH+dJZp5SsZeViAf3bPOz1Yi7ZAO32ZsiXbzh966q0d602BcmaoQ3SrwJ1N9nmwShSG2P5XL61B
-+G/BnAz1Vy3T8ELniaarrXwwB8VQQMs2UmFqkstj5g==
-=CG/q
------END PGP SIGNATURE-----
-
---FEcWlBCP1PpGWxpo0v5xgNDeGJK5sgUIN--
+~Andrew
 
