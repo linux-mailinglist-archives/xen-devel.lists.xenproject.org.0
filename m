@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFCEC313240
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 13:26:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82831.153160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D6A2313258
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 13:31:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82836.153171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l95cb-0004mJ-Bb; Mon, 08 Feb 2021 12:26:29 +0000
+	id 1l95hg-0005jb-VX; Mon, 08 Feb 2021 12:31:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82831.153160; Mon, 08 Feb 2021 12:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 82836.153171; Mon, 08 Feb 2021 12:31:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l95cb-0004ls-89; Mon, 08 Feb 2021 12:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 82831;
- Mon, 08 Feb 2021 12:26:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l95hg-0005jG-S9; Mon, 08 Feb 2021 12:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 82836;
+ Mon, 08 Feb 2021 12:31:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l95cZ-0004lm-Ue
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 12:26:27 +0000
+ id 1l95hf-0005jB-E2
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 12:31:43 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b329a489-706e-42d4-bad0-bd2eabfe93e9;
- Mon, 08 Feb 2021 12:26:27 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bbcb1621-aef6-471c-bbc0-b9f548f690a4;
+ Mon, 08 Feb 2021 12:31:38 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 27B9EAC6E;
- Mon,  8 Feb 2021 12:26:26 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 54E13B0CC;
+ Mon,  8 Feb 2021 12:31:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,167 +39,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b329a489-706e-42d4-bad0-bd2eabfe93e9
+X-Inumbo-ID: bbcb1621-aef6-471c-bbc0-b9f548f690a4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612787186; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1612787497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SQ+7QYr8QMBro3PDGDYzBHa7DUmRvP2svzPWxpQQUX8=;
-	b=NBhu0ghoq1b25VBtos7db92mRomDBXsIrBe0B5cuQkfVxbzmSbH8c0Adp0qyH5plfEwTVD
-	B8qmh+yoIwyNywegV+FeuzQyaKnGUg/MYgMeGPExVhouvatMqskg+CE+OIKv+hzKTjcCRH
-	s9r7MPv36HivI+wTC/ZU8cDPhGvYT98=
-Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
-To: Jan Beulich <jbeulich@suse.com>
+	bh=IWEu9KuKzRSdTdHxRxZvVuwEzOx1f/VeQ3IFyCOr++U=;
+	b=GQKDajpLJzYZO4pSYsJM+ATEYZWQcmjsx1htbQ1dlH1riPWjdSYjdAYdH3MWfsocoPPh9x
+	HpGElfceU/9byhIVwFrXc+zBff9tj+EvVI/kwvBJJ4wRiTKGUX9iEJSBuIqfIxDesrwyjz
+	LftZdS5c7L7GeuhXd0hA3h6H38S2GzE=
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Wei Liu <wei.liu@kernel.org>,
+ Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>
 References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-8-jgross@suse.com>
- <72334160-cffe-2d8a-23b7-2ea9ab1d803a@suse.com>
- <626f500a-494a-0141-7bf3-94fb86b47ed4@suse.com>
- <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
- <d0ca217c-ecc9-55f7-abb1-30a687a46b31@suse.com>
- <a30db278-087b-554c-d5bf-1317e14e8508@suse.com>
- <9d725a1b-ec8e-c078-5ec6-9c4899d4c7aa@suse.com>
- <58ec68aa-6d86-62dd-f28a-a4e5754b0fdf@suse.com>
+ <bd63694e-ac0c-7954-ec00-edad05f8da1c@xen.org>
+ <eeb62129-d9fc-2155-0e0f-aff1fbb33fbc@suse.com>
+ <fcf3181b-3efc-55f5-687c-324937b543e6@xen.org>
+ <7aaeeb3d-1e1b-6166-84e9-481153811b62@suse.com>
+ <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
+ <0d623c98-a714-1639-cc53-f58ba3f08212@suse.com>
+ <28399fd1-9fe8-f31a-6ee8-e78de567155b@xen.org>
+ <1831964f-185e-31bb-2446-778f2c18d71b@suse.com>
+ <e8c46e36-cf9e-fb30-21b5-fa662834a01a@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <3b415b97-da42-c680-90e2-8b984934b846@suse.com>
-Date: Mon, 8 Feb 2021 13:26:25 +0100
+Subject: Re: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
+Message-ID: <199b76fd-630b-a0c6-926b-3e662103ec42@suse.com>
+Date: Mon, 8 Feb 2021 13:31:36 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <58ec68aa-6d86-62dd-f28a-a4e5754b0fdf@suse.com>
+In-Reply-To: <e8c46e36-cf9e-fb30-21b5-fa662834a01a@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="WTBwUd9oY26fDvPcG0MkYtgFJNLMgtSRj"
+ boundary="JgNIcJOaVP5Gw4rk7riNifkQ1mxTeO1Ew"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---WTBwUd9oY26fDvPcG0MkYtgFJNLMgtSRj
-Content-Type: multipart/mixed; boundary="MDIa9lEOeplKStXf1FoGsrJ4sUihE6Ekg";
+--JgNIcJOaVP5Gw4rk7riNifkQ1mxTeO1Ew
+Content-Type: multipart/mixed; boundary="sCmJlej2lRR5GzR7qwJDdoFQWBk5LVHvX";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Message-ID: <3b415b97-da42-c680-90e2-8b984934b846@suse.com>
-Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Wei Liu <wei.liu@kernel.org>,
+ Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>
+Message-ID: <199b76fd-630b-a0c6-926b-3e662103ec42@suse.com>
+Subject: Re: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
 References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-8-jgross@suse.com>
- <72334160-cffe-2d8a-23b7-2ea9ab1d803a@suse.com>
- <626f500a-494a-0141-7bf3-94fb86b47ed4@suse.com>
- <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
- <d0ca217c-ecc9-55f7-abb1-30a687a46b31@suse.com>
- <a30db278-087b-554c-d5bf-1317e14e8508@suse.com>
- <9d725a1b-ec8e-c078-5ec6-9c4899d4c7aa@suse.com>
- <58ec68aa-6d86-62dd-f28a-a4e5754b0fdf@suse.com>
-In-Reply-To: <58ec68aa-6d86-62dd-f28a-a4e5754b0fdf@suse.com>
+ <bd63694e-ac0c-7954-ec00-edad05f8da1c@xen.org>
+ <eeb62129-d9fc-2155-0e0f-aff1fbb33fbc@suse.com>
+ <fcf3181b-3efc-55f5-687c-324937b543e6@xen.org>
+ <7aaeeb3d-1e1b-6166-84e9-481153811b62@suse.com>
+ <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
+ <0d623c98-a714-1639-cc53-f58ba3f08212@suse.com>
+ <28399fd1-9fe8-f31a-6ee8-e78de567155b@xen.org>
+ <1831964f-185e-31bb-2446-778f2c18d71b@suse.com>
+ <e8c46e36-cf9e-fb30-21b5-fa662834a01a@xen.org>
+In-Reply-To: <e8c46e36-cf9e-fb30-21b5-fa662834a01a@xen.org>
 
---MDIa9lEOeplKStXf1FoGsrJ4sUihE6Ekg
+--sCmJlej2lRR5GzR7qwJDdoFQWBk5LVHvX
 Content-Type: multipart/mixed;
- boundary="------------6878FD23673DD896F00CC86D"
+ boundary="------------2B450E9D523701FD7CCF2F18"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------6878FD23673DD896F00CC86D
+--------------2B450E9D523701FD7CCF2F18
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 08.02.21 13:23, Jan Beulich wrote:
-> On 08.02.2021 13:15, J=C3=BCrgen Gro=C3=9F wrote:
->> On 08.02.21 12:54, Jan Beulich wrote:
->>> On 08.02.2021 11:59, J=C3=BCrgen Gro=C3=9F wrote:
->>>> On 08.02.21 11:51, Jan Beulich wrote:
->>>>> On 08.02.2021 11:41, J=C3=BCrgen Gro=C3=9F wrote:
->>>>>> On 08.02.21 10:48, Jan Beulich wrote:
->>>>>>> On 06.02.2021 11:49, Juergen Gross wrote:
->>>>>>>> In evtchn_read() use READ_ONCE() for reading the producer index =
-in
->>>>>>>> order to avoid the compiler generating multiple accesses.
->>>>>>>>
->>>>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>>>>>> ---
->>>>>>>>      drivers/xen/evtchn.c | 2 +-
->>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
->>>>>>>> index 421382c73d88..f6b199b597bf 100644
->>>>>>>> --- a/drivers/xen/evtchn.c
->>>>>>>> +++ b/drivers/xen/evtchn.c
->>>>>>>> @@ -211,7 +211,7 @@ static ssize_t evtchn_read(struct file *file=
-, char __user *buf,
->>>>>>>>      			goto unlock_out;
->>>>>>>>     =20
->>>>>>>>      		c =3D u->ring_cons;
->>>>>>>> -		p =3D u->ring_prod;
->>>>>>>> +		p =3D READ_ONCE(u->ring_prod);
->>>>>>>>      		if (c !=3D p)
->>>>>>>>      			break;
->>>>>>>
->>>>>>> Why only here and not also in
->>>>>>>
->>>>>>> 		rc =3D wait_event_interruptible(u->evtchn_wait,
->>>>>>> 					      u->ring_cons !=3D u->ring_prod);
->>>>>>>
->>>>>>> or in evtchn_poll()? I understand it's not needed when
->>>>>>> ring_prod_lock is held, but that's not the case in the two
->>>>>>> afaics named places. Plus isn't the same then true for
->>>>>>> ring_cons and ring_cons_mutex, i.e. aren't the two named
->>>>>>> places plus evtchn_interrupt() also in need of READ_ONCE()
->>>>>>> for ring_cons?
->>>>>>
->>>>>> The problem solved here is the further processing using "p" multip=
-le
->>>>>> times. p must not be silently replaced with u->ring_prod by the
->>>>>> compiler, so I probably should reword the commit message to say:
->>>>>>
->>>>>> ... in order to not allow the compiler to refetch p.
->>>>>
->>>>> I still wouldn't understand the change (and the lack of
->>>>> further changes) then: The first further use of p is
->>>>> outside the loop, alongside one of c. IOW why would c
->>>>> then not need treating the same as p?
->>>>
->>>> Its value wouldn't change, as ring_cons is being modified only at
->>>> the bottom of this function, and nowhere else (apart from the reset
->>>> case, but this can't run concurrently due to ring_cons_mutex).
->>>>
->>>>> I also still don't see the difference between latching a
->>>>> value into a local variable vs a "freestanding" access -
->>>>> neither are guaranteed to result in exactly one memory
->>>>> access afaict.
->>>>
->>>> READ_ONCE() is using a pointer to volatile, so any refetching by
->>>> the compiler would be a bug.
->>>
->>> Of course, but this wasn't my point. I was contrasting
->>>
->>> 		c =3D u->ring_cons;
->>> 		p =3D u->ring_prod;
->>>
->>> which you change with
->>>
->>> 		rc =3D wait_event_interruptible(u->evtchn_wait,
->>> 					      u->ring_cons !=3D u->ring_prod);
->>>
->>> which you leave alone.
->>
->> Can you point out which problem might arise from that?
+On 08.02.21 13:16, Julien Grall wrote:
 >=20
-> Not any particular active one. Yet enhancing some accesses
-> but not others seems to me like a recipe for new problems
-> down the road.
+>=20
+> On 08/02/2021 12:14, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 08.02.21 11:40, Julien Grall wrote:
+>>> Hi Juergen,
+>>>
+>>> On 08/02/2021 10:22, J=C3=BCrgen Gro=C3=9F wrote:
+>>>> On 08.02.21 10:54, Julien Grall wrote:
+>>>>> ... I don't really see how the difference matter here. The idea is =
 
-I already reasoned that the usage of READ_ONCE() is due to storing the
-value in a local variable which needs to be kept constant during the
-following processing (no refetches by the compiler). This reasoning
-very clearly doesn't apply to the other accesses.
+>>>>> to re-use what's already existing rather than trying to re-invent=20
+>>>>> the wheel with an extra lock (or whatever we can come up).
+>>>>
+>>>> The difference is that the race is occurring _before_ any IRQ is
+>>>> involved. So I don't see how modification of IRQ handling would help=
+=2E
+>>>
+>>> Roughly our current IRQ handling flow (handle_eoi_irq()) looks like:
+>>>
+>>> if ( irq in progress )
+>>> {
+>>> =C2=A0=C2=A0 set IRQS_PENDING
+>>> =C2=A0=C2=A0 return;
+>>> }
+>>>
+>>> do
+>>> {
+>>> =C2=A0=C2=A0 clear IRQS_PENDING
+>>> =C2=A0=C2=A0 handle_irq()
+>>> } while (IRQS_PENDING is set)
+>>>
+>>> IRQ handling flow like handle_fasteoi_irq() looks like:
+>>>
+>>> if ( irq in progress )
+>>> =C2=A0=C2=A0 return;
+>>>
+>>> handle_irq()
+>>>
+>>> The latter flow would catch "spurious" interrupt and ignore them. So =
+
+>>> it would handle nicely the race when changing the event affinity.
+>>
+>> Sure? Isn't "irq in progress" being reset way before our "lateeoi" is
+>> issued, thus having the same problem again?=20
+>=20
+> Sorry I can't parse this.
+
+handle_fasteoi_irq() will do nothing "if ( irq in progress )". When is
+this condition being reset again in order to be able to process another
+IRQ? I believe this will be the case before our "lateeoi" handling is
+becoming active (more precise: when our IRQ handler is returning to
+handle_fasteoi_irq()), resulting in the possibility of the same race we
+are experiencing now.
 
 
 Juergen
 
---------------6878FD23673DD896F00CC86D
+--------------2B450E9D523701FD7CCF2F18
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -289,25 +269,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------6878FD23673DD896F00CC86D--
+--------------2B450E9D523701FD7CCF2F18--
 
---MDIa9lEOeplKStXf1FoGsrJ4sUihE6Ekg--
+--sCmJlej2lRR5GzR7qwJDdoFQWBk5LVHvX--
 
---WTBwUd9oY26fDvPcG0MkYtgFJNLMgtSRj
+--JgNIcJOaVP5Gw4rk7riNifkQ1mxTeO1Ew
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhLfEFAwAAAAAACgkQsN6d1ii/Ey8R
-Rgf8C9FHzSBje9COydLv/CIZmaPgaS9mAru5hs+MoSQ3Z8L7dTglPbeMgxJIn9eLZiXge9wBozBE
-y+hoLcPoh8HXm1SWcUaRbORPDVmlLtOntSkWDrrBXGZMToAXG5MUgMOwXM53yvCR07F0iKBFDatl
-kqWUJ4UoHNoOdmpdbXDAiCPjDNILfm2TORxq71KlkMUz0oi12+P0IrVMqv+K4U1uSxQJDFkBBSJg
-XTBUSNgE2kvXCnbEkYAhgu+a6gHhCLrWsokIwDxU4JglHwsU11+buxLiy9FKzh8MMtMbzFd4ZyLC
-Aty/MyF8GJXuM6yLRG2EtpYEiXOm2lZpaLdP6S7gGA==
-=inSB
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhLygFAwAAAAAACgkQsN6d1ii/Ey9e
+Nwf9FLV8FM82fXo33jJcXnUYTrhDEBODgfNVp6BIWVPs0z2jnkfnoxy7wQkEupYsbRkEU18fcRQj
+aymzBqq57r/iDuI3vGOHHZV0CCIz9sn91SnCUC3hDCV+HR3u5jK2bvJRnXp2YxBILxdDrWac6vUw
+oEsdCbLMtCDf8aKIcSnTYNTcDTQuJqXTmtZJttua/M8LvNshYjJg5mMpKt2BWjSaE1GCzAug08dx
+I/SvrIHAPDfAU5/2ZrH5SqQYzkuBu61B5/y/RbP8yLoVvg9XxFYkfEDB9xmSz8KWYeMBFJ0LtY85
+ocnORaemCMS72+2eRittkqWU9WXJ/j9RgccWVn8x5A==
+=VUK/
 -----END PGP SIGNATURE-----
 
---WTBwUd9oY26fDvPcG0MkYtgFJNLMgtSRj--
+--JgNIcJOaVP5Gw4rk7riNifkQ1mxTeO1Ew--
 
