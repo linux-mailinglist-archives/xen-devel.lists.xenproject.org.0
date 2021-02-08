@@ -2,39 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6FA313F82
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 20:50:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83044.153775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3E4313FC7
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 21:01:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83049.153786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9CXM-0008Hb-R2; Mon, 08 Feb 2021 19:49:32 +0000
+	id 1l9Cik-0001jO-SE; Mon, 08 Feb 2021 20:01:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83044.153775; Mon, 08 Feb 2021 19:49:32 +0000
+Received: by outflank-mailman (output) from mailman id 83049.153786; Mon, 08 Feb 2021 20:01:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9CXM-0008HC-N0; Mon, 08 Feb 2021 19:49:32 +0000
-Received: by outflank-mailman (input) for mailman id 83044;
- Mon, 08 Feb 2021 19:49:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l9Cik-0001iz-P9; Mon, 08 Feb 2021 20:01:18 +0000
+Received: by outflank-mailman (input) for mailman id 83049;
+ Mon, 08 Feb 2021 20:01:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/EF1=HK=amazon.de=prvs=666814ed0=nmanthey@srs-us1.protection.inumbo.net>)
- id 1l9CXK-0008H7-PI
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 19:49:30 +0000
-Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 15c1ae38-4462-4725-86f6-c6f822125455;
- Mon, 08 Feb 2021 19:49:29 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-2a-538b0bfb.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
- 08 Feb 2021 19:49:23 +0000
+ id 1l9Cii-0001iu-Uf
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 20:01:16 +0000
+Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 628e4e96-ccc8-440d-8332-a90fae3f0d76;
+ Mon, 08 Feb 2021 20:01:14 +0000 (UTC)
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
+ 08 Feb 2021 20:01:08 +0000
 Received: from EX13D02EUB001.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
- by email-inbound-relay-2a-538b0bfb.us-west-2.amazon.com (Postfix) with ESMTPS
- id B9E62A1CF1; Mon,  8 Feb 2021 19:47:31 +0000 (UTC)
-Received: from u6fc700a6f3c650.ant.amazon.com (10.43.161.244) by
+ (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
+ by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 0DD36A2311; Mon,  8 Feb 2021 20:01:07 +0000 (UTC)
+Received: from EX13MTAUEA002.ant.amazon.com (10.43.61.77) by
  EX13D02EUB001.ant.amazon.com (10.43.166.150) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 8 Feb 2021 19:47:28 +0000
+ id 15.0.1497.2; Mon, 8 Feb 2021 20:01:04 +0000
+Received: from u6fc700a6f3c650.ant.amazon.com (10.95.82.139) by
+ mail-relay.amazon.com (10.43.61.169) with Microsoft SMTP Server id
+ 15.0.1497.2 via Frontend Transport; Mon, 8 Feb 2021 20:01:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +49,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15c1ae38-4462-4725-86f6-c6f822125455
+X-Inumbo-ID: 628e4e96-ccc8-440d-8332-a90fae3f0d76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1612813770; x=1644349770;
-  h=to:cc:references:from:message-id:date:mime-version:
-   in-reply-to:content-transfer-encoding:subject;
-  bh=jFTCvyRrIRBWVv+qLk094m7iBYBzlJUP1rVc2LoEbvg=;
-  b=JcCONl0uy7w4Up0kxyJl9UcWRCPay/Co+v3ZmP7xrW3zRw+dMDoXH+PO
-   VZFXrE1DPRLKs8mUwFmdXWpvefXDNca0e3sPpsilXULFXW3gcmYWqKtcL
-   +1glbgG2FbVBaHRJqFgDQfa16AOuw1YbOvesYzctfQokU5a89RrRQDZ79
-   A=;
+  t=1612814475; x=1644350475;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version;
+  bh=/rpGf2bOgCDHM0uHQqYN9yEMExmcpf9437BH+44nals=;
+  b=HS4y8o9gBjcByBgm4Ko2183u0trgW133LUSI1WPaWOOqN0jkumoi+g1+
+   aW2gordvk9ElnXLdKbEfvaujbqgsbkykMXp8EKj2dI+aHTcaT7ZyN8hdH
+   qBxJaAhiq0LU5jqP8C8lh0dRAXyFObtXUcKcFp5N5jGJ63q7Nwcb7Lfik
+   M=;
 X-IronPort-AV: E=Sophos;i="5.81,163,1610409600"; 
-   d="scan'208";a="84732560"
-Subject: Re: [PATCH HVM v2 1/1] hvm: refactor set param
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20210205203905.8824-1-nmanthey@amazon.de>
- <edf1cd78-2192-2679-9a34-804c5d7b75c5@suse.com>
+   d="scan'208";a="116838210"
 From: Norbert Manthey <nmanthey@amazon.de>
-Autocrypt: addr=nmanthey@amazon.de; prefer-encrypt=mutual; keydata=
- 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
- pEddsOqYwOs=
-Message-ID: <ba146cd6-fd5a-78d8-40bc-59885d265f5f@amazon.de>
-Date: Mon, 8 Feb 2021 20:47:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+To: <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Norbert Manthey
+	<nmanthey@amazon.de>, Ian Jackson <iwj@xenproject.org>
+Subject: [PATCH HVM v3 1/1] hvm: refactor set param
+Date: Mon, 8 Feb 2021 21:00:49 +0100
+Message-ID: <20210208200049.28571-1-nmanthey@amazon.de>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <ba146cd6-fd5a-78d8-40bc-59885d265f5f@amazon.de>
+References: <ba146cd6-fd5a-78d8-40bc-59885d265f5f@amazon.de>
 MIME-Version: 1.0
-In-Reply-To: <edf1cd78-2192-2679-9a34-804c5d7b75c5@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-X-Originating-IP: [10.43.161.244]
-X-ClientProxiedBy: EX13D37UWC004.ant.amazon.com (10.43.162.212) To
- EX13D02EUB001.ant.amazon.com (10.43.166.150)
+Content-Type: text/plain
 Precedence: Bulk
-Content-Transfer-Encoding: base64
 
-T24gMi84LzIxIDM6MjEgUE0sIEphbiBCZXVsaWNoIHdyb3RlOgo+IE9uIDA1LjAyLjIwMjEgMjE6
-MzksIE5vcmJlcnQgTWFudGhleSB3cm90ZToKPj4gVG8gcHJldmVudCBsZWFraW5nIEhWTSBwYXJh
-bXMgdmlhIEwxVEYgYW5kIHNpbWlsYXIgaXNzdWVzIG9uIGEKPj4gaHlwZXJ0aHJlYWQgcGFpciwg
-bGV0J3MgbG9hZCB2YWx1ZXMgb2YgZG9tYWlucyBhcyBsYXRlIGFzIHBvc3NpYmxlLgo+Pgo+PiBG
-dXJ0aGVybW9yZSwgc3BlY3VsYXRpdmUgYmFycmllcnMgYXJlIHJlLWFycmFuZ2VkIHRvIG1ha2Ug
-c3VyZSB3ZSBkbyBub3QKPj4gYWxsb3cgZ3Vlc3RzIHJ1bm5pbmcgb24gY28tbG9jYXRlZCBWQ1BV
-cyB0byBsZWFrIGh2bSBwYXJhbWV0ZXIgdmFsdWVzIG9mCj4+IG90aGVyIGRvbWFpbnMuCj4+Cj4+
-IFRoaXMgaXMgcGFydCBvZiB0aGUgc3BlY3VsYXRpdmUgaGFyZGVuaW5nIGVmZm9ydC4KPj4KPj4g
-U2lnbmVkLW9mZi1ieTogTm9yYmVydCBNYW50aGV5IDxubWFudGhleUBhbWF6b24uZGU+Cj4+IFJl
-cG9ydGVkLWJ5OiBIb25neWFuIFhpYSA8aG9uZ3l4aWFAYW1hem9uLmNvLnVrPgo+IERpZCB5b3Ug
-bG9zZSBJYW4ncyByZWxlYXNlLWFjaywgb3IgZGlkIHlvdSBkcm9wIGl0IGZvciBhIHNwZWNpZmlj
-Cj4gcmVhc29uPwpUaGF0IGhhcHBlbmVkIGJ5IGFjY2lkZW50LCBzaW1pbGFybHkgdG8gbm90IGNo
-YWluaW5nIHRoaXMgdjIgdG8gdGhlCmZvcm1lciB2MS4gSSdsbCBhZGQgaXQgdG8gdGhlIG5leHQg
-cmV2aXNpb24uCj4KPj4gLS0tIGEveGVuL2FyY2gveDg2L2h2bS9odm0uYwo+PiArKysgYi94ZW4v
-YXJjaC94ODYvaHZtL2h2bS5jCj4+IEBAIC00MDYwLDcgKzQwNjAsNyBAQCBzdGF0aWMgaW50IGh2
-bV9hbGxvd19zZXRfcGFyYW0oc3RydWN0IGRvbWFpbiAqZCwKPj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB1aW50MzJfdCBpbmRleCwKPj4gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB1aW50NjRfdCBuZXdfdmFsdWUpCj4+ICB7Cj4+IC0gICAgdWludDY0X3QgdmFsdWUg
-PSBkLT5hcmNoLmh2bS5wYXJhbXNbaW5kZXhdOwo+PiArICAgIHVpbnQ2NF90IHZhbHVlOwo+PiAg
-ICAgIGludCByYzsKPj4KPj4gICAgICByYyA9IHhzbV9odm1fcGFyYW0oWFNNX1RBUkdFVCwgZCwg
-SFZNT1Bfc2V0X3BhcmFtKTsKPj4gQEAgLTQxMDgsNiArNDEwOCwxMyBAQCBzdGF0aWMgaW50IGh2
-bV9hbGxvd19zZXRfcGFyYW0oc3RydWN0IGRvbWFpbiAqZCwKPj4gICAgICBpZiAoIHJjICkKPj4g
-ICAgICAgICAgcmV0dXJuIHJjOwo+Pgo+PiArICAgIGlmICggaW5kZXggPj0gSFZNX05SX1BBUkFN
-UyApCj4+ICsgICAgICAgIHJldHVybiAtRUlOVkFMOwo+PiArCj4+ICsgICAgLyogTWFrZSBzdXJl
-IHdlIGV2YWx1YXRlIHBlcm1pc3Npb25zIGJlZm9yZSBsb2FkaW5nIGRhdGEgb2YgZG9tYWlucy4g
-Ki8KPj4gKyAgICBibG9ja19zcGVjdWxhdGlvbigpOwo+PiArCj4+ICsgICAgdmFsdWUgPSBkLT5h
-cmNoLmh2bS5wYXJhbXNbaW5kZXhdOwo+PiAgICAgIHN3aXRjaCAoIGluZGV4ICkKPj4gICAgICB7
-Cj4+ICAgICAgLyogVGhlIGZvbGxvd2luZyBwYXJhbWV0ZXJzIHNob3VsZCBvbmx5IGJlIGNoYW5n
-ZWQgb25jZS4gKi8KPiBJIGRvbid0IHNlZSB0aGUgbmVlZCBmb3IgdGhlIGhlYXZpZXIgYmxvY2tf
-c3BlY3VsYXRpb24oKSBoZXJlOwo+IGFmYWljdCBhcnJheV9hY2Nlc3Nfbm9zcGVjKCkgc2hvdWxk
-IGRvIGZpbmUuIFRoZSBzd2l0Y2goKSBpbgo+IGNvbnRleHQgYWJvdmUgYXMgd2VsbCBhcyB0aGUg
-c3dpdGNoKCkgZnVydGhlciBkb3duIGluIHRoZQo+IGZ1bmN0aW9uIGRvbid0IGhhdmUgYW55IHNw
-ZWN1bGF0aW9uIHN1c2NlcHRpYmxlIGNvZGUuClRoZSByZWFzb24gdG8gYmxvY2sgc3BlY3VsYXRp
-b24gaW5zdGVhZCBvZiBqdXN0IHVzaW5nIHRoZSBoYXJkZW5lZCBpbmRleAphY2Nlc3MgaXMgdG8g
-bm90IGFsbG93IHRvIHNwZWN1bGF0aXZlbHkgbG9hZCBkYXRhIGZyb20gYW5vdGhlciBkb21haW4u
-Cj4KPiBGdXJ0aGVybW9yZSB0aGUgZmlyc3Qgc3dpdGNoKCkgZG9lc24ndCB1c2UgInZhbHVlIiBh
-dCBhbGwsIHNvCj4geW91IGNvdWxkIG1vdmUgdGhlIGFjY2VzcyBldmVuIGZ1cnRoZXIgZG93bi4g
-VGhpcyBtYXkgaGF2ZSB0aGUKPiBkb3duc2lkZSBvZiBhZGRpbmcgbGF0ZW5jeSwgc28gbWF5IG5v
-dCBiZSB3b3J0aCBpdCwgYnV0IGluCj4gdGhpcyBjYXNlIGF0IGxlYXN0IHRoZSBkZXNjcmlwdGlv
-biBzaG91bGQgc2F5IGhhbGYgYSB3b3JkLAo+IGVzcGVjaWFsbHkgc2VlaW5nIGl0IHNheSAiYXMg
-bGF0ZSBhcyBwb3NzaWJsZSIgcmlnaHQgbm93LgpBZ3JlZWQsIEkgY2FuIG1vdmUgdGhpcyBmdXJ0
-aGVyIGRvd24sIG9yIGFkYXB0IHRoZSB3b3JkaW5nLiBUaGUgaW5pdGlhbAppbnRlbnRpb24gd2Fz
-IHRvIG1vdmUgaXQgb25seSBiZWxvdyB0aGUgZmlyc3QgcG9zc2libGUgc3BlY3VsYXRpdmUKYmxv
-Y2tlci4gSGVuY2UsIGxldCBtZSBhZGFwdCB0aGUgd29yZGluZy4KPgo+PiBAQCAtNDE0MSw2ICs0
-MTQ4LDkgQEAgc3RhdGljIGludCBodm1fc2V0X3BhcmFtKHN0cnVjdCBkb21haW4gKmQsIHVpbnQz
-Ml90IGluZGV4LCB1aW50NjRfdCB2YWx1ZSkKPj4gICAgICBpZiAoIHJjICkKPj4gICAgICAgICAg
-cmV0dXJuIHJjOwo+Pgo+PiArICAgIC8qIE1ha2Ugc3VyZSB3ZSBldmFsdWF0ZSBwZXJtaXNzaW9u
-cyBiZWZvcmUgbG9hZGluZyBkYXRhIG9mIGRvbWFpbnMuICovCj4+ICsgICAgYmxvY2tfc3BlY3Vs
-YXRpb24oKTsKPj4gKwo+PiAgICAgIHN3aXRjaCAoIGluZGV4ICkKPj4gICAgICB7Cj4+ICAgICAg
-Y2FzZSBIVk1fUEFSQU1fQ0FMTEJBQ0tfSVJROgo+IExpa2UgeW91IGRvIGZvciB0aGUgImdldCIg
-cGF0aCBJIHRoaW5rIHRoaXMgc2ltaWxhcmx5IHJlbmRlcnMKPiBwb2ludGxlc3MgdGhlIHVzZSBp
-biBodm1vcF9zZXRfcGFyYW0oKSAoYW5kIC0gc2VlIGJlbG93IC0gdGhlCj4gc2FtZSBjb25zaWRl
-cmF0aW9uIHdydCBpc19odm1fZG9tYWluKCkgYXBwbGllcykuCkNhbiB5b3UgcGxlYXNlIGJlIG1v
-cmUgc3BlY2lmaWMgd2h5IHRoaXMgaXMgcG9pbnRsZXNzPyBJIHVuZGVyc3RhbmQgdGhhdAp0aGUg
-aXNfaHZtX2RvbWFpbiBjaGVjayBjb21lcyB3aXRoIGEgYmFycmllciB0aGF0IGNhbiBiZSB1c2Vk
-IHRvIG5vdCBhZGQKYW5vdGhlciBiYXJyaWVyLiBIb3dldmVyLCBJIGRpZCBub3QgZmluZCBzdWNo
-IGEgYmFycmllciBoZXJlLCB3aGljaApjb21lcyBiZXR3ZWVuIHRoZSAnaWYgKHJjKScganVzdCBh
-Ym92ZSwgYW5kIHRoZSBwb3RlbnRpYWwgbmV4dCBhY2Nlc3MKYmFzZWQgb24gdGhlIHZhbHVlIG9m
-ICdpbmRleCcuIEF0IGxlYXN0IHRoZSBhY2Nlc3MgYmVoaW5kIHRoZSBzd2l0Y2gKc3RhdGVtZW50
-IGNhbm5vdCBiZSBvcHRpbWl6ZWQgYW5kIHJlcGxhY2VkIHdpdGggYSBjb25zdGFudCB2YWx1ZSBl
-YXNpbHkuCj4KPj4gQEAgLTQzODgsNiArNDM5OCwxMCBAQCBpbnQgaHZtX2dldF9wYXJhbShzdHJ1
-Y3QgZG9tYWluICpkLCB1aW50MzJfdCBpbmRleCwgdWludDY0X3QgKnZhbHVlKQo+PiAgICAgIGlm
-ICggcmMgKQo+PiAgICAgICAgICByZXR1cm4gcmM7Cj4+Cj4+ICsgICAgLyogTWFrZSBzdXJlIHRo
-ZSBpbmRleCBib3VuZCBjaGVjayBpbiBodm1fZ2V0X3BhcmFtIGlzIHJlc3BlY3RlZCwgYXMgd2Vs
-bCBhcwo+PiArICAgICAgIHRoZSBhYm92ZSBkb21haW4gcGVybWlzc2lvbnMuICovCj4+ICsgICAg
-YmxvY2tfc3BlY3VsYXRpb24oKTsKPiBOaXQ6IFBsZWFzZSBmaXggY29tbWVudCBzdHlsZSBoZXJl
-LgpXaWxsIGRvLgo+Cj4+IEBAIC00NDI4LDkgKzQ0NDIsNiBAQCBzdGF0aWMgaW50IGh2bW9wX2dl
-dF9wYXJhbSgKPj4gICAgICBpZiAoIGEuaW5kZXggPj0gSFZNX05SX1BBUkFNUyApCj4+ICAgICAg
-ICAgIHJldHVybiAtRUlOVkFMOwo+Pgo+PiAtICAgIC8qIE1ha2Ugc3VyZSB0aGUgYWJvdmUgYm91
-bmQgY2hlY2sgaXMgbm90IGJ5cGFzc2VkIGR1cmluZyBzcGVjdWxhdGlvbi4gKi8KPj4gLSAgICBi
-bG9ja19zcGVjdWxhdGlvbigpOwo+PiAtCj4+ICAgICAgZCA9IHJjdV9sb2NrX2RvbWFpbl9ieV9h
-bnlfaWQoYS5kb21pZCk7Cj4+ICAgICAgaWYgKCBkID09IE5VTEwgKQo+PiAgICAgICAgICByZXR1
-cm4gLUVTUkNIOwo+IFRoaXMgb25lIHJlYWxseSB3YXMgcG9pbnRsZXNzIGFueXdheSwgYXMgaXNf
-aHZtX2RvbWFpbigpICh1c2VkCj4gZG93biBmcm9tIGhlcmUpIGFscmVhZHkgY29udGFpbnMgYSBz
-dWl0YWJsZSBiYXJyaWVyLgoKWWVzLCBhZ3JlZWQuCgpCZXN0LApOb3JiZXJ0Cgo+Cj4gSmFuCgoK
-CgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIEdlcm1hbnkgR21iSApLcmF1c2Vuc3RyLiAzOAox
-MDExNyBCZXJsaW4KR2VzY2hhZWZ0c2Z1ZWhydW5nOiBDaHJpc3RpYW4gU2NobGFlZ2VyLCBKb25h
-dGhhbiBXZWlzcwpFaW5nZXRyYWdlbiBhbSBBbXRzZ2VyaWNodCBDaGFybG90dGVuYnVyZyB1bnRl
-ciBIUkIgMTQ5MTczIEIKU2l0ejogQmVybGluClVzdC1JRDogREUgMjg5IDIzNyA4NzkKCgo=
+To prevent leaking HVM params via L1TF and similar issues on a
+hyperthread pair, let's load values of domains after performing all
+relevant checks, and blocking speculative execution.
+
+Furthermore, speculative barriers are re-arranged to make sure we do not
+allow guests running on co-located VCPUs to leak hvm parameter values of
+other domains.
+
+This is part of the speculative hardening effort.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+Reported-by: Hongyan Xia <hongyxia@amazon.co.uk>
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+---
+v3: * rephrased commit message to better explain code relocation
+    * added release-acked
+
+
+ xen/arch/x86/hvm/hvm.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -4060,7 +4060,7 @@ static int hvm_allow_set_param(struct domain *d,
+                                uint32_t index,
+                                uint64_t new_value)
+ {
+-    uint64_t value = d->arch.hvm.params[index];
++    uint64_t value;
+     int rc;
+ 
+     rc = xsm_hvm_param(XSM_TARGET, d, HVMOP_set_param);
+@@ -4108,6 +4108,13 @@ static int hvm_allow_set_param(struct domain *d,
+     if ( rc )
+         return rc;
+ 
++    if ( index >= HVM_NR_PARAMS )
++        return -EINVAL;
++
++    /* Make sure we evaluate permissions before loading data of domains. */
++    block_speculation();
++
++    value = d->arch.hvm.params[index];
+     switch ( index )
+     {
+     /* The following parameters should only be changed once. */
+@@ -4141,6 +4148,9 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
+     if ( rc )
+         return rc;
+ 
++    /* Make sure we evaluate permissions before loading data of domains. */
++    block_speculation();
++
+     switch ( index )
+     {
+     case HVM_PARAM_CALLBACK_IRQ:
+@@ -4388,6 +4398,10 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value)
+     if ( rc )
+         return rc;
+ 
++    /* Make sure the index bound check in hvm_get_param is respected, as well as
++       the above domain permissions. */
++    block_speculation();
++
+     switch ( index )
+     {
+     case HVM_PARAM_ACPI_S_STATE:
+@@ -4428,9 +4442,6 @@ static int hvmop_get_param(
+     if ( a.index >= HVM_NR_PARAMS )
+         return -EINVAL;
+ 
+-    /* Make sure the above bound check is not bypassed during speculation. */
+-    block_speculation();
+-
+     d = rcu_lock_domain_by_any_id(a.domid);
+     if ( d == NULL )
+         return -ESRCH;
+-- 
+2.17.1
+
+
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
 
 
