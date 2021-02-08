@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360A2312CF0
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 10:13:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82654.152605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF88312D79
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 10:39:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82659.152615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l92bx-0002db-4o; Mon, 08 Feb 2021 09:13:37 +0000
+	id 1l930C-0001Bl-4Z; Mon, 08 Feb 2021 09:38:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82654.152605; Mon, 08 Feb 2021 09:13:37 +0000
+Received: by outflank-mailman (output) from mailman id 82659.152615; Mon, 08 Feb 2021 09:38:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l92bx-0002dB-1o; Mon, 08 Feb 2021 09:13:37 +0000
-Received: by outflank-mailman (input) for mailman id 82654;
- Mon, 08 Feb 2021 09:13:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l930B-0001BT-Ra; Mon, 08 Feb 2021 09:38:39 +0000
+Received: by outflank-mailman (input) for mailman id 82659;
+ Mon, 08 Feb 2021 09:38:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l92bv-0002d6-Rj
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 09:13:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l92bu-00048b-Rg; Mon, 08 Feb 2021 09:13:34 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l92bu-0003Tv-Lp; Mon, 08 Feb 2021 09:13:34 +0000
+ (envelope-from <SRS0=ZIyB=HK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l930A-0001BN-1K
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 09:38:38 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 79c6eac7-0d17-4fae-b7f6-f9abd47d8d78;
+ Mon, 08 Feb 2021 09:38:35 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2EDB9AD62;
+ Mon,  8 Feb 2021 09:38:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,104 +39,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=CGT/3ifhVWzqMpXvTZNtAp3Nk8XNfG5uu7e/M4r77rw=; b=zfasqy4h3Y3Sf3cO72RS4uHYKu
-	U8z20BhChP07UfrgI7ljUqSmEf4AVCO4rhTa324+xq3ANyIbIfGy7ss8QYnFXqZ3VKZDd3CYrnt+U
-	1FRBEqyQvasgSZ0d+ctzc2EryQPrvvf444Xk4h+2e4XybqZFJXwm/wmwihN0uHY+U6pY=;
-Subject: Re: [PATCH] xen/arm: fix gnttab_need_iommu_mapping
-From: Julien Grall <julien@xen.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: lucmiccio@gmail.com, xen-devel@lists.xenproject.org,
- Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com
-References: <alpine.DEB.2.21.2102051604320.29047@sstabellini-ThinkPad-T480s>
- <247f517e-a283-12c8-2ccb-3915cda4ac2e@xen.org>
-Message-ID: <915a0214-cccf-6764-d20b-c45d29f1ce26@xen.org>
-Date: Mon, 8 Feb 2021 09:13:33 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.0
+X-Inumbo-ID: 79c6eac7-0d17-4fae-b7f6-f9abd47d8d78
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612777114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ey4KeQ4wI8Ow8TBhYfMVHQwpaYnFFEiIsiUIit12DQc=;
+	b=X3B/SXktu9OMTy3gCQxKfATO0YpQH5xheJaVU3VFlUCboSnM0ZJ3XMUnFDT4Nb0M3RXbQt
+	/XfS7+BQnhF2x43SmgC72bRa4C5wB08RgIEcwa/NPXW0LO5bxZTYw4zykSZJ6+jMUiEnYr
+	rCEC9iNZdEEoaRqQbhVaGX7lqbQvV44=
+Subject: Re: [PATCH 6/7] xen/evtch: use smp barriers for user event ring
+To: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20210206104932.29064-1-jgross@suse.com>
+ <20210206104932.29064-7-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5cef0d0e-8f03-7cd2-4246-268a67a87dc5@suse.com>
+Date: Mon, 8 Feb 2021 10:38:33 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <247f517e-a283-12c8-2ccb-3915cda4ac2e@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210206104932.29064-7-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 06.02.2021 11:49, Juergen Gross wrote:
+> The ring buffer for user events is used in the local system only, so
+> smp barriers are fine for ensuring consistency.
+> 
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-On 06/02/2021 11:09, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 06/02/2021 00:38, Stefano Stabellini wrote:
->> Commit 91d4eca7add broke gnttab_need_iommu_mapping on ARM.
-> 
-> Doh :/.
-> 
->> The offending chunk is: >
->>   #define gnttab_need_iommu_mapping(d)                    \
->> -    (is_domain_direct_mapped(d) && need_iommu(d))
->> +    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
->>
->> On ARM we need gnttab_need_iommu_mapping to be true for dom0 when it is
->> directly mapped, like the old check did,
-> 
-> This is not entirely correct, we only need gnttab_need_iommu_mapping() 
-> to return true when the domain is direct mapped **and** the IOMMU is 
-> enabled for the domain.
-> 
->> but the new check is always
->> false. >
->> In fact, need_iommu_pt_sync is defined as dom_iommu(d)->need_sync and
->> need_sync is set as:
->>
->>      if ( !is_hardware_domain(d) || iommu_hwdom_strict )
->>          hd->need_sync = !iommu_use_hap_pt(d); >
->> iommu_hwdom_strict is actually supposed to be ignored on ARM, see the
->> definition in docs/misc/xen-command-line.pandoc:
->>
->>      This option is hardwired to true for x86 PVH dom0's (as RAM 
->> belonging to
->>      other domains in the system don't live in a compatible address 
->> space), and
->>      is ignored for ARM.
->>
->> But aside from that, the issue is that iommu_use_hap_pt(d) is true,
->> hence, hd->need_sync is false, and gnttab_need_iommu_mapping(d) is false
->> too.
-> 
-> need_sync means that you have a separate IOMMU page-table and they need 
-> to be updated for every change.
-> 
-> hap_pt means the page-table used by the IOMMU is the P2M.
-> 
-> For Arm, we always shared the P2M with the IOMMU.
-> 
->>
->> As a consequence, when using PV network from a domU on a system where
->> IOMMU is on from Dom0, I get:
->>
->> (XEN) smmu: /smmu@fd800000: Unhandled context fault: fsr=0x402, 
->> iova=0x8424cb148, fsynr=0xb0001, cb=0
->> [   68.290307] macb ff0e0000.ethernet eth0: DMA bus error: HRESP not OK
->>
->> The fix is to go back to the old implementation of
->> gnttab_need_iommu_mapping.  However, we don't even need to specify &&
->> need_iommu(d) since we don't actually need to check for the IOMMU to be
->> enabled (iommu_map does it for us at the beginning of the function.)
-> 
-> gnttab_need_iommu_mapping() doesn't only gate the 
-> iommu_legacy_{,un}map() call but also decides whether we need to held 
-> both the local and remote grant-table write lock for the duration of the 
-> operation (see double_gt_lock()).
-> 
-> I'd like to avoid the requirement to held the double_gt_lock() if there  > is the domain is going to use the IOMMU.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-It looks like I didn't convey the right message here. What I meant is we 
-should avoid to held both grant-table locks if dom0 is not going to be 
-use the IOMMU.
+Albeit I think "local system" is at least ambiguous (physical
+machine? VM?). How about something like "is local to the given
+kernel instance"?
 
-Cheers,
-
--- 
-Julien Grall
+Jan
 
