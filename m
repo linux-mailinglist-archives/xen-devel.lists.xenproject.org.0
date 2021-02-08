@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 969743134F8
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 15:22:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82886.153273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6B53134F7
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 15:22:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82887.153285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l97PY-0008GH-II; Mon, 08 Feb 2021 14:21:08 +0000
+	id 1l97QG-0008L8-SK; Mon, 08 Feb 2021 14:21:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82886.153273; Mon, 08 Feb 2021 14:21:08 +0000
+Received: by outflank-mailman (output) from mailman id 82887.153285; Mon, 08 Feb 2021 14:21:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l97PY-0008Fs-Et; Mon, 08 Feb 2021 14:21:08 +0000
-Received: by outflank-mailman (input) for mailman id 82886;
- Mon, 08 Feb 2021 14:21:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l97QG-0008Ki-OP; Mon, 08 Feb 2021 14:21:52 +0000
+Received: by outflank-mailman (input) for mailman id 82887;
+ Mon, 08 Feb 2021 14:21:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l97PX-0008Fn-UX
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 14:21:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l97PQ-0005JM-59; Mon, 08 Feb 2021 14:21:00 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l97PP-0006Dn-Nb; Mon, 08 Feb 2021 14:20:59 +0000
+ (envelope-from <SRS0=ZIyB=HK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l97QF-0008KZ-2L
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 14:21:51 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6b015e4c-4d40-4fbb-9b25-9866d05e91bd;
+ Mon, 08 Feb 2021 14:21:48 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E4039ACBA;
+ Mon,  8 Feb 2021 14:21:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,205 +39,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=5wS9jApuQ6snC1lAYDvURgj8Yzs3/FPfCQanUYhUoH4=; b=bvHCq83LkPUCYauekJ4gj+HboE
-	m00kpkrKFq0YE1awNW4Ug94dTN8ctow0FVCufnLzgze73/s/t6WcNUpu98KmYn+gT09Wlk867t2Dc
-	60yfQsaFVMWifcGwW0LQmicJ1coBc3N7Pa3jEkGQuU9wsAN95aNedj4fqlpV+lMZaWoQ=;
-Subject: Re: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, netdev@vger.kernel.org,
- linux-scsi@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Wei Liu <wei.liu@kernel.org>,
- Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>
-References: <20210206104932.29064-1-jgross@suse.com>
- <bd63694e-ac0c-7954-ec00-edad05f8da1c@xen.org>
- <eeb62129-d9fc-2155-0e0f-aff1fbb33fbc@suse.com>
- <fcf3181b-3efc-55f5-687c-324937b543e6@xen.org>
- <7aaeeb3d-1e1b-6166-84e9-481153811b62@suse.com>
- <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
- <0d623c98-a714-1639-cc53-f58ba3f08212@suse.com>
- <28399fd1-9fe8-f31a-6ee8-e78de567155b@xen.org>
- <1831964f-185e-31bb-2446-778f2c18d71b@suse.com>
- <e8c46e36-cf9e-fb30-21b5-fa662834a01a@xen.org>
- <199b76fd-630b-a0c6-926b-3e662103ec42@suse.com>
- <063eff75-56a5-1af7-f684-a2ed4b13c9a7@xen.org>
- <4279cab9-9b36-e83d-bd7a-ff7cd2832054@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <279b741b-09dc-c6af-bf9d-df57922fa465@xen.org>
-Date: Mon, 8 Feb 2021 14:20:56 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: 6b015e4c-4d40-4fbb-9b25-9866d05e91bd
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612794108; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T/tXhAtjyVPDUEpJlzuULewsT31oSoNMA2AySuTm43Q=;
+	b=g5Lk1qraSxYF63Nmxkk1TIzRAk+ejM3Z1XIJqkm+08MwNv+LkJohHTwTM0nAvilZK7u50y
+	a2srTc0/soeUyjO61jeURD6zb1zMpdDWCW/TwVmuVhk1jVQlOp0qoyA8x98hTl4nG0gr9v
+	oYMC7i5UekIj3vTGYyPskNUQciQT32w=
+Subject: Re: [PATCH HVM v2 1/1] hvm: refactor set param
+To: Norbert Manthey <nmanthey@amazon.de>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <20210205203905.8824-1-nmanthey@amazon.de>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <edf1cd78-2192-2679-9a34-804c5d7b75c5@suse.com>
+Date: Mon, 8 Feb 2021 15:21:47 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <4279cab9-9b36-e83d-bd7a-ff7cd2832054@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210205203905.8824-1-nmanthey@amazon.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Juergen,
-
-On 08/02/2021 13:58, Jürgen Groß wrote:
-> On 08.02.21 14:09, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 08/02/2021 12:31, Jürgen Groß wrote:
->>> On 08.02.21 13:16, Julien Grall wrote:
->>>>
->>>>
->>>> On 08/02/2021 12:14, Jürgen Groß wrote:
->>>>> On 08.02.21 11:40, Julien Grall wrote:
->>>>>> Hi Juergen,
->>>>>>
->>>>>> On 08/02/2021 10:22, Jürgen Groß wrote:
->>>>>>> On 08.02.21 10:54, Julien Grall wrote:
->>>>>>>> ... I don't really see how the difference matter here. The idea 
->>>>>>>> is to re-use what's already existing rather than trying to 
->>>>>>>> re-invent the wheel with an extra lock (or whatever we can come 
->>>>>>>> up).
->>>>>>>
->>>>>>> The difference is that the race is occurring _before_ any IRQ is
->>>>>>> involved. So I don't see how modification of IRQ handling would 
->>>>>>> help.
->>>>>>
->>>>>> Roughly our current IRQ handling flow (handle_eoi_irq()) looks like:
->>>>>>
->>>>>> if ( irq in progress )
->>>>>> {
->>>>>>    set IRQS_PENDING
->>>>>>    return;
->>>>>> }
->>>>>>
->>>>>> do
->>>>>> {
->>>>>>    clear IRQS_PENDING
->>>>>>    handle_irq()
->>>>>> } while (IRQS_PENDING is set)
->>>>>>
->>>>>> IRQ handling flow like handle_fasteoi_irq() looks like:
->>>>>>
->>>>>> if ( irq in progress )
->>>>>>    return;
->>>>>>
->>>>>> handle_irq()
->>>>>>
->>>>>> The latter flow would catch "spurious" interrupt and ignore them. 
->>>>>> So it would handle nicely the race when changing the event affinity.
->>>>>
->>>>> Sure? Isn't "irq in progress" being reset way before our "lateeoi" is
->>>>> issued, thus having the same problem again? 
->>>>
->>>> Sorry I can't parse this.
->>>
->>> handle_fasteoi_irq() will do nothing "if ( irq in progress )". When is
->>> this condition being reset again in order to be able to process another
->>> IRQ?
->> It is reset after the handler has been called. See handle_irq_event().
+On 05.02.2021 21:39, Norbert Manthey wrote:
+> To prevent leaking HVM params via L1TF and similar issues on a
+> hyperthread pair, let's load values of domains as late as possible.
 > 
-> Right. And for us this is too early, as we want the next IRQ being
-> handled only after we have called xen_irq_lateeoi().
-
-It is not really the next IRQ here. It is more a spurious IRQ because we 
-don't clear & mask the event right away. Instead, it is done later in 
-the handling.
-
+> Furthermore, speculative barriers are re-arranged to make sure we do not
+> allow guests running on co-located VCPUs to leak hvm parameter values of
+> other domains.
 > 
->>
->>> I believe this will be the case before our "lateeoi" handling is
->>> becoming active (more precise: when our IRQ handler is returning to
->>> handle_fasteoi_irq()), resulting in the possibility of the same race we
->>> are experiencing now.
->>
->> I am a bit confused what you mean by "lateeoi" handling is becoming 
->> active. Can you clarify?
+> This is part of the speculative hardening effort.
 > 
-> See above: the next call of the handler should be allowed only after
-> xen_irq_lateeoi() for the IRQ has been called.
-> 
-> If the handler is being called earlier we have the race resulting
-> in the WARN() splats.
+> Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+> Reported-by: Hongyan Xia <hongyxia@amazon.co.uk>
 
-I feel it is dislike to understand race with just words. Can you provide 
-a scenario (similar to the one I originally provided) with two vCPUs and 
-show how this can happen?
+Did you lose Ian's release-ack, or did you drop it for a specific
+reason?
 
-> 
->> Note that are are other IRQ flows existing. We should have a look at 
->> them before trying to fix thing ourself.
-> 
-> Fine with me, but it either needs to fit all use cases (interdomain,
-> IPI, real interrupts) or we need to have a per-type IRQ flow.
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -4060,7 +4060,7 @@ static int hvm_allow_set_param(struct domain *d,
+>                                 uint32_t index,
+>                                 uint64_t new_value)
+>  {
+> -    uint64_t value = d->arch.hvm.params[index];
+> +    uint64_t value;
+>      int rc;
+>  
+>      rc = xsm_hvm_param(XSM_TARGET, d, HVMOP_set_param);
+> @@ -4108,6 +4108,13 @@ static int hvm_allow_set_param(struct domain *d,
+>      if ( rc )
+>          return rc;
+>  
+> +    if ( index >= HVM_NR_PARAMS )
+> +        return -EINVAL;
+> +
+> +    /* Make sure we evaluate permissions before loading data of domains. */
+> +    block_speculation();
+> +
+> +    value = d->arch.hvm.params[index];
+>      switch ( index )
+>      {
+>      /* The following parameters should only be changed once. */
 
-AFAICT, we already used different flow based on the use cases. Before 
-2011, we used to use the fasteoi one but this was changed by the 
-following commit:
+I don't see the need for the heavier block_speculation() here;
+afaict array_access_nospec() should do fine. The switch() in
+context above as well as the switch() further down in the
+function don't have any speculation susceptible code.
 
+Furthermore the first switch() doesn't use "value" at all, so
+you could move the access even further down. This may have the
+downside of adding latency, so may not be worth it, but in
+this case at least the description should say half a word,
+especially seeing it say "as late as possible" right now.
 
-commit 7e186bdd0098b34c69fb8067c67340ae610ea499
-Author: Stefano Stabellini <stefano.stabellini@eu.citrix.com>
-Date:   Fri May 6 12:27:50 2011 +0100
+> @@ -4141,6 +4148,9 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
+>      if ( rc )
+>          return rc;
+>  
+> +    /* Make sure we evaluate permissions before loading data of domains. */
+> +    block_speculation();
+> +
+>      switch ( index )
+>      {
+>      case HVM_PARAM_CALLBACK_IRQ:
 
-     xen: do not clear and mask evtchns in __xen_evtchn_do_upcall
+Like you do for the "get" path I think this similarly renders
+pointless the use in hvmop_set_param() (and - see below - the
+same consideration wrt is_hvm_domain() applies).
 
-     Change the irq handler of evtchns and pirqs that don't need EOI (pirqs
-     that correspond to physical edge interrupts) to handle_edge_irq.
+> @@ -4388,6 +4398,10 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value)
+>      if ( rc )
+>          return rc;
+>  
+> +    /* Make sure the index bound check in hvm_get_param is respected, as well as
+> +       the above domain permissions. */
+> +    block_speculation();
 
-     Use handle_fasteoi_irq for pirqs that need eoi (they generally
-     correspond to level triggered irqs), no risk in loosing interrupts
-     because we have to EOI the irq anyway.
+Nit: Please fix comment style here.
 
-     This change has the following benefits:
+> @@ -4428,9 +4442,6 @@ static int hvmop_get_param(
+>      if ( a.index >= HVM_NR_PARAMS )
+>          return -EINVAL;
+>  
+> -    /* Make sure the above bound check is not bypassed during speculation. */
+> -    block_speculation();
+> -
+>      d = rcu_lock_domain_by_any_id(a.domid);
+>      if ( d == NULL )
+>          return -ESRCH;
 
-     - it uses the very same handlers that Linux would use on native for the
-     same irqs (handle_edge_irq for edge irqs and msis, and
-     handle_fasteoi_irq for everything else);
+This one really was pointless anyway, as is_hvm_domain() (used
+down from here) already contains a suitable barrier.
 
-     - it uses these handlers in the same way native code would use them: it
-     let Linux mask\unmask and ack the irq when Linux want to mask\unmask
-     and ack the irq;
-
-     - it fixes a problem occurring when a driver calls disable_irq() in its
-     handler: the old code was unconditionally unmasking the evtchn even if
-     the irq is disabled when irq_eoi was called.
-
-     See Documentation/DocBook/genericirq.tmpl for more informations.
-
-     Signed-off-by: Stefano Stabellini <stefano.stabellini@eu.citrix.com>
-     [v1: Fixed space/tab issues]
-     Signed-off-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-
-
-> 
-> I think we should fix the issue locally first, then we can start to do
-> a thorough rework planning. Its not as if the needed changes with the
-> current flow would be so huge, and I'd really like to have a solution
-> rather sooner than later. Changing the IRQ flow might have other side
-> effects which need to be excluded by thorough testing.
-I agree that we need a solution ASAP. But I am a bit worry to:
-   1) Add another lock in that event handling path.
-   2) Add more complexity in the event handling (it is already fairly 
-difficult to reason about the locking/race)
-
-Let see what the local fix look like.
-
->> Although, the other issue I can see so far is handle_irq_for_port() 
->> will update info->{eoi_cpu, irq_epoch, eoi_time} without any locking. 
->> But it is not clear this is what you mean by "becoming active".
-> 
-> As long as a single event can't be handled on multiple cpus at the same
-> time, there is no locking needed.
-
-Well, it can happen in the current code (see my original scenario). If 
-your idea fix it then fine.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
