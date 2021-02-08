@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB42F312ECB
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 11:21:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82696.152737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D6E312EDA
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 11:23:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82697.152747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l93fG-0006kn-IM; Mon, 08 Feb 2021 10:21:06 +0000
+	id 1l93h4-0006sq-1c; Mon, 08 Feb 2021 10:22:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82696.152737; Mon, 08 Feb 2021 10:21:06 +0000
+Received: by outflank-mailman (output) from mailman id 82697.152747; Mon, 08 Feb 2021 10:22:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l93fG-0006kO-F7; Mon, 08 Feb 2021 10:21:06 +0000
-Received: by outflank-mailman (input) for mailman id 82696;
- Mon, 08 Feb 2021 10:21:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l93h3-0006sV-Us; Mon, 08 Feb 2021 10:22:57 +0000
+Received: by outflank-mailman (input) for mailman id 82697;
+ Mon, 08 Feb 2021 10:22:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l93fF-0006kJ-Ey
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 10:21:05 +0000
+ id 1l93h2-0006sQ-2B
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 10:22:56 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 469becb6-1409-43c0-8d92-9c3af7cd4608;
- Mon, 08 Feb 2021 10:21:04 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 051ba6f2-065d-4349-b088-ec8421c0aabc;
+ Mon, 08 Feb 2021 10:22:54 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8D087AE74;
- Mon,  8 Feb 2021 10:21:03 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id CF675AC6E;
+ Mon,  8 Feb 2021 10:22:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,133 +39,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 469becb6-1409-43c0-8d92-9c3af7cd4608
+X-Inumbo-ID: 051ba6f2-065d-4349-b088-ec8421c0aabc
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612779663; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1612779774; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mfkAxxAokOUF/5Yrj0Gcend/eK2vJW+zxm1Juw1PG30=;
-	b=GeD4RdYExGDvC/5H56o8lCjnLdv3RWi36iUlebvwdQ2k9AE3LVOM/JxaMg1+3c5WZINwpB
-	YSASq02Rrd1+5IrGYsSzzox1msonlsQRKdkzzY7H6kFme5Jg5bxnwwN4GxaxOkQelRmItS
-	KEdOxweuaOjwxMHasssCIdh0X8MJwU4=
-Subject: Re: [PATCH 2/7] xen/events: don't unmask an event channel when an eoi
- is pending
-To: Jan Beulich <jbeulich@suse.com>
+	bh=60lHO1XdO2ZdH7NjubMLgmwlciqf0fRY8xZgW51WUbU=;
+	b=cCI1lUOYefv5w41g8IqFaarOQrGRW26S9XVaZ29zU2W7zMtAY1e/8OPD1HsVNd0SF1KGZP
+	7uBpXw8t/QrqYEkkhBLbir6WydP7kc60yyp0laO62qF5Sl11MUWmCs2GJWT84gTGeCuSpY
+	vhJ0nhQHlfe1bXiekrN6PlHfZg+Rr7I=
+Subject: Re: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Wei Liu <wei.liu@kernel.org>,
+ Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>
 References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-3-jgross@suse.com>
- <7aa76e26-b6f4-fae2-861b-bcc0039ce497@suse.com>
+ <bd63694e-ac0c-7954-ec00-edad05f8da1c@xen.org>
+ <eeb62129-d9fc-2155-0e0f-aff1fbb33fbc@suse.com>
+ <fcf3181b-3efc-55f5-687c-324937b543e6@xen.org>
+ <7aaeeb3d-1e1b-6166-84e9-481153811b62@suse.com>
+ <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <db19fbd4-f613-b8b5-3d46-eaa674417e4f@suse.com>
-Date: Mon, 8 Feb 2021 11:21:02 +0100
+Message-ID: <0d623c98-a714-1639-cc53-f58ba3f08212@suse.com>
+Date: Mon, 8 Feb 2021 11:22:52 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <7aa76e26-b6f4-fae2-861b-bcc0039ce497@suse.com>
+In-Reply-To: <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="i8j5vHaygQB9c5oKqQXikXYebgrf8KGnM"
+ boundary="arpr7hQ62FH49b0XyzuGqHY5LdYWp7uWP"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---i8j5vHaygQB9c5oKqQXikXYebgrf8KGnM
-Content-Type: multipart/mixed; boundary="mQVnubCfralaKH811EULeoqUjdynnObGW";
+--arpr7hQ62FH49b0XyzuGqHY5LdYWp7uWP
+Content-Type: multipart/mixed; boundary="8PGsFlUGasLxMz28nEmjrpbMjwk7PLL4D";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Message-ID: <db19fbd4-f613-b8b5-3d46-eaa674417e4f@suse.com>
-Subject: Re: [PATCH 2/7] xen/events: don't unmask an event channel when an eoi
- is pending
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Wei Liu <wei.liu@kernel.org>,
+ Paul Durrant <paul@xen.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>
+Message-ID: <0d623c98-a714-1639-cc53-f58ba3f08212@suse.com>
+Subject: Re: [PATCH 0/7] xen/events: bug fixes and some diagnostic aids
 References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-3-jgross@suse.com>
- <7aa76e26-b6f4-fae2-861b-bcc0039ce497@suse.com>
-In-Reply-To: <7aa76e26-b6f4-fae2-861b-bcc0039ce497@suse.com>
+ <bd63694e-ac0c-7954-ec00-edad05f8da1c@xen.org>
+ <eeb62129-d9fc-2155-0e0f-aff1fbb33fbc@suse.com>
+ <fcf3181b-3efc-55f5-687c-324937b543e6@xen.org>
+ <7aaeeb3d-1e1b-6166-84e9-481153811b62@suse.com>
+ <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
+In-Reply-To: <6f547bb5-777a-6fc2-eba2-cccb4adfca87@xen.org>
 
---mQVnubCfralaKH811EULeoqUjdynnObGW
+--8PGsFlUGasLxMz28nEmjrpbMjwk7PLL4D
 Content-Type: multipart/mixed;
- boundary="------------CDB33DBB3839EBD104452B3B"
+ boundary="------------4E6A363ECAD742BE1796000E"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------CDB33DBB3839EBD104452B3B
+--------------4E6A363ECAD742BE1796000E
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 08.02.21 11:06, Jan Beulich wrote:
-> On 06.02.2021 11:49, Juergen Gross wrote:
->> @@ -1798,6 +1818,29 @@ static void mask_ack_dynirq(struct irq_data *da=
-ta)
->>   	ack_dynirq(data);
->>   }
->>  =20
->> +static void lateeoi_ack_dynirq(struct irq_data *data)
->> +{
->> +	struct irq_info *info =3D info_for_irq(data->irq);
->> +	evtchn_port_t evtchn =3D info ? info->evtchn : 0;
->> +
->> +	if (VALID_EVTCHN(evtchn)) {
->> +		info->eoi_pending =3D true;
->> +		mask_evtchn(evtchn);
->> +	}
->> +}
->> +
->> +static void lateeoi_mask_ack_dynirq(struct irq_data *data)
->> +{
->> +	struct irq_info *info =3D info_for_irq(data->irq);
->> +	evtchn_port_t evtchn =3D info ? info->evtchn : 0;
->> +
->> +	if (VALID_EVTCHN(evtchn)) {
->> +		info->masked =3D true;
->> +		info->eoi_pending =3D true;
->> +		mask_evtchn(evtchn);
->> +	}
->> +}
->> +
->>   static int retrigger_dynirq(struct irq_data *data)
->>   {
->>   	evtchn_port_t evtchn =3D evtchn_from_irq(data->irq);
->> @@ -2023,8 +2066,8 @@ static struct irq_chip xen_lateeoi_chip __read_m=
-ostly =3D {
->>   	.irq_mask		=3D disable_dynirq,
->>   	.irq_unmask		=3D enable_dynirq,
->>  =20
->> -	.irq_ack		=3D mask_ack_dynirq,
->> -	.irq_mask_ack		=3D mask_ack_dynirq,
->> +	.irq_ack		=3D lateeoi_ack_dynirq,
->> +	.irq_mask_ack		=3D lateeoi_mask_ack_dynirq,
->>  =20
->>   	.irq_set_affinity	=3D set_affinity_irq,
->>   	.irq_retrigger		=3D retrigger_dynirq,
->>
+On 08.02.21 10:54, Julien Grall wrote:
 >=20
-> Unlike the prior handler the two new ones don't call ack_dynirq()
-> anymore, and the description doesn't give a hint towards this
-> difference. As a consequence, clear_evtchn() also doesn't get
-> called anymore - patch 3 adds the calls, but claims an older
-> commit to have been at fault. _If_ ack_dynirq() indeed isn't to
-> be called here, shouldn't the clear_evtchn() calls get added
-> right here?
+>=20
+> On 08/02/2021 09:41, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 08.02.21 10:11, Julien Grall wrote:
+>>> Hi Juergen,
+>>>
+>>> On 07/02/2021 12:58, J=C3=BCrgen Gro=C3=9F wrote:
+>>>> On 06.02.21 19:46, Julien Grall wrote:
+>>>>> Hi Juergen,
+>>>>>
+>>>>> On 06/02/2021 10:49, Juergen Gross wrote:
+>>>>>> The first three patches are fixes for XSA-332. The avoid WARN spla=
+ts
+>>>>>> and a performance issue with interdomain events.
+>>>>>
+>>>>> Thanks for helping to figure out the problem. Unfortunately, I=20
+>>>>> still see reliably the WARN splat with the latest Linux master=20
+>>>>> (1e0d27fce010) + your first 3 patches.
+>>>>>
+>>>>> I am using Xen 4.11 (1c7d984645f9) and dom0 is forced to use the 2L=
+=20
+>>>>> events ABI.
+>>>>>
+>>>>> After some debugging, I think I have an idea what's went wrong. The=
+=20
+>>>>> problem happens when the event is initially bound from vCPU0 to a=20
+>>>>> different vCPU.
+>>>>>
+>>>>> =C2=A0From the comment in xen_rebind_evtchn_to_cpu(), we are maskin=
+g the=20
+>>>>> event to prevent it being delivered on an unexpected vCPU. However,=
+=20
+>>>>> I believe the following can happen:
+>>>>>
+>>>>> vCPU0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | vCPU1
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | Call xen_rebind_evtchn_to_cpu()
+>>>>> receive event X=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | mask event X
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | bind to vCPU1
+>>>>> <vCPU descheduled>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | unma=
+sk event X
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | receive event X
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | handle_edge_irq(X)
+>>>>> handle_edge_irq(X)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ -> handle_irq_event()
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 -> set IRQD_IN_PROGRESS
+>>>>> =C2=A0=C2=A0-> set IRQS_PENDING=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 -> evtchn_interrupt()
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 -> clear IRQD_IN_PROGRESS
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 -> IRQS_PENDING is set
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 -> handle_irq_event()
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 -> evtchn_interrupt()
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0 -> WARN()
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+>>>>>
+>>>>> All the lateeoi handlers expect a ONESHOT semantic and=20
+>>>>> evtchn_interrupt() is doesn't tolerate any deviation.
+>>>>>
+>>>>> I think the problem was introduced by 7f874a0447a9 ("xen/events:=20
+>>>>> fix lateeoi irq acknowledgment") because the interrupt was disabled=
+=20
+>>>>> previously. Therefore we wouldn't do another iteration in=20
+>>>>> handle_edge_irq().
+>>>>
+>>>> I think you picked the wrong commit for blaming, as this is just
+>>>> the last patch of the three patches you were testing.
+>>>
+>>> I actually found the right commit for blaming but I copied the=20
+>>> information from the wrong shell :/. The bug was introduced by:
+>>>
+>>> c44b849cee8c ("xen/events: switch user event channels to lateeoi mode=
+l")
+>>>
+>>>>
+>>>>> Aside the handlers, I think it may impact the defer EOI mitigation =
 
-There was clearly too much time between writing this patch and looking
-at its performance impact. :-(
+>>>>> because in theory if a 3rd vCPU is joining the party (let say vCPU =
 
-Somehow I managed to overlook that I just introduced the bug here. This
-OTOH explains why there are not tons of complaints with the current
-implementation. :-)
+>>>>> A migrate the event from vCPU B to vCPU C). So info->{eoi_cpu,=20
+>>>>> irq_epoch, eoi_time} could possibly get mangled?
+>>>>>
+>>>>> For a fix, we may want to consider to hold evtchn_rwlock with the=20
+>>>>> write permission. Although, I am not 100% sure this is going to=20
+>>>>> prevent everything.
+>>>>
+>>>> It will make things worse, as it would violate the locking hierarchy=
 
-Will merge patch 3 into this one.
+>>>> (xen_rebind_evtchn_to_cpu() is called with the IRQ-desc lock held).
+>>>
+>>> Ah, right.
+>>>
+>>>>
+>>>> On a first glance I think we'll need a 3rd masking state ("temporari=
+ly
+>>>> masked") in the second patch in order to avoid a race with lateeoi.
+>>>>
+>>>> In order to avoid the race you outlined above we need an "event is=20
+>>>> being
+>>>> handled" indicator checked via test_and_set() semantics in
+>>>> handle_irq_for_port() and reset only when calling clear_evtchn().
+>>>
+>>> It feels like we are trying to workaround the IRQ flow we are using=20
+>>> (i.e. handle_edge_irq()).
+>>
+>> I'm not really sure this is the main problem here. According to your
+>> analysis the main problem is occurring when handling the event, not wh=
+en
+>> handling the IRQ: the event is being received on two vcpus.
+>=20
+> I don't think we can easily divide the two because we rely on the IRQ=20
+> framework to handle the lifecycle of the event. So...
+>=20
+>>
+>> Our problem isn't due to the IRQ still being pending, but due it being=
+
+>> raised again, which should happen for a one shot IRQ the same way.
+>=20
+> ... I don't really see how the difference matter here. The idea is to=20
+> re-use what's already existing rather than trying to re-invent the whee=
+l=20
+> with an extra lock (or whatever we can come up).
+
+The difference is that the race is occurring _before_ any IRQ is
+involved. So I don't see how modification of IRQ handling would help.
 
 
 Juergen
 
---------------CDB33DBB3839EBD104452B3B
+--------------4E6A363ECAD742BE1796000E
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -255,25 +354,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------CDB33DBB3839EBD104452B3B--
+--------------4E6A363ECAD742BE1796000E--
 
---mQVnubCfralaKH811EULeoqUjdynnObGW--
+--8PGsFlUGasLxMz28nEmjrpbMjwk7PLL4D--
 
---i8j5vHaygQB9c5oKqQXikXYebgrf8KGnM
+--arpr7hQ62FH49b0XyzuGqHY5LdYWp7uWP
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhEI4FAwAAAAAACgkQsN6d1ii/Ey89
-kAf/ZUDsoa83NwD65pWWPOxU/aJHnp/4FqhoQB9WZoZSGqaf0aKK2Ij75nsIkms5Z17Kehnz2ZA4
-cXlGsJUFAZ/zQh9acB5K5SDQeHZqN3+qOGvX1Lki4zit23JOzJdiJWdbq6yE1SW8DqGU9gBNaLfW
-/QXt4qT14sfD00ZprR4rt3O/z8Z5gt3Wew7Khqe/u2bPDQkGmt/Wryo66WiO4PJSYdAPYa4Wf5Ix
-NF97qLzKd/M40DovPBl7njfNMcKwrbdWDTu3Ukwg496QsnflUFEk5R3Cpz380hkTEqYS6sfLuPV4
-Gmt7u0xwXmUHK9EKi8tnd1dWNNPLibHkOe0grJGT3A==
-=tE8T
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhEPwFAwAAAAAACgkQsN6d1ii/Ey+8
++gf/fYUiahBXkyaFYti/fdacT0KA4crdiz1HFIWfzYd6aE7hnhLSA9cgayDoTMzZ1ixUOP4Dg8zA
+RPsvIfz1HR433Qtn/LalZSRn3VdOV9UMQpCZeGptlLCUp7PYmVflhau47UZKdb12bXn2yAxHJ1nT
+80zX9Tq0gi5hsIfy/uoPeVL27XIP89Ze7IKn6x4vCBJ/r02tTNNz2jaYKDkenC0vO1y0CFP3rL9g
+cP3scoA+dEH9ZErOV4g9YsEpAliAZeVzEdjpNTUSE3Jj07rZccD83UNQRgUoIQqOkeNiShTzugbD
+ScMv4YjK2ItFjbV9x/8b4YpBDtNoYQV6j0+fd628QA==
+=7tk+
 -----END PGP SIGNATURE-----
 
---i8j5vHaygQB9c5oKqQXikXYebgrf8KGnM--
+--arpr7hQ62FH49b0XyzuGqHY5LdYWp7uWP--
 
