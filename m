@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC3E4313FC7
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 21:01:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83049.153786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 564AA313FD0
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 21:02:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83050.153799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9Cik-0001jO-SE; Mon, 08 Feb 2021 20:01:18 +0000
+	id 1l9Cjm-0001ph-7e; Mon, 08 Feb 2021 20:02:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83049.153786; Mon, 08 Feb 2021 20:01:18 +0000
+Received: by outflank-mailman (output) from mailman id 83050.153799; Mon, 08 Feb 2021 20:02:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9Cik-0001iz-P9; Mon, 08 Feb 2021 20:01:18 +0000
-Received: by outflank-mailman (input) for mailman id 83049;
- Mon, 08 Feb 2021 20:01:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/EF1=HK=amazon.de=prvs=666814ed0=nmanthey@srs-us1.protection.inumbo.net>)
- id 1l9Cii-0001iu-Uf
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 20:01:16 +0000
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 628e4e96-ccc8-440d-8332-a90fae3f0d76;
- Mon, 08 Feb 2021 20:01:14 +0000 (UTC)
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 08 Feb 2021 20:01:08 +0000
-Received: from EX13D02EUB001.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
- by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
- id 0DD36A2311; Mon,  8 Feb 2021 20:01:07 +0000 (UTC)
-Received: from EX13MTAUEA002.ant.amazon.com (10.43.61.77) by
- EX13D02EUB001.ant.amazon.com (10.43.166.150) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 8 Feb 2021 20:01:04 +0000
-Received: from u6fc700a6f3c650.ant.amazon.com (10.95.82.139) by
- mail-relay.amazon.com (10.43.61.169) with Microsoft SMTP Server id
- 15.0.1497.2 via Frontend Transport; Mon, 8 Feb 2021 20:01:02 +0000
+	id 1l9Cjm-0001pE-32; Mon, 08 Feb 2021 20:02:22 +0000
+Received: by outflank-mailman (input) for mailman id 83050;
+ Mon, 08 Feb 2021 20:02:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1l9Cjk-0001p7-0r
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 20:02:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l9Cje-0003Kz-Fs; Mon, 08 Feb 2021 20:02:14 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l9Cje-0008KB-7M; Mon, 08 Feb 2021 20:02:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,129 +37,115 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 628e4e96-ccc8-440d-8332-a90fae3f0d76
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1612814475; x=1644350475;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=/rpGf2bOgCDHM0uHQqYN9yEMExmcpf9437BH+44nals=;
-  b=HS4y8o9gBjcByBgm4Ko2183u0trgW133LUSI1WPaWOOqN0jkumoi+g1+
-   aW2gordvk9ElnXLdKbEfvaujbqgsbkykMXp8EKj2dI+aHTcaT7ZyN8hdH
-   qBxJaAhiq0LU5jqP8C8lh0dRAXyFObtXUcKcFp5N5jGJ63q7Nwcb7Lfik
-   M=;
-X-IronPort-AV: E=Sophos;i="5.81,163,1610409600"; 
-   d="scan'208";a="116838210"
-From: Norbert Manthey <nmanthey@amazon.de>
-To: <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Norbert Manthey
-	<nmanthey@amazon.de>, Ian Jackson <iwj@xenproject.org>
-Subject: [PATCH HVM v3 1/1] hvm: refactor set param
-Date: Mon, 8 Feb 2021 21:00:49 +0100
-Message-ID: <20210208200049.28571-1-nmanthey@amazon.de>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <ba146cd6-fd5a-78d8-40bc-59885d265f5f@amazon.de>
-References: <ba146cd6-fd5a-78d8-40bc-59885d265f5f@amazon.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=iWN4KTGXqqiuFOYIvQUkcnfQ2/Rs4mlupUFiDuC1wKc=; b=zU3gSypzmrxrJQc7F4FS3omuko
+	J8InxXtpGFZzBWSbhVxF7YYoRYX/C+N6RW87/3v/+UhRgDO1lThqQaoptA4csCGdPElFbhS8V5vI3
+	TGtQdGJ0n9E2BegQGqeg0OcxI4H8JywvqW9P6cGJ0/Sw78cTSvqvfFfGX7ElqZOQGAxc=;
+Subject: Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: lucmiccio@gmail.com, xen-devel@lists.xenproject.org,
+ Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com, Rahul.Singh@arm.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>
+References: <20210208184932.23468-1-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <173ed75a-94cf-26a5-9271-a687bf201578@xen.org>
+Date: Mon, 8 Feb 2021 20:02:11 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain
-Precedence: Bulk
+In-Reply-To: <20210208184932.23468-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-To prevent leaking HVM params via L1TF and similar issues on a
-hyperthread pair, let's load values of domains after performing all
-relevant checks, and blocking speculative execution.
+(+ Jan and Ian for RM/stable decision)
 
-Furthermore, speculative barriers are re-arranged to make sure we do not
-allow guests running on co-located VCPUs to leak hvm parameter values of
-other domains.
+Hi Jan,
 
-This is part of the speculative hardening effort.
+On 08/02/2021 18:49, Stefano Stabellini wrote:
+> Commit 91d4eca7add broke gnttab_need_iommu_mapping on ARM.
+> The offending chunk is:
+> 
+>   #define gnttab_need_iommu_mapping(d)                    \
+> -    (is_domain_direct_mapped(d) && need_iommu(d))
+> +    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
+> 
+> On ARM we need gnttab_need_iommu_mapping to be true for dom0 when it is
+> directly mapped and IOMMU is enabled for the domain, like the old check
+> did, but the new check is always false.
+> 
+> In fact, need_iommu_pt_sync is defined as dom_iommu(d)->need_sync and
+> need_sync is set as:
+> 
+>      if ( !is_hardware_domain(d) || iommu_hwdom_strict )
+>          hd->need_sync = !iommu_use_hap_pt(d);
+> 
+> iommu_use_hap_pt(d) means that the page-table used by the IOMMU is the
+> P2M. It is true on ARM. need_sync means that you have a separate IOMMU
+> page-table and it needs to be updated for every change. need_sync is set
+> to false on ARM. Hence, gnttab_need_iommu_mapping(d) is false too,
+> which is wrong.
+> 
+> As a consequence, when using PV network from a domU on a system where
+> IOMMU is on from Dom0, I get:
+> 
+> (XEN) smmu: /smmu@fd800000: Unhandled context fault: fsr=0x402, iova=0x8424cb148, fsynr=0xb0001, cb=0
+> [   68.290307] macb ff0e0000.ethernet eth0: DMA bus error: HRESP not OK
+> 
+> The fix is to go back to something along the lines of the old
+> implementation of gnttab_need_iommu_mapping.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Fixes: 91d4eca7add
 
-Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
-Reported-by: Hongyan Xia <hongyxia@amazon.co.uk>
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+The format for fixes tag is:
 
----
-v3: * rephrased commit message to better explain code relocation
-    * added release-acked
+Fixes: sha ("<commit title>")
 
+For staging fix:
 
- xen/arch/x86/hvm/hvm.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -4060,7 +4060,7 @@ static int hvm_allow_set_param(struct domain *d,
-                                uint32_t index,
-                                uint64_t new_value)
- {
--    uint64_t value = d->arch.hvm.params[index];
-+    uint64_t value;
-     int rc;
- 
-     rc = xsm_hvm_param(XSM_TARGET, d, HVMOP_set_param);
-@@ -4108,6 +4108,13 @@ static int hvm_allow_set_param(struct domain *d,
-     if ( rc )
-         return rc;
- 
-+    if ( index >= HVM_NR_PARAMS )
-+        return -EINVAL;
-+
-+    /* Make sure we evaluate permissions before loading data of domains. */
-+    block_speculation();
-+
-+    value = d->arch.hvm.params[index];
-     switch ( index )
-     {
-     /* The following parameters should only be changed once. */
-@@ -4141,6 +4148,9 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
-     if ( rc )
-         return rc;
- 
-+    /* Make sure we evaluate permissions before loading data of domains. */
-+    block_speculation();
-+
-     switch ( index )
-     {
-     case HVM_PARAM_CALLBACK_IRQ:
-@@ -4388,6 +4398,10 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value)
-     if ( rc )
-         return rc;
- 
-+    /* Make sure the index bound check in hvm_get_param is respected, as well as
-+       the above domain permissions. */
-+    block_speculation();
-+
-     switch ( index )
-     {
-     case HVM_PARAM_ACPI_S_STATE:
-@@ -4428,9 +4442,6 @@ static int hvmop_get_param(
-     if ( a.index >= HVM_NR_PARAMS )
-         return -EINVAL;
- 
--    /* Make sure the above bound check is not bypassed during speculation. */
--    block_speculation();
--
-     d = rcu_lock_domain_by_any_id(a.domid);
-     if ( d == NULL )
-         return -ESRCH;
+@Ian, I think this wants to go in 4.15. Without it, Xen may receive an 
+IOMMU fault for DMA transaction using granted page.
+
+> Backport: 4.12+
+> 
+> ---
+> 
+> Given the severity of the bug, I would like to request this patch to be
+> backported to 4.12 too, even if 4.12 is security-fixes only since Oct
+> 2020.
+
+I would agree that the bug is bad, but it is not clear to me why this 
+would be warrant for an exception for backporting. Can you outline 
+what's the worse that can happen?
+
+Correct me if I am wrong, if one can hit this error, then it should be 
+pretty reliable. Therefore, anyone wanted to use 4.12 in production 
+should have seen if the error on there setup by now (4.12 has been out 
+for nearly two years). If not, then they are most likely not affected.
+
+Any new users of Xen should use the latest stable rather than starting 
+with an old version.
+
+Other than the seriousness of the bug, I think there is also a fairness 
+concern.
+
+So far our rules says there is only security support backport allowed. 
+If we start granting exception, then we need a way to prevent abuse of 
+it. To take an extreme example, why one couldn't ask backport for 4.2?
+
+That said, I vaguely remember this topic was brought up a few time on 
+security@. So maybe it is time to have a new discussion about stable tree.
+
+Cheers,
+
 -- 
-2.17.1
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
-
+Julien Grall
 
