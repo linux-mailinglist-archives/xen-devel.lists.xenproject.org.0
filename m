@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5DF313113
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 12:40:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82802.153034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A17313153
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 12:49:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82804.153046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l94u7-0008K2-Cn; Mon, 08 Feb 2021 11:40:31 +0000
+	id 1l952E-00005e-6o; Mon, 08 Feb 2021 11:48:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82802.153034; Mon, 08 Feb 2021 11:40:31 +0000
+Received: by outflank-mailman (output) from mailman id 82804.153046; Mon, 08 Feb 2021 11:48:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l94u7-0008JX-9U; Mon, 08 Feb 2021 11:40:31 +0000
-Received: by outflank-mailman (input) for mailman id 82802;
- Mon, 08 Feb 2021 11:40:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l952E-00005C-30; Mon, 08 Feb 2021 11:48:54 +0000
+Received: by outflank-mailman (input) for mailman id 82804;
+ Mon, 08 Feb 2021 11:48:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l94u5-0008JS-I8
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 11:40:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l94u2-0002aq-Ul; Mon, 08 Feb 2021 11:40:26 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l94u2-0000zS-Lb; Mon, 08 Feb 2021 11:40:26 +0000
+ (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l952C-000057-4H
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 11:48:52 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1ccc4fda-535a-4da8-8548-b04b35def1c1;
+ Mon, 08 Feb 2021 11:48:50 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E9F48AD4E;
+ Mon,  8 Feb 2021 11:48:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +38,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=zGrVRyh4Bb806FG6nBatBhxLklpw43eAz07n9qXefLM=; b=xB+0y4mG9nGyv+K0rMSe7assdJ
-	Blahn0VgEg8Z2h3s3tSzkEDkVSLPk8YVcpox5SrzLQSMtLCND17pUY4746K1Rf/aCyLYeX05a6aBV
-	LBMzMH6iJ7qhPg76qhe4KgSgnpBFn1GsWh29UzJj56x7WqovrDEFuHAPIWCJKjCGwgRQ=;
+X-Inumbo-ID: 1ccc4fda-535a-4da8-8548-b04b35def1c1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612784930; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNXEQttSljSOXQ5vUQs4GTPYC1r1hAnr6viwolFR9tc=;
+	b=r5dHf4kFkxHmbA04PtcbaZu0atntZZsdLD35oGLActq/Hd9uIGmlaQlRW9pfEuXFvBrHX5
+	pA45TfkeavAOujIRJ0MsmqAbaLd8GrbmDqnk4HxAft3rabux3DqyLXtnjfJuim2oOcFINC
+	wag2fddgjXcY/urh6k3eta9Qg6GdWD0=
 Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20210206104932.29064-1-jgross@suse.com>
  <20210206104932.29064-8-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8032d8a9-b28f-95e1-a5a8-e955ada4dc0a@xen.org>
-Date: Mon, 8 Feb 2021 11:40:24 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+ <8032d8a9-b28f-95e1-a5a8-e955ada4dc0a@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <969f1492-764b-3345-eb65-64aca554ce9e@suse.com>
+Date: Mon, 8 Feb 2021 12:48:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <20210206104932.29064-8-jgross@suse.com>
+In-Reply-To: <8032d8a9-b28f-95e1-a5a8-e955ada4dc0a@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="MibTRswBhznEAVzFPSZwv0FK78kpDjPYj"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--MibTRswBhznEAVzFPSZwv0FK78kpDjPYj
+Content-Type: multipart/mixed; boundary="EKPtOYUKTfIooA4V1ZpTVYV16JtWuK84z";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <969f1492-764b-3345-eb65-64aca554ce9e@suse.com>
+Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
+References: <20210206104932.29064-1-jgross@suse.com>
+ <20210206104932.29064-8-jgross@suse.com>
+ <8032d8a9-b28f-95e1-a5a8-e955ada4dc0a@xen.org>
+In-Reply-To: <8032d8a9-b28f-95e1-a5a8-e955ada4dc0a@xen.org>
+
+--EKPtOYUKTfIooA4V1ZpTVYV16JtWuK84z
+Content-Type: multipart/mixed;
+ boundary="------------182073CD3ED7DAC9C47D0BBB"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------182073CD3ED7DAC9C47D0BBB
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+
+On 08.02.21 12:40, Julien Grall wrote:
+>=20
+>=20
+> On 06/02/2021 10:49, Juergen Gross wrote:
+>> In evtchn_read() use READ_ONCE() for reading the producer index in
+>> order to avoid the compiler generating multiple accesses.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> =C2=A0 drivers/xen/evtchn.c | 2 +-
+>> =C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
+>> index 421382c73d88..f6b199b597bf 100644
+>> --- a/drivers/xen/evtchn.c
+>> +++ b/drivers/xen/evtchn.c
+>> @@ -211,7 +211,7 @@ static ssize_t evtchn_read(struct file *file, char=
+=20
+>> __user *buf,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 goto unlock_out;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 c =3D u->ring_c=
+ons;
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p =3D u->ring_prod;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p =3D READ_ONCE(u->ring_pr=
+od);
+> For consistency, don't you also need the write side in=20
+> evtchn_interrupt() to use WRITE_ONCE()?
+
+Only in case I'd consider the compiler needing multiple memory
+accesses for doing the update (see my reply to Jan's comment on this
+patch).
 
 
+Juergen
 
-On 06/02/2021 10:49, Juergen Gross wrote:
-> In evtchn_read() use READ_ONCE() for reading the producer index in
-> order to avoid the compiler generating multiple accesses.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->   drivers/xen/evtchn.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
-> index 421382c73d88..f6b199b597bf 100644
-> --- a/drivers/xen/evtchn.c
-> +++ b/drivers/xen/evtchn.c
-> @@ -211,7 +211,7 @@ static ssize_t evtchn_read(struct file *file, char __user *buf,
->   			goto unlock_out;
->   
->   		c = u->ring_cons;
-> -		p = u->ring_prod;
-> +		p = READ_ONCE(u->ring_prod);
-For consistency, don't you also need the write side in 
-evtchn_interrupt() to use WRITE_ONCE()?
+--------------182073CD3ED7DAC9C47D0BBB
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
->   		if (c != p)
->   			break;
->   
-> 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
--- 
-Julien Grall
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------182073CD3ED7DAC9C47D0BBB--
+
+--EKPtOYUKTfIooA4V1ZpTVYV16JtWuK84z--
+
+--MibTRswBhznEAVzFPSZwv0FK78kpDjPYj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhJSEFAwAAAAAACgkQsN6d1ii/Ey/t
+IQgAlW5KCjM05LLQruIcKBrHgQ5NuFxq66+eb2SrqfgpvWigxbqzU0bKA3bJpvuViEdFGtIS1v75
+8hnne4C8he9/V0ZBINTvSrtoSN25SBO//r4dVZmUALU+ONiFzIgK0N6QZ/o/anU+sj3gxrFvdYez
+CatX6TQ1io16ySb0ww2r2DfE9EWMMFYs8+Ojmr5b67iBlPfKnRmSK4F9TrixDmWTmCnm716g6P5x
+uz80mZj4jRSZ4710JvTJTHepFEioW3TIpnBnrj1eaDUW3aWuMjkn25BKkHq8S/6i9OFW8Bjfifpt
+XaSEPh2/CrVpmfVYfitd99iMEK8i/4tQjsKZgx8Kjg==
+=V7sO
+-----END PGP SIGNATURE-----
+
+--MibTRswBhznEAVzFPSZwv0FK78kpDjPYj--
 
