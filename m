@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7CA312FE7
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 11:59:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.82766.152997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD38313010
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Feb 2021 12:06:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.82776.153010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l94GS-0003Zf-In; Mon, 08 Feb 2021 10:59:32 +0000
+	id 1l94Mb-0004Zo-Ab; Mon, 08 Feb 2021 11:05:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 82766.152997; Mon, 08 Feb 2021 10:59:32 +0000
+Received: by outflank-mailman (output) from mailman id 82776.153010; Mon, 08 Feb 2021 11:05:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l94GS-0003ZG-Fk; Mon, 08 Feb 2021 10:59:32 +0000
-Received: by outflank-mailman (input) for mailman id 82766;
- Mon, 08 Feb 2021 10:59:31 +0000
+	id 1l94Mb-0004ZO-63; Mon, 08 Feb 2021 11:05:53 +0000
+Received: by outflank-mailman (input) for mailman id 82776;
+ Mon, 08 Feb 2021 11:05:51 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l94GR-0003Z8-2O
- for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 10:59:31 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=atCq=HK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l94MZ-0004ZJ-8j
+ for xen-devel@lists.xenproject.org; Mon, 08 Feb 2021 11:05:51 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id db998329-aca1-441d-8bb7-7ecf5d4b3235;
- Mon, 08 Feb 2021 10:59:28 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D3377AE74;
- Mon,  8 Feb 2021 10:59:27 +0000 (UTC)
+ id b29e3542-7869-4427-8a03-0d00da53cdb1;
+ Mon, 08 Feb 2021 11:05:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,248 +36,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db998329-aca1-441d-8bb7-7ecf5d4b3235
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612781968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y1k1Irf/aD43gtYCsWD5VZ8YG64iTvviIv/OIuLN4mo=;
-	b=r8zjScQIHDKIuFx1t0KulyJX0azA91ELxLtXUTH0g20l/6Bz95Jj0Hu/TLY/UUQFZoAJ5C
-	/tePjvH2o+wOS0ig5FAqfj+oDk12BNhw0oJXcellZ62rb+A9HEQ4RJKD3ynqWj3ZFFfMnG
-	8NjApdjvOsQ/Au88Ib9MFa5koRyNOYE=
+X-Inumbo-ID: b29e3542-7869-4427-8a03-0d00da53cdb1
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1612782349;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=VxIMKn8BEn8PkuVawNQPMLCTsYD0TLzmAval7+CvIU8=;
+  b=L2VW+06jQTDPsR62dS6IU8rsG3upNnpTqs2ciLF9P6bK7OjrIFwUw0mQ
+   5kugm6KRLbTsZM2uAib4VpGQv4+RX5VPtlqdpdF2VV6qhQ8uMFzF4uSA+
+   EsJp6ywi9BLgcmFSkhfS+P9JyHK6eJZiHUm0uJjoCm/XHLiZ0M/XAaQWQ
+   w=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: +nmeD25TcU2eDIDgaesTGb1/7y81d03nUpgr/1MyDGqCPZPg+0iniLeS5mDuc3/8rF1DWNHgYw
+ SuPjM/qWS05bIBng04GYsnAMaPipYZ8QW7zhm+PJhCs8rR7v8X0aApd+Sm9kH5ZPypBe3frlTA
+ klSfzLxHUHLf1s9OxO+eu3cJccSYYllbqHH/R/64v32E37mx6FxtbZuDIglMMMczhqeQnEKBbO
+ ctZj/eya6BRsYkcZHt0Gd7COVqsWMPdpeqC0MErl4MfIqRyoaoTjBx4B9uVQmGr8UZlSfOJRZA
+ kw8=
+X-SBRS: 5.2
+X-MesageID: 36958995
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,161,1610427600"; 
+   d="scan'208";a="36958995"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=m0c2Ee6PAPeZolxy6zBoEl3gzn+X91p9HhJkaCVKqPZFDrmL4cPYFeocm/yqbfGkEk4TCPD6jkqWMb3WA+vHRJL947PsvqnbOC2mTHibR/0R9WBfagKU52RcsogAsZuGc2d6TkbSY39Urz7U2z78oCfO/WdvHsI5i3V4nDPjv4prst8fwFEoXnyvJpqn7ZJkny7aQAJg0yc+HLdd9ppdrN3Mq7X+zIyYD8P+YYinDcOqKJlsqb8FaVKoIxzcnnmK31ExC2uEcbGUmr3UiTISNmBJrXkZKSMNaXK7Z2E/OAmIUzefAC9yYky69gAT2vgthmFhtpgtw76g3hqSqedCIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQSxXtlHwovMKOHuGQ7hP9hhPtSNIV81Egw7e+KD0M4=;
+ b=jnnlYuc8sWzQ4NchX+gOGsO3ToEL0Ib+sFCePwt4MAzvToe2k4gKDRhqU5PUI678qUtRUdceTLVx6qOzYGKHGt37bgugQd4puVsqOEtJAV7OalzKBGQrEA9lFZgCzVjaix5jbvUJJQkJpzVysEJ0c3EqBK+op4HNWcUtp9K6XUVFPuy49BAmZIpwcNGrPYSpZM2TLp4FpRzrTrZcQjHHOpIv8EGs1E/ZnXj9IUCSKXNKHzYVCRwSnjKXNLuZC5ICv/A92onxokoL1L3K5kbE9sEbjNNUhJcjYIe1nH00m5PNiG40YGKMheTGpLtWNJZrRAddPoCx7s1gzsC/dqJ3yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQSxXtlHwovMKOHuGQ7hP9hhPtSNIV81Egw7e+KD0M4=;
+ b=DgVIVF7vFEQIYDD0/56Pqh2Sh0vk4jEFSJFfN/zo2O1CYHW5EI+3eLcm8MXs8Gyc1oPBpG0vUeHEsrA6m7BcS6VOkrFTxbfHlZ2e3w3LJSb0ZSpY75g7rPYnDOW4T0HeLA2XqU0YzAWLMIZciZyLX/XFJpwroIX264Z722+8OEA=
+Date: Mon, 8 Feb 2021 12:05:16 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-8-jgross@suse.com>
- <72334160-cffe-2d8a-23b7-2ea9ab1d803a@suse.com>
- <626f500a-494a-0141-7bf3-94fb86b47ed4@suse.com>
- <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
-Message-ID: <d0ca217c-ecc9-55f7-abb1-30a687a46b31@suse.com>
-Date: Mon, 8 Feb 2021 11:59:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Claudemir Todo Bom
+	<claudemir@todobom.com>
+Subject: Re: [PATCH v2 2/3] x86/time: adjust time recording
+ time_calibration_tsc_rendezvous()
+Message-ID: <YCEa7JxPCAzyWqfe@Air-de-Roger>
+References: <b8d1d4f8-8675-1393-8524-d060ffb1551a@suse.com>
+ <26b71f94-d1c7-d906-5b2a-4e7994d6f7c0@suse.com>
+ <YB1vGGl59oNZb5m5@Air-de-Roger>
+ <861c931e-7922-0b5b-58a9-63e46ba24af0@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <861c931e-7922-0b5b-58a9-63e46ba24af0@suse.com>
+X-ClientProxiedBy: AM5PR0701CA0013.eurprd07.prod.outlook.com
+ (2603:10a6:203:51::23) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="g10FMe3I19WjDHFRhrA8hHzwXJTqmeBhS"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0950ec92-6a85-4581-8b1f-08d8cc216e74
+X-MS-TrafficTypeDiagnostic: DM5PR03MB2491:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB2491CF083933739A28A424CA8F8F9@DM5PR03MB2491.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Dt2Wp84kHLAfnRPofBED7H4WgGxUsuECyvYdmuhwvhlkLAmT1y0Cao6YYKTkIt4QoskNDdV/6U2kXLnFpQOEdSUFYP8OgnfanIEv2REKLRPmQA/z+6TJ+HUMCuF9vy18bvdRz3mZX5v+r+jVVP8euSXZnPROiZt3HYLpYklijnszRxKDEnzC60/W6wXiDyTyuvb0N7ninspQXxxp1/IJmG08x4zsUrFDjkzgC2FkQVnF6q/GuzMnmGYdux3ZjD5DoiVKH6Sz6tI/fHB3rA4MXSLraa9TdikPoW4vI8cp55sWsXKQ05/U83tik06yaqkI9cD/iey+XOBe/jJXAchjZE2mxnkfMbvMWzMbQYD0wAdbwivRHHG3Iv4jGEKIYDumDL+2ySPZD8UnnMniSVhi9eTUrupC7lN8klcT9HOTDLoJGfD9CNiMVy7w08LtGg6rKq541Sdgu/wy7nxPHANgWb0CnQgbuOqGc+w34BfOzAKeFrLQhcl5HzgPEmOeZ+ms/O5W0NSoHCC1jXG0thBegw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(136003)(376002)(39860400002)(346002)(366004)(8936002)(66556008)(66946007)(66476007)(6666004)(33716001)(8676002)(26005)(16526019)(85182001)(5660300002)(86362001)(2906002)(53546011)(83380400001)(316002)(54906003)(478600001)(6496006)(4326008)(956004)(6486002)(9686003)(6916009)(186003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MHdhSHQ4bXZnakdvL0lKL1RRdlc2QkJ0TnpiK0tiQzFnWXdPWng5WXNrNjZY?=
+ =?utf-8?B?ekNqaXhnaW9pbTlidDhELzV0bzRWMWptZ1RjZ3V1NFkvTTA3UE80ejRFK0ZT?=
+ =?utf-8?B?Vi92M0pZSThZZk9GeWVYa1gveVhsTTNZckZGbFVxY0xmaTBjTmpOeFFldWto?=
+ =?utf-8?B?WVlsWjh3ek9MN1VUYkVSQjh2SERwcnNBa2hITWNKZzA3NmtyMS8raWFyMzNs?=
+ =?utf-8?B?ZGRnbzhoNVAvU1N1VERPM1RJeWJSWEM4YjI4VG0wdFJ4Q2RzdlRONG9YbWJ6?=
+ =?utf-8?B?TUR0bGx4TjNGU0tkNTUrQWJseVR0ZVlPeWFYSWxyZzJmU284SDRuSloxaXEx?=
+ =?utf-8?B?K0hMOVFHT2NWcHk1ZC8xQytqQ1pJR1RxOTdqb2tQYUJ4Z3F6ZHdLT0xVNkVU?=
+ =?utf-8?B?Z3dGdkEvNW8wN0Y0THRzNjhUNUhzdC9FUEhqRkZka0NBT1Z1c0hYdlRkenpL?=
+ =?utf-8?B?M2hTY1BtdkNjY3Z5R1pjWTNtMmNSUlJpcnFTK1k1c0dvZGY0dEd4RUZQUG8r?=
+ =?utf-8?B?RU5TTmNYTGNPazZFTlJ4MHFGU0J5Nlc1N0tCWDJZcmhvMGIrdDZLemlLMG9y?=
+ =?utf-8?B?c0wvZnF6aXpEdHdyYWYxOC8rb2cxWXkxL0FoamIxOUtCOWUyaHppTlFHSGps?=
+ =?utf-8?B?ZXJUQU9JdGFYNVgycEhFbzM1QmhFZHJNMG95TGhyYzBONlpTclBsTzQ2aWg3?=
+ =?utf-8?B?d2J0L1FXQ3NMVjY3ZUd4TkExakFSNnpWZDFBSExHV0tRbHV6eEY1TkJnZmxX?=
+ =?utf-8?B?SmNmZE5DVXN4eGtxOXlJT2RMT0psdGFpUGtOb1VpUUhrbTliVXpQYTkyRWQ3?=
+ =?utf-8?B?ckw2cmM5WTdYYmZlQmhXRWhSZS80YkE1NFdMUUF3UmorWlNTMGlMWm5xMFFQ?=
+ =?utf-8?B?VURRQ0oyR3VIbmNwaFkyNWxHdjVUVGoxZmdpeEt1SXZBOHB3MTR3UFkvQW1w?=
+ =?utf-8?B?TmxxQVgvVGRqS2cvcm9FL2ZUOVNaRG5IVE5YUFl2TTRqbE00cEtveFl2OVdK?=
+ =?utf-8?B?MTFzTzR4UmJqN04rQ2N3YzFXVWVyZWZLY3FIdkM4TGgwZ3A4MHRFNUx1Z09q?=
+ =?utf-8?B?bUVBdmxkQmhLQmpURjFOOG9qQUtyZFBZdmc0Q3FPVkQxMnNMaEduWktBRGVq?=
+ =?utf-8?B?TkdxQjNJVTUzdkJseEpRemRSRmxWQ01pckFPbk5JNExYcXpnMkQvWGRyTWlI?=
+ =?utf-8?B?a0piUWhpaEtXMEQ2Q0dZZ2Nha1ByR0JpL0lVZzF2SFl0MGtEQTBDaDFRYUYr?=
+ =?utf-8?B?N3ZmMHRHYTdWY01xajJQT3lNWEJjdzQyZFgzTnJUQjlxeXhac3oyRVJHUzEv?=
+ =?utf-8?B?d0pjaGtsbkYwMTFYM1hSeEdLUTlGU1hCM1JWWG5USXIrY3Nza29lTTZXQkNn?=
+ =?utf-8?B?bGJySFBnL3NJNHBhR3JRV1R5QmtrUEh6Wk5yZStlSFdJWVI0WVliY2lKd200?=
+ =?utf-8?B?cGh3My8veUZ2NVJ1d2FUejAyR3ZkMjd1aGpEVVZGVzg2UHh4ekkvTnRQdkhp?=
+ =?utf-8?B?YTlMLzZNS1FSV3ZNRzZlemdicktOdGM1QVZ3ZC9Ja0E2RW4yTkh1clBWV1VR?=
+ =?utf-8?B?MzZpWDg4WHBRVi9GWER2bmZ2aXJpTVhTcWlmajBpQ1hUUEdzcVc1dUhIMjFE?=
+ =?utf-8?B?b1VSSEZFSG5nUlpFcVVXMWg1YldvanNYWUVBYkNFeE10WDhYcFBCWlBoQlZ0?=
+ =?utf-8?B?U01tZ09tbG5IYXRnemR1aXVNQU4zczdHMWpJNExmM0dpSWxpRUI3WDVXMVJj?=
+ =?utf-8?Q?bKcN/FhG61W/LlPp/vtip4z0NpL2uPS7t5QW9Ui?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0950ec92-6a85-4581-8b1f-08d8cc216e74
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2021 11:05:23.4323
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7J+F1NIuOKcU3MqAW9y7olVrBq1N0DASil+4Qr0nn+jtbO+7W6FQQ+yNeNu1BBnxI/4n/koH8/nsD1ulPOUdnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2491
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---g10FMe3I19WjDHFRhrA8hHzwXJTqmeBhS
-Content-Type: multipart/mixed; boundary="WbA8Zux20nsOlI7TWqLh2MCi1HGxyzgG9";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Message-ID: <d0ca217c-ecc9-55f7-abb1-30a687a46b31@suse.com>
-Subject: Re: [PATCH 7/7] xen/evtchn: read producer index only once
-References: <20210206104932.29064-1-jgross@suse.com>
- <20210206104932.29064-8-jgross@suse.com>
- <72334160-cffe-2d8a-23b7-2ea9ab1d803a@suse.com>
- <626f500a-494a-0141-7bf3-94fb86b47ed4@suse.com>
- <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
-In-Reply-To: <e88526ac-6972-fe08-c58f-ea872cbdcc14@suse.com>
+On Mon, Feb 08, 2021 at 11:56:01AM +0100, Jan Beulich wrote:
+> On 05.02.2021 17:15, Roger Pau Monné wrote:
+> > On Mon, Feb 01, 2021 at 01:43:04PM +0100, Jan Beulich wrote:
+> >> The (stime,tsc) tuple is the basis for extrapolation by get_s_time().
+> >> Therefore the two better get taken as close to one another as possible.
+> >> This means two things: First, reading platform time is too early when
+> >> done on the first iteration. The closest we can get is on the last
+> >> iteration, immediately before telling other CPUs to write their TSCs
+> >> (and then also writing CPU0's). While at the first glance it may seem
+> >> not overly relevant when exactly platform time is read (when assuming
+> >> that only stime is ever relevant anywhere, and hence the association
+> >> with the precise TSC values is of lower interest), both CPU frequency
+> >> changes and the effects of SMT make it unpredictable (between individual
+> >> rendezvous instances) how long the loop iterations will take. This will
+> >> in turn lead to higher an error than neccesary in how close to linear
+> >> stime movement we can get.
+> >>
+> >> Second, re-reading the TSC for local recording is increasing the overall
+> >> error as well, when we already know a more precise value - the one just
+> >> written.
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Thanks.
+> 
+> > I've been thinking this all seems doomed when Xen runs in a virtualized
+> > environment, and should likely be disabled. There's no point on trying
+> > to sync the TSC over multiple vCPUs as the scheduling delay between
+> > them will likely skew any calculations.
+> 
+> We may want to consider to force the equivalent of
+> "clocksource=tsc" in that case. Otoh a well behaved hypervisor
+> underneath shouldn't lead to us finding a need to clear
+> TSC_RELIABLE, at which point this logic wouldn't get engaged
+> in the first place.
 
---WbA8Zux20nsOlI7TWqLh2MCi1HGxyzgG9
-Content-Type: multipart/mixed;
- boundary="------------1B0C26C8A87E3798CD3649FF"
-Content-Language: en-US
+I got the impression that on a loaded system guests with a non-trivial
+amount of vCPUs might be in trouble to be able to schedule them all
+close enough for the rendezvous to not report a big skew, and thus
+disable TSC_RELIABLE?
 
-This is a multi-part message in MIME format.
---------------1B0C26C8A87E3798CD3649FF
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 08.02.21 11:51, Jan Beulich wrote:
-> On 08.02.2021 11:41, J=C3=BCrgen Gro=C3=9F wrote:
->> On 08.02.21 10:48, Jan Beulich wrote:
->>> On 06.02.2021 11:49, Juergen Gross wrote:
->>>> In evtchn_read() use READ_ONCE() for reading the producer index in
->>>> order to avoid the compiler generating multiple accesses.
->>>>
->>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>> ---
->>>>    drivers/xen/evtchn.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
->>>> index 421382c73d88..f6b199b597bf 100644
->>>> --- a/drivers/xen/evtchn.c
->>>> +++ b/drivers/xen/evtchn.c
->>>> @@ -211,7 +211,7 @@ static ssize_t evtchn_read(struct file *file, ch=
-ar __user *buf,
->>>>    			goto unlock_out;
->>>>   =20
->>>>    		c =3D u->ring_cons;
->>>> -		p =3D u->ring_prod;
->>>> +		p =3D READ_ONCE(u->ring_prod);
->>>>    		if (c !=3D p)
->>>>    			break;
->>>
->>> Why only here and not also in
->>>
->>> 		rc =3D wait_event_interruptible(u->evtchn_wait,
->>> 					      u->ring_cons !=3D u->ring_prod);
->>>
->>> or in evtchn_poll()? I understand it's not needed when
->>> ring_prod_lock is held, but that's not the case in the two
->>> afaics named places. Plus isn't the same then true for
->>> ring_cons and ring_cons_mutex, i.e. aren't the two named
->>> places plus evtchn_interrupt() also in need of READ_ONCE()
->>> for ring_cons?
->>
->> The problem solved here is the further processing using "p" multiple
->> times. p must not be silently replaced with u->ring_prod by the
->> compiler, so I probably should reword the commit message to say:
->>
->> ... in order to not allow the compiler to refetch p.
->=20
-> I still wouldn't understand the change (and the lack of
-> further changes) then: The first further use of p is
-> outside the loop, alongside one of c. IOW why would c
-> then not need treating the same as p?
-
-Its value wouldn't change, as ring_cons is being modified only at
-the bottom of this function, and nowhere else (apart from the reset
-case, but this can't run concurrently due to ring_cons_mutex).
-
-> I also still don't see the difference between latching a
-> value into a local variable vs a "freestanding" access -
-> neither are guaranteed to result in exactly one memory
-> access afaict.
-
-READ_ONCE() is using a pointer to volatile, so any refetching by
-the compiler would be a bug.
-
-> And of course there's also our beloved topic of access
-> tearing here: READ_ONCE() also excludes that (at least as
-> per its intentions aiui).
-
-Yes, but I don't see an urgent need to fix that, as there would
-be thousands of accesses in the kernel needing a fix. A compiler
-tearing a naturally aligned access into multiple memory accesses
-would be rejected as buggy from the kernel community IMO.
-
-
-Juergen
-
---------------1B0C26C8A87E3798CD3649FF
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------1B0C26C8A87E3798CD3649FF--
-
---WbA8Zux20nsOlI7TWqLh2MCi1HGxyzgG9--
-
---g10FMe3I19WjDHFRhrA8hHzwXJTqmeBhS
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAhGY8FAwAAAAAACgkQsN6d1ii/Ey/W
-rwf+KC8M1vX876+HEvj1ckqQSbTHVV50T/sybxL3l8haeurUmI5jCXfSElNw7p2yJ07YT8pZQF3f
-/LlODxDm38K7gF32W1tcMJoWhV11GS/l8+4apQOENKEpRecaa8KdlkgD9N67m5BFw9GUSXvaEL3v
-Th6gKvL4FqLn80QutvDR9XZx2NMKnexFM3akYUbaQJBBCwL65Ej2IZGoipoRZsmWFBItpEnnMzem
-pyprwsthM4ohdRJ0ClC1Sy/rxznmHl44pQJota7F4L7f6HpK2h9laxrYX2dx9dTsWKuDwwFw5V02
-g1BHM+8Q/+qy8xs7G0Fd3lrZmpXI/3HN93G33+UfiA==
-=ecN0
------END PGP SIGNATURE-----
-
---g10FMe3I19WjDHFRhrA8hHzwXJTqmeBhS--
+Thanks, Roger.
 
