@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3CD315440
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 17:48:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83333.154792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96C1F31544D
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 17:48:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83334.154804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9WBV-00086i-C4; Tue, 09 Feb 2021 16:48:17 +0000
+	id 1l9WC4-0008D3-MN; Tue, 09 Feb 2021 16:48:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83333.154792; Tue, 09 Feb 2021 16:48:17 +0000
+Received: by outflank-mailman (output) from mailman id 83334.154804; Tue, 09 Feb 2021 16:48:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9WBV-00086I-8G; Tue, 09 Feb 2021 16:48:17 +0000
-Received: by outflank-mailman (input) for mailman id 83333;
- Tue, 09 Feb 2021 16:48:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l9WC4-0008Ce-J9; Tue, 09 Feb 2021 16:48:52 +0000
+Received: by outflank-mailman (input) for mailman id 83334;
+ Tue, 09 Feb 2021 16:48:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BG3/=HL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l9WBS-00085v-SK
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 16:48:14 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc212742-5759-4fb4-9e3b-780b88eb1f97;
- Tue, 09 Feb 2021 16:48:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D8843AC97;
- Tue,  9 Feb 2021 16:48:12 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1l9WC3-0008CZ-Su
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 16:48:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l9WC3-0002m1-SA
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 16:48:51 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l9WC3-0004Pk-R4
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 16:48:51 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l9WC0-0005to-Kq; Tue, 09 Feb 2021 16:48:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,56 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc212742-5759-4fb4-9e3b-780b88eb1f97
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612889293; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=me0NiE9awRubwK9ZwvvpuVHPIAggzHLa7Z9SrtLp+tM=;
-	b=jXa+/pG1zIfgx5JbJH6Hbfi/n7JMcrU2vb8OGHNYNGzI/dXyO8ZD5Pp09KcPAHNw3xGmWF
-	KQWuWiUAGBTI1vT/v9z+lWfVlDip4VWkdbPPu+4W24MYqM7Rdn+u7ZI+aXrsP+o/aKr1A0
-	LO9MQKWNlaJr6j+9ONVkMwoVO/9kw0o=
-Subject: Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19
- processors
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210209153336.4016-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c09110f7-6459-e1f7-2175-09d535ad03ce@suse.com>
-Date: Tue, 9 Feb 2021 17:48:13 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=zPW2ABlkHfszLjqeThttAOSm5mlmwRyifQb60Y/TTrY=; b=iqSGhW7QezZDTXFDJef3HQMGEj
+	J/A+Ze5Y9nO5ZWVkRp1qZkUWMokvun7BZdBgwR0MmJGLs7lLI8G/x16MumB7RbEUOFcoBNr+FM+w9
+	POQ6CE6qehpuly4QAXIU7QLgwXqs2oHv5W6WX+V/cSb4YoHeTwixGiq+4LFCVk+sv+8Q=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <20210209153336.4016-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24610.48368.426558.75373@mariner.uk.xensource.com>
+Date: Tue, 9 Feb 2021 16:48:48 +0000
+To: Olaf Hering <olaf@aepfle.de>
+Cc: xen-devel@lists.xenproject.org,
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v20210209 1/4] tools: move CONFIG_DIR and XEN_CONFIG_DIR in paths.m4
+In-Reply-To: <20210209154536.10851-2-olaf@aepfle.de>
+References: <20210209154536.10851-1-olaf@aepfle.de>
+	<20210209154536.10851-2-olaf@aepfle.de>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 09.02.2021 16:33, Andrew Cooper wrote:
-> The original limit provided wasn't accurate.  Blobs are in fact rather larger.
+Olaf Hering writes ("[PATCH v20210209 1/4] tools: move CONFIG_DIR and XEN_CONFIG_DIR in paths.m4"):
+> Upcoming changes need to reuse XEN_CONFIG_DIR.
 > 
-> Fixes: fe36a173d1 ("x86/amd: Initial support for Fam19h processors")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> In its current location the assignment happens too late. Move it up
+> in the file, along with CONFIG_DIR. Their only dependency is
+> sysconfdir, which may also be adjusted in this file.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-> --- a/xen/arch/x86/cpu/microcode/amd.c
-> +++ b/xen/arch/x86/cpu/microcode/amd.c
-> @@ -111,7 +111,7 @@ static bool verify_patch_size(uint32_t patch_size)
->  #define F15H_MPB_MAX_SIZE 4096
->  #define F16H_MPB_MAX_SIZE 3458
->  #define F17H_MPB_MAX_SIZE 3200
-> -#define F19H_MPB_MAX_SIZE 4800
-> +#define F19H_MPB_MAX_SIZE 5568
-
-How certain is it that there's not going to be another increase?
-And in comparison, how bad would it be if we pulled this upper
-limit to something that's at least slightly less of an "odd"
-number, e.g. 0x1800, and thus provide some headroom?
-
-Jan
+Reviewed-by: Ian Jackson <iwj@xenproject.org>
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
