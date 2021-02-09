@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D38315759
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 21:03:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83407.155150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7EF31579B
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 21:20:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83409.155160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9ZE4-0003WB-6x; Tue, 09 Feb 2021 20:03:08 +0000
+	id 1l9ZUP-0004e4-N1; Tue, 09 Feb 2021 20:20:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83407.155150; Tue, 09 Feb 2021 20:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 83409.155160; Tue, 09 Feb 2021 20:20:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9ZE4-0003Vm-3h; Tue, 09 Feb 2021 20:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 83407;
- Tue, 09 Feb 2021 20:03:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l9ZUP-0004cd-Jk; Tue, 09 Feb 2021 20:20:01 +0000
+Received: by outflank-mailman (input) for mailman id 83409;
+ Tue, 09 Feb 2021 20:20:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5GlY=HL=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l9ZE2-0003Vh-Ah
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 20:03:06 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6ccd6d5c-053a-4e29-a9fa-a9bae9d54129;
- Tue, 09 Feb 2021 20:03:05 +0000 (UTC)
+ <SRS0=p39W=HL=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l9ZUO-0004cY-4V
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 20:20:00 +0000
+Received: from mail-wr1-x42b.google.com (unknown [2a00:1450:4864:20::42b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0fa19d0d-d469-4b36-907c-b0f15b4a9e1a;
+ Tue, 09 Feb 2021 20:19:59 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id v14so8038376wro.7
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Feb 2021 12:19:59 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-180-176-157.range86-180.btcentralplus.com.
+ [86.180.176.157])
+ by smtp.gmail.com with ESMTPSA id 67sm6482784wmz.46.2021.02.09.12.19.57
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Feb 2021 12:19:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,133 +42,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ccd6d5c-053a-4e29-a9fa-a9bae9d54129
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612900985;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=RhyvlAvej6uFasCeoeU7D0dVC/Z4zPiTox9Lv2VZcgQ=;
-  b=Z6+KxwOuFh4FpFInK0u3uIYY1kymHhqGHMNLh3Mrq9bR49w4bKFodJ1A
-   4HfluovDVh7psC7yWrV8Ve0SoZC/QmYwYmkbOlzqcBiGej3BRg59ZJMDv
-   Y6eohSeKTysv4yP/axfVdWyGOdrDK05bVQdtlyG5eAR7ysn45OafvEDn2
-   I=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 3Sc4b73rnR4qID9eZCIvziHY7zr0yzJA7NhBMn504csyx/ynXpdaDHO5vaE5xZAGsD/uuBqHVT
- Qblt8dO3Sw/P7B7kukSxS5i2GrmkIBCkxIA3WKh1kKXSyiY7Qpy4IkuM1P5dxbfevNe4QAWXum
- KBrshqUt1lksvKpMSQcTvivRfaCuNNz9e3MG+pXm5Gs22Bh4JIopm/URSObAbEwNwUMy02R20u
- qMLzG538E4AvF1jPN8Rh0Cz+NyoBKshrJZHMuUjRUG8ZWZoLuIAttpxlPcUR46H7aGwPwUHmdI
- TAY=
-X-SBRS: 5.2
-X-MesageID: 38253602
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,166,1610427600"; 
-   d="scan'208";a="38253602"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jImxHux7MqiS/AL69Y75DZ3KblRv32s7yAOvXTgRNPwusKjJAPoH/nzGV6DEOSpA+/VSMN3r4ObMfd9ys7vPRBzlI7Qm0XyF3XEH4CuGlovgFbdXZ0Tprn+JslOUsT2lbqeR9dFyNzrDHyYgTa6AmfWrDOZsDA0SQJeyFXwWdXM9FCN3t2yz1vmt6tAIHyC38qkrMjF/v9ZeWI827Z/wDCWRAEJOU63r7oYHivTAgoJyYWcUd7RD2H6wtkwseGJAwtdm0LPFZhBI7z3GxEw7+Yoh6uvvqr1dCDrli5gj3rnAypcDZ9iWG1wPo4wk+HZeTURpg0hHhvPnVzXACkCufg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nOAoT+g4WqRsMZuM9rfXCyGWS86HflA8SSBIFOTmXko=;
- b=ciGzT0/rGHIlBvhIvg9JyR5qbUb9HB1jiIWCE7gXea1lh6YCP9+goEqpI/dm7ojUBbt56MfJy2nJJWYLn4A2gMPGGYEprZ64cdBuvNyPv18BPl7gfjAMSNJ+186jciTOnrupAx9FBFWW4jGvdbx1tMcPW8cJ9zpqv0HxPi2VqgTKuMu/XHO9t5SuMnEwBmGJHroUUH7GEp2RG16NOMi1Ffnm+vrO2KvgHXZ2ctlD70icGtnFbOcQsTSOyDHrdBBT9/g6FOzfskonOPAITbFlS7+aXPGEEHZJipaj20WuFf4mGqnezhBRkzPqPxRzIOD4Edk9lbDtS4hGVep2ql7YLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 0fa19d0d-d469-4b36-907c-b0f15b4a9e1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nOAoT+g4WqRsMZuM9rfXCyGWS86HflA8SSBIFOTmXko=;
- b=YllCTg+2gPN9+f6TJjZqcymR9R5e+hR1GCgZCqLX9bAisUdPYsa9GTSPSlUsbaCKepXqdbxU7ByXwwR20cCsBQHtexzp48DMJiv4OBNo19jZX0gtyFrEdwU2czuOUb6bbFiWQF6Os1qQPwOb5wQqD04HARBHttROMJd8PEiTeoo=
-Subject: Re: [PATCH v2] xen: workaround missing device_type property in
- pci/pcie nodes
-To: Stefano Stabellini <sstabellini@kernel.org>,
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=boj373LsOZqDTZQxKCZOAT4rKi/jpq+W1thHmB9t9BE=;
+        b=ox8keUe/nKVd6aTwAnAgLTAsIjPwKRSUALrUo2LnA12YifZuRL3b6yVpBmlInYlndw
+         U1JeomgrODpGUmGl4euVRP53hdJAIPchCGIDldHxyQtdP9cLRa0xkh1fBJpDLofgk6Eo
+         HoDN0Zvs7Y77vXIMzw0QMeBdTzGo9hSKUijmhZ290RV4Dpp2DnXkM9tKQWGYAla3i+uE
+         JHXybAatmvzECilv2gNGo1z4FxgV2XZ985ieyn6ilT/QEGzgAXg1qNWrHn+WmTEMzWLO
+         iahb52k5kqNMtghBgjlo3F9esKpQPropamS4nw16Z1mj074X3S9EA3pXtJvfCWBCZpgq
+         XKVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=boj373LsOZqDTZQxKCZOAT4rKi/jpq+W1thHmB9t9BE=;
+        b=RUiP8ztQF9sugrrmjIpisfYNc/gavq6PZtbvej5zBC22OzXSJqZDQZfq64iTkoIHBm
+         g55L7DuteLJzkwsPP9QZNjHRM5psOZORS6LNMyeNWxPQ4buqkylL+jmuUbfmVR1X3neU
+         abru30Zz3IgzkV8+BH8NRzzahKH/oTBQEA3Pc/sifExMbp1NlwgrsIkYNx2YTTVM+c1N
+         yGbLvha42LKHFosD98q/0pIxfr8zVW4oSYL2ZmaSLBqDTh3mjrKRyPhgmJds70lB6zLL
+         ssr46MC86wssk+kLrkQcOdEHKieiCLQ11eXniYa0qkcJkqbNNYEzknN7qSLktIgCCI93
+         bCFw==
+X-Gm-Message-State: AOAM5336OAk1R9kAvvx6fRf+x5q3jkBzVQocI1ZP/VkcQo3jvbkUV7/u
+	6xoKOPzeG4Wdibc3zvww4+w=
+X-Google-Smtp-Source: ABdhPJzxE9/711iBjJ6yVZgbY2CwJPa39YR4FYGKvguDFIZHH3dGIHKFbwYIOsJqJmUGfvuLcLPwfw==
+X-Received: by 2002:adf:e4c9:: with SMTP id v9mr27128156wrm.277.1612901998446;
+        Tue, 09 Feb 2021 12:19:58 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
 	<xen-devel@lists.xenproject.org>
-CC: <julien@xen.org>, <Volodymyr_Babchuk@epam.com>, <ehem+xen@m5p.com>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20210209195334.21206-1-sstabellini@kernel.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <e2a807fd-a027-fa7d-315a-f64db8c56e1c@citrix.com>
-Date: Tue, 9 Feb 2021 20:02:41 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-In-Reply-To: <20210209195334.21206-1-sstabellini@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LNXP123CA0021.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:d2::33) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+Cc: <hongyxia@amazon.co.uk>,
+	<iwj@xenproject.org>,
+	"'Julien Grall'" <jgrall@amazon.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Wei Liu'" <wl@xen.org>
+References: <20210209152816.15792-1-julien@xen.org> <20210209152816.15792-2-julien@xen.org>
+In-Reply-To: <20210209152816.15792-2-julien@xen.org>
+Subject: RE: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special pages in the IOMMU page-tables
+Date: Tue, 9 Feb 2021 20:19:56 -0000
+Message-ID: <04f301d6ff20$efa93b10$cefbb130$@xen.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 63be1c4d-8db0-4f42-b88d-08d8cd35ae44
-X-MS-TrafficTypeDiagnostic: BY5PR03MB5030:
-X-Microsoft-Antispam-PRVS: <BY5PR03MB503044254DB56984F24D4BE3BA8E9@BY5PR03MB5030.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iI+oNMfQEZVkqZTn1+vOZ3jKqg9gq/GeYnfuTwiP8hukwHm3KFDJbtY2ND4MBv0XNJpoQho/GGyV8eTZCfE2zJ3z8xqHNsd0tzen0gUjaEcRJFAx21AFXcmyXS1PoWiGdO27x0NdnKWWj67RAM9yF5KBHLKinykA5I11Ou6FOVrLCJfASIyL6iv+w1mIk11dsL7qEkXz5kFvwcc+BsRbVo6iZ7wBH7gt2kTdx1+EiJEk8XUTgWgAd4FQweI3P1W9MKklSFPLE+HjlRX7+jSGikdZp5Bg2heRY1qac8gg+0ZL3FBlOnkIUdT2yDuWqZjkTk1p1ZIKJT9DTWasyevA1iM0Dz0JKNjqU5hELf+mNnQaiiaEHk0NuVFyxhFQjQ3jPT42DCtFUzF1LFgZNvy0iIHR2wkKIL0AGzTW8Knar4F71u+bkOaRd3fQESLQDDpyq9bQXOg3/q764ChVy54SI4KSfLSy3A4j0emEC/nSR9zgdHKK0oYSRAQe7oXmXzIWTB6q9OqEpO4b/mnqocektYhyYx4tuAODAEe/7jQV4Q4/f/mf9EcLcLTCpv8D8x6VrIXV1gy70WDaleg7WFf0563nMB9tTX1P7K1DRTyOfZw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(346002)(376002)(396003)(39860400002)(53546011)(6666004)(2616005)(31696002)(186003)(86362001)(956004)(16526019)(26005)(31686004)(36756003)(4326008)(8676002)(6486002)(316002)(16576012)(478600001)(4744005)(5660300002)(2906002)(66476007)(66556008)(8936002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TUM5VFNnZTdVZGo1MEVoYk5yQWxSYWpyS0VpWktpMDlSY1lpRDZVVXd6MzBm?=
- =?utf-8?B?OG5MZFIxdHZaeFU3OGpta3hkVXlwS3gyWmh0NmJqam1iV3A4b2poUmhaMjVP?=
- =?utf-8?B?ODNiazh6dE95QmpqdlU0L3RJQVY1bitxSlhyWVBPdnJMWWxTL2E1aGJOaHJ1?=
- =?utf-8?B?ajVPYzNwU29JenZjakVPYTVIMjZBbGhRS2VPY1VKaUZCVTlaRWRObm8rWTZM?=
- =?utf-8?B?TW0xN3Y5UGpOdTBmUDJpUFFwcmhMcmhxRXlpNzJUcitNUUpsQndIdzVCOTVK?=
- =?utf-8?B?UlBtNnE1a3V1bndMYVoxUnk3UUJtL0VCMCtPSFRvK1dyY1F3alVkUmg0c01F?=
- =?utf-8?B?K3FOaWxhUWFINUxTWTBEWkxicGFCM2NwSy9aaXVwZVFWZjA5Wk1FK1c1MWxE?=
- =?utf-8?B?UHM5cXo5TWtIZDZIOFFrSEFFdGlCR1JRc0lsWjVNb0JKOXR4dXliektmOWxt?=
- =?utf-8?B?M3IyRExpK3VwT1AwcjRYU21seEh1WExOV3pLbkk4Vk1ucTRPb0Myd0t2cFJI?=
- =?utf-8?B?bzMzL250TGI4aDBybDYvUjFFbzUvam5UcjVCUzBSUm5TMDBCOTZFekNZUHlG?=
- =?utf-8?B?V1FQK1RkdmswZVk0QndjMGVZNWMrd1JvaGxKK2JYd2tLMjFJdjJianF3QjRr?=
- =?utf-8?B?TU1FbzE2c1pnMHliOEFzbVlCV2t3YkZqOTBkNmFoSk9kc1U0ZW5HdUtFcXVT?=
- =?utf-8?B?RzRCVGNFbDBTVU5scVlWSHNxeGxJRC8wVXdwRzIrWjk1RC9GVm51ejF6Z1Rh?=
- =?utf-8?B?ZVZiZWYrQlFHd1JSZFZpQXA1ZEtWTGdXWTJOZjBHS1o5a0tPSUhWQ2diSzh5?=
- =?utf-8?B?TW0yWlFVektvT3JXTnZQYXJZWEhtdnNUMjhNODdETlNTcUQ2THRGRkx4dkJm?=
- =?utf-8?B?VUVYU3AvdXZNc2hjR3lMSWo1Skl0YkhDNkZZb0J2ZkY2Vlpabk90R09NTGtQ?=
- =?utf-8?B?eE1ZdnB1cEU2UmgwZUx3TDJUSTZhMkxtSEkwZkxrbnZFTGJRM25hVC9CQnQ5?=
- =?utf-8?B?ZkFEekM4VUVJZWpOM291UjJQVkdWMGN1UnI1M0hzb1BOTUNDL0dTNkZWZy9N?=
- =?utf-8?B?ZVBXeTBuTjlOOURaNEdscUYwMTlwMC9Ha1dPSHVvM3RqNnBFK0pOOUNSNW5s?=
- =?utf-8?B?QmhYYXFSbjl2VEJPWDMvK3JpVy9saTB1VEFZemErYk1lOXp2bE5vdmcwNnVN?=
- =?utf-8?B?bUhIZkE3bk5XQ0lDUFBVUnhUUWNHcnY0dHJkSmFOaDNzVjNBQXdTdnJSQ2dH?=
- =?utf-8?B?Y3pyNFRQVC8wR0FGNHBrZFJ5bEVHZHFYdW9sYXVzL0p3UkVKeDBINW42YjAx?=
- =?utf-8?B?WlJUNEFsWHpaZlB0NFlZVHlBeXdPbUVzSW1UZWplRlBYRnlmZEIySFN3M0F1?=
- =?utf-8?B?TjRFOVM5a2oxc1FDT1diQ0pkZldzYTBjbmVtZ2tJOGRxOXYvelExRDN5L2RC?=
- =?utf-8?B?QWlXS3U0bm1Jdjdvbm04Qm5qN00wZGd6N2RseHlIdUowdVFRck5GODZpczhN?=
- =?utf-8?B?U3ovTjVQNCtZWGlFcXRCTXlTSS9Ycjg4cGtqaW1GUHdiN0Y5Wit1a1FBMDNP?=
- =?utf-8?B?Z2ZRM25oV0hYQlA4ckJZWEF5VUlpcHppU3hqS3NGTHN5L2poTEVwby9pdU5X?=
- =?utf-8?B?UmxqeEFlSkJxQktaKzVabU9LYXpVQXRLT0N3dVN5VDUrSkdoWHRNMWRaTU5F?=
- =?utf-8?B?WjYzMFBScmpoQ2NRakc5R0lUWGZrZUNzNHcxQTBaQ2VMcnFXcTFwOUYzY2xJ?=
- =?utf-8?Q?xVEacEL+OpFRJOlzMPQZ4/NO0P1Ov1+3OxBsiup?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63be1c4d-8db0-4f42-b88d-08d8cd35ae44
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2021 20:02:51.6993
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B3EV7ocTEXkny2lmePYHdaxmnwUowdITc5gB1g2ptG77agkEo4xK/p6GXVg2acYEFUgZeGsb47XmI/jeR++H2dEzy+kYstz+GDWAdldbovI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5030
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJkA3sfHUQVO5jg8t87X8qwyW0VowLFj79gqSAOLIA=
+Content-Language: en-gb
 
-On 09/02/2021 19:53, Stefano Stabellini wrote:
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 18825e333e..f1a96a3b90 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -563,14 +563,28 @@ static unsigned int dt_bus_default_get_flags(const __be32 *addr)
->   * PCI bus specific translator
->   */
->  
-> +static bool_t dt_node_is_pci(const struct dt_device_node *np)
-> +{
-> +    bool is_pci = !strcmp(np->name, "pcie") || !strcmp(np->name, "pci");
-> +
-> +    if (is_pci)
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Julien Grall
+> Sent: 09 February 2021 15:28
+> To: xen-devel@lists.xenproject.org
+> Cc: hongyxia@amazon.co.uk; iwj@xenproject.org; Julien Grall =
+<jgrall@amazon.com>; Jan Beulich
+> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger =
+Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>
+> Subject: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special =
+pages in the IOMMU page-tables
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> Currently, the IOMMU page-tables will be populated early in the domain
+> creation if the hardware is able to virtualize the local APIC. =
+However,
+> the IOMMU page tables will not be freed during early failure and will
+> result to a leak.
+>=20
+> An assigned device should not need to DMA into the vLAPIC page, so we
+> can avoid to map the page in the IOMMU page-tables.
+>=20
+> This statement is also true for any special pages (the vLAPIC page is
+> one of them). So to take the opportunity to prevent the mapping for =
+all
+> of them.
+>=20
+> Note that:
+>     - This is matching the existing behavior with PV guest
+>     - This doesn't change the behavior when the P2M is shared with the
+>     IOMMU. IOW, the special pages will still be accessibled by the
+>     device.
+>=20
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>=20
 
-bool on the function, and spaces here, which I'm sure you can fix while
-committing :)
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-~Andrew
 
