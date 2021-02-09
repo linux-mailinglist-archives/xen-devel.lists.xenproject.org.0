@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3181315366
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 17:07:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83321.154753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAB0E3153CB
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 17:27:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83328.154767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9VX8-0004L4-9Y; Tue, 09 Feb 2021 16:06:34 +0000
+	id 1l9VqX-0006CD-4Q; Tue, 09 Feb 2021 16:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83321.154753; Tue, 09 Feb 2021 16:06:34 +0000
+Received: by outflank-mailman (output) from mailman id 83328.154767; Tue, 09 Feb 2021 16:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9VX8-0004Kf-5Z; Tue, 09 Feb 2021 16:06:34 +0000
-Received: by outflank-mailman (input) for mailman id 83321;
- Tue, 09 Feb 2021 16:06:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l9VqX-0006Bq-1K; Tue, 09 Feb 2021 16:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 83328;
+ Tue, 09 Feb 2021 16:26:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t2YR=HL=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l9VX6-0004Ka-H3
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 16:06:32 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 279daca3-9d9a-4eda-8fa7-405d953d945c;
- Tue, 09 Feb 2021 16:06:31 +0000 (UTC)
+ id 1l9VqW-0006Bl-0a
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 16:26:36 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a9d83035-da87-454a-af58-61638f32ec3a;
+ Tue, 09 Feb 2021 16:26:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,176 +36,349 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 279daca3-9d9a-4eda-8fa7-405d953d945c
+X-Inumbo-ID: a9d83035-da87-454a-af58-61638f32ec3a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612886791;
+  d=citrix.com; s=securemail; t=1612887994;
   h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=mfADmmA5oo9A3poCZNPBvD61kcuRgiB6lJAGQ0GhQcI=;
-  b=HEl0Rq5pHBoxNuETAQO1o7brYHpv990tVFbV4+txZgPnfoorIA/gYt12
-   mTEWT+woVwpo/5EoQp59VI0ueMQ/7BC2YGuV6wkLJ+I6xF9zfnr8367IM
-   N9TiBtczWLrtAkBKW18WYqhL+7+3LUDRemOxky1t4rCbS/9qyW5y6ypuk
-   U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: YrnJxObSb9qn6D3kJ7/fwIxqLbO9c7ct+cyYxsCY4syHuGQy5tIktycwyqa9PF2RwNgpIdeS5S
- +JNrc/VLvFe+zBGNU0T1FGDaY9oaDUe/tUs1L1xDkerFAXkakAdSWpHdMpGINXoWfdrZWsDH7a
- jcxgLmiy5GaeWRumVyiQDr/Y4dKeLvZYaSWcaDUmejqaEnIrMIQQxB9WGJ78aO6X+jQE+YicEn
- TwOnMJm6M6fJeRB3xuOy75auY7TI+g/djLag0LqMS5TTJwGSgoP3FD2053FJ4+zqcu7OjArXRS
- BDg=
-X-SBRS: None
-X-MesageID: 36818908
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+   in-reply-to:mime-version;
+  bh=4iLr10S04cZJz58I01E6lZH5vzPhXXtXcjQatdrQgNE=;
+  b=gzAT8c+gvjl2NOALSp3e666vEcPXqo9tX+ue7Up5W7kcCaohohV/dkCh
+   mhuG1v3BsY1jMpWXG9ua0l9r0/KwfLRCc2Jrvv1fUQSrdEH40oorSRS1z
+   gzYHIHsHS0ShwBQzhjwg9GEaNFUJNlQKcw+4xoupydP4Eevr1IEPiavA6
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: H6feBqfnHyvXWcbo+4MFSKnqklO2CzvVyB4A9dHWrKCFJaB1DxdxoiZbS1bY+ggPmHdwbyazz3
+ ypo/s+MXBTDQHcibGjlyFM/oi8j6lpCuC4gqM30N110eLmGU/mateChM7fCksgSRssMGBm4u5J
+ xtk3PqN/lWECybNSN6ESTCCpIme7m8CqEYCabK6oXsjwDTSNJjG9eJQcn+02UboZHPYzUFeb+N
+ WhhE82kRb+Atvupm7uAYtKInNIuJhEoTuwsAr4rJ7lfF4GiGpoikKdgPlCm25LOv5S2N9nNi49
+ Qbc=
+X-SBRS: 5.2
+X-MesageID: 36875618
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.81,165,1610427600"; 
-   d="scan'208";a="36818908"
+   d="scan'208";a="36875618"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SDC2duD4FcKi3L1gkRcCqXDUL3K3sc++P/pyUZwXuVJrzX6dtsbY9NjyDYNhpksyzHGVBRzGqpRi8/KBUIG4kkVbTAaynEeluTUVWRTM/2u6EAnqI4QVUplVgRPDosPDMdqiCISBl2YyTM1FeY+nS5MFtr9rfeDvzXEsXpa0EMk/fWMqPPE5dH7z2zlvBcY3rMB+62U6SUy1Jy4N6l8TjX8fp+rLmfq0RBWgGa9HEyvpKF1nEOLuUWa4j2i06/j8Fe0xmftdRQ9er6XKuZLjgFeWAEoSl+kwYRujuANovWcUFvHqiV0rW32bWTHuqnvBujerHiIScERX5J2etG90tw==
+ b=jJE6xpilQ5kAFRI7Ebbu4Se2S2ZeOPabEwdGZr8lWcGQTGHy0nu/DkmpIpJUXo2DJpH4s69zYIn3SKExjengpcq3x/Iv33Ey4rB89nhXG/mfsBIAYXoCZKG2Dj0IfcOuYAydEg+m9p+Q8d9Y7WD4ntVT3793+SUPt3HOSqvO515udJMCMtRxf3q+W+ncp/KwE5C09KQs/2wkqQO2rxqGAwDxXXc2dDiEfvd+ZLEqry2TEcF5ssqbadKZH5FH6C8FWEo+Dem1sjmgOX8bXqg2vBiTdx1QoZHCGU8QCxW+6dBBPBdQi84k2RCBwIRYaxm7iMoImzoGoXqwuJ124x8P9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=69J3HOQhUjTMGEkNOvJ1siyYj8g7/5aQXC6Co04pVF8=;
- b=C2m46v+u34T+nstL6F/2J1FD1fFP0tJgXYD+g+OjQWaYjCQlPFZn6Q3SWpxNZ89y6mvlWbb761qLmy7edbnzxwjlRpUYXaBT4Xas2gLu7O79wolcD04buEqV5sQSKMk1MZq9RmiIrJzDVVFxKDSsa369yyUuCTNWPRaYUtG87RtA1xpa2pIHcc0NpGZ1rD6dfQlYBk1aTZDGmtNLLCuyXMOFF08ctwuQOMNI9aFXGt5fmy3YBELHPAVbaJ2YTwjIsTef/y9aAFe4xALGul4dkorc/+z8ummXi6p9F2g+tvy+RC/sxWFkJ42AmfhN/fH1TqdzFE3Vme1CTv+IyeXB0A==
+ bh=2Oje/ThS83Ub8f0kkwgIEombPtTAPzoJJioaG/TCiJ8=;
+ b=KO2FEDyw9mbr+wCgrVpv2bP5VqnHfEFfWibbBrLlzh0AFepnOoC7KRLtNCNVhE89wUerzyxz7S9+HwLwdqIgKAS9jGtWR66rbBpO9JQV9VvywmXJTt3zyIK5Qge/dgyC7VssCB/2V/eRUu19kG7Cf1f7e92LIphA7ymDUITt0QjT33EgWit3kL31mCGQ7Iglg8zL9gtyuSOw49YHPeB3OYYiqrqthQgC0Cj9eVGqe5SunO8smwS1B01/zup4/JzfJbmMUCwGxnOEjxMJgSjpFJpdLgQ8yyhFfqzaNWcFlYDMhe8x8/u6CePXT0r0niGJDjgl/vgZkmXvh4LDGwrymQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=69J3HOQhUjTMGEkNOvJ1siyYj8g7/5aQXC6Co04pVF8=;
- b=sW2T9bQ+EAfMZZ9kgalT6xMtfLhfN1YNXxTNBpfEARtDGtqdJaX34fcpBhJ2MQ0ZZdTuq8CSoN76YeoZJIrhGAWj/rBLj6uHqtxE3/d6RN7AljSsVKyxCGweoZV/4fdBMxBaxeS+LbCybl25L9YTh23t9kPqwFG44WVNU3hhlhI=
-Date: Tue, 9 Feb 2021 17:06:10 +0100
+ bh=2Oje/ThS83Ub8f0kkwgIEombPtTAPzoJJioaG/TCiJ8=;
+ b=ubrdy0gNb7mAXTGksgUIcjHYyfCnlKcHKsYtuifwNs+nAJb3ZgHnEJmWH7K5tCF5b/6mCVoVriS5v/IC3ZTXDQgx9F26ghoePblmFtkmCWztVOq71Re0idCwkynveCVwbmYKE6O79UHd2VB7qIaBUuCzWXUTl7uX17zOj97XoKI=
+Date: Tue, 9 Feb 2021 17:26:24 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Tim Deegan
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Tim Deegan
 	<tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH 03/17] x86: split __copy_{from,to}_user() into "guest"
- and "unsafe" variants
-Message-ID: <YCKy8lwh2YVWYChc@Air-de-Roger>
+Subject: Re: [PATCH 04/17] x86/PV: harden guest memory accesses against
+ speculative abuse
+Message-ID: <YCK3sH/4EVLzRfZ3@Air-de-Roger>
 References: <4f1975a9-bdd9-f556-9db5-eb6c428f258f@suse.com>
- <b8112628-a2e3-2fdc-9847-1fa684283135@suse.com>
+ <5da0c123-3b90-97e8-e1e5-10286be38ce7@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b8112628-a2e3-2fdc-9847-1fa684283135@suse.com>
-X-ClientProxiedBy: MR2P264CA0181.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501::20)
- To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+In-Reply-To: <5da0c123-3b90-97e8-e1e5-10286be38ce7@suse.com>
+X-ClientProxiedBy: MR2P264CA0117.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:33::33) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e9ae5f88-0aee-46f7-4f8d-08d8cd14a1c3
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4970:
+X-MS-Office365-Filtering-Correlation-Id: 1d004747-8fab-47d4-e57a-08d8cd17746b
+X-MS-TrafficTypeDiagnostic: DM5PR03MB2841:
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4970C2368922285F182E0E2A8F8E9@DM6PR03MB4970.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <DM5PR03MB28413C69DD085EFE03D884D18F8E9@DM5PR03MB2841.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5W1Q1wGmt63I3mp81PfWPH9Fzh25P3KyVSMyUnRwRcu/VqDQ4dbQ7XCn+r2nPuxBQMZ9zzsqY05DCexnOMZxAKOARgRHAiFvOEeKc7NP9xocr1zzFWfgByuz9A9x9R+yiCGm9Sp5wZXc49gYZvAFwp8VWdMlSv099Ojvpup/bOq569cXKjuzqTbHtGZ6UR/0rnTl+jcbmASJ5E4Nq107ItRaKV/b+rThmxpo4syHjd4mHsEvsTntdAFc9LzReud+L3DJ+v1X2TAVrSQvQ4ZxJ+laPRor2BOtdxVF5mt59WfXxSQ6bGySpuRokRENYQciHBOIE2nt72paFQxfWluaMPDpn+DudO8qCUuCtOIGb/wkdloQ7klxxkL6GH+1P9LsAh1ZYlPAzlzqfXHi2itnAai2VCPdxsMgIQ5VfM88VvBWbaSp8dOUx8HGa5yL9RCSJ0ZDq/jTs4uBlYqKBStu7c9RDJLaVnPUZVmz3I2TsLbWo59FcOTP/ZCbBqekE2RMFySyx6AVfWOW5i3w/Mv8Qg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(136003)(366004)(346002)(396003)(376002)(39860400002)(6486002)(107886003)(186003)(86362001)(26005)(83380400001)(956004)(2906002)(4326008)(33716001)(316002)(6496006)(66556008)(9686003)(66946007)(66476007)(6666004)(5660300002)(6916009)(8676002)(8936002)(478600001)(54906003)(85182001)(16526019);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?QWpuRkJFWFVqcTNGS1c0KzZPcHl0Wm1Vb3hhcTZ0emNVaVhrdXVrZERnc3p4?=
- =?utf-8?B?emN6alRNSkFUODA2aHVSOUVaSWI3eklpWDlOZG11M2tDYnJkRkNjU1pPa3dQ?=
- =?utf-8?B?bG5VRVgxWDJ2d0pDNG9pRUZ3SnNzL0FMQ1NMR2t5NjEzeWdGaDhBZTd6aC9U?=
- =?utf-8?B?c1MrOWNnaFJibGMvdkxXZ2xSUElxV0M0QW5pd3hmTVljVk1uVnA2TXVodGcy?=
- =?utf-8?B?Z1dhRGxzaHI5dW9KbFdMczd0NmJ4T252dEdOSGZ3aGE1M01kbER5b3JLdnZa?=
- =?utf-8?B?VGhpT2QzbjJHdmF1YWVBZ21jYnhHejVVK3NwSzRDUUQ0cVpSNC9hSnhUSFRa?=
- =?utf-8?B?cUJzQTV3RU1WMVJDMVRUczY1YlU0aUdoN2J1bWxxYWwrZTRXendwU1RTTTNX?=
- =?utf-8?B?R2ZvL0JzRFBnWHV2Wnd3R0t4Q01BOGpBeEZCa3RzL1RjeXUwcGVSYjVMN0tv?=
- =?utf-8?B?eWJ0eVJRSFVjalRCVk9uWnNJMXh0YmtQRlY1VHdheFAzbVh3Q3ZLL1hjVVd6?=
- =?utf-8?B?SVlsK2V2Rmp6Y0xHWXIzalRwdXJJSU5UZVZPVjVhY0pWaXQ0MzZEcEtjbWVp?=
- =?utf-8?B?UmRQc2tBQlY4QUQvdE1wNjlDRnFBY2c1bUh4bUNZZ1dFTElLaDJ6b1ZEc01N?=
- =?utf-8?B?VGxOTEJ1UFFoNG5xQ3F0SGl2R1FvcUp0ZnduU2N2Tm1hbmRlUG90cW9LcmhY?=
- =?utf-8?B?Z0RPbTgyNklxWEh3NnV2dlJSVDJRajJ2eEs3dTJTZVBuWlJBczlqNjRNTWlt?=
- =?utf-8?B?S2pvT0lxRW9rRGIxRU5DVFZFa05LNEFsYkFSZElNS3BiL1ZhOWdQQjJ0NzVq?=
- =?utf-8?B?cERKMC9DQ3Q3QkFRTnFPYjlYdDZ6MmRsbEdremtpdi9PN0p2WkRGbk56WUJn?=
- =?utf-8?B?MW5aUUtXUS9wMFUwOHhzMWZFSUxjRTB4bndzSC82NHJxOXI2SHREL3VMV0Zw?=
- =?utf-8?B?NkR6YW82QWNHVjdRV3VoN2JCM3Q1QVMwS0lKRXhaYVB3Ykc4YzZEd1IwSEZK?=
- =?utf-8?B?bVZDUTFkRndiMFBSTy9ab0VNbERFZWxleklSNnlRQ1dVLzU5NFZ4Ym1TUWh3?=
- =?utf-8?B?em9kTTRhUUpBZUhRM0ZlcnJHNjdpcFdCSTlxbTVIQ3ZaWmd0RkNieG1MbWh2?=
- =?utf-8?B?RGFxUmp4T0RvSlNCZWZKOXZ4dmkvNTNiRm0yUm9NblRLRDIyRHBlMm5NZTFX?=
- =?utf-8?B?YUNqODJLeUlabzZGcFM2dDc4OSt1NU5aeTJMZ3l5QUFabTZKMGpnNkZDSFFU?=
- =?utf-8?B?NVh2NkVRYnZQajltQWJramV5aS9ZQXJEVDZ4YW50dTBtSTlNbFJBYUQ1b2Vh?=
- =?utf-8?B?cVoxT0FPdGhwVitxTHdSTFpUSXdyMnU3UHovV0dTdGhQUWhwYnhKdDRINUZE?=
- =?utf-8?B?Z2ZjcXVrT1ZkZ0I3VTJ6T3RWNEdYZDZlMkxIS3F1c2o5aE02RElxVCt1d3lo?=
- =?utf-8?B?SUJwSE15VEJ3bUtRWlNrdW1rbnVFdkR1SkVGNmRENHNGTzNJZ2U1NllVNmx4?=
- =?utf-8?B?WEpyUXZxb0Nsd25LQVpMNzFxckp2Sml1Nld5REVNSEZ0bzNacXdXcG9JcDZl?=
- =?utf-8?B?cmp0TFRXY3JVMjJIY2NMdURKWXlSd2JRbHJWUDJ4MmZkclNucko4Ym9seGF1?=
- =?utf-8?B?Vk5zUmJ6aHNKdndrc0I5bTYvRnIzYlNoRFo3anU3aHpyTWI0MjdEUkdJRTZY?=
- =?utf-8?B?dVdpUVJ4a0JuRGhGRlZUMWxPVHMxRjZ3QmtzM1JZajBWR3MwQzFUVmdNRDBU?=
- =?utf-8?Q?7ka6r4qafH46zN/2U3WkOJNDKJioMV6Ojm+UIcS?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9ae5f88-0aee-46f7-4f8d-08d8cd14a1c3
+X-Microsoft-Antispam-Message-Info: mxbBmS8YLBzut3To4Pyp0e0C3wVZf+S6PhVA10kzSj2lETGJprQhzi3s2w+5bYjwhKPo2fwVUBR9NZ4tIjV9s/d5F996qYZWalj1NP+DYTjC0fuD1ANZdWGcC6ZgQciTMVwfOQTj4ecNnqJLCevCIAwI8fwHmHG01W1t51uXPwnKzzPCTj/52PEgLXE+HNCiDi2mc48c5sj2qxavWJqaNhMjlnGPg+5JkIRCUeVx1eyjY6/5MWI3mdCgaXOyJIPvYprdsEDusDpIU+7yRxQvsKA8wFW4dblfkXcqteVnOEe1nQE5H/7LinsB2MKyZP5NaZf2pj36Ikt6UCuWS4XGccWeDLhi3+VJcL/J67LHsNJBOQJoUVgutPAIweJsJ+FBXNyQrG4393JzqfPyUyA0oDLv5qLWruPpZ24OvysgNY+IZ40QvBguqz715CBY5yr6Q1Stt93VUWaINACsatV79DcXvmZ8v8FDXhy5734pjwSqcVXOLdiQo9GloACHRA4qPUKy+eSoylQ3iCCak+jsuVR7VudU85QYOgZIkJDR4sJq2gNFbEipQRe7YpNnAejZ0RSsrk0Av2BBvoQsDmFRzO8KP1vwrBSGZCvM5zVCSnQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(376002)(136003)(366004)(39860400002)(346002)(396003)(107886003)(8936002)(86362001)(4326008)(66556008)(966005)(66476007)(66946007)(16526019)(186003)(9686003)(478600001)(6496006)(8676002)(85182001)(2906002)(33716001)(316002)(6666004)(54906003)(6486002)(6916009)(26005)(83380400001)(956004)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?T2FoT1BMMWdFSFNpNzRYSzdlVWpFdE81WnAvSHo4b21nTkJTSVVFa25VQmhH?=
+ =?utf-8?B?RzczVWtKeW56TTAyMC9lZkFFY3RRb2lwWllYYWJVVnJZTFIyTk9aL0xESkwy?=
+ =?utf-8?B?WkNXekJ4TlhVWG9FU0xtbXU1UDJaMXM3a0lhaG41TklMVDlyQXNBQWJqLzh0?=
+ =?utf-8?B?MXFYckJJMkRhNHZ2NTBkdEVCOEN0R1NoQW11UnZzeEV2MjhVR29vdHRPaXM2?=
+ =?utf-8?B?eFBaYVkxcldIQ0NOSmVYTGlCVUF6ZVRwdkEybnp4VkR2eklzeHR1YkVOYitZ?=
+ =?utf-8?B?bUx6d1ZkM1EyMllKdEVkVUZtVTRFNGlCUnZ4akVNUW9KWVZVcjVLZEdvWVJF?=
+ =?utf-8?B?RjRucWcwU1U0ZTBTTC90MDUwMjE2ZFhubk5EZWE3S1RpRTZ1bXIxNFRuVXlO?=
+ =?utf-8?B?RDNydmNFdi9DRFo5eEc4SmxUYUwwR25kY1R2T3RxdlhpN1VYOXVTR3JzR3ox?=
+ =?utf-8?B?L2lmUzlNUmpSZms4eWJ0VWI5aE51YUpHNXZJSStob05hY1l1ODJKY2R1QzhS?=
+ =?utf-8?B?WjdDTU5oZDhzMUtIZk1IQTVaRG5TVmZ3OXdicktqRTFTVzlhYmNoejBQcjl4?=
+ =?utf-8?B?V05tUlAwazViZkhWam5pSjNnNlNBOUI2UCtXMHM5eC90WXZqaThaWWZDdVN6?=
+ =?utf-8?B?WGFMSjRHTVY0cWtGSmpvK0Y2OFJIRHpqaUZDTjdlRXFpdVhnc0NmQWt4VDM1?=
+ =?utf-8?B?SjE1bE83ZE5LakJTSTdEelpNYVJpcEpYN29LMlBCbkIwcHN6bjl3NmFyRitp?=
+ =?utf-8?B?YjhoZ2pSd0hCNkdNbmJHWlhqNmtJUU05MHhJM1hSejVETnRKckNoWlk0NEtP?=
+ =?utf-8?B?OEY5aXFpVGVBSi9kMks3RGk3NXNJZkFPSDRtdDZEMGRPYWVTTjhBb2wyeGFa?=
+ =?utf-8?B?U0puWkg2Lzk0YzJRN2xsNUJkUVFiSDVxcEI5anVhcyt4SUp4ZG5YWjNJcEdm?=
+ =?utf-8?B?a1Y1c1RzRkdrd2JLNVRwTEo1OWtNVjNFSWtKcksyT0JTVm13NzlqQW8wcmhQ?=
+ =?utf-8?B?dFQwaEVhaC8wZnZZQ3FmUVlTaTNSaXlOdy93YXpZZW4zbVhXOStkT3hRdWhr?=
+ =?utf-8?B?NFF1WVZwWm1jUW1nL0hBUTB3cnRXUE53NEY2SGsrdjNDUmhZOEMwaDZNSzdF?=
+ =?utf-8?B?RVlRbEE5RXhBbUFCV0dhSytvK3FTL2dheVR5Tm9XdHlDVmdwT1hvOWk4S0Iz?=
+ =?utf-8?B?TUVyQTdrVGRyQ3hpZjdtR3NVaEt3MkZMaTh2cW1HSFNzcitlK1JDVVczZmpX?=
+ =?utf-8?B?aWJqVC9oQ3U4YjQ5eHpKMU1kS1d2bG5ML2g4QmROaGkyOXptamxUei9MSitU?=
+ =?utf-8?B?VUY5dFI3L3ZCMmVCMkt1QXNkdVhmVTliVE1jTnJaRHNUWDRwVEg0RFR1TU5Z?=
+ =?utf-8?B?SHNDWDNNZzIyeFRUSFhiZkVZQmJyRTgveFRxZ1djRGhtUE9sQzJNMVgxdjRB?=
+ =?utf-8?B?OHFsaEQ3TlhPdkx5czRoakUxaU8rVGNub2Q4ejVNN3hIVmZzSVAvenNnSHJI?=
+ =?utf-8?B?d0Y5Mm5EM2lsSUVvYU1PZkl2ZXVRY0E5V09sbjg0N2UwZGF3UzdSMUo1VTFr?=
+ =?utf-8?B?RkQzNGJzNGM3MTlWKzRNZENqd1pabkRTYzlheEdoK0trRUNUcnpqaGZnOGdT?=
+ =?utf-8?B?S25sTUlGQ01XRUROeTlzUDd0VnJrUytFdkRvRThKU054a3cvalVYSURIblQr?=
+ =?utf-8?B?NGd6eG13N3AvVFlmbHpBZWdZSXJ0c3F6dDVsaDBDVmNlaldmTFdOWEJET29F?=
+ =?utf-8?Q?j7vPFTDlAqFHgPemEUJ1FZC0Q5MjQU9h0F1/76+?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d004747-8fab-47d4-e57a-08d8cd17746b
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2021 16:06:17.2326
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2021 16:26:29.5459
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a5grSyDKP5aGghhdCzsTBTN1/dSnuI1XCzEIzYFZo92ux/RryKC7srS8fPnB4Zyw5Rqr+hcEuJkFBjyZIWZIng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4970
+X-MS-Exchange-CrossTenant-UserPrincipalName: o2/R1NBFS7zm45Vtd3155droaoe0CSC5w0E6EXObhg90p5DnMjWt8OnROnVG40/tAM1OfqtvUyRtVLaJ6weAog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2841
 X-OriginatorOrg: citrix.com
 
-On Thu, Jan 14, 2021 at 04:04:32PM +0100, Jan Beulich wrote:
-> The "guest" variants are intended to work with (potentially) fully guest
-> controlled addresses, while the "unsafe" variants are not. Subsequently
-> we will want them to have different behavior, so as first step identify
-> which one is which. For now, both groups of constructs alias one another.
+On Thu, Jan 14, 2021 at 04:04:57PM +0100, Jan Beulich wrote:
+> Inspired by
+> https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
+> and prior work in that area of x86 Linux, suppress speculation with
+> guest specified pointer values by suitably masking the addresses to
+> non-canonical space in case they fall into Xen's virtual address range.
 > 
-> Double underscore prefixes are retained only on
-> __copy_{from,to}_guest_pv(), to allow still distinguishing them from
-> their "checking" counterparts once they also get renamed (to
-> copy_{from,to}_guest_pv()).
+> Introduce a new Kconfig control.
 > 
-> Add previously missing __user at some call sites.
+> Note that it is necessary in such code to avoid using "m" kind operands:
+> If we didn't, there would be no guarantee that the register passed to
+> guest_access_mask_ptr is also the (base) one used for the memory access.
 > 
+> As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
+> parameter gets dropped and the XOR on the fixup path gets changed to be
+> a 32-bit one in all cases: This way we avoid pointless REX.W or operand
+> size overrides, or writes to partial registers.
+> 
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> Instead of __copy_{from,to}_guest_pv(), perhaps name them just
-> __copy_{from,to}_pv()?
+> The insn sequence chosen is certainly up for discussion; I've picked
+> this one despite the RCR because alternatives I could come up with,
+> like
 > 
-> --- a/xen/arch/x86/gdbstub.c
-> +++ b/xen/arch/x86/gdbstub.c
-> @@ -33,13 +33,13 @@ gdb_arch_signal_num(struct cpu_user_regs
->  unsigned int
->  gdb_arch_copy_from_user(void *dest, const void *src, unsigned len)
+> 	mov	$(HYPERVISOR_VIRT_END), %rax
+> 	mov	$~0, %rdx
+> 	mov	$0x7fffffffffffffff, %rcx
+> 	cmp	%rax, %rdi
+> 	cmovb	%rcx, %rdx
+> 	and	%rdx, %rdi
+> 
+> weren't necessarily better: Either, as above, they are longer and
+> require a 3rd scratch register, or they also utilize the carry flag in
+> some similar way.
+> ---
+> Judging from the comment ahead of put_unsafe_asm() we might as well not
+> tell gcc at all anymore about the memory access there, now that there's
+> no use of the operand anymore in the assembly code.
+> 
+> --- a/xen/arch/x86/usercopy.c
+> +++ b/xen/arch/x86/usercopy.c
+> @@ -10,12 +10,19 @@
+>  #include <xen/sched.h>
+>  #include <asm/uaccess.h>
+>  
+> -unsigned __copy_to_user_ll(void __user *to, const void *from, unsigned n)
+> +#ifndef GUARD
+> +# define GUARD UA_KEEP
+> +#endif
+> +
+> +unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
 >  {
-> -    return __copy_from_user(dest, src, len);
-> +    return copy_from_unsafe(dest, src, len);
+>      unsigned dummy;
+>  
+>      stac();
+>      asm volatile (
+> +        GUARD(
+> +        "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
+
+Don't you need to also take 'n' into account here to assert that the
+address doesn't end in hypervisor address space? Or that's fine as
+speculation wouldn't go that far?
+
+I also wonder why this needs to be done in assembly, could you check
+the address(es) using C?
+
+> +        )
+>          "    cmp  $"STR(2*BYTES_PER_LONG-1)", %[cnt]\n"
+>          "    jbe  1f\n"
+>          "    mov  %k[to], %[cnt]\n"
+> @@ -42,6 +49,7 @@ unsigned __copy_to_user_ll(void __user *
+>          _ASM_EXTABLE(1b, 2b)
+>          : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
+>            [aux] "=&r" (dummy)
+> +          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
+>          : "[aux]" (n)
+>          : "memory" );
+>      clac();
+> @@ -49,12 +57,15 @@ unsigned __copy_to_user_ll(void __user *
+>      return n;
 >  }
 >  
->  unsigned int 
->  gdb_arch_copy_to_user(void *dest, const void *src, unsigned len)
+> -unsigned __copy_from_user_ll(void *to, const void __user *from, unsigned n)
+> +unsigned int copy_from_guest_ll(void *to, const void __user *from, unsigned int n)
 >  {
-> -    return __copy_to_user(dest, src, len);
-> +    return copy_to_unsafe(dest, src, len);
-
-I assume we need to use the unsafe variants here, because the input
-addresses are fully controlled by gdb, and hence not suitable as
-speculation vectors?
-
-Also could point to addresses belonging to both Xen or the guest
-address space AFAICT.
-
+>      unsigned dummy;
+>  
+>      stac();
+>      asm volatile (
+> +        GUARD(
+> +        "    guest_access_mask_ptr %[from], %q[scratch1], %q[scratch2]\n"
+> +        )
+>          "    cmp  $"STR(2*BYTES_PER_LONG-1)", %[cnt]\n"
+>          "    jbe  1f\n"
+>          "    mov  %k[to], %[cnt]\n"
+> @@ -87,6 +98,7 @@ unsigned __copy_from_user_ll(void *to, c
+>          _ASM_EXTABLE(1b, 6b)
+>          : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
+>            [aux] "=&r" (dummy)
+> +          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
+>          : "[aux]" (n)
+>          : "memory" );
+>      clac();
+> @@ -94,6 +106,8 @@ unsigned __copy_from_user_ll(void *to, c
+>      return n;
+>  }
+>  
+> +#if GUARD(1) + 0
+> +
+>  /**
+>   * copy_to_user: - Copy a block of data into user space.
+>   * @to:   Destination address, in user space.
+> @@ -128,8 +142,11 @@ unsigned clear_user(void __user *to, uns
+>  {
+>      if ( access_ok(to, n) )
+>      {
+> +        long dummy;
+> +
+>          stac();
+>          asm volatile (
+> +            "    guest_access_mask_ptr %[to], %[scratch1], %[scratch2]\n"
+>              "0:  rep stos"__OS"\n"
+>              "    mov  %[bytes], %[cnt]\n"
+>              "1:  rep stosb\n"
+> @@ -140,7 +157,8 @@ unsigned clear_user(void __user *to, uns
+>              ".previous\n"
+>              _ASM_EXTABLE(0b,3b)
+>              _ASM_EXTABLE(1b,2b)
+> -            : [cnt] "=&c" (n), [to] "+D" (to)
+> +            : [cnt] "=&c" (n), [to] "+D" (to), [scratch1] "=&r" (dummy),
+> +              [scratch2] "=&r" (dummy)
+>              : [bytes] "r" (n & (BYTES_PER_LONG - 1)),
+>                [longs] "0" (n / BYTES_PER_LONG), "a" (0) );
+>          clac();
+> @@ -174,6 +192,16 @@ unsigned copy_from_user(void *to, const
+>      return n;
+>  }
+>  
+> +# undef GUARD
+> +# define GUARD UA_DROP
+> +# define copy_to_guest_ll copy_to_unsafe_ll
+> +# define copy_from_guest_ll copy_from_unsafe_ll
+> +# undef __user
+> +# define __user
+> +# include __FILE__
+> +
+> +#endif /* GUARD(1) */
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -446,6 +446,8 @@ UNLIKELY_START(g, create_bounce_frame_ba
+>          jmp   asm_domain_crash_synchronous  /* Does not return */
+>  __UNLIKELY_END(create_bounce_frame_bad_sp)
+>  
+> +        guest_access_mask_ptr %rsi, %rax, %rcx
+> +
+>  #define STORE_GUEST_STACK(reg, n) \
+>  0:      movq  %reg,(n)*8(%rsi); \
+>          _ASM_EXTABLE(0b, domain_crash_page_fault_ ## n ## x8)
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -114,6 +114,24 @@ config SPECULATIVE_HARDEN_BRANCH
+>  
+>  	  If unsure, say Y.
+>  
+> +config SPECULATIVE_HARDEN_GUEST_ACCESS
+> +	bool "Speculative PV Guest Memory Access Hardening"
+> +	default y
+> +	depends on PV
+> +	help
+> +	  Contemporary processors may use speculative execution as a
+> +	  performance optimisation, but this can potentially be abused by an
+> +	  attacker to leak data via speculative sidechannels.
+> +
+> +	  One source of data leakage is via speculative accesses to hypervisor
+> +	  memory through guest controlled values used to access guest memory.
+> +
+> +	  When enabled, code paths accessing PV guest memory will have guest
+> +	  controlled addresses massaged such that memory accesses through them
+> +	  won't touch hypervisor address space.
+> +
+> +	  If unsure, say Y.
+> +
+>  endmenu
+>  
+>  config HYPFS
+> --- a/xen/include/asm-x86/asm-defns.h
+> +++ b/xen/include/asm-x86/asm-defns.h
+> @@ -44,3 +44,16 @@
+>  .macro INDIRECT_JMP arg:req
+>      INDIRECT_BRANCH jmp \arg
+>  .endm
+> +
+> +.macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
+> +#if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
+> +    mov $(HYPERVISOR_VIRT_END - 1), \scratch1
+> +    mov $~0, \scratch2
+> +    cmp \ptr, \scratch1
+> +    rcr $1, \scratch2
+> +    and \scratch2, \ptr
+> +#elif defined(CONFIG_DEBUG) && defined(CONFIG_PV)
+> +    xor $~\@, \scratch1
+> +    xor $~\@, \scratch2
+> +#endif
+> +.endm
 > --- a/xen/include/asm-x86/uaccess.h
 > +++ b/xen/include/asm-x86/uaccess.h
-
-At some point we should also rename this to pvaccess.h maybe?
-
-> @@ -197,21 +197,20 @@ do {
->  #define get_guest_size get_unsafe_size
+> @@ -13,13 +13,19 @@
+>  unsigned copy_to_user(void *to, const void *from, unsigned len);
+>  unsigned clear_user(void *to, unsigned len);
+>  unsigned copy_from_user(void *to, const void *from, unsigned len);
+> +
+>  /* Handles exceptions in both to and from, but doesn't do access_ok */
+> -unsigned __copy_to_user_ll(void __user*to, const void *from, unsigned n);
+> -unsigned __copy_from_user_ll(void *to, const void __user *from, unsigned n);
+> +unsigned int copy_to_guest_ll(void __user*to, const void *from, unsigned int n);
+> +unsigned int copy_from_guest_ll(void *to, const void __user *from, unsigned int n);
+> +unsigned int copy_to_unsafe_ll(void *to, const void *from, unsigned int n);
+> +unsigned int copy_from_unsafe_ll(void *to, const void *from, unsigned int n);
 >  
->  /**
-> - * __copy_to_user: - Copy a block of data into user space, with less checking
-> - * @to:   Destination address, in user space.
-> - * @from: Source address, in kernel space.
-> + * __copy_to_guest_pv: - Copy a block of data into guest space, with less
-> + *                       checking
+>  extern long __get_user_bad(void);
+>  extern void __put_user_bad(void);
+>  
+> +#define UA_KEEP(args...) args
+> +#define UA_DROP(args...)
 
-I would have preferred pv to be a prefix rather than a suffix, but we
-already have the hvm accessors using that nomenclature.
-
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+I assume UA means user access, and since you have dropped other uses
+of user and changed to guest instead I wonder if we should name this
+just A_{KEEP/DROP}.
 
 Thanks, Roger.
 
