@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8B7E31592D
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 23:14:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83444.155341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FDCC315946
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 23:21:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83449.155356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9bG4-0008Cy-SZ; Tue, 09 Feb 2021 22:13:20 +0000
+	id 1l9bNm-0000kt-Ma; Tue, 09 Feb 2021 22:21:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83444.155341; Tue, 09 Feb 2021 22:13:20 +0000
+Received: by outflank-mailman (output) from mailman id 83449.155356; Tue, 09 Feb 2021 22:21:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9bG4-0008Cb-Oa; Tue, 09 Feb 2021 22:13:20 +0000
-Received: by outflank-mailman (input) for mailman id 83444;
- Tue, 09 Feb 2021 22:13:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9bG3-0008CR-H7; Tue, 09 Feb 2021 22:13:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9bG3-0008Mv-B1; Tue, 09 Feb 2021 22:13:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9bG2-00054l-Vs; Tue, 09 Feb 2021 22:13:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l9bG2-0004L5-VM; Tue, 09 Feb 2021 22:13:18 +0000
+	id 1l9bNm-0000kU-JN; Tue, 09 Feb 2021 22:21:18 +0000
+Received: by outflank-mailman (input) for mailman id 83449;
+ Tue, 09 Feb 2021 22:21:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1l9bNl-0000k6-2v
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 22:21:17 +0000
+Received: from mail-pf1-x435.google.com (unknown [2607:f8b0:4864:20::435])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9dc70a99-fe7e-4d42-bda6-f1e1e43f412c;
+ Tue, 09 Feb 2021 22:21:15 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id t29so12793874pfg.11
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Feb 2021 14:21:15 -0800 (PST)
+Received: from sc2-haas01-esx0118.eng.vmware.com ([66.170.99.1])
+ by smtp.gmail.com with ESMTPSA id v9sm58601pju.33.2021.02.09.14.21.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Feb 2021 14:21:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,177 +39,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=R/Y/WL0H/1HEPq0FxFXxseKL5jpZIDulg/xBv26pxCQ=; b=YGYPO+1jJJUOFeOlGn8zpa92HX
-	zAvSqhLkHtQQFv7A5KBo8F0CAJ+JfToNrWJMqX6iq6XfqKlaX35wtNPsNd/TuYmOtcD6nC6VcRxes
-	kyidSLtE+pp4HQiRNA3zf4O+7BWyasmTbHPFu/DEII7ZgFzKiExYujwPlHb7jNWEkq5E=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159184-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9dc70a99-fe7e-4d42-bda6-f1e1e43f412c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=HjSiRe9FHCVaGCF52pKJiLElvBu049No/wtLMDAICXE=;
+        b=ZPccq1cXTR6T3lt5wME8WuvLAa5mZge5Mw8wXRyQz0ElTK2dM1mAnAYXOysMgOvFTF
+         M1Xw0/LEh9dW5Qkrenqg0x0Lv+vYZsYEyKugTwXm+DqKUU9BR7UzcXPZmO9XadLkecQv
+         ApW9qLmbiPGG6qIUhUfOsDjkvmBBT3d1bIuWRorvesu1dHc8b0GYSrflEf1HFbYKj3Ps
+         33QK4jBS3ZO5kHS9hN+Jy1KJAsWXHDkIkgvZxzA1ZM4RRCcfTprdS7m3wectpcSsxT5g
+         gsp5xUecBmhB2lJcNcmkxhi49e7wSClMUrfkE5Gmy18NkLMWcoXbkUDEDX4QE6sQ9x5B
+         IO6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=HjSiRe9FHCVaGCF52pKJiLElvBu049No/wtLMDAICXE=;
+        b=OQSl+fzNLuOpPgz9/JjDmEf58dw18DjOmum3B4/NoJtKVzwgpXsARqWj01NBYtDvr0
+         8UarNOWyW8DdVZcA05hGQKiokrWS//Cp9XvuPerw0p1zvr2SQSUOcGQe7C+FOJTvcnoS
+         tqCE/MMQWaS171gk4EGeczk5tYJTEah6Ien7F2PDaNfof/IYMma1a2yMSkFS6u1GFahG
+         HBCDIg6eQVRTvvyhgIpXDOBuZnfYq7fpDFd6o49SuyKXqQ8ewrTsO+0QWZp123UTnDi+
+         UGKj+rqp7l9JheFwEbLk6LSGFV/0Vpw3dS43bqpUGXeZO8UWt0X9MHjQS9AL+vkiKwlC
+         MJtg==
+X-Gm-Message-State: AOAM532jGkbMuqIeLUGm97DqhG0vuNt4F+YCznY3JGilUTBfzJTcjgV1
+	1+ZvmdTfu2PIIV8DetofyPQ=
+X-Google-Smtp-Source: ABdhPJz3LfnWDYq7JINpREZUWfE+W5NwAF3qi+h7lRxojWAtxXFLj2+kpLvcsoQwwfGFKhWJBLAhPg==
+X-Received: by 2002:a63:545f:: with SMTP id e31mr136017pgm.212.1612909274776;
+        Tue, 09 Feb 2021 14:21:14 -0800 (PST)
+From: Nadav Amit <nadav.amit@gmail.com>
+X-Google-Original-From: Nadav Amit
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Nadav Amit <namit@vmware.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Josh Poimboeuf <jpoimboe@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Rik van Riel <riel@surriel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	kvm@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	x86@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5 0/8] x86/tlb: Concurrent TLB flushes
+Date: Tue,  9 Feb 2021 14:16:45 -0800
+Message-Id: <20210209221653.614098-1-namit@vmware.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159184: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=687121f8a0e7c1ea1c4fa3d056637e5819342f14
-X-Osstest-Versions-That:
-    xen=f18309eb06efd1db5a2ab9903a1c246b6299951a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Feb 2021 22:13:18 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 159184 xen-unstable-smoke real [real]
-flight 159188 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159184/
-http://logs.test-lab.xenproject.org/osstest/logs/159188/
+From: Nadav Amit <namit@vmware.com>
 
-Regressions :-(
+This is a respin of a rebased version of an old series, which I did not
+follow, as I was preoccupied with personal issues (sorry).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm     18 guest-start/debian.repeat fail REGR. vs. 159146
+The series improve TLB shootdown by flushing the local TLB concurrently
+with remote TLBs, overlapping the IPI delivery time with the local
+flush. Performance numbers can be found in the previous version [1].
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+The patches are essentially the same, but rebasing on the last version
+required some changes. I left the reviewed-by tags - if anyone considers
+it inappropriate, please let me know (and you have my apology).
 
-version targeted for testing:
- xen                  687121f8a0e7c1ea1c4fa3d056637e5819342f14
-baseline version:
- xen                  f18309eb06efd1db5a2ab9903a1c246b6299951a
+[1] https://lore.kernel.org/lkml/20190823224153.15223-1-namit@vmware.com/
 
-Last test of basis   159146  2021-02-08 19:00:27 Z    1 days
-Testing same since   159184  2021-02-09 18:01:28 Z    0 days    1 attempts
+v4 -> v5:
+* Rebase on 5.11
+* Move concurrent smp logic to smp_call_function_many_cond() 
+* Remove SGI-UV patch which is not needed anymore
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Olaf Hering <olaf@aepfle.de>
+v3 -> v4:
+* Merge flush_tlb_func_local and flush_tlb_func_remote() [Peter]
+* Prevent preemption on_each_cpu(). It is not needed, but it prevents
+  concerns. [Peter/tglx]
+* Adding acked-, review-by tags
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+v2 -> v3:
+* Open-code the remote/local-flush decision code [Andy]
+* Fix hyper-v, Xen implementations [Andrew]
+* Fix redundant TLB flushes.
 
+v1 -> v2:
+* Removing the patches that Thomas took [tglx]
+* Adding hyper-v, Xen compile-tested implementations [Dave]
+* Removing UV [Andy]
+* Adding lazy optimization, removing inline keyword [Dave]
+* Restructuring patch-set
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+RFCv2 -> v1:
+* Fix comment on flush_tlb_multi [Juergen]
+* Removing async invalidation optimizations [Andy]
+* Adding KVM support [Paolo]
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Josh Poimboeuf <jpoimboe@redhat.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Sasha Levin <sashal@kernel.org>
+Cc: Stephen Hemminger <sthemmin@microsoft.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: kvm@vger.kernel.org
+Cc: linux-hyperv@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: virtualization@lists.linux-foundation.org
+Cc: x86@kernel.org
+Cc: xen-devel@lists.xenproject.org
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Nadav Amit (8):
+  smp: Run functions concurrently in smp_call_function_many_cond()
+  x86/mm/tlb: Unify flush_tlb_func_local() and flush_tlb_func_remote()
+  x86/mm/tlb: Open-code on_each_cpu_cond_mask() for tlb_is_not_lazy()
+  x86/mm/tlb: Flush remote and local TLBs concurrently
+  x86/mm/tlb: Privatize cpu_tlbstate
+  x86/mm/tlb: Do not make is_lazy dirty for no reason
+  cpumask: Mark functions as pure
+  x86/mm/tlb: Remove unnecessary uses of the inline keyword
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ arch/x86/hyperv/mmu.c                 |  10 +-
+ arch/x86/include/asm/paravirt.h       |   6 +-
+ arch/x86/include/asm/paravirt_types.h |   4 +-
+ arch/x86/include/asm/tlbflush.h       |  48 +++----
+ arch/x86/include/asm/trace/hyperv.h   |   2 +-
+ arch/x86/kernel/alternative.c         |   2 +-
+ arch/x86/kernel/kvm.c                 |  11 +-
+ arch/x86/mm/init.c                    |   2 +-
+ arch/x86/mm/tlb.c                     | 177 +++++++++++++++-----------
+ arch/x86/xen/mmu_pv.c                 |  11 +-
+ include/linux/cpumask.h               |   6 +-
+ include/trace/events/xen.h            |   2 +-
+ kernel/smp.c                          | 148 +++++++++++----------
+ 13 files changed, 242 insertions(+), 187 deletions(-)
 
+-- 
+2.25.1
 
-Not pushing.
-
-------------------------------------------------------------
-commit 687121f8a0e7c1ea1c4fa3d056637e5819342f14
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Tue Feb 9 16:45:35 2021 +0100
-
-    xl: optionally print timestamps when running xl commands
-    
-    Add a global option "-T" to xl to enable timestamps in the output from
-    libxl and libxc. This is most useful with long running commands such
-    as "migrate".
-    
-    During 'xl -v.. migrate domU host' a large amount of debug is generated.
-    It is difficult to map each line to the sending and receiving side.
-    Also the time spent for migration is not reported.
-    
-    With 'xl -T migrate domU host' both sides will print timestamps and
-    also the pid of the invoked xl process to make it more obvious which
-    side produced a given log line.
-    
-    Note: depending on the command, xl itself also produces other output
-    which does not go through libxentoollog. As a result such output will
-    not have timestamps prepended.
-    
-    This change adds also the missing "-t" flag to "xl help" output.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-    Reviewed-by: Ian Jackson <iwj@xenproject.org>
-
-commit 7a321c3676250aac5bacb1ae8d7dd22bfe8b1448
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Tue Feb 9 16:45:34 2021 +0100
-
-    tools: add with-xen-scriptdir configure option
-    
-    Some distros plan for fresh installations will have an empty /etc,
-    whose content will not be controlled by the package manager anymore.
-    
-    To make this possible, add a knob to configure to allow storing the
-    hotplug scripts to libexec instead of /etc/xen/scripts.
-    
-    The current default remains unchanged, which is /etc/xen/scripts.
-    
-    [autoconf rerun -iwj]
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-    Reviewed-by: Ian Jackson <iwj@xenproject.org>
-
-commit fe9ba142c03a2046def52cfd5864f5a89172bf5c
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Tue Feb 9 16:45:33 2021 +0100
-
-    tools: move CONFIG_DIR and XEN_CONFIG_DIR in paths.m4
-    
-    Upcoming changes need to reuse XEN_CONFIG_DIR.
-    
-    In its current location the assignment happens too late. Move it up
-    in the file, along with CONFIG_DIR. Their only dependency is
-    sysconfdir, which may also be adjusted in this file.
-    
-    No functional change intended.
-    
-    [autoconf rerun -iwj]
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Ian Jackson <iwj@xenproject.org>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 548ba7c85c6d80a671c2abb8681c29bc85c616f3
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Tue Feb 9 17:05:54 2021 +0000
-
-    tools: Regenerate autoconf
-    
-    This seems to have been omitted in many recent commits.  The earliest
-    of which are, according to git-bisect:
-      154137dfdba3  stubdom/configure      stubdom: add xenstore pvh stubdom
-      cc83ee4c6c37  all configure scripts  NetBSD: Fix lock directory path
-    but it seems that this is true of several later commits too.
-    
-    Release status: I consider this discrepancy a release critical bug.
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-    Release-acked-by: Ian Jackson <iwj@xenproject.org>
-(qemu changes not included)
 
