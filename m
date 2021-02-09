@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2B543145EA
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 02:58:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83112.153922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F021D314893
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 07:22:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83126.153955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9IH4-0002fS-6N; Tue, 09 Feb 2021 01:57:06 +0000
+	id 1l9MPC-000286-IJ; Tue, 09 Feb 2021 06:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83112.153922; Tue, 09 Feb 2021 01:57:06 +0000
+Received: by outflank-mailman (output) from mailman id 83126.153955; Tue, 09 Feb 2021 06:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9IH3-0002fA-VD; Tue, 09 Feb 2021 01:57:05 +0000
-Received: by outflank-mailman (input) for mailman id 83112;
- Tue, 09 Feb 2021 01:57:04 +0000
+	id 1l9MPC-00027h-FN; Tue, 09 Feb 2021 06:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 83126;
+ Tue, 09 Feb 2021 06:21:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SKhV=HL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l9IH2-0002f5-St
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 01:57:04 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=CyDg=HL=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
+ id 1l9MPB-00027c-Lk
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 06:21:45 +0000
+Received: from mail-pj1-x102c.google.com (unknown [2607:f8b0:4864:20::102c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0067784a-622d-4f5d-9d0e-7b17c00bbf6a;
- Tue, 09 Feb 2021 01:57:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C0EA364E42;
- Tue,  9 Feb 2021 01:57:02 +0000 (UTC)
+ id 91bc743f-1ed8-406a-bc96-e3b732d44b4b;
+ Tue, 09 Feb 2021 06:21:44 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id q72so983995pjq.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Feb 2021 22:21:44 -0800 (PST)
+Received: from localhost ([2401:fa00:1:10:a106:46e1:a999:81df])
+ by smtp.gmail.com with UTF8SMTPSA id s23sm21047537pgj.29.2021.02.08.22.21.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Feb 2021 22:21:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,139 +41,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0067784a-622d-4f5d-9d0e-7b17c00bbf6a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1612835823;
-	bh=02b2E+kJvjn8yZRseo4go7BFG3EU9dBxTtARIjhIxr4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qFF++4z4UUmZDHvJBylzM43zRL+EcOG2ygmr7so6gpFXmfEyre/4Lk+rpU63JhYtn
-	 m4d5xp8u3tx9vlzD5IKb5VgyB9Ip1DF6G1sQmchRJr4nhbMJVoU3I78mQ1i1y4iFnq
-	 +kkxRj3cDPAEQfxgSBXct3vyJRsSrtMbA6PoaLfog0kYCEFMZcfwKTfvL1xKjcD4/j
-	 7doXfn4rUG/Skx9j3eK+XVmk242+a195KAle41z2HnHGO/uILwn1wKVz9sa6tno9i7
-	 2uIpgoBbrY6O0DgrwZcfoxADY8+cuzDF4HZkKeE87AanzsHhiroqIF6IkP7NT4/1IN
-	 9+UTVBZzgklnw==
-Date: Mon, 8 Feb 2021 17:57:01 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall.oss@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, lucmiccio@gmail.com, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping
-In-Reply-To: <CAJ=z9a3uhiFKE6gepaPvWZxqRErCyLiv2CTDSx3Sihef7CaMtQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2102081556480.8948@sstabellini-ThinkPad-T480s>
-References: <20210208184932.23468-1-sstabellini@kernel.org> <173ed75a-94cf-26a5-9271-a687bf201578@xen.org> <alpine.DEB.2.21.2102081214010.8948@sstabellini-ThinkPad-T480s> <CAJ=z9a3uhiFKE6gepaPvWZxqRErCyLiv2CTDSx3Sihef7CaMtQ@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 91bc743f-1ed8-406a-bc96-e3b732d44b4b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=d/9o6gw27S6UN8MkYq1blVrCI9BLsI4+H00tlbC8EBE=;
+        b=favimtx+6weGe8M555lmQOBhCoy54oReElTcJzpJXeVeBgHQUImtrzhR4xL2PNQ4hj
+         B61sBGHNGjtqai17pbRiKkfpKFlyf3N7SfEZNhj9p694hdjwUDNvbaxplQIoX3Y2HB75
+         oM9e2a4FzCjXRLbXyImmgB1sz2HO9c4H1yk+0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=d/9o6gw27S6UN8MkYq1blVrCI9BLsI4+H00tlbC8EBE=;
+        b=oOPYjOMuUbsGh+ZZcLTtdBcAqogbsFAtjMv7wYHLlO41PxODMaN6oDDWrf1fJcOZ24
+         G6FbiXF8pHL/XupLhsmMsH5II2KhOktWMAr2kfXq34jMKqxn5mRgac422hiG9pah+UCg
+         7dffYDO2xtBMAkyp7TrFdsyEWBJCc5kRsy00vNqFq8StkDUIgTFI407RBfxydV0wJIR3
+         Cu6Ii42vF88QwPw1BrBxnOmQglMw+ppBdbCNoO7eQOLeEl/Llv3ZDXmIL9a4tkDaBBti
+         DvKQBo0pRX/dVOLSrBWJsM3sxr9jA2kn9dswlpzrGTNzxiKxZgrRiaSxxVZgcFEfORIK
+         n7pA==
+X-Gm-Message-State: AOAM532lS2c7h9zcIyJFZdo933askUuFTf0Ir6M/wliHljaPXpzs75NK
+	fwo4Fwf+P+chzLlydLBYFAIVYA==
+X-Google-Smtp-Source: ABdhPJz0oyYOZadpQA/7+OnNYsgqbz6PN7ozvQBTUr4giRuwP1fH3QYLnHESLb3E3I02eo5S/4aG/w==
+X-Received: by 2002:a17:90a:4fe4:: with SMTP id q91mr2479504pjh.165.1612851703796;
+        Mon, 08 Feb 2021 22:21:43 -0800 (PST)
+From: Claire Chang <tientzu@chromium.org>
+To: Rob Herring <robh+dt@kernel.org>,
+	mpe@ellerman.id.au,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	Christoph Hellwig <hch@lst.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: benh@kernel.crashing.org,
+	paulus@samba.org,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	sstabellini@kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	grant.likely@arm.com,
+	xypron.glpk@gmx.de,
+	Thierry Reding <treding@nvidia.com>,
+	mingo@kernel.org,
+	bauerman@linux.ibm.com,
+	peterz@infradead.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Saravana Kannan <saravanak@google.com>,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	heikki.krogerus@linux.intel.com,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	lkml <linux-kernel@vger.kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	xen-devel@lists.xenproject.org,
+	Nicolas Boichat <drinkcat@chromium.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>,
+	Claire Chang <tientzu@chromium.org>
+Subject: [PATCH v4 00/14] Restricted DMA
+Date: Tue,  9 Feb 2021 14:21:17 +0800
+Message-Id: <20210209062131.2300005-1-tientzu@chromium.org>
+X-Mailer: git-send-email 2.30.0.478.g8a0d178c01-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 8 Feb 2021, Julien Grall wrote:
-> On Mon, 8 Feb 2021 at 20:24, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > > @Ian, I think this wants to go in 4.15. Without it, Xen may receive an IOMMU
-> > > fault for DMA transaction using granted page.
-> > >
-> > > > Backport: 4.12+
-> > > >
-> > > > ---
-> > > >
-> > > > Given the severity of the bug, I would like to request this patch to be
-> > > > backported to 4.12 too, even if 4.12 is security-fixes only since Oct
-> > > > 2020.
-> > >
-> > > I would agree that the bug is bad, but it is not clear to me why this would be
-> > > warrant for an exception for backporting. Can you outline what's the worse
-> > > that can happen?
-> > >
-> > > Correct me if I am wrong, if one can hit this error, then it should be pretty
-> > > reliable. Therefore, anyone wanted to use 4.12 in production should have seen
-> > > if the error on there setup by now (4.12 has been out for nearly two years).
-> > > If not, then they are most likely not affected.
-> > >
-> > > Any new users of Xen should use the latest stable rather than starting with an
-> > > old version.
-> >
-> > Yes, the bug reproduces reliably but it takes more than a smoke test to
-> > find it. That's why it wasn't found by OSSTest and also our internal
-> > CI-loop at Xilinx.
-> 
-> Ok. So a user should be able to catch it during testing, is that correct?
+This series implements mitigations for lack of DMA access control on
+systems without an IOMMU, which could result in the DMA accessing the
+system memory at unexpected times and/or unexpected addresses, possibly
+leading to data leakage or corruption.
 
-Yes, probably. The failure is that PV drivers do not work (they trigger
-the IOMMU fault), specifically PV network and block, maybe others too.
+For example, we plan to use the PCI-e bus for Wi-Fi and that PCI-e bus is
+not behind an IOMMU. As PCI-e, by design, gives the device full access to
+system memory, a vulnerability in the Wi-Fi firmware could easily escalate
+to a full system exploit (remote wifi exploits: [1a], [1b] that shows a
+full chain of exploits; [2], [3]).
 
-I think it is unlikely but possible that an hardware update would also
-trigger the bug. For instance, a change of the network card might
-trigger the bug, if the previous network card driver was always bouncing
-requests on bounce buffers, while the new drivers uses the provided
-memory pages directly. I don't know how realistic this scenario is.
+To mitigate the security concerns, we introduce restricted DMA. Restricted
+DMA utilizes the existing swiotlb to bounce streaming DMA in and out of a
+specially allocated region and does memory allocation from the same region.
+The feature on its own provides a basic level of protection against the DMA
+overwriting buffer contents at unexpected times. However, to protect
+against general data leakage and system memory corruption, the system needs
+to provide a way to restrict the DMA to a predefined memory region (this is
+usually done at firmware level, e.g. MPU in ATF on some ARM platforms [4]).
 
+[1a] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_4.html
+[1b] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_11.html
+[2] https://blade.tencent.com/en/advisories/qualpwn/
+[3] https://www.bleepingcomputer.com/news/security/vulnerabilities-found-in-highly-popular-firmware-for-wifi-chips/
+[4] https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
 
-> > Users can be very slow at upgrading, so I am worried that 4.12 might still
-> > be picked by somebody, especially given that it is still security
-> > supported for a while.
-> 
-> Don't tell me about upgrading Xen... ;) But I am a bit confused, are
-> you worried about existing users or new users?
+Claire Chang (14):
+  swiotlb: Remove external access to io_tlb_start
+  swiotlb: Move is_swiotlb_buffer() to swiotlb.c
+  swiotlb: Add struct swiotlb
+  swiotlb: Refactor swiotlb_late_init_with_tbl
+  swiotlb: Add DMA_RESTRICTED_POOL
+  swiotlb: Add restricted DMA pool
+  swiotlb: Update swiotlb API to gain a struct device argument
+  swiotlb: Use restricted DMA pool if available
+  swiotlb: Refactor swiotlb_tbl_{map,unmap}_single
+  dma-direct: Add a new wrapper __dma_direct_free_pages()
+  swiotlb: Add is_dev_swiotlb_force()
+  swiotlb: Add restricted DMA alloc/free support.
+  dt-bindings: of: Add restricted DMA pool
+  of: Add plumbing for restricted DMA pool
 
-I am mostly worried about people that start using 4.12.
+ .../reserved-memory/reserved-memory.txt       |  24 +
+ arch/powerpc/platforms/pseries/svm.c          |   4 +-
+ drivers/iommu/dma-iommu.c                     |  12 +-
+ drivers/of/address.c                          |  25 +
+ drivers/of/device.c                           |   3 +
+ drivers/of/of_private.h                       |   5 +
+ drivers/xen/swiotlb-xen.c                     |   4 +-
+ include/linux/device.h                        |   4 +
+ include/linux/swiotlb.h                       |  32 +-
+ kernel/dma/Kconfig                            |  14 +
+ kernel/dma/direct.c                           |  51 +-
+ kernel/dma/direct.h                           |   8 +-
+ kernel/dma/swiotlb.c                          | 636 ++++++++++++------
+ 13 files changed, 582 insertions(+), 240 deletions(-)
 
-If a user was already on 4.12 and not seeing any errors, they are
-unlikely to see this error. It would only happen if:
-- they didn't use PV drivers before, and they want to start using PV
-  drivers now
-- they are upgrading hardware (not sure how likely to happen, see above)
+-- 
 
+v4:
+  - Fix spinlock bad magic
+  - Use rmem->name for debugfs entry
+  - Address the comments in v3
 
-> > > Other than the seriousness of the bug, I think there is also a fairness
-> > > concern.
-> > >
-> > > So far our rules says there is only security support backport allowed. If we
-> > > start granting exception, then we need a way to prevent abuse of it. To take
-> > > an extreme example, why one couldn't ask backport for 4.2?
-> > >
-> > > That said, I vaguely remember this topic was brought up a few time on
-> > > security@. So maybe it is time to have a new discussion about stable tree.
-> >
-> > I wouldn't consider a backport for a tree that is closed even for
-> > security backports. So in your example, I'd say no to a backport to 4.2
-> > or 4.10.
-> >
-> > I think there is a valid question for trees that are still open to
-> > security fixes but not general backports.
-> >
-> > For these cases, I would just follow a simple rule of thumb:
-> 
-> Aren't those rules already used for stable trees?
+v3:
+  Using only one reserved memory region for both streaming DMA and memory
+  allocation.
+  https://lore.kernel.org/patchwork/cover/1360992/
 
-No, I don't think so. Backports are done by Jan and me, not by the
-submitter (in this case I am the submitter but it is a coincidence :-)
-If a commit is fixing a genuine bug and the backport doesn't cause
-issues, then it is typically done. Here the bar should be certainly
-higher, both in terms of low-risk, and importance of the bug to fix.
+v2:
+  Building on top of swiotlb.
+  https://lore.kernel.org/patchwork/cover/1280705/
 
+v1:
+  Using dma_map_ops.
+  https://lore.kernel.org/patchwork/cover/1271660/
 
+2.30.0.478.g8a0d178c01-goog
 
-> > - is the submitter willing to provide the backport?
-> > - is the backport low-risk?
-> > - is the underlying bug important?
-> 
-> You wrote multiple times that this is serious but it is still not
-> clear what's the worse that can happen...
-
-PV drivers don't work: each data transfer involving granted pages causes
-an IOMMU fault.
-
-
-> > If the answer to all is "yes" then I'd go with it.
-> >
-> >
-> > In this case, given that the fix is a one-liner, and obviously correct,
-> 
-> I have seen one-liners that introduced XSA in the past ;).
- 
-Sure but this is a revert to the pre-4.12 implementation.
 
