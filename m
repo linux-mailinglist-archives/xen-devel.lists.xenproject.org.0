@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8013C3158E9
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 22:51:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83442.155329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8B7E31592D
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 23:14:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83444.155341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9auA-0006Hr-1B; Tue, 09 Feb 2021 21:50:42 +0000
+	id 1l9bG4-0008Cy-SZ; Tue, 09 Feb 2021 22:13:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83442.155329; Tue, 09 Feb 2021 21:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 83444.155341; Tue, 09 Feb 2021 22:13:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9au9-0006HV-UA; Tue, 09 Feb 2021 21:50:41 +0000
-Received: by outflank-mailman (input) for mailman id 83442;
- Tue, 09 Feb 2021 21:50:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5GlY=HL=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l9au8-0006HQ-LN
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 21:50:40 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d1af808a-5596-47f7-b842-bae338eac303;
- Tue, 09 Feb 2021 21:50:39 +0000 (UTC)
+	id 1l9bG4-0008Cb-Oa; Tue, 09 Feb 2021 22:13:20 +0000
+Received: by outflank-mailman (input) for mailman id 83444;
+ Tue, 09 Feb 2021 22:13:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9bG3-0008CR-H7; Tue, 09 Feb 2021 22:13:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9bG3-0008Mv-B1; Tue, 09 Feb 2021 22:13:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9bG2-00054l-Vs; Tue, 09 Feb 2021 22:13:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9bG2-0004L5-VM; Tue, 09 Feb 2021 22:13:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,137 +42,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1af808a-5596-47f7-b842-bae338eac303
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612907439;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ARI5VWYbnY4OIGnzqdSyn1ER3PngI7//x6H6E5t8HQA=;
-  b=bGOQPJRyfzmRIMH8ktn5/Jy8iFLLm1wCe4gW10hld/uEoK7k+9kdPzDi
-   4pljENxJm8ycVqWpBZZUqlqwo45zh96HbRX02pNdYalOF65jVATLcU00l
-   /v4txGHTcbEhdgla5KHE++ZIEVTGG6YrnTuJCym8Bav4y9dN0nprFxPaQ
-   U=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: pgu4N++WhcU8+9Y8T3snB+4wQNwKfuevA/seMVLw5cnRDnNkr6lpI1/6QiadHzspLIXe4iU5VJ
- wzYpTFx5rxnSWlRkFhETv/Os64AQCc5y7Rh5CsAa3pMUusijVoKupWNtSg8TdYDCpdjMkj1MBP
- JRGMMLsKDeN8lkXAPVTZubKHJ7VhX0mMs5MGR0zXpk9Kbx7UkLFte3yz4ObOdzq5oQExgQGT0U
- 8NLm0J3UIFRLNQEnIOUmncS1YArFONXMs2pbRhcpBF+ip+Rv4FvfDuHKYI9Z2rE7Sl2plx+6XF
- QSg=
-X-SBRS: 5.1
-X-MesageID: 37280526
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,166,1610427600"; 
-   d="scan'208";a="37280526"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
-	<iwj@xenproject.org>
-Subject: [PATCH for-4.15] x86/ucode/amd: Handle length sanity check failures more gracefully
-Date: Tue, 9 Feb 2021 21:49:11 +0000
-Message-ID: <20210209214911.18461-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=R/Y/WL0H/1HEPq0FxFXxseKL5jpZIDulg/xBv26pxCQ=; b=YGYPO+1jJJUOFeOlGn8zpa92HX
+	zAvSqhLkHtQQFv7A5KBo8F0CAJ+JfToNrWJMqX6iq6XfqKlaX35wtNPsNd/TuYmOtcD6nC6VcRxes
+	kyidSLtE+pp4HQiRNA3zf4O+7BWyasmTbHPFu/DEII7ZgFzKiExYujwPlHb7jNWEkq5E=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159184-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 159184: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=687121f8a0e7c1ea1c4fa3d056637e5819342f14
+X-Osstest-Versions-That:
+    xen=f18309eb06efd1db5a2ab9903a1c246b6299951a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 09 Feb 2021 22:13:18 +0000
 
-Currently, a failure of verify_patch_size() causes an early abort of the
-microcode blob loop, which in turn causes a second go around the main
-container loop, ultimately failing the UCODE_MAGIC check.
+flight 159184 xen-unstable-smoke real [real]
+flight 159188 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159184/
+http://logs.test-lab.xenproject.org/osstest/logs/159188/
 
-First, check for errors after the blob loop.  An error here is unrecoverable,
-so avoid going around the container loop again and printing an
-unhelpful-at-best error concerning bad UCODE_MAGIC.
+Regressions :-(
 
-Second, split the verify_patch_size() check out of the microcode blob header
-check.  In the case that the sanity check fails, we can still use the
-known-to-be-plausible header length to continue walking the container to
-potentially find other applicable microcode blobs.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm     18 guest-start/debian.repeat fail REGR. vs. 159146
 
-Before:
-  (XEN) microcode: Bad microcode data
-  (XEN) microcode: Wrong microcode patch file magic
-  (XEN) Parsing microcode blob error -22
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-After:
-  (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa000
-  (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa010
-  (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa011
-  (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa200
-  (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa210
-  (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa500
-  (XEN) microcode: couldn't find any matching ucode in the provided blob!
+version targeted for testing:
+ xen                  687121f8a0e7c1ea1c4fa3d056637e5819342f14
+baseline version:
+ xen                  f18309eb06efd1db5a2ab9903a1c246b6299951a
 
-Fixes: 4de936a38a ("x86/ucode/amd: Rework parsing logic in cpu_request_microcode()")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Ian Jackson <iwj@xenproject.org>
+Last test of basis   159146  2021-02-08 19:00:27 Z    1 days
+Testing same since   159184  2021-02-09 18:01:28 Z    0 days    1 attempts
 
-For 4.15.  Found when putting a test together to prove the correctness of the
-"x86/ucode: Fix microcode payload size for Fam19 processors" fix.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Olaf Hering <olaf@aepfle.de>
 
-This allows microcode loading to still function even if the length magic
-numbers aren't correct for a subset of blobs within the container(s).
----
- xen/arch/x86/cpu/microcode/amd.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index c4ab395799..fe7b79bd0a 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -348,8 +348,7 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
- 
-             if ( size < sizeof(*mc) ||
-                  (mc = buf)->type != UCODE_UCODE_TYPE ||
--                 size - sizeof(*mc) < mc->len ||
--                 (!skip_ucode && !verify_patch_size(mc->len)) )
-+                 size - sizeof(*mc) < mc->len )
-             {
-                 printk(XENLOG_ERR "microcode: Bad microcode data\n");
-                 error = -EINVAL;
-@@ -359,6 +358,19 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
-             if ( skip_ucode )
-                 goto skip;
- 
-+            if ( !verify_patch_size(mc->len) )
-+            {
-+                printk(XENLOG_WARNING
-+                       "microcode: Bad microcode length 0x%08x for cpu 0x%04x\n",
-+                       mc->len, mc->patch->processor_rev_id);
-+                /*
-+                 * If the blob size sanity check fails, trust the container
-+                 * length which has already been checked to be at least
-+                 * plausible at this point.
-+                 */
-+                goto skip;
-+            }
-+
-             /*
-              * If the new ucode covers current CPU, compare ucodes and store the
-              * one with higher revision.
-@@ -382,6 +394,14 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
-             if ( size >= 4 && *(const uint32_t *)buf == UCODE_MAGIC )
-                 break;
-         }
-+
-+        /*
-+         * Any error means we didn't get cleanly to the end of the microcode
-+         * container.  There isn't an overall length field, so we've got no
-+         * way of skipping to the next container in the stream.
-+         */
-+        if ( error )
-+            break;
-     }
- 
-     if ( saved )
--- 
-2.11.0
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 687121f8a0e7c1ea1c4fa3d056637e5819342f14
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Tue Feb 9 16:45:35 2021 +0100
+
+    xl: optionally print timestamps when running xl commands
+    
+    Add a global option "-T" to xl to enable timestamps in the output from
+    libxl and libxc. This is most useful with long running commands such
+    as "migrate".
+    
+    During 'xl -v.. migrate domU host' a large amount of debug is generated.
+    It is difficult to map each line to the sending and receiving side.
+    Also the time spent for migration is not reported.
+    
+    With 'xl -T migrate domU host' both sides will print timestamps and
+    also the pid of the invoked xl process to make it more obvious which
+    side produced a given log line.
+    
+    Note: depending on the command, xl itself also produces other output
+    which does not go through libxentoollog. As a result such output will
+    not have timestamps prepended.
+    
+    This change adds also the missing "-t" flag to "xl help" output.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+
+commit 7a321c3676250aac5bacb1ae8d7dd22bfe8b1448
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Tue Feb 9 16:45:34 2021 +0100
+
+    tools: add with-xen-scriptdir configure option
+    
+    Some distros plan for fresh installations will have an empty /etc,
+    whose content will not be controlled by the package manager anymore.
+    
+    To make this possible, add a knob to configure to allow storing the
+    hotplug scripts to libexec instead of /etc/xen/scripts.
+    
+    The current default remains unchanged, which is /etc/xen/scripts.
+    
+    [autoconf rerun -iwj]
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+
+commit fe9ba142c03a2046def52cfd5864f5a89172bf5c
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Tue Feb 9 16:45:33 2021 +0100
+
+    tools: move CONFIG_DIR and XEN_CONFIG_DIR in paths.m4
+    
+    Upcoming changes need to reuse XEN_CONFIG_DIR.
+    
+    In its current location the assignment happens too late. Move it up
+    in the file, along with CONFIG_DIR. Their only dependency is
+    sysconfdir, which may also be adjusted in this file.
+    
+    No functional change intended.
+    
+    [autoconf rerun -iwj]
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 548ba7c85c6d80a671c2abb8681c29bc85c616f3
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Tue Feb 9 17:05:54 2021 +0000
+
+    tools: Regenerate autoconf
+    
+    This seems to have been omitted in many recent commits.  The earliest
+    of which are, according to git-bisect:
+      154137dfdba3  stubdom/configure      stubdom: add xenstore pvh stubdom
+      cc83ee4c6c37  all configure scripts  NetBSD: Fix lock directory path
+    but it seems that this is true of several later commits too.
+    
+    Release status: I consider this discrepancy a release critical bug.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+    Release-acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
