@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77CD23152D0
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 16:28:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83290.154651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E613152DA
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 16:31:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83299.154665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9UwM-0007Ka-8S; Tue, 09 Feb 2021 15:28:34 +0000
+	id 1l9Uz2-0000E9-MD; Tue, 09 Feb 2021 15:31:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83290.154651; Tue, 09 Feb 2021 15:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 83299.154665; Tue, 09 Feb 2021 15:31:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9UwM-0007JU-2G; Tue, 09 Feb 2021 15:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 83290;
- Tue, 09 Feb 2021 15:28:32 +0000
+	id 1l9Uz2-0000Dg-GT; Tue, 09 Feb 2021 15:31:20 +0000
+Received: by outflank-mailman (input) for mailman id 83299;
+ Tue, 09 Feb 2021 15:31:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l9UwK-0007FU-1d
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 15:28:32 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9Uz0-0000DY-UV; Tue, 09 Feb 2021 15:31:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l9UwI-0000uQ-J7; Tue, 09 Feb 2021 15:28:30 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l9UwI-0007gX-AV; Tue, 09 Feb 2021 15:28:30 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9Uz0-0000xS-S2; Tue, 09 Feb 2021 15:31:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9Uz0-0000Cm-JE; Tue, 09 Feb 2021 15:31:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9Uz0-00056e-Ik; Tue, 09 Feb 2021 15:31:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,190 +42,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=1kLAf1Z7iULhueFYJ6h0q4KfgHh7gIb0TxMqFFD/Zl4=; b=A+Vz9/vfVRcaVb3gpeijZuu+g
-	YHkRCdz2sHg/6KjLX5VVkb8B3LEuQjVPC+v3tBgZVZ3XyyQl/igp/YvPRBsWkDHMMCPZ1DxUzuvgr
-	q8KdTpr+3wQEbywObS4H0iOpglMtfdTBFwz5wVmKvS5QGJtAP89w/aTsuMUTpFGPa0mTY=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: hongyxia@amazon.co.uk,
-	iwj@xenproject.org,
-	Julien Grall <jgrall@amazon.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Paul Durrant <paul@xen.org>
-Subject: [for-4.15][PATCH v2 5/5] xen/iommu: x86: Clear the root page-table before freeing the page-tables
-Date: Tue,  9 Feb 2021 15:28:16 +0000
-Message-Id: <20210209152816.15792-6-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210209152816.15792-1-julien@xen.org>
-References: <20210209152816.15792-1-julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xAW9n0WmxVHhJ2IDwjzuV0LIEbOSyeJH1SdRrEgUGlM=; b=1bRyUjYfQKrwRzKwjvVO9tNDmp
+	F1nmcd+8uLB7ihQQg9f9ldAol++vqdjo/hxPp6QQ5aLi3hRFERdlH4QT5E1NfbcP6iwdVcoEWv1YR
+	W450boLgyQvXLkJPLChI5f5isNJbHUthL94RZVT4NKXJEnm22Us5JhIAzuVsCKWSN2vw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159135-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 159135: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=5b19cb63d9dfda41b412373b8c9fe14641bcab60
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 09 Feb 2021 15:31:18 +0000
 
-From: Julien Grall <jgrall@amazon.com>
+flight 159135 qemu-mainline real [real]
+flight 159160 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159135/
+http://logs.test-lab.xenproject.org/osstest/logs/159160/
 
-The new per-domain IOMMU page-table allocator will now free the
-page-tables when domain's resources are relinquished. However, the root
-page-table (i.e. hd->arch.pg_maddr) will not be cleared.
+Regressions :-(
 
-Xen may access the IOMMU page-tables afterwards at least in the case of
-PV domain:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 152631
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 152631
 
-(XEN) Xen call trace:
-(XEN)    [<ffff82d04025b4b2>] R iommu.c#addr_to_dma_page_maddr+0x12e/0x1d8
-(XEN)    [<ffff82d04025b695>] F iommu.c#intel_iommu_unmap_page+0x5d/0xf8
-(XEN)    [<ffff82d0402695f3>] F iommu_unmap+0x9c/0x129
-(XEN)    [<ffff82d0402696a6>] F iommu_legacy_unmap+0x26/0x63
-(XEN)    [<ffff82d04033c5c7>] F mm.c#cleanup_page_mappings+0x139/0x144
-(XEN)    [<ffff82d04033c61d>] F put_page+0x4b/0xb3
-(XEN)    [<ffff82d04033c87f>] F put_page_from_l1e+0x136/0x13b
-(XEN)    [<ffff82d04033cada>] F devalidate_page+0x256/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
-(XEN)    [<ffff82d04033d8d6>] F mm.c#put_page_from_l2e+0x8a/0xcf
-(XEN)    [<ffff82d04033cc27>] F devalidate_page+0x3a3/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
-(XEN)    [<ffff82d04033d807>] F mm.c#put_page_from_l3e+0x8a/0xcf
-(XEN)    [<ffff82d04033cdf0>] F devalidate_page+0x56c/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
-(XEN)    [<ffff82d04033d6c7>] F mm.c#put_page_from_l4e+0x69/0x6d
-(XEN)    [<ffff82d04033cf24>] F devalidate_page+0x6a0/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d92e>] F put_page_type_preemptible+0x13/0x15
-(XEN)    [<ffff82d04032598a>] F domain.c#relinquish_memory+0x1ff/0x4e9
-(XEN)    [<ffff82d0403295f2>] F domain_relinquish_resources+0x2b6/0x36a
-(XEN)    [<ffff82d040205cdf>] F domain_kill+0xb8/0x141
-(XEN)    [<ffff82d040236cac>] F do_domctl+0xb6f/0x18e5
-(XEN)    [<ffff82d04031d098>] F pv_hypercall+0x2f0/0x55f
-(XEN)    [<ffff82d04039b432>] F lstar_enter+0x112/0x120
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
 
-This will result to a use after-free and possibly an host crash or
-memory corruption.
+version targeted for testing:
+ qemuu                5b19cb63d9dfda41b412373b8c9fe14641bcab60
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
-Freeing the page-tables further down in domain_relinquish_resources()
-would not work because pages may not be released until later if another
-domain hold a reference on them.
+Last test of basis   152631  2020-08-20 09:07:46 Z  173 days
+Failing since        152659  2020-08-21 14:07:39 Z  172 days  342 attempts
+Testing same since   159107  2021-02-07 19:51:11 Z    1 days    2 attempts
 
-Once all the PCI devices have been de-assigned, it is actually pointless
-to access modify the IOMMU page-tables. So we can simply clear the root
-page-table address.
+------------------------------------------------------------
+375 people touched revisions under test,
+not listing them all
 
-Fixes: 3eef6d07d722 ("x86/iommu: convert VT-d code to use new page table allocator")
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
----
-    Changes in v2:
-        - Introduce clear_root_pgtable()
-        - Move the patch later in the series
----
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 12 +++++++++++-
- xen/drivers/passthrough/vtd/iommu.c         | 12 +++++++++++-
- xen/drivers/passthrough/x86/iommu.c         |  6 ++++++
- xen/include/xen/iommu.h                     |  1 +
- 4 files changed, 29 insertions(+), 2 deletions(-)
 
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index 42b5a5a9bec4..81add0ba26b4 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -381,9 +381,18 @@ static int amd_iommu_assign_device(struct domain *d, u8 devfn,
-     return reassign_device(pdev->domain, d, devfn, pdev);
- }
- 
-+static void iommu_clear_root_pgtable(struct domain *d)
-+{
-+    struct domain_iommu *hd = dom_iommu(d);
-+
-+    spin_lock(&hd->arch.mapping_lock);
-+    hd->arch.amd.root_table = NULL;
-+    spin_unlock(&hd->arch.mapping_lock);
-+}
-+
- static void amd_iommu_domain_destroy(struct domain *d)
- {
--    dom_iommu(d)->arch.amd.root_table = NULL;
-+    ASSERT(!dom_iommu(d)->arch.amd.root_table);
- }
- 
- static int amd_iommu_add_device(u8 devfn, struct pci_dev *pdev)
-@@ -565,6 +574,7 @@ static const struct iommu_ops __initconstrel _iommu_ops = {
-     .remove_device = amd_iommu_remove_device,
-     .assign_device  = amd_iommu_assign_device,
-     .teardown = amd_iommu_domain_destroy,
-+    .clear_root_pgtable = iommu_clear_root_pgtable,
-     .map_page = amd_iommu_map_page,
-     .unmap_page = amd_iommu_unmap_page,
-     .iotlb_flush = amd_iommu_flush_iotlb_pages,
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index d136fe36883b..e1871f6c2bc1 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -1726,6 +1726,15 @@ out:
-     return ret;
- }
- 
-+static void iommu_clear_root_pgtable(struct domain *d)
-+{
-+    struct domain_iommu *hd = dom_iommu(d);
-+
-+    spin_lock(&hd->arch.mapping_lock);
-+    hd->arch.vtd.pgd_maddr = 0;
-+    spin_unlock(&hd->arch.mapping_lock);
-+}
-+
- static void iommu_domain_teardown(struct domain *d)
- {
-     struct domain_iommu *hd = dom_iommu(d);
-@@ -1740,7 +1749,7 @@ static void iommu_domain_teardown(struct domain *d)
-         xfree(mrmrr);
-     }
- 
--    hd->arch.vtd.pgd_maddr = 0;
-+    ASSERT(!hd->arch.vtd.pgd_maddr);
- }
- 
- static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
-@@ -2719,6 +2728,7 @@ static struct iommu_ops __initdata vtd_ops = {
-     .remove_device = intel_iommu_remove_device,
-     .assign_device  = intel_iommu_assign_device,
-     .teardown = iommu_domain_teardown,
-+    .clear_root_pgtable = iommu_clear_root_pgtable,
-     .map_page = intel_iommu_map_page,
-     .unmap_page = intel_iommu_unmap_page,
-     .lookup_page = intel_iommu_lookup_page,
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index 82d770107a47..d3cdec6ee83f 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -280,6 +280,12 @@ int iommu_free_pgtables(struct domain *d)
-     /* After this barrier no new page allocations can occur. */
-     spin_barrier(&hd->arch.pgtables.lock);
- 
-+    /*
-+     * Pages will be moved to the free list in a bit. So we want to
-+     * clear the root page-table to avoid any potential use after-free.
-+     */
-+    hd->platform_ops->clear_root_pgtable(d);
-+
-     while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
-     {
-         free_domheap_page(pg);
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 863a68fe1622..d59ed7cbad43 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -272,6 +272,7 @@ struct iommu_ops {
- 
-     int (*adjust_irq_affinities)(void);
-     void (*sync_cache)(const void *addr, unsigned int size);
-+    void (*clear_root_pgtable)(struct domain *d);
- #endif /* CONFIG_X86 */
- 
-     int __must_check (*suspend)(void);
--- 
-2.17.1
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 105392 lines long.)
 
