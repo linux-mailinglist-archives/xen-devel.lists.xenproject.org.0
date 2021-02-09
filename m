@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D59A314F51
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 13:44:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83217.154285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC758314F83
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 13:54:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83219.154297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9SMF-0006Wi-OS; Tue, 09 Feb 2021 12:43:07 +0000
+	id 1l9SWd-0007YX-Jj; Tue, 09 Feb 2021 12:53:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83217.154285; Tue, 09 Feb 2021 12:43:07 +0000
+Received: by outflank-mailman (output) from mailman id 83219.154297; Tue, 09 Feb 2021 12:53:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9SMF-0006WJ-L0; Tue, 09 Feb 2021 12:43:07 +0000
-Received: by outflank-mailman (input) for mailman id 83217;
- Tue, 09 Feb 2021 12:43:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l9SWd-0007Y8-GN; Tue, 09 Feb 2021 12:53:51 +0000
+Received: by outflank-mailman (input) for mailman id 83219;
+ Tue, 09 Feb 2021 12:53:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NhOK=HL=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1l9SMD-0006WE-Ua
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 12:43:06 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c223e0d-f572-4785-a7b9-dc15ac0baa76;
- Tue, 09 Feb 2021 12:43:04 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.17.1 DYNA|AUTH)
- with ESMTPSA id m08c6fx19Ch01Ka
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 9 Feb 2021 13:43:00 +0100 (CET)
+ (envelope-from <SRS0=BG3/=HL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l9SWc-0007Y3-IE
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 12:53:50 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7051a01d-c083-4310-826b-3ebb13ffd65e;
+ Tue, 09 Feb 2021 12:53:49 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 16D30AD6A;
+ Tue,  9 Feb 2021 12:53:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +39,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c223e0d-f572-4785-a7b9-dc15ac0baa76
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1612874583;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-	From:Subject:Sender;
-	bh=kt+HjqYDFzVkKWwKnvvp0Lqb/b/anGw/0WXWlcWl1Nw=;
-	b=fOt6XlMQPxDnB5YCI3UStL7Gri8AEyhnnet2/vvDeF6FexLQiVAlc8FExapSxHZwK9
-	y68O28oy2sG/3vm/CodLtLKIBgvRdD0TvpIALzQ4AgO9AO0T14ccfbb2zO4qDBRuwQOj
-	pOBpOdj8Scpf0QUB4nI546ct8EkfW85Df9jdQ19RO64Yoc5LrSSLljxoRenFofNmk1zW
-	xW/oacjEPCqmm705U2KFsEV4WTVfNpNTKlTTPUL/VB22fcdLEzIxKxwO/nq9ZQwT8CHC
-	WQD9MoxvXYDmiQjWNLsFlHCONVrZms0HxvgYxZkQ3XZUNIqy+dxfvMkJEPTLdSYY9zzw
-	PEuw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+v4/A=="
-X-RZG-CLASS-ID: mo00
-Date: Tue, 9 Feb 2021 13:42:53 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>, <xen-devel@lists.xenproject.org>, Wei
- Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v20210111 08/39] xl: fix description of migrate --debug
-Message-ID: <20210209134253.5eb68cbe.olaf@aepfle.de>
-In-Reply-To: <6debd4a3-2d12-2b9f-c857-11dc2346d750@citrix.com>
-References: <20210111174224.24714-1-olaf@aepfle.de>
-	<20210111174224.24714-9-olaf@aepfle.de>
-	<24609.26131.733756.369535@mariner.uk.xensource.com>
-	<6debd4a3-2d12-2b9f-c857-11dc2346d750@citrix.com>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 7051a01d-c083-4310-826b-3ebb13ffd65e
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612875228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Xz6SEvYbpCIel5pRUo0p4mEoQEJzeymHCtV40pnxtHo=;
+	b=mPpH3gVnMlhRoqlew3FuZ+8Yc0SppIiRiIjukJWGMOVwWLn9+HNk38eF8di/GOj7gJd3UH
+	brVdcAqtG9HfRJFU/YEJor53qrOumR6RvhR7qG+Bs16Uj2jHC69KdERG34FJUgwdn54PIQ
+	qVX74kblIKXqB8/Ts2SP+WI3YbTdRJg=
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3 0/4] x86/time: calibration rendezvous adjustments
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Claudemir Todo Bom <claudemir@todobom.com>, Ian Jackson <iwj@xenproject.org>
+Message-ID: <bb7494b9-f4d1-f0c0-2fb2-5201559c1962@suse.com>
+Date: Tue, 9 Feb 2021 13:53:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/z0idfK3Yl/YitIqovWtHLcR"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---Sig_/z0idfK3Yl/YitIqovWtHLcR
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+The middle two patches are meant to address a regression reported on
+the list under "Problems with APIC on versions 4.9 and later (4.8
+works)". In the course of analyzing output from a debugging patch I
+ran into another anomaly again, which I thought I should finally try
+to address. Hence patch 1. Patch 4 is new in v3 and RFC for now.
 
-Am Mon, 8 Feb 2021 16:39:01 +0000
-schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
+While looking closely at the corresponding debugging patch'es output I
+noticed a suspicious drift between local and master stime: Measured not
+very precisely, local was behind master by about 200ms in about half an
+hour. Interestingly the recording of ->master_stime (and hence the not
+really inexpensive invocation of read_platform_stime()) looks to be
+pretty pointless when CONSTANT_TSC - I haven't been able to spot an
+actual consumer. IOW the drift may not be a problem, and we might be
+able to eliminate the platform timer reads. (When !CONSTANT_TSC, such
+drift would get corrected anyway, by local_time_calibration().)
 
-> It is possibly worth noting that you typically do see changed data when
-> using --debug, because of how the front/back pairs work.=C2=A0 This was a=
- bit
-> of a curveball during development.
+1: change initiation of the calibration timer
+2: adjust time recording time_calibration_tsc_rendezvous()
+3: don't move TSC backwards in time_calibration_tsc_rendezvous()
+4: re-arrange struct calibration_rendezvous
 
-I just noticed "migrate --debug" is a noop, "verify" works just for remus o=
-r colo, per send_domain_memory_live():
-- libxl_domain_remus_start sets checkpointed_stream to COLO/REMUS
-- libxl_domain_suspend sets checkpointed_stream to NONE.
-- external callers can not influence this internal state.
-- main_migrate_receive sets it based on the command line option.
-
-
-In case we want a "verify" functionality also for migration, the "stream_ty=
-pe" check could be removed to make it work everywhere.
-The domU is suspended, it should not make much difference how often its mem=
-ory is passed around in this suspended state.
-But this would be a separate thing to explore.
-
-Having a "LIBXL_SUSPEND_DEBUG/XCFLAGS_DEBUG" might be useful, but in its cu=
-rrent state the flags should have "STREAM_VERIFY" in their name.
-
-So instead of changing the help string I suggest to remove "--debug" altoge=
-ther from the xl UI.
-
-
-Olaf
-
---Sig_/z0idfK3Yl/YitIqovWtHLcR
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmAig00ACgkQ86SN7mm1
-DoCgKA/+MDD1AFX0KRPpNeqwPTflao9EzaHMAMGvpH/BvC2XnnVkLuoa4LTTxSHY
-8i1UTMl80zyxfNNHGcaKVm5JwHujIt8j7Cd1zdJIyrsC0GOP54CHUfhgElDNQJAz
-5jDV6QnsmSKT5JwdCZd0CC2rKL63OxSrd5D/sbEthcP8fUUsascgSLQmHSJ6SYAC
-vMIdjAn7mSg4nBjXbnkRY7KoWpycSN/1BCbz1wktxmakOMLlYEf4QDJlx/gFoIug
-314hdR+tBR7kz4CO4cRzOOPnG+0O0EG03Ic90KD5mLyiVEPh0vqdFjMpUMiINLTo
-jIeZMb5zN9q3ZMrpOPwZG0cB9Fsh+kbyxhtO3t7b93IxjdKTjaWdzINpxIxHSTMg
-r8emrGTB3L2VoCgvhG/CSWnT1lyYv4wp9nFnQdHsBLtOYUpDKmt/F/5ti3cXLGVB
-cAxYBvWq06KnXs2P5nmECs8zZmj4p5R4U3I8yghrlbOFJZONZFgKyEeFTGU+g4Zr
-7H/x5MC09yTAEh7eyFLwkO26XYbKmt0e7FLvstFv8q206v8cGwlEpLrfhhdac8Ro
-wtxFBlmHADbvhS6mFO30wLvJZTUKlqwdb3G1ea5DqUP9q+1bxBH2v4LoTjY44+01
-9QW2FAFnxi32ZYqqK71vMo0vWsc2YXGqnXPLFgngqarN8uPghvA=
-=KR7j
------END PGP SIGNATURE-----
-
---Sig_/z0idfK3Yl/YitIqovWtHLcR--
+Jan
 
