@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A21E3154C6
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 18:17:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83355.154910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500CB3154C7
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 18:17:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83356.154922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9WdI-0003HP-RN; Tue, 09 Feb 2021 17:17:00 +0000
+	id 1l9Wdv-0003Ox-7D; Tue, 09 Feb 2021 17:17:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83355.154910; Tue, 09 Feb 2021 17:17:00 +0000
+Received: by outflank-mailman (output) from mailman id 83356.154922; Tue, 09 Feb 2021 17:17:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9WdI-0003Gt-Mu; Tue, 09 Feb 2021 17:17:00 +0000
-Received: by outflank-mailman (input) for mailman id 83355;
- Tue, 09 Feb 2021 17:17:00 +0000
+	id 1l9Wdv-0003OW-34; Tue, 09 Feb 2021 17:17:39 +0000
+Received: by outflank-mailman (input) for mailman id 83356;
+ Tue, 09 Feb 2021 17:17:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l9WdH-0003Gl-Vw
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 17:16:59 +0000
+ (envelope-from <iwj@xenproject.org>) id 1l9Wdu-0003ON-57
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 17:17:38 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l9WdH-0003IZ-U9
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 17:16:59 +0000
+ (envelope-from <iwj@xenproject.org>) id 1l9Wdu-0003JV-4E
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 17:17:38 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l9WdH-0001g1-T8
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 17:16:59 +0000
+ (envelope-from <iwj@xenproject.org>) id 1l9Wdu-0001kj-3J
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 17:17:38 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1l9WdE-0005zj-L4; Tue, 09 Feb 2021 17:16:56 +0000
+ id 1l9Wdm-000606-8W; Tue, 09 Feb 2021 17:17:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,40 +44,51 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=a9VGnPZOIdShHck4LO3O3Jk2W9JGbHYNo8DpOXP2rAA=; b=bmca7RF7TpFxylo3gl37py07Ks
-	FMXQ966KkSPzK6pdcSokMCvhQM/5wIh8HACPKSNCW8O1iwCRrCVrwKkrK04yam8Puhy7/7CmphtwR
-	GXfTaA7o4kaTjUb/x3icWlOttxM5n+YZbVaeOQa4Rn1ijcL6TXbDB1tWTp7NaSzuWip0=;
+	bh=n/QNOK4FXGJY30IVGQZNniqQAODGoWX7ALyzPpeKOHs=; b=0aUvnpk9P5oZgMr/kLcgVLLm1m
+	Dph1tepo/1Dpbz9eQupguUUJEeO1eZylBhc7z26QwSSHkmDakoY6X5xU4ZcFn72a6Fu7Y/YYj+jVk
+	/H19RO06pS2pjX+wijARaL63tQWDmnSki8eammfsdD9BeDK40psqmnTiF1ZwGa9RnsT0=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-ID: <24610.50056.424595.200181@mariner.uk.xensource.com>
-Date: Tue, 9 Feb 2021 17:16:56 +0000
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org,
+Message-ID: <24610.50089.887907.573064@mariner.uk.xensource.com>
+Date: Tue, 9 Feb 2021 17:17:29 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
     Wei Liu <wl@xen.org>,
-    Anthony PERARD  <anthony.perard@citrix.com>
-Subject: Re: [PATCH v20210209 3/4] xl: optionally print timestamps when
- running xl commands
-In-Reply-To: <20210209180600.67e3f167.olaf@aepfle.de>
-References: <20210209154536.10851-1-olaf@aepfle.de>
-	<20210209154536.10851-4-olaf@aepfle.de>
-	<24610.48626.319165.973767@mariner.uk.xensource.com>
-	<20210209180600.67e3f167.olaf@aepfle.de>
+    Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19
+ processors
+In-Reply-To: <c09110f7-6459-e1f7-2175-09d535ad03ce@suse.com>
+References: <20210209153336.4016-1-andrew.cooper3@citrix.com>
+	<c09110f7-6459-e1f7-2175-09d535ad03ce@suse.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Olaf Hering writes ("Re: [PATCH v20210209 3/4] xl: optionally print timestamps when running xl commands"):
-> Am Tue, 9 Feb 2021 16:53:06 +0000
-> schrieb Ian Jackson <iwj@xenproject.org>:
+Jan Beulich writes ("Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19 processors"):
+> On 09.02.2021 16:33, Andrew Cooper wrote:
+> > The original limit provided wasn't accurate.  Blobs are in fact rather larger.
+> > 
+> > Fixes: fe36a173d1 ("x86/amd: Initial support for Fam19h processors")
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> > This part of the commit message talks about -t rather than -T.  I will
-> > fix that on commit.
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 > 
-> It is really the lowercase t.
+> > --- a/xen/arch/x86/cpu/microcode/amd.c
+> > +++ b/xen/arch/x86/cpu/microcode/amd.c
+> > @@ -111,7 +111,7 @@ static bool verify_patch_size(uint32_t patch_size)
+> >  #define F15H_MPB_MAX_SIZE 4096
+> >  #define F16H_MPB_MAX_SIZE 3458
+> >  #define F17H_MPB_MAX_SIZE 3200
+> > -#define F19H_MPB_MAX_SIZE 4800
+> > +#define F19H_MPB_MAX_SIZE 5568
 > 
-> 01f78a81ae56220dd496a61185ba5dfae30dc2fe did not adjust the output in tools/libxl/xl_cmdimpl.c:help().
+> How certain is it that there's not going to be another increase?
+> And in comparison, how bad would it be if we pulled this upper
+> limit to something that's at least slightly less of an "odd"
+> number, e.g. 0x1800, and thus provide some headroom?
 
-OIC, thanks.
+5568 does seem really an excessively magic number...
 
 Ian.
 
