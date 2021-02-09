@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C2253157A0
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 21:21:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83410.155173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B520A3157A3
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 21:22:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83411.155186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9ZVu-0005SL-6n; Tue, 09 Feb 2021 20:21:34 +0000
+	id 1l9ZWS-0005YJ-GL; Tue, 09 Feb 2021 20:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83410.155173; Tue, 09 Feb 2021 20:21:34 +0000
+Received: by outflank-mailman (output) from mailman id 83411.155186; Tue, 09 Feb 2021 20:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9ZVu-0005Rv-3I; Tue, 09 Feb 2021 20:21:34 +0000
-Received: by outflank-mailman (input) for mailman id 83410;
- Tue, 09 Feb 2021 20:21:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l9ZWS-0005Xt-Co; Tue, 09 Feb 2021 20:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 83411;
+ Tue, 09 Feb 2021 20:22:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SKhV=HL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l9ZVs-0005Rq-IF
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 20:21:32 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bd45748c-46c7-4b81-a4fb-069acfbdb8c9;
- Tue, 09 Feb 2021 20:21:31 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2166C64E7E;
- Tue,  9 Feb 2021 20:21:30 +0000 (UTC)
+ <SRS0=p39W=HL=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l9ZWQ-0005Xk-IP
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 20:22:06 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e5450e4f-a17a-4135-8ca7-bec551057602;
+ Tue, 09 Feb 2021 20:22:05 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id u14so23669462wri.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Feb 2021 12:22:05 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-180-176-157.range86-180.btcentralplus.com.
+ [86.180.176.157])
+ by smtp.gmail.com with ESMTPSA id y11sm36651129wrh.16.2021.02.09.12.22.04
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Feb 2021 12:22:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,51 +42,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd45748c-46c7-4b81-a4fb-069acfbdb8c9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1612902090;
-	bh=a9TA/DE8lGcJsKiZKDbb6+lH/9UqAUlv/Zis0qEg+08=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bIDoohiMlUoU44IvHBOSpKkH0TGMbfaouxcBZOWxzq1FCZvX+J6uzh4FpA5V1WzBt
-	 VpCpodHkRPX2hXT8mb+OmfusWdS/dR+qHBFTEzs9f7GlFejOpAEDzVs+pqSN8dgr+f
-	 zPG67Jp1S00sJ8wDqhZpiS+0vl2V8jgBFFxHpmaK54GtF5o3X+8Vl2EhodDos+coMe
-	 MWyvERVR6Ggwj7l835YxabmZcLODbp1cZidTAYHl4kGwIh0akmr8cTHM/VrD6r5P1F
-	 ClJYmR70WvQrLDL1VjOoKTyL5QpaUkmctXOmWUZus5c5Ntwr85eOWdvVsk47VDH1hi
-	 cYIvw+hIG3vvA==
-Date: Tue, 9 Feb 2021 12:21:29 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, julien@xen.org, Volodymyr_Babchuk@epam.com, 
-    ehem+xen@m5p.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH v2] xen: workaround missing device_type property in
- pci/pcie nodes
-In-Reply-To: <e2a807fd-a027-fa7d-315a-f64db8c56e1c@citrix.com>
-Message-ID: <alpine.DEB.2.21.2102091221090.8948@sstabellini-ThinkPad-T480s>
-References: <20210209195334.21206-1-sstabellini@kernel.org> <e2a807fd-a027-fa7d-315a-f64db8c56e1c@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: e5450e4f-a17a-4135-8ca7-bec551057602
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=0DM4/d+upFhn6wMrNIoHq66Rpjqu7XLqTPr3rwHqnX8=;
+        b=CTUnUF6XELrMelT02nwplknI30gE6VfySBgNx2Cvu0MWJdcWKYC6RgVFPkI7oJVJZ9
+         odDmCd7MJoZIf44hpEfpcETJ+LjXArS/fNSfzgnx+bzDwxIq45KZimAB/Z/HGM3CpPG4
+         MbuHYGbB7tsCXVtbDNZpEcmhlfgvVP2hB/jsMFEBbnVGAq/uzFR08uNZKLYKC4kwhK49
+         ZKO0wOWWcBkkYWIe6n9haeqaMS4dKts8zWRwMmxe86dvQpYRDV57FETL5PwnPaC3TA2S
+         WvshIK7GxJLHyFOamqFcW4UpRtm/CuZZUFDJ+vWyJtYLnOrzmBEE04RbkCOYqu91qWfM
+         CZ+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=0DM4/d+upFhn6wMrNIoHq66Rpjqu7XLqTPr3rwHqnX8=;
+        b=bEcbDfcElpUutBNM1PWQUirfSqZbhb3wrPItHmlP0MdxkwnEteCBO4VuGz1kbnuJzp
+         74OiEAV+7DljBQdTuA7MR0jXkzl/rep/ZeMy8ZfwkGcpW0IQ9ik9oPd0IjzppKFoHoQ6
+         AWbzaFharlRDhM3Az4tzjSOZEVKR48VVkynzWoHYdkGF3zylSi4mGqZffEEjns3zBBDe
+         iQy9qIYDTSBU8EE/vb9w1BQFa62zegVfICmApBUF4WCT//jo2s/M6MFqXjzoeiXGgcQ/
+         h2ShOLux1EB3q61M91fMww1VEv/NJqViSTbEWs8VNUDVoF6u10emFeOy3luWE5nZ0bm5
+         W5SQ==
+X-Gm-Message-State: AOAM533Df1l6RI6SgL3OjSbVl+hO5V1Ez8nUnZiAW/GJdGMJ8YGbmKxh
+	bPkv3yLTnsEj35pM80MHvXn8ZV/CXrw=
+X-Google-Smtp-Source: ABdhPJxRScY63HGVSkdDj2jTf1QcEe8VguSUdVtnfCwkNOJdLWX7SzwY19auaYumAr5HcnFLdS7/Gw==
+X-Received: by 2002:adf:d0d2:: with SMTP id z18mr28457666wrh.70.1612902125107;
+        Tue, 09 Feb 2021 12:22:05 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Cc: <hongyxia@amazon.co.uk>,
+	<iwj@xenproject.org>,
+	"'Julien Grall'" <jgrall@amazon.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>
+References: <20210209152816.15792-1-julien@xen.org> <20210209152816.15792-3-julien@xen.org>
+In-Reply-To: <20210209152816.15792-3-julien@xen.org>
+Subject: RE: [for-4.15][PATCH v2 2/5] xen/iommu: Check if the IOMMU was initialized before tearing down
+Date: Tue, 9 Feb 2021 20:22:03 -0000
+Message-ID: <04f401d6ff21$3b167720$b1436560$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJkA3sfHUQVO5jg8t87X8qwyW0VowJJWhUSqSPwG1A=
+Content-Language: en-gb
 
-On Tue, 9 Feb 2021, Andrew Cooper wrote:
-> On 09/02/2021 19:53, Stefano Stabellini wrote:
-> > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> > index 18825e333e..f1a96a3b90 100644
-> > --- a/xen/common/device_tree.c
-> > +++ b/xen/common/device_tree.c
-> > @@ -563,14 +563,28 @@ static unsigned int dt_bus_default_get_flags(const __be32 *addr)
-> >   * PCI bus specific translator
-> >   */
-> >  
-> > +static bool_t dt_node_is_pci(const struct dt_device_node *np)
-> > +{
-> > +    bool is_pci = !strcmp(np->name, "pcie") || !strcmp(np->name, "pci");
-> > +
-> > +    if (is_pci)
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 09 February 2021 15:28
+> To: xen-devel@lists.xenproject.org
+> Cc: hongyxia@amazon.co.uk; iwj@xenproject.org; Julien Grall <jgrall@amazon.com>; Jan Beulich
+> <jbeulich@suse.com>; Paul Durrant <paul@xen.org>
+> Subject: [for-4.15][PATCH v2 2/5] xen/iommu: Check if the IOMMU was initialized before tearing down
 > 
-> bool on the function, and spaces here, which I'm sure you can fix while
-> committing :)
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> is_iommu_enabled() will return true even if the IOMMU has not been
+> initialized (e.g. the ops are not set).
+> 
+> In the case of an early failure in arch_domain_init(), the function
+> iommu_destroy_domain() will be called even if the IOMMU is not
+> initialized.
+> 
+> This will result to dereference the ops which will be NULL and an host
+> crash.
+> 
+> Fix the issue by checking that ops has been set before accessing it.
+> 
+> Fixes: 71e617a6b8f6 ("use is_iommu_enabled() where appropriate...")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Oops, thanks Andrew
+Reviewed-by: Paul Durrant <paul@xen.org>
+
 
