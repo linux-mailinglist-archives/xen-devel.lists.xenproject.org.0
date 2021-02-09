@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C19314894
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 07:22:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83130.154003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1559314897
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Feb 2021 07:22:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83131.154015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9MPf-0002No-VW; Tue, 09 Feb 2021 06:22:15 +0000
+	id 1l9MPm-0002Sz-85; Tue, 09 Feb 2021 06:22:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83130.154003; Tue, 09 Feb 2021 06:22:15 +0000
+Received: by outflank-mailman (output) from mailman id 83131.154015; Tue, 09 Feb 2021 06:22:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9MPf-0002N6-Rh; Tue, 09 Feb 2021 06:22:15 +0000
-Received: by outflank-mailman (input) for mailman id 83130;
- Tue, 09 Feb 2021 06:22:14 +0000
+	id 1l9MPm-0002SF-4K; Tue, 09 Feb 2021 06:22:22 +0000
+Received: by outflank-mailman (input) for mailman id 83131;
+ Tue, 09 Feb 2021 06:22:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CyDg=HL=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1l9MPe-0002Ma-69
- for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 06:22:14 +0000
-Received: from mail-pg1-x532.google.com (unknown [2607:f8b0:4864:20::532])
+ id 1l9MPk-0002Rf-Mf
+ for xen-devel@lists.xenproject.org; Tue, 09 Feb 2021 06:22:20 +0000
+Received: from mail-pl1-x62d.google.com (unknown [2607:f8b0:4864:20::62d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14809f83-4e15-4ff8-a496-6d1b68be30c5;
- Tue, 09 Feb 2021 06:22:13 +0000 (UTC)
-Received: by mail-pg1-x532.google.com with SMTP id t11so8139642pgu.8
- for <xen-devel@lists.xenproject.org>; Mon, 08 Feb 2021 22:22:13 -0800 (PST)
+ id 9e444da7-3acf-4b43-96a3-de85db326b31;
+ Tue, 09 Feb 2021 06:22:20 +0000 (UTC)
+Received: by mail-pl1-x62d.google.com with SMTP id a16so9162295plh.8
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Feb 2021 22:22:20 -0800 (PST)
 Received: from localhost ([2401:fa00:1:10:a106:46e1:a999:81df])
- by smtp.gmail.com with UTF8SMTPSA id w1sm14605147pfg.116.2021.02.08.22.22.07
+ by smtp.gmail.com with UTF8SMTPSA id g17sm21205826pfq.135.2021.02.08.22.22.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Feb 2021 22:22:11 -0800 (PST)
+ Mon, 08 Feb 2021 22:22:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,31 +41,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14809f83-4e15-4ff8-a496-6d1b68be30c5
+X-Inumbo-ID: 9e444da7-3acf-4b43-96a3-de85db326b31
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=WvKUPmchuhcE1zfso8bHoA3z2cJUHyqor/xynDrdSzc=;
-        b=WmMoRPfwVrKkMTfzfSeApWYOsANXGiOgA3320pKWhEerXc+d04kio6kBo6Samikmhh
-         dKY6FAm9apY748uamOD6+T+Q7zkEWfp30SA3fCJNtSNB7CjdS5M+/v04eEEHZ9JPhbQU
-         oGnPa5k409EctotY2FmiW01VL+4N5+/MQmqlc=
+        bh=9SQyVkSYwcHNPQBFHoCQtFFFjCENqy21v8WbruxTyIQ=;
+        b=S8b7bks4s14Aq0h3NWBRKYyM5rNroqOh0mjkOQqRPPLHlWF1b/82tP2JW6Ak+XahaS
+         vuqFZkcLranydMu7pllFHxd5nuNgxoGZIBPnWrP05Of2B7XaG8dtqQLOaoHbIZQ1OzXK
+         3qWvUM55PHjPtT5jCfFBuHsTloYPqv037Cmok=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=WvKUPmchuhcE1zfso8bHoA3z2cJUHyqor/xynDrdSzc=;
-        b=tshSeZAKFdFdEUET3cbZoVInDpSplFjL/vGjUl5M8bKYz4WEFDJY+J7vXJqizEX21k
-         tBZJoFiFqGOwT7x2zrd0KOH1+EqV8DgUPALKvgPQnad50lx1nRMeD5lQwTz/KMcXmpwn
-         MJDKEVBYESzRSJ2gyLLd5qZTs9g34ItNXNBphsTRo443oWO/LaQz+hFUz97jt3xeamjH
-         SA8SMN+NvpgKIa6X8u38oaOhlt0+ORj5d1a37R0R2x+Q74kChfmDklFkUCV9bGalZPfM
-         Y8AURoSxDXCv5sBjzOdJqc48zmqzlZ97tMxuDS0+oI71jhjA0acwmjnawhLz8Hrkhpeu
-         UOng==
-X-Gm-Message-State: AOAM532F/dWhuuTyF9svzTqcB/3VDjzehOYMrL+yqSkjB65xCxGIR3Se
-	+uHS4lGqBzKoPTp7VoKjMwRVcw==
-X-Google-Smtp-Source: ABdhPJwPilLMeHO4izUWlTNwHOL/6AulGQdpqWdqLrBPBm35gr6jqlo9rCgrJT+lklmP7VdqmUgqQg==
-X-Received: by 2002:a63:80c8:: with SMTP id j191mr1570888pgd.58.1612851732543;
-        Mon, 08 Feb 2021 22:22:12 -0800 (PST)
+        bh=9SQyVkSYwcHNPQBFHoCQtFFFjCENqy21v8WbruxTyIQ=;
+        b=V8EaYOQ/SRVEKXMNpWzKzgYZEgVLcFIY7Cm/UDnvGB8e66jrwAqhSJGnbiu4eN1oIv
+         Xr2yD1xo4b3Bj1llQzUDg+ax5z+IeRik95sy8IDm50hBoxGQlIuvtXYkap16MoBAbYX0
+         Dtxogc7aHqsvXTW2Z1vUCoQoB/nWMcHRzkGRxrQGGO3yzal1Vi8HWxCpglZ8nlVgiF3X
+         hfYRAtm7CvAvpukJjRmCsFlNL7aitQTEwEwViSdYWrUxCM/Gm45oOy6PJACgV+INhSZM
+         s0DJG0ur9zsuVhqj2VmLiObACfu2m6Iw+fdGBlnzJ63f0P80KbgMjMZlayBRSdHx3iAB
+         FU+A==
+X-Gm-Message-State: AOAM531dR4/fLnwzUs6tIHn0/T7dl6LR+UejouSNVLaM6ZCfn2/YHwfy
+	HRrJFfPq4FD0Rpup1eZg2eVQAg==
+X-Google-Smtp-Source: ABdhPJxcpi2bQzo5Ag59ySIm3BqsShiYpJbthB3TKnbwDYfpDCilPQMTJU6vCjKSHchn3Ia3PqrJPA==
+X-Received: by 2002:a17:90a:654a:: with SMTP id f10mr2534268pjs.202.1612851739435;
+        Mon, 08 Feb 2021 22:22:19 -0800 (PST)
 From: Claire Chang <tientzu@chromium.org>
 To: Rob Herring <robh+dt@kernel.org>,
 	mpe@ellerman.id.au,
@@ -103,129 +103,47 @@ Cc: benh@kernel.crashing.org,
 	Nicolas Boichat <drinkcat@chromium.org>,
 	Jim Quinlan <james.quinlan@broadcom.com>,
 	Claire Chang <tientzu@chromium.org>
-Subject: [PATCH v4 04/14] swiotlb: Refactor swiotlb_late_init_with_tbl
-Date: Tue,  9 Feb 2021 14:21:21 +0800
-Message-Id: <20210209062131.2300005-5-tientzu@chromium.org>
+Subject: [PATCH v4 05/14] swiotlb: Add DMA_RESTRICTED_POOL
+Date: Tue,  9 Feb 2021 14:21:22 +0800
+Message-Id: <20210209062131.2300005-6-tientzu@chromium.org>
 X-Mailer: git-send-email 2.30.0.478.g8a0d178c01-goog
 In-Reply-To: <20210209062131.2300005-1-tientzu@chromium.org>
 References: <20210209062131.2300005-1-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor swiotlb_late_init_with_tbl to make the code reusable for
-restricted DMA pool initialization.
+Add a new kconfig symbol, DMA_RESTRICTED_POOL, for restricted DMA pool.
 
 Signed-off-by: Claire Chang <tientzu@chromium.org>
 ---
- kernel/dma/swiotlb.c | 65 ++++++++++++++++++++++++++++----------------
- 1 file changed, 42 insertions(+), 23 deletions(-)
+ kernel/dma/Kconfig | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 28b7bfe7a2a8..dc37951c6924 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -353,20 +353,21 @@ static void swiotlb_cleanup(void)
- 	max_segment = 0;
- }
+diff --git a/kernel/dma/Kconfig b/kernel/dma/Kconfig
+index 479fc145acfc..97ff9f8dd3c8 100644
+--- a/kernel/dma/Kconfig
++++ b/kernel/dma/Kconfig
+@@ -83,6 +83,20 @@ config SWIOTLB
+ 	bool
+ 	select NEED_DMA_MAP_STATE
  
--int
--swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
-+static int swiotlb_init_tlb_pool(struct swiotlb *swiotlb, phys_addr_t start,
-+				size_t size)
- {
--	struct swiotlb *swiotlb = &default_swiotlb;
--	unsigned long i, bytes;
-+	unsigned long i;
-+	void *vaddr = phys_to_virt(start);
- 
--	bytes = nslabs << IO_TLB_SHIFT;
-+	size = ALIGN(size, 1 << IO_TLB_SHIFT);
-+	swiotlb->nslabs = size >> IO_TLB_SHIFT;
-+	swiotlb->nslabs = ALIGN(swiotlb->nslabs, IO_TLB_SEGSIZE);
- 
--	swiotlb->nslabs = nslabs;
--	swiotlb->start = virt_to_phys(tlb);
--	swiotlb->end = swiotlb->start + bytes;
-+	swiotlb->start = start;
-+	swiotlb->end = swiotlb->start + size;
- 
--	set_memory_decrypted((unsigned long)tlb, bytes >> PAGE_SHIFT);
--	memset(tlb, 0, bytes);
-+	set_memory_decrypted((unsigned long)vaddr, size >> PAGE_SHIFT);
-+	memset(vaddr, 0, size);
- 
- 	/*
- 	 * Allocate and initialize the free list array.  This array is used
-@@ -390,13 +391,7 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
- 		swiotlb->orig_addr[i] = INVALID_PHYS_ADDR;
- 	}
- 	swiotlb->index = 0;
--	no_iotlb_memory = false;
--
--	swiotlb_print_info();
- 
--	late_alloc = 1;
--
--	swiotlb_set_max_segment(swiotlb->nslabs << IO_TLB_SHIFT);
- 	spin_lock_init(&swiotlb->lock);
- 
- 	return 0;
-@@ -410,6 +405,27 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
- 	return -ENOMEM;
- }
- 
-+int swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
-+{
-+	struct swiotlb *swiotlb = &default_swiotlb;
-+	unsigned long bytes = nslabs << IO_TLB_SHIFT;
-+	int ret;
++config DMA_RESTRICTED_POOL
++	bool "DMA Restricted Pool"
++	depends on OF && OF_RESERVED_MEM
++	select SWIOTLB
++	help
++	  This enables support for restricted DMA pools which provide a level of
++	  DMA memory protection on systems with limited hardware protection
++	  capabilities, such as those lacking an IOMMU.
 +
-+	ret = swiotlb_init_tlb_pool(swiotlb, virt_to_phys(tlb), bytes);
-+	if (ret)
-+		return ret;
++	  For more information see
++	  <Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt>
++	  and <kernel/dma/swiotlb.c>.
++	  If unsure, say "n".
 +
-+	no_iotlb_memory = false;
-+
-+	swiotlb_print_info();
-+
-+	late_alloc = 1;
-+
-+	swiotlb_set_max_segment(bytes);
-+
-+	return 0;
-+}
-+
- void __init swiotlb_exit(void)
- {
- 	struct swiotlb *swiotlb = &default_swiotlb;
-@@ -747,17 +763,20 @@ phys_addr_t get_swiotlb_start(void)
- }
- 
- #ifdef CONFIG_DEBUG_FS
--
--static int __init swiotlb_create_debugfs(void)
-+static void swiotlb_create_debugfs(struct swiotlb *swiotlb, const char *name,
-+				   struct dentry *node)
- {
--	struct swiotlb *swiotlb = &default_swiotlb;
--
--	swiotlb->debugfs = debugfs_create_dir("swiotlb", NULL);
-+	swiotlb->debugfs = debugfs_create_dir(name, node);
- 	debugfs_create_ulong("io_tlb_nslabs", 0400, swiotlb->debugfs, &swiotlb->nslabs);
- 	debugfs_create_ulong("io_tlb_used", 0400, swiotlb->debugfs, &swiotlb->used);
--	return 0;
- }
- 
--late_initcall(swiotlb_create_debugfs);
-+static int __init swiotlb_create_default_debugfs(void)
-+{
-+	swiotlb_create_debugfs(&default_swiotlb, "swiotlb", NULL);
-+
-+	return 0;
-+}
- 
-+late_initcall(swiotlb_create_default_debugfs);
- #endif
+ #
+ # Should be selected if we can mmap non-coherent mappings to userspace.
+ # The only thing that is really required is a way to set an uncached bit
 -- 
 2.30.0.478.g8a0d178c01-goog
 
