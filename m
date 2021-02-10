@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED9FC316991
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 15:59:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83640.156154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A098C3169B6
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 16:05:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83642.156166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9qxA-0006Ly-Rf; Wed, 10 Feb 2021 14:58:52 +0000
+	id 1l9r2a-0007JY-FT; Wed, 10 Feb 2021 15:04:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83640.156154; Wed, 10 Feb 2021 14:58:52 +0000
+Received: by outflank-mailman (output) from mailman id 83642.156166; Wed, 10 Feb 2021 15:04:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9qxA-0006LZ-OO; Wed, 10 Feb 2021 14:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 83640;
- Wed, 10 Feb 2021 14:58:51 +0000
+	id 1l9r2a-0007J9-CN; Wed, 10 Feb 2021 15:04:28 +0000
+Received: by outflank-mailman (input) for mailman id 83642;
+ Wed, 10 Feb 2021 15:04:27 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l9qx9-0006LU-KQ
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 14:58:51 +0000
+ (envelope-from <julien@xen.org>) id 1l9r2Y-0007J4-W0
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 15:04:27 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l9qx8-0003F2-78; Wed, 10 Feb 2021 14:58:50 +0000
+ id 1l9r2X-0003N6-MA; Wed, 10 Feb 2021 15:04:25 +0000
 Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l9qx8-000090-0Q; Wed, 10 Feb 2021 14:58:50 +0000
+ id 1l9r2X-0000fT-Bz; Wed, 10 Feb 2021 15:04:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,107 +42,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Cvu4bMne669hrxn1I1H+HxwZqherES5cx1cV9olAPns=; b=xw4vDG5HApz61g4h7GOfgzYvx2
-	MKhlzuhrFL/zihjo6k0o27OQSKcuvxL7H+rLQcWfOsMQI8JRUUR7SISe9COmT1bbFzw6E8S4s6MlY
-	ZZUyHq6DkPL3y/MZdfzFc3j7WoyxdVEH/3HSr7djOZEPpQ3LTAyrmgDH81wg3QsiH/ks=;
-Subject: Re: [for-4.15][PATCH v2 3/5] xen/iommu: iommu_map: Don't crash the
- domain if it is dying
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien.grall.oss@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, hongyxia@amazon.co.uk,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <jgrall@amazon.com>,
- Paul Durrant <paul@xen.org>
+	bh=KOiB/6xxDi9jogBpACkvMAO94VY+jJlBx/xkrOZWoLA=; b=Hc1waZW5aZrAQElmFMEnXp1tRJ
+	GstEa7F4EpxlanykFAU3oFMLzo2fr2MD+sojb12XgkAhM/iIlDcqlRUoVcl94JA/JOjH8ut/p1cwy
+	UzH8Dpao/i1PHnUMQotnTtqcvv4bYZY8vBo2mYEygNmWCrWjjSXotPKsPdvW4QIFPGa0=;
+Subject: Re: [for-4.15][PATCH v2 4/5] xen/iommu: x86: Don't leak the IOMMU
+ page-tables
+To: Jan Beulich <jbeulich@suse.com>
+Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <20210209152816.15792-1-julien@xen.org>
- <20210209152816.15792-4-julien@xen.org>
- <04f601d6ff22$1f52cf60$5df86e20$@xen.org>
- <CAJ=z9a18XxQLrUanxg_E7Vups7aRee93_vFhqxu1=yq+VdXH-w@mail.gmail.com>
- <6fb54306-20e6-516f-cdcf-c7d8dd430b96@suse.com>
+ <20210209152816.15792-5-julien@xen.org>
+ <62a791cb-a880-4097-5fec-4f728751b58b@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <04755ab0-94fe-f797-1cfd-cf8aa22ceba0@xen.org>
-Date: Wed, 10 Feb 2021 14:58:48 +0000
+Message-ID: <712042bf-bec6-dc0f-67ee-b0807887772f@xen.org>
+Date: Wed, 10 Feb 2021 15:04:23 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <6fb54306-20e6-516f-cdcf-c7d8dd430b96@suse.com>
+In-Reply-To: <62a791cb-a880-4097-5fec-4f728751b58b@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
 
-On 10/02/2021 14:14, Jan Beulich wrote:
-> On 09.02.2021 22:14, Julien Grall wrote:
->> On Tue, 9 Feb 2021 at 20:28, Paul Durrant <xadimgnik@gmail.com> wrote:
->>>> From: Julien Grall <julien@xen.org>
->>>> Sent: 09 February 2021 15:28
->>>>
->>>> It is a bit pointless to crash a domain that is already dying. This will
->>>> become more an annoyance with a follow-up change where page-table
->>>> allocation will be forbidden when the domain is dying.
->>>>
->>>> Security wise, there is no change as the devices would still have access
->>>> to the IOMMU page-tables even if the domain has crashed until Xen
->>>> start to relinquish the resources.
->>>>
->>>> For x86, we rely on dom_iommu(d)->arch.mapping.lock to ensure
->>>> d->is_dying is correctly observed (a follow-up patch will held it in the
->>>> relinquish path).
-> 
-> Am I to understand this to mean that at this point of the series
-> things aren't really correct yet in this regard? If so, wouldn't
-> it be better to re-order?
 
-You asked this specific order... So are you saying you want me to use 
-the original ordering?
-
-> 
->>>> For Arm, there is still a small race possible. But there is so far no
->>>> failure specific to a domain dying.
->>>>
->>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>
->>>> ---
->>>>
->>>> This was spotted when trying to destroy IOREQ servers while the domain
->>>> is dying. The code will try to add the entry back in the P2M and
->>>> therefore update the P2M (see arch_ioreq_server_disable() ->
->>>> hvm_add_ioreq_gfn()).
->>>>
->>>> It should be possible to skip the mappin in hvm_add_ioreq_gfn(), however
->>>> I didn't try a patch yet because checking d->is_dying can be racy (I
->>>> can't find a proper lock).
-> 
-> I understand the concern. I find it odd though that we permit
-> iommu_map() to do anything at all when the domain is already
-> dying. So irrespective of the remark below, how about bailing
-> from iommu_map() earlier when the domain is dying?
-
-I felt this was potentially too racy to use it. But it should be fine if 
-keep the !d->is_dying below.
-
-> 
->>>> --- a/xen/drivers/passthrough/iommu.c
->>>> +++ b/xen/drivers/passthrough/iommu.c
->>>> @@ -272,7 +272,7 @@ int iommu_map(struct domain *d, dfn_t dfn, mfn_t mfn,
->>>>                               flush_flags) )
->>>>                   continue;
->>>>
->>>> -        if ( !is_hardware_domain(d) )
->>>> +        if ( !is_hardware_domain(d) && !d->is_dying )
->>>>               domain_crash(d);
->>>
->>> Would it make more sense to check is_dying inside domain_crash() (and turn it into a no-op in that case)?
+On 10/02/2021 14:32, Jan Beulich wrote:
+> On 09.02.2021 16:28, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
 >>
->> Jan also suggested moving the check in domain_crash(). However, I felt
->> it is potentially a too risky change for 4.15 as there are quite a few
->> callers.
+>> The new IOMMU page-tables allocator will release the pages when
+>> relinquish the domain resources. However, this is not sufficient when
+>> the domain is dying because nothing prevents page-table to be allocated.
+>>
+>> iommu_alloc_pgtable() is now checking if the domain is dying before
+>> adding the page in the list. We are relying on &hd->arch.pgtables.lock
+>> to synchronize d->is_dying.
 > 
-> This is a fair point. However, in such a case I'd prefer symmetry
-> at least throughout this one source file (there are three more
-> places), unless there are strong reasons against doing so.
+> As said in reply to an earlier patch, I think suppressing
+> (really: ignoring) new mappings would be better.
 
-I can have a look and see if the decision is easy to make.
+This is exactly what I suggested in v1 but you wrote:
 
-Cheers,
+"Ignoring requests there seems fragile to me. Paul - what are your
+thoughts about bailing early from hvm_add_ioreq_gfn() when the
+domain is dying?"
+
+Are you know saying that the following snipped would be fine:
+
+if ( d->is_dying )
+   return 0;
+
+> You could
+> utilize the same lock, but you'd need to duplicate the
+> checking in {amd,intel}_iommu_map_page().
+> 
+> I'm not entirely certain in the case about unmap requests:
+> It may be possible to also suppress/ignore them, but this
+> may require some further thought.
+
+I think the unmap part is quite risky to d->is_dying because the PCI 
+devices may not quiesced and still assigned to the domain.
+
+> 
+> Apart from this, just in case we settle on your current
+> approach, a few spelling nits:
+> 
+>> --- a/xen/drivers/passthrough/x86/iommu.c
+>> +++ b/xen/drivers/passthrough/x86/iommu.c
+>> @@ -149,6 +149,13 @@ int arch_iommu_domain_init(struct domain *d)
+>>   
+>>   void arch_iommu_domain_destroy(struct domain *d)
+>>   {
+>> +    /*
+>> +     * There should be not page-tables left allocated by the time the
+> 
+> ... should be no ...
+> 
+>> +     * domain is destroyed. Note that arch_iommu_domain_destroy() is
+>> +     * called unconditionally, so pgtables may be unitialized.
+> 
+> uninitialized
+> 
+>> @@ -303,9 +317,29 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
+>>       unmap_domain_page(p);
+>>   
+>>       spin_lock(&hd->arch.pgtables.lock);
+>> -    page_list_add(pg, &hd->arch.pgtables.list);
+>> +    /*
+>> +     * The IOMMU page-tables are freed when relinquishing the domain, but
+>> +     * nothing prevent allocation to happen afterwards. There is no valid
+> 
+> prevents
+> 
+>> +     * reasons to continue to update the IOMMU page-tables while the
+> 
+> reason
+> 
+>> +     * domain is dying.
+>> +     *
+>> +     * So prevent page-table allocation when the domain is dying.
+>> +     *
+>> +     * We relying on &hd->arch.pgtables.lock to synchronize d->is_dying.
+> 
+> rely
+> 
+> Jan
+> 
 
 -- 
 Julien Grall
