@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F9031685D
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 14:54:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83607.155986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 312DC31685E
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 14:54:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83608.155998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9pwT-00080f-Ok; Wed, 10 Feb 2021 13:54:05 +0000
+	id 1l9pwx-00085Y-2F; Wed, 10 Feb 2021 13:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83607.155986; Wed, 10 Feb 2021 13:54:05 +0000
+Received: by outflank-mailman (output) from mailman id 83608.155998; Wed, 10 Feb 2021 13:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9pwT-00080G-LF; Wed, 10 Feb 2021 13:54:05 +0000
-Received: by outflank-mailman (input) for mailman id 83607;
- Wed, 10 Feb 2021 13:54:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=08uA=HM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l9pwS-00080B-Fo
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 13:54:04 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6bc84721-3a5a-4feb-9ee3-b785dbd0bddf;
- Wed, 10 Feb 2021 13:54:03 +0000 (UTC)
+	id 1l9pww-000856-Tu; Wed, 10 Feb 2021 13:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 83608;
+ Wed, 10 Feb 2021 13:54:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jO30=HM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l9pwv-00084y-Gq
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 13:54:33 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d961a3b7-a242-4333-8dcf-34e00102ec04;
+ Wed, 10 Feb 2021 13:54:32 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 482CCACBF;
+ Wed, 10 Feb 2021 13:54:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,64 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bc84721-3a5a-4feb-9ee3-b785dbd0bddf
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612965243;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=RrarCaL9pi9yussd3vp/1m7VSdSMaXQNb/eS0BJptNk=;
-  b=AslQ+jX0vX+fv2+3Sad/o7PfsxQNGgCxmkRcgNxepAdOue4pkOYlyonZ
-   t0LdLLYsp70resbdvgMFC+pWjTlDed0oN/HnBUc6ITSQRb04j5z71AbY1
-   CQyxRC4synSRni8c/AelKOSPjb/MtL3RjpYctzFAGvabvKKE1f4VCsTiT
-   I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: WIxDXhesAKCygVA1AKvENqXn7Mr8GPspEYgnMo9r1Pll+y+sC3SR8XoGCxELy5yI2/HSKJV8CE
- nyhWNwg5gBHDvqxACdBRO3Vp64cTub/Wman/cxULaAgFCzskuh/gWflUNVWgvBAnp07fL/wmF+
- pY+T/yTEvCZ9HXHNaZcmMltSwU3rYfnBVZUnUUXuhUZfkwNSzsnL0XqHJ/qvl8Z74FVCWptZA/
- DYtGqKYlJKdLY0z8cyJiFRsjk3PYSCWLti0ZQzGcRAlOXln8kcB2fqS6PPB/Wxtprt+G9NMgdZ
- lfw=
-X-SBRS: 5.1
-X-MesageID: 37147615
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,168,1610427600"; 
-   d="scan'208";a="37147615"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: [PATCH for-4.15] tools/libxl: Document where the magic MAC numbers come from
-Date: Wed, 10 Feb 2021 13:53:35 +0000
-Message-ID: <20210210135335.29180-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: d961a3b7-a242-4333-8dcf-34e00102ec04
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612965271; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7oRBAvtl+Q8sPQoGsn5VbLvJ8fGKg4gthf78AOEzXqc=;
+	b=nmQYRLnydaDmCXpsHAu8TWA4ondGQKrLbg3m48BMZ9hiFT1pj1ajQPj8twoW9z5/BvaW+K
+	YYetU0ke3RZl5i7g8IQXQV8HyQcNwF+x0xUVvRq/NbJQTNPJIiR0IBOIJyPEoPAagDkAEb
+	V8bVSHNnTzfWltlZizJpDtq4YbuBDUQ=
+Subject: Re: [PATCH] x86emul: fix SYSENTER/SYSCALL switching into 64-bit mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <7ce15e4b-8bf1-0cfd-ca9e-5f6eba12cac1@suse.com>
+ <d66cce4b-6563-4857-30be-5889788ca6c8@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <2eed5630-3e23-3005-245e-989893fc8476@suse.com>
+Date: Wed, 10 Feb 2021 14:54:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <d66cce4b-6563-4857-30be-5889788ca6c8@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Matches the comment in the xl-network-configuration manpage.
+On 10.02.2021 13:28, Andrew Cooper wrote:
+> On 10/02/2021 09:57, Jan Beulich wrote:
+>> When invoked by compat mode, mode_64bit() will be false at the start of
+>> emulation. The logic after complete_insn, however, needs to consider the
+>> mode switched into, in particular to avoid truncating RIP.
+>>
+>> Inspired by / paralleling and extending Linux commit 943dea8af21b ("KVM:
+>> x86: Update emulator context mode if SYSENTER xfers to 64-bit mode").
+>>
+>> While there, tighten a related assertion in x86_emulate_wrapper() - we
+>> want to be sure to not switch into an impossible mode when the code gets
+>> built for 32-bit only (as is possible for the test harness).
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> In principle we could drop SYSENTER's ctxt->lma dependency when setting
+>> _regs.r(ip). I wasn't certain whether leaving it as is serves as kind of
+>> documentation ...
+>>
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -6127,6 +6127,10 @@ x86_emulate(
+>>               (rc = ops->write_segment(x86_seg_ss, &sreg, ctxt)) )
+>>              goto done;
+>>  
+>> +        if ( ctxt->lma )
+>> +            /* In particular mode_64bit() needs to return true from here on. */
+>> +            ctxt->addr_size = ctxt->sp_size = 64;
+> 
+> I think this is fine as presented, but don't we want the logical
+> opposite for SYSRET/SYSEXIT ?
+> 
+> We truncate rip suitably already,
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
----
- tools/libs/light/libxl_nic.c | 1 +
- 1 file changed, 1 insertion(+)
+This is why I left them alone, i.e. ...
 
-diff --git a/tools/libs/light/libxl_nic.c b/tools/libs/light/libxl_nic.c
-index 144e9e23e1..0b45469dca 100644
---- a/tools/libs/light/libxl_nic.c
-+++ b/tools/libs/light/libxl_nic.c
-@@ -73,6 +73,7 @@ static int libxl__device_nic_setdefault(libxl__gc *gc, uint32_t domid,
-         libxl_uuid_generate(&uuid);
-         r = libxl_uuid_bytearray(&uuid);
- 
-+        /* Generate a random MAC address, with Xen's OUI (00:16:3e) */
-         nic->mac[0] = 0x00;
-         nic->mac[1] = 0x16;
-         nic->mac[2] = 0x3e;
--- 
-2.11.0
+> but don't know what other checks may appear in the future.
 
+... I thought we would deal with this if and when such checks
+would appear. Just like considered in the post-description
+remark, we could drop the conditional part from sysexit's
+setting of _regs.r(ip), and _then_ we would indeed need a
+respective change there, for the truncation to happen at
+complete_insn:.
+
+Jan
 
