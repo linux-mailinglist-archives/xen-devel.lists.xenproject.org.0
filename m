@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC5C316745
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 13:59:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83590.155901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1641316776
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 14:07:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83592.155914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9p4Y-00024I-Vm; Wed, 10 Feb 2021 12:58:22 +0000
+	id 1l9pCr-00036I-VK; Wed, 10 Feb 2021 13:06:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83590.155901; Wed, 10 Feb 2021 12:58:22 +0000
+Received: by outflank-mailman (output) from mailman id 83592.155914; Wed, 10 Feb 2021 13:06:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9p4Y-00023t-SQ; Wed, 10 Feb 2021 12:58:22 +0000
-Received: by outflank-mailman (input) for mailman id 83590;
- Wed, 10 Feb 2021 12:58:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l9pCr-00035t-Ry; Wed, 10 Feb 2021 13:06:57 +0000
+Received: by outflank-mailman (input) for mailman id 83592;
+ Wed, 10 Feb 2021 13:06:57 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=08uA=HM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l9p4Y-00023o-AW
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 12:58:22 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fcf6e080-0927-4f31-ac19-9487c25a0af7;
- Wed, 10 Feb 2021 12:58:20 +0000 (UTC)
+ id 1l9pCr-00035o-0q
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 13:06:57 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 21c67e1a-eb4f-4c02-a654-47f971c9ae52;
+ Wed, 10 Feb 2021 13:06:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,148 +36,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcf6e080-0927-4f31-ac19-9487c25a0af7
+X-Inumbo-ID: 21c67e1a-eb4f-4c02-a654-47f971c9ae52
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612961900;
+  d=citrix.com; s=securemail; t=1612962415;
   h=subject:to:cc:references:from:message-id:date:
    in-reply-to:content-transfer-encoding:mime-version;
-  bh=41Vdhg3SptdnpWxAfI6sAP+UXQNkHECufq/USFIug5Q=;
-  b=UgVGDw8hZ/c8fWGKip5D4br0SU+x9t4F6Yqk+KKsCOqBwH/du++esEsY
-   7jiHm8HcFCixQyuazP2GxqE0+ujPz/RQQsvn3LgN59go/oyuDdEfi6ikT
-   ObZFEvpXwGIFDRih+t1Mf90UhTka4gFBERGuOs8Cc1ElyFvrHjxVWm2Xx
-   c=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: mmI2HU8iDsZ+ZDvUYJqnDm7ognZ8bl2KD1kr2C4ujJEcmF7zEgzbdn//fcONBXPRqNjThHnhNp
- 2ZWHUnt2IQaSBt4UnxQi3HOPi/KRtvS2MvirXhcBmu7IHsssTWIk7KN70kV+llON7CbPXH91cL
- E6fp1Op9xdhVx/Fw5hAYesnWQIueCVCIqSRoAg2E484bG6UuVk1Mhks/8QI0UdG7rzpEho4uDZ
- FMnUUqrcaadKyrFMcyfVjPmpsfxpvpAUvNWKu5LCv+kUrdTgm1I5aa1eOQqkkA2iVEKQK3Y3cM
- 8X8=
+  bh=CzeGTnabnmW9jdhhvUNUY2czbocXBYcaisgwRwIZVu4=;
+  b=WIiHpa2ivLOAH1W8LXHEe+bxUt62exiH+MiCCj/xnDGYcnzd6HofzQ5H
+   SdVVLMRhNDWs4LD9MmZj//7GUpQmBYs5HFgGXKzvbXpHQPkPtxP4+2CjK
+   u/JYoPwoXoj0mt7Xq/AhXB+rexGU86jqZ+x+nGe++rak31/mONN0r89KT
+   A=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: WYDf+LBokPn6T9yRJqGgcFXZ0bm8FK96Hf5QRTJL7tkK7wktdhT045h5WVK6u40iP3AAmQomMC
+ 8Ytp/rIJnunVTsaGDFE38bVJWxQO/92MQGtcN95cjHp3Jkn2DSKWXgQ2YLvgE0LMf7Eb9ST/2S
+ Co0QM6ytjOUuD8toatDyk0VxOXjkLGRz8w1vMQxmldPVGITKi4/I9rpPZkOt+Q+ZTG7QbxxIXH
+ qBCiE9pcrGml5geaUUr0PkHvnCs0Kildk1hXp6fEWVPeOAlP7I8C+QI19/PovqWam9f7vtW1hj
+ vnU=
 X-SBRS: 5.2
-X-MesageID: 37321311
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 36889415
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.81,168,1610427600"; 
-   d="scan'208";a="37321311"
+   d="scan'208";a="36889415"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XUxq07yNxR/wdw/4xWZjwxPrXPpgNYI8+aFmZWTKavuF+bySgI7u9Fl23bHbSkzVSumlH/Lzl0/iiFfYFTTOzbvqTGSbcnAJLCRxHJHqL+J0u3VyW61U6CHQ+p8VI47lxU972iVMQCqJP2uAKOQIUlCCT02LLL678BH6gSorfTrfuo0zoW/rKsoeHoD/PBnznxo5d9yVby3v/BWoXbwNc8C0cJ4XyWBmTVUsgaFBYlz8wybPY/2v32iX1GZXKGgoQ3EbmhfwSCM1OUI77W+rkydfzwKUqB+d80GJxT39WsBeppkRNPJyFCnWRz2ffWutT1wYs32kiaZCtKLcqiNJyw==
+ b=hF9tMdzRed9mAUZ4dSYPVTPJdqLTmmcfBr4KuHYA/1IbSNx8TVWBqq4r48/rY2bk+jRDHSu7F2arGOqD1VfaTkyinpWGYVI38giP6Aq11z5phbQ/rMqXjF8bYrAsvQLOuaOX7S5tvBtDDhsbl1rreNhu3HSAYJvu/1URGM6mP+OvUjWh733Edlweidwn8Q5Fgl35CzKsG+BDnVQXe6lnCjAgWgB/rOokTrmilAeaqt7ROjh39ZW6GCUT0cDZj9XsOlOuqmy8j5MoCyJtaLWasAXz5O+Z2deOJahV7Jvj4Cfp4/Km009QwPobHr0Ug56032uh/NIFr2K4l4FwSpG+cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bmLS1XXA8+GOCyTy3cOL5oRSgP2O+b1POeq3ZqBmk+E=;
- b=EESNuh4msTMWI7USWUcpyV2w5CUyM6x36VL4D2946EQe9sSaR6i2V7wYEw/DfopN1YIBXVy5F+zNGaYTl7sbIwKHFawi9NJLbvGIcT1LzKiHT7WoOFN0L3WHjIGYZvqNkxuf+9HWjV3FwfckdqhVdyRhX/tWZFlnJ2ZQrFFOq3ew07ejLgx5NAOeqYvBy3pl7MaBMmv+M5h+hY0rqveWI1/AfXmkEhRa6ZRVoxLNi+aKYnrYWxPrGyBAX3fQAL6ioB2jXiuz55bqmmngG5+HEdzfHPl+zrYubGkaJSfbKDpdyWcNHOFlQKaflAVCRoosC6f0BxE+1qrXndRaV2Ucqg==
+ bh=4I24MA5PNI/EgwkSnWseXrKXGL1J6wOkrf8NckIIML0=;
+ b=WlcG+2ycbGCb0mwuhHyO4GPedLkt8WxzavTluBPvKKjHNz31QoByydACK9QQ8ml/l1PEEassH2cC1OJLQhW38te6VI3WboAXusU3WhsQAASSV1+xztq/3+HJgUmwLxZly62W+op7KyFm0qWr4+bROnN1OclG7OuoG2mqZIhjV/x3T7dwgDDg0ylhqiSnc5TuNCwF6bR7MSEoHusPb4P/JUUMsfsJy4rbeAEUG9nmSYgrWXRkbqiW6xVoySjKYlBTnRCCth9rNl+zSwonVVSq5D7M/uTWpXTJxxoceLsTL8ZD7vZREeruehaFJqJvG8XXH98AzA29yynEj6F5gYImSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bmLS1XXA8+GOCyTy3cOL5oRSgP2O+b1POeq3ZqBmk+E=;
- b=eKxVAhmQrpPR0prr2fze6a9Cuw9i16zv/zTcTcb+fDierKjRuiTWhf3m428H2cCHBRbpRvwrVYtULv+akKWrD0rndnnOKdgSQ7t5b8iuEFpohOjdGCkFyp5WXZhcNfcDGFM+Cf4WZOydt1WmEKEeapXOwjM0MELV9v71yXoOrOI=
-Subject: Re: [PATCH for-4.15] x86/ucode/amd: Fix OoB read in
- cpu_request_microcode()
+ bh=4I24MA5PNI/EgwkSnWseXrKXGL1J6wOkrf8NckIIML0=;
+ b=qpiWKckBtS+/L23XEg4JDOER0eu+oGmMVlfS3A6AF55fcIyXS46MEzVzQIY5V+DxNgto32KG09hisieRI+3EjOXU9Kc5Tc9PBxHIE/tcbHqQZiYBMEJJGvEMuHEh/sVsYo+X4OVsLC0dNO6NVXwiPiBQRzigGh8sFOQopz/MMpA=
+Subject: Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19
+ processors
 To: Jan Beulich <jbeulich@suse.com>
 CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Ian Jackson <iwj@xenproject.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-References: <20210209234019.3827-1-andrew.cooper3@citrix.com>
- <0cb0e48b-68d9-3de1-42e1-9a75ac2795d7@suse.com>
+	<wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
+	<iwj@xenproject.org>
+References: <20210209153336.4016-1-andrew.cooper3@citrix.com>
+ <c09110f7-6459-e1f7-2175-09d535ad03ce@suse.com>
+ <24610.50089.887907.573064@mariner.uk.xensource.com>
+ <6f44ae66-9956-3312-c4c8-b0f1e4b568bb@citrix.com>
+ <a0da7d15-d0a2-62c6-0551-f62a09780e16@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <cb9b52fe-f43b-a45e-2a38-88d422763f5d@citrix.com>
-Date: Wed, 10 Feb 2021 12:58:11 +0000
+Message-ID: <0e5decfb-cfdb-0fc1-73c2-8ee14d750323@citrix.com>
+Date: Wed, 10 Feb 2021 13:06:45 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
-In-Reply-To: <0cb0e48b-68d9-3de1-42e1-9a75ac2795d7@suse.com>
+In-Reply-To: <a0da7d15-d0a2-62c6-0551-f62a09780e16@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0114.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:c::30) To BYAPR03MB3623.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0453.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:e::33) To BYAPR03MB3623.namprd03.prod.outlook.com
  (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 781d03c3-5f07-4453-4b50-08d8cdc38852
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5663:
+X-MS-Office365-Filtering-Correlation-Id: b95160bb-c712-43d0-186c-08d8cdc4bbaa
+X-MS-TrafficTypeDiagnostic: BY5PR03MB5000:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB56637FAA1778EE81F2AFC1C1BA8D9@SJ0PR03MB5663.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <BY5PR03MB50006E8D911803CD2D4379D3BA8D9@BY5PR03MB5000.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RzR830HdkI/du8euD6cVhrF5iC+tHgCJGOEuKMPFRvzCPhezwFTcbsfj9Rkcuz9vPTC45aWjouErmst1lPVfQzfdRwt9UmfmghNM5PdtZVwEqmrQdki55Yfru9Qekl8awGg63iIvfC2TW6Xifvt0PoY6WzMJ3ri+JNbbqEgQiXY/Lz6s4rBKLMDzZNIzBhNQRGLJxJDlXn0rQXlV0hHjYhaGV7/zIvEFP+gEYOrIodzmbRfqvNDwed28o+Mdj3RDR+jQ5vDogn+ueK5nnDPIXT5rneLu0tZHIz4Zk+f3LA3kZnAKYRa4p+NTiBhoSeEYLyWE08nvNTa20+5YZytj8puiIDHE3RQGoyKj2rOqvhzYBpe2Wl+CoAXWuu9x2lFDFdxYgxADqARdj6jtNioac1qj1N78HU8HurVestPimtcHKOPDVKy8Vo9ErMtvf1UtT3hZFe27uJ5L5GkfhHA3GQgg/XfnrT7VDYRaNO/5SGltjlg4qJOEbgWFXlTtw3K/fqiuMvHgOWM7GsRaOPGQ3s68cw1vofOqo30qcBwAcPIij04auoFopQ7QyFaGF8I2kE1tO+BOFcptFMy91Wy5q29VtFnsFKu3H3ePuaXjL34=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(39860400002)(366004)(346002)(376002)(478600001)(83380400001)(5660300002)(66946007)(66556008)(66476007)(54906003)(6916009)(8676002)(6666004)(4326008)(8936002)(16576012)(316002)(31686004)(86362001)(31696002)(36756003)(53546011)(26005)(16526019)(2616005)(2906002)(186003)(956004)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZU0rSE1RSCt6UVRPenBhaktmQkxTRFJucWk2VkZQczhGZUJoNmtFS29yVXl3?=
- =?utf-8?B?YXBmQzBxUmZOOXo5ZVNkTnJTRkdTSUcwUTlGYTZWV1RibkFYN3ZQc0NVSVAy?=
- =?utf-8?B?UXpLY21jelNiWVB5dGJFSk9XWEhEeSs3SndtWTFta2tKUkNUNTJnMER6MWxx?=
- =?utf-8?B?TlJZbWdCeDF2Q3djeU5Ub0ZCTEFqNUFFZjVxNFNPckE0MThFdzJ3LzNtT09U?=
- =?utf-8?B?cEpRVVJ0RDc0bGNKQXhiV0NWc2xEbmtMbGl5aEh6UjVRNFBtWm9iazZDcDdR?=
- =?utf-8?B?VVNWL0lmZEtueTB0WCtXNVBYcWtDb1BBYmFDemNLbVc5RFhZWE9RWjFFT0wy?=
- =?utf-8?B?QVZHbkZNSW9xRjFtWTlWMW9PTUFjL1pSNjBvRFFZVThwSUNwcHZjMGZGN2ZK?=
- =?utf-8?B?SlN4d2xwUXpTSGY1QytxaGFxek04d1JGSUVDYTNGOWVTbklTV3VTTW1DTm56?=
- =?utf-8?B?LzNrTDV2M1VSYUZzZnNBZWZ3QVhuNWZ4Q2Q1THJhS21pK3ZaYldteXVoRnIy?=
- =?utf-8?B?bFBHejBrcS95cVRST0ZFUnNGYVpkM3FhaG1WMm1XQjFhYVdYVDkxbG1FRGp4?=
- =?utf-8?B?UmtzVkZRcXFtdnk5ME5jT2FnSGxvbWtxbGQ0WEZ6RE5hZE9qOVpDajR5dUVU?=
- =?utf-8?B?MXNKUDQ2NkVLSXR5ZGsvZk5laG9pMW9iQldVcG8zNkhFVWxkTFdZSkI5RGQw?=
- =?utf-8?B?dFg3VlRPSTFMNSsvbC9aWUN0TStkZVRheEVBbWhIOHZlbmUwZjdaK09leGV6?=
- =?utf-8?B?MjA0MHNrZ2R1eEE5RVBISE5XZTFjeXlkeDNGeVkyRE0rZDdLbjBnSlI4RVIy?=
- =?utf-8?B?RDFwNlF5a0tkcHRkcFhMckhwTFplZTlLREh2NnFNMVRkZmhzWDdaUmVEUlNT?=
- =?utf-8?B?WVVEN29JMWw5TldLR05WeGp1SWtxUkpHWXB4YW5zK25PV3dXL1lmcnRZMzNO?=
- =?utf-8?B?N2Z1VWFsTk5nUW1ISTdBZ2YrdnBxdE02cHJzc3d1Mm5ySnNMdDg3NFZLbzg1?=
- =?utf-8?B?WFU5eGcvZ0Y4UXFjNk9XMHZuSzhGNk80RFlnZVBQcU40dXUyaWtZekVJNzVT?=
- =?utf-8?B?MUhsaFMwcmY1WjlvbTBQaGpKaHYwckduajVVWkYyVWlYVEFKRTNxMWExTm1R?=
- =?utf-8?B?Ynh3bU9YSEl2RTcweEk3NlJZNnBuL0Zmbm5TTVNvQWpubGE1Zy9xS1dFMUJR?=
- =?utf-8?B?Z1lmZkZEVHQ4c2d0VE9jSzhZVUowRmRSL2lwc2kvdmpld2ZMZXpQOHg3czlh?=
- =?utf-8?B?KzZidGoyNk1UZVh3WUVyYnVWWCtwYWR6OVNSaytRTlJxOEs5WmxMTStCeFVa?=
- =?utf-8?B?OFIveTZZT29nY1J4eUxOUG9icHlOSUEweUhOTGRDK0NCL21Za0Jneno2ZWwv?=
- =?utf-8?B?czA5bTBCRWtQT3QwRHpQQW4ycXVycnVobjFaSEptb0Z0T1llSFEyQURRa1VP?=
- =?utf-8?B?czdtSWlaUkFsci9McmpnUFRrZ3VvTXI4QysvRWVBYkJsaFdjZlh4dlRuY2Vh?=
- =?utf-8?B?TWRsdzN2azh2UzNBL3NnbDh0cHZwOUxvTWR2ZERxc0o2K1NGUnQzR3NzMVFE?=
- =?utf-8?B?MHVUZDZ0VThtOGxmais0ajRmSEhLRmtBcWNGck96WDFXVnh2VmF0ZFhoTnVK?=
- =?utf-8?B?ckRhaWlqanNMM3daNGk4VXRCbnVNcitqc2JDazFIYk05Vy9EYzhFNFJaYW9o?=
- =?utf-8?B?eENGdGV5d08yUGVBYWdMcENLeDYxMjJaVlNiYTRoeDY3S0t4VWdwRkxKWTRo?=
- =?utf-8?Q?VGAiWFAXssZ0vPBjHoNUVzZHnE1CK6Nch5YuJ9j?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 781d03c3-5f07-4453-4b50-08d8cdc38852
+X-Microsoft-Antispam-Message-Info: XtI/2ZRGfjFKnAXLsMIdO1p9lPyFhDJO6QGpMs+4kFZV2GKacpxUaHCPVGKK+UCeZ6KfD7GL3mmtiXSJ1RPUEdUutY4NmpbsmMpneLRGXbajLTqWoeJ0DtXFvSw9gab0k5XfBOs0IFW0YoF3EusNAYH3zE/BbMwuWBSCsYrtDnwlmJdkDwVYLDq0TWfjxLlMJbbA8D9Wactx7cEUq/MTcC4t72KQn3slkXBqZzeIA4zkn3yjeV+biGyu5rptol9iiUzg+yqt4CnqBInybMfZkkoSf5HbgLrGCIb+PLLI8ZuKDOkAr2UEvpPwKXWdMp5CAFS8EoK1U7A8ulKAuwaIdzvE7Q9MMa5s5iHfVvYjdwH6h0Qu8GjMjbopStt1FHzEVYO4/DchEbTED0ylNm+Hhm9IaIN4DupE0iJKfNQkWQyXIPAOaPIBUsa84LCe8819+zQ7d5MdckkLLakMiFdr//3b7w064Rj3NRAQRu/rQEZLpaNf6tiCTpv2v7Yd34JzjW82vfmxDydy30/2AAGhVWHsVZRUY08WSQyTfFJVT276fVExPNnB/qZQiiGrqYs+bQicmzyUHVV/1yFONsLl+UIZGGHQUCpmguuP6C1PSaI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(396003)(366004)(346002)(136003)(376002)(86362001)(36756003)(31686004)(478600001)(66476007)(66556008)(66946007)(83380400001)(31696002)(956004)(2616005)(53546011)(8936002)(16526019)(186003)(8676002)(26005)(16576012)(316002)(2906002)(5660300002)(6916009)(4326008)(6666004)(6486002)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?QSt2RTJ0b3dTampqNmZ5RkF6S0JBTFlDajNjcmtsUERCcGZISmxjNHNXUmdM?=
+ =?utf-8?B?UTlYZkgyS2JUK0xIbUgxMHM5dVI2ekIxaFRwZUxQa1poMTIydXN1ODkxcXZO?=
+ =?utf-8?B?bTNaZXRkUXZ1VHZVNFlIWjc2U255elBBSkY2VDFJTGpmNmxwNlN0VG1YNHpV?=
+ =?utf-8?B?aUpyMFNuejZSRVFCUmh3U24wZFdLMXhQZ2Q1QXdIY01sSFFmYzNFWksvc0JE?=
+ =?utf-8?B?YXdPR1U0SWpCZ2dremZ5YWlsNmdBUUVEN1VRR0FGTVpyRmhUM2YvclJTaHZC?=
+ =?utf-8?B?VmJMQUdSOENaZytkSHZNcTVMRHBHSzhucFdBTG9XM3BKK1lSdUlFd2pCeHVh?=
+ =?utf-8?B?THZBTGQvUW9iRnI2ZGMvcHR6YWhsRWYvTHJWdDNtYU9nS01JV1hHNFVuQU5X?=
+ =?utf-8?B?ODZ6WnNhL0hqQmFXK1NZV28vbmwraVVrMnYyRDVFL0FqYkMrVFJOV25FOGlV?=
+ =?utf-8?B?YllwRFhIczRmSnZmbDB0enc2L242Q3JiTldqblF0TWRQTTRKeWZGejZWQk1x?=
+ =?utf-8?B?OURMZGVndlpQQ3ZNV1REemFNdVVSeEtrTEV2RERqUm9WNWE5Uko1djdMc3Nr?=
+ =?utf-8?B?U0pCdUpWNjdrSXZ0ck9OTTI2SFBpczNPMHdyRTZ5ZnZGZ2JnWkFyVWJOUEg1?=
+ =?utf-8?B?Y2hkTzJHWVc4UHc4OUtQRUtSN3Naby9QbjB6eG1XZlBPTTJBUzlSUUdheFI1?=
+ =?utf-8?B?QlZjL1ZIRjRRcm9zM0M2QlB4Z2NIWkxoNnRpZzQwcTIxZXFFZkdZL0ZWNlpm?=
+ =?utf-8?B?L0dRdnZPTkV2WWU4ZXpEeWlNSUVMaEp0aWhuendiRWJmVTFNMnE3czMyMENx?=
+ =?utf-8?B?NVgzcU1TUDVBL015UzAwRXNQemorTjlDUTZ3MUdzRXl5QjRoUUFMUjJzRCt3?=
+ =?utf-8?B?OFpQc0RKSWpuTzdXaXd4MzBOOCt0eUhIWnk5THVLc2VhandHV1VnQ2hTb0VN?=
+ =?utf-8?B?LzhFYmVFelk3SVc3MkY4akYvcEV2TmFoWmJBS3BvMmZKVGZlcmV4SDJmUERB?=
+ =?utf-8?B?V1EzTnlGSzFWSDh2Tmh0d0RsYXI5M29EM0hBNkJRUGJYdWhlZGR0Y2M1TEp5?=
+ =?utf-8?B?NnRSaS94RVpxWFBrK1lQWU5YcFRlbk82R2ZFYkxYZ3piK0hONE1uSDRkQ0JH?=
+ =?utf-8?B?WDV2Z1VVNmkrcG9MeDVUYnlZdWhWNGtiM3cxTzZIc2V3a0VUTHdzbTU4cEZO?=
+ =?utf-8?B?c1lUZk14RkFPcWVEcUcvOXN2R0xYcW9lb2prYkU1aHYzZzlGMTRLSURvbkxm?=
+ =?utf-8?B?dmI0MHB3VmtUekh4Z1VYYld6bFRUaUUwZEZRS3ZKVXB3VjZqYnNyajI0NDV6?=
+ =?utf-8?B?YU1HYzl3ZE9EemFWeU41YUFwTlI3NU13OE5BMTFwUVFhV0g1dnRjMmZyeTRP?=
+ =?utf-8?B?WUhPQUxuUGhNVnk2TVpYQi9kSW1UakNVUmMzUlNOWko3UkROZ3pKTGJkd2ZV?=
+ =?utf-8?B?NE5OV0Z6L0F5ZkM0ZDRqdUlENUYrS1BzZEJobzliaEplVzBiWHBXZXpmVnNV?=
+ =?utf-8?B?enBTYVNhcGk5MTVKc0dXRmc3RjF5K0ZHRDI5S1VVOVRwSVl6WlFDWktTK0pE?=
+ =?utf-8?B?UTdjdkpud2wvbE8xV0VMTDgwR21qVDZ1NmtlbXZsSCsvRlRyNWtKNWVXUVEw?=
+ =?utf-8?B?b3A5dTZiSWlFa1dKeVF4Sk1ZeFRUZGRzU0VkczlMN05SanRwTlZ6bDM1Nkk4?=
+ =?utf-8?B?cUFXYlhKTGc3RGJrVWxzb0RIYnRhVEJad2l0OHI1RHZmbmpSUTdlWTFYY0JU?=
+ =?utf-8?Q?fGlR28BlQVpxkYxf0awVnNRxvvhixuSwFsogUnh?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: b95160bb-c712-43d0-186c-08d8cdc4bbaa
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 12:58:16.5994
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 13:06:52.1074
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hUxoEpwqLAdSspvJeIsVO6h7eS+FUyQEa3pW5GD1Uwe8RicmqYPGXWj7cP2rbxjbv/Hi+UJ0mOBMLxSC6QUpryPup6DxNclJi9I7MlUKV3Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5663
+X-MS-Exchange-CrossTenant-UserPrincipalName: N5sBHzrilC7q1zaUA/kWFlQkcDopaHD9m/RQmV+zeu90PLwDzzU1R4XuVlAXJGopZPlXWa/cdxkEKT8hinOXND8QHnto9/osaEQKp5vRqwo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5000
 X-OriginatorOrg: citrix.com
 
-On 10/02/2021 11:00, Jan Beulich wrote:
-> On 10.02.2021 00:40, Andrew Cooper wrote:
->> verify_patch_size() is a maximum size check, and doesn't have a minimum bound.
+On 10/02/2021 08:37, Jan Beulich wrote:
+> On 09.02.2021 18:39, Andrew Cooper wrote:
+>> On 09/02/2021 17:17, Ian Jackson wrote:
+>>> Jan Beulich writes ("Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19 processors"):
+>>>> On 09.02.2021 16:33, Andrew Cooper wrote:
+>>>>> The original limit provided wasn't accurate.  Blobs are in fact rather larger.
+>>>>>
+>>>>> Fixes: fe36a173d1 ("x86/amd: Initial support for Fam19h processors")
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>>
+>>>>> --- a/xen/arch/x86/cpu/microcode/amd.c
+>>>>> +++ b/xen/arch/x86/cpu/microcode/amd.c
+>>>>> @@ -111,7 +111,7 @@ static bool verify_patch_size(uint32_t patch_size)
+>>>>>  #define F15H_MPB_MAX_SIZE 4096
+>>>>>  #define F16H_MPB_MAX_SIZE 3458
+>>>>>  #define F17H_MPB_MAX_SIZE 3200
+>>>>> -#define F19H_MPB_MAX_SIZE 4800
+>>>>> +#define F19H_MPB_MAX_SIZE 5568
+>>>> How certain is it that there's not going to be another increase?
+>>>> And in comparison, how bad would it be if we pulled this upper
+>>>> limit to something that's at least slightly less of an "odd"
+>>>> number, e.g. 0x1800, and thus provide some headroom?
+>>> 5568 does seem really an excessively magic number...
+>> It reads better in hex - 0x15c0.  It is exactly the header,
+>> match/patch-ram, and the digital signature of a fixed algorithm.
+> And I realize it's less odd than Fam16's 3458 (0xd82).
+
+This particular value is under investigation.  Firmware packages for
+Fam16's have the blob size at 0xd60.
+
+>> Its far simpler than Intel's format which contains multiple embedded
+>> blobs, and support for minor platform variations within the same blob.
 >>
->> If the microcode container encodes a blob with a length less than 64 bytes,
->> the subsequent calls to microcode_fits()/compare_header() may read off the end
->> of the buffer.
+>> There are a lot of problems with how we do patch verification on AMD
+>> right now, but its all a consequence of the header not containing a
+>> length field.
 >>
->> Fixes: 4de936a38a ("x86/ucode/amd: Rework parsing logic in cpu_request_microcode()")
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> This number wont change now.  Zen3 processors are out in the world.
+> Given history on earlier families, where in some cases sizes
+> also vary by model, how can this fact guarantee anything?
 
-Thanks.
+There is one example where it changed, and it got shorter.  Making it
+larger would involve someone re-laying out the core so more silicon area
+could be used for patch ram space, which is increasingly unlikely with
+newer models in the same family.
 
->
->> --- a/xen/arch/x86/cpu/microcode/amd.c
->> +++ b/xen/arch/x86/cpu/microcode/amd.c
->> @@ -349,6 +349,7 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
->>              if ( size < sizeof(*mc) ||
->>                   (mc = buf)->type != UCODE_UCODE_TYPE ||
->>                   size - sizeof(*mc) < mc->len ||
->> +                 mc->len < sizeof(struct microcode_patch) ||
-> I was inclined to suggest to use <= here, but I guess a blob
-> with 1 byte of data is as bogus as one with 0 bytes of data.
-
-Yeah - its unfortunate.  On the Intel side, we've got a fairly rigorous
-set of sanity checks we can perform on the blob, and on the AMD side we
-appear to have nothing.
-
-This at least prevents our minimal header checks from causing OoB accesses.
+When 4.16 comes, I do have plans to try and make us more robust to
+changes in debug builds, particularly given the lack of suitable
+documentation on the matter.
 
 ~Andrew
 
