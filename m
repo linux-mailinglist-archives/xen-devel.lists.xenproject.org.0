@@ -2,28 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC2A317154
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 21:27:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83710.156491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53393317220
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 22:14:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83722.156533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9w4D-0005df-5x; Wed, 10 Feb 2021 20:26:29 +0000
+	id 1l9wnv-0001pQ-VZ; Wed, 10 Feb 2021 21:13:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83710.156491; Wed, 10 Feb 2021 20:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 83722.156533; Wed, 10 Feb 2021 21:13:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9w4D-0005dG-2o; Wed, 10 Feb 2021 20:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 83710;
- Wed, 10 Feb 2021 20:26:27 +0000
+	id 1l9wnv-0001p1-S7; Wed, 10 Feb 2021 21:13:43 +0000
+Received: by outflank-mailman (input) for mailman id 83722;
+ Wed, 10 Feb 2021 21:13:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=08uA=HM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l9w4B-0005dB-33
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 20:26:27 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=QmaB=HM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l9wnu-0001ow-3Q
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 21:13:42 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 573f853c-e5ed-4250-aa1e-c70901ac5a64;
- Wed, 10 Feb 2021 20:26:25 +0000 (UTC)
+ id 2c6d5d99-315c-4a61-8c32-96f762e94b34;
+ Wed, 10 Feb 2021 21:13:41 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4EDD964E31;
+ Wed, 10 Feb 2021 21:13:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,141 +37,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 573f853c-e5ed-4250-aa1e-c70901ac5a64
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612988785;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=lP5KMHlh5fAjRnXf9xvgb7P9qjltwPFN2giLnMpQCbw=;
-  b=OC9z0nR7V15Erp9mL1qTJQi9XalqszqXrv+D9nCF86kZXBwjDsqyLvZB
-   WdX6gTvsx7kHj9z+AVY+DDfFOc/9S8NyCUnOYTBPEGNgH2Ezr2gW0B8aI
-   Pzk09ZDnrDMACP2pVqyfdZCmoD/HcQUPo/g+2KhMmpPe+GWjJg3c5VVMx
-   U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: DBHDTUI4HcDm5gOJojwfNs+OMAz+pM3QPKtfn1JzQOLz1GRDq18rPAIDhf+G9psVj7oR6g2fSk
- rEYqhOgGRtQIIrD+vgxpfNl2d98/8owlIP0W5nGySjB9+lII8CcVsQuBRADQUctePrwtcWfx7e
- uhM6SpjFBaZvxfPUDkzJUjKWMgjoRucEtN4UR7ZKxBPzjbaQ6b6GNk2tX736pMO9uRsl74C+DO
- Q58u7/PzOmTkjRo6FY5KyH5rXsc5hwat46yUBTLwQIhGmRWCSxvmkujFAy6zfUCvJTtRHLDhO2
- 0j0=
-X-SBRS: 5.2
-X-MesageID: 36989356
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,169,1610427600"; 
-   d="scan'208";a="36989356"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kq0/HGKT94QBvJ2iOKa79Q2jE/5bIjCx2mwd8LkXBCX8zGVEGIip9kz2JR3QkXgkA+3QHuMBuOSP1/MvfR3a2L1yH/TYYg+9mF6QqvED1PL4wWgG0g4grLHlP1qPCZ1YA5Pyg9251I7oJjIVSmcjLXp3HJ3WW2Wkl/jhHblmIsBLAJsyuK6oMzfFT2vqxC9JnMhvfOipUji2ZNXnC98g04dX/jaidnH6IfUPb9918ZcrDF9+2umvkfSi4KRxrh8nnAKajLRxzeKt6UvW2iB/SlHdpF+8FaWwmG1aGScp8YXm40STCirlzlP4aSgVVkxaCfsMaiu2IFwhDmIowAFDTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lP5KMHlh5fAjRnXf9xvgb7P9qjltwPFN2giLnMpQCbw=;
- b=DDrPS0DYHWeKQVBcJKZcKypJ2g/9xLhExpnfZHk4R18SClTxSRyUQxkDLu+5Saa/0AEfkrFGSBj3MoNChgcMeaVUfWE+CrWIlPI3aU94qjC4SFr+5IilP1Foy9LA1d+CQhjo6PBEHAZ/FIUdVJ06gTQFQ9iRZUSs2TNAiiy+gBI64Zqc7npcg18Hp30emjWlnVyygNbnZT36+9XsnxZjwqMcizf6cf9j1NWev+v3glZhhWiyADodu1crJ3Tjwr+Anm1U/79R0ci8kGnSxsLK4Pia03HSRvbxTf+jTpWQ6EADRHJWKj5LurYvydhRuBlcPa1rhBzy3Y2bJfKz+Q8ZyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lP5KMHlh5fAjRnXf9xvgb7P9qjltwPFN2giLnMpQCbw=;
- b=bQKw0JxpQ4mkf4cL+4A3hIE331eyP7Ug9eC7O0ey+PK8darOxT3e70wny3fTkcKpMtsm7r7Is9ok2watHsBprDzCg8glBdvyZhfEqIOttxIofqebrgNZ3PHF2kgu+XRZXRc3/5dTMQetQTnUkl6ZIL5barC/jQl4nJa/XRJeTLM=
-Subject: Re: [PATCH] x86emul: fix SYSENTER/SYSCALL switching into 64-bit mode
-To: Jan Beulich <jbeulich@suse.com>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-References: <7ce15e4b-8bf1-0cfd-ca9e-5f6eba12cac1@suse.com>
- <d66cce4b-6563-4857-30be-5889788ca6c8@citrix.com>
- <2eed5630-3e23-3005-245e-989893fc8476@suse.com>
- <bf31a01e-4a32-5938-c158-38923100355d@citrix.com>
- <77fda392-6f6a-c8b0-f1ea-15b917245f5e@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f69d0f8d-3d13-1bd5-956d-29cf73c9351f@citrix.com>
-Date: Wed, 10 Feb 2021 20:26:04 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-In-Reply-To: <77fda392-6f6a-c8b0-f1ea-15b917245f5e@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0309.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:197::8) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 2c6d5d99-315c-4a61-8c32-96f762e94b34
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1612991620;
+	bh=pidYgsL7yGr1cf0tv9hCO5cPunWAz2rH8WLkJmo7WI8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=MiKBlczchv7ysANd6UObc7XHhD5eF4YH7tmd6ZgVWtJgGaszGOVA51PPZ3YudM4xZ
+	 t5BXMaIPSsw9hMdamWfKZ2NtLIbzMAlD0moi/ZUiI5DzWgTMRrIxVV0ZsKDWkmvPz6
+	 vZQMb1M4IEITaG+8MfDHAlpaFVale0u4yVvvraLtL9pGA10S/fZAV0eej7MPf2JmJ5
+	 PSoz6+YWQo8dRUEZi2WBUhErRlGgQpZKLXXd39Bz9OS5XJurTHEdTheTQpPyYy9pFB
+	 M7gfzzflrbbGS9z217Jp3i3qI31wEhXOLSPSaTA/vJLzkz+kGvTeTpup9O5u1EiCR/
+	 Ob+Njcaf3FFYw==
+Date: Wed, 10 Feb 2021 13:13:39 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rahul Singh <Rahul.Singh@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    "lucmiccio@gmail.com" <lucmiccio@gmail.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping
+In-Reply-To: <EFFD35EA-378B-4C5C-8485-7EA5265E89E4@arm.com>
+Message-ID: <alpine.DEB.2.21.2102101309230.7114@sstabellini-ThinkPad-T480s>
+References: <20210208184932.23468-1-sstabellini@kernel.org> <B96B5E21-0600-4664-899D-D38A18DE7A8C@arm.com> <alpine.DEB.2.21.2102091226560.8948@sstabellini-ThinkPad-T480s> <EFFD35EA-378B-4C5C-8485-7EA5265E89E4@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6f20e2ee-890e-490e-dcbc-08d8ce021ac3
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3559:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB3559EA06AE2A5E8021CF0978BA8D9@BYAPR03MB3559.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kDWLr41+FdoW46dqVMul+bA1uTq1RzvRKk6RG0kPjZK5Nbw8UKg2x68n4Yq7mTCaSyaITuhulazddOzcJWRffOtPa0FN/ZG5t92DqQZT5KpegjiueKZ6V3CNE8bKxgGoCGtdF3SU4c7N0QDbSGvIL6dIqdu8OcQB565lP644Cw6mjFQYFzYdFeWEneYlqGtmA3XawRL/dvNZHrn+zN8tdWNZuAuJQjKG8FqYnxEucKjmh0wDvi7Fr6v+DR4Oh5XGIPXulkHzbpeR0gR0fsMupmA7hZQ4ERt7Fz4YZuJcUXQ+olkDZuhGzpqPAnfM2SXu10UD03+QTCinNNg7ew1sHgCSKm+JLswrEbq6kPTbdieuHzn9ZVQi0tA0WmdujdFviB87BGcJY5gt2/ckYfzWBTMvTZN9cvepZruhnfD7JeoXGCD2leyWzsvASp9XISNuXsnKU/QmbajISo0/Fp65NKKPBA0yYipYgezlo5kKJih2bAthTFjXR5buzyH7p+mv7sA7KDrDteN3sZ6BqJsLeMs8KGDPDhp4/qCoU8Q2/0SW0Lhd5LbpLqsJ09GlT+QS9yRrPj1pVc96ZP7Lt7VhfsxOc2a6HUmWu5HO0j8N4fs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(39860400002)(366004)(136003)(396003)(376002)(53546011)(316002)(16576012)(66946007)(186003)(2906002)(956004)(86362001)(5660300002)(36756003)(2616005)(26005)(6666004)(54906003)(6916009)(6486002)(8676002)(83380400001)(8936002)(4326008)(478600001)(31686004)(66476007)(31696002)(16526019)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RFVpV0szS0U3QW1NTDVadXZXWmxEc1VZK3J0YXVxZkNhM2hJSUdSdU41K01x?=
- =?utf-8?B?WGo3YnUybXRQb1l5bUg5Zk91akV5elJqTWlsam1FY0EvenJmREFrZFkzcy9G?=
- =?utf-8?B?NlVpYk93NTlpUmplaFl0Q3JERHE5czBkYjhuRGw1aDlOL1I5YitldUhmK0JD?=
- =?utf-8?B?RzdsYUM0NmFpcThLSGt3L3hSL01YTlozUGlNWEdXZVFZMk1Ld3I2bjVXOGZ5?=
- =?utf-8?B?aGIzUEhZNmYvODMrSTJjZlllZFZJNFNqM0NnT2xia1VtNEpWNFJsaGF2eXlv?=
- =?utf-8?B?NzlaLzRnY2hqYTFqNHFBcXlOMHNMUXFycHpTTVJXa2hjV2wzRzh4YjRsWnNB?=
- =?utf-8?B?TGc2dzVvUG82OTZubVd4cjB6ZG1UdTVOMEpuU2dIZ3F3Q09IdWFtSG5lNWxs?=
- =?utf-8?B?N0tNQmZ0aTc5eE1FUDZrcmZRVHJMdjBZQ1YrTWkyQnRDVENST2lEemJWMWpl?=
- =?utf-8?B?VzltTlRXNmtHUkhNT2E1Zi8wK3ZpN040ZFlwcXBNRnZzdGk2Y0QvdVVZUGcr?=
- =?utf-8?B?cE9sUDM5Y2sxaDFWOWFjaCtEVzYvRkQ2b1Z5ciszanE5S3NKWkQ2bFA4WmJt?=
- =?utf-8?B?VjZVMnV0VDY3NmRMbUVJdTZDRUlZSjBTMDVYUzNPYUtEamxva1lmNTcxRHhw?=
- =?utf-8?B?OWYweXBtbjVQTWp3SGZQSWxoeHpDS1ZLSmV2TzhIQXE1SG96NHFSOGx1MndZ?=
- =?utf-8?B?NXZ5VVoxUmxzSHppZHljTTN0WDdjU0l5VGhsNGJaaW1Tc0ZPdm5wd0M1d0s0?=
- =?utf-8?B?cGdhbjg5TGl5SDdJWW9weG9DaXZ4OG5FMkdJS0tKNjlUMC9VVWdvM2trcjBC?=
- =?utf-8?B?UWU2NnVVcTBGR0dCaEV3VFljYzFaNkRDLy91OWhKdGw0aDRyQjRUbXFvaHR5?=
- =?utf-8?B?bmZqZG16Zms5dk0zdmlwTjNRTFZCcjZqR0VFMkxyTnZqNVA0My9vY0NORHdj?=
- =?utf-8?B?TE5QT083WDlCUDJnbENjZDQ1YWorUm4ra0V6c1ArKzNyWXY0cS83Q1ltNy91?=
- =?utf-8?B?bzNMNHFDZkE2bGZURXZsSEU5RXRwdjNUWGsrUjJ0Z1BTVVlva2lPZGErVDNB?=
- =?utf-8?B?NkFRNit4TldoWXdDMDVNdDl0L2l3YTdNa0IvS1R5MWhUQlZNeURTOTFnTS9P?=
- =?utf-8?B?N0krOUZUSzAzZ1NPNVJOcTFkZk85Mm1TSHJEN29oYXQwZ2Fzd1Y0MGQzdGFH?=
- =?utf-8?B?M1VrZjYrd0dxZGxLZExzMGhRQ1lzbUl4SzVVS2tGYzNWT3lhMmMrMnU0dERk?=
- =?utf-8?B?MmlaWEdJOEtRVS9Mb1BJRTUxMS9Ga2hHbzVWci95Q2NFWUV5cWVubU1wUGFk?=
- =?utf-8?B?d3daRWJFdVVjR281THd0Y3VWVHU5Rm4xL0JPVSs3RnVmQmNtZGlJS2lhTE9X?=
- =?utf-8?B?c0JIZm1ZSzRKbGl5OTA3d2JORFdkcE9Dc1J0REluUUNIbWw5N0J1eGorUXdn?=
- =?utf-8?B?bkFvM1o4b2xReG9ESUorNDZCUlh5Z3g3SmNac1RoYnhObklzdjRuZTI0VURZ?=
- =?utf-8?B?a1lJSUY0dkZTMkxDbDdEZkF2T2tPQlZXSGM4b0wvbUljaHpCS2xOaTlVa3Zy?=
- =?utf-8?B?T3pZRExWY3NFb0VsVElUc3A4Uzc1NVlmTEw3V240bTZ5Y1ZnM2FJUmthaGVQ?=
- =?utf-8?B?T2xwbHZ0TUNVWEF6enZOK3JaYktiSTdxc3N0LzZtWDc1QzRVL0l4dWtNYkV2?=
- =?utf-8?B?T3BUUHVPSmVIaWxUcHZpL0lhZHJsSXNGU0d0LzNPbmFCTDNjeFF5Y09OYkRx?=
- =?utf-8?Q?o1xYs+Iqcq6TgyTVg1chgwkKV57UZOikVVsx1oO?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f20e2ee-890e-490e-dcbc-08d8ce021ac3
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 20:26:11.0293
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /K92dgqUoaLSYHVxAnMe0/l8m02hKQlGfZsK6KVrcMwyACNYPSJJZqlGN8iM8tNHQ6V2TGLAhdGfQ+ZxM53c0q5Yx0IUubPkUdGGW2wnvvs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3559
-X-OriginatorOrg: citrix.com
+Content-Type: multipart/mixed; boundary="8323329-397500670-1612991620=:7114"
 
-On 10/02/2021 14:18, Jan Beulich wrote:
-> On 10.02.2021 15:02, Andrew Cooper wrote:
->> On 10/02/2021 13:54, Jan Beulich wrote:
->>> Just like considered in the post-description
->>> remark, we could drop the conditional part from sysexit's
->>> setting of _regs.r(ip), and _then_ we would indeed need a
->>> respective change there, for the truncation to happen at
->>> complete_insn:.
->> I think it would look odd changing just rip and not rsp truncation.
-> Yes, this was another consideration of mine as well. But it
-> is a fact that we treat rip and rsp differently in this
-> regard. Perhaps generated code overall could benefit from
-> treating rsp more like rip, but this would need careful
-> looking at all the involved pieces - especially in cases
-> where the updated stack pointer gets further used we may
-> not be able to defer the truncation to complete_insn:.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-There are other differences.  rip gets updated on every instruction,
-while rsp does not.  We also have instructions with (possibly multiple)
-rsp-relative memory references which need truncating individually to get
-proper behaviour.
+--8323329-397500670-1612991620=:7114
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-~Andrew
+On Wed, 10 Feb 2021, Rahul Singh wrote:
+> > On 9 Feb 2021, at 8:36 pm, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > On Tue, 9 Feb 2021, Rahul Singh wrote:
+> >>> On 8 Feb 2021, at 6:49 pm, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >>> 
+> >>> Commit 91d4eca7add broke gnttab_need_iommu_mapping on ARM.
+> >>> The offending chunk is:
+> >>> 
+> >>> #define gnttab_need_iommu_mapping(d)                    \
+> >>> -    (is_domain_direct_mapped(d) && need_iommu(d))
+> >>> +    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
+> >>> 
+> >>> On ARM we need gnttab_need_iommu_mapping to be true for dom0 when it is
+> >>> directly mapped and IOMMU is enabled for the domain, like the old check
+> >>> did, but the new check is always false.
+> >>> 
+> >>> In fact, need_iommu_pt_sync is defined as dom_iommu(d)->need_sync and
+> >>> need_sync is set as:
+> >>> 
+> >>>   if ( !is_hardware_domain(d) || iommu_hwdom_strict )
+> >>>       hd->need_sync = !iommu_use_hap_pt(d);
+> >>> 
+> >>> iommu_use_hap_pt(d) means that the page-table used by the IOMMU is the
+> >>> P2M. It is true on ARM. need_sync means that you have a separate IOMMU
+> >>> page-table and it needs to be updated for every change. need_sync is set
+> >>> to false on ARM. Hence, gnttab_need_iommu_mapping(d) is false too,
+> >>> which is wrong.
+> >>> 
+> >>> As a consequence, when using PV network from a domU on a system where
+> >>> IOMMU is on from Dom0, I get:
+> >>> 
+> >>> (XEN) smmu: /smmu@fd800000: Unhandled context fault: fsr=0x402, iova=0x8424cb148, fsynr=0xb0001, cb=0
+> >>> [   68.290307] macb ff0e0000.ethernet eth0: DMA bus error: HRESP not OK
+> >>> 
+> >>> The fix is to go back to something along the lines of the old
+> >>> implementation of gnttab_need_iommu_mapping.
+> >>> 
+> >>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> >>> Fixes: 91d4eca7add
+> >>> Backport: 4.12+
+> >>> 
+> >>> ---
+> >>> 
+> >>> Given the severity of the bug, I would like to request this patch to be
+> >>> backported to 4.12 too, even if 4.12 is security-fixes only since Oct
+> >>> 2020.
+> >>> 
+> >>> For the 4.12 backport, we can use iommu_enabled() instead of
+> >>> is_iommu_enabled() in the implementation of gnttab_need_iommu_mapping.
+> >>> 
+> >>> Changes in v2:
+> >>> - improve commit message
+> >>> - add is_iommu_enabled(d) to the check
+> >>> ---
+> >>> xen/include/asm-arm/grant_table.h | 2 +-
+> >>> 1 file changed, 1 insertion(+), 1 deletion(-)
+> >>> 
+> >>> diff --git a/xen/include/asm-arm/grant_table.h b/xen/include/asm-arm/grant_table.h
+> >>> index 6f585b1538..0ce77f9a1c 100644
+> >>> --- a/xen/include/asm-arm/grant_table.h
+> >>> +++ b/xen/include/asm-arm/grant_table.h
+> >>> @@ -89,7 +89,7 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+> >>>    (((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
+> >>> 
+> >>> #define gnttab_need_iommu_mapping(d)                    \
+> >>> -    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
+> >>> +    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+> >>> 
+> >>> #endif /* __ASM_GRANT_TABLE_H__ */
+> >> 
+> >> I tested the patch and while creating the guest I observed the below warning from Linux for block device.
+> >> https://elixir.bootlin.com/linux/v4.3/source/drivers/block/xen-blkback/xenbus.c#L258
+> > 
+> > So you are creating a guest with "xl create" in dom0 and you see the
+> > warnings below printed by the Dom0 kernel? I imagine the domU has a
+> > virtual "disk" of some sort.
+> 
+> Yes you are right I am trying to create the guest with "xl create” and before that, I created the logical volume and trying to attach the logical volume
+> block to the domain with “xl block-attach”. I observed this error with the "xl block-attach” command.
+> 
+> This issue occurs after applying this patch as what I observed this patch introduce the calls to iommu_legacy_{, un}map() to map the grant pages for
+> IOMMU that touches the page-tables. I am not sure but what I observed is that something is written wrong when iomm_unmap calls unmap the pages
+> because of that issue is observed.
+> 
+> You can reproduce the issue by just creating the dummy image file and try to attach it with “xl block-attach”
+> 
+> dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024
+> xl block-attach 0 phy:test.img xvda w
+> 
+> Sequence of command that I follow is as follows to reproduce the issue:  
+> 
+> lvs vg-xen/myguest
+> lvcreate -y -L 4G -n myguest vg-xen
+> parted -s /dev/vg-xen/myguest mklabel msdos
+> parted -s /dev/vg-xen/myguest unit MB mkpart primary 1 4096
+> sync
+> xl block-attach 0 phy:/dev/vg-xen/myguest xvda w
+
+Ah! You are block-attaching a device in dom0 to dom0! So frontend and
+backend are both in the same domain, dom0. Yeah that is not supposed to
+work, and if it did before it was just by coincidence :-)
+
+There are a number of checks in Linux that wouldn't work as intended if
+the page is coming from itself. This is not an ARM-only issue either.
+
+I tried it with dom0, like you did, and I am seeing the same warning. I
+did try to do block-attach to a domU and it works fine.
+
+I don't think this is a concern.
+--8323329-397500670-1612991620=:7114--
 
