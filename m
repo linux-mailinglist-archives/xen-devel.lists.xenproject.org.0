@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BACA13162FD
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 10:57:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83513.155615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F40C631646D
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 11:57:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83515.155626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9mFj-00009I-L5; Wed, 10 Feb 2021 09:57:43 +0000
+	id 1l9nA5-0005bx-Mx; Wed, 10 Feb 2021 10:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83513.155615; Wed, 10 Feb 2021 09:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 83515.155626; Wed, 10 Feb 2021 10:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9mFj-00008t-HY; Wed, 10 Feb 2021 09:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 83513;
- Wed, 10 Feb 2021 09:57:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l9nA5-0005bY-Jw; Wed, 10 Feb 2021 10:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 83515;
+ Wed, 10 Feb 2021 10:55:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jO30=HM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l9mFi-00008o-LX
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 09:57:42 +0000
+ id 1l9nA4-0005bT-LY
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 10:55:56 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e29b3b47-3708-4922-a3a9-94abd4aa0967;
- Wed, 10 Feb 2021 09:57:40 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d3c4871c-146c-4887-be25-b11a40a2fbe6;
+ Wed, 10 Feb 2021 10:55:55 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 76DBEB138;
- Wed, 10 Feb 2021 09:57:39 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 6C203AD29;
+ Wed, 10 Feb 2021 10:55:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,82 +38,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e29b3b47-3708-4922-a3a9-94abd4aa0967
+X-Inumbo-ID: d3c4871c-146c-4887-be25-b11a40a2fbe6
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612951060; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1612954554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=qquZIWRI0HVUHWPa6REcgtkd8siTn2WKZs0cNZYkmOc=;
-	b=QzD3QTcmLhvQF32yzs4uP8b+tEsPU08Q2UeZj4M5qg3L68flLVd3heQ7N2bYfg7UNSVp6x
-	ItkKyzjrBmo3ydfZmY2ktRCor5Xg3/o/rx3iDzQq+UZwWhXokLsCejfJJMxia7j8Va80qH
-	nzqN4TelAba99nv1lsHCW6saxTmR144=
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pJlrZxV5uLKWdS54+s0REJOsOKX7+hJYzquZXRubllI=;
+	b=Hy+R/SqvMSf9zxjrNKxVldv9DFrpKUqkc0WP3sVXgOfYA86jtyVhd7tCTIrQQzK7VYI4DW
+	qUZWxJHxIORUPNZwYp1uX5LB+a51QmmnjLnto/ZbtiA1Bb0mTT1OQTZOUTnsCbaO51PzWJ
+	uq8W8YQNUxiDa1pLYXAFSZyddFIY6Y0=
+Subject: Re: [PATCH for-4.15] x86/ucode/amd: Handle length sanity check
+ failures more gracefully
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210209214911.18461-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: fix SYSENTER/SYSCALL switching into 64-bit mode
-Message-ID: <7ce15e4b-8bf1-0cfd-ca9e-5f6eba12cac1@suse.com>
-Date: Wed, 10 Feb 2021 10:57:38 +0100
+Message-ID: <87d6982a-00d9-3daa-ebd7-9afb8ee60126@suse.com>
+Date: Wed, 10 Feb 2021 11:55:54 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
+In-Reply-To: <20210209214911.18461-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-When invoked by compat mode, mode_64bit() will be false at the start of
-emulation. The logic after complete_insn, however, needs to consider the
-mode switched into, in particular to avoid truncating RIP.
+On 09.02.2021 22:49, Andrew Cooper wrote:
+> Currently, a failure of verify_patch_size() causes an early abort of the
+> microcode blob loop, which in turn causes a second go around the main
+> container loop, ultimately failing the UCODE_MAGIC check.
+> 
+> First, check for errors after the blob loop.  An error here is unrecoverable,
+> so avoid going around the container loop again and printing an
+> unhelpful-at-best error concerning bad UCODE_MAGIC.
+> 
+> Second, split the verify_patch_size() check out of the microcode blob header
+> check.  In the case that the sanity check fails, we can still use the
+> known-to-be-plausible header length to continue walking the container to
+> potentially find other applicable microcode blobs.
 
-Inspired by / paralleling and extending Linux commit 943dea8af21b ("KVM:
-x86: Update emulator context mode if SYSENTER xfers to 64-bit mode").
+Since the code comment you add further clarifies this, if my
+understanding here is correct that you don't think we should
+mistrust the entire container in such a case ...
 
-While there, tighten a related assertion in x86_emulate_wrapper() - we
-want to be sure to not switch into an impossible mode when the code gets
-built for 32-bit only (as is possible for the test harness).
+> Before:
+>   (XEN) microcode: Bad microcode data
+>   (XEN) microcode: Wrong microcode patch file magic
+>   (XEN) Parsing microcode blob error -22
+> 
+> After:
+>   (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa000
+>   (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa010
+>   (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa011
+>   (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa200
+>   (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa210
+>   (XEN) microcode: Bad microcode length 0x000015c0 for cpu 0xa500
+>   (XEN) microcode: couldn't find any matching ucode in the provided blob!
+> 
+> Fixes: 4de936a38a ("x86/ucode/amd: Rework parsing logic in cpu_request_microcode()")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-In principle we could drop SYSENTER's ctxt->lma dependency when setting
-_regs.r(ip). I wasn't certain whether leaving it as is serves as kind of
-documentation ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -6127,6 +6127,10 @@ x86_emulate(
-              (rc = ops->write_segment(x86_seg_ss, &sreg, ctxt)) )
-             goto done;
- 
-+        if ( ctxt->lma )
-+            /* In particular mode_64bit() needs to return true from here on. */
-+            ctxt->addr_size = ctxt->sp_size = 64;
-+
-         /*
-          * SYSCALL (unlike most instructions) evaluates its singlestep action
-          * based on the resulting EFLAGS.TF, not the starting EFLAGS.TF.
-@@ -6927,6 +6931,10 @@ x86_emulate(
-                                       ctxt)) != X86EMUL_OKAY )
-             goto done;
- 
-+        if ( ctxt->lma )
-+            /* In particular mode_64bit() needs to return true from here on. */
-+            ctxt->addr_size = ctxt->sp_size = 64;
-+
-         singlestep = _regs.eflags & X86_EFLAGS_TF;
-         break;
- 
-@@ -12113,8 +12121,12 @@ int x86_emulate_wrapper(
-     unsigned long orig_ip = ctxt->regs->r(ip);
-     int rc;
- 
-+#ifdef __x86_64__
-     if ( mode_64bit() )
-         ASSERT(ctxt->lma);
-+#else
-+    ASSERT(!ctxt->lma && !mode_64bit());
-+#endif
- 
-     rc = x86_emulate(ctxt, ops);
- 
+After all we're trying to balance between detecting broken
+containers and having wrong constants ourselves. Personally
+I'd be more inclined to err on the safe side and avoid
+further loading attempts, but I can see the alternative
+perspective also being a reasonable one.
+
+Jan
 
