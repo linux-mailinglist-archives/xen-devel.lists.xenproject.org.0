@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41957315C63
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 02:37:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83467.155433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E58C315CC0
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 03:00:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83473.155447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9eRd-0003nN-Ib; Wed, 10 Feb 2021 01:37:29 +0000
+	id 1l9enI-0005mw-E0; Wed, 10 Feb 2021 01:59:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83467.155433; Wed, 10 Feb 2021 01:37:29 +0000
+Received: by outflank-mailman (output) from mailman id 83473.155447; Wed, 10 Feb 2021 01:59:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9eRd-0003mu-Cr; Wed, 10 Feb 2021 01:37:29 +0000
-Received: by outflank-mailman (input) for mailman id 83467;
- Wed, 10 Feb 2021 01:37:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l9enI-0005mX-Ay; Wed, 10 Feb 2021 01:59:52 +0000
+Received: by outflank-mailman (input) for mailman id 83473;
+ Wed, 10 Feb 2021 01:59:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eRc-0003mm-Fu; Wed, 10 Feb 2021 01:37:28 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eRc-0005N3-7X; Wed, 10 Feb 2021 01:37:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eRb-0007Jc-Up; Wed, 10 Feb 2021 01:37:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eRb-0006cJ-Sf; Wed, 10 Feb 2021 01:37:27 +0000
+ (envelope-from <SRS0=r83b=HM=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1l9enG-0005mS-E5
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 01:59:50 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e47361b2-458a-4ba9-b835-6ec227bf5d8f;
+ Wed, 10 Feb 2021 01:59:49 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 11A1xXAD076972
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 9 Feb 2021 20:59:38 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 11A1xWSQ076971;
+ Tue, 9 Feb 2021 17:59:32 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +42,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ZsOD2ydt41QQYAV3r8GcSMqhK/seP8b+cq1y8jxtQT0=; b=meJArIjj5kDB85FC39r3xDxiea
-	0zVa1e0iVFRcuw9yPNj2I8Jk9/+UDa5QwG2X2MmXXvuQ9NXonGoSO6vvy1HIRsjtvBLKNGm3vxmRm
-	UPg3P+ElxW9ig2PGQN0uHTOwCPilbBslMiR5yIU9nnUXwiXhlsXpj/9AGjr8apo29V5Y=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159191-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e47361b2-458a-4ba9-b835-6ec227bf5d8f
+Date: Tue, 9 Feb 2021 17:59:32 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, Volodymyr_Babchuk@epam.com,
+        Stefano Stabellini <stefano.stabellini@xilinx.com>,
+        Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Subject: Re: [PATCH v2] xen: workaround missing device_type property in
+ pci/pcie nodes
+Message-ID: <YCM+BBvcMoloMXeT@mattapan.m5p.com>
+References: <20210209195334.21206-1-sstabellini@kernel.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159191: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=687121f8a0e7c1ea1c4fa3d056637e5819342f14
-X-Osstest-Versions-That:
-    xen=f18309eb06efd1db5a2ab9903a1c246b6299951a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 10 Feb 2021 01:37:27 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210209195334.21206-1-sstabellini@kernel.org>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-flight 159191 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159191/
+On Tue, Feb 09, 2021 at 11:53:34AM -0800, Stefano Stabellini wrote:
+> This fixes Xen boot on RPi4. Some RPi4 kernels have the following node
+> on their device trees:
 
-Failures :-/ but no regressions.
+IMO I like keeping the reference to Linux kernel d1ac0002dd29 in the
+commit message.  The commit is distinctly informative and takes some
+searching to find in the thread archive.  This though is merely /my/
+opinion.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Two builds later to ensure I've got a build which doesn't work due to the
+problematic device-tree and one with the patch to ensure it does fix the
+issue and:
 
-version targeted for testing:
- xen                  687121f8a0e7c1ea1c4fa3d056637e5819342f14
-baseline version:
- xen                  f18309eb06efd1db5a2ab9903a1c246b6299951a
-
-Last test of basis   159146  2021-02-08 19:00:27 Z    1 days
-Testing same since   159184  2021-02-09 18:01:28 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Olaf Hering <olaf@aepfle.de>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Note to Jukka Kaartinen, people who merely build from source are useful
+for confirming proposed fixes work.  The above line gets added to commit
+messages to note people have tried it and it works for them.
 
 
-Pushing revision :
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   f18309eb06..687121f8a0  687121f8a0e7c1ea1c4fa3d056637e5819342f14 -> smoke
+
 
