@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB8F2316121
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 09:37:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83491.155516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B8C131617E
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 09:50:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83495.155528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9kzy-0000bn-R0; Wed, 10 Feb 2021 08:37:22 +0000
+	id 1l9lCb-0002NL-0i; Wed, 10 Feb 2021 08:50:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83491.155516; Wed, 10 Feb 2021 08:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 83495.155528; Wed, 10 Feb 2021 08:50:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9kzy-0000bO-Nd; Wed, 10 Feb 2021 08:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 83491;
- Wed, 10 Feb 2021 08:37:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l9lCa-0002Mw-Tb; Wed, 10 Feb 2021 08:50:24 +0000
+Received: by outflank-mailman (input) for mailman id 83495;
+ Wed, 10 Feb 2021 08:50:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jO30=HM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l9kzx-0000bJ-O3
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 08:37:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 13318f3e-d536-47bb-9605-87b57fcd3774;
- Wed, 10 Feb 2021 08:37:20 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AAC53AB71;
- Wed, 10 Feb 2021 08:37:19 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1l9lCZ-0002Mr-Ph
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 08:50:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l9lCX-0005KQ-7C; Wed, 10 Feb 2021 08:50:21 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l9lCW-0006aS-VO; Wed, 10 Feb 2021 08:50:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +39,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13318f3e-d536-47bb-9605-87b57fcd3774
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612946239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AcDjXdURlVn6QUZXRLyz4HTGC4SkraH3h0dv/G8ZZVs=;
-	b=ZFYBlzOi8VsYv9fCLOo1gdelGPFvD9JZDHvyJnrW0Vu04IHTE22jc9GgmyfyrjNLdz8DLd
-	HXHeRNVCrUagFGeT0HM5Ke5vtzs2jusBY9yIfzoMs2c/1Yr/VHCnOp5XTQUBR2NeRjTFfh
-	5eSqHtwmz5Mo0sOt11yEIlL5HGApKHM=
-Subject: Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19
- processors
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>
-References: <20210209153336.4016-1-andrew.cooper3@citrix.com>
- <c09110f7-6459-e1f7-2175-09d535ad03ce@suse.com>
- <24610.50089.887907.573064@mariner.uk.xensource.com>
- <6f44ae66-9956-3312-c4c8-b0f1e4b568bb@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a0da7d15-d0a2-62c6-0551-f62a09780e16@suse.com>
-Date: Wed, 10 Feb 2021 09:37:15 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=EJC1p+lr5039VDZDISnYId5De2QGLYOJDSMvjJC1rLc=; b=khxuRFrec3yiFQjSlYOsYDX+Lt
+	QxkCY4adtQiCPY21A4DynA4UqtMZOqg+HSCCPxJ94BcZqTLuZv3fOwEAdP84wXw57RvwZoRIWXuiq
+	Y/9B2wkbD7BBiG/QIOyPSzkb49hM3iJeKlR8q5yp4cSLUIDGj6+eaIScBwcCd+RKjymc=;
+Subject: Re: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special
+ pages in the IOMMU page-tables
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, hongyxia@amazon.co.uk,
+ iwj@xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>
+References: <20210209152816.15792-1-julien@xen.org>
+ <20210209152816.15792-2-julien@xen.org> <YCOZbNly7YCSNtHY@Air-de-Roger>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0910de32-8af9-6c21-b17a-b569aa59c4a4@xen.org>
+Date: Wed, 10 Feb 2021 08:50:17 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <6f44ae66-9956-3312-c4c8-b0f1e4b568bb@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <YCOZbNly7YCSNtHY@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-On 09.02.2021 18:39, Andrew Cooper wrote:
-> On 09/02/2021 17:17, Ian Jackson wrote:
->> Jan Beulich writes ("Re: [PATCH for-4.15] x86/ucode: Fix microcode payload size for Fam19 processors"):
->>> On 09.02.2021 16:33, Andrew Cooper wrote:
->>>> The original limit provided wasn't accurate.  Blobs are in fact rather larger.
->>>>
->>>> Fixes: fe36a173d1 ("x86/amd: Initial support for Fam19h processors")
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>
->>>> --- a/xen/arch/x86/cpu/microcode/amd.c
->>>> +++ b/xen/arch/x86/cpu/microcode/amd.c
->>>> @@ -111,7 +111,7 @@ static bool verify_patch_size(uint32_t patch_size)
->>>>  #define F15H_MPB_MAX_SIZE 4096
->>>>  #define F16H_MPB_MAX_SIZE 3458
->>>>  #define F17H_MPB_MAX_SIZE 3200
->>>> -#define F19H_MPB_MAX_SIZE 4800
->>>> +#define F19H_MPB_MAX_SIZE 5568
->>> How certain is it that there's not going to be another increase?
->>> And in comparison, how bad would it be if we pulled this upper
->>> limit to something that's at least slightly less of an "odd"
->>> number, e.g. 0x1800, and thus provide some headroom?
->> 5568 does seem really an excessively magic number...
+Hi Roger,
+
+On 10/02/2021 08:29, Roger Pau Monné wrote:
+> On Tue, Feb 09, 2021 at 03:28:12PM +0000, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> Currently, the IOMMU page-tables will be populated early in the domain
+>> creation if the hardware is able to virtualize the local APIC. However,
+>> the IOMMU page tables will not be freed during early failure and will
+>> result to a leak.
+>>
+>> An assigned device should not need to DMA into the vLAPIC page, so we
+>> can avoid to map the page in the IOMMU page-tables.
+>>
+>> This statement is also true for any special pages (the vLAPIC page is
+>> one of them). So to take the opportunity to prevent the mapping for all
+>> of them.
 > 
-> It reads better in hex - 0x15c0.  It is exactly the header,
-> match/patch-ram, and the digital signature of a fixed algorithm.
+> Hm, OK, while I assume it's likely for special pages to not be target
+> of DMA operations, it's not easy to spot what are special pages.
 
-And I realize it's less odd than Fam16's 3458 (0xd82).
+Special pages are allocated by Xen for grant-table, vCPU info...
 
-> Its far simpler than Intel's format which contains multiple embedded
-> blobs, and support for minor platform variations within the same blob.
 > 
-> There are a lot of problems with how we do patch verification on AMD
-> right now, but its all a consequence of the header not containing a
-> length field.
+>> Note that:
+>>      - This is matching the existing behavior with PV guest
 > 
-> This number wont change now.  Zen3 processors are out in the world.
+> You might make HVM guests not sharing page-tables 'match' PV
+> behavior, but you are making behavior between HVM guests themselves
+> diverge.
+> 
+> 
+>>      - This doesn't change the behavior when the P2M is shared with the
+>>      IOMMU. IOW, the special pages will still be accessibled by the
+>>      device.
+> 
+> I have to admit I don't like this part at all. Having diverging device
+> mappings depending on whether the page tables are shared or not is
+> bad IMO, as there might be subtle bugs affecting one of the two
+> modes.
+> 
+> I get the feeling this is just papering over an existing issue instead
+> of actually fixing it: IOMMU page tables need to be properly freed
+> during early failure.
 
-Given history on earlier families, where in some cases sizes
-also vary by model, how can this fact guarantee anything?
+My initial approach was to free the IOMMU page tables during early 
+failure (see [1] and [2]). But Jan said the special pages should really 
+not be mapped in the IOMMU ([3]) and he wasn't very happy with freeing 
+the IOMMU pages table for early failure.
 
-Jan
+I don't particularly care about the approach as long as we don't leak 
+IOMMU page-tables at the end.
+
+So please try to find a common ground with Jan here.
+
+Cheers,
+
+[1] <20201222154338.9459-1-julien@xen.org>
+[2] <20201222154338.9459-5-julien@xen.org>
+
+-- 
+Julien Grall
 
