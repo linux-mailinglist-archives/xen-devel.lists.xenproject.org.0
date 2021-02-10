@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57CA0317285
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 22:40:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83730.156569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E41433174AA
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Feb 2021 00:47:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83738.156596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9xE9-0004iW-Kc; Wed, 10 Feb 2021 21:40:49 +0000
+	id 1l9zBh-0007FD-37; Wed, 10 Feb 2021 23:46:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83730.156569; Wed, 10 Feb 2021 21:40:49 +0000
+Received: by outflank-mailman (output) from mailman id 83738.156596; Wed, 10 Feb 2021 23:46:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9xE9-0004i0-Fm; Wed, 10 Feb 2021 21:40:49 +0000
-Received: by outflank-mailman (input) for mailman id 83730;
- Wed, 10 Feb 2021 21:40:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9xE8-0004hp-CA; Wed, 10 Feb 2021 21:40:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9xE8-0002Ft-5c; Wed, 10 Feb 2021 21:40:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9xE7-00040n-VY; Wed, 10 Feb 2021 21:40:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l9xE7-0006Up-V2; Wed, 10 Feb 2021 21:40:47 +0000
+	id 1l9zBg-0007Eo-W9; Wed, 10 Feb 2021 23:46:24 +0000
+Received: by outflank-mailman (input) for mailman id 83738;
+ Wed, 10 Feb 2021 23:46:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LpDB=HM=chromium.org=keescook@srs-us1.protection.inumbo.net>)
+ id 1l9zBf-0007Ej-5D
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 23:46:23 +0000
+Received: from mail-pg1-x52d.google.com (unknown [2607:f8b0:4864:20::52d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3fff3cd9-f03e-4e37-a6ca-e13748a058c7;
+ Wed, 10 Feb 2021 23:46:22 +0000 (UTC)
+Received: by mail-pg1-x52d.google.com with SMTP id o38so2337969pgm.9
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Feb 2021 15:46:22 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id o4sm3039796pjs.57.2021.02.10.15.46.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Feb 2021 15:46:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,93 +41,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=x+sZkmWY85M3h03TUjhmPav9SzmcWj0kqwTVvDbMEwc=; b=rDBJpdScMbaE7P4QYRyoe+wNZT
-	sLzug1rAJoBOUW8VS4USMFAl04IOlhsqsFYAL2tgbacCNg7m30YHuP79UnRHiHOHGqq9sT3rTgrh4
-	zKV/rw83nF3ZRydn2kL35pIlLmnJjKKFUp6YXj5Lwm8YzibM9FhHHwp51DqbhuAx1uCs=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159220-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3fff3cd9-f03e-4e37-a6ca-e13748a058c7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=GxK3PI7vDPZB0gE5y+t0L6ekPC7epRKuLKN0gHcGI0k=;
+        b=d3G7HKaV8TmLFxjZgmM1jOP6UW61nVg63mfethWVl7OVzgYXa4v/IGP6MBs7csssdM
+         FzxOodhdMQjKziKVV5tXS3iah1TBI8bkHNvTqVAvxSVSAO9MlvRZ1ecRZNnnZjC+Ts+I
+         Wn3ra5BRnmBNAwHijpb1eHcIh9e9+dERbWg+8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=GxK3PI7vDPZB0gE5y+t0L6ekPC7epRKuLKN0gHcGI0k=;
+        b=UMJFfXi+PL9U7g3opkMnzzlO7ViG9LZQY6fFcBaBIZfAXGpl+7pbVObcGRhG9amhCa
+         y485j6RtsKYfLN/V6IxnmmmgEMUu1ks0hK3ShFCXpC2+9yt6m4HJku7MfBOIwlzSwzfC
+         n2kFeQqCDgf21sQ8Tto/9LP+zpXeZGoH4teuVG8I4cFJZ2F8t6zvZ1pPJDgWutqvNBsI
+         HGQPDoR4Fn56PSE+1cuN8AlHtUIDd78LMBdWi65CoYoL2rzK9A4jUPfMXRXZFLPEWiDW
+         IGai98YDX8P2rrmeqrFXhRcesHM696tfIfmSBGB3Y6l9AEa/TRYXv5Jw0//HETHejZ6F
+         Lg7g==
+X-Gm-Message-State: AOAM531Bmy/CRoSbqoos9z/Pj2MlDciJM+XXyt1ZqXaiWZuZs2RuiMl9
+	ezm7CRCYW8IbPIHltFth9qNpiQ==
+X-Google-Smtp-Source: ABdhPJwqbO8wVuYN5ck6GRwRGKKtKGHav/dWOVfnnFJrcGzMbAZZSGMs7fiQXdjdff7l8sTmz1+MAw==
+X-Received: by 2002:a62:5b87:0:b029:1d8:90df:a54b with SMTP id p129-20020a625b870000b02901d890dfa54bmr5460354pfb.79.1613000781625;
+        Wed, 10 Feb 2021 15:46:21 -0800 (PST)
+From: Kees Cook <keescook@chromium.org>
+To: linux-kernel@vger.kernel.org,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Kees Cook <keescook@chromium.org>,
+	Joe Perches <joe@perches.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] xen: Replace lkml.org links with lore
+Date: Wed, 10 Feb 2021 15:46:18 -0800
+Message-Id: <20210210234618.2734785-1-keescook@chromium.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159220: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=01456785ce093d95c6a8515e6b8feeb39e1820b8
-X-Osstest-Versions-That:
-    xen=687121f8a0e7c1ea1c4fa3d056637e5819342f14
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 10 Feb 2021 21:40:47 +0000
+X-Patch-Hashes: v=1; h=sha256; g=dbcf4ca7bce2f2f2a80590b480a2765db93127bd; i=YSscTzp3lVgXfFntf8Kb5E2vpf2VUCH6pRlxS8sELt4=; m=kc8NgBcNkR1FdAUFoBcecPqIFWVDlhJwDI99K+gzg58=; p=VSpsoEkhhoc0b4MXqeePgJxef7V8SVFc1j/JqX3Kem4=
+X-Patch-Sig: m=pgp; i=keescook@chromium.org; s=0x0x8972F4DFDC6DC026; b=iQIzBAABCgAdFiEEpcP2jyKd1g9yPm4TiXL039xtwCYFAmAkcEkACgkQiXL039xtwCbScw//f9b +LBIxQ3WQurWK0tZaB0GyM/Kpvjk0b47840okM1XwHAppPCijhOa3epm/1lpm/4c1mYH/aJdtmXM9 sy9eS2iLx+g/NFl3GZOqY+8tcMiIn7JFANfcHkw0YZfO4/9XuikNVkIsOmAdSIEHSoP0Uj32ZQs0Y yev7conmkSmWwsoT5pA8JRArJnXRqUqGp9CnJzFe951BtAiEhwxIljBmDYzEKr8GRerUZpFeJlhuz 13EuG6ZOM0TMYXmMHUQlgSKrXAJjnf7ZolvmpyLs9EfW/6Pi1jgCUxaTwEQrk1cnte++qGi5V5Xs7 rBkpzZ0dJahji64MOHxmUjd9duXSFIJZT2In3v3S+6b8364b2tfiOgMN4M3659LQkBEocxWpr+VRW Qn3qz5ni2MVf5bqfEi7Z0y6EQN4Mmol72DqYNcH61h6ZFzEhg4l5w9p7m7s5Bo7v6qZNDfZT45HsP 8ewiaKJoagZsZDdAaF1uQsoHMhlwaPzfPrwRhhtgLdyc7FdPYuUpqwyZpRwNKwkVkHaIPRKSw23TC kFvjFQJcqF3tgjxX6pMhCRO7Qq3bNsSKNgU27m14Lj1ZZKgPN4ByDIRl79Bd1OI4cg5iVZM83bh6m aFsn9Ua0YayuhndsTYVtLaFARcW9FmMHBNJI/6NL75LYmuGsUrx2cP6cfkvIdxtI=
+Content-Transfer-Encoding: 8bit
 
-flight 159220 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159220/
+As started by commit 05a5f51ca566 ("Documentation: Replace lkml.org
+links with lore"), replace lkml.org links with lore to better use a
+single source that's more likely to stay available long-term.
 
-Failures :-/ but no regressions.
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ drivers/xen/xen-acpi-processor.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/drivers/xen/xen-acpi-processor.c b/drivers/xen/xen-acpi-processor.c
+index ce8ffb595a46..df7cab870be5 100644
+--- a/drivers/xen/xen-acpi-processor.c
++++ b/drivers/xen/xen-acpi-processor.c
+@@ -3,7 +3,8 @@
+  * Copyright 2012 by Oracle Inc
+  * Author: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+  *
+- * This code borrows ideas from https://lkml.org/lkml/2011/11/30/249
++ * This code borrows ideas from
++ * https://lore.kernel.org/lkml/1322673664-14642-6-git-send-email-konrad.wilk@oracle.com
+  * so many thanks go to Kevin Tian <kevin.tian@intel.com>
+  * and Yu Ke <ke.yu@intel.com>.
+  */
+-- 
+2.25.1
 
-version targeted for testing:
- xen                  01456785ce093d95c6a8515e6b8feeb39e1820b8
-baseline version:
- xen                  687121f8a0e7c1ea1c4fa3d056637e5819342f14
-
-Last test of basis   159191  2021-02-09 23:00:29 Z    0 days
-Failing since        159206  2021-02-10 12:01:51 Z    0 days    3 attempts
-Testing same since   159220  2021-02-10 18:00:50 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   687121f8a0..01456785ce  01456785ce093d95c6a8515e6b8feeb39e1820b8 -> smoke
 
