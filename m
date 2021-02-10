@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248863164AF
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 12:10:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83529.155662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FFA93164C1
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 12:14:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83532.155678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9nNt-0007f1-I2; Wed, 10 Feb 2021 11:10:13 +0000
+	id 1l9nRP-0007qZ-AD; Wed, 10 Feb 2021 11:13:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83529.155662; Wed, 10 Feb 2021 11:10:13 +0000
+Received: by outflank-mailman (output) from mailman id 83532.155678; Wed, 10 Feb 2021 11:13:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9nNt-0007ef-EL; Wed, 10 Feb 2021 11:10:13 +0000
-Received: by outflank-mailman (input) for mailman id 83529;
- Wed, 10 Feb 2021 11:10:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l9nRP-0007q0-3t; Wed, 10 Feb 2021 11:13:51 +0000
+Received: by outflank-mailman (input) for mailman id 83532;
+ Wed, 10 Feb 2021 11:13:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jO30=HM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l9nNr-0007ea-Jr
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 11:10:11 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 98b6c9af-70ac-424f-a88a-77bfae8f2b48;
- Wed, 10 Feb 2021 11:10:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 73992AD29;
- Wed, 10 Feb 2021 11:10:09 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9nRN-0007ps-LW; Wed, 10 Feb 2021 11:13:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9nRN-0007m5-D0; Wed, 10 Feb 2021 11:13:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9nRN-0000P4-2u; Wed, 10 Feb 2021 11:13:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9nRN-0004mP-2N; Wed, 10 Feb 2021 11:13:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +42,391 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98b6c9af-70ac-424f-a88a-77bfae8f2b48
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612955409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W1bwpkiqh+t+17POKpfLzTJ7Yag0BfQIMUO9uVdEKxw=;
-	b=SR8bt3OOgKFtw4WF4/auYc40Ht+x0xiko6naSptwthGMXN47J8CD4f5UWN0mGaaygzdDJS
-	eyi1xsNB7ruY5rwPGwP/B6Bpwk9WkwCP/cPhpVRosM4aDCR0sSYO0U01sp/JVItgRlhuNN
-	w8/Ifr5KPZs6gJ6ufWTvZe2RrLBg1cQ=
-Subject: Re: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special
- pages in the IOMMU page-tables
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, hongyxia@amazon.co.uk,
- iwj@xenproject.org, Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <20210209152816.15792-1-julien@xen.org>
- <20210209152816.15792-2-julien@xen.org> <YCOZbNly7YCSNtHY@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5bf0a2de-3f0e-8860-7bc7-f667437aa3a7@suse.com>
-Date: Wed, 10 Feb 2021 12:10:09 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <YCOZbNly7YCSNtHY@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0RRfQJgw24Y8ouSDjWlnjOUxONylNpgHzcOb0RghHtI=; b=d0T3xPTYwq3uH1e2w9PgRSjBXN
+	MY5TkYrjikCYgoRpbSzUiR66t1kgybrZNoTtJo36kDWYLTdfzk4lKVpHN6X/rWJBof1/bCtiBVF3x
+	QKFUi4PjpgCQnHKSMzhJTZckXMmG4u3JUXX5aaYqcsI6R+V4jV17wU61dubev0z6+TvY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159181-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 159181: regressions - trouble: fail/pass/preparing/queued/running
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-xl-credit1:host-ping-check-xen:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:host-ping-check-xen:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:host-ping-check-xen:fail:regression
+    linux-linus:test-armhf-armhf-xl:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-raw:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-examine:<none executed>:queued:regression
+    linux-linus:test-amd64-coresched-i386-xl:<none executed>:queued:regression
+    linux-linus:build-i386-libvirt:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-xsm:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-shadow:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-libvirt:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-libvirt-pair:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-pair:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-pvshim:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:<none executed>:queued:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:<none executed>:queued:regression
+    linux-linus:build-i386-pvops:hosts-allocate:running:regression
+    linux-linus:build-i386:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-examine:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-amd64-pvgrub:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-i386-pvgrub:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-libvirt:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-xsm:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-libvirt-vhd:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-qemuu-freebsd11-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-qemuu-freebsd12-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-pair:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-pygrub:hosts-allocate:running:regression
+    linux-linus:test-amd64-coresched-amd64-xl:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-shadow:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-rtds:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-credit1:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-credit2:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:hosts-allocate:running:regression
+    linux-linus:test-amd64-amd64-xl-qcow2:hosts-allocate:running:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:host-install(5):running:regression
+    linux-linus:test-armhf-armhf-libvirt:guest-start:running:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:syslog-server:running:regression
+    linux-linus:test-armhf-armhf-libvirt:syslog-server:running:regression
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+X-Osstest-Versions-This:
+    linux=e0756cfc7d7cd08c98a53b6009c091a3f6a50be6
+X-Osstest-Versions-That:
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 10 Feb 2021 11:13:49 +0000
 
-On 10.02.2021 09:29, Roger Pau Monné wrote:
-> On Tue, Feb 09, 2021 at 03:28:12PM +0000, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Currently, the IOMMU page-tables will be populated early in the domain
->> creation if the hardware is able to virtualize the local APIC. However,
->> the IOMMU page tables will not be freed during early failure and will
->> result to a leak.
->>
->> An assigned device should not need to DMA into the vLAPIC page, so we
->> can avoid to map the page in the IOMMU page-tables.
->>
->> This statement is also true for any special pages (the vLAPIC page is
->> one of them). So to take the opportunity to prevent the mapping for all
->> of them.
-> 
-> Hm, OK, while I assume it's likely for special pages to not be target
-> of DMA operations, it's not easy to spot what are special pages.
-> 
->> Note that:
->>     - This is matching the existing behavior with PV guest
-> 
-> You might make HVM guests not sharing page-tables 'match' PV
-> behavior, but you are making behavior between HVM guests themselves
-> diverge.
-> 
-> 
->>     - This doesn't change the behavior when the P2M is shared with the
->>     IOMMU. IOW, the special pages will still be accessibled by the
->>     device.
-> 
-> I have to admit I don't like this part at all. Having diverging device
-> mappings depending on whether the page tables are shared or not is
-> bad IMO, as there might be subtle bugs affecting one of the two
-> modes.
+flight 159181 linux-linus running [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159181/
 
-This is one way to look at things, yes. But if you take the
-other perspective that special pages shouldn't be
-IOMMU-mapped, then the divergence is the price to pay for
-being able to share pages (and it's not Julien introducing
-bad behavior here).
+Regressions :-(
 
-Additionally it may be possible to utilize the divergence to
-our advantage: If one way of setting up things works and the
-other doesn't, we have a reasonable clue where to look. In
-fact the aspect above may, together with possible future
-findings, end up being a reason to not default to or even
-disallow (like for AMD) page table sharing.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-credit1  10 host-ping-check-xen      fail REGR. vs. 152332
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 152332
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 152332
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 152332
+ test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 152332
+ test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 152332
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 152332
+ test-arm64-arm64-xl-seattle  10 host-ping-check-xen      fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit2  10 host-ping-check-xen      fail REGR. vs. 152332
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64    <none executed>              queued
+ test-amd64-i386-xl-qemut-ws16-amd64    <none executed>              queued
+ test-amd64-i386-xl-qemuu-debianhvm-amd64    <none executed>             queued
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow    <none executed>      queued
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm    <none executed>          queued
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict    <none executed> queued
+ test-amd64-i386-xl-qemuu-ovmf-amd64    <none executed>              queued
+ test-amd64-i386-xl-qemuu-win7-amd64    <none executed>              queued
+ test-amd64-i386-xl-qemuu-ws16-amd64    <none executed>              queued
+ test-amd64-i386-xl-raw          <none executed>              queued
+ test-amd64-i386-examine         <none executed>              queued
+ test-amd64-coresched-i386-xl    <none executed>              queued
+ build-i386-libvirt              <none executed>              queued
+ test-amd64-i386-xl-xsm          <none executed>              queued
+ test-amd64-i386-xl-shadow       <none executed>              queued
+ test-amd64-i386-freebsd10-amd64    <none executed>              queued
+ test-amd64-i386-freebsd10-i386    <none executed>              queued
+ test-amd64-i386-libvirt         <none executed>              queued
+ test-amd64-i386-libvirt-pair    <none executed>              queued
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm    <none executed>    queued
+ test-amd64-i386-libvirt-xsm     <none executed>              queued
+ test-amd64-i386-pair            <none executed>              queued
+ test-amd64-i386-qemut-rhel6hvm-amd    <none executed>              queued
+ test-amd64-i386-qemut-rhel6hvm-intel    <none executed>              queued
+ test-amd64-i386-qemuu-rhel6hvm-amd    <none executed>              queued
+ test-amd64-i386-qemuu-rhel6hvm-intel    <none executed>              queued
+ test-amd64-i386-xl              <none executed>              queued
+ test-amd64-i386-xl-pvshim       <none executed>              queued
+ test-amd64-i386-xl-qemut-debianhvm-amd64    <none executed>             queued
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm    <none executed>          queued
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm    <none executed> queued
+ build-i386-pvops              2 hosts-allocate               running
+ build-i386                    2 hosts-allocate               running
+ test-amd64-amd64-examine      2 hosts-allocate               running
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm  3 hosts-allocate   running
+ test-amd64-amd64-amd64-pvgrub  3 hosts-allocate               running
+ test-amd64-amd64-i386-pvgrub  3 hosts-allocate               running
+ test-amd64-amd64-dom0pvh-xl-intel  3 hosts-allocate               running
+ test-amd64-amd64-libvirt      3 hosts-allocate               running
+ test-amd64-amd64-dom0pvh-xl-amd  3 hosts-allocate               running
+ test-amd64-amd64-libvirt-xsm  3 hosts-allocate               running
+ test-amd64-amd64-xl-xsm       3 hosts-allocate               running
+ test-amd64-amd64-libvirt-pair  4 hosts-allocate               running
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  3 hosts-allocate         running
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  3 hosts-allocate         running
+ test-amd64-amd64-qemuu-nested-amd  3 hosts-allocate               running
+ test-amd64-amd64-libvirt-vhd  3 hosts-allocate               running
+ test-amd64-amd64-qemuu-freebsd11-amd64  3 hosts-allocate               running
+ test-amd64-amd64-qemuu-freebsd12-amd64  3 hosts-allocate               running
+ test-amd64-amd64-pair         4 hosts-allocate               running
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  3 hosts-allocate               running
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 3 hosts-allocate running
+ test-amd64-amd64-pygrub       3 hosts-allocate               running
+ test-amd64-coresched-amd64-xl  3 hosts-allocate               running
+ test-amd64-amd64-xl-shadow    3 hosts-allocate               running
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  3 hosts-allocate            running
+ test-amd64-amd64-xl-rtds      3 hosts-allocate               running
+ test-amd64-amd64-xl-pvhv2-amd  3 hosts-allocate               running
+ test-amd64-amd64-qemuu-nested-intel  3 hosts-allocate               running
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  3 hosts-allocate     running
+ test-amd64-amd64-xl-credit1   3 hosts-allocate               running
+ test-amd64-amd64-xl-qemuu-win7-amd64  3 hosts-allocate               running
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 3 hosts-allocate running
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  3 hosts-allocate            running
+ test-amd64-amd64-xl-multivcpu  3 hosts-allocate               running
+ test-amd64-amd64-xl-qemuu-ws16-amd64  3 hosts-allocate               running
+ test-amd64-amd64-xl-pvshim    3 hosts-allocate               running
+ test-amd64-amd64-xl-pvhv2-intel  3 hosts-allocate               running
+ test-amd64-amd64-xl           3 hosts-allocate               running
+ test-amd64-amd64-xl-qemut-win7-amd64  3 hosts-allocate               running
+ test-amd64-amd64-xl-credit2   3 hosts-allocate               running
+ test-amd64-amd64-xl-qemut-ws16-amd64  3 hosts-allocate               running
+ test-amd64-amd64-xl-qcow2     3 hosts-allocate               running
+ test-armhf-armhf-libvirt-raw  5 host-install(5)              running
+ test-armhf-armhf-libvirt     14 guest-start                  running
+ test-armhf-armhf-libvirt-raw  4 syslog-server                running
+ test-armhf-armhf-libvirt      4 syslog-server                running
 
-> I get the feeling this is just papering over an existing issue instead
-> of actually fixing it: IOMMU page tables need to be properly freed
-> during early failure.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 152332
 
-I take a different perspective: IOMMU page tables shouldn't
-get created (yet) at all in the course of
-XEN_DOMCTL_createdomain - this op is supposed to produce an
-empty container for a VM.
+version targeted for testing:
+ linux                e0756cfc7d7cd08c98a53b6009c091a3f6a50be6
+baseline version:
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
 
-Jan
+Last test of basis   152332  2020-07-31 19:41:23 Z  193 days
+Failing since        152366  2020-08-01 20:49:34 Z  192 days  338 attempts
+Testing same since                          (not found)         0 attempts
+
+------------------------------------------------------------
+4560 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   preparing
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           queued  
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             preparing
+ test-amd64-amd64-xl                                          preparing
+ test-amd64-coresched-amd64-xl                                preparing
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-i386-xl                                           queued  
+ test-amd64-coresched-i386-xl                                 queued  
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           preparing
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            queued  
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        preparing
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         queued  
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 preparing
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  queued  
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 preparing
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  queued  
+ test-amd64-amd64-libvirt-xsm                                 preparing
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  queued  
+ test-amd64-amd64-xl-xsm                                      preparing
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       queued  
+ test-amd64-amd64-qemuu-nested-amd                            preparing
+ test-amd64-amd64-xl-pvhv2-amd                                preparing
+ test-amd64-i386-qemut-rhel6hvm-amd                           queued  
+ test-amd64-i386-qemuu-rhel6hvm-amd                           queued  
+ test-amd64-amd64-dom0pvh-xl-amd                              preparing
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    preparing
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     queued  
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    preparing
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     queued  
+ test-amd64-i386-freebsd10-amd64                              queued  
+ test-amd64-amd64-qemuu-freebsd11-amd64                       preparing
+ test-amd64-amd64-qemuu-freebsd12-amd64                       preparing
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         preparing
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          queued  
+ test-amd64-amd64-xl-qemut-win7-amd64                         preparing
+ test-amd64-i386-xl-qemut-win7-amd64                          queued  
+ test-amd64-amd64-xl-qemuu-win7-amd64                         preparing
+ test-amd64-i386-xl-qemuu-win7-amd64                          queued  
+ test-amd64-amd64-xl-qemut-ws16-amd64                         preparing
+ test-amd64-i386-xl-qemut-ws16-amd64                          queued  
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         preparing
+ test-amd64-i386-xl-qemuu-ws16-amd64                          queued  
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-xl-credit1                                  preparing
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  preparing
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        preparing
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         queued  
+ test-amd64-amd64-examine                                     running 
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      queued  
+ test-amd64-i386-freebsd10-i386                               queued  
+ test-amd64-amd64-qemuu-nested-intel                          preparing
+ test-amd64-amd64-xl-pvhv2-intel                              preparing
+ test-amd64-i386-qemut-rhel6hvm-intel                         queued  
+ test-amd64-i386-qemuu-rhel6hvm-intel                         queued  
+ test-amd64-amd64-dom0pvh-xl-intel                            preparing
+ test-amd64-amd64-libvirt                                     preparing
+ test-armhf-armhf-libvirt                                     running 
+ test-amd64-i386-libvirt                                      queued  
+ test-amd64-amd64-xl-multivcpu                                preparing
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        preparing
+ test-amd64-i386-pair                                         queued  
+ test-amd64-amd64-libvirt-pair                                preparing
+ test-amd64-i386-libvirt-pair                                 queued  
+ test-amd64-amd64-amd64-pvgrub                                preparing
+ test-amd64-amd64-i386-pvgrub                                 preparing
+ test-amd64-amd64-xl-pvshim                                   preparing
+ test-amd64-i386-xl-pvshim                                    queued  
+ test-amd64-amd64-pygrub                                      preparing
+ test-amd64-amd64-xl-qcow2                                    preparing
+ test-armhf-armhf-libvirt-raw                                 running 
+ test-amd64-i386-xl-raw                                       queued  
+ test-amd64-amd64-xl-rtds                                     preparing
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             preparing
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              queued  
+ test-amd64-amd64-xl-shadow                                   preparing
+ test-amd64-i386-xl-shadow                                    queued  
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 preparing
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-amd64-i386-xl-qemut-win7-amd64 queued
+broken-job test-amd64-i386-xl-qemut-ws16-amd64 queued
+broken-job test-amd64-i386-xl-qemuu-debianhvm-amd64 queued
+broken-job test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow queued
+broken-job test-amd64-i386-xl-qemuu-debianhvm-i386-xsm queued
+broken-job test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict queued
+broken-job test-amd64-i386-xl-qemuu-ovmf-amd64 queued
+broken-job test-amd64-i386-xl-qemuu-win7-amd64 queued
+broken-job test-amd64-i386-xl-qemuu-ws16-amd64 queued
+broken-job test-amd64-i386-xl-raw queued
+broken-job test-amd64-i386-examine queued
+broken-job test-amd64-coresched-i386-xl queued
+broken-job build-i386-libvirt queued
+broken-job test-amd64-i386-xl-xsm queued
+broken-job test-amd64-i386-xl-shadow queued
+broken-job test-amd64-i386-freebsd10-amd64 queued
+broken-job test-amd64-i386-freebsd10-i386 queued
+broken-job test-amd64-i386-libvirt queued
+broken-job test-amd64-i386-libvirt-pair queued
+broken-job test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm queued
+broken-job test-amd64-i386-libvirt-xsm queued
+broken-job test-amd64-i386-pair queued
+broken-job test-amd64-i386-qemut-rhel6hvm-amd queued
+broken-job test-amd64-i386-qemut-rhel6hvm-intel queued
+broken-job test-amd64-i386-qemuu-rhel6hvm-amd queued
+broken-job test-amd64-i386-qemuu-rhel6hvm-intel queued
+broken-job test-amd64-i386-xl queued
+broken-job test-amd64-i386-xl-pvshim queued
+broken-job test-amd64-i386-xl-qemut-debianhvm-amd64 queued
+broken-job test-amd64-i386-xl-qemut-debianhvm-i386-xsm queued
+broken-job test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm queued
+
+Not pushing.
+
+(No revision log; it would be 1029181 lines long.)
 
