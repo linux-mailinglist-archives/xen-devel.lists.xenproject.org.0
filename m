@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A9F315C13
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 02:21:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83462.155405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 165C2315C56
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 02:35:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83466.155419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9eAp-0002bI-Sf; Wed, 10 Feb 2021 01:20:07 +0000
+	id 1l9ePY-0003e4-4I; Wed, 10 Feb 2021 01:35:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83462.155405; Wed, 10 Feb 2021 01:20:07 +0000
+Received: by outflank-mailman (output) from mailman id 83466.155419; Wed, 10 Feb 2021 01:35:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9eAp-0002as-Nn; Wed, 10 Feb 2021 01:20:07 +0000
-Received: by outflank-mailman (input) for mailman id 83462;
- Wed, 10 Feb 2021 01:20:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eAn-0002Tk-PG; Wed, 10 Feb 2021 01:20:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eAn-00054s-J3; Wed, 10 Feb 2021 01:20:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eAn-0006RG-BN; Wed, 10 Feb 2021 01:20:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l9eAn-00087l-Aq; Wed, 10 Feb 2021 01:20:05 +0000
+	id 1l9ePY-0003di-0A; Wed, 10 Feb 2021 01:35:20 +0000
+Received: by outflank-mailman (input) for mailman id 83466;
+ Wed, 10 Feb 2021 01:35:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QmaB=HM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l9ePV-0003db-LA
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 01:35:17 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4d5438f9-8055-46e4-a32b-c0e81475d5d7;
+ Wed, 10 Feb 2021 01:35:16 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5262464E2A;
+ Wed, 10 Feb 2021 01:35:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,257 +38,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=FFwKCoQTJpBfYsbvEWIBrxnbm3boCbsFB0LBT4c0EW4=; b=7Kej2PfnNUUC2gQduSM0xXgmmv
-	OK2OujFvep1yXBbyKLLXZMz7vkBmHTf66rsRLRp4qZAxyK5Ixlhadycps/Z4ImTHaTjU5zPgj2lTh
-	A5bqicxfgYSwg8VY037yx1AWw6jjloeRCDllMo8pEOaNF3BP1/Zead/i/uZiLw7wWUB8=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159152-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4d5438f9-8055-46e4-a32b-c0e81475d5d7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1612920915;
+	bh=duFbnubRBWp9pCDRE9Yfg3IIB1zSpihTESixzeHBrqo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=BWvruVB7h+PLgyKaiBTXSMFzb/5Sv0Xh5g+5tXtCpFDA/93/my6TSKZj5aVYBM3sS
+	 JHyaCdD4Bh1Fm695Yp10Twjj21mCZ3AbT/UqYOVfCCSVzOmdBiDbphiPFCnnnDbr7Q
+	 0e431xHqkcZC9uQ9V9ChZvFS0/AXb4FHIBgqiEP6ezIF21eabxF5qfJpZyFm03d5i5
+	 b/Guzx/1z3DLwAX6LxZx/6t91g4gvD9vbdCeNS4WeJbuebfDCJkvKUC8SUNEFfeNui
+	 6J3+Qlc6P3b7fguGJKQMVvc5aTCGKbr/ZpIioLmNrrSCn22fBExcb0o8LzVZnX7jlc
+	 lBrd7bgUGVroQ==
+Date: Tue, 9 Feb 2021 17:35:14 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall.oss@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, 
+    lucmiccio@gmail.com, xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Rahul Singh <Rahul.Singh@arm.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    George Dunlap <George.Dunlap@citrix.com>
+Subject: Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping
+In-Reply-To: <CAJ=z9a0fDYccxTDkpvmG77D-havkySuYOUK4MSYvpZw4EL9oGg@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2102091724100.8948@sstabellini-ThinkPad-T480s>
+References: <20210208184932.23468-1-sstabellini@kernel.org> <173ed75a-94cf-26a5-9271-a687bf201578@xen.org> <alpine.DEB.2.21.2102081214010.8948@sstabellini-ThinkPad-T480s> <4df687cb-d3bc-ccb8-4e7c-a6429c37574e@suse.com> <24610.38467.808678.941320@mariner.uk.xensource.com>
+ <alpine.DEB.2.21.2102090914280.8948@sstabellini-ThinkPad-T480s> <CAJ=z9a0fDYccxTDkpvmG77D-havkySuYOUK4MSYvpZw4EL9oGg@mail.gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [libvirt test] 159152: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=f8f7bc254f3233ee15692fa0dd951cfbe2e59bf2
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 10 Feb 2021 01:20:05 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 159152 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159152/
+On Tue, 9 Feb 2021, Julien Grall wrote:
+> On Tue, 9 Feb 2021 at 17:31, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >
+> > On Tue, 9 Feb 2021, Ian Jackson wrote:
+> > > Jan Beulich writes ("Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping"):
+> > > > On 08.02.2021 21:24, Stefano Stabellini wrote:
+> > > ...
+> > > > > For these cases, I would just follow a simple rule of thumb:
+> > > > > - is the submitter willing to provide the backport?
+> > > > > - is the backport low-risk?
+> > > > > - is the underlying bug important?
+> > > > >
+> > > > > If the answer to all is "yes" then I'd go with it.
+> > > >
+> > > > Personally I disagree, for the very simple reason of the question
+> > > > going to become "Where do we draw the line?" The only non-security
+> > > > backports that I consider acceptable are low-risk changes to allow
+> > > > building with newer tool chains. I know other backports have
+> > > > occurred in the past, and I did voice my disagreement with this
+> > > > having happened.
+> > >
+> > > I think I take a more relaxed view than Jan, but still a much more
+> > > firm line than Stefano.  My opinion is that we should make exceptions
+> > > for only bugs of exceptional severity.
+> > >
+> > > I don't think I have seen an argument that this bug is exceptionally
+> > > severe.
+> > >
+> > > For me the fact that you can only experience this bug if you upgrade
+> > > the hardware or significantly change the configuration, means that
+> > > this isn't so serious a bug.
+> >
+> > Yeah, I think that's really the core of this issue. If somebody is
+> > already using 4.12 happily, there is really no reason for them to take
+> > the fix. If somebody is about to use 4.12, then it is a severe issue.
+> 
+> If somebody is about to use 4.12, then it is most likely going to
+> encounter a serious blocker as there is no support for generic SMMU
+> bindings. I would be surprised if there are a lot of DT still using
+> the old bindings, at which point such users would want to switch to
+> 4.15 + your patches to add support.
+> 
+> >
+> > The view of the group is that nobody should be switching to 4.12 now
+> > because there are newer releases out there. I don't know if that is
+> > true.
+> 
+> This is mostly based on the definition of supported vs security
+> supported. When a tree is only security supported, then there is no
+> promise the code will run on any systems.
+> 
+> >
+> > I didn't realize we had a policy or even a recommendation of always
+> > choosing the latest among the many releases available with
+> > security-support. I went through the website and SUPPORT.md but couldn't
+> > find it spelled out anywhere. See:
+> 
+> May I ask, what sort of users would want to start a
+> development/product based on a soon to be abandoned version?
+> 
+> For any new development, I have always advised to switch to the latest
+> Xen (or at least stable) because it will contain the latest fixes,
+> features, and better support because the code is still in mind...
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- libvirt              f8f7bc254f3233ee15692fa0dd951cfbe2e59bf2
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z  214 days
-Failing since        151818  2020-07-11 04:18:52 Z  213 days  207 attempts
-Testing same since   159152  2021-02-09 04:18:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+I don't have an answer -- I hope nobody.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > https://xenproject.org/downloads/
+> > https://xenproject.org/downloads/xen-project-archives/xen-project-4-12-series/
+> > https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=SUPPORT.md;h=52f25fa85af41fa3b38288ab7e172408b77dc779;hb=97b7b5567fba6918a656ad349051b5343b5dea2e
+> >
+> > At most we have:
+> >
+> >     Supported-Until: 2020-10-02
+> >     Security-Support-Until: 2022-04-02
+> >
+> > Anecdotally, if I go to https://www.kernel.org/ to download a kernel
+> > tarball, I expect all tarballs to have all the major functionalities. I
+> > wouldn't imagine that I cannot get one entire Linux subsystem (e.g.
+> > ethernet or SATA) to work if I don't pick the latest.
+> 
+> I think this is an unrealistic expectation... You can't pick any
+> version of stable Linux and expect it to work on your shiny HW. There
+> might be missing drivers, workaround (including in core subsystems)...
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I don't mean to insist as of course I accept the group decision and I
+don't care about 4.12 that much (we don't use it as Xilinx). But this is
+not about new hardware. This regression affects old hardware too. So yes
+if an old Linux version worked on my HW I expect any of the slightly
+newer (but still old) tarballs on kernel.org to work on the same HW.
+That said I noticed that kernel.org seems to have only supported
+releases on https://www.kernel.org/, while we have a mix.
 
 
-Not pushing.
+> > Maybe it would make sense to clarify which releases are discouraged from
+> > being used on https://xenproject.org/downloads/ at least?
+> 
+> Feel free to suggest a wording that can be discussed here.
 
-(No revision log; it would be 40581 lines long.)
+Distinguishing between supported and not supported releases would be a
+start. Maybe with a one line statement to recommend people to always use
+supported (not just security-supported, fully supported) releases.
 
