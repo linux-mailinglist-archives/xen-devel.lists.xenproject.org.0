@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932C831679F
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 14:13:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83597.155949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E44A3167FC
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 14:27:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83600.155962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9pIQ-0004Fk-6y; Wed, 10 Feb 2021 13:12:42 +0000
+	id 1l9pWA-0005I0-G3; Wed, 10 Feb 2021 13:26:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83597.155949; Wed, 10 Feb 2021 13:12:42 +0000
+Received: by outflank-mailman (output) from mailman id 83600.155962; Wed, 10 Feb 2021 13:26:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9pIQ-0004FL-3v; Wed, 10 Feb 2021 13:12:42 +0000
-Received: by outflank-mailman (input) for mailman id 83597;
- Wed, 10 Feb 2021 13:12:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l9pWA-0005Hb-CF; Wed, 10 Feb 2021 13:26:54 +0000
+Received: by outflank-mailman (input) for mailman id 83600;
+ Wed, 10 Feb 2021 13:26:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jO30=HM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l9pIO-0004FF-Mf
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 13:12:40 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9e4f410c-a7cb-4b50-bd62-2d3f9bd97ed6;
- Wed, 10 Feb 2021 13:12:40 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3F51BAC43;
- Wed, 10 Feb 2021 13:12:39 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9pW9-0005HT-EZ; Wed, 10 Feb 2021 13:26:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9pW9-0001bV-6j; Wed, 10 Feb 2021 13:26:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9pW8-0006bJ-Ug; Wed, 10 Feb 2021 13:26:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l9pW8-000516-UE; Wed, 10 Feb 2021 13:26:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,64 +42,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e4f410c-a7cb-4b50-bd62-2d3f9bd97ed6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612962759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KodbBIrLLtVpPc0B70pP4gcnK9uIr1vJtWfSMiDJuP8=;
-	b=vRf8U6sFq+aFMtSZhNjg0g2liM3oGkOrVIRehY5FpwVBeTGDaUFM0lpbsTH+V4HmkeSOlI
-	Ih+VTe0zhmpt30ZsrSTY95Q2+hUw0Rgl2hMTteFo8IK7MLIG01eqA9GQ97p1SbRB/DcXjN
-	cacrWZAyFPpHelDgTgxhwIyK0FOYWMM=
-Subject: Re: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special
- pages in the IOMMU page-tables
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, hongyxia@amazon.co.uk,
- iwj@xenproject.org, Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <20210209152816.15792-1-julien@xen.org>
- <20210209152816.15792-2-julien@xen.org> <YCOZbNly7YCSNtHY@Air-de-Roger>
- <5bf0a2de-3f0e-8860-7bc7-f667437aa3a7@suse.com>
- <YCPE0byWKlf/uOFT@Air-de-Roger>
- <65797b03-7bd8-92e9-b6c7-e8eccde9f8ba@suse.com>
- <e1c7c616-0941-b577-5842-a51374030798@xen.org>
- <71c4150a-0b81-cdc3-b752-814f58cb5ca4@suse.com>
- <df760d78-a439-db0a-4b88-813b002f0a64@xen.org>
- <YCPJXe1L1SCXoL7a@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bb242b17-01f3-6312-b563-f82abc5d300a@suse.com>
-Date: Wed, 10 Feb 2021 14:12:38 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <YCPJXe1L1SCXoL7a@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FI3V4Ag77LGZqxdLIzIJdkoKKlUsE9Q3TrmDM1FaFqg=; b=YHw4F8U/YVgkpdl7iuLji2Aiu2
+	PzX18k2odiryNgZMdeIu9awG9vpQwumlTAuM05jXSwDsTPgePgy3gY+ky2HOPyvo30WTlfyXFEbxO
+	Agpc+iKsKmkYrQ53BnkM5kM/YkaDJf9tOeAqEM33/JZO6gB1njvwH+aUVD16hbHMFafs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159206-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 159206: regressions - trouble: blocked/fail
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=20077d035224c6f3b3eef8b111b8b842635f2c40
+X-Osstest-Versions-That:
+    xen=687121f8a0e7c1ea1c4fa3d056637e5819342f14
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 10 Feb 2021 13:26:52 +0000
 
-On 10.02.2021 12:54, Roger Pau Monné wrote:
-> On Wed, Feb 10, 2021 at 11:48:40AM +0000, Julien Grall wrote:
->> It feels wrong to me to setup a per-domain mapping when initializing the
->> first vCPU.
->>
->> But, I was under the impression that there is plan to remove
->> XEN_DOMCTL_max_vcpus. So it would only buy just a bit of time...
-> 
-> I was also under that impression. We could setup the lapic access page
-> at vlapic_init for the BSP (which is part of XEN_DOMCTL_max_vcpus
-> ATM).
-> 
-> But then I think there should be some kind of check to prevent
-> populating either the CPU or the IOMMU page tables at domain creation
-> hypercall, and so the logic to free CPU table tables on failure could
-> be removed.
+flight 159206 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159206/
 
-I can spot paging_final_teardown() on an error path there, but I
-don't suppose that's what you mean? I guess I'm not looking in
-the right place (there are quite a few after all) ...
+Regressions :-(
 
-Jan
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 159191
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 159191
+ build-armhf                   6 xen-build                fail REGR. vs. 159191
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ xen                  20077d035224c6f3b3eef8b111b8b842635f2c40
+baseline version:
+ xen                  687121f8a0e7c1ea1c4fa3d056637e5819342f14
+
+Last test of basis   159191  2021-02-09 23:00:29 Z    0 days
+Testing same since   159206  2021-02-10 12:01:51 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 20077d035224c6f3b3eef8b111b8b842635f2c40
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Fri Feb 5 12:53:27 2021 +0100
+
+    tools/configure: add bison as mandatory
+    
+    Bison is now mandatory when the pvshim build is enabled in order to
+    generate the Kconfig.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+
+commit c9b0242ad44a739e0f4c72b67fd4bcf4b042f800
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Thu Feb 4 10:38:33 2021 +0100
+
+    autoconf: check endian.h include path
+    
+    Introduce an autoconf macro to check for the include path of certain
+    headers that can be different between OSes.
+    
+    Use such macro to find the correct path for the endian.h header, and
+    modify the users of endian.h to use the output of such check.
+    
+    Suggested-by: Ian Jackson <iwj@xenproject.org>
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
