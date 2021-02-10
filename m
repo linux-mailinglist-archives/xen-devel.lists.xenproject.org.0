@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0838C31625F
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 10:35:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83505.155576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACC7E316298
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 10:45:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83507.155588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9lte-0006Oo-Aw; Wed, 10 Feb 2021 09:34:54 +0000
+	id 1l9m2t-0007OP-80; Wed, 10 Feb 2021 09:44:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83505.155576; Wed, 10 Feb 2021 09:34:54 +0000
+Received: by outflank-mailman (output) from mailman id 83507.155588; Wed, 10 Feb 2021 09:44:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9lte-0006OP-7e; Wed, 10 Feb 2021 09:34:54 +0000
-Received: by outflank-mailman (input) for mailman id 83505;
- Wed, 10 Feb 2021 09:34:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l9m2t-0007O0-4f; Wed, 10 Feb 2021 09:44:27 +0000
+Received: by outflank-mailman (input) for mailman id 83507;
+ Wed, 10 Feb 2021 09:44:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l9ltc-0006OH-As
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 09:34:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l9ltZ-00063z-RE; Wed, 10 Feb 2021 09:34:49 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l9ltZ-0000tB-K1; Wed, 10 Feb 2021 09:34:49 +0000
+ (envelope-from <SRS0=oq3b=HM=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1l9m2q-0007Nc-V8
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 09:44:25 +0000
+Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:400:200::c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b371855c-e2e3-426f-b947-004003b55654;
+ Wed, 10 Feb 2021 09:44:23 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.17.1 DYNA|AUTH)
+ with ESMTPSA id 604447x1A9iK4O0
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 10 Feb 2021 10:44:20 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,100 +40,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=K9Yn1SJvphKf8IhuSW3R+W+2hUnJQyo7vbUspJHeoNM=; b=mwCTUYW8aUWMpYuPp1yInCe1h1
-	Z0DlP2vHCoLm47UXXAmJ3tC4gebM6MfUywvzmu1pOsMGg8tAiaSDLw5dRGgHEeYejOzJ1WJkjtQGQ
-	MgaWZNuQmhtssVAk1T2XCiwr0+MWsQwVoT1ySmwW1rQU9ipdp+nZdYA9FwSy8Ya790go=;
-Subject: Re: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special
- pages in the IOMMU page-tables
-From: Julien Grall <julien@xen.org>
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, hongyxia@amazon.co.uk,
- iwj@xenproject.org, Julien Grall <jgrall@amazon.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>
-References: <20210209152816.15792-1-julien@xen.org>
- <20210209152816.15792-2-julien@xen.org> <YCOZbNly7YCSNtHY@Air-de-Roger>
- <0910de32-8af9-6c21-b17a-b569aa59c4a4@xen.org>
-Message-ID: <a52aaaa5-1cca-3137-c405-4597288b1331@xen.org>
-Date: Wed, 10 Feb 2021 09:34:47 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: b371855c-e2e3-426f-b947-004003b55654
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1612950262;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+	From:Subject:Sender;
+	bh=aGi4uWZnydphFEovvX9Pq2z+hJHWZl0IERtuQfxUvmE=;
+	b=iRtiPViGlYEa1WnD57aKKEgTsNpsSWQON68PTGb2nEdaPukR0ylA0JRZkvhVfV/VM6
+	pFCkjpXzVwuTs4fs64mqcecw/wFaVSuluVbwgID/rebdzFBoREo2HCe8q571W3Z4iFNp
+	TkTrmyJDz+RG8UwoqJfVWqiYRO549ZU9aQVv82KR9cboiudcjb5Ad414hDd1Ojs8Nu4d
+	X4+ksHwTxZEZ0FF/wH3jys99fLJYNmFnb3DzSuitKN33MXcoMLyLYuTsALds4ZlLkJnz
+	be72Fg6xIN8izn5dSkIm2825Ggi9iAx0IWoI/u2FlUjcOzJgmInHuDJ/aTvLx0FhlnMd
+	fZ1w==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+v4/A=="
+X-RZG-CLASS-ID: mo00
+Date: Wed, 10 Feb 2021 10:44:13 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, Anthony PERARD
+ <anthony.perard@citrix.com>
+Subject: Re: [PATCH v20210209 4/4] xl: disable --debug option for xl migrate
+Message-ID: <20210210104413.4f44b49c.olaf@aepfle.de>
+In-Reply-To: <20210210100606.45de7991.olaf@aepfle.de>
+References: <20210209154536.10851-1-olaf@aepfle.de>
+	<20210209154536.10851-5-olaf@aepfle.de>
+	<24610.49788.493621.307069@mariner.uk.xensource.com>
+	<20210210100606.45de7991.olaf@aepfle.de>
+X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <0910de32-8af9-6c21-b17a-b569aa59c4a4@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/56ALD4faR3Dabw_C1DvHNpn"; protocol="application/pgp-signature"
 
-On 10/02/2021 08:50, Julien Grall wrote:
-> Hi Roger,
-> 
-> On 10/02/2021 08:29, Roger Pau Monné wrote:
->> On Tue, Feb 09, 2021 at 03:28:12PM +0000, Julien Grall wrote:
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> Currently, the IOMMU page-tables will be populated early in the domain
->>> creation if the hardware is able to virtualize the local APIC. However,
->>> the IOMMU page tables will not be freed during early failure and will
->>> result to a leak.
->>>
->>> An assigned device should not need to DMA into the vLAPIC page, so we
->>> can avoid to map the page in the IOMMU page-tables.
->>>
->>> This statement is also true for any special pages (the vLAPIC page is
->>> one of them). So to take the opportunity to prevent the mapping for all
->>> of them.
->>
->> Hm, OK, while I assume it's likely for special pages to not be target
->> of DMA operations, it's not easy to spot what are special pages.
-> 
-> Special pages are allocated by Xen for grant-table, vCPU info...
-> 
->>
->>> Note that:
->>>      - This is matching the existing behavior with PV guest
->>
->> You might make HVM guests not sharing page-tables 'match' PV
->> behavior, but you are making behavior between HVM guests themselves
->> diverge.
->>
->>
->>>      - This doesn't change the behavior when the P2M is shared with the
->>>      IOMMU. IOW, the special pages will still be accessibled by the
->>>      device.
->>
->> I have to admit I don't like this part at all. Having diverging device
->> mappings depending on whether the page tables are shared or not is
->> bad IMO, as there might be subtle bugs affecting one of the two
->> modes.
->>
->> I get the feeling this is just papering over an existing issue instead
->> of actually fixing it: IOMMU page tables need to be properly freed
->> during early failure.
-> 
-> My initial approach was to free the IOMMU page tables during early 
-> failure (see [1] and [2]). But Jan said the special pages should really 
-> not be mapped in the IOMMU ([3]) and he wasn't very happy with freeing 
-> the IOMMU pages table for early failure.
-> 
-> I don't particularly care about the approach as long as we don't leak 
-> IOMMU page-tables at the end.
-> 
-> So please try to find a common ground with Jan here.
-> 
-> Cheers,
-> 
-> [1] <20201222154338.9459-1-julien@xen.org>
-> [2] <20201222154338.9459-5-julien@xen.org>
+--Sig_/56ALD4faR3Dabw_C1DvHNpn
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Roger pointed out on IRC that I forgot to add a link for [3]. So here we go:
+Am Wed, 10 Feb 2021 10:06:06 +0100
+schrieb Olaf Hering <olaf@aepfle.de>:
 
-[3] <a22f7364-518f-ea5f-3b87-5c0462cfc193@suse.com>
+> -    if ( ctx->save.debug && ctx->stream_type !=3D XC_STREAM_PLAIN )
+> +    if ( ctx->save.debug )
 
-Cheers,
+This will do the verification, and finds many errors:
 
--- 
-Julien Grall
+2021-02-10 02:37:03 MST [2149] xc: error: verify pfn 0xfda9 failed (type 0)=
+: Internal error
+
+As Andrew said elsewhere, something writes into the memory of the idle, but=
+ suspended domU. Likely the netback, since it can not know that the domU wi=
+ll never come back.
+
+No idea if verify_frames would have ways to figure out what purpose a given=
+ pfn really has.
+
+
+Olaf
+
+--Sig_/56ALD4faR3Dabw_C1DvHNpn
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmAjqu0ACgkQ86SN7mm1
+DoAqQhAAmZrW8prkkaHo/xwy+I7WQyDz/1GibFp3PCk1Ttv2MGFiwAHiWzgFBCb0
+NJQRzb9PqZbNNTKUYIZLJrWh3MPL3gV2zmKH8R8KtepZdeXjyy3slqFaeL8Nb/pS
+QI3vyz0bb/uJXEPKaotCfC4dNak0TQ/dRfm8/RWwFgTvRFiXxuwsEP91gK2VxNLK
+ddVh8+zvJBzBWcCZUpM9wb3znHMqe/uFrOyVWGPbcLLEp9QX2fzHCYXwJkNpxcT6
+tEizaAmJWzbAsQhZVx3Y2GBzjhtXOQHQHhyAoqFPJljDcV2SqxuMgLf/UWEJWeIR
+iiXXcie1fSGsSL89ws+8zZEEcjCpZI9qt1mZx6pe8RqM2ngORvrP8/ko9Eeyc4sx
+UsRNY5PlZXTK576AFvAtbcL5X2lfe/YPF/TgQDSGelQZj0tOuQ62sp/R6szehSc2
+cmu7k9n7YZIIgASZckn7ACLccZMFMfDuK73g75ZbyoWhkLXBgO+hJK0lgMxKelHf
+pSkntk6UloDyEvUdhbCR/Hxt5Rw98OcmHW5/QubR+DOpHMWjCIJLFvMqAY0aIdjx
+i46VKBK50/UxEClH00gIfU46mnO5CEDM/c5SSSRwKWtmK+ZVFcLRKn2WH3RcOfVd
+QC6LP7pTGpaLuO9YoFZgvZ9peTStMIX0qBTCBtOBss3fSETer/c=
+=OITQ
+-----END PGP SIGNATURE-----
+
+--Sig_/56ALD4faR3Dabw_C1DvHNpn--
 
