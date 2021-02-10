@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B8C131617E
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 09:50:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83495.155528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2442A3161B9
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Feb 2021 10:03:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83497.155540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9lCb-0002NL-0i; Wed, 10 Feb 2021 08:50:25 +0000
+	id 1l9lOL-0003QG-6G; Wed, 10 Feb 2021 09:02:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83495.155528; Wed, 10 Feb 2021 08:50:24 +0000
+Received: by outflank-mailman (output) from mailman id 83497.155540; Wed, 10 Feb 2021 09:02:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l9lCa-0002Mw-Tb; Wed, 10 Feb 2021 08:50:24 +0000
-Received: by outflank-mailman (input) for mailman id 83495;
- Wed, 10 Feb 2021 08:50:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l9lCZ-0002Mr-Ph
- for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 08:50:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l9lCX-0005KQ-7C; Wed, 10 Feb 2021 08:50:21 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l9lCW-0006aS-VO; Wed, 10 Feb 2021 08:50:21 +0000
+	id 1l9lOL-0003Pr-2V; Wed, 10 Feb 2021 09:02:33 +0000
+Received: by outflank-mailman (input) for mailman id 83497;
+ Wed, 10 Feb 2021 09:02:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=en6K=HM=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l9lOI-0003Pm-Sc
+ for xen-devel@lists.xenproject.org; Wed, 10 Feb 2021 09:02:30 +0000
+Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a7f91d6f-0f9e-4b34-9c87-6a909752286c;
+ Wed, 10 Feb 2021 09:02:29 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id u25so1726062lfc.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Feb 2021 01:02:29 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id p3sm211881lfu.271.2021.02.10.01.02.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Feb 2021 01:02:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,92 +41,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=EJC1p+lr5039VDZDISnYId5De2QGLYOJDSMvjJC1rLc=; b=khxuRFrec3yiFQjSlYOsYDX+Lt
-	QxkCY4adtQiCPY21A4DynA4UqtMZOqg+HSCCPxJ94BcZqTLuZv3fOwEAdP84wXw57RvwZoRIWXuiq
-	Y/9B2wkbD7BBiG/QIOyPSzkb49hM3iJeKlR8q5yp4cSLUIDGj6+eaIScBwcCd+RKjymc=;
-Subject: Re: [for-4.15][PATCH v2 1/5] xen/x86: p2m: Don't map the special
- pages in the IOMMU page-tables
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, hongyxia@amazon.co.uk,
- iwj@xenproject.org, Julien Grall <jgrall@amazon.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>
-References: <20210209152816.15792-1-julien@xen.org>
- <20210209152816.15792-2-julien@xen.org> <YCOZbNly7YCSNtHY@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-Message-ID: <0910de32-8af9-6c21-b17a-b569aa59c4a4@xen.org>
-Date: Wed, 10 Feb 2021 08:50:17 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: a7f91d6f-0f9e-4b34-9c87-6a909752286c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=7G5wVlyRsXuQzM/tjl3QMxBCBuW8EeiKEzvQNC3uzGw=;
+        b=KVmGRBLWx3DqHtvFy0kgHN6SH+CngI92cF5MXuq6qA+MIqdQ8xLnDGuMUm/DMLVisB
+         ERf+ZhF0owfTt/goko7oHISPBRZwavdzye4SeS4Ezv9YrsMt3Z30I2S+lZv64/4TIRz2
+         uoC579sap1XR0VZy8OsoIeZ3RFC9p/aQV7zFAbeAvrErbZOd7AHNnAaWORiFXQO7g0NQ
+         Sc69ULHO16+b6nAe0USVEDg6Sbc6eYETpx1CZZ/ZiWjqCDfRNMI6fcQYtHzyN760swOs
+         4yvyrCsjnyx/hoZK7dZaWIM8jDPgqBpBvE00G1yGrrpNYAO9mLmaPhrPJy0sbMcac3MS
+         0Lgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=7G5wVlyRsXuQzM/tjl3QMxBCBuW8EeiKEzvQNC3uzGw=;
+        b=tHsLK6Vjqr4sbbY3hcCOERb/i0H8Tzvqz4QMogpwjgLTA8l0JHRG3paXQ1MRyEtM9O
+         VQ3Js0ZpkTt1yTqESwG3L56C5DSzsvDSqn+LOGNlwNwXwBxpylzSutQK/cJGCmVJi30A
+         9lbqFGsNxuvrh2G/jPU8oqCUFwnbrAPHe3hhSf1DS6bn6DQDOmp54CAfylX+ZNNasLsw
+         EoRdC/rqD3CTi6qu1qUjniW/nmBEOrmiLtD3YbMSjuUpK6CcEAS6MjI1UqmxuJSyD/E5
+         HrZnGOiD+ob+cR7rPLaSFGqY4DA/JztYh2ukoMjIFmxsHimKkuxxfinbqnvGn5a0JJfB
+         qUSw==
+X-Gm-Message-State: AOAM5324D8Vir+BoBWRCJtS9P4zdHTijQH1lxYSSDYDG3hC18S2uxsMW
+	+btYtmaNf4tu3YZcgQ5urSo=
+X-Google-Smtp-Source: ABdhPJzfmsWUPZI98ctxJ7iBA7EjBVpaZFnHW54OyMwgehgB99FB36yeOre1EaBU/HqrcHzWiOUMrA==
+X-Received: by 2002:a05:6512:2214:: with SMTP id h20mr1158603lfu.81.1612947748361;
+        Wed, 10 Feb 2021 01:02:28 -0800 (PST)
+Subject: Re: [PATCH V4 24/24] [RFC] libxl: Add support for virtio-disk
+ configuration
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-25-git-send-email-olekstysh@gmail.com>
+ <e1da0892-5496-b438-f52f-1e5dd8d48979@xen.org>
+ <87f92e40-6462-21ba-0c56-b77c6518fef8@gmail.com>
+ <dce22061-aa73-dba7-601d-fe20f989688d@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <57272148-ff37-1e5e-1b83-b56304431bc9@gmail.com>
+Date: Wed, 10 Feb 2021 11:02:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YCOZbNly7YCSNtHY@Air-de-Roger>
+In-Reply-To: <dce22061-aa73-dba7-601d-fe20f989688d@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-Hi Roger,
 
-On 10/02/2021 08:29, Roger Pau Monné wrote:
-> On Tue, Feb 09, 2021 at 03:28:12PM +0000, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
+On 20.01.21 19:05, Julien Grall wrote:
+> Hi Oleksandr,
+
+
+Hi Julien
+
+
+Sorry for the late response.
+
+
+>
+> On 18/01/2021 08:32, Oleksandr wrote:
 >>
->> Currently, the IOMMU page-tables will be populated early in the domain
->> creation if the hardware is able to virtualize the local APIC. However,
->> the IOMMU page tables will not be freed during early failure and will
->> result to a leak.
+>> On 16.01.21 00:01, Julien Grall wrote:
+>>> Hi Oleksandr,
 >>
->> An assigned device should not need to DMA into the vLAPIC page, so we
->> can avoid to map the page in the IOMMU page-tables.
+>> Hi Julien
 >>
->> This statement is also true for any special pages (the vLAPIC page is
->> one of them). So to take the opportunity to prevent the mapping for all
->> of them.
-> 
-> Hm, OK, while I assume it's likely for special pages to not be target
-> of DMA operations, it's not easy to spot what are special pages.
+>>
+>>>
+>>> On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
+>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>
+>>>> This patch adds basic support for configuring and assisting 
+>>>> virtio-disk
+>>>> backend (emualator) which is intended to run out of Qemu and could 
+>>>> be run
+>>>> in any domain.
+>>>>
+>>>> Xenstore was chosen as a communication interface for the emulator 
+>>>> running
+>>>> in non-toolstack domain to be able to get configuration either by 
+>>>> reading
+>>>> Xenstore directly or by receiving command line parameters (an 
+>>>> updated 'xl devd'
+>>>> running in the same domain would read Xenstore beforehand and call 
+>>>> backend
+>>>> executable with the required arguments).
+>>>>
+>>>> An example of domain configuration (two disks are assigned to the 
+>>>> guest,
+>>>> the latter is in readonly mode):
+>>>>
+>>>> vdisk = [ 'backend=DomD, disks=rw:/dev/mmcblk0p3;ro:/dev/mmcblk1p3' ]
+>>>>
+>>>> Where per-disk Xenstore entries are:
+>>>> - filename and readonly flag (configured via "vdisk" property)
+>>>> - base and irq (allocated dynamically)
+>>>>
+>>>> Besides handling 'visible' params described in configuration file,
+>>>> patch also allocates virtio-mmio specific ones for each device and
+>>>> writes them into Xenstore. virtio-mmio params (irq and base) are
+>>>> unique per guest domain, they allocated at the domain creation time
+>>>> and passed through to the emulator. Each VirtIO device has at least
+>>>> one pair of these params.
+>>>>
+>>>> TODO:
+>>>> 1. An extra "virtio" property could be removed.
+>>>> 2. Update documentation.
+>>>>
+>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>> [On Arm only]
+>>>> Tested-by: Wei Chen <Wei.Chen@arm.com>
+>>>>
+>>>> ---
+>>>> Changes RFC -> V1:
+>>>>     - no changes
+>>>>
+>>>> Changes V1 -> V2:
+>>>>     - rebase according to the new location of libxl_virtio_disk.c
+>>>>
+>>>> Changes V2 -> V3:
+>>>>     - no changes
+>>>>
+>>>> Changes V3 -> V4:
+>>>>     - rebase according to the new argument for 
+>>>> DEFINE_DEVICE_TYPE_STRUCT
+>>>>
+>>>> Please note, there is a real concern about VirtIO interrupts 
+>>>> allocation.
+>>>> [Just copy here what Stefano said in RFC thread]
+>>>>
+>>>> So, if we end up allocating let's say 6 virtio interrupts for a 
+>>>> domain,
+>>>> the chance of a clash with a physical interrupt of a passthrough 
+>>>> device is real.
+>>>
+>>> For the first version, I think a static approach is fine because it 
+>>> doesn't bind us to anything yet (there is no interface change). We 
+>>> can refine it on follow-ups as we figure out how virtio is going to 
+>>> be used in the field.
+>>>
+>>>>
+>>>> I am not entirely sure how to solve it, but these are a few ideas:
+>>>> - choosing virtio interrupts that are less likely to conflict 
+>>>> (maybe > 1000)
+>>>
+>>> Well, we only support 988 interrupts :). However, we will waste some 
+>>> memory in the vGIC structure (we would need to allocate memory for 
+>>> the 988 interrupts) if you chose an interrupt towards then end.
+>>>
+>>>> - make the virtio irq (optionally) configurable so that a user could
+>>>>    override the default irq and specify one that doesn't conflict
+>>>
+>>> This is not very ideal because it makes the use of virtio quite 
+>>> unfriendly with passthrough. Note that platform device passthrough 
+>>> is already unfriendly, but I am thinking PCI :).
+>>>
+>>>> - implementing support for virq != pirq (even the xl interface doesn't
+>>>>    allow to specify the virq number for passthrough devices, see 
+>>>> "irqs")
+>>> I can't remember whether I had a reason to not support virq != pirq 
+>>> when this was initially implemented. This is one possibility, but it 
+>>> is as unfriendly as the previous option.
+>>>
+>>> I will add a 4th one:
+>>>    - Automatically allocate the virtio IRQ. This should be possible 
+>>> to do it without too much trouble as we know in advance which IRQs 
+>>> will be passthrough.
+>> As I understand the IRQs for passthrough are described in "irq" 
+>> property and stored in d_config->b_info.irqs[i], so yes we know in 
+>> advance which IRQs will be used for passthrough
+>> and we will be able to choose non-clashed ones (iterating over all 
+>> IRQs in a reserved range) for the virtio devices.  The question is 
+>> how many IRQs should be reserved.
+>
+> If we are automatically selecting the interrupt for virtio devices, 
+> then I don't think we need to reserve a batch. Instead, we can 
+> allocate one by one as we create the virtio device in libxl.
 
-Special pages are allocated by Xen for grant-table, vCPU info...
+Looks like, yes, the reserved range is not needed if we use 4th option.
 
-> 
->> Note that:
->>      - This is matching the existing behavior with PV guest
-> 
-> You might make HVM guests not sharing page-tables 'match' PV
-> behavior, but you are making behavior between HVM guests themselves
-> diverge.
-> 
-> 
->>      - This doesn't change the behavior when the P2M is shared with the
->>      IOMMU. IOW, the special pages will still be accessibled by the
->>      device.
-> 
-> I have to admit I don't like this part at all. Having diverging device
-> mappings depending on whether the page tables are shared or not is
-> bad IMO, as there might be subtle bugs affecting one of the two
-> modes.
-> 
-> I get the feeling this is just papering over an existing issue instead
-> of actually fixing it: IOMMU page tables need to be properly freed
-> during early failure.
 
-My initial approach was to free the IOMMU page tables during early 
-failure (see [1] and [2]). But Jan said the special pages should really 
-not be mapped in the IOMMU ([3]) and he wasn't very happy with freeing 
-the IOMMU pages table for early failure.
+>
+>
+> For the static case, then a range of 10-20 might be sufficient for now.
 
-I don't particularly care about the approach as long as we don't leak 
-IOMMU page-tables at the end.
+ok
 
-So please try to find a common ground with Jan here.
 
-Cheers,
+Thinking a bit more what approach to choose...
+I would tend to automatically allocate the virtio IRQ (4th option) 
+rather than use static approach with reserved IRQs
+in order to eliminate the chance of a clash with a physical IRQs 
+completely from the very beginning. From other side
+we can indeed use static approach (as simpler one) for now and then 
+refine it when we have more understanding about the virtio usage.
+What do you think?
 
-[1] <20201222154338.9459-1-julien@xen.org>
-[2] <20201222154338.9459-5-julien@xen.org>
 
+>
+>
+> [...]
+>
+>>>> -        nr_spis += (GUEST_VIRTIO_MMIO_SPI - 32) + 1;
+>>>> +        uint64_t virtio_base;
+>>>> +        libxl_device_virtio_disk *virtio_disk;
+>>>> +
+>>>> +        virtio_base = GUEST_VIRTIO_MMIO_BASE;
+>>>>           virtio_irq = GUEST_VIRTIO_MMIO_SPI;
+>>>
+>>> Looking at patch #23, you defined a single SPI and a region that can 
+>>> only fit virtio device. However, here, you are going to define 
+>>> multiple virtio devices.
+>>>
+>>> I think you want to define the following:
+>>>
+>>>  - GUEST_VIRTIO_MMIO_BASE: Base address of the virtio window
+>>>  - GUEST_VIRTIO_MMIO_SIZE: Full length of the virtio window (may 
+>>> contain multiple devices)
+>>>  - GUEST_VIRTIO_SPI_FIRST: First SPI reserved for virtio
+>>>  - GUEST_VIRTIO_SPI_LAST: Last SPI reserved for virtio
+>>>
+>>> The per-device size doesn't need to be defined in arch-arm.h. 
+>>> Instead, I would only define internally (unless we can use a 
+>>> virtio.h header from Linux?).
+>>
+>> I think I got the idea. What are the preferences for these values?
+>
+> I have suggested some values in patch #23. Let me know what you think 
+> there.
+
+ok, thank you. I agree with the values.
+
+
+>
+>
+> [...]
+>
+>>>> +
+>>>> +        nr_spis += (virtio_irq - 32) + 1;
+>>>>           virtio_enabled = true;
+>>>>       }
+>>>
+>>> [...]
+>>>
+>>>> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+>>>> index 2a3364b..054a0c9 100644
+>>>> --- a/tools/xl/xl_parse.c
+>>>> +++ b/tools/xl/xl_parse.c
+>>>> @@ -1204,6 +1204,120 @@ out:
+>>>>       if (rc) exit(EXIT_FAILURE);
+>>>>   }
+>>>>   +#define MAX_VIRTIO_DISKS 4
+>>>
+>>> May I ask why this is hardcoded to 4?
+>>
+>> I found 4 as a reasonable value for the initial implementation.
+>> This means how many disks the single device instance can handle.
+>
+> Right, the question is why do you need to impose a limit in xl?
+>
+> Looking at the code, the value is only used in:
+>
+> +        if (virtio_disk->num_disks > MAX_VIRTIO_DISKS) {
+> +            fprintf(stderr, "vdisk: currently only %d disks are 
+> supported",
+> +                    MAX_VIRTIO_DISKS);
+>
+> The rest of the code (at list in libxl/xl) seems to be completely 
+> agnostic to the number of disks. So it feels strange to me to impose 
+> what looks like an arbitrary limit in the tools.
+
+Well, will drop this limit here.
+
+
+>
+>
+> Cheers,
+>
 -- 
-Julien Grall
+Regards,
+
+Oleksandr Tyshchenko
+
 
