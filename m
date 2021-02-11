@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0E2318F92
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Feb 2021 17:11:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83987.157342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74C9F3190D5
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Feb 2021 18:20:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84027.157409 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAEYO-00066O-R7; Thu, 11 Feb 2021 16:10:52 +0000
+	id 1lAFdA-0003qX-2J; Thu, 11 Feb 2021 17:19:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83987.157342; Thu, 11 Feb 2021 16:10:52 +0000
+Received: by outflank-mailman (output) from mailman id 84027.157409; Thu, 11 Feb 2021 17:19:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAEYO-00065t-Nk; Thu, 11 Feb 2021 16:10:52 +0000
-Received: by outflank-mailman (input) for mailman id 83987;
- Thu, 11 Feb 2021 16:10:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lAFd9-0003q8-VT; Thu, 11 Feb 2021 17:19:51 +0000
+Received: by outflank-mailman (input) for mailman id 84027;
+ Thu, 11 Feb 2021 17:19:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RRkU=HN=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1lAEYN-00065f-2P
- for xen-devel@lists.xenproject.org; Thu, 11 Feb 2021 16:10:51 +0000
-Received: from mail-wm1-f54.google.com (unknown [209.85.128.54])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a8cea45-0e26-4382-88aa-86ba0e95b2da;
- Thu, 11 Feb 2021 16:10:50 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id m1so6286052wml.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Feb 2021 08:10:50 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id w12sm10165517wmi.4.2021.02.11.08.10.48
+ <SRS0=kYUG=HN=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+ id 1lAFd8-0003q3-2Q
+ for xen-devel@lists.xenproject.org; Thu, 11 Feb 2021 17:19:50 +0000
+Received: from mail-wm1-x332.google.com (unknown [2a00:1450:4864:20::332])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f973be68-ff6c-43da-b98a-9f14af12bcea;
+ Thu, 11 Feb 2021 17:19:49 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id o10so6279211wmc.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Feb 2021 09:19:49 -0800 (PST)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id z5sm116078wrn.15.2021.02.11.09.19.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Feb 2021 08:10:49 -0800 (PST)
+ Thu, 11 Feb 2021 09:19:46 -0800 (PST)
+Received: from zen.lan (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id 0EE761FF7E;
+ Thu, 11 Feb 2021 17:19:46 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,64 +44,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a8cea45-0e26-4382-88aa-86ba0e95b2da
+X-Inumbo-ID: f973be68-ff6c-43da-b98a-9f14af12bcea
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=TL6W7d73N3GCIvRIjYMLyXwnB4yeGf0qOX3lyLDdBu4=;
+        b=EhrJgNj+rqe4e0/GVhKmxbOe9lxjJ5L9gjz6PiG8j0QQosmYD466hhVvdnX85G7hwU
+         Z6S/GHysPn7kLK8NIPDdtl891EDpm9PBagn2RJYeua6mDmOCslp75bzwJnr6pFkIvQos
+         UjAEUORUnOfUG6SX/aSEY5DRGnmXchX5AJ2gB/vvXHr0hxjKrVKoti7/Q2wDrKu/727f
+         +Hpsy8L9K7OaAaQiLMglrF15jw+craZ4ZnAIzVJ30rZTxvCerYpw/crrxiuuYAt6z6Mq
+         ZcJcp1ub2AFd0shcMC+tcqOJWPRAxc+aFSejPyy2kb9SmauIIOY8CzdQK6ZDCG9hk3UO
+         JmDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=XZxsFBkQjLc1jz1XLSDQBIKkyNhmBPcRjtO5Ghx9wUI=;
-        b=koWiZ6AhevW4z/QPsXaiBubsDkfbe3qIKHcz0g0XquVClE2bZWaUIfQ/FeHQDKyWqw
-         oLj4FMd4oHbiEGftyCgJnABHJYtA4HP6bSyfpWgDtAHyL628B/ly6Ldr/VUQOHL8ngxu
-         7YG+HbIBLioKuB/zB9+9CL9P6fwYdXPdKFCxXXqNly9ZcESiNR5LP245IyfK1GMWGTaq
-         2pSECHQG7x/bg8whiPHWzDqlEFDFaViFBkBYEZ7Hinr4Xa9xmAbmGA4C8OwBHBCJl/lX
-         Py9O6HF2Pxgadqc9g4rimvwGvxty5aaAhbXN7zwOhSTlSQ7o+DltkuPdcWk+7HVN4dDu
-         EPCg==
-X-Gm-Message-State: AOAM5315/azKfBjUKlwZay4NZNTIjyc0c3gd0pDgtyLkbYWdZmO0JbsU
-	5Z0bq3y+ORjzS6+OzkqUP/s=
-X-Google-Smtp-Source: ABdhPJyvRf3QWtv1mi3dgLFveNeF2PSMKuYF5nD/JnWPbgx38Cn0qS5lWpPWwSugsQnad1+PpFGDRg==
-X-Received: by 2002:a05:600c:4305:: with SMTP id p5mr6000556wme.8.1613059849454;
-        Thu, 11 Feb 2021 08:10:49 -0800 (PST)
-Date: Thu, 11 Feb 2021 16:10:47 +0000
-From: Wei Liu <wl@xen.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	George Dunlap <George.Dunlap@eu.citrix.com>,
-	Ian Jackson <iwj@xenproject.org>, Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [PATCH for-4.15] automation: Add Ubuntu Focal builds
-Message-ID: <20210211161047.xee6cdmvbxaaks3f@liuwe-devbox-debian-v2>
-References: <20210211155041.4811-1-andrew.cooper3@citrix.com>
- <3928a36c-9ef0-dd2b-a4b6-0a94092cab88@citrix.com>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=TL6W7d73N3GCIvRIjYMLyXwnB4yeGf0qOX3lyLDdBu4=;
+        b=LOUrnJSl1bjqsiF6uSHA8f39FzezYdcsjMLxLM/9bezD3EtLfliuB1nCB2UIcu5DvE
+         EU7RjnQTC+a4Zh69gq2gl1FCQcPrw4A/F+ngvVTs2JZtvnYD3+3i1E2WY2LjuL+IFqGZ
+         2sVu6OVQcGUpo6FHyo2WDHY8Z3Tws50hqt5XnVFnwP+MK6EpibZqhxhnor8OD/YqaY+i
+         +J6Aai3EiYoIxP4hguOsFDEeGjASc9ZMIUTvwAG6jojGKSrtKKOAuGiCvZOXiW+BWy73
+         14o05Fnd3Lcj0ULHp0dVIYdXgOgmGUZ8dO90M+qy1MiRDF2O7hcVOqa4BLcY/iaE2stW
+         AWIQ==
+X-Gm-Message-State: AOAM533JQOX5MI2MdlwXPs7WLctqHeFCSQIVG8AtX5rkEOd7iqr5lJAP
+	UtPT0NNKy2WqQr7AxvlLP4eOBg==
+X-Google-Smtp-Source: ABdhPJwfc92IAQZFHyt9zLftcVjQAQ6qq5klu9mtEeWvx9NXaKZ4BhyBwZ597NnKMkWsjqRkB3sJaw==
+X-Received: by 2002:a05:600c:41d6:: with SMTP id t22mr6094059wmh.74.1613063988088;
+        Thu, 11 Feb 2021 09:19:48 -0800 (PST)
+From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: julien@xen.org,
+	stefano.stabellini@linaro.org,
+	stefano.stabellini@xilinx.com,
+	andre.przywara@arm.com,
+	stratos-dev@op-lists.linaro.org,
+	xen-devel@lists.xenproject.org,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH  v2 0/7] Xen guest loader (to boot Xen+Kernel under TCG)
+Date: Thu, 11 Feb 2021 17:19:38 +0000
+Message-Id: <20210211171945.18313-1-alex.bennee@linaro.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3928a36c-9ef0-dd2b-a4b6-0a94092cab88@citrix.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Feb 11, 2021 at 03:57:06PM +0000, Andrew Cooper wrote:
-> On 11/02/2021 15:50, Andrew Cooper wrote:
-> > Logical continuation of c/s eb52442d7f "automation: Add Ubuntu:focal
-> > container".
-> >
-> > No further changes required.  Everything builds fine.
-> >
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > ---
-> > CC: Doug Goldstein <cardoe@cardoe.com>
-> > CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> > CC: Ian Jackson <iwj@xenproject.org>
-> > CC: Jan Beulich <JBeulich@suse.com>
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Wei Liu <wl@xen.org>
-> > CC: Julien Grall <julien@xen.org>
-> 
-> Forgot to say -
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/254912313
-> is a pipeline run with everything green.
-> 
-> Also, I need to prefix the names with ubuntu- which I can do on commit.
+Hi,
 
-Acked-by: Wei Liu <wl@xen.org>
+These patches have been sitting around as part of a larger series to
+improve the support of Xen on AArch64. The second part of the work is
+currently awaiting other re-factoring and build work to go in to make
+the building of a pure-Xen capable QEMU easier. As that might take
+some time and these patches are essentially ready I thought I'd best
+push for merging them.
+
+There are no fundamental changes since the last revision. I've
+addressed most of the comments although I haven't expanded the use of
+the global *fdt to other device models. I figured that work could be
+done as and when models have support for type-1 hypervisors.
+
+I have added some documentation to describe the feature and added an
+acceptance tests which checks the various versions of Xen can boot.
+The only minor wrinkle is using a custom compiled Linux kernel due to
+missing support in the distro kernels. If anyone can suggest a distro
+which is currently well supported for Xen on AArch64 I can update the
+test.
+
+The following patches still need review:
+
+ - tests/avocado: add boot_xen tests
+ - docs: add some documentation for the guest-loader
+ - docs: move generic-loader documentation into the main manual
+ - hw/core: implement a guest-loader to support static hypervisor guests
+
+Alex Bennée (7):
+  hw/board: promote fdt from ARM VirtMachineState to MachineState
+  hw/riscv: migrate fdt field to generic MachineState
+  device_tree: add qemu_fdt_setprop_string_array helper
+  hw/core: implement a guest-loader to support static hypervisor guests
+  docs: move generic-loader documentation into the main manual
+  docs: add some documentation for the guest-loader
+  tests/avocado: add boot_xen tests
+
+ docs/generic-loader.txt        |  92 ---------
+ docs/system/generic-loader.rst | 117 +++++++++++
+ docs/system/guest-loader.rst   |  54 +++++
+ docs/system/index.rst          |   2 +
+ hw/core/guest-loader.h         |  34 ++++
+ include/hw/arm/virt.h          |   1 -
+ include/hw/boards.h            |   1 +
+ include/hw/riscv/virt.h        |   1 -
+ include/sysemu/device_tree.h   |  17 ++
+ hw/arm/virt.c                  | 356 +++++++++++++++++----------------
+ hw/core/guest-loader.c         | 145 ++++++++++++++
+ hw/riscv/virt.c                |  20 +-
+ softmmu/device_tree.c          |  26 +++
+ MAINTAINERS                    |   9 +-
+ hw/core/meson.build            |   2 +
+ tests/acceptance/boot_xen.py   | 117 +++++++++++
+ 16 files changed, 718 insertions(+), 276 deletions(-)
+ delete mode 100644 docs/generic-loader.txt
+ create mode 100644 docs/system/generic-loader.rst
+ create mode 100644 docs/system/guest-loader.rst
+ create mode 100644 hw/core/guest-loader.h
+ create mode 100644 hw/core/guest-loader.c
+ create mode 100644 tests/acceptance/boot_xen.py
+
+-- 
+2.20.1
+
 
