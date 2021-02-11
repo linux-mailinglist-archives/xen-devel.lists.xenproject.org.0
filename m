@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8576318CC5
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Feb 2021 14:58:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.83910.157166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 188F9318D0D
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Feb 2021 15:15:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.83914.157183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lACUE-00087v-MN; Thu, 11 Feb 2021 13:58:26 +0000
+	id 1lACkN-0001f9-7H; Thu, 11 Feb 2021 14:15:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 83910.157166; Thu, 11 Feb 2021 13:58:26 +0000
+Received: by outflank-mailman (output) from mailman id 83914.157183; Thu, 11 Feb 2021 14:15:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lACUE-00087W-Iw; Thu, 11 Feb 2021 13:58:26 +0000
-Received: by outflank-mailman (input) for mailman id 83910;
- Thu, 11 Feb 2021 13:58:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lACUD-00087R-Nx
- for xen-devel@lists.xenproject.org; Thu, 11 Feb 2021 13:58:25 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lACUB-0004xO-IV; Thu, 11 Feb 2021 13:58:23 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lACUB-0008WC-Be; Thu, 11 Feb 2021 13:58:23 +0000
+	id 1lACkN-0001ei-3L; Thu, 11 Feb 2021 14:15:07 +0000
+Received: by outflank-mailman (input) for mailman id 83914;
+ Thu, 11 Feb 2021 14:15:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5qXs=HN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1lACkL-0001ec-AB
+ for xen-devel@lists.xenproject.org; Thu, 11 Feb 2021 14:15:05 +0000
+Received: from mail-wm1-x333.google.com (unknown [2a00:1450:4864:20::333])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7fa85e1c-7f64-47e5-88fe-316f17e06a3e;
+ Thu, 11 Feb 2021 14:15:04 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id n10so4027162wmq.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Feb 2021 06:15:04 -0800 (PST)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:f088:412:4748:4eb1])
+ by smtp.gmail.com with ESMTPSA id f2sm5093215wrt.7.2021.02.11.06.15.02
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 11 Feb 2021 06:15:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,77 +41,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=neBAoV5Fv2eWcseKDUVFyfEBzVNRpAVb4oidqOMd4qw=; b=h948uGjfRNvdtkZcxVV2wW2z23
-	t20KKBo1vEPQBJJqAgpckUKP2ETe+Q3eyuunHLQ9Dk9jyx9A8kxCHH/+pq/UU6TVw/IhNDa8zi+G8
-	PdknCeORSVV0THRnNyw+J8QOH23pXUGAV9VaVZhDPHMiq3HJsUAUEQdU+i2ipFpiKPqM=;
-Subject: Re: [PATCH v2] xen: workaround missing device_type property in
- pci/pcie nodes
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: Volodymyr_Babchuk@epam.com, ehem+xen@m5p.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20210209195334.21206-1-sstabellini@kernel.org>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c7fcaa1e-7f0f-577d-3b6a-388954b492f0@xen.org>
-Date: Thu, 11 Feb 2021 13:58:21 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: 7fa85e1c-7f64-47e5-88fe-316f17e06a3e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=NqJl+7VgG2HfaF9Ked4qUIjOghassFCSe0BNnEt7qj8=;
+        b=mPb+s7DITo6YbAtQjaqPCEBNGHpfyHFE4s9EjjWPnx5M8SIZYlPQ9vx4O6elsYgKPY
+         +Ej7zP1LSif9NfKboWhGb5BXjisNCMPjXtL6b6THXoqm+F/neJTqbQzUUtQollpmiZdt
+         IUpDSRHAT0zzr2yZuzdKroI87pI9a3TqJ1V/ihNLDVMzh1o79Q3Yfok7RhPlJwGA0Vak
+         jyLyfyiNscakfPrS2GE8hoP64a9C1ODvEonaJRDa/Qqf7MTD3wXuZiVFOvjueTst8tll
+         dZ4VqQdHT0ZLYLZTiuJ0Vy8rhIKV3NfpDzpEK2NmonwJVvCyCILbpuBN7xyALDZbqf9v
+         ZBXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=NqJl+7VgG2HfaF9Ked4qUIjOghassFCSe0BNnEt7qj8=;
+        b=Cad+MD1LM8ccs50zmN647CubzYTI2SDPwg4IcgfUvaQlfxL59VKNgkw0ect6RyLVcs
+         bLI0tOvDDKFVtscwZqHrSt4HNAa1PPsq+U1i6G2XR9OF8ntJ1CCE1Agr/bQNIE2zHdby
+         RXXl6s5kK8SoaNNkaGWDIDikfoQMHCkyr7elAVQMzW0koA8s+nqbVjvEIY2iJF+cksQp
+         2LRNOy/nMP+x12btafR5zUqijKROSK8DqP+CwAg+KRUdcagTCAqSgzFucmDM7WtsrllG
+         cbTENG41bnirwkxoXaxkSR+OeE+JS2BedxKiRtOvfkqXI8zRwzdk8cqo3lrxSVFJJlfy
+         0uiQ==
+X-Gm-Message-State: AOAM530ezE5COQKZf327HJs/c7k1VjQBkcmo0u81sUXRywrf/leqtdCU
+	eK7R1+olLutTVqy62c2BeA8=
+X-Google-Smtp-Source: ABdhPJzMRxugvXnzrQVDPQcGqkvzFNvBaMKVtpKaUKUX/H65FT6SVTHvQwoSqVx3xmLWZ2SNHe4UNQ==
+X-Received: by 2002:a1c:6a09:: with SMTP id f9mr5485740wmc.104.1613052903733;
+        Thu, 11 Feb 2021 06:15:03 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Juergen Gross'" <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>,
+	<netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Cc: "'Wei Liu'" <wei.liu@kernel.org>,
+	"'David S. Miller'" <davem@davemloft.net>,
+	"'Jakub Kicinski'" <kuba@kernel.org>
+References: <20210211101616.13788-1-jgross@suse.com> <20210211101616.13788-5-jgross@suse.com>
+In-Reply-To: <20210211101616.13788-5-jgross@suse.com>
+Subject: RE: [PATCH v2 4/8] xen/netback: fix spurious event detection for common event case
+Date: Thu, 11 Feb 2021 14:15:02 -0000
+Message-ID: <001d01d70080$4a5446d0$defcd470$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20210209195334.21206-1-sstabellini@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain;
+	charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJuRSjpYwlLGVvLkRJGigHTv/cnpwJEXRo/qRJS+MA=
 
+> -----Original Message-----
+> From: Juergen Gross <jgross@suse.com>
+> Sent: 11 February 2021 10:16
+> To: xen-devel@lists.xenproject.org; netdev@vger.kernel.org; linux-kernel@vger.kernel.org
+> Cc: Juergen Gross <jgross@suse.com>; Wei Liu <wei.liu@kernel.org>; Paul Durrant <paul@xen.org>; David
+> S. Miller <davem@davemloft.net>; Jakub Kicinski <kuba@kernel.org>
+> Subject: [PATCH v2 4/8] xen/netback: fix spurious event detection for common event case
+> 
+> In case of a common event for rx and tx queue the event should be
+> regarded to be spurious if no rx and no tx requests are pending.
+> 
+> Unfortunately the condition for testing that is wrong causing to
+> decide a event being spurious if no rx OR no tx requests are
+> pending.
+> 
+> Fix that plus using local variables for rx/tx pending indicators in
+> order to split function calls and if condition.
+> 
 
+Definitely neater.
 
-On 09/02/2021 19:53, Stefano Stabellini wrote:
-> PCI buses differ from default buses in a few important ways, so it is
-> important to detect them properly. Normally, PCI buses are expected to
-> have the following property:
-> 
->      device_type = "pci"
-> 
-> In reality, it is not always the case. To handle PCI bus nodes that
-> don't have the device_type property, also consider the node name: if the
-> node name is "pcie" or "pci" then consider the bus as a PCI bus.
-> 
-> This commit is based on the Linux kernel commit
-> d1ac0002dd29 "of: address: Work around missing device_type property in
-> pcie nodes".
-> 
-> This fixes Xen boot on RPi4. Some RPi4 kernels have the following node
-> on their device trees:
-> 
-> &pcie0 {
-> 	pci@1,0 {
-> 		#address-cells = <3>;
-> 		#size-cells = <2>;
-> 		ranges;
-> 
-> 		reg = <0 0 0 0 0>;
-> 
-> 		usb@1,0 {
-> 				reg = <0x10000 0 0 0 0>;
-> 				resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
-> 		};
-> 	};
-> };
-> 
-> The pci@1,0 node is a PCI bus. If we parse the node and its children as
-> a default bus, the reg property under usb@1,0 would have to be
-> interpreted as an address range mappable by the CPU, which is not the
-> case and would break.
-> 
-> Link: https://lore.kernel.org/xen-devel/YBmQQ3Tzu++AadKx@mattapan.m5p.com/
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Fixes: 23025393dbeb3b ("xen/netback: use lateeoi irq binding")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Cheers,
-
--- 
-Julien Grall
 
