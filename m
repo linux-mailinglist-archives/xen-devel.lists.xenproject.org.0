@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B8431A219
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 16:52:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84346.158162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A583231A1F5
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 16:45:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84332.158150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAak9-0002uK-VX; Fri, 12 Feb 2021 15:52:29 +0000
+	id 1lAadf-0001tw-7m; Fri, 12 Feb 2021 15:45:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84346.158162; Fri, 12 Feb 2021 15:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 84332.158150; Fri, 12 Feb 2021 15:45:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAak9-0002tv-S9; Fri, 12 Feb 2021 15:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 84346;
- Fri, 12 Feb 2021 15:52:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o46S=HO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lAak8-0002tq-68
- for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 15:52:28 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1085d0ec-aa4b-47ae-a060-fd302c24a649;
- Fri, 12 Feb 2021 15:52:27 +0000 (UTC)
+	id 1lAadf-0001tX-4e; Fri, 12 Feb 2021 15:45:47 +0000
+Received: by outflank-mailman (input) for mailman id 84332;
+ Fri, 12 Feb 2021 15:45:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pKAX=HO=gmail.com=snitzer@srs-us1.protection.inumbo.net>)
+ id 1lAadd-0001tS-HP
+ for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 15:45:45 +0000
+Received: from mail-pl1-f180.google.com (unknown [209.85.214.180])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id aed3b706-dc8a-43af-b503-f19b77648660;
+ Fri, 12 Feb 2021 15:45:44 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id s15so49589plr.9
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Feb 2021 07:45:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,79 +38,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1085d0ec-aa4b-47ae-a060-fd302c24a649
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1613145147;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=71PBv1yaSXwV1DXb00ABA1ndEflYaw9hZ+l02M+OUzY=;
-  b=EdoI7/2zxyHXmZis2df1wf5fE+VvTRHJc24JzUjSvqhSPaEJT+0pQGOs
-   2ZelLzjNXflGCeJmgIXwSICBNxYorpt3gIh9FYfnWIJbdJDCrf5HjE8gY
-   +JlSfAjinO1SjEStSgoOQye6YuQ942B0+0S5NsD3nrvB167+LIDC7exqQ
-   Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 1XPwlT/SsWH1wkhbtbN8GhOIc5iKNlVmziz9mOZJaCQVt0oHdU0oxUA29altqRi5xQ5SaMJjUZ
- wwH3XXgJ/Qv+Z3q12XBW6gWNtIEHgc25AfQAVj6yn0MfxwXGckMgN+HHnWsRCjv3GxAxpirRAd
- nu6IqyFkDugU2+Y4P5nr8FeQG7KcYV5HinC5pxQt40zFcYLDRMDUUXYe9Ya/A16YikQPF2Fgca
- cTYCS/joN3bTiBxs904fuGrSV1vMTBc+Jc3T3H66BgX8GPTJgpig+rLzNZd8U7BRajGInPvxLB
- x4Y=
-X-SBRS: 5.2
-X-MesageID: 37145664
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,174,1610427600"; 
-   d="scan'208";a="37145664"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH 10/10] tools/libs: Write out an ABI analysis when abi-dumper is available
-Date: Fri, 12 Feb 2021 15:39:53 +0000
-Message-ID: <20210212153953.4582-11-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210212153953.4582-1-andrew.cooper3@citrix.com>
-References: <20210212153953.4582-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: aed3b706-dc8a-43af-b503-f19b77648660
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=M8C1yZZgp4rNPfghNpxWN41GpCK1+InKLAelhxbvplw=;
+        b=j0utPCU15ZdF4aMvuBalv8kNhluW4XUid0Ei0j/wrOqVu0XNhoipRGtO3JBrPg80T2
+         QBHZaYU0lWlGoAW9xFSnkZEnych3aJgHqJKITskkg6jPsoqo7Uy9q5ocRd2MsmVWflSw
+         CPjQWvrW/A2rW4ST9apzwhp4BkY+j728CBjuBrxLW4seYUI4S/8pjpOEEDgnaLFc8PFC
+         G+3YiClxb8+mWtYDrzIxsn/gX75xIG2o5sbwXip11ECwRGm/bP2aBfCDsX38uk30FdeW
+         Jnoynsw/+sYPsv1JtGlGVf6gFlVeK5BF+I2kePfYK3BHMuPjsll7XHZeRwSYA9Ax/8yk
+         kNiw==
+X-Gm-Message-State: AOAM533In0NeOFkBRyCDblgAB5Vz/FtLS7u1eb1b5G3Mg3FvuJxxAuXZ
+	/5ixh/HCtNRi3oWnX7Sfu8iCD1PYbA1hAoI8Pj8=
+X-Google-Smtp-Source: ABdhPJyYCXBmQgiV5syIf5Cv8mFWKTwy1gjS5Yhyhg4Qi/jYzZasdmgfRgJp2ybsEGtlgybQDIghy8J0Yy2+jaKx2kI=
+X-Received: by 2002:a17:90a:4e1:: with SMTP id g88mr3222886pjg.7.1613144743400;
+ Fri, 12 Feb 2021 07:45:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20201116145809.410558-1-hch@lst.de> <20201116145809.410558-13-hch@lst.de>
+In-Reply-To: <20201116145809.410558-13-hch@lst.de>
+From: Mike Snitzer <snitzer@redhat.com>
+Date: Fri, 12 Feb 2021 10:45:32 -0500
+Message-ID: <CAMM=eLfD0_Am3--X+PsKPTfc9qzejxpMNjYwEh=WtjSa-iSncg@mail.gmail.com>
+Subject: Re: [PATCH 12/78] dm: use set_capacity_and_notify
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>, 
+	Josef Bacik <josef@toxicpanda.com>, Ilya Dryomov <idryomov@gmail.com>, 
+	Jack Wang <jinpu.wang@cloud.ionos.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowang@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Stefan Hajnoczi <stefanha@redhat.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Minchan Kim <minchan@kernel.org>, Song Liu <song@kernel.org>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, 
+	device-mapper development <dm-devel@redhat.com>, linux-block <linux-block@vger.kernel.org>, 
+	drbd-dev@lists.linbit.com, nbd@other.debian.org, ceph-devel@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, 
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>, linux-nvme@lists.infradead.org, 
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>, linux-fsdevel <linux-fsdevel@vger.kernel.org>, 
+	Hannes Reinecke <hare@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Juergen Gross <jgross@suse.com>
----
- tools/libs/libs.mk | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On Mon, Nov 16, 2020 at 10:05 AM Christoph Hellwig <hch@lst.de> wrote:
+>
+> Use set_capacity_and_notify to set the size of both the disk and block
+> device.  This also gets the uevent notifications for the resize for free.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Hannes Reinecke <hare@suse.de>
+> ---
+>  drivers/md/dm.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+> index c18fc25485186d..62ad44925e73ec 100644
+> --- a/drivers/md/dm.c
+> +++ b/drivers/md/dm.c
+> @@ -1971,8 +1971,7 @@ static struct dm_table *__bind(struct mapped_device *md, struct dm_table *t,
+>         if (size != dm_get_size(md))
+>                 memset(&md->geometry, 0, sizeof(md->geometry));
+>
+> -       set_capacity(md->disk, size);
+> -       bd_set_nr_sectors(md->bdev, size);
+> +       set_capacity_and_notify(md->disk, size);
+>
+>         dm_table_event_callback(t, event_callback, md);
+>
 
-diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
-index ac68996ab2..2a4ce8a90c 100644
---- a/tools/libs/libs.mk
-+++ b/tools/libs/libs.mk
-@@ -49,6 +49,8 @@ PKG_CONFIG_LOCAL := $(PKG_CONFIG_DIR)/$(PKG_CONFIG)
- LIBHEADER ?= $(LIB_FILE_NAME).h
- LIBHEADERS = $(foreach h, $(LIBHEADER), $(XEN_INCLUDE)/$(h))
- 
-+PKG_ABI := lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)-$(XEN_COMPILE_ARCH)-abi.dump
-+
- $(PKG_CONFIG_LOCAL): PKG_CONFIG_PREFIX = $(XEN_ROOT)
- $(PKG_CONFIG_LOCAL): PKG_CONFIG_INCDIR = $(XEN_INCLUDE)
- $(PKG_CONFIG_LOCAL): PKG_CONFIG_LIBDIR = $(CURDIR)
-@@ -94,6 +96,13 @@ lib$(LIB_FILE_NAME).so.$(MAJOR): lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)
- lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR): $(PIC_OBJS) libxen$(LIBNAME).map
- 	$(CC) $(LDFLAGS) $(PTHREAD_LDFLAGS) -Wl,$(SONAME_LDFLAG) -Wl,lib$(LIB_FILE_NAME).so.$(MAJOR) $(SHLIB_LDFLAGS) -o $@ $(PIC_OBJS) $(LDUSELIBS) $(APPEND_LDFLAGS)
- 
-+# If abi-dumper is available, write out the ABI analysis
-+ifneq ($(ABI_DUMPER),)
-+libs: $(PKG_ABI)
-+$(PKG_ABI): lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR) headers.lst
-+	abi-dumper $< -o $@ -public-headers headers.lst -lver $(MAJOR).$(MINOR)
-+endif
-+
- .PHONY: install
- install: build
- 	$(INSTALL_DIR) $(DESTDIR)$(libdir)
--- 
-2.11.0
+Not yet pinned down _why_ DM is calling set_capacity_and_notify() with
+a size of 0 but, when running various DM regression tests, I'm seeing
+a lot of noise like:
 
+[  689.240037] dm-2: detected capacity change from 2097152 to 0
+
+Is this pr_info really useful?  Should it be moved to below: if
+(!capacity || !size) so that it only prints if a uevent is sent?
+
+Mike
 
