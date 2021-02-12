@@ -2,30 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE6D31A4D2
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 19:57:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84422.158336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C5231A57E
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 20:37:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84429.158350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAdcA-0004WR-Dn; Fri, 12 Feb 2021 18:56:26 +0000
+	id 1lAeEV-0008G0-Al; Fri, 12 Feb 2021 19:36:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84422.158336; Fri, 12 Feb 2021 18:56:26 +0000
+Received: by outflank-mailman (output) from mailman id 84429.158350; Fri, 12 Feb 2021 19:36:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAdcA-0004W2-A6; Fri, 12 Feb 2021 18:56:26 +0000
-Received: by outflank-mailman (input) for mailman id 84422;
- Fri, 12 Feb 2021 18:56:25 +0000
+	id 1lAeEV-0008Ff-7a; Fri, 12 Feb 2021 19:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 84429;
+ Fri, 12 Feb 2021 19:36:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dd8J=HO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lAdc8-0004Vx-TZ
- for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 18:56:25 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=o46S=HO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lAeET-0008Fa-C2
+ for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 19:36:01 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 27280d76-3980-46a0-ae1a-aab2d5d38db5;
- Fri, 12 Feb 2021 18:56:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0222164D9A;
- Fri, 12 Feb 2021 18:56:22 +0000 (UTC)
+ id 484e50de-db2c-48db-8d81-41cf6074c5f9;
+ Fri, 12 Feb 2021 19:35:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,266 +35,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27280d76-3980-46a0-ae1a-aab2d5d38db5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1613156183;
-	bh=Mq2Ilw0F0UEjsE+TXzIgC/+QC2l/0mn9P4z0OJzZIM8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=si0957cY9Kxof26z3e30q/IssxsPmZvbViYHC2uZCJcmJZ8xvkDcRyb9KrYvDmdsG
-	 CAtW4blmwqVzEOukCpDtoWcNYDRXaEqFcHsD3PhQ41mkJYiZkcRmOpO849uJNgbq6E
-	 CTQ5y7OCsbpX7b2OQO0Ffms6kjTL76Nn1L7BA9ta517Z73D9rD+MYvgRWTlqtaecMF
-	 TuJ6bvSpVqk9+wo+ErS8EsMgnqQoR+gdBtxtJQLn9HHlFOkmFqVm+uFt6XdZw3l3j/
-	 Om075m3DJokyHl/THAsuAqx16hqTFX/09jj9E02mHuSbdW/SiV7iEHXzS30LfcUz+l
-	 RU1aTNh4DA1EQ==
-Date: Fri, 12 Feb 2021 10:56:17 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    "lucmiccio@gmail.com" <lucmiccio@gmail.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping
-In-Reply-To: <170a971e-8e10-bb9d-a324-e09e40ed994c@xen.org>
-Message-ID: <alpine.DEB.2.21.2102121055220.3234@sstabellini-ThinkPad-T480s>
-References: <20210208184932.23468-1-sstabellini@kernel.org> <B96B5E21-0600-4664-899D-D38A18DE7A8C@arm.com> <alpine.DEB.2.21.2102091226560.8948@sstabellini-ThinkPad-T480s> <EFFD35EA-378B-4C5C-8485-7EA5265E89E4@arm.com> <4e4f7d25-6f5f-1016-b1c9-7aa902d637b8@xen.org>
- <ECC82E19-3504-4E0E-B3EA-D0E46DD842C6@arm.com> <c573b3a0-186d-626e-6670-f8fc28285e3d@xen.org> <BFC5858A-3631-48E1-AB87-40EECF95FA66@arm.com> <489c1b89-67f0-5d47-d527-3ea580b7cc43@xen.org> <alpine.DEB.2.21.2102111253060.9128@sstabellini-ThinkPad-T480s>
- <170a971e-8e10-bb9d-a324-e09e40ed994c@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 484e50de-db2c-48db-8d81-41cf6074c5f9
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1613158559;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=JLB/N6vyzFsgB8EuuJagPk41G9hnHiknEi9TCRPI1GA=;
+  b=bZjStSUHCeE4cclXrn/eWcS27m9lwO1b0W50P07WoCYE9mXxAok4qbYl
+   JS24ARlFJGuE5IcJXwsHrTAmCl1+LQQMaoxyS3XhUrZcjoJjkRXiHAkjY
+   aA9P6gNObk09hBLJ8fufhg65Gz9zdnj8y8SIR0aLlL4LGV1Yk+0sFUpgJ
+   8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: A8QwpC+iga+gRWHwRpliqUFyDXuq907TblMdGliqZGio+xmdnNqVvU495jcbYxm3u2gm1d1xDp
+ pb65gXsKZTjJp0J9rJBIRhIEuBqBKo8G9skbag90FNNefHbCOCR6oXZ59RVezxVQp3mS/995p8
+ EWuHuNEo8j1nwb/BGUiNatBMrAYhYPHRBEJEYKiQtQy2H9FDWypQerD7NrfCiAuRUe5PflS6lX
+ A40Zsy/NDXl8X0RlXfg/8Hchd+Z4X50vLGm14np11gVnrxgELunmD2lHRPR9BJEOz1y0TF916V
+ /3Y=
+X-SBRS: 5.2
+X-MesageID: 37104963
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,174,1610427600"; 
+   d="scan'208";a="37104963"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KYYVIoizhj5lhw8fojnVOx1bAIbE02ffPYtbY05UTi7HGrFlm8RnUpE5o2Cn9EFI0YUDVIdndviPdfwp9mJxtriQNbrRSpcXoYpJhoqZbKyX6x1KuyKEbZ5KnBg48jsodv1dDPWgnSo1Mgkog8c1aVWyXBnIBiIXnj/GjNjhlU1OZPBBDS40puNsxNjoDip8tf98Ji1H9n6OqQt2DwFUpWhaP1w56UU02tCmb81/pHChDf5sl4GvksIVOg3FnKLjxqiFyQj9eIdzx5/cmEH5MxVr9ggm2hSx1G8Jxc1UeSvtXOUVGxalYXLCwX6NbbfvEWQLO4UnRfOcxcfo7HuWDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JLB/N6vyzFsgB8EuuJagPk41G9hnHiknEi9TCRPI1GA=;
+ b=FSQLgRPWSBl0diNYK7dyaCMFlBY5LyRLbBABcyDFVbRJQ1HP72SpTgvWL7AsI6t3wxHP+ORtjVkHhk8AldTqjns3cL3emmKKloss2oTHaD9o0Z4pnww8/P0uoaw3FXC43edMRDuaUits22naziZpX5NfAE42Bct5tomwJzH//IeeBLTX8YoYMBGDvaYK248smJ4HRijs5fJkkmgjBWOil/pke0BJTt3eifYnFGzJQxCaXY8XZ+tL+hf9014mIGp3Lm2FQBgR0iyBcElZ3QqaVDLlOXiF4MrmQc7+IQ3jiuWIafN2ZPfwMOtZHm7KQmiPyXMm7oLudWavOA65FcpwAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JLB/N6vyzFsgB8EuuJagPk41G9hnHiknEi9TCRPI1GA=;
+ b=ZL5vHXQnByWxkzV4z7SGErgzHe8L7Xqz2A0iHQLSG0/t1TIiGZC44slgTSTY+aeXbEKsQgA76Ffz3BQwztspd0pbRySf3uj7RcbohRdiN37mFPPkAZFtam6dsesQuLF+0oQrJFhI2tvE1tWFT8qf9WkCk/LtE9+KRZiTDmmMAo4=
+Subject: Re: [PATCH 03/10] tools/libxg: Fix uninitialised variable in
+ meminit()
+To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <20210212153953.4582-1-andrew.cooper3@citrix.com>
+ <20210212153953.4582-4-andrew.cooper3@citrix.com>
+ <2437c26c-2bb6-ec43-37bd-3051b97eff56@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <2747d0fd-888c-6de0-fe6b-77a7b00ab46d@citrix.com>
+Date: Fri, 12 Feb 2021 19:35:28 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
+In-Reply-To: <2437c26c-2bb6-ec43-37bd-3051b97eff56@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0018.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:150::23) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-649706624-1613156183=:3234"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8d23a8cf-7af7-4898-7c28-08d8cf8d697d
+X-MS-TrafficTypeDiagnostic: BY5PR03MB5282:
+X-Microsoft-Antispam-PRVS: <BY5PR03MB5282DEA6482DD0613F80F320BA8B9@BY5PR03MB5282.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: INgpMd3xWnz6ptvTriKgxhtPkZOhUd2i352wltAD7oMty6T6vjUcto4xjWH/kVB7ujycyPVK3Kysr2GDkTXvowqjI67uhhRy02E3foMbpN6HfCrbAiCnhr0f+vOxeAKKqGXiSgq21nNjqutNm8qd18V1KVBiyzxf69DXFWX9b8DbbZ38np55uOgC8lo0mgF7bLdWSNG+FK8ZhKHKoa5/sML1cGpDrqjoLkjqtGwO3SHon7DxWOGOeUTWdllIPXz5oYN1USGdcUENKoQi/HLqUi3O9cDQlLhXaHdgQoOBbYe7n+RTkZlJz4U3I5lZW8LcV306+KlvYTCvijMZuozeSAzsfV3tQLaJWwEjH0oZIoL5KFh0LLKeOgXsDrcKA6T1wDkVBre1PYZywr4R5eilYpWNdQ1skithDXdCV/Rg7Vlnw/mPTPAUPRKOnexvRJ5IXB4p36PxbNA5fKTTJVBvaoU5r46S0FrLahF8VMKDy3PDgmU/UKt2mxJD2KxFIACOBdhX5boaWHWUTVCk2s7fKhuRej9+Fj7Xfc2DcGSDDM4mWkDBJJQD7s4a4XZUqDJib7pnXiPqlb+Hbmgji5kJhc6xqKrHHoqspDjPWG8Jlp4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(376002)(39860400002)(136003)(396003)(6486002)(2906002)(36756003)(186003)(4326008)(6666004)(8676002)(110136005)(31686004)(8936002)(16526019)(31696002)(478600001)(53546011)(2616005)(16576012)(316002)(86362001)(83380400001)(956004)(5660300002)(26005)(66476007)(54906003)(66946007)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UFNXWDVxakhJMUJCYTB3QzVWa0lMVWdjZmZ0OW9UVVlET09VSU9QcHEvVEF4?=
+ =?utf-8?B?L0JQNVJPdXMrczlsOFZLVkNsbU5LWjdRTmthcVNwTmI0TGhEL1lXbEZuSTQ5?=
+ =?utf-8?B?Q2xtSUZvWU1PcG5EUXE1MWpTajFocjFFY0xGVUhPYUoremttQ1R3R3NXZlNQ?=
+ =?utf-8?B?WGhxYnlRVDZwSE9YQ1R4bU1TZmg5M29PN0NqbHJSWW1acGowT2QvaEE1S21h?=
+ =?utf-8?B?WkxYYzUrellOSlh6ZGRmejlEOWh5TWRHZXdFbzBWZWhBdVV6NE1aOElEdlJz?=
+ =?utf-8?B?RHl1VWtqeDlBcXA1WXErcGpmb0hzUEplUnJldWJDdkFNbFd4aERCYVNzUVd1?=
+ =?utf-8?B?TUtPc2NRWXl6MFVIZ0RsNFVrTVdkZWdZaE1sUERUTzI2cTU2OWdlcjBacDVF?=
+ =?utf-8?B?c1Bhcm13VlJ5UlY2MkdHb3Zzdm9sMGJEb2N4OEt2QmhqeFFNQ0htenR0b2lI?=
+ =?utf-8?B?cEFuU1I1OG9PWXpIaWtxVW9xQ3hPRUJyQXNIalJxbmJ5cDV0emxVVDFOYnNR?=
+ =?utf-8?B?ZFh5dlFUbkZrdThvQ0JZWDl3M0crR0lOWUNGWXNPQmdsOENjdDNUN293dVlF?=
+ =?utf-8?B?WDJEQXYvZlQzNlR6VEV6bVRUTUxVcm5GWXlDTXR2dEt5VlVyNjJNUnY3Y2l6?=
+ =?utf-8?B?WG91Rmw4blB0dGp6YzczYVhpU3crNkFhem5uUmd0SGpQRFBzTlZJMVVYb3Y1?=
+ =?utf-8?B?WjNYY2oyOEFzUi83allwSFh1NVZrUVFjc2hIc2c5WlZhemxtWmw3NzZtUXpm?=
+ =?utf-8?B?cWh6WmZMNnlyT1ZWZ045WFk5eEVTK0tKcVE4cGdlem5NUC9kdGFVb0F3emNs?=
+ =?utf-8?B?ZldFT2xCeTZMOGs2bHBkOVpiSk5lVHVFWmRjeGF6M3dTTzRmZ3gvOE1HWDVa?=
+ =?utf-8?B?VEhrK1FBR014cWRBK296YUhGaVNmd21EdUlRbWpVaXVkMnZvZmpndWxmemha?=
+ =?utf-8?B?KzlHTXpmaXBETWlxOUh1eVNDd1Foem5zelEwY2F3NzlPbVA1TjcycDZtZUxt?=
+ =?utf-8?B?VXBUN1dBa3Z3Y3JGTVYzT1VaeW0yTTdBWEREZG91dVlVZ2xxRGdKQWxsRk84?=
+ =?utf-8?B?RVZmdy9kSU1OdkFVMkVoc25OMWJnaThiRmgwejFBZk9aQ2lScUd4OXBYNzVM?=
+ =?utf-8?B?b3R2cVZQUXJseDFzMTNHd1Zjcm1FbkxWaVB5aHFYa0U4V1JBVHltTkduNkQ5?=
+ =?utf-8?B?M2ZKTlZCcng0Mk9STXFlbjlSRUR3YlJlZ3htOG5EZTAyeHNRS25SaGtXOE9D?=
+ =?utf-8?B?eUNUNGo3VEpncC9LaVJxYUs4VjZwd3JnbzVBZWhuU1hPR0pPTGRLeU1zRHp6?=
+ =?utf-8?B?SDRiUk0wWlloWis4aXBKTzE5YzVrSGlITml5UE5jN3RCSWZmRUFQZXJQUHJQ?=
+ =?utf-8?B?cVVsODdjcEhjQVJlenNUTHFYeXJPU25KT3NVSkNxYW83b0JXaEFBTlF0V2ZE?=
+ =?utf-8?B?dGFYZG1zT1ZqbVNZemZJd3hmdlg2ZldKQXlic0RTT3JaMlpFVy9aS3ZjQWVF?=
+ =?utf-8?B?dFhhbk9LeGJOT2RoK3A4YVNXTWJjZlhyOUpLWWRMWmErTWdqYTlpQWw0TU81?=
+ =?utf-8?B?ekhPb2tndkZFck9hMFdwY1dLRjlKcVZPQ3VHSHpMejhXdjA0bEsvTW05a2g4?=
+ =?utf-8?B?eTdSTkxoZXdjalBlblN0YWJiQ1lUK3BFNk9jSGxpQ2IvWVJSVVllUlIyeXUw?=
+ =?utf-8?B?ZDhtbFRsLzNOdUNzaGJVTTVoTlRjWXpJekhMaVVWZHBhaGJOZ25rZmk3akR4?=
+ =?utf-8?Q?iTQ2sYnL6+/uRZvA3aplESP2O8Au6+iNqmrh1jR?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d23a8cf-7af7-4898-7c28-08d8cf8d697d
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2021 19:35:54.8979
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PvrwqNHmUVcNUMr0of6lam2lr+UEVX/Ez1w4tyeNWm8GzuFLyqK7pMCAi2EutEfcBwebLfujvBmBEKV3wa+am6OdOyk6KnI70DJfk45Hv2c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5282
+X-OriginatorOrg: citrix.com
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On 12/02/2021 15:55, Julien Grall wrote:
+> Hi Andrew,
+>
+> On 12/02/2021 15:39, Andrew Cooper wrote:
+>> Various version of gcc, when compiling with -Og, complain:
+>>
+>>    xg_dom_arm.c: In function 'meminit':
+>>    xg_dom_arm.c:420:19: error: 'p2m_size' may be used uninitialized
+>> in this function [-Werror=maybe-uninitialized]
+>>      420 |     dom->p2m_size = p2m_size;
+>>          |     ~~~~~~~~~~~~~~^~~~~~~~~~
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+> This was reported nearly 3 years ago (see [1]) and it is pretty sad
+> this was never merged :(.
 
---8323329-649706624-1613156183=:3234
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+:( We've got far too many patches which fall through the cracks like this.
 
-On Fri, 12 Feb 2021, Julien Grall wrote:
-> On 11/02/2021 20:55, Stefano Stabellini wrote:
-> > On Thu, 11 Feb 2021, Julien Grall wrote:
-> > > On 11/02/2021 13:20, Rahul Singh wrote:
-> > > > > On 10 Feb 2021, at 7:52 pm, Julien Grall <julien@xen.org> wrote:
-> > > > > On 10/02/2021 18:08, Rahul Singh wrote:
-> > > > > > Hello Julien,
-> > > > > > > On 10 Feb 2021, at 5:34 pm, Julien Grall <julien@xen.org> wrote:
-> > > > > > > On 10/02/2021 15:06, Rahul Singh wrote:
-> > > > > > > > > On 9 Feb 2021, at 8:36 pm, Stefano Stabellini
-> > > > > > > > > <sstabellini@kernel.org> wrote:
-> > > > > > > > > 
-> > > > > > > > > On Tue, 9 Feb 2021, Rahul Singh wrote:
-> > > > > > > > > > > On 8 Feb 2021, at 6:49 pm, Stefano Stabellini
-> > > > > > > > > > > <sstabellini@kernel.org> wrote:
-> > > > > > > > > > > 
-> > > > > > > > > > > Commit 91d4eca7add broke gnttab_need_iommu_mapping on ARM.
-> > > > > > > > > > > The offending chunk is:
-> > > > > > > > > > > 
-> > > > > > > > > > > #define gnttab_need_iommu_mapping(d)                    \
-> > > > > > > > > > > -    (is_domain_direct_mapped(d) && need_iommu(d))
-> > > > > > > > > > > +    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
-> > > > > > > > > > > 
-> > > > > > > > > > > On ARM we need gnttab_need_iommu_mapping to be true for
-> > > > > > > > > > > dom0
-> > > > > > > > > > > when it is
-> > > > > > > > > > > directly mapped and IOMMU is enabled for the domain, like
-> > > > > > > > > > > the
-> > > > > > > > > > > old check
-> > > > > > > > > > > did, but the new check is always false.
-> > > > > > > > > > > 
-> > > > > > > > > > > In fact, need_iommu_pt_sync is defined as
-> > > > > > > > > > > dom_iommu(d)->need_sync and
-> > > > > > > > > > > need_sync is set as:
-> > > > > > > > > > > 
-> > > > > > > > > > >     if ( !is_hardware_domain(d) || iommu_hwdom_strict )
-> > > > > > > > > > >         hd->need_sync = !iommu_use_hap_pt(d);
-> > > > > > > > > > > 
-> > > > > > > > > > > iommu_use_hap_pt(d) means that the page-table used by the
-> > > > > > > > > > > IOMMU is the
-> > > > > > > > > > > P2M. It is true on ARM. need_sync means that you have a
-> > > > > > > > > > > separate IOMMU
-> > > > > > > > > > > page-table and it needs to be updated for every change.
-> > > > > > > > > > > need_sync is set
-> > > > > > > > > > > to false on ARM. Hence, gnttab_need_iommu_mapping(d) is
-> > > > > > > > > > > false
-> > > > > > > > > > > too,
-> > > > > > > > > > > which is wrong.
-> > > > > > > > > > > 
-> > > > > > > > > > > As a consequence, when using PV network from a domU on a
-> > > > > > > > > > > system where
-> > > > > > > > > > > IOMMU is on from Dom0, I get:
-> > > > > > > > > > > 
-> > > > > > > > > > > (XEN) smmu: /smmu@fd800000: Unhandled context fault:
-> > > > > > > > > > > fsr=0x402, iova=0x8424cb148, fsynr=0xb0001, cb=0
-> > > > > > > > > > > [   68.290307] macb ff0e0000.ethernet eth0: DMA bus error:
-> > > > > > > > > > > HRESP not OK
-> > > > > > > > > > > 
-> > > > > > > > > > > The fix is to go back to something along the lines of the
-> > > > > > > > > > > old
-> > > > > > > > > > > implementation of gnttab_need_iommu_mapping.
-> > > > > > > > > > > 
-> > > > > > > > > > > Signed-off-by: Stefano Stabellini
-> > > > > > > > > > > <stefano.stabellini@xilinx.com>
-> > > > > > > > > > > Fixes: 91d4eca7add
-> > > > > > > > > > > Backport: 4.12+
-> > > > > > > > > > > 
-> > > > > > > > > > > ---
-> > > > > > > > > > > 
-> > > > > > > > > > > Given the severity of the bug, I would like to request
-> > > > > > > > > > > this
-> > > > > > > > > > > patch to be
-> > > > > > > > > > > backported to 4.12 too, even if 4.12 is security-fixes
-> > > > > > > > > > > only
-> > > > > > > > > > > since Oct
-> > > > > > > > > > > 2020.
-> > > > > > > > > > > 
-> > > > > > > > > > > For the 4.12 backport, we can use iommu_enabled() instead
-> > > > > > > > > > > of
-> > > > > > > > > > > is_iommu_enabled() in the implementation of
-> > > > > > > > > > > gnttab_need_iommu_mapping.
-> > > > > > > > > > > 
-> > > > > > > > > > > Changes in v2:
-> > > > > > > > > > > - improve commit message
-> > > > > > > > > > > - add is_iommu_enabled(d) to the check
-> > > > > > > > > > > ---
-> > > > > > > > > > > xen/include/asm-arm/grant_table.h | 2 +-
-> > > > > > > > > > > 1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > > > > > > > > 
-> > > > > > > > > > > diff --git a/xen/include/asm-arm/grant_table.h
-> > > > > > > > > > > b/xen/include/asm-arm/grant_table.h
-> > > > > > > > > > > index 6f585b1538..0ce77f9a1c 100644
-> > > > > > > > > > > --- a/xen/include/asm-arm/grant_table.h
-> > > > > > > > > > > +++ b/xen/include/asm-arm/grant_table.h
-> > > > > > > > > > > @@ -89,7 +89,7 @@ int replace_grant_host_mapping(unsigned
-> > > > > > > > > > > long
-> > > > > > > > > > > gpaddr, mfn_t mfn,
-> > > > > > > > > > >      (((i) >= nr_status_frames(t)) ? INVALID_GFN :
-> > > > > > > > > > > (t)->arch.status_gfn[i])
-> > > > > > > > > > > 
-> > > > > > > > > > > #define gnttab_need_iommu_mapping(d)                    \
-> > > > > > > > > > > -    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
-> > > > > > > > > > > +    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
-> > > > > > > > > > > 
-> > > > > > > > > > > #endif /* __ASM_GRANT_TABLE_H__ */
-> > > > > > > > > > 
-> > > > > > > > > > I tested the patch and while creating the guest I observed
-> > > > > > > > > > the
-> > > > > > > > > > below warning from Linux for block device.
-> > > > > > > > > > https://elixir.bootlin.com/linux/v4.3/source/drivers/block/xen-blkback/xenbus.c#L258
-> > > > > > > > > 
-> > > > > > > > > So you are creating a guest with "xl create" in dom0 and you
-> > > > > > > > > see
-> > > > > > > > > the
-> > > > > > > > > warnings below printed by the Dom0 kernel? I imagine the domU
-> > > > > > > > > has
-> > > > > > > > > a
-> > > > > > > > > virtual "disk" of some sort.
-> > > > > > > > Yes you are right I am trying to create the guest with "xl
-> > > > > > > > create”
-> > > > > > > > and before that, I created the logical volume and trying to
-> > > > > > > > attach
-> > > > > > > > the logical volume
-> > > > > > > > block to the domain with “xl block-attach”. I observed this
-> > > > > > > > error
-> > > > > > > > with the "xl block-attach” command.
-> > > > > > > > This issue occurs after applying this patch as what I observed
-> > > > > > > > this
-> > > > > > > > patch introduce the calls to iommu_legacy_{, un}map() to map the
-> > > > > > > > grant pages for
-> > > > > > > > IOMMU that touches the page-tables. I am not sure but what I
-> > > > > > > > observed is that something is written wrong when iomm_unmap
-> > > > > > > > calls
-> > > > > > > > unmap the pages
-> > > > > > > > because of that issue is observed.
-> > > > > > > 
-> > > > > > > Can you clarify what you mean by "written wrong"? What sort of
-> > > > > > > error
-> > > > > > > do you see in the iommu_unmap()?
-> > > > > > I might be wrong as per my understanding for ARM we are sharing the
-> > > > > > P2M
-> > > > > > between CPU and IOMMU always and the map_grant_ref() function is
-> > > > > > written
-> > > > > > in such a way that we have to call iommu_legacy_{, un}map() only if
-> > > > > > P2M
-> > > > > > is not shared.
-> > > > > 
-> > > > > map_grant_ref() will call the IOMMU if gnttab_need_iommu_mapping()
-> > > > > returns
-> > > > > true. I don't really see where this is assuming the P2M is not shared.
-> > > > > 
-> > > > > In fact, on x86, this will always be false for HVM domain (they
-> > > > > support
-> > > > > both shared and separate page-tables).
-> > > > > 
-> > > > > > As we are sharing the P2M when we call the iommu_map() function it
-> > > > > > will
-> > > > > > overwrite the existing GFN -> MFN ( For DOM0 GFN is same as MFN)
-> > > > > > entry
-> > > > > > and when we call iommu_unmap() it will unmap the  (GFN -> MFN )
-> > > > > > entry
-> > > > > > from the page-table.
-> > > > > AFAIK, there should be nothing mapped at that GFN because the page
-> > > > > belongs
-> > > > > to the guest. At worse, we would overwrite a mapping that is the same.
-> > > >   > Sorry I should have mention before backend/frontend is dom0 in this
-> > > case and GFN is mapped. I am trying to attach the block device to DOM0
-> > > 
-> > > Ah, your log makes a lot more sense now. Thank you for the clarification!
-> > > 
-> > > So yes, I agree that iommu_{,un}map() will do the wrong thing if the
-> > > frontend
-> > > and backend in the same domain.
-> > > 
-> > > I don't know what the state in Linux, but from Xen PoV it should be
-> > > possible
-> > > to have the backend/frontend in the same domain.
-> > > 
-> > > I think we want to ignore the IOMMU mapping request when the domain is the
-> > > same. Can you try this small untested patch:
-> > 
-> > Given that all the pages already owned by the domain should already be
-> > in the shared pagetable between MMU and IOMMU, there is no need to
-> > create a second mapping. In fact it is guaranteed to overlap with an
-> > existing mapping.
-> 
-> It is **almost** guaranteed :). I can see a few reasons for this to not be
-> valid:
->    - Using the domain shared info in a grant
->    - With a good timing, it would be possible that a differente vCPU remove
-> the mapping after the P2M walk
-> 
-> That said, I feel it is not an expected behavior for a domain guest. So it is
-> not something we should care at least for now.
-> 
-> > In theory, if guest_physmap_add_entry returned -EEXIST if a mapping
-> > identical to the one we want to add is already in the pagetable, in this
-> > instance we would see -EEXIST being returned.
-> 
-> While I agree that the GFN and MFN would be the same, there mapping still not
-> be identical because the P2M type (and potentially the permission) will
-> differ.
-> 
-> However, guest_physmap_add_entry() doesn't do such check today. It will just
-> happily replace any mapping. It would be good to harden the code P2M as this
-> is not the first time we see report of mapping overwritten.
-> 
-> I actually have a task in my todo list but I never got the chance to spend
-> time on it.
-> 
-> > 
-> > Based on that, I cannot think of unwanted side-effects for this patch.
-> > It looks OK to me.
-> > 
-> > Given that it solves a different issue, I think it should be a separate
-> > patch from [1]. Julien, are you OK with that or would you rather merge
-> > the two?
-> 
-> They are two distinct issues. In fact, the bug has always been present on Arm.
-> I will send a separate patch.
+>
+>> ---
+>> CC: Ian Jackson <iwj@xenproject.org>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>>
+>> Julien/Stefano: I can't work out how this variable is supposed to
+>> work, and
+>> the fact that it isn't a straight accumulation across the RAM banks
+>> looks
+>> suspect.
+>
+> It looks buggy, but the P2M is never used on Arm. In fact, you sent a
+> patch a year ago to drop it (see [2]). It would be nice to revive it.
 
-Excellent, thank you!
---8323329-649706624-1613156183=:3234--
+
+That series was committed more than a year ago - ee21f10d70^..97e34ad22d
+- and tbh, I'd forgotten about it.
+
+In light of that, I think I'll just delete the p2m_size references
+here.  It's easy to prove correctness via inspection, and removes a
+dubious construct entirely.
+
+~Andrew
 
