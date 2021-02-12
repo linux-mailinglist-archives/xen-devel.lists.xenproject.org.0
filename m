@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90FAC31A269
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 17:13:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84373.158240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEF0931A26B
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 17:14:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84376.158252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAb3g-0005vh-V1; Fri, 12 Feb 2021 16:12:40 +0000
+	id 1lAb5B-00062n-BH; Fri, 12 Feb 2021 16:14:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84373.158240; Fri, 12 Feb 2021 16:12:40 +0000
+Received: by outflank-mailman (output) from mailman id 84376.158252; Fri, 12 Feb 2021 16:14:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAb3g-0005vH-Rb; Fri, 12 Feb 2021 16:12:40 +0000
-Received: by outflank-mailman (input) for mailman id 84373;
- Fri, 12 Feb 2021 16:12:39 +0000
+	id 1lAb5B-00062O-7F; Fri, 12 Feb 2021 16:14:13 +0000
+Received: by outflank-mailman (input) for mailman id 84376;
+ Fri, 12 Feb 2021 16:14:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aDps=HO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lAb3f-0005vC-Qv
- for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 16:12:39 +0000
+ id 1lAb59-00062I-VH
+ for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 16:14:11 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c3fa973-6f9d-40c4-a2c8-8a23a723f7fc;
- Fri, 12 Feb 2021 16:12:39 +0000 (UTC)
+ id 454d563a-17ee-4427-adcc-17180619b9a5;
+ Fri, 12 Feb 2021 16:14:11 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5777FB7A7;
- Fri, 12 Feb 2021 16:12:38 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 76266AD29;
+ Fri, 12 Feb 2021 16:14:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,45 +38,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c3fa973-6f9d-40c4-a2c8-8a23a723f7fc
+X-Inumbo-ID: 454d563a-17ee-4427-adcc-17180619b9a5
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613146358; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1613146450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0D8qcfOgFn7FHOECrrXxpmKqC4jFpbIEWCm0H1u4gBc=;
-	b=FC+L907nin3PVfz5jXvXFY7E1lSL8dBHhSKne8bw1lY4pzlYQ7aYC0x+P9mXjwlHRbZXSF
-	9/zjy/qg33Zon+7wKtf0yNVFBgDN59ULqCmh6iJoOLMrv6nAMpOgZXev+OGtJus3/KSm9M
-	e9rbt472ch1fSViE2Yney21HPvR9n48=
-Subject: Re: [PATCH 10/10] tools/libs: Write out an ABI analysis when
- abi-dumper is available
+	bh=Vgi+fK7GsoYWXBXPeO1U9BYDDEMJnP3aT/KwQLfoC7Q=;
+	b=ghSsOf0SZw+g89EeBlVhhRR8axpMIhqkDFHS4g8EgjCwwb2AnJ6pceuar6QhS/k2JmdnjY
+	UqXB+l8wuB/FBm6FWjob5WEofEIR1EVELPVzIKm0OrHkLhfyCUeYXE1P6bJBoaEw5sLb53
+	yD9uVU7OxLzafqxEc5qvDFLEPhecC40=
+Subject: Re: [PATCH 07/10] tools: Use -Og for debug builds when available
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20210212153953.4582-1-andrew.cooper3@citrix.com>
- <20210212153953.4582-11-andrew.cooper3@citrix.com>
+ <20210212153953.4582-8-andrew.cooper3@citrix.com>
+ <04c93a14-ee95-e4a6-33b9-f80fcd03a010@suse.com>
+ <3b02dfa7-923b-9bf7-a349-68bbba0590ad@citrix.com>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6bac2a21-736d-9b07-4ee0-4654b5273ce5@suse.com>
-Date: Fri, 12 Feb 2021 17:12:39 +0100
+Message-ID: <da48c866-68cb-1655-2887-434d38e50b21@suse.com>
+Date: Fri, 12 Feb 2021 17:14:11 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210212153953.4582-11-andrew.cooper3@citrix.com>
+In-Reply-To: <3b02dfa7-923b-9bf7-a349-68bbba0590ad@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.02.2021 16:39, Andrew Cooper wrote:
-> --- a/tools/libs/libs.mk
-> +++ b/tools/libs/libs.mk
-> @@ -49,6 +49,8 @@ PKG_CONFIG_LOCAL := $(PKG_CONFIG_DIR)/$(PKG_CONFIG)
->  LIBHEADER ?= $(LIB_FILE_NAME).h
->  LIBHEADERS = $(foreach h, $(LIBHEADER), $(XEN_INCLUDE)/$(h))
->  
-> +PKG_ABI := lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)-$(XEN_COMPILE_ARCH)-abi.dump
+On 12.02.2021 17:09, Andrew Cooper wrote:
+> On 12/02/2021 16:04, Jan Beulich wrote:
+>> On 12.02.2021 16:39, Andrew Cooper wrote:
+>>> --- a/tools/Rules.mk
+>>> +++ b/tools/Rules.mk
+>>> @@ -106,8 +106,9 @@ endif
+>>>  CFLAGS_libxenlight += $(CFLAGS_libxenctrl)
+>>>  
+>>>  ifeq ($(debug),y)
+>>> -# Disable optimizations
+>>> -CFLAGS += -O0 -fno-omit-frame-pointer
+>>> +# Use -Og if available, -O0 otherwise
+>>> +dbg_opt_level := $(call cc-option,$(CC),-Og,-O0)
+>>> +CFLAGS += $(dbg_opt_level) -fno-omit-frame-pointer
+>> I wonder if we shouldn't do something similar for the hypervisor,
+>> where we use -O1 for debug builds right now. At least when
+>> DEBUG_INFO is also enabled, -Og may be better.
+> 
+> I also made that work... its rather more invasive in terms of changes -
+> all for "maybe uninitialised" warnings.
+> 
+> $ git diff e2bab84984^ --stat
+>  xen/Makefile                    | 3 ++-
+>  xen/arch/arm/domain_build.c     | 2 +-
+>  xen/arch/x86/irq.c              | 2 +-
+>  xen/arch/x86/mm/shadow/common.c | 2 +-
+>  xen/arch/x86/pv/shim.c          | 6 +++---
+>  xen/arch/x86/sysctl.c           | 4 ++--
+>  xen/common/efi/boot.c           | 2 +-
+>  7 files changed, 11 insertions(+), 10 deletions(-)
+> 
+> is what is required to make Gitlab happy.
 
-Don't you mean $(XEN_TARGET_ARCH) here?
+Oh, good to know. Thanks!
+
+>  I was planning to defer it to 4.16 at this point.
+
+Of course.
 
 Jan
 
