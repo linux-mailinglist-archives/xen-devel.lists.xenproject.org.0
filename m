@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C5431A1E6
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 16:41:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84316.158138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DE2931A1E1
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 16:41:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84310.158078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAaZ4-0001PT-Mb; Fri, 12 Feb 2021 15:41:02 +0000
+	id 1lAaYg-0000xz-16; Fri, 12 Feb 2021 15:40:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84316.158138; Fri, 12 Feb 2021 15:41:02 +0000
+Received: by outflank-mailman (output) from mailman id 84310.158078; Fri, 12 Feb 2021 15:40:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAaZ4-0001Of-IQ; Fri, 12 Feb 2021 15:41:02 +0000
-Received: by outflank-mailman (input) for mailman id 84316;
- Fri, 12 Feb 2021 15:41:00 +0000
+	id 1lAaYf-0000xB-Ql; Fri, 12 Feb 2021 15:40:37 +0000
+Received: by outflank-mailman (input) for mailman id 84310;
+ Fri, 12 Feb 2021 15:40:35 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o46S=HO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lAaZ2-0000ix-PI
- for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 15:41:00 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1lAaYd-0000ix-O8
+ for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 15:40:35 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5c825c4b-0a26-462a-891b-669940f5c0bc;
- Fri, 12 Feb 2021 15:40:22 +0000 (UTC)
+ id b6990a41-5224-4e58-86c7-bbec74fd5ff9;
+ Fri, 12 Feb 2021 15:40:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,88 +36,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c825c4b-0a26-462a-891b-669940f5c0bc
+X-Inumbo-ID: b6990a41-5224-4e58-86c7-bbec74fd5ff9
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1613144422;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Rz8UsAOinQtm3EzgaPvbSv/VidINXBxSC5At43dOJUQ=;
-  b=D+/bns3hGvQNEpInGTrxn6sKpTUm/pnfRvOMnP41AbvTJtHOW3C32Cw5
-   0VqK9q/AA5Ut1rzZD2tDjb/14vxQKKikE79wB6XGBl9X8zOAvaRBDxXd1
-   16WSqYCOWaTxGburDuqVdRgtXyynHalwMjjMmZD9dyqVSh+xm0jrEgYcN
-   E=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: +Wf30pnhbcD3GN9U9MLRbwvAkNGL9BlifUKjHxW3NtKLlThUKO1VZbaKVnqwO3KvD8YsRhWnfG
- MPiUbmNFZcEJ/QpmO9/gK8ds3y2k64xPl8lLVsfPIrmjvaYHoxeNHoGqnb5F3/5VMDVHuYDpsl
- Sbd0Ma5Gob6Ko9fSx4m7sOK5oDKcIDWYejrsydTAXdzcItpn95YAhMV54DUbO1B8xybaerd9me
- HZ9qEfMTQRsTJTICi2Dzh/rMq2QVDREALg8q3gg8K23Xvnp3VZrPiWb0kS8v/bs9MZk9q60aII
- PkQ=
+  d=citrix.com; s=securemail; t=1613144416;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version;
+  bh=xRy21DvjvCrpVWjUNEKJmq6KENL31WHuSFgYxPxdZ5Y=;
+  b=BXgLuG64lHW7VUdMo+kj1T03GBulBkrF7agZRDm92wN4Rg9lccD1tOe4
+   Wmdk5HEfXGdVxayckaXRfzablsU1en8Pp2wdnzbICxIyGCnnyk/aFgBvA
+   O16rPrv8XtATh75ZdMruQXm0jqMPGop1q/cD+bD7n81sV8yBysYoV7WmN
+   4=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 1GPl3yxibCxgECKAjeZrzdszMYAG2TEfiCuJFMKA6SDBa3uPSy8e9DGGtSxuqhLr6synXsJZOL
+ dw98UqTfaA1mUFGvgnR5N9EP6+tdudSPFnvx6VHznAbe+sKdRMej/e23fe4zxLg+JhZrA65YOq
+ 8/m0Zgv0qQ5FQATavZE6BIEDEFTEo7YvIblWmNtAWdydiQtbdu1hHYLQ58JqrlersoyvoEQgpF
+ i3B2L8ANF3HB15BjhG6euS/wJOEp3uP2qFIo/wTYL8axOjWuc63b8bRrgUch9gf8n1tn4M1Rjz
+ 7SA=
 X-SBRS: 5.2
-X-MesageID: 37344043
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 38508886
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.81,174,1610427600"; 
-   d="scan'208";a="37344043"
+   d="scan'208";a="38508886"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
 	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH for-4.15 00/10] tools: Support to use abi-dumper on libraries
-Date: Fri, 12 Feb 2021 15:39:43 +0000
-Message-ID: <20210212153953.4582-1-andrew.cooper3@citrix.com>
+	<anthony.perard@citrix.com>
+Subject: [PATCH 01/10] tools/xl: Fix exit code for `xl vkbattach`
+Date: Fri, 12 Feb 2021 15:39:44 +0000
+Message-ID: <20210212153953.4582-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210212153953.4582-1-andrew.cooper3@citrix.com>
+References: <20210212153953.4582-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The first 6 patches are fixes to build with the -Og optimisation level, which
-is an expectation of abi-dumper and a good idea generally.  There are 2
-definite bugfixes, and 4 of more questionable usefulness.  All fixes are
-simple.
+Various version of gcc, when compiling with -Og, complain:
 
-The next patch switches to -Og by default.  This is potentially risky - I've
-fixed up all build failures that Gitlab CI can spot, but I don't guarentee
-that I've fixed all of them.  However, it only affects debug builds - release
-builds are unchanged, and we're before -RC1 so have plenty of time to react to
-any fallout.
+  xl_vkb.c: In function 'main_vkbattach':
+  xl_vkb.c:79:12: error: 'rc' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+     79 |     return rc;
+        |            ^~
 
-The final 3 patches arrange for abi-dumper to run if it is available in the
-build environment.  This is strictly optional, has no effect if abi-dumper
-isn't in the build environment, and writes out one extra file if present.
+The dryrun_only path really does leave rc uninitalised.  Introduce a done
+label for success paths to use.
 
+Fixes: a15166af7c3 ("xl: add vkb config parser and CLI")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Wei Liu <wl@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+---
+ tools/xl/xl_vkb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-With this tooling place, we can now add support to OSSTest to check for ABI
-breakges in builds.
-
-Andrew Cooper (10):
-  tools/xl: Fix exit code for `xl vkbattach`
-  tools/libxg: Fix uninitialised variable in write_x86_cpu_policy_records()
-  tools/libxg: Fix uninitialised variable in meminit()
-  tools/libxl: Fix uninitialised variable in libxl__domain_get_device_model_uid()
-  tools/libxl: Fix uninitialised variable in libxl__write_stub_dmargs()
-  stubdom/xenstored: Fix uninitialised variables in lu_read_state()
-  tools: Use -Og for debug builds when available
-  tools: Check for abi-dumper in ./configure
-  tools/libs: Add rule to generate headers.lst
-  tools/libs: Write out an ABI analysis when abi-dumper is available
-
- config/Tools.mk.in                  |  1 +
- tools/Rules.mk                      |  5 +++--
- tools/configure                     | 41 +++++++++++++++++++++++++++++++++++++
- tools/configure.ac                  |  1 +
- tools/libs/.gitignore               |  1 +
- tools/libs/guest/xg_dom_arm.c       |  2 +-
- tools/libs/guest/xg_sr_common_x86.c |  6 ++++++
- tools/libs/libs.mk                  | 18 +++++++++++++++-
- tools/libs/light/libxl_dm.c         |  6 ++----
- tools/xenstore/xenstored_control.c  |  2 +-
- tools/xl/xl_vkb.c                   |  3 ++-
- 11 files changed, 76 insertions(+), 10 deletions(-)
- create mode 100644 tools/libs/.gitignore
-
+diff --git a/tools/xl/xl_vkb.c b/tools/xl/xl_vkb.c
+index f6ed9e05ee..728ac9470b 100644
+--- a/tools/xl/xl_vkb.c
++++ b/tools/xl/xl_vkb.c
+@@ -64,7 +64,7 @@ int main_vkbattach(int argc, char **argv)
+         char *json = libxl_device_vkb_to_json(ctx, &vkb);
+         printf("vkb: %s\n", json);
+         free(json);
+-        goto out;
++        goto done;
+     }
+ 
+     if (libxl_device_vkb_add(ctx, domid, &vkb, 0)) {
+@@ -72,6 +72,7 @@ int main_vkbattach(int argc, char **argv)
+         rc = ERROR_FAIL; goto out;
+     }
+ 
++done:
+     rc = 0;
+ 
+ out:
 -- 
 2.11.0
 
