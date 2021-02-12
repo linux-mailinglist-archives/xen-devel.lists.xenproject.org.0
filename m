@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60B73319F95
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 14:16:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84263.157962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 313D9319FE5
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 14:31:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84276.157974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAYIU-0003Ws-Lm; Fri, 12 Feb 2021 13:15:46 +0000
+	id 1lAYWr-0005QW-2u; Fri, 12 Feb 2021 13:30:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84263.157962; Fri, 12 Feb 2021 13:15:46 +0000
+Received: by outflank-mailman (output) from mailman id 84276.157974; Fri, 12 Feb 2021 13:30:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAYIU-0003WT-IC; Fri, 12 Feb 2021 13:15:46 +0000
-Received: by outflank-mailman (input) for mailman id 84263;
- Fri, 12 Feb 2021 13:15:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lAYWq-0005Q7-Ve; Fri, 12 Feb 2021 13:30:36 +0000
+Received: by outflank-mailman (input) for mailman id 84276;
+ Fri, 12 Feb 2021 13:30:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aDps=HO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lAYIT-0003WN-Iz
- for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 13:15:45 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 42ccefeb-8b8b-4181-9233-f87b4f09eaad;
- Fri, 12 Feb 2021 13:15:44 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C3362AC90;
- Fri, 12 Feb 2021 13:15:43 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lAYWq-0005Q2-1L
+ for xen-devel@lists.xenproject.org; Fri, 12 Feb 2021 13:30:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lAYWo-0006zW-PQ; Fri, 12 Feb 2021 13:30:34 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lAYWo-0001Aj-Cf; Fri, 12 Feb 2021 13:30:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,96 +39,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42ccefeb-8b8b-4181-9233-f87b4f09eaad
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613135743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MedWXEGnoEv2qf7wr3/ey/o1lNQKGa50cAPo9p6v26k=;
-	b=VhzsJugKsQ0gaYJ3hqKqTNlEruYn3LAWHXlBKWrapSvYeTF8VYFGdBcmJ/hLhHBJD5utsz
-	LRi3caHomWKNd0X+/7vU4rIsjAJCn/wAX1VsQUPP2KZDx1EzpMbhuDKxpNJg52Xj4DAdC0
-	pd6tSyIwTDd1gxhMnRqzWFrhsb5ALRM=
-Subject: Re: [PATCH 04/17] x86/PV: harden guest memory accesses against
- speculative abuse
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
-References: <4f1975a9-bdd9-f556-9db5-eb6c428f258f@suse.com>
- <5da0c123-3b90-97e8-e1e5-10286be38ce7@suse.com>
- <YCZbToiL3+Ji3y48@Air-de-Roger>
- <ece2bf60-4154-756d-df5a-1f55170f9451@suse.com>
- <YCZ8YB+Y/HyHNOPm@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9f680f3e-78a5-e2d2-b1f1-8426ebc9613e@suse.com>
-Date: Fri, 12 Feb 2021 14:15:45 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=7n5wDDGeAwEfdH+2hCR80r+QfUuZy4aXiWCDCBy8vxI=; b=QRevInfTv2owthgSF6imfou8Zm
+	Kgkyc07ZWG/VrBBKi4jiNOWSXuiwVbMlsCcpv2j5TEholB+rLJXx5X41RY3PhaNtr2oxEC5mm+xHj
+	OCe6xlQvunDORLAqU3vtJhmPLi9FAkpxn2906F9F1GoLh6e5P7btaWMgjA2ZbC4dlRIo=;
+Subject: Re: [PATCH v2] xen/arm: fix gnttab_need_iommu_mapping
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Rahul Singh <Rahul.Singh@arm.com>,
+ "lucmiccio@gmail.com" <lucmiccio@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20210208184932.23468-1-sstabellini@kernel.org>
+ <B96B5E21-0600-4664-899D-D38A18DE7A8C@arm.com>
+ <alpine.DEB.2.21.2102091226560.8948@sstabellini-ThinkPad-T480s>
+ <EFFD35EA-378B-4C5C-8485-7EA5265E89E4@arm.com>
+ <4e4f7d25-6f5f-1016-b1c9-7aa902d637b8@xen.org>
+ <ECC82E19-3504-4E0E-B3EA-D0E46DD842C6@arm.com>
+ <c573b3a0-186d-626e-6670-f8fc28285e3d@xen.org>
+ <BFC5858A-3631-48E1-AB87-40EECF95FA66@arm.com>
+ <489c1b89-67f0-5d47-d527-3ea580b7cc43@xen.org>
+ <alpine.DEB.2.21.2102111253060.9128@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <170a971e-8e10-bb9d-a324-e09e40ed994c@xen.org>
+Date: Fri, 12 Feb 2021 13:30:32 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <YCZ8YB+Y/HyHNOPm@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <alpine.DEB.2.21.2102111253060.9128@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-On 12.02.2021 14:02, Roger Pau Monné wrote:
-> On Fri, Feb 12, 2021 at 01:48:43PM +0100, Jan Beulich wrote:
->> On 12.02.2021 11:41, Roger Pau Monné wrote:
->>> On Thu, Jan 14, 2021 at 04:04:57PM +0100, Jan Beulich wrote:
->>>> --- a/xen/include/asm-x86/asm-defns.h
->>>> +++ b/xen/include/asm-x86/asm-defns.h
->>>> @@ -44,3 +44,16 @@
->>>>  .macro INDIRECT_JMP arg:req
->>>>      INDIRECT_BRANCH jmp \arg
->>>>  .endm
->>>> +
->>>> +.macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
->>>> +#if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
->>>> +    mov $(HYPERVISOR_VIRT_END - 1), \scratch1
->>>> +    mov $~0, \scratch2
->>>> +    cmp \ptr, \scratch1
->>>> +    rcr $1, \scratch2
->>>> +    and \scratch2, \ptr
->>>
->>> If my understanding is correct, that's equivalent to:
->>>
->>> ptr &= ~0ull >> (ptr < HYPERVISOR_VIRT_END);
->>>
->>> It might be helpful to add this as a comment, to clarify the indented
->>> functionality of the assembly bit.
->>>
->>> I wonder if the C code above can generate any jumps? As you pointed
->>> out, we already use something similar in array_index_mask_nospec and
->>> that's fine to do in C.
+Hi Stefano,
+
+On 11/02/2021 20:55, Stefano Stabellini wrote:
+> On Thu, 11 Feb 2021, Julien Grall wrote:
+>> On 11/02/2021 13:20, Rahul Singh wrote:
+>>>> On 10 Feb 2021, at 7:52 pm, Julien Grall <julien@xen.org> wrote:
+>>>> On 10/02/2021 18:08, Rahul Singh wrote:
+>>>>> Hello Julien,
+>>>>>> On 10 Feb 2021, at 5:34 pm, Julien Grall <julien@xen.org> wrote:
+>>>>>> On 10/02/2021 15:06, Rahul Singh wrote:
+>>>>>>>> On 9 Feb 2021, at 8:36 pm, Stefano Stabellini
+>>>>>>>> <sstabellini@kernel.org> wrote:
+>>>>>>>>
+>>>>>>>> On Tue, 9 Feb 2021, Rahul Singh wrote:
+>>>>>>>>>> On 8 Feb 2021, at 6:49 pm, Stefano Stabellini
+>>>>>>>>>> <sstabellini@kernel.org> wrote:
+>>>>>>>>>>
+>>>>>>>>>> Commit 91d4eca7add broke gnttab_need_iommu_mapping on ARM.
+>>>>>>>>>> The offending chunk is:
+>>>>>>>>>>
+>>>>>>>>>> #define gnttab_need_iommu_mapping(d)                    \
+>>>>>>>>>> -    (is_domain_direct_mapped(d) && need_iommu(d))
+>>>>>>>>>> +    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
+>>>>>>>>>>
+>>>>>>>>>> On ARM we need gnttab_need_iommu_mapping to be true for dom0
+>>>>>>>>>> when it is
+>>>>>>>>>> directly mapped and IOMMU is enabled for the domain, like the
+>>>>>>>>>> old check
+>>>>>>>>>> did, but the new check is always false.
+>>>>>>>>>>
+>>>>>>>>>> In fact, need_iommu_pt_sync is defined as
+>>>>>>>>>> dom_iommu(d)->need_sync and
+>>>>>>>>>> need_sync is set as:
+>>>>>>>>>>
+>>>>>>>>>>     if ( !is_hardware_domain(d) || iommu_hwdom_strict )
+>>>>>>>>>>         hd->need_sync = !iommu_use_hap_pt(d);
+>>>>>>>>>>
+>>>>>>>>>> iommu_use_hap_pt(d) means that the page-table used by the
+>>>>>>>>>> IOMMU is the
+>>>>>>>>>> P2M. It is true on ARM. need_sync means that you have a
+>>>>>>>>>> separate IOMMU
+>>>>>>>>>> page-table and it needs to be updated for every change.
+>>>>>>>>>> need_sync is set
+>>>>>>>>>> to false on ARM. Hence, gnttab_need_iommu_mapping(d) is false
+>>>>>>>>>> too,
+>>>>>>>>>> which is wrong.
+>>>>>>>>>>
+>>>>>>>>>> As a consequence, when using PV network from a domU on a
+>>>>>>>>>> system where
+>>>>>>>>>> IOMMU is on from Dom0, I get:
+>>>>>>>>>>
+>>>>>>>>>> (XEN) smmu: /smmu@fd800000: Unhandled context fault:
+>>>>>>>>>> fsr=0x402, iova=0x8424cb148, fsynr=0xb0001, cb=0
+>>>>>>>>>> [   68.290307] macb ff0e0000.ethernet eth0: DMA bus error:
+>>>>>>>>>> HRESP not OK
+>>>>>>>>>>
+>>>>>>>>>> The fix is to go back to something along the lines of the old
+>>>>>>>>>> implementation of gnttab_need_iommu_mapping.
+>>>>>>>>>>
+>>>>>>>>>> Signed-off-by: Stefano Stabellini
+>>>>>>>>>> <stefano.stabellini@xilinx.com>
+>>>>>>>>>> Fixes: 91d4eca7add
+>>>>>>>>>> Backport: 4.12+
+>>>>>>>>>>
+>>>>>>>>>> ---
+>>>>>>>>>>
+>>>>>>>>>> Given the severity of the bug, I would like to request this
+>>>>>>>>>> patch to be
+>>>>>>>>>> backported to 4.12 too, even if 4.12 is security-fixes only
+>>>>>>>>>> since Oct
+>>>>>>>>>> 2020.
+>>>>>>>>>>
+>>>>>>>>>> For the 4.12 backport, we can use iommu_enabled() instead of
+>>>>>>>>>> is_iommu_enabled() in the implementation of
+>>>>>>>>>> gnttab_need_iommu_mapping.
+>>>>>>>>>>
+>>>>>>>>>> Changes in v2:
+>>>>>>>>>> - improve commit message
+>>>>>>>>>> - add is_iommu_enabled(d) to the check
+>>>>>>>>>> ---
+>>>>>>>>>> xen/include/asm-arm/grant_table.h | 2 +-
+>>>>>>>>>> 1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/xen/include/asm-arm/grant_table.h
+>>>>>>>>>> b/xen/include/asm-arm/grant_table.h
+>>>>>>>>>> index 6f585b1538..0ce77f9a1c 100644
+>>>>>>>>>> --- a/xen/include/asm-arm/grant_table.h
+>>>>>>>>>> +++ b/xen/include/asm-arm/grant_table.h
+>>>>>>>>>> @@ -89,7 +89,7 @@ int replace_grant_host_mapping(unsigned long
+>>>>>>>>>> gpaddr, mfn_t mfn,
+>>>>>>>>>>      (((i) >= nr_status_frames(t)) ? INVALID_GFN :
+>>>>>>>>>> (t)->arch.status_gfn[i])
+>>>>>>>>>>
+>>>>>>>>>> #define gnttab_need_iommu_mapping(d)                    \
+>>>>>>>>>> -    (is_domain_direct_mapped(d) && need_iommu_pt_sync(d))
+>>>>>>>>>> +    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+>>>>>>>>>>
+>>>>>>>>>> #endif /* __ASM_GRANT_TABLE_H__ */
+>>>>>>>>>
+>>>>>>>>> I tested the patch and while creating the guest I observed the
+>>>>>>>>> below warning from Linux for block device.
+>>>>>>>>> https://elixir.bootlin.com/linux/v4.3/source/drivers/block/xen-blkback/xenbus.c#L258
+>>>>>>>>
+>>>>>>>> So you are creating a guest with "xl create" in dom0 and you see
+>>>>>>>> the
+>>>>>>>> warnings below printed by the Dom0 kernel? I imagine the domU has
+>>>>>>>> a
+>>>>>>>> virtual "disk" of some sort.
+>>>>>>> Yes you are right I am trying to create the guest with "xl create”
+>>>>>>> and before that, I created the logical volume and trying to attach
+>>>>>>> the logical volume
+>>>>>>> block to the domain with “xl block-attach”. I observed this error
+>>>>>>> with the "xl block-attach” command.
+>>>>>>> This issue occurs after applying this patch as what I observed this
+>>>>>>> patch introduce the calls to iommu_legacy_{, un}map() to map the
+>>>>>>> grant pages for
+>>>>>>> IOMMU that touches the page-tables. I am not sure but what I
+>>>>>>> observed is that something is written wrong when iomm_unmap calls
+>>>>>>> unmap the pages
+>>>>>>> because of that issue is observed.
+>>>>>>
+>>>>>> Can you clarify what you mean by "written wrong"? What sort of error
+>>>>>> do you see in the iommu_unmap()?
+>>>>> I might be wrong as per my understanding for ARM we are sharing the P2M
+>>>>> between CPU and IOMMU always and the map_grant_ref() function is written
+>>>>> in such a way that we have to call iommu_legacy_{, un}map() only if P2M
+>>>>> is not shared.
+>>>>
+>>>> map_grant_ref() will call the IOMMU if gnttab_need_iommu_mapping() returns
+>>>> true. I don't really see where this is assuming the P2M is not shared.
+>>>>
+>>>> In fact, on x86, this will always be false for HVM domain (they support
+>>>> both shared and separate page-tables).
+>>>>
+>>>>> As we are sharing the P2M when we call the iommu_map() function it will
+>>>>> overwrite the existing GFN -> MFN ( For DOM0 GFN is same as MFN) entry
+>>>>> and when we call iommu_unmap() it will unmap the  (GFN -> MFN ) entry
+>>>>> from the page-table.
+>>>> AFAIK, there should be nothing mapped at that GFN because the page belongs
+>>>> to the guest. At worse, we would overwrite a mapping that is the same.
+>>>   > Sorry I should have mention before backend/frontend is dom0 in this
+>> case and GFN is mapped. I am trying to attach the block device to DOM0
 >>
->> Note how array_index_mask_nospec() gets away without any use of
->> relational operators. They're what poses the risk of getting
->> translated to branches. (Quite likely the compiler wouldn't use
->> any in the case here, as the code can easily get away without,
->> but we don't want to chance it. Afaict it would instead use a
->> 3rd scratch register, so register pressure might still lead to
->> using a branch instead in some exceptional case.)
+>> Ah, your log makes a lot more sense now. Thank you for the clarification!
+>>
+>> So yes, I agree that iommu_{,un}map() will do the wrong thing if the frontend
+>> and backend in the same domain.
+>>
+>> I don't know what the state in Linux, but from Xen PoV it should be possible
+>> to have the backend/frontend in the same domain.
+>>
+>> I think we want to ignore the IOMMU mapping request when the domain is the
+>> same. Can you try this small untested patch:
 > 
-> I see, it's not easy to build such construct without using any
-> relational operator. Would you mind adding the C equivalent next to
-> assembly chunk?
+> Given that all the pages already owned by the domain should already be
+> in the shared pagetable between MMU and IOMMU, there is no need to
+> create a second mapping. In fact it is guaranteed to overlap with an
+> existing mapping.
 
-Sure:
+It is **almost** guaranteed :). I can see a few reasons for this to not 
+be valid:
+    - Using the domain shared info in a grant
+    - With a good timing, it would be possible that a differente vCPU 
+remove the mapping after the P2M walk
 
-    /*
-     * Here we want
-     *
-     * ptr &= ~0ull >> (ptr < HYPERVISOR_VIRT_END);
-     *
-     * but guaranteed without any conditional branches (hence in assembly).
-     */
+That said, I feel it is not an expected behavior for a domain guest. So 
+it is not something we should care at least for now.
 
-> I don't think I have further comments:
+> In theory, if guest_physmap_add_entry returned -EEXIST if a mapping
+> identical to the one we want to add is already in the pagetable, in this
+> instance we would see -EEXIST being returned.
+
+While I agree that the GFN and MFN would be the same, there mapping 
+still not be identical because the P2M type (and potentially the 
+permission) will differ.
+
+However, guest_physmap_add_entry() doesn't do such check today. It will 
+just happily replace any mapping. It would be good to harden the code 
+P2M as this is not the first time we see report of mapping overwritten.
+
+I actually have a task in my todo list but I never got the chance to 
+spend time on it.
+
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Based on that, I cannot think of unwanted side-effects for this patch.
+> It looks OK to me.
+> 
+> Given that it solves a different issue, I think it should be a separate
+> patch from [1]. Julien, are you OK with that or would you rather merge
+> the two?
 
-Thanks much!
+They are two distinct issues. In fact, the bug has always been present 
+on Arm. I will send a separate patch.
 
-Jan
+Cheers,
+
+-- 
+Julien Grall
 
