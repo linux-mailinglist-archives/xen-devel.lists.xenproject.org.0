@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2C531A81E
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Feb 2021 23:56:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84464.158456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930AE31A983
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Feb 2021 02:39:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84474.158473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAhLg-0002Be-ON; Fri, 12 Feb 2021 22:55:40 +0000
+	id 1lAjt8-0002bU-3M; Sat, 13 Feb 2021 01:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84464.158456; Fri, 12 Feb 2021 22:55:40 +0000
+Received: by outflank-mailman (output) from mailman id 84474.158473; Sat, 13 Feb 2021 01:38:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lAhLg-0002BA-HI; Fri, 12 Feb 2021 22:55:40 +0000
-Received: by outflank-mailman (input) for mailman id 84464;
- Fri, 12 Feb 2021 22:55:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lAhLf-0002B2-Pw; Fri, 12 Feb 2021 22:55:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lAhLf-0008Sb-Fd; Fri, 12 Feb 2021 22:55:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lAhLf-0006iT-7V; Fri, 12 Feb 2021 22:55:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lAhLf-0004Lw-71; Fri, 12 Feb 2021 22:55:39 +0000
+	id 1lAjt7-0002bC-R1; Sat, 13 Feb 2021 01:38:21 +0000
+Received: by outflank-mailman (input) for mailman id 84474;
+ Sat, 13 Feb 2021 01:38:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8A84=HP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lAjt6-0002b5-3p
+ for xen-devel@lists.xenproject.org; Sat, 13 Feb 2021 01:38:20 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 57219d8d-e9bf-4dc3-8ac1-5f69cdff5306;
+ Sat, 13 Feb 2021 01:38:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E155B64DEE;
+ Sat, 13 Feb 2021 01:38:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +37,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=f0RcCJjhYQivP7ckj4iXgVUzJXaaF0D1WJyv2oOFb0U=; b=w4BhTP1GOXvEmCGlPLz2aRHq5z
-	5fhu+xv2ls93VRNHzeL3KdT950Tb0/MJ8w8SLzL+NFLD+qaVCERa4T2oxcYIiEZsjnqhrmzS3iJdC
-	Kjh4N3Odg8STfOtWGmUWKOmPcfFt30V5GhdSoFWGfRehOVvVi7gpk16qa9qO084mWcOM=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159308-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159308: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
-X-Osstest-Versions-That:
-    xen=5a4087004d1adbbb223925f3306db0e5824a2bdc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Feb 2021 22:55:39 +0000
+X-Inumbo-ID: 57219d8d-e9bf-4dc3-8ac1-5f69cdff5306
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1613180298;
+	bh=AAM0GsFSCFy3GGKIJsyvQXq6QgQww1bLbn609ZU5zdI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=B1hb8f0sJcIncX6aY8cH1lkCOZ/po3kn7O80aAsqcOkPTBeaixEwN71LXO1BOoiHY
+	 ArVv/3tfmjKtAve6yE2yjqycjRLHE46XJcoLhtt+cBu8jBVFjd28to2XVEQcUXwilj
+	 OOY1/K160j6J0lt+EYr0Ipmv18PVcUfccW0eTgM4SJjvJpi52ya4ZC6EjZKeZgXtx2
+	 7onYPhXYs6PVh5886afIgekWRzal6SMb6HsdcbuioB5AJOWNEAAMQJ8NqUdZuReQ40
+	 m4SDZQHDC8Yh2aCB1B0gbhv59K87eabTN1jAamWJUJaII3pI0t49Gvra4IAHfPWXsj
+	 Ub/T0B8G6t9mQ==
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: cardoe@cardoe.com
+Cc: andrew.cooper3@citrix.com,
+	wl@xen.org,
+	xen-devel@lists.xenproject.org,
+	sstabellini@kernel.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH] automation: add arm32 cross-build tests for Xen
+Date: Fri, 12 Feb 2021 17:38:13 -0800
+Message-Id: <20210213013813.30114-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
-flight 159308 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159308/
+Add a debian build container with cross-gcc for arm32 installed.
+Add build jobs to cross-compile Xen-only for arm32.
 
-Failures :-/ but no regressions.
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+ .../debian/unstable-arm32-gcc.dockerfile      | 24 +++++++++
+ automation/gitlab-ci/build.yaml               | 50 +++++++++++++++++++
+ automation/scripts/build                      |  9 ++++
+ 3 files changed, 83 insertions(+)
+ create mode 100644 automation/build/debian/unstable-arm32-gcc.dockerfile
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+diff --git a/automation/build/debian/unstable-arm32-gcc.dockerfile b/automation/build/debian/unstable-arm32-gcc.dockerfile
+new file mode 100644
+index 0000000000..b41a57f197
+--- /dev/null
++++ b/automation/build/debian/unstable-arm32-gcc.dockerfile
+@@ -0,0 +1,24 @@
++FROM debian:unstable
++LABEL maintainer.name="The Xen Project" \
++      maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV DEBIAN_FRONTEND=noninteractive
++ENV USER root
++ENV CROSS_COMPILE /usr/bin/arm-linux-gnueabihf-
++
++RUN mkdir /build
++WORKDIR /build
++
++# build depends
++RUN apt-get update && \
++    apt-get --quiet --yes install \
++        build-essential \
++        flex \
++        bison \
++        git \
++        gcc-arm-linux-gnueabihf \
++        && \
++        apt-get autoremove -y && \
++        apt-get clean && \
++        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
++
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index d00b8a5123..22114662f2 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -117,6 +117,33 @@
+   variables:
+     <<: *clang
+ 
++.arm32-cross-build-tmpl:
++  <<: *build
++  variables:
++    XEN_TARGET_ARCH: arm32
++  tags:
++    - x86_64
++
++.arm32-cross-build:
++  extends: .arm32-cross-build-tmpl
++  variables:
++    debug: n
++
++.arm32-cross-build-debug:
++  extends: .arm32-cross-build-tmpl
++  variables:
++    debug: y
++
++.gcc-arm32-cross-build:
++  extends: .arm32-cross-build
++  variables:
++    <<: *gcc
++
++.gcc-arm32-cross-build-debug:
++  extends: .arm32-cross-build-debug
++  variables:
++    <<: *gcc
++
+ .arm64-build-tmpl:
+   <<: *build
+   variables:
+@@ -454,6 +481,29 @@ alpine-3.12-clang-debug:
+     CONTAINER: alpine:3.12
+   allow_failure: true
+ 
++# Arm32 cross-build
++
++debian-unstable-gcc-arm32:
++  extends: .gcc-arm32-cross-build
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++
++debian-unstable-gcc-arm32-debug:
++  extends: .gcc-arm32-cross-build-debug
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++
++debian-unstable-gcc-arm32-randconfig:
++  extends: .gcc-arm32-cross-build
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++    RANDCONFIG: y
++
++debian-unstable-gcc-arm32-debug-randconfig:
++  extends: .gcc-arm32-cross-build-debug
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++    RANDCONFIG: y
+ 
+ # Arm builds
+ 
+diff --git a/automation/scripts/build b/automation/scripts/build
+index d8990c3bf4..e7d68f7a9d 100755
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -15,6 +15,15 @@ else
+     make -j$(nproc) -C xen defconfig
+ fi
+ 
++# arm32 only cross-compiles the hypervisor
++if [[ "${XEN_TARGET_ARCH}" = "arm32" ]]; then
++    make -j$(nproc) xen
++    cp xen/.config xen-config
++    mkdir binaries
++    cp xen/xen binaries/xen
++    exit 0
++fi
++
+ # build up our configure options
+ cfgargs=()
+ cfgargs+=("--enable-docs")
+-- 
+2.17.1
 
-version targeted for testing:
- xen                  04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
-baseline version:
- xen                  5a4087004d1adbbb223925f3306db0e5824a2bdc
-
-Last test of basis   159280  2021-02-12 03:01:28 Z    0 days
-Testing same since   159308  2021-02-12 20:01:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5a4087004d..04085ec1ac  04085ec1ac05a362812e9b0c6b5a8713d7dc88ad -> smoke
 
