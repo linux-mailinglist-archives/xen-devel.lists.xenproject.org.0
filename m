@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E4D531B0DB
-	for <lists+xen-devel@lfdr.de>; Sun, 14 Feb 2021 15:53:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.84928.159202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B10E31B20A
+	for <lists+xen-devel@lfdr.de>; Sun, 14 Feb 2021 19:38:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.84993.159275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBIlK-0000aW-U8; Sun, 14 Feb 2021 14:52:38 +0000
+	id 1lBMGQ-00042g-UD; Sun, 14 Feb 2021 18:36:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 84928.159202; Sun, 14 Feb 2021 14:52:38 +0000
+Received: by outflank-mailman (output) from mailman id 84993.159275; Sun, 14 Feb 2021 18:36:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBIlK-0000a3-PZ; Sun, 14 Feb 2021 14:52:38 +0000
-Received: by outflank-mailman (input) for mailman id 84928;
- Sun, 14 Feb 2021 14:52:37 +0000
+	id 1lBMGQ-00042H-Qt; Sun, 14 Feb 2021 18:36:58 +0000
+Received: by outflank-mailman (input) for mailman id 84993;
+ Sun, 14 Feb 2021 18:36:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBIlJ-0000Zv-8U; Sun, 14 Feb 2021 14:52:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lBMGP-00042C-70
+ for xen-devel@lists.xenproject.org; Sun, 14 Feb 2021 18:36:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBIlI-0004V2-UO; Sun, 14 Feb 2021 14:52:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBIlI-0001YP-N1; Sun, 14 Feb 2021 14:52:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lBIlI-0006FW-Ma; Sun, 14 Feb 2021 14:52:36 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lBMGO-0000DI-U9; Sun, 14 Feb 2021 18:36:56 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lBMGO-0002P5-FX; Sun, 14 Feb 2021 18:36:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +39,291 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=GOTx7rVtbob76CmC5vOVs8tZZPgT6acJhjHK253bVTY=; b=kIKLY7oGMNmedh9v0DSkrG9hzo
-	E/zqqyXjQxB/HgYj3BY/AlnyMtzUxfICWryA8U4/jwPaRhcRM7xcda6crSLPqFe81RUdLCsD6PiM6
-	io7j2qQzd7hUW0kSywOzKOMAYf/shLh/5HGEtAxWSd3Vyvq5Lxx/0M6h3U9fSL2MaYiI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [linux-5.4 bisection] complete test-armhf-armhf-xl-credit1
-Message-Id: <E1lBIlI-0006FW-Ma@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 14 Feb 2021 14:52:36 +0000
-
-branch xen-unstable
-xenbranch xen-unstable
-job test-armhf-armhf-xl-credit1
-testid guest-start
-
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159351/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=cv+PoO2hB3Ur/fcAURS3NBl+Is4TBPmhFrEjfDJTO5o=; b=kzuvCnlR95SOwLAiXp25xrvVLm
+	+gngY086PBKMUbCMb+dRw8dWqBaSaCd+EYAIuhea0TAM2Dz2AOOzxVw5v4xUR+3u5GAL29bueNbOM
+	h3Gv0zjTC5GXA6g6H4dK5vXA+zg5kURm95oujtMrmSrEKxpMgf+L8fHc+BhT0WUApKBg=;
+Subject: Re: [RFC PATCH v2 00/15] xen/arm: port Linux LL/SC and LSE atomics
+ helpers to Xen
+To: Ash Wilding <ash.j.wilding@gmail.com>
+Cc: bertrand.marquis@arm.com, rahul.singh@arm.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org
+References: <cb0f7055-6d9a-5c39-6198-109593fd3424@xen.org>
+ <20201217153742.14034-1-ash.j.wilding@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5d79ab3f-7307-d61d-f743-6b14cde2477f@xen.org>
+Date: Sun, 14 Feb 2021 18:36:54 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
+MIME-Version: 1.0
+In-Reply-To: <20201217153742.14034-1-ash.j.wilding@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
 
-  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Author: David Woodhouse <dwmw@amazon.co.uk>
-  Date:   Wed Jan 13 13:26:02 2021 +0000
-  
-      xen: Fix event channel callback via INTX/GSI
-      
-      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
-      
-      For a while, event channel notification via the PCI platform device
-      has been broken, because we attempt to communicate with xenstore before
-      we even have notifications working, with the xs_reset_watches() call
-      in xs_init().
-      
-      We tend to get away with this on Xen versions below 4.0 because we avoid
-      calling xs_reset_watches() anyway, because xenstore might not cope with
-      reading a non-existent key. And newer Xen *does* have the vector
-      callback support, so we rarely fall back to INTX/GSI delivery.
-      
-      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
-      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
-      case, deferring it to be called from xenbus_probe() in the XS_HVM case
-      instead.
-      
-      Then fix up the invocation of xenbus_probe() to happen either from its
-      device_initcall if the callback is available early enough, or when the
-      callback is finally set up. This means that the hack of calling
-      xenbus_probe() from a workqueue after the first interrupt, or directly
-      from the PCI platform device setup, is no longer needed.
-      
-      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
-      Signed-off-by: Juergen Gross <jgross@suse.com>
-      Signed-off-by: Sasha Levin <sashal@kernel.org>
 
+On 17/12/2020 15:37, Ash Wilding wrote:
+> Hi Julien,
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/test-armhf-armhf-xl-credit1.guest-start.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+Hi,
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/test-armhf-armhf-xl-credit1.guest-start --summary-out=tmp/159351.bisection-summary --basis-template=158387 --blessings=real,real-bisect,real-retry linux-5.4 test-armhf-armhf-xl-credit1 guest-start
-Searching for failure / basis pass:
- 159324 fail [host=arndale-bluewater] / 158681 [host=cubietruck-gleizes] 158624 [host=cubietruck-braque] 158616 [host=cubietruck-picasso] 158609 [host=cubietruck-metzinger] 158603 [host=arndale-metrocentre] 158593 [host=arndale-lakeside] 158583 [host=arndale-westfield] 158563 ok.
-Failure / basis pass flights: 159324 / 158563
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 5e1942063dc3633f7a127aa2b159c13507580d21 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1d27e58e401faea284309039f3962cb3cb4549fc 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e ff522e2e9163b27fe4d80ba55c18408f9b1f1cb7
-Basis pass d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 339371ef78eb3a6f2e9848f8b058379de5e87d39 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
-Generating revisions with ./adhoc-revtuple-generator  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#d26b3110041a9fddc6c6e36398f53f7eab8cff82-5e1942063dc3633f7a127aa2b159c13507580d21 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#339371ef78eb3a6f2e9848f8b058379de5e87d39-1d27e58e401faea284309039f3962cb3cb4549fc git://xenbits.xen.org/qemu-xen.git#7ea4288\
- 95af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/osstest/seabios.git#ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e-ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e git://xenbits.xen.org/xen.git#e8adbf680b56a3f4b9600c7bcc04fec1877a6213-ff522e2e9163b27fe4d80ba55c18408f9b1f1cb7
-Loaded 15001 nodes in revision graph
-Searching for test results:
- 158552 [host=cubietruck-gleizes]
- 158563 pass d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 339371ef78eb3a6f2e9848f8b058379de5e87d39 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
- 158583 [host=arndale-westfield]
- 158593 [host=arndale-lakeside]
- 158603 [host=arndale-metrocentre]
- 158609 [host=cubietruck-metzinger]
- 158616 [host=cubietruck-picasso]
- 158624 [host=cubietruck-braque]
- 158681 [host=cubietruck-gleizes]
- 158707 fail irrelevant
- 158716 fail irrelevant
- 158748 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e f8708b0ed6d549d1d29b8b5cc287f1f2b642bc63
- 158765 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 6677b5a3577c16501fbc51a3341446905bd21c38
- 158796 fail irrelevant
- 158818 fail irrelevant
- 158841 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158863 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158881 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158929 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea56ebf67dd55483105aa9f9996a48213e78337e 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158962 fail irrelevant
- 159023 fail irrelevant
- 159129 fail irrelevant
- 159200 fail irrelevant
- 159238 fail irrelevant
- 159295 fail 5e1942063dc3633f7a127aa2b159c13507580d21 c530a75c1e6a472b0eb9558310b518f0dfcd8860 124f1dd1ee1140b441151043aacbe5d33bb5ab79 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e ff522e2e9163b27fe4d80ba55c18408f9b1f1cb7
- 159328 pass d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 339371ef78eb3a6f2e9848f8b058379de5e87d39 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
- 159330 fail 5e1942063dc3633f7a127aa2b159c13507580d21 c530a75c1e6a472b0eb9558310b518f0dfcd8860 124f1dd1ee1140b441151043aacbe5d33bb5ab79 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e ff522e2e9163b27fe4d80ba55c18408f9b1f1cb7
- 159332 pass e2d69319b713c30ca21428c3955a79f3a7bf6c23 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3b769c5110384fb33bcfeddced80f721ec7838cc 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
- 159334 fail 8c3d3b385ed868660c7dff0336da1bd5a9fb134d c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159336 pass 4d1cf8eeda5b3f411440d9910a484b1d06484aa7 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159324 fail 5e1942063dc3633f7a127aa2b159c13507580d21 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1d27e58e401faea284309039f3962cb3cb4549fc 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e ff522e2e9163b27fe4d80ba55c18408f9b1f1cb7
- 159337 pass 68f99105752d132d411231bfc60cf78eceaac5e0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159340 fail 5e1942063dc3633f7a127aa2b159c13507580d21 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1d27e58e401faea284309039f3962cb3cb4549fc 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e ff522e2e9163b27fe4d80ba55c18408f9b1f1cb7
- 159341 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159342 fail 7eef736858712ab65afea3908f49eb4e7775fa93 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159345 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159347 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159348 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159350 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159351 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
-Searching for interesting versions
- Result found: flight 158563 (pass), for basis pass
- Result found: flight 159295 (fail), for basis failure (at ancestor ~214)
- Repro found: flight 159328 (pass), for basis pass
- Repro found: flight 159340 (fail), for basis failure
- 0 revisions at acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
-No revisions left to test, checking graph state.
- Result found: flight 159341 (pass), for last pass
- Result found: flight 159345 (fail), for first failure
- Repro found: flight 159347 (pass), for last pass
- Repro found: flight 159348 (fail), for first failure
- Repro found: flight 159350 (pass), for last pass
- Repro found: flight 159351 (fail), for first failure
+First of all, apologies for the very late reply.
 
-*** Found and reproduced problem changeset ***
+> Thanks for taking a look at the patches and providing feedback. I've seen your
+> other comments and will reply to those separately when I get a chance (maybe at
+> the weekend or over the Christmas break).
+> 
+> RE the differences in ordering semantics between Xen's and Linux's atomics
+> helpers, please find my notes below.
+> 
+> Thoughts?
 
-  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159351/
+Thank you for the very detailed answer, it made a lot easier to 
+understand the differences!
 
+I think it would be good to have some (if not all) the content in 
+Documents for future reference.
 
-  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Author: David Woodhouse <dwmw@amazon.co.uk>
-  Date:   Wed Jan 13 13:26:02 2021 +0000
-  
-      xen: Fix event channel callback via INTX/GSI
-      
-      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
-      
-      For a while, event channel notification via the PCI platform device
-      has been broken, because we attempt to communicate with xenstore before
-      we even have notifications working, with the xs_reset_watches() call
-      in xs_init().
-      
-      We tend to get away with this on Xen versions below 4.0 because we avoid
-      calling xs_reset_watches() anyway, because xenstore might not cope with
-      reading a non-existent key. And newer Xen *does* have the vector
-      callback support, so we rarely fall back to INTX/GSI delivery.
-      
-      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
-      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
-      case, deferring it to be called from xenbus_probe() in the XS_HVM case
-      instead.
-      
-      Then fix up the invocation of xenbus_probe() to happen either from its
-      device_initcall if the callback is available early enough, or when the
-      callback is finally set up. This means that the hack of calling
-      xenbus_probe() from a workqueue after the first interrupt, or directly
-      from the PCI platform device setup, is no longer needed.
-      
-      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
-      Signed-off-by: Juergen Gross <jgross@suse.com>
-      Signed-off-by: Sasha Levin <sashal@kernel.org>
+[...]
 
-pnmtopng: 131 colors found
-Revision graph left in /home/logs/results/bisect/linux-5.4/test-armhf-armhf-xl-credit1.guest-start.{dot,ps,png,html,svg}.
-----------------------------------------
-159351: tolerable ALL FAIL
+> The tables below use format AAA/BBB/CCC/DDD/EEE, where:
+> 
+>   - AAA is the memory barrier before the operation
+>   - BBB is the acquire semantics of the atomic operation
+>   - CCC is the release semantics of the atomic operation
+>   - DDD is whether the asm() block clobbers memory
+>   - EEE is the memory barrier after the operation
+> 
+> For example, ---/---/rel/mem/dmb would mean:
+> 
+>   - No memory barrier before the operation
+>   - The atomic does *not* have acquire semantics
+>   - The atomic *does* have release semantics
+>   - The asm() block clobbers memory
+>   - There is a DMB memory barrier after the atomic operation
+> 
+> 
+>      arm64 LL/SC
+>      ===========
+> 
+>          Xen Function            Xen                     Linux                   Inconsistent
+>          ============            ===                     =====                   ============
+> 
+>          atomic_add              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_add_return       ---/---/rel/mem/dmb     ---/---/rel/mem/dmb     --- (1)
+>          atomic_sub              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_sub_return       ---/---/rel/mem/dmb     ---/---/rel/mem/dmb     --- (1)
+>          atomic_and              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_cmpxchg          dmb/---/---/---/dmb     ---/---/rel/mem/---     YES (2)
 
-flight 159351 linux-5.4 real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159351/
+If I am not mistaken, Linux is implementing atomic_cmpxchg() with the 
+*_mb() version. So the semantic would be:
 
-Failures :-/ but no regressions.
+---/---/rel/mem/dmb
 
-Tests which did not succeed,
-including tests which could not be run:
- test-armhf-armhf-xl-credit1  14 guest-start             fail baseline untested
+>          atomic_xchg             ---/---/rel/mem/dmb     ---/acq/rel/mem/dmb     YES (3)
 
+ From Linux:
 
-jobs:
- test-armhf-armhf-xl-credit1                                  fail    
+#define __XCHG_CASE(w, sfx, name, sz, mb, nop_lse, acq, acq_lse, rel, 
+cl)       \
 
+[...]
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+         /* LL/SC */ 
+          \
+         "       prfm    pstl1strm, %2\n" 
+          \
+         "1:     ld" #acq "xr" #sfx "\t%" #w "0, %2\n" 
+          \
+         "       st" #rel "xr" #sfx "\t%w1, %" #w "3, %2\n" 
+          \
+         "       cbnz    %w1, 1b\n" 
+          \
+         "       " #mb, 
+          \
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+[...]
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+__XCHG_CASE(w,  ,  mb_, 32, dmb ish, nop,  , a, l, "memory")
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+So I think the Linux semantic would be:
 
+---/---/rel/mem/dmb
+
+Therefore there would be no inconsistency between Xen and Linux.
+
+> 
+> (1) It's actually interesting to me that Linux does it this way. As with the
+>      LSE atomics below, I'd have expected acq/rel semantics and ditch the DMB.
+
+I have done some digging. The original implementation of atomic_{sub, 
+add}_return was actually using acq/rel semantics up until Linux 3.14. 
+But this was reworked by 8e86f0b409a4 "arm64: atomics: fix use of 
+acquire + release for full barrier semantics".
+
+>      Unless I'm missing something where there is a concern around taking an IRQ
+>      between the LDAXR and the STLXR, which can't happen in the LSE atomic case
+>      since it's a single instruction. But the exclusive monitor is cleared on
+>      exception return in AArch64 so I'm struggling to see what that potential
+>      issue may be. Regardless, Linux and Xen are consistent so we're OK ;-)
+
+The commit I pointed above contains a lot of details on the issue. For 
+convenience, I copied the most relevant bits below:
+
+"
+On arm64, these operations have been incorrectly implemented as follows:
+
+             // A, B, C are independent memory locations
+
+             <Access [A]>
+
+             // atomic_op (B)
+     1:      ldaxr   x0, [B]         // Exclusive load with acquire
+             <op(B)>
+             stlxr   w1, x0, [B]     // Exclusive store with release
+             cbnz    w1, 1b
+
+             <Access [C]>
+
+The assumption here being that two half barriers are equivalent to a
+full barrier, so the only permitted ordering would be A -> B -> C
+(where B is the atomic operation involving both a load and a store).
+
+Unfortunately, this is not the case by the letter of the architecture
+and, in fact, the accesses to A and C are permitted to pass their
+nearest half barrier resulting in orderings such as Bl -> A -> C -> Bs
+or Bl -> C -> A -> Bs (where Bl is the load-acquire on B and Bs is the
+store-release on B). This is a clear violation of the full barrier
+requirement.
+"
+
+> (2) The Linux version uses either STLXR with rel semantics if the comparison
+>      passes, or DMB if the comparison fails.
+
+I think the DMB is only on the success path and there is no barrier on 
+the failure path. The commit 4e39715f4b5c "arm64: cmpxchg: avoid memory 
+barrier on comparison failure" seems to corroborate that.
+
+> This is weaker than Xen's version,
+>      which is quite blunt in always wrapping the operation between two DMBs. This
+>      may be a holdover from Xen's arm32 versions being ported to arm64, as we
+>      didn't support acq/rel semantics on LDREX and STREX in Armv7-A? Regardless,
+
+The atomic helpers used in Xen were originally taken from Linux 3.14. 
+Back then, atomic_cmpxchg() were using the two full barriers. This was 
+introduced by the commit I pointed out in (1).
+
+This was then optimized with commit 4e39715f4b5c "arm64: cmpxchg: avoid 
+memory barrier on comparison failure".
+
+>      this is quite a big discrepancy and I've not yet given it enough thought to
+>      determine whether it would actually cause an issue. My feeling is that the
+>      Linux LL/SC atomic_cmpxchg() should have have acq semantics on the LL, but
+>      like you said these helpers are well tested so I'd be surprised if there
+>      is a bug. See (5) below though, where the Linux LSE atomic_cmpxchg() *does*
+>      have acq semantics.
+
+If my understanding is correct the semantics would be (xen vs Linux):
+
+  - failure: dmb/---/---/---/dmb     ---/---/rel/mem/---
+  - success: dmb/---/---/---/dmb     ---/---/rel/mem/dmb
+
+I think the success path is not going to be a problem. But we would need 
+to check if all the callers expect a full barrier for the failure path 
+(I would hope not).
+
+> 
+> (3) The Linux version just adds acq semantics to the LL, so we're OK here.
+> 
+> 
+>      arm64 LSE (comparison to Xen's LL/SC)
+>      =====================================
+> 
+>          Xen Function            Xen                     Linux                   Inconsistent
+>          ============            ===                     =====                   ============
+> 
+>          atomic_add              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_add_return       ---/---/rel/mem/dmb     ---/acq/rel/mem/---     YES (4)
+>          atomic_sub              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_sub_return       ---/---/rel/mem/dmb     ---/acq/rel/mem/---     YES (4)
+>          atomic_and              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_cmpxchg          dmb/---/---/---/dmb     ---/acq/rel/mem/---     YES (5)
+>          atomic_xchg             ---/---/rel/mem/dmb     ---/acq/rel/mem/---     YES (4)
+> 
+> (4) As noted in (1), this is how I would have expected Linux's LL/SC atomics to
+>      work too. I don't think this discrepancy will cause any issues.
+IIUC, the LSE implementation would be using a single instruction that 
+has both the acquire and release semantics. Therefore, it would act as a 
+full barrier.
+
+On the other hand, in the LL/SC implementation, the acquire and release 
+semantics is happening with two different instruction. Therefore, they 
+don't act as a full barrier.
+
+So I think the memory ordering is going to be equivalent between Xen and 
+the Linux LSE implementation.
+
+> 
+> (5) As with (2) above, this is quite a big discrepancy to Xen. However at least
+>      this version has acq semantics unlike the LL/SC version in (2), so I'm more
+>      confident that there won't be regressions going from Xen LL/SC to Linux LSE
+>      version of atomic_cmpxchg().
+Are they really different? In both cases, the helper will act as a full 
+barrier. The main difference is how this ordering is achieved.
+
+> 
+> 
+>      arm32 LL/SC
+>      ===========
+> 
+>          Xen Function            Xen                     Linux                   Inconsistent
+>          ============            ===                     =====                   ============
+> 
+>          atomic_add              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_add_return       dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
+>          atomic_sub              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_sub_return       dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
+>          atomic_and              ---/---/---/---/---     ---/---/---/---/---     ---
+>          atomic_cmpxchg          dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
+>          atomic_xchg             dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
+> 
+> (6) Linux only provides relaxed variants of these functions, such as
+>      atomic_add_return_relaxed() and atomic_xchg_relaxed(). Patches #13 and #14
+>      in the series add the stricter versions expected by Xen, wrapping calls to
+>      Linux's relaxed variants inbetween two calls to smb_mb(). This makes them
+>      consistent with Xen's existing helpers, though is quite blunt.
+
+Linux will do the same when the fully ordered version is not implemented 
+(see include/linux/atomic-fallback.h).
+
+>  It is worth
+>      noting that Armv8-A AArch32 does support acq/rel semantics on exclusive
+>      accesses, with LDAEX and STLEX, so I could imagine us introducing a new
+>      arm32 hwcap to detect whether we're on actual Armv7-A hardware or Armv8-A
+>      AArch32, then swap to lighterweight STLEX versions of these helpers rather
+>      than the heavyweight double DMB versions. Whether that would actually give
+>      measurable performance improvements is another story!
+
+That's good to know! So far, I haven't heard anyone using Xen 32-bit on 
+Armv8. I would wait until there is a request before introducing a 3rd 
+(4th if counting the ll/sc as 2) implementation for the atomics helpers.
+
+That said, the 32-bit port is meant to only be supported on Armv7. It 
+should boot on Armv8, but there is no promise it will be fully 
+functional nor stable.
+
+Overall, it looks like to me that re-syncing the atomic implementation 
+with Linux should not be a major problem.
+
+We are in the middle of 4.15 freeze, I will try to go through the series 
+ASAP.
+
+Cheers,
+
+-- 
+Julien Grall
 
