@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CEC531B2DB
-	for <lists+xen-devel@lfdr.de>; Sun, 14 Feb 2021 22:39:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.85018.159338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0FC31B31B
+	for <lists+xen-devel@lfdr.de>; Sun, 14 Feb 2021 23:47:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.85027.159359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBP6p-0003LY-59; Sun, 14 Feb 2021 21:39:15 +0000
+	id 1lBQ9R-00010C-4M; Sun, 14 Feb 2021 22:46:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 85018.159338; Sun, 14 Feb 2021 21:39:15 +0000
+Received: by outflank-mailman (output) from mailman id 85027.159359; Sun, 14 Feb 2021 22:46:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBP6p-0003L6-1l; Sun, 14 Feb 2021 21:39:15 +0000
-Received: by outflank-mailman (input) for mailman id 85018;
- Sun, 14 Feb 2021 21:39:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBP6n-0003Ky-Va; Sun, 14 Feb 2021 21:39:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBP6n-0003Dv-Qz; Sun, 14 Feb 2021 21:39:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBP6n-0003Os-G3; Sun, 14 Feb 2021 21:39:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lBP6n-0006XX-FX; Sun, 14 Feb 2021 21:39:13 +0000
+	id 1lBQ9R-0000zn-1B; Sun, 14 Feb 2021 22:46:01 +0000
+Received: by outflank-mailman (input) for mailman id 85027;
+ Sun, 14 Feb 2021 22:45:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0kZh=HQ=daemonizer.de=maxi@srs-us1.protection.inumbo.net>)
+ id 1lBQ9P-0000zi-PL
+ for xen-devel@lists.xenproject.org; Sun, 14 Feb 2021 22:45:59 +0000
+Received: from mx1.somlen.de (unknown [89.238.87.226])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 84c5f96c-93bc-48de-84c2-5900121afe07;
+ Sun, 14 Feb 2021 22:45:56 +0000 (UTC)
+Received: by mx1.somlen.de with ESMTPSA id E0D95C36AAE;
+ Sun, 14 Feb 2021 23:45:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,248 +38,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=qbpwa4YB58HnO/pDZ5ZsUnwyqvblVbmF5khLhViUEMU=; b=0a25cKspYG07IT8eRWrSkm+J8K
-	rAp7sfm6YSuBbzK5Z1fRlUfZEgrW0QXKqNIh/3cdjrOyoD6IvvJ/YzFepA8uCKQIUsZuE26sE9TBO
-	U2h+mTkEFRj8CU9s0U7bTBYybn0777opSn67AoF2hN2AUHGz+ZYaGV5zA7RuMzLnNays=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159339-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 84c5f96c-93bc-48de-84c2-5900121afe07
+From: Maximilian Engelhardt <maxi@daemonizer.de>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org, pkg-xen-devel@lists.alioth.debian.org
+Subject: Re: [BUG] Linux pvh vm not getting destroyed on shutdown
+Date: Sun, 14 Feb 2021 23:45:47 +0100
+Message-ID: <22128555.Kfurr2TIWe@localhost>
+In-Reply-To: <YCgYxOxXwitkFB0T@mattapan.m5p.com>
+References: <2195346.r5JaYcbZso@localhost> <YCgYxOxXwitkFB0T@mattapan.m5p.com>
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 159339: regressions - FAIL
-X-Osstest-Failures:
-    linux-5.4:test-arm64-arm64-xl-credit1:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-xsm:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-credit2:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-seattle:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-arndale:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-libvirt:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=5b9a4104c902d7dec14c9e3c5652a638194487c6
-X-Osstest-Versions-That:
-    linux=a829146c3fdcf6d0b76d9c54556a223820f1f73b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 14 Feb 2021 21:39:13 +0000
+Content-Type: multipart/signed; boundary="nextPart1779699.oyBIJXxD3g"; micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-flight 159339 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159339/
+--nextPart1779699.oyBIJXxD3g
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-Regressions :-(
+On Samstag, 13. Februar 2021 19:21:56 CET Elliott Mitchell wrote:
+> On Sat, Feb 13, 2021 at 04:36:24PM +0100, Maximilian Engelhardt wrote:
+> > after a recent upgrade of one of our test systems to Debian Bullseye we
+> > noticed an issue where on shutdown of a pvh vm the vm was not destroyed by
+> > xen automatically. It could still be destroyed by manually issuing a 'xl
+> > destroy $vm' command.
+> 
+> Usually I would expect such an issue to show on the Debian bug database
+> before xen-devel.  In particular as this is a behavior change with
+> security updates, there is a good chance this isn't attributable to the
+> Xen Project.  Additionally the Xen Project's support window is rather
+> narrow.  I've been observing the same (or similar) issue for a bit too.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl          14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-credit2  14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-seattle  14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 158387
- test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 158387
- test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 158387
+I posted this bug report to the xen-devel list because I was told to do so on 
+upstream #xen irc channel.
+Before writing my mail, I also checked the Debian kernel packaging for 
+anything that might be related to our issue, but could not find anything.
+Please note we didn't observe any behavior change in Debian buster on our 
+systems and also didn't notice the shutdown issue there. For us the issue 
+only started with kernel version 5.8.3+1~exp1.
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 158387
+> > Here are some things I noticed while trying to debug this issue:
+> > 
+> > * It happens on a Debian buster dom0 as well as on a bullseye dom0
+> 
+> I stick with stable on non-development machines, so I can't say anything
+> to this.
+> 
+> > * It seems to only affect pvh vms.
+> 
+> I've observed it with pv and hvm VMs as well.
+> 
+> > * shutdown from the pvgrub menu ("c" -> "halt") does work
+> 
+> Woah!  That is quite the observation.  Since I had a handy opportunity
+> I tried this and this reproduces for me.
+> 
+> > * the vm seems to shut down normal, the last lines in the console are:
+> I agree with this.  Everything appears typical until the last moment.
+> 
+> > * issuing a reboot instead of a shutdown does work fine.
+> 
+> I disagree with this.  I'm seeing the issue occur with restart attempts
+> too.
+> 
+> > * The issue started with Debian kernel 5.8.3+1~exp1 running in the vm,
+> > Debian kernel 5.7.17-1 does not show the issue.
+> 
+> I think the first kernel update during which I saw the issue was around
+> linux-image-4.19.0-12-amd64 or linux-image-4.19.0-13-amd64.  I think
+> the last security update to the Xen packages was in a similar timeframe
+> though.  Rate this portion as unreliable though.  I can definitely state
+> this occurs with Debian's linux-image-4.19.0-13-amd64 and kernels built
+> from corresponding source, this may have shown earlier.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 158387
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 158387
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 158387
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 158387
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 158387
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 158387
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 158387
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 158387
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 158387
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 158387
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+We don't see any issues with the current Debian buster (Debian stable) kernel 
+(4.19.0-14-amd64 #1 SMP Debian 4.19.171-2 (2021-01-30) x86_64 GNU/Linux) and 
+also did not notice any issues with the older kernel packages in buster. Also 
+the security update of xen in buster did not cause any behavior change for us. 
+In our case everything in buster is working as we expect it to work (using 
+latest updates and security updates).
 
-version targeted for testing:
- linux                5b9a4104c902d7dec14c9e3c5652a638194487c6
-baseline version:
- linux                a829146c3fdcf6d0b76d9c54556a223820f1f73b
+> > * setting vcpus equal to maxvcpus does *not* show the hang.
+> 
+> I haven't tried things related to this, so I can't comment on this
+> part.
+> 
+> 
+> Fresh observation.  During a similar timeframe I started noticing VM
+> creation leaving a `xl create` process behind.  I had discovered this
+> process could be freely killed without appearing to effect the VM and had
+> thus been doing so (memory in a lean Dom0 is precious).
+> 
+> While typing this I realized there was another scenario I needed to try.
+> Turns out if I boot PV GRUB and get to its command-line (press 'c'), then
+> get away from the VM console, kill the `xl create` process, return to
+> the console and type "halt".  This results in a hung VM.
+> 
+> Are you perhaps either killing the `xl create` process for effected VMs,
+> or migrating the VM and thus splitting the `xl create` process from the
+> effected VMs?
+> 
+> This seems more a Debian issue than a Xen Project issue right now.
 
-Last test of basis   158387  2021-01-12 19:40:06 Z   33 days
-Failing since        158473  2021-01-17 13:42:20 Z   28 days   39 attempts
-Testing same since   159339  2021-02-14 04:42:28 Z    0 days    1 attempts
+We don't migrate the vms, we don't kill any processes running on the dom0 and 
+I don't see anything in our logs indicating something gets killed on the dom0. 
+On our systems the running 'xl create' processes only use very little memory.
 
-------------------------------------------------------------
-467 people touched revisions under test,
-not listing them all
+Have you tried if you still observer your hangs if you don't kill the xl 
+processes?
+--nextPart1779699.oyBIJXxD3g
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAmApqBsACgkQgepkfSQr
+0hWQexAArihR0+TqNRoVfPjTFQCO4a4ByZNufXeappdTaKahvwK29qr+2aRIjn4L
+8pcSPYuJV/CsMH+ZVR19pfR/DC1R5EUYOeBd9+K/Q0VlJ/XzMPJ7cTbccyzm7Nub
+muCCWHRidlGVUNGXVvANdj7MlU8LAAmkjSFcCav2jiySnsdiwm/Q8PKvUWzqA3Ju
+5syeYqkUh3PWqIwGGfSLuAJyAKSzYdFWSk/5Rep07J5CPK0rzMTxuYUZcqw+fD+8
+KAcFV7uXSusDKSl+8qVCbraPvOPisZ0xvy1gDSMH5Jsz+aS2nnbdls3zE6U77IhC
+/Z4WXGXe3QvVhyuLd8iT36EhD+PjQfV0bUvY9ECCqmuaIryQLrIcJiayYmX03K3X
+gC8LAIVAHX/G65c3S+BzsNaHPQ8GZ2LiFG3jFYUlAjoMlNerB1F+aCwuI6ZLwPML
+v7qdtJ9nKJsU4kVDKan5tUc5IZ7NM9VwQeSI83/EhkMIfUCfdHVKHyrNdfWWj4Gx
+LS62SKjPC4gDIOfUr6booAvxB6vCQMYp90r8+GagKNNCxqvXezI3lWE2woBW49BC
+BxtIJ26AYBrBWHUYGmpj9LUFPA0GwkArPt9opKQfvtL154+nD+HY9buMGPZaxaqA
+17lL2i4HhzcUn5sD0urQg2pFI8asPSBv9l7HQsIuvexaPh4OzDI=
+=zb5T
+-----END PGP SIGNATURE-----
+
+--nextPart1779699.oyBIJXxD3g--
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 14254 lines long.)
 
