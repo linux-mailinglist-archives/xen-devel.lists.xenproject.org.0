@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF1D631CAD6
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 14:02:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.85826.160646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0A3231CB03
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 14:20:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.85843.160665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBzz5-00084Y-6w; Tue, 16 Feb 2021 13:01:43 +0000
+	id 1lC0GF-0000wQ-RU; Tue, 16 Feb 2021 13:19:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 85826.160646; Tue, 16 Feb 2021 13:01:43 +0000
+Received: by outflank-mailman (output) from mailman id 85843.160665; Tue, 16 Feb 2021 13:19:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBzz5-000842-35; Tue, 16 Feb 2021 13:01:43 +0000
-Received: by outflank-mailman (input) for mailman id 85826;
- Tue, 16 Feb 2021 13:01:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lC0GF-0000w1-OF; Tue, 16 Feb 2021 13:19:27 +0000
+Received: by outflank-mailman (input) for mailman id 85843;
+ Tue, 16 Feb 2021 13:19:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBzz3-00083t-Bk; Tue, 16 Feb 2021 13:01:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBzz3-0000RW-4D; Tue, 16 Feb 2021 13:01:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBzz2-00032l-TL; Tue, 16 Feb 2021 13:01:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lBzz2-0006ST-St; Tue, 16 Feb 2021 13:01:40 +0000
+ (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lC0GE-0000vw-0H
+ for xen-devel@lists.xenproject.org; Tue, 16 Feb 2021 13:19:26 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id be77653d-027b-4d95-bc34-40ebdce87f51;
+ Tue, 16 Feb 2021 13:19:24 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4BA94ACBF;
+ Tue, 16 Feb 2021 13:19:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,222 +39,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=KoCdJ/LAgtbnKaVeDISt1mfKhY4FtmT75KHU6LpFLoc=; b=s+cKUCfJPeHJD4k4A8i3VxsmVs
-	6tX7/AY0nTfM5xOe81oU+dkKsTFJ4kblIp/tY6t7ZeHrXNT04vo+hNbz46shRn9iEnTozhT6fs5Qk
-	dX9o8VotBaZTE38hwYLvLNnpow2JtO9XckXa8qUPF2VyWLDoCz40gpXLvKGG7+jleH28=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [linux-5.4 bisection] complete test-arm64-arm64-xl-thunderx
-Message-Id: <E1lBzz2-0006ST-St@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 16 Feb 2021 13:01:40 +0000
+X-Inumbo-ID: be77653d-027b-4d95-bc34-40ebdce87f51
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1613481563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QAN5Wz+ZSjzG6pV8EQCugEBAawJOPuPe6sT/ik3O//E=;
+	b=Mg9xC9YHNJn8jRkUj7lf6XC70P7AHxZwHh8NlDS9fQE/IhRy92s0zLL3YjG0iIDhxmqSS8
+	PYJc8o3d2w5zi1OYjg2IxsdsYuEZoDoSKGmu7s7JKvoS0cq69hNGi8dCW7g+MekPQU9uxT
+	CNlBtd0Zf9HHyTBJHjaSAGsQJ3g8+c0=
+Subject: Re: [PATCH] x86/EFI: work around GNU ld 2.36 issue
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e6d59277-35b2-e7df-0e68-a794c8855ac0@suse.com>
+ <8450b84d-93f2-7568-362e-af27954e5157@suse.com>
+ <881b97a1-a4e3-f213-f81b-ac07ca46ed27@citrix.com>
+ <5a02763e-715f-a76d-e926-87a2a4c38449@suse.com>
+Message-ID: <2a3696b9-9799-ec75-508d-c2e562eb26b8@suse.com>
+Date: Tue, 16 Feb 2021 14:19:22 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+MIME-Version: 1.0
+In-Reply-To: <5a02763e-715f-a76d-e926-87a2a4c38449@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-arm64-arm64-xl-thunderx
-testid guest-start
+On 05.02.2021 12:13, Jan Beulich wrote:
+> On 05.02.2021 11:33, Andrew Cooper wrote:
+>> On 05/02/2021 08:11, Jan Beulich wrote:
+>>> On 04.02.2021 14:38, Jan Beulich wrote:
+>>>> Our linker capability check fails with the recent binutils release's ld:
+>>>>
+>>>> .../check.o:(.debug_aranges+0x6): relocation truncated to fit: R_X86_64_32 against `.debug_info'
+>>>> .../check.o:(.debug_info+0x6): relocation truncated to fit: R_X86_64_32 against `.debug_abbrev'
+>>>> .../check.o:(.debug_info+0xc): relocation truncated to fit: R_X86_64_32 against `.debug_str'+76
+>>>> .../check.o:(.debug_info+0x11): relocation truncated to fit: R_X86_64_32 against `.debug_str'+d
+>>>> .../check.o:(.debug_info+0x15): relocation truncated to fit: R_X86_64_32 against `.debug_str'+2b
+>>>> .../check.o:(.debug_info+0x29): relocation truncated to fit: R_X86_64_32 against `.debug_line'
+>>>> .../check.o:(.debug_info+0x30): relocation truncated to fit: R_X86_64_32 against `.debug_str'+19
+>>>> .../check.o:(.debug_info+0x37): relocation truncated to fit: R_X86_64_32 against `.debug_str'+71
+>>>> .../check.o:(.debug_info+0x3e): relocation truncated to fit: R_X86_64_32 against `.debug_str'
+>>>> .../check.o:(.debug_info+0x45): relocation truncated to fit: R_X86_64_32 against `.debug_str'+5e
+>>>> .../check.o:(.debug_info+0x4c): additional relocation overflows omitted from the output
+>>>>
+>>>> Tell the linker to strip debug info as a workaround. Oddly enough debug
+>>>> info has been getting stripped when linking the actual xen.efi, without
+>>>> me being able to tell why this would be.
+>>> I've changed this to
+>>>
+>>> "Tell the linker to strip debug info as a workaround. Debug info has been
+>>>  getting stripped already anyway when linking the actual xen.efi."
+>>>
+>>> as I noticed I did look for -S only yesterday, while we have
+>>>
+>>> EFI_LDFLAGS += --image-base=$(1) --stack=0,0 --heap=0,0 --strip-debug
+>>
+>> So, in terms of the bugfix, Acked-by: Andrew Cooper
+>> <andrew.cooper3@citrix.com>
+> 
+> Thanks.
+> 
+>> However, we ought be keeping the debug symbols for xen-syms.efi (or
+>> equiv) seeing as there is logic included here which isn't in the regular
+>> xen-syms.
+> 
+> Well, perhaps. Besides the 2.36 binutils regression needing fixing
+> (or preventing us to avoid the stripping in case that's the linker
+> version used), there are a few more points relevant here:
+> 
+> - Checking with a random older binutils (2.32) I observe the linker
+>   working fine, but our mkreloc utility choking on the (admittedly
+>   suspicious, at least at the first glance) output. This may be
+>   possible to deal with, but still.
+> 
+> - It would need checking whether the resulting binary works at all.
+>   All the .debug_* sections come first. Of course there are surely
+>   again ways to overcome this (albeit it smells like a binutils
+>   bug).
 
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+I've now convinced myself that the resulting images wouldn't work.
+This can be hacked around in binutils, presumably, but the question
+is whether that's worth it: A correct binary would include the
+entire debug data as part of the loadable image, i.e. would require
+quite a bit of memory (and time) for EFI to load. This is because
+of requirements resulting from (I'm inclined to say shortcomings
+in) how at least some of the PE loaders works.
 
-*** Found and reproduced problem changeset ***
+On the positive side, while investigating I came across a change
+(a little over a year ago) to binutils that - if working
+correctly (not tried out yet) - could allow us to avoid the use of
+our mkreloc tool.
 
-  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159412/
+> - While in ELF binaries the particular .debug_* sections are
+>   conventionally assumed to hold Dwarf debug info, no such
+>   assumption is true for PE executables. In particular I observe
+>   objdump (2.32 as well as 2.36) to merely dump the COFF symbol
+>   table when handed -g. Are you aware of consumers of the
+>   information, if we indeed kept it?
 
+I noticed Cygwin uses Dwarf in PE images, so there is at least a
+precedent.
 
-  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Author: David Woodhouse <dwmw@amazon.co.uk>
-  Date:   Wed Jan 13 13:26:02 2021 +0000
-  
-      xen: Fix event channel callback via INTX/GSI
-      
-      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
-      
-      For a while, event channel notification via the PCI platform device
-      has been broken, because we attempt to communicate with xenstore before
-      we even have notifications working, with the xs_reset_watches() call
-      in xs_init().
-      
-      We tend to get away with this on Xen versions below 4.0 because we avoid
-      calling xs_reset_watches() anyway, because xenstore might not cope with
-      reading a non-existent key. And newer Xen *does* have the vector
-      callback support, so we rarely fall back to INTX/GSI delivery.
-      
-      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
-      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
-      case, deferring it to be called from xenbus_probe() in the XS_HVM case
-      instead.
-      
-      Then fix up the invocation of xenbus_probe() to happen either from its
-      device_initcall if the callback is available early enough, or when the
-      callback is finally set up. This means that the hack of calling
-      xenbus_probe() from a workqueue after the first interrupt, or directly
-      from the PCI platform device setup, is no longer needed.
-      
-      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
-      Signed-off-by: Juergen Gross <jgross@suse.com>
-      Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/test-arm64-arm64-xl-thunderx.guest-start.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/test-arm64-arm64-xl-thunderx.guest-start --summary-out=tmp/159412.bisection-summary --basis-template=158387 --blessings=real,real-bisect,real-retry linux-5.4 test-arm64-arm64-xl-thunderx guest-start
-Searching for failure / basis pass:
- 159372 fail [host=rochester0] / 158681 [host=rochester1] 158624 ok.
-Failure / basis pass flights: 159372 / 158624
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
-Basis pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 96a9acfc527964dc5ab7298862a0cd8aa5fffc6a 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
-Generating revisions with ./adhoc-revtuple-generator  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#09f983f0c7fc0db79a5f6c883ec3510d424c369c-5b9a4104c902d7dec14c9e3c5652a638194487c6 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#96a9acfc527964dc5ab7298862a0cd8aa5fffc6a-2e1e8c35f3178df95d79da81ac6deec242da74c2 git://xenbits.xen.org/qemu-xen.git#7ea4288\
- 95af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/osstest/seabios.git#ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e-ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e git://xenbits.xen.org/xen.git#452ddbe3592b141b05a7e0676f09c8ae07f98fdd-04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
-Loaded 15001 nodes in revision graph
-Searching for test results:
- 158609 pass irrelevant
- 158616 [host=rochester1]
- 158624 pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 96a9acfc527964dc5ab7298862a0cd8aa5fffc6a 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
- 158681 [host=rochester1]
- 158707 fail irrelevant
- 158716 fail irrelevant
- 158748 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e f8708b0ed6d549d1d29b8b5cc287f1f2b642bc63
- 158765 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 6677b5a3577c16501fbc51a3341446905bd21c38
- 158796 fail irrelevant
- 158818 fail irrelevant
- 158841 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158863 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158881 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158929 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea56ebf67dd55483105aa9f9996a48213e78337e 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
- 158962 fail irrelevant
- 159023 fail irrelevant
- 159129 fail irrelevant
- 159200 fail irrelevant
- 159238 fail irrelevant
- 159295 fail irrelevant
- 159324 fail irrelevant
- 159339 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
- 159359 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
- 159393 pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 96a9acfc527964dc5ab7298862a0cd8aa5fffc6a 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
- 159395 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
- 159397 fail 38f35023fd301abeb01cfd81e73caa2e4e7ec0b1 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159372 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
- 159398 pass d8a487e673abf46c69c901bb25da54e9bc7ba45e c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159400 pass 5a1d7bb7d333849eb7d3ab5ebfbf9805b2cd46c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159402 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159403 pass 9cec63a3aacbcaee8d09aecac2ca2f8820efcc70 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159404 pass 8ab3478335ad8fc08f14ec73251b084fe02b3ebb c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159406 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159407 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159409 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159410 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159411 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
- 159412 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
-Searching for interesting versions
- Result found: flight 158624 (pass), for basis pass
- Result found: flight 159339 (fail), for basis failure (at ancestor ~280)
- Repro found: flight 159393 (pass), for basis pass
- Repro found: flight 159395 (fail), for basis failure
- 0 revisions at acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
-No revisions left to test, checking graph state.
- Result found: flight 159406 (pass), for last pass
- Result found: flight 159407 (fail), for first failure
- Repro found: flight 159409 (pass), for last pass
- Repro found: flight 159410 (fail), for first failure
- Repro found: flight 159411 (pass), for last pass
- Repro found: flight 159412 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159412/
-
-
-  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
-  Author: David Woodhouse <dwmw@amazon.co.uk>
-  Date:   Wed Jan 13 13:26:02 2021 +0000
-  
-      xen: Fix event channel callback via INTX/GSI
-      
-      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
-      
-      For a while, event channel notification via the PCI platform device
-      has been broken, because we attempt to communicate with xenstore before
-      we even have notifications working, with the xs_reset_watches() call
-      in xs_init().
-      
-      We tend to get away with this on Xen versions below 4.0 because we avoid
-      calling xs_reset_watches() anyway, because xenstore might not cope with
-      reading a non-existent key. And newer Xen *does* have the vector
-      callback support, so we rarely fall back to INTX/GSI delivery.
-      
-      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
-      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
-      case, deferring it to be called from xenbus_probe() in the XS_HVM case
-      instead.
-      
-      Then fix up the invocation of xenbus_probe() to happen either from its
-      device_initcall if the callback is available early enough, or when the
-      callback is finally set up. This means that the hack of calling
-      xenbus_probe() from a workqueue after the first interrupt, or directly
-      from the PCI platform device setup, is no longer needed.
-      
-      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
-      Signed-off-by: Juergen Gross <jgross@suse.com>
-      Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-pnmtopng: 118 colors found
-Revision graph left in /home/logs/results/bisect/linux-5.4/test-arm64-arm64-xl-thunderx.guest-start.{dot,ps,png,html,svg}.
-----------------------------------------
-159412: tolerable ALL FAIL
-
-flight 159412 linux-5.4 real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159412/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-arm64-arm64-xl-thunderx 14 guest-start             fail baseline untested
-
-
-jobs:
- test-arm64-arm64-xl-thunderx                                 fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Jan
 
