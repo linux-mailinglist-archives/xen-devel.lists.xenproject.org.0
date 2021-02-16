@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A3231CB03
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 14:20:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.85843.160665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5259031CCF0
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 16:31:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.85872.160707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lC0GF-0000wQ-RU; Tue, 16 Feb 2021 13:19:27 +0000
+	id 1lC2Hy-0004EB-UQ; Tue, 16 Feb 2021 15:29:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 85843.160665; Tue, 16 Feb 2021 13:19:27 +0000
+Received: by outflank-mailman (output) from mailman id 85872.160707; Tue, 16 Feb 2021 15:29:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lC0GF-0000w1-OF; Tue, 16 Feb 2021 13:19:27 +0000
-Received: by outflank-mailman (input) for mailman id 85843;
- Tue, 16 Feb 2021 13:19:26 +0000
+	id 1lC2Hy-0004Dm-RH; Tue, 16 Feb 2021 15:29:22 +0000
+Received: by outflank-mailman (input) for mailman id 85872;
+ Tue, 16 Feb 2021 15:29:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lC0GE-0000vw-0H
- for xen-devel@lists.xenproject.org; Tue, 16 Feb 2021 13:19:26 +0000
+ id 1lC2Hw-0004Dg-V6
+ for xen-devel@lists.xenproject.org; Tue, 16 Feb 2021 15:29:20 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id be77653d-027b-4d95-bc34-40ebdce87f51;
- Tue, 16 Feb 2021 13:19:24 +0000 (UTC)
+ id bcd36bae-9c04-4e6a-b0e2-4cc19cba6bb1;
+ Tue, 16 Feb 2021 15:29:18 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4BA94ACBF;
- Tue, 16 Feb 2021 13:19:23 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C43B7AE87;
+ Tue, 16 Feb 2021 15:29:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,112 +39,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be77653d-027b-4d95-bc34-40ebdce87f51
+X-Inumbo-ID: bcd36bae-9c04-4e6a-b0e2-4cc19cba6bb1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613481563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1613489357; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QAN5Wz+ZSjzG6pV8EQCugEBAawJOPuPe6sT/ik3O//E=;
-	b=Mg9xC9YHNJn8jRkUj7lf6XC70P7AHxZwHh8NlDS9fQE/IhRy92s0zLL3YjG0iIDhxmqSS8
-	PYJc8o3d2w5zi1OYjg2IxsdsYuEZoDoSKGmu7s7JKvoS0cq69hNGi8dCW7g+MekPQU9uxT
-	CNlBtd0Zf9HHyTBJHjaSAGsQJ3g8+c0=
-Subject: Re: [PATCH] x86/EFI: work around GNU ld 2.36 issue
+	bh=wMIMMImt700WSdImEdH1Sc2CYLw5jnB37NAWri3bCHA=;
+	b=FgjKl5X2iZ2IiuV/v2Ego+3rl/9DOb8TbyhTZimQntujCSI4e13qGMK1Ny+E85zyuaqiVi
+	n1L/waVO2GLlUz+D1iPZZdDzZ7BQ1woqY+e5vofyTSQ8XmG/VsCLbZthwcN2eNjV3nYufm
+	xgpSxzuREtpn4wTD7atOTggkTdhs30o=
+Subject: Re: [PATCH DO NOT APPLY] docs: Document allocator properties and the
+ rubric for using them
+To: George Dunlap <george.dunlap@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210216102839.1801667-1-george.dunlap@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e6d59277-35b2-e7df-0e68-a794c8855ac0@suse.com>
- <8450b84d-93f2-7568-362e-af27954e5157@suse.com>
- <881b97a1-a4e3-f213-f81b-ac07ca46ed27@citrix.com>
- <5a02763e-715f-a76d-e926-87a2a4c38449@suse.com>
-Message-ID: <2a3696b9-9799-ec75-508d-c2e562eb26b8@suse.com>
-Date: Tue, 16 Feb 2021 14:19:22 +0100
+Message-ID: <b225be0f-3eed-426e-8829-6e7c57cd7635@suse.com>
+Date: Tue, 16 Feb 2021 16:29:17 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <5a02763e-715f-a76d-e926-87a2a4c38449@suse.com>
+In-Reply-To: <20210216102839.1801667-1-george.dunlap@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 05.02.2021 12:13, Jan Beulich wrote:
-> On 05.02.2021 11:33, Andrew Cooper wrote:
->> On 05/02/2021 08:11, Jan Beulich wrote:
->>> On 04.02.2021 14:38, Jan Beulich wrote:
->>>> Our linker capability check fails with the recent binutils release's ld:
->>>>
->>>> .../check.o:(.debug_aranges+0x6): relocation truncated to fit: R_X86_64_32 against `.debug_info'
->>>> .../check.o:(.debug_info+0x6): relocation truncated to fit: R_X86_64_32 against `.debug_abbrev'
->>>> .../check.o:(.debug_info+0xc): relocation truncated to fit: R_X86_64_32 against `.debug_str'+76
->>>> .../check.o:(.debug_info+0x11): relocation truncated to fit: R_X86_64_32 against `.debug_str'+d
->>>> .../check.o:(.debug_info+0x15): relocation truncated to fit: R_X86_64_32 against `.debug_str'+2b
->>>> .../check.o:(.debug_info+0x29): relocation truncated to fit: R_X86_64_32 against `.debug_line'
->>>> .../check.o:(.debug_info+0x30): relocation truncated to fit: R_X86_64_32 against `.debug_str'+19
->>>> .../check.o:(.debug_info+0x37): relocation truncated to fit: R_X86_64_32 against `.debug_str'+71
->>>> .../check.o:(.debug_info+0x3e): relocation truncated to fit: R_X86_64_32 against `.debug_str'
->>>> .../check.o:(.debug_info+0x45): relocation truncated to fit: R_X86_64_32 against `.debug_str'+5e
->>>> .../check.o:(.debug_info+0x4c): additional relocation overflows omitted from the output
->>>>
->>>> Tell the linker to strip debug info as a workaround. Oddly enough debug
->>>> info has been getting stripped when linking the actual xen.efi, without
->>>> me being able to tell why this would be.
->>> I've changed this to
->>>
->>> "Tell the linker to strip debug info as a workaround. Debug info has been
->>>  getting stripped already anyway when linking the actual xen.efi."
->>>
->>> as I noticed I did look for -S only yesterday, while we have
->>>
->>> EFI_LDFLAGS += --image-base=$(1) --stack=0,0 --heap=0,0 --strip-debug
->>
->> So, in terms of the bugfix, Acked-by: Andrew Cooper
->> <andrew.cooper3@citrix.com>
-> 
-> Thanks.
-> 
->> However, we ought be keeping the debug symbols for xen-syms.efi (or
->> equiv) seeing as there is logic included here which isn't in the regular
->> xen-syms.
-> 
-> Well, perhaps. Besides the 2.36 binutils regression needing fixing
-> (or preventing us to avoid the stripping in case that's the linker
-> version used), there are a few more points relevant here:
-> 
-> - Checking with a random older binutils (2.32) I observe the linker
->   working fine, but our mkreloc utility choking on the (admittedly
->   suspicious, at least at the first glance) output. This may be
->   possible to deal with, but still.
-> 
-> - It would need checking whether the resulting binary works at all.
->   All the .debug_* sections come first. Of course there are surely
->   again ways to overcome this (albeit it smells like a binutils
->   bug).
+On 16.02.2021 11:28, George Dunlap wrote:
+> --- /dev/null
+> +++ b/docs/hypervisor-guide/memory-allocation-functions.rst
+> @@ -0,0 +1,118 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +Xenheap memory allocation functions
+> +===================================
+> +
+> +In general Xen contains two pools (or "heaps") of memory: the *xen
+> +heap* and the *dom heap*.  Please see the comment at the top of
+> +``xen/common/page_alloc.c`` for the canonical explanation.
+> +
+> +This document describes the various functions available to allocate
+> +memory from the xen heap: their properties and rules for when they should be
+> +used.
 
-I've now convinced myself that the resulting images wouldn't work.
-This can be hacked around in binutils, presumably, but the question
-is whether that's worth it: A correct binary would include the
-entire debug data as part of the loadable image, i.e. would require
-quite a bit of memory (and time) for EFI to load. This is because
-of requirements resulting from (I'm inclined to say shortcomings
-in) how at least some of the PE loaders works.
+Irrespective of your subsequent indication of you disliking the
+proposal (which I understand only affects the guidelines further
+down anyway) I'd like to point out that vmalloc() does not
+allocate from the Xen heap. Therefore a benefit of always
+recommending use of xvmalloc() would be that the function could
+fall back to vmalloc() (and hence the larger domain heap) when
+xmalloc() failed.
 
-On the positive side, while investigating I came across a change
-(a little over a year ago) to binutils that - if working
-correctly (not tried out yet) - could allow us to avoid the use of
-our mkreloc tool.
+> +TLDR guidelines
+> +---------------
+> +
+> +* By default, ``xvmalloc`` (or its helper cognates) should be used
+> +  unless you know you have specific properties that need to be met.
+> +
+> +* If you need memory which needs to be physically contiguous, and may
+> +  be larger than ``PAGE_SIZE``...
+> +  
+> +  - ...and is order 2, use ``alloc_xenheap_pages``.
+> +    
+> +  - ...and is not order 2, use ``xmalloc`` (or its helper cognates)..
 
-> - While in ELF binaries the particular .debug_* sections are
->   conventionally assumed to hold Dwarf debug info, no such
->   assumption is true for PE executables. In particular I observe
->   objdump (2.32 as well as 2.36) to merely dump the COFF symbol
->   table when handed -g. Are you aware of consumers of the
->   information, if we indeed kept it?
+ITYM "an exact power of 2 number of pages"?
 
-I noticed Cygwin uses Dwarf in PE images, so there is at least a
-precedent.
+> +* If you don't need memory to be physically contiguous, and know the
+> +  allocation will always be larger than ``PAGE_SIZE``, you may use
+> +  ``vmalloc`` (or one of its helper cognates).
+> +
+> +* If you know that allocation will always be less than ``PAGE_SIZE``,
+> +  you may use ``xmalloc``.
+
+As per Julien's and your own replies, this wants to be "minimum
+possible page size", which of course depends on where in the
+tree the piece of code is to live. (It would be "maximum
+possible page size" in the earlier paragraph.)
+
+> +Properties of various allocation functions
+> +------------------------------------------
+> +
+> +Ultimately, the underlying allocator for all of these functions is
+> +``alloc_xenheap_pages``.  They differ on several different properties:
+> +
+> +1. What underlying allocation sizes are.  This in turn has an effect
+> +   on:
+> +
+> +   - How much memory is wasted when requested size doesn't match
+> +
+> +   - How such allocations are affected by memory fragmentation
+> +
+> +   - How such allocations affect memory fragmentation
+> +
+> +2. Whether the underlying pages are physically contiguous
+> +
+> +3. Whether allocation and deallocation require the cost of mapping and
+> +   unmapping
+> +
+> +``alloc_xenheap_pages`` will allocate a physically contiguous set of
+> +pages on orders of 2.  No mapping or unmapping is done.
+
+That's the case today, but meant to change rather sooner than later
+(when the 1:1 map disappears).
 
 Jan
 
