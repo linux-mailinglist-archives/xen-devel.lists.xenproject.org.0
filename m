@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3CF931C82B
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 10:36:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.85468.160244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8BE931C8D0
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 11:30:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.85478.160271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBwmA-00026i-JC; Tue, 16 Feb 2021 09:36:10 +0000
+	id 1lBxbK-0006eK-Mx; Tue, 16 Feb 2021 10:29:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 85468.160244; Tue, 16 Feb 2021 09:36:10 +0000
+Received: by outflank-mailman (output) from mailman id 85478.160271; Tue, 16 Feb 2021 10:29:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBwmA-00026B-FP; Tue, 16 Feb 2021 09:36:10 +0000
-Received: by outflank-mailman (input) for mailman id 85468;
- Tue, 16 Feb 2021 09:36:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBwm9-000263-3x; Tue, 16 Feb 2021 09:36:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBwm8-0005Om-UI; Tue, 16 Feb 2021 09:36:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lBwm8-0007we-Lt; Tue, 16 Feb 2021 09:36:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lBwm8-00076a-LO; Tue, 16 Feb 2021 09:36:08 +0000
+	id 1lBxbK-0006de-JV; Tue, 16 Feb 2021 10:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 85478;
+ Tue, 16 Feb 2021 10:29:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uFEE=HS=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1lBxbI-0006dZ-D4
+ for xen-devel@lists.xenproject.org; Tue, 16 Feb 2021 10:29:00 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 560467d0-e5af-4044-bd93-81e2276c3ccd;
+ Tue, 16 Feb 2021 10:28:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,257 +35,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=a0n6JXMKnMYT9wegwMISRioJ26rIIWzsb04XuS9YSsA=; b=FhLCHR6NLE9nTBwMLSnfcn6iJE
-	msnyLZ/jq4Ldqjp/gv5KEXpM7+pZsaJkd3+zx61t929gfCGUjIjIHlbg/uNn74Ww0KbayKP9mLy/N
-	6HsL1NfA1NTnrThIZu8bTnFUiQQgtL5WWoqFlLO8HX1X447y/AwbsJgXGcsVNPa7XfBo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159401-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 560467d0-e5af-4044-bd93-81e2276c3ccd
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1613471338;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wktsdWIC+5TMN24qfT7chXZPcSVXhF+Od3SnpJcmwSI=;
+  b=gq2Co1PmUKtmchcniDdtKO+0D5jK+SgZRBagmXGOk19XqbdiSGV1w0oy
+   I1Wudjbrv2T3NCLjx/8uuftdbFbKKQrn6u6/vXBxPVxpMpR6Pwky/7K4g
+   bekqOiz3bQEkS9mDWn+EyBa+eUsUGsicf4InK6es6RmsHpjcpR8q5C2Bt
+   Y=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: UPofGbnA1xwvmSSvUcCt9fJIvr2o+7ilBz2vJoLDQ4+DUPqEnn7E+YhBNG2eB0/3ZfRyVEULJL
+ sVdEBgpsb3CCZw/4FMVxRhE1W9qPZcdja3eAM7iqOByv/mgWTM0LGDkhUj66XsLu3q7WyUx/Ns
+ l0Cf04CNqUauEaWxw54fcB13zwdZMQ8Pla4azLKE/9tdEbxTvfoifc3eeZ/fhg6JQUYaI70bAg
+ yiV28tEq4ZgciC/Id4TzOEsFZrpn5uVLcB84WVTzQ+EUGM/F+A1ngw8dEFFXCipfIn3xQ5XJ4s
+ 2Yg=
+X-SBRS: 5.1
+X-MesageID: 37250563
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,183,1610427600"; 
+   d="scan'208";a="37250563"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Roger Pau Monne
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>
+Subject: [PATCH DO NOT APPLY] docs: Document allocator properties and the rubric for using them
+Date: Tue, 16 Feb 2021 10:28:39 +0000
+Message-ID: <20210216102839.1801667-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Subject: [libvirt test] 159401: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=6a1f5e8a4f3184bb54b9dcaa3afcf8c97adccb62
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 16 Feb 2021 09:36:08 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-flight 159401 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159401/
+Document the properties of the various allocators and lay out a clear
+rubric for when to use each.
 
-Regressions :-(
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+This doc is my understanding of the properties of the current
+allocators (alloc_xenheap_pages, xmalloc, and vmalloc), and of Jan's
+proposed new wrapper, xvmalloc.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+xmalloc, vmalloc, and xvmalloc were designed more or less to mirror
+similar functions in Linux (kmalloc, vmalloc, and kvmalloc
+respectively).
 
-version targeted for testing:
- libvirt              6a1f5e8a4f3184bb54b9dcaa3afcf8c97adccb62
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+---
+ .../memory-allocation-functions.rst           | 118 ++++++++++++++++++
+ 1 file changed, 118 insertions(+)
+ create mode 100644 docs/hypervisor-guide/memory-allocation-functions.rst
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  221 days
-Failing since        151818  2020-07-11 04:18:52 Z  220 days  213 attempts
-Testing same since   159401  2021-02-16 04:19:55 Z    0 days    1 attempts
+diff --git a/docs/hypervisor-guide/memory-allocation-functions.rst b/docs/hypervisor-guide/memory-allocation-functions.rst
+new file mode 100644
+index 0000000000..15aa2a1a65
+--- /dev/null
++++ b/docs/hypervisor-guide/memory-allocation-functions.rst
+@@ -0,0 +1,118 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Xenheap memory allocation functions
++===================================
++
++In general Xen contains two pools (or "heaps") of memory: the *xen
++heap* and the *dom heap*.  Please see the comment at the top of
++``xen/common/page_alloc.c`` for the canonical explanation.
++
++This document describes the various functions available to allocate
++memory from the xen heap: their properties and rules for when they should be
++used.
++
++
++TLDR guidelines
++---------------
++
++* By default, ``xvmalloc`` (or its helper cognates) should be used
++  unless you know you have specific properties that need to be met.
++
++* If you need memory which needs to be physically contiguous, and may
++  be larger than ``PAGE_SIZE``...
++  
++  - ...and is order 2, use ``alloc_xenheap_pages``.
++    
++  - ...and is not order 2, use ``xmalloc`` (or its helper cognates)..
++
++* If you don't need memory to be physically contiguous, and know the
++  allocation will always be larger than ``PAGE_SIZE``, you may use
++  ``vmalloc`` (or one of its helper cognates).
++
++* If you know that allocation will always be less than ``PAGE_SIZE``,
++  you may use ``xmalloc``.
++
++Properties of various allocation functions
++------------------------------------------
++
++Ultimately, the underlying allocator for all of these functions is
++``alloc_xenheap_pages``.  They differ on several different properties:
++
++1. What underlying allocation sizes are.  This in turn has an effect
++   on:
++
++   - How much memory is wasted when requested size doesn't match
++
++   - How such allocations are affected by memory fragmentation
++
++   - How such allocations affect memory fragmentation
++
++2. Whether the underlying pages are physically contiguous
++
++3. Whether allocation and deallocation require the cost of mapping and
++   unmapping
++
++``alloc_xenheap_pages`` will allocate a physically contiguous set of
++pages on orders of 2.  No mapping or unmapping is done.  However, if
++this is used for sizes not close to ``PAGE_SIZE * (1 << n)``, a lot of
++space will be wasted.  Such allocations may fail if the memory becomes
++very fragmented; but such allocations do not tend to contribute to
++that memory fragmentation much.
++
++As such, ``alloc_xenheap_pages`` should be used when you need a size
++of exactly ``PAGE_SIZE * (1 << n)`` physically contiguous pages.
++
++``xmalloc`` is actually two separate allocators.  Allocations of <
++``PAGE_SIZE`` are handled using ``xmem_pool_alloc()``, and allocations >=
++``PAGE_SIZE`` are handled using ``xmalloc_whole_pages()``.
++
++``xmem_pool_alloc()`` is a pool allocator which allocates xenheap
++pages on demand as needed.  This is ideal for small, quick
++allocations: no pages are mapped or unmapped; sub-page allocations are
++expected, and so a minimum of space is wasted; and because xenheap
++pages are allocated one-by-one, 1) they are unlikely to fail unless
++Xen is genuinely out of memory, and 2) it doesn't have a major effect
++on fragmentation of memory.
++
++Allocations of > ``PAGE_SIZE`` are not possible with the pool
++allocator, so for such sizes, ``xmalloc`` calls
++``xmalloc_whole_pages()``, which in turn calls ``alloc_xenheap_pages``
++with an order large enough to satisfy the request, and then frees all
++the pages which aren't used.
++
++Like the other allocator, this incurs no mapping or unmapping
++overhead.  Allocations will be physically contiguous (like
++``alloc_xenheap_pages``), but not as much is wasted as a plain
++``alloc_xenheap_pages`` allocation.  However, such an allocation may
++fail if memory fragmented to the point that a contiguous allocation of
++the appropriate size cannot be found; such allocations also tend to
++fragment memory more.
++
++As such, ``xmalloc`` may be called in cases where you know the
++allocation will be less than ``PAGE_SIZE``; or when you need a
++physically contiguous allocation which may be more than
++``PAGE_SIZE``.  
++
++``vmalloc`` will allocate pages one-by-one and map them into a virtual
++memory area designated for the purpose, separated by a guard page.
++Only full pages are allocated, so using it from less tham
++``PAGE_SIZE`` allocations is wasteful.  The underlying memory will not
++be physically contiguous.  As such, it is not adversely affected by
++excessive system fragmentation, nor does it contribute to it.
++However, allocating and freeing requires a map and unmap operation
++respectively, both of which adversely affect system performance.
++
++Therefore, ``vmalloc`` should be used for page allocations over a page
++size in length which don't need to be physically contiguous.
++
++``xvmalloc`` is like ``xmalloc``, except that for allocations >
++``PAGE_SIZE``, it calls ``vmalloc`` instead.  Thus ``xvmalloc`` should
++always be preferred unless:
++
++1. You need physically contiguous memory, and your size may end up
++   greater than ``PAGE_SIZE``; in which case you should use
++   ``xmalloc`` or ``alloc_xenheap_pages`` as appropriate
++
++2. You are positive that ``xvmalloc`` will choose one specific
++   underlying implementation; in which case you should simply call
++   that implementation directly.
+-- 
+2.30.0
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 42364 lines long.)
 
