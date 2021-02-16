@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8EDA31CABD
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 13:49:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.85724.160622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF1D631CAD6
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Feb 2021 14:02:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.85826.160646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBzmi-00064C-RD; Tue, 16 Feb 2021 12:48:56 +0000
+	id 1lBzz5-00084Y-6w; Tue, 16 Feb 2021 13:01:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 85724.160622; Tue, 16 Feb 2021 12:48:56 +0000
+Received: by outflank-mailman (output) from mailman id 85826.160646; Tue, 16 Feb 2021 13:01:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lBzmi-00063n-Nl; Tue, 16 Feb 2021 12:48:56 +0000
-Received: by outflank-mailman (input) for mailman id 85724;
- Tue, 16 Feb 2021 12:48:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lBzz5-000842-35; Tue, 16 Feb 2021 13:01:43 +0000
+Received: by outflank-mailman (input) for mailman id 85826;
+ Tue, 16 Feb 2021 13:01:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jGlc=HS=runbox.com=m.v.b@srs-us1.protection.inumbo.net>)
- id 1lBzmg-00063i-H8
- for xen-devel@lists.xenproject.org; Tue, 16 Feb 2021 12:48:55 +0000
-Received: from aibo.runbox.com (unknown [91.220.196.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0471b6f0-6bbe-4215-9ad4-c8f5733e4933;
- Tue, 16 Feb 2021 12:48:51 +0000 (UTC)
-Received: from [10.9.9.74] (helo=submission03.runbox)
- by mailtransmit02.runbox with esmtp (Exim 4.86_2)
- (envelope-from <m.v.b@runbox.com>)
- id 1lBzmZ-0005SJ-Sk; Tue, 16 Feb 2021 13:48:48 +0100
-Received: by submission03.runbox with esmtpsa [Authenticated alias (536975)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1lBzmY-0002Xj-7s; Tue, 16 Feb 2021 13:48:46 +0100
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lBzz3-00083t-Bk; Tue, 16 Feb 2021 13:01:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lBzz3-0000RW-4D; Tue, 16 Feb 2021 13:01:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lBzz2-00032l-TL; Tue, 16 Feb 2021 13:01:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lBzz2-0006ST-St; Tue, 16 Feb 2021 13:01:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,213 +42,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0471b6f0-6bbe-4215-9ad4-c8f5733e4933
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector2; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=f+nKs8JpK4wFd/s5GZi1+0U4NVGMehxgEcNl1XW0KAo=; b=mDOzVrKoeD08JED7svMnb7Q645
-	3qinbUo4jpPJKhIojrnEOITbmyE60csS5s0vLvUeJaxtbFOExvq33FK5BwPgH0vR7ybn8hdqU84rR
-	R61nQII2iMxDMy0155EJK/OJ2VG6udUKex7eN7YgAhLldusW8SmyOUzbJn4Mw2lSfoDk6+FZW21/3
-	K8+zbxO0VI0hJ8RdDzCQDUbWKOn8jjXwNqKFBPLJ/WFILEW3kMHJB3WsTAy7QaJp+Ej86moPODbni
-	JhW5v6RCwhSDlZdILKaQ1SCbk32OR5VYc2rgQKaWIyi7OCZnprIGfPfL70BInqWtr3arZn9XYxGxI
-	wfYE+dtA==;
-Subject: Re: [PATCH 1/1] x86/ept: Fix buggy XSA-321 backport
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
- jbeulich@suse.com
-References: <20210215234619.245422-1-m.v.b@runbox.com>
- <20210215234619.245422-2-m.v.b@runbox.com> <YCuOQ3qpFD6RgIld@Air-de-Roger>
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-Message-ID: <5517e20e-c485-7016-da89-81570cc43b3b@runbox.com>
-Date: Tue, 16 Feb 2021 07:48:42 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <YCuOQ3qpFD6RgIld@Air-de-Roger>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-CA
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=KoCdJ/LAgtbnKaVeDISt1mfKhY4FtmT75KHU6LpFLoc=; b=s+cKUCfJPeHJD4k4A8i3VxsmVs
+	6tX7/AY0nTfM5xOe81oU+dkKsTFJ4kblIp/tY6t7ZeHrXNT04vo+hNbz46shRn9iEnTozhT6fs5Qk
+	dX9o8VotBaZTE38hwYLvLNnpow2JtO9XckXa8qUPF2VyWLDoCz40gpXLvKGG7+jleH28=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [linux-5.4 bisection] complete test-arm64-arm64-xl-thunderx
+Message-Id: <E1lBzz2-0006ST-St@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 16 Feb 2021 13:01:40 +0000
 
-On 16/02/2021 04.20, Roger Pau Monné wrote:
-> On Mon, Feb 15, 2021 at 06:46:19PM -0500, M. Vefa Bicakci wrote:
->> This commit aims to fix commit a852040fe3ab ("x86/ept: flush cache when
->> modifying PTEs and sharing page tables"). The aforementioned commit is
->> for the stable-4.9 branch of Xen and is a backported version of commit
->> c23274fd0412 ("x86/ept: flush cache when modifying PTEs and sharing page
->> tables"), which was for Xen 4.14.0-rc5 and which fixes the security
->> issue reported by XSA-321.
->>
->> Prior to the latter commit, the function atomic_write_ept_entry in Xen
->> 4.14.y consisted mostly of a call to p2m_entry_modify followed by an
->> atomic replacement of a page table entry, and the latter commit adds
->> a call to iommu_sync_cache for a specific condition:
->>
->>     static int atomic_write_ept_entry(struct p2m_domain *p2m,
->>                                       ept_entry_t *entryptr, ept_entry_t new,
->>                                       int level)
->>     {
->>         int rc = p2m_entry_modify(p2m, new.sa_p2mt, entryptr->sa_p2mt,
->>                                   _mfn(new.mfn), _mfn(entryptr->mfn), level + 1);
->>
->>         if ( rc )
->>             return rc;
->>
->>         write_atomic(&entryptr->epte, new.epte);
->>
->>    +    /* snipped comment block */
->>    +    if ( !new.recalc && iommu_use_hap_pt(p2m->domain) )
->>    +        iommu_sync_cache(entryptr, sizeof(*entryptr));
->>    +
->>         return 0;
->>     }
->>
->> However, the backport to Xen 4.9.y is a bit different because
->> atomic_write_ept_entry does not consist solely of a call to
->> p2m_entry_modify, which does not exist in Xen 4.9.y. I am quoting from
->> Xen 4.8.y for convenience:
->>
->>     static int atomic_write_ept_entry(ept_entry_t *entryptr, ept_entry_t new,
->>                                       int level)
->>     {
->>         int rc;
->>         unsigned long oldmfn = mfn_x(INVALID_MFN);
->>         bool_t check_foreign = (new.mfn != entryptr->mfn ||
->>                                 new.sa_p2mt != entryptr->sa_p2mt);
->>
->>         if ( level )
->>         {
->>             ASSERT(!is_epte_superpage(&new) || !p2m_is_foreign(new.sa_p2mt));
->>             write_atomic(&entryptr->epte, new.epte);
->>             return 0;
->>         }
->>
->>         if ( unlikely(p2m_is_foreign(new.sa_p2mt)) )
->>         {
->>             rc = -EINVAL;
->>             if ( !is_epte_present(&new) )
->>                     goto out;
->>
->>             if ( check_foreign )
->>             {
->>                 struct domain *fdom;
->>
->>                 if ( !mfn_valid(new.mfn) )
->>                     goto out;
->>
->>                 rc = -ESRCH;
->>                 fdom = page_get_owner(mfn_to_page(new.mfn));
->>                 if ( fdom == NULL )
->>                     goto out;
->>
->>                 /* get refcount on the page */
->>                 rc = -EBUSY;
->>                 if ( !get_page(mfn_to_page(new.mfn), fdom) )
->>                     goto out;
->>             }
->>         }
->>
->>         if ( unlikely(p2m_is_foreign(entryptr->sa_p2mt)) && check_foreign )
->>             oldmfn = entryptr->mfn;
->>
->>         write_atomic(&entryptr->epte, new.epte);
->>
->>    +    /* snipped comment block */
->>    +    if ( !new.recalc && iommu_hap_pt_share )
->>    +        iommu_sync_cache(entryptr, sizeof(*entryptr));
->>    +
->>         if ( unlikely(oldmfn != mfn_x(INVALID_MFN)) )
->>             put_page(mfn_to_page(oldmfn));
->>
->>         rc = 0;
->>
->>      out:
->>         if ( rc )
->>             gdprintk(XENLOG_ERR, "epte o:%"PRIx64" n:%"PRIx64" rc:%d\n",
->>                      entryptr->epte, new.epte, rc);
->>         return rc;
->>     }
->>
->> Based on inspection of the p2m_entry_modify function in Xen 4.14.1, it
->> appears that the part of atomic_write_ept_entry above the call to
->> write_atomic is encapsulated by p2m_entry_modify, which uncovers one
->> issue with the backport: In Xen 4.14, if p2m_entry_modify returns early
->> without an error, then the calls to write_atomic and iommu_sync_cache
->> will still occur (assuming that the corresponding if condition is
->> satisfied), whereas in Xen 4.9.y, there is a code path that can skip the
->> call to iommu_sync_cache, in case the variable level is not zero:
->>
->>    if ( level )
->>    {
->>       ASSERT(!is_epte_superpage(&new) || !p2m_is_foreign(new.sa_p2mt));
->>       write_atomic(&entryptr->epte, new.epte);
->>       return 0;
->>    }
->>
->> This patch reorganizes the atomic_write_ept_entry to ensure that the
->> call to iommu_sync_cache is not inadvertently skipped.
-> 
-> IMO this is likely too much change in a single patch, iff we really
-> wanted to do this you should have a pre-patch that re-arranges the
-> code without any functional change followed by a patch that fixes the
-> issue.
+branch xen-unstable
+xenbranch xen-unstable
+job test-arm64-arm64-xl-thunderx
+testid guest-start
 
-Thank you for the feedback; this is a good point.
+Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-> In any case I think this is too much change, so I would go for a
-> smaller fix like my proposal below. Can you please test it?
+*** Found and reproduced problem changeset ***
 
-Thank you! I will test your patch later today, and I will report
-back by tomorrow.
+  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159412/
 
->> Furthermore, in Xen 4.14.1, p2m_entry_modify calls
->>
->>    put_page(mfn_to_page(oldmfn));
->>
->> before the potential call to iommu_sync_cache in atomic_write_ept_entry.
->> I am not sufficiently familiar with Xen to determine if this is a
->> significant behavioural change, but this patch makes Xen 4.9.y similar
->> to Xen 4.14.1 in that regard as well, by further re-organizing the code
->> in atomic_write_ept_entry.
-> 
-> Well, that put_page is only relevant to PVH dom0, but you shouldn't
-> remove it. The put_page call in newer versions has been moved by
-> commit ce0224bf96a1a1f82 into p2m_entry_modify.
 
-Ah, but my patch moves the call to put_page to a location above the
-call to iommu_sync_cache, to make the code a bit similar to the same
-function in Xen 4.14. This may not be necessary, though. This goes back
-to your aforementioned point about having two separate patches, as my
-patch does not make the move of the call to put_page obvious. In any
-case, let's focus on your patch.
+  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Author: David Woodhouse <dwmw@amazon.co.uk>
+  Date:   Wed Jan 13 13:26:02 2021 +0000
+  
+      xen: Fix event channel callback via INTX/GSI
+      
+      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+      
+      For a while, event channel notification via the PCI platform device
+      has been broken, because we attempt to communicate with xenstore before
+      we even have notifications working, with the xs_reset_watches() call
+      in xs_init().
+      
+      We tend to get away with this on Xen versions below 4.0 because we avoid
+      calling xs_reset_watches() anyway, because xenstore might not cope with
+      reading a non-existent key. And newer Xen *does* have the vector
+      callback support, so we rarely fall back to INTX/GSI delivery.
+      
+      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+      case, deferring it to be called from xenbus_probe() in the XS_HVM case
+      instead.
+      
+      Then fix up the invocation of xenbus_probe() to happen either from its
+      device_initcall if the callback is available early enough, or when the
+      callback is finally set up. This means that the hack of calling
+      xenbus_probe() from a workqueue after the first interrupt, or directly
+      from the PCI platform device setup, is no longer needed.
+      
+      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-> Here is my proposed fix, I think we could even do away with the else
-> branch, but if level is != 0 p2m_is_foreign should be false, so we
-> avoid an extra check.
->
-> Thanks, Roger.
 
-I will test this. Thanks again! I really appreciate that you have
-have taken the time and effort.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/test-arm64-arm64-xl-thunderx.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-Vefa
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/test-arm64-arm64-xl-thunderx.guest-start --summary-out=tmp/159412.bisection-summary --basis-template=158387 --blessings=real,real-bisect,real-retry linux-5.4 test-arm64-arm64-xl-thunderx guest-start
+Searching for failure / basis pass:
+ 159372 fail [host=rochester0] / 158681 [host=rochester1] 158624 ok.
+Failure / basis pass flights: 159372 / 158624
+Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+Basis pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 96a9acfc527964dc5ab7298862a0cd8aa5fffc6a 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+Generating revisions with ./adhoc-revtuple-generator  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#09f983f0c7fc0db79a5f6c883ec3510d424c369c-5b9a4104c902d7dec14c9e3c5652a638194487c6 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#96a9acfc527964dc5ab7298862a0cd8aa5fffc6a-2e1e8c35f3178df95d79da81ac6deec242da74c2 git://xenbits.xen.org/qemu-xen.git#7ea4288\
+ 95af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/osstest/seabios.git#ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e-ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e git://xenbits.xen.org/xen.git#452ddbe3592b141b05a7e0676f09c8ae07f98fdd-04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+Loaded 15001 nodes in revision graph
+Searching for test results:
+ 158609 pass irrelevant
+ 158616 [host=rochester1]
+ 158624 pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 96a9acfc527964dc5ab7298862a0cd8aa5fffc6a 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+ 158681 [host=rochester1]
+ 158707 fail irrelevant
+ 158716 fail irrelevant
+ 158748 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e f8708b0ed6d549d1d29b8b5cc287f1f2b642bc63
+ 158765 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 6677b5a3577c16501fbc51a3341446905bd21c38
+ 158796 fail irrelevant
+ 158818 fail irrelevant
+ 158841 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158863 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158881 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158929 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea56ebf67dd55483105aa9f9996a48213e78337e 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158962 fail irrelevant
+ 159023 fail irrelevant
+ 159129 fail irrelevant
+ 159200 fail irrelevant
+ 159238 fail irrelevant
+ 159295 fail irrelevant
+ 159324 fail irrelevant
+ 159339 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159359 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159393 pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 96a9acfc527964dc5ab7298862a0cd8aa5fffc6a 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+ 159395 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159397 fail 38f35023fd301abeb01cfd81e73caa2e4e7ec0b1 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159372 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159398 pass d8a487e673abf46c69c901bb25da54e9bc7ba45e c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159400 pass 5a1d7bb7d333849eb7d3ab5ebfbf9805b2cd46c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159402 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159403 pass 9cec63a3aacbcaee8d09aecac2ca2f8820efcc70 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159404 pass 8ab3478335ad8fc08f14ec73251b084fe02b3ebb c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159406 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159407 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159409 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159410 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159411 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159412 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+Searching for interesting versions
+ Result found: flight 158624 (pass), for basis pass
+ Result found: flight 159339 (fail), for basis failure (at ancestor ~280)
+ Repro found: flight 159393 (pass), for basis pass
+ Repro found: flight 159395 (fail), for basis failure
+ 0 revisions at acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+No revisions left to test, checking graph state.
+ Result found: flight 159406 (pass), for last pass
+ Result found: flight 159407 (fail), for first failure
+ Repro found: flight 159409 (pass), for last pass
+ Repro found: flight 159410 (fail), for first failure
+ Repro found: flight 159411 (pass), for last pass
+ Repro found: flight 159412 (fail), for first failure
 
-> ---8<---
-> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-> index 036771f43c..086739ffdd 100644
-> --- a/xen/arch/x86/mm/p2m-ept.c
-> +++ b/xen/arch/x86/mm/p2m-ept.c
-> @@ -56,11 +56,8 @@ static int atomic_write_ept_entry(ept_entry_t *entryptr, ept_entry_t new,
->       if ( level )
->       {
->           ASSERT(!is_epte_superpage(&new) || !p2m_is_foreign(new.sa_p2mt));
-> -        write_atomic(&entryptr->epte, new.epte);
-> -        return 0;
->       }
-> -
-> -    if ( unlikely(p2m_is_foreign(new.sa_p2mt)) )
-> +    else if ( unlikely(p2m_is_foreign(new.sa_p2mt)) )
->       {
->           rc = -EINVAL;
->           if ( !is_epte_present(&new) )
-> 
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159412/
+
+
+  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Author: David Woodhouse <dwmw@amazon.co.uk>
+  Date:   Wed Jan 13 13:26:02 2021 +0000
+  
+      xen: Fix event channel callback via INTX/GSI
+      
+      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+      
+      For a while, event channel notification via the PCI platform device
+      has been broken, because we attempt to communicate with xenstore before
+      we even have notifications working, with the xs_reset_watches() call
+      in xs_init().
+      
+      We tend to get away with this on Xen versions below 4.0 because we avoid
+      calling xs_reset_watches() anyway, because xenstore might not cope with
+      reading a non-existent key. And newer Xen *does* have the vector
+      callback support, so we rarely fall back to INTX/GSI delivery.
+      
+      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+      case, deferring it to be called from xenbus_probe() in the XS_HVM case
+      instead.
+      
+      Then fix up the invocation of xenbus_probe() to happen either from its
+      device_initcall if the callback is available early enough, or when the
+      callback is finally set up. This means that the hack of calling
+      xenbus_probe() from a workqueue after the first interrupt, or directly
+      from the PCI platform device setup, is no longer needed.
+      
+      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+pnmtopng: 118 colors found
+Revision graph left in /home/logs/results/bisect/linux-5.4/test-arm64-arm64-xl-thunderx.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+159412: tolerable ALL FAIL
+
+flight 159412 linux-5.4 real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159412/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-arm64-arm64-xl-thunderx 14 guest-start             fail baseline untested
+
+
+jobs:
+ test-arm64-arm64-xl-thunderx                                 fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
