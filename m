@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151A631D739
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 11:02:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86194.161574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA11931D741
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 11:05:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86197.161586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCJen-0004kg-K0; Wed, 17 Feb 2021 10:02:05 +0000
+	id 1lCJiD-0004t0-0m; Wed, 17 Feb 2021 10:05:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86194.161574; Wed, 17 Feb 2021 10:02:05 +0000
+Received: by outflank-mailman (output) from mailman id 86197.161586; Wed, 17 Feb 2021 10:05:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCJen-0004kH-GI; Wed, 17 Feb 2021 10:02:05 +0000
-Received: by outflank-mailman (input) for mailman id 86194;
- Wed, 17 Feb 2021 10:02:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lCJel-0004kC-KS
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 10:02:03 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 06ba39fc-1995-4513-bee8-63d2c3b41f9f;
- Wed, 17 Feb 2021 10:02:02 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BBDFDB7A7;
- Wed, 17 Feb 2021 10:02:01 +0000 (UTC)
+	id 1lCJiC-0004sb-Tq; Wed, 17 Feb 2021 10:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 86197;
+ Wed, 17 Feb 2021 10:05:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=am+m=HT=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+ id 1lCJiA-0004sW-OZ
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 10:05:34 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 8e77610b-4e3b-4f2d-9232-281804662c2e;
+ Wed, 17 Feb 2021 10:05:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2394B1042;
+ Wed, 17 Feb 2021 02:05:32 -0800 (PST)
+Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown
+ [10.58.246.76])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 57A783F73B;
+ Wed, 17 Feb 2021 02:05:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,310 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06ba39fc-1995-4513-bee8-63d2c3b41f9f
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613556121; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Iv15mlQqaiiuwkeJAdzOnIHYlDJnW7R5IWksA1/NNVM=;
-	b=bFJYfDfqZ5LQNgoULYOYGUM08RGu95+AmZAIp7kYUKA2APeAMTusaOB92L6Vx7OKI3PzlZ
-	lwWxgpROGq1p0//HiIvXCp6m2BZUOTb/buG/tF8EnIJ0pMcXRlKy7Mcmy1Lfr+dqMqSNrI
-	KfwhvXe0FxFb8fPhAYrdeJKFDzVgwJ0=
-Subject: Re: [PATCH v2 2/2] IOREQ: refine when to send mapcache invalidation
- request
-From: Jan Beulich <jbeulich@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0e7265fe-8d89-facb-790d-9232c742c3fa@suse.com>
- <e2682f84-b3bb-b9fb-edd8-863b9036de95@suse.com>
-Message-ID: <454ffaeb-f0d5-a2fe-420b-f28e51d9aabf@suse.com>
-Date: Wed, 17 Feb 2021 11:02:00 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <e2682f84-b3bb-b9fb-edd8-863b9036de95@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 8e77610b-4e3b-4f2d-9232-281804662c2e
+From: Rahul Singh <rahul.singh@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm : smmuv3: Fix to handle multiple StreamIds per device.
+Date: Wed, 17 Feb 2021 10:05:14 +0000
+Message-Id: <43de5b58df37d8b8de037cb23c47ab8454caf37c.1613492577.git.rahul.singh@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-On 02.02.2021 16:14, Jan Beulich wrote:
-> XENMEM_decrease_reservation isn't the only means by which pages can get
-> removed from a guest, yet all removals ought to be signaled to qemu. Put
-> setting of the flag into the central p2m_remove_page() underlying all
-> respective hypercalls as well as a few similar places, mainly in PoD
-> code.
-> 
-> Additionally there's no point sending the request for the local domain
-> when the domain acted upon is a different one. The latter domain's ioreq
-> server mapcaches need invalidating. We assume that domain to be paused
-> at the point the operation takes place, so sending the request in this
-> case happens from the hvm_do_resume() path, which as one of its first
-> steps calls handle_hvm_io_completion().
-> 
-> Even without the remote operation aspect a single domain-wide flag
-> doesn't do: Guests may e.g. decrease-reservation on multiple vCPU-s in
-> parallel. Each of them needs to issue an invalidation request in due
-> course, in particular because exiting to guest context should not happen
-> before the request was actually seen by (all) the emulator(s).
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: Preemption related adjustment split off. Make flag per-vCPU. More
->     places to set the flag. Also handle acting on a remote domain.
->     Re-base.
+SMMUv3 driver does not handle multiple StreamId if the master device
+supports more than one StreamID.
 
-Can I get an Arm side ack (or otherwise) please?
+This bug was introduced when the driver was ported from Linux to XEN.
+dt_device_set_protected(..) should be called from add_device(..) not
+from the dt_xlate(..).
 
-Thanks, Jan
+Move dt_device_set_protected(..) from dt_xlate(..) to add_device().
 
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -759,10 +759,9 @@ static void p2m_free_entry(struct p2m_do
->           * has failed (error case).
->           * So, at worst, the spurious mapcache invalidation might be sent.
->           */
-> -        if ( (p2m->domain == current->domain) &&
-> -              domain_has_ioreq_server(p2m->domain) &&
-> -              p2m_is_ram(entry.p2m.type) )
-> -            p2m->domain->mapcache_invalidate = true;
-> +        if ( p2m_is_ram(entry.p2m.type) &&
-> +             domain_has_ioreq_server(p2m->domain) )
-> +            ioreq_request_mapcache_invalidate(p2m->domain);
->  #endif
->  
->          p2m->stats.mappings[level]--;
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -1509,8 +1509,8 @@ static void do_trap_hypercall(struct cpu
->       * Note that sending the invalidation request causes the vCPU to block
->       * until all the IOREQ servers have acknowledged the invalidation.
->       */
-> -    if ( unlikely(curr->domain->mapcache_invalidate) &&
-> -         test_and_clear_bool(curr->domain->mapcache_invalidate) )
-> +    if ( unlikely(curr->mapcache_invalidate) &&
-> +         test_and_clear_bool(curr->mapcache_invalidate) )
->          ioreq_signal_mapcache_invalidate();
->  #endif
->  }
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -32,7 +32,6 @@
->  
->  static long hvm_memory_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->  {
-> -    const struct vcpu *curr = current;
->      long rc;
->  
->      switch ( cmd & MEMOP_CMD_MASK )
-> @@ -42,14 +41,11 @@ static long hvm_memory_op(int cmd, XEN_G
->          return -ENOSYS;
->      }
->  
-> -    if ( !curr->hcall_compat )
-> +    if ( !current->hcall_compat )
->          rc = do_memory_op(cmd, arg);
->      else
->          rc = compat_memory_op(cmd, arg);
->  
-> -    if ( (cmd & MEMOP_CMD_MASK) == XENMEM_decrease_reservation )
-> -        curr->domain->mapcache_invalidate = true;
-> -
->      return rc;
->  }
->  
-> @@ -327,9 +323,11 @@ int hvm_hypercall(struct cpu_user_regs *
->  
->      HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu -> %lx", eax, regs->rax);
->  
-> -    if ( unlikely(currd->mapcache_invalidate) &&
-> -         test_and_clear_bool(currd->mapcache_invalidate) )
-> +    if ( unlikely(curr->mapcache_invalidate) )
-> +    {
-> +        curr->mapcache_invalidate = false;
->          ioreq_signal_mapcache_invalidate();
-> +    }
->  
->      return curr->hcall_preempted ? HVM_HCALL_preempted : HVM_HCALL_completed;
->  }
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -28,6 +28,7 @@
->  #include <xen/vm_event.h>
->  #include <xen/event.h>
->  #include <xen/grant_table.h>
-> +#include <xen/ioreq.h>
->  #include <xen/param.h>
->  #include <public/vm_event.h>
->  #include <asm/domain.h>
-> @@ -815,6 +816,8 @@ p2m_remove_page(struct p2m_domain *p2m,
->          }
->      }
->  
-> +    ioreq_request_mapcache_invalidate(p2m->domain);
-> +
->      return p2m_set_entry(p2m, gfn, INVALID_MFN, page_order, p2m_invalid,
->                           p2m->default_access);
->  }
-> @@ -1301,6 +1304,8 @@ static int set_typed_p2m_entry(struct do
->              ASSERT(mfn_valid(mfn_add(omfn, i)));
->              set_gpfn_from_mfn(mfn_x(omfn) + i, INVALID_M2P_ENTRY);
->          }
-> +
-> +        ioreq_request_mapcache_invalidate(d);
->      }
->  
->      P2M_DEBUG("set %d %lx %lx\n", gfn_p2mt, gfn_l, mfn_x(mfn));
-> --- a/xen/arch/x86/mm/p2m-pod.c
-> +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -20,6 +20,7 @@
->   */
->  
->  #include <xen/event.h>
-> +#include <xen/ioreq.h>
->  #include <xen/mm.h>
->  #include <xen/sched.h>
->  #include <xen/trace.h>
-> @@ -647,6 +648,8 @@ p2m_pod_decrease_reservation(struct doma
->                  set_gpfn_from_mfn(mfn_x(mfn), INVALID_M2P_ENTRY);
->              p2m_pod_cache_add(p2m, page, cur_order);
->  
-> +            ioreq_request_mapcache_invalidate(d);
-> +
->              steal_for_cache =  ( p2m->pod.entry_count > p2m->pod.count );
->  
->              ram -= n;
-> @@ -835,6 +838,8 @@ p2m_pod_zero_check_superpage(struct p2m_
->      p2m_pod_cache_add(p2m, mfn_to_page(mfn0), PAGE_ORDER_2M);
->      p2m->pod.entry_count += SUPERPAGE_PAGES;
->  
-> +    ioreq_request_mapcache_invalidate(d);
-> +
->      ret = SUPERPAGE_PAGES;
->  
->  out_reset:
-> @@ -997,6 +1002,8 @@ p2m_pod_zero_check(struct p2m_domain *p2
->              /* Add to cache, and account for the new p2m PoD entry */
->              p2m_pod_cache_add(p2m, mfn_to_page(mfns[i]), PAGE_ORDER_4K);
->              p2m->pod.entry_count++;
-> +
-> +            ioreq_request_mapcache_invalidate(d);
->          }
->      }
->  
-> @@ -1315,6 +1322,8 @@ guest_physmap_mark_populate_on_demand(st
->          p2m->pod.entry_count -= pod_count;
->          BUG_ON(p2m->pod.entry_count < 0);
->          pod_unlock(p2m);
-> +
-> +        ioreq_request_mapcache_invalidate(d);
->      }
->  
->  out:
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -35,6 +35,17 @@
->  #include <public/hvm/ioreq.h>
->  #include <public/hvm/params.h>
->  
-> +void ioreq_request_mapcache_invalidate(const struct domain *d)
-> +{
-> +    struct vcpu *v = current;
-> +
-> +    if ( d == v->domain )
-> +        v->mapcache_invalidate = true;
-> +    else if ( d->creation_finished )
-> +        for_each_vcpu ( d, v )
-> +            v->mapcache_invalidate = true;
-> +}
-> +
->  /* Ask ioemu mapcache to invalidate mappings. */
->  void ioreq_signal_mapcache_invalidate(void)
->  {
-> @@ -206,6 +217,7 @@ bool vcpu_ioreq_handle_completion(struct
->      struct ioreq_server *s;
->      struct ioreq_vcpu *sv;
->      enum vio_completion completion;
-> +    bool res = true;
->  
->      if ( has_vpci(d) && vpci_process_pending(v) )
->      {
-> @@ -232,17 +244,27 @@ bool vcpu_ioreq_handle_completion(struct
->          break;
->  
->      case VIO_mmio_completion:
-> -        return arch_ioreq_complete_mmio();
-> +        res = arch_ioreq_complete_mmio();
-> +        break;
->  
->      case VIO_pio_completion:
-> -        return handle_pio(vio->req.addr, vio->req.size,
-> -                          vio->req.dir);
-> +        res = handle_pio(vio->req.addr, vio->req.size,
-> +                         vio->req.dir);
-> +        break;
->  
->      default:
-> -        return arch_vcpu_ioreq_completion(completion);
-> +        res = arch_vcpu_ioreq_completion(completion);
-> +        break;
->      }
->  
-> -    return true;
-> +    if ( res && unlikely(v->mapcache_invalidate) )
-> +    {
-> +        v->mapcache_invalidate = false;
-> +        ioreq_signal_mapcache_invalidate();
-> +        res = false;
-> +    }
-> +
-> +    return res;
->  }
->  
->  static int ioreq_server_alloc_mfn(struct ioreq_server *s, bool buf)
-> --- a/xen/include/xen/ioreq.h
-> +++ b/xen/include/xen/ioreq.h
-> @@ -103,6 +103,7 @@ struct ioreq_server *ioreq_server_select
->  int ioreq_send(struct ioreq_server *s, ioreq_t *proto_p,
->                 bool buffered);
->  unsigned int ioreq_broadcast(ioreq_t *p, bool buffered);
-> +void ioreq_request_mapcache_invalidate(const struct domain *d);
->  void ioreq_signal_mapcache_invalidate(void);
->  
->  void ioreq_domain_init(struct domain *d);
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -225,6 +225,14 @@ struct vcpu
->      bool             hcall_compat;
->  #endif
->  
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    /*
-> +     * Indicates that mapcache invalidation request should be sent to
-> +     * the device emulator.
-> +     */
-> +    bool             mapcache_invalidate;
-> +#endif
-> +
->      /* The CPU, if any, which is holding onto this VCPU's state. */
->  #define VCPU_CPU_CLEAN (~0u)
->      unsigned int     dirty_cpu;
-> @@ -444,11 +452,6 @@ struct domain
->       * unpaused for the first time by the systemcontroller.
->       */
->      bool             creation_finished;
-> -    /*
-> -     * Indicates that mapcache invalidation request should be sent to
-> -     * the device emulator.
-> -     */
-> -    bool             mapcache_invalidate;
->  
->      /* Which guest this guest has privileges on */
->      struct domain   *target;
-> 
+Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+---
+This patch is a candidate for 4.15 as without this patch it is not possible to
+assign multiple StreamIds to the same device when device is protected behind
+SMMUv3.
+---
+ xen/drivers/passthrough/arm/smmu-v3.c | 29 ++++++++++-----------------
+ 1 file changed, 11 insertions(+), 18 deletions(-)
+
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+index 914cdc1cf4..53d150cdb6 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -2207,24 +2207,6 @@ static int arm_smmu_add_device(u8 devfn, struct device *dev)
+ 	 */
+ 	arm_smmu_enable_pasid(master);
+ 
+-	return 0;
+-
+-err_free_master:
+-	xfree(master);
+-	dev_iommu_priv_set(dev, NULL);
+-	return ret;
+-}
+-
+-static int arm_smmu_dt_xlate(struct device *dev,
+-				const struct dt_phandle_args *args)
+-{
+-	int ret;
+-	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+-
+-	ret = iommu_fwspec_add_ids(dev, args->args, 1);
+-	if (ret)
+-		return ret;
+-
+ 	if (dt_device_is_protected(dev_to_dt(dev))) {
+ 		dev_err(dev, "Already added to SMMUv3\n");
+ 		return -EEXIST;
+@@ -2237,6 +2219,17 @@ static int arm_smmu_dt_xlate(struct device *dev,
+ 			dev_name(fwspec->iommu_dev), fwspec->num_ids);
+ 
+ 	return 0;
++
++err_free_master:
++	xfree(master);
++	dev_iommu_priv_set(dev, NULL);
++	return ret;
++}
++
++static int arm_smmu_dt_xlate(struct device *dev,
++				const struct dt_phandle_args *args)
++{
++	return iommu_fwspec_add_ids(dev, args->args, 1);
+ }
+ 
+ /* Probing and initialisation functions */
+-- 
+2.17.1
 
 
