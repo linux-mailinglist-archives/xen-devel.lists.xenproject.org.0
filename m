@@ -2,35 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 128B831E533
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 05:46:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86476.162399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12B031E54C
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 06:09:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86430.162413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCbBo-00006P-9V; Thu, 18 Feb 2021 04:45:20 +0000
+	id 1lCbYZ-0002PA-5I; Thu, 18 Feb 2021 05:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86476.162399; Thu, 18 Feb 2021 04:45:20 +0000
+Received: by outflank-mailman (output) from mailman id 86430.162413; Thu, 18 Feb 2021 05:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCbBo-00005v-51; Thu, 18 Feb 2021 04:45:20 +0000
-Received: by outflank-mailman (input) for mailman id 86476;
- Thu, 18 Feb 2021 04:45:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lCbYZ-0002Ol-1p; Thu, 18 Feb 2021 05:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 86430;
+ Wed, 17 Feb 2021 20:47:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lCbBm-00005n-8u; Thu, 18 Feb 2021 04:45:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lCbBl-00051E-QI; Thu, 18 Feb 2021 04:45:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lCbBk-0000o4-Kz; Thu, 18 Feb 2021 04:45:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lCbBk-0002JF-KS; Thu, 18 Feb 2021 04:45:16 +0000
+ (envelope-from <SRS0=0xF/=HT=redhat.com=crosa@srs-us1.protection.inumbo.net>)
+ id 1lCTj2-00022J-Lb
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 20:47:08 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c3272381-f90d-4553-b4c5-433c72b31c0a;
+ Wed, 17 Feb 2021 20:47:07 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-430-fQu7eeJtN0CedJ2OgkwHOQ-1; Wed, 17 Feb 2021 15:47:02 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC95C801965;
+ Wed, 17 Feb 2021 20:47:00 +0000 (UTC)
+Received: from localhost.localdomain (ovpn-114-28.rdu2.redhat.com
+ [10.10.114.28])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C8796060F;
+ Wed, 17 Feb 2021 20:46:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,259 +48,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=cRDxmOg+UNOags7CNyBGLtuDcV6sjKGmTTth7oP1VqU=; b=tnLU2uUNq/th6a6nERVStLpUKK
-	fkZ29ExShm0QZ9glSn0SN/M/mZFSnnx/Kz5xiF+VfYGjgA97ZurDfzg/GIH+KW4OV2/oDyX/b57pp
-	L+Fkz1Aus7wXuV3yTn/BL8hMHqSwoiABoYauqC607njxYcQBaSQL5sasEK169ZX/FiVs=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159437-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c3272381-f90d-4553-b4c5-433c72b31c0a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1613594826;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pnqM8mef723a/lVpNQvs8vnov3IYns0l6DZWn5GscnM=;
+	b=BJNjfxznCHtuA4XzkyezbA0wbIvqUglLNYhzCUInyJLcroqtRbzEahWuoscszQ4JGKqlbz
+	Du114Vi0ERrXp3CIO+NQeSA2M27VzDPcrqmC1ZUu/vKxyt1mfNvwgEX8tQJZ8xWuLOfedP
+	0V2hjIXe0CqtTRZh7hzVWzOyiPZ2xG4=
+X-MC-Unique: fQu7eeJtN0CedJ2OgkwHOQ-1
+Date: Wed, 17 Feb 2021 15:46:54 -0500
+From: Cleber Rosa <crosa@redhat.com>
+To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
+Cc: qemu-devel@nongnu.org, julien@xen.org, andre.przywara@arm.com,
+	stefano.stabellini@linaro.org,
+	Wainer dos Santos Moschetta <wainersm@redhat.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>,
+	xen-devel@lists.xenproject.org, stefano.stabellini@xilinx.com,
+	stratos-dev@op-lists.linaro.org
+Subject: Re: [PATCH  v2 7/7] tests/avocado: add boot_xen tests
+Message-ID: <20210217204654.GA353754@localhost.localdomain>
+References: <20210211171945.18313-1-alex.bennee@linaro.org>
+ <20210211171945.18313-8-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Subject: [libvirt test] 159437: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=040a5bc307eb8cd304a4330b7538370315db3774
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 18 Feb 2021 04:45:16 +0000
+In-Reply-To: <20210211171945.18313-8-alex.bennee@linaro.org>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=crosa@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ikeVEW9yuYc//A+q"
+Content-Disposition: inline
 
-flight 159437 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159437/
+--ikeVEW9yuYc//A+q
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Regressions :-(
+On Thu, Feb 11, 2021 at 05:19:45PM +0000, Alex Benn=E9e wrote:
+> These tests make sure we can boot the Xen hypervisor with a Dom0
+> kernel using the guest-loader. We currently have to use a kernel I
+> built myself because there are issues using the Debian kernel images.
+>=20
+> Signed-off-by: Alex Benn=E9e <alex.bennee@linaro.org>
+> ---
+>  MAINTAINERS                  |   1 +
+>  tests/acceptance/boot_xen.py | 117 +++++++++++++++++++++++++++++++++++
+>  2 files changed, 118 insertions(+)
+>  create mode 100644 tests/acceptance/boot_xen.py
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 853f174fcf..537ca7a6f3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1998,6 +1998,7 @@ M: Alex Benn=E9e <alex.bennee@linaro.org>
+>  S: Maintained
+>  F: hw/core/guest-loader.c
+>  F: docs/system/guest-loader.rst
+> +F: tests/acceptance/boot_xen.py
+> =20
+>  Intel Hexadecimal Object File Loader
+>  M: Su Hang <suhang16@mails.ucas.ac.cn>
+> diff --git a/tests/acceptance/boot_xen.py b/tests/acceptance/boot_xen.py
+> new file mode 100644
+> index 0000000000..8c7e091d40
+> --- /dev/null
+> +++ b/tests/acceptance/boot_xen.py
+> @@ -0,0 +1,117 @@
+> +# Functional test that boots a Xen hypervisor with a domU kernel and
+> +# checks the console output is vaguely sane .
+> +#
+> +# Copyright (c) 2020 Linaro
+> +#
+> +# Author:
+> +#  Alex Benn=E9e <alex.bennee@linaro.org>
+> +#
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +#
+> +# This work is licensed under the terms of the GNU GPL, version 2 or
+> +# later.  See the COPYING file in the top-level directory.
+> +
+> +import os
+> +
+> +from avocado import skipIf
+> +from avocado_qemu import wait_for_console_pattern
+> +from boot_linux_console import LinuxKernelTest
+> +
+> +
+> +class BootXenBase(LinuxKernelTest):
+> +    """
+> +    Boots a Xen hypervisor with a Linux DomU kernel.
+> +    """
+> +
+> +    timeout =3D 90
+> +    XEN_COMMON_COMMAND_LINE =3D 'dom0_mem=3D128M loglvl=3Dall guest_logl=
+vl=3Dall'
+> +
+> +    def fetch_guest_kernel(self):
+> +        # Using my own built kernel - which works
+> +        kernel_url =3D ('https://fileserver.linaro.org/'
+> +                      's/JSsewXGZ6mqxPr5/download?path=3D%2F&files=3D'
+> +                      'linux-5.9.9-arm64-ajb')
+> +        kernel_sha1 =3D '4f92bc4b9f88d5ab792fa7a43a68555d344e1b83'
+> +        kernel_path =3D self.fetch_asset(kernel_url,
+> +                                       asset_hash=3Dkernel_sha1)
+> +
+> +        return kernel_path
+> +
+> +    def launch_xen(self, xen_path):
+> +        """
+> +        Launch Xen with a dom0 guest kernel
+> +        """
+> +        self.log.info("launch with xen_path: %s", xen_path)
+> +        kernel_path =3D self.fetch_guest_kernel()
+> +
+> +        self.vm.set_console()
+> +
+> +        xen_command_line =3D self.XEN_COMMON_COMMAND_LINE
+> +        self.vm.add_args('-machine', 'virtualization=3Don',
+> +                         '-cpu', 'cortex-a57',
+> +                         '-m', '768',
+> +                         '-kernel', xen_path,
+> +                         '-append', xen_command_line,
+> +                         '-device',
+> +                         "guest-loader,addr=3D0x47000000,kernel=3D%s,boo=
+targs=3Dconsole=3Dhvc0"
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+Nitpick/OCD: single quotes to match all other args?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+> +                         % (kernel_path))
+> +
+> +        self.vm.launch()
+> +
+> +        console_pattern =3D 'VFS: Cannot open root device'
+> +        wait_for_console_pattern(self, console_pattern, "Panic on CPU 0:=
+")
+> +
+> +
+> +class BootXen(BootXenBase):
+> +
+> +    @skipIf(os.getenv('GITLAB_CI'), 'Running on GitLab')
+> +    def test_arm64_xen_411_and_dom0(self):
+> +        """
+> +        :avocado: tags=3Darch:aarch64
+> +        :avocado: tags=3Daccel:tcg
+> +        :avocado: tags=3Dcpu:cortex-a57
+> +        :avocado: tags=3Dmachine:virt
+> +        """
+> +        xen_url =3D ('https://deb.debian.org/debian/'
+> +                   'pool/main/x/xen/'
+> +                   'xen-hypervisor-4.11-arm64_4.11.4+37-g3263f257ca-1_ar=
+m64.deb')
+> +        xen_sha1 =3D '034e634d4416adbad1212d59b62bccdcda63e62a'
 
-version targeted for testing:
- libvirt              040a5bc307eb8cd304a4330b7538370315db3774
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+This URL is already giving 404s because of a new pacakge.  I found
+this to work (but yeah, won't probably last long):
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  223 days
-Failing since        151818  2020-07-11 04:18:52 Z  222 days  214 attempts
-Testing same since   159437  2021-02-17 04:18:55 Z    1 days    1 attempts
+        xen_url =3D ('http://deb.debian.org/debian/'
+                   'pool/main/x/xen/'
+                   'xen-hypervisor-4.11-arm64_4.11.4+57-g41a822c392-2_arm64=
+.deb')
+        xen_sha1 =3D 'b5a6810fc67fd50fa36afdfdfe88ce3153dd3a55'
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+> +        xen_deb =3D self.fetch_asset(xen_url, asset_hash=3Dxen_sha1)
+> +        xen_path =3D self.extract_from_deb(xen_deb, "/boot/xen-4.11-arm6=
+4")
+> +
+> +        self.launch_xen(xen_path)
+> +
+> +    @skipIf(os.getenv('GITLAB_CI'), 'Running on GitLab')
+> +    def test_arm64_xen_414_and_dom0(self):
+> +        """
+> +        :avocado: tags=3Darch:aarch64
+> +        :avocado: tags=3Daccel:tcg
+> +        :avocado: tags=3Dcpu:cortex-a57
+> +        :avocado: tags=3Dmachine:virt
+> +        """
+> +        xen_url =3D ('https://deb.debian.org/debian/'
+> +                   'pool/main/x/xen/'
+> +                   'xen-hypervisor-4.14-arm64_4.14.0+80-gd101b417b7-1_ar=
+m64.deb')
+> +        xen_sha1 =3D 'b9d209dd689ed2b393e625303a225badefec1160'
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+Likewise here:
 
+        xen_url =3D ('https://deb.debian.org/debian/'
+                   'pool/main/x/xen/'
+                   'xen-hypervisor-4.14-arm64_4.14.0+88-g1d1d1f5391-2_arm64=
+.deb')
+        xen_sha1 =3D 'f316049beaadd50482644e4955c4cdd63e3a07d5'
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +        xen_deb =3D self.fetch_asset(xen_url, asset_hash=3Dxen_sha1)
+> +        xen_path =3D self.extract_from_deb(xen_deb, "/boot/xen-4.14-arm6=
+4")
+> +
+> +        self.launch_xen(xen_path)
+> +
+> +    @skipIf(os.getenv('GITLAB_CI'), 'Running on GitLab')
+> +    def test_arm64_xen_415_and_dom0(self):
+> +        """
+> +        :avocado: tags=3Darch:aarch64
+> +        :avocado: tags=3Daccel:tcg
+> +        :avocado: tags=3Dcpu:cortex-a57
+> +        :avocado: tags=3Dmachine:virt
+> +        """
+> +
+> +        xen_url =3D ('https://fileserver.linaro.org/'
+> +                   's/JSsewXGZ6mqxPr5/download'
+> +                   '?path=3D%2F&files=3Dxen-upstream-4.15-unstable.deb')
+> +        xen_sha1 =3D 'fc191172b85cf355abb95d275a24cc0f6d6579d8'
+> +        xen_deb =3D self.fetch_asset(xen_url, asset_hash=3Dxen_sha1)
+> +        xen_path =3D self.extract_from_deb(xen_deb, "/boot/xen-4.15-unst=
+able")
+> +
+> +        self.launch_xen(xen_path)
+> --=20
+> 2.20.1
+>=20
+>=20
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+With those changes,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Reviewed-by: Cleber Rosa <crosa@redhat.com>
+Tested-by: Cleber Rosa <crosa@redhat.com>
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+--ikeVEW9yuYc//A+q
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Not pushing.
+iQIzBAEBCAAdFiEEeruW64tGuU1eD+m7ZX6NM6XyCfMFAmAtgLMACgkQZX6NM6Xy
+CfOLJg/+LdIhvsNQD1wFhsh5OXvvTm8SLwTvFcM7YOiCeOLsOC6LGpTQyedugWAb
+OLw5aib6qidCrOK+pjV+tISOw0hTJ0H28GVAyT/Y9AGsCNtu2xxAOw4jt1jJRrl3
+JIYwoPfl4EWCnHGTobb1ZvHPfK6sumasHrZkZNujaKFKi3DZfIY7rtl+nHLdU5B8
+OUd5lNcG0N1BBcLJJ8bZKhG8LdBfZrSIdwRekiyHjK/8udQ+gC9q64xVxerjjaT6
+q76GFkUJT5rci+D5BOIaSDqlaDOwm+wKoFSYSa1syBx4ZvGcWHnxFBnDmWkwERTh
+FJ8T/0EYGiNIlZvyFW4w0aPOGOyCvcOkc+kdKEP6q5JkJ7+44Ja76HA4fAodFgGe
+uvDPfLOO930y7Co9Haudbd05NjAhWQSJG3hVZ2wkZ+QAnVzpvsAW5jKrhASMQvKH
+N/mSMnR2a8nGVCvOvVDfjK6Kx/hPYvl3cxjqIqOs/JFXaIDUG+e/uGijz841L54T
+KYVM/7tHLdzeasdW/kJLEApFlUJVdBJnl9CQd8vApEeW6GEuU3WqvxWoaJK51sCr
+QiVgKxR2Byv1RadtLg8uj0NhpfJC3EEbnLqHeZHnhiZ7X62gvtg3am8osBIMFH2V
+EnCZ/0LU2ut5yPAA/rALG+Kk/yMqvgBfNCKU4pGzWKXjz6X0u0w=
+=sLVe
+-----END PGP SIGNATURE-----
 
-(No revision log; it would be 42887 lines long.)
+--ikeVEW9yuYc//A+q--
+
 
