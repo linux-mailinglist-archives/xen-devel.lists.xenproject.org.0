@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E713231DBD9
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 16:01:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86307.161947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9D231DBDB
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 16:01:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86310.161959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCOJo-0001CP-G1; Wed, 17 Feb 2021 15:00:44 +0000
+	id 1lCOKb-0001Ji-Q2; Wed, 17 Feb 2021 15:01:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86307.161947; Wed, 17 Feb 2021 15:00:44 +0000
+Received: by outflank-mailman (output) from mailman id 86310.161959; Wed, 17 Feb 2021 15:01:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCOJo-0001C0-Cr; Wed, 17 Feb 2021 15:00:44 +0000
-Received: by outflank-mailman (input) for mailman id 86307;
- Wed, 17 Feb 2021 15:00:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lCOKb-0001JI-Mn; Wed, 17 Feb 2021 15:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 86310;
+ Wed, 17 Feb 2021 15:01:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lCOJm-0001Bv-IG
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 15:00:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lCOJj-0005Gs-K8; Wed, 17 Feb 2021 15:00:39 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lCOJj-0007yi-BB; Wed, 17 Feb 2021 15:00:39 +0000
+ (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lCOKa-0001JD-Ej
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 15:01:32 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f981051a-7bad-430d-a71a-ae8792356cb3;
+ Wed, 17 Feb 2021 15:01:31 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A5B0CB8FB;
+ Wed, 17 Feb 2021 15:01:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=cOHzgwAC2Z9qphFZQv3GbMtfyp4vQstE7EdLfDTxIpA=; b=Cq0Vm+Vfm1JJuwsgpavP6jOo4n
-	ssIpJoDLdEr6iP3PdOzmHhxzHdtACSvStnL6Zjdp72VPxwKu6QzEotZlggCpQ2VkQZDWEmjL2cbAY
-	ZRyf/hCU4m45OA3g2t41BtBUwndsfB/Eh8mWDwrWUgkai2O8U4bN9zV6/SVcVROechaI=;
-Subject: Re: [for-4.15][PATCH v3 1/3] xen/iommu: x86: Clear the root
- page-table before freeing the page-tables
-To: Jan Beulich <jbeulich@suse.com>
+X-Inumbo-ID: f981051a-7bad-430d-a71a-ae8792356cb3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1613574090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XlcbOFN/qMdHxITM+PVmddFB6cOmVw5dejK6K51LolI=;
+	b=FS1iGIboZm/U7U2+XCcEC5N9I/3YxiV67EeRH2I8NxEGTk3khhfkOPHG7tWwTMXZ+z+H6Y
+	cM5f2Qccs7C0V18WRZ5WgfZZOiZO2yplNQZz9I5ZOgquxhWjPUGaiUrNaymqvy6PpoUTYC
+	S6CtRZx2YWWhHHdB7QJaSukbLz0GLSo=
+Subject: Re: [for-4.15][PATCH v3 2/3] xen/x86: iommu: Ignore IOMMU mapping
+ requests when a domain is dying
+To: Julien Grall <julien@xen.org>
 Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
  Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20210217142458.3769-1-julien@xen.org>
- <20210217142458.3769-2-julien@xen.org>
- <d20d31ed-4392-a7fb-66ee-575eb254ae84@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <87548d76-36fa-f587-0137-6806280617ad@xen.org>
-Date: Wed, 17 Feb 2021 15:00:37 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+ <20210217142458.3769-3-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20f68b12-a767-b1d3-a3dd-9f92172def5f@suse.com>
+Date: Wed, 17 Feb 2021 16:01:29 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <d20d31ed-4392-a7fb-66ee-575eb254ae84@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <20210217142458.3769-3-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
-
-On 17/02/2021 14:54, Jan Beulich wrote:
-> On 17.02.2021 15:24, Julien Grall wrote:
->> --- a/xen/drivers/passthrough/x86/iommu.c
->> +++ b/xen/drivers/passthrough/x86/iommu.c
->> @@ -267,6 +267,15 @@ int iommu_free_pgtables(struct domain *d)
->>       struct page_info *pg;
->>       unsigned int done = 0;
->>   
->> +    if ( !is_iommu_enabled(d) )
->> +        return 0;
->> +
->> +    /*
->> +     * Pages will be moved to the free list below. So we want to
->> +     * clear the root page-table to avoid any potential use after-free.
->> +     */
->> +    hd->platform_ops->clear_root_pgtable(d);
+On 17.02.2021 15:24, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Taking amd_iommu_alloc_root() as example, is this really correct
-> prior to what is now patch 2? 
+> The new x86 IOMMU page-tables allocator will release the pages when
+> relinquishing the domain resources. However, this is not sufficient
+> when the domain is dying because nothing prevents page-table to be
+> allocated.
+> 
+> Currently page-table allocations can only happen from iommu_map(). As
+> the domain is dying, there is no good reason to continue to modify the
+> IOMMU page-tables.
 
-Yes, there are no more use-after-free...
-	
-> What guarantees a new root table
-> won't get allocated subsequently?
+While I agree this to be the case right now, I'm not sure it is a
+good idea to build on it (in that you leave the unmap paths
+untouched). Imo there's a fair chance this would be overlooked at
+the point super page mappings get introduced (which has been long
+overdue), and I thought prior discussion had lead to a possible
+approach without risking use-after-free due to squashed unmap
+requests.
 
-It doesn't prevent root table allocation. I view the two as distincts 
-issues, hence the two patches.
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -273,6 +273,9 @@ int iommu_free_pgtables(struct domain *d)
+>      /*
+>       * Pages will be moved to the free list below. So we want to
+>       * clear the root page-table to avoid any potential use after-free.
+> +     *
+> +     * After this call, no more IOMMU mapping can happen.
+> +     *
+>       */
+>      hd->platform_ops->clear_root_pgtable(d);
 
-Cheers,
+I.e. you utilize the call in place of spin_barrier(). Maybe worth
+saying in the comment?
 
--- 
-Julien Grall
+Also, nit: Stray blank comment line.
+
+Jan
 
