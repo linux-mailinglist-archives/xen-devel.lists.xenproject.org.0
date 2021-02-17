@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31B0A31DAEC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 14:49:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86273.161839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A877031DAFB
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 14:55:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86276.161850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCNCO-0001W4-KE; Wed, 17 Feb 2021 13:49:00 +0000
+	id 1lCNI5-0002SQ-9Y; Wed, 17 Feb 2021 13:54:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86273.161839; Wed, 17 Feb 2021 13:49:00 +0000
+Received: by outflank-mailman (output) from mailman id 86276.161850; Wed, 17 Feb 2021 13:54:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCNCO-0001Vf-HC; Wed, 17 Feb 2021 13:49:00 +0000
-Received: by outflank-mailman (input) for mailman id 86273;
- Wed, 17 Feb 2021 13:48:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SSRj=HT=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1lCNCN-0001VX-E7
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 13:48:59 +0000
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 36722e62-5a52-44cd-8208-363e8c21879a;
- Wed, 17 Feb 2021 13:48:58 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 7B4DED32;
- Wed, 17 Feb 2021 08:48:57 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Wed, 17 Feb 2021 08:48:57 -0500
-Received: from mail-itl (unknown [91.67.79.4])
- by mail.messagingengine.com (Postfix) with ESMTPA id 637FE240062;
- Wed, 17 Feb 2021 08:48:56 -0500 (EST)
+	id 1lCNI5-0002S4-6S; Wed, 17 Feb 2021 13:54:53 +0000
+Received: by outflank-mailman (input) for mailman id 86276;
+ Wed, 17 Feb 2021 13:54:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lCNI3-0002Rw-Vm
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 13:54:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lCNHx-00045M-MY; Wed, 17 Feb 2021 13:54:45 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lCNHx-0002fc-EM; Wed, 17 Feb 2021 13:54:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,112 +39,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36722e62-5a52-44cd-8208-363e8c21879a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=5d4LBG
-	6Qg/xjUkSWjDeu9znpavuBLKz6fQQ9smZ7o3c=; b=P6Wu4WTOlx+W2gUNm1cg1C
-	JA6iZaFUM+Sqzi0M4v4F6y8TMfNuYWS4PxqsaUJ3ti7knc8+GNAegE/4uXDi8Vw7
-	tAlE82D7dbCePw6GJX9MYluLtUYYRq4rUtWf8Iv72K4Tc6e+JcScqB/5JDMo5Q8q
-	Meese+ze4W13/5laaVr9OXD//NypdY933p/5SzbFVeQt3riCI3EUqi2B9DX3Ge/u
-	xd7hBy3CuNgtvSMvfxpPmtvBARqQ93KttB/2A2Tl38mrTjnp5e/nx+R/HI+64Pc7
-	r47q3vd73/9aAE9TKXLnOj99+3JjyFJetaASowwbFszRi+Rnq/xUl//2B6L1BC2g
-	==
-X-ME-Sender: <xms:yB4tYCY0l_S-l9pXzXfxOpK6QAoDcPpcO49aBEP07LpyAA1p1HZ8Eg>
-    <xme:yB4tYE-XYaJWFg14mJsYFY1EgTrH-slbCKy6mhaiLPbJSLwFEy8sWepzqieLhREE7
-    fpSxY0dgr-6pw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjedvgdefudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehgtderre
-    dttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghk
-    ihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqe
-    enucggtffrrghtthgvrhhnpeffkeffudevvddtkefhveelvdfgudehvdeitdduheeugfei
-    jeektdeuhfefveefhfenucffohhmrghinhepphgrthgthhgvfidrohhrghenucfkpheple
-    durdeijedrjeelrdegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
-    lhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
-    homh
-X-ME-Proxy: <xmx:yB4tYBT6zbKCLY67AsDji7Km9jcS1wP-uhhW93i8T3bWq2ysL4wHag>
-    <xmx:yB4tYHLysVOZJmgD1zbIufowupXWSmEEoMmSxKuVsv-ihXZTf5D_Jg>
-    <xmx:yB4tYLQ3aiLf5PsUKncGg7zAJi9x2kb27-Gro_syYoUQUrEG_5tC1g>
-    <xmx:yR4tYNGz3saZyQrLXfiu5-oTLG7vGs2gUSaTPSIqWXBe_5arlgmA7Q>
-Date: Wed, 17 Feb 2021 14:48:51 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux PV/PVH domU crash on (guest) resume from suspend
-Message-ID: <YC0exVYljxxvwFFt@mail-itl>
-References: <YCylpKU8F+Hsg8YL@mail-itl>
- <0b71a671-592a-53ab-6b4a-1fe15b9eb453@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=/BMI8jzOWOIBwNHI/soZA7yadtHGIBIyCRbij6dumj4=; b=xa7WckS1UZuapeyC5uvhAFU381
+	y52Rg0i9K8gtuYyB4kU4FJ2GbUJUKX71fpKIPcIL6DswSmd6vBWeKlKbzouFLuZdhIdtijkl72yS0
+	nia8H5KQxANTdX3fghYT0edGs8JCdDBTf5l3kSa9iuZzoQbVskaJWCTH2NLITdlfh0MU=;
+Subject: Re: [for-4.15][PATCH v2 5/5] xen/iommu: x86: Clear the root
+ page-table before freeing the page-tables
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "hongyxia@amazon.co.uk" <hongyxia@amazon.co.uk>,
+ "iwj@xenproject.org" <iwj@xenproject.org>, Julien Grall <jgrall@amazon.com>,
+ Jan Beulich <jbeulich@suse.com>, "Cooper, Andrew"
+ <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
+References: <20210209152816.15792-1-julien@xen.org>
+ <20210209152816.15792-6-julien@xen.org>
+ <MWHPR11MB18869B3DB550711B3F6F6CA48C8D9@MWHPR11MB1886.namprd11.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a8636cac-c4da-27f6-404e-20e9e58a77b1@xen.org>
+Date: Wed, 17 Feb 2021 13:54:43 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Eept/bozI/Ba/6p9"
-Content-Disposition: inline
-In-Reply-To: <0b71a671-592a-53ab-6b4a-1fe15b9eb453@suse.com>
+In-Reply-To: <MWHPR11MB18869B3DB550711B3F6F6CA48C8D9@MWHPR11MB1886.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
+Hi Kevin,
 
---Eept/bozI/Ba/6p9
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Feb 2021 14:48:51 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux PV/PVH domU crash on (guest) resume from suspend
+On 10/02/2021 02:21, Tian, Kevin wrote:
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Tuesday, February 9, 2021 11:28 PM
+>>
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> The new per-domain IOMMU page-table allocator will now free the
+>> page-tables when domain's resources are relinquished. However, the root
+>> page-table (i.e. hd->arch.pg_maddr) will not be cleared.
+> 
+> It's the pointer not the table itself.
 
-On Wed, Feb 17, 2021 at 07:51:42AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> On 17.02.21 06:12, Marek Marczykowski-G=C3=B3recki wrote:
-> > Hi,
-> >=20
-> > I'm observing Linux PV/PVH guest crash when I resume it from sleep. I do
-> > this with:
-> >=20
-> >      virsh -c xen dompmsuspend <vmname> mem
-> >      virsh -c xen dompmwakeup <vmname>
-> >=20
-> > But it's possible to trigger it with plain xl too:
-> >=20
-> >      xl save -c <vmname> <some-file>
-> >=20
-> > The same on HVM works fine.
-> >=20
-> > This is on Xen 4.14.1, and with guest kernel 5.4.90, the same happens
-> > with 5.4.98. Dom0 kernel is the same, but I'm not sure if that's
-> > relevant here. I can reliably reproduce it.
->=20
-> This is already on my list of issues to look at.
->=20
-> The problem seems to be related to the XSA-332 patches. You could try
-> the patches I've sent out recently addressing other fallout from XSA-332
-> which _might_ fix this issue, too:
->=20
-> https://patchew.org/Xen/20210211101616.13788-1-jgross@suse.com/
+I don't think the sentence is incorrect. One can view clearing as either 
+clearing the page table itself or the pointer.
 
-Thanks for the patches. Sadly it doesn't change anything - I get exactly
-the same crash. I applied that on top of 5.11-rc7 (that's what I had
-handy). If you think there may be a difference with the final 5.11 or
-another branch, please let me know.
+> 
+>>
+>> Xen may access the IOMMU page-tables afterwards at least in the case of
+>> PV domain:
+>>
+>> (XEN) Xen call trace:
+>> (XEN)    [<ffff82d04025b4b2>] R
+>> iommu.c#addr_to_dma_page_maddr+0x12e/0x1d8
+>> (XEN)    [<ffff82d04025b695>] F
+>> iommu.c#intel_iommu_unmap_page+0x5d/0xf8
+>> (XEN)    [<ffff82d0402695f3>] F iommu_unmap+0x9c/0x129
+>> (XEN)    [<ffff82d0402696a6>] F iommu_legacy_unmap+0x26/0x63
+>> (XEN)    [<ffff82d04033c5c7>] F mm.c#cleanup_page_mappings+0x139/0x144
+>> (XEN)    [<ffff82d04033c61d>] F put_page+0x4b/0xb3
+>> (XEN)    [<ffff82d04033c87f>] F put_page_from_l1e+0x136/0x13b
+>> (XEN)    [<ffff82d04033cada>] F devalidate_page+0x256/0x8dc
+>> (XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
+>> (XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
+>> (XEN)    [<ffff82d04033d8d6>] F mm.c#put_page_from_l2e+0x8a/0xcf
+>> (XEN)    [<ffff82d04033cc27>] F devalidate_page+0x3a3/0x8dc
+>> (XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
+>> (XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
+>> (XEN)    [<ffff82d04033d807>] F mm.c#put_page_from_l3e+0x8a/0xcf
+>> (XEN)    [<ffff82d04033cdf0>] F devalidate_page+0x56c/0x8dc
+>> (XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
+>> (XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
+>> (XEN)    [<ffff82d04033d6c7>] F mm.c#put_page_from_l4e+0x69/0x6d
+>> (XEN)    [<ffff82d04033cf24>] F devalidate_page+0x6a0/0x8dc
+>> (XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
+>> (XEN)    [<ffff82d04033d92e>] F put_page_type_preemptible+0x13/0x15
+>> (XEN)    [<ffff82d04032598a>] F domain.c#relinquish_memory+0x1ff/0x4e9
+>> (XEN)    [<ffff82d0403295f2>] F domain_relinquish_resources+0x2b6/0x36a
+>> (XEN)    [<ffff82d040205cdf>] F domain_kill+0xb8/0x141
+>> (XEN)    [<ffff82d040236cac>] F do_domctl+0xb6f/0x18e5
+>> (XEN)    [<ffff82d04031d098>] F pv_hypercall+0x2f0/0x55f
+>> (XEN)    [<ffff82d04039b432>] F lstar_enter+0x112/0x120
+>>
+>> This will result to a use after-free and possibly an host crash or
+>> memory corruption.
+>>
+>> Freeing the page-tables further down in domain_relinquish_resources()
+>> would not work because pages may not be released until later if another
+>> domain hold a reference on them.
+>>
+>> Once all the PCI devices have been de-assigned, it is actually pointless
+>> to access modify the IOMMU page-tables. So we can simply clear the root
+>> page-table address.
+> 
+> Above two paragraphs are confusing to me. I don't know what exact change
+> is proposed until looking over the whole patch. Isn't it clearer to just say
+> "We should clear the root page table pointer in iommu_free_pgtables to
+> avoid use-after-free after all pgtables are moved to the free list"?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Your sentence explain the approach taken but not the rational behind the 
+approach. Both are equally important for future reference.
 
---Eept/bozI/Ba/6p9
-Content-Type: application/pgp-signature; name="signature.asc"
+I will try to reword it.
 
------BEGIN PGP SIGNATURE-----
+Cheers,
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmAtHsUACgkQ24/THMrX
-1yxFhQgAmfd5RKukJUsaQpSaNUrTV/lAylrIb9bSgHpKk+OFOUvQlcVzpADT/eB1
-WLTdNHZ0fENjW96HSI3NUZR4YmzOl/2Zw5vV1wiokwhi6eMR3PrLwGqRY7gMdU4f
-NZf31wQhukgZ/yxzJesCar1EnpoAmfIMZyGx73BDXoRcXlqx5UKf7HIZ6Ta/LIkE
-WAq1jXXT6RK6O/FjsmYmJaigbqSqCMyymC1JdxBGNCk7gtw6Sh2NOfYbbC/VnC+2
-38z6LJVTpjZUTKEkXQYlgYv88PHTFf24SnUwNN/ju6IMPv/cD4lw8qbcPh459RLm
-rn7DoiUL5VJv+6qIapngzWEMdFqVmw==
-=Yj3r
------END PGP SIGNATURE-----
-
---Eept/bozI/Ba/6p9--
+-- 
+Julien Grall
 
