@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A927631D571
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 07:48:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86123.161306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F9C31D585
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 07:51:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86124.161318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCGc8-0000wo-Jd; Wed, 17 Feb 2021 06:47:08 +0000
+	id 1lCGgb-0001sM-8i; Wed, 17 Feb 2021 06:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86123.161306; Wed, 17 Feb 2021 06:47:08 +0000
+Received: by outflank-mailman (output) from mailman id 86124.161318; Wed, 17 Feb 2021 06:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCGc8-0000wO-Fi; Wed, 17 Feb 2021 06:47:08 +0000
-Received: by outflank-mailman (input) for mailman id 86123;
- Wed, 17 Feb 2021 06:47:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lCGgb-0001s0-5M; Wed, 17 Feb 2021 06:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 86124;
+ Wed, 17 Feb 2021 06:51:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=T8s0=HT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lCGc7-0000wJ-39
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 06:47:07 +0000
+ id 1lCGga-0001rv-9Q
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 06:51:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ca82ad5e-9af1-494f-b9ac-436d6ef575cf;
- Wed, 17 Feb 2021 06:47:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fab37a28-e966-452e-83c7-1a5ac703eeb3;
+ Wed, 17 Feb 2021 06:51:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6F956B1C8;
- Wed, 17 Feb 2021 06:47:04 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A4A61AFBF;
+ Wed, 17 Feb 2021 06:51:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +38,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca82ad5e-9af1-494f-b9ac-436d6ef575cf
+X-Inumbo-ID: fab37a28-e966-452e-83c7-1a5ac703eeb3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613544424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1613544702; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P/zoz/I1xLZaXQg7lCRnP0IrXBCbBdM7Ny+FAZcPeyA=;
-	b=GDq2k7CGwGFS1qHUYWpHS5lWFg1m4iUPUZohx2I/2+a9qIbiOujmOk5jfjWkCdO1SDFuXX
-	bEUZlB3YAfrn5ogZnZ1V4tcAoa28UHQxr45jcEVxSMWHMg74ynSki4FTMhphA7hUAdLhjn
-	PtvKOVraTblUl12YaKKdM4lqU4sQbGM=
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Roman Shaposhnik <roman@zededa.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
- george.dunlap@citrix.com
-References: <CAMmSBy-_UOK6DTrwGNOw8Y59Muv8H8wxmsc4-BXcv3N_u5USBA@mail.gmail.com>
- <alpine.DEB.2.21.2102161232310.3234@sstabellini-ThinkPad-T480s>
+	bh=mtZwWOa8RPZDhC9LBp92rSU7qze88B6rRKpZiclGDcY=;
+	b=lm+KY83wTrR857Kbo3iypkG0qbxGvV4CQS/X6QCN7IzjS7rc0ygjnrkCzCtuZ0GVhPnVk7
+	nQHMvnpZiUrMAe1IU9SXo3nfdvDqbMxlTOO5ZINNrMVmpEsV+rMH8mjZnIAxJEmpXzdpJ/
+	ljAAIDFckXe9kFIJ9IR88gxS55Ro7fg=
+Subject: Re: Linux PV/PVH domU crash on (guest) resume from suspend
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <YCylpKU8F+Hsg8YL@mail-itl>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: Linux DomU freezes and dies under heavy memory shuffling
-Message-ID: <45b8ef4c-6d36-e91b-ca1a-a82eeca5aaf5@suse.com>
-Date: Wed, 17 Feb 2021 07:47:03 +0100
+Message-ID: <0b71a671-592a-53ab-6b4a-1fe15b9eb453@suse.com>
+Date: Wed, 17 Feb 2021 07:51:42 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2102161232310.3234@sstabellini-ThinkPad-T480s>
+In-Reply-To: <YCylpKU8F+Hsg8YL@mail-itl>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="M6CPskvQftaQ9vNnWZkwIDUQDLKr6zsKe"
+ boundary="UX4saGOiEUpFPtBDrnrAEnG2ZNeobw8mK"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---M6CPskvQftaQ9vNnWZkwIDUQDLKr6zsKe
-Content-Type: multipart/mixed; boundary="Xl4SWKGDcTKXMa7tAnXUj2ynJt3ze48j0";
+--UX4saGOiEUpFPtBDrnrAEnG2ZNeobw8mK
+Content-Type: multipart/mixed; boundary="yE44TUMEKY1977Vr2eREM0Yy0cWlzNhOf";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Roman Shaposhnik <roman@zededa.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
- george.dunlap@citrix.com
-Message-ID: <45b8ef4c-6d36-e91b-ca1a-a82eeca5aaf5@suse.com>
-Subject: Re: Linux DomU freezes and dies under heavy memory shuffling
-References: <CAMmSBy-_UOK6DTrwGNOw8Y59Muv8H8wxmsc4-BXcv3N_u5USBA@mail.gmail.com>
- <alpine.DEB.2.21.2102161232310.3234@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2102161232310.3234@sstabellini-ThinkPad-T480s>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <0b71a671-592a-53ab-6b4a-1fe15b9eb453@suse.com>
+Subject: Re: Linux PV/PVH domU crash on (guest) resume from suspend
+References: <YCylpKU8F+Hsg8YL@mail-itl>
+In-Reply-To: <YCylpKU8F+Hsg8YL@mail-itl>
 
---Xl4SWKGDcTKXMa7tAnXUj2ynJt3ze48j0
+--yE44TUMEKY1977Vr2eREM0Yy0cWlzNhOf
 Content-Type: multipart/mixed;
- boundary="------------8F4CDFD94349F7FF19611F9A"
+ boundary="------------7CF6C416BAAF436A25352388"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------8F4CDFD94349F7FF19611F9A
+--------------7CF6C416BAAF436A25352388
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 16.02.21 21:34, Stefano Stabellini wrote:
-> + x86 maintainers
+On 17.02.21 06:12, Marek Marczykowski-G=C3=B3recki wrote:
+> Hi,
 >=20
-> It looks like the tlbflush is getting stuck?
+> I'm observing Linux PV/PVH guest crash when I resume it from sleep. I d=
+o
+> this with:
+>=20
+>      virsh -c xen dompmsuspend <vmname> mem
+>      virsh -c xen dompmwakeup <vmname>
+>=20
+> But it's possible to trigger it with plain xl too:
+>=20
+>      xl save -c <vmname> <some-file>
+>=20
+> The same on HVM works fine.
+>=20
+> This is on Xen 4.14.1, and with guest kernel 5.4.90, the same happens
+> with 5.4.98. Dom0 kernel is the same, but I'm not sure if that's
+> relevant here. I can reliably reproduce it.
 
-I have seen this case multiple times on customer systems now, but
-reproducing it reliably seems to be very hard.
+This is already on my list of issues to look at.
 
-I suspected fifo events to be blamed, but just yesterday I've been
-informed of another case with fifo events disabled in the guest.
+The problem seems to be related to the XSA-332 patches. You could try
+the patches I've sent out recently addressing other fallout from XSA-332
+which _might_ fix this issue, too:
 
-One common pattern seems to be that up to now I have seen this effect
-only on systems with Intel Gold cpus. Can it be confirmed to be true
-in this case, too?
-
-In case anybody has a reproducer (either in a guest or dom0) with a
-setup where a diagnostic kernel can be used, I'd be _very_ interested!
+https://patchew.org/Xen/20210211101616.13788-1-jgross@suse.com/
 
 
 Juergen
 
---------------8F4CDFD94349F7FF19611F9A
+--------------7CF6C416BAAF436A25352388
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -206,25 +207,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------8F4CDFD94349F7FF19611F9A--
+--------------7CF6C416BAAF436A25352388--
 
---Xl4SWKGDcTKXMa7tAnXUj2ynJt3ze48j0--
+--yE44TUMEKY1977Vr2eREM0Yy0cWlzNhOf--
 
---M6CPskvQftaQ9vNnWZkwIDUQDLKr6zsKe
+--UX4saGOiEUpFPtBDrnrAEnG2ZNeobw8mK
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAsu+cFAwAAAAAACgkQsN6d1ii/Ey94
-nwf9HFQ8uf6gS+7thbedwNQVLrbT4ZIVcZB2wxy2Muj2kBr3aefr/pFU+moMEuHF84+J3zWiTQJe
-9roq6NH79Hm6PEvYQiPPt1WMqK74OBjJQjz5Cuoir7bT3Fvg3HGssRVVGjxmC+DVwwzBSOdJ2nlN
-YSzXddQHfnEadCwIW0R0BJlimsuAcrFEdSF4Utb5cd2Lp2geB3qJAh3KVNABVnk877UVhEvftlrz
-oBtfbwlj2QRlP02R03byHksydVzkA2WXlqnDIHjKBQwMT18cLXGrvzgjA4M3MMEea56pjh6X/glT
-6EQFjY61YnYa6oKx7qoue19X8vRqoyoYoMR/UqGoyQ==
-=d+Cg
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAsvP4FAwAAAAAACgkQsN6d1ii/Ey/a
+Bgf/eKI57Fh58nFthQFuvkD0jHeBLPYqMP5mccGjOTuh5M6Qnk6OtsS4FEdCveKRaEeaEiwcidGC
+ezf06ylBzoGMjikjsfm3DV8j3fz3sOkC6cb8qLJvENXpi6ZLThn5VfuMnGzQHoJANbWaiQfvV0Bh
+xs0PMrVpwP6FjNd6FVjqdAZhxShyK0ctmoGV8UnOqmcAp7A7MwCOEgOtBim/Lrqo12JhG+CB9949
+ACFe+5pGsRcWDrebX5Y0dLBvkGJImUpKhH3I5maWIYHnA0XLJCPl9H6yhngFXbjRSd8Uhq9UHW1i
+P4db8IPaZXMGgWx5F96EfSMPC0nwKH3ZXwjAt6QryA==
+=9eXr
 -----END PGP SIGNATURE-----
 
---M6CPskvQftaQ9vNnWZkwIDUQDLKr6zsKe--
+--UX4saGOiEUpFPtBDrnrAEnG2ZNeobw8mK--
 
