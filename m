@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83C5A31D4CC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 06:13:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86106.161261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24D3431D4E6
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 06:25:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86108.161273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCF8G-00011J-5c; Wed, 17 Feb 2021 05:12:12 +0000
+	id 1lCFKU-00020w-AM; Wed, 17 Feb 2021 05:24:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86106.161261; Wed, 17 Feb 2021 05:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 86108.161273; Wed, 17 Feb 2021 05:24:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCF8G-00010w-1x; Wed, 17 Feb 2021 05:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 86106;
- Wed, 17 Feb 2021 05:12:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SSRj=HT=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1lCF8E-00010r-8F
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 05:12:10 +0000
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0ba0c179-b4d4-451b-bb23-fd706effe475;
- Wed, 17 Feb 2021 05:12:08 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 20A985C00DE
- for <xen-devel@lists.xenproject.org>; Wed, 17 Feb 2021 00:12:08 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Wed, 17 Feb 2021 00:12:08 -0500
-Received: from mail-itl (ip5b434f04.dynamic.kabel-deutschland.de [91.67.79.4])
- by mail.messagingengine.com (Postfix) with ESMTPA id A01161080057
- for <xen-devel@lists.xenproject.org>; Wed, 17 Feb 2021 00:12:07 -0500 (EST)
+	id 1lCFKU-00020W-56; Wed, 17 Feb 2021 05:24:50 +0000
+Received: by outflank-mailman (input) for mailman id 86108;
+ Wed, 17 Feb 2021 05:24:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCFKT-00020O-4G; Wed, 17 Feb 2021 05:24:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCFKS-0003Sw-Sa; Wed, 17 Feb 2021 05:24:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCFKS-0004LY-H0; Wed, 17 Feb 2021 05:24:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCFKS-0001nl-GU; Wed, 17 Feb 2021 05:24:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,173 +42,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ba0c179-b4d4-451b-bb23-fd706effe475
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=content-type:date:from:message-id
-	:mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; bh=hqxfMtVLYQTpWK3DxeliVp4K2OtYZ
-	NHD5kIqDxzCy+c=; b=Z3zWm3gMsUE94b2X4X4jaf754x+6lwrkThw5Tj6Y33lmv
-	gViGmsLHfseJMS33iDps1hG0j10Uu5y4HFjmY62vFfF4pPD1kKwppBJ9SFnPFpbA
-	qIff6At2uTClTarOlyLBRUXT61ypXoZQYSo3YgVe7PssyDbXZTQYq1Vucj+chXEx
-	uZPd2+riZf6RzuVTyalRVOuxDNTGFXqE24CWknZIaAn4Myj8f6Qk1dpPpM18RyLP
-	+NCv2y877gUPVy6NRAr0eBzkPoLD1umuoU6Vx0Jmv2BwSzWa+olFkb7imUC748uu
-	RNwgT8gIUNQ3Ay9DhQ9ho9fwOH+sTKfGAQkUJdbXA==
-X-ME-Sender: <xms:p6UsYPAdQ-loRQ3RSETy8bsijQLwoBa9Y9b2rwzUJz8K4jt3JK-IdQ>
-    <xme:p6UsYFh7r58ORawhUeuM7J_T9b3qdkNjNM7SOztuUQdmkvcKiB89KkQ0Cx9i68LP2
-    Q6-D9HovgEM2Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjedugdejkecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehgtderredttd
-    ejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcu
-    oehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenuc
-    ggtffrrghtthgvrhhnpedtudfgteduveduieevvefgteeujeelgffggffhhffhhedtffef
-    fefgudeugeefhfenucfkphepledurdeijedrjeelrdegnecuvehluhhsthgvrhfuihiivg
-    eptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgs
-    lhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:p6UsYKnsCKPOcmqZ6nzdv1HPcMBT6gr_HtwSInovcZwwew4VUrVMug>
-    <xmx:p6UsYBwGHG5B-1boEHoTW8-WgJN_tmSOr2Wir4Opd5Mw-hiApNeBqA>
-    <xmx:p6UsYESGfzX493s0St6CJztqRVkLtp9FaTVsPMhWFDS6qQ31KwdYEw>
-    <xmx:qKUsYKB2HdIOfspB7ZWLJi1OzTVG5TDEM7OPahErgl37JBrKZ94jog>
-Date: Wed, 17 Feb 2021 06:12:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Linux PV/PVH domU crash on (guest) resume from suspend
-Message-ID: <YCylpKU8F+Hsg8YL@mail-itl>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="L2+TYTG2qmBDfrpw"
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=9/likg3V9T223CBhVpWnYFwz8/74bJ+3e1ufka676b0=; b=yXnZZifwthGlh+kg3vNpMPYDoR
+	TJ6JU29bDUPlJNa9ePwDZmXvUEjhvEEopLKC0EipXHZHNz448zzywgM39HKBFreYEAEnBKmkXPuw+
+	+OyOwyjumdOxgXLip4DTXJJ/yZhx8uMJcRD1x1krR9H0oTymIdKjWvcMMZaAFXqFspsg=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [linux-5.4 bisection] complete test-armhf-armhf-xl-multivcpu
+Message-Id: <E1lCFKS-0001nl-GU@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 17 Feb 2021 05:24:48 +0000
+
+branch xen-unstable
+xenbranch xen-unstable
+job test-armhf-armhf-xl-multivcpu
+testid guest-start
+
+Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159438/
 
 
---L2+TYTG2qmBDfrpw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Feb 2021 06:12:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Linux PV/PVH domU crash on (guest) resume from suspend
+  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Author: David Woodhouse <dwmw@amazon.co.uk>
+  Date:   Wed Jan 13 13:26:02 2021 +0000
+  
+      xen: Fix event channel callback via INTX/GSI
+      
+      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+      
+      For a while, event channel notification via the PCI platform device
+      has been broken, because we attempt to communicate with xenstore before
+      we even have notifications working, with the xs_reset_watches() call
+      in xs_init().
+      
+      We tend to get away with this on Xen versions below 4.0 because we avoid
+      calling xs_reset_watches() anyway, because xenstore might not cope with
+      reading a non-existent key. And newer Xen *does* have the vector
+      callback support, so we rarely fall back to INTX/GSI delivery.
+      
+      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+      case, deferring it to be called from xenbus_probe() in the XS_HVM case
+      instead.
+      
+      Then fix up the invocation of xenbus_probe() to happen either from its
+      device_initcall if the callback is available early enough, or when the
+      callback is finally set up. This means that the hack of calling
+      xenbus_probe() from a workqueue after the first interrupt, or directly
+      from the PCI platform device setup, is no longer needed.
+      
+      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Hi,
 
-I'm observing Linux PV/PVH guest crash when I resume it from sleep. I do
-this with:
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/test-armhf-armhf-xl-multivcpu.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-    virsh -c xen dompmsuspend <vmname> mem
-    virsh -c xen dompmwakeup <vmname>=20
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/test-armhf-armhf-xl-multivcpu.guest-start --summary-out=tmp/159438.bisection-summary --basis-template=158387 --blessings=real,real-bisect,real-retry linux-5.4 test-armhf-armhf-xl-multivcpu guest-start
+Searching for failure / basis pass:
+ 159399 fail [host=arndale-metrocentre] / 158681 [host=arndale-westfield] 158624 [host=arndale-lakeside] 158616 [host=cubietruck-braque] 158609 [host=cubietruck-gleizes] 158603 [host=arndale-bluewater] 158593 [host=cubietruck-picasso] 158583 ok.
+Failure / basis pass flights: 159399 / 158583
+Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+Basis pass d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5b4a97bbc39ed8e7eb50038b9cffe2e948e49995 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
+Generating revisions with ./adhoc-revtuple-generator  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#d26b3110041a9fddc6c6e36398f53f7eab8cff82-5b9a4104c902d7dec14c9e3c5652a638194487c6 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#5b4a97bbc39ed8e7eb50038b9cffe2e948e49995-2e1e8c35f3178df95d79da81ac6deec242da74c2 git://xenbits.xen.org/qemu-xen.git#7ea4288\
+ 95af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/osstest/seabios.git#ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e-ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e git://xenbits.xen.org/xen.git#e8adbf680b56a3f4b9600c7bcc04fec1877a6213-04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+Loaded 15001 nodes in revision graph
+Searching for test results:
+ 158563 [host=cubietruck-metzinger]
+ 158583 pass d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5b4a97bbc39ed8e7eb50038b9cffe2e948e49995 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
+ 158593 [host=cubietruck-picasso]
+ 158603 [host=arndale-bluewater]
+ 158609 [host=cubietruck-gleizes]
+ 158616 [host=cubietruck-braque]
+ 158624 [host=arndale-lakeside]
+ 158681 [host=arndale-westfield]
+ 158707 fail irrelevant
+ 158716 fail irrelevant
+ 158748 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e f8708b0ed6d549d1d29b8b5cc287f1f2b642bc63
+ 158765 fail 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 6677b5a3577c16501fbc51a3341446905bd21c38
+ 158796 fail irrelevant
+ 158818 fail irrelevant
+ 158841 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158863 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158881 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158929 fail 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea56ebf67dd55483105aa9f9996a48213e78337e 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158962 fail irrelevant
+ 159023 fail irrelevant
+ 159129 fail irrelevant
+ 159200 fail irrelevant
+ 159238 fail irrelevant
+ 159295 fail irrelevant
+ 159324 fail irrelevant
+ 159339 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159359 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159372 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159415 pass d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5b4a97bbc39ed8e7eb50038b9cffe2e948e49995 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
+ 159421 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159422 pass 09f983f0c7fc0db79a5f6c883ec3510d424c369c c530a75c1e6a472b0eb9558310b518f0dfcd8860 3b769c5110384fb33bcfeddced80f721ec7838cc 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+ 159423 fail 38f35023fd301abeb01cfd81e73caa2e4e7ec0b1 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159425 pass d8a487e673abf46c69c901bb25da54e9bc7ba45e c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159426 pass 5a1d7bb7d333849eb7d3ab5ebfbf9805b2cd46c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159427 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159428 pass 9cec63a3aacbcaee8d09aecac2ca2f8820efcc70 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159399 fail 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159429 pass 8ab3478335ad8fc08f14ec73251b084fe02b3ebb c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159430 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159432 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159433 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159435 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159436 pass acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159438 fail a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+Searching for interesting versions
+ Result found: flight 158583 (pass), for basis pass
+ Result found: flight 159339 (fail), for basis failure (at ancestor ~280)
+ Repro found: flight 159415 (pass), for basis pass
+ Repro found: flight 159421 (fail), for basis failure
+ 0 revisions at acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+No revisions left to test, checking graph state.
+ Result found: flight 159430 (pass), for last pass
+ Result found: flight 159432 (fail), for first failure
+ Repro found: flight 159433 (pass), for last pass
+ Repro found: flight 159435 (fail), for first failure
+ Repro found: flight 159436 (pass), for last pass
+ Repro found: flight 159438 (fail), for first failure
 
-But it's possible to trigger it with plain xl too:
+*** Found and reproduced problem changeset ***
 
-    xl save -c <vmname> <some-file>
+  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159438/
 
-The same on HVM works fine.
 
-This is on Xen 4.14.1, and with guest kernel 5.4.90, the same happens
-with 5.4.98. Dom0 kernel is the same, but I'm not sure if that's
-relevant here. I can reliably reproduce it.
+  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Author: David Woodhouse <dwmw@amazon.co.uk>
+  Date:   Wed Jan 13 13:26:02 2021 +0000
+  
+      xen: Fix event channel callback via INTX/GSI
+      
+      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+      
+      For a while, event channel notification via the PCI platform device
+      has been broken, because we attempt to communicate with xenstore before
+      we even have notifications working, with the xs_reset_watches() call
+      in xs_init().
+      
+      We tend to get away with this on Xen versions below 4.0 because we avoid
+      calling xs_reset_watches() anyway, because xenstore might not cope with
+      reading a non-existent key. And newer Xen *does* have the vector
+      callback support, so we rarely fall back to INTX/GSI delivery.
+      
+      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+      case, deferring it to be called from xenbus_probe() in the XS_HVM case
+      instead.
+      
+      Then fix up the invocation of xenbus_probe() to happen either from its
+      device_initcall if the callback is available early enough, or when the
+      callback is finally set up. This means that the hack of calling
+      xenbus_probe() from a workqueue after the first interrupt, or directly
+      from the PCI platform device setup, is no longer needed.
+      
+      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-The crash message:
+neato: graph is too large for cairo-renderer bitmaps. Scaling by 0.913366 to fit
+pnmtopng: 91 colors found
+Revision graph left in /home/logs/results/bisect/linux-5.4/test-armhf-armhf-xl-multivcpu.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+159438: tolerable ALL FAIL
 
-[  219.844995] Freezing user space processes ... (elapsed 0.011 seconds) do=
-ne.
-[  219.856564] OOM killer disabled.
-[  219.856566] Freezing remaining freezable tasks ... (elapsed 0.001 second=
-s) done.
-[  277.562118] register_vcpu_info failed: cpu=3D0 err=3D-22
-[  219.858384] xen:grant_table: Grant tables using version 1 layout
-[  219.858442] ------------[ cut here ]------------
-[  219.858446] kernel BUG at drivers/xen/events/events_fifo.c:369!
-[  219.858503] invalid opcode: 0000 [#1] SMP NOPTI
-[  219.858511] CPU: 0 PID: 11 Comm: migration/0 Not tainted 5.4.90-1.qubes.=
-x86_64 #1
-[  219.858527] RIP: e030:evtchn_fifo_resume+0x58/0x90
-[  219.858532] Code: eb 48 8b 04 dd 80 29 3e 82 4e 8b 04 20 4d 85 c0 74 d5 =
-48 0f a3 1d b8 40 20 01 73 10 4c 89 c6 89 ef e8 5c fb ff ff 85 c0 79 bd <0f=
-> 0b 31 f6 4c 89 c7 e8 7c 8a c8 ff 48 8b 04 dd 80 29 3e 82 4a c7
-[  219.858538] RSP: e02b:ffffc9000025be10 EFLAGS: 00010082
-[  219.858542] RAX: ffffffffffffffea RBX: 0000000000000000 RCX: 00000000000=
-00000
-[  219.858545] RDX: ffff888018400000 RSI: ffffc9000025bde0 RDI: 00000000000=
-0000b
-[  219.858548] RBP: 0000000000000000 R08: ffff888018143000 R09: 00000000000=
-001e0
-[  219.858552] R10: ffff88800e50f440 R11: ffffc9000025bcbd R12: 00000000000=
-26ea0
-[  219.858555] R13: 0000000000000000 R14: ffffc9000029bdf8 R15: 00000000000=
-00003
-[  219.858567] FS:  0000000000000000(0000) GS:ffff888018400000(0000) knlGS:=
-0000000000000000
-[  219.858571] CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  219.858574] CR2: 0000581c2753e030 CR3: 000000000260a000 CR4: 00000000000=
-00660
-[  219.858578] Call Trace:
-[  219.858615]  xen_irq_resume+0x1b/0xe0
-[  219.858620]  xen_suspend+0x13e/0x190
-[  219.858626]  multi_cpu_stop+0x6c/0x100
-[  219.858630]  ? stop_machine_yield+0x10/0x10
-[  219.858633]  cpu_stopper_thread+0xb0/0x110
-[  219.858638]  smpboot_thread_fn+0xc5/0x160
-[  219.858641]  ? smpboot_register_percpu_thread+0xf0/0xf0
-[  219.858645]  kthread+0x115/0x140
-[  219.858648]  ? __kthread_bind_mask+0x60/0x60
-[  219.858653]  ret_from_fork+0x22/0x40
-[  219.858657] Modules linked in: nf_conntrack_netlink nft_reject_ipv4 nft_=
-reject xt_nat nf_tables_set nft_ct nf_tables nfnetlink e1000e rfkill xt_RED=
-IRECT ip6table_filter ip6table_mangle ip6table_raw ip6_tables edac_mce_amd =
-pcspkr ipt_REJECT nf_reject_ipv4 xen_pcifront xt_state xt_conntrack iptable=
-_filter iptable_mangle iptable_raw xt_MASQUERADE iptable_nat nf_nat nf_conn=
-track nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c xen_scsiback target_core_mod =
-xen_netback xen_privcmd xen_gntdev xen_gntalloc xen_blkback xen_evtchn drm =
-fuse ip_tables overlay xen_blkfront
-[  219.858754] ---[ end trace 54d868ea756768db ]---
-[  219.858758] RIP: e030:evtchn_fifo_resume+0x58/0x90
-[  219.858762] Code: eb 48 8b 04 dd 80 29 3e 82 4e 8b 04 20 4d 85 c0 74 d5 =
-48 0f a3 1d b8 40 20 01 73 10 4c 89 c6 89 ef e8 5c fb ff ff 85 c0 79 bd <0f=
-> 0b 31 f6 4c 89 c7 e8 7c 8a c8 ff 48 8b 04 dd 80 29 3e 82 4a c7
-[  219.858768] RSP: e02b:ffffc9000025be10 EFLAGS: 00010082
-[  219.858770] RAX: ffffffffffffffea RBX: 0000000000000000 RCX: 00000000000=
-00000
-[  219.858774] RDX: ffff888018400000 RSI: ffffc9000025bde0 RDI: 00000000000=
-0000b
-[  219.858777] RBP: 0000000000000000 R08: ffff888018143000 R09: 00000000000=
-001e0
-[  219.858780] R10: ffff88800e50f440 R11: ffffc9000025bcbd R12: 00000000000=
-26ea0
-[  219.858783] R13: 0000000000000000 R14: ffffc9000029bdf8 R15: 00000000000=
-00003
-[  219.858790] FS:  0000000000000000(0000) GS:ffff888018400000(0000) knlGS:=
-0000000000000000
-[  219.858793] CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  219.858796] CR2: 0000581c2753e030 CR3: 000000000260a000 CR4: 00000000000=
-00660
-[  219.858801] Kernel panic - not syncing: Fatal exception
-[  219.858819] Kernel Offset: disabled
+flight 159438 linux-5.4 real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159438/
 
-Note the time besides "register_vcpu_info failed" - it is in the future.
-I think the offset depends on the uptime, with shorter uptime I get much
-smaller difference (like 49 vs 51).
+Failures :-/ but no regressions.
 
-Any ideas?
+Tests which did not succeed,
+including tests which could not be run:
+ test-armhf-armhf-xl-multivcpu 14 guest-start            fail baseline untested
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---L2+TYTG2qmBDfrpw
-Content-Type: application/pgp-signature; name="signature.asc"
+jobs:
+ test-armhf-armhf-xl-multivcpu                                fail    
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmAspaQACgkQ24/THMrX
-1yxwjwgAj8AL+J6HxH9lwMsGR19Ghz8uJu6zC93lTr6xH/AiSqwoiEsVwRdcvxs6
-YiEDGyJjfnu5ea+GhTooWplyTcIMI01IdLbogtncnzlH4YrKJn/Oo/31Of3toL0n
-ubyDfPHHnbBOqDiD+0XL009xWbSpdNxhiuQbA+3TGjn/y7k99boPjqZuuoWe+NwE
-AK6ebMMw6czL9+HJnSiOuxODy69e02rN5FPds9ZMz+uJFExhq3A3on5BTAN05zcB
-bltwV/fvMhy0UEybouzYwSuJYkuZucWPHrz3mOfte20oMkExn642H4OHFCdiM5+W
-84BmZ2lNewz0/v0h5BJaRNJNlUMAyw==
-=MOTm
------END PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---L2+TYTG2qmBDfrpw--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
