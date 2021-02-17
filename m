@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D41A631D3DC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 02:57:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86093.161217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BCEA31D3E2
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 03:01:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86096.161230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCC4r-0007nR-P7; Wed, 17 Feb 2021 01:56:29 +0000
+	id 1lCC9G-0000cm-A4; Wed, 17 Feb 2021 02:01:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86093.161217; Wed, 17 Feb 2021 01:56:29 +0000
+Received: by outflank-mailman (output) from mailman id 86096.161230; Wed, 17 Feb 2021 02:01:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCC4r-0007n9-LL; Wed, 17 Feb 2021 01:56:29 +0000
-Received: by outflank-mailman (input) for mailman id 86093;
- Wed, 17 Feb 2021 01:56:28 +0000
+	id 1lCC9G-0000cQ-73; Wed, 17 Feb 2021 02:01:02 +0000
+Received: by outflank-mailman (input) for mailman id 86096;
+ Wed, 17 Feb 2021 02:01:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nkg6=HT=runbox.com=m.v.b@srs-us1.protection.inumbo.net>)
- id 1lCC4p-0007n4-Na
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 01:56:28 +0000
-Received: from aibo.runbox.com (unknown [91.220.196.211])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RvmJ=HT=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lCC9E-0000cL-IS
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 02:01:00 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e26e0f9f-3e25-45d5-867e-cf79746ae4c4;
- Wed, 17 Feb 2021 01:56:25 +0000 (UTC)
-Received: from [10.9.9.73] (helo=submission02.runbox)
- by mailtransmit03.runbox with esmtp (Exim 4.86_2)
- (envelope-from <m.v.b@runbox.com>)
- id 1lCC4k-000717-43; Wed, 17 Feb 2021 02:56:22 +0100
-Received: by submission02.runbox with esmtpsa [Authenticated alias (536975)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1lCC4Q-0007xM-Ug; Wed, 17 Feb 2021 02:56:03 +0100
+ id 0c52f67a-e934-4578-ad52-b3876bb01e7c;
+ Wed, 17 Feb 2021 02:00:59 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F185461490;
+ Wed, 17 Feb 2021 02:00:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,90 +38,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e26e0f9f-3e25-45d5-867e-cf79746ae4c4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector2; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=pyYlGNUAqjEgpRSUkNyi4+J7eM7ekIrYP7jIlz2vcPk=; b=zwnVgG3RmBo4O3l+qQeQ+OmnMZ
-	cpsBI+HQMNg83pJwMM4K9wL7blFsi6EiXD3y1r7bYMkqV1qLa9OBKvL2cZga51HkXFVdoE5yo9zCd
-	Z9oUxgaCEMOIJzowypdLrFjcTbhUCQwyQM52cWZiE8G/Wk8Ntq9MVdkk6ENEgClXHzGLabHf6kd5h
-	RCq3ZAa3oBWBbutOXIjCvL78rWSD7mkd2D+FAzb+n15fYiLEFMfNLYnNnFbTGkmRpbzQ2ReFnZif6
-	1DO30YPL7VQVjcSNOdHykHM7Gc3zUT1WZ9fd1O1L/N3CKGpw6ngJ09StzM5ooZYVnGDNLXe0zdNWm
-	CI30NJaw==;
-Subject: Re: [PATCH 1/1] x86/ept: Fix buggy XSA-321 backport
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
- jbeulich@suse.com
-References: <20210215234619.245422-1-m.v.b@runbox.com>
- <20210215234619.245422-2-m.v.b@runbox.com> <YCuOQ3qpFD6RgIld@Air-de-Roger>
- <5517e20e-c485-7016-da89-81570cc43b3b@runbox.com>
-Message-ID: <aad766de-2e2a-2f64-a839-9c7a5a9e4d6f@runbox.com>
-Date: Tue, 16 Feb 2021 20:55:59 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+X-Inumbo-ID: 0c52f67a-e934-4578-ad52-b3876bb01e7c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1613527259;
+	bh=lCB1K9uBBMXlnp4KoJgH5VnUKB9q33drNtgI1C16sO8=;
+	h=Date:From:To:cc:Subject:From;
+	b=pGwA5+jmwgoHhBT1B3Yf0mMT6h5uBcYOyl6LTECyO8U0gTOEuaAB088225J7tzg3I
+	 8XBggWjyazDMdlf7F8Dho+9K1phbMg6At2bt0cJx4KW1PMJz7rA43AXfYwGANUztuN
+	 O8P36zSMAIv4JOxjooiYcQ4PhP46HH5pFTcxTYOlJTu7twdgePf35vWIB+5yWfGOvS
+	 TaTmu9TZy3C0U/wKKiwOOPGGTB1ErSczaY30dP17hubPyomvV8KwpsAlfSSY3DoUwh
+	 V6SNI0jwHD2uiYHUaVgpMAX+qRYcVe7cOPNbfoTT0n3JV9szFYE1UJC0g8+F8AqmlA
+	 I33z8pJMCpe8g==
+Date: Tue, 16 Feb 2021 18:00:57 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: julien@xen.org
+cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org, 
+    Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com, rahul.singh@arm.com
+Subject: [RFC] xen/arm: introduce XENFEAT_ARM_dom0_iommu
+Message-ID: <alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <5517e20e-c485-7016-da89-81570cc43b3b@runbox.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-CA
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 16/02/2021 07.48, M. Vefa Bicakci wrote:
-> On 16/02/2021 04.20, Roger Pau Monné wrote:
->> On Mon, Feb 15, 2021 at 06:46:19PM -0500, M. Vefa Bicakci wrote:
-> 
-[snipped by Vefa]
-> >> In any case I think this is too much change, so I would go for a
->> smaller fix like my proposal below. Can you please test it?
-> 
-> Thank you! I will test your patch later today, and I will report
-> back by tomorrow.
-> 
-[snipped by Vefa]
-> 
->> Here is my proposed fix, I think we could even do away with the else
->> branch, but if level is != 0 p2m_is_foreign should be false, so we
->> avoid an extra check.
->>
->> Thanks, Roger.
-> 
-> I will test this. Thanks again! I really appreciate that you have
-> have taken the time and effort.
-> 
-> Vefa
+Hi all,
 
-Hello Roger,
+Today Linux uses the swiotlb-xen driver (drivers/xen/swiotlb-xen.c) to
+translate addresses for DMA operations in Dom0. Specifically,
+swiotlb-xen is used to translate the address of a foreign page (a page
+belonging to a domU) mapped into Dom0 before using it for DMA.
 
-I have tested your patch, and I am happy to confirm that it too resolves
-the issue I have described in my original patch description. Thank you!
+This is important because although Dom0 is 1:1 mapped, DomUs are not. On
+systems without an IOMMU swiotlb-xen enables PV drivers to work as long
+as the backends are in Dom0. Thanks to swiotlb-xen, the DMA operation
+ends up using the MFN, rather than the GFN.
 
-When I find some more time, I would like to prepare a GitHub pull request
-for Qubes OS 4.0's version of Xen 4.8.5 with your patch so that other users
-do not encounter the same issue. I would like to properly credit your
-contribution. Would you be able to send a patch with a Signed-off-by tag
-in its description?
 
-Thanks again,
+On systems with an IOMMU, this is not necessary: when a foreign page is
+mapped in Dom0, it is added to the Dom0 p2m. A new GFN->MFN translation
+is enstablished for both MMU and SMMU. Dom0 could safely use the GFN
+address (instead of the MFN) for DMA operations and they would work. It
+would be more efficient than using swiotlb-xen.
 
-Vefa
+If you recall my presentation from Xen Summit 2020, Xilinx is working on
+cache coloring. With cache coloring, no domain is 1:1 mapped, not even
+Dom0. In a scenario where Dom0 is not 1:1 mapped, swiotlb-xen does not
+work as intended.
 
->> ---8<---
->> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
->> index 036771f43c..086739ffdd 100644
->> --- a/xen/arch/x86/mm/p2m-ept.c
->> +++ b/xen/arch/x86/mm/p2m-ept.c
->> @@ -56,11 +56,8 @@ static int atomic_write_ept_entry(ept_entry_t *entryptr, ept_entry_t new,
->>       if ( level )
->>       {
->>           ASSERT(!is_epte_superpage(&new) || !p2m_is_foreign(new.sa_p2mt));
->> -        write_atomic(&entryptr->epte, new.epte);
->> -        return 0;
->>       }
->> -
->> -    if ( unlikely(p2m_is_foreign(new.sa_p2mt)) )
->> +    else if ( unlikely(p2m_is_foreign(new.sa_p2mt)) )
->>       {
->>           rc = -EINVAL;
->>           if ( !is_epte_present(&new) )
->>
+
+The suggested solution for both these issues is to add a new feature
+flag "XENFEAT_ARM_dom0_iommu" that tells Dom0 that it is safe not to use
+swiotlb-xen because IOMMU translations are available for Dom0. If
+XENFEAT_ARM_dom0_iommu is set, Linux should skip the swiotlb-xen
+initialization. I have tested this scheme with and without cache
+coloring (hence with and without 1:1 mapping of Dom0) on ZCU102 and it
+works as expected: DMA operations succeed.
+
+
+What about systems where an IOMMU is present but not all devices are
+protected?
+
+There is no way for Xen to know which devices are protected and which
+ones are not: devices that do not have the "iommus" property could or
+could not be DMA masters.
+
+Perhaps Xen could populate a whitelist of devices protected by the IOMMU
+based on the "iommus" property. It would require some added complexity
+in Xen and especially in the swiotlb-xen driver in Linux to use it,
+which is not ideal. However, this approach would not work for cache
+coloring where dom0 is not 1:1 mapped so the swiotlb-xen should not be
+used either way.
+
+
+For these reasons, I would like to propose a single flag
+XENFEAT_ARM_dom0_iommu which says that the IOMMU can be relied upon for
+DMA translations. In situations where a DMA master is not SMMU
+protected, XENFEAT_ARM_dom0_iommu should not be set. For example, on a
+platform where an IOMMU is present and protects most DMA masters but it
+is leaving out the MMC controller, then XENFEAT_ARM_dom0_iommu should
+not be set (because PV block is not going to work without swiotlb-xen.)
+This also means that cache coloring won't be usable on such a system (at
+least not usable with the MMC controller so the system integrator should
+pay special care to setup the system).
+
+It is worth noting that if we wanted to extend the interface to add a
+list of protected devices in the future, it would still be possible. It
+would be compatible with XENFEAT_ARM_dom0_iommu.
+
+
+How to set XENFEAT_ARM_dom0_iommu?
+
+We could set XENFEAT_ARM_dom0_iommu automatically when
+is_iommu_enabled(d) for Dom0. We could also have a platform specific
+(xen/arch/arm/platforms/) override so that a specific platform can
+disable XENFEAT_ARM_dom0_iommu. For debugging purposes and advanced
+users, it would also be useful to be able to override it via a Xen
+command line parameter.
+
+See appended patch as a reference.
+
+
+Cheers,
+
+Stefano
+
+
+diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+index 7a345ae45e..4dbef48199 100644
+--- a/xen/common/kernel.c
++++ b/xen/common/kernel.c
+@@ -16,6 +16,7 @@
+ #include <xen/hypfs.h>
+ #include <xsm/xsm.h>
+ #include <asm/current.h>
++#include <asm/platform.h>
+ #include <public/version.h>
+ 
+ #ifndef COMPAT
+@@ -549,6 +550,9 @@ DO(xen_version)(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+                 fi.submap |= 1U << XENFEAT_dom0;
+ #ifdef CONFIG_ARM
+             fi.submap |= (1U << XENFEAT_ARM_SMCCC_supported);
++            if ( !platform_has_quirk(PLATFORM_QUIRK_DOM0_IOMMU) &&
++                 is_hardware_domain(d) && is_iommu_enabled(d) )
++                fi.submap |= (1U << XENFEAT_ARM_dom0_iommu);
+ #endif
+ #ifdef CONFIG_X86
+             if ( is_pv_domain(d) )
+diff --git a/xen/include/asm-arm/platform.h b/xen/include/asm-arm/platform.h
+index 997eb25216..094a76d677 100644
+--- a/xen/include/asm-arm/platform.h
++++ b/xen/include/asm-arm/platform.h
+@@ -48,6 +48,11 @@ struct platform_desc {
+  * stride.
+  */
+ #define PLATFORM_QUIRK_GIC_64K_STRIDE (1 << 0)
++/*
++ * Quirk for platforms where the IOMMU is present but doesn't protect
++ * all DMA-capable devices.
++ */
++#define PLATFORM_QUIRK_DOM0_IOMMU (1 << 1)
+ 
+ void platform_init(void);
+ int platform_init_time(void);
+diff --git a/xen/include/asm-x86/platform.h b/xen/include/asm-x86/platform.h
+new file mode 100644
+index 0000000000..5427e8b851
+--- /dev/null
++++ b/xen/include/asm-x86/platform.h
+@@ -0,0 +1,13 @@
++#ifndef __ASM_X86_PLATFORM_H
++#define __ASM_X86_PLATFORM_H
++
++#endif /* __ASM_X86_PLATFORM_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/include/public/features.h b/xen/include/public/features.h
+index 1613b2aab8..adaa2a995d 100644
+--- a/xen/include/public/features.h
++++ b/xen/include/public/features.h
+@@ -114,6 +114,11 @@
+  */
+ #define XENFEAT_linux_rsdp_unrestricted   15
+ 
++/*
++ * arm: dom0 is started with IOMMU protection.
++ */
++#define XENFEAT_ARM_dom0_iommu            16
++
+ #define XENFEAT_NR_SUBMAPS 1
+ 
+ #endif /* __XEN_PUBLIC_FEATURES_H__ */
 
