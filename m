@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E11631D67F
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 09:21:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86154.161420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812D731D683
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 09:23:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86156.161432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCI5c-0002mL-77; Wed, 17 Feb 2021 08:21:40 +0000
+	id 1lCI6X-0002vT-MY; Wed, 17 Feb 2021 08:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86154.161420; Wed, 17 Feb 2021 08:21:40 +0000
+Received: by outflank-mailman (output) from mailman id 86156.161432; Wed, 17 Feb 2021 08:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCI5c-0002lr-3O; Wed, 17 Feb 2021 08:21:40 +0000
-Received: by outflank-mailman (input) for mailman id 86154;
- Wed, 17 Feb 2021 08:21:39 +0000
+	id 1lCI6X-0002v4-JO; Wed, 17 Feb 2021 08:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 86156;
+ Wed, 17 Feb 2021 08:22:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lCI5a-0002le-Vw
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 08:21:39 +0000
+ id 1lCI6V-0002up-62
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 08:22:35 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2974b1bc-d770-4709-90fe-f662433d92f3;
- Wed, 17 Feb 2021 08:21:38 +0000 (UTC)
+ id f628108d-e73d-42dc-8205-5d6795168574;
+ Wed, 17 Feb 2021 08:22:34 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1E21FB926;
- Wed, 17 Feb 2021 08:21:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4B379B923;
+ Wed, 17 Feb 2021 08:22:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,26 +38,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2974b1bc-d770-4709-90fe-f662433d92f3
+X-Inumbo-ID: f628108d-e73d-42dc-8205-5d6795168574
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613550097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1613550153; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7+4q+ReB9EfmNerxV8ac8BV2+CtbLgs3ung/R2kapNU=;
-	b=k7iTE3VpfSst3expp3Wj8nbpoeGkALM+7WFo8YAO7VueCMHke1xnA/jbuLnXQfd5sAMQTE
-	VXD6YarR22lw7kIZEnqcim9pKclepIlB33ZdGye2w47jeRMMyXeNR/LuviR8eKaGGtFMeX
-	VJefGqYJ5OenTl04gnAQrZrHrhnyfA0=
-Subject: [PATCH v2 5/8] x86/gdbsx: convert "user" to "guest" accesses
+	bh=PqIHI9Fdsb5Eyg+96N6bfOyORZFtSfdfSsVAnEtdCGg=;
+	b=O1fAS4TW5yxmzbIzQt4k6x8gcZSRp65JcaxTSNbgq5oEMMjRM8CEnW7S2/eOi5FrOiZvt+
+	i/uorsRoOcsBGMsOEzHQuddvunLhrEL5TSYMIOWQVI5pFdAllb6ZBhV0MZ/oWrrZgA3k8a
+	5r6F8TuWU8eebNdGsOcR7zxKohMgdHo=
+Subject: [PATCH v2 6/8] x86: rename copy_{from,to}_user() to
+ copy_{from,to}_guest_pv()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>
 References: <b466a19e-e547-3c7c-e39b-1a4c848a053a@suse.com>
-Message-ID: <d1a1b9eb-33b4-4d07-9465-189699f88323@suse.com>
-Date: Wed, 17 Feb 2021 09:21:36 +0100
+Message-ID: <5104a32f-e2a1-06a5-a637-9702e4562b81@suse.com>
+Date: Wed, 17 Feb 2021 09:22:32 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
@@ -66,105 +67,187 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Using copy_{from,to}_user(), this code was assuming to be called only by
-PV guests. Use copy_{from,to}_guest() instead, transforming the incoming
-structure field into a guest handle (the field should really have been
-one in the first place). Also do not transform the debuggee address into
-a pointer.
+Bring them (back) in line with __copy_{from,to}_guest_pv(). Since it
+falls in the same group, also convert clear_user(). Instead of adjusting
+__raw_clear_guest(), drop it - it's unused and would require a non-
+checking __clear_guest_pv() which we don't have.
+
+Add previously missing __user at some call sites and in the function
+declarations.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Re-base (bug fix side effect was taken care of already).
 
---- a/xen/arch/x86/debug.c
-+++ b/xen/arch/x86/debug.c
-@@ -108,12 +108,11 @@ dbg_pv_va2mfn(dbgva_t vaddr, struct doma
- }
+--- a/xen/arch/x86/pv/emul-inv-op.c
++++ b/xen/arch/x86/pv/emul-inv-op.c
+@@ -33,7 +33,7 @@ static int emulate_forced_invalid_op(str
+     eip = regs->rip;
  
- /* Returns: number of bytes remaining to be copied */
--static unsigned int dbg_rw_guest_mem(struct domain *dp, void * __user gaddr,
--                                     void * __user buf, unsigned int len,
--                                     bool toaddr, uint64_t pgd3)
-+static unsigned int dbg_rw_guest_mem(struct domain *dp, unsigned long addr,
-+                                     XEN_GUEST_HANDLE_PARAM(void) buf,
-+                                     unsigned int len, bool toaddr,
-+                                     uint64_t pgd3)
- {
--    unsigned long addr = (unsigned long)gaddr;
--
-     while ( len > 0 )
+     /* Check for forced emulation signature: ud2 ; .ascii "xen". */
+-    if ( (rc = copy_from_user(sig, (char *)eip, sizeof(sig))) != 0 )
++    if ( (rc = copy_from_guest_pv(sig, (char __user *)eip, sizeof(sig))) != 0 )
      {
-         char *va;
-@@ -134,20 +133,18 @@ static unsigned int dbg_rw_guest_mem(str
+         pv_inject_page_fault(0, eip + sizeof(sig) - rc);
+         return EXCRET_fault_fixed;
+@@ -43,7 +43,8 @@ static int emulate_forced_invalid_op(str
+     eip += sizeof(sig);
  
-         if ( toaddr )
+     /* We only emulate CPUID. */
+-    if ( ( rc = copy_from_user(instr, (char *)eip, sizeof(instr))) != 0 )
++    if ( (rc = copy_from_guest_pv(instr, (char __user *)eip,
++                                  sizeof(instr))) != 0 )
+     {
+         pv_inject_page_fault(0, eip + sizeof(instr) - rc);
+         return EXCRET_fault_fixed;
+--- a/xen/arch/x86/pv/iret.c
++++ b/xen/arch/x86/pv/iret.c
+@@ -54,8 +54,8 @@ unsigned long do_iret(void)
+     struct iret_context iret_saved;
+     struct vcpu *v = current;
+ 
+-    if ( unlikely(copy_from_user(&iret_saved, (void *)regs->rsp,
+-                                 sizeof(iret_saved))) )
++    if ( unlikely(copy_from_guest_pv(&iret_saved, (void __user *)regs->rsp,
++                                     sizeof(iret_saved))) )
+     {
+         gprintk(XENLOG_ERR,
+                 "Fault while reading IRET context from guest stack\n");
+--- a/xen/arch/x86/pv/ro-page-fault.c
++++ b/xen/arch/x86/pv/ro-page-fault.c
+@@ -90,7 +90,8 @@ static int ptwr_emulated_update(unsigned
+ 
+         /* Align address; read full word. */
+         addr &= ~(sizeof(full) - 1);
+-        if ( (rc = copy_from_user(&full, (void *)addr, sizeof(full))) != 0 )
++        if ( (rc = copy_from_guest_pv(&full, (void __user *)addr,
++                                      sizeof(full))) != 0 )
          {
--            copy_from_user(va, buf, pagecnt);    /* va = buf */
-+            copy_from_guest(va, buf, pagecnt);
-             paging_mark_dirty(dp, mfn);
-         }
-         else
--        {
--            copy_to_user(buf, va, pagecnt);    /* buf = va */
--        }
-+            copy_to_guest(buf, va, pagecnt);
+             x86_emul_pagefault(0, /* Read fault. */
+                                addr + sizeof(full) - rc,
+--- a/xen/arch/x86/usercopy.c
++++ b/xen/arch/x86/usercopy.c
+@@ -109,19 +109,17 @@ unsigned int copy_from_guest_ll(void *to
+ #if GUARD(1) + 0
  
-         unmap_domain_page(va);
-         if ( !gfn_eq(gfn, INVALID_GFN) )
-             put_gfn(dp, gfn_x(gfn));
- 
-         addr += pagecnt;
--        buf += pagecnt;
-+        guest_handle_add_offset(buf, pagecnt);
-         len -= pagecnt;
-     }
- 
-@@ -161,7 +158,7 @@ static unsigned int dbg_rw_guest_mem(str
-  * pgd3: value of init_mm.pgd[3] in guest. see above.
-  * Returns: number of bytes remaining to be copied.
+ /**
+- * copy_to_user: - Copy a block of data into user space.
+- * @to:   Destination address, in user space.
+- * @from: Source address, in kernel space.
++ * copy_to_guest_pv: - Copy a block of data into guest space.
++ * @to:   Destination address, in guest space.
++ * @from: Source address, in hypervisor space.
+  * @n:    Number of bytes to copy.
+  *
+- * Context: User context only.  This function may sleep.
+- *
+- * Copy data from kernel space to user space.
++ * Copy data from hypervisor space to guest space.
+  *
+  * Returns number of bytes that could not be copied.
+  * On success, this will be zero.
   */
--unsigned int dbg_rw_mem(void * __user addr, void * __user buf,
-+unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
-                         unsigned int len, domid_t domid, bool toaddr,
-                         uint64_t pgd3)
+-unsigned copy_to_user(void __user *to, const void *from, unsigned n)
++unsigned int copy_to_guest_pv(void __user *to, const void *from, unsigned int n)
  {
-@@ -170,7 +167,7 @@ unsigned int dbg_rw_mem(void * __user ad
-     if ( d )
-     {
-         if ( !d->is_dying )
--            len = dbg_rw_guest_mem(d, addr, buf, len, toaddr, pgd3);
-+            len = dbg_rw_guest_mem(d, gva, buf, len, toaddr, pgd3);
-         rcu_unlock_domain(d);
-     }
- 
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -40,10 +40,8 @@
- #ifdef CONFIG_GDBSX
- static int gdbsx_guest_mem_io(domid_t domid, struct xen_domctl_gdbsx_memio *iop)
- {
--    void * __user gva = (void *)iop->gva, * __user uva = (void *)iop->uva;
--
--    iop->remain = dbg_rw_mem(gva, uva, iop->len, domid,
--                             !!iop->gwr, iop->pgd3val);
-+    iop->remain = dbg_rw_mem(iop->gva, guest_handle_from_ptr(iop->uva, void),
-+                             iop->len, domid, iop->gwr, iop->pgd3val);
- 
-     return iop->remain ? -EFAULT : 0;
+     if ( access_ok(to, n) )
+         n = __copy_to_guest_pv(to, from, n);
+@@ -129,16 +127,16 @@ unsigned copy_to_user(void __user *to, c
  }
---- a/xen/include/asm-x86/debugger.h
-+++ b/xen/include/asm-x86/debugger.h
-@@ -93,9 +93,9 @@ static inline bool debugger_trap_entry(
- #endif
  
- #ifdef CONFIG_GDBSX
--unsigned int dbg_rw_mem(void * __user addr, void * __user buf,
-+unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
-                         unsigned int len, domid_t domid, bool toaddr,
--                        uint64_t pgd3);
-+                        unsigned long pgd3);
- #endif
+ /**
+- * clear_user: - Zero a block of memory in user space.
+- * @to:   Destination address, in user space.
++ * clear_guest_pv: - Zero a block of memory in guest space.
++ * @to:   Destination address, in guest space.
+  * @n:    Number of bytes to zero.
+  *
+- * Zero a block of memory in user space.
++ * Zero a block of memory in guest space.
+  *
+  * Returns number of bytes that could not be cleared.
+  * On success, this will be zero.
+  */
+-unsigned clear_user(void __user *to, unsigned n)
++unsigned int clear_guest_pv(void __user *to, unsigned int n)
+ {
+     if ( access_ok(to, n) )
+     {
+@@ -168,14 +166,12 @@ unsigned clear_user(void __user *to, uns
+ }
  
- #endif /* __X86_DEBUGGER_H__ */
+ /**
+- * copy_from_user: - Copy a block of data from user space.
+- * @to:   Destination address, in kernel space.
+- * @from: Source address, in user space.
++ * copy_from_guest_pv: - Copy a block of data from guest space.
++ * @to:   Destination address, in hypervisor space.
++ * @from: Source address, in guest space.
+  * @n:    Number of bytes to copy.
+  *
+- * Context: User context only.  This function may sleep.
+- *
+- * Copy data from user space to kernel space.
++ * Copy data from guest space to hypervisor space.
+  *
+  * Returns number of bytes that could not be copied.
+  * On success, this will be zero.
+@@ -183,7 +179,8 @@ unsigned clear_user(void __user *to, uns
+  * If some data could not be copied, this function will pad the copied
+  * data to the requested size using zero bytes.
+  */
+-unsigned copy_from_user(void *to, const void __user *from, unsigned n)
++unsigned int copy_from_guest_pv(void *to, const void __user *from,
++                                unsigned int n)
+ {
+     if ( access_ok(from, n) )
+         n = __copy_from_guest_pv(to, from, n);
+--- a/xen/include/asm-x86/guest_access.h
++++ b/xen/include/asm-x86/guest_access.h
+@@ -16,15 +16,15 @@
+ #define raw_copy_to_guest(dst, src, len)        \
+     (is_hvm_vcpu(current) ?                     \
+      copy_to_user_hvm((dst), (src), (len)) :    \
+-     copy_to_user((dst), (src), (len)))
++     copy_to_guest_pv(dst, src, len))
+ #define raw_copy_from_guest(dst, src, len)      \
+     (is_hvm_vcpu(current) ?                     \
+      copy_from_user_hvm((dst), (src), (len)) :  \
+-     copy_from_user((dst), (src), (len)))
++     copy_from_guest_pv(dst, src, len))
+ #define raw_clear_guest(dst,  len)              \
+     (is_hvm_vcpu(current) ?                     \
+      clear_user_hvm((dst), (len)) :             \
+-     clear_user((dst), (len)))
++     clear_guest_pv(dst, len))
+ #define __raw_copy_to_guest(dst, src, len)      \
+     (is_hvm_vcpu(current) ?                     \
+      copy_to_user_hvm((dst), (src), (len)) :    \
+@@ -33,10 +33,6 @@
+     (is_hvm_vcpu(current) ?                     \
+      copy_from_user_hvm((dst), (src), (len)) :  \
+      __copy_from_guest_pv(dst, src, len))
+-#define __raw_clear_guest(dst,  len)            \
+-    (is_hvm_vcpu(current) ?                     \
+-     clear_user_hvm((dst), (len)) :             \
+-     clear_user((dst), (len)))
+ 
+ /*
+  * Pre-validate a guest handle.
+--- a/xen/include/asm-x86/uaccess.h
++++ b/xen/include/asm-x86/uaccess.h
+@@ -9,9 +9,11 @@
+ 
+ #include <asm/x86_64/uaccess.h>
+ 
+-unsigned copy_to_user(void *to, const void *from, unsigned len);
+-unsigned clear_user(void *to, unsigned len);
+-unsigned copy_from_user(void *to, const void *from, unsigned len);
++unsigned int copy_to_guest_pv(void __user *to, const void *from,
++                              unsigned int len);
++unsigned int clear_guest_pv(void __user *to, unsigned int len);
++unsigned int copy_from_guest_pv(void *to, const void __user *from,
++                                unsigned int len);
+ 
+ /* Handles exceptions in both to and from, but doesn't do access_ok */
+ unsigned int copy_to_guest_ll(void __user*to, const void *from, unsigned int n);
 
 
