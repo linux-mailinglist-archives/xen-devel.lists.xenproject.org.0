@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A3DA31DB81
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 15:32:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86297.161923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6583031DBB9
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 15:54:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86303.161934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCNrw-0006k0-Ti; Wed, 17 Feb 2021 14:31:56 +0000
+	id 1lCODh-0000DD-Pd; Wed, 17 Feb 2021 14:54:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86297.161923; Wed, 17 Feb 2021 14:31:56 +0000
+Received: by outflank-mailman (output) from mailman id 86303.161934; Wed, 17 Feb 2021 14:54:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCNrw-0006jb-QN; Wed, 17 Feb 2021 14:31:56 +0000
-Received: by outflank-mailman (input) for mailman id 86297;
- Wed, 17 Feb 2021 14:31:55 +0000
+	id 1lCODh-0000Cr-Mg; Wed, 17 Feb 2021 14:54:25 +0000
+Received: by outflank-mailman (input) for mailman id 86303;
+ Wed, 17 Feb 2021 14:54:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GfGR=HT=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1lCNrv-0006jW-Oo
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 14:31:55 +0000
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lCODf-0000Cj-SP
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 14:54:23 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef74b978-a6b5-4adb-8a5e-9912f77cc903;
- Wed, 17 Feb 2021 14:31:54 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id g6so17596810wrs.11
- for <xen-devel@lists.xenproject.org>; Wed, 17 Feb 2021 06:31:54 -0800 (PST)
-Received: from [192.168.1.36] (68.red-83-57-175.dynamicip.rima-tde.net.
- [83.57.175.68])
- by smtp.gmail.com with ESMTPSA id f14sm3183012wmc.32.2021.02.17.06.31.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Feb 2021 06:31:53 -0800 (PST)
+ id e1914e24-ecf2-4c54-9d08-0b923d4dc645;
+ Wed, 17 Feb 2021 14:54:23 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 421DBB8FA;
+ Wed, 17 Feb 2021 14:54:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,82 +37,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: ef74b978-a6b5-4adb-8a5e-9912f77cc903
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=BHNj0CsMa8fBSRbxi+Me5az+imrRkM91kLCrLrDQvAA=;
-        b=RkKkcOCsCXWjZNtTrohUTRVjmHmeqePt0CR5mWa8AjZQDEcn4wCQT9VbjL6XWj1zz6
-         Xu1/MV+8SUi31koMrWxrOPw/BJNraCbgEs9uZ4lP29GPqJQWcbq4/EI7y3JshdOZ43K0
-         Ol0eLHEe9MqOwWnIbcGm9fghtTF8KYJ/jGlOLlAzR03Re7cSYc7MnoLVJcyfnpANEz9C
-         43ajeTmAhhF/xtHKBcNkDTCFaBRz43cakBojyQq+paTwjtuKs5RgFkvUg1pi3OgzKcDY
-         0osS45Jfe5PG1YqiYJwzIH9x9A+DCU2YqMzeHdQvu5qOzrRDmWjD9YkMxKnIQXWM/ODT
-         ZHRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=BHNj0CsMa8fBSRbxi+Me5az+imrRkM91kLCrLrDQvAA=;
-        b=nHkhXiOIyJ1NGJi2KSYFLLWVfpiCX9wQLdtOuE0xTSRd+FN+HUczSsHxL5AZSp4+sl
-         VLZ/kXViP+PPMbG8CFhOAaiIitKxSKXl+KFwTdzSWx8Zttqkhetqnwoq87eG9fyJs61K
-         exmDDQNH1zpQUKHcJSTYKRs8PzrXJIE4Hs079mfriVCHIiJLQMxD1Fd1VItEhi5YJREL
-         8l+vtl6y4B8Dp4GpmKnZgYKkzmhscSHp5raeqzD5Uva45V6zWZ9QiReson8ogK4xMiPM
-         0IA+PkS7gOFX+XHxRjwzBAJ0ed6hho3Yq3z36C4JgtoqTIGdfhSgGMW9HvmCLJLZQ16/
-         YzTA==
-X-Gm-Message-State: AOAM530nuf7/80YYn3/h3YPEPgTQrbwQthjoOEEQ7690/tLs0u6NW6YH
-	8N4enHzUmQi8RxSC+JiN2uM=
-X-Google-Smtp-Source: ABdhPJwwpnlY8JJhdMQeN9JKBjWyuJTspQXY6pyTHoJ9TDkPo2M5y1c0t9Zqctp5xYzHnvaUxDoegw==
-X-Received: by 2002:adf:a2c2:: with SMTP id t2mr10810395wra.47.1613572314058;
-        Wed, 17 Feb 2021 06:31:54 -0800 (PST)
-Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
-Subject: Re: [PATCH v2 7/7] tests/avocado: add boot_xen tests
-To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org
-Cc: julien@xen.org, stefano.stabellini@linaro.org,
- stefano.stabellini@xilinx.com, andre.przywara@arm.com,
- stratos-dev@op-lists.linaro.org, xen-devel@lists.xenproject.org,
- Cleber Rosa <crosa@redhat.com>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>
-References: <20210211171945.18313-1-alex.bennee@linaro.org>
- <20210211171945.18313-8-alex.bennee@linaro.org>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
-Message-ID: <16d8366f-6f94-3a97-b9e0-9962e3d173a1@amsat.org>
-Date: Wed, 17 Feb 2021 15:31:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: e1914e24-ecf2-4c54-9d08-0b923d4dc645
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1613573662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yF/cluvsiJCFqkm34Ubp610JZTcmodW0JUMP+pXIss8=;
+	b=GCaOQtiLlIF7lQuBb8zh9KNKgIFxZOxRHwnAoJtipEtFqjHs96GoZ72ccI+IC0uNQG7Y2t
+	q4OJqDNKwmm/AvmC9JRrk8rGDeJyoeICNdb/0kCPromd1+glij/3k7IxJYzzGktRU8jgvb
+	boeyf3hoDdYfLmf/JCYF62bWb68j83o=
+Subject: Re: [for-4.15][PATCH v3 1/3] xen/iommu: x86: Clear the root
+ page-table before freeing the page-tables
+To: Julien Grall <julien@xen.org>
+Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210217142458.3769-1-julien@xen.org>
+ <20210217142458.3769-2-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d20d31ed-4392-a7fb-66ee-575eb254ae84@suse.com>
+Date: Wed, 17 Feb 2021 15:54:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210211171945.18313-8-alex.bennee@linaro.org>
+In-Reply-To: <20210217142458.3769-2-julien@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 2/11/21 6:19 PM, Alex Bennée wrote:
-> These tests make sure we can boot the Xen hypervisor with a Dom0
-> kernel using the guest-loader. We currently have to use a kernel I
-> built myself because there are issues using the Debian kernel images.
-> 
-> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-> ---
->  MAINTAINERS                  |   1 +
->  tests/acceptance/boot_xen.py | 117 +++++++++++++++++++++++++++++++++++
->  2 files changed, 118 insertions(+)
->  create mode 100644 tests/acceptance/boot_xen.py
+On 17.02.2021 15:24, Julien Grall wrote:
+> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> @@ -381,9 +381,18 @@ static int amd_iommu_assign_device(struct domain *d, u8 devfn,
+>      return reassign_device(pdev->domain, d, devfn, pdev);
+>  }
+>  
+> +static void iommu_clear_root_pgtable(struct domain *d)
 
-> diff --git a/tests/acceptance/boot_xen.py b/tests/acceptance/boot_xen.py
-> new file mode 100644
-> index 0000000000..8c7e091d40
-> --- /dev/null
-> +++ b/tests/acceptance/boot_xen.py
-> @@ -0,0 +1,117 @@
-> +# Functional test that boots a Xen hypervisor with a domU kernel and
-> +# checks the console output is vaguely sane .
-> +#
-> +# Copyright (c) 2020 Linaro
+Nit: amd_iommu_ as a prefix would be okay here considering other
+(static) functions also use it. Since it is a static function,
+no prefix at all would also do (my personal preference). But
+iommu_ as a prefix isn't helpful and results in needless re-use
+of VT-d's name.
 
-2021?
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -267,6 +267,15 @@ int iommu_free_pgtables(struct domain *d)
+>      struct page_info *pg;
+>      unsigned int done = 0;
+>  
+> +    if ( !is_iommu_enabled(d) )
+> +        return 0;
+> +
+> +    /*
+> +     * Pages will be moved to the free list below. So we want to
+> +     * clear the root page-table to avoid any potential use after-free.
+> +     */
+> +    hd->platform_ops->clear_root_pgtable(d);
 
-Otherwise:
-Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+Taking amd_iommu_alloc_root() as example, is this really correct
+prior to what is now patch 2? What guarantees a new root table
+won't get allocated subsequently?
+
+Jan
 
