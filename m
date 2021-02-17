@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F65231DB74
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 15:27:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86294.161911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A3DA31DB81
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Feb 2021 15:32:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86297.161923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCNnb-0005nc-At; Wed, 17 Feb 2021 14:27:27 +0000
+	id 1lCNrw-0006k0-Ti; Wed, 17 Feb 2021 14:31:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86294.161911; Wed, 17 Feb 2021 14:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 86297.161923; Wed, 17 Feb 2021 14:31:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCNnb-0005nD-7t; Wed, 17 Feb 2021 14:27:27 +0000
-Received: by outflank-mailman (input) for mailman id 86294;
- Wed, 17 Feb 2021 14:27:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lCNnZ-0005n7-VK
- for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 14:27:25 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lCNnZ-0004if-2n; Wed, 17 Feb 2021 14:27:25 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lCNnY-0005H0-TD; Wed, 17 Feb 2021 14:27:25 +0000
+	id 1lCNrw-0006jb-QN; Wed, 17 Feb 2021 14:31:56 +0000
+Received: by outflank-mailman (input) for mailman id 86297;
+ Wed, 17 Feb 2021 14:31:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GfGR=HT=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
+ id 1lCNrv-0006jW-Oo
+ for xen-devel@lists.xenproject.org; Wed, 17 Feb 2021 14:31:55 +0000
+Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ef74b978-a6b5-4adb-8a5e-9912f77cc903;
+ Wed, 17 Feb 2021 14:31:54 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id g6so17596810wrs.11
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Feb 2021 06:31:54 -0800 (PST)
+Received: from [192.168.1.36] (68.red-83-57-175.dynamicip.rima-tde.net.
+ [83.57.175.68])
+ by smtp.gmail.com with ESMTPSA id f14sm3183012wmc.32.2021.02.17.06.31.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Feb 2021 06:31:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,102 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=SqzphOsvkZYjVu8uGONDWuZ5Zn6sou//Nag8FX3HAAQ=; b=EcHACXGE6wVnU/jMIjaYkzv6ec
-	vYv7FqOsExKGYo+NaTTquCY8HmTX4mo+XzeZZVvOS5gJ/1kp3KT5K2pxwnjc4s3Zi/BRz7hNROLpo
-	iH1gyPyMcJNb3RZI++XPEmQ5i4CVj1JkLE1ljT8EBt0N1SUQ3dPn8tTsvV25gbp6iBGs=;
-Subject: Re: [PATCH 2/3] gnttab: bypass IOMMU (un)mapping when a domain is
- (un)mapping its own grant
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Rahul Singh <Rahul.Singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <156559d5-853a-5bb9-942b-f623627e0907@suse.com>
- <5bb4fba7-a10b-90c4-82f7-8cde6e8cacfb@suse.com>
- <a267959c-538e-0f90-f9a5-72e836f33cb4@xen.org>
- <283d8514-16fb-8973-e395-0a86bf820306@suse.com>
- <6ece0308-504f-5127-b7af-5c801630253b@xen.org>
- <ef8991ad-ba9e-c4f0-e4cc-fb4655608549@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c9e48ef3-7de3-f6c8-7976-a574b7b8be90@xen.org>
-Date: Wed, 17 Feb 2021 14:27:22 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: ef74b978-a6b5-4adb-8a5e-9912f77cc903
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=BHNj0CsMa8fBSRbxi+Me5az+imrRkM91kLCrLrDQvAA=;
+        b=RkKkcOCsCXWjZNtTrohUTRVjmHmeqePt0CR5mWa8AjZQDEcn4wCQT9VbjL6XWj1zz6
+         Xu1/MV+8SUi31koMrWxrOPw/BJNraCbgEs9uZ4lP29GPqJQWcbq4/EI7y3JshdOZ43K0
+         Ol0eLHEe9MqOwWnIbcGm9fghtTF8KYJ/jGlOLlAzR03Re7cSYc7MnoLVJcyfnpANEz9C
+         43ajeTmAhhF/xtHKBcNkDTCFaBRz43cakBojyQq+paTwjtuKs5RgFkvUg1pi3OgzKcDY
+         0osS45Jfe5PG1YqiYJwzIH9x9A+DCU2YqMzeHdQvu5qOzrRDmWjD9YkMxKnIQXWM/ODT
+         ZHRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=BHNj0CsMa8fBSRbxi+Me5az+imrRkM91kLCrLrDQvAA=;
+        b=nHkhXiOIyJ1NGJi2KSYFLLWVfpiCX9wQLdtOuE0xTSRd+FN+HUczSsHxL5AZSp4+sl
+         VLZ/kXViP+PPMbG8CFhOAaiIitKxSKXl+KFwTdzSWx8Zttqkhetqnwoq87eG9fyJs61K
+         exmDDQNH1zpQUKHcJSTYKRs8PzrXJIE4Hs079mfriVCHIiJLQMxD1Fd1VItEhi5YJREL
+         8l+vtl6y4B8Dp4GpmKnZgYKkzmhscSHp5raeqzD5Uva45V6zWZ9QiReson8ogK4xMiPM
+         0IA+PkS7gOFX+XHxRjwzBAJ0ed6hho3Yq3z36C4JgtoqTIGdfhSgGMW9HvmCLJLZQ16/
+         YzTA==
+X-Gm-Message-State: AOAM530nuf7/80YYn3/h3YPEPgTQrbwQthjoOEEQ7690/tLs0u6NW6YH
+	8N4enHzUmQi8RxSC+JiN2uM=
+X-Google-Smtp-Source: ABdhPJwwpnlY8JJhdMQeN9JKBjWyuJTspQXY6pyTHoJ9TDkPo2M5y1c0t9Zqctp5xYzHnvaUxDoegw==
+X-Received: by 2002:adf:a2c2:: with SMTP id t2mr10810395wra.47.1613572314058;
+        Wed, 17 Feb 2021 06:31:54 -0800 (PST)
+Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
+Subject: Re: [PATCH v2 7/7] tests/avocado: add boot_xen tests
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: julien@xen.org, stefano.stabellini@linaro.org,
+ stefano.stabellini@xilinx.com, andre.przywara@arm.com,
+ stratos-dev@op-lists.linaro.org, xen-devel@lists.xenproject.org,
+ Cleber Rosa <crosa@redhat.com>,
+ Wainer dos Santos Moschetta <wainersm@redhat.com>
+References: <20210211171945.18313-1-alex.bennee@linaro.org>
+ <20210211171945.18313-8-alex.bennee@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
+Message-ID: <16d8366f-6f94-3a97-b9e0-9962e3d173a1@amsat.org>
+Date: Wed, 17 Feb 2021 15:31:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <ef8991ad-ba9e-c4f0-e4cc-fb4655608549@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20210211171945.18313-8-alex.bennee@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
-
-On 17/02/2021 13:16, Jan Beulich wrote:
-> On 17.02.2021 12:41, Julien Grall wrote:
->> Hi Jan,
->>
->> On 17/02/2021 11:38, Jan Beulich wrote:
->>> On 17.02.2021 12:03, Julien Grall wrote:
->>>> On 17/02/2021 10:46, Jan Beulich wrote:
->>>>> Mappings for a domain's own pages should already be present in the
->>>>> IOMMU. While installing the same mapping again is merely redundant (and
->>>>> inefficient), removing the mapping when the grant mapping gets removed
->>>>> is outright wrong in this case: The mapping was there before the map, so
->>>>> should remain in place after unmapping.
->>>>>
->>>>> This affects
->>>>> - Arm Dom0 in the direct mapped case,
->>>>> - x86 PV Dom0 in the "iommu=dom0-strict" / "dom0-iommu=strict" cases,
->>>>> - all x86 PV DomU-s, including driver domains.
->>>>>
->>>>> Reported-by: Rahul Singh <Rahul.Singh@arm.com>
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>
->>>>> --- a/xen/common/grant_table.c
->>>>> +++ b/xen/common/grant_table.c
->>>>> @@ -1243,7 +1243,7 @@ map_grant_ref(
->>>>>             goto undo_out;
->>>>>         }
->>>>>     
->>>>> -    need_iommu = gnttab_need_iommu_mapping(ld);
->>>>> +    need_iommu = ld != rd && gnttab_need_iommu_mapping(ld);
->>>>
->>>> AFAICT, the owner of the page may not always be rd. So do we want to
->>>> check against the owner instead?
->>>
->>> For the DomIO case - specifically not. And the DomCOW case can't
->>> happen when an IOMMU is in use. Did I overlook any other cases
->>> where the page may not be owned by rd?
->>
->> For the current code, it looks like not. But it feels to me this code is
->> fragile as we are assuming that other cases should never happen.
->>
->> I think it would be worth explaining in a comment and the commit message
->> why check rd rather than the page owner is sufficient.
+On 2/11/21 6:19 PM, Alex Bennée wrote:
+> These tests make sure we can boot the Xen hypervisor with a Dom0
+> kernel using the guest-loader. We currently have to use a kernel I
+> built myself because there are issues using the Debian kernel images.
 > 
-> Well, I've added
-> 
->      /*
->       * This is deliberately not checking the page's owner: get_paged_frame()
->       * explicitly rejects foreign pages, and all success paths above yield
->       * either owner == rd or owner == dom_io (the dom_cow case is irrelevant
->       * as mem-sharing and IOMMU use are incompatible). The dom_io case would
->       * need checking separately if we compared against owner here.
->       */
-> 
-> to map_grant_ref(), and a reference to this comment to both
-> unmap_common() and the commit message. Will this do?
+> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+> ---
+>  MAINTAINERS                  |   1 +
+>  tests/acceptance/boot_xen.py | 117 +++++++++++++++++++++++++++++++++++
+>  2 files changed, 118 insertions(+)
+>  create mode 100644 tests/acceptance/boot_xen.py
 
-LGTM. With that, you can add:
+> diff --git a/tests/acceptance/boot_xen.py b/tests/acceptance/boot_xen.py
+> new file mode 100644
+> index 0000000000..8c7e091d40
+> --- /dev/null
+> +++ b/tests/acceptance/boot_xen.py
+> @@ -0,0 +1,117 @@
+> +# Functional test that boots a Xen hypervisor with a domU kernel and
+> +# checks the console output is vaguely sane .
+> +#
+> +# Copyright (c) 2020 Linaro
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+2021?
 
-Cheers,
-
--- 
-Julien Grall
+Otherwise:
+Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 
