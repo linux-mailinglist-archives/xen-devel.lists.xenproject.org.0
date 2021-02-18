@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9156631E818
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 10:46:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86517.162515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5B8831E829
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 10:57:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86522.162530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCftD-0004qF-FU; Thu, 18 Feb 2021 09:46:27 +0000
+	id 1lCg3a-0005t2-Jn; Thu, 18 Feb 2021 09:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86517.162515; Thu, 18 Feb 2021 09:46:27 +0000
+Received: by outflank-mailman (output) from mailman id 86522.162530; Thu, 18 Feb 2021 09:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCftD-0004po-Ae; Thu, 18 Feb 2021 09:46:27 +0000
-Received: by outflank-mailman (input) for mailman id 86517;
- Thu, 18 Feb 2021 09:46:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gXm/=HU=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lCftB-0004pj-EJ
- for xen-devel@lists.xenproject.org; Thu, 18 Feb 2021 09:46:25 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5584014d-611a-4628-8f50-77fa3e66d2f4;
- Thu, 18 Feb 2021 09:46:24 +0000 (UTC)
+	id 1lCg3a-0005sd-Gj; Thu, 18 Feb 2021 09:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 86522;
+ Thu, 18 Feb 2021 09:57:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lCg3Y-0005sY-QF
+ for xen-devel@lists.xenproject.org; Thu, 18 Feb 2021 09:57:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lCg3X-0002vZ-4P; Thu, 18 Feb 2021 09:57:07 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lCg3W-0000AL-NT; Thu, 18 Feb 2021 09:57:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,128 +39,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5584014d-611a-4628-8f50-77fa3e66d2f4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1613641583;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=In0H3GKAIQ6+4OBnb5ov4Vo8dGUkbVupydG+4XFu8Bo=;
-  b=M6hd8RZRb56DZBh/0PHgTwYiNFYZz5/9o/z365QbAt9uGyVrL4dNup6r
-   OMJ6FBDMvRfEiXsrK2L1ux138+W2co/7ZRiyx+96Q7qfubPJ9Sw1JlsW+
-   T6C69CEyyh41I/skSgsZ2OhS4iu+q5s6NtWK24Fv0/yBFfN+XEfXTEHje
-   0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: UoJTiv5V4jRBe0Y00jc3hlmzX7xSgE58DcB7/2mGHALHi2Jigd/PG8oMRglOQk+eCti6W+VPA+
- aX7YWUMbmGObi4qvI52u1E1PqYUN6rbsDhp91cIgdk3DYKyyFqivdaMiFsFU2XeYUz7yd+TogK
- Pgkn2z4ISwjbJOPk4eiQSRKfNALTDAgswaPSTJadkDnXUPQV1+5nN0mBGFXehKgtlpyVdUkdFm
- Y+Riaai+upuggRApBfoeEiGo5WtKLrw78JAHpEJ2g8ZpALyogMipKz5uWsXc+Yg1GcsPOuZKPS
- 6Jk=
-X-SBRS: 5.2
-X-MesageID: 38871673
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,186,1610427600"; 
-   d="scan'208";a="38871673"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=djLiSb0LGj8ENRaRSn0sFZSvs1J4CeL1L5mhw4wiZzQ6qQHo4t/jF71Ad2fYVv1bV+xtTgSFGhHW8cSsVVYoCgy7Iz5OjMLqL9S7z3DLuXuH3nynKTYv8FFyWzlCXradEvpxiWvWfq1YLb51zteSU6aIH7+rq9UNqhDe0jnoWLC50di5H4X/KTS62h3qzt9z4LwIdHYDPwkoZf1fS69+w+X22GWg1Vwe6RdSYyNW3wQfhtOfiJoSSfQfR5AsFunBN8BkjD/H0RJtQ1fobQrrrmwGq/7LdnEYjysPHiyxUi4ysjXX7ZVCmwKqu8vTMA6JmJ7TUgN4ne/zio9/0DakIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=In0H3GKAIQ6+4OBnb5ov4Vo8dGUkbVupydG+4XFu8Bo=;
- b=GM8EQKW7LPM2TOXfAm91a/WUECTlh2fP2HdJLvefUpsynRhj8cmUeTU5KfEiLJS18Jg9bhPdUkKPhTG1lm3Pu1VRewdT6QOdaCkLg5RQYtlWPrhrd6zV0vfbVmZlYZd7CtOOB/nnxATHDoljJkMY3kLMjegBvUISXzxrlmUgut8sCbZK68IxfvR0qvQ/gcgijmPROVhOJCtG9JVgc33VmE4RwakIDC1zKWdQC0NHOo362NJQWO+G4avpSzeS+1qonCvDO8WjUeAQroeYthPPlIHQlE0AicnJKlrus2l2XW62C6oNLFzJveWJhCZpYkE0Lk+9iYHtuQD6HvW+PydcVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=In0H3GKAIQ6+4OBnb5ov4Vo8dGUkbVupydG+4XFu8Bo=;
- b=wOYJ4bd9F+3qlNjmcJ5ZVGWKLueyHr5OSv191ShQBkulZgAYSg+cGZURPmRQPAOVq3IRlUUlXWGFMPzAKmBfxcn63F+gaeCDxFFy6zlNhRPV9x+KYR01wA2fjluIc/NOv8GsGAEl0WFoi/bJZIyEeF57kvJIFMkde3QBx8xYUtU=
-Date: Thu, 18 Feb 2021 10:46:14 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Christian Lindig <christian.lindig@citrix.com>, Edwin
- =?utf-8?B?VMO2csO2aw==?= <edvin.torok@citrix.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Ian Jackson
-	<iwj@xenproject.org>
-Subject: oxenstored restart after system crash
-Message-ID: <YC43ZrCyScGxHEVE@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-ClientProxiedBy: MR2P264CA0009.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:1::21) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=vEjg5XJVHUXx9pXONWEXqqHBcvyqRSVXUjBeUHcGnug=; b=gpFRm6of+x+3vRmwoaWzXZdUq9
+	kXGJMysOv7E9FttYy8lXshmjj9XvrD6YWQpljuhBwqFm2+dHuA6fAkLoY1hJHyONrYptM9w17aIPb
+	4NiVPngiOUtMFc03ZPgdTKO81LkWVs41bjpGczfiC6PXsCG5lOyEn3oJDprHJgv3lKww=;
+Subject: Re: [RFC] xen/arm: introduce XENFEAT_ARM_dom0_iommu
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com,
+ Volodymyr_Babchuk@epam.com, rahul.singh@arm.com
+References: <alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s>
+ <2d22d5b8-6cda-f27b-e938-4806b65794a5@xen.org>
+ <alpine.DEB.2.21.2102171233270.3234@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
+Date: Thu, 18 Feb 2021 09:57:05 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1700421-028e-485b-38ce-08d8d3f20b56
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4841:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB48414C4DB0AAFB455B39BE638F859@DM6PR03MB4841.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: u2FQ4zQfdvtZrkdYOuSSZ2/UTRbFJQ2sDM+uiNZQSis/z31WUOdpguIB2cZ+yb5uvaPTCf7Y+IwT2knCuY+OKqZWDLt2bTAgtDYofH/q1rZtywy7c51QnXAYBq5NEWeYPpOzYugxW6bYLhi2h/x94Tdsk9saiYjkeARWFRKF/MSoVw0UKSc/m+ou4ibNGkftU5TN2SVgZt/JfvFojyu+ArUzBcNporclQ8JgH87TdSpSupnFemnzH7ZUwX8DwlQwyH2N+w92PhS3ZWsTF2a5HB4+J0m2lm73tFiBks/bS9+Ut/hx3GqNjxi4u57rROhhZXT0SOJJJrS3aybDB1xBMCtZidvC1MmyW+/LInshz48rYudS87w3LZWC6DsgbVBeCG7hFKSersnlmJN+LcUrjbyqbTc94XkgYeXLV0MyCsCSvo1bUlOfB13jsmJJbVuZ0AWA2VCX0ynFmMno/A/thWP/rRMdPd4oYaTnXFjZCkF0fOb3S5jBN0f9ywZvV4FE2dSXvStwGJe4P4x18YqP2aB5bdmWEBC7WVcBVr83KPSXI9CWxG+/GqKTj9RMkAKvI26Wcm/jRNt/mHy147BWtDhvUP8TKebgs23pzH0WkNQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(346002)(39850400004)(136003)(366004)(376002)(33716001)(8936002)(4744005)(956004)(6496006)(966005)(8676002)(6666004)(26005)(85182001)(86362001)(478600001)(6486002)(5660300002)(66476007)(316002)(4326008)(9686003)(83380400001)(186003)(54906003)(16526019)(2906002)(66556008)(6916009)(66946007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?V0dkZnhmVUhvOGVkd3NIYmN5dTJLMDk4MmFZWEVhYUMxNUxQWkpMTFA1TDRw?=
- =?utf-8?B?TklDN1Z4SHVyZSsxMkphYkNlZlJjdEdUWGhCNVB1aG01YVFFLzV2L2x2clJj?=
- =?utf-8?B?cTVqUU51Y3ZLUDd6M09MdDFyMVNMeVc5b3R6RzhBWGVZWXRnaG1ZMDUzTHd3?=
- =?utf-8?B?OEphd2RqYXM3R0dRalRwSVZaLzg4bnZrRVBoWTdqREhiMXI3bGl3QWk3eEtI?=
- =?utf-8?B?UXhrZnhDKzgyclRKSnlaVG5oTmFmVWtvR2JoU2xjNkNKUXZZVXp5TG5RUTdX?=
- =?utf-8?B?YzFjNmUwWEhiL2lQYWpoc3VySEprSXhWNHJTSTJSVUx3S2V4RTM2cVQ5T0hX?=
- =?utf-8?B?djZpSnduVTlUeUxDMGV0VjRGbVc4NUU4bXdJcm9MaUk4Zi8xTDdUYXlRZmc2?=
- =?utf-8?B?VVhWNnJXVVNSb1ZIQ1R3K0k5cUZIenQ2UFg2TVNJRk5iR3kzY3ovb3NzZUI2?=
- =?utf-8?B?WTNyTi9xN0tZREY2WUNFSEpsTkpWajFrU241THRoaVcwYnNvVlBseVRZcks1?=
- =?utf-8?B?ZHNBSXhHMEFweHg4ZGFmRFFnYVJDblpXb2NVT0tHSGlLLzJvc015eit5VUZW?=
- =?utf-8?B?d3gwK3c4UGZoc0o4R1JmY1I5YnV4SW9lRys5MmNyTjdhakhHcWlKUjZhYXdQ?=
- =?utf-8?B?NGM1b0IyRlpiNlROMitIRmJscFRWRXNQbE9EejRtUUQvV3UyODM3SlJrdFM0?=
- =?utf-8?B?RS9RdnpzRTE0ajlYMFZOTVdGcDNaSTZlU0U0RVY0aWxicElGNmxkcGJuRFJz?=
- =?utf-8?B?RFFVaDVHOEdRY1h3UTdua0k1dHk1cW9xaDJuWE9BQ25vMmJGM0dJamdhS0RL?=
- =?utf-8?B?TksrZGZrN3M1UlNzbXE2UzNyUW9Kd1U3bzF2TDRaZmptRE5zNVJPU2J4cmRX?=
- =?utf-8?B?VHRtYlB6V3ZJcEErYUJKU01ldGZidXNhTmNKdFJoZVpiQ0dSU2NtL2ozWFpD?=
- =?utf-8?B?SVRyVnZMS0Y3UTFSYXcwRm00bi9Eb2EvekxYQVc3aXFpcjVtQm1aeFRKSXhh?=
- =?utf-8?B?WTAzYTdjb0NJS1ltMUQ1NmgzY3Z6eDBrNmF5ek5EYnNtbGU4NWYzQW1WU1pH?=
- =?utf-8?B?Rk5oN1VHVFZqZmc2cXNGTWtXNVNXdU1yMHMvWjJCM2FWUzNjK3AxZGJUSjEw?=
- =?utf-8?B?MHNQRXlnd3h1RFUwamxrbXdNREplUy93Z2NmTXAwTW9RUGV1bWJpTjZGcXhk?=
- =?utf-8?B?enpkNE5JY0xZVHhuVkJnQjFlZStOaklFaXp4RW90WDJTSHVvTlpOWlhqaUg0?=
- =?utf-8?B?akRYQk1WVjBaRGNzem1OdTUrM05GZmN6dkRZZDNrc3JCaEpOcEp3cEx5dUdQ?=
- =?utf-8?B?SHNOVWo1WXlaUzBZeDJJRkZxMGNKNGJXQ21iaUpSamZZUHY4aG8xYTRRQVBn?=
- =?utf-8?B?alVnU2thSXBIeS9Qb2NpTWd3amFtSnBBWkRrekFRSG9yR1lmZFU2WW1jd1FP?=
- =?utf-8?B?WU9hZGR4UEwxaW9JczdaYXVtQi9UdlIvR0sxTnJrUnBMKzlOSWN3NXF2UnZ4?=
- =?utf-8?B?d2YySkFkcDhqNGlLZWFOTFlOcEUxU3RKRFlNd1RjMTQyQjNLSGdtd1ptZW42?=
- =?utf-8?B?cWdTcDh0b0R4cVVad3VBUTdKcXVlSGp0Tmo5TzNGVjcwSUNyWFgyaUI5WDFZ?=
- =?utf-8?B?TDduQW8rc0M3Q25TNktKMDhmZnpHSEp0eU16NEF6c0lvR2FzS1FvSHJCaGxU?=
- =?utf-8?B?TWNGYXFIUGxldUtseC9sdk1jbEJUaEI0SGJXQjgvaURnSmFOem52UndXUnFv?=
- =?utf-8?Q?EJ8ejRrCHdw8dlvwYOkmsnB5ciSDH2ahAhYSxsi?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1700421-028e-485b-38ce-08d8d3f20b56
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2021 09:46:19.9916
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /6glbdv3I7yKtzWLkpHLeHGEGLSs1zXcjsAprn54ZoPYZIkzLFRxXmpKkrRfHacP+2M4YRp1S69l16Z26zCJwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4841
-X-OriginatorOrg: citrix.com
+In-Reply-To: <alpine.DEB.2.21.2102171233270.3234@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi Stefano,
 
-Last month I got a query from a FreeBSD Xen user having issues with
-xenstored after a power failure:
+On 17/02/2021 23:54, Stefano Stabellini wrote:
+> On Wed, 17 Feb 2021, Julien Grall wrote:
+>> On 17/02/2021 02:00, Stefano Stabellini wrote:
+>>> Hi all,
+>>>
+>>> Today Linux uses the swiotlb-xen driver (drivers/xen/swiotlb-xen.c) to
+>>> translate addresses for DMA operations in Dom0. Specifically,
+>>> swiotlb-xen is used to translate the address of a foreign page (a page
+>>> belonging to a domU) mapped into Dom0 before using it for DMA.
+>>>
+>>> This is important because although Dom0 is 1:1 mapped, DomUs are not. On
+>>> systems without an IOMMU swiotlb-xen enables PV drivers to work as long
+>>> as the backends are in Dom0. Thanks to swiotlb-xen, the DMA operation
+>>> ends up using the MFN, rather than the GFN.
+>>>
+>>>
+>>> On systems with an IOMMU, this is not necessary: when a foreign page is
+>>> mapped in Dom0, it is added to the Dom0 p2m. A new GFN->MFN translation
+>>> is enstablished for both MMU and SMMU. Dom0 could safely use the GFN
+>>> address (instead of the MFN) for DMA operations and they would work. It
+>>> would be more efficient than using swiotlb-xen.
+>>>
+>>> If you recall my presentation from Xen Summit 2020, Xilinx is working on
+>>> cache coloring. With cache coloring, no domain is 1:1 mapped, not even
+>>> Dom0. In a scenario where Dom0 is not 1:1 mapped, swiotlb-xen does not
+>>> work as intended.
+>>>
+>>>
+>>> The suggested solution for both these issues is to add a new feature
+>>> flag "XENFEAT_ARM_dom0_iommu" that tells Dom0 that it is safe not to use
+>>> swiotlb-xen because IOMMU translations are available for Dom0. If
+>>> XENFEAT_ARM_dom0_iommu is set, Linux should skip the swiotlb-xen
+>>> initialization. I have tested this scheme with and without cache
+>>> coloring (hence with and without 1:1 mapping of Dom0) on ZCU102 and it
+>>> works as expected: DMA operations succeed.
+>>>
+>>>
+>>> What about systems where an IOMMU is present but not all devices are
+>>> protected?
+>>>
+>>> There is no way for Xen to know which devices are protected and which
+>>> ones are not: devices that do not have the "iommus" property could or
+>>> could not be DMA masters.
+>>>
+>>> Perhaps Xen could populate a whitelist of devices protected by the IOMMU
+>>> based on the "iommus" property. It would require some added complexity
+>>> in Xen and especially in the swiotlb-xen driver in Linux to use it,
+>>> which is not ideal.
+>>
+>> You are trading a bit more complexity in Xen and Linux with a user will may
+>> not be able to use the hypervisor on his/her platform without a quirk in Xen
+>> (see more below).
+>>
+>>> However, this approach would not work for cache
+>>> coloring where dom0 is not 1:1 mapped so the swiotlb-xen should not be
+>>> used either way
+>>
+>> Not all the Dom0 Linux kernel will be able to work with cache colouring. So
+>> you will need a way for the kernel to say "Hey I am can avoid using swiotlb".
+> 
+> A dom0 Linux kernel unmodified can work with Xen cache coloring enabled.
 
-https://lists.freebsd.org/pipermail/freebsd-xen/2021-January/003446.html
+Really? I was expecting Linux to configure the DMA transaction to use 
+the MFN for foreign pages. So a mapping GFN == MFN would be necessary.
 
-I'm not sure what's the right approach here. I've been told cxenstored
-will attempt to unlink the tdb file when starting, does oxenstored
-attempt to do the same?
+> The swiotlb-xen is unneeded and also all the pfn_valid() checks to detect
+> if a page is local or foreign don't work as intended. 
 
-Should the tdb file be placed in a path that's cleaned up on boot?
+I am not sure to understand this. Are you saying that Linux will 
+"mistakenly" consider the foreign page as local? Therefore, it would 
+always use the GFN rather than MFN?
 
-Should xencommons remove the stale tdb before starting xenstored?
+> However, it still
+> works on systems where the IOMMU can be relied upon. That's because the
+> IOMMU does the GFN->MFN translations, and also because both swiotlb-xen
+> code paths (cache flush local and cache flush via hypercall) work.
+> 
+> Also considering that somebody that enables cache coloring has to know
+> the entire system well, I don't think we need a runtime flag from Linux
+> to say "Hey I can avoid using swiotlb".
 
-Mostly wanted to know what's the approach on Linux so that I can do
-the same on FreeBSD.
+I think we should avoid to hardcode any decision again. Otherwise, 
+sooner or later this will come back to bite us.
 
-Thanks, Roger.
+[...]
+
+>>> How to set XENFEAT_ARM_dom0_iommu?
+>>>
+>>> We could set XENFEAT_ARM_dom0_iommu automatically when
+>>> is_iommu_enabled(d) for Dom0. We could also have a platform specific
+>>> (xen/arch/arm/platforms/) override so that a specific platform can
+>>> disable XENFEAT_ARM_dom0_iommu. For debugging purposes and advanced
+>>> users, it would also be useful to be able to override it via a Xen
+>>> command line parameter.
+>> Platform quirks should be are limited to a small set of platforms.
+>>
+>> In this case, this would not be only per-platform but also per-firmware table
+>> as a developer can decide to remove/add IOMMU nodes in the DT at any time.
+>>
+>> In addition to that, it means we are introducing a regression for those users
+>> as Xen 4.14 would have worked on there platform but not anymore. They would
+>> need to go through all the nodes and find out which one is not protected.
+>>
+>> This is a bit of a daunting task and we are going to end up having a lot of
+>> per-platform quirk in Xen.
+>>
+>> So this approach selecting the flag is a no-go for me. FAOD, the inverted idea
+>> (i.e. only setting XENFEAT_ARM_dom0_iommu per-platform) is a no go as well.
+>>
+>> I don't have a good idea how to set the flag automatically. My
+>> requirement is newer Xen should continue to work on all supported
+>> platforms without any additional per-platform effort.
+> 
+> Absolutely agreed.
+> 
+> 
+> One option would be to rename the flag to XENFEAT_ARM_cache_coloring and
+> only set it when cache coloring is enabled.  Obviously you need to know
+> what you are doing if you are enabling cache coloring. If we go down
+> that route, we don't risk breaking compatibility with any platforms.
+> Given that cache coloring is not upstream yet (upstreaming should start
+> very soon), maybe the only thing to do now would be to reserve a XENFEAT
+> number.
+
+At least in this context, I can't see how the problem described is cache 
+coloring specific. Although, we may need to expose such flag for other 
+purpose in the future.
+
+> 
+> But actually it was always wrong for Linux to enable swiotlb-xen without
+> checking whether it is 1:1 mapped or not. Today we enable swiotlb-xen in
+> dom0 and disable it in domU, while we should have enabled swiotlb-xen if
+> 1:1 mapped no matter dom0/domU. (swiotlb-xen could be useful in a 1:1
+> mapped domU driver domain.)
+> 
+> 
+> There is an argument (Andy was making on IRC) that being 1:1 mapped or
+> not is an important information that Xen should provide to the domain
+> regardless of anything else.
+> 
+> So maybe we should add two flags:
+> 
+> - XENFEAT_direct_mapped
+> - XENFEAT_not_direct_mapped
+
+I am guessing the two flags is to allow Linux to fallback to the default 
+behavior (depending on dom0 vs domU) on older hypervisor On newer 
+hypervisors, one of this flag would always be set. Is that correct?
+
+> 
+> To all domains. This is not even ARM specific. Today dom0 would get
+> XENFEAT_direct_mapped and domUs XENFEAT_not_direct_mapped. With cache
+> coloring all domains will get XENFEAT_not_direct_mapped. With Bertrand's
+> team work on 1:1 mapping domUs, some domUs might start to get
+> XENFEAT_direct_mapped also one day soon.
+> 
+> Now I think this is the best option because it is descriptive, doesn't
+> imply anything about what Linux should or should not do, and doesn't
+> depend on unreliable IOMMU information.
+
+That's a good first step but this still doesn't solve the problem on 
+whether the swiotlb can be disabled per-device or even disabling the 
+expensive 1:1 mapping in the IOMMU page-tables.
+
+It feels to me we need to have a more complete solution (not necessary 
+implemented) so we don't put ourself in the corner again.
+
+> Instead, if we follow my original proposal of using
+> XENFEAT_ARM_dom0_iommu and set it automatically when Dom0 is protected
+> by IOMMU, we risk breaking PV drivers for platforms where that protection
+> is incomplete. I have no idea how many there are out there today. 
+
+This can virtually affect any platform as it is easy to disable an IOMMU 
+in the firmware table.
+
+> I have
+> the feeling that there aren't that many but I am not sure. So yes, it
+> could be that we start passing XENFEAT_ARM_dom0_iommu for a given
+> platform, Linux skips the swiotlb-xen initialization, actually it is
+> needed for a network/block device, and a PV driver breaks. I can see why
+> you say this is a no-go.
+> 
+> 
+> Third option. We still use XENFEAT_ARM_dom0_iommu but we never set
+> XENFEAT_ARM_dom0_iommu automatically. It needs a platform specific flag
+> to be set. We add the flag to xen/arch/arm/platforms/xilinx-zynqmp.c and
+> any other platforms that qualify. Basically it is "opt in" instead of
+> "opt out". We don't risk breaking anything because platforms would have
+> XENFEAT_ARM_dom0_iommu disabled by default.
+Well, yes you will not break other platforms. However, you are still at 
+risk to break your platform if the firmware table is updated and disable 
+some but not all IOMMUs (for performance concern, brokeness...).
+
+> Still, I think the
+> XENFEAT_not/direct_mapped route is much cleaner and simpler.
+
+The XENFEAT_{not,}_direct_mapped also doesn't rely on every platform to 
+add code in Xen to take advantage of new features.
+
+Cheers,
+
+-- 
+Julien Grall
 
