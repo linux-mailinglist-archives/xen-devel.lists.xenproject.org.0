@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBABD31EBE7
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 16:57:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86702.162963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A602531EC67
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 17:43:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86709.162981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lClfy-0001Ik-Mk; Thu, 18 Feb 2021 15:57:10 +0000
+	id 1lCmNb-0006ZD-Em; Thu, 18 Feb 2021 16:42:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86702.162963; Thu, 18 Feb 2021 15:57:10 +0000
+Received: by outflank-mailman (output) from mailman id 86709.162981; Thu, 18 Feb 2021 16:42:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lClfy-0001IL-It; Thu, 18 Feb 2021 15:57:10 +0000
-Received: by outflank-mailman (input) for mailman id 86702;
- Thu, 18 Feb 2021 15:57:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lCmNb-0006Yo-Ba; Thu, 18 Feb 2021 16:42:15 +0000
+Received: by outflank-mailman (input) for mailman id 86709;
+ Thu, 18 Feb 2021 16:35:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x3vz=HU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lClfw-0001IF-CN
- for xen-devel@lists.xenproject.org; Thu, 18 Feb 2021 15:57:08 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 34a89aa1-8a97-4477-9280-a1eb20102512;
- Thu, 18 Feb 2021 15:57:07 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BACE2AD57;
- Thu, 18 Feb 2021 15:57:06 +0000 (UTC)
+ (envelope-from <SRS0=5cwq=HU=cerno.tech=maxime@srs-us1.protection.inumbo.net>)
+ id 1lCmGy-0005eH-BU
+ for xen-devel@lists.xenproject.org; Thu, 18 Feb 2021 16:35:25 +0000
+Received: from wnew2-smtp.messagingengine.com (unknown [64.147.123.27])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id beef2542-b4a1-4d7d-b048-973b9bc22af8;
+ Thu, 18 Feb 2021 16:35:22 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id DF1EFE1F;
+ Thu, 18 Feb 2021 11:35:18 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Thu, 18 Feb 2021 11:35:21 -0500
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DE99E24005C;
+ Thu, 18 Feb 2021 11:35:14 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,80 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34a89aa1-8a97-4477-9280-a1eb20102512
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613663826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1HFE6TUCiuqRztdB/XB1rh8grG5LF44712bwwFCFtZs=;
-	b=qn65r9eCaNmJqux2b6wa5QgfXBiBaLLJOMMAdthfG0EkFcXw3E88+nijwZxCbTN8YQBuX6
-	JxR6dx9b2I0RsCuXz7GWRJclYTt2AkD1X0PBQowJf/2MM2WBAhjH3zTaXEbgJpkVUCFxi9
-	PNv5dwwOnL/VVkt0p1uV+DkiR1YVbxE=
-Subject: Re: [PATCH v2 1/4] xl: Add support for ignore_msrs option
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, iwj@xenproject.org, wl@xen.org,
- anthony.perard@citrix.com, andrew.cooper3@citrix.com,
- jun.nakajima@intel.com, kevin.tian@intel.com,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <1611182952-9941-1-git-send-email-boris.ostrovsky@oracle.com>
- <1611182952-9941-2-git-send-email-boris.ostrovsky@oracle.com>
- <YC5EitRCZB+VCeCC@Air-de-Roger>
- <a78a4b94-47cc-64c0-1b1f-8429665822b2@suse.com>
- <YC6NPcym62a0Nu0M@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8ffd4f51-5fc6-349b-146f-e52c35c59b4d@suse.com>
-Date: Thu, 18 Feb 2021 16:57:05 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+X-Inumbo-ID: beef2542-b4a1-4d7d-b048-973b9bc22af8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=fm2; bh=9glu1NqYQ89GMrISno2hyWbjb5g
+	/OTCuIq2T05YOits=; b=G6pm+BxV6Dh9oiD6SJUz1xXNJ7zPPCZpBW9AEchzgQY
+	SsCnHwIhIZleE9PczJeaxSABPuNfyZNS1u3Zj2kDGJdZzYOuF3md0m5GftSNoeev
+	ZavMKbuw+WSPSBcY4VpVTBkV/ddPDz1xHbCCETt+RAuJ3CD0g/aAsRM9ST0bJ2+t
+	+6ifUhzBy+1w+NmK0Bu03Ar0ji4npJeGmU9jySby/2b7puTSkKn/YECDpUC+LyuL
+	6Guj5EkOzfnyrZ7fuCEdeNrI7VmN9ZSWN6LpeNmu5/FnzVAUNcjxOj673ayo+RK2
+	5fiMH3d3rCy4RcepJW9kS8GD2lNioOxaP+2WrEFLkFQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=9glu1N
+	qYQ89GMrISno2hyWbjb5g/OTCuIq2T05YOits=; b=F8tizhTRDZ1QmkV4IX/nKz
+	GFGeeljOv0nlv95ycFp0ze5k8JaZwhxcx+uGwtKUsVGuJaf3wBvlVHShQ6AEUuUa
+	nYa/M+CR3Q7nQv96fSu/CfaeIwuzJxRKrhn2B8yNMcGRvghgtZ0Vp/RbSek1ItaO
+	Huq8VE54K1HbMzSfgJ/qk4vTktg7KPqCaeXhHlIBqpyMVIsKqMHjMXcuPGS+ft/T
+	80Nr4qrm62gEv7vJ1wWgcbm6pcoegFAPfttgQ+bfSTEtA0b5vB4AgmFNGzLe9Jjp
+	2mDgst8VHznkjEYhvASc+FuMU+CJuXELKFptery4MIiY6qnvOy5wsWIYxYIQt8qA
+	==
+X-ME-Sender: <xms:Q5cuYNHGf4DP6s5Yrk94g87bEt9maVsvZUvIZ5_OSwOa3ygXsvSckA>
+    <xme:Q5cuYCWJqVHxc0TBvW8RaM0wSdODYkxfn4yClOKahSKwcF7ZJMIFzdXO9brx_KJON
+    wVOak8LO-iBIzeTj3U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeeggdekjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
+    ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+    gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
+    udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:Q5cuYPL64pGtEXDOIjB2LytBtepgEjTDIlirUSWB4Z_2bk7CHwRyNw>
+    <xmx:Q5cuYDGxFYNq90q1Kozd9_sE8xI5mkNSdlmaFJwB_t_-qpDhKS53yA>
+    <xmx:Q5cuYDU83mA2iruvPx6pKrkqUS3fSvQrhe9kV_x71Rp0kdmagu5q-g>
+    <xmx:RpcuYHmzfxpDFq6rYEjERoNkSWa7GUcR73y9VFLtc6uo7hgIIot_W0suCF8>
+Date: Thu, 18 Feb 2021 17:35:12 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: airlied@linux.ie, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v2] drm/gem: Move drm_gem_fb_prepare_fb() to GEM atomic
+ helpers
+Message-ID: <20210218163512.arnmixdkygysxrqk@gilmour>
+References: <20210211081636.28311-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <YC6NPcym62a0Nu0M@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="qyrmapmaovukaths"
+Content-Disposition: inline
+In-Reply-To: <20210211081636.28311-1-tzimmermann@suse.de>
 
-On 18.02.2021 16:52, Roger Pau Monné wrote:
-> On Thu, Feb 18, 2021 at 12:54:13PM +0100, Jan Beulich wrote:
->> On 18.02.2021 11:42, Roger Pau Monné wrote:
->>> Not that you need to implement the full thing now, but maybe we could
->>> have something like:
->>>
->>> "
->>> =item B<ignore_msrs=[ "MSR_RANGE, "MSR_RANGE", ..]>
->>>
->>> Specify a list of MSR ranges that will be ignored by the hypervisor:
->>> reads will return zeros and writes will be discarded without raising a
->>> #GP.
->>>
->>> Each MSR_RANGE is given in hexadecimal format and may be a range, e.g.
->>> c00102f0-c00102f1 (inclusive), or a single MSR, e.g. c00102f1.
->>> "
->>>
->>> Then you can print the messages in the hypervisor using a guest log
->>> level and modify it on demand in order to get more verbose output?
->>
->> "Modify on demand"? Irrespective of what you mean with this, ...
->>
->>> I don't think selecting whether the messages are printed or not from
->>> xl is that helpful as the same could be achieved using guest_loglvl.
->>
->> ... controlling this via guest_loglvl would affect various other
->> log messages' visibility.
-> 
-> Right, but do we really need this level of per-guest log control,
-> implemented in this way exclusively for MSRs?
-> 
-> We don't have a way for other parts of the code to have such
-> fine-grained control about what messages should be printed, and I
-> don't think MSR should be an exception. I assume this would be used to
-> detect which MSRs a guest is trying to access, and I would be fine
-> just using guest_loglvl to that end, the more that it can be modified
-> at run time now.
 
-I can certainly see your point. The problem is that for guests
-heavily accessing such MSRs, all other messages may disappear
-due to rate limiting. That's not going to be helpful.
+--qyrmapmaovukaths
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Jan
+Hi,
+
+On Thu, Feb 11, 2021 at 09:16:36AM +0100, Thomas Zimmermann wrote:
+> diff --git a/include/drm/drm_gem_framebuffer_helper.h b/include/drm/drm_gem_framebuffer_helper.h
+> index 6b013154911d..495d174d9989 100644
+> --- a/include/drm/drm_gem_framebuffer_helper.h
+> +++ b/include/drm/drm_gem_framebuffer_helper.h
+> @@ -9,9 +9,11 @@ struct drm_framebuffer;
+>  struct drm_framebuffer_funcs;
+>  struct drm_gem_object;
+>  struct drm_mode_fb_cmd2;
+> +#if 0
+>  struct drm_plane;
+>  struct drm_plane_state;
+>  struct drm_simple_display_pipe;
+> +#endif
+
+That's probably not what you meant?
+
+With that fixed,
+Acked-by: Maxime Ripard <mripard@kernel.org>
+
+Thanks!
+Maxime
+
+--qyrmapmaovukaths
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYC6XQAAKCRDj7w1vZxhR
+xeYjAQDBp12JMmHuiBCHQBmWyl9fGbmCMg6R9psxq9edd+0vigD+MjBWZAmh8A1d
+2S0DtBQtnfgH07vDxZs1Eb8jJZ+x/QQ=
+=WmxA
+-----END PGP SIGNATURE-----
+
+--qyrmapmaovukaths--
 
