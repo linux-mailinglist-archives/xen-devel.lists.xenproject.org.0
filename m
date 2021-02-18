@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DCD31EA3B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 14:06:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86641.162761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F8231EA3D
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Feb 2021 14:10:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86644.162774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCj08-0000Yl-0X; Thu, 18 Feb 2021 13:05:48 +0000
+	id 1lCj4U-0001W6-JN; Thu, 18 Feb 2021 13:10:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86641.162761; Thu, 18 Feb 2021 13:05:47 +0000
+Received: by outflank-mailman (output) from mailman id 86644.162774; Thu, 18 Feb 2021 13:10:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCj07-0000YM-Tc; Thu, 18 Feb 2021 13:05:47 +0000
-Received: by outflank-mailman (input) for mailman id 86641;
- Thu, 18 Feb 2021 13:05:46 +0000
+	id 1lCj4U-0001Vh-GA; Thu, 18 Feb 2021 13:10:18 +0000
+Received: by outflank-mailman (input) for mailman id 86644;
+ Thu, 18 Feb 2021 13:10:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x3vz=HU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lCj06-0000YD-Ck
- for xen-devel@lists.xenproject.org; Thu, 18 Feb 2021 13:05:46 +0000
+ id 1lCj4S-0001Vb-Sx
+ for xen-devel@lists.xenproject.org; Thu, 18 Feb 2021 13:10:16 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a3251abe-4c87-4528-bac8-13f09b19fd4c;
- Thu, 18 Feb 2021 13:05:45 +0000 (UTC)
+ id 46dfe39e-c5e1-4c95-9f5f-2bf023dfdbb4;
+ Thu, 18 Feb 2021 13:10:15 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85101ACE5;
- Thu, 18 Feb 2021 13:05:44 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A8497ACD4;
+ Thu, 18 Feb 2021 13:10:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,98 +38,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3251abe-4c87-4528-bac8-13f09b19fd4c
+X-Inumbo-ID: 46dfe39e-c5e1-4c95-9f5f-2bf023dfdbb4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613653544; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1613653814; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4zHRJzE4DwRp/+P2uIqjaOI1hbKMfhgC5lubSPgQPCE=;
-	b=AdMnZeE6Rh8a0l7sFBVXg8pdZyJyHx44VBmfh56/ELG5900K9WyZhbXTRXUSMlAiikWISp
-	QtNvYCxtwu4HFva8FXKA1uxdyvkmgcye+RVhyhAh+n8tmDbGF5kgLioDdr+pzE+F46ojmb
-	aAEf4hxlcZ/Njc2sKqgCeQRnOHGxHzA=
-Subject: Re: [for-4.15][PATCH v3 2/3] xen/x86: iommu: Ignore IOMMU mapping
- requests when a domain is dying
-To: Julien Grall <julien@xen.org>, Paul Durrant <paul@xen.org>
+	bh=DkihpiD9twC+qInFw8JwaUWcXXcm86I8D9b69rHendI=;
+	b=TY5M1aQRVrfuw1ZbCSWOGvPOehwQcjJ+Hoa9lttFpaeget+rCwL4SeuR/up9puyMui/ssh
+	WF1me6v+1KU+WjwQClWVyVobdooR2yFMLtCo/OguN5weAMUEc8jvzBGdZedCcD4krP27Fm
+	/tGXfvh5BU+EtFtw/nO6oeuQ8He+JLk=
+Subject: Re: [for-4.15][PATCH v3 3/3] xen/iommu: x86: Harden the IOMMU
+ page-table allocator
+To: Julien Grall <julien@xen.org>
 Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
- Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
+ Julien Grall <jgrall@amazon.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <20210217142458.3769-1-julien@xen.org>
- <20210217142458.3769-3-julien@xen.org>
- <20f68b12-a767-b1d3-a3dd-9f92172def5f@suse.com>
- <d1116875-dd98-8f51-9113-314c1a62b4bf@xen.org>
+ <20210217142458.3769-4-julien@xen.org>
+ <cf303aee-3d89-5608-f358-6bef5c32d706@suse.com>
+ <51618338-daff-5b9a-5214-e0788d95992b@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <268f1991-bacb-c888-04c0-0e4cf670b6b5@suse.com>
-Date: Thu, 18 Feb 2021 14:05:43 +0100
+Message-ID: <ee3d628e-a369-fddc-4824-e860ebabe8af@suse.com>
+Date: Thu, 18 Feb 2021 14:10:14 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <d1116875-dd98-8f51-9113-314c1a62b4bf@xen.org>
+In-Reply-To: <51618338-daff-5b9a-5214-e0788d95992b@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 17.02.2021 17:07, Julien Grall wrote:
-> On 17/02/2021 15:01, Jan Beulich wrote:
->> On 17.02.2021 15:24, Julien Grall wrote:
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> The new x86 IOMMU page-tables allocator will release the pages when
->>> relinquishing the domain resources. However, this is not sufficient
->>> when the domain is dying because nothing prevents page-table to be
->>> allocated.
->>>
->>> Currently page-table allocations can only happen from iommu_map(). As
->>> the domain is dying, there is no good reason to continue to modify the
->>> IOMMU page-tables.
+On 17.02.2021 17:29, Julien Grall wrote:
+> On 17/02/2021 15:13, Jan Beulich wrote:
+>> On 17.02.2021 15:24, Julien Grall wrote:> --- a/xen/drivers/passthrough/x86/iommu.c> +++ b/xen/drivers/passthrough/x86/iommu.c> @@ -149,6 +149,13 @@ int arch_iommu_domain_init(struct domain *d)>  >  void arch_iommu_domain_destroy(struct domain *d)>  {> +    /*> +     * There should be not page-tables left allocated by the time the
+>> Nit: s/not/no/ ?
 >>
->> While I agree this to be the case right now, I'm not sure it is a
->> good idea to build on it (in that you leave the unmap paths
->> untouched).
-> 
-> I don't build on that assumption. See next patch.
-
-Yet as said there that patch makes unmapping perhaps more fragile,
-by introducing a latent error source into the path.
-
->> Imo there's a fair chance this would be overlooked at
->> the point super page mappings get introduced (which has been long
->> overdue), and I thought prior discussion had lead to a possible
->> approach without risking use-after-free due to squashed unmap
->> requests.
-> 
-> I know you suggested to zap the root page-tables... However, I don't 
-> think this is 4.15 material and you agree with this (you were the one 
-> pointed out that out).
-
-Paul - do you have any thoughts here? Outright zapping isn't
-going to work, we'd need to switch to quarantine page tables at
-the very least to prevent the issue with babbling devices. But
-that still seems better to me than the introduction of a latent
-issue on the unmap paths.
-
->>> --- a/xen/drivers/passthrough/x86/iommu.c
->>> +++ b/xen/drivers/passthrough/x86/iommu.c
->>> @@ -273,6 +273,9 @@ int iommu_free_pgtables(struct domain *d)
->>>       /*
->>>        * Pages will be moved to the free list below. So we want to
->>>        * clear the root page-table to avoid any potential use after-free.
->>> +     *
->>> +     * After this call, no more IOMMU mapping can happen.
->>> +     *
+>>> +     * domain is destroyed. Note that arch_iommu_domain_destroy() is
+>>> +     * called unconditionally, so pgtables may be unitialized.
+>>> +     */
+>>> +    ASSERT(dom_iommu(d)->platform_ops == NULL ||
+>>> +           page_list_empty(&dom_iommu(d)->arch.pgtables.list));
+>>>   }
+>>>   
+>>>   static bool __hwdom_init hwdom_iommu_map(const struct domain *d,
+>>> @@ -279,6 +286,9 @@ int iommu_free_pgtables(struct domain *d)
 >>>        */
 >>>       hd->platform_ops->clear_root_pgtable(d);
+>>>   
+>>> +    /* After this barrier no new page allocations can occur. */
+>>> +    spin_barrier(&hd->arch.pgtables.lock);
 >>
->> I.e. you utilize the call in place of spin_barrier(). Maybe worth
->> saying in the comment?
+>> Didn't patch 2 utilize the call to ->clear_root_pgtable() itself as
+>> the barrier? Why introduce another one (with a similar comment)
+>> explicitly now?
+> The barriers act differently, one will get against any IOMMU page-tables 
+> modification. The other one will gate against allocation.
 > 
-> Sure.
+> There is no guarantee that the former will prevent the latter.
 
-Btw - "no more IOMMU mapping" is also possibly ambiguous here:
-One might take it to mean both maps and unmaps. How about "no
-new IOMMU mappings can be inserted", as long as the unmap paths
-don't follow suit?
+Oh, right - different locks. I got confused here because in both
+cases the goal is to prevent allocations.
+
+>>> @@ -315,9 +326,29 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
+>>>       unmap_domain_page(p);
+>>>   
+>>>       spin_lock(&hd->arch.pgtables.lock);
+>>> -    page_list_add(pg, &hd->arch.pgtables.list);
+>>> +    /*
+>>> +     * The IOMMU page-tables are freed when relinquishing the domain, but
+>>> +     * nothing prevent allocation to happen afterwards. There is no valid
+>>> +     * reasons to continue to update the IOMMU page-tables while the
+>>> +     * domain is dying.
+>>> +     *
+>>> +     * So prevent page-table allocation when the domain is dying.
+>>> +     *
+>>> +     * We relying on &hd->arch.pgtables.lock to synchronize d->is_dying.
+>>> +     */
+>>> +    if ( likely(!d->is_dying) )
+>>> +    {
+>>> +        alive = true;
+>>> +        page_list_add(pg, &hd->arch.pgtables.list);
+>>> +    }
+>>>       spin_unlock(&hd->arch.pgtables.lock);
+>>>   
+>>> +    if ( unlikely(!alive) )
+>>> +    {
+>>> +        free_domheap_page(pg);
+>>> +        pg = NULL;
+>>> +    }
+>>> +
+>>>       return pg;
+>>>   }
+>>
+>> As before I'm concerned of this forcing error paths to be taken
+>> elsewhere, in case an allocation still happens (e.g. from unmap
+>> once super page mappings are supported). Considering some of the
+>> error handling in the IOMMU code is to invoke domain_crash(), it
+>> would be quite unfortunate if we ended up crashing a domain
+>> while it is being cleaned up after.
+> 
+> It is unfortunate, but I think this is better than having to leak page 
+> tables.
+> 
+>>
+>> Additionally, the (at present still hypothetical) unmap case, if
+>> failing because of the change here, would then again chance to
+>> leave mappings in place while the underlying pages get freed. As
+>> this would likely require an XSA, the change doesn't feel like
+>> "hardening" to me.
+> 
+> I would agree with this if memory allocations could never fail. That's 
+> not that case and will become worse as we use IOMMU pool.
+> 
+> Do you have callers in mind that doesn't check the returns of iommu_unmap()?
+
+The function is marked __must_check, so there won't be any direct
+callers ignoring errors (albeit I may be wrong here - we used to
+have cases where we simply suppressed the resulting compiler
+diagnostic, without really handling errors; not sure if all of
+these are gone by now). Risks might be elsewhere.
 
 Jan
 
