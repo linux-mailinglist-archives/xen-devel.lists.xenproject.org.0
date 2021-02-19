@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A798931FD56
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 17:45:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86991.163812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6130331FD5E
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 17:47:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86993.163824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD8uD-0002iE-Km; Fri, 19 Feb 2021 16:45:25 +0000
+	id 1lD8wG-0002vU-1Y; Fri, 19 Feb 2021 16:47:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86991.163812; Fri, 19 Feb 2021 16:45:25 +0000
+Received: by outflank-mailman (output) from mailman id 86993.163824; Fri, 19 Feb 2021 16:47:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD8uD-0002hp-HQ; Fri, 19 Feb 2021 16:45:25 +0000
-Received: by outflank-mailman (input) for mailman id 86991;
- Fri, 19 Feb 2021 16:45:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lD8wF-0002v3-UO; Fri, 19 Feb 2021 16:47:31 +0000
+Received: by outflank-mailman (input) for mailman id 86993;
+ Fri, 19 Feb 2021 16:47:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TOKe=HV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lD8uC-0002hi-Gq
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 16:45:24 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a972d635-e97e-4273-b171-35f8953d4037;
- Fri, 19 Feb 2021 16:45:23 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 69988ABAE;
- Fri, 19 Feb 2021 16:45:22 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1lD8wE-0002uw-A6
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 16:47:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lD8wE-0004sa-5O
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 16:47:30 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lD8wE-0002yV-3m
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 16:47:30 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lD8wA-0001QN-Ur; Fri, 19 Feb 2021 16:47:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,256 +41,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a972d635-e97e-4273-b171-35f8953d4037
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613753122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=v0w1XgiqNd2VbKokW7SYvXmycUfv8Dv82aGvuA9IRTw=;
-	b=QAZ/xy4ByUgYExjwd5G882/QUN1EjXdGY+0jj9lwPRLAlB/pQK/Gnc69+Ebscl3StaaMNx
-	b42BaqSL+H1AuhuAXbu6xK7TGWKNMIivdk/xYfyCvtQ55znyMHZycMIrWBANhaCMs6cCpG
-	9jTbK7ZTuNXXOiYo8g/kndboM0oMffk=
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] VMX: use a single, global APIC access page
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Kevin Tian <kevin.tian@intel.com>, Julien Grall <julien@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Ian Jackson <iwj@xenproject.org>
-Message-ID: <a895386d-db14-2743-d8f9-09f9509a510a@suse.com>
-Date: Fri, 19 Feb 2021 17:45:22 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:CC:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=1MkExnMamECWYQx76dG5d7NGinCeUMdPZgwxTkBhnYI=; b=3QEKuczr8RsRvHYQmhBcF37bpZ
+	UGxe9ZYkEfUBnKOH7dgEtuC2u70HXRr/0u+RAakLhbxBgEyd8JkKBU+bHUyB0xDaUUSvZz5738DrZ
+	de5cvRnAF8YLueib2RgA+ftYsnWswU10bmeSFardA6q8w9EM85cpcoSz4uxe6plHIM04=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID: <24623.60318.719046.601197@mariner.uk.xensource.com>
+Date: Fri, 19 Feb 2021 16:47:26 +0000
+To: committers@xenproject.org,
+CC: xen-devel@lists.xenproject.org,
+    community.manager@xenproject.org
+Subject: [ANNOUNCE] Xen 4.15 - hard codefreeze today
+In-Reply-To: <24612.676.586372.372903@mariner.uk.xensource.com>
+References: <24612.676.586372.372903@mariner.uk.xensource.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-The address of this page is used by the CPU only to recognize when to
-access the virtual APIC page instead. No accesses would ever go to this
-page. It only needs to be present in the (CPU) page tables so that
-address translation will produce its address as result for respective
-accesses.
+Today is the last day for committing anything to 4.15 without an
+explicit release-ack.
 
-By making this page global, we also eliminate the need to refcount it,
-or to assign it to any domain in the first place.
+Today, still:
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Avoid insertion when !has_vlapic(). Split off change to
-    p2m_get_iommu_flags().
----
-Hooking p2m insertion onto arch_domain_creation_finished() isn't very
-nice, but I couldn't find any better hook (nor a good place where to
-introduce a new one). In particular there look to be no hvm_funcs hooks
-being used on a domain-wide basis (except for init/destroy of course).
-I did consider connecting this to the setting of HVM_PARAM_IDENT_PT, but
-considered this no better, the more that the tool stack could be smarter
-and avoid setting that param when not needed.
+    You may continue to commit straightforward bugfixes, docs changes, and
+    new tests, without a release-ack.  Anything involving reorganisation
+    or refactoring should get a release ack.
 
-I did further consider not allocating any real page at all, but just
-using the address of some unpopulated space (which would require
-announcing this page as reserved to Dom0, so it wouldn't put any PCI
-MMIO BARs there). But I thought this would be too controversial, because
-of the possible risks associated with this.
+From the end of today, *all* changes must have a Release-Ack.
 
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1007,6 +1007,8 @@ int arch_domain_soft_reset(struct domain
- 
- void arch_domain_creation_finished(struct domain *d)
- {
-+    if ( is_hvm_domain(d) )
-+        hvm_domain_creation_finished(d);
- }
- 
- #define xen_vcpu_guest_context vcpu_guest_context
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -66,8 +66,7 @@ boolean_param("force-ept", opt_force_ept
- static void vmx_ctxt_switch_from(struct vcpu *v);
- static void vmx_ctxt_switch_to(struct vcpu *v);
- 
--static int  vmx_alloc_vlapic_mapping(struct domain *d);
--static void vmx_free_vlapic_mapping(struct domain *d);
-+static int alloc_vlapic_mapping(void);
- static void vmx_install_vlapic_mapping(struct vcpu *v);
- static void vmx_update_guest_cr(struct vcpu *v, unsigned int cr,
-                                 unsigned int flags);
-@@ -78,6 +77,8 @@ static int vmx_msr_read_intercept(unsign
- static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content);
- static void vmx_invlpg(struct vcpu *v, unsigned long linear);
- 
-+static mfn_t __read_mostly apic_access_mfn;
-+
- /* Values for domain's ->arch.hvm_domain.pi_ops.flags. */
- #define PI_CSW_FROM (1u << 0)
- #define PI_CSW_TO   (1u << 1)
-@@ -401,7 +402,6 @@ static int vmx_domain_initialise(struct
-         .to   = vmx_ctxt_switch_to,
-         .tail = vmx_do_resume,
-     };
--    int rc;
- 
-     d->arch.ctxt_switch = &csw;
- 
-@@ -411,21 +411,16 @@ static int vmx_domain_initialise(struct
-      */
-     d->arch.hvm.vmx.exec_sp = is_hardware_domain(d) || opt_ept_exec_sp;
- 
--    if ( !has_vlapic(d) )
--        return 0;
--
--    if ( (rc = vmx_alloc_vlapic_mapping(d)) != 0 )
--        return rc;
--
-     return 0;
- }
- 
--static void vmx_domain_relinquish_resources(struct domain *d)
-+static void domain_creation_finished(struct domain *d)
- {
--    if ( !has_vlapic(d) )
--        return;
- 
--    vmx_free_vlapic_mapping(d);
-+    if ( has_vlapic(d) && !mfn_eq(apic_access_mfn, _mfn(0)) &&
-+         set_mmio_p2m_entry(d, gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE),
-+                            apic_access_mfn, PAGE_ORDER_4K) )
-+        domain_crash(d);
- }
- 
- static void vmx_init_ipt(struct vcpu *v)
-@@ -2407,7 +2402,7 @@ static struct hvm_function_table __initd
-     .cpu_up_prepare       = vmx_cpu_up_prepare,
-     .cpu_dead             = vmx_cpu_dead,
-     .domain_initialise    = vmx_domain_initialise,
--    .domain_relinquish_resources = vmx_domain_relinquish_resources,
-+    .domain_creation_finished = domain_creation_finished,
-     .vcpu_initialise      = vmx_vcpu_initialise,
-     .vcpu_destroy         = vmx_vcpu_destroy,
-     .save_cpu_ctxt        = vmx_save_vmcs_ctxt,
-@@ -2653,7 +2548,7 @@ const struct hvm_function_table * __init
- {
-     set_in_cr4(X86_CR4_VMXE);
- 
--    if ( vmx_vmcs_init() )
-+    if ( vmx_vmcs_init() || alloc_vlapic_mapping() )
-     {
-         printk("VMX: failed to initialise.\n");
-         return NULL;
-@@ -3208,7 +3203,7 @@ gp_fault:
-     return X86EMUL_EXCEPTION;
- }
- 
--static int vmx_alloc_vlapic_mapping(struct domain *d)
-+static int __init alloc_vlapic_mapping(void)
- {
-     struct page_info *pg;
-     mfn_t mfn;
-@@ -3216,53 +3211,28 @@ static int vmx_alloc_vlapic_mapping(stru
-     if ( !cpu_has_vmx_virtualize_apic_accesses )
-         return 0;
- 
--    pg = alloc_domheap_page(d, MEMF_no_refcount);
-+    pg = alloc_domheap_page(NULL, 0);
-     if ( !pg )
-         return -ENOMEM;
- 
--    if ( !get_page_and_type(pg, d, PGT_writable_page) )
--    {
--        /*
--         * The domain can't possibly know about this page yet, so failure
--         * here is a clear indication of something fishy going on.
--         */
--        domain_crash(d);
--        return -ENODATA;
--    }
--
-     mfn = page_to_mfn(pg);
-     clear_domain_page(mfn);
--    d->arch.hvm.vmx.apic_access_mfn = mfn;
-+    apic_access_mfn = mfn;
- 
--    return set_mmio_p2m_entry(d, gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE), mfn,
--                              PAGE_ORDER_4K);
--}
--
--static void vmx_free_vlapic_mapping(struct domain *d)
--{
--    mfn_t mfn = d->arch.hvm.vmx.apic_access_mfn;
--
--    d->arch.hvm.vmx.apic_access_mfn = _mfn(0);
--    if ( !mfn_eq(mfn, _mfn(0)) )
--    {
--        struct page_info *pg = mfn_to_page(mfn);
--
--        put_page_alloc_ref(pg);
--        put_page_and_type(pg);
--    }
-+    return 0;
- }
- 
- static void vmx_install_vlapic_mapping(struct vcpu *v)
- {
-     paddr_t virt_page_ma, apic_page_ma;
- 
--    if ( mfn_eq(v->domain->arch.hvm.vmx.apic_access_mfn, _mfn(0)) )
-+    if ( !has_vlapic(v->domain) || mfn_eq(apic_access_mfn, _mfn(0)) )
-         return;
- 
-     ASSERT(cpu_has_vmx_virtualize_apic_accesses);
- 
-     virt_page_ma = page_to_maddr(vcpu_vlapic(v)->regs_page);
--    apic_page_ma = mfn_to_maddr(v->domain->arch.hvm.vmx.apic_access_mfn);
-+    apic_page_ma = mfn_to_maddr(apic_access_mfn);
- 
-     vmx_vmcs_enter(v);
-     __vmwrite(VIRTUAL_APIC_PAGE_ADDR, virt_page_ma);
---- a/xen/include/asm-x86/hvm/hvm.h
-+++ b/xen/include/asm-x86/hvm/hvm.h
-@@ -106,6 +106,7 @@ struct hvm_function_table {
-      * Initialise/destroy HVM domain/vcpu resources
-      */
-     int  (*domain_initialise)(struct domain *d);
-+    void (*domain_creation_finished)(struct domain *d);
-     void (*domain_relinquish_resources)(struct domain *d);
-     void (*domain_destroy)(struct domain *d);
-     int  (*vcpu_initialise)(struct vcpu *v);
-@@ -390,6 +391,12 @@ static inline bool hvm_has_set_descripto
-     return hvm_funcs.set_descriptor_access_exiting;
- }
- 
-+static inline void hvm_domain_creation_finished(struct domain *d)
-+{
-+    if ( hvm_funcs.domain_creation_finished )
-+        alternative_vcall(hvm_funcs.domain_creation_finished, d);
-+}
-+
- static inline int
- hvm_guest_x86_mode(struct vcpu *v)
- {
-@@ -765,6 +772,11 @@ static inline void hvm_invlpg(const stru
- {
-     ASSERT_UNREACHABLE();
- }
-+
-+static inline void hvm_domain_creation_finished(struct domain *d)
-+{
-+    ASSERT_UNREACHABLE();
-+}
- 
- /*
-  * Shadow code needs further cleanup to eliminate some HVM-only paths. For
---- a/xen/include/asm-x86/hvm/vmx/vmcs.h
-+++ b/xen/include/asm-x86/hvm/vmx/vmcs.h
-@@ -58,7 +58,6 @@ struct ept_data {
- #define _VMX_DOMAIN_PML_ENABLED    0
- #define VMX_DOMAIN_PML_ENABLED     (1ul << _VMX_DOMAIN_PML_ENABLED)
- struct vmx_domain {
--    mfn_t apic_access_mfn;
-     /* VMX_DOMAIN_* */
-     unsigned int status;
- 
+I intend to grant release-acks for bugfixes.  By and large I will try
+to adopt a risk/benefit analysis.  As the freeze goes on I will grow
+stricter.  I will be much more liberal with docs and tests.
+
+So we are now here in the release schedule:
+
+> * Friday 19th February   Code freeze
+> 
+>        Bugfixes only, all changes to be approved by the Release Manager.
+> 
+> * Week of 19th March **tentative**    Release
+>        (probably Tuesday or Wednesday)
+...
+>   The releas dates is provisional and will be adjusted in the light
+>   of apparent code quality etc.
+
+My current list of issues I am tracking for the release is below.  If
+you know about any of these issues please do let me know.
+
+I'm slightly concerned that there are some issues on that list that
+I'm not aware of any progress occurring on.  But maybe I haven't been
+CC'd on all the mails, in which case I'd appreciate a summary update.
+
+Also, please try to make sure that any patches targeted for 4.15
+contain `4.15` in the Subject line.  Typically, something like this:
+   [PATCH for-4.15 v2] re-invert the neutron polarisation
+
+Thanks,
+Ian.
+
+
+OPEN ISSUES AND BLOCKERS
+------------------------
+
+C. Fallout from MSR handling behavioral change.
+
+Information from
+  Jan Beulich <jbeulich@suse.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+Andrew writes:
+| Bugs are "VMs which boot on earlier releases don't boot on
+| 4.15 at the moment".
+| 
+| Still WIP and on my TODO list.
+
+I think this
+  [PATCH v2 4/4] tools/libs: Apply MSR policy to a guest
+is probably part of the answer but it hasn't been committed yet.
+
+
+D. Use-after-free in the IOMMU code
+
+Information from
+  Julien Grall <julien@xen.org>
+References
+ [PATCH for-4.15 0/4] xen/iommu: Collection of bug fixes for IOMMU teadorwn
+ <20201222154338.9459-1-julien@xen.org>
+
+Quoting the 0/:
+| This series is a collection of bug fixes for the IOMMU teardown code.
+| All of them are candidate for 4.15 as they can either leak memory or
+| lead to host crash/host corruption.
+
+These patches are still being discussed.  One went in, so now we are
+talking about
+  [PATCH v3 0/3] xen/iommu: Collection of bug fixes for IOMMU teadorwn
+
+
+F. BUG: credit=sched2 machine hang when using DRAKVUF
+
+Information from
+  Dario Faggioli <dfaggioli@suse.com>
+References
+  https://lists.xen.org/archives/html/xen-devel/2020-05/msg01985.html
+  https://lists.xenproject.org/archives/html/xen-devel/2020-10/msg01561.html
+  https://bugzilla.opensuse.org/show_bug.cgi?id=1179246
+
+Quoting Dario:
+| Manifests only with certain combination of hardware and workload. 
+| I'm not reproducing, but there are multiple reports of it (see 
+| above). I'm investigating and trying to come up at least with 
+| debug patches that one of the reporter should be able and willing to 
+| test.
+
+Dario is working on this.  Last update 29.1.21 ?
+
+
+G. Null scheduler and vwfi native problem
+
+Information from
+  Dario Faggioli <dfaggioli@suse.com>
+
+References
+  https://lists.xenproject.org/archives/html/xen-devel/2021-01/msg01634.html
+
+Quoting Dario:
+| RCU issues, but manifests due to scheduler behavior (especially   
+| NULL scheduler, especially on ARM).
+|
+| Patches that should solve the issue for ARM posted already. They
+| will need to be slightly adjusted to cover x86 as well.
+
+As of last update from Dario 29.1.21:
+waiting for test report from submitter.
+
+
+H. Ryzen 4000 (Mobile) Softlocks/Micro-stutters
+
+Information from
+  Dario Faggioli <dfaggioli@suse.com>
+
+As of last update from Dario 29.1.21:
+Discussions currently ongoing about the severity of this issue.
+
+
+I. "x86/PV: avoid speculation abuse through guest accessors"
+
+Information from
+  Jan Beulich <jbeulich@suse.com>
+
+| F. The almost-XSA "x86/PV: avoid speculation abuse through guest
+| accessors" - the first 4 patches are needed to address the actual
+| issue. The next 3 patches are needed to get the tree into
+| consistent state again, identifier-wise. The remaining patches
+| can probably wait.
+
+The primary fixes for this have reviews and R-A and will be going in
+shortly.  There is some followup work which needs to be reviewed and
+acked.
+
+
+J. x86/time: calibration rendezvous adjustments
+
+Information from
+  Jan Beulich <jbeulich@suse.com>
+
+Not entirely a regression.  But 3 out of the 4 patches have reviews
+and R-A and should be going in shortly.
+
+Patch 4/ is RFC and it's not clear to e whether it's targeted at 4.15.
+
+
+K. Problems with xl save / cancel
+
+Information from Jürgen Groß:
+  xl daemon won't kill the domain after it has gone through a
+  suspend-cancel cycle.
+
+Investigation is ongoing.  Not clear at this stage how big a blocker
+this is.
+
+
+L. ABI stability checking
+
+   [PATCH for-4.15 00/10] tools: Support to use abi-dumper on libraries
+   [PATCH v2 for-4.15] tools/libxl: Work around unintialised variable libxl__domain_get_device_model_uid()
+
+This is testing/build work and will enable ABI checking of future
+changes to 4.15 after its release.  I don't think it's a blocker but
+it would be nice to have.  It has R-A and I think most acks now.
+
+
+NEWLY CLOSED ISSUES
+===================
+
+
+A. HPET/PIT issue on newer Intel systems
+
+Information from
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+| This has had literally tens of reports across the devel and users
+| mailing lists, and prevents Xen from booting at all on the past two
+| generations of Intel laptop.  I've finally got a repro and posted a
+| fix to the list, but still in progress.
+
+Fixed.  c/s e1de4c196a.
+
+
+B. "scheduler broken" bugs.
+
+Information from
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Dario Faggioli <dfaggioli@suse.com>
+
+Quoting Andrew Cooper
+| We've had 4 or 5 reports of Xen not working, and very little
+| investigation on whats going on.  Suspicion is that there might be
+| two bugs, one with smt=0 on recent AMD hardware, and one more
+| general "some workloads cause negative credit" and might or might
+| not be specific to credit2 (debugging feedback differs - also might
+| be 3 underlying issue).
+
+Dario has expaneded on this and I am closing this one out in favour of
+F, G, H.
+
+
+PREVIOUS CLOSED ISSUES
+======================
+
+E. zstd support
 
