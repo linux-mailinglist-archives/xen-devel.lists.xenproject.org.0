@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EBA031F3AD
+	by mail.lfdr.de (Postfix) with ESMTPS id 8470531F3AE
 	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 02:43:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86751.163085 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.86752.163099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCuoe-0001Fi-IC; Fri, 19 Feb 2021 01:42:44 +0000
+	id 1lCuou-0001JF-Nv; Fri, 19 Feb 2021 01:43:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86751.163085; Fri, 19 Feb 2021 01:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 86752.163099; Fri, 19 Feb 2021 01:43:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCuoe-0001FT-Bu; Fri, 19 Feb 2021 01:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 86751;
- Fri, 19 Feb 2021 01:42:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lCuou-0001Ir-K3; Fri, 19 Feb 2021 01:43:00 +0000
+Received: by outflank-mailman (input) for mailman id 86752;
+ Fri, 19 Feb 2021 01:42:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cTCa=HV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lCuoc-0001FO-Bx
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 01:42:42 +0000
+ id 1lCuot-0001IQ-6f
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 01:42:59 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35959384-beba-4392-bd20-1b3687373ce6;
- Fri, 19 Feb 2021 01:42:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AA0DE64EC7;
- Fri, 19 Feb 2021 01:42:39 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 41e0c28a-ee77-4bf5-af49-4967c6e7371c;
+ Fri, 19 Feb 2021 01:42:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1E99964E92;
+ Fri, 19 Feb 2021 01:42:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,100 +38,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35959384-beba-4392-bd20-1b3687373ce6
+X-Inumbo-ID: 41e0c28a-ee77-4bf5-af49-4967c6e7371c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1613698960;
-	bh=ES19ySQ2YCJfx/AJS03/x+T+dDPTIgq86RcyudNFWL8=;
+	s=k20201202; t=1613698975;
+	bh=XF5c/LiOQ6+/57pE7wpWL6218t2PqLuap1Fk4canAHU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Z1F5A8obpo6TaFIOLgmezi6is//V3GqqHGcx91+aeARdOHDYoxj84PVmZsebY8QCo
-	 yQLanZYTM8VwlTE+AuXp68+YM4mj+pswMpOwsqUqsrrYaEIPNIlMLq59jH1LTnPyd+
-	 LaPCfdRG4SWCvNqaOs/HDn54ThwjK3yEpCei9lLeZ08Ex0Fw7QuN+aciBbgywPYYT1
-	 AYZ+kIAiFcrnxBsQ+a7pTLg2NcBtIz8qLvbZM8GT3HS6OY+nNZu+eu30Liqal3pYbc
-	 ut9Lb4pEy/E7YL7GK6n7r2IgnIVNyY7BhAW/jpwLREh3EeZCF/EnzminpxEZTb1HXu
-	 VnhDVot4YKbdA==
-Date: Thu, 18 Feb 2021 17:42:38 -0800 (PST)
+	b=J5lonfZr6/9hfj/SYa2ITGZu1SdnUNu5oqWx30JRAI+bhc2F4MPBANEEX8phklIE0
+	 rQ5Imz1fBcjeGstEYkS2dTF0PwuVSUkHzyOhLN/Dmr0wdY3ogPMLjzAaHkWXQC+xNy
+	 JN/pIujrabw7dFokJ8XR7c7j+dCSf3zjri2utBwjkG47Mg0z4EOuZEyXJ8LPGGKD8E
+	 sCi/AF51DuSc/2dwT1oj0XPpOpII0wmJ/KkfuVZ+otQWTh4OhVH0D+zccDEIrM5u5K
+	 sVwY8qchkORdYzx5FIajfjT6Ws7CwIpIIgV19c8LSDkFvi6uJaM7jFJJ+VSP4uJooH
+	 FxJ378q/zeahA==
+Date: Thu, 18 Feb 2021 17:42:54 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
+To: Julien Grall <julien@xen.org>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    xen-devel@lists.xenproject.org, cardoe@cardoe.com, 
-    andrew.cooper3@citrix.com, wl@xen.org, iwj@xenproject.org, 
-    anthony.perard@citrix.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH] firmware: don't build hvmloader if it is not needed
-In-Reply-To: <416e26b7-0e24-a9ee-6f9a-732f77f7e0cc@suse.com>
-Message-ID: <alpine.DEB.2.21.2102181737310.3234@sstabellini-ThinkPad-T480s>
-References: <20210213020540.27894-1-sstabellini@kernel.org> <20210213135056.GA6191@mail-itl> <4d9200cd-bd4b-e429-5c96-7a4399bb00b4@suse.com> <alpine.DEB.2.21.2102161016000.3234@sstabellini-ThinkPad-T480s> <5a574326-9560-e771-b84f-9d4f348b7f5f@suse.com>
- <alpine.DEB.2.21.2102171529460.3234@sstabellini-ThinkPad-T480s> <416e26b7-0e24-a9ee-6f9a-732f77f7e0cc@suse.com>
+    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
+    Volodymyr_Babchuk@epam.com, rahul.singh@arm.com
+Subject: Re: [RFC] xen/arm: introduce XENFEAT_ARM_dom0_iommu
+In-Reply-To: <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
+Message-ID: <alpine.DEB.2.21.2102180920570.3234@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s> <2d22d5b8-6cda-f27b-e938-4806b65794a5@xen.org> <alpine.DEB.2.21.2102171233270.3234@sstabellini-ThinkPad-T480s> <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 18 Feb 2021, Jan Beulich wrote:
-> On 18.02.2021 00:45, Stefano Stabellini wrote:
-> > Given this, I take there is no 32bit build env? A bit of Googling tells
-> > me that gcc on Alpine Linux is compiled without multilib support.
+On Thu, 18 Feb 2021, Julien Grall wrote:
+> On 17/02/2021 23:54, Stefano Stabellini wrote:
+> > On Wed, 17 Feb 2021, Julien Grall wrote:
+> > > On 17/02/2021 02:00, Stefano Stabellini wrote:
+> > > > Hi all,
+> > > > 
+> > > > Today Linux uses the swiotlb-xen driver (drivers/xen/swiotlb-xen.c) to
+> > > > translate addresses for DMA operations in Dom0. Specifically,
+> > > > swiotlb-xen is used to translate the address of a foreign page (a page
+> > > > belonging to a domU) mapped into Dom0 before using it for DMA.
+> > > > 
+> > > > This is important because although Dom0 is 1:1 mapped, DomUs are not. On
+> > > > systems without an IOMMU swiotlb-xen enables PV drivers to work as long
+> > > > as the backends are in Dom0. Thanks to swiotlb-xen, the DMA operation
+> > > > ends up using the MFN, rather than the GFN.
+> > > > 
+> > > > 
+> > > > On systems with an IOMMU, this is not necessary: when a foreign page is
+> > > > mapped in Dom0, it is added to the Dom0 p2m. A new GFN->MFN translation
+> > > > is enstablished for both MMU and SMMU. Dom0 could safely use the GFN
+> > > > address (instead of the MFN) for DMA operations and they would work. It
+> > > > would be more efficient than using swiotlb-xen.
+> > > > 
+> > > > If you recall my presentation from Xen Summit 2020, Xilinx is working on
+> > > > cache coloring. With cache coloring, no domain is 1:1 mapped, not even
+> > > > Dom0. In a scenario where Dom0 is not 1:1 mapped, swiotlb-xen does not
+> > > > work as intended.
+> > > > 
+> > > > 
+> > > > The suggested solution for both these issues is to add a new feature
+> > > > flag "XENFEAT_ARM_dom0_iommu" that tells Dom0 that it is safe not to use
+> > > > swiotlb-xen because IOMMU translations are available for Dom0. If
+> > > > XENFEAT_ARM_dom0_iommu is set, Linux should skip the swiotlb-xen
+> > > > initialization. I have tested this scheme with and without cache
+> > > > coloring (hence with and without 1:1 mapping of Dom0) on ZCU102 and it
+> > > > works as expected: DMA operations succeed.
+> > > > 
+> > > > 
+> > > > What about systems where an IOMMU is present but not all devices are
+> > > > protected?
+> > > > 
+> > > > There is no way for Xen to know which devices are protected and which
+> > > > ones are not: devices that do not have the "iommus" property could or
+> > > > could not be DMA masters.
+> > > > 
+> > > > Perhaps Xen could populate a whitelist of devices protected by the IOMMU
+> > > > based on the "iommus" property. It would require some added complexity
+> > > > in Xen and especially in the swiotlb-xen driver in Linux to use it,
+> > > > which is not ideal.
+> > > 
+> > > You are trading a bit more complexity in Xen and Linux with a user will
+> > > may
+> > > not be able to use the hypervisor on his/her platform without a quirk in
+> > > Xen
+> > > (see more below).
+> > > 
+> > > > However, this approach would not work for cache
+> > > > coloring where dom0 is not 1:1 mapped so the swiotlb-xen should not be
+> > > > used either way
+> > > 
+> > > Not all the Dom0 Linux kernel will be able to work with cache colouring.
+> > > So
+> > > you will need a way for the kernel to say "Hey I am can avoid using
+> > > swiotlb".
 > > 
-> > 
-> > That said I was looking at the Alpine Linux APKBUILD script:
-> > https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/main/xen/APKBUILD
-> > 
-> > And I noticed this patch that looks suspicious:
-> > https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/main/xen/musl-hvmloader-fix-stdint.patch
+> > A dom0 Linux kernel unmodified can work with Xen cache coloring enabled.
 > 
-> Indeed. I find it very odd that they have a bimodal gcc (allowing
-> -m32) but no suitable further infrastructure (headers). So perhaps
-> configure should probe for "gcc -m32" producing a uint64_t that is
-> actually 64 bits wide, and disable hvmloader building otherwise
-> (and - important - no matter whether it would actually be needed;
-> alternative being to fail configuring altogether)? Until - as said
-> before - we've made hvmloader properly freestanding.
+> Really? I was expecting Linux to configure the DMA transaction to use the MFN
+> for foreign pages. So a mapping GFN == MFN would be necessary.
+>
+> > The swiotlb-xen is unneeded and also all the pfn_valid() checks to detect
+> > if a page is local or foreign don't work as intended. 
+> 
+> I am not sure to understand this. Are you saying that Linux will
+> "mistakenly" consider the foreign page as local?
 
-OK it took me a lot longer than expected (I have never had the dubious
-pleasure of working with autoconf before) but the following seems to
-work, tested on both Alpine Linux and Debian Unstable. Of course I had
-to run autoreconf first.
+The pfn_valid(addr) check is based on the idea that gfn == mfn for local
+pages and gfn != mfn for foreign pages. If you take the mfn of a foreign
+page pfn_valid(mfn) should fail.
+
+However, it only works as long as Dom0 is 1:1 mapped. If it is not 1:1
+mapped pfn_valid(mfn) could return true for a foreign page. It could
+mistake a foreign page for a local one. It could also mistake a local
+page for a foreign one if we called pfn_valid() passing the mfn of one
+of our local pages.
 
 
-diff --git a/config/Tools.mk.in b/config/Tools.mk.in
-index 48bd9ab731..d5e4f1679f 100644
---- a/config/Tools.mk.in
-+++ b/config/Tools.mk.in
-@@ -50,6 +50,7 @@ CONFIG_OVMF         := @ovmf@
- CONFIG_ROMBIOS      := @rombios@
- CONFIG_SEABIOS      := @seabios@
- CONFIG_IPXE         := @ipxe@
-+CONFIG_HVMLOADER    := @hvmloader@
- CONFIG_QEMU_TRAD    := @qemu_traditional@
- CONFIG_QEMU_XEN     := @qemu_xen@
- CONFIG_QEMUU_EXTRA_ARGS:= @EXTRA_QEMUU_CONFIGURE_ARGS@
-diff --git a/tools/Makefile b/tools/Makefile
-index 757a560be0..6cff5766f3 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -14,7 +14,7 @@ SUBDIRS-y += examples
- SUBDIRS-y += hotplug
- SUBDIRS-y += xentrace
- SUBDIRS-$(CONFIG_XCUTILS) += xcutils
--SUBDIRS-$(CONFIG_X86) += firmware
-+SUBDIRS-$(CONFIG_HVMLOADER) += firmware
- SUBDIRS-y += console
- SUBDIRS-y += xenmon
- SUBDIRS-y += xentop
-diff --git a/tools/configure.ac b/tools/configure.ac
-index 6b611deb13..a3a52cec41 100644
---- a/tools/configure.ac
-+++ b/tools/configure.ac
-@@ -307,6 +307,10 @@ AC_ARG_VAR([AWK], [Path to awk tool])
+> Therefore, it would always use the GFN rather than MFN?
+
+For DMA operations:
+- local pages use GFN as dev_addr
+- foreign pages use MFN as dev_addr   <- requires 1:1 MFN mapping
+
+For cache flush operations:
+- local pages might flush locally, works as expected
+- local pages might flush via hypercall, needlessly slow but works
+  (this is what I was talking about)
+- foreign pages might flush locally, requires 1:1 MFN mapping
+- foreign pages might flush via hypercall, works as expected
+
+The 1:1 MFN mapping of foreign pages is required and it is problematic
+as it could conflict. Sorry for not mentioning it earlier. So yeah, it
+looks like a change in Linux is required.
+
+
+> > However, it still
+> > works on systems where the IOMMU can be relied upon. That's because the
+> > IOMMU does the GFN->MFN translations, and also because both swiotlb-xen
+> > code paths (cache flush local and cache flush via hypercall) work.
+> > 
+> > Also considering that somebody that enables cache coloring has to know
+> > the entire system well, I don't think we need a runtime flag from Linux
+> > to say "Hey I can avoid using swiotlb".
+> 
+> I think we should avoid to hardcode any decision again. Otherwise, sooner or
+> later this will come back to bite us.
+
+That's fair.
+
+Let's say that Linux needs some sort of change to work with cache
+colored Xen. One important point is that a user cannot really expect the
+system to enable cache coloring on its own if appropriate. The user has
+to go in and manually set it up in the config files of all domUs and
+even the Xen command line. So if the user turns it on and Linux breaks
+at boot because it can't support it, I think it is entirely fine.
+
+In other words, I don't think cache coloring needs to be dynamically
+discoverable and transparently enableable. But certainly if you turn it
+on, you don't want Linux to fail silently after a few hours. If it is
+going to fail, we want it to fail straight away and clearly. For
+example, a BUG_ON at boot in Linux or Xen would be fine.
+
+
  
- # Checks for programs.
- AC_PROG_CC
-+AC_LANG(C)
-+AC_LANG_CONFTEST([AC_LANG_SOURCE([[int main() { return 0;}]])])
-+AS_IF([gcc -m32 conftest.c -o - 2>/dev/null], [hvmloader=y], [AC_MSG_WARN(hvmloader build disabled as the compiler cannot build 32bit binaries)])
-+AC_SUBST(hvmloader)
- AC_PROG_MAKE_SET
- AC_PROG_INSTALL
- AC_PATH_PROG([FLEX], [flex])
+> > > > How to set XENFEAT_ARM_dom0_iommu?
+> > > > 
+> > > > We could set XENFEAT_ARM_dom0_iommu automatically when
+> > > > is_iommu_enabled(d) for Dom0. We could also have a platform specific
+> > > > (xen/arch/arm/platforms/) override so that a specific platform can
+> > > > disable XENFEAT_ARM_dom0_iommu. For debugging purposes and advanced
+> > > > users, it would also be useful to be able to override it via a Xen
+> > > > command line parameter.
+> > > Platform quirks should be are limited to a small set of platforms.
+> > > 
+> > > In this case, this would not be only per-platform but also per-firmware
+> > > table
+> > > as a developer can decide to remove/add IOMMU nodes in the DT at any time.
+> > > 
+> > > In addition to that, it means we are introducing a regression for those
+> > > users
+> > > as Xen 4.14 would have worked on there platform but not anymore. They
+> > > would
+> > > need to go through all the nodes and find out which one is not protected.
+> > > 
+> > > This is a bit of a daunting task and we are going to end up having a lot
+> > > of
+> > > per-platform quirk in Xen.
+> > > 
+> > > So this approach selecting the flag is a no-go for me. FAOD, the inverted
+> > > idea
+> > > (i.e. only setting XENFEAT_ARM_dom0_iommu per-platform) is a no go as
+> > > well.
+> > > 
+> > > I don't have a good idea how to set the flag automatically. My
+> > > requirement is newer Xen should continue to work on all supported
+> > > platforms without any additional per-platform effort.
+> > 
+> > Absolutely agreed.
+> > 
+> > 
+> > One option would be to rename the flag to XENFEAT_ARM_cache_coloring and
+> > only set it when cache coloring is enabled.  Obviously you need to know
+> > what you are doing if you are enabling cache coloring. If we go down
+> > that route, we don't risk breaking compatibility with any platforms.
+> > Given that cache coloring is not upstream yet (upstreaming should start
+> > very soon), maybe the only thing to do now would be to reserve a XENFEAT
+> > number.
+> 
+> At least in this context, I can't see how the problem described is cache
+> coloring specific. Although, we may need to expose such flag for other purpose
+> in the future.
+ 
+I agree
+
+
+> > But actually it was always wrong for Linux to enable swiotlb-xen without
+> > checking whether it is 1:1 mapped or not. Today we enable swiotlb-xen in
+> > dom0 and disable it in domU, while we should have enabled swiotlb-xen if
+> > 1:1 mapped no matter dom0/domU. (swiotlb-xen could be useful in a 1:1
+> > mapped domU driver domain.)
+> > 
+> > 
+> > There is an argument (Andy was making on IRC) that being 1:1 mapped or
+> > not is an important information that Xen should provide to the domain
+> > regardless of anything else.
+> > 
+> > So maybe we should add two flags:
+> > 
+> > - XENFEAT_direct_mapped
+> > - XENFEAT_not_direct_mapped
+> 
+> I am guessing the two flags is to allow Linux to fallback to the default
+> behavior (depending on dom0 vs domU) on older hypervisor On newer hypervisors,
+> one of this flag would always be set. Is that correct?
+
+Yes. On a newer hypervisor one of the two would be present and Linux can
+make an informed decision. On an older hypervisor, neither flag would be
+present, so Linux will have to keep doing what is currently doing.
+
+ 
+> > To all domains. This is not even ARM specific. Today dom0 would get
+> > XENFEAT_direct_mapped and domUs XENFEAT_not_direct_mapped. With cache
+> > coloring all domains will get XENFEAT_not_direct_mapped. With Bertrand's
+> > team work on 1:1 mapping domUs, some domUs might start to get
+> > XENFEAT_direct_mapped also one day soon.
+> > 
+> > Now I think this is the best option because it is descriptive, doesn't
+> > imply anything about what Linux should or should not do, and doesn't
+> > depend on unreliable IOMMU information.
+> 
+> That's a good first step but this still doesn't solve the problem on whether
+> the swiotlb can be disabled per-device or even disabling the expensive 1:1
+> mapping in the IOMMU page-tables.
+>
+> It feels to me we need to have a more complete solution (not necessary
+> implemented) so we don't put ourself in the corner again.
+
+Yeah, XENFEAT_{not,}_direct_mapped help cleaning things up, but don't
+solve the issues you described. Those are difficult to solve, it would
+be nice to have some idea.
+
+One issue is that we only have limited information passed via device
+tree, limited to the "iommus" property. If that's all we have, there
+isn't much we can do. The device tree list is maybe the only option,
+although it feels a bit complex intuitively. We could maybe replace the
+real iommu node with a fake iommu node only to use it to "tag" devices
+protected by the real iommu.
+
+I like the idea of rewarding well-designed boards; boards that have an
+IOMMU and works for all DMA-mastering devices. It would be great to be
+able to optimize those in a simple way, without breaking the others. But
+unfortunately due to the limited info on device tree, I cannot think of
+a way to do it automatically. And it is not great to rely on platform
+files.
+
+
+
+> > Instead, if we follow my original proposal of using
+> > XENFEAT_ARM_dom0_iommu and set it automatically when Dom0 is protected
+> > by IOMMU, we risk breaking PV drivers for platforms where that protection
+> > is incomplete. I have no idea how many there are out there today. 
+> 
+> This can virtually affect any platform as it is easy to disable an IOMMU in
+> the firmware table.
+> 
+> > I have
+> > the feeling that there aren't that many but I am not sure. So yes, it
+> > could be that we start passing XENFEAT_ARM_dom0_iommu for a given
+> > platform, Linux skips the swiotlb-xen initialization, actually it is
+> > needed for a network/block device, and a PV driver breaks. I can see why
+> > you say this is a no-go.
+> > 
+> > 
+> > Third option. We still use XENFEAT_ARM_dom0_iommu but we never set
+> > XENFEAT_ARM_dom0_iommu automatically. It needs a platform specific flag
+> > to be set. We add the flag to xen/arch/arm/platforms/xilinx-zynqmp.c and
+> > any other platforms that qualify. Basically it is "opt in" instead of
+> > "opt out". We don't risk breaking anything because platforms would have
+> > XENFEAT_ARM_dom0_iommu disabled by default.
+> Well, yes you will not break other platforms. However, you are still at risk
+> to break your platform if the firmware table is updated and disable some but
+> not all IOMMUs (for performance concern, brokeness...).
+
+This is something we might be able to detect: we can detect if an IOMMU
+is disabled.
+
 
