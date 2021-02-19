@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8470531F3AE
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 02:43:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86752.163099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9BA031F43F
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 04:42:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86758.163112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCuou-0001JF-Nv; Fri, 19 Feb 2021 01:43:00 +0000
+	id 1lCwfA-0004Xy-Gv; Fri, 19 Feb 2021 03:41:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86752.163099; Fri, 19 Feb 2021 01:43:00 +0000
+Received: by outflank-mailman (output) from mailman id 86758.163112; Fri, 19 Feb 2021 03:41:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lCuou-0001Ir-K3; Fri, 19 Feb 2021 01:43:00 +0000
-Received: by outflank-mailman (input) for mailman id 86752;
- Fri, 19 Feb 2021 01:42:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cTCa=HV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lCuot-0001IQ-6f
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 01:42:59 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 41e0c28a-ee77-4bf5-af49-4967c6e7371c;
- Fri, 19 Feb 2021 01:42:56 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1E99964E92;
- Fri, 19 Feb 2021 01:42:55 +0000 (UTC)
+	id 1lCwfA-0004XS-AU; Fri, 19 Feb 2021 03:41:04 +0000
+Received: by outflank-mailman (input) for mailman id 86758;
+ Fri, 19 Feb 2021 03:41:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCwf8-0004XK-PA; Fri, 19 Feb 2021 03:41:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCwf8-0006jA-Gr; Fri, 19 Feb 2021 03:41:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCwf8-0004Gx-8M; Fri, 19 Feb 2021 03:41:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lCwf8-0001MX-7N; Fri, 19 Feb 2021 03:41:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,306 +42,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41e0c28a-ee77-4bf5-af49-4967c6e7371c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1613698975;
-	bh=XF5c/LiOQ6+/57pE7wpWL6218t2PqLuap1Fk4canAHU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=J5lonfZr6/9hfj/SYa2ITGZu1SdnUNu5oqWx30JRAI+bhc2F4MPBANEEX8phklIE0
-	 rQ5Imz1fBcjeGstEYkS2dTF0PwuVSUkHzyOhLN/Dmr0wdY3ogPMLjzAaHkWXQC+xNy
-	 JN/pIujrabw7dFokJ8XR7c7j+dCSf3zjri2utBwjkG47Mg0z4EOuZEyXJ8LPGGKD8E
-	 sCi/AF51DuSc/2dwT1oj0XPpOpII0wmJ/KkfuVZ+otQWTh4OhVH0D+zccDEIrM5u5K
-	 sVwY8qchkORdYzx5FIajfjT6Ws7CwIpIIgV19c8LSDkFvi6uJaM7jFJJ+VSP4uJooH
-	 FxJ378q/zeahA==
-Date: Thu, 18 Feb 2021 17:42:54 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, rahul.singh@arm.com
-Subject: Re: [RFC] xen/arm: introduce XENFEAT_ARM_dom0_iommu
-In-Reply-To: <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
-Message-ID: <alpine.DEB.2.21.2102180920570.3234@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s> <2d22d5b8-6cda-f27b-e938-4806b65794a5@xen.org> <alpine.DEB.2.21.2102171233270.3234@sstabellini-ThinkPad-T480s> <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=AxJPj6s906IAs2x+dw3xQLtjyPnu63GPqEkw/Yy9KGM=; b=6koQV2E/BaK8B8uo7CIPlfMrKq
+	uppp/o/C7V/c3s4A9RbDKOqsEytBJW1BGg+3bh9qnjnaD5NC0bc1ZNYQY7ZMcDenTTmeMnH/Y0jYL
+	/ie1jDuNfu0AZjSKHRm54YR1P5f3Q4XqTApS/mvarNYZr3BvJOFDTV7BNLRLwM1dAdao=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [linux-5.4 bisection] complete test-armhf-armhf-libvirt
+Message-Id: <E1lCwf8-0001MX-7N@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Feb 2021 03:41:02 +0000
 
-On Thu, 18 Feb 2021, Julien Grall wrote:
-> On 17/02/2021 23:54, Stefano Stabellini wrote:
-> > On Wed, 17 Feb 2021, Julien Grall wrote:
-> > > On 17/02/2021 02:00, Stefano Stabellini wrote:
-> > > > Hi all,
-> > > > 
-> > > > Today Linux uses the swiotlb-xen driver (drivers/xen/swiotlb-xen.c) to
-> > > > translate addresses for DMA operations in Dom0. Specifically,
-> > > > swiotlb-xen is used to translate the address of a foreign page (a page
-> > > > belonging to a domU) mapped into Dom0 before using it for DMA.
-> > > > 
-> > > > This is important because although Dom0 is 1:1 mapped, DomUs are not. On
-> > > > systems without an IOMMU swiotlb-xen enables PV drivers to work as long
-> > > > as the backends are in Dom0. Thanks to swiotlb-xen, the DMA operation
-> > > > ends up using the MFN, rather than the GFN.
-> > > > 
-> > > > 
-> > > > On systems with an IOMMU, this is not necessary: when a foreign page is
-> > > > mapped in Dom0, it is added to the Dom0 p2m. A new GFN->MFN translation
-> > > > is enstablished for both MMU and SMMU. Dom0 could safely use the GFN
-> > > > address (instead of the MFN) for DMA operations and they would work. It
-> > > > would be more efficient than using swiotlb-xen.
-> > > > 
-> > > > If you recall my presentation from Xen Summit 2020, Xilinx is working on
-> > > > cache coloring. With cache coloring, no domain is 1:1 mapped, not even
-> > > > Dom0. In a scenario where Dom0 is not 1:1 mapped, swiotlb-xen does not
-> > > > work as intended.
-> > > > 
-> > > > 
-> > > > The suggested solution for both these issues is to add a new feature
-> > > > flag "XENFEAT_ARM_dom0_iommu" that tells Dom0 that it is safe not to use
-> > > > swiotlb-xen because IOMMU translations are available for Dom0. If
-> > > > XENFEAT_ARM_dom0_iommu is set, Linux should skip the swiotlb-xen
-> > > > initialization. I have tested this scheme with and without cache
-> > > > coloring (hence with and without 1:1 mapping of Dom0) on ZCU102 and it
-> > > > works as expected: DMA operations succeed.
-> > > > 
-> > > > 
-> > > > What about systems where an IOMMU is present but not all devices are
-> > > > protected?
-> > > > 
-> > > > There is no way for Xen to know which devices are protected and which
-> > > > ones are not: devices that do not have the "iommus" property could or
-> > > > could not be DMA masters.
-> > > > 
-> > > > Perhaps Xen could populate a whitelist of devices protected by the IOMMU
-> > > > based on the "iommus" property. It would require some added complexity
-> > > > in Xen and especially in the swiotlb-xen driver in Linux to use it,
-> > > > which is not ideal.
-> > > 
-> > > You are trading a bit more complexity in Xen and Linux with a user will
-> > > may
-> > > not be able to use the hypervisor on his/her platform without a quirk in
-> > > Xen
-> > > (see more below).
-> > > 
-> > > > However, this approach would not work for cache
-> > > > coloring where dom0 is not 1:1 mapped so the swiotlb-xen should not be
-> > > > used either way
-> > > 
-> > > Not all the Dom0 Linux kernel will be able to work with cache colouring.
-> > > So
-> > > you will need a way for the kernel to say "Hey I am can avoid using
-> > > swiotlb".
-> > 
-> > A dom0 Linux kernel unmodified can work with Xen cache coloring enabled.
-> 
-> Really? I was expecting Linux to configure the DMA transaction to use the MFN
-> for foreign pages. So a mapping GFN == MFN would be necessary.
->
-> > The swiotlb-xen is unneeded and also all the pfn_valid() checks to detect
-> > if a page is local or foreign don't work as intended. 
-> 
-> I am not sure to understand this. Are you saying that Linux will
-> "mistakenly" consider the foreign page as local?
+branch xen-unstable
+xenbranch xen-unstable
+job test-armhf-armhf-libvirt
+testid guest-start
 
-The pfn_valid(addr) check is based on the idea that gfn == mfn for local
-pages and gfn != mfn for foreign pages. If you take the mfn of a foreign
-page pfn_valid(mfn) should fail.
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-However, it only works as long as Dom0 is 1:1 mapped. If it is not 1:1
-mapped pfn_valid(mfn) could return true for a foreign page. It could
-mistake a foreign page for a local one. It could also mistake a local
-page for a foreign one if we called pfn_valid() passing the mfn of one
-of our local pages.
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159469/
 
 
-> Therefore, it would always use the GFN rather than MFN?
-
-For DMA operations:
-- local pages use GFN as dev_addr
-- foreign pages use MFN as dev_addr   <- requires 1:1 MFN mapping
-
-For cache flush operations:
-- local pages might flush locally, works as expected
-- local pages might flush via hypercall, needlessly slow but works
-  (this is what I was talking about)
-- foreign pages might flush locally, requires 1:1 MFN mapping
-- foreign pages might flush via hypercall, works as expected
-
-The 1:1 MFN mapping of foreign pages is required and it is problematic
-as it could conflict. Sorry for not mentioning it earlier. So yeah, it
-looks like a change in Linux is required.
-
-
-> > However, it still
-> > works on systems where the IOMMU can be relied upon. That's because the
-> > IOMMU does the GFN->MFN translations, and also because both swiotlb-xen
-> > code paths (cache flush local and cache flush via hypercall) work.
-> > 
-> > Also considering that somebody that enables cache coloring has to know
-> > the entire system well, I don't think we need a runtime flag from Linux
-> > to say "Hey I can avoid using swiotlb".
-> 
-> I think we should avoid to hardcode any decision again. Otherwise, sooner or
-> later this will come back to bite us.
-
-That's fair.
-
-Let's say that Linux needs some sort of change to work with cache
-colored Xen. One important point is that a user cannot really expect the
-system to enable cache coloring on its own if appropriate. The user has
-to go in and manually set it up in the config files of all domUs and
-even the Xen command line. So if the user turns it on and Linux breaks
-at boot because it can't support it, I think it is entirely fine.
-
-In other words, I don't think cache coloring needs to be dynamically
-discoverable and transparently enableable. But certainly if you turn it
-on, you don't want Linux to fail silently after a few hours. If it is
-going to fail, we want it to fail straight away and clearly. For
-example, a BUG_ON at boot in Linux or Xen would be fine.
+  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Author: David Woodhouse <dwmw@amazon.co.uk>
+  Date:   Wed Jan 13 13:26:02 2021 +0000
+  
+      xen: Fix event channel callback via INTX/GSI
+      
+      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+      
+      For a while, event channel notification via the PCI platform device
+      has been broken, because we attempt to communicate with xenstore before
+      we even have notifications working, with the xs_reset_watches() call
+      in xs_init().
+      
+      We tend to get away with this on Xen versions below 4.0 because we avoid
+      calling xs_reset_watches() anyway, because xenstore might not cope with
+      reading a non-existent key. And newer Xen *does* have the vector
+      callback support, so we rarely fall back to INTX/GSI delivery.
+      
+      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+      case, deferring it to be called from xenbus_probe() in the XS_HVM case
+      instead.
+      
+      Then fix up the invocation of xenbus_probe() to happen either from its
+      device_initcall if the callback is available early enough, or when the
+      callback is finally set up. This means that the hack of calling
+      xenbus_probe() from a workqueue after the first interrupt, or directly
+      from the PCI platform device setup, is no longer needed.
+      
+      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 
- 
-> > > > How to set XENFEAT_ARM_dom0_iommu?
-> > > > 
-> > > > We could set XENFEAT_ARM_dom0_iommu automatically when
-> > > > is_iommu_enabled(d) for Dom0. We could also have a platform specific
-> > > > (xen/arch/arm/platforms/) override so that a specific platform can
-> > > > disable XENFEAT_ARM_dom0_iommu. For debugging purposes and advanced
-> > > > users, it would also be useful to be able to override it via a Xen
-> > > > command line parameter.
-> > > Platform quirks should be are limited to a small set of platforms.
-> > > 
-> > > In this case, this would not be only per-platform but also per-firmware
-> > > table
-> > > as a developer can decide to remove/add IOMMU nodes in the DT at any time.
-> > > 
-> > > In addition to that, it means we are introducing a regression for those
-> > > users
-> > > as Xen 4.14 would have worked on there platform but not anymore. They
-> > > would
-> > > need to go through all the nodes and find out which one is not protected.
-> > > 
-> > > This is a bit of a daunting task and we are going to end up having a lot
-> > > of
-> > > per-platform quirk in Xen.
-> > > 
-> > > So this approach selecting the flag is a no-go for me. FAOD, the inverted
-> > > idea
-> > > (i.e. only setting XENFEAT_ARM_dom0_iommu per-platform) is a no go as
-> > > well.
-> > > 
-> > > I don't have a good idea how to set the flag automatically. My
-> > > requirement is newer Xen should continue to work on all supported
-> > > platforms without any additional per-platform effort.
-> > 
-> > Absolutely agreed.
-> > 
-> > 
-> > One option would be to rename the flag to XENFEAT_ARM_cache_coloring and
-> > only set it when cache coloring is enabled.  Obviously you need to know
-> > what you are doing if you are enabling cache coloring. If we go down
-> > that route, we don't risk breaking compatibility with any platforms.
-> > Given that cache coloring is not upstream yet (upstreaming should start
-> > very soon), maybe the only thing to do now would be to reserve a XENFEAT
-> > number.
-> 
-> At least in this context, I can't see how the problem described is cache
-> coloring specific. Although, we may need to expose such flag for other purpose
-> in the future.
- 
-I agree
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/test-armhf-armhf-libvirt.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/test-armhf-armhf-libvirt.guest-start --summary-out=tmp/159469.bisection-summary --basis-template=158387 --blessings=real,real-bisect,real-retry linux-5.4 test-armhf-armhf-libvirt guest-start
+Searching for failure / basis pass:
+ 159431 fail [host=cubietruck-gleizes] / 158681 [host=cubietruck-braque] 158624 [host=cubietruck-picasso] 158616 [host=arndale-bluewater] 158609 [host=arndale-metrocentre] 158603 [host=cubietruck-metzinger] 158593 [host=arndale-westfield] 158583 [host=arndale-lakeside] 158563 ok.
+Failure / basis pass flights: 159431 / 158563
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4f4d862c1c7232a18347616d94c343c929657fdb 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 339371ef78eb3a6f2e9848f8b058379de5e87d39 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#d26b3110041a9fddc6c6e36398f53f7eab8cff82-5b9a4104c902d7dec14c9e3c5652a638194487c6 git://xenbits.xen.org/osstest/linux-firmware.git#\
+ c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#339371ef78eb3a6f2e9848f8b058379de5e87d39-4f4d862c1c7232a18347616d94c343c929657fdb git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/osstest/seabios.git#ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e-ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e git://xenbits.xen.org/xen.git#e8adbf680b56a3f4b9600c7bcc\
+ 04fec1877a6213-04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+Loaded 15001 nodes in revision graph
+Searching for test results:
+ 158552 [host=cubietruck-braque]
+ 158563 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 339371ef78eb3a6f2e9848f8b058379de5e87d39 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
+ 158583 [host=arndale-lakeside]
+ 158593 [host=arndale-westfield]
+ 158603 [host=cubietruck-metzinger]
+ 158609 [host=arndale-metrocentre]
+ 158616 [host=arndale-bluewater]
+ 158624 [host=cubietruck-picasso]
+ 158681 [host=cubietruck-braque]
+ 158707 fail irrelevant
+ 158716 fail irrelevant
+ 158748 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e f8708b0ed6d549d1d29b8b5cc287f1f2b642bc63
+ 158765 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 131f8d8a889a5ca66a835eea82bba043ac91a7cf c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 6677b5a3577c16501fbc51a3341446905bd21c38
+ 158796 fail irrelevant
+ 158818 fail irrelevant
+ 158841 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158863 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158881 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c6be6dab9c4bdf135bc02b61ecc304d5511c3588 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158929 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0fbca6ce4174724f28be5268c5d210f51ed96e31 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea56ebf67dd55483105aa9f9996a48213e78337e 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158962 fail irrelevant
+ 159023 fail irrelevant
+ 159129 fail irrelevant
+ 159200 fail irrelevant
+ 159238 fail irrelevant
+ 159295 fail irrelevant
+ 159324 fail irrelevant
+ 159339 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159359 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159372 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159399 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159439 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd d26b3110041a9fddc6c6e36398f53f7eab8cff82 c530a75c1e6a472b0eb9558310b518f0dfcd8860 339371ef78eb3a6f2e9848f8b058379de5e87d39 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e e8adbf680b56a3f4b9600c7bcc04fec1877a6213
+ 159442 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2e1e8c35f3178df95d79da81ac6deec242da74c2 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159444 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd e2d69319b713c30ca21428c3955a79f3a7bf6c23 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3b769c5110384fb33bcfeddced80f721ec7838cc 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+ 159447 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 8c3d3b385ed868660c7dff0336da1bd5a9fb134d c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159449 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 4d1cf8eeda5b3f411440d9910a484b1d06484aa7 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159451 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 68f99105752d132d411231bfc60cf78eceaac5e0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159452 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159455 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 7eef736858712ab65afea3908f49eb4e7775fa93 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159431 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4f4d862c1c7232a18347616d94c343c929657fdb 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159456 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159458 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 5b9a4104c902d7dec14c9e3c5652a638194487c6 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4f4d862c1c7232a18347616d94c343c929657fdb 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 04085ec1ac05a362812e9b0c6b5a8713d7dc88ad
+ 159464 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159466 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159468 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+ 159469 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd a09d4e7acdbf276b2096661ee82454ae3dd24d2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+Searching for interesting versions
+ Result found: flight 158563 (pass), for basis pass
+ Result found: flight 159339 (fail), for basis failure (at ancestor ~281)
+ Repro found: flight 159439 (pass), for basis pass
+ Repro found: flight 159458 (fail), for basis failure
+ 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd acc402fa5bf502d471d50e3d495379f093a7f9e4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d6fc9d36fd5ff15972bedab919f37bb4ee951d0 7ea428895af2840d85c524f0bd11a38aac308308 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 464301737acfa90b46b79659b19d7f456861def3
+No revisions left to test, checking graph state.
+ Result found: flight 159452 (pass), for last pass
+ Result found: flight 159456 (fail), for first failure
+ Repro found: flight 159464 (pass), for last pass
+ Repro found: flight 159466 (fail), for first failure
+ Repro found: flight 159468 (pass), for last pass
+ Repro found: flight 159469 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+  Bug introduced:  a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Bug not present: acc402fa5bf502d471d50e3d495379f093a7f9e4
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159469/
 
 
-> > But actually it was always wrong for Linux to enable swiotlb-xen without
-> > checking whether it is 1:1 mapped or not. Today we enable swiotlb-xen in
-> > dom0 and disable it in domU, while we should have enabled swiotlb-xen if
-> > 1:1 mapped no matter dom0/domU. (swiotlb-xen could be useful in a 1:1
-> > mapped domU driver domain.)
-> > 
-> > 
-> > There is an argument (Andy was making on IRC) that being 1:1 mapped or
-> > not is an important information that Xen should provide to the domain
-> > regardless of anything else.
-> > 
-> > So maybe we should add two flags:
-> > 
-> > - XENFEAT_direct_mapped
-> > - XENFEAT_not_direct_mapped
-> 
-> I am guessing the two flags is to allow Linux to fallback to the default
-> behavior (depending on dom0 vs domU) on older hypervisor On newer hypervisors,
-> one of this flag would always be set. Is that correct?
+  commit a09d4e7acdbf276b2096661ee82454ae3dd24d2b
+  Author: David Woodhouse <dwmw@amazon.co.uk>
+  Date:   Wed Jan 13 13:26:02 2021 +0000
+  
+      xen: Fix event channel callback via INTX/GSI
+      
+      [ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+      
+      For a while, event channel notification via the PCI platform device
+      has been broken, because we attempt to communicate with xenstore before
+      we even have notifications working, with the xs_reset_watches() call
+      in xs_init().
+      
+      We tend to get away with this on Xen versions below 4.0 because we avoid
+      calling xs_reset_watches() anyway, because xenstore might not cope with
+      reading a non-existent key. And newer Xen *does* have the vector
+      callback support, so we rarely fall back to INTX/GSI delivery.
+      
+      To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+      startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+      case, deferring it to be called from xenbus_probe() in the XS_HVM case
+      instead.
+      
+      Then fix up the invocation of xenbus_probe() to happen either from its
+      device_initcall if the callback is available early enough, or when the
+      callback is finally set up. This means that the hack of calling
+      xenbus_probe() from a workqueue after the first interrupt, or directly
+      from the PCI platform device setup, is no longer needed.
+      
+      Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+      Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+      Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Yes. On a newer hypervisor one of the two would be present and Linux can
-make an informed decision. On an older hypervisor, neither flag would be
-present, so Linux will have to keep doing what is currently doing.
+neato: graph is too large for cairo-renderer bitmaps. Scaling by 0.910397 to fit
+pnmtopng: 105 colors found
+Revision graph left in /home/logs/results/bisect/linux-5.4/test-armhf-armhf-libvirt.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+159469: tolerable FAIL
 
- 
-> > To all domains. This is not even ARM specific. Today dom0 would get
-> > XENFEAT_direct_mapped and domUs XENFEAT_not_direct_mapped. With cache
-> > coloring all domains will get XENFEAT_not_direct_mapped. With Bertrand's
-> > team work on 1:1 mapping domUs, some domUs might start to get
-> > XENFEAT_direct_mapped also one day soon.
-> > 
-> > Now I think this is the best option because it is descriptive, doesn't
-> > imply anything about what Linux should or should not do, and doesn't
-> > depend on unreliable IOMMU information.
-> 
-> That's a good first step but this still doesn't solve the problem on whether
-> the swiotlb can be disabled per-device or even disabling the expensive 1:1
-> mapping in the IOMMU page-tables.
->
-> It feels to me we need to have a more complete solution (not necessary
-> implemented) so we don't put ourself in the corner again.
+flight 159469 linux-5.4 real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159469/
 
-Yeah, XENFEAT_{not,}_direct_mapped help cleaning things up, but don't
-solve the issues you described. Those are difficult to solve, it would
-be nice to have some idea.
+Failures :-/ but no regressions.
 
-One issue is that we only have limited information passed via device
-tree, limited to the "iommus" property. If that's all we have, there
-isn't much we can do. The device tree list is maybe the only option,
-although it feels a bit complex intuitively. We could maybe replace the
-real iommu node with a fake iommu node only to use it to "tag" devices
-protected by the real iommu.
-
-I like the idea of rewarding well-designed boards; boards that have an
-IOMMU and works for all DMA-mastering devices. It would be great to be
-able to optimize those in a simple way, without breaking the others. But
-unfortunately due to the limited info on device tree, I cannot think of
-a way to do it automatically. And it is not great to rely on platform
-files.
+Tests which did not succeed,
+including tests which could not be run:
+ test-armhf-armhf-libvirt     14 guest-start             fail baseline untested
 
 
+jobs:
+ build-armhf-libvirt                                          pass    
+ test-armhf-armhf-libvirt                                     fail    
 
-> > Instead, if we follow my original proposal of using
-> > XENFEAT_ARM_dom0_iommu and set it automatically when Dom0 is protected
-> > by IOMMU, we risk breaking PV drivers for platforms where that protection
-> > is incomplete. I have no idea how many there are out there today. 
-> 
-> This can virtually affect any platform as it is easy to disable an IOMMU in
-> the firmware table.
-> 
-> > I have
-> > the feeling that there aren't that many but I am not sure. So yes, it
-> > could be that we start passing XENFEAT_ARM_dom0_iommu for a given
-> > platform, Linux skips the swiotlb-xen initialization, actually it is
-> > needed for a network/block device, and a PV driver breaks. I can see why
-> > you say this is a no-go.
-> > 
-> > 
-> > Third option. We still use XENFEAT_ARM_dom0_iommu but we never set
-> > XENFEAT_ARM_dom0_iommu automatically. It needs a platform specific flag
-> > to be set. We add the flag to xen/arch/arm/platforms/xilinx-zynqmp.c and
-> > any other platforms that qualify. Basically it is "opt in" instead of
-> > "opt out". We don't risk breaking anything because platforms would have
-> > XENFEAT_ARM_dom0_iommu disabled by default.
-> Well, yes you will not break other platforms. However, you are still at risk
-> to break your platform if the firmware table is updated and disable some but
-> not all IOMMUs (for performance concern, brokeness...).
 
-This is something we might be able to detect: we can detect if an IOMMU
-is disabled.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
