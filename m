@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0145831FB8E
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 16:02:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86915.163501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D558031FB9E
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 16:05:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86917.163513 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD7Hr-0006Yl-9o; Fri, 19 Feb 2021 15:01:43 +0000
+	id 1lD7Kv-0006gn-OS; Fri, 19 Feb 2021 15:04:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86915.163501; Fri, 19 Feb 2021 15:01:43 +0000
+Received: by outflank-mailman (output) from mailman id 86917.163513; Fri, 19 Feb 2021 15:04:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD7Hr-0006YM-6q; Fri, 19 Feb 2021 15:01:43 +0000
-Received: by outflank-mailman (input) for mailman id 86915;
- Fri, 19 Feb 2021 15:01:42 +0000
+	id 1lD7Kv-0006gO-LE; Fri, 19 Feb 2021 15:04:53 +0000
+Received: by outflank-mailman (input) for mailman id 86917;
+ Fri, 19 Feb 2021 15:04:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kvll=HV=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1lD7Hq-0006YH-IS
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 15:01:42 +0000
-Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
+ <SRS0=6Nbw=HV=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lD7Ku-0006gF-4T
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 15:04:52 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a22a2a18-20dc-4bae-8908-e5ff7b00e800;
- Fri, 19 Feb 2021 15:01:41 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 95582A3E;
- Fri, 19 Feb 2021 10:01:39 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 19 Feb 2021 10:01:40 -0500
-Received: from mail-itl (ip5b434f04.dynamic.kabel-deutschland.de [91.67.79.4])
- by mail.messagingengine.com (Postfix) with ESMTPA id 31DC6108006B;
- Fri, 19 Feb 2021 10:01:37 -0500 (EST)
+ id 90bb71f3-8dd2-490f-91cd-f1e7aa094536;
+ Fri, 19 Feb 2021 15:04:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +36,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a22a2a18-20dc-4bae-8908-e5ff7b00e800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=+FpTDQ
-	EfJBhWk/fzo6gHGJpB659VTaavb2b6nZ7KaN8=; b=nPUmiRf4+tPkiMbhejTjkS
-	ou2WbYuj+JJ9kxs1sbyxj4TnQbSgBqR1tEwdET6DK6Wvr1+Whta/9GFxxg2OJWlS
-	ffvRYuyw+qocAqSu5k3kF7VgN/yfiCPdVboDYnu8xYPCbWo9CHYUMXxmYbPAFOB8
-	0cu8G7Mph+gaGQdJSPzh09J8svJVSHXu6wggUkbKBOP95w8GxGUmz12HcRm+TT0+
-	ep5RpsSQUJ1i2OqoHMX8AlWVaJxNknItMjFFzneuLQL9o2/Z3cD69O6Ovw1DyOsf
-	Kj4LsvUqT7xnO2egw03HWtI0XMl9pvTJURxwoNJrmd55yS/ZNCT9dI/7PL+EhZuQ
-	==
-X-ME-Sender: <xms:0tIvYF17V1d2CsS1sTn8-aio2M_am4YW5vMw9BXYkMPUoeCpx2NyCw>
-    <xme:0tIvYOtTxrxcn7MhoVZbQOSpqCPzB8C_sgUsbg3ltozBQZHdXTB2UT_GPbD4V8Dt6
-    swMWnlhMRL-UA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeeigdejudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffei
-    gffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecukfhppeelud
-    drieejrdejledrgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhl
-    fhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
-    hm
-X-ME-Proxy: <xmx:0tIvYFaLlBApEzCKae8Zko0URyEQYQCxHvX-NcBFJE9rreR2-v31Mw>
-    <xmx:0tIvYEKLPDs0y_znpCvmRpAkSHCTIrAe8hP_2CWaQLor_ltEbeI7gQ>
-    <xmx:0tIvYGi9Lh6zi8NItCMwefQ1hbQCQYcsBQfLRL66KNUi1BshY1SMXA>
-    <xmx:0tIvYGaZgCXk61EVVZovYsq5CFrzCPH-A50vjWETY4-R47TygGyOnQ>
-Date: Fri, 19 Feb 2021 16:01:32 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH-for-4.15] tools/libs/light: fix xl save -c handling
-Message-ID: <YC/SzYyDP7e6830X@mail-itl>
-References: <20210219141337.6934-1-jgross@suse.com>
- <1c02c3af-0a9b-6c68-e110-9d0963275e17@suse.com>
+X-Inumbo-ID: 90bb71f3-8dd2-490f-91cd-f1e7aa094536
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1613747091;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=qL6LlSUT3VuR8v4v64EDX2BiNYj+Drd+LyVkTuFvHc0=;
+  b=RgF0x83gY6CCdtuHdGFq8wPX4aTeGh6k7CK9/ZzYEe7Pp9bYmi4Qjp0G
+   70Smuh2hh59BQWnAtSuBr2HX6kVUChOMZ+ZaxOVNKfyZjo6xvqq8gLgkk
+   i/+zekL99L13atta3EBFD83oO6UVnzzMUDnCm4WnIKpJKQlASar+aJTA+
+   w=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +fVDByxOsCEEDTDywyhAPN9cUTVvLBICtUXBMempAdn54fr2xw+6fAzkz3jpzxHp6iu0tYNMxy
+ vLATHgJr67NzCSHuqSlHe6jrsr14S1uCRp+7oKYLTKLCQ6VMv04iB2rCJqdxek/wXRvLtKBE4k
+ 6Im9ix6mE5rW/tje131mo1wRPyso5eQeoLm1BCDXB+iXR6aMrBtWq5gDS4i6A0TcwwZWX7/okr
+ CGnYNzgGCxTqvg29yfrDmnSUvTak53dg0B7zbNOXyTe5uuPzdWpyjSuRZZUNumlOMgHnR+5Oqf
+ Xug=
+X-SBRS: 5.1
+X-MesageID: 37809213
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,189,1610427600"; 
+   d="scan'208";a="37809213"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: [PATCH v2 for-4.15] tools/libxl: Work around unintialised variable libxl__domain_get_device_model_uid()
+Date: Fri, 19 Feb 2021 15:04:26 +0000
+Message-ID: <20210219150426.8498-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kP/HQT7mM1GlbVAs"
-Content-Disposition: inline
-In-Reply-To: <1c02c3af-0a9b-6c68-e110-9d0963275e17@suse.com>
+Content-Type: text/plain
 
+Various version of gcc, when compiling with -Og, complain:
 
---kP/HQT7mM1GlbVAs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Feb 2021 16:01:32 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH-for-4.15] tools/libs/light: fix xl save -c handling
+  libxl_dm.c: In function 'libxl__domain_get_device_model_uid':
+  libxl_dm.c:256:12: error: 'kill_by_uid' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+    256 |         if (kill_by_uid)
+        |            ^
 
-On Fri, Feb 19, 2021 at 03:15:52PM +0100, Jan Beulich wrote:
-> On 19.02.2021 15:13, Juergen Gross wrote:
-> > libxl_domain_resume() won't work correctly for the case it was called
-> > due to a "xl save -c" command, i.e. to continue the suspended domain.
-> >=20
-> > The information to do that is not saved in libxl__dm_resume_state for
-> > non-HVM domains.
-> >=20
-> > Fixes: 6298f0eb8f443 ("libxl: Re-introduce libxl__domain_resume")
-> > Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
-ab.com>
-> > Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+The logic is very tangled.  Set kill_by_uid on every path.
 
-Works with both xl save and libvirt now.
+No funcational change.
 
-Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+Requested-by: Ian Jackson <iwj@xenproject.org>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Not-acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Wei Liu <wl@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+---
+ tools/libs/light/libxl_dm.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-Thanks!
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index db4cec6a76..5309496c58 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -152,13 +152,16 @@ static int libxl__domain_get_device_model_uid(libxl__gc *gc,
+     user = b_info->device_model_user;
+     if (user) {
+         rc = userlookup_helper_getpwnam(gc, user, &user_pwbuf, &user_base);
+-        if (rc)
++        if (rc) {
++            kill_by_uid = false;
+             goto out;
++        }
+ 
+         if (!user_base) {
+             LOGD(ERROR, guest_domid, "Couldn't find device_model_user %s",
+                  user);
+             rc = ERROR_INVAL;
++            kill_by_uid = false;
+             goto out;
+         }
+ 
+@@ -187,22 +190,29 @@ static int libxl__domain_get_device_model_uid(libxl__gc *gc,
+      */
+     rc = userlookup_helper_getpwnam(gc, LIBXL_QEMU_USER_RANGE_BASE,
+                                          &user_pwbuf, &user_base);
+-    if (rc)
++    if (rc) {
++        kill_by_uid = false;
+         goto out;
++    }
++
+     if (user_base) {
+         struct passwd *user_clash, user_clash_pwbuf;
+ 
+         intended_uid = user_base->pw_uid + guest_domid;
+         rc = userlookup_helper_getpwuid(gc, intended_uid,
+                                          &user_clash_pwbuf, &user_clash);
+-        if (rc)
++        if (rc) {
++            kill_by_uid = false;
+             goto out;
++        }
++
+         if (user_clash) {
+             LOGD(ERROR, guest_domid,
+                  "wanted to use uid %ld (%s + %d) but that is user %s !",
+                  (long)intended_uid, LIBXL_QEMU_USER_RANGE_BASE,
+                  guest_domid, user_clash->pw_name);
+             rc = ERROR_INVAL;
++            kill_by_uid = false;
+             goto out;
+         }
+ 
+@@ -221,8 +231,11 @@ static int libxl__domain_get_device_model_uid(libxl__gc *gc,
+      */
+     user = LIBXL_QEMU_USER_SHARED;
+     rc = userlookup_helper_getpwnam(gc, user, &user_pwbuf, &user_base);
+-    if (rc)
++    if (rc) {
++        kill_by_uid = false;
+         goto out;
++    }
++
+     if (user_base) {
+         LOGD(WARN, guest_domid, "Could not find user %s, falling back to %s",
+              LIBXL_QEMU_USER_RANGE_BASE, LIBXL_QEMU_USER_SHARED);
+@@ -240,6 +253,7 @@ static int libxl__domain_get_device_model_uid(libxl__gc *gc,
+          "Could not find user %s or range base pseudo-user %s, cannot restrict",
+          LIBXL_QEMU_USER_SHARED, LIBXL_QEMU_USER_RANGE_BASE);
+     rc = ERROR_INVAL;
++    kill_by_uid = false;
+ 
+ out:
+     /* First, do a root check if appropriate */
+-- 
+2.11.0
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---kP/HQT7mM1GlbVAs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmAv0s4ACgkQ24/THMrX
-1yyPDQf/RByCAYvl8/HxXGBaVwa6BocOwML2P3gW+MNEYZcEjojZmZHtX+3cii+g
-sLSqlW5Pg7cuRhaNRM2x9UhEubpMhJM7hbgWrudvMPaIecp7poEH2gC7gImQfrdQ
-SIzUwv889m313lou6qGii4P4rG5CzxxoPZMER8ddaerkaFIe+/cET/sEw1W/A1WY
-IGOc1cz+mpg3fbePSSVvwmLQRzUyA7LvvofNZPF1V6SAvJ9Snx0rp67m6Z5MpumB
-gXG4qpBWsQAKMUfsjbBN5qxVZO85jdmnur4WPCsnaalfSgokTPZ9ALhJuFbHQagw
-5+9bOPbwjlb41QxIC0hpwu8oYD5Qcg==
-=8xMO
------END PGP SIGNATURE-----
-
---kP/HQT7mM1GlbVAs--
 
