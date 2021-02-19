@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497CF31FE01
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 18:39:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87034.164024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A7531FE03
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 18:40:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87040.164047 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD9kg-000199-H7; Fri, 19 Feb 2021 17:39:38 +0000
+	id 1lD9kv-0001LT-7O; Fri, 19 Feb 2021 17:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87034.164024; Fri, 19 Feb 2021 17:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 87040.164047; Fri, 19 Feb 2021 17:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD9kg-00018L-BI; Fri, 19 Feb 2021 17:39:38 +0000
-Received: by outflank-mailman (input) for mailman id 87034;
- Fri, 19 Feb 2021 17:39:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lD9kv-0001Kl-3J; Fri, 19 Feb 2021 17:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 87040;
+ Fri, 19 Feb 2021 17:39:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ml8x=HV=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1lD9ke-00015B-HZ
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 17:39:36 +0000
+ id 1lD9kt-0000on-8S
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 17:39:51 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 5d3d0e88-38f6-4dbb-b21f-040f82cc7201;
- Fri, 19 Feb 2021 17:39:35 +0000 (UTC)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-463-bvpW0CxdNBuwgHTvOAM7jw-1; Fri, 19 Feb 2021 12:39:31 -0500
-Received: by mail-wr1-f69.google.com with SMTP id l10so2764903wry.16
- for <xen-devel@lists.xenproject.org>; Fri, 19 Feb 2021 09:39:31 -0800 (PST)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 7b0e2b8c-9c17-456a-bb6c-1467ccc2a51b;
+ Fri, 19 Feb 2021 17:39:39 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-519-L0b7UppANLaDziCdFdlqKA-1; Fri, 19 Feb 2021 12:39:38 -0500
+Received: by mail-wr1-f71.google.com with SMTP id y6so2750267wrl.9
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Feb 2021 09:39:37 -0800 (PST)
 Received: from localhost.localdomain (68.red-83-57-175.dynamicip.rima-tde.net.
  [83.57.175.68])
- by smtp.gmail.com with ESMTPSA id r12sm3052972wrt.69.2021.02.19.09.39.28
+ by smtp.gmail.com with ESMTPSA id c133sm2365046wme.46.2021.02.19.09.39.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Feb 2021 09:39:30 -0800 (PST)
+ Fri, 19 Feb 2021 09:39:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +46,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d3d0e88-38f6-4dbb-b21f-040f82cc7201
+X-Inumbo-ID: 7b0e2b8c-9c17-456a-bb6c-1467ccc2a51b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1613756375;
+	s=mimecast20190719; t=1613756379;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ueqj+n2dHsbjBHuZ0Hoy+mZlGObPSK9klpKLOoZpu4Y=;
-	b=MMF33b6NnBdSSOiWvC0VxRqETouFen+FQ7chlscpyNGwpGoPnOVyXD0KOSt6ZNjzrcGLlx
-	e7K3+LMK21YQac6V7nxO0KMpjaaqcNB7cndfaLMYUwlu9nlt+FCYDeVH2LS/Y8rF/bjZu1
-	N7OsP/RVseweu135mRvasXNezJWyqF4=
-X-MC-Unique: bvpW0CxdNBuwgHTvOAM7jw-1
+	bh=0XNpw7EsZwRfqH5jj+d5q0K26B/2H8ocJXujjf2y0q0=;
+	b=ZHMfCRdN/bdY9ziUhL8FHMTvt/ET0FvOdowXpYp4YyGeLfmKK3gCq1Q5yUpR/vx4sBp6od
+	KsswFI/FdlK0RsYDWmNDnarQHauInHORqA5+n6X3gIMFFYUUgQP2bjAX1Jrl/INaeb3oQr
+	zmZDk09RjVLsR0/Ze6jNpbgjNMWyFsU=
+X-MC-Unique: L0b7UppANLaDziCdFdlqKA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Ueqj+n2dHsbjBHuZ0Hoy+mZlGObPSK9klpKLOoZpu4Y=;
-        b=gvUjCHKHU0o7U/QuNaPovTACBBYo2wXSv5/NdFyA2U0hbNUtt0iIevYBFGzk1kF38l
-         vPyaYsrCRZj/NkV6lec4bsPX1AdEXVWBvcjaU6LKOcI8m07P7ADqpSam6kLMPLBN4LrX
-         FUrfjpePBKkEHrmeXlqqvHpWRdZsJfOm1cy1stSSfLRWhXprQPEBaZMWoH5yywKkDprr
-         PIjX75HTMCStYq2cDziQfKTb7C74uV6KiqxrYrSI+/WnFGnIdsT9+OOJNTwWlAmHPKg1
-         ZRmlN0RpWHmWM+4pryZNoezVCklvGvWwV+Yxr+tZvVDLdIyD4sVpGHwMoiUpRqZyIdpX
-         wlxA==
-X-Gm-Message-State: AOAM533Q0ZrM0dkvk6wLFwGYJKk3gDdOg3id8yhifDmb1Vs+WvVRRySv
-	InPqEPmZbZ4dVWr1PXhu2+2lkHJQVfVR3bDCXioBSDkfyU13MoTcg4zerTzUl+ZZd20VCatr9XN
-	JA2dxka/wpfZsFE1ZNiaeTD3sL0I=
-X-Received: by 2002:a1c:c90c:: with SMTP id f12mr9312000wmb.98.1613756370707;
-        Fri, 19 Feb 2021 09:39:30 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyQVxSvgdKIkMYLk6jZPql9ZCAN0WXriT+5Nc8pY51dY+mHxFK5IkbcVQRBV0rvadWM1WYfTA==
-X-Received: by 2002:a1c:c90c:: with SMTP id f12mr9311979wmb.98.1613756370490;
-        Fri, 19 Feb 2021 09:39:30 -0800 (PST)
+        bh=0XNpw7EsZwRfqH5jj+d5q0K26B/2H8ocJXujjf2y0q0=;
+        b=t5HtcEcIp3i2D4AqEzp27oCkuCyQ55/7gxNko08hANUWLmcEReWpQlC31HcjlugNMU
+         LNAoozvrOpYAwi1rel8VaAJp2v7kkUC5bs7cX+n3TEUp3VUZQDxBZHW4OsUaGmK0NrPh
+         UrAgLBLkH3Wb2Kr8XnhPZppZTdsqOoP/0mq/mH8s1vc5wi36T6SC/njs9edowzoRmjAo
+         NdnuxWtA+nG7UzLqkI21zBOiu0VsZ/A6UA4WogFR62Vtdd3PVHUONsva0HyDQo/nUY48
+         A/kcZuOuHlf02mo4rhLIQbRhE2s4yqJ//YEJN8wnv9gOSzYGkKtzBiES70xUvbBdn0tj
+         DN4g==
+X-Gm-Message-State: AOAM532NCiLuF9sT29p62M54kaUtI8keiyVutJa8upGfgtnLU6bXb2fr
+	8f2lZcQoTX2P4YHGEoHN+HI6yDrN26OvwXaJwp3QEJQ0OE8RVfekWlFPmIcicjN1gIBgDLx9kGS
+	FQQIoeVGmE0yPvPJDa5p6SFkHBtk=
+X-Received: by 2002:adf:fb91:: with SMTP id a17mr10124627wrr.93.1613756376926;
+        Fri, 19 Feb 2021 09:39:36 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwUWYk16cfFnjfBZLMWl2Vy5aAjSJDcFd3Zrj54+kp+HHEcqph2ioitLZ00EdqyQhCQF2e9eA==
+X-Received: by 2002:adf:fb91:: with SMTP id a17mr10124607wrr.93.1613756376757;
+        Fri, 19 Feb 2021 09:39:36 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Aurelien Jarno <aurelien@aurel32.net>,
@@ -112,9 +113,9 @@ Cc: Aurelien Jarno <aurelien@aurel32.net>,
 	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [PATCH v2 07/11] hw/s390x: Explicit the s390-ccw-virtio machines support TCG and KVM
-Date: Fri, 19 Feb 2021 18:38:43 +0100
-Message-Id: <20210219173847.2054123-8-philmd@redhat.com>
+Subject: [RFC PATCH v2 08/11] hw/i386: Explicit x86 machines support all current accelerators
+Date: Fri, 19 Feb 2021 18:38:44 +0100
+Message-Id: <20210219173847.2054123-9-philmd@redhat.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210219173847.2054123-1-philmd@redhat.com>
 References: <20210219173847.2054123-1-philmd@redhat.com>
@@ -126,36 +127,38 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-All s390-ccw-virtio machines support TCG and KVM.
+x86 machines currently support all accelerators.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- hw/s390x/s390-virtio-ccw.c | 5 +++++
+RFC: not sure about this, x86 is not my cup of tea
+
+ hw/i386/x86.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/hw/s390x/s390-virtio-ccw.c b/hw/s390x/s390-virtio-ccw.c
-index 2972b607f36..1f168485066 100644
---- a/hw/s390x/s390-virtio-ccw.c
-+++ b/hw/s390x/s390-virtio-ccw.c
-@@ -586,6 +586,10 @@ static ram_addr_t s390_fixup_ram_size(ram_addr_t sz)
-     return newsz;
+diff --git a/hw/i386/x86.c b/hw/i386/x86.c
+index 6329f90ef90..2dc10e7d386 100644
+--- a/hw/i386/x86.c
++++ b/hw/i386/x86.c
+@@ -1209,6 +1209,10 @@ static void x86_machine_initfn(Object *obj)
+     x86ms->pci_irq_mask = ACPI_BUILD_PCI_IRQS;
  }
  
 +static const char *const valid_accels[] = {
-+    "tcg", "kvm", NULL
++    "tcg", "kvm", "xen", "hax", "hvf", "whpx", NULL
 +};
 +
- static void ccw_machine_class_init(ObjectClass *oc, void *data)
+ static void x86_machine_class_init(ObjectClass *oc, void *data)
  {
      MachineClass *mc = MACHINE_CLASS(oc);
-@@ -612,6 +616,7 @@ static void ccw_machine_class_init(ObjectClass *oc, void *data)
-     mc->possible_cpu_arch_ids = s390_possible_cpu_arch_ids;
-     /* it is overridden with 'host' cpu *in kvm_arch_init* */
-     mc->default_cpu_type = S390_CPU_TYPE_NAME("qemu");
+@@ -1218,6 +1222,7 @@ static void x86_machine_class_init(ObjectClass *oc, void *data)
+     mc->cpu_index_to_instance_props = x86_cpu_index_to_props;
+     mc->get_default_cpu_node_id = x86_get_default_cpu_node_id;
+     mc->possible_cpu_arch_ids = x86_possible_cpu_arch_ids;
 +    mc->valid_accelerators = valid_accels;
-     hc->plug = s390_machine_device_plug;
-     hc->unplug_request = s390_machine_device_unplug_request;
-     nc->nmi_monitor_handler = s390_nmi;
+     x86mc->compat_apic_id_mode = false;
+     x86mc->save_tsc_khz = true;
+     nc->nmi_monitor_handler = x86_nmi;
 -- 
 2.26.2
 
