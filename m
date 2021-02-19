@@ -2,29 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497B531FFBE
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 21:17:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87080.164144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3EEF31FFDD
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 21:34:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87085.164157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lDCDW-0000qj-Fj; Fri, 19 Feb 2021 20:17:34 +0000
+	id 1lDCT2-0002pt-14; Fri, 19 Feb 2021 20:33:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87080.164144; Fri, 19 Feb 2021 20:17:34 +0000
+Received: by outflank-mailman (output) from mailman id 87085.164157; Fri, 19 Feb 2021 20:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lDCDW-0000qN-CN; Fri, 19 Feb 2021 20:17:34 +0000
-Received: by outflank-mailman (input) for mailman id 87080;
- Fri, 19 Feb 2021 20:17:33 +0000
+	id 1lDCT1-0002pU-Tq; Fri, 19 Feb 2021 20:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 87085;
+ Fri, 19 Feb 2021 20:33:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6Nbw=HV=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lDCDU-0000qI-Nc
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 20:17:32 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=oxor=HV=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+ id 1lDCT0-0002pP-BG
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 20:33:34 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ceb98854-9864-40c1-9f31-728f45de155a;
- Fri, 19 Feb 2021 20:17:31 +0000 (UTC)
+ id 3f595cb7-a3b8-4f9b-9afb-510a38d938e4;
+ Fri, 19 Feb 2021 20:33:32 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11JKT68O184358;
+ Fri, 19 Feb 2021 20:32:26 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2130.oracle.com with ESMTP id 36p66rarke-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 19 Feb 2021 20:32:26 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11JKUHor088829;
+ Fri, 19 Feb 2021 20:32:26 GMT
+Received: from nam04-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08lp2173.outbound.protection.outlook.com [104.47.73.173])
+ by userp3030.oracle.com with ESMTP id 36prq2bevu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 19 Feb 2021 20:32:25 +0000
+Received: from BYAPR10MB2999.namprd10.prod.outlook.com (2603:10b6:a03:85::27)
+ by SJ0PR10MB4509.namprd10.prod.outlook.com (2603:10b6:a03:2d9::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.41; Fri, 19 Feb
+ 2021 20:32:23 +0000
+Received: from BYAPR10MB2999.namprd10.prod.outlook.com
+ ([fe80::e180:1ba2:d87:456]) by BYAPR10MB2999.namprd10.prod.outlook.com
+ ([fe80::e180:1ba2:d87:456%4]) with mapi id 15.20.3846.039; Fri, 19 Feb 2021
+ 20:32:23 +0000
+Received: from Konrads-MacBook-Pro.local (209.6.208.110) by
+ BY3PR05CA0044.namprd05.prod.outlook.com (2603:10b6:a03:39b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.11 via Frontend
+ Transport; Fri, 19 Feb 2021 20:32:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,212 +65,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceb98854-9864-40c1-9f31-728f45de155a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1613765851;
-  h=subject:to:references:from:message-id:date:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=3nb53cQ4PWXD69FuwHnuTzl6UylkUtvoW95r9GrLf4Q=;
-  b=AMAM7kzpttHiJ37y7ytpN8aHUlfaHLE8FDvXaPRfPBbZu+z/nF55r1tc
-   OHPTjub/gI7zJjvDbH4LJOVP4TLizvCybv4XmN7BAZFS42AzXux3SWv/K
-   xEFfWo6Ipr2W5OMYtJJuFC0whkshyzshiHfjZfSs2VRRF7PqtUTiki3ve
-   c=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 92RGrAAT3xB2WPHfPxUWVcYOQ3Tf6nDdVSClala0xhY14knOm86SUbMY4DWyZxW4FfxXLI8cst
- eLivrXFRp/+mqArP9p5l/YHcg07P5COwuKuOcn6ZPCyCfcepna+riH5+fAyyH5pu7vh/LSIHhn
- eoVgdXfME1oJzc+bW/LrTZTWE4OxGKO4c3f32e9k+EGWVSdqJUY6bkPW4eX5uleGl/LUNptRHH
- EW+1C5zd4H47WJ6D5fNDqDRaynTHSVMmo+HgVn3i2rO25I2vHfwk21/sLXHWlSjcaGgQytbj+x
- BHE=
-X-SBRS: 5.2
-X-MesageID: 37661278
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,191,1610427600"; 
-   d="scan'208";a="37661278"
+X-Inumbo-ID: 3f595cb7-a3b8-4f9b-9afb-510a38d938e4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2020-01-29;
+ bh=Q+tlPGJKqF6UYVHJtf4RiU4j3D0HGkZd1GdqLyhGl5k=;
+ b=OUnX7abV7Zl+u6KIti9+pbFfcT8EvxiyocwczAX0CXSRN86hcLIM6VwLU3654x/i28Z+
+ 3pSPYNElBGBgxhm1F+DZ2L2IZNG/+wtb6C89OpKs1ZpYVrw29cpL8uUfqbPfGIAkPMGe
+ ahyW6qfPTtx6uDTss0Dc0nPtD8x40Ro+xSRxK1BE2z+fsl6D3kdHk6aX4I8zg+BBEFkl
+ pbM0GElbZhULPCH8rNgBnFdzffC4q4B9F84TxSvJG/1eLxDmm/oiulbvjcce/he7qvTM
+ CyAem6teIK5wc2P1vvIz9Jl0RRnmO16Wz+E+rPPghfZABFAxtq9xQVs7KsFK148ojUf1 DQ== 
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jr83w5uYvuF8Q68kD+WyD5T2q0KXJ8Jsbrwdxm1x5D/8uO66ZokcMsIEcAdtSiqzS83M5XzpnSVmdjWkQt1xiBDhNlNsqAdPUvHrtg7DA9IiR203aPXKdKkWgUAMYPm1WGC+8M9UhDurEl9/lDptspP4SA6i+NQIVqNPc/eiXut/kP8qRGeHnOqnfcHfW6wrn90+7H9dTtTUkKscDqzBY+k/u7Ew/9Q5GpoHSjSfXbB3MIJe5Vl7J7TDElAzCXQzSbso550Qlu78/SllPYnrMFuQp74Fp3kcWTPtQynZLjcA55a0rIPeviDr0VHpmJnbVQI2cjTb+H3OXuZKFR73iQ==
+ b=cilLbaU5P1EZKHhQFZ/tXoZgv5UWAMFelQ7A/weacmzr72UFTnUSEeSa9kbGIBPRfw+6dJkNoCJu/MPdyLRkSaeodwlghJ3gpIx2a5Q6Yps8t9IsmyODpIogyhDzB2KcPigx1t/PLQjQ0aY9BV2YOwMmp9HQ6YsPHvYjtLbQFQ3feLnZ8Oq18m9XCdU7miOfErH1S1+Jiupd7/6I3LF/Tx21dshT7ObtSCxkmD0/yYxFZyIp1NJMRAOd6BN9oqOUdO0mN+Lf41BrXyMtnu4Z4QuZg7LYxa9iIoc+Ik+Te2TTm46doh2faynP3k5BQa8PFLS3OG4xcS3kzxunHTzp5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3nb53cQ4PWXD69FuwHnuTzl6UylkUtvoW95r9GrLf4Q=;
- b=AxL1IgA0DvEb51WSFmU1Whe3oAgZlU5mmINBKs9ILJa3EMYnvyUG3XQ6kvfGLPse9+49ye+OVq8pgTpedRGNtCAEdSwBQR6ibmUegbrj0Oq9cS73kpXrVvg2NvvEpfb8B6IjNeTwQAxqsnX0NxXq0+z3Luu0vjURuYGybdpExO1iNucsxv5rR8/+4pj0uLxCTCAM2QDQp2xtx1xkQWEHY2hTKpouPTL0Os+T5y3hj2Jet56VT2eoEMMJYemCfDw1jNetNGSCqLtIFnPXwFq5TAPjE6KDylgTwiBMgm0jgk2hxmCruDWswpyi+RnibujPLratffoSPvjNRVbe5ZByNw==
+ bh=Q+tlPGJKqF6UYVHJtf4RiU4j3D0HGkZd1GdqLyhGl5k=;
+ b=Ld4ESsnTlUH2IkkNza53+IbGAgGHaPJeYH9fktWs41vjynoJKfwrL6UESpbkf32rqtcpn2ZLZgTE1Af7r5IglEeGhNRYYhj+VtX7jZ6PJSJ+lACZVLEP6W0LpvNQV6UOa7W12GukpzMz7BYCboUt91Mf6IH25VTO5W1bRfMgPbAAnq0urCVvyYOflMsJ2eeiFpcSRVqzoUW9HtR7q90JyioiJiXgZ+KaeRf44blAJAaWy3Qgplp2I/z7msFr/Ofgri3wWlCOFIydrFoNl8pAhTvCCkFrLRLOmI7FVQAMSzAFbg++ouoLQMvdZGofr5TVDmhRCPi94+/Udr7rf/s4hQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3nb53cQ4PWXD69FuwHnuTzl6UylkUtvoW95r9GrLf4Q=;
- b=Cwb6CNrPm6kvPBmQLXMSAjbX7TRkTLQ8uwfQLuChoyP0e2vc4rx2koYIHIx8sPm0yW2MNOZMesYhKpzRe63Kxvel/3+oRX/g5OKzD+TYURXqMzkUHyRX/TKQlOBfavFQrTr+cH0URC3AEvjpdJIcNxav/rX94DStar6PPHIAc0s=
-Subject: Re: How does shadow page table work during migration?
-To: Kevin Negy <kevinnegy@gmail.com>, <xen-devel@lists.xenproject.org>
-References: <CACZWC-qK_biKgyi+ZiXnsHRscAbK9pz=kncdBA25QYWY129HCQ@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <38cf0d39-da1d-5375-89dc-1668e26323a2@citrix.com>
-Date: Fri, 19 Feb 2021 20:17:18 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <CACZWC-qK_biKgyi+ZiXnsHRscAbK9pz=kncdBA25QYWY129HCQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0202.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::9) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+ bh=Q+tlPGJKqF6UYVHJtf4RiU4j3D0HGkZd1GdqLyhGl5k=;
+ b=F+sfZVS3Rip00Puw598dxvLwI0SZH9jdU6wPTnP4wU6cp305cuTuHpI9o/LXTC/M9CZjn8s/xz/OpZheMhlUPtP4H0Fji8o+DsqZtfMW5l3bnrdlJo5BHx4TYawG8khET8l1kZ1xquvYuXEYmes0eLUgl8wWIcDLt2iR8Rsjews=
+Authentication-Results: lst.de; dkim=none (message not signed)
+ header.d=none;lst.de; dmarc=none action=none header.from=oracle.com;
+Date: Fri, 19 Feb 2021 15:32:15 -0500
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+To: Christoph Hellwig <hch@lst.de>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>, jgross@suse.com
+Cc: Dongli Zhang <dongli.zhang@oracle.com>, dri-devel@lists.freedesktop.org,
+        intel-gfx@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+        linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org,
+        linux-pci@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        nouveau@lists.freedesktop.org, x86@kernel.org,
+        xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+        adrian.hunter@intel.com, akpm@linux-foundation.org,
+        benh@kernel.crashing.org, bskeggs@redhat.com, bhelgaas@google.com,
+        bp@alien8.de, boris.ostrovsky@oracle.com, chris@chris-wilson.co.uk,
+        daniel@ffwll.ch, airlied@linux.ie, hpa@zytor.com, mingo@kernel.org,
+        mingo@redhat.com, jani.nikula@linux.intel.com,
+        joonas.lahtinen@linux.intel.com, jgross@suse.com,
+        m.szyprowski@samsung.com, matthew.auld@intel.com, mpe@ellerman.id.au,
+        rppt@kernel.org, paulus@samba.org, peterz@infradead.org,
+        robin.murphy@arm.com, rodrigo.vivi@intel.com, sstabellini@kernel.org,
+        bauerman@linux.ibm.com, tsbogend@alpha.franken.de, tglx@linutronix.de,
+        ulf.hansson@linaro.org, joe.jin@oracle.com, thomas.lendacky@amd.com
+Subject: Re: [PATCH RFC v1 5/6] xen-swiotlb: convert variables to arrays
+Message-ID: <YDAgT2ZIdncNwNlf@Konrads-MacBook-Pro.local>
+References: <20210203233709.19819-1-dongli.zhang@oracle.com>
+ <20210203233709.19819-6-dongli.zhang@oracle.com>
+ <20210204084023.GA32328@lst.de>
+ <20210207155601.GA25111@lst.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210207155601.GA25111@lst.de>
+X-Originating-IP: [209.6.208.110]
+X-ClientProxiedBy: BY3PR05CA0044.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::19) To BYAPR10MB2999.namprd10.prod.outlook.com
+ (2603:10b6:a03:85::27)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bdbf2e09-2d05-444e-c27f-08d8d5135efd
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4872:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB4872FF2D0A281F3AA1917C02BA849@BYAPR03MB4872.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 02501154-d7eb-497a-1b24-08d8d5157639
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB4509:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<SJ0PR10MB45090C51834820E7AEC49FF889849@SJ0PR10MB4509.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pFGN29dc1xkTz2rtbPGBeeU4WNzqdGGmsQW1uQKwppMRlETWKfxNqSYyzeSdNf5YolXWMGV14gZ/cymOmQ4aosNZmA3lpKjdeSCvTGtOfeOEfJrqtvYLu181D0OpmJl4vw6WSzYP37R9AGKn4h8NzmxAl4Ch2X9+pmInwovuExWxdm5F4us4Flgfz5ixoqs/jF8v4l3Rn5X0L2INv3DMmwsuPA/cOHV1kKxT/wxblrJZWD3xqPgo2CzoJc5A/gLq13eGVLKOyyhIH+XnQOBI/oK1xz4q6PwrCfNWtyUHrXe0QpwPeMVhTF1SKMERo06QT073JBZaV/r18TZWlfOXcTo2krdtUq34cRkLsxDmjMagqxpahR+U5KUF7zfM3L3tUP5vugHlp8mOf44y3eGEbhI3oENS0FVDAmgY3gjp9jfqESHy2f6KRTiJX06BPJWJpbnrIESqQchN2DqfuZayeQDMKOHuPiJOH/iEg8biOtOi8I7Is7SkpcHZPBIW4vNU/ykDnzWRjrihA6okiPjk3v4BsyTqQWd2ebhSzDRAfpO38qsaiNKp6JddLPRZlqDNMGwMr3vHBnETYAdx0FJzNZh30C8mQz6j2/WohsyRNeA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(39860400002)(396003)(346002)(376002)(366004)(478600001)(31686004)(26005)(2906002)(6486002)(8676002)(8936002)(5660300002)(316002)(31696002)(186003)(36756003)(16576012)(83380400001)(2616005)(956004)(66946007)(66476007)(16526019)(86362001)(66556008)(6666004)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Zk40d2JzSjRxc2FYVlBXclp5SlFVQzJkbVpDVWJJSU02RHE0YVVTbVZLWEZ0?=
- =?utf-8?B?a0hhMUJzMnBjeW9wMjkxUml5S08xR0c0YXZ1d1RsRmNHTXp2VnByL0hwQWFH?=
- =?utf-8?B?aXFUVkpuZldseFZFRS9wM1gxWGI5YklSa1djb3l3T1czUmdPTmJDa1BJUitu?=
- =?utf-8?B?QlRNdUxhdGw4cGI4clkzMFh2NG9Lc0tueU5mN252TjBVSVlKTTJnamg2ODBv?=
- =?utf-8?B?NDNINEptR1BqV3F5Q3VzRjRmY0JMWC83R1RTcDB3U0RFNW12b25JTHZ1UjE1?=
- =?utf-8?B?Q002Z1RMRjNBN0R5Q1kxNnlNYSs0NWkvUXJYN2czZzVaV3JUQW5VbVp1SjZm?=
- =?utf-8?B?TDlaNisxUHY5cWJSNjNLQXdCL0xqYUpuWHo0MHphdWNUY0hkWkZOaHY0VS9R?=
- =?utf-8?B?QWxlYXY1aVlkYVZwVHhLZU1teW1McmJYYmsyc1p3SktHeHVGTHFCYU5sQTRv?=
- =?utf-8?B?dkNWTm1nZW40NlpwVWtYL0xTL3ZTQVNZNWtiL21TY2tXbVNrMGhJdU00UzRl?=
- =?utf-8?B?VU5UTzZZODBCMGRvZURzV1grZUVvOHFzYlA1T0VGWEhnN1RKdjJ5YWZidmE2?=
- =?utf-8?B?SFRKUDlkWmlQdmZjNGsyRzAzc1NmNFJ2V2pxYnNyK3hqVVEyT2Z5L2tkc2Jn?=
- =?utf-8?B?M1U0dllydUpnQjRZVlI3VmJoVW5CRzV3MmhRV1ZBU2R0eVJJRUpYZHNheDRZ?=
- =?utf-8?B?N3pSYUUyT1VHMlM2Vlg0aFRnYU9WNzJCREhWT1B2M3lyd0tUMkJKNmFuM1lv?=
- =?utf-8?B?cWM4WUhDUE9TeGhxQ3d2dlZHRzUyNVo4MTg5QzZXQk83a0ZBQnM4NFNWdGYw?=
- =?utf-8?B?VCtvQWZraCtBLzNiL1NWL0MwTUF5eWs2Wm5lVnFYeC9Zd3dKRStUV0lGdDJ3?=
- =?utf-8?B?RVVldXN6bGFzay9pWS9YNTcwVFpKR3RIemNTM2N1eGU4QWJYallCY2pRbjZC?=
- =?utf-8?B?S25rcCt5WkVFZVlQQUZtS09ndHhiRUYyblRKVlNMbDZGMnBnTS9OQjRjNkdX?=
- =?utf-8?B?VGxTZ0ZSNGtDc3NjNUxuL3h2ai9aUGRHN29TOEt6QmZldTZQamYvSW5JMDVG?=
- =?utf-8?B?aEJidFJEOEZ2d0NjODRFamxTNm8wTG5EMitodWxXZVd0QThERzJaNVFocTJW?=
- =?utf-8?B?eWJaSGF3N3pjNzZ5bEJiaWorMnJUUjdRcVQvMUtZVFBLUitHYUdRYWl4WUVJ?=
- =?utf-8?B?eWlsTjZTMTBNZ1ZJN1NWOGY3UHJ1RENYajQ4VFpRcXcvdTRwVEp0ZEppNW8y?=
- =?utf-8?B?UlAydFZUYUovNmFQMm1FL1BBMU1XazBXbE1Xa2tjcWlJVHV4am1nQkNNM0pQ?=
- =?utf-8?B?SXhKVlkyVkkwOWxzbVlEMWRGNGxZeGJCSXozZUFJMjRNc05WOUpFdmZVOEZO?=
- =?utf-8?B?bDM5dWNpaFVRSFIxYmNtQzBkcXp6OGdPYk5JcW1PNis3VWF3L1EzeHhibW5F?=
- =?utf-8?B?Vy9LakhpM3R1Yi8walJTVEJ0eDQyUTIvMWR4WGV0VVJuK3E0RkszZk5wWUJC?=
- =?utf-8?B?cllkMXRpcHVUQUZNUTdBZUY0cHpyd05pSEYwMjRremYxb2p1Vkcvckl5cHZx?=
- =?utf-8?B?M0ZPeW5TRGd6S0VHMXJrcXBweXpHTW1IVEZVUVNTQkJ5VEZLQWFkWGJYQzFC?=
- =?utf-8?B?NWV6RHduRFBqSVNXVG1TVE5xNjljekJCMzUwekZvVisvWlBnZld0UnVjWVRk?=
- =?utf-8?B?TDFTTUphbENhQlBJWFppNEl6WUN0MGZWV1AraDhHczM0ZTlLZ1dNcWQ0U1dD?=
- =?utf-8?Q?t+EogcoGoj2rLGD7D32Q6o7d6yQ5iDNxyK449FM?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdbf2e09-2d05-444e-c27f-08d8d5135efd
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-Microsoft-Antispam-Message-Info: 
+	Q3AKZuSZrPy0l4j4hWsGLN91LmBcmN6L9XURIPwwIX8OLjOW8X9ie9CdRLsIHYJ5S6uVl+O5krhJr4Ar14pPq0XLUXmnKkh/l23ObS2ne6YtXZP5gqz28uvkQBwX5Zsu8irHIUN8Y0shwtWJwdxIck0IxATrWeTvTMLpmNK3zp0wCJQQrlzTVBblVvH/s80GXOqbqqHAeQ5LMgWUJJt2shu6IF17ZowjSiv/yIEhl8ZYRsl0QyRaecku/1me5R6pV5iBb8vtvhglxjEeK9/huSAOTuNNo0Jg66noqDxWOWSl9eKKbIVvqaQlcOKDjTo5IDw0U73GgVT6PE//t34detm1NixfMcgu4+mLfUlwTy/IVfr80V/rFdnsNbiJc872pu9T9e68wX6aO3WaX64AuXjDfkQR/dBhQFnNv2yqam314cWubFUl3Z5jFyzsox8mv6mMyMiFm8mk5DZNdtuwCOjglNRN2aWGVYiAtLu2sPfiihTzfjT+zBK/H4JAq0nADkKVcU4422BUXu6BmTZZ2A==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2999.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(396003)(376002)(366004)(136003)(39860400002)(7416002)(7406005)(4326008)(6666004)(9686003)(186003)(478600001)(2906002)(6506007)(66556008)(8936002)(66946007)(66476007)(55016002)(52116002)(86362001)(26005)(5660300002)(110136005)(7696005)(956004)(16526019)(8676002)(316002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?us-ascii?Q?GVVmae2fpuGK2oJ5KRrSOfjoBXyS2Pg6fOS1yhTmwR5t21OZNx0gNSxNnwKz?=
+ =?us-ascii?Q?xCZljSlABLs9fpLftdNzoQBBKHLxdGxuEqJURx3md2LOtjv8DvcpOEwS7Q/U?=
+ =?us-ascii?Q?8tNziK8wPFcFNYllZ5wYBi5Tne09kfBsc/Qy6PJ4kTG70juZ77SCL9eRg6q0?=
+ =?us-ascii?Q?hbwlFxCdnfJVsSYzFar/IaHe0nPmcL/UtUMo0ZxfsID9Sm0pfo1GrB0KUtM5?=
+ =?us-ascii?Q?5Iu4vSFMArDie4dIURUlmsm472x2phgzCgacrW1Rd6EpII9py2v1wI8ws1dp?=
+ =?us-ascii?Q?3ba6tem8ZSHhemhUOCqTT0M0NEacqGBSiYkuaD9M0stR4FooFNNN/WyaIbtr?=
+ =?us-ascii?Q?RFcI8MRHtwAzAPDdYYBW4B8DSy6FJdsJQ0wfNnZXsAmVj+Zx7JdA8So3zMib?=
+ =?us-ascii?Q?UtOERUWChlHlXkBq/N89p2QxI0G6ndF94I7oVRxP5OG3Jbw90SC1ZEDMwbEd?=
+ =?us-ascii?Q?yTyNyjMgIy+Jy4E4WrohdQka34alXB3bH8VBYPOk7P4tKVCE8IPSYrted8u5?=
+ =?us-ascii?Q?0/+gQsoQI4lwU8NRhaxqf/rQsfxuD+qaBkLeZngBAyP9+KAvwloFwo7+JzBM?=
+ =?us-ascii?Q?DgYRycv5ljXceUTn9N9xoVaJlEBvAd/GrDrTCG9QNB6xMbuj2fy+MmXwihjB?=
+ =?us-ascii?Q?RVGL+zIxlahMqr8Z2XtrRzl7GQpb96dEXZ7TCEs7T6Vme/l/10JdQYrTdeXy?=
+ =?us-ascii?Q?VaAsOVS2CByBrRKHTt1OnvBJQhE5cyZtLKb7Vj/Sij7WmI24f7etqZ4YgfAV?=
+ =?us-ascii?Q?Wr6QBu0lJYKikAYevHB8+M/1uRpqCgVh29xywXbN92Aq417HHsByqyVvGNJG?=
+ =?us-ascii?Q?qHrY5UtscdVwfe6fncSsNVDqQ60o5Wr3PGIoCsniWYd6D1S/mUb5qdd4R/r4?=
+ =?us-ascii?Q?sgT/6px9QpnG5eP9oWkDBrAvKO0hLG1XCajoe/C5EG7r/y0uPZazA/Uyd0Lk?=
+ =?us-ascii?Q?KwRc+iSav/ptjm/cghiR+oeiEwTGZJFXEKUbkuRDprEYLJyJCEWgKvBUpBJ3?=
+ =?us-ascii?Q?/NXgvB/mC1eufG7Ai7wm0w6BdW4uhqp9+qqXfzFv949sEqQSwhcGf1kaeFey?=
+ =?us-ascii?Q?66b9XwnvB8+DmmIDIIPuXCHdn82G/nHoPSHOGrIjiso8Q1THv5yWuiKrcuWu?=
+ =?us-ascii?Q?yB1EpvfnFmlQVs+ERIOHkrS8P8I6NSVSE5ys7G2Achogq6KDl/VB9qA6vvct?=
+ =?us-ascii?Q?fgV5PzU2YGckjxjud0bZ9FsU5uzM9eJ2wz8Nnne8eM3Cuam4HmU0LwYf5Ssq?=
+ =?us-ascii?Q?9ky1JFpa55/sKnGKlAcLx+88xBVHdaj5R22181NygkreA0I/8KjiFwBDRfKC?=
+ =?us-ascii?Q?0ppzetP+TZkgHVuGsp0JnRaX?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02501154-d7eb-497a-1b24-08d8d5157639
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2999.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2021 20:17:25.1166
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2021 20:32:23.1896
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A/nh8ZE586CT0s9akdAj76YHVEptVtzv56E7OCeNmc/OsjJaLYZTNjltXWiFhJqHk8hJ+IM4fIJFI3KuwtDwNQnBhCCwBJuVGVDCZ8w1Csw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4872
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: oVdORDfZ29f7RAUpUN8XHDQ0O+4tk/o7h5eZ4IZtxStx6v91wvjKmdTWWJmN34CKJjicL60LgzclWhVJE0D7zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4509
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9900 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxlogscore=938
+ phishscore=0 adultscore=0 mlxscore=0 suspectscore=0 malwarescore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2102190164
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9900 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 priorityscore=1501 clxscore=1015 spamscore=0 mlxscore=0
+ phishscore=0 malwarescore=0 bulkscore=0 adultscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2102190164
 
-On 19/02/2021 16:10, Kevin Negy wrote:
-> Hello,
->
-> I'm trying to understand how the shadow page table works in Xen,
-> specifically during live migration. My understanding is that after
-> shadow paging is enabled (sh_enable_log_dirty() in
-> xen/arch/x86/mm/shadow/common.c), a shadow page table is created,
-> which is a complete copy of the current guest page table. Then the CR3
-> register is switched to use this shadow page table as the active table
-> while the guest page table is stored elsewhere. The guest page table
-> itself (and not the individual entries in the page table) is marked as
-> read only so that any guest memory access that requires the page table
-> will result in a page fault. These page faults happen and are trapped
-> to the Xen hypervisor. Xen will then update the shadow page table to
-> match what the guest sees on its page tables.
->
-> Is this understanding correct?
->
-> If so, here is where I get confused. During the migration pre-copy
-> phase, each pre-copy iteration reads the dirty bitmap
-> (paging_log_dirty_op() in xen/arch/x86/mm/paging.c) and cleans it.
-> This process seems to destroy all the shadow page tables of the domain
-> with the call to shadow_blow_tables() in sh_clean_dirty_bitmap().
->
-> How is the dirty bitmap related to shadow page tables? Why destroy the
-> entire shadow page table if it is the only legitimate page table in
-> CR3 for the domain?
+On Sun, Feb 07, 2021 at 04:56:01PM +0100, Christoph Hellwig wrote:
+> On Thu, Feb 04, 2021 at 09:40:23AM +0100, Christoph Hellwig wrote:
+> > So one thing that has been on my mind for a while:  I'd really like
+> > to kill the separate dma ops in Xen swiotlb.  If we compare xen-swiotlb
+> > to swiotlb the main difference seems to be:
+> > 
+> >  - additional reasons to bounce I/O vs the plain DMA capable
+> >  - the possibility to do a hypercall on arm/arm64
+> >  - an extra translation layer before doing the phys_to_dma and vice
+> >    versa
+> >  - an special memory allocator
+> > 
+> > I wonder if inbetween a few jump labels or other no overhead enablement
+> > options and possibly better use of the dma_range_map we could kill
+> > off most of swiotlb-xen instead of maintaining all this code duplication?
+> 
+> So I looked at this a bit more.
+> 
+> For x86 with XENFEAT_auto_translated_physmap (how common is that?)
 
-Hello,
+Juergen, Boris please correct me if I am wrong, but that XENFEAT_auto_translated_physmap
+only works for PVH guests?
 
-Different types of domains use shadow pagetables in different ways, and
-the interaction with migration is also type-dependent.
+> pfn_to_gfn is a nop, so plain phys_to_dma/dma_to_phys do work as-is.
+> 
+> xen_arch_need_swiotlb always returns true for x86, and
+> range_straddles_page_boundary should never be true for the
+> XENFEAT_auto_translated_physmap case.
 
-HVM guests use shadow (or HAP) as a fixed property from when they are
-created.  Migrating an HVM domain does not dynamically affect whether
-shadow is active.  PV guests do nothing by default, but do turn shadow
-on dynamically for migration purposes.
-
-Whenever shadow is active, guests do not have write access to their
-pagetables.  All updates are emulated if necessary, and "the shadow
-pagetables" are managed entirely by Xen behind the scenes.
-
-
-Next, is the shadow memory pool.  Guests can have an unbounded quantity
-of pagetables, and certain pagetable structures take more memory
-allocations to shadow correctly than the quantity of RAM expended by the
-guest constructing the structure in the first place.
-
-Obviously, Xen can't be in a position where it is forced to expend more
-memory for shadow pagetables than the RAM allocated to the guest in the
-first place.  What we do is have a fixed sized memory pool (choosable
-when you create the domain - see the shadow_memory vm parameter) and
-recycle shadows on a least-recently-used basis.
-
-In practice, this means that Xen never has all of the guest pagetables
-shadowed at once.  When a guest moves off the pagetables which are
-currently shadowed, a pagefault occurs and Xen shadows the new address
-by recycling a pagetable which hasn't been used for a while.  The
-shadow_blow_tables() call is "please recycle everything" which is used
-to throw away all shadow pagetables, which in turn will cause the
-shadows to be recreated from scratch as the guest continues to run.
-
-
-Next, to the logdirty bitmap.  The logdirty bitmap itself is fairly easy
-- it is one bit per 4k page (of guest physical address space) indicating
-whether that page has been written to, since the last time we checked.
-
-What is complicated is tracking writes, and understand why, it is
-actually easier to consider the HVM HAP (i.e. non-shadow) case.  Here,
-we have a Xen-maintained single set of EPT or NPT pagetables, which map
-the guest physical address space.
-
-When we turn on logdirty, we pause the VM temporarily, and mark all
-guest RAM as read-only.  (Actually, we have a lazy-propagation mechanism
-of this read-only-ness so we don't spend seconds of wallclock time with
-large VMs paused while we make this change.)  Then, as the guest
-continues to execute, it exits to Xen when a write hits a read-only
-mapping.  Xen responds by marking this frame in the logdirty bitmap,
-then remapping it as read-write, then letting the guest continue.
-
-Shadow pagetables are more complicated.  With HAP, hardware helps us
-maintain the guest virtual and guest physical address spaces in
-logically separate ways, which eventually become combined in the TLBs. 
-With Shadow, Xen has to do the combination of address spaces itself -
-the shadow pagetables map guest virtual to host physical address.
-
-Suddenly, "mark all guest RAM as read-write" isn't trivial.  The logical
-operation you need is: for the shadows we have, uncombine the two
-logical addresses spaces, and for the subset which map guest RAM, change
-from read-write to read-only, then recombine.  The uncombine part is
-actually racy, and involves reversing a one-way mapping, so is
-exceedingly expensive.
-
-It is *far* easier to just throw everything away and re-shadow from
-scratch, when we want to start tracking writes.
-
-
-Anyway - I hope this is informative.  It is accurate to the best of my
-knowledge, but it also written off the top of my head.  In some copious
-free time, I should see about putting some Sphinx docs together for it.
-
-~Andrew
+Correct. The kernel should have no clue of what the real MFNs are
+for PFNs.
+> 
+> So as far as I can tell the mapping fast path for the
+> XENFEAT_auto_translated_physmap can be trivially reused from swiotlb.
+> 
+> That leaves us with the next more complicated case, x86 or fully cache
+> coherent arm{,64} without XENFEAT_auto_translated_physmap.  In that case
+> we need to patch in a phys_to_dma/dma_to_phys that performs the MFN
+> lookup, which could be done using alternatives or jump labels.
+> I think if that is done right we should also be able to let that cover
+> the foreign pages in is_xen_swiotlb_buffer/is_swiotlb_buffer, but
+> in that worst case that would need another alternative / jump label.
+> 
+> For non-coherent arm{,64} we'd also need to use alternatives or jump
+> labels to for the cache maintainance ops, but that isn't a hard problem
+> either.
+> 
+> 
 
