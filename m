@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FB1431FC2E
+	by mail.lfdr.de (Postfix) with ESMTPS id DC1DA31FC30
 	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 16:41:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86932.163568 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.86934.163593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD7te-0002JO-Ly; Fri, 19 Feb 2021 15:40:46 +0000
+	id 1lD7tk-0002Qg-Eq; Fri, 19 Feb 2021 15:40:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86932.163568; Fri, 19 Feb 2021 15:40:46 +0000
+Received: by outflank-mailman (output) from mailman id 86934.163593; Fri, 19 Feb 2021 15:40:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD7te-0002Ie-Fw; Fri, 19 Feb 2021 15:40:46 +0000
-Received: by outflank-mailman (input) for mailman id 86932;
- Fri, 19 Feb 2021 15:40:45 +0000
+	id 1lD7tk-0002Q1-4r; Fri, 19 Feb 2021 15:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 86934;
+ Fri, 19 Feb 2021 15:40:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jZy7=HV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lD7tc-0002F6-V2
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 15:40:44 +0000
+ id 1lD7th-0002F6-V9
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 15:40:49 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id db1eec34-b373-4506-9779-f75a822cf7ce;
+ id d945f9fa-43c4-4d82-b864-f9b70dc12d2e;
  Fri, 19 Feb 2021 15:40:39 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7C5A8AF23;
+ by mx2.suse.de (Postfix) with ESMTP id C5B9AB10B;
  Fri, 19 Feb 2021 15:40:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,155 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db1eec34-b373-4506-9779-f75a822cf7ce
+X-Inumbo-ID: d945f9fa-43c4-4d82-b864-f9b70dc12d2e
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1613749238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=l3hsQtjVhbUJuzJrwS+bXrEjvj+YDAiuRUM066+18HU=;
-	b=Mc5dLu2iK4ri54BVS8sVlgoCdpzZyxnZb6PrS1izcSrnyoWAfPFIU02dYvCgRltNbGbIHW
-	oI3sqwmM0Q2vgPMX7v3/FBtanmeY4inkYGxGOt//Jb19mpHGoSbfO8NU+nPaL4L7JnOwyJ
-	lXkAGmpRFn162CNsNJmSx3FibIYwqZw=
+	bh=QmVbRiyGhWjgyRhmW9maPS5XeYQ8D0P7LNo1+euH3hI=;
+	b=kUPpmw0yKQA70gsRODhJFsj/8eUsG8GG0hrbpqX7y81r0C26/2h9EUbs0xUKId7cwep9Am
+	gireTmt9iiSmUipV/+ZpaGWiJ2siBWquCtwD2sAbj6VLLHfWhdZl4VbbcwKpZAGnf74FYh
+	QpyLJ4Yxuslqb5hRXglPLi6uk8bEdGY=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wei.liu@kernel.org>,
+	Paul Durrant <paul@xen.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
 	stable@vger.kernel.org,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v3 3/8] xen/events: avoid handling the same event on two cpus at the same time
-Date: Fri, 19 Feb 2021 16:40:25 +0100
-Message-Id: <20210219154030.10892-4-jgross@suse.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 4/8] xen/netback: fix spurious event detection for common event case
+Date: Fri, 19 Feb 2021 16:40:26 +0100
+Message-Id: <20210219154030.10892-5-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210219154030.10892-1-jgross@suse.com>
 References: <20210219154030.10892-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When changing the cpu affinity of an event it can happen today that
-(with some unlucky timing) the same event will be handled on the old
-and the new cpu at the same time.
+In case of a common event for rx and tx queue the event should be
+regarded to be spurious if no rx and no tx requests are pending.
 
-Avoid that by adding an "event active" flag to the per-event data and
-call the handler only if this flag isn't set.
+Unfortunately the condition for testing that is wrong causing to
+decide a event being spurious if no rx OR no tx requests are
+pending.
+
+Fix that plus using local variables for rx/tx pending indicators in
+order to split function calls and if condition.
 
 Cc: stable@vger.kernel.org
-Reported-by: Julien Grall <julien@xen.org>
+Fixes: 23025393dbeb3b ("xen/netback: use lateeoi irq binding")
 Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Reviewed-by: Wei Liu <wl@xen.org>
 ---
 V2:
-- new patch
-V3:
-- use common helper for end of handler action (Julien Grall)
-- move setting is_active to 0 for lateeoi (Boris Ostrovsky)
+- new patch, fixing FreeBSD performance issue
 ---
- drivers/xen/events/events_base.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+ drivers/net/xen-netback/interface.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index e157e7506830..9d7ba7623510 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -102,6 +102,7 @@ struct irq_info {
- #define EVT_MASK_REASON_EXPLICIT	0x01
- #define EVT_MASK_REASON_TEMPORARY	0x02
- #define EVT_MASK_REASON_EOI_PENDING	0x04
-+	u8 is_active;		/* Is event just being handled? */
- 	unsigned irq;
- 	evtchn_port_t evtchn;   /* event channel */
- 	unsigned short cpu;     /* cpu bound */
-@@ -791,6 +792,12 @@ static void xen_evtchn_close(evtchn_port_t port)
- 		BUG();
- }
+diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
+index acb786d8b1d8..e02a4fbb74de 100644
+--- a/drivers/net/xen-netback/interface.c
++++ b/drivers/net/xen-netback/interface.c
+@@ -162,13 +162,15 @@ irqreturn_t xenvif_interrupt(int irq, void *dev_id)
+ {
+ 	struct xenvif_queue *queue = dev_id;
+ 	int old;
++	bool has_rx, has_tx;
  
-+static void event_handler_exit(struct irq_info *info)
-+{
-+	smp_store_release(&info->is_active, 0);
-+	clear_evtchn(info->evtchn);
-+}
+ 	old = atomic_fetch_or(NETBK_COMMON_EOI, &queue->eoi_pending);
+ 	WARN(old, "Interrupt while EOI pending\n");
+ 
+-	/* Use bitwise or as we need to call both functions. */
+-	if ((!xenvif_handle_tx_interrupt(queue) |
+-	     !xenvif_handle_rx_interrupt(queue))) {
++	has_tx = xenvif_handle_tx_interrupt(queue);
++	has_rx = xenvif_handle_rx_interrupt(queue);
 +
- static void pirq_query_unmask(int irq)
- {
- 	struct physdev_irq_status_query irq_status;
-@@ -809,14 +816,15 @@ static void pirq_query_unmask(int irq)
- 
- static void eoi_pirq(struct irq_data *data)
- {
--	evtchn_port_t evtchn = evtchn_from_irq(data->irq);
-+	struct irq_info *info = info_for_irq(data->irq);
-+	evtchn_port_t evtchn = info ? info->evtchn : 0;
- 	struct physdev_eoi eoi = { .irq = pirq_from_irq(data->irq) };
- 	int rc = 0;
- 
- 	if (!VALID_EVTCHN(evtchn))
- 		return;
- 
--	clear_evtchn(evtchn);
-+	event_handler_exit(info);
- 
- 	if (pirq_needs_eoi(data->irq)) {
- 		rc = HYPERVISOR_physdev_op(PHYSDEVOP_eoi, &eoi);
-@@ -1640,6 +1648,8 @@ void handle_irq_for_port(evtchn_port_t port, struct evtchn_loop_ctrl *ctrl)
++	if (!has_rx && !has_tx) {
+ 		atomic_andnot(NETBK_COMMON_EOI, &queue->eoi_pending);
+ 		xen_irq_lateeoi(irq, XEN_EOI_FLAG_SPURIOUS);
  	}
- 
- 	info = info_for_irq(irq);
-+	if (xchg_acquire(&info->is_active, 1))
-+		return;
- 
- 	if (ctrl->defer_eoi) {
- 		info->eoi_cpu = smp_processor_id();
-@@ -1823,12 +1833,11 @@ static void disable_dynirq(struct irq_data *data)
- 
- static void ack_dynirq(struct irq_data *data)
- {
--	evtchn_port_t evtchn = evtchn_from_irq(data->irq);
--
--	if (!VALID_EVTCHN(evtchn))
--		return;
-+	struct irq_info *info = info_for_irq(data->irq);
-+	evtchn_port_t evtchn = info ? info->evtchn : 0;
- 
--	clear_evtchn(evtchn);
-+	if (VALID_EVTCHN(evtchn))
-+		event_handler_exit(info);
- }
- 
- static void mask_ack_dynirq(struct irq_data *data)
-@@ -1844,7 +1853,7 @@ static void lateeoi_ack_dynirq(struct irq_data *data)
- 
- 	if (VALID_EVTCHN(evtchn)) {
- 		do_mask(info, EVT_MASK_REASON_EOI_PENDING);
--		clear_evtchn(evtchn);
-+		event_handler_exit(info);
- 	}
- }
- 
-@@ -1856,7 +1865,7 @@ static void lateeoi_mask_ack_dynirq(struct irq_data *data)
- 	if (VALID_EVTCHN(evtchn)) {
- 		do_mask(info, EVT_MASK_REASON_EXPLICIT |
- 			      EVT_MASK_REASON_EOI_PENDING);
--		clear_evtchn(evtchn);
-+		event_handler_exit(info);
- 	}
- }
- 
-@@ -1969,10 +1978,11 @@ static void restore_cpu_ipis(unsigned int cpu)
- /* Clear an irq's pending state, in preparation for polling on it */
- void xen_clear_irq_pending(int irq)
- {
--	evtchn_port_t evtchn = evtchn_from_irq(irq);
-+	struct irq_info *info = info_for_irq(irq);
-+	evtchn_port_t evtchn = info ? info->evtchn : 0;
- 
- 	if (VALID_EVTCHN(evtchn))
--		clear_evtchn(evtchn);
-+		event_handler_exit(info);
- }
- EXPORT_SYMBOL(xen_clear_irq_pending);
- void xen_set_irq_pending(int irq)
 -- 
 2.26.2
 
