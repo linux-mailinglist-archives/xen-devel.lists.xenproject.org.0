@@ -2,48 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3780431F61E
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 09:59:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86816.163265 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D799931F67F
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 10:25:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86823.163277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD1dB-0002gE-8V; Fri, 19 Feb 2021 08:59:21 +0000
+	id 1lD21H-0005T8-DB; Fri, 19 Feb 2021 09:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86816.163265; Fri, 19 Feb 2021 08:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 86823.163277; Fri, 19 Feb 2021 09:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD1dB-0002fp-3R; Fri, 19 Feb 2021 08:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 86816;
- Fri, 19 Feb 2021 08:59:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LCn1=HV=oracle.com=dan.carpenter@srs-us1.protection.inumbo.net>)
- id 1lD1d9-0002fi-Tl
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 08:59:19 +0000
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 060d340e-b71c-4df6-b871-1de4ae3bc77f;
- Fri, 19 Feb 2021 08:59:19 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11J8oEwu089650;
- Fri, 19 Feb 2021 08:59:18 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 36p7dnrmq7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 19 Feb 2021 08:59:18 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11J8tluC182172;
- Fri, 19 Feb 2021 08:59:16 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3020.oracle.com with ESMTP id 36prhvdt6f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 19 Feb 2021 08:59:16 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 11J8xEaX004380;
- Fri, 19 Feb 2021 08:59:14 GMT
-Received: from mwanda (/10.175.194.66) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 19 Feb 2021 00:59:14 -0800
+	id 1lD21H-0005Sj-9k; Fri, 19 Feb 2021 09:24:15 +0000
+Received: by outflank-mailman (input) for mailman id 86823;
+ Fri, 19 Feb 2021 09:24:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lD21F-0005Se-Rv
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 09:24:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lD21D-0005Gp-2R; Fri, 19 Feb 2021 09:24:11 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lD21C-0008PI-QB; Fri, 19 Feb 2021 09:24:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,94 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 060d340e-b71c-4df6-b871-1de4ae3bc77f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=hVrBwJZyZrcozmvRMSPGChZCnCSYVBUl6bBNcrGOdYw=;
- b=PvZe8gqiauPCdqpWnwOV8wL4kc3qPa31MxW2NhR56mviODnh5aRcHJX31jyVu4sjt/2u
- g+hE02V+KeooZPLftvwl56ZswAWq/6fTxbNWmsZ2KforuUUJl1bGSRh0E6w13Cd/WS1m
- Y9hG1/mYdAMH5Oe+i5mu/CAtl+/hqaenwL0/I7zLGoxoBsc5bqT9L43KascJEnn09Bl6
- o9ouSESqXurilKQ9QcQ2lUxaFP9B29BqgyZ7+GcV2Ejlus0CnAu+ookRU0BzTuqYdSZJ
- 9FyZkgnw5I6eNE5r6EtAw/w7fs1Tjy0WaJGELQ/ROXH8l/4BlBd6dGtmfvA0ukHBmEB3 NA== 
-Date: Fri, 19 Feb 2021 11:59:05 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: jbeulich@suse.com
-Cc: xen-devel@lists.xenproject.org
-Subject: [bug report] xen-blkback: don't "handle" error by BUG()
-Message-ID: <YC992dHyignVEe5R@mwanda>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=NW4IO4W+Z6u0V6oCvWPiguInxloPgJvQIgvjYCtuh94=; b=5P2KG/i4ZACihexX2Lz89vRI6W
+	V04k+E0c2rBMpyqM+tOg5xPzL9WGb1M4HslPRcMHD3wbaBarueiV8+6Z9Q/Pitmn7Z04f4jeF3Fzc
+	UdnuGwdJ2131nFj9XQPrin/ZnF1006c1gT0M4DkOxkhYw/1dZRu14OD/aXEB1HQxaUJ0=;
+Subject: Re: [for-4.15][PATCH v3 2/3] xen/x86: iommu: Ignore IOMMU mapping
+ requests when a domain is dying
+To: Jan Beulich <jbeulich@suse.com>
+Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org,
+ Paul Durrant <paul@xen.org>
+References: <20210217142458.3769-1-julien@xen.org>
+ <20210217142458.3769-3-julien@xen.org>
+ <20f68b12-a767-b1d3-a3dd-9f92172def5f@suse.com>
+ <d1116875-dd98-8f51-9113-314c1a62b4bf@xen.org>
+ <268f1991-bacb-c888-04c0-0e4cf670b6b5@suse.com>
+ <c713f440-8c3d-42fe-1d71-56b23e53a495@xen.org>
+ <aa672eaa-e828-968b-73bf-dd4249d5de16@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <223ab610-34bc-c0a8-dfe2-6f54b86e7635@xen.org>
+Date: Fri, 19 Feb 2021 09:24:08 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9899 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=846 adultscore=0 mlxscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2102190070
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9899 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 suspectscore=0 mlxscore=0
- phishscore=0 spamscore=0 adultscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 mlxlogscore=783
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2102190069
+In-Reply-To: <aa672eaa-e828-968b-73bf-dd4249d5de16@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Hello Jan Beulich,
+Hi Jan,
 
-The patch 5a264285ed1c: "xen-blkback: don't "handle" error by BUG()"
-from Feb 15, 2021, leads to the following static checker warning:
+On 19/02/2021 08:49, Jan Beulich wrote:
+> On 18.02.2021 14:25, Julien Grall wrote:
+>> Hi,
+>>
+>> On 18/02/2021 13:05, Jan Beulich wrote:
+>>> On 17.02.2021 17:07, Julien Grall wrote:
+>>>> On 17/02/2021 15:01, Jan Beulich wrote:
+>>>>> On 17.02.2021 15:24, Julien Grall wrote:
+>>>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> The new x86 IOMMU page-tables allocator will release the pages when
+>>>>>> relinquishing the domain resources. However, this is not sufficient
+>>>>>> when the domain is dying because nothing prevents page-table to be
+>>>>>> allocated.
+>>>>>>
+>>>>>> Currently page-table allocations can only happen from iommu_map(). As
+>>>>>> the domain is dying, there is no good reason to continue to modify the
+>>>>>> IOMMU page-tables.
+>>>>>
+>>>>> While I agree this to be the case right now, I'm not sure it is a
+>>>>> good idea to build on it (in that you leave the unmap paths
+>>>>> untouched).
+>>>>
+>>>> I don't build on that assumption. See next patch.
+>>>
+>>> Yet as said there that patch makes unmapping perhaps more fragile,
+>>> by introducing a latent error source into the path.
+>>
+>> I still don't see what latent error my patch will introduce. Allocation
+>> of page-tables are not guarantee to succeed.
+>>
+>> So are you implying that a code may rely on the page allocation to succeed?
+> 
+> I'm implying that failure to split a superpage may have unknown
+> consequences.
 
-	drivers/block/xen-blkback/blkback.c:836 xen_blkbk_map()
-	warn: should this be a bitwise negate mask?
+As failure to flush the TLBs (see below).
 
-drivers/block/xen-blkback/blkback.c
-   823           * Now swizzle the MFN in our domain with the MFN from the other domain
-   824           * so that when we access vaddr(pending_req,i) it has the contents of
-   825           * the page from the other domain.
-   826           */
-   827          for (seg_idx = last_map, new_map_idx = 0; seg_idx < map_until; seg_idx++) {
-   828                  if (!pages[seg_idx]->persistent_gnt) {
-   829                          /* This is a newly mapped grant */
-   830                          BUG_ON(new_map_idx >= segs_to_map);
-   831                          if (unlikely(map[new_map_idx].status != 0)) {
-   832                                  pr_debug("invalid buffer -- could not remap it\n");
-   833                                  gnttab_page_cache_put(&ring->free_pages,
-   834                                                        &pages[seg_idx]->page, 1);
-   835                                  pages[seg_idx]->handle = BLKBACK_INVALID_HANDLE;
-   836                                  ret |= !ret;
+> Since we make no use of superpages when not
+> sharing page tables, I call this a latent issue which may go
+> unnoticed for quite some time once no longer latent.
 
-Originally this code was:
+And it would take a lot longer to unnotice an OOM as this should happen 
+less often ;).
 
-	ret |= 1;
+But, I think this is wrong to blame the lower layer for a (latent) bug 
+in the upper layer...
 
-Now it's equivalent to:
+Even with your solution to zap page-tables, there is still a risk of 
+failure because the TLB flush may fail (the operation can return an error).
 
-	if (!ret)
-		ret = 1;
+So regardless the solution, we still need to have callers that function 
+correctly.
 
-This is the second user of this idiom in the kernel.  Both were
-introduced in the last month so maybe it's a new trend or something...
-Anyway.  False positive warning.
+Anyway, what matters right now is fixing a host crash when running PV 
+guest with passthrough.  Neither patch #3 nor the iommu_unmap() part is 
+strictly necessary for 4.15 (as you say this is latent).
 
-But my main question isn't really related to this patch.  What does
-the 1 mean in this context?  I always feel like there should be
-documentation when functions return a mix of error codes, zero and one
-but there isn't any here.
+So I would suggest to defer this discussion post-4.15.
 
-I have reviewed this and so far as I can see setting "ret = 1;" is
-always treated exactly the same as an error code by everything.  Every
-single place where this is checked just checks for ret is zero.  The
-value is propagated two functions back and then it becomes -EIO.
+Cheers,
 
-???
-
-   837                                  goto next;
-   838                          }
-   839                          pages[seg_idx]->handle = map[new_map_idx].handle;
-   840                  } else {
-   841                          continue;
-   842                  }
-   843                  if (use_persistent_gnts &&
-
-regards,
-dan carpenter
+-- 
+Julien Grall
 
