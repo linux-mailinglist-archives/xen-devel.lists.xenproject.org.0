@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C120831FD8C
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 18:06:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87006.163872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D6B831FDD2
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 18:26:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87013.163904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD9Dk-0005Qh-BJ; Fri, 19 Feb 2021 17:05:36 +0000
+	id 1lD9Xi-0007aF-Aj; Fri, 19 Feb 2021 17:26:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87006.163872; Fri, 19 Feb 2021 17:05:36 +0000
+Received: by outflank-mailman (output) from mailman id 87013.163904; Fri, 19 Feb 2021 17:26:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD9Dk-0005QI-89; Fri, 19 Feb 2021 17:05:36 +0000
-Received: by outflank-mailman (input) for mailman id 87006;
- Fri, 19 Feb 2021 17:05:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lD9Di-0005QB-UO
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 17:05:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lD9Di-0005DG-Rv
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 17:05:34 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lD9Di-0008Jp-QZ
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 17:05:34 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lD9Df-0001Ty-Ly; Fri, 19 Feb 2021 17:05:31 +0000
+	id 1lD9Xi-0007Zp-7O; Fri, 19 Feb 2021 17:26:14 +0000
+Received: by outflank-mailman (input) for mailman id 87013;
+ Fri, 19 Feb 2021 17:26:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZyFk=HV=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1lD9Xh-0007Yz-3Z
+ for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 17:26:13 +0000
+Received: from mail-wm1-f52.google.com (unknown [209.85.128.52])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 14f4da07-ec77-40ce-b2c9-f2fea1d6109a;
+ Fri, 19 Feb 2021 17:26:12 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id o24so8306566wmh.5
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Feb 2021 09:26:12 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id l38sm11699513wmp.19.2021.02.19.09.26.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Feb 2021 09:26:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,65 +41,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=+EICzCcB8txsTdiA7EvP5djlrzhJs+nXTRVs3jeK/94=; b=0PWmZ8c1AcEk3iU3/sBumcfmwD
-	sYik+Q/bfsPuUjGl4K4VolYKtfnZfzLIy08Qnts2sbNcX+lO2Yu9Wyz0/wcjvvREFjEnowo1c5Isy
-	iTJE5rllXLFvvQwoSZDAce8dVEQCnxkYTNgLtxTU40/qSaKU7m5K441kj0cgRPyf8bzk=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 14f4da07-ec77-40ce-b2c9-f2fea1d6109a
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=TuBoLkcy6c7lcYki0OpGyZY2qotADkjln3ECovhSUvA=;
+        b=r3zvaXhay9MUw5a210J5OY4zkeASS/FIJ7yVXtW/04ixi4JBmpbs07Z4rp1ZGpnX0L
+         Qagaq9DyMFnylx7L2U2N1S2qbk9Xg2BigkcQTRmMoYk69eRhYGjDNs1/4SGOq6rW7Qly
+         n435zla+Mbk0jAfhsfMO28OLi+I9CXZ5wemcS6ejNgAKDpIIzyh9h/No/S6SvaKlT+Lp
+         Q3hfNag+8jGWpBTH8q9wkT6H+LEQbXG3exwbQbx4FyAo22ZAPCwajcC26C24uPoWJlBy
+         NHlZeGsxCENdZafuJfbCzVj7kOBdtp5aaE/ToPpJqTwtmpksdUlEOx9KlHlgTEeasTKX
+         /+jQ==
+X-Gm-Message-State: AOAM533nf0ZufP606GyGW0O9KRg1oROeeIBKj1xkO8+TKeiZUtPcxsqL
+	UOimhEP7yVkz6ahdlAzID18=
+X-Google-Smtp-Source: ABdhPJzbX57P44obtewQ/Q9zlPmY3YFqZUmV2JvJKG6QWp/n2Lh1UezWMkqEh41v4uohPPS05Mg1xg==
+X-Received: by 2002:a1c:5f84:: with SMTP id t126mr7347886wmb.52.1613755571721;
+        Fri, 19 Feb 2021 09:26:11 -0800 (PST)
+Date: Fri, 19 Feb 2021 17:26:09 +0000
+From: Wei Liu <wl@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH-for-4.15] tools/libs/light: fix xl save -c handling
+Message-ID: <20210219172609.xxrmhkcafhwgoa6w@liuwe-devbox-debian-v2>
+References: <20210219141337.6934-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24623.61403.440917.434@mariner.uk.xensource.com>
-Date: Fri, 19 Feb 2021 17:05:31 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Kevin Tian <kevin.tian@intel.com>,
-    Julien Grall <julien@xen.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Wei Liu <wl@xen.org>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    George Dunlap <George.Dunlap@citrix.com>
-Subject: Re: [PATCH for-4.15 v2] VMX: use a single, global APIC access page [and 1 more messages]
-In-Reply-To: <a895386d-db14-2743-d8f9-09f9509a510a@suse.com>,
-	<dcada8be-a91d-87f0-c579-30f3c7e3607e@suse.com>
-References: <a895386d-db14-2743-d8f9-09f9509a510a@suse.com>
-	<dcada8be-a91d-87f0-c579-30f3c7e3607e@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210219141337.6934-1-jgross@suse.com>
 
-Jan Beulich writes ("[PATCH v2] VMX: use a single, global APIC access page"):
-> The address of this page is used by the CPU only to recognize when to
-> access the virtual APIC page instead. No accesses would ever go to this
-> page. It only needs to be present in the (CPU) page tables so that
-> address translation will produce its address as result for respective
-> accesses.
+On Fri, Feb 19, 2021 at 03:13:37PM +0100, Juergen Gross wrote:
+> libxl_domain_resume() won't work correctly for the case it was called
+> due to a "xl save -c" command, i.e. to continue the suspended domain.
 > 
-> By making this page global, we also eliminate the need to refcount it,
-> or to assign it to any domain in the first place.
+> The information to do that is not saved in libxl__dm_resume_state for
+> non-HVM domains.
+> 
+> Fixes: 6298f0eb8f443 ("libxl: Re-introduce libxl__domain_resume")
+> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Thanks for this.
-
-From this:
-
-Jan Beulich writes ("Re: [PATCH v2] VMX: use a single, global APIC access page"):
-> While this patch was triggered not just by Julien's observation of
-> the early p2m insertion being a problem, but also many earlier
-> times of running into this odd code, it is - especially at this
-> stage - perhaps a possible option to split the change into just
-> the movement of the set_mmio_p2m_entry() invocation and all the
-> rest, in order to defer that rest until after 4.15.
-
-I infer that this contains a bugfix, but perhaps other
-changes/improvements too.
-
-George, I think you're our expert on this refcounting stuff - what do
-you think of this ?
-
-I guess my key question is whether this change will introduce risk by
-messing with the complex refcounting machineryt - or remove it by
-removing an interaction with the refcounting.
-
-Thanks,
-Ian.
+Acked-by: Wei Liu <wl@xen.org>
 
