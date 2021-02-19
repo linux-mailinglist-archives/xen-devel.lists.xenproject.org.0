@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E956A31F752
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 11:34:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.86831.163295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFAC31F796
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Feb 2021 11:48:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.86835.163308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD35a-0003pV-HA; Fri, 19 Feb 2021 10:32:46 +0000
+	id 1lD3Ke-0004we-S1; Fri, 19 Feb 2021 10:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 86831.163295; Fri, 19 Feb 2021 10:32:46 +0000
+Received: by outflank-mailman (output) from mailman id 86835.163308; Fri, 19 Feb 2021 10:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lD35a-0003p6-DB; Fri, 19 Feb 2021 10:32:46 +0000
-Received: by outflank-mailman (input) for mailman id 86831;
- Fri, 19 Feb 2021 10:32:45 +0000
+	id 1lD3Ke-0004wC-Mq; Fri, 19 Feb 2021 10:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 86835;
+ Fri, 19 Feb 2021 10:48:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lD35Y-0003p1-Uz
- for xen-devel@lists.xenproject.org; Fri, 19 Feb 2021 10:32:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lD3Kd-0004w2-4g; Fri, 19 Feb 2021 10:48:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lD35X-0006RO-Sb; Fri, 19 Feb 2021 10:32:43 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lD35X-0005om-Gi; Fri, 19 Feb 2021 10:32:43 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lD3Kc-0006gF-SF; Fri, 19 Feb 2021 10:48:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lD3Kc-0001Ah-I3; Fri, 19 Feb 2021 10:48:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lD3Kc-0001dm-HW; Fri, 19 Feb 2021 10:48:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,159 +42,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=8sl1RSejo9EYD+aPu8zswMb1564lhYS/l4h4l2C6a1w=; b=PGWRJvunY5lFUkBIEd/sWjJKiB
-	IbrsIO1c6cen4snB65UQfbBvy+WxrMFeCY2B2HEeYU9yYO3H4xlTjBuTo9Us4J22+FcoXStkorZEw
-	NoCxuW/G+xZk+YF7Y2qWwEOemyyK4lLyp01ByCdlgLqb31WjcXXwd7xQoEfp24hIcR50=;
-Subject: Re: [RFC] xen/arm: introduce XENFEAT_ARM_dom0_iommu
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com,
- Volodymyr_Babchuk@epam.com, rahul.singh@arm.com
-References: <alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s>
- <2d22d5b8-6cda-f27b-e938-4806b65794a5@xen.org>
- <alpine.DEB.2.21.2102171233270.3234@sstabellini-ThinkPad-T480s>
- <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
- <alpine.DEB.2.21.2102180920570.3234@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <98a15b6d-7460-31a0-0b4a-acf035571a17@xen.org>
-Date: Fri, 19 Feb 2021 10:32:41 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=pgFmw7q/e8lcZXG/ohrxQdtGS1lrrzGK2VjVNSOFBkE=; b=WVjzWlDauvOP4rtcOV3+hXtCd+
+	PE0V59RhwHnsWwvMEpUcPb4Jrn+3gdkHBN/6AxtrJDGW93LpW/Y00YVpg3eaBQJzdxmf/2VY3CJVm
+	oSRUVreslke4/LFfTKDRCjtv7RsXjTOjgCnOQAEWj0ftJ3FpeQqWSJ9F7IIypo6bv76M=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159457-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2102180920570.3234@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [linux-5.4 test] 159457: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=850e6a95deb5a9e6e922ace64bf2dd0ed290ecb7
+X-Osstest-Versions-That:
+    linux=a829146c3fdcf6d0b76d9c54556a223820f1f73b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Feb 2021 10:48:18 +0000
 
-Hi Stefano,
+flight 159457 linux-5.4 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159457/
 
-On 19/02/2021 01:42, Stefano Stabellini wrote:
-> On Thu, 18 Feb 2021, Julien Grall wrote:
->> On 17/02/2021 23:54, Stefano Stabellini wrote:
->>> On Wed, 17 Feb 2021, Julien Grall wrote:
->>>> On 17/02/2021 02:00, Stefano Stabellini wrote:
->>> But actually it was always wrong for Linux to enable swiotlb-xen without
->>> checking whether it is 1:1 mapped or not. Today we enable swiotlb-xen in
->>> dom0 and disable it in domU, while we should have enabled swiotlb-xen if
->>> 1:1 mapped no matter dom0/domU. (swiotlb-xen could be useful in a 1:1
->>> mapped domU driver domain.)
->>>
->>>
->>> There is an argument (Andy was making on IRC) that being 1:1 mapped or
->>> not is an important information that Xen should provide to the domain
->>> regardless of anything else.
->>>
->>> So maybe we should add two flags:
->>>
->>> - XENFEAT_direct_mapped
->>> - XENFEAT_not_direct_mapped
->>
->> I am guessing the two flags is to allow Linux to fallback to the default
->> behavior (depending on dom0 vs domU) on older hypervisor On newer hypervisors,
->> one of this flag would always be set. Is that correct?
-> 
-> Yes. On a newer hypervisor one of the two would be present and Linux can
-> make an informed decision. On an older hypervisor, neither flag would be
-> present, so Linux will have to keep doing what is currently doing.
-> 
->   
->>> To all domains. This is not even ARM specific. Today dom0 would get
->>> XENFEAT_direct_mapped and domUs XENFEAT_not_direct_mapped. With cache
->>> coloring all domains will get XENFEAT_not_direct_mapped. With Bertrand's
->>> team work on 1:1 mapping domUs, some domUs might start to get
->>> XENFEAT_direct_mapped also one day soon.
->>>
->>> Now I think this is the best option because it is descriptive, doesn't
->>> imply anything about what Linux should or should not do, and doesn't
->>> depend on unreliable IOMMU information.
->>
->> That's a good first step but this still doesn't solve the problem on whether
->> the swiotlb can be disabled per-device or even disabling the expensive 1:1
->> mapping in the IOMMU page-tables.
->>
->> It feels to me we need to have a more complete solution (not necessary
->> implemented) so we don't put ourself in the corner again.
-> 
-> Yeah, XENFEAT_{not,}_direct_mapped help cleaning things up, but don't
-> solve the issues you described. Those are difficult to solve, it would
-> be nice to have some idea.
-> 
-> One issue is that we only have limited information passed via device
-> tree, limited to the "iommus" property. If that's all we have, there
-> isn't much we can do.
+Failures :-/ but no regressions.
 
-We can actually do a lot with that :). See more below.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 158387
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 158387
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 158387
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 158387
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 158387
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 158387
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 158387
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 158387
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 158387
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 158387
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 158387
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 158387
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-> The device tree list is maybe the only option,
-> although it feels a bit complex intuitively. We could maybe replace the
-> real iommu node with a fake iommu node only to use it to "tag" devices
-> protected by the real iommu.
-> 
-> I like the idea of rewarding well-designed boards; boards that have an
-> IOMMU and works for all DMA-mastering devices. It would be great to be
-> able to optimize those in a simple way, without breaking the others. But
-> unfortunately due to the limited info on device tree, I cannot think of
-> a way to do it automatically. And it is not great to rely on platform
-> files.
+version targeted for testing:
+ linux                850e6a95deb5a9e6e922ace64bf2dd0ed290ecb7
+baseline version:
+ linux                a829146c3fdcf6d0b76d9c54556a223820f1f73b
 
-We would not be able to automate in Xen alone, however we can ask the 
-help of Linux.
+Last test of basis   158387  2021-01-12 19:40:06 Z   37 days
+Failing since        158473  2021-01-17 13:42:20 Z   32 days   44 attempts
+Testing same since   159457  2021-02-18 08:59:55 Z    1 days    1 attempts
 
-Xen is able to tell whether it has protected the device with an IOMMU or 
-not. When creating the domain device-tree, it could replace the IOMMU 
-node with a Xen specific one.
+------------------------------------------------------------
+512 people touched revisions under test,
+not listing them all
 
-With the Xen IOMMU nodes, Linux could find out whether the device needs 
-to use the swiotlb ops or not.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-Skipping extra mapping in the IOMMU is a bit trickier. I can see two 
-solutions:
-   - A per-domain toggle to skip the IOMMU mapping. This is assuming 
-that Linux is able to know that all DMA capable devices are protected. 
-The problem is a  driver may be loaded later. Such drivers are unlikely 
-to use existing grant, so the toggle could be used to say "all the grant 
-after this point will require a mapping (or not)"
 
-   - A per-grant flag to indicate whether an IOMMU mapping is necessary. 
-This is assuming we are able to know whether a grant will be used for DMA.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
->>> Instead, if we follow my original proposal of using
->>> XENFEAT_ARM_dom0_iommu and set it automatically when Dom0 is protected
->>> by IOMMU, we risk breaking PV drivers for platforms where that protection
->>> is incomplete. I have no idea how many there are out there today.
->>
->> This can virtually affect any platform as it is easy to disable an IOMMU in
->> the firmware table.
->>
->>> I have
->>> the feeling that there aren't that many but I am not sure. So yes, it
->>> could be that we start passing XENFEAT_ARM_dom0_iommu for a given
->>> platform, Linux skips the swiotlb-xen initialization, actually it is
->>> needed for a network/block device, and a PV driver breaks. I can see why
->>> you say this is a no-go.
->>>
->>>
->>> Third option. We still use XENFEAT_ARM_dom0_iommu but we never set
->>> XENFEAT_ARM_dom0_iommu automatically. It needs a platform specific flag
->>> to be set. We add the flag to xen/arch/arm/platforms/xilinx-zynqmp.c and
->>> any other platforms that qualify. Basically it is "opt in" instead of
->>> "opt out". We don't risk breaking anything because platforms would have
->>> XENFEAT_ARM_dom0_iommu disabled by default.
->> Well, yes you will not break other platforms. However, you are still at risk
->> to break your platform if the firmware table is updated and disable some but
->> not all IOMMUs (for performance concern, brokeness...).
-> 
-> This is something we might be able to detect: we can detect if an IOMMU
-> is disabled.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-This is assuming that node has not been removed... :) Anyway, as I 
-pointed out in my original answer, I don't think platform quirk (or 
-enablement) is a viable solution here.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Pushing revision :
+
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   a829146c3fdc..850e6a95deb5  850e6a95deb5a9e6e922ace64bf2dd0ed290ecb7 -> tested/linux-5.4
 
