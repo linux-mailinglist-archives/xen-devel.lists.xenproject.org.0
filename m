@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89750320AEF
-	for <lists+xen-devel@lfdr.de>; Sun, 21 Feb 2021 15:34:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87534.164719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E226320BDC
+	for <lists+xen-devel@lfdr.de>; Sun, 21 Feb 2021 17:55:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87630.164771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lDpnT-00038g-UW; Sun, 21 Feb 2021 14:33:19 +0000
+	id 1lDrzu-0008Mo-PD; Sun, 21 Feb 2021 16:54:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87534.164719; Sun, 21 Feb 2021 14:33:19 +0000
+Received: by outflank-mailman (output) from mailman id 87630.164771; Sun, 21 Feb 2021 16:54:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lDpnT-00038H-R8; Sun, 21 Feb 2021 14:33:19 +0000
-Received: by outflank-mailman (input) for mailman id 87534;
- Sun, 21 Feb 2021 13:34:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zznf=HX=gmail.com=akihiko.odaki@srs-us1.protection.inumbo.net>)
- id 1lDosU-0005yJ-JQ
- for xen-devel@lists.xenproject.org; Sun, 21 Feb 2021 13:34:26 +0000
-Received: from mail-pf1-x430.google.com (unknown [2607:f8b0:4864:20::430])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6675a642-83a4-4196-be61-cc09662cd435;
- Sun, 21 Feb 2021 13:34:25 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id 201so1811508pfw.5
- for <xen-devel@lists.xenproject.org>; Sun, 21 Feb 2021 05:34:25 -0800 (PST)
-Received: from localhost.localdomain ([2400:4050:c360:8200:b418:f77:22b4:17c9])
- by smtp.gmail.com with ESMTPSA id 134sm16204899pfc.113.2021.02.21.05.34.22
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 21 Feb 2021 05:34:24 -0800 (PST)
+	id 1lDrzu-0008MC-JF; Sun, 21 Feb 2021 16:54:18 +0000
+Received: by outflank-mailman (input) for mailman id 87630;
+ Sun, 21 Feb 2021 16:54:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDrzs-0008M4-Qd; Sun, 21 Feb 2021 16:54:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDrzs-00017N-Fs; Sun, 21 Feb 2021 16:54:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDrzs-00030t-9p; Sun, 21 Feb 2021 16:54:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDrzs-0005YN-9I; Sun, 21 Feb 2021 16:54:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,281 +42,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6675a642-83a4-4196-be61-cc09662cd435
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=gZAKh0kV5+3TZoFtekzuyQxJDLVOXyNYG3XsThFGRQQ=;
-        b=bOyT01PkAVMcGws32dlX2ZJpbbsVNvYuuvmQG7V0VuruvU+EE+YxxxXlApjQgXgyRp
-         B3UtLnEKSSXtuekbzfSHaf0jA+YfyXvx/xVR7wXujWYp0JJDAJq6owLJF9YsMY2D6S5s
-         ZmsT/u35BB42HK5QzUd7G/jWlsJkxtADVjYY5cC8RwsqbBbaKBkrdGK3qiFUiaWj9sQE
-         Kyy2c0DqqoBUBzqY3jUedj+0XeFKi1+k6/f75j7mYev85gzx5sk83XEqvI3lPen3iwUc
-         sZHxJFGKdO8v6L7zL19XBy3JSO7dLmIXPCak6JXwMdoL9Vo7sCqPDywvkGRbs4It9TpB
-         bDOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=gZAKh0kV5+3TZoFtekzuyQxJDLVOXyNYG3XsThFGRQQ=;
-        b=ZtNgR1mH13tn8HWiPdAprznQxzTG49Ht83+VH1Meftb+nRNhjwUhw7urIihT0ByzBw
-         NEoa+ZmkOsPhGALahFLWFitd4q9IZpZQKlwG1D6wCuJ2sn5wWUWduZh5fJ1Rl/65tz2i
-         gtIqs9DrKZYVEWqLQ5jw4B8LQvYEKveex5Iy+4hw3TiaLwDK83FaoqoXFiKy/qJjevMH
-         SelHYik//7YPARjjaBacleEpBbwHnDyoSEPYtubrkplMZSWzrfjHGjMdiKubPfG9jrOL
-         TclRfwZoummUC9f9dwaCOUqi958lgf9X+vNAz1GcASHXIcvvdawP7I0l1IyYPsW7vLFY
-         GiBQ==
-X-Gm-Message-State: AOAM530v4+YTXOkUFcSU3gGvLYlKry2FuJy13znzDrQnYfI0BpFWtOPm
-	u+0ofpIBLi+GBnX9MkrnQws=
-X-Google-Smtp-Source: ABdhPJz50uxcbgxnB7g1S2MaX9c71eoHuxrr1egAiaqVjAm93b+9QTP+nhRjiWB5zbBhw5kkMGYGvQ==
-X-Received: by 2002:aa7:8742:0:b029:1ed:4d14:7513 with SMTP id g2-20020aa787420000b02901ed4d147513mr10165627pfo.66.1613914464692;
-        Sun, 21 Feb 2021 05:34:24 -0800 (PST)
-From: Akihiko Odaki <akihiko.odaki@gmail.com>
-To: 
-Cc: qemu-devel@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Akihiko Odaki <akihiko.odaki@gmail.com>
-Subject: [PATCH] virtio-gpu: Respect graphics update interval for EDID
-Date: Sun, 21 Feb 2021 22:34:14 +0900
-Message-Id: <20210221133414.7262-1-akihiko.odaki@gmail.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=iNBXypuHgI9SL+AChZ59/RvtbTeZGJLxKkEZt1HOC6M=; b=g4+YpQ8kZ8R07LlfeYdMW4Nx5J
+	gK5ZrInzxi1oXokoLzdHYBzpz8wS9Xz3PwcgyKwBySiqXuBfItoienyPi63kiOEZN3V5qdg58+iFG
+	bFYc49zTv7aBAmFtoWiqJCj+e3cfJMIL+yxBN3SsB3Y/nhskaqfVnKN9YwpP4AqVchzk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-xtf-amd64-amd64-5
+Message-Id: <E1lDrzs-0005YN-9I@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 21 Feb 2021 16:54:16 +0000
 
-This change introduces an additional member, refresh_rate to
-qemu_edid_info in include/hw/display/edid.h.
+branch xen-unstable
+xenbranch xen-unstable
+job test-xtf-amd64-amd64-5
+testid xtf/test-pv32pae-selftest
 
-This change also isolates the graphics update interval from the
-display update interval. The guest will update the frame buffer
-in the graphics update interval, but displays can be updated in a
-dynamic interval, for example to save update costs aggresively
-(vnc) or to respond to user-generated events (sdl).
-It stabilizes the graphics update interval and prevents the guest
-from being confused.
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Tree: xtf git://xenbits.xen.org/xtf.git
 
-Signed-off-by: Akihiko Odaki <akihiko.odaki@gmail.com>
----
- hw/display/edid-generate.c     |  7 ++++---
- hw/display/virtio-gpu-base.c   | 11 +++++++++++
- hw/display/virtio-gpu.c        |  1 +
- hw/display/xenfb.c             |  2 +-
- include/hw/display/edid.h      |  1 +
- include/hw/virtio/virtio-gpu.h |  2 ++
- include/ui/console.h           |  3 ++-
- ui/console.c                   | 21 ++++++++++++++++-----
- ui/gtk.c                       |  2 +-
- 9 files changed, 39 insertions(+), 11 deletions(-)
+*** Found and reproduced problem changeset ***
 
-diff --git a/hw/display/edid-generate.c b/hw/display/edid-generate.c
-index 1665b7cbb29..7317e68506b 100644
---- a/hw/display/edid-generate.c
-+++ b/hw/display/edid-generate.c
-@@ -203,7 +203,7 @@ static void edid_desc_dummy(uint8_t *desc)
-     edid_desc_type(desc, 0x10);
- }
- 
--static void edid_desc_timing(uint8_t *desc,
-+static void edid_desc_timing(uint8_t *desc, uint32_t refresh_rate,
-                              uint32_t xres, uint32_t yres,
-                              uint32_t xmm, uint32_t ymm)
- {
-@@ -216,7 +216,7 @@ static void edid_desc_timing(uint8_t *desc,
-     uint32_t ysync  = yres *  5 / 1000;
-     uint32_t yblank = yres * 35 / 1000;
- 
--    uint32_t clock  = 75 * (xres + xblank) * (yres + yblank);
-+    uint32_t clock  = refresh_rate * (xres + xblank) * (yres + yblank);
- 
-     stl_le_p(desc, clock / 10000);
- 
-@@ -303,6 +303,7 @@ void qemu_edid_generate(uint8_t *edid, size_t size,
-     uint8_t *xtra3 = NULL;
-     uint8_t *dta = NULL;
-     uint32_t width_mm, height_mm;
-+    uint32_t refresh_rate = info->refresh_rate ? info->refresh_rate : 75;
-     uint32_t dpi = 100; /* if no width_mm/height_mm */
- 
-     /* =============== set defaults  =============== */
-@@ -400,7 +401,7 @@ void qemu_edid_generate(uint8_t *edid, size_t size,
- 
-     /* =============== descriptor blocks =============== */
- 
--    edid_desc_timing(edid + desc, info->prefx, info->prefy,
-+    edid_desc_timing(edid + desc, refresh_rate, info->prefx, info->prefy,
-                      width_mm, height_mm);
-     desc += 18;
- 
-diff --git a/hw/display/virtio-gpu-base.c b/hw/display/virtio-gpu-base.c
-index 4a57350917c..41b08b2e944 100644
---- a/hw/display/virtio-gpu-base.c
-+++ b/hw/display/virtio-gpu-base.c
-@@ -96,6 +96,16 @@ static int virtio_gpu_ui_info(void *opaque, uint32_t idx, QemuUIInfo *info)
-     return 0;
- }
- 
-+static void virtio_gpu_update_display_interval(void *opaque, uint64_t interval)
-+{
-+    VirtIOGPUBase *g = opaque;
-+
-+    g->refresh_rate = 1000 / interval;
-+
-+    /* send event to guest */
-+    virtio_gpu_notify_event(g, VIRTIO_GPU_EVENT_DISPLAY);
-+}
-+
- static void
- virtio_gpu_gl_flushed(void *opaque)
- {
-@@ -142,6 +152,7 @@ static const GraphicHwOps virtio_gpu_ops = {
-     .invalidate = virtio_gpu_invalidate_display,
-     .gfx_update = virtio_gpu_update_display,
-     .text_update = virtio_gpu_text_update,
-+    .gfx_update_interval = virtio_gpu_update_display_interval,
-     .ui_info = virtio_gpu_ui_info,
-     .gl_block = virtio_gpu_gl_block,
-     .gl_flushed = virtio_gpu_gl_flushed,
-diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
-index 2e4a9822b6a..64fdc5a6e89 100644
---- a/hw/display/virtio-gpu.c
-+++ b/hw/display/virtio-gpu.c
-@@ -216,6 +216,7 @@ virtio_gpu_generate_edid(VirtIOGPU *g, int scanout,
-         .height_mm = b->req_state[scanout].height_mm,
-         .prefx = b->req_state[scanout].width,
-         .prefy = b->req_state[scanout].height,
-+        .refresh_rate = b->refresh_rate,
-     };
- 
-     edid->size = cpu_to_le32(sizeof(edid->edid));
-diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
-index 838260b6ad1..4229f9a42df 100644
---- a/hw/display/xenfb.c
-+++ b/hw/display/xenfb.c
-@@ -983,5 +983,5 @@ struct XenDevOps xen_framebuffer_ops = {
- static const GraphicHwOps xenfb_ops = {
-     .invalidate  = xenfb_invalidate,
-     .gfx_update  = xenfb_update,
--    .update_interval = xenfb_update_interval,
-+    .gfx_update_interval = xenfb_update_interval,
- };
-diff --git a/include/hw/display/edid.h b/include/hw/display/edid.h
-index 1f8fc9b3750..9617705cc0a 100644
---- a/include/hw/display/edid.h
-+++ b/include/hw/display/edid.h
-@@ -11,6 +11,7 @@ typedef struct qemu_edid_info {
-     uint32_t    prefy;
-     uint32_t    maxx;
-     uint32_t    maxy;
-+    uint32_t    refresh_rate;
- } qemu_edid_info;
- 
- void qemu_edid_generate(uint8_t *edid, size_t size,
-diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
-index fae149235c5..9d1a547ba10 100644
---- a/include/hw/virtio/virtio-gpu.h
-+++ b/include/hw/virtio/virtio-gpu.h
-@@ -116,6 +116,8 @@ struct VirtIOGPUBase {
- 
-     int enabled_output_bitmask;
-     struct virtio_gpu_requested_state req_state[VIRTIO_GPU_MAX_SCANOUTS];
-+
-+    uint32_t refresh_rate;
- };
- 
- struct VirtIOGPUBaseClass {
-diff --git a/include/ui/console.h b/include/ui/console.h
-index d30e972d0b5..0bcb610b80a 100644
---- a/include/ui/console.h
-+++ b/include/ui/console.h
-@@ -246,6 +246,7 @@ typedef struct DisplayChangeListenerOps {
- } DisplayChangeListenerOps;
- 
- struct DisplayChangeListener {
-+    uint64_t gfx_update_interval;
-     uint64_t update_interval;
-     const DisplayChangeListenerOps *ops;
-     DisplayState *ds;
-@@ -384,7 +385,7 @@ typedef struct GraphicHwOps {
-     void (*gfx_update)(void *opaque);
-     bool gfx_update_async; /* if true, calls graphic_hw_update_done() */
-     void (*text_update)(void *opaque, console_ch_t *text);
--    void (*update_interval)(void *opaque, uint64_t interval);
-+    void (*gfx_update_interval)(void *opaque, uint64_t interval);
-     int (*ui_info)(void *opaque, uint32_t head, QemuUIInfo *info);
-     void (*gl_block)(void *opaque, bool block);
-     void (*gl_flushed)(void *opaque);
-diff --git a/ui/console.c b/ui/console.c
-index c5d11bc7017..928fb009db1 100644
---- a/ui/console.c
-+++ b/ui/console.c
-@@ -176,6 +176,7 @@ struct QemuConsole {
- struct DisplayState {
-     QEMUTimer *gui_timer;
-     uint64_t last_update;
-+    uint64_t gfx_update_interval;
-     uint64_t update_interval;
-     bool refreshing;
-     bool have_gfx;
-@@ -200,6 +201,7 @@ static void text_console_update_cursor(void *opaque);
- static void gui_update(void *opaque)
- {
-     uint64_t interval = GUI_REFRESH_INTERVAL_IDLE;
-+    uint64_t gfx_interval = GUI_REFRESH_INTERVAL_DEFAULT;
-     uint64_t dcl_interval;
-     DisplayState *ds = opaque;
-     DisplayChangeListener *dcl;
-@@ -209,20 +211,29 @@ static void gui_update(void *opaque)
-     dpy_refresh(ds);
-     ds->refreshing = false;
- 
-+    QLIST_FOREACH(dcl, &ds->listeners, next) {
-+        if (dcl->gfx_update_interval &&
-+            gfx_interval > dcl->gfx_update_interval) {
-+            gfx_interval = dcl->gfx_update_interval;
-+        }
-+    }
-     QLIST_FOREACH(dcl, &ds->listeners, next) {
-         dcl_interval = dcl->update_interval ?
--            dcl->update_interval : GUI_REFRESH_INTERVAL_DEFAULT;
-+            dcl->update_interval : gfx_interval;
-         if (interval > dcl_interval) {
-             interval = dcl_interval;
-         }
-     }
--    if (ds->update_interval != interval) {
--        ds->update_interval = interval;
-+    if (ds->gfx_update_interval != gfx_interval) {
-+        ds->gfx_update_interval = gfx_interval;
-         QTAILQ_FOREACH(con, &consoles, next) {
--            if (con->hw_ops->update_interval) {
--                con->hw_ops->update_interval(con->hw, interval);
-+            if (con->hw_ops->gfx_update_interval) {
-+                con->hw_ops->gfx_update_interval(con->hw, gfx_interval);
-             }
-         }
-+    }
-+    if (ds->update_interval != interval) {
-+        ds->update_interval = interval;
-         trace_console_refresh(interval);
-     }
-     ds->last_update = qemu_clock_get_ms(QEMU_CLOCK_REALTIME);
-diff --git a/ui/gtk.c b/ui/gtk.c
-index 79dc2401203..53f68b0bdaf 100644
---- a/ui/gtk.c
-+++ b/ui/gtk.c
-@@ -810,7 +810,7 @@ static gboolean gd_draw_event(GtkWidget *widget, cairo_t *cr, void *opaque)
-         return FALSE;
-     }
- 
--    vc->gfx.dcl.update_interval =
-+    vc->gfx.dcl.gfx_update_interval =
-         gd_monitor_update_interval(vc->window ? vc->window : s->window);
- 
-     fbw = surface_width(vc->gfx.ds);
--- 
-2.24.3 (Apple Git-128)
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  4dc1815991420b809ce18dddfdf9c0af48944204
+  Bug not present: 2d824791504f4119f04f95bafffec2e37d319c25
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159524/
+
+
+  commit 4dc1815991420b809ce18dddfdf9c0af48944204
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Feb 19 17:19:56 2021 +0100
+  
+      x86/PV: harden guest memory accesses against speculative abuse
+      
+      Inspired by
+      https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
+      and prior work in that area of x86 Linux, suppress speculation with
+      guest specified pointer values by suitably masking the addresses to
+      non-canonical space in case they fall into Xen's virtual address range.
+      
+      Introduce a new Kconfig control.
+      
+      Note that it is necessary in such code to avoid using "m" kind operands:
+      If we didn't, there would be no guarantee that the register passed to
+      guest_access_mask_ptr is also the (base) one used for the memory access.
+      
+      As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
+      parameter gets dropped and the XOR on the fixup path gets changed to be
+      a 32-bit one in all cases: This way we avoid pointless REX.W or operand
+      size overrides, or writes to partial registers.
+      
+      Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-xtf-amd64-amd64-5.xtf--test-pv32pae-selftest.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-5.xtf--test-pv32pae-selftest --summary-out=tmp/159524.bisection-summary --basis-template=159475 --blessings=real,real-bisect,real-retry xen-unstable test-xtf-amd64-amd64-5 xtf/test-pv32pae-selftest
+Searching for failure / basis pass:
+ 159491 fail [host=albana0] / 159475 [host=godello0] 159453 [host=fiano1] 159424 [host=albana1] 159396 [host=chardonnay1] 159362 [host=albana1] 159335 [host=chardonnay1] 159315 [host=godello1] 159202 [host=huxelrebe1] 159134 [host=fiano1] 159036 [host=elbling1] 159013 [host=pinot0] 158957 [host=godello1] 158922 ok.
+Failure / basis pass flights: 159491 / 158922
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Tree: xtf git://xenbits.xen.org/xtf.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 9dc687f155a57216b83b17f9cde55dd43e06b0cd 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38\
+ aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#9dc687f155a57216b83b17f9cde55dd43e06b0cd-87a067fd8f4d4f7c6be02c3d38145115ac542017 git://xenbits.xen.org/xtf.git#8ab15139728a8efd3ebbb60beb16a958a6a93fa1-8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 158811 [host=pinot1]
+ 158835 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 9dc687f155a57216b83b17f9cde55dd43e06b0cd 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 158873 [host=chardonnay1]
+ 158922 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 9dc687f155a57216b83b17f9cde55dd43e06b0cd 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 158957 [host=godello1]
+ 159013 [host=pinot0]
+ 159036 [host=elbling1]
+ 159134 [host=fiano1]
+ 159202 [host=huxelrebe1]
+ 159315 [host=godello1]
+ 159335 [host=chardonnay1]
+ 159362 [host=albana1]
+ 159396 [host=chardonnay1]
+ 159424 [host=albana1]
+ 159453 [host=fiano1]
+ 159475 [host=godello0]
+ 159496 [host=godello1]
+ 159487 [host=godello1]
+ 159492 [host=godello1]
+ 159494 [host=godello1]
+ 159497 [host=godello1]
+ 159499 [host=godello1]
+ 159500 [host=godello1]
+ 159502 [host=godello1]
+ 159503 [host=godello1]
+ 159504 [host=godello1]
+ 159505 [host=godello1]
+ 159491 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159506 [host=godello1]
+ 159509 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 9dc687f155a57216b83b17f9cde55dd43e06b0cd 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159510 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159511 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 52280d9492ee486be735859ef496220534c71905 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159513 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 d670ef3401b91d04c58d72cd8ce5579b4fa900d8 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159516 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159518 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 336fbbdf61562e5ae1112f24bc90c1164adf2144 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159519 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 f954a1bf5f74ad6edce361d1bf1a29137ff374e8 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159520 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159521 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159522 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159523 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+ 159524 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+Searching for interesting versions
+ Result found: flight 158835 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1, results HASH(0x56076a7b42f8) HASH(0x56076a7ad3b8) HASH(0x56076a7a9380) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05\
+ e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 d670ef3401b91d04c58d72cd8ce5579b4fa900d8 8ab15139728a8efd3ebbb60beb16a958a6a93fa1, results HASH(0x56076a7a8f00) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 52280d9492ee486be735859ef496220534c71905 8ab15139728a8efd3ebbb60beb16a958a6a93fa1, results HASH(0x56076a7a\
+ 9080) Result found: flight 159491 (fail), for basis failure (at ancestor ~75)
+ Repro found: flight 159509 (pass), for basis pass
+ Repro found: flight 159510 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+No revisions left to test, checking graph state.
+ Result found: flight 159516 (pass), for last pass
+ Result found: flight 159520 (fail), for first failure
+ Repro found: flight 159521 (pass), for last pass
+ Repro found: flight 159522 (fail), for first failure
+ Repro found: flight 159523 (pass), for last pass
+ Repro found: flight 159524 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  4dc1815991420b809ce18dddfdf9c0af48944204
+  Bug not present: 2d824791504f4119f04f95bafffec2e37d319c25
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159524/
+
+
+  commit 4dc1815991420b809ce18dddfdf9c0af48944204
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Feb 19 17:19:56 2021 +0100
+  
+      x86/PV: harden guest memory accesses against speculative abuse
+      
+      Inspired by
+      https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
+      and prior work in that area of x86 Linux, suppress speculation with
+      guest specified pointer values by suitably masking the addresses to
+      non-canonical space in case they fall into Xen's virtual address range.
+      
+      Introduce a new Kconfig control.
+      
+      Note that it is necessary in such code to avoid using "m" kind operands:
+      If we didn't, there would be no guarantee that the register passed to
+      guest_access_mask_ptr is also the (base) one used for the memory access.
+      
+      As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
+      parameter gets dropped and the XOR on the fixup path gets changed to be
+      a 32-bit one in all cases: This way we avoid pointless REX.W or operand
+      size overrides, or writes to partial registers.
+      
+      Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-5.xtf--test-pv32pae-selftest.{dot,ps,png,html,svg}.
+----------------------------------------
+159524: tolerable all pass
+
+flight 159524 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159524/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-xtf-amd64-amd64-5     19 xtf/test-pv32pae-selftest fail baseline untested
+
+
+jobs:
+ test-xtf-amd64-amd64-5                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
