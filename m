@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7645C32079E
-	for <lists+xen-devel@lfdr.de>; Sun, 21 Feb 2021 00:22:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87366.164544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDA30320843
+	for <lists+xen-devel@lfdr.de>; Sun, 21 Feb 2021 05:29:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87388.164586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lDba3-0005jl-Ka; Sat, 20 Feb 2021 23:22:31 +0000
+	id 1lDgLS-0003O9-RT; Sun, 21 Feb 2021 04:27:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87366.164544; Sat, 20 Feb 2021 23:22:31 +0000
+Received: by outflank-mailman (output) from mailman id 87388.164586; Sun, 21 Feb 2021 04:27:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lDba3-0005iy-Gi; Sat, 20 Feb 2021 23:22:31 +0000
-Received: by outflank-mailman (input) for mailman id 87366;
- Sat, 20 Feb 2021 23:22:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1lDba2-0005ii-Aa
- for xen-devel@lists.xenproject.org; Sat, 20 Feb 2021 23:22:30 +0000
-Received: from mail-pj1-x1029.google.com (unknown [2607:f8b0:4864:20::1029])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dc2163dc-c21b-4c3a-9a02-ab1ef60ebde7;
- Sat, 20 Feb 2021 23:22:28 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id c19so5893369pjq.3
- for <xen-devel@lists.xenproject.org>; Sat, 20 Feb 2021 15:22:28 -0800 (PST)
-Received: from sc2-haas01-esx0118.eng.vmware.com ([66.170.99.1])
- by smtp.gmail.com with ESMTPSA id 4sm13171538pjc.23.2021.02.20.15.22.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Feb 2021 15:22:27 -0800 (PST)
+	id 1lDgLS-0003Ne-L4; Sun, 21 Feb 2021 04:27:46 +0000
+Received: by outflank-mailman (input) for mailman id 87388;
+ Sun, 21 Feb 2021 04:27:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDgLR-0003NW-VB; Sun, 21 Feb 2021 04:27:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDgLR-0004U5-QT; Sun, 21 Feb 2021 04:27:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDgLR-0004jv-Fz; Sun, 21 Feb 2021 04:27:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lDgLR-0004IF-FW; Sun, 21 Feb 2021 04:27:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,481 +42,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc2163dc-c21b-4c3a-9a02-ab1ef60ebde7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=TD2ogWuZxu1nh3sbkljzgokEMLMfmz1SRAU0dNVuiq4=;
-        b=KkjrXvF2EMBhf0LbFW72lo9HmRaa+ILywBixPXDQd4dpCPL2oc6Eiep6d9lOnE7zpk
-         4B7qL/utLy9vjpphJA9v3/um7xbRyW2cEIyEqFKYua/wPI5qyGUHCxVz7o6g7I8ibCbL
-         +uJ0SUe43Y2IlS8oKwqCaTfkScSCv2IIyFSvLvvTVyVVtbwJtye6YZADwr1izAB1OP0f
-         q3HOqpHWkgGb+RX/k7TMg91KR5Z6naG+ETWxdIt7b3juBva1ocdmBCJnEUq9TsGVmqVN
-         LT9+C4gS7U4y7KNiXEa0/TRhwcV6B6QlIUmoAeGkI2GmvyTJ5UM0qlYc+jtbXQe0E7mw
-         MtyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=TD2ogWuZxu1nh3sbkljzgokEMLMfmz1SRAU0dNVuiq4=;
-        b=tVsnZ1s2kzPWZCA7J2/FTZqALua4vIIJzVe+2CorBFInC2Zie/1ZAyxEqMSfaxZy3+
-         pTpZNldb8b803MVpAqYYEo9vHyiZpvCmBr6al8tamhpvdA8xkgjPB0oFVxnOwcPbUsop
-         pt/9HvhGwNriV1X9u6GQmEtW3wNjdyQslJSHXuGQi0t2GxXCmIrE+H1mvsaPu7aOgLvD
-         Mn5uRMBSsICfjefRxjzG5KVbO9dNqqWcqIoOUAz/In3thCqreN/tgc7Bmz6dNVXIPNo0
-         y2ePJsprJq9P51ucftNxP4n27wBIUw3ORjqmfPLeeo0CzmGqojCYK4dPA8HuafVt4INO
-         z7Zw==
-X-Gm-Message-State: AOAM532SYPFj4o89HX9X03DZugCaPEHttQtj27P+xihRgbvLu4XzQscG
-	DuGBXYbZ4CSQl32dDiToHF8=
-X-Google-Smtp-Source: ABdhPJyhIA8sW3A3FXOeBX8uv8g3j/9mj0CBUmIlxopHAejrFvCbEXuUQil/FuxdgaurHBXiEhiqqg==
-X-Received: by 2002:a17:903:1d0:b029:df:d098:f1cb with SMTP id e16-20020a17090301d0b02900dfd098f1cbmr15565103plh.49.1613863347887;
-        Sat, 20 Feb 2021 15:22:27 -0800 (PST)
-From: Nadav Amit <nadav.amit@gmail.com>
-X-Google-Original-From: Nadav Amit
-To: linux-kernel@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Nadav Amit <namit@vmware.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Michael Kelley <mikelley@microsoft.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [PATCH v6 4/9] x86/mm/tlb: Flush remote and local TLBs concurrently
-Date: Sat, 20 Feb 2021 15:17:07 -0800
-Message-Id: <20210220231712.2475218-5-namit@vmware.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210220231712.2475218-1-namit@vmware.com>
-References: <20210220231712.2475218-1-namit@vmware.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=O6oGaqz5/2QgFJWaecvZVdeyQMjVb7ZfK8U++Lvs1+g=; b=UYYNg/RtVXK1R72rg3yZ/lX/c6
+	xwsjoUZp0E9DugLW80MB/0Ux4oxNhXjOFTwihHz5gWoG39jRObICzDNOgmr4knQxdpLOFIQbRAOGX
+	kn62V5ja4GaNF+WglaI5Q5G/sSiYE2aP02lmT44eUhouLP8RIZ+GaQsggvNnU8pwKI8U=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159491-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 159491: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable:test-xtf-amd64-amd64-5:xtf/test-pv32pae-selftest:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:xen-boot:fail:regression
+    xen-unstable:test-xtf-amd64-amd64-1:xtf/test-pv32pae-selftest:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable:test-xtf-amd64-amd64-2:xtf/test-pv32pae-selftest:fail:regression
+    xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-xsm:xen-boot:fail:regression
+    xen-unstable:test-xtf-amd64-amd64-3:xtf/test-pv32pae-selftest:fail:regression
+    xen-unstable:test-amd64-i386-xl-raw:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-coresched-i386-xl:xen-boot:fail:regression
+    xen-unstable:test-xtf-amd64-amd64-4:xtf/test-pv32pae-selftest:fail:regression
+    xen-unstable:test-amd64-i386-xl-shadow:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-pair:xen-boot/src_host:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-pair:xen-boot/dst_host:fail:regression
+    xen-unstable:test-amd64-i386-migrupgrade:xen-boot/dst_host:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-examine:reboot:fail:regression
+    xen-unstable:test-amd64-i386-freebsd10-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-freebsd10-i386:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-livepatch:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemuu-rhel6hvm-intel:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-pvshim:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-pair:xen-boot/src_host:fail:regression
+    xen-unstable:test-amd64-i386-pair:xen-boot/dst_host:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=87a067fd8f4d4f7c6be02c3d38145115ac542017
+X-Osstest-Versions-That:
+    xen=e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 21 Feb 2021 04:27:45 +0000
 
-From: Nadav Amit <namit@vmware.com>
+flight 159491 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159491/
 
-To improve TLB shootdown performance, flush the remote and local TLBs
-concurrently. Introduce flush_tlb_multi() that does so. Introduce
-paravirtual versions of flush_tlb_multi() for KVM, Xen and hyper-v (Xen
-and hyper-v are only compile-tested).
+Regressions :-(
 
-While the updated smp infrastructure is capable of running a function on
-a single local core, it is not optimized for this case. The multiple
-function calls and the indirect branch introduce some overhead, and
-might make local TLB flushes slower than they were before the recent
-changes.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-xtf-amd64-amd64-5      19 xtf/test-pv32pae-selftest fail REGR. vs. 159475
+ test-amd64-i386-xl-qemut-ws16-amd64  8 xen-boot          fail REGR. vs. 159475
+ test-xtf-amd64-amd64-1      19 xtf/test-pv32pae-selftest fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  8 xen-boot     fail REGR. vs. 159475
+ test-xtf-amd64-amd64-2      19 xtf/test-pv32pae-selftest fail REGR. vs. 159475
+ test-amd64-i386-qemut-rhel6hvm-intel  8 xen-boot         fail REGR. vs. 159475
+ test-amd64-i386-libvirt-xsm   8 xen-boot                 fail REGR. vs. 159475
+ test-xtf-amd64-amd64-3      19 xtf/test-pv32pae-selftest fail REGR. vs. 159475
+ test-amd64-i386-xl-raw        8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-xl-qemut-debianhvm-amd64  8 xen-boot     fail REGR. vs. 159475
+ test-amd64-coresched-i386-xl  8 xen-boot                 fail REGR. vs. 159475
+ test-xtf-amd64-amd64-4      19 xtf/test-pv32pae-selftest fail REGR. vs. 159475
+ test-amd64-i386-xl-shadow     8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-libvirt-pair 12 xen-boot/src_host        fail REGR. vs. 159475
+ test-amd64-i386-libvirt-pair 13 xen-boot/dst_host        fail REGR. vs. 159475
+ test-amd64-i386-migrupgrade  13 xen-boot/dst_host        fail REGR. vs. 159475
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm  8 xen-boot  fail REGR. vs. 159475
+ test-amd64-i386-xl-xsm        8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-ovmf-amd64  8 xen-boot          fail REGR. vs. 159475
+ test-amd64-i386-qemut-rhel6hvm-amd  8 xen-boot           fail REGR. vs. 159475
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 159475
+ test-amd64-i386-xl            8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-qemuu-rhel6hvm-amd  8 xen-boot           fail REGR. vs. 159475
+ test-amd64-i386-xl-qemut-win7-amd64  8 xen-boot          fail REGR. vs. 159475
+ test-amd64-i386-examine       8 reboot                   fail REGR. vs. 159475
+ test-amd64-i386-freebsd10-amd64  8 xen-boot              fail REGR. vs. 159475
+ test-amd64-i386-freebsd10-i386  8 xen-boot               fail REGR. vs. 159475
+ test-amd64-i386-livepatch     8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-libvirt       8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  8 xen-boot  fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 159475
+ test-amd64-i386-qemuu-rhel6hvm-intel  8 xen-boot         fail REGR. vs. 159475
+ test-amd64-i386-xl-pvshim     8 xen-boot                 fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-ws16-amd64  8 xen-boot          fail REGR. vs. 159475
+ test-amd64-i386-pair         12 xen-boot/src_host        fail REGR. vs. 159475
+ test-amd64-i386-pair         13 xen-boot/dst_host        fail REGR. vs. 159475
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 159475
+ test-amd64-i386-xl-qemuu-win7-amd64  8 xen-boot          fail REGR. vs. 159475
 
-Before calling the SMP infrastructure, check if only a local TLB flush
-is needed to restore the lost performance in this common case. This
-requires to check mm_cpumask() one more time, but unless this mask is
-updated very frequently, this should impact performance negatively.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 159475
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 159475
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 159475
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 159475
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 159475
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 159475
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 159475
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>
-Cc: Stephen Hemminger <sthemmin@microsoft.com>
-Cc: Sasha Levin <sashal@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: x86@kernel.org
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: linux-hyperv@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: virtualization@lists.linux-foundation.org
-Cc: kvm@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org
-Reviewed-by: Michael Kelley <mikelley@microsoft.com> # Hyper-v parts
-Reviewed-by: Juergen Gross <jgross@suse.com> # Xen and paravirt parts
-Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Nadav Amit <namit@vmware.com>
+version targeted for testing:
+ xen                  87a067fd8f4d4f7c6be02c3d38145115ac542017
+baseline version:
+ xen                  e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca
 
----
-v5->v6:
-* Use on_each_cpu_mask() instead of on_each_cpu_cond_mask() [PeterZ]
-* Use cond_cpumask when needed instead of cpumask
-* Rename remaining instance of native_flush_tlb_others()
----
- arch/x86/hyperv/mmu.c                 | 10 +++---
- arch/x86/include/asm/paravirt.h       |  6 ++--
- arch/x86/include/asm/paravirt_types.h |  4 +--
- arch/x86/include/asm/tlbflush.h       |  4 +--
- arch/x86/include/asm/trace/hyperv.h   |  2 +-
- arch/x86/kernel/kvm.c                 | 11 +++++--
- arch/x86/kernel/paravirt.c            |  2 +-
- arch/x86/mm/tlb.c                     | 46 +++++++++++++++++----------
- arch/x86/xen/mmu_pv.c                 | 11 +++----
- include/trace/events/xen.h            |  2 +-
- 10 files changed, 57 insertions(+), 41 deletions(-)
+Last test of basis   159475  2021-02-19 06:26:37 Z    1 days
+Testing same since   159487  2021-02-20 04:29:29 Z    0 days    2 attempts
 
-diff --git a/arch/x86/hyperv/mmu.c b/arch/x86/hyperv/mmu.c
-index 2c87350c1fb0..681dba8de4f2 100644
---- a/arch/x86/hyperv/mmu.c
-+++ b/arch/x86/hyperv/mmu.c
-@@ -52,8 +52,8 @@ static inline int fill_gva_list(u64 gva_list[], int offset,
- 	return gva_n - offset;
- }
- 
--static void hyperv_flush_tlb_others(const struct cpumask *cpus,
--				    const struct flush_tlb_info *info)
-+static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
-+				   const struct flush_tlb_info *info)
- {
- 	int cpu, vcpu, gva_n, max_gvas;
- 	struct hv_tlb_flush **flush_pcpu;
-@@ -61,7 +61,7 @@ static void hyperv_flush_tlb_others(const struct cpumask *cpus,
- 	u64 status = U64_MAX;
- 	unsigned long flags;
- 
--	trace_hyperv_mmu_flush_tlb_others(cpus, info);
-+	trace_hyperv_mmu_flush_tlb_multi(cpus, info);
- 
- 	if (!hv_hypercall_pg)
- 		goto do_native;
-@@ -164,7 +164,7 @@ static void hyperv_flush_tlb_others(const struct cpumask *cpus,
- 	if (!(status & HV_HYPERCALL_RESULT_MASK))
- 		return;
- do_native:
--	native_flush_tlb_others(cpus, info);
-+	native_flush_tlb_multi(cpus, info);
- }
- 
- static u64 hyperv_flush_tlb_others_ex(const struct cpumask *cpus,
-@@ -239,6 +239,6 @@ void hyperv_setup_mmu_ops(void)
- 		return;
- 
- 	pr_info("Using hypercall for remote TLB flush\n");
--	pv_ops.mmu.flush_tlb_others = hyperv_flush_tlb_others;
-+	pv_ops.mmu.flush_tlb_multi = hyperv_flush_tlb_multi;
- 	pv_ops.mmu.tlb_remove_table = tlb_remove_table;
- }
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index 4abf110e2243..45b55e3e0630 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -50,7 +50,7 @@ static inline void slow_down_io(void)
- void native_flush_tlb_local(void);
- void native_flush_tlb_global(void);
- void native_flush_tlb_one_user(unsigned long addr);
--void native_flush_tlb_others(const struct cpumask *cpumask,
-+void native_flush_tlb_multi(const struct cpumask *cpumask,
- 			     const struct flush_tlb_info *info);
- 
- static inline void __flush_tlb_local(void)
-@@ -68,10 +68,10 @@ static inline void __flush_tlb_one_user(unsigned long addr)
- 	PVOP_VCALL1(mmu.flush_tlb_one_user, addr);
- }
- 
--static inline void __flush_tlb_others(const struct cpumask *cpumask,
-+static inline void __flush_tlb_multi(const struct cpumask *cpumask,
- 				      const struct flush_tlb_info *info)
- {
--	PVOP_VCALL2(mmu.flush_tlb_others, cpumask, info);
-+	PVOP_VCALL2(mmu.flush_tlb_multi, cpumask, info);
- }
- 
- static inline void paravirt_tlb_remove_table(struct mmu_gather *tlb, void *table)
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index de87087d3bde..b7b35d5d58e7 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -188,8 +188,8 @@ struct pv_mmu_ops {
- 	void (*flush_tlb_user)(void);
- 	void (*flush_tlb_kernel)(void);
- 	void (*flush_tlb_one_user)(unsigned long addr);
--	void (*flush_tlb_others)(const struct cpumask *cpus,
--				 const struct flush_tlb_info *info);
-+	void (*flush_tlb_multi)(const struct cpumask *cpus,
-+				const struct flush_tlb_info *info);
- 
- 	void (*tlb_remove_table)(struct mmu_gather *tlb, void *table);
- 
-diff --git a/arch/x86/include/asm/tlbflush.h b/arch/x86/include/asm/tlbflush.h
-index a7a598af116d..3c6681def912 100644
---- a/arch/x86/include/asm/tlbflush.h
-+++ b/arch/x86/include/asm/tlbflush.h
-@@ -175,7 +175,7 @@ extern void initialize_tlbstate_and_flush(void);
-  *  - flush_tlb_page(vma, vmaddr) flushes one page
-  *  - flush_tlb_range(vma, start, end) flushes a range of pages
-  *  - flush_tlb_kernel_range(start, end) flushes a range of kernel pages
-- *  - flush_tlb_others(cpumask, info) flushes TLBs on other cpus
-+ *  - flush_tlb_multi(cpumask, info) flushes TLBs on multiple cpus
-  *
-  * ..but the i386 has somewhat limited tlb flushing capabilities,
-  * and page-granular flushes are available only on i486 and up.
-@@ -209,7 +209,7 @@ struct flush_tlb_info {
- void flush_tlb_local(void);
- void flush_tlb_one_user(unsigned long addr);
- void flush_tlb_one_kernel(unsigned long addr);
--void flush_tlb_others(const struct cpumask *cpumask,
-+void flush_tlb_multi(const struct cpumask *cpumask,
- 		      const struct flush_tlb_info *info);
- 
- #ifdef CONFIG_PARAVIRT
-diff --git a/arch/x86/include/asm/trace/hyperv.h b/arch/x86/include/asm/trace/hyperv.h
-index 4d705cb4d63b..a8e5a7a2b460 100644
---- a/arch/x86/include/asm/trace/hyperv.h
-+++ b/arch/x86/include/asm/trace/hyperv.h
-@@ -8,7 +8,7 @@
- 
- #if IS_ENABLED(CONFIG_HYPERV)
- 
--TRACE_EVENT(hyperv_mmu_flush_tlb_others,
-+TRACE_EVENT(hyperv_mmu_flush_tlb_multi,
- 	    TP_PROTO(const struct cpumask *cpus,
- 		     const struct flush_tlb_info *info),
- 	    TP_ARGS(cpus, info),
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 5e78e01ca3b4..38ea9dee2456 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -613,7 +613,7 @@ static int kvm_cpu_down_prepare(unsigned int cpu)
- }
- #endif
- 
--static void kvm_flush_tlb_others(const struct cpumask *cpumask,
-+static void kvm_flush_tlb_multi(const struct cpumask *cpumask,
- 			const struct flush_tlb_info *info)
- {
- 	u8 state;
-@@ -627,6 +627,11 @@ static void kvm_flush_tlb_others(const struct cpumask *cpumask,
- 	 * queue flush_on_enter for pre-empted vCPUs
- 	 */
- 	for_each_cpu(cpu, flushmask) {
-+		/*
-+		 * The local vCPU is never preempted, so we do not explicitly
-+		 * skip check for local vCPU - it will never be cleared from
-+		 * flushmask.
-+		 */
- 		src = &per_cpu(steal_time, cpu);
- 		state = READ_ONCE(src->preempted);
- 		if ((state & KVM_VCPU_PREEMPTED)) {
-@@ -636,7 +641,7 @@ static void kvm_flush_tlb_others(const struct cpumask *cpumask,
- 		}
- 	}
- 
--	native_flush_tlb_others(flushmask, info);
-+	native_flush_tlb_multi(flushmask, info);
- }
- 
- static void __init kvm_guest_init(void)
-@@ -654,7 +659,7 @@ static void __init kvm_guest_init(void)
- 	}
- 
- 	if (pv_tlb_flush_supported()) {
--		pv_ops.mmu.flush_tlb_others = kvm_flush_tlb_others;
-+		pv_ops.mmu.flush_tlb_multi = kvm_flush_tlb_multi;
- 		pv_ops.mmu.tlb_remove_table = tlb_remove_table;
- 		pr_info("KVM setup pv remote TLB flush\n");
- 	}
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index c60222ab8ab9..197a12662155 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -330,7 +330,7 @@ struct paravirt_patch_template pv_ops = {
- 	.mmu.flush_tlb_user	= native_flush_tlb_local,
- 	.mmu.flush_tlb_kernel	= native_flush_tlb_global,
- 	.mmu.flush_tlb_one_user	= native_flush_tlb_one_user,
--	.mmu.flush_tlb_others	= native_flush_tlb_others,
-+	.mmu.flush_tlb_multi	= native_flush_tlb_multi,
- 	.mmu.tlb_remove_table	=
- 			(void (*)(struct mmu_gather *, void *))tlb_remove_page,
- 
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 07b6701a540a..8db87cd92e6b 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -24,7 +24,7 @@
- # define __flush_tlb_local		native_flush_tlb_local
- # define __flush_tlb_global		native_flush_tlb_global
- # define __flush_tlb_one_user(addr)	native_flush_tlb_one_user(addr)
--# define __flush_tlb_others(msk, info)	native_flush_tlb_others(msk, info)
-+# define __flush_tlb_multi(msk, info)	native_flush_tlb_multi(msk, info)
- #endif
- 
- /*
-@@ -490,7 +490,7 @@ void switch_mm_irqs_off(struct mm_struct *prev, struct mm_struct *next,
- 		/*
- 		 * Even in lazy TLB mode, the CPU should stay set in the
- 		 * mm_cpumask. The TLB shootdown code can figure out from
--		 * from cpu_tlbstate.is_lazy whether or not to send an IPI.
-+		 * cpu_tlbstate.is_lazy whether or not to send an IPI.
- 		 */
- 		if (WARN_ON_ONCE(real_prev != &init_mm &&
- 				 !cpumask_test_cpu(cpu, mm_cpumask(next))))
-@@ -697,7 +697,7 @@ static void flush_tlb_func(void *info)
- 		 * garbage into our TLB.  Since switching to init_mm is barely
- 		 * slower than a minimal flush, just switch to init_mm.
- 		 *
--		 * This should be rare, with native_flush_tlb_others skipping
-+		 * This should be rare, with native_flush_tlb_multi() skipping
- 		 * IPIs to lazy TLB mode CPUs.
- 		 */
- 		switch_mm_irqs_off(NULL, &init_mm, NULL);
-@@ -795,9 +795,14 @@ static bool tlb_is_not_lazy(int cpu)
- 
- static DEFINE_PER_CPU(cpumask_t, flush_tlb_mask);
- 
--STATIC_NOPV void native_flush_tlb_others(const struct cpumask *cpumask,
-+STATIC_NOPV void native_flush_tlb_multi(const struct cpumask *cpumask,
- 					 const struct flush_tlb_info *info)
- {
-+	/*
-+	 * Do accounting and tracing. Note that there are (and have always been)
-+	 * cases in which a remote TLB flush will be traced, but eventually
-+	 * would not happen.
-+	 */
- 	count_vm_tlb_event(NR_TLB_REMOTE_FLUSH);
- 	if (info->end == TLB_FLUSH_ALL)
- 		trace_tlb_flush(TLB_REMOTE_SEND_IPI, TLB_FLUSH_ALL);
-@@ -816,8 +821,7 @@ STATIC_NOPV void native_flush_tlb_others(const struct cpumask *cpumask,
- 	 * doing a speculative memory access.
- 	 */
- 	if (info->freed_tables) {
--		smp_call_function_many(cpumask, flush_tlb_func,
--			       (void *)info, 1);
-+		on_each_cpu_mask(cpumask, flush_tlb_func, (void *)info, true);
- 	} else {
- 		/*
- 		 * Although we could have used on_each_cpu_cond_mask(),
-@@ -844,14 +848,14 @@ STATIC_NOPV void native_flush_tlb_others(const struct cpumask *cpumask,
- 			if (tlb_is_not_lazy(cpu))
- 				__cpumask_set_cpu(cpu, cond_cpumask);
- 		}
--		smp_call_function_many(cond_cpumask, flush_tlb_func, (void *)info, 1);
-+		on_each_cpu_mask(cond_cpumask, flush_tlb_func, (void *)info, true);
- 	}
- }
- 
--void flush_tlb_others(const struct cpumask *cpumask,
-+void flush_tlb_multi(const struct cpumask *cpumask,
- 		      const struct flush_tlb_info *info)
- {
--	__flush_tlb_others(cpumask, info);
-+	__flush_tlb_multi(cpumask, info);
- }
- 
- /*
-@@ -931,16 +935,20 @@ void flush_tlb_mm_range(struct mm_struct *mm, unsigned long start,
- 	info = get_flush_tlb_info(mm, start, end, stride_shift, freed_tables,
- 				  new_tlb_gen);
- 
--	if (mm == this_cpu_read(cpu_tlbstate.loaded_mm)) {
-+	/*
-+	 * flush_tlb_multi() is not optimized for the common case in which only
-+	 * a local TLB flush is needed. Optimize this use-case by calling
-+	 * flush_tlb_func_local() directly in this case.
-+	 */
-+	if (cpumask_any_but(mm_cpumask(mm), cpu) < nr_cpu_ids) {
-+		flush_tlb_multi(mm_cpumask(mm), info);
-+	} else if (mm == this_cpu_read(cpu_tlbstate.loaded_mm)) {
- 		lockdep_assert_irqs_enabled();
- 		local_irq_disable();
- 		flush_tlb_func(info);
- 		local_irq_enable();
- 	}
- 
--	if (cpumask_any_but(mm_cpumask(mm), cpu) < nr_cpu_ids)
--		flush_tlb_others(mm_cpumask(mm), info);
--
- 	put_flush_tlb_info();
- 	put_cpu();
- }
-@@ -1152,16 +1160,20 @@ void arch_tlbbatch_flush(struct arch_tlbflush_unmap_batch *batch)
- 	int cpu = get_cpu();
- 
- 	info = get_flush_tlb_info(NULL, 0, TLB_FLUSH_ALL, 0, false, 0);
--	if (cpumask_test_cpu(cpu, &batch->cpumask)) {
-+	/*
-+	 * flush_tlb_multi() is not optimized for the common case in which only
-+	 * a local TLB flush is needed. Optimize this use-case by calling
-+	 * flush_tlb_func_local() directly in this case.
-+	 */
-+	if (cpumask_any_but(&batch->cpumask, cpu) < nr_cpu_ids) {
-+		flush_tlb_multi(&batch->cpumask, info);
-+	} else if (cpumask_test_cpu(cpu, &batch->cpumask)) {
- 		lockdep_assert_irqs_enabled();
- 		local_irq_disable();
- 		flush_tlb_func(info);
- 		local_irq_enable();
- 	}
- 
--	if (cpumask_any_but(&batch->cpumask, cpu) < nr_cpu_ids)
--		flush_tlb_others(&batch->cpumask, info);
--
- 	cpumask_clear(&batch->cpumask);
- 
- 	put_flush_tlb_info();
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index cf2ade864c30..09b95c0e876e 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -1247,8 +1247,8 @@ static void xen_flush_tlb_one_user(unsigned long addr)
- 	preempt_enable();
- }
- 
--static void xen_flush_tlb_others(const struct cpumask *cpus,
--				 const struct flush_tlb_info *info)
-+static void xen_flush_tlb_multi(const struct cpumask *cpus,
-+				const struct flush_tlb_info *info)
- {
- 	struct {
- 		struct mmuext_op op;
-@@ -1258,7 +1258,7 @@ static void xen_flush_tlb_others(const struct cpumask *cpus,
- 	const size_t mc_entry_size = sizeof(args->op) +
- 		sizeof(args->mask[0]) * BITS_TO_LONGS(num_possible_cpus());
- 
--	trace_xen_mmu_flush_tlb_others(cpus, info->mm, info->start, info->end);
-+	trace_xen_mmu_flush_tlb_multi(cpus, info->mm, info->start, info->end);
- 
- 	if (cpumask_empty(cpus))
- 		return;		/* nothing to do */
-@@ -1267,9 +1267,8 @@ static void xen_flush_tlb_others(const struct cpumask *cpus,
- 	args = mcs.args;
- 	args->op.arg2.vcpumask = to_cpumask(args->mask);
- 
--	/* Remove us, and any offline CPUS. */
-+	/* Remove any offline CPUs */
- 	cpumask_and(to_cpumask(args->mask), cpus, cpu_online_mask);
--	cpumask_clear_cpu(smp_processor_id(), to_cpumask(args->mask));
- 
- 	args->op.cmd = MMUEXT_TLB_FLUSH_MULTI;
- 	if (info->end != TLB_FLUSH_ALL &&
-@@ -2086,7 +2085,7 @@ static const struct pv_mmu_ops xen_mmu_ops __initconst = {
- 	.flush_tlb_user = xen_flush_tlb,
- 	.flush_tlb_kernel = xen_flush_tlb,
- 	.flush_tlb_one_user = xen_flush_tlb_one_user,
--	.flush_tlb_others = xen_flush_tlb_others,
-+	.flush_tlb_multi = xen_flush_tlb_multi,
- 	.tlb_remove_table = tlb_remove_table,
- 
- 	.pgd_alloc = xen_pgd_alloc,
-diff --git a/include/trace/events/xen.h b/include/trace/events/xen.h
-index 3b61b587e137..44a3f565264d 100644
---- a/include/trace/events/xen.h
-+++ b/include/trace/events/xen.h
-@@ -346,7 +346,7 @@ TRACE_EVENT(xen_mmu_flush_tlb_one_user,
- 	    TP_printk("addr %lx", __entry->addr)
- 	);
- 
--TRACE_EVENT(xen_mmu_flush_tlb_others,
-+TRACE_EVENT(xen_mmu_flush_tlb_multi,
- 	    TP_PROTO(const struct cpumask *cpus, struct mm_struct *mm,
- 		     unsigned long addr, unsigned long end),
- 	    TP_ARGS(cpus, mm, addr, end),
--- 
-2.25.1
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Norbert Manthey <nmanthey@amazon.de>
+  Rahul Singh <rahul.singh@arm.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    fail    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 305 lines long.)
 
