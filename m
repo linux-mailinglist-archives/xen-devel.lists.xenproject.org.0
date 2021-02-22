@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0EE7321E88
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 18:51:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88322.165999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A45CD321EAC
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 19:00:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88330.166013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEFMU-0000E5-7T; Mon, 22 Feb 2021 17:51:10 +0000
+	id 1lEFV8-0001Cf-58; Mon, 22 Feb 2021 18:00:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88322.165999; Mon, 22 Feb 2021 17:51:10 +0000
+Received: by outflank-mailman (output) from mailman id 88330.166013; Mon, 22 Feb 2021 18:00:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEFMU-0000Dg-3x; Mon, 22 Feb 2021 17:51:10 +0000
-Received: by outflank-mailman (input) for mailman id 88322;
- Mon, 22 Feb 2021 17:51:08 +0000
+	id 1lEFV8-0001AL-1m; Mon, 22 Feb 2021 18:00:06 +0000
+Received: by outflank-mailman (input) for mailman id 88330;
+ Mon, 22 Feb 2021 18:00:04 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cC4D=HY=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
- id 1lEFMS-0000Db-As
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 17:51:08 +0000
+ id 1lEFV6-00011V-S0
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 18:00:04 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 694c1d3e-c040-4445-a358-f4141dc3c2f5;
- Mon, 22 Feb 2021 17:51:07 +0000 (UTC)
+ id f41cb476-ea6e-482d-9015-37ffb16e0d44;
+ Mon, 22 Feb 2021 18:00:04 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-441-BUheIuS7NaiFmeoxrS7BDQ-1; Mon, 22 Feb 2021 12:51:05 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+ us-mta-113-x6AyWPnMMK6ocNz1yohAhA-1; Mon, 22 Feb 2021 13:00:02 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9D0F2801965;
- Mon, 22 Feb 2021 17:51:01 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CAB31192CC57;
+ Mon, 22 Feb 2021 17:59:56 +0000 (UTC)
 Received: from gondolin (ovpn-113-115.ams2.redhat.com [10.36.113.115])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DE0141001281;
- Mon, 22 Feb 2021 17:50:46 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 90F5F60DA0;
+ Mon, 22 Feb 2021 17:59:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,19 +48,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 694c1d3e-c040-4445-a358-f4141dc3c2f5
+X-Inumbo-ID: f41cb476-ea6e-482d-9015-37ffb16e0d44
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614016267;
+	s=mimecast20190719; t=1614016804;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=O+4avbp3iRC9wzL9kQsBbVb6oEaX3FYxbdrqhd4FEnE=;
-	b=U3s/yYlTK3/NzWSID/Irp/EeEw6YuWOdsdJTXTLCJ8nsgHSo4pvlixJo4etvdVPHOUqFrL
-	zGEEF+XtvTJJOk9ixReD7FiSM3dA1dmBW35ngo3OaynS3uXB5PTgT/rfvgd0DlhVix8ylT
-	1AeoFI6ke7YmaHq9oMB66DHMKqKUFB0=
-X-MC-Unique: BUheIuS7NaiFmeoxrS7BDQ-1
-Date: Mon, 22 Feb 2021 18:50:44 +0100
+	bh=g0daaZIiL7zB1dNQnlGOdmrK5Ct4nJWAQKVeDV4S+9U=;
+	b=SxAvLQEgIQg4AF43XkIExc4cZPw1W0kFjn25idJ41GmCzCFGeNIKelKJtCCKHnHXT8l8fM
+	raDcsdZXnT3ihpQ+y0m5xdVmdGqpQdxpf9vv8yJHoKnd52CjRlog/vOomjy6wOoOdpqTEZ
+	C7C2mLthoiCOD1Ddm9yxOwe2VJTujzY=
+X-MC-Unique: x6AyWPnMMK6ocNz1yohAhA-1
+Date: Mon, 22 Feb 2021 18:59:30 +0100
 From: Cornelia Huck <cohuck@redhat.com>
 To: Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>
 Cc: qemu-devel@nongnu.org, Aurelien Jarno <aurelien@aurel32.net>, Peter
@@ -83,85 +83,101 @@ Cc: qemu-devel@nongnu.org, Aurelien Jarno <aurelien@aurel32.net>, Peter
  <mark.cave-ayland@ilande.co.uk>, Aleksandar Rikalo
  <aleksandar.rikalo@syrmia.com>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
  <f4bug@amsat.org>
-Subject: Re: [PATCH v2 01/11] accel/kvm: Check MachineClass kvm_type()
- return value
-Message-ID: <20210222185044.23fccecc.cohuck@redhat.com>
-In-Reply-To: <bc37276d-74cc-22f0-fcc0-4ee5e62cf1df@redhat.com>
+Subject: Re: [PATCH v2 02/11] hw/boards: Introduce
+ machine_class_valid_for_accelerator()
+Message-ID: <20210222185930.4c08cb69.cohuck@redhat.com>
+In-Reply-To: <6ceff55c-6da4-e773-7809-de3be2f566ab@redhat.com>
 References: <20210219173847.2054123-1-philmd@redhat.com>
-	<20210219173847.2054123-2-philmd@redhat.com>
-	<20210222182405.3e6e9a6f.cohuck@redhat.com>
-	<bc37276d-74cc-22f0-fcc0-4ee5e62cf1df@redhat.com>
+	<20210219173847.2054123-3-philmd@redhat.com>
+	<20210222183400.0c151d46.cohuck@redhat.com>
+	<6ceff55c-6da4-e773-7809-de3be2f566ab@redhat.com>
 Organization: Red Hat GmbH
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 
-On Mon, 22 Feb 2021 18:41:07 +0100
+On Mon, 22 Feb 2021 18:46:15 +0100
 Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> wrote:
 
-> On 2/22/21 6:24 PM, Cornelia Huck wrote:
-> > On Fri, 19 Feb 2021 18:38:37 +0100
+> On 2/22/21 6:34 PM, Cornelia Huck wrote:
+> > On Fri, 19 Feb 2021 18:38:38 +0100
 > > Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> wrote:
 > >  =20
-> >> MachineClass::kvm_type() can return -1 on failure.
-> >> Document it, and add a check in kvm_init().
+> >> Introduce the valid_accelerators[] field to express the list
+> >> of valid accelators a machine can use, and add the
+> >> machine_class_valid_for_current_accelerator() and
+> >> machine_class_valid_for_accelerator() methods.
 > >>
 > >> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
 > >> ---
-> >>  include/hw/boards.h | 3 ++-
-> >>  accel/kvm/kvm-all.c | 6 ++++++
-> >>  2 files changed, 8 insertions(+), 1 deletion(-)
+> >>  include/hw/boards.h | 24 ++++++++++++++++++++++++
+> >>  hw/core/machine.c   | 26 ++++++++++++++++++++++++++
+> >>  2 files changed, 50 insertions(+)
 > >>
 > >> diff --git a/include/hw/boards.h b/include/hw/boards.h
-> >> index a46dfe5d1a6..68d3d10f6b0 100644
+> >> index 68d3d10f6b0..4d08bc12093 100644
 > >> --- a/include/hw/boards.h
 > >> +++ b/include/hw/boards.h
-> >> @@ -127,7 +127,8 @@ typedef struct {
-> >>   *    implement and a stub device is required.
-> >>   * @kvm_type:
-> >>   *    Return the type of KVM corresponding to the kvm-type string opt=
-ion or
-> >> - *    computed based on other criteria such as the host kernel capabi=
-lities.
-> >> + *    computed based on other criteria such as the host kernel capabi=
-lities
-> >> + *    (which can't be negative), or -1 on error.
-> >>   * @numa_mem_supported:
-> >>   *    true if '--numa node.mem' option is supported and false otherwi=
-se
-> >>   * @smp_parse:
-> >> diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
-> >> index 84c943fcdb2..b069938d881 100644
-> >> --- a/accel/kvm/kvm-all.c
-> >> +++ b/accel/kvm/kvm-all.c
-> >> @@ -2057,6 +2057,12 @@ static int kvm_init(MachineState *ms)
-> >>                                                              "kvm-type=
-",
-> >>                                                              &error_ab=
-ort);
-> >>          type =3D mc->kvm_type(ms, kvm_type);
-> >> +        if (type < 0) {
-> >> +            ret =3D -EINVAL;
-> >> +            fprintf(stderr, "Failed to detect kvm-type for machine '%=
-s'\n",
-> >> +                    mc->name);
-> >> +            goto err;
-> >> +        }
-> >>      }
+> >> @@ -36,6 +36,24 @@ void machine_set_cpu_numa_node(MachineState *machin=
+e,
+> >>                                 const CpuInstanceProperties *props,
+> >>                                 Error **errp);
 > >> =20
-> >>      do { =20
+> >> +/**
+> >> + * machine_class_valid_for_accelerator:
+> >> + * @mc: the machine class
+> >> + * @acc_name: accelerator name
+> >> + *
+> >> + * Returns %true if the accelerator is valid for the machine, %false
+> >> + * otherwise. See #MachineClass.valid_accelerators. =20
 > >=20
-> > No objection to this patch; but I'm wondering why some non-pseries
-> > machines implement the kvm_type callback, when I see the kvm-type
-> > property only for pseries? Am I holding my git grep wrong? =20
+> > Naming confusion: is the machine class valid for the accelerator, or
+> > the accelerator valid for the machine class? Or either? :) =20
 >=20
-> Can it be what David commented here?
-> https://www.mail-archive.com/qemu-devel@nongnu.org/msg784508.html
+> "the accelerator valid for the machine class".
 >=20
+> Is this clearer?
+>=20
+> "Returns %true if the current accelerator is valid for the
+>  selected machine, %false otherwise.
+>=20
+> Or...
+>=20
+> "Returns %true if the selected accelerator is valid for the
+>  current machine, %false otherwise.
 
-Ok, I might be confused about the other ppc machines; but I'm wondering
-about the kvm_type callback for mips and arm/virt. Maybe I'm just
-confused by the whole mechanism?
+Maybe that one, given how it ends up being called? Or "specified
+machine"?
+>=20
+> How would look "either"?
+>=20
+> The machine is already selected, and the accelerator too...
+
+Yes, so this is basically testing the (machine,accelerator) tuple,
+which is what I meant with 'either'.
+
+>=20
+> >  =20
+> >> + */
+> >> +bool machine_class_valid_for_accelerator(MachineClass *mc, const char=
+ *acc_name);
+> >> +/**
+> >> + * machine_class_valid_for_current_accelerator:
+> >> + * @mc: the machine class
+> >> + *
+> >> + * Returns %true if the accelerator is valid for the current machine,
+> >> + * %false otherwise. See #MachineClass.valid_accelerators. =20
+> >=20
+> > Same here: current accelerator vs. current machine.
+
+So maybe
+
+"Returns %true if the current accelerator is valid for the specified
+machine class..." ?
+
+> >  =20
+> >> + */
+> >> +bool machine_class_valid_for_current_accelerator(MachineClass *mc);
 
 
