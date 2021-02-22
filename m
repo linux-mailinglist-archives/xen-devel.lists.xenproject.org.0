@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A17D4321423
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 11:27:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87875.165114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 172CA321435
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 11:34:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87888.165130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lE8Qr-0000px-S7; Mon, 22 Feb 2021 10:27:13 +0000
+	id 1lE8XB-0001uz-K4; Mon, 22 Feb 2021 10:33:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87875.165114; Mon, 22 Feb 2021 10:27:13 +0000
+Received: by outflank-mailman (output) from mailman id 87888.165130; Mon, 22 Feb 2021 10:33:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lE8Qr-0000pX-OF; Mon, 22 Feb 2021 10:27:13 +0000
-Received: by outflank-mailman (input) for mailman id 87875;
- Mon, 22 Feb 2021 10:27:12 +0000
+	id 1lE8XB-0001ua-GW; Mon, 22 Feb 2021 10:33:45 +0000
+Received: by outflank-mailman (input) for mailman id 87888;
+ Mon, 22 Feb 2021 10:33:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6bXc=HY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lE8Qq-0000ou-Lz
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 10:27:12 +0000
+ id 1lE8XA-0001uR-Hm
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 10:33:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05a3259d-4d45-4e23-8f82-424dc12342b6;
- Mon, 22 Feb 2021 10:27:08 +0000 (UTC)
+ id d6b05476-8d51-4bd7-93fe-f45c4a10e9ad;
+ Mon, 22 Feb 2021 10:33:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0106CB147;
- Mon, 22 Feb 2021 10:27:08 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id AC41DACCF;
+ Mon, 22 Feb 2021 10:33:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,104 +38,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05a3259d-4d45-4e23-8f82-424dc12342b6
+X-Inumbo-ID: d6b05476-8d51-4bd7-93fe-f45c4a10e9ad
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1613989628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1613990022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=nMp/VPdudPdDiFUQUULeKoVRWd0Od4PCLUKJPHYG6fk=;
-	b=hPYXqNvBBrOAQ48+OrAeAVdVa866aqD63kHfRuwyPnoqOd3x8Hw6P5ZZJp9kLiP+vLz/ti
-	S+PYeqgA8w6gJHwzHEtS8TyaYKt/IxpTTFAct6Vkozm/Rvh4OGr4cIbPPBVtsA1V+EyODa
-	NoOlCuN79EXbqMI1fFvVAEAmdZxyCmg=
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Ian Jackson <iwj@xenproject.org>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XP6ExC202EgsdIHhSjjZkbCWtVSsVnCYDjnEzu3A4dA=;
+	b=jk9HdvMe8h6xnyiVpcIVst5T5z8ivntHIg4nGI0GuFYv9paG9ZDpfTWM/xfsG7LcolaNs1
+	8AmLEMCsObu3K1KJuyKnHsUdSKRT+kwpoWDVuypjZ18VPHBAQfZewXsZw5zF1YAkEVLI+u
+	0bHdqPAlcx7DA7oF72ifu8JGNcRk4e4=
+Subject: Re: [PATCH v2 1/4] xl: Add support for ignore_msrs option
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, iwj@xenproject.org, wl@xen.org,
+ anthony.perard@citrix.com, andrew.cooper3@citrix.com,
+ jun.nakajima@intel.com, kevin.tian@intel.com,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <1611182952-9941-1-git-send-email-boris.ostrovsky@oracle.com>
+ <1611182952-9941-2-git-send-email-boris.ostrovsky@oracle.com>
+ <YC5EitRCZB+VCeCC@Air-de-Roger>
+ <a78a4b94-47cc-64c0-1b1f-8429665822b2@suse.com>
+ <YC6NPcym62a0Nu0M@Air-de-Roger>
+ <8ffd4f51-5fc6-349b-146f-e52c35c59b4d@suse.com>
+ <5b286dfd-278b-8675-cd88-3ee2706c06e1@oracle.com>
+ <YDOGWC/VK9eOtgLw@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH][4.15] x86: mirror compat argument translation area for 32-bit
- PV
-Message-ID: <bdedf018-b6c4-d0da-fb4b-8cf2d048c3b1@suse.com>
-Date: Mon, 22 Feb 2021 11:27:07 +0100
+Message-ID: <99dace05-576d-bd53-898b-74130ffc59fe@suse.com>
+Date: Mon, 22 Feb 2021 11:33:42 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
+In-Reply-To: <YDOGWC/VK9eOtgLw@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Now that we guard the entire Xen VA space against speculative abuse
-through hypervisor accesses to guest memory, the argument translation
-area's VA also needs to live outside this range, at least for 32-bit PV
-guests. To avoid extra is_hvm_*() conditionals, use the alternative VA
-uniformly.
+On 22.02.2021 11:24, Roger Pau Monné wrote:
+> On Fri, Feb 19, 2021 at 09:50:12AM -0500, Boris Ostrovsky wrote:
+>>
+>> On 2/18/21 10:57 AM, Jan Beulich wrote:
+>>> On 18.02.2021 16:52, Roger Pau Monné wrote:
+>>>> On Thu, Feb 18, 2021 at 12:54:13PM +0100, Jan Beulich wrote:
+>>>>> On 18.02.2021 11:42, Roger Pau Monné wrote:
+>>>>>> Not that you need to implement the full thing now, but maybe we could
+>>>>>> have something like:
+>>>>>>
+>>>>>> "
+>>>>>> =item B<ignore_msrs=[ "MSR_RANGE, "MSR_RANGE", ..]>
+>>>>>>
+>>>>>> Specify a list of MSR ranges that will be ignored by the hypervisor:
+>>>>>> reads will return zeros and writes will be discarded without raising a
+>>>>>> #GP.
+>>>>>>
+>>>>>> Each MSR_RANGE is given in hexadecimal format and may be a range, e.g.
+>>>>>> c00102f0-c00102f1 (inclusive), or a single MSR, e.g. c00102f1.
+>>>>>> "
+>>>>>>
+>>>>>> Then you can print the messages in the hypervisor using a guest log
+>>>>>> level and modify it on demand in order to get more verbose output?
+>>>>> "Modify on demand"? Irrespective of what you mean with this, ...
+>>>>>
+>>>>>> I don't think selecting whether the messages are printed or not from
+>>>>>> xl is that helpful as the same could be achieved using guest_loglvl.
+>>>>> ... controlling this via guest_loglvl would affect various other
+>>>>> log messages' visibility.
+>>>> Right, but do we really need this level of per-guest log control,
+>>>> implemented in this way exclusively for MSRs?
+>>
+>>
+>> In a multi-tenant environment we may need to figure out why a particular guest is failing to boot, without affecting behavior of other guests.
+>>
+>>
+>> If we had per-guest log level in general then what you are suggesting would be the right thing to do IMO. Maybe that's what we should add?
+> 
+> Yes, that would seem better IMO, but I don't think it's fair to ask
+> you to do that work.
+> 
+> Do you think it would be acceptable to untangle both, and try to get
+> the MSR stuff without any logging changes?
+> 
+> I know we would be addressing only one part of what the series
+> originally tried to achieve, but I would rather prefer to have a
+> generic way to set a per-guest log level rather than something
+> specific to MSR accesses.
 
-While this could be conditionalized upon CONFIG_PV32 &&
-CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS, omitting such extra conditionals
-keeps the code more legible imo.
+TBH I'd see us go the other route: Follow Boris'es approach for
+4.15, and switch the logging control to per-guest once that
+ability is there, _and_ if we're really convinced we don't want
+to have this extra level of control. The latter because I think
+a domain could end up pretty chatty just because of MSR accesses,
+and it might therefore be undesirable to also hide all other
+potentially relevant output. Perhaps the per-domain log level
+control needs to be finer grained than what "guest_loglvl="
+currently permits, more like what "hvm_debug=" has.
 
-Fixes: 4dc181599142 ("x86/PV: harden guest memory accesses against speculative abuse")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -1727,6 +1727,11 @@ void init_xen_l4_slots(l4_pgentry_t *l4t
-                (ROOT_PAGETABLE_FIRST_XEN_SLOT + slots -
-                 l4_table_offset(XEN_VIRT_START)) * sizeof(*l4t));
-     }
-+
-+    /* Slot 511: Per-domain mappings mirror. */
-+    if ( !is_pv_64bit_domain(d) )
-+        l4t[l4_table_offset(PERDOMAIN2_VIRT_START)] =
-+            l4e_from_page(d->arch.perdomain_l3_pg, __PAGE_HYPERVISOR_RW);
- }
- 
- bool fill_ro_mpt(mfn_t mfn)
---- a/xen/include/asm-x86/config.h
-+++ b/xen/include/asm-x86/config.h
-@@ -159,11 +159,11 @@ extern unsigned char boot_edid_info[128]
-  *    1:1 direct mapping of all physical memory.
- #endif
-  *  0xffff880000000000 - 0xffffffffffffffff [120TB,             PML4:272-511]
-- *    PV: Guest-defined use.
-+ *    PV (64-bit): Guest-defined use.
-  *  0xffff880000000000 - 0xffffff7fffffffff [119.5TB,           PML4:272-510]
-  *    HVM/idle: continuation of 1:1 mapping
-  *  0xffffff8000000000 - 0xffffffffffffffff [512GB, 2^39 bytes  PML4:511]
-- *    HVM/idle: unused
-+ *    HVM / 32-bit PV: Secondary per-domain mappings.
-  *
-  * Compatibility guest area layout:
-  *  0x0000000000000000 - 0x00000000f57fffff [3928MB,            PML4:0]
-@@ -242,6 +242,9 @@ extern unsigned char boot_edid_info[128]
- #endif
- #define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE)
- 
-+/* Slot 511: secondary per-domain mappings (for compat xlat area accesses). */
-+#define PERDOMAIN2_VIRT_START   (PML4_ADDR(511))
-+
- #ifndef __ASSEMBLY__
- 
- #ifdef CONFIG_PV32
---- a/xen/include/asm-x86/x86_64/uaccess.h
-+++ b/xen/include/asm-x86/x86_64/uaccess.h
-@@ -1,7 +1,17 @@
- #ifndef __X86_64_UACCESS_H
- #define __X86_64_UACCESS_H
- 
--#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current))
-+/*
-+ * With CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS (apparent) PV guest accesses
-+ * are prohibited to touch the Xen private VA range.  The compat argument
-+ * translation area, therefore, can't live within this range.  Domains
-+ * (potentially) in need of argument translation (32-bit PV, possibly HVM) get
-+ * a secondary mapping installed, which needs to be used for such accesses in
-+ * the PV case, and will also be used for HVM to avoid extra conditionals.
-+ */
-+#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) + \
-+                                   (PERDOMAIN2_VIRT_START - \
-+                                    PERDOMAIN_VIRT_START))
- #define COMPAT_ARG_XLAT_SIZE      (2*PAGE_SIZE)
- struct vcpu;
- int setup_compat_arg_xlat(struct vcpu *v);
+Jan
 
