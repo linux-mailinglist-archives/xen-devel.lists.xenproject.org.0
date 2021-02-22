@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62F81321F69
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 19:54:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88348.166077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D04F6321F82
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 20:00:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88352.166093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEGKU-0006XN-BK; Mon, 22 Feb 2021 18:53:10 +0000
+	id 1lEGRW-0007Xp-3u; Mon, 22 Feb 2021 19:00:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88348.166077; Mon, 22 Feb 2021 18:53:10 +0000
+Received: by outflank-mailman (output) from mailman id 88352.166093; Mon, 22 Feb 2021 19:00:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEGKU-0006X1-7x; Mon, 22 Feb 2021 18:53:10 +0000
-Received: by outflank-mailman (input) for mailman id 88348;
- Mon, 22 Feb 2021 18:53:09 +0000
+	id 1lEGRW-0007XQ-0o; Mon, 22 Feb 2021 19:00:26 +0000
+Received: by outflank-mailman (input) for mailman id 88352;
+ Mon, 22 Feb 2021 19:00:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oys7=HY=gmail.com=kevinnegy@srs-us1.protection.inumbo.net>)
- id 1lEGKT-0006Ww-At
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 18:53:09 +0000
-Received: from mail-oi1-x233.google.com (unknown [2607:f8b0:4864:20::233])
+ <SRS0=NRjd=HY=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1lEGRU-0007XL-4w
+ for xen-devel@lists.xen.org; Mon, 22 Feb 2021 19:00:24 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0d77ed82-a3aa-4b5b-9e2f-e3ad4407d926;
- Mon, 22 Feb 2021 18:53:08 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id f3so15004157oiw.13
- for <xen-devel@lists.xenproject.org>; Mon, 22 Feb 2021 10:53:08 -0800 (PST)
+ id 4c139c3c-4d09-4f0d-89a8-f90678af1187;
+ Mon, 22 Feb 2021 19:00:23 +0000 (UTC)
+Received: from [10.10.1.24] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 161402040932016.64447211319191;
+ Mon, 22 Feb 2021 11:00:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,152 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d77ed82-a3aa-4b5b-9e2f-e3ad4407d926
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=f1puqYGuQ0MULhYXk50f1Ja3v9r3HCUU4QrM/Mkm1gI=;
-        b=f7q9AE0VqTXmXXz461I2PttTbNs3JNA/Jf4uQEHRhhjx0fZq23GF1nOT4PySEM81Bh
-         1JHgqnw8x9Jzrr6aThel9//jFsTG+KgJEGeuIg9wCYE83pgi0fP1ca1zh5uaMmbMnTZW
-         M1CcgQP5Ls+b5h1DxH03SIeJPOFjfkGRa7HMx3JaNujHs9WSk5lIPOYwaHUBIjT9wjrH
-         heXpSV5fnwGk8jt/iiea2fKNdePWCF3EmPCGmgUIaBTalmNErgqF6vY4oWtwa5y/j1Cx
-         KtTtCK0qWKI6IIai1Te7n3HEPjJxHTR9u5vOG6/UIgO8e3WBRRJy3oVkbr20V1stMzHo
-         ojFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=f1puqYGuQ0MULhYXk50f1Ja3v9r3HCUU4QrM/Mkm1gI=;
-        b=sIk2kFRyJJcXujUWC7ZObbjV5OQQ5TDpN0KI+KDmYF0ADf6eAszkP4y9b9GAvRWfj1
-         dXYXYyMwvc+l7FOw6yeAgIvjafrj7vcOiHqaEgdiKfaq3pYvuYjnGR6l0KM4DhmNxoul
-         0rB2G24hcfaES7DYFGzWo68ZtLsyS3lDgqNRxxgURZcaP34Jl7j+yUx74+hN6ltkH5xC
-         lLRqz89+8BOMExxsAGCEa1H0Xv8FpU0xtuguZj1vKoiQSdCtT74uXsuYIVk6IHhGETvU
-         rSXjiskKr/UXvnpixHesabNZYrE7SOnykmGWkHGgQygX1kXDBsIFhNd3bpbvfvYbS1po
-         VLnQ==
-X-Gm-Message-State: AOAM531ZQunZ1kNy9AKlsZU6iMvUwCxOYFOIEWEtK12kjqqO4Evh9sbP
-	CX1jQTcfWkMmXDE854eGomNSDuR7ixFKvGXhsWIv9aioKTNZ
-X-Google-Smtp-Source: ABdhPJwZWWWvlTzS20caJnqhNysg3K9xiCXBWFkYWpvpdOUsDn5312T+Xf+kHOa0kIr+OoLW4JkEtDT1h2AK+fpyx+U=
-X-Received: by 2002:aca:5954:: with SMTP id n81mr16469325oib.25.1614019987627;
- Mon, 22 Feb 2021 10:53:07 -0800 (PST)
+X-Inumbo-ID: 4c139c3c-4d09-4f0d-89a8-f90678af1187
+ARC-Seal: i=1; a=rsa-sha256; t=1614020415; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mRB2FRsysLflKMTYK8Z6+7ex5pijr4ZEshrObNKPaAynQ61TL/WwMHyqlP2zzH1RPewaRAYrxBJncYqji+nr3sh6BVYrQzjiOw6T8/ODjIj9ol0oINh1M+zqfemVS4ARuh0i53HgbgJHTldHPiysuDx9C0q4qkXP5MihZcrhqHw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1614020415; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=WaT7MlNB652JgJQRnrZ0dkEP9j85MD51klliJzSmi0w=; 
+	b=EAlF9CsqQkybHVp4Z9d7EDR+qT5lG4z4nEDhk1rALGTENyHg3bzBgtv0E4T7/9lusFdDnonpzrLpsTyvHXvw9RRFF+eVGEkJZS74mnzbLQgbn1IZb0iHGzqcnyfuoxUqmb8HzceUXM5wxCruH/RnaImsGQKohQs88bWDWlWuPLE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com> header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1614020415;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Subject:From:To:Cc:References:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WaT7MlNB652JgJQRnrZ0dkEP9j85MD51klliJzSmi0w=;
+	b=qN8i2MTmRc5creVnav+dME6b+d8QkuzIowpX1Jl3WHmX6zXhYl+6setoxWui/VvP
+	oWKiiqVGjv0byjGzz9oxlf3/BqWaRWNe/31ZGhSQDh5hqNpc9EeA+UMIgzF1eds8V5+
+	oprLvnfKz45p1PDFyL77+92hiQl/GYdU1ssiQGLU=
+Subject: Re: DomB Working Group
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: Xen-devel <xen-devel@lists.xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, bertrand.marquis@arm.com, roger.pau@citrix.com,
+ julien@xen.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Rich Persaud <persaur@gmail.com>, adam.schwalm@starlab.io
+References: <d0b1a7d1-2260-567b-fd8d-04e32a3504f2@apertussolutions.com>
+Message-ID: <5d6bef74-8030-0058-85cd-a764bf31e196@apertussolutions.com>
+Date: Mon, 22 Feb 2021 14:00:07 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <CACZWC-qK_biKgyi+ZiXnsHRscAbK9pz=kncdBA25QYWY129HCQ@mail.gmail.com>
- <38cf0d39-da1d-5375-89dc-1668e26323a2@citrix.com>
-In-Reply-To: <38cf0d39-da1d-5375-89dc-1668e26323a2@citrix.com>
-From: Kevin Negy <kevinnegy@gmail.com>
-Date: Mon, 22 Feb 2021 13:52:31 -0500
-Message-ID: <CACZWC-r7fS2AztaAgGdVPv5NcJiAxZ5mvC4FQTkorPDGwOfn9g@mail.gmail.com>
-Subject: Re: How does shadow page table work during migration?
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000005e3f605bbf150f0"
+In-Reply-To: <d0b1a7d1-2260-567b-fd8d-04e32a3504f2@apertussolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
---00000000000005e3f605bbf150f0
-Content-Type: text/plain; charset="UTF-8"
+On 2/5/21 2:12 PM, Daniel P. Smith wrote:
+> Greetings,
+> 
+> Per the community call on Feb. 4 I would like to get the working group
+> started that will be reviewing the major design decisions for the DomB
+> implementation. A summary of the discussion around the two primary
+> decisions we are seeking to get resolved are as follows,
+> 
+> 
+> Topic: DomB: Adoption of Device Tree as the format for the Launch
+> Control Module
+> * Consensus approval from x86 and Arm maintainers and members of the Xen
+> community on the call to proceed with Device Tree as the format for the
+> DomB LCM (described in the previous mailing list posts).
+> 
+> - a working group will follow up on the work for handling migration of
+> device tree handling code within the hypervisor, previously imported
+> from outside the project, from the Arm hypervisor code into Common.
+> 
+> Topic: DomB: Surfacing configuration data to guests: ACPI tables, Device
+> Tree
+> * Recommendation was that both will be needed, and OK to proceed with
+> just implementing one but plan and design for the second to be added.
+> First is likely to be ACPI; to be determined as development progress is
+> made.
+> 
+> 
+> To continue the discussion from there, I would like to propose a call on
+> Thursday February 11th at 1700UTC, 0900PST/1200EST/1800CEST. I have
+> provided call details below for those who are able to attend. The agenda
+> is available on CryptPad. If you are not able to attend, please reach
+> out directly. Thanks and hope to see everyone on the call!
+> 
+> 
+> Agenda
+> ======
+> https://cryptpad.fr/pad/#/2/pad/edit/iVEku8zImQg320a3D4IBAKQh/
 
-Hello again,
+In case any who was not able to attend and would like some to see what
+was discussed, you can find the meeting minutes at the link below.
 
-Thank you for the helpful responses. I have several follow up questions.
+https://cryptpad.fr/pad/#/2/pad/view/SVV9D9eA90bRT9Lwb-nycaw4ugKcpLJhN+odyFspd-0/
 
-1)
-
-> With Shadow, Xen has to do the combination of address spaces itself -
-> the shadow pagetables map guest virtual to host physical address.
-
-
-The shadow_blow_tables() call is "please recycle everything" which is used
-> to throw away all shadow pagetables, which in turn will cause the
-> shadows to be recreated from scratch as the guest continues to run.
-
-
-With shadowing enabled, given a guest virtual address, how does the
-hypervisor recreate the mapping to the host physical address (mfn) from the
-virtual address if the shadow page tables are empty (after a call to
-shadow_blow_tables, for instance)? I had been thinking of shadow page
-tables as the definitive mapping between guest pages and machine pages, but
-should I think of them as more of a TLB, which implies there's another way
-to get/recreate the mappings if there's no entry in the shadow table?
-
-
-2) I'm trying to grasp the general steps of enabling shadowing and handling
-page faults. Is this correct?
-    a) Normal PV - default shadowing is disabled, guest has its page tables
-in r/w mode or whatever mode is considered normal for guest page tables
-    b) Shadowing is enabled - shadow memory pool allocated, all memory
-accesses must now go through shadow pages in CR3. Since no entries are in
-shadow tables, initial read and writes from the guest will result in page
-faults.
-    c) As soon as the first guest memory access occurs, a mandatory page
-fault occurs because there is no mapping in the shadows. Xen does a guest
-page table walk for the address that caused the fault (va) and then marks
-all the guest page table pages along the walk as read only.
-    d) Xen finds out the mfn of the guest va somehow (my first question)
-and adds the mapping of the va to the shadow page table.
-    e) If the page fault was a write, the va is now marked as read/write
-but logged as dirty in the logdirty map.
-    e) Now the next page fault to any of the page tables marked read-only
-in c) must have been caused by the guest writing to its tables, which can
-be reflected in the shadow page tables.
-
-
-3) How do Xen/shadow page tables distinguish between two equivalent guest
-virtual addresses from different guest processes? I suppose when a guest OS
-tries to change page tables from one process to another, this will cause a
-page fault that Xen will trap and be able to infer that the current shadow
-page table should be swapped to a different one corresponding to the new
-guest process?
-
-Thank you so much,
-Kevin
-
---00000000000005e3f605bbf150f0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hello again,<br><br>Thank you for the hel=
-pful responses. I have several follow up questions. <br><br>1) <br><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">With Shadow, Xen has to do the co=
-mbination of address spaces itself -<br>
-the shadow pagetables map guest virtual to host physical address.</blockquo=
-te><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The sha=
-dow_blow_tables() call is &quot;please recycle everything&quot; which is us=
-ed<br>
-to throw away all shadow pagetables, which in turn will cause the<br>shadow=
-s to be recreated from scratch as the guest continues to run.=C2=A0</blockq=
-uote><br>With shadowing enabled, given a guest virtual address, how does th=
-e hypervisor recreate the mapping to the host physical address (mfn) from t=
-he virtual address if the shadow page tables are empty (after a call to sha=
-dow_blow_tables, for instance)? I had been thinking of shadow page tables a=
-s the definitive mapping between guest pages and machine pages, but should =
-I think of them as more of a TLB, which implies there&#39;s another way to =
-get/recreate the mappings if there&#39;s no entry in the shadow table?</div=
-><div dir=3D"ltr"><br><br>2) I&#39;m trying to grasp the general steps of e=
-nabling shadowing and handling page faults. Is this correct?<br>=C2=A0 =C2=
-=A0 a) Normal PV - default shadowing is disabled, guest has its page tables=
- in r/w mode or whatever mode is considered normal for guest page tables<br=
->=C2=A0 =C2=A0 b) Shadowing is enabled - shadow memory pool allocated, all =
-memory accesses must now go through shadow pages in CR3. Since no entries a=
-re in shadow tables, initial read and writes from the guest will result in =
-page faults.<br>=C2=A0 =C2=A0 c) As soon as the first guest memory access o=
-ccurs, a mandatory page fault occurs because there is no mapping in the sha=
-dows. Xen does a guest page table walk for the address that caused the faul=
-t (va) and then marks all the guest page table pages along the walk as read=
- only. <br>=C2=A0 =C2=A0 d) Xen finds out the mfn of the guest va somehow (=
-my first question) and adds the mapping of the va to the shadow page table.=
- <br>=C2=A0 =C2=A0 e) If the page fault was a write, the va is now marked a=
-s read/write but logged as dirty in the logdirty map.<br>=C2=A0 =C2=A0 e) N=
-ow the next page fault to any of the page tables marked read-only in c) mus=
-t have been caused by the guest writing to its tables, which can be reflect=
-ed in the shadow page tables.<br>=C2=A0 =C2=A0 <br><br>3) How do Xen/shadow=
- page tables distinguish between two equivalent guest virtual addresses fro=
-m different guest processes? I suppose when a guest OS tries to change page=
- tables from one process to another, this will cause a page fault that Xen =
-will trap and be able to infer that the current shadow page table should be=
- swapped to a different one corresponding to the new guest process?<br></di=
-v><div dir=3D"ltr"><br></div><div>Thank you so much,</div><div>Kevin</div><=
-br></div>
-
---00000000000005e3f605bbf150f0--
+V/r,
+dps
 
