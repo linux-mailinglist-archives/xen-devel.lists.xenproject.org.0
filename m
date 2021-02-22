@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B152321099
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 07:00:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.87766.164946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E52F83210CA
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 07:19:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.87770.164960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lE4GT-0008TE-SM; Mon, 22 Feb 2021 06:00:13 +0000
+	id 1lE4Y5-0001rR-5c; Mon, 22 Feb 2021 06:18:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 87766.164946; Mon, 22 Feb 2021 06:00:02 +0000
+Received: by outflank-mailman (output) from mailman id 87770.164960; Mon, 22 Feb 2021 06:18:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lE4GI-0008R3-Ag; Mon, 22 Feb 2021 06:00:02 +0000
-Received: by outflank-mailman (input) for mailman id 87766;
- Mon, 22 Feb 2021 06:00:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4jN7=HY=ozlabs.org=dgibson@srs-us1.protection.inumbo.net>)
- id 1lE4GG-0008GL-9x
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 06:00:00 +0000
-Received: from ozlabs.org (unknown [203.11.71.1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 79116c2f-6471-4807-9599-b751c0675167;
- Mon, 22 Feb 2021 05:59:57 +0000 (UTC)
-Received: by ozlabs.org (Postfix, from userid 1007)
- id 4DkWjj1HJCz9sVV; Mon, 22 Feb 2021 16:59:53 +1100 (AEDT)
+	id 1lE4Y5-0001r0-1Q; Mon, 22 Feb 2021 06:18:25 +0000
+Received: by outflank-mailman (input) for mailman id 87770;
+ Mon, 22 Feb 2021 06:18:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lE4Y3-0001qs-Hu; Mon, 22 Feb 2021 06:18:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lE4Y3-0001Eg-6c; Mon, 22 Feb 2021 06:18:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lE4Y3-0002je-0J; Mon, 22 Feb 2021 06:18:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lE4Y2-00011M-W0; Mon, 22 Feb 2021 06:18:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,325 +42,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79116c2f-6471-4807-9599-b751c0675167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=gibson.dropbear.id.au; s=201602; t=1613973593;
-	bh=AY6wvTF45hDdtk/1CpIGS2xL+8YeDQJOtv+n0NJmFCQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pkel7UI59661cPEq42sFwtAV/SW8gIGlw3cy8clzRcKqMZD3D76DkRZALGDvH+8T1
-	 ucjxSwyzImOVTBraSk+bhxS1gZoSaCLUo6erCzTbY8KW5tyjfr0YLFUow8U6xq9lTD
-	 KFkZAMzgAJg9jmzoQESAqP2yYaujBccgSFqP8TkA=
-Date: Mon, 22 Feb 2021 16:59:30 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>
-Cc: qemu-devel@nongnu.org, Aurelien Jarno <aurelien@aurel32.net>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Anthony Perard <anthony.perard@citrix.com>, qemu-ppc@nongnu.org,
-	qemu-s390x@nongnu.org, Halil Pasic <pasic@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>, xen-devel@lists.xenproject.org,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, qemu-arm@nongnu.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
-	BALATON Zoltan <balaton@eik.bme.hu>,
-	Leif Lindholm <leif@nuviainc.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Radoslaw Biernacki <rad@semihalf.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Paul Durrant <paul@xen.org>, Eduardo Habkost <ehabkost@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	=?iso-8859-1?Q?Herv=E9?= Poussineau <hpoussin@reactos.org>,
-	Greg Kurz <groug@kaod.org>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <f4bug@amsat.org>
-Subject: Re: [RFC PATCH v2 06/11] hw/ppc: Restrict KVM to various PPC machines
-Message-ID: <YDNIQiHG0nfKXNR8@yekko.fritz.box>
-References: <20210219173847.2054123-1-philmd@redhat.com>
- <20210219173847.2054123-7-philmd@redhat.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ItpTtSJa605u8HWx"
-Content-Disposition: inline
-In-Reply-To: <20210219173847.2054123-7-philmd@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=viPa5N8oQA+J8OERnHB5dAsGhTSJpI198pa1FLJwC5A=; b=0HNZ23w2nslUUmTC/j4BZnOTDS
+	ym0Gt7emYegcU1fYEftUpjilMEuzQ1sFWHS77/DqGTA+W5oVvzgJ1UyXqPeGvtUPZPnwGF36GGolA
+	cLZEJHJwM4dNHsg7/vFwAxYMwGTu/gKg/t4chiTv8K0KNubL/KbIYFpf1niqa8+f3a3M=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-i386-xl-qemut-ws16-amd64
+Message-Id: <E1lE4Y2-00011M-W0@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 22 Feb 2021 06:18:22 +0000
+
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-i386-xl-qemut-ws16-amd64
+testid xen-boot
+
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  4dc1815991420b809ce18dddfdf9c0af48944204
+  Bug not present: 2d824791504f4119f04f95bafffec2e37d319c25
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159539/
 
 
---ItpTtSJa605u8HWx
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Feb 19, 2021 at 06:38:42PM +0100, Philippe Mathieu-Daud=E9 wrote:
-> Restrit KVM to the following PPC machines:
-> - 40p
-> - bamboo
-> - g3beige
-> - mac99
-> - mpc8544ds
-> - ppce500
-> - pseries
-> - sam460ex
-> - virtex-ml507
-
-Hrm.
-
-The reason this list is kind of surprising is because there are 3
-different "flavours" of KVM on ppc: KVM HV ("pseries" only), KVM PR
-(almost any combination, theoretically, but kind of buggy in
-practice), and the Book E specific KVM (Book-E systems with HV
-extensions only).
-
-But basically, qemu explicitly managing what accelerators are
-available for each machine seems the wrong way around to me.  The
-approach we've generally taken is that qemu requests the specific
-features it needs of KVM, and KVM tells us whether it can supply those
-or not (which may involve selecting between one of the several
-flavours).
-
-That way we can extend KVM to cover more situations without needing
-corresponding changes in qemu every time.
+  commit 4dc1815991420b809ce18dddfdf9c0af48944204
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Feb 19 17:19:56 2021 +0100
+  
+      x86/PV: harden guest memory accesses against speculative abuse
+      
+      Inspired by
+      https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
+      and prior work in that area of x86 Linux, suppress speculation with
+      guest specified pointer values by suitably masking the addresses to
+      non-canonical space in case they fall into Xen's virtual address range.
+      
+      Introduce a new Kconfig control.
+      
+      Note that it is necessary in such code to avoid using "m" kind operands:
+      If we didn't, there would be no guarantee that the register passed to
+      guest_access_mask_ptr is also the (base) one used for the memory access.
+      
+      As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
+      parameter gets dropped and the XOR on the fixup path gets changed to be
+      a 32-bit one in all cases: This way we avoid pointless REX.W or operand
+      size overrides, or writes to partial registers.
+      
+      Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
 
-> Signed-off-by: Philippe Mathieu-Daud=E9 <philmd@redhat.com>
-> ---
-> RFC: I'm surprise by this list, but this is the result of
->      auditing calls to kvm_enabled() checks.
->=20
->  hw/ppc/e500plat.c      | 5 +++++
->  hw/ppc/mac_newworld.c  | 6 ++++++
->  hw/ppc/mac_oldworld.c  | 5 +++++
->  hw/ppc/mpc8544ds.c     | 5 +++++
->  hw/ppc/ppc440_bamboo.c | 5 +++++
->  hw/ppc/prep.c          | 5 +++++
->  hw/ppc/sam460ex.c      | 5 +++++
->  hw/ppc/spapr.c         | 5 +++++
->  8 files changed, 41 insertions(+)
->=20
-> diff --git a/hw/ppc/e500plat.c b/hw/ppc/e500plat.c
-> index bddd5e7c48f..9701dbc2231 100644
-> --- a/hw/ppc/e500plat.c
-> +++ b/hw/ppc/e500plat.c
-> @@ -67,6 +67,10 @@ HotplugHandler *e500plat_machine_get_hotpug_handler(Ma=
-chineState *machine,
-> =20
->  #define TYPE_E500PLAT_MACHINE  MACHINE_TYPE_NAME("ppce500")
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static void e500plat_machine_class_init(ObjectClass *oc, void *data)
->  {
->      PPCE500MachineClass *pmc =3D PPCE500_MACHINE_CLASS(oc);
-> @@ -98,6 +102,7 @@ static void e500plat_machine_class_init(ObjectClass *o=
-c, void *data)
->      mc->max_cpus =3D 32;
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("e500v2_v30");
->      mc->default_ram_id =3D "mpc8544ds.ram";
-> +    mc->valid_accelerators =3D valid_accels;
->      machine_class_allow_dynamic_sysbus_dev(mc, TYPE_ETSEC_COMMON);
->   }
-> =20
-> diff --git a/hw/ppc/mac_newworld.c b/hw/ppc/mac_newworld.c
-> index e991db4addb..634f5ad19a0 100644
-> --- a/hw/ppc/mac_newworld.c
-> +++ b/hw/ppc/mac_newworld.c
-> @@ -578,6 +578,11 @@ static char *core99_fw_dev_path(FWPathProvider *p, B=
-usState *bus,
-> =20
->      return NULL;
->  }
-> +
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static int core99_kvm_type(MachineState *machine, const char *arg)
->  {
->      /* Always force PR KVM */
-> @@ -595,6 +600,7 @@ static void core99_machine_class_init(ObjectClass *oc=
-, void *data)
->      mc->max_cpus =3D MAX_CPUS;
->      mc->default_boot_order =3D "cd";
->      mc->default_display =3D "std";
-> +    mc->valid_accelerators =3D valid_accels;
->      mc->kvm_type =3D core99_kvm_type;
->  #ifdef TARGET_PPC64
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("970fx_v3.1");
-> diff --git a/hw/ppc/mac_oldworld.c b/hw/ppc/mac_oldworld.c
-> index 44ee99be886..2c58f73b589 100644
-> --- a/hw/ppc/mac_oldworld.c
-> +++ b/hw/ppc/mac_oldworld.c
-> @@ -424,6 +424,10 @@ static char *heathrow_fw_dev_path(FWPathProvider *p,=
- BusState *bus,
->      return NULL;
->  }
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static int heathrow_kvm_type(MachineState *machine, const char *arg)
->  {
->      /* Always force PR KVM */
-> @@ -444,6 +448,7 @@ static void heathrow_class_init(ObjectClass *oc, void=
- *data)
->  #endif
->      /* TOFIX "cad" when Mac floppy is implemented */
->      mc->default_boot_order =3D "cd";
-> +    mc->valid_accelerators =3D valid_accels;
->      mc->kvm_type =3D heathrow_kvm_type;
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("750_v3.1");
->      mc->default_display =3D "std";
-> diff --git a/hw/ppc/mpc8544ds.c b/hw/ppc/mpc8544ds.c
-> index 81177505f02..92b0e926c1b 100644
-> --- a/hw/ppc/mpc8544ds.c
-> +++ b/hw/ppc/mpc8544ds.c
-> @@ -36,6 +36,10 @@ static void mpc8544ds_init(MachineState *machine)
->      ppce500_init(machine);
->  }
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static void e500plat_machine_class_init(ObjectClass *oc, void *data)
->  {
->      MachineClass *mc =3D MACHINE_CLASS(oc);
-> @@ -56,6 +60,7 @@ static void e500plat_machine_class_init(ObjectClass *oc=
-, void *data)
->      mc->max_cpus =3D 15;
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("e500v2_v30");
->      mc->default_ram_id =3D "mpc8544ds.ram";
-> +    mc->valid_accelerators =3D valid_accels;
->  }
-> =20
->  #define TYPE_MPC8544DS_MACHINE  MACHINE_TYPE_NAME("mpc8544ds")
-> diff --git a/hw/ppc/ppc440_bamboo.c b/hw/ppc/ppc440_bamboo.c
-> index b156bcb9990..02501f489e4 100644
-> --- a/hw/ppc/ppc440_bamboo.c
-> +++ b/hw/ppc/ppc440_bamboo.c
-> @@ -298,12 +298,17 @@ static void bamboo_init(MachineState *machine)
->      }
->  }
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static void bamboo_machine_init(MachineClass *mc)
->  {
->      mc->desc =3D "bamboo";
->      mc->init =3D bamboo_init;
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("440epb");
->      mc->default_ram_id =3D "ppc4xx.sdram";
-> +    mc->valid_accelerators =3D valid_accels;
->  }
-> =20
->  DEFINE_MACHINE("bamboo", bamboo_machine_init)
-> diff --git a/hw/ppc/prep.c b/hw/ppc/prep.c
-> index 7e72f6e4a9b..90d884b0883 100644
-> --- a/hw/ppc/prep.c
-> +++ b/hw/ppc/prep.c
-> @@ -431,6 +431,10 @@ static void ibm_40p_init(MachineState *machine)
->      }
->  }
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static void ibm_40p_machine_init(MachineClass *mc)
->  {
->      mc->desc =3D "IBM RS/6000 7020 (40p)",
-> @@ -441,6 +445,7 @@ static void ibm_40p_machine_init(MachineClass *mc)
->      mc->default_boot_order =3D "c";
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("604");
->      mc->default_display =3D "std";
-> +    mc->valid_accelerators =3D valid_accels;
->  }
-> =20
->  DEFINE_MACHINE("40p", ibm_40p_machine_init)
-> diff --git a/hw/ppc/sam460ex.c b/hw/ppc/sam460ex.c
-> index e459b43065b..79adb3352f0 100644
-> --- a/hw/ppc/sam460ex.c
-> +++ b/hw/ppc/sam460ex.c
-> @@ -506,6 +506,10 @@ static void sam460ex_init(MachineState *machine)
->      boot_info->entry =3D entry;
->  }
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static void sam460ex_machine_init(MachineClass *mc)
->  {
->      mc->desc =3D "aCube Sam460ex";
-> @@ -513,6 +517,7 @@ static void sam460ex_machine_init(MachineClass *mc)
->      mc->default_cpu_type =3D POWERPC_CPU_TYPE_NAME("460exb");
->      mc->default_ram_size =3D 512 * MiB;
->      mc->default_ram_id =3D "ppc4xx.sdram";
-> +    mc->valid_accelerators =3D valid_accels;
->  }
-> =20
->  DEFINE_MACHINE("sam460ex", sam460ex_machine_init)
-> diff --git a/hw/ppc/spapr.c b/hw/ppc/spapr.c
-> index 85fe65f8947..c5f985f0187 100644
-> --- a/hw/ppc/spapr.c
-> +++ b/hw/ppc/spapr.c
-> @@ -4397,6 +4397,10 @@ static void spapr_cpu_exec_exit(PPCVirtualHypervis=
-or *vhyp, PowerPCCPU *cpu)
->      }
->  }
-> =20
-> +static const char *const valid_accels[] =3D {
-> +    "tcg", "kvm", NULL
-> +};
-> +
->  static void spapr_machine_class_init(ObjectClass *oc, void *data)
->  {
->      MachineClass *mc =3D MACHINE_CLASS(oc);
-> @@ -4426,6 +4430,7 @@ static void spapr_machine_class_init(ObjectClass *o=
-c, void *data)
->      mc->default_ram_size =3D 512 * MiB;
->      mc->default_ram_id =3D "ppc_spapr.ram";
->      mc->default_display =3D "std";
-> +    mc->valid_accelerators =3D valid_accels;
->      mc->kvm_type =3D spapr_kvm_type;
->      machine_class_allow_dynamic_sysbus_dev(mc, TYPE_SPAPR_PCI_HOST_BRIDG=
-E);
->      mc->pci_allow_0_address =3D true;
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-i386-xl-qemut-ws16-amd64.xen-boot.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
---=20
-David Gibson			| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you.  NOT _the_ _other_
-				| _way_ _around_!
-http://www.ozlabs.org/~dgibson
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-qemut-ws16-amd64.xen-boot --summary-out=tmp/159539.bisection-summary --basis-template=159475 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-i386-xl-qemut-ws16-amd64 xen-boot
+Searching for failure / basis pass:
+ 159526 fail [host=huxelrebe1] / 159475 ok.
+Failure / basis pass flights: 159526 / 159475
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38\
+ aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca-87a067fd8f4d4f7c6be02c3d38145115ac542017
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 159475 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca
+ 159487 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017
+ 159491 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017
+ 159508 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017
+ 159525 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca
+ 159527 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017
+ 159528 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 76aff7f6336b0ce19559700717537449972531be
+ 159531 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25
+ 159532 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 f954a1bf5f74ad6edce361d1bf1a29137ff374e8
+ 159534 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204
+ 159535 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25
+ 159536 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204
+ 159538 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25
+ 159526 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 87a067fd8f4d4f7c6be02c3d38145115ac542017
+ 159539 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204
+Searching for interesting versions
+ Result found: flight 159475 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25, results HASH(0x56365ad9db60) HASH(0x56365ad7e7e0) HASH(0x56365ada2918) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895\
+ af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca, results HASH(0x56365ad86890) HASH(0x56365ad81890) Result found: flight 159487 (fail), for basis failure (at ancestor ~75)
+ Repro found: flight 159525 (pass), for basis pass
+ Repro found: flight 159526 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25
+No revisions left to test, checking graph state.
+ Result found: flight 159531 (pass), for last pass
+ Result found: flight 159534 (fail), for first failure
+ Repro found: flight 159535 (pass), for last pass
+ Repro found: flight 159536 (fail), for first failure
+ Repro found: flight 159538 (pass), for last pass
+ Repro found: flight 159539 (fail), for first failure
 
---ItpTtSJa605u8HWx
-Content-Type: application/pgp-signature; name="signature.asc"
+*** Found and reproduced problem changeset ***
 
------BEGIN PGP SIGNATURE-----
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  4dc1815991420b809ce18dddfdf9c0af48944204
+  Bug not present: 2d824791504f4119f04f95bafffec2e37d319c25
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159539/
 
-iQIzBAEBCAAdFiEEdfRlhq5hpmzETofcbDjKyiDZs5IFAmAzSEIACgkQbDjKyiDZ
-s5KQOw//YS94mBUeu/EPKaGiexiH4d4Orn932aJsK8KfT2d6JHky9L3Z55oFSk8A
-r13ZUkzrZFuUfpX1s138QN61Y7aCkK6JgxY7jl8Uj6jOJP6Vk26lnXiVim8r94n2
-ouAsoi9TDVxDD5Ewxwmr+PHD/s9f3lvWpjVCvI0V1mHIfDrEyMIzM+Il4PeBkxgO
-bmakSOE25jouYGjY1uf1Bx2/BZkU2o7J6n0yaD8M/ZpUVxgBFF0av8b0ZTqP66dc
-CDw//dCygGegCNohXuTW5rYh+FSy9FMkxsQqHtn/aiJoUQJvbydRueNszc1N1W6D
-aYSbkhX77ZU1wSGJbBDkGeyMhsRkwi9VJdG8fRAXRkYCutRbKKU+zIs1oAty8l5J
-E8I5GwxVprM5G1tujmCuBw8D4yXmlBrSksNkka01UjErfoQIutrMbmhGu6LtXyi2
-VCz18YUvhrI+6xgJQPMiOHasOQmoEUq/6KHmWlp39nj6MoiOUZXpMBOVyQqkHEKN
-ZuQZe5RJKv2X3fu2laxX4MjShgBmhqKUCzqAcYzQDPHpU/f82tO+f3a08+6m2y32
-b0KtPw8ojvPHflgCgTjWbug7byXAit1ZCjFkX4Sen3TMV6FFoKheh29Dlujn08xR
-9oQ98yWtCnc7xQ0fj1vTSsdjvf8PlVkoQucMqa1ShpAVr3zRV6c=
-=unpI
------END PGP SIGNATURE-----
 
---ItpTtSJa605u8HWx--
+  commit 4dc1815991420b809ce18dddfdf9c0af48944204
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Feb 19 17:19:56 2021 +0100
+  
+      x86/PV: harden guest memory accesses against speculative abuse
+      
+      Inspired by
+      https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
+      and prior work in that area of x86 Linux, suppress speculation with
+      guest specified pointer values by suitably masking the addresses to
+      non-canonical space in case they fall into Xen's virtual address range.
+      
+      Introduce a new Kconfig control.
+      
+      Note that it is necessary in such code to avoid using "m" kind operands:
+      If we didn't, there would be no guarantee that the register passed to
+      guest_access_mask_ptr is also the (base) one used for the memory access.
+      
+      As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
+      parameter gets dropped and the XOR on the fixup path gets changed to be
+      a 32-bit one in all cases: This way we avoid pointless REX.W or operand
+      size overrides, or writes to partial registers.
+      
+      Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-qemut-ws16-amd64.xen-boot.{dot,ps,png,html,svg}.
+----------------------------------------
+159539: tolerable ALL FAIL
+
+flight 159539 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159539/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-i386-xl-qemut-ws16-amd64  8 xen-boot         fail baseline untested
+
+
+jobs:
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
