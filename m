@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5A7832185B
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 14:20:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88046.165394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26CE7321904
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 14:37:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88050.165406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEB7T-0002Dq-89; Mon, 22 Feb 2021 13:19:23 +0000
+	id 1lEBOm-0003wJ-Oc; Mon, 22 Feb 2021 13:37:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88046.165394; Mon, 22 Feb 2021 13:19:23 +0000
+Received: by outflank-mailman (output) from mailman id 88050.165406; Mon, 22 Feb 2021 13:37:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEB7T-0002DS-4u; Mon, 22 Feb 2021 13:19:23 +0000
-Received: by outflank-mailman (input) for mailman id 88046;
- Mon, 22 Feb 2021 13:19:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lEBOm-0003vw-LG; Mon, 22 Feb 2021 13:37:16 +0000
+Received: by outflank-mailman (input) for mailman id 88050;
+ Mon, 22 Feb 2021 13:37:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=V+0I=HY=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1lEB7R-0002DN-8r
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 13:19:21 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 247dde78-34ac-4b7a-85a6-69aaca5549ff;
- Mon, 22 Feb 2021 13:19:20 +0000 (UTC)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-261-7SJOOPFgMHu-GualZedBhQ-1; Mon, 22 Feb 2021 08:19:17 -0500
-Received: by mail-ej1-f72.google.com with SMTP id yh28so3985705ejb.11
- for <xen-devel@lists.xenproject.org>; Mon, 22 Feb 2021 05:19:17 -0800 (PST)
-Received: from [192.168.1.36] (68.red-83-57-175.dynamicip.rima-tde.net.
- [83.57.175.68])
- by smtp.gmail.com with ESMTPSA id kd13sm6734645ejc.106.2021.02.22.05.19.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Feb 2021 05:19:15 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1lEBOl-0003vr-Bx
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 13:37:15 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lEBOj-0000gx-IT; Mon, 22 Feb 2021 13:37:13 +0000
+Received: from [54.239.6.190] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lEBOj-0001yN-9W; Mon, 22 Feb 2021 13:37:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,118 +39,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 247dde78-34ac-4b7a-85a6-69aaca5549ff
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1613999959;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qug2RTu/T1uSQ745n8lC2c0QqoReD0ieGgc66jNB2QI=;
-	b=DP5MsoxPqZr6RjnVFpMb5qSgPTT6REsm0tdYzTax3iVGEq4Zg4xCcDtXb8Z0+YfMHgQJYn
-	OOKkgW92WwYuoPy0vaIbPn59IZT9PgMdwF+rohSJgqZlU8W0GwXvWeYtkZbu8EoPH4aIww
-	Cwh77KpCGW8WNcxi7aNwmYcCW/pU16I=
-X-MC-Unique: 7SJOOPFgMHu-GualZedBhQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Qug2RTu/T1uSQ745n8lC2c0QqoReD0ieGgc66jNB2QI=;
-        b=d8xUNjHWwdEpFzNoD3YY+rWrWRkQry9JuDashrhYkop8bz+e7ue4mr9RjeXCUsm9nj
-         Wyok9dvdmOP4/SuPTFT6WAHINN8BpZovDUP/AoxfC8+3mObYMrfGIsNDGmHRE88ifag0
-         shTImiEWArFAhUsA3oqSM9O9xO3bcLkvK5oFsmynUrlviSz0IQv+/B+SwC4E0K5v8n5j
-         gEONyFgBD7oefqaJis8UozXQyFk0vatzPCpNaK5oHxI8PcJDQ+FlYCP30qYsniN5mIAt
-         3FRe1Y4b0TKHeYhaPjnoYt569d0IEIn92S03BKxt/S++gwTEMtbMGfU1M5D9GtfvVG/l
-         d7fw==
-X-Gm-Message-State: AOAM531dd0QThIxub6WUAbqR90FrW3JFjrQA1af8euDYLc9gzhdY7b7f
-	aESwfm4ld2H4CpBJguYdT77WAQ9R5LM+CiC8MmUg3Xv5OSV2i3gMIR5hUFzJ4yd8X3y0d9MrUuR
-	Dol7Mo/nwjIoWLV/g99IPHP/VFaU=
-X-Received: by 2002:a17:906:cf8f:: with SMTP id um15mr5937389ejb.455.1613999956676;
-        Mon, 22 Feb 2021 05:19:16 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwvbw/PgfA0F/25nHKxn/HTOW5jX2GdrY67Z+Yez2DT22kLFPNtBmQLRjUdkVjUL1EidwLbmg==
-X-Received: by 2002:a17:906:cf8f:: with SMTP id um15mr5937362ejb.455.1613999956555;
-        Mon, 22 Feb 2021 05:19:16 -0800 (PST)
-Subject: Re: [RFC PATCH v2 06/11] hw/ppc: Restrict KVM to various PPC machines
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: qemu-devel@nongnu.org, Aurelien Jarno <aurelien@aurel32.net>,
- Peter Maydell <peter.maydell@linaro.org>,
- Anthony Perard <anthony.perard@citrix.com>, qemu-ppc@nongnu.org,
- qemu-s390x@nongnu.org, Halil Pasic <pasic@linux.ibm.com>,
- Huacai Chen <chenhuacai@kernel.org>, xen-devel@lists.xenproject.org,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, qemu-arm@nongnu.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- BALATON Zoltan <balaton@eik.bme.hu>, Leif Lindholm <leif@nuviainc.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Radoslaw Biernacki <rad@semihalf.com>,
- Alistair Francis <alistair@alistair23.me>, Paul Durrant <paul@xen.org>,
- Eduardo Habkost <ehabkost@redhat.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Thomas Huth <thuth@redhat.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
- Greg Kurz <groug@kaod.org>, Christian Borntraeger <borntraeger@de.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- David Hildenbrand <david@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
-References: <20210219173847.2054123-1-philmd@redhat.com>
- <20210219173847.2054123-7-philmd@redhat.com>
- <YDNIQiHG0nfKXNR8@yekko.fritz.box>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
-Message-ID: <e28dc7fe-3a78-6b24-0034-830909f71f8e@redhat.com>
-Date: Mon, 22 Feb 2021 14:19:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=n/6qo3FbQGuHJxi+92hPDUzmYPEfFgLFqs9z12dsc3g=; b=1iAx2yWkM7luovKAPJxO89KN46
+	gR/EXvpMNyVOi76xLuEhhaWKyrhIDtcnBCSIYd3dMQdqOFfmh9gBDTGP/Tk6AVY0D5NyYtvtHAJnj
+	1vz1xK6lCWB7Sf8QXiSJ6oAnLOue/AOrgkfc/SoTI1JaJxUO4mKxAQfKKrZewOmF1T/I=;
+Subject: Re: [PATCH for-next] xen/arm: mm: flush_page_to_ram() only need to
+ clean to PoC
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <jgrall@amazon.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20210220175413.14640-1-julien@xen.org>
+ <FC521246-BD88-4D8C-82B7-6C3EFC8B00D0@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <45cd6455-3ad0-f052-65d8-37adb658f003@xen.org>
+Date: Mon, 22 Feb 2021 13:37:11 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <YDNIQiHG0nfKXNR8@yekko.fritz.box>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <FC521246-BD88-4D8C-82B7-6C3EFC8B00D0@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 2/22/21 6:59 AM, David Gibson wrote:
-> On Fri, Feb 19, 2021 at 06:38:42PM +0100, Philippe Mathieu-Daudé wrote:
->> Restrit KVM to the following PPC machines:
->> - 40p
->> - bamboo
->> - g3beige
->> - mac99
->> - mpc8544ds
->> - ppce500
->> - pseries
->> - sam460ex
->> - virtex-ml507
+
+
+On 22/02/2021 11:58, Bertrand Marquis wrote:
+> Hi Julien,
 > 
-> Hrm.
+>> On 20 Feb 2021, at 17:54, Julien Grall <julien@xen.org> wrote:
+>>
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> At the moment, flush_page_to_ram() is both cleaning and invalidate to
+>> PoC the page. However, the cache line can be speculated and pull in the
+>> cache right after as it is part of the direct map.
 > 
-> The reason this list is kind of surprising is because there are 3
-> different "flavours" of KVM on ppc: KVM HV ("pseries" only), KVM PR
-> (almost any combination, theoretically, but kind of buggy in
-> practice), and the Book E specific KVM (Book-E systems with HV
-> extensions only).
+> If we go further through this logic maybe all calls to
+> clean_and_invalidate_dcache_va_range could be transformed in a
+> clean_dcache_va_range.
+
+Likely yes. But I need to go through them one by one to confirm this is 
+fine to do it (it also depends on the caching attributes used). I have 
+sent this one in advance because this was discussed as part of XSA-364.
+
 > 
-> But basically, qemu explicitly managing what accelerators are
-> available for each machine seems the wrong way around to me.  The
-> approach we've generally taken is that qemu requests the specific
-> features it needs of KVM, and KVM tells us whether it can supply those
-> or not (which may involve selecting between one of the several
-> flavours).
+>>
+>> So it is pointless to try to invalidate the line in the data cache.
+>>
 > 
-> That way we can extend KVM to cover more situations without needing
-> corresponding changes in qemu every time.
+> But what about processors which would not speculate ?
+> 
+> Do you expect any performance optimization here ?
 
-OK thanks for the information. I'll wait the other patches
-get reviewed (in particular the most important ones, 2 and
-10) before respining including this information.
+When invalidating a line, you effectively remove it from the cache. If 
+the page is going to be access a bit after, then you will have to load 
+from the memory (or another cache).
 
-Regards,
+With this change, you would only need to re-fetch the line if it wasn't 
+evicted by the time it is accessed.
 
-Phil.
+The line would be clean, so I would expect the eviction to have less an 
+impact over re-fetching the memory.
 
+> 
+> If so it might be good to explain it as I am not quite sure I get it.
+
+This change is less about performance and more about unnecessary work.
+
+The processor is likely going to be more clever than the developper and 
+the exact numbers will vary depending on how the processor decide to 
+manage the cache.
+
+In general, we should avoid interferring too much with the cache without 
+a good reason to do it.
+
+How about the following commit message:
+
+"
+At the moment, flush_page_to_ram() is both cleaning and invalidate to
+PoC the page.
+
+The goal of flush_page_to_ram() is to prevent corruption when the guest 
+has disabled the cache (the cache line may be dirty) and read the guest 
+to read previous content.
+
+Per this defintion, the invalidating the line is not necessary. So 
+invalidating the cache is unnecessary. In fact, it may be 
+counter-productive as the line may be (speculatively) accessed a bit 
+after. So this will incurr an expensive access to the memory.
+
+More generally, we should avoid interferring too much with cache. 
+Therefore, flush_page_to_ram() is updated to only clean to PoC the page.
+
+The performance impact of this change will depend on your 
+workload/processor.
+"
+
+-- 
+Julien Grall
 
