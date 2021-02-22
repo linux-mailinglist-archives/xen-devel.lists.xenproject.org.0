@@ -2,62 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A65321938
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 14:45:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88075.165437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BDDD321951
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 14:49:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88081.165449 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEBWb-0005EZ-0a; Mon, 22 Feb 2021 13:45:21 +0000
+	id 1lEBaS-0005Vm-KH; Mon, 22 Feb 2021 13:49:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88075.165437; Mon, 22 Feb 2021 13:45:20 +0000
+Received: by outflank-mailman (output) from mailman id 88081.165449; Mon, 22 Feb 2021 13:49:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEBWa-0005E8-SX; Mon, 22 Feb 2021 13:45:20 +0000
-Received: by outflank-mailman (input) for mailman id 88075;
- Mon, 22 Feb 2021 13:45:18 +0000
+	id 1lEBaS-0005VN-HE; Mon, 22 Feb 2021 13:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 88081;
+ Mon, 22 Feb 2021 13:49:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ieRt=HY=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1lEBWY-0005E3-GE
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 13:45:18 +0000
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
- [40.107.0.59]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c4db3e3-c542-4f97-b96f-a89c2b8bb81c;
- Mon, 22 Feb 2021 13:45:16 +0000 (UTC)
-Received: from AM6PR0202CA0044.eurprd02.prod.outlook.com
- (2603:10a6:20b:3a::21) by VI1PR0801MB1679.eurprd08.prod.outlook.com
- (2603:10a6:800:59::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29; Mon, 22 Feb
- 2021 13:45:14 +0000
-Received: from AM5EUR03FT018.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:3a:cafe::38) by AM6PR0202CA0044.outlook.office365.com
- (2603:10a6:20b:3a::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27 via Frontend
- Transport; Mon, 22 Feb 2021 13:45:14 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT018.mail.protection.outlook.com (10.152.16.114) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3868.27 via Frontend Transport; Mon, 22 Feb 2021 13:45:13 +0000
-Received: ("Tessian outbound f8d85101260a:v71");
- Mon, 22 Feb 2021 13:45:13 +0000
-Received: from 0a4daea76858.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 8E71B778-7DD9-4127-A522-7B8E3DC2D7D7.1; 
- Mon, 22 Feb 2021 13:45:07 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0a4daea76858.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 22 Feb 2021 13:45:07 +0000
-Received: from VE1PR08MB5696.eurprd08.prod.outlook.com (2603:10a6:800:1ae::15)
- by VE1PR08MB5758.eurprd08.prod.outlook.com (2603:10a6:800:1a0::11)
+ id 1lEBaR-0005VI-Bk
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 13:49:19 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe0c::624])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 707b8b15-775d-4791-ab09-5d7b0f2bbfe5;
+ Mon, 22 Feb 2021 13:49:17 +0000 (UTC)
+Received: from DB6PR0801CA0048.eurprd08.prod.outlook.com (2603:10a6:4:2b::16)
+ by AM9PR08MB6305.eurprd08.prod.outlook.com (2603:10a6:20b:284::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29; Mon, 22 Feb
- 2021 13:45:06 +0000
+ 2021 13:49:16 +0000
+Received: from DB5EUR03FT060.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:2b:cafe::62) by DB6PR0801CA0048.outlook.office365.com
+ (2603:10a6:4:2b::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27 via Frontend
+ Transport; Mon, 22 Feb 2021 13:49:16 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT060.mail.protection.outlook.com (10.152.21.231) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3868.27 via Frontend Transport; Mon, 22 Feb 2021 13:49:16 +0000
+Received: ("Tessian outbound 2db1bbc8a1d2:v71");
+ Mon, 22 Feb 2021 13:49:16 +0000
+Received: from c58ce23b36f1.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 7BED9DF4-0D4D-4AAE-9B58-32D923B10E61.1; 
+ Mon, 22 Feb 2021 13:49:10 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id c58ce23b36f1.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 22 Feb 2021 13:49:10 +0000
+Received: from VE1PR08MB5696.eurprd08.prod.outlook.com (2603:10a6:800:1ae::15)
+ by VI1PR08MB2861.eurprd08.prod.outlook.com (2603:10a6:802:19::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Mon, 22 Feb
+ 2021 13:48:58 +0000
 Received: from VE1PR08MB5696.eurprd08.prod.outlook.com
  ([fe80::5c93:6e79:8f1e:a839]) by VE1PR08MB5696.eurprd08.prod.outlook.com
  ([fe80::5c93:6e79:8f1e:a839%6]) with mapi id 15.20.3868.032; Mon, 22 Feb 2021
- 13:45:05 +0000
+ 13:48:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,12 +70,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c4db3e3-c542-4f97-b96f-a89c2b8bb81c
+X-Inumbo-ID: 707b8b15-775d-4791-ab09-5d7b0f2bbfe5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B512dvbpOnEYWD1i4RnQHZAQXptOjs6RivQrMPNyXkc=;
- b=rcZNCYjfc5XqrT+N6e7OFayE8bSXAjCPZTnr1iFq9NpHyODn0L1XuCBpqFJWSogwtDSXvyePA6xVcvqBcWNzPrEDKvLTshOp/mfIYnJdCaXUusNfPQLJ4kT4z8MpeW0/eFaBIcZMqtRZgtvoKInl/CFFSC1s2ut04aX4aW61PKU=
+ bh=h8m3exn3bRMvrS0WFhcJORaBO+3ZwcCWXcVBfe7b/LY=;
+ b=qlDmVQxZBHxa+rolFXsHoLvA9cyRkTrFwBE8cfvQhl58aS4b6/Oz+rlZMnoqgVy9v9XNOPsWZtBwIpC2KLcWUKB3CIxtWiL4NlG08WCakEccG6zAqv+SdUqvm3FDUMD8z8HamihJS+VAgI8G12SWqEJeQF0KXMExzvfCk/A537Y=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -83,38 +84,39 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: e18be2a99fcfbbfe
+X-CR-MTA-CID: 5bf8335f4cbe4fd4
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b/26/6d5cxdTWk+R5cOP4ZhcLYfR5H+lPnl+DPFi77IDMIQzjHh0lBlpGAk1OJWiIeg8Eg1awTvo80oo70fcK7/DLYnWalhPfTUNnpz0U8JuxJFM1annoiNBC+hQgnV+4NTNV8bexkHnKugbk3unnSRGtdc3vVIWaDpnCw2uSXLys3mk/ZPsHVQVLyLsGaqUc+dsu/kOBDwUZDO94CDUGsjMU4u9AN9Qcx/ML+ay8emshd8Sbwi6yaOMRsg3z/FR51vXOoiALl6RJxO9Ojx4jETNRKzY+h6UPfyAocuie6EIe7DOH/glIJqOVaFkWOai9f1mKo4JpfKoqd6d6xSCaQ==
+ b=Ez+k5sFTWSftMQ7kmsOB9HTKSqegx+O9KeqkhW71kQtfxAgLQCs1PMAN1nbA79g1nnWSNPoYF36Pt0IH1tbVTQa8985ZsePbyD1tU3Q7XtiiKJvr6EpAqrmkLTYnYup0+CU6v7PmafEIbMETgGP9YBQoWviZaHQBBXEfYMhbJSd1KwB7Z8+jGEukMaW9+M76BPmYGHBB64Q5Cm73kXXEF6DiaHu2yJpXSJu0LaQ1i8f4i5ycM9H4wvhfp78ZUj8Fyt+k5ARyHbX42pkhH2OClyVE+AoMl6mbATUiGXvhVMSMN+XfOpGw/zzh5yepz0wT+QfQ00cNNWPkptkxYV89jA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B512dvbpOnEYWD1i4RnQHZAQXptOjs6RivQrMPNyXkc=;
- b=Xu1oLZGVbKEBkLvT/W9noBdP0WWbD1nVoxSjW1PpiLo9HYmylfisC3sk+OrAzwSQq+QKFJaL4LJ1jIYOvUN6ALy96n7rL/19LEosjMVeOB/Vig0H0Wn5WQ8v83uxNfUd90pBQ2HemwKcuBDyJKX/2prBpJywv2GAxxd2qWhzbmfLxQuBgk8XwAts1nw28W54VC9uOhb9SzvxmgyUoPtM2PotybgtbHc34oNOLktGgFPFHuLK0G9XshqAcKUZbUAKeORxmI5HwARh2raY4kFEd4UEY8ix7LvTVmEk0qfyaFAsaxhEIulJHeu3JPph1zIlZX9j/Z0X8w3DJXNljSbtLA==
+ bh=h8m3exn3bRMvrS0WFhcJORaBO+3ZwcCWXcVBfe7b/LY=;
+ b=M2IJ0cSmBudjC2HlfjVgrr7PUBFRFlWAtdwCzNdyCaP9I8QD0PFNmcBkT3yTQfJhyJDfVrc1y5zIBX+8S84yaTOwGoWk9zQjzkn8piQfpjy77snBQCW3bfF2bCzdX1LU7Xcsu4nI6zzdDHbAZuGhXkUbPAN4EIWa6YNwy2i2TuFRxsQr/wUXcZB0jDoMAkSe0lplanw0ZueIpYD9N42WH25dLZIjF7nxaxnlVE9vJutVgEmWl5V5gVgDZlBRYFPzoEMVaTgN3X1FPh+FWdxGvhSTyKmDQWBZbbaKhAH8/+7LlX0VQD14HjAsYAL4YJmcLyDmP7rHVLCJ8XsCmrTNBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B512dvbpOnEYWD1i4RnQHZAQXptOjs6RivQrMPNyXkc=;
- b=rcZNCYjfc5XqrT+N6e7OFayE8bSXAjCPZTnr1iFq9NpHyODn0L1XuCBpqFJWSogwtDSXvyePA6xVcvqBcWNzPrEDKvLTshOp/mfIYnJdCaXUusNfPQLJ4kT4z8MpeW0/eFaBIcZMqtRZgtvoKInl/CFFSC1s2ut04aX4aW61PKU=
+ bh=h8m3exn3bRMvrS0WFhcJORaBO+3ZwcCWXcVBfe7b/LY=;
+ b=qlDmVQxZBHxa+rolFXsHoLvA9cyRkTrFwBE8cfvQhl58aS4b6/Oz+rlZMnoqgVy9v9XNOPsWZtBwIpC2KLcWUKB3CIxtWiL4NlG08WCakEccG6zAqv+SdUqvm3FDUMD8z8HamihJS+VAgI8G12SWqEJeQF0KXMExzvfCk/A537Y=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"iwj@xenproject.org" <iwj@xenproject.org>, Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH for-4.15] xen/vgic: Implement write to ISPENDR in vGICv{2,
- 3}
-Thread-Topic: [PATCH for-4.15] xen/vgic: Implement write to ISPENDR in
- vGICv{2, 3}
-Thread-Index: AQHXB5FR40tx26Grzkm8HRIE12rerqpkMreA
-Date: Mon, 22 Feb 2021 13:45:05 +0000
-Message-ID: <F86904EB-91E9-475C-B60B-E08C5C9E76C3@arm.com>
-References: <20210220140412.31610-1-julien@xen.org>
-In-Reply-To: <20210220140412.31610-1-julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
+ Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH for-next] xen/arm: mm: flush_page_to_ram() only need to
+ clean to PoC
+Thread-Topic: [PATCH for-next] xen/arm: mm: flush_page_to_ram() only need to
+ clean to PoC
+Thread-Index: AQHXB7GCcUtPYwKMVk+6z4A6IyPFF6pkFLEAgAAbkICAAANLAA==
+Date: Mon, 22 Feb 2021 13:48:58 +0000
+Message-ID: <7ADEDCE0-4C50-47B5-AA15-C5DF841FA330@arm.com>
+References: <20210220175413.14640-1-julien@xen.org>
+ <FC521246-BD88-4D8C-82B7-6C3EFC8B00D0@arm.com>
+ <45cd6455-3ad0-f052-65d8-37adb658f003@xen.org>
+In-Reply-To: <45cd6455-3ad0-f052-65d8-37adb658f003@xen.org>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -125,329 +127,162 @@ Authentication-Results-Original: xen.org; dkim=none (message not signed)
 x-originating-ip: [86.26.33.241]
 x-ms-publictraffictype: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 01ba3c79-59d5-4af0-33ef-08d8d7381498
-x-ms-traffictypediagnostic: VE1PR08MB5758:|VI1PR0801MB1679:
+X-MS-Office365-Filtering-Correlation-Id: 1eb19402-80b1-41dc-7940-08d8d738a510
+x-ms-traffictypediagnostic: VI1PR08MB2861:|AM9PR08MB6305:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0801MB1679BF7D3F88D72B4076293C9D819@VI1PR0801MB1679.eurprd08.prod.outlook.com>
+	<AM9PR08MB630591DA183AA622C48E2BAA9D819@AM9PR08MB6305.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:9508;OLM:9508;
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- Nk/HHs8SlHq25ZiYJj7aIHFnPl2iv3x2V1pwC9ZPq2J0fk/JTqWJsTle4O+9On3OCWBmHKCmjUZ9ROqj7IgwRxORyFdoyPoHRD+ffTHxuXqlnrz+9i8OEcbyDht9oDlxmMTGlN8tiRqoSZuaSlz3/s2qQMWHVSmddiePR9KRRXdJGmuFn/+ob7eKwNJjeTIL5PUwFvAVI2LDbzuMQ7LYiK3/6kvbMZXWJcInz9ca0NvlM47XgqKWjDcSN7rj7H+4+utXh8JsX9i/lgaGzUZMFHKRlUH+/FkxtnYEF0o2uVz23T3uJI0JSub0cEV0Fz8Npp2kZHwTI+4zSpgmEWSUbQ3C5SDD1xxHfL/xRrZvycwsXtp6AdhcOFqFmRri2WUUb9eIQrpE5OQnswFe1+7Ho29jKVgi6ubAhIIONDm/3dTJM3MCDa8m603TKQxWuw0J/41Ls6gcbHSoJ9hvVRXsNL8Uar6V4q78M1M+nIT3vNccBtDTC1ygsN1BFeXmne4BqXSTwQmskltgrGOSaCAcIUTKXKjGBAROTLoVvQcjHvkez0KzOWEJS8o46m8zhF9zkSeWBlwJb/lN0KveydgQ7KYADt2Z9ZdHUz7VmJuGYQU=
+ gydjdHoVe69Y+yU1Kt2w2p82Z4orYohG1fU84hr7RxwKAegwp+tydsygHjJ6BbuOki5tBt1OUVXscJQ3NwJtwsGpuqjpWSJFaRaUG/Y1c2w3su2CqLMHcuWA3xKXLmRnWtTgkNo0z8T0BVQ4DSQHfNUP9QEBJUmUXlf825Z/b8yiz2L+XwYzgtE0GXgR8RISzUodBFFtYiDcIqPIGJzfMc2PTVOiVRZLyfjR1dy4L+1K73+FgzrGKrIyqQGNynquFEEJ8kxmnMQTZGC5ma1Rz3qb2maWTUELzYbWmXcDnKyw4Eusa8z54WiV5Tusoc+1l8f2irBacEeyAQJaL0ilBGsjKR0WwcLtEHV9EwOyamXhoZt044v6JXKqtgOjeVL1KuBh6MSGti6c5hw6mMu6s4xbnWk5gOiNu1BSn4AXGmvcXPsnBtH7Z7Ng10rpqYzEyJTrR9PCgfTtF3SNK/Ip69qtfMDVYAh/xO6skOwHRsApAmr4lJ8+QPb74I5Ji3hpj6qmRyJsZlASiTpYqeJMHhxbwr0qhLZckeWfSsywEh7mSi3fUw/RJkGPud8B4+3rWXbx/S3lYlx7lvcE5ZIdFA==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5696.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(396003)(346002)(39850400004)(366004)(86362001)(66946007)(5660300002)(64756008)(66446008)(66476007)(54906003)(8676002)(76116006)(8936002)(66556008)(91956017)(6506007)(6916009)(478600001)(55236004)(316002)(71200400001)(186003)(26005)(53546011)(4326008)(6512007)(6486002)(36756003)(33656002)(2906002)(83380400001)(2616005)(21314003)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5696.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(376002)(396003)(366004)(39850400004)(136003)(478600001)(86362001)(55236004)(6506007)(53546011)(186003)(6486002)(26005)(33656002)(8936002)(8676002)(2906002)(83380400001)(6916009)(6512007)(316002)(54906003)(76116006)(66946007)(64756008)(91956017)(36756003)(71200400001)(4326008)(5660300002)(66446008)(66556008)(2616005)(66476007)(45980500001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?TrFwDIlMz5FSbhTx2qs3ovpnr8BH7MlgXAEzC++0bXEgcvataPZNaFtgWavv?=
- =?us-ascii?Q?NM4RPeZB2LJ0x2K1E1VEZ0HOSVRMgvYYHfy8DTUbECqF1YGZp5Ye2T+1nPsW?=
- =?us-ascii?Q?7MoOCVWjmahBLF30IlHrhW0hMc/Y/vIgdto0p/Q4WECMbpNF9CAhxZ5EimNy?=
- =?us-ascii?Q?nYAw4mM9ew/pXqL9uW4f4ht7DmSBQtR2QZ1a17ERjJbH1oG5A2DpLkBgKKae?=
- =?us-ascii?Q?57mjCtuIY82LHLlDKPsbKlnsfBV66rpZ3syCCBF1g41G7S7p4AYuUoLkA81j?=
- =?us-ascii?Q?/e+bKYgFZnkoLI6i1h5bImEuVMLzRm+PD+IMsAjhPziYPVdrkAzPy3sirAwW?=
- =?us-ascii?Q?pPnyZjaq0n1nokYRDkhnuK+lVMRylAw6MgyVaxTvnSVMkmCnH4s8vC+sG4OY?=
- =?us-ascii?Q?Zinf/jWTk1KPzlQHzrHXHLr6BfzfK0Loe4DLtPl5C4US/zA8DchmG41k9wzW?=
- =?us-ascii?Q?KXliqCrBFTloE4pMRws9QlsULwwPGScBAdlT2UqPIw35ALtXu/dgGDXagyfg?=
- =?us-ascii?Q?F4sD0Daj5ZIbYHt0EQo9ByRQ/AWr35CCMreBMaecfEgSbLzgKrw6a9+afqNf?=
- =?us-ascii?Q?hZwUFkkCc3IfNcRAZm7HNPQv7jmFYDAhCd+l+y2li+8gW53afFT9EbbBnPja?=
- =?us-ascii?Q?1qQXwL2v+vfPZeIQG1OEP0D+5mSguUMNEiG4Ac2rLJztBz284HJHl4WkGNO4?=
- =?us-ascii?Q?cIDxwaWP1VAfe6StrwLznwWsiMxML/DzR24k13qGfPBL04s1z3KExFYy9fae?=
- =?us-ascii?Q?qfl/LH01mC0n0WMcYu7J81tX8XOx3Gd1Xz3XubfIMxtHzgd1M8XW8cmZV6+m?=
- =?us-ascii?Q?DcRd2N4w/QX+iSihVDTiU9twxwfDDKz8Ca0rNwkatrGxdw/xtYldChh0KNe8?=
- =?us-ascii?Q?YnzHME8WTucGtiHf7h5G2MvJ290Sw2FjwfShJ+Q0Lab0Jb8aZcR/B+uRc/eM?=
- =?us-ascii?Q?lTdVha+FfvRFt94kZDMSA0f4YXAu8OCyc+CPCBnvvTUVdX/AbkCY+N0SYN1n?=
- =?us-ascii?Q?5y4cXnGswnvZaDBjEGSX0earpp0a+JWt+ZJdR57EQuX03Ovu2TKDptF0+BeB?=
- =?us-ascii?Q?4Jvhy3s8u3VFLh4ITC3ShKQ7CJizwKUWhUqcF7nI/IrvMHbW18kE7GdxP8/d?=
- =?us-ascii?Q?Pwf7B6b+abnOgHF32acyPkL/PyYR2YehELnvWmGnAPBvrufK48DwiAoYUrac?=
- =?us-ascii?Q?1Xj+UYr1stEKrySDfnx4l2DmeYa/4KrC3zPhuwmRLK7/rPRDZT/rkrYPrNOt?=
- =?us-ascii?Q?grAqtntKLtEyDfrUkNX/+vrmE16DTdoZH4Q0xRU1oHfpjpqepS23PaBdT30C?=
- =?us-ascii?Q?a9ronT721CcYsL/n2WyKiu2+?=
+ =?us-ascii?Q?LYr9h/yJ33lANlYYxCzjfk9pLjU5wGRdkrtplRpjBu2zbkh55Lzf0MfzPhJt?=
+ =?us-ascii?Q?fjRGKxp7TY/Il5l+mTxv+lxmhUOshTLZFmPR91dO/0tef+nf165ftbIOmktA?=
+ =?us-ascii?Q?VFOaCDyVyKn4Ry5AkD6ATTpZrCT/qQMpBq5WP+2aNjeT/Zag/w3vNTrxdE7X?=
+ =?us-ascii?Q?U7XAuZtTexgEvT02+4u+yFisy6sq+gG+C2B8aD7GbLYymPZT4XQ4zippmDge?=
+ =?us-ascii?Q?QsW9eCfuz5sNtqCL9t+CV8ERq70r8piSqJO1gnXneIkNbACAyye0e9ixs756?=
+ =?us-ascii?Q?QMTSklGlbCkksn0Ki02yAiUxgEibpiEVOQmdF6AVwaFvVFCnCCMDrP7Bbmkn?=
+ =?us-ascii?Q?NjC+R0H4UAX/SZWIOIlri2b19U7J9DUEZTl89p4OeAEtpGjxfhx/r9VuO4Uw?=
+ =?us-ascii?Q?5CVuaqLuXXxHJMzJdu0FK2TIlN67hPEbLmXFbQeiTmhdljdQFzqAWIdYiVY0?=
+ =?us-ascii?Q?BPtQW+sBuKiPeozPUWujkb11s/9TA8USlh+fxAkVI+SynO3GaVbYwxVZU8ia?=
+ =?us-ascii?Q?LkE1Iu3eqMwTUYmzRjee9rc18axYqkOTYQFBM8M6NutTPiRnK8sOKpvJPvWM?=
+ =?us-ascii?Q?sIArZ94nGQZ6MvNmOaSJU2b89t9s4KI2CrLo9Y2nBYSnEyWHwKXfF/D/Cvl9?=
+ =?us-ascii?Q?/PtVyVyD/xk9xrt4NhJubLsj+go6S665yPdmIfnE9ggRUZ1itymtTVfeSdTW?=
+ =?us-ascii?Q?tf//oKgoxqbD+t3OyYfHSJz7T/3F1W5sA9Hq7Lhr8iYlbdjGjQ5j2aWD8Dps?=
+ =?us-ascii?Q?MERO8CyfBvRUxcHUOCIeF2UxENZUYNmeguvdTfuoxRE4jlR7qNiD1WhVB+JQ?=
+ =?us-ascii?Q?RJWLMEEw9KvlUVsYQOqmK9RfE5LMzm1aLUTPCXOJrF6JA579m1FCkJH++XLV?=
+ =?us-ascii?Q?mNPvrwx8tNvkaiy+81J7hHB1IVDmnsx+lhm+AseeWM5pA6s5WIq7P7Mn77pV?=
+ =?us-ascii?Q?PBveAcldxulPf8yrOcBb6mw046MbUPKGS4yyBg/27ZTDd6d2DF7u3jyl4osK?=
+ =?us-ascii?Q?qNHFzVF4OcoY1LYbwS7ZXtn6uF61XZqycSKrMvjkqxKphZt9q8HxbTYP80Hr?=
+ =?us-ascii?Q?+882Ou1QLpMACUORue6dza/a9nqjiWhNc+vynLJDtAHNq6lS1wcAxLLg5bwQ?=
+ =?us-ascii?Q?hG0XYMORSdmepjFlF8T4EWp4z3jZSY5M4PEC9K5uSVq+iZtXRaK057YdZGX5?=
+ =?us-ascii?Q?+uuYh8z5oaAUKA/0jQLtZ+bPs++OF6v71Mz1a4vVcha++bCI0Aywlb/aLTmZ?=
+ =?us-ascii?Q?czz5Gzqk32WX6oorva4ZOm9SCsccaDmWckZLOz8s1aHuz9Gb1wvlwBtB6h74?=
+ =?us-ascii?Q?1BSy1f3t9adHatcfHrR1w/UN?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <BCDA3449C65DDA48B38A5A65A2E5905C@eurprd08.prod.outlook.com>
+Content-ID: <33F0E59B582856408D3941AAB6C886F6@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5758
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB2861
 Original-Authentication-Results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT018.eop-EUR03.prod.protection.outlook.com
+ DB5EUR03FT060.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	37037d5e-2a82-4708-b542-08d8d7380fee
+	d693e6b7-65bd-4428-4176-08d8d7389ad1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	hnQogsVQ0MqYlVyADmLLz2hj2hpU2OnmZ+MLcRenX0zh0EpGCp4o04awhENff0+nbgDYc+bC9dBkEqYvEk+upAQUGhm7nKWpqDj/Z9kDXSMbRhiUcIgRDDUNonrsewJq3vHkx+CkFBJLzMhgyXhR5OfoXKE/NuTqzNglSFGa0wBS8kiHGQ4vIwiaidBxicijPvdkvaWzLLdVN1pNskISyGKHQJh5PGSfGBsZIGoY4/OqP6cqqiLNdeLiW2YpU6dmsLzMkb58KXJoLkF8o9htBI4z0nLVDCyOstBrfMEPS5GkqQhDGUsqb5VKyM+QFhy3rG0SvZmo2e4n6pSB6/ja960D/mMDwhdi7wVmFXBqrZ7PdRakcqBK2LaN5psKiZ4LHumapLvuvHHHeT4hOgXDmoRpvdd5/G/2zQhc3sm6j+GenBbvZ4waXyKhc+NzRRykt4Pca+WEb7vBIjTK15WBdOCB6dGoN68dq6IbphwDvZq6sYbZU63E437uZuhz0Etgi9nPvLI6AHlIkyOXUbPJiev6J0mrBQ/DLq2Mbid11sJfAIU4gwG1hoxxv3jvDTh5NFSgwHX692oOuSWtbJ3ydeE+HKPMRsMp/Ngqr6ZUyXhewtJDBENwN0mcMN0f87LKzyExFCCgwbYOrlj84ilnNxvWxHY/RO5I+NPe2duk4jKC1XafQzyLc483NX1cMfCk
+	1T89p4YaBifA/1AIzx2B1T66pMj1eXCLuSze4OYFTS2RkYm+HLrcuMYmsp98/ABYV8bkwnT+IpKKwksOa+/93uGHuFlLL12CloUPIyz/JUvnJ2tldoK3Cxu6dT7cM0qigCRXuG+l7+oCGao+h/EhPygwY5J8+7LPsxnn0ZtLfjQF6+HNnXqgghS0X8YK3yBIXw652CtaE+qGKSG9sdbFE9amHtUxl+x+cMQol+vcBn0IvhB2GsycRw1TS6OgiltovOgP2o6TJoXrHf4TDfvXR/c2F+cv6KefO55O+XV25NMVfwGHA1pBwp+MC15h6nQ1cZQurFGCa/49/qojeBtqvCuoVdr3qsFkR3C0XIpBOO1wtwYOpMEu38VhydNESsXQzY6/D6DXFYI4t4y31nslmsAFo6Wp+OF7nTGlCiRdIi+p5FViyf7INHz6z9Vw5yfRiIl1BW8GJsqWS+HRuSI9+WRFbyIX+GZinxEEHwIpxlgD4vfyHpJrJ8dgZBb0RYbzOQNfakQ5tbEQ0fI8KwFEIPLgCjS81XatfyTcfD0vOJHVt5cTfN0vt7rYFb+1NS6iDjWP3++8ONdJwTrO9XvAnCPu6jVdluIqOWG6Q8BzgRlugjtYbkloSOS42/7NSwrsa1eCAfAa6c0ZoSrguNn2FBDPBkjY7h3vBqM3CmU+wJs=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39850400004)(396003)(376002)(346002)(136003)(46966006)(36840700001)(186003)(82310400003)(8936002)(2616005)(81166007)(26005)(55236004)(8676002)(336012)(83380400001)(356005)(70586007)(82740400003)(478600001)(33656002)(36756003)(53546011)(6506007)(6512007)(107886003)(2906002)(316002)(54906003)(70206006)(36860700001)(5660300002)(47076005)(6862004)(4326008)(6486002)(86362001)(21314003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(346002)(396003)(39850400004)(136003)(36840700001)(46966006)(478600001)(186003)(5660300002)(83380400001)(356005)(4326008)(2616005)(36860700001)(316002)(6486002)(6862004)(33656002)(54906003)(336012)(82740400003)(8936002)(55236004)(86362001)(8676002)(36756003)(6512007)(2906002)(81166007)(70586007)(47076005)(70206006)(6506007)(53546011)(82310400003)(26005)(107886003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2021 13:45:13.5835
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2021 13:49:16.0325
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01ba3c79-59d5-4af0-33ef-08d8d7381498
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1eb19402-80b1-41dc-7940-08d8d738a510
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT018.eop-EUR03.prod.protection.outlook.com
+	DB5EUR03FT060.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1679
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6305
 
 Hi Julien,
 
-> On 20 Feb 2021, at 14:04, Julien Grall <julien@xen.org> wrote:
+> On 22 Feb 2021, at 13:37, Julien Grall <julien@xen.org> wrote:
 >=20
-> From: Julien Grall <jgrall@amazon.com>
 >=20
-> Currently, Xen will send a data abort to a guest trying to write to the
-> ISPENDR.
 >=20
-> Unfortunately, recent version of Linux (at least 5.9+) will start
-> writing to the register if the interrupt needs to be re-triggered
-> (see the callback irq_retrigger). This can happen when a driver (such as
-> the xgbe network driver on AMD Seattle) re-enable an interrupt:
+> On 22/02/2021 11:58, Bertrand Marquis wrote:
+>> Hi Julien,
+>>> On 20 Feb 2021, at 17:54, Julien Grall <julien@xen.org> wrote:
+>>>=20
+>>> From: Julien Grall <jgrall@amazon.com>
+>>>=20
+>>> At the moment, flush_page_to_ram() is both cleaning and invalidate to
+>>> PoC the page. However, the cache line can be speculated and pull in the
+>>> cache right after as it is part of the direct map.
+>> If we go further through this logic maybe all calls to
+>> clean_and_invalidate_dcache_va_range could be transformed in a
+>> clean_dcache_va_range.
 >=20
-> (XEN) d0v0: vGICD: unhandled word write 0x00000004000000 to ISPENDR44
-> [...]
-> [   25.635837] Unhandled fault at 0xffff80001000522c
-> [...]
-> [   25.818716]  gic_retrigger+0x2c/0x38
-> [   25.822361]  irq_startup+0x78/0x138
-> [   25.825920]  __enable_irq+0x70/0x80
-> [   25.829478]  enable_irq+0x50/0xa0
-> [   25.832864]  xgbe_one_poll+0xc8/0xd8
-> [   25.836509]  net_rx_action+0x110/0x3a8
-> [   25.840328]  __do_softirq+0x124/0x288
-> [   25.844061]  irq_exit+0xe0/0xf0
-> [   25.847272]  __handle_domain_irq+0x68/0xc0
-> [   25.851442]  gic_handle_irq+0xa8/0xe0
-> [   25.855171]  el1_irq+0xb0/0x180
-> [   25.858383]  arch_cpu_idle+0x18/0x28
-> [   25.862028]  default_idle_call+0x24/0x5c
-> [   25.866021]  do_idle+0x204/0x278
-> [   25.869319]  cpu_startup_entry+0x24/0x68
-> [   25.873313]  rest_init+0xd4/0xe4
-> [   25.876611]  arch_call_rest_init+0x10/0x1c
-> [   25.880777]  start_kernel+0x5b8/0x5ec
->=20
-> As a consequence, the OS may become unusable.
->=20
-> Implementing the write part of ISPENDR is somewhat easy. For
-> virtual interrupt, we only need to inject the interrupt again.
->=20
-> For physical interrupt, we need to be more careful as the de-activation
-> of the virtual interrupt will be propagated to the physical distributor.
-> For simplicity, the physical interrupt will be set pending so the
-> workflow will not differ from a "real" interrupt.
->=20
-> Longer term, we could possible directly activate the physical interrupt
-> and avoid taking an exception to inject the interrupt to the domain.
-> (This is the approach taken by the new vGIC based on KVM).
->=20
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Likely yes. But I need to go through them one by one to confirm this is f=
+ine to do it (it also depends on the caching attributes used). I have sent =
+this one in advance because this was discussed as part of XSA-364.
 
-This is something which will not be done by a guest very often so I think y=
-our
-implementation actually makes it simpler and reduce possibilities of race c=
-onditions
-so I am not even sure that the XXX comment is needed.
-But i am ok with it being in or not so:
+Ok.
+
+>=20
+>>>=20
+>>> So it is pointless to try to invalidate the line in the data cache.
+>>>=20
+>> But what about processors which would not speculate ?
+>> Do you expect any performance optimization here ?
+>=20
+> When invalidating a line, you effectively remove it from the cache. If th=
+e page is going to be access a bit after, then you will have to load from t=
+he memory (or another cache).
+>=20
+> With this change, you would only need to re-fetch the line if it wasn't e=
+victed by the time it is accessed.
+>=20
+> The line would be clean, so I would expect the eviction to have less an i=
+mpact over re-fetching the memory.
+
+Make sense.
+
+>=20
+>> If so it might be good to explain it as I am not quite sure I get it.
+>=20
+> This change is less about performance and more about unnecessary work.
+>=20
+> The processor is likely going to be more clever than the developper and t=
+he exact numbers will vary depending on how the processor decide to manage =
+the cache.
+>=20
+> In general, we should avoid interferring too much with the cache without =
+a good reason to do it.
+>=20
+> How about the following commit message:
+>=20
+> "
+> At the moment, flush_page_to_ram() is both cleaning and invalidate to
+> PoC the page.
+>=20
+> The goal of flush_page_to_ram() is to prevent corruption when the guest h=
+as disabled the cache (the cache line may be dirty) and read the guest to r=
+ead previous content.
+>=20
+> Per this defintion, the invalidating the line is not necessary. So invali=
+dating the cache is unnecessary. In fact, it may be counter-productive as t=
+he line may be (speculatively) accessed a bit after. So this will incurr an=
+ expensive access to the memory.
+>=20
+> More generally, we should avoid interferring too much with cache. Therefo=
+re, flush_page_to_ram() is updated to only clean to PoC the page.
+>=20
+> The performance impact of this change will depend on your workload/proces=
+sor.
+> "
+>=20
+
+With this as your commit message you can add my:
 
 Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-I did some tests by manually generating interrupts and I can confirm that t=
-his
-works as expected.
+Thanks for details
 
 Cheers
 Bertrand
 
->=20
-> ---
->=20
-> Note that this doesn't touch the read part for I{S,C}PENDR nor the write
-> part of ICPENDR because they are more complex to implement.
->=20
-> For physical interrupt, I didn't implement the same solution as KVM becau=
-se
-> I couldn't convince myself this could be done race free for physical
-> interrupt.
->=20
-> This was tested using the IRQ debugfs (CONFIG_GENERIC_IRQ_DEBUGFS=3Dy)
-> which allows to retrigger an interrupt:
->=20
-> 42sh> echo trigger > /sys/kernel/debug/irq/irqs/<irq>
->=20
-> This patch is candidate for 4.15 and also backporting to older trees.
-> Without this patch, recent Linux version may not boot on Xen on some
-> platforms (such as AMD Seattle used in OssTest).
->=20
-> The patch is self-contained to implementing a single set of registers.
-> So this would not introduce any risk on platforms where OSes don't use
-> those registers.
->=20
-> For the other setup (e.g. AMD Seattle + Linux 5.9+), it cannot be worse
-> than today.
->=20
-> So therefore, I would consider the risk limited.
-> ---
-> xen/arch/arm/vgic-v2.c     | 10 ++++----
-> xen/arch/arm/vgic-v3.c     | 18 ++++++---------
-> xen/arch/arm/vgic.c        | 47 ++++++++++++++++++++++++++++++++++++++
-> xen/include/asm-arm/vgic.h |  2 ++
-> 4 files changed, 62 insertions(+), 15 deletions(-)
->=20
-> diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
-> index 64b141fea586..b2da886adc18 100644
-> --- a/xen/arch/arm/vgic-v2.c
-> +++ b/xen/arch/arm/vgic-v2.c
-> @@ -472,10 +472,12 @@ static int vgic_v2_distr_mmio_write(struct vcpu *v,=
- mmio_info_t *info,
->=20
->     case VRANGE32(GICD_ISPENDR, GICD_ISPENDRN):
->         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
-> -        printk(XENLOG_G_ERR
-> -               "%pv: vGICD: unhandled word write %#"PRIregister" to ISPE=
-NDR%d\n",
-> -               v, r, gicd_reg - GICD_ISPENDR);
-> -        return 0;
-> +        rank =3D vgic_rank_offset(v, 1, gicd_reg - GICD_ISPENDR, DABT_WO=
-RD);
-> +        if ( rank =3D=3D NULL ) goto write_ignore;
-> +
-> +        vgic_set_irqs_pending(v, r, rank->index);
-> +
-> +        return 1;
->=20
->     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
->         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
-> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-> index fd8cfc156d0c..613f37abab5e 100644
-> --- a/xen/arch/arm/vgic-v3.c
-> +++ b/xen/arch/arm/vgic-v3.c
-> @@ -808,10 +808,12 @@ static int __vgic_v3_distr_common_mmio_write(const =
-char *name, struct vcpu *v,
->=20
->     case VRANGE32(GICD_ISPENDR, GICD_ISPENDRN):
->         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
-> -        printk(XENLOG_G_ERR
-> -               "%pv: %s: unhandled word write %#"PRIregister" to ISPENDR=
-%d\n",
-> -               v, name, r, reg - GICD_ISPENDR);
-> -        return 0;
-> +        rank =3D vgic_rank_offset(v, 1, reg - GICD_ISPENDR, DABT_WORD);
-> +        if ( rank =3D=3D NULL ) goto write_ignore;
-> +
-> +        vgic_set_irqs_pending(v, r, rank->index);
-> +
-> +        return 1;
->=20
->     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
->         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
-> @@ -975,6 +977,7 @@ static int vgic_v3_rdistr_sgi_mmio_write(struct vcpu =
-*v, mmio_info_t *info,
->     case VREG32(GICR_ICACTIVER0):
->     case VREG32(GICR_ICFGR1):
->     case VRANGE32(GICR_IPRIORITYR0, GICR_IPRIORITYR7):
-> +    case VREG32(GICR_ISPENDR0):
->          /*
->           * Above registers offset are common with GICD.
->           * So handle common with GICD handling
-> @@ -982,13 +985,6 @@ static int vgic_v3_rdistr_sgi_mmio_write(struct vcpu=
- *v, mmio_info_t *info,
->         return __vgic_v3_distr_common_mmio_write("vGICR: SGI", v,
->                                                  info, gicr_reg, r);
->=20
-> -    case VREG32(GICR_ISPENDR0):
-> -        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
-> -        printk(XENLOG_G_ERR
-> -               "%pv: vGICR: SGI: unhandled word write %#"PRIregister" to=
- ISPENDR0\n",
-> -               v, r);
-> -        return 0;
-> -
->     case VREG32(GICR_ICPENDR0):
->         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
->         printk(XENLOG_G_ERR
-> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-> index 82f524a35c9e..8f9400a51960 100644
-> --- a/xen/arch/arm/vgic.c
-> +++ b/xen/arch/arm/vgic.c
-> @@ -423,6 +423,53 @@ void vgic_enable_irqs(struct vcpu *v, uint32_t r, in=
-t n)
->     }
-> }
->=20
-> +void vgic_set_irqs_pending(struct vcpu *v, uint32_t r, unsigned int rank=
-)
-> +{
-> +    const unsigned long mask =3D r;
-> +    unsigned int i;
-> +    /* The first rank is always per-vCPU */
-> +    bool private =3D rank =3D=3D 0;
-> +
-> +    /* LPIs will never be set pending via this function */
-> +    ASSERT(!is_lpi(32 * rank + 31));
-> +
-> +    for_each_set_bit( i, &mask, 32 )
-> +    {
-> +        unsigned int irq =3D i + 32 * rank;
-> +
-> +        if ( !private )
-> +        {
-> +            struct pending_irq *p =3D spi_to_pending(v->domain, irq);
-> +
-> +            /*
-> +             * When the domain sets the pending state for a HW interrupt=
- on
-> +             * the virtual distributor, we set the pending state on the
-> +             * physical distributor.
-> +             *
-> +             * XXX: Investigate whether we would be able to set the
-> +             * physical interrupt active and save an interruption. (This
-> +             * is what the new vGIC does).
-> +             */
-> +            if ( p->desc !=3D NULL )
-> +            {
-> +                unsigned long flags;
-> +
-> +                spin_lock_irqsave(&p->desc->lock, flags);
-> +                gic_set_pending_state(p->desc, true);
-> +                spin_unlock_irqrestore(&p->desc->lock, flags);
-> +                continue;
-> +            }
-> +        }
-> +
-> +        /*
-> +         * If the interrupt is per-vCPU, then we want to inject the vIRQ
-> +         * to v, otherwise we should let the function figuring out the
-> +         * correct vCPU.
-> +         */
-> +        vgic_inject_irq(v->domain, private ? v : NULL, irq, true);
-> +    }
-> +}
-> +
-> bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmo=
-de,
->                  int virq, const struct sgi_target *target)
-> {
-> diff --git a/xen/include/asm-arm/vgic.h b/xen/include/asm-arm/vgic.h
-> index ce1e3c4bbdac..62c2ae538db2 100644
-> --- a/xen/include/asm-arm/vgic.h
-> +++ b/xen/include/asm-arm/vgic.h
-> @@ -288,6 +288,8 @@ extern struct vgic_irq_rank *vgic_rank_offset(struct =
-vcpu *v, int b, int n, int
-> extern struct vgic_irq_rank *vgic_rank_irq(struct vcpu *v, unsigned int i=
-rq);
-> extern void vgic_disable_irqs(struct vcpu *v, uint32_t r, int n);
-> extern void vgic_enable_irqs(struct vcpu *v, uint32_t r, int n);
-> +extern void vgic_set_irqs_pending(struct vcpu *v, uint32_t r,
-> +                                  unsigned int rank);
-> extern void register_vgic_ops(struct domain *d, const struct vgic_ops *op=
-s);
-> int vgic_v2_init(struct domain *d, int *mmio_count);
-> int vgic_v3_init(struct domain *d, int *mmio_count);
 > --=20
-> 2.17.1
->=20
+> Julien Grall
 
 
