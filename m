@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7F47321A26
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 15:22:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88107.165545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D7A7321A27
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 15:22:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88109.165559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEC6b-0001Vs-9T; Mon, 22 Feb 2021 14:22:33 +0000
+	id 1lEC6f-0001Yk-IV; Mon, 22 Feb 2021 14:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88107.165545; Mon, 22 Feb 2021 14:22:33 +0000
+Received: by outflank-mailman (output) from mailman id 88109.165559; Mon, 22 Feb 2021 14:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEC6b-0001VT-6M; Mon, 22 Feb 2021 14:22:33 +0000
-Received: by outflank-mailman (input) for mailman id 88107;
- Mon, 22 Feb 2021 14:22:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lEC6f-0001YA-FI; Mon, 22 Feb 2021 14:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 88109;
+ Mon, 22 Feb 2021 14:22:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lEC6a-0001VL-JY; Mon, 22 Feb 2021 14:22:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lEC6a-0001XS-EF; Mon, 22 Feb 2021 14:22:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lEC6a-0006Fr-6h; Mon, 22 Feb 2021 14:22:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lEC6a-0002fb-6B; Mon, 22 Feb 2021 14:22:32 +0000
+ (envelope-from <SRS0=6bXc=HY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lEC6e-0001Xi-8w
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 14:22:36 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 891291a7-b0cb-4b34-9f74-99a3651c5535;
+ Mon, 22 Feb 2021 14:22:34 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0422FACBF;
+ Mon, 22 Feb 2021 14:22:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=NHJHPkU9woSHy3fxrzLWQqr+/EnY2JZsIyHwpfocLJg=; b=4Ondn3NIGNv9s+sMNgvN6Lrvur
-	AocYeZcXq54zoMiKZ4ZLWY+ZRk1iNJlozKpybuUeeFqVitWP3ZGX02E3oKULfhsoCpbEF1qrwjzRL
-	vNOv6+cGISJHv5qhfBB08reqToX7Mlj7K1ileCP/mFqH1/ChiPZiEGLS59sb5vLuX1pE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159548-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 891291a7-b0cb-4b34-9f74-99a3651c5535
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614003754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ib9VfTPPSxo8nkl5zZBa2u0I49i3UgZnQHQiTXZfQbg=;
+	b=emEbzEV0u0dr1jl9bUc3l0lBMjTGDhSryhOm32YbeFIbaK2AvyKydvOb6cbqr+Ky3xcGis
+	j5TQ8fisz7SRytI0iY9aguv0rqtnEwuRfanbmc6NbRynPTGudwz/iR01S6CPX3VlGrNoGY
+	2+ddxLI0cmxxJEnFLksBn6D0E02QnYA=
+Subject: Re: [PATCH][4.15] x86: mirror compat argument translation area for
+ 32-bit PV
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bdedf018-b6c4-d0da-fb4b-8cf2d048c3b1@suse.com>
+ <9eade40b-bd95-b850-2dec-f7def66c3c7b@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <77a36366-9157-c3d3-b1f0-211f4fc39a93@suse.com>
+Date: Mon, 22 Feb 2021 15:22:33 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159548: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f894c3d8e705fea9cb3244fa61684bfd8bdd1b2a
-X-Osstest-Versions-That:
-    xen=87a067fd8f4d4f7c6be02c3d38145115ac542017
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 22 Feb 2021 14:22:32 +0000
+In-Reply-To: <9eade40b-bd95-b850-2dec-f7def66c3c7b@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 159548 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159548/
+On 22.02.2021 15:14, Andrew Cooper wrote:
+> On 22/02/2021 10:27, Jan Beulich wrote:
+>> Now that we guard the entire Xen VA space against speculative abuse
+>> through hypervisor accesses to guest memory, the argument translation
+>> area's VA also needs to live outside this range, at least for 32-bit PV
+>> guests. To avoid extra is_hvm_*() conditionals, use the alternative VA
+>> uniformly.
+>>
+>> While this could be conditionalized upon CONFIG_PV32 &&
+>> CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS, omitting such extra conditionals
+>> keeps the code more legible imo.
+>>
+>> Fixes: 4dc181599142 ("x86/PV: harden guest memory accesses against speculative abuse")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/mm.c
+>> +++ b/xen/arch/x86/mm.c
+>> @@ -1727,6 +1727,11 @@ void init_xen_l4_slots(l4_pgentry_t *l4t
+>>                 (ROOT_PAGETABLE_FIRST_XEN_SLOT + slots -
+>>                  l4_table_offset(XEN_VIRT_START)) * sizeof(*l4t));
+>>      }
+>> +
+>> +    /* Slot 511: Per-domain mappings mirror. */
+>> +    if ( !is_pv_64bit_domain(d) )
+>> +        l4t[l4_table_offset(PERDOMAIN2_VIRT_START)] =
+>> +            l4e_from_page(d->arch.perdomain_l3_pg, __PAGE_HYPERVISOR_RW);
+> 
+> This virtual address is inside the extended directmap.
 
-Failures :-/ but no regressions.
+No. That one covers only the range excluding the last L4 slot.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+>  You're going to
+> need to rearrange more things than just this, to make it safe.
 
-version targeted for testing:
- xen                  f894c3d8e705fea9cb3244fa61684bfd8bdd1b2a
-baseline version:
- xen                  87a067fd8f4d4f7c6be02c3d38145115ac542017
+I specifically picked that entry because I don't think further
+arrangements are needed.
 
-Last test of basis   159481  2021-02-19 18:02:31 Z    2 days
-Testing same since   159548  2021-02-22 12:00:26 Z    0 days    1 attempts
+> While largely a theoretical risk as far as the directmap goes, there is
+> now a rather higher risk of colliding with the ERR_PTR() range.  Its bad
+> enough this infrastructure is inherently unsafe with 64bit PV guests,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Tamas K Lengyel <tamas@tklengyel.com>
+The ERR_PTR() range is still _far_ away from the sub-ranges we
+use in the per-domain area.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   87a067fd8f..f894c3d8e7  f894c3d8e705fea9cb3244fa61684bfd8bdd1b2a -> smoke
+Jan
 
