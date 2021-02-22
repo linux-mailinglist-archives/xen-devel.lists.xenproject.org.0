@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 032023220A7
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 21:12:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88376.166166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 745C23220DB
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 21:35:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88385.166181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEHZF-0006CA-2h; Mon, 22 Feb 2021 20:12:29 +0000
+	id 1lEHvB-0008C5-0Z; Mon, 22 Feb 2021 20:35:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88376.166166; Mon, 22 Feb 2021 20:12:29 +0000
+Received: by outflank-mailman (output) from mailman id 88385.166181; Mon, 22 Feb 2021 20:35:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEHZE-0006Bl-VV; Mon, 22 Feb 2021 20:12:28 +0000
-Received: by outflank-mailman (input) for mailman id 88376;
- Mon, 22 Feb 2021 20:12:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lEHZD-0006BZ-5V
- for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 20:12:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lEHZC-000849-Kk; Mon, 22 Feb 2021 20:12:26 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lEHZC-0004dL-ER; Mon, 22 Feb 2021 20:12:26 +0000
+	id 1lEHvA-0008Bg-T6; Mon, 22 Feb 2021 20:35:08 +0000
+Received: by outflank-mailman (input) for mailman id 88385;
+ Mon, 22 Feb 2021 20:35:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zptr=HY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lEHv8-0008Bb-TP
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 20:35:06 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9f1ff0bb-c2c7-4c11-87df-b747571a6764;
+ Mon, 22 Feb 2021 20:35:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 231F864E05;
+ Mon, 22 Feb 2021 20:35:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,110 +37,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=VgtNM/SFmOz7fuSArWQTz0TUKyFubVv15hRl0Q67t+k=; b=E2qB/FrcPXKJRHELO2eADK0qUh
-	sDasfoVDUARRb2dLKRySDqWyVej1RqXxnEOUKZEqkHvxRLOlPd28KbzdMnAAtu+jCrxzlnTBFt/gZ
-	RlPxcNb21yMugzOzeH7+WLGWTSSO97pasoSPXiH6Bv/q6e3O7+tMUwE7vEDeUU79XMRA=;
-Subject: Re: [PATCH for-4.15] xen/sched: Add missing memory barrier in
- vcpu_block()
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: iwj@xenproject.org, ash.j.wilding@gmail.com,
- Julien Grall <jgrall@amazon.com>, George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-References: <20210220194701.24202-1-julien@xen.org>
- <744ca7e5-328d-0c5f-bc52-e4c0e78dad97@suse.com>
- <alpine.DEB.2.21.2102221208050.3234@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b68a644f-8b9c-3e1d-49c6-4058d276228b@xen.org>
-Date: Mon, 22 Feb 2021 20:12:24 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: 9f1ff0bb-c2c7-4c11-87df-b747571a6764
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1614026105;
+	bh=tnL3z2looJ3vk2lLI/WaSNlC0mRPUEjmHywP8Ef6kS0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=aCBmEjtYlXlkuVdxsN0tsad3334No51kAm/EqkWggf9nML/roBnXQz9i+/q5wCgwf
+	 hINTCRrl0JQCKXzonXvFyrDuLRKOk3r+noqAHgQlFKe64DJxNCCbsjiRAWXXtmoTyo
+	 +7T3WNrExANqGImOAs5BaDtO5rwIWvXyEOL0SA2Xg1+9gzkGSxA3H2uuiWUhhCOmUn
+	 1CcbQVl7OY2xzod3yRanE8VoOKOZyhCRbdgQzrSfPFp64nj403/PxTirOh4xJ2X0At
+	 r/zO5WQTDj9s7ztmyvRIhjowzl3vM1dtA+e8zH3KijpAIEZuSPY+e51LLk+xLF+72E
+	 qrh7xsCflXYpw==
+Date: Mon, 22 Feb 2021 12:35:04 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Julien Grall <jgrall@amazon.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH for-next] xen/arm: mm: flush_page_to_ram() only need to
+ clean to PoC
+In-Reply-To: <45cd6455-3ad0-f052-65d8-37adb658f003@xen.org>
+Message-ID: <alpine.DEB.2.21.2102221220000.3234@sstabellini-ThinkPad-T480s>
+References: <20210220175413.14640-1-julien@xen.org> <FC521246-BD88-4D8C-82B7-6C3EFC8B00D0@arm.com> <45cd6455-3ad0-f052-65d8-37adb658f003@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2102221208050.3234@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-
-
-On 22/02/2021 20:09, Stefano Stabellini wrote:
-> On Mon, 22 Feb 2021, Jan Beulich wrote:
->> On 20.02.2021 20:47, Julien Grall wrote:
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> The comment in vcpu_block() states that the events should be checked
->>> /after/ blocking to avoids wakeup waiting race. However, from a generic
->>> perspective, set_bit() doesn't prevent re-ordering. So the following
->>> could happen:
->>>
->>> CPU0  (blocking vCPU A)         |   CPU1 ( unblock vCPU A)
->>>                                  |
->>> A <- read local events          |
->>>                                  |   set local events
->>>                                  |   test_and_clear_bit(_VPF_blocked)
->>>                                  |       -> Bail out as the bit if not set
->>>                                  |
->>> set_bit(_VFP_blocked)           |
->>>                                  |
->>> check A                         |
->>>
->>> The variable A will be 0 and therefore the vCPU will be blocked when it
->>> should continue running.
->>>
->>> vcpu_block() is now gaining an smp_mb__after_atomic() to prevent the CPU
->>> to read any information about local events before the flag _VPF_blocked
->>> is set.
->>>
->>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Mon, 22 Feb 2021, Julien Grall wrote:
+> On 22/02/2021 11:58, Bertrand Marquis wrote:
+> > Hi Julien,
+> > 
+> > > On 20 Feb 2021, at 17:54, Julien Grall <julien@xen.org> wrote:
+> > > 
+> > > From: Julien Grall <jgrall@amazon.com>
+> > > 
+> > > At the moment, flush_page_to_ram() is both cleaning and invalidate to
+> > > PoC the page. However, the cache line can be speculated and pull in the
+> > > cache right after as it is part of the direct map.
+> > 
+> > If we go further through this logic maybe all calls to
+> > clean_and_invalidate_dcache_va_range could be transformed in a
+> > clean_dcache_va_range.
 > 
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> Likely yes. But I need to go through them one by one to confirm this is fine
+> to do it (it also depends on the caching attributes used). I have sent this
+> one in advance because this was discussed as part of XSA-364.
 > 
+> > 
+> > > 
+> > > So it is pointless to try to invalidate the line in the data cache.
+> > > 
+> > 
+> > But what about processors which would not speculate ?
+> > 
+> > Do you expect any performance optimization here ?
 > 
+> When invalidating a line, you effectively remove it from the cache. If the
+> page is going to be access a bit after, then you will have to load from the
+> memory (or another cache).
 > 
->>> This is a follow-up of the discussion that started in 2019 (see [1])
->>> regarding a possible race between do_poll()/vcpu_unblock() and the wake
->>> up path.
->>>
->>> I haven't yet fully thought about the potential race in do_poll(). If
->>> there is, then this would likely want to be fixed in a separate patch.
->>>
->>> On x86, the current code is safe because set_bit() is fully ordered. SO
->>> the problem is Arm (and potentially any new architectures).
->>>
->>> I couldn't convince myself whether the Arm implementation of
->>> local_events_need_delivery() contains enough barrier to prevent the
->>> re-ordering. However, I don't think we want to play with devil here as
->>> the function may be optimized in the future.
->>
->> In fact I think this ...
->>
->>> --- a/xen/common/sched/core.c
->>> +++ b/xen/common/sched/core.c
->>> @@ -1418,6 +1418,8 @@ void vcpu_block(void)
->>>   
->>>       set_bit(_VPF_blocked, &v->pause_flags);
->>>   
->>> +    smp_mb__after_atomic();
->>> +
->>
->> ... pattern should be looked for throughout the codebase, and barriers
->> be added unless it can be proven none is needed. >
-> And in that case it would be best to add an in-code comment to explain
-> why the barrier is not needed
-.
-I would rather not add comment for every *_bit() calls. It should be 
-pretty obvious for most of them that the barrier is not necessary.
+> With this change, you would only need to re-fetch the line if it wasn't
+> evicted by the time it is accessed.
+> 
+> The line would be clean, so I would expect the eviction to have less an impact
+> over re-fetching the memory.
+> 
+> > 
+> > If so it might be good to explain it as I am not quite sure I get it.
+> 
+> This change is less about performance and more about unnecessary work.
+> 
+> The processor is likely going to be more clever than the developper and the
+> exact numbers will vary depending on how the processor decide to manage the
+> cache.
+> 
+> In general, we should avoid interferring too much with the cache without a
+> good reason to do it.
+> 
+> How about the following commit message:
+> 
+> "
+> At the moment, flush_page_to_ram() is both cleaning and invalidate to
+> PoC the page.
+> 
+> The goal of flush_page_to_ram() is to prevent corruption when the guest has
+> disabled the cache (the cache line may be dirty) and read the guest to read
+> previous content.
+> 
+> Per this defintion, the invalidating the line is not necessary. So
+> invalidating the cache is unnecessary. In fact, it may be counter-productive
+> as the line may be (speculatively) accessed a bit after. So this will incurr
+> an expensive access to the memory.
+> 
+> More generally, we should avoid interferring too much with cache. Therefore,
+> flush_page_to_ram() is updated to only clean to PoC the page.
+> 
+> The performance impact of this change will depend on your workload/processor.
+> "
+ 
+From a correctness and functionality perspective, we don't need the
+invalidate. If the line is dirty we are writing it back to memory (point
+of coherence) thanks to the clean operations anyway. If somebody writes
+to that location, the processor should evict the old line anyway.
 
-We should only add comments where the barrier is necessary or it is not 
-clear why it is not necessary.
+The only reason I can think of for doing a "clean and invalidate" rather
+than just a "clean" would be that we are trying to give a hint to the
+processor that the cacheline is soon to be evicted. Assuming that the
+hint even leads to some sort of performance optimization.
 
-Cheers,
+In practice, aside from being CPU specific, we don't know if it is even
+a optimization or a pessimization.
 
--- 
-Julien Grall
+In any case, on the grounds that it is unnecessary, I am OK with this.
+I agree with Julien's proposal of applying this patch "for-next".
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
