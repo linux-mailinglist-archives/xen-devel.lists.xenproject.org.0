@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B929D321DF5
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 18:21:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88290.165897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D56321E08
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Feb 2021 18:24:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88293.165909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEEtq-0004yZ-SB; Mon, 22 Feb 2021 17:21:34 +0000
+	id 1lEEwm-00057y-AO; Mon, 22 Feb 2021 17:24:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88290.165897; Mon, 22 Feb 2021 17:21:34 +0000
+Received: by outflank-mailman (output) from mailman id 88293.165909; Mon, 22 Feb 2021 17:24:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEEtq-0004yA-Ox; Mon, 22 Feb 2021 17:21:34 +0000
-Received: by outflank-mailman (input) for mailman id 88290;
- Mon, 22 Feb 2021 17:21:32 +0000
+	id 1lEEwm-00057Z-7G; Mon, 22 Feb 2021 17:24:36 +0000
+Received: by outflank-mailman (input) for mailman id 88293;
+ Mon, 22 Feb 2021 17:24:35 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ease=HY=xenproject.org=iwj@srs-us1.protection.inumbo.net>)
- id 1lEEto-0004y5-Lq
- for xen-devel@lists.xen.org; Mon, 22 Feb 2021 17:21:32 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a67abc4-6e7d-4ed6-86a9-2d24e4fd4e74;
- Mon, 22 Feb 2021 17:21:31 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEEtm-00053X-UK
- for xen-devel@lists.xen.org; Mon, 22 Feb 2021 17:21:30 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEEtm-0006zj-TX
- for xen-devel@lists.xen.org; Mon, 22 Feb 2021 17:21:30 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lEEtZ-0001Zq-Bp; Mon, 22 Feb 2021 17:21:17 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cC4D=HY=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
+ id 1lEEwk-00057U-R9
+ for xen-devel@lists.xenproject.org; Mon, 22 Feb 2021 17:24:35 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id a1baa6dd-cac0-4b3a-a573-358b91181ca3;
+ Mon, 22 Feb 2021 17:24:32 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-234-1b80s02bMCOR2lkI1fzehA-1; Mon, 22 Feb 2021 12:24:29 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 498CB1936B68;
+ Mon, 22 Feb 2021 17:24:26 +0000 (UTC)
+Received: from gondolin (ovpn-113-115.ams2.redhat.com [10.36.113.115])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id F1AD85D9D3;
+ Mon, 22 Feb 2021 17:24:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,52 +48,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a67abc4-6e7d-4ed6-86a9-2d24e4fd4e74
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=a/9qX5moC3Rq8S3aUWOAoq37RgEc4xE6+ZRw7DRDZlQ=; b=6th44pN9krjVTBoZSv0zruvT1T
-	wiu9rDTZKD4cNrY/XZTQTvSWP5vLB4lVM+UJ7w0MyrAz8KKuEVhdoYMs/2X05KMmkoKZkNHYbODwT
-	XL/Qud00erH3YqsN/mtf1iZVBSLIKqbBL+4Kp59XADMDBAnAVypRQywAFYuzI3knTDx4=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: a1baa6dd-cac0-4b3a-a573-358b91181ca3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1614014672;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H5mrm3DZDcM5fraUv4fndEkj6st2YNZQP0B5Q36J9Uo=;
+	b=eA2hPWtNFSBChFkO1/svU5YW0B/7ijE61JlzagtOiKJapbOMVXecxssihddYHsR2e0XcVo
+	ufgAUMf6r3XFMvfHYKa3zY2CkQSi0rSX7jDp56bXut8qoOGt43K1w4WzGp42MTaXV71poE
+	6oMYOqYqgZRuPm22tG1Fwa5NrqWF4Es=
+X-MC-Unique: 1b80s02bMCOR2lkI1fzehA-1
+Date: Mon, 22 Feb 2021 18:24:05 +0100
+From: Cornelia Huck <cohuck@redhat.com>
+To: Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>
+Cc: qemu-devel@nongnu.org, Aurelien Jarno <aurelien@aurel32.net>, Peter
+ Maydell <peter.maydell@linaro.org>, Anthony Perard
+ <anthony.perard@citrix.com>, qemu-ppc@nongnu.org, qemu-s390x@nongnu.org,
+ Halil Pasic <pasic@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>,
+ xen-devel@lists.xenproject.org, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, David Gibson <david@gibson.dropbear.id.au>,
+ qemu-arm@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, Paolo
+ Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, BALATON Zoltan
+ <balaton@eik.bme.hu>, Leif Lindholm <leif@nuviainc.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Radoslaw Biernacki <rad@semihalf.com>,
+ Alistair Francis <alistair@alistair23.me>, Paul Durrant <paul@xen.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Thomas Huth <thuth@redhat.com>, Jiaxun Yang
+ <jiaxun.yang@flygoat.com>, =?UTF-8?B?SGVydsOp?= Poussineau
+ <hpoussin@reactos.org>, Greg Kurz <groug@kaod.org>, Christian Borntraeger
+ <borntraeger@de.ibm.com>, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ David Hildenbrand <david@redhat.com>, Mark Cave-Ayland
+ <mark.cave-ayland@ilande.co.uk>, Aleksandar Rikalo
+ <aleksandar.rikalo@syrmia.com>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
+ <f4bug@amsat.org>
+Subject: Re: [PATCH v2 01/11] accel/kvm: Check MachineClass kvm_type()
+ return value
+Message-ID: <20210222182405.3e6e9a6f.cohuck@redhat.com>
+In-Reply-To: <20210219173847.2054123-2-philmd@redhat.com>
+References: <20210219173847.2054123-1-philmd@redhat.com>
+	<20210219173847.2054123-2-philmd@redhat.com>
+Organization: Red Hat GmbH
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Message-ID: <24627.59405.114762.685265@mariner.uk.xensource.com>
-Date: Mon, 22 Feb 2021 17:21:17 +0000
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-    Ian Jackson <iwj@xenproject.org>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Wei Liu <wl@xen.org>,
-    Juergen Gross <jgross@suse.com>,
-    Xen-devel <xen-devel@lists.xen.org>
-Subject: Re: Stable ABI checking (take 2)
-In-Reply-To: <a2acb45e-244a-2786-391d-c6ee7d267cfd@citrix.com>
-References: <68c93553-7db5-f43b-b3cd-b9112a8a57dc@citrix.com>
-	<78eec55c-ac2c-467e-0a2c-9acb44eba850@suse.com>
-	<a2acb45e-244a-2786-391d-c6ee7d267cfd@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 
-Jan Beulich writes ("Re: Stable ABI checking (take 2)"):
-> On 22.02.2021 15:03, Andrew Cooper wrote:
-> +1 for option 2, fwiw.
+On Fri, 19 Feb 2021 18:38:37 +0100
+Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> wrote:
 
-I'm in favour of option 2.
+> MachineClass::kvm_type() can return -1 on failure.
+> Document it, and add a check in kvm_init().
+>=20
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
+> ---
+>  include/hw/boards.h | 3 ++-
+>  accel/kvm/kvm-all.c | 6 ++++++
+>  2 files changed, 8 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/include/hw/boards.h b/include/hw/boards.h
+> index a46dfe5d1a6..68d3d10f6b0 100644
+> --- a/include/hw/boards.h
+> +++ b/include/hw/boards.h
+> @@ -127,7 +127,8 @@ typedef struct {
+>   *    implement and a stub device is required.
+>   * @kvm_type:
+>   *    Return the type of KVM corresponding to the kvm-type string option=
+ or
+> - *    computed based on other criteria such as the host kernel capabilit=
+ies.
+> + *    computed based on other criteria such as the host kernel capabilit=
+ies
+> + *    (which can't be negative), or -1 on error.
+>   * @numa_mem_supported:
+>   *    true if '--numa node.mem' option is supported and false otherwise
+>   * @smp_parse:
+> diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
+> index 84c943fcdb2..b069938d881 100644
+> --- a/accel/kvm/kvm-all.c
+> +++ b/accel/kvm/kvm-all.c
+> @@ -2057,6 +2057,12 @@ static int kvm_init(MachineState *ms)
+>                                                              "kvm-type",
+>                                                              &error_abort=
+);
+>          type =3D mc->kvm_type(ms, kvm_type);
+> +        if (type < 0) {
+> +            ret =3D -EINVAL;
+> +            fprintf(stderr, "Failed to detect kvm-type for machine '%s'\=
+n",
+> +                    mc->name);
+> +            goto err;
+> +        }
+>      }
+> =20
+>      do {
 
-Andrew Cooper writes ("Re: Stable ABI checking (take 2)"):
-> As far as RPM is concerned, splitting the two is important, as %build
-> and %check are explicitly separate steps.  I have no idea what the deb
-> policy/organisation is here.
+No objection to this patch; but I'm wondering why some non-pseries
+machines implement the kvm_type callback, when I see the kvm-type
+property only for pseries? Am I holding my git grep wrong?
 
-The reason why distro build systems like to distinguish "build" from
-"check" (run tests) is that often the tests are time-consuming (or
-have intrusive dependencies or other practical problems).
-
-IMO if the ABI check is very fast there is no reason not to run it by
-default.  (We have configure to deal with the dependency issue.)
-
-Ian.
 
