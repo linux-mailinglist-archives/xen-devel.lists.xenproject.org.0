@@ -2,28 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B40C232302E
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 19:03:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89047.167464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 706CF32304E
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 19:11:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89056.167488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEc2D-0001nj-Hp; Tue, 23 Feb 2021 18:03:45 +0000
+	id 1lEc97-0002vd-JL; Tue, 23 Feb 2021 18:10:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89047.167464; Tue, 23 Feb 2021 18:03:45 +0000
+Received: by outflank-mailman (output) from mailman id 89056.167488; Tue, 23 Feb 2021 18:10:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEc2D-0001nO-Ef; Tue, 23 Feb 2021 18:03:45 +0000
-Received: by outflank-mailman (input) for mailman id 89047;
- Tue, 23 Feb 2021 18:03:44 +0000
+	id 1lEc97-0002vG-G8; Tue, 23 Feb 2021 18:10:53 +0000
+Received: by outflank-mailman (input) for mailman id 89056;
+ Tue, 23 Feb 2021 18:10:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UeLE=HZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lEc2C-0001nE-0E
- for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 18:03:44 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=pXyS=HZ=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1lEc96-0002vB-0Y
+ for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 18:10:52 +0000
+Received: from mail-pj1-x1034.google.com (unknown [2607:f8b0:4864:20::1034])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dfaaa91e-9940-4dc3-ba40-21c8f24bf469;
- Tue, 23 Feb 2021 18:03:42 +0000 (UTC)
+ id c62899d2-6773-4d9e-96d4-ce2582f2dd9b;
+ Tue, 23 Feb 2021 18:10:51 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id e9so2515950pjj.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Feb 2021 10:10:51 -0800 (PST)
+Received: from ?IPv6:2601:1c2:4f80:d230::5? ([2601:1c2:4f80:d230::5])
+ by smtp.gmail.com with ESMTPSA id i10sm15767282pfq.95.2021.02.23.10.10.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Feb 2021 10:10:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,168 +41,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfaaa91e-9940-4dc3-ba40-21c8f24bf469
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1614103422;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=PCgjtMgIflsC6PSiHLI9Ys5v7Nm5z7vXeFYHLR6W0IA=;
-  b=MgGM4Cr/LNdw7ToZeHgcQBQOs+67KPWaVHGd0ZArdnRMDkPRrXiejCFx
-   4sZcDY07hmgEDpiHKzUHvKOzzku5leohIe25L5spu7kzfkT8I7By/KqYn
-   XZ5jSo+wGedLXBqhfYu199U3P6HhfFVcKS2E6zbTdORpVpGVeIKqlpOFv
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: I/ga5D+mcVxz/gH5YPjhN8K4X1frv3S6d6GOTHkgwZhdWl/Nx9DIb/OpPGCbUVwBvadfEXhMpS
- iHC1yOnVB3r65vo7YX84jaKDL3p28PL6FISKDj1iweLiQCm7sELkFYitU5e5+OuA1seMXS+U9A
- LdSIhQHZwy5C7jRa8zzdxWyTvlcO5odXTR6OQBxfqQjMIcpp9EWHVRChOTL/iRhSxbxBtrQCzx
- BZWonwt9IG2YX1O77z3ngYQ4t6KhEAsQwv4hPf2TMKzsSJX1knreYaYLHHo3gZHch8tXRLRyS5
- fMw=
-X-SBRS: 5.2
-X-MesageID: 37850584
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,200,1610427600"; 
-   d="scan'208";a="37850584"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oun0jR8m1ZDozQMz0Qus/4tpoK4hcxls1G5qf/W3klaz4EXsOCkXeHGOcoTwXeqC5gw12y3X9Ys1aRlFISECKwt8a8tUaOurW11Ze9AcEQ/ZjHMFW5o/CWgTLKLm1QEe0mgsCAleIjWNz0iN2sapUEwoFgZKMKiKDGDoFfErFuK1MWNCnKzzEhHjE2PWIWxuwJBucbg7gAagAe0r+J6FzWvBZTV2GI4+GqJlikMFtyaF7F64H0S7x3tnw9bj8rz7gekgooZor5t1+PKuBZGE5HHkfX8DT+tMGB9/ijUbSwudbBtqngxZZWhmcu6N/rc2xcavz5pVGd1pJ7zng4DWBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HN5eKrFtSWC3HPsDBv8QE0Sl+p3T/8jC3D6N82xv25s=;
- b=fqLjaYEkAWME09e75hNxzwsZ5Kh+a5HXD4TTcyJLTm5eaSlt4tL6m+dNMZksJt1dmUWwb+4yXvPFGgOhPPHYuCX6/QPcGrqVLA/Ev/UZcmkITOiyb5O4Q9XTgzpoDZwJBtLZdqiB0VJxHRD3GJTQID83DUketM9sR14uk4Ft5SdF6hQZntcH76V+tP/Zeqf4uVAOEBtDRbzHhW7b9zf9Hj2BBfaqiWbLVRkRK/CpxXPsWyal5gkvhKzdcHdS6iPNrZMkzVZYTjtwakxoNBEjfEmzmvNG3xLw3kWscVSyC58grtakaaMpulnImVs+a38W5GUcL1/qDOlgSxLkWIeEpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: c62899d2-6773-4d9e-96d4-ce2582f2dd9b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HN5eKrFtSWC3HPsDBv8QE0Sl+p3T/8jC3D6N82xv25s=;
- b=GH4E1zr7Yk9UffecGsaDD22qIIR5k5jk7Lk5dWmqDhoaK0YY3tfBUw/KNKQE41RY69lYfli3gxc8zLqxUHOEajpQBkzDGqxuOwnCH7NPysm1X6I5BOYeYzolpNnTymYeOLk0VWldMadAZ6YvQw4q99iRHeD/8Z93qOufJgZi/eo=
-Date: Tue, 23 Feb 2021 19:03:34 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>
-Subject: Re: [PATCH v2 8/8] x86/PV: use get_unsafe() instead of
- copy_from_unsafe()
-Message-ID: <YDVDdozqBnoZjD/H@Air-de-Roger>
-References: <b466a19e-e547-3c7c-e39b-1a4c848a053a@suse.com>
- <0a59ae2f-448e-610d-e8a2-a7c3f9f3918f@suse.com>
- <YDTuGn8YWRrWlbS9@Air-de-Roger>
- <76207250-1372-e7ab-2d03-b46020a7906b@suse.com>
- <YDUhKw+19ITgVmml@Air-de-Roger>
- <4fdb5952-6196-3a79-1306-e65d75e495d2@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4fdb5952-6196-3a79-1306-e65d75e495d2@suse.com>
-X-ClientProxiedBy: MRXP264CA0043.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:14::31) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:organization:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Ryf0krA1u79pVJENjelYCbZuFAvQJ85HPmI2Z5SonOg=;
+        b=NaU6a9d/zvFpR6cKQKM0Me+30l1VTKt99yxliuIJL9bmZqO05VF7NJJUn6/UeMRtVY
+         9/b8zM5S1Iv+mi4mDNyZbLpu+5YsTCJVjvPYRRfEX7MQ8jNLmIcAz/0XRUceDneU7GTj
+         TvR7c4haXRM9AecdyTeRF2bKrLZcF+G90ZfP0zRQZ0t7q8YDAERUZTvUBDhxXchzwUML
+         MHObNemGRmRQkUJ9KRoPdY9NPa9E31lKpdzGJ1QiVa81QMKIChuEV6vubvxMEZ9nk5NN
+         dQu/hpBBvX4p4hMkWjYVyMlu6YOKCaS2A3vXlCmiWxqvxwiJ7A/Kea3K5nwcLP5OPkWa
+         uPKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=Ryf0krA1u79pVJENjelYCbZuFAvQJ85HPmI2Z5SonOg=;
+        b=Wd9Y7CHCv8GqdTOOIHUQ6XtIn42GwLEUmvAj/FOooY1FhOpkHqcEdP+CO4+YSiKSh9
+         tVSbWQXuf6I7svkeUI/iblc0XT4zeDJQe99bm5B33ioaeA4Kic7dwg3cSemUVg1/aEH+
+         lS9SXMh/5eMRTJxMnafJdX4a3Ias8nDnDx2IdY5LPgzn7p5N3TSlo+nLW2Etx0Bqf2sd
+         amxP1xp+Auyth8a7bvwLFaAGqdem49DdhkSFvfD6dLveR+D5RV94kIw33enE4tmyb4C+
+         913gpmgLqqcx0bpowRL/a7AJBY8TBn8ujvSw4LPqkKgHoCShtbIb73SCZ4idAoSr+/eo
+         jH2w==
+X-Gm-Message-State: AOAM530ZPJnSxeMn6kDUGICGq6qNwlY7bt+KGZZTklSTb5qY/z2t8los
+	PsrJHu50hBT4ZAEOG8J3TbQ=
+X-Google-Smtp-Source: ABdhPJyPWTY2ojVAxQL6iH2Y7r85BFjGkIh/0PiY9uLNrjDmTtPTUx2DqMF6GwZjmPXqJsW9XeVEfQ==
+X-Received: by 2002:a17:902:6b87:b029:dc:3402:18af with SMTP id p7-20020a1709026b87b02900dc340218afmr29120302plk.29.1614103850197;
+        Tue, 23 Feb 2021 10:10:50 -0800 (PST)
+Subject: Re: [PATCH v3 4/5] xen/x86: add some addresses to the Multiboot2
+ header
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Daniel Kiper <daniel.kiper@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <cover.1611273359.git.bobbyeshleman@gmail.com>
+ <35ad940a3da56fc39c9f24e15c9f09ef74ad3448.1611273359.git.bobbyeshleman@gmail.com>
+ <YDTFOD4jdE90fZ0/@Air-de-Roger>
+From: Bob Eshleman <bobbyeshleman@gmail.com>
+Organization: Vates SAS
+Message-ID: <b17a562e-90d1-9704-d3e8-2be1b0c215cb@gmail.com>
+Date: Tue, 23 Feb 2021 10:07:52 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9465a5fc-c45e-4b8c-9412-08d8d82558d9
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4602:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4602FF7BB41C92F99283C1BA8F809@DM6PR03MB4602.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EL3kLv1t1Thb4ZR2j8oLfPYrZhxchwLXx7aZwEXJEe4ypPnUdc+/+2LklYp2Pc1e6x8x9flts8WxAs56DCzbzPLJTVb2Vcx+iC0OJAv8G8e0qGb6g+pxNyC2ZNHk+dZtTtl7PysxjeaDqUD3vpuERdYQxyaUURu3EiYwQXm5MS8vPAs3icI6nMzOz0A5xQMRkADutAwq/VYwu9q1vsTihdlLDnB5zmby4k/3N0oZ8riRQpLySOJxL9JWgNMj7A2YGJfVGo4kckM6hg77yvqyKzpU34QMzgjCohhdpbPqMUK/0TPTFLrkkGyQHQXGL2e6A/GR3x03h0+iH0OD2HL9e1bKppc5QB7SREPj7wwnaStFQusF0bymdldxHNBopLFmZyH+u0j3RYNmQmn+ccKhaRAEIXnnoU/i84SPsQ/+qZEhD8RQXMff0NpZuPm1qe+C/9dy9dfNfF4ngwzlrTv5+kLlwglHchNNXyeQLgz5GpXLW/jOEzz+cck7gzTQ73BdVnB5dYA5ZG2ix0pm1TT6Xw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(346002)(376002)(136003)(396003)(39860400002)(6496006)(956004)(86362001)(2906002)(53546011)(9686003)(26005)(85182001)(16526019)(83380400001)(5660300002)(8936002)(66556008)(66476007)(186003)(66946007)(8676002)(6916009)(316002)(33716001)(6666004)(478600001)(6486002)(4326008)(54906003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RlpBZVU1RHNGL2l5VWRTb2RDVXlMMVVvR2E1NkI2d2pZVC9CeWVGcWtEb1Zx?=
- =?utf-8?B?N1lNcGVOTWdzRFhSNlRONjM5ZEFadnlyeG02ZGs3bzMyNVl3QURGSkozdVhn?=
- =?utf-8?B?bGVJSkszNTBVMVpGUTVhOU82bEpwdklGbXBtUkNsREc3WVRzK1I2S1FIeExw?=
- =?utf-8?B?OFhtMkZVU0hLeUlkWlltOXptRVpIbFdvTGNMT3dESm5yV1g3QWpEQWZMUzhF?=
- =?utf-8?B?QnRQR240S3R3TkJyU0J1S3p0VlFXM2FnTFV5dnlQSmRybWd5UkNsMWhWUGQ1?=
- =?utf-8?B?SHp4Y0p4WG0xbjdvMDJQakJzS1hJbGZUVGR4SWpjYlp4eUZUUmIrN0xZdkYv?=
- =?utf-8?B?c2VMV1RHOHk5QjRHZ0ZaelVaUGhPVHhOb0l2aHZXOW51SnFqaUI1RzAxaC9t?=
- =?utf-8?B?UElqZ2MwM01RUU1uaTB1SWNWazZVVy9KRTI1U1JZU1k2OVluUTRqc2JXUlo4?=
- =?utf-8?B?R0xaLy9US09vWFl3R1dyblpNQ3ZPVG9OL3BFYXJBUUdzUTRVZ1h4RHFUVDlY?=
- =?utf-8?B?ZlhkTkhkeEdsbFpCRG9kZjNyQVQ2R2REV0tBNVgvYnlldVlldExCeW53ZFNG?=
- =?utf-8?B?bm5jaVk2K3B3NHlWNEhDWXVkYlgyQWZ2REluOVJOMW5VMVg4MktDcFBJeVB5?=
- =?utf-8?B?K3FiRUIzaGJlZS8zeHo3QUdhMnJUNjFLby9tNW9aNWRwa1FWQ01MejU2K1VZ?=
- =?utf-8?B?NnZFY2lZVThwZXNUcWsvS1FReVpub1h3REFqN3gxUmRBSnJQdGRoUUt1elZa?=
- =?utf-8?B?cmtvTi9jMDlPWlBUZ0VqUDBTbnRxRDlRQnRQaW12NkxHRE9uWjhMQ2NVZFUy?=
- =?utf-8?B?aGpiaDd6eUlTSDhJcW83d3hCRDBMSWo2Nis5YXRweEhNckVjYWdlc3MxRjhq?=
- =?utf-8?B?bU9hUzR0YWVkUjl2V0UrWkVyVEZkQ3BERld2dW1CNzByUkhXTUpDWGxTa0xl?=
- =?utf-8?B?SE1qOElGb01aTThUa3krSU5xMlZvYS8vbDRQNW4xdDdqNThtaE9BL2JjdzZk?=
- =?utf-8?B?Nk0rV3d6TzF6ZTFBQlBBWTZnVnM5clJkWnAxZWdueEFoQUZrSGorQzlBUmNj?=
- =?utf-8?B?SXAvN05oV1czMDJEQnljczB1dzMxNFU4NEVLNU5NOUZWdy9BODVHQ2dJZjRE?=
- =?utf-8?B?NG00czhzeGZvMlNMcGdhbUs3Sk1HTzRMenFHb1pVckpHV0I4dks5d01peVIw?=
- =?utf-8?B?SXFoZ1p6NmtEVjhDNEsxSURRd0RiRldkdjJwVXl6SDJBeWR5R1grVHUwYWgr?=
- =?utf-8?B?eTFNeGN4Sy9xVDRCUFJXWnM5K3pXeGNLSW9GTVdlWEt3T25xUmhPOHZkNkRz?=
- =?utf-8?B?bnd5NzVUekRabVlpSnRXOVJxZG5mc2tBbnVFMythdXR0d25BNUJDL2h6SGI0?=
- =?utf-8?B?UnBobm9raERzUUswSDJBbjRkOUxGU1Q0NXQ5K0ZXdHpBUEU0VmdSckJyaHk0?=
- =?utf-8?B?YUFNVHk0bGdMR1NmTHZ1bWhaMXZBSUpyNHdwYm82ZHF0QkNXYkNlMUE3Q1lL?=
- =?utf-8?B?NlhZTGVZSXIyaktiekppVy81TFA1eTNHbkdaQUxDTjlJa3NpUjV1NmtrcDBI?=
- =?utf-8?B?T2FNV0xrdURqS21sZ2xDME9vS1dpYktJaHJxRTNhRE5jOWVJMXhQaVVxZEwr?=
- =?utf-8?B?RmRBYnB1aVdxbnVoQlhjK2srMFRvczZGREhOdzFpMFZ0dFN4MjAvaE1pMGdW?=
- =?utf-8?B?dldMUlFKUWE2VW5tcDJBc2lVV0FCamRmV1h5UkdaUXRUdlF3REY4dG5sdHlV?=
- =?utf-8?B?OUJvcVI1ajEwMWJSNUxxL3lxcGtQT3hueHZaVzJ3N1ZlYk4rc1YxSEN5QnBq?=
- =?utf-8?B?V1pQMmNyVVlYNlE2NWptdz09?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9465a5fc-c45e-4b8c-9412-08d8d82558d9
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2021 18:03:39.0761
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zeVAIGWXmCMAhtCOnjyTcVos30wFWjRNU3VKeAGzgsDK0YefcRVLrJLzFNqVFQ8V1mT1cVY2J3Gl0Fq94O7a7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4602
-X-OriginatorOrg: citrix.com
+In-Reply-To: <YDTFOD4jdE90fZ0/@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Tue, Feb 23, 2021 at 05:13:21PM +0100, Jan Beulich wrote:
-> On 23.02.2021 16:37, Roger Pau Monné wrote:
-> > On Tue, Feb 23, 2021 at 04:25:00PM +0100, Jan Beulich wrote:
-> >> On 23.02.2021 12:59, Roger Pau Monné wrote:
-> >>> On Wed, Feb 17, 2021 at 09:23:33AM +0100, Jan Beulich wrote:
-> >>>> The former expands to a single (memory accessing) insn, which the latter
-> >>>> does not guarantee. Yet we'd prefer to read consistent PTEs rather than
-> >>>> risking a split read racing with an update done elsewhere.
-> >>>>
-> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>
-> >>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>>
-> >>> Albeit I wonder why the __builtin_constant_p check done in
-> >>> copy_from_unsafe is not enough to take the get_unsafe_size branch in
-> >>> there. Doesn't sizeof(l{1,2}_pgentry_t) qualify as a built time
-> >>> constant?
-> >>>
-> >>> Or the fact that n it's a parameter to an inline function hides this,
-> >>> in which case the __builtin_constant_p is pointless?
-> >>
-> >> Without (enough) optimization, __builtin_constant_p() may indeed
-> >> yield false in such cases. But that wasn't actually what I had
-> >> in mind when making this change (and the original similar on in
-> >> shadow code). Instead, at the time I made the shadow side change,
-> >> I had removed this optimization from the new function flavors.
-> >> With that removal, things are supposed to still be correct - it's
-> >> an optimization only, after all. Meanwhile the optimizations are
-> >> back, so there's no immediate problem as long as the optimizer
-> >> doesn't decide to out-of-line the function invocations (we
-> >> shouldn't forget that even always_inline is not a guarantee for
-> >> inlining to actually occur).
-> > 
-> > I'm fine with you switching those use cases to get_unsafe, but I think
-> > the commit message should be slightly adjusted to notice that
-> > copy_from_unsafe will likely do the right thing, but that it's simply
-> > clearer to call get_unsafe directly, also in case copy_from_unsafe
-> > gets changed in the future to drop the get_unsafe paths.
+On 2/23/21 1:04 AM, Roger Pau Monné wrote:
+> On Thu, Jan 21, 2021 at 04:51:43PM -0800, Bobby Eshleman wrote:
+>> From: Daniel Kiper <daniel.kiper@oracle.com>
+>>
+>> In comparison to ELF the PE format is not supported by the Multiboot2
+>> protocol. So, if we wish to load xen.mb.efi using this protocol we have
+>> to add MULTIBOOT2_HEADER_TAG_ADDRESS and MULTIBOOT2_HEADER_TAG_ENTRY_ADDRESS
+>> tags into Multiboot2 header.
+>>
+>> Additionally, put MULTIBOOT2_HEADER_TAG_ENTRY_ADDRESS and
+>> MULTIBOOT2_HEADER_TAG_ENTRY_ADDRESS_EFI64 tags close to each
+>> other to make the header more readable.
+>>
+>> The Multiboot2 protocol spec can be found at
+>>   https://www.gnu.org/software/grub/manual/multiboot2/
+>>
+>> Signed-off-by: Daniel Kiper <daniel.kiper@oracle.com>
+>> Signed-off-by: Bobby Eshleman <bobbyeshleman@gmail.com>
+>> ---
+>>  xen/arch/x86/boot/head.S | 19 +++++++++++++++----
+>>  1 file changed, 15 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+>> index 189d91a872..f2edd182a5 100644
+>> --- a/xen/arch/x86/boot/head.S
+>> +++ b/xen/arch/x86/boot/head.S
+>> @@ -94,6 +94,13 @@ multiboot2_header:
+>>          /* Align modules at page boundry. */
+>>          mb2ht_init MB2_HT(MODULE_ALIGN), MB2_HT(REQUIRED)
+>>  
+>> +        /* The address tag. */
+>> +        mb2ht_init MB2_HT(ADDRESS), MB2_HT(REQUIRED), \
+>> +                   sym_offs(multiboot2_header), /* header_addr */ \
+>> +                   sym_offs(start),             /* load_addr */ \
+>> +                   sym_offs(__bss_start),       /* load_end_addr */ \
+>> +                   sym_offs(__2M_rwdata_end)    /* bss_end_addr */
 > 
-> How about this then?
+> Shouldn't this only be present when a PE binary is built?
 > 
-> "The former expands to a single (memory accessing) insn, which the latter
->  does not guarantee (the __builtin_constant_p() based switch() statement
->  there is just an optimization). Yet we'd prefer to read consistent PTEs
->  rather than risking a split read racing with an update done elsewhere."
+> You seem to unconditionally add this to the header, even when the
+> resulting binary will be in ELF format?
+> 
+> According to the spec: "This information does not need to be provided
+> if the kernel image is in ELF format", and hence Xen shouldn't require
+> the loader to understand this tag unless it's strictly required, as
+> the presence of the tag forces the bootloader to use the presented
+> information in order to load the kernel, regardless of the underlying
+> binary format.
+> 
+> Thanks, Roger.
+> 
 
-LGTM, thanks.
+Ah yes, this is true.  It may have made more sense to do this with v2 trying
+to step us in the direction of a single unified binary, but it certainly isn't
+required with v3.
 
-Roger.
+Thanks,
+Bob
 
