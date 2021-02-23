@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF0A0322A9D
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 13:34:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88756.167034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E7D322A9A
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 13:34:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88757.167043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEWti-0008Su-7K; Tue, 23 Feb 2021 12:34:38 +0000
+	id 1lEWti-0008TX-GM; Tue, 23 Feb 2021 12:34:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88756.167034; Tue, 23 Feb 2021 12:34:38 +0000
+Received: by outflank-mailman (output) from mailman id 88757.167043; Tue, 23 Feb 2021 12:34:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEWti-0008SU-3D; Tue, 23 Feb 2021 12:34:38 +0000
-Received: by outflank-mailman (input) for mailman id 88756;
- Tue, 23 Feb 2021 12:34:36 +0000
+	id 1lEWti-0008Sq-Bw; Tue, 23 Feb 2021 12:34:38 +0000
+Received: by outflank-mailman (input) for mailman id 88757;
+ Tue, 23 Feb 2021 12:34:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lEWtg-0008SK-JG
- for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 12:34:36 +0000
+ (envelope-from <julien@xen.org>) id 1lEWth-0008SP-8a
+ for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 12:34:37 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lEWtg-0002ds-2m; Tue, 23 Feb 2021 12:34:36 +0000
+ id 1lEWtg-0002dx-Sb; Tue, 23 Feb 2021 12:34:36 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=ufe34d9ed68d054.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lEWtf-0000cJ-L5; Tue, 23 Feb 2021 12:34:35 +0000
+ id 1lEWtg-0000cJ-I5; Tue, 23 Feb 2021 12:34:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,58 +41,125 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
-	bh=qOQNybg5DTKGdQKuYPQV7s9nH2sOE4WF8M2drVNX3Xs=; b=ebwc4kLeSRiYVQ3DfWm/K1blnj
-	iWdaXzpZnt7/Z5tbcNTB2eiWUGigmJ9zE/cJd1SsTLeEFq7yDrNqKRY9UnkJKzzfROx1l+a/sM3lE
-	ojsk6amQCpRy44P95BxQ0ZBUteS6VWpeEhIcqh8hOxCMBy+N0xa+5h1KtiEhcSHumoPM=;
+	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	 bh=F3pV8CFzjIR41kWk/X0MEyzvkJbWUgUJEtOR4PpRZWU=; b=q3+ReLHEwtnUCAwIgcDRLjifb
+	PpBJB30Kbw3Y92arepez1Rw812d92MAo/ToFT0QIjKkb6eFPm3bGEHXV9RbiUr6eylG32+Nj7HEXQ
+	V30rwbVG4fhDTf0uMQB1z7hP98fHwa4Ev3M5XJ0DPGtXv4gg+ugcQi6gLc46X3UdpUHIU=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: hongyxia@amazon.co.uk,
 	iwj@xenproject.org,
 	Julien Grall <jgrall@amazon.com>
-Subject: [for-4.15][PATCH v4 0/2] xen/iommu: Collection of bug fixes for IOMMU teardown
-Date: Tue, 23 Feb 2021 12:34:31 +0000
-Message-Id: <20210223123433.19645-1-julien@xen.org>
+Subject: [for-4.15][PATCH v4 1/2] xen/x86: iommu: Ignore IOMMU mapping requests when a domain is dying
+Date: Tue, 23 Feb 2021 12:34:32 +0000
+Message-Id: <20210223123433.19645-2-julien@xen.org>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210223123433.19645-1-julien@xen.org>
+References: <20210223123433.19645-1-julien@xen.org>
 
 From: Julien Grall <jgrall@amazon.com>
 
-Hi all,
+The new x86 IOMMU page-tables allocator will release the pages when
+relinquishing the domain resources. However, this is not sufficient
+when the domain is dying because nothing prevents page-table to be
+allocated.
 
-This series is a collection of bug fixes for the IOMMU teardown code.
-All of them are candidate for 4.15 as they can either leak memory or
-lead to host crash/host corruption.
+As the domain is dying, it is not necessary to continue to modify the
+IOMMU page-tables as they are going to be destroyed soon.
 
-This is sent directly on xen-devel because all the issues were either
-introduced in 4.15 or happen in the domain creation code.
+At the moment, page-table allocates will only happen when iommu_map().
+So after this change there will be no more page-table allocation
+happening.
 
-Major changes since v3:
-    - Remove patch #3 "xen/iommu: x86: Harden the IOMMU page-table
-    allocator" as it is not strictly necessary for 4.15.
-    - Re-order the patches to avoid on a follow-up patch to fix
-    completely the issue.
+In order to observe d->is_dying correctly, we need to rely on per-arch
+locking, so the check to ignore IOMMU mapping is added on the per-driver
+map_page() callback.
 
-Major changes since v2:
-    - patch #1 "xen/x86: p2m: Don't map the special pages in the IOMMU
-    page-tables" has been removed. This requires Jan's patch [1] to
-    fully mitigate memory leaks.
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Cheers,
+---
 
-[1] <90271e69-c07e-a32c-5531-a79b10ef03dd@suse.com>
+As discussed in v3, this is only covering 4.15. We can discuss
+post-4.15 how to catch page-table allocations if another caller (e.g.
+iommu_unmap() if we ever decide to support superpages) start to use the
+page-table allocator.
 
-Julien Grall (2):
-  xen/x86: iommu: Ignore IOMMU mapping requests when a domain is dying
-  xen/iommu: x86: Clear the root page-table before freeing the
-    page-tables
+Changes in v4:
+    - Move the patch to the top of the queue
+    - Reword the commit message
 
- xen/drivers/passthrough/amd/iommu_map.c     | 12 +++++++++++
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 12 ++++++++++-
- xen/drivers/passthrough/vtd/iommu.c         | 24 ++++++++++++++++++++-
- xen/drivers/passthrough/x86/iommu.c         | 19 ++++++++++++++++
- xen/include/xen/iommu.h                     |  1 +
- 5 files changed, 66 insertions(+), 2 deletions(-)
+Changes in v3:
+    - Patch added. This is a replacement of "xen/iommu: iommu_map: Don't
+    crash the domain if it is dying"
+---
+ xen/drivers/passthrough/amd/iommu_map.c | 12 ++++++++++++
+ xen/drivers/passthrough/vtd/iommu.c     | 12 ++++++++++++
+ xen/drivers/passthrough/x86/iommu.c     |  6 ++++++
+ 3 files changed, 30 insertions(+)
 
+diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
+index d3a8b1aec766..560af54b765b 100644
+--- a/xen/drivers/passthrough/amd/iommu_map.c
++++ b/xen/drivers/passthrough/amd/iommu_map.c
+@@ -285,6 +285,18 @@ int amd_iommu_map_page(struct domain *d, dfn_t dfn, mfn_t mfn,
+ 
+     spin_lock(&hd->arch.mapping_lock);
+ 
++    /*
++     * IOMMU mapping request can be safely ignored when the domain is dying.
++     *
++     * hd->arch.mapping_lock guarantees that d->is_dying will be observed
++     * before any page tables are freed (see iommu_free_pgtables()).
++     */
++    if ( d->is_dying )
++    {
++        spin_unlock(&hd->arch.mapping_lock);
++        return 0;
++    }
++
+     rc = amd_iommu_alloc_root(d);
+     if ( rc )
+     {
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index d136fe36883b..b549a71530d5 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1762,6 +1762,18 @@ static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
+ 
+     spin_lock(&hd->arch.mapping_lock);
+ 
++    /*
++     * IOMMU mapping request can be safely ignored when the domain is dying.
++     *
++     * hd->arch.mapping_lock guarantees that d->is_dying will be observed
++     * before any page tables are freed (see iommu_free_pgtables())
++     */
++    if ( d->is_dying )
++    {
++        spin_unlock(&hd->arch.mapping_lock);
++        return 0;
++    }
++
+     pg_maddr = addr_to_dma_page_maddr(d, dfn_to_daddr(dfn), 1);
+     if ( !pg_maddr )
+     {
+diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+index cea1032b3d02..c6b03624fe28 100644
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -267,6 +267,12 @@ int iommu_free_pgtables(struct domain *d)
+     struct page_info *pg;
+     unsigned int done = 0;
+ 
++    if ( !is_iommu_enabled(d) )
++        return 0;
++
++    /* After this barrier, no more IOMMU mapping can happen */
++    spin_barrier(&hd->arch.mapping_lock);
++
+     while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
+     {
+         free_domheap_page(pg);
 -- 
 2.17.1
 
