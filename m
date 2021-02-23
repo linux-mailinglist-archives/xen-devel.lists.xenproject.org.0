@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD2932238F
+	by mail.lfdr.de (Postfix) with ESMTPS id C786A32238E
 	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 02:23:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88449.166313 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.88450.166325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEMPI-0004j8-52; Tue, 23 Feb 2021 01:22:32 +0000
+	id 1lEMPU-0004mb-F0; Tue, 23 Feb 2021 01:22:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88449.166313; Tue, 23 Feb 2021 01:22:32 +0000
+Received: by outflank-mailman (output) from mailman id 88450.166325; Tue, 23 Feb 2021 01:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEMPI-0004in-1q; Tue, 23 Feb 2021 01:22:32 +0000
-Received: by outflank-mailman (input) for mailman id 88449;
- Tue, 23 Feb 2021 01:22:30 +0000
+	id 1lEMPU-0004m8-Bh; Tue, 23 Feb 2021 01:22:44 +0000
+Received: by outflank-mailman (input) for mailman id 88450;
+ Tue, 23 Feb 2021 01:22:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjLX=HZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lEMPG-0004ii-8z
- for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 01:22:30 +0000
+ id 1lEMPT-0004lo-0m
+ for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 01:22:43 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e96a0301-58f8-41bb-8b37-1325b4637893;
- Tue, 23 Feb 2021 01:22:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A8BC86023B;
- Tue, 23 Feb 2021 01:22:25 +0000 (UTC)
+ id a6415042-eeff-434c-9f04-58e5e503bc6e;
+ Tue, 23 Feb 2021 01:22:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 37FE860232;
+ Tue, 23 Feb 2021 01:22:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,141 +38,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e96a0301-58f8-41bb-8b37-1325b4637893
+X-Inumbo-ID: a6415042-eeff-434c-9f04-58e5e503bc6e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1614043347;
-	bh=QyNsljerVpDiDO+K9/ltiFTkhVqcxc/0Ay2CXZ1z8vI=;
+	s=k20201202; t=1614043360;
+	bh=oWm6YpCZFokyXFPg4w/nT1ETGWtxM4rWjT0X04AB81s=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qT9uEWGJgqYzpURFhCR6u+Wbw6bbsJzfvEpXt+qOvRpZBeHHsRUnipN3HQHDDB3E3
-	 gCjXrJz0oOmy8eLfkAtbzisTgVdrdP8aPT65rPgULTDiPO+qGgU3kXayVSCi7szBX/
-	 MfxWKKRGZmJ1Y0ya3KFks5fDwYLPA+LP36j6egOWcx+zZZlUCQVI7We8WcL7pgLfTc
-	 aFyNR7YKXv/dZO9DLIrqsrZIWF99Xag6MDO0N1HuYflfFdk0rqJHeOrj3VhyML8MHz
-	 tVChYYBBryvSqBDuB2Mo5J/NvyYzT12d/wTuwUUZX0GTHVvNU/omP5eYzJ827lYJXw
-	 ABjqJ4JGM8RZA==
-Date: Mon, 22 Feb 2021 17:22:24 -0800 (PST)
+	b=LE0/8+/pevloD1jA0tvpooneXesJD7l65fVSZIgUi+AkkmrOjn+CFX2eNzibVDw4U
+	 GMxeHFFSHkEm/WZId2Z7V8in5o2GqVfmG0iGhaHbwmYcQriT7lHptDA9eQ8s2uJJn4
+	 Isl03t2dgqS7P/R6Yjsz6t2MeLBVfoZk9oKsCq15ivW+dgOygur/PW86yq4BpHlG4a
+	 QQLylMZijyKDNkI+JVyY8OVlDEwZgb1cFXuCMpqR+CO7kg7wxiuLH1+93b184T7mkd
+	 ZMwbprqiYf3BesEasDp8kbH4NpZcFY/r/4Ef+fSLNKadWlLgV+oGPuzSuK8U1lzFNX
+	 dNQhvI/kEOh0A==
+Date: Mon, 22 Feb 2021 17:22:39 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-cc: Christoph Hellwig <hch@lst.de>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, jgross@suse.com, 
-    Dongli Zhang <dongli.zhang@oracle.com>, dri-devel@lists.freedesktop.org, 
-    intel-gfx@lists.freedesktop.org, iommu@lists.linux-foundation.org, 
-    linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, 
-    linux-pci@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-    nouveau@lists.freedesktop.org, x86@kernel.org, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    adrian.hunter@intel.com, akpm@linux-foundation.org, 
-    benh@kernel.crashing.org, bskeggs@redhat.com, bhelgaas@google.com, 
-    bp@alien8.de, chris@chris-wilson.co.uk, daniel@ffwll.ch, airlied@linux.ie, 
-    hpa@zytor.com, mingo@kernel.org, mingo@redhat.com, 
-    jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
-    m.szyprowski@samsung.com, matthew.auld@intel.com, mpe@ellerman.id.au, 
-    rppt@kernel.org, paulus@samba.org, peterz@infradead.org, 
-    robin.murphy@arm.com, rodrigo.vivi@intel.com, sstabellini@kernel.org, 
-    bauerman@linux.ibm.com, tsbogend@alpha.franken.de, tglx@linutronix.de, 
-    ulf.hansson@linaro.org, joe.jin@oracle.com, thomas.lendacky@amd.com
-Subject: Re: [PATCH RFC v1 5/6] xen-swiotlb: convert variables to arrays
-In-Reply-To: <YDAgT2ZIdncNwNlf@Konrads-MacBook-Pro.local>
-Message-ID: <alpine.DEB.2.21.2102221511360.3234@sstabellini-ThinkPad-T480s>
-References: <20210203233709.19819-1-dongli.zhang@oracle.com> <20210203233709.19819-6-dongli.zhang@oracle.com> <20210204084023.GA32328@lst.de> <20210207155601.GA25111@lst.de> <YDAgT2ZIdncNwNlf@Konrads-MacBook-Pro.local>
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Jan Beulich <jbeulich@suse.com>, iwj@xenproject.org, 
+    ash.j.wilding@gmail.com, Julien Grall <jgrall@amazon.com>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.15] xen/sched: Add missing memory barrier in
+ vcpu_block()
+In-Reply-To: <b68a644f-8b9c-3e1d-49c6-4058d276228b@xen.org>
+Message-ID: <alpine.DEB.2.21.2102221217480.3234@sstabellini-ThinkPad-T480s>
+References: <20210220194701.24202-1-julien@xen.org> <744ca7e5-328d-0c5f-bc52-e4c0e78dad97@suse.com> <alpine.DEB.2.21.2102221208050.3234@sstabellini-ThinkPad-T480s> <b68a644f-8b9c-3e1d-49c6-4058d276228b@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1073832744-1614025194=:3234"
+Content-ID: <alpine.DEB.2.21.2102221722300.3234@sstabellini-ThinkPad-T480s>
 
-On Fri, 19 Feb 2021, Konrad Rzeszutek Wilk wrote:
-> On Sun, Feb 07, 2021 at 04:56:01PM +0100, Christoph Hellwig wrote:
-> > On Thu, Feb 04, 2021 at 09:40:23AM +0100, Christoph Hellwig wrote:
-> > > So one thing that has been on my mind for a while:  I'd really like
-> > > to kill the separate dma ops in Xen swiotlb.  If we compare xen-swiotlb
-> > > to swiotlb the main difference seems to be:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1073832744-1614025194=:3234
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2102221722301.3234@sstabellini-ThinkPad-T480s>
+
+On Mon, 22 Feb 2021, Julien Grall wrote:
+> On 22/02/2021 20:09, Stefano Stabellini wrote:
+> > On Mon, 22 Feb 2021, Jan Beulich wrote:
+> > > On 20.02.2021 20:47, Julien Grall wrote:
+> > > > From: Julien Grall <jgrall@amazon.com>
+> > > > 
+> > > > The comment in vcpu_block() states that the events should be checked
+> > > > /after/ blocking to avoids wakeup waiting race. However, from a generic
+> > > > perspective, set_bit() doesn't prevent re-ordering. So the following
+> > > > could happen:
+> > > > 
+> > > > CPU0  (blocking vCPU A)         |   CPU1 ( unblock vCPU A)
+> > > >                                  |
+> > > > A <- read local events          |
+> > > >                                  |   set local events
+> > > >                                  |   test_and_clear_bit(_VPF_blocked)
+> > > >                                  |       -> Bail out as the bit if not
+> > > > set
+> > > >                                  |
+> > > > set_bit(_VFP_blocked)           |
+> > > >                                  |
+> > > > check A                         |
+> > > > 
+> > > > The variable A will be 0 and therefore the vCPU will be blocked when it
+> > > > should continue running.
+> > > > 
+> > > > vcpu_block() is now gaining an smp_mb__after_atomic() to prevent the CPU
+> > > > to read any information about local events before the flag _VPF_blocked
+> > > > is set.
+> > > > 
+> > > > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > > > 
-> > >  - additional reasons to bounce I/O vs the plain DMA capable
-> > >  - the possibility to do a hypercall on arm/arm64
-> > >  - an extra translation layer before doing the phys_to_dma and vice
-> > >    versa
-> > >  - an special memory allocator
+> > > Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> > 
+> > 
+> > 
+> > > > This is a follow-up of the discussion that started in 2019 (see [1])
+> > > > regarding a possible race between do_poll()/vcpu_unblock() and the wake
+> > > > up path.
+> > > > 
+> > > > I haven't yet fully thought about the potential race in do_poll(). If
+> > > > there is, then this would likely want to be fixed in a separate patch.
+> > > > 
+> > > > On x86, the current code is safe because set_bit() is fully ordered. SO
+> > > > the problem is Arm (and potentially any new architectures).
+> > > > 
+> > > > I couldn't convince myself whether the Arm implementation of
+> > > > local_events_need_delivery() contains enough barrier to prevent the
+> > > > re-ordering. However, I don't think we want to play with devil here as
+> > > > the function may be optimized in the future.
 > > > 
-> > > I wonder if inbetween a few jump labels or other no overhead enablement
-> > > options and possibly better use of the dma_range_map we could kill
-> > > off most of swiotlb-xen instead of maintaining all this code duplication?
-> > 
-> > So I looked at this a bit more.
-> > 
-> > For x86 with XENFEAT_auto_translated_physmap (how common is that?)
+> > > In fact I think this ...
+> > > 
+> > > > --- a/xen/common/sched/core.c
+> > > > +++ b/xen/common/sched/core.c
+> > > > @@ -1418,6 +1418,8 @@ void vcpu_block(void)
+> > > >         set_bit(_VPF_blocked, &v->pause_flags);
+> > > >   +    smp_mb__after_atomic();
+> > > > +
+> > > 
+> > > ... pattern should be looked for throughout the codebase, and barriers
+> > > be added unless it can be proven none is needed. >
+> > And in that case it would be best to add an in-code comment to explain
+> > why the barrier is not needed
+> .
+> I would rather not add comment for every *_bit() calls. It should be pretty
+> obvious for most of them that the barrier is not necessary.
 > 
-> Juergen, Boris please correct me if I am wrong, but that XENFEAT_auto_translated_physmap
-> only works for PVH guests?
+> We should only add comments where the barrier is necessary or it is not clear
+> why it is not necessary.
 
-ARM is always XENFEAT_auto_translated_physmap
-
-
-> > pfn_to_gfn is a nop, so plain phys_to_dma/dma_to_phys do work as-is.
-> > 
-> > xen_arch_need_swiotlb always returns true for x86, and
-> > range_straddles_page_boundary should never be true for the
-> > XENFEAT_auto_translated_physmap case.
-> 
-> Correct. The kernel should have no clue of what the real MFNs are
-> for PFNs.
-
-On ARM, Linux knows the MFNs because for local pages MFN == PFN and for
-foreign pages it keeps track in arch/arm/xen/p2m.c. More on this below.
-
-xen_arch_need_swiotlb only returns true on ARM in rare situations where
-bouncing on swiotlb buffers is required. Today it only happens on old
-versions of Xen that don't support the cache flushing hypercall but
-there could be more cases in the future.
-
-
-> > 
-> > So as far as I can tell the mapping fast path for the
-> > XENFEAT_auto_translated_physmap can be trivially reused from swiotlb.
-> > 
-> > That leaves us with the next more complicated case, x86 or fully cache
-> > coherent arm{,64} without XENFEAT_auto_translated_physmap.  In that case
-> > we need to patch in a phys_to_dma/dma_to_phys that performs the MFN
-> > lookup, which could be done using alternatives or jump labels.
-> > I think if that is done right we should also be able to let that cover
-> > the foreign pages in is_xen_swiotlb_buffer/is_swiotlb_buffer, but
-> > in that worst case that would need another alternative / jump label.
-> > 
-> > For non-coherent arm{,64} we'd also need to use alternatives or jump
-> > labels to for the cache maintainance ops, but that isn't a hard problem
-> > either.
-
-With the caveat that ARM is always XENFEAT_auto_translated_physmap, what
-you wrote looks correct. I am writing down a brief explanation on how
-swiotlb-xen is used on ARM.
-
-
-pfn: address as seen by the guest, pseudo-physical address in ARM terminology
-mfn (or bfn): real address, physical address in ARM terminology
-
-
-On ARM dom0 is auto_translated (so Xen sets up the stage2 translation
-in the MMU) and the translation is 1:1. So pfn == mfn for Dom0.
-
-However, when another domain shares a page with Dom0, that page is not
-1:1. Swiotlb-xen is used to retrieve the mfn for the foreign page at
-xen_swiotlb_map_page. It does that with xen_phys_to_bus -> pfn_to_bfn.
-It is implemented with a rbtree in arch/arm/xen/p2m.c.
-
-In addition, swiotlb-xen is also used to cache-flush the page via
-hypercall at xen_swiotlb_unmap_page. That is done because dev_addr is
-really the mfn at unmap_page and we don't know the pfn for it. We can do
-pfn-to-mfn but we cannot do mfn-to-pfn (there are good reasons for it
-unfortunately). The only way to cache-flush by mfn is by issuing a
-hypercall. The hypercall is implemented in arch/arm/xen/mm.c.
-
-The pfn != bfn and pfn_valid() checks are used to detect if the page is
-local (of dom0) or foreign; they work thanks to the fact that Dom0 is
-1:1 mapped.
-
-
-Getting back to what you wrote, yes if we had a way to do MFN lookups in
-phys_to_dma, and a way to call the hypercall at unmap_page if the page
-is foreign (e.g. if it fails a pfn_valid check) then I think we would be
-good from an ARM perspective. The only exception is when
-xen_arch_need_swiotlb returns true, in which case we need to actually
-bounce on swiotlb buffers.
+Either way is fine, as long as it is consistent. Yeah we don't want to
+add too many comments everywhere so maybe adding them only when the
+barrier is required could be better.
+--8323329-1073832744-1614025194=:3234--
 
