@@ -2,45 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29660322A74
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 13:26:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88752.167024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDEEE322A64
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 13:18:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88746.167006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEWl2-0007Pp-9z; Tue, 23 Feb 2021 12:25:40 +0000
+	id 1lEWd5-0006OZ-Du; Tue, 23 Feb 2021 12:17:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88752.167024; Tue, 23 Feb 2021 12:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 88746.167006; Tue, 23 Feb 2021 12:17:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEWl2-0007PO-5v; Tue, 23 Feb 2021 12:25:40 +0000
-Received: by outflank-mailman (input) for mailman id 88752;
- Tue, 23 Feb 2021 12:25:38 +0000
+	id 1lEWd5-0006O7-9v; Tue, 23 Feb 2021 12:17:27 +0000
+Received: by outflank-mailman (input) for mailman id 88746;
+ Tue, 23 Feb 2021 12:17:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p6em=HZ=epam.com=prvs=268883478e=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1lEWl0-0007PJ-Bx
- for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 12:25:38 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ <SRS0=UeLE=HZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lEWd2-0006O0-P1
+ for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 12:17:25 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6b9d024f-9e52-4ba1-b442-82e471665634;
- Tue, 23 Feb 2021 12:25:36 +0000 (UTC)
-Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 11NCPWdE031886; Tue, 23 Feb 2021 12:25:34 GMT
-Received: from eur04-db3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57])
- by mx0a-0039f301.pphosted.com with ESMTP id 36vyne0m6h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Feb 2021 12:25:33 +0000
-Received: from AM0PR03MB3508.eurprd03.prod.outlook.com (2603:10a6:208:4f::23)
- by AM9PR03MB7490.eurprd03.prod.outlook.com (2603:10a6:20b:265::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Tue, 23 Feb
- 2021 12:10:11 +0000
-Received: from AM0PR03MB3508.eurprd03.prod.outlook.com
- ([fe80::a9a4:6122:8de2:64cb]) by AM0PR03MB3508.eurprd03.prod.outlook.com
- ([fe80::a9a4:6122:8de2:64cb%6]) with mapi id 15.20.3846.042; Tue, 23 Feb 2021
- 12:06:32 +0000
+ id 46f47052-6738-4e75-b35d-737404c18497;
+ Tue, 23 Feb 2021 12:17:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,315 +35,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b9d024f-9e52-4ba1-b442-82e471665634
+X-Inumbo-ID: 46f47052-6738-4e75-b35d-737404c18497
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614082643;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=6B5lLyzjoNzPFmwuDmERxt8fR91d9DWd3QrM6/1ZnqI=;
+  b=NF5Oy20g3xZ+4wfNvXQnZ3ffadO6i5Z9Y3kBvcx+liGcdTW6LuOnA1uc
+   aAwwCr3ARWR195RJCFq0KJuinXAieVvdVgMAyWJQ66eIobpc055o6HEyl
+   id6wJe7Ztv7iRIh/jERt8P0J7UUvGh+KgkWyKPXcu0dI7XIiJ8G4FAwos
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: I+E74cw3AHxp7YawhHMtesxL62lXw4T/VTYIOSn2yKkd+0pNngsaEmqJbaidNSy+7tOUjfMyYY
+ Z0N8N1Nxof3k79jcScTGKLjD9WMV56JedJgyRbQNYR8AMfX6/Y6nM5jSguaZpWZfZKdrnfHRXu
+ /YgK38wscWefONQSzxsAnPar+r1PUdCNl3zHNbzU7gwuBlxF0IeYDMkiIqlMxfuOSqaFaO5Lq1
+ O32ilnM4wqgMRuoZZygfewpqjhV1QQHB7547EPwsriL96ys2pQXFlun8OHB2w3cb0+Ge8mZOIv
+ YLc=
+X-SBRS: 5.2
+X-MesageID: 37836393
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,200,1610427600"; 
+   d="scan'208";a="37836393"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V4X21lOEtU0Z0u+dZzpzGaFSJgR4n4sEDNNv4o3ziWwhLgXgdoObo6uAZF+l0ZPzhbA2oN3ZeKnLch4QLu9GKKZ67fFYM5ddXhGR/9uzOJ15walmwM+7tBDawtN3nDnvGSp+UudJoWEmw76IM44n6+Sd2JWjkIWfiNiHbTHo7jGvnz3QClNiP5RZITVruPy/l8Zd+yGAczakpIfq0eKV6oGJyoN+wlw5+pelXtvDWjROkF3cSzWJvrcP4u3RUafBGkqnb7q3sG33GZvsDV+7TjTVEvcN8qrYtlcN1W5/+oJvpgsJjGOnCfhmC35s79dupcpEfTcVSmq5YNjrMXBY5A==
+ b=aMuLUlW1fscXoVtU17HHFHtAEW8cH22EslQLCEQQzh7OA9INBtpRoYgadpUeqMuVwG0woPp77FBBlHy39Mjfe0+e9Vvtl/Igr56gf9paJLagkqhtcP48nvny+j+0+AZ2A1McrHTY2TNDeZgFmgJhp2K83dGJjJLcfe0ZRqjCBbVJaJmmUE19T+7VVQazLLI+MGW/6bz1eGh+74tBjRGf1DIaP3WFv2HQFddaf4bgd3UMC/kITG2r1P3P6VT7ZN4pXhmljhj1qIh5ZnaxW/nxAOGawTooX2S7b4asxxmm5UJLBFcEGyaz03FQYVsIdhN9Dj0bOZWY1wNiHaXsC06M1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N7NxZlCispGWLgeqciZXU66peGcDQMUmqNJA6ReggVg=;
- b=faOJInOAyUnP9JcAENm197cX4+Z56sFxQWY52CVCGGd82fOfvG++AzfcmSUxrxr0z1f+sdD1xl3/BAhJqIuVXE4zuQtVzMJiZaxN5NQ4xsBTlVlQmLi+bwZmrhxgF45VGXl+ooQiEJnlTLacRchyXdvW+GORMLXZfXu/xt3jnOA7qJmtKzSAt6Qks2uESNNuLt+SM0u3qJGzD82qR+NX3kBfsuuuCj84BkS+LL9mg3UMumk4Pyde45yWHcqQX4aV27sz0whbeFILFOaw0Y9rT3nOXPKzMMaDzPflh0yDuhICyCh8e8k9UcAO9j6VQX8fsmuW9swJumSMadbKLVIFxg==
+ bh=9NubZbynDjJjRzoU5i+z36kQ7herjb7QFxkiBN4s8hE=;
+ b=HrPn5lTSDTAMPF38DWJCAaYnfjjrTaE2iuTqevVx33LxAaPn04rF23ZSOjIvYCekHVxntWQ+VR99hXZRs8EHKCAWg5L37jiwXTUVcipVoae1dDPu0eyaCg8LMtjfhwWfs3uM0mdG2u4h0AV4bievrLhbM0eLrlFqc923fVr+oE0caUwRYxrFZn7SVBMVTLgOkuP4cxV7Iwo3PbNCj5W/krqRMNvbdFJXu/8WcNGNCnYFSYxBTCSKzR9xVaX4ryFgCmPBPKw1e1A4zJozOKx99piyuATwVqxciFbg53j4PqCwhN2yqlcDTeh1fcVN+lgYLkoUT37XGssJaBQGMQ6M6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N7NxZlCispGWLgeqciZXU66peGcDQMUmqNJA6ReggVg=;
- b=549XpSc2xC6+iOg8ANdyOCB7vIrfzuwAh7xzMOqzjuF1zMTO6n0z8d3sLLCup+TIY9m5ArE6D+d0DEJuXhDA3y61liJrFUqRmwWnnTdB6WzUDN1gq03/YNnWjN1KpYSAZK+MDaAUHGdT74915GA6m4u/ROz1A9QBdytEtRbPo19V2BM9ca9yzLL/ijoFYZs3TbuIWkOsMiEpL4tO+nKfixQgZuUfaooXAUVVWcT3wxKIm2LvEZ4aCDn7Gk17bIuN1CYGKv9G7eh9Qt0MwDJnzogmuXQJ/D4q1nkzJL4lREFNFJvB8DhYEPoAosPcjDYaiWWPY+XuMbqdoBelWLgVCA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        George
- Dunlap <george.dunlap@citrix.com>,
-        Dario Faggioli <dfaggioli@suse.com>, Meng
- Xu <mengxu@cis.upenn.edu>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
-        Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [RFC PATCH 00/10] Preemption in hypervisor (ARM only)
-Thread-Topic: [RFC PATCH 00/10] Preemption in hypervisor (ARM only)
-Thread-Index: AQHXCYx4A6OUUHr1gkqxWv1TEOLkuqplchSAgAAzdYA=
-Date: Tue, 23 Feb 2021 12:06:32 +0000
-Message-ID: <87zgzv56pm.fsf@epam.com>
-References: <20210223023428.757694-1-volodymyr_babchuk@epam.com>
- <e6d8726c-4074-fe4c-dbbe-e879da2bb7f6@xen.org>
-In-Reply-To: <e6d8726c-4074-fe4c-dbbe-e879da2bb7f6@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.4.10; emacs 27.1
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: eeab5274-7a96-4bab-6de9-08d8d7f375e0
-x-ms-traffictypediagnostic: AM9PR03MB7490:
-x-microsoft-antispam-prvs: 
- <AM9PR03MB74909888EA9A799EF07D4B4DE6809@AM9PR03MB7490.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 4ToXfISwM58WZRDScQo9S9aFK7wN6lYBTeDsGR+K8cE7CWBkdNDVwuRVsoRq4MxiO0eEayyYhwgZrW2F2HPPY2Ye5cssONvgbOjFVCKD1idJlER+0830KFb8pYXp1phjM06iyCtfNHOxu8NlBUrcH5BAp9kllam5zAIrEf5xn4R5AmlS+DBw/xD/z5Rk6WZvvYwG1ZtGbcDjwiWQEqm+BeXb2nsRNPTqg4oYjY3srtC95/hXY40u1BRZO3Ozu0jhZu5d3xWOtwh/wOOG0kACWrnt/jMyViVEERHBwV4VMCwv01Bxr6/vnGmPwoL1WWT2XWt24IstG/XN4iiLzgQaDdJtq/avV2f0iQQxm5JLJquVP0NbavCOpJ5H3/XrM4VzeiVVi+ehL0tMRRwdab+tbL21SIb05YBfdJPAMe4qSh84rp5ZFo5HyjSq4AVqg0Es/AmtecqVWVkVCaazVKguRhxS1q1jo8e4VtdypvuqeYVQi9p0pcYzFygyDyOhgH0t/0vkhIlx3fW9MAs94W1AyA==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB3508.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(346002)(396003)(366004)(376002)(39860400002)(83380400001)(6512007)(2906002)(76116006)(7416002)(26005)(6916009)(316002)(36756003)(71200400001)(66946007)(86362001)(8936002)(6506007)(66556008)(55236004)(66476007)(66446008)(5660300002)(2616005)(6486002)(478600001)(186003)(4326008)(54906003)(53546011)(64756008)(8676002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 
- =?iso-8859-1?Q?FPxFWimci5Wob8Jg8Fq40/GpQP+wIKmeTTOTfF3rP8VqQCBxoKK6irNFl0?=
- =?iso-8859-1?Q?n18JdrEJV6uql6kwyAEmhOZIiyVYnfC9zQtPw5LA97qXECHxakcQE8bzd5?=
- =?iso-8859-1?Q?bBfXGc7BLhBmmdoA9Xku1pWj3j26fbr0HyTJDGajG7LmAXti4EqddRBqTr?=
- =?iso-8859-1?Q?hnGDs3eGXtUsm3sFJvDsYBm+IPs4uT3YFD9KaLLHTSR8EWFyoZk6EXO5LB?=
- =?iso-8859-1?Q?4eBirFIZNrnlUKyaRZKjookk7livgTMF7C5EPPGxuitCmzlYqKsnuk0XrX?=
- =?iso-8859-1?Q?COUTTziL7MDkhpshd0TmY8F18HK6RTv8xQl9/JgyTiQlKLaf+QLME2p3hg?=
- =?iso-8859-1?Q?5wiPTVUO+peyGjjNNowPgGEQy8UfN8Q20jlHUknN/VFoOisMmPhpbViGQn?=
- =?iso-8859-1?Q?bgJLWi1Mr7M6iuFb3rYH+Gk71bmMjm0NoNgkkhjVTRu6cG7tv83qubqZmI?=
- =?iso-8859-1?Q?CV9LcABk8oJrLlQoywQv8EnFbRXL/d2i8cf/QMNhgAyI4SrVdqq8Q7kduz?=
- =?iso-8859-1?Q?KO0zvmEILW5RMGyLM5zayC4YkO68FYAs5gtdavmVYhZ2Zo/A6TcUL+TJL5?=
- =?iso-8859-1?Q?elgObPXIe/vD2KRM8tju2vPVJGbE1JhbAsASYq0hM8XXAnvon8tRYz0+yO?=
- =?iso-8859-1?Q?AgKF3QEe9mPZXb8hJINQEuXjg9JRvVdIFBpsdW3+tw0G5HuSV/aXZPDOr7?=
- =?iso-8859-1?Q?TZ/XUB2zAXXOUwVLc300Yo2OKTiPHUmChaNrp/XX/freAh+PEAPVLfBEfE?=
- =?iso-8859-1?Q?Unes5srvlrgXaY1kW60Q2HCx+Vr4eMRcOQdQjX7cXeGcMG0RhA5IgkGHhr?=
- =?iso-8859-1?Q?e56x8mHIhlGAsHkxEcp4+tQdShi0jtKNu8j5Jiphrj8XyPFSln/oSoV/Nu?=
- =?iso-8859-1?Q?JUynKeo3LHjt0ysB3TlwZ6qfwP6y6UWGKUhIHyWYbyC465WNpWnLuUQYT2?=
- =?iso-8859-1?Q?fuvEM2K/4+iGGs1/4169E4nxTerLgn8OWtwzdK42vwXSmhJjvk5qdw8ytO?=
- =?iso-8859-1?Q?hjK0vQE/iaWIVB6UedG4jpvJlYjowiNuV3YB7vCnd8panlwasnKvn00hTX?=
- =?iso-8859-1?Q?y8lTfEtp5xVVJE+dAe7Nr5ZVrnH87NkkBfR6Lm9OnUwMsremDglYmZi/U/?=
- =?iso-8859-1?Q?e/J8WNJbQ4mjNkOjrWC66bmGcVjTm1zSNeJYvyKEiFljbxK2rX7yeZH6b1?=
- =?iso-8859-1?Q?hPcGU0bMVN+in3qbtjqMzFweGsYCKwm3mU3fLzFjOwMaR6MRjjxls/oyNC?=
- =?iso-8859-1?Q?kogEV0DDMB2E1hlyZyCwgOzc6bMSKhK6BBRByL+7h2DFxij+hFjAFMaqqt?=
- =?iso-8859-1?Q?BKZ4VJDn6+etKM3X3Dk+GqpvTdvYnSjaP7L0H9A9lIZcDJtqiqIBD9VvkR?=
- =?iso-8859-1?Q?3U9MDfo1UbKoSqKJE0tSWuFENEVfRoVg=3D=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=9NubZbynDjJjRzoU5i+z36kQ7herjb7QFxkiBN4s8hE=;
+ b=dK3M+Hl+BBzBJ6SO3O16zTP6nxD0bDMS/zclmdY8jK7Sv+2w36BQpI9EQHyC70AJ/u28dN5xvV4sfaM8VME/5KDEN3ECPNwRuBZzvs87NKNRCEzFQYrvchThUkOXrMsTM4sJNdlWyfICTwVwIkCNCB6HUZItKlHLgk6Q+fFfWFg=
+Date: Tue, 23 Feb 2021 13:17:13 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: <andrew.cooper3@citrix.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	<xen-devel@lists.xenproject.org>, <iwj@xenproject.org>, <wl@xen.org>,
+	<anthony.perard@citrix.com>, <jun.nakajima@intel.com>, <kevin.tian@intel.com>
+Subject: Re: [PATCH v2 2/4] x86: Introduce MSR_UNHANDLED
+Message-ID: <YDTyScmud26aiaMi@Air-de-Roger>
+References: <1611182952-9941-1-git-send-email-boris.ostrovsky@oracle.com>
+ <1611182952-9941-3-git-send-email-boris.ostrovsky@oracle.com>
+ <YC5GrgqwsR/eBwpy@Air-de-Roger>
+ <4e585daa-f255-fbff-d1cf-38ef49f146f5@oracle.com>
+ <YDOQvU1h8zpOv5PH@Air-de-Roger>
+ <ce2ef7a3-0583-ffff-182a-0ab078f45b82@oracle.com>
+ <307a4765-1c54-63fd-b3fb-ecb47ba3dbca@suse.com>
+ <YDTMIW5vBe0IncVR@Air-de-Roger>
+ <2744f277-06fb-e49f-2023-0ec6175259dd@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2744f277-06fb-e49f-2023-0ec6175259dd@suse.com>
+X-ClientProxiedBy: PR3P195CA0029.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:102:b6::34) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fb05d81e-82d1-41fd-deda-08d8d7f4f786
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5445:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DS7PR03MB5445BB2528197853F74E271F8F809@DS7PR03MB5445.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JPbq+3cTwU8xuJX9NDjmAm78CIkdbxh3u4nAXPEyAgggAitCfFj53q24QG5kfVcAz1c5Q1pv1LfQ6uBIj3uoCKc/oD/301uLzvEib4J5J33VcEsU+OTdi2q47tS92SkuHi7GfLpaPBi5ohHp9wsnrwd9j/RRslm1OrUbZXVgQH2vobjcVEbNrBmfvkjVc6owi2cz4MZl12HKIcOm/zmURMMO+pJ+k6MSBnFcvTv2hSjmHz6hLOqjIWE1KcBWRZe4e9l69GGIa9PlINsZUPIb9HA/Lxm3Fv4oRiOXCiGEd8+3IZzfgEygpiCYc3xU4mx2soy0DDYZSmwi6Fqr1yiLm+IL13kKO076nTc1kUMrqCXWnFssnYk+T7QLLQqcbxnV8ErH/Qa7W0GtfgihAd6MA1Bo6nboUdtTh8/BESA/Qr1IX/hjkppmL2ChkpGEAnzE9+0OsCgMurBsCazqTFXqhr2g6YgpkaSHjmmEdpd6nCOp3058OLZsBecjJeTf4DoWuw2AsU73HFa8uV5irlZ8gQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(39860400002)(376002)(346002)(136003)(396003)(366004)(33716001)(5660300002)(16526019)(83380400001)(86362001)(66476007)(66946007)(6666004)(2906002)(316002)(956004)(53546011)(186003)(4326008)(6486002)(26005)(9686003)(6916009)(8676002)(8936002)(478600001)(6496006)(85182001)(66556008);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UFd3T2ltWmFjbXl3M1VBczg5RGdBODFRYnpVaVQ5Unk3K2M5M1lHMzc1ZjJ4?=
+ =?utf-8?B?MVRKcnVGV2FBdFFZMzVsUmk2UDVrZFhtRTk4bFFYNDRBZ3JNUHoxQTRGL3dl?=
+ =?utf-8?B?a01pWHlVbUZ6QU1kRmEra1VhRU1WY0RVN0c3d3BuZVprRjR5TUpDVTlCOU1O?=
+ =?utf-8?B?MitwY25iVEZPVmZRTHIwZWpZbGlVM2NtTFd0UHFTRTc5NVhQSnVnZWQyckh1?=
+ =?utf-8?B?Z0crU3NpU2dCbXJObENZTW1ON0o5c0JaZll2QTdzaStweHhaMzVVTmhIMDVt?=
+ =?utf-8?B?QU1KUzV6eDl0VHNtVDRBaDFUYVlNZEkxQVhvajNRckJuUGM5ekppOEZibjcw?=
+ =?utf-8?B?U2dOMGJabTQ3MEpmUEhOeTNndUxLd0I4U29nRGsrMFkxeUdTQmp0My9TSUht?=
+ =?utf-8?B?R2NLK1BWL1hZNE8rTlJuUzRzYktnT3ZVeFhUVXE3SThML0I2cC96UXZIa2da?=
+ =?utf-8?B?SlF0V2cydEtMUisrbFM4YjROR1BFYUtad05TS2VLamNwdHFnc3Z6L1Y5VzRi?=
+ =?utf-8?B?SFlKRkpQWWtINzN2VzlWbjFxRkpWN3BoQmFFU1ZGYnNGS1ZsczBiYis3bkxx?=
+ =?utf-8?B?d2gvM0ZjSWZnYlVFYWFwS1hMTFRMeW5FY2grSG9oNmo5UXRJbGs3dmFNZ2lP?=
+ =?utf-8?B?cVRzRVpmaEpNazZ0cC9pQ0grdEszSUZnMEpsWkhSQ2ZqMUMrV0I1Y0ZzOUNk?=
+ =?utf-8?B?Snd3VWxwc3ZZdWNPSFc0S1VvSGNqZkZGOGZWMEdmblVTL0dpbVdZY3N1N1hm?=
+ =?utf-8?B?NXJReDZTS01DRDFxU3VmaGk2QlpabDNMeUNLc0dFcHEvWVo5clhKRkdVZ210?=
+ =?utf-8?B?L0tIZ055bnltSGxtRjBpVzQyd3ZsUG9iT2cvUkwvaFNleVMxb2lPQW9oZVQ1?=
+ =?utf-8?B?SytQbE0xMm9tOXVjM3ROeFltdkpUbXlEN1IrYTU3M2NKWmZmK09TSnZuSFZ1?=
+ =?utf-8?B?T2ZDaUI0N0VLZU9WSXpyWGphYkhLbmRGS3Y1RUNicEs4MkszVndPK3JHZXVN?=
+ =?utf-8?B?dkpFM2lwejd5aUdaYWlic29DditXS1Q2VmpGUUFldUVUMi9ZRG56em84NE5q?=
+ =?utf-8?B?d2t5YzhlUy9ZN3FuMXJvZ0l3QzBkakc2NmUxYjZNUkFJQ1Q0czZFdzNxWVZv?=
+ =?utf-8?B?UnRwWGJCUWI1UVJDcjBOUkFkYjRyUVFGdUpQTDE0ZTlSSzZGMzV4dFQ0V2ty?=
+ =?utf-8?B?QTRCem96OTA0RXQ3Z1JCRytQTnplRzh6OUVlV2lacHJJMW12MWhBNjhWeFZj?=
+ =?utf-8?B?bjhBTEJLd2E2WElmWVlUTUlBQ1ZWNmdmb3FjSENQQlNNRThaTTUwTUR1eWRZ?=
+ =?utf-8?B?THRoY0ZBaVBIbGVkMDlzam94eDlTWGtSUXZXZWtoWU5xQUlpNlNJelkzejhp?=
+ =?utf-8?B?bCtQU2Vnd2FqcW9HOHMrRzFEZzZWblFCZTZ1ais5R3BSNFdoZDN3dGlZZ2tU?=
+ =?utf-8?B?bkllTGJiN3JOdklXQWJyOVBJL1hwTTk5WkJqOWd2RUJET2RQeHlUU1BCV0l1?=
+ =?utf-8?B?cEJPOHRCSngxK2x4dDhtR0o1L1RsQkgyQmlHYXZkS1QwMFVjL3Q2dExEZXRr?=
+ =?utf-8?B?WTFnUjh1Zk1aOWdtdjJnRzVhbHVheFlDZGwxOUpjV1NYWHJLY3NIYU5zU0Rn?=
+ =?utf-8?B?Mncrc0t5NlVkRllxeEFSYnFCb0ZHbWZRQW9GRE1NU0RWMm1NOHRhMDlFOTRC?=
+ =?utf-8?B?ODBrNkZwR1I3c0xaOWVoMVJKMFA5SldUMXd3cURtTDhNM093UmZOU3lFeUQr?=
+ =?utf-8?B?UlBRWVFXb0ZtUDBMbzhIVWpRdGVUVjNWQlBBMitBK1QyODVBbDVKNERuNzhE?=
+ =?utf-8?B?TWJKZFZFMEhpN3pFTTdNZz09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb05d81e-82d1-41fd-deda-08d8d7f4f786
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB3508.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eeab5274-7a96-4bab-6de9-08d8d7f375e0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2021 12:06:32.6503
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2021 12:17:20.0476
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H/Z72nOOML0DHfxL+rFuAY++2mbULDa/UUHSVH1afoKlQESHVtLmVEXsVi3wNJd7ZSUW3p1HLFCFfJf8f/3a6UJffoKJRd5K8rlw8Niiqmg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7490
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 mlxscore=0
- mlxlogscore=999 spamscore=0 clxscore=1015 adultscore=0 impostorscore=0
- malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102230107
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P+3csdu/manMx+HfFbRyxAKZ56Sml5cAiaJwX9aZejAWs9VmfGY2A3fBuePmIZkIJvETwPP2YDN8bsHiABNEHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5445
+X-OriginatorOrg: citrix.com
 
+On Tue, Feb 23, 2021 at 11:15:31AM +0100, Jan Beulich wrote:
+> On 23.02.2021 10:34, Roger Pau Monné wrote:
+> > On Tue, Feb 23, 2021 at 08:57:00AM +0100, Jan Beulich wrote:
+> >> On 22.02.2021 22:19, Boris Ostrovsky wrote:
+> >>>
+> >>> On 2/22/21 6:08 AM, Roger Pau Monné wrote:
+> >>>> On Fri, Feb 19, 2021 at 09:56:32AM -0500, Boris Ostrovsky wrote:
+> >>>>> On 2/18/21 5:51 AM, Roger Pau Monné wrote:
+> >>>>>> On Wed, Jan 20, 2021 at 05:49:10PM -0500, Boris Ostrovsky wrote:
+> >>>>>>> When toolstack updates MSR policy, this MSR offset (which is the last
+> >>>>>>> index in the hypervisor MSR range) is used to indicate hypervisor
+> >>>>>>> behavior when guest accesses an MSR which is not explicitly emulated.
+> >>>>>> It's kind of weird to use an MSR to store this. I assume this is done
+> >>>>>> for migration reasons?
+> >>>>>
+> >>>>> Not really. It just seemed to me that MSR policy is the logical place to do that. Because it *is* a policy of how to deal with such accesses, isn't it?
+> >>>> I agree that using the msr_policy seems like the most suitable place
+> >>>> to convey this information between the toolstack and Xen. I wonder if
+> >>>> it would be fine to have fields in msr_policy that don't directly
+> >>>> translate into an MSR value?
+> >>>
+> >>>
+> >>> We have xen_msr_entry_t.flags that we can use when passing policy array back and forth. Then we can ignore xen_msr_entry_t.idx for that entry (although in earlier version of this series Jan preferred to use idx and leave flags alone).
+> >>
+> >> Which, just to clarify, was not the least because of the flags
+> >> field being per-entry, i.e. per MSR, while here we want a global
+> >> indicator.
+> > 
+> > We could exploit a bit the xen_msr_entry_t structure and use it
+> > like:
+> > 
+> > typedef struct xen_msr_entry {
+> >     uint32_t idx;
+> > #define XEN_MSR_IGNORE (1u << 0)
+> >     uint32_t flags;
+> >     uint64_t val;
+> > } xen_msr_entry_t;
+> > 
+> > Then use the idx and val fields to signal the start and size of the
+> > range to ignore accesses to when XEN_MSR_IGNORE is set in the flags
+> > field?
+> > 
+> > xen_msr_entry_t = {
+> >     .idx = 0,
+> >     .val = 0xffffffff,
+> >     .flags = XEN_MSR_IGNORE,
+> > };
+> > 
+> > Would be equivalent to ignoring accesses to the whole MSR range.
+> > 
+> > This would allow selectively selecting which MSRs to ignore, while
+> > not wasting a MSR itself to convey the information?
+> 
+> Hmm, yes, the added flexibility would be nice from an abstract pov
+> (not sure how relevant it would be to Solaris'es issue). But my
+> dislike of using a flag which is meaningless in ordinary entries
+> remains, as was voiced against Boris'es original version.
 
-Hi Julien,
+I understand the flags field is meaningless for regular MSRs, but I
+don't see why it would be an issue to start using it for this specific
+case of registering ranges of ignored MSRs. It certainly seems better
+than hijacking an MSR index (MSR_UNHANDLED).
 
-Julien Grall writes:
-
-> On 23/02/2021 02:34, Volodymyr Babchuk wrote:
->> Hello community,
->
-> Hi Volodymyr,
->
-> Thank you for the proposal, I like the like of been able to preempt
-> the vCPU thread. This would make easier to implement some of the
-> device emulation in Xen (e.g. vGIC, SMMU).
-
-Yes, emulation is the other topic that I didn't mentioned. Also, it could
-lift some restrictions in OP-TEE mediator code as well.
-
->> Subject of this cover letter is quite self-explanatory. This patch
->> series implements PoC for preemption in hypervisor mode.
->> This is the sort of follow-up to recent discussion about latency
->> ([1]).
->> Motivation
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> It is well known that Xen is not preemptable. On other words, it is
->> impossible to switch vCPU contexts while running in hypervisor
->> mode. Only one place where scheduling decision can be made and one
->> vCPU can be replaced with another is the exit path from the hypervisor
->> mode. The one exception are Idle vCPUs, which never leaves the
->> hypervisor mode for obvious reasons.
->> This leads to a number of problems. This list is not
->> comprehensive. It
->> lists only things that I or my colleagues encountered personally.
->> Long-running hypercalls. Due to nature of some hypercalls they can
->> execute for arbitrary long time. Mostly those are calls that deal with
->> long list of similar actions, like memory pages processing. To deal
->> with this issue Xen employs most horrific technique called "hypercall
->> continuation".=20
->
-> I agree the code is not nice. However, it does serve another purpose
-> than ...
->
->> When code that handles hypercall decides that it should
->> be preempted, it basically updates the hypercall parameters, and moves
->> guest PC one instruction back. This causes guest to re-execute the
->> hypercall with altered parameters, which will allow hypervisor to
->> continue hypercall execution later.
->
-> ... just rescheduling the vCPU. It will also give the opportunity for
-> the guest to handle interrupts.
->
-> If you don't return to the guest, then risk to get an RCU sched stall
-> on that the vCPU (some hypercalls can take really really long).
-
-Ah yes, you are right. I'd only wish that hypervisor saved context of
-hypercall on it's side...
-
-I have example of OP-TEE before my eyes. They have special return code
-"task was interrupted" and they use separate call "continue execution of
-interrupted task", which takes opaque context handle as a
-parameter. With this approach state of interrupted call never leaks to
-rest of the system.
-
->
->> This approach itself have obvious
->> problems: code that executes hypercall is responsible for preemption,
->> preemption checks are infrequent (because they are costly by
->> themselves), hypercall execution state is stored in guest-controlled
->> area, we rely on guest's good will to continue the hypercall.=20
->
-> Why is it a problem to rely on guest's good will? The hypercalls
-> should be preempted at a boundary that is safe to continue.
-
-Yes, and it imposes restrictions on how to write hypercall
-handler.
-In other words, there are much more places in hypercall handler code
-where it can be preempted than where hypercall continuation can be
-used. For example, you can preempt hypercall that holds a mutex, but of
-course you can't create an continuation point in such place.
-
->> All this
->> imposes restrictions on which hypercalls can be preempted, when they
->> can be preempted and how to write hypercall handlers. Also, it
->> requires very accurate coding and already led to at least one
->> vulnerability - XSA-318. Some hypercalls can not be preempted at all,
->> like the one mentioned in [1].
->> Absence of hypervisor threads/vCPUs. Hypervisor owns only idle
->> vCPUs,
->> which are supposed to run when the system is idle. If hypervisor needs
->> to execute own tasks that are required to run right now, it have no
->> other way than to execute them on current vCPU. But scheduler does not
->> know that hypervisor executes hypervisor task and accounts spent time
->> to a domain. This can lead to domain starvation.
->> Also, absence of hypervisor threads leads to absence of high-level
->> synchronization primitives like mutexes, conditional variables,
->> completions, etc. This leads to two problems: we need to use spinlocks
->> everywhere and we have problems when porting device drivers from linux
->> kernel.
->> Proposed solution
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> It is quite obvious that to fix problems above we need to allow
->> preemption in hypervisor mode. I am not familiar with x86 side, but
->> for the ARM it was surprisingly easy to implement. Basically, vCPU
->> context in hypervisor mode is determined by its stack at general
->> purpose registers. And __context_switch() function perfectly switches
->> them when running in hypervisor mode. So there are no hard
->> restrictions, why it should be called only in leave_hypervisor() path.
->> The obvious question is: when we should to try to preempt running
->> vCPU?  And answer is: when there was an external event. This means
->> that we should try to preempt only when there was an interrupt request
->> where we are running in hypervisor mode. On ARM, in this case function
->> do_trap_irq() is called. Problem is that IRQ handler can be called
->> when vCPU is already in atomic state (holding spinlock, for
->> example). In this case we should try to preempt right after leaving
->> atomic state. This is basically all the idea behind this PoC.
->> Now, about the series composition.
->> Patches
->>    sched: core: save IRQ state during locking
->>    sched: rt: save IRQ state during locking
->>    sched: credit2: save IRQ state during locking
->>    preempt: use atomic_t to for preempt_count
->>    arm: setup: disable preemption during startup
->>    arm: context_switch: allow to run with IRQs already disabled
->> prepare the groundwork for the rest of PoC. It appears that not all
->> code is ready to be executed in IRQ state, and schedule() now can be
->> called at end of do_trap_irq(), which technically is considered IRQ
->> handler state. Also, it is unwise to try preempt things when we are
->> still booting, so ween to enable atomic context during the boot
->> process.
->
-> I am really surprised that this is the only changes necessary in
-> Xen. For a first approach, we may want to be conservative when the
-> preemption is happening as I am not convinced that all the places are
-> safe to preempt.
->
-
-Well, I can't say that I ran extensive tests, but I played with this for
-some time and it seemed quite stable. Of course, I had some problems
-with RTDS...
-
-As I see it, Xen is already supports SMP, so all places where races are
-possible should already be covered by spinlocks or taken into account by
-some other means.
-
-Places which may not be safe to preempt are clustered around task
-management code itself: schedulers, xen entry/exit points, vcpu
-creation/destruction and such.
-
-For example, for sure we do not want to destroy vCPU which was preempted
-in hypervisor mode. I didn't covered this case, by the way.
-
->> Patches
->>    preempt: add try_preempt() function
->>    sched: core: remove ASSERT_NOT_IN_ATOMIC and disable preemption[!]
->>    arm: traps: try to preempt before leaving IRQ handler
->> are basically the core of this PoC. try_preempt() function tries to
->> preempt vCPU when either called by IRQ handler and when leaving atomic
->> state. Scheduler now enters atomic state to ensure that it will not
->> preempt self. do_trap_irq() calls try_preempt() to initiate preemption.
->
-> AFAICT, try_preempt() will deal with the rescheduling. But how about
-> softirqs? Don't we want to handle them in try_preempt() as well?
-
-Well, yes and no. We have the following softirqs:
-
- TIMER_SOFTIRQ - should be called, I believe
- RCU_SOFTIRQ - I'm not sure about this, but probably no
- SCHED_SLAVE_SOFTIRQ - no
- SCHEDULE_SOFTIRQ - no
- NEW_TLBFLUSH_CLOCK_PERIOD_SOFTIRQ - should be moved to a separate
- thread, maybe?
- TASKLET_SOFTIRQ - should be moved to a separate thread
-
-So, looks like only timers should be handled for sure.
-
->
-> [...]
->
->> Conclusion
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> My main intention is to begin discussion of hypervisor
->> preemption. As
->> I showed, it is doable right away and provides some immediate
->> benefits. I do understand that proper implementation requires much
->> more efforts. But we are ready to do this work if community is
->> interested in it.
->> Just to reiterate main benefits:
->> 1. More controllable latency. On embedded systems customers care
->> about
->> such things.
->
-> Is the plan to only offer preemptible Xen?
->
-
-Sorry, didn't get the question.
-
->> 2. We can get rid of hypercall continuations, which will results in
->> simpler and more secure code.
->
-> I don't think you can get rid of it completely without risking the OS
-> to receive RCU sched stall. So you would need to handle them
-> hypercalls differently.
-
-Agree. I believe that continuation context should reside in
-hypervisor. Those changes are not connected to preemption per se and can
-be implemented separately. But we can discuss them there, of course.
-
-[...]
-
---=20
-Volodymyr Babchuk at EPAM=
+Thanks, Roger.
 
