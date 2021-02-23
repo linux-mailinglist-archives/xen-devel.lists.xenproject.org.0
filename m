@@ -2,41 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4803228EB
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 11:37:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.88697.166895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE01D322933
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Feb 2021 12:04:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.88703.166906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEV47-0004GO-FJ; Tue, 23 Feb 2021 10:37:15 +0000
+	id 1lEVUC-0007Cy-FY; Tue, 23 Feb 2021 11:04:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 88697.166895; Tue, 23 Feb 2021 10:37:15 +0000
+Received: by outflank-mailman (output) from mailman id 88703.166906; Tue, 23 Feb 2021 11:04:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEV47-0004G1-CD; Tue, 23 Feb 2021 10:37:15 +0000
-Received: by outflank-mailman (input) for mailman id 88697;
- Tue, 23 Feb 2021 10:37:14 +0000
+	id 1lEVUC-0007CZ-Bp; Tue, 23 Feb 2021 11:04:12 +0000
+Received: by outflank-mailman (input) for mailman id 88703;
+ Tue, 23 Feb 2021 11:04:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CEda=HZ=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
- id 1lEV46-0004Fw-7S
- for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 10:37:14 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 807fc8fe-83dd-4a70-a909-e61e690507fd;
- Tue, 23 Feb 2021 10:37:12 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-127-QvMczwhUMS6WpidU3ya6Pg-1; Tue, 23 Feb 2021 05:37:06 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D6226801986;
- Tue, 23 Feb 2021 10:37:01 +0000 (UTC)
-Received: from gondolin (ovpn-113-126.ams2.redhat.com [10.36.113.126])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D59045D9D0;
- Tue, 23 Feb 2021 10:36:47 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UeLE=HZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lEVUA-0007CU-UO
+ for xen-devel@lists.xenproject.org; Tue, 23 Feb 2021 11:04:11 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7e528acd-0b0a-4e6f-a602-122798e2dffc;
+ Tue, 23 Feb 2021 11:04:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,175 +36,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 807fc8fe-83dd-4a70-a909-e61e690507fd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614076632;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bIGzZAHT2IrR97nIWaOZh13hqXqdEEn4ZaBsZNS2Jg0=;
-	b=KHxX8DKO752n5FbuHjwofIlpdWW7Z5N7UkycR4nJhVsuREEQGngoK+BXa+jsagZPSTsUTJ
-	IddAdh2Fipago6Gfz2d6VIqDKVQ4b6ztkdtN27Xi0bUyVgMvy5oTiPLLyi6SaaTC6qCP3a
-	J+ZZ4mBMcV4VvzXXr15YCuNQWCsqWl8=
-X-MC-Unique: QvMczwhUMS6WpidU3ya6Pg-1
-Date: Tue, 23 Feb 2021 11:36:34 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>,
- qemu-devel@nongnu.org, Aurelien Jarno <aurelien@aurel32.net>, Peter Maydell
- <peter.maydell@linaro.org>, Anthony Perard <anthony.perard@citrix.com>,
- qemu-ppc@nongnu.org, qemu-s390x@nongnu.org, Halil Pasic
- <pasic@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>,
- xen-devel@lists.xenproject.org, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, qemu-arm@nongnu.org, Stefano Stabellini
- <sstabellini@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
- kvm@vger.kernel.org, BALATON Zoltan <balaton@eik.bme.hu>, Leif Lindholm
- <leif@nuviainc.com>, Richard Henderson <richard.henderson@linaro.org>,
- Radoslaw Biernacki <rad@semihalf.com>, Alistair Francis
- <alistair@alistair23.me>, Paul Durrant <paul@xen.org>, Eduardo Habkost
- <ehabkost@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Thomas Huth
- <thuth@redhat.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>, =?UTF-8?B?SGVy?=
- =?UTF-8?B?dsOp?= Poussineau <hpoussin@reactos.org>, Greg Kurz
- <groug@kaod.org>, Christian Borntraeger <borntraeger@de.ibm.com>, "Edgar E.
- Iglesias" <edgar.iglesias@gmail.com>, David Hildenbrand <david@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, Aleksandar Rikalo
- <aleksandar.rikalo@syrmia.com>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <f4bug@amsat.org>
-Subject: Re: [PATCH v2 01/11] accel/kvm: Check MachineClass kvm_type()
- return value
-Message-ID: <20210223113634.6626c8f8.cohuck@redhat.com>
-In-Reply-To: <YDRAHW1ds1eh0Lav@yekko.fritz.box>
-References: <20210219173847.2054123-1-philmd@redhat.com>
-	<20210219173847.2054123-2-philmd@redhat.com>
-	<20210222182405.3e6e9a6f.cohuck@redhat.com>
-	<bc37276d-74cc-22f0-fcc0-4ee5e62cf1df@redhat.com>
-	<20210222185044.23fccecc.cohuck@redhat.com>
-	<YDQ/Y1KozPSyNGjo@yekko.fritz.box>
-	<YDRAHW1ds1eh0Lav@yekko.fritz.box>
-Organization: Red Hat GmbH
+X-Inumbo-ID: 7e528acd-0b0a-4e6f-a602-122798e2dffc
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614078250;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Bq3Ao2qIDInLxkkZCE4fOBHBMwcSdwBNahWQ/0rvNTw=;
+  b=BKJO2zrawzy024Mn0lcOij5BDnjzvLQcsDJ75VHbi+BK5hW/EiwBtltp
+   0gTPgv/DoNBz7q87iawgnkQXU/O6umsA6Qp/i/Di2tDfcV3Chmn7yQ/aK
+   L+obqdSi7dx4+8iE3wojP5t7KKo6SC6J5Cwq2GnNQfFTEktbgPOdlxSUB
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 9/if3uqo7pnGBFBsCsjltZqpF6kyA+WybhEyp8BACLOpVsPJZXt55ZrFEkLrYhkSV/D1A8YBWS
+ kwxuU1RbE28s+ht0sIBoMG9XlXvH77MPgRB+ecGo1nOFJ48qvU/WIGsZqC1bpXpYWlvLVeVsbu
+ b+Alk1EynbbSHlWp8hpQvgtnuYqstrOhCl/IJoZde2vCO1C6QI754V9t7VFNQQwLOirLHxmwnF
+ eWvFI62XukDmHDXpzbeRar6a3uiWb5MkjMHfdnUQofokRDkerg106mbSkHXa55ZsGZjNxXVk+j
+ edA=
+X-SBRS: 5.2
+X-MesageID: 39194740
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,199,1610427600"; 
+   d="scan'208";a="39194740"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DR0ZWBCzPAPYtFigMEceYjnwRR5mXYMOMtA5DjDOqSGbw7XDqSGiOkPD/zj5S2SrZhzTS1H6Qxt/kUvE2QYj0OicL65diOKO5MJIQSCiyDe6vTCme5a50czImJQFC5NEp48WyarWLGDs6A0kk+fLbPeiqXKXlTam17FsJGcp251AvDpSkV6XIrjYTiXpAlgSwL2UreC5CBB0Q5/I2p+Yi+yzhhooIe28Pg737L8/XfjJMfP8VVCiojed3ctGV/jgrLDsigDEV/7qnzRXP+1KE2RLX76K8CnL8BpCHzxZLnM9MnvLNdxFguiQzVzWiS3eYeU33ODSbelr2MApm6fNCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ResH4lssBS4NZCOdLD0/JgmxVqGf48AtG3FpQUPa89Y=;
+ b=UqOnM5o70TZ/xgIZwTss+ohuGntJJEtICWoC+G6YCheb3QmzUeF9iIJQJeyOoj2cYHiBInTUuHIyw5/RZ/Vr/XRSxSZ80Av5/bRkR0bPMKMsUSLOkyP+wOMunikNnOXfEGWT1S1ctVatnyOGS4VG3KfP7m9m+PR1hVYzLotl57o+Hm6941BnyR0kA8NWpPM1qWDsycVU1z34EllLcj3q62YvLtXQIdax714cZVvzai3euvHC2HhVvwneD6XWJY37HQpY2V1wZPNNM3eewY+MV1FcEGPSg1RE1KEy9o1VRHqm9QZs0zjUtzjTMrKUfVPlrHMBvR3wXHpMlUVqcOkhQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ResH4lssBS4NZCOdLD0/JgmxVqGf48AtG3FpQUPa89Y=;
+ b=UC1arfyxYlsonH0rNw6iKVhvE1+YOQhUJTrbNmJJ2EZ4Q9H0WKpVFzNuOkFFK7otNlY3hF8bE2mSgV3m9H345UuyHiZWDUev5sUBw8YmDMg0RTrvEBRS8+rIpv0/afsFEoNv9esV8tO2mwA5VgVRB5tWTlobrYncPa+940mEyok=
+Date: Tue, 23 Feb 2021 12:04:00 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>
+Subject: Re: [PATCH v2 6/8] x86: rename copy_{from,to}_user() to
+ copy_{from,to}_guest_pv()
+Message-ID: <YDThIFB7ox6qdfFE@Air-de-Roger>
+References: <b466a19e-e547-3c7c-e39b-1a4c848a053a@suse.com>
+ <5104a32f-e2a1-06a5-a637-9702e4562b81@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5104a32f-e2a1-06a5-a637-9702e4562b81@suse.com>
+X-ClientProxiedBy: MR2P264CA0040.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::28)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/nudo1.j=xV83/2pyII4Lt07";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6a8fff3b-888d-4e48-8203-08d8d7eabcbf
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4475:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4475775C9E6F0D115D24D6088F809@DM6PR03MB4475.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wFg/cq+9/5+61dChThUKdeE4r/FStzYxR7z+aeTJrrw8kn+P/kZF1KQV/KPdYPLvG1QCd9mdSNwmbP77o59SwFttBF+S3rmQXLO0kNVMSW6Y6wptHhhABS+f5ey8qVwkEAYT1SvyrLU5XqIN0NwE4rl+/qyyc1WHKai8qs8WVw/i+6Z6GqmV95Y8whZ+gMfiXMSCNGI5CE5GM6GNQw2CK7KhsTx1Lkdd45wO3FMVSL8F30itpSBQOxFeErJSvztxJii/rQH3VpLEr6WDtWAAw/kVPlpLfahqeg7t1qXCJwvapWdhx7f7lAj7g4kbIMpvD3fTvw2h+ssfZLtbZdvtLlTM6Jj4vjJCdKD/5H4a6G9Hv0+cbtkNgsD210z17NFFsymmsCbcLLgJONHG+02OSKJ/u11ELJN8dzcTn8IWGAgjr2XspXUo0qXhBl9iDACQqD1E0iQJbHeYmjIlFBNRRxsX0iegYt/0cZ4D6rRYjCx+++HyABs2u+AuRqvmiMl/ioyRAu8wUT1qLyEqBJpM2g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(5660300002)(6916009)(6496006)(2906002)(186003)(4326008)(85182001)(66946007)(8936002)(83380400001)(66556008)(8676002)(16526019)(66476007)(26005)(478600001)(6666004)(956004)(316002)(9686003)(54906003)(6486002)(86362001)(33716001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZWRnNS9HSjdHNk5aaE1EZTAzSTVvRUZQTEdPNE5hT1VQL1lYLyt0ZjU3Y01w?=
+ =?utf-8?B?Qnpic3UyLzA0cXdmMTJ0N1lPdWwwNDlCdWhBa05iQmp0SzhHSFMveDQ3ME5H?=
+ =?utf-8?B?ZEFwWU5yT3ZOOVBrekdnYmdtZW16cmlwelo5Sm1NNGRjbFY2QkI0cm0zVWJS?=
+ =?utf-8?B?SGhpNzEraGExUStUODY0SUxmSktrZ2hFaS9VL280My9BRG10SEMxVWl6Sml1?=
+ =?utf-8?B?ME5EWVo1eURvaTlmZC9VWnY1Yjh5bDFQVnpsNFJrME1MSDRUTzRDS1kwdWF1?=
+ =?utf-8?B?WDFVT3FzOWtmYkNIdzJxMktxbTgrNXNwM3J2NythRk55N2RDMkFoWFJZK0JK?=
+ =?utf-8?B?T1JPYTBuNEV4UW1BZC8vanJWOFFtWVVqaStUUStuVHl0NEdzQ0RlYlozNjBj?=
+ =?utf-8?B?bVk4NzRsZ1R0ZEEra2ZGQUk3YjF1UXdDc2NqdnlRWW1ncnZRQ2kxQlhZRmZB?=
+ =?utf-8?B?eGM3dCtrcU00QWpOempKamNJSmNLQTdzWHJVdnNoVDF2cVBpcUMvZzBzUFN1?=
+ =?utf-8?B?Yk5mUy8yU1l0eGlVMGFDcE1PeU9qZVp4TGgyVzlPRFJ6Z0p2N0xhdWFWdndn?=
+ =?utf-8?B?cm8zN3NxYXFtR2M5Q2s3emdSMnVVUlgxY0ZwMUsvWkJwNmRrcEpsaTllTmxQ?=
+ =?utf-8?B?bTlvWG8rQ3pYZFY1WTYwd0dCQTE5ckJEdXVoVkJMVjFtWnhvRU8xOFBTUnNw?=
+ =?utf-8?B?RGdBMlRXc2RralNlT2RacnQxbEdSNXI0aTZZVEdwRXZhQjhPV3A4dUk0UzRP?=
+ =?utf-8?B?eTV4U3ZiSEcrS2tBa0pZeVVDR1VTL1RhcmtGeG1nU2lIZjFES0VMUzk3K1hs?=
+ =?utf-8?B?YWtvUUFXa3hQZ2xTcVA0RFA0dGhpb09aaWVQSUNsTDEzbWZuVU4rL29HRVlV?=
+ =?utf-8?B?ckpuQVRyZEV2WUdndm0xUFNRMVdFNlpCZXNhMStnMDEyRTloVHAzeU9WTHFW?=
+ =?utf-8?B?aWwrbkJEU1RMVURrMStoL0JpRlU3endzbnlZSHpvbWV5d2p4eDIwU3E4MUFL?=
+ =?utf-8?B?T3BIUXVvZ0d5MW01bUxmMlF2bFBac1RUVmMxQXBBYTJoSEtPV1MrUWtLUmNs?=
+ =?utf-8?B?YnFaQmNuRTFUM29UQ3YzL0JwcGhOZWJ1dDhlK2Ric0huMnFwdTBWNDNDeHBl?=
+ =?utf-8?B?N0ZqZktkN2dQSHdmYkx6TWNteFU1Qk5OQ3ZGSlhjcmxISVhHWDA1Z2g3eUh3?=
+ =?utf-8?B?cjBDcTZuMmhpb1MwZ3Z2dThVOXBMWVdZL0xNTktocVFlc1lPc2p0MEI2OUd4?=
+ =?utf-8?B?VVY3a21uY2s2bVVaREhrODdEeU9kVjBsQ0d1aXBsN3Z5Q3MrOWFCdkNsckhz?=
+ =?utf-8?B?ZjRFNWFVNy9HWEhkNG1xVkEyRjgzbXcvS0xJQ29veDQrVmhKY3NyejMwQ0w0?=
+ =?utf-8?B?SGx4MjB2a0dMMzJrd2NreFdOK0pjUC9ScS84NytZeXpEMTdXeXFJRGtkdis4?=
+ =?utf-8?B?Mnoyb0NneGZPU1RRSTJDSm0wSVp4Z3pSWXhvTEVLcEdjSWtaRlpma1dNOHk5?=
+ =?utf-8?B?NDJLRjNMYno4R3MzODAwcE5rV2JvS3crUU5jdG95Mmh0L2dFSnU5NjJMOVdX?=
+ =?utf-8?B?Tks1YllIRVNCK3RPdWZLVEZLZVk1R2lEV0R4Nm1tYmdET2lXS2Vja1FQZUVE?=
+ =?utf-8?B?SlFqd0VNZlY4ZlFzVGpxaXFtM3dEWkhucEFWakZmdzNuRldLdTBWTUhOYldB?=
+ =?utf-8?B?Ylk4a2NiQk5GN0JjOWxFNERiNFJBbzJNRjZaampnYWdkV0hkMDdTdFVwZGky?=
+ =?utf-8?B?bitWMURWVG90cU1NRm4rNFFZWlo4aGJOWFVhMzFLUkxSOVZaLzJFakdndFJX?=
+ =?utf-8?B?Z0E3elViNlVHaU1aZmc5QT09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a8fff3b-888d-4e48-8203-08d8d7eabcbf
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2021 11:04:06.6780
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Vv+rGeS/NaTuiCqZ0LQF8ozCjg1ebhQP5cCLj+fiLL67RdiRK9MdpMNTCWUcN0tvJFDXqEkkihX7tyRUi9MVog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4475
+X-OriginatorOrg: citrix.com
 
---Sig_/nudo1.j=xV83/2pyII4Lt07
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Wed, Feb 17, 2021 at 09:22:32AM +0100, Jan Beulich wrote:
+> Bring them (back) in line with __copy_{from,to}_guest_pv(). Since it
+> falls in the same group, also convert clear_user(). Instead of adjusting
+> __raw_clear_guest(), drop it - it's unused and would require a non-
+> checking __clear_guest_pv() which we don't have.
+> 
+> Add previously missing __user at some call sites and in the function
+> declarations.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, 23 Feb 2021 10:37:01 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-> On Tue, Feb 23, 2021 at 10:33:55AM +1100, David Gibson wrote:
-> > On Mon, Feb 22, 2021 at 06:50:44PM +0100, Cornelia Huck wrote: =20
-> > > On Mon, 22 Feb 2021 18:41:07 +0100
-> > > Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> wrote:
-> > >  =20
-> > > > On 2/22/21 6:24 PM, Cornelia Huck wrote: =20
-> > > > > On Fri, 19 Feb 2021 18:38:37 +0100
-> > > > > Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> wrote:
-> > > > >    =20
-> > > > >> MachineClass::kvm_type() can return -1 on failure.
-> > > > >> Document it, and add a check in kvm_init().
-> > > > >>
-> > > > >> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> > > > >> ---
-> > > > >>  include/hw/boards.h | 3 ++-
-> > > > >>  accel/kvm/kvm-all.c | 6 ++++++
-> > > > >>  2 files changed, 8 insertions(+), 1 deletion(-)
-> > > > >>
-> > > > >> diff --git a/include/hw/boards.h b/include/hw/boards.h
-> > > > >> index a46dfe5d1a6..68d3d10f6b0 100644
-> > > > >> --- a/include/hw/boards.h
-> > > > >> +++ b/include/hw/boards.h
-> > > > >> @@ -127,7 +127,8 @@ typedef struct {
-> > > > >>   *    implement and a stub device is required.
-> > > > >>   * @kvm_type:
-> > > > >>   *    Return the type of KVM corresponding to the kvm-type stri=
-ng option or
-> > > > >> - *    computed based on other criteria such as the host kernel =
-capabilities.
-> > > > >> + *    computed based on other criteria such as the host kernel =
-capabilities
-> > > > >> + *    (which can't be negative), or -1 on error.
-> > > > >>   * @numa_mem_supported:
-> > > > >>   *    true if '--numa node.mem' option is supported and false o=
-therwise
-> > > > >>   * @smp_parse:
-> > > > >> diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
-> > > > >> index 84c943fcdb2..b069938d881 100644
-> > > > >> --- a/accel/kvm/kvm-all.c
-> > > > >> +++ b/accel/kvm/kvm-all.c
-> > > > >> @@ -2057,6 +2057,12 @@ static int kvm_init(MachineState *ms)
-> > > > >>                                                              "kv=
-m-type",
-> > > > >>                                                              &er=
-ror_abort);
-> > > > >>          type =3D mc->kvm_type(ms, kvm_type);
-> > > > >> +        if (type < 0) {
-> > > > >> +            ret =3D -EINVAL;
-> > > > >> +            fprintf(stderr, "Failed to detect kvm-type for mach=
-ine '%s'\n",
-> > > > >> +                    mc->name);
-> > > > >> +            goto err;
-> > > > >> +        }
-> > > > >>      }
-> > > > >> =20
-> > > > >>      do {   =20
-> > > > >=20
-> > > > > No objection to this patch; but I'm wondering why some non-pseries
-> > > > > machines implement the kvm_type callback, when I see the kvm-type
-> > > > > property only for pseries? Am I holding my git grep wrong?   =20
-> > > >=20
-> > > > Can it be what David commented here?
-> > > > https://www.mail-archive.com/qemu-devel@nongnu.org/msg784508.html
-> > > >  =20
-> > >=20
-> > > Ok, I might be confused about the other ppc machines; but I'm wonderi=
-ng
-> > > about the kvm_type callback for mips and arm/virt. Maybe I'm just
-> > > confused by the whole mechanism? =20
-> >=20
-> > For ppc at least, not sure about in general, pseries is the only
-> > machine type that can possibly work under more than one KVM flavour
-> > (HV or PR).  So, it's the only one where it's actually useful to be
-> > able to configure this. =20
->=20
-> Wait... I'm not sure that's true.  At least theoretically, some of the
-> Book3E platforms could work with either PR or the Book3E specific
-> KVM.  Not sure if KVM PR supports all the BookE instructions it would
-> need to in practice.
->=20
-> Possibly pseries is just the platform where there's been enough people
-> interested in setting the KVM flavour so far.
+> 
+> --- a/xen/arch/x86/pv/emul-inv-op.c
+> +++ b/xen/arch/x86/pv/emul-inv-op.c
+> @@ -33,7 +33,7 @@ static int emulate_forced_invalid_op(str
+>      eip = regs->rip;
+>  
+>      /* Check for forced emulation signature: ud2 ; .ascii "xen". */
+> -    if ( (rc = copy_from_user(sig, (char *)eip, sizeof(sig))) != 0 )
+> +    if ( (rc = copy_from_guest_pv(sig, (char __user *)eip, sizeof(sig))) != 0 )
+>      {
+>          pv_inject_page_fault(0, eip + sizeof(sig) - rc);
+>          return EXCRET_fault_fixed;
+> @@ -43,7 +43,8 @@ static int emulate_forced_invalid_op(str
+>      eip += sizeof(sig);
+>  
+>      /* We only emulate CPUID. */
+> -    if ( ( rc = copy_from_user(instr, (char *)eip, sizeof(instr))) != 0 )
+> +    if ( (rc = copy_from_guest_pv(instr, (char __user *)eip,
+> +                                  sizeof(instr))) != 0 )
+>      {
+>          pv_inject_page_fault(0, eip + sizeof(instr) - rc);
+>          return EXCRET_fault_fixed;
+> --- a/xen/arch/x86/pv/iret.c
+> +++ b/xen/arch/x86/pv/iret.c
+> @@ -54,8 +54,8 @@ unsigned long do_iret(void)
+>      struct iret_context iret_saved;
+>      struct vcpu *v = current;
+>  
+> -    if ( unlikely(copy_from_user(&iret_saved, (void *)regs->rsp,
+> -                                 sizeof(iret_saved))) )
+> +    if ( unlikely(copy_from_guest_pv(&iret_saved, (void __user *)regs->rsp,
+> +                                     sizeof(iret_saved))) )
+>      {
+>          gprintk(XENLOG_ERR,
+>                  "Fault while reading IRET context from guest stack\n");
+> --- a/xen/arch/x86/pv/ro-page-fault.c
+> +++ b/xen/arch/x86/pv/ro-page-fault.c
+> @@ -90,7 +90,8 @@ static int ptwr_emulated_update(unsigned
+>  
+>          /* Align address; read full word. */
+>          addr &= ~(sizeof(full) - 1);
+> -        if ( (rc = copy_from_user(&full, (void *)addr, sizeof(full))) != 0 )
+> +        if ( (rc = copy_from_guest_pv(&full, (void __user *)addr,
+> +                                      sizeof(full))) != 0 )
+>          {
+>              x86_emul_pagefault(0, /* Read fault. */
+>                                 addr + sizeof(full) - rc,
+> --- a/xen/arch/x86/usercopy.c
+> +++ b/xen/arch/x86/usercopy.c
+> @@ -109,19 +109,17 @@ unsigned int copy_from_guest_ll(void *to
+>  #if GUARD(1) + 0
+>  
+>  /**
+> - * copy_to_user: - Copy a block of data into user space.
+> - * @to:   Destination address, in user space.
+> - * @from: Source address, in kernel space.
+> + * copy_to_guest_pv: - Copy a block of data into guest space.
 
-If I'm not utterly confused by the code, it seems the pseries machines
-are the only ones where you can actually get to an invocation of
-->kvm_type(): You need to have a 'kvm-type' machine property, and
-AFAICS only the pseries machine has that.
+I would expand to 'PV guest' here and below, FAOD.
 
-(Or is something hiding behind some macro magic?)
-
---Sig_/nudo1.j=xV83/2pyII4Lt07
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEw9DWbcNiT/aowBjO3s9rk8bwL68FAmA02rMACgkQ3s9rk8bw
-L69Sng//SPiU5hi/9Db125/S0xZG5O8UzQoag2vh8Q68aGY9pmkB5pUsF5xCYvq4
-v3GT9vtpCT+urKHCNhQcPD0nLLumzQxaz3GKTHvqOWkOwGI3HJhCg9HAutC4d77k
-pAQpFCiDaxRw98uRREJDiG1tM9xzhU/qb1Ujs90aYALeZ3B4wmQQTRVXTiZjto++
-PqJyNULu02yA4sFyZy+iCvv8dT8Ex2uyxV0JzeNS9RV4xsOGH8jMqElRPJiioJhf
-20o5RAL+tpkM71Z1OMj3mBfrdui2K6ordXZKs7OoIkrjb01l/oZXSvVSjxzbKOTn
-LKQYKIZ2/0SHH1IIxovfDJYm/1iV0JHmmW7klM2U1OSmMlZx0TsRmZ6ArWAE6/7z
-CJhC/PpeE8bX9fRuXzAwuBRbT3Cgp6XurESExT1BDWMF3Gym3FaiIz2FHyVnvlPR
-yFcVjR7pgAKWSRI1/EddICKWb2paYhSpzZ9QjbhOISelEslzJU57WQIAUjVPnSho
-lrgY/XuKSJA+ZnRQdY3LX5IADVpA0rn7W2nW0JkJN0nJn4dw3P6Ikp14W1qUC8UR
-AcsnC9Xqbj9D+xRgf1yoCBez7D9kthUXY226A3DYJJcp0qfsquXw0+cxN71CqPhb
-dcvq0J1IEjbx4ir/qN2R8hxfCm3vwXG+w/3ZhKx69rUI5w4PA8Q=
-=u9hO
------END PGP SIGNATURE-----
-
---Sig_/nudo1.j=xV83/2pyII4Lt07--
-
+Thanks, Roger.
 
