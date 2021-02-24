@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F0B8323D4D
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 14:09:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89338.168171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71FCB323D6F
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 14:13:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89341.168183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEtu5-0008BM-NT; Wed, 24 Feb 2021 13:08:33 +0000
+	id 1lEtyZ-0000jK-B0; Wed, 24 Feb 2021 13:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89338.168171; Wed, 24 Feb 2021 13:08:33 +0000
+Received: by outflank-mailman (output) from mailman id 89341.168183; Wed, 24 Feb 2021 13:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEtu5-0008Ax-KC; Wed, 24 Feb 2021 13:08:33 +0000
-Received: by outflank-mailman (input) for mailman id 89338;
- Wed, 24 Feb 2021 13:08:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lEtyZ-0000iv-7T; Wed, 24 Feb 2021 13:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 89341;
+ Wed, 24 Feb 2021 13:13:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEtu3-0008As-Kr
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:08:31 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEtu3-0005qg-IW
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:08:31 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEtu3-0008Kr-Eq
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:08:31 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lEtu0-0006tE-7O; Wed, 24 Feb 2021 13:08:28 +0000
+ (envelope-from <SRS0=F+xl=H2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lEtyY-0000iq-48
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:13:10 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1077222e-611f-430c-9288-03a61bfc8036;
+ Wed, 24 Feb 2021 13:13:09 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 87C7FAD5C;
+ Wed, 24 Feb 2021 13:13:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +38,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=t9oyT3HlfOULSjznKaqRaJXa222QqsLAnEmpdcIGz8k=; b=CtDkP9sen4ugan+JYeYqJqWacA
-	UXVZzgv25BOYnq2G8T9vO+8eSosiS3f/h21l7yFgrRRnOiUUWL7jrvDqQuG9IeUXUoPcOwAHeNM84
-	bfYml255hA/wr030YsxcyVlbPl+htkBlUzZgAQOdvhw0uyW8keFpa0+CAC8Acm7iNywI=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 1077222e-611f-430c-9288-03a61bfc8036
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614172388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uzb7zSTkowCxI+A5AcIjZbqI8LQRoZv21PHhkyOy+/M=;
+	b=deHDvbcZE1DNpf5pi8HxCDboxPF+Gdj/1ZZunK0juw//Ohs57+Rvyg8Ud4dV7DYbZoJpwq
+	4MbAOnvi4tncxtWDBhyCMHbjjBOOVbqrlDDSdMBKmxhMQ/xT7doLk7qSBo5mYibye4kIIv
+	W/tEPQl6AAm38O5pm233Gk/tAj4i3B4=
+Subject: Re: [PATCH 2/2] hvmloader: do not include system headers for type
+ declarations
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20210224102641.89455-1-roger.pau@citrix.com>
+ <20210224102641.89455-3-roger.pau@citrix.com>
+ <fb677f29-2b21-aaf1-1127-6774fb8e91e9@suse.com>
+ <YDY+tvs9Llf5K8Da@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5f9f7fc3-110b-f73e-20b5-c0ef311c458c@suse.com>
+Date: Wed, 24 Feb 2021 14:13:07 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24630.20427.917602.787877@mariner.uk.xensource.com>
-Date: Wed, 24 Feb 2021 13:08:27 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Wei Liu <wl@xen.org>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH v2 0/8] x86/PV: avoid speculation abuse through guest
- accessors
-In-Reply-To: <ce93bd48-7ef3-cdb1-9429-ccd894895e9e@suse.com>
-References: <b466a19e-e547-3c7c-e39b-1a4c848a053a@suse.com>
-	<24623.56913.290437.499946@mariner.uk.xensource.com>
-	<ce93bd48-7ef3-cdb1-9429-ccd894895e9e@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+In-Reply-To: <YDY+tvs9Llf5K8Da@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-Jan Beulich writes ("Re: [PATCH v2 0/8] x86/PV: avoid speculation abuse through guest accessors"):
-> On 19.02.2021 16:50, Ian Jackson wrote:
-> > Jan Beulich writes ("[PATCH v2 0/8] x86/PV: avoid speculation abuse through guest accessors"):
-> >> 4: rename {get,put}_user() to {get,put}_guest()
-> >> 5: gdbsx: convert "user" to "guest" accesses
-> >> 6: rename copy_{from,to}_user() to copy_{from,to}_guest_pv()
-> >> 7: move stac()/clac() from {get,put}_unsafe_asm() ...
-> >> 8: PV: use get_unsafe() instead of copy_from_unsafe()
-> > 
-> > These have not got a maintainer review yet.  To grant a release-ack
-> > I'd like an explanation of the downsides and upsides of taking this
-> > series in 4.15 ?
-> > 
-> > You say "consistency" but in practical terms, what will happen if the
-> > code is not "conxistent" in this sense ?
-> > 
-> > I'd also like to hear from aother hypervisor maintainer.
+On 24.02.2021 13:01, Roger Pau Monné wrote:
+> On Wed, Feb 24, 2021 at 11:51:39AM +0100, Jan Beulich wrote:
+>> On 24.02.2021 11:26, Roger Pau Monne wrote:
+>>> --- /dev/null
+>>> +++ b/tools/firmware/hvmloader/types.h
+>>> @@ -0,0 +1,47 @@
+>>> +#ifndef _HVMLOADER_TYPES_H_
+>>> +#define _HVMLOADER_TYPES_H_
+>>> +
+>>> +typedef unsigned char uint8_t;
+>>> +typedef signed char int8_t;
+>>> +
+>>> +typedef unsigned short uint16_t;
+>>> +typedef signed short int16_t;
+>>> +
+>>> +typedef unsigned int uint32_t;
+>>> +typedef signed int int32_t;
+>>> +
+>>> +typedef unsigned long long uint64_t;
+>>> +typedef signed long long int64_t;
+>>
+>> I wonder if we weren't better of not making assumptions on
+>> short / int / long long, and instead use
+>> __attribute__((__mode__(...))) or, if available, the compiler
+>> provided __{,U}INT*_TYPE__.
 > 
-> Meanwhile they have been reviewed by Roger. Are you willing to
-> give them, perhaps with the exception of 7, a release ack as
-> well?
+> Oh, didn't know about all this fancy stuff.
+> 
+> Clang doens't seem to support the same mode attributes, for example
+> QImode is unknown, and that's just on one version of clang that I
+> happened to test on.
 
-Sorry, yes.
+Oh, these modes have been available even in gcc 3.x. I thought
+Clang was claiming to be 4.4(?) compatible.
 
-I found these explanations convincing  Thank you.
+> Using __{,U}INT*_TYPE__ does seem to be supported on the clang version
+> I've tested with, so that might be an option if it's supported
+> everywhere we care about. If we still need to keep the current typedef
+> chunk for fallback purposes then I see no real usefulness of using
+> __{,U}INT*_TYPE__.
 
-For all except 7,
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+Fair point. And they're available from 4.5 onwards only. So
+just __SIZE_TYPE__ has been available for long enough. As said
+in reply to Ian I think we at least want to use that one (and
+I guess in the hypervisor we may want to drop the fallback).
 
-For 7, I remember what I think was an IRC conversation where someone
-(you, I think) said you had examined the generated asm and it was
-unchanged.
-
-If I have remembered that correctly, then for 7 as well:
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-If I have misremembered please do say.
-
-Ian.
+Jan
 
