@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F48E323F13
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 15:08:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89360.168246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DAA7323F19
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 15:13:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89369.168257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEuor-000675-TL; Wed, 24 Feb 2021 14:07:13 +0000
+	id 1lEuuG-000775-HN; Wed, 24 Feb 2021 14:12:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89360.168246; Wed, 24 Feb 2021 14:07:13 +0000
+Received: by outflank-mailman (output) from mailman id 89369.168257; Wed, 24 Feb 2021 14:12:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEuor-00066i-Q8; Wed, 24 Feb 2021 14:07:13 +0000
-Received: by outflank-mailman (input) for mailman id 89360;
- Wed, 24 Feb 2021 14:07:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lEuuG-00076b-Dm; Wed, 24 Feb 2021 14:12:48 +0000
+Received: by outflank-mailman (input) for mailman id 89369;
+ Wed, 24 Feb 2021 14:12:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F+xl=H2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lEuoq-00066d-NZ
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 14:07:12 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 03393f60-9fba-422f-86a4-d19239253c23;
- Wed, 24 Feb 2021 14:07:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1281AAD5C;
- Wed, 24 Feb 2021 14:07:10 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEuuE-00076T-Ib; Wed, 24 Feb 2021 14:12:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEuuE-0006yq-DD; Wed, 24 Feb 2021 14:12:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEuuE-0004Ze-5b; Wed, 24 Feb 2021 14:12:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEuuE-00061S-56; Wed, 24 Feb 2021 14:12:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +42,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03393f60-9fba-422f-86a4-d19239253c23
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614175630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AaZrvd0hlbCE7Mcy+OTHJieEox1to3Lvp/Fc03YRH3k=;
-	b=IuluAClreHDvA3iq4Un+HAw0bK7YlfvnnVKiSwf9aQcovOz4q5raO97J3Vg3jAotHm4J1D
-	j1vbVwPKv2IVAguXBIXK0SW7izWQEoTIt3BZ4qb8Yxg8yy4O9Ry2d/iNqEr4vlLEVIcXOY
-	s1QSbBm+T7uvQDX1mxBktYUxiyB7uTc=
-Subject: Re: [for-4.15][RESEND PATCH v4 1/2] xen/x86: iommu: Ignore IOMMU
- mapping requests when a domain is dying
-To: Julien Grall <julien@xen.org>
-Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
- Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210224094356.7606-1-julien@xen.org>
- <20210224094356.7606-2-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d5a09319-614d-398b-b911-bc2533bec587@suse.com>
-Date: Wed, 24 Feb 2021 15:07:09 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3iTksSRhvUWznluwgLcMWea0T6QdqJzPiHKFIOgJcuA=; b=jtgR7iCmqa6guU6K+ILkTbA3Cd
+	43y43NmR/Ep7o1m5tWBk6WYl8wpoicwUTnvfrbywvOEIaDkxE26tjgvDURm1iBm0QRm4JRqCzMEM0
+	TwR+BQg5RU76FUz2pD4WbL4V/pdQvPe3LVk34lfRiHhX5TiG1/6sS3NtHhLRBFPgxMoA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159624-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20210224094356.7606-2-julien@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 159624: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=81b2b328a26c1b89c275898d12e8ab26c0673dad
+X-Osstest-Versions-That:
+    xen=5d94433a66df29ce314696a13bdd324ec0e342fe
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 24 Feb 2021 14:12:46 +0000
 
-On 24.02.2021 10:43, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> The new x86 IOMMU page-tables allocator will release the pages when
-> relinquishing the domain resources. However, this is not sufficient
-> when the domain is dying because nothing prevents page-table to be
-> allocated.
-> 
-> As the domain is dying, it is not necessary to continue to modify the
-> IOMMU page-tables as they are going to be destroyed soon.
-> 
-> At the moment, page-table allocates will only happen when iommu_map().
-> So after this change there will be no more page-table allocation
-> happening.
+flight 159624 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159624/
 
-While I'm still not happy about this asymmetry, I'm willing to accept
-it in the interest of getting the underlying issue addressed. May I
-ask though that you add something like "... because we don't use
-superpage mappings yet when not sharing page tables"?
+Regressions :-(
 
-But there are two more minor things:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 159600
 
-> --- a/xen/drivers/passthrough/x86/iommu.c
-> +++ b/xen/drivers/passthrough/x86/iommu.c
-> @@ -267,6 +267,12 @@ int iommu_free_pgtables(struct domain *d)
->      struct page_info *pg;
->      unsigned int done = 0;
->  
-> +    if ( !is_iommu_enabled(d) )
-> +        return 0;
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Why is this addition needed? Hitting a not yet initialize spin lock
-is - afaict - no worse than a not yet initialized list, so it would
-seem to me that this can't be the reason. No other reason looks to
-be called out by the description.
+version targeted for testing:
+ xen                  81b2b328a26c1b89c275898d12e8ab26c0673dad
+baseline version:
+ xen                  5d94433a66df29ce314696a13bdd324ec0e342fe
 
-> +    /* After this barrier, no more IOMMU mapping can happen */
-> +    spin_barrier(&hd->arch.mapping_lock);
+Last test of basis   159600  2021-02-23 20:01:30 Z    0 days
+Testing same since   159624  2021-02-24 12:01:29 Z    0 days    1 attempts
 
-On the v3 discussion I thought you did agree to change the wording
-of the comment to something like "no new IOMMU mappings can be
-inserted"?
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-Jan
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 81b2b328a26c1b89c275898d12e8ab26c0673dad
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Wed Feb 24 12:48:13 2021 +0100
+
+    hvmloader: use Xen private header for elf structs
+    
+    Do not use the system provided elf.h, and instead use elfstructs.h
+    from libelf.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 10bb8aa0d5d029bd56da4a2a92e1e42bef880210
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Wed Feb 24 12:47:34 2021 +0100
+
+    build: remove more absolute paths from dependency tracking files
+    
+    d6b12add90da ("DEPS handling: Remove absolute paths from references to
+    cwd") took care of massaging the dependencies of the output file, but
+    for our passing of -MP to the compiler to take effect the same needs to
+    be done on the "phony" rules that the compiler emits.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
