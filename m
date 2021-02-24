@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 707AC323B04
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 12:08:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89267.168028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B83F323B18
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 12:14:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89270.168040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEs1S-00042S-9i; Wed, 24 Feb 2021 11:08:02 +0000
+	id 1lEs6v-00051J-VF; Wed, 24 Feb 2021 11:13:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89267.168028; Wed, 24 Feb 2021 11:08:02 +0000
+Received: by outflank-mailman (output) from mailman id 89270.168040; Wed, 24 Feb 2021 11:13:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEs1S-000423-6U; Wed, 24 Feb 2021 11:08:02 +0000
-Received: by outflank-mailman (input) for mailman id 89267;
- Wed, 24 Feb 2021 11:08:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lEs6v-00050w-Rf; Wed, 24 Feb 2021 11:13:41 +0000
+Received: by outflank-mailman (input) for mailman id 89270;
+ Wed, 24 Feb 2021 11:13:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEs1R-00041y-2g
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 11:08:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEs1Q-0003sp-Ua
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 11:08:00 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lEs1Q-0007Ot-TZ
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 11:08:00 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lEs1J-0006eV-6V; Wed, 24 Feb 2021 11:07:53 +0000
+ (envelope-from <SRS0=F+xl=H2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lEs6t-00050r-QA
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 11:13:39 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5b5dbc4d-3514-436c-978b-5f2e3512683d;
+ Wed, 24 Feb 2021 11:13:38 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 017D7ADF0;
+ Wed, 24 Feb 2021 11:13:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,117 +38,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=uCGM9csyWng0qVf0sasPUOoV8YU3y+OZGgPoJq1JhTg=; b=qGOFdoffgzRCBS7XGFYmGhf+od
-	KHd+EU/HTG0Vu8J/SOe/law93lWvw/piXhgA6eN0Lou/JoYCQ4t7XYzAEnatflNArTL3PdRvdPtt1
-	Z8V7Wa74RXR9g4S+WzYUaJm/SlwbPKOXEUvvdqdn8upOg1ahTJ9ujXKJI3ZhR2gnhb0k=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 5b5dbc4d-3514-436c-978b-5f2e3512683d
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614165218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KVtRyWlNUTJ6sD30gcEEEJyG/aGwIaj9/tz5k+zVB4o=;
+	b=bKP2ap80OjqOSblZVfzc7nX+BO6zQbNEWsreU0QPE0xngWDnvW2/BxHbm4vqJ0x/D7XDBG
+	ITwzPS4JuCu78dK7jnOAL0fzOGmqFbOFoc73iy/exhAPShRfVNSCuLiZ5s6HNh831A0Qz8
+	HdVu1q/sDbCOaiWmAsBg7/3CGFrgnqg=
+Subject: Re: [PATCH v2 0/8] x86/PV: avoid speculation abuse through guest
+ accessors
+To: Ian Jackson <iwj@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
+References: <b466a19e-e547-3c7c-e39b-1a4c848a053a@suse.com>
+ <24623.56913.290437.499946@mariner.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ce93bd48-7ef3-cdb1-9429-ccd894895e9e@suse.com>
+Date: Wed, 24 Feb 2021 12:13:37 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <24623.56913.290437.499946@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Message-ID: <24630.13192.874503.894268@mariner.uk.xensource.com>
-Date: Wed, 24 Feb 2021 11:07:52 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Wei Liu <wl@xen.org>,
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] hvmloader: do not include system headers for type
- declarations
-In-Reply-To: <fb677f29-2b21-aaf1-1127-6774fb8e91e9@suse.com>
-References: <20210224102641.89455-1-roger.pau@citrix.com>
-	<20210224102641.89455-3-roger.pau@citrix.com>
-	<fb677f29-2b21-aaf1-1127-6774fb8e91e9@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Jan Beulich writes ("Re: [PATCH 2/2] hvmloader: do not include system headers for type declarations"):
-> On 24.02.2021 11:26, Roger Pau Monne wrote:
-> > --- /dev/null
-> > +++ b/tools/firmware/hvmloader/types.h
-> > @@ -0,0 +1,47 @@
-> > +#ifndef _HVMLOADER_TYPES_H_
-> > +#define _HVMLOADER_TYPES_H_
-> > +
-> > +typedef unsigned char uint8_t;
-> > +typedef signed char int8_t;
-> > +
-> > +typedef unsigned short uint16_t;
-> > +typedef signed short int16_t;
-> > +
-> > +typedef unsigned int uint32_t;
-> > +typedef signed int int32_t;
-> > +
-> > +typedef unsigned long long uint64_t;
-> > +typedef signed long long int64_t;
+On 19.02.2021 16:50, Ian Jackson wrote:
+> Jan Beulich writes ("[PATCH v2 0/8] x86/PV: avoid speculation abuse through guest accessors"):
+>> Re-sending primarily for the purpose of getting a release ack, an
+>> explicit release nak, or an indication of there not being a need,
+>> all for at least the first three patches here (which are otherwise
+>> ready to go in). I've dropped the shadow part of the series from
+>> this re-submission, because it has all got reviewed by Tim already
+>> and is intended for 4.16 only anyway. I'm re-including the follow
+>> up patches getting the code base in consistent shape again, as I
+>> continue to think this consistency goal is at least worth a
+>> consideration towards a freeze exception.
+>>
+>> 1: split __{get,put}_user() into "guest" and "unsafe" variants
+>> 2: split __copy_{from,to}_user() into "guest" and "unsafe" variants
+>> 3: PV: harden guest memory accesses against speculative abuse
 > 
-> I wonder if we weren't better of not making assumptions on
-> short / int / long long, and instead use
-> __attribute__((__mode__(...))) or, if available, the compiler
-> provided __{,U}INT*_TYPE__.
-
-This code is only ever going to be for 32-bit x86, so I think the way
-Roger did it is fine.
-
-Doing it the other way, to cope with this file being used with
-compiler settings where the above set of types is wrong, would also
-imply more complex definitions of INT32_MIN et al.
-
-> > +#define INT8_MIN        (-0x7f-1)
-> > +#define INT16_MIN       (-0x7fff-1)
-> > +#define INT32_MIN       (-0x7fffffff-1)
-> > +#define INT64_MIN       (-0x7fffffffffffffffll-1)
-> > +
-> > +#define INT8_MAX        0x7f
-> > +#define INT16_MAX       0x7fff
-> > +#define INT32_MAX       0x7fffffff
-> > +#define INT64_MAX       0x7fffffffffffffffll
-> > +
-> > +#define UINT8_MAX       0xff
-> > +#define UINT16_MAX      0xffff
-> > +#define UINT32_MAX      0xffffffffu
-> > +#define UINT64_MAX      0xffffffffffffffffull
+> These three:
 > 
-> At least if going the above outlined route, I think we'd then
-> also be better off not #define-ing any of these which we don't
-> really use. Afaics it's really only UINTPTR_MAX which needs
-> providing.
-
-I disagree.  Providing the full set now gets them all properly
-reviewe and reduces the burden on future work.
-
-> > +typedef uint32_t size_t;
-
-I would be inclined to provide ssize_t too but maybe hvmloader will
-never need it.
-
-> Like the hypervisor, we should prefer using __SIZE_TYPE__
-> when available.
-
-I disagree.
-
-> > +typedef uint32_t uintptr_t;
+> Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 > 
-> Again - use __UINTPTR_TYPE__ or, like Xen,
-> __attribute__((__mode__(__pointer__))).
-
-I disagree.
-
-> > +#define bool _Bool
-> > +#define true 1
-> > +#define false 0
-> > +#define __bool_true_false_are_defined   1
-> > +
-> > +typedef __builtin_va_list va_list;
-> > +#define va_copy(dest, src)    __builtin_va_copy((dest), (src))
-> > +#define va_start(ap, last)    __builtin_va_start((ap), (last))
+> On the grounds that this is probably severe enough to be a blocking
+> issue for 4.15.
 > 
-> Nit: Perhaps better omit the unnecessary inner parentheses?
+>> 4: rename {get,put}_user() to {get,put}_guest()
+>> 5: gdbsx: convert "user" to "guest" accesses
+>> 6: rename copy_{from,to}_user() to copy_{from,to}_guest_pv()
+>> 7: move stac()/clac() from {get,put}_unsafe_asm() ...
+>> 8: PV: use get_unsafe() instead of copy_from_unsafe()
+> 
+> These have not got a maintainer review yet.  To grant a release-ack
+> I'd like an explanation of the downsides and upsides of taking this
+> series in 4.15 ?
+> 
+> You say "consistency" but in practical terms, what will happen if the
+> code is not "conxistent" in this sense ?
+> 
+> I'd also like to hear from aother hypervisor maintainer.
 
-We should definitely keep the inner parentheses.  I don't want to
-start carefully reasoning about precisely which inner parentheses are
-necesary for macro argument parsing correctness.
+Meanwhile they have been reviewed by Roger. Are you willing to
+give them, perhaps with the exception of 7, a release ack as
+well?
 
-Ian.
+Jan
 
