@@ -2,31 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA4F7323F4F
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 15:57:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89380.168294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEDCB323F52
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 15:59:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89382.168305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEvaj-0002iv-Ds; Wed, 24 Feb 2021 14:56:41 +0000
+	id 1lEvdF-0002yc-SZ; Wed, 24 Feb 2021 14:59:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89380.168294; Wed, 24 Feb 2021 14:56:41 +0000
+Received: by outflank-mailman (output) from mailman id 89382.168305; Wed, 24 Feb 2021 14:59:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEvaj-0002iW-A1; Wed, 24 Feb 2021 14:56:41 +0000
-Received: by outflank-mailman (input) for mailman id 89380;
- Wed, 24 Feb 2021 14:56:40 +0000
+	id 1lEvdF-0002yD-OX; Wed, 24 Feb 2021 14:59:17 +0000
+Received: by outflank-mailman (input) for mailman id 89382;
+ Wed, 24 Feb 2021 14:59:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F+xl=H2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lEvai-0002iP-8U
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 14:56:40 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qs49=H2=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lEvdD-0002y6-Vh
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 14:59:16 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f80b112f-878c-45aa-860e-f50b9af381de;
- Wed, 24 Feb 2021 14:56:39 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2B5B6AE6E;
- Wed, 24 Feb 2021 14:56:38 +0000 (UTC)
+ id 7b2d3c2f-00d8-41b1-bd31-4e0502369d1f;
+ Wed, 24 Feb 2021 14:59:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,154 +35,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f80b112f-878c-45aa-860e-f50b9af381de
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614178598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4uPqCEpP5t4ePNbFKNrDI7L2s3PL0fx65MATHmLjIN4=;
-	b=XGzMkdYIWHL7UJ8rni00dziTSBNgQq6L3PyymioNTzl1KRO22UWQr8z6nI+4OtrbQsPJte
-	OpFD5rVZNvc9Ry3hWsvYOjfbaL/LrUwlAdPgo8P4FluP6Hddwk8AK5nQ2wmbj5vGAepmsJ
-	cYyHX5uki5530KFdqhz6q83BNiBVito=
-Subject: Re: [PATCH 2/2] hvmloader: do not include system headers for type
- declarations [and 1 more messages]
-To: Ian Jackson <iwj@xenproject.org>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20210224102641.89455-1-roger.pau@citrix.com>
- <20210224102641.89455-3-roger.pau@citrix.com>
- <fb677f29-2b21-aaf1-1127-6774fb8e91e9@suse.com>
- <24630.13192.874503.894268@mariner.uk.xensource.com>
- <1b251bb0-fecf-e5ed-c6e5-a2cb7c612cf1@citrix.com>
- <9e64f1b3-fbb3-6561-cf7b-498ed3839020@suse.com>
- <24630.25512.617137.512212@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <07a0c050-85c6-ab42-2d28-0bd25a06986f@suse.com>
-Date: Wed, 24 Feb 2021 15:56:37 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <24630.25512.617137.512212@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+X-Inumbo-ID: 7b2d3c2f-00d8-41b1-bd31-4e0502369d1f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614178754;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=Rpf1znQVFPhTHcaRs7o+3m6cDCMZV93qNeHGwUR0YhE=;
+  b=SrT/dV9edx9wjzv+h0aNX8QG6AN7TSVGr9uWiJ34AQeuu0wU0CAvdvkX
+   27d8Ui0QodsI/vMTM0xKVJ978zC7cRYZnYynjMe8ARcNgHLyBxHmyaoEl
+   OLzdF46aI09JFpz7IlCH0zAmOfvXATWlcnzOIQLykaaYC9ag8e8k4rjfM
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: s9UqbJCjIOkE1FarCBae5hZLghFEiMB/fN0KVFLT3B0TEzar2DsfULfCxgfM3Db5i90J1wyKzn
+ n3+6P06iQ5wSifT9XJWRB6a8QCGhmFEAHHLOyATcJSrEoTKnMFtxQGvosGpEhmagPuXFMQoYz4
+ k8okRXAyT2PN+wghkEzwYZIxkrhhEbpIeIwcb/3e63fz/iteATY3nVQ7w6zMjFJXaPlyLzIkWo
+ k1UL6HcNdpwqAuM21gVcDTGtZ7FxmeuYReimYRLjcQaeMq35wLhAxOyMTxfXOqppZYZn4ptXsS
+ DIk=
+X-SBRS: 5.2
+X-MesageID: 39319449
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,203,1610427600"; 
+   d="scan'208";a="39319449"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PhrWSopI9TxhxOdquol5Ln6Zs9ecjCSmlxmeeCzldOL0Qi/ImSOry/dCp7exD91C0WkQkz1w8c/oPsmEVSRAJKngEf8zHcj8bFqah753ozaKMjl3Ji4Tbn41qY5PAPQoTCWl52nNFgnowT4BYQJgAt2p9gk8kNmfJBKvrCz17eWv4jNHb+SanzVhN99y0knozp6mBxvvjCCpJ0WOymJbboChahwIykfTfSJK4waRl05ebJWGzZpq6sTFx0tg8em//cVRDEUNNNR41d4LAtY4Z3pjBp4yOrBOZOnqipSXFmvZY21Apknw7zK08hY7SBIhjPPItM84yASyITK7Q9S+pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HzE9BQN1GctUAEq5FuaqiEyjrg9KDf9htA4nHd5lHYs=;
+ b=CkAo9os4Lr1Q0w/ZdHbWX02gk4W5st4Rv4Te1xg+TnPe51WFDve9V4flTx9tlCMUGuVLcF1VIP1A6xuKyLsSj0YexeL4hZ4TSFFLfZqTJEeXzLchBa2t6d+5c49wzhx9k9P+N3Qekhd8v/QTNm9wyY/ZFExFVAJt6Q5tnHtiwW3lKlxNBXS42YQJEauuwBBQ3ArTDCIHNz6Wb9FNmYs8yOGizIfs98oJzQgkWZG05LESbSwnHCa60SJoc9fmzk4rdOnG8vAuzaLrPAuNGxFotbqHcHPb5k+QFgWQ3UfFzQ31nYUzX1VDqIph38GVJ0ClHMqYHCd/c+yluMW3CZbDqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HzE9BQN1GctUAEq5FuaqiEyjrg9KDf9htA4nHd5lHYs=;
+ b=Ptz2JIiM9fb6Yp6lL7a0UMsVaB4fwd3YaeZNVJ5A+0E+XlWH3cq1M7hP9mxPIWExZFN+A9B61dXtgyLl8pPctfClKbVeFileUQAFRAOzfXbI11jPglU1cZxikdv3RR9g1fsaomQMp62CTp2SuoxLZqKn28q19QdfUnajNJi1Kfk=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH for-4.15] elfstructs: add relocation defines for i386
+Date: Wed, 24 Feb 2021 15:58:56 +0100
+Message-ID: <20210224145856.94465-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.30.1
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR2P264CA0145.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:1::8)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 045db8d1-ec33-4d4c-27c4-08d8d8d4bec7
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5337:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB5337D860610253A4773AF58F8F9F9@DM6PR03MB5337.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4UtfiAF6jpTEEepSJwX4vwhXmWyNh6XfhBVAqIbqa2+OGIqh1Ayv3tpz+lXvLdBWNyjUAIgi2DsRzxehwpi9URxUncxe6edJ7t5FcF9JlDDY+Lt7dFmwzX/AxlTjOvE5wNX/TXm391bjwo0ETqYB+S5fUE4CcVTw01dNhT6n7APX2KzSdN40Igx063eNjx8tj7AtK+YmXdBRU+GTsZ+u3K+lsiQie1pHwKoyPXMMGy1voi44re6v+ZD68w+Cy29BhngMp5DAZh+Pmq+QCRK9bVdadGAZdwnDV1+OkBwblCpTuTYfQtgowTaePMvfCqjhK/T1tLgAS8pE0X2JvkcR9ZYQ9RvbBV7EtvCRlbuP+agoDI2r5EhvyTAoks13OJi3E2kPRNMeGAuwIWmZ7W+sgXrOsmOZaUCftg+ryAtBlac/phub8V5KnfXAR0+yZYQnJ+pGMAWX8UHUOoTvRjGJTXwtC06W/42Fl01PIv/RU5TbQ4OxtYL54qM5RjyT8iF5SpdngQElxFwBdTEvG3ctOA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(136003)(346002)(39860400002)(396003)(366004)(66946007)(66556008)(36756003)(66476007)(26005)(186003)(16526019)(6916009)(2616005)(478600001)(956004)(6496006)(8936002)(8676002)(54906003)(5660300002)(86362001)(2906002)(6666004)(316002)(4326008)(6486002)(1076003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ejJPTjhXUGFRYTY4dVFTQUJCaWxRZ0lWRGJRMjB1ZHRMUEJyUVQ4Wkh6UGxI?=
+ =?utf-8?B?MURTeFQvU29HaGxkNGMwRUxMaFdobVhPa29VUUVmN056VlhhQWk0dVVEL3o4?=
+ =?utf-8?B?QkkxTVRUcDNpZlpoOHdZYjFVd3pWdFg4UmFzYk5aOGlsMEVETUdBdnY1RTIx?=
+ =?utf-8?B?QzRuVGtsVVZiZUtkK0RFUWRGNE8yLzM1ZmtIcjQ5Sk44Ynh0eGNsbHk1Ritm?=
+ =?utf-8?B?YmFYNytSKzJGQ2ZDcWNNS3ZiRXBwOTJLOTQ3bWpIOUVaWnhxNy9kRWxkQjV6?=
+ =?utf-8?B?NXV5YVZRMnplUUtteTBrWkdlakNxRkxzcTRlN3o2RzQ3cEQrWlVhbWl5RGF1?=
+ =?utf-8?B?amp2SmxYOHgvMndacVh6VlZ3T20zZVlEeE5BckJybmF0b0ExSlhFZ3phNGhu?=
+ =?utf-8?B?Y1diVU1mcWtTbmVXNzdkZFZrbTFhV0ZwSnFtT3MrbzhCc2hxY2xBYzVhVU41?=
+ =?utf-8?B?eHJpemMxOXFMeDhHT1lLQ09aU3BQVjRSMzJueUZSQ1JURmZjWVpCWS9ZYlRK?=
+ =?utf-8?B?MXhDWWFtdngraWZUMVBTQysrelRiN3orbEo3RUxzYXpaS3F0QVl2bWJJRlpB?=
+ =?utf-8?B?akVKazdlN3ZGNXEvZ1JPNk5hNGRDYW1XR3A4YUlmaWRETk1JbVNYaXNmZ01l?=
+ =?utf-8?B?aytGRjZNSlY3U2hlUjZ2N1JpQWhDSU5rcE1FcjlvbmVJYVdJNE8xaVNidWxm?=
+ =?utf-8?B?WVg4OE94cS9BOUR5U1hXTG5ZaGxCdGNBQmJtM3BOT2MwWDJtdDFHVXlaaTV1?=
+ =?utf-8?B?ZDhYRFNla0ZWQmdPaURscTZRNDN4Z3c2NUhUdFVITzU1MUwyb1RnazVub1B0?=
+ =?utf-8?B?RHIvUHNFZ3VxVzJsLy92UEw2UFBTclc0KzFGM000OVVuUE52MldhZDdZb2tq?=
+ =?utf-8?B?bUNBQUtaMnFzM3g3dk43K0hqUmZYTkVjWUZQeEFWaU91eWxEU3pyR0RUNkJ3?=
+ =?utf-8?B?OTRSK3NmVUxHZWNZaERTV2JZOWwyTXZEeFRWT1dFd0hHNHhaWWhZSDFOaFZN?=
+ =?utf-8?B?akZXZXVZMEF0cFB0MUdWeFJpTWN2eW1iNHRSNS9NcUlJOE8wNVpyUVlVbHQ1?=
+ =?utf-8?B?OUJIRzliaTBOY2NEcXFHRElTY0dKOXNrVHFLZ3FQSFVhOW5MTy9KVE9hcnJE?=
+ =?utf-8?B?TXlaR2hQbmphVmR2Yi9hV3hLQ2pDaDFEZm9KNWdobVEvT256cEk5bHpGcWJG?=
+ =?utf-8?B?bGN1MC9oV2liV1NwTkRiSU5KSVVLNWxySC9JU3FaRy81NFVnNVV4bStQcmNP?=
+ =?utf-8?B?V2c1U3BBc25lYTY3dmFMK1FQVzN5RzkwQ1BkTnR1Wmp4M2VKNHl0enF6Z2NX?=
+ =?utf-8?B?d2J2Mk5iT2hZV3BWU1RVV0lrRVZ3dXZlREhyeXltNGs4NW1NdDFDeDNsaW9a?=
+ =?utf-8?B?OUZpUmJxZUFCb1M5dnRQcWNxZ25POUwvRzdCYU1SR0drTnU0d21YMVlhZ1l5?=
+ =?utf-8?B?d3Y3Zm1HRysrRTNxOXBoNWh6akpUWFRqYjVnQ3UxZGlhbzZNWW1salJuYkxa?=
+ =?utf-8?B?bjRFaXYrQUh1NHhOVUMyeGIvTFVBOVdpWm85ejlIWlNHeUx2S2dqT29LaXQy?=
+ =?utf-8?B?dmwrN2tFZ2hObmFXZ3RyemFGdnhDOE96QjNheUZ4UG5hWTB3dnFrWDdDZTV2?=
+ =?utf-8?B?UXlFeWo3VmRnWGd1UUh6VFJFSkpjdjBzeDNFSk1laFlaUzl1cEpoMnhpbzVZ?=
+ =?utf-8?B?amNWNkUxSER5N0Vybzl2SFlidkVwUmIrK2dIaDVhZmRZb21saUFOOWN5RUc2?=
+ =?utf-8?B?STZQUmprQlp5NHdVaXlJVVFkSFU4UTJqOXVKYW9Zd2cwdkd4RElmTHA3VlJW?=
+ =?utf-8?B?Ri96bmZyWnhRRzNORGYrQT09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 045db8d1-ec33-4d4c-27c4-08d8d8d4bec7
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 14:59:12.0644
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GAk/dqxPTpIaPYWxIqBnhzNpVkOKQEab4USmAzqJ/o7uYZAD1xkMIYNyqNd25UCCkYEP+VMqPKQiZprPwvddpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5337
+X-OriginatorOrg: citrix.com
 
-On 24.02.2021 15:33, Ian Jackson wrote:
-> Andrew Cooper writes ("Re: [PATCH 2/2] hvmloader: do not include system headers for type declarations"):
->> At what point do we just declare Alpine broken?  These are all
->> freestanding headers, an explicitly available for use, in the way we use
->> them.
-> 
-> There is IMO nothing wrong with Alpine here.  Alpine amd64 simply does
-> not support compilation of 32-bit x86 userland binaries.
-> 
-> But that's OK for us.  Xen doe not require the execution of any 32-bit
-> userland binaries.  hvmloader is not a userland binary.
-> 
-> As Roger said on irc
-> 
-> 13:35 <royger> but requiring a compiler that supports generating
->                i386 code doens't imply that we also have a libc for it?
->                
->> There are substantial portability costs for making changes like this,
->> which takes us from standards compliant C to GCC-isms-only.
-> 
-> Since we are defining our out standalone environment for hvmloader, we
-> are in the position of the C *implementor*.  Compilers have features
-> (like __builtin_va*) that are helpful for implementing standard C
-> features like stdarg.h and indeed stdint.h.
-> 
-> Or to put it another way, GCC does not, by itself, provide (in
-> Standard C terms) a "freestanding implementation".  Arguably GCC ought
-> to provide stdint.h et al but in practice it doing so causes more
-> trouble as it gets in the way of the implentors of hosted
-> implementations.
+Those are need by the rombios relocation code in hvmloader. Fixes the
+following build error:
 
-But gcc _does_ provide a stdint.h.
+32bitbios_support.c: In function 'relocate_32bitbios':
+32bitbios_support.c:130:18: error: 'R_386_PC32' undeclared (first use in this function); did you mean 'R_X86_64_PC32'?
+             case R_386_PC32:
+                  ^~~~~~~~~~
+                  R_X86_64_PC32
+32bitbios_support.c:130:18: note: each undeclared identifier is reported only once for each function it appears in
+32bitbios_support.c:134:18: error: 'R_386_32' undeclared (first use in this function)
+             case R_386_32:
+                  ^~~~~~~~
 
-> Jan Beulich writes ("Re: [PATCH 2/2] hvmloader: do not include system headers for type declarations"):
->> On 24.02.2021 12:07, Ian Jackson wrote:
->>> This code is only ever going to be for 32-bit x86, so I think the way
->>> Roger did it is fine.
->>
->> It is technically correct at this point in time, from all we can
->> tell. I can't see any reason though why a compiler might not
->> support wider int or, in particular, long long.
-> 
-> Our requirement for hvmloader is that we have an ILP32 LL64 compiler
-> which generates 32-bit x86 machine code.  That is what "gcc -m32"
-> means.
+Only add the two defines that are actually used, which seems to match
+what we do for amd64.
 
-I'm not sure about the last statement; I'm pretty sure we don't
-check that we have such a compiler (in tools/configure).
+Fixes: 81b2b328a26c1b ('hvmloader: use Xen private header for elf structs')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/include/xen/elfstructs.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
->  Whether future compiler(s) might exist which can provide ILP32
-> LLP64 (and what type uint64_t is on such a compiler) is not relevant.
-> 
->>> Doing it the other way, to cope with this file being used with
->>> compiler settings where the above set of types is wrong, would also
->>> imply more complex definitions of INT32_MIN et al.
->>
->> Well, that's only as far as the use of number suffixes goes. The
->> values used won't change, as these constants describe fixed width
->> types.
-> 
-> So the definitions would need to contain casts.
+diff --git a/xen/include/xen/elfstructs.h b/xen/include/xen/elfstructs.h
+index 726ca8f60d..d1054ae380 100644
+--- a/xen/include/xen/elfstructs.h
++++ b/xen/include/xen/elfstructs.h
+@@ -348,6 +348,9 @@ typedef struct {
+ #define ELF32_R_TYPE(i)		((unsigned char) (i))
+ #define ELF32_R_INFO(s,t) 	(((s) << 8) + (unsigned char)(t))
+ 
++#define R_386_32           1            /* Direct 32 bit  */
++#define R_386_PC32         2            /* PC relative 32 bit */
++
+ typedef struct {
+ 	Elf64_Addr	r_offset;	/* where to do it */
+ 	Elf64_Xword	r_info;		/* index & type of relocation */
+-- 
+2.30.1
 
-Which they can't, as that would make them unusable in preprocessor
-directives.
-
->>>> Like the hypervisor, we should prefer using __SIZE_TYPE__
->>>> when available.
->>>
->>> I disagree.
->>
->> May I ask why? There is a reason providing of these types did get
->> added to (at least) gcc.
-> 
-> __SIZE_TYPE__ is provided by the compiler to the libc implementor.  It
-> is one of those facilities like __builtin_va*.  The bulk of the code
-> in hvmloader should not use this kind of thing.  It should use plain
-> size_t.
-> 
-> As for the new header in hvmloader, it does not matter whether it uses
-> __SIZE_TYPE__ or some other type which is known to be 32-bit, since
-> this code is definitely only ever for 32-bit x86.
-
-From a compiler perspective, "32-bit" and "x86" needs further pairing
-with an OS, as it's the OS which defines the ABI. This is why further
-up I did say "It is technically correct at this point in time, from
-all we can tell" - we imply that all OSes we want to be able to build
-on provide a suitable ABI, so we can use their compilers.
-
->> One argument against this would be above mentioned independence
->> on any ABI the compiler would be built for, but I'd buy that only
->> if above we indeed used __attribute__((__mode__())), as that's
->> the only way to achieve such independence.
-> 
-> We don't want or need to support building hvmloader with a differnet
-> ABI.
-> 
->>>> Nit: Perhaps better omit the unnecessary inner parentheses?
->>>
->>> We should definitely keep the inner parentheses.  I don't want to
->>> start carefully reasoning about precisely which inner parentheses are
->>> necesary for macro argument parsing correctness.
->>
->> Can you give me an example of when the inner parentheses would be
->> needed? I don't think they're needed no matter whether (taking the
->> example here) __builtin_va_...() were functions or macros. They
->> would of course be needed if the identifiers were part of
->> expressions beyond the mere function invocation.
-> 
-> You mention the situation where the parentheses would be needed
-> yourself.
-
-Okay, if that would have been your example, then since there are
-no further expressions involved here you agree parentheses aren't
-needed here?
-
-JAn
 
