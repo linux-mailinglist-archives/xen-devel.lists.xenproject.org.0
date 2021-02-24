@@ -2,31 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D546E323472
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 01:21:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89136.167669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 670CA32347A
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 01:32:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89141.167682 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEhuf-0005Io-VP; Wed, 24 Feb 2021 00:20:21 +0000
+	id 1lEi5y-0006Rz-2y; Wed, 24 Feb 2021 00:32:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89136.167669; Wed, 24 Feb 2021 00:20:21 +0000
+Received: by outflank-mailman (output) from mailman id 89141.167682; Wed, 24 Feb 2021 00:32:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEhuf-0005IQ-RP; Wed, 24 Feb 2021 00:20:21 +0000
-Received: by outflank-mailman (input) for mailman id 89136;
- Wed, 24 Feb 2021 00:20:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lEi5x-0006Ra-Vi; Wed, 24 Feb 2021 00:32:01 +0000
+Received: by outflank-mailman (input) for mailman id 89141;
+ Wed, 24 Feb 2021 00:32:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Stqq=H2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lEhue-0005IG-OF
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 00:20:20 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70a8238c-a04a-4ffa-8619-79a4178e0301;
- Wed, 24 Feb 2021 00:20:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A5E8464E89;
- Wed, 24 Feb 2021 00:20:18 +0000 (UTC)
+ <SRS0=0hR2=H2=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1lEi5w-0006RV-JD
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 00:32:00 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a7a70535-95e5-4e2c-81c3-ba8c7fe9cfe5;
+ Wed, 24 Feb 2021 00:31:59 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11O0TWMB008160;
+ Wed, 24 Feb 2021 00:31:56 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2130.oracle.com with ESMTP id 36tsur19xf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Feb 2021 00:31:56 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11O0Qa6S090381;
+ Wed, 24 Feb 2021 00:31:55 GMT
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12lp2176.outbound.protection.outlook.com [104.47.55.176])
+ by aserp3020.oracle.com with ESMTP id 36ucb02x4s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Feb 2021 00:31:55 +0000
+Received: from BYAPR10MB3288.namprd10.prod.outlook.com (2603:10b6:a03:156::21)
+ by BYAPR10MB2886.namprd10.prod.outlook.com (2603:10b6:a03:8f::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.32; Wed, 24 Feb
+ 2021 00:31:54 +0000
+Received: from BYAPR10MB3288.namprd10.prod.outlook.com
+ ([fe80::f489:4e25:63e0:c721]) by BYAPR10MB3288.namprd10.prod.outlook.com
+ ([fe80::f489:4e25:63e0:c721%7]) with mapi id 15.20.3868.031; Wed, 24 Feb 2021
+ 00:31:53 +0000
+Received: from [10.74.102.180] (138.3.200.52) by
+ CY4PR20CA0019.namprd20.prod.outlook.com (2603:10b6:903:98::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3868.27 via Frontend Transport; Wed, 24 Feb 2021 00:31:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,165 +63,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70a8238c-a04a-4ffa-8619-79a4178e0301
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1614126018;
-	bh=Z+5yeHvLg7b690ETZIHtVhwsU2cPjYuOULSm4Lixplw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AQKCf+sqhZJgio3h1+YwN+m3Z9fweF/VBYpbBDw/VpeSiXyMgepxF1ANJWH6z3a4b
-	 RjCD00wPd8dKRH7sWkc9bRiVioxQzvmXduSpRpU6cjT7PW96pplm3a0oyxxWh7dtsC
-	 O5NJG4eaTlecXavNRHgvJYVVkdnERUpFusm1p/Hmdd+m6Qqb+rVZYj9izs/YqEU9Te
-	 yF/Ewc91PtLXBIWjCAOnr0dR6QsgKu+LRXVNKpssh5UKxds9mU8MDTZLC7Nh7sxkGn
-	 aOyeYbxtOIbjDlVtuRK2GG62ng973hzFdvSCQvge+HANDW5CUPyYSqLXyELaJFEOSD
-	 1N5FLDYKz8P0A==
-Date: Tue, 23 Feb 2021 16:20:18 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, rahul.singh@arm.com
-Subject: Re: [RFC] xen/arm: introduce XENFEAT_ARM_dom0_iommu
-In-Reply-To: <98a15b6d-7460-31a0-0b4a-acf035571a17@xen.org>
-Message-ID: <alpine.DEB.2.21.2102231520510.3234@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s> <2d22d5b8-6cda-f27b-e938-4806b65794a5@xen.org> <alpine.DEB.2.21.2102171233270.3234@sstabellini-ThinkPad-T480s> <0be0196f-5b3f-73f9-5ab7-7a54faabec5c@xen.org>
- <alpine.DEB.2.21.2102180920570.3234@sstabellini-ThinkPad-T480s> <98a15b6d-7460-31a0-0b4a-acf035571a17@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: a7a70535-95e5-4e2c-81c3-ba8c7fe9cfe5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=DnFK6qS0raf+ibtwUkuL742QqUvL3YLVtxWmmQfm18o=;
+ b=RITZTi1MIPQdlqpQyX8zRHpqpijaiiCukPO8L1iW/b/7u0GfcBZZTQu0Pr5iQLwBpMlJ
+ 2E51Lv/AFvOK3CXzDIkEvjQaqvnBEpFITBunRCNQS+86cU4OROWC6NupmNR4D58/xnH+
+ q8pebTnXHy42Di8LDV8kMHV62iLh+I2EF7aIGU/YvcgufQTTfLr6uBLhCZ8dlW1L6vD/
+ ji6ppsbGm0zu6AkxQ2NItdK3CbcSohy6Ykt1ErTTR/Hg9C4wu342bKMHjKwz4R0ibA9I
+ 70WvvKbLbqD51cKrYZXQhjb1eWDnUxQuyvnJ2c7Eas6VlgjPX27u7FqlZnGU+xEGT0Ua rw== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S2kAByvtVQ/Sv7us2DBz0EVfqfjbzCsqia7xIuJr8hkkB1t9e6hjLfOcj+6axNV1QaXRbCyj2C6e6eYT3Gn39R4pQylnHKkZdMahyarJwK6wYQObnBvOzgAdoTo8bfeldV8IQHp05bXcSx93pRKj+26Cbb6ejioSWU4ZOws31elLp+UhsXuzxKWOiCPSxZHnFI+zsOMOZz9VpZwin47MrAXszhqSYQ4gB9whXTZSySWBE1UeeHFJQVVR9NN4B23JkqT5GlpgQQsmfKyVjCivFyIuKyYYpgZCfUprH7tmHjVdI0Gz37nyISVsfs/udMTYq9/qQKbxRtmRqaTB87Pv8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DnFK6qS0raf+ibtwUkuL742QqUvL3YLVtxWmmQfm18o=;
+ b=nS+JrQv9TahF2Drcz1Z4x2VIyj2HGGWNQyvcgPysA6mDtKdYEjPviWU9eGakiV9q4v8RPmbCvcitXV7zxtBIDaUPNHBLqYAQM8BI9eEfE/31qr5QafNuq1wfkyVYi2ACpdd0NTwJNZ3iI/v7MUYOh87pF2jpTsjvXvbNcW7mMhDgVRNXHTIPCED5xBLjI6N4TxvpTvX6ZrvaJM4G9iI5/FkHuJ1yyVCDk9zjfv0RrQTIr1UO45s7UP8oPdN4nX5eUjwcBdwDSKNnNqkCbYE9L6n4WGFKAEvVX9a/PPuLuADRhXKExhFuTfWxQQ36aPjsbtpUhHCeMVAflz0qdk62ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DnFK6qS0raf+ibtwUkuL742QqUvL3YLVtxWmmQfm18o=;
+ b=VSW6Mr4FfDlZ7dqjHq0jsjxu0162JOPhoKhGhSHsiIUkTw7LD1Ml/p9DVXpRUaWq7yLTyTTniqd6ID3/FCQRnOFvxoKmBCuOCSSC4tPmrjXkqO7aAb0xwiQwDqAuN+waonWCarP+jKI+l/ChXQlDMPDRW6NsUBtxOCX8Jo8Bjc0=
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=oracle.com;
+Subject: Re: [PATCH] xen-front-pgdir-shbuf: don't record wrong grant handle
+ upon error
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+        Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <82414b0f-1b63-5509-7c1d-5bcc8239a3de@suse.com>
+ <75c64c79-7458-19ca-1346-4c0e090cf0f7@epam.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <42f5f00d-f06c-935e-13eb-5facd0b4ed30@oracle.com>
+Date: Tue, 23 Feb 2021 19:31:49 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
+In-Reply-To: <75c64c79-7458-19ca-1346-4c0e090cf0f7@epam.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [138.3.200.52]
+X-ClientProxiedBy: CY4PR20CA0019.namprd20.prod.outlook.com
+ (2603:10b6:903:98::29) To BYAPR10MB3288.namprd10.prod.outlook.com
+ (2603:10b6:a03:156::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Fri, 19 Feb 2021, Julien Grall wrote:
-> On 19/02/2021 01:42, Stefano Stabellini wrote:
-> > On Thu, 18 Feb 2021, Julien Grall wrote:
-> > > On 17/02/2021 23:54, Stefano Stabellini wrote:
-> > > > On Wed, 17 Feb 2021, Julien Grall wrote:
-> > > > > On 17/02/2021 02:00, Stefano Stabellini wrote:
-> > > > But actually it was always wrong for Linux to enable swiotlb-xen without
-> > > > checking whether it is 1:1 mapped or not. Today we enable swiotlb-xen in
-> > > > dom0 and disable it in domU, while we should have enabled swiotlb-xen if
-> > > > 1:1 mapped no matter dom0/domU. (swiotlb-xen could be useful in a 1:1
-> > > > mapped domU driver domain.)
-> > > > 
-> > > > 
-> > > > There is an argument (Andy was making on IRC) that being 1:1 mapped or
-> > > > not is an important information that Xen should provide to the domain
-> > > > regardless of anything else.
-> > > > 
-> > > > So maybe we should add two flags:
-> > > > 
-> > > > - XENFEAT_direct_mapped
-> > > > - XENFEAT_not_direct_mapped
-> > > 
-> > > I am guessing the two flags is to allow Linux to fallback to the default
-> > > behavior (depending on dom0 vs domU) on older hypervisor On newer
-> > > hypervisors,
-> > > one of this flag would always be set. Is that correct?
-> > 
-> > Yes. On a newer hypervisor one of the two would be present and Linux can
-> > make an informed decision. On an older hypervisor, neither flag would be
-> > present, so Linux will have to keep doing what is currently doing.
-> > 
-> >   
-> > > > To all domains. This is not even ARM specific. Today dom0 would get
-> > > > XENFEAT_direct_mapped and domUs XENFEAT_not_direct_mapped. With cache
-> > > > coloring all domains will get XENFEAT_not_direct_mapped. With Bertrand's
-> > > > team work on 1:1 mapping domUs, some domUs might start to get
-> > > > XENFEAT_direct_mapped also one day soon.
-> > > > 
-> > > > Now I think this is the best option because it is descriptive, doesn't
-> > > > imply anything about what Linux should or should not do, and doesn't
-> > > > depend on unreliable IOMMU information.
-> > > 
-> > > That's a good first step but this still doesn't solve the problem on
-> > > whether
-> > > the swiotlb can be disabled per-device or even disabling the expensive 1:1
-> > > mapping in the IOMMU page-tables.
-> > > 
-> > > It feels to me we need to have a more complete solution (not necessary
-> > > implemented) so we don't put ourself in the corner again.
-> > 
-> > Yeah, XENFEAT_{not,}_direct_mapped help cleaning things up, but don't
-> > solve the issues you described. Those are difficult to solve, it would
-> > be nice to have some idea.
-> > 
-> > One issue is that we only have limited information passed via device
-> > tree, limited to the "iommus" property. If that's all we have, there
-> > isn't much we can do.
-> 
-> We can actually do a lot with that :). See more below.
-> 
-> > The device tree list is maybe the only option,
-> > although it feels a bit complex intuitively. We could maybe replace the
-> > real iommu node with a fake iommu node only to use it to "tag" devices
-> > protected by the real iommu.
-> > 
-> > I like the idea of rewarding well-designed boards; boards that have an
-> > IOMMU and works for all DMA-mastering devices. It would be great to be
-> > able to optimize those in a simple way, without breaking the others. But
-> > unfortunately due to the limited info on device tree, I cannot think of
-> > a way to do it automatically. And it is not great to rely on platform
-> > files.
-> 
-> We would not be able to automate in Xen alone, however we can ask the help of
-> Linux.
-> 
-> Xen is able to tell whether it has protected the device with an IOMMU or not.
-> When creating the domain device-tree, it could replace the IOMMU node with a
-> Xen specific one.
-> 
-> With the Xen IOMMU nodes, Linux could find out whether the device needs to use
-> the swiotlb ops or not.
-
-That might work.
-
-Another similar idea is to use "dma-ranges" in device tree.  dma-ranges
-can only be used for a bus and allow us to specify special DMA address
-mappings between the nodes under the bus the parent address space.
-
-If we created a new bus node called "amba-nodma" with a "dma-ranges"
-that basically traslates child addresses into an invalid address or size
-zero, and moved devices without "iommus" under it, the consequence is
-that all those devices will be accessible and usable by Linux but there
-would be no DMA transactions originating from them. Or the transactions
-would fail explicitely.
-
-Thus, IOMMU-protected devices would continue to work as normal.
-Non-dma-mastering non-IOMMU-protected devices would also continue to
-work as normal.
-Dma-mastering non-IOMMU-protected devices would not work, but the
-failure would be controlled and explicit.
-
-At that point, swiotlb-xen could be enabled only for devices that have
-this special dma-ranges address translation.
-
-On one hand, this technique would require fewer changes in Linux -- it
-might even work with almost no changes on the Linux side thanks to the
-automatic fallback to the swiotlb when dma_mask checks fail.
-
-On the other hand, I really dislike the magic invalid address
-translation. If it is invalid, the device DMA should not work at all; it
-should not trigger the swiotlb-xen. I can't think of a way to make this
-clean from a device tree spec perspective. I thought I would mention it
-in case it gives you any good ideas.
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 942b732f-869f-4057-371b-08d8d85b958a
+X-MS-TrafficTypeDiagnostic: BYAPR10MB2886:
+X-Microsoft-Antispam-PRVS: 
+	<BYAPR10MB2886740E7C0593EFFF747FC48A9F9@BYAPR10MB2886.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	j1KxkMwMvut9ABOUJ9RW5c4T+0jdMmcbVqCBcGO0PVneMsnLXAPYbmtxjhjk4fifGzOtZMYeqM+R7CloRy7gl1B6GzYydzbOsw9J1NJD66lrS8wYrSqUB/lq8OQFXBtfA+X3kthvVyungq5bvtqBJyd8JY5oSecOcV2DK5Oemx2ndyXGlBvKHPTaB13+7Ufp668IpMogdm9xNniSZ19qU4B2HW2NroNleyu6XpcYoYfaFo4/jKNPV+HXhL6/lUkKNUYSXfdwpR8UfJwKTTaRrifLH4PLqntqutPCQLbMaIvtfXaxCTVzY9XXI/ofJ817g6tLATzETkZE2vGFbpwPtx+y5uOWdB2OYiSPzFp+wrGHtH68YLeqDtpOjx1cszL8ql6sDvVMdOJrrclrCA9bQyvUANCyrgiKRugvVIatFXFN9wojZnhuVZ5/UpoO0k18xdWuxqruMWcWtv0mpVZYi69ZkYFa07y0sumVk6hm1nE9ibckDpsjAoUzJAV0QblFwt/cGL8pvgTtlcv23yxrR+IaoMkJGBAJ0wB9rcC0oCU3WHGVpJ0fsrx2AFJso40TRg6R4fYnulYLiIb61d9T4HlDUf2ul3lG6spy7EhAwDg=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB3288.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(366004)(396003)(39860400002)(376002)(136003)(16526019)(26005)(31686004)(44832011)(31696002)(36756003)(66556008)(2616005)(6666004)(186003)(86362001)(66946007)(83380400001)(110136005)(478600001)(4744005)(2906002)(316002)(6486002)(16576012)(66476007)(8936002)(4326008)(8676002)(53546011)(956004)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?utf-8?B?a3lkeXVMQkNoellCZnczVGlnRGtRdzJzUnR2ZjNTWEl3RXdKL096a1hBZE5x?=
+ =?utf-8?B?TElhbGlncGZVNUZvU1dnaWkyR2pXYm5rWW1zbklyMlVSNDZoLzdHbzZQSWpa?=
+ =?utf-8?B?NmU5SGxYTkpFZ3BvdGhId2R6Qm9JcW45aDVIQUVYOHNDVE9OZ3RmYVZKelUw?=
+ =?utf-8?B?R25WQWt4bEdGenRMZWdTM0I2cFlHZWw1VUNvS0NDa1lXcTcxTDVzM0xuRHFy?=
+ =?utf-8?B?b3psVXVFNWN2bkFCY29KSXFnd3ByaVdVU1BNc2dUWnp3QWhpeXNFZ0NiUWRx?=
+ =?utf-8?B?TS9jbjNlVldOWGVlRytYWDhWaUtud096OWJSRnNBS1B6QUlPSDUvR3hqNTlH?=
+ =?utf-8?B?QU1hL1RFRXhxN0FVRFZnNlpFbnRFK08yc2t5U2Zxb1EvNnJUWFN2Rm1WZU1w?=
+ =?utf-8?B?eTRMMTdCS3p3QzJYVFVieHRZNVpRMTY4bDZINldMeGpEc2RvVjlGTlAvRVE4?=
+ =?utf-8?B?UWllRnVSQUxPSGt4NmUyY0tWNm9PL3ZRWkZBNldWSUZkdXhSeVQ0azFRdXpM?=
+ =?utf-8?B?WWZGWE9nVXNjQW9ZcGZFM2xtajllQ1NKbThLU1MyaWpWcjRqOGNXV3hPQm5M?=
+ =?utf-8?B?OVpzR0UvUFdyS1RVajJrbHlheUtTRHVVTjA1YWYwWkxTV0NvSjJMaENiV1Bu?=
+ =?utf-8?B?RmFWWWZqSk16Umk2NmJtN3ZjeEpKK2ZNcVZYMzNUY2ZKWWErVWs1Ykc0NUpv?=
+ =?utf-8?B?SkZjUWZlR1dPdFE1aXA4U0ZweFAzZkhVNUpLUk8xOURBM1ZiR0lZdW9xMjFq?=
+ =?utf-8?B?cVNNVG1uTU9Va29SQ3YyVWVQRVpQamR6anp3Tk5BWGx4Z21iWWZ3dWNZNExS?=
+ =?utf-8?B?THIwSGpVZ0dMN1VqOWpDSkY1Ky81SG1HeFUvSGRsQnBQL1lUL2IrZkVSMmNQ?=
+ =?utf-8?B?RWRoVlFKQTd2YkNNYWpQOGdrQThsaWdYNjNYbCtrYU5ieHR5M3B0ay93MlFs?=
+ =?utf-8?B?WEw0MEZvaldmaFowVHU2S2FBVkVRZjB2OElXTkttTm5QRmJVdFMvSDI4dTFF?=
+ =?utf-8?B?ek9obTJISWk3OVNqSHpiaCtZSE5sSmxLNzdOSFFyZDFYNk9NbWtxUVFNOXpY?=
+ =?utf-8?B?UzBDeDMwUnQ5T2JkdTRVS0VJTkk5QmVJQW1PWlEvL3BpVDQ4a0VSSkhEVnVq?=
+ =?utf-8?B?RUZ0NEZLbzk5QnZXeUtxZVhWTnA4R01Ib1JFaHFLYi8rYlpQVEc3Q1ZhMVMw?=
+ =?utf-8?B?UVhuMk1kUGFGc3Z1QXNRelpsMXowSkw4SlEvNUtBZEUvNDBWRkg5TzBoR0tI?=
+ =?utf-8?B?ajk4K3V6dXdTa0lGOExKREI5WWhpd0ZvQWYyUTBteXBkbFRLWjZ2MGhRRnEr?=
+ =?utf-8?B?bVZEMExLaDBpeDEzYzArUmVGd0FtVGUyUmRaRFVJS1ptMGxVbnpPaXdxdTFB?=
+ =?utf-8?B?ZWh4ZEdEdWRhdkkxNk0yeVJuU2pFVURpQzlrT1pWdk5ueXBPcitxdnVUTlN5?=
+ =?utf-8?B?OGpYbkZlMW4wZ0hNNGt6VVpVdXpyZ0hlLy9jVXQyVkdUN1Bza2VZNkhjWjN1?=
+ =?utf-8?B?eXFaT0EwWjNzT1pYM1RIVVdIdmVWTFBrT2taYnQwQWVHSVdRbld5MGpSZ3l5?=
+ =?utf-8?B?bTlIVWNXUG1JNzFESmlNYmp3QWk0amorR0RCeUNrY1dDNGZlTm9BanV0VzI3?=
+ =?utf-8?B?Uy9EdGU2WkRxRmZDN1Z1VTlSZVk4TXU5bXVLTVRyT1h5aUJHUXpWK2dsdDEz?=
+ =?utf-8?B?dkdZY3NNMjNaRE1ydW1yMk9wcUI2WjZvWHc0T0FYUHp1MHBYTENNSUNGQ1Vt?=
+ =?utf-8?Q?4GGayXa9iTagCb7Q8DRw2kjTRE3LXLIe3mnvft9?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 942b732f-869f-4057-371b-08d8d85b958a
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3288.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 00:31:53.9249
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F2utCAcaWxN31VpxF4QEuh3NPst9V6wicwF9QJt8W3v9kZT2O+5HiNN3QAITQR8i9kH3QQAJv9Ch4ulV7ttCW4cM9AOsmByKrAmBjOcL1P0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2886
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9904 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 suspectscore=0
+ malwarescore=0 mlxlogscore=999 adultscore=0 bulkscore=0 mlxscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2102240001
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9904 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 mlxscore=0 malwarescore=0
+ clxscore=1011 phishscore=0 mlxlogscore=999 lowpriorityscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2102240001
 
 
-> Skipping extra mapping in the IOMMU is a bit trickier. I can see two
-> solutions:
->   - A per-domain toggle to skip the IOMMU mapping. This is assuming that Linux
-> is able to know that all DMA capable devices are protected. The problem is a
-> driver may be loaded later. Such drivers are unlikely to use existing grant,
-> so the toggle could be used to say "all the grant after this point will
-> require a mapping (or not)"
-
-I cannot think of a way for Linux to figure out that all DMA capable
-devices are protected. Is the idea that Linux would base the decision on
-the Linux drivers, not the capability of the hardware? Even using the
-drivers, I don't know if it would be possible to implement.
+On 2/23/21 1:28 PM, Oleksandr Andrushchenko wrote:
+> Hello, Jan!
+>
+> On 2/23/21 6:26 PM, Jan Beulich wrote:
+>> In order for subsequent unmapping to not mistakenly unmap handle 0,
+>> record a perceived always-invalid one instead.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Reviewed-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
 
->   - A per-grant flag to indicate whether an IOMMU mapping is necessary. This
-> is assuming we are able to know whether a grant will be used for DMA.
 
-That might be easier because the caller of gnttab_map_refs in Linux
-should be able to make a decent guess.
+Applied to for-linus-5.12b
+
 
