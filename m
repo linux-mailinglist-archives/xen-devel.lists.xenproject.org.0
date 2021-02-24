@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02BC0323C32
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 13:52:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89331.168141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87422323C48
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 13:53:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89333.168153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEtdw-0006ut-Ud; Wed, 24 Feb 2021 12:51:52 +0000
+	id 1lEtfP-00071d-8u; Wed, 24 Feb 2021 12:53:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89331.168141; Wed, 24 Feb 2021 12:51:52 +0000
+Received: by outflank-mailman (output) from mailman id 89333.168153; Wed, 24 Feb 2021 12:53:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEtdw-0006uU-RG; Wed, 24 Feb 2021 12:51:52 +0000
-Received: by outflank-mailman (input) for mailman id 89331;
- Wed, 24 Feb 2021 12:51:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lEtfP-00071E-5q; Wed, 24 Feb 2021 12:53:23 +0000
+Received: by outflank-mailman (input) for mailman id 89333;
+ Wed, 24 Feb 2021 12:53:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6hyu=H2=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1lEtdv-0006uP-9p
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 12:51:51 +0000
+ id 1lEtfN-000719-Vw
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 12:53:22 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9e9161a8-5b32-4243-ac65-e07a74ccb58c;
- Wed, 24 Feb 2021 12:51:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A48C64F35;
- Wed, 24 Feb 2021 12:51:48 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 84f17e29-46cb-4e7a-9e23-48d1409cd8c9;
+ Wed, 24 Feb 2021 12:53:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 952A264F13;
+ Wed, 24 Feb 2021 12:53:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e9161a8-5b32-4243-ac65-e07a74ccb58c
+X-Inumbo-ID: 84f17e29-46cb-4e7a-9e23-48d1409cd8c9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1614171110;
+	s=k20201202; t=1614171200;
 	bh=1voqjsAoBFLxX7rDbdvLrvHACJsPGL3qdmFT+MVPv9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=spjwNbA3ZtlvtPipEn6gfBOlftIW6w7odr2XfL2181T9bK8cCwsM2LBQNoGUtghVL
-	 +buNAx7SgQMw6ZIpQxTknwVpx5NTpass/l7ybj6RtHiqw9UifteXfGfnkOwSCWkU4i
-	 +eBluSCs+cPiUN6qhMjkc3eoReO4D1oa9TLyuyE4tq8CN6fadJcqZBZAI1aZZ7k9cD
-	 E3yRxJH9Z7tX130usP78uATGssnbZnpngxHbuZmw7O9YU3ORHsxEqmWUN5YE2qR+8x
-	 2J/Vt5H8IzJBZzsLr2Ld6nXRjj1t9XqhG1tLoj/1TkTDZVWtIxCDwIiZOwDXvLRHs2
-	 +1WGDif58wmhw==
+	b=n4CaV2DsapOHyAY2CTejx635bsmN1PT/GI+bXaSP41g0MUkn97yPgHWDfUXDGusrK
+	 hJYCVndOTt3ljWNDEpNMfC+OwFIWm1Y3O7RlCa8ajND8LdyjkXHFjBnJKfAhempKb+
+	 FrCFJyhjQLdQFEOJhAPQ+ezCqlszTuMIAwjc4wmZUsH3UYNbNpXF/D5N3qzaZx2fMn
+	 vs88qYTVw4CanXIbaallaqKw5ZJCkNUESoOl5oc5VYtTk3LrgntI4V5abPeY1m+lJB
+	 C02lj9za7z7k5bu7x2r24d7iynMZK1mZhdTxXkTUkxvwsBF7jQ3duMS6nw0kc2NV49
+	 WWwh3F9SmVCuA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -57,12 +58,12 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Sasha Levin <sashal@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	linux-block@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 62/67] xen-blkback: fix error handling in xen_blkbk_map()
-Date: Wed, 24 Feb 2021 07:50:20 -0500
-Message-Id: <20210224125026.481804-62-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 51/56] xen-blkback: fix error handling in xen_blkbk_map()
+Date: Wed, 24 Feb 2021 07:52:07 -0500
+Message-Id: <20210224125212.482485-51-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210224125026.481804-1-sashal@kernel.org>
-References: <20210224125026.481804-1-sashal@kernel.org>
+In-Reply-To: <20210224125212.482485-1-sashal@kernel.org>
+References: <20210224125212.482485-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
