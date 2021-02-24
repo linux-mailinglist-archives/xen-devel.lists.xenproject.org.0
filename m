@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7493239C2
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 10:44:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89218.167886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 798643239D1
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 10:48:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89227.167899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEqiH-0003Qp-UV; Wed, 24 Feb 2021 09:44:09 +0000
+	id 1lEqma-0003ok-Go; Wed, 24 Feb 2021 09:48:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89218.167886; Wed, 24 Feb 2021 09:44:09 +0000
+Received: by outflank-mailman (output) from mailman id 89227.167899; Wed, 24 Feb 2021 09:48:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEqiH-0003Pz-QJ; Wed, 24 Feb 2021 09:44:09 +0000
-Received: by outflank-mailman (input) for mailman id 89218;
- Wed, 24 Feb 2021 09:44:08 +0000
+	id 1lEqma-0003oI-D0; Wed, 24 Feb 2021 09:48:36 +0000
+Received: by outflank-mailman (input) for mailman id 89227;
+ Wed, 24 Feb 2021 09:48:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lEqiG-0003Oj-LG
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 09:44:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEqmZ-0003oA-0e; Wed, 24 Feb 2021 09:48:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lEqiD-0002NW-NB; Wed, 24 Feb 2021 09:44:05 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lEqiD-0000gz-E8; Wed, 24 Feb 2021 09:44:05 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEqmY-0002TB-Uz; Wed, 24 Feb 2021 09:48:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEqmY-0001no-O2; Wed, 24 Feb 2021 09:48:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lEqmY-0001gs-NV; Wed, 24 Feb 2021 09:48:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,221 +42,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=rHfC/wahEJYSijbiVGgEzgUQtxG8SVxu1zXJPzObAQE=; b=x2htRuk5dxgH1esh77aZtn5At
-	DjXhqhuCUiPguIbbdcDu6IvkLw+JUNo+KiTUqscQM9u3AIPcj10utO+F8UjIWMGspUXRUQxVCVXRK
-	g2Wc1oyFnfFYoTZDk4H8/UY3uNh7HT8gNWZBN8mBN3XBd4H3DJ24RyX5RNmQLDaeVdYtk=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: hongyxia@amazon.co.uk,
-	iwj@xenproject.org,
-	Julien Grall <jgrall@amazon.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Paul Durrant <paul@xen.org>
-Subject: [for-4.15][RESEND PATCH v4 2/2] xen/iommu: x86: Clear the root page-table before freeing the page-tables
-Date: Wed, 24 Feb 2021 09:43:56 +0000
-Message-Id: <20210224094356.7606-3-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210224094356.7606-1-julien@xen.org>
-References: <20210224094356.7606-1-julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Qw4iIDdkjmKLiGNeBIkvnOTBKEq6PsnJxK6jQEG9W1o=; b=1JU+fqonYa2K3YJ12pfJl4HlBj
+	XRsiESmBhpIMZqu1rHpYDa/BnGMCktIeiUv/GnS63TG7FnEae4OE4RPb9pSethflwJCWpnTK3Qc1H
+	zCIxdwrOgE2q2dLQlTWXFLcdm28+o1xo4zEVM7anVpI5etNs+su5ZQbjmjmgDAvqCpGc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159620-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-coverity test] 159620: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=5d94433a66df29ce314696a13bdd324ec0e342fe
+X-Osstest-Versions-That:
+    xen=87a067fd8f4d4f7c6be02c3d38145115ac542017
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 24 Feb 2021 09:48:34 +0000
 
-From: Julien Grall <jgrall@amazon.com>
+flight 159620 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159620/
 
-The new per-domain IOMMU page-table allocator will now free the
-page-tables when domain's resources are relinquished. However, the
-per-domain IOMMU structure will still contain a dangling pointer to
-the root page-table.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  5d94433a66df29ce314696a13bdd324ec0e342fe
+baseline version:
+ xen                  87a067fd8f4d4f7c6be02c3d38145115ac542017
 
-Xen may access the IOMMU page-tables afterwards at least in the case of
-PV domain:
+Last test of basis   159515  2021-02-21 09:18:27 Z    3 days
+Testing same since   159620  2021-02-24 09:19:25 Z    0 days    1 attempts
 
-(XEN) Xen call trace:
-(XEN)    [<ffff82d04025b4b2>] R iommu.c#addr_to_dma_page_maddr+0x12e/0x1d8
-(XEN)    [<ffff82d04025b695>] F iommu.c#intel_iommu_unmap_page+0x5d/0xf8
-(XEN)    [<ffff82d0402695f3>] F iommu_unmap+0x9c/0x129
-(XEN)    [<ffff82d0402696a6>] F iommu_legacy_unmap+0x26/0x63
-(XEN)    [<ffff82d04033c5c7>] F mm.c#cleanup_page_mappings+0x139/0x144
-(XEN)    [<ffff82d04033c61d>] F put_page+0x4b/0xb3
-(XEN)    [<ffff82d04033c87f>] F put_page_from_l1e+0x136/0x13b
-(XEN)    [<ffff82d04033cada>] F devalidate_page+0x256/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
-(XEN)    [<ffff82d04033d8d6>] F mm.c#put_page_from_l2e+0x8a/0xcf
-(XEN)    [<ffff82d04033cc27>] F devalidate_page+0x3a3/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
-(XEN)    [<ffff82d04033d807>] F mm.c#put_page_from_l3e+0x8a/0xcf
-(XEN)    [<ffff82d04033cdf0>] F devalidate_page+0x56c/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d64d>] F mm.c#put_pt_page+0x6f/0x80
-(XEN)    [<ffff82d04033d6c7>] F mm.c#put_page_from_l4e+0x69/0x6d
-(XEN)    [<ffff82d04033cf24>] F devalidate_page+0x6a0/0x8dc
-(XEN)    [<ffff82d04033d396>] F mm.c#_put_page_type+0x236/0x47e
-(XEN)    [<ffff82d04033d92e>] F put_page_type_preemptible+0x13/0x15
-(XEN)    [<ffff82d04032598a>] F domain.c#relinquish_memory+0x1ff/0x4e9
-(XEN)    [<ffff82d0403295f2>] F domain_relinquish_resources+0x2b6/0x36a
-(XEN)    [<ffff82d040205cdf>] F domain_kill+0xb8/0x141
-(XEN)    [<ffff82d040236cac>] F do_domctl+0xb6f/0x18e5
-(XEN)    [<ffff82d04031d098>] F pv_hypercall+0x2f0/0x55f
-(XEN)    [<ffff82d04039b432>] F lstar_enter+0x112/0x120
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
 
-This will result to a use after-free and possibly an host crash or
-memory corruption.
+jobs:
+ coverity-amd64                                               pass    
 
-It would not be possible to free the page-tables further down in
-domain_relinquish_resources() because cleanup_page_mappings() will only
-be called when the last reference on the page dropped. This may happen
-much later if another domain still hold a reference.
 
-After all the PCI devices have been de-assigned, nobody should use the
-IOMMU page-tables and it is therefore pointless to try to modify them.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-So we can simply clear any reference to the root page-table in the
-per-domain IOMMU structure. This requires to introduce a new callback of
-the method will depend on the IOMMU driver used.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Take the opportunity to add an ASSERT() in arch_iommu_domain_destroy()
-to check if we freed all the IOMMU page tables.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Fixes: 3eef6d07d722 ("x86/iommu: convert VT-d code to use new page table allocator")
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
----
-    Changes in v4:
-        - Move the patch later in the series as we need to prevent
-        iommu_map() to allocate memory first.
-        - Add an ASSERT() in arch_iommu_domain_destroy().
 
-    Changes in v3:
-        - Move the patch earlier in the series
-        - Reword the commit message
+Pushing revision :
 
-    Changes in v2:
-        - Introduce clear_root_pgtable()
-        - Move the patch later in the series
----
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 12 +++++++++++-
- xen/drivers/passthrough/vtd/iommu.c         | 12 +++++++++++-
- xen/drivers/passthrough/x86/iommu.c         | 13 +++++++++++++
- xen/include/xen/iommu.h                     |  1 +
- 4 files changed, 36 insertions(+), 2 deletions(-)
-
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index 42b5a5a9bec4..085fe2f5771e 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -381,9 +381,18 @@ static int amd_iommu_assign_device(struct domain *d, u8 devfn,
-     return reassign_device(pdev->domain, d, devfn, pdev);
- }
- 
-+static void amd_iommu_clear_root_pgtable(struct domain *d)
-+{
-+    struct domain_iommu *hd = dom_iommu(d);
-+
-+    spin_lock(&hd->arch.mapping_lock);
-+    hd->arch.amd.root_table = NULL;
-+    spin_unlock(&hd->arch.mapping_lock);
-+}
-+
- static void amd_iommu_domain_destroy(struct domain *d)
- {
--    dom_iommu(d)->arch.amd.root_table = NULL;
-+    ASSERT(!dom_iommu(d)->arch.amd.root_table);
- }
- 
- static int amd_iommu_add_device(u8 devfn, struct pci_dev *pdev)
-@@ -565,6 +574,7 @@ static const struct iommu_ops __initconstrel _iommu_ops = {
-     .remove_device = amd_iommu_remove_device,
-     .assign_device  = amd_iommu_assign_device,
-     .teardown = amd_iommu_domain_destroy,
-+    .clear_root_pgtable = amd_iommu_clear_root_pgtable,
-     .map_page = amd_iommu_map_page,
-     .unmap_page = amd_iommu_unmap_page,
-     .iotlb_flush = amd_iommu_flush_iotlb_pages,
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index b549a71530d5..475efb3be3bd 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -1726,6 +1726,15 @@ out:
-     return ret;
- }
- 
-+static void iommu_clear_root_pgtable(struct domain *d)
-+{
-+    struct domain_iommu *hd = dom_iommu(d);
-+
-+    spin_lock(&hd->arch.mapping_lock);
-+    hd->arch.vtd.pgd_maddr = 0;
-+    spin_unlock(&hd->arch.mapping_lock);
-+}
-+
- static void iommu_domain_teardown(struct domain *d)
- {
-     struct domain_iommu *hd = dom_iommu(d);
-@@ -1740,7 +1749,7 @@ static void iommu_domain_teardown(struct domain *d)
-         xfree(mrmrr);
-     }
- 
--    hd->arch.vtd.pgd_maddr = 0;
-+    ASSERT(!hd->arch.vtd.pgd_maddr);
- }
- 
- static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
-@@ -2731,6 +2740,7 @@ static struct iommu_ops __initdata vtd_ops = {
-     .remove_device = intel_iommu_remove_device,
-     .assign_device  = intel_iommu_assign_device,
-     .teardown = iommu_domain_teardown,
-+    .clear_root_pgtable = iommu_clear_root_pgtable,
-     .map_page = intel_iommu_map_page,
-     .unmap_page = intel_iommu_unmap_page,
-     .lookup_page = intel_iommu_lookup_page,
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index c6b03624fe28..faeb549591d8 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -149,6 +149,13 @@ int arch_iommu_domain_init(struct domain *d)
- 
- void arch_iommu_domain_destroy(struct domain *d)
- {
-+    /*
-+     * There should be not page-tables left allocated by the time the
-+     * domain is destroyed. Note that arch_iommu_domain_destroy() is
-+     * called unconditionally, so pgtables may be unitialized.
-+     */
-+    ASSERT(dom_iommu(d)->platform_ops == NULL ||
-+           page_list_empty(&dom_iommu(d)->arch.pgtables.list));
- }
- 
- static bool __hwdom_init hwdom_iommu_map(const struct domain *d,
-@@ -273,6 +280,12 @@ int iommu_free_pgtables(struct domain *d)
-     /* After this barrier, no more IOMMU mapping can happen */
-     spin_barrier(&hd->arch.mapping_lock);
- 
-+    /*
-+     * Pages will be moved to the free list below. So we want to
-+     * clear the root page-table to avoid any potential use after-free.
-+     */
-+    hd->platform_ops->clear_root_pgtable(d);
-+
-     while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
-     {
-         free_domheap_page(pg);
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 863a68fe1622..d59ed7cbad43 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -272,6 +272,7 @@ struct iommu_ops {
- 
-     int (*adjust_irq_affinities)(void);
-     void (*sync_cache)(const void *addr, unsigned int size);
-+    void (*clear_root_pgtable)(struct domain *d);
- #endif /* CONFIG_X86 */
- 
-     int __must_check (*suspend)(void);
--- 
-2.17.1
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   87a067fd8f..5d94433a66  5d94433a66df29ce314696a13bdd324ec0e342fe -> coverity-tested/smoke
 
