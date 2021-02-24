@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87422323C48
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 13:53:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89333.168153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F0B8323D4D
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Feb 2021 14:09:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89338.168171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEtfP-00071d-8u; Wed, 24 Feb 2021 12:53:23 +0000
+	id 1lEtu5-0008BM-NT; Wed, 24 Feb 2021 13:08:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89333.168153; Wed, 24 Feb 2021 12:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 89338.168171; Wed, 24 Feb 2021 13:08:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lEtfP-00071E-5q; Wed, 24 Feb 2021 12:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 89333;
- Wed, 24 Feb 2021 12:53:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lEtu5-0008Ax-KC; Wed, 24 Feb 2021 13:08:33 +0000
+Received: by outflank-mailman (input) for mailman id 89338;
+ Wed, 24 Feb 2021 13:08:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6hyu=H2=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1lEtfN-000719-Vw
- for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 12:53:22 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 84f17e29-46cb-4e7a-9e23-48d1409cd8c9;
- Wed, 24 Feb 2021 12:53:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 952A264F13;
- Wed, 24 Feb 2021 12:53:19 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1lEtu3-0008As-Kr
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:08:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lEtu3-0005qg-IW
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:08:31 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lEtu3-0008Kr-Eq
+ for xen-devel@lists.xenproject.org; Wed, 24 Feb 2021 13:08:31 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lEtu0-0006tE-7O; Wed, 24 Feb 2021 13:08:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,114 +41,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84f17e29-46cb-4e7a-9e23-48d1409cd8c9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1614171200;
-	bh=1voqjsAoBFLxX7rDbdvLrvHACJsPGL3qdmFT+MVPv9g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=n4CaV2DsapOHyAY2CTejx635bsmN1PT/GI+bXaSP41g0MUkn97yPgHWDfUXDGusrK
-	 hJYCVndOTt3ljWNDEpNMfC+OwFIWm1Y3O7RlCa8ajND8LdyjkXHFjBnJKfAhempKb+
-	 FrCFJyhjQLdQFEOJhAPQ+ezCqlszTuMIAwjc4wmZUsH3UYNbNpXF/D5N3qzaZx2fMn
-	 vs88qYTVw4CanXIbaallaqKw5ZJCkNUESoOl5oc5VYtTk3LrgntI4V5abPeY1m+lJB
-	 C02lj9za7z7k5bu7x2r24d7iynMZK1mZhdTxXkTUkxvwsBF7jQ3duMS6nw0kc2NV49
-	 WWwh3F9SmVCuA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Sasha Levin <sashal@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 51/56] xen-blkback: fix error handling in xen_blkbk_map()
-Date: Wed, 24 Feb 2021 07:52:07 -0500
-Message-Id: <20210224125212.482485-51-sashal@kernel.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210224125212.482485-1-sashal@kernel.org>
-References: <20210224125212.482485-1-sashal@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=t9oyT3HlfOULSjznKaqRaJXa222QqsLAnEmpdcIGz8k=; b=CtDkP9sen4ugan+JYeYqJqWacA
+	UXVZzgv25BOYnq2G8T9vO+8eSosiS3f/h21l7yFgrRRnOiUUWL7jrvDqQuG9IeUXUoPcOwAHeNM84
+	bfYml255hA/wr030YsxcyVlbPl+htkBlUzZgAQOdvhw0uyW8keFpa0+CAC8Acm7iNywI=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24630.20427.917602.787877@mariner.uk.xensource.com>
+Date: Wed, 24 Feb 2021 13:08:27 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    Wei Liu <wl@xen.org>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [PATCH v2 0/8] x86/PV: avoid speculation abuse through guest
+ accessors
+In-Reply-To: <ce93bd48-7ef3-cdb1-9429-ccd894895e9e@suse.com>
+References: <b466a19e-e547-3c7c-e39b-1a4c848a053a@suse.com>
+	<24623.56913.290437.499946@mariner.uk.xensource.com>
+	<ce93bd48-7ef3-cdb1-9429-ccd894895e9e@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-From: Jan Beulich <jbeulich@suse.com>
+Jan Beulich writes ("Re: [PATCH v2 0/8] x86/PV: avoid speculation abuse through guest accessors"):
+> On 19.02.2021 16:50, Ian Jackson wrote:
+> > Jan Beulich writes ("[PATCH v2 0/8] x86/PV: avoid speculation abuse through guest accessors"):
+> >> 4: rename {get,put}_user() to {get,put}_guest()
+> >> 5: gdbsx: convert "user" to "guest" accesses
+> >> 6: rename copy_{from,to}_user() to copy_{from,to}_guest_pv()
+> >> 7: move stac()/clac() from {get,put}_unsafe_asm() ...
+> >> 8: PV: use get_unsafe() instead of copy_from_unsafe()
+> > 
+> > These have not got a maintainer review yet.  To grant a release-ack
+> > I'd like an explanation of the downsides and upsides of taking this
+> > series in 4.15 ?
+> > 
+> > You say "consistency" but in practical terms, what will happen if the
+> > code is not "conxistent" in this sense ?
+> > 
+> > I'd also like to hear from aother hypervisor maintainer.
+> 
+> Meanwhile they have been reviewed by Roger. Are you willing to
+> give them, perhaps with the exception of 7, a release ack as
+> well?
 
-[ Upstream commit 871997bc9e423f05c7da7c9178e62dde5df2a7f8 ]
+Sorry, yes.
 
-The function uses a goto-based loop, which may lead to an earlier error
-getting discarded by a later iteration. Exit this ad-hoc loop when an
-error was encountered.
+I found these explanations convincing  Thank you.
 
-The out-of-memory error path additionally fails to fill a structure
-field looked at by xen_blkbk_unmap_prepare() before inspecting the
-handle which does get properly set (to BLKBACK_INVALID_HANDLE).
+For all except 7,
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
-Since the earlier exiting from the ad-hoc loop requires the same field
-filling (invalidation) as that on the out-of-memory path, fold both
-paths. While doing so, drop the pr_alert(), as extra log messages aren't
-going to help the situation (the kernel will log oom conditions already
-anyway).
+For 7, I remember what I think was an IRC conversation where someone
+(you, I think) said you had examined the generated asm and it was
+unchanged.
 
-This is XSA-365.
+If I have remembered that correctly, then for 7 as well:
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Julien Grall <julien@xen.org>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/block/xen-blkback/blkback.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+If I have misremembered please do say.
 
-diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
-index 9ebf53903d7bf..9301de1386436 100644
---- a/drivers/block/xen-blkback/blkback.c
-+++ b/drivers/block/xen-blkback/blkback.c
-@@ -794,8 +794,13 @@ static int xen_blkbk_map(struct xen_blkif_ring *ring,
- 			pages[i]->persistent_gnt = persistent_gnt;
- 		} else {
- 			if (gnttab_page_cache_get(&ring->free_pages,
--						  &pages[i]->page))
--				goto out_of_memory;
-+						  &pages[i]->page)) {
-+				gnttab_page_cache_put(&ring->free_pages,
-+						      pages_to_gnt,
-+						      segs_to_map);
-+				ret = -ENOMEM;
-+				goto out;
-+			}
- 			addr = vaddr(pages[i]->page);
- 			pages_to_gnt[segs_to_map] = pages[i]->page;
- 			pages[i]->persistent_gnt = NULL;
-@@ -882,17 +887,18 @@ static int xen_blkbk_map(struct xen_blkif_ring *ring,
- 	}
- 	segs_to_map = 0;
- 	last_map = map_until;
--	if (map_until != num)
-+	if (!ret && map_until != num)
- 		goto again;
- 
--	return ret;
--
--out_of_memory:
--	pr_alert("%s: out of memory\n", __func__);
--	gnttab_page_cache_put(&ring->free_pages, pages_to_gnt, segs_to_map);
--	for (i = last_map; i < num; i++)
-+out:
-+	for (i = last_map; i < num; i++) {
-+		/* Don't zap current batch's valid persistent grants. */
-+		if(i >= last_map + segs_to_map)
-+			pages[i]->persistent_gnt = NULL;
- 		pages[i]->handle = BLKBACK_INVALID_HANDLE;
--	return -ENOMEM;
-+	}
-+
-+	return ret;
- }
- 
- static int xen_blkbk_map_seg(struct pending_req *pending_req)
--- 
-2.27.0
-
+Ian.
 
