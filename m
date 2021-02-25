@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDE94325A2B
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 00:27:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90006.170149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E2D325A70
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 00:52:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90012.170167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFQ2I-0000wI-3n; Thu, 25 Feb 2021 23:27:10 +0000
+	id 1lFQQP-0003yQ-5N; Thu, 25 Feb 2021 23:52:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90006.170149; Thu, 25 Feb 2021 23:27:10 +0000
+Received: by outflank-mailman (output) from mailman id 90012.170167; Thu, 25 Feb 2021 23:52:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFQ2H-0000vr-Uo; Thu, 25 Feb 2021 23:27:09 +0000
-Received: by outflank-mailman (input) for mailman id 90006;
- Thu, 25 Feb 2021 23:27:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lFQ2G-0000vj-D8; Thu, 25 Feb 2021 23:27:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lFQ2G-0003K2-2D; Thu, 25 Feb 2021 23:27:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lFQ2F-00069J-RI; Thu, 25 Feb 2021 23:27:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lFQ2F-0002kJ-Qo; Thu, 25 Feb 2021 23:27:07 +0000
+	id 1lFQQP-0003y1-1r; Thu, 25 Feb 2021 23:52:05 +0000
+Received: by outflank-mailman (input) for mailman id 90012;
+ Thu, 25 Feb 2021 23:52:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yjlP=H3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lFQQN-0003xw-K5
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 23:52:03 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d08a44e2-4d57-4784-b006-ef7536b343ea;
+ Thu, 25 Feb 2021 23:52:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7ADFC64F29;
+ Thu, 25 Feb 2021 23:52:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,198 +37,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=GtFElcf/2M1VptzTQoQGqkw2tnw82vc2vRXINCr4i1g=; b=LOxOhDNab5YI/80M7cB0tiKlTq
-	20wFX6HL3xARfsA40kp8zLzWjPYxM0Tjtb4soF1BpDFTHnFIaO7pNnVmWxnR4fHt8Hl5sLWV4oGDS
-	bG+B2XcKhoNvd2KGnW4gQzMnYsxOtHyRebiNlg1SSZ7S+dNjZKfWfBIqsGBpy4R5Bp4U=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable bisection] complete test-xtf-amd64-amd64-4
-Message-Id: <E1lFQ2F-0002kJ-Qo@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 25 Feb 2021 23:27:07 +0000
+X-Inumbo-ID: d08a44e2-4d57-4784-b006-ef7536b343ea
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1614297121;
+	bh=gKrc3LbPXjztB1RQb8Ri1kuoi7BqfPxmEstNJKugeKg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=JHbF2ijUkzp1TFtMnJE0LhTEw3vqOrcDj9ulUyKy+7yXyhgUO6D3iUpWIoG8tHyvw
+	 oAvCNIPwgg0F7XsXm6+3HIkfDSVZTQWEA4JVajQVqrPyCn9NYbguFElHaaFbZ/Py2x
+	 sDLAXRg9Xna7mWSp7z+dGQeVeS+331XRryq52apYKufjqit4PcGO8McRoe5mEzisIG
+	 PGKl3Ii7r6F7eHIM/3UzPeEt9jhoBuqrlzc5595TRJJwR7AVJlxjgES3Oth5gO6awN
+	 9ssFnJL/EQwN3qmXwaMPcvuIGGr6tZoZR4GX5XC9tzzGbLAa1Rli9ok0i0EjUsE12u
+	 +XUroRcE5Wl6g==
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: jgross@suse.com
+Cc: sstabellini@kernel.org,
+	boris.ostrovsky@oracle.com,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH] xen/arm: introduce XENFEAT_direct_mapped and XENFEAT_not_direct_mapped
+Date: Thu, 25 Feb 2021 15:51:58 -0800
+Message-Id: <20210225235158.24001-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-xtf-amd64-amd64-4
-testid xtf/test-pv32pae-selftest
+Newer Xen versions expose two Xen feature flags to tell us if the domain
+is directly mapped or not. Only when a domain is directly mapped it
+makes sense to enable swiotlb-xen on ARM.
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
+Introduce a function on ARM to check the new Xen feature flags and also
+to deal with the legacy case. Call the function xen_swiotlb_detect.
 
-*** Found and reproduced problem changeset ***
+Also rename the existing pci_xen_swiotlb_detect on x86 to
+xen_swiotlb_detect so that we can share a common function declaration.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  4dc1815991420b809ce18dddfdf9c0af48944204
-  Bug not present: 2d824791504f4119f04f95bafffec2e37d319c25
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159687/
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
 
+This is the corresponding Xen patch under review:
+https://marc.info/?l=xen-devel&m=161421618217686
 
-  commit 4dc1815991420b809ce18dddfdf9c0af48944204
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Fri Feb 19 17:19:56 2021 +0100
-  
-      x86/PV: harden guest memory accesses against speculative abuse
-      
-      Inspired by
-      https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
-      and prior work in that area of x86 Linux, suppress speculation with
-      guest specified pointer values by suitably masking the addresses to
-      non-canonical space in case they fall into Xen's virtual address range.
-      
-      Introduce a new Kconfig control.
-      
-      Note that it is necessary in such code to avoid using "m" kind operands:
-      If we didn't, there would be no guarantee that the register passed to
-      guest_access_mask_ptr is also the (base) one used for the memory access.
-      
-      As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
-      parameter gets dropped and the XOR on the fixup path gets changed to be
-      a 32-bit one in all cases: This way we avoid pointless REX.W or operand
-      size overrides, or writes to partial registers.
-      
-      Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+We don't *have to* make the x86 function and the ARM function exactly
+the same, but I thought it would be much nicer if we did. However, we
+can't really call it pci_* on ARM as there is no PCI necessarily.
 
+---
+ arch/arm/xen/mm.c                      | 14 +++++++++++++-
+ arch/arm64/mm/dma-mapping.c            |  2 +-
+ arch/x86/include/asm/xen/swiotlb-xen.h |  4 ++--
+ arch/x86/kernel/pci-swiotlb.c          |  2 +-
+ arch/x86/xen/pci-swiotlb-xen.c         |  6 +++---
+ include/xen/interface/features.h       |  7 +++++++
+ include/xen/swiotlb-xen.h              |  6 ++++++
+ 7 files changed, 33 insertions(+), 8 deletions(-)
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest --summary-out=tmp/159687.bisection-summary --basis-template=159475 --blessings=real,real-bisect,real-retry xen-unstable test-xtf-amd64-amd64-4 xtf/test-pv32pae-selftest
-Searching for failure / basis pass:
- 159652 fail [host=godello0] / 159475 ok.
-Failure / basis pass flights: 159652 / 159475
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 60390ccb8b9b2dbf85010f8b47779bb231aa2533 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38\
- aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca-60390ccb8b9b2dbf85010f8b47779bb231aa2533 git://xenbits.xen.org/xtf.git#8ab15139728a8efd3ebbb60beb16a958a6a93fa1-8ab15139728a8efd3ebbb60beb16a958a6a93fa1
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 159475 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159487 [host=godello1]
- 159491 [host=albana0]
- 159508 [host=albana1]
- 159526 [host=huxelrebe1]
- 159540 [host=elbling0]
- 159559 [host=fiano1]
- 159576 [host=chardonnay0]
- 159602 [host=elbling1]
- 159626 [host=chardonnay1]
- 159669 [host=chardonnay1]
- 159652 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 60390ccb8b9b2dbf85010f8b47779bb231aa2533 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159670 [host=chardonnay1]
- 159672 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159673 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 60390ccb8b9b2dbf85010f8b47779bb231aa2533 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159675 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2ff2adc61fcfa09118b76b4b64cbf8a78f7f2882 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159678 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159679 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 6a1d72d3739e330caf728ea07d656d7bf568824b 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159680 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159682 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159683 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159684 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159686 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
- 159687 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 4dc1815991420b809ce18dddfdf9c0af48944204 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
-Searching for interesting versions
- Result found: flight 159475 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1, results HASH(0x562dd310a750) HASH(0x562dd3120f40) HASH(0x562dd311ec38) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05\
- e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 6a1d72d3739e330caf728ea07d656d7bf568824b 8ab15139728a8efd3ebbb60beb16a958a6a93fa1, results HASH(0x562dd3120940) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e8185c5f01c68f7d29d23a4a91bc1be1ff2cc1ca 8ab15139728a8efd3ebbb60beb16a958a6a93fa1, results HASH(0x562dd310\
- f088) HASH(0x562dd3113840) Result found: flight 159652 (fail), for basis failure (at ancestor ~80)
- Repro found: flight 159672 (pass), for basis pass
- Repro found: flight 159673 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 2d824791504f4119f04f95bafffec2e37d319c25 8ab15139728a8efd3ebbb60beb16a958a6a93fa1
-No revisions left to test, checking graph state.
- Result found: flight 159680 (pass), for last pass
- Result found: flight 159682 (fail), for first failure
- Repro found: flight 159683 (pass), for last pass
- Repro found: flight 159684 (fail), for first failure
- Repro found: flight 159686 (pass), for last pass
- Repro found: flight 159687 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  4dc1815991420b809ce18dddfdf9c0af48944204
-  Bug not present: 2d824791504f4119f04f95bafffec2e37d319c25
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/159687/
-
-
-  commit 4dc1815991420b809ce18dddfdf9c0af48944204
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Fri Feb 19 17:19:56 2021 +0100
-  
-      x86/PV: harden guest memory accesses against speculative abuse
-      
-      Inspired by
-      https://lore.kernel.org/lkml/f12e7d3cecf41b2c29734ea45a393be21d4a8058.1597848273.git.jpoimboe@redhat.com/
-      and prior work in that area of x86 Linux, suppress speculation with
-      guest specified pointer values by suitably masking the addresses to
-      non-canonical space in case they fall into Xen's virtual address range.
-      
-      Introduce a new Kconfig control.
-      
-      Note that it is necessary in such code to avoid using "m" kind operands:
-      If we didn't, there would be no guarantee that the register passed to
-      guest_access_mask_ptr is also the (base) one used for the memory access.
-      
-      As a minor unrelated change in get_unsafe_asm() the unnecessary "itype"
-      parameter gets dropped and the XOR on the fixup path gets changed to be
-      a 32-bit one in all cases: This way we avoid pointless REX.W or operand
-      size overrides, or writes to partial registers.
-      
-      Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest.{dot,ps,png,html,svg}.
-----------------------------------------
-159687: tolerable all pass
-
-flight 159687 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159687/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-xtf-amd64-amd64-4     19 xtf/test-pv32pae-selftest fail baseline untested
-
-
-jobs:
- test-xtf-amd64-amd64-4                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+index 467fa225c3d0..f8e5acbef05d 100644
+--- a/arch/arm/xen/mm.c
++++ b/arch/arm/xen/mm.c
+@@ -135,10 +135,22 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
+ 	return;
+ }
+ 
++int __init xen_swiotlb_detect(void)
++{
++	if (!xen_domain())
++		return 0;
++	if (xen_feature(XENFEAT_direct_mapped))
++		return 1;
++	/* legacy case */
++	if (!xen_feature(XENFEAT_not_direct_mapped) && xen_initial_domain())
++		return 1;
++	return 0;
++}
++
+ static int __init xen_mm_init(void)
+ {
+ 	struct gnttab_cache_flush cflush;
+-	if (!xen_initial_domain())
++	if (!xen_swiotlb_detect())
+ 		return 0;
+ 	xen_swiotlb_init(1, false);
+ 
+diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
+index 93e87b287556..4bf1dd3eb041 100644
+--- a/arch/arm64/mm/dma-mapping.c
++++ b/arch/arm64/mm/dma-mapping.c
+@@ -53,7 +53,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+ 		iommu_setup_dma_ops(dev, dma_base, size);
+ 
+ #ifdef CONFIG_XEN
+-	if (xen_initial_domain())
++	if (xen_swiotlb_detect())
+ 		dev->dma_ops = &xen_swiotlb_dma_ops;
+ #endif
+ }
+diff --git a/arch/x86/include/asm/xen/swiotlb-xen.h b/arch/x86/include/asm/xen/swiotlb-xen.h
+index 6b56d0d45d15..494694744844 100644
+--- a/arch/x86/include/asm/xen/swiotlb-xen.h
++++ b/arch/x86/include/asm/xen/swiotlb-xen.h
+@@ -2,14 +2,14 @@
+ #ifndef _ASM_X86_SWIOTLB_XEN_H
+ #define _ASM_X86_SWIOTLB_XEN_H
+ 
++#include <xen/swiotlb-xen.h>
++
+ #ifdef CONFIG_SWIOTLB_XEN
+ extern int xen_swiotlb;
+-extern int __init pci_xen_swiotlb_detect(void);
+ extern void __init pci_xen_swiotlb_init(void);
+ extern int pci_xen_swiotlb_init_late(void);
+ #else
+ #define xen_swiotlb (0)
+-static inline int __init pci_xen_swiotlb_detect(void) { return 0; }
+ static inline void __init pci_xen_swiotlb_init(void) { }
+ static inline int pci_xen_swiotlb_init_late(void) { return -ENXIO; }
+ #endif
+diff --git a/arch/x86/kernel/pci-swiotlb.c b/arch/x86/kernel/pci-swiotlb.c
+index c2cfa5e7c152..c18eb6629326 100644
+--- a/arch/x86/kernel/pci-swiotlb.c
++++ b/arch/x86/kernel/pci-swiotlb.c
+@@ -30,7 +30,7 @@ int __init pci_swiotlb_detect_override(void)
+ 	return swiotlb;
+ }
+ IOMMU_INIT_FINISH(pci_swiotlb_detect_override,
+-		  pci_xen_swiotlb_detect,
++		  xen_swiotlb_detect,
+ 		  pci_swiotlb_init,
+ 		  pci_swiotlb_late_init);
+ 
+diff --git a/arch/x86/xen/pci-swiotlb-xen.c b/arch/x86/xen/pci-swiotlb-xen.c
+index 19ae3e4fe4e9..0a35657eeb85 100644
+--- a/arch/x86/xen/pci-swiotlb-xen.c
++++ b/arch/x86/xen/pci-swiotlb-xen.c
+@@ -21,12 +21,12 @@
+ int xen_swiotlb __read_mostly;
+ 
+ /*
+- * pci_xen_swiotlb_detect - set xen_swiotlb to 1 if necessary
++ * xen_swiotlb_detect - set xen_swiotlb to 1 if necessary
+  *
+  * This returns non-zero if we are forced to use xen_swiotlb (by the boot
+  * option).
+  */
+-int __init pci_xen_swiotlb_detect(void)
++int __init xen_swiotlb_detect(void)
+ {
+ 
+ 	if (!xen_pv_domain())
+@@ -90,7 +90,7 @@ int pci_xen_swiotlb_init_late(void)
+ }
+ EXPORT_SYMBOL_GPL(pci_xen_swiotlb_init_late);
+ 
+-IOMMU_INIT_FINISH(pci_xen_swiotlb_detect,
++IOMMU_INIT_FINISH(xen_swiotlb_detect,
+ 		  NULL,
+ 		  pci_xen_swiotlb_init,
+ 		  NULL);
+diff --git a/include/xen/interface/features.h b/include/xen/interface/features.h
+index 6d1384abfbdf..f0d00bb0ac63 100644
+--- a/include/xen/interface/features.h
++++ b/include/xen/interface/features.h
+@@ -83,6 +83,13 @@
+  */
+ #define XENFEAT_linux_rsdp_unrestricted   15
+ 
++/*
++ * A direct-mapped (or 1:1 mapped) domain is a domain for which its
++ * local pages have gfn == mfn.
++ */
++#define XENFEAT_not_direct_mapped         16
++#define XENFEAT_direct_mapped             17
++
+ #define XENFEAT_NR_SUBMAPS 1
+ 
+ #endif /* __XEN_PUBLIC_FEATURES_H__ */
+diff --git a/include/xen/swiotlb-xen.h b/include/xen/swiotlb-xen.h
+index d5eaf9d682b8..6a2fc4e4b838 100644
+--- a/include/xen/swiotlb-xen.h
++++ b/include/xen/swiotlb-xen.h
+@@ -12,4 +12,10 @@ void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
+ extern int xen_swiotlb_init(int verbose, bool early);
+ extern const struct dma_map_ops xen_swiotlb_dma_ops;
+ 
++#ifdef CONFIG_SWIOTLB_XEN
++extern int __init xen_swiotlb_detect(void);
++#else
++static inline int __init xen_swiotlb_detect(void) { return 0; }
++#endif
++
+ #endif /* __LINUX_SWIOTLB_XEN_H */
+-- 
+2.17.1
 
 
