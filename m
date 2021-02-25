@@ -2,33 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF7E32511C
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 15:02:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89788.169444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E963D32518F
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 15:37:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89797.169473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFHDL-0006OW-Ai; Thu, 25 Feb 2021 14:01:59 +0000
+	id 1lFHlb-00018G-A8; Thu, 25 Feb 2021 14:37:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89788.169444; Thu, 25 Feb 2021 14:01:59 +0000
+Received: by outflank-mailman (output) from mailman id 89797.169473; Thu, 25 Feb 2021 14:37:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFHDL-0006O6-7f; Thu, 25 Feb 2021 14:01:59 +0000
-Received: by outflank-mailman (input) for mailman id 89788;
- Thu, 25 Feb 2021 14:01:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lFHDJ-0006O1-WD
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 14:01:58 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lFHDJ-0001dL-Hh; Thu, 25 Feb 2021 14:01:57 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lFHDJ-0008AE-7t; Thu, 25 Feb 2021 14:01:57 +0000
+	id 1lFHlb-00017r-6z; Thu, 25 Feb 2021 14:37:23 +0000
+Received: by outflank-mailman (input) for mailman id 89797;
+ Thu, 25 Feb 2021 14:37:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3W+l=H3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lFHlZ-00017m-0c
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 14:37:21 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 211ad76f-ff28-4ac5-a925-1ba6a4b313df;
+ Thu, 25 Feb 2021 14:37:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +35,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=i8G2WBCHQKbcbqSL0ndl8kl+tO1w8KIN/yH2WppIgQ8=; b=eldvYWEAJ3/IApQZxynoW/FfZz
-	CI2CCas3RlVf/0D7e1he87v5ahyDH6mwtJ4wkAtT11rY+hCLuccvQZnJSd8fV2INziB6+wBS0ixVo
-	fmJBpNTvg1T1Uu93QsMiVjG1Vqf0Mx+xTY4fhHh9l9rCXkcqEHTHK6tPNu9MdCytK0bE=;
-Subject: Re: [PATCH for-4.15] xen/sched: Add missing memory barrier in
- vcpu_block()
-To: Ash Wilding <ash.j.wilding@gmail.com>
-Cc: dfaggioli@suse.com, george.dunlap@citrix.com, iwj@xenproject.org,
- jbeulich@suse.com, jgrall@amazon.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org
-References: <20210220194701.24202-1-julien@xen.org>
- <20210223132408.10283-1-ash.j.wilding@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <ee1d43f2-4c2c-66e0-8ad0-c32ca1c7969f@xen.org>
-Date: Thu, 25 Feb 2021 14:01:55 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: 211ad76f-ff28-4ac5-a925-1ba6a4b313df
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614263839;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=yhNTWm255lLEwEDS0u9GjHof2gWGrlbMR+g2aI2wLBI=;
+  b=flOYuPHwmFeim86/qwIAIfFerCcjgKhvVfl9FHH7shm5QqgWxJDQmtTd
+   nqIZC+Zz7rh7k6N7S0Rsp2g3BkN2xgFJKpqJvTLbDa9VeGZCNW72vHjWf
+   Kzk3u6lKNEtJpabLLD+ZCbeg1fmdk1OLlpVw5wwnZcPXMJVbznxf3J4Kn
+   U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: kUnkce5i2TPbTcmj7ATgf0Pe3FA2brZw5HG65rlz49RQGaOUscwesX5K711dr7aU5pF8bMlZa2
+ VB1xHYbN/JNjx6JhGWMyRGAmnXkGAsFdvhc74rkuuodvlwsGg2VkUn7OEhzoE1rL0ja/FHKMDW
+ CpQOHVdssmO5HTiZX9TrUYa7wtuB4opxxaqVfVu3dUV5AatUALNb5ayvQkZObL7E9qCMr5O7au
+ YUMmgVNEsXEcfXzpOUyOG+k0XI9vMMLiZqFm5+WHBo6jy1HOWWMd7ga/9qHSLKVTbcV3IMDdbK
+ MeA=
+X-SBRS: 5.2
+X-MesageID: 38212095
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,205,1610427600"; 
+   d="scan'208";a="38212095"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "Doug
+ Goldstein" <cardoe@cardoe.com>, Ian Jackson <iwj@xenproject.org>
+Subject: [PATCH for-4.15] automation: Fix containerize to understand the Alpine container
+Date: Thu, 25 Feb 2021 14:37:01 +0000
+Message-ID: <20210225143701.8487-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210223132408.10283-1-ash.j.wilding@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 23/02/2021 13:24, Ash Wilding wrote:
-> Hi Julien,
+This was missing from the work to add the alpine container.
 
-Hi Ash,
+Fixes: a9afe7768bd ("automation: add alpine linux 3.12 x86 build container")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Wei Liu <wl@xen.org>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Ian Jackson <iwj@xenproject.org>
 
-> Thanks for looking at this,
-> 
->> vcpu_block() is now gaining an smp_mb__after_atomic() to prevent the
->> CPU to read any information about local events before the flag
->> _VPF_blocked is set.
-> 
-> Reviewed-by: Ash Wilding <ash.j.wilding@gmail.com>
+For 4.15.  This is only developer tooling, with no impact on the build.
+---
+ automation/scripts/containerize | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks!
-
-> 
-> 
-> As an aside,
-> 
->> I couldn't convince myself whether the Arm implementation of
->> local_events_need_delivery() contains enough barrier to prevent the
->> re-ordering. However, I don't think we want to play with devil here
->> as the function may be optimized in the future.
-> 
-> Agreed.
-> 
-> The vgic_vcpu_pending_irq() and vgic_evtchn_irq_pending() in the call
-> path of local_events_need_delivery() both call spin_lock_irqsave(),
-> which has an arch_lock_acquire_barrier() in its call path.
-> 
-> That just happens to map to a heavier smp_mb() on Arm right now, but
-> relying on this behaviour would be shaky; I can imagine a future update
-> to arch_lock_acquire_barrier() that relaxes it down to just acquire
-> semantics like its name implies (for example an LSE-based lock_acquire()
-> using LDUMAXA),in which case any code incorrectly relying on that full
-> barrier behaviour may break. I'm guessing this is what you meant by the
-> function may be optimized in future?
-
-That's one of the optimization I had in mind. The other one is we may 
-find a way to remove the spinlocks, so the barriers would disappear 
-completely.
-
-> 
-> Do we know whether there is an expectation for previous loads/stores
-> to have been observed before local_events_need_delivery()? I'm wondering
-> whether it would make sense to have an smb_mb() at the start of the
-> *_nomask() variant in local_events_need_delivery()'s call path.
-
-That's a good question :). For Arm, there are 4 users of 
-local_events_need_delivery():
-   1) do_poll()
-   2) vcpu_block()
-   3) hypercall_preempt_check()
-   4) general_preempt_check()
-
-3 and 4 are used for breaking down long running operations. I guess we 
-would want to have an accurate view of the pending events and therefore 
-we would need a memory barrier to prevent the loads happening too early.
-
-In this case, I think the smp_mb() would want to be part of the 
-hypercall_preempt_check() and general_preempt_check().
-
-Therefore, I think we want to avoid the extra barrier in 
-local_events_need_delivery(). Instead, we should require the caller to 
-take care of the ordering if needed.
-
-This would have benefits any new architecture as the common code would 
-already contain the appropriate barriers.
-
-@Stefano, what do you think?
-
-Cheers,
-
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index da45baed4e..b7c81559fb 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -24,6 +24,7 @@ die() {
+ #
+ BASE="registry.gitlab.com/xen-project/xen"
+ case "_${CONTAINER}" in
++    _alpine) CONTAINER="${BASE}/alpine:3.12" ;;
+     _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
+     _centos7) CONTAINER="${BASE}/centos:7" ;;
+     _centos72) CONTAINER="${BASE}/centos:7.2" ;;
 -- 
-Julien Grall
+2.11.0
+
 
