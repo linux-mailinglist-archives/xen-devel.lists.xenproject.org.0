@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7806B324FB0
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 13:11:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89693.169159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3071B324FD4
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 13:23:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89696.169173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFFUB-0001Rj-Rm; Thu, 25 Feb 2021 12:11:15 +0000
+	id 1lFFfD-0002WJ-U9; Thu, 25 Feb 2021 12:22:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89693.169159; Thu, 25 Feb 2021 12:11:15 +0000
+Received: by outflank-mailman (output) from mailman id 89696.169173; Thu, 25 Feb 2021 12:22:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFFUB-0001RN-Of; Thu, 25 Feb 2021 12:11:15 +0000
-Received: by outflank-mailman (input) for mailman id 89693;
- Thu, 25 Feb 2021 12:11:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qDmu=H3=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1lFFUA-0001RI-8W
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 12:11:14 +0000
-Received: from mail-wr1-x42e.google.com (unknown [2a00:1450:4864:20::42e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 98dd487b-050b-4144-af35-8bfe5ffdf931;
- Thu, 25 Feb 2021 12:11:13 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id b3so5011698wrj.5
- for <xen-devel@lists.xenproject.org>; Thu, 25 Feb 2021 04:11:13 -0800 (PST)
-Received: from ?IPv6:2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec?
- ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id g1sm7018230wmh.9.2021.02.25.04.11.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Feb 2021 04:11:12 -0800 (PST)
+	id 1lFFfD-0002Vv-Qs; Thu, 25 Feb 2021 12:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 89696;
+ Thu, 25 Feb 2021 12:22:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lFFfC-0002Vq-Sx
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 12:22:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lFFfA-0008Fu-46; Thu, 25 Feb 2021 12:22:36 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lFFf9-0007xv-P8; Thu, 25 Feb 2021 12:22:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,106 +40,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98dd487b-050b-4144-af35-8bfe5ffdf931
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Elk6XkroCvy6YDZtlzcazzq5EnmxSahtrCRPixJOSKQ=;
-        b=ZtAMC2V0VcR42+wjwA4H3eAxtNacRvwFmrrkpegVmsuoMmvaaVoVzvCW0AEW7M45ZH
-         UOCACS+my5DkA0YLxoCJswlhzD70TpW6R6GdJW2JLgvFn5fG7ZttoyMaKdV2E7oGpLYP
-         Si2EwEbiZzTSeSUtd5NUUbF8LwUl9vf43KPTKdhIEUX0EIkIXldaoetQ15CFuC+Rc3CC
-         aG/3WAc8M73W1wzm4r2gbEImAJiJ9SVCYhZ6uCHfLpXQAfaBxom6SvXapNFDY/fy+9WH
-         s/X5mTW1TGBgsnr+UCSNvmSEw+1SZLgvikykKkvpVSECHqALTYiH8G4Z6ky0zNMFHvcI
-         0wpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:subject:to:cc:references
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=Elk6XkroCvy6YDZtlzcazzq5EnmxSahtrCRPixJOSKQ=;
-        b=gI3bHqS0yiU6LS8eVNmpt2PCp+vQ+2qxF+/fHmSe5hogTzR5SYOd7RMMaKDsAz5ZDp
-         MQlFcjjbGTCrxpgMDgP+qCNgfVsx6P7LNmxEM/SJCBe1EAkiF7aedHtlqvPILnnYxdda
-         XlOcDU683X9kS1ycM12fJs/VR5BRniWajn8Zkfc4gyE6lXLxaumfMCdZthRsbKDpneVS
-         1K7c1gnzIizhzvuWMITCqhVEdRnHv5Om6xNNvUmNZ2s4JGWhjajzuk6wbOiS/bIa6uju
-         mt0JW5ZO0lSdmFekEJ80CnQKQmgeoqFa9YoO/1/Ao6g1VsgMA0nvnaZ4l3uuf3B5jTA3
-         SLoQ==
-X-Gm-Message-State: AOAM531Jmdrly99QL+vAGlKHC9nX8Ko3V4xliRLIqDYnRl/LVeM5e6qi
-	Uh62uB5WTDKlZQFRGvBbh88=
-X-Google-Smtp-Source: ABdhPJx2i045TU5mnHfbXmvONbyukZsIZCSDA+0N1+KE57sH6FqvEo8nub4xMCR8IevpMvWxOWr/XA==
-X-Received: by 2002:adf:f7cc:: with SMTP id a12mr3203944wrq.54.1614255072541;
-        Thu, 25 Feb 2021 04:11:12 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Reply-To: paul@xen.org
-Subject: Re: [PATCH] xen-netback: correct success/error reporting for the
- SKB-with-fraglist case
-To: Jan Beulich <jbeulich@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=9N8Xs4CmQxxJU+JfkOI4Hg6HJzpF0TFOuHikqHwXSOw=; b=2FFMtVt3PjUHGSvjxohxnz3/eL
+	/PtHb0BuGkzB5I3pFMYNhuDCODSMscuB8WUlh34My5By/63GdSDVQpz3DHjc2dfXiUty0+WDqriLo
+	FeUA+3mLx86BcI+QJL3Y3twfc1gIiASNlxCzzGlIS/FvJwCgKkL6kvYxL2vDZTTeFW6o=;
+Subject: Re: [PATCH for-4.15] xen/vgic: Implement write to ISPENDR in vGICv{2,
+ 3}
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Wei Liu <wl@xen.org>
-References: <4dd5b8ec-a255-7ab1-6dbf-52705acd6d62@suse.com>
- <67bc0728-761b-c3dd-bdd5-1a850ff79fbb@xen.org>
- <76c94541-21a8-7ae5-c4c4-48552f16c3fd@suse.com>
-Message-ID: <17e50fb5-31f7-60a5-1eec-10d18a40ad9a@xen.org>
-Date: Thu, 25 Feb 2021 12:11:11 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ "iwj@xenproject.org" <iwj@xenproject.org>, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20210220140412.31610-1-julien@xen.org>
+ <F86904EB-91E9-475C-B60B-E08C5C9E76C3@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0c4e6015-f969-9b6b-91b5-bffa952d47d5@xen.org>
+Date: Thu, 25 Feb 2021 12:22:34 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <76c94541-21a8-7ae5-c4c4-48552f16c3fd@suse.com>
+In-Reply-To: <F86904EB-91E9-475C-B60B-E08C5C9E76C3@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 25/02/2021 07:33, Jan Beulich wrote:
-> On 24.02.2021 17:39, Paul Durrant wrote:
->> On 23/02/2021 16:29, Jan Beulich wrote:
->>> When re-entering the main loop of xenvif_tx_check_gop() a 2nd time, the
->>> special considerations for the head of the SKB no longer apply. Don't
->>> mistakenly report ERROR to the frontend for the first entry in the list,
->>> even if - from all I can tell - this shouldn't matter much as the overall
->>> transmit will need to be considered failed anyway.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> --- a/drivers/net/xen-netback/netback.c
->>> +++ b/drivers/net/xen-netback/netback.c
->>> @@ -499,7 +499,7 @@ check_frags:
->>>    				 * the header's copy failed, and they are
->>>    				 * sharing a slot, send an error
->>>    				 */
->>> -				if (i == 0 && sharedslot)
->>> +				if (i == 0 && !first_shinfo && sharedslot)
->>>    					xenvif_idx_release(queue, pending_idx,
->>>    							   XEN_NETIF_RSP_ERROR);
->>>    				else
->>>
+
+
+On 22/02/2021 13:45, Bertrand Marquis wrote:
+> Hi Julien,
+> 
+>> On 20 Feb 2021, at 14:04, Julien Grall <julien@xen.org> wrote:
 >>
->> I think this will DTRT, but to my mind it would make more sense to clear
->> 'sharedslot' before the 'goto check_frags' at the bottom of the function.
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> Currently, Xen will send a data abort to a guest trying to write to the
+>> ISPENDR.
+>>
+>> Unfortunately, recent version of Linux (at least 5.9+) will start
+>> writing to the register if the interrupt needs to be re-triggered
+>> (see the callback irq_retrigger). This can happen when a driver (such as
+>> the xgbe network driver on AMD Seattle) re-enable an interrupt:
+>>
+>> (XEN) d0v0: vGICD: unhandled word write 0x00000004000000 to ISPENDR44
+>> [...]
+>> [   25.635837] Unhandled fault at 0xffff80001000522c
+>> [...]
+>> [   25.818716]  gic_retrigger+0x2c/0x38
+>> [   25.822361]  irq_startup+0x78/0x138
+>> [   25.825920]  __enable_irq+0x70/0x80
+>> [   25.829478]  enable_irq+0x50/0xa0
+>> [   25.832864]  xgbe_one_poll+0xc8/0xd8
+>> [   25.836509]  net_rx_action+0x110/0x3a8
+>> [   25.840328]  __do_softirq+0x124/0x288
+>> [   25.844061]  irq_exit+0xe0/0xf0
+>> [   25.847272]  __handle_domain_irq+0x68/0xc0
+>> [   25.851442]  gic_handle_irq+0xa8/0xe0
+>> [   25.855171]  el1_irq+0xb0/0x180
+>> [   25.858383]  arch_cpu_idle+0x18/0x28
+>> [   25.862028]  default_idle_call+0x24/0x5c
+>> [   25.866021]  do_idle+0x204/0x278
+>> [   25.869319]  cpu_startup_entry+0x24/0x68
+>> [   25.873313]  rest_init+0xd4/0xe4
+>> [   25.876611]  arch_call_rest_init+0x10/0x1c
+>> [   25.880777]  start_kernel+0x5b8/0x5ec
+>>
+>> As a consequence, the OS may become unusable.
+>>
+>> Implementing the write part of ISPENDR is somewhat easy. For
+>> virtual interrupt, we only need to inject the interrupt again.
+>>
+>> For physical interrupt, we need to be more careful as the de-activation
+>> of the virtual interrupt will be propagated to the physical distributor.
+>> For simplicity, the physical interrupt will be set pending so the
+>> workflow will not differ from a "real" interrupt.
+>>
+>> Longer term, we could possible directly activate the physical interrupt
+>> and avoid taking an exception to inject the interrupt to the domain.
+>> (This is the approach taken by the new vGIC based on KVM).
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> That was my initial idea as well, but
-> - I think it is for a reason that the variable is "const".
-> - There is another use of it which would then instead need further
->    amending (and which I believe is at least part of the reason for
->    the variable to be "const").
+> This is something which will not be done by a guest very often so I think your
+> implementation actually makes it simpler and reduce possibilities of race conditions
+> so I am not even sure that the XXX comment is needed.
+
+I think the XXX is useful as if someone notice an issue with the code, 
+then they know what they could try.
+
+I am open to suggestion how we could keep track of potential improvement.
+
+> But i am ok with it being in or not so:
 > 
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Oh, yes. But now that I look again, don't you want:
+Thanks!
 
-if (i == 0 && first_shinfo && sharedslot)
-
-? (i.e no '!')
-
-The comment states that the error should be indicated when the first 
-frag contains the header in the case that the map succeeded but the 
-prior copy from the same ref failed. This can only possibly be the case 
-if this is the 'first_shinfo' (which is why I still think it is safe to 
-unconst 'sharedslot' and clear it).
-
-   Paul
-
-
-> Jan
-> 
-
+Cheers,
+-- 
+Julien Grall
 
