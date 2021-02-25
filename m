@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09E8132503B
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 14:17:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89755.169326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 787AA32503E
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 14:18:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89758.169339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFGW8-0000Wz-D8; Thu, 25 Feb 2021 13:17:20 +0000
+	id 1lFGXW-0000eg-OH; Thu, 25 Feb 2021 13:18:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89755.169326; Thu, 25 Feb 2021 13:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 89758.169339; Thu, 25 Feb 2021 13:18:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFGW8-0000Wa-9u; Thu, 25 Feb 2021 13:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 89755;
- Thu, 25 Feb 2021 13:17:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lFGXW-0000eH-Kv; Thu, 25 Feb 2021 13:18:46 +0000
+Received: by outflank-mailman (input) for mailman id 89758;
+ Thu, 25 Feb 2021 13:18:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lFGW7-0000WV-7C
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 13:17:19 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lFGW7-0000kX-0c
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 13:17:19 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lFGW6-0004Md-Vn
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 13:17:18 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lFGW3-0001UJ-NM; Thu, 25 Feb 2021 13:17:15 +0000
+ (envelope-from <SRS0=qWJX=H3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lFGXV-0000eC-PA
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 13:18:45 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f416b39c-09b8-4d67-9640-8bb6d6e1ad7c;
+ Thu, 25 Feb 2021 13:18:45 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 30871AFB5;
+ Thu, 25 Feb 2021 13:18:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,55 +38,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=/hj4/BTGQFDqHsbTaogqGJRszRoCPs4wNHdfk+St+F0=; b=l1BWMYI6GII665yB6r73VrIFn/
-	LWUB6pdAjgbZY0dOqPI1TGL3zCLRanfKBGPDHMqaQIkFY/OPPiRGotgHsmNdjszZDXbYebcfa5q4v
-	cToB/GYKpMZOHYzhVSttPx7CjV/qjuY1jJS0BJuOWCCkz5kysul/PnbsIzzCHEfXE1II=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: f416b39c-09b8-4d67-9640-8bb6d6e1ad7c
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614259124; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7eGGsrE4JEawlrpABZ7S69xNi+nF/N6oxJsFnUYP1gw=;
+	b=twJddPBC1kLInAq8l0CtZbD/hnhDZKNPOekCg6+sPEQAst/dnGCOi9yzBfpNvroMZJvD6n
+	PgP4NJJ7l2Z/1HvL049WsQbRVhl9SF5zCnp7VkiIOwTUew2NRpoBuDuvoakWHE9quV+0+R
+	WlrVfUR9B98R57LpUd3wiDgrbT/4rRM=
+Subject: Re: [for-4.15][RESEND PATCH v4 1/2] xen/x86: iommu: Ignore IOMMU
+ mapping requests when a domain is dying
+To: Julien Grall <julien@xen.org>
+Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210224094356.7606-1-julien@xen.org>
+ <20210224094356.7606-2-julien@xen.org>
+ <d5a09319-614d-398b-b911-bc2533bec587@suse.com>
+ <7ce1deb9-e362-439c-dd14-a17dbb6fb1c8@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <2c1d2b05-7553-5f15-ad28-47aba5b9c47f@suse.com>
+Date: Thu, 25 Feb 2021 14:18:44 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <7ce1deb9-e362-439c-dd14-a17dbb6fb1c8@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Message-ID: <24631.41819.456811.665249@mariner.uk.xensource.com>
-Date: Thu, 25 Feb 2021 13:17:15 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Tim Deegan <tim@xen.org>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Wei Liu <wl@xen.org>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH][4.15] x86/shadow: suppress "fast fault path" optimization
- without reserved bits
-In-Reply-To: <aefe5617-9f10-23a4-ee27-6ea66b62cdbe@suse.com>
-References: <aefe5617-9f10-23a4-ee27-6ea66b62cdbe@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Jan Beulich writes ("[PATCH][4.15] x86/shadow: suppress "fast fault path" optimization without reserved bits"):
-> When none of the physical address bits in PTEs are reserved, we can't
-> create any 4k (leaf) PTEs which would trigger reserved bit faults. Hence
-> the present SHOPT_FAST_FAULT_PATH machinery needs to be suppressed in
-> this case, which is most easily achieved by never creating any magic
-> entries.
+On 25.02.2021 12:56, Julien Grall wrote:
+> On 24/02/2021 14:07, Jan Beulich wrote:
+>> On 24.02.2021 10:43, Julien Grall wrote:
+>>> --- a/xen/drivers/passthrough/x86/iommu.c
+>>> +++ b/xen/drivers/passthrough/x86/iommu.c
+>>> @@ -267,6 +267,12 @@ int iommu_free_pgtables(struct domain *d)
+>>>       struct page_info *pg;
+>>>       unsigned int done = 0;
+>>>   
+>>> +    if ( !is_iommu_enabled(d) )
+>>> +        return 0;
+>>
+>> Why is this addition needed? Hitting a not yet initialize spin lock
+>> is - afaict - no worse than a not yet initialized list, so it would
+>> seem to me that this can't be the reason. No other reason looks to
+>> be called out by the description.
 > 
-> To compensate a little, eliminate sh_write_p2m_entry_post()'s impact on
-> such hardware.
+> struct domain_iommu will be initially zeroed as it is part of struct domain.
 > 
-> While at it, also avoid using an MMIO magic entry when that would
-> truncate the incoming GFN.
+> For the list, we are so far fine because page_list_remove_head() 
+> tolerates NULL. If we were using the normal list operations (e.g. 
+> list_del), then this code would have segfaulted.
 
-Judging by the description I'm not sure whether this is a bugfix, or
-a change to make it possible to run Xen on hardware where currently it
-doesn't work at all.
+And so we do, in the CONFIG_BIGMEM case. May I suggest then to split
+this out as a prereq patch, or add wording to the description
+mentioning this additional effect?
 
-I assume "none of the physical address bits in PTEs are reserved" is
-a property of certain hardware, but it wasn't clear to me (i) whether
-such platforms currently exists (ii) what the existing Xen code would
-do in this case.
-
-Can you enlighten me ?
-
-Thanks,
-Ian.
+Jan
 
