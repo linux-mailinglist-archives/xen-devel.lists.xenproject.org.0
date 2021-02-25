@@ -2,29 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9FE3325A18
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 00:15:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89999.170125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BC7D325A1F
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 00:22:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90002.170137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFPqw-00085n-MT; Thu, 25 Feb 2021 23:15:26 +0000
+	id 1lFPxG-0000kw-Bv; Thu, 25 Feb 2021 23:21:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89999.170125; Thu, 25 Feb 2021 23:15:26 +0000
+Received: by outflank-mailman (output) from mailman id 90002.170137; Thu, 25 Feb 2021 23:21:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFPqw-00085O-Ii; Thu, 25 Feb 2021 23:15:26 +0000
-Received: by outflank-mailman (input) for mailman id 89999;
- Thu, 25 Feb 2021 23:15:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lFPxG-0000kX-87; Thu, 25 Feb 2021 23:21:58 +0000
+Received: by outflank-mailman (input) for mailman id 90002;
+ Thu, 25 Feb 2021 23:21:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3W+l=H3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lFPqv-00085J-G9
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 23:15:25 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5ff15e28-a158-464a-b93e-90ff139074d5;
- Thu, 25 Feb 2021 23:15:24 +0000 (UTC)
+ <SRS0=m0fh=H3=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1lFPxE-0000kS-Ol
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 23:21:56 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a4827891-9db4-43c1-b27f-ebf7e22904aa;
+ Thu, 25 Feb 2021 23:21:55 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11PN4GJo060726;
+ Thu, 25 Feb 2021 23:21:52 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 36ttcmg7gt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 25 Feb 2021 23:21:51 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11PN6FbY063914;
+ Thu, 25 Feb 2021 23:21:51 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2105.outbound.protection.outlook.com [104.47.70.105])
+ by userp3020.oracle.com with ESMTP id 36uc6v4w54-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 25 Feb 2021 23:21:50 +0000
+Received: from BYAPR10MB3288.namprd10.prod.outlook.com (2603:10b6:a03:156::21)
+ by BYAPR10MB3429.namprd10.prod.outlook.com (2603:10b6:a03:81::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.31; Thu, 25 Feb
+ 2021 23:21:49 +0000
+Received: from BYAPR10MB3288.namprd10.prod.outlook.com
+ ([fe80::f489:4e25:63e0:c721]) by BYAPR10MB3288.namprd10.prod.outlook.com
+ ([fe80::f489:4e25:63e0:c721%7]) with mapi id 15.20.3890.019; Thu, 25 Feb 2021
+ 23:21:48 +0000
+Received: from [10.74.97.62] (138.3.200.62) by
+ SN1PR12CA0107.namprd12.prod.outlook.com (2603:10b6:802:21::42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3890.19 via Frontend Transport; Thu, 25 Feb 2021 23:21:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,244 +63,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ff15e28-a158-464a-b93e-90ff139074d5
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1614294924;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=R10X9M1b0GBXkPrm7zHmbiYNEWQ49Xj8LQbQMY/Ungk=;
-  b=Pu3ya1CnvTvoDxAr6/ZzPlc1nvDweUAxCvwylaBs61g2NDtohMvzmqBj
-   UNBJed30TjE6KHZ9vVgLbVXXaywc3LK2J4CLM4+Y578sxd8Y3S136ALg3
-   4d50nfC3rdwoK3LrL29BAdow5s689vT3YToUZ/55SJ2bTUSk81ejO+wcT
-   I=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: RcA/4aZsQLkKV5IyqIhyU8SxcfoGrv7hOo4OoyFGs360lv21b//ZXoJTkJq9oLmalQE30gLMo1
- ghjePXEyRGh+0fS6Da1YuBdIt+2FokK77HNFhU8ORXkc48kGvCnhqVix9CXkCicD8Bmead4FKt
- +O/wI0XofRFDdDWE7cC5bjSvA6NH1LoJ4NMhEXGQyrCdRtwG9JVLow1og9Eu8CfFEUyGgYtQwg
- kl5fEnmTclyAiNW7gqDKFWGdbu/7H2dezXvXdUOef6rUMEmAV4YM2O+NA7eU0CF4CyVbakqsIn
- Rns=
-X-SBRS: 5.2
-X-MesageID: 39461986
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,207,1610427600"; 
-   d="scan'208";a="39461986"
+X-Inumbo-ID: a4827891-9db4-43c1-b27f-ebf7e22904aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=NCLzLTXLk/Yj5R2viPobLArIeniNbUdIBuWPMpeeGm8=;
+ b=bwLMteU+YO0GvUZ42S8yXiS+cKbAF7EkwXF6iCThVrHNwq21ro/8lJ9Havog9+0Ic6I/
+ FBsuNhS4J2tK6Gzo333rd24nP6JP3YrBEAh20lkBMLUnUIzl4/RMipCzgw/QFgNXz3vl
+ peyF271j1XdOeI2CXiPeXR63kbIFOmAIMsqFViw+qfFawPwotqvT7wKUblCy7gw96dJo
+ QQvVtXGYC4rDsz/znUFFWmbnTrtc87vQQTEkm3NhNB7sxeWu5OSygRNSbqRo2XcyVrSM
+ 3mTV8tgn/Z1iBSZ6MqIdiYa4LOXt6DbUxtVApXtdgHUD1lxGW2z2mdbfk2uum/XqcCBv HA== 
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AckXllqC29DG4hA2nAeGGje9HsewVmQJJS0GLP7ajbGT8blpWrnPdLKMzsN0k88UQPUX4y+h5hasUFgmZE0Qlpj4B/zGegMCG1eURdWjMS224xJFzGifq6nHcmmPPoE+UIPr/T34GW1zDKJbfPa6ip5rkmlsZ0Jd3vJFaN3g/URXj3oxcrbpuOT7bvpp+PgWt1hMr6ZjYoH/87Ub+YpCorqZN7e2msyeO1EYj2y2mn9RBGUjF8BX80XEAgP0tef0YnPPvMyXwy+JotwocWkFfTxQHyiZjs609/T9o3AdWYz4AUO5YfoVdYejOuiDKexant5auSWdzWy63TXM3sGl0Q==
+ b=BSnLO2N3HMqw4BQIdUx9Y8gp4wlkj+1hrz/3KDKMQ9r24wYpxXRt57z78HY/soKIVqrJPumKeb/9a4a1ooBp4s1Rg1btoBmYSow8510V4e48xlkKo+OD/gYr60l4344gKZTdZzoWdrqhBEeJb7QyKsaxcop9W97Ux/rCRerw5aNQLoyzJXbJhtj5zqQ0TH4Na5b44/3pSsM0lJbmJPhVpx+sW16ktTJWex8C9+1gOqaGGzm0tX2x017fWaCdhNNQkxUi6tEGA1Ibe13rDFe1t4HvxNcJg5luymekvbDDW60dbSdzVd4lZikiPlfJPKefZ/RJavan5PZsjdd6BqRLEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iS4d3V536nQHSLVDQ4f2Rad+5QcRgjHc9Atug2YiTxQ=;
- b=UH7uPkgTFDu+PuPSAFXbXzXJSoStclX91yKSw27c0u9RTJmVYMeFvFvM5IavlHgiSqSwhupz+3ibnNpMjILXhFnMOVt+FQwB8C9777UsgIhRUqxSoqo5SY1uEyjtDg0vVV27G+bD6DrlRwDV66bAeb7qJVwJgkHWsIN5AqwaSDJE/UlOnA+kqs4MTg22Ly5/OQiG6eZoSUHk4WPTS2B75FEOOc+xNbpC5Iw3UTWJI3niCpkgORPyvOHHJRdkfOKCjov7a7bh23zH6aUHJ55jdBA+6Wz/N9XD4IsDiD0YBdebiqaecM8/lplF4dd3BEsIz+nZtQeIOqHB1fRrcxGddw==
+ bh=NCLzLTXLk/Yj5R2viPobLArIeniNbUdIBuWPMpeeGm8=;
+ b=oKQEIVigqQ8GOy8Lhw9gtBzbd65HcLNp2jxJvS/8yQeapmRNf78VyXtxrD6sgvZ3Cz1jIlN4OTYjm5bFGyNnnBlYsT8gX1Kdre9rY3bhshN9A+9MBfrjuxOP0hiarRyxtjnmqp6/rOXSzOdHA8juLS+jWAsj9FSCDLKzKFv00bjGK3et2rq2xJZ11WD66qMm9LhExLyt7s6+EEn4l4+geqrOu+zG2VFFGsuWX3yDDi2pA4cCGh9sZRuv7lTfhRne2eFj+SRZXY8uN4jZktuhoyJhiGAIWJInyYfNhHC/RFGc6uOYHSj4VADDpjTREwRiUOWZlFpCuJo+w9y7D721vQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iS4d3V536nQHSLVDQ4f2Rad+5QcRgjHc9Atug2YiTxQ=;
- b=PF0x05R9u3S/uOLguJoyyrvsfwrp9TH10x/V5z6Qe1ZRIiaaoT5ItcV1uWSivNKlutVUOu9Oc/6NG+hgWcdbx2NxW35zo5FsNiXIVQlF7qC0GlJwFoHY8dD+iIyHERbm81Y+vCGRx9LApk5CzM1ZmBkIegQBM1PBQqReO3MV7qc=
-Subject: Re: [PATCH for-next 5/6] xen: Add files needed for minimal riscv
- build
-To: Connor Davis <connojdavis@gmail.com>, <xen-devel@lists.xenproject.org>
-CC: Bobby Eshleman <bobbyeshleman@gmail.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>, Petre
- Pircalabu <ppircalabu@bitdefender.com>
-References: <cover.1614265718.git.connojdavis@gmail.com>
- <7652ce3486c026a3a9f7d850170ea81ba8a18bdb.1614265718.git.connojdavis@gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9b441529-c5a4-4299-1155-869bcdab06b0@citrix.com>
-Date: Thu, 25 Feb 2021 23:14:53 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <7652ce3486c026a3a9f7d850170ea81ba8a18bdb.1614265718.git.connojdavis@gmail.com>
+ bh=NCLzLTXLk/Yj5R2viPobLArIeniNbUdIBuWPMpeeGm8=;
+ b=Y6vRWUOQcpY3e/wY4BUChXI72/gG9XugCSCVcL6y5fO1pDveiS/H2G+QGbfn2Ra8wMGuyLCtEuV45spwzNU42OcAdE7d92Bv6ir7caF7YXKVLTVUIsB090RkGaDZKqWN1/abHEiarUxUM7QIEangcXQr8fdP8xJZxKPltZbbuqw=
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=oracle.com;
+Subject: Re: [PATCH v1] xen: ACPI: Get rid of ACPICA message printing
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+        Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <1709720.Zl72FGBfpD@kreacher>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <f73290b7-9a50-829d-76f6-ba2db3d16305@oracle.com>
+Date: Thu, 25 Feb 2021 18:21:41 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
+In-Reply-To: <1709720.Zl72FGBfpD@kreacher>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0449.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a9::22) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [138.3.200.62]
+X-ClientProxiedBy: SN1PR12CA0107.namprd12.prod.outlook.com
+ (2603:10b6:802:21::42) To BYAPR10MB3288.namprd10.prod.outlook.com
+ (2603:10b6:a03:156::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 24421eee-5b93-4f70-dfea-08d8d9e336b1
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3862:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB38620941D34AA3E44D824D89BA9E9@BYAPR03MB3862.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: 5c3ce6d2-28c0-4660-ced3-08d8d9e42005
+X-MS-TrafficTypeDiagnostic: BYAPR10MB3429:
+X-Microsoft-Antispam-PRVS: 
+	<BYAPR10MB34290F4EB3764005086D74FB8A9E9@BYAPR10MB3429.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: t0Y3b4i61eQ3cIAozsIZT1fMSMdh5A47ISmqYFf1+agZjhd/zHBv9ticC3rmrpcqbdOGRROIIA7alU/jFIFvUwwJDp/BYBAPXjSvpqbgf2AfvAFKnr+eIuppdyao3Zoi4ipg8uS8tCI2loHKMihy34tSpqIvc+IiUs4BYvvDgFHVSk2zi5+XJIwk/WsLz9RPL6Qivu8wx0QIiPn60y62iyJA1484ZQflKYLo43UUbJgs0UN7pI0gt4lCxrD4sKtJ4SVqXzbLwQktwh4yhttivbvKEej1PRxGSGC0K+Knn1oreUNEFd+/UVpd1sr717K0fAUiee+jvfZ4JXsslQyjYUqfTtsBv5QaZ9Zo39kZOLb9PWGQzKBgf/ANKICTRhW+IdUV8C3pVMUoDQWNPydN6rbT3p4sbWr3GWtukngOqGOR5QhoUR6gyaAqa6lGQGlCsFJ9BLNpnFSn1NCDOASmJ0dlL6NXGA9BpgK3g65wmE1unjGOI4/uTXX1n/UWVPW5t8cy7P7WU5C+k5q0VrzWLsFWatLibq76haY1InwPrKgbpecbY5/o+05RLeRNMl52H1ufWvqSvX2Yc50Op0SCd+FlfTBbSYkDS/pfl0LYd04=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(39860400002)(366004)(346002)(396003)(376002)(54906003)(478600001)(66476007)(2616005)(6666004)(16526019)(53546011)(26005)(31696002)(31686004)(186003)(7416002)(16576012)(86362001)(4326008)(2906002)(83380400001)(6486002)(8676002)(956004)(316002)(8936002)(66946007)(36756003)(5660300002)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?OEYzMEdLNDQ5RElvUjkxamZqK291TU4rem5wNGVXa0lseVc4WjEyWXkyS200?=
- =?utf-8?B?MExmN0Q3b21hYTZOeG1HRUFvMGVwU3VzNGVxelcybGVsYTFHSHEzNndEbHNk?=
- =?utf-8?B?Y0dnTDhFclVvdC9jWlN6MkdSZ0JwWFc5c1dlTlBYNDVtT3l2dTRxRTQzc2Mw?=
- =?utf-8?B?a2pjT2ltV1BHNlRrQ3lSV2RsZmtVRjM5NFBaQXQ0eDhUQzVBTlF3Z3ZzMUhG?=
- =?utf-8?B?R2lCZEdWSVNsclZMdHh4Si9MV1ZTUVF3NlFzWW1JTVh4RjZCZFQyOXZKMmFw?=
- =?utf-8?B?NjRLY2xIUzVhRFNiSVdpZEREVXdPMTl2TC9JLyt4SDJJaDdndDVQM0pkWFpj?=
- =?utf-8?B?K3Q3b2NHVlo5elJ5Tit0SWs3NUZ6VVoxZ1c5SmFuRlBWWWdGc1doTk9ZRHhM?=
- =?utf-8?B?SFpEUElFZjNCVTgyaDBmR2FQNFE4ME5QdlZjUEZvR25PRXN3UTRHY0RiY2JU?=
- =?utf-8?B?T2RKb21xalZneVVuc2twNkFDKzQ1dUxveWVxdVEzY2xEb1A1eVkxY2lER0N2?=
- =?utf-8?B?VE9XSjlKTXFFampXZVlLYmJSeWlxNkZ6aWhyK2JQZEl0b2JJN00zTWVDYVl5?=
- =?utf-8?B?WU8wVDBXMHU0NG1YU0V6YXljeGlzWlhGMWFaVW9Kc0JacGt4Snl1RWVOTUVr?=
- =?utf-8?B?L2psdHA0Q0s0R0ZNQnFLcVczVG9WcnpKNlVqTlR3aUhyYXlVVmRGblVqSU80?=
- =?utf-8?B?YnZVa2lHWTI2ZityQWN4NEY2SWh2WWY4NzlNc3FRODFvTFUrSm84aE9xcksx?=
- =?utf-8?B?U0xEREorU2FabTRZRE5Remd4K2hsbzRQODlWaElIZ1Z0d3Q1bmtpK3pnVEJ6?=
- =?utf-8?B?SGZQb1Y1RlhPUDVLRVhBRUd0U0p2TmR6MjVwY3A3MVpzb3g5WFFXeDRNcVJX?=
- =?utf-8?B?b0hXcnBNcnRDK2c0djVMR1l3cGpWWnhZSXUzOUd6UXk4Y1JnMXJMOWJyUWNy?=
- =?utf-8?B?UzV6dzNhc2hZUW9OZWZINXlaaEJ1eG9zaDYvRFlWMHhGQ3U0TFFPVkNSYnhi?=
- =?utf-8?B?alUzWC9USUMxOHhjRkU1MWZvbUtsOU9rYjJIU1J1eE9qL2hvNFdUNXFjVm8w?=
- =?utf-8?B?QUh0WVBGdEFQVGQveFJudXF4WFV0elZ4b0w3TW5nMlNIMlRlVGVHK3E5Z2lM?=
- =?utf-8?B?eE9ROUlDZTk0aDFrODQvdDJpd0FNYXc1QktzQlV2dlRKdVJHc29xRE1YaXdO?=
- =?utf-8?B?dE94TFQvb2pHZzMvOWxsS0Frb0VNMTJLZGswRk5kY0tEUVc0RXdHQjJwcENn?=
- =?utf-8?B?UWpEa3hVemhCYlJFSjVKcnJCRTRSc3VLdGRjK1R4T0lCa1RDMmU2OGxoRTlQ?=
- =?utf-8?B?UDJMSmkwb1FwdkdvQW1QblBkazdKanMrN0JVS3RvMWpJaVFMT0JIV2M3U2hT?=
- =?utf-8?B?STBVWE9XT1dxR0ZuSVN0cEdUY0pSVmVDamkreENTQ0NTWEJNaVJzQ01hSTc3?=
- =?utf-8?B?ZlJVbENNUngyNzBMVXZqQVdySnFkT2YwTTAzZ1ZncHNqNjBlU21UWlJIbXNh?=
- =?utf-8?B?TEQrMTFRT3lSUFZmU24zemt0ZTNFWlpUVGtlU1pzdUJxSXp2TGJWNmUvZEoy?=
- =?utf-8?B?d2xRN25RZ3U5TlZYTGh5aDNEMzVxZTNlRUtpTUE4Y3phRWc0M3Y0YUdJb2ht?=
- =?utf-8?B?Y2c4ODhpYWVxaWQ4YTZuZWJYZzZqQ09VQnBHVjkrOXZ6SmkwVnA0QUM1Ukxn?=
- =?utf-8?B?WXNlbmhlUEphS0MrK1ZJbzJDUjhwRzVVOU0zbE9Ba1h3ckJlK3A1MktRUFN5?=
- =?utf-8?Q?7hpM0B1dxibgWjBvqvEU92V5IPT4PIskyF03Kw+?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24421eee-5b93-4f70-dfea-08d8d9e336b1
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-Microsoft-Antispam-Message-Info: 
+	70oDqX8LKf+t8CQOsXyZjiwlRZEvHfVRloIBPoEzxBzuXWxUXIK8rTPrsJJAqrckVv3lSxTQhP6+spioyfXZF4oBttJwyttXxRDKdOiJmZo7voXsUIZXzNV1KRlu3RhANMw8FwXhx5Qe8Jt6GjOUtb0lbZZpmLvRNCuTmoCecvRdSU+MrnoxUf4zXOyn1EGajRgI3Ubcl3XnUUcomum1BurbXqih10spqQc6XaqcA8dTBVEM0riqrKm4ns3fwFyqFVkncCJxYwevoWP7bRsw0Sc8ChWXsPMC1GZt2UnaNrgVipT7ufDnt8vPW8C4mbXr5zNrCI4sQJrPmxoAVwHGtqYzKgFKJ/4tfCzCSTTyPouYh78850bp+ehzhog49DWFPgX8ZVJT/Ij+UAchqQfYu35+hccIEa5gBNTg4qDmcyMBtdElWP0/FiTN4T5N4IPxgPJSvWMvzE6AA8bgTio8eBeSv5okiVJ+5tVauUk1lqAk9hOdDAdAuplbRUJvGAGR6wSvPm19CEpmWYYT0SVtxE+iQ8zlXQQkGBtVeBlaZvyH9JDowvWAX3oOM4UY/50JPKkXBQRh4a0HLLV98dM2dpVHRGj1eBZW1woXgXShyVFP6zeFdlcnMWIS2TrKHMFU
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB3288.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(136003)(346002)(366004)(396003)(39860400002)(66946007)(83380400001)(316002)(31686004)(4326008)(16526019)(5660300002)(16576012)(66556008)(478600001)(54906003)(186003)(15650500001)(26005)(66476007)(6666004)(36756003)(6486002)(53546011)(31696002)(44832011)(2616005)(2906002)(110136005)(8676002)(86362001)(956004)(8936002)(26583001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?utf-8?B?VXlaa0JJS1VCaDQ5N1VvQ05Na1QrTXk3SWJHci9rZnloMHAvT0RKNmlOcExE?=
+ =?utf-8?B?OWE0SHhORnliUXErN2ZMWVpSakhoVmhTSkQ3U1RZWW16TnZOQVRqbnJaM3hM?=
+ =?utf-8?B?Uzg2djdBd3BoQmVEM3hvcWdVbXZRZ1BESWI4MWo5MnNZMVVkTmEveW5aZkNI?=
+ =?utf-8?B?bTN4NkhJNGRyYVZCdDEyNklwREhUZm5tK1NLVmg2ZklWeTNwV3pRSmJWSis2?=
+ =?utf-8?B?VEVxSlRVelpVODhrQ0ViOGJwQjhyWk41M3NBZE1Hc2xZbnBwcUVsVzhRTHp6?=
+ =?utf-8?B?ZFk5WGNnd3lJb2dzUUhZanJscUFMUzlxaitxQm5hRWV1MW44UVRoS0UrSTFx?=
+ =?utf-8?B?TCtGeldDWnY3QkJTWnc1VW5HeDNBVlB1MldEUndaeVBIU1ZSSVNsS3JRT2Fj?=
+ =?utf-8?B?YlpMYmpHdG4vYW1HaVpwNUw1WmVzaXFwYUdqUXhZbzVCaWozamhpRmR4cnl0?=
+ =?utf-8?B?YVVYNDRKdEMrQ3RZNE0rZXNZdEZzSnp3b3FCOUhlcGh4bmhySm05b2RXTzVY?=
+ =?utf-8?B?UVlMemwyVEZCV0ZaUHZvN1pVWUwwUmgzaGl3Qi9hRnFKU2w5ajZzTmxkVFFX?=
+ =?utf-8?B?QmxYL1FGYjdDZ2lmcnJJbVlteksxMnh0bm1sUXhrd2U2bUUwYk91UEs5dDZW?=
+ =?utf-8?B?S3QwaGVSbktzajI0cWtNeHJYUlI1bjZPVU1jbWs0eDh0bzkyTUdoVDMwek1w?=
+ =?utf-8?B?YWt6dnlsNHhsV2dETnpVck1YTHFOWmRUeDV5TWZWdkRZeXFCK3hySVBRMExB?=
+ =?utf-8?B?N2x3NFhqVzRIV3pWRmg2cGJBYnl6VlRmZWhQSGRvdkNZdTFLcFMxZEdZemR0?=
+ =?utf-8?B?YWduU1J4bEU0a1lzend3ZlJPUlNOdW5jdGZjcE83bFNzeHRvQVJ4T0szTytv?=
+ =?utf-8?B?ck1xU0ZhWXZ2eTZnQTErcDVVZm9EZjFnaWFsV2FsV2dmOWN1MUdad2xBb2Z6?=
+ =?utf-8?B?WWF4OUFvVUhGcEZmRnkrdWZYOXBiejF6K2JkUVVVV3NKd3JCbmM3ZGl2d1hI?=
+ =?utf-8?B?ZkppdXIzN3NFbWIvODljdG9makt3c3JEOVpyNUlBeFI3emRIajhEazNGTVJG?=
+ =?utf-8?B?a0xRTUhheThHSThVSk1hU0Mvd0NsMCtGU0FiU2hMQzI3MzBna29MbEovblNO?=
+ =?utf-8?B?cXB3RHg0M2VKd2RPSFEycFZRYzZLY2ErZmt2dERTaDlsQzBqeTVhZXdITU9i?=
+ =?utf-8?B?azlmTXVUZ0pzbmZZM21GdWJEMTZ1SlhjRXZnWU5IdnAzN3BNQlhsYWd2ekI0?=
+ =?utf-8?B?b21iMlpuZmcvRW10Uk54c3NXeW1JalJoVFhDSFpGYmpkak54S25YcFBZR0lV?=
+ =?utf-8?B?TlpVM2Y1WTMyOE44bTVZTEU1RE4ydnBaREcxNG9NS1lJRnBGR3dPWlBhYnFE?=
+ =?utf-8?B?aVNYdis1V0x3ZVRkMmllRDkyM3p6TDg3ZVpIS2Q2UWxzVVRxc0lNRVBYRjgv?=
+ =?utf-8?B?Qk1KUU9XYWZYTXpGbDJPcVpPUDI5TDFZeE9tNitmOG93VitzbEFqWjVCcEFD?=
+ =?utf-8?B?V0V5Mk5IVXk0bFdRR3plc2NVMkczUlFKL0ViQmF3ek1YK0J2OGZsOFdDYXFO?=
+ =?utf-8?B?TUptKzJwdUk0RHJ1S2ZYSGs0eklZM0VVL0h4TEV3KzhwUnZLK2l5YXZNaTdz?=
+ =?utf-8?B?NllzNGF0eVVhbTdOMWNKWG9EdGNieUt5VEQ1UFR3djBLUFZTV0Y4MEk4L0F3?=
+ =?utf-8?B?dTZ6c011UXUvdGpwSjk4WmMwMDJRallDTGt1ZWZwMlNUZlR1Ym5mK2VQaTRz?=
+ =?utf-8?Q?9oRpAFgLFk0FbypXQDHGvsumjgX5MUCFvbLyMg+?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c3ce6d2-28c0-4660-ced3-08d8d9e42005
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3288.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2021 23:15:17.4503
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2021 23:21:48.7666
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yCtia5cu2otTdreFXOSuAluM5qlOaThOBCtbAKk9eXpvsUM4Ik9qmbHYGKcG9MWMoWyjqhF1NCufmD5OZGSmdEYu5l2UvmvQqKXRzN84P0g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3862
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9V4925iD72Mty/9IIR/kUgw3SnyZQV1SdoTk1UcWkBGaNiU18EthUUGEAnjW3TXm/0Pkxwq5iJ1LMerecsA4U4++VzNwTH4hlTAQ+I0U704=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3429
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9906 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxscore=0 spamscore=0
+ mlxlogscore=999 adultscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2102250175
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9906 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 adultscore=0
+ lowpriorityscore=0 spamscore=0 mlxscore=0 bulkscore=0 clxscore=1011
+ priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2102250175
 
-On 25/02/2021 15:24, Connor Davis wrote:
-> Add the minimum code required to get xen to build with
-> XEN_TARGET_ARCH=riscv64. It is minimal in the sense that every file and
-> function added is required for a successful build, given the .config
-> generated from riscv64_defconfig. The function implementations are just
-> stubs; actual implmentations will need to be added later.
+
+On 2/24/21 1:47 PM, Rafael J. Wysocki wrote:
+> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 >
-> Signed-off-by: Connor Davis <connojdavis@gmail.com>
-> ---
->  config/riscv64.mk                        |   7 +
->  xen/Makefile                             |   8 +-
->  xen/arch/riscv/Kconfig                   |  54 ++++
->  xen/arch/riscv/Kconfig.debug             |   0
->  xen/arch/riscv/Makefile                  |  57 ++++
->  xen/arch/riscv/README.source             |  19 ++
->  xen/arch/riscv/Rules.mk                  |  13 +
->  xen/arch/riscv/arch.mk                   |   7 +
->  xen/arch/riscv/configs/riscv64_defconfig |  12 +
->  xen/arch/riscv/delay.c                   |  16 +
->  xen/arch/riscv/domain.c                  | 144 +++++++++
->  xen/arch/riscv/domctl.c                  |  36 +++
->  xen/arch/riscv/guestcopy.c               |  57 ++++
->  xen/arch/riscv/head.S                    |   6 +
->  xen/arch/riscv/irq.c                     |  78 +++++
->  xen/arch/riscv/lib/Makefile              |   1 +
->  xen/arch/riscv/lib/find_next_bit.c       | 284 +++++++++++++++++
->  xen/arch/riscv/mm.c                      |  93 ++++++
->  xen/arch/riscv/p2m.c                     | 150 +++++++++
->  xen/arch/riscv/percpu.c                  |  17 +
->  xen/arch/riscv/platforms/Kconfig         |  31 ++
->  xen/arch/riscv/riscv64/asm-offsets.c     |  31 ++
->  xen/arch/riscv/setup.c                   |  27 ++
->  xen/arch/riscv/shutdown.c                |  28 ++
->  xen/arch/riscv/smp.c                     |  35 +++
->  xen/arch/riscv/smpboot.c                 |  34 ++
->  xen/arch/riscv/sysctl.c                  |  33 ++
->  xen/arch/riscv/time.c                    |  35 +++
->  xen/arch/riscv/traps.c                   |  35 +++
->  xen/arch/riscv/vm_event.c                |  39 +++
->  xen/arch/riscv/xen.lds.S                 | 113 +++++++
->  xen/drivers/char/serial.c                |   1 +
->  xen/include/asm-riscv/altp2m.h           |  39 +++
->  xen/include/asm-riscv/asm.h              |  77 +++++
->  xen/include/asm-riscv/asm_defns.h        |  24 ++
->  xen/include/asm-riscv/atomic.h           | 204 ++++++++++++
->  xen/include/asm-riscv/bitops.h           | 331 ++++++++++++++++++++
->  xen/include/asm-riscv/bug.h              |  54 ++++
->  xen/include/asm-riscv/byteorder.h        |  16 +
->  xen/include/asm-riscv/cache.h            |  24 ++
->  xen/include/asm-riscv/cmpxchg.h          | 382 +++++++++++++++++++++++
->  xen/include/asm-riscv/compiler_types.h   |  32 ++
->  xen/include/asm-riscv/config.h           | 110 +++++++
->  xen/include/asm-riscv/cpufeature.h       |  17 +
->  xen/include/asm-riscv/csr.h              | 219 +++++++++++++
->  xen/include/asm-riscv/current.h          |  47 +++
->  xen/include/asm-riscv/debugger.h         |  15 +
->  xen/include/asm-riscv/delay.h            |  15 +
->  xen/include/asm-riscv/desc.h             |  12 +
->  xen/include/asm-riscv/device.h           |  15 +
->  xen/include/asm-riscv/div64.h            |  23 ++
->  xen/include/asm-riscv/domain.h           |  50 +++
->  xen/include/asm-riscv/event.h            |  42 +++
->  xen/include/asm-riscv/fence.h            |  12 +
->  xen/include/asm-riscv/flushtlb.h         |  34 ++
->  xen/include/asm-riscv/grant_table.h      |  12 +
->  xen/include/asm-riscv/guest_access.h     |  41 +++
->  xen/include/asm-riscv/guest_atomics.h    |  60 ++++
->  xen/include/asm-riscv/hardirq.h          |  27 ++
->  xen/include/asm-riscv/hypercall.h        |  12 +
->  xen/include/asm-riscv/init.h             |  42 +++
->  xen/include/asm-riscv/io.h               | 283 +++++++++++++++++
->  xen/include/asm-riscv/iocap.h            |  13 +
->  xen/include/asm-riscv/iommu.h            |  46 +++
->  xen/include/asm-riscv/irq.h              |  58 ++++
->  xen/include/asm-riscv/mem_access.h       |   4 +
->  xen/include/asm-riscv/mm.h               | 246 +++++++++++++++
->  xen/include/asm-riscv/monitor.h          |  65 ++++
->  xen/include/asm-riscv/nospec.h           |  25 ++
->  xen/include/asm-riscv/numa.h             |  41 +++
->  xen/include/asm-riscv/p2m.h              | 218 +++++++++++++
->  xen/include/asm-riscv/page-bits.h        |  11 +
->  xen/include/asm-riscv/page.h             |  73 +++++
->  xen/include/asm-riscv/paging.h           |  15 +
->  xen/include/asm-riscv/pci.h              |  31 ++
->  xen/include/asm-riscv/percpu.h           |  33 ++
->  xen/include/asm-riscv/processor.h        |  59 ++++
->  xen/include/asm-riscv/random.h           |   9 +
->  xen/include/asm-riscv/regs.h             |  23 ++
->  xen/include/asm-riscv/setup.h            |  14 +
->  xen/include/asm-riscv/smp.h              |  46 +++
->  xen/include/asm-riscv/softirq.h          |  16 +
->  xen/include/asm-riscv/spinlock.h         |  12 +
->  xen/include/asm-riscv/string.h           |  28 ++
->  xen/include/asm-riscv/sysregs.h          |  16 +
->  xen/include/asm-riscv/system.h           |  99 ++++++
->  xen/include/asm-riscv/time.h             |  31 ++
->  xen/include/asm-riscv/trace.h            |  12 +
->  xen/include/asm-riscv/types.h            |  60 ++++
->  xen/include/asm-riscv/vm_event.h         |  55 ++++
->  xen/include/asm-riscv/xenoprof.h         |  12 +
->  xen/include/public/arch-riscv.h          | 183 +++++++++++
->  xen/include/public/arch-riscv/hvm/save.h |  39 +++
->  xen/include/public/hvm/save.h            |   2 +
->  xen/include/public/pmu.h                 |   2 +
->  xen/include/public/xen.h                 |   2 +
->  xen/include/xen/domain.h                 |   1 +
+> The ACPI_DEBUG_PRINT() macro is used in a few places in
+> xen-acpi-cpuhotplug.c and xen-acpi-memhotplug.c for printing debug
+> messages, but that is questionable, because that macro belongs to
+> ACPICA and it should not be used elsewhere.  In addition,
+> ACPI_DEBUG_PRINT() requires special enabling to allow it to actually
+> print the message and the _COMPONENT symbol generally needed for
+> that is not defined in any of the files in question.
+>
+> For this reason, replace all of the ACPI_DEBUG_PRINT() instances in
+> the Xen code with acpi_handle_debug() (with the additional benefit
+> that the source object can be identified more easily after this
+> change) and drop the ACPI_MODULE_NAME() definitions that are only
+> used by the ACPICA message printing macros from that code.
+>
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Well - this is orders of magnitude more complicated than it ought to
-be.  An empty head.S doesn't (well - shouldn't) need the overwhelming
-majority of this.
 
-Do you know how all of this is being pulled in?  Is it from attempting
-to compile common/ by any chance?
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
-Now is also an excellent opportunity to nuke the x86isms which have
-escaped into common code (debugger and xenoprof in particular), and
-rethink some of our common/arch split.
 
-When it comes to header files specifically, I want to start using
-xen/arch/$ARCH/include/asm/ and retrofit this to x86 and ARM.  It has
-two important properties - first, that you don't need to symlink the
-tree to make compilation work, and second that patches touching multiple
-architectures have hunks ordered in a more logical way.
 
-~Andrew
 
