@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F6D324B5C
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 08:42:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89630.168981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5109A324B92
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 08:56:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89637.168993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFBHd-00075T-Lj; Thu, 25 Feb 2021 07:42:01 +0000
+	id 1lFBV7-0008FG-Rr; Thu, 25 Feb 2021 07:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89630.168981; Thu, 25 Feb 2021 07:42:01 +0000
+Received: by outflank-mailman (output) from mailman id 89637.168993; Thu, 25 Feb 2021 07:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFBHd-000752-Gz; Thu, 25 Feb 2021 07:42:01 +0000
-Received: by outflank-mailman (input) for mailman id 89630;
- Thu, 25 Feb 2021 07:41:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lFBV7-0008Er-OW; Thu, 25 Feb 2021 07:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 89637;
+ Thu, 25 Feb 2021 07:55:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qWJX=H3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lFBHb-00074m-Or
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 07:41:59 +0000
+ id 1lFBV5-0008Em-QO
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 07:55:55 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d55fe98f-7ef8-498c-88f6-ba5d95124160;
- Thu, 25 Feb 2021 07:41:58 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 318bbade-817a-444c-956d-03ab6ed3a7cf;
+ Thu, 25 Feb 2021 07:55:50 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A04C8ACD9;
- Thu, 25 Feb 2021 07:41:57 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A2627ACD9;
+ Thu, 25 Feb 2021 07:55:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,130 +39,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d55fe98f-7ef8-498c-88f6-ba5d95124160
+X-Inumbo-ID: 318bbade-817a-444c-956d-03ab6ed3a7cf
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614238917; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614239749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T9J3EkjHcnq+Seqkk/bd0FqqRXY4OdossGLUOe//c+8=;
-	b=JdSn1OcKPfNuxc8lkQxPQ0UlbcITwRh+jV0HE5XfjBFdabyZCRLqn3LcXnnYinkX6OEOnV
-	9aZTny6c9RlqCtECCwq4/1zHpfH2zvRjYtgpN8vxYNYCYrcVi3lt3Iz1Ifjpg9xHq0TENN
-	k1rycT+0yCjM3idZr0Wv8tI5Zt2gmEk=
-Subject: Re: [PATCH 0/2] hvmloader: drop usage of system headers
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
- xen-devel@lists.xenproject.org, Roger Pau Monne <roger.pau@citrix.com>
-References: <20210224102641.89455-1-roger.pau@citrix.com>
- <35864c33-b375-a3c6-13bc-ad1e7d0773eb@citrix.com>
+	bh=jbKpuDf0o7OZ/JEyCs4U3YPWK3Nnhe4HPGSfszlKtV4=;
+	b=FjsJb7d44+Ga3LC6+ou1gbnCdLUyOf64M9bv1vk6TJI/ncUhbzdG9kv6+CVtu5qHHngoRW
+	Aapl2zxNpbwzxwXgcYed5Uz3CCyH2EBUqq6/Uw3RNoeDgfF5gdh6jSXxSXvd+8BArBfomP
+	nzfx36KcQ0hO+EvlENcAGg4qZvdr96w=
+Subject: Re: [PATCH] xen: introduce XENFEAT_direct_mapped and
+ XENFEAT_not_direct_mapped
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ andrew.cooper3@citrix.com, julien@xen.org, xen-devel@lists.xenproject.org
+References: <20210225012243.28530-1-sstabellini@kernel.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <61932477-d44c-5592-da3f-b0b5ff5c6321@suse.com>
-Date: Thu, 25 Feb 2021 08:41:57 +0100
+Message-ID: <96d764b6-a719-711c-31ea-235381bfd0ce@suse.com>
+Date: Thu, 25 Feb 2021 08:55:49 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <35864c33-b375-a3c6-13bc-ad1e7d0773eb@citrix.com>
+In-Reply-To: <20210225012243.28530-1-sstabellini@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.02.2021 21:08, Andrew Cooper wrote:
-> On 24/02/2021 10:26, Roger Pau Monne wrote:
->> Hello,
->>
->> Following two patches aim to make hvmloader standalone, so that it don't
->> try to use system headers. It shouldn't result in any functional
->> change.
->>
->> Thanks, Roger.
-> 
-> After some experimentation in the arch container
-> 
-> Given foo.c as:
-> 
-> #include <stdint.h>
-> 
-> extern uint64_t bar;
-> uint64_t foo(void)
-> {
->     return bar;
-> }
-> 
-> int main(void)
-> {
->     return 0;
-> }
-> 
-> The preprocessed form with `gcc -m32 -E` is:
-> 
-> # 1 "foo.c"
-> # 1 "<built-in>"
-> # 1 "<command-line>"
-> # 31 "<command-line>"
-> # 1 "/usr/include/stdc-predef.h" 1 3 4
-> # 32 "<command-line>" 2
-> # 1 "foo.c"
-> # 1 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint.h" 1 3 4
-> # 9 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint.h" 3 4
-> # 1 "/usr/include/stdint.h" 1 3 4
-> # 26 "/usr/include/stdint.h" 3 4
-> # 1 "/usr/include/bits/libc-header-start.h" 1 3 4
-> # 33 "/usr/include/bits/libc-header-start.h" 3 4
-> # 1 "/usr/include/features.h" 1 3 4
-> # 450 "/usr/include/features.h" 3 4
-> # 1 "/usr/include/sys/cdefs.h" 1 3 4
-> # 452 "/usr/include/sys/cdefs.h" 3 4
-> # 1 "/usr/include/bits/wordsize.h" 1 3 4
-> # 453 "/usr/include/sys/cdefs.h" 2 3 4
-> # 1 "/usr/include/bits/long-double.h" 1 3 4
-> # 454 "/usr/include/sys/cdefs.h" 2 3 4
-> # 451 "/usr/include/features.h" 2 3 4
-> # 474 "/usr/include/features.h" 3 4
-> # 1 "/usr/include/gnu/stubs.h" 1 3 4
-> 
-> # 1 "/usr/include/gnu/stubs-32.h" 1 3 4
-> # 8 "/usr/include/gnu/stubs.h" 2 3 4
-> # 475 "/usr/include/features.h" 2 3 4
-> # 34 "/usr/include/bits/libc-header-start.h" 2 3 4
-> # 27 "/usr/include/stdint.h" 2 3 4
-> # 1 "/usr/include/bits/types.h" 1 3 4
-> # 27 "/usr/include/bits/types.h" 3 4
-> # 1 "/usr/include/bits/wordsize.h" 1 3 4
-> # 28 "/usr/include/bits/types.h" 2 3 4
-> # 1 "/usr/include/bits/timesize.h" 1 3 4
-> # 29 "/usr/include/bits/types.h" 2 3 4
-> 
-> # 31 "/usr/include/bits/types.h" 3 4
-> typedef unsigned char __u_char;
-> ...
-> 
-> while the freestanding form with `gcc -ffreestanding -m32 -E` is:
-> 
-> # 1 "foo.c"
-> # 1 "<built-in>"
-> # 1 "<command-line>"
-> # 1 "foo.c"
-> # 1 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint.h" 1 3 4
-> # 11 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint.h" 3 4
-> # 1 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint-gcc.h" 1 3 4
-> # 34 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint-gcc.h" 3 4
-> 
-> # 34 "/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include/stdint-gcc.h" 3 4
-> typedef signed char int8_t;
-> ...
-> 
-> 
-> I can compile and link trivial programs using -m32 and stdint.h without
-> any issue.
-> 
-> Clearly something more subtle is going on with our choice of options
-> when compiling hvmloader, but it certainly looks like stdint.h is fine
-> to use in the way we want to use it.
+On 25.02.2021 02:22, Stefano Stabellini wrote:
+> --- a/xen/include/public/features.h
+> +++ b/xen/include/public/features.h
+> @@ -114,6 +114,13 @@
+>   */
+>  #define XENFEAT_linux_rsdp_unrestricted   15
+>  
+> +/*
+> + * A direct-mapped (or 1:1 mapped) domain is a domain for which its
+> + * local pages have gfn == mfn.
+> + */
+> +#define XENFEAT_not_direct_mapped       16
+> +#define XENFEAT_direct_mapped           17
 
-Why "more subtle"? All we're lacking is -ffreestanding. The
-question is whether it is an acceptably risky thing to do at
-this point in the release cycle to add the option.
+Why two new values? Absence of XENFEAT_direct_mapped requires
+implying not-direct-mapped by the consumer anyway, doesn't it?
+
+Further, quoting xen/mm.h: "For a non-translated guest which
+is aware of Xen, gfn == mfn." This to me implies that PV would
+need to get XENFEAT_direct_mapped set; not sure whether this
+simply means x86'es is_domain_direct_mapped() is wrong, but if
+it is, uses elsewhere in the code would likely need changing.
+
+Also, nit: Please keep the right sides aligned with #define-s
+higher up in the file.
 
 Jan
 
