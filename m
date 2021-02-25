@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8D73257FC
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 21:52:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89969.170049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13DC132583D
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 22:01:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89972.170062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFNc6-0001yq-SX; Thu, 25 Feb 2021 20:51:58 +0000
+	id 1lFNku-00034V-Qu; Thu, 25 Feb 2021 21:01:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89969.170049; Thu, 25 Feb 2021 20:51:58 +0000
+Received: by outflank-mailman (output) from mailman id 89972.170062; Thu, 25 Feb 2021 21:01:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFNc6-0001yT-PU; Thu, 25 Feb 2021 20:51:58 +0000
-Received: by outflank-mailman (input) for mailman id 89969;
- Thu, 25 Feb 2021 20:51:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yjlP=H3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lFNc5-0001yO-30
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 20:51:57 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ed53f322-5bf0-4ed8-8b39-a1597c8a3473;
- Thu, 25 Feb 2021 20:51:56 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3DFF364DE9;
- Thu, 25 Feb 2021 20:51:55 +0000 (UTC)
+	id 1lFNku-000343-N1; Thu, 25 Feb 2021 21:01:04 +0000
+Received: by outflank-mailman (input) for mailman id 89972;
+ Thu, 25 Feb 2021 21:01:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFNkt-00033v-Rg; Thu, 25 Feb 2021 21:01:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFNkt-0000y0-LU; Thu, 25 Feb 2021 21:01:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFNkt-0007Qj-Dk; Thu, 25 Feb 2021 21:01:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFNkt-0000re-DH; Thu, 25 Feb 2021 21:01:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,86 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed53f322-5bf0-4ed8-8b39-a1597c8a3473
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1614286315;
-	bh=Zkkb2TYZmIvm+7VmqMVOuJGwIvUpWUmuKDrtfLmrGd4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=sy0TrtSKaar9ZfS1yvgHWZUhU29ZmjN1i1IXpLucNSSoRHBUie0iymRTFbL9seZSH
-	 OaY42zxvKmvwRQ74NryPnmfEQJ0pRTQl9kCStSq/XS4agK4YCnfZ9QXZ8T8myrJNAj
-	 mUGO5r6hGJ+ainhFKD2mxHCPpqGH02VzfE6yeof9l9ctBg+OiFCv9qCC/9rhTaZgYh
-	 kyrvke/IbEAUSPydZyeInKxRWRHiRAhWE07vdiZCHF3P6bAIk+0vfbeDNbPidar3it
-	 dT0XNABk3kzan/lXAf3ymVqNZC8sgXZj2wyVbkmRrICkiDVVJ36f/GodU4zS6RkC/c
-	 7yzWZBpmuqe1A==
-Date: Thu, 25 Feb 2021 12:51:54 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    andrew.cooper3@citrix.com, julien@xen.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] xen: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
-In-Reply-To: <96d764b6-a719-711c-31ea-235381bfd0ce@suse.com>
-Message-ID: <alpine.DEB.2.21.2102250948160.3234@sstabellini-ThinkPad-T480s>
-References: <20210225012243.28530-1-sstabellini@kernel.org> <96d764b6-a719-711c-31ea-235381bfd0ce@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Cnq5+9SWbjVJWKOkXN6AfJUfe+sw9uMuWHok9baBTeM=; b=BWgXqUl9e8Izs1ZSvaPmb+0DYA
+	BqBAe/NzjbysW5hJAL68r+lTepEvrLKXs5KEtIqIE9TTrF3+n0wzu8yE1/xZfHOPZLLKEshYRHcfO
+	nKHfz7cbtR4UjE7kPyEhb1d8uZqDv3K9RjNpGQveCs3NbuxV1Jxvgk2YXW8HqWbQ7ZE8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159676-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 159676: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=7f34681c488aee2563eaa2afcc6a2c8aa7c5b912
+X-Osstest-Versions-That:
+    ovmf=35f87da8a2debd443ac842db0a3794b17914a8f4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 25 Feb 2021 21:01:03 +0000
 
-On Thu, 25 Feb 2021, Jan Beulich wrote:
-> On 25.02.2021 02:22, Stefano Stabellini wrote:
-> > --- a/xen/include/public/features.h
-> > +++ b/xen/include/public/features.h
-> > @@ -114,6 +114,13 @@
-> >   */
-> >  #define XENFEAT_linux_rsdp_unrestricted   15
-> >  
-> > +/*
-> > + * A direct-mapped (or 1:1 mapped) domain is a domain for which its
-> > + * local pages have gfn == mfn.
-> > + */
-> > +#define XENFEAT_not_direct_mapped       16
-> > +#define XENFEAT_direct_mapped           17
-> 
-> Why two new values? Absence of XENFEAT_direct_mapped requires
-> implying not-direct-mapped by the consumer anyway, doesn't it?
+flight 159676 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159676/
 
-That's because if we add both flags we can avoid all unpleasant guessing
-games in the guest kernel.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 7f34681c488aee2563eaa2afcc6a2c8aa7c5b912
+baseline version:
+ ovmf                 35f87da8a2debd443ac842db0a3794b17914a8f4
 
-If one flag or the other flag is set, we can make an informed decision.
+Last test of basis   159640  2021-02-24 17:10:46 Z    1 days
+Testing same since   159676  2021-02-25 16:11:45 Z    0 days    1 attempts
 
-But if neither flag is set, it means we are running on an older Xen,
-and we fall back on the current checks.
+------------------------------------------------------------
+People who touched revisions under test:
+  Li, Walon <walon.li@hpe.com>
+  Walon Li <walon.li@hpe.com>
 
-
-> Further, quoting xen/mm.h: "For a non-translated guest which
-> is aware of Xen, gfn == mfn." This to me implies that PV would
-> need to get XENFEAT_direct_mapped set; not sure whether this
-> simply means x86'es is_domain_direct_mapped() is wrong, but if
-> it is, uses elsewhere in the code would likely need changing.
-
-That's a good point, I didn't think about x86 PV. I think the two flags
-are needed for autotranslated guests. I don't know for sure what is best
-for non-autotranslated guests.
-
-Maybe we could say that XENFEAT_not_direct_mapped and
-XENFEAT_direct_mapped only apply to XENFEAT_auto_translated_physmap
-guests. And it would match the implementation of
-is_domain_direct_mapped().
-
-For non XENFEAT_auto_translated_physmap guests we could either do:
-
-- neither flag is set
-- set XENFEAT_direct_mapped (without changing the implementation of
-  is_domain_direct_mapped)
-
-What do you think? I am happy either way.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-> Also, nit: Please keep the right sides aligned with #define-s
-> higher up in the file.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-OK
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   35f87da8a2..7f34681c48  7f34681c488aee2563eaa2afcc6a2c8aa7c5b912 -> xen-tested-master
 
