@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3071B324FD4
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 13:23:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.89696.169173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE812324FDE
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Feb 2021 13:32:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.89701.169191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFFfD-0002WJ-U9; Thu, 25 Feb 2021 12:22:39 +0000
+	id 1lFFof-0003bk-2j; Thu, 25 Feb 2021 12:32:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 89696.169173; Thu, 25 Feb 2021 12:22:39 +0000
+Received: by outflank-mailman (output) from mailman id 89701.169191; Thu, 25 Feb 2021 12:32:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFFfD-0002Vv-Qs; Thu, 25 Feb 2021 12:22:39 +0000
-Received: by outflank-mailman (input) for mailman id 89696;
- Thu, 25 Feb 2021 12:22:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lFFfC-0002Vq-Sx
- for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 12:22:38 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lFFfA-0008Fu-46; Thu, 25 Feb 2021 12:22:36 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lFFf9-0007xv-P8; Thu, 25 Feb 2021 12:22:35 +0000
+	id 1lFFoe-0003bL-V7; Thu, 25 Feb 2021 12:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 89701;
+ Thu, 25 Feb 2021 12:29:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jPrM=H3=amazon.com=prvs=68338ebd9=andyhsu@srs-us1.protection.inumbo.net>)
+ id 1lFFmI-0002rY-74
+ for xen-devel@lists.xenproject.org; Thu, 25 Feb 2021 12:29:58 +0000
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 34af81ce-aec0-48a6-8dca-f80a9f307baf;
+ Thu, 25 Feb 2021 12:29:57 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-1a-821c648d.us-east-1.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
+ 25 Feb 2021 12:29:51 +0000
+Received: from EX13D12EUA002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-1a-821c648d.us-east-1.amazon.com (Postfix) with ESMTPS
+ id F3328A0645
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Feb 2021 12:29:49 +0000 (UTC)
+Received: from dev-dsk-andyhsu-1c-d6833dcf.eu-west-1.amazon.com (10.43.160.27)
+ by EX13D12EUA002.ant.amazon.com (10.43.165.103) with Microsoft SMTP
+ Server (TLS) id 15.0.1497.2; Thu, 25 Feb 2021 12:29:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,106 +45,110 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=9N8Xs4CmQxxJU+JfkOI4Hg6HJzpF0TFOuHikqHwXSOw=; b=2FFMtVt3PjUHGSvjxohxnz3/eL
-	/PtHb0BuGkzB5I3pFMYNhuDCODSMscuB8WUlh34My5By/63GdSDVQpz3DHjc2dfXiUty0+WDqriLo
-	FeUA+3mLx86BcI+QJL3Y3twfc1gIiASNlxCzzGlIS/FvJwCgKkL6kvYxL2vDZTTeFW6o=;
-Subject: Re: [PATCH for-4.15] xen/vgic: Implement write to ISPENDR in vGICv{2,
- 3}
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "iwj@xenproject.org" <iwj@xenproject.org>, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20210220140412.31610-1-julien@xen.org>
- <F86904EB-91E9-475C-B60B-E08C5C9E76C3@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <0c4e6015-f969-9b6b-91b5-bffa952d47d5@xen.org>
-Date: Thu, 25 Feb 2021 12:22:34 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: 34af81ce-aec0-48a6-8dca-f80a9f307baf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1614256198; x=1645792198;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=CGtR0i81LbIzNkrCKXybCDMaGmp77tg1tDfxh2m6iuE=;
+  b=gQNdGANCp1LD5JcgDs1mZQu4JcyvohzBDVcicbJwIvC3iS8AlTjZuh9l
+   c+WbGhzeoIOvLKfjr09FwOuuEf02ZyXw3u+nGz3WPRTCjBzZN/rH8mQPd
+   l5HNBXFK6LULQAWHhwHvLaqduwIUb4TrFo07ayMPBF7Q5bCd++IOg7RLl
+   I=;
+X-IronPort-AV: E=Sophos;i="5.81,205,1610409600"; 
+   d="scan'208";a="88075059"
+From: ChiaHao Hsu <andyhsu@amazon.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <andyhsu@amazon.com>
+Subject: [PATCH 1/2] xen-netback: add module parameter to disable ctrl-ring
+Date: Thu, 25 Feb 2021 12:29:40 +0000
+Message-ID: <20210225122940.9310-1-andyhsu@amazon.com>
+X-Mailer: git-send-email 2.23.3
 MIME-Version: 1.0
-In-Reply-To: <F86904EB-91E9-475C-B60B-E08C5C9E76C3@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.43.160.27]
+X-ClientProxiedBy: EX13D50UWC001.ant.amazon.com (10.43.162.96) To
+ EX13D12EUA002.ant.amazon.com (10.43.165.103)
+Precedence: Bulk
 
+In order to support live migration of guests between kernels
+that do and do not support 'feature-ctrl-ring', we add a
+module parameter that allows the feature to be disabled
+at run time, instead of using hardcode value.
+The default value is enable.
 
+Signed-off-by: ChiaHao Hsu <andyhsu@amazon.com>
+---
+ drivers/net/xen-netback/common.h  |  2 ++
+ drivers/net/xen-netback/netback.c |  6 ++++++
+ drivers/net/xen-netback/xenbus.c  | 13 ++++++++-----
+ 3 files changed, 16 insertions(+), 5 deletions(-)
 
-On 22/02/2021 13:45, Bertrand Marquis wrote:
-> Hi Julien,
-> 
->> On 20 Feb 2021, at 14:04, Julien Grall <julien@xen.org> wrote:
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Currently, Xen will send a data abort to a guest trying to write to the
->> ISPENDR.
->>
->> Unfortunately, recent version of Linux (at least 5.9+) will start
->> writing to the register if the interrupt needs to be re-triggered
->> (see the callback irq_retrigger). This can happen when a driver (such as
->> the xgbe network driver on AMD Seattle) re-enable an interrupt:
->>
->> (XEN) d0v0: vGICD: unhandled word write 0x00000004000000 to ISPENDR44
->> [...]
->> [   25.635837] Unhandled fault at 0xffff80001000522c
->> [...]
->> [   25.818716]  gic_retrigger+0x2c/0x38
->> [   25.822361]  irq_startup+0x78/0x138
->> [   25.825920]  __enable_irq+0x70/0x80
->> [   25.829478]  enable_irq+0x50/0xa0
->> [   25.832864]  xgbe_one_poll+0xc8/0xd8
->> [   25.836509]  net_rx_action+0x110/0x3a8
->> [   25.840328]  __do_softirq+0x124/0x288
->> [   25.844061]  irq_exit+0xe0/0xf0
->> [   25.847272]  __handle_domain_irq+0x68/0xc0
->> [   25.851442]  gic_handle_irq+0xa8/0xe0
->> [   25.855171]  el1_irq+0xb0/0x180
->> [   25.858383]  arch_cpu_idle+0x18/0x28
->> [   25.862028]  default_idle_call+0x24/0x5c
->> [   25.866021]  do_idle+0x204/0x278
->> [   25.869319]  cpu_startup_entry+0x24/0x68
->> [   25.873313]  rest_init+0xd4/0xe4
->> [   25.876611]  arch_call_rest_init+0x10/0x1c
->> [   25.880777]  start_kernel+0x5b8/0x5ec
->>
->> As a consequence, the OS may become unusable.
->>
->> Implementing the write part of ISPENDR is somewhat easy. For
->> virtual interrupt, we only need to inject the interrupt again.
->>
->> For physical interrupt, we need to be more careful as the de-activation
->> of the virtual interrupt will be propagated to the physical distributor.
->> For simplicity, the physical interrupt will be set pending so the
->> workflow will not differ from a "real" interrupt.
->>
->> Longer term, we could possible directly activate the physical interrupt
->> and avoid taking an exception to inject the interrupt to the domain.
->> (This is the approach taken by the new vGIC based on KVM).
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> This is something which will not be done by a guest very often so I think your
-> implementation actually makes it simpler and reduce possibilities of race conditions
-> so I am not even sure that the XXX comment is needed.
-
-I think the XXX is useful as if someone notice an issue with the code, 
-then they know what they could try.
-
-I am open to suggestion how we could keep track of potential improvement.
-
-> But i am ok with it being in or not so:
-> 
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Thanks!
-
-Cheers,
+diff --git a/drivers/net/xen-netback/common.h b/drivers/net/xen-netback/common.h
+index 4a16d6e33c09..bfb7a3054917 100644
+--- a/drivers/net/xen-netback/common.h
++++ b/drivers/net/xen-netback/common.h
+@@ -276,6 +276,7 @@ struct backend_info {
+ 	u8 have_hotplug_status_watch:1;
+ 
+ 	const char *hotplug_script;
++	bool ctrl_ring_enabled;
+ };
+ 
+ struct xenvif {
+@@ -413,6 +414,7 @@ static inline pending_ring_idx_t nr_pending_reqs(struct xenvif_queue *queue)
+ 
+ irqreturn_t xenvif_interrupt(int irq, void *dev_id);
+ 
++extern bool control_ring;
+ extern bool separate_tx_rx_irq;
+ extern bool provides_xdp_headroom;
+ 
+diff --git a/drivers/net/xen-netback/netback.c b/drivers/net/xen-netback/netback.c
+index e5c73f819662..20d858f0456a 100644
+--- a/drivers/net/xen-netback/netback.c
++++ b/drivers/net/xen-netback/netback.c
+@@ -48,6 +48,12 @@
+ 
+ #include <asm/xen/hypercall.h>
+ 
++/* Provide an option to disable control ring which is used to pass
++ * large quantities of data from frontend to backend.
++ */
++bool control_ring = true;
++module_param(control_ring, bool, 0644);
++
+ /* Provide an option to disable split event channels at load time as
+  * event channels are limited resource. Split event channels are
+  * enabled by default.
+diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
+index a5439c130130..8a9169cff9c5 100644
+--- a/drivers/net/xen-netback/xenbus.c
++++ b/drivers/net/xen-netback/xenbus.c
+@@ -1123,11 +1123,14 @@ static int netback_probe(struct xenbus_device *dev,
+ 	if (err)
+ 		pr_debug("Error writing multi-queue-max-queues\n");
+ 
+-	err = xenbus_printf(XBT_NIL, dev->nodename,
+-			    "feature-ctrl-ring",
+-			    "%u", true);
+-	if (err)
+-		pr_debug("Error writing feature-ctrl-ring\n");
++	be->ctrl_ring_enabled = READ_ONCE(control_ring);
++	if (be->ctrl_ring_enabled) {
++		err = xenbus_printf(XBT_NIL, dev->nodename,
++				    "feature-ctrl-ring",
++				    "%u", true);
++		if (err)
++			pr_debug("Error writing feature-ctrl-ring\n");
++	}
+ 
+ 	backend_switch_state(be, XenbusStateInitWait);
+ 
 -- 
-Julien Grall
+2.23.3
+
 
