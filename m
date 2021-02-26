@@ -2,38 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F63E325C8A
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 05:26:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90053.170296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16E6F325CAF
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 05:48:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90058.170311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFUhD-0001ML-LY; Fri, 26 Feb 2021 04:25:43 +0000
+	id 1lFV2i-0003fk-NX; Fri, 26 Feb 2021 04:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90053.170296; Fri, 26 Feb 2021 04:25:43 +0000
+Received: by outflank-mailman (output) from mailman id 90058.170311; Fri, 26 Feb 2021 04:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFUhD-0001Lv-Hx; Fri, 26 Feb 2021 04:25:43 +0000
-Received: by outflank-mailman (input) for mailman id 90053;
- Fri, 26 Feb 2021 04:25:41 +0000
+	id 1lFV2i-0003fL-Jr; Fri, 26 Feb 2021 04:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 90058;
+ Fri, 26 Feb 2021 04:47:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+p7+=H4=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lFUhB-0001Lq-E4
- for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 04:25:41 +0000
-Received: from mail-qk1-x730.google.com (unknown [2607:f8b0:4864:20::730])
+ <SRS0=WYNV=H4=gmail.com=akihiko.odaki@srs-us1.protection.inumbo.net>)
+ id 1lFV2h-0003fG-FK
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 04:47:55 +0000
+Received: from mail-ej1-x636.google.com (unknown [2a00:1450:4864:20::636])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 02e20227-e1b6-4579-80af-699bbfbb792f;
- Fri, 26 Feb 2021 04:25:40 +0000 (UTC)
-Received: by mail-qk1-x730.google.com with SMTP id x124so8018809qkc.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Feb 2021 20:25:40 -0800 (PST)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com.
- [209.85.160.178])
- by smtp.gmail.com with ESMTPSA id i5sm5561183qkg.32.2021.02.25.20.25.39
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Feb 2021 20:25:39 -0800 (PST)
-Received: by mail-qt1-f178.google.com with SMTP id o34so5856436qtd.11
- for <xen-devel@lists.xenproject.org>; Thu, 25 Feb 2021 20:25:39 -0800 (PST)
+ id 29902a70-2c87-474d-8198-d6b751e1a7e7;
+ Fri, 26 Feb 2021 04:47:54 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id b21so1589377eja.4
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Feb 2021 20:47:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +37,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02e20227-e1b6-4579-80af-699bbfbb792f
+X-Inumbo-ID: 29902a70-2c87-474d-8198-d6b751e1a7e7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
+        d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=fDTKQXWPODousjcFxfPrAdhXiScgfthwkHIVsnIoPbM=;
-        b=abTtJIMMZ8KToSFWbjzFi32HOkPDN2rxZ+IfBv+eO62ap/dN702Uq0mU9oHC9j+snt
-         vnVWV+5jH/p/0R+4U10lm2zTMAo+mTTld64KVC2G+prj4nocAzeugJM4VE5FsldHI9zg
-         D677137O5m7d9bvVpQQ+IkqHWrA56M7YEa+Ng=
+         :cc:content-transfer-encoding;
+        bh=eSegB5Tn100fjF6cMx01sLj7QAzt6mWuluXvHTB2+fo=;
+        b=NdrDvZLAm+S+WbPm1+SkWGTWzukLJOHiAt/bPonkTB36VLmZRFCeyvW9oYX0NCxm3K
+         Yk6LsUGmgndTGDv+ViVAjvcfIhn7yLqrD5yFYiUBkR5W6m08QKnXpb6lEL/1R+OgBFKT
+         +Ui8rmv13ofNMtpZnlkBFFfTKe51pzhx6yC31AfisA5y6Ed6ynD6qYDVcHsI/MxSN7M3
+         lZQIYQSIRmCbc9FnyiRNjmoS7wEfpxjzRQzujI6msHfDgqIAvfNWs9tjGR1e8Bq25W9o
+         no8lfdwja4+nvU999f0DrSo/ErrUrOsohXkfwL6fbU1OfKyd03ySNqqXLeLlqf3Zqz7e
+         VvLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=fDTKQXWPODousjcFxfPrAdhXiScgfthwkHIVsnIoPbM=;
-        b=ouTlASx9uD0nZPjGKOH9cok0OkWOAdAC88eUn9alnuhg1XqX0Ldgagi4QPI9O/CsrR
-         /OKKkIfm/xAqlqPGK6yzccv9euwb7s7OPSxOvfje3WoD5t8trX1B+Kmkp9YPFZ/1iJR6
-         PV1PrB2q4Ike2/pB6nN+1s8XAnRhxdkHSri1xa8eSNs9S6ggxnOyotZwqxAVIiEeEDKf
-         AWm2YgyaRUSqcwYZPxKZ70HziUTbMYj84ihdwC+UazJq1HgbqNYgU9J0DrnSRmzR8tyr
-         jxnOAILdiRyVSQ2jSrPjhGrFuzl79MTApsk5UxolUsMo3MvE63ep3coWWnMi1SA73lXP
-         60Ag==
-X-Gm-Message-State: AOAM531UQG1e2UrLAkaNyXumgbbTA4M6ci8HvFy6MHfu6BX74KoCSrmI
-	bM/3mTVcX1fFvT59HSSi8pTHwZFjQqhgMg==
-X-Google-Smtp-Source: ABdhPJyg2D2KQIGgWNwMvhc+5sTEsHjF0RTy6O/6dAd4uNWlJ6/+DnvydUHZNO8uVNaQtQrN5XcPew==
-X-Received: by 2002:a37:a7c3:: with SMTP id q186mr1022939qke.475.1614313539774;
-        Thu, 25 Feb 2021 20:25:39 -0800 (PST)
-X-Received: by 2002:a05:6638:5:: with SMTP id z5mr1097392jao.84.1614313081344;
- Thu, 25 Feb 2021 20:18:01 -0800 (PST)
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=eSegB5Tn100fjF6cMx01sLj7QAzt6mWuluXvHTB2+fo=;
+        b=F66C2K+kTXej5xSD5A1rbZnkj/6a0Bj9NBUHSqbMq28c/f+lCPZH2FU0Fj6QwH2vej
+         +6X6I9Ei+lKqHXbDShXmkRJz18C7P46iSPt8g04KGJyajLY6AsYFT05BGfa6MqgjWq/p
+         kelK5RjJIOUAObkpAQcoy2AByk83KO+cI6xSNx9ckLHbzaQMNa9ROF9Lozo471uwz9A1
+         egHo2sYQd2ONhWhZEbcGYfSfGZt/X/+wh+xLXoFTsSkKk7y81NAAkcLaMfXZNO9rgomw
+         4EnflO2cuA1fywp8imLkbeij0JanslPGRxs96hoO4pBLHifGizEBQ4yWeqxO/GMWgKVB
+         RlMQ==
+X-Gm-Message-State: AOAM531e0aWUBJFbT0zFaJk6jkAEixaNPf7liMDjpqVNxDeCaHdM+L7f
+	mFuCYDsp/9EpaWsS5VJ1B4X/jhtXmABu/aG+3dA=
+X-Google-Smtp-Source: ABdhPJyVniYDvxXKn4lUYlhspOSbMbOOaPMZpGpQWzR0w7eap/HgCB4YP5247R22V8cQ2QJbAVjw+VDjDrVN9B4OBvM=
+X-Received: by 2002:a17:907:778d:: with SMTP id ky13mr397591ejc.291.1614314873688;
+ Thu, 25 Feb 2021 20:47:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20210209062131.2300005-1-tientzu@chromium.org> <20210209062131.2300005-13-tientzu@chromium.org>
-In-Reply-To: <20210209062131.2300005-13-tientzu@chromium.org>
-From: Claire Chang <tientzu@chromium.org>
-Date: Fri, 26 Feb 2021 12:17:50 +0800
-X-Gmail-Original-Message-ID: <CALiNf298+DLjTK6ALe0mYrRuCP_LtztMGuQQCS90ubDctbS0kw@mail.gmail.com>
-Message-ID: <CALiNf298+DLjTK6ALe0mYrRuCP_LtztMGuQQCS90ubDctbS0kw@mail.gmail.com>
-Subject: Re: [PATCH v4 12/14] swiotlb: Add restricted DMA alloc/free support.
-To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>
+References: <20210221133414.7262-1-akihiko.odaki@gmail.com>
+ <20210222105738.w2q6vp5pi4p6bx5m@sirius.home.kraxel.org> <CAMVc7JVo_XJcGcxW0Wmqje3Y40fRZDY6T8dnQTc2=Ehasz4UHw@mail.gmail.com>
+ <20210224111540.xd5a6yszql6wln7m@sirius.home.kraxel.org> <CAMVc7JXUXnrK_amhQsy=paMeqjMU_8r86Hj4UF5haZ+Oq15JkA@mail.gmail.com>
+ <20210225114626.dn7wevr3fozp5rcu@sirius.home.kraxel.org>
+In-Reply-To: <20210225114626.dn7wevr3fozp5rcu@sirius.home.kraxel.org>
+From: Akihiko Odaki <akihiko.odaki@gmail.com>
+Date: Fri, 26 Feb 2021 13:47:38 +0900
+Message-ID: <CAMVc7JX-E_3fE9SCOaYFAtDBRHNmHxmHWiqcJDPE-4zq-QHJbQ@mail.gmail.com>
+Subject: Re: [PATCH] virtio-gpu: Respect graphics update interval for EDID
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: qemu Developers <qemu-devel@nongnu.org>, xen-devel@lists.xenproject.org, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index fd9c1bd183ac..8b77fd64199e 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -836,6 +836,40 @@ late_initcall(swiotlb_create_default_debugfs);
->  #endif
+2021=E5=B9=B42=E6=9C=8825=E6=97=A5(=E6=9C=A8) 20:46 Gerd Hoffmann <kraxel@r=
+edhat.com>:
 >
->  #ifdef CONFIG_DMA_RESTRICTED_POOL
-> +struct page *dev_swiotlb_alloc(struct device *dev, size_t size, gfp_t gfp)
-> +{
-> +       struct swiotlb *swiotlb;
-> +       phys_addr_t tlb_addr;
-> +       unsigned int index;
-> +
-> +       /* dev_swiotlb_alloc can be used only in the context which permits sleeping. */
-> +       if (!dev->dev_swiotlb || !gfpflags_allow_blocking(gfp))
+>   Hi,
+>
+> > > Because of the wasted frames I'd like this to be an option you can
+> > > enable when needed.  For the majority of use cases this seems to be
+> > > no problem ...
+> >
+> > I see blinks with GNOME on Wayland on Ubuntu 20.04 and virtio-gpu with
+> > the EDID change included in this patch.
+>
+> /me looks closely at the patch again.
+>
+> So you update the edid dynamically, each time the refresh rate changes.
+> Problem with that approach is software doesn't expect edid to change
+> dynamically because on physical hardware it is static information about
+> the connected monitor.
+>
+> So what the virtio-gpu guest driver does is emulate a monitor hotplug
+> event to notify userspace.  If you resize the qemu window on the host
+> it'll look like the monitor with the old window size was unplugged and
+> a new monitor with the new window size got plugged instead, so gnome
+> shell goes adapt the display resolution to the new virtual monitor size.
+>
+> The blink you are seeing probably comes from gnome-shell processing the
+> monitor hotplug event.
+>
+> We could try to skip generating a monitor hotplug event in case only the
+> refresh rate did change.  That would fix the blink, but it would also
+> have the effect that nobody will notice the update.
+>
+> Bottom line:  I think making the edid refresh rate configurable might be
+> useful, but changing it dynamically most likely isn't.
+>
+> take care,
+>   Gerd
+>
 
-Just noticed that !gfpflags_allow_blocking(gfp) shouldn't be here.
+The "hotplug" implementation is probably what other combinations of
+devices and guests will do if they want to respond to the changes of
+the refresh rate, or display mode in general. That makes telling the
+dynamic refresh rate to guests infeasible.
 
-Hi Christoph,
+As you wrote, making the refresh rate configurable should be still
+useful, and I think matching it to the backend physical display is
+even better. GTK, the sole implementer of gfx_update_interval in my
+patch reports the refresh rate of the physical display the window
+resides in. It means the value may change when the physical display
+changes its refresh rate, which should be rare if it does, or the
+window moves to another physical display.
 
-Do you think I should fix this and rebase on the latest linux-next
-now? I wonder if there are more factor and clean up coming and I
-should wait after that.
+In the former case, there is nothing different from implementing a
+physical display driver for guests so there should be no problem. The
+latter case is similar to how the changes of the window size, which is
+also part of display mode, is delivered to guests and they should be
+consistent. The only inconsistency I see in my patch is that the
+refresh rate change has no throttling while the window size change
+has. I don't think it is problematic because it should be rare to move
+the window across physical displays, but I can implement one if you
+don't agree or know other cases the refresh rate frequently changes.
 
-Thanks,
-Claire
+Regards,
+Akihiko Odaki
 
