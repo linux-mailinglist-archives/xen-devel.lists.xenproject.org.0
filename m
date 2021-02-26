@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45759326A33
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 23:49:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90605.171567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1986C326A34
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 23:50:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90608.171580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFluo-0006tm-P3; Fri, 26 Feb 2021 22:48:54 +0000
+	id 1lFlw1-0007tV-8l; Fri, 26 Feb 2021 22:50:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90605.171567; Fri, 26 Feb 2021 22:48:54 +0000
+Received: by outflank-mailman (output) from mailman id 90608.171580; Fri, 26 Feb 2021 22:50:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFluo-0006tM-Kp; Fri, 26 Feb 2021 22:48:54 +0000
-Received: by outflank-mailman (input) for mailman id 90605;
- Fri, 26 Feb 2021 22:48:52 +0000
+	id 1lFlw1-0007t6-5T; Fri, 26 Feb 2021 22:50:09 +0000
+Received: by outflank-mailman (input) for mailman id 90608;
+ Fri, 26 Feb 2021 22:50:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ECYH=H4=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lFlum-0006t1-F9
- for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 22:48:52 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=e85+=H4=strugglers.net=andy@srs-us1.protection.inumbo.net>)
+ id 1lFlvz-0007p9-G4
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 22:50:07 +0000
+Received: from mail.bitfolk.com (unknown [2001:ba8:1f1:f019::25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 305b196f-caa3-4da4-82a6-1074a6de6549;
- Fri, 26 Feb 2021 22:48:51 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E3C1A64EE2;
- Fri, 26 Feb 2021 22:48:50 +0000 (UTC)
+ id c26bac83-4914-43fd-8aa6-a6e918576926;
+ Fri, 26 Feb 2021 22:50:06 +0000 (UTC)
+Received: from andy by mail.bitfolk.com with local (Exim 4.84_2)
+ (envelope-from <andy@strugglers.net>) id 1lFlvy-0003Mm-9L
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 22:50:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,96 +38,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 305b196f-caa3-4da4-82a6-1074a6de6549
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1614379731;
-	bh=iia1f0tQSqDCaikMDFO+Bo40Eak+IQuimn8f9AjXh4k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=unCcIjUj2qlJaPAD12PHZj3xkY9KHIqKQOUfaz5Z+7z9bOcweBCtutTAZ9DjautGG
-	 3I3I9Oxgc94tatSbjh3efUdz2ZyRaSDVjAmrtO6EJbbDOba+yrDKEUCPL40m4P17p0
-	 OVcXSZxgfcHHTy1lrIFI5H/3KPUfw4L//OLmzrx8vZKQRtoIerxTqpySGc7YKMr3nD
-	 shfqm8qPYhw5vZN5vD9+D0dXNuafQCPcqxykPxPNUVpa5slHDXujOokyLchmjEHrL1
-	 o+vY2Xye8YfNmhMyT8KFO41Xo2fzFE8+og9BzGfFW0RxZfY8zD29oqqyPYMholPbX2
-	 vSd8mDwID0GlA==
-Date: Fri, 26 Feb 2021 14:48:50 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Doug Goldstein <cardoe@cardoe.com>, Ian Jackson <iwj@xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, roger.pau@citrix.com
-Subject: Re: [PATCH for-4.15] automation: Fix the Alpine clang builds to use
- clang
-In-Reply-To: <20210226110233.27991-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.21.2102261446490.3234@sstabellini-ThinkPad-T480s>
-References: <20210226110233.27991-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: c26bac83-4914-43fd-8aa6-a6e918576926
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitfolk.com; s=alpha;
+	h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:Subject:To:From:Date; bh=ZGaVSndFsOKgS7jXAKHojYKaJn6UDrftbvmw5NEdXwg=;
+	b=lN1eTn0SI0ACXROLwEkdRQpBeIYIMHIDjiJ8TGiZfcZtPYngnplpemXSUz2iML63fLoC6bkAdl8Li+NvU46EnFEb/wYGYbVb0Wl6JGSN33gDcX6oj9lVPRNQMHMcXe/B5KhdKB7WqFbCgBLf9b2Jxbbv2aaxStBRBfBB6ElPJzUyqA8rtaBzPiLlMIIpUERFK7S6mMK1IzC82djWiYX21zHln+kltpksIi5XK9dZujz8LnXm+3O3SfCRq2XxfJ9Vnaw1xyt8R44Q/pqkifZVQuGs1ulCwaJL+2qT1yTecC1TRinZSECV86jps+dQQYlXwNiDPTjVT5VFbCGueQnEQw==;
+Date: Fri, 26 Feb 2021 22:50:06 +0000
+From: Andy Smith <andy@strugglers.net>
+To: xen-devel@lists.xenproject.org
+Subject: Re: dom0 suddenly blocking on all access to md device
+Message-ID: <20210226225006.GR29212@bitfolk.com>
+References: <20210226223927.GQ29212@bitfolk.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210226223927.GQ29212@bitfolk.com>
+OpenPGP: id=BF15490B; url=http://strugglers.net/~andy/pubkey.asc
+X-URL: http://strugglers.net/wiki/User:Andy
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: andy@strugglers.net
+X-SA-Exim-Scanned: No (on mail.bitfolk.com); SAEximRunCond expanded to false
 
-On Fri, 26 Feb 2021, Andrew Cooper wrote:
-> Looks like a copy&paste error.
-> 
-> Fixes: f6e1d8515d7 ("automation: add alpine linux x86 build jobs")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Oops, I didn't finish this sentence before sending:
 
-Thanks for the patch and of course it is correct
+On Fri, Feb 26, 2021 at 10:39:27PM +0000, Andy Smith wrote:
+> Also, it's always the md device that the guest block devices are
+> on that is stalled - IO to other devices in dom0
+…seems fine.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-However unfortunately it breaks the Alpine Linux gitlab-ci again :-(
-I created a branch with Roger's patches plus this patch. The two clang
-Alpine Linux build jobs fail:
-
-https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/1059686530
-https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/1059686532
-
-
-The error is the following:
-
-<built-in>:3:10: fatal error: 'cstring' file not found
-#include "cstring"
-         ^~~~~~~~~
-1 error generated.
-make[10]: *** [Makefile:120: headers++.chk] Error 1
-make[10]: *** Waiting for unfinished jobs....
-
-
-
-
-
-
-
-> ---
-> CC: Doug Goldstein <cardoe@cardoe.com>
-> CC: Ian Jackson <iwj@xenproject.org>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  automation/gitlab-ci/build.yaml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index d00b8a5123..23ab81d892 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -443,13 +443,13 @@ alpine-3.12-gcc-debug:
->    allow_failure: true
->  
->  alpine-3.12-clang:
-> -  extends: .gcc-x86-64-build
-> +  extends: .clang-x86-64-build
->    variables:
->      CONTAINER: alpine:3.12
->    allow_failure: true
->  
->  alpine-3.12-clang-debug:
-> -  extends: .gcc-x86-64-build-debug
-> +  extends: .clang-x86-64-build-debug
->    variables:
->      CONTAINER: alpine:3.12
->    allow_failure: true
-> -- 
-> 2.11.0
-> 
+Thanks,
+Andy
 
