@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4FA325FA6
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 10:10:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90159.170602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0650325FAE
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 10:12:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90162.170613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFZ8i-0000bS-2M; Fri, 26 Feb 2021 09:10:24 +0000
+	id 1lFZA6-0000k0-DJ; Fri, 26 Feb 2021 09:11:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90159.170602; Fri, 26 Feb 2021 09:10:24 +0000
+Received: by outflank-mailman (output) from mailman id 90162.170613; Fri, 26 Feb 2021 09:11:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFZ8h-0000b3-V9; Fri, 26 Feb 2021 09:10:23 +0000
-Received: by outflank-mailman (input) for mailman id 90159;
- Fri, 26 Feb 2021 09:10:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lFZA6-0000jb-A6; Fri, 26 Feb 2021 09:11:50 +0000
+Received: by outflank-mailman (input) for mailman id 90162;
+ Fri, 26 Feb 2021 09:11:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eEmz=H4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lFZ8g-0000ay-A5
- for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 09:10:22 +0000
+ id 1lFZA5-0000jV-Mb
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 09:11:49 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1198110f-cde1-4b03-bf14-d656f123aa48;
- Fri, 26 Feb 2021 09:10:21 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 231b572b-398b-499d-9d77-8b41612e0d34;
+ Fri, 26 Feb 2021 09:11:49 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C7F95AAAE;
- Fri, 26 Feb 2021 09:10:20 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5AA45AC6E;
+ Fri, 26 Feb 2021 09:11:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,63 +38,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1198110f-cde1-4b03-bf14-d656f123aa48
+X-Inumbo-ID: 231b572b-398b-499d-9d77-8b41612e0d34
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614330620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614330708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZnPO0c8BqED9sNXUMyc5GizBTjaaFQPqZ40nV6grb5g=;
-	b=icmCsrvMmX8/butHsBZyoJB5/mefB28V0+ueEZVf0Wqr3ujss+yjtI7XQHMLmehJ9G7C3E
-	JNOmUhJriI/SUIrjcF0jz+M3CSs6c6LdE+v3ORct06m/mTo0rMRcv9a8k545BwjBl4XNis
-	YXYyh67rb9PVMBLpnnxnh42xoBSpgss=
-Subject: Re: [PATCH 2/3] tools/firmware: Build firmware as -ffreestanding
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210225203010.11378-1-andrew.cooper3@citrix.com>
- <20210225203010.11378-3-andrew.cooper3@citrix.com>
+	bh=s9diGcGB9KTOnhLCoAIJmaDokTyMSGo3fC8+l0NpU2g=;
+	b=nPHt8qeUBAIOToW1sXRabAiikIzwVcMPVYiQFeJYbbSl0/qXXqwzqBLxzynn80mSPjJ3gD
+	9q7dPrKX6HUIlCrRupIZWIRW/KRv7yI/+iQ7Lb80QUE1hB0zvX29H/dRl2Oez7HhZef4He
+	s8umkbIKrcZrST2aCA/B4Ct/6wPRSs4=
+Subject: Re: [PATCH for-4.15 1/3] hvmloader: do not include inttypes.h
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20210226085908.21254-1-roger.pau@citrix.com>
+ <20210226085908.21254-2-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <23f64cfe-8908-79e1-253b-ad07b7aee00a@suse.com>
-Date: Fri, 26 Feb 2021 10:10:21 +0100
+Message-ID: <677a4654-950a-1419-849e-483dc9f19ea5@suse.com>
+Date: Fri, 26 Feb 2021 10:11:48 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210225203010.11378-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20210226085908.21254-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.02.2021 21:30, Andrew Cooper wrote:
-> firmware should always have been -ffreestanding, as it doesn't execute in the
-> host environment.
+On 26.02.2021 09:59, Roger Pau Monne wrote:
+> elfstructs.h doesn't require anything from inttypes.h: it's more
+> appropriate to include stdint.h instead which contains the type
+> declarations required for the ELF types.
 > 
-> inttypes.h isn't a freestanding header, but the 32bitbios_support.c only wants
-> the stdint.h types so switch to the more appropriate include.
-> 
-> This removes the build time dependency on a 32bit libc just to compile the
-> hvmloader and friends.
-> 
-> Update README and the TravisCI configuration.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-preferably with one further adjustment:
-
-> --- a/tools/firmware/Rules.mk
-> +++ b/tools/firmware/Rules.mk
-> @@ -16,4 +16,4 @@ CFLAGS += -Werror
->  $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
->  
->  # Extra CFLAGS suitable for an embedded type of environment.
-> -CFLAGS += -fno-builtin -msoft-float
-> +CFLAGS += -fno-builtin -msoft-float -ffreestanding
-
-As per gcc doc -ffreestanding implies -fno-builtin, so I think you
-want to replace that one instead of adding the new option on top.
+Let's go with Andrew's slightly larger change here.
 
 Jan
 
