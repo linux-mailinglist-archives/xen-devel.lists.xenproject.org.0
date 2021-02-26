@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EF8F325D73
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 07:17:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90073.170338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CFD325DCB
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 08:01:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90081.170362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFWPr-0004ot-D2; Fri, 26 Feb 2021 06:15:55 +0000
+	id 1lFX7G-0001Tm-TA; Fri, 26 Feb 2021 07:00:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90073.170338; Fri, 26 Feb 2021 06:15:55 +0000
+Received: by outflank-mailman (output) from mailman id 90081.170362; Fri, 26 Feb 2021 07:00:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFWPr-0004oU-93; Fri, 26 Feb 2021 06:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 90073;
- Fri, 26 Feb 2021 06:15:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rwhq=H4=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1lFWPo-0004oP-V2
- for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 06:15:53 +0000
-Received: from mail-oo1-xc32.google.com (unknown [2607:f8b0:4864:20::c32])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dfdbb505-eb10-486d-a58a-ffdeda7d05b6;
- Fri, 26 Feb 2021 06:15:51 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id x19so1964892ooj.10
- for <xen-devel@lists.xenproject.org>; Thu, 25 Feb 2021 22:15:51 -0800 (PST)
-Received: from thewall (142-79-211-230.starry-inc.net. [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id w22sm1588812otm.73.2021.02.25.22.15.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Feb 2021 22:15:50 -0800 (PST)
+	id 1lFX7G-0001TN-Pj; Fri, 26 Feb 2021 07:00:46 +0000
+Received: by outflank-mailman (input) for mailman id 90081;
+ Fri, 26 Feb 2021 07:00:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ScZz=H4=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lFX7E-0001Sn-RM
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 07:00:44 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a3b202d4-c3c2-48da-b36a-2b03f4bc3f48;
+ Fri, 26 Feb 2021 07:00:40 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id ABDD8AAAE;
+ Fri, 26 Feb 2021 07:00:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,117 +39,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfdbb505-eb10-486d-a58a-ffdeda7d05b6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=WXwFjyd+hV8iKbRjbKd2BJP8+p5hoDnRVTsshNgLObs=;
-        b=PbV2OOVCRtDgN5eys1UpbeBoNmICjGn+EMWpq0uoFlULCi/a3wKdbnUtsZ/ygKtqGZ
-         FIshySVFsH0gBGd+DPnkjH1XnEl+mIIZM42TSou9zcmEMNjFCXqp2YItkc08PbmS9vcx
-         AUFy8G4I5rkhc4EWhnwb1e/MAMiC7r4XtS2IoSkdAKesbvpzDmJES/6QNIrVKSVBFn+d
-         VfeICMtYHjKFYGA3xHVv4J6upnv0Vlb9dy9A47/YZQXgE57X9WiLV1CAfzVSKJJ9emDZ
-         4da06aTUj2p1M8pm0zCrjfWm6i11rRV7XNwsGBbxzkIN36v9GcGQOzpXJ/O5gNK6d3PT
-         PChg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=WXwFjyd+hV8iKbRjbKd2BJP8+p5hoDnRVTsshNgLObs=;
-        b=DhXDtnfmtIfeWXgcuTyCoHuBJdL3UZEnGNWK2opfOad2tGu7p3aVNjVVe4GFwpD8aR
-         RyFHv64i2proeIBSb7EZ7nW7eVu7IdJUos7nJvh4HkN7cXdrSxFFbi/RqS9OR7W4bMLY
-         lDARu+IQ3XMv9EJltWd3F+1ULoLH7y7T60L2OZHcnBthDH4l/jbKN4M+t4+9dniXqTRA
-         LL0gJvSkn7GH077kwIPfTPb9385i5yudRrRmUm/XXfwjrdCgv4mf9VCNyUycRoB0nx1i
-         3KxaSyZGxU7Gm7rZPRZMHesZix1h8Lga8tYMqughJZqlYX0jIQuBZcx7XzZVAuAJ7nmr
-         xKYQ==
-X-Gm-Message-State: AOAM530I7n85IvXA5ueL+1lU0ffqLtHj1ywSyEYog+O+TCTyMvtx5uHl
-	izbaYyCxL3K+qAC3gjwOPKY=
-X-Google-Smtp-Source: ABdhPJx1ewpkQitZcrkIRSQQ8SYaMHDnbn+waiWgKJCq/pAzliJftdP9g6FTAUwG9vSlQ1nJhf/wuQ==
-X-Received: by 2002:a4a:e093:: with SMTP id w19mr1242946oos.53.1614320151379;
-        Thu, 25 Feb 2021 22:15:51 -0800 (PST)
-Date: Thu, 25 Feb 2021 23:15:49 -0700
-From: Connor Davis <connojdavis@gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
-	Bobby Eshleman <bobbyeshleman@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH for-next 6/6] automation: add container for riscv64 builds
-Message-ID: <20210226061548.4dbvv772icl6pwmo@thewall>
-References: <cover.1614265718.git.connojdavis@gmail.com>
- <a7829e62734a73993cd41cdbc18e1d16e4bb06d9.1614265718.git.connojdavis@gmail.com>
- <alpine.DEB.2.21.2102251630382.3234@sstabellini-ThinkPad-T480s>
+X-Inumbo-ID: a3b202d4-c3c2-48da-b36a-2b03f4bc3f48
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614322839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V9ltK3tLHfA65LZDLA0UVxYPd2pNEVXAxTGBBkIZR6U=;
+	b=OL2BMEPH5kX6K7riOtVyCuXnPPcm2++Krdms+KzNT2DQ6ZO6AUWHfuxnRAFJhoIbYNmJ/1
+	JeSI2tTbNBh2O1vpLbO8M0xN4vCGDW79wXQC0e2OLuir6hO8gVTQVIZ4idsU1fW3UhUSvQ
+	ckC5DIQtKgQjHS2DiSWGfuJ/kFPitrs=
+Subject: Re: [PATCH for-4.15 1/5] tools/xenstored: Avoid unnecessary
+ talloc_strdup() in do_control_lu()
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+References: <20210225174131.10115-1-julien@xen.org>
+ <20210225174131.10115-2-julien@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <8aff5264-ee89-fde7-14b9-bc2f7ece5406@suse.com>
+Date: Fri, 26 Feb 2021 08:00:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="givbyxahiezow33j"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2102251630382.3234@sstabellini-ThinkPad-T480s>
+In-Reply-To: <20210225174131.10115-2-julien@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="DhQxo18ivMnw4An1RYsnfYezu8SieLUON"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--DhQxo18ivMnw4An1RYsnfYezu8SieLUON
+Content-Type: multipart/mixed; boundary="LdqCPhkPH065KA2Tfgz72EqAx49oRActW";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+Message-ID: <8aff5264-ee89-fde7-14b9-bc2f7ece5406@suse.com>
+Subject: Re: [PATCH for-4.15 1/5] tools/xenstored: Avoid unnecessary
+ talloc_strdup() in do_control_lu()
+References: <20210225174131.10115-1-julien@xen.org>
+ <20210225174131.10115-2-julien@xen.org>
+In-Reply-To: <20210225174131.10115-2-julien@xen.org>
+
+--LdqCPhkPH065KA2Tfgz72EqAx49oRActW
+Content-Type: multipart/mixed;
+ boundary="------------9DCCA64CE8A936E7CF841E8D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------9DCCA64CE8A936E7CF841E8D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 25.02.21 18:41, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> At the moment, the return of talloc_strdup() is not checked. This means=
+
+> we may dereference a NULL pointer if the allocation failed.
+>=20
+> However, it is pointless to allocate the memory as send_reply() will
+> copy the data to a different buffer. So drop the use of talloc_strdup()=
+=2E
+>=20
+> This bug was discovered and resolved using Coverity Static Analysis
+> Security Testing (SAST) by Synopsys, Inc.
+>=20
+> Fixes: fecab256d474 ("tools/xenstore: add basic live-update command par=
+sing")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
---givbyxahiezow33j
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Juergen
 
-On Thu, Feb 25, 2021 at 04:31:13PM -0800, Stefano Stabellini wrote:
-> On Thu, 25 Feb 2021, Connor Davis wrote:
-> > Add a container for cross-compiling xen to riscv64.
-> > This just includes the cross-compiler and necessary packages for
-> > building xen itself (packages for tools, stubdoms, etc., can be
-> > added later).
-> > 
-> > To build xen in the container run the following:
-> > 
-> > $ make XEN_TARGET_ARCH=riscv64 SUBSYSTEMS=xen
-> 
-> The container build failed for me with:
-> 
-> error: failed to initialize alpm library
-> (could not find or read directory: /var/lib/pacman/)
-> The command '/bin/sh -c pacman --noconfirm -Syu     pixman     python     sh' returned a non-zero code: 255
-> 
 
-Ooof, apparently archlinux/base has been broken for a
-few weeks now due to interactions between faccessat2 and the
-host's libseccomp version [0]. This thread [1] suggests the next
-docker release will have a fix.
+--------------9DCCA64CE8A936E7CF841E8D
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-As a temporary workaround I got the attached patch to work
-(based on this one[2]) if you want to give that a go.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-    Connor
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-[0] https://bugs.archlinux.org/task/69563
-[1] https://github.com/actions/virtual-environments/issues/2658
-[2] https://github.com/MiguelNdeCarvalho/docker-baseimage-archlinux/pull/8/files
+--------------9DCCA64CE8A936E7CF841E8D--
 
---givbyxahiezow33j
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment; filename="docker-glibc.patch"
+--LdqCPhkPH065KA2Tfgz72EqAx49oRActW--
 
-diff --git a/automation/build/archlinux/riscv64.dockerfile b/automation/build/archlinux/riscv64.dockerfile
-index d94048b6c3..5b3c3b9e3b 100644
---- a/automation/build/archlinux/riscv64.dockerfile
-+++ b/automation/build/archlinux/riscv64.dockerfile
-@@ -2,6 +2,11 @@ FROM archlinux/base
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
- 
-+RUN patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && \
-+    curl -LO "https://repo.archlinuxcn.org/x86_64/$patched_glibc" && \
-+    bsdtar -C / -xvf "$patched_glibc" && \
-+    sed -i 's/#IgnorePkg   =/IgnorePkg   = glibc/' /etc/pacman.conf
-+
- # Packages needed for the build
- RUN pacman --noconfirm -Syu \
-     base-devel \
-@@ -26,6 +31,9 @@ RUN git clone --recursive -j$(nproc) --progress https://github.com/riscv/riscv-g
- 
- # Add compiler path
- ENV PATH=/opt/riscv/bin/:${PATH}
-+ENV CROSS_COMPILE=riscv64-unknown-linux-gnu-
-+ENV XEN_TARGET_ARCH=riscv64
-+ENV SUBSYSTEMS=xen
- 
- RUN useradd --create-home user
- USER user
+--DhQxo18ivMnw4An1RYsnfYezu8SieLUON
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
---givbyxahiezow33j--
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA4nJYFAwAAAAAACgkQsN6d1ii/Ey/4
+aAgAmdNBD62jjOLNU3xNLjYSdrP1qUQjqRjfLsG3HAal99GZHpthzM4Rh1gxPynmLmry7Bu7whEw
+tDN2LSOAftsgBB/qJ1AsadF4YE4dodxKSj7dIIMGnrAM/eAsHf9OHPrB6V/2eAJ+86eQHgGFQBoO
+DRjQyOduptFmtByvaLaSZxKtkK28NMivNi31c/esUXO8VTj8f7EEDBxykKcCjXeIMxYIRrXmFvUl
+VB7B0z7AfI5QBsQIOHEd05rA1jBpV4tcV5pBlMGJAMp1r4Q0qFCy/x2pjULW/aQc65tqaffKpKqq
+cH7YalglWP0z5EmZ+CFyG/bendd3eXOLSetruNK4yQ==
+=o9gS
+-----END PGP SIGNATURE-----
+
+--DhQxo18ivMnw4An1RYsnfYezu8SieLUON--
 
