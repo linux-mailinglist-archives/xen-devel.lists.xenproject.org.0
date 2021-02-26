@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 694BC3266E1
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 19:28:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90553.171465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F61C3266EA
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 19:32:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90558.171477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFhpN-0005FX-OR; Fri, 26 Feb 2021 18:27:01 +0000
+	id 1lFhuT-0006IH-CB; Fri, 26 Feb 2021 18:32:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90553.171465; Fri, 26 Feb 2021 18:27:01 +0000
+Received: by outflank-mailman (output) from mailman id 90558.171477; Fri, 26 Feb 2021 18:32:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFhpN-0005FA-LG; Fri, 26 Feb 2021 18:27:01 +0000
-Received: by outflank-mailman (input) for mailman id 90553;
- Fri, 26 Feb 2021 18:27:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lFhpM-0005F5-4s
- for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 18:27:00 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lFhpK-0001GE-TR; Fri, 26 Feb 2021 18:26:58 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lFhpK-00089O-G4; Fri, 26 Feb 2021 18:26:58 +0000
+	id 1lFhuT-0006Hs-9I; Fri, 26 Feb 2021 18:32:17 +0000
+Received: by outflank-mailman (input) for mailman id 90558;
+ Fri, 26 Feb 2021 18:32:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DeEJ=H4=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
+ id 1lFhuS-0006Hn-2P
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 18:32:16 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 68878fca-0d0a-4c93-b298-212e2fabfb4a;
+ Fri, 26 Feb 2021 18:32:15 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 6A96964F2D;
+ Fri, 26 Feb 2021 18:32:14 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 66EFC609D0;
+ Fri, 26 Feb 2021 18:32:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +41,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
-	bh=iNuTvkc4LGs0VPE3lG554tVwPfj5Ug5Vg9CmENqGtyQ=; b=hMRJuUFgprHCGy+sCM2Y8Xqu4P
-	7eMu2yWG4Z2lOPbCotS9SYYOcT3936s+7ChDl4mRUlLBOkiImdiDX8KL9toL+8Sqab5TYXzEbkFD9
-	2KH1g2hRlSGKfFyfIeuEpkRAYitNcolXn/UeXX+aYI8Eps26/g52CDQlP+rKTN1cpMsw=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: raphning@amazon.co.uk,
-	iwj@xenproject.org,
-	Julien Grall <jgrall@amazon.com>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH for-4.15] tools/xenstored: Avoid dereferencing a NULL pointer if LiveUpdate is failing
-Date: Fri, 26 Feb 2021 18:26:55 +0000
-Message-Id: <20210226182655.2499-1-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
+X-Inumbo-ID: 68878fca-0d0a-4c93-b298-212e2fabfb4a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1614364334;
+	bh=PctlNHE6xIGwxBRhX63v/+sbNK+dVx7QqNsavwojU3Q=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=Q+QiWlfpNXrUOkwGjFrF0Op2A35Nz4ytnCiUDg89IGTzvdmJV16/XioWxccv4fPo4
+	 kho2xjpvWsdRrBeYxeIrHnQ6MaNTB3n5au/y/p7Dq5gtFO3d72IxLRU8MGPBdYivMX
+	 s7XQI7CE/s496v8uurasKhjgQKv7JYoS20HB/GA+2AXJQ1U27V9P6EH7xTMXjLlMNZ
+	 bOho3B09HGVGiA7hNIoV+yPvDaTB+ztYZDb4GHY7Py+NOJ/ayVr9qUC4Q4uX/SLXFq
+	 6hnx3vhjn++WhBpUebYhijumozbccj8oCfcY1TC8ACchaX4K0Obaww9WRAoSKkjpBz
+	 zLYL4verzAb5Q==
+Subject: Re: [GIT PULL] xen: branch for v5.12-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20210226131641.4309-1-jgross@suse.com>
+References: <20210226131641.4309-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20210226131641.4309-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.12b-rc1-tag
+X-PR-Tracked-Commit-Id: 53f131c284e83c29c227c0938926a82b2ed4d7ba
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 5c2e7a0af211cb7a3a24fcfe98f0ceb67560b53b
+Message-Id: <161436433441.9780.2149169069373607984.pr-tracker-bot@kernel.org>
+Date: Fri, 26 Feb 2021 18:32:14 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-From: Julien Grall <jgrall@amazon.com>
+The pull request you sent on Fri, 26 Feb 2021 14:16:41 +0100:
 
-In case of failure in do_lu_start(), XenStored will first free lu_start
-and then try to dereference it.
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.12b-rc1-tag
 
-This will result to a NULL dereference as the destruction callback will
-set lu_start to NULL.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/5c2e7a0af211cb7a3a24fcfe98f0ceb67560b53b
 
-The crash can be avoided by freeing lu_start *after* the reply has been
-set.
+Thank you!
 
-Fixes: af216a99fb4a ("tools/xenstore: add the basic framework for doing the live update")
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-
----
-
-This is a bug fix candidate for 4.15. The easiest way to trigger it is
-to have a XTF test that starts a transaction but never terminates it.
-
-In this case, live-updating would fail and trigger a crash.
----
- tools/xenstore/xenstored_control.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 653890f2d9e0..766b2438396a 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -657,9 +657,8 @@ static bool do_lu_start(struct delayed_request *req)
- 
- 	/* We will reach this point only in case of failure. */
-  out:
--	talloc_free(lu_status);
--
- 	send_reply(lu_status->conn, XS_CONTROL, ret, strlen(ret) + 1);
-+	talloc_free(lu_status);
- 
- 	return true;
- }
 -- 
-2.17.1
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
