@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C7433261EC
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 12:24:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90249.170790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F35E3262A1
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 13:21:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90277.170809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFbDm-00071R-J6; Fri, 26 Feb 2021 11:23:46 +0000
+	id 1lFc6L-0004oQ-3F; Fri, 26 Feb 2021 12:20:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90249.170790; Fri, 26 Feb 2021 11:23:46 +0000
+Received: by outflank-mailman (output) from mailman id 90277.170809; Fri, 26 Feb 2021 12:20:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFbDm-000712-Fg; Fri, 26 Feb 2021 11:23:46 +0000
-Received: by outflank-mailman (input) for mailman id 90249;
- Fri, 26 Feb 2021 11:23:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Uova=H4=cert.pl=hubert.jasudowicz@srs-us1.protection.inumbo.net>)
- id 1lFbDk-00070d-MY
- for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 11:23:44 +0000
-Received: from mx.nask.net.pl (unknown [195.187.55.89])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82f68d00-39a3-4f96-b122-169165b395cd;
- Fri, 26 Feb 2021 11:23:43 +0000 (UTC)
+	id 1lFc6K-0004o0-UU; Fri, 26 Feb 2021 12:20:08 +0000
+Received: by outflank-mailman (input) for mailman id 90277;
+ Fri, 26 Feb 2021 12:20:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFc6I-0004k2-O7; Fri, 26 Feb 2021 12:20:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFc6I-0002p2-Fz; Fri, 26 Feb 2021 12:20:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFc6I-0007XW-7S; Fri, 26 Feb 2021 12:20:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lFc6I-0002Gs-6y; Fri, 26 Feb 2021 12:20:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,66 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82f68d00-39a3-4f96-b122-169165b395cd
-Date: Fri, 26 Feb 2021 12:23:40 +0100
-From: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	=?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-Subject: Re: [PATCH] tools: Improve signal handling in xen-vmtrace
-Message-ID: <20210226112340.xiygnu4qclixswuc@arnold.localdomain>
-Mail-Followup-To: xen-devel@lists.xenproject.org,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	=?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-References: <26720bf5c8258e1b7b4600af3648039b5b9ee18d.1614336820.git.hubert.jasudowicz@cert.pl>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8htBbgjrKD065zae/JVwgjmkfF+OMh/6oqB3mbRrojs=; b=U0oEZiNal6PB0N4nFbAZB9VSKY
+	pgvN4vG/CNndLgvbrZSL1IPjhJaUmjvM+rnA6QNx9gbcX+WBbLdeVV7sQI2S2NnYJykcBHnS52KcU
+	2NSIV6d10BONmjAkqogqVnnn+9mNn5h9sGRd8gBGdoLZwmPzA4hcW7ylaXRu3FJDLiFE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159695-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <26720bf5c8258e1b7b4600af3648039b5b9ee18d.1614336820.git.hubert.jasudowicz@cert.pl>
+Subject: [ovmf test] 159695: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=6ffbb3581ab7c25a35041bac03b760af54f852bf
+X-Osstest-Versions-That:
+    ovmf=7f34681c488aee2563eaa2afcc6a2c8aa7c5b912
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 26 Feb 2021 12:20:06 +0000
 
-On 2021-02-26, Hubert Jasudowicz wrote:
-> Make sure xen-vmtrace exits cleanly in case SIGPIPE is sent. This can
-> happen when piping the output to some other program.
-> 
-> Additionaly, add volatile qualifier to interrupted flag to avoid
-> it being optimized away by the compiler.
-> 
-> Signed-off-by: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-> ---
->  tools/misc/xen-vmtrace.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/misc/xen-vmtrace.c b/tools/misc/xen-vmtrace.c
-> index 7572e880c5..e2da043058 100644
-> --- a/tools/misc/xen-vmtrace.c
-> +++ b/tools/misc/xen-vmtrace.c
-> @@ -43,7 +43,7 @@ static uint32_t domid, vcpu;
->  static size_t size;
->  static char *buf;
->  
-> -static sig_atomic_t interrupted;
-> +static volatile sig_atomic_t interrupted;
->  static void int_handler(int signum)
->  {
->      interrupted = 1;
-> @@ -81,6 +81,9 @@ int main(int argc, char **argv)
->      if ( signal(SIGINT, int_handler) == SIG_ERR )
->          err(1, "Failed to register signal handler\n");
->  
-> +    if ( signal(SIGPIPE, int_handler) == SIG_ERR )
-> +        err(1, "Failed to register signal handler\n");
-> +
->      if ( argc != 3 )
->      {
->          fprintf(stderr, "Usage: %s <domid> <vcpu_id>\n", argv[0]);
-> -- 
-> 2.30.0
-> 
-> 
+flight 159695 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159695/
 
-Oops, forgot 4.15 tag. But IMO this should be included.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6ffbb3581ab7c25a35041bac03b760af54f852bf
+baseline version:
+ ovmf                 7f34681c488aee2563eaa2afcc6a2c8aa7c5b912
 
-Thanks
-Hubert Jasudowicz
-CERT Polska
+Last test of basis   159676  2021-02-25 16:11:45 Z    0 days
+Testing same since   159695  2021-02-26 06:09:43 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Pierre Gondois <Pierre.Gondois@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   7f34681c48..6ffbb3581a  6ffbb3581ab7c25a35041bac03b760af54f852bf -> xen-tested-master
 
