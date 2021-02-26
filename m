@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AFD1325E79
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 08:54:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.90109.170454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9925325F0D
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Feb 2021 09:31:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.90120.170467 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFXwS-0007O5-Qe; Fri, 26 Feb 2021 07:53:40 +0000
+	id 1lFYWj-0003jb-Qm; Fri, 26 Feb 2021 08:31:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 90109.170454; Fri, 26 Feb 2021 07:53:40 +0000
+Received: by outflank-mailman (output) from mailman id 90120.170467; Fri, 26 Feb 2021 08:31:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lFXwS-0007NW-KO; Fri, 26 Feb 2021 07:53:40 +0000
-Received: by outflank-mailman (input) for mailman id 90109;
- Fri, 26 Feb 2021 07:53:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lFYWj-0003jC-NG; Fri, 26 Feb 2021 08:31:09 +0000
+Received: by outflank-mailman (input) for mailman id 90120;
+ Fri, 26 Feb 2021 08:31:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lFXwR-0007NN-4i; Fri, 26 Feb 2021 07:53:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lFXwQ-0006F8-U6; Fri, 26 Feb 2021 07:53:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lFXwQ-0003q8-Lo; Fri, 26 Feb 2021 07:53:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lFXwQ-0000l4-LN; Fri, 26 Feb 2021 07:53:38 +0000
+ (envelope-from <SRS0=eEmz=H4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lFYWh-0003j7-PR
+ for xen-devel@lists.xenproject.org; Fri, 26 Feb 2021 08:31:07 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 299e8d67-cced-4d79-bb36-3d15241eebce;
+ Fri, 26 Feb 2021 08:31:03 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3F07EAAAE;
+ Fri, 26 Feb 2021 08:31:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,264 +39,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1V7DTC9jyCc7clsAy5OheqHOdyhglJtctIT/tRnveOo=; b=tKBsiJiqpbJ9YW/wytrcL2Q9tk
-	qkIrOQshSftl5u0WHKZobswxb5/ZEqoqtsy2aZWcF615yn9nYH5e/sBfbgBlTbhGZgYZjeE47l+p8
-	rtHk1uh5eDdacoy/xm2RqpBuVyf8NlMk3ZV/YOjqKqE+YLce7fHU5XAqQcy6W4BVCbTQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159693-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 299e8d67-cced-4d79-bb36-3d15241eebce
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614328262; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zizc9mgtALmCUMLDX8SdCLIf5N1ESalejPn7NvmvnQE=;
+	b=XmVTz74Y0YHUvQcuQf8EP8cDnqpZBL249xWLVnwv3o5PXCZuw6wGxv1cR7DR+1ggxPKd/D
+	uMBdFe2Y+VBQ5z1x6p8ap+i3rhSKTfMdk8C/Q7KkSySm/iWJI3lP6fvJPnXJ88bCP11eYy
+	xV7lPLynT913Ewtlc8fizPrHTEOiaDA=
+Subject: Re: [PATCH for-next 3/6] xen/sched: Fix build when NR_CPUS == 1
+To: Connor Davis <connojdavis@gmail.com>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
+ <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <cover.1614265718.git.connojdavis@gmail.com>
+ <d0922adc698ab76223d76a0a7f328a72cedf00ad.1614265718.git.connojdavis@gmail.com>
+ <b4ad0f83-e071-49f8-17a8-7fec0e226b9a@suse.com>
+ <20210226030833.uugfojf5kkxhlpr7@thewall>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <eb19a389-d2b3-d0cc-fd25-62bbb121cf98@suse.com>
+Date: Fri, 26 Feb 2021 09:31:02 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Subject: [libvirt test] 159693: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=eaaf9397f40a7a893a04ee86676478cca3c80d9d
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 26 Feb 2021 07:53:38 +0000
+In-Reply-To: <20210226030833.uugfojf5kkxhlpr7@thewall>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 159693 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159693/
+On 26.02.2021 04:08, Connor Davis wrote:
+> On Thu, Feb 25, 2021 at 04:50:02PM +0100, Jan Beulich wrote:
+>> On 25.02.2021 16:24, Connor Davis wrote:
+>>> Return from cpu_schedule_up when either cpu is 0 or
+>>> NR_CPUS == 1. This fixes the following:
+>>>
+>>> core.c: In function 'cpu_schedule_up':
+>>> core.c:2769:19: error: array subscript 1 is above array bounds
+>>> of 'struct vcpu *[1]' [-Werror=array-bounds]
+>>>  2769 |     if ( idle_vcpu[cpu] == NULL )
+>>>       |
+>>>
+>>> Signed-off-by: Connor Davis <connojdavis@gmail.com>
+>>> ---
+>>>  xen/common/sched/core.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+>>> index 9745a77eee..f5ec65bf9b 100644
+>>> --- a/xen/common/sched/core.c
+>>> +++ b/xen/common/sched/core.c
+>>> @@ -2763,7 +2763,7 @@ static int cpu_schedule_up(unsigned int cpu)
+>>>      cpumask_set_cpu(cpu, &sched_res_mask);
+>>>  
+>>>      /* Boot CPU is dealt with later in scheduler_init(). */
+>>> -    if ( cpu == 0 )
+>>> +    if ( cpu == 0 || NR_CPUS == 1 )
+>>>          return 0;
+>>>  
+>>>      if ( idle_vcpu[cpu] == NULL )
+>>
+>> I'm not convinced a compiler warning is due here, and in turn
+>> I'm not sure we want/need to work around this the way you do.
+> 
+> It seems like a reasonable warning to me, but of course I'm open
+> to dealing with it in a different way.
+> 
+>> First question is whether that's just a specific compiler
+>> version that's flawed. If it's not just a special case (e.g.
+> 
+> The docker container uses gcc 10.2.0 from
+> https://github.com/riscv/riscv-gnu-toolchain
 
-Regressions :-(
+Ah yes, at -O2 I can observe the warning on e.g.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+extern int array[N];
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+int test(unsigned i) {
+	if(i == N - 1)
+		return 0;
+	return array[i];
+}
 
-version targeted for testing:
- libvirt              eaaf9397f40a7a893a04ee86676478cca3c80d9d
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+when N=1. No warning appears when N=2 or higher, yet if it is
+sensible to emit for N=1 then it would imo be similarly
+sensible to emit in other cases. The only difference is that
+when N=1, there's no i for which the array access would ever
+be valid, while e.g. for N=2 there's exactly one such i.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  231 days
-Failing since        151818  2020-07-11 04:18:52 Z  230 days  223 attempts
-Testing same since   159693  2021-02-26 04:18:55 Z    0 days    1 attempts
+I've tried an x86 build with NR_CPUS=1, and this hits the case
+you found and a 2nd one, where behavior is even more puzzling.
+For the case you've found I'd like to suggest as alternative
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+@@ -2769,6 +2769,12 @@ static int cpu_schedule_up(unsigned int
+     if ( cpu == 0 )
+         return 0;
+ 
++    /*
++     * Guard in particular also against the compiler suspecting out-of-bounds
++     * array accesses below when NR_CPUS=1.
++     */
++    BUG_ON(cpu >= NR_CPUS);
++
+     if ( idle_vcpu[cpu] == NULL )
+         vcpu_create(idle_vcpu[0]->domain, cpu);
+     else
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+To fix the x86 build in this regard we'd additionally need
+something along the lines of
 
+--- unstable.orig/xen/arch/x86/genapic/x2apic.c
++++ unstable/xen/arch/x86/genapic/x2apic.c
+@@ -54,7 +54,17 @@ static void init_apic_ldr_x2apic_cluster
+     per_cpu(cluster_cpus, this_cpu) = cluster_cpus_spare;
+     for_each_online_cpu ( cpu )
+     {
+-        if (this_cpu == cpu || x2apic_cluster(this_cpu) != x2apic_cluster(cpu))
++        if ( this_cpu == cpu )
++            continue;
++        /*
++         * Guard in particular against the compiler suspecting out-of-bounds
++         * array accesses below when NR_CPUS=1 (oddly enough with gcc 10 it
++         * is the 1st of these alone which actually helps, not the 2nd, nor
++         * are both required together there).
++         */
++        BUG_ON(this_cpu >= NR_CPUS);
++        BUG_ON(cpu >= NR_CPUS);
++        if ( x2apic_cluster(this_cpu) != x2apic_cluster(cpu) )
+             continue;
+         per_cpu(cluster_cpus, this_cpu) = per_cpu(cluster_cpus, cpu);
+         break;
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+but the comment points out how strangely the compiler behaves here.
+Even flipping around the two sides of the != doesn't change its
+behavior. It is perhaps relevant to note here that there's no
+special casing of smp_processor_id() in the NR_CPUS=1 case, so the
+compiler can't infer this_cpu == 0.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Once we've settled on how to change common/sched/core.c I guess
+I'll then adjust the x86-specific change accordingly and submit as
+a separate fix (or I could of course also bundle both changes then).
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 44231 lines long.)
+Jan
 
