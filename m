@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FD39328DD4
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A51328DD5
 	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 20:19:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.91943.173556 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.91946.173566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGo3X-0004vN-6z; Mon, 01 Mar 2021 19:18:11 +0000
+	id 1lGo4S-00059B-HY; Mon, 01 Mar 2021 19:19:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 91943.173556; Mon, 01 Mar 2021 19:18:11 +0000
+Received: by outflank-mailman (output) from mailman id 91946.173566; Mon, 01 Mar 2021 19:19:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGo3X-0004uy-3o; Mon, 01 Mar 2021 19:18:11 +0000
-Received: by outflank-mailman (input) for mailman id 91943;
- Mon, 01 Mar 2021 19:18:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lGo4S-00058k-EO; Mon, 01 Mar 2021 19:19:08 +0000
+Received: by outflank-mailman (input) for mailman id 91946;
+ Mon, 01 Mar 2021 19:19:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ls+h=H7=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lGo3V-0004ut-3m
- for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 19:18:09 +0000
+ id 1lGo4R-00058f-84
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 19:19:07 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1aee2df5-866b-453e-832d-85c644e3f135;
- Mon, 01 Mar 2021 19:18:07 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2246f6a6-1d96-49e1-bb04-c00f0700121b;
+ Mon, 01 Mar 2021 19:19:05 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 010B4AF35;
- Mon,  1 Mar 2021 19:18:07 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E4425ADCD;
+ Mon,  1 Mar 2021 19:19:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +38,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aee2df5-866b-453e-832d-85c644e3f135
+X-Inumbo-ID: 2246f6a6-1d96-49e1-bb04-c00f0700121b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614626287; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614626345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3j/0D9ZA7ezAtEP4Nk3+f0xENC++ECPVLz2dgRTsCxI=;
-	b=r1srcnqfeZUiQ0xnlWVjFCTUVG4ZpnVmnB2gjAkhAjdEf+FPeRl4xZQT9zSl80nS50IY95
-	liuwzkMBhoLK+WLikoku4/ZC03NEOaYPwZNXl5lEwsH0pwlAkM7n1NPNJGpOvDKMBGpFKP
-	e8FDvOHsUgwj7WG4qSh5WrEHX0yApmM=
-Subject: Re: [PATCH v1] xen: ACPI: Get rid of ACPICA message printing
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Linux ACPI <linux-acpi@vger.kernel.org>, LKML
- <linux-kernel@vger.kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Konrad Wilk <konrad.wilk@oracle.com>
-References: <1709720.Zl72FGBfpD@kreacher>
- <eaeba4a0-7bb9-7b17-9ba6-49921f6e834c@oracle.com>
- <CAJZ5v0jr5Mxs9NYBz1ot8O+6dKYbfAo=cJqSVAOnrFEqUNwuTA@mail.gmail.com>
- <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
+	bh=rY5C7IvYwu59F1WelQcHMBQMJDl5Ojn/Usn1v7uuQ5A=;
+	b=AomzcFELmWZY+5UY38dBmIVHXeX3GHw25NXiSN9FDvT0hWP1x/22IxhZupiImjwhtK0qYN
+	mKN7QqQlCIiq+Y2LXl0ZPQDc5X/BHBHqU9RvNRzbpMBIPKfxjtrVpkkRoFsVgXdbMEaRq2
+	Xt9JadVE+hMt5J23QjAG7r5AJl4Pe9g=
+Subject: Re: [PATCH for-4.15] tools/xenstored: Avoid dereferencing a NULL
+ pointer if LiveUpdate is failing
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+References: <20210226182655.2499-1-julien@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <afc7b1af-4d12-fb06-9212-b828f4426073@suse.com>
-Date: Mon, 1 Mar 2021 20:18:06 +0100
+Message-ID: <842a4189-c7a9-e3c1-6e21-740eb352aadf@suse.com>
+Date: Mon, 1 Mar 2021 20:19:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
+In-Reply-To: <20210226182655.2499-1-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Y6WqBR9s8HPASVufSY807FC9ROBrepWk0"
+ boundary="4bqH9syYQgV1ZtCDKD2Ycvw54aeWoLp3B"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Y6WqBR9s8HPASVufSY807FC9ROBrepWk0
-Content-Type: multipart/mixed; boundary="IMu2UHGcUE6GoRXxvT3hkijSEV94m109Z";
+--4bqH9syYQgV1ZtCDKD2Ycvw54aeWoLp3B
+Content-Type: multipart/mixed; boundary="X9bU5BXn78AV5se16MHxSKnFbAXqKx3HN";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Linux ACPI <linux-acpi@vger.kernel.org>, LKML
- <linux-kernel@vger.kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Konrad Wilk <konrad.wilk@oracle.com>
-Message-ID: <afc7b1af-4d12-fb06-9212-b828f4426073@suse.com>
-Subject: Re: [PATCH v1] xen: ACPI: Get rid of ACPICA message printing
-References: <1709720.Zl72FGBfpD@kreacher>
- <eaeba4a0-7bb9-7b17-9ba6-49921f6e834c@oracle.com>
- <CAJZ5v0jr5Mxs9NYBz1ot8O+6dKYbfAo=cJqSVAOnrFEqUNwuTA@mail.gmail.com>
- <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
-In-Reply-To: <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+Message-ID: <842a4189-c7a9-e3c1-6e21-740eb352aadf@suse.com>
+Subject: Re: [PATCH for-4.15] tools/xenstored: Avoid dereferencing a NULL
+ pointer if LiveUpdate is failing
+References: <20210226182655.2499-1-julien@xen.org>
+In-Reply-To: <20210226182655.2499-1-julien@xen.org>
 
---IMu2UHGcUE6GoRXxvT3hkijSEV94m109Z
+--X9bU5BXn78AV5se16MHxSKnFbAXqKx3HN
 Content-Type: multipart/mixed;
- boundary="------------2E3C1A1D1E83919451AF1165"
+ boundary="------------F49DFD30BD801625132A3719"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------2E3C1A1D1E83919451AF1165
+--------------F49DFD30BD801625132A3719
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 01.03.21 17:16, Boris Ostrovsky wrote:
+On 26.02.21 19:26, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 >=20
-> On 3/1/21 9:11 AM, Rafael J. Wysocki wrote:
->> On Sun, Feb 28, 2021 at 2:49 AM Boris Ostrovsky
->> <boris.ostrovsky@oracle.com> wrote:
->>>
->>> On 2/24/21 1:47 PM, Rafael J. Wysocki wrote:
->>>> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->>>>
->>>> The ACPI_DEBUG_PRINT() macro is used in a few places in
->>>> xen-acpi-cpuhotplug.c and xen-acpi-memhotplug.c for printing debug
->>>> messages, but that is questionable, because that macro belongs to
->>>> ACPICA and it should not be used elsewhere.  In addition,
->>>> ACPI_DEBUG_PRINT() requires special enabling to allow it to actually=
+> In case of failure in do_lu_start(), XenStored will first free lu_start=
 
->>>> print the message and the _COMPONENT symbol generally needed for
->>>> that is not defined in any of the files in question.
->>>>
->>>> For this reason, replace all of the ACPI_DEBUG_PRINT() instances in
->>>> the Xen code with acpi_handle_debug() (with the additional benefit
->>>> that the source object can be identified more easily after this
->>>> change) and drop the ACPI_MODULE_NAME() definitions that are only
->>>> used by the ACPICA message printing macros from that code.
->>>>
->>>> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->>>> ---
->>>>   drivers/xen/xen-acpi-cpuhotplug.c |   12 +++++-------
->>>>   drivers/xen/xen-acpi-memhotplug.c |   16 +++++++---------
->>>
->>> As I was building with this patch I (re-)discovered that since 2013 i=
-t depends on BROKEN (commit 76fc253723add). Despite commit message there =
-saying that it's a temporary patch it seems to me by now that it's more t=
-han that.
->>>
->>>
->>> And clearly noone tried to build these files since at least 2015 beca=
-use memhotplug file doesn't compile due to commit cfafae940381207.
->>>
->>>
->>> While this is easily fixable the question is whether we want to keep =
-these files. Obviously noone cares about this functionality.
->> Well, I would be for dropping them.
->>
->> Do you want me to send a patch to do that?
+> and then try to dereference it.
 >=20
->=20
-> Yes, if you don't mind (but let's give this a few days for people to ha=
-ve a chance to comment).
+> This will result to a NULL dereference as the destruction callback will=
 
-I'm fine with removing those files.
+> set lu_start to NULL.
+>=20
+> The crash can be avoided by freeing lu_start *after* the reply has been=
+
+> set.
+>=20
+> Fixes: af216a99fb4a ("tools/xenstore: add the basic framework for doing=
+ the live update")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------2E3C1A1D1E83919451AF1165
+--------------F49DFD30BD801625132A3719
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -245,25 +204,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------2E3C1A1D1E83919451AF1165--
+--------------F49DFD30BD801625132A3719--
 
---IMu2UHGcUE6GoRXxvT3hkijSEV94m109Z--
+--X9bU5BXn78AV5se16MHxSKnFbAXqKx3HN--
 
---Y6WqBR9s8HPASVufSY807FC9ROBrepWk0
+--4bqH9syYQgV1ZtCDKD2Ycvw54aeWoLp3B
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA9Pe4FAwAAAAAACgkQsN6d1ii/Ey/X
-Xwf/T5pILtrP2Vss5K6gmbbQFUxpMalP1uWUEX87zmFAKMOaiivPnoqmUw6FAyS88slClsPNlwOf
-kXPGM2fx4EbVWbinGHHm8LZlWQZLKVeJSGbieq+mKSnbnq5XIkksC1VHjfD8D3/tEmSSvSVfuYuo
-PYja1K2LFCdQtAtzi0VXqqUTttDNLiJT6oTtsiJHvAoE1CXTdBiVZju0UrTLKIVbJpxccooRgVCR
-/XT3SBsWrnb15J1JyApNIMtJ/P36In17JunTv8U7UcOjC1liH94XvXOQsrO+XzxJNFSW1Dz2Q3Mm
-zSXwdlv1I9IYl414ZVdzJ2U+UAxW1zv/TmEusYJtbQ==
-=baql
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA9PigFAwAAAAAACgkQsN6d1ii/Ey/v
+kQf+JdHV/lFtCQ8XasEuuNpNdPMqRzwR2oD483KWwgLqNFTzDY61DFFfWOPmujKrjdNctans2Mzb
+lvp7sZlaim8vL5mvFmP5ZdL3lTe5EP7tn2pq9aDAHS2cVFJX0E70CzluBJgNy95ekX+otl5xpXJB
+4n3cGELKYr8JktS5DYdG6ovDPrRASFOt/tE5cE4phsr2ev4wEiyO1+QxTYRuPOtXbSuPCFQ1NX/K
+HTnR3/U6fw+FFocn+ka9bxmhj3pRt+8Ip1zELRbRZD0L7E510Qc/IE507Qy0YnB/9EfKkxzZF+sx
+LrIhid8WAGr3HRQ88tSUyByyzG5RIGft3PaAv5UxHA==
+=hgQL
 -----END PGP SIGNATURE-----
 
---Y6WqBR9s8HPASVufSY807FC9ROBrepWk0--
+--4bqH9syYQgV1ZtCDKD2Ycvw54aeWoLp3B--
 
