@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F50C327A91
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 10:17:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.91374.172716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D3B327A9C
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 10:21:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.91377.172729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGegL-0006Ui-81; Mon, 01 Mar 2021 09:17:37 +0000
+	id 1lGejk-0007RJ-O5; Mon, 01 Mar 2021 09:21:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 91374.172716; Mon, 01 Mar 2021 09:17:37 +0000
+Received: by outflank-mailman (output) from mailman id 91377.172729; Mon, 01 Mar 2021 09:21:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGegL-0006UM-56; Mon, 01 Mar 2021 09:17:37 +0000
-Received: by outflank-mailman (input) for mailman id 91374;
- Mon, 01 Mar 2021 09:17:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lGejk-0007Qu-Ky; Mon, 01 Mar 2021 09:21:08 +0000
+Received: by outflank-mailman (input) for mailman id 91377;
+ Mon, 01 Mar 2021 09:21:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lGegJ-0006UC-Db
- for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 09:17:35 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 66ec7c3f-2764-47f2-8de7-8cd5ccca5761;
- Mon, 01 Mar 2021 09:17:34 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 47EE3ADDD;
- Mon,  1 Mar 2021 09:17:33 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lGeji-0007Qo-Jf
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 09:21:06 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lGejf-0004h4-RJ; Mon, 01 Mar 2021 09:21:03 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lGejf-0002HM-Kw; Mon, 01 Mar 2021 09:21:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,126 +40,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66ec7c3f-2764-47f2-8de7-8cd5ccca5761
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614590253; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M14uPrvFxLxc0/X3wB9P9zqSnpxas/vDs5aupFBoG5M=;
-	b=ZppUbrP/P6jly3aXVhOiWV0QMXc/SNe/LDxy4GwgFZmyL3kEjfP8LP/bZ3IrWHqeosRFrX
-	c4PoBuCZ92v0Lqg5Yp8uKlS5btd0SCK4jTa59Vb59jNasusoMxOzDlepp7dwE7YFM2GMCb
-	oABZXHbd9KVts5Oqa7mcm1K8aCUyI1k=
-Subject: Re: [PATCH for-4.15 2/3] firmware: provide a stand alone set of
- headers
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20210226085908.21254-1-roger.pau@citrix.com>
- <20210226085908.21254-3-roger.pau@citrix.com>
- <2133ba4c-5120-30ca-1328-c8700fd2db94@suse.com>
- <YDyu3mWSgIIB6s91@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <445b205b-0a0b-da53-b7ba-98a1ac51aab4@suse.com>
-Date: Mon, 1 Mar 2021 10:17:32 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=KOYXLhZnfAj7XipIznzkQEH2B+/1Ena6X7YsaKpMW5s=; b=jcbDCbPuEmliFLu8pRLgrKHPcl
+	dbK4kPsP5JKvs+S4EbTQqfd9wpYmqlktJZpjEQjF+M4NX17Z2Rx0N9PmYTaRtKZqbl1tfW5XnYuN3
+	4TywZJ7tyfTJgE7fGChQkc5BQ5t2hSNjBF4g7REipEuXThtZ5swPnTw1a5UJ2eN1LdBs=;
+Subject: Re: [PATCH for-4.15 v5 2/3] xen/x86: iommu: Ignore IOMMU mapping
+ requests when a domain is dying
+To: Jan Beulich <jbeulich@suse.com>
+Cc: hongyxia@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210226105640.12037-1-julien@xen.org>
+ <20210226105640.12037-3-julien@xen.org>
+ <1a386635-9c7d-3880-7e99-d87722fe5075@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <78e3ec89-a022-c234-6c73-0abd2fb74f61@xen.org>
+Date: Mon, 1 Mar 2021 09:21:01 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <YDyu3mWSgIIB6s91@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1a386635-9c7d-3880-7e99-d87722fe5075@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 01.03.2021 10:07, Roger Pau Monné wrote:
-> On Fri, Feb 26, 2021 at 02:24:43PM +0100, Jan Beulich wrote:
->> On 26.02.2021 09:59, Roger Pau Monne wrote:
->>> The current build of the firmware relies on having 32bit compatible
->>> headers installed in order to build some of the 32bit firmware, but
->>> that usually requires multilib support and installing a i386 libc when
->>> building from an amd64 environment which is cumbersome just to get
->>> some headers.
->>>
->>> Usually this could be solved by using the -ffreestanding compiler
->>> option which drops the usage of the system headers in favor of a
->>> private set of freestanding headers provided by the compiler itself
->>> that are not tied to libc. However such option is broken at least
->>> in the gcc compiler provided in Alpine Linux, as the system include
->>> path (ie: /usr/include) takes precedence over the gcc private include
->>> path:
->>>
->>> #include <...> search starts here:
->>>  /usr/include
->>>  /usr/lib/gcc/x86_64-alpine-linux-musl/10.2.1/include
->>>
->>> Since -ffreestanding is currently broken on at least that distro, and
->>> for resilience against future compilers also having the option broken
->>> provide a set of stand alone 32bit headers required for the firmware
->>> build.
->>>
->>> This allows to drop the build time dependency on having a i386
->>> compatible set of libc headers on amd64.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi Jan,
+
+On 26/02/2021 13:30, Jan Beulich wrote:
+> On 26.02.2021 11:56, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
 >>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> with possibly small adjustments:
+>> The new x86 IOMMU page-tables allocator will release the pages when
+>> relinquishing the domain resources. However, this is not sufficient
+>> when the domain is dying because nothing prevents page-table to be
+>> allocated.
 >>
->>> ---
->>> There's the argument of fixing gcc in Alpine and instead just use
->>> -ffreestanding. I think that's more fragile than providing our own set
->>> of stand alone headers for the firmware bits. Having the include paths
->>> wrongly sorted can easily make the system headers being picked up
->>> instead of the gcc ones, and then building can randomly fail because
->>> the system headers could be amd64 only (like the musl ones).
->>>
->>> I've also seen clang-9 on Debian with the following include paths:
->>>
->>> #include "..." search starts here:
->>> #include <...> search starts here:
->>>  /usr/local/include
->>>  /usr/lib/llvm-9/lib/clang/9.0.1/include
->>>  /usr/include/x86_64-linux-gnu
->>>  /usr/include
->>>
->>> Which also seems slightly dangerous as local comes before the compiler
->>> private path.
->>>
->>> IMO using our own set of stand alone headers is more resilient.
+>> As the domain is dying, it is not necessary to continue to modify the
+>> IOMMU page-tables as they are going to be destroyed soon.
 >>
->> I agree (in particular given the observations), but I don't view
->> this as an argument against use of -ffreestanding. In fact I'd
->> rather see this change re-based on top of Andrew's changes. Then ...
+>> At the moment, page-table allocates will only happen when iommu_map().
+>> So after this change there will be no more page-table allocation
+>> happening because we don't use superpage mappings yet when not sharing
+>> page tables.
+>>
+>> In order to observe d->is_dying correctly, we need to rely on per-arch
+>> locking, so the check to ignore IOMMU mapping is added on the per-driver
+>> map_page() callback.
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> But doesn't using -nostdinc kind of defeats the purpose of
-> -ffreestanding, as it would remove all default paths from the include
-> search, and thus prevent using the gcc private headers?
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-I guess I don't understand: It is the purpose of this change here to
-not use compiler provided headers (nor libc provided ones), so why
-would it matter to retain any kind of built-in include paths?
+Thanks!
 
->>> --- /dev/null
->>> +++ b/tools/firmware/include/stdint.h
->>> @@ -0,0 +1,39 @@
->>> +#ifndef _STDINT_H_
->>> +#define _STDINT_H_
->>> +
->>> +#ifdef __LP64__
->>> +#error "32bit only header"
->>> +#endif
->>
->> Could I talk you into extending this to also cover __P64__? (The
->> alternative I see would be to omit this altogether.)
 > 
-> Sure. I'm having a hard time finding any documentation for __P64__
-> however. Does it stand for pointers are 64 bits, while longs are
-> 32bits?
+> Does this also want a Fixes: tag (the same as patch 1)?
 
-Yeah, it's uncommon in Linux/Unix, but it's the model Windows uses
-for 64-bit environments.
+I think so. I will add it when committing the series.
 
-Jan
+Cheers,
+
+-- 
+Julien Grall
 
