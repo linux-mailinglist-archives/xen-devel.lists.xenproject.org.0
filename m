@@ -2,57 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22CE2328359
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 17:17:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.91778.173157 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 596CB328358
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 17:17:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.91777.173145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGlDz-0000ri-Q9; Mon, 01 Mar 2021 16:16:47 +0000
+	id 1lGlDy-0000qk-Fx; Mon, 01 Mar 2021 16:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 91778.173157; Mon, 01 Mar 2021 16:16:47 +0000
+Received: by outflank-mailman (output) from mailman id 91777.173145; Mon, 01 Mar 2021 16:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGlDz-0000rH-MU; Mon, 01 Mar 2021 16:16:47 +0000
-Received: by outflank-mailman (input) for mailman id 91778;
- Mon, 01 Mar 2021 16:16:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mufU=H7=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1lGlDx-0000qE-QW
- for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 16:16:45 +0000
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f9a8e350-1b54-4175-acb1-e84fb2ead0e6;
- Mon, 01 Mar 2021 16:16:44 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 121GFf1G104821;
- Mon, 1 Mar 2021 16:16:42 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 36yeqmveb7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 01 Mar 2021 16:16:42 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 121GEv2d037659;
- Mon, 1 Mar 2021 16:16:41 GMT
-Received: from nam04-bn3-obe.outbound.protection.outlook.com
- (mail-bn3nam04lp2055.outbound.protection.outlook.com [104.47.46.55])
- by aserp3030.oracle.com with ESMTP id 36yynmxxrw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 01 Mar 2021 16:16:41 +0000
-Received: from BYAPR10MB3288.namprd10.prod.outlook.com (2603:10b6:a03:156::21)
- by BYAPR10MB3526.namprd10.prod.outlook.com (2603:10b6:a03:11c::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.20; Mon, 1 Mar
- 2021 16:16:39 +0000
-Received: from BYAPR10MB3288.namprd10.prod.outlook.com
- ([fe80::f489:4e25:63e0:c721]) by BYAPR10MB3288.namprd10.prod.outlook.com
- ([fe80::f489:4e25:63e0:c721%7]) with mapi id 15.20.3890.028; Mon, 1 Mar 2021
- 16:16:39 +0000
-Received: from [192.168.1.104] (73.249.50.119) by
- BYAPR04CA0016.namprd04.prod.outlook.com (2603:10b6:a03:40::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3890.20 via Frontend Transport; Mon, 1 Mar 2021 16:16:38 +0000
+	id 1lGlDy-0000qJ-CT; Mon, 01 Mar 2021 16:16:46 +0000
+Received: by outflank-mailman (input) for mailman id 91777;
+ Mon, 01 Mar 2021 16:16:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lGlDw-0000q6-NP
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 16:16:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lGlDw-0003pZ-Lq
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 16:16:44 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lGlDw-0001zk-KY
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 16:16:44 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lGlDt-0004p6-AM; Mon, 01 Mar 2021 16:16:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,167 +41,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9a8e350-1b54-4175-acb1-e84fb2ead0e6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=eJLtvPdTzSz6fWxMQvTZRoSvMTzT7uQH+PWL/40YmZc=;
- b=ZFsz8O+dukBYjrP60ld86sAGCKa6LY6rOe0xtNp4pm1u42T7lTkCVQQkdVhJXo4OLp9C
- CXPrq7eUfZzrlvKpk9dpL5lM4edgoEGPXQfEfnHYqHAksAxhSU126oK5dETxLcABcYQw
- iS56Ww4PPMImRUAQCk9rh9EenUXeZSQm1fvIQ6y5Vl4NR0zERdmCb6tXC/rxHb6Z4w54
- 2JnJv4CrDBeYFEVs3q+6S9Ma00RH02uGO/sbU7z8VNQf5BjGO1BhxD/y+cZKCf3C2evw
- y/1vug1kJSEZ5quIbXKPB6wVpaFiBJx49osBPbqH0VIxpGXjyzYxWDGEhdd8KDTLnDwX /w== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oEzshJiZcOV33AGdbLjp8MnEeJ56Jis/t68tGhyLW0ALghTZGEz+l21IK1Z2v1nCKtuY7UwDClVnFWbWXzrVCczs/tHRMZFG/IQ11trw7z/7J27eGRYjpVz3fISpfiOMVxKmZVxRDzjQAFo53olm/vN/e4bWNUpjI8RABpcJqGuhc0K+ty1rx/vYzAoy17ZdXV40UyraQpg9YdFpjmW4v8Hw5IR/gVNpFIEQ34YjDAGGPOLs0jIQnwKLG2f8wT47wvnBktyWZrcyxoXyo5JI1md7FNIsUs2fPWpVPcb6X+0GXqkHNyN4jwT/iPO41tvVMRwt92cCG8EKbTeYhcQJ3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eJLtvPdTzSz6fWxMQvTZRoSvMTzT7uQH+PWL/40YmZc=;
- b=F2qGVkdqW8s2JcP+D/gOo5rGIXEhnhFj+yqFNK/ugMno1fQT7iB2yFNZcFfGG6W8dcovDNnAGRszcmZ3b0Q/H7N9eUzi7igHzNPur83l+50u3535Gvyib0f/ts+Z/G8zpvjaqMCMOu8Rn0qnlzdtn0F4QMoU5Vb9iu86Aofh8yrQbJuu05fByJ06PAmLFfURXzuJh8x2zBVafIcgCTKCipk8hGCqOf66j9EatU4yNxu7WXiHvXUymw/msMrDTbE6jAzno3oxGATP9r3ZcalARuzUhjAyTwg5ffbUHEihHzcbpcq5WVDdu8rgj6ZNVokjpGSDMJNwhdV0yES9Adn3xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eJLtvPdTzSz6fWxMQvTZRoSvMTzT7uQH+PWL/40YmZc=;
- b=inq4BtgnySmG75oTAf/GyCVclZhZbsum+IMRidugBF/KQuqrbOJbuys3dBS2ANpheeCpVVv0lZBK5J6MatCtLyqjd43R4ZeicUTXiZ5i7wLG/1cxCRMp0Jd3QBYVFxJhccHePF88TWh5fONNV7btnqjYZ4YSKlOnUM/Lzm1UnbM=
-Subject: Re: [PATCH v1] xen: ACPI: Get rid of ACPICA message printing
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
-        Linux ACPI <linux-acpi@vger.kernel.org>,
-        LKML
- <linux-kernel@vger.kernel.org>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        Konrad Wilk <konrad.wilk@oracle.com>
-References: <1709720.Zl72FGBfpD@kreacher>
- <eaeba4a0-7bb9-7b17-9ba6-49921f6e834c@oracle.com>
- <CAJZ5v0jr5Mxs9NYBz1ot8O+6dKYbfAo=cJqSVAOnrFEqUNwuTA@mail.gmail.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
-Date: Mon, 1 Mar 2021 11:16:35 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
-In-Reply-To: <CAJZ5v0jr5Mxs9NYBz1ot8O+6dKYbfAo=cJqSVAOnrFEqUNwuTA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [73.249.50.119]
-X-ClientProxiedBy: BYAPR04CA0016.namprd04.prod.outlook.com
- (2603:10b6:a03:40::29) To BYAPR10MB3288.namprd10.prod.outlook.com
- (2603:10b6:a03:156::21)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=WSrPqNTjWrbEMz+d1CfOT5/3mHfcOqB+xu01MU7CfFM=; b=5jG761t9swKf3kgFPcDhUuilmX
+	F5KEBMIj3HHbq5kX9rhsaHMhkd/g1GG3Jhn+xaHCyh0HE6dvh5pORTmMJciLXTJ5S4/oMhfTmmCfc
+	WMKUD03T+Fo3AQuXJ4GACYmdLM0ba+dsfem4CTeQjExq8eQaw8b9YvflbO1KSrcJrkuA=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 24553bd6-2f32-42bd-19eb-08d8dccd64e7
-X-MS-TrafficTypeDiagnostic: BYAPR10MB3526:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: 
-	<BYAPR10MB35260896AFBCADB41CC156F68A9A9@BYAPR10MB3526.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	gEsC8dA+FfjwXI7lIw3Mp9cUcAFpchjnb8UBzwc8wcVGEOOfITp7iWf9xbyKJ/ZYqs6XayYkBwR060tMHP1T3m4tCmKwKtic6kBDm0e+rI1xQapbPGcFGvNRn7cc4AUMqUpmas9s4D9SPQmNi4OtALFz9oAr8nDBShhmwBqsutIHYXFzXzUY2tAxv/6aSGKuvjhKMjVH4HSLAMuwHzKMhCbbxJuOVgSY13lVNVjgRxTkfthIb2QhhkAXaVBGskkwhEFeJH3nS6mG2pTOOQaXnYxp6YZdILnlU3qwZ77zRvYkN+m09QXekBRRN3v26tXCDwvCGMMbW92h6x7Trniv1NZa0vItTltVYrNXlZiysPob9fhSaklJPvddEHpBfu18bncjJPUWq7qE5flaglfLL0URG9g8eUxmkBMBWtthM4+6nJRfEz9MELqm8lWTyqS5F4mW57A5es6qDBaMQnmbBa1rnx0phQCkSmrMMc1d5WtfEpQYvW1nauLcyC3RNJrrDVPGtZIkPi6Ge2pozkfoADdXbgKQiVCbKpJXiLg0wxBPAHIR5auouc0jLlrdnYXz0FRHpU8z+A2pNBkf812ua4LHPv3KMRwxZt0kyuyxWDOCEntOa15U1TxSXZvY6koPt1GMRloEg6ydX35vOeK0Rg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB3288.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(366004)(376002)(39860400002)(396003)(136003)(186003)(53546011)(4326008)(16576012)(107886003)(66946007)(66556008)(86362001)(66476007)(316002)(83380400001)(31696002)(478600001)(26005)(2906002)(16526019)(6916009)(5660300002)(15650500001)(8676002)(6486002)(36756003)(54906003)(956004)(44832011)(8936002)(31686004)(6666004)(2616005)(26583001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 
-	=?utf-8?B?WE5wV2JORDNYajh5MVpCc0RBc1JCNzZZekk0TmJudlA4eUpNOWthb0w4WWlL?=
- =?utf-8?B?QVZpclMzSDd6dWFjVTdRaVlrcFA2dkVsRy9WY1p2YVdSNEtONHNqQ0dqUCtj?=
- =?utf-8?B?eGg3R01pMllZbVYrdWFqMUJsSFc3bU9tTzZZWG15VmVta1d0L3Y4SFQwTjRB?=
- =?utf-8?B?ZXFRbHFzR3lJRUpjUm96b05mbHBZREw0VGZ3L2xpVDBpVnNYd1VXMk9kT1RD?=
- =?utf-8?B?TDJXNy80RXVkZkxvVXFXajRGMzFyTHlTWWRtT01reDhlUmFMa09IZG1sdU10?=
- =?utf-8?B?S1c3WlFCL2pHd0tJTEJMdUhWT1NDT0I2WnJVbnJsQkJndUtjYkN6ZFpUY3Ar?=
- =?utf-8?B?SDl0R1k3UlU4d2J2SGlkUllRVHdIZVVwZ2NIN3BFSW9pS0MwSEJHbS9LRlBs?=
- =?utf-8?B?UERqREtwNDNMT2JCK0ptRitaWWdaT0lSV25CdEZEbEk1YXFTOGd1alFwbmI2?=
- =?utf-8?B?RTUwM3duQ3RXUkFkVnlXUkZWUnp4am1TTm5VVE1UeExnUG9BRGcrVC9veGxu?=
- =?utf-8?B?cnZDZVQ2OTFBS2tHL29LZVdqWUlsYmNJQ1dCM0lKMEx5cml5dEtuNWpOZ00y?=
- =?utf-8?B?WUJqc2NVNVFjYmhndUZnMFRIKzNzVXI3WWZjQWdQWURxbDlZSmYyVnlqOU8z?=
- =?utf-8?B?TzJ1Q3NDZjRUR2QxM3oyUFdMblVNMHNQdlljMzJkQWhrYjAzc2lreUV0ZWY4?=
- =?utf-8?B?cjZCMVNHTUp0b1NqQkJiVkUwSjVXblpRelRiQkc4N0RSUUxoRVdveVNNeWJv?=
- =?utf-8?B?MHNvYnVvRVhFL0pjRmdMakRDejgrOE5qK2w2enJVdHhUclg0Q3Y4d0RyQ0RL?=
- =?utf-8?B?QmJOd3lRdjFvcXdYMzFOcjRnZ3pyZm5ya2ZmZExPN0FxSFV3d1U5MWpVMzZl?=
- =?utf-8?B?d1FJQ0daZFZIaUFKbGtXd0dqL25uTmtPcWpGNlpBVTBuRitpaFZ3azlZaHNy?=
- =?utf-8?B?S2JuL2Q0clRZSnFLa3Q1bkJtZUIydUN3MmoycURXVzlNM3RieVRwS2JyR01N?=
- =?utf-8?B?SjNDbzhFdHpyUDVwZjQwckZKbkdmNHlRa3BsVEkvSjVEb3ZGVW54dzhaSHB4?=
- =?utf-8?B?cTVNRmh0SzlPQjkwM1lXd3Y1VHNwTDZqTDg3TTl2OFpybktNVk5yUUhjWFhm?=
- =?utf-8?B?Q2I0dFhtMVVsWjE3b0hYZXUwSGk3cEQvTFJyVitkbUlCMUFRUlVtT1ZRaFJV?=
- =?utf-8?B?K1lEa0RmWXRmczBiTlFhNFNJbFpxRHhhMXNhSi9oSW5IVDFCZkt6dG56ZlZN?=
- =?utf-8?B?ZWpBSlc1OUJzWGpHN0NTdVN1Z2hHL2VEdlZFMURXUm96M0pRUFpTalVKZXRo?=
- =?utf-8?B?UW5KRFdTR1gxckVOUTBMSVFXMHhUYzBSMjBHc2RreUFMdDRxWjlMUDRiVTFL?=
- =?utf-8?B?WkFkNWdGUWQ5aEtXR05BUzg1NUZQWHkvWHV1dk50VTJqdU8ySW0zVUJacmVF?=
- =?utf-8?B?MUpZQ2djZHR5NXhaWmFlTGZ4cVFvMkdLcmhLNFNVNDlmaWVOZXVDQ0o1V29r?=
- =?utf-8?B?L2x0enhScURKdGR3WWN0OVBDUDBRbXprOU54SGlNZkVDbU1NZU5PZHRyeGR1?=
- =?utf-8?B?MVp0SU1xdFZlVmowZVlTdEV5Q25tdEhScjE5Nnc3dHVGRGxkZFlVQzNqL1hi?=
- =?utf-8?B?TzZXWWphblN1NkttcTNjcGdWYnpGSy9xTmlBVnA4OEsrc2thaVlJMS9DZzFH?=
- =?utf-8?B?YkVFai9Uc2ZnUG5BejRlTjhZbi81clBxL0tVY2J0VHQ1TEIrTlZqWDRucUNt?=
- =?utf-8?Q?KTWfZdi64inM4kC0mS4dKQUn5LUnTo0PY9iLvFe?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24553bd6-2f32-42bd-19eb-08d8dccd64e7
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3288.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2021 16:16:39.4407
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SBOTVokuHgyBLRJJx8HtIsnEkcpkXXiZLhIpZnAWv+xjTPPRDFgKnvMmbFFdSQHgeMGYyuWGvg7f7eSnG/xU9ZQfzqnvpOg1B6Bzp81mUBo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3526
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9910 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 mlxscore=0 spamscore=0
- bulkscore=0 suspectscore=0 mlxlogscore=999 phishscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103010134
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9910 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 clxscore=1011
- priorityscore=1501 mlxlogscore=999 suspectscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 adultscore=0 mlxscore=0 phishscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2103010134
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24637.4969.80009.849868@mariner.uk.xensource.com>
+Date: Mon, 1 Mar 2021 16:16:41 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+    Jan Beulich <JBeulich@suse.com>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/3] tools/hvmloader: Drop machelf include as well
+In-Reply-To: <20210225203010.11378-2-andrew.cooper3@citrix.com>
+References: <20210225203010.11378-1-andrew.cooper3@citrix.com>
+	<20210225203010.11378-2-andrew.cooper3@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
+Andrew Cooper writes ("[PATCH 1/3] tools/hvmloader: Drop machelf include as well"):
+> The logic behind switching to elfstructs applies to sun builds as well.
+> 
+> Fixes: 81b2b328a2 ("hvmloader: use Xen private header for elf structs")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-On 3/1/21 9:11 AM, Rafael J. Wysocki wrote:
-> On Sun, Feb 28, 2021 at 2:49 AM Boris Ostrovsky
-> <boris.ostrovsky@oracle.com> wrote:
->>
->> On 2/24/21 1:47 PM, Rafael J. Wysocki wrote:
->>> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->>>
->>> The ACPI_DEBUG_PRINT() macro is used in a few places in
->>> xen-acpi-cpuhotplug.c and xen-acpi-memhotplug.c for printing debug
->>> messages, but that is questionable, because that macro belongs to
->>> ACPICA and it should not be used elsewhere.  In addition,
->>> ACPI_DEBUG_PRINT() requires special enabling to allow it to actually
->>> print the message and the _COMPONENT symbol generally needed for
->>> that is not defined in any of the files in question.
->>>
->>> For this reason, replace all of the ACPI_DEBUG_PRINT() instances in
->>> the Xen code with acpi_handle_debug() (with the additional benefit
->>> that the source object can be identified more easily after this
->>> change) and drop the ACPI_MODULE_NAME() definitions that are only
->>> used by the ACPICA message printing macros from that code.
->>>
->>> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->>> ---
->>>  drivers/xen/xen-acpi-cpuhotplug.c |   12 +++++-------
->>>  drivers/xen/xen-acpi-memhotplug.c |   16 +++++++---------
->>
->> As I was building with this patch I (re-)discovered that since 2013 it depends on BROKEN (commit 76fc253723add). Despite commit message there saying that it's a temporary patch it seems to me by now that it's more than that.
->>
->>
->> And clearly noone tried to build these files since at least 2015 because memhotplug file doesn't compile due to commit cfafae940381207.
->>
->>
->> While this is easily fixable the question is whether we want to keep these files. Obviously noone cares about this functionality.
-> Well, I would be for dropping them.
->
-> Do you want me to send a patch to do that?
+I would have preferred this patch to come after the one that is
+actually justified for 4.15, so that it could be held off to after
+4.15.  After all I see no substantive reason why this should get a
+freeze exception.
 
+However, it looks fine based on code review and I don't want to add
+risk by asking you to transpose the two patches, so:
 
-Yes, if you don't mind (but let's give this a few days for people to have a chance to comment).
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
-
--boris
-
+Ian.
 
