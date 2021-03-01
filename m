@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC6E327B28
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 10:51:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.91396.172780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAC9F327B50
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 10:57:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.91399.172791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGfCM-0002H2-QK; Mon, 01 Mar 2021 09:50:42 +0000
+	id 1lGfIw-0002TT-Go; Mon, 01 Mar 2021 09:57:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 91396.172780; Mon, 01 Mar 2021 09:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 91399.172791; Mon, 01 Mar 2021 09:57:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGfCM-0002Gd-N7; Mon, 01 Mar 2021 09:50:42 +0000
-Received: by outflank-mailman (input) for mailman id 91396;
- Mon, 01 Mar 2021 09:50:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lGfIw-0002T7-Di; Mon, 01 Mar 2021 09:57:30 +0000
+Received: by outflank-mailman (input) for mailman id 91399;
+ Mon, 01 Mar 2021 09:57:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RrjX=H7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lGfCL-0002GY-GZ
- for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 09:50:41 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae3df5c9-f3ee-47b0-bef5-8595ba7f5e39;
- Mon, 01 Mar 2021 09:50:39 +0000 (UTC)
+ id 1lGfIu-0002T2-S9
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 09:57:28 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3628850e-6187-4bac-a803-5e14ec134fc4;
+ Mon, 01 Mar 2021 09:57:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,208 +36,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae3df5c9-f3ee-47b0-bef5-8595ba7f5e39
+X-Inumbo-ID: 3628850e-6187-4bac-a803-5e14ec134fc4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1614592239;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=70/vg9076WuDhTUnCoiX9kM0gFDuP5EJBWi+Dr4MbAw=;
-  b=f7j1W3aMYhOcHAclF1ChZUB8EYU8y+bQew3BzDQU+L82QsJqjgfSSR3L
-   mEXmuPp9/ikGR4o6vsyuKva/kKhATQppgk4XbIqbXem/jYTOWv9ObG2cD
-   V9N0mBDr8ejH9S/gS3+eSPZDszEVZAXpexG5YKrFCuhlwb5AB/bcqm7CT
-   w=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: HoVcazeYWRLOLRplX2SVyrVk0x8ncm5VHw1sVDibmZxJTeIc0k2mqoP9AdLYD8JO5AqKVTzCov
- xrKWsYZTPLqtNhTqqSgQjIc5vADSuLmNbYbx+C8w7WGOmqi9TRjzRmQUWTVG/jepIygZ5PIkDp
- rqGrETIHTaqHqLCtt6olO4QXh8GbWrtOjjcx/CKe1GAk1Yw50rlWbPoSATeFnxJ6v0z3dZOJxG
- mPUel0/syoi2WTY/3v/zgikLafVaj61pFkEkxarhHRPF0vuzehxvOJb67UNbB1rddYaOB6iwQ8
- t7U=
+  d=citrix.com; s=securemail; t=1614592647;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=461i7/kBtwoY05/rEnMeopCmAP2JXdWB8cJ7lyzKu8g=;
+  b=g+d6TTmS/FzJgSIA/1pxARxAHNo2Tj0z4wSFs8as0ZsmBBicZ13UCHf7
+   Fh3NRjed3yEgbExRaQLeku/H/0rgC9+a9U3MHa1avDPUNQ9pxTX2xZjAK
+   eyfXPdGktgEFNvNHPD0aeuhjnI1IyJRV/oPh0UHvQeWS+aw50urXFU1HV
+   c=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: Bbo9kRyiHSoJtM++yqRGYyUuGHmjW4LC7vXMRLXCeX1GL4256elhCpvcOz9BQajiaTKUN8hUhv
+ DLzYH198gzkRZtw7Z0q22h7bBhC08x1VhVE66yLzO0s3aSErDZfE7n9+8MCLq53E6bKpSA3hoj
+ 8UPEfn257FVU54D3QLH1G+aSdmPw/XPTI9v1KDklj1GrTDzHz7I4OuDGrg5Z1YHppPoVluQdag
+ Dh1ZplPtv26Ts6d0whtwxiPIXlZKQ+5A2RL08QvIpWPflur2uocgXr3qZN32/2qDb0vsvihjXo
+ 3jw=
 X-SBRS: 5.2
-X-MesageID: 38217057
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 38411180
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.81,215,1610427600"; 
-   d="scan'208";a="38217057"
+   d="scan'208";a="38411180"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hiduWv9fLHGZRgvhcL6hHSAF3dxFT3SZcfnJXaVlevwHWGE3GbmFYJ3keTKbG67hxzTJzdMBoHZokRU0Epq0HSMaM3TprxxHBdlYdYdDL9QHeUam4DMZMlk+5w47Rq9pQGtzy4FA1Ug53IYpnflpp3imLO0ADJTFchzZM85a37z3GSav4aAJ8k8FoI91WzSybGGbud8sNmhEFrOkG6Mk59MwBOKeNCf3r8/3MDtFIJm3AtEizpC46RmokB3PJC5en7ZIejamBuBfB84MK//EGEgceV99k9JaLxaA1xAL3tqZJys9s9SYNk2OF8UZM+9SKbkazurrojTeqrxlbtnH2A==
+ b=deStf3yh4mMNYcUalizCX3qAJYOBeqVZ85x/sqbLZln8hMNu5Q6JTSPUpy9+PFvU9dRXLJWepY/UvTRc4ER4b9PDt3+WWPWOYt9+NwRo8zmRDriMCtjdjmy/6IqVSmc/kuXR7yVawVyUnGiKOdxCaWyl2oHOeYFBJE6IKS/ATQBiVhLVxh1iDrzFzeESUevT/ZjoLJGX/3GJQdobXQCpb1ZQrdeoY5ibra4R6xaxScZS5MkgwZsut7KV2ad1dIiUpUVspZ/knsd3SkSwCM1Dpy0trWeoPu7z3Lt7f1dAPA0feHECPT8Tg0wscwWWUGNhlOkQuvCyy5umHiNf5EfsGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bj0A3XNBNmYfiUFJWf2oZqZXqotWiR9g5xoLgr/pom8=;
- b=FTaqp89N2ZmfIXGJgDRwSj01e9OkBwjXbgDOwSX5XAiEjH1famGlkdqoew1ejmy5fa3gaiLtd/ZoWp3d95KtwF8/ndQjAPt3up6iGWkvewHmkm7f5HhlWOBHD2nOkBcvmb7nZqbmWA9jHjk9AV8sNf4I9pJCxGVmMew3YBK6Z68sKuauR43KVWLd6AhY2L7nf2E3dcilgtl0UV3IoYG7KiARzUf7tp2etXuaXcgwR4qLDAus/EBct2rFTPfIry9dMEqvxEo8X6YiiTo0OaqXwmo5ozgIaWXT3XEiaOAVAT7dcYwyN1Ca5Fa/zGNjR78P5HqUH5GJTCeYJzM/1QVKmw==
+ bh=k4RoEXHGAbtddftviS5x58yhBnv9NpZ0rEaiIIfG260=;
+ b=i1H44w0JBu9EcABKIJNfLIrhXS+n7Fbbq7o0q9Z12VJRBpI6Mj+ME5hkFwa55MFNHLHikAVUluOsHY5BWPxdgXyhP5jnFAhDNVgmewENBGNW9BRW3uwqukWHD0i/W0kFVqeaKLajZCXwBFFbFGVzBH/iLfsgaW/VRBTK/OqIHJG3xTRUD36U4YAYshi/Psapp8zRE/YMBIOLjc5fj6UlnDwPmQv4+haGub5/4sgmoqgAURfX/qFk+FUqCo9+K36l12YPUJle+vBOfiTWoJ+7Yu/I7au0/nTl8PMd616KhtpxlQOYeCi80l4JA2IIzk43kv2EFi9OoI4mF4IuwFBulQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bj0A3XNBNmYfiUFJWf2oZqZXqotWiR9g5xoLgr/pom8=;
- b=aBJN0kKHGAeXOLKH1ioadbvO/RbeZ1We/qTenMiVgMBmqg75l/T3wwe0QOUMqwGWfULTNiokplV4aLYIRFpeGN0bXVGUCGMg66bHzgoCPtkNV1imylkDkqacsJrOQClcV2SRox2S8mKuhkj6TlH25HME5wQ/r/6z9gcekdMn7CM=
-Date: Mon, 1 Mar 2021 10:50:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH for-4.15 2/3] firmware: provide a stand alone set of
- headers
-Message-ID: <YDy45rEl5sqv2eqk@Air-de-Roger>
-References: <20210226085908.21254-1-roger.pau@citrix.com>
- <20210226085908.21254-3-roger.pau@citrix.com>
- <2133ba4c-5120-30ca-1328-c8700fd2db94@suse.com>
- <YDyu3mWSgIIB6s91@Air-de-Roger>
- <445b205b-0a0b-da53-b7ba-98a1ac51aab4@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ bh=k4RoEXHGAbtddftviS5x58yhBnv9NpZ0rEaiIIfG260=;
+ b=uW87zMakjyNskJ2G7PupJWZjxSj+gnJsaT955kK8O65g2g73mGNh5PSVsxOrge16YUSSv4aFqJ5IyYXYEmhKUnIu70vRa4l6d4MN6OKjMVX+R5pycpO5OUcSN9j8K2wo7XsGSGf/KhxKlzH+YCt51ntS671rV+Am0ZInWNFpIaQ=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Doug Goldstein
+	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH for-4.15] automation/alpine: add g++ to the list of build depends
+Date: Mon,  1 Mar 2021 10:57:14 +0100
+Message-ID: <20210301095714.68335-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.30.1
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <445b205b-0a0b-da53-b7ba-98a1ac51aab4@suse.com>
-X-ClientProxiedBy: MR2P264CA0094.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::34) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-ClientProxiedBy: MR2P264CA0046.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::34)
+ To SA0PR03MB5610.namprd03.prod.outlook.com (2603:10b6:806:b2::9)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e527ea1c-dad9-4362-733e-08d8dc977636
-X-MS-TrafficTypeDiagnostic: DM6PR03MB3483:
+X-MS-Office365-Filtering-Correlation-Id: 95232a16-30ab-401d-a288-08d8dc986871
+X-MS-TrafficTypeDiagnostic: SN2PR03MB2416:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB34835E4B92DCFCDBB2BA0D298F9A9@DM6PR03MB3483.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <SN2PR03MB2416D93930EE0CDC780FA0788F9A9@SN2PR03MB2416.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FfAYJgK207WKKI6CQABrtl4aUn1bXFe9EZz03hoXy7j6+m2BKo2BjIkI6gilzpOcIqdW2f6mOvMb7ljJCHUNwVoC58rOodcswI7qysaULicW7ItTvOsXbfyNPQTbkf8NNOcRp8qru/FCrSPfq9JGjdBscGDiXbdbq9ET5EplU5T3nIPWeYyV5C8lUEA1hFebj/qt5oD8bsJB6y6+pfEHbVu+6jJaxaLJDkUJDtPL/gnNKDOz/ymoRkkZ6Mdw/FrccTKIaGLQ+YXXJ1cjVEn8qd7WatN1FBzxaC0m9kRfB+ZcluYC4Oir4NqJiO/XycbmwZL4J0HtxKiRYgXEg/HgIsZ/MSGHdkA6vwgxOWjBwn3kHAATIfx5M7WC/g4OQScc1G6cisDppa2bDT4r07UuENA9hnIDmcdd8wjZ1NoyuPZyc6H6Zad4qCEejisp2m3UQgHl567yiuYS1fn6aPR1Ca+9d3BC5WX7oikJzZBwOqoYTLWRNoXpyKoJJ2Ky9jpk6Xsl5I81bCsHzAlrBeG5rw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(376002)(366004)(136003)(346002)(396003)(39850400004)(6666004)(8936002)(66946007)(54906003)(8676002)(186003)(316002)(5660300002)(16526019)(26005)(4326008)(86362001)(66556008)(66476007)(33716001)(6486002)(6496006)(478600001)(85182001)(83380400001)(6916009)(53546011)(9686003)(2906002)(956004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?S2ZuYjFtVDQrUVc0b2cyUG9sVjgySDEzNkkwN3lWRk50bWE5NHBFM0pMT2ZD?=
- =?utf-8?B?UHdmWFdXajljZkk3K3ZJN05NVVNCZmZnVWpuU2taanFCT3Q0QnMxQ2t2QzBW?=
- =?utf-8?B?ZENsZkZyU21mV0FJdDlzdHgrRU0yRkY2SFFxc0NIc3lBNExQRWpqaTlCempE?=
- =?utf-8?B?alg3ZlVNZU4zNUVNWll6MjY0SnEvb1ZXRDJPU0lQankxbWMrV0YvOHRNK1lB?=
- =?utf-8?B?ZnFiMlA5dE1RMTFmcFNMTm56VGZQZmlseHF4S2dWZ3VqeGVmNThoODlKU05s?=
- =?utf-8?B?azBpeFBPQmNLbElLNUFlaXVCZDdjVXZSV1p2d2FUZ204bkxudHQ5NTBJMzVW?=
- =?utf-8?B?QkRDNHlUNEFqNW9qaXAzck5CdktVVHVPMCtHM280NnlGeUtBNzNHYnZDMkFz?=
- =?utf-8?B?dEZWUmEycjE4NWtMcTFtMzhwam9rSzV3cDNYck9QYW9CbldZdnBzMzVMSFZC?=
- =?utf-8?B?eEtFUFlmUWJ6M3VRSFVOalBYVFdna2hsUHlTRkdFaWQ1aUNLOW1pYlVGbEhk?=
- =?utf-8?B?cjVWNDJkYTZlUjJTeFFlKzQ3WStBV0N0UnRVdmpQWWZaWWFISGZSNnRCODZM?=
- =?utf-8?B?MTlKYjNyZkhqekNOc3V6Y1YvYXZrR2RzUGtUQW5MRC9hK0JES0JDQVhoVXFR?=
- =?utf-8?B?OEh0cTBNSlhPT1JPd1JuVzAvUXRwZC9LQ1pVdkIyMGxoQ3BsK1puQmd0Nlhi?=
- =?utf-8?B?VFM0T3RST283NVlLMWxseDRRQ2xBeW0vYXorTHJmdklLSy9MUG94UVBRNXZL?=
- =?utf-8?B?em55U1FzemJyOERkVXdXSHJ3ZUhuQ0M4eXZvSjEzbUdveEJpeGx2bEhuY2FZ?=
- =?utf-8?B?T3VKdFh0MWxaUTRaa1lESE8yVFUrS3VnZEFMaXl1NVd2dks3RXQ4UWdGeWV5?=
- =?utf-8?B?SEFyMTcwd0FWSFlOdjRpRGJOWGllQitHVklONVVqRExNLzBodFI4ZnRzd3pX?=
- =?utf-8?B?NDRqMDVvbWVmL2hGNElhdlpyUU9YMG5yaDJBdVlUY2FjQ2ZQVGJ0Sjh1M0Y5?=
- =?utf-8?B?RExOa1BHSkFLSFZ0dEZMV3ZkNmxWNjJvRTNnT0xQbXEzZmFLYSt0a0VDUUpC?=
- =?utf-8?B?VGlxRTI3cUJBTzV4cXpvZktZemlWSEFia2dQc2l2aVE2eERNcyt2cVhxTk5U?=
- =?utf-8?B?Z0VvNVZzQVNMdW1OV2VLY29lNE1ReVZDN0wwREhtblNFQkU4bGJiTjlnZlh2?=
- =?utf-8?B?VDNzMVExdUYyTmUxaVpvcjVvUGRhZ09aZ2dGSEZWTkU0dWlHbE51VEMxZExG?=
- =?utf-8?B?RDE5K1R3dWtCbXhmdkRxajFtaElLd0lMNURaMUhVclE0N1dvUlFUclFDV3l1?=
- =?utf-8?B?SmlCaUZocGxaVWwwUEFGanRFcEZndzBucHJBeVE4blczdzJpdVNnUGRqb3FH?=
- =?utf-8?B?czcyNnVEM2JEcjVQQXMwSzcwc21OdFM0VklTZDJTK2dJakRnVWh6TEdoTWVP?=
- =?utf-8?B?dHorV1JwelBhV094dmhjSkhseFV2dERxQkwwV2hGaGR0bDViS2V5Rm1hbUZa?=
- =?utf-8?B?b2RWUXV5bFNSc1IyYUlaSk9vWWtaMEVsME9UQXZkMHNqZ1dKUkw1WWV1UUd6?=
- =?utf-8?B?bkZUVjJxWk1NRnhhV1JaWkV1S05DMEFNWVNkNGtKOGRQa2hoR1cxOTJ6Wm81?=
- =?utf-8?B?QUxNT2FQdUp5L3JQaXVSb2RVMTlFTWs5SG5GLzVuaUFPN0xIaVY3RWh0cmxa?=
- =?utf-8?B?UllPbHpHUEUwQS9UN3NodkQ3MlRZY1RsSjlmU2RXa2pWTWV2a2hxdWVJcU11?=
- =?utf-8?Q?GUSN2Wnl+Zb5UoVCmqwCne2yYtrGoFH1RNQ8AD6?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e527ea1c-dad9-4362-733e-08d8dc977636
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-Microsoft-Antispam-Message-Info: brJc7XQGugJ/z5FUas8Y0YVN5oLbUUAB5wuZLSNFVXere4LpGB2sXJ1wdzJT0plTbDPPVsC44H2ChJ7myWTjuKmcTd0X4Vb5ie+quOcV+CIk8T+1kWqQXmv8gThEPatPQk8DPBD4jkBYqES13xXaPqkAD/IOZcUV2hJylgDCDMaW25KN52QmT6+76Q63PIiywPAdbTCkqq3penwrizoXKTO1QccQ5xje+SquGf5w9WH1tFRa2b+Yecly345Rw2poeGT4I6WdGCN7jWLl7vGBuKs7dx4OBYCfmJtVL0eiVJjWRSnbKW9pRghLWqcGEfCx1bsDy7GwG2Uag/0QuooMzbwL4Jgj7HDbZfuJXIr3krA7jT49OdjNifo0CVUUPgdat1Pu1S8goK4890qBy91KYU5Cb/dQw0ZBrHwIC83EtNhwaLL2urWy/prLY2Zcm1QW98JkSxOqOvTz+Vmnq0NZivL3uk/4pO6YZeFag8jRikeQcT4XBNN3+09e8yZYY/85dxDK6WDy9oxVlQdNbw/ZmQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(136003)(396003)(376002)(39850400004)(366004)(6496006)(83380400001)(6486002)(2616005)(4326008)(6916009)(316002)(478600001)(54906003)(8936002)(66476007)(8676002)(36756003)(86362001)(66556008)(1076003)(956004)(6666004)(5660300002)(186003)(16526019)(66946007)(2906002)(26005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?N2doRWZ1bys2aXRZRjBmK1d0NnhXUU52MlcrRHRkeHZJMHVKZkptamlSWG11?=
+ =?utf-8?B?UkhXRHFtSmZteStldmQxYW5mKzJRVUo1bkNPdk41ektWalBHaWtxRExhUklJ?=
+ =?utf-8?B?aWduVFJZU0dIZ3FnaXF0RGdGWmdSbyt2dGM4ZkZsZ0JTUW1VTnBYcEFZZEVF?=
+ =?utf-8?B?NFFtbG9LdVRCYlVqU1FOd1NMYVBsbzVQTU5Ibk9VY2NocElGbS9aSmRhNjZT?=
+ =?utf-8?B?ZVY4R2JWWW1kcUhvSi85cTVVWlVLRUdYVjN1Um1VUzZrdzRReXZHZjcvOU5G?=
+ =?utf-8?B?QklOZzh3MzAycVdGZmhwY1JBVU9weExRY1p2b3dYeHl1UU9rcHRYeTQzUEZ5?=
+ =?utf-8?B?K014dU5QU1JCWE4vNWwrN1h0bzV2c3BDZzZPWTJxaHhEay85OVZRaEJvWGhV?=
+ =?utf-8?B?YVhXQTdXZUh2T0pCSnZjTnF4TEY4YVMzS2R0WUtkQ2k5TVIxTnhwbjBZc3g0?=
+ =?utf-8?B?ZFdtcGxKS1hpcTN5YUtrMlQvY0hoYXZIM2tnM1ZMMkxacG9hTFFaSk5uR1dK?=
+ =?utf-8?B?NXh6NnpxY0lYQzVQYTFhWDdWOURYM2dLS3VPckNTRmpLS3k3NjNDNjI5aENn?=
+ =?utf-8?B?TGdkUTY5OUdYM0FaT2ZXQm82TXNrWjU4SENGRGp4MWhQRnB4UEJ5bWhpZlpH?=
+ =?utf-8?B?bDl4L2RJZVpVbmlxREhXVGpIRXVtWUFPSHUxOVg0RXFHbi9HV0pxSDZZMTEz?=
+ =?utf-8?B?ZUtkVDdta0RlSDZ0Z3RlUlJ1ejlLTmYwVmVIWWhyK1Q0Z3d5RkRZMEFVZ2JJ?=
+ =?utf-8?B?YTdhRkhsL3FUcU91SmxGclpKRDRuVU1DMjBiRHVFL2g0dXdxQXJyL1lVL3B3?=
+ =?utf-8?B?QXV1WXUyd0hSZDczc1l1anA3Snd3N3RhalM5S0Y2WCtvSldaOHprUGtWQVN4?=
+ =?utf-8?B?b0V2Wnl6c1RBN213Sy9kMngrUXloT3Y0dHJNelZJWW15VFI3dStyMk9iL3NF?=
+ =?utf-8?B?b0RBOWhrOU1peTJydGlmZTJZSlVsWHFPUXp4NFA5MXlEK1VoNXRuNHVxRlh1?=
+ =?utf-8?B?bGVPbTQyVng1RnhFZng2cjYvRCtUam5BUmdxdnNpM2c1YU90ODAvQTE0ZmVX?=
+ =?utf-8?B?ZHpuZzEyOWxBcHhIUWY2bnpTUUd1MmxQZGczeHlRUGhLWVpOOFNxcWJlN1lY?=
+ =?utf-8?B?Tm9Mb2VJQm9zNUJCWiszZlIyVmVaL3RvdHZvOUl4Tk5KWk5adzRTNG1RNzEy?=
+ =?utf-8?B?UUVhNXJVNmVOVndoUXlmc3k1MDg5WFlxY2dyK0laSmc2UTFVMkhEVGhKc24y?=
+ =?utf-8?B?N25sQmxGcUZVUnJLNGdseG9HNUR1SGRtU0lIbTZ5Ulo0YVhhQmIrV2FRYU5I?=
+ =?utf-8?B?SzdhemVPc0JrV0JXVHgvOExpNjRzbDBsSHE3azdkVGM3azZzdlBOSGlzeWJO?=
+ =?utf-8?B?T1ZDWWpzNnZ0MjI5NUFIQnI0QXA0U2RBQ01Ib1N2a21HTmdHQzVOSmFjR3F1?=
+ =?utf-8?B?WWV5amVEYlR1UUtDbktXeDI0clNiTWhQSTBGNWVGZFNtUDI3Q1NGaW56R3RX?=
+ =?utf-8?B?U2dOYzNaRG1BMTRvOWpMbE1qeWNHQUtyaUNNV2F6QmEzaEYydnRVR2VneEx3?=
+ =?utf-8?B?U3RCRGpVVE10ZUF1UG9ITDNLVWsvcUhsSzJwZmF6QXVBdkdUR1Q5MmV2MEJp?=
+ =?utf-8?B?Z0E3U3czYlZEdHFDT0RROWFQUnZXbFI3SERrWk1HNnNaT0hqampPbk5mNngz?=
+ =?utf-8?B?NkUyT3NuSElIYjd2Ynh3dTRMQnhvUTU1NWJCZDJqOUpjZ0FTT1RBNnVpckUw?=
+ =?utf-8?Q?HJR9ZnGtZs4lYtwYjpY4yQ0atbKXbjbLNyiV4/v?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95232a16-30ab-401d-a288-08d8dc986871
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2021 09:50:35.6358
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2021 09:57:22.0881
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +FOWAfF8Xh1kiVWIWR0u0CESI5C4mcC6hPZvD9QecIgFYchomj/cC2oCY5U32LgtQb42wmHd11li6vj9/kv2aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3483
+X-MS-Exchange-CrossTenant-UserPrincipalName: +14enx79RJf4sAuRsryRvBLLDrxakh3GglKn3I9R965QkDFEfvRvzGfxChrxtUDcv0foGVLyO5/K5AmOA7R/EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN2PR03MB2416
 X-OriginatorOrg: citrix.com
 
-On Mon, Mar 01, 2021 at 10:17:32AM +0100, Jan Beulich wrote:
-> On 01.03.2021 10:07, Roger Pau Monné wrote:
-> > On Fri, Feb 26, 2021 at 02:24:43PM +0100, Jan Beulich wrote:
-> >> On 26.02.2021 09:59, Roger Pau Monne wrote:
-> >>> The current build of the firmware relies on having 32bit compatible
-> >>> headers installed in order to build some of the 32bit firmware, but
-> >>> that usually requires multilib support and installing a i386 libc when
-> >>> building from an amd64 environment which is cumbersome just to get
-> >>> some headers.
-> >>>
-> >>> Usually this could be solved by using the -ffreestanding compiler
-> >>> option which drops the usage of the system headers in favor of a
-> >>> private set of freestanding headers provided by the compiler itself
-> >>> that are not tied to libc. However such option is broken at least
-> >>> in the gcc compiler provided in Alpine Linux, as the system include
-> >>> path (ie: /usr/include) takes precedence over the gcc private include
-> >>> path:
-> >>>
-> >>> #include <...> search starts here:
-> >>>  /usr/include
-> >>>  /usr/lib/gcc/x86_64-alpine-linux-musl/10.2.1/include
-> >>>
-> >>> Since -ffreestanding is currently broken on at least that distro, and
-> >>> for resilience against future compilers also having the option broken
-> >>> provide a set of stand alone 32bit headers required for the firmware
-> >>> build.
-> >>>
-> >>> This allows to drop the build time dependency on having a i386
-> >>> compatible set of libc headers on amd64.
-> >>>
-> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >> with possibly small adjustments:
-> >>
-> >>> ---
-> >>> There's the argument of fixing gcc in Alpine and instead just use
-> >>> -ffreestanding. I think that's more fragile than providing our own set
-> >>> of stand alone headers for the firmware bits. Having the include paths
-> >>> wrongly sorted can easily make the system headers being picked up
-> >>> instead of the gcc ones, and then building can randomly fail because
-> >>> the system headers could be amd64 only (like the musl ones).
-> >>>
-> >>> I've also seen clang-9 on Debian with the following include paths:
-> >>>
-> >>> #include "..." search starts here:
-> >>> #include <...> search starts here:
-> >>>  /usr/local/include
-> >>>  /usr/lib/llvm-9/lib/clang/9.0.1/include
-> >>>  /usr/include/x86_64-linux-gnu
-> >>>  /usr/include
-> >>>
-> >>> Which also seems slightly dangerous as local comes before the compiler
-> >>> private path.
-> >>>
-> >>> IMO using our own set of stand alone headers is more resilient.
-> >>
-> >> I agree (in particular given the observations), but I don't view
-> >> this as an argument against use of -ffreestanding. In fact I'd
-> >> rather see this change re-based on top of Andrew's changes. Then ...
-> > 
-> > But doesn't using -nostdinc kind of defeats the purpose of
-> > -ffreestanding, as it would remove all default paths from the include
-> > search, and thus prevent using the gcc private headers?
-> 
-> I guess I don't understand: It is the purpose of this change here to
-> not use compiler provided headers (nor libc provided ones), so why
-> would it matter to retain any kind of built-in include paths?
+clang++ relies on the C++ headers installed by g++, or else a clang
+build will hit the following error:
 
-Sorry, I'm also confused.
+<built-in>:3:10: fatal error: 'cstring' file not found
+#include "cstring"
+         ^~~~~~~~~
+1 error generated.
+make[10]: *** [Makefile:120: headers++.chk] Error 1
 
-It's my understanding that the point of using -ffreestanding is that
-the compiler will set __STDC_HOSTED__ == 0, and then the built in
-compiler headers will be used to provide a freestanding environment
-instead of the libc ones.
+Reported-by: Stefano Stabellini <sstabellini@kernel.org>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+No real risk here from a release PoV, it's just pulling a package
+required for the Alpine clang build. Worse that cold happen is that
+the Alpine clang build broke, but it's already broken.
+---
+ automation/build/alpine/3.12.dockerfile | 1 +
+ 1 file changed, 1 insertion(+)
 
-However if -nostdinc is used the header search path becomes:
+diff --git a/automation/build/alpine/3.12.dockerfile b/automation/build/alpine/3.12.dockerfile
+index 2c02417ee6..94557e239b 100644
+--- a/automation/build/alpine/3.12.dockerfile
++++ b/automation/build/alpine/3.12.dockerfile
+@@ -21,6 +21,7 @@ RUN \
+   apk add curl-dev && \
+   apk add dev86 && \
+   apk add gcc  && \
++  apk add g++ && \
+   apk add clang  && \
+   apk add gettext && \
+   apk add git && \
+-- 
+2.30.1
 
-#include <...> search starts here:
-End of search list.
-
-At which point setting __STDC_HOSTED__ == 0 is pointless as the built
-in compiler headers are not used, and hence the compiler will always
-resort to the stand alone environment provided in this patch.
-
--ffreestanding also allows the program to have a non-standard main,
-but I don't think we care much about that since we already use a custom
-linker script.
-
-Thanks, Roger.
 
