@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3A7328B79
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 19:39:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.91932.173542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD39328DD4
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 20:19:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.91943.173556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGnRM-0000yv-7i; Mon, 01 Mar 2021 18:38:44 +0000
+	id 1lGo3X-0004vN-6z; Mon, 01 Mar 2021 19:18:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 91932.173542; Mon, 01 Mar 2021 18:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 91943.173556; Mon, 01 Mar 2021 19:18:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGnRM-0000yT-2O; Mon, 01 Mar 2021 18:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 91932;
- Mon, 01 Mar 2021 18:38:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lGo3X-0004uy-3o; Mon, 01 Mar 2021 19:18:11 +0000
+Received: by outflank-mailman (input) for mailman id 91943;
+ Mon, 01 Mar 2021 19:18:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lGnRK-0000yL-EX; Mon, 01 Mar 2021 18:38:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lGnRK-0006Og-8L; Mon, 01 Mar 2021 18:38:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lGnRJ-00019e-TQ; Mon, 01 Mar 2021 18:38:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lGnRJ-0002H3-Ss; Mon, 01 Mar 2021 18:38:41 +0000
+ (envelope-from <SRS0=Ls+h=H7=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lGo3V-0004ut-3m
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 19:18:09 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1aee2df5-866b-453e-832d-85c644e3f135;
+ Mon, 01 Mar 2021 19:18:07 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 010B4AF35;
+ Mon,  1 Mar 2021 19:18:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +39,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=HG08BJ+xfeulYl+PULEa1W8ZXINwCOB9REeJ6E+hceM=; b=FOfMYnBXGTyizunCtaoJLFXkAf
-	uVVz76sXNZWYwWlx4GIY2sNpYbeSrrgyVztv3TcJOWv0nX3xOyiCfC/ArzbHafAiHMD9CphiNR/5Z
-	kVQZGGGimzP09QGnkCYLQ8fOzox3VfbVMoaxLIHvADycbkmXW81HWKOEltQvIFL5Hfvc=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159792-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1aee2df5-866b-453e-832d-85c644e3f135
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614626287; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3j/0D9ZA7ezAtEP4Nk3+f0xENC++ECPVLz2dgRTsCxI=;
+	b=r1srcnqfeZUiQ0xnlWVjFCTUVG4ZpnVmnB2gjAkhAjdEf+FPeRl4xZQT9zSl80nS50IY95
+	liuwzkMBhoLK+WLikoku4/ZC03NEOaYPwZNXl5lEwsH0pwlAkM7n1NPNJGpOvDKMBGpFKP
+	e8FDvOHsUgwj7WG4qSh5WrEHX0yApmM=
+Subject: Re: [PATCH v1] xen: ACPI: Get rid of ACPICA message printing
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Linux ACPI <linux-acpi@vger.kernel.org>, LKML
+ <linux-kernel@vger.kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Konrad Wilk <konrad.wilk@oracle.com>
+References: <1709720.Zl72FGBfpD@kreacher>
+ <eaeba4a0-7bb9-7b17-9ba6-49921f6e834c@oracle.com>
+ <CAJZ5v0jr5Mxs9NYBz1ot8O+6dKYbfAo=cJqSVAOnrFEqUNwuTA@mail.gmail.com>
+ <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <afc7b1af-4d12-fb06-9212-b828f4426073@suse.com>
+Date: Mon, 1 Mar 2021 20:18:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Subject: [ovmf test] 159792: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=0996a7883c6dd939d6e769b1ce1fd2b2e250bcfb
-X-Osstest-Versions-That:
-    ovmf=31eaefd4df78d58ad4087a13f6fc7607b266d04e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 01 Mar 2021 18:38:41 +0000
+In-Reply-To: <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Y6WqBR9s8HPASVufSY807FC9ROBrepWk0"
 
-flight 159792 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159792/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Y6WqBR9s8HPASVufSY807FC9ROBrepWk0
+Content-Type: multipart/mixed; boundary="IMu2UHGcUE6GoRXxvT3hkijSEV94m109Z";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Linux ACPI <linux-acpi@vger.kernel.org>, LKML
+ <linux-kernel@vger.kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Konrad Wilk <konrad.wilk@oracle.com>
+Message-ID: <afc7b1af-4d12-fb06-9212-b828f4426073@suse.com>
+Subject: Re: [PATCH v1] xen: ACPI: Get rid of ACPICA message printing
+References: <1709720.Zl72FGBfpD@kreacher>
+ <eaeba4a0-7bb9-7b17-9ba6-49921f6e834c@oracle.com>
+ <CAJZ5v0jr5Mxs9NYBz1ot8O+6dKYbfAo=cJqSVAOnrFEqUNwuTA@mail.gmail.com>
+ <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
+In-Reply-To: <7c313ae8-6f3a-1281-a88a-1393e54f26a1@oracle.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 0996a7883c6dd939d6e769b1ce1fd2b2e250bcfb
-baseline version:
- ovmf                 31eaefd4df78d58ad4087a13f6fc7607b266d04e
+--IMu2UHGcUE6GoRXxvT3hkijSEV94m109Z
+Content-Type: multipart/mixed;
+ boundary="------------2E3C1A1D1E83919451AF1165"
+Content-Language: en-US
 
-Last test of basis   159741  2021-02-27 11:09:44 Z    2 days
-Testing same since   159792  2021-03-01 13:39:45 Z    0 days    1 attempts
+This is a multi-part message in MIME format.
+--------------2E3C1A1D1E83919451AF1165
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org> # QEMU/kvm guest on ThunderX2
-  Ming Huang <huangming@linux.alibaba.com>
-  Quan Nguyen <quan@os.amperecomputing.com>
+On 01.03.21 17:16, Boris Ostrovsky wrote:
+>=20
+> On 3/1/21 9:11 AM, Rafael J. Wysocki wrote:
+>> On Sun, Feb 28, 2021 at 2:49 AM Boris Ostrovsky
+>> <boris.ostrovsky@oracle.com> wrote:
+>>>
+>>> On 2/24/21 1:47 PM, Rafael J. Wysocki wrote:
+>>>> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>>>>
+>>>> The ACPI_DEBUG_PRINT() macro is used in a few places in
+>>>> xen-acpi-cpuhotplug.c and xen-acpi-memhotplug.c for printing debug
+>>>> messages, but that is questionable, because that macro belongs to
+>>>> ACPICA and it should not be used elsewhere.  In addition,
+>>>> ACPI_DEBUG_PRINT() requires special enabling to allow it to actually=
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+>>>> print the message and the _COMPONENT symbol generally needed for
+>>>> that is not defined in any of the files in question.
+>>>>
+>>>> For this reason, replace all of the ACPI_DEBUG_PRINT() instances in
+>>>> the Xen code with acpi_handle_debug() (with the additional benefit
+>>>> that the source object can be identified more easily after this
+>>>> change) and drop the ACPI_MODULE_NAME() definitions that are only
+>>>> used by the ACPICA message printing macros from that code.
+>>>>
+>>>> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>>>> ---
+>>>>   drivers/xen/xen-acpi-cpuhotplug.c |   12 +++++-------
+>>>>   drivers/xen/xen-acpi-memhotplug.c |   16 +++++++---------
+>>>
+>>> As I was building with this patch I (re-)discovered that since 2013 i=
+t depends on BROKEN (commit 76fc253723add). Despite commit message there =
+saying that it's a temporary patch it seems to me by now that it's more t=
+han that.
+>>>
+>>>
+>>> And clearly noone tried to build these files since at least 2015 beca=
+use memhotplug file doesn't compile due to commit cfafae940381207.
+>>>
+>>>
+>>> While this is easily fixable the question is whether we want to keep =
+these files. Obviously noone cares about this functionality.
+>> Well, I would be for dropping them.
+>>
+>> Do you want me to send a patch to do that?
+>=20
+>=20
+> Yes, if you don't mind (but let's give this a few days for people to ha=
+ve a chance to comment).
+
+I'm fine with removing those files.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Juergen
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--------------2E3C1A1D1E83919451AF1165
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------2E3C1A1D1E83919451AF1165--
 
-Pushing revision :
+--IMu2UHGcUE6GoRXxvT3hkijSEV94m109Z--
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   31eaefd4df..0996a7883c  0996a7883c6dd939d6e769b1ce1fd2b2e250bcfb -> xen-tested-master
+--Y6WqBR9s8HPASVufSY807FC9ROBrepWk0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA9Pe4FAwAAAAAACgkQsN6d1ii/Ey/X
+Xwf/T5pILtrP2Vss5K6gmbbQFUxpMalP1uWUEX87zmFAKMOaiivPnoqmUw6FAyS88slClsPNlwOf
+kXPGM2fx4EbVWbinGHHm8LZlWQZLKVeJSGbieq+mKSnbnq5XIkksC1VHjfD8D3/tEmSSvSVfuYuo
+PYja1K2LFCdQtAtzi0VXqqUTttDNLiJT6oTtsiJHvAoE1CXTdBiVZju0UrTLKIVbJpxccooRgVCR
+/XT3SBsWrnb15J1JyApNIMtJ/P36In17JunTv8U7UcOjC1liH94XvXOQsrO+XzxJNFSW1Dz2Q3Mm
+zSXwdlv1I9IYl414ZVdzJ2U+UAxW1zv/TmEusYJtbQ==
+=baql
+-----END PGP SIGNATURE-----
+
+--Y6WqBR9s8HPASVufSY807FC9ROBrepWk0--
 
