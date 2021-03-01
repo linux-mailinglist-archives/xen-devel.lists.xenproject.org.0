@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D6BA327B5B
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 10:59:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.91406.172815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66D91327B7D
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Mar 2021 11:06:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.91412.172828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGfKQ-0002j8-9w; Mon, 01 Mar 2021 09:59:02 +0000
+	id 1lGfQY-0003nR-0J; Mon, 01 Mar 2021 10:05:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 91406.172815; Mon, 01 Mar 2021 09:59:02 +0000
+Received: by outflank-mailman (output) from mailman id 91412.172828; Mon, 01 Mar 2021 10:05:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGfKQ-0002ii-6l; Mon, 01 Mar 2021 09:59:02 +0000
-Received: by outflank-mailman (input) for mailman id 91406;
- Mon, 01 Mar 2021 09:59:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lGfQX-0003n2-TE; Mon, 01 Mar 2021 10:05:21 +0000
+Received: by outflank-mailman (input) for mailman id 91412;
+ Mon, 01 Mar 2021 10:05:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lGfKO-0002iX-Rm
- for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 09:59:00 +0000
+ id 1lGfQW-0003mx-OS
+ for xen-devel@lists.xenproject.org; Mon, 01 Mar 2021 10:05:20 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2a663c28-97b7-4f75-af72-e6139f22d2c5;
- Mon, 01 Mar 2021 09:58:59 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6af40abd-bfb4-4b09-93c9-ed14bd420163;
+ Mon, 01 Mar 2021 10:05:19 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A18D2AAC5;
- Mon,  1 Mar 2021 09:58:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 64DC1ADE5;
+ Mon,  1 Mar 2021 10:05:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,139 +39,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a663c28-97b7-4f75-af72-e6139f22d2c5
+X-Inumbo-ID: 6af40abd-bfb4-4b09-93c9-ed14bd420163
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614592738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614593118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lmJvU2yxrLG2j4y9KegRIA0ARLcJM5dSnacLdTPlvxE=;
-	b=sNkUgJooJqSffzEn/LZ1FE5tSJOcEuaLWTR7URAD1eby4mUC6eGnVP4zrziLwhw8qo8xh0
-	L9T00O14hM3UKOlLHdJ1xqUrVGquij1U/4fVx/KHFJnLco8pTvGs1eKNJbMSJxVNQmkz8O
-	q5IS3hSbFh6L6W+N770Iy+LdvMAD+tY=
-Subject: Re: [PATCH] VMX: use a single, global APIC access page
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>, "Cooper, Andrew" <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <1b6a411b-84e7-bfb1-647e-511a13df838c@suse.com>
- <YCTuq5b130PR6G35@Air-de-Roger>
- <7abc515b-d652-3d39-6038-99966deafdf8@suse.com>
- <YCUSDSYpS5X+AZco@Air-de-Roger>
- <547b40f2-3b7b-10cb-30f6-9445c784eb0b@suse.com>
- <YCUiniCn+oT9CFwC@Air-de-Roger>
- <MWHPR11MB1886E452B181ACA872B7C6878C9A9@MWHPR11MB1886.namprd11.prod.outlook.com>
- <a11878e2-312c-a49a-ebe2-122906fc8d38@suse.com>
- <MWHPR11MB18860667A153820C2CB8D55B8C9A9@MWHPR11MB1886.namprd11.prod.outlook.com>
+	bh=I85YvG63xiKI1EdSmWPpVQXUBthXlkkhb07ihuINFm4=;
+	b=mV6Ex57eM8Kw7T7+p0XfQfNpzI4pOEr+qDrOJ394Lk2Arxx+hAR9ILgxPRUdLa5EaSFHZX
+	KXz/RdlCo3iANO0vRfYUwmyvKywhPo4V3CEaKb9h9T8dJ/83mN8fDDPOXq1/oVKq1ZXTyp
+	s2mUnd9DJeqokYglrnzdSO2oajQCpps=
+Subject: Re: [PATCH for-4.15 2/3] firmware: provide a stand alone set of
+ headers
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210226085908.21254-1-roger.pau@citrix.com>
+ <20210226085908.21254-3-roger.pau@citrix.com>
+ <2133ba4c-5120-30ca-1328-c8700fd2db94@suse.com>
+ <YDyu3mWSgIIB6s91@Air-de-Roger>
+ <445b205b-0a0b-da53-b7ba-98a1ac51aab4@suse.com>
+ <YDy45rEl5sqv2eqk@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a0595a8f-b3ad-c901-15d9-cae0b538858a@suse.com>
-Date: Mon, 1 Mar 2021 10:58:58 +0100
+Message-ID: <e2f254cf-4726-609e-850d-1c0ea73028b9@suse.com>
+Date: Mon, 1 Mar 2021 11:05:17 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <MWHPR11MB18860667A153820C2CB8D55B8C9A9@MWHPR11MB1886.namprd11.prod.outlook.com>
+In-Reply-To: <YDy45rEl5sqv2eqk@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 01.03.2021 09:30, Tian, Kevin wrote:
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Monday, March 1, 2021 4:16 PM
->>
->> On 01.03.2021 03:18, Tian, Kevin wrote:
->>>> From: Roger Pau Monné <roger.pau@citrix.com>
->>>> Sent: Thursday, February 11, 2021 8:27 PM
->>>>
->>>> On Thu, Feb 11, 2021 at 12:22:41PM +0100, Jan Beulich wrote:
->>>>> On 11.02.2021 12:16, Roger Pau Monné wrote:
->>>>>> On Thu, Feb 11, 2021 at 11:36:59AM +0100, Jan Beulich wrote:
->>>>>>> On 11.02.2021 09:45, Roger Pau Monné wrote:
->>>>>>>> On Wed, Feb 10, 2021 at 05:48:26PM +0100, Jan Beulich wrote:
->>>>>>>>> --- a/xen/include/asm-x86/p2m.h
->>>>>>>>> +++ b/xen/include/asm-x86/p2m.h
->>>>>>>>> @@ -935,6 +935,9 @@ static inline unsigned int p2m_get_iommu
->>>>>>>>>          flags = IOMMUF_readable;
->>>>>>>>>          if ( !rangeset_contains_singleton(mmio_ro_ranges,
->> mfn_x(mfn)) )
->>>>>>>>>              flags |= IOMMUF_writable;
->>>>>>>>> +        /* VMX'es APIC access page is global and hence has no owner.
->>>> */
->>>>>>>>> +        if ( mfn_valid(mfn) && !page_get_owner(mfn_to_page(mfn)) )
->>>>>>>>> +            flags = 0;
->>>>>>>>
->>>>>>>> Is it fine to have this page accessible to devices if the page tables
->>>>>>>> are shared between the CPU and the IOMMU?
->>>>>>>
->>>>>>> No, it's not, but what do you do? As said elsewhere, devices
->>>>>>> gaining more access than is helpful is the price we pay for
->>>>>>> being able to share page tables. But ...
->>>>>>
->>>>>> I'm concerned about allowing devices to write to this shared page, as
->>>>>> could be used as an unintended way to exchange information between
->>>>>> domains?
+On 01.03.2021 10:50, Roger Pau Monné wrote:
+> On Mon, Mar 01, 2021 at 10:17:32AM +0100, Jan Beulich wrote:
+>> On 01.03.2021 10:07, Roger Pau Monné wrote:
+>>> On Fri, Feb 26, 2021 at 02:24:43PM +0100, Jan Beulich wrote:
+>>>> On 26.02.2021 09:59, Roger Pau Monne wrote:
+>>>>> The current build of the firmware relies on having 32bit compatible
+>>>>> headers installed in order to build some of the 32bit firmware, but
+>>>>> that usually requires multilib support and installing a i386 libc when
+>>>>> building from an amd64 environment which is cumbersome just to get
+>>>>> some headers.
 >>>>>
->>>>> Well, such an abuse would be possible, but it wouldn't be part
->>>>> of an ABI and hence could break at any time. Similarly I
->>>>> wouldn't consider it an information leak if a guest abused
->>>>> this.
+>>>>> Usually this could be solved by using the -ffreestanding compiler
+>>>>> option which drops the usage of the system headers in favor of a
+>>>>> private set of freestanding headers provided by the compiler itself
+>>>>> that are not tied to libc. However such option is broken at least
+>>>>> in the gcc compiler provided in Alpine Linux, as the system include
+>>>>> path (ie: /usr/include) takes precedence over the gcc private include
+>>>>> path:
+>>>>>
+>>>>> #include <...> search starts here:
+>>>>>  /usr/include
+>>>>>  /usr/lib/gcc/x86_64-alpine-linux-musl/10.2.1/include
+>>>>>
+>>>>> Since -ffreestanding is currently broken on at least that distro, and
+>>>>> for resilience against future compilers also having the option broken
+>>>>> provide a set of stand alone 32bit headers required for the firmware
+>>>>> build.
+>>>>>
+>>>>> This allows to drop the build time dependency on having a i386
+>>>>> compatible set of libc headers on amd64.
+>>>>>
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 >>>>
->>>> Hm, I'm kind of worried about having such shared page accessible to
->>>> guests. Could Intel confirm whether pages in the 0xFEExxxxx range are
->>>> accessible to devices in any way when using IOMMU shared page
->>>> tables?
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>> with possibly small adjustments:
+>>>>
+>>>>> ---
+>>>>> There's the argument of fixing gcc in Alpine and instead just use
+>>>>> -ffreestanding. I think that's more fragile than providing our own set
+>>>>> of stand alone headers for the firmware bits. Having the include paths
+>>>>> wrongly sorted can easily make the system headers being picked up
+>>>>> instead of the gcc ones, and then building can randomly fail because
+>>>>> the system headers could be amd64 only (like the musl ones).
+>>>>>
+>>>>> I've also seen clang-9 on Debian with the following include paths:
+>>>>>
+>>>>> #include "..." search starts here:
+>>>>> #include <...> search starts here:
+>>>>>  /usr/local/include
+>>>>>  /usr/lib/llvm-9/lib/clang/9.0.1/include
+>>>>>  /usr/include/x86_64-linux-gnu
+>>>>>  /usr/include
+>>>>>
+>>>>> Which also seems slightly dangerous as local comes before the compiler
+>>>>> private path.
+>>>>>
+>>>>> IMO using our own set of stand alone headers is more resilient.
+>>>>
+>>>> I agree (in particular given the observations), but I don't view
+>>>> this as an argument against use of -ffreestanding. In fact I'd
+>>>> rather see this change re-based on top of Andrew's changes. Then ...
 >>>
->>> 0xFEExxxxx range is special. Requests to this range are not subject to
->>> DMA remapping (even if a valid mapping for this range exists in the
->>> IOMMU page table). And this special treatment is true regardless of
->>> whether interrupt remapping is enabled (which comes only after an
->>> interrupt message to this range is recognized).
+>>> But doesn't using -nostdinc kind of defeats the purpose of
+>>> -ffreestanding, as it would remove all default paths from the include
+>>> search, and thus prevent using the gcc private headers?
 >>
->> For my/our education, could you outline what happens to device
->> accesses to that range when interrupt remapping is off? And
->> perhaps also what happens to accesses to this range that don't
->> match the pattern of an MSI initiation (dword write)? I don't
->> think I've been able to spot anything to this effect in the docs.
->>
+>> I guess I don't understand: It is the purpose of this change here to
+>> not use compiler provided headers (nor libc provided ones), so why
+>> would it matter to retain any kind of built-in include paths?
 > 
-> In VT-d spec "3.14 Handling Requests to Interrupt Address Range"
-> --
-> On Intel® architecture platforms, physical address range 0xFEEx_xxxx is 
-> designated as the interrupt address range. Requests without PASID to 
-> this range are not subjected to DMA remapping (even if translation 
-> structures specify a mapping for this range).
-> --
-> The following types of requests to this range are illegal requests. 
-> They are blocked and reported as Interrupt Remapping faults.
-> • Read requests without PASID that are not ZLR.
-> • Atomics requests without PASID.
-> • Non-DWORD length write requests without PASID. 
-> --
+> Sorry, I'm also confused.
+> 
+> It's my understanding that the point of using -ffreestanding is that
+> the compiler will set __STDC_HOSTED__ == 0, and then the built in
+> compiler headers will be used to provide a freestanding environment
+> instead of the libc ones.
+> 
+> However if -nostdinc is used the header search path becomes:
+> 
+> #include <...> search starts here:
+> End of search list.
+> 
+> At which point setting __STDC_HOSTED__ == 0 is pointless as the built
+> in compiler headers are not used, and hence the compiler will always
+> resort to the stand alone environment provided in this patch.
+> 
+> -ffreestanding also allows the program to have a non-standard main,
+> but I don't think we care much about that since we already use a custom
+> linker script.
 
-Ah, I see. That's (according to the change bars) a relatively recent
-addition. So the above clarifies things for the !PASID case. Am I
-interpreting
-
-"Requests-with-PASID with input address in range 0xFEEx_xxxx are
- translated normally like any other request-with-PASID through
- DMA-remapping hardware. However, if such a request is processed
- using pass-through translation, it will be blocked as described
- in the paragraph below.
-
- Software must not program paging-structure entries to remap any
- address to the interrupt address range. Untranslated requests and
- translation requests that result in an address in the interrupt
- range will be blocked with condition code LGN.4 or SGN.8.
- Translated requests with an address in the interrupt address
- range are treated as Unsupported Request (UR)."
-
-right in that _with_ PASID translation entries for this range would
-still be used, so long as they translate to an area outside of the
-FEExxxxx range? If so this would mean that with PASID (whenever we
-get to enabling this mode of operation) we'd need to avoid sharing
-page tables, and we'd need to suppress mirroring of EPT insertions
-for this range in the IOMMU page tables. (All of this independent
-of the particular choice of the APIC access page.)
+While indeed we don't care about this specific last aspect, we
+do e.g. care about the implied -fno-builtin (which currently we
+specify explicitly, yes). So while with -nostdinc added we
+_might_ indeed be fine already, I think we're better off going
+the full step and specify what we mean, even if - right now -
+we're unaware of further effects which are relevant to us. (For
+example, I don't see why in principle we couldn't ourselves
+grow a use of __STDC_HOSTED__ somewhere.)
 
 Jan
 
