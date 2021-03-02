@@ -2,42 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF8032A8B8
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 19:03:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92539.174492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C6F232A8B3
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 19:03:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92540.174504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lH9MC-0001EA-AR; Tue, 02 Mar 2021 18:02:52 +0000
+	id 1lH9MG-0001Hw-Jv; Tue, 02 Mar 2021 18:02:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92539.174492; Tue, 02 Mar 2021 18:02:52 +0000
+Received: by outflank-mailman (output) from mailman id 92540.174504; Tue, 02 Mar 2021 18:02:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lH9MC-0001DG-6p; Tue, 02 Mar 2021 18:02:52 +0000
-Received: by outflank-mailman (input) for mailman id 92539;
- Tue, 02 Mar 2021 18:02:50 +0000
+	id 1lH9MG-0001HU-Em; Tue, 02 Mar 2021 18:02:56 +0000
+Received: by outflank-mailman (input) for mailman id 92540;
+ Tue, 02 Mar 2021 18:02:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fwSr=IA=yandex-team.ru=lekiravi@srs-us1.protection.inumbo.net>)
- id 1lH9MA-0001A7-5K
- for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 18:02:50 +0000
-Received: from forwardcorp1p.mail.yandex.net (unknown
- [2a02:6b8:0:1472:2741:0:8b6:217])
+ id 1lH9ME-0001A7-Ts
+ for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 18:02:54 +0000
+Received: from forwardcorp1j.mail.yandex.net (unknown [5.45.199.163])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 032fef6a-14cd-4f81-af75-f04b76daadb5;
- Tue, 02 Mar 2021 18:02:48 +0000 (UTC)
+ id d8c24938-d4af-468a-956c-64fdb25aed80;
+ Tue, 02 Mar 2021 18:02:52 +0000 (UTC)
 Received: from myt5-23f0be3aa648.qloud-c.yandex.net
  (myt5-23f0be3aa648.qloud-c.yandex.net
  [IPv6:2a02:6b8:c12:3e29:0:640:23f0:be3a])
- by forwardcorp1p.mail.yandex.net (Yandex) with ESMTP id 23B5C2E14F1;
- Tue,  2 Mar 2021 21:02:47 +0300 (MSK)
+ by forwardcorp1j.mail.yandex.net (Yandex) with ESMTP id D2EC22E147C;
+ Tue,  2 Mar 2021 21:02:50 +0300 (MSK)
 Received: from myt5-70c90f7d6d7d.qloud-c.yandex.net
  (myt5-70c90f7d6d7d.qloud-c.yandex.net [2a02:6b8:c12:3e2c:0:640:70c9:f7d])
  by myt5-23f0be3aa648.qloud-c.yandex.net (mxbackcorp/Yandex) with ESMTP id
- itqAQmwSu5-2jxqXt4S; Tue, 02 Mar 2021 21:02:47 +0300
+ TDVQdUt8yK-2nxSlevm; Tue, 02 Mar 2021 21:02:50 +0300
 Received: from dynamic-vpn.dhcp.yndx.net (dynamic-vpn.dhcp.yndx.net
  [2a02:6b8:b080:8002::1:1a])
  by myt5-70c90f7d6d7d.qloud-c.yandex.net (smtpcorp/Yandex) with ESMTPSA id
- onVeXhLyoo-2io0bRhB; Tue, 02 Mar 2021 21:02:45 +0300
+ onVeXhLyoo-2mo0IAZV; Tue, 02 Mar 2021 21:02:49 +0300
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (Client certificate not present)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -50,14 +49,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 032fef6a-14cd-4f81-af75-f04b76daadb5
+X-Inumbo-ID: d8c24938-d4af-468a-956c-64fdb25aed80
 Precedence: bulk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru; s=default;
-	t=1614708167; bh=4dP4btjH/JUluQZrX9OiL/COvOORU8agWRC4rEjZ/cw=;
+	t=1614708170; bh=zwxRihApiUbG7mGl+navjv9Er7L50EpwkWcV1QK+m9Q=;
 	h=In-Reply-To:Message-Id:References:Date:Subject:To:From:Cc;
-	b=g4K6OptbJ9pfErgzapKX07gXk0MxSoJLFK8KxtTqMf8/YjaBa1ezWVYCMUzJ916ea
-	 TTWTEf/erLYHxnRieJigvi8MRr1v35kKFHxQlFsGwpI6BqYDO0wRmtU/asT7prATh7
-	 aeIrQWCSrAHtSsdzgRq/aMB1l7NSH4jZobn9XFOc=
+	b=yJWCVTOdWu9BmJReGKKTJT/SAdTSV9fCDWxKx9ZqMUW9OLADANxuNIGnEf1Zl/i6/
+	 nDneQCFqz4pdhkyxzEgLBvrOeRJWTDqy1syBkJRXuupELD+A3h3+yhaND3oUz/EN48
+	 8zd2KJg0by/dz99bVtHW91783zWoHlm1Xy2Kgod4=
 Authentication-Results: myt5-23f0be3aa648.qloud-c.yandex.net; dkim=pass header.i=@yandex-team.ru
 From: Alexey Kirillov <lekiravi@yandex-team.ru>
 To: Jason Wang <jasowang@redhat.com>,
@@ -79,338 +78,337 @@ Cc: Laurent Vivier <lvivier@redhat.com>,
 	xen-devel@lists.xenproject.org,
 	qemu-devel@nongnu.org,
 	yc-core@yandex-team.ru
-Subject: [PATCH v6 3/5] net: Move NetClientState.info_str to dynamic allocations
-Date: Tue,  2 Mar 2021 21:02:03 +0300
-Message-Id: <20210302180205.5009-4-lekiravi@yandex-team.ru>
+Subject: [PATCH v6 4/5] hmp: Use QAPI NetdevInfo in hmp_info_network
+Date: Tue,  2 Mar 2021 21:02:04 +0300
+Message-Id: <20210302180205.5009-5-lekiravi@yandex-team.ru>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210302180205.5009-1-lekiravi@yandex-team.ru>
 References: <20210302180205.5009-1-lekiravi@yandex-team.ru>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The info_str field of the NetClientState structure is static and has a size
-of 256 bytes. This amount is often unclaimed, and the field itself is used
-exclusively for HMP "info network".
+Replace usage of legacy field info_str of NetClientState for backend
+network devices with QAPI NetdevInfo stored_config that already used
+in QMP query-netdev.
 
-The patch translates info_str to dynamic memory allocation.
+This change increases the detail of the "info network" output and takes
+a more general approach to composing the output.
 
-This action is also allows us to painlessly discard usage of this field
-for backend devices.
+NIC and hubports still use legacy info_str field.
 
 Signed-off-by: Alexey Kirillov <lekiravi@yandex-team.ru>
 ---
- hw/net/xen_nic.c  |  5 ++---
- include/net/net.h |  2 +-
- net/l2tpv3.c      |  3 +--
- net/net.c         | 14 ++++++++------
- net/slirp.c       |  5 ++---
- net/socket.c      | 43 ++++++++++++++++++++++++-------------------
- net/tap-win32.c   |  3 +--
- net/tap.c         | 13 +++++--------
- net/vde.c         |  3 +--
- net/vhost-user.c  |  3 +--
- net/vhost-vdpa.c  |  2 +-
- 11 files changed, 47 insertions(+), 49 deletions(-)
+ include/qapi/hmp-output-visitor.h |  30 +++++
+ net/net.c                         |  31 ++++-
+ qapi/hmp-output-visitor.c         | 193 ++++++++++++++++++++++++++++++
+ qapi/meson.build                  |   1 +
+ 4 files changed, 254 insertions(+), 1 deletion(-)
+ create mode 100644 include/qapi/hmp-output-visitor.h
+ create mode 100644 qapi/hmp-output-visitor.c
 
-diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
-index 5c815b4f0c..8431808ea0 100644
---- a/hw/net/xen_nic.c
-+++ b/hw/net/xen_nic.c
-@@ -296,9 +296,8 @@ static int net_init(struct XenLegacyDevice *xendev)
-     netdev->nic = qemu_new_nic(&net_xen_info, &netdev->conf,
-                                "xen", NULL, netdev);
- 
--    snprintf(qemu_get_queue(netdev->nic)->info_str,
--             sizeof(qemu_get_queue(netdev->nic)->info_str),
--             "nic: xenbus vif macaddr=%s", netdev->mac);
-+    qemu_get_queue(netdev->nic)->info_str = g_strdup_printf(
-+        "nic: xenbus vif macaddr=%s", netdev->mac);
- 
-     /* fill info */
-     xenstore_write_be_int(&netdev->xendev, "feature-rx-copy", 1);
-diff --git a/include/net/net.h b/include/net/net.h
-index 162fd3f1b5..7039eb280a 100644
---- a/include/net/net.h
-+++ b/include/net/net.h
-@@ -94,7 +94,7 @@ struct NetClientState {
-     NetQueue *incoming_queue;
-     char *model;
-     char *name;
--    char info_str[256];
-+    char *info_str;
-     NetdevInfo *stored_config;
-     unsigned receive_disabled : 1;
-     NetClientDestructor *destructor;
-diff --git a/net/l2tpv3.c b/net/l2tpv3.c
-index 8aa0a3e1a0..96611cb4af 100644
---- a/net/l2tpv3.c
-+++ b/net/l2tpv3.c
-@@ -730,8 +730,7 @@ int net_init_l2tpv3(const Netdev *netdev,
-     QAPI_CLONE_MEMBERS(NetdevL2TPv3Options,
-                        &nc->stored_config->u.l2tpv3, l2tpv3);
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--             "l2tpv3: connected");
-+    s->nc.info_str = g_strdup_printf("l2tpv3: connected");
-     return 0;
- outerr:
-     qemu_del_net_client(nc);
+diff --git a/include/qapi/hmp-output-visitor.h b/include/qapi/hmp-output-visitor.h
+new file mode 100644
+index 0000000000..541e4002e3
+--- /dev/null
++++ b/include/qapi/hmp-output-visitor.h
+@@ -0,0 +1,30 @@
++/*
++ * HMP string output Visitor
++ *
++ * Copyright Yandex N.V., 2021
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2 or later.
++ * See the COPYING file in the top-level directory.
++ *
++ */
++
++#ifndef HMP_OUTPUT_VISITOR_H
++#define HMP_OUTPUT_VISITOR_H
++
++#include "qapi/visitor.h"
++
++typedef struct HMPOutputVisitor HMPOutputVisitor;
++
++/**
++ * Create a HMP string output visitor for @obj
++ *
++ * Flattens dicts/structures, only shows arrays borders.
++ *
++ * Errors are not expected to happen.
++ *
++ * The caller is responsible for freeing the visitor with
++ * visit_free().
++ */
++Visitor *hmp_output_visitor_new(char **result);
++
++#endif
 diff --git a/net/net.c b/net/net.c
-index 9b213f72d2..cc83918d80 100644
+index cc83918d80..65b92bbdab 100644
 --- a/net/net.c
 +++ b/net/net.c
-@@ -128,11 +128,12 @@ char *qemu_mac_strdup_printf(const uint8_t *macaddr)
+@@ -54,6 +54,7 @@
+ #include "sysemu/sysemu.h"
+ #include "net/filter.h"
+ #include "qapi/string-output-visitor.h"
++#include "qapi/hmp-output-visitor.h"
  
- void qemu_format_nic_info_str(NetClientState *nc, uint8_t macaddr[6])
- {
--    snprintf(nc->info_str, sizeof(nc->info_str),
--             "model=%s,macaddr=%02x:%02x:%02x:%02x:%02x:%02x",
--             nc->model,
--             macaddr[0], macaddr[1], macaddr[2],
--             macaddr[3], macaddr[4], macaddr[5]);
-+    g_free(nc->info_str);
-+    nc->info_str = g_strdup_printf(
-+        "model=%s,macaddr=%02x:%02x:%02x:%02x:%02x:%02x",
-+        nc->model,
-+        macaddr[0], macaddr[1], macaddr[2],
-+        macaddr[3], macaddr[4], macaddr[5]);
+ /* Net bridge is currently not supported for W32. */
+ #if !defined(_WIN32)
+@@ -1192,14 +1193,42 @@ static void netfilter_print_info(Monitor *mon, NetFilterState *nf)
+     monitor_printf(mon, "\n");
  }
  
- static int mac_table[256] = {0};
-@@ -351,6 +352,7 @@ static void qemu_free_net_client(NetClientState *nc)
-     }
-     g_free(nc->name);
-     g_free(nc->model);
-+    g_free(nc->info_str);
-     qapi_free_NetdevInfo(nc->stored_config);
-     if (nc->destructor) {
-         nc->destructor(nc);
-@@ -1197,7 +1199,7 @@ void print_net_client(Monitor *mon, NetClientState *nc)
++static char *generate_info_str(NetClientState *nc)
++{
++    NetdevInfo *ni = nc->stored_config;
++    char *ret_out = NULL;
++    Visitor *v;
++
++    /* Use legacy field info_str for NIC and hubports */
++    if ((nc->info->type == NET_CLIENT_DRIVER_NIC) ||
++        (nc->info->type == NET_CLIENT_DRIVER_HUBPORT)) {
++        return g_strdup(nc->info_str ? nc->info_str : "");
++    }
++
++    if (!ni) {
++        return g_malloc0(1);
++    }
++
++    v = hmp_output_visitor_new(&ret_out);
++    if (visit_type_NetdevInfo(v, "", &ni, NULL)) {
++        visit_complete(v, &ret_out);
++    }
++    visit_free(v);
++
++    return ret_out;
++}
++
+ void print_net_client(Monitor *mon, NetClientState *nc)
+ {
+     NetFilterState *nf;
++    char *info_str = generate_info_str(nc);
+ 
      monitor_printf(mon, "%s: index=%d,type=%s,%s\n", nc->name,
                     nc->queue_index,
                     NetClientDriver_str(nc->info->type),
--                   nc->info_str);
-+                   nc->info_str ? nc->info_str : "");
+-                   nc->info_str ? nc->info_str : "");
++                   info_str);
++    g_free(info_str);
++
      if (!QTAILQ_EMPTY(&nc->filters)) {
          monitor_printf(mon, "filters:\n");
      }
-diff --git a/net/slirp.c b/net/slirp.c
-index 5f126d7cf5..f8b3636fcc 100644
---- a/net/slirp.c
-+++ b/net/slirp.c
-@@ -669,9 +669,8 @@ static int net_slirp_init(NetClientState *peer, const char *model,
-         stored->tftp_server_name = g_strdup(tftp_server_name);
-     }
- 
--    snprintf(nc->info_str, sizeof(nc->info_str),
--             "net=%s,restrict=%s", inet_ntoa(net),
--             restricted ? "on" : "off");
-+    nc->info_str = g_strdup_printf("net=%s,restrict=%s", inet_ntoa(net),
-+                                   restricted ? "on" : "off");
- 
-     s = DO_UPCAST(SlirpState, nc, nc);
- 
-diff --git a/net/socket.c b/net/socket.c
-index 1614523b82..98172347d7 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -180,7 +180,8 @@ static void net_socket_send(void *opaque)
-         s->fd = -1;
-         net_socket_rs_init(&s->rs, net_socket_rs_finalize, false);
-         s->nc.link_down = true;
--        memset(s->nc.info_str, 0, sizeof(s->nc.info_str));
-+        g_free(s->nc.info_str);
-+        s->nc.info_str = g_new0(char, 1);
- 
-         return;
-     }
-@@ -400,16 +401,16 @@ static NetSocketState *net_socket_fd_init_dgram(NetClientState *peer,
-         stored->mcast = g_strdup(mcast);
- 
-         s->dgram_dst = saddr;
--        snprintf(nc->info_str, sizeof(nc->info_str),
--                 "socket: fd=%d (cloned mcast=%s:%d)",
--                 fd, inet_ntoa(saddr.sin_addr), ntohs(saddr.sin_port));
-+        nc->info_str = g_strdup_printf("socket: fd=%d (cloned mcast=%s:%d)",
-+                                       fd, inet_ntoa(saddr.sin_addr),
-+                                       ntohs(saddr.sin_port));
-     } else {
-         if (sa_type == SOCKET_ADDRESS_TYPE_UNIX) {
-             s->dgram_dst.sin_family = AF_UNIX;
-         }
- 
--        snprintf(nc->info_str, sizeof(nc->info_str),
--                 "socket: fd=%d %s", fd, SocketAddressType_str(sa_type));
-+        nc->info_str = g_strdup_printf("socket: fd=%d %s",
-+                                       fd, SocketAddressType_str(sa_type));
-     }
- 
-     return s;
-@@ -444,7 +445,7 @@ static NetSocketState *net_socket_fd_init_stream(NetClientState *peer,
- 
-     nc = qemu_new_net_client(&net_socket_info, peer, model, name);
- 
--    snprintf(nc->info_str, sizeof(nc->info_str), "socket: fd=%d", fd);
-+    nc->info_str = g_strdup_printf("socket: fd=%d", fd);
- 
-     s = DO_UPCAST(NetSocketState, nc, nc);
- 
-@@ -528,9 +529,10 @@ static void net_socket_accept(void *opaque)
-     stored->has_fd = true;
-     stored->fd = g_strdup_printf("%d", fd);
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--             "socket: connection from %s:%d",
--             inet_ntoa(saddr.sin_addr), ntohs(saddr.sin_port));
-+    g_free(s->nc.info_str);
-+    s->nc.info_str = g_strdup_printf("socket: connection from %s:%d",
-+                                     inet_ntoa(saddr.sin_addr),
-+                                     ntohs(saddr.sin_port));
- }
- 
- static int net_socket_listen_init(NetClientState *peer,
-@@ -645,9 +647,10 @@ static int net_socket_connect_init(NetClientState *peer,
-     stored->has_connect = true;
-     stored->connect = g_strdup(host_str);
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--             "socket: connect to %s:%d",
--             inet_ntoa(saddr.sin_addr), ntohs(saddr.sin_port));
-+    g_free(s->nc.info_str);
-+    s->nc.info_str = g_strdup_printf("socket: connect to %s:%d",
-+                                     inet_ntoa(saddr.sin_addr),
-+                                     ntohs(saddr.sin_port));
-     return 0;
- }
- 
-@@ -704,9 +707,10 @@ static int net_socket_mcast_init(NetClientState *peer,
-         stored->localaddr = g_strdup(localaddr_str);
-     }
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--             "socket: mcast=%s:%d",
--             inet_ntoa(saddr.sin_addr), ntohs(saddr.sin_port));
-+    g_free(s->nc.info_str);
-+    s->nc.info_str = g_strdup_printf("socket: mcast=%s:%d",
-+                                     inet_ntoa(saddr.sin_addr),
-+                                     ntohs(saddr.sin_port));
-     return 0;
- 
- }
-@@ -769,9 +773,10 @@ static int net_socket_udp_init(NetClientState *peer,
-     stored->has_udp = true;
-     stored->udp = g_strdup(rhost);
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--             "socket: udp=%s:%d",
--             inet_ntoa(raddr.sin_addr), ntohs(raddr.sin_port));
-+    g_free(s->nc.info_str);
-+    s->nc.info_str = g_strdup_printf("socket: udp=%s:%d",
-+                                     inet_ntoa(raddr.sin_addr),
-+                                     ntohs(raddr.sin_port));
-     return 0;
- }
- 
-diff --git a/net/tap-win32.c b/net/tap-win32.c
-index b60933bd1a..0888db8cce 100644
---- a/net/tap-win32.c
-+++ b/net/tap-win32.c
-@@ -787,8 +787,7 @@ static int tap_win32_init(NetClientState *peer, const char *model,
-     stored->has_ifname = true;
-     stored->ifname = g_strdup(ifname);
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--             "tap: ifname=%s", ifname);
-+    s->nc.info_str = g_strdup_printf("tap: ifname=%s", ifname);
- 
-     s->handle = handle;
- 
-diff --git a/net/tap.c b/net/tap.c
-index 8041245ba7..f864f434b2 100644
---- a/net/tap.c
-+++ b/net/tap.c
-@@ -625,8 +625,7 @@ int net_init_bridge(const Netdev *netdev, const char *name,
-         stored->helper = g_strdup(helper);
-     }
- 
--    snprintf(s->nc.info_str, sizeof(s->nc.info_str), "helper=%s,br=%s", helper,
--             br);
-+    s->nc.info_str = g_strdup_printf("helper=%s,br=%s", helper, br);
- 
-     return 0;
- }
-@@ -714,7 +713,7 @@ static void net_init_tap_one(const NetdevTapOptions *tap, NetClientState *peer,
-             g_free(tmp_s);
-         }
- 
--        snprintf(s->nc.info_str, sizeof(s->nc.info_str), "fd=%d", fd);
-+        s->nc.info_str = g_strdup_printf("fd=%d", fd);
-     } else if (tap->has_helper) {
-         if (!stored->has_helper) {
-             stored->has_helper = true;
-@@ -727,8 +726,7 @@ static void net_init_tap_one(const NetdevTapOptions *tap, NetClientState *peer,
-                                        g_strdup(DEFAULT_BRIDGE_INTERFACE);
-         }
- 
--        snprintf(s->nc.info_str, sizeof(s->nc.info_str), "helper=%s",
--                 tap->helper);
-+        s->nc.info_str = g_strdup_printf("helper=%s", tap->helper);
-     } else {
-         if (ifname && !stored->has_ifname) {
-             stored->has_ifname = true;
-@@ -745,9 +743,8 @@ static void net_init_tap_one(const NetdevTapOptions *tap, NetClientState *peer,
-             stored->downscript = g_strdup(downscript);
-         }
- 
--        snprintf(s->nc.info_str, sizeof(s->nc.info_str),
--                 "ifname=%s,script=%s,downscript=%s", ifname, script,
--                 downscript);
-+        s->nc.info_str = g_strdup_printf("ifname=%s,script=%s,downscript=%s",
-+                                         ifname, script, downscript);
- 
-         if (strcmp(downscript, "no") != 0) {
-             snprintf(s->down_script, sizeof(s->down_script), "%s", downscript);
-diff --git a/net/vde.c b/net/vde.c
-index b0b8800571..67de6eb0c5 100644
---- a/net/vde.c
-+++ b/net/vde.c
-@@ -100,8 +100,7 @@ static int net_vde_init(NetClientState *peer, const char *model,
- 
-     nc = qemu_new_net_client(&net_vde_info, peer, model, name);
- 
--    snprintf(nc->info_str, sizeof(nc->info_str), "sock=%s,fd=%d",
--             sock, vde_datafd(vde));
-+    nc->info_str = g_strdup_printf("sock=%s,fd=%d", sock, vde_datafd(vde));
- 
-     s = DO_UPCAST(VDEState, nc, nc);
- 
-diff --git a/net/vhost-user.c b/net/vhost-user.c
-index 5b7056be25..49c9a740c2 100644
---- a/net/vhost-user.c
-+++ b/net/vhost-user.c
-@@ -327,8 +327,7 @@ static int net_vhost_user_init(NetClientState *peer, const char *device,
-     user = g_new0(struct VhostUserState, 1);
-     for (i = 0; i < queues; i++) {
-         nc = qemu_new_net_client(&net_vhost_user_info, peer, device, name);
--        snprintf(nc->info_str, sizeof(nc->info_str), "vhost-user%d to %s",
--                 i, chr->label);
-+        nc->info_str = g_strdup_printf("vhost-user%d to %s", i, chr->label);
-         nc->queue_index = i;
-         if (!nc0) {
-             nc0 = nc;
-diff --git a/net/vhost-vdpa.c b/net/vhost-vdpa.c
-index 8c27ea0142..423d71770d 100644
---- a/net/vhost-vdpa.c
-+++ b/net/vhost-vdpa.c
-@@ -200,7 +200,7 @@ static int net_vhost_vdpa_init(NetClientState *peer, const char *device,
-     stored->has_queues = true;
-     stored->queues = 1; /* TODO: change when support multiqueue */
- 
--    snprintf(nc->info_str, sizeof(nc->info_str), TYPE_VHOST_VDPA);
-+    nc->info_str = g_strdup_printf(TYPE_VHOST_VDPA);
-     nc->queue_index = 0;
-     s = DO_UPCAST(VhostVDPAState, nc, nc);
-     vdpa_device_fd = qemu_open_old(vhostdev, O_RDWR);
+diff --git a/qapi/hmp-output-visitor.c b/qapi/hmp-output-visitor.c
+new file mode 100644
+index 0000000000..8036605f97
+--- /dev/null
++++ b/qapi/hmp-output-visitor.c
+@@ -0,0 +1,193 @@
++/*
++ * HMP string output Visitor
++ *
++ * Copyright Yandex N.V., 2021
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2 or later.
++ * See the COPYING file in the top-level directory.
++ *
++ */
++
++#include "qemu/osdep.h"
++#include "qemu/cutils.h"
++#include "qapi/hmp-output-visitor.h"
++#include "qapi/visitor-impl.h"
++
++struct HMPOutputVisitor {
++    Visitor visitor;
++    char **result;
++    GString *buffer;
++    bool is_continue;
++};
++
++static HMPOutputVisitor *to_hov(Visitor *v)
++{
++    return container_of(v, HMPOutputVisitor, visitor);
++}
++
++static void hmp_output_append_formatted(Visitor *v, const char *fmt, ...)
++{
++    HMPOutputVisitor *ov = to_hov(v);
++    va_list args;
++
++    if (ov->is_continue) {
++        g_string_append(ov->buffer, ",");
++    } else {
++        ov->is_continue = true;
++    }
++
++    va_start(args, fmt);
++    g_string_append_vprintf(ov->buffer, fmt, args);
++    va_end(args);
++}
++
++static void hmp_output_skip_comma(Visitor *v)
++{
++    HMPOutputVisitor *ov = to_hov(v);
++
++    ov->is_continue = false;
++}
++
++static bool hmp_output_start_struct(Visitor *v, const char *name,
++                                    void **obj, size_t unused, Error **errp)
++{
++    return true;
++}
++
++static void hmp_output_end_struct(Visitor *v, void **obj) {}
++
++static bool hmp_output_start_list(Visitor *v, const char *name,
++                                  GenericList **listp, size_t size,
++                                  Error **errp)
++{
++    hmp_output_append_formatted(v, "%s=[", name);
++    /* First element in array without comma before it */
++    hmp_output_skip_comma(v);
++
++    return true;
++}
++
++static GenericList *hmp_output_next_list(Visitor *v, GenericList *tail,
++                                         size_t size)
++{
++    return tail->next;
++}
++
++static void hmp_output_end_list(Visitor *v, void **obj)
++{
++    /* Don't need comma after last array element */
++    hmp_output_skip_comma(v);
++    hmp_output_append_formatted(v, "]");
++}
++
++static bool hmp_output_type_int64(Visitor *v, const char *name,
++                                  int64_t *obj, Error **errp)
++{
++    hmp_output_append_formatted(v, "%s=%" PRId64, name, *obj);
++
++    return true;
++}
++
++static bool hmp_output_type_uint64(Visitor *v, const char *name,
++                                   uint64_t *obj, Error **errp)
++{
++    hmp_output_append_formatted(v, "%s=%" PRIu64, name, *obj);
++
++    return true;
++}
++
++static bool hmp_output_type_bool(Visitor *v, const char *name, bool *obj,
++                                 Error **errp)
++{
++    hmp_output_append_formatted(v, "%s=%s", name, *obj ? "true" : "false");
++
++    return true;
++}
++
++static bool hmp_output_type_str(Visitor *v, const char *name, char **obj,
++                                Error **errp)
++{
++    /* Skip already printed or unused fields */
++    if (!*obj || g_str_equal(name, "id") || g_str_equal(name, "type")) {
++        return true;
++    }
++
++    /* Do not print stub name for StringList elements */
++    if (g_str_equal(name, "str")) {
++        hmp_output_append_formatted(v, "%s", *obj);
++    } else {
++        hmp_output_append_formatted(v, "%s=%s", name, *obj);
++    }
++
++    return true;
++}
++
++static bool hmp_output_type_number(Visitor *v, const char *name,
++                                   double *obj, Error **errp)
++{
++    hmp_output_append_formatted(v, "%s=%.17g", name, *obj);
++
++    return true;
++}
++
++/* TODO: remove this function? */
++static bool hmp_output_type_any(Visitor *v, const char *name,
++                                QObject **obj, Error **errp)
++{
++    return true;
++}
++
++static bool hmp_output_type_null(Visitor *v, const char *name,
++                                 QNull **obj, Error **errp)
++{
++    hmp_output_append_formatted(v, "%s=NULL", name);
++
++    return true;
++}
++
++static void hmp_output_complete(Visitor *v, void *opaque)
++{
++    HMPOutputVisitor *ov = to_hov(v);
++
++    *ov->result = g_string_free(ov->buffer, false);
++    ov->buffer = NULL;
++}
++
++static void hmp_output_free(Visitor *v)
++{
++    HMPOutputVisitor *ov = to_hov(v);
++
++    if (ov->buffer) {
++        g_string_free(ov->buffer, true);
++    }
++    g_free(v);
++}
++
++Visitor *hmp_output_visitor_new(char **result)
++{
++    HMPOutputVisitor *v;
++
++    v = g_malloc0(sizeof(*v));
++
++    v->visitor.type = VISITOR_OUTPUT;
++    v->visitor.start_struct = hmp_output_start_struct;
++    v->visitor.end_struct = hmp_output_end_struct;
++    v->visitor.start_list = hmp_output_start_list;
++    v->visitor.next_list = hmp_output_next_list;
++    v->visitor.end_list = hmp_output_end_list;
++    v->visitor.type_int64 = hmp_output_type_int64;
++    v->visitor.type_uint64 = hmp_output_type_uint64;
++    v->visitor.type_bool = hmp_output_type_bool;
++    v->visitor.type_str = hmp_output_type_str;
++    v->visitor.type_number = hmp_output_type_number;
++    v->visitor.type_any = hmp_output_type_any;
++    v->visitor.type_null = hmp_output_type_null;
++    v->visitor.complete = hmp_output_complete;
++    v->visitor.free = hmp_output_free;
++
++    v->result = result;
++    v->buffer = g_string_new("");
++    v->is_continue = false;
++
++    return &v->visitor;
++}
+diff --git a/qapi/meson.build b/qapi/meson.build
+index 0652569bc4..94effbc052 100644
+--- a/qapi/meson.build
++++ b/qapi/meson.build
+@@ -8,6 +8,7 @@ util_ss.add(files(
+   'qobject-output-visitor.c',
+   'string-input-visitor.c',
+   'string-output-visitor.c',
++  'hmp-output-visitor.c',
+ ))
+ if have_system or have_tools
+   util_ss.add(files(
 -- 
 2.25.1
 
