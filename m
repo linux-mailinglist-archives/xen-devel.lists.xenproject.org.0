@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951593295FF
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 06:09:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92071.173754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D81329600
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 06:09:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92074.173766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGxHR-00018P-5T; Tue, 02 Mar 2021 05:09:09 +0000
+	id 1lGxHw-0001FJ-F0; Tue, 02 Mar 2021 05:09:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92071.173754; Tue, 02 Mar 2021 05:09:09 +0000
+Received: by outflank-mailman (output) from mailman id 92074.173766; Tue, 02 Mar 2021 05:09:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lGxHR-000181-1y; Tue, 02 Mar 2021 05:09:09 +0000
-Received: by outflank-mailman (input) for mailman id 92071;
- Tue, 02 Mar 2021 05:09:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lGxHw-0001Ew-BR; Tue, 02 Mar 2021 05:09:40 +0000
+Received: by outflank-mailman (input) for mailman id 92074;
+ Tue, 02 Mar 2021 05:09:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jRZ7=IA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lGxHP-0000yA-TF
- for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 05:09:07 +0000
+ id 1lGxHu-0001Ek-Ul
+ for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 05:09:38 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c880729-846f-4376-aa2f-8c94ae6ce6bb;
- Tue, 02 Mar 2021 05:09:01 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5147cfbd-9f68-4722-b412-7af76dd54a20;
+ Tue, 02 Mar 2021 05:09:38 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2F7E1AF3D;
- Tue,  2 Mar 2021 05:09:00 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 30BBEAAC5;
+ Tue,  2 Mar 2021 05:09:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,63 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c880729-846f-4376-aa2f-8c94ae6ce6bb
+X-Inumbo-ID: 5147cfbd-9f68-4722-b412-7af76dd54a20
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614661740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614661777; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1TW9pSjgpzjkAnqQ0WdScwVRo3/WOwaa14r67YRRcPY=;
-	b=oGeSZNCdl4QEjpkRcqSSEzGRsiSCt4HB7tF2rT16Vd6Ib40yO8npM8UquSkeSvTM06YlUY
-	imX3gz1SpQBwUPyukv7FRbXkroBFSxWvNIEcPpyU9BzWAtpfRBRPl/BYiNnEyVGfiRD/Ub
-	tjbBtUHMAt44aSqfhNMf7BjuMKIIhkY=
-Subject: Re: [PATCH XENSTORE v1 05/10] xenstore: handle daemon creation errors
+	bh=Xqt2DdK7P9EhLZRxH/HRNfAaIVhmUGAArlMd9FEdguY=;
+	b=lAMo7CvgRyRTrirWFycMFaBwNl2ivpH/7i007mb/QjVy4HoT3938Wqb0DwofcT+l0pbVOB
+	K9VuhEybE/tJTupa8e8g3JgR5IuZxToajJoUQGUmkqHslec91d4crirI8l5kAQTSobUWg5
+	z+tfti2YkF3s1XuY6J91dLt/C6288aM=
+Subject: Re: [PATCH XENSTORE v1 07/10] xenstore: handle do_mkdir and do_rm
+ failure
 To: Norbert Manthey <nmanthey@amazon.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
  Julien Grall <jgrall@amazon.co.uk>, Michael Kurth <mku@amazon.de>
 References: <20210226144144.9252-1-nmanthey@amazon.de>
- <20210226144144.9252-6-nmanthey@amazon.de>
+ <20210226144144.9252-8-nmanthey@amazon.de>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <959bc8f3-bcda-7209-84f1-8045e5fc9907@suse.com>
-Date: Tue, 2 Mar 2021 06:08:59 +0100
+Message-ID: <913c60fb-e9f8-eedc-ba75-985acd4d4c71@suse.com>
+Date: Tue, 2 Mar 2021 06:09:36 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210226144144.9252-6-nmanthey@amazon.de>
+In-Reply-To: <20210226144144.9252-8-nmanthey@amazon.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="W8uV8cJ8SLIuU9EoP39igu1rc3GRlhg2f"
+ boundary="Igii1kS1py62tVLzn22gEaNbyGMfkpxJ1"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---W8uV8cJ8SLIuU9EoP39igu1rc3GRlhg2f
-Content-Type: multipart/mixed; boundary="tADIUG5tdBSDxjD6OLwCzgpj6icznqtDI";
+--Igii1kS1py62tVLzn22gEaNbyGMfkpxJ1
+Content-Type: multipart/mixed; boundary="Byvk58AUib3gaQlepEAXeKOtLDDqWe9gx";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Norbert Manthey <nmanthey@amazon.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
  Julien Grall <jgrall@amazon.co.uk>, Michael Kurth <mku@amazon.de>
-Message-ID: <959bc8f3-bcda-7209-84f1-8045e5fc9907@suse.com>
-Subject: Re: [PATCH XENSTORE v1 05/10] xenstore: handle daemon creation errors
+Message-ID: <913c60fb-e9f8-eedc-ba75-985acd4d4c71@suse.com>
+Subject: Re: [PATCH XENSTORE v1 07/10] xenstore: handle do_mkdir and do_rm
+ failure
 References: <20210226144144.9252-1-nmanthey@amazon.de>
- <20210226144144.9252-6-nmanthey@amazon.de>
-In-Reply-To: <20210226144144.9252-6-nmanthey@amazon.de>
+ <20210226144144.9252-8-nmanthey@amazon.de>
+In-Reply-To: <20210226144144.9252-8-nmanthey@amazon.de>
 
---tADIUG5tdBSDxjD6OLwCzgpj6icznqtDI
+--Byvk58AUib3gaQlepEAXeKOtLDDqWe9gx
 Content-Type: multipart/mixed;
- boundary="------------83840B20186CF4C0319A64C6"
+ boundary="------------A47CB70527E16902772CFC51"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------83840B20186CF4C0319A64C6
+--------------A47CB70527E16902772CFC51
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 26.02.21 15:41, Norbert Manthey wrote:
-> In rare cases, the path to the daemon socket cannot be created as it is=
-
-> longer than PATH_MAX. Instead of failing with a NULL pointer dereferenc=
-e,
-> terminate the application with an error message.
+> In the out of memory case, we might return a NULL pointer when
+> canonicalizing node names. This NULL pointer is not checked when
+> creating a directory, or when removing a node. This change handles
+> the NULL pointer for these two cases.
 >=20
 > This bug was discovered and resolved using Coverity Static Analysis
 > Security Testing (SAST) by Synopsys, Inc.
@@ -108,7 +110,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------83840B20186CF4C0319A64C6
+--------------A47CB70527E16902772CFC51
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -199,25 +201,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------83840B20186CF4C0319A64C6--
+--------------A47CB70527E16902772CFC51--
 
---tADIUG5tdBSDxjD6OLwCzgpj6icznqtDI--
+--Byvk58AUib3gaQlepEAXeKOtLDDqWe9gx--
 
---W8uV8cJ8SLIuU9EoP39igu1rc3GRlhg2f
+--Igii1kS1py62tVLzn22gEaNbyGMfkpxJ1
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA9yGsFAwAAAAAACgkQsN6d1ii/Ey8n
-nwf9FoM1pbGyVHBE9mefXeonmfaq9QwTaVJokrYHRusPTJTBy5RCzdLtlFRUmk+jMosYJTQ+BV9C
-hw6wEG/tpM299MyMk+7LqQyjI5+cfSIaXbjOFYZqALEViAJLjP2IQK8SEvUgK0I8rBrlLQ/kuSWD
-u1/5qUCnpCFWttKC5vIsscAVpm63O9+IfYqZgVnLOUfWtFO0Bvp2EX9xezeCwgl2ePiHUpj45FsD
-D0CyECn4ebpOullAOW3L0pMk+SuGfg5XkbnZUXONyHNNw2O2iPXFL9EdZZDbH2WugsavxQvS2wjy
-g3jr7oUpJEow6lO4rg5giAPqShXfVRhugASbsJkNgw==
-=h9Cw
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA9yJAFAwAAAAAACgkQsN6d1ii/Ey9a
+MAf8CmLUKjB5+xwa9pytyEVQXyYSzNJUeRlAwN0ku9gErXKmiNtR/rjjhZltmiDfPlFOfFzJzIbU
+0NgecTm56Z/ex11gEii0pSnTOACN9hn8kNT/zil8vI06YJvY+2FiHs/J+z0JuJpauE+DewgC/5gT
+z3RmT0WMsbv2/cQfThbi/1XR1wxbZFHyeoQjbLvY2PYoQOXcFg7/01/C1eoiVRtGWY+adn0dtF4H
+viHZHMPJdit4XngVgIv39rSkZ9Sx+YrZOCEHAHwCjxkx+lJmYKa784BV11Yo9dIjtE/ZVW37FBih
+fEO2NxePLefyWywZ2gn4Xn+zIimfbwDrvFARrSK89w==
+=1HUO
 -----END PGP SIGNATURE-----
 
---W8uV8cJ8SLIuU9EoP39igu1rc3GRlhg2f--
+--Igii1kS1py62tVLzn22gEaNbyGMfkpxJ1--
 
