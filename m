@@ -2,36 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0819232A10E
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 14:41:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92370.174272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0B632A336
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 16:03:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92397.174285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lH5HG-0006c4-W2; Tue, 02 Mar 2021 13:41:30 +0000
+	id 1lH6Ww-0006HM-PW; Tue, 02 Mar 2021 15:01:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92370.174272; Tue, 02 Mar 2021 13:41:30 +0000
+Received: by outflank-mailman (output) from mailman id 92397.174285; Tue, 02 Mar 2021 15:01:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lH5HG-0006bi-Sg; Tue, 02 Mar 2021 13:41:30 +0000
-Received: by outflank-mailman (input) for mailman id 92370;
- Tue, 02 Mar 2021 13:41:29 +0000
+	id 1lH6Ww-0006Gv-KA; Tue, 02 Mar 2021 15:01:46 +0000
+Received: by outflank-mailman (input) for mailman id 92397;
+ Tue, 02 Mar 2021 15:01:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MJKK=IA=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1lH5HF-0006bd-JB
- for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 13:41:29 +0000
-Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
+ <SRS0=IOGE=IA=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lH6Wv-0006Gq-5s
+ for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 15:01:45 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 03c1edf3-7e52-4a69-b18e-48cc1fc4f785;
- Tue, 02 Mar 2021 13:41:28 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 3E7715C0050
- for <xen-devel@lists.xenproject.org>; Tue,  2 Mar 2021 08:41:28 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Tue, 02 Mar 2021 08:41:28 -0500
-Received: from mail-itl (ip5b434f04.dynamic.kabel-deutschland.de [91.67.79.4])
- by mail.messagingengine.com (Postfix) with ESMTPA id A5BFB108005F
- for <xen-devel@lists.xenproject.org>; Tue,  2 Mar 2021 08:41:27 -0500 (EST)
+ id ae5133b3-6538-46fc-a092-0a6106e44bd1;
+ Tue, 02 Mar 2021 15:01:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,185 +35,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03c1edf3-7e52-4a69-b18e-48cc1fc4f785
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=content-type:date:from:message-id
-	:mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; bh=bfykdhqW1pbs8W/A+KfC9/i9W6sQE
-	52oi/IdW1s/LRg=; b=HrsxXZ747Y6uFKAqTstqyT2Y+0JBFgy2/WNW6weTPCZEL
-	vR7/ALE8ujXasc0mYJg0ANCN6t3hQ+OOxSoJiKGldfzzkIlMk9Y4aASaVm0hu5QA
-	7K11LAF9Mz9dlM9RQTXG/I0/syomKqxbWmVWSTPnqze8q+Hhb+t33SV2Tm8ebpJ5
-	S0pwY6s/aKvGQDdhWsTwcZ1HaP10ev8hqLC6NNASgQcHMRmatC429bBZmiE2jKLx
-	PSwEmRMHHzltUIvrog8eYJOk3nOMyvhT7CBZLyVX0dXFe75lYW6VfsVx1+hdaWSi
-	49dcmwA+tYdq17HSvJ28PWlOW5x+lFvKGLPX7Lpvg==
-X-ME-Sender: <xms:h0A-YKFKWUynafn-9zWk0zEM11QRVLFPhynDZhn9OeOEJPpC16qy2A>
-    <xme:h0A-YLWIc23sb06bynWiD2POl2odMDeAxFGxdb2wLF52yoGZWwXMKeMyGDG-nJd2Q
-    _sxKRiYha8q-w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddttddgheehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
-    dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
-    uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
-    cuggftrfgrthhtvghrnhepteduteeiudevkeegvefhtdekhfelgffhhedukedvvdeuuddv
-    jeehvddtieehudfgnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucfkphepledurd
-    eijedrjeelrdegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:iEA-YEIrQFs-_MdGLxu1785mev5tzEUO1rYRLzaG0-dMouPaymemvQ>
-    <xmx:iEA-YEEj6-JRIw7KFH_KlbCq8MZyMZ0LS_a2hKsOTbk7_N6dANflmw>
-    <xmx:iEA-YAUt-vkayod2v55pJYykiJirjmKu0GxN0Ux1Fr7BSpFSQH6qqQ>
-    <xmx:iEA-YBUhC6Xkt6eWwi4lbNop7kRTkTxlP8T9V1wws7WbXcbJCFVp3Q>
-Date: Tue, 2 Mar 2021 14:41:24 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Linux >= 5.9 PV dom0 crash when starting a HVM - AMD Ryzen 4750U,
- Xen 4.14.1
-Message-ID: <YD5AhCSN/8ZS2pNn@mail-itl>
+X-Inumbo-ID: ae5133b3-6538-46fc-a092-0a6106e44bd1
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614697302;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=C1ctjyifuLgKotDqKZrUYexPmT/bCj8TTpx7Q/FbiYM=;
+  b=YczOcuAZ8Q6+U4TFXIr3s654a7m9OFioWErPIwseD2H07ZL1u/R7SaGA
+   A000cafwFbSKlb/RXwumNYBSlXMGYcLI2R8UYPrMm1MEnzjGw3xeghw1k
+   vdur05tZHQui2hUfNAzgVBnpX3Ukmlmi3Hk7ZYSJjbEHyD5S5yWb1uwFl
+   M=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 9PEQjBZwdAHsWsKM1Uk7PhPKBs0L3HLvLbelO+EDykXZ2z+yLBeE1AxVongbTGAa7WXFPFmEJP
+ DWbfgCMohd/W4RacT34cCis0rch97U+mm8xM0B6MtBVAoprLRO4mgYeqWXkNxs9IWEKUi7EF1G
+ BVdfNlNqM5EDQByWDR6x8jOjNMCgRzRW3HAjvDq5Ll7t/nIUICBpxA2ETwm4Z4Jfwp1vz+Xy16
+ sjMp/1UwS7A8k0Fyo5TqnYB5fTWkCNvgFlvbGWVqcFZiyIwQCa05ey8aa76fHlFMI1i/f9C83Z
+ 0Zk=
+X-SBRS: 5.2
+X-MesageID: 38710780
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,216,1610427600"; 
+   d="scan'208";a="38710780"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VapDLthl+lDC0N7JsGjrjS8kDP7W4qFR3Jg1ZNCg5Da8GCGYSt6dvxCv47CmWniYaoj7TsY4pJkWneqczkwMTEHhusXjOjhkpsb0dQzj6XwwdMXc5zYdo3/uPAuk+NA3EuL5I5UiPc9MaVuwCghf6AzyMhWGRkOkSrop2gV2ubZ50WTt27ZBPlo2iGTXkhtBbIvKH/SIIKGB3ndZxxcot3KlpCmFyBuf2Ldg547omP31qWON7VC8WbDNHC6yQQvJjkLCIsryz5FoSCG7K4bPb0M+yltBbbYV7/tx1DLLkBTLRCaouCUsR9fe/dYiiHP1ll6G7w1lT/rW3SAyY1y38A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f6GGem3553ZQJ2A8xBoubF1bosk6d1m7VHnE/mfJrcg=;
+ b=KLUAE7xrEk8TKjWtIrhQFcm4f5PCa3O354aYw7eAkAJ3enyPGOCOSN5/wH02vKN5YKD6IB7VUeHLENIbaLYC05Cqbvvv5EPvGSCBx4wkvs+6tQBs0xWNRILX7xKuNMh9miW4VUc4rpyjLkNnq3DuWmoa+hHnPL0iGZHU2LjkfDJXNFhonpEB3p3/UeTDRaMX5ujB8QVMHlCKetC49yLhoPMdGvOjty1X6uaEN6vLJy6Y1LMPyTgiNHdH2AZJ/RmN9U14RU2YGkE2iTMx/LSzvbrOeyGn8VcqcP6MxYO3CuWG+Rt1bsxqO0Qy1Xc2nI6TTBGVEjQh0TyRtipW+/3/ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f6GGem3553ZQJ2A8xBoubF1bosk6d1m7VHnE/mfJrcg=;
+ b=tYBQECkDzq1xnCAMf5zrGlf4zYd8gIioMOcEAMwsMytl+tyottmB35YruLydZQ3uIXoM5KvAFRJhDPdPqkbmbscHJ1QJ1vLvWxnyQ5Y6TMyPSCK+65Bb0zXCE5eEqaG+Dupte8vO5mPM3SzmPuT1yK9BwRJoXA6xF0mP4afk1/I=
+Date: Tue, 2 Mar 2021 16:00:21 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>, Kevin
+ Tian <kevin.tian@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH RFC for-4.15] x86/msr: introduce an option for legacy MSR
+ behavior selection
+Message-ID: <YD5TBSwZWzjlwGxD@Air-de-Roger>
+References: <20210301162357.76527-1-roger.pau@citrix.com>
+ <bfd185bf-489f-d858-c459-7630cbe7b462@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <bfd185bf-489f-d858-c459-7630cbe7b462@suse.com>
+X-ClientProxiedBy: MR2P264CA0119.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:33::35) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="V4+c/tmaqDsS6m6l"
-Content-Disposition: inline
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 987de990-3fa3-4b35-2d34-08d8dd8beb13
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3739:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB3739497FBED3470F5BA8BF9D8F999@DM6PR03MB3739.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pg6NPQMqzUZgBNfFapfaEgogdAsQOjWclHIF3CiSprUO+L1EpyIPYR3+9YG7PWbmy618nhWByLA5w/CQt7DhJbTcyFwiueopqun7fycKxB/0t1I7ECFGH0dTkYfDsJBz5mILlgilvHPa1BsgfmctzmCaBWxN2BbrR1B8X1n5elJg4lAkmkjhVFRkdyZ4vcKoCIv6HNqozd9Xc/uufHHmT9kGgozlWEuqYJnsDKfyd+Tq4lv+BHigEGoigNtd5TPwHkON7EZiiXEH746ZIunYWxickF1xoTOzozkwkR6XR+6Osc6XOA4PiX3NwsM5lQAXcuHSJlx6jMsDUP5p0jls9pBQih/RDl3bGpsIxrdWelPQcucqQKuYzfBut4KhnzMN7BMiJz/GmObI3UxNqUlBHh/czBeAwVnI3R42Om4Y4B0UKgdIHvV1ElhU/7/GY5foZamQWphV0j9gLe0cFjxF6KOiouV1lmCGJicFZEpAXeb8+Y7Ql7OIAETBxLWlVuLgHpn/ASPxDUcnFr+BqDjZ5A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(346002)(376002)(136003)(396003)(39860400002)(66556008)(66476007)(85182001)(4326008)(5660300002)(6916009)(86362001)(6486002)(9686003)(66946007)(186003)(956004)(8936002)(2906002)(53546011)(316002)(33716001)(54906003)(83380400001)(6666004)(478600001)(6496006)(16526019)(8676002)(26005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NmxUbCtMYUcyU25iTHBUTVM1elNxN1BlV3BNeFZWSzhsWmlOQ3pQWUdPWGZs?=
+ =?utf-8?B?L1ZROElnWUhidFZPZnBhbHhVcmFDYmxqazl3cHlkVWh6S21OdWcwcWVmVlA4?=
+ =?utf-8?B?dXJ1ODA2cGxnMjJDTUp3QU1SdDBWb2VzY3BIb2lrdnBJUm02bG94L0cxMi9N?=
+ =?utf-8?B?eDE5RVlkM3dJUXc2NG1POHgraHZ4ZGtYeDUxWnI5QUoxd3JESFJKRERYMDVq?=
+ =?utf-8?B?MEJzVVVNZ0d1bkdVc2drQXRmalZDTzRPanRyTjB0UFFFdWJRUGQyMkRyS0Mv?=
+ =?utf-8?B?YkFPYjRwODc0Z2VwVG9aNkNEWWY1TnRlMkJ5Z0N6eEJCa0IrYnZwcUlOS25Q?=
+ =?utf-8?B?b09RVXhtb3JFTDRvS25KQmNkMi8ybE5KQU1ZWEVZQXJlUGZ5dW4rUjU1aHIw?=
+ =?utf-8?B?SjFZNFlSRm9FRkRkRlViWm9POGRYUG9zdkduNEkwTytmMk5yN09QajlrL1ZY?=
+ =?utf-8?B?NnFFMkRzR21peHN3dy9iMUE2bHd1UlFxY05tSkVmV3FncHlULzJKOUErU1po?=
+ =?utf-8?B?cStodDhCeThSbEdUb1pPRDNkK0ltKzhXUnhJbTEvVm5Ld3hXOUUxSEw0YURm?=
+ =?utf-8?B?VmY4RVprM3ZhUTRWN2JIWWMzOC8vTllFSDZwbjRmOVFQTkV1d3A2cjhURnFI?=
+ =?utf-8?B?UWNIa05TOUlBdmVFSzlLVmdlMFAydFZYSkJJNlk4REhCZlFrbDNmL1BTTTQ4?=
+ =?utf-8?B?M2FiTi8yQ1I1LzF4Q1hvdjZZQ256ZTlGODVtVFJqVGNYV21XWXNHYTFTVzFY?=
+ =?utf-8?B?MVMrSmFlVkhsRjc4V2lnM2JiMjhjYkp4aXpyRTNtZkVuOEhUY3ArSkExS3Mv?=
+ =?utf-8?B?VTZxTnZ6MVNQK29NN3pZM3RnTlY3Vzh1blVURURqUGpqM1JONmhNMlZNTWZR?=
+ =?utf-8?B?UVhhbXEvanQycVExc0wzUm1QWHA2WmRBQlFSUkRoTmIvQUEzb015TlhwZGJ2?=
+ =?utf-8?B?TDgwUGM4bU94RENEQlA5WTVRd2laNTlBU2M3OGdnUHN3QmtCanFPTHBjM0Yv?=
+ =?utf-8?B?cXJrZHAyNGxqN1JBenFUTGNSZW9PMnpPbG1JcytjdXJMWjEzY05tZlVaOXRr?=
+ =?utf-8?B?NENqWUM0SlhNYm5wTndjRXRqYzlmMnVEaThCSTJOVlZkR2g1Sk1HbVJKUXZh?=
+ =?utf-8?B?U09KTEI0L1dzUDNSbDV4QUJUQm9rL3h1UmpCckFaQ202T1pJU0hWa1lGTndI?=
+ =?utf-8?B?YmE4dVJ2SDZRcEhGNXMrR0lZZmNWb2hGYVcxSHd0WE1zKzBQNjVlS1dwTDl2?=
+ =?utf-8?B?eUV0eVZLeU81UXUxYlAyNGhOdzRlNXZtcXpGKzFOSWdpbFJZQ0tyNDJ4ZEx4?=
+ =?utf-8?B?MTFGeFNLd0w3aW5tOVZpZW9maUNYL2NrdGluWDU0UWF3RmZsdkZnQ0llM0Z5?=
+ =?utf-8?B?WHpvSFcvTUE4V2Fxb2xZcnpNMjRIdExBR2JtR1JoczQxNnNQNVhFbU1Hbkhm?=
+ =?utf-8?B?b0xCZUhzZ0xHZTVnTkZZdnRONnN2T0V1dEF6b2VqdHY3aWdvcVF2Tm5uMXN4?=
+ =?utf-8?B?Zis0QXo2Um56NzFoUy9xR2d1c3ZPRWw1TTY4T2ovU2RTWURhOXQvNlZCUG9F?=
+ =?utf-8?B?ZWNueXRvTUEraUdzTDg5Si9nSklTN2V0VDVvWHRyNXRVRXZndDA5MG82c3Vj?=
+ =?utf-8?B?N0dpVHJTc0pYUW0vM2w3NG9WVXRQeFUrQkVTdmY2eExoMFlYekNPcjRXSHBL?=
+ =?utf-8?B?SE5JVzAyWWZsWHdibkRHY1MxYXFqcWJ4dFM3N1NXMEhqYjJlNkNhQWEyN0J2?=
+ =?utf-8?B?YlF0SHBGeFJNQmpiSHY5NkVXUkdKaHlkcUJRVXVhS0JSQ2dMemdOelI0V2Va?=
+ =?utf-8?B?aVFiY1RMd1NZN2Z6THUzQT09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 987de990-3fa3-4b35-2d34-08d8dd8beb13
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2021 15:00:28.9648
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qFo9Dwf+e5Kda/A2TiOXDGCWqV73CMU671tj7UghTH1eOxjHFSsDbT1htZgdxVgP86ys8aw8gFJZCBzGwlUlPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3739
+X-OriginatorOrg: citrix.com
 
+On Tue, Mar 02, 2021 at 12:16:12PM +0100, Jan Beulich wrote:
+> On 01.03.2021 17:23, Roger Pau Monne wrote:
+> > Introduce an option to allow selecting the legacy behavior for
+> > accesses to MSRs not explicitly handled. Since commit
+> > 84e848fd7a162f669 and 322ec7c89f6640e accesses to MSRs not explicitly
+> > handled by Xen result in the injection of a #GP to the guest. This is
+> > a behavior change since previously a #GP was only injected if
+> > accessing the MSR on the real hardware will also trigger a #GP.
+> > 
+> > This seems to be problematic for some guests, so introduce an option
+> > to fallback to this legacy behavior. The main difference between what
+> > was previously done is that the hardware MSR value is not leaked to
+> > the guests on reads.
+> 
+> Looking at the WRMSR behavior for PV, what you introduce isn't
+> matching 4.14 behavior: If rdmsr_safe() failed, all that effected
+> was the issuing of a log message. The behavior you propose is
+> better, no question, but it shouldn't be described as matching
+> legacy behavior then.
+> 
+> Somewhat related to this I wonder whether MSR reads and writes
+> wouldn't better be controllable independently. It seems quite
+> likely that a kernel may have an issue only with reads.
+> 
+> Additionally I wonder whether it is a good idea to let these
+> events go silently.
+> 
+> > Note that this option is not made available to dom0. I'm not sure
+> > whether it makes sense to do so, since anyone updating Xen to such
+> > newer version will also likely pair it with a newish kernel that
+> > doesn't require such workarounds.
+> 
+> No, that's not an option imo. It was a Dom0 where I ran into the
+> problem causing me to submit "x86/PV: conditionally avoid raising
+> #GP for early guest MSR accesses". While I could upgrade that
+> system, I have reasons for not doing so. And while I could put a
+> more modern kernel on there, I'd prefer if the distro kernel
+> continued to work. (That's leaving aside that for unrelated
+> reasons building and using my own, newer kernel there is quite a
+> bit more difficult than on all other of my test systems.)
+> 
+> > RFC because there's still some debate as to how we should solve the
+> > MSR issue, this is one possible way, but IMO we need to make a
+> > decision soon-ish because of the release timeline.
+> 
+> Generally I think it would be far better from a user pov if
+> things worked out of the box, at least in cases where it can be
+> made work. Arguably for Solaris this isn't going to be possible
+> (leaving aside the non-option of fully returning back to original
+> behavior), but for the old-Linux-PV case I still think my proposed
+> change is better in this regard. I realize Andrew said (on irc)
+> that this is making the behavior even weaker. I take a different
+> perspective: Considering a guest will install exception handlers
+> at some point, I continue to fail to see what good it will do to
+> try to inject a #GP(0) when we know the guest will die because of
+> not having a handler registered just yet. It is a kernel flaw,
+> yes, but they ended up living with it merely because of our odd
+> prior behavior, so we can't put all the blame on them.
 
---V4+c/tmaqDsS6m6l
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 2 Mar 2021 14:41:24 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Linux >= 5.9 PV dom0 crash when starting a HVM - AMD Ryzen 4750U,
- Xen 4.14.1
+My concern with this would mostly be with newer guests, in the sense
+that people could come to rely on this behavior of not injecting a
+#GP if the handler is not setup, which I think we should try to avoid.
 
-Hi,
+One option would be to introduce a feature that could be used in the
+elfnotes to signal that the kernel doesn't require such workarounds
+for MSR #GP handling, maybe:
 
-I've got a report about a Linux regression on AMD hardware, this time
-with a backtrace! Reportedly, the last functional kernel was 5.8.x (.16,
-but that's because we moved to 5.9.x and skipped .17 and .18). This is
-consistent with other reports that anything >=3D 5.9 is unstable on some
-AMD machines.
+/*
+ * Signal that the kernel doesn't require suppressing the #GP on
+ * unknown MSR accesses if the handler is not setup. New kernels
+ * should always have this set.
+ */
+#define XENFEAT_msr_early_gp   16
 
-Details of this config:
- - Xen 4.14.1 close to vanilla hypervisor-wise
- - PV dom0
- - Dom0 kernel also very close to vanilla
- - HVM domains in question both have PCI passthrough and qemu in
-   stubdomain (but that's probably not relevant here)
- - AMD Ryzen 4750U
+We could try to backport this on the Linux kernel as far as we can
+that we know it's safe to do so.
 
-The backtrace:
-[   43.497440] kernel BUG at arch/x86/xen/p2m.c:656!
-[   43.497923] invalid opcode: 0000 [#1] SMP NOPTI
-[   43.498404] CPU: 0 PID: 2347 Comm: xenstored Tainted: G        W        =
- 5.10.16-1.fc32.qubes.x86_64 #1
-[   43.498874] Hardware name: HP HP EliteBook 835 G7 Notebook PC/8760, BIOS=
- S77 Ver. 01.02.03 11/27/2020
-[   43.499362] RIP: e030:___set_phys_to_machine+0x71/0x190
-[   43.499847] Code: 85 c0 75 28 b8 01 00 00 00 48 8b 4c 24 08 65 48 2b 0c =
-25 28 00 00 00 0f 85 0a 01 00 00 00 48 83 c4 10 5b 5d c3 48 83 fe ff 74 da =
-<0f> 0b 48 03 3d ce
-[   43.500368] RSP: e02b:ffffc90001ff7cc8 EFLAGS: 00010293
-[   43.500895] RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffff888139c=
-18a88
-[   43.501426] RDX: 00000000ffffffd8 RSI: 0000000000a51101 RDI: 00000000001=
-47fff
-[   43.501958] RBP: 0000000000a51101 B08: 0000000000000000 B09: ffffc90001f=
-f7b30
-[   43.502407] R10: ffffc90001ff7b28 R11: ffffffff82944488 R12: ffff8881071=
-4c6a8
-[   43.503020] R13: 0000000000a51101 R14: 0000000000147fff R15: 00000000000=
-00000
-[   43.503557] FS: 00007813cd907d00(0000) GS:ffff888139c00000(0000) kn1GS:0=
-000000000000000
-[   43.504101] CS: e030 DS: 0000 ES: 0000 CR0: 0000000000050033
-[   43.504651] CR2: 000000000000d8c038 CR3: 0000000102ae4000 CR4: 000000000=
-0050660
-[   43.505203] Call Trace:
-[   43.505744]  set_foreign_p2m_mapping.part.0+0x164/0x320
-[   43.506302]  gntdev_map_grant_pages+0x5d/0x350 (xen_gntdev)
-[   43.506852]  gntdev_mmap+0x199/0x2f9 (xen_gntdev)
-[   43.507408]  mmap_region+0x47e/0x720
-[   43.507957]  do_mmap+0x438/0x540
-[   43.508514]  ? security_mmap_file+0x81/0xd0
-[   43.509054]  vm_mmap_pgoff+0xdf/0x130
-[   43.509606]  ksys_mmap_pgoff+Ox1d6/0x240
-[   43.510170]  do_syscall_64+0x33/0x40
-[   43.510714]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-[   43.511263] RIP: 0033:0x7813cdbfa2e6
-[   43.511835] Code: 01 00 66 90 f3 0f 1e fa 41 f7 c1 ff 0f 00 00 75 2b 55 =
-48 89 fd 53 89 cb 48 85 ff 74 37 41 89 da 48 89 ef b8 09 00 00 00 0f 05 <48=
-> 3d 00 f0 ff ff 77
-[   43.512442] RSP: 002b:00007ffeb83042f8 EGLAGS 00000246 ORIG_RAX: 0000000=
-000000009
-[   43.513045] RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007813cdb=
-fa2c6
-[   43.513654] RDX: 0000000000000003 RSI: 0000000000001000 RDI: 00000000000=
-00000
-[   43.514276] RBP: 0000000000000000 R08: 000000000000000f R09: 00000000000=
-00000
-[   43.514688] R10: 0000000000000001 R11: 0000000000000246 R12: 00007ffcb83=
-04310
-[   43.515498] R13: 0000000000000003 Ri4: 000000000000000f R15: 00000000000=
-00001
-[   43.516188] Modules linked in: nf_tables nfnetlink vfat fat hp_smi spars=
-e_keymap wmi_bmof uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v41=
-2 videobuf2_common=20
-da_codec_generic k10temp i2c_piix4 snd_pci_acp3x lcdtrig_audio mc snd_hda_c=
-odec_hdmi snd_hda_intel btusb snd_intel_dspcfg joydev btrtl snd_hda_codec b=
-tbcm btintel snd_hda=20
-pcm snd_timer iwlwifi snd soundcore cfg80211 ucsi_acpi typec_ucsi rfkill ty=
-pec wmi cm32181 video industrialio hp_wireless fuse xenfs ip_tables dm_thin=
-_pool dm_persistent
-titouch amdgpu crct10duf_pclmul crc32_pclmul crc32c_intel nvme iommu_v2 gpu=
-_sched ttm i2c_algo_bit drm_kms_helper cec drm ghash_cimuini_intel xhci_pci=
- xhci_pci_renesas=20
-back xen_blkback xen_gntalloc xen_gntdev
-[   43.516186] xen_evtchn uinput
-[   43.528491] ---[ end trace 0f195b254c08766c ]---
-[   43.689504] RIP: e030:__set_phys_to_machine+0x71/0x190
-[   43.618326] Code: 05 c0 75 28 b8 01 00 00 00 48 0b 4c 24 O8 65 48 2b 0c =
-25 28 00 00 00 Of 05 0a 01 00 00 48 83 c4 10 5b 5d c3 48 83 fe ff 74 da <Of=
-> 0b 48 03 34 ce 31
-[   43.611124] RSP: e02b:ffffc90001ff7cc8 EFLAGS: 00010293
-[   43.611933] RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffff888139c=
-18a88
-[   43.612736] RDX: 00000000ffffffd8 RSI: 0000000000a51101 RDI: 00000000001=
-47fff
-[   43.613534] RBP: 9999999999a51101 R08: 0000000000000000 R09: ffffc90001f=
-f7b38
-[   43.614320] R10: ffffc90001ff7b20 R11: fffffffff8294488 R12: ffff8881871=
-4c6a8
-[   43.615119] R13: 0000000000a51101 R14: 0000000000147fff R15: 00000000000=
-00000
-[   43.615925] FS:  00007813cd987d00(0000) GS:ffff888139c00000(0000) kn1GS:=
-0000000000000000
-[   43.616714] CS:  e030 DS: 0000 ES: 0000 CRO: 0000000000050033
-[   43.617519] CR2: 0000000000d8c038 CR3: 0000000102ae4000 CR4: 00000000000=
-58660
-[   43.618313] Kernel panic - not syncing: Fatal exception
-[   43.619137] Kernel Offset: disabled
+If this is not acceptable then I guess your solution is fine. Arguably
+PV has it's own (weird) architecture, in which it might be safe to say
+that no #GP will be injected as a result of a MSR access unless the
+handler is setup. Ideally we should document this behaviour somewhere.
 
-The original report:
-https://github.com/QubesOS/qubes-issues/issues/6397#issuecomment-788879968
+Maybe we could add a rdmsr_safe to your path akin to what's done
+here?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+> 
+> This isn't to say that I'm against propagating exceptions where
+> there's no alternative to delivering one. Also I'm certainly open
+> to further tighten the condition of when to zap such an exception
+> (e.g. only as long as there's no handler _and_ the guest is still
+> in UP mode, assuming of course this would still address the
+> observed issue).
+> 
+> > --- a/docs/man/xl.cfg.5.pod.in
+> > +++ b/docs/man/xl.cfg.5.pod.in
+> > @@ -2861,6 +2861,17 @@ No MCA capabilities in above list are enabled.
+> >  
+> >  =back
+> >  
+> > +=item B<msr_legacy_handling=BOOLEAN>
+> > +
+> > +Select whether to use the legacy behaviour for accesses to MSRs not explicitly
+> > +handled by Xen instead of injecting a #GP to the guest.  Such legacy access
+> > +mode will force Xen to replicate the behaviour from the hardware it's currently
+> > +running on in order to decide whether a #GP is injected to the guest.  Note
+> > +that the guest is never allowed access to unhandled MSRs, this option only
+> > +changes whether a #GP might be injected or not.
+> 
+> This description is appropriate for reads, but not for writes:
+> Whether a write would fault can only be known by trying a write,
+> yet for safety reasons we can't risk doing more than a read. An
+> option might be to make writes fault is the to be written value
+> differs from that which the probing read has returned (i.e. the
+> same condition which originally had caused a log message to appear
+> in 4.14 for PV guests).
 
---V4+c/tmaqDsS6m6l
-Content-Type: application/pgp-signature; name="signature.asc"
+Read values for unhandled MSRs will always be 0 with the proposed
+code, so we would inject a #GP to the guest for any write attempt to
+unhandled MSRs with a value different than 0.
 
------BEGIN PGP SIGNATURE-----
+Maybe we should just inject a #GP to the guest for any attempts to
+write to unhandled MSRs?
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmA+QIQACgkQ24/THMrX
-1yw3Tgf+NqLQwCMP2OtD1gQvM4yl6152K6LEOqo+sq9tma4e91nPZUSgy5BRJnI/
-Gd8y/kz9bOn3fskqxeXlTCV/4vn4tFIdu2kjFphICIm/2hrgtWm0ts077ysl3g/t
-F0rYlkcUpmk5CYTrSLdAEf9O9ibMqhkYYzR6ua9/9B6n52AdmamhZK7dp7sn4N9w
-EPAtqDSkd9hftyAbXHdtPa24K/ImOg6sUOHDUPg7tLjsHzGmhTPte1/G/lrxUm7r
-0TmawpYfR4LnNszBMl6tXRk3YSJC5Xd6p+vaRwPUfVyOb5B1/hWoDDX1ghqCQXGE
-eTPSjukVUr+WUpWdAx0AfFMRdxyNzA==
-=N8IZ
------END PGP SIGNATURE-----
+> > --- a/tools/libs/light/libxl_types.idl
+> > +++ b/tools/libs/light/libxl_types.idl
+> > @@ -644,6 +644,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
+> >      ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+> >                                 ("vuart", libxl_vuart_type),
+> >                                ])),
+> > +    ("arch_x86", Struct(None, [("msr_legacy_handling", libxl_defbool),
+> > +                              ])),
+> 
+> Seeing this I'm wondering whether the entire set of arch_*
+> shouldn't be within a union. But afaics this would have further
+> implications on code elsewhere, so surely wouldn't want doing
+> right now.
 
---V4+c/tmaqDsS6m6l--
+Right, I thought the same but I'm not sure we can change this now, as
+it's part of the API. Adding new fields is fine, but adding a union
+field with arch_arm would change the structure as we would need to add
+a 'u' (or equivalent) field here.
+
+> > --- a/xen/arch/x86/domain.c
+> > +++ b/xen/arch/x86/domain.c
+> > @@ -852,6 +852,9 @@ int arch_domain_create(struct domain *d,
+> >  
+> >      domain_cpu_policy_changed(d);
+> >  
+> > +    d->arch.msr_legacy_handling = config->arch.domain_flags &
+> > +                                  XEN_X86_LEGACY_MSR_HANDLING;
+> 
+> Somewhere you'd also need to refuse processing requests with any
+> of the other 31 bits set.
+
+Yes, I need to sanitize the flags.
+
+Thanks, Roger.
 
