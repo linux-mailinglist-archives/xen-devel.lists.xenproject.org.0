@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AD7B3296CF
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 09:12:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92174.173913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA4603296D0
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Mar 2021 09:15:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92177.173925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lH08V-0004ko-RF; Tue, 02 Mar 2021 08:12:07 +0000
+	id 1lH0BG-0004tN-FA; Tue, 02 Mar 2021 08:14:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92174.173913; Tue, 02 Mar 2021 08:12:07 +0000
+Received: by outflank-mailman (output) from mailman id 92177.173925; Tue, 02 Mar 2021 08:14:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lH08V-0004kP-Ng; Tue, 02 Mar 2021 08:12:07 +0000
-Received: by outflank-mailman (input) for mailman id 92174;
- Tue, 02 Mar 2021 08:12:06 +0000
+	id 1lH0BG-0004sy-Bz; Tue, 02 Mar 2021 08:14:58 +0000
+Received: by outflank-mailman (input) for mailman id 92177;
+ Tue, 02 Mar 2021 08:14:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jRZ7=IA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lH08T-0004kK-Sw
- for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 08:12:05 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IOGE=IA=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lH0BF-0004st-7F
+ for xen-devel@lists.xenproject.org; Tue, 02 Mar 2021 08:14:57 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 782b3db3-c6c3-473f-a1f1-3037a77be25d;
- Tue, 02 Mar 2021 08:12:04 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8FC7EAE47;
- Tue,  2 Mar 2021 08:12:03 +0000 (UTC)
+ id 0318466f-0369-4cbc-b8c0-9cd3dd555162;
+ Tue, 02 Mar 2021 08:14:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,249 +36,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 782b3db3-c6c3-473f-a1f1-3037a77be25d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614672723; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1hJRPiybZjyv+cnRIG11H1nxfrg8yfGJ2OEZU2mIilc=;
-	b=LkaU7mXXv7+EEj+nsxRt9VfohXtfbfQ7cONuuqMJm+f48iO5hlHTivi0ZKKkfF0uSGKtry
-	tRHHZWAxVc9ODfeiucJ2qctX0SNMyctRqctOB+oswCFi8BOS/8lJun+hhuG8DO8LlnzyDV
-	tuX5KtJhDZXN4hLZzG73lZf2V+Q/Tj4=
-Subject: Re: [PATCH XENSTORE v1 06/10] xenstored: handle port reads correctly
-To: Norbert Manthey <nmanthey@amazon.de>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.co.uk>, Michael Kurth <mku@amazon.de>
-References: <20210226144144.9252-1-nmanthey@amazon.de>
- <20210226144144.9252-7-nmanthey@amazon.de>
- <a840c4fa-148e-7617-20e5-9b286ace2c40@citrix.com>
- <fc383f00-7bf9-6f2f-54ab-b1e66eed419d@suse.com>
- <8e7c8953-f75a-36d2-e853-de4f88fbe01c@amazon.de>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <c8d670fa-73f0-faf6-6e23-fc9d42e90469@suse.com>
-Date: Tue, 2 Mar 2021 09:12:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+X-Inumbo-ID: 0318466f-0369-4cbc-b8c0-9cd3dd555162
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614672896;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=tBpvr+jtOURdNRVLQ+jynUJ2gNvQ6OrYPr243Nziiwk=;
+  b=ZFp4O9q8AM7xdnE1yZJ0g0ApDdnK/+tBXnwP2sDTT0EQl243jeVu31Hb
+   zV9kXUQ2vXLyWQK7Fv5yFJ0Ao+CvpAO13LdAAzYWXBpWnTnAkTrDdOiSC
+   /Br5KsY3Zbz73ydDupyrBp4v05MiwxLTPEu9yE21o29WzoDJEvWWt8BQG
+   0=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: Rk29h0pua5VNOheRRIUYNdeoS8Q1YOsOaWCgIsTUkUUH64q+NjaPXNg8PWoNquvIjc3MSDLCf/
+ 4CewCH7VKVSR65vHjGi5KPsvsZnb/g+qyFLtij6Wmw9zvOiLs1mkD6W+MfkYEU/Y9+Sp0hDVHI
+ xhsti+6t6lowO14OMlH2I9xCbTAroDFc+T8R99OMZvgS9xne0mpetnJDzaZYDeovLGEP7Q55+r
+ +8OOgk2FnSCKVTL9QogScnNw0V20pGMPoi3dIRVTJJPYr4qLNlr4s35Rn7YqtgB1pmVJ6A9FLP
+ HCU=
+X-SBRS: 5.2
+X-MesageID: 39710801
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,216,1610427600"; 
+   d="scan'208";a="39710801"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V1sJELANcE07129bXmUM5fzyPp1GnV6pz99xGGXNggyOE3i5Dmhp+7kRWIM+m8HZdWx/n6wJNYbBBPIgFMzMvPc0ke0tEYs1e9U50TqRBA0ajTr4tjuOn1IFh5clqqlP5vtQ9J0RUzpe8vcwjQUyVyCS/p3ZB4g8XYJ2dGCgP4pRQlFgrenRPEDjOIipIBhFm3IUkYUK2B8Cr3wdw9/RH60U7vte+/fvQhjELlX5uIlPXphuvjo5wfSh2n1D9jGNQNte3V0yjwNYRZpcESRZiQEl51dwH3r6MxE6jSMRM0GrX73omHijGzDOjcnFVK4LadMXe6H/bozmPZlEKUofig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9mASKKHPaFRe5yQZgz7bVJnp0oWA64tl9OWZueHvhBo=;
+ b=NjXLDXMzGedhxvAc+EVPPAJdgnmeo5LRgLz9QlrO2AxT0jgcCPHjkRlPVATYFVrr7i/+JzBVri97BgLk0lBrNVCpC8ow4N9G4NgKiAz/r+dunrrW9pPs3lXsB+mjXUXoebUwsZJZ/wQ/QQmaRUZM0R5HHZsBbehUurCAAXyGIg2/9gU8nT2H9uksmiaLWebGctbodRvCIkTXhemlwR1T/kvvJ27DXQ6N51w8kyjx0Xy75G7DZqlFGVfs+zBeJssAZOGOqa647zxhzHSA7xwRyQT/13w1o8+7KXmbZiQTCp1dWMZxt9HowpejsjfxwWS6NZA0N7IBcfAtW/RmpPEIiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9mASKKHPaFRe5yQZgz7bVJnp0oWA64tl9OWZueHvhBo=;
+ b=v4A2hL/MnJDmrGKTmMOfF/331YROL3sQAVOMGfSIRDoFnZw3ClyFRfHYZ/6Ntlz3upe00gfLAApejp5Ljc+LeH1oQktmGcyUKqLzRNuTTWvKe9ftYBqVucdBuz5tx2ioYedCE0E6alqC3a4x7IJnp137oCNOtGYPrAaSjEIItP4=
+Date: Tue, 2 Mar 2021 09:14:44 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Ian Jackson <iwj@xenproject.org>
+Subject: Re: [PATCH for-4.15] automation/alpine: add g++ to the list of build
+ depends
+Message-ID: <YD3z9LNpzbOfqmpu@Air-de-Roger>
+References: <20210301095806.68518-1-roger.pau@citrix.com>
+ <a1d8e537-af33-3ef8-412a-6422fb4cf4ea@citrix.com>
+ <27ec9db0-69bc-df9a-8511-109f57972046@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <27ec9db0-69bc-df9a-8511-109f57972046@citrix.com>
+X-ClientProxiedBy: MR2P264CA0119.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:33::35) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <8e7c8953-f75a-36d2-e853-de4f88fbe01c@amazon.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="9mN57cvgJJG0rwQo0fcFDPO0ODV69PeCu"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8b495ae4-6a59-45c6-58cb-08d8dd5340fe
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5591:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DS7PR03MB559171B839CF292EB79B3CA38F999@DS7PR03MB5591.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xJf61a8WAXXJ/CcwNQjHZ06zaHopVfzrdfd/nXNmACaULQoprv17pF8QUh8NCKe2m9laHgyYMLJrkujTaASsf1tt6PS2BHAzGOJj0YwNKuPj9Pom3dtvf9G1stvhmv9OHprGLzn+BWTqoNN7OM9JPO3O8irkuYyeiQmXaXTQ4QI5LMPyzSx0Fjarid4CPEfG0wrMTd56mYX0kwMhRIDxoz7/LCHtSzyxBdXGf36KQJuyprVFTdf8jR2xrxs8lLmrk5tiZvuEsRmadQFpFVxGdyYrwV7lxn2qCOTmMDeZUS5k6e3u0TtCRQl6KMSAdwmdPZbAVxNZUabQwgPybRBBTwFpvFaqzrOBtc7CC899xJvlNbWWPxsPAJ7zykC+f0GYRD4JeO7Bj9hKpNBRxCaYl7lPOvtPmUw3H1iwfhcmTDBSTMv9+r+Ro2XpP4dvE0wvIATZmkcBfPRrMVgq4jBpCNQaGnWJ2Kv7uMNl+rx6qQJzCuHbaNkuV06Q69psjflYoDDGhkRJwSc3LmIjtXPyQA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(376002)(396003)(39860400002)(136003)(346002)(86362001)(8676002)(9686003)(83380400001)(2906002)(6862004)(956004)(33716001)(26005)(4326008)(186003)(6486002)(6666004)(16526019)(66946007)(66556008)(66476007)(6636002)(316002)(53546011)(54906003)(478600001)(8936002)(6496006)(85182001)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dnMzblFGU0NPc1o2ejM3QUQzc1VPZ21oQVVGMWg0RHphbHJEcldYR3ZFZkFv?=
+ =?utf-8?B?MXk1eTRIRDhBMDl6Tmp3aTYzdjZoVWdOeklFZUFGR1FDcCtTTGpOcEhpR2hm?=
+ =?utf-8?B?WDh1b1RCTHFSK0llMlZaZmEyOW40bk0xZy9rZmpFQWNITzVIMDRMNFVYOEtv?=
+ =?utf-8?B?dU9uajdoSTVXL2RMTjRHNEJGTHRmTWdGcVNRWVVWU0lLZzV3SzB4L2dwdkVv?=
+ =?utf-8?B?STFCSEhnQUc0aUE3ZkxxT1BVUXhab3E4YlhHNHFaNjVCTFdYQVZvUHNIUURQ?=
+ =?utf-8?B?V3RhVUFBc1BmdThta1lIUmtWNU1pUlFGVno0TU9ObVpKWjBKdFEwSkZFRFJa?=
+ =?utf-8?B?T0Qwd2VNZ0ZQYXBiK3VEcUFMVmNnN2NUSUdsOGo0bW9HeWRyUTdiS2ROdTdr?=
+ =?utf-8?B?RUpYaExsOWMwM3laMDBXTmZWVStYUjBVWkdJeFNvdTduT3p0QlVrY1Yvazho?=
+ =?utf-8?B?NWRWSE5RTjhkVm9oYkF2QXN0RzR1VkowL3NXZWJGYk5kajVjMXBUcnlqU3ky?=
+ =?utf-8?B?em9lMjUxS09Bam44WFNzZUQ4Qkc5U0ZvZzYraGJIVWtLV1RpU1dldTJUMmRx?=
+ =?utf-8?B?NDd3VnljYXdtV2tsbzJhS1lTOWkzck9sbEhsVmVtL1RlYVlHQ0ZwTkE1K2FR?=
+ =?utf-8?B?UHc3TTBLL3c4cUdLQmxVQytrZWVVT1BkaEpKRnRKV3pFOWVjK2N0Q1JjbWE1?=
+ =?utf-8?B?SlNwcjlBaWM5djJuY3pRYVVhMEVwR2dhaWUrZFdvZEE3NC9CL0VoV2dXY1di?=
+ =?utf-8?B?cUluR1RVZlJEOTJIbEZZaWRFTU5mZUxCaWlGNHEvdWxRK1JOZnFrZHBBUVE5?=
+ =?utf-8?B?V0h5WndHQ3NCTkRkMlVHTjNvd2hOclo2S2xaZzBpKzNRclZtR0JoaGFLeldO?=
+ =?utf-8?B?Y2RtaVlTMVl0Z3UwSHhJV29HR21CdDRPYkYzV3NwZWZKN3RjSlBZQ3NIWXJs?=
+ =?utf-8?B?YlRVV3d5RWROYlhTL20vTThuNk8zT01RME5ET3prVXpibFRxMDAxMitQOEdn?=
+ =?utf-8?B?aFNyL0EyNWs0dVRJdklNc2xQU093NGZtV2ZSSndQaTRMUnFCVStBWm5QVXR0?=
+ =?utf-8?B?OVJUbC9Ja2VNSlpWSHdMbW5GVE1ZQkxZTkluLzFMTXMwK3M5MHdtWEVqTlBm?=
+ =?utf-8?B?TDVNVEFQYXhUMktDOFZxZEVycHVNS2lBMEF5QVpJNVpIUEU5SGtKMjJaUlha?=
+ =?utf-8?B?a3YvY3JtN3c4cklYMHBKMStzcEdvbXFpb1Q0cjJrMXZCNlpUTFpsejY3ZDV2?=
+ =?utf-8?B?U2Y5eXI5ZldoVldWcEJSOWVxVUlOTmxZbjNLVnQ3UjN4K3ZJZGcra2NKeUI3?=
+ =?utf-8?B?NVlnYnhXOERGd2dlYjN4ZjRIcXAxU1JmTHZodm5HSGt5SVNyTEhYYXo5Y2Zo?=
+ =?utf-8?B?MXBVeCsybUJNNVhacjFqNHBLT0t1eFIrNXF1VVZpVkJXeE1DUVpLVVpiMHlh?=
+ =?utf-8?B?anNqYzFWZDB5dHZYK1ZFZjgxRkw4dHJFMm1uaFdQaThWRS9BVUNubzBxU25i?=
+ =?utf-8?B?anVSL2ZGcFVVczhtRGdzWjR1b2E3RlV6d2FBMis2TkV2RWprZit4WVk5QlJv?=
+ =?utf-8?B?dWFmTTlueHhSU1hzYk9RNmJocThPdkN4MFAwZjc5c3hLRXZndXR6eDE3MjVO?=
+ =?utf-8?B?dG5uYzc5dFU1Q3Z1MzNmNlRRcXJaeTNSRlVtOGlDLzFVS2h0RFcyaEZHZzNZ?=
+ =?utf-8?B?dGZIUHBzMkM2ckthQmJEUlkwRUpxSUJNaVd4S0Z0UjNhbGszSDl5Z0JyMHps?=
+ =?utf-8?Q?Yd2Ed5/Bq0PVETX+jwLl1TA/zym5/fsbFZ0snz4?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b495ae4-6a59-45c6-58cb-08d8dd5340fe
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2021 08:14:51.8207
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4twD7yEMr6CEsr5lYu1wgyDmzdrBDYUAZX2Eljgu+VqCEuovmVEPFCwM5iQWtoXkzZeO2Jcpe20O5N/x7BTRLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5591
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---9mN57cvgJJG0rwQo0fcFDPO0ODV69PeCu
-Content-Type: multipart/mixed; boundary="6XNgxB1aKluftOJxsE1fMoV2nlSqBRla3";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Norbert Manthey <nmanthey@amazon.de>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.co.uk>, Michael Kurth <mku@amazon.de>
-Message-ID: <c8d670fa-73f0-faf6-6e23-fc9d42e90469@suse.com>
-Subject: Re: [PATCH XENSTORE v1 06/10] xenstored: handle port reads correctly
-References: <20210226144144.9252-1-nmanthey@amazon.de>
- <20210226144144.9252-7-nmanthey@amazon.de>
- <a840c4fa-148e-7617-20e5-9b286ace2c40@citrix.com>
- <fc383f00-7bf9-6f2f-54ab-b1e66eed419d@suse.com>
- <8e7c8953-f75a-36d2-e853-de4f88fbe01c@amazon.de>
-In-Reply-To: <8e7c8953-f75a-36d2-e853-de4f88fbe01c@amazon.de>
+On Mon, Mar 01, 2021 at 06:01:36PM +0000, Andrew Cooper wrote:
+> On 01/03/2021 17:59, Andrew Cooper wrote:
+> > On 01/03/2021 09:58, Roger Pau Monne wrote:
+> >> clang++ relies on the C++ headers installed by g++, or else a clang
+> >> build will hit the following error:
+> >>
+> >> <built-in>:3:10: fatal error: 'cstring' file not found
+> >> #include "cstring"
+> >>          ^~~~~~~~~
+> >> 1 error generated.
+> >> make[10]: *** [Makefile:120: headers++.chk] Error 1
+> >>
+> >> Reported-by: Stefano Stabellini <sstabellini@kernel.org>
+> >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >> ---
+> >> Cc: Ian Jackson <iwj@xenproject.org>
+> >> No real risk here from a release PoV, it's just pulling a package
+> >> required for the Alpine clang build. Worse that cold happen is that
+> >> the Alpine clang build broke, but it's already broken.
+> > Shouldn't this be fixed upstream in Alpine?  Its clearly a packaging bug.
+> 
+> Or (thinking about it), we've got a build system bug using g++ when it
+> should be using clang++.
 
---6XNgxB1aKluftOJxsE1fMoV2nlSqBRla3
-Content-Type: multipart/mixed;
- boundary="------------1EF74A65DE5E9FC51CF28778"
-Content-Language: en-US
+No, the check is using clang++, the issue is that clang++ doesn't
+install the standard c++ headers, and thus trying to use them (cstring
+in this case) fails. Installing the g++ package solves the issue
+because it installs the headers.
 
-This is a multi-part message in MIME format.
---------------1EF74A65DE5E9FC51CF28778
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+> How does this check work (without g++) on a non-clang build?
 
-On 02.03.21 08:48, Norbert Manthey wrote:
-> On 3/2/21 6:15 AM, J=C3=BCrgen Gro=C3=9F wrote:
->> On 26.02.21 16:36, Andrew Cooper wrote:
->>> On 26/02/2021 14:41, Norbert Manthey wrote:
->>>> The read value could be larger than a signed 32bit integer. As -1 is=
+It works because on a non-clang Alpine build g++ wasn't installed, so
+the check wasd just skipped. The headers++.chk target in
+xen/include/Makefile has a explicit check for a functional CXX.
 
->>>> used as error value, we should not rely on using the full 32 bits.
->>>> Hence, when reading the port number, we should make sure we only ret=
-urn
->>>> valid values.
->>>>
->>>> This change sanity checks the input.
->>>> The issue is that the value for the port is
->>>>  =C2=A0 1. transmitted as a string, with a fixed amount of digits.
->>>>  =C2=A0 2. Next, this string is parsed by a function that can deal w=
-ith
->>>> strings
->>>>  =C2=A0=C2=A0=C2=A0=C2=A0 representing 64bit integers
->>>>  =C2=A0 3. A 64bit integer is returned, and will be truncated to it'=
-s lower
->>>>  =C2=A0=C2=A0=C2=A0=C2=A0 32bits, resulting in a wrong port number (=
-in case the sender of
->>>> the
->>>>  =C2=A0=C2=A0=C2=A0=C2=A0 string decides to craft a suitable 64bit v=
-alue).
->>>>
->>>> The value is typically provided by the kernel, which has this value
->>>> hard
->>>> coded in the proper range. As we use the function strtoul, non-digit=
+I do think this is some kind of error in the Alpine clang package, as
+I assume installing clang++ without the standard c++ headers is an
+error. Regardless of that, I also think installing g++ on the Alpine
+container is fine, as we would then also perform the C++ header checks
+with g++ on the normal build.
 
->>>> character are considered as end of the input, and hence do not requi=
-re
->>>> checking. Therefore, this change only covers the corner case to make=
-
->>>> sure we stay in the 32 bit range.
->>>>
->>>> This bug was discovered and resolved using Coverity Static Analysis
->>>> Security Testing (SAST) by Synopsys, Inc.
->>>>
->>>> Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
->>>> Reviewed-by: Thomas Friebel <friebelt@amazon.de>
->>>> Reviewed-by: Julien Grall <jgrall@amazon.co.uk>
->>>
->>> Port numbers are currently limited at 2^17, with easy extension to 2^=
-29
->>> (iirc), but the entire event channel infrastructure would have to
->>> undergo another redesign to get beyond that.
->>>
->>> I think we can reasonably make an ABI statement saying that a port
->>> number will never exceed 2^31.=C2=A0 This is already pseudo-encoded i=
-n the
->>> evtchn_port_or_error_t mouthful.
->>
->> I agree. There is no need for this patch.
->=20
-> I understand, and am fine with dropping this patch.
->=20
-> Out of curiosity, if the actual limit is lower than what the patch
-> currently enforces, would it make sense to adapt the bound check to tha=
-t
-> number?
-
-No, I don't think so. Especially as the boundary to check against isn't
-known by Xenstore (the boundary value depends on 2-level or fifo events
-being used, and this information is not exported to user land).
-
-The value is coming from the kernel, and it is used with another kernel
-interface. So if the kernel wants to play dirty tricks with Xenstore, it
-doesn't need to deliver a wrong event channel number, it can just play
-those games in the event channel driver.
-
-
-Juergen
-
---------------1EF74A65DE5E9FC51CF28778
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------1EF74A65DE5E9FC51CF28778--
-
---6XNgxB1aKluftOJxsE1fMoV2nlSqBRla3--
-
---9mN57cvgJJG0rwQo0fcFDPO0ODV69PeCu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmA981IFAwAAAAAACgkQsN6d1ii/Ey+g
-Twf/Suxp9D3b9/rvurbTPJ3SFtWXrgIyyf5v8Eplh8O6zMoBztCFQL39gkM8rulbz8zXDUSSkNnt
-6+ka1Md2ClcBwDX1BKdLhguPwQ8KQY8YMjUxZ+5HYOBq18XW1KNBzGQVS9CiIt2lMeE53AUOrG0i
-VhIdTAVexmYaBbGRRB+L4+fKsNOeRCpbQRQxc5y8MYqbGsmKWYHMTwJuSkRQcxQj1mZnj4R6qgUv
-hoxfWOaudK96rSNAAotW+3xTXVhX+c93KZ7rMTUa0AZze2hNmxCwtcxHZzyXXmCCGPBDVVnAHGKU
-q64HjIAVuOdqN7/6ws8QX/iOzA44yc2WAw/7apAQZA==
-=5bcJ
------END PGP SIGNATURE-----
-
---9mN57cvgJJG0rwQo0fcFDPO0ODV69PeCu--
+Thanks, Roger.
 
