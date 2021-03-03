@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190A232BA23
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 20:10:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92989.175484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94F9332BA3B
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 20:37:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92992.175496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHWrs-0002YZ-L0; Wed, 03 Mar 2021 19:09:08 +0000
+	id 1lHXIW-0005Tb-Uj; Wed, 03 Mar 2021 19:36:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92989.175484; Wed, 03 Mar 2021 19:09:08 +0000
+Received: by outflank-mailman (output) from mailman id 92992.175496; Wed, 03 Mar 2021 19:36:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHWrs-0002YA-Hp; Wed, 03 Mar 2021 19:09:08 +0000
-Received: by outflank-mailman (input) for mailman id 92989;
- Wed, 03 Mar 2021 19:09:06 +0000
+	id 1lHXIW-0005TB-Qv; Wed, 03 Mar 2021 19:36:40 +0000
+Received: by outflank-mailman (input) for mailman id 92992;
+ Wed, 03 Mar 2021 19:36:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lHWrq-0002Qz-P8
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 19:09:06 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lHXIU-0005Sy-AL; Wed, 03 Mar 2021 19:36:38 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lHWro-00075y-Oj; Wed, 03 Mar 2021 19:09:04 +0000
+ id 1lHXIP-0007X3-Qm; Wed, 03 Mar 2021 19:36:33 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lHWro-0000u1-EN; Wed, 03 Mar 2021 19:09:04 +0000
+ id 1lHXIP-0002sj-EV; Wed, 03 Mar 2021 19:36:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,105 +42,166 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=HHl7CbKe842x6L3ZBNTiCkfdEnWUugn9UObJELtoTFw=; b=WmjBwNs27okyH9PLTp92pglpSV
-	YFTZ4U9B43dpzGi6tz3C1q2KVOKfCMATkAk58hUUS8VR+wJNNdERrD58e4yGBPJUfchL1ocNXIZsU
-	r0TcnJ/SJFJcpycnkQd4968MniaKtrM80QRxZWNWsnczGINSohe4uaIaG5RdyB+UNJ80=;
-Subject: Re: [PATCH][4.15] crypto: adjust rijndaelEncrypt() prototype for
- gcc11
-To: Jan Beulich <jbeulich@suse.com>,
+	MIME-Version:Date:Message-ID:From:Cc:References:To:Subject;
+	bh=sDk3J6ex41e5UOfMIFRJGkpw25WoxzOov78X8K+E68k=; b=aHEncM9LyU60KAaFMrmYIgDhiF
+	E9yYqh02QvUhvsQxqZKNJiY4+SSLF9tUm22UHMB5uXdtSTwc3QX0uH9r6iEYYHeFIXejsMvaouwqf
+	loMV7EKupzGZ2xOSCDS+gpjsXaaW1Ff7d3ELVtOzaSPYpX56puu8ozLWtYgNO9GuXwFo=;
+Subject: Re: dom0less boot two compressed kernel images out-of-memory
+ work-around
+To: Charles Chiou <cchiou@ambarella.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <05fe3295-7993-2eb5-37bc-a6d04fde1fbc@suse.com>
+References: <c1b3f92388c34788b76193b70c150521@ambarella.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Ian Jackson
+ <iwj@xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <7e0584ab-8923-cb59-fac2-c2908d736f0c@xen.org>
-Date: Wed, 3 Mar 2021 19:09:02 +0000
+Message-ID: <58aaf68f-4499-9400-6eb2-f1ad3b620c73@xen.org>
+Date: Wed, 3 Mar 2021 19:36:31 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <05fe3295-7993-2eb5-37bc-a6d04fde1fbc@suse.com>
+In-Reply-To: <c1b3f92388c34788b76193b70c150521@ambarella.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+(BCCing xen-users, CCing xen-devel + a few folks)
 
-On 01/03/2021 07:57, Jan Beulich wrote:
-> The upcoming release complains, not entirely unreasonably:
-> 
-> In file included from rijndael.c:33:
-> .../xen/include/crypto/rijndael.h:55:53: note: previously declared as 'const unsigned char[]'
->     55 | void    rijndaelEncrypt(const unsigned int [], int, const unsigned char [],
->        |                                                     ^~~~~~~~~~~~~~~~~~~~~~
-> rijndael.c:865:8: error: argument 4 of type 'u8[16]' {aka 'unsigned char[16]'} with mismatched bound [-Werror=array-parameter=]
->    865 |     u8 ct[16])
->        |     ~~~^~~~~~
-> In file included from rijndael.c:33:
-> .../xen/include/crypto/rijndael.h:56:13: note: previously declared as 'unsigned char[]'
->     56 |             unsigned char []);
->        |             ^~~~~~~~~~~~~~~~
-> 
-> While it's not really clear to me why it would complain only for arg 4,
-> the adjustment to make is obvious and riskfree also for arg 3: Simply
-> declare the correct array dimension right away. This then allows
-> compilers to apply checking at call sites, which seems desirable anyway.
+Hi,
 
-I am a bit confused, if GCC is not complaining for arg3, then what is 
-the following error message for:
+Moving the discussion to xen-devel.
 
- > In file included from rijndael.c:33:
- > .../xen/include/crypto/rijndael.h:55:53: note: previously declared as 
-'const unsigned char[]'
- >     55 | void    rijndaelEncrypt(const unsigned int [], int, const 
-unsigned char [],
- >        | 
-^~~~~~~~~~~~~~~~~~~~~~
+On 22/02/2021 05:02, Charles Chiou wrote:
+> When trying to boot two zImage using dom0less boot on ARM, we encountered this problem when xen runs gunzip on second guest:
+> 
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Out of memory
+> (XEN) ****************************************
+> 
+> And worked around it with the following patch. We'd like to check to see if this is a known issue and if the work-around looks reasonable. Thank you
 
-> For the moment I'm leaving untouched the disagreement between u8/u32
-> used in the function definition and unsigned {char,int} used in the
-> declaration, as making this consistent would call for touching further
-> functions.
-> 
-> Reported-by: Charles Arnold <carnold@suse.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> There are quite a few more issues with gcc11, but from my brief initial
-> inspection I'm suspecting (hoping) it'll rather be the compiler which
-> will get further changed by the time their release gets finalized. Just
-> one example:
-> 
-> .../xen/include/xen/string.h:101:27: error: '__builtin_memcmp' specified bound 4 exceeds source size 0 [-Werror=stringop-overread]
->    101 | #define memcmp(s1, s2, n) __builtin_memcmp(s1, s2, n)
->        |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> mpparse.c:722:13: note: in expansion of macro 'memcmp'
->    722 |         if (memcmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
->        |             ^~~~~~
-> 
-> Clearly neither the 1st nor the 2nd argument have a "source size" of 0.
-
-It looks like there is a report on the redhat bug tracker for it [1]. Do 
-you know if there is a bug report on the GCC tracker as well?
+I haven't seen any similar report in the past.
 
 > 
-> --- a/xen/include/crypto/rijndael.h
-> +++ b/xen/include/crypto/rijndael.h
-> @@ -52,7 +52,7 @@
->   
->   int	rijndaelKeySetupEnc(unsigned int [], const unsigned char [], int);
->   int	rijndaelKeySetupDec(unsigned int [], const unsigned char [], int);
-> -void	rijndaelEncrypt(const unsigned int [], int, const unsigned char [],
-> -	    unsigned char []);
-> +void	rijndaelEncrypt(const unsigned int [], int, const unsigned char [16],
-> +	    unsigned char [16]);
->   
->   #endif /* __RIJNDAEL_H */
+> 
+> diff --git a/xen/common/gunzip.c b/xen/common/gunzip.c
+> index db4efcd34b..e5bd19ba7f 100644
+> --- a/xen/common/gunzip.c
+> +++ b/xen/common/gunzip.c
+> @@ -113,8 +113,10 @@ __init int perform_gunzip(char *output, char *image, unsigned long image_len)
+> 
+>       window = (unsigned char *)output;
+> 
+> +    if (!free_mem_ptr) {
+>           free_mem_ptr = (unsigned long)alloc_xenheap_pages(HEAPORDER, 0);
+>           free_mem_end_ptr = free_mem_ptr + (PAGE_SIZE << HEAPORDER);
+> +    }
+> 
+>       inbuf = (unsigned char *)image;
+>       insize = image_len;
+> @@ -131,7 +133,12 @@ __init int perform_gunzip(char *output, char *image, unsigned long image_len)
+>           rc = 0;
+>       }
+> 
+> +    if (free_mem_ptr) {
+>           free_xenheap_pages((void *)free_mem_ptr, HEAPORDER);
+> +        free_mem_ptr = 0;
+> +    }
+> +
+> +    bytes_out = 0;
+> 
+>       return rc;
+> }
+> diff --git a/xen/common/inflate.c b/xen/common/inflate.c
+> index f99c985d61..de96002188 100644
+> --- a/xen/common/inflate.c
+> +++ b/xen/common/inflate.c
+> @@ -244,7 +244,7 @@ static void *INIT malloc(int size)
+> 
+>       if (size < 0)
+>           error("Malloc error");
+> -    if (!malloc_ptr)
+> +    if ((!malloc_ptr) || (!malloc_count))
+>           malloc_ptr = free_mem_ptr;
 > 
 
-Cheers,
+IMHO, this is a bit risky to assume that malloc_count will always be 0 
+after each gunzip.
 
-[1] https://bugzilla.redhat.com/show_bug.cgi?id=1892100
+Instead I think, it would be better if we re-initialize the allocator 
+every time. How about the following (untested):
+
+commit e1cd2d85234c8d0aa62ad32c824a5568a57be930 (HEAD -> dev)
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Wed Mar 3 19:27:56 2021 +0000
+
+     xen/gunzip: Allow perform_gunzip() to be called multiple times
+
+     Currently perform_gunzip() can only be called once because the the
+     internal allocator is not fully re-initialized.
+
+     This works fine if you are only booting dom0. But this will break when
+     booting multiple using the dom0less that uses compressed kernel images.
+
+     This can be resolved by re-initializing malloc_ptr and malloc_count
+     every time perform_gunzip() is called.
+
+     Note the latter is only re-initialized for hardening purpose as 
+there is
+     no guarantee that every malloc() are followed by free() (It should in
+     theory!).
+
+     Take the opportunity to check the return of alloc_heap_pages() to 
+return
+     an error rather than dereferencing a NULL pointer later on failure.
+
+     Reported-by: Charles Chiou <cchiou@ambarella.com>
+     Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+     ---
+
+     This patch is candidate for Xen 4.15. Without this patch, it will 
+not be
+     possible to boot multiple domain using dom0less when they are using
+     compressed kernel images.
+
+diff --git a/xen/common/gunzip.c b/xen/common/gunzip.c
+index db4efcd34b77..a5c2e25efc0f 100644
+--- a/xen/common/gunzip.c
++++ b/xen/common/gunzip.c
+@@ -114,7 +114,11 @@ __init int perform_gunzip(char *output, char 
+*image, unsigned long image_len)
+      window = (unsigned char *)output;
+
+      free_mem_ptr = (unsigned long)alloc_xenheap_pages(HEAPORDER, 0);
++    if ( !free_mem_ptr )
++        return -ENOMEM;
++
+      free_mem_end_ptr = free_mem_ptr + (PAGE_SIZE << HEAPORDER);
++    init_allocator();
+
+      inbuf = (unsigned char *)image;
+      insize = image_len;
+diff --git a/xen/common/inflate.c b/xen/common/inflate.c
+index f99c985d6135..d8c28a3e9593 100644
+--- a/xen/common/inflate.c
++++ b/xen/common/inflate.c
+@@ -238,6 +238,12 @@ STATIC const ush mask_bits[] = {
+  static unsigned long INITDATA malloc_ptr;
+  static int INITDATA malloc_count;
+
++static void init_allocator(void)
++{
++    malloc_ptr = free_mem_ptr;
++    malloc_count = 0;
++}
++
+  static void *INIT malloc(int size)
+  {
+      void *p;
+
+Best regards,
 
 -- 
 Julien Grall
