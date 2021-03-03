@@ -2,39 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7DB232B9F3
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 19:38:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92976.175442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E53C832B9FF
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 19:45:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92979.175456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHWNw-0007Qx-Ol; Wed, 03 Mar 2021 18:38:12 +0000
+	id 1lHWUr-0008W7-G4; Wed, 03 Mar 2021 18:45:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92976.175442; Wed, 03 Mar 2021 18:38:12 +0000
+Received: by outflank-mailman (output) from mailman id 92979.175456; Wed, 03 Mar 2021 18:45:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHWNw-0007Qe-LF; Wed, 03 Mar 2021 18:38:12 +0000
-Received: by outflank-mailman (input) for mailman id 92976;
- Wed, 03 Mar 2021 18:38:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lHWUr-0008Vi-Cp; Wed, 03 Mar 2021 18:45:21 +0000
+Received: by outflank-mailman (input) for mailman id 92979;
+ Wed, 03 Mar 2021 18:45:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vlpN=IB=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1lHWNv-0007QY-Fa
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 18:38:11 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id d98d31c6-5b3e-41d0-939b-8ef3ea793d6b;
- Wed, 03 Mar 2021 18:38:10 +0000 (UTC)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-259-vc7ok9OUPp29oZuXZa1ZMw-1; Wed, 03 Mar 2021 13:38:08 -0500
-Received: by mail-wr1-f69.google.com with SMTP id z17so4968514wrv.23
- for <xen-devel@lists.xenproject.org>; Wed, 03 Mar 2021 10:38:08 -0800 (PST)
-Received: from [192.168.1.36] (68.red-83-57-175.dynamicip.rima-tde.net.
- [83.57.175.68])
- by smtp.gmail.com with ESMTPSA id r10sm8601151wmh.45.2021.03.03.10.38.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Mar 2021 10:38:06 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1lHWUq-0008Vd-AM
+ for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 18:45:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lHWUo-0006gi-8a; Wed, 03 Mar 2021 18:45:18 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lHWUn-0007Xc-UD; Wed, 03 Mar 2021 18:45:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,92 +40,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d98d31c6-5b3e-41d0-939b-8ef3ea793d6b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1614796689;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Azs7r5hzq+oJhnDSjjywtW9vxKYDAae858wPljQ2F1w=;
-	b=CrfhmtRRjqAIXhdPjcvQGMMJJr/We1eGMbi0Hzh2B4a5Fa3v+0uxF9CTRk5ptAyKZh2i8k
-	nADLdDktZDrPtZsmLXVl2NorWdaNKtBSJR/YBw8yS52YP3BbK+84j/Sc5TdYSW0vnX0ElD
-	Kf02PP9+BZmwVY0LtBllDAAFnMnp2aQ=
-X-MC-Unique: vc7ok9OUPp29oZuXZa1ZMw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Azs7r5hzq+oJhnDSjjywtW9vxKYDAae858wPljQ2F1w=;
-        b=r3yk/cNJvS+K2xJfeMpETzDhbR8TjGr/+W3Ze+GVRlPFnNY7Fbjj5ZFf2NoJqB0lOj
-         NL0pCcLde+/SVo/LgfOZfcuTvb2IcR3WnQ7ddynF7+fbUulBrwnCOwDNI3TewZLqL15h
-         JUsLLHTOEa1l4KHgweAYD7oz8y8qDgbIP0CDj15uGvq7qRssogSP1mfyM5LjDyFbKRbP
-         GqE17OV6rPJdfhMC+XiBKNKmf0JRClvzcuyiVcXILTLDU6ktOvv8WNKZMZEk+vrkhbI0
-         OlLgslyQXujaRo5zK5qb4oliUdbBYIv3hNGBrMjIxqPgl4qRM9BGGUZ0xgBYkxtsHiHX
-         TRlQ==
-X-Gm-Message-State: AOAM531MLI2Ih4xZCm5jmO+XgBLFkxnJS64d2e2mQAhVB3cebbsSG5SP
-	lJa4PSYNrj0dQeZtoNJlscupw/tMzXcplrEr6j3LFXOQ1zTPW0wXUMBi/cNjIPlG1y5vRei8iXS
-	Hztm5UtDMPAfOE5Fmc821jFklTfA=
-X-Received: by 2002:adf:828e:: with SMTP id 14mr27636556wrc.123.1614796687173;
-        Wed, 03 Mar 2021 10:38:07 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwH/Hw0IbejeS6DgJJnJUnpPbEdOJiVBVsy5hA87NNUcL1xbXFsMP09GxNLjcIFhY0X+cBFOA==
-X-Received: by 2002:adf:828e:: with SMTP id 14mr27636541wrc.123.1614796687008;
-        Wed, 03 Mar 2021 10:38:07 -0800 (PST)
-Subject: Re: [PATCH v3 4/7] hw/core: implement a guest-loader to support
- static hypervisor guests
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
-To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org
-Cc: julien@xen.org, andre.przywara@arm.com, stefano.stabellini@linaro.org,
- xen-devel@lists.xenproject.org, stefano.stabellini@xilinx.com,
- stratos-dev@op-lists.linaro.org
-References: <20210303173642.3805-1-alex.bennee@linaro.org>
- <20210303173642.3805-5-alex.bennee@linaro.org>
- <224e4bad-6185-a457-ddb5-f04d5c16e2dc@redhat.com>
-Message-ID: <a44ccf9e-9971-b1d1-7de9-4c2be5dbd5e9@redhat.com>
-Date: Wed, 3 Mar 2021 19:38:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=aoDhiAAJ9xQuzM22SyJNcyS6Wir5HYSXnKHllgaD5fs=; b=0ChI2jp9Prlz9AtiG6ObhWFAz4
+	q0z244vak/VIy/x8S/4w4mgdF608R9dZKuCTDV673DJjuKuZ3juzjfR1LX4nu69bUn4bDRHKqmGgI
+	yq48Vr+4fC5F8bPZx7biIGoNbCKx9PKKS/KKHfrBF1pDUp0oY40k8TUT0Fy4F9NJLCxo=;
+Subject: Re: [PATCH XENSTORE v1 00/10] Code analysis fixes
+To: Norbert Manthey <nmanthey@amazon.de>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.co.uk>,
+ Michael Kurth <mku@amazon.de>
+References: <20210226144144.9252-1-nmanthey@amazon.de>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5ec05aca-9ba5-74b3-154a-603b06d307cf@xen.org>
+Date: Wed, 3 Mar 2021 18:45:16 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <224e4bad-6185-a457-ddb5-f04d5c16e2dc@redhat.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210226144144.9252-1-nmanthey@amazon.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 3/3/21 7:37 PM, Philippe Mathieu-Daudé wrote:
-> On 3/3/21 6:36 PM, Alex Bennée wrote:
->> Hypervisors, especially type-1 ones, need the firmware/bootcode to put
->> their initial guest somewhere in memory and pass the information to it
->> via platform data. The guest-loader is modelled after the generic
->> loader for exactly this sort of purpose:
->>
->>   $QEMU $ARGS  -kernel ~/xen.git/xen/xen \
->>     -append "dom0_mem=1G,max:1G loglvl=all guest_loglvl=all" \
->>     -device guest-loader,addr=0x42000000,kernel=Image,bootargs="root=/dev/sda2 ro console=hvc0 earlyprintk=xen" \
->>     -device guest-loader,addr=0x47000000,initrd=rootfs.cpio
->>
->> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
->> Message-Id: <20201105175153.30489-5-alex.bennee@linaro.org>
->> Message-Id: <20210211171945.18313-5-alex.bennee@linaro.org>
->> ---
->>  hw/core/guest-loader.h |  34 ++++++++++
->>  hw/core/guest-loader.c | 145 +++++++++++++++++++++++++++++++++++++++++
->>  MAINTAINERS            |   5 ++
->>  hw/core/meson.build    |   2 +
->>  4 files changed, 186 insertions(+)
->>  create mode 100644 hw/core/guest-loader.h
->>  create mode 100644 hw/core/guest-loader.c
-> 
-> Missing documentation, 
+Hi Norbert,
 
-And I now see the following patches...
+Thank you for the patches. Please find below a state for each patches.
 
-> Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-> 
+On 26/02/2021 14:41, Norbert Manthey wrote:
 
+For the following patches:
+
+>    xenstore: add missing NULL check
+>    xenstore: fix print format string
+ >    xenstore: check formats of trace
+ >    xenstore: handle do_mkdir and do_rm failure
+ >    xenstore: add missing NULL check
+ >    xs: add error handling
+
+They are fully reviewed and Ian provided a release-acked-by. So I have 
+merged them to staging.
+
+Note that last one was merged with the commit message/title tweaked.
+
+For the following patches:
+
+>    xenstore_client: handle memory on error
+>    xenstore: handle daemon creation errors
+
+They are fully reviewed but so far Ian didn't provided a 
+release-acked-by. If you (or someone else) think they should be merged, 
+then please reply on each patch.
+
+For now, I have merged them to my for-next/4.16 branch [1]. The patches 
+will be folded in staging when the tree is re-opened.
+
+For the following patch:
+
+>    xenstored: handle port reads correctly
+
+IIUC, this was dropped.
+
+For the following patch:
+
+>    xs: handle daemon socket error
+
+Ian had one question about it. I haven't committed it in any branch for now.
+
+Cheers,
+
+[1] 
+https://xenbits.xen.org/gitweb/?p=people/julieng/xen-unstable.git;a=shortlog;h=refs/heads/for-next/4.16
+
+-- 
+Julien Grall
 
