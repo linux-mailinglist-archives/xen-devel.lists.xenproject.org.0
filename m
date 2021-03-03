@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E53C832B9FF
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 19:45:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92979.175456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 190A232BA23
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 20:10:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92989.175484 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHWUr-0008W7-G4; Wed, 03 Mar 2021 18:45:21 +0000
+	id 1lHWrs-0002YZ-L0; Wed, 03 Mar 2021 19:09:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92979.175456; Wed, 03 Mar 2021 18:45:21 +0000
+Received: by outflank-mailman (output) from mailman id 92989.175484; Wed, 03 Mar 2021 19:09:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHWUr-0008Vi-Cp; Wed, 03 Mar 2021 18:45:21 +0000
-Received: by outflank-mailman (input) for mailman id 92979;
- Wed, 03 Mar 2021 18:45:20 +0000
+	id 1lHWrs-0002YA-Hp; Wed, 03 Mar 2021 19:09:08 +0000
+Received: by outflank-mailman (input) for mailman id 92989;
+ Wed, 03 Mar 2021 19:09:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lHWUq-0008Vd-AM
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 18:45:20 +0000
+ (envelope-from <julien@xen.org>) id 1lHWrq-0002Qz-P8
+ for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 19:09:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lHWUo-0006gi-8a; Wed, 03 Mar 2021 18:45:18 +0000
+ id 1lHWro-00075y-Oj; Wed, 03 Mar 2021 19:09:04 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lHWUn-0007Xc-UD; Wed, 03 Mar 2021 18:45:18 +0000
+ id 1lHWro-0000u1-EN; Wed, 03 Mar 2021 19:09:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,74 +43,104 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=aoDhiAAJ9xQuzM22SyJNcyS6Wir5HYSXnKHllgaD5fs=; b=0ChI2jp9Prlz9AtiG6ObhWFAz4
-	q0z244vak/VIy/x8S/4w4mgdF608R9dZKuCTDV673DJjuKuZ3juzjfR1LX4nu69bUn4bDRHKqmGgI
-	yq48Vr+4fC5F8bPZx7biIGoNbCKx9PKKS/KKHfrBF1pDUp0oY40k8TUT0Fy4F9NJLCxo=;
-Subject: Re: [PATCH XENSTORE v1 00/10] Code analysis fixes
-To: Norbert Manthey <nmanthey@amazon.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.co.uk>,
- Michael Kurth <mku@amazon.de>
-References: <20210226144144.9252-1-nmanthey@amazon.de>
+	bh=HHl7CbKe842x6L3ZBNTiCkfdEnWUugn9UObJELtoTFw=; b=WmjBwNs27okyH9PLTp92pglpSV
+	YFTZ4U9B43dpzGi6tz3C1q2KVOKfCMATkAk58hUUS8VR+wJNNdERrD58e4yGBPJUfchL1ocNXIZsU
+	r0TcnJ/SJFJcpycnkQd4968MniaKtrM80QRxZWNWsnczGINSohe4uaIaG5RdyB+UNJ80=;
+Subject: Re: [PATCH][4.15] crypto: adjust rijndaelEncrypt() prototype for
+ gcc11
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <05fe3295-7993-2eb5-37bc-a6d04fde1fbc@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <5ec05aca-9ba5-74b3-154a-603b06d307cf@xen.org>
-Date: Wed, 3 Mar 2021 18:45:16 +0000
+Message-ID: <7e0584ab-8923-cb59-fac2-c2908d736f0c@xen.org>
+Date: Wed, 3 Mar 2021 19:09:02 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210226144144.9252-1-nmanthey@amazon.de>
+In-Reply-To: <05fe3295-7993-2eb5-37bc-a6d04fde1fbc@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Norbert,
+Hi Jan,
 
-Thank you for the patches. Please find below a state for each patches.
+On 01/03/2021 07:57, Jan Beulich wrote:
+> The upcoming release complains, not entirely unreasonably:
+> 
+> In file included from rijndael.c:33:
+> .../xen/include/crypto/rijndael.h:55:53: note: previously declared as 'const unsigned char[]'
+>     55 | void    rijndaelEncrypt(const unsigned int [], int, const unsigned char [],
+>        |                                                     ^~~~~~~~~~~~~~~~~~~~~~
+> rijndael.c:865:8: error: argument 4 of type 'u8[16]' {aka 'unsigned char[16]'} with mismatched bound [-Werror=array-parameter=]
+>    865 |     u8 ct[16])
+>        |     ~~~^~~~~~
+> In file included from rijndael.c:33:
+> .../xen/include/crypto/rijndael.h:56:13: note: previously declared as 'unsigned char[]'
+>     56 |             unsigned char []);
+>        |             ^~~~~~~~~~~~~~~~
+> 
+> While it's not really clear to me why it would complain only for arg 4,
+> the adjustment to make is obvious and riskfree also for arg 3: Simply
+> declare the correct array dimension right away. This then allows
+> compilers to apply checking at call sites, which seems desirable anyway.
 
-On 26/02/2021 14:41, Norbert Manthey wrote:
+I am a bit confused, if GCC is not complaining for arg3, then what is 
+the following error message for:
 
-For the following patches:
+ > In file included from rijndael.c:33:
+ > .../xen/include/crypto/rijndael.h:55:53: note: previously declared as 
+'const unsigned char[]'
+ >     55 | void    rijndaelEncrypt(const unsigned int [], int, const 
+unsigned char [],
+ >        | 
+^~~~~~~~~~~~~~~~~~~~~~
 
->    xenstore: add missing NULL check
->    xenstore: fix print format string
- >    xenstore: check formats of trace
- >    xenstore: handle do_mkdir and do_rm failure
- >    xenstore: add missing NULL check
- >    xs: add error handling
+> For the moment I'm leaving untouched the disagreement between u8/u32
+> used in the function definition and unsigned {char,int} used in the
+> declaration, as making this consistent would call for touching further
+> functions.
+> 
+> Reported-by: Charles Arnold <carnold@suse.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> There are quite a few more issues with gcc11, but from my brief initial
+> inspection I'm suspecting (hoping) it'll rather be the compiler which
+> will get further changed by the time their release gets finalized. Just
+> one example:
+> 
+> .../xen/include/xen/string.h:101:27: error: '__builtin_memcmp' specified bound 4 exceeds source size 0 [-Werror=stringop-overread]
+>    101 | #define memcmp(s1, s2, n) __builtin_memcmp(s1, s2, n)
+>        |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> mpparse.c:722:13: note: in expansion of macro 'memcmp'
+>    722 |         if (memcmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
+>        |             ^~~~~~
+> 
+> Clearly neither the 1st nor the 2nd argument have a "source size" of 0.
 
-They are fully reviewed and Ian provided a release-acked-by. So I have 
-merged them to staging.
+It looks like there is a report on the redhat bug tracker for it [1]. Do 
+you know if there is a bug report on the GCC tracker as well?
 
-Note that last one was merged with the commit message/title tweaked.
-
-For the following patches:
-
->    xenstore_client: handle memory on error
->    xenstore: handle daemon creation errors
-
-They are fully reviewed but so far Ian didn't provided a 
-release-acked-by. If you (or someone else) think they should be merged, 
-then please reply on each patch.
-
-For now, I have merged them to my for-next/4.16 branch [1]. The patches 
-will be folded in staging when the tree is re-opened.
-
-For the following patch:
-
->    xenstored: handle port reads correctly
-
-IIUC, this was dropped.
-
-For the following patch:
-
->    xs: handle daemon socket error
-
-Ian had one question about it. I haven't committed it in any branch for now.
+> 
+> --- a/xen/include/crypto/rijndael.h
+> +++ b/xen/include/crypto/rijndael.h
+> @@ -52,7 +52,7 @@
+>   
+>   int	rijndaelKeySetupEnc(unsigned int [], const unsigned char [], int);
+>   int	rijndaelKeySetupDec(unsigned int [], const unsigned char [], int);
+> -void	rijndaelEncrypt(const unsigned int [], int, const unsigned char [],
+> -	    unsigned char []);
+> +void	rijndaelEncrypt(const unsigned int [], int, const unsigned char [16],
+> +	    unsigned char [16]);
+>   
+>   #endif /* __RIJNDAEL_H */
+> 
 
 Cheers,
 
-[1] 
-https://xenbits.xen.org/gitweb/?p=people/julieng/xen-unstable.git;a=shortlog;h=refs/heads/for-next/4.16
+[1] https://bugzilla.redhat.com/show_bug.cgi?id=1892100
 
 -- 
 Julien Grall
