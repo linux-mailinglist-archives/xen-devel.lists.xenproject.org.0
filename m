@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E6E632B814
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 14:41:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92849.175045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 840FF32B8A3
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 15:34:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92854.175057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHRks-0008CD-AS; Wed, 03 Mar 2021 13:41:34 +0000
+	id 1lHSZQ-0004rK-P1; Wed, 03 Mar 2021 14:33:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92849.175045; Wed, 03 Mar 2021 13:41:34 +0000
+Received: by outflank-mailman (output) from mailman id 92854.175057; Wed, 03 Mar 2021 14:33:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHRks-0008Bo-6t; Wed, 03 Mar 2021 13:41:34 +0000
-Received: by outflank-mailman (input) for mailman id 92849;
- Wed, 03 Mar 2021 13:41:33 +0000
+	id 1lHSZQ-0004qv-LS; Wed, 03 Mar 2021 14:33:48 +0000
+Received: by outflank-mailman (input) for mailman id 92854;
+ Wed, 03 Mar 2021 14:33:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ma28=IB=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1lHRkr-0008Bj-14
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 13:41:33 +0000
-Received: from mail-qv1-xf29.google.com (unknown [2607:f8b0:4864:20::f29])
+ <SRS0=7pqQ=IB=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lHSZP-0004qq-1n
+ for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 14:33:47 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4582f87e-b412-4d67-bedf-46f4583d382a;
- Wed, 03 Mar 2021 13:41:32 +0000 (UTC)
-Received: by mail-qv1-xf29.google.com with SMTP id r5so11614270qvv.9
- for <xen-devel@lists.xenproject.org>; Wed, 03 Mar 2021 05:41:32 -0800 (PST)
-Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
- (209-217-208-226.northland.net. [209.217.208.226])
- by smtp.gmail.com with ESMTPSA id n5sm11450708qkp.133.2021.03.03.05.41.30
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Mar 2021 05:41:31 -0800 (PST)
+ id ee3ff13c-ba6a-4695-b773-0f15a782219e;
+ Wed, 03 Mar 2021 14:33:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,71 +35,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4582f87e-b412-4d67-bedf-46f4583d382a
+X-Inumbo-ID: ee3ff13c-ba6a-4695-b773-0f15a782219e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614782025;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=5zpGPDdBdvPoacuMSXSL+Llo16lv3MIqiM9IqX+Tls4=;
+  b=Uk1+SHRi999k8hdRKVlm8a9+JoPBHT5aeVzkWLUDTHUzgI+jIHnBPaPc
+   xrkwqXeqd7hJPnKuiSc4Z9JDMBdEMaVeGf6NzE3GUEAO4Cbbf98DtMxs4
+   DBfzhx+03OYJ755zpVQGk/ICGvGC7s5OoR0j/yi2KCpWFzIhKUtI+hiQ0
+   Q=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 1egYPNoWOup/IkFR7UcOwAzErzjbMN9rhZqC0y1khIvA3V/k285mUkjYZz5VaDsyZN+CJ4bot6
+ k5JBW3RQjkT6WpwvkhbaEzBz9FNmdxyM13NXcF7fSzMpdPZfez6D8Aym6eGg/S+2V8szCWF8A8
+ BSYgs6VKF4ghL0K5CZMmhcr+1Q+hWuyZ3EVPN5Z2yAhWudcpd+dlTzJuVwJ5SxCK2B18JddfP+
+ PeXW+5v/KfeqifvJTXxuI1eCcbm2js7cIpKiBFMMIRrqmb69848h77c9GIWrmVjJRIqcFmQLdj
+ TI8=
+X-SBRS: 5.2
+X-MesageID: 38353694
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,220,1610427600"; 
+   d="scan'208";a="38353694"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n+eyvvvqoBhNROXe6B5c1fKN0AlIx52kbEan1JE/agVXt8hhzx4O2lPGgw/6cHiiUwyH1u3SoTcFFlgZ6W/GC4VEkZzGG2gKO70hzqQ2tQn6s7mH8Qi8sWYCNiWAbrNgKeKz5oMKsaVcXNUdfIE9GfM6ep69dChbNSKrczyFvLQyDIBUZXXLNHKUrd+8Omb5L6WeWw+zzRMRivuvtKesakNVQaLdptjELaN1n7VTcfyT73q1uBspFEDkJGgxNQUuigMnghy0i5rRxnyetnY8qE7yNiWZEfdWkDQdvQXdYf4/HDdcdCMBUaoJVoJRJxQuPBHhM/pZYiKia203jxScgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q5gijShhHPd5cTg9a+dSKZE64FiyKP6Lk5iwnZ8l7pM=;
+ b=Bf2hAIx1ox08J8paDWMPAW7so4Bxb8eFNqqomfiVxI7p/Sblbdz0rZmdlhJqcPZmkKFGR5BpVSrrmWZk3bybHBlhZLBLwUUJQU/doW6eJ32wVsb6cicJOmmR4uJb0awG4rp6MuGkCpiiFazllLw/vS3yxi8a9YvKfIdHHYyP73z+G5U6icaFKwY+FHHinmBrwFcrnWAM7j99G5Ai9LoHU/IgXN+dwmirXPsucVrLezWEOYAGTdfhYbgr0FDbU5OOONOERPhXnAoCJ4MMDVMfM730zX7i4ZBtk9JfMYp9bDx49aPqRW3T63xEwxoRn3aabFGNEy6PrFVHWfEhG057ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=whEpbR7WTbtRDMaD+RUjMVHegptTMi8I2/fBd5p79hQ=;
-        b=gKarmlPK8ZldDK+R56MY4YjAAzNvVeGqNKLHPM5yqK8czmX7ScgPXP8wQsbM2e8K3S
-         SVkpqP4dC4aYeTyGQYrTqyu54I94/dfi656SV19KXeNnkWDWp73wC+rOMSHOVtjmuZb+
-         Yzms0wMxRK4c73kGflkqSNXMrAAEsEUMnU4b4QYNFf4R/scDpdAVmdoGeH9ZWAA5y6ih
-         ma7MJYJKp0rn3TObm/33q6U5yMCDOQ4ps6bFqacc0oH0iXCktgxbwpCr/lE2rZaH2qQk
-         kUPOogXUjYY/sGNPKuDKqqTuLvlS9Sacnlno80Rw+pm7Ih81TpvyR5927WIh+KkjFowu
-         nBiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=whEpbR7WTbtRDMaD+RUjMVHegptTMi8I2/fBd5p79hQ=;
-        b=MF/xw1K7qo7eq+nBmW5rTfOH9ajh5h/yfYVoI62/drMnsBUpc8SO31YqFQ+xfc85MX
-         vLURVnHLXmIxmaoxtQPNA/oqCgCTwiX9CUHn6Y9XThZFt1PjvKc/JFCnE9TB81k1LAxG
-         L8kVvXrckAcJW45aNp7Fsx2fcLJAzMBv9T+YTdaywdf7bMGMvs0IXC6kum8HMlvSlD1i
-         RaOIL0RD0zkVZ80METTJ8sy2xEbk4Kmszo0h7MnYjb84jU3hrKGg2O5FgCcsg/vjUHuW
-         UqO0o7aypREUbDjcvDXV668vBAOW7uhKhwS95VhJXv+tY+OYhRa4p8dto2UmVEPUFvkt
-         cENw==
-X-Gm-Message-State: AOAM531ZfTX04ZnRMeSwENMl2+0x4s50xJl/NArvu/tJ2VzaY2i9LpJ+
-	JYvST//U9ughjfwUlLeuS0c=
-X-Google-Smtp-Source: ABdhPJxHiw+hVs6DHqlSXtEPTn30G2zZsJ9TL2FN+VBV6ypZexgoNkPFvAhz6y8XQk+/59TLNfA0bA==
-X-Received: by 2002:a05:6214:194f:: with SMTP id q15mr24786748qvk.46.1614778891756;
-        Wed, 03 Mar 2021 05:41:31 -0800 (PST)
-Date: Wed, 3 Mar 2021 08:41:28 -0500
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, george.dunlap@citrix.com,
-	Nick Rosbrook <rosbrookn@ainfosec.com>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [RFC v2 0/7] add function support to IDL
-Message-ID: <YD+SCKyagzddny1t@FED-nrosbr-BE.crux.rad.ainfosec.com>
-References: <cover.1614734296.git.rosbrookn@ainfosec.com>
- <24639.23378.722148.653250@mariner.uk.xensource.com>
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q5gijShhHPd5cTg9a+dSKZE64FiyKP6Lk5iwnZ8l7pM=;
+ b=hd1vK6kDq+2E1Cx2nXM7l743gJITjY7GP6T42eMnenHtUo8OVVJk8AfI9VENRkWN96d9YdA24+ZXHOaZcHYzGrOyX2MU37VrApguLai1aGenSpuTdxOYXMl0FI53VFWsIQ+Ey0OT2ePff7jcWaK48lqV0SD7iCro/4shAZTPthM=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Doug Goldstein
+	<cardoe@cardoe.com>, Ian Jackson <iwj@xenproject.org>
+Subject: [PATCH for-4.15] automation: allow doing hypervisor only builds
+Date: Wed,  3 Mar 2021 15:33:16 +0100
+Message-ID: <20210303143316.16840-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.30.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR1P264CA0022.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2f::9) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24639.23378.722148.653250@mariner.uk.xensource.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9c55d299-5384-40a6-f931-08d8de5156bf
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3481:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB34817FD983C37115091E39CE8F989@DM6PR03MB3481.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /Z36JUMFkotM4XV/mH/EXMv80nL7b0ckFhfNJUwQu9id4Agix2jjIpyxFnKkUjMSgBVIiA8H9psulaFbI3P8y1qIbfTNC0CgnIygSqpuwPweKiIjGysW69DXamy9jUAlnDDYjX0HVuFXDZr9PedEatD3v8D3bOVferwsbZTTbMn5ranMq7579L3+IviVL0X/YC5GjeGH2BOIUpZ01s+DYDFeKoFSPxjYAYrD7e8zZiPu7IgrUpqj2YkJs3tKw7Rz16wD5hLJqiIa/yD/3e1Ra7/9SFSsdbN/x4AMnh47aK2G8Dlwk4c/YLTTqcwrqLDbf5U0J8GCdXPs+FJlcEJO9sLVMZWjBqrvJ/IutLO27dBBQ+HuzR9BeMkuHinFXkL1a/SVj++dOuokIPYG4NeAS20hfnDhDXPVZAOuFC9ypXakxe8yKLwzAqZd/0myMnvXiPIMvNagK79oWisE0KDOP3lKE7lVzCaxOOnI1XUJlpA8f/8nzvkvxrjS0PfCLyGO+2ghv62KeCWmmCt9ze/2gMGrF13lEj7Jk8WsE9Vmi0e1YGibHRzOfGNs1F3enLFGJzuPTQIDcHqO4yNVf62FisZQJPYgsNj8h78Ee/r8WH0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(366004)(396003)(346002)(136003)(83380400001)(5660300002)(6916009)(1076003)(54906003)(478600001)(66556008)(36756003)(8676002)(6496006)(66476007)(66946007)(6666004)(26005)(8936002)(186003)(86362001)(6486002)(956004)(966005)(2616005)(4326008)(2906002)(316002)(16526019);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VkpBUnd2QnJyQmE4K2g0Rm1QUVlNOHJpMEJBZGNCSFdxZXhFVnpYOWdqRk4x?=
+ =?utf-8?B?TzJoMWk1K0I0eTFOcnkrYkMrRHhCVkZHa3p2K1A3NlRvY3JoSlFVS0RCbDl2?=
+ =?utf-8?B?YXRPaTJKb1RpZWlJNjlMWTBuaUhydVN0VC9DdnBrQjJYNDNKUzVyVS9XMUpK?=
+ =?utf-8?B?M3A0ZysrRlJQcUZvQlZORjBRZjZJcTBsZ1Y5SzFtaWRTb3Y5VklQTFhKRjlV?=
+ =?utf-8?B?d1lnQ0w2UTBTUzdua0tlYVo0UVJBL0h2aUpROUFvNGhISzlNSTRSbXJTMXV6?=
+ =?utf-8?B?eXFNd1I2QnJ5cUhJSllQaDErOWpoelRNUStpb0UxR2FsOVR0VzYzb0J0WE0r?=
+ =?utf-8?B?ZDd0NUhrSUh4MVEyVEtDSUcyRG1VL2g4eDZ5MEQ2eGorYVlJeGVqRXpLZFIx?=
+ =?utf-8?B?TG9wMW9jRXVjSWNnc0YxbDFYdHBKazlnR2d6Ui9aUllSZGFZWGloZ1BVYlh5?=
+ =?utf-8?B?NnJkK0xDV0ZuSkV0K2dOUmVzcUU3ekZoUU9iTWFmWlJ2aVl6ZXRYZjlmWk8w?=
+ =?utf-8?B?NjlvK3ptc2krRU83TWZpNEdNSnhDOWxSdkYwMGNISFVoSkllTnBzQUVuNVhm?=
+ =?utf-8?B?cFRWbWh6NVl6MW8zcUJFY3BmRXhoeXJmdUo4NDVXTnJwSFk3VnJqTVUydUZn?=
+ =?utf-8?B?K296QXRib3ZLVm1zS2JCWFdKTnNYWkRXelY2UE9BUlZObnVXYXYxLytOTjl1?=
+ =?utf-8?B?RUh0WGtvdGZYSFlhRVhZelJxUm1nNTJJc1AwMUp5Sno0M1dSdHpGL1VXWW1k?=
+ =?utf-8?B?QjBvejJPRnZKNmtkZVZRVjBVVGkxL0liTmkxQkdCVHowREJ4UlhDSGtEWlRH?=
+ =?utf-8?B?bHFJZjBZOC9ydEdERGNtUlNubmRKT1ByYXVuMmk0cFg2QzU2c0JIUXNZWGEr?=
+ =?utf-8?B?Rk41VXZVNWJOMUJxVkgrQWVWclJtMFRVZXhZeE5sTFBhdlZFZEIvTEpDVG1y?=
+ =?utf-8?B?bjZ1WkI5MEJPYVRHSWZldVBLVzJ6TG1aY2g4OGFzZkZTaDlLVlBXMmJtcE1P?=
+ =?utf-8?B?Wm9kOHl2aVdHVWJnR1phSmJWaDNSMmlDd3Q4dUpjMTU3VXhOaDNVRS8wWUth?=
+ =?utf-8?B?VUJjWnVWQ2ViVGFnY1lhcmZZcGdSTUxDOTZGTTVEZURBMHBaSTlIV2w3REJK?=
+ =?utf-8?B?cGxoaVUvdkRhVnFDR3k2TVFDTTk4Z09BYnhLN0xVZlZDN0IxS3RMZG95V3NG?=
+ =?utf-8?B?Y3ZYVXF1NGlpcjdncjczYXpuVkhQZm9JazRrc2U5blMwU3A0djVZN3ZsMjd1?=
+ =?utf-8?B?cmJ2L0dFVXpqeXg1T29KZ0JhcHhBN3M2TWExRW1YQVRnWmxJb2NvUjJ0Vjl1?=
+ =?utf-8?B?NkFWd1kzdkpwRWMzLy85NE43REluU3A3Y0J3Q0g2OXIyNW44bkRqQ3JjZFVT?=
+ =?utf-8?B?MVAraVRMWnQ2bXhDdVVSQ21jMndoK01pRWU2b2pNTE5DYzIyQjBOb00wQ3RP?=
+ =?utf-8?B?WjZHWnBQSGJBVjFMZDhvVXBLaWxxcGl2a2ZURHQvSWxMOWlGZDRmMTVkTUk5?=
+ =?utf-8?B?Ky9kTDlmWFFydWhIUFEycnl3UDMrcW9VUGNuQXZSQWJGbm0zSjY3ZXJJenAy?=
+ =?utf-8?B?Q1Z3d2pYTjc0Y0RkeWlTTGFTNUJhUnFVT0Q5R1pmTEYrcG8vWFcyc1NZTTNi?=
+ =?utf-8?B?L1hNMEdxZFhkdFB1QkJyQmtrU2FnZThqK1dlNFhiTXIyOVU1RDVZVE45Sjc2?=
+ =?utf-8?B?cENnNi9qcm9xdlZHK0tQWGFnQUVZZ25vUGZiQlhEOGp2OVhSNTlGOWFUMzlu?=
+ =?utf-8?Q?Bln+QO0k6YWPjB35eUvoLgzQFV/CmUbpvcJigsI?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c55d299-5384-40a6-f931-08d8de5156bf
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2021 14:33:40.3995
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JYx1xs+Erb8RmCPb4GPW/ZWU3Ckiw+pTA+fvSiXmL5lA0BPjwoKZWL9uk/Bq3HxEj0VX5QupmAbgitCx/82FZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3481
+X-OriginatorOrg: citrix.com
 
-On Wed, Mar 03, 2021 at 09:48:02AM +0000, Ian Jackson wrote:
-> Nick Rosbrook writes ("[RFC v2 0/7] add function support to IDL"):
-> > At a Xen Summit design session for the golang bindings (see [1]), we
-> > agreed that it would be beneficial to expand the libxl IDL with function
-> > support. In addition to benefiting libxl itself, this would allow other
-> > language bindings to easily generate function wrappers.
-> > 
-> > The first version of this RFC is quite old [1]. I did address comments
-> > on the original RFC, but also expanded the scope a bit. As a way to
-> > evaluate function support, I worked on using this addition to the IDL to
-> > generate device add/remove/destroy functions, and removing the
-> > corresponding macros in libxl_internal.h. However, I stopped short of
-> > actually completing a build with this in place, as I thought it made
-> > sense to get feedback on the idea before working on the next step.
-> 
-> This is exciting!  I hope to find time to look at it, but I'm the
-> release manager for Xen 4.15 and that's taking most of my time right
-> now.
+For things like randconfig there's no need to do a full Xen build, a
+hypervisor build only will be much faster and will achieve the same
+level of testing, as randconfig only changes the hypervisor build
+options.
 
-Of course, I understand. Thank you for expressing interest, I look
-forward to hearing your thoughts when time permits.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Cc: Ian Jackson <iwj@xenproject.org>
+I think it might be good to get this in ASAP in order to reduce the
+load of the gitlab CI loop.
 
-Thanks,
-NR
+Release wise the worse that could happen is that gitlab testing is
+broken by this, but I've already done a run myself:
+
+https://gitlab.com/xen-project/people/royger/xen/-/pipelines/264757821
+---
+ automation/scripts/build | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/automation/scripts/build b/automation/scripts/build
+index 87e44bb940..1b752edfe6 100755
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -11,6 +11,7 @@ cc-ver()
+ # random config or default config
+ if [[ "${RANDCONFIG}" == "y" ]]; then
+     make -j$(nproc) -C xen KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
++    hypervisor_only="y"
+ else
+     make -j$(nproc) -C xen defconfig
+ fi
+@@ -45,16 +46,27 @@ if [[ "${CC}" == "gcc" && `cc-ver` -lt 0x040600 ]]; then
+     cfgargs+=("--with-system-seabios=/bin/false")
+ fi
+ 
+-./configure "${cfgargs[@]}"
+-
+-make -j$(nproc) dist
++if [[ "${hypervisor_only}" == "y" ]]; then
++    make -j$(nproc) xen
++else
++    ./configure "${cfgargs[@]}"
++    make -j$(nproc) dist
++fi
+ 
+ # Extract artifacts to avoid getting rewritten by customised builds
+ cp xen/.config xen-config
+ mkdir binaries
+ if [[ "${XEN_TARGET_ARCH}" != "x86_32" ]]; then
+     cp xen/xen binaries/xen
+-    cp -r dist binaries/
++    if [[ "${hypervisor_only}" != "y" ]]; then
++        cp -r dist binaries/
++    fi
++fi
++
++if [[ "${hypervisor_only}" == "y" ]]; then
++    # If we are build testing a specific Kconfig exit now, there's no point in
++    # testing all the possible configs.
++    exit 0
+ fi
+ 
+ # Build all the configs we care about
+-- 
+2.30.1
+
 
