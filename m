@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A5D332ACCA
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 02:47:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92642.174627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3402932ACC7
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 02:47:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92643.174640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHGat-00085u-Ki; Wed, 03 Mar 2021 01:46:31 +0000
+	id 1lHGax-00088h-Vr; Wed, 03 Mar 2021 01:46:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92642.174627; Wed, 03 Mar 2021 01:46:31 +0000
+Received: by outflank-mailman (output) from mailman id 92643.174640; Wed, 03 Mar 2021 01:46:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHGat-00085U-HN; Wed, 03 Mar 2021 01:46:31 +0000
-Received: by outflank-mailman (input) for mailman id 92642;
- Wed, 03 Mar 2021 01:46:29 +0000
+	id 1lHGax-000889-RB; Wed, 03 Mar 2021 01:46:35 +0000
+Received: by outflank-mailman (input) for mailman id 92643;
+ Wed, 03 Mar 2021 01:46:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ma28=IB=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1lHGar-000841-Pq
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 01:46:29 +0000
-Received: from mail-qv1-xf2c.google.com (unknown [2607:f8b0:4864:20::f2c])
+ id 1lHGaw-000841-QA
+ for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 01:46:34 +0000
+Received: from mail-qk1-x732.google.com (unknown [2607:f8b0:4864:20::732])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a9e9fbda-26c0-4664-8b1f-192141e9f5d7;
- Wed, 03 Mar 2021 01:46:24 +0000 (UTC)
-Received: by mail-qv1-xf2c.google.com with SMTP id r5so10907021qvv.9
- for <xen-devel@lists.xenproject.org>; Tue, 02 Mar 2021 17:46:24 -0800 (PST)
+ id a3077b7d-79b8-4b66-9feb-f6b58ccb2671;
+ Wed, 03 Mar 2021 01:46:26 +0000 (UTC)
+Received: by mail-qk1-x732.google.com with SMTP id b130so10897584qkc.10
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Mar 2021 17:46:26 -0800 (PST)
 Received: from six.home (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
  by smtp.gmail.com with ESMTPSA id
- g21sm5406145qkk.72.2021.03.02.17.46.23
+ g21sm5406145qkk.72.2021.03.02.17.46.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Mar 2021 17:46:24 -0800 (PST)
+ Tue, 02 Mar 2021 17:46:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9e9fbda-26c0-4664-8b1f-192141e9f5d7
+X-Inumbo-ID: a3077b7d-79b8-4b66-9feb-f6b58ccb2671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :in-reply-to:references;
-        bh=d3549LeDdOjw1wfdOgQuNmXcdgerSomgrqy3WUaXdIs=;
-        b=S+W9hRMLlx9zEuE0+c4nDwmnRqQNsttx2156p9Nf12EOhJPyfgvIQ2+wxo8ondrl1J
-         TSISvHwKtcFG99foz4tvClo3W7uqqVIfGiJy+zbbV+F/To6xe7UvF+5dQocBcdWmzQcG
-         oI747VQDFc/GXZQtsWF+ujfvRAYwXzIdm+4YEEFmsu1q6vojCCm3btfoVMuvC7hsyEMX
-         6K+dChtfvRELSlck1Y5rh4fjsnW+mx0N+s0dSY5zrwHc+Kf/T3Z+e5SQDGIRY7jBNz8+
-         4kjzZklUzxcicFr1mgTZWBpBKBZ0ghej3riwma3ZfEtzYNjCDi6rcLILRmWY3eO+aVt2
-         IUaw==
+        bh=ITJlz1yVls1L4SWL3IJLaiNjFmwpPVqobYLq7BDZhNc=;
+        b=RHLP7pwFdxbSwR7IR5byQQYXAWJ9le3sztKm+HRoyIm5Aa7VluQLhq1vaFjN0Z4Ebb
+         PoQ+kx53UI5Mqs9qwqGPxzIjW6flbOuQCef7RWrdmz8+YjiyPdfK8ml3+LEyJ2deX1NO
+         fx/bzEHQyhiUin0q+ltzqaQT9BVjdJtA8gLdTHVn0L6+Nqk4+W4/tAGw2LNge1RcXeN7
+         FQ44JKngxTm2a2ltU5IN9ukz5BV2ArtsbVE08Oe3itdCfAx0MATLg/QuVG+5nrCBu5oy
+         qRU1x4OKbO+fypkqEJXeuvpXKzR3gQAjxCf5AE0fJ6QdHUMg3XyjW+zqUn7jCse+tQQP
+         uR2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:in-reply-to:references;
-        bh=d3549LeDdOjw1wfdOgQuNmXcdgerSomgrqy3WUaXdIs=;
-        b=QKwG2B2wOPcwx2fsf7E9VgCHslhfI1a+OHV92xnj41pUGwFTTngr8kCbnptlz8iwcS
-         YJObfVxRi7LvqbYB9zIg57iYGdgULmfQL7dFqdPJtNwx9H+5F0H1lTXJqtfoi3iWY4J6
-         DTewSHX4bNtocGfYT6uzCErtt96h1e27hs61l9HvoOqv++UoIwJK1lA8ntPr0BTtQlot
-         390ttpxwTVoFguPbP7CUsoiXWRCr90DHUoqe3jF0y4bEWI/fBFnQjPRIL0+g17thjsp1
-         Qi5OLfU49oFsCLDSL00LSYPkpJY31ckCnOVEebNzYYZBU55zudG9GNiFP4SaUyIoE/hh
-         PWeQ==
-X-Gm-Message-State: AOAM533J7vLTnWW2vM10tzlPGYcftlFA6WcyK/s4vMoI7kiS1nziw0p6
-	eGLRjt+oJctnfW9gWkej8V33iqPZMIjOUg==
-X-Google-Smtp-Source: ABdhPJxLArmXxrobJohrB1yLe+OiwyMWj4S102WoUONDq1AiRM3wmVwOxT66SiWHbJpS0nqyQ13e0Q==
-X-Received: by 2002:a0c:fd63:: with SMTP id k3mr6421373qvs.30.1614735984461;
-        Tue, 02 Mar 2021 17:46:24 -0800 (PST)
+        bh=ITJlz1yVls1L4SWL3IJLaiNjFmwpPVqobYLq7BDZhNc=;
+        b=L3pK/pshSCqUjBFEtyBKAv8gEnCRn/zb0FaivDIgpNWhNs5Y7Ymu3rRLA9HmImv9U+
+         86D0aVFY/CDvSkTi2akVyjJLPGCyiYCxKHZp/tTogiyQa6dkxqoQ1cA9T8BvvIXrbERs
+         mcGvt6iuS/6uDg8VAzfTDRF88SBQcGCWkGc/npu2XN0URAqm1nsonXfUD9EsWSQ69LWy
+         GPLiJ8hJqI3JWoPZ0JUMZetKmM593SdISSP2ZAMeC/jXahLzFR47m7Xts+Z1j7BPXEuh
+         1LloAlcZurlH0LESI4oPg87UZVCAnWx7rHiU8PrJiiqd+ECiOch435gs6H+UVl0I8VPC
+         nzkg==
+X-Gm-Message-State: AOAM531og9/5xy5c68xK6b1f5tWMv6Yg/0lzDXMUVr1XovL3jLFM1VAT
+	uuLdnlx2iMJ8AHHje6g6o/kaDVPFd0ybcw==
+X-Google-Smtp-Source: ABdhPJwf9vEmttoT9z+hs1iBJXF1N9mUVjBQHHeUJc29/71XkIQSrjGuiRR+Rdf5YH4ajF53eizOMw==
+X-Received: by 2002:a37:9385:: with SMTP id v127mr12608930qkd.131.1614735985760;
+        Tue, 02 Mar 2021 17:46:25 -0800 (PST)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.org
@@ -78,86 +78,123 @@ Cc: george.dunlap@citrix.com,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [RFC v2 1/7] libxl: remove extra whitespace from gentypes.py
-Date: Tue,  2 Mar 2021 20:46:13 -0500
-Message-Id: <7a75b14f66acac499a0b17ab1c5595549421bac7.1614734296.git.rosbrookn@ainfosec.com>
+Subject: [RFC v2 2/7] libxl: add Function class to IDL
+Date: Tue,  2 Mar 2021 20:46:14 -0500
+Message-Id: <2193e7fbc7c359b2e32551370ef57ba371658281.1614734296.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1614734296.git.rosbrookn@ainfosec.com>
 References: <cover.1614734296.git.rosbrookn@ainfosec.com>
 In-Reply-To: <cover.1614734296.git.rosbrookn@ainfosec.com>
 References: <cover.1614734296.git.rosbrookn@ainfosec.com>
 
-No functional change, just remove the extra whitespace from gentypes.py.
+Add a Function and CtxFunction classes to idl.py to allow generator
+scripts to generate wrappers which are repetitive and straight forward
+when doing so by hand. Examples of such functions are the
+device_add/remove functions.
+
+To start, a Function has attributes for namespace, name, parameters,
+and return type. The CtxFunction class extends this by indicating that a
+libxl_ctx is a required parmeter.
+
+Also, add logic to idl.parse to return the list of functions found in an
+IDL file. For now, have users of idl.py -- i.e. libxl/gentypes.py and
+golang/xenlight/gengotypes.py -- ignore the list of functions returned.
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 ---
- tools/libs/light/gentypes.py | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ tools/golang/xenlight/gengotypes.py |  2 +-
+ tools/libs/light/gentypes.py        |  2 +-
+ tools/libs/light/idl.py             | 36 ++++++++++++++++++++++++++++-
+ 3 files changed, 37 insertions(+), 3 deletions(-)
 
+diff --git a/tools/golang/xenlight/gengotypes.py b/tools/golang/xenlight/gengotypes.py
+index 3e40c3d5dc..484e121746 100644
+--- a/tools/golang/xenlight/gengotypes.py
++++ b/tools/golang/xenlight/gengotypes.py
+@@ -725,7 +725,7 @@ def xenlight_golang_fmt_name(name, exported = True):
+ if __name__ == '__main__':
+     idlname = sys.argv[1]
+ 
+-    (builtins, types) = idl.parse(idlname)
++    (builtins, types, _) = idl.parse(idlname)
+ 
+     for b in builtins:
+         name = b.typename
 diff --git a/tools/libs/light/gentypes.py b/tools/libs/light/gentypes.py
-index 9a45e45acc..37de0f68b3 100644
+index 37de0f68b3..f9957b79a2 100644
 --- a/tools/libs/light/gentypes.py
 +++ b/tools/libs/light/gentypes.py
-@@ -40,7 +40,7 @@ def libxl_C_type_define(ty, indent = ""):
-     elif isinstance(ty, idl.Aggregate):
-         if isinstance(ty, idl.KeyedUnion):
-             s += libxl_C_instance_of(ty.keyvar.type, ty.keyvar.name) + ";\n"
--            
-+
-         if ty.typename is None:
-             s += "%s {\n" % ty.kind
-         else:
-@@ -48,7 +48,7 @@ def libxl_C_type_define(ty, indent = ""):
+@@ -592,7 +592,7 @@ if __name__ == '__main__':
  
-         for f in ty.fields:
-             if isinstance(ty, idl.KeyedUnion) and f.type is None: continue
--            
-+
-             x = libxl_C_instance_of(f.type, f.name)
-             if f.const:
-                 x = "const " + x
-@@ -164,7 +164,7 @@ def libxl_init_members(ty, nesting = 0):
-         return [f for f in ty.fields if not f.const and isinstance(f.type,idl.KeyedUnion)]
-     else:
-         return []
--    
-+
- def libxl_C_type_do_init(ty, pass_arg, need_zero=True, indent="    "):
-     s=indent
-     if ty.init_val is not None:
-@@ -229,20 +229,20 @@ def libxl_C_type_member_init(ty, field):
-         raise Exception("Only KeyedUnion is supported for member init")
+     (_, idlname, header, header_private, header_json, impl) = sys.argv
  
-     ku = field.type
--    
+-    (builtins,types) = idl.parse(idlname)
++    (builtins,types,_) = idl.parse(idlname)
+ 
+     print("outputting libxl type definitions to %s" % header)
+ 
+diff --git a/tools/libs/light/idl.py b/tools/libs/light/idl.py
+index d7367503b4..20278c272a 100644
+--- a/tools/libs/light/idl.py
++++ b/tools/libs/light/idl.py
+@@ -347,6 +347,35 @@ class OrderedDict(dict):
+     def ordered_items(self):
+         return [(x,self[x]) for x in self.__ordered]
+ 
++class Function(object):
++    """
++    A general description of a function signature.
 +
-     s = ""
-     s += "void %s(%s, %s)\n" % (ty.init_fn + "_" + ku.keyvar.name,
-                                 ty.make_arg("p", passby=idl.PASS_BY_REFERENCE),
-                                 ku.keyvar.type.make_arg(ku.keyvar.name))
-     s += "{\n"
--    
++    Attributes:
++      name (str): name of the function, excluding namespace.
++      params (list of (str,Type)): list of function parameters.
++      return_type (Type): the Type (if any), returned by the function.
++    """
++    def __init__(self, name=None, params=None, return_type=None, namespace=None):
 +
-     if ku.keyvar.init_val is not None:
-         init_val = ku.keyvar.init_val
-     elif ku.keyvar.type.init_val is not None:
-         init_val = ku.keyvar.type.init_val
-     else:
-         init_val = None
--        
++        if namespace is None:
++            self.namespace = _get_default_namespace()
++        else:
++            self.namespace = namespace
 +
-     (nparent,fexpr) = ty.member(ty.pass_arg("p"), ku.keyvar, isref=True)
-     if init_val is not None:
-         s += "    assert(%s == %s);\n" % (fexpr, init_val)
-@@ -732,7 +732,7 @@ if __name__ == '__main__':
-         f.write(libxl_C_type_copy(ty, "dst", "src"))
-         f.write("}\n")
-         f.write("\n")
--        
++        self.name = self.namespace + name
++        self.rawname = name
++        self.params = params
++        self.return_type = return_type
 +
-     for ty in [t for t in types if t.copy_deprecated_fn]:
-         f.write("int %s(libxl_ctx *ctx, %s)\n" % (ty.copy_deprecated_fn,
-             ty.make_arg("p", passby=idl.PASS_BY_REFERENCE)))
++class CtxFunction(Function):
++    """ A function that requires a libxl_ctx. """
++    def __init__(self, name=None, params=None, return_type=None):
++        ctx = Builtin("ctx", passby=PASS_BY_REFERENCE)
++        params.insert(0, ("ctx", ctx))
++
++        Function.__init__(self, name, params, return_type)
++
+ def parse(f):
+     print("Parsing %s" % f, file=sys.stderr)
+ 
+@@ -358,6 +387,10 @@ def parse(f):
+             globs[n] = t
+         elif isinstance(t,type(object)) and issubclass(t, Type):
+             globs[n] = t
++        elif isinstance(t, Function):
++            globs[n] = t
++        elif isinstance(t,type(object)) and issubclass(t, Function):
++            globs[n] = t
+         elif n in ['PASS_BY_REFERENCE', 'PASS_BY_VALUE',
+                    'DIR_NONE', 'DIR_IN', 'DIR_OUT', 'DIR_BOTH',
+                    'namespace', 'hidden']:
+@@ -370,8 +403,9 @@ def parse(f):
+                           % (e.lineno, f, e.text))
+ 
+     types = [t for t in locs.ordered_values() if isinstance(t,Type)]
++    funcs = [f for f in locs.ordered_values() if isinstance(f,Function)]
+ 
+     builtins = [t for t in types if isinstance(t,Builtin)]
+     types = [t for t in types if not isinstance(t,Builtin)]
+ 
+-    return (builtins,types)
++    return (builtins,types,funcs)
 -- 
 2.17.1
 
