@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B06D032B8F7
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 16:32:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92873.175108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCEE732B8FE
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 16:40:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92885.175120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHTTc-0002fV-BA; Wed, 03 Mar 2021 15:31:52 +0000
+	id 1lHTb1-00037H-5V; Wed, 03 Mar 2021 15:39:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92873.175108; Wed, 03 Mar 2021 15:31:52 +0000
+Received: by outflank-mailman (output) from mailman id 92885.175120; Wed, 03 Mar 2021 15:39:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHTTc-0002f1-7y; Wed, 03 Mar 2021 15:31:52 +0000
-Received: by outflank-mailman (input) for mailman id 92873;
- Wed, 03 Mar 2021 15:31:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lHTb1-00036r-26; Wed, 03 Mar 2021 15:39:31 +0000
+Received: by outflank-mailman (input) for mailman id 92885;
+ Wed, 03 Mar 2021 15:39:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0XjP=IB=gmail.com=akihiko.odaki@srs-us1.protection.inumbo.net>)
- id 1lHTTa-0002d7-U3
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 15:31:50 +0000
-Received: from mail-pj1-x1033.google.com (unknown [2607:f8b0:4864:20::1033])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 39a3335d-6d4d-4b61-a38f-0e7838884c2c;
- Wed, 03 Mar 2021 15:31:47 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id e9so4560668pjj.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Mar 2021 07:31:47 -0800 (PST)
-Received: from localhost.localdomain
- ([2400:4050:c360:8200:5c52:1484:d5e9:8785])
- by smtp.gmail.com with ESMTPSA id j125sm26705574pfd.27.2021.03.03.07.31.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Mar 2021 07:31:46 -0800 (PST)
+ <SRS0=7pqQ=IB=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lHTaz-00036m-Ab
+ for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 15:39:29 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 86d6db25-f9a6-463d-ad70-44b21dd5eb80;
+ Wed, 03 Mar 2021 15:39:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,324 +36,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39a3335d-6d4d-4b61-a38f-0e7838884c2c
+X-Inumbo-ID: 86d6db25-f9a6-463d-ad70-44b21dd5eb80
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1614785967;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=5WqOM5a7AgG0CkA3zpuMcvBDUKpT/78Kaja3BhtQ+HE=;
+  b=SU08M8SUKgLD4YJd9ngWuezC1/fNkwIAcJfiYE972smCgS8jPvqPH2/7
+   hvnxFo2Mt+6PgJhhxqWH09/J0tRZxY+8uld8EboiewJpDjQxbXeGxKKlX
+   0OpmPvz7v3yX0dQZd2EAlBAq+eVPWCUJCwIciQZ6+5N7rRjOuJfhXHDTO
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: lO3lmTKz5xh03vy0Gh7lf9hYgXTeObTXGw6X5rOOPeQmcQuKnVkM96E6OEgxt3axzp2T9oq92T
+ 3EVc7s++7bTXgzrLh9+NtsgDy+xXHoEd26fw+zDeIoTnJvTrzjHyD5tXKtxeiKiBjWSxBtLQor
+ TPBKpbqz+2ANVZ3K4/uHKe0KYheiadOaiP35C6UBB3TX4uGWRVIVYqIFTHowH1oK1W1SwQzBgy
+ gZTpMbvIP89fViUuAL1X5wnK9YWXIEH+WjhjMxBktpl95X47nrDydIy4vvjoXQIjAAd4t8YEvN
+ fPY=
+X-SBRS: 5.2
+X-MesageID: 39847576
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,220,1610427600"; 
+   d="scan'208";a="39847576"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VvswhddtmLDJaAoSnJHn7WRmK/JgzsTdrl5gVWVrKC7KUz4b9lt/UxA5zRAk25NeA6ZUo5FUZ93VgswD1Rg9qHcDUNUk3E1VpYsTIUKlQDwCia/p6kkxjAsoG/5QzJyZunvCsuCFHXRo6vXDpj0DjgZyicNLdvMQf7k+d+17Ndav7yaKwvuoy/xBdCBWsvRE/mn9qG4C9d0oaBJWljeWscFriZAzM8Xp193hjzcKN8x+YYMwL7/dBzjoTgVqIK1BR1/PbpRXv9cg3G2cL/N/XfNEGe1u8EqCT90pn9GlOBqiMmWPHC29aFOk5+lZ3B42CbdYdStQ0kZ+pSo/d84TRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eFkGrp1LEur/92qyuJerjH8KSSFT0YAAEpNUTFcxPgE=;
+ b=HL2uaGW7Zw+pPN+dzb9P90qHzxq06b6AnPuOTlpbz75KNzyiVnkrFcVpO8ZiB3Ex6AeZacd92bntDyVlNQnDqzgxFnWgQjjItDByCujKbNpN3v2rMeylaq9amGlp+n7hjB6jmVnzCFkgCpueIYfdIVig/oJmxYviJ9IYDkXe2/dqJQyTsHmzIFoulyN4lnEgWt6xpogSs2dwXrjgkCgT9qKBYyhVc4ClQRW8zcHFBHOQn3ie2f+YeyiTD/7PT5h2d3DiXdTYdaERIvF9BUW++M8QbPo81uO2KCJwtl714l5gDHvYEfNMaBpNibtXVmmx5JPbTI/LYT1JFKPprpwMCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=XZCD1gaPmOF4fzquo49Q5QPSu+gMDmYGiB+c2jR/sN0=;
-        b=CtUmKjK1S+RM6N/iNxFStCDkvq12EIAiuobMiOj9wbSQkWHmAxGm/IRvAApX1eaZon
-         xpVYpuA+S7C/WDK8U/5kmJJCHOKSGslTMnicLBOT/MaIN9IyrFt64tNDrAQjY4PiTgAU
-         kdH3/0Cuv/WXbqE8zEnCDEzA05vmIPbu8u1CO1nDdgpTVNFQaeKVjnKCxA7wy0JzIrJc
-         hb6/UmAqlidk7YUsdq5PPrcQPUoVvt6+rKMAAqnfS3DaHOvZiizvkVj5ZE7+PjYtnnZ/
-         fHvwsr0U1Yreotf83fiy4OtlqJDqtUKpVJ+P1ZuvGHZWfpphMNCNDFxluxZJdL7u/Zcu
-         nuzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=XZCD1gaPmOF4fzquo49Q5QPSu+gMDmYGiB+c2jR/sN0=;
-        b=hsgUhXj9VliPvtIjliwCoii4MYAOpjY24kmYSJ3YStFGZ1wkfBJ+I//wJ+07lQ5Xox
-         J5Ww+G6oIywlXjWhLQxv5M+Z7EqjQge9jqo70aEs7TfwqS9+HPTotN5einwWvtuhO/4N
-         kutT2fm9g3OdyIajpx8mjwSTUJwb7FhIrwGfWt3M3uEGgoCQw3i1+jSOrxSpfkddGYe4
-         eXDuzsssLYlwb8CzrzDXhkOl4+0ALZmGGmkKpMA9z/cQs3y/ABSQph2Emwh3S5XNFLpa
-         h72YcfKbOhwsZGvnTLpgkgG3WsFrc+qxOK6+q16qj05tvNQrvnLQLZP+j3wd5sVfh9C9
-         Ge7w==
-X-Gm-Message-State: AOAM532JSJqJzVYXAgBCw4oYb0gRGWqejO/LpwLxx6M7QWwDW5P5jD2F
-	Vb9ZxvIvwhkWGEOZJGfW1Ao=
-X-Google-Smtp-Source: ABdhPJyn6dOKSQSF5oQeK4Oq3zDMfKyMb+LvXZkL2C7JkwipSshEm8XyxC3GXm/sPr/6CgfJsDnujw==
-X-Received: by 2002:a17:90a:9303:: with SMTP id p3mr9575355pjo.201.1614785507070;
-        Wed, 03 Mar 2021 07:31:47 -0800 (PST)
-From: Akihiko Odaki <akihiko.odaki@gmail.com>
-To: 
-Cc: qemu Developers <qemu-devel@nongnu.org>,
-	xen-devel@lists.xenproject.org,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Akihiko Odaki <akihiko.odaki@gmail.com>
-Subject: [PATCH v2 2/2] virtio-gpu: Respect UI refresh rate for EDID
-Date: Thu,  4 Mar 2021 00:29:48 +0900
-Message-Id: <20210303152948.59943-2-akihiko.odaki@gmail.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-In-Reply-To: <20210303152948.59943-1-akihiko.odaki@gmail.com>
-References: <20210303152948.59943-1-akihiko.odaki@gmail.com>
-MIME-Version: 1.0
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eFkGrp1LEur/92qyuJerjH8KSSFT0YAAEpNUTFcxPgE=;
+ b=CorstVwFJG/WPNMSNaVK73KpIisg47HT5cYZcIf8mx4QMbwxAgZqDrDy5reVwsT0MKPzXBv7pyW7AdPwKqbw2CcXQSA0LFjtcGQo6uAxPyuTqkrQ1N56VHWXFJY/n5zB6GDtQzzGe8C60cnHGYFh/cd3h3uhKwGEGJNke5upq38=
+Date: Wed, 3 Mar 2021 16:38:33 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>
+CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Jun
+ Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH RFC for-4.15] x86/msr: introduce an option for legacy MSR
+ behavior selection
+Message-ID: <YD+teWWbeu0XDhqm@Air-de-Roger>
+References: <20210301162357.76527-1-roger.pau@citrix.com>
+ <bfd185bf-489f-d858-c459-7630cbe7b462@suse.com>
+ <YD5TBSwZWzjlwGxD@Air-de-Roger>
+ <62be2084-e5fa-e439-8426-6d129a10c379@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <62be2084-e5fa-e439-8426-6d129a10c379@suse.com>
+X-ClientProxiedBy: PR1PR01CA0019.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102::32) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6cca290f-6943-4df8-f912-08d8de5a6aad
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4843:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4843A9406FBEC7475022C2398F989@DM6PR03MB4843.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zMCJdoUQgVfS0PgweYf0xOAe8kxIvxTidB6mLnKjk0ciOT1FNrTOuvWyqgV0U1VatudGCFQqktL50P/S/E5id0EA1LV/8rtMKJ2PK+DmXHLtrl3mG68wN0KxEzbBzGbbTndt2ZmKUoyli/g2ukI+kEif//rJ3hEcQY0Ngqv8F3ONHC3acHeQbBJGYBrDW9cPQK1AEH1jNk1bhmJ3jZOS06o/1CxaYQa+7iuih4njKXdd1OjlfLJMdzBvrwJ4iGnOdWMpJVvd8vIbz/jbO38O0Z/puDtm4/LJ23qFYn1olVZK7olqxiAfVqjWs4AVZamIl0v/387Xj+iZQ3xM7z67pDey8hBCurokJWYX2F7nOWQjzm/5Qa05qRroJxQqpx0MeYEbK1HEiQQ8Naifh54jAjZogtt8mv5lEy/b1UpkLUjnTYvmu0besodCcmyMgl7FbAIE+VIst2a0KhCsf2Q7z2cOCEIG1dMI1n111KRAYkIKAndvBmaS3LwT2AhP33jSA6Ng3EFhhYJ+B/bEsXzrPNXWJXUo9uecfN2Ilq3Pc+PIvEZ9iieCVTHYql6OSc6NSC+AD/cFppa/OXW7OlXxqU2dA0GJHdCMyu10SnCmYDijz44ojZPCKYk0V5H0e/FEUvF0Y26UnPcGakWRSSKmNQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(136003)(346002)(39860400002)(376002)(366004)(396003)(110136005)(5660300002)(316002)(186003)(8676002)(66476007)(83380400001)(6666004)(8936002)(86362001)(53546011)(26005)(16526019)(54906003)(6496006)(4326008)(956004)(9686003)(85182001)(66946007)(2906002)(478600001)(966005)(33716001)(66556008)(6486002)(67856001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?blp3Njdic3lIUVYrclBCNEtZcmkzYjRRcnl3SnZHd3RvZTBjSDA5YjRmbmRV?=
+ =?utf-8?B?SE9uSDhWRERxQVR2WnVOYzkzcUNtdWU3WkhwSzZRQWxuU3NwcHE4NElsODdQ?=
+ =?utf-8?B?TUNzZnZ3b0h5aTEyVjNubU5hbmFWOVUwT2tyUlBnc2F5eE1LRGc1cHZFY29u?=
+ =?utf-8?B?MEx5elBVeDd5N1FlNUNNdlRnTS91TVYycjVEZHhTRkYrbHpha1lXby9BaGt6?=
+ =?utf-8?B?MUZlMGtTUWV4QUlqU2dwbXJ1ZnRPWmNyUnRCdERxUzVNYW1Xd1lmbWo2TzNi?=
+ =?utf-8?B?bm1Id2Zyb0t6ZFc2Qy9VS2ZoWFRKRU1weC8ybktPVVFINTh1UkErNjc2c0Uz?=
+ =?utf-8?B?YWdna0ZqZzJCQmQ2bzhWWWFTUS82YVk0eHVTNEkyZVlZSWFZV1NxUXFMMW55?=
+ =?utf-8?B?OVM5OHIzRFRYTXhZT0F6eDBiUzJVMTdUWWZGOTduMzJ0VHZNZUlJS3ZtczBs?=
+ =?utf-8?B?NFdmUHZBU0hxTytmRlFWSTY5NkxnZGhsQnd0cm5VNnY4YXRGRTVoaDljVE9T?=
+ =?utf-8?B?Q0J3M0VsdWdUOWV1aUY0WUlLWG9GbjM2UjVwOG9teGVlNnRLNzN3K01nbERx?=
+ =?utf-8?B?akdyTE1GWGxOQVk0bUhZUXQ3QUJ2VkRiTXhxcElUWEVNMGd4QVZQRHR2N1dP?=
+ =?utf-8?B?ZDduSllqUXNKU2krZnVOUC8xN0tkclRRUnpWMlBFS0J0d2ZqU3NETTNNOXpP?=
+ =?utf-8?B?WjhEZTlzVVlmWmNXNURiTkhPZEJCNlIzZUdQWVZ5dW56b0FKNW04RmtMRm9h?=
+ =?utf-8?B?RVdISFVCZHBYWGFIOG54ZFpJUnFBUm9uSWlVSkE0OEllc2xVUVV4WWZMODRV?=
+ =?utf-8?B?VXorRzRoU3k4a0k5RDVDRm04Y1VLVGxlNVdHT1NPcTl0R3EzMy9jRzMxQW5n?=
+ =?utf-8?B?N05WTE5NOFlOcU5EaDFFMmVnTXozcHlOZm5OVFhpbEFsa0lZdklDTkEvQ2dw?=
+ =?utf-8?B?N3lWWVYxeEdXTEdzSEE4OXRuT3N4WWFjWmkvZW5UWFNqM2J6Q0h3MXpxU011?=
+ =?utf-8?B?VlMwUkp4c2c1SC8zS3o5N3FaU2VLamdNMnh4Vy9aNUdRdlVHWXBXSHdaNzdG?=
+ =?utf-8?B?cWJOTU54MjdzclgzMGdBNEVPQ1h6aVNYL1NCVVkzcXdaVnFtWEtqWXI4WEd3?=
+ =?utf-8?B?V09MbC91M0hYZnBqM3ZYL0k5ZzBDdmVKT1NsVzVoYy8xWFhGdXkwMXM3eXFi?=
+ =?utf-8?B?WEloK3dkSjUwZElZb1Y5dksrVXZGckkzNVN6RSt2TGdDNVpVcVRLNUlQUVN3?=
+ =?utf-8?B?MTRjUGs2R2RKdTBmVmRGdGZkTnR2T1hLd0wvampoSHJRUDhxeTkzZFl4OVFC?=
+ =?utf-8?B?emRnLzUzcTVMcHBMeHBGTW1abFd3d3hKSjF5UElESTdIVjMvSGVLcFlWK1VI?=
+ =?utf-8?B?eVdyaXlPbGp4K0Z4OVVxVEx5azdTTms4bGx4V0JWZUxYVXcwbGdadE4wNGpy?=
+ =?utf-8?B?WmhoRjNLVTZwM1Frc3VlQVdDZ0hMWUs0NnJRbGVjdjd3TStWbEwxSHZ0L1N2?=
+ =?utf-8?B?MHJtSzdOU2JiZDM0VTVrSmdKSFpnQUxhaEk3V25SWVJNU0hpWnNnNWlmYmZJ?=
+ =?utf-8?B?NVJvSDhhaEZQMUJLdTc0VnlLYXpCd29ZMzgxM0dNL09CV25vWXc2a1BOOXd4?=
+ =?utf-8?B?UklFQjBobzl2U0dtU0lDQlJ5UVVCajNKYnduZjR2UkFIODlqMEZuSE85YkV6?=
+ =?utf-8?B?U1ljc21pRGZBOThyT0JrbDYrVmRvV0NycEdJbFJtY3dsU1o2NEs3NWFrNVh6?=
+ =?utf-8?Q?llUWzL7r3QoegZsIlIvtxs9qX6sx2L5BFiwcdz8?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cca290f-6943-4df8-f912-08d8de5a6aad
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2021 15:38:39.2608
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 215U1bCIELaqLaonSRjYRdPdn4EMmqI4xF6kiAGcf1NaLO/E5VkQQGGFeaqRERmZ8OWegsx2eWh1fon2G0Tw4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4843
+X-OriginatorOrg: citrix.com
 
-This change adds a new member, refresh_rate to QemuUIInfo in
-include/ui/console.h. It represents the refresh rate of the
-physical display backend, and it is more appropriate than
-GUI update interval as the refresh rate which the emulated device
-reports:
-- sdl may set GUI update interval shorter than the refresh rate
-  of the physical display to respond to user-generated events.
-- sdl and vnc aggressively changes GUI update interval, but
-  a guests is typically not designed to respond to frequent
-  refresh rate changes, or frequent "display mode" changes in
-  general. The frequency of refresh rate changes of the physical
-  display backend matches better to the guest's expectation.
+On Tue, Mar 02, 2021 at 04:18:59PM +0100, Jan Beulich wrote:
+> On 02.03.2021 16:00, Roger Pau Monné wrote:
+> > On Tue, Mar 02, 2021 at 12:16:12PM +0100, Jan Beulich wrote:
+> >> On 01.03.2021 17:23, Roger Pau Monne wrote:
+> >>> RFC because there's still some debate as to how we should solve the
+> >>> MSR issue, this is one possible way, but IMO we need to make a
+> >>> decision soon-ish because of the release timeline.
+> >>
+> >> Generally I think it would be far better from a user pov if
+> >> things worked out of the box, at least in cases where it can be
+> >> made work. Arguably for Solaris this isn't going to be possible
+> >> (leaving aside the non-option of fully returning back to original
+> >> behavior), but for the old-Linux-PV case I still think my proposed
+> >> change is better in this regard. I realize Andrew said (on irc)
+> >> that this is making the behavior even weaker. I take a different
+> >> perspective: Considering a guest will install exception handlers
+> >> at some point, I continue to fail to see what good it will do to
+> >> try to inject a #GP(0) when we know the guest will die because of
+> >> not having a handler registered just yet. It is a kernel flaw,
+> >> yes, but they ended up living with it merely because of our odd
+> >> prior behavior, so we can't put all the blame on them.
+> > 
+> > My concern with this would mostly be with newer guests, in the sense
+> > that people could come to rely on this behavior of not injecting a
+> > #GP if the handler is not setup, which I think we should try to avoid.
+> > 
+> > One option would be to introduce a feature that could be used in the
+> > elfnotes to signal that the kernel doesn't require such workarounds
+> > for MSR #GP handling, maybe:
+> > 
+> > /*
+> >  * Signal that the kernel doesn't require suppressing the #GP on
+> >  * unknown MSR accesses if the handler is not setup. New kernels
+> >  * should always have this set.
+> >  */
+> > #define XENFEAT_msr_early_gp   16
+> > 
+> > We could try to backport this on the Linux kernel as far as we can
+> > that we know it's safe to do so.
+> 
+> I too did consider something like this. While I'm not opposed, it
+> effectively requires well-behaved consumers who haven't been well-
+> behaved in the past.
+> 
+> > If this is not acceptable then I guess your solution is fine. Arguably
+> > PV has it's own (weird) architecture, in which it might be safe to say
+> > that no #GP will be injected as a result of a MSR access unless the
+> > handler is setup. Ideally we should document this behaviour somewhere.
+> > 
+> > Maybe we could add a rdmsr_safe to your path akin to what's done
+> > here?
+> 
+> Probably. Would need trying out on the affected older version,
+> just like ...
+> 
+> >>> --- a/docs/man/xl.cfg.5.pod.in
+> >>> +++ b/docs/man/xl.cfg.5.pod.in
+> >>> @@ -2861,6 +2861,17 @@ No MCA capabilities in above list are enabled.
+> >>>  
+> >>>  =back
+> >>>  
+> >>> +=item B<msr_legacy_handling=BOOLEAN>
+> >>> +
+> >>> +Select whether to use the legacy behaviour for accesses to MSRs not explicitly
+> >>> +handled by Xen instead of injecting a #GP to the guest.  Such legacy access
+> >>> +mode will force Xen to replicate the behaviour from the hardware it's currently
+> >>> +running on in order to decide whether a #GP is injected to the guest.  Note
+> >>> +that the guest is never allowed access to unhandled MSRs, this option only
+> >>> +changes whether a #GP might be injected or not.
+> >>
+> >> This description is appropriate for reads, but not for writes:
+> >> Whether a write would fault can only be known by trying a write,
+> >> yet for safety reasons we can't risk doing more than a read. An
+> >> option might be to make writes fault is the to be written value
+> >> differs from that which the probing read has returned (i.e. the
+> >> same condition which originally had caused a log message to appear
+> >> in 4.14 for PV guests).
+> > 
+> > Read values for unhandled MSRs will always be 0 with the proposed
+> > code, so we would inject a #GP to the guest for any write attempt to
+> > unhandled MSRs with a value different than 0.
+> > 
+> > Maybe we should just inject a #GP to the guest for any attempts to
+> > write to unhandled MSRs?
+> 
+> ... doing this would need to. Iirc I did add the write side of the
+> handling in my patch just for symmetry. I'd prefer handling to be
+> symmetric, but I can see why we may not want it to be so.
 
-QemuUIInfo also has other members representing "display mode",
-which makes it suitable for refresh rate representation. It has
-a throttling of update notifications, and prevents frequent changes
-of the display mode.
+Kind of in the wrong context, but I will reply here because it's the
+last message related to the MSR stuff.
 
-Signed-off-by: Akihiko Odaki <akihiko.odaki@gmail.com>
----
- hw/display/virtio-gpu-base.c   |  1 +
- hw/display/virtio-gpu.c        |  1 +
- hw/display/xenfb.c             | 14 ++++++++---
- include/hw/virtio/virtio-gpu.h |  1 +
- include/ui/console.h           |  2 +-
- include/ui/gtk.h               |  2 +-
- ui/console.c                   |  6 -----
- ui/gtk-egl.c                   |  4 +--
- ui/gtk.c                       | 45 ++++++++++++++++++++--------------
- 9 files changed, 44 insertions(+), 32 deletions(-)
+Jan: would you be fine with modifying your path to not change the
+behaviour for writes (ie: always inject #GP to the guest for unhandled
+accesses), and then add a rdmsr_safe to the read path in order to
+decide whether to inject a #GP to the guest even if the #GP handler is
+not setup?
 
-diff --git a/hw/display/virtio-gpu-base.c b/hw/display/virtio-gpu-base.c
-index 4a57350917c..86ed208d031 100644
---- a/hw/display/virtio-gpu-base.c
-+++ b/hw/display/virtio-gpu-base.c
-@@ -80,6 +80,7 @@ static int virtio_gpu_ui_info(void *opaque, uint32_t idx, QemuUIInfo *info)
- 
-     g->req_state[idx].x = info->xoff;
-     g->req_state[idx].y = info->yoff;
-+    g->req_state[idx].refresh_rate = info->refresh_rate;
-     g->req_state[idx].width = info->width;
-     g->req_state[idx].height = info->height;
-     g->req_state[idx].width_mm = info->width_mm;
-diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
-index 2e4a9822b6a..eee22b18e8a 100644
---- a/hw/display/virtio-gpu.c
-+++ b/hw/display/virtio-gpu.c
-@@ -216,6 +216,7 @@ virtio_gpu_generate_edid(VirtIOGPU *g, int scanout,
-         .height_mm = b->req_state[scanout].height_mm,
-         .prefx = b->req_state[scanout].width,
-         .prefy = b->req_state[scanout].height,
-+        .refresh_rate = b->req_state[scanout].refresh_rate,
-     };
- 
-     edid->size = cpu_to_le32(sizeof(edid->edid));
-diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
-index 838260b6ad1..a53341ef673 100644
---- a/hw/display/xenfb.c
-+++ b/hw/display/xenfb.c
-@@ -777,16 +777,24 @@ static void xenfb_update(void *opaque)
-     xenfb->up_fullscreen = 0;
- }
- 
--static void xenfb_update_interval(void *opaque, uint64_t interval)
-+static void xenfb_ui_info(void *opaque, uint32_t idx, QemuUIInfo *info)
- {
-     struct XenFB *xenfb = opaque;
-+    uint32_t refresh_rate;
- 
-     if (xenfb->feature_update) {
- #ifdef XENFB_TYPE_REFRESH_PERIOD
-         if (xenfb_queue_full(xenfb)) {
-             return;
-         }
--        xenfb_send_refresh_period(xenfb, interval);
-+
-+        refresh_rate = info->refresh_rate;
-+        if (!refresh_rate) {
-+            refresh_rate = 75;
-+        }
-+
-+        /* T = 1 / f = 1 [s*Hz] / f = 1000*1000 [ms*mHz] / f */
-+        xenfb_send_refresh_period(xenfb, 1000 * 1000 / refresh_rate);
- #endif
-     }
- }
-@@ -983,5 +991,5 @@ struct XenDevOps xen_framebuffer_ops = {
- static const GraphicHwOps xenfb_ops = {
-     .invalidate  = xenfb_invalidate,
-     .gfx_update  = xenfb_update,
--    .update_interval = xenfb_update_interval,
-+    .ui_info     = xenfb_ui_info,
- };
-diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
-index fae149235c5..876c4a51a67 100644
---- a/include/hw/virtio/virtio-gpu.h
-+++ b/include/hw/virtio/virtio-gpu.h
-@@ -64,6 +64,7 @@ struct virtio_gpu_scanout {
- struct virtio_gpu_requested_state {
-     uint16_t width_mm, height_mm;
-     uint32_t width, height;
-+    uint32_t refresh_rate;
-     int x, y;
- };
- 
-diff --git a/include/ui/console.h b/include/ui/console.h
-index d30e972d0b5..6c4eb4df718 100644
---- a/include/ui/console.h
-+++ b/include/ui/console.h
-@@ -127,6 +127,7 @@ typedef struct QemuUIInfo {
-     int       yoff;
-     uint32_t  width;
-     uint32_t  height;
-+    uint32_t  refresh_rate;
- } QemuUIInfo;
- 
- /* cursor data format is 32bit RGBA */
-@@ -384,7 +385,6 @@ typedef struct GraphicHwOps {
-     void (*gfx_update)(void *opaque);
-     bool gfx_update_async; /* if true, calls graphic_hw_update_done() */
-     void (*text_update)(void *opaque, console_ch_t *text);
--    void (*update_interval)(void *opaque, uint64_t interval);
-     int (*ui_info)(void *opaque, uint32_t head, QemuUIInfo *info);
-     void (*gl_block)(void *opaque, bool block);
-     void (*gl_flushed)(void *opaque);
-diff --git a/include/ui/gtk.h b/include/ui/gtk.h
-index 3c1cd98db8b..1fde553c0f0 100644
---- a/include/ui/gtk.h
-+++ b/include/ui/gtk.h
-@@ -87,7 +87,7 @@ extern bool gtk_use_gl_area;
- 
- /* ui/gtk.c */
- void gd_update_windowsize(VirtualConsole *vc);
--int gd_monitor_update_interval(GtkWidget *widget);
-+void gd_update_monitor_refresh_rate(VirtualConsole *vc, GtkWidget *widget);
- 
- /* ui/gtk-egl.c */
- void gd_egl_init(VirtualConsole *vc);
-diff --git a/ui/console.c b/ui/console.c
-index c5d11bc7017..3f5a0c113e2 100644
---- a/ui/console.c
-+++ b/ui/console.c
-@@ -203,7 +203,6 @@ static void gui_update(void *opaque)
-     uint64_t dcl_interval;
-     DisplayState *ds = opaque;
-     DisplayChangeListener *dcl;
--    QemuConsole *con;
- 
-     ds->refreshing = true;
-     dpy_refresh(ds);
-@@ -218,11 +217,6 @@ static void gui_update(void *opaque)
-     }
-     if (ds->update_interval != interval) {
-         ds->update_interval = interval;
--        QTAILQ_FOREACH(con, &consoles, next) {
--            if (con->hw_ops->update_interval) {
--                con->hw_ops->update_interval(con->hw, interval);
--            }
--        }
-         trace_console_refresh(interval);
-     }
-     ds->last_update = qemu_clock_get_ms(QEMU_CLOCK_REALTIME);
-diff --git a/ui/gtk-egl.c b/ui/gtk-egl.c
-index 588e7b1bb19..1a32888e08b 100644
---- a/ui/gtk-egl.c
-+++ b/ui/gtk-egl.c
-@@ -116,8 +116,8 @@ void gd_egl_refresh(DisplayChangeListener *dcl)
- {
-     VirtualConsole *vc = container_of(dcl, VirtualConsole, gfx.dcl);
- 
--    vc->gfx.dcl.update_interval = gd_monitor_update_interval(
--            vc->window ? vc->window : vc->gfx.drawing_area);
-+    gd_update_monitor_refresh_rate(
-+            vc, vc->window ? vc->window : vc->gfx.drawing_area);
- 
-     if (!vc->gfx.esurface) {
-         gd_egl_init(vc);
-diff --git a/ui/gtk.c b/ui/gtk.c
-index 79dc2401203..c3e20806877 100644
---- a/ui/gtk.c
-+++ b/ui/gtk.c
-@@ -726,11 +726,20 @@ static gboolean gd_window_close(GtkWidget *widget, GdkEvent *event,
-     return TRUE;
- }
- 
--static void gd_set_ui_info(VirtualConsole *vc, gint width, gint height)
-+static void gd_set_ui_refresh_rate(VirtualConsole *vc, int refresh_rate)
- {
-     QemuUIInfo info;
- 
--    memset(&info, 0, sizeof(info));
-+    info = *dpy_get_ui_info(vc->gfx.dcl.con);
-+    info.refresh_rate = refresh_rate;
-+    dpy_set_ui_info(vc->gfx.dcl.con, &info);
-+}
-+
-+static void gd_set_ui_size(VirtualConsole *vc, gint width, gint height)
-+{
-+    QemuUIInfo info;
-+
-+    info = *dpy_get_ui_info(vc->gfx.dcl.con);
-     info.width = width;
-     info.height = height;
-     dpy_set_ui_info(vc->gfx.dcl.con, &info);
-@@ -754,33 +763,32 @@ static void gd_resize_event(GtkGLArea *area,
- {
-     VirtualConsole *vc = (void *)opaque;
- 
--    gd_set_ui_info(vc, width, height);
-+    gd_set_ui_size(vc, width, height);
- }
- 
- #endif
- 
--/*
-- * If available, return the update interval of the monitor in ms,
-- * else return 0 (the default update interval).
-- */
--int gd_monitor_update_interval(GtkWidget *widget)
-+void gd_update_monitor_refresh_rate(VirtualConsole *vc, GtkWidget *widget)
- {
- #ifdef GDK_VERSION_3_22
-     GdkWindow *win = gtk_widget_get_window(widget);
-+    int refresh_rate;
- 
-     if (win) {
-         GdkDisplay *dpy = gtk_widget_get_display(widget);
-         GdkMonitor *monitor = gdk_display_get_monitor_at_window(dpy, win);
--        int refresh_rate = gdk_monitor_get_refresh_rate(monitor); /* [mHz] */
--
--        if (refresh_rate) {
--            /* T = 1 / f = 1 [s*Hz] / f = 1000*1000 [ms*mHz] / f */
--            return MIN(1000 * 1000 / refresh_rate,
--                       GUI_REFRESH_INTERVAL_DEFAULT);
--        }
-+        refresh_rate = gdk_monitor_get_refresh_rate(monitor); /* [mHz] */
-+    } else {
-+        refresh_rate = 0;
-     }
-+
-+    gd_set_ui_refresh_rate(vc, refresh_rate);
-+
-+    /* T = 1 / f = 1 [s*Hz] / f = 1000*1000 [ms*mHz] / f */
-+    vc->gfx.dcl.update_interval = refresh_rate ?
-+        MIN(1000 * 1000 / refresh_rate, GUI_REFRESH_INTERVAL_DEFAULT) :
-+        GUI_REFRESH_INTERVAL_DEFAULT;
- #endif
--    return 0;
- }
- 
- static gboolean gd_draw_event(GtkWidget *widget, cairo_t *cr, void *opaque)
-@@ -810,8 +818,7 @@ static gboolean gd_draw_event(GtkWidget *widget, cairo_t *cr, void *opaque)
-         return FALSE;
-     }
- 
--    vc->gfx.dcl.update_interval =
--        gd_monitor_update_interval(vc->window ? vc->window : s->window);
-+    gd_update_monitor_refresh_rate(vc, vc->window ? vc->window : s->window);
- 
-     fbw = surface_width(vc->gfx.ds);
-     fbh = surface_height(vc->gfx.ds);
-@@ -1655,7 +1662,7 @@ static gboolean gd_configure(GtkWidget *widget,
- {
-     VirtualConsole *vc = opaque;
- 
--    gd_set_ui_info(vc, cfg->width, cfg->height);
-+    gd_set_ui_size(vc, cfg->width, cfg->height);
-     return FALSE;
- }
- 
--- 
-2.24.3 (Apple Git-128)
+I can modify the option introduced on this patch to always inject #GP
+on unhandled writes and only inject #GP on reads if the physical MSR
+access on the hardware also triggers a #GP. HVM guests with broken
+behavior will require having the option enabled in order to work,
+but I think that's likely OK as long term we expect all HVM guests to
+be well behaved.
 
+My main worry with this approach is that we end up requiring half of
+the common HVM guests OSes to have the 'legacy MSR handling' option
+enabled in order to work. I think it's unlikely for this to happen, as
+we are only aware of Solaris requiring it at the moment.
+
+It also raises the question whether we will allow any more exceptions
+to the MSR policy, like we did for Windows and OpenBSD in:
+
+http://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=ca88a43e660c75796656a544e54a648c60d26ef0
+http://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=4175fd3ccd17face664036fa98e9329aa317f7b6
+
+Or if we are just going to require those guests to enable the legacy
+MSR handling instead.
+
+Thanks, Roger.
 
