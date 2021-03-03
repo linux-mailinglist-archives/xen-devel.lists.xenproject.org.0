@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 201A232B652
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 10:49:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.92789.174895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F57B32B65D
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Mar 2021 10:57:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.92793.174906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHO7a-0008Ri-QF; Wed, 03 Mar 2021 09:48:46 +0000
+	id 1lHOEx-00016p-KP; Wed, 03 Mar 2021 09:56:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 92789.174895; Wed, 03 Mar 2021 09:48:46 +0000
+Received: by outflank-mailman (output) from mailman id 92793.174906; Wed, 03 Mar 2021 09:56:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHO7a-0008RJ-NF; Wed, 03 Mar 2021 09:48:46 +0000
-Received: by outflank-mailman (input) for mailman id 92789;
- Wed, 03 Mar 2021 09:48:44 +0000
+	id 1lHOEx-00016O-Gg; Wed, 03 Mar 2021 09:56:23 +0000
+Received: by outflank-mailman (input) for mailman id 92793;
+ Wed, 03 Mar 2021 09:56:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lHO7Y-0008RB-Tp
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 09:48:44 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lHOEv-00016F-Iy; Wed, 03 Mar 2021 09:56:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lHO7Y-0004uP-RX
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 09:48:44 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lHO7Y-0004HR-Pz
- for xen-devel@lists.xenproject.org; Wed, 03 Mar 2021 09:48:44 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lHO7V-0001i5-Gy; Wed, 03 Mar 2021 09:48:41 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lHOEv-00051I-B2; Wed, 03 Mar 2021 09:56:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lHOEu-0006Xj-9a; Wed, 03 Mar 2021 09:56:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lHOEu-0003pl-95; Wed, 03 Mar 2021 09:56:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,30 +43,68 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=H2bZ7OlHlMOOf01rU4s4AbmOgMFAlrZyGw4FUyvdKgM=; b=grLLib3dt1jQ5HVd30EnYTm+pl
-	jJksngJX8ol6YEqyEpD3EVvU6uboTZ/Xj3y78mFc/raOr4hmUK277rcXq0LhOuIIy7Hv3973UUb78
-	bZ1WS1qvy2kou6Cyu3Hfp9CJEDmMmP3E7HXFkR+4Q17QQbBSnxpniz7EcWAZOxoQLgek=;
-From: Ian Jackson <iwj@xenproject.org>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1tS8efy4ykp6mLwQ/z0RMqwqu1PxBXBUmWaQK0M/tLk=; b=GQ6R8c3o4jDuDKVVPjdBQRqQKc
+	96/dHisHf+xboGJKAdOLIVVt7TteAxAQI2uCAfala+Fo9a6moLepmv8TCFQsubCwROIHUVEQCqhfE
+	kkfzK0NQrX7CVMGKcGv3HX11KQAbIddLk3j5sYtop0sIBBHVpkpssHZLhivx6hMWL9Ts=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159815-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24639.23417.324037.570116@mariner.uk.xensource.com>
-Date: Wed, 3 Mar 2021 09:48:41 +0000
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>,
-    Doug Goldstein <cardoe@cardoe.com>,
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 for-4.15 2/2] automation: enable rombios build on Alpine
-In-Reply-To: <20210303082514.8859-3-roger.pau@citrix.com>
-References: <20210303082514.8859-1-roger.pau@citrix.com>
-	<20210303082514.8859-3-roger.pau@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: [xen-unstable-coverity test] 159815: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=4834936549f788378918da8e9bc97df7dd3ee16d
+X-Osstest-Versions-That:
+    xen=c4441ab1f1d506a942002ccc55fdde2fe30ef626
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 Mar 2021 09:56:20 +0000
 
-Roger Pau Monne writes ("[PATCH v2 for-4.15 2/2] automation: enable rombios build on Alpine"):
-> It's now safe to enable the build of rombios on Alpine systems, as
-> hvmloader already builds fine there.
+flight 159815 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159815/
 
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  4834936549f788378918da8e9bc97df7dd3ee16d
+baseline version:
+ xen                  c4441ab1f1d506a942002ccc55fdde2fe30ef626
+
+Last test of basis   159783  2021-02-28 09:19:28 Z    3 days
+Testing same since   159815  2021-03-03 09:19:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Tim Deegan <tim@xen.org>
+
+jobs:
+ coverity-amd64                                               pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   c4441ab1f1..4834936549  4834936549f788378918da8e9bc97df7dd3ee16d -> coverity-tested/smoke
 
