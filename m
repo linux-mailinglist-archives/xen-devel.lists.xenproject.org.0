@@ -2,29 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2033732D5B2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Mar 2021 15:54:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93316.176135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79E1132D5B9
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Mar 2021 15:59:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93321.176147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHpLl-00015k-F5; Thu, 04 Mar 2021 14:53:13 +0000
+	id 1lHpRQ-0001Uq-7o; Thu, 04 Mar 2021 14:59:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93316.176135; Thu, 04 Mar 2021 14:53:13 +0000
+Received: by outflank-mailman (output) from mailman id 93321.176147; Thu, 04 Mar 2021 14:59:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHpLl-00015L-Bm; Thu, 04 Mar 2021 14:53:13 +0000
-Received: by outflank-mailman (input) for mailman id 93316;
- Thu, 04 Mar 2021 14:53:12 +0000
+	id 1lHpRQ-0001UR-4j; Thu, 04 Mar 2021 14:59:04 +0000
+Received: by outflank-mailman (input) for mailman id 93321;
+ Thu, 04 Mar 2021 14:59:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zd52=IC=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lHpLk-00015G-FQ
- for xen-devel@lists.xenproject.org; Thu, 04 Mar 2021 14:53:12 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=sVVa=IC=amazon.de=prvs=69029ac7a=nmanthey@srs-us1.protection.inumbo.net>)
+ id 1lHpRO-0001UM-TV
+ for xen-devel@lists.xenproject.org; Thu, 04 Mar 2021 14:59:02 +0000
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 21639180-9e91-4789-b59c-db53f127194b;
- Thu, 04 Mar 2021 14:53:10 +0000 (UTC)
+ id 2722c3cc-e878-4004-96de-abc9702d16de;
+ Thu, 04 Mar 2021 14:59:01 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-2c-579b7f5b.us-west-2.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 04 Mar 2021 14:58:50 +0000
+Received: from EX13D02EUB001.ant.amazon.com
+ (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
+ by email-inbound-relay-2c-579b7f5b.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 6F722A02DD; Thu,  4 Mar 2021 14:58:48 +0000 (UTC)
+Received: from u6fc700a6f3c650.ant.amazon.com (10.43.162.118) by
+ EX13D02EUB001.ant.amazon.com (10.43.166.150) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 4 Mar 2021 14:58:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -34,386 +45,118 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21639180-9e91-4789-b59c-db53f127194b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1614869589;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=w42WT7O2QH2cfRu8u+NxK2WDp7Jcpjgfi1UVGv2ZK2s=;
-  b=O8LCT9/iTnaQVmKN3Fb93Y4OA7SePRFXiIjnEqgcZ6QZzLNms6z9QJkv
-   sCciy8KtpQWx5HX1ClyjyRue9a+51E3+nrGu2PzCI7Xoo7BavBUbOtjNO
-   Nb2JoDfvfQ9dPAGqjlxDtCNXFHz2PR2Lf3d9N6wWhukMik5kmog4a3heX
-   s=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: M4CVk+yExLYCaAbS8v9iEsAcaxFgPQrqcoCJF9NjApPMFMp/IpLluTNTxljrSO00F621HEVi0/
- KmjU99aE/7mWKr0pyOAfJdCUeIEUO6rxfxMV1YlP9U8eHN2NcLXS7AKt22dw2C1K6gf4N0Cr2w
- I6j3DHvQgCP0x6Xzb2R/KW2GhMBvSEkiwFHuWdoN8nq5E5jI8+dCLsytUfi1k05Lc1VerdHSl2
- lu5WSaC7Uay9WuT9NwQgO4hiou5/L2Y7M3xxjI3nprpl+8BEvxSJx4xI5XamfDNEkXXjlKKk0v
- cMw=
-X-SBRS: 5.2
-X-MesageID: 38459263
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,222,1610427600"; 
-   d="scan'208";a="38459263"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S2WPJsKNvje7T5XikABuU8YAZpOYC4VbzqShiUdY8pUT1wjRbKInFhwPR6Sk9NXmTRUXVDXzpYgnTUGXoU7u9KJlxY9mpLb8YX+htEB0ebbf5OotHZ5a3SRle1cNiOadLYoMMIfhEqnoeB4N2P0Vu0+qd4KGqZ67vXD3D638UPd61iNACx5b6aAue2BlODQv5amN0A9ngGjNSsIV0WsUR9xwzHfGSLDLXzCgysl111JqGxCMd8A30sUMbLSOKTycWFjbA9hRM2m/XSZRD6ibH75xpoCRzfCwVDdiVpE7lB7Ek4RTY90pMzN2/WCH0vrAYTI8sIdU9uEbZfEPYGYsGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L2pdlnYkK6NZGcE+3Ae/ki7kRac06cOdBxcW+JVkJzA=;
- b=MLCSzK8wBu0y9pADBQwLIDPWBjuGAYlGEYBKZlc7zEx4GseRhqwbFcD7vUwO6YF1zJe1ksWLSWLKxDmh84OFc1c5oNvy8gq3AtUrvTKCBBp9On1x6YrpiGjJ9CT68JRpMTWi6b/egYzDVTPh2dNl6fgImceMPkueBhmZTnB7ZLKZFe8a4Nz5YwO+5ew1GKw2i0Prc/tJ4bGyvcaEAM/V7N2AW+3t6zPcVm1RatBt2R093desa00dkyFwLLTPDqELZnRxRdein1wPuTibIcug8CRn/U3VoQYXLvxIwkpJ1/GemK7ngpTTksLTgAQcxKJ4Ks8ugV1rm5yu0RrZ6od8sA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 2722c3cc-e878-4004-96de-abc9702d16de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L2pdlnYkK6NZGcE+3Ae/ki7kRac06cOdBxcW+JVkJzA=;
- b=oPdjXu4fJkq3Je83wRqiHvtdhsYq9d9sDbLkVKPhIIzIOir3lgYGiBm/eNU2RsyHRo736r9ozuWCiMf2EcPdxRWSdqNWZc1bRnSlC8GFgCAcDF5ODKFKJnO47Wt0KZc+OWpmpEC/5f/PwUQFMlRykv+PlJQMRvmr10IhX2uGA/g=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Jun Nakajima
-	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>
-Subject: [PATCH v2 for-4.15] x86/msr: introduce an option for HVM relaxed rdmsr behavior
-Date: Thu,  4 Mar 2021 15:47:55 +0100
-Message-ID: <20210304144755.35891-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.30.1
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0094.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::9) To SA0PR03MB5610.namprd03.prod.outlook.com
- (2603:10b6:806:b2::9)
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+  t=1614869942; x=1646405942;
+  h=to:cc:references:from:message-id:date:mime-version:
+   in-reply-to:content-transfer-encoding:subject;
+  bh=Gye21up+a473ZZF07bM1W7OMnqVri8uunRmrXLB55W0=;
+  b=EmjTfA//82ojjtMnd9bUjk7nNgnWXzP4/LLK24AFcQpQTaLej1Vd+aPI
+   MBapYjrMSnkxNqEaY5yb5h1ej7OfHUu8P5GZbHl2O8XnUeJid9xJEpmR4
+   4H7g1DcM72A3hY4g3ppUjMcpJWvDYVlBF1ViPswwAUQU3Au3JjgUzQgSk
+   c=;
+X-IronPort-AV: E=Sophos;i="5.81,222,1610409600"; 
+   d="scan'208";a="94242996"
+Subject: Re: [PATCH XENSTORE v1 09/10] xs: handle daemon socket error
+To: Ian Jackson <iwj@xenproject.org>
+CC: <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, Wei Liu
+	<wl@xen.org>, Julien Grall <jgrall@amazon.co.uk>, Michael Kurth
+	<mku@amazon.de>
+References: <20210226144144.9252-1-nmanthey@amazon.de>
+ <20210226144144.9252-10-nmanthey@amazon.de>
+ <24639.46501.489245.30690@mariner.uk.xensource.com>
+From: Norbert Manthey <nmanthey@amazon.de>
+Autocrypt: addr=nmanthey@amazon.de; prefer-encrypt=mutual; keydata=
+ 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
+ pEddsOqYwOs=
+Message-ID: <99bc1eef-7e1f-39b4-f0b7-59b6f52185aa@amazon.de>
+Date: Thu, 4 Mar 2021 15:58:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 53b59604-9366-4dce-df87-08d8df1d34d0
-X-MS-TrafficTypeDiagnostic: SA2PR03MB5772:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA2PR03MB57720328364B6A9DD96DB0968F979@SA2PR03MB5772.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J4wfbGdnx7fgWiJbTy5Wm7XzPWCGESwo6fsf/lLgzatFICt5GrZu6nv27TXC3iEKLbSjn/48177G3Vkg8iAWXTNd/9YFs/YeSwE0tDVif+KimVaJB8VZFVuJf+NJiOpdmYrWJSFW9gmg31UnYLh28CFhqUGu80I6wF+oUwbssenaQIhw3hc939bTFHlmz15+x1j6FvU8wGoUxDZjERTtD2bpsgLes4ItoO8R8KI0o4iEFjrFylma6//d8qvO5f8BBjZKjZtyLo2m5PSlIyts7ZTryqYcjiARMiZRZdt1uS0sjSfbeM1P/POBgxmLK9STTJDHU1g7x5OybXBDu2oL3JzPiBy262MG81PGKkB/yW4CsAAMnC9+1v3hdsxpuVMGI1Q9fsG8ViHXePFhk49Q6QU0tSJu9p4ptQD/45sxDGHafx/IBWjKrhyo6LEW9pjVj7K4WrIMZpILNZFKQZ4ynqWedH7/AkdMEcB1oPp14Wd6nukY19HpUwAqSCImJGalTn6hJQGpapMUNJ856ek/Hw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(39860400002)(346002)(366004)(376002)(6916009)(316002)(86362001)(6496006)(54906003)(6486002)(6666004)(956004)(2906002)(2616005)(16526019)(66556008)(5660300002)(8676002)(8936002)(186003)(66476007)(478600001)(26005)(66946007)(83380400001)(1076003)(4326008)(36756003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RmNpMUFTRHptaGVqdktQNmpnc3l3ZFpwYnJubm1nQ0FOb0hJRnd3UWcyOWJG?=
- =?utf-8?B?cE8rNjlhaFhOLzV6bjgvN0xjSlRDbVlza1U4RjJqVEJVTFFGeTlrK0Voai9H?=
- =?utf-8?B?OFpaTDNFQnplVWN3V3pNL05mZ0lQTTV6NkUvbDRzc1J1Rklsbk1QMGwyREFV?=
- =?utf-8?B?VnE4K05hMnJHeFE4djhuaGFKNHY4bWxZUzA5UVlzeEtPa21icFA3b1Q0b3hh?=
- =?utf-8?B?OHdxc1E1VkkwelZPZ1d5TXlIS2RRUk1uSk9ISDB1SWwzUnZUdkZUQVBWbU9K?=
- =?utf-8?B?RnI3Rm5tVFB3VCtaQ0Vrei9sQlY3d1VUdGszSmhGQkJWUWJlV2lRMzNMMmt2?=
- =?utf-8?B?Wkg0TFJtcXBnVmFSTWxuazFlMDNwM05ucFE3T2FBcUJ4LzV2UXgyRHpQdW5O?=
- =?utf-8?B?TlFkaGtsOGMwWWhyRHlsS0FHZDIxSUhNRW5UdTQyay9rb2tTU21OSm1tZ2dZ?=
- =?utf-8?B?anFSTWRML1JLcWI2djdqTG41L1paZUdGeEdNMnVKNWtlTkhrTkVzaFpQTUZv?=
- =?utf-8?B?Mmo2Yit4elVKOU96aG9zaWVmR2xFY2ZKc0kxdVRWNHRZVDc4Zk81OGFBVUgw?=
- =?utf-8?B?V2Q5ajI1cjRZODduOThJNmt0WFBMelgyc2l3cXRJV2Mxc1dCYjZ5U2t1SHYw?=
- =?utf-8?B?bXlVN3JNRHU1MHZBNnE3ckVFcVBSR2wwTit6R3dVZjJtVTh0Z1loVHVxSjll?=
- =?utf-8?B?VDhOb3pUT2hJZnQ4Q1JtWEFmbk9CVXpXM2NEcVBadU9tVnNQQ3pZbXdWN21R?=
- =?utf-8?B?dGVKYXdFNWlvMHhYNUlpcHVLMU5vM2Z0alBPbzR6czFRd2dMOU03a3pINGdz?=
- =?utf-8?B?dmlKZ1YyWkp6N21lNFd6WlEyTUdxSk9PRTRzeVdjb1kvWFQ5bW1XWWxHR2NE?=
- =?utf-8?B?MFQ2eURhemtiVEtCaHJqUklxcVErNE1ONms0SVFib1VwYVAxNlhrTjdqMjFv?=
- =?utf-8?B?MitlY3hjYTZqOUpCT2RLMFZQempic0o1NW5nNzJEV3dsamd5MnpINkNEREJt?=
- =?utf-8?B?aXI2U1RDajRyVFFjNW5CN2wwNk8xdGRIS2lCRFdFZ2R1TmlBQSsvUEUvRlBS?=
- =?utf-8?B?Y2hBSWlYcldIMm5qbzRsc1hNRHFNR0hQT013YzVkQU9mNVN4Vmp5LzZ6cGxC?=
- =?utf-8?B?a202TnBzM2lUdVU1VU5Cc0l6MThmbEUwc2NOVGFSdkQzb2NjaDdjVXZPOGo5?=
- =?utf-8?B?VUxJdU84VHJ0Y3JuYVJlODZtR3hDcEQ3d0FQUXdXQXBmMGNNTmxkait4NlpQ?=
- =?utf-8?B?bWtJcTJ2c2NTSjhUMzNqQlhseVc5NFhzUlJza2twQmhHWkdJRVZHQ1VMT2NW?=
- =?utf-8?B?Zy9Pa1c5bUsva01aMXlreU5OOHM4SC85OTNQTDFnWUp1VnJrbmh4UE9IL1pa?=
- =?utf-8?B?dzZ1Z1UvT3hlY3JWZTBnMG9Pa3U2VS8wR2lTdTBGbW4zOHprSFhNOGZoTnVs?=
- =?utf-8?B?QW8vek1LUWNKYzBVV21jTFVoTlpmamhNRENOa2U5UTBlSS92ODB2S1BheTJx?=
- =?utf-8?B?dTdzWHNkdGtrQTVRUUR5YXZxY1dBOWtyaGpzMXV0RE9YSitxcWN1UG9XbDBL?=
- =?utf-8?B?VjVXem8rbU1VUXRBbzFKeUtsdzNOT0J0ajd1VVh1aEFqTU9SSXg0MER0aWlW?=
- =?utf-8?B?N0pBU2YxV1BHOWFoR2JCeWlTRVllRDYvcFlDQWxuSG9WTUVJd3RpdTJhWHFO?=
- =?utf-8?B?WjB0aHRDOGw4RFpvenRQOUpUVGFvS3BtcWFISUZLbUlaMm15a01hSXFqaXow?=
- =?utf-8?Q?xeCHEFYnv8yVhfdgj69ENZTQ8EnXl5xRXcA+DPc?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53b59604-9366-4dce-df87-08d8df1d34d0
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2021 14:53:00.8543
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NFca3N1Yiq7fTemOMGz4mXVAXOrptu3lgBTJu7PV+Vuxbcsr+iPWo7RXQrLazKUKbvvLQg5gzFBHsPQovQ0plg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5772
-X-OriginatorOrg: citrix.com
+In-Reply-To: <24639.46501.489245.30690@mariner.uk.xensource.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+X-Originating-IP: [10.43.162.118]
+X-ClientProxiedBy: EX13D10UWB003.ant.amazon.com (10.43.161.106) To
+ EX13D02EUB001.ant.amazon.com (10.43.166.150)
+Precedence: Bulk
+Content-Transfer-Encoding: base64
 
-Introduce an option to allow selecting a less strict behaviour for
-rdmsr accesses targeting a MSR not explicitly handled by Xen. Since
-commit 84e848fd7a162f669 accesses to MSRs not explicitly handled by
-Xen result in the injection of a #GP to the guest. This is a behavior
-change since previously a #GP was only injected if accessing the MSR
-on the real hardware will also trigger a #GP.
-
-This commit attempts to offer a fallback option similar to the
-previous behavior. Note however that the value of the underlying MSR
-is never leaked to the guest, as the newly introduced option only
-changes whether a #GP is injected or not.
-
-Long term the plan is to properly handle all the MSRs, so the option
-introduced here should be considered a temporary resort for OSes that
-don't work properly with the new MSR policy. Any OS that requires this
-option to be enabled should be reported to
-xen-devel@lists.xenproject.org.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Only apply the option to HVM guests.
- - Only apply the special handling to MSR reads.
- - Sanitize the newly introduced flags field.
- - Print a warning message when the option is used.
----
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
----
-Boris, could you please test with Solaris to see if this fixes the
-issue?
-
-I wonder whether we need to to enable this option by default for
-guests being migrated from previous Xen versions? Maybe that's not
-required as the option is helpful mostly for early boot I would
-assume, afterwards an OS should already have the #GP handler setup
-when accessing MSRs.
-
-From a release PoV the biggest risk would be breaking some of the
-existing MSR functionality. I think that's a necessary risk in order
-to offer such fallback option, or else we might discover after the
-release that guests that worked on Xen 4.14 don't work anymore in Xen
-4.15.
----
- docs/man/xl.cfg.5.pod.in          | 17 +++++++++++++++++
- tools/include/libxl.h             |  8 ++++++++
- tools/libs/light/libxl_types.idl  |  2 ++
- tools/libs/light/libxl_x86.c      |  4 ++++
- tools/xl/xl_parse.c               |  7 +++++++
- xen/arch/x86/domain.c             | 10 ++++++++++
- xen/arch/x86/hvm/svm/svm.c        |  6 ++++++
- xen/arch/x86/hvm/vmx/vmx.c        |  7 +++++++
- xen/include/asm-x86/hvm/domain.h  |  3 +++
- xen/include/public/arch-x86/xen.h |  8 ++++++++
- 10 files changed, 72 insertions(+)
-
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 040374dcd6..62178b9829 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2861,6 +2861,23 @@ No MCA capabilities in above list are enabled.
- 
- =back
- 
-+=item B<rdmsr_relaxed=BOOLEAN>
-+
-+Select whether to use a relaxed behavior for read accesses to MSRs not
-+explicitly handled by Xen instead of injecting a #GP to the guest.  Such access
-+mode will force Xen to replicate the behaviour from the hardware it's currently
-+running on in order to decide whether a #GP is injected to the guest.  Note
-+that the guest is never allowed to read the value of unhandled MSRs, this
-+option only changes whether a #GP might be injected or not.
-+
-+This option is only relevant for HVM guests, and will be removed in future
-+releases once we are certain the default MSR access policy has been properly
-+tested by a wide variety of guests.  If you need to use this option please send
-+a bug report to xen-devel@lists.xenproject.org with the details of the guests
-+you are running that require it.
-+
-+=back
-+
- =back
- 
- =head1 SEE ALSO
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index a7b673e89d..1cc40a2d67 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -495,6 +495,14 @@
-  */
- #define LIBXL_HAVE_VMTRACE_BUF_KB 1
- 
-+/*
-+ * LIBXL_HAVE_RDMSR_RELAXED indicates the toolstack has support for switching
-+ * the rdmsr handling in the hypervisor to relaxed mode, where #GP is only
-+ * injected to guests for unhandled MSRs if accessing the MSR on the physical
-+ * hardware also triggers a #GP.
-+ */
-+#define LIBXL_HAVE_RDMSR_RELAXED 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 5b85a7419f..03b0c80146 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -644,6 +644,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
-                                ("vuart", libxl_vuart_type),
-                               ])),
-+    ("arch_x86", Struct(None, [("rdmsr_relaxed", libxl_defbool),
-+                              ])),
-     # Alternate p2m is not bound to any architecture or guest type, as it is
-     # supported by x86 HVM and ARM support is planned.
-     ("altp2m", libxl_altp2m_mode),
-diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index 58187ed760..c9cff44088 100644
---- a/tools/libs/light/libxl_x86.c
-+++ b/tools/libs/light/libxl_x86.c
-@@ -5,9 +5,12 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-                                       libxl_domain_config *d_config,
-                                       struct xen_domctl_createdomain *config)
- {
-+    config->arch.domain_flags = 0;
-     switch(d_config->c_info.type) {
-     case LIBXL_DOMAIN_TYPE_HVM:
-         config->arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
-+        if (libxl_defbool_val(d_config->b_info.arch_x86.rdmsr_relaxed))
-+            config->arch.domain_flags |= XEN_X86_RDMSR_RELAXED;
-         break;
-     case LIBXL_DOMAIN_TYPE_PVH:
-         config->arch.emulation_flags = XEN_X86_EMU_LAPIC;
-@@ -809,6 +812,7 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
-                                               libxl_domain_build_info *b_info)
- {
-     libxl_defbool_setdefault(&b_info->acpi, true);
-+    libxl_defbool_setdefault(&b_info->arch_x86.rdmsr_relaxed, false);
- }
- 
- int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 1893cfc086..9f52c7e914 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2636,6 +2636,13 @@ skip_usbdev:
-         xlu_cfg_replace_string (config, "spice_streaming_video",
-                                 &b_info->u.hvm.spice.streaming_video, 0);
-         xlu_cfg_get_defbool(config, "nographic", &b_info->u.hvm.nographic, 0);
-+        if (!xlu_cfg_get_defbool(config, "rdmsr_relaxed",
-+                                 &b_info->arch_x86.rdmsr_relaxed, 0))
-+            fprintf(stderr,
-+                    "WARNING: rdmsr_relaxed will be removed in future versions.\n"
-+                    "If it fixes an issue you are having please report to "
-+                    "xen-devel@lists.xenproject.org.\n");
-+
-         if (!xlu_cfg_get_long(config, "gfx_passthru", &l, 1)) {
-             libxl_defbool_set(&b_info->u.hvm.gfx_passthru, l);
-         } else if (!xlu_cfg_get_string(config, "gfx_passthru", &buf, 0)) {
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 5e3c94d3fa..c06b17d338 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -760,6 +760,13 @@ int arch_domain_create(struct domain *d,
-                d->domain_id);
-     }
- 
-+    if ( config->arch.domain_flags & ~XEN_X86_RDMSR_RELAXED )
-+    {
-+        printk(XENLOG_G_ERR "d%d: Invalid arch domain flags: %#x\n",
-+               d->domain_id, config->arch.domain_flags);
-+        return -EINVAL;
-+    }
-+
-     emflags = config->arch.emulation_flags;
- 
-     if ( is_hardware_domain(d) && is_pv_domain(d) )
-@@ -824,6 +831,9 @@ int arch_domain_create(struct domain *d,
-     {
-         if ( (rc = hvm_domain_initialise(d)) != 0 )
-             goto fail;
-+
-+        d->arch.hvm.rdmsr_relaxed = config->arch.domain_flags &
-+                                    XEN_X86_RDMSR_RELAXED;
-     }
-     else if ( is_pv_domain(d) )
-     {
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index b819897a4a..d036809bd3 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -1795,6 +1795,7 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-     const struct domain *d = v->domain;
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-     const struct nestedsvm *nsvm = &vcpu_nestedsvm(v);
-+    uint64_t tmp;
- 
-     switch ( msr )
-     {
-@@ -1965,6 +1966,11 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-         break;
- 
-     default:
-+        if ( d->arch.hvm.rdmsr_relaxed && !rdmsr_safe(msr, tmp) )
-+        {
-+            *msr_content = 0;
-+            break;
-+        }
-         gdprintk(XENLOG_WARNING, "RDMSR 0x%08x unimplemented\n", msr);
-         goto gpf;
-     }
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index bfea1b0f8a..883e43a0bb 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3123,6 +3123,7 @@ static int is_last_branch_msr(u32 ecx)
- static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
- {
-     struct vcpu *curr = current;
-+    uint64_t tmp;
- 
-     HVM_DBG_LOG(DBG_LEVEL_MSR, "ecx=%#x", msr);
- 
-@@ -3204,6 +3205,12 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-             break;
-         }
- 
-+        if ( curr->domain->arch.hvm.rdmsr_relaxed && !rdmsr_safe(msr, tmp) )
-+        {
-+            *msr_content = 0;
-+            break;
-+        }
-+
-         gdprintk(XENLOG_WARNING, "RDMSR 0x%08x unimplemented\n", msr);
-         goto gp_fault;
-     }
-diff --git a/xen/include/asm-x86/hvm/domain.h b/xen/include/asm-x86/hvm/domain.h
-index 7b60e9125f..fdc1b36513 100644
---- a/xen/include/asm-x86/hvm/domain.h
-+++ b/xen/include/asm-x86/hvm/domain.h
-@@ -122,6 +122,9 @@ struct hvm_domain {
- 
-     bool_t                 is_s3_suspended;
- 
-+    /* Don't unconditionally inject #GP for unhandled MSRs reads. */
-+    bool rdmsr_relaxed;
-+
-     /*
-      * TSC value that VCPUs use to calculate their tsc_offset value.
-      * Used during initialization and save/restore.
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
-index 629cb2ba40..fbf91bf3b9 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -304,6 +304,14 @@ struct xen_arch_domainconfig {
-                                      XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
-                                      XEN_X86_EMU_VPCI)
-     uint32_t emulation_flags;
-+
-+/*
-+ * HVM only: select whether to use a relaxed behavior for read accesses to MSRs
-+ * not explicitly handled by Xen instead of injecting a #GP to the guest. Note
-+ * this option doesn't allow the guest to read the hardware value.
-+ */
-+#define XEN_X86_RDMSR_RELAXED       (1u << 0)
-+    uint32_t domain_flags;
- };
- 
- /* Location of online VCPU bitmap. */
--- 
-2.30.1
+T24gMy8zLzIxIDU6MTMgUE0sIElhbiBKYWNrc29uIHdyb3RlOgo+IENBVVRJT046IFRoaXMgZW1h
+aWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNs
+aWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUg
+c2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gTm9yYmVydCBNYW50
+aGV5IHdyaXRlcyAoIltQQVRDSCBYRU5TVE9SRSB2MSAwOS8xMF0geHM6IGhhbmRsZSBkYWVtb24g
+c29ja2V0IGVycm9yIik6Cj4+IFdoZW4gc3RhcnRpbmcgdGhlIGRhZW1vbiwgd2UgbWlnaHQgc2Vl
+IGEgTlVMTCBwb2ludGVyIGluc3RlYWQgb2YgdGhlCj4+IHBhdGggdG8gdGhlIHNvY2tldC4KVGhp
+cyBmaXJzdCBzZW50ZW5jZSBjb3VsZCBiZSBtb3JlIHNwZWNpZmljLCBpLmUuOgoKV2hlbiBjb25u
+ZWN0aW5nIHRvIHRoZSBkZWFtb24gaW4geHNfb3BlbiwgdGhlIGZ1bmN0aW9ucyB0aGF0IHJldHVy
+biB0aGUKc29ja2V0IG9yIGRldmljZSBsb2NhdGlvbiBtaWdodCByZXR1cm4gTlVMTCBpbiBjb3Ju
+ZXIgY2FzZXMuCj4+Cj4+IE9ubHkgcmVsZXZhbnQgaW4gY2FzZSB3ZSBzdGFydCB0aGUgcHJvY2Vz
+cyBpbiBhIHZlcnkgZGVlcCBkaXJlY3RvcnkKPj4gcGF0aCwgd2l0aCBhIGxlbmd0aCBjbG9zZSB0
+byA0MDk2IHNvIHRoYXQgYXBwZW5kaW5nICIvc29ja2V0IiB3b3VsZAo+PiBleGNlZWQgdGhlIGxp
+bWl0LiBIZW5jZSwgc3VjaCBhbiBlcnJvciBpcyB1bmxpa2VseSwgYnV0IHNob3VsZCBzdGlsbCBi
+ZQo+PiBmaXhlZCB0byBub3QgcmVzdWx0IGluIGEgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLgo+
+IFRoaXMgZGVzY3JpcHRpb24gdGFsa3MgYWJvdXQgc3RhcnRpbmcgdGhlIGRhZW1vbiAuLi4KPgo+
+PiAtLS0KPj4gIHRvb2xzL2xpYnMvc3RvcmUveHMuYyB8IDMgKysrCj4+ICAxIGZpbGUgY2hhbmdl
+ZCwgMyBpbnNlcnRpb25zKCspCj4gQnV0IEkgdGhpbmsgLi4uCj4KPj4gKyAgICAgaWYgKCFjb25u
+ZWN0X3RvKQo+PiArICAgICAgICAgICAgIHJldHVybiBOVUxMOwo+PiArCj4gLi4uIHRoaXMgaXMg
+Y2xpZW50IGNvZGUgPwoKVGhpcyBpcyBjbGllbnQgY29kZSwgeWVzLiBUaGUgcGF0Y2hlZCAnZ2V0
+X2hhbmRsZScgZnVuY3Rpb24gcmVjZWl2ZXMgdGhlCnBhcmFtZXRlciAnY29ubmVjdF90bycgaW4g
+dGhlIGZ1bmN0aW9uIHhzX29wZW4uIFRoZXJlLCB0aGUgdmFsdWUgb2YgdGhlCmZ1bmN0aW9ucyAn
+eHNfZGVhbW9uX3NvY2tldF9ybycsICd4c19kZWFtb25fc29ja2V0JyBhbmQgJ3hzX2RvbWFpbl9k
+ZXYnCmFyZSBwYXNzZWQgdG8gdGhpcyBmdW5jdGlvbiwgd2l0aG91dCBjaGVja2luZyBmb3IgdGhl
+IHZhbHVlIE5VTEwuCgpJIGFncmVlIHRoYXQgdGhlIGRlc2NyaXB0aW9uIG1pZ2h0IGJlIGNvbmZ1
+c2luZywgYXMgdGhlIGZpeCBpcyBhcHBsaWVkCnRvIGEgZnVuY3Rpb24gdGhhdCBkb2VzIG5vdCBj
+YXVzZSB0aGUgYWN0dWFsIHByb2JsZW0uIEhvdyBhYm91dApyZXBocmFzaW5nIHRoZSBmaXJzdCBw
+YXJ0IG9mIHRoZSBjb21taXQgbWVzc2FnZSB0byB0aGUgYWJvdmUgcHJvcG9zYWw/CgpCZXN0LApO
+b3JiZXJ0Cgo+Cj4gQXBvbG9naWVzIGlmIEkgYW0gY29uZnVzZWQuCj4KPiBJYW4uCgoKCgpBbWF6
+b24gRGV2ZWxvcG1lbnQgQ2VudGVyIEdlcm1hbnkgR21iSApLcmF1c2Vuc3RyLiAzOAoxMDExNyBC
+ZXJsaW4KR2VzY2hhZWZ0c2Z1ZWhydW5nOiBDaHJpc3RpYW4gU2NobGFlZ2VyLCBKb25hdGhhbiBX
+ZWlzcwpFaW5nZXRyYWdlbiBhbSBBbXRzZ2VyaWNodCBDaGFybG90dGVuYnVyZyB1bnRlciBIUkIg
+MTQ5MTczIEIKU2l0ejogQmVybGluClVzdC1JRDogREUgMjg5IDIzNyA4NzkKCgo=
 
 
