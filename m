@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA70132CEBB
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Mar 2021 09:48:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93066.175662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B6A32CF33
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Mar 2021 10:01:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93071.175674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHjeq-0002zM-1X; Thu, 04 Mar 2021 08:48:32 +0000
+	id 1lHjqv-0004uo-5D; Thu, 04 Mar 2021 09:01:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93066.175662; Thu, 04 Mar 2021 08:48:32 +0000
+Received: by outflank-mailman (output) from mailman id 93071.175674; Thu, 04 Mar 2021 09:01:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lHjep-0002yx-UP; Thu, 04 Mar 2021 08:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 93066;
- Thu, 04 Mar 2021 08:48:30 +0000
+	id 1lHjqv-0004uP-21; Thu, 04 Mar 2021 09:01:01 +0000
+Received: by outflank-mailman (input) for mailman id 93071;
+ Thu, 04 Mar 2021 09:00:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ecIH=IC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lHjeo-0002yq-8q
- for xen-devel@lists.xenproject.org; Thu, 04 Mar 2021 08:48:30 +0000
+ (envelope-from <SRS0=ljEZ=IC=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lHjqt-0004uK-0o
+ for xen-devel@lists.xenproject.org; Thu, 04 Mar 2021 09:00:59 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 99a92e54-bc47-408f-bb67-230ec33923b8;
- Thu, 04 Mar 2021 08:48:26 +0000 (UTC)
+ id c22dbca4-8ebf-4407-a251-a4980932c483;
+ Thu, 04 Mar 2021 09:00:53 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 43F78ABE4;
- Thu,  4 Mar 2021 08:48:25 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C6157AB8C;
+ Thu,  4 Mar 2021 09:00:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,186 +39,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99a92e54-bc47-408f-bb67-230ec33923b8
+X-Inumbo-ID: c22dbca4-8ebf-4407-a251-a4980932c483
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614847705; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614848453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=q5CVSiSPtQOZFjLb8netFK9yShe88dLqRGOS/dUHIGo=;
-	b=K4EHi8GFmgN/4tETTmCFgfSDmn7jMOpDI4yeGJw5OozUbI58EIdOSvdmJlivwCeJs1BDkr
-	mrdEfKfS0TG3wtZ6e9LYPlkjvTTl/MN+TXeZ4LIH7hjLseH5jdNTeWAsaFxtObPEMyU24V
-	KtcAIAmbg1VGA0j9yzzzaQP6c5500wY=
-Subject: Re: [PATCH RFC for-4.15] x86/msr: introduce an option for legacy MSR
- behavior selection
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
-References: <20210301162357.76527-1-roger.pau@citrix.com>
- <bfd185bf-489f-d858-c459-7630cbe7b462@suse.com>
- <YD5TBSwZWzjlwGxD@Air-de-Roger>
- <62be2084-e5fa-e439-8426-6d129a10c379@suse.com>
- <YD+teWWbeu0XDhqm@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e84e84f6-8bc3-6a62-53f7-bf309fafa436@suse.com>
-Date: Thu, 4 Mar 2021 09:48:25 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+	bh=2C8AyqE1WF7pAZ9d6V+W4Zot3vDpwYZNi8Xt5jOq3+0=;
+	b=gYDdjk7ErNrl+p5CWxnYefQO0jUP8hDpRQuR6JOn84OR5wO58HfOGh0/f0WsNqR9IUc11R
+	oMVZ6Q3zJZTWD8bzY/UgK47FZZrGDSnyJuTIB1PW5Z1BJudvTTiDez3bYxOySBhAgeylHY
+	cOgzyI7Hk1hVBMphqEqYP1c3LPpN/1E=
+Subject: Re: [PATCH for-4.15] tools/xenstored: liveupdate: Properly check long
+ transaction
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>,
+ Bjoern Doebel <doebel@amazon.de>
+References: <20210303170526.15903-1-julien@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <9f81d0c8-1ec8-7cd0-d943-fd31bc86de13@suse.com>
+Date: Thu, 4 Mar 2021 10:00:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <YD+teWWbeu0XDhqm@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20210303170526.15903-1-julien@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="5zCISIgWIZALxrk492rh0kxYoGBcIcE0A"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--5zCISIgWIZALxrk492rh0kxYoGBcIcE0A
+Content-Type: multipart/mixed; boundary="9qgGOivyYseSvuW6H8ba4XCIUSNaWiopF";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>,
+ Bjoern Doebel <doebel@amazon.de>
+Message-ID: <9f81d0c8-1ec8-7cd0-d943-fd31bc86de13@suse.com>
+Subject: Re: [PATCH for-4.15] tools/xenstored: liveupdate: Properly check long
+ transaction
+References: <20210303170526.15903-1-julien@xen.org>
+In-Reply-To: <20210303170526.15903-1-julien@xen.org>
+
+--9qgGOivyYseSvuW6H8ba4XCIUSNaWiopF
+Content-Type: multipart/mixed;
+ boundary="------------6B26A7C4A42E59EEBD9A7C80"
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 
-On 03.03.2021 16:38, Roger Pau Monné wrote:
-> On Tue, Mar 02, 2021 at 04:18:59PM +0100, Jan Beulich wrote:
->> On 02.03.2021 16:00, Roger Pau Monné wrote:
->>> On Tue, Mar 02, 2021 at 12:16:12PM +0100, Jan Beulich wrote:
->>>> On 01.03.2021 17:23, Roger Pau Monne wrote:
->>>>> RFC because there's still some debate as to how we should solve the
->>>>> MSR issue, this is one possible way, but IMO we need to make a
->>>>> decision soon-ish because of the release timeline.
->>>>
->>>> Generally I think it would be far better from a user pov if
->>>> things worked out of the box, at least in cases where it can be
->>>> made work. Arguably for Solaris this isn't going to be possible
->>>> (leaving aside the non-option of fully returning back to original
->>>> behavior), but for the old-Linux-PV case I still think my proposed
->>>> change is better in this regard. I realize Andrew said (on irc)
->>>> that this is making the behavior even weaker. I take a different
->>>> perspective: Considering a guest will install exception handlers
->>>> at some point, I continue to fail to see what good it will do to
->>>> try to inject a #GP(0) when we know the guest will die because of
->>>> not having a handler registered just yet. It is a kernel flaw,
->>>> yes, but they ended up living with it merely because of our odd
->>>> prior behavior, so we can't put all the blame on them.
->>>
->>> My concern with this would mostly be with newer guests, in the sense
->>> that people could come to rely on this behavior of not injecting a
->>> #GP if the handler is not setup, which I think we should try to avoid.
->>>
->>> One option would be to introduce a feature that could be used in the
->>> elfnotes to signal that the kernel doesn't require such workarounds
->>> for MSR #GP handling, maybe:
->>>
->>> /*
->>>  * Signal that the kernel doesn't require suppressing the #GP on
->>>  * unknown MSR accesses if the handler is not setup. New kernels
->>>  * should always have this set.
->>>  */
->>> #define XENFEAT_msr_early_gp   16
->>>
->>> We could try to backport this on the Linux kernel as far as we can
->>> that we know it's safe to do so.
->>
->> I too did consider something like this. While I'm not opposed, it
->> effectively requires well-behaved consumers who haven't been well-
->> behaved in the past.
->>
->>> If this is not acceptable then I guess your solution is fine. Arguably
->>> PV has it's own (weird) architecture, in which it might be safe to say
->>> that no #GP will be injected as a result of a MSR access unless the
->>> handler is setup. Ideally we should document this behaviour somewhere.
->>>
->>> Maybe we could add a rdmsr_safe to your path akin to what's done
->>> here?
->>
->> Probably. Would need trying out on the affected older version,
->> just like ...
->>
->>>>> --- a/docs/man/xl.cfg.5.pod.in
->>>>> +++ b/docs/man/xl.cfg.5.pod.in
->>>>> @@ -2861,6 +2861,17 @@ No MCA capabilities in above list are enabled.
->>>>>  
->>>>>  =back
->>>>>  
->>>>> +=item B<msr_legacy_handling=BOOLEAN>
->>>>> +
->>>>> +Select whether to use the legacy behaviour for accesses to MSRs not explicitly
->>>>> +handled by Xen instead of injecting a #GP to the guest.  Such legacy access
->>>>> +mode will force Xen to replicate the behaviour from the hardware it's currently
->>>>> +running on in order to decide whether a #GP is injected to the guest.  Note
->>>>> +that the guest is never allowed access to unhandled MSRs, this option only
->>>>> +changes whether a #GP might be injected or not.
->>>>
->>>> This description is appropriate for reads, but not for writes:
->>>> Whether a write would fault can only be known by trying a write,
->>>> yet for safety reasons we can't risk doing more than a read. An
->>>> option might be to make writes fault is the to be written value
->>>> differs from that which the probing read has returned (i.e. the
->>>> same condition which originally had caused a log message to appear
->>>> in 4.14 for PV guests).
->>>
->>> Read values for unhandled MSRs will always be 0 with the proposed
->>> code, so we would inject a #GP to the guest for any write attempt to
->>> unhandled MSRs with a value different than 0.
->>>
->>> Maybe we should just inject a #GP to the guest for any attempts to
->>> write to unhandled MSRs?
->>
->> ... doing this would need to. Iirc I did add the write side of the
->> handling in my patch just for symmetry. I'd prefer handling to be
->> symmetric, but I can see why we may not want it to be so.
-> 
-> Kind of in the wrong context, but I will reply here because it's the
-> last message related to the MSR stuff.
-> 
-> Jan: would you be fine with modifying your path to not change the
-> behaviour for writes (ie: always inject #GP to the guest for unhandled
-> accesses), and then add a rdmsr_safe to the read path in order to
-> decide whether to inject a #GP to the guest even if the #GP handler is
-> not setup?
+This is a multi-part message in MIME format.
+--------------6B26A7C4A42E59EEBD9A7C80
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-I don't mind as long as it ends up making things work (I have no
-reason to believe it won't). I'll give that a try.
+On 03.03.21 18:05, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> As XenStored is single-threaded, conn->ta_start_time will always be
+> smaller than now. As we substract the latter from the former, it means
+> a transaction will never be considered long running.
+>=20
+> Invert the two operands of the substraction in both lu_reject_reason()
+> and lu_check_allowed(). In addition to that, the former also needs to
+> check that conn->ta_start_time is not 0 (i.e the transaction is not
+> active).
+>=20
+> Take the opportunity to document the return condition of
+> lu_check_allowed().
+>=20
+> Fixes: e04e53a5be20 ("tools/xenstore: allow live update only with no tr=
+ansaction active")
+> Reported-by: Bjoern Doebel <doebel@amazon.de>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-> I can modify the option introduced on this patch to always inject #GP
-> on unhandled writes and only inject #GP on reads if the physical MSR
-> access on the hardware also triggers a #GP. HVM guests with broken
-> behavior will require having the option enabled in order to work,
-> but I think that's likely OK as long term we expect all HVM guests to
-> be well behaved.
-> 
-> My main worry with this approach is that we end up requiring half of
-> the common HVM guests OSes to have the 'legacy MSR handling' option
-> enabled in order to work. I think it's unlikely for this to happen, as
-> we are only aware of Solaris requiring it at the moment.
-> 
-> It also raises the question whether we will allow any more exceptions
-> to the MSR policy, like we did for Windows and OpenBSD in:
-> 
-> http://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=ca88a43e660c75796656a544e54a648c60d26ef0
-> http://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=4175fd3ccd17face664036fa98e9329aa317f7b6
-> 
-> Or if we are just going to require those guests to enable the legacy
-> MSR handling instead.
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-It is my understanding that Andrew's view is that adding such special
-cases is the only acceptable thing. As voiced before I don't share
-this view, as it means we're going to be entirely reactive to people
-reporting issues, when I think we should be pro-active as far as is
-reasonable. Independent of any pro-active measures there'll still be
-enough reasons for reactive changes - for example I assume Linux
-would now issue the log message from
+>=20
+> ---
+>=20
+> I am a bit puzzled on how -F is implemented. From my understanding we
+> will force LiveUpdate when one of the following conditions is met:
+>    1) All the active transactions are long running
+>    2) If we didn't manage to LiveUpdate after N sec
+>=20
+> It is not quite clear why we need the both as 2) would indirectly cover=
 
-	if (cpu_has(c, X86_FEATURE_CONSTANT_TSC)) {
+> 1). However 2) is probably unsafe as we may reset transactions for
+> "well-behaving" guest.
+>=20
+> So I am thinking to send a patch to drop 2). Any opinions?
 
-		if (c->x86 > 0x10 ||
-		    (c->x86 == 0x10 && c->x86_model >= 0x2)) {
-			u64 val;
+This will enable two guests working together to block LU by using
+overlapping transactions:
 
-			rdmsrl(MSR_K7_HWCR, val);
-			if (!(val & BIT(24)))
-				pr_warn(FW_BUG "TSC doesn't count with P0 frequency!\n");
-		}
-	}
+Guest 1: ----- ----- -----  ...
+Guest 2: -- ----- ----- --- ...
 
-since we surface a zero value right now (but I didn't verify this in
-practice yet).
+There is always a transaction active, but none is regarded to be
+long running.
 
-Jan
+
+Juergen
+
+--------------6B26A7C4A42E59EEBD9A7C80
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------6B26A7C4A42E59EEBD9A7C80--
+
+--9qgGOivyYseSvuW6H8ba4XCIUSNaWiopF--
+
+--5zCISIgWIZALxrk492rh0kxYoGBcIcE0A
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBAocMFAwAAAAAACgkQsN6d1ii/Ey+K
+cAf+LV/v6h9RJNqcaVKuHCxBkZXR3LMPKpFiX3k4YGm05T3Id9svuFnZi9RhZxAeHiMYyVbUhJJw
+weNMpqeq6o7yC5d0xXFG3eXiUqELjruPELDODwEaoVERXOXRkJpopXdYxNw319k0jcQMcNv7rFW0
+lYyvhXiBkTaQuQw5lznpZv3Dg/yDuH/JIXqI48nxL2vjVWUYz7KXcrp/XjDWEvuYBvwROtFfCbOs
+ljwgxxHlkF7QFqKquQQlsnzMfiqQc2TdhZiCtLbSH2YhnyFadLFF5hiX8PUBBPcmOASzk0K8hUm9
+Th1yXoEr+a5gkRBc24PYzM3OBkFs2tTufzEMHYJHrA==
+=xH1P
+-----END PGP SIGNATURE-----
+
+--5zCISIgWIZALxrk492rh0kxYoGBcIcE0A--
 
