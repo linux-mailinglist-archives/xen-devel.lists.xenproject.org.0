@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D9E32EB99
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 13:50:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93667.176707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB66232EBC2
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 14:00:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93679.176731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lI9uQ-0002y5-HW; Fri, 05 Mar 2021 12:50:22 +0000
+	id 1lIA3y-0004Gq-NV; Fri, 05 Mar 2021 13:00:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93667.176707; Fri, 05 Mar 2021 12:50:22 +0000
+Received: by outflank-mailman (output) from mailman id 93679.176731; Fri, 05 Mar 2021 13:00:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lI9uQ-0002xS-DW; Fri, 05 Mar 2021 12:50:22 +0000
-Received: by outflank-mailman (input) for mailman id 93667;
- Fri, 05 Mar 2021 12:50:21 +0000
+	id 1lIA3y-0004GR-K5; Fri, 05 Mar 2021 13:00:14 +0000
+Received: by outflank-mailman (input) for mailman id 93679;
+ Fri, 05 Mar 2021 13:00:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4w+o=ID=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lI9uP-0002x5-Ek
- for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 12:50:21 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XWNu=ID=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lIA3w-0004GM-Po
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 13:00:12 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3a65fd52-4119-400a-9090-9e60c8b83d25;
- Fri, 05 Mar 2021 12:50:20 +0000 (UTC)
+ id b154e5b4-b06a-479f-96c8-d87ef9c7df17;
+ Fri, 05 Mar 2021 13:00:11 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E6111AE3C;
+ Fri,  5 Mar 2021 13:00:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,87 +38,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a65fd52-4119-400a-9090-9e60c8b83d25
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1614948620;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=FKWKNNS8zeB+e6A5j+ecHtMlcXfb4/SSo+PatHCy8Ts=;
-  b=e/ZbU0K6q2abucZcny24+9xwuwuE3jMFx5mzCqve7cmZp4cbeGNRMR8B
-   bV5V2L+sdB/rxUH7WQVEB5Io1Kd5Iart5UNWXzQMYnFnFEvPxgzMk6vlk
-   s2fzTfNSTwhgB0qa+DviLzPOx5UAsIzykapY88ZV+TwhGEzwEAKxPsKqp
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: gDfgj/tGi2uTIKC6wNER95ZO5fbcuwAD+5NsNnMb1Hu6XNHraemPv/vpZpaGWHCmhkiRoUCIP8
- VjyuD5K7uRXHbZDv5ih+QawLOGlNOg4kExZc68kpWngwZaUYYmXB7bGXj3If4tBvcm19DWkcDw
- JX+G7K7ZUJIRaSK8SU/ka2Hj8cj2fHIh7+G+3mgOei9wbq5wIoi6gZxg/XsMge1paVG33+LtJg
- yAuBIAOCj3TePSa/SDuUzLPmFeODaeaTn8BW8S14fdOkc2/8sOnGbgtpE8IcZQU1j9c2nMq40V
- +ro=
-X-SBRS: 5.1
-X-MesageID: 38547171
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.81,224,1610427600"; 
-   d="scan'208";a="38547171"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
-	<jgross@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 3/3] tools/libs: Fix headers.chk logic
-Date: Fri, 5 Mar 2021 12:49:49 +0000
-Message-ID: <20210305124949.6719-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210305124949.6719-1-andrew.cooper3@citrix.com>
-References: <20210305124949.6719-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: b154e5b4-b06a-479f-96c8-d87ef9c7df17
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614949211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fqPFFEXxRn+iLNAl6ARcX7hpFyaZ22cTsCmarIGybCE=;
+	b=shrzf7c4xYqFiIrYokDL0RoF2BKE9fqgF8LscJynYpPheckAynlQgA1Cs3kQimr4gNKRcX
+	L8mgoasZiyVsep/UplJiD7BHL8SpGMMRSJrIU0KmbVkT0yUfbNPML2q2eYYe05n7kAnWtD
+	PipCMz4sHEMv1VKgDehhhTzQfWihz1I=
+Subject: Re: [PATCH for-4.15 1/2] tools/xenstore: Consolidate
+ PRINTF_ATTRIBUTE() in utils.h
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+References: <20210305124003.13582-1-julien@xen.org>
+ <20210305124003.13582-2-julien@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <b75f2fad-f9cf-d9d1-d114-efea792550a0@suse.com>
+Date: Fri, 5 Mar 2021 14:00:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210305124003.13582-2-julien@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I"
 
-c/s 4664034cd dropped the $(LIBHEADERSGLOB) dependency for the headers.chk
-rule, without replacing it.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I
+Content-Type: multipart/mixed; boundary="Z3BhJ0Nm3JMkACTRK4cX3yc0paXAySkt0";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, iwj@xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+Message-ID: <b75f2fad-f9cf-d9d1-d114-efea792550a0@suse.com>
+Subject: Re: [PATCH for-4.15 1/2] tools/xenstore: Consolidate
+ PRINTF_ATTRIBUTE() in utils.h
+References: <20210305124003.13582-1-julien@xen.org>
+ <20210305124003.13582-2-julien@xen.org>
+In-Reply-To: <20210305124003.13582-2-julien@xen.org>
 
-As headers.chk uses $^, a typical build looks like:
+--Z3BhJ0Nm3JMkACTRK4cX3yc0paXAySkt0
+Content-Type: multipart/mixed;
+ boundary="------------0C8A056C013D922393496A8F"
+Content-Language: en-US
 
-  andrewcoop@andrewcoop:/local/xen.git$ make -C tools/libs/devicemodel/
-  make: Entering directory '/local/xen.git/tools/libs/devicemodel'
-  for i in ; do \
-      gcc -x c -ansi -Wall -Werror
-      -I/local/xen.git/tools/libs/devicemodel/../../../tools/include \
-            -S -o /dev/null $i || exit 1; \
-      echo $i; \
-  done >headers.chk.new
-  mv headers.chk.new headers.chk
+This is a multi-part message in MIME format.
+--------------0C8A056C013D922393496A8F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-i.e. with an empty for loop, and checking only the $(AUTOINCS).
+On 05.03.21 13:40, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> At the moment PRINTF_ATTRIBUTE() is defined in two places:
+>      - tdb.h: Defined as a NOP
+>      - talloc.h: Defined as a NOP for GCC older than 3.0 otherwise will=
 
-Reinsert a $(LIBHEADERS) dependency.
+>      add the attribute to check the printf format
+>=20
+> Xen requires to build with minimum GCC 4.1 and we want to check the
+> printf format for all the printf-like functions.
+>=20
+> Only implement PRINTF_ATTRIBUTE() once in utils.h and drop the
+> conditional check for GCC < 3.0.
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Fixes: 4664034cd ("tools/libs: move official headers to common directory")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Juergen Gross <jgross@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- tools/libs/libs.mk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
-index a68cec244c..2d973ccb95 100644
---- a/tools/libs/libs.mk
-+++ b/tools/libs/libs.mk
-@@ -76,7 +76,7 @@ else
- .PHONY: headers.chk
- endif
- 
--headers.chk: $(AUTOINCS)
-+headers.chk: $(LIBHEADERS) $(AUTOINCS)
- 
- headers.lst: FORCE
- 	@{ set -e; $(foreach h,$(LIBHEADERS),echo $(h);) } > $@.tmp
--- 
-2.11.0
 
+Juergen
+
+--------------0C8A056C013D922393496A8F
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------0C8A056C013D922393496A8F--
+
+--Z3BhJ0Nm3JMkACTRK4cX3yc0paXAySkt0--
+
+--xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBCK1oFAwAAAAAACgkQsN6d1ii/Ey/1
+BQf/YnLAst5UUldnEmQIpWFZVi6rtDrclj8/XHyi+fyXtyPPo++Sew2azMBk1kAkt8orxiwj2RrW
++8OTO+3e0AiG8vKtQFjJrJwLhgulUBAMZtcS8Mez7T0krO2Wx3uY4nfrdq8Xf1G0p23NBk1e37Fi
+oVUPp72XtcxkoK8zIvlCIFHvaq5e7NHkCTjxsBDwrz+/vRnVvryT3w9HAQSpNXoycboen4f4TFuf
++FZCvjY+yJ2M42O+2O3z+0QhJX4qxSF3Wv397gg3A+2KEFRK4JVM9pHAIPGUD1mo7EdV7OagHSq2
+Bmre1QrYOS+/nbyqfKUyzlZT9lRGepr/2t3hMJIFSg==
+=zR+B
+-----END PGP SIGNATURE-----
+
+--xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I--
 
