@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB66232EBC2
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 14:00:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93679.176731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 623E832EBC5
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 14:02:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93682.176743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIA3y-0004Gq-NV; Fri, 05 Mar 2021 13:00:14 +0000
+	id 1lIA5U-0004P5-2Y; Fri, 05 Mar 2021 13:01:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93679.176731; Fri, 05 Mar 2021 13:00:14 +0000
+Received: by outflank-mailman (output) from mailman id 93682.176743; Fri, 05 Mar 2021 13:01:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIA3y-0004GR-K5; Fri, 05 Mar 2021 13:00:14 +0000
-Received: by outflank-mailman (input) for mailman id 93679;
- Fri, 05 Mar 2021 13:00:12 +0000
+	id 1lIA5T-0004Og-Vj; Fri, 05 Mar 2021 13:01:47 +0000
+Received: by outflank-mailman (input) for mailman id 93682;
+ Fri, 05 Mar 2021 13:01:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XWNu=ID=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lIA3w-0004GM-Po
- for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 13:00:12 +0000
+ id 1lIA5R-0004OX-P7
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 13:01:45 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b154e5b4-b06a-479f-96c8-d87ef9c7df17;
- Fri, 05 Mar 2021 13:00:11 +0000 (UTC)
+ id 4bd2f7b4-7265-4931-a817-ac057e71e627;
+ Fri, 05 Mar 2021 13:01:45 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E6111AE3C;
- Fri,  5 Mar 2021 13:00:10 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 3591EACCF;
+ Fri,  5 Mar 2021 13:01:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,82 +38,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b154e5b4-b06a-479f-96c8-d87ef9c7df17
+X-Inumbo-ID: 4bd2f7b4-7265-4931-a817-ac057e71e627
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614949211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1614949304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fqPFFEXxRn+iLNAl6ARcX7hpFyaZ22cTsCmarIGybCE=;
-	b=shrzf7c4xYqFiIrYokDL0RoF2BKE9fqgF8LscJynYpPheckAynlQgA1Cs3kQimr4gNKRcX
-	L8mgoasZiyVsep/UplJiD7BHL8SpGMMRSJrIU0KmbVkT0yUfbNPML2q2eYYe05n7kAnWtD
-	PipCMz4sHEMv1VKgDehhhTzQfWihz1I=
-Subject: Re: [PATCH for-4.15 1/2] tools/xenstore: Consolidate
- PRINTF_ATTRIBUTE() in utils.h
+	bh=rsxoReKn9MrwQi7ejbrYfG0FViibXB3KIFAPlgBYwzA=;
+	b=ZikIOC4X7bxOEqJNqv/cDRtdrZmW2hRFdlUcNizLFunmYRIYDydqfVs/Yg7xmZdEe6dOLX
+	8R+nWznvWqGMVf+QfqBXJsVf1YrXTpcISO69CuR9kx/2+FZOkPntNBWm9OmB6w9d9wLtFn
+	/mlgQ6sSX39ubi5dvKaldddFlE1Ox10=
+Subject: Re: [PATCH for-4.15 2/2] tools/xenstore: Check the format printf for
+ xprintf() and barf{,_perror}()
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, iwj@xenproject.org,
  Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
 References: <20210305124003.13582-1-julien@xen.org>
- <20210305124003.13582-2-julien@xen.org>
+ <20210305124003.13582-3-julien@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <b75f2fad-f9cf-d9d1-d114-efea792550a0@suse.com>
-Date: Fri, 5 Mar 2021 14:00:10 +0100
+Message-ID: <0994b7a0-c537-b312-b134-caf54c79c87f@suse.com>
+Date: Fri, 5 Mar 2021 14:01:43 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210305124003.13582-2-julien@xen.org>
+In-Reply-To: <20210305124003.13582-3-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I"
+ boundary="nPCh1PrCabwHDmkmoi7B3pmslQaupr2Lr"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I
-Content-Type: multipart/mixed; boundary="Z3BhJ0Nm3JMkACTRK4cX3yc0paXAySkt0";
+--nPCh1PrCabwHDmkmoi7B3pmslQaupr2Lr
+Content-Type: multipart/mixed; boundary="ueus3LmqTx4JjMIZllSUAzb3M5mJfEm0m";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, iwj@xenproject.org,
  Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
-Message-ID: <b75f2fad-f9cf-d9d1-d114-efea792550a0@suse.com>
-Subject: Re: [PATCH for-4.15 1/2] tools/xenstore: Consolidate
- PRINTF_ATTRIBUTE() in utils.h
+Message-ID: <0994b7a0-c537-b312-b134-caf54c79c87f@suse.com>
+Subject: Re: [PATCH for-4.15 2/2] tools/xenstore: Check the format printf for
+ xprintf() and barf{,_perror}()
 References: <20210305124003.13582-1-julien@xen.org>
- <20210305124003.13582-2-julien@xen.org>
-In-Reply-To: <20210305124003.13582-2-julien@xen.org>
+ <20210305124003.13582-3-julien@xen.org>
+In-Reply-To: <20210305124003.13582-3-julien@xen.org>
 
---Z3BhJ0Nm3JMkACTRK4cX3yc0paXAySkt0
+--ueus3LmqTx4JjMIZllSUAzb3M5mJfEm0m
 Content-Type: multipart/mixed;
- boundary="------------0C8A056C013D922393496A8F"
+ boundary="------------047863EADE8604BFEA9A9852"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------0C8A056C013D922393496A8F
+--------------047863EADE8604BFEA9A9852
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 05.03.21 13:40, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 >=20
-> At the moment PRINTF_ATTRIBUTE() is defined in two places:
->      - tdb.h: Defined as a NOP
->      - talloc.h: Defined as a NOP for GCC older than 3.0 otherwise will=
-
->      add the attribute to check the printf format
+> Allow GCC to analyze the format printf for xprintf() and
+> barf{,_perror}().
 >=20
-> Xen requires to build with minimum GCC 4.1 and we want to check the
-> printf format for all the printf-like functions.
->=20
-> Only implement PRINTF_ATTRIBUTE() once in utils.h and drop the
-> conditional check for GCC < 3.0.
+> Take the opportunity to define __noreturn to make the prototype for
+> barf{,_perror})() easier to read.
 >=20
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 
 Reviewed-by: Juergen Gross <jgross@suse.com>
 
+But I would prefer, if ...
+
+> ---
+>   tools/xenstore/utils.h | 8 +++++---
+>   1 file changed, 5 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/tools/xenstore/utils.h b/tools/xenstore/utils.h
+> index 3dfb96b556dd..ccfb9b8fb699 100644
+> --- a/tools/xenstore/utils.h
+> +++ b/tools/xenstore/utils.h
+> @@ -29,10 +29,12 @@ const char *dump_state_align(FILE *fp);
+>  =20
+>   #define PRINTF_ATTRIBUTE(a1, a2) __attribute__((format (printf, a1, a=
+2)))
+>  =20
+> -void barf(const char *fmt, ...) __attribute__((noreturn));
+> -void barf_perror(const char *fmt, ...) __attribute__((noreturn));
+> +#define __noreturn __attribute__((noreturn))
+>  =20
+> -extern void (*xprintf)(const char *fmt, ...);
+> +void barf(const char *fmt, ...) __noreturn PRINTF_ATTRIBUTE(1, 2);
+> +void barf_perror(const char *fmt, ...) __noreturn PRINTF_ATTRIBUTE(1, =
+2);
+> +
+> +extern void (*xprintf)(const char *fmt, ...) PRINTF_ATTRIBUTE(1, 2);
+
+=2E.. the extern here would be dropped.
+
 
 Juergen
 
---------------0C8A056C013D922393496A8F
+
+--------------047863EADE8604BFEA9A9852
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -204,25 +227,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------0C8A056C013D922393496A8F--
+--------------047863EADE8604BFEA9A9852--
 
---Z3BhJ0Nm3JMkACTRK4cX3yc0paXAySkt0--
+--ueus3LmqTx4JjMIZllSUAzb3M5mJfEm0m--
 
---xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I
+--nPCh1PrCabwHDmkmoi7B3pmslQaupr2Lr
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBCK1oFAwAAAAAACgkQsN6d1ii/Ey/1
-BQf/YnLAst5UUldnEmQIpWFZVi6rtDrclj8/XHyi+fyXtyPPo++Sew2azMBk1kAkt8orxiwj2RrW
-+8OTO+3e0AiG8vKtQFjJrJwLhgulUBAMZtcS8Mez7T0krO2Wx3uY4nfrdq8Xf1G0p23NBk1e37Fi
-oVUPp72XtcxkoK8zIvlCIFHvaq5e7NHkCTjxsBDwrz+/vRnVvryT3w9HAQSpNXoycboen4f4TFuf
-+FZCvjY+yJ2M42O+2O3z+0QhJX4qxSF3Wv397gg3A+2KEFRK4JVM9pHAIPGUD1mo7EdV7OagHSq2
-Bmre1QrYOS+/nbyqfKUyzlZT9lRGepr/2t3hMJIFSg==
-=zR+B
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBCK7cFAwAAAAAACgkQsN6d1ii/Ey8t
+ZggAnQdBE4sLax4WcIe1buBFQeyRbYNbnO6SpHQX63G/ky4+xfn/moRP2ppVoPxX38avZ/5mfhkl
+YP+AOUjV0XKjw4m9ZNblXqfw5bVGfeio98XlZZjU3MgsMXl5HcSYChawAuOZ6IYgvPC/kXOtkpTh
+zfpYInKMGJbt88Bg0U7CK69EsT0gyzdVeq+E3zoitaWOq2tHR2M1NjLyI+7FgpEdBdrRrYxBf1ma
+FqvrInzHfHSblOf+YEr2PUZTrT2FmVe8TtL4gpblzFf7HvkItVJolzrQGUxqwnP7BOxYAxzjihFY
+zgYaDqfMe7n4vs5HwpbxE64VfFDeoCUogQTjfLlywg==
+=E646
 -----END PGP SIGNATURE-----
 
---xa030PwzxeFYZePFlNYfPQjgqVXhHFt1I--
+--nPCh1PrCabwHDmkmoi7B3pmslQaupr2Lr--
 
