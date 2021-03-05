@@ -2,33 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C728E32EC75
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 14:48:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93720.176874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDBD232EC91
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 14:54:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93727.176898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIAon-000113-91; Fri, 05 Mar 2021 13:48:37 +0000
+	id 1lIAu2-00027J-5l; Fri, 05 Mar 2021 13:54:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93720.176874; Fri, 05 Mar 2021 13:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 93727.176898; Fri, 05 Mar 2021 13:54:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIAon-00010h-5U; Fri, 05 Mar 2021 13:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 93720;
- Fri, 05 Mar 2021 13:48:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lIAu2-00026x-2P; Fri, 05 Mar 2021 13:54:02 +0000
+Received: by outflank-mailman (input) for mailman id 93727;
+ Fri, 05 Mar 2021 13:54:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lIAom-00010a-06
- for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 13:48:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lIAok-00078z-6V; Fri, 05 Mar 2021 13:48:34 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lIAoj-0003W0-UY; Fri, 05 Mar 2021 13:48:34 +0000
+ (envelope-from <SRS0=IQfx=ID=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lIAu0-00026p-95
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 13:54:00 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 07bafc3f-8c11-433f-becc-d4ec35d47e08;
+ Fri, 05 Mar 2021 13:53:59 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A8145AD73;
+ Fri,  5 Mar 2021 13:53:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +38,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=dv+N6RdVDmczLpfjevY38fA9Jc+MVb2JB6pD52FpeZA=; b=WXNBY/AykSxch9tSX774p6J27/
-	pyfxfWMuRqn5GS5u8aWsTjNHW5cjs8OzTmy/b1HfVfN7OpqiGnT1r4ezXNFAhwzw3F6hgp1XJG3zK
-	hNpoZNwQcH2tlij+4TG+Z3dF3d8JY64gIgXpAA7rhpjvVlzHnP1ITlylxVFJkrb5bKtk=;
-Subject: Re: [PATCH for-4.15 2/2] tools/xenstore: Check the format printf for
- xprintf() and barf{,_perror}()
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>
-Cc: raphning@amazon.co.uk, iwj@xenproject.org,
- Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210305124003.13582-1-julien@xen.org>
- <20210305124003.13582-3-julien@xen.org>
- <0994b7a0-c537-b312-b134-caf54c79c87f@suse.com>
- <74568cd7-143b-48ad-b9be-bf4229655376@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <7eb12174-3268-ccdb-df9c-c4fe23d3a332@xen.org>
-Date: Fri, 5 Mar 2021 13:48:32 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.1
+X-Inumbo-ID: 07bafc3f-8c11-433f-becc-d4ec35d47e08
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1614952438; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B+aJikjIHMoZvlv3QKPajBjgFVCPPf7CauYprTe52Ec=;
+	b=Rp84SWD8DN0x/cyeUalgaP5uRHg4A8YE07LOIPpeS8dRLEr7hGZIW1VxXdEk76UcP15TQH
+	UjvMOyPl/Qva6+rK/myepyEYf2U8wmz9N6104ECRvZppAHOnFIFo8WsQyjIuJaR3wTmD79
+	qaU9h3opMsULsU2ivBD6+bcxHykQQ8s=
+Subject: Re: [PATCH 2/3] xen/dmop: Strip __XEN_TOOLS__ header guard from
+ public API
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Ian Jackson <iwj@xenproject.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210305124949.6719-1-andrew.cooper3@citrix.com>
+ <20210305124949.6719-3-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9b4acfc5-6d96-7922-7fde-5d0d543f8201@suse.com>
+Date: Fri, 5 Mar 2021 14:53:58 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <74568cd7-143b-48ad-b9be-bf4229655376@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210305124949.6719-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
-
-On 05/03/2021 13:45, Jan Beulich wrote:
-> On 05.03.2021 14:01, Jürgen Groß wrote:
->> On 05.03.21 13:40, Julien Grall wrote:
->>> From: Julien Grall <jgrall@amazon.com>
->>> --- a/tools/xenstore/utils.h
->>> +++ b/tools/xenstore/utils.h
->>> @@ -29,10 +29,12 @@ const char *dump_state_align(FILE *fp);
->>>    
->>>    #define PRINTF_ATTRIBUTE(a1, a2) __attribute__((format (printf, a1, a2)))
->>>    
->>> -void barf(const char *fmt, ...) __attribute__((noreturn));
->>> -void barf_perror(const char *fmt, ...) __attribute__((noreturn));
->>> +#define __noreturn __attribute__((noreturn))
->>>    
->>> -extern void (*xprintf)(const char *fmt, ...);
->>> +void barf(const char *fmt, ...) __noreturn PRINTF_ATTRIBUTE(1, 2);
->>> +void barf_perror(const char *fmt, ...) __noreturn PRINTF_ATTRIBUTE(1, 2);
->>> +
->>> +extern void (*xprintf)(const char *fmt, ...) PRINTF_ATTRIBUTE(1, 2);
->>
->> ... the extern here would be dropped.
+On 05.03.2021 13:49, Andrew Cooper wrote:
+> Exactly as with c/s f40e1c52e4, this is inappropriate for a stable library.
 > 
-> But this isn't a function declaration, but that of a data object.
-> With the extern dropped, a common symbol will appear in every CU.
+> That change actually broke the build with:
+> 
+>   include/xendevicemodel.h:52:5: error: unknown type name 'ioservid_t'
+>        ioservid_t *id);
+>        ^
+> 
+> as libxendevicemodel.h now uses a type it can't see a typedef for.  However,
+> nothing noticed because the header.chk logic is also broken (fixed
+> subsequently).
 
-Urgh, you are right. Actually, the extern was added recently by Anthony:
+While I agree up to here, ...
 
-dacdbf7088d6a3705a9831e73991c2b14c519a65 ("tools/xenstore: mark variable 
-in header as extern")
+> Strip the guard from the public header, and remove compensation from
+> devicemodel's private.h
 
-I completely forgot it despite I needed to backport the patch to our 
-downstream Xen.
+... I'm unconvinced that entirely dropping the guard from the
+public header is wanted (or needed): We use these to make clear
+that in particular kernels aren't supposed to make use of the
+enclosed entities. If a type needs exposing, it (and only it)
+wants moving ou of the guarded region imo.
 
-Cheers,
-
--- 
-Julien Grall
+Jan
 
