@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF1832EE24
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 16:15:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93830.177227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E735B32EE66
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 16:20:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93841.177252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIC9x-0003j9-Hm; Fri, 05 Mar 2021 15:14:33 +0000
+	id 1lICFf-0004pw-FO; Fri, 05 Mar 2021 15:20:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93830.177227; Fri, 05 Mar 2021 15:14:33 +0000
+Received: by outflank-mailman (output) from mailman id 93841.177252; Fri, 05 Mar 2021 15:20:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIC9x-0003ic-DG; Fri, 05 Mar 2021 15:14:33 +0000
-Received: by outflank-mailman (input) for mailman id 93830;
- Fri, 05 Mar 2021 15:14:31 +0000
+	id 1lICFf-0004pX-CP; Fri, 05 Mar 2021 15:20:27 +0000
+Received: by outflank-mailman (input) for mailman id 93841;
+ Fri, 05 Mar 2021 15:20:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lIC9v-0003iU-GH; Fri, 05 Mar 2021 15:14:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1lICFd-0004pS-R7
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 15:20:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lIC9v-0000MN-5z; Fri, 05 Mar 2021 15:14:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lIC9u-0002Mk-Rx; Fri, 05 Mar 2021 15:14:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lIC9u-0004F0-RV; Fri, 05 Mar 2021 15:14:30 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lICFd-0000SP-P3
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 15:20:25 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lICFd-0002aF-Nl
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 15:20:25 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lICFU-0000Ki-FQ; Fri, 05 Mar 2021 15:20:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +42,46 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=CA9h9pAIkxVH5NwaTbZ6/Nv5WfxW1zuYEq9XMXnp/HM=; b=eIHAFrKJIUFDNB3dlf5zqlSNmY
-	WKka+r5DqjjS0/gs73qfXudhv5DWDywShYucUEJlLaIE0+qh1w2SCNlcDFOugreEZnyWJ14+Znnw/
-	w8l3hV6zFVjAIoq2r43lJ0hOYb4vxqQCw57QrrE8zBchCdHqdPtvxGgWfRquYAN8z6v4=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159837-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=YSi7ULddfUnPkUYhWh0A73+YlLdfr413xo1+z2q1PpE=; b=6tOF8AhH9pzQ33A2lamkA/ewEN
+	ulngiZjQYakxER6mRFt4IoSie7Yph5u5lVbhtTnag6dyNi86s5twd2L/4zVqydMKB0jnY7vfYQRNu
+	BEYdZwhbdpZvjJFt9Fz+navtUQnWb3xD7ifk6wBZKzaoGcsLp7jajV4iVCNAj/13K/wc=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159837: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9318fdf757ec234f0ee6c5cd381326b2f581d065
-X-Osstest-Versions-That:
-    xen=f40e1c52e4e0a3e084b025ed6b68f1e6ebaea027
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Mar 2021 15:14:30 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID: <24642.19504.207757.633803@mariner.uk.xensource.com>
+Date: Fri, 5 Mar 2021 15:20:16 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    Wei Liu <wl@xen.org>,
+    Paul Durrant <paul@xen.org>,
+    Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/3] xen/dmop: Strip __XEN_TOOLS__ header guard from
+ public API
+In-Reply-To: <bdbe6c35-450a-479e-2675-259a6bbe218b@citrix.com>
+References: <20210305124949.6719-1-andrew.cooper3@citrix.com>
+	<20210305124949.6719-3-andrew.cooper3@citrix.com>
+	<9b4acfc5-6d96-7922-7fde-5d0d543f8201@suse.com>
+	<68a69e57-66b5-6f59-39f4-40649112fe40@citrix.com>
+	<6b9fa11e-353e-8e10-8bec-f5c7930aae94@suse.com>
+	<0e0fe64c-0834-a3e9-e85c-c17d8a510941@suse.com>
+	<bdbe6c35-450a-479e-2675-259a6bbe218b@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-flight 159837 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159837/
+Andrew Cooper writes ("Re: [PATCH 2/3] xen/dmop: Strip __XEN_TOOLS__ header guard from public API"):
+> The use in the dom0 kernel wasn't kept secret in the slightest.  It was
+> discussed on at the time, and at dev summits.
 
-Failures :-/ but no regressions.
+No-one is accusing anyone of keeping anything secret.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> But upstream tends to only remember/care about the bits which pertain
+> directly to upstream,
 
-version targeted for testing:
- xen                  9318fdf757ec234f0ee6c5cd381326b2f581d065
-baseline version:
- xen                  f40e1c52e4e0a3e084b025ed6b68f1e6ebaea027
+I would prefer to say that upstream only tends to remember things
+which are WRITTEN DOWN.
 
-Last test of basis   159829  2021-03-04 16:02:36 Z    0 days
-Testing same since   159837  2021-03-05 13:01:32 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Tim Deegan <tim@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   f40e1c52e4..9318fdf757  9318fdf757ec234f0ee6c5cd381326b2f581d065 -> smoke
+Ian.
 
