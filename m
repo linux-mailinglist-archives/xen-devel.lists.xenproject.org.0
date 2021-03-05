@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE7632E702
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 12:07:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.93633.176607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C722932E7B0
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Mar 2021 13:11:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.93649.176619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lI8Hv-0000Di-Jp; Fri, 05 Mar 2021 11:06:31 +0000
+	id 1lI9Hu-0006sK-Mp; Fri, 05 Mar 2021 12:10:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 93633.176607; Fri, 05 Mar 2021 11:06:31 +0000
+Received: by outflank-mailman (output) from mailman id 93649.176619; Fri, 05 Mar 2021 12:10:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lI8Hv-0000DH-F9; Fri, 05 Mar 2021 11:06:31 +0000
-Received: by outflank-mailman (input) for mailman id 93633;
- Fri, 05 Mar 2021 11:06:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lI9Hu-0006rv-JP; Fri, 05 Mar 2021 12:10:34 +0000
+Received: by outflank-mailman (input) for mailman id 93649;
+ Fri, 05 Mar 2021 12:10:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IQfx=ID=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lI8Ht-0000DC-OA
- for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 11:06:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5fbf8a5c-4fde-4392-af05-8784c05dde33;
- Fri, 05 Mar 2021 11:06:29 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3CB18AE6E;
- Fri,  5 Mar 2021 11:06:28 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lI9Ht-0006ro-HI
+ for xen-devel@lists.xenproject.org; Fri, 05 Mar 2021 12:10:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lI9Ht-0005IS-0Y; Fri, 05 Mar 2021 12:10:33 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lI9Hs-0005Ic-Jw; Fri, 05 Mar 2021 12:10:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,67 +40,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fbf8a5c-4fde-4392-af05-8784c05dde33
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1614942388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p94vtB7FKC31ddClYAOCM9e6725Ol9Iweze/itf8DCk=;
-	b=uQw/ACgnxSP7XRpuZHm9zEad3Ere7xruP3aB/DwGvnheXrM1XX4ETrgzjkQEHXAbMjsbtZ
-	Ll3VQmwwCukLgpZ05+//25XloK7DPpOyCEAPssucncxowRkqudo+gomFxyN2Zr8b0Osbhp
-	hG+OFWNgs2+jXgJH+LINesTGIo6HGtE=
-Subject: Re: [PATCH v2 for-4.15] x86/msr: introduce an option for HVM relaxed
- rdmsr behavior
-From: Jan Beulich <jbeulich@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
-References: <20210304144755.35891-1-roger.pau@citrix.com>
- <fc2e724b-bada-ded3-97b4-26e9a0f3ff4a@suse.com>
-Message-ID: <94338621-9068-8376-c810-0fe1a9c8f3e0@suse.com>
-Date: Fri, 5 Mar 2021 12:06:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <fc2e724b-bada-ded3-97b4-26e9a0f3ff4a@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=AkU/ANV9klxVdLN7G3kMf/GAXYSfZF8V6M9T6Dtmmvg=; b=sDlT0iBjxSNh9clhBwQph5ueUl
+	tOwpM7MHbN1AOlrMRJ6ifZ17u6OPX8qrpA576AFWwp762E0/5/rZ1RB5Fv8p/YjvpwjpRXOM4p6Kp
+	tBJSSipL/3U90eHb+qg9jCq9K12+1knS6fdYgutz+sMhecx3MJ4Wo+yBofobltj5X3Vw=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk,
+	iwj@xenproject.org,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH for-4.15] tools/xenstored: liveupdate: Increase the maximum number of parameters
+Date: Fri,  5 Mar 2021 12:10:29 +0000
+Message-Id: <20210305121029.7047-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-On 05.03.2021 11:56, Jan Beulich wrote:
-> On 04.03.2021 15:47, Roger Pau Monne wrote:
->> --- a/xen/arch/x86/hvm/svm/svm.c
->> +++ b/xen/arch/x86/hvm/svm/svm.c
->> @@ -1795,6 +1795,7 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
->>      const struct domain *d = v->domain;
->>      struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
->>      const struct nestedsvm *nsvm = &vcpu_nestedsvm(v);
->> +    uint64_t tmp;
->>  
->>      switch ( msr )
->>      {
->> @@ -1965,6 +1966,11 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
->>          break;
->>  
->>      default:
->> +        if ( d->arch.hvm.rdmsr_relaxed && !rdmsr_safe(msr, tmp) )
->> +        {
->> +            *msr_content = 0;
->> +            break;
->> +        }
-> 
-> You don't really need "tmp" here, do you? You could as well read
-> into *msr_content, as you're zapping the value afterwards anyway.
+From: Julien Grall <jgrall@amazon.com>
 
-Actually, while perhaps indeed not strictly needed, it allows the
-compiler to produce better code, as it'll be able to recognize
-the value doesn't need writing to memory on any path. I guess I'll
-change the logic in my related patch along these lines then.
+The longest possible command line for LiveUpdate is:
 
-Jan
+  liveupdate -s -t <timeout> -F
+
+This is 5 parameters. However, the maximum is currently specified to 4.
+This means the some of the parameters will get ignored.
+
+Update the field max_pars to 5 so and admin can specify the timeout and
+force at the same time.
+
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+---
+
+This is a candidate for Xen 4.15. Without it, it would not be possible
+to pass -F and -t together.
+
+The change is only modifying behavior for XenStored LiveUpdate.
+---
+ tools/xenstore/xenstored_control.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index a1652219b247..8e470f2b2056 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -768,7 +768,7 @@ static struct cmd_s cmds[] = {
+ 	 */
+ 	{ "live-update", do_control_lu,
+ 		"[-c <cmdline>] [-F] [-t <timeout>] <file>\n"
+-		"    Default timeout is 60 seconds.", 4 },
++		"    Default timeout is 60 seconds.", 5 },
+ #endif
+ #ifdef __MINIOS__
+ 	{ "memreport", do_control_memreport, "" },
+-- 
+2.17.1
+
 
