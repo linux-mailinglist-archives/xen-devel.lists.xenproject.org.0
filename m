@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEBC32FD95
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Mar 2021 22:43:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94384.177949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 596B132FDC0
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Mar 2021 23:31:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94387.177960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIegW-0007nN-It; Sat, 06 Mar 2021 21:42:04 +0000
+	id 1lIfRN-0003vd-Am; Sat, 06 Mar 2021 22:30:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94384.177949; Sat, 06 Mar 2021 21:42:04 +0000
+Received: by outflank-mailman (output) from mailman id 94387.177960; Sat, 06 Mar 2021 22:30:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lIegW-0007my-Fj; Sat, 06 Mar 2021 21:42:04 +0000
-Received: by outflank-mailman (input) for mailman id 94384;
- Sat, 06 Mar 2021 21:42:03 +0000
+	id 1lIfRN-0003vH-7d; Sat, 06 Mar 2021 22:30:29 +0000
+Received: by outflank-mailman (input) for mailman id 94387;
+ Sat, 06 Mar 2021 22:30:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lIegV-0007mt-0y
- for xen-devel@lists.xenproject.org; Sat, 06 Mar 2021 21:42:03 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lIfRM-0003v9-Dw; Sat, 06 Mar 2021 22:30:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lIegT-0001PC-Hl; Sat, 06 Mar 2021 21:42:01 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lIegT-00066t-11; Sat, 06 Mar 2021 21:42:01 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lIfRM-0002AK-4s; Sat, 06 Mar 2021 22:30:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lIfRL-00050a-Nn; Sat, 06 Mar 2021 22:30:27 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lIfRL-0003KB-NJ; Sat, 06 Mar 2021 22:30:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,112 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
-	bh=VU75K8jemcqWW+CW4IZ/uc+bhcZ1ef0hQsKo4FgR/38=; b=HyLA+aZFi+QgIcIUfhDI7p1/M1
-	01Qpw5jwR3QF7RNAZCLjtOL/M5z/cSq/d31TBtIRKW+fSeN4PYBLfb8b0qnkM16nKuu4TU178BMWr
-	0Dlc9vBfsNDPwWoSnVA1Qj8q0zH0NGqM7TnLtCc05FyigOY1jACxb3wRRCgtkJG6+mCk=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH for-4.15] xen: Bump the minimum version of GCC supported to 4.9 (5.1 on arm64)
-Date: Sat,  6 Mar 2021 21:41:48 +0000
-Message-Id: <20210306214148.27021-1-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=YGCtJ1ra0WyiCOWjAi7L/lhd+fUKcSq6qYVdI60A4EI=; b=vVhLp90PiP0vcl89wa7KzxGceI
+	tDu0HSRQ8vBgV2GCxkj3g33oRZkCd1GtbG4EvL7ZOkOwrt5c6a/OF0ewhBHcBUSJwSlejLJeFuoqp
+	XaagOeNgDPM2dyAkH1QJeO37z0/+5o4HgG6RdE/ptF7UJJ+yVOX3/QGdDK8nzDmxVbfY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159850-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 159850: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=51972482f77b68ef494c8b9591b125460e7984b9
+X-Osstest-Versions-That:
+    xen=9318fdf757ec234f0ee6c5cd381326b2f581d065
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 06 Mar 2021 22:30:27 +0000
 
-From: Julien Grall <jgrall@amazon.com>
+flight 159850 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159850/
 
-Compilers older than 4.8 have known codegen issues which can lead to
-silent miscompilation:
+Failures :-/ but no regressions.
 
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Furthermore, pre-4.9 GCC have known bugs (including things like
-internal compiler errors on Arm) which would require workaround (I
-haven't checked if we have any in Xen).
+version targeted for testing:
+ xen                  51972482f77b68ef494c8b9591b125460e7984b9
+baseline version:
+ xen                  9318fdf757ec234f0ee6c5cd381326b2f581d065
 
-The minimum version of GCC to build the hypervisor is now raised to 4.9.
+Last test of basis   159837  2021-03-05 13:01:32 Z    1 days
+Testing same since   159850  2021-03-06 20:01:30 Z    0 days    1 attempts
 
-In addition to that, on arm64, GCC version >= 4.9 and < 5.1 have been
-shown to emit memory references beyond the stack pointer, resulting in
-memory corruption if an interrupt is taken after the stack pointer has
-been adjusted but before the reference has been executed.
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
 
-Therefore, the minimum for arm64 is raised to 5.1.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
 
----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I don't have a strong opinion on the minimum version for GCC on x86.
-So this is following Andrew's suggestion and the minimum from Linux.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-This patch is candidate to 4.15 and backport.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-This is only a build change and will be low-risk for anyone using newer
-compiler (5.1+ for arm64 and 4.9 for everyone else). Xen will stop
-building for anyone using older compiler. But it is better than fighting
-with codegen issues.
----
- README                     |  9 ++++++---
- xen/include/xen/compiler.h | 13 +++++++++++++
- 2 files changed, 19 insertions(+), 3 deletions(-)
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-diff --git a/README b/README
-index 8c99c30986c1..5c32c03f2ea1 100644
---- a/README
-+++ b/README
-@@ -38,12 +38,15 @@ provided by your OS distributor:
-     * GNU Make v3.80 or later
-     * C compiler and linker:
-       - For x86:
--        - GCC 4.1.2_20070115 or later
-+        - GCC 4.9 or later
-         - GNU Binutils 2.16.91.0.5 or later
-         or
-         - Clang/LLVM 3.5 or later
--      - For ARM:
--        - GCC 4.8 or later
-+      - For ARM 32-bit:
-+        - GCC 4.9 or later
-+        - GNU Binutils 2.24 or later
-+      - For ARM 64-bit:
-+        - GCC 5.1 or later
-         - GNU Binutils 2.24 or later
-     * Development install of zlib (e.g., zlib-dev)
-     * Development install of Python 2.6 or later (e.g., python-dev)
-diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-index 0ec0b4698ea7..46779660cc8f 100644
---- a/xen/include/xen/compiler.h
-+++ b/xen/include/xen/compiler.h
-@@ -5,6 +5,19 @@
- #error Sorry, your compiler is too old/not recognized.
- #endif
- 
-+#if CONFIG_CC_IS_GCC
-+# if CONFIG_GCC_VERSION < 40900
-+/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145 */
-+#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
-+# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
-+/*
-+ * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
-+ * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
-+ */
-+#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
-+# endif
-+#endif
-+
- #define barrier()     __asm__ __volatile__("": : :"memory")
- 
- #define likely(x)     __builtin_expect(!!(x),1)
--- 
-2.17.1
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   9318fdf757..51972482f7  51972482f77b68ef494c8b9591b125460e7984b9 -> smoke
 
