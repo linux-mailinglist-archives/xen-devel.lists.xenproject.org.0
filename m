@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D005F32FD00
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Mar 2021 21:04:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94379.177937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FEBC32FD95
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Mar 2021 22:43:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94384.177949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lId9a-0007AB-4l; Sat, 06 Mar 2021 20:03:58 +0000
+	id 1lIegW-0007nN-It; Sat, 06 Mar 2021 21:42:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94379.177937; Sat, 06 Mar 2021 20:03:58 +0000
+Received: by outflank-mailman (output) from mailman id 94384.177949; Sat, 06 Mar 2021 21:42:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lId9a-00079m-10; Sat, 06 Mar 2021 20:03:58 +0000
-Received: by outflank-mailman (input) for mailman id 94379;
- Sat, 06 Mar 2021 20:03:56 +0000
+	id 1lIegW-0007my-Fj; Sat, 06 Mar 2021 21:42:04 +0000
+Received: by outflank-mailman (input) for mailman id 94384;
+ Sat, 06 Mar 2021 21:42:03 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lId9Y-00079h-1U
- for xen-devel@lists.xenproject.org; Sat, 06 Mar 2021 20:03:56 +0000
+ (envelope-from <julien@xen.org>) id 1lIegV-0007mt-0y
+ for xen-devel@lists.xenproject.org; Sat, 06 Mar 2021 21:42:03 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lId9X-0008Eq-2d; Sat, 06 Mar 2021 20:03:55 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=a483e7b01a66.ant.amazon.com)
+ id 1lIegT-0001PC-Hl; Sat, 06 Mar 2021 21:42:01 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lId9W-0007sB-NU; Sat, 06 Mar 2021 20:03:54 +0000
+ id 1lIegT-00066t-11; Sat, 06 Mar 2021 21:42:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,132 +41,111 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Syn83vuW1WGUDekL3bFYX9LzT5XraSaDjKXparENo7Y=; b=WWj1SPxgDf24mYrpa0BlnDjfjZ
-	jZ3VJlZPcTRVe4e890GSrirPZlLlgPkfsg/I16VXp0tPDmmjkljJx/8aGbzsD1PBc6Wru9CrjapyM
-	eYQisHFptwcqhPeOqOKKHI8wZD9HwKWSmBxJ21ycccQIA51SQSe5heae2uz/xdCD8PgA=;
-Subject: Re: [PATCH DO NOT APPLY] docs: Document allocator properties and the
- rubric for using them
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20210216102839.1801667-1-george.dunlap@citrix.com>
- <c5eb64fc-a90b-6e28-bb0d-075e3a870299@xen.org>
- <E820CE9D-9671-4ED3-872E-3AECE21505AC@citrix.com>
- <E0E24EA5-CF14-45AA-8C0A-122F87051EC0@citrix.com>
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=VU75K8jemcqWW+CW4IZ/uc+bhcZ1ef0hQsKo4FgR/38=; b=HyLA+aZFi+QgIcIUfhDI7p1/M1
+	01Qpw5jwR3QF7RNAZCLjtOL/M5z/cSq/d31TBtIRKW+fSeN4PYBLfb8b0qnkM16nKuu4TU178BMWr
+	0Dlc9vBfsNDPwWoSnVA1Qj8q0zH0NGqM7TnLtCc05FyigOY1jACxb3wRRCgtkJG6+mCk=;
 From: Julien Grall <julien@xen.org>
-Message-ID: <9d63df30-6de7-4ea8-1e38-d70318b4b7bb@xen.org>
-Date: Sat, 6 Mar 2021 20:03:53 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.0
-MIME-Version: 1.0
-In-Reply-To: <E0E24EA5-CF14-45AA-8C0A-122F87051EC0@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH for-4.15] xen: Bump the minimum version of GCC supported to 4.9 (5.1 on arm64)
+Date: Sat,  6 Mar 2021 21:41:48 +0000
+Message-Id: <20210306214148.27021-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-Hi George,
+From: Julien Grall <jgrall@amazon.com>
 
-On 16/02/2021 11:17, George Dunlap wrote:
-> 
-> 
->> On Feb 16, 2021, at 11:16 AM, George Dunlap <george.dunlap@citrix.com> wrote:
->>
->>
->>
->>> On Feb 16, 2021, at 10:55 AM, Julien Grall <julien@xen.org> wrote:
->>>
->>> Hi George,
->>>
->>> On 16/02/2021 10:28, George Dunlap wrote:
->>>> Document the properties of the various allocators and lay out a clear
->>>> rubric for when to use each.
->>>> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
->>>> ---
->>>> This doc is my understanding of the properties of the current
->>>> allocators (alloc_xenheap_pages, xmalloc, and vmalloc), and of Jan's
->>>> proposed new wrapper, xvmalloc.
->>>> xmalloc, vmalloc, and xvmalloc were designed more or less to mirror
->>>> similar functions in Linux (kmalloc, vmalloc, and kvmalloc
->>>> respectively).
->>>> CC: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> CC: Jan Beulich <jbeulich@suse.com>
->>>> CC: Roger Pau Monne <roger.pau@citrix.com>
->>>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>>> CC: Julien Grall <julien@xen.org>
->>>> ---
->>>> .../memory-allocation-functions.rst           | 118 ++++++++++++++++++
->>>> 1 file changed, 118 insertions(+)
->>>> create mode 100644 docs/hypervisor-guide/memory-allocation-functions.rst
->>>> diff --git a/docs/hypervisor-guide/memory-allocation-functions.rst b/docs/hypervisor-guide/memory-allocation-functions.rst
->>>> new file mode 100644
->>>> index 0000000000..15aa2a1a65
->>>> --- /dev/null
->>>> +++ b/docs/hypervisor-guide/memory-allocation-functions.rst
->>>> @@ -0,0 +1,118 @@
->>>> +.. SPDX-License-Identifier: CC-BY-4.0
->>>> +
->>>> +Xenheap memory allocation functions
->>>> +===================================
->>>> +
->>>> +In general Xen contains two pools (or "heaps") of memory: the *xen
->>>> +heap* and the *dom heap*.  Please see the comment at the top of
->>>> +``xen/common/page_alloc.c`` for the canonical explanation.
->>>> +
->>>> +This document describes the various functions available to allocate
->>>> +memory from the xen heap: their properties and rules for when they should be
->>>> +used.
->>>> +
->>>> +
->>>> +TLDR guidelines
->>>> +---------------
->>>> +
->>>> +* By default, ``xvmalloc`` (or its helper cognates) should be used
->>>> +  unless you know you have specific properties that need to be met.
->>>> +
->>>> +* If you need memory which needs to be physically contiguous, and may
->>>> +  be larger than ``PAGE_SIZE``...
->>>> +
->>>> +  - ...and is order 2, use ``alloc_xenheap_pages``.
->>>> +
->>>> +  - ...and is not order 2, use ``xmalloc`` (or its helper cognates)..
->>>> +
->>>> +* If you don't need memory to be physically contiguous, and know the
->>>> +  allocation will always be larger than ``PAGE_SIZE``, you may use
->>>> +  ``vmalloc`` (or one of its helper cognates).
->>>> +
->>>> +* If you know that allocation will always be less than ``PAGE_SIZE``,
->>>> +  you may use ``xmalloc``.
->>>
->>> AFAICT, the determining factor is PAGE_SIZE. This is a single is a single value on x86 (e.g. 4KB) but on other architecture this may be multiple values.
->>>
->>> For instance, on Arm, this could be 4KB, 16KB, 64KB (note that only the former is so far supported on Xen).
->>>
->>> For Arm and common code, it feels to me we can't make a clear decision based on PAGE_SIZE. Instead, I continue to think that the decision should only be based on physical vs virtually contiguous.
->>>
->>> We can then add further rules for x86 specific code if the maintainers want.
->>
->> Sorry my second mail was somewhat delayed — my intent was: 1) post the document I’d agreed to write, 2) say why I think the proposal is a bad idea. :-)
+Compilers older than 4.8 have known codegen issues which can lead to
+silent miscompilation:
 
-No worry, I jumped too quickly in the discussion :).
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145
 
->>
->> Re page size — the vast majority of time we’re talking “knowing” that the size is less than 4k.  If we’re confident that no architecture will ever have a page size less than 4k, then we know that all allocations less than 4k will always be less than PAGE_SIZE.  Obviously larger page sizes then becomes an issue.
->>
->> But in any case — unless we have BUG_ON(size > PAGE_SIZE), we’re going to have to have a fallback, which is going to cost one precious conditional, making the whole exercise pointless.
-> 
-> Er, just in case it wasn’t clear — I agree with this:
-> 
->>> I continue to think that the decision should only be based on physical vs virtually contiguous.
+Furthermore, pre-4.9 GCC have known bugs (including things like
+internal compiler errors on Arm) which would require workaround (I
+haven't checked if we have any in Xen).
 
-We have two opposite proposal with no clear way to reconciliate them. 
-Should we request a vote on the two proposals?
+The minimum version of GCC to build the hypervisor is now raised to 4.9.
 
-Cheers,
+In addition to that, on arm64, GCC version >= 4.9 and < 5.1 have been
+shown to emit memory references beyond the stack pointer, resulting in
+memory corruption if an interrupt is taken after the stack pointer has
+been adjusted but before the reference has been executed.
 
+Therefore, the minimum for arm64 is raised to 5.1.
+
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+---
+
+I don't have a strong opinion on the minimum version for GCC on x86.
+So this is following Andrew's suggestion and the minimum from Linux.
+
+This patch is candidate to 4.15 and backport.
+
+This is only a build change and will be low-risk for anyone using newer
+compiler (5.1+ for arm64 and 4.9 for everyone else). Xen will stop
+building for anyone using older compiler. But it is better than fighting
+with codegen issues.
+---
+ README                     |  9 ++++++---
+ xen/include/xen/compiler.h | 13 +++++++++++++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/README b/README
+index 8c99c30986c1..5c32c03f2ea1 100644
+--- a/README
++++ b/README
+@@ -38,12 +38,15 @@ provided by your OS distributor:
+     * GNU Make v3.80 or later
+     * C compiler and linker:
+       - For x86:
+-        - GCC 4.1.2_20070115 or later
++        - GCC 4.9 or later
+         - GNU Binutils 2.16.91.0.5 or later
+         or
+         - Clang/LLVM 3.5 or later
+-      - For ARM:
+-        - GCC 4.8 or later
++      - For ARM 32-bit:
++        - GCC 4.9 or later
++        - GNU Binutils 2.24 or later
++      - For ARM 64-bit:
++        - GCC 5.1 or later
+         - GNU Binutils 2.24 or later
+     * Development install of zlib (e.g., zlib-dev)
+     * Development install of Python 2.6 or later (e.g., python-dev)
+diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+index 0ec0b4698ea7..46779660cc8f 100644
+--- a/xen/include/xen/compiler.h
++++ b/xen/include/xen/compiler.h
+@@ -5,6 +5,19 @@
+ #error Sorry, your compiler is too old/not recognized.
+ #endif
+ 
++#if CONFIG_CC_IS_GCC
++# if CONFIG_GCC_VERSION < 40900
++/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145 */
++#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
++# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
++/*
++ * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
++ * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
++ */
++#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
++# endif
++#endif
++
+ #define barrier()     __asm__ __volatile__("": : :"memory")
+ 
+ #define likely(x)     __builtin_expect(!!(x),1)
 -- 
-Julien Grall
+2.17.1
+
 
