@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4542B330EE7
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 14:11:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94920.178891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C3A330EE8
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 14:11:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94923.178903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJFej-0002VR-88; Mon, 08 Mar 2021 13:10:41 +0000
+	id 1lJFfK-0002aP-H8; Mon, 08 Mar 2021 13:11:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94920.178891; Mon, 08 Mar 2021 13:10:41 +0000
+Received: by outflank-mailman (output) from mailman id 94923.178903; Mon, 08 Mar 2021 13:11:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJFej-0002V2-4R; Mon, 08 Mar 2021 13:10:41 +0000
-Received: by outflank-mailman (input) for mailman id 94920;
- Mon, 08 Mar 2021 13:10:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mI6H=IG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJFeh-0002Ux-QO
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 13:10:39 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 832f2f00-2fbc-46ee-845e-705b938986ad;
- Mon, 08 Mar 2021 13:10:38 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ABC5EAC0C;
- Mon,  8 Mar 2021 13:10:37 +0000 (UTC)
+	id 1lJFfK-0002Zv-DP; Mon, 08 Mar 2021 13:11:18 +0000
+Received: by outflank-mailman (input) for mailman id 94923;
+ Mon, 08 Mar 2021 13:11:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NN5v=IG=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lJFfI-0002Zo-F3
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 13:11:16 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 05d225c1-ea94-497c-b48b-994e1d4f1100;
+ Mon, 08 Mar 2021 13:11:14 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DB38E31B;
+ Mon,  8 Mar 2021 05:11:13 -0800 (PST)
+Received: from [10.57.16.174] (unknown [10.57.16.174])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 085FD3F71B;
+ Mon,  8 Mar 2021 05:11:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +41,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 832f2f00-2fbc-46ee-845e-705b938986ad
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615209037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ikaHvOZsjSFcGHp0AkpHCM+bRv7UlS2puP/A0AQjKV4=;
-	b=QezPYhdcVlp9hURmJwSkcDHhykjy2hmQ43JCcowlZh+paN9j0OtPP/PgH0nSh/P46/kufO
-	w+W6gfykckCYXnn7HErep17JIj7iAJcsBVX+K91DQ/j9g5/VBLgOmFL63fFlAA+p4K9fSI
-	4D1cLQhhLW5uchORYxsDmLiLUBZy7b4=
-Subject: Re: [PATCH 1/2][4.15?] tools/x86: don't rebuild cpuid-autogen.h every
- time
-To: Ian Jackson <iwj@xenproject.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <d08ec3ba-dff1-cb1c-9103-949e15774fd5@suse.com>
- <336aaf51-f163-8ee7-d8ee-297f6f3052fd@suse.com>
- <24645.62832.737310.550811@mariner.uk.xensource.com>
- <2857440d-058f-5c85-32d3-87e2fe65bb9a@suse.com>
- <24646.1454.55437.250075@mariner.uk.xensource.com>
- <78259adb-89b1-06a6-c1f4-c0659134e309@suse.com>
- <24646.5291.124853.270432@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5be57f5c-e055-8d92-832e-f1a17352452d@suse.com>
-Date: Mon, 8 Mar 2021 14:10:32 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+X-Inumbo-ID: 05d225c1-ea94-497c-b48b-994e1d4f1100
+Subject: Re: [PATCH] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, bertrand.marquis@arm.com, wei.chen@arm.com,
+ xen-devel@lists.xenproject.org
+References: <20210308095233.13329-1-michal.orzel@arm.com>
+ <3709714b-6627-3c66-b8ca-4cb9c59df83b@suse.com>
+ <f15c2f35-4f1c-de2c-81dc-de47282cf588@arm.com>
+ <dc49957d-885d-07e4-aa00-74668e331da2@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <15564cc3-db36-e7c3-df8d-64f6f54b4f3d@arm.com>
+Date: Mon, 8 Mar 2021 14:11:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <24646.5291.124853.270432@mariner.uk.xensource.com>
+In-Reply-To: <dc49957d-885d-07e4-aa00-74668e331da2@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 08.03.2021 13:12, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [PATCH 1/2][4.15?] tools/x86: don't rebuild cpuid-autogen.h every time"):
->> Possibly, but it may end up being more complex: We want to only
->> retain files of specific names from a single dir. I don't think
->> this is as straightforward to express in a find rune. Of course
->> I'll be fine whichever way the bug gets fixed, but I'm afraid I
->> don't feel convinced I want to put time into trying the alternative
->> you suggest. If otoh you wanted to try out yours and it turned out
->> equivalent or better, I wouldn't mind at all.
-> 
-> Untested, but I think something like this should DTRT
-> 
->  find xen ! -type d ! -path 'xen/lib/x86/*-autogen.h' -print0 | xargs -0r rm --
-> 
-> Since my background is GNU utilities, I checked the FreeBSD manpages
-> for find, xargs and rm.  They support these options.
-> 
-> This will leave the entire directory structure but I think that is
-> fine.  The xen-dir target uses mkdir -p and should there be any stale
-> directories (eg due to switching branches or whatever) they wouldn't
-> be a problem.
 
-Right. Thinking of it though - all we do is setting up symlinks
-plus produce this generated header. Couldn't we therefore have
-find simply arrange for all symlinks to be found and deleted?
 
-Jan
+On 08.03.2021 12:28, Jan Beulich wrote:
+> On 08.03.2021 12:02, Michal Orzel wrote:
+>> On 08.03.2021 11:00, Jan Beulich wrote:
+>>> On 08.03.2021 10:52, Michal Orzel wrote:
+>>>> +config DTB_FILE
+>>>> +	string "Absolute path to device tree blob"
+>>>> +	default ""
+>>>> +	depends on LINK_DTB
+>>>> +	---help---
+>>>> +	  When using a bootloader that has no device tree support or when there
+>>>> +	  is no bootloader at all, use this option to specify the absolute path
+>>>> +	  to a device tree that will be linked directly inside Xen binary.
+>>>
+>>> How is selecting LINK_DTB but leaving DTB_FILE at an empty string
+>>> different from not having a LINK_DTB setting at all?
+>>>
+>> LINK_DTB acts as a switch to allow setting the dtb path. Not having LINK_DTB option will result in
+>> a build failure each time the user does not want to embed dtb into Xen(DTB_FILE is empty).
+> 
+> Which isn't any different from having LINK_DTB and leaving the
+> string empty, is it? I.e. imo no improved user experience.
+> 
+>> I do not see why someone would want to select LINK_DTB leaving DTB_FILE as an empty string.
+> 
+> People may not "want" to, but simply think accepting the default
+> is fine, considering they've already said to link in some DTB.
+> It may be obvious to you that there's no good default here, but
+> it may not be to the person configuring their Xen. I'm guessing
+> here, but did you try leaving out the default line? Would this
+> make kconfig insist on the person to type in something? (Likely
+> an empty string would still be accepted. As would be a relative
+> path, despite what the help text says; I guess some forms of
+> relative paths may even work.)
+> 
+There is no option here to make kconfig insist on person to type something.
+There is one solution. If I change in here:
+https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/Makefile;h=16e6523e2cc6072b7d4cbcdeaf4726b7a9b1d381;hb=HEAD#l71
+from:
+ifdef CONFIG_DTB_FILE
+to:
+ifneq ($(CONFIG_DTB_FILE),"")
+then if user selects LINK_DTB but does not provide dtb path, the dtb will not be embedded into Xen.
+> Jan
+> 
+
+Michal
 
