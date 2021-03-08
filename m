@@ -2,31 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D15F73311E3
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 16:16:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95014.179188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F0B331360
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 17:28:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95020.179200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJHbE-0007RZ-Ik; Mon, 08 Mar 2021 15:15:12 +0000
+	id 1lJIjQ-0005mn-PG; Mon, 08 Mar 2021 16:27:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95014.179188; Mon, 08 Mar 2021 15:15:12 +0000
+Received: by outflank-mailman (output) from mailman id 95020.179200; Mon, 08 Mar 2021 16:27:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJHbE-0007RA-FQ; Mon, 08 Mar 2021 15:15:12 +0000
-Received: by outflank-mailman (input) for mailman id 95014;
- Mon, 08 Mar 2021 15:15:11 +0000
+	id 1lJIjQ-0005mO-Kt; Mon, 08 Mar 2021 16:27:44 +0000
+Received: by outflank-mailman (input) for mailman id 95020;
+ Mon, 08 Mar 2021 16:27:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mI6H=IG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJHbD-0007R5-KT
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 15:15:11 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jF2O=IG=infradead.org=peterz@srs-us1.protection.inumbo.net>)
+ id 1lJIjM-0005mJ-Tr
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 16:27:43 +0000
+Received: from desiato.infradead.org (unknown
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bbfa2ff5-d30e-432b-974a-e1e7d8d87101;
- Mon, 08 Mar 2021 15:15:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 898ACAE15;
- Mon,  8 Mar 2021 15:15:09 +0000 (UTC)
+ id f9a78ac1-8076-4c5b-bcd8-0332c0badef2;
+ Mon, 08 Mar 2021 16:27:34 +0000 (UTC)
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lJIj9-0010v4-3I; Mon, 08 Mar 2021 16:27:27 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id D9C88300238;
+ Mon,  8 Mar 2021 17:27:25 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id AD72623662BE0; Mon,  8 Mar 2021 17:27:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,75 +48,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbfa2ff5-d30e-432b-974a-e1e7d8d87101
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615216509; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NY9P1lEQ4kCt/hDvkCiZv1Pj4mvjOxZ1tK9OA1fVxHo=;
-	b=Vo9nwKuWJKmgY257dOoFBjkgyqeLPmIM4RayT8Vi87vWxTBMYg6pnx3dZevbADQ08JfuiB
-	oT8sV/gkJwBLjHvWncM0xSEWNQzTMTujo7hCkW9Fc7TE3rc14Wvt6lRCuDTaww+jzPtKxx
-	llnp2t7LNOrtlJsblrR8BZk+8/4HIqc=
-Subject: Re: [PATCH for-4.15] vtd: make sure QI/IR are disabled before
- initialisation
-To: Igor Druzhinin <igor.druzhinin@citrix.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
- kevin.tian@intel.com, xen-devel@lists.xenproject.org,
- Ian Jackson <iwj@xenproject.org>
-References: <1615186802-5908-1-git-send-email-igor.druzhinin@citrix.com>
- <de357605-ef0c-82ba-0ae2-ef96f1dd23f3@suse.com>
- <ce950c68-1d44-bcbd-b071-131777b87a38@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6cd440c3-414b-dc66-0212-1e727fc7655d@suse.com>
-Date: Mon, 8 Mar 2021 16:15:08 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+X-Inumbo-ID: f9a78ac1-8076-4c5b-bcd8-0332c0badef2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=VZ1ywut6hjotzCNJblmbhmr/ur93FTUuoN2sXgKzb0A=; b=f3apT4ncojFpFX4giPDwk/8u6j
+	X/AOL90fouIeILOR/6POsveFPJ5niQtwspFjYFur87BAFnBTQT3m03vwoJ6R1fMibe6p7M43yIV5P
+	xaBnhjZsII2w1XzP3CVmK82D+xsrU3RVDU3HQJSoBzeHLTUDE4NzfgJ5aWAuzLbA5aAwpZt7E0lbC
+	DoFVg6zcPFd0YQYUk31AoI1nZ6fvXLBZiDdcr04hhmSynYz6rAzdnuWCNJDBr2KNc89Eh1jqa8bzm
+	Zm2jfjJ8UOWDMl9S7+TcSU5Qo+o1KjKmjAeFiKZckIv9sa9HOuoT6VPwQOZ5F5WEKu5y3iy50fEEF
+	SLMASU5w==;
+Date: Mon, 8 Mar 2021 17:27:25 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	Josh Poimboeuf <jpoimboe@redhat.com>,
+	Jason Baron <jbaron@akamai.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH v5 01/12] staticcall: move struct static_call_key
+ definition to static_call_types.h
+Message-ID: <YEZQbTjQ3GD4KaGS@hirez.programming.kicks-ass.net>
+References: <20210308122844.30488-1-jgross@suse.com>
+ <20210308122844.30488-2-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <ce950c68-1d44-bcbd-b071-131777b87a38@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210308122844.30488-2-jgross@suse.com>
 
-On 08.03.2021 15:52, Igor Druzhinin wrote:
-> On 08/03/2021 08:18, Jan Beulich wrote:
->> On 08.03.2021 08:00, Igor Druzhinin wrote:
->>> BIOS might pass control to Xen leaving QI and/or IR in enabled and/or
->>> partially configured state. In case of x2APIC code path where EIM is
->>> enabled early in boot - those are correctly disabled by Xen before any
->>> attempt to configure. But for xAPIC that step is missing which was
->>> proven to cause QI initialization failures on some ICX based platforms
->>> where QI is left pre-enabled and partially configured by BIOS.
->>
->> And those systems then tell us to avoid use of x2APIC? I would have
->> expected that on modern systems we wouldn't see such quirky firmware
->> behavior anymore. Anyway, half a sentence to this effect might help
->> here, as without such firmware behavior the only way to run into
->> this ought to be use of "no-x2apic" on the command line. Which in
->> turn might require justification (and potentially a fix elsewhere in
->> the code to make use of that option unnecessary).
->>
->>> Unify the behaviour between x2APIC and xAPIC code paths keeping that in
->>> line with what Linux does.
->>>
->>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> with some editing of the description. If no other need for a v2
->> arises, I suppose whatever you come up with could be folded in
->> while committing.
+On Mon, Mar 08, 2021 at 01:28:33PM +0100, Juergen Gross wrote:
+> Having the definition of static_call() in static_call_types.h makes
+> no sense as long struct static_call_key isn't defined there, as the
+> generic implementation of static_call() is referencing this structure.
 > 
-> How about:
+> So move the definition of struct static_call_key to static_call_types.h.
 > 
-> "... But for xAPIC that step is missing which was proven to cause QI 
-> initialization failures on some ICX based platforms where QI is left 
-> pre-enabled and partially configured by BIOS. That problem becomes hard 
-> to avoid since those platforms are shipped with x2APIC opt out being 
-> advertised by default at the same time by firmware.
-> ..."
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-SGTM.
-
-Thanks, Jan
+s/staticcall/static_call/ on $Subject
 
