@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 804AE330FBD
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 14:42:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94935.178950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 371AC330FC7
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 14:45:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94940.178963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJG9D-0005mp-JA; Mon, 08 Mar 2021 13:42:11 +0000
+	id 1lJGC2-0005vR-67; Mon, 08 Mar 2021 13:45:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94935.178950; Mon, 08 Mar 2021 13:42:11 +0000
+Received: by outflank-mailman (output) from mailman id 94940.178963; Mon, 08 Mar 2021 13:45:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJG9D-0005mQ-G5; Mon, 08 Mar 2021 13:42:11 +0000
-Received: by outflank-mailman (input) for mailman id 94935;
- Mon, 08 Mar 2021 13:42:09 +0000
+	id 1lJGC2-0005v2-34; Mon, 08 Mar 2021 13:45:06 +0000
+Received: by outflank-mailman (input) for mailman id 94940;
+ Mon, 08 Mar 2021 13:45:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mI6H=IG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJG9B-0005mL-Ka
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 13:42:09 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 667e26b1-43c4-4106-b3fd-11232c297cfc;
- Mon, 08 Mar 2021 13:42:08 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7CF3AC54;
- Mon,  8 Mar 2021 13:42:07 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NN5v=IG=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lJGC0-0005ux-Pd
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 13:45:04 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c634aa56-bfa3-41d3-89d9-45eb129a220e;
+ Mon, 08 Mar 2021 13:45:03 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D0A4E31B;
+ Mon,  8 Mar 2021 05:45:02 -0800 (PST)
+Received: from [10.57.16.174] (unknown [10.57.16.174])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E401B3F71B;
+ Mon,  8 Mar 2021 05:45:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,85 +41,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 667e26b1-43c4-4106-b3fd-11232c297cfc
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615210927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eZ+3Up9dP59m+YGq0dxEE1fIDfgvYYRyhCRZ/TjJyYU=;
-	b=kmV7bTHr/0Qw4gbYzaUCDdPYSUWHml5tNGwvPxps2bHa4V99la8TRZJiiCitXqNkG2vWfi
-	okjhfbDgOARilZw5JSMRmndBKK791xyP3Jy/6I4xpV0wsE5h5xH0P/yVY32k04dInrE+YK
-	Q+aOcPDUkmsHoEmDe7WG0m4x7myQRZ0=
-Subject: Re: [PATCH v2 2/2][4.15] x86/AMD: expose HWCR.TscFreqSel to guests
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Ian Jackson <iwj@xenproject.org>
-References: <f5f17207-b601-2909-8a5c-55276e734272@suse.com>
- <c91b190a-aaa1-d3b8-10eb-d8da7ad1f834@suse.com>
- <YEYMgQ+e5A9/jqQE@Air-de-Roger>
- <c5dd3650-b8cf-ba4c-70ee-f0dd09a1ea09@suse.com>
- <YEYYuyhnH1B0k+IV@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2cabeb6b-bbec-4cca-d872-66c2d8ae6c3a@suse.com>
-Date: Mon, 8 Mar 2021 14:42:07 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+X-Inumbo-ID: c634aa56-bfa3-41d3-89d9-45eb129a220e
+Subject: Re: [PATCH] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, bertrand.marquis@arm.com, wei.chen@arm.com,
+ xen-devel@lists.xenproject.org
+References: <20210308095233.13329-1-michal.orzel@arm.com>
+ <3709714b-6627-3c66-b8ca-4cb9c59df83b@suse.com>
+ <f15c2f35-4f1c-de2c-81dc-de47282cf588@arm.com>
+ <dc49957d-885d-07e4-aa00-74668e331da2@suse.com>
+ <15564cc3-db36-e7c3-df8d-64f6f54b4f3d@arm.com>
+ <bb0ee356-510b-4b83-819e-77d83fcc6e10@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <5d304c0a-56bf-1c7d-065f-12473a36ae4b@arm.com>
+Date: Mon, 8 Mar 2021 14:44:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YEYYuyhnH1B0k+IV@Air-de-Roger>
+In-Reply-To: <bb0ee356-510b-4b83-819e-77d83fcc6e10@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.03.2021 13:29, Roger Pau Monné wrote:
-> On Mon, Mar 08, 2021 at 12:47:44PM +0100, Jan Beulich wrote:
->> On 08.03.2021 12:37, Roger Pau Monné wrote:
->>> On Fri, Mar 05, 2021 at 10:50:54AM +0100, Jan Beulich wrote:
->>>> --- a/xen/arch/x86/msr.c
->>>> +++ b/xen/arch/x86/msr.c
->>>> @@ -315,6 +315,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t
->>>>          *val = msrs->tsc_aux;
->>>>          break;
->>>>  
->>>> +    case MSR_K8_HWCR:
->>>> +        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
->>>> +            goto gp_fault;
->>>> +        *val = K8_HWCR_TSC_FREQ_SEL;
->>>
->>> I've been only able to find information about this MSR up to family
->>> 10h, but I think in theory Xen might also run on family 0Fh, do you
->>> know if the MSR is present there, and the bit has the same meaning?
+
+
+On 08.03.2021 14:13, Jan Beulich wrote:
+> On 08.03.2021 14:11, Michal Orzel wrote:
 >>
->> From its name (and its K7 alternative name) it's clear the register
->> had been there at that point. And indeed the bit has a different
->> meaning there (its the bottom bit of a 6-bit START_FID field if the
->> BKDG I'm looking at can be trusted.
+>>
+>> On 08.03.2021 12:28, Jan Beulich wrote:
+>>> On 08.03.2021 12:02, Michal Orzel wrote:
+>>>> On 08.03.2021 11:00, Jan Beulich wrote:
+>>>>> On 08.03.2021 10:52, Michal Orzel wrote:
+>>>>>> +config DTB_FILE
+>>>>>> +	string "Absolute path to device tree blob"
+>>>>>> +	default ""
+>>>>>> +	depends on LINK_DTB
+>>>>>> +	---help---
+>>>>>> +	  When using a bootloader that has no device tree support or when there
+>>>>>> +	  is no bootloader at all, use this option to specify the absolute path
+>>>>>> +	  to a device tree that will be linked directly inside Xen binary.
+>>>>>
+>>>>> How is selecting LINK_DTB but leaving DTB_FILE at an empty string
+>>>>> different from not having a LINK_DTB setting at all?
+>>>>>
+>>>> LINK_DTB acts as a switch to allow setting the dtb path. Not having LINK_DTB option will result in
+>>>> a build failure each time the user does not want to embed dtb into Xen(DTB_FILE is empty).
+>>>
+>>> Which isn't any different from having LINK_DTB and leaving the
+>>> string empty, is it? I.e. imo no improved user experience.
+>>>
+>>>> I do not see why someone would want to select LINK_DTB leaving DTB_FILE as an empty string.
+>>>
+>>> People may not "want" to, but simply think accepting the default
+>>> is fine, considering they've already said to link in some DTB.
+>>> It may be obvious to you that there's no good default here, but
+>>> it may not be to the person configuring their Xen. I'm guessing
+>>> here, but did you try leaving out the default line? Would this
+>>> make kconfig insist on the person to type in something? (Likely
+>>> an empty string would still be accepted. As would be a relative
+>>> path, despite what the help text says; I guess some forms of
+>>> relative paths may even work.)
+>>>
+>> There is no option here to make kconfig insist on person to type something.
+>> There is one solution. If I change in here:
+>> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/Makefile;h=16e6523e2cc6072b7d4cbcdeaf4726b7a9b1d381;hb=HEAD#l71
+>> from:
+>> ifdef CONFIG_DTB_FILE
+>> to:
+>> ifneq ($(CONFIG_DTB_FILE),"")
+>> then if user selects LINK_DTB but does not provide dtb path, the dtb will not be embedded into Xen.
 > 
-> OK, I cannot seem to find the BKDG for family 0Fh. The oldest BKDG I
-> can find is for Family 10h [0].
+> I think this would be preferable plus eliminate the need for the
+> separate LINK_DTB option.
 > 
->> Since I don't think it matters
->> much whether we expose a value of 0x00 or a value of 0x01 there,
->> and since we likely don't want to make #GP raising dependent upon
->> family when we don't _really_ need to, I would want to propose that
->> the value used is good enough uniformly.
+Will do this and send as v2
+> Jan
 > 
-> I would be fine with setting it to 0 if Fam < 10h if you think that's
-> acceptable. I think the chances of someone running Xen >= 4.15 on such
-> old hardware are quite dim.
-
-Would you mind explaining how returning 0 in this case would be
-better? No hard-coded value will ever be guaranteed to reflect the
-truth. See my reply to Andrew - if anything we'd need to let the
-hardware field shine through, and in _that_ case I of course I
-agree that we then should treat Fam0F specially.
-
-I will admit though that as per the BKDG I'm looking at only even
-values are defined for the field. Reporting 1 here therefore may
-do good (keep OSes from trying to use any of this P-state stuff)
-or bad (confuse OSes).
-
-Jan
+Michal
 
