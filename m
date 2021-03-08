@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D673330D05
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 13:03:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94829.178620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4189A330D12
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 13:05:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94834.178636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJEbJ-0002Pi-Rc; Mon, 08 Mar 2021 12:03:05 +0000
+	id 1lJEde-0002Xd-9V; Mon, 08 Mar 2021 12:05:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94829.178620; Mon, 08 Mar 2021 12:03:05 +0000
+Received: by outflank-mailman (output) from mailman id 94834.178636; Mon, 08 Mar 2021 12:05:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJEbJ-0002PI-Nu; Mon, 08 Mar 2021 12:03:05 +0000
-Received: by outflank-mailman (input) for mailman id 94829;
- Mon, 08 Mar 2021 12:03:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lJEde-0002XE-6I; Mon, 08 Mar 2021 12:05:30 +0000
+Received: by outflank-mailman (input) for mailman id 94834;
+ Mon, 08 Mar 2021 12:05:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lJEbI-0002PA-GG; Mon, 08 Mar 2021 12:03:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lJEbI-0003RS-Bi; Mon, 08 Mar 2021 12:03:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lJEbI-0005ga-42; Mon, 08 Mar 2021 12:03:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lJEbI-00080l-3Z; Mon, 08 Mar 2021 12:03:04 +0000
+ (envelope-from <SRS0=mI6H=IG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lJEdc-0002X7-EG
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 12:05:28 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b5c93f49-c2ec-4ac6-8de6-dcf4a2b4991b;
+ Mon, 08 Mar 2021 12:05:27 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8664AAC0C;
+ Mon,  8 Mar 2021 12:05:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Z5VAKWET8/EmTZ8dyS/a7pYmDsuuS7fSm4UYrPTHbJE=; b=fRTgnEQ/olAqvjODdk26UpQNqW
-	j3ELdVHezjawy91Jcz+zFrkoNEXRFxRLOIaXoflA5KzSIs8dk2lnRY6vQkcNMOeUvp8ts/pbPuJQS
-	sxC6Bd2vYBwtdQzZJ9NqQKtERPt83w87OCRHirTNKs1i3iN/wmnR0nsM2d39ORfNiWlw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-159871-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b5c93f49-c2ec-4ac6-8de6-dcf4a2b4991b
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615205126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vRa9di/p1QmpzTcsrcH2OuL4P81hepuxWftRo4iB2kk=;
+	b=BpJBQpr//bqYZVu+zqA3mbbsaz7QinqjpcKwszwuEzOg9cF4+0JHaA89IBzIVQYUUO/SIt
+	tbWeYWRgvnOdHaTroFH5YkSPNWg6jZn/eDZ8iEv2eM4+e/OOpvNHU+HjOW6m5KbBl7Kn6b
+	aDrW/J1yCwhW//BeSVyNtrVkJ2J97NE=
+Subject: Re: [PATCH 2/2][4.15?] x86/shadow: encode full GFN in magic MMIO
+ entries
+To: Tim Deegan <tim@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>
+References: <d0190313-921f-7cbc-4659-9a79f6299fab@suse.com>
+ <ccf12da3-b3df-7be1-1898-992ec994b78f@suse.com>
+ <YEXw7nM+glqc/Oz2@deinos.phlegethon.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a689279a-933a-ae0f-1182-5e322d02f2be@suse.com>
+Date: Mon, 8 Mar 2021 13:05:25 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 159871: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=60c0444fae2148452f9ed0b7c49af1fa41f8f522
-X-Osstest-Versions-That:
-    xen=51972482f77b68ef494c8b9591b125460e7984b9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 08 Mar 2021 12:03:04 +0000
+In-Reply-To: <YEXw7nM+glqc/Oz2@deinos.phlegethon.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 159871 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/159871/
+On 08.03.2021 10:39, Tim Deegan wrote:
+> At 16:37 +0100 on 05 Mar (1614962265), Jan Beulich wrote:
+>> Since we don't need to encode all of the PTE flags, we have enough bits
+>> in the shadow entry to store the full GFN. Don't use literal numbers -
+>> instead derive the involved values. Or, where derivation would become
+>> too ugly, sanity-check the result (invoking #error to identify failure).
+>>
+>> This then allows dropping from sh_l1e_mmio() again the guarding against
+>> too large GFNs.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Acked-by: Tim Deegan <tim@xen.org>
 
-Failures :-/ but no regressions.
+Thanks.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+>> I wonder if the respective check in sh_audit_l1_table() is actually
+>> useful to retain with these changes.
+> 
+> Yes, I think so.  We care about these PTEs being bogus for any reason,
+> not just the ones that this could address.
+> 
+>> -#define SH_L1E_MAGIC 0xffffffff00000001ULL
+>> +#define SH_L1E_MAGIC_NR_META_BITS 4
+>> +#define SH_L1E_MAGIC_MASK ((~0ULL << (PADDR_BITS - PAGE_SHIFT + \
+>> +                                      SH_L1E_MAGIC_NR_META_BITS)) | \
+>> +                           _PAGE_PRESENT)
+> 
+> I don't think this makes the code any more readable, TBH, but if you
+> prefer it that's OK.  I'd be happier with it if you added a
+> BUILD_BUG_ON that checks that 1ULL << (PADDR_BITS - 1) is set in the
+> mask, since that's the main thing we care about.
+> 
+>> -#define SH_L1E_MMIO_MAGIC       0xffffffff00000001ULL
+>> -#define SH_L1E_MMIO_MAGIC_MASK  0xffffffff00000009ULL
+>> -#define SH_L1E_MMIO_GFN_MASK    0x00000000fffffff0ULL
+>> +#define SH_L1E_MMIO_MAGIC       SH_L1E_MAGIC_MASK
+>> +#define SH_L1E_MMIO_MAGIC_BIT   ((_PAGE_PRESENT | _PAGE_RW | _PAGE_USER) + 1)
+> 
+> IMO this would be more readable as a straight 0x8 (or even _PAGE_PWT).
+> The ack stands either way.
 
-version targeted for testing:
- xen                  60c0444fae2148452f9ed0b7c49af1fa41f8f522
-baseline version:
- xen                  51972482f77b68ef494c8b9591b125460e7984b9
+For both of your remarks, I agree that readability suffers by doing
+it this way, so I'll undo some of it since you'd prefer it to be
+more readable. My goal wasn't so much readability though but ease
+of changes down the road (no need to change multiple related
+definitions) and documentation of why these values actually are the
+way they are.
 
-Last test of basis   159850  2021-03-06 20:01:30 Z    1 days
-Testing same since   159871  2021-03-08 10:00:32 Z    0 days    1 attempts
+But let's first see anyway what further changes are needed in
+response to Andrew's remarks.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Tim Deegan <tim@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   51972482f7..60c0444fae  60c0444fae2148452f9ed0b7c49af1fa41f8f522 -> smoke
+Jan
 
