@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD3B330AC0
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 11:01:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94761.178429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4C24330AC1
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 11:01:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94762.178441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJCh5-0006v9-3r; Mon, 08 Mar 2021 10:00:55 +0000
+	id 1lJChB-0006yH-Cr; Mon, 08 Mar 2021 10:01:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94761.178429; Mon, 08 Mar 2021 10:00:55 +0000
+Received: by outflank-mailman (output) from mailman id 94762.178441; Mon, 08 Mar 2021 10:01:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJCh5-0006uj-0T; Mon, 08 Mar 2021 10:00:55 +0000
-Received: by outflank-mailman (input) for mailman id 94761;
- Mon, 08 Mar 2021 10:00:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lJChB-0006xg-8k; Mon, 08 Mar 2021 10:01:01 +0000
+Received: by outflank-mailman (input) for mailman id 94762;
+ Mon, 08 Mar 2021 10:01:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mI6H=IG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJCh4-0006ud-Cf
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 10:00:54 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae46403a-4bbe-49f8-b85e-df41e2c4765d;
- Mon, 08 Mar 2021 10:00:53 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8C379ACBF;
- Mon,  8 Mar 2021 10:00:52 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1lJChA-0006xL-4M
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 10:01:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lJChA-0001Jh-2Z
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 10:01:00 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lJChA-0003aI-1c
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 10:01:00 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lJCh6-00084b-Rn; Mon, 08 Mar 2021 10:00:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,62 +41,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae46403a-4bbe-49f8-b85e-df41e2c4765d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615197652; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q2SIrA5XRpg/FSGgWjrQL2AxlwffylmbxFH/5gTIJiw=;
-	b=ZkcK1RoQsaA7SGrxo9qYdY+HsX+6fa5Ndi+pa711L6G17rfyHZep/xQG503W8HXOUX5yVa
-	muWVBQMUt5Yd2AkkDsbeL7oDVDFIpgcuGrpXL56/u8oZceyQ1XEHzfTKx8zUuqn8OqyomH
-	Qkea6Gg/zB3ekwmSohapUM8LjWEDJ+o=
-Subject: Re: [PATCH] arm: Add Kconfig entry to select CONFIG_DTB_FILE
-To: Michal Orzel <michal.orzel@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, bertrand.marquis@arm.com, wei.chen@arm.com,
- xen-devel@lists.xenproject.org
-References: <20210308095233.13329-1-michal.orzel@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3709714b-6627-3c66-b8ca-4cb9c59df83b@suse.com>
-Date: Mon, 8 Mar 2021 11:00:51 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=shga8WJTVY4hizujX61kvSw0TK7deinpbnpxBhVRXEY=; b=FQy+1eiHOjuW8OmQpyo4idXuqL
+	dHiPwmc98DQXfGRXxPSohQyMDFPT7sGRssqSLb5d/TXyog8V229BI0Id1XwAXX8qVSFY5HMNVCAvu
+	zznUWKHEsG77lKXEbZyWL8NIz3mdSyy+eps1aSHY/XmhvIuX6+CGVFr/4s2fL/KCblkM=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <20210308095233.13329-1-michal.orzel@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24645.62936.623189.553418@mariner.uk.xensource.com>
+Date: Mon, 8 Mar 2021 10:00:56 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    Wei Liu <wl@xen.org>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 2/2] tools/x86: move arch-specific include/xen/ population
+ into arch-specific rule
+In-Reply-To: <0702c375-4769-7246-ba47-613ed69330e1@suse.com>
+References: <d08ec3ba-dff1-cb1c-9103-949e15774fd5@suse.com>
+	<0702c375-4769-7246-ba47-613ed69330e1@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 08.03.2021 10:52, Michal Orzel wrote:
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -400,6 +400,20 @@ config DOM0_MEM
->  
->  	  Leave empty if you are not sure what to specify.
->  
-> +config LINK_DTB
-> +	bool "Link DTB into Xen image"
-> +	depends on ARM
-> +	default n
+Jan Beulich writes ("[PATCH 2/2] tools/x86: move arch-specific include/xen/ population into arch-specific rule"):
+> There's no need for the common "xen-dir" rule to have an arch-specific
+> part when there already is a arch-specific rule where this can be taken
+> care of.
 
-I don't think this last line is needed.
+I think the symlinks being made in this arch-specific code are more
+logically part of the xen-dir target than part of the all target.
 
-> +config DTB_FILE
-> +	string "Absolute path to device tree blob"
-> +	default ""
-> +	depends on LINK_DTB
-> +	---help---
-> +	  When using a bootloader that has no device tree support or when there
-> +	  is no bootloader at all, use this option to specify the absolute path
-> +	  to a device tree that will be linked directly inside Xen binary.
+> I was tempted to also uniformly change the pattern from *autogen.h to
+> *-autogen.h right here - thoughts?
 
-How is selecting LINK_DTB but leaving DTB_FILE at an empty string
-different from not having a LINK_DTB setting at all?
+I haven't read this in enough detail to know whether that's right, but
+if it is right it is IMO preferable.
 
-Jan
+Thanks,
+Ian.
 
