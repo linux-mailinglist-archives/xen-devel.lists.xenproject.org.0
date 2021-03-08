@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E15D3310CC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 15:32:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94980.179101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0AA93310D0
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 15:33:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94986.179113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJGvI-00036J-Jv; Mon, 08 Mar 2021 14:31:52 +0000
+	id 1lJGwP-0003EQ-Tx; Mon, 08 Mar 2021 14:33:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94980.179101; Mon, 08 Mar 2021 14:31:52 +0000
+Received: by outflank-mailman (output) from mailman id 94986.179113; Mon, 08 Mar 2021 14:33:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJGvI-00035s-Ga; Mon, 08 Mar 2021 14:31:52 +0000
-Received: by outflank-mailman (input) for mailman id 94980;
- Mon, 08 Mar 2021 14:31:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lJGvG-00035a-Lx
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 14:31:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lJGvD-00064a-0Q; Mon, 08 Mar 2021 14:31:47 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lJGvC-0006ze-NY; Mon, 08 Mar 2021 14:31:46 +0000
+	id 1lJGwP-0003E0-Qv; Mon, 08 Mar 2021 14:33:01 +0000
+Received: by outflank-mailman (input) for mailman id 94986;
+ Mon, 08 Mar 2021 14:32:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d+V0=IG=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1lJGwN-0003Du-Pf
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 14:32:59 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 34e8f0b7-2b49-45dd-bda8-ba886754379e;
+ Mon, 08 Mar 2021 14:32:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,103 +36,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=wUADUy5CRV7i2GKakvMeVwR7brx30CZn1gWbHASJIq8=; b=ARbae4knno9KiZHfEJpFe4Bkjl
-	687OdCbjXz2jDFr2z4yV8XtMbIvaaRRQWEavIsBT5u61jvAhawmTLcVW3ZxacO+qgR2FHDOZaqQKq
-	nfVLeM4FGJ/GG4mjV/dq+ase4mHCXXlOS9YJya1Ri22ll7mr08+IFCn1fA4qqt1ToS1U=;
-Subject: Re: [PATCH v2] arm: Add Kconfig entry to select CONFIG_DTB_FILE
-To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- bertrand.marquis@arm.com
-References: <20210308135937.1692-1-michal.orzel@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <745c5049-fb09-5605-8bc1-838a4def45d6@xen.org>
-Date: Mon, 8 Mar 2021 14:31:43 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.0
+X-Inumbo-ID: 34e8f0b7-2b49-45dd-bda8-ba886754379e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1615213978;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Q1bwcy8zs0Y3OOtedWN1SdTn52JflrxXUJhjBz32qYs=;
+  b=c6dhUoD8LHLcZjnC2FpYoDKjm7QPsgf6T2TX5lssFSpTpF8l2udw0wsl
+   9Fs9trijOp2S0WhRszNcu+A0ABkBJo5o0zg/+yTpG5U6qcAsMYkapmgcl
+   fJFYtR0dK9ceH1caFqz97wzSK7i+QIT0VHwdbBNaVI0YsVPLc7TJAoN59
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: Cyr/TUjEwVfGjW7hRbaKiJa1Ckr9xfodS8EQgLVEM1gUMrkAfx9be9upn8cgb8gLbQX8urcaVU
+ rebXD0ABAkaDYMK3UoXdTT8u0RnZ2ljfVX5/Fi+OFVGGlt4/DSrgq1BwpAg19mrJWZvjNQzTgD
+ AMIPyx12eIEUeEPmGHSYIbsgiKI28Ss6cq4O5iDxKR6A5KGLnu+Fli/dnwx9RjlyRfjNDascwa
+ xjHeFBARuwB8x1Oqu8ZWasTkn0lfa5Y6F8wLK/3jxBXuf6769k5uTPxD+ht0YQg0xPWGKh5Mdr
+ +gE=
+X-SBRS: 4.0
+X-MesageID: 38766920
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,232,1610427600"; 
+   d="scan'208";a="38766920"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <qemu-devel@nongnu.org>
+CC: Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi
+	<stefanha@redhat.com>, Maxim Levitsky <mlevitsk@redhat.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>, Max Reitz
+	<mreitz@redhat.com>, <xen-devel@lists.xenproject.org>,
+	<qemu-block@nongnu.org>
+Subject: [PATCH] xen-block: Fix removal of backend instance via xenstore
+Date: Mon, 8 Mar 2021 14:32:32 +0000
+Message-ID: <20210308143232.83388-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-In-Reply-To: <20210308135937.1692-1-michal.orzel@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi,
+From: Anthony PERARD <anthony.perard@citrix.com>
 
-On 08/03/2021 13:59, Michal Orzel wrote:
-> Currently in order to link existing DTB into Xen image
-> we need to either specify option CONFIG_DTB_FILE on the
-> command line or manually add it into .config.
-> Add Kconfig entry: CONFIG_DTB_FILE to be able to
-> provide the path to DTB we want to embed into Xen image.
-> If no path provided - the dtb will not be embedded.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-> ---
->   xen/arch/arm/Makefile | 4 +---
->   xen/common/Kconfig    | 8 ++++++++
->   2 files changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 16e6523e2c..0f3e99d075 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -68,7 +68,7 @@ extra-y += $(TARGET_SUBARCH)/head.o
->   
->   #obj-bin-y += ....o
->   
-> -ifdef CONFIG_DTB_FILE
-> +ifneq ($(CONFIG_DTB_FILE),"")
->   obj-y += dtb.o
->   AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
->   endif
-> @@ -137,8 +137,6 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
->   xen.lds: xen.lds.S
->   	$(CPP) -P $(a_flags) -MQ $@ -o $@ $<
->   
-> -dtb.o: $(CONFIG_DTB_FILE)
-> -
+Whenever a Xen block device is detach via xenstore, the image
+associated with it remained open by the backend QEMU and an error is
+logged:
+    qemu-system-i386: failed to destroy drive: Node xvdz-qcow2 is in use
 
-Why is this dropped?
+This happened since object_unparent() doesn't immediately frees the
+object and thus keep a reference to the node we are trying to free.
+The reference is hold by the "drive" property and the call
+xen_block_drive_destroy() fails.
 
->   .PHONY: clean
->   clean::
->   	rm -f asm-offsets.s xen.lds
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index eb953d171e..a4c8d09edf 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -400,6 +400,14 @@ config DOM0_MEM
->   
->   	  Leave empty if you are not sure what to specify.
->   
-> +config DTB_FILE
+In order to fix that, we call drain_call_rcu() to run the callback
+setup by bus_remove_child() via object_unparent().
 
-May I ask why is this add in common/Kconfig rather than arm/Kconfig?
+Fixes: 2d24a6466154 ("device-core: use RCU for list of children of a bus")
 
-> +	string "Absolute path to device tree blob"
-> +	depends on ARM
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+CCing people whom introduced/reviewed the change to use RCU to give
+them a chance to say if the change is fine.
+---
+ hw/block/xen-block.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-If this stay in common Kconfig, shouldn't this be gated with 
-HAS_DEVICE_TREE?
-
-> +	---help---
-> +	  When using a bootloader that has no device tree support or when there
-> +	  is no bootloader at all, use this option to specify the absolute path
-> +	  to a device tree that will be linked directly inside Xen binary.
-> +
->   config TRACEBUFFER
->   	bool "Enable tracing infrastructure" if EXPERT
->   	default y
-> 
-
-Cheers,
-
+diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+index a3b69e27096f..fe5f828e2d25 100644
+--- a/hw/block/xen-block.c
++++ b/hw/block/xen-block.c
+@@ -972,6 +972,15 @@ static void xen_block_device_destroy(XenBackendInstance *backend,
+ 
+     object_unparent(OBJECT(xendev));
+ 
++    /*
++     * Drall all pending RCU callbacks as object_unparent() frees `xendev'
++     * in a RCU callback.
++     * And due to the property "drive" still existing in `xendev', we
++     * cann't destroy the XenBlockDrive associated with `xendev' with
++     * xen_block_drive_destroy() below.
++     */
++    drain_call_rcu();
++
+     if (iothread) {
+         xen_block_iothread_destroy(iothread, errp);
+         if (*errp) {
 -- 
-Julien Grall
+Anthony PERARD
+
 
