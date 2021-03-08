@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D6A9330C7A
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 12:35:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.94802.178536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D761330C81
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 12:36:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.94805.178549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJE9r-0007Kh-Rl; Mon, 08 Mar 2021 11:34:43 +0000
+	id 1lJEBW-0007S8-8F; Mon, 08 Mar 2021 11:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 94802.178536; Mon, 08 Mar 2021 11:34:43 +0000
+Received: by outflank-mailman (output) from mailman id 94805.178549; Mon, 08 Mar 2021 11:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJE9r-0007KG-OQ; Mon, 08 Mar 2021 11:34:43 +0000
-Received: by outflank-mailman (input) for mailman id 94802;
- Mon, 08 Mar 2021 11:34:42 +0000
+	id 1lJEBW-0007Rj-4l; Mon, 08 Mar 2021 11:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 94805;
+ Mon, 08 Mar 2021 11:36:25 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C5Iz=IG=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lJE9q-0007KB-1Z
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 11:34:42 +0000
+ id 1lJEBV-0007Rb-AZ
+ for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 11:36:25 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 365863d7-ab50-425d-8b42-fb39928ff4ea;
- Mon, 08 Mar 2021 11:34:40 +0000 (UTC)
+ id 43f93126-dfc4-4871-ac97-580dbff9d0bb;
+ Mon, 08 Mar 2021 11:36:23 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F0D7D6E;
- Mon,  8 Mar 2021 03:34:40 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71A6ED6E;
+ Mon,  8 Mar 2021 03:36:23 -0800 (PST)
 Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
  [10.1.197.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ADC073F73C;
- Mon,  8 Mar 2021 03:34:39 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7AE0D3F73C;
+ Mon,  8 Mar 2021 03:36:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,16 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 365863d7-ab50-425d-8b42-fb39928ff4ea
+X-Inumbo-ID: 43f93126-dfc4-4871-ac97-580dbff9d0bb
 From: Luca Fancellu <luca.fancellu@arm.com>
-To: luca.fancellu@arm.com,
-	xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: [PATCH] xen/arm: Prevent Dom0 to be loaded when using dom0less
-Date: Mon,  8 Mar 2021 11:34:25 +0000
-Message-Id: <20210308113425.22540-1-luca.fancellu@arm.com>
+Date: Mon,  8 Mar 2021 11:36:04 +0000
+Message-Id: <20210308113604.12961-1-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.17.1
 
 This patch prevents the dom0 to be loaded skipping its
