@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B67331910
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 22:08:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95110.179475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED72C331938
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Mar 2021 22:18:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95129.179511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJN6W-0007d8-3t; Mon, 08 Mar 2021 21:07:52 +0000
+	id 1lJNGH-0000TV-Vv; Mon, 08 Mar 2021 21:17:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95110.179475; Mon, 08 Mar 2021 21:07:52 +0000
+Received: by outflank-mailman (output) from mailman id 95129.179511; Mon, 08 Mar 2021 21:17:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJN6W-0007ci-05; Mon, 08 Mar 2021 21:07:52 +0000
-Received: by outflank-mailman (input) for mailman id 95110;
- Mon, 08 Mar 2021 21:07:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=odrr=IG=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1lJN2A-0006P0-Jq
- for xen-devel@lists.xenproject.org; Mon, 08 Mar 2021 21:03:22 +0000
-Received: from mail-qk1-x733.google.com (unknown [2607:f8b0:4864:20::733])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b51513b8-6bfb-48fc-bc0d-6441286aa7d3;
- Mon, 08 Mar 2021 21:02:47 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id b130so10829284qkc.10
- for <xen-devel@lists.xenproject.org>; Mon, 08 Mar 2021 13:02:47 -0800 (PST)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:a33e:daa7:46a1:a7eb])
- by smtp.gmail.com with ESMTPSA id
- r2sm8514070qti.4.2021.03.08.13.02.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Mar 2021 13:02:46 -0800 (PST)
+	id 1lJNGH-0000T7-SK; Mon, 08 Mar 2021 21:17:57 +0000
+Received: by outflank-mailman (input) for mailman id 95129;
+ Mon, 08 Mar 2021 21:17:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lJNGH-0000Sz-2w; Mon, 08 Mar 2021 21:17:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lJNGG-0005Dx-T2; Mon, 08 Mar 2021 21:17:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lJNGG-0005t6-Jp; Mon, 08 Mar 2021 21:17:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lJNGG-0007Be-JJ; Mon, 08 Mar 2021 21:17:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,349 +42,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b51513b8-6bfb-48fc-bc0d-6441286aa7d3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=PKJr8nrwfa99gzKdxy4i3QfsaQ+/kCEtBoAhhMKOwBc=;
-        b=AGJqFitOs3SR/s3GKDOeCYaFSW2EOleleZyJ/l4r6z+1kV6iswUlvVlUw6jKFMrglP
-         y7wfdqEI0ut4+sU2XdXaOGkaX6RYbehVdbBioKIX2lhOg5TMaQVXWXu1bkiHymevfWIp
-         yqiw6SPbITy5LqVtlOZPNEHn66LgrB08HbB3OgHUKnX5kpatchhOc9aB4WkgI0JhOzxu
-         BF02madFzY0pxaq3sUSmLDYIFNBjB6dLURnd8AJqxwGuOShxklWr3+LIYPyRstVB7LBm
-         bq3c12d7MD5MEsq5G2neE1ai0E1zHYrwzwcAY103D9uIoeQnFz2uvS7qzz492tXf37Fd
-         3C9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=PKJr8nrwfa99gzKdxy4i3QfsaQ+/kCEtBoAhhMKOwBc=;
-        b=Fi4vYFSRSMUleKvffC1xxVcKDl0VSKi5xXuyuoeX8cyMV3qvqhwRskJ+mg9t131wRs
-         kSTndLTbyMUarDGxy7vb3WcgIQKU015PDFkunNXkaude//ldLREccZJY90pbjFc7SK6M
-         63t0QikTiJz+YAWzpCVwF7O21oVd/QKaM5nO0SNL6YSXtYfr1vRGY4ZXjjq/HQD1/0vU
-         g5CTQ5sKhEyfBSLvTlOFmBqwYLzo728gNmnCU3TOAVULKu8u8l4FD1D2xPQJxQ7V6TES
-         sqKklU2GFWqt3r3VNnjs11k0u2pp7H2/ay3KmM/vLwBTrUtOwkE3g+hyAGuintF2frz1
-         W+rw==
-X-Gm-Message-State: AOAM532D2t/PqwO4YhMkcX6PKD4GuJvmS59QIVRztu8vOXosjt6UoEVs
-	2Ff6kqwWbjS6le8BI3GNMSgH9kV0E0o=
-X-Google-Smtp-Source: ABdhPJykpZdiAikj/fSZyShWHGRzVySaMqLE1EYhJjnKIDorwAsEFzY0mTfkgnKVTsqakCSIMg/7Tw==
-X-Received: by 2002:a37:9ed0:: with SMTP id h199mr22916899qke.8.1615237366768;
-        Mon, 08 Mar 2021 13:02:46 -0800 (PST)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: pawel@invisiblethingslab.com,
-	marmarek@invisiblethingslab.com,
-	Jason Andryuk <jandryuk@gmail.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFC 12/12] xenpm: Add set-cpufreq-hwp subcommand
-Date: Mon,  8 Mar 2021 16:02:10 -0500
-Message-Id: <20210308210210.116278-13-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210308210210.116278-1-jandryuk@gmail.com>
-References: <20210308210210.116278-1-jandryuk@gmail.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fmS0EZxKX3KLl2Dnwo4r6oSgmx5GTn88SJ/IMypGMBs=; b=lR5aLFAHQ866lVIpl/6wG3UNG9
+	KuVPl1HbSpMKLIYLn9ieIxBka/WgH7Jfm+/xjZ89UZFY61HcC0Azp9z1zN95IjLcik3/tjIoV7OKT
+	GFKgpS1Zb5TZAzndr+9q1OcojVA2lRY4T1UXv+IV4Y9EYL1PFoVeumzJ0PBMTD642MsY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-159869-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 159869: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=91e92cad67caca3bc4b8e920ddb5c8ca64aac9e1
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Mar 2021 21:17:56 +0000
 
-set-cpufreq-hwp allows setting the Hardware P-State (HWP) parameters.
+flight 159869 qemu-mainline real [real]
+flight 159876 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/159869/
+http://logs.test-lab.xenproject.org/osstest/logs/159876/
 
-It can be run on all or just a snigle cpu.  There are preset of
-balance, powersave & performance.  Those can be further tweaked by
-param:val arguments as explained in the usage description.
+Regressions :-(
 
-parameter names are just checked to the first 3 characters to shorten
-typing.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd     17 guest-start/debian.repeat fail REGR. vs. 152631
 
-Some options are hardware dependent, and ranges can be found in
-get-cpufreq-para.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- tools/misc/xenpm.c              | 240 ++++++++++++++++++++++++++++++++
- xen/arch/x86/acpi/cpufreq/hwp.c |   1 +
- 2 files changed, 241 insertions(+)
+version targeted for testing:
+ qemuu                91e92cad67caca3bc4b8e920ddb5c8ca64aac9e1
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
-diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
-index a686f8f46e..d3bcaf3b58 100644
---- a/tools/misc/xenpm.c
-+++ b/tools/misc/xenpm.c
-@@ -67,6 +67,25 @@ void show_help(void)
-             " set-max-cstate        <num>|'unlimited' [<num2>|'unlimited']\n"
-             "                                     set the C-State limitation (<num> >= 0) and\n"
-             "                                     optionally the C-sub-state limitation (<num2> >= 0)\n"
-+            " set-cpufreq-hwp       [cpuid] [balance|performance|powersave] <param:val>*\n"
-+            "                                     set Hardware P-State (HWP) parameters\n"
-+            "                                     optionally a preset of one of\n"
-+            "                                       balance|performance|powersave\n"
-+            "                                     an optional list of param:val arguments\n"
-+            "                                       minimum:N  hw_lowest ... hw_highest\n"
-+            "                                       maximum:N  hw_lowest ... hw_highest\n"
-+            "                                       desired:N  hw_lowest ... hw_highest\n"
-+            "                                           Set explicit performance target.\n"
-+            "                                           non-zero disables auto-HWP mode.\n"
-+            "                                       energy_perf:0-255 (or 0-15)\n"
-+            "                                                   energy/performance hint\n"
-+            "                                                   lower favor performance\n"
-+            "                                                   higher favor powersave\n"
-+            "                                                   127 (or 7) balance\n"
-+            "                                       act_window:N{,m,u}s range 0us-1270s\n"
-+            "                                           window for internal calculations.\n"
-+            "                                           0 lets the hardware decide.\n"
-+            "                                     get-cpufreq-para returns hw_lowest/highest.\n"
-             " start [seconds]                     start collect Cx/Px statistics,\n"
-             "                                     output after CTRL-C or SIGINT or several seconds.\n"
-             " enable-turbo-mode     [cpuid]       enable Turbo Mode for processors that support it.\n"
-@@ -1309,6 +1328,226 @@ void disable_turbo_mode(int argc, char *argv[])
-                 errno, strerror(errno));
- }
- 
-+/*
-+ * Parse activity_window:NNN{us,ms,s} and validate range.
-+ *
-+ * Activity window is a 7bit mantissa (0-127) with a 3bit exponent (0-7) base
-+ * 10 in microseconds.  So the range is 1 microsecond to 1270 seconds.  A value
-+ * of 0 lets the hardware autonomously select the window.
-+ *
-+ * Return 0 on success
-+ *       -1 on error
-+ *        1 Not activity_window. i.e. try parsing as another argument
-+ */
-+static int parse_activity_window(xc_set_hwp_para_t *set_hwp, char *p)
-+{
-+    char *param = NULL, *val = NULL, *suffix = NULL;
-+    unsigned int u;
-+    unsigned int exponent = 0;
-+    unsigned int multiplier = 1;
-+    int ret;
-+
-+    ret = sscanf(p, "%m[a-z_A-Z]:%ms", &param, &val);
-+    if ( ret != 2 )
-+    {
-+        return -1;
-+    }
-+
-+    if ( strncasecmp(param, "act", 3) != 0 )
-+    {
-+        ret = 1;
-+
-+        goto out;
-+    }
-+
-+    free(param);
-+    param = NULL;
-+
-+    ret = sscanf(val, "%u%ms", &u, &suffix);
-+    if ( ret != 1 && ret != 2 )
-+    {
-+        fprintf(stderr, "invalid activity window: %s\n", val);
-+
-+        ret = -1;
-+
-+        goto out;
-+    }
-+
-+    if ( ret == 2 && suffix )
-+    {
-+        if ( strcasecmp(suffix, "s") == 0 )
-+        {
-+            multiplier = 1000 * 1000;
-+            exponent = 6;
-+        }
-+        else if ( strcasecmp(suffix, "ms") == 0 )
-+        {
-+            multiplier = 1000;
-+            exponent = 3;
-+        }
-+        else if ( strcasecmp(suffix, "us") == 0 )
-+        {
-+            multiplier = 1;
-+            exponent = 0;
-+        }
-+        else
-+        {
-+            fprintf(stderr, "invalid activity window units: %s\n", suffix);
-+
-+            ret = -1;
-+            goto out;
-+        }
-+    }
-+
-+    if ( u > 1270 * 1000 * 1000 / multiplier )
-+    {
-+        fprintf(stderr, "activity window %s too large\n", val);
-+
-+        ret = -1;
-+        goto out;
-+    }
-+
-+    /* looking for 7 bits of mantissa and 3 bits of exponent */
-+    while ( u > 127 )
-+    {
-+        u /= 10;
-+        exponent += 1;
-+    }
-+
-+    set_hwp->activity_window = ( exponent & 0x7 ) << 7 | ( u & 0x7f );
-+    set_hwp->set_params |= XEN_SYSCTL_HWP_SET_ACT_WINDOW;
-+
-+    ret = 0;
-+
-+ out:
-+    free(suffix);
-+    free(param);
-+    free(val);
-+
-+    return ret;
-+}
-+
-+static int parse_hwp_opts(xc_set_hwp_para_t *set_hwp, int *cpuid,
-+                          int argc, char *argv[])
-+{
-+    int i = 0;
-+
-+    if ( argc < 1 )
-+        return -1;
-+
-+    if ( parse_cpuid_non_fatal(argv[i], cpuid) == 0 )
-+    {
-+        i++;
-+    }
-+
-+    if ( i == argc )
-+        return -1;
-+
-+    if ( strcasecmp(argv[i], "powersave") == 0 )
-+    {
-+        set_hwp->set_params = XEN_SYSCTL_HWP_SET_PRESET_POWERSAVE;
-+        i++;
-+    }
-+    else if ( strcasecmp(argv[i], "performance") == 0 )
-+    {
-+        set_hwp->set_params = XEN_SYSCTL_HWP_SET_PRESET_PERFORMANCE;
-+        i++;
-+    }
-+    else if ( strcasecmp(argv[i], "balance") == 0 )
-+    {
-+        set_hwp->set_params = XEN_SYSCTL_HWP_SET_PRESET_BALANCE;
-+        i++;
-+    }
-+
-+    for ( ; i < argc; i++)
-+    {
-+        unsigned int val;
-+        char *param;
-+        int ret;
-+
-+        ret = parse_activity_window(set_hwp, argv[i]);
-+        switch ( ret )
-+        {
-+        case -1:
-+            return -1;
-+        case 0:
-+            continue;
-+            break;
-+        case 1:
-+            /* try other parsing */
-+            break;
-+        }
-+
-+        /* sscanf can't handle split on ':' for "%ms:%u'  */
-+        ret = sscanf(argv[i], "%m[a-zA-Z_]:%u", &param, &val);
-+        if ( ret != 2 )
-+        {
-+            fprintf(stderr, "%s is an invalid hwp parameter.\n", argv[i]);
-+            return -1;
-+        }
-+
-+        if ( val > 255 )
-+        {
-+            fprintf(stderr, "%s value %u is out of range.\n", param, val);
-+            return -1;
-+        }
-+
-+        if ( strncasecmp(param, "min", 3) == 0 )
-+        {
-+            set_hwp->minimum = val;
-+            set_hwp->set_params |= XEN_SYSCTL_HWP_SET_MINIMUM;
-+        }
-+        else if ( strncasecmp(param, "max", 3) == 0 )
-+        {
-+            set_hwp->maximum = val;
-+            set_hwp->set_params |= XEN_SYSCTL_HWP_SET_MAXIMUM;
-+        }
-+        else if ( strncasecmp(param, "des", 3) == 0 )
-+        {
-+            set_hwp->desired = val;
-+            set_hwp->set_params |= XEN_SYSCTL_HWP_SET_DESIRED;
-+        }
-+        else if ( strncasecmp(param, "ene", 3) == 0 )
-+        {
-+            set_hwp->energy_perf = val;
-+            set_hwp->set_params |= XEN_SYSCTL_HWP_SET_ENERGY_PERF;
-+        }
-+        else
-+        {
-+            fprintf(stderr, "%s is an invalid parameter\n.", param);
-+            return -1;
-+        }
-+
-+        free(param);
-+    }
-+
-+    return 0;
-+}
-+
-+static void hwp_set_func(int argc, char *argv[])
-+{
-+    xc_set_hwp_para_t set_hwp = {};
-+    int cpuid = -1;
-+    int i = 0;
-+
-+    if ( parse_hwp_opts(&set_hwp, &cpuid, argc, argv) )
-+    {
-+        fprintf(stderr, "Missing, excess, or invalid argument(s)\n");
-+        exit(EINVAL);
-+    }
-+
-+    if ( cpuid != -1 )
-+    {
-+        i = cpuid;
-+        max_cpu_nr = i + 1;
-+    }
-+
-+    for ( ; i < max_cpu_nr; i++ )
-+        if ( xc_set_cpufreq_hwp(xc_handle, i, &set_hwp) )
-+            fprintf(stderr, "[CPU%d] failed to set hwp params (%d - %s)\n",
-+                    i, errno, strerror(errno));
-+}
-+
- struct {
-     const char *name;
-     void (*function)(int argc, char *argv[]);
-@@ -1319,6 +1558,7 @@ struct {
-     { "get-cpufreq-average", cpufreq_func },
-     { "start", start_gather_func },
-     { "get-cpufreq-para", cpufreq_para_func },
-+    { "set-cpufreq-hwp", hwp_set_func },
-     { "set-scaling-maxfreq", scaling_max_freq_func },
-     { "set-scaling-minfreq", scaling_min_freq_func },
-     { "set-scaling-governor", scaling_governor_func },
-diff --git a/xen/arch/x86/acpi/cpufreq/hwp.c b/xen/arch/x86/acpi/cpufreq/hwp.c
-index 8f4b18d246..0fd70d76a8 100644
---- a/xen/arch/x86/acpi/cpufreq/hwp.c
-+++ b/xen/arch/x86/acpi/cpufreq/hwp.c
-@@ -584,6 +584,7 @@ int set_hwp_para(struct cpufreq_policy *policy,
-     }
- 
-     if ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_DESIRED &&
-+         set_hwp->desired != 0 &&
-          ( set_hwp->desired < data->hw_lowest ||
-            set_hwp->desired > data->hw_highest ) )
-     {
--- 
-2.29.2
+Last test of basis   152631  2020-08-20 09:07:46 Z  200 days
+Failing since        152659  2020-08-21 14:07:39 Z  199 days  383 attempts
+Testing same since   159848  2021-03-06 15:41:19 Z    2 days    4 attempts
 
+------------------------------------------------------------
+435 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 119704 lines long.)
 
