@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F42D332B72
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 17:07:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95599.180533 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80508332B79
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 17:08:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95606.180545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJesa-00047E-JR; Tue, 09 Mar 2021 16:06:40 +0000
+	id 1lJetk-0004Jc-UJ; Tue, 09 Mar 2021 16:07:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95599.180533; Tue, 09 Mar 2021 16:06:40 +0000
+Received: by outflank-mailman (output) from mailman id 95606.180545; Tue, 09 Mar 2021 16:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJesa-00046l-GI; Tue, 09 Mar 2021 16:06:40 +0000
-Received: by outflank-mailman (input) for mailman id 95599;
- Tue, 09 Mar 2021 16:06:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lJetk-0004JD-Qo; Tue, 09 Mar 2021 16:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 95606;
+ Tue, 09 Mar 2021 16:07:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jEQk=IH=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lJesY-00044h-Lw
- for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 16:06:38 +0000
+ (envelope-from <SRS0=Bv84=IH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lJetj-0004J6-5H
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 16:07:51 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 71bdde6a-93c6-453c-bf2f-54ea5420be8e;
- Tue, 09 Mar 2021 16:06:32 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a2900864-d6fe-44a5-8d7b-393045be25e5;
+ Tue, 09 Mar 2021 16:07:49 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 21C7AAF0C;
- Tue,  9 Mar 2021 16:06:32 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 14678AF0C;
+ Tue,  9 Mar 2021 16:07:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,105 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71bdde6a-93c6-453c-bf2f-54ea5420be8e
+X-Inumbo-ID: a2900864-d6fe-44a5-8d7b-393045be25e5
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615305992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
+	t=1615306069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yE5Leq5IeRX/BGMbx+e0U1ktiHL+YFJD+F5kGmaHXd0=;
-	b=EwCIEbawx8JZXbWyvRDdft0L71brX1Fx+d/eZYuwgZItIq6G5aTUcSr2UVJrwlCkGFKXrm
-	pYZ0uFkIF6aGMVsjGli9Q1bZ51U3C5zgCu/XaNKv4ki1lj4IDx6a5FOxErE/kI43Yk5vp9
-	k+ZEUtvPFtuaXGTylCOasP4UGg38aPA=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v6 14/12] x86/alternative: don't open code ALTERNATIVE_TERNARY() in _static_cpu_has()
-Date: Tue,  9 Mar 2021 17:06:21 +0100
-Message-Id: <20210309160621.29290-2-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210309160621.29290-1-jgross@suse.com>
-References: <20210309134813.23912-1-jgross@suse.com>
- <20210309160621.29290-1-jgross@suse.com>
+	bh=zuzxC2VAAcoZxRiP1UTz555AsK1O/NCW3/YWheLLu1k=;
+	b=AYzLSd21doUDbJ4gcjLWqWTzSlj62q5xMcC2/8nLMcHSwuMgQSR6VEijPJblXPMAOufBvT
+	+ATvXh6wRHJFzxwiHdqC8zGyQpiM4HISQgMHnkEFQtVOSaqNfVrz7BJFAmELIYOqAOQ1C9
+	PgJm7FtQhlHQD+RbyLmdskk5n10FxrQ=
+Subject: Re: [PATCH v2 1/2][4.15] x86/PV: conditionally avoid raising #GP for
+ early guest MSR reads
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <iwj@xenproject.org>
+References: <f5f17207-b601-2909-8a5c-55276e734272@suse.com>
+ <d794bbee-a5e5-6632-3d1f-acd8164b7171@suse.com>
+ <YEXmvp02UvvY8Fve@Air-de-Roger>
+ <1f19ced7-183b-8f08-3a90-c06039e053a6@suse.com>
+ <YEYUbGw5J1VMnuxd@Air-de-Roger>
+ <b8ab7ac3-036b-d226-dc82-c61bf42f13d6@suse.com>
+ <YEdLO04upNrxNTmI@Air-de-Roger>
+ <204d73ec-a46a-6cef-9bc4-4219a7d00350@suse.com>
+ <YEd6GTXJqRIjijl6@Air-de-Roger>
+ <6dd26887-4246-8c5d-bf94-de03657230c1@suse.com>
+ <YEeSE0oWzY4jUN6G@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <eafaee05-cdf8-bea6-65d7-7a9b8e1dfb3d@suse.com>
+Date: Tue, 9 Mar 2021 17:07:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
+In-Reply-To: <YEeSE0oWzY4jUN6G@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-_static_cpu_has() contains a completely open coded version of
-ALTERNATIVE_TERNARY(). Replace that with the macro instead.
+On 09.03.2021 16:19, Roger Pau Monné wrote:
+> On Tue, Mar 09, 2021 at 03:50:59PM +0100, Jan Beulich wrote:
+>> On 09.03.2021 14:37, Roger Pau Monné wrote:
+>>> Right. So given this awkward position Xen is in, we should maybe make
+>>> the lack of #GP injection as a result of an MSR access when no handler
+>>> is set formally part of the ABI and written down somewhere?
+>>>
+>>> It's not ideal, but at the end of day PV is 'our' own architecture,
+>>> and given that this workaround will be enabled by default, and that we
+>>> won't be able to turn it off we should have it written down as part of
+>>> the ABI.
+>>>
+>>> If you agree with this I'm fine with not injecting a #GP at all unless
+>>> the handler is set for PV, like you proposed in your first patch. IMO
+>>> it's not ideal, but it's better if it's a consistent behavior and
+>>> clearly written down in the public headers (likely next to the
+>>> hypercall used to setup the #GP handler).
+>>>
+>>> I know this can be seen as broken behavior from an x86 perspective,
+>>> but again PV is already different from x86.
+>>
+>> I'm certainly not opposed to spelling this out somewhere; iirc you
+>> said the other day that you couldn't spot a good place. I can't think
+>> of a good place either.
+> 
+> After looking some more, I think placing such comment next to
+> HYPERVISOR_set_trap_table (in arch-x86/xen.h) would be fine.
+> 
+>> Furthermore before we spell out anything we
+>> (which specifically includes Andrew) need to settle on the precise
+>> behavior we want. I did suggest earlier that I could see us tighten
+>> the condition, and there are many possible variations. For example we
+>> could record whether a #GP handler was ever installed, so we wouldn't
+>> return back to the relaxed behavior in case a guest zapped its handler
+>> again. But for behavior like this the immediate question is going to
+>> be what effect migration (or saving/restoring) of the guest ought to
+>> have.
+> 
+> Replying to the save/restore part: this is covered by my patch. Any
+> restore (or incoming live migration) from a source that doesn't have
+> msr_relaxed support will get that option enabled by default, so that
+> guests migrated from previous Xen versions don't see a change in MSR
+> access behavior. That applies to both PV and HVM guests (unless I have
+> messed things up in my patch).
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/include/asm/cpufeature.h | 41 +++++++------------------------
- 1 file changed, 9 insertions(+), 32 deletions(-)
+Well, yes, that's for your changes. But here the question is about
+mine (and remember we didn't settle on the precise condition(s) yet,
+so the migration aspect may not be relevant in the end).
 
-diff --git a/arch/x86/include/asm/cpufeature.h b/arch/x86/include/asm/cpufeature.h
-index 1728d4ce5730..16a51e7288d5 100644
---- a/arch/x86/include/asm/cpufeature.h
-+++ b/arch/x86/include/asm/cpufeature.h
-@@ -8,6 +8,7 @@
- 
- #include <asm/asm.h>
- #include <linux/bitops.h>
-+#include <asm/alternative.h>
- 
- enum cpuid_leafs
- {
-@@ -175,39 +176,15 @@ extern void clear_cpu_cap(struct cpuinfo_x86 *c, unsigned int bit);
-  */
- static __always_inline bool _static_cpu_has(u16 bit)
- {
--	asm_volatile_goto("1: jmp 6f\n"
--		 "2:\n"
--		 ".skip -(((5f-4f) - (2b-1b)) > 0) * "
--			 "((5f-4f) - (2b-1b)),0x90\n"
--		 "3:\n"
--		 ".section .altinstructions,\"a\"\n"
--		 " .long 1b - .\n"		/* src offset */
--		 " .long 4f - .\n"		/* repl offset */
--		 " .word %P[always]\n"		/* always replace */
--		 " .byte 3b - 1b\n"		/* src len */
--		 " .byte 5f - 4f\n"		/* repl len */
--		 " .byte 3b - 2b\n"		/* pad len */
--		 ".previous\n"
--		 ".section .altinstr_replacement,\"ax\"\n"
--		 "4: jmp %l[t_no]\n"
--		 "5:\n"
--		 ".previous\n"
--		 ".section .altinstructions,\"a\"\n"
--		 " .long 1b - .\n"		/* src offset */
--		 " .long 0\n"			/* no replacement */
--		 " .word %P[feature]\n"		/* feature bit */
--		 " .byte 3b - 1b\n"		/* src len */
--		 " .byte 0\n"			/* repl len */
--		 " .byte 0\n"			/* pad len */
--		 ".previous\n"
--		 ".section .altinstr_aux,\"ax\"\n"
--		 "6:\n"
--		 " testb %[bitnum],%[cap_byte]\n"
--		 " jnz %l[t_yes]\n"
--		 " jmp %l[t_no]\n"
--		 ".previous\n"
-+	asm_volatile_goto(
-+		ALTERNATIVE_TERNARY("jmp 6f", %P[feature], "", "jmp %l[t_no]")
-+		".section .altinstr_aux,\"ax\"\n"
-+		"6:\n"
-+		" testb %[bitnum],%[cap_byte]\n"
-+		" jnz %l[t_yes]\n"
-+		" jmp %l[t_no]\n"
-+		".previous\n"
- 		 : : [feature]  "i" (bit),
--		     [always]   "i" (X86_FEATURE_ALWAYS),
- 		     [bitnum]   "i" (1 << (bit & 7)),
- 		     [cap_byte] "m" (((const char *)boot_cpu_data.x86_capability)[bit >> 3])
- 		 : : t_yes, t_no);
--- 
-2.26.2
-
+Jan
 
