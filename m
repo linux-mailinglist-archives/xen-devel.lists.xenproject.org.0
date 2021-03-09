@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4AAF331E3D
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 06:14:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95214.179662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31B1E331F0B
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 07:15:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95221.179673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJUhH-0004w4-CM; Tue, 09 Mar 2021 05:14:19 +0000
+	id 1lJVdm-0001uH-NG; Tue, 09 Mar 2021 06:14:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95214.179662; Tue, 09 Mar 2021 05:14:19 +0000
+Received: by outflank-mailman (output) from mailman id 95221.179673; Tue, 09 Mar 2021 06:14:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJUhH-0004vf-8z; Tue, 09 Mar 2021 05:14:19 +0000
-Received: by outflank-mailman (input) for mailman id 95214;
- Tue, 09 Mar 2021 05:14:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lJVdm-0001ts-KA; Tue, 09 Mar 2021 06:14:46 +0000
+Received: by outflank-mailman (input) for mailman id 95221;
+ Tue, 09 Mar 2021 06:14:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jEQk=IH=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lJUhF-0004va-Sa
- for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 05:14:17 +0000
+ id 1lJVdl-0001tn-IY
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 06:14:45 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 327bb3e7-7ed1-4b81-b1ef-3b997b111b59;
- Tue, 09 Mar 2021 05:14:16 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 734e8d1e-feda-424d-9ffe-e44c927884ee;
+ Tue, 09 Mar 2021 06:14:40 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D2610AB8C;
- Tue,  9 Mar 2021 05:14:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 378E8AC24;
+ Tue,  9 Mar 2021 06:14:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,106 +39,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 327bb3e7-7ed1-4b81-b1ef-3b997b111b59
+X-Inumbo-ID: 734e8d1e-feda-424d-9ffe-e44c927884ee
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615266856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615270479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BwvCGl4RerrOMc9D3VhJpaldx+CpAEoVSAb7RV+Msz0=;
-	b=PsjkzlUmjyNWLXREWyB7xNn47Lt1T1qcBVj929+SN9We23f06yjU0Cdu7T57DwVa+Y/JXI
-	00xxr6+6cdKI9bHU8uj/gH2FdCy7mfpjJLrhgFlpHw9pHjHi80qZlMWH3ngOq+8pI2FxM+
-	jY5DMrrzbd8QAXRkVn4CzPpCUJ5qojc=
-Subject: Re: [PATCH v4 2/3] xen/events: don't unmask an event channel when an
- eoi is pending
+	bh=Szn8CoKcdFhLmILaUcNU5Mw5xCclHsTUFexJC8stRy4=;
+	b=jPjIK0O/HZtDDoN9i5q9qE9tCBF+qqDn/LLQf1IVkph/JDoObaw8ldwo6HNokrvlhNodgL
+	Vs85iV11L2fM3q2k47ZOpXDOg6M687QX/KgVkfAXyk4PzKrZF8y74kYMkCJgwRL2t8uQV6
+	Lgy5TUIAMbtKoMqVu92zSt/DdCmoRak=
+Subject: Re: [PATCH v5 02/12] x86/paravirt: switch time pvops functions to use
+ static_call()
 To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- ross.lagerwall@citrix.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Julien Grall <julien@xen.org>, Julien Grall <jgrall@amazon.com>
-References: <20210306161833.4552-1-jgross@suse.com>
- <20210306161833.4552-3-jgross@suse.com>
- <ff9fb99f-12ca-c04e-e4bc-1b1c67381cc2@oracle.com>
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ virtualization@lists.linux-foundation.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org
+Cc: Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+ Joerg Roedel <joro@8bytes.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20210308122844.30488-1-jgross@suse.com>
+ <20210308122844.30488-3-jgross@suse.com>
+ <1346dbb1-c43e-9ac2-10e4-3c10cb2ead78@oracle.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d6a1ab2e-4b77-7b14-e397-74aa71efb70d@suse.com>
-Date: Tue, 9 Mar 2021 06:14:14 +0100
+Message-ID: <5cea7551-ce84-c084-ddaf-e84075823bd8@suse.com>
+Date: Tue, 9 Mar 2021 07:14:37 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <ff9fb99f-12ca-c04e-e4bc-1b1c67381cc2@oracle.com>
+In-Reply-To: <1346dbb1-c43e-9ac2-10e4-3c10cb2ead78@oracle.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="q01kZynA2QJbHdjvIabMM3OzYodc49c7C"
+ boundary="71uw2iHz3Ya5XGSDna2ezasDmqthVMGA6"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---q01kZynA2QJbHdjvIabMM3OzYodc49c7C
-Content-Type: multipart/mixed; boundary="tNpc0ydQx80iYjL3FMABQniegUgVN9sys";
+--71uw2iHz3Ya5XGSDna2ezasDmqthVMGA6
+Content-Type: multipart/mixed; boundary="WlyrUNrhACnKGE7g1Gx1k7ZM6h5PqkFRP";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- ross.lagerwall@citrix.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Julien Grall <julien@xen.org>, Julien Grall <jgrall@amazon.com>
-Message-ID: <d6a1ab2e-4b77-7b14-e397-74aa71efb70d@suse.com>
-Subject: Re: [PATCH v4 2/3] xen/events: don't unmask an event channel when an
- eoi is pending
-References: <20210306161833.4552-1-jgross@suse.com>
- <20210306161833.4552-3-jgross@suse.com>
- <ff9fb99f-12ca-c04e-e4bc-1b1c67381cc2@oracle.com>
-In-Reply-To: <ff9fb99f-12ca-c04e-e4bc-1b1c67381cc2@oracle.com>
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ virtualization@lists.linux-foundation.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org
+Cc: Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+ Joerg Roedel <joro@8bytes.org>, Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <5cea7551-ce84-c084-ddaf-e84075823bd8@suse.com>
+Subject: Re: [PATCH v5 02/12] x86/paravirt: switch time pvops functions to use
+ static_call()
+References: <20210308122844.30488-1-jgross@suse.com>
+ <20210308122844.30488-3-jgross@suse.com>
+ <1346dbb1-c43e-9ac2-10e4-3c10cb2ead78@oracle.com>
+In-Reply-To: <1346dbb1-c43e-9ac2-10e4-3c10cb2ead78@oracle.com>
 
---tNpc0ydQx80iYjL3FMABQniegUgVN9sys
+--WlyrUNrhACnKGE7g1Gx1k7ZM6h5PqkFRP
 Content-Type: multipart/mixed;
- boundary="------------BE5ED103C411FDF22705A2DF"
+ boundary="------------F998C827E1466225E03A1952"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------BE5ED103C411FDF22705A2DF
+--------------F998C827E1466225E03A1952
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 08.03.21 21:33, Boris Ostrovsky wrote:
+On 08.03.21 18:00, Boris Ostrovsky wrote:
 >=20
-> On 3/6/21 11:18 AM, Juergen Gross wrote:
->> An event channel should be kept masked when an eoi is pending for it.
->> When being migrated to another cpu it might be unmasked, though.
->>
->> In order to avoid this keep three different flags for each event chann=
-el
->> to be able to distinguish "normal" masking/unmasking from eoi related
->> masking/unmasking and temporary masking. The event channel should only=
+> On 3/8/21 7:28 AM, Juergen Gross wrote:
+>> --- a/arch/x86/xen/time.c
+>> +++ b/arch/x86/xen/time.c
+>> @@ -379,11 +379,6 @@ void xen_timer_resume(void)
+>>   	}
+>>   }
+>>  =20
+>> -static const struct pv_time_ops xen_time_ops __initconst =3D {
+>> -	.sched_clock =3D xen_sched_clock,
+>> -	.steal_clock =3D xen_steal_clock,
+>> -};
+>> -
+>>   static struct pvclock_vsyscall_time_info *xen_clock __read_mostly;
+>>   static u64 xen_clock_value_saved;
+>>  =20
+>> @@ -528,7 +523,8 @@ static void __init xen_time_init(void)
+>>   void __init xen_init_time_ops(void)
+>>   {
+>>   	xen_sched_clock_offset =3D xen_clocksource_read();
+>> -	pv_ops.time =3D xen_time_ops;
+>> +	static_call_update(pv_steal_clock, xen_steal_clock);
+>> +	paravirt_set_sched_clock(xen_sched_clock);
+>>  =20
+>>   	x86_init.timers.timer_init =3D xen_time_init;
+>>   	x86_init.timers.setup_percpu_clockev =3D x86_init_noop;
+>> @@ -570,7 +566,8 @@ void __init xen_hvm_init_time_ops(void)
+>>   	}
+>>  =20
+>>   	xen_sched_clock_offset =3D xen_clocksource_read();
+>> -	pv_ops.time =3D xen_time_ops;
+>> +	static_call_update(pv_steal_clock, xen_steal_clock);
+>> +	paravirt_set_sched_clock(xen_sched_clock);
+>>   	x86_init.timers.setup_percpu_clockev =3D xen_time_init;
+>>   	x86_cpuinit.setup_percpu_clockev =3D xen_hvm_setup_cpu_clockevents;=
 
->> be able to generate an interrupt if all flags are cleared.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: 54c9de89895e0a36047 ("xen/events: add a new late EOI evtchn fra=
-mework")
->> Reported-by: Julien Grall <julien@xen.org>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> Reviewed-by: Julien Grall <jgrall@amazon.com>
->> ---
->> V2:
->> - introduce a lock around masking/unmasking
->> - merge patch 3 into this one (Jan Beulich)
->> V4:
->> - don't set eoi masking flag in lateeoi_mask_ack_dynirq()
 >=20
 >=20
-> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
->=20
->=20
-> Ross, are you planning to test this?
+> There is a bunch of stuff that's common between the two cases so it can=
+ be factored out.
 
-Just as another data point: With the previous version of the patches
-a reboot loop of a guest needed max 33 reboots to loose network in
-my tests (those were IIRC 6 test runs). With this patch version I
-stopped the test after about 1300 reboots without having seen any
-problems.
+Yes.
+
+>=20
+>=20
+>>  =20
+>> diff --git a/drivers/xen/time.c b/drivers/xen/time.c
+>> index 108edbcbc040..152dd33bb223 100644
+>> --- a/drivers/xen/time.c
+>> +++ b/drivers/xen/time.c
+>> @@ -7,6 +7,7 @@
+>>   #include <linux/math64.h>
+>>   #include <linux/gfp.h>
+>>   #include <linux/slab.h>
+>> +#include <linux/static_call.h>
+>>  =20
+>>   #include <asm/paravirt.h>
+>>   #include <asm/xen/hypervisor.h>
+>> @@ -175,7 +176,7 @@ void __init xen_time_setup_guest(void)
+>>   	xen_runstate_remote =3D !HYPERVISOR_vm_assist(VMASST_CMD_enable,
+>>   					VMASST_TYPE_runstate_update_flag);
+>>  =20
+>> -	pv_ops.time.steal_clock =3D xen_steal_clock;
+>> +	static_call_update(pv_steal_clock, xen_steal_clock);
+>>  =20
+>=20
+>=20
+> Do we actually need this? We've already set this up in xen_init_time_op=
+s(). (But maybe for ARM).
+
+Correct. Arm needs this.
+
 
 Juergen
 
---------------BE5ED103C411FDF22705A2DF
+--------------F998C827E1466225E03A1952
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -228,25 +289,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------BE5ED103C411FDF22705A2DF--
+--------------F998C827E1466225E03A1952--
 
---tNpc0ydQx80iYjL3FMABQniegUgVN9sys--
+--WlyrUNrhACnKGE7g1Gx1k7ZM6h5PqkFRP--
 
---q01kZynA2QJbHdjvIabMM3OzYodc49c7C
+--71uw2iHz3Ya5XGSDna2ezasDmqthVMGA6
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBHBCYFAwAAAAAACgkQsN6d1ii/Ey/A
-eQf/QH0znaB3+GMsnTj6zXH3Lw1t8QxjO7acZvpKciqqjxU6LRgnSY7h37Zu/SWPvf8tjantQM0z
-aSbxaifZ8dmJOAICQ/djKo4WL/Ib26xkPool0Y56dqm/MdUrLBRz7Mr83SGajlO+hIsgs0Jfk9R8
-whnC7ogsGZ1iFjGWVHhsEQyXdVTVgplWjf4NDFptDpRTYPT+5QOu4AL++SG0auWnFCNcN7LXv7g3
-aKMxs4iyA1jtN16kXvqLI7EHFHDKp/ETHvKBLpLq4ZfsNt23VVPxE95PK7HrDNTq4NhDsxntOF6T
-n3U0HgH407F+rwqhpuF5a+HAD9Z2Qb+jR8OwuNQxww==
-=9CG/
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBHEk0FAwAAAAAACgkQsN6d1ii/Ey8E
+swf+OyODJL+GMlmaqXVphW8kb4oF9BSQVqkcEtzcS+L7SRmJ9ZuimdIeCk6WrrqzUiDE1aeFsNeK
+hVT12DE64j551Af0uJdt3Q/PBEDiSsvW7V87fiAg8DL8I0XqJj29wP8vBjfJPVFgDVJHIsNK2Tnm
+K4O/6BbctZcBqC6WwuSpss7JXmRAS0ApTaaAypMTffbSKAwJ9whX+tlcFKpqvBqKVjV2x65b7Cj2
+hE/CQ/MjxQhK9Qjz7y4M62kBOGiWt3PhJInwZSpRmbf1j0Qieht6KAbJhWvwm0WGTeoOI/JCLQWd
+I8/SFQj2W6p8N5ijnvLD5KskevErq8ti98OafCVDpA==
+=2Vak
 -----END PGP SIGNATURE-----
 
---q01kZynA2QJbHdjvIabMM3OzYodc49c7C--
+--71uw2iHz3Ya5XGSDna2ezasDmqthVMGA6--
 
