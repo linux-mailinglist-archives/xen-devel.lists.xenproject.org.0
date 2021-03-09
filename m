@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B2A332834
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 15:10:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95476.180272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FC9833285C
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 15:18:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95481.180284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJd42-0008Gp-QP; Tue, 09 Mar 2021 14:10:22 +0000
+	id 1lJdBs-00006i-L5; Tue, 09 Mar 2021 14:18:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95476.180272; Tue, 09 Mar 2021 14:10:22 +0000
+Received: by outflank-mailman (output) from mailman id 95481.180284; Tue, 09 Mar 2021 14:18:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJd42-0008GQ-N4; Tue, 09 Mar 2021 14:10:22 +0000
-Received: by outflank-mailman (input) for mailman id 95476;
- Tue, 09 Mar 2021 14:10:22 +0000
+	id 1lJdBs-00006J-Ho; Tue, 09 Mar 2021 14:18:28 +0000
+Received: by outflank-mailman (input) for mailman id 95481;
+ Tue, 09 Mar 2021 14:18:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YGpp=IH=amazon.com=prvs=6954daadc=andyhsu@srs-us1.protection.inumbo.net>)
- id 1lJd41-0008GL-Ug
- for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 14:10:21 +0000
-Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Bv84=IH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lJdBr-00006E-KF
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 14:18:27 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d6795f7e-60c9-4c60-a1db-2d8f861f6134;
- Tue, 09 Mar 2021 14:10:21 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-1d-e69428c4.us-east-1.amazon.com) ([10.43.8.2])
- by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
- 09 Mar 2021 14:10:15 +0000
-Received: from EX13D12EUA001.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-1d-e69428c4.us-east-1.amazon.com (Postfix) with ESMTPS
- id D86F9C081F
- for <xen-devel@lists.xenproject.org>; Tue,  9 Mar 2021 14:10:13 +0000 (UTC)
-Received: from EX13D12EUA002.ant.amazon.com (10.43.165.103) by
- EX13D12EUA001.ant.amazon.com (10.43.165.48) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 9 Mar 2021 14:10:12 +0000
-Received: from EX13D12EUA002.ant.amazon.com ([10.43.165.103]) by
- EX13D12EUA002.ant.amazon.com ([10.43.165.103]) with mapi id 15.00.1497.012;
- Tue, 9 Mar 2021 14:10:12 +0000
+ id ca759845-8655-405a-95ee-0941319d7786;
+ Tue, 09 Mar 2021 14:18:26 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 19635AD73;
+ Tue,  9 Mar 2021 14:18:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,94 +37,92 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6795f7e-60c9-4c60-a1db-2d8f861f6134
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1615299022; x=1646835022;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-id:content-transfer-encoding:mime-version;
-  bh=n3fVoOlqvOn69GDOJ2orF6qiOsuOKIaHcOrcPH2dSJg=;
-  b=MZ6jMSJPiGgDuGvS4r2Cr2TwDLTizznuiBHT42F5SoJ6pANCmGwKhPgB
-   JZpByg1lh0Nnd+Nhkl8f7/2RqdycB2XhKSS8HdtX4Sr3UYnQe8RHy8FbV
-   UEwJoeIrffsTDOhUk6QcDUz7xIJhSiqTidnGjIVInewQ5iX81x/MQU2A9
-   0=;
-X-IronPort-AV: E=Sophos;i="5.81,234,1610409600"; 
-   d="scan'208";a="95673226"
-From: "Hsu, Chiahao" <andyhsu@amazon.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 1/2] xen-netback: add module parameter to disable
- ctrl-ring
-Thread-Topic: [PATCH 1/2] xen-netback: add module parameter to disable
- ctrl-ring
-Thread-Index: AQHXC3Ho66sjBAH4ck+AJsybt15sHap71bYA
-Date: Tue, 9 Mar 2021 14:10:12 +0000
-Message-ID: <CEC939E8-3F18-46A0-B7B6-ECBE97678DAC@amazon.com>
-References: <20210225122940.9310-1-andyhsu@amazon.com>
-In-Reply-To: <20210225122940.9310-1-andyhsu@amazon.com>
-Accept-Language: en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.171]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <DA82232A61644340AF0483BC00B4309B@amazon.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: ca759845-8655-405a-95ee-0941319d7786
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615299506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CHh8+kJ84TZtcBZshuUDucjJA4FWbaKgQHy8XtOErIQ=;
+	b=C1eW7VdPW+Uis2KKBKSeYxkt2J6/IadkWOfQ6dlaAMnskoCScj+hAWKwjgRUwDW2dURnB1
+	nijHjG6muiAjZJBF4nyXMCS2q6+VfCzwp6er5yMUFNBpHwIrA++SCBHvldYzHtc6VBCJLs
+	ZFxTu8z7vllrlVL3sZ4cgfbzG9cVTDQ=
+Subject: Re: [PATCH v2] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+To: Michal Orzel <michal.orzel@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, bertrand.marquis@arm.com,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <20210308135937.1692-1-michal.orzel@arm.com>
+ <745c5049-fb09-5605-8bc1-838a4def45d6@xen.org>
+ <3353ecf1-3a76-70ee-0475-b7eed90c783c@arm.com>
+ <d7fc35e8-fe09-d78b-7f8b-7e30c58662cb@xen.org>
+ <1a1c8cf1-4c41-7fe2-ef4c-4f92d5b956c8@suse.com>
+ <dabb851d-fc67-7291-e7d1-ffab4276b8ea@xen.org>
+ <4a2a8caa-fc13-e18d-6c60-02f3597dc9f9@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d8fcf052-077c-5dde-2cb9-5c4c68abc3ff@suse.com>
+Date: Tue, 9 Mar 2021 15:18:25 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <4a2a8caa-fc13-e18d-6c60-02f3597dc9f9@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-DQoNCu+7v09uIDI1LjAyLjIxLCAxMzoyOSwgIkhzdSwgQ2hpYWhhbyIgPGFuZHloc3VAYW1hem9u
-LmNvbT4gd3JvdGU6DQoNCiAgICBJbiBvcmRlciB0byBzdXBwb3J0IGxpdmUgbWlncmF0aW9uIG9m
-IGd1ZXN0cyBiZXR3ZWVuIGtlcm5lbHMNCiAgICB0aGF0IGRvIGFuZCBkbyBub3Qgc3VwcG9ydCAn
-ZmVhdHVyZS1jdHJsLXJpbmcnLCB3ZSBhZGQgYQ0KICAgIG1vZHVsZSBwYXJhbWV0ZXIgdGhhdCBh
-bGxvd3MgdGhlIGZlYXR1cmUgdG8gYmUgZGlzYWJsZWQNCiAgICBhdCBydW4gdGltZSwgaW5zdGVh
-ZCBvZiB1c2luZyBoYXJkY29kZSB2YWx1ZS4NCiAgICBUaGUgZGVmYXVsdCB2YWx1ZSBpcyBlbmFi
-bGUuDQoNCiAgICBTaWduZWQtb2ZmLWJ5OiBDaGlhSGFvIEhzdSA8YW5keWhzdUBhbWF6b24uY29t
-Pg0KICAgIC0tLQ0KICAgICBkcml2ZXJzL25ldC94ZW4tbmV0YmFjay9jb21tb24uaCAgfCAgMiAr
-Kw0KICAgICBkcml2ZXJzL25ldC94ZW4tbmV0YmFjay9uZXRiYWNrLmMgfCAgNiArKysrKysNCiAg
-ICAgZHJpdmVycy9uZXQveGVuLW5ldGJhY2sveGVuYnVzLmMgIHwgMTMgKysrKysrKystLS0tLQ0K
-ICAgICAzIGZpbGVzIGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQoN
-CiAgICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svY29tbW9uLmggYi9kcml2
-ZXJzL25ldC94ZW4tbmV0YmFjay9jb21tb24uaA0KICAgIGluZGV4IDRhMTZkNmUzM2MwOS4uYmZi
-N2EzMDU0OTE3IDEwMDY0NA0KICAgIC0tLSBhL2RyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL2NvbW1v
-bi5oDQogICAgKysrIGIvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svY29tbW9uLmgNCiAgICBAQCAt
-Mjc2LDYgKzI3Niw3IEBAIHN0cnVjdCBiYWNrZW5kX2luZm8gew0KICAgICAJdTggaGF2ZV9ob3Rw
-bHVnX3N0YXR1c193YXRjaDoxOw0KDQogICAgIAljb25zdCBjaGFyICpob3RwbHVnX3NjcmlwdDsN
-CiAgICArCWJvb2wgY3RybF9yaW5nX2VuYWJsZWQ7DQogICAgIH07DQoNCiAgICAgc3RydWN0IHhl
-bnZpZiB7DQogICAgQEAgLTQxMyw2ICs0MTQsNyBAQCBzdGF0aWMgaW5saW5lIHBlbmRpbmdfcmlu
-Z19pZHhfdCBucl9wZW5kaW5nX3JlcXMoc3RydWN0IHhlbnZpZl9xdWV1ZSAqcXVldWUpDQoNCiAg
-ICAgaXJxcmV0dXJuX3QgeGVudmlmX2ludGVycnVwdChpbnQgaXJxLCB2b2lkICpkZXZfaWQpOw0K
-DQogICAgK2V4dGVybiBib29sIGNvbnRyb2xfcmluZzsNCiAgICAgZXh0ZXJuIGJvb2wgc2VwYXJh
-dGVfdHhfcnhfaXJxOw0KICAgICBleHRlcm4gYm9vbCBwcm92aWRlc194ZHBfaGVhZHJvb207DQoN
-CiAgICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svbmV0YmFjay5jIGIvZHJp
-dmVycy9uZXQveGVuLW5ldGJhY2svbmV0YmFjay5jDQogICAgaW5kZXggZTVjNzNmODE5NjYyLi4y
-MGQ4NThmMDQ1NmEgMTAwNjQ0DQogICAgLS0tIGEvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svbmV0
-YmFjay5jDQogICAgKysrIGIvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svbmV0YmFjay5jDQogICAg
-QEAgLTQ4LDYgKzQ4LDEyIEBADQoNCiAgICAgI2luY2x1ZGUgPGFzbS94ZW4vaHlwZXJjYWxsLmg+
-DQoNCiAgICArLyogUHJvdmlkZSBhbiBvcHRpb24gdG8gZGlzYWJsZSBjb250cm9sIHJpbmcgd2hp
-Y2ggaXMgdXNlZCB0byBwYXNzDQogICAgKyAqIGxhcmdlIHF1YW50aXRpZXMgb2YgZGF0YSBmcm9t
-IGZyb250ZW5kIHRvIGJhY2tlbmQuDQogICAgKyAqLw0KICAgICtib29sIGNvbnRyb2xfcmluZyA9
-IHRydWU7DQogICAgK21vZHVsZV9wYXJhbShjb250cm9sX3JpbmcsIGJvb2wsIDA2NDQpOw0KICAg
-ICsNCiAgICAgLyogUHJvdmlkZSBhbiBvcHRpb24gdG8gZGlzYWJsZSBzcGxpdCBldmVudCBjaGFu
-bmVscyBhdCBsb2FkIHRpbWUgYXMNCiAgICAgICogZXZlbnQgY2hhbm5lbHMgYXJlIGxpbWl0ZWQg
-cmVzb3VyY2UuIFNwbGl0IGV2ZW50IGNoYW5uZWxzIGFyZQ0KICAgICAgKiBlbmFibGVkIGJ5IGRl
-ZmF1bHQuDQogICAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL3hlbmJ1cy5j
-IGIvZHJpdmVycy9uZXQveGVuLW5ldGJhY2sveGVuYnVzLmMNCiAgICBpbmRleCBhNTQzOWMxMzAx
-MzAuLjhhOTE2OWNmZjljNSAxMDA2NDQNCiAgICAtLS0gYS9kcml2ZXJzL25ldC94ZW4tbmV0YmFj
-ay94ZW5idXMuYw0KICAgICsrKyBiL2RyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL3hlbmJ1cy5jDQog
-ICAgQEAgLTExMjMsMTEgKzExMjMsMTQgQEAgc3RhdGljIGludCBuZXRiYWNrX3Byb2JlKHN0cnVj
-dCB4ZW5idXNfZGV2aWNlICpkZXYsDQogICAgIAlpZiAoZXJyKQ0KICAgICAJCXByX2RlYnVnKCJF
-cnJvciB3cml0aW5nIG11bHRpLXF1ZXVlLW1heC1xdWV1ZXNcbiIpOw0KDQogICAgLQllcnIgPSB4
-ZW5idXNfcHJpbnRmKFhCVF9OSUwsIGRldi0+bm9kZW5hbWUsDQogICAgLQkJCSAgICAiZmVhdHVy
-ZS1jdHJsLXJpbmciLA0KICAgIC0JCQkgICAgIiV1IiwgdHJ1ZSk7DQogICAgLQlpZiAoZXJyKQ0K
-ICAgIC0JCXByX2RlYnVnKCJFcnJvciB3cml0aW5nIGZlYXR1cmUtY3RybC1yaW5nXG4iKTsNCiAg
-ICArCWJlLT5jdHJsX3JpbmdfZW5hYmxlZCA9IFJFQURfT05DRShjb250cm9sX3JpbmcpOw0KICAg
-ICsJaWYgKGJlLT5jdHJsX3JpbmdfZW5hYmxlZCkgew0KICAgICsJCWVyciA9IHhlbmJ1c19wcmlu
-dGYoWEJUX05JTCwgZGV2LT5ub2RlbmFtZSwNCiAgICArCQkJCSAgICAiZmVhdHVyZS1jdHJsLXJp
-bmciLA0KICAgICsJCQkJICAgICIldSIsIHRydWUpOw0KICAgICsJCWlmIChlcnIpDQogICAgKwkJ
-CXByX2RlYnVnKCJFcnJvciB3cml0aW5nIGZlYXR1cmUtY3RybC1yaW5nXG4iKTsNCiAgICArCX0N
-Cg0KICAgICAJYmFja2VuZF9zd2l0Y2hfc3RhdGUoYmUsIFhlbmJ1c1N0YXRlSW5pdFdhaXQpOw0K
-DQogICAgLS0gDQogICAgMi4yMy4zDQoNCkdlbnRsZSBwaW5nLg0KDQo=
+On 09.03.2021 14:55, Michal Orzel wrote:
+> 
+> 
+> On 09.03.2021 14:32, Julien Grall wrote:
+>>
+>>
+>> On 09/03/2021 11:07, Jan Beulich wrote:
+>>> On 09.03.2021 11:20, Julien Grall wrote:
+>>>> On 09/03/2021 07:34, Michal Orzel wrote:
+>>>>> On 08.03.2021 15:31, Julien Grall wrote:
+>>>>>> On 08/03/2021 13:59, Michal Orzel wrote:
+>>>>>>> --- a/xen/arch/arm/Makefile
+>>>>>>> +++ b/xen/arch/arm/Makefile
+>>>>>>> @@ -68,7 +68,7 @@ extra-y += $(TARGET_SUBARCH)/head.o
+>>>>>>>       #obj-bin-y += ....o
+>>>>>>>     -ifdef CONFIG_DTB_FILE
+>>>>>>> +ifneq ($(CONFIG_DTB_FILE),"")
+>>>>>>>     obj-y += dtb.o
+>>>>>>>     AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+>>>>>>>     endif
+>>>>>>> @@ -137,8 +137,6 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+>>>>>>>     xen.lds: xen.lds.S
+>>>>>>>         $(CPP) -P $(a_flags) -MQ $@ -o $@ $<
+>>>>>>>     -dtb.o: $(CONFIG_DTB_FILE)
+>>>>>>> -
+>>>>>>
+>>>>>> Why is this dropped?
+>>>>> 1)This line is not needed as it has no impact on creating dtb.o
+>>>>> 2)It causes the build failure once CONFIG_DTB_FILE option is in the Kconfig as string within quotes.
+>>>>
+>>>> Because of 1), this should have ideally be part of a separate patch. But
+>>>> I am OK to keep it in this patch so long it is explained in the commit
+>>>> message.
+>>>
+>>> Wasn't the intention to have dtb.o re-compiled when the blob
+>>> has changed? This would be lost with the removal of this line.
+>>
+>> Ah yes. I was only thinking about a name change (this would be caught via the update of the config header) and not a file update.
+>>
+> I already pushed v3 but I agree. Something like this would do the job:
+> dtb.o: $(subst $\",,$(CONFIG_DTB_FILE))
+> to remove quotes
+
+Besides struggling with the $\", may I suggest
+$(patsubst "%",%,$(CONFIG_DTB_FILE))? If the double quote needs
+special treatment, I think it wants to be done via an abstraction
+similar to squote (near the top of ./Config.mk).
+
+Jan
 
