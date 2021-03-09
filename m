@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCFE93323C8
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 12:17:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95354.180010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E59633323D0
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 12:21:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95360.180021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJaM9-0006jv-Cl; Tue, 09 Mar 2021 11:16:53 +0000
+	id 1lJaQ9-0007e0-Ss; Tue, 09 Mar 2021 11:21:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95354.180010; Tue, 09 Mar 2021 11:16:53 +0000
+Received: by outflank-mailman (output) from mailman id 95360.180021; Tue, 09 Mar 2021 11:21:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJaM9-0006jW-9l; Tue, 09 Mar 2021 11:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 95354;
- Tue, 09 Mar 2021 11:16:52 +0000
+	id 1lJaQ9-0007db-Pr; Tue, 09 Mar 2021 11:21:01 +0000
+Received: by outflank-mailman (input) for mailman id 95360;
+ Tue, 09 Mar 2021 11:21:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Bv84=IH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJaM7-0006jR-VO
- for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 11:16:51 +0000
+ id 1lJaQ8-0007dW-T4
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 11:21:00 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e75645b8-27a7-4c70-9dda-f789fa64cbe2;
- Tue, 09 Mar 2021 11:16:51 +0000 (UTC)
+ id 2ab3b32d-04d1-47e6-a010-22ad3c2fed05;
+ Tue, 09 Mar 2021 11:21:00 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 53AF5ACBF;
- Tue,  9 Mar 2021 11:16:50 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 633B7AB8C;
+ Tue,  9 Mar 2021 11:20:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,127 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e75645b8-27a7-4c70-9dda-f789fa64cbe2
+X-Inumbo-ID: 2ab3b32d-04d1-47e6-a010-22ad3c2fed05
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615288610; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615288859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ixrVyfBFxD/sZvbtkKtAgnz4ZJX48y+YRTOMqeZciwM=;
-	b=f4aMYUs5l7SyuCeO3PZdKEFoxllHx5K3uCzcNxuwV2BXsjUlJbERU+LrjJQoWwHPAQsTEN
-	c0JA07HsqHM3P6pFKaQxhhdD4H7vgjt98iWg6gadujFY7lsNbpEqkg2EXOWtO9tV50FUU/
-	sKEf/6BVaN60omn5XXFYwSKJLcYgFmY=
-Subject: Re: [PATCH v2 1/2][4.15] x86/PV: conditionally avoid raising #GP for
- early guest MSR reads
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Ian Jackson <iwj@xenproject.org>
-References: <f5f17207-b601-2909-8a5c-55276e734272@suse.com>
- <d794bbee-a5e5-6632-3d1f-acd8164b7171@suse.com>
- <YEXmvp02UvvY8Fve@Air-de-Roger>
- <1f19ced7-183b-8f08-3a90-c06039e053a6@suse.com>
- <YEYUbGw5J1VMnuxd@Air-de-Roger>
- <b8ab7ac3-036b-d226-dc82-c61bf42f13d6@suse.com>
- <YEdLO04upNrxNTmI@Air-de-Roger>
+	bh=J3u/aOz1TPlsD64Ph0ZqwRZWEf0MoIW76MeK41o1c2c=;
+	b=aE2LzoBsQAlYeXlxa3BNT0koaENq+5DErU+D1DDBuQGdaIBp2Q5Go4kAqxG1BYglt7SP3Z
+	QBskbM1k5mW5K7kpRxuIMVF+MW7Rzyy85WqnT2uHvz2mGB4hVxGC7pbxc+eQf+gc8y7stn
+	1kB+yRT/y5oiiqiTnchHjXz0vZ3jt+s=
+Subject: Re: [PATCH for-4.15] xen: Bump the minimum version of GCC supported
+ to 4.9 (5.1 on arm64)
+To: Julien Grall <julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210306214148.27021-1-julien@xen.org>
+ <1897022d-7591-3450-4e57-884a2860b13d@suse.com>
+ <7fd07dc9-9c03-bb13-3907-c3c268a4e970@xen.org>
+ <2de5160f-8636-5cdf-a20c-acaa2640c893@suse.com>
+ <e4ea36f5-7aca-e19d-5e78-45058b13697b@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <204d73ec-a46a-6cef-9bc4-4219a7d00350@suse.com>
-Date: Tue, 9 Mar 2021 12:16:49 +0100
+Message-ID: <e1176ad2-0a66-3a6d-c053-f0da9d4ae35f@suse.com>
+Date: Tue, 9 Mar 2021 12:20:58 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <YEdLO04upNrxNTmI@Air-de-Roger>
+In-Reply-To: <e4ea36f5-7aca-e19d-5e78-45058b13697b@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.03.2021 11:17, Roger Pau Monné wrote:
-> On Mon, Mar 08, 2021 at 02:49:19PM +0100, Jan Beulich wrote:
->> On 08.03.2021 13:11, Roger Pau Monné wrote:
->>> On Mon, Mar 08, 2021 at 10:33:12AM +0100, Jan Beulich wrote:
->>>> On 08.03.2021 09:56, Roger Pau Monné wrote:
->>>>> On Fri, Mar 05, 2021 at 10:50:34AM +0100, Jan Beulich wrote:
->>>>>> --- a/xen/arch/x86/pv/emul-priv-op.c
->>>>>> +++ b/xen/arch/x86/pv/emul-priv-op.c
->>>>>> @@ -874,7 +874,7 @@ static int read_msr(unsigned int reg, ui
->>>>>>      struct vcpu *curr = current;
->>>>>>      const struct domain *currd = curr->domain;
->>>>>>      const struct cpuid_policy *cp = currd->arch.cpuid;
->>>>>> -    bool vpmu_msr = false;
->>>>>> +    bool vpmu_msr = false, warn = false;
->>>>>>      int ret;
->>>>>>  
->>>>>>      if ( (ret = guest_rdmsr(curr, reg, val)) != X86EMUL_UNHANDLEABLE )
->>>>>> @@ -882,7 +882,7 @@ static int read_msr(unsigned int reg, ui
->>>>>>          if ( ret == X86EMUL_EXCEPTION )
->>>>>>              x86_emul_hw_exception(TRAP_gp_fault, 0, ctxt);
->>>>>>  
->>>>>> -        return ret;
->>>>>> +        goto done;
->>>>>>      }
->>>>>>  
->>>>>>      switch ( reg )
->>>>>> @@ -986,7 +986,7 @@ static int read_msr(unsigned int reg, ui
->>>>>>          }
->>>>>>          /* fall through */
->>>>>>      default:
->>>>>> -        gdprintk(XENLOG_WARNING, "RDMSR 0x%08x unimplemented\n", reg);
->>>>>> +        warn = true;
->>>>>>          break;
->>>>>>  
->>>>>>      normal:
->>>>>> @@ -995,7 +995,19 @@ static int read_msr(unsigned int reg, ui
->>>>>>          return X86EMUL_OKAY;
->>>>>>      }
->>>>>>  
->>>>>> -    return X86EMUL_UNHANDLEABLE;
->>>>>> + done:
->>>>>
->>>>> Won't this handling be better placed in the 'default' switch case
->>>>> above?
->>>>
->>>> No - see the "goto done" added near the top of the function.
+On 08.03.2021 21:22, Julien Grall wrote:
+> On 08/03/2021 11:20, Jan Beulich wrote:
+>> On 08.03.2021 11:51, Julien Grall wrote:
+>>> On 08/03/2021 08:09, Jan Beulich wrote:
+>>>> Additionally - partly related to your own reply regarding the CI
+>>>> failures - imo there needs to be an analysis of what older distros
+>>>> will no longer build (at all or by default).
 >>>
->>> Yes, I'm not sure of that. If guest_rdmsr returns anything different
->>> than X86EMUL_UNHANDLEABLE it means it has handled the MSR in some way,
->>> and hence we shouldn't check whether the #GP handler is set or not.
+>>> Per the CI, this would be Ubuntu Trusty (and older), Centos 7 (and older)
 >>>
->>> This is not the behavior of older Xen versions, so I'm unsure whether
->>> we should introduce a policy that's even less strict than the previous
->>> one in regard to whether a #GP is injected or not.
->>>
->>> I know injecting a #GP when the handler is not set is not helpful for
->>> the guest, but we should limit the workaround to kind of restoring the
->>> previous behavior for making buggy guests happy, not expanding it
->>> anymore.
+>>> Do you have any other in mind?
 >>
->> Yet then we risk breaking guests with any subsequent addition to
->> guest_rdmsr() which, under whatever extra conditions, wants to
->> raise #GP.
+>> Our SLE12 (latest service pack is SP5 and still has a while to go
+>> to at least reach LTSS state) comes with gcc 4.8 as the default
+>> compiler.
 > 
-> But it's always been like that AFAICT? Additions to guest_{rd/wr}msr
-> preventing taking the default path in the {read/write}_msr PV
-> handlers.
+> Thanks! That's good to know. Is it the old GCC Suse supports?
 
-Yes, but the impact so far and the impact going forward are different.
+Not sure I understand the question: The default compiler of this or
+any distro is of course (expected to be) supported by the vendor
+for the lifetime of the OS.
 
-> If #GP signaled by guest_{rd/wr}msr are no longer injected when the guest
-> #GP handler is not set we might as well drop the rdmsr_safe check and
-> just don't try to inject any #GP at all from MSR accesses unless the
-> handler is setup?
+>>>>> --- a/xen/include/xen/compiler.h
+>>>>> +++ b/xen/include/xen/compiler.h
+>>>>> @@ -5,6 +5,19 @@
+>>>>>    #error Sorry, your compiler is too old/not recognized.
+>>>>>    #endif
+>>>>>    
+>>>>> +#if CONFIG_CC_IS_GCC
+>>>>> +# if CONFIG_GCC_VERSION < 40900
+>>>>> +/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145 */
+>>>>
+>>>> As per the bug report, the issue was determined to not be present
+>>>> in e.g. 4.3. Hence while such a bug may influence our choice of
+>>>> minimum version, I don't think it can reasonably be named here as
+>>>> the apparent only reason for the choice. Personally I don't think
+>>>> any justification should be put here.
+>>>
+>>> Ok.
+>>>
+>>>>
+>>>>> +#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
+>>>>> +# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
+>>>>> +/*
+>>>>> + * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
+>>>>> + * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
+>>>>> + */
+>>>>> +#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
+>>>>
+>>>>   From the bug entry the fix looks to have been backported to 4.9,
+>>>> or at least some (important?) branches thereof.
+>>>
+>>> It is not clear what's you are trying to point out. Mind clarifying?
+>>
+>> Some 4.9 compilers (perhaps widely used ones) may not have the bad
+>> issue, which puts under question their ruling out when the main
+>> reason for doing so is that bug.
+> 
+> Well... We could surely try to hunt which GCC 4.9 has been fixed. But I 
+> am not convinced this is useful, we would need to have an allowlist of 
+> GCC compiler.
 
-Well, that's what I had initially. You asked me to change to what I
-have now.
-
-> I feel this is likely going too far. I agree we should attempt to
-> restore something compatible with the previous behavior for unhandled
-> MSRs, but also not injecting the #GPs signaled by guest_{rd/wr}msr
-> seems to go beyond that.
-
-I understand this is a downside. Yet as said - the downside of _not_
-doing so is that every further raising of #GP will risk breaking a
-random guest kernel variant.
+Or probe the compiler for the bug in question.
 
 Jan
 
