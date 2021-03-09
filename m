@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AF5332CBA
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 18:01:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95623.180569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BCD332CB9
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Mar 2021 18:01:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95624.180581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJfiz-0001Ia-8H; Tue, 09 Mar 2021 17:00:49 +0000
+	id 1lJfjH-0001MH-Hc; Tue, 09 Mar 2021 17:01:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95623.180569; Tue, 09 Mar 2021 17:00:49 +0000
+Received: by outflank-mailman (output) from mailman id 95624.180581; Tue, 09 Mar 2021 17:01:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJfiz-0001IB-50; Tue, 09 Mar 2021 17:00:49 +0000
-Received: by outflank-mailman (input) for mailman id 95623;
- Tue, 09 Mar 2021 17:00:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lJfjH-0001Ln-DU; Tue, 09 Mar 2021 17:01:07 +0000
+Received: by outflank-mailman (input) for mailman id 95624;
+ Tue, 09 Mar 2021 17:01:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Bv84=IH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJfix-0001I6-FO
- for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 17:00:47 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8d535eb3-32fe-49f4-a0dd-89e450590a87;
- Tue, 09 Mar 2021 17:00:46 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8959FAEBD;
- Tue,  9 Mar 2021 17:00:45 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1lJfjF-0001LW-QV
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 17:01:05 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lJfjF-0003f3-PW
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 17:01:05 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lJfjF-0002SI-OA
+ for xen-devel@lists.xenproject.org; Tue, 09 Mar 2021 17:01:05 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lJfjC-0003e8-Hp; Tue, 09 Mar 2021 17:01:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,76 +41,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d535eb3-32fe-49f4-a0dd-89e450590a87
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615309245; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dU5QsM3WvQuC5eyrehfrQFR2D70sAZqFXdDdpQ0tB6A=;
-	b=Rnu8+dcJ4g3u2jbhRDQ4GCyFt8Y4eKvyoPpKV74hafTyZU8ts01FDHsj/hRn6hBfHE1jLx
-	XWU19QmrvbqPmQmhvsUfPUgQOkQ42PMg2xbQd3dBDdzLl+SzN44DKNNACLeA+7UXOOOio4
-	hfQ5qkiWHki/iKFknu68k/SenO9ii4g=
-To: Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] Xen: drop exports of {set,clear}_foreign_p2m_mapping()
-Message-ID: <746a5cd6-1446-eda4-8b23-03c1cac30b8d@suse.com>
-Date: Tue, 9 Mar 2021 18:00:44 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=MNKwVwPN8p6hE269VIEiLGJGddafQK0WnQi8TE5tXt0=; b=4GK/jWm9Nl/XhZOazsJ94OA8Dl
+	PWn9rw22o4HhGexUYJFAyIuR236yQThXsYNSE/UvFU3l5RcVKLNF6z+CNCTq8MUOVG5cRRmYrX+mG
+	uKStHYOcj6+MA01hsoafi8sM8ZVCL2XRwenlR2HeF7Mmj5GzHMgplUQSdsKdLz/Y+LR0=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24647.43470.308620.506630@mariner.uk.xensource.com>
+Date: Tue, 9 Mar 2021 17:01:02 +0000
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George  Dunlap <george.dunlap@citrix.com>,
+    Jan Beulich <jbeulich@suse.com>,
+    Julien  Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Anthony  PERARD <anthony.perard@citrix.com>,
+    Christian Lindig <christian.lindig@citrix.com>,
+    David Scott <dave@recoil.org>,
+    Jun Nakajima <jun.nakajima@intel.com>,
+    Kevin Tian <kevin.tian@intel.com>,
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v3 for-4.15] x86/msr: introduce an option for compatible MSR behavior selection
+In-Reply-To: <20210309105634.7200-1-roger.pau@citrix.com>
+References: <20210309105634.7200-1-roger.pau@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-They're only used internally, and the layering violation they contain
-(x86) or imply (Arm) of calling HYPERVISOR_grant_table_op() strongly
-advise against any (uncontrolled) use from a module. The functions also
-never had users except the ones from drivers/xen/grant-table.c forever
-since their introduction in 3.15.
+Roger Pau Monne writes ("[PATCH v3 for-4.15] x86/msr: introduce an option for compatible MSR behavior selection"):
+> Introduce an option to allow selecting a behavior similar to the pre
+> Xen 4.15 one for accesses to MSRs not explicitly handled. Since commit
+> 84e848fd7a162f669 and 322ec7c89f6640e accesses to MSRs not explicitly
+> handled by Xen result in the injection of a #GP to the guest. This
+> is a behavior change since previously a #GP was only injected if
+> accessing the MSR on the real hardware would also trigger a #GP, or if
+> the attempted to be set bits wouldn't match the hardware values (for
+> PV).
+> 
+> This seems to be problematic for some guests, so introduce an option
+> to fallback to this kind of legacy behavior without leaking the
+> underlying MSR values to the guest.
+> 
+> When the option is set, for both PV and HVM don't inject a #GP to the
+> guest on MSR read if reading the underlying MSR doesn't result in a
+> #GP, do the same for writes and simply discard the value to be written
+> on that case.
+> 
+> Note that for guests restored or migrated from previous Xen versions
+> the option is enabled by default, in order to keep a compatible
+> MSR behavior. Such compatibility is done at the libxl layer, to avoid
+> higher-level toolstacks from having to know the details about this flag.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-It's not clear to me why Arm doesn't have merely stubs just like x86 has
-when PV support is disabled.
+For the tools parts
 
---- a/arch/arm/xen/p2m.c
-+++ b/arch/arm/xen/p2m.c
-@@ -130,7 +130,6 @@ int set_foreign_p2m_mapping(struct gntta
- 
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(set_foreign_p2m_mapping);
- 
- int clear_foreign_p2m_mapping(struct gnttab_unmap_grant_ref *unmap_ops,
- 			      struct gnttab_unmap_grant_ref *kunmap_ops,
-@@ -145,7 +144,6 @@ int clear_foreign_p2m_mapping(struct gnt
- 
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(clear_foreign_p2m_mapping);
- 
- bool __set_phys_to_machine_multi(unsigned long pfn,
- 		unsigned long mfn, unsigned long nr_pages)
---- a/arch/x86/xen/p2m.c
-+++ b/arch/x86/xen/p2m.c
-@@ -776,7 +776,6 @@ int set_foreign_p2m_mapping(struct gntta
- out:
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(set_foreign_p2m_mapping);
- 
- int clear_foreign_p2m_mapping(struct gnttab_unmap_grant_ref *unmap_ops,
- 			      struct gnttab_unmap_grant_ref *kunmap_ops,
-@@ -802,7 +801,6 @@ int clear_foreign_p2m_mapping(struct gnt
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(clear_foreign_p2m_mapping);
- 
- #ifdef CONFIG_XEN_DEBUG_FS
- #include <linux/debugfs.h>
+Reviewed-by: Ian Jackson <iwj@xenproject.org>
 
