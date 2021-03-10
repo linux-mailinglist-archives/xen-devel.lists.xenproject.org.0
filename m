@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A18F33408E
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 15:42:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96153.181668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C68133408F
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 15:42:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96156.181679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK01n-0003Tk-Sa; Wed, 10 Mar 2021 14:41:35 +0000
+	id 1lK02K-0003ZW-B4; Wed, 10 Mar 2021 14:42:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96153.181668; Wed, 10 Mar 2021 14:41:35 +0000
+Received: by outflank-mailman (output) from mailman id 96156.181679; Wed, 10 Mar 2021 14:42:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK01n-0003TL-Oc; Wed, 10 Mar 2021 14:41:35 +0000
-Received: by outflank-mailman (input) for mailman id 96153;
- Wed, 10 Mar 2021 14:41:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lK02K-0003Z7-7P; Wed, 10 Mar 2021 14:42:08 +0000
+Received: by outflank-mailman (input) for mailman id 96156;
+ Wed, 10 Mar 2021 14:42:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YKvx=II=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lK01m-0003TC-HY
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 14:41:34 +0000
+ id 1lK02I-0003Yz-BA
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 14:42:06 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5b015006-c2a5-4dda-8156-9798c4f2fe07;
- Wed, 10 Mar 2021 14:41:33 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8f9eb122-2aa9-4f04-b1f7-49811c1d7b4a;
+ Wed, 10 Mar 2021 14:42:05 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 639C9AE78;
- Wed, 10 Mar 2021 14:41:32 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 83989AE78;
+ Wed, 10 Mar 2021 14:42:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +38,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b015006-c2a5-4dda-8156-9798c4f2fe07
+X-Inumbo-ID: 8f9eb122-2aa9-4f04-b1f7-49811c1d7b4a
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615387292; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615387324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PxSzjwfPtvxXb2e4g0NgV1xOXyHoFy/VgBr2tQy2sJ8=;
-	b=uMrDDZBOhcqgN2YYKOWhP0FNQL25jnl9AcXB6h4jLHnLqUYIuZvshNqiKWh3WHLP8r3+Uz
-	qfztL8wtXVrWatxonKGtCvKwocRUx2WUqt5wPlxZ5whM9qb5LrrOaeVPcpUOFu+KJFRepi
-	AMBSQsU4Gb45X4zJBibKpsWI/05ovpA=
-Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
+	bh=+/0syBVLNk8kdInbBQltckRnqMuyIZPKIEM/Rs/ny3Y=;
+	b=l9N0AUkqrrHFm/Jp2ESxBj2Y1aKWtXMc+9gTZ8Y4eObL6pCL0JhzS9VWNqD5KgmRemvX/L
+	sqR8uK+2F+v/8JJjxjkKkU+S3cvFrCF7gkk3NJYvw+gN2T7sWttXdXdp2XyjiZB1/bxxg3
+	7hYEgI7txiHx6Rs0W07H21ysOoHiev0=
+Subject: Re: [PATCH v6 05/12] x86/alternative: support ALTERNATIVE_TERNARY
 To: Borislav Petkov <bp@alien8.de>
 Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
  linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
+ Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>
 References: <20210309134813.23912-1-jgross@suse.com>
- <20210309134813.23912-5-jgross@suse.com> <20210310060705.GB23521@zn.tnic>
- <1b95376a-56e1-ab3e-aa85-73a9d38aaaf7@suse.com>
- <20210310141510.GG23521@zn.tnic>
+ <20210309134813.23912-6-jgross@suse.com> <20210310142754.GH23521@zn.tnic>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <4b7ba26f-af23-7208-db29-4bda7be79cc6@suse.com>
-Date: Wed, 10 Mar 2021 15:41:31 +0100
+Message-ID: <544d2242-9a1d-b7cb-dd8f-e40c9277a3de@suse.com>
+Date: Wed, 10 Mar 2021 15:42:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210310141510.GG23521@zn.tnic>
+In-Reply-To: <20210310142754.GH23521@zn.tnic>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r"
+ boundary="yUa0AJIhNLS0Uyf0hnyo1orD0saQSud6E"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r
-Content-Type: multipart/mixed; boundary="ByzS5gGquCchlGt9EfY4LEzkHqKv4UB7r";
+--yUa0AJIhNLS0Uyf0hnyo1orD0saQSud6E
+Content-Type: multipart/mixed; boundary="kJ8l9mKS7p0DVZOe2szQ2JoMiNQgWluHZ";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Borislav Petkov <bp@alien8.de>
 Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
  linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <4b7ba26f-af23-7208-db29-4bda7be79cc6@suse.com>
-Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
+ Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>
+Message-ID: <544d2242-9a1d-b7cb-dd8f-e40c9277a3de@suse.com>
+Subject: Re: [PATCH v6 05/12] x86/alternative: support ALTERNATIVE_TERNARY
 References: <20210309134813.23912-1-jgross@suse.com>
- <20210309134813.23912-5-jgross@suse.com> <20210310060705.GB23521@zn.tnic>
- <1b95376a-56e1-ab3e-aa85-73a9d38aaaf7@suse.com>
- <20210310141510.GG23521@zn.tnic>
-In-Reply-To: <20210310141510.GG23521@zn.tnic>
+ <20210309134813.23912-6-jgross@suse.com> <20210310142754.GH23521@zn.tnic>
+In-Reply-To: <20210310142754.GH23521@zn.tnic>
 
---ByzS5gGquCchlGt9EfY4LEzkHqKv4UB7r
+--kJ8l9mKS7p0DVZOe2szQ2JoMiNQgWluHZ
 Content-Type: multipart/mixed;
- boundary="------------04BCC31FF0EE4F36BAA41F64"
+ boundary="------------B77F5407A0AB926917EEBC34"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------04BCC31FF0EE4F36BAA41F64
+--------------B77F5407A0AB926917EEBC34
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 10.03.21 15:15, Borislav Petkov wrote:
-> On Wed, Mar 10, 2021 at 08:52:40AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
->> Did you look at patch 13? :-)
+On 10.03.21 15:27, Borislav Petkov wrote:
+> On Tue, Mar 09, 2021 at 02:48:06PM +0100, Juergen Gross wrote:
+>> diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm=
+/alternative.h
+>> index 89889618ae01..4fb844e29d26 100644
+>> --- a/arch/x86/include/asm/alternative.h
+>> +++ b/arch/x86/include/asm/alternative.h
+>> @@ -178,6 +178,9 @@ static inline int alternatives_text_reserved(void =
+*start, void *end)
+>>   	ALTINSTR_REPLACEMENT(newinstr2, 2)				\
+>>   	".popsection\n"
+>>  =20
+>> +#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2)	=
+\
+>> +	ALTERNATIVE_2(oldinstr, newinstr2, X86_FEATURE_ALWAYS, newinstr1, fe=
+ature)
 >=20
-> Well, I usually review in increasing patch order. :-P
+> Make that:
 >=20
-> But make that change here pls because otherwise unnecessary churn.
+> /*
+>   * If @feature is set, patch @newinstr_yes, else @newinstr_no
+>   */
+> #define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr_yes, newinstr_n=
+o) \
+>          ALTERNATIVE_2(oldinstr, newinstr_no, X86_FEATURE_ALWAYS, newin=
+str_yes, feature)
+>=20
+> and in alternative-asm.h too pls.
 
 Okay.
+
+>=20
+> Regardless, this looks nice! :)
+
+Thanks,
 
 
 Juergen
 
-
---------------04BCC31FF0EE4F36BAA41F64
+--------------B77F5407A0AB926917EEBC34
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -201,25 +223,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------04BCC31FF0EE4F36BAA41F64--
+--------------B77F5407A0AB926917EEBC34--
 
---ByzS5gGquCchlGt9EfY4LEzkHqKv4UB7r--
+--kJ8l9mKS7p0DVZOe2szQ2JoMiNQgWluHZ--
 
---WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r
+--yUa0AJIhNLS0Uyf0hnyo1orD0saQSud6E
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBI2psFAwAAAAAACgkQsN6d1ii/Ey9i
-Pwf/a29ypr3sr3STd919ouf1cx7Zi/mYSiScQ3qCIB3O+OWmwxCLmBqMAyQHjK6ssyMt3VQuG8KL
-iL/s/T0iv8KYFrRTFcKUvLkDRjVBjAEweCJn9famgSJ/kwEaEoJOzl36DHoYMjHs4Ks+QRTZp4U9
-X1WaMjFWYSbPN8ZeAxCWnm2BIed4khopHCk7PZxQXihZX/pwJ+Z8zGiBKyLjTwhvNrwXiAxug8Rb
-Ae6PXn+ZeHuP2MHSIMlOuVeM5xfh1vTrtqFXMT5OrKgDpYBaV9/4IzG9+iz/7JPR8h9B2B/6ejN+
-IZTJIfjT5fTQiI7mWU0wIwmpSUBq0JRVvq1+9aZaUg==
-=LjTz
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBI2rsFAwAAAAAACgkQsN6d1ii/Ey/H
+8Af+Mp6GwCI/zjkP3UBP3qphr21aQq25jWKZb9guCkcsrn2XmX5MCZQw9K1ZCMohoLa5VVbDuNA+
+6DoaPJOl5RIAewSCKcNIseCY8+ulrddEsk8oJs9WfMQfPSHWQOs7F5MvyFVz9YAhTGOIMZVYfPj5
+Vw4eNcyeZZ/SlUPcsUQ4wIfoSh4s8H3Nhi5NHdri/vs3MEOtxwCgGXRYgG1VTRQRfHIk3k/DcOBc
+e0AzBBzMPSyFQh36RIse5cc0cuFT/0tVQ5nvIBbr89YO259csXG7Bx+S8e7KUYL9F3DbFbVPbKRs
+4o2+vNL1+u5BVlR+jcDygOpspt2ataDtxVIurSiFWQ==
+=+cHb
 -----END PGP SIGNATURE-----
 
---WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r--
+--yUa0AJIhNLS0Uyf0hnyo1orD0saQSud6E--
 
