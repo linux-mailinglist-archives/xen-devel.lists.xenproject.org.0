@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF55D333A72
+	by mail.lfdr.de (Postfix) with ESMTPS id EB542333A73
 	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 11:44:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95960.181242 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.95962.181268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJwJj-00036E-QN; Wed, 10 Mar 2021 10:43:51 +0000
+	id 1lJwJp-0003CN-La; Wed, 10 Mar 2021 10:43:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95960.181242; Wed, 10 Mar 2021 10:43:51 +0000
+Received: by outflank-mailman (output) from mailman id 95962.181268; Wed, 10 Mar 2021 10:43:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJwJj-00035l-Mx; Wed, 10 Mar 2021 10:43:51 +0000
-Received: by outflank-mailman (input) for mailman id 95960;
- Wed, 10 Mar 2021 10:43:50 +0000
+	id 1lJwJp-0003Bn-FE; Wed, 10 Mar 2021 10:43:57 +0000
+Received: by outflank-mailman (input) for mailman id 95962;
+ Wed, 10 Mar 2021 10:43:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Iqsa=II=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1lJwJi-00035F-32
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 10:43:50 +0000
+ id 1lJwJm-00035F-Vp
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 10:43:55 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id e60485af-fc58-43fc-8838-e3df52d142c5;
- Wed, 10 Mar 2021 10:43:47 +0000 (UTC)
+ id 5f512f45-65b9-414c-a28e-504c0cbaa8ee;
+ Wed, 10 Mar 2021 10:43:48 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BA04A1FB;
- Wed, 10 Mar 2021 02:43:46 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C27211B3;
+ Wed, 10 Mar 2021 02:43:48 -0800 (PST)
 Received: from e123311-lin.arm.com (unknown [10.57.15.227])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A30473F85F;
- Wed, 10 Mar 2021 02:43:45 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 11B573F85F;
+ Wed, 10 Mar 2021 02:43:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,401 +41,623 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e60485af-fc58-43fc-8838-e3df52d142c5
+X-Inumbo-ID: 5f512f45-65b9-414c-a28e-504c0cbaa8ee
 From: Michal Orzel <michal.orzel@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
 	andrew.cooper3@citrix.com,
 	amc96@cam.ac.uk
-Subject: [XTF 3/4] arm: Add initial architecture code for arm64 and arm32
-Date: Wed, 10 Mar 2021 11:43:34 +0100
-Message-Id: <20210310104335.14855-4-michal.orzel@arm.com>
+Subject: [XTF 4/4] arm: Add build support for arm64/arm32
+Date: Wed, 10 Mar 2021 11:43:35 +0100
+Message-Id: <20210310104335.14855-5-michal.orzel@arm.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210310104335.14855-1-michal.orzel@arm.com>
 References: <20210310104335.14855-1-michal.orzel@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add initial support to XTF for arm64/arm32 without
-modifying existing XTF architecture.
-Most of the files are just dummy files waiting to be properly
-implemented step by step later on.
+Add support for arm64/arm32 in the build
+system, modify the common headers to be
+aware of the new architectures and update
+the documentation.
 
-The purpose of this change is to add the initial code and minimal
-set of files to support arm64 without modifying the existing
-XTF design. This creates a base for further implementation.
+Architecture can be set using ARCH=arm64
+or ARCH=arm32.
+
+arm64: Currently only one test: tests/example
+is supported allowing the startup code head.S
+to be executed.
+
+arm32: No tests supported. Only compile time
+support.
 
 Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Based-on-the-work-from: Julien Grall <julien@xen.org>
 ---
- arch/arm/arm32/head.S              |   0
- arch/arm/arm64/cache.S             |  23 +++++++
- arch/arm/arm64/head.S              |  90 ++++++++++++++++++++++++++
- arch/arm/decode.c                  |  25 ++++++++
- arch/arm/include/arch/arm32/regs.h |  73 +++++++++++++++++++++
- arch/arm/include/arch/arm64/regs.h | 100 +++++++++++++++++++++++++++++
- arch/arm/include/arch/asm_macros.h |  21 ++++++
- arch/arm/include/arch/barrier.h    |  41 ++++++++++++
- arch/arm/include/arch/bitops.h     |  45 +++++++++++++
- arch/arm/include/arch/config.h     |  37 +++++++++++
- arch/arm/include/arch/desc.h       |  16 +++++
- arch/arm/include/arch/div.h        |  35 ++++++++++
- arch/arm/include/arch/extable.h    |  19 ++++++
- arch/arm/include/arch/hypercall.h  |  39 +++++++++++
- arch/arm/include/arch/page.h       |  23 +++++++
- arch/arm/include/arch/regs.h       |  25 ++++++++
- arch/arm/include/arch/traps.h      |  22 +++++++
- arch/arm/include/arch/xtf.h        |  17 +++++
- arch/arm/link.lds.S                |  58 +++++++++++++++++
- arch/arm/setup.c                   |  28 ++++++++
- arch/arm/traps.c                   |  22 +++++++
- 21 files changed, 759 insertions(+)
- create mode 100644 arch/arm/arm32/head.S
- create mode 100644 arch/arm/arm64/cache.S
- create mode 100644 arch/arm/arm64/head.S
- create mode 100644 arch/arm/decode.c
- create mode 100644 arch/arm/include/arch/arm32/regs.h
- create mode 100644 arch/arm/include/arch/arm64/regs.h
- create mode 100644 arch/arm/include/arch/asm_macros.h
- create mode 100644 arch/arm/include/arch/barrier.h
- create mode 100644 arch/arm/include/arch/bitops.h
- create mode 100644 arch/arm/include/arch/config.h
- create mode 100644 arch/arm/include/arch/desc.h
- create mode 100644 arch/arm/include/arch/div.h
- create mode 100644 arch/arm/include/arch/extable.h
- create mode 100644 arch/arm/include/arch/hypercall.h
- create mode 100644 arch/arm/include/arch/page.h
- create mode 100644 arch/arm/include/arch/regs.h
- create mode 100644 arch/arm/include/arch/traps.h
- create mode 100644 arch/arm/include/arch/xtf.h
- create mode 100644 arch/arm/link.lds.S
- create mode 100644 arch/arm/setup.c
- create mode 100644 arch/arm/traps.c
+ INSTALL                    |  18 ++
+ Makefile                   |   6 +-
+ README                     |   7 +
+ build/arm-common-files.mk  |  14 ++
+ build/arm32/arch-common.mk |   8 +
+ build/arm32/arch-files.mk  |   7 +
+ build/arm32/arch-tests.mk  |   4 +
+ build/arm64/arch-common.mk |  15 ++
+ build/arm64/arch-files.mk  |   7 +
+ build/arm64/arch-tests.mk  |   4 +
+ config/default-arm.cfg.in  |   6 +
+ docs/introduction.dox      |  16 +-
+ docs/mainpage.dox          |  34 ++-
+ include/xen/arch-arm.h     | 452 +++++++++++++++++++++++++++++++++++++
+ include/xen/xen.h          |   2 +
+ include/xtf/hypercall.h    |  81 ++++---
+ include/xtf/lib.h          |   9 +-
+ 17 files changed, 654 insertions(+), 36 deletions(-)
+ create mode 100644 build/arm-common-files.mk
+ create mode 100644 build/arm32/arch-common.mk
+ create mode 100644 build/arm32/arch-files.mk
+ create mode 100644 build/arm32/arch-tests.mk
+ create mode 100644 build/arm64/arch-common.mk
+ create mode 100644 build/arm64/arch-files.mk
+ create mode 100644 build/arm64/arch-tests.mk
+ create mode 100644 config/default-arm.cfg.in
+ create mode 100644 include/xen/arch-arm.h
 
-diff --git a/arch/arm/arm32/head.S b/arch/arm/arm32/head.S
+diff --git a/INSTALL b/INSTALL
+index ed19623..296a0f0 100644
+--- a/INSTALL
++++ b/INSTALL
+@@ -2,6 +2,24 @@ Xen Test Framework
+ 
+ Build requirements:
+  - GNU Make >= 3.81
++For x86:
+  - GNU compatible compiler, capable of:
+    -std=gnu99
+    -m64 and -m32
++For arm64/arm32:
++-when cross-compiling:
++ - GNU compatible cross-compiler toolchain for Aarch64/Aarch32
++-when building natively:
++ - GNU compatible toolchain for Aarch64/Aarch32
++
++To build XTF:
++-for x86:
++  $ make
++-for arm64 natively:
++  $ make ARCH=arm64
++-for arm64 when cross compiling:
++  $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
++-for arm32 natively:
++  $ make ARCH=arm32
++-for arm32 when cross compiling:
++  $ make ARCH=arm32 CROSS_COMPILE=arm-linux-gnueabi-
+diff --git a/Makefile b/Makefile
+index 7c25b0d..2cb6abc 100644
+--- a/Makefile
++++ b/Makefile
+@@ -19,7 +19,7 @@ endif
+ xtftestdir := $(xtfdir)/tests
+ 
+ # Supported architectures
+-SUPPORTED_ARCH := x86
++SUPPORTED_ARCH := x86 arm64 arm32
+ # Default architecture
+ ARCH ?= x86
+ # Check if specified architecture is supported
+@@ -42,6 +42,10 @@ PYTHON          := python
+ 
+ export CC CPP INSTALL INSTALL_DATA INSTALL_DIR INSTALL_PROGRAM OBJCOPY PYTHON
+ 
++# Some tests are architecture specific. In this case we can have a list of tests
++# supported by a given architecture in $(ROOT)/build/$(ARCH)/arch-tests.mk
++-include $(ROOT)/build/$(ARCH)/arch-tests.mk
++
+ # By default enable all the tests
+ TESTS ?= $(wildcard tests/*)
+ 
+diff --git a/README b/README
+index 20d9127..c595a5b 100644
+--- a/README
++++ b/README
+@@ -9,12 +9,19 @@ Tests for more generic areas are build multiple times into different
+ microkernels, to test the same functionality from different types of virtual
+ machine.
+ 
++Currently there are 3 architectures available: x86, arm64 and arm32 although
++only x86 is truly supported. Initial support for arm64 is added allowing to run
++a startup code based on the test: tests/example. For arm32 only compile time
++support is added. This creates a base for future implementation.
++
+ ## The framework consists of:
+ 
+ * PV and HVM, 32 and 64 bit entry points
+ * Hypercall interface
+ * PV console driver (output)
+ * Common reporting framework
++* Initial support for arm64 (startup code running)
++* Initial support for arm32 (currently no tests supported)
+ 
+ ## TODO List:
+ 
+diff --git a/build/arm-common-files.mk b/build/arm-common-files.mk
 new file mode 100644
-index 0000000..e69de29
-diff --git a/arch/arm/arm64/cache.S b/arch/arm/arm64/cache.S
-new file mode 100644
-index 0000000..31b70ae
+index 0000000..01e9d8d
 --- /dev/null
-+++ b/arch/arm/arm64/cache.S
-@@ -0,0 +1,23 @@
-+#include <xtf/asm_macros.h>
++++ b/build/arm-common-files.mk
+@@ -0,0 +1,14 @@
++# Common files compiled and linked for arm
++
++obj-perenv += $(ROOT)/common/console.o
++obj-perenv += $(ROOT)/common/lib.o
++obj-perenv += $(ROOT)/common/libc/stdio.o
++obj-perenv += $(ROOT)/common/libc/string.o
++obj-perenv += $(ROOT)/common/libc/vsnprintf.o
++obj-perenv += $(ROOT)/common/report.o
++obj-perenv += $(ROOT)/common/setup.o
++obj-perenv += $(ROOT)/common/xenbus.o
++
++obj-perenv += $(ROOT)/arch/arm/decode.o
++obj-perenv += $(ROOT)/arch/arm/setup.o
++obj-perenv += $(ROOT)/arch/arm/traps.o
+diff --git a/build/arm32/arch-common.mk b/build/arm32/arch-common.mk
+new file mode 100644
+index 0000000..ef65b7f
+--- /dev/null
++++ b/build/arm32/arch-common.mk
+@@ -0,0 +1,8 @@
++# Architecture specific configuration for arm32
++
++ARCH_PATH := $(ROOT)/arch/arm
++ALL_ENVIRONMENTS := arm32
++
++arm32_arch   := arm32
++arm32_guest  := arm32
++defcfg-arm32 := $(ROOT)/config/default-arm.cfg.in
+diff --git a/build/arm32/arch-files.mk b/build/arm32/arch-files.mk
+new file mode 100644
+index 0000000..8186d70
+--- /dev/null
++++ b/build/arm32/arch-files.mk
+@@ -0,0 +1,7 @@
++# Architecture specific files compiled and linked for arm32
++
++# Include arm common files
++include $(ROOT)/build/arm-common-files.mk
++
++# Specific files for arm32
++obj-perenv +=
+diff --git a/build/arm32/arch-tests.mk b/build/arm32/arch-tests.mk
+new file mode 100644
+index 0000000..3736042
+--- /dev/null
++++ b/build/arm32/arch-tests.mk
+@@ -0,0 +1,4 @@
++# Supported tests by arm32
++
++# Currently no tests are supported for arm32
++TESTS :=
+diff --git a/build/arm64/arch-common.mk b/build/arm64/arch-common.mk
+new file mode 100644
+index 0000000..85060c5
+--- /dev/null
++++ b/build/arm64/arch-common.mk
+@@ -0,0 +1,15 @@
++# Architecture specific configuration for arm64
++
++ARCH_PATH := $(ROOT)/arch/arm
++ALL_ENVIRONMENTS := arm64
++
++arm64_arch   := arm64
++arm64_guest  := arm64
++defcfg-arm64 := $(ROOT)/config/default-arm.cfg.in
++
++# Compilation recipe for arm64
++# arm64 needs linking normally, then converting to a binary format
++define build-arm64
++	$(CC) $$(LDFLAGS_arm64) $$(DEPS-arm64) -o $$@-syms
++	$(OBJCOPY) $$@-syms -O binary $$@
++endef
+diff --git a/build/arm64/arch-files.mk b/build/arm64/arch-files.mk
+new file mode 100644
+index 0000000..f7a4007
+--- /dev/null
++++ b/build/arm64/arch-files.mk
+@@ -0,0 +1,7 @@
++# Architecture specific files compiled and linked for arm64
++
++# Include arm common files
++include $(ROOT)/build/arm-common-files.mk
++
++# Specific files for arm64
++obj-perenv += $(ROOT)/arch/arm/arm64/cache.o
+diff --git a/build/arm64/arch-tests.mk b/build/arm64/arch-tests.mk
+new file mode 100644
+index 0000000..1a13ba9
+--- /dev/null
++++ b/build/arm64/arch-tests.mk
+@@ -0,0 +1,4 @@
++# Supported tests by arm64
++
++# Currently only example test is supported
++TESTS := $(ROOT)/tests/example
+diff --git a/config/default-arm.cfg.in b/config/default-arm.cfg.in
+new file mode 100644
+index 0000000..26c0c50
+--- /dev/null
++++ b/config/default-arm.cfg.in
+@@ -0,0 +1,6 @@
++name="test-@@ENV@@-@@NAME@@@@VARIATION@@"
++
++vcpus=@@VCPUS@@
++
++memory=128
++kernel="@@XTFDIR@@/tests/@@NAME@@/test-@@ENV@@-@@NAME@@"
+diff --git a/docs/introduction.dox b/docs/introduction.dox
+index 9207941..ff5ceae 100644
+--- a/docs/introduction.dox
++++ b/docs/introduction.dox
+@@ -38,17 +38,29 @@ categories are:
+ 
+ A test is built for one or more environments.  The environment encodes:
+ 
++For x86 architecture:
+ - The Xen VM ABI in use (PV or HVM).
+ - The compilation width (32bit or 64bit).
+ - The primary paging mode (none, PSE, PAE).
+ 
+-All available environments are:
++For arm64/arm32 there is currently a single environment called arm64/arm32.
++
++All available environments for x86 are:
++@dontinclude build/x86/arch-common.mk
+ @skipline ALL_ENVIRONMENTS
+ 
+-Some more specific collections for environments are also available:
++Some more specific collections for x86 environments are also available:
+ @skipline PV_ENVIRONMENTS
+ @until 64BIT_ENVIRONMENTS
+ 
++All available environments for arm64 are:
++@dontinclude build/arm64/arch-common.mk
++@skipline ALL_ENVIRONMENTS
++
++All available environments for arm32 are:
++@dontinclude build/arm32/arch-common.mk
++@skipline ALL_ENVIRONMENTS
++
+ An individual test, compiled for more than one environment, will end up with a
+ individual microkernel binary for each specified environment.
+ 
+diff --git a/docs/mainpage.dox b/docs/mainpage.dox
+index 4b09ce1..572c552 100644
+--- a/docs/mainpage.dox
++++ b/docs/mainpage.dox
+@@ -18,8 +18,14 @@ The build system and library abstractions are specifically designed to make it
+ easy to write code once and compile it for multiple different environments
+ (virtual machines).
+ 
++Currently there are 3 architectures available: x86, arm64 and arm32 although
++only x86 is truly supported. Initial support for arm64 is added allowing to run
++a startup code based on the test: tests/example. For arm32 only compile time
++support is added. This creates a base for future implementation.
++
+ The current environments supported are:
+ 
++x86:
+ Environment | Guest | Width | Paging
+ :-----------|:------|:------|:---------
+ `pv32pae`   | PV    | 32bit | PAE
+@@ -29,18 +35,29 @@ Environment | Guest | Width | Paging
+ `hvm32pae`  | HVM   | 32bit | PAE
+ `hvm64`     | HVM   | 64bit | Long mode
+ 
++arm64:
++Environment | Guest | Width | Paging
++:-----------|:------|:------|:----------------
++`arm64`     | arm64 | 64bit | Currently no MMU
++
++arm32:
++Environment | Guest | Width | Paging
++:-----------|:------|:------|:----------------
++`arm32`     | arm32 | 32bit | Currently no MMU
+ 
+ @section getting-started Getting Started
+ 
+ Requirements:
+ - GNU Make >= 3.81
++- Python 2.6 or later
++
++For x86:
+ - GNU compatible 32 and 64-bit toolchain, capable of `-std=gnu99`, `-m64`, and
+   `-m32`
+     - For Debian-based systems, the `build-essential` package is
+       sufficient. For RHEL-based systems, the `glibc-devel.i686` package is
+       generally needed beyond the default toolchain packages.
+     - Clang may be used, via `CC="clang"`
+-- Python 2.6 or later
+ 
+ Optionally:
+ - A toolchain with x32 support.
+@@ -49,11 +66,26 @@ Optionally:
+       `elf32-i386` will be used which will load correctly, but disassemble
+       incorrectly.
+ 
++For arm64/arm32:
++-when cross-compiling:
++ - GNU compatible cross-compiler toolchain for Aarch64/Aarch32
++-when building natively:
++ - GNU compatible toolchain for Aarch64/Aarch32
++
+ To obtain and build:
+ 
+     $ git clone git://xenbits.xen.org/xtf.git
+     $ cd xtf
++    # To build for x86:
+     $ make -j4
++    # To build for arm64 natively:
++    $ make ARCH=arm64
++    # To build for arm32 natively:
++    $ make ARCH=arm32
++    # To build for arm64 when cross compiling:
++    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
++    # To build for arm32 when cross compiling:
++    $ make ARCH=arm32 CROSS_COMPILE=arm-linux-gnueabi-
+ 
+ To run tests on a Xen host: (see @ref errata first)
+ 
+diff --git a/include/xen/arch-arm.h b/include/xen/arch-arm.h
+new file mode 100644
+index 0000000..c77ee48
+--- /dev/null
++++ b/include/xen/arch-arm.h
+@@ -0,0 +1,452 @@
++#ifndef XEN_PUBLIC_ARCH_ARM_H
++#define XEN_PUBLIC_ARCH_ARM_H
 +
 +/*
-+ * flush_dcache_range(start, end)
-+ * - start   - start address of a region
-+ * - end     - end address of a region
++ * `incontents 50 arm_abi Hypercall Calling Convention
++ *
++ * A hypercall is issued using the ARM HVC instruction.
++ *
++ * A hypercall can take up to 5 arguments. These are passed in
++ * registers, the first argument in x0/r0 (for arm64/arm32 guests
++ * respectively irrespective of whether the underlying hypervisor is
++ * 32- or 64-bit), the second argument in x1/r1, the third in x2/r2,
++ * the forth in x3/r3 and the fifth in x4/r4.
++ *
++ * The hypercall number is passed in r12 (arm) or x16 (arm64). In both
++ * cases the relevant ARM procedure calling convention specifies this
++ * is an inter-procedure-call scratch register (e.g. for use in linker
++ * stubs). This use does not conflict with use during a hypercall.
++ *
++ * The HVC ISS must contain a Xen specific TAG: XEN_HYPERCALL_TAG.
++ *
++ * The return value is in x0/r0.
++ *
++ * The hypercall will clobber x16/r12 and the argument registers used
++ * by that hypercall (except r0 which is the return value) i.e. in
++ * addition to x16/r12 a 2 argument hypercall will clobber x1/r1 and a
++ * 4 argument hypercall will clobber x1/r1, x2/r2 and x3/r3.
++ *
++ * Parameter structs passed to hypercalls are laid out according to
++ * the Procedure Call Standard for the ARM Architecture (AAPCS, AKA
++ * EABI) and Procedure Call Standard for the ARM 64-bit Architecture
++ * (AAPCS64). Where there is a conflict the 64-bit standard should be
++ * used regardless of guest type. Structures which are passed as
++ * hypercall arguments are always little endian.
++ *
++ * All memory which is shared with other entities in the system
++ * (including the hypervisor and other guests) must reside in memory
++ * which is mapped as Normal Inner Write-Back Outer Write-Back Inner-Shareable.
++ * This applies to:
++ *  - hypercall arguments passed via a pointer to guest memory.
++ *  - memory shared via the grant table mechanism (including PV I/O
++ *    rings etc).
++ *  - memory shared with the hypervisor (struct shared_info, struct
++ *    vcpu_info, the grant table, etc).
++ *
++ * Any cache allocation hints are acceptable.
 + */
-+ENTRY(flush_dcache_range)
-+    /* Get the minimum D-cache line size */
-+    mrs    x3, ctr_el0
-+    ubfm   x3, x3, #16, #19
-+    mov    x2, #4
-+    lsl    x2, x2, x3
-+    sub    x3, x2, #1
-+    bic    x0, x0, x3
-+    /* Clean and invalidate D-cache line */
-+1:  dc     civac, x0
-+    add    x0, x0, x2
-+    cmp    x0, x1
-+    b.lo   1b
-+    dsb    sy
-+    ret
-+ENDFUNC(flush_dcache_range)
-diff --git a/arch/arm/arm64/head.S b/arch/arm/arm64/head.S
-new file mode 100644
-index 0000000..bce0968
---- /dev/null
-+++ b/arch/arm/arm64/head.S
-@@ -0,0 +1,90 @@
-+#include <arch/page.h>
-+#include <xtf/asm_macros.h>
-+#include <xen/xen.h>
-+
-+/* 1 if BE, 0 if LE */
-+#define HEAD_FLAG_ENDIANNESS  0
-+#define HEAD_FLAG_PAGE_SIZE   ((PAGE_SHIFT - 10) / 2)
-+#define HEAD_FLAG_PHYS_BASE   1
-+#define HEAD_FLAGS            ((HEAD_FLAG_ENDIANNESS << 0) | \
-+                              (HEAD_FLAG_PAGE_SIZE << 1) |   \
-+                              (HEAD_FLAG_PHYS_BASE << 3))
 +
 +/*
-+ * Print a string on the debug console
++ * `incontents 55 arm_hcall Supported Hypercalls
 + *
-+ * Clobbers: x0, x1, x2, x16
++ * Xen on ARM makes extensive use of hardware facilities and therefore
++ * only a subset of the potential hypercalls are required.
 + *
-+ * /!\ When MMU is off, this can only be used with embed string in the
-+ * kernel.
++ * Since ARM uses second stage paging any machine/physical addresses
++ * passed to hypercalls are Guest Physical Addresses (Intermediate
++ * Physical Addresses) unless otherwise noted.
++ *
++ * The following hypercalls (and sub operations) are supported on the
++ * ARM platform. Other hypercalls should be considered
++ * unavailable/unsupported.
++ *
++ *  HYPERVISOR_memory_op
++ *   All generic sub-operations
++ *
++ *  HYPERVISOR_domctl
++ *   All generic sub-operations, with the exception of:
++ *    * XEN_DOMCTL_irq_permission (not yet implemented)
++ *
++ *  HYPERVISOR_sched_op
++ *   All generic sub-operations, with the exception of:
++ *    * SCHEDOP_block -- prefer wfi hardware instruction
++ *
++ *  HYPERVISOR_console_io
++ *   All generic sub-operations
++ *
++ *  HYPERVISOR_xen_version
++ *   All generic sub-operations
++ *
++ *  HYPERVISOR_event_channel_op
++ *   All generic sub-operations
++ *
++ *  HYPERVISOR_physdev_op
++ *   No sub-operations are currenty supported
++ *
++ *  HYPERVISOR_sysctl
++ *   All generic sub-operations, with the exception of:
++ *    * XEN_SYSCTL_page_offline_op
++ *    * XEN_SYSCTL_get_pmstat
++ *    * XEN_SYSCTL_pm_op
++ *
++ *  HYPERVISOR_hvm_op
++ *   Exactly these sub-operations are supported:
++ *    * HVMOP_set_param
++ *    * HVMOP_get_param
++ *
++ *  HYPERVISOR_grant_table_op
++ *   All generic sub-operations
++ *
++ *  HYPERVISOR_vcpu_op
++ *   Exactly these sub-operations are supported:
++ *    * VCPUOP_register_vcpu_info
++ *    * VCPUOP_register_runstate_memory_area
++ *
++ *
++ * Other notes on the ARM ABI:
++ *
++ * - struct start_info is not exported to ARM guests.
++ *
++ * - struct shared_info is mapped by ARM guests using the
++ *   HYPERVISOR_memory_op sub-op XENMEM_add_to_physmap, passing
++ *   XENMAPSPACE_shared_info as space parameter.
++ *
++ * - All the per-cpu struct vcpu_info are mapped by ARM guests using the
++ *   HYPERVISOR_vcpu_op sub-op VCPUOP_register_vcpu_info, including cpu0
++ *   struct vcpu_info.
++ *
++ * - The grant table is mapped using the HYPERVISOR_memory_op sub-op
++ *   XENMEM_add_to_physmap, passing XENMAPSPACE_grant_table as space
++ *   parameter. The memory range specified under the Xen compatible
++ *   hypervisor node on device tree can be used as target gpfn for the
++ *   mapping.
++ *
++ * - Xenstore is initialized by using the two hvm_params
++ *   HVM_PARAM_STORE_PFN and HVM_PARAM_STORE_EVTCHN. They can be read
++ *   with the HYPERVISOR_hvm_op sub-op HVMOP_get_param.
++ *
++ * - The paravirtualized console is initialized by using the two
++ *   hvm_params HVM_PARAM_CONSOLE_PFN and HVM_PARAM_CONSOLE_EVTCHN. They
++ *   can be read with the HYPERVISOR_hvm_op sub-op HVMOP_get_param.
++ *
++ * - Event channel notifications are delivered using the percpu GIC
++ *   interrupt specified under the Xen compatible hypervisor node on
++ *   device tree.
++ *
++ * - The device tree Xen compatible node is fully described under Linux
++ *   at Documentation/devicetree/bindings/arm/xen.txt.
 + */
-+#define PRINT(s)                                    \
-+    adr     x2, 97f;                                \
-+    adr     x1, 98f;                                \
-+    sub     x1, x1, x2;                             \
-+    mov     x0, #CONSOLEIO_write;                   \
-+    mov     x16, #__HYPERVISOR_console_io;          \
-+    hvc     #XEN_HYPERCALL_TAG;                     \
-+    b       99f;                                    \
-+97: .asciz  s;                                      \
-+98:;                                                \
-+    .align  2;                                      \
-+99:
 +
-+.section ".bss.page_aligned"
-+.p2align PAGE_SHIFT
++#define XEN_HYPERCALL_TAG   0XEA1
 +
-+.text
-+    b       _start                  /* branch to kernel start, magic */
-+    .long   0                       /* Executable code */
-+    .quad   0x0                     /* Image load offset from start of RAM */
-+    .quad   _end - _start           /* Effective Image size */
-+    .quad   HEAD_FLAGS              /* Informative flags, little-endian */
-+    .quad   0                       /* reserved */
-+    .quad   0                       /* reserved */
-+    .quad   0                       /* reserved */
-+    .byte   0x41                    /* Magic number, "ARM\x64" */
-+    .byte   0x52
-+    .byte   0x4d
-+    .byte   0x64
-+    .long   0                       /* reserved */
++#define  int64_aligned_t  int64_t __attribute__((aligned(8)))
++#define uint64_aligned_t uint64_t __attribute__((aligned(8)))
 +
-+
-+/* Load a physical address of \sym to \xb */
-+.macro load_paddr xb, sym
-+    ldr \xb, =\sym
-+    add \xb, \xb, x21
-+.endm
++#ifndef __ASSEMBLY__
++#define ___DEFINE_XEN_GUEST_HANDLE(name, type)                  \
++    typedef union { type *p; unsigned long q; }                 \
++        __guest_handle_ ## name;                                \
++    typedef union { type *p; uint64_aligned_t q; }              \
++        __guest_handle_64_ ## name
 +
 +/*
-+ * Common register usage for assembly boot code
-+ *
-+ * x20 - DTB physical address (boot CPU only)
-+ * x21 - Offset between PA and VA ( PA - VA)
-+ * x30 - lr
++ * XEN_GUEST_HANDLE represents a guest pointer, when passed as a field
++ * in a struct in memory. On ARM is always 8 bytes sizes and 8 bytes
++ * aligned.
++ * XEN_GUEST_HANDLE_PARAM represents a guest pointer, when passed as an
++ * hypercall argument. It is 4 bytes on aarch32 and 8 bytes on aarch64.
 + */
-+ENTRY(_start)
-+    /* Save DTB pointer */
-+    mov     x20, x0
++#define __DEFINE_XEN_GUEST_HANDLE(name, type) \
++    ___DEFINE_XEN_GUEST_HANDLE(name, type);   \
++    ___DEFINE_XEN_GUEST_HANDLE(const_##name, const type)
++#define DEFINE_XEN_GUEST_HANDLE(name)   __DEFINE_XEN_GUEST_HANDLE(name, name)
++#define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ## name
++#define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
++#define XEN_GUEST_HANDLE_PARAM(name)    __guest_handle_ ## name
++#define set_xen_guest_handle_raw(hnd, val)                  \
++    do {                                                    \
++        typeof(&(hnd)) _sxghr_tmp = &(hnd);                 \
++        _sxghr_tmp->q = 0;                                  \
++        _sxghr_tmp->p = val;                                \
++    } while ( 0 )
++#define set_xen_guest_handle(hnd, val) set_xen_guest_handle_raw(hnd, val)
 +
-+    /* Calculate where we are */
-+    ldr     x22, =_start        /* x22 := vaddr(_start) */
-+    adr     x21, _start         /* x21 := paddr(_start) */
-+    sub     x21, x21, x22       /* x21 := phys-offset */
-+
-+    PRINT("- XTF booting -\n")
-+
-+    PRINT("- Zero BSS -\n")
-+
-+    load_paddr  x0, __start_bss
-+    load_paddr  x1, __end_bss
-+
-+    bl      flush_dcache_range
-+1:  str     xzr, [x0], #8
-+    cmp     x0, x1
-+    b.lo    1b
-+    bl      flush_dcache_range
-+
-+    /* Start an infinite loop */
-+    PRINT("- Infinite loop -\n")
-+1:  b   1b
-diff --git a/arch/arm/decode.c b/arch/arm/decode.c
-new file mode 100644
-index 0000000..97aa576
---- /dev/null
-+++ b/arch/arm/decode.c
-@@ -0,0 +1,25 @@
-+/**
-+ * @file arch/arm/decode.c
-+ *
-+ * Helper routines for decoding arm architectural state.
-+ */
-+#include <xtf/lib.h>
-+#include <xtf/libc.h>
-+
-+bool arch_fmt_pointer(
-+    char **str_ptr, char *end, const char **fmt_ptr, const void *arg,
-+    int width, int precision, unsigned int flags)
-+{
-+    UNIMPLEMENTED();
-+    return false;
-+}
++typedef uint64_t xen_pfn_t;
++#define PRI_xen_pfn PRIx64
++#define PRIu_xen_pfn PRIu64
 +
 +/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
++ * Maximum number of virtual CPUs in legacy multi-processor guests.
++ * Only one. All other VCPUS must use VCPUOP_register_vcpu_info.
 + */
-diff --git a/arch/arm/include/arch/arm32/regs.h b/arch/arm/include/arch/arm32/regs.h
-new file mode 100644
-index 0000000..fe137c4
---- /dev/null
-+++ b/arch/arm/include/arch/arm32/regs.h
-@@ -0,0 +1,73 @@
-+/**
-+ * @file arch/arm/include/arch/arm32/regs.h
-+ *
-+ * arm32 CPU user registers.
-+ */
-+#ifndef XTF_ARM32_REGS_H
-+#define XTF_ARM32_REGS_H
++#define XEN_LEGACY_MAX_VCPUS 1
 +
-+#include <xtf/types.h>
++typedef uint64_t xen_ulong_t;
++#define PRI_xen_ulong PRIx64
 +
-+/* On stack VCPU state */
-+struct cpu_regs
-+{
-+    uint32_t r0;
-+    uint32_t r1;
-+    uint32_t r2;
-+    uint32_t r3;
-+    uint32_t r4;
-+    uint32_t r5;
-+    uint32_t r6;
-+    uint32_t r7;
-+    uint32_t r8;
-+    uint32_t r9;
-+    uint32_t r10;
-+    union {
-+        uint32_t r11;
-+        uint32_t fp;
-+    };
-+    uint32_t r12;
-+
-+    uint32_t sp; /* r13 - SP: Valid for Hyp. frames only, o/w banked (see below) */
-+
-+    /* r14 - LR: is the same physical register as LR_usr */
-+    union {
-+        uint32_t lr; /* r14 - LR: Valid for Hyp. Same physical register as lr_usr. */
-+
-+        uint32_t lr_usr;
-+    };
-+
-+    union {  /* Return IP, pc32 is used to allow code to be common with 64-bit */
-+        uint32_t pc, pc32;
-+    };
-+    uint32_t cpsr; /* Return mode */
-+    uint32_t hsr;  /* Exception Syndrome */
-+
-+    /* Outer guest frame only from here on... */
-+
-+    uint32_t sp_usr; /* LR_usr is the same register as LR, see above */
-+
-+    uint32_t sp_irq, lr_irq;
-+    uint32_t sp_svc, lr_svc;
-+    uint32_t sp_abt, lr_abt;
-+    uint32_t sp_und, lr_und;
-+
-+    uint32_t r8_fiq, r9_fiq, r10_fiq, r11_fiq, r12_fiq;
-+    uint32_t sp_fiq, lr_fiq;
-+
-+    uint32_t spsr_svc, spsr_abt, spsr_und, spsr_irq, spsr_fiq;
-+
-+    uint32_t pad1; /* Doubleword-align the user half of the frame */
-+};
-+
-+#endif /* XTF_ARM32_REGS_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/arm64/regs.h b/arch/arm/include/arch/arm64/regs.h
-new file mode 100644
-index 0000000..8e18ae0
---- /dev/null
-+++ b/arch/arm/include/arch/arm64/regs.h
-@@ -0,0 +1,100 @@
-+/**
-+ * @file arch/arm/include/arch/arm64/regs.h
-+ *
-+ * arm64 CPU user registers.
-+ */
-+#ifndef XTF_ARM64_REGS_H
-+#define XTF_ARM64_REGS_H
-+
-+#include <xtf/types.h>
-+
++#if defined(__GNUC__) && !defined(__STRICT_ANSI__)
 +/* Anonymous union includes both 32- and 64-bit names (e.g., r0/x0). */
-+#define __DECL_REG(n64, n32) union {            \
-+    uint64_t n64;                               \
-+    uint32_t n32;                               \
-+}
++# define __DECL_REG(n64, n32) union {          \
++        uint64_t n64;                          \
++        uint32_t n32;                          \
++    }
++#else
++/* Non-gcc sources must always use the proper 64-bit name (e.g., x0). */
++#define __DECL_REG(n64, n32) uint64_t n64
++#endif
 +
-+/* On stack VCPU state */
-+struct cpu_regs
++struct vcpu_guest_core_regs
 +{
-+    /*
-+     * The mapping AArch64 <-> AArch32 is based on D1.20.1 in ARM DDI
-+     * 0487A.d.
-+     *
-+     *         AArch64       AArch32
-+     */
-+    __DECL_REG(x0,           r0/*_usr*/);
-+    __DECL_REG(x1,           r1/*_usr*/);
-+    __DECL_REG(x2,           r2/*_usr*/);
-+    __DECL_REG(x3,           r3/*_usr*/);
-+    __DECL_REG(x4,           r4/*_usr*/);
-+    __DECL_REG(x5,           r5/*_usr*/);
-+    __DECL_REG(x6,           r6/*_usr*/);
-+    __DECL_REG(x7,           r7/*_usr*/);
-+    __DECL_REG(x8,           r8/*_usr*/);
-+    __DECL_REG(x9,           r9/*_usr*/);
-+    __DECL_REG(x10,          r10/*_usr*/);
-+    __DECL_REG(x11 ,         r11/*_usr*/);
-+    __DECL_REG(x12,          r12/*_usr*/);
++    /*         Aarch64       Aarch32 */
++    __DECL_REG(x0,           r0_usr);
++    __DECL_REG(x1,           r1_usr);
++    __DECL_REG(x2,           r2_usr);
++    __DECL_REG(x3,           r3_usr);
++    __DECL_REG(x4,           r4_usr);
++    __DECL_REG(x5,           r5_usr);
++    __DECL_REG(x6,           r6_usr);
++    __DECL_REG(x7,           r7_usr);
++    __DECL_REG(x8,           r8_usr);
++    __DECL_REG(x9,           r9_usr);
++    __DECL_REG(x10,          r10_usr);
++    __DECL_REG(x11,          r11_usr);
++    __DECL_REG(x12,          r12_usr);
 +
-+    __DECL_REG(x13,          /* r13_usr */ sp_usr);
-+    __DECL_REG(x14,          /* r14_usr */ lr_usr);
++    __DECL_REG(x13,          sp_usr);
++    __DECL_REG(x14,          lr_usr);
 +
-+    __DECL_REG(x15,          /* r13_hyp */ __unused_sp_hyp);
++    __DECL_REG(x15,          __unused_sp_hyp);
 +
-+    __DECL_REG(x16,          /* r14_irq */ lr_irq);
-+    __DECL_REG(x17,          /* r13_irq */ sp_irq);
++    __DECL_REG(x16,          lr_irq);
++    __DECL_REG(x17,          sp_irq);
 +
-+    __DECL_REG(x18,          /* r14_svc */ lr_svc);
-+    __DECL_REG(x19,          /* r13_svc */ sp_svc);
++    __DECL_REG(x18,          lr_svc);
++    __DECL_REG(x19,          sp_svc);
 +
-+    __DECL_REG(x20,          /* r14_abt */ lr_abt);
-+    __DECL_REG(x21,          /* r13_abt */ sp_abt);
++    __DECL_REG(x20,          lr_abt);
++    __DECL_REG(x21,          sp_abt);
 +
-+    __DECL_REG(x22,          /* r14_und */ lr_und);
-+    __DECL_REG(x23,          /* r13_und */ sp_und);
++    __DECL_REG(x22,          lr_und);
++    __DECL_REG(x23,          sp_und);
 +
 +    __DECL_REG(x24,          r8_fiq);
 +    __DECL_REG(x25,          r9_fiq);
 +    __DECL_REG(x26,          r10_fiq);
 +    __DECL_REG(x27,          r11_fiq);
 +    __DECL_REG(x28,          r12_fiq);
-+    __DECL_REG(/* x29 */ fp, /* r13_fiq */ sp_fiq);
 +
-+    __DECL_REG(/* x30 */ lr, /* r14_fiq */ lr_fiq);
-+
-+    uint64_t sp; /* Valid for hypervisor frames */
++    __DECL_REG(x29,          sp_fiq);
++    __DECL_REG(x30,          lr_fiq);
 +
 +    /* Return address and mode */
-+    __DECL_REG(pc,           pc32);             /* ELR_EL2 */
++    __DECL_REG(pc64,         pc32);             /* ELR_EL2 */
 +    uint32_t cpsr;                              /* SPSR_EL2 */
-+    uint32_t hsr;                               /* ESR_EL2 */
-+
-+    /* Outer guest frame only from here on... */
 +
 +    union {
 +        uint32_t spsr_el1;       /* AArch64 */
 +        uint32_t spsr_svc;       /* AArch32 */
 +    };
-+
-+    uint32_t pad1; /* Doubleword-align the user half of the frame */
 +
 +    /* AArch32 guests only */
 +    uint32_t spsr_fiq, spsr_irq, spsr_und, spsr_abt;
@@ -444,518 +666,192 @@ index 0000000..8e18ae0
 +    uint64_t sp_el0;
 +    uint64_t sp_el1, elr_el1;
 +};
++typedef struct vcpu_guest_core_regs vcpu_guest_core_regs_t;
++DEFINE_XEN_GUEST_HANDLE(vcpu_guest_core_regs_t);
 +
-+#endif /* XTF_ARM64_REGS_H */
++#undef __DECL_REG
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/asm_macros.h b/arch/arm/include/arch/asm_macros.h
-new file mode 100644
-index 0000000..39e1d16
---- /dev/null
-+++ b/arch/arm/include/arch/asm_macros.h
-@@ -0,0 +1,21 @@
-+/**
-+ * @file arch/arm/include/arch/asm_macros.h
-+ *
-+ * Macros for use in arm assembly files.
-+ */
-+#ifndef XTF_ARM_ASM_MACROS_H
-+#define XTF_ARM_ASM_MACROS_H
++struct vcpu_guest_context {
++#define _VGCF_online                   0
++#define VGCF_online                    (1<<_VGCF_online)
++    uint32_t flags;                         /* VGCF_* */
 +
-+#define ALIGN .align 2
++    struct vcpu_guest_core_regs user_regs;  /* Core CPU registers */
 +
-+#endif /* XTF_ARM_ASM_MACROS_H */
++    uint64_t sctlr;
++    uint64_t ttbcr, ttbr0, ttbr1;
++};
++typedef struct vcpu_guest_context vcpu_guest_context_t;
++DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
 +
 +/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
++ * struct xen_arch_domainconfig's ABI is covered by
++ * XEN_DOMCTL_INTERFACE_VERSION.
 + */
-diff --git a/arch/arm/include/arch/barrier.h b/arch/arm/include/arch/barrier.h
-new file mode 100644
-index 0000000..b84c922
---- /dev/null
-+++ b/arch/arm/include/arch/barrier.h
-@@ -0,0 +1,41 @@
-+/**
-+ * @file arch/arm/include/arch/barrier.h
-+ *
-+ * arm memory barriers.
-+ */
-+#ifndef XTF_ARM_BARRIER_H
-+#define XTF_ARM_BARRIER_H
++#define XEN_DOMCTL_CONFIG_GIC_NATIVE    0
++#define XEN_DOMCTL_CONFIG_GIC_V2        1
++#define XEN_DOMCTL_CONFIG_GIC_V3        2
 +
-+#include <xtf/compiler.h>
++#define XEN_DOMCTL_CONFIG_TEE_NONE      0
++#define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
 +
-+#define isb()           __asm__ __volatile__ ("isb" : : : "memory")
-+#define dsb(scope)      __asm__ __volatile__ ("dsb " #scope : : : "memory")
-+#define dmb(scope)      __asm__ __volatile__ ("dmb " #scope : : : "memory")
-+
-+#define mb()            dsb(sy)
-+#ifdef CONFIG_ARM_64
-+#define rmb()           dsb(ld)
-+#else
-+#define rmb()           dsb(sy)
-+#endif
-+#define wmb()           dsb(st)
-+
-+#define smp_mb()        dmb(ish)
-+#ifdef CONFIG_ARM_64
-+#define smp_rmb()       dmb(ishld)
-+#else
-+#define smp_rmb()       dmb(ish)
-+#endif
-+#define smp_wmb()       dmb(ishst)
-+
-+#endif /* XTF_ARM_BARRIER_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/bitops.h b/arch/arm/include/arch/bitops.h
-new file mode 100644
-index 0000000..524b9f7
---- /dev/null
-+++ b/arch/arm/include/arch/bitops.h
-@@ -0,0 +1,45 @@
-+/**
-+ * @file arch/arm/include/arch/bitops.h
-+ *
-+ * Low level bit operations.
-+ */
-+#ifndef XTF_ARM_BITOPS_H
-+#define XTF_ARM_BITOPS_H
-+
-+#include <xtf/lib.h>
-+
-+static inline bool test_bit(unsigned int bit, const void *addr)
-+{
-+    UNIMPLEMENTED();
-+    return false;
-+}
-+
-+static inline bool test_and_set_bit(unsigned int bit, volatile void *addr)
-+{
-+    UNIMPLEMENTED();
-+    return false;
-+}
-+
-+static inline bool test_and_change_bit(unsigned int bit, volatile void *addr)
-+{
-+    UNIMPLEMENTED();
-+    return false;
-+}
-+
-+static inline bool test_and_clear_bit(unsigned int bit, volatile void *addr)
-+{
-+    UNIMPLEMENTED();
-+    return false;
-+}
-+
-+#endif /* XTF_ARM_BITOPS_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/config.h b/arch/arm/include/arch/config.h
-new file mode 100644
-index 0000000..2ccc71e
---- /dev/null
-+++ b/arch/arm/include/arch/config.h
-@@ -0,0 +1,37 @@
-+/**
-+ * @file arch/arm/include/arch/config.h
-+ *
-+ * A Linux-style configuration list.
-+ */
-+#ifndef XTF_ARM_CONFIG_H
-+#define XTF_ARM_CONFIG_H
-+
-+#define XTF_VIRT_START 0x40000000
-+
-+#if defined(CONFIG_ENV_arm64)
-+#define CONFIG_ARM              1
-+#define CONFIG_ARM_64           1
-+#define CONFIG_64BIT            1
-+#define ENVIRONMENT_DESCRIPTION "ARM64"
-+#undef CONFIG_ENV_arm64
-+#elif defined(CONFIG_ENV_arm32)
-+#define CONFIG_ARM              1
-+#define CONFIG_ARM_32           1
-+#define CONFIG_32BIT            1
-+#define ENVIRONMENT_DESCRIPTION "ARM32"
-+#undef CONFIG_ENV_arm32
-+#else
-+#error "Bad environment"
-+#endif
-+
-+#endif /* XTF_ARM_CONFIG_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/desc.h b/arch/arm/include/arch/desc.h
-new file mode 100644
-index 0000000..f4ea8b3
---- /dev/null
-+++ b/arch/arm/include/arch/desc.h
-@@ -0,0 +1,16 @@
-+/**
-+ * @file arch/arm/include/arch/desc.h
-+ */
-+#ifndef XTF_ARM_DESC_H
-+#define XTF_ARM_DESC_H
-+
-+#endif /* XTF_ARM_DESC_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/div.h b/arch/arm/include/arch/div.h
-new file mode 100644
-index 0000000..3038430
---- /dev/null
-+++ b/arch/arm/include/arch/div.h
-@@ -0,0 +1,35 @@
-+/**
-+ * @file arch/arm/include/arch/div.h
-+ */
-+#ifndef XTF_ARM_DIV_H
-+#define XTF_ARM_DIV_H
-+
-+#include <xtf/lib.h>
-+
-+/*
-+ * Divide a 64bit number by 32bit divisor without software support.
-+ *
-+ * The dividend is modified in place, and the modulus is returned.
-+ */
-+static inline uint32_t divmod64(uint64_t *dividend, uint32_t divisor)
-+{
-+#if defined(CONFIG_ARM_64)
-+    uint32_t remainder = *dividend % divisor;
-+    *dividend = *dividend / divisor;
-+    return remainder;
-+#else
-+    UNIMPLEMENTED();
-+#endif
-+}
-+
-+#endif /* XTF_ARM_DIV_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/extable.h b/arch/arm/include/arch/extable.h
-new file mode 100644
-index 0000000..9560b96
---- /dev/null
-+++ b/arch/arm/include/arch/extable.h
-@@ -0,0 +1,19 @@
-+/**
-+ * @file arch/arm/include/arch/extable.h
-+ *
-+ * Common arm exception table helper functions.
-+ */
-+#ifndef XTF_ARM64_EXTABLE_H
-+#define XTF_ARM64_EXTABLE_H
-+
-+#endif /* XTF_ARM_EXTABLE_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/hypercall.h b/arch/arm/include/arch/hypercall.h
-new file mode 100644
-index 0000000..660b2d6
---- /dev/null
-+++ b/arch/arm/include/arch/hypercall.h
-@@ -0,0 +1,39 @@
-+/**
-+ * @file arch/arm/include/arch/hypercall.h
-+ *
-+ * Hypercall primitives for arm.
-+ */
-+#ifndef XTF_ARM_HYPERCALL_H
-+#define XTF_ARM_HYPERCALL_H
-+
-+#include <xtf/lib.h>
-+
-+#define _hypercall_1(type, hcall, a1)           \
-+    ({                                          \
-+        UNIMPLEMENTED();                        \
-+        (type)0;                                \
-+    })
-+
-+#define _hypercall_2(type, hcall, a1, a2)       \
-+    ({                                          \
-+        UNIMPLEMENTED();                        \
-+        (type)0;                                \
-+    })
-+
-+#define _hypercall_3(type, hcall, a1, a2, a3)   \
-+    ({                                          \
-+        UNIMPLEMENTED();                        \
-+        (type)0;                                \
-+    })
-+
-+#endif /* XTF_ARM_HYPERCALL_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/page.h b/arch/arm/include/arch/page.h
-new file mode 100644
-index 0000000..508b3ef
---- /dev/null
-+++ b/arch/arm/include/arch/page.h
-@@ -0,0 +1,23 @@
-+/**
-+ * @file arch/arm/include/arch/page.h
-+ */
-+#ifndef XTF_ARM_PAGE_H
-+#define XTF_ARM_PAGE_H
-+
-+#include <xtf/numbers.h>
-+
-+#define PAGE_SHIFT      12
-+#define PAGE_SIZE       (_AC(1, L) << PAGE_SHIFT)
-+#define PAGE_MASK       (~(PAGE_SIZE - 1))
-+
-+#endif /* XTF_ARM_PAGE_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/regs.h b/arch/arm/include/arch/regs.h
-new file mode 100644
-index 0000000..704e8e6
---- /dev/null
-+++ b/arch/arm/include/arch/regs.h
-@@ -0,0 +1,25 @@
-+/**
-+ * @file arch/arm/include/arch/regs.h
-+ *
-+ * arm CPU user registers.
-+ */
-+#ifndef XTF_ARM_REGS_H
-+#define XTF_ARM_REGS_H
-+
-+#if defined(CONFIG_ARM_64)
-+#include <arch/arm64/regs.h>
-+#else
-+#include <arch/arm32/regs.h>
-+#endif
-+
-+#endif /* XTF_ARM_REGS_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/traps.h b/arch/arm/include/arch/traps.h
-new file mode 100644
-index 0000000..8c42064
---- /dev/null
-+++ b/arch/arm/include/arch/traps.h
-@@ -0,0 +1,22 @@
-+/**
-+ * @file arch/arm/include/arch/traps.h
-+ */
-+#ifndef XTF_ARM_TRAPS_H
-+#define XTF_ARM_TRAPS_H
-+
-+#include <xtf/compiler.h>
-+#include <xen/xen.h>
-+
-+void __noreturn arch_crash_hard(void);
-+
-+#endif /* XTF_ARM_TRAPS_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/include/arch/xtf.h b/arch/arm/include/arch/xtf.h
-new file mode 100644
-index 0000000..7b25617
---- /dev/null
-+++ b/arch/arm/include/arch/xtf.h
-@@ -0,0 +1,17 @@
-+/**
-+ * @file arch/arm/include/arch/xtf.h
-+ */
-+#ifndef XTF_ARM_XTF_H
-+#define XTF_ARM_XTF_H
-+
-+#endif /* XTF_ARM_XTF_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/arch/arm/link.lds.S b/arch/arm/link.lds.S
-new file mode 100644
-index 0000000..3160cf1
---- /dev/null
-+++ b/arch/arm/link.lds.S
-@@ -0,0 +1,58 @@
-+#include <arch/page.h>
-+
-+#if defined(__arm__)
-+OUTPUT_ARCH(arm)
-+OUTPUT_FORMAT("elf32-littlearm")
-+#elif defined(__aarch64__)
-+OUTPUT_ARCH(aarch64)
-+OUTPUT_FORMAT("elf64-littleaarch64")
-+#endif
-+
-+ENTRY(_start)
-+
-+SECTIONS
-+{
-+    . = XTF_VIRT_START;
-+    _text = .;
-+
-+    .text : {
-+        *(.text)
-+    }
-+
-+    . = ALIGN(PAGE_SIZE);
-+
-+    .data : {
-+        *(.data)
-+
-+    . = ALIGN(PAGE_SIZE);
-+        *(.data.page_aligned)
-+    }
-+
-+    . = ALIGN(PAGE_SIZE);
-+
-+    .rodata : {
-+        *(.rodata)
-+        *(.rodata.*)
-+    }
-+
-+    . = ALIGN(PAGE_SIZE);
-+
-+    .bss : {
-+        __start_bss = .;
-+        *(.bss)
-+
-+    . = ALIGN(PAGE_SIZE);
-+        *(.bss.page_aligned)
-+
-+        __end_bss = .;
-+    }
-+
-+    _end = .;
-+
++struct xen_arch_domainconfig {
++    /* IN/OUT */
++    uint8_t gic_version;
++    /* IN */
++    uint16_t tee_type;
++    /* IN */
++    uint32_t nr_spis;
 +    /*
-+     * It is possible for a GNU linker to add a .note.gnu.build-id section
-+     * before .text which causes zimage header to be shifted resulting in
-+     * a bad magic. Discard this section to prevent errors.
++     * OUT
++     * Based on the property clock-frequency in the DT timer node.
++     * The property may be present when the bootloader/firmware doesn't
++     * set correctly CNTFRQ which hold the timer frequency.
++     *
++     * As it's not possible to trap this register, we have to replicate
++     * the value in the guest DT.
++     *
++     * = 0 => property not present
++     * > 0 => Value of the property
++     *
 +     */
-+    /DISCARD/ : { *(.note.gnu.build-id) }
-+}
-diff --git a/arch/arm/setup.c b/arch/arm/setup.c
-new file mode 100644
-index 0000000..bc5669d
---- /dev/null
-+++ b/arch/arm/setup.c
-@@ -0,0 +1,28 @@
-+/**
-+ * @file arch/arm/setup.c
++    uint32_t clock_frequency;
++};
++
++struct arch_vcpu_info {
++};
++typedef struct arch_vcpu_info arch_vcpu_info_t;
++
++struct arch_shared_info {
++};
++typedef struct arch_shared_info arch_shared_info_t;
++typedef uint64_t xen_callback_t;
++
++#endif
++
++/* PSR bits (CPSR, SPSR) */
++
++#define PSR_THUMB       (1<<5)        /* Thumb Mode enable */
++#define PSR_FIQ_MASK    (1<<6)        /* Fast Interrupt mask */
++#define PSR_IRQ_MASK    (1<<7)        /* Interrupt mask */
++#define PSR_ABT_MASK    (1<<8)        /* Asynchronous Abort mask */
++#define PSR_BIG_ENDIAN  (1<<9)        /* arm32: Big Endian Mode */
++#define PSR_DBG_MASK    (1<<9)        /* arm64: Debug Exception mask */
++#define PSR_IT_MASK     (0x0600fc00)  /* Thumb If-Then Mask */
++#define PSR_JAZELLE     (1<<24)       /* Jazelle Mode */
++
++/* 32 bit modes */
++#define PSR_MODE_USR 0x10
++#define PSR_MODE_FIQ 0x11
++#define PSR_MODE_IRQ 0x12
++#define PSR_MODE_SVC 0x13
++#define PSR_MODE_MON 0x16
++#define PSR_MODE_ABT 0x17
++#define PSR_MODE_HYP 0x1a
++#define PSR_MODE_UND 0x1b
++#define PSR_MODE_SYS 0x1f
++
++/* 64 bit modes */
++#define PSR_MODE_BIT  0x10 /* Set iff AArch32 */
++#define PSR_MODE_EL3h 0x0d
++#define PSR_MODE_EL3t 0x0c
++#define PSR_MODE_EL2h 0x09
++#define PSR_MODE_EL2t 0x08
++#define PSR_MODE_EL1h 0x05
++#define PSR_MODE_EL1t 0x04
++#define PSR_MODE_EL0t 0x00
++
++#define PSR_GUEST32_INIT  (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MODE_SVC)
++#define PSR_GUEST64_INIT (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MODE_EL1h)
++
++#define SCTLR_GUEST_INIT    xen_mk_ullong(0x00c50078)
++
++/*
++ * Virtual machine platform (memory layout, interrupts)
 + *
-+ * Early bringup code for arm.
++ * These are defined for consistency between the tools and the
++ * hypervisor. Guests must not rely on these hardcoded values but
++ * should instead use the FDT.
 + */
-+#include <xtf/lib.h>
 +
-+const char environment_description[] = ENVIRONMENT_DESCRIPTION;
++/* Physical Address Space */
 +
-+void arch_setup(void)
-+{
-+    UNIMPLEMENTED();
-+}
++/*
++ * vGIC mappings: Only one set of mapping is used by the guest.
++ * Therefore they can overlap.
++ */
 +
-+void test_setup(void)
-+{
-+    UNIMPLEMENTED();
-+}
++/* vGIC v2 mappings */
++#define GUEST_GICD_BASE   xen_mk_ullong(0x03001000)
++#define GUEST_GICD_SIZE   xen_mk_ullong(0x00001000)
++#define GUEST_GICC_BASE   xen_mk_ullong(0x03002000)
++#define GUEST_GICC_SIZE   xen_mk_ullong(0x00002000)
++
++/* vGIC v3 mappings */
++#define GUEST_GICV3_GICD_BASE      xen_mk_ullong(0x03001000)
++#define GUEST_GICV3_GICD_SIZE      xen_mk_ullong(0x00010000)
++
++#define GUEST_GICV3_RDIST_REGIONS  1
++
++#define GUEST_GICV3_GICR0_BASE     xen_mk_ullong(0x03020000) /* vCPU0..127 */
++#define GUEST_GICV3_GICR0_SIZE     xen_mk_ullong(0x01000000)
++
++/* ACPI tables physical address */
++#define GUEST_ACPI_BASE xen_mk_ullong(0x20000000)
++#define GUEST_ACPI_SIZE xen_mk_ullong(0x02000000)
++
++/* PL011 mappings */
++#define GUEST_PL011_BASE    xen_mk_ullong(0x22000000)
++#define GUEST_PL011_SIZE    xen_mk_ullong(0x00001000)
++
++/*
++ * 16MB == 4096 pages reserved for guest to use as a region to map its
++ * grant table in.
++ */
++#define GUEST_GNTTAB_BASE xen_mk_ullong(0x38000000)
++#define GUEST_GNTTAB_SIZE xen_mk_ullong(0x01000000)
++
++#define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
++#define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
++
++#define GUEST_RAM_BANKS   2
++
++#define GUEST_RAM0_BASE   xen_mk_ullong(0x40000000) /* 3GB of low RAM @ 1GB */
++#define GUEST_RAM0_SIZE   xen_mk_ullong(0xc0000000)
++
++#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of RAM @ 8GB */
++#define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
++
++#define GUEST_RAM_BASE    GUEST_RAM0_BASE /* Lowest RAM address */
++/* Largest amount of actual RAM, not including holes */
++#define GUEST_RAM_MAX     (GUEST_RAM0_SIZE + GUEST_RAM1_SIZE)
++/* Suitable for e.g. const uint64_t ramfoo[] = GUEST_RAM_BANK_FOOS; */
++#define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
++#define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
++
++/* Current supported guest VCPUs */
++#define GUEST_MAX_VCPUS 128
++
++/* Interrupts */
++#define GUEST_TIMER_VIRT_PPI    27
++#define GUEST_TIMER_PHYS_S_PPI  29
++#define GUEST_TIMER_PHYS_NS_PPI 30
++#define GUEST_EVTCHN_PPI        31
++
++#define GUEST_VPL011_SPI        32
++
++/* PSCI functions */
++#define PSCI_cpu_suspend 0
++#define PSCI_cpu_off     1
++#define PSCI_cpu_on      2
++#define PSCI_migrate     3
++
++#ifndef __ASSEMBLY__
++/* Stub definition of PMU structure */
++typedef struct xen_pmu_arch { uint8_t dummy; } xen_pmu_arch_t;
++#endif
++
++#endif /*  XEN_PUBLIC_ARCH_ARM_H */
 +
 +/*
 + * Local variables:
@@ -966,34 +862,186 @@ index 0000000..bc5669d
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/arch/arm/traps.c b/arch/arm/traps.c
-new file mode 100644
-index 0000000..f4ad807
---- /dev/null
-+++ b/arch/arm/traps.c
-@@ -0,0 +1,22 @@
-+/**
-+ * @file arch/arm/traps.c
-+ *
-+ * arm trap handlers.
-+ */
-+#include <xtf/traps.h>
-+#include <xtf/lib.h>
+diff --git a/include/xen/xen.h b/include/xen/xen.h
+index 877f2f0..60af17c 100644
+--- a/include/xen/xen.h
++++ b/include/xen/xen.h
+@@ -7,6 +7,8 @@
+ 
+ #if defined(__i386__) || defined(__x86_64__)
+ #include "arch-x86/xen.h"
++#elif defined(__arm__) || defined (__aarch64__)
++#include "arch-arm.h"
+ #else
+ #error Bad architecture
+ #endif
+diff --git a/include/xtf/hypercall.h b/include/xtf/hypercall.h
+index acda592..7cf8a9d 100644
+--- a/include/xtf/hypercall.h
++++ b/include/xtf/hypercall.h
+@@ -22,6 +22,13 @@
+ # define HYPERCALL3 _hypercall32_3
+ # define HYPERCALL4 _hypercall32_4
+ 
++#elif defined(__aarch64__) || defined(__arm__)
 +
-+void __noreturn arch_crash_hard(void)
++#include <arch/hypercall.h>
++# define HYPERCALL1 _hypercall_1
++# define HYPERCALL2 _hypercall_2
++# define HYPERCALL3 _hypercall_3
++
+ #else
+ # error Bad architecture for hypercalls
+ #endif
+@@ -48,6 +55,10 @@ extern uint8_t hypercall_page[PAGE_SIZE];
+ /*
+  * Hypercall primatives, compiled for the correct bitness
+  */
++
++/* x86 specific hypercalls */
++#if defined(__x86_64__) || defined(__i386__)
++
+ static inline long hypercall_set_trap_table(const struct xen_trap_info *ti)
+ {
+     return HYPERCALL1(long, __HYPERVISOR_set_trap_table, ti);
+@@ -83,17 +94,6 @@ static inline long hypercall_update_descriptor(uint64_t maddr, user_desc desc)
+ #endif
+ }
+ 
+-static inline long hypercall_memory_op(unsigned int cmd, void *arg)
+-{
+-    return HYPERCALL2(long, __HYPERVISOR_memory_op, cmd, arg);
+-}
+-
+-static inline long hypercall_multicall(struct multicall_entry *list,
+-                                       unsigned int nr)
+-{
+-    return HYPERCALL2(long, __HYPERVISOR_multicall, list, nr);
+-}
+-
+ /*
+  * This hypercall is misnamed in the Xen ABI, and actually operates on a
+  * linear address, not a virtual address.
+@@ -109,6 +109,34 @@ static inline long hypercall_update_va_mapping(
+ #endif
+ }
+ 
++static inline long hypercall_mmuext_op(const mmuext_op_t ops[],
++                                       unsigned int count,
++                                       unsigned int *done,
++                                       unsigned int foreigndom)
 +{
-+    UNIMPLEMENTED();
++    return HYPERCALL4(long, __HYPERVISOR_mmuext_op,
++                      ops, count, done, foreigndom);
 +}
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
++static inline long hypercall_callback_op(unsigned int cmd, const void *arg)
++{
++    return HYPERCALL2(long, __HYPERVISOR_callback_op, cmd, arg);
++}
++
++#endif /* defined(__x86_64__) || defined(__i386__) */
++
++/* Common hypercalls */
++static inline long hypercall_memory_op(unsigned int cmd, void *arg)
++{
++    return HYPERCALL2(long, __HYPERVISOR_memory_op, cmd, arg);
++}
++
++static inline long hypercall_multicall(struct multicall_entry *list,
++                                       unsigned int nr)
++{
++    return HYPERCALL2(long, __HYPERVISOR_multicall, list, nr);
++}
++
+ static inline long hypercall_xen_version(unsigned int cmd, void *arg)
+ {
+     return HYPERCALL2(long, __HYPERVISOR_xen_version, cmd, arg);
+@@ -131,25 +159,11 @@ static inline long hypercall_vcpu_op(unsigned int cmd, unsigned int vcpu,
+     return HYPERCALL3(long, __HYPERVISOR_vcpu_op, cmd, vcpu, extra);
+ }
+ 
+-static inline long hypercall_mmuext_op(const mmuext_op_t ops[],
+-                                       unsigned int count,
+-                                       unsigned int *done,
+-                                       unsigned int foreigndom)
+-{
+-    return HYPERCALL4(long, __HYPERVISOR_mmuext_op,
+-                      ops, count, done, foreigndom);
+-}
+-
+ static inline long hypercall_sched_op(unsigned int cmd, void *arg)
+ {
+     return HYPERCALL2(long, __HYPERVISOR_sched_op, cmd, arg);
+ }
+ 
+-static inline long hypercall_callback_op(unsigned int cmd, const void *arg)
+-{
+-    return HYPERCALL2(long, __HYPERVISOR_callback_op, cmd, arg);
+-}
+-
+ static inline long hypercall_event_channel_op(unsigned int cmd, void *arg)
+ {
+     return HYPERCALL2(long, __HYPERVISOR_event_channel_op, cmd, arg);
+@@ -173,6 +187,18 @@ static inline long hypercall_sysctl(xen_sysctl_t *arg)
+ /*
+  * Higher level hypercall helpers
+  */
++
++/* x86 specific hypercall helpers */
++#if defined(__x86_64__) || defined(__i386__)
++
++static inline int hypercall_register_callback(const xen_callback_register_t *arg)
++{
++    return hypercall_callback_op(CALLBACKOP_register, arg);
++}
++
++#endif /* defined(__x86_64__) || defined(__i386__) */
++
++/* Common hypercall helpers */
+ static inline void hypercall_console_write(const char *buf, unsigned long count)
+ {
+     (void)HYPERCALL3(long, __HYPERVISOR_console_io, CONSOLEIO_write, count, buf);
+@@ -195,11 +221,6 @@ static inline long hypercall_poll(evtchn_port_t port)
+     return hypercall_sched_op(SCHEDOP_poll, &poll);
+ }
+ 
+-static inline int hypercall_register_callback(const xen_callback_register_t *arg)
+-{
+-    return hypercall_callback_op(CALLBACKOP_register, arg);
+-}
+-
+ static inline int hypercall_evtchn_send(evtchn_port_t port)
+ {
+     return hypercall_event_channel_op(EVTCHNOP_send, &port);
+diff --git a/include/xtf/lib.h b/include/xtf/lib.h
+index 3348464..8afdcf2 100644
+--- a/include/xtf/lib.h
++++ b/include/xtf/lib.h
+@@ -5,9 +5,9 @@
+ #include <xtf/console.h>
+ #include <xtf/types.h>
+ 
+-#if defined(__i386__)
++#if defined(__i386__) || defined(__arm__)
+ # define BYTES_PER_LONG 4
+-#elif defined(__x86_64__)
++#elif defined(__x86_64__) || defined(__aarch64__)
+ # define BYTES_PER_LONG 8
+ #else
+ # errror Bad width
+@@ -36,6 +36,11 @@ void __noreturn panic(const char *fmt, ...) __printf(1, 2);
+     ((void)sizeof(struct { char: -!!(cond); }))
+ #endif
+ 
++#define UNIMPLEMENTED() do {                            \
++    panic("Unimplemented function -> %s:%u\n",          \
++          __FILE__, __LINE__);                          \
++} while(0)
++
+ #define min(a, b)                                       \
+     ({                                                  \
+         const typeof(a) _a = (a);                       \
 -- 
 2.29.0
 
