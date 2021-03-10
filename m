@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D155A3335B0
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 07:08:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95856.180945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3609C333605
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 07:51:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95863.180972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJs02-0000kZ-Bk; Wed, 10 Mar 2021 06:07:14 +0000
+	id 1lJsgS-0005Ci-Uq; Wed, 10 Mar 2021 06:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95856.180945; Wed, 10 Mar 2021 06:07:14 +0000
+Received: by outflank-mailman (output) from mailman id 95863.180972; Wed, 10 Mar 2021 06:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJs02-0000kA-8U; Wed, 10 Mar 2021 06:07:14 +0000
-Received: by outflank-mailman (input) for mailman id 95856;
- Wed, 10 Mar 2021 06:07:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8s4R=II=alien8.de=bp@srs-us1.protection.inumbo.net>)
- id 1lJs00-0000k5-Pf
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 06:07:12 +0000
-Received: from mail.skyhub.de (unknown [5.9.137.197])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ad481ac3-204b-4ed9-97c0-e238f8d67c5a;
- Wed, 10 Mar 2021 06:07:11 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f0a99002de44af59edd037d.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f0a:9900:2de4:4af5:9edd:37d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E62DF1EC0473;
- Wed, 10 Mar 2021 07:07:09 +0100 (CET)
+	id 1lJsgS-0005CJ-Ri; Wed, 10 Mar 2021 06:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 95863;
+ Wed, 10 Mar 2021 06:51:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Iqsa=II=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lJsgQ-0005By-Kl
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 06:51:02 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id d49f1c06-0e90-4f1b-afdd-b5a4e7b0965c;
+ Wed, 10 Mar 2021 06:51:00 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E96061FB;
+ Tue,  9 Mar 2021 22:50:59 -0800 (PST)
+Received: from [10.57.15.227] (unknown [10.57.15.227])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 424493F70D;
+ Tue,  9 Mar 2021 22:50:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,105 +41,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad481ac3-204b-4ed9-97c0-e238f8d67c5a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1615356430;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=BzBbQnXUuiDK+nmPzIwIGL4n/Loc18opf7QU0fcWCJI=;
-	b=EFBzBnX3lsz0uqv3rvfnAcgyzAPvVERZQvmn6qwVVk3XZ7ShVAeGR0lCSjJr6bRb2Z6d5m
-	loNpBlkOf+e6lbtfnVNg9sMVA12nr5iwtTNQ4pYnEi+mB9nQxRqVvotZuQGZvt5WwBhuqD
-	676DJkplf/Co08k5EvawCocwKqd5DV0=
-Date: Wed, 10 Mar 2021 07:07:05 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
-Message-ID: <20210310060705.GB23521@zn.tnic>
-References: <20210309134813.23912-1-jgross@suse.com>
- <20210309134813.23912-5-jgross@suse.com>
+X-Inumbo-ID: d49f1c06-0e90-4f1b-afdd-b5a4e7b0965c
+Subject: Re: [PATCH v2] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, bertrand.marquis@arm.com,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <20210308135937.1692-1-michal.orzel@arm.com>
+ <745c5049-fb09-5605-8bc1-838a4def45d6@xen.org>
+ <3353ecf1-3a76-70ee-0475-b7eed90c783c@arm.com>
+ <d7fc35e8-fe09-d78b-7f8b-7e30c58662cb@xen.org>
+ <1a1c8cf1-4c41-7fe2-ef4c-4f92d5b956c8@suse.com>
+ <dabb851d-fc67-7291-e7d1-ffab4276b8ea@xen.org>
+ <4a2a8caa-fc13-e18d-6c60-02f3597dc9f9@arm.com>
+ <d8fcf052-077c-5dde-2cb9-5c4c68abc3ff@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <fdcf15d1-e452-3746-6591-e211c994aea8@arm.com>
+Date: Wed, 10 Mar 2021 07:50:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <d8fcf052-077c-5dde-2cb9-5c4c68abc3ff@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20210309134813.23912-5-jgross@suse.com>
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 09, 2021 at 02:48:05PM +0100, Juergen Gross wrote:
-> Add support for alternative patching for the case a feature is not
-> present on the current cpu.
+
+
+On 09.03.2021 15:18, Jan Beulich wrote:
+> On 09.03.2021 14:55, Michal Orzel wrote:
+>>
+>>
+>> On 09.03.2021 14:32, Julien Grall wrote:
+>>>
+>>>
+>>> On 09/03/2021 11:07, Jan Beulich wrote:
+>>>> On 09.03.2021 11:20, Julien Grall wrote:
+>>>>> On 09/03/2021 07:34, Michal Orzel wrote:
+>>>>>> On 08.03.2021 15:31, Julien Grall wrote:
+>>>>>>> On 08/03/2021 13:59, Michal Orzel wrote:
+>>>>>>>> --- a/xen/arch/arm/Makefile
+>>>>>>>> +++ b/xen/arch/arm/Makefile
+>>>>>>>> @@ -68,7 +68,7 @@ extra-y += $(TARGET_SUBARCH)/head.o
+>>>>>>>>       #obj-bin-y += ....o
+>>>>>>>>     -ifdef CONFIG_DTB_FILE
+>>>>>>>> +ifneq ($(CONFIG_DTB_FILE),"")
+>>>>>>>>     obj-y += dtb.o
+>>>>>>>>     AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+>>>>>>>>     endif
+>>>>>>>> @@ -137,8 +137,6 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+>>>>>>>>     xen.lds: xen.lds.S
+>>>>>>>>         $(CPP) -P $(a_flags) -MQ $@ -o $@ $<
+>>>>>>>>     -dtb.o: $(CONFIG_DTB_FILE)
+>>>>>>>> -
+>>>>>>>
+>>>>>>> Why is this dropped?
+>>>>>> 1)This line is not needed as it has no impact on creating dtb.o
+>>>>>> 2)It causes the build failure once CONFIG_DTB_FILE option is in the Kconfig as string within quotes.
+>>>>>
+>>>>> Because of 1), this should have ideally be part of a separate patch. But
+>>>>> I am OK to keep it in this patch so long it is explained in the commit
+>>>>> message.
+>>>>
+>>>> Wasn't the intention to have dtb.o re-compiled when the blob
+>>>> has changed? This would be lost with the removal of this line.
+>>>
+>>> Ah yes. I was only thinking about a name change (this would be caught via the update of the config header) and not a file update.
+>>>
+>> I already pushed v3 but I agree. Something like this would do the job:
+>> dtb.o: $(subst $\",,$(CONFIG_DTB_FILE))
+>> to remove quotes
 > 
-> For users of ALTERNATIVE() and friends an inverted feature is specified
-> by applying the ALT_NOT() macro to it, e.g.:
+> Besides struggling with the $\", may I suggest
+> $(patsubst "%",%,$(CONFIG_DTB_FILE))? If the double quote needs
+> special treatment, I think it wants to be done via an abstraction
+> similar to squote (near the top of ./Config.mk).
 > 
-> ALTERNATIVE(old, new, ALT_NOT(feature))
+The line $(patsubst "%",%,$(CONFIG_DTB_FILE)) is sufficient.
+I checked and dtb.o is recompiled when the blob is changed.
+I will fix it in v4
+> Jan
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V5:
-> - split off from next patch
-> - reworked to use flag byte (Boris Petkov)
-> V6:
-> - rework again to not use flag byte (Boris Petkov)
-> ---
->  arch/x86/include/asm/alternative-asm.h |  3 +++
->  arch/x86/include/asm/alternative.h     |  3 +++
->  arch/x86/kernel/alternative.c          | 19 ++++++++++++++-----
->  3 files changed, 20 insertions(+), 5 deletions(-)
-
-LGTM, minor touchups I'd do ontop:
-
----
-
-diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/alternative.h
-index 89889618ae01..fd205cdcfbad 100644
---- a/arch/x86/include/asm/alternative.h
-+++ b/arch/x86/include/asm/alternative.h
-@@ -55,18 +55,18 @@
- 	".long 999b - .\n\t"					\
- 	".popsection\n\t"
- 
-+#define ALTINSTR_FLAG_INV	(1 << 15)
-+#define ALT_NOT(feat)		((feat) | ALTINSTR_FLAG_INV)
-+
- struct alt_instr {
- 	s32 instr_offset;	/* original instruction */
- 	s32 repl_offset;	/* offset to replacement instruction */
- 	u16 cpuid;		/* cpuid bit set for replacement */
--#define ALTINSTR_FLAG_INV (1 << 15)
- 	u8  instrlen;		/* length of original instruction */
- 	u8  replacementlen;	/* length of new instruction */
- 	u8  padlen;		/* length of build-time padding */
- } __packed;
- 
--#define ALT_NOT(feat)	((feat) | ALTINSTR_FLAG_INV)
--
- /*
-  * Debug flag that can be tested to see whether alternative
-  * instructions were patched in already:
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index d8e669a1546f..133b549dc091 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -397,9 +397,10 @@ void __init_or_module noinline apply_alternatives(struct alt_instr *start,
- 		BUG_ON(feature >= (NCAPINTS + NBUGINTS) * 32);
- 
- 		/*
--		 * Drop out if either:
--		 * - feature not available, but required, or
--		 * - feature available, but NOT required
-+		 * Patch if either:
-+		 * - feature is present
-+		 * - feature not present but ALTINSTR_FLAG_INV is set to mean,
-+		 *   patch if feature is *NOT* present.
- 		 */
- 		if (!boot_cpu_has(feature) == !(a->cpuid & ALTINSTR_FLAG_INV)) {
- 			if (a->padlen > 1)
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Michal
 
