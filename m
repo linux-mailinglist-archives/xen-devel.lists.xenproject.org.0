@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39EA93345BC
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 18:53:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96253.181948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7A1433463F
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 19:06:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96257.181966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK30o-0006cr-9y; Wed, 10 Mar 2021 17:52:46 +0000
+	id 1lK3DG-0007kd-IX; Wed, 10 Mar 2021 18:05:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96253.181948; Wed, 10 Mar 2021 17:52:46 +0000
+Received: by outflank-mailman (output) from mailman id 96257.181966; Wed, 10 Mar 2021 18:05:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK30o-0006cS-6T; Wed, 10 Mar 2021 17:52:46 +0000
-Received: by outflank-mailman (input) for mailman id 96253;
- Wed, 10 Mar 2021 17:52:44 +0000
+	id 1lK3DG-0007kE-FB; Wed, 10 Mar 2021 18:05:38 +0000
+Received: by outflank-mailman (input) for mailman id 96257;
+ Wed, 10 Mar 2021 18:05:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lK30m-0006cN-QW
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 17:52:44 +0000
+ (envelope-from <julien@xen.org>) id 1lK3DF-0007k9-E5
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 18:05:37 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lK30l-0007V9-Ln; Wed, 10 Mar 2021 17:52:43 +0000
+ id 1lK3DE-0007on-5q; Wed, 10 Mar 2021 18:05:36 +0000
 Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lK30l-0002Ey-CY; Wed, 10 Mar 2021 17:52:43 +0000
+ id 1lK3DD-00038u-SF; Wed, 10 Mar 2021 18:05:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,125 +43,109 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Y+Jnnzkn2oABqEgNjtJPldwx3KVGV20n3G6bUgGAgJg=; b=pEloDGqOpsKLUeysr04r4Z0L1u
-	88eDOgabPg7LxJuwaVwKtiIlU+R7bmd0vXL/2lrKlyWc9cjUcycexjEsInYfLhuFZEbVS5ovguQRV
-	6Bt+uXSvJk9M1OOhSkN4tXTNfx23EMyVmM2Nj3hxCCbVYtneBcenBOA4EjKLnzKuAhds=;
-Subject: Re: [PATCH][4.15] gnttab: work around "may be used uninitialized"
- warning
+	bh=rVBK4deqEcBvSLxBe5QpT9AXxRZruW155bQgWbiYJdc=; b=OFFWacnzMFi1Wx1arQHOfS5HXh
+	egpK2GP75hpIBC8nyMgNbrK/4IpUQHkUJ3o88oiyTzzALu+y5omocn9jPQeqUjCkAfPnSKhvH/m9x
+	7s3YCpaf6uqg7a/TVqA6Gywppl5RecNtWMxA7wtnTv2bScLZsXwiaAXZbHFGwfHmjJr0=;
+Subject: Re: [PATCH for-4.15] xen: Bump the minimum version of GCC supported
+ to 4.9 (5.1 on arm64)
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <a6b73c54-3010-6716-cac3-8f3b462a4dc7@suse.com>
- <ec2b85b6-072d-481d-3b02-c8dedf043dac@xen.org>
- <6bd14438-7dec-2176-eab5-5898f190c4d8@suse.com>
+ xen-devel@lists.xenproject.org
+References: <20210306214148.27021-1-julien@xen.org>
+ <1897022d-7591-3450-4e57-884a2860b13d@suse.com>
+ <7fd07dc9-9c03-bb13-3907-c3c268a4e970@xen.org>
+ <2de5160f-8636-5cdf-a20c-acaa2640c893@suse.com>
+ <e4ea36f5-7aca-e19d-5e78-45058b13697b@xen.org>
+ <e1176ad2-0a66-3a6d-c053-f0da9d4ae35f@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <e45ef012-22c6-b480-d987-dd951ae36948@xen.org>
-Date: Wed, 10 Mar 2021 17:52:41 +0000
+Message-ID: <7ab87cab-8836-e8a0-993e-0cdeca3c45e3@xen.org>
+Date: Wed, 10 Mar 2021 18:05:34 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <6bd14438-7dec-2176-eab5-5898f190c4d8@suse.com>
+In-Reply-To: <e1176ad2-0a66-3a6d-c053-f0da9d4ae35f@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 Hi Jan,
 
-On 10/03/2021 16:21, Jan Beulich wrote:
-> On 10.03.2021 15:58, Julien Grall wrote:
->> On 10/03/2021 10:13, Jan Beulich wrote:
->>> Sadly I was wrong to suggest dropping vaddrs' initializer during review
->>> of v2 of the patch introducing this code. gcc 4.3 can't cope.
+On 09/03/2021 11:20, Jan Beulich wrote:
+> On 08.03.2021 21:22, Julien Grall wrote:
+>> On 08/03/2021 11:20, Jan Beulich wrote:
+>>> On 08.03.2021 11:51, Julien Grall wrote:
+>>>> On 08/03/2021 08:09, Jan Beulich wrote:
+>>>>> Additionally - partly related to your own reply regarding the CI
+>>>>> failures - imo there needs to be an analysis of what older distros
+>>>>> will no longer build (at all or by default).
+>>>>
+>>>> Per the CI, this would be Ubuntu Trusty (and older), Centos 7 (and older)
+>>>>
+>>>> Do you have any other in mind?
+>>>
+>>> Our SLE12 (latest service pack is SP5 and still has a while to go
+>>> to at least reach LTSS state) comes with gcc 4.8 as the default
+>>> compiler.
 >>
->> What's the error?
+>> Thanks! That's good to know. Is it the old GCC Suse supports?
 > 
-> The one quoted in the title.
+> Not sure I understand the question: The default compiler of this or
+> any distro is of course (expected to be) supported by the vendor
+> for the lifetime of the OS.
+
+Sorry for the wording. I was asking whether Suse also supports compiler 
+older than GCC 4.8.
+
 > 
->> Are you sure this is not going to hiding a potential
->> miscompilation of the function?
-> 
-> Miscompilation? It may hide us screwing up, but addressing such a
-> compiler warning by adding an initializer has been quite common
-> in the past.
-
-Well... When a compiler tells me a value may be unitialized, I read it 
-as some optimization may decide to use the variable in a way I wasn't 
-expected.
-
->>> --- a/xen/common/grant_table.c
->>> +++ b/xen/common/grant_table.c
->>> @@ -4026,7 +4026,7 @@ int gnttab_acquire_resource(
->>>        struct grant_table *gt = d->grant_table;
->>>        unsigned int i, final_frame;
->>>        mfn_t tmp;
->>> -    void **vaddrs;
->>> +    void **vaddrs = NULL;
->> I am a bit nervous to inialize vaddrs to NULL for a few reasons:
->>     1) It is not 100% obvious (e.g. it takes more than a second) that
->> vaddrs will always be initialized.
-> 
-> But convincing ourselves was necessary even more so prior to this
-> change. We must not ever rely on the compiler to tell us about
-> issues in our code. We can only leverage that in some cases it
-> does.
-
-I didn't suggest that we should only rely on the compiler. I pointed out 
-that we are telling the compiler to not worry. This may hide a valid 
-concern from the compiler.
-
-> From this it (I think obviously) follows that without the
-> initializer we're at bigger risk than with it.
-
-I thought deferencing a NULL pointer was still a concern for PV?
-
-For the other setup, I agree that it would only lead to a crash rather 
-than dereferencing anything. Yet I am not convinced this is that much 
-better...
-
->>     2) A compiler will not be able to help us if we are adding code
->> without initialized vaddrs.
+>>>>>> --- a/xen/include/xen/compiler.h
+>>>>>> +++ b/xen/include/xen/compiler.h
+>>>>>> @@ -5,6 +5,19 @@
+>>>>>>     #error Sorry, your compiler is too old/not recognized.
+>>>>>>     #endif
+>>>>>>     
+>>>>>> +#if CONFIG_CC_IS_GCC
+>>>>>> +# if CONFIG_GCC_VERSION < 40900
+>>>>>> +/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145 */
+>>>>>
+>>>>> As per the bug report, the issue was determined to not be present
+>>>>> in e.g. 4.3. Hence while such a bug may influence our choice of
+>>>>> minimum version, I don't think it can reasonably be named here as
+>>>>> the apparent only reason for the choice. Personally I don't think
+>>>>> any justification should be put here.
+>>>>
+>>>> Ok.
+>>>>
+>>>>>
+>>>>>> +#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
+>>>>>> +# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
+>>>>>> +/*
+>>>>>> + * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
+>>>>>> + * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
+>>>>>> + */
+>>>>>> +#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
+>>>>>
+>>>>>    From the bug entry the fix looks to have been backported to 4.9,
+>>>>> or at least some (important?) branches thereof.
+>>>>
+>>>> It is not clear what's you are trying to point out. Mind clarifying?
+>>>
+>>> Some 4.9 compilers (perhaps widely used ones) may not have the bad
+>>> issue, which puts under question their ruling out when the main
+>>> reason for doing so is that bug.
 >>
->> It also feels wrong to me to try to write Xen in a way that will make a
->> 10 years compiler happy...
+>> Well... We could surely try to hunt which GCC 4.9 has been fixed. But I
+>> am not convinced this is useful, we would need to have an allowlist of
+>> GCC compiler.
 > 
-> As said above - we've worked around limitations quite a few times
-> in the past. This is just one more instance.
+> Or probe the compiler for the bug in question.
 
-I find amusing you wrote that when you complained multiple time when 
-someone was re-using existing bad pattern. :)
+I thought about it but it is not clear to me whether the reproducer 
+would work on every GCC version and how to detect that this was miscompiled.
 
-> 
->> If we still want to support them, then maybe a better approach would be
->> to turn off to turn off -Werror for some version of GCC. So we can
->> continue to benefit from the newer compiler diagnostics.
-> 
-> Avoiding use of -Werror is not an option imo: Once you start seeing
-> warnings, you have only two options imo: Either one decides to ignore
-> them all (and then one will also ignore new ones introduce by changes
-> yet to be submitted), or one would have to memorize, for every build
-> one does, which warnings one ought to ignore. The latter doesn't
-> scale, while the former is a code quality problem. >
-> Suppressing a particular class of warning might be an option, but
-> again risks somebody submitting code which elsewhere would trigger
-> warnings.
-
-This is pretty much what we are already doing slowly by initializing 
-values to shut up older compilers. I agree this is more limited, but we 
-also waive off diagnostics from every single compiler in that code 
-rather than just one version.
-
-Hence why I suggested dropping -Werror for older compiler. This is not 
-ideal but it would give us the ability to keep support for dinausor 
-compiler and not hamper our ability to take advantage of newer compiler 
-diagnostics.
-
-The ideal solution is to drop support for older compiler (see my other 
-thread). But this sounds like a daunting task so far on x86...
-
-Anyway, I will not Nack the patch but will also not Ack it. I will let 
-another maintainer ack this patch.
+Do you have any suggestion?
 
 Cheers,
 
