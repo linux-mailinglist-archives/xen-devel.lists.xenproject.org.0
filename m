@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDAD933380C
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 10:00:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95917.181114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9D99333851
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 10:09:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95921.181126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJuho-0001Y7-G2; Wed, 10 Mar 2021 09:00:36 +0000
+	id 1lJuq7-0001pz-Al; Wed, 10 Mar 2021 09:09:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95917.181114; Wed, 10 Mar 2021 09:00:36 +0000
+Received: by outflank-mailman (output) from mailman id 95921.181126; Wed, 10 Mar 2021 09:09:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJuho-0001Xi-Cg; Wed, 10 Mar 2021 09:00:36 +0000
-Received: by outflank-mailman (input) for mailman id 95917;
- Wed, 10 Mar 2021 09:00:34 +0000
+	id 1lJuq7-0001pZ-78; Wed, 10 Mar 2021 09:09:11 +0000
+Received: by outflank-mailman (input) for mailman id 95921;
+ Wed, 10 Mar 2021 09:09:08 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=W5NQ=II=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJuhm-0001Xd-HU
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 09:00:34 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=N3c2=II=citrix.com=ross.lagerwall@srs-us1.protection.inumbo.net>)
+ id 1lJuq4-0001pU-RV
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 09:09:08 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4dbb345b-2d2f-4102-be7e-1182ff352c7e;
- Wed, 10 Mar 2021 09:00:33 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 71417AD74;
- Wed, 10 Mar 2021 09:00:32 +0000 (UTC)
+ id 5a4fab66-27ae-4504-9f4f-fb36d0266568;
+ Wed, 10 Mar 2021 09:09:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,57 +36,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dbb345b-2d2f-4102-be7e-1182ff352c7e
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615366832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OTr2wJ5XeMutAszimHjmu47PkcDW5hHRBQjZt8mVSBE=;
-	b=jnyNuuc9Hr1M7Nwv8X/M/5ZoKNtyV+V81d3dMNVVBDpt/zVuppKbkUUTu2x3bhBKLzbPh8
-	ceE5OyMpAKa2vycxcxdGJVEEFU9F+HhgpSC/IzPWOkfurnInEPRC60Wc/n/0yx/fGBUqtn
-	1jYaClbOK2ZwseedzUuBUcDY/xJaLOg=
-Subject: Re: [PATCH v4] arm: Add Kconfig entry to select CONFIG_DTB_FILE
-To: Michal Orzel <michal.orzel@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, bertrand.marquis@arm.com,
- xen-devel@lists.xenproject.org
-References: <20210310065803.348-1-michal.orzel@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3247ee1d-f843-7c74-20a4-315716a91097@suse.com>
-Date: Wed, 10 Mar 2021 10:00:32 +0100
+X-Inumbo-ID: 5a4fab66-27ae-4504-9f4f-fb36d0266568
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1615367347;
+  h=subject:from:to:cc:references:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=4VmRMA+z46nfmAF79aPtxD7G3DEltQtHlbCtG5CBYG4=;
+  b=DSNSKvuHi4szfT/QUYdsiFs1Nsx6SBK2uN4tmgDCRiYNb4oIl3FH+JCE
+   4WdwxUsthHP4JuKnp9CZXu3+xmkcb0ZxowUPWT3eBOc6O/myBl6B4myBb
+   d8whet+j3qX4o+D7dkktlmmUasyZZI3lY0xl9jDQgBnXX4dWTiFSdaoxD
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +BTeAh8Uamfyx7JXECtHe4MHBr+LasAM5IXnbCFVbC7EHr7AXjhpZ2DwltkQWS/F20JUriuzsK
+ yA5Ums4mSHCc8c4kJo1ffSBruToMR/0xTG6++UDBIcucvS/OvayHRSpbeMhDloJihYTntaNyfa
+ jqEn4uvZWBAZ+riECrRqYQ3GbIVyT8sXD7xh9a04GX7/ut8T9qZklS1VhoeCKg5MZXjDg8V1Yx
+ 2w+5DjAbQJ9y7wGBDeYwVdahccCzVTRTFQyNi3lPb7BZqcVSOErEkrrdzjhPrJtpRcNvfkEfvQ
+ zxE=
+X-SBRS: 4.0
+X-MesageID: 38931597
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.81,237,1610427600"; 
+   d="scan'208";a="38931597"
+Subject: Re: [PATCH v4 2/3] xen/events: don't unmask an event channel when an
+ eoi is pending
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, <stable@vger.kernel.org>,
+	Julien Grall <julien@xen.org>, Julien Grall <jgrall@amazon.com>
+References: <20210306161833.4552-1-jgross@suse.com>
+ <20210306161833.4552-3-jgross@suse.com>
+ <ff9fb99f-12ca-c04e-e4bc-1b1c67381cc2@oracle.com>
+ <d6a1ab2e-4b77-7b14-e397-74aa71efb70d@suse.com>
+ <b6d41422-47cf-956c-9c4a-98998c64b103@citrix.com>
+Message-ID: <3880be9d-1176-8beb-b192-20078cd39038@citrix.com>
+Date: Wed, 10 Mar 2021 09:08:34 +0000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210310065803.348-1-michal.orzel@arm.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <b6d41422-47cf-956c-9c4a-98998c64b103@citrix.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.03.2021 07:58, Michal Orzel wrote:
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -400,6 +400,14 @@ config DOM0_MEM
->  
->  	  Leave empty if you are not sure what to specify.
->  
-> +config DTB_FILE
-> +	string "Absolute path to device tree blob"
-> +	depends on HAS_DEVICE_TREE
-> +	---help---
-> +	  When using a bootloader that has no device tree support or when there
-> +	  is no bootloader at all, use this option to specify the absolute path
-> +	  to a device tree that will be linked directly inside Xen binary.
+On 2021-03-09 08:57, Ross Lagerwall wrote:
+> On 2021-03-09 05:14, Jürgen Groß wrote:
+>> On 08.03.21 21:33, Boris Ostrovsky wrote:
+>>>
+>>> On 3/6/21 11:18 AM, Juergen Gross wrote:
+>>>> An event channel should be kept masked when an eoi is pending for it.
+>>>> When being migrated to another cpu it might be unmasked, though.
+>>>>
+>>>> In order to avoid this keep three different flags for each event channel
+>>>> to be able to distinguish "normal" masking/unmasking from eoi related
+>>>> masking/unmasking and temporary masking. The event channel should only
+>>>> be able to generate an interrupt if all flags are cleared.
+>>>>
+>>>> Cc: stable@vger.kernel.org
+>>>> Fixes: 54c9de89895e0a36047 ("xen/events: add a new late EOI evtchn framework")
+>>>> Reported-by: Julien Grall <julien@xen.org>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> Reviewed-by: Julien Grall <jgrall@amazon.com>
+>>>> ---
+>>>> V2:
+>>>> - introduce a lock around masking/unmasking
+>>>> - merge patch 3 into this one (Jan Beulich)
+>>>> V4:
+>>>> - don't set eoi masking flag in lateeoi_mask_ack_dynirq()
+>>>
+>>>
+>>> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>>>
+>>>
+>>> Ross, are you planning to test this?
+>>
+>> Just as another data point: With the previous version of the patches
+>> a reboot loop of a guest needed max 33 reboots to loose network in
+>> my tests (those were IIRC 6 test runs). With this patch version I
+>> stopped the test after about 1300 reboots without having seen any
+>> problems.
+>>
+> 
+> Thanks, I'll test it today and get back to you.
+> 
 
-Nit: Linux, iirc, has dropped support for ---help--- (allowing
-only help now). To limit churn whenever we're going to re-sync
-our kconfig again, I'd like to avoid introduction of new uses
-of the old form. I'm sure this could be taken care of while
-committing.
+Tested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-Jan
+The updated patch seems fine in testing.
+
+Thanks
+Ross
 
