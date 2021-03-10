@@ -2,31 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B193339D3
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 11:20:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95951.181204 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E565E3339E4
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 11:24:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95954.181216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJvwz-00012f-9M; Wed, 10 Mar 2021 10:20:21 +0000
+	id 1lJw15-0001Cj-R1; Wed, 10 Mar 2021 10:24:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95951.181204; Wed, 10 Mar 2021 10:20:21 +0000
+Received: by outflank-mailman (output) from mailman id 95954.181216; Wed, 10 Mar 2021 10:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJvwz-00012I-5l; Wed, 10 Mar 2021 10:20:21 +0000
-Received: by outflank-mailman (input) for mailman id 95951;
- Wed, 10 Mar 2021 10:20:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=W5NQ=II=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lJvwx-00012D-UX
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 10:20:19 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d56b667a-1de8-4d05-8854-626f3910cfe3;
- Wed, 10 Mar 2021 10:20:18 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 48FCFAC24;
- Wed, 10 Mar 2021 10:20:17 +0000 (UTC)
+	id 1lJw15-0001CK-Nd; Wed, 10 Mar 2021 10:24:35 +0000
+Received: by outflank-mailman (input) for mailman id 95954;
+ Wed, 10 Mar 2021 10:24:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wmYj=II=amazon.com=prvs=696d233ab=famzheng@srs-us1.protection.inumbo.net>)
+ id 1lJw14-0001CF-7k
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 10:24:34 +0000
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6e72d90d-d512-4648-8c16-c0064fc13ff5;
+ Wed, 10 Mar 2021 10:24:32 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
+ 10 Mar 2021 10:24:25 +0000
+Received: from EX13D38EUB001.ant.amazon.com
+ (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
+ by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
+ id BB253A2840; Wed, 10 Mar 2021 10:24:23 +0000 (UTC)
+Received: from EX13D38EUB001.ant.amazon.com (10.43.166.110) by
+ EX13D38EUB001.ant.amazon.com (10.43.166.110) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 10 Mar 2021 10:24:22 +0000
+Received: from EX13D38EUB001.ant.amazon.com ([10.43.166.110]) by
+ EX13D38EUB001.ant.amazon.com ([10.43.166.110]) with mapi id 15.00.1497.012;
+ Wed, 10 Mar 2021 10:24:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,70 +48,76 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d56b667a-1de8-4d05-8854-626f3910cfe3
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615371617; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W+LCkCzG3w3GXCtXrY1m7wP3TiuaQHK4fpn65yDyRWw=;
-	b=C5mDVrvjISQFRPrX08rPJm3NOJUIdY0VafVFVhvTlwZ1vJOFsJi5qfAMrSctH7QLNnMGkt
-	gIscOjxijQHUNgBHHZJVVzB7YJUELRgVWYtDJPX/wER9iKzBo/mIfqy8I/c5uQ7XdVN0n4
-	kL5TYFRllaIDYMsGkzWH9pAwFnvDtDQ=
-Subject: Re: [PATCH v3 for-4.15] x86/msr: introduce an option for compatible
- MSR behavior selection
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20210309105634.7200-1-roger.pau@citrix.com>
- <dbf31ab3-bae4-0b86-9bb6-bdd4e66e155b@citrix.com>
- <YEiSXWDSo4WVuwas@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0371bfa5-7dd5-9ce2-ca1d-20e7f850938d@suse.com>
-Date: Wed, 10 Mar 2021 11:20:16 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-MIME-Version: 1.0
-In-Reply-To: <YEiSXWDSo4WVuwas@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+X-Inumbo-ID: 6e72d90d-d512-4648-8c16-c0064fc13ff5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1615371874; x=1646907874;
+  h=from:to:cc:date:message-id:references:in-reply-to:
+   content-id:content-transfer-encoding:mime-version:subject;
+  bh=FvSvjguTLFZ1hhfb8GXwvVIqK8Ngn1VmFVpzPrk+vtc=;
+  b=K4ExUeoDZtZss8ExAfsspXeKWi45YoAWrZQZElNQ0pRvE+g4ywE2618N
+   Eaj/6W/sGjcOPwgPykB9D8H5KHQJADMQqPYtBu2ZS4BFpAA4kx+dzv1Ya
+   FB8ztVOFLW4tJDDfNZrArJYHrU4Ac0ONZtOvBidjgfhaWo24lQcySC6db
+   Q=;
+X-IronPort-AV: E=Sophos;i="5.81,237,1610409600"; 
+   d="scan'208";a="91705831"
+Subject: Re: [PATCH for-4.15] xen: Bump the minimum version of GCC supported to 4.9
+ (5.1 on arm64)
+Thread-Topic: [PATCH for-4.15] xen: Bump the minimum version of GCC supported to 4.9 (5.1
+ on arm64)
+From: "Zheng, Fam" <famzheng@amazon.com>
+To: "roger.pau@citrix.com" <roger.pau@citrix.com>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>
+CC: "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
+	"anthony.perard@citrix.com" <anthony.perard@citrix.com>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, "cardoe@cardoe.com"
+	<cardoe@cardoe.com>, "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+	"julien@xen.org" <julien@xen.org>, "wl@xen.org" <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Index: AQHXEt09VDRvSzcs2kGB8AY7OydLi6p4fe6AgAJbNYCAAJiMAIAAB66AgADGvICAAJ7QAIAAKm8A
+Date: Wed, 10 Mar 2021 10:24:22 +0000
+Message-ID: <985f49e153789ff2428a7b3f47a0b2557bf23c97.camel@amazon.com>
+References: <161507188317.11025.6744028462008264481@c667a6b167f6>
+	 <af575951-9d48-09da-d120-a6120ca29ead@xen.org>
+	 <alpine.DEB.2.21.2103081654030.16374@sstabellini-ThinkPad-T480s>
+	 <10b8048a-e8fe-1fcd-7291-7f1b16da2f4c@xen.org>
+	 <YEdOz4B4rtXbjKOS@Air-de-Roger>
+	 <alpine.DEB.2.21.2103091423470.16374@sstabellini-ThinkPad-T480s>
+	 <YEh6vmXV8bdhcC1U@Air-de-Roger>
+In-Reply-To: <YEh6vmXV8bdhcC1U@Air-de-Roger>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.166.52]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <8D6519B30EEBE64592AE9E0AC0D73F42@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 
-On 10.03.2021 10:33, Roger Pau Monné wrote:
-> On Tue, Mar 09, 2021 at 07:13:26PM +0000, Andrew Cooper wrote:
->> On 09/03/2021 10:56, Roger Pau Monne wrote:
->>> --- a/xen/include/public/arch-x86/xen.h
->>> +++ b/xen/include/public/arch-x86/xen.h
->>> @@ -304,6 +304,14 @@ struct xen_arch_domainconfig {
->>>                                       XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
->>>                                       XEN_X86_EMU_VPCI)
->>>      uint32_t emulation_flags;
->>> +
->>> +/*
->>> + * Select whether to use a relaxed behavior for accesses to MSRs not explicitly
->>> + * handled by Xen instead of injecting a #GP to the guest. Note this option
->>> + * doesn't allow the guest to read or write to the underlying MSR.
->>> + */
->>> +#define XEN_X86_MSR_RELAXED (1u << 0)
->>> +    uint32_t domain_flags;
->>
->> The domain prefix is somewhat redundant, given the name of the structure
->> or the hypercall it is used for.  OTOH, 'flags' on its own probably
->> isn't ok.  Thoughts on misc_flags?
-> 
-> I'm fine with it, will change unless Jan objects to the name.
-
-I'm fine with the suggestion.
-
-Jan
+T24gV2VkLCAyMDIxLTAzLTEwIGF0IDA4OjUyICswMTAwLCBSb2dlciBQYXUgTW9ubsOpIHdyb3Rl
+Og0KPiBDQVVUSU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBv
+cmdhbml6YXRpb24uIERvDQo+IG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVu
+bGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhlIHNlbmRlcg0KPiBhbmQga25vdyB0aGUgY29udGVudCBp
+cyBzYWZlLg0KPiANCj4gDQo+IA0KPiBPbiBUdWUsIE1hciAwOSwgMjAyMSBhdCAwMjoyNDowNVBN
+IC0wODAwLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6DQo+ID4gT24gVHVlLCA5IE1hciAyMDIx
+LCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOg0KPiA+ID4gT24gVHVlLCBNYXIgMDksIDIwMjEgYXQg
+MTA6MDU6MThBTSArMDAwMCwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPiA+ID4gPiBIaSBTdGVmYW5v
+LA0KPiA+ID4gPiANCj4gPiA+ID4gT24gMDkvMDMvMjAyMSAwMDo1OSwgU3RlZmFubyBTdGFiZWxs
+aW5pIHdyb3RlOg0KPiA+ID4gPiA+IE9uIFN1biwgNyBNYXIgMjAyMSwgSnVsaWVuIEdyYWxsIHdy
+b3RlOg0KPiA+ID4gPiA+ID4gT24gMDYvMDMvMjAyMSAyMzowNCwgbm8tcmVwbHlAcGF0Y2hldy5v
+cmcgd3JvdGU6DQo+ID4gPiANCj4gPiA+IFdoZXJlIGRvZXMgb25lIGhhcyB0byByZWdpc3RlciB0
+byBnZXQgdGhlIHBhdGNoZXcgYnVpbGQgZmFpbHVyZXM/DQo+ID4gDQo+ID4gQnkgYXNraW5nIEZh
+bSAoQ0MnZWQpIHZlcnkgbmljZWx5IDotKQ0KPiANCj4gVGhhbmtzISBDb3VsZCB3ZSBtYXliZSBz
+ZXR1cCBhIG1haWxpbmcgbGlzdCBmb3IgdGhvc2UgZW1haWxzPyBpZToNCj4gcGF0Y2hldy10ZXN0
+c0AuLi4gb3Igc29tZSBzdWNoLCBzbyB0aGF0IHdlIGRvbid0IGhhdmUgdG8gZ28gYWRkaW5nDQo+
+IHBlb3BsZSBtYW51YWxseT8NCj4gDQo+IFJvZ2VyLg0KDQpUaGUgaWRlYSAoSSB0aGluaykgaXMg
+dG8gZ3JvdXAgcmVwbHkgYWxsIG9uY2Ugd2UgZmVlbCBjb21mb3J0YWJsZSB3aXRoDQp0aGUgZmFs
+c2UgcG9zaXRpdmUgcmF0ZS4gQnV0IGEgc2VwYXJhdGUgbWFpbGluZyBsaXN0IGlzIGFsc28gYSBn
+b29kDQphcHByb2FjaC4NCg0KSSdsbCBhZGQgeW91IGJ5IGhhbmQgZm9yIG5vdywgUm9nZXIuDQoN
+CkZhbQ0K
 
