@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC8B43336B1
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 08:52:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.95885.181031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B5993336D4
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 08:59:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.95891.181055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJte7-0002a2-Nx; Wed, 10 Mar 2021 07:52:43 +0000
+	id 1lJtkV-0002wz-MM; Wed, 10 Mar 2021 07:59:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 95885.181031; Wed, 10 Mar 2021 07:52:43 +0000
+Received: by outflank-mailman (output) from mailman id 95891.181055; Wed, 10 Mar 2021 07:59:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJte7-0002Zd-Jx; Wed, 10 Mar 2021 07:52:43 +0000
-Received: by outflank-mailman (input) for mailman id 95885;
- Wed, 10 Mar 2021 07:52:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lJtkV-0002wa-J3; Wed, 10 Mar 2021 07:59:19 +0000
+Received: by outflank-mailman (input) for mailman id 95891;
+ Wed, 10 Mar 2021 07:59:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YKvx=II=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lJte6-0002ZY-Bg
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 07:52:42 +0000
+ id 1lJtkT-0002wV-T5
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 07:59:17 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d94ed53f-f894-4c97-aa0b-37368bcb87d7;
- Wed, 10 Mar 2021 07:52:41 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 36f5c8db-ad70-4bcd-a149-5630803a2bcb;
+ Wed, 10 Mar 2021 07:59:16 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E5E6DAE44;
- Wed, 10 Mar 2021 07:52:40 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id EEB74AC1F;
+ Wed, 10 Mar 2021 07:59:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,141 +38,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d94ed53f-f894-4c97-aa0b-37368bcb87d7
+X-Inumbo-ID: 36f5c8db-ad70-4bcd-a149-5630803a2bcb
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615362761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615363156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fmagm0g6SG9wOn5qY9NDsKJhRGoqp/JA1hP32sWV3T4=;
-	b=VyZrbZQKMeSMXCTWCSyz0CqR7B2gWSK3gyj6vBitCnWoQi7styoaQILCubHOquaJugUypv
-	ovDZFEds58x63Nt44akxgZiZ4BSosHqqH92NNeihDJ/FNj5MIk3ysmnm9p42v5UM3/fAEh
-	IKGW1y8bpuZ2EbURSOq7bZEdO9hkQPE=
-Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-References: <20210309134813.23912-1-jgross@suse.com>
- <20210309134813.23912-5-jgross@suse.com> <20210310060705.GB23521@zn.tnic>
+	bh=bS2K/jVrybfRNQIhP9EwsP9/KS2Gkb2dfPR0vg+ZwOM=;
+	b=PMsgwoG4ty5KrDwrsG/9aiwWxK6Bv9nYeZvIizdcJqxOR6GmMwqwdEn12sLlwT/M8CcpJ7
+	mSeKSZhr6/QsRyCY4Ro/k7fZ2Dpbl/CWY1bWSaawGPUAyv0+GOhEWbjtS7M8eC7YEocMrJ
+	bE53DE31epetqXzr22riECI8bKPGbcg=
+Subject: Re: [PATCH] arm: replace typeof() with __typeof__()
+To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <202103092114.129LEgZp059925@m5p.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <1b95376a-56e1-ab3e-aa85-73a9d38aaaf7@suse.com>
-Date: Wed, 10 Mar 2021 08:52:40 +0100
+Message-ID: <c3f48c02-efaf-49cb-2375-931e381c9f5e@suse.com>
+Date: Wed, 10 Mar 2021 08:59:14 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210310060705.GB23521@zn.tnic>
+In-Reply-To: <202103092114.129LEgZp059925@m5p.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="dTWXoiEr2CUu22HQ0ZizVBKitnbXxMRRZ"
+ boundary="01dVxhajaTytwgGxlqX2QTfuzdHHI7jZ0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---dTWXoiEr2CUu22HQ0ZizVBKitnbXxMRRZ
-Content-Type: multipart/mixed; boundary="p5M5sLIHJQkn6BTbMQSaAVowf7JqkAJIS";
+--01dVxhajaTytwgGxlqX2QTfuzdHHI7jZ0
+Content-Type: multipart/mixed; boundary="Jl1KDn918pIqMaKsQIc9aKcNQ0J9wKUIM";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <1b95376a-56e1-ab3e-aa85-73a9d38aaaf7@suse.com>
-Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
-References: <20210309134813.23912-1-jgross@suse.com>
- <20210309134813.23912-5-jgross@suse.com> <20210310060705.GB23521@zn.tnic>
-In-Reply-To: <20210310060705.GB23521@zn.tnic>
+To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+Message-ID: <c3f48c02-efaf-49cb-2375-931e381c9f5e@suse.com>
+Subject: Re: [PATCH] arm: replace typeof() with __typeof__()
+References: <202103092114.129LEgZp059925@m5p.com>
+In-Reply-To: <202103092114.129LEgZp059925@m5p.com>
 
---p5M5sLIHJQkn6BTbMQSaAVowf7JqkAJIS
+--Jl1KDn918pIqMaKsQIc9aKcNQ0J9wKUIM
 Content-Type: multipart/mixed;
- boundary="------------67B61F63DAEE5E8820EB9FAE"
+ boundary="------------F18E2BDB436E224F6FF157CB"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------67B61F63DAEE5E8820EB9FAE
+--------------F18E2BDB436E224F6FF157CB
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 10.03.21 07:07, Borislav Petkov wrote:
-> On Tue, Mar 09, 2021 at 02:48:05PM +0100, Juergen Gross wrote:
->> Add support for alternative patching for the case a feature is not
->> present on the current cpu.
->>
->> For users of ALTERNATIVE() and friends an inverted feature is specifie=
-d
->> by applying the ALT_NOT() macro to it, e.g.:
->>
->> ALTERNATIVE(old, new, ALT_NOT(feature))
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->> V5:
->> - split off from next patch
->> - reworked to use flag byte (Boris Petkov)
->> V6:
->> - rework again to not use flag byte (Boris Petkov)
->> ---
->>   arch/x86/include/asm/alternative-asm.h |  3 +++
->>   arch/x86/include/asm/alternative.h     |  3 +++
->>   arch/x86/kernel/alternative.c          | 19 ++++++++++++++-----
->>   3 files changed, 20 insertions(+), 5 deletions(-)
+On 08.03.21 14:36, Elliott Mitchell wrote:
+> typeof() is available in Xen's build environment, which uses Xen's
+> compiler.  As these headers are public, they need strict standards
+> conformance.  Only __typeof__() is officially standardized.
 >=20
-> LGTM, minor touchups I'd do ontop:
+> A compiler in standards conformance mode should report:
 >=20
-> ---
+> warning: implicit declaration of function 'typeof' is invalid in C99
+> [-Wimplicit-function-declaration]
 >=20
-> diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/=
-alternative.h
-> index 89889618ae01..fd205cdcfbad 100644
-> --- a/arch/x86/include/asm/alternative.h
-> +++ b/arch/x86/include/asm/alternative.h
-> @@ -55,18 +55,18 @@
->   	".long 999b - .\n\t"					\
->   	".popsection\n\t"
->  =20
-> +#define ALTINSTR_FLAG_INV	(1 << 15)
-> +#define ALT_NOT(feat)		((feat) | ALTINSTR_FLAG_INV)
-> +
->   struct alt_instr {
->   	s32 instr_offset;	/* original instruction */
->   	s32 repl_offset;	/* offset to replacement instruction */
->   	u16 cpuid;		/* cpuid bit set for replacement */
-> -#define ALTINSTR_FLAG_INV (1 << 15)
->   	u8  instrlen;		/* length of original instruction */
->   	u8  replacementlen;	/* length of new instruction */
->   	u8  padlen;		/* length of build-time padding */
->   } __packed;
->  =20
-> -#define ALT_NOT(feat)	((feat) | ALTINSTR_FLAG_INV)
-> -
+> (this has been observed with FreeBSD's kernel build environment)
+>=20
+> Based-on-patch-by: Julien Grall <julien@xen.org>, Sun Oct 4 20:33:04 20=
+15 +0100
+> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
 
-Did you look at patch 13? :-)
-
->   /*
->    * Debug flag that can be tested to see whether alternative
->    * instructions were patched in already:
-> diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternativ=
-e.c
-> index d8e669a1546f..133b549dc091 100644
-> --- a/arch/x86/kernel/alternative.c
-> +++ b/arch/x86/kernel/alternative.c
-> @@ -397,9 +397,10 @@ void __init_or_module noinline apply_alternatives(=
-struct alt_instr *start,
->   		BUG_ON(feature >=3D (NCAPINTS + NBUGINTS) * 32);
->  =20
->   		/*
-> -		 * Drop out if either:
-> -		 * - feature not available, but required, or
-> -		 * - feature available, but NOT required
-> +		 * Patch if either:
-> +		 * - feature is present
-> +		 * - feature not present but ALTINSTR_FLAG_INV is set to mean,
-> +		 *   patch if feature is *NOT* present.
-
-Okay.
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------67B61F63DAEE5E8820EB9FAE
+--------------F18E2BDB436E224F6FF157CB
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -264,25 +205,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------67B61F63DAEE5E8820EB9FAE--
+--------------F18E2BDB436E224F6FF157CB--
 
---p5M5sLIHJQkn6BTbMQSaAVowf7JqkAJIS--
+--Jl1KDn918pIqMaKsQIc9aKcNQ0J9wKUIM--
 
---dTWXoiEr2CUu22HQ0ZizVBKitnbXxMRRZ
+--01dVxhajaTytwgGxlqX2QTfuzdHHI7jZ0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBIesgFAwAAAAAACgkQsN6d1ii/Ey8v
-Qwf+PVmZMZVTwfKPrQb5E1WzsyCFL0Gr06M/AR0VARJ5+OhMaH1oGGeSsE8Td0O7+R6P3m6+c4j2
-4vxCddjvA/a7Z5CBWOs70yOGK282YHUdSanfGGbWD0EE89h8IvxqIvpKIvedJZeaykynOFl2u3gp
-F7QUw8FzZMfuMeFMHTiOxrv0kJ797jvbzLjhZRIOxaStCMj2FAwqpSHfWANXwJ39POD3kO3n/dBc
-E2BCQSmYxijJUHHrUTcYk5bgVwbtVX1H7t47zru6RLWbjJkeYXENYYaXZjBQHh8dJTPFPJqWhbH7
-qNC1tndU9dCCQQvfB2c5MsMw9K8kcDvN600vlT5Npg==
-=bcO9
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBIfFMFAwAAAAAACgkQsN6d1ii/Ey9F
+8wf/R273QDIiEWInY5h1QnUYpJX2vIH0u9H0FPeTMDA6NUR+M9lQKvgxfS+J+rXG20rtlTOvOUrh
+0MIpLE57u07k05N+H9yTnIcsqLBXuplnUBRIr3vBaCy0llvVqaqwFzSEJD0nRZ+tIgDf2NN5eOgs
+w5dX58sVFBz4pVGS6u/moZR5Nh1sSYB25mIfb53/gvczUuhhgYF6N5uLN5bGHwCFyluMQlvg4sOm
+D7iXuIvhQuoc5e78Zy2m9t2guavp51VXV3uoqiU2FcTDVJCvzJMISbB7I5aEQl12BvAm6JvtSXua
+XMmYg2zZYsayARIz766eWWXimJCUpPo3GsWF/zJoCA==
+=DOOi
 -----END PGP SIGNATURE-----
 
---dTWXoiEr2CUu22HQ0ZizVBKitnbXxMRRZ--
+--01dVxhajaTytwgGxlqX2QTfuzdHHI7jZ0--
 
