@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D8A4333B1D
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 12:11:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96000.181373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EABA333B30
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 12:13:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96003.181384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJwk5-0006wV-AE; Wed, 10 Mar 2021 11:11:05 +0000
+	id 1lJwmP-00075u-Lb; Wed, 10 Mar 2021 11:13:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96000.181373; Wed, 10 Mar 2021 11:11:05 +0000
+Received: by outflank-mailman (output) from mailman id 96003.181384; Wed, 10 Mar 2021 11:13:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJwk5-0006w6-6Q; Wed, 10 Mar 2021 11:11:05 +0000
-Received: by outflank-mailman (input) for mailman id 96000;
- Wed, 10 Mar 2021 11:11:03 +0000
+	id 1lJwmP-00075Y-IV; Wed, 10 Mar 2021 11:13:29 +0000
+Received: by outflank-mailman (input) for mailman id 96003;
+ Wed, 10 Mar 2021 11:13:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YKvx=II=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lJwk3-0006w1-Gv
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 11:11:03 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TZEI=II=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1lJwmN-00075T-OS
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 11:13:27 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8307adcc-3d58-48d2-8c0e-070cd31d3e07;
- Wed, 10 Mar 2021 11:11:02 +0000 (UTC)
+ id 936b7aa9-22ae-403d-8b83-ff1fc396af22;
+ Wed, 10 Mar 2021 11:13:26 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 507BEAE78;
- Wed, 10 Mar 2021 11:11:01 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 91C93AE78;
+ Wed, 10 Mar 2021 11:13:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,183 +39,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8307adcc-3d58-48d2-8c0e-070cd31d3e07
+X-Inumbo-ID: 936b7aa9-22ae-403d-8b83-ff1fc396af22
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615374661; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615374805; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dJSutNaW/cwjs/cHggIP6DvCAcr8Qy+4AdRoE2QlOrk=;
-	b=G/0iNBx4682EoS/5pk2IMHyllJnGpPHZa0LLO8Y0sTpqtCoGv7akzihWwMge0DxwzYg8n6
-	8KWaBQpLgWLm9p77adGNLjwcxzcYGvvPnFx8zcX1w5MbSDE3eUzj8akI8ZtA74+esb1mrc
-	S6x+Q6KidqM6dlFpdtBLQHu5nMw42F4=
-Subject: Re: [PATCH 3/3] Xen/gntdev: don't needlessly use kvcalloc()
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2b326dc6-c624-c97b-f9c4-4cc68dd013ba@suse.com>
- <9a726be2-4893-8ffe-0ef1-b70dd1c229b1@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <4500abaf-141d-1f6a-3e41-03cad6e069cc@suse.com>
-Date: Wed, 10 Mar 2021 12:11:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+	bh=eCNKUjyMIm7der6JEf6tGGnpH4ONaht08vLFM0IG6f0=;
+	b=MfO2QB9o7gaGI3YFP8cc+zxO95cRLFfL2H0ZDpnFjULQEKnXaXLTqyqCdAKNwkv1uagPv0
+	W2jWxo/wcXFtW1SV7TS650kwAFoFEi7cVLBBGSxdPC9SkBVGY/OpuMgHRcHTKhRbHi4890
+	7DUy5OefO4IoKWA9FrbBXvjZU4A6l+I=
+Message-ID: <5ac80ae8be856e49fd83245eee4baae986beafa9.camel@suse.com>
+Subject: Re: Hit ASSERT in credit2 code with NR_CPUS=1 build
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, George Dunlap
+	 <george.dunlap@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Date: Wed, 10 Mar 2021 12:13:24 +0100
+In-Reply-To: <YEehTbVVjWMaqjCV@Air-de-Roger>
+References: <YEehTbVVjWMaqjCV@Air-de-Roger>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-4+52hzy5PpD5au/BQ86Z"
+User-Agent: Evolution 3.38.4 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <9a726be2-4893-8ffe-0ef1-b70dd1c229b1@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="D9DJqsBWfcWCBPPcN1yPmzbSeEvvzcS4u"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---D9DJqsBWfcWCBPPcN1yPmzbSeEvvzcS4u
-Content-Type: multipart/mixed; boundary="GtvEpyySpC4NpKRLLeRTHbMLGV6oor8a5";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <4500abaf-141d-1f6a-3e41-03cad6e069cc@suse.com>
-Subject: Re: [PATCH 3/3] Xen/gntdev: don't needlessly use kvcalloc()
-References: <2b326dc6-c624-c97b-f9c4-4cc68dd013ba@suse.com>
- <9a726be2-4893-8ffe-0ef1-b70dd1c229b1@suse.com>
-In-Reply-To: <9a726be2-4893-8ffe-0ef1-b70dd1c229b1@suse.com>
 
---GtvEpyySpC4NpKRLLeRTHbMLGV6oor8a5
-Content-Type: multipart/mixed;
- boundary="------------172976DE781032C94C2FF162"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------172976DE781032C94C2FF162
-Content-Type: text/plain; charset=utf-8; format=flowed
+--=-4+52hzy5PpD5au/BQ86Z
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 10.03.21 11:46, Jan Beulich wrote:
-> Requesting zeroed memory when all of it will be overwritten subsequentl=
-y
-> by all ones is a waste of processing bandwidth. In fact, rather than
-> recording zeroed ->grants[], fill that array too with more appropriate
-> "invalid" indicators.
+On Tue, 2021-03-09 at 17:24 +0100, Roger Pau Monn=C3=A9 wrote:
+> Hello,
 >=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Hey,
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+> While looking at the NR_CPUS =3D=3D 1 build I realized I could reliable
+> trigger the following ASSERT by creating a guest (note that dom0
+> seems
+> to be fine):
+>=20
+Yes, I'm (somewhat, not sure if exactly though) able to reproduce.
 
+> (XEN) Assertion 'i !=3D cpu' failed at credit2.c:1725
+> (XEN) ----[ Xen-4.15.0-rc=C2=A0 x86_64=C2=A0 debug=3Dy=C2=A0 Tainted:=C2=
+=A0=C2=A0 C=C2=A0=C2=A0 ]----
+> (XEN) CPU:=C2=A0=C2=A0=C2=A0 0
+> (XEN) RIP:=C2=A0=C2=A0=C2=A0 e008:[<ffff82d040249399>]
+> common/sched/credit2.c#runq_tickle+0x469/0x571
+> (XEN) RFLAGS: 0000000000010046=C2=A0=C2=A0 CONTEXT: hypervisor (d4v0)
+> (XEN) rax: ffffffffffffffff=C2=A0=C2=A0 rbx: 0000000000000000=C2=A0=C2=A0=
+ rcx:
+> 0000000000000000
+> (XEN) rdx: ffff83086c62feb0=C2=A0=C2=A0 rsi: 0000012774fba66c=C2=A0=C2=A0=
+ rdi:
+> ffff8307e11d5d40
+> (XEN) rbp: ffff83008c8c7cf8=C2=A0=C2=A0 rsp: ffff83008c8c7c68=C2=A0=C2=A0=
+ r8:=C2=A0
+> ffff83086c66d6c0
+> (XEN) r9:=C2=A0 ffff82d0405d1218=C2=A0=C2=A0 r10: 0000000000000000=C2=A0=
+=C2=A0 r11:
+> ffff83086c631000
+> (XEN) r12: ffff83086c6437c0=C2=A0=C2=A0 r13: 0000000000000000=C2=A0=C2=A0=
+ r14:
+> ffff83086c62fe20
+> (XEN) r15: ffff82d0405d0320=C2=A0=C2=A0 cr0: 0000000080050033=C2=A0=C2=A0=
+ cr4:
+> 00000000003526e0
+> (XEN) cr3: 00000007e130d000=C2=A0=C2=A0 cr2: ffff88826910cb38
+> (XEN) fsb: 00007efee038b780=C2=A0=C2=A0 gsb: ffff888273400000=C2=A0=C2=A0=
+ gss:
+> 0000000000000000
+> (XEN) ds: 0000=C2=A0=C2=A0 es: 0000=C2=A0=C2=A0 fs: 0000=C2=A0=C2=A0 gs: =
+0000=C2=A0=C2=A0 ss: e010=C2=A0=C2=A0 cs: e008
+> (XEN) Xen code around <ffff82d040249399>
+> (common/sched/credit2.c#runq_tickle+0x469/0x571):
+> (XEN)=C2=A0 ac ff 75 3d 0f 0b 0f 0b <0f> 0b c7 45 ac 00 00 00 00 48 8d 05
+> 6f 7e 38 00
+> (XEN) Xen stack trace from rsp=3Dffff83008c8c7c68:
+> [...]
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Assertion 'i !=3D cpu' failed at credit2.c:1725
+> (XEN) ****************************************
+>=20
+Interesting... So, how do cpumasks look like/work, with NR_CPUS=3D1
+(sorry, I couldn't follow all the aspects of it too closely) ?
 
-Juergen
+I'm asking because, what we're doing here is the following. First of
+all we put together a cpumask (in `mask`) out of the intersection of
+the CPUs that are in the vcpu's hard/soft affinity, are part of this
+runqueue, are idle and have not been tickled (where tickled =3D=3D they've
+been poked and will go through schedule() soon):
 
---------------172976DE781032C94C2FF162
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+    cpumask_andnot(&mask, &rqd->active, &rqd->idle);
+    cpumask_andnot(&mask, &mask, &rqd->tickled);
+    cpumask_and(&mask, &mask, cpumask_scratch_cpu(cpu));
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Now, I would very much expect for `mask` to have at most one bit set
+(i.e., the one of our only CPU). Actually, considering how unlikely it
+would be that our only CPU is both idle and not-tickled, I expect mask
+to be empty most of the times.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Anyway, let's say the cpumask has 1 bit set (in which case, it must be
+the one associated to CPU 0, I presume?). What we do now is this:
 
---------------172976DE781032C94C2FF162--
+if ( __cpumask_test_and_clear_cpu(cpu, &mask) )
+{
+    ...
+}
 
---GtvEpyySpC4NpKRLLeRTHbMLGV6oor8a5--
+Which I think means that, no matter whether or not we enter the loop,
+we clear the bit. Of course, which bit depends on the value of `cpu`...
+But with NR_CPUS=3D1, I don't see how `cpu` can have a value different
+than the ID of the one and only CPU we have.
 
---D9DJqsBWfcWCBPPcN1yPmzbSeEvvzcS4u
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+So, in my mind, now `mask` is empty. Therefore, I'm currently clueless
+about why we enter this loop...
+
+> =C2=A0=C2=A0=C2=A0 for_each_cpu(i, &mask)
+> =C2=A0=C2=A0=C2=A0 {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 s_time_t score;
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Already looked at this one =
+above */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ASSERT(i !=3D cpu); <=3D=3D=3D=
+=3D
+>=20
+... and we reach this point.
+
+I tried to build staging here (with NR_CPUS=3D1), and I think the code
+for this ASSERT(), for me, is:
+
+  test   %ebx,%ebx
+  je     ffff82d040245ac5 <runq_tickle+0x48a>
+
+(and ffff82d040245ac5 is of course ud2.)
+
+Snf this kind of makes sense. Or, at least, I'm not surprised that, if
+we are inside this loop, `i` is actually equal to `cpu`.
+
+What I'm surprised about is that we are inside the loop in the first
+place...
+
+I guess I need to think more about it. Any bright ideas that explain
+what is going on would be more than appreciated.
+
+> In runq_tickle. I'm afraid I have no clue of what's going on. FTR
+> using a non-debug build with NR_CPUS =3D=3D 1 does seem to work fine and
+> I
+> don't see any ill effects.
+>
+Well, yes, special casing `cpu` and dealing with it outside of the loop
+is just an optimization, for when soft-affinity is defined for the
+vcpu. So it makes sense that things work without the ASSERT().
+
+However, the ASSERT() was there as a consistency check, and it looks to
+me to be a valid one, even with NR_CPUS=3D1, so I really don't know why
+it triggers...
+
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-4+52hzy5PpD5au/BQ86Z
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBIqUQFAwAAAAAACgkQsN6d1ii/Ey9a
-YAf/V8rhZy2EShnG33Hs9BcA1XjT+W7NExLnVPnePdxWNONADGJfvwQX/+pwmTcTsRRtEEg13hl9
-W96UVCHRkaE63iIs0tcIx8D1xH3ld19B+5F3er3axiH8O7r7U5I0DhHI3ZNTMlsPp6fhJJnfGFyV
-/gWwzlBdn9WHwRtXABqCXM5GbygBYnD+ZFxOunRQFQSytA+io7A15v1w+Ja2SVW+gH1bkoHGpE9w
-EuKCld9CMDi3/DyfaAhX27UcO1IvA78bKTQZsPlh1S7xmjuEM+ayEgd9U9cB1iDmzuuxeyCcJY4J
-//PI2cW6ITbBbdQr6RTY4dvchlIHd8QDxT3lv0WTDQ==
-=Z9sm
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmBIqdQACgkQFkJ4iaW4
+c+5H0w//cpZRV4Y4UVJy8BnnKvENKPx+xx+CnBp8P+kqMKDryv3kzS8zU/Dfs1d9
+6TSSJBYpPjeaXnp88GuI3g1NzZYHfyAQBKuSRy6DhXed/aCI2DXB+ub930zzmwXt
+3ypV1lUChPpj1SbnYRuYV450Vz1BOosYD0svdVOSnvzKH14VE/c+m0X65mm+IUKy
+jBrAMxegvDAC8RysIVoFHVIw2ExLyzI/PFZZkO03EE8H1FswAiX23t4YX4gw/5y3
+S+kA8dBkaFpWPbGcOxytcwB87vrAsqIFIIffUQQBKnJHZLL7gExGQQfWLUb6Z/ee
+NLWHc36SokVobbOsGmXFn5CBABPqJsyBc+yDlQU0+8U+dCtit2XKkWysBYH90BeW
+OmPdDJe0uiKMki7K2DBku4dkBc4XQ8h+Wh8gDw9JMmnlE4mNo1E9vAKfuEhf3c3X
+a4zrXnLefckw2JJtGCANJ2yxdRfFN0hVpiaRWRLXu7A4lk6mqv+iBgGHXDXkGtZk
+FXhWZ0uqpeKQJyM85ONTihk1JBgEMvyJM0MO6YLgx12gXWwDIqgyz31vW+ZC33kA
+CxxLTbPrb0LxHK8C4iLIcHDJ8f2Z1oRZp1QIOAvMhcljA+jkkBmj8or7o0F9yKQd
+3wxrLF7344kWhYE7miKQJ4LHIkbbBV22GJNXiTSkRqhSuUGLuP8=
+=2IDc
 -----END PGP SIGNATURE-----
 
---D9DJqsBWfcWCBPPcN1yPmzbSeEvvzcS4u--
+--=-4+52hzy5PpD5au/BQ86Z--
+
 
