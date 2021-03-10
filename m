@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 913AC333FC3
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 15:00:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96080.181563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8E3334010
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 15:14:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96123.181613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJzNN-0006NZ-LG; Wed, 10 Mar 2021 13:59:49 +0000
+	id 1lJzbC-0000GX-Or; Wed, 10 Mar 2021 14:14:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96080.181563; Wed, 10 Mar 2021 13:59:49 +0000
+Received: by outflank-mailman (output) from mailman id 96123.181613; Wed, 10 Mar 2021 14:14:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJzNN-0006N9-ID; Wed, 10 Mar 2021 13:59:49 +0000
-Received: by outflank-mailman (input) for mailman id 96080;
- Wed, 10 Mar 2021 13:59:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lJzbC-0000G8-Ld; Wed, 10 Mar 2021 14:14:06 +0000
+Received: by outflank-mailman (input) for mailman id 96123;
+ Wed, 10 Mar 2021 14:14:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lJzNM-0006Mx-9H
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 13:59:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lJzNM-00033P-8V
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 13:59:48 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lJzNM-0006OS-7G
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 13:59:48 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lJzNJ-0006Ma-2W; Wed, 10 Mar 2021 13:59:45 +0000
+ (envelope-from <SRS0=8s4R=II=alien8.de=bp@srs-us1.protection.inumbo.net>)
+ id 1lJzbA-0000G3-W0
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 14:14:05 +0000
+Received: from mail.skyhub.de (unknown [5.9.137.197])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9cf3f06a-15c8-4644-9fc1-8431138fa1f5;
+ Wed, 10 Mar 2021 14:14:02 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f0a9900452923910729ca7d.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0a:9900:4529:2391:729:ca7d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AE4BD1EC026F;
+ Wed, 10 Mar 2021 15:14:01 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,41 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Subject:CC:To:Date:Message-ID:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=q8OwsW3WlNB1U1E47WtbBFhdXqcGgmgEv3iFeYC72U4=; b=IjC1H7RbJRt3cKLcgywKOVV4d4
-	MF7NzgThabkzAsdJS6oHG1a4VYh8DJCIOsUuupVYS08glWpiP/O3tk4Yl8NQY05I3XVojJvQbFASB
-	UQJt0R9/V7/rzB8bJVj5wGO+HB1VcPHIHR2Thd1aAbCLbw7OxdrCxhCj1IknansukNS0=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 9cf3f06a-15c8-4644-9fc1-8431138fa1f5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1615385641;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TkMrmSK/gpY6OtMDP3bCzeW/KsANAPjk+GubcA0SiVk=;
+	b=E5tIxCfbxV1QtJ7+kVylOOkptdMD5POD0M28l1YoZoIW5BjvRtSO1DgTJyfsd3pCigHb73
+	FLUR0E5MOJBdgkckOwBZ5WRAvXqEU6lsD2TQRaNJRsdp9MwWTl+mpMOE9fP7avOddwZqi+
+	MMqMSC4Aom3dQrDOqhVRCmy5BqdUCF4=
+Date: Wed, 10 Mar 2021 15:13:47 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+	virtualization@lists.linux-foundation.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+	Deep Shah <sdeep@vmware.com>,
+	"VMware, Inc." <pv-drivers@vmware.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH v6 02/12] x86/paravirt: switch time pvops functions to
+ use static_call()
+Message-ID: <20210310141347.GF23521@zn.tnic>
+References: <20210309134813.23912-1-jgross@suse.com>
+ <20210309134813.23912-3-jgross@suse.com>
+ <20210309185737.GE699@zn.tnic>
+ <e06cc359-6300-a26b-c307-9ef8d963b0c1@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24648.53456.877705.383162@mariner.uk.xensource.com>
-Date: Wed, 10 Mar 2021 13:59:44 +0000
-To: xen-announce@lists.xenproject.org
-CC: xen-devel@lists.xenproject.org,
-    xen-users@lists.xenproject.org
-Subject: Xen 4.15 RC2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e06cc359-6300-a26b-c307-9ef8d963b0c1@suse.com>
 
-Xen 4.15 RC2 is now available.
+On Wed, Mar 10, 2021 at 08:51:22AM +0100, Jürgen Groß wrote:
+> It is combining the two needed actions: update the static call and
+> set the paravirt_using_native_sched_clock boolean.
 
-It is available from git:
-  git clone https://xenbits.xenproject.org/git-http/xen.git -b 4.15.0-rc2
+I actually meant what the point of using_native_sched_clock() is but put
+this comment at the wrong place, sorry.
 
-For your convenience a tarball is available:
-  https://downloads.xenproject.org/release/xen/4.15.0-rc2/xen-4.15.0-rc2.tar.gz
-  https://downloads.xenproject.org/release/xen/4.15.0-rc2/xen-4.15.0-rc2.tar.gz.sig
+> Just had another idea: I could add a function to static_call.h for
+> querying the current function. This would avoid the double book keeping
+> and could probably be used later when switching other pv_ops calls to
+> static_call, too (e.g. pv_is_native_spin_unlock()).
+> 
+> What do you think?
 
-Please send bug reports and test reports to
-xen-devel@lists.xenproject.org.  When sending bug reports, please CC
-relevant maintainers and me (iwj@xenproject.org).
+Yap, that makes sense. Alternatively, you could even add a bitfield to
+pv_ops which carries that info and since pv_ops is global...
 
-Sorry for the lateness of this RC, which I originally intended to be
-available this last Monday.  I hope to resume the schedule with RC3
-this coming Monday.
+But yeah, the less bookkeeping the better.
 
-There are still some important fixes and docs changes outstanding.
+Thx.
 
-Ian.
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
