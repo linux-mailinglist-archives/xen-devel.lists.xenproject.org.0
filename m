@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6C16334056
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 15:28:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96129.181638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A18F33408E
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 15:42:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96153.181668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJzof-0001UC-8E; Wed, 10 Mar 2021 14:28:01 +0000
+	id 1lK01n-0003Tk-Sa; Wed, 10 Mar 2021 14:41:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96129.181638; Wed, 10 Mar 2021 14:28:01 +0000
+Received: by outflank-mailman (output) from mailman id 96153.181668; Wed, 10 Mar 2021 14:41:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lJzof-0001Tn-4m; Wed, 10 Mar 2021 14:28:01 +0000
-Received: by outflank-mailman (input) for mailman id 96129;
- Wed, 10 Mar 2021 14:27:59 +0000
+	id 1lK01n-0003TL-Oc; Wed, 10 Mar 2021 14:41:35 +0000
+Received: by outflank-mailman (input) for mailman id 96153;
+ Wed, 10 Mar 2021 14:41:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8s4R=II=alien8.de=bp@srs-us1.protection.inumbo.net>)
- id 1lJzod-0001Ti-4L
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 14:27:59 +0000
-Received: from mail.skyhub.de (unknown [5.9.137.197])
+ (envelope-from <SRS0=YKvx=II=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lK01m-0003TC-HY
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 14:41:34 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 60208fd7-687f-4a73-bbdd-2632f1a9bfe6;
- Wed, 10 Mar 2021 14:27:58 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f0a9900452923910729ca7d.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f0a:9900:4529:2391:729:ca7d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 325911EC026F;
- Wed, 10 Mar 2021 15:27:57 +0100 (CET)
+ id 5b015006-c2a5-4dda-8156-9798c4f2fe07;
+ Wed, 10 Mar 2021 14:41:33 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 639C9AE78;
+ Wed, 10 Mar 2021 14:41:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,61 +39,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60208fd7-687f-4a73-bbdd-2632f1a9bfe6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1615386477;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=ttfTjP2mc2NJJolPrw5G/H4gc7B5Dvgh5Pc2Z3g4DpA=;
-	b=G784EB3nGQcdzbE411YJBthr26JHN+gLIXa9Mev0eBrSU7eI4sjreG0NMvN+zNNB54YtHy
-	i0jxQFrSMbo47kN4XHS8n7NOZcgZya/AeZtPKe2DkA78ZC7wsMhTyfqjR8mbzAWexYvenm
-	xLXKKRRIdxC2CTowlvkgT/jaa0sGEaU=
-Date: Wed, 10 Mar 2021 15:27:54 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
+X-Inumbo-ID: 5b015006-c2a5-4dda-8156-9798c4f2fe07
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615387292; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PxSzjwfPtvxXb2e4g0NgV1xOXyHoFy/VgBr2tQy2sJ8=;
+	b=uMrDDZBOhcqgN2YYKOWhP0FNQL25jnl9AcXB6h4jLHnLqUYIuZvshNqiKWh3WHLP8r3+Uz
+	qfztL8wtXVrWatxonKGtCvKwocRUx2WUqt5wPlxZ5whM9qb5LrrOaeVPcpUOFu+KJFRepi
+	AMBSQsU4Gb45X4zJBibKpsWI/05ovpA=
+Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
+To: Borislav Petkov <bp@alien8.de>
 Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v6 05/12] x86/alternative: support ALTERNATIVE_TERNARY
-Message-ID: <20210310142754.GH23521@zn.tnic>
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
 References: <20210309134813.23912-1-jgross@suse.com>
- <20210309134813.23912-6-jgross@suse.com>
+ <20210309134813.23912-5-jgross@suse.com> <20210310060705.GB23521@zn.tnic>
+ <1b95376a-56e1-ab3e-aa85-73a9d38aaaf7@suse.com>
+ <20210310141510.GG23521@zn.tnic>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <4b7ba26f-af23-7208-db29-4bda7be79cc6@suse.com>
+Date: Wed, 10 Mar 2021 15:41:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20210309134813.23912-6-jgross@suse.com>
+In-Reply-To: <20210310141510.GG23521@zn.tnic>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r"
 
-On Tue, Mar 09, 2021 at 02:48:06PM +0100, Juergen Gross wrote:
-> diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/alternative.h
-> index 89889618ae01..4fb844e29d26 100644
-> --- a/arch/x86/include/asm/alternative.h
-> +++ b/arch/x86/include/asm/alternative.h
-> @@ -178,6 +178,9 @@ static inline int alternatives_text_reserved(void *start, void *end)
->  	ALTINSTR_REPLACEMENT(newinstr2, 2)				\
->  	".popsection\n"
->  
-> +#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2)	\
-> +	ALTERNATIVE_2(oldinstr, newinstr2, X86_FEATURE_ALWAYS, newinstr1, feature)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r
+Content-Type: multipart/mixed; boundary="ByzS5gGquCchlGt9EfY4LEzkHqKv4UB7r";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <4b7ba26f-af23-7208-db29-4bda7be79cc6@suse.com>
+Subject: Re: [PATCH v6 04/12] x86/alternative: support not-feature
+References: <20210309134813.23912-1-jgross@suse.com>
+ <20210309134813.23912-5-jgross@suse.com> <20210310060705.GB23521@zn.tnic>
+ <1b95376a-56e1-ab3e-aa85-73a9d38aaaf7@suse.com>
+ <20210310141510.GG23521@zn.tnic>
+In-Reply-To: <20210310141510.GG23521@zn.tnic>
 
-Make that:
+--ByzS5gGquCchlGt9EfY4LEzkHqKv4UB7r
+Content-Type: multipart/mixed;
+ boundary="------------04BCC31FF0EE4F36BAA41F64"
+Content-Language: en-US
 
-/*
- * If @feature is set, patch @newinstr_yes, else @newinstr_no
- */
-#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr_yes, newinstr_no) \
-        ALTERNATIVE_2(oldinstr, newinstr_no, X86_FEATURE_ALWAYS, newinstr_yes, feature)
+This is a multi-part message in MIME format.
+--------------04BCC31FF0EE4F36BAA41F64
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-and in alternative-asm.h too pls.
+On 10.03.21 15:15, Borislav Petkov wrote:
+> On Wed, Mar 10, 2021 at 08:52:40AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
+>> Did you look at patch 13? :-)
+>=20
+> Well, I usually review in increasing patch order. :-P
+>=20
+> But make that change here pls because otherwise unnecessary churn.
 
-Regardless, this looks nice! :)
+Okay.
 
-Thx.
 
--- 
-Regards/Gruss,
-    Boris.
+Juergen
 
-https://people.kernel.org/tglx/notes-about-netiquette
+
+--------------04BCC31FF0EE4F36BAA41F64
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------04BCC31FF0EE4F36BAA41F64--
+
+--ByzS5gGquCchlGt9EfY4LEzkHqKv4UB7r--
+
+--WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBI2psFAwAAAAAACgkQsN6d1ii/Ey9i
+Pwf/a29ypr3sr3STd919ouf1cx7Zi/mYSiScQ3qCIB3O+OWmwxCLmBqMAyQHjK6ssyMt3VQuG8KL
+iL/s/T0iv8KYFrRTFcKUvLkDRjVBjAEweCJn9famgSJ/kwEaEoJOzl36DHoYMjHs4Ks+QRTZp4U9
+X1WaMjFWYSbPN8ZeAxCWnm2BIed4khopHCk7PZxQXihZX/pwJ+Z8zGiBKyLjTwhvNrwXiAxug8Rb
+Ae6PXn+ZeHuP2MHSIMlOuVeM5xfh1vTrtqFXMT5OrKgDpYBaV9/4IzG9+iz/7JPR8h9B2B/6ejN+
+IZTJIfjT5fTQiI7mWU0wIwmpSUBq0JRVvq1+9aZaUg==
+=LjTz
+-----END PGP SIGNATURE-----
+
+--WYWrC1aRj0Zkmr1uiOKvfduKDw2zXLA5r--
 
