@@ -2,33 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0EF43349E9
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 22:41:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96311.182082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0137C334C4F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 00:16:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96318.182100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK6Ze-0003YQ-Sm; Wed, 10 Mar 2021 21:40:58 +0000
+	id 1lK82r-0003MM-Q5; Wed, 10 Mar 2021 23:15:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96311.182082; Wed, 10 Mar 2021 21:40:58 +0000
+Received: by outflank-mailman (output) from mailman id 96318.182100; Wed, 10 Mar 2021 23:15:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK6Ze-0003Y1-Pv; Wed, 10 Mar 2021 21:40:58 +0000
-Received: by outflank-mailman (input) for mailman id 96311;
- Wed, 10 Mar 2021 21:40:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lK82r-0003Lx-Mz; Wed, 10 Mar 2021 23:15:13 +0000
+Received: by outflank-mailman (input) for mailman id 96318;
+ Wed, 10 Mar 2021 23:15:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vhZR=II=kernel.org=robh+dt@srs-us1.protection.inumbo.net>)
- id 1lK6Zd-0003Xw-Ga
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 21:40:57 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4a31c3e4-121d-4c83-8697-8ca6b797bd45;
- Wed, 10 Mar 2021 21:40:55 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B7BBC64FD6
- for <xen-devel@lists.xenproject.org>; Wed, 10 Mar 2021 21:40:54 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id d11so14252870qtx.9
- for <xen-devel@lists.xenproject.org>; Wed, 10 Mar 2021 13:40:54 -0800 (PST)
+ <SRS0=TK3A=II=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1lK82q-0003Ls-Ew
+ for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 23:15:12 +0000
+Received: from mail-ed1-x52f.google.com (unknown [2a00:1450:4864:20::52f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id de0214ea-2e33-4f2f-a347-2035e4f2f7d5;
+ Wed, 10 Mar 2021 23:15:11 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id y6so8150eds.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Mar 2021 15:15:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,140 +37,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a31c3e4-121d-4c83-8697-8ca6b797bd45
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1615412454;
-	bh=lljbEm8y6jNcxvIMoB+J261BTyFdid0U0j/1mSpgrns=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=eDXX9I0rBca4D2age7wm+DtVv6geacxhoDXnt5SysKVhym9aYBoOULiDV+ts4rOLP
-	 jxqSr5B0vX0/o/NShM/j+kwlnb4hGRATSr0mEhy2fTgb4b/f9TFkN0sucrguP/wUnN
-	 VpsdkpA2+bkS7oY10zU2zq+j59iH8lNhIYLI61shYJGWLghrHuyig30tcjLo3fTgbB
-	 3DEVFLncbcg+C2B9HtVOo3SUvsmkNa+xgZXWZi3ZI5a2G3Gno+oUiLdB0wFYwj7D9V
-	 li5Sma9VH3O9evfauK7N3UwWSXURG5BK+1LBH0BYK5Vbx589vAqinspwZjQAwTmkXH
-	 mjJKT2LCYnF3Q==
-X-Gm-Message-State: AOAM533xQqmKjpjvGpHhhd4e9D9o1KGB5HEXeqnGFrRi34C+R0+N7WdE
-	YWH61Jp5K4jBvqAjUW9+WVufP/96wr8URiXcjA==
-X-Google-Smtp-Source: ABdhPJwvOHv4sjXRoS+j4qWhL9MVaGJgYMXKyxBDilpUrwUXgxjhTnULwJ7kIho0KdWOn0m+qzW6exxxNwLS3x7GxZU=
-X-Received: by 2002:a05:620a:1001:: with SMTP id z1mr4659415qkj.364.1615412453005;
- Wed, 10 Mar 2021 13:40:53 -0800 (PST)
+X-Inumbo-ID: de0214ea-2e33-4f2f-a347-2035e4f2f7d5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=i/gGoI82isxh2Pj6ZZVCBtGI/GKRIG+++nG/qLnmSrk=;
+        b=PnNQIXzMLgGrbA9lu6mrkyF5/SGpO4vzuXaVVwc1OjWQJ7vHnHs6acdWXT3HaZy6Yq
+         bTQfbJpKHt4W+AiauhewpFQIkVMcWgN26+5SAm1c7v0vF5nGwg3UvkXjaXyN+UN6ZZkZ
+         MuQ+LFnaXp3is0FopRjvZ1pb1VUxy+qtjwD3VGJdMfYjSDvyQbZwiZDDMokbNgf0Bi1S
+         IgMKOyNMUoU4VIHKabubcmh+wmm/HcoFgZdrmX5dxI5RmazQW+J7mcoe+0nqEWZ1EeJ1
+         RtRjY7mgFVmMYHlMLmTzcYkzmhh0V77YITJd38l1Lw1CC5fvm5e9VjQaU3TwXqaGc9Ar
+         EXMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=i/gGoI82isxh2Pj6ZZVCBtGI/GKRIG+++nG/qLnmSrk=;
+        b=Vf3vIqWzfUJaTYmGgiWzpKeu2/urgCtVIrFHdHs6MXxqpLek1RgwpFwYYUJCgwQaDs
+         TltaGn4PuJ/OPUCQqX5NIrwSRszZ4me3QOvYVEstwqohM2Mi9Fv3mR2crY0cE8LoD5jJ
+         QVsg1PdCG46vkfQfsO9yXEw0YKyA1PgQFnZbBO4t7OR7A6+bpLHLka68FWZlp/XfaacP
+         r84jbO5MRRwfLoxjx8Woi1A+1sYbIaGZRm9rVwDhCmcOydjT5iwaBDulm2Wr9MG/ljga
+         dir7Pa4vR9DaUb+hzaheXg7sYihnrxsEIkyqdkm8a8+opfjoAI2d3wl461wUArcG2OFf
+         8v7w==
+X-Gm-Message-State: AOAM530EmOSzHrMeE35r/YcxwqjX++7QO7D7q0I/dgCwOam439S7ZGeK
+	Nndt1adhKJify65VxOmHYnwgyU0gZYaac9SMuX4=
+X-Google-Smtp-Source: ABdhPJxxOj+2niVJ5YgsAIpGwnV14zXuvbZWmJZ6uNRvwZMXuzyZCS0vxkG8BlEcTbc9auRbvWOwse+wnHoMhhcIcxc=
+X-Received: by 2002:a50:ec0e:: with SMTP id g14mr5841285edr.264.1615418110693;
+ Wed, 10 Mar 2021 15:15:10 -0800 (PST)
 MIME-Version: 1.0
-References: <20210209062131.2300005-1-tientzu@chromium.org>
- <20210209062131.2300005-14-tientzu@chromium.org> <20210310160747.GA29834@willie-the-truck>
-In-Reply-To: <20210310160747.GA29834@willie-the-truck>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Wed, 10 Mar 2021 14:40:41 -0700
-X-Gmail-Original-Message-ID: <CAL_JsqJE6A4awYCvqzw3qk2uAJEKgkSOKbk9tPaMKup8zes8cA@mail.gmail.com>
-Message-ID: <CAL_JsqJE6A4awYCvqzw3qk2uAJEKgkSOKbk9tPaMKup8zes8cA@mail.gmail.com>
-Subject: Re: [PATCH v4 13/14] dt-bindings: of: Add restricted DMA pool
-To: Will Deacon <will@kernel.org>
-Cc: Claire Chang <tientzu@chromium.org>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Joerg Roedel <joro@8bytes.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Juergen Gross <jgross@suse.com>, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Grant Likely <grant.likely@arm.com>, Heinrich Schuchardt <xypron.glpk@gmx.de>, 
-	Thierry Reding <treding@nvidia.com>, Ingo Molnar <mingo@kernel.org>, 
-	Thiago Jung Bauermann <bauerman@linux.ibm.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan <saravanak@google.com>, 
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, xen-devel <xen-devel@lists.xenproject.org>, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>
+References: <CAMmSBy-iwV86QB+P4OCDgevx9MND0NzwBECUVqavT6cF+bvrcA@mail.gmail.com>
+In-Reply-To: <CAMmSBy-iwV86QB+P4OCDgevx9MND0NzwBECUVqavT6cF+bvrcA@mail.gmail.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Wed, 10 Mar 2021 23:14:59 +0000
+Message-ID: <CAJ=z9a1_BrnCzqdZ6xoc1VwTM8V0jr1B_rv=28fW5VSe2rwG4Q@mail.gmail.com>
+Subject: Re: Xen 4.14 build failing on aarch64 with GCC 10.2.1
+To: Roman Shaposhnik <roman@zededa.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Mar 10, 2021 at 9:08 AM Will Deacon <will@kernel.org> wrote:
+On Wed, 10 Mar 2021 at 21:15, Roman Shaposhnik <roman@zededa.com> wrote:
 >
-> Hi Claire,
->
-> On Tue, Feb 09, 2021 at 02:21:30PM +0800, Claire Chang wrote:
-> > Introduce the new compatible string, restricted-dma-pool, for restricted
-> > DMA. One can specify the address and length of the restricted DMA memory
-> > region by restricted-dma-pool in the reserved-memory node.
-> >
-> > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > ---
-> >  .../reserved-memory/reserved-memory.txt       | 24 +++++++++++++++++++
-> >  1 file changed, 24 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-> > index e8d3096d922c..fc9a12c2f679 100644
-> > --- a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-> > +++ b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-> > @@ -51,6 +51,20 @@ compatible (optional) - standard definition
-> >            used as a shared pool of DMA buffers for a set of devices. It can
-> >            be used by an operating system to instantiate the necessary pool
-> >            management subsystem if necessary.
-> > +        - restricted-dma-pool: This indicates a region of memory meant to be
-> > +          used as a pool of restricted DMA buffers for a set of devices. The
-> > +          memory region would be the only region accessible to those devices.
-> > +          When using this, the no-map and reusable properties must not be set,
-> > +          so the operating system can create a virtual mapping that will be used
-> > +          for synchronization. The main purpose for restricted DMA is to
-> > +          mitigate the lack of DMA access control on systems without an IOMMU,
-> > +          which could result in the DMA accessing the system memory at
-> > +          unexpected times and/or unexpected addresses, possibly leading to data
-> > +          leakage or corruption. The feature on its own provides a basic level
-> > +          of protection against the DMA overwriting buffer contents at
-> > +          unexpected times. However, to protect against general data leakage and
-> > +          system memory corruption, the system needs to provide way to lock down
-> > +          the memory access, e.g., MPU.
->
-> As far as I can tell, these pools work with both static allocations (which
-> seem to match your use-case where firmware has preconfigured the DMA ranges)
-> but also with dynamic allocations where a 'size' property is present instead
-> of the 'reg' property and the kernel is responsible for allocating the
-> reservation during boot. Am I right and, if so, is that deliberate?
+> Hi!
 
-I believe so. I'm not keen on having size only reservations in DT.
-Yes, we allowed that already, but that's back from the days of needing
-large CMA carveouts to be reserved early in boot. I've read that the
-kernel is much better now at contiguous allocations, so do we really
-need this in DT anymore?
+Hi,
 
-> I ask because I think that would potentially be useful to us for the
-> Protected KVM work, where we need to bounce virtio memory accesses via
-> guest-determined windows because the guest memory is generally inaccessible
-> to the host. We've been hacking this using a combination of "swiotlb=force"
-> and set_memory_{decrypted,encrypted}() but it would be much better to
-> leverage the stuff you have here.
 >
-> Also:
+> just came across this failure on aarch64:
 >
-> > +
-> > +             restricted_dma_mem_reserved: restricted_dma_mem_reserved {
-> > +                     compatible = "restricted-dma-pool";
-> > +                     reg = <0x50000000 0x400000>;
-> > +             };
-> >       };
-> >
-> >       /* ... */
-> > @@ -138,4 +157,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
-> >               memory-region = <&multimedia_reserved>;
-> >               /* ... */
-> >       };
-> > +
-> > +     pcie_device: pcie_device@0,0 {
-> > +             memory-region = <&restricted_dma_mem_reserved>;
-> > +             /* ... */
-> > +     };
+> ld: prelink.o: in function `_spin_lock_cb':
+> 19187(.text+0x1f26c): undefined reference to `__aarch64_ldadd4_acq_rel'
+> 19188ld: prelink.o: in function `_spin_lock':
+> 19189(.text+0x1f2ec): undefined reference to `__aarch64_ldadd4_acq_rel'
+> 19190ld: prelink.o: in function `_spin_lock_irq':
+> 19191(.text+0x1f35c): undefined reference to `__aarch64_ldadd4_acq_rel'
+> 19192ld: prelink.o: in function `_spin_lock_irqsave':
+> 19193(.text+0x1f3d4): undefined reference to `__aarch64_ldadd4_acq_rel'
+> 19194ld: prelink.o: in function `_spin_lock_recursive':
+> 19195(.text+0x1f6b0): undefined reference to `__aarch64_ldadd4_acq_rel'
 >
-> I find this example a bit weird, as I didn't think we usually had DT nodes
-> for PCI devices; rather they are discovered as a result of probing config
-> space. Is the idea that you have one reserved memory region attached to the
-> RC and all the PCI devices below that share the region, or is there a need
-> for a mapping mechanism?
+> This, of course, goes away if I build Xen with:
+>    CFLAGS=-mno-outline-atomics
+>
+> However, at this point I'm curious if this is going to get addressed in Xen
+> proper or not.
 
-We can have DT nodes for PCI. AIUI, IBM power systems always do. For
-FDT, it's only if there are extra non-discoverable resources. It's
-particularly fun when it's resources which need to be enabled for the
-PCI device to be discovered. That seems to be a growing problem as PCI
-becomes more common on embedded systems.
+This has already been fixed and backported to Xen 4.14 (included in
+4.14.1). Are you using the latest 4.14 branch?
 
-Rob
+Cheers,
 
