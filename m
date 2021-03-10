@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A1433463F
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 19:06:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96257.181966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A440334716
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Mar 2021 19:46:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96263.181978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK3DG-0007kd-IX; Wed, 10 Mar 2021 18:05:38 +0000
+	id 1lK3pz-0002zN-Kj; Wed, 10 Mar 2021 18:45:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96257.181966; Wed, 10 Mar 2021 18:05:38 +0000
+Received: by outflank-mailman (output) from mailman id 96263.181978; Wed, 10 Mar 2021 18:45:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lK3DG-0007kE-FB; Wed, 10 Mar 2021 18:05:38 +0000
-Received: by outflank-mailman (input) for mailman id 96257;
- Wed, 10 Mar 2021 18:05:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lK3DF-0007k9-E5
- for xen-devel@lists.xenproject.org; Wed, 10 Mar 2021 18:05:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lK3DE-0007on-5q; Wed, 10 Mar 2021 18:05:36 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lK3DD-00038u-SF; Wed, 10 Mar 2021 18:05:35 +0000
+	id 1lK3pz-0002yy-Hc; Wed, 10 Mar 2021 18:45:39 +0000
+Received: by outflank-mailman (input) for mailman id 96263;
+ Wed, 10 Mar 2021 18:45:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lcCk=II=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1lK3px-0002yt-Af
+ for xen-devel@lists.xen.org; Wed, 10 Mar 2021 18:45:37 +0000
+Received: from mail-pj1-x102e.google.com (unknown [2607:f8b0:4864:20::102e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6c1e285b-409e-4051-9a5a-9c4fe7d51359;
+ Wed, 10 Mar 2021 18:45:36 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ q2-20020a17090a2e02b02900bee668844dso7727834pjd.3
+ for <xen-devel@lists.xen.org>; Wed, 10 Mar 2021 10:45:36 -0800 (PST)
+Received: from ?IPv6:2601:1c2:4f80:d230::5? ([2601:1c2:4f80:d230::5])
+ by smtp.gmail.com with ESMTPSA id 186sm225160pfb.143.2021.03.10.10.45.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Mar 2021 10:45:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,115 +42,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=rVBK4deqEcBvSLxBe5QpT9AXxRZruW155bQgWbiYJdc=; b=OFFWacnzMFi1Wx1arQHOfS5HXh
-	egpK2GP75hpIBC8nyMgNbrK/4IpUQHkUJ3o88oiyTzzALu+y5omocn9jPQeqUjCkAfPnSKhvH/m9x
-	7s3YCpaf6uqg7a/TVqA6Gywppl5RecNtWMxA7wtnTv2bScLZsXwiaAXZbHFGwfHmjJr0=;
-Subject: Re: [PATCH for-4.15] xen: Bump the minimum version of GCC supported
- to 4.9 (5.1 on arm64)
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210306214148.27021-1-julien@xen.org>
- <1897022d-7591-3450-4e57-884a2860b13d@suse.com>
- <7fd07dc9-9c03-bb13-3907-c3c268a4e970@xen.org>
- <2de5160f-8636-5cdf-a20c-acaa2640c893@suse.com>
- <e4ea36f5-7aca-e19d-5e78-45058b13697b@xen.org>
- <e1176ad2-0a66-3a6d-c053-f0da9d4ae35f@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <7ab87cab-8836-e8a0-993e-0cdeca3c45e3@xen.org>
-Date: Wed, 10 Mar 2021 18:05:34 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.0
+X-Inumbo-ID: 6c1e285b-409e-4051-9a5a-9c4fe7d51359
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:references:from:organization:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=1QlGp94Z6xqtgpaSqZ1T43NlR4hswlJTog0zzkF2qmM=;
+        b=Z8G3eanK+NquRUUrfVN1rerBR1po6SvilaSG7q+2J2jWiWQN/GLNYbg9EDmDgdTb5p
+         Da6355xfUB3+pxhP91OyBOinqzEWbF8s5+fLCASbMgin3QJwRQ9OS7kuC7s7dr1umca6
+         h5JI9rQZyNZ/CYTKyo4q3aXCkO6/NsCzVBY3G0pXHgB8JQTCFmUUmDToeNOI9VtpvJBu
+         nM/BcpwaJs6nFFZZl+N/Dl+sjpKYKukZ7DNDMjpCDAranBG6awNstQbdagvO1HRX9Nw1
+         XefE2Jwm9FZAqiNjnewxXy6i7SqnJqcFrNIpFOTCtrlao20ZgoLMZjHCt1eRxoa6sIkR
+         jdew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=1QlGp94Z6xqtgpaSqZ1T43NlR4hswlJTog0zzkF2qmM=;
+        b=Sgo0DQeRwE38/iWJONo86dqAQwSLXcoXou0Ex9o3rVf8yrkB543e7r0Ct3+JKEOKC7
+         ukEOpNF9jgrRWzGt2dQZZ1DMR78nYlbeTUi6h+++/JvEEu7fA4IhrEaGeqZ+aXYckFoL
+         wJvCy7uFr3yBJSV13DlNwW5576n5EgrVphtk3PoQqvkfVdp9lIztbsAKg/zXmmG4Hlvn
+         RMx7FhiYjeKM0PhQ+ZwmXBGOSi6vrURDontaKJpI1cmJVbqo+d2m8C3IHUJUPrwyk/dy
+         sOJpeOuNK4U1/OizMp8tqWFIrB+A8PoH5G/at39lNNg+1e7RKuuxMQJ9Xt0CoCSQYBvk
+         zcIA==
+X-Gm-Message-State: AOAM532kRc99IanNJim+MOzw3HmzVIng4frRoQZl8626I3wOWo8Rawvb
+	9jTnhTD8TAxmkxIaK3A4QLmSAZZJeQTV/A==
+X-Google-Smtp-Source: ABdhPJz0R00O/A+HzBt1HftSK5Att9b/98uBAyEZ/WCHHAL6jR8Xr3RzoxvMudzDn+HK4Z0U1b4+jg==
+X-Received: by 2002:a17:90a:20c:: with SMTP id c12mr4883417pjc.224.1615401935106;
+        Wed, 10 Mar 2021 10:45:35 -0800 (PST)
+Subject: Re: HOWTO enable Xen on my board based on STM32MP1
+To: Gurrieri Stefano <Stefano.Gurrieri@roj.com>,
+ "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+References: <1449aa784e6243ee9a8e33642dcb7693@roj.com>
+From: Bob Eshleman <bobbyeshleman@gmail.com>
+Organization: Vates SAS
+Message-ID: <ce6d479b-6743-9266-8886-af14e68b8109@gmail.com>
+Date: Wed, 10 Mar 2021 10:45:33 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <e1176ad2-0a66-3a6d-c053-f0da9d4ae35f@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <1449aa784e6243ee9a8e33642dcb7693@roj.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
-
-On 09/03/2021 11:20, Jan Beulich wrote:
-> On 08.03.2021 21:22, Julien Grall wrote:
->> On 08/03/2021 11:20, Jan Beulich wrote:
->>> On 08.03.2021 11:51, Julien Grall wrote:
->>>> On 08/03/2021 08:09, Jan Beulich wrote:
->>>>> Additionally - partly related to your own reply regarding the CI
->>>>> failures - imo there needs to be an analysis of what older distros
->>>>> will no longer build (at all or by default).
->>>>
->>>> Per the CI, this would be Ubuntu Trusty (and older), Centos 7 (and older)
->>>>
->>>> Do you have any other in mind?
->>>
->>> Our SLE12 (latest service pack is SP5 and still has a while to go
->>> to at least reach LTSS state) comes with gcc 4.8 as the default
->>> compiler.
->>
->> Thanks! That's good to know. Is it the old GCC Suse supports?
+On 3/10/21 1:29 AM, Gurrieri Stefano wrote:
+> Hello,
 > 
-> Not sure I understand the question: The default compiler of this or
-> any distro is of course (expected to be) supported by the vendor
-> for the lifetime of the OS.
-
-Sorry for the wording. I was asking whether Suse also supports compiler 
-older than GCC 4.8.
-
+> I'm working on the platform STM32MP1 based on cortex-A7 dual core. This is an armv7-A that has the "Hardware virtualization support".
+> My current Linux BSP is built using Yocto Project... but now, I'm asking how to enable XEN on my platform? Is there a procedure to follow to try to experiment?
 > 
->>>>>> --- a/xen/include/xen/compiler.h
->>>>>> +++ b/xen/include/xen/compiler.h
->>>>>> @@ -5,6 +5,19 @@
->>>>>>     #error Sorry, your compiler is too old/not recognized.
->>>>>>     #endif
->>>>>>     
->>>>>> +#if CONFIG_CC_IS_GCC
->>>>>> +# if CONFIG_GCC_VERSION < 40900
->>>>>> +/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145 */
->>>>>
->>>>> As per the bug report, the issue was determined to not be present
->>>>> in e.g. 4.3. Hence while such a bug may influence our choice of
->>>>> minimum version, I don't think it can reasonably be named here as
->>>>> the apparent only reason for the choice. Personally I don't think
->>>>> any justification should be put here.
->>>>
->>>> Ok.
->>>>
->>>>>
->>>>>> +#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
->>>>>> +# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
->>>>>> +/*
->>>>>> + * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
->>>>>> + * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
->>>>>> + */
->>>>>> +#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
->>>>>
->>>>>    From the bug entry the fix looks to have been backported to 4.9,
->>>>> or at least some (important?) branches thereof.
->>>>
->>>> It is not clear what's you are trying to point out. Mind clarifying?
->>>
->>> Some 4.9 compilers (perhaps widely used ones) may not have the bad
->>> issue, which puts under question their ruling out when the main
->>> reason for doing so is that bug.
->>
->> Well... We could surely try to hunt which GCC 4.9 has been fixed. But I
->> am not convinced this is useful, we would need to have an allowlist of
->> GCC compiler.
-> 
-> Or probe the compiler for the bug in question.
+> Thanks a lot!
+> Greetings,
+> Stefano
 
-I thought about it but it is not clear to me whether the reproducer 
-would work on every GCC version and how to detect that this was miscompiled.
 
-Do you have any suggestion?
+Hey Stefano, I'd start with
+https://wiki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions
+and telling U-Boot to modify the fdt as described in the link.
 
-Cheers,
+That should give you a good idea how to get UART from Xen and
+how to tell it about where your dom0 kernel/initrd are located.
 
--- 
-Julien Grall
+Best,
+Bobby
 
