@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A254A33741F
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 14:37:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96550.182746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500F7337421
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 14:38:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96552.182758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKLVQ-0006eU-HD; Thu, 11 Mar 2021 13:37:36 +0000
+	id 1lKLW0-0006rK-Qo; Thu, 11 Mar 2021 13:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96550.182746; Thu, 11 Mar 2021 13:37:36 +0000
+Received: by outflank-mailman (output) from mailman id 96552.182758; Thu, 11 Mar 2021 13:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKLVQ-0006e5-E1; Thu, 11 Mar 2021 13:37:36 +0000
-Received: by outflank-mailman (input) for mailman id 96550;
- Thu, 11 Mar 2021 13:37:35 +0000
+	id 1lKLW0-0006qu-N4; Thu, 11 Mar 2021 13:38:12 +0000
+Received: by outflank-mailman (input) for mailman id 96552;
+ Thu, 11 Mar 2021 13:38:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+5TX=IJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lKLVP-0006e0-46
- for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 13:37:35 +0000
+ id 1lKLVz-0006qn-9z
+ for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 13:38:11 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a6bf0b1d-1971-471b-806e-685a6e004402;
- Thu, 11 Mar 2021 13:37:33 +0000 (UTC)
+ id 338ec76e-08f7-4edf-8917-a61a4152766f;
+ Thu, 11 Mar 2021 13:38:09 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 09359AC17;
- Thu, 11 Mar 2021 13:37:33 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 72DAFAC17;
+ Thu, 11 Mar 2021 13:38:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6bf0b1d-1971-471b-806e-685a6e004402
+X-Inumbo-ID: 338ec76e-08f7-4edf-8917-a61a4152766f
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615469853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615469888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0KLQXKQqv9Zejt7cx/fNB4ng/9uFC56CYjHfVcdvsQQ=;
-	b=b+0+ymzvpXMs5MJd0jW4r7q2JzmGgai/eqE0wabCMbgUYOTC8Lo3ojcS+q9G+oByT3SXSF
-	5NqOTHf5wmVNO3rV46OWVEfS+yNyQwfaYmsyh0omwu+Y7Wi4rA+u7azNt41otw/UzrtiOZ
-	UJrAMcsw9T/qRIaFyW6dHieU9GvDv1E=
-Subject: Re: [PATCH 1/3] tools/libxentoolcore: Fill in LIBHEADERS
+	bh=zoXWpXvbgsoCZyAf0Pl7hjgIAzIqV8WWo25I27t7L0E=;
+	b=eQpG7QDqZYN4Wrq8qthRQID+tqt4k5KaTQ7rKIyG6kR9dusC61wB9fYQXvmIDNUvbK7aGt
+	xeBWF0JdIY4GqMfah7EK3/EyJZV8XJabP1f9VIzyezjLpDtz/k4vi996pw+8HshziPBZIV
+	6Ykxa14haa63rC2YwM6He4Bb3lv2mCI=
+Subject: Re: [PATCH 3/3] tools/libs: Fix headers.chk logic
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>
 References: <20210305124949.6719-1-andrew.cooper3@citrix.com>
- <20210305124949.6719-2-andrew.cooper3@citrix.com>
+ <20210305124949.6719-4-andrew.cooper3@citrix.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <3bb9510b-ee1a-a32e-d83c-930c43307b66@suse.com>
-Date: Thu, 11 Mar 2021 14:37:32 +0100
+Message-ID: <21556d11-03e4-a243-3e48-7592f64fa9c7@suse.com>
+Date: Thu, 11 Mar 2021 14:38:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210305124949.6719-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20210305124949.6719-4-andrew.cooper3@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="iRFFa6J1gfCWdZ7RqsT1BA3ZpOm0fstMH"
+ boundary="aImywZeZRWpBC3vgjDRfR4IXizNWJIvYe"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---iRFFa6J1gfCWdZ7RqsT1BA3ZpOm0fstMH
-Content-Type: multipart/mixed; boundary="jn1e4DQ2mP9xB5hK2oRsCWzL5xFqOiDPm";
+--aImywZeZRWpBC3vgjDRfR4IXizNWJIvYe
+Content-Type: multipart/mixed; boundary="gf52iPVPBQ6RoCZdqmPJJnEVAKmZTiVsY";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <3bb9510b-ee1a-a32e-d83c-930c43307b66@suse.com>
-Subject: Re: [PATCH 1/3] tools/libxentoolcore: Fill in LIBHEADERS
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>
+Message-ID: <21556d11-03e4-a243-3e48-7592f64fa9c7@suse.com>
+Subject: Re: [PATCH 3/3] tools/libs: Fix headers.chk logic
 References: <20210305124949.6719-1-andrew.cooper3@citrix.com>
- <20210305124949.6719-2-andrew.cooper3@citrix.com>
-In-Reply-To: <20210305124949.6719-2-andrew.cooper3@citrix.com>
+ <20210305124949.6719-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20210305124949.6719-4-andrew.cooper3@citrix.com>
 
---jn1e4DQ2mP9xB5hK2oRsCWzL5xFqOiDPm
+--gf52iPVPBQ6RoCZdqmPJJnEVAKmZTiVsY
 Content-Type: multipart/mixed;
- boundary="------------C1B7C7D690FA6377BCD365F3"
+ boundary="------------3C26315CC66BA85E302105AB"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C1B7C7D690FA6377BCD365F3
+--------------3C26315CC66BA85E302105AB
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 05.03.21 13:49, Andrew Cooper wrote:
-> c/s 4664034cd replaced a glob over include/*.h with an expectation that=
-
-> LIBHEADER was suitably set for libraries which didn't have a single,
-> consistently named, header file.
+> c/s 4664034cd dropped the $(LIBHEADERSGLOB) dependency for the headers.=
+chk
+> rule, without replacing it.
 >=20
-> This wasn't true for xentoolcore, which lost xentoolcore_internal.h as =
-a
-> consequence, and failed an API/ABI check vs 4.14
+> As headers.chk uses $^, a typical build looks like:
+>=20
+>    andrewcoop@andrewcoop:/local/xen.git$ make -C tools/libs/devicemodel=
+/
+>    make: Entering directory '/local/xen.git/tools/libs/devicemodel'
+>    for i in ; do \
+>        gcc -x c -ansi -Wall -Werror
+>        -I/local/xen.git/tools/libs/devicemodel/../../../tools/include \=
+
+>              -S -o /dev/null $i || exit 1; \
+>        echo $i; \
+>    done >headers.chk.new
+>    mv headers.chk.new headers.chk
+>=20
+> i.e. with an empty for loop, and checking only the $(AUTOINCS).
+>=20
+> Reinsert a $(LIBHEADERS) dependency.
 >=20
 > Fixes: 4664034cd ("tools/libs: move official headers to common director=
 y")
@@ -110,7 +125,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 Juergen
 
 
---------------C1B7C7D690FA6377BCD365F3
+--------------3C26315CC66BA85E302105AB
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -201,25 +216,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C1B7C7D690FA6377BCD365F3--
+--------------3C26315CC66BA85E302105AB--
 
---jn1e4DQ2mP9xB5hK2oRsCWzL5xFqOiDPm--
+--gf52iPVPBQ6RoCZdqmPJJnEVAKmZTiVsY--
 
---iRFFa6J1gfCWdZ7RqsT1BA3ZpOm0fstMH
+--aImywZeZRWpBC3vgjDRfR4IXizNWJIvYe
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBKHRwFAwAAAAAACgkQsN6d1ii/Ey9u
-3ggAiX+RJcwZMWEsr28ZO3fB+6c42skNTznE7pUvO+GKGshCsbpnT+MLk16yL7Rl6rnRXqI2ZJRD
-TvrtpymGPyqK93+/YuVUT8syCOlKJzJM8djbKJS/83Ex7qqupdnZpZ0NMd5c0BNzNyJijyx3V0ad
-wqsK59KAQe+PqJ1ReqSAj3m8h9z7H29z8Sv/U0CCsRZseBv01yA1NZRMbXKIa4EJyUloxyU5tIiA
-EGOIXdDDZmx0lWLC2oLRS+ie7h0nfP6ZAVjhYNt7qvEpVqmUKn6PFnLSmVwYqxsc4+Lan4fpLFwN
-+hdc0JMKwLzDm9+4dMBSYAEcnYGK4H7MfgNKJikY7A==
-=RB09
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBKHT8FAwAAAAAACgkQsN6d1ii/Ey9z
+Igf8Dbg5TO35s3xDOXtA4w3SwIHiziGVhwurQvfpwJhbXLPfYjl+oDqzpqBhdnZmGIZedncm47g5
+yMrKkM0xpcGwMkXe9rsPYtg3zASfFa+0HKV0b6Dd5JHACM443oqY5efBVVKTl2M64Ojjh3D/iUmQ
+MBYrJzVjQBKHySRdo9NMmXWHwsDtpszTw4NOqUsjhCKT8krrdNf1z+dbMqV+0ljSvEQF5JzOF6+t
+FJhU64sIsa62IgFcQpQbJ5djW9K1/MjjMRS4Cxea50/AS8FjYoK8NifWwhvSya0Ma8rDEW4e5ZhF
+nBTD/zLIUeCCGaOsKCQfylYsa/wev5wlaiydmiNMDg==
+=7bn1
 -----END PGP SIGNATURE-----
 
---iRFFa6J1gfCWdZ7RqsT1BA3ZpOm0fstMH--
+--aImywZeZRWpBC3vgjDRfR4IXizNWJIvYe--
 
