@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47026337558
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 15:22:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96569.182805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 465F5337565
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 15:23:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96573.182831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKMCg-0003Rw-Um; Thu, 11 Mar 2021 14:22:18 +0000
+	id 1lKMDm-0003aD-VS; Thu, 11 Mar 2021 14:23:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96569.182805; Thu, 11 Mar 2021 14:22:18 +0000
+Received: by outflank-mailman (output) from mailman id 96573.182831; Thu, 11 Mar 2021 14:23:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKMCg-0003RZ-RL; Thu, 11 Mar 2021 14:22:18 +0000
-Received: by outflank-mailman (input) for mailman id 96569;
- Thu, 11 Mar 2021 14:22:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cYX0=IJ=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1lKMCf-0003RU-QL
- for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 14:22:17 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 7da69c1c-e585-488f-b41e-4a9634814bf5;
- Thu, 11 Mar 2021 14:22:15 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 823601FB;
- Thu, 11 Mar 2021 06:22:15 -0800 (PST)
-Received: from e123311-lin.arm.com (unknown [10.57.15.166])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C979A3F800;
- Thu, 11 Mar 2021 06:22:12 -0800 (PST)
+	id 1lKMDm-0003ZL-K8; Thu, 11 Mar 2021 14:23:26 +0000
+Received: by outflank-mailman (input) for mailman id 96573;
+ Thu, 11 Mar 2021 14:23:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+5TX=IJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lKMDl-0003YP-1n
+ for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 14:23:25 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4a193490-165a-4615-bed4-c8fa15d56401;
+ Thu, 11 Mar 2021 14:23:24 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DB47BAC23;
+ Thu, 11 Mar 2021 14:23:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +38,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7da69c1c-e585-488f-b41e-4a9634814bf5
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	bertrand.marquis@arm.com
-Subject: [PATCH v5] arm: Add Kconfig entry to select CONFIG_DTB_FILE
-Date: Thu, 11 Mar 2021 15:22:07 +0100
-Message-Id: <20210311142207.25556-1-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.29.0
+X-Inumbo-ID: 4a193490-165a-4615-bed4-c8fa15d56401
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615472603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=po4QZsHAN+vzX5uvzJmshXlPCac7n69c5r9Fdn0dvCo=;
+	b=sjqqOUQpbELgunG51bLYnaAneLdLoAHn6rXcSwK/DsFchfLZJWPal7opKb2RUZtxFSKIEo
+	JbtKBiDJ2iWmLlE8dN17PcQJiP6NCqXX2GAZhWcMmbQgbNa+4/4kethaBp09UxMuCAjwFQ
+	d8u620eAOSyPtbAZDTHxKFPkybBM2LQ=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hyperv@vger.kernel.org,
+	kvm@vger.kernel.org,
+	clang-built-linux@googlegroups.com
+Cc: Juergen Gross <jgross@suse.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@redhat.com>,
+	Jason Baron <jbaron@akamai.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Deep Shah <sdeep@vmware.com>,
+	"VMware, Inc." <pv-drivers@vmware.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>
+Subject: [PATCH v7 00/14] x86: major paravirt cleanup
+Date: Thu, 11 Mar 2021 15:23:05 +0100
+Message-Id: <20210311142319.4723-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently in order to link existing DTB into Xen image
-we need to either specify option CONFIG_DTB_FILE on the
-command line or manually add it into .config.
-Add Kconfig entry: CONFIG_DTB_FILE
-to be able to provide the path to DTB we want to embed
-into Xen image. If no path provided - the dtb will not
-be embedded.
+This is a major cleanup of the paravirt infrastructure aiming at
+eliminating all custom code patching via paravirt patching.
 
-Remove the line: AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
-as it is not needed since Kconfig will define it in a header
-with all the other config options.
+This is achieved by using ALTERNATIVE instead, leading to the ability
+to give objtool access to the patched in instructions.
 
-Make a change in the linker script from:
-_sdtb = .;
-to:
-PROVIDE(_sdtb = .);
-to avoid creation of _sdtb if there is no reference to it.
+In order to remove most of the 32-bit special handling from pvops the
+time related operations are switched to use static_call() instead.
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
- xen/arch/arm/Makefile     | 5 ++---
- xen/arch/arm/arm32/head.S | 4 ++--
- xen/arch/arm/arm64/head.S | 4 ++--
- xen/arch/arm/xen.lds.S    | 2 +-
- xen/common/Kconfig        | 8 ++++++++
- 5 files changed, 15 insertions(+), 8 deletions(-)
+At the end of this series all paravirt patching has to do is to
+replace indirect calls with direct ones. In a further step this could
+be switched to static_call(), too.
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 16e6523e2c..46e6a95fec 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -68,9 +68,8 @@ extra-y += $(TARGET_SUBARCH)/head.o
- 
- #obj-bin-y += ....o
- 
--ifdef CONFIG_DTB_FILE
-+ifneq ($(CONFIG_DTB_FILE),"")
- obj-y += dtb.o
--AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
- endif
- 
- ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
-@@ -137,7 +136,7 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
- xen.lds: xen.lds.S
- 	$(CPP) -P $(a_flags) -MQ $@ -o $@ $<
- 
--dtb.o: $(CONFIG_DTB_FILE)
-+dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
- 
- .PHONY: clean
- clean::
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index c404fa973e..50f019ed98 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -156,10 +156,10 @@ past_zImage:
-         sub   r10, r9, r0            /* r10 := phys-offset */
- 
-         /* Using the DTB in the .dtb section? */
--#ifdef CONFIG_DTB_FILE
-+.ifnes CONFIG_DTB_FILE,""
-         ldr   r8, =_sdtb
-         add   r8, r10                /* r8 := paddr(DTB) */
--#endif
-+.endif
- 
-         /* Initialize the UART if earlyprintk has been enabled. */
- #ifdef CONFIG_EARLY_PRINTK
-diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 5d44667bd8..f38a8dfca7 100644
---- a/xen/arch/arm/arm64/head.S
-+++ b/xen/arch/arm/arm64/head.S
-@@ -296,9 +296,9 @@ real_start_efi:
-         sub   x20, x19, x0           /* x20 := phys-offset */
- 
-         /* Using the DTB in the .dtb section? */
--#ifdef CONFIG_DTB_FILE
-+.ifnes CONFIG_DTB_FILE,""
-         load_paddr x21, _sdtb
--#endif
-+.endif
- 
-         /* Initialize the UART if earlyprintk has been enabled. */
- #ifdef CONFIG_EARLY_PRINTK
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index 004b182acb..78af2af504 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -222,7 +222,7 @@ SECTIONS
- 
- #ifdef CONFIG_DTB_FILE
-   /* Section for the device tree blob (if any). */
--  _sdtb = .;
-+  PROVIDE(_sdtb = .);
-   .dtb : { *(.dtb) } :text
- #endif
- 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index eb953d171e..71fc9e00cb 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -400,6 +400,14 @@ config DOM0_MEM
- 
- 	  Leave empty if you are not sure what to specify.
- 
-+config DTB_FILE
-+	string "Absolute path to device tree blob"
-+	depends on HAS_DEVICE_TREE
-+	help
-+	  When using a bootloader that has no device tree support or when there
-+	  is no bootloader at all, use this option to specify the absolute path
-+	  to a device tree that will be linked directly inside Xen binary.
-+
- config TRACEBUFFER
- 	bool "Enable tracing infrastructure" if EXPERT
- 	default y
+Changes in V7:
+- dropped patch 3, as already applied on tip tree
+- new patch 3 (patches 1 and 7 have been added to V6 late)
+- addressed comments by Boris
+
+Changes in V6:
+- switched back to "not" bit in feature value for "not feature"
+- other minor comments addressed
+
+Changes in V5:
+- patches 1-5 of V4 dropped, as already applied
+- new patches 1+3
+- fixed patch 2
+- split V4 patch 8 into patches 4+5
+- use flag byte instead of negative feature bit for "not feature"
+
+Changes in V4:
+- fixed several build failures
+- removed objtool patch, as objtool patches are in tip now
+- added patch 1 for making usage of static_call easier
+- even more cleanup
+
+Changes in V3:
+- added patches 7 and 12
+- addressed all comments
+
+Changes in V2:
+- added patches 5-12
+
+Juergen Gross (14):
+  x86/alternative: merge include files
+  static_call: move struct static_call_key definition to
+    static_call_types.h
+  static_call: add function to query current function
+  x86/paravirt: switch time pvops functions to use static_call()
+  x86/alternative: support not-feature
+  x86/alternative: support ALTERNATIVE_TERNARY
+  x86/alternative: don't open code ALTERNATIVE_TERNARY() in
+    _static_cpu_has()
+  x86: add new features for paravirt patching
+  x86/paravirt: remove no longer needed 32-bit pvops cruft
+  x86/paravirt: simplify paravirt macros
+  x86/paravirt: switch iret pvops to ALTERNATIVE
+  x86/paravirt: add new macros PVOP_ALT* supporting pvops in
+    ALTERNATIVEs
+  x86/paravirt: switch functions with custom code to ALTERNATIVE
+  x86/paravirt: have only one paravirt patch function
+
+ arch/arm/include/asm/paravirt.h          |  14 +-
+ arch/arm/kernel/paravirt.c               |   9 +-
+ arch/arm64/include/asm/paravirt.h        |  14 +-
+ arch/arm64/kernel/paravirt.c             |  13 +-
+ arch/x86/Kconfig                         |   1 +
+ arch/x86/entry/entry_32.S                |   6 +-
+ arch/x86/entry/entry_64.S                |   2 +-
+ arch/x86/entry/vdso/vdso32/system_call.S |   2 +-
+ arch/x86/include/asm/alternative-asm.h   | 114 ------------
+ arch/x86/include/asm/alternative.h       | 126 +++++++++++++-
+ arch/x86/include/asm/cpufeature.h        |  41 +----
+ arch/x86/include/asm/cpufeatures.h       |   2 +
+ arch/x86/include/asm/irqflags.h          |   7 +-
+ arch/x86/include/asm/mshyperv.h          |   2 +-
+ arch/x86/include/asm/nospec-branch.h     |   1 -
+ arch/x86/include/asm/paravirt.h          | 167 ++++++++----------
+ arch/x86/include/asm/paravirt_types.h    | 210 +++++++++--------------
+ arch/x86/include/asm/smap.h              |   5 +-
+ arch/x86/kernel/Makefile                 |   3 +-
+ arch/x86/kernel/alternative.c            |  52 +++++-
+ arch/x86/kernel/asm-offsets.c            |   7 -
+ arch/x86/kernel/cpu/vmware.c             |   5 +-
+ arch/x86/kernel/kvm.c                    |   2 +-
+ arch/x86/kernel/kvmclock.c               |   2 +-
+ arch/x86/kernel/paravirt-spinlocks.c     |   9 +
+ arch/x86/kernel/paravirt.c               |  75 ++------
+ arch/x86/kernel/paravirt_patch.c         |  99 -----------
+ arch/x86/kernel/tsc.c                    |   3 +-
+ arch/x86/lib/atomic64_386_32.S           |   2 +-
+ arch/x86/lib/atomic64_cx8_32.S           |   2 +-
+ arch/x86/lib/copy_page_64.S              |   2 +-
+ arch/x86/lib/copy_user_64.S              |   2 +-
+ arch/x86/lib/memcpy_64.S                 |   2 +-
+ arch/x86/lib/memmove_64.S                |   2 +-
+ arch/x86/lib/memset_64.S                 |   2 +-
+ arch/x86/lib/retpoline.S                 |   2 +-
+ arch/x86/xen/enlighten_pv.c              |   4 +-
+ arch/x86/xen/time.c                      |  26 +--
+ drivers/xen/time.c                       |   3 +-
+ include/linux/static_call.h              |  26 +--
+ include/linux/static_call_types.h        |  18 ++
+ tools/include/linux/static_call_types.h  |  18 ++
+ 42 files changed, 473 insertions(+), 631 deletions(-)
+ delete mode 100644 arch/x86/include/asm/alternative-asm.h
+ delete mode 100644 arch/x86/kernel/paravirt_patch.c
+
 -- 
-2.29.0
+2.26.2
 
 
