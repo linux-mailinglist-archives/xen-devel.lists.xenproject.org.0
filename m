@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F57337371
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 14:09:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96522.182651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4F3B33737A
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 14:11:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96529.182667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKL3s-0003Dh-La; Thu, 11 Mar 2021 13:09:08 +0000
+	id 1lKL5Q-000432-59; Thu, 11 Mar 2021 13:10:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96522.182651; Thu, 11 Mar 2021 13:09:08 +0000
+Received: by outflank-mailman (output) from mailman id 96529.182667; Thu, 11 Mar 2021 13:10:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKL3s-0003DK-Fs; Thu, 11 Mar 2021 13:09:08 +0000
-Received: by outflank-mailman (input) for mailman id 96522;
- Thu, 11 Mar 2021 13:09:06 +0000
+	id 1lKL5Q-00042d-1l; Thu, 11 Mar 2021 13:10:44 +0000
+Received: by outflank-mailman (input) for mailman id 96529;
+ Thu, 11 Mar 2021 13:10:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+5TX=IJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lKL3q-0003DF-JT
- for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 13:09:06 +0000
+ (envelope-from <SRS0=QJ7d=IJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lKL5P-00042Y-2U
+ for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 13:10:43 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3f162f00-009a-438c-b8ad-5b33ba551e7d;
- Thu, 11 Mar 2021 13:09:05 +0000 (UTC)
+ id 19d7dcb6-c34e-4525-a4d3-4d0a4189c63b;
+ Thu, 11 Mar 2021 13:10:41 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B29A9AC17;
- Thu, 11 Mar 2021 13:09:04 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 9BDB6AC17;
+ Thu, 11 Mar 2021 13:10:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,216 +38,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f162f00-009a-438c-b8ad-5b33ba551e7d
+X-Inumbo-ID: 19d7dcb6-c34e-4525-a4d3-4d0a4189c63b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615468145; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615468240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/cnNGJS92LaF9k2ZTwqu9nk70vjyYRogPXIIe3N+itQ=;
-	b=kSANEUwtRLviDB/KeIGzWdmCHf41qrSF9+Pm1o/8rRyuc8A/u8rrbcbOZP76OHKzT0Ahan
-	o4iw1I/ZCFewIHFheXvfWca3clVhL5wyEWkdV6xa8e1HH+Me6ZBUX+ZSZrsIO76H/stff7
-	2z+fhGh3Mab5+X9lwPIQQBbdGVYU1Is=
-Subject: Re: [PATCH v6 00/12] x86: major paravirt cleanup
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- x86@kernel.org, virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, clang-built-linux@googlegroups.com,
- Peter Zijlstra <peterz@infradead.org>, Josh Poimboeuf <jpoimboe@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>,
- Ard Biesheuvel <ardb@kernel.org>, Deep Shah <sdeep@vmware.com>,
- "VMware, Inc." <pv-drivers@vmware.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
- Joerg Roedel <joro@8bytes.org>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Andy Lutomirski <luto@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>
-References: <20210309134813.23912-1-jgross@suse.com>
- <20210311125026.GB5829@zn.tnic> <20210311125143.GC5829@zn.tnic>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <121a494d-b365-eb41-c329-2f0676b72c20@suse.com>
-Date: Thu, 11 Mar 2021 14:09:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	bh=qkCgyc/0YHXHvklSdGu08gAy+D75TOJkvXrE+D8kTMg=;
+	b=lmfQKu6ZkwxdlilZcvIUa89S6tlCUDpLEdzCXaNxN21pTzAjrqybUyydA/LYlquQtFjL0c
+	/PeUYqNic82y3l8dR7wwXu/Gndfy+fJtH3iMXF0klrd3BdzCV54X7vMdIHWp+A0xVgn2qx
+	be8t78td2fvCta5/ZPbSfuEVctETk+w=
+Subject: Re: [PATCH v4] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+To: Michal Orzel <michal.orzel@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, bertrand.marquis@arm.com,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <20210310065803.348-1-michal.orzel@arm.com>
+ <3d3e5573-6d64-98cd-1f6f-897eb860d8ba@xen.org>
+ <16f39b33-2e26-1a4b-5415-02cd14edaf24@arm.com>
+ <fbd054dc-d9f9-f6c1-97b5-e71cc3c0e0ae@xen.org>
+ <54c7a952-cc17-8ab5-1aec-d1bd2453d1a1@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a95fc130-f0a0-dc82-86f6-76f2866afe1b@suse.com>
+Date: Thu, 11 Mar 2021 14:10:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210311125143.GC5829@zn.tnic>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="sHGm1foLXOCKkEUnUGNC7UsESSEa9kG2D"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---sHGm1foLXOCKkEUnUGNC7UsESSEa9kG2D
-Content-Type: multipart/mixed; boundary="ncnlhSdjJDB3MyBZ79puGdjOzrKooCvcO";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- x86@kernel.org, virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, clang-built-linux@googlegroups.com,
- Peter Zijlstra <peterz@infradead.org>, Josh Poimboeuf <jpoimboe@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>,
- Ard Biesheuvel <ardb@kernel.org>, Deep Shah <sdeep@vmware.com>,
- "VMware, Inc." <pv-drivers@vmware.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
- Joerg Roedel <joro@8bytes.org>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Andy Lutomirski <luto@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>
-Message-ID: <121a494d-b365-eb41-c329-2f0676b72c20@suse.com>
-Subject: Re: [PATCH v6 00/12] x86: major paravirt cleanup
-References: <20210309134813.23912-1-jgross@suse.com>
- <20210311125026.GB5829@zn.tnic> <20210311125143.GC5829@zn.tnic>
-In-Reply-To: <20210311125143.GC5829@zn.tnic>
-
---ncnlhSdjJDB3MyBZ79puGdjOzrKooCvcO
-Content-Type: multipart/mixed;
- boundary="------------C6C892EEF89D5D4CB4A414F1"
+In-Reply-To: <54c7a952-cc17-8ab5-1aec-d1bd2453d1a1@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------C6C892EEF89D5D4CB4A414F1
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 11.03.2021 13:39, Michal Orzel wrote:
+> On 11.03.2021 12:11, Julien Grall wrote:
+>> On 11/03/2021 10:41, Michal Orzel wrote:
+>>> On 11.03.2021 11:34, Julien Grall wrote:
+>>>> On 10/03/2021 06:58, Michal Orzel wrote:
+>>>>> Currently in order to link existing DTB into Xen image
+>>>>> we need to either specify option CONFIG_DTB_FILE on the
+>>>>> command line or manually add it into .config.
+>>>>> Add Kconfig entry: CONFIG_DTB_FILE to be able to
+>>>>> provide the path to DTB we want to embed into Xen image.
+>>>>> If no path provided - the dtb will not be embedded.
+>>>>>
+>>>>> Remove the line: AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+>>>>> as it is not needed since Kconfig will define it in a header
+>>>>> with all the other config options.
+>>>>>
+>>>>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>>>>> ---
+>>>>>    xen/arch/arm/Makefile | 5 ++---
+>>>>>    xen/common/Kconfig    | 8 ++++++++
+>>>>>    2 files changed, 10 insertions(+), 3 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+>>>>> index 16e6523e2c..46e6a95fec 100644
+>>>>> --- a/xen/arch/arm/Makefile
+>>>>> +++ b/xen/arch/arm/Makefile
+>>>>> @@ -68,9 +68,8 @@ extra-y += $(TARGET_SUBARCH)/head.o
+>>>>>      #obj-bin-y += ....o
+>>>>>    -ifdef CONFIG_DTB_FILE
+>>>>> +ifneq ($(CONFIG_DTB_FILE),"")
+>>>>>    obj-y += dtb.o
+>>>>> -AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+>>>>>    endif
+>>>>>      ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
+>>>>> @@ -137,7 +136,7 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+>>>>>    xen.lds: xen.lds.S
+>>>>>        $(CPP) -P $(a_flags) -MQ $@ -o $@ $<
+>>>>>    -dtb.o: $(CONFIG_DTB_FILE)
+>>>>> +dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
+>>>>>      .PHONY: clean
+>>>>>    clean::
+>>>>> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+>>>>> index eb953d171e..a27836bf47 100644
+>>>>> --- a/xen/common/Kconfig
+>>>>> +++ b/xen/common/Kconfig
+>>>>> @@ -400,6 +400,14 @@ config DOM0_MEM
+>>>>>            Leave empty if you are not sure what to specify.
+>>>>>    +config DTB_FILE
+>>>>> +    string "Absolute path to device tree blob"
+>>>>> +    depends on HAS_DEVICE_TREE
+>>>>> +    ---help---
+>>>>> +      When using a bootloader that has no device tree support or when there
+>>>>> +      is no bootloader at all, use this option to specify the absolute path
+>>>>> +      to a device tree that will be linked directly inside Xen binary.
+>>>>
+>>>> With this approach, CONFIG_DTB_FILE will always be defined. This means that Xen will always be compiled to use the "embedded" DTB. When the string is "", it will be garbagge.
+>>>>
+>>>> So I think we need a second config to that indicates whether the string is empty or not.
+>>>>
+>>>> Interestingly, your first version of patch didn't expose the problem because CONFIG_DTB_FILE would not be defined if the CONFIG_LINK_DTB is not selected. Although, it would still happily build if CONFIG_DTB_FILE is "".
+>>>>
+>>>> Cheers,
+>>>>
+>>> I do not agrree. We do not need another config.
+>>
+>> Did you test that Xen will still boot if the string is empty?
+>>
+>>> If string is empty - the dtb.o will not be created and there will be no dtb section in xen binary.
+>>
+>> The dtb.o will not be created but the section will because the linker use #ifdef CONFIG_DTB_FILE:
+>>
+>> 42sh> grep CONFIG_DTB .config
+>> CONFIG_DTB_FILE=""
+>> 42sh> nm xen-syms | grep _sdtb
+>> 00000000003560f8 B _sdtb
+>>
+>> And to show this is going to be used:
+>>
+>> 42sh> git diff
+>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+>> index 5d44667bd89d..2b680b8226d2 100644
+>> --- a/xen/arch/arm/arm64/head.S
+>> +++ b/xen/arch/arm/arm64/head.S
+>> @@ -297,6 +297,7 @@ real_start_efi:
+>>
+>>          /* Using the DTB in the .dtb section? */
+>>  #ifdef CONFIG_DTB_FILE
+>> +        e
+>>          load_paddr x21, _sdtb
+>>  #endif
+>>
+>> 42hs> make
+>> [...]
+>>   CC      arm64/head.o
+>> arm64/head.S: Assembler messages:
+>> arm64/head.S:300: Error: unknown mnemonic `e' -- `e'
+>> /home/ANT.AMAZON.COM/jgrall/works/oss/xen/xen/Rules.mk:204: recipe for target 'arm64/head.o' failed
+>>
+>> So _sdtb is going to always be used...
+>>
+>> Cheers,
+>>
+> 
+> Yes you are right. So I could add another config like:
+> config DTB_VALID
+> 	def_bool y if DTB_FILE != ""
+> and change all the lines containing:
+> #ifdef CONFIG_DTB_FILE
+> to
+> #ifdef CONFIG_DTB_VALID
 
-On 11.03.21 13:51, Borislav Petkov wrote:
-> On Thu, Mar 11, 2021 at 01:50:26PM +0100, Borislav Petkov wrote:
->> and move the cleanups patches 13 and 14 to the beginning of the set?
->=20
-> Yeah, 14 needs ALTERNATIVE_TERNARY so I guess after patch 5, that is.
+I'm sorry to jump in again, but I still think a 2nd Kconfig setting
+is not needed. I count three uses of CONFIG_DTB_VALID outside of
+make files. The ones in .S can be replaced by using assembler
+directives .ifeqs / .ifneqs. And the one in xen.lds.S looks to be
+unnecessary altogether: If there's no input .dtb section, the
+linker wouldn't allocate an output one anyway. And the _sdtb symbol,
+if you want to avoid its creation when there's no reference, could
+be wrapped in PROVIDE(). (I also think that symbol should be
+defined inside the section definition, not ahead of it.)
 
-I'm putting 13 at the begin of the series and 14 after 5.
-
-
-Juergen
-
---------------C6C892EEF89D5D4CB4A414F1
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------C6C892EEF89D5D4CB4A414F1--
-
---ncnlhSdjJDB3MyBZ79puGdjOzrKooCvcO--
-
---sHGm1foLXOCKkEUnUGNC7UsESSEa9kG2D
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBKFm4FAwAAAAAACgkQsN6d1ii/Ey+h
-KQgAjhK+g8WC8LZv2hOzJE0RlIalM761Yaxv12fceCorl30Mq4b1ZB57xdM97FUQkO6DjnJs7XYg
-2c97qfyRRv9pPDd+Su+Fh7p2Uu47BFyHBxT250G0OwoK6/j/FZzu4EPYtliizyz2yMJ8+qtHugU2
-8vXAmywUjTjUvKSIfPAOmn5tjViNfhf27RnVZAY/LF8zkg05naANhSW3K2fKfT5se7UBaPxK1f+2
-YKKfs031D231+gYklLq9lLoBhfIu6RYF4wiVdcNw7oFNjMv8ggFAUVRDmtTEOa8GkQsqHDpvqdoJ
-0i0OjOZrTslf0aJUbx0dLx60C4JKa2cQAkGwGgKU1Q==
-=koDR
------END PGP SIGNATURE-----
-
---sHGm1foLXOCKkEUnUGNC7UsESSEa9kG2D--
+Jan
 
