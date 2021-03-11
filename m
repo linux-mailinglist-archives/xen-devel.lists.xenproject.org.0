@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF41336F07
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 10:41:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96410.182352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60775336F2D
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 10:48:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96414.182364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKHoG-00073h-Gq; Thu, 11 Mar 2021 09:40:48 +0000
+	id 1lKHvU-0007MW-9t; Thu, 11 Mar 2021 09:48:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96410.182352; Thu, 11 Mar 2021 09:40:48 +0000
+Received: by outflank-mailman (output) from mailman id 96414.182364; Thu, 11 Mar 2021 09:48:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKHoG-00073I-DW; Thu, 11 Mar 2021 09:40:48 +0000
-Received: by outflank-mailman (input) for mailman id 96410;
- Thu, 11 Mar 2021 09:40:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gir7=IJ=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1lKHoE-00073D-NY
- for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 09:40:46 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f4168d23-4778-427b-ab71-434787f94cf1;
- Thu, 11 Mar 2021 09:40:45 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3E146AC16;
- Thu, 11 Mar 2021 09:40:44 +0000 (UTC)
+	id 1lKHvU-0007M5-6J; Thu, 11 Mar 2021 09:48:16 +0000
+Received: by outflank-mailman (input) for mailman id 96414;
+ Thu, 11 Mar 2021 09:48:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lKHvS-0007M0-BB
+ for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 09:48:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lKHvR-00022O-4N; Thu, 11 Mar 2021 09:48:13 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lKHvQ-0007m4-S4; Thu, 11 Mar 2021 09:48:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,81 +40,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4168d23-4778-427b-ab71-434787f94cf1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615455644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1XVkrEfKmBVOU6F+L+VVfC9OHCsEz9IKiz0UT5qoCQE=;
-	b=MZqljq3IQAm31q6uxSEDAaFiKhtAirMgPS3ixjN4ZYyKYth1Q+3U2oqsl5t9tDvtzOUsRv
-	YeDa7TMLqN6ZPUrOSP1foQTd/UL0oUTQ0nZvsc6mlb+tnfhcStOYMyUNa8Png+F3m81zxq
-	itxFjCWpndQy+o41c1uNHzQhu6KPn7s=
-Subject: [PATCH] xen: fix for_each_cpu when NR_CPUS=1
-From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Date: Thu, 11 Mar 2021 09:40:43 +0000
-Message-ID: <161545564302.24868.14477928469038686899.stgit@Wayrath>
-User-Agent: StGit/0.23
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=3cqelGmI07pHVY8hVPWi3fhqvD0roAVrxauEZew+z0s=; b=kuZpvvSVok9dY5p69Tz+NME7NV
+	pj/k038DQ7OQsVyHRAvqwkytBiLspyXYZpokt6IbtkSkVv85hQt1dF/On5HCnuCawonOcw7vbziLI
+	YA91gfviZyYcforefAWYyjK0+lrxhJpOnLKoGD9Nnd9x/Q/2aJdoDZJTh5avo5wd5Bxs=;
+Subject: Re: [PATCH for-4.15 2/2] tools/xenstore: Check the format printf for
+ xprintf() and barf{,_perror}()
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, raphning@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210305124003.13582-1-julien@xen.org>
+ <20210305124003.13582-3-julien@xen.org>
+ <0994b7a0-c537-b312-b134-caf54c79c87f@suse.com>
+ <74568cd7-143b-48ad-b9be-bf4229655376@suse.com>
+ <7eb12174-3268-ccdb-df9c-c4fe23d3a332@xen.org>
+ <24642.14600.124181.19574@mariner.uk.xensource.com>
+ <0249af89-ced0-0f7f-d370-9ffade6b1678@xen.org>
+ <24645.61961.964574.269753@mariner.uk.xensource.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1ec1c5b8-3802-873c-36a2-ea9637345302@xen.org>
+Date: Thu, 11 Mar 2021 09:48:11 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <24645.61961.964574.269753@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-When running an hypervisor build with NR_CPUS=1 for_each_cpu does not
-take into account whether the bit of the CPU is set or not in the
-provided mask.
+Hi Ian,
 
-This means that whatever we have in the bodies of these loops is always
-done once, even if the mask was empty and it should never be done. This
-is clearly a bug and was in fact causing an assert to trigger in credit2
-code.
+On 08/03/2021 09:44, Ian Jackson wrote:
+> Julien Grall writes ("Re: [PATCH for-4.15 2/2] tools/xenstore: Check the format printf for xprintf() and barf{,_perror}()"):
+>> Would the following comment work for you?
+>>
+>> /* Function pointer as xprintf() can be configured at runtime. */
+>>
+>> I can fold it in my patch while committing.
+> 
+> Sure, thanks.  FTAOD
+> 
+> Reviewed-by: Ian Jackson <iwj@xenproject.org>
+> Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+> 
+> to that comment addition.
 
-Removing the special casing of NR_CPUS == 1 makes things work again.
+Thanks! I have committed the two patches.
 
-Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>
----
-I'm not really sure whether this should be 4.15 material.
+Cheers,
 
-It's definitely a bug, IMO. The risk is also pretty low, considering
-that no one should really run Xen in this configuration (NR_CPUS=1, I
-mean). Which is also the reason why it's probably not really important
-that we fix it at this point of the release cycle.
----
- xen/include/xen/cpumask.h |    5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/xen/include/xen/cpumask.h b/xen/include/xen/cpumask.h
-index 256b60b106..e69589fc08 100644
---- a/xen/include/xen/cpumask.h
-+++ b/xen/include/xen/cpumask.h
-@@ -368,15 +368,10 @@ static inline void free_cpumask_var(cpumask_var_t mask)
- #define FREE_CPUMASK_VAR(m) free_cpumask_var(m)
- #endif
- 
--#if NR_CPUS > 1
- #define for_each_cpu(cpu, mask)			\
- 	for ((cpu) = cpumask_first(mask);	\
- 	     (cpu) < nr_cpu_ids;		\
- 	     (cpu) = cpumask_next(cpu, mask))
--#else /* NR_CPUS == 1 */
--#define for_each_cpu(cpu, mask)			\
--	for ((cpu) = 0; (cpu) < 1; (cpu)++, (void)(mask))
--#endif /* NR_CPUS */
- 
- /*
-  * The following particular system cpumasks and operations manage
-
-
+-- 
+Julien Grall
 
