@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB513373DA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 14:29:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96541.182722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7DE1337402
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Mar 2021 14:32:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96547.182734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKLN9-0005bF-B0; Thu, 11 Mar 2021 13:29:03 +0000
+	id 1lKLQH-0006To-Tv; Thu, 11 Mar 2021 13:32:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96541.182722; Thu, 11 Mar 2021 13:29:03 +0000
+Received: by outflank-mailman (output) from mailman id 96547.182734; Thu, 11 Mar 2021 13:32:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKLN9-0005aq-7U; Thu, 11 Mar 2021 13:29:03 +0000
-Received: by outflank-mailman (input) for mailman id 96541;
- Thu, 11 Mar 2021 13:29:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DcZr=IJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lKLN8-0005al-Ix
- for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 13:29:02 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc83307f-3858-4eb2-8a85-bb8f71cb5891;
- Thu, 11 Mar 2021 13:29:01 +0000 (UTC)
+	id 1lKLQH-0006TP-Qb; Thu, 11 Mar 2021 13:32:17 +0000
+Received: by outflank-mailman (input) for mailman id 96547;
+ Thu, 11 Mar 2021 13:32:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lKLQG-0006TK-0Z
+ for xen-devel@lists.xenproject.org; Thu, 11 Mar 2021 13:32:16 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lKLQE-0005rd-RB; Thu, 11 Mar 2021 13:32:14 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lKLQE-0007RJ-DV; Thu, 11 Mar 2021 13:32:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,154 +40,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc83307f-3858-4eb2-8a85-bb8f71cb5891
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1615469341;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=DzlnXfHu3E0CiSDJExmPfxAYPu8qtXUSLlXDgNzQwv0=;
-  b=XEbyJRY8OnarD3cH7/vXF04gPNwmasUUpC3up2uD/zJQKStKbZcyCHzC
-   6WWMMqvYmn48ryGvXd1VnOOOuQAmbd+//Uqx9ku+j9k65FXt8mMnIroo4
-   QI+BDxPKd1aEUfcYJYQhLoYfyX77P0Hp8s06pk4WNVvG1m2ttszOdPycG
-   w=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: xbh7ZpHljAF8jgsW6FPnkVap5reVh1RnCfA7e5yMik+RYuEvot9Kg9vgEXbGuMIggyIJEoBFxu
- yDPcPa6HyCwrzrRZ4XHQoznl3EPfYVeUER1pufn6cTFJ/1V4iQIMAswjguTRlkmPtxzUseyjiT
- Ebg9twZVnJa09zhMZhhKw7s9nTPcEZcmNZD8DDjxCfti7HdtGnwnLQlx9go+7ekHGRAeJMRpT1
- M6432RaV8pfQdOlQ4SlU0zkrdFphxSZ5SVK846+j0uEDgdQxwDhW7E0ZNVchu67h42Q3Kk+zLJ
- pVk=
-X-SBRS: 5.2
-X-MesageID: 39047544
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:QhxTo6EPsE+vWkYtpLqFRZTXdLJzesId70hD6mlYcjYQWtCEls
- yogfQQ3QL1jjFUY307hdWcIsC7Lk/03aVepa0cJ62rUgWjgmunK4l+8ZDvqgeNJwTXzcQY76
- tpdsFFZeHYJURmjMr8/QmzG8shxt7Cy6yzmeLC1R5WLD1CQYsI1XYcNi+wFEpqSA5aQb8wE5
- SB7sRKzgDQBkg/RMK9G3UDQqz/vNXNjp3relorABQg5QmIg1qTmcLHOjKf2QoTVC4K/Kc6/Q
- H+4nHEz4iAk9X+8B/T0GfP849b8eGO9vJvDNGB4/JlUgnEpR2vYO1aKtu/lRAz5Nqi8VM71O
- TLyi1QRfhbz1P0UiWLrQD22w/muQxemEPK7VODm3PsrYjYaVsBerN8rLlUeBfY9EYs1esUuM
- kgvxP7xu9qJCjNkyjn69/DWwsCrDvSnVMYnfMOlHsaaIMCadZq3Pwi1XlIG5QNFj+S0vFELM
- BSCqjnlZNrWG+BY2uclmdix8HEZAVJIj62BmIGusCTzgFMmmF4w0Yy1KUk7wY93aN4ZJ9e6+
- veNKN00JlIU88NdKp4QNwMWM2tFwX2MF3xGVPXBW6iOLAMOnrLpZKyyLIp5NuycJhN6Jcpgp
- zOXH5RqGZaQTOhNeS+mLlwtjzdSmS0WjrgjutE4YJih7H6TL33dQWeVVEHiaKb0rYiK/yef8
- z2FINdAvflI2erM51OxRfCV55bLmRbeNEJu+w8R0mFrqvwW83Xn92eVMyWCKvmED4iVG+6KG
- AERiLPKMJJ6V3udWT/hDTXRnPxam3y9Z99C8Hhjq0u4blIErcJnhkeiFy/6M3OAyZFqLYKcE
- x3J66isq7TnxjzwU/4q0FSfjZNBEdc57vtF1lQoxURDk/yebEf//GWeWVY2mq7NgZyJvmmVz
- J3lhBSw+aaPpaQzSctB5aMKWSBlUYeo3qMUtM6lrCc49zmPrc1FIwvVqA0NQijLW01pS9a7E
- N4LCMUTE7WET3jzY+/ioYPOe3Zf95gxCGxIcBVrnrbnV6Gpd4mQ0YaWzLGa7/UvS8eAx5vwn
- Fh+a4Wh7SN3Ry1L3Ekveg+OFpQLFiMDKl+FwSDboVMkrXNcAV9JF36wwCyulUWQC7H5k8Sjm
- vuIWmxdevQClRQgHxez53n6Uh5bGmbYkJ2ZE1rqIEVLxW1hl9DlcuwIoaj2WqYbVUPhtsQNz
- zIehM+CAJjzdLf7m/epB+yUVEdgrk+NO3UC7ouN4zJ0nS2MYuSiOUtBPlP5qtoM9jor84GWe
- +SYBWuMTv9Eu8lsjbl/0oNCW1Rkj0JgPno0Brq4CyEx3Y5G+PVO0kjaLcBId2QhlKUDsqg4d
- Fct5YSsuSxOGmqNYLD5qHTcjJZKhTc5USxVPolrJhIvaQ08Jt/dqOrJgfg5TVi5lEZKsyxqW
- Y1BIJcy5rFMpV0f8MTdzlCl2BZ3+inHQ8OiEjOHuQ6fVsRlHfVMNOC3qrQpdMUczm8jTq1HW
- PazjZU8PjEVRaSzLI2C6o/JmJNdUg3gU4Sit+qRsn1CA+wcftE80f/GnihcKVFQKztI8Rckj
- 9Kp/WJlfSQbSz2xUT5uiZ6OLtH9yKCTdmpCAyBXc5O/NrSAyXBvoKapOqyhizwUz21dgAxgp
- BEb1UZaoB7sQYZ5bdHmhSae+jQuUIqk1xX/DFhmBrM4+GdkRnmNHADFxbYjJVQVSRUKV6Sg6
- 3+gLCl6Eg=
-X-IronPort-AV: E=Sophos;i="5.81,240,1610427600"; 
-   d="scan'208";a="39047544"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q1JDlfKQKB4mlN8KQhgYqyEu1gH95LECbqtUdygJRWaUlQ/TgYVE+RNKp7JidJsD1wnRgjC4DIuzaDiJAwb+eeuK77xeh+0N1jcQnO5UzVVjApMDrQn08cbR5w+Lffk2XDvmOfRT8+TWW1gadW4gjJZX+wD+B02rrMttjnYSnBfjCkGJv0FrygjrPkM2q1byW8SdZ3+jTKrcEKDKA21swX34YD5buuOnrEQ6WFZ4b0cgDZ9keEstORfizsVeUfwBR24a7rsRHe28OPrLNRdQOr4AuSlmqw5RK3u6qiq4zu3dwgcg3p54RCMzeK+Xnogy+gleaNLrYDnNG6DgrmGsxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=px5mo/EHB1WU3sUDzgONHAk9I9kK+yXGOFgRCDuZoSg=;
- b=LYqkKPcXU03hJF0Dl2yYCmQByrGSJyzgrRjMyklQGA6N8oFst/LND2B76LdFmKKBT5YzfgRScFzFs7GS1OwCIK9pg3NRwolPLhwQ0cgy9XyrDvxYc4y/Aelym11H54dNmIpKUS4V39s5hsZIwyvuckC5Vzn/01vyJajZ/TKIUAnqNbq9TqyOWlE/V4QCt+voxMNI84cRziTtRoBw6aGhDgyU2xpokBDyalwEuTXQjyLPOSoXGCAFreF3m+lQqH3JKn/EkLyiB72+fa51lWV07rmT5A0/lvIn6iKOac3Sf5W3b6oLa1pWxFvfi56cqXIgTWPDtHgMmht4O5mkCvsECA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=px5mo/EHB1WU3sUDzgONHAk9I9kK+yXGOFgRCDuZoSg=;
- b=RoO5JMsQEBrSOo1s3UTuLnAgHi6wjtUZ+whPmBTbBpepiDqn++y9W+5ZmnNwNCPOlwYPoIdMKCQiSZHHfr6avzeSkFTaLN5dg6wlGOIHtBoSmPfY8YgV+YaTw0DyQ7i+AJIsAJ2OSnxnFkZklhZGHszqTzmtWHxz4vSYWuajQsc=
-Subject: Re: Ping [PATCH for-4.15 0/3] tools/libs: Multiple fixes to header
- handling
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>, Ian Jackson <iwj@xenproject.org>
-References: <20210305124949.6719-1-andrew.cooper3@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <ba6bb453-e184-c8cb-1bbf-d730884436a3@citrix.com>
-Date: Thu, 11 Mar 2021 13:28:34 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-In-Reply-To: <20210305124949.6719-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P123CA0083.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:138::16) To BN7PR03MB3618.namprd03.prod.outlook.com
- (2603:10b6:406:c3::27)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=n/LQpqoy4C4w5B+MWBr5BKaGMB9F5rNVWjpj/3h6e00=; b=C855MiaE1S8aMOJ/qlIcv4CrWc
+	6zFjdT1S8lWmozjNuV1v18Wv9GNPqHBvWUmTU9vEDGg5wH+dlu/bzC+s9Mo5clO+1wmvwsuwfpynS
+	o4fpQ9qvadMi0dRExTuXq2RztNPwBDNRyYhkZUKR/5MdwkxWBqsYo4OZllYgRLTvq56Y=;
+Subject: Re: [PATCH v4] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+To: Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, bertrand.marquis@arm.com,
+ xen-devel@lists.xenproject.org
+References: <20210310065803.348-1-michal.orzel@arm.com>
+ <3d3e5573-6d64-98cd-1f6f-897eb860d8ba@xen.org>
+ <16f39b33-2e26-1a4b-5415-02cd14edaf24@arm.com>
+ <fbd054dc-d9f9-f6c1-97b5-e71cc3c0e0ae@xen.org>
+ <54c7a952-cc17-8ab5-1aec-d1bd2453d1a1@arm.com>
+ <a95fc130-f0a0-dc82-86f6-76f2866afe1b@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <91b18be5-e5f8-9d32-ddf7-ed0c30068e54@xen.org>
+Date: Thu, 11 Mar 2021 13:32:12 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.8.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c5a79725-7c0f-4165-b38f-08d8e4919511
-X-MS-TrafficTypeDiagnostic: BN3PR03MB2275:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN3PR03MB227503DA75875284D602335DBA909@BN3PR03MB2275.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:324;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 23cxN0Xq3y9PJgG3flZKjvVOwOkxCPQWrSOgFr9IMxnd9Pt/dic7qQ4X36U78ver3be+2BfgKRCb3jJs5qFPtaUmvHmPHwR0lvNaEselCb5x3OQFJMlUok2Cw2qFa2c58zXIjdT0Y5i8wVeyWLG37NvPqkoqxJ2UB292E/U/2kVsxES3jjIWsxOpYp7KMnvW1CXPMM58rxmZoGPj+3VoU7Ka32VAssN9YxeofkvgPg9CH/HqOfHDM363sYI7rRWaWYhBjl9wJx4GM4Kz8G1Po17KnSlNLOER4VfLUry/V5jYs3kpMVKjcZWQkhM/5h+0PYBJNNukdlhZ4l2mvkEGX8a9v46uKmHgXVCeHiflQ/E3SnpFriDT4Q4O7m6fSDUPop5IvYvWhhu5sZiq73kT+3dCCco7nSzIhvBBUE4eADhz77SfNIPHeB/SqpQ33neDzsa0aqbWOc37mYtfCnTtgiDM7hfDWdep+oveUdIYgoNWB/O5qJ4dWwkYKBo99fiOImMkSkciQ5PT4LSjSeBopihJiLKFCNmllTKQeSmr4h0G2jN5UbJCjeASK58B69EYJDRh4VfQ5vDc/SctAOSdgukcoi/DuOL4v5zLXDZIvGA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(136003)(39850400004)(376002)(346002)(396003)(8676002)(316002)(478600001)(16576012)(6666004)(4326008)(66946007)(53546011)(66476007)(2906002)(6486002)(66556008)(6916009)(8936002)(26005)(16526019)(36756003)(5660300002)(2616005)(956004)(186003)(31686004)(31696002)(86362001)(54906003)(4744005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MzJsY05IMi9lbUlCSHZrWkhPVzNYbjBXZUF4SHJ1MUwzQVVVN3NLb2hCV2c1?=
- =?utf-8?B?STJuYzhUZ3RPZUhYU3kzOExvdkhUYTVzemFialY0MU5NSSt5Zzlab1hPWllo?=
- =?utf-8?B?N0pETkNYMU90d3FGdFBUYVhSREpxYnkxMkN2OEt1c0d4NXZqYldmcEp1RS9P?=
- =?utf-8?B?RmY0aWRXY0FTVU9tTnczRHVlcVpjczFzZEtQM2RpNGErWTJkZWdsc01VVEtC?=
- =?utf-8?B?dFZ2T1I5eW1YaDI0aUZwS1E4SzhuZ3lQWGcyUUNweHoxK1F0Zyt3N0NxcU1J?=
- =?utf-8?B?dUlJcWh2UEJkemc0dmdpZTR4RWkzQkMxLzBLdVo1bzRvK0lib1hydkF4NnAv?=
- =?utf-8?B?T2xwZjAxMUUzbG9tRFFEYTRiUHg1ZG1VU2RBVkhScTZ3ZkdaV3dsRytQZVBn?=
- =?utf-8?B?bUdTcFZQWlc2S2dYaUpwMEM5UWQ0QWJaYWJJTHNSSzUxVVBOSWcwejdtNE4z?=
- =?utf-8?B?elVLN0dCQ3JoL1hzVk5lTTBPWnFaN1p5UXB2azJGZzZsd0pyajdISGtIa3ps?=
- =?utf-8?B?UnZsTC9nWDNzK2c2SDFFSFJvb3FBbEZWK3ZZamZYOTh2Y2M2UkVvSkZyQmpE?=
- =?utf-8?B?amFadzJXVVltMVdWZUVMT2hjc2xtMW1VekxXNng1emlNVnI0cG9JM0hOUUVm?=
- =?utf-8?B?ZEdDd3dBT3pjZFlNMlA3OW1Zd3hmUDB0WldvY0JrYU9LRVowc1pJWVg0VUhH?=
- =?utf-8?B?WHZCcjBBVlI3MC8wODA4N0k5Z0U1eUVQdFFJbmJhVXRBNW8zeE1ac1F0ZFJw?=
- =?utf-8?B?UGdmU1daRU43WjBvY1FLUEpkbTZJQXp3SFpJbllXdTlnclgwd2xRbmd6YVVn?=
- =?utf-8?B?UENNUzFmQk5ITFpOcm5qeTBIQjk4aThPQkU1Qmx1VjRVTVpReDZBVjh6ZHl4?=
- =?utf-8?B?SzNrMm14cUN2NE5DVEdwUERsMDNtQ0xsMEY4Umk0akpJR1pSS3dxSit1VWFJ?=
- =?utf-8?B?cXhOa0NLaGtVUlpENWZMb2U3OEVRcmJXK3VFc3RUTURlVkN2a0F3Znd6ZzRi?=
- =?utf-8?B?WUNpTi8rTnlrMVRPclR0TGxCY1dXaFUwSHcvVWpzNVBLUjdycWlTdTVScGEv?=
- =?utf-8?B?V3c0ZnRqSlNuQlBMeWRRTVlLMkJGTlQwUUx3QVlrNW1Tb2NVKzZTSHF3OG9z?=
- =?utf-8?B?ckVEQkRWalNmSlZWelhVK1pleHlTYUhCMTh2b2tzL3k0T3BUTURvZ0VEajRT?=
- =?utf-8?B?aDRWaXZBNnc5Y3IxK0o3dDRQZjREaHFpQ01Dd2tVYXNNeHJDYTZLTVl3UTBR?=
- =?utf-8?B?cGhGaDdyTW1aWUtsVkdlVHk2NFVDRHJ5Vkh5Q2dkTjlXNVhneDZKRDBEeW1V?=
- =?utf-8?B?ZVlKa1JOQXp1NTU2aU5IQTJ0aFJiUm51eU5XUG9YNEh5bFFjYWIwbDRnUmxq?=
- =?utf-8?B?N1ZwbS9JUE5zOHNrVnVkQTExNnU0ekxnYUFNbmlFMnpBaTArYkViQ2s3TzlI?=
- =?utf-8?B?cU00OG9PYURUd2pQRWxQUnNIVFQxS25CSDhlaUQrY01Oa2s0NENRTnFiN3pz?=
- =?utf-8?B?N0tzSzJ6cllIdWxXcWE2QTZ5QklPR0haN291SStGNUZHeFpDWGtiY3dVbkdo?=
- =?utf-8?B?dWhhS25hZG9sYU14THFLRXdIclVlNFl6dzRWUVdTRFA3SDRxOG45K2VuRXVT?=
- =?utf-8?B?MC9SYkk4REJDNXk2bzdsczltYkVmdDVUdTg3T0RQcFNxUzBhL0grd3B4RndX?=
- =?utf-8?B?T05wT1RkRFltMHgvV2NMc3kzditVUzl3WXEzc20zQWtqSzU3MlhiTlBuNm5P?=
- =?utf-8?Q?5rTj1m/gpGC+8XEHGMHujDF4qagHuID4xDT2het?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5a79725-7c0f-4165-b38f-08d8e4919511
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2021 13:28:40.4765
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dj8ZFdCKX4lo9qZWe1zJlr8eoM0HD94GUPguq1q2qnTAc3vhtvo8D5+1KuXR6hZrXukBn0k908dsSM1Cng0v1UJGfr8qBPJFBkHNTxri1oU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR03MB2275
-X-OriginatorOrg: citrix.com
+In-Reply-To: <a95fc130-f0a0-dc82-86f6-76f2866afe1b@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On 05/03/2021 12:49, Andrew Cooper wrote:
-> This can of worms is festering.  See patch 1 for yet more issues.
->
-> Andrew Cooper (3):
->   tools/libxentoolcore: Fill in LIBHEADERS
->   xen/dmop: Strip __XEN_TOOLS__ header guard from public API
->   tools/libs: Fix headers.chk logic
+Hi,
 
-Ping for acks/otherwise on patches 1 and 3?  (They're already R-A'd)
+On 11/03/2021 13:10, Jan Beulich wrote:
+> On 11.03.2021 13:39, Michal Orzel wrote:
+>> On 11.03.2021 12:11, Julien Grall wrote:
+>>> On 11/03/2021 10:41, Michal Orzel wrote:
+>>>> On 11.03.2021 11:34, Julien Grall wrote:
+>>>>> On 10/03/2021 06:58, Michal Orzel wrote:
+>>>>>> Currently in order to link existing DTB into Xen image
+>>>>>> we need to either specify option CONFIG_DTB_FILE on the
+>>>>>> command line or manually add it into .config.
+>>>>>> Add Kconfig entry: CONFIG_DTB_FILE to be able to
+>>>>>> provide the path to DTB we want to embed into Xen image.
+>>>>>> If no path provided - the dtb will not be embedded.
+>>>>>>
+>>>>>> Remove the line: AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+>>>>>> as it is not needed since Kconfig will define it in a header
+>>>>>> with all the other config options.
+>>>>>>
+>>>>>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>>>>>> ---
+>>>>>>     xen/arch/arm/Makefile | 5 ++---
+>>>>>>     xen/common/Kconfig    | 8 ++++++++
+>>>>>>     2 files changed, 10 insertions(+), 3 deletions(-)
+>>>>>>
+>>>>>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+>>>>>> index 16e6523e2c..46e6a95fec 100644
+>>>>>> --- a/xen/arch/arm/Makefile
+>>>>>> +++ b/xen/arch/arm/Makefile
+>>>>>> @@ -68,9 +68,8 @@ extra-y += $(TARGET_SUBARCH)/head.o
+>>>>>>       #obj-bin-y += ....o
+>>>>>>     -ifdef CONFIG_DTB_FILE
+>>>>>> +ifneq ($(CONFIG_DTB_FILE),"")
+>>>>>>     obj-y += dtb.o
+>>>>>> -AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+>>>>>>     endif
+>>>>>>       ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
+>>>>>> @@ -137,7 +136,7 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+>>>>>>     xen.lds: xen.lds.S
+>>>>>>         $(CPP) -P $(a_flags) -MQ $@ -o $@ $<
+>>>>>>     -dtb.o: $(CONFIG_DTB_FILE)
+>>>>>> +dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
+>>>>>>       .PHONY: clean
+>>>>>>     clean::
+>>>>>> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+>>>>>> index eb953d171e..a27836bf47 100644
+>>>>>> --- a/xen/common/Kconfig
+>>>>>> +++ b/xen/common/Kconfig
+>>>>>> @@ -400,6 +400,14 @@ config DOM0_MEM
+>>>>>>             Leave empty if you are not sure what to specify.
+>>>>>>     +config DTB_FILE
+>>>>>> +    string "Absolute path to device tree blob"
+>>>>>> +    depends on HAS_DEVICE_TREE
+>>>>>> +    ---help---
+>>>>>> +      When using a bootloader that has no device tree support or when there
+>>>>>> +      is no bootloader at all, use this option to specify the absolute path
+>>>>>> +      to a device tree that will be linked directly inside Xen binary.
+>>>>>
+>>>>> With this approach, CONFIG_DTB_FILE will always be defined. This means that Xen will always be compiled to use the "embedded" DTB. When the string is "", it will be garbagge.
+>>>>>
+>>>>> So I think we need a second config to that indicates whether the string is empty or not.
+>>>>>
+>>>>> Interestingly, your first version of patch didn't expose the problem because CONFIG_DTB_FILE would not be defined if the CONFIG_LINK_DTB is not selected. Although, it would still happily build if CONFIG_DTB_FILE is "".
+>>>>>
+>>>>> Cheers,
+>>>>>
+>>>> I do not agrree. We do not need another config.
+>>>
+>>> Did you test that Xen will still boot if the string is empty?
+>>>
+>>>> If string is empty - the dtb.o will not be created and there will be no dtb section in xen binary.
+>>>
+>>> The dtb.o will not be created but the section will because the linker use #ifdef CONFIG_DTB_FILE:
+>>>
+>>> 42sh> grep CONFIG_DTB .config
+>>> CONFIG_DTB_FILE=""
+>>> 42sh> nm xen-syms | grep _sdtb
+>>> 00000000003560f8 B _sdtb
+>>>
+>>> And to show this is going to be used:
+>>>
+>>> 42sh> git diff
+>>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+>>> index 5d44667bd89d..2b680b8226d2 100644
+>>> --- a/xen/arch/arm/arm64/head.S
+>>> +++ b/xen/arch/arm/arm64/head.S
+>>> @@ -297,6 +297,7 @@ real_start_efi:
+>>>
+>>>           /* Using the DTB in the .dtb section? */
+>>>   #ifdef CONFIG_DTB_FILE
+>>> +        e
+>>>           load_paddr x21, _sdtb
+>>>   #endif
+>>>
+>>> 42hs> make
+>>> [...]
+>>>    CC      arm64/head.o
+>>> arm64/head.S: Assembler messages:
+>>> arm64/head.S:300: Error: unknown mnemonic `e' -- `e'
+>>> /home/ANT.AMAZON.COM/jgrall/works/oss/xen/xen/Rules.mk:204: recipe for target 'arm64/head.o' failed
+>>>
+>>> So _sdtb is going to always be used...
+>>>
+>>> Cheers,
+>>>
+>>
+>> Yes you are right. So I could add another config like:
+>> config DTB_VALID
+>> 	def_bool y if DTB_FILE != ""
+>> and change all the lines containing:
+>> #ifdef CONFIG_DTB_FILE
+>> to
+>> #ifdef CONFIG_DTB_VALID
+> 
+> I'm sorry to jump in again, but I still think a 2nd Kconfig setting
+> is not needed. I count three uses of CONFIG_DTB_VALID outside of
+> make files. The ones in .S can be replaced by using assembler
+> directives .ifeqs / .ifneqs. And the one in xen.lds.S looks to be
+> unnecessary altogether: If there's no input .dtb section, the
+> linker wouldn't allocate an output one anyway. And the _sdtb symbol,
+> if you want to avoid its creation when there's no reference, could
+> be wrapped in PROVIDE(). (I also think that symbol should be
+> defined inside the section definition, not ahead of it.)
 
-Given their simplicity, as well as being regression fixes for build-time
-checks, I'll commit them tomorrow unless any objections are raised.
+I don't particularly care of the approach used so long it doesn't break 
+existing setup and doesn't end up to define _sdtb.
 
-~Andrew
+Cheers,
+
+-- 
+Julien Grall
 
