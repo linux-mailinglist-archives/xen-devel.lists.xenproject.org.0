@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F648338F56
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 15:03:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97140.184365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AE9C338F73
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 15:09:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97145.184377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKiNz-0006na-Rj; Fri, 12 Mar 2021 14:03:27 +0000
+	id 1lKiTD-0007C9-DS; Fri, 12 Mar 2021 14:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97140.184365; Fri, 12 Mar 2021 14:03:27 +0000
+Received: by outflank-mailman (output) from mailman id 97145.184377; Fri, 12 Mar 2021 14:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKiNz-0006nB-OD; Fri, 12 Mar 2021 14:03:27 +0000
-Received: by outflank-mailman (input) for mailman id 97140;
- Fri, 12 Mar 2021 14:03:25 +0000
+	id 1lKiTD-0007Bk-9s; Fri, 12 Mar 2021 14:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 97145;
+ Fri, 12 Mar 2021 14:08:49 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKiNx-0006n6-P4
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:03:25 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lKiTB-0007Bd-9G
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:08:49 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKiNx-0000uT-Nt
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:03:25 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lKiTB-0000zy-5A
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:08:49 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKiNx-0000Dc-N1
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:03:25 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lKiTB-0000bd-3G
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:08:49 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1lKiNu-00043K-Fi; Fri, 12 Mar 2021 14:03:22 +0000
+ id 1lKiT0-00044q-EE; Fri, 12 Mar 2021 14:08:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,57 +44,53 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=2zhvpBnhL1HJMl89jtyuK2Jr2cs+XEO0bTq/GRFPND8=; b=d6rwFYWeTX9GAsTSnceLWJ/IYN
-	QVmk7BGoBXyws2VJaklZ0dO4Pi9o6Nv1EBVakqNWxjIbMx6OMSSk2H2zyvtvJsjSsyNbtGtzGlte/
-	6s0HtPxnL+7jZX1aRmDSilC+icHMMupjrPPR8vZV4HOmwxgKYoyh29sR/5jIiAXcUn1E=;
+	bh=m5H7FgXfFnbYQQT7H+HBh4eIcgFfUsHEIhLz/wbXR+w=; b=Avdr/bYw6HrGphUaJ+k1aKB5/9
+	BgehS6zytBjBNuI7ioep+QBW0fNBkyXi5AdluLb5YlxLkIDyFphPw2Dx/GvPybB2QnQ1qZ6V5CpuO
+	InbBF6P7W2NhpBCj/ydr49nCDDH0gUp7FBwHqoxwdk8lpOj7bNHEETiC55KtCH4iH1wo=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24651.29866.263648.422601@mariner.uk.xensource.com>
-Date: Fri, 12 Mar 2021 14:03:22 +0000
-To: Dario Faggioli <dfaggioli@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID: <24651.30182.179324.184928@mariner.uk.xensource.com>
+Date: Fri, 12 Mar 2021 14:08:38 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
     Jan Beulich <jbeulich@suse.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen: fix for_each_cpu when NR_CPUS=1
-In-Reply-To: <161545564302.24868.14477928469038686899.stgit@Wayrath>
-References: <161545564302.24868.14477928469038686899.stgit@Wayrath>
+    Paul Durrant <paul@xen.org>,
+    Wei Liu <wl@xen.org>,
+    Ian Jackson <iwj@xenproject.org>,
+    Xen-devel <xen-devel@lists.xenproject.org>,
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.15 v2] xen/dmop: Strip __XEN_TOOLS__ header guard
+ from public API
+In-Reply-To: <ffd35de5-d130-4b82-8397-085d7ea70b6e@citrix.com>
+References: <20210310150722.27194-1-andrew.cooper3@citrix.com>
+	<d375232a-d1a7-737c-0887-8b7e1c9a772d@suse.com>
+	<13f03a67-18c2-e564-a0f6-84eccc7eeb76@citrix.com>
+	<556ce32b-5087-b8b1-432e-643218dd8c6e@suse.com>
+	<9ca069ab-8b6c-c8f1-d68b-4a9bb0cf5c56@citrix.com>
+	<YEomtoHmq7UH/P6T@Air-de-Roger>
+	<ffd35de5-d130-4b82-8397-085d7ea70b6e@citrix.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Dario Faggioli writes ("[PATCH] xen: fix for_each_cpu when NR_CPUS=1"):
-> When running an hypervisor build with NR_CPUS=1 for_each_cpu does not
-> take into account whether the bit of the CPU is set or not in the
-> provided mask.
-> 
-> This means that whatever we have in the bodies of these loops is always
-> done once, even if the mask was empty and it should never be done. This
-> is clearly a bug and was in fact causing an assert to trigger in credit2
-> code.
-> 
-> Removing the special casing of NR_CPUS == 1 makes things work again.
+Andrew Cooper writes ("Re: [PATCH for-4.15 v2] xen/dmop: Strip __XEN_TOOLS__ header guard from public API"):
+> On 11/03/2021 14:18, Roger Pau Monné wrote:
+> > I think using __XEN_UNSTABLE_ABI__ would be way clearer than
+> > __XEN_TOOLS__, or even placing those in a separate directory as you
+> > mention.
 
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
++1
 
-> I'm not really sure whether this should be 4.15 material.
-> 
-> It's definitely a bug, IMO. The risk is also pretty low, considering
-> that no one should really run Xen in this configuration (NR_CPUS=1, I
-> mean). Which is also the reason why it's probably not really important
-> that we fix it at this point of the release cycle.
+> I plan to submit a rename for 4.16.
 
-Given that it clearly only affects NR_CPUS==1, I think the risk/reward
-tradeoff is unambiguously positive.
++1
 
-> -#if NR_CPUS > 1
->  #define for_each_cpu(cpu, mask)			\
->  	for ((cpu) = cpumask_first(mask);	\
+> I don't expect I'll have much luck arguing for a release ack at this
+> point, and isn't totally risk-free.
 
-Just a thought: does cpumask_first work on an empty mask ?
+Indeed, I think the value for 4.15 would be very limited and I
+wouldn't want the churn.
 
+Thanks,
 Ian.
 
