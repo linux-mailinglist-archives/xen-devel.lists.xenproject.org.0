@@ -2,28 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECDB3339326
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 17:25:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97232.184619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E43E9339367
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 17:30:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97237.184633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKkaz-0006P9-Ki; Fri, 12 Mar 2021 16:25:01 +0000
+	id 1lKkg2-0007Tx-Bm; Fri, 12 Mar 2021 16:30:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97232.184619; Fri, 12 Mar 2021 16:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 97237.184633; Fri, 12 Mar 2021 16:30:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKkaz-0006Ok-HM; Fri, 12 Mar 2021 16:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 97232;
- Fri, 12 Mar 2021 16:24:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lKkg2-0007Tb-8a; Fri, 12 Mar 2021 16:30:14 +0000
+Received: by outflank-mailman (input) for mailman id 97237;
+ Fri, 12 Mar 2021 16:30:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+5fd=IK=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1lKkax-0006Of-LP
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:24:59 +0000
-Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6ff54ed3-e586-44a1-be7b-be209a467974;
- Fri, 12 Mar 2021 16:24:57 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1lKkg0-0007TW-30
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:30:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lKkfz-0003t3-VU
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:30:11 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lKkfz-00017v-QI
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:30:11 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lKkfq-0004PV-BQ; Fri, 12 Mar 2021 16:30:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,54 +41,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ff54ed3-e586-44a1-be7b-be209a467974
-Date: Fri, 12 Mar 2021 16:24:48 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
-	s=protonmail; t=1615566295;
-	bh=2ACfSekKEsr5YcE6yaI7EpKojSmgULgoHgJcvTn2nn8=;
-	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
-	b=eEIwNSrAH8GmtmhNXvUNoiQqCV27oeIKODQFsIfftDfeHz31DbRKUbMYiHfpA9n+s
-	 2yInJDjp434cGGvmydRGu7aPXsnPJFFd8fHnQOyEtM32+WqFaV+mm8zI8GYIaejbmC
-	 RVDCN4Hbm0JsmH5+WGoN5bXgwfL4oCXdtCa3i5xQ=
-To: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
-From: Trammell Hudson <hudson@trmm.net>
-Cc: Bob Eshleman <bobbyeshleman@gmail.com>, Xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, piotr.krol@3mdeb.com, Olivier Lambert <olivier.lambert@vates.fr>
-Reply-To: Trammell Hudson <hudson@trmm.net>
-Subject: Re: Working Group for Secure Boot
-Message-ID: <YEuVx0NlQ3Z4+m5a@tiny>
-In-Reply-To: <YEuHxZy1daBQjGma@mail-itl>
-References: <9280f0d0-e994-71c1-9482-63f97296acb7@gmail.com> <YEuHxZy1daBQjGma@mail-itl>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=11VfRNUtWbl28Ty/YLVizfM8Yp/Q6vEhy6Izlmh3BfU=; b=BTp9kcuvztufkfFs3EHs+YMeWE
+	mZmccxoJFZen8yE9DWVHI7uh6zzUrjAE+0nNkeg/xjnLa3xm2B9epyrh/PhJR8Wfhm+XdwYvkWD/6
+	y9HQdNQVb8O51zcUB8lHOovSzvFCcsiO2lPxoJIUlthF9G5Kqd0bpwsvOeMFFGCk9SGI=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
-	autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
-	mailout.protonmail.ch
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24651.38665.981069.53322@mariner.uk.xensource.com>
+Date: Fri, 12 Mar 2021 16:30:01 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Julien Grall <julien@xen.org>
+Subject: Re: [PATCH][4.15] gnttab: work around "may be used uninitialized"
+ warning
+In-Reply-To: <46176065-8ae3-cb42-f031-aad12512d29e@suse.com>
+References: <a6b73c54-3010-6716-cac3-8f3b462a4dc7@suse.com>
+	<ec2b85b6-072d-481d-3b02-c8dedf043dac@xen.org>
+	<6bd14438-7dec-2176-eab5-5898f190c4d8@suse.com>
+	<e45ef012-22c6-b480-d987-dd951ae36948@xen.org>
+	<24651.15544.142804.468744@mariner.uk.xensource.com>
+	<46176065-8ae3-cb42-f031-aad12512d29e@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On Fri, Mar 12, 2021 at 04:24:53PM +0100, Marek Marczykowski-G??recki wrote=
-:
-> On Thu, Mar 11, 2021 at 10:34:02AM -0800, Bob Eshleman wrote:
-> > We would like to start a working group for secure boot support in Xen
-> > to coordinate the various interested parties and set out a plan for
-> > the feature and its implications for the whole Xen system.
-> [...]
-> > We'd love to hear from anyone interested in such a group and how the
-> > community as a whole feels about such an effort.
->=20
-> Count me in too.
->=20
-> Also, I'm cc-ing Trammell, who might be interested too.
+Jan Beulich writes ("Re: [PATCH][4.15] gnttab: work around "may be used uninitialized" warning"):
+> On 12.03.2021 11:04, Ian Jackson wrote:
+> > But this is outside my usual area so I won't nack it either.
+> 
+> But would you be willing to release-ack v2?
 
-Thanks for the invite, Marek.
+Good question.  I don't think my code quality/style qualms etc. have
+any bearing on the release question.
 
-I'm also interested in discussing how to lockdown a running Xen system.
-Now that the unified EFI image patches have been merged, we can boot
-with a little more integrity and hopefully transfer the chain of trust
-to a trustworthy system.
+So, I will do that now:
 
---=20
-Trammell
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
+Ian.
 
