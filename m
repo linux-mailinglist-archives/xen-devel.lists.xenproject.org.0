@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84DA23398B7
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 21:56:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97339.184917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B62423398D5
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 22:05:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97342.184928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKoow-0000Ww-5c; Fri, 12 Mar 2021 20:55:42 +0000
+	id 1lKoyS-0001Zh-5G; Fri, 12 Mar 2021 21:05:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97339.184917; Fri, 12 Mar 2021 20:55:42 +0000
+Received: by outflank-mailman (output) from mailman id 97342.184928; Fri, 12 Mar 2021 21:05:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKoow-0000WX-2b; Fri, 12 Mar 2021 20:55:42 +0000
-Received: by outflank-mailman (input) for mailman id 97339;
- Fri, 12 Mar 2021 20:55:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lKoyS-0001ZI-21; Fri, 12 Mar 2021 21:05:32 +0000
+Received: by outflank-mailman (input) for mailman id 97342;
+ Fri, 12 Mar 2021 21:05:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oc3E=IK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lKoou-0000WS-BA
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 20:55:40 +0000
+ id 1lKoyQ-0001ZD-PZ
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 21:05:30 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d5b9a16d-5bad-4194-9b7d-a8cc456b2747;
- Fri, 12 Mar 2021 20:55:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BEEDB64F5E;
- Fri, 12 Mar 2021 20:55:38 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9b83948e-7b7d-49d8-9c41-682aa6d7868d;
+ Fri, 12 Mar 2021 21:05:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0C45264F2A;
+ Fri, 12 Mar 2021 21:05:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,63 +38,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5b9a16d-5bad-4194-9b7d-a8cc456b2747
+X-Inumbo-ID: 9b83948e-7b7d-49d8-9c41-682aa6d7868d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1615582539;
-	bh=QENM3z31/tcfs5c9CR67VIbX9OzwRw1bni+hXiHOeOw=;
-	h=Date:From:To:cc:Subject:From;
-	b=FaL7jmMfMYmc861Pqxbxcb5TmXUnGcchdORrRU+kUzI34Sgcunr6eAqOXV3TSqsE8
-	 Noxlr0lb9rvuNGmlcCe5Js1Y7/9DkEYF9N36Rftyj/U/JDaC02pk9b3oUIDlWdyF1C
-	 EnpTMObmudqSXloaA/yoyRLBoVPauzjc41zGYOSVl5FkS3wGJx3Yj1WF0HnMa899Qs
-	 bpaheSLh2be3kYzmXvpf73t5q+BWemWItbf/K3IQjTmvEOnr9ciFwizQkZ1JZ6hn+I
-	 7FnStJ91ybdPVHJShcsgCH+gzp8PQekg56NhBzcBv6MtnX6BGbiqdaUBsvH+1dbI2u
-	 zcQNsw7jbyc+w==
-Date: Fri, 12 Mar 2021 12:55:38 -0800 (PST)
+	s=k20201202; t=1615583129;
+	bh=0QNIPZgMEwF/WodAJ21fXlLPnZdWQNpPxT2BnDMPf0I=;
+	h=From:To:Cc:Subject:Date:From;
+	b=UWCAlPFlDPPZfZj65LbohqwThK7rpds/NUuaf0KN6x6DtYxENo+JU+cjgaOwU5yDo
+	 FxsZ/ayHW3lthZQoPWfBYIcDJFPRtur+qTcXf8cm+oDltI+bDuUtVrKTgtk4GR/IXP
+	 dalhyXd37qjghB579pON9WlKY3z7GchOGgGEcPEt5igBZ8XILfvIWmnC+Ax9RQiMo6
+	 CgB2QRpZcG3QEajrdVfTGo/JVhwv+5rgaKC3EXP68On4af4xYJsXI8+5h1RlDXSnUg
+	 oisEU1SF0ogdQZhE98So1vWMYerc4fpu5niLrbH3GNtBrW/QOncO3hpVeBWgGNS+aY
+	 FhQZBlPBtUO5g==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, committers@xenproject.org, roger.pau@citrix.com, 
-    Bertrand.Marquis@arm.com, cardoe@cardoe.com, fam@euphon.net
-Subject: patchew - gitlab-ci notifications during the Xen 4.16 cycle
-Message-ID: <alpine.DEB.2.21.2103121236430.18926@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+To: cardoe@cardoe.com
+Cc: sstabellini@kernel.org,
+	wl@xen.org,
+	andrew.cooper3@citrix.com,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH] automation: remove allow_failure from Alpine Linux jobs
+Date: Fri, 12 Mar 2021 13:05:26 -0800
+Message-Id: <20210312210526.14862-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
-Hi all,
+Now that the Alpine Linux build jobs complete successfully on staging we
+can remove the "allow_failure: true" tag.
 
-During the last 6 months we have been working on improving the Xen
-Project gitlab-ci and patchew infrastructure.
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+ automation/gitlab-ci/build.yaml | 4 ----
+ 1 file changed, 4 deletions(-)
 
-You can see the results from gitlab-ci tests on the staging branch here:
-
-https://gitlab.com/xen-project/xen/-/pipelines
-https://gitlab.com/xen-project/xen/-/pipelines/269678673
-
-In addition, and more interestingly, now we have patchew integration.
-Patchew picks up patch series sent to xen-devel by any contributor and
-commits them to branches under this repository:
-
-https://gitlab.com/xen-project/patchew/xen
-
-Then, gitlab-ci tests start automatically. Patchew waits for the results
-and send a notification email. You can see patchew pipelines here:
-
-https://gitlab.com/xen-project/patchew/xen/-/pipelines
-
-All this typically happens before patches are even reviewed. Today the
-patchew notification emails are only sent to us in the Gitlab-CI working
-group. But the good news is that we think the results got to the point
-where they are reliable enough that it would be good to share them with
-the community.
-
-We plan to have patchew send email notifications to xen-devel starting
-from the beginning of the 4.16 development cycle.
-
-Stay tuned.
-
-Cheers,
-
-Stefano
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 23ab81d892..cca2c310e2 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -434,25 +434,21 @@ alpine-3.12-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+     CONTAINER: alpine:3.12
+-  allow_failure: true
+ 
+ alpine-3.12-gcc-debug:
+   extends: .gcc-x86-64-build-debug
+   variables:
+     CONTAINER: alpine:3.12
+-  allow_failure: true
+ 
+ alpine-3.12-clang:
+   extends: .clang-x86-64-build
+   variables:
+     CONTAINER: alpine:3.12
+-  allow_failure: true
+ 
+ alpine-3.12-clang-debug:
+   extends: .clang-x86-64-build-debug
+   variables:
+     CONTAINER: alpine:3.12
+-  allow_failure: true
+ 
+ 
+ # Arm builds
+-- 
+2.17.1
 
 
