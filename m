@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CBE73397D0
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 20:56:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97302.184818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A8F93397E4
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 21:03:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97310.184831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKnsb-0002Yw-Va; Fri, 12 Mar 2021 19:55:25 +0000
+	id 1lKo0W-0003gd-T0; Fri, 12 Mar 2021 20:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97302.184818; Fri, 12 Mar 2021 19:55:25 +0000
+Received: by outflank-mailman (output) from mailman id 97310.184831; Fri, 12 Mar 2021 20:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKnsb-0002YS-Oi; Fri, 12 Mar 2021 19:55:25 +0000
-Received: by outflank-mailman (input) for mailman id 97302;
- Fri, 12 Mar 2021 19:55:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lKnsa-0002YK-03; Fri, 12 Mar 2021 19:55:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lKnsZ-0007Kf-R5; Fri, 12 Mar 2021 19:55:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lKnsZ-0002fd-JD; Fri, 12 Mar 2021 19:55:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lKnsZ-0004tL-If; Fri, 12 Mar 2021 19:55:23 +0000
+	id 1lKo0W-0003gH-Ps; Fri, 12 Mar 2021 20:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 97310;
+ Fri, 12 Mar 2021 20:03:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Haal=IK=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
+ id 1lKo0U-0003gC-O2
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 20:03:34 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 553fef3b-7165-4ee9-8390-9ea0f98af803;
+ Fri, 12 Mar 2021 20:03:33 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 1323D64F83;
+ Fri, 12 Mar 2021 20:03:33 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 0DD61609E7;
+ Fri, 12 Mar 2021 20:03:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +42,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=o1Wzto2x+BiPezMJLoguEAeOLE6J23pjmyuak9XEgDw=; b=wIXf0ogSuHhzgGsJYGWdfJbEWh
-	RKA1QH42DVb+OrjDmxlRVJcZotik/yQRNaWvZDgdyvyU8vOWD9Ydb2j3/ORpKwoWNsezSCN0wCO2B
-	jOiE7vVGAmlo8wqZWNOSiRLhPIcx8mYuLeQtx3ITHamC3B0JoiIrJxWTSyzZul9jXtVo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160031-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 160031: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9dc46386d89d83c73c41c2b19be83a73957c4393
-X-Osstest-Versions-That:
-    xen=0570d7f276dd20a3adee80ca44a5fe7daf7566cd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Mar 2021 19:55:23 +0000
+X-Inumbo-ID: 553fef3b-7165-4ee9-8390-9ea0f98af803
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1615579413;
+	bh=2iIUDg5MQhW2lt2WKw0Mjk82CAhvya2PmWSvMJh1obg=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=rXHhU5G7ocbzs5s0OeLFicRsQs4ViIH8N7IMrOfv1HTN+DMqoQK/c/Y4QRxd2RX3k
+	 j38D0udm7fracNLiQrpGGm7yGEhFkjckbESEvRSJI/8O2h5IX6sKdVSnNkp9HCICQq
+	 JOp2EfkpHcLEvs5bbAj7R5u9zNWFx6T53xZLTuif4KMR0dXrsJMFHzw6lWh7ooh6jg
+	 ckPlFKl0sTyRMwAPekhmY3kGcNEob2KEaqVvCFHLuHjlFajTRdP3l1h69rImFWim0W
+	 tC5jMAZz/ES+1Vc3PmZzPhA2bWxnbOwR24F4SkxdMZuAPNNRnlN4jLbrdJmj0MzjIo
+	 M5ZlZdNOo64Cg==
+Subject: Re: [GIT PULL] xen: branch for v5.12-rc3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20210312083400.2594-1-jgross@suse.com>
+References: <20210312083400.2594-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20210312083400.2594-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.12b-rc3-tag
+X-PR-Tracked-Commit-Id: f1d20d8643e54dcde242fd2c8748063ed75702a8
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 6bf8819fede1fef9805e1d803261c0d3bb62f239
+Message-Id: <161557941305.10515.9029579817339264425.pr-tracker-bot@kernel.org>
+Date: Fri, 12 Mar 2021 20:03:33 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-flight 160031 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160031/
+The pull request you sent on Fri, 12 Mar 2021 09:34:00 +0100:
 
-Failures :-/ but no regressions.
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.12b-rc3-tag
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/6bf8819fede1fef9805e1d803261c0d3bb62f239
 
-version targeted for testing:
- xen                  9dc46386d89d83c73c41c2b19be83a73957c4393
-baseline version:
- xen                  0570d7f276dd20a3adee80ca44a5fe7daf7566cd
+Thank you!
 
-Last test of basis   159991  2021-03-12 09:00:24 Z    0 days
-Testing same since   160031  2021-03-12 17:00:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   0570d7f276..9dc46386d8  9dc46386d89d83c73c41c2b19be83a73957c4393 -> smoke
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
