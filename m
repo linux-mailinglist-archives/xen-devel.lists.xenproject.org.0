@@ -2,31 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EADF3392DB
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 17:15:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97228.184604 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECDB3339326
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 17:25:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97232.184619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKkRo-0005IC-Ke; Fri, 12 Mar 2021 16:15:32 +0000
+	id 1lKkaz-0006P9-Ki; Fri, 12 Mar 2021 16:25:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97228.184604; Fri, 12 Mar 2021 16:15:32 +0000
+Received: by outflank-mailman (output) from mailman id 97232.184619; Fri, 12 Mar 2021 16:25:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKkRo-0005Hn-HU; Fri, 12 Mar 2021 16:15:32 +0000
-Received: by outflank-mailman (input) for mailman id 97228;
- Fri, 12 Mar 2021 16:15:31 +0000
+	id 1lKkaz-0006Ok-HM; Fri, 12 Mar 2021 16:25:01 +0000
+Received: by outflank-mailman (input) for mailman id 97232;
+ Fri, 12 Mar 2021 16:24:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F/Rg=IK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lKkRn-0005Hi-Ji
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:15:31 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=+5fd=IK=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1lKkax-0006Of-LP
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:24:59 +0000
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f9027e64-dd70-40c4-87b5-f82e55ba734e;
- Fri, 12 Mar 2021 16:15:30 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 91D4DB124;
- Fri, 12 Mar 2021 16:15:29 +0000 (UTC)
+ id 6ff54ed3-e586-44a1-be7b-be209a467974;
+ Fri, 12 Mar 2021 16:24:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,142 +35,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9027e64-dd70-40c4-87b5-f82e55ba734e
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615565729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ptNN89Tr4Hseul/yPniugb6TyK0HibSDrG8wIPcmymI=;
-	b=Rbav+Ity4tBaDZ3DZ5iCbTMU8c/CfRCNvHvqEQU3b0v4YXwd5q8i6yEfl56Uy/jr9pyi2A
-	W3elV1+h0kA/h3awCO9kLbKS1rwtJLaPPRBs+/CwS9SxuOHDvH2guHwyZe0OGRKHTnphoN
-	f4JEm/e55xBf0IZIeaLK4N1pj9nFbcM=
-Subject: Re: [PATCH DO NOT APPLY] docs: Document allocator properties and the
- rubric for using them
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20210216102839.1801667-1-george.dunlap@citrix.com>
- <b225be0f-3eed-426e-8829-6e7c57cd7635@suse.com>
- <63895FAD-B848-461D-8A31-E6C9973B6726@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1391dbd2-2839-67f9-0570-a466cadacc63@suse.com>
-Date: Fri, 12 Mar 2021 17:15:30 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+X-Inumbo-ID: 6ff54ed3-e586-44a1-be7b-be209a467974
+Date: Fri, 12 Mar 2021 16:24:48 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
+	s=protonmail; t=1615566295;
+	bh=2ACfSekKEsr5YcE6yaI7EpKojSmgULgoHgJcvTn2nn8=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=eEIwNSrAH8GmtmhNXvUNoiQqCV27oeIKODQFsIfftDfeHz31DbRKUbMYiHfpA9n+s
+	 2yInJDjp434cGGvmydRGu7aPXsnPJFFd8fHnQOyEtM32+WqFaV+mm8zI8GYIaejbmC
+	 RVDCN4Hbm0JsmH5+WGoN5bXgwfL4oCXdtCa3i5xQ=
+To: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
+From: Trammell Hudson <hudson@trmm.net>
+Cc: Bob Eshleman <bobbyeshleman@gmail.com>, Xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, piotr.krol@3mdeb.com, Olivier Lambert <olivier.lambert@vates.fr>
+Reply-To: Trammell Hudson <hudson@trmm.net>
+Subject: Re: Working Group for Secure Boot
+Message-ID: <YEuVx0NlQ3Z4+m5a@tiny>
+In-Reply-To: <YEuHxZy1daBQjGma@mail-itl>
+References: <9280f0d0-e994-71c1-9482-63f97296acb7@gmail.com> <YEuHxZy1daBQjGma@mail-itl>
 MIME-Version: 1.0
-In-Reply-To: <63895FAD-B848-461D-8A31-E6C9973B6726@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+	autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-On 12.03.2021 15:32, George Dunlap wrote:
->> On Feb 16, 2021, at 3:29 PM, Jan Beulich <JBeulich@suse.com> wrote:
->> On 16.02.2021 11:28, George Dunlap wrote:
->>> --- /dev/null
->>> +++ b/docs/hypervisor-guide/memory-allocation-functions.rst
->>> @@ -0,0 +1,118 @@
->>> +.. SPDX-License-Identifier: CC-BY-4.0
->>> +
->>> +Xenheap memory allocation functions
->>> +===================================
->>> +
->>> +In general Xen contains two pools (or "heaps") of memory: the *xen
->>> +heap* and the *dom heap*.  Please see the comment at the top of
->>> +``xen/common/page_alloc.c`` for the canonical explanation.
->>> +
->>> +This document describes the various functions available to allocate
->>> +memory from the xen heap: their properties and rules for when they should be
->>> +used.
->>
->> Irrespective of your subsequent indication of you disliking the
->> proposal (which I understand only affects the guidelines further
->> down anyway) I'd like to point out that vmalloc() does not
->> allocate from the Xen heap. Therefore a benefit of always
->> recommending use of xvmalloc() would be that the function could
->> fall back to vmalloc() (and hence the larger domain heap) when
->> xmalloc() failed.
-> 
-> OK, that’s good to know.
-> 
-> So just trying to think this through: address space is limiting factor for how big the xenheap can be, right?
+On Fri, Mar 12, 2021 at 04:24:53PM +0100, Marek Marczykowski-G??recki wrote=
+:
+> On Thu, Mar 11, 2021 at 10:34:02AM -0800, Bob Eshleman wrote:
+> > We would like to start a working group for secure boot support in Xen
+> > to coordinate the various interested parties and set out a plan for
+> > the feature and its implications for the whole Xen system.
+> [...]
+> > We'd love to hear from anyone interested in such a group and how the
+> > community as a whole feels about such an effort.
+>=20
+> Count me in too.
+>=20
+> Also, I'm cc-ing Trammell, who might be interested too.
 
-Yes, with the current direct-map model only memory which has a
-permanent mapping can be "Xen heap". Obviously, for the mapping
-to be permanent, its VA range needs to be set up front (at
-build time in reality). FAOD the distinction (at least on x86)
-matters only on systems with a lot of memory.
+Thanks for the invite, Marek.
 
->  Presumably “vmap” space is also limited, and will be much smaller?
+I'm also interested in discussing how to lockdown a running Xen system.
+Now that the unified EFI image patches have been merged, we can boot
+with a little more integrity and hopefully transfer the chain of trust
+to a trustworthy system.
 
-Yes and yes, albeit for the 2nd one I'd like to add "currently",
-because once we do away with the direct map, I'd envision to use
-all the VA space for such on-demand mapping purposes.
+--=20
+Trammell
 
->  So in a sense the “fallback” is less about getting more memory,
-> but about using up that extra little bit of virtual address space?
-
-Not really, no. If no memory is left on the Xen heap, there may
-still be some left on the domain heap.
-
-Falling back could also be the other way around, yes - if we've
-run out of vmalloc() address space, we may still have a chance
-find the requested space in the Xen heap.
-
-> Another question that raises:  Are there times when it’s
-> advantageous to specify which heap to allocate from?  If there
-> are good reasons for allocations to be in the xenheap or in the
-> domheap / vmap area, then the guidelines should probably say
-> that as well.
-
-I can't think of such reasons (beyond ones already named, like
-e.g. wanting to avoid mapping overhead), but I agree that if
-there are any, mentioning them would be desirable.
-
-> And, of course, will the whole concept of the xenheap / domheap
-> split go away if we ever get rid of the 1:1 map?
-
-I expect so, yes.
-
->>> +Properties of various allocation functions
->>> +------------------------------------------
->>> +
->>> +Ultimately, the underlying allocator for all of these functions is
->>> +``alloc_xenheap_pages``.  They differ on several different properties:
->>> +
->>> +1. What underlying allocation sizes are.  This in turn has an effect
->>> +   on:
->>> +
->>> +   - How much memory is wasted when requested size doesn't match
->>> +
->>> +   - How such allocations are affected by memory fragmentation
->>> +
->>> +   - How such allocations affect memory fragmentation
->>> +
->>> +2. Whether the underlying pages are physically contiguous
->>> +
->>> +3. Whether allocation and deallocation require the cost of mapping and
->>> +   unmapping
->>> +
->>> +``alloc_xenheap_pages`` will allocate a physically contiguous set of
->>> +pages on orders of 2.  No mapping or unmapping is done.
->>
->> That's the case today, but meant to change rather sooner than later
->> (when the 1:1 map disappears).
-> 
-> Is that the kind of thing we want to add into this document?
-
-Not sure what to answer here - my intention with raising the point
-was ...
-
->  I suppose it would be good to make the guidelines now such
-> that they produce code which is as easy as possible to adapt
-> to the new way of doing things.
-
-... precisely this.
-
-Jan
 
