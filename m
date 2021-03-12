@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1477C339292
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 16:59:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97215.184563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3179B3392BA
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 17:08:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97221.184578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKkBq-0002iT-KM; Fri, 12 Mar 2021 15:59:02 +0000
+	id 1lKkKQ-0004DC-LZ; Fri, 12 Mar 2021 16:07:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97215.184563; Fri, 12 Mar 2021 15:59:02 +0000
+Received: by outflank-mailman (output) from mailman id 97221.184578; Fri, 12 Mar 2021 16:07:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKkBq-0002i3-F6; Fri, 12 Mar 2021 15:59:02 +0000
-Received: by outflank-mailman (input) for mailman id 97215;
- Fri, 12 Mar 2021 15:59:01 +0000
+	id 1lKkKQ-0004Cn-I4; Fri, 12 Mar 2021 16:07:54 +0000
+Received: by outflank-mailman (input) for mailman id 97221;
+ Fri, 12 Mar 2021 16:07:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F/Rg=IK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lKkBp-0002hy-5B
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 15:59:01 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SY7Z=IK=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1lKkKQ-0004Ci-0w
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 16:07:54 +0000
+Received: from mail-wm1-f50.google.com (unknown [209.85.128.50])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c9a85205-d6d9-45fe-8c28-43b7ec5d9819;
- Fri, 12 Mar 2021 15:59:00 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 77C1BB126;
- Fri, 12 Mar 2021 15:58:59 +0000 (UTC)
+ id ef272010-d3ea-4c63-93bb-2af6429bf253;
+ Fri, 12 Mar 2021 16:07:53 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ f22-20020a7bc8d60000b029010c024a1407so16131708wml.2
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Mar 2021 08:07:52 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id p10sm8878572wrw.33.2021.03.12.08.07.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Mar 2021 08:07:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,65 +42,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9a85205-d6d9-45fe-8c28-43b7ec5d9819
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615564739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g1sysbFB17Or6V00qOcCRJOBVe83PeMncfFsr7otsfY=;
-	b=JclNHvwAoTVVbEJ30F5fNVBzQS8RMxrGTEIiK149snnftKdqghSv1oFOX87IWCFKiwA6eM
-	hLmyiB7rjlDOXKKdQXUwxoTwUaBKiS94O2l2zM/i+l4NMHKy3lTNy6zmzR2kjUMkY+Tr+X
-	HSnYn8ELoNAyvnmmimwKPqK30Let780=
-Subject: Re: [PATCH][4.15] gnttab: work around "may be used uninitialized"
- warning
-To: Ian Jackson <iwj@xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>
-References: <a6b73c54-3010-6716-cac3-8f3b462a4dc7@suse.com>
- <ec2b85b6-072d-481d-3b02-c8dedf043dac@xen.org>
- <6bd14438-7dec-2176-eab5-5898f190c4d8@suse.com>
- <e45ef012-22c6-b480-d987-dd951ae36948@xen.org>
- <24651.15544.142804.468744@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <46176065-8ae3-cb42-f031-aad12512d29e@suse.com>
-Date: Fri, 12 Mar 2021 16:59:00 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+X-Inumbo-ID: ef272010-d3ea-4c63-93bb-2af6429bf253
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=MdjxVRrc/l98n2mp6JR4TkBMyjSKA6nlXDWOt3C5Q8s=;
+        b=GOAx4FIWZh22L42dow1qXdNmOtP3j51My+2pjABcwdOhUeYHZ7cGdv8Q5QixPoGunA
+         C/vghQyQL2Qt7ikR41F38z8+EV3Odi62O6k9h0FlQCZqOsmmrZ4OEHQzUMlBZm4VKv9d
+         hKhGDxJ1cyuOUnWaCZGZIwfuUtv+W6SELk4z1L8jIpovp9/1m+n+MfoGFBFIHK98VAtg
+         7JDngtxGXErrRoQGz2Ru/7RYDOBHVUdpaCVIUi35Yra3SWtMUJT6YfTKh8SnE1Bg8ijI
+         kPaP0yUI5vNnvnuJZUdbM+7mtHY733oL3rmZ4vPHg4AMuwkH+eynOyy2tp7tRB6iWgx5
+         Uqig==
+X-Gm-Message-State: AOAM531UHuazRRki0Hrv3CpCuNr7sRhz6HEHGGgu5Jpke+WV3c79o1Fy
+	IGvf/HuWa0csv06kj9xIiY4=
+X-Google-Smtp-Source: ABdhPJyohJMj1WYxSKUaxIdSpjYuwHBpeu+D8eSB3iDBJnFzzMJKmT0Lzx2BvXnCzCQILIXEmpH1/A==
+X-Received: by 2002:a1c:dd89:: with SMTP id u131mr13504620wmg.54.1615565272215;
+        Fri, 12 Mar 2021 08:07:52 -0800 (PST)
+Date: Fri, 12 Mar 2021 16:07:50 +0000
+From: Wei Liu <wl@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: cardoe@cardoe.com, andrew.cooper3@citrix.com, wl@xen.org,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: Re: [PATCH] automation: add arm32 cross-build tests for Xen
+Message-ID: <20210312160750.svw4ls76z6yli3yb@liuwe-devbox-debian-v2>
+References: <20210213013813.30114-1-sstabellini@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <24651.15544.142804.468744@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210213013813.30114-1-sstabellini@kernel.org>
 
-On 12.03.2021 11:04, Ian Jackson wrote:
-> Julien Grall writes ("Re: [PATCH][4.15] gnttab: work around "may be used uninitialized" warning"):
->> This is pretty much what we are already doing slowly by initializing 
->> values to shut up older compilers. I agree this is more limited, but we 
->> also waive off diagnostics from every single compiler in that code 
->> rather than just one version.
->>
->> Hence why I suggested dropping -Werror for older compiler. This is not 
->> ideal but it would give us the ability to keep support for dinausor 
->> compiler and not hamper our ability to take advantage of newer compiler 
->> diagnostics.
+On Fri, Feb 12, 2021 at 05:38:13PM -0800, Stefano Stabellini wrote:
+> Add a debian build container with cross-gcc for arm32 installed.
+> Add build jobs to cross-compile Xen-only for arm32.
 > 
-> I agree with Julien.  I think we should avoid adding these redundant
-> initialisers for the reasons he gives.
-> 
->> The ideal solution is to drop support for older compiler (see my other 
->> thread). But this sounds like a daunting task so far on x86...
->>
->> Anyway, I will not Nack the patch but will also not Ack it. I will let 
->> another maintainer ack this patch.
-> 
-> But this is outside my usual area so I won't nack it either.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-But would you be willing to release-ack v2?
+Acked-by: Wei Liu <wl@xen.org>
 
-Jan
+Cc Ian.
+
+The risk is small: Gitlab CI doesn't gate pushes to Xen, but it is
+rather beneficial to have arm32 builds for Xen.
+
+> ---
+>  .../debian/unstable-arm32-gcc.dockerfile      | 24 +++++++++
+>  automation/gitlab-ci/build.yaml               | 50 +++++++++++++++++++
+>  automation/scripts/build                      |  9 ++++
+>  3 files changed, 83 insertions(+)
+>  create mode 100644 automation/build/debian/unstable-arm32-gcc.dockerfile
+> 
+> diff --git a/automation/build/debian/unstable-arm32-gcc.dockerfile b/automation/build/debian/unstable-arm32-gcc.dockerfile
+> new file mode 100644
+> index 0000000000..b41a57f197
+> --- /dev/null
+> +++ b/automation/build/debian/unstable-arm32-gcc.dockerfile
+> @@ -0,0 +1,24 @@
+> +FROM debian:unstable
+> +LABEL maintainer.name="The Xen Project" \
+> +      maintainer.email="xen-devel@lists.xenproject.org"
+> +
+> +ENV DEBIAN_FRONTEND=noninteractive
+> +ENV USER root
+> +ENV CROSS_COMPILE /usr/bin/arm-linux-gnueabihf-
+> +
+> +RUN mkdir /build
+> +WORKDIR /build
+> +
+> +# build depends
+> +RUN apt-get update && \
+> +    apt-get --quiet --yes install \
+> +        build-essential \
+> +        flex \
+> +        bison \
+> +        git \
+> +        gcc-arm-linux-gnueabihf \
+> +        && \
+> +        apt-get autoremove -y && \
+> +        apt-get clean && \
+> +        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+> +
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index d00b8a5123..22114662f2 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -117,6 +117,33 @@
+>    variables:
+>      <<: *clang
+>  
+> +.arm32-cross-build-tmpl:
+> +  <<: *build
+> +  variables:
+> +    XEN_TARGET_ARCH: arm32
+> +  tags:
+> +    - x86_64
+> +
+> +.arm32-cross-build:
+> +  extends: .arm32-cross-build-tmpl
+> +  variables:
+> +    debug: n
+> +
+> +.arm32-cross-build-debug:
+> +  extends: .arm32-cross-build-tmpl
+> +  variables:
+> +    debug: y
+> +
+> +.gcc-arm32-cross-build:
+> +  extends: .arm32-cross-build
+> +  variables:
+> +    <<: *gcc
+> +
+> +.gcc-arm32-cross-build-debug:
+> +  extends: .arm32-cross-build-debug
+> +  variables:
+> +    <<: *gcc
+> +
+>  .arm64-build-tmpl:
+>    <<: *build
+>    variables:
+> @@ -454,6 +481,29 @@ alpine-3.12-clang-debug:
+>      CONTAINER: alpine:3.12
+>    allow_failure: true
+>  
+> +# Arm32 cross-build
+> +
+> +debian-unstable-gcc-arm32:
+> +  extends: .gcc-arm32-cross-build
+> +  variables:
+> +    CONTAINER: debian:unstable-arm32-gcc
+> +
+> +debian-unstable-gcc-arm32-debug:
+> +  extends: .gcc-arm32-cross-build-debug
+> +  variables:
+> +    CONTAINER: debian:unstable-arm32-gcc
+> +
+> +debian-unstable-gcc-arm32-randconfig:
+> +  extends: .gcc-arm32-cross-build
+> +  variables:
+> +    CONTAINER: debian:unstable-arm32-gcc
+> +    RANDCONFIG: y
+> +
+> +debian-unstable-gcc-arm32-debug-randconfig:
+> +  extends: .gcc-arm32-cross-build-debug
+> +  variables:
+> +    CONTAINER: debian:unstable-arm32-gcc
+> +    RANDCONFIG: y
+>  
+>  # Arm builds
+>  
+> diff --git a/automation/scripts/build b/automation/scripts/build
+> index d8990c3bf4..e7d68f7a9d 100755
+> --- a/automation/scripts/build
+> +++ b/automation/scripts/build
+> @@ -15,6 +15,15 @@ else
+>      make -j$(nproc) -C xen defconfig
+>  fi
+>  
+> +# arm32 only cross-compiles the hypervisor
+> +if [[ "${XEN_TARGET_ARCH}" = "arm32" ]]; then
+> +    make -j$(nproc) xen
+> +    cp xen/.config xen-config
+> +    mkdir binaries
+> +    cp xen/xen binaries/xen
+> +    exit 0
+> +fi
+> +
+>  # build up our configure options
+>  cfgargs=()
+>  cfgargs+=("--enable-docs")
+> -- 
+> 2.17.1
+> 
 
