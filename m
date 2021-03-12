@@ -2,34 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2549338A05
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 11:25:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96969.183969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A8E338A14
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 11:29:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96972.183981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKeyb-0007QY-8L; Fri, 12 Mar 2021 10:25:01 +0000
+	id 1lKf2b-0007jr-Pj; Fri, 12 Mar 2021 10:29:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96969.183969; Fri, 12 Mar 2021 10:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 96972.183981; Fri, 12 Mar 2021 10:29:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKeyb-0007Q8-4T; Fri, 12 Mar 2021 10:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 96969;
- Fri, 12 Mar 2021 10:25:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKeya-0007Q3-Is
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:25:00 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKeya-0005YR-I2
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:25:00 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKeya-0002uy-HC
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:25:00 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lKeyX-0003Y2-7E; Fri, 12 Mar 2021 10:24:57 +0000
+	id 1lKf2b-0007jS-MO; Fri, 12 Mar 2021 10:29:09 +0000
+Received: by outflank-mailman (input) for mailman id 96972;
+ Fri, 12 Mar 2021 10:29:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uDzj=IK=yandex-team.ru=lekiravi@srs-us1.protection.inumbo.net>)
+ id 1lKf2a-0007jN-KL
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:29:08 +0000
+Received: from forwardcorp1p.mail.yandex.net (unknown [77.88.29.217])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 807b39b7-7333-4481-a292-33b60467d891;
+ Fri, 12 Mar 2021 10:29:04 +0000 (UTC)
+Received: from iva8-d077482f1536.qloud-c.yandex.net
+ (iva8-d077482f1536.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0c:2f26:0:640:d077:482f])
+ by forwardcorp1p.mail.yandex.net (Yandex) with ESMTP id 83F722E11CD;
+ Fri, 12 Mar 2021 13:29:02 +0300 (MSK)
+Received: from mail.yandex-team.ru (mail.yandex-team.ru [5.255.223.100])
+ by iva8-d077482f1536.qloud-c.yandex.net (mxbackcorp/Yandex) with HTTP id
+ eSTCI30xQeA1-T1xOOk00; Fri, 12 Mar 2021 13:29:02 +0300
+Received: from vla1-fdfb804fb3f3.qloud-c.yandex.net
+ (vla1-fdfb804fb3f3.qloud-c.yandex.net [2a02:6b8:c0d:3199:0:640:fdfb:804f])
+ by sas1-c3eab8bf7b15.qloud-c.yandex.net with LMTP id fGbK2v0HT4-SXSKEVvi
+ for <lekiravi@yandex-team.ru>; Fri, 12 Mar 2021 13:28:51 +0300
+Received: by vla1-4ea76ba32639.qloud-c.yandex.net with HTTP;
+ Fri, 12 Mar 2021 13:28:50 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,46 +47,166 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=djRI6z83hqBJ/Xzgaks9+EyKWbP13MvTx4JfTcOnNDY=; b=kNVZuCbwiveZMMyVA/PGXTjRR/
-	dCvBRYQuLi+v5qg5dA3PZ5ck85ftlvn0RHha15yXp9qQXBqc/g0K7StFbXitiD4QHpLmG0Ze0X77+
-	tnFFX83LYeMtVLo1eHG0sVy2AQ2aK65CjhVFfibJ4kGq8w7bqtwsaN22ynFWgvFoZ4tk=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 807b39b7-7333-4481-a292-33b60467d891
+Precedence: bulk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru; s=default;
+	t=1615544942; bh=vlZFGZPWD0GFhxyZili3SYVtAffMSqSg9sin0+OeFHY=;
+	h=Cc:Subject:Date:References:To:From:Message-Id;
+	b=NEzkEWLk07ZYEqTlK/ZFrENpIVaE54u1lCSNA3oqBLRPnHdaFb5r/UiN1U0HVH+O2
+	 ZEDEUTeRcSCQMB1uIfc20MKa0rUOXNJg3xldlyOD9uJ0lLJUuccVifqfuL+U1YHfeq
+	 l/ms2wKqtbpGdEzrtXxoqh1EhPmZlJAIInLbXrSk=
+Authentication-Results: iva8-d077482f1536.qloud-c.yandex.net; dkim=pass header.i=@yandex-team.ru
+X-Yandex-Sender-Uid: 1120000000161690
+X-Yandex-Avir: 1
+From: Alexey Kirillov <lekiravi@yandex-team.ru>
+To: Jason Wang <jasowang@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Thomas Huth <thuth@redhat.com>,
+	Eric Blake <eblake@redhat.com>
+Cc: Laurent Vivier <lvivier@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Stefan Weil <sw@weilnetz.de>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Michael S. Tsirkin <mst@redhat.com>,
+	Michael Roth <michael.roth@amd.com>,
+	Paul Durrant <paul@xen.org>,
+	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+	Vincenzo Maffione <v.maffione@gmail.com>,
+	"yc-core@yandex-team.ru" <yc-core@yandex-team.ru>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Giuseppe Lettieri <g.lettieri@iet.unipi.it>,
+	Luigi Rizzo <rizzo@iet.unipi.it>
+References: <20210303095910.78277-1-lekiravi@yandex-team.ru>
+Subject: Re: [PATCH v7 0/5] Introducing QMP query-netdev command
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24651.16760.951727.831368@mariner.uk.xensource.com>
-Date: Fri, 12 Mar 2021 10:24:56 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Wei Liu <wl@xen.org>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 2/2] tools/x86: move arch-specific include/xen/ population
- into arch-specific rule
-In-Reply-To: <e6bcfa87-aa12-97dd-23f4-d2f085e2e4f6@suse.com>
-References: <1365013b-1e90-aeb2-3c80-7a5c6284c46a@suse.com>
-	<e6bcfa87-aa12-97dd-23f4-d2f085e2e4f6@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Fri, 12 Mar 2021 13:29:00 +0300
+Message-Id: <32641615544652@mail.yandex-team.ru>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
 
-Jan Beulich writes ("[PATCH v2 2/2] tools/x86: move arch-specific include/xen/ population into arch-specific rule"):
-> There's no need for the common "xen-dir" rule to have an arch-specific
-> part when there already is a arch-specific rule where this can be taken
-> care of (arguably instead of all-y this might better be xendir-y
-> anyway).
+ping
 
-Thanks, but I do not like this change.
+Patchew page: https://patchew.org/QEMU/20210303095910.78277-1-lekiravi@yandex-team.ru
 
-IMO make commands should be primarily organised by their logical
-function and role in the file.  If that means that multiple targets
-have arch-specific parts, so be it.
+03.03.2021, 13:01, "Alexey Kirillov" <lekiravi@yandex-team.ru>:
+> This patch series introduces a new QMP command "query-netdev" to get
+> information about currently attached backend network devices (netdevs).
+>
+> Also, since the "info_str" field of "NetClientState" is now deprecated,
+> we no longer use it for netdevs, only for NIC/hubports.
+>
+> The HMP command "info network" now also uses QAPI structure inside.
+>
+> Usage example:
+>
+> -> { "execute": "query-netdev" }
+> <- { "return": [
+>          {
+>              "listen": "127.0.0.1:90",
+>              "type": "socket",
+>              "peer-id": "hub0port1",
+>              "id": "__org.qemu.net1"
+>          },
+>          {
+>              "script": "/etc/qemu-ifup",
+>              "downscript": "/etc/qemu-ifdown",
+>              "ifname": "tap0",
+>              "type": "tap",
+>              "peer-id": "net5",
+>              "vnet_hdr": true,
+>              "id": "tap0"
+>          },
+>          {
+>              "ipv6": true,
+>              "ipv4": true,
+>              "host": "10.0.2.2",
+>              "ipv6-dns": "fec0::3",
+>              "ipv6-prefix": "fec0::",
+>              "net": "10.0.2.0/255.255.255.0",
+>              "ipv6-host": "fec0::2",
+>              "type": "user",
+>              "peer-id": "net0",
+>              "dns": "10.0.2.3",
+>              "hostfwd": [
+>                  {
+>                      "str": "tcp::20004-:22"
+>                  }
+>              ],
+>              "ipv6-prefixlen": 64,
+>              "id": "netdev0",
+>              "restrict": false
+>          }
+>      ]
+>    }
+>
+> v6->v7:
+> - Use macroses QAPI_LIST_PREPEND and QAPI_LIST_APPEND for lists.
+> - Reorder NetBackend entries in alphabetical order.
+>
+> v5->v6:
+> - Add QAPI visitor to generate info_str replacement directly from NetdevInfo.
+> - Make info_str dynamically allocated.
+> - Make commit messages more meaningful.
+>
+> v4->v5:
+> - Enable qtest of query-netdevs for AVR and RX archs.
+> - Bump "Since" version in QAPI to 6.0.
+>
+> v3->v4:
+> - Rename "query-netdevs" to "query-netdev".
+> - Copy netdev drivers to new QAPI enum "NetBackend".
+>
+> v2->v3:
+> - Remove NIC and hubports from query-netdevs.
+> - Remove several fields from NetdevInfo since they are unnecessary.
+> - Rename field @peer to @peer-id.
+> - Add support of vhost-vdpa.
+> - Keep "info_str" for NIC/hubports, but remove it for netdevs.
+>
+> v1->v2:
+> - Rewrite HMP "info network" to get information from results of QMP command.
+> - Remove obsolete field "info_str" from "NetClientState".
+>
+> Alexey Kirillov (5):
+>   qapi: net: Add query-netdev command
+>   tests: Add tests for query-netdev command
+>   net: Move NetClientState.info_str to dynamic allocations
+>   hmp: Use QAPI NetdevInfo in hmp_info_network
+>   net: Do not fill legacy info_str for backends
+>
+>  hw/net/xen_nic.c | 5 +-
+>  include/net/net.h | 5 +-
+>  include/qapi/hmp-output-visitor.h | 30 +++++
+>  net/l2tpv3.c | 8 +-
+>  net/net.c | 73 +++++++++--
+>  net/netmap.c | 7 ++
+>  net/slirp.c | 124 ++++++++++++++++++-
+>  net/socket.c | 92 ++++++++++----
+>  net/tap-win32.c | 10 +-
+>  net/tap.c | 107 +++++++++++++++--
+>  net/vde.c | 25 +++-
+>  net/vhost-user.c | 20 +++-
+>  net/vhost-vdpa.c | 15 ++-
+>  qapi/hmp-output-visitor.c | 193 ++++++++++++++++++++++++++++++
+>  qapi/meson.build | 1 +
+>  qapi/net.json | 80 +++++++++++++
+>  tests/qtest/meson.build | 3 +
+>  tests/qtest/test-query-netdev.c | 120 +++++++++++++++++++
+>  18 files changed, 856 insertions(+), 62 deletions(-)
+>  create mode 100644 include/qapi/hmp-output-visitor.h
+>  create mode 100644 qapi/hmp-output-visitor.c
+>  create mode 100644 tests/qtest/test-query-netdev.c
+>
+> --
+> 2.25.1
 
-IMO it is not right to move something from xen-dir to all just to
-reduce the number of different targets with arch-specific parts.
 
-Ian.
+-- 
+Alexey Kirillov
+Yandex.Cloud
+
 
