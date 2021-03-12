@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AE9C338F73
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 15:09:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97145.184377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 511AF338F96
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 15:14:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97148.184392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKiTD-0007C9-DS; Fri, 12 Mar 2021 14:08:51 +0000
+	id 1lKiYa-00085v-3j; Fri, 12 Mar 2021 14:14:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97145.184377; Fri, 12 Mar 2021 14:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 97148.184392; Fri, 12 Mar 2021 14:14:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKiTD-0007Bk-9s; Fri, 12 Mar 2021 14:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 97145;
- Fri, 12 Mar 2021 14:08:49 +0000
+	id 1lKiYa-00085Y-0R; Fri, 12 Mar 2021 14:14:24 +0000
+Received: by outflank-mailman (input) for mailman id 97148;
+ Fri, 12 Mar 2021 14:14:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKiTB-0007Bd-9G
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:08:49 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lKiYY-00085T-PE
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:14:22 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKiTB-0000zy-5A
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:08:49 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lKiYY-00015e-KB
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:14:22 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lKiTB-0000bd-3G
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:08:49 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lKiYY-00013h-Fb
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 14:14:22 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1lKiT0-00044q-EE; Fri, 12 Mar 2021 14:08:38 +0000
+ id 1lKiYV-00046q-8v; Fri, 12 Mar 2021 14:14:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,53 +44,38 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=m5H7FgXfFnbYQQT7H+HBh4eIcgFfUsHEIhLz/wbXR+w=; b=Avdr/bYw6HrGphUaJ+k1aKB5/9
-	BgehS6zytBjBNuI7ioep+QBW0fNBkyXi5AdluLb5YlxLkIDyFphPw2Dx/GvPybB2QnQ1qZ6V5CpuO
-	InbBF6P7W2NhpBCj/ydr49nCDDH0gUp7FBwHqoxwdk8lpOj7bNHEETiC55KtCH4iH1wo=;
+	bh=612xe5D1gQNvP67L9NWPxnl64xExgmv8QNuIAJBrNxA=; b=3hY92iGAcEMH6UYuKhRubJJrHP
+	SE2/38geWjr3GDNp3K9DJt+dqTh/6oCxNO9F6K14Is7mZuqh5fTZdtJZw+IzIArocIrP3KGyYrO4U
+	BU91yGmZ+4IAXxjrykLcwJlA/9MJJ28f65p75iEfTaZqSo7QTTsfKp4QoULIoav3FkG4=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Message-ID: <24651.30182.179324.184928@mariner.uk.xensource.com>
-Date: Fri, 12 Mar 2021 14:08:38 +0000
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    Jan Beulich <jbeulich@suse.com>,
-    Paul Durrant <paul@xen.org>,
-    Wei Liu <wl@xen.org>,
-    Ian Jackson <iwj@xenproject.org>,
-    Xen-devel <xen-devel@lists.xenproject.org>,
-    Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH for-4.15 v2] xen/dmop: Strip __XEN_TOOLS__ header guard
- from public API
-In-Reply-To: <ffd35de5-d130-4b82-8397-085d7ea70b6e@citrix.com>
-References: <20210310150722.27194-1-andrew.cooper3@citrix.com>
-	<d375232a-d1a7-737c-0887-8b7e1c9a772d@suse.com>
-	<13f03a67-18c2-e564-a0f6-84eccc7eeb76@citrix.com>
-	<556ce32b-5087-b8b1-432e-643218dd8c6e@suse.com>
-	<9ca069ab-8b6c-c8f1-d68b-4a9bb0cf5c56@citrix.com>
-	<YEomtoHmq7UH/P6T@Air-de-Roger>
-	<ffd35de5-d130-4b82-8397-085d7ea70b6e@citrix.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24651.30523.7483.695534@mariner.uk.xensource.com>
+Date: Fri, 12 Mar 2021 14:14:19 +0000
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>,
+    <jbeulich@suse.com>,
+    <andrew.cooper3@citrix.com>,
+    <roger.pau@citrix.com>,
+    <wl@xen.org>,
+    <kevin.tian@intel.com>
+Subject: Re: [PATCH for-4.15] vtd: make sure QI/IR are disabled before initialisation
+Newsgroups: chiark.mail.xen.devel
+In-Reply-To: <2937df62c72f48cf81af9e12b33e13c6@FTLPEX02CAS03.citrite.net>
+References: <2937df62c72f48cf81af9e12b33e13c6@FTLPEX02CAS03.citrite.net>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Andrew Cooper writes ("Re: [PATCH for-4.15 v2] xen/dmop: Strip __XEN_TOOLS__ header guard from public API"):
-> On 11/03/2021 14:18, Roger Pau Monné wrote:
-> > I think using __XEN_UNSTABLE_ABI__ would be way clearer than
-> > __XEN_TOOLS__, or even placing those in a separate directory as you
-> > mention.
+Igor Druzhinin writes ("[PATCH for-4.15] vtd: make sure QI/IR are disabled before initialisation"):
+> BIOS might pass control to Xen leaving QI and/or IR in enabled and/or
+> partially configured state. In case of x2APIC code path where EIM is
+> enabled early in boot - those are correctly disabled by Xen before any
+> attempt to configure. But for xAPIC that step is missing which was
+> proven to cause QI initialization failures on some ICX based platforms
+> where QI is left pre-enabled and partially configured by BIOS.
+> 
+> Unify the behaviour between x2APIC and xAPIC code paths keeping that in
+> line with what Linux does.
 
-+1
-
-> I plan to submit a rename for 4.16.
-
-+1
-
-> I don't expect I'll have much luck arguing for a release ack at this
-> point, and isn't totally risk-free.
-
-Indeed, I think the value for 4.15 would be very limited and I
-wouldn't want the churn.
-
-Thanks,
-Ian.
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
