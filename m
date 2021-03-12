@@ -2,42 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80A8E338A14
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 11:29:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.96972.183981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37252338A19
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Mar 2021 11:29:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.96975.183993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKf2b-0007jr-Pj; Fri, 12 Mar 2021 10:29:09 +0000
+	id 1lKf32-0007of-2V; Fri, 12 Mar 2021 10:29:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 96972.183981; Fri, 12 Mar 2021 10:29:09 +0000
+Received: by outflank-mailman (output) from mailman id 96975.183993; Fri, 12 Mar 2021 10:29:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKf2b-0007jS-MO; Fri, 12 Mar 2021 10:29:09 +0000
-Received: by outflank-mailman (input) for mailman id 96972;
- Fri, 12 Mar 2021 10:29:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uDzj=IK=yandex-team.ru=lekiravi@srs-us1.protection.inumbo.net>)
- id 1lKf2a-0007jN-KL
- for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:29:08 +0000
-Received: from forwardcorp1p.mail.yandex.net (unknown [77.88.29.217])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 807b39b7-7333-4481-a292-33b60467d891;
- Fri, 12 Mar 2021 10:29:04 +0000 (UTC)
-Received: from iva8-d077482f1536.qloud-c.yandex.net
- (iva8-d077482f1536.qloud-c.yandex.net
- [IPv6:2a02:6b8:c0c:2f26:0:640:d077:482f])
- by forwardcorp1p.mail.yandex.net (Yandex) with ESMTP id 83F722E11CD;
- Fri, 12 Mar 2021 13:29:02 +0300 (MSK)
-Received: from mail.yandex-team.ru (mail.yandex-team.ru [5.255.223.100])
- by iva8-d077482f1536.qloud-c.yandex.net (mxbackcorp/Yandex) with HTTP id
- eSTCI30xQeA1-T1xOOk00; Fri, 12 Mar 2021 13:29:02 +0300
-Received: from vla1-fdfb804fb3f3.qloud-c.yandex.net
- (vla1-fdfb804fb3f3.qloud-c.yandex.net [2a02:6b8:c0d:3199:0:640:fdfb:804f])
- by sas1-c3eab8bf7b15.qloud-c.yandex.net with LMTP id fGbK2v0HT4-SXSKEVvi
- for <lekiravi@yandex-team.ru>; Fri, 12 Mar 2021 13:28:51 +0300
-Received: by vla1-4ea76ba32639.qloud-c.yandex.net with HTTP;
- Fri, 12 Mar 2021 13:28:50 +0300
+	id 1lKf31-0007oE-Va; Fri, 12 Mar 2021 10:29:35 +0000
+Received: by outflank-mailman (input) for mailman id 96975;
+ Fri, 12 Mar 2021 10:29:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lKf30-0007o6-Mt
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:29:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lKf30-0005bx-Jd
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:29:34 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lKf30-00037i-Ik
+ for xen-devel@lists.xenproject.org; Fri, 12 Mar 2021 10:29:34 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lKf2p-0003Z1-Ah; Fri, 12 Mar 2021 10:29:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +39,75 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 807b39b7-7333-4481-a292-33b60467d891
-Precedence: bulk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru; s=default;
-	t=1615544942; bh=vlZFGZPWD0GFhxyZili3SYVtAffMSqSg9sin0+OeFHY=;
-	h=Cc:Subject:Date:References:To:From:Message-Id;
-	b=NEzkEWLk07ZYEqTlK/ZFrENpIVaE54u1lCSNA3oqBLRPnHdaFb5r/UiN1U0HVH+O2
-	 ZEDEUTeRcSCQMB1uIfc20MKa0rUOXNJg3xldlyOD9uJ0lLJUuccVifqfuL+U1YHfeq
-	 l/ms2wKqtbpGdEzrtXxoqh1EhPmZlJAIInLbXrSk=
-Authentication-Results: iva8-d077482f1536.qloud-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000161690
-X-Yandex-Avir: 1
-From: Alexey Kirillov <lekiravi@yandex-team.ru>
-To: Jason Wang <jasowang@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Eric Blake <eblake@redhat.com>
-Cc: Laurent Vivier <lvivier@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefan Weil <sw@weilnetz.de>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Michael S. Tsirkin <mst@redhat.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Paul Durrant <paul@xen.org>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
-	Vincenzo Maffione <v.maffione@gmail.com>,
-	"yc-core@yandex-team.ru" <yc-core@yandex-team.ru>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Giuseppe Lettieri <g.lettieri@iet.unipi.it>,
-	Luigi Rizzo <rizzo@iet.unipi.it>
-References: <20210303095910.78277-1-lekiravi@yandex-team.ru>
-Subject: Re: [PATCH v7 0/5] Introducing QMP query-netdev command
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=yGdcISLXILgnM+oQAr1inXBMzVkxhIog+rnf0NeWGWo=; b=WV/14NNTfrMAQ34OURccVv3wn5
+	3ZfBYIIVKplbeUiWOb7XNJzS/Lhn0zrRipl86RmdEE43Ig/9kmX4i0AuarwRWFtCC6qixjW49f7gz
+	GydeVms6IQMHII4BlwcsjdKyqANI87SqC+EmzY5L9EhhArzJTByHwS63rANKIxMcXcq4=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Fri, 12 Mar 2021 13:29:00 +0300
-Message-Id: <32641615544652@mail.yandex-team.ru>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24651.17027.10811.145589@mariner.uk.xensource.com>
+Date: Fri, 12 Mar 2021 10:29:23 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH][4.15] gnttab: work around "may be used uninitialized"
+ warning
+In-Reply-To: <7185c052-3e66-6202-f820-76568b2b1228@suse.com>
+References: <a6b73c54-3010-6716-cac3-8f3b462a4dc7@suse.com>
+	<ec2b85b6-072d-481d-3b02-c8dedf043dac@xen.org>
+	<6bd14438-7dec-2176-eab5-5898f190c4d8@suse.com>
+	<e45ef012-22c6-b480-d987-dd951ae36948@xen.org>
+	<24651.15544.142804.468744@mariner.uk.xensource.com>
+	<7185c052-3e66-6202-f820-76568b2b1228@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-ping
+Jan Beulich writes ("Re: [PATCH][4.15] gnttab: work around "may be used uninitialized" warning"):
+> On 12.03.2021 11:04, Ian Jackson wrote:
+> > Julien Grall writes ("Re: [PATCH][4.15] gnttab: work around "may be used uninitialized" warning"):
+> >> This is pretty much what we are already doing slowly by initializing 
+> >> values to shut up older compilers. I agree this is more limited, but we 
+> >> also waive off diagnostics from every single compiler in that code 
+> >> rather than just one version.
+> >>
+> >> Hence why I suggested dropping -Werror for older compiler. This is not 
+> >> ideal but it would give us the ability to keep support for dinausor 
+> >> compiler and not hamper our ability to take advantage of newer compiler 
+> >> diagnostics.
+> > 
+> > I agree with Julien.  I think we should avoid adding these redundant
+> > initialisers for the reasons he gives.
+> 
+> I find this odd, not only because it is contrary to what we've done so
+> far. What if more modern gcc issues a false-positive warning? If we'd
+> fix it there, where would you suggest to draw the line? Imo our tree
+> should build without issues on all compiler versions which we state we
+> permit to be used.
+> 
+> Of course in the case here I could add a "default:" to the switch(),
+> but this would still only work around the compiler issue. Would the
+> two of you consider this any better?
+> 
+> Also, Ian - do you have any alternative suggestion towards making the
+> build work again (in the more general case, i.e. irrespective of the
+> alternative suggestion for this specific case just above)? Not using
+> -Werror on old compilers (again - where would we draw the line) was
+> already objected to by me.
 
-Patchew page: https://patchew.org/QEMU/20210303095910.78277-1-lekiravi@yandex-team.ru
+I read your objection to not using -Werror for such old compilers but
+I did not agree with it.
 
-03.03.2021, 13:01, "Alexey Kirillov" <lekiravi@yandex-team.ru>:
-> This patch series introduces a new QMP command "query-netdev" to get
-> information about currently attached backend network devices (netdevs).
->
-> Also, since the "info_str" field of "NetClientState" is now deprecated,
-> we no longer use it for netdevs, only for NIC/hubports.
->
-> The HMP command "info network" now also uses QAPI structure inside.
->
-> Usage example:
->
-> -> { "execute": "query-netdev" }
-> <- { "return": [
->          {
->              "listen": "127.0.0.1:90",
->              "type": "socket",
->              "peer-id": "hub0port1",
->              "id": "__org.qemu.net1"
->          },
->          {
->              "script": "/etc/qemu-ifup",
->              "downscript": "/etc/qemu-ifdown",
->              "ifname": "tap0",
->              "type": "tap",
->              "peer-id": "net5",
->              "vnet_hdr": true,
->              "id": "tap0"
->          },
->          {
->              "ipv6": true,
->              "ipv4": true,
->              "host": "10.0.2.2",
->              "ipv6-dns": "fec0::3",
->              "ipv6-prefix": "fec0::",
->              "net": "10.0.2.0/255.255.255.0",
->              "ipv6-host": "fec0::2",
->              "type": "user",
->              "peer-id": "net0",
->              "dns": "10.0.2.3",
->              "hostfwd": [
->                  {
->                      "str": "tcp::20004-:22"
->                  }
->              ],
->              "ipv6-prefixlen": 64,
->              "id": "netdev0",
->              "restrict": false
->          }
->      ]
->    }
->
-> v6->v7:
-> - Use macroses QAPI_LIST_PREPEND and QAPI_LIST_APPEND for lists.
-> - Reorder NetBackend entries in alphabetical order.
->
-> v5->v6:
-> - Add QAPI visitor to generate info_str replacement directly from NetdevInfo.
-> - Make info_str dynamically allocated.
-> - Make commit messages more meaningful.
->
-> v4->v5:
-> - Enable qtest of query-netdevs for AVR and RX archs.
-> - Bump "Since" version in QAPI to 6.0.
->
-> v3->v4:
-> - Rename "query-netdevs" to "query-netdev".
-> - Copy netdev drivers to new QAPI enum "NetBackend".
->
-> v2->v3:
-> - Remove NIC and hubports from query-netdevs.
-> - Remove several fields from NetdevInfo since they are unnecessary.
-> - Rename field @peer to @peer-id.
-> - Add support of vhost-vdpa.
-> - Keep "info_str" for NIC/hubports, but remove it for netdevs.
->
-> v1->v2:
-> - Rewrite HMP "info network" to get information from results of QMP command.
-> - Remove obsolete field "info_str" from "NetClientState".
->
-> Alexey Kirillov (5):
->   qapi: net: Add query-netdev command
->   tests: Add tests for query-netdev command
->   net: Move NetClientState.info_str to dynamic allocations
->   hmp: Use QAPI NetdevInfo in hmp_info_network
->   net: Do not fill legacy info_str for backends
->
->  hw/net/xen_nic.c | 5 +-
->  include/net/net.h | 5 +-
->  include/qapi/hmp-output-visitor.h | 30 +++++
->  net/l2tpv3.c | 8 +-
->  net/net.c | 73 +++++++++--
->  net/netmap.c | 7 ++
->  net/slirp.c | 124 ++++++++++++++++++-
->  net/socket.c | 92 ++++++++++----
->  net/tap-win32.c | 10 +-
->  net/tap.c | 107 +++++++++++++++--
->  net/vde.c | 25 +++-
->  net/vhost-user.c | 20 +++-
->  net/vhost-vdpa.c | 15 ++-
->  qapi/hmp-output-visitor.c | 193 ++++++++++++++++++++++++++++++
->  qapi/meson.build | 1 +
->  qapi/net.json | 80 +++++++++++++
->  tests/qtest/meson.build | 3 +
->  tests/qtest/test-query-netdev.c | 120 +++++++++++++++++++
->  18 files changed, 856 insertions(+), 62 deletions(-)
->  create mode 100644 include/qapi/hmp-output-visitor.h
->  create mode 100644 qapi/hmp-output-visitor.c
->  create mode 100644 tests/qtest/test-query-netdev.c
->
-> --
-> 2.25.1
+I am sympathetic to Julien's desire to try to limit the set of
+supported compilers.
 
-
--- 
-Alexey Kirillov
-Yandex.Cloud
-
+Ian.
 
