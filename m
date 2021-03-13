@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77CAB339B89
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Mar 2021 04:30:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97399.185034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EB9C339BB4
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Mar 2021 05:37:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97412.185063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKuxn-0006vu-TJ; Sat, 13 Mar 2021 03:29:15 +0000
+	id 1lKw0X-0005Cq-6R; Sat, 13 Mar 2021 04:36:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97399.185034; Sat, 13 Mar 2021 03:29:15 +0000
+Received: by outflank-mailman (output) from mailman id 97412.185063; Sat, 13 Mar 2021 04:36:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lKuxn-0006vQ-Nq; Sat, 13 Mar 2021 03:29:15 +0000
-Received: by outflank-mailman (input) for mailman id 97399;
- Sat, 13 Mar 2021 03:29:13 +0000
+	id 1lKw0X-0005CR-3A; Sat, 13 Mar 2021 04:36:09 +0000
+Received: by outflank-mailman (input) for mailman id 97412;
+ Sat, 13 Mar 2021 04:36:08 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lKuxl-0006vI-LD; Sat, 13 Mar 2021 03:29:13 +0000
+ id 1lKw0W-0005CH-EM; Sat, 13 Mar 2021 04:36:08 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lKuxl-0000e7-EF; Sat, 13 Mar 2021 03:29:13 +0000
+ id 1lKw0W-00022Y-7f; Sat, 13 Mar 2021 04:36:08 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lKuxl-0005f1-34; Sat, 13 Mar 2021 03:29:13 +0000
+ id 1lKw0V-0000yX-Up; Sat, 13 Mar 2021 04:36:07 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lKuxl-0002kk-2Y; Sat, 13 Mar 2021 03:29:13 +0000
+ id 1lKw0V-0007MF-UM; Sat, 13 Mar 2021 04:36:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,16 +45,16 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=JaEXP93834Oxim7FmMfnUZyhcn2ITMP9B0mEbUi+mHg=; b=XCu2Me9TdrTCJn8LxGcQ72oaAN
-	BUZspKlvrbiWbdNu46unUPZfdd/E5bX7FNrCsA3WXT+OBjoQR8TbsXUeeESLmwn0YURRGlBnUdBlo
-	NFszbyGq33sNBRfIwFY2KwGl8hJ6Gdy4EEHoYlsg16JyK50/UnfyRgj5HqUAyKjw+kn4=;
+	bh=wimLIoos0eZorshup3Q9RQ1FqaPoYwVVW6hTbTRwqJI=; b=0AQ3pg7CV3P9ZYeaRyWWA8IrYr
+	PuEWa0dTSLdS5fcu6e4t+MMcwS5R5zIZcSKKtVhXyEFoeECjK+vU5Qk4hEbZstUPOUFMqyVAd/C4E
+	gwDKYjSRnbEAoCHa1NdB4tySnZQke926ojXxbMp6C5uXlUDnpsqTlQlBQ9kbH0xWGhhc=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-160048-mainreport@xen.org>
+Message-ID: <osstest-160050-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 160048: regressions - FAIL
+Subject: [qemu-mainline test] 160050: regressions - FAIL
 X-Osstest-Failures:
     qemu-mainline:build-amd64:xen-build:fail:regression
     qemu-mainline:build-amd64-xsm:xen-build:fail:regression
@@ -145,10 +145,10 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 13 Mar 2021 03:29:13 +0000
+Date: Sat, 13 Mar 2021 04:36:07 +0000
 
-flight 160048 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160048/
+flight 160050 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160050/
 
 Regressions :-(
 
@@ -247,8 +247,8 @@ baseline version:
  qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
 Last test of basis   152631  2020-08-20 09:07:46 Z  204 days
-Failing since        152659  2020-08-21 14:07:39 Z  203 days  391 attempts
-Testing same since   160048  2021-03-13 00:08:05 Z    0 days    1 attempts
+Failing since        152659  2020-08-21 14:07:39 Z  203 days  392 attempts
+Testing same since   160048  2021-03-13 00:08:05 Z    0 days    2 attempts
 
 ------------------------------------------------------------
 444 people touched revisions under test,
