@@ -2,63 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 769C033B49F
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Mar 2021 14:33:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98022.185868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE8B133B4B4
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Mar 2021 14:37:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98027.185880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLnL4-0004TZ-IY; Mon, 15 Mar 2021 13:32:54 +0000
+	id 1lLnOw-0004fx-6O; Mon, 15 Mar 2021 13:36:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98022.185868; Mon, 15 Mar 2021 13:32:54 +0000
+Received: by outflank-mailman (output) from mailman id 98027.185880; Mon, 15 Mar 2021 13:36:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLnL4-0004TA-Er; Mon, 15 Mar 2021 13:32:54 +0000
-Received: by outflank-mailman (input) for mailman id 98022;
- Mon, 15 Mar 2021 13:32:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/z0=IN=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1lLnL2-0004T2-4e
- for xen-devel@lists.xenproject.org; Mon, 15 Mar 2021 13:32:52 +0000
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
- [40.107.3.66]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3e0a5629-3ab3-4835-a70b-35d500469464;
- Mon, 15 Mar 2021 13:32:51 +0000 (UTC)
-Received: from AS8PR04CA0035.eurprd04.prod.outlook.com (2603:10a6:20b:312::10)
- by DB6PR0801MB1733.eurprd08.prod.outlook.com (2603:10a6:4:37::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Mon, 15 Mar
- 2021 13:32:46 +0000
-Received: from VE1EUR03FT054.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:312:cafe::54) by AS8PR04CA0035.outlook.office365.com
- (2603:10a6:20b:312::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31 via Frontend
- Transport; Mon, 15 Mar 2021 13:32:46 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT054.mail.protection.outlook.com (10.152.19.64) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3933.31 via Frontend Transport; Mon, 15 Mar 2021 13:32:46 +0000
-Received: ("Tessian outbound 24a7072fdae6:v71");
- Mon, 15 Mar 2021 13:32:45 +0000
-Received: from 3cb5440f8444.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- B6001EC4-F279-4CF1-B982-5D84BAB30535.1; 
- Mon, 15 Mar 2021 13:32:40 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3cb5440f8444.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 15 Mar 2021 13:32:40 +0000
-Received: from VE1PR08MB5696.eurprd08.prod.outlook.com (2603:10a6:800:1ae::15)
- by VI1PR08MB5295.eurprd08.prod.outlook.com (2603:10a6:803:e3::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Mon, 15 Mar
- 2021 13:32:39 +0000
-Received: from VE1PR08MB5696.eurprd08.prod.outlook.com
- ([fe80::5c93:6e79:8f1e:a839]) by VE1PR08MB5696.eurprd08.prod.outlook.com
- ([fe80::5c93:6e79:8f1e:a839%6]) with mapi id 15.20.3933.032; Mon, 15 Mar 2021
- 13:32:38 +0000
+	id 1lLnOw-0004fY-2h; Mon, 15 Mar 2021 13:36:54 +0000
+Received: by outflank-mailman (input) for mailman id 98027;
+ Mon, 15 Mar 2021 13:36:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EzTP=IN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lLnOu-0004fR-Q1
+ for xen-devel@lists.xenproject.org; Mon, 15 Mar 2021 13:36:52 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 30edc4db-3a29-46af-8724-30dfb3be76d5;
+ Mon, 15 Mar 2021 13:36:50 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D1F4DAE15;
+ Mon, 15 Mar 2021 13:36:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,239 +38,559 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e0a5629-3ab3-4835-a70b-35d500469464
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JGhOE4Py5arD3lbQI3F0gQPD07n7M5jkSpK9CzuCtLQ=;
- b=R0sWltPQf8wYbhIbdhHRvpBVyBFUp35/H1don1RvihocjGPP4CBGL+gW8CWhLhsTB6ThpY4SSH+W5LzDLSkMiK3670OzTdDp05etyroapRQ//wqo/tYdnl9qoFJLLntKMSlfiLTXUc5kRaautQbt3Ety0rokckPHFzk2J2XDdc8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 7f5b1d360f002ab9
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=egNvqjpc1yPJ0lGEsLawvu4XzXlZBVzsrSiyXZwesa9MPflPjehvn4YViQqyx1A+ZtsZZ8/N90Pho7vHhlDBEBHKpyNevGCqYOY++9yTnhgEj6srqPTwzDsCsK84tWOoTKBMDwEuOCqq+fDkhvFf5tLRJ2NGaAXJMiIc8Lb3+sC6GLNWJTTiJ3J35NBWRs0lRnXaqXUCtFLSdw+jzBIAZ8AQHfzC9ZKIqiBk7aS30w54H/7x1MavPALE4JLCm6vYb8obX3kAv9WR97r2eU7TNpgFolKjxag4VL1D+dYsvYbPz3UmU/nuOzeVLBAfXMRklN2PyYPY3Js7m3PGdjCugQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JGhOE4Py5arD3lbQI3F0gQPD07n7M5jkSpK9CzuCtLQ=;
- b=dpjFS3ld6yhaES4stluOHypoWcdYcsiANtz4K+NxsKSO5QiirtQYdgY1Xt/DroLMkTLrwHXlG6oNmHwCa/hqg6biSTLW+yyqqpfOW6k4XOL/N3PACz1TO1ySwEJFYF1iTACEh+xGLyHhNbuQH8gHGuhATwnzhV/uGz9NeTIunkjcNnUhy2pDTvHK9dPE2vGdTgLzuu0EWl/tRUAR3F/b2Ghk29ZP4oJ2KZjCM5YfU/KGLm4d6sDph59iEZrLWoaQb5kSMuAPIKRH80tqdhXKmdyW1zFD+WB4zgN2y98PWAtPJ97U5rbgpXHpppqVLm5AaBZBkZEo65XCCSBzSRW39Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JGhOE4Py5arD3lbQI3F0gQPD07n7M5jkSpK9CzuCtLQ=;
- b=R0sWltPQf8wYbhIbdhHRvpBVyBFUp35/H1don1RvihocjGPP4CBGL+gW8CWhLhsTB6ThpY4SSH+W5LzDLSkMiK3670OzTdDp05etyroapRQ//wqo/tYdnl9qoFJLLntKMSlfiLTXUc5kRaautQbt3Ety0rokckPHFzk2J2XDdc8=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH for-next v2 0/2] xen/arm: Mitigate straight-line
- speculation
-Thread-Topic: [PATCH for-next v2 0/2] xen/arm: Mitigate straight-line
- speculation
-Thread-Index: AQHXGCLVbl4hty1bX0WFvkxXr3KxFaqFDwwA
-Date: Mon, 15 Mar 2021 13:32:37 +0000
-Message-ID: <D7999820-4FE4-4338-A93E-8641AF29F56C@arm.com>
-References: <20210313160611.18665-1-julien@xen.org>
-In-Reply-To: <20210313160611.18665-1-julien@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.60.0.2.21)
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [86.26.33.241]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5dd13a06-1578-4902-17fd-08d8e7b6d1d4
-x-ms-traffictypediagnostic: VI1PR08MB5295:|DB6PR0801MB1733:
-X-Microsoft-Antispam-PRVS:
-	<DB6PR0801MB1733C526A12E47083592993E9D6C9@DB6PR0801MB1733.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:9508;OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- RtPsUVtGMJyNeqFG1wwx8FYZKxtZS9lLR4FfEX3qoG49+GVEz7USa161cvK7U12fq3GpuM6yxLma7VR5KsrpBguccjr2xhCLgMnKiFCg2re3UUxROOdyfmvFvu/CVr52404d1XEMcHEQhFVQbmem1k5vOf8uug8EDGTSz1JSAIKqNT2stw39eys+uGOO5P8i2uzt9o4453RHuQwSbPK+Rs3/YMKH43vlLi8Mm24+YtHDnePK8e7RXXP6moGF26GvvZoyVgB8VrSgZ9yB7Sb3L1FBayq9+3IdDp4SWaehC8U9RsSW5Q/76pBGILekooRcn3S6Agu9PR8qqoQJ04lDevT2dbejR9oncPVGEuRXbWoYRQznlHgBZzI2EnjKdJA9JdtWB9DjUuSlnC23CmIR+E9cmfkYPCSYsqFi/8nCFTcFbgeTl1qfR1vV8iQwQd52dnT8D5xYy/uNbs8+EVRZZ3R+kLVh4Bb8cW/+eMBIX7KPRPVamexuxv+9y232DYkY40QqX7MY87gsoEuNbKw2IG+l5q3kR6vGMkseT7WC8UpKzc2RuBpFOdono8C0I1d4Wp8CKrE9NiAI4sdQFiT8yl5niKG6mtDgbXUdQ8Ef3+afYkQWQfeB2vKG37+QfPFAZq5zjNAE8JVLu83DxXF8J3uzTQ5ZISkTxnmqpO0lqgfmsTMoeIlmfDiceQdAP4N/YrK7AaZas1LdaPAS//PwPA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5696.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(366004)(376002)(346002)(39860400002)(64756008)(66946007)(6506007)(66446008)(33656002)(8936002)(66556008)(6916009)(66476007)(76116006)(53546011)(6512007)(2616005)(4326008)(8676002)(91956017)(55236004)(5660300002)(86362001)(26005)(71200400001)(36756003)(478600001)(6486002)(186003)(83380400001)(54906003)(2906002)(966005)(316002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?lXaA2cUnB+cyWupLv3PAiAJQLaX1rSlqBVSSzw+dUKAdCuCRVYRLKF7KhYb9?=
- =?us-ascii?Q?6eO8SWarl+bP1ISHumqapprYcGDiXE/erBM9yEteuQES0PYyLCtoGFZRY1vG?=
- =?us-ascii?Q?+QdoiltScoumHg5+7zMjvkR7ZdnPStfRKLyhwyXYDUe0URUFaiJTnJe1Hl9X?=
- =?us-ascii?Q?M/rYHOIWmnzu+B3/CZ9Ux+VjFBmtKtQYQ89goUQiE7L0RZD9irnsbtX4osVZ?=
- =?us-ascii?Q?Lr9YOz17kGlD9fEWbCf+wx45AiMPNX16YFlwXYy4l/DRKcq944ucl+5tzGEv?=
- =?us-ascii?Q?QJiWh/0hb+w5RUF5zKokdZTugPfrrM6jlRSVxaIkSxR99lTe+JugmPeaSCpI?=
- =?us-ascii?Q?SKbiwFmqxHKAtxdRzz0Fx5deymgwCzLTXO3p7KidLC3aYuGNILtMxxvIWtHX?=
- =?us-ascii?Q?qSUQpkd78NpKxwLsfRhHaZIXAcPL7pj3lI7DIgrTXXPkVbynbaVDZ5mYmOrr?=
- =?us-ascii?Q?0HVbwu2t3L/BetLYGI9zrrkKdmDgSPLl9Y2e7dgIlhuzmkoqhBpy8ESiguSK?=
- =?us-ascii?Q?S8J+kBQvBeVmOOtpTqOmXeyKsErDKiPAxz3ytmoTBKSCyne3Vxgyc3cVe0pj?=
- =?us-ascii?Q?8qVRLO9b7jayGgLvQuupyzp7AQKzPkujIRlVsK3QlrC9bP2X67HIVY+fGi38?=
- =?us-ascii?Q?zadLS1TbdHBj+kwdv8xvf51oALeij6qRSE7f2mN7/VtL3m1Z+Dcrfmb1u4dy?=
- =?us-ascii?Q?75PV2Xt8Sm+nZwLfLiq4iyhLPvEl9c4Sk3NEiLN/srNDjkriavKTj4PfCiSY?=
- =?us-ascii?Q?zhJwYcPx+hIP54RJOMJ/hujzDBuBZeIKU8rk/19WCA0kDh2oKX8Fady6Jj6U?=
- =?us-ascii?Q?oqK/zaPSrHlo2GApb01m0E0/ZdXd4ZCXTeiWzeOVXQ9AhSq1YiCObkGAm4TB?=
- =?us-ascii?Q?kwLuvZJrP0cJJtVUznInm+TcFn2P0URruMhGxcyzVP2SFciJspU62JK2cJ2h?=
- =?us-ascii?Q?slaYqTJnOlTnHdPp+gvRhn6lad1GEbAWnzDHMgGNsFByEmtsJpKeKW7KIyJL?=
- =?us-ascii?Q?VNtiGvquLCytOlSw+UfzB+DJfziUYNAk9g8d54f1GT0pYtjWS2/dRjS0qhB7?=
- =?us-ascii?Q?oi+uLjqKfpn8tH+0m0RaepYqygp3IBSkEssnmpf9hxH+oqTaEXS5oRaeBx8K?=
- =?us-ascii?Q?xTTiT91WZ9kOUkx/T70dV+o2vDpk/ZmdCNK6R9kPLP3gG3X41P3mri9CtGR2?=
- =?us-ascii?Q?TMusFAa5zEQ1m+25t0lW0O5WAcOpT2VP4Yu9VJEPFp3fjXN08WROGaKhXLUK?=
- =?us-ascii?Q?sGL70+ZF/WWmqZLFbXiLHcpJYz858w6RPpjloK23tTWN5EM7p3cX0golWccA?=
- =?us-ascii?Q?ztKK2G/6XlvOYGxIxH9nhUFd?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <4DD6BFE69DAC314197F4D53CDF38C378@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 30edc4db-3a29-46af-8724-30dfb3be76d5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615815410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dzV566CCmb8PhJv0y/Ywr9jy92JK01zrOmtc5+tgWjc=;
+	b=Tmi8V83ipnb14Ub/SIMltcQeIb8OObUgBnaTCFKx9bxWKje6wNWMnsWCC2GAfdJduMDyY9
+	wNQcS/7qUyve0mhzgb1CQH0KoFQCLiQ0A66KYFyO1NTCYDIDvPTKI+N9ZgjEcbZd2Efjji
+	X06LtB9Kb479QWCae9SFduLXP/Vvbvw=
+Subject: Re: [PATCH v3 2/5] xen/x86: manually build xen.mb.efi binary
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Daniel Kiper <daniel.kiper@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <cover.1611273359.git.bobbyeshleman@gmail.com>
+ <28d5536a2f7691e8f79d55f1470fa89ce4fae93d.1611273359.git.bobbyeshleman@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3c621726-31c4-6a79-a020-88c59644111b@suse.com>
+Date: Mon, 15 Mar 2021 14:36:49 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5295
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT054.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	22095ddb-8cb0-470a-b63e-08d8e7b6cd12
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	O5Rn6v23O9EuBZc1YHUclNVQyl1mg3AdIaDO8kCQM65cVi0+SEo7wTysjTY5le3SxIJC03RUbc71hSvO69JAwRGv6A6Jzu61IdwMcNcsoZ5jYei4rg1Z9YDsUOjUW0FpLGOJvUEzSCWCjawxODCBU7SjPJwQ2u6dshA9m8SP1YVZiTzJPA6LUqCs23yDjEbqeuem5xA4ty8hraFBCFcNXNnwPOMk9UT55pA7mgja4lOztWsF7JK84JDUBlOXaqdJiLqPso+bxD7uXmfqL1Mj+QrBOSeSShkPMYI/zxzYaTAhtq/NJ95DvBEobSyY54sj7TwOCBClZeioQ05C6WvZKb7OUvJMHl73WYMeT7z4qXiOrPWYn7FstR/fwABkQckgPptzXS8oXa/weCXG2nw41fxzg3wo1l074NU14PR7ABV/JEz/UeKuwfLmec5VUyiEZYnTMrfWdXugWCEpOszOpcNEzrJQGac1LVff2iiA3pIspr8ckqH/ErzRDGiA2YYGl+SYXONoD9uDh1+jpJ5P4veEFGJaK9r71RpNsoDHyhJ38j6R524bhZZMp3FC2DKYjdGFjlE8aEXFNQBLPmg+H2Y3Fm1DFQkezPH0GHLNEbAqwPHKibxDYAeBJPWody2oaFw9oGFsO1ubSICl0qnd0SdoMx1F9y8VXqrKmXRGyd24upLOGHZfDWy0F7h852ZeW6OrpmaMMVgd4AAC/w7Mea1VU7RAQ0Nqm2+7xw9z/vk=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(376002)(39860400002)(136003)(396003)(46966006)(36840700001)(6862004)(4326008)(82310400003)(83380400001)(6486002)(478600001)(5660300002)(336012)(55236004)(356005)(47076005)(70206006)(8936002)(36860700001)(33656002)(26005)(53546011)(316002)(70586007)(81166007)(36756003)(86362001)(82740400003)(966005)(107886003)(186003)(8676002)(6512007)(2906002)(6506007)(54906003)(2616005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 13:32:46.1638
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dd13a06-1578-4902-17fd-08d8e7b6d1d4
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT054.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1733
+In-Reply-To: <28d5536a2f7691e8f79d55f1470fa89ce4fae93d.1611273359.git.bobbyeshleman@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Julien,
+On 22.01.2021 01:51, Bobby Eshleman wrote:
+> From: Daniel Kiper <daniel.kiper@oracle.com>
+> 
+> This patch introduces xen.mb.efi which contains a manually built PE
+> header.
+> 
+> This allows us to support Xen on UEFI Secure Boot-enabled hosts via
+> multiboot2.
+> 
+> xen.mb.efi is a single binary that is loadable by a UEFI loader or via
+> the Multiboot/Multiboot2 protocols.
 
-> On 13 Mar 2021, at 16:06, Julien Grall <julien@xen.org> wrote:
->=20
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> Hi all,
->=20
-> Last year, Arm released a whitepaper about a new category of speculation.
-> (see [1] and [2]). In short, a processor may be able to speculate past
-> some of the unconditional control flow instructions (e.g eret, smc, br).
->=20
-> In some of the cases, the registers will contain values controlled by
-> the guest. While there is no known gadget afterwards, we still want to
-> prevent any leakage in the future.
->=20
-> The mitigation is planned in two parts:
->   1) Arm provided patches for both GCC and LLVM to add speculation barrie=
-r
->   and remove problematic code sequence.
->   2) Inspection of assembly code and call to higher level (e.g smc in our=
- case).
->=20
-> I still haven't looked at 1) and how to mitigate properly Arm32 (see
-> patch #1) and SMC call. So this issue is not fully addressed.
->=20
-> Note that the ERET instruction was already addressed as part of XSA-312.
+What's missing here yet very important is why the existing xen.efi
+doesn't fit and can't be made fit.
 
-On my tests, this serie is breaking the arm64 build:
-| aarch64-poky-linux-ld --sysroot=3D/home/bermar01/Development/xen-dev/buil=
-d/profile-fvp-base.prj/tmp/work/fvp_base-poky-linux/xen/4.15+git1-r0/recipe=
--sysroot         -EL  --fix-cortex-a53-843419 --fix-cortex-a53-843419 -r -o=
- built_in.o memcpy.o memcmp.o memmove.o memset.o memchr.o clear_page.o bito=
-ps.o find_next_bit.o strchr.o strcmp.o strlen.o strncmp.o strnlen.o strrchr=
-.o
-| arm64/head.S: Assembler messages:
-| arm64/head.S:305: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Boot CPU booting -\r\n")'
-| arm64/head.S:331: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Ready -\r\n")'
-| arm64/head.S:365: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- CPU ")'
-| make[6]: Leaving directory '/home/bermar01/Development/xen-dev/build/prof=
-ile-fvp-base.prj/tmp/work/fvp_base-poky-linux/xen/4.15+git1-r0/local-xen/xe=
-n/xen/arch/arm/arm64/lib'
-| arm64/head.S:367: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- " booting -\r\n")'
-| arm64/head.S:398: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Ready -\r\n")'
-| arm64/head.S:412: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Current EL ")'
-| arm64/head.S:415: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- " -\r\n")'
-| arm64/head.S:424: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Xen must be entered in NS EL2 mode -\r\n")'
-| arm64/head.S:425: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Please update the bootloader -\r\n")'
-| arm64/head.S:441: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Zero BSS -\r\n")'
-| arm64/head.S:459: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Initialize CPU -\r\n")'
-| arm64/head.S:654: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Unable to build boot page tables - virt and phys addresses clash. -\r\n=
-")'
-| arm64/head.S:666: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Turning on paging -\r\n")'
-| arm64/head.S:800: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- Boot failed -\r\n")'
-| arm64/head.S:848: Error: unknown mnemonic `rodata_str' -- `rodata_str(98,=
- "- UART enabled -\r\n")'
-| {standard input}: Error: local label `"98" (instance number 1 of a fb lab=
-el)' is not defined
-| /home/bermar01/Development/xen-dev/build/profile-fvp-base.prj/tmp/work/fv=
-p_base-poky-linux/xen/4.15+git1-r0/local-xen/xen/xen/Rules.mk:204: recipe f=
-or target 'arm64/head.o' failed
+> Signed-off-by: Daniel Kiper <daniel.kiper@oracle.com>
+> Signed-off-by: Bobby Eshleman <bobbyeshleman@gmail.com>
+> ---
 
-This was done adding your 2 patches on top of current staging.
+Besides (or instead of) the series-wide change log, please have
+per-patch changes info here.
 
-Cheers
-Bertrand
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -266,29 +266,31 @@ endif
+>  .PHONY: _build
+>  _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+>  
+> +define install_xen_links
+> +	$(INSTALL_DATA) $(TARGET)$1 $(D)$(BOOT_DIR)/$(T)-$(XEN_FULLVERSION)$1
+> +	ln -f -s $(T)-$(XEN_FULLVERSION)$1 $(D)$(BOOT_DIR)/$(T)-$(XEN_VERSION).$(XEN_SUBVERSION)$1
+> +	ln -f -s $(T)-$(XEN_FULLVERSION)$1 $(D)$(BOOT_DIR)/$(T)-$(XEN_VERSION)$1
+> +	ln -f -s $(T)-$(XEN_FULLVERSION)$1 $(D)$(BOOT_DIR)/$(T)$1
+> +endef
 
->=20
-> Cheers,
->=20
-> [1] https://developer.arm.com/support/arm-security-updates/speculative-pr=
-ocessor-vulnerability
-> [2] https://developer.arm.com/support/arm-security-updates/speculative-pr=
-ocessor-vulnerability/downloads/straight-line-speculation
->=20
-> Julien Grall (2):
->  xen/arm: Include asm/asm-offsets.h and asm/macros.h on every assembly
->    files
->  xen/arm64: Place a speculation barrier following an ret instruction
->=20
-> xen/arch/arm/Makefile                |  2 +-
-> xen/arch/arm/arm32/entry.S           |  2 +-
-> xen/arch/arm/arm32/head.S            |  1 -
-> xen/arch/arm/arm32/lib/lib1funcs.S   |  1 +
-> xen/arch/arm/arm32/proc-v7.S         |  1 -
-> xen/arch/arm/arm64/debug-cadence.inc |  1 -
-> xen/arch/arm/arm64/debug-pl011.inc   |  2 --
-> xen/arch/arm/arm64/entry.S           |  2 --
-> xen/arch/arm/arm64/head.S            |  2 --
-> xen/arch/arm/arm64/smc.S             |  3 ---
-> xen/include/asm-arm/arm64/macros.h   |  6 ++++++
-> xen/include/asm-arm/config.h         |  6 ++++++
-> xen/include/asm-arm/macros.h         | 18 +++++++++---------
-> 13 files changed, 24 insertions(+), 23 deletions(-)
->=20
-> --=20
-> 2.17.1
->=20
+If you abstract this away, please take the opportunity to fold
+"-f -s" into a single option.
 
+>  .PHONY: _install
+>  _install: D=$(DESTDIR)
+>  _install: T=$(notdir $(TARGET))
+>  _install: Z=$(CONFIG_XEN_INSTALL_SUFFIX)
+>  _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+>  	[ -d $(D)$(BOOT_DIR) ] || $(INSTALL_DIR) $(D)$(BOOT_DIR)
+> -	$(INSTALL_DATA) $(TARGET)$(Z) $(D)$(BOOT_DIR)/$(T)-$(XEN_FULLVERSION)$(Z)
+> -	ln -f -s $(T)-$(XEN_FULLVERSION)$(Z) $(D)$(BOOT_DIR)/$(T)-$(XEN_VERSION).$(XEN_SUBVERSION)$(Z)
+> -	ln -f -s $(T)-$(XEN_FULLVERSION)$(Z) $(D)$(BOOT_DIR)/$(T)-$(XEN_VERSION)$(Z)
+> -	ln -f -s $(T)-$(XEN_FULLVERSION)$(Z) $(D)$(BOOT_DIR)/$(T)$(Z)
+> +	$(call install_xen_links,$(Z))
+> +	$(call install_xen_links,.mb.efi)
+
+This is common code, so will affect Arm as well. I don't think
+your addition can be unconditional.
+
+>  	[ -d "$(D)$(DEBUG_DIR)" ] || $(INSTALL_DIR) $(D)$(DEBUG_DIR)
+>  	$(INSTALL_DATA) $(TARGET)-syms $(D)$(DEBUG_DIR)/$(T)-syms-$(XEN_FULLVERSION)
+>  	$(INSTALL_DATA) $(TARGET)-syms.map $(D)$(DEBUG_DIR)/$(T)-syms-$(XEN_FULLVERSION).map
+>  	$(INSTALL_DATA) $(KCONFIG_CONFIG) $(D)$(BOOT_DIR)/$(T)-$(XEN_FULLVERSION).config
+>  	if [ -r $(TARGET).efi -a -n '$(EFI_DIR)' ]; then \
+>  		[ -d $(D)$(EFI_DIR) ] || $(INSTALL_DIR) $(D)$(EFI_DIR); \
+> -		$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_DIR)/$(T)-$(XEN_FULLVERSION).efi; \
+>  		if [ -e $(TARGET).efi.map ]; then \
+>  			$(INSTALL_DATA) $(TARGET).efi.map $(D)$(DEBUG_DIR)/$(T)-$(XEN_FULLVERSION).efi.map; \
+>  		fi; \
+> -		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).$(XEN_SUBVERSION).efi; \
+> -		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
+> -		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
+> +		$(call install_xen_links,.efi)) \
+>  		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
+>  			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
+>  		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
+
+Since this part of the patch is a non-negligible fraction of the
+patch and since this installation step doesn't need to be an
+integral part of the change, may I suggest / ask that you split
+this off into a separate change? Possibly the installing of the
+new binary could remain here, but then the breaking out of the
+install_xen_links macro (which imo also would better use dashes
+in place of the underscores) could still be factored out.
+
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -110,7 +110,7 @@ syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=
+>  syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SYMBOLS) := --error-dup
+>  
+>  $(TARGET): TMP = $(@D)/.$(@F).elf32
+> -$(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+> +$(TARGET): $(TARGET).mb.efi $(TARGET)-syms $(efi-y) boot/mkelf32
+
+While perhaps mostly cosmetic, I'd prefer additions to be done
+after the existing (pseudo-)dependencies, not as the very first
+item. $(TARGET)-syms still is the main dependency here, and it
+should remain this way.
+
+Speaking of (pseudo-)dependencies - I was hoping that we could
+avoid further extending this sub-optimal approach.
+
+> @@ -119,6 +119,11 @@ $(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+>  		{ echo "No Multiboot2 header found" >&2; false; }
+>  	mv $(TMP) $(TARGET)
+>  
+> +$(TARGET).mb.efi: $(TARGET)-syms
+> +	$(OBJCOPY) -O binary -S --change-section-address \
+> +		".efi.pe.header-`$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __image_base__$$/0x\1/p'`" \
+> +		$(TARGET)-syms $(TARGET).mb.efi
+
+The quoting is very hard to follow here. While using the shell's
+$() would already seem to be an improvement, I don't see why you
+shouldn't be able to have make construct the tail of the section
+name by using $(shell ...). This way, in case of someone needing
+to debug this, the resulting command line would be more explict.
+
+I have to admit I could also do with a few words in the
+description as to what this playing with a specific section's
+address is actually needed for, and how it's guaranteed that
+this isn't going to end in confusion (e.g. because of trying to
+put the section at where other stuff is already sitting, perhaps
+just partially). It's also unclear to me why the new address is
+calculated by subtracting the image base address. The PE file
+header is, aiui, assumed to live at RVA 0, i.e. precisely at the
+image base.
+
+Further - why the -S? xen.efi comes with a proper symbol table.
+
+And finally I'm not convinced of it being a good idea to use
+__image_base__ here - that symbol exists only to help the linker
+script cover both ELF and PE binaries. It would be good is new
+road blocks towards eliminating this crutch could be avoided.
+Can't you e.g. get the main program header's specified address
+and subtract XEN_IMG_OFFSET?
+
+> --- a/xen/arch/x86/arch.mk
+> +++ b/xen/arch/x86/arch.mk
+> @@ -7,6 +7,8 @@ CFLAGS += -I$(BASEDIR)/include
+>  CFLAGS += -I$(BASEDIR)/include/asm-x86/mach-generic
+>  CFLAGS += -I$(BASEDIR)/include/asm-x86/mach-default
+>  CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
+> +CFLAGS += -DXEN_LOAD_ALIGN=XEN_IMG_OFFSET
+> +CFLAGS += -DXEN_FILE_ALIGN=0x20
+
+The former is merely coincidence - I don't think you want to
+use an offset value as alignment. For both of them I think once
+you go this far, you also want to consolidate with xen.efi's
+--section-alignment= and --file-alignment= settings, such that
+the values don't need to be kept in sync "manually".
+
+What I could see is deriving XEN_IMG_OFFSET from a
+hypothetical XEN_SECTION_ALIGN value, because we indeed want
+the first section (.text) to start at the 2nd large page from
+the image base.
+
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -1,3 +1,4 @@
+> +#include <xen/compile.h>
+>  #include <xen/multiboot.h>
+>  #include <xen/multiboot2.h>
+>  #include <public/xen.h>
+
+Why?
+
+> --- /dev/null
+> +++ b/xen/arch/x86/boot/pecoff.S
+> @@ -0,0 +1,123 @@
+> +#include <xen/compile.h>
+> +#include <asm/page.h>
+> +
+> +#define sym_offs(sym)     ((sym) - __XEN_VIRT_START)
+> +
+> +        .section .efi.pe.header, "a", @progbits
+> +
+> +GLOBAL(efi_pe_head)
+
+I don't think this should be global. But I'll also comment on the
+linker script part using it. In any event there you only care
+about efi_pe_head - efi_pe_head_end, i.e. the size of this section.
+Linker scripts have SIZEOF() for this purpose - is it not possible
+to use that here?
+
+> +        /*
+> +         * Legacy EXE header.
+> +         *
+> +         * Most of it is copied from binutils package, version 2.30,
+> +         * include/coff/pe.h:struct external_PEI_filehdr and
+> +         * bfd/peXXigen.c:_bfd_XXi_only_swap_filehdr_out().
+> +         *
+> +         * Page is equal 512 bytes here.
+> +         * Paragraph is equal 16 bytes here.
+
+"is equal" is not very clear imo. How about '"Page" refers to an
+aligned block of 512 bytes here'?
+
+> +         */
+> +        .short  0x5a4d                               /* EXE magic number. */
+> +        .short  0x90                                 /* Bytes on last page of file. */
+> +        .short  0x3                                  /* Pages in file. */
+> +        .short  0                                    /* Relocations. */
+> +        .short  0x4                                  /* Size of header in paragraphs. */
+> +        .short  0                                    /* Minimum extra paragraphs needed. */
+> +        .short  0xffff                               /* Maximum extra paragraphs needed. */
+> +        .short  0                                    /* Initial (relative) SS value. */
+> +        .short  0xb8                                 /* Initial SP value. */
+> +        .short  0                                    /* Checksum. */
+> +        .short  0                                    /* Initial IP value. */
+> +        .short  0                                    /* Initial (relative) CS value. */
+> +        .short  0x40                                 /* File address of relocation table. */
+> +        .short  0                                    /* Overlay number. */
+> +        .fill   4, 2, 0                              /* Reserved words. */
+> +        .short  0                                    /* OEM identifier. */
+> +        .short  0                                    /* OEM information. */
+> +        .fill   10, 2, 0                             /* Reserved words. */
+> +        .long   Lpe_header - efi_pe_head             /* File address of the PE header. */
+> +
+> +Lpe_header:
+
+Was this meant to have a leading '.' (also again further down)?
+Else I don't see what the uppercase L is about.
+
+> +        /*
+> +         * PE/COFF header.
+> +         *
+> +         * The PE/COFF format is defined by Microsoft, and is available from
+> +         * https://docs.microsoft.com/en-us/windows/win32/debug/pe-format
+> +         *
+> +         * Some ideas are taken from Linux kernel and Xen ARM64.
+> +         */
+> +        .ascii  "PE\0\0"                             /* PE signature. */
+> +        .short  0x8664                               /* Machine: IMAGE_FILE_MACHINE_AMD64 */
+> +        .short  1                                    /* NumberOfSections. */
+
+So like in xen-syms / xen.gz everything gets munged into a
+single section? Not very nice, I would say.
+
+> +        .long   XEN_COMPILE_POSIX_TIME               /* TimeDateStamp. */
+
+This wants to honor SOURCE_DATE_EPOCH (where for xen.efi we
+pass --no-insert-timestamp to the linker). Perhaps a missed
+re-base?
+
+> +        .long   0                                    /* PointerToSymbolTable. */
+> +        .long   0                                    /* NumberOfSymbols. */
+> +        .short  Lsection_table - Loptional_header      /* SizeOfOptionalHeader. */
+
+Nit: Too many blanks before the comment.
+
+> +        .short  0x226                                /* Characteristics:
+> +                                                      *   IMAGE_FILE_EXECUTABLE_IMAGE |
+> +                                                      *   IMAGE_FILE_LARGE_ADDRESS_AWARE |
+> +                                                      *   IMAGE_FILE_DEBUG_STRIPPED |
+> +                                                      *   IMAGE_FILE_LINE_NUMS_STRIPPED
+> +                                                      */
+
+You don't specify IMAGE_FILE_RELOCS_STRIPPED here, but you also
+don't seem to generate base relocations. How is this going to
+work?
+
+> +Loptional_header:
+> +        .short  0x20b                                /* PE format: PE32+ */
+> +        .byte   0                                    /* MajorLinkerVersion. */
+> +        .byte   0                                    /* MinorLinkerVersion. */
+> +        .long   __2M_rwdata_end - efi_pe_head_end    /* SizeOfCode. */
+> +        .long   0                                    /* SizeOfInitializedData. */
+> +        .long   0                                    /* SizeOfUninitializedData. */
+
+Everything's code?
+
+> +        .long   sym_offs(efi_mb_start)               /* AddressOfEntryPoint. */
+> +        .long   sym_offs(start)                      /* BaseOfCode. */
+> +        .quad   sym_offs(__image_base__)             /* ImageBase. */
+
+This last value is zero, isn't it? Can a PE image validly live
+at address 0? I have to admit that I question all of the
+sym_offs() uses here and below, which goes along with the lack
+of base relocations mentioned above.
+
+> +        .long   XEN_LOAD_ALIGN                       /* SectionAlignment. */
+> +        .long   XEN_FILE_ALIGN                       /* FileAlignment. */
+> +        .short  2                                    /* MajorOperatingSystemVersion. */
+> +        .short  0                                    /* MinorOperatingSystemVersion. */
+> +        .short  XEN_VERSION                          /* MajorImageVersion. */
+> +        .short  XEN_SUBVERSION                       /* MinorImageVersion. */
+> +        .short  2                                    /* MajorSubsystemVersion. */
+> +        .short  0                                    /* MinorSubsystemVersion. */
+> +        .long   0                                    /* Win32VersionValue. */
+> +        .long   __pe_SizeOfImage                     /* SizeOfImage. */
+
+I'm not convinced of the utility of how you calculate this
+value just to use it here. Right now the value has to be
+MB(16) - any smaller value will cause breakage.
+
+> +        .long   efi_pe_head_end - efi_pe_head        /* SizeOfHeaders. */
+> +        .long   0                                    /* CheckSum. */
+> +        .short  0xa                                  /* Subsystem: EFI application. */
+> +        .short  0                                    /* DllCharacteristics. */
+> +        .quad   0                                    /* SizeOfStackReserve. */
+> +        .quad   0                                    /* SizeOfStackCommit. */
+> +        .quad   0                                    /* SizeOfHeapReserve. */
+> +        .quad   0                                    /* SizeOfHeapCommit. */
+> +        .long   0                                    /* LoaderFlags. */
+> +        .long   0x6                                  /* NumberOfRvaAndSizes. */
+> +
+> +        /* Data Directories. */
+> +        .quad   0                                    /* Export Table. */
+> +        .quad   0                                    /* Import Table. */
+> +        .quad   0                                    /* Resource Table. */
+> +        .quad   0                                    /* Exception Table. */
+> +        .quad   0                                    /* Certificate Table. */
+> +        .quad   0                                    /* Base Relocation Table. */
+
+Based on what was the number of directory entries chosen here?
+6 is a pretty unusual value - typically it would be 16, I
+think. I'm fine if this is for space savings (and known to be
+compatible), but then why not strip the other unused ones as
+well? Then again for the build ID don't you need the 7th
+entry (see xen.efi)? Or are you intentionally not exposing it
+in the PE way (in which case saying so, and why, would be
+needed in the description)?
+
+> +Lsection_table:
+> +        .ascii  ".text\0\0\0"                        /* Name. */
+> +        .long   __2M_rwdata_end - efi_pe_head_end    /* VirtualSize. */
+> +        .long   sym_offs(start)                      /* VirtualAddress. */
+> +        .long   __pe_text_raw_end - efi_pe_head_end  /* SizeOfRawData. */
+> +        .long   efi_pe_head_end - efi_pe_head        /* PointerToRawData. */
+
+Isn't this a file offset? If so, can it legitimately and
+reliably be calculated by a difference of two addresses?
+
+> +        .long   0                                    /* PointerToRelocations. */
+> +        .long   0                                    /* PointerToLinenumbers. */
+> +        .short  0                                    /* NumberOfRelocations. */
+> +        .short  0                                    /* NumberOfLinenumbers. */
+> +        .long   0xe0500020                           /* Characteristics:
+> +                                                      *   IMAGE_SCN_CNT_CODE |
+> +                                                      *   IMAGE_SCN_ALIGN_16BYTES |
+> +                                                      *   IMAGE_SCN_MEM_EXECUTE |
+> +                                                      *   IMAGE_SCN_MEM_READ |
+> +                                                      *   IMAGE_SCN_MEM_WRITE
+> +                                                      */
+
+At least the alignment specification here is fake. I realize
+it doesn't matter for loading purposes, but if an arbirary
+value was chosen it should imo be said so in a comment, to
+avoid future readers wondering.
+
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -32,7 +32,8 @@ static void __init edd_put_string(u8 *dst, size_t n, const char *src)
+>  }
+>  #define edd_put_string(d, s) edd_put_string(d, ARRAY_SIZE(d), s)
+>  
+> -extern const intpte_t __page_tables_start[], __page_tables_end[];
+> +extern intpte_t __page_tables_start[], __page_tables_end[];
+
+I'm afraid I'm against this, no matter that it may be difficult
+to do differently what you do below. IOW ...
+
+> @@ -568,6 +569,7 @@ static void __init efi_arch_video_init(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
+>  
+>  static void __init efi_arch_memory_setup(void)
+>  {
+> +    intpte_t *pte;
+>      unsigned int i;
+>      EFI_STATUS status;
+>  
+> @@ -592,6 +594,13 @@ static void __init efi_arch_memory_setup(void)
+>      if ( !efi_enabled(EFI_LOADER) )
+>          return;
+>  
+> +    if ( efi_enabled(EFI_MB_LOADER) )
+> +        for ( pte = __page_tables_start; pte < __page_tables_end; pte += ARRAY_SIZE(l2_directmap) )
+> +            /* Skip relocating the directmap because start_xen() does this for us when
+> +             * when it updates all superpage-aligned mappings.  */
+> +            if ( (pte != (intpte_t *)l2_directmap) && (get_pte_flags(*pte) & _PAGE_PRESENT) )
+> +                *pte += xen_phys_start;
+
+... I consider this an RFC hack for which a clean solution
+wants to be found (note how __setup_arch() gets away without
+such). Also nit: Comment style.
+
+> @@ -724,7 +733,18 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
+>  
+>  static void __init efi_arch_flush_dcache_area(const void *vaddr, UINTN size) { }
+>  
+> -void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+> +void EFIAPI efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable);
+> +
+> +void EFIAPI __init noreturn
+> +efi_mb_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+> +{
+> +    __set_bit(EFI_MB_LOADER, &efi_flags);
+> +    efi_start(ImageHandle, SystemTable);
+> +}
+> +
+> +void __init efi_multiboot2(EFI_HANDLE ImageHandle,
+> +                           EFI_SYSTEM_TABLE *SystemTable,
+> +                           multiboot2_tag_module_t *dom0_kernel)
+>  {
+
+Hmm, yet another entry point. See also at the very bottom.
+
+> --- a/xen/arch/x86/efi/stub.c
+> +++ b/xen/arch/x86/efi/stub.c
+> @@ -15,9 +15,19 @@
+>   * Here we are in EFI stub. EFI calls are not supported due to lack
+>   * of relevant functionality in compiler and/or linker.
+>   *
+> - * efi_multiboot2() is an exception. Please look below for more details.
+> + * efi_mb_start() and efi_multiboot2() are the exceptions.
+> + * Please look below for more details.
+>   */
+>  
+> +asm (
+> +    "    .text                         \n"
+> +    "    .globl efi_mb_start           \n"
+> +    "efi_mb_start:                     \n"
+> +    "    mov    %rcx,%rdi              \n"
+> +    "    mov    %rdx,%rsi              \n"
+> +    "    call   efi_multiboot2         \n"
+> +    );
+
+Okay, this I understand is for calling conventions translation.
+A comment saying so would be nice. Plus I don't see why this
+then uses "call", not "jmp".
+
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -63,7 +63,22 @@ SECTIONS
+>  
+>    start_pa = ABSOLUTE(start - __XEN_VIRT_START);
+>  
+> +#ifdef EFI
+>    . = __XEN_VIRT_START + XEN_IMG_OFFSET;
+> +#else
+> +  /*
+> +   * Multiboot2 with an EFI PE/COFF header.
+> +   *
+> +   * The PE header must be followed by .text section which
+> +   * starts at __XEN_VIRT_START + XEN_IMG_OFFSET address.
+> +   */
+> +  . = __XEN_VIRT_START + XEN_IMG_OFFSET - efi_pe_head_end + efi_pe_head;
+> +
+> +  DECL_SECTION(.efi.pe.header) {
+> +       *(.efi.pe.header)
+> +  } :NONE
+> +#endif
+
+"Must be followed" in the comment is about file layout, not
+address layout. Yet the latter is what matters in the linker
+script. If there is a true requirement for it to be exactly
+like this, more explanation is needed in the comment. But it
+seems more likely to me that this simply isn't correct. As
+said elsewhere, the executable header of a PE image lives at
+RVA 0 afaict.
+
+> @@ -289,6 +304,13 @@ SECTIONS
+>         *(.data.rel)
+>         *(.data.rel.*)
+>         CONSTRUCTORS
+> +       /*
+> +        * A la the PE/COFF spec, the PE file data section must end at the
+> +        * alignment boundary equal to FileAlignment in the optional header,
+> +        * i.e., XEN_FILE_ALIGN.
+> +        */
+> +       . = ALIGN(XEN_FILE_ALIGN);
+> +       __pe_text_raw_end = .;
+>    } :text
+
+What is a "PE file data section"? Yes, the file size of a
+section must be a multiple of the specified file alignment.
+With the present value of 32 bytes this isn't much of an
+issue, but already in case we were in need of going up to
+512 bytes I'd say this is undue overhead for the ELF image.
+
+I could see you not advancing . here (by using
+
+       __pe_text_raw_end = ALIGN(XEN_FILE_ALIGN);
+
+) and then making sure the generated image gets padded as
+necessary.
+
+> @@ -392,5 +417,14 @@ ASSERT((trampoline_end - trampoline_start) < TRAMPOLINE_SPACE - MBI_SPACE_MIN,
+>  ASSERT((wakeup_stack - wakeup_stack_start) >= WAKEUP_STACK_MIN,
+>      "wakeup stack too small")
+>  
+> +#ifndef EFI
+> +ASSERT(efi_pe_head_end == _start, "PE header does not end at the beginning of .text section")
+
+As said earlier - I question this relationship.
+
+> +ASSERT(_start == __XEN_VIRT_START + XEN_IMG_OFFSET, ".text section begins at wrong address")
+
+I'd then hope this could go away as well.
+
+> +ASSERT(IS_ALIGNED(_start,      XEN_FILE_ALIGN), "_start misaligned")
+
+I can't see how this could trigger when the former one doesn't.
+
+> +ASSERT(IS_ALIGNED(__bss_start, XEN_FILE_ALIGN), "__bss_start misaligned")
+
+What is this trying to verify?
+
+> +ASSERT(IS_ALIGNED(__pe_SizeOfImage, XEN_LOAD_ALIGN), "__pe_SizeOfImage is not multiple of XEN_LOAD_ALIGN")
+
+This looks odd too, but I've commented on __pe_SizeOfImage further
+up already anyway.
+
+> +ASSERT(XEN_LOAD_ALIGN >= XEN_FILE_ALIGN, "XEN_LOAD_ALIGN < XEN_FILE_ALIGN")
+
+Why? I would generally consider the two values pretty much
+independent.
+
+> --- a/xen/include/xen/efi.h
+> +++ b/xen/include/xen/efi.h
+> @@ -11,6 +11,7 @@ extern unsigned int efi_flags;
+>  #define EFI_BOOT	0	/* Were we booted from EFI? */
+>  #define EFI_LOADER	1	/* Were we booted directly from EFI loader? */
+>  #define EFI_RS		2	/* Can we use runtime services? */
+> +#define EFI_MB_LOADER	4	/* xen.mb.efi booted directly from EFI loader? */
+
+Is a separate flag really needed? I realize this is connected to
+the page table relocation approach, so might go away anyway.
+
+Jan
 
