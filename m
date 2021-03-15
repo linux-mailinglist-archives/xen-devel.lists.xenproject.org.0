@@ -2,41 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C462333AD32
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Mar 2021 09:19:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.97867.185675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C90CE33AE9E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Mar 2021 10:25:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.97917.185686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLiRn-0007aR-GX; Mon, 15 Mar 2021 08:19:31 +0000
+	id 1lLjS7-0005UL-88; Mon, 15 Mar 2021 09:23:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 97867.185675; Mon, 15 Mar 2021 08:19:31 +0000
+Received: by outflank-mailman (output) from mailman id 97917.185686; Mon, 15 Mar 2021 09:23:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLiRn-0007a2-DK; Mon, 15 Mar 2021 08:19:31 +0000
-Received: by outflank-mailman (input) for mailman id 97867;
- Mon, 15 Mar 2021 08:19:29 +0000
+	id 1lLjS7-0005Tu-4F; Mon, 15 Mar 2021 09:23:55 +0000
+Received: by outflank-mailman (input) for mailman id 97917;
+ Mon, 15 Mar 2021 09:23:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LiIB=IN=redhat.com=jasowang@srs-us1.protection.inumbo.net>)
- id 1lLiRl-0007Zx-9k
- for xen-devel@lists.xenproject.org; Mon, 15 Mar 2021 08:19:29 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ <SRS0=yGRb=IN=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lLjS5-0005Tp-HX
+ for xen-devel@lists.xenproject.org; Mon, 15 Mar 2021 09:23:53 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 5679f1a9-fdce-4205-86d9-f5cf756af2c9;
- Mon, 15 Mar 2021 08:19:28 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-JTYACgGdPaStKMrDzo-FLQ-1; Mon, 15 Mar 2021 04:19:22 -0400
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D1B0E93920;
- Mon, 15 Mar 2021 08:19:19 +0000 (UTC)
-Received: from wangxiaodeMacBook-Air.local (ovpn-12-245.pek2.redhat.com
- [10.72.12.245])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4292E501D4;
- Mon, 15 Mar 2021 08:19:02 +0000 (UTC)
+ id cc332ae1-9a9b-4ba1-8f50-ddfc12e1be3e;
+ Mon, 15 Mar 2021 09:23:51 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D82AC1FB;
+ Mon, 15 Mar 2021 02:23:50 -0700 (PDT)
+Received: from e123311-lin.arm.com (unknown [10.57.18.146])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07EFE3F70D;
+ Mon, 15 Mar 2021 02:23:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,180 +41,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5679f1a9-fdce-4205-86d9-f5cf756af2c9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1615796368;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+rRxAEJP0yb8hy5xLsHkEvRLysybMMWDqJwpU7ye9LI=;
-	b=FRnHwA1mAbJCTuuN3rKx8pCngIS7aV3rgcM5H4Ums3BIBR7MP4Xu4nsnzOFoJVd5y8PEOr
-	npD9hD1+ZkUymYT8UpzUiPR59nckUYTVvq6S9lh5dIK5oqhX5c3G5QFPuQfRedaA/4pz1+
-	oERSDfj/ykT4sqHlclhC8O8GqHS7caM=
-X-MC-Unique: JTYACgGdPaStKMrDzo-FLQ-1
-Subject: Re: [PATCH v7 0/5] Introducing QMP query-netdev command
-To: Alexey Kirillov <lekiravi@yandex-team.ru>,
- Markus Armbruster <armbru@redhat.com>, Thomas Huth <thuth@redhat.com>,
- Eric Blake <eblake@redhat.com>
-Cc: Laurent Vivier <lvivier@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Stefan Weil <sw@weilnetz.de>,
- Paul Durrant <paul@xen.org>, "qemu-devel@nongnu.org"
- <qemu-devel@nongnu.org>, Vincenzo Maffione <v.maffione@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- "yc-core@yandex-team.ru" <yc-core@yandex-team.ru>,
- Michael Roth <michael.roth@amd.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Giuseppe Lettieri <g.lettieri@iet.unipi.it>, Luigi Rizzo <rizzo@iet.unipi.it>
-References: <20210303095910.78277-1-lekiravi@yandex-team.ru>
- <32641615544652@mail.yandex-team.ru>
-From: Jason Wang <jasowang@redhat.com>
-Message-ID: <583ade39-fd95-b5af-6d8f-c2126e341cbe@redhat.com>
-Date: Mon, 15 Mar 2021 16:19:00 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
+X-Inumbo-ID: cc332ae1-9a9b-4ba1-8f50-ddfc12e1be3e
+From: Michal Orzel <michal.orzel@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	bertrand.marquis@arm.com
+Subject: [PATCH v7] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+Date: Mon, 15 Mar 2021 10:23:42 +0100
+Message-Id: <20210315092342.26533-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-In-Reply-To: <32641615544652@mail.yandex-team.ru>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jasowang@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Currently in order to link existing DTB into Xen image
+we need to either specify option CONFIG_DTB_FILE on the
+command line or manually add it into .config.
+Add Kconfig entry: CONFIG_DTB_FILE
+to be able to provide the path to DTB we want to embed
+into Xen image. If no path provided - the dtb will not
+be embedded.
 
-在 2021/3/12 下午6:29, Alexey Kirillov 写道:
-> ping
->
-> Patchew page: https://patchew.org/QEMU/20210303095910.78277-1-lekiravi@yandex-team.ru
+Remove the line: AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+as it is not needed since Kconfig will define it in a header
+with all the other config options.
 
+Make a change in the linker script from:
+_sdtb = .;
+to:
+PROVIDE(_sdtb = .);
+to avoid creation of _sdtb if there is no reference to it.
 
-Applied.
+Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+---
+ xen/arch/arm/Makefile     |  5 ++---
+ xen/arch/arm/arm32/head.S |  4 ++--
+ xen/arch/arm/arm64/head.S |  4 ++--
+ xen/arch/arm/xen.lds.S    |  4 +---
+ xen/common/Kconfig        | 10 ++++++++++
+ 5 files changed, 17 insertions(+), 10 deletions(-)
 
-Thanks
-
-
->
-> 03.03.2021, 13:01, "Alexey Kirillov" <lekiravi@yandex-team.ru>:
->> This patch series introduces a new QMP command "query-netdev" to get
->> information about currently attached backend network devices (netdevs).
->>
->> Also, since the "info_str" field of "NetClientState" is now deprecated,
->> we no longer use it for netdevs, only for NIC/hubports.
->>
->> The HMP command "info network" now also uses QAPI structure inside.
->>
->> Usage example:
->>
->> -> { "execute": "query-netdev" }
->> <- { "return": [
->>           {
->>               "listen": "127.0.0.1:90",
->>               "type": "socket",
->>               "peer-id": "hub0port1",
->>               "id": "__org.qemu.net1"
->>           },
->>           {
->>               "script": "/etc/qemu-ifup",
->>               "downscript": "/etc/qemu-ifdown",
->>               "ifname": "tap0",
->>               "type": "tap",
->>               "peer-id": "net5",
->>               "vnet_hdr": true,
->>               "id": "tap0"
->>           },
->>           {
->>               "ipv6": true,
->>               "ipv4": true,
->>               "host": "10.0.2.2",
->>               "ipv6-dns": "fec0::3",
->>               "ipv6-prefix": "fec0::",
->>               "net": "10.0.2.0/255.255.255.0",
->>               "ipv6-host": "fec0::2",
->>               "type": "user",
->>               "peer-id": "net0",
->>               "dns": "10.0.2.3",
->>               "hostfwd": [
->>                   {
->>                       "str": "tcp::20004-:22"
->>                   }
->>               ],
->>               "ipv6-prefixlen": 64,
->>               "id": "netdev0",
->>               "restrict": false
->>           }
->>       ]
->>     }
->>
->> v6->v7:
->> - Use macroses QAPI_LIST_PREPEND and QAPI_LIST_APPEND for lists.
->> - Reorder NetBackend entries in alphabetical order.
->>
->> v5->v6:
->> - Add QAPI visitor to generate info_str replacement directly from NetdevInfo.
->> - Make info_str dynamically allocated.
->> - Make commit messages more meaningful.
->>
->> v4->v5:
->> - Enable qtest of query-netdevs for AVR and RX archs.
->> - Bump "Since" version in QAPI to 6.0.
->>
->> v3->v4:
->> - Rename "query-netdevs" to "query-netdev".
->> - Copy netdev drivers to new QAPI enum "NetBackend".
->>
->> v2->v3:
->> - Remove NIC and hubports from query-netdevs.
->> - Remove several fields from NetdevInfo since they are unnecessary.
->> - Rename field @peer to @peer-id.
->> - Add support of vhost-vdpa.
->> - Keep "info_str" for NIC/hubports, but remove it for netdevs.
->>
->> v1->v2:
->> - Rewrite HMP "info network" to get information from results of QMP command.
->> - Remove obsolete field "info_str" from "NetClientState".
->>
->> Alexey Kirillov (5):
->>    qapi: net: Add query-netdev command
->>    tests: Add tests for query-netdev command
->>    net: Move NetClientState.info_str to dynamic allocations
->>    hmp: Use QAPI NetdevInfo in hmp_info_network
->>    net: Do not fill legacy info_str for backends
->>
->>   hw/net/xen_nic.c | 5 +-
->>   include/net/net.h | 5 +-
->>   include/qapi/hmp-output-visitor.h | 30 +++++
->>   net/l2tpv3.c | 8 +-
->>   net/net.c | 73 +++++++++--
->>   net/netmap.c | 7 ++
->>   net/slirp.c | 124 ++++++++++++++++++-
->>   net/socket.c | 92 ++++++++++----
->>   net/tap-win32.c | 10 +-
->>   net/tap.c | 107 +++++++++++++++--
->>   net/vde.c | 25 +++-
->>   net/vhost-user.c | 20 +++-
->>   net/vhost-vdpa.c | 15 ++-
->>   qapi/hmp-output-visitor.c | 193 ++++++++++++++++++++++++++++++
->>   qapi/meson.build | 1 +
->>   qapi/net.json | 80 +++++++++++++
->>   tests/qtest/meson.build | 3 +
->>   tests/qtest/test-query-netdev.c | 120 +++++++++++++++++++
->>   18 files changed, 856 insertions(+), 62 deletions(-)
->>   create mode 100644 include/qapi/hmp-output-visitor.h
->>   create mode 100644 qapi/hmp-output-visitor.c
->>   create mode 100644 tests/qtest/test-query-netdev.c
->>
->> --
->> 2.25.1
->
-> -- 
-> Alexey Kirillov
-> Yandex.Cloud
->
->
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 16e6523e2c..46e6a95fec 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -68,9 +68,8 @@ extra-y += $(TARGET_SUBARCH)/head.o
+ 
+ #obj-bin-y += ....o
+ 
+-ifdef CONFIG_DTB_FILE
++ifneq ($(CONFIG_DTB_FILE),"")
+ obj-y += dtb.o
+-AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+ endif
+ 
+ ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
+@@ -137,7 +136,7 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+ xen.lds: xen.lds.S
+ 	$(CPP) -P $(a_flags) -MQ $@ -o $@ $<
+ 
+-dtb.o: $(CONFIG_DTB_FILE)
++dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
+ 
+ .PHONY: clean
+ clean::
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index c404fa973e..50f019ed98 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -156,10 +156,10 @@ past_zImage:
+         sub   r10, r9, r0            /* r10 := phys-offset */
+ 
+         /* Using the DTB in the .dtb section? */
+-#ifdef CONFIG_DTB_FILE
++.ifnes CONFIG_DTB_FILE,""
+         ldr   r8, =_sdtb
+         add   r8, r10                /* r8 := paddr(DTB) */
+-#endif
++.endif
+ 
+         /* Initialize the UART if earlyprintk has been enabled. */
+ #ifdef CONFIG_EARLY_PRINTK
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index 5d44667bd8..f38a8dfca7 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -296,9 +296,9 @@ real_start_efi:
+         sub   x20, x19, x0           /* x20 := phys-offset */
+ 
+         /* Using the DTB in the .dtb section? */
+-#ifdef CONFIG_DTB_FILE
++.ifnes CONFIG_DTB_FILE,""
+         load_paddr x21, _sdtb
+-#endif
++.endif
+ 
+         /* Initialize the UART if earlyprintk has been enabled. */
+ #ifdef CONFIG_EARLY_PRINTK
+diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+index 004b182acb..540a7ccc9d 100644
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -220,11 +220,9 @@ SECTIONS
+   } :text
+   _end = . ;
+ 
+-#ifdef CONFIG_DTB_FILE
+   /* Section for the device tree blob (if any). */
+-  _sdtb = .;
++  PROVIDE(_sdtb = .);
+   .dtb : { *(.dtb) } :text
+-#endif
+ 
+   /* Sections to be discarded */
+   /DISCARD/ : {
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index eb953d171e..a1755cd380 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -400,6 +400,16 @@ config DOM0_MEM
+ 
+ 	  Leave empty if you are not sure what to specify.
+ 
++config DTB_FILE
++	string "Absolute path to device tree blob"
++	depends on HAS_DEVICE_TREE
++	help
++	  When using a bootloader that has no device tree support or when there
++	  is no bootloader at all, use this option to specify the absolute path
++	  to a device tree that will be linked directly inside Xen binary.
++
++	  This is an optional config. Leave empty if not needed.
++
+ config TRACEBUFFER
+ 	bool "Enable tracing infrastructure" if EXPERT
+ 	default y
+-- 
+2.29.0
 
 
