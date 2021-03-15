@@ -2,36 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A9933C5C0
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Mar 2021 19:35:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98104.185962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA01F33C752
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Mar 2021 21:02:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98110.185972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLs2R-0006jc-2R; Mon, 15 Mar 2021 18:33:59 +0000
+	id 1lLtOx-0006BG-JI; Mon, 15 Mar 2021 20:01:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98104.185962; Mon, 15 Mar 2021 18:33:59 +0000
+Received: by outflank-mailman (output) from mailman id 98110.185972; Mon, 15 Mar 2021 20:01:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLs2Q-0006jD-VR; Mon, 15 Mar 2021 18:33:58 +0000
-Received: by outflank-mailman (input) for mailman id 98104;
- Mon, 15 Mar 2021 18:33:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lLtOx-0006Ax-G7; Mon, 15 Mar 2021 20:01:19 +0000
+Received: by outflank-mailman (input) for mailman id 98110;
+ Mon, 15 Mar 2021 20:01:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T2Tu=IN=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1lLs2P-0006j8-65
- for xen-devel@lists.xenproject.org; Mon, 15 Mar 2021 18:33:57 +0000
-Received: from mail-wm1-f53.google.com (unknown [209.85.128.53])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d77a38b9-cafc-4164-8056-b33122f25845;
- Mon, 15 Mar 2021 18:33:55 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- j4-20020a05600c4104b029010c62bc1e20so12469wmi.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Mar 2021 11:33:55 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id h62sm497868wmf.37.2021.03.15.11.33.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Mar 2021 11:33:54 -0700 (PDT)
+ <SRS0=KFh+=IN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lLtOv-0006As-Iv
+ for xen-devel@lists.xenproject.org; Mon, 15 Mar 2021 20:01:17 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6e58bf83-4a0b-4822-9ae9-07b4b82eb3b3;
+ Mon, 15 Mar 2021 20:01:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4097F64E83;
+ Mon, 15 Mar 2021 20:01:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,42 +37,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d77a38b9-cafc-4164-8056-b33122f25845
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=4D7f2OSz3pBZtWumkrjvu3FzHc2w5TORo1dgod9Oghk=;
-        b=psYXFXmf0nSldC44n3dTo/y6c4nF5oNwok6GilrHRXQLW6AGICmyKlIAlSR8in6xAe
-         YSWPwDU3thSCzeocpU17T1ZQbbV6eMx7kSwOHAXB04LJ+rpCSxRu6NFhSQsT22sUYEbN
-         lPuR5P8O0QKpiz18t796drxoOz2sJDZPSxAEq/SeEppq01bgbiVHGiGjaBRCMBQu8cad
-         0VX+FEGLhhmOtSsN2vqAf1e5YlVIZOTNEY82AhPhoho1GaTjtbdJaNOiqkh3m3lyu/Af
-         h6EhjS9lqOGqRm7XmaU9PPHukwUA+1xHcT34R5QcVsuV1vsOu1JN9h8wUMpbpCGn8FON
-         6taw==
-X-Gm-Message-State: AOAM5309wnp+xaktHdmhab5xKk2fBLcOj/TxgLchZicWTvtoBoQs/qoR
-	yttYViq+DK5PzQVzdIefbYE=
-X-Google-Smtp-Source: ABdhPJyVz8IZJotlz//B/XcGOAMtX7OgOSYLI2jgMf6+916FJhatZnoDPedqIGL8Nzi5owJDhWZ9hQ==
-X-Received: by 2002:a7b:c750:: with SMTP id w16mr991205wmk.184.1615833234973;
-        Mon, 15 Mar 2021 11:33:54 -0700 (PDT)
-Date: Mon, 15 Mar 2021 18:33:52 +0000
-From: Wei Liu <wl@xen.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: cardoe@cardoe.com, wl@xen.org, andrew.cooper3@citrix.com,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH] automation: remove allow_failure from Alpine Linux jobs
-Message-ID: <20210315183352.mtcefvizfnfrxqy3@liuwe-devbox-debian-v2>
-References: <20210312210526.14862-1-sstabellini@kernel.org>
+X-Inumbo-ID: 6e58bf83-4a0b-4822-9ae9-07b4b82eb3b3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1615838471;
+	bh=5zCDEeEQ4HUmsoTFLwNHrSDDax9OLrpOT79hlauQfuw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=hbG5T1H7SK/sE5DyN5A2RwZfcyyeiJTSOptybqszKc/s4djbdUXRRvNMzs8yyci4I
+	 Zn3rVn7cJkKuqHrumsq3ibWkCsd3maiyTrigc8lrRk00s1w+HZpqDptcevp2/Vj1ny
+	 oml3I/a/Sr2twXNGxYbia2C07eGs8CmMq9uyqyzuId3mfzhqGDiQH+6shYuahsznY+
+	 JQm6Mx2nff2aCxZrVxcftwh97FMfVshpwFgXXLKBFUz+4g5StzlD2fQuC1k3pMEtyB
+	 YzTlE4IRL9PpBTTTBUEU/1vvBFPEBXqKC9BzmSc9d990YwQlWOOfogSVq79/oTo2Bb
+	 sqekb4mrjLcJA==
+Date: Mon, 15 Mar 2021 13:01:03 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    julien@xen.org, Bertrand.Marquis@arm.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3] xen: introduce XENFEAT_direct_mapped and
+ XENFEAT_not_direct_mapped
+In-Reply-To: <0e35a613-fd93-0805-10b9-5ecee73bb15d@suse.com>
+Message-ID: <alpine.DEB.2.21.2103151259550.5325@sstabellini-ThinkPad-T480s>
+References: <20210312231632.5666-1-sstabellini@kernel.org> <0e35a613-fd93-0805-10b9-5ecee73bb15d@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210312210526.14862-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Mar 12, 2021 at 01:05:26PM -0800, Stefano Stabellini wrote:
-> Now that the Alpine Linux build jobs complete successfully on staging we
-> can remove the "allow_failure: true" tag.
+On Mon, 15 Mar 2021, Jan Beulich wrote:
+> On 13.03.2021 00:16, Stefano Stabellini wrote:
+> > Introduce two feature flags to tell the domain whether it is
+> > direct-mapped or not. It allows the guest kernel to make informed
+> > decisions on things such as swiotlb-xen enablement.
+> > 
+> > The introduction of both flags (XENFEAT_direct_mapped and
+> > XENFEAT_not_direct_mapped) allows the guest kernel to avoid any
+> > guesswork if one of the two is present, or fallback to the current
+> > checks if neither of them is present.
+> > 
+> > XENFEAT_direct_mapped is always set for not auto-translated guests.
+> > 
+> > For auto-translated guests, only Dom0 on ARM is direct-mapped. Also,
+> > see is_domain_direct_mapped() which refers to auto-translated guests:
+> > xen/include/asm-arm/domain.h:is_domain_direct_mapped
+> > xen/include/asm-x86/domain.h:is_domain_direct_mapped
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > CC: jbeulich@suse.com
+> > CC: andrew.cooper3@citrix.com
+> > CC: julien@xen.org
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Any particular reason my previously given R-b isn't here?
 
-Acked-by: Wei Liu <wl@xen.org>
+Hi Jan,
+
+I reworded part of the comment in the public header, and I decided to
+err on the side of caution and not add your R-b given this change
+compared to the previous version.
 
