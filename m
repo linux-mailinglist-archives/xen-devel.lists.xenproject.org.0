@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C911533D491
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 14:07:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98281.186335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB89733D49F
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 14:13:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98287.186350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lM9Ok-0000AV-88; Tue, 16 Mar 2021 13:06:10 +0000
+	id 1lM9Vv-00017t-34; Tue, 16 Mar 2021 13:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98281.186335; Tue, 16 Mar 2021 13:06:10 +0000
+Received: by outflank-mailman (output) from mailman id 98287.186350; Tue, 16 Mar 2021 13:13:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lM9Ok-00009t-4V; Tue, 16 Mar 2021 13:06:10 +0000
-Received: by outflank-mailman (input) for mailman id 98281;
- Tue, 16 Mar 2021 13:06:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lM9Oj-00009k-9u; Tue, 16 Mar 2021 13:06:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lM9Oj-0003Ga-1H; Tue, 16 Mar 2021 13:06:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lM9Oi-0003e4-Lx; Tue, 16 Mar 2021 13:06:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lM9Oi-00085B-LQ; Tue, 16 Mar 2021 13:06:08 +0000
+	id 1lM9Vu-00017U-Ve; Tue, 16 Mar 2021 13:13:34 +0000
+Received: by outflank-mailman (input) for mailman id 98287;
+ Tue, 16 Mar 2021 13:13:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Go/K=IO=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
+ id 1lM9Vt-00017P-J3
+ for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 13:13:33 +0000
+Received: from mail-40136.protonmail.ch (unknown [185.70.40.136])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f0b7db35-a875-4801-80a5-08dc145a344c;
+ Tue, 16 Mar 2021 13:13:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,283 +36,315 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=baZKU5XVz3xEH+C17mnvQTv59Vpnr6m7HRVgDGM2b7A=; b=RiYfpROL2DxnzhkWB7uNIXotcD
-	NJOs0PUFUPFh+YmfHrdp2Vox2Q3yk0tpxIBhhuydqF9Nkiy+Ks7wpaMSV/rs1ztE+MNHu6ZJ1Hfw1
-	He++495RiSJw3F/3Rzb/dEGOWp1howrsh2+hJURucx67VyYDWRbEs9ZDVQyJOnTV/OIA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160092-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f0b7db35-a875-4801-80a5-08dc145a344c
+Date: Tue, 16 Mar 2021 13:13:13 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail; t=1615900409;
+	bh=Hh7Ith+yQfLnkaPjGf1TlqppumOt5t6STJJkMB4hbhI=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=OJQazPY7Zj0hvDqp7Fxl+g349yyjgfaD1v5sQJ/qW/rXO0tbMA2WMHD9hMwOselZI
+	 jad4h3T0UoOzV3wNQJ66UTjUchz0gB/ILaI1iXdKdoeb0FMIqwU2EJTdNJl1yfehGA
+	 VawzzYz4mCnChWqDLcvzns44vYpgSJSJg0fCefJ8=
+To: Jason Andryuk <jandryuk@gmail.com>
+From: Dylanger Daly <dylangerdaly@protonmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
+Subject: Re: AMD Ryzen 4000 (Mobile) cpufreq issues
+Message-ID: <8cr1SEPLgE6uLkQ9wBv-f6z3cZ976RBeSAQ17VJpcwIzBiaMpNJQzbEK5vv5p4exI9bEoArBP-rohjxU0ayurdJrSEvFgF3AyRW6yDv0hHU=@protonmail.com>
+In-Reply-To: <CAKf6xpsfh_w2TnJWH1wYSOcRhBETRxU61paovoMN+O2Mz4UEWw@mail.gmail.com>
+References: <s6DNE-pStgBNMxxe8WkUZJbkqMyjdifBDHA_3gMGdC6oE1rweg8Au8ZPHaDFkvT0ETGykePtDj02LphVIWtdfyFQ9ZBFMjKJq6UNzY4BiAc=@protonmail.com> <CAKf6xpsfh_w2TnJWH1wYSOcRhBETRxU61paovoMN+O2Mz4UEWw@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [xen-unstable test] 160092: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-armhf-armhf-examine:reboot:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b4011741e6b39a8fd0ed5aded96c16c45ead5888
-X-Osstest-Versions-That:
-    xen=b4011741e6b39a8fd0ed5aded96c16c45ead5888
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 16 Mar 2021 13:06:08 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
+	autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-flight 160092 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160092/
+On Tuesday, March 16th, 2021 at 10:57 PM, Jason Andryuk <jandryuk@gmail.com=
+> wrote:
 
-Failures :-/ but no regressions.
+> On Mon, Mar 15, 2021 at 11:03 PM Dylanger Daly
+>
+> dylangerdaly@protonmail.com wrote:
+>
+> > Hi Xen Developers,
+> >
+> > It appears AMD Ryzen 4000 based CPUs are not supported by `xenpm`, runn=
+ing `xenpm get-cpufreq-states` returns nothing and `get-cpufreq-para` retur=
+ns `failed to get cpufreq parameter`
+>
+> In dom0, do `modprobe xen-acpi-processor` and see if `xenpm get-cpufreq-p=
+ara` works. Xen needs Dom0 to load some ACPI info before
+>
+> xenpm can work.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-examine      8 reboot                     fail pass in 160089
+Thanks for your reply Jason :)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 160089
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 160089
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 160089
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 160089
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 160089
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 160089
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 160089
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 160089
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 160089
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 160089
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 160089
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+Nice, indeed modprobing produces the following:
 
-version targeted for testing:
- xen                  b4011741e6b39a8fd0ed5aded96c16c45ead5888
-baseline version:
- xen                  b4011741e6b39a8fd0ed5aded96c16c45ead5888
+```
+[   84.055724] xen_acpi_processor: Uploading Xen processor PM info
+```
 
-Last test of basis   160092  2021-03-16 01:53:34 Z    0 days
-Testing same since                          (not found)         0 attempts
+```
+[user@dom0 ~]$ sudo xenpm get-cpufreq-states
+cpu id               : 0
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 133]
+                       residency  [                5350 ms]
+P1         [1600 MHz]: transition [                  17]
+                       residency  [                  98 ms]
+*P2        [1400 MHz]: transition [                 130]
+                       residency  [                4205 ms]
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     fail    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+cpu id               : 2
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 128]
+                       residency  [                4604 ms]
+P1         [1600 MHz]: transition [                  13]
+                       residency  [                 110 ms]
+*P2        [1400 MHz]: transition [                 122]
+                       residency  [                4030 ms]
 
+cpu id               : 4
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 135]
+                       residency  [                3785 ms]
+P1         [1600 MHz]: transition [                  19]
+                       residency  [                 124 ms]
+*P2        [1400 MHz]: transition [                 131]
+                       residency  [                4175 ms]
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+cpu id               : 6
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 131]
+                       residency  [                4726 ms]
+P1         [1600 MHz]: transition [                  11]
+                       residency  [                  80 ms]
+*P2        [1400 MHz]: transition [                 128]
+                       residency  [                4125 ms]
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+cpu id               : 8
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 122]
+                       residency  [                4237 ms]
+P1         [1600 MHz]: transition [                  14]
+                       residency  [                 151 ms]
+*P2        [1400 MHz]: transition [                 115]
+                       residency  [                4155 ms]
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+cpu id               : 10
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1700 MHz
+*P0        [1700 MHz]: transition [                 123]
+                       residency  [                3897 ms]
+P1         [1600 MHz]: transition [                  15]
+                       residency  [                 125 ms]
+P2         [1400 MHz]: transition [                 115]
+                       residency  [                4146 ms]
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+cpu id               : 12
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 122]
+                       residency  [                4625 ms]
+P1         [1600 MHz]: transition [                  13]
+                       residency  [                 127 ms]
+*P2        [1400 MHz]: transition [                 116]
+                       residency  [                4328 ms]
 
+cpu id               : 14
+total P-states       : 3
+usable P-states      : 3
+current frequency    : 1400 MHz
+P0         [1700 MHz]: transition [                 119]
+                       residency  [                3430 ms]
+P1         [1600 MHz]: transition [                  11]
+                       residency  [                 119 ms]
+*P2        [1400 MHz]: transition [                 114]
+                       residency  [                4065 ms]
 
-Published tested tree is already up to date.
+[user@dom0 ~]$ sudo xenpm get-cpufreq-para
+cpu id               : 0
+affected_cpus        : 0
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
 
+[CPU1] failed to get cpufreq parameter
+cpu id               : 2
+affected_cpus        : 2
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
+
+[CPU3] failed to get cpufreq parameter
+cpu id               : 4
+affected_cpus        : 4
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
+
+[CPU5] failed to get cpufreq parameter
+cpu id               : 6
+affected_cpus        : 6
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
+
+[CPU7] failed to get cpufreq parameter
+cpu id               : 8
+affected_cpus        : 8
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
+
+[CPU9] failed to get cpufreq parameter
+cpu id               : 10
+affected_cpus        : 10
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
+
+[CPU11] failed to get cpufreq parameter
+cpu id               : 12
+affected_cpus        : 12
+cpuinfo frequency    : max [1700000] min [1400000] cur [1700000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : *1700000 1600000 1400000
+scaling frequency    : max [1700000] min [1400000] cur [1700000]
+turbo mode           : enabled
+
+[CPU13] failed to get cpufreq parameter
+cpu id               : 14
+affected_cpus        : 14
+cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
+scaling_driver       : powernow
+scaling_avail_gov    : userspace performance powersave ondemand
+current_governor     : ondemand
+  ondemand specific  :
+    sampling_rate    : max [10000000] min [10000] cur [20000]
+    up_threshold     : 80
+scaling_avail_freq   : 1700000 1600000 *1400000
+scaling frequency    : max [1700000] min [1400000] cur [1400000]
+turbo mode           : enabled
+
+[CPU15] failed to get cpufreq parameter
+```
+
+There's a lot more going on there then before, I'm noticing I'm now boostin=
+g ~3Ghz! :tada:
+
+```
+[user@dom0 ~]$ xenpm start 1|grep Avg freq
+  Avg freq2975000KHz
+  Avg freq2975000KHz
+  Avg freq3009000KHz
+  Avg freq3009000KHz
+  Avg freq3179000KHz
+  Avg freq3179000KHz
+  Avg freq3179000KHz
+  Avg freq3179000KHz
+  Avg freq2771000KHz
+  Avg freq2771000KHz
+  Avg freq2839000KHz
+  Avg freq2839000KHz
+  Avg freq2873000KHz
+  Avg freq2873000KHz
+  Avg freq2924000KHz
+  Avg freq2924000KHz
+```
+
+>
+> Are you running Qubes? For some reason xen-acpi-processor doesn't
+>
+> load there automatically.
+
+Yeah I'm running Qubes 4.1 (Xen 4.14), interesting it's not auto loading, I=
+'ll create an issue.
+
+>
+> > This was somewhat expected as Ryzen 4000 series CPUs are quite new, so =
+as a workaround I tried putting `cpufreq=3Ddom0-kernel dom0_max_vcpus=3D8 d=
+om0_vcpus_pin` onto CMDLINE, from what I've read this should essentially pa=
+ss control for CPU frequency scaling down to dom0's kernel (5.11.4).
+> >
+> > However acpi-cpufreq doesn't load, when trying to insmod it I get the f=
+ollowing error `insmod: ERROR: could not insert module acpi-cpufreq.ko: No =
+such device`
+> >
+> > I can't seem to see anything related to Xen relinquishing control to do=
+m0 in Xen's console, any help would be appreciated
+>
+> I haven't tried using cpufreq=3Ddom0-kernel, so I can't help here.
+
+No worries, I think it maybe a depreciated option now.
+
+>
+> Regards,
+>
+> Jason
+
+Cheers, Dylanger
 
