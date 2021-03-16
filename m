@@ -2,28 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA2133CB49
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 03:11:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98157.186104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7D6233CB5B
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 03:24:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98160.186116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLzAU-0008E6-LJ; Tue, 16 Mar 2021 02:10:46 +0000
+	id 1lLzN7-0000ni-QK; Tue, 16 Mar 2021 02:23:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98157.186104; Tue, 16 Mar 2021 02:10:46 +0000
+Received: by outflank-mailman (output) from mailman id 98160.186116; Tue, 16 Mar 2021 02:23:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lLzAU-0008Dh-Hy; Tue, 16 Mar 2021 02:10:46 +0000
-Received: by outflank-mailman (input) for mailman id 98157;
- Tue, 16 Mar 2021 02:10:44 +0000
+	id 1lLzN7-0000nJ-N4; Tue, 16 Mar 2021 02:23:49 +0000
+Received: by outflank-mailman (input) for mailman id 98160;
+ Tue, 16 Mar 2021 02:23:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Go/K=IO=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
- id 1lLzAS-0008Dc-A0
- for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 02:10:44 +0000
-Received: from mail-40131.protonmail.ch (unknown [185.70.40.131])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=N2g6=IO=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1lLzN6-0000nE-7Y
+ for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 02:23:48 +0000
+Received: from mail-qv1-xf30.google.com (unknown [2607:f8b0:4864:20::f30])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 929c9aee-560f-4f95-bcca-c8d6daa3682c;
- Tue, 16 Mar 2021 02:10:39 +0000 (UTC)
+ id 79ec000e-e70b-4659-a6dd-38ab9324d96d;
+ Tue, 16 Mar 2021 02:23:47 +0000 (UTC)
+Received: by mail-qv1-xf30.google.com with SMTP id q9so3386029qvm.6
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Mar 2021 19:23:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,42 +37,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 929c9aee-560f-4f95-bcca-c8d6daa3682c
-Date: Tue, 16 Mar 2021 02:10:17 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail; t=1615860638;
-	bh=PEA2EZR3ehKhgiPU96rVBV/d0DERSXYyqzf7IqaLKWQ=;
-	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
-	b=KwIXzDIbF6KFMBIuaetzPD4Xr1xMURLOTdGs8c5Ox4K6WxVlSGt7DCPPOjR6NDlae
-	 fJ1RmauHWVTBTfywvXa4NylWSQ3KYGSQpwFzraTeC0zuEBaAj30p7xFaKTE/tjnA3j
-	 A+ZTh4zCwzP/iBoZeGm7WhXQHY3gS7tHDs/gwD/w=
-To: Jan Beulich <jbeulich@suse.com>
-From: Dylanger Daly <dylangerdaly@protonmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Dario Faggioli <dfaggioli@suse.com>
-Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
-Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
-Message-ID: <PGn1fJFla-7vPl7QFdkkBX8ASy2cWw-f2HBW7rWE5KgeFEZ_kNUp8Yq5zMaGyS38wMWofVshR75o1jD1rXZeTWtE8XhKQvEq_Dmgsnu-Uy0=@protonmail.com>
-In-Reply-To: <1fc0e850-8a08-760f-c8cb-ad73dda4a37b@suse.com>
-References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com> <2cc5da3e-0ad0-4647-f1ca-190788c2910b@citrix.com> <3pKjdPYCiRimYjqHQP0xd_vqhoTOJqthTXOrY_rLeNvnQEpIF24gXDKgRhmr95JfARJzbVJVbfTrrJeiovGVHGbV0QBSZ2jez2Y_wt6db7g=@protonmail.com> <768d9dbb-4387-099f-b489-7952d7e883b0@suse.com> <T95F2Mi9RUUZ4w2wdeRqqM4uRyKgOFQNyooqEoTTDByK-0t9hZ1izG68lf90iExeYabEPSEv8puUeg0SEJtOmz8vYbVox2za28DXLd_h-_s=@protonmail.com> <eba12ea4-5dda-f112-0e33-714e859b9b03@suse.com> <815f3bc3a28a165e8fa41c6954a6d00db656e3c3.camel@suse.com> <Y-6A5xIyjtCDwG3tBoyQnWpypF_eebCmuCjyUovcwd-ZD6wgFvNmR8VAdscAiwKp41toxpDxsgeF10FsEBn2Xm14b8bl9cniO_-TRNwm9mI=@protonmail.com> <1fc0e850-8a08-760f-c8cb-ad73dda4a37b@suse.com>
+X-Inumbo-ID: 79ec000e-e70b-4659-a6dd-38ab9324d96d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=BKFVgcP8rDu3O4/q+NqywBi00Mw2quqcf5bwocfHgn4=;
+        b=bAJ9ssX9l8UhL4z+BAlHgWhLJQP+YRE+/ZPyoaTXVSxj+0sAQDfXxRN/kQgiiQl+La
+         7Lm3XB0uETopun/2sPTIdTFB4RS9ENrCzb+eEYGT69PXviiIDliiiH5dAr7mpzqZbXbq
+         HQQLohFjK4mR4vTWW/t9a88grzQFivht+Mn0qgA5LqRFmW3XoHmnHlJavWt10iW5QI0f
+         z00BP17+uBALq0D8hBmfn8ZnL3yhnW2y+2Ot4cQJc2T0f6DpUy0cBA1FaNW5yimaLqZZ
+         y5hDyUaApIHU5nadDKTJvYhkKZgG5mNUBNjcr2pamMnvp6i++qw66Yev1UOalhXDTk8A
+         gwpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=BKFVgcP8rDu3O4/q+NqywBi00Mw2quqcf5bwocfHgn4=;
+        b=fHHiAm9gfUqqah39SbSOpAIfsIdrU83hymxt9Uh4VEzWgPswL4WFNJy6ocsLjUwUjB
+         cnredYLWlg+aKW7y4SSRzbRUcLao45Dg4J9er3Hsb7H44Luw/rmO6j9RUD1fuT3RUli+
+         3KfE1IrMmvrPD+ACEgw+t8y6iZdMX+423bUas9C3wvn9St2tA5sRdJM+OIzIPmYIuK4k
+         hjmJsZ+TU3u42rPqK5GQI7qrc+ZUYFUyWUPaFQZOulkT2NtLE7o9aC9oXgOSitCTgHBh
+         6yFr2t6GPbRfQWdDxrmyqWIyslZJ17at6c6hQz/6DtEMMlElslCf+5Ez95p6T2OUkGOX
+         871A==
+X-Gm-Message-State: AOAM532fXeWzjb43PcxStGV2bjhyyy+rB33k96bHvhNrhut0xgbCdyoQ
+	UYznOlYMD1LvMqeGnRRFP+gqsswdSl4rhMR4aKVDHQ==
+X-Google-Smtp-Source: ABdhPJwcyPMpViRIX54o00BN829wIMTqMBk9AFVbsx4LM5HthKHDPF43kGCobYZRUeTRcKS0gjb7c+C4q83ojT665Dw=
+X-Received: by 2002:a0c:f702:: with SMTP id w2mr27809826qvn.0.1615861427110;
+ Mon, 15 Mar 2021 19:23:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
-	autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
-	mailout.protonmail.ch
+References: <CAMmSBy-iwV86QB+P4OCDgevx9MND0NzwBECUVqavT6cF+bvrcA@mail.gmail.com>
+ <CAJ=z9a1_BrnCzqdZ6xoc1VwTM8V0jr1B_rv=28fW5VSe2rwG4Q@mail.gmail.com>
+In-Reply-To: <CAJ=z9a1_BrnCzqdZ6xoc1VwTM8V0jr1B_rv=28fW5VSe2rwG4Q@mail.gmail.com>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Mon, 15 Mar 2021 19:23:43 -0700
+Message-ID: <CAMmSBy-u8-=r20UimHdUvFDjcegraK+v=v5QhvhrtNk4j4TGDg@mail.gmail.com>
+Subject: Re: Xen 4.14 build failing on aarch64 with GCC 10.2.1
+To: Julien Grall <julien.grall.oss@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Everyone,
+On Wed, Mar 10, 2021 at 3:15 PM Julien Grall <julien.grall.oss@gmail.com> wrote:
+>
+> On Wed, 10 Mar 2021 at 21:15, Roman Shaposhnik <roman@zededa.com> wrote:
+> >
+> > Hi!
+>
+> Hi,
+>
+> >
+> > just came across this failure on aarch64:
+> >
+> > ld: prelink.o: in function `_spin_lock_cb':
+> > 19187(.text+0x1f26c): undefined reference to `__aarch64_ldadd4_acq_rel'
+> > 19188ld: prelink.o: in function `_spin_lock':
+> > 19189(.text+0x1f2ec): undefined reference to `__aarch64_ldadd4_acq_rel'
+> > 19190ld: prelink.o: in function `_spin_lock_irq':
+> > 19191(.text+0x1f35c): undefined reference to `__aarch64_ldadd4_acq_rel'
+> > 19192ld: prelink.o: in function `_spin_lock_irqsave':
+> > 19193(.text+0x1f3d4): undefined reference to `__aarch64_ldadd4_acq_rel'
+> > 19194ld: prelink.o: in function `_spin_lock_recursive':
+> > 19195(.text+0x1f6b0): undefined reference to `__aarch64_ldadd4_acq_rel'
+> >
+> > This, of course, goes away if I build Xen with:
+> >    CFLAGS=-mno-outline-atomics
+> >
+> > However, at this point I'm curious if this is going to get addressed in Xen
+> > proper or not.
+>
+> This has already been fixed and backported to Xen 4.14 (included in
+> 4.14.1). Are you using the latest 4.14 branch?
 
-I just wanted to close this off and let everyone know the issue ended up be=
-ing a faulty/misconfigured HPET clock.
+Aaaand that appears to works as intended -- sorry for the noise -- I
+thought I was using the latest, but apparently not.
 
-Appending `clocksource=3Dtsc tsc=3Dunstable hpetbroadcast=3D0` to Xen's CMD=
-LINE totally fixed my issue, I assume Xen was detecting TSC may have been '=
-off' and was trying to recover/self-correct?
-
-In any case it's working perfectly.
-
-Cheers
+Thanks,
+Roman.
 
