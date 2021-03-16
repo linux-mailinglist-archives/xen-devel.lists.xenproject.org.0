@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB89733D49F
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 14:13:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98287.186350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8783633D5B4
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 15:28:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98304.186362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lM9Vv-00017t-34; Tue, 16 Mar 2021 13:13:35 +0000
+	id 1lMAf8-0007Ll-Gq; Tue, 16 Mar 2021 14:27:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98287.186350; Tue, 16 Mar 2021 13:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 98304.186362; Tue, 16 Mar 2021 14:27:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lM9Vu-00017U-Ve; Tue, 16 Mar 2021 13:13:34 +0000
-Received: by outflank-mailman (input) for mailman id 98287;
- Tue, 16 Mar 2021 13:13:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Go/K=IO=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
- id 1lM9Vt-00017P-J3
- for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 13:13:33 +0000
-Received: from mail-40136.protonmail.ch (unknown [185.70.40.136])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f0b7db35-a875-4801-80a5-08dc145a344c;
- Tue, 16 Mar 2021 13:13:31 +0000 (UTC)
+	id 1lMAf8-0007LO-Da; Tue, 16 Mar 2021 14:27:10 +0000
+Received: by outflank-mailman (input) for mailman id 98304;
+ Tue, 16 Mar 2021 14:27:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lMAf6-0007LJ-UG
+ for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 14:27:08 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f6916d55-6b5b-4832-bef6-19585d47080c;
+ Tue, 16 Mar 2021 14:27:07 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 502DFAC75;
+ Tue, 16 Mar 2021 14:27:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,315 +38,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0b7db35-a875-4801-80a5-08dc145a344c
-Date: Tue, 16 Mar 2021 13:13:13 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail; t=1615900409;
-	bh=Hh7Ith+yQfLnkaPjGf1TlqppumOt5t6STJJkMB4hbhI=;
-	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
-	b=OJQazPY7Zj0hvDqp7Fxl+g349yyjgfaD1v5sQJ/qW/rXO0tbMA2WMHD9hMwOselZI
-	 jad4h3T0UoOzV3wNQJ66UTjUchz0gB/ILaI1iXdKdoeb0FMIqwU2EJTdNJl1yfehGA
-	 VawzzYz4mCnChWqDLcvzns44vYpgSJSJg0fCefJ8=
-To: Jason Andryuk <jandryuk@gmail.com>
-From: Dylanger Daly <dylangerdaly@protonmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
-Subject: Re: AMD Ryzen 4000 (Mobile) cpufreq issues
-Message-ID: <8cr1SEPLgE6uLkQ9wBv-f6z3cZ976RBeSAQ17VJpcwIzBiaMpNJQzbEK5vv5p4exI9bEoArBP-rohjxU0ayurdJrSEvFgF3AyRW6yDv0hHU=@protonmail.com>
-In-Reply-To: <CAKf6xpsfh_w2TnJWH1wYSOcRhBETRxU61paovoMN+O2Mz4UEWw@mail.gmail.com>
-References: <s6DNE-pStgBNMxxe8WkUZJbkqMyjdifBDHA_3gMGdC6oE1rweg8Au8ZPHaDFkvT0ETGykePtDj02LphVIWtdfyFQ9ZBFMjKJq6UNzY4BiAc=@protonmail.com> <CAKf6xpsfh_w2TnJWH1wYSOcRhBETRxU61paovoMN+O2Mz4UEWw@mail.gmail.com>
+X-Inumbo-ID: f6916d55-6b5b-4832-bef6-19585d47080c
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615904826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=/1j9Ff2jV/b/CPFIP6stH7jt/5y0/txE3Pw0WedSKhc=;
+	b=rP3yqDyTITgXnX8Gd74Tt7g0DhL67EWm/knP3vK1rChhjUqqnYEW0ZQvY7kUYJ1dv2aFNW
+	i73GOIr7BRXagOfWiwCf7m/gsh2dngMP36n/UOpjPxZhxLhMzrtFT+Sws/gDqTsTJD97Jp
+	YAddpBXJ2FITM/hDGZY5QRfNYllzzOE=
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: libxl / xen-pciback interaction
+Message-ID: <c9bf77ec-8a82-5a6e-c0eb-36e4cc373b23@suse.com>
+Date: Tue, 16 Mar 2021 15:27:05 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
-	autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
-	mailout.protonmail.ch
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Tuesday, March 16th, 2021 at 10:57 PM, Jason Andryuk <jandryuk@gmail.com=
-> wrote:
+All,
 
-> On Mon, Mar 15, 2021 at 11:03 PM Dylanger Daly
->
-> dylangerdaly@protonmail.com wrote:
->
-> > Hi Xen Developers,
-> >
-> > It appears AMD Ryzen 4000 based CPUs are not supported by `xenpm`, runn=
-ing `xenpm get-cpufreq-states` returns nothing and `get-cpufreq-para` retur=
-ns `failed to get cpufreq parameter`
->
-> In dom0, do `modprobe xen-acpi-processor` and see if `xenpm get-cpufreq-p=
-ara` works. Xen needs Dom0 to load some ACPI info before
->
-> xenpm can work.
+while trying to test a pciback fix for how SR-IOV VFs get placed in the
+guest PCI topology I noticed that my test VM would only ever see the 1st
+out of 3 VFs that I passed to it. As it turns out, the driver watches
+its own (backend) node, and upon first receiving notification it
+evaluates state found in xenstore to set up the backend device.
+Subsequently it switches the device to Initialised. After this switching,
+not further instances of the watch triggering would do anything.
 
-Thanks for your reply Jason :)
+In all instances I observed the watch event getting processed when the
+"num_devs" node still reported 1. Trying to deal with this in libxl, by
+delaying the writing of the "num_devs" node, led to a fatal error
+("num_devs" not being available to read) in the driver, causing the
+device to move to Closing state. Therefore I decided that the issue has
+to be addressed in the driver, resulting in a patch (reproduced below)
+that I'm not overly happy with. I think the present libxl behavior is
+wrong - it shouldn't trigger driver initialization without having fully
+populated the information the driver is supposed to consume for its
+device initialization. The only solution that I can think of, however,
+doesn't look very appealing either: Instead of putting all pieces of the
+data for one device in a transaction, make a single transaction cover
+all devices collectively.
 
-Nice, indeed modprobing produces the following:
+Are there opinions about where to address the issue, or suggestions as
+to better approaches than the ones shown / outlined?
 
-```
-[   84.055724] xen_acpi_processor: Uploading Xen processor PM info
-```
+While doing this it also occurred to me as odd how "num_devs" is
+actually used: It's not really a "number of devices" indicator, but
+instead a "next device has this number" one: libxl reads the present
+value and increments it by one for every new device. Destroying
+(hot-unplugging) of devices doesn't have any effect on the value. If
+addition / removal of a device happens a number of times for a VM,
+quite a few leftover, no longer used entries would accumulate afaict.
+This isn't only consuming space in xenstore for no good reason, but
+also means pciback has to do an increasing amount of processing every
+time a reconfigure event happens.
 
-```
-[user@dom0 ~]$ sudo xenpm get-cpufreq-states
-cpu id               : 0
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 133]
-                       residency  [                5350 ms]
-P1         [1600 MHz]: transition [                  17]
-                       residency  [                  98 ms]
-*P2        [1400 MHz]: transition [                 130]
-                       residency  [                4205 ms]
+Jan
 
-cpu id               : 2
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 128]
-                       residency  [                4604 ms]
-P1         [1600 MHz]: transition [                  13]
-                       residency  [                 110 ms]
-*P2        [1400 MHz]: transition [                 122]
-                       residency  [                4030 ms]
+xen-pciback: reconfigure also from backend watch handler
 
-cpu id               : 4
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 135]
-                       residency  [                3785 ms]
-P1         [1600 MHz]: transition [                  19]
-                       residency  [                 124 ms]
-*P2        [1400 MHz]: transition [                 131]
-                       residency  [                4175 ms]
+When multiple PCI devices get assigned to a guest right at boot, libxl
+incrementally populates the backend tree. The writes for the first of
+the devices trigger the backend watch. In turn xen_pcibk_setup_backend()
+will set the XenBus state to Initialised, at which point no further
+reconfigures would happen unless a device got hotplugged. Arrange for
+reconfigure to also get triggered from the backend watch handler.
 
-cpu id               : 6
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 131]
-                       residency  [                4726 ms]
-P1         [1600 MHz]: transition [                  11]
-                       residency  [                  80 ms]
-*P2        [1400 MHz]: transition [                 128]
-                       residency  [                4125 ms]
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Cc: stable@vger.kernel.org
+---
+I will admit that this isn't entirely race-free (with the guest actually
+attaching in parallel), but from the looks of it such a race ought to be
+benign (not the least thanks to the mutex). Ideally the tool stack
+wouldn't write num_devs until all devices had their information
+populated. I tried doing so in libxl, but xen_pcibk_setup_backend()
+calling xenbus_dev_fatal() when not being able to read that node
+prohibits such an approach (or else libxl and driver changes would need
+to go into use in lock-step).
 
-cpu id               : 8
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 122]
-                       residency  [                4237 ms]
-P1         [1600 MHz]: transition [                  14]
-                       residency  [                 151 ms]
-*P2        [1400 MHz]: transition [                 115]
-                       residency  [                4155 ms]
+I wonder why what is being watched isn't just the num_devs node. Right
+now the watch triggers quite frequently without anything relevant
+actually having changed (I suppose in at least some cases in response
+to writes by the backend itself).
 
-cpu id               : 10
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1700 MHz
-*P0        [1700 MHz]: transition [                 123]
-                       residency  [                3897 ms]
-P1         [1600 MHz]: transition [                  15]
-                       residency  [                 125 ms]
-P2         [1400 MHz]: transition [                 115]
-                       residency  [                4146 ms]
-
-cpu id               : 12
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 122]
-                       residency  [                4625 ms]
-P1         [1600 MHz]: transition [                  13]
-                       residency  [                 127 ms]
-*P2        [1400 MHz]: transition [                 116]
-                       residency  [                4328 ms]
-
-cpu id               : 14
-total P-states       : 3
-usable P-states      : 3
-current frequency    : 1400 MHz
-P0         [1700 MHz]: transition [                 119]
-                       residency  [                3430 ms]
-P1         [1600 MHz]: transition [                  11]
-                       residency  [                 119 ms]
-*P2        [1400 MHz]: transition [                 114]
-                       residency  [                4065 ms]
-
-[user@dom0 ~]$ sudo xenpm get-cpufreq-para
-cpu id               : 0
-affected_cpus        : 0
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU1] failed to get cpufreq parameter
-cpu id               : 2
-affected_cpus        : 2
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU3] failed to get cpufreq parameter
-cpu id               : 4
-affected_cpus        : 4
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU5] failed to get cpufreq parameter
-cpu id               : 6
-affected_cpus        : 6
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU7] failed to get cpufreq parameter
-cpu id               : 8
-affected_cpus        : 8
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU9] failed to get cpufreq parameter
-cpu id               : 10
-affected_cpus        : 10
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU11] failed to get cpufreq parameter
-cpu id               : 12
-affected_cpus        : 12
-cpuinfo frequency    : max [1700000] min [1400000] cur [1700000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : *1700000 1600000 1400000
-scaling frequency    : max [1700000] min [1400000] cur [1700000]
-turbo mode           : enabled
-
-[CPU13] failed to get cpufreq parameter
-cpu id               : 14
-affected_cpus        : 14
-cpuinfo frequency    : max [1700000] min [1400000] cur [1400000]
-scaling_driver       : powernow
-scaling_avail_gov    : userspace performance powersave ondemand
-current_governor     : ondemand
-  ondemand specific  :
-    sampling_rate    : max [10000000] min [10000] cur [20000]
-    up_threshold     : 80
-scaling_avail_freq   : 1700000 1600000 *1400000
-scaling frequency    : max [1700000] min [1400000] cur [1400000]
-turbo mode           : enabled
-
-[CPU15] failed to get cpufreq parameter
-```
-
-There's a lot more going on there then before, I'm noticing I'm now boostin=
-g ~3Ghz! :tada:
-
-```
-[user@dom0 ~]$ xenpm start 1|grep Avg freq
-  Avg freq2975000KHz
-  Avg freq2975000KHz
-  Avg freq3009000KHz
-  Avg freq3009000KHz
-  Avg freq3179000KHz
-  Avg freq3179000KHz
-  Avg freq3179000KHz
-  Avg freq3179000KHz
-  Avg freq2771000KHz
-  Avg freq2771000KHz
-  Avg freq2839000KHz
-  Avg freq2839000KHz
-  Avg freq2873000KHz
-  Avg freq2873000KHz
-  Avg freq2924000KHz
-  Avg freq2924000KHz
-```
-
->
-> Are you running Qubes? For some reason xen-acpi-processor doesn't
->
-> load there automatically.
-
-Yeah I'm running Qubes 4.1 (Xen 4.14), interesting it's not auto loading, I=
-'ll create an issue.
-
->
-> > This was somewhat expected as Ryzen 4000 series CPUs are quite new, so =
-as a workaround I tried putting `cpufreq=3Ddom0-kernel dom0_max_vcpus=3D8 d=
-om0_vcpus_pin` onto CMDLINE, from what I've read this should essentially pa=
-ss control for CPU frequency scaling down to dom0's kernel (5.11.4).
-> >
-> > However acpi-cpufreq doesn't load, when trying to insmod it I get the f=
-ollowing error `insmod: ERROR: could not insert module acpi-cpufreq.ko: No =
-such device`
-> >
-> > I can't seem to see anything related to Xen relinquishing control to do=
-m0 in Xen's console, any help would be appreciated
->
-> I haven't tried using cpufreq=3Ddom0-kernel, so I can't help here.
-
-No worries, I think it maybe a depreciated option now.
-
->
-> Regards,
->
-> Jason
-
-Cheers, Dylanger
+--- a/drivers/xen/xen-pciback/xenbus.c
++++ b/drivers/xen/xen-pciback/xenbus.c
+@@ -359,7 +359,8 @@ out:
+ 	return err;
+ }
+ 
+-static int xen_pcibk_reconfigure(struct xen_pcibk_device *pdev)
++static int xen_pcibk_reconfigure(struct xen_pcibk_device *pdev,
++				 enum xenbus_state state)
+ {
+ 	int err = 0;
+ 	int num_devs;
+@@ -374,8 +375,7 @@ static int xen_pcibk_reconfigure(struct
+ 
+ 	mutex_lock(&pdev->dev_lock);
+ 	/* Make sure we only reconfigure once */
+-	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
+-	    XenbusStateReconfiguring)
++	if (xenbus_read_driver_state(pdev->xdev->nodename) != state)
+ 		goto out;
+ 
+ 	err = xenbus_scanf(XBT_NIL, pdev->xdev->nodename, "num_devs", "%d",
+@@ -500,6 +500,9 @@ static int xen_pcibk_reconfigure(struct
+ 		}
+ 	}
+ 
++	if (state != XenbusStateReconfiguring)
++		goto out;
++
+ 	err = xenbus_switch_state(pdev->xdev, XenbusStateReconfigured);
+ 	if (err) {
+ 		xenbus_dev_fatal(pdev->xdev, err,
+@@ -525,7 +528,7 @@ static void xen_pcibk_frontend_changed(s
+ 		break;
+ 
+ 	case XenbusStateReconfiguring:
+-		xen_pcibk_reconfigure(pdev);
++		xen_pcibk_reconfigure(pdev, XenbusStateReconfiguring);
+ 		break;
+ 
+ 	case XenbusStateConnected:
+@@ -664,6 +667,10 @@ static void xen_pcibk_be_watch(struct xe
+ 		xen_pcibk_setup_backend(pdev);
+ 		break;
+ 
++	case XenbusStateInitialised:
++		xen_pcibk_reconfigure(pdev, XenbusStateInitialised);
++		break;
++
+ 	default:
+ 		break;
+ 	}
 
