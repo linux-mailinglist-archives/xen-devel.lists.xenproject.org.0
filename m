@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FB6A33D646
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 15:59:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98343.186498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4939133D657
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 16:04:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98346.186510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMB9a-0002nu-QB; Tue, 16 Mar 2021 14:58:38 +0000
+	id 1lMBEm-0003h6-DR; Tue, 16 Mar 2021 15:04:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98343.186498; Tue, 16 Mar 2021 14:58:38 +0000
+Received: by outflank-mailman (output) from mailman id 98346.186510; Tue, 16 Mar 2021 15:04:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMB9a-0002nV-MF; Tue, 16 Mar 2021 14:58:38 +0000
-Received: by outflank-mailman (input) for mailman id 98343;
- Tue, 16 Mar 2021 14:58:37 +0000
+	id 1lMBEm-0003gi-A9; Tue, 16 Mar 2021 15:04:00 +0000
+Received: by outflank-mailman (input) for mailman id 98346;
+ Tue, 16 Mar 2021 15:03:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4u2H=IO=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lMB9Z-0002nQ-Iq
- for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 14:58:37 +0000
+ id 1lMBEl-0003gd-8g
+ for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 15:03:59 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4243338d-15c7-489a-a9f0-2c7046827b2a;
- Tue, 16 Mar 2021 14:58:36 +0000 (UTC)
+ id bc1658b2-effb-4266-887f-c14327b862d4;
+ Tue, 16 Mar 2021 15:03:58 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1472DAED2;
- Tue, 16 Mar 2021 14:58:35 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 59B3BAD72;
+ Tue, 16 Mar 2021 15:03:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,122 +38,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4243338d-15c7-489a-a9f0-2c7046827b2a
+X-Inumbo-ID: bc1658b2-effb-4266-887f-c14327b862d4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1615906715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1615907037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eca4pwWETZTFwlJnPTfMcgVq8pRE72m9y4FUN9C7HKY=;
-	b=t2Bv+mp+Inr8UwoV4TnESbeVs29g/NEtoKKWASXlCJ2aHVNK5FZmCeG6nTQm0kPpZQ7Hvm
-	wR4NLyAkAndWjtAIRbvA1TdoTBpVLSWKhGlhjwFgdeGR2/Z1Obpb//jivExpoqsx1ec/kE
-	hTqHcwMYlEoFJ3FZqW6jYU9R5AGzMf8=
-Subject: Re: [PATCH for-4.15] SUPPORT.MD: Mark C XenStored LiveUpdate as Tech
- Preview
-To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, George Dunlap
- <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20210313135500.27241-1-julien@xen.org>
- <43d6d118-308d-6bb0-3b91-7dc0f8a38d56@citrix.com>
- <663f08cf-a7cb-2e53-fe22-69d232e6aa07@xen.org>
- <03787b98-9acd-f1a8-66d4-953d7c99ee0d@suse.com>
- <cbc98429-aa76-8567-16bc-3a0ba9d00454@xen.org>
+	bh=k1nZcjDpdu+poBSXNwFWYDFI7JDSS46d5Da0XbaYFxc=;
+	b=M7cXjsAiU8cZnHqgJ0BfphEErgJextR3gRyDLOt0nJj9BIPFxTxpnZ9jTy2OwPojdrxzls
+	UkzPNnqR+PPBICNwoqLIhQPOtzx/KGfOXAQkoSrMnp9oEZyU90xu/uS+sHRZQR4BWwevCW
+	5En3bZbFVH+ybF5OKgW34RPqvTPAs6k=
+Subject: Re: libxl / xen-pciback interaction
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <c9bf77ec-8a82-5a6e-c0eb-36e4cc373b23@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d2168d6a-8a84-91a9-bc69-52d8e66a86cf@suse.com>
-Date: Tue, 16 Mar 2021 15:58:32 +0100
+Message-ID: <fb22429c-4f33-4d13-1861-977d093ba471@suse.com>
+Date: Tue, 16 Mar 2021 16:03:56 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <cbc98429-aa76-8567-16bc-3a0ba9d00454@xen.org>
+In-Reply-To: <c9bf77ec-8a82-5a6e-c0eb-36e4cc373b23@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="uV2XMkcbMzcE14axfDQS7P5hAOLzJbfBF"
+ boundary="lozyrYSf1icFEANjtLBBeq2rxAmJsZBAB"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---uV2XMkcbMzcE14axfDQS7P5hAOLzJbfBF
-Content-Type: multipart/mixed; boundary="3ihHxHyIpK7p0yGB8NQSnVYmmZysdKgXt";
+--lozyrYSf1icFEANjtLBBeq2rxAmJsZBAB
+Content-Type: multipart/mixed; boundary="nGkb9WbA7obsvSYnVumQTs2Z1dhuV1YZE";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, George Dunlap
- <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <d2168d6a-8a84-91a9-bc69-52d8e66a86cf@suse.com>
-Subject: Re: [PATCH for-4.15] SUPPORT.MD: Mark C XenStored LiveUpdate as Tech
- Preview
-References: <20210313135500.27241-1-julien@xen.org>
- <43d6d118-308d-6bb0-3b91-7dc0f8a38d56@citrix.com>
- <663f08cf-a7cb-2e53-fe22-69d232e6aa07@xen.org>
- <03787b98-9acd-f1a8-66d4-953d7c99ee0d@suse.com>
- <cbc98429-aa76-8567-16bc-3a0ba9d00454@xen.org>
-In-Reply-To: <cbc98429-aa76-8567-16bc-3a0ba9d00454@xen.org>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <fb22429c-4f33-4d13-1861-977d093ba471@suse.com>
+Subject: Re: libxl / xen-pciback interaction
+References: <c9bf77ec-8a82-5a6e-c0eb-36e4cc373b23@suse.com>
+In-Reply-To: <c9bf77ec-8a82-5a6e-c0eb-36e4cc373b23@suse.com>
 
---3ihHxHyIpK7p0yGB8NQSnVYmmZysdKgXt
+--nGkb9WbA7obsvSYnVumQTs2Z1dhuV1YZE
 Content-Type: multipart/mixed;
- boundary="------------5A8EC9A87308BC7B002E1C19"
+ boundary="------------85D18B880C0D7F3894E3D66D"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------5A8EC9A87308BC7B002E1C19
+--------------85D18B880C0D7F3894E3D66D
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 16.03.21 15:39, Julien Grall wrote:
+On 16.03.21 15:27, Jan Beulich wrote:
+> All,
 >=20
+> while trying to test a pciback fix for how SR-IOV VFs get placed in the=
+
+> guest PCI topology I noticed that my test VM would only ever see the 1s=
+t
+> out of 3 VFs that I passed to it. As it turns out, the driver watches
+> its own (backend) node, and upon first receiving notification it
+> evaluates state found in xenstore to set up the backend device.
+> Subsequently it switches the device to Initialised. After this switchin=
+g,
+> not further instances of the watch triggering would do anything.
 >=20
-> On 16/03/2021 14:36, J=C3=BCrgen Gro=C3=9F wrote:
->> On 16.03.21 15:35, Julien Grall wrote:
->>> Hi,
->>>
->>> On 15/03/2021 12:17, Andrew Cooper wrote:
->>>> On 13/03/2021 13:55, Julien Grall wrote:
->>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> Support to liveupdate C XenStored was adding during the 4.15
->>>>> development cycle. Add a section in SUPPORT.MD to explain what is t=
-he
->>>>> support state.
->>>>>
->>>>> For now, it is a tech preview.
->>>>>
->>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> ---
->>>>>
->>>>> CC: Juergen Gross <jgross@suse.com>
->>>>>
->>>>> It looks like the OCaml side was not merged in 4.15.
->>>>
->>>> Yes it was.
->>>>
->>>>> So I have only
->>>>> described the support state for C XenStored.
->>>>
->>>> What about stub-cxenstored?=C2=A0 I think it wants pointing out=20
->>>> specifically,
->>>> whatever its status, to avoid confusion.
->>>
->>> Is it even working? @Juergen?
->>
->> LU of xenstore-stubdom isn't working yet.
->=20
-> Ok. Would renaming the section to "Dom0 C Xen-Stored LiveUpdate" would =
+> In all instances I observed the watch event getting processed when the
+> "num_devs" node still reported 1. Trying to deal with this in libxl, by=
 
-> be suitable?
+> delaying the writing of the "num_devs" node, led to a fatal error
+> ("num_devs" not being available to read) in the driver, causing the
+> device to move to Closing state. Therefore I decided that the issue has=
 
-"Xen-Stored" in rather unusual.
+> to be addressed in the driver, resulting in a patch (reproduced below)
+> that I'm not overly happy with. I think the present libxl behavior is
+> wrong - it shouldn't trigger driver initialization without having fully=
 
-What about "LiveUpdate of C Xenstore daemon"?
+> populated the information the driver is supposed to consume for its
+> device initialization. The only solution that I can think of, however,
+> doesn't look very appealing either: Instead of putting all pieces of th=
+e
+> data for one device in a transaction, make a single transaction cover
+> all devices collectively.
+
+Any reason why you don't like this solution? Its not as if there would
+be a large problem to be expected with using a single transaction for
+all PCI devices passed through (assuming you didn't mean to pack really
+all devices of the guest into that single transaction).
 
 
 Juergen
 
---------------5A8EC9A87308BC7B002E1C19
+--------------85D18B880C0D7F3894E3D66D
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -244,25 +222,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------5A8EC9A87308BC7B002E1C19--
+--------------85D18B880C0D7F3894E3D66D--
 
---3ihHxHyIpK7p0yGB8NQSnVYmmZysdKgXt--
+--nGkb9WbA7obsvSYnVumQTs2Z1dhuV1YZE--
 
---uV2XMkcbMzcE14axfDQS7P5hAOLzJbfBF
+--lozyrYSf1icFEANjtLBBeq2rxAmJsZBAB
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBQx5gFAwAAAAAACgkQsN6d1ii/Ey92
-wQf/Y/8UPgbINJpExKlxi2gbMpbkhSyW0C4ktXUnb3WPD1smzpueMYUx6/QBxVaMTzH+jqL1a4jP
-CYlGb6NKQLhOyGkoBaT2hC/foWs8pAuuJB9T8S3Ow8K1PKzWdwfBkwY5i8eUrg6KKCTcGmV3VSWD
-6+ojIXcZ8CXxDvuwHnkKx4/2PQLLm6YUnyShsmBDiyDidmNAgtdQMEMrx80MqQCUZiIe63/Ntcbe
-ZPh0peZPeXln6TNDTaZm+HaFlWAtTiSP43T1ipooyr2k7o2cb7aSym2m1nSUku1z/RSBtqI+tu7k
-rMNq5w5D2R0q2JuNc33vIkQ0ZJCWhwwYDAXwAFpelg==
-=XKGb
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBQyNwFAwAAAAAACgkQsN6d1ii/Ey9j
+lwf9FOfwDDSrWEeFXcCzkwxjS4mxgywS/+aACxZsVkfuOXKEoz075zgcZ9eLe5naRZ91Fl2koLzl
+LcBeh93citjrXj6tFTkS6q2CmNWM7Q12AFTIB2tHhtbUU5ikjEHSOGeD4Alz3J9K5Yiaa3+EwH+P
+t1NIlaTuQDsnyfqwYcFBqRweKCjEzvrF3x4Wrdx+rBYBTVUHa0HkHmT7IbTvs1zOAmI9InxHuIcj
+KBozpw8ELO/3j+hxs9V1dAJxgvOt2ilKdaQvmN9BvpQwa3+pHouZ8YtbNEg8T2n9/UC9JkPYp9q9
+YaF4CZ9dtm62IULMISZOMGJmfx+JJ3E8C+SiqUaV5A==
+=9yzP
 -----END PGP SIGNATURE-----
 
---uV2XMkcbMzcE14axfDQS7P5hAOLzJbfBF--
+--lozyrYSf1icFEANjtLBBeq2rxAmJsZBAB--
 
