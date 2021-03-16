@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA9E33E1A0
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 23:45:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98500.186885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E516B33E1A9
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Mar 2021 23:49:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98502.186897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMIQo-0005ZY-Dr; Tue, 16 Mar 2021 22:44:54 +0000
+	id 1lMIUz-0005mM-01; Tue, 16 Mar 2021 22:49:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98500.186885; Tue, 16 Mar 2021 22:44:54 +0000
+Received: by outflank-mailman (output) from mailman id 98502.186897; Tue, 16 Mar 2021 22:49:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMIQo-0005Z9-Aq; Tue, 16 Mar 2021 22:44:54 +0000
-Received: by outflank-mailman (input) for mailman id 98500;
- Tue, 16 Mar 2021 22:44:52 +0000
+	id 1lMIUy-0005lx-Sl; Tue, 16 Mar 2021 22:49:12 +0000
+Resent-Date: Tue, 16 Mar 2021 22:49:12 +0000
+Resent-Message-Id: <E1lMIUy-0005lx-Sl@lists.xenproject.org>
+Received: by outflank-mailman (input) for mailman id 98502;
+ Tue, 16 Mar 2021 22:49:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=I3eZ=IO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lMIQm-0005Z4-4M
- for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 22:44:52 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OFiz=IO=patchew.org=no-reply@srs-us1.protection.inumbo.net>)
+ id 1lMIUw-0005ls-HF
+ for xen-devel@lists.xenproject.org; Tue, 16 Mar 2021 22:49:10 +0000
+Received: from sender4-of-o53.zoho.com (unknown [136.143.188.53])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id adefc1e6-a416-4f50-a526-02115ad17201;
- Tue, 16 Mar 2021 22:44:50 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.21.0 SBL|AUTH)
- with ESMTPSA id u08c13x2GMiZ7PY
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 16 Mar 2021 23:44:35 +0100 (CET)
+ id 1cdb01bf-8e86-473b-b883-332da37dba4a;
+ Tue, 16 Mar 2021 22:49:08 +0000 (UTC)
+Received: from [172.17.0.3] (23.253.156.214 [23.253.156.214]) by
+ mx.zohomail.com with SMTPS id 1615934935641742.6421852983427;
+ Tue, 16 Mar 2021 15:48:55 -0700 (PDT)
+Resent-From: 
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,106 +41,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adefc1e6-a416-4f50-a526-02115ad17201
-ARC-Seal: i=1; a=rsa-sha256; t=1615934675; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=C8TXa5XeHZwpup6coS6Ybg7qt8dadA/Zj9g3e5yxRAxB9GS1QujHxMG7SQEDhL2O3c
-    3WoKVZfrIgAjeLpv8Q7nar2dj2lQGPmFfH4KQ3ASSA8Z5p6EybLpyb/ezEjxkZc2MO18
-    L8YuKYsOF7dYP0Jgxu5GAAenaiSCxyQrvADRsisH2cMlmxgVLim+IiK8py48WylCYFUW
-    kCcJ7oHztZDyegmCP6niA3ZwdMnebpPgqcHtPwYPe33nW4wRV1USNl6KNEhv1j47u43l
-    DwlFslkwR5EjiU9iF9Vg7AznqGoAAGJhojHLIy+0DTqhClrBNlDtPKLYSv0PoPQDQ+dJ
-    NGDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1615934675;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=spRfbSf2EEd/CxkfCsgqRwYK32rzUNZ5IzSUCc4F8sE=;
-    b=jKWlsPcNfGCDI+0IerHjFkVQzPBra8OQHIasTlFP1nekmnqt6CYrKfQCXcsiC9PfHA
-    UkzMgTilP08dMybzWXMgBalp90QOFFYTSqDpQl42JRRrOwXSf6a/iic8gefLwpKOuJLF
-    bQ3uZUXOXWP5lL5jzoqxbG5iHJ69UwFvlNJiVjnxs8Jal5toYRbljyQwWmNV3DZSJBsa
-    kDA+xbUtqrIo9FbXWiFgNs0Rjqqg4hH9ZaYd8alhd3MDd/wSDQAmDLsteGi+0Wdajbkc
-    Mb/Pl6soIYWTbSNEopDhP3n44ATttcPK7QrHou9GSPOO7DmHN42YkG4clZBzw8P/rQmq
-    8F8w==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1615934675;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=spRfbSf2EEd/CxkfCsgqRwYK32rzUNZ5IzSUCc4F8sE=;
-    b=GaZSz3vCR8zScvKLRGoWsbMwqCisU0+job6YMkP9x6YBV/KZnjpPD+Xu/dAoZL8ivf
-    +JVXzVjifdt3m/6ji5C88QrgXFou4bFB2VOGmK6zbXvSF6t4koqWVteOWSCieI1CMZLb
-    Yz0c2zJ/ANzOvSmDDgd+uwNgPTX6k5ejLGZ3RE5g9pCyVRQsMIkFkzJFGYgiaXKz1Oyg
-    XczVLBKYnQQ9H+DzsPm/vFA5kpJ5EB4mpPBQxFm1L4P5w8XFeC2wU0LISUMI4W3FFDUV
-    ihT0ppn8mnNBPq4zoxiFCIR9Mun4Qdq5R0ewUcj3/RIdJesqkOsem5euD+If1TDeFsur
-    /gtA==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS325Pjw=="
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org,
-	qemu-block@nongnu.org,
-	qemu-devel@nongnu.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	John Snow <jsnow@redhat.com>
-Subject: [PATCH v1] piix: fix regression during unplug in Xen HVM domUs
-Date: Tue, 16 Mar 2021 23:44:12 +0100
-Message-Id: <20210316224412.11609-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 1cdb01bf-8e86-473b-b883-332da37dba4a
+ARC-Seal: i=1; a=rsa-sha256; t=1615934939; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bV6BJdS970lmRrZADS3e8UrN1fwkr9UuhISi6DRU+IyX2yOgVCLy2mwKV1kNbgT3S5YnySG5jItaVZNP34sAHBCc/iwJptk3xeVChRV0ddB8DWZqblwIHyHdy/Ev1EuZQsoBPl6kJ2ioHtJrGB6OLZABZ5nZnNhYEMszmr5lFZU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1615934939; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:Reply-To:Subject:To; 
+	bh=tF8oDA4fa83Iw7SEm+BG8QQkhZXDWl7Jec7f/Xk3zOg=; 
+	b=HvAeBi49Ca1dFLzo+4aBOqNd4VlsM2OSjdSTM+wahGQUKasJCKir9KyfTQiAhmaI0hHnWyCSdJrrX8z3rx2HVKoNKaFn1Ux2y3enoO2PZvFyeuIqBDifwscNZR9s78TjqI6qr4ZUZpU6zRHB0stwSVwqGwoO6mEgJjxnB8Gmors=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	spf=pass  smtp.mailfrom=no-reply@patchew.org;
+	dmarc=pass header.from=<no-reply@patchew.org> header.from=<no-reply@patchew.org>
+In-Reply-To: <20210316224412.11609-1-olaf@aepfle.de>
+Reply-To: <qemu-devel@nongnu.org>
+Subject: Re: [PATCH v1] piix: fix regression during unplug in Xen HVM domUs
+Message-ID: <161593493442.18566.14612876295503290944@c9d4d6fbb2f1>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+From: no-reply@patchew.org
+To: olaf@aepfle.de
+Cc: xen-devel@lists.xenproject.org, qemu-block@nongnu.org, qemu-devel@nongnu.org, olaf@aepfle.de, jsnow@redhat.com
+Date: Tue, 16 Mar 2021 15:48:55 -0700 (PDT)
+X-ZohoMailClient: External
 
-Commit ee358e919e385fdc79d59d0d47b4a81e349cd5c9 causes a regression in
-Xen HVM domUs which run xenlinux based kernels.
-
-If the domU has an USB device assigned, for example with
-"usbdevice=['tablet']" in domU.cfg, the late unplug of devices will
-kill the emulated USB host. As a result the khubd thread hangs, and as
-a result the entire boot process.
-
-For some reason this does not affect pvops based kernels. This is
-most likely caused by the fact that unplugging happens very early
-during boot.
-
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- hw/ide/piix.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/hw/ide/piix.c b/hw/ide/piix.c
-index b9860e35a5..2a380a90e9 100644
---- a/hw/ide/piix.c
-+++ b/hw/ide/piix.c
-@@ -34,6 +34,7 @@
- #include "hw/ide/pci.h"
- #include "trace.h"
- 
-+static bool pci_piix3_xen_ide_unplug_done;
- static uint64_t bmdma_read(void *opaque, hwaddr addr, unsigned size)
- {
-     BMDMAState *bm = opaque;
-@@ -109,6 +110,8 @@ static void piix_ide_reset(DeviceState *dev)
-     uint8_t *pci_conf = pd->config;
-     int i;
- 
-+    if (pci_piix3_xen_ide_unplug_done == true)
-+        return;
-     for (i = 0; i < 2; i++) {
-         ide_bus_reset(&d->bus[i]);
-     }
-@@ -169,6 +172,7 @@ int pci_piix3_xen_ide_unplug(DeviceState *dev, bool aux)
-     IDEBus *idebus;
-     BlockBackend *blk;
- 
-+    pci_piix3_xen_ide_unplug_done = true;
-     pci_ide = PCI_IDE(dev);
- 
-     for (i = aux ? 1 : 0; i < 4; i++) {
-@@ -259,6 +263,7 @@ static const TypeInfo piix4_ide_info = {
- 
- static void piix_ide_register_types(void)
- {
-+    pci_piix3_xen_ide_unplug_done = false;
-     type_register_static(&piix3_ide_info);
-     type_register_static(&piix3_ide_xen_info);
-     type_register_static(&piix4_ide_info);
+UGF0Y2hldyBVUkw6IGh0dHBzOi8vcGF0Y2hldy5vcmcvUUVNVS8yMDIxMDMxNjIyNDQxMi4xMTYw
+OS0xLW9sYWZAYWVwZmxlLmRlLwoKCgpIaSwKClRoaXMgc2VyaWVzIHNlZW1zIHRvIGhhdmUgc29t
+ZSBjb2Rpbmcgc3R5bGUgcHJvYmxlbXMuIFNlZSBvdXRwdXQgYmVsb3cgZm9yCm1vcmUgaW5mb3Jt
+YXRpb246CgpUeXBlOiBzZXJpZXMKTWVzc2FnZS1pZDogMjAyMTAzMTYyMjQ0MTIuMTE2MDktMS1v
+bGFmQGFlcGZsZS5kZQpTdWJqZWN0OiBbUEFUQ0ggdjFdIHBpaXg6IGZpeCByZWdyZXNzaW9uIGR1
+cmluZyB1bnBsdWcgaW4gWGVuIEhWTSBkb21VcwoKPT09IFRFU1QgU0NSSVBUIEJFR0lOID09PQoj
+IS9iaW4vYmFzaApnaXQgcmV2LXBhcnNlIGJhc2UgPiAvZGV2L251bGwgfHwgZXhpdCAwCmdpdCBj
+b25maWcgLS1sb2NhbCBkaWZmLnJlbmFtZWxpbWl0IDAKZ2l0IGNvbmZpZyAtLWxvY2FsIGRpZmYu
+cmVuYW1lcyBUcnVlCmdpdCBjb25maWcgLS1sb2NhbCBkaWZmLmFsZ29yaXRobSBoaXN0b2dyYW0K
+Li9zY3JpcHRzL2NoZWNrcGF0Y2gucGwgLS1tYWlsYmFjayBiYXNlLi4KPT09IFRFU1QgU0NSSVBU
+IEVORCA9PT0KClVwZGF0aW5nIDNjOGNmNWE5YzIxZmY4NzgyMTY0ZDFkZWY3ZjQ0YmQ4ODg3MTMz
+ODQKRnJvbSBodHRwczovL2dpdGh1Yi5jb20vcGF0Y2hldy1wcm9qZWN0L3FlbXUKIC0gW3RhZyB1
+cGRhdGVdICAgICAgcGF0Y2hldy8yMDIxMDMxMTE0Mzk1OC41NjI2MjUtMS1yaWNoYXJkLmhlbmRl
+cnNvbkBsaW5hcm8ub3JnIC0+IHBhdGNoZXcvMjAyMTAzMTExNDM5NTguNTYyNjI1LTEtcmljaGFy
+ZC5oZW5kZXJzb25AbGluYXJvLm9yZwogKiBbbmV3IHRhZ10gICAgICAgICBwYXRjaGV3LzIwMjEw
+MzE2MjI0NDEyLjExNjA5LTEtb2xhZkBhZXBmbGUuZGUgLT4gcGF0Y2hldy8yMDIxMDMxNjIyNDQx
+Mi4xMTYwOS0xLW9sYWZAYWVwZmxlLmRlClN3aXRjaGVkIHRvIGEgbmV3IGJyYW5jaCAndGVzdCcK
+OWI3ZWMwZiBwaWl4OiBmaXggcmVncmVzc2lvbiBkdXJpbmcgdW5wbHVnIGluIFhlbiBIVk0gZG9t
+VXMKCj09PSBPVVRQVVQgQkVHSU4gPT09CkVSUk9SOiBicmFjZXMge30gYXJlIG5lY2Vzc2FyeSBm
+b3IgYWxsIGFybXMgb2YgdGhpcyBzdGF0ZW1lbnQKIzQxOiBGSUxFOiBody9pZGUvcGlpeC5jOjEx
+MzoKKyAgICBpZiAocGNpX3BpaXgzX3hlbl9pZGVfdW5wbHVnX2RvbmUgPT0gdHJ1ZSkKWy4uLl0K
+CnRvdGFsOiAxIGVycm9ycywgMCB3YXJuaW5ncywgMjkgbGluZXMgY2hlY2tlZAoKQ29tbWl0IDli
+N2VjMGZlNWQ3YyAocGlpeDogZml4IHJlZ3Jlc3Npb24gZHVyaW5nIHVucGx1ZyBpbiBYZW4gSFZN
+IGRvbVVzKSBoYXMgc3R5bGUgcHJvYmxlbXMsIHBsZWFzZSByZXZpZXcuICBJZiBhbnkgb2YgdGhl
+c2UgZXJyb3JzCmFyZSBmYWxzZSBwb3NpdGl2ZXMgcmVwb3J0IHRoZW0gdG8gdGhlIG1haW50YWlu
+ZXIsIHNlZQpDSEVDS1BBVENIIGluIE1BSU5UQUlORVJTLgo9PT0gT1VUUFVUIEVORCA9PT0KClRl
+c3QgY29tbWFuZCBleGl0ZWQgd2l0aCBjb2RlOiAxCgoKVGhlIGZ1bGwgbG9nIGlzIGF2YWlsYWJs
+ZSBhdApodHRwOi8vcGF0Y2hldy5vcmcvbG9ncy8yMDIxMDMxNjIyNDQxMi4xMTYwOS0xLW9sYWZA
+YWVwZmxlLmRlL3Rlc3RpbmcuY2hlY2twYXRjaC8/dHlwZT1tZXNzYWdlLgotLS0KRW1haWwgZ2Vu
+ZXJhdGVkIGF1dG9tYXRpY2FsbHkgYnkgUGF0Y2hldyBbaHR0cHM6Ly9wYXRjaGV3Lm9yZy9dLgpQ
+bGVhc2Ugc2VuZCB5b3VyIGZlZWRiYWNrIHRvIHBhdGNoZXctZGV2ZWxAcmVkaGF0LmNvbQ==
 
