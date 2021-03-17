@@ -2,30 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B5E33E282
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 01:09:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98515.186921 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1CDC33E290
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 01:17:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98518.186933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMJkH-000554-Pl; Wed, 17 Mar 2021 00:09:05 +0000
+	id 1lMJrs-0005yq-JB; Wed, 17 Mar 2021 00:16:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98515.186921; Wed, 17 Mar 2021 00:09:05 +0000
+Received: by outflank-mailman (output) from mailman id 98518.186933; Wed, 17 Mar 2021 00:16:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMJkH-00054f-MS; Wed, 17 Mar 2021 00:09:05 +0000
-Received: by outflank-mailman (input) for mailman id 98515;
- Wed, 17 Mar 2021 00:09:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PmVw=IP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lMJkG-00054a-VM
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 00:09:04 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c738ce73-60f2-48a3-83a5-965096ff78d8;
- Wed, 17 Mar 2021 00:09:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9AB4660190;
- Wed, 17 Mar 2021 00:09:03 +0000 (UTC)
+	id 1lMJrs-0005yR-Fy; Wed, 17 Mar 2021 00:16:56 +0000
+Received: by outflank-mailman (input) for mailman id 98518;
+ Wed, 17 Mar 2021 00:16:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KDYS=IP=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1lMJrq-0005yM-W8
+ for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 00:16:55 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id fada098a-140c-4350-9092-4232696fd056;
+ Wed, 17 Mar 2021 00:16:53 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-260-yQR7w5CNN8-zDj-kcLmRSQ-1; Tue, 16 Mar 2021 20:16:51 -0400
+Received: by mail-wr1-f72.google.com with SMTP id r6so4212882wrt.20
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Mar 2021 17:16:51 -0700 (PDT)
+Received: from [192.168.1.36] (17.red-88-21-201.staticip.rima-tde.net.
+ [88.21.201.17])
+ by smtp.gmail.com with ESMTPSA id h20sm787637wmm.19.2021.03.16.17.16.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Mar 2021 17:16:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,208 +46,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c738ce73-60f2-48a3-83a5-965096ff78d8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1615939743;
-	bh=2TdN+1rPBXOeK4/pa9Coxhp8QtlR4qU/uSvCQV6kvKs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MGWyw9hB+LzxGgAtA0bRIz2bH4bUZvX9RgjMHQF+hJDzZsgxqzoEdastDy6Wwb7CY
-	 FLVFGywpLKVnFmPMa+MuWrJB9tZmNjWldRxCvTK51G5MrDVj9O4q//otddZaSMdy1j
-	 02soG5VkYxjiVhW7C1SO800g2zj4LX+EHu3EVTi7AiBZdmROV4UorjqZr6jr+yt9hv
-	 ye8dnTpYJ0LZtrD+EKmMMkhmA5Q0eV9HG/BVwy5vW7zdNxYvXDKen/jjMclOYgyHMz
-	 jsykehwf3R0DUg1PhI2QxXISwge011jDvIBTMNpkl0KRkOrADwxqlLPg1VXVaqTJR1
-	 tMxyml7YkEdkw==
-Date: Tue, 16 Mar 2021 17:09:01 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: jgross@suse.com, boris.ostrovsky@oracle.com, 
-    xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH] xen/arm: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
-In-Reply-To: <20210225235158.24001-1-sstabellini@kernel.org>
-Message-ID: <alpine.DEB.2.21.2103161708230.439@sstabellini-ThinkPad-T480s>
-References: <20210225235158.24001-1-sstabellini@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: fada098a-140c-4350-9092-4232696fd056
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1615940213;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gPxaUrgJTpkqTxod0daPMNseXWx1OJaVOiNLeL0Mjq4=;
+	b=Kz84s+y+KUhR1o+Mt1xXDfjfegrBOP7BJFeNtmC/4p84pCS8DviHSKsn7w6Yqo5hrYAg6K
+	O527Ew4GHOY1i+2LlAcxUCuibZXMv/VfVfX7T4zgqkKBxp8mqd3Mu5G/6rGAVt+QfWo4EG
+	lk8m0Q4V6qsnZnmOrdK1rLUojQUBebY=
+X-MC-Unique: yQR7w5CNN8-zDj-kcLmRSQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=gPxaUrgJTpkqTxod0daPMNseXWx1OJaVOiNLeL0Mjq4=;
+        b=MfP4vPxiD9MMCstj3y93RCxTf+mIb9EPpLKnPFAGrmk8vEEfS4DtBN2En9IFZ1uPtg
+         toWOcTZTke+/ljyqMJLRyDESCi722ELA15xGGJamx7OLG9BvMpTL4juNW5FYW74U51YT
+         9813PRelPILLLvTI5WOeAhI0P45eOrgMDMEq6QDB3/4SYHrNxmNTyEsqLCGlm/lcTrey
+         MPVnjjr3qnqjAmGton07OVXgyLtLaCHsojlwuEnjq56Q6lMlfF3JtkriWBVzDHuIqttW
+         DUdNINPdrOstOX219d6RO46faGlg0Qz/z5JoyHUUn5ETSX1AUGCjnjWxwiQ4M0WjVUYI
+         5UzA==
+X-Gm-Message-State: AOAM532SgV1nIqw7pl6l/aUpiBC5ON8YbO7sh+TI5WoSRTmBoE2drevg
+	6jNoMeOCunKcxZMA1sgVH0DxvgW/yw3lyZbEWEq+0QK2oShDfCq4J656pO61kgzXMkgiRvUE1+R
+	YNPoriJoi7w9ikU5uCBR+ov8Z9h8=
+X-Received: by 2002:a5d:4708:: with SMTP id y8mr1552623wrq.382.1615940210686;
+        Tue, 16 Mar 2021 17:16:50 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzrocL9jUxEN3TUc5sZWquXWQ0lm0uzy5CHm2VrcOCniDMwIAcG+Q/hYU0MwBofCcAkc0t9cA==
+X-Received: by 2002:a5d:4708:: with SMTP id y8mr1552616wrq.382.1615940210563;
+        Tue, 16 Mar 2021 17:16:50 -0700 (PDT)
+Subject: Re: [PATCH v1] piix: fix regression during unplug in Xen HVM domUs
+To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org,
+ qemu-block@nongnu.org, qemu-devel@nongnu.org
+Cc: John Snow <jsnow@redhat.com>
+References: <20210316224412.11609-1-olaf@aepfle.de>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Message-ID: <d8bc9849-8ffc-78aa-b39c-3fe9d6d9c6c0@redhat.com>
+Date: Wed, 17 Mar 2021 01:16:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <20210316224412.11609-1-olaf@aepfle.de>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Gentle ping, now that the Xen side is acked (not committed due to the
-imminent release):
-
-https://marc.info/?l=xen-devel&m=161559099506456
-
-
-On Thu, 25 Feb 2021, Stefano Stabellini wrote:
-
-> Newer Xen versions expose two Xen feature flags to tell us if the domain
-> is directly mapped or not. Only when a domain is directly mapped it
-> makes sense to enable swiotlb-xen on ARM.
+On 3/16/21 11:44 PM, Olaf Hering wrote:
+> Commit ee358e919e385fdc79d59d0d47b4a81e349cd5c9 causes a regression in
+> Xen HVM domUs which run xenlinux based kernels.
 > 
-> Introduce a function on ARM to check the new Xen feature flags and also
-> to deal with the legacy case. Call the function xen_swiotlb_detect.
+> If the domU has an USB device assigned, for example with
+> "usbdevice=['tablet']" in domU.cfg, the late unplug of devices will
+> kill the emulated USB host. As a result the khubd thread hangs, and as
+> a result the entire boot process.
 > 
-> Also rename the existing pci_xen_swiotlb_detect on x86 to
-> xen_swiotlb_detect so that we can share a common function declaration.
+> For some reason this does not affect pvops based kernels. This is
+> most likely caused by the fact that unplugging happens very early
+> during boot.
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Signed-off-by: Olaf Hering <olaf@aepfle.de>
 > ---
+>  hw/ide/piix.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> This is the corresponding Xen patch under review:
-> https://marc.info/?l=xen-devel&m=161421618217686
-> 
-> We don't *have to* make the x86 function and the ARM function exactly
-> the same, but I thought it would be much nicer if we did. However, we
-> can't really call it pci_* on ARM as there is no PCI necessarily.
-> 
-> ---
->  arch/arm/xen/mm.c                      | 14 +++++++++++++-
->  arch/arm64/mm/dma-mapping.c            |  2 +-
->  arch/x86/include/asm/xen/swiotlb-xen.h |  4 ++--
->  arch/x86/kernel/pci-swiotlb.c          |  2 +-
->  arch/x86/xen/pci-swiotlb-xen.c         |  6 +++---
->  include/xen/interface/features.h       |  7 +++++++
->  include/xen/swiotlb-xen.h              |  6 ++++++
->  7 files changed, 33 insertions(+), 8 deletions(-)
-> 
-> diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-> index 467fa225c3d0..f8e5acbef05d 100644
-> --- a/arch/arm/xen/mm.c
-> +++ b/arch/arm/xen/mm.c
-> @@ -135,10 +135,22 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
->  	return;
->  }
+> diff --git a/hw/ide/piix.c b/hw/ide/piix.c
+> index b9860e35a5..2a380a90e9 100644
+> --- a/hw/ide/piix.c
+> +++ b/hw/ide/piix.c
+> @@ -34,6 +34,7 @@
+>  #include "hw/ide/pci.h"
+>  #include "trace.h"
 >  
-> +int __init xen_swiotlb_detect(void)
-> +{
-> +	if (!xen_domain())
-> +		return 0;
-> +	if (xen_feature(XENFEAT_direct_mapped))
-> +		return 1;
-> +	/* legacy case */
-> +	if (!xen_feature(XENFEAT_not_direct_mapped) && xen_initial_domain())
-> +		return 1;
-> +	return 0;
-> +}
-> +
->  static int __init xen_mm_init(void)
+> +static bool pci_piix3_xen_ide_unplug_done;
+
+This field belongs to the device state (PCIIDEState or BMDMAState).
+
+>  static uint64_t bmdma_read(void *opaque, hwaddr addr, unsigned size)
 >  {
->  	struct gnttab_cache_flush cflush;
-> -	if (!xen_initial_domain())
-> +	if (!xen_swiotlb_detect())
->  		return 0;
->  	xen_swiotlb_init(1, false);
+>      BMDMAState *bm = opaque;
+> @@ -109,6 +110,8 @@ static void piix_ide_reset(DeviceState *dev)
+>      uint8_t *pci_conf = pd->config;
+>      int i;
 >  
-> diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
-> index 93e87b287556..4bf1dd3eb041 100644
-> --- a/arch/arm64/mm/dma-mapping.c
-> +++ b/arch/arm64/mm/dma-mapping.c
-> @@ -53,7 +53,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
->  		iommu_setup_dma_ops(dev, dma_base, size);
+> +    if (pci_piix3_xen_ide_unplug_done == true)
+> +        return;
+>      for (i = 0; i < 2; i++) {
+>          ide_bus_reset(&d->bus[i]);
+>      }
+> @@ -169,6 +172,7 @@ int pci_piix3_xen_ide_unplug(DeviceState *dev, bool aux)
+>      IDEBus *idebus;
+>      BlockBackend *blk;
 >  
->  #ifdef CONFIG_XEN
-> -	if (xen_initial_domain())
-> +	if (xen_swiotlb_detect())
->  		dev->dma_ops = &xen_swiotlb_dma_ops;
->  #endif
->  }
-> diff --git a/arch/x86/include/asm/xen/swiotlb-xen.h b/arch/x86/include/asm/xen/swiotlb-xen.h
-> index 6b56d0d45d15..494694744844 100644
-> --- a/arch/x86/include/asm/xen/swiotlb-xen.h
-> +++ b/arch/x86/include/asm/xen/swiotlb-xen.h
-> @@ -2,14 +2,14 @@
->  #ifndef _ASM_X86_SWIOTLB_XEN_H
->  #define _ASM_X86_SWIOTLB_XEN_H
+> +    pci_piix3_xen_ide_unplug_done = true;
+>      pci_ide = PCI_IDE(dev);
 >  
-> +#include <xen/swiotlb-xen.h>
-> +
->  #ifdef CONFIG_SWIOTLB_XEN
->  extern int xen_swiotlb;
-> -extern int __init pci_xen_swiotlb_detect(void);
->  extern void __init pci_xen_swiotlb_init(void);
->  extern int pci_xen_swiotlb_init_late(void);
->  #else
->  #define xen_swiotlb (0)
-> -static inline int __init pci_xen_swiotlb_detect(void) { return 0; }
->  static inline void __init pci_xen_swiotlb_init(void) { }
->  static inline int pci_xen_swiotlb_init_late(void) { return -ENXIO; }
->  #endif
-> diff --git a/arch/x86/kernel/pci-swiotlb.c b/arch/x86/kernel/pci-swiotlb.c
-> index c2cfa5e7c152..c18eb6629326 100644
-> --- a/arch/x86/kernel/pci-swiotlb.c
-> +++ b/arch/x86/kernel/pci-swiotlb.c
-> @@ -30,7 +30,7 @@ int __init pci_swiotlb_detect_override(void)
->  	return swiotlb;
->  }
->  IOMMU_INIT_FINISH(pci_swiotlb_detect_override,
-> -		  pci_xen_swiotlb_detect,
-> +		  xen_swiotlb_detect,
->  		  pci_swiotlb_init,
->  		  pci_swiotlb_late_init);
+>      for (i = aux ? 1 : 0; i < 4; i++) {
+> @@ -259,6 +263,7 @@ static const TypeInfo piix4_ide_info = {
 >  
-> diff --git a/arch/x86/xen/pci-swiotlb-xen.c b/arch/x86/xen/pci-swiotlb-xen.c
-> index 19ae3e4fe4e9..0a35657eeb85 100644
-> --- a/arch/x86/xen/pci-swiotlb-xen.c
-> +++ b/arch/x86/xen/pci-swiotlb-xen.c
-> @@ -21,12 +21,12 @@
->  int xen_swiotlb __read_mostly;
->  
->  /*
-> - * pci_xen_swiotlb_detect - set xen_swiotlb to 1 if necessary
-> + * xen_swiotlb_detect - set xen_swiotlb to 1 if necessary
->   *
->   * This returns non-zero if we are forced to use xen_swiotlb (by the boot
->   * option).
->   */
-> -int __init pci_xen_swiotlb_detect(void)
-> +int __init xen_swiotlb_detect(void)
+>  static void piix_ide_register_types(void)
 >  {
->  
->  	if (!xen_pv_domain())
-> @@ -90,7 +90,7 @@ int pci_xen_swiotlb_init_late(void)
->  }
->  EXPORT_SYMBOL_GPL(pci_xen_swiotlb_init_late);
->  
-> -IOMMU_INIT_FINISH(pci_xen_swiotlb_detect,
-> +IOMMU_INIT_FINISH(xen_swiotlb_detect,
->  		  NULL,
->  		  pci_xen_swiotlb_init,
->  		  NULL);
-> diff --git a/include/xen/interface/features.h b/include/xen/interface/features.h
-> index 6d1384abfbdf..f0d00bb0ac63 100644
-> --- a/include/xen/interface/features.h
-> +++ b/include/xen/interface/features.h
-> @@ -83,6 +83,13 @@
->   */
->  #define XENFEAT_linux_rsdp_unrestricted   15
->  
-> +/*
-> + * A direct-mapped (or 1:1 mapped) domain is a domain for which its
-> + * local pages have gfn == mfn.
-> + */
-> +#define XENFEAT_not_direct_mapped         16
-> +#define XENFEAT_direct_mapped             17
-> +
->  #define XENFEAT_NR_SUBMAPS 1
->  
->  #endif /* __XEN_PUBLIC_FEATURES_H__ */
-> diff --git a/include/xen/swiotlb-xen.h b/include/xen/swiotlb-xen.h
-> index d5eaf9d682b8..6a2fc4e4b838 100644
-> --- a/include/xen/swiotlb-xen.h
-> +++ b/include/xen/swiotlb-xen.h
-> @@ -12,4 +12,10 @@ void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
->  extern int xen_swiotlb_init(int verbose, bool early);
->  extern const struct dma_map_ops xen_swiotlb_dma_ops;
->  
-> +#ifdef CONFIG_SWIOTLB_XEN
-> +extern int __init xen_swiotlb_detect(void);
-> +#else
-> +static inline int __init xen_swiotlb_detect(void) { return 0; }
-> +#endif
-> +
->  #endif /* __LINUX_SWIOTLB_XEN_H */
-> -- 
-> 2.17.1
+> +    pci_piix3_xen_ide_unplug_done = false;
+>      type_register_static(&piix3_ide_info);
+>      type_register_static(&piix3_ide_xen_info);
+>      type_register_static(&piix4_ide_info);
 > 
+
 
