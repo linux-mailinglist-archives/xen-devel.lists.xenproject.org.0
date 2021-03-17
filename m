@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4480533F3E2
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 16:16:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98746.187503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DADE33F428
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 16:45:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98750.187515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMXu1-00006F-S6; Wed, 17 Mar 2021 15:16:05 +0000
+	id 1lMYLS-0002pP-OW; Wed, 17 Mar 2021 15:44:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98746.187503; Wed, 17 Mar 2021 15:16:05 +0000
+Received: by outflank-mailman (output) from mailman id 98750.187515; Wed, 17 Mar 2021 15:44:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMXu1-00005o-Oe; Wed, 17 Mar 2021 15:16:05 +0000
-Received: by outflank-mailman (input) for mailman id 98746;
- Wed, 17 Mar 2021 15:16:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lMYLS-0002p0-L7; Wed, 17 Mar 2021 15:44:26 +0000
+Received: by outflank-mailman (input) for mailman id 98750;
+ Wed, 17 Mar 2021 15:44:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lMXu0-00005i-95
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 15:16:04 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lMXu0-0000FI-8F
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 15:16:04 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lMXu0-0006VW-7W
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 15:16:04 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lMXtv-0002LQ-G4; Wed, 17 Mar 2021 15:15:59 +0000
+ (envelope-from <SRS0=nS5B=IP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lMYLQ-0002ov-I2
+ for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 15:44:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 25b9a652-8330-4a56-8551-2eec20f2b215;
+ Wed, 17 Mar 2021 15:44:22 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E91BEAE53;
+ Wed, 17 Mar 2021 15:44:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,59 +39,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=Icv57Gp6+BsuyhEq7m+9iroCpbGX5bsczcoIxbrzdy0=; b=V/b9JJtVuvGr4f/gUd9NfoNgLW
-	xqVPm76U1RM7393omizClVMCYYMA0Y9TyJuaVoN4Zf0l02mzio59CRngUlYDluwPmEQwteyiT+Z6g
-	eNl9y8G5ducgfYI5CEaf62LmNweGIwNaJvfUWl4i+5ZdltFkP/FaDxOwwPszhmEZA4xs=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 25b9a652-8330-4a56-8551-2eec20f2b215
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615995862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1hZjxPf3tQDtsQ35IKl5jQ5nhr0vTUqzjPVrG3qjetE=;
+	b=XaC7+4xhCYFvlOUWNzHDcUZHCBB9MmBy+u/bMnPohAzUTyuwojA49JVABnlEYkftRgkZuw
+	3kvO8Bp7I1ko8SnhaVM2CtuhJrijdGzbzD7t0IUhW+jfuFy8tBEvD2ywikTHD0oWeyaBvf
+	ExtGswRQEwjtRGQ136cB7BvGYab6Bc4=
+Subject: Re: libxl / xen-pciback interaction [and 1 more messages]
+To: Ian Jackson <iwj@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, =?UTF-8?B?SsO8cmdlbiBHcm8=?=
+ =?UTF-8?B?w58=?= <jgross@suse.com>
+References: <c9bf77ec-8a82-5a6e-c0eb-36e4cc373b23@suse.com>
+ <fb22429c-4f33-4d13-1861-977d093ba471@suse.com>
+ <24658.7286.533794.293151@mariner.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <11bf64f2-401d-03cb-59d7-a84b5c56552e@suse.com>
+Date: Wed, 17 Mar 2021 16:44:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Message-ID: <24658.7471.309734.168120@mariner.uk.xensource.com>
-Date: Wed, 17 Mar 2021 15:15:59 +0000
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-    Xen-devel <xen-devel@lists.xenproject.org>,
-    Jan Beulich <JBeulich@suse.com>,
-    Wei Liu <wl@xen.org>,
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: [PATCH 1/3] Revert "x86/msr: drop compatibility #GP handling in
- guest_{rd,wr}msr()"
-In-Reply-To: <YFIbEqh9IhrY0Lwr@Air-de-Roger>
-References: <20210316161844.1658-1-andrew.cooper3@citrix.com>
-	<20210316161844.1658-2-andrew.cooper3@citrix.com>
-	<24658.1583.601613.903527@mariner.uk.xensource.com>
-	<4b1c13ee-f121-3379-6fb3-c0d4dbb76e48@citrix.com>
-	<24658.5692.932979.892439@mariner.uk.xensource.com>
-	<YFIbEqh9IhrY0Lwr@Air-de-Roger>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+In-Reply-To: <24658.7286.533794.293151@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Roger Pau Monné writes ("Re: [PATCH 1/3] Revert "x86/msr: drop compatibility #GP handling in guest_{rd,wr}msr()""):
-> On Wed, Mar 17, 2021 at 02:46:20PM +0000, Ian Jackson wrote:
-> > Roger, can I get your opinion about the possible downside risks of
-> > this patch ?
+On 17.03.2021 16:12, Ian Jackson wrote:
+> Jan Beulich writes ("libxl / xen-pciback interaction"):
+>> while trying to test a pciback fix for how SR-IOV VFs get placed in the
+>> guest PCI topology I noticed that my test VM would only ever see the 1st
+>> out of 3 VFs that I passed to it. As it turns out, the driver watches
+>> its own (backend) node, and upon first receiving notification it
+>> evaluates state found in xenstore to set up the backend device.
+>> Subsequently it switches the device to Initialised. After this switching,
+>> not further instances of the watch triggering would do anything.
 > 
-> For patches 1 and 2 the risk is low I think. This is already the same
-> handling that we do in pre-4.15, so it's unlikely to cause issues.
-> >From a guests PoV they don't change the result of trying to access any
-> of the modified MSRs, accessing them will still result in a #GP being
-> injected to the guest.
+> This makes it sound like this driver does not support hotplug.
 > 
-> The main risk for patch 3 would be that reporting 0 for
-> MSR_RAPL_POWER_UNIT would result in some kind of issue on certain
-> guests, or that it triggers the poking of other MSRs in the
-> expectation that they would be available. I think those are quite
-> unlikely, and the patch fixes a real issue with Solaris guests.
+>> While doing this it also occurred to me as odd how "num_devs" is
+>> actually used: It's not really a "number of devices" indicator, but
+>> instead a "next device has this number" one: libxl reads the present
+>> value and increments it by one for every new device. Destroying
+>> (hot-unplugging) of devices doesn't have any effect on the value.
+> 
+> But this makes it sound like the driver *does* support hotplug.
+> 
+> How does what libxl is doing differ from a setup, immediately followed
+> by a hot-add ?
 
-Thanks.  That is very helpful.
+In the hot-add case libxl drives things through Reconfiguring state.
+I'm not sure this would be an appropriate (and backwards compatible)
+thing to do when initially populating xenstore.
 
-All three patches 
-
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-but subject to Jan's questions on patch 3 being resolved somehow.
-
-Ian.
+Jan
 
