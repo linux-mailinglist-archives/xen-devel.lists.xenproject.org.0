@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6B2B33F3A3
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 15:46:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98729.187443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EA433F3BD
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 15:55:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98732.187455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMXRM-0005Lr-CL; Wed, 17 Mar 2021 14:46:28 +0000
+	id 1lMXZz-0006K1-81; Wed, 17 Mar 2021 14:55:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98729.187443; Wed, 17 Mar 2021 14:46:28 +0000
+Received: by outflank-mailman (output) from mailman id 98732.187455; Wed, 17 Mar 2021 14:55:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMXRM-0005LS-8z; Wed, 17 Mar 2021 14:46:28 +0000
-Received: by outflank-mailman (input) for mailman id 98729;
- Wed, 17 Mar 2021 14:46:26 +0000
+	id 1lMXZz-0006Jc-4J; Wed, 17 Mar 2021 14:55:23 +0000
+Received: by outflank-mailman (input) for mailman id 98732;
+ Wed, 17 Mar 2021 14:55:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lMXRK-0005LN-As
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 14:46:26 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lMXZx-0006JX-Ja
+ for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 14:55:21 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lMXRJ-0008Ac-QI
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 14:46:25 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lMXZx-0008Ji-Ga
+ for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 14:55:21 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lMXRJ-0004XA-Nt
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 14:46:25 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lMXZx-00055F-Cc
+ for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 14:55:21 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1lMXRF-0002GD-3v; Wed, 17 Mar 2021 14:46:21 +0000
+ id 1lMXZs-0002Hj-Ku; Wed, 17 Mar 2021 14:55:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,63 +44,66 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=Srs2h+RYvR2DBEbDO90F2mqfb3rlxgh8NiI51hYMaPY=; b=GvgoNtdXGzJfwhhidlA0l/bbTg
-	eGiDUF8N0CjmwBLycoANKWFv3IjbBLR9RhsJw2UVfpvo1ydnMA2ds/QjVUE3ur5fXyEBgBlVP3cRr
-	DyL5y0PtiopezlD8IL5r1rnAr7wwIaVpVgRjwGmnH3YG553UaZNDYrgg4asiFz8dEOP4=;
+	bh=Lppww/5fj3La1xHnXVfpjZMCX9yQLxDR3gk9pptxD4U=; b=ckdpDKPsP42KCltCnbYxZ81qDj
+	fR9jmOH8YTveJfHFTJ35KopmDHljf7+ytoOtcP7DAYt3jKM+0CE7XoDy/zks9vzM8QWfLG4Qi0btv
+	QUQj8Y4GjqaiumrB+ldVzbnwx5eduBBwp+Ld4BBB9E5ylGfOJs5J5hiSItIdEijvItpI=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-ID: <24658.5692.932979.892439@mariner.uk.xensource.com>
-Date: Wed, 17 Mar 2021 14:46:20 +0000
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    Xen-devel <xen-devel@lists.xenproject.org>,
-    Jan Beulich <JBeulich@suse.com>,
+Message-ID: <24658.6228.390535.850901@mariner.uk.xensource.com>
+Date: Wed, 17 Mar 2021 14:55:16 +0000
+To: Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>,
+    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    George Dunlap <george.dunlap@citrix.com>,
     Wei Liu <wl@xen.org>,
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: [PATCH 1/3] Revert "x86/msr: drop compatibility #GP handling in
- guest_{rd,wr}msr()"
-In-Reply-To: <4b1c13ee-f121-3379-6fb3-c0d4dbb76e48@citrix.com>
-References: <20210316161844.1658-1-andrew.cooper3@citrix.com>
-	<20210316161844.1658-2-andrew.cooper3@citrix.com>
-	<24658.1583.601613.903527@mariner.uk.xensource.com>
-	<4b1c13ee-f121-3379-6fb3-c0d4dbb76e48@citrix.com>
+    Anthony Perard <anthony.perard@citrix.com>
+Subject: Call for tools backports (was Re: preparations for 4.13.3)
+In-Reply-To: <b82a0932-761d-662c-baa4-59c4801ad5c8@xen.org>
+References: <5373f9d5-fc03-1967-8181-d77bbdaf25b9@suse.com>
+	<b82a0932-761d-662c-baa4-59c4801ad5c8@xen.org>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Andrew Cooper writes ("Re: [PATCH 1/3] Revert "x86/msr: drop compatibility #GP handling in guest_{rd,wr}msr()""):
-> On 17/03/2021 13:37, Ian Jackson wrote:
-> > AFAICT there is no explanation for why patches 1/ and 2/ deserve to go
-> > into 4.15.
-
-I see now, rereading the thread, that there was a sentence about this
-in each patch betwen the commit message and the diff.  Sorry for
-missing that.  (Although TBH at least one of those messages could
-usefully have gone into the commit message, as useful motivational
-background.)
-
-> >   We are late in the freeze now, so I would ideally be
-> > looking for a clear and compelling argument.  I'd also like to
-> > understand what the risks are of taking these.  Can someone please
-> > enlighten me ?
+Julien Grall writes ("Re: preparations for 4.13.3"):
+> On 08/03/2021 09:49, Jan Beulich wrote:
+> > All,
+> > 
+> > the release is overdue (my apologies). Please point out backports
+> > you find missing from the respective staging branches, but which
+> > you consider relevant.
+> > > Ones that I have queued already, but which hadn't passed the push
+> > gate to master yet when doing a swipe late last week, are
+> > 
+> > c6ad5a701b9a crypto: adjust rijndaelEncrypt() prototype for gcc11
+> > 9318fdf757ec x86/shadow: suppress "fast fault path" optimization without reserved bits
+> > 60c0444fae21 x86/shadow: suppress "fast fault path" optimization when running virtualized
 > 
-> To make the code in 4.15 match 4.14, so patch 3 can be written in the
-> first place.
+> I would like to also consider the following one:
 > 
-> Also, as a side benefit, patches 1 and 2 reduce the quantity of logspew
-> from the impacted MSRs.
+> 28804c0ce9fd SUPPORT.MD: Clarify the support state for the Arm SMMUv{1, 
+> 2} drivers (4.11+ as updating the security support)
+> 067935804a8e xen/vgic: Implement write to ISPENDR in vGICv{2, 3} (4.13+)
+>      To support newer kernel on stable Xen
+> d81133d45d81 xen/arm: Add workaround for Cortex-A53 erratum #843419 (4.13+)
+> fd7479b9aec2 xen/arm: Add workaround for Cortex-A55 erratum #1530923 (4.13+)
+> 5505f5f8e7e8 xen/arm: Add Cortex-A73 erratum 858921 workaround (4.13+)
+> 63b4c9bfb788 xen/arm: mm: Access a PT entry before the table is unmapped 
+> (4.13 only)
+> f6790389613c xen/arm: sched: Ensure the vCPU context is seen before 
+> vcpu_pause() returns (4.13 only)
 > 
-> We cannot simply take patch 3 as-is, and say "4.14 and earlier" for
-> backport, because that still forces end users to specify msr_relaxed to
-> unbreak their Solaris guests, which is usability regression vs 4.14
+> I have put in parentheses the list of versions targeted.
 
-This is plausible and going in the right direction but I still feel
-uncertain.
+My backport list seems to have very few tools patches on it.
 
-Jan, what is your summary opinion about patch 3 ?
+If anyone has any tools bugfixes that ought to go into 4.13 please do
+let me know!
 
-Roger, can I get your opinion about the possible downside risks of
-this patch ?
+Additionally, perhaps this one commit to be backported ?
+  935e0836710ce8cab584155b2844cea8497a5159
+  arm: replace typeof() with __typeof__()
 
 Thanks,
 Ian.
