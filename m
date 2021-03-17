@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E01F133EF9D
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 12:32:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98658.187236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E171533EFBA
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Mar 2021 12:44:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98661.187248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMUPO-0003V8-Km; Wed, 17 Mar 2021 11:32:14 +0000
+	id 1lMUaQ-0004UV-O1; Wed, 17 Mar 2021 11:43:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98658.187236; Wed, 17 Mar 2021 11:32:14 +0000
+Received: by outflank-mailman (output) from mailman id 98661.187248; Wed, 17 Mar 2021 11:43:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMUPO-0003Uj-HK; Wed, 17 Mar 2021 11:32:14 +0000
-Received: by outflank-mailman (input) for mailman id 98658;
- Wed, 17 Mar 2021 11:32:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lMUaQ-0004U6-Jd; Wed, 17 Mar 2021 11:43:38 +0000
+Received: by outflank-mailman (input) for mailman id 98661;
+ Wed, 17 Mar 2021 11:43:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lMUPN-0003Ue-Fz
- for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 11:32:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lMUPM-0004rt-SH; Wed, 17 Mar 2021 11:32:12 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lMUPM-00086c-IP; Wed, 17 Mar 2021 11:32:12 +0000
+ (envelope-from <SRS0=JM/y=IP=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lMUaP-0004U1-7u
+ for xen-devel@lists.xenproject.org; Wed, 17 Mar 2021 11:43:37 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b1320efa-5926-4bdc-826b-6c83a091654a;
+ Wed, 17 Mar 2021 11:43:35 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7E5F7AC23;
+ Wed, 17 Mar 2021 11:43:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,82 +39,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=OOmcNHKjT72WKKW0QAtzb5FxL86wcFMAHxWNXS5v4Fg=; b=Tq53AUQsO9npujsXcYiw6gluzx
-	/QZYsUIc8LT0sNPK4bVipDAdbcTf9IO4m+v4IWSqku8wh5jk6JKdezc2qv5ZdTou8OIs0DHbO/qV7
-	w2QW7DjsFhiHOaegZGiiCVHObNwvKjXT64DT34+ZwFtnI5kr/Q20crWw+ldYT/BRp+GU=;
-Subject: Re: [PATCH v3] xen: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: andrew.cooper3@citrix.com, Bertrand.Marquis@arm.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- xen-devel@lists.xenproject.org
-References: <20210312231632.5666-1-sstabellini@kernel.org>
- <0e35a613-fd93-0805-10b9-5ecee73bb15d@suse.com>
- <alpine.DEB.2.21.2103151259550.5325@sstabellini-ThinkPad-T480s>
- <48a7ea93-06b4-21f1-5db2-0104058a2446@suse.com>
- <alpine.DEB.2.21.2103161704040.439@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <d7b921f6-f263-8dea-6bd2-920c5b58fa8f@xen.org>
-Date: Wed, 17 Mar 2021 11:32:10 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
+X-Inumbo-ID: b1320efa-5926-4bdc-826b-6c83a091654a
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1615981414; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CuQLi8iZI/3hWTVAUYr5sOP8XgztHXl5oVmxgVMuVTo=;
+	b=H71kIURFq3VU4OTGHPm6l0A4iZ2glwyqEtYDGbFlBWUahMcCdxjH1p/8Wg0KxfK37P63XQ
+	W5t3kOTDCoYe78Gff7E0P2eHHKUMnoopfaVFteWzyOYx3MYDM6/tnUGIStX34RlDUiRRB6
+	ziny98aGBLTgwqfraIPAY1ykB3mZz1Y=
+Subject: Re: [PATCH for-4.15 v2] SUPPORT.MD: Mark LiveUpdate of C XenStored
+ daemon as Tech Preview
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20210317112745.15207-1-julien@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <2765192a-76c2-7051-7353-c57ea507eeb8@suse.com>
+Date: Wed, 17 Mar 2021 12:43:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2103161704040.439@sstabellini-ThinkPad-T480s>
+In-Reply-To: <20210317112745.15207-1-julien@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="UUYAStVJnwFSGqA7VPkIlO4PIeGHl2hvi"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--UUYAStVJnwFSGqA7VPkIlO4PIeGHl2hvi
+Content-Type: multipart/mixed; boundary="H5V4ujhlwaUoEHyT4500R1HXCtzNtSvlr";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Message-ID: <2765192a-76c2-7051-7353-c57ea507eeb8@suse.com>
+Subject: Re: [PATCH for-4.15 v2] SUPPORT.MD: Mark LiveUpdate of C XenStored
+ daemon as Tech Preview
+References: <20210317112745.15207-1-julien@xen.org>
+In-Reply-To: <20210317112745.15207-1-julien@xen.org>
+
+--H5V4ujhlwaUoEHyT4500R1HXCtzNtSvlr
+Content-Type: multipart/mixed;
+ boundary="------------9B2333EE9950156487446FE2"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------9B2333EE9950156487446FE2
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano,
+On 17.03.21 12:27, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> Support to liveupdate C XenStored daemon was added during the 4.15
+> development cycle. Add a section in SUPPORT.MD to explain what is the
+> support state.
+>=20
+> For now, it is a tech preview.
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-On 17/03/2021 00:04, Stefano Stabellini wrote:
-> On Tue, 16 Mar 2021, Jan Beulich wrote:
->> On 15.03.2021 21:01, Stefano Stabellini wrote:
->>> On Mon, 15 Mar 2021, Jan Beulich wrote:
->>>> On 13.03.2021 00:16, Stefano Stabellini wrote:
->>>>> Introduce two feature flags to tell the domain whether it is
->>>>> direct-mapped or not. It allows the guest kernel to make informed
->>>>> decisions on things such as swiotlb-xen enablement.
->>>>>
->>>>> The introduction of both flags (XENFEAT_direct_mapped and
->>>>> XENFEAT_not_direct_mapped) allows the guest kernel to avoid any
->>>>> guesswork if one of the two is present, or fallback to the current
->>>>> checks if neither of them is present.
->>>>>
->>>>> XENFEAT_direct_mapped is always set for not auto-translated guests.
->>>>>
->>>>> For auto-translated guests, only Dom0 on ARM is direct-mapped. Also,
->>>>> see is_domain_direct_mapped() which refers to auto-translated guests:
->>>>> xen/include/asm-arm/domain.h:is_domain_direct_mapped
->>>>> xen/include/asm-x86/domain.h:is_domain_direct_mapped
->>>>>
->>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>>>> CC: jbeulich@suse.com
->>>>> CC: andrew.cooper3@citrix.com
->>>>> CC: julien@xen.org
->>>>
->>>> Any particular reason my previously given R-b isn't here?
->>>
->>> I reworded part of the comment in the public header, and I decided to
->>> err on the side of caution and not add your R-b given this change
->>> compared to the previous version.
->>
->> I see. FAOD, despite me not being overly happy with the "older
->> Xen assumptions" part of the comment, feel free to add it back.
-> 
-> Thank you!
-> 
-> Julien, please go ahead and commit it to your for-next/4.16 branch when
-> it is convenient.
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-I have committed it to my for-next/4.16 branch. I will merge the branch 
-after the tree has re-opened.
 
-Cheers,
+Juergen
 
--- 
-Julien Grall
+--------------9B2333EE9950156487446FE2
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------9B2333EE9950156487446FE2--
+
+--H5V4ujhlwaUoEHyT4500R1HXCtzNtSvlr--
+
+--UUYAStVJnwFSGqA7VPkIlO4PIeGHl2hvi
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBR62UFAwAAAAAACgkQsN6d1ii/Ey8M
+rwf+KdC3jHG3m/7ZmCLwGvWAviYx7BF8WvzfLG3pEyUQfH2abxCRw5RiEKXtuWV6oCzw26UQXsKs
+7d/y4v3zqS5oklA2moRlY6NzTSsDUiagwkqdramfJNC1NeByHMwaNQELlE49R9qoYx0qUh7mhyU3
+g4Y4k4ET51JPsn0xcrInoI3o75b0ru9GFSzSoCQD7YK8tiYhW+n3722z3DexHsUASx+ujMuSFvYb
+IdC9Vl/dtL7qs5Ae7+Mr6q4e2wza4M9vS8OjwpbqRMRJ6V56Q+3cuTMCfWcPCyeCHogjLBA6qVWm
+K1a0YsaVuxKyA3kQabYt3YNkkMc82EjaFeIbUHjOHQ==
+=DppA
+-----END PGP SIGNATURE-----
+
+--UUYAStVJnwFSGqA7VPkIlO4PIeGHl2hvi--
 
