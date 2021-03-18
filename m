@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B4243402F7
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Mar 2021 11:13:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.98866.187812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F1873402F9
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Mar 2021 11:13:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.98871.187824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMpdY-0007GI-14; Thu, 18 Mar 2021 10:12:16 +0000
+	id 1lMpef-0007NH-HD; Thu, 18 Mar 2021 10:13:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 98866.187812; Thu, 18 Mar 2021 10:12:15 +0000
+Received: by outflank-mailman (output) from mailman id 98871.187824; Thu, 18 Mar 2021 10:13:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lMpdX-0007Ft-Ta; Thu, 18 Mar 2021 10:12:15 +0000
-Received: by outflank-mailman (input) for mailman id 98866;
- Thu, 18 Mar 2021 10:12:13 +0000
+	id 1lMpef-0007Ms-Du; Thu, 18 Mar 2021 10:13:25 +0000
+Received: by outflank-mailman (input) for mailman id 98871;
+ Thu, 18 Mar 2021 10:13:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gYlD=IQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lMpdV-0007FV-Qw
- for xen-devel@lists.xenproject.org; Thu, 18 Mar 2021 10:12:13 +0000
+ id 1lMpee-0007Mm-6W
+ for xen-devel@lists.xenproject.org; Thu, 18 Mar 2021 10:13:24 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 02c3b7f5-1177-430f-a102-acbb10363387;
- Thu, 18 Mar 2021 10:12:12 +0000 (UTC)
+ id 442177c9-9ab5-4fee-8f59-82895bfbff01;
+ Thu, 18 Mar 2021 10:13:23 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 89C5EAC1E;
- Thu, 18 Mar 2021 10:12:11 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id B1ABFAC1E;
+ Thu, 18 Mar 2021 10:13:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,37 +39,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02c3b7f5-1177-430f-a102-acbb10363387
+X-Inumbo-ID: 442177c9-9ab5-4fee-8f59-82895bfbff01
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1616062331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1616062402; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=lit+KV0NKZXvfbZ/W+r7zpLORCmoXtveGaFf5dpAd9U=;
-	b=HlnpA/241fEptfr0UKjOpvqqKa93iU1m4lA/zGOjfN0271/T6OMMgtPIePOxFHpB/YsWZ5
-	2Wm3KhBGqox8u4l0q3QTb7MIzXXVwDiK59727XLHxDbl0YacnJoR68VLFJmfquoBQlPPz1
-	EeDmRf4tBdyMxwtLpdwPRv1kvIFC7TY=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Y1982WR6j3cpgGsFbVcaDaicMn2WceMWsDl7cYZX9Vg=;
+	b=lFyVfQDVjWzAMl2oA21/i6bVwBTG2NkB0Ir071fgQUFk7xuVaNo6YWTMpzmSUTxn75dWFz
+	NVfq/T6tgSTXsnH0sfXJis3oN6Byhs4bBnvi1bkf909pavpl4m7t5+wW8VvApdjIr0ZkGh
+	UqsCwVlrqcL6xPC/pH+lBbFqA7mjM90=
+Subject: [PATCH 1/4][4.15?] VT-d: correct off-by-1 in number-of-IOMMUs check
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Kevin Tian <kevin.tian@intel.com>, Ian Jackson <iwj@xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/4][4.15?] VT-d: mostly S3 related corrections
-Message-ID: <c19fe2b5-b682-374c-d30f-83fb8b367286@suse.com>
-Date: Thu, 18 Mar 2021 11:12:11 +0100
+References: <c19fe2b5-b682-374c-d30f-83fb8b367286@suse.com>
+Message-ID: <68084b4f-bcd2-59dd-bea7-781b8aa75ef7@suse.com>
+Date: Thu, 18 Mar 2021 11:13:22 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
+In-Reply-To: <c19fe2b5-b682-374c-d30f-83fb8b367286@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-None of these are regressions afaict, so considering how late we are
-in the 4.15 process, I can see reasons to not take any of these. All
-of them are backporting candidates though, imo.
+Otherwise, if we really run on a system with this many IOMMUs,
+entering/leaving S3 would overrun iommu_state[].
 
-1: correct off-by-1 in number-of-IOMMUs check
-2: leave FECTL write to vtd_resume()
-3: re-order register restoring in vtd_resume()
-4: restore flush hooks when disabling qinval
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+There are more anomalies here, but since we were asked to not make any
+cosmetic changes for patches to have a chance to go into 4.15, I've put
+off correcting even the most obvious things (scope of MAX_IOMMUS and
+nr_iommus) for a later patch.
 
-Jan
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1168,10 +1168,10 @@ int __init iommu_alloc(struct acpi_drhd_
+     unsigned long sagaw, nr_dom;
+     int agaw;
+ 
+-    if ( nr_iommus > MAX_IOMMUS )
++    if ( nr_iommus >= MAX_IOMMUS )
+     {
+         dprintk(XENLOG_ERR VTDPREFIX,
+-                 "IOMMU: nr_iommus %d > MAX_IOMMUS\n", nr_iommus);
++                "IOMMU: nr_iommus %d > MAX_IOMMUS\n", nr_iommus + 1);
+         return -ENOMEM;
+     }
+ 
+
 
