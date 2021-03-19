@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DECA3423BA
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 18:54:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.99357.188922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8E8A342417
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 19:08:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.99360.188934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNJJq-0001h7-Mc; Fri, 19 Mar 2021 17:53:54 +0000
+	id 1lNJWl-0002q6-Tf; Fri, 19 Mar 2021 18:07:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 99357.188922; Fri, 19 Mar 2021 17:53:54 +0000
+Received: by outflank-mailman (output) from mailman id 99360.188934; Fri, 19 Mar 2021 18:07:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNJJq-0001gl-J6; Fri, 19 Mar 2021 17:53:54 +0000
-Received: by outflank-mailman (input) for mailman id 99357;
- Fri, 19 Mar 2021 17:53:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mBZJ=IR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lNJJo-0001gg-Oi
- for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 17:53:52 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b5ccc73d-eff0-4bd8-a522-da24adbc0ade;
- Fri, 19 Mar 2021 17:53:51 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 89AF661940;
- Fri, 19 Mar 2021 17:53:50 +0000 (UTC)
+	id 1lNJWl-0002ph-QY; Fri, 19 Mar 2021 18:07:15 +0000
+Received: by outflank-mailman (input) for mailman id 99360;
+ Fri, 19 Mar 2021 18:07:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lNJWl-0002pY-3D; Fri, 19 Mar 2021 18:07:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lNJWk-0000zf-HZ; Fri, 19 Mar 2021 18:07:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lNJWk-0003Z6-7V; Fri, 19 Mar 2021 18:07:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lNJWk-0004r7-6z; Fri, 19 Mar 2021 18:07:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,53 +42,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5ccc73d-eff0-4bd8-a522-da24adbc0ade
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1616176430;
-	bh=BEJ9RkjzI1WOzBgPTlN0SlBzqS9pkrrm/I4Zj4Xc4NQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=P5JMoiWykU6EzK9XYK5IDb80VfXP71S9Pz8byPp/It9vQfXmFRKLi/CuafX0HoUwk
-	 /CGv/cmF2n/4WVBKpGGdUjisXfzCRa5EuOiQab96RkjeTt+O78kU5oHjJYIhzD+Djt
-	 ezABY1BoTBvc7vYyUIF3Pk51ueODqq8Ej21ComrLRUslWVU11KFb78FnduNBy9b4mf
-	 79o9PmKczGojp+VT836U450mNCwXK0dTLlWv0O+Uky5BfQNu50LJ9zXLvi6J7jHZe4
-	 EaA6NBX/skSLbLs7aCwoI6B1TM9He/5iUpchZ4A/2Gc8kLxahI66mjWv03DhkIrQGq
-	 OCvoaaXdRCjbA==
-Date: Fri, 19 Mar 2021 10:53:49 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, jgross@suse.com, 
-    xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH] xen/arm: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
-In-Reply-To: <47d6b423-5414-f14a-2730-74834bfa18f5@oracle.com>
-Message-ID: <alpine.DEB.2.21.2103191050120.439@sstabellini-ThinkPad-T480s>
-References: <20210225235158.24001-1-sstabellini@kernel.org> <4707b219-eee1-22e8-8dd3-6b7d821de333@oracle.com> <alpine.DEB.2.21.2103181612260.439@sstabellini-ThinkPad-T480s> <47d6b423-5414-f14a-2730-74834bfa18f5@oracle.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=o6kD3XHb1ba8UrwRQHifXLcgYjiPoJhmjg5sdMFzAnM=; b=jhApg/LPyI0lymLhQwzQQLaVhg
+	N2mpjXSmzIuCS0y+5JvzaSV/JlcCbWjlizAD9AUueRu7VyNnSEMu5ATtr1N+oy96egmtSkE9NpEdK
+	5NmsgByOJFspN51UFKXQ58qKh45W2lm69E45pWhnwx9usa6a6FswUz7lXzgdOpmqosis=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160131-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 160131: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=eb07bfb09ef5483ad58ed0eba713f32fb0c909f9
+X-Osstest-Versions-That:
+    ovmf=9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Mar 2021 18:07:14 +0000
 
-On Fri, 19 Mar 2021, Boris Ostrovsky wrote:
-> On 3/18/21 7:28 PM, Stefano Stabellini wrote:
-> >
-> > So, I'll follow you suggestion, keep the x86 side named as it is today,
-> > and provide a tiny wrapper so that we can still have an arch-neutral
-> > xen_swiotlb_detect function (on x86 just calls pci_xen_swiotlb_detect.)
-> 
-> 
-> But now on x86 side we end up with a routine that noone calls. And pci_xen_swiotlb_detect() becomes not __init and so it will have to stick around after boot for no good reason. (You could have made it __ref btw).
-> 
-> 
-> I think we should leave x86 alone. And if there is a declaration in include/xen/swiotlb-xen.h that's only relevant to ARM --- well, so be it. Or perhaps you can create arch/arm/include/asm/xen/swiotlb-xen.h
+flight 160131 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160131/
 
-Yeah I wanted to avoid creating arch/arm/include/asm/xen/swiotlb-xen.h
-because I would have to do one of the following:
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9
+baseline version:
+ ovmf                 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1
 
-1) add one more #include <asm/xen/swiotlb-xen.h> to arch/arm64/mm/dma-mapping.c
-   (#include <xen/swiotlb-xen.h> is there already)
-2) add #include <asm/xen/swiotlb-xen.h> to include/xen/swiotlb-xen.h
+Last test of basis   160123  2021-03-18 04:45:10 Z    1 days
+Testing same since   160131  2021-03-18 17:39:48 Z    1 days    1 attempts
 
-What's your preference? If I have to create
-arch/arm/include/asm/xen/swiotlb-xen.h, I would go with 2).
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Brijesh Singh <brijesh.singh@amd.com>
+  James Bottomley <jejb@linux.ibm.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Min Xu <min.m.xu@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   9fd7e88c23..eb07bfb09e  eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 -> xen-tested-master
 
