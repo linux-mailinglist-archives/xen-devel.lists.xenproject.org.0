@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5671D3425F0
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 20:15:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.99375.188974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A141F342660
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 20:41:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.99391.189038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNKZu-00019c-CX; Fri, 19 Mar 2021 19:14:34 +0000
+	id 1lNKz1-0004EQ-2K; Fri, 19 Mar 2021 19:40:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 99375.188974; Fri, 19 Mar 2021 19:14:34 +0000
+Received: by outflank-mailman (output) from mailman id 99391.189038; Fri, 19 Mar 2021 19:40:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNKZu-00019D-95; Fri, 19 Mar 2021 19:14:34 +0000
-Received: by outflank-mailman (input) for mailman id 99375;
- Fri, 19 Mar 2021 19:14:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lNKZs-000198-CG
- for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 19:14:32 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lNKZs-000240-2P; Fri, 19 Mar 2021 19:14:32 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lNKZr-0007f6-Qh; Fri, 19 Mar 2021 19:14:31 +0000
+	id 1lNKz0-0004E3-VR; Fri, 19 Mar 2021 19:40:30 +0000
+Received: by outflank-mailman (input) for mailman id 99391;
+ Fri, 19 Mar 2021 19:40:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mBZJ=IR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lNKyy-0004Dx-UL
+ for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 19:40:28 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f7fc75cf-206c-44e0-9bf5-42b82bf637f9;
+ Fri, 19 Mar 2021 19:40:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 264AD61970;
+ Fri, 19 Mar 2021 19:40:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,57 +38,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=JOhUg8bR9Vk5ydA3hCDnEtFp1auHpIkAhcpi/2PSF80=; b=DpruOTWrDeRGjyMt3nqOVnrwro
-	NptjmFBI7c3Lez9NHL3Hc4KQGofTIMTJAMt/qHwLINXf39nSoqT7z6BGdwUeUJDMruWPSL6/eH9GY
-	Qv0sX3ZcF/v8nD25poTkmpK46Qrl7jUU0Sbb0sdV6HrJlTyOPBTJulXfQdqZ74ho+eCk=;
-Subject: Re: [PATCH] xen/arm: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: jgross@suse.com, xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20210225235158.24001-1-sstabellini@kernel.org>
- <4707b219-eee1-22e8-8dd3-6b7d821de333@oracle.com>
- <alpine.DEB.2.21.2103181612260.439@sstabellini-ThinkPad-T480s>
- <47d6b423-5414-f14a-2730-74834bfa18f5@oracle.com>
- <alpine.DEB.2.21.2103191050120.439@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <93f1fd99-456e-f7d9-aeda-d69ef0738761@xen.org>
-Date: Fri, 19 Mar 2021 19:14:30 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
+X-Inumbo-ID: f7fc75cf-206c-44e0-9bf5-42b82bf637f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1616182827;
+	bh=T7flvrSgdHXO3f/MiGIVzYZs0Fury6+UcbBVEbxOjEM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=CnKfQ4BeVPDGMUTUafutFmXqQSlXx5hXQ4X/Kl6/bJwSVa4i47uFc9XIP53XVVoQV
+	 HULVXseGb4hu8D8s4QeFYmOZb5bnVZ6pNj8lRIIAfdxXpoN8JVb6YGag1gGwXQEGMh
+	 +NqpNVl1xEMpjxtWr1wECavrRR48gxRGeRW7iRMAEJratA8QeCF+D6nYbnM3hShoVD
+	 068tRl6jDuEDQgYB6oyEvQ5UBpdgjq9yfPds1x6BTZ16i+oP7KgFslhgmZc8vFQCq8
+	 SnWgd3ahTZkNM9W3mcU4HJ6Gs4JU547qBvzKj8r2J+ZbSBjePIflHVGflReV13E4pS
+	 OeNTeEdu0zDhA==
+Date: Fri, 19 Mar 2021 12:40:26 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>, 
+    Anthony Perard <anthony.perard@citrix.com>
+Subject: Re: preparations for 4.13.3
+In-Reply-To: <b82a0932-761d-662c-baa4-59c4801ad5c8@xen.org>
+Message-ID: <alpine.DEB.2.21.2103191238121.439@sstabellini-ThinkPad-T480s>
+References: <5373f9d5-fc03-1967-8181-d77bbdaf25b9@suse.com> <b82a0932-761d-662c-baa4-59c4801ad5c8@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2103191050120.439@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Stefano,
-
-On 19/03/2021 17:53, Stefano Stabellini wrote:
-> On Fri, 19 Mar 2021, Boris Ostrovsky wrote:
->> On 3/18/21 7:28 PM, Stefano Stabellini wrote:
->>>
->>> So, I'll follow you suggestion, keep the x86 side named as it is today,
->>> and provide a tiny wrapper so that we can still have an arch-neutral
->>> xen_swiotlb_detect function (on x86 just calls pci_xen_swiotlb_detect.)
->>
->>
->> But now on x86 side we end up with a routine that noone calls. And pci_xen_swiotlb_detect() becomes not __init and so it will have to stick around after boot for no good reason. (You could have made it __ref btw).
->>
->>
->> I think we should leave x86 alone. And if there is a declaration in include/xen/swiotlb-xen.h that's only relevant to ARM --- well, so be it. Or perhaps you can create arch/arm/include/asm/xen/swiotlb-xen.h
+On Sat, 13 Mar 2021, Julien Grall wrote:
+> Hi Jan & Stefano,
 > 
-> Yeah I wanted to avoid creating arch/arm/include/asm/xen/swiotlb-xen.h
+> On 08/03/2021 09:49, Jan Beulich wrote:
+> > All,
+> > 
+> > the release is overdue (my apologies). Please point out backports
+> > you find missing from the respective staging branches, but which
+> > you consider relevant.
+> > > Ones that I have queued already, but which hadn't passed the push
+> > gate to master yet when doing a swipe late last week, are
+> > 
+> > c6ad5a701b9a crypto: adjust rijndaelEncrypt() prototype for gcc11
+> > 9318fdf757ec x86/shadow: suppress "fast fault path" optimization without
+> > reserved bits
+> > 60c0444fae21 x86/shadow: suppress "fast fault path" optimization when
+> > running virtualized
+> 
+> I would like to also consider the following one:
+> 
+> 28804c0ce9fd SUPPORT.MD: Clarify the support state for the Arm SMMUv{1, 2}
+> drivers (4.11+ as updating the security support)
+> 067935804a8e xen/vgic: Implement write to ISPENDR in vGICv{2, 3} (4.13+)
+>     To support newer kernel on stable Xen
+> d81133d45d81 xen/arm: Add workaround for Cortex-A53 erratum #843419 (4.13+)
+> fd7479b9aec2 xen/arm: Add workaround for Cortex-A55 erratum #1530923 (4.13+)
+> 5505f5f8e7e8 xen/arm: Add Cortex-A73 erratum 858921 workaround (4.13+)
+> 63b4c9bfb788 xen/arm: mm: Access a PT entry before the table is unmapped (4.13
+> only)
+> f6790389613c xen/arm: sched: Ensure the vCPU context is seen before
+> vcpu_pause() returns (4.13 only)
+> 
+> I have put in parentheses the list of versions targeted.
 
-If the header is going to be useed by arch/arm and arch/arm64, then it 
-should be defined in include/xen/arm/ to avoid any packaging issue.
 
-Cheers,
+Thanks that was very helpful. I took care of those commits plus a
+couple of others:
 
--- 
-Julien Grall
+934bb4c87cf2 xen/arm: Document the erratum #853709 related to Cortex A72
+a702c80ec193 xen/arm: call iomem_permit_access for passthrough devices
+2fb361c36aa9 xen/arm: mm: Remove ; at the end of mm_printk()
+284aed024f58 xen/arm: vgic-v3: fix GICD_ISACTIVER range
 
