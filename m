@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6007E3419DB
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 11:24:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.99158.188358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 813123419E4
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 11:27:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.99161.188371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNCHb-0005n1-AK; Fri, 19 Mar 2021 10:23:07 +0000
+	id 1lNCLE-0005wp-Q9; Fri, 19 Mar 2021 10:26:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 99158.188358; Fri, 19 Mar 2021 10:23:07 +0000
+Received: by outflank-mailman (output) from mailman id 99161.188371; Fri, 19 Mar 2021 10:26:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNCHb-0005mf-6d; Fri, 19 Mar 2021 10:23:07 +0000
-Received: by outflank-mailman (input) for mailman id 99158;
- Fri, 19 Mar 2021 10:23:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lNCLE-0005wP-Md; Fri, 19 Mar 2021 10:26:52 +0000
+Received: by outflank-mailman (input) for mailman id 99161;
+ Fri, 19 Mar 2021 10:26:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ai2o=IR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lNCHa-0005ma-3A
- for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 10:23:06 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9fda5cdf-89b1-4568-a9bf-434eaa21627e;
- Fri, 19 Mar 2021 10:23:05 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 29EA5ACC6;
- Fri, 19 Mar 2021 10:23:04 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lNCLC-0005wK-Qb
+ for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 10:26:50 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lNCLA-0000of-RK; Fri, 19 Mar 2021 10:26:48 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lNCLA-0004sx-LG; Fri, 19 Mar 2021 10:26:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,52 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fda5cdf-89b1-4568-a9bf-434eaa21627e
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1616149384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wf7SiD2UhTJcHykNRnvUH7BeKEo3lRIyj9GVuRHdhs0=;
-	b=XzAYZplBPi1nk98KJTdamJx0BAJxKo6DPBo/1XrwsLyYq91gEyVMs3g5n+qsHFL+g9r33I
-	peZi7/ImobrLbfFaAXkin5rlx49q0P8Csg22Zzt8g0RoMLIBR5Yjo09OTCwOyZnrTdcDsL
-	P1V38h9TuMyzFZl04Otk43Cix3lXjNU=
-Subject: Re: [PATCH for-4.15] x86/mem_sharing: copy parent VM's hostp2m's
- max_mapped_pfn during forking
-To: Tamas K Lengyel <tamas.lengyel@intel.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <bdeaf7893acd6497cc2b88f3a1357d1299960e9b.1616103095.git.tamas.lengyel@intel.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <193bfae5-a80a-d02a-377d-c9e11ad038a8@suse.com>
-Date: Fri, 19 Mar 2021 11:23:03 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=ByQsvHaWqbqT7IjMthJp1f64qUUUnq8G2JVmLNsveYc=; b=Lzg1LRFldjcOt+b5GAg8S2oMNq
+	uV1rTruFVSg1g7o8fPk6b7peuO9kijmDKH74DqTu/AEFl2zgt5p386xSFVA0ZEr9T94AO2pP2eBQt
+	9ls+ffnBUovz86mg0m7mgpDwMwI+zzm6LJcK3L3vV8Iz4nrHkkuu9x5j2cF/WVuuOmGo=;
+Subject: Re: Call for tools backports (was Re: preparations for 4.13.3)
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+References: <5373f9d5-fc03-1967-8181-d77bbdaf25b9@suse.com>
+ <b82a0932-761d-662c-baa4-59c4801ad5c8@xen.org>
+ <24658.6228.390535.850901@mariner.uk.xensource.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <bfd91242-d9a3-22a3-5ff9-31d461bfd8da@xen.org>
+Date: Fri, 19 Mar 2021 10:26:46 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <bdeaf7893acd6497cc2b88f3a1357d1299960e9b.1616103095.git.tamas.lengyel@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <24658.6228.390535.850901@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 18.03.2021 22:36, Tamas K Lengyel wrote:
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -1761,6 +1761,7 @@ static int copy_settings(struct domain *cd, struct domain *d)
->          return rc;
->  
->      copy_tsc(cd, d);
-> +    p2m_get_hostp2m(cd)->max_mapped_pfn = p2m_get_hostp2m(d)->max_mapped_pfn;
+Hi Ian,
 
-Makes sense to me, yes, but then an immediate question is: What
-about the somewhat similar {min,max}_remapped_gfn fields? Which
-of course implies the more general question of how alternate
-p2m-s (are supposed to) get treated in the first place. From my
-looking at it, fork() doesn't appear to also fork those, but
-also doesn't appear to refuse cloning when altp2m is in use.
+On 17/03/2021 14:55, Ian Jackson wrote:
+> Julien Grall writes ("Re: preparations for 4.13.3"):
+>> On 08/03/2021 09:49, Jan Beulich wrote:
+>>> All,
+>>>
+>>> the release is overdue (my apologies). Please point out backports
+>>> you find missing from the respective staging branches, but which
+>>> you consider relevant.
+>>>> Ones that I have queued already, but which hadn't passed the push
+>>> gate to master yet when doing a swipe late last week, are
+>>>
+>>> c6ad5a701b9a crypto: adjust rijndaelEncrypt() prototype for gcc11
+>>> 9318fdf757ec x86/shadow: suppress "fast fault path" optimization without reserved bits
+>>> 60c0444fae21 x86/shadow: suppress "fast fault path" optimization when running virtualized
+>>
+>> I would like to also consider the following one:
+>>
+>> 28804c0ce9fd SUPPORT.MD: Clarify the support state for the Arm SMMUv{1,
+>> 2} drivers (4.11+ as updating the security support)
+>> 067935804a8e xen/vgic: Implement write to ISPENDR in vGICv{2, 3} (4.13+)
+>>       To support newer kernel on stable Xen
+>> d81133d45d81 xen/arm: Add workaround for Cortex-A53 erratum #843419 (4.13+)
+>> fd7479b9aec2 xen/arm: Add workaround for Cortex-A55 erratum #1530923 (4.13+)
+>> 5505f5f8e7e8 xen/arm: Add Cortex-A73 erratum 858921 workaround (4.13+)
+>> 63b4c9bfb788 xen/arm: mm: Access a PT entry before the table is unmapped
+>> (4.13 only)
+>> f6790389613c xen/arm: sched: Ensure the vCPU context is seen before
+>> vcpu_pause() returns (4.13 only)
+>>
+>> I have put in parentheses the list of versions targeted.
+> 
+> My backport list seems to have very few tools patches on it.
+> 
+> If anyone has any tools bugfixes that ought to go into 4.13 please do
+> let me know!
+> 
+> Additionally, perhaps this one commit to be backported ?
+>    935e0836710ce8cab584155b2844cea8497a5159
+>    arm: replace typeof() with __typeof__()
 
-Jan
+I think it would be useful.
+
+Cheers,
+
+-- 
+Julien Grall
 
