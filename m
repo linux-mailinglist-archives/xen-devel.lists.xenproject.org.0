@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7366B3410FF
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 00:29:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.99099.188254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E3134129D
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 03:09:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.99109.188267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lN23x-00005F-Mj; Thu, 18 Mar 2021 23:28:21 +0000
+	id 1lN4YM-0000to-LL; Fri, 19 Mar 2021 02:07:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 99099.188254; Thu, 18 Mar 2021 23:28:21 +0000
+Received: by outflank-mailman (output) from mailman id 99109.188267; Fri, 19 Mar 2021 02:07:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lN23x-0008WT-J5; Thu, 18 Mar 2021 23:28:21 +0000
-Received: by outflank-mailman (input) for mailman id 99099;
- Thu, 18 Mar 2021 23:28:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g2yR=IQ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lN23w-0008WO-Cn
- for xen-devel@lists.xenproject.org; Thu, 18 Mar 2021 23:28:20 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d756e0cf-5c36-49b5-aafc-67b344543687;
- Thu, 18 Mar 2021 23:28:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 512BE64F30;
- Thu, 18 Mar 2021 23:28:18 +0000 (UTC)
+	id 1lN4YM-0000tI-ED; Fri, 19 Mar 2021 02:07:54 +0000
+Received: by outflank-mailman (input) for mailman id 99109;
+ Fri, 19 Mar 2021 02:07:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lN4YK-0000t9-8u; Fri, 19 Mar 2021 02:07:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lN4YK-0008JQ-0F; Fri, 19 Mar 2021 02:07:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lN4YJ-0003cA-F4; Fri, 19 Mar 2021 02:07:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lN4YJ-0003kJ-D0; Fri, 19 Mar 2021 02:07:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,230 +42,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d756e0cf-5c36-49b5-aafc-67b344543687
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1616110098;
-	bh=exYUfoIUBvnRcJr3UssflJUi1hyTbpqC7KzxYXBGsO0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cLGL4vEKQ5qn1seTIdNogIzFV+v7BYcNxLW74grg7a+VTBV/41lHH1gQGyJNQOFkD
-	 8IGJVHbq3YHSdrR2EpgnFrD5V9Cm37sPFNuoy01jHTq3FFV7387DcHJzhV2w4tHF55
-	 LfylDw+kb37TvL9ezR7qJ3lRU50ohsQe9uY4YV8TLTjUXLGLvlZNVxG+EWPoZk7P21
-	 VuVFIxpJDqrgUwUkCjL858dzXpegRtezJtzyo0yzMqjvTY+gt7DoSfU8wV2ZPQUBdj
-	 1BoMH9H6Vpxvw3fVUVZ53N4JjhQm+pFRWPk9ovCfj+c4GlCDRxsOUnVMkAYfDnXfUf
-	 F2k0xp3ZJf2Bg==
-Date: Thu, 18 Mar 2021 16:28:17 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, jgross@suse.com, 
-    xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH] xen/arm: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
-In-Reply-To: <4707b219-eee1-22e8-8dd3-6b7d821de333@oracle.com>
-Message-ID: <alpine.DEB.2.21.2103181612260.439@sstabellini-ThinkPad-T480s>
-References: <20210225235158.24001-1-sstabellini@kernel.org> <4707b219-eee1-22e8-8dd3-6b7d821de333@oracle.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=JcIJsmdsiR8hEg8V5BCTSW2boIH8Mp7u2q9CKrTwtc8=; b=J9AZ1GnNXq5jC/hRQ97fWqSk7H
+	FXUo4sxt+NnXLZgybZUMHiQ21jtQ9H/EYbz49z4zD1Wi5wVRcWXGqBMvomD6XBvXefEZWVTCRkCfn
+	oFG7DxnmC4dQGAKs9Yld+46Jg8oefC1o0O14rJVwp94C8WN3AEMPSU7uOLOnIIKNikvI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160125-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-776278941-1616110098=:439"
+Subject: [qemu-mainline test] 160125: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-arm64-arm64-xl-thunderx:debian-install:fail:heisenbug
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=b12498fc575f2ad30f09fe78badc7fef526e2d76
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Mar 2021 02:07:51 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 160125 qemu-mainline real [real]
+flight 160133 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160125/
+http://logs.test-lab.xenproject.org/osstest/logs/160133/
 
---8323329-776278941-1616110098=:439
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Wed, 17 Mar 2021, Boris Ostrovsky wrote:
-> On 2/25/21 6:51 PM, Stefano Stabellini wrote:
-> > Newer Xen versions expose two Xen feature flags to tell us if the domain
-> > is directly mapped or not. Only when a domain is directly mapped it
-> > makes sense to enable swiotlb-xen on ARM.
-> >
-> > Introduce a function on ARM to check the new Xen feature flags and also
-> > to deal with the legacy case. Call the function xen_swiotlb_detect.
-> >
-> > Also rename the existing pci_xen_swiotlb_detect on x86 to
-> > xen_swiotlb_detect so that we can share a common function declaration.
-> >
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > ---
-> >
-> > This is the corresponding Xen patch under review:
-> > https://marc.info/?l=xen-devel&m=161421618217686
-> >
-> > We don't *have to* make the x86 function and the ARM function exactly
-> > the same, but I thought it would be much nicer if we did. However, we
-> > can't really call it pci_* on ARM as there is no PCI necessarily.
-> 
-> 
-> I would prefer to keep existing names for consistency on x86 side (but making that inconsistent with ARM, as you point out).  But if you feel strongly about making the change you would have to have x86 maintainers agree to this (arch/x86/kernel/pci-swiotlb.c).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd     17 guest-start/debian.repeat fail REGR. vs. 152631
 
-OK. And from an x86 point of view, it makes sense for it to be called
-pci_xen_swiotlb_detect given that it is passed to IOMMU_INIT_FINISH in
-arch/x86/kernel/pci-swiotlb.c.
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-thunderx 12 debian-install      fail pass in 160133-retest
 
-So, I'll follow you suggestion, keep the x86 side named as it is today,
-and provide a tiny wrapper so that we can still have an arch-neutral
-xen_swiotlb_detect function (on x86 just calls pci_xen_swiotlb_detect.)
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check fail in 160133 never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check fail in 160133 never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-See below.
+version targeted for testing:
+ qemuu                b12498fc575f2ad30f09fe78badc7fef526e2d76
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z  210 days
+Failing since        152659  2020-08-21 14:07:39 Z  209 days  406 attempts
+Testing same since   160125  2021-03-18 12:43:06 Z    0 days    1 attempts
+
+------------------------------------------------------------
+457 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-From 5f6c91990df1e834c78501799905b04916105836 Mon Sep 17 00:00:00 2001
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Date: Thu, 18 Mar 2021 16:17:21 -0700
-Subject: [PATCH] xen/arm: introduce XENFEAT_direct_mapped and
- XENFEAT_not_direct_mapped
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Newer Xen versions expose two Xen feature flags to tell us if the domain
-is directly mapped or not. Only when a domain is directly mapped it
-makes sense to enable swiotlb-xen on ARM.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Introduce a function on ARM to check the new Xen feature flags and also
-to deal with the legacy case. Call the function xen_swiotlb_detect.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Also implement xen_swiotlb_detect on x88 using the existing
-pci_xen_swiotlb_detect() so that we can share a common function
-declaration.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
----
- arch/arm/xen/mm.c                      | 14 +++++++++++++-
- arch/arm64/mm/dma-mapping.c            |  2 +-
- arch/x86/include/asm/xen/swiotlb-xen.h |  4 ++--
- arch/x86/xen/pci-swiotlb-xen.c         |  7 ++++++-
- include/xen/interface/features.h       | 14 ++++++++++++++
- include/xen/swiotlb-xen.h              |  6 ++++++
- 6 files changed, 42 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-index 467fa225c3d0..e1b12b242a32 100644
---- a/arch/arm/xen/mm.c
-+++ b/arch/arm/xen/mm.c
-@@ -135,10 +135,22 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
- 	return;
- }
- 
-+int xen_swiotlb_detect(void)
-+{
-+	if (!xen_domain())
-+		return 0;
-+	if (xen_feature(XENFEAT_direct_mapped))
-+		return 1;
-+	/* legacy case */
-+	if (!xen_feature(XENFEAT_not_direct_mapped) && xen_initial_domain())
-+		return 1;
-+	return 0;
-+}
-+
- static int __init xen_mm_init(void)
- {
- 	struct gnttab_cache_flush cflush;
--	if (!xen_initial_domain())
-+	if (!xen_swiotlb_detect())
- 		return 0;
- 	xen_swiotlb_init(1, false);
- 
-diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
-index 93e87b287556..4bf1dd3eb041 100644
---- a/arch/arm64/mm/dma-mapping.c
-+++ b/arch/arm64/mm/dma-mapping.c
-@@ -53,7 +53,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
- 		iommu_setup_dma_ops(dev, dma_base, size);
- 
- #ifdef CONFIG_XEN
--	if (xen_initial_domain())
-+	if (xen_swiotlb_detect())
- 		dev->dma_ops = &xen_swiotlb_dma_ops;
- #endif
- }
-diff --git a/arch/x86/include/asm/xen/swiotlb-xen.h b/arch/x86/include/asm/xen/swiotlb-xen.h
-index 6b56d0d45d15..66d576486509 100644
---- a/arch/x86/include/asm/xen/swiotlb-xen.h
-+++ b/arch/x86/include/asm/xen/swiotlb-xen.h
-@@ -4,12 +4,12 @@
- 
- #ifdef CONFIG_SWIOTLB_XEN
- extern int xen_swiotlb;
--extern int __init pci_xen_swiotlb_detect(void);
-+extern int pci_xen_swiotlb_detect(void);
- extern void __init pci_xen_swiotlb_init(void);
- extern int pci_xen_swiotlb_init_late(void);
- #else
- #define xen_swiotlb (0)
--static inline int __init pci_xen_swiotlb_detect(void) { return 0; }
-+static inline int pci_xen_swiotlb_detect(void) { return 0; }
- static inline void __init pci_xen_swiotlb_init(void) { }
- static inline int pci_xen_swiotlb_init_late(void) { return -ENXIO; }
- #endif
-diff --git a/arch/x86/xen/pci-swiotlb-xen.c b/arch/x86/xen/pci-swiotlb-xen.c
-index 19ae3e4fe4e9..0555f68a773f 100644
---- a/arch/x86/xen/pci-swiotlb-xen.c
-+++ b/arch/x86/xen/pci-swiotlb-xen.c
-@@ -26,7 +26,7 @@ int xen_swiotlb __read_mostly;
-  * This returns non-zero if we are forced to use xen_swiotlb (by the boot
-  * option).
-  */
--int __init pci_xen_swiotlb_detect(void)
-+int pci_xen_swiotlb_detect(void)
- {
- 
- 	if (!xen_pv_domain())
-@@ -56,6 +56,11 @@ int __init pci_xen_swiotlb_detect(void)
- 	return xen_swiotlb;
- }
- 
-+int xen_swiotlb_detect(void)
-+{
-+	return pci_xen_swiotlb_detect();
-+}
-+
- void __init pci_xen_swiotlb_init(void)
- {
- 	if (xen_swiotlb) {
-diff --git a/include/xen/interface/features.h b/include/xen/interface/features.h
-index 6d1384abfbdf..5a7bdefa06a8 100644
---- a/include/xen/interface/features.h
-+++ b/include/xen/interface/features.h
-@@ -83,6 +83,20 @@
-  */
- #define XENFEAT_linux_rsdp_unrestricted   15
- 
-+/*
-+ * A direct-mapped (or 1:1 mapped) domain is a domain for which its
-+ * local pages have gfn == mfn. If a domain is direct-mapped,
-+ * XENFEAT_direct_mapped is set; otherwise XENFEAT_not_direct_mapped
-+ * is set.
-+ *
-+ * If neither flag is set (e.g. older Xen releases) the assumptions are:
-+ * - not auto_translated domains (x86 only) are always direct-mapped
-+ * - on x86, auto_translated domains are not direct-mapped
-+ * - on ARM, Dom0 is direct-mapped, DomUs are not
-+ */
-+#define XENFEAT_not_direct_mapped         16
-+#define XENFEAT_direct_mapped             17
-+
- #define XENFEAT_NR_SUBMAPS 1
- 
- #endif /* __XEN_PUBLIC_FEATURES_H__ */
-diff --git a/include/xen/swiotlb-xen.h b/include/xen/swiotlb-xen.h
-index d5eaf9d682b8..336356b61738 100644
---- a/include/xen/swiotlb-xen.h
-+++ b/include/xen/swiotlb-xen.h
-@@ -12,4 +12,10 @@ void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
- extern int xen_swiotlb_init(int verbose, bool early);
- extern const struct dma_map_ops xen_swiotlb_dma_ops;
- 
-+#ifdef CONFIG_SWIOTLB_XEN
-+extern int xen_swiotlb_detect(void);
-+#else
-+static inline int xen_swiotlb_detect(void) { return 0; }
-+#endif
-+
- #endif /* __LINUX_SWIOTLB_XEN_H */
--- 
-2.17.1
+Not pushing.
 
---8323329-776278941-1616110098=:439--
+(No revision log; it would be 131728 lines long.)
 
