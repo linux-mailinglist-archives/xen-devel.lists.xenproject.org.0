@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 600DC341CF8
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 13:33:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.99218.188502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90A42341D47
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Mar 2021 13:46:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.99221.188515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNEIm-0002AD-Bz; Fri, 19 Mar 2021 12:32:28 +0000
+	id 1lNEWB-0003D5-K6; Fri, 19 Mar 2021 12:46:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 99218.188502; Fri, 19 Mar 2021 12:32:28 +0000
+Received: by outflank-mailman (output) from mailman id 99221.188515; Fri, 19 Mar 2021 12:46:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lNEIm-00029r-8X; Fri, 19 Mar 2021 12:32:28 +0000
-Received: by outflank-mailman (input) for mailman id 99218;
- Fri, 19 Mar 2021 12:32:26 +0000
+	id 1lNEWB-0003Cg-Gt; Fri, 19 Mar 2021 12:46:19 +0000
+Received: by outflank-mailman (input) for mailman id 99221;
+ Fri, 19 Mar 2021 12:46:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AwH3=IR=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
- id 1lNEIk-00029m-A2
- for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 12:32:26 +0000
-Received: from MTA-05-3.privateemail.com (unknown [68.65.122.15])
+ <SRS0=a+4K=IR=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
+ id 1lNEW9-0003Cb-Qy
+ for xen-devel@lists.xenproject.org; Fri, 19 Mar 2021 12:46:18 +0000
+Received: from mail-40133.protonmail.ch (unknown [185.70.40.133])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c079862a-8a7f-4524-9710-e4b2d057ce5c;
- Fri, 19 Mar 2021 12:32:25 +0000 (UTC)
-Received: from MTA-05.privateemail.com (localhost [127.0.0.1])
- by MTA-05.privateemail.com (Postfix) with ESMTP id E53A16004E
- for <xen-devel@lists.xenproject.org>; Fri, 19 Mar 2021 08:32:24 -0400 (EDT)
-Received: from mail-wr1-f42.google.com (unknown [10.20.151.231])
- by MTA-05.privateemail.com (Postfix) with ESMTPA id ADDB06004B
- for <xen-devel@lists.xenproject.org>; Fri, 19 Mar 2021 08:32:24 -0400 (EDT)
-Received: by mail-wr1-f42.google.com with SMTP id v11so8929200wro.7
- for <xen-devel@lists.xenproject.org>; Fri, 19 Mar 2021 05:32:24 -0700 (PDT)
+ id 5f27d8bb-2a08-40a7-a98a-83997d437c41;
+ Fri, 19 Mar 2021 12:46:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,62 +36,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c079862a-8a7f-4524-9710-e4b2d057ce5c
-X-Gm-Message-State: AOAM530Ork8CC0ezEzAiRTQW5pt7YHrKLTBN5qwqc/vjUl3yDyE16Blx
-	x64/7zbZf/eseWW2hAggRq5eSMuUsUM9+wfllAs=
-X-Google-Smtp-Source: ABdhPJy5XovMdnvGxCcKOrT9r4BM8AiXk0Bgc8m4/fdv7LkLDY0XvbaWZXko+H6ISgWAdYeiB2bGNZZ4FKMRklgBjGs=
-X-Received: by 2002:a5d:4d8d:: with SMTP id b13mr2044980wru.259.1616157143440;
- Fri, 19 Mar 2021 05:32:23 -0700 (PDT)
+X-Inumbo-ID: 5f27d8bb-2a08-40a7-a98a-83997d437c41
+Date: Fri, 19 Mar 2021 12:45:56 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail; t=1616157974;
+	bh=hrDDYoJlWz4/zn8ir+LdTRoz9rA2Zirrg0N3b5XRaw8=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=ZNzHh/fq2CNYkWetqDwjbviqeGEAlI0m4iRn55CJnhHVksJJPP6fA0cK7d7qEyNhG
+	 uXUZW/eWP0n2BpaXv8th7uObv1esyWgNl1Yy8jlKXqWsh9ttO1AzfxubJ50htM1Myn
+	 QZopQCViz+u1JRWDS7AoMpInSg8exfjSide9i9OY=
+To: Dario Faggioli <dfaggioli@suse.com>
+From: Dylanger Daly <dylangerdaly@protonmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
+Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
+Message-ID: <qcVhNDiGu6deufXzsHKbjEr4n3JuLC2cFNc1ORb02vl1IaPjm-37uFkXANQ-i7v77zP1GFxbYoTEG713C4EyHYBrE5YPvA5bXdPc4Brxg5U=@protonmail.com>
+In-Reply-To: <d7aaa4e7fa3083ff5bb18e18c5cd8274194109ba.camel@suse.com>
+References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com> <T95F2Mi9RUUZ4w2wdeRqqM4uRyKgOFQNyooqEoTTDByK-0t9hZ1izG68lf90iExeYabEPSEv8puUeg0SEJtOmz8vYbVox2za28DXLd_h-_s=@protonmail.com> <eba12ea4-5dda-f112-0e33-714e859b9b03@suse.com> <815f3bc3a28a165e8fa41c6954a6d00db656e3c3.camel@suse.com> <Y-6A5xIyjtCDwG3tBoyQnWpypF_eebCmuCjyUovcwd-ZD6wgFvNmR8VAdscAiwKp41toxpDxsgeF10FsEBn2Xm14b8bl9cniO_-TRNwm9mI=@protonmail.com> <1fc0e850-8a08-760f-c8cb-ad73dda4a37b@suse.com> <PGn1fJFla-7vPl7QFdkkBX8ASy2cWw-f2HBW7rWE5KgeFEZ_kNUp8Yq5zMaGyS38wMWofVshR75o1jD1rXZeTWtE8XhKQvEq_Dmgsnu-Uy0=@protonmail.com> <4916dec1-1bb9-7e6f-2fe5-577bbab92861@suse.com> <d7aaa4e7fa3083ff5bb18e18c5cd8274194109ba.camel@suse.com>
 MIME-Version: 1.0
-References: <bdeaf7893acd6497cc2b88f3a1357d1299960e9b.1616103095.git.tamas.lengyel@intel.com>
-In-Reply-To: <bdeaf7893acd6497cc2b88f3a1357d1299960e9b.1616103095.git.tamas.lengyel@intel.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Fri, 19 Mar 2021 08:31:47 -0400
-X-Gmail-Original-Message-ID: <CABfawhmscVPFX6QM4Sfcpo=MjPn4xrfDcBcDmqpFc7awdut2jw@mail.gmail.com>
-Message-ID: <CABfawhmscVPFX6QM4Sfcpo=MjPn4xrfDcBcDmqpFc7awdut2jw@mail.gmail.com>
-Subject: Re: [PATCH for-4.15] x86/mem_sharing: copy parent VM's hostp2m's
- max_mapped_pfn during forking
-To: Tamas K Lengyel <tamas.lengyel@intel.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
-	Ian Jackson <iwj@xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
+	autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-On Thu, Mar 18, 2021 at 5:36 PM Tamas K Lengyel <tamas.lengyel@intel.com> wrote:
->
-> When creating a VM fork copy the parent VM's hostp2m max_mapped_pfn value. Some
-> toolstack relies on the XENMEM_maximum_gpfn value to establish the maximum
-> addressable physical memory in the VM and for forks that have not yet been
-> unpaused that value is not going to reflect the correct max gpfn that's
-> possible to populate into the p2m. This patch fixes the issue.
->
-> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> ---
->  xen/arch/x86/mm/mem_sharing.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-> index 00ada05c10..98b14f7b0a 100644
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -1761,6 +1761,7 @@ static int copy_settings(struct domain *cd, struct domain *d)
->          return rc;
->
->      copy_tsc(cd, d);
-> +    p2m_get_hostp2m(cd)->max_mapped_pfn = p2m_get_hostp2m(d)->max_mapped_pfn;
->
->      return rc;
->  }
-> --
-> 2.25.1
->
+Hi Everyone, I've just confirmed only `tsc=3Dunstable` is required, that sp=
+ecific change has fixed the issues I was having on the Lenovo X13, I assume=
+ this is because Lenovo's Clock isn't correct?
 
-CC-ing Ian as 4.15 release manager. This patch is safe to include in
-4.15 as it's a minor fix in a tech preview feature that's not even
-compiled by default.
-
-Thanks,
-Tamas
+> Right. Also, isn't hpetbroadcast set to 0 by default already?
+>
+> Dario
+> --------------------------------------------------------------------
+>
+> Dario Faggioli, Ph.D
+>
+> http://about.me/dario.faggioli
+>
+> Virtualization Software Engineer
+>
+> SUSE Labs, SUSE https://www.suse.com/
+> -------------------------------------------------------------------------=
+----------------------------------------------------
+>
+> <<This happens because I choose it to happen!>> (Raistlin Majere)
 
