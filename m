@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6B3343376
-	for <lists+xen-devel@lfdr.de>; Sun, 21 Mar 2021 17:32:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.99765.189698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A92DC34337E
+	for <lists+xen-devel@lfdr.de>; Sun, 21 Mar 2021 17:38:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.99771.189716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lO0z4-0003co-O7; Sun, 21 Mar 2021 16:31:22 +0000
+	id 1lO15W-0003wG-LV; Sun, 21 Mar 2021 16:38:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 99765.189698; Sun, 21 Mar 2021 16:31:22 +0000
+Received: by outflank-mailman (output) from mailman id 99771.189716; Sun, 21 Mar 2021 16:38:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lO0z4-0003cJ-JG; Sun, 21 Mar 2021 16:31:22 +0000
-Received: by outflank-mailman (input) for mailman id 99765;
- Sun, 21 Mar 2021 16:31:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6VPd=IT=amazon.com=prvs=7076807ca=andyhsu@srs-us1.protection.inumbo.net>)
- id 1lO0z3-0003cD-29
- for xen-devel@lists.xenproject.org; Sun, 21 Mar 2021 16:31:21 +0000
-Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d0f2a1a4-bfed-44b9-9ab1-c3bd123db180;
- Sun, 21 Mar 2021 16:31:19 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2a-119b4f96.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
- 21 Mar 2021 16:31:13 +0000
-Received: from EX13D12EUA002.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
- by email-inbound-relay-2a-119b4f96.us-west-2.amazon.com (Postfix) with ESMTPS
- id AB7991A01BD; Sun, 21 Mar 2021 16:31:11 +0000 (UTC)
-Received: from 147dda3ee008.ant.amazon.com (10.43.165.62) by
- EX13D12EUA002.ant.amazon.com (10.43.165.103) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Sun, 21 Mar 2021 16:31:09 +0000
+	id 1lO15W-0003vr-Hz; Sun, 21 Mar 2021 16:38:02 +0000
+Received: by outflank-mailman (input) for mailman id 99771;
+ Sun, 21 Mar 2021 16:38:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lO15V-0003vm-5m
+ for xen-devel@lists.xenproject.org; Sun, 21 Mar 2021 16:38:01 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lO15R-0004IF-Ry; Sun, 21 Mar 2021 16:37:57 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lO15R-0003aC-Iy; Sun, 21 Mar 2021 16:37:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +37,85 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0f2a1a4-bfed-44b9-9ab1-c3bd123db180
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1616344280; x=1647880280;
-  h=to:cc:references:from:message-id:date:mime-version:
-   in-reply-to:content-transfer-encoding:subject;
-  bh=/YenUM5sZuq/Q41I5eoUqo3Fp3T8FhBehiqwfNkqKUY=;
-  b=RKGyQ5NwT7DdP6Eq+Mi5YMGOKn2VZV4nVVttiSmCHHGPmF5cfTAlS3Rt
-   MSfIaQvUlPc/phImK7c57CG0zV2f+4y9D1a9jDtiobIgvf93G9uv4RvEx
-   oxIP2kRfWbe+d+kYf5BNWrHz9HFG+fNQe8+lxE1XE3N0JfYaFtlGc6TbV
-   8=;
-X-IronPort-AV: E=Sophos;i="5.81,266,1610409600"; 
-   d="scan'208";a="96528257"
-Subject: Re: [net-next 1/2] xen-netback: add module parameter to disable ctrl-ring
-To: Leon Romanovsky <leon@kernel.org>
-CC: Andrew Lunn <andrew@lunn.ch>, <netdev@vger.kernel.org>,
-	<wei.liu@kernel.org>, <paul@xen.org>, <davem@davemloft.net>,
-	<kuba@kernel.org>, <xen-devel@lists.xenproject.org>
-References: <20210311225944.24198-1-andyhsu@amazon.com>
- <YEuAKNyU6Hma39dN@lunn.ch> <ec5baac1-1410-86e4-a0d1-7c7f982a0810@amazon.com>
- <YEvQ6z5WFf+F4mdc@lunn.ch> <YE3foiFJ4sfiFex2@unreal>
- <64f5c7a8-cc09-3a7f-b33b-a64d373aed60@amazon.com> <YFI676dumSDJvTlV@unreal>
-From: "Hsu, Chiahao" <andyhsu@amazon.com>
-Message-ID: <f3b76d9b-7c82-d3bd-7858-9e831198e33c@amazon.com>
-Date: Sun, 21 Mar 2021 17:31:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=QMGU/Qm2+TLIrPzxYuMCSpwH0AxT10xkyqXGpM4qBCQ=; b=OD7mcCGWnHInFV4rlXcKxzFwR7
+	LI8+cQKG4UDx59TFAnZpx35Uz6eF1ozRPT9FipgqWcHfzSqrdrGwMYmujj2e8/pkvcJNP6rndVdgc
+	xFWssSvHGKS07sTJWO8MxS6FtqlS8Zncv7j+8D9Xt1MJdd8H2rRZYxd4zBz6Jq/c6Kgw=;
+Subject: Re: [PATCH for-4.15 v3] SUPPORT.MD: Mark LiveUpdate of C/OCaml
+ XenStored daemon as Tech Preview
+To: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+Cc: Julien Grall <jgrall@amazon.com>, Juergen Gross <jgross@suse.com>
+References: <20210317120854.19903-1-julien@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <abaa77f4-3375-44c3-bab4-4b286ca42d35@xen.org>
+Date: Sun, 21 Mar 2021 16:37:55 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <YFI676dumSDJvTlV@unreal>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Originating-IP: [10.43.165.62]
-X-ClientProxiedBy: EX13D08EUB004.ant.amazon.com (10.43.166.158) To
- EX13D12EUA002.ant.amazon.com (10.43.165.103)
-Precedence: Bulk
+In-Reply-To: <20210317120854.19903-1-julien@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
+(+ Ian)
 
+Hi Ian,
 
-Leon Romanovsky 於 2021/3/17 18:22 寫道:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
->
->
->
-> On Tue, Mar 16, 2021 at 04:22:21PM +0100, Hsu, Chiahao wrote:
->>
->> Leon Romanovsky 於 2021/3/14 11:04 寫道:
->>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
->>>
->>>
->>>
->>> On Fri, Mar 12, 2021 at 09:36:59PM +0100, Andrew Lunn wrote:
->>>> On Fri, Mar 12, 2021 at 04:18:02PM +0100, Hsu, Chiahao wrote:
->>>>> Andrew Lunn 於 2021/3/12 15:52 寫道:
->>>>>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
->>>>>>
->>>>>>
->>>>>>
->>>>>> On Thu, Mar 11, 2021 at 10:59:44PM +0000, ChiaHao Hsu wrote:
->>>>>>> In order to support live migration of guests between kernels
->>>>>>> that do and do not support 'feature-ctrl-ring', we add a
->>>>>>> module parameter that allows the feature to be disabled
->>>>>>> at run time, instead of using hardcode value.
->>>>>>> The default value is enable.
->>>>>> Hi ChiaHao
->>>>>>
->>>>>> There is a general dislike for module parameters. What other mechanisms
->>>>>> have you looked at? Would an ethtool private flag work?
->>>>>>
->>>>>>         Andrew
->>>>> Hi Andrew,
->>>>>
->>>>> I can survey other mechanisms, however before I start doing that,
->>>>>
->>>>> could you share more details about what the problem is with using module
->>>>> parameters? thanks.
->>>> It is not very user friendly. No two kernel modules use the same
->>>> module parameters. Often you see the same name, but different
->>>> meaning. There is poor documentation, you often need to read the
->>>> kernel sources it figure out what it does, etc.
->>> +1, It is also global parameter to whole system/devices that use this
->>> module, which is rarely what users want.
->>>
->>> Thanks
->> Hi,
->> I think I would say the current implementation(modparams) isappropriate
->> after reviewing it again.
->>
->> We are talking about 'feature leveling', a way to support live migrationof
->> guest
->> between kernels that do and do not support the features. So we want to
->> refrain
->> fromadding the features if guest would be migrated to the kernel which does
->> not support the feature. Everythingshould be done (in probe function) before
->> frontend connects, and this is why ethtool is not appropriate for this.
-> It wouldn't be a surprise to you that feature discovery is not supposed
-> to be done through module parameters. Instead of asking from user to
-> randomly disable some feature, the system is expected to be backward
-> compatible and robust enough to query the list of supported/needed
-> features.
->
-> Thanks
->
->> Thanks
->>
->>
-Typically there should be one VM running netback on each host,
-and having control over what interfaces or features it exposes is also 
-important for stability.
-How about we create a 'feature flags' modparam, each bits is specified 
-for different new features?
+Sorry I forgot to CC you on the original Ian. Would it be possible to 
+give an R-A for the patch below?
 
+Cheers,
+
+On 17/03/2021 12:08, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Support to liveupdate C/OCaml XenStored daemon was added during the
+> 4.15 development cycle. Add two new sections in SUPPORT.MD to explain
+> what is the support state.
+> 
+> For now, it is a tech preview.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+> 
+> CC: Juergen Gross <jgross@suse.com>
+> 
+>      Changes in v3:
+>          - Add a section of OCaml XenStored
+> 
+>      Changes in v2:
+>          - Clarify this is only supported for the daemon version
+>          - Fix typoes
+> ---
+>   SUPPORT.md | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 7db4568f1a0f..1021a24801dc 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -177,6 +177,14 @@ Support for running qemu-xen device model in a linux stubdomain.
+>   
+>       Status: Tech Preview
+>   
+> +## Liveupdate of C XenStored daemon
+> +
+> +    Status: Tech Preview
+> +
+> +## Liveupdate of OCaml XenStored daemon
+> +
+> +    Status: Tech Preview
+> +
+>   ## Toolstack/3rd party
+>   
+>   ### libvirt driver for xl
+> 
+
+-- 
+Julien Grall
 
