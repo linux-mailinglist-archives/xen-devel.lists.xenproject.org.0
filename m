@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA54344990
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 16:47:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100291.191032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 155C8344AC4
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 17:12:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100321.191079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOMlr-0006sQ-4r; Mon, 22 Mar 2021 15:47:11 +0000
+	id 1lON9o-00022L-PA; Mon, 22 Mar 2021 16:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100291.191032; Mon, 22 Mar 2021 15:47:11 +0000
+Received: by outflank-mailman (output) from mailman id 100321.191079; Mon, 22 Mar 2021 16:11:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOMlr-0006s0-1F; Mon, 22 Mar 2021 15:47:11 +0000
-Received: by outflank-mailman (input) for mailman id 100291;
- Mon, 22 Mar 2021 15:47:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lOMlp-0006ro-NE
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 15:47:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lOMlp-0006VL-Lb
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 15:47:09 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lOMlp-0007Zm-Ko
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 15:47:09 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lOMlm-0000SU-Dc; Mon, 22 Mar 2021 15:47:06 +0000
+	id 1lON9o-00021w-Lu; Mon, 22 Mar 2021 16:11:56 +0000
+Received: by outflank-mailman (input) for mailman id 100321;
+ Mon, 22 Mar 2021 16:11:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0JfP=IU=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+ id 1lON9n-00021r-CS
+ for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 16:11:55 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 528b16e0-b123-458d-a83c-84fab25a6446;
+ Mon, 22 Mar 2021 16:11:53 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 059B31042;
+ Mon, 22 Mar 2021 09:11:53 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F3BE43F719;
+ Mon, 22 Mar 2021 09:11:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,41 +42,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Subject:CC:To:Date:Message-ID:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=QFVieVe62zkpf8DxrvcbVuPF/MGQ0CiXLe0qGXhW0ek=; b=cmcsQ6bt3tOplT+Csjxg7G1pyC
-	5P3MJsfZ994ErY6rHPvs6aqofl2nHmvUdbNtWkf/ExhLzjsa335NN7/KaiUumNC1XRPjsjkiwyItC
-	Nr5AnXsngo4Gjt0GBPmT3WsYLwc0+IkwYk9UQK+eTTKNpYnslgZ7fsmgXoT/mEh20SUU=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24664.48122.241503.647432@mariner.uk.xensource.com>
-Date: Mon, 22 Mar 2021 15:47:06 +0000
-To: xen-announce@lists.xenproject.org
-CC: xen-devel@lists.xenproject.org,
-    xen-users@lists.xenproject.org
-Subject: Xen 4.15 RC4
+X-Inumbo-ID: 528b16e0-b123-458d-a83c-84fab25a6446
+From: Rahul Singh <rahul.singh@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	rahul.singh@arm.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 0/5] xen/arm: smmuv1: Fix stream match conflict issue
+Date: Mon, 22 Mar 2021 16:11:34 +0000
+Message-Id: <cover.1616428314.git.rahul.singh@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-From: Ian Jackson <iwj@xenproject.org>
-Date: Mon, 15 Mar 2021 12:14:51 +0000
+This patch is the work to fix the stream match conflict issue when two devices
+have the same stream-id.
 
-Xen 4.15 RC4 is now available.
+Approach taken is to merge the below commit from Linux driver to fix the
+issue.
 
-It is available from git:
-  git clone https://xenbits.xenproject.org/git-http/xen.git -b 4.15.0-rc4
+1. "iommu/arm-smmu: Handle stream IDs more dynamically"
+   commit 21174240e4f4439bb8ed6c116cdbdc03eba2126e
+2. "iommu/arm-smmu: Consolidate stream map entry state"
+   commit 1f3d5ca43019bff1105838712d55be087d93c0da
+3. "iommu/arm-smmu: Keep track of S2CR state"
+   commit 8e8b203eabd8b9e96d02d6339e4abce3e5a7ea4b
+4. "iommu/arm-smmu: Add a stream map entry iterator"
+   commit d3097e39302083d58922a3d1032d7d59a63d263d
+5. "iommu/arm-smmu: Intelligent SMR allocation"
+   commit 588888a7399db352d2b1a41c9d5b3bf0fd482390
 
-For your convenience a tarball is available:
-  https://downloads.xenproject.org/release/xen/4.15.0-rc4/xen-4.15.0-rc4.tar.gz
-  https://downloads.xenproject.org/release/xen/4.15.0-rc4/xen-4.15.0-rc4.tar.gz.sig
+Changes since v2:
+ - Updated commit message to show the original author of the patch.
+ - Added  Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+ - Addded Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+  
+Rahul Singh (5):
+  xen/arm: smmuv1: Handle stream IDs more dynamically
+  xen/arm: smmuv1: Consolidate stream map entry state
+  xen/arm: smmuv1: Keep track of S2CR state
+  xen/arm: smmuv1: Add a stream map entry iterator
+  xen/arm: smmuv1: Intelligent SMR allocation
 
-Please send bug reports and test reports to
-xen-devel@lists.xenproject.org.  When sending bug reports, please CC
-relevant maintainers and me (iwj@xenproject.org).
+ xen/drivers/passthrough/arm/smmu.c | 423 ++++++++++++++++++-----------
+ 1 file changed, 262 insertions(+), 161 deletions(-)
 
-I will send an update on the state of the release fairly soon.
-
-Ian.
+-- 
+2.17.1
 
 
