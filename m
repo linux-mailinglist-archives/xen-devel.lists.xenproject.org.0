@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038D2344B0F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 17:20:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100356.191154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8263344B66
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 17:33:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100368.191176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lONI3-0003cE-Bi; Mon, 22 Mar 2021 16:20:27 +0000
+	id 1lONTz-0004j6-HS; Mon, 22 Mar 2021 16:32:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100356.191154; Mon, 22 Mar 2021 16:20:27 +0000
+Received: by outflank-mailman (output) from mailman id 100368.191176; Mon, 22 Mar 2021 16:32:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lONI3-0003bp-8W; Mon, 22 Mar 2021 16:20:27 +0000
-Received: by outflank-mailman (input) for mailman id 100356;
- Mon, 22 Mar 2021 16:20:25 +0000
+	id 1lONTz-0004ih-Dr; Mon, 22 Mar 2021 16:32:47 +0000
+Received: by outflank-mailman (input) for mailman id 100368;
+ Mon, 22 Mar 2021 16:32:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FSIZ=IU=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lONI1-0003bU-58
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 16:20:25 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lx7y=IU=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lONTy-0004ic-90
+ for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 16:32:46 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 867f9026-ca93-46a5-8636-ebb2ce9ba8f2;
- Mon, 22 Mar 2021 16:20:23 +0000 (UTC)
+ id bfdf7647-56ba-4a11-8f82-598cf8c4f097;
+ Mon, 22 Mar 2021 16:32:44 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 066F4AF0D;
+ Mon, 22 Mar 2021 16:32:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,94 +39,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 867f9026-ca93-46a5-8636-ebb2ce9ba8f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1616430023;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=y/VrRIkRtCsbqXMRtQyZrTrERhDdgdKiJmxLk/MkOGs=;
-  b=BANFuIBS5RUNTOuT2yNyVgOXADS9xqOpGANYwN2Fkcd8pb5miC37ClUy
-   amJFfpbrZq0HWdX+xyCvVnlxLV7azkMG1sShadYMRT2cTQzIH7dJ+PCjR
-   TlY+NMjcwvhMbpOJ2uG9Qe74cF7IMXn9LaQvf5PNwKS1ULV9pDshInUej
-   U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 2pLE+HFpiq1q2zd/dDqAWPiz/i2B0PmBiJSxieKwE2w/OIVm9cfdYWhfxQCXjcHyh+FyaZi8Hw
- idMTdKNA8wfLxLhU23Vo45rrbl3LHNFHf4rZOFv0ignK7LcCpeaUldbtpol2gzfy16VoVKDVoy
- 0oDB7BpDvvV60aQ4XKn1UaKRZxWZzg7FI1MJhOtwO9ld9t/pkydUiXs5TiPqivC1eQSmQ7LmHJ
- KplKonf0fttAPPN2OtaW9OnypubLtjdfeu7UEbueHbUbie9LUoFwimxfB2xdKTnqgxZ9LE1m0u
- BDA=
-X-SBRS: 5.1
-X-MesageID: 39823330
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:PeERgqtcZx5B7hNHSDlXjOpg7skC54Yji2hD6mlwRA09T+WxrO
- rrtOgH1BPylTYaUGwhn9fFA6WbXXbA7/dOjLU5FYyJGC3ronGhIo0n14vtxDX8Bzbzn9Q26Y
- 5JSII7MtH5CDFB5vrSyAOzH888hPyO9661jenTpk0dNT1CQadm8gt/F0K/Gkp5WAFJCfMCZe
- Ghz+BAoCetfmlSU9SjChA+LqP+jvDotLajWx4JABY79BKD5AnF1JfWGwWVty1uNw9n7qwl9Q
- H+8jDRxqLmiP2jzw+Z6mm71eUupPLE6v9uQPOBkdIULDKEsHfjWK1EV6eZtD445MGDgWxa9+
- XkmBsrM8Rt5365RAjcznXQ8jLt3zo053jpxUXwuwqEneXCWDk4B8Bd7LgpESfx1ks6sNlwlI
- JN0m6J3qAnaC/ooSXn69DEEyxtj0q/yEBS89I7sno3a+sjQY4UibZa0FJeEZ8GEi6/wpsgCv
- NSAMbV4+sTWU+GbljC11MfjOCEbzAWJFOrU0ICssua33x9h3Zi1XYVw8QZgzMp6I89cZ9Z/O
- 7JW54Y241mf4szV+ZQFe0BScy4BijmWhTXKl+fJlzhCeUhN2/SrYX0pJE4/vujdpBN7JZaou
- WObHpo8UoJP27+A8yH25NGtjrXRn+mYDjrwsZCo5djvLnxQ6fqLD2DRFgin9DImYRePuTrH9
- KIfL5GCf7qKmXjXaxT2RflZpVUIX4CFM0Z0+xLGG6mk4buEMnHp+bbePHcKP7GCjA/QF7yBX
- MFQXz2LMVE5Ua7R2/gjHHqKjHQU3262ag1PLnR/uAVxoRIHJZLqBIphVOw4dzOLyZDvKwwdE
- 53O6jmjau/uGmz8Q/zniRUEysYKnwQzKTrUntMqwNPGVjza6w/t9KWfn0XwGGKPQZlT8TdEB
- dWolN+/a7fFe3U+QkST/acdk6KhXoao3yHC6oGkqqY/MH/Z9cTFZA9QpF8Eg3NCj14kQtns3
- 14dQcBX0PTfwmezZmNvdgxPqX/f8M5qBq3KcRUwEivz3m0lIUKfD8neBKAFeSQmh0jQjJIgE
- YZyd5jvJOw3RC1KWU+h+wkNkZrc2r/OsMKMC2MeJhUlrf3eAt5UGeNgniAhwsuf3fxnn9i+l
- DJPGmaf+rGDUFavW0d2qH28ElsfmHYZE5obGtm2LcNXFjuqzJ20eWRYLC03HbUYlwewvsFOD
- WtW0pkHip+g9S23gWSgjCMCDEvwYgvJPXUCPAmf6vI0n2gbI2OmqduJY4jwL91cNTvuPQMS+
- SRZkucKy75Efog30iNvWk+URME2kUMgLftwlno/WK41HkwDb7bJ0lnXagSJ5WZ43L/T/iF3Z
- 1lhbsOzKONG3S0bsTDxbDcbjZFJB+Wu2KwQu0yoZ1fvK45ttJIbu3meCqN0GsC0AQ1Lc/ymk
- 9bXb9y56rZPJRzO8MVYCBU8zMS5aeyBVputhazBOAwfVsg1SCGe9yI5qfFsropDAmKohDqNV
- yW7i1a+LPEUkK4pM8nIrN1JX4Tbk42rGlm9qeFcYbbDQ2xbeFN/FagKBaGAcpgYbnAHa9Vtw
- pw5tGDgvSeeCX50h3BpDcTGNMxz0+3BcepRB+WEeFG89amKU2Bj6uj7sm0lir2Q1KAGjQlrJ
- wAc1cRYMRFgiQji4Ny0jHacN2Jnn4Y
-X-IronPort-AV: E=Sophos;i="5.81,269,1610427600"; 
-   d="scan'208";a="39823330"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: [PATCH for-4.14] tools: Fix pkg-config file for libxenstore
-Date: Mon, 22 Mar 2021 16:20:13 +0000
-Message-ID: <20210322162013.12639-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: bfdf7647-56ba-4a11-8f82-598cf8c4f097
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616430764; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aFOmkKDTv73qJ2yeITDcJ++vFdsMJeUyOGgBj87j1Vc=;
+	b=G/mQlMeM56EPan/CGKZp4Tfimvj23JJtz2047nZevf29kbi5ykUYbj8ia1cK+c6zMK5bKt
+	qSunmZnzGgueQodQ9mhe0mgiItttmsHwJOWAJHu/QdaGvqDE6KEEOMMNv45S0e5lU++EuZ
+	v77fWECMIj0X/yzktx9xAf/aq+nVCb8=
+Subject: Re: [PATCH for-4.14] tools: Fix pkg-config file for libxenstore
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
+References: <20210322162013.12639-1-andrew.cooper3@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <0a006343-4d2c-acd7-d2ce-abd04220e0de@suse.com>
+Date: Mon, 22 Mar 2021 17:32:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <20210322162013.12639-1-andrew.cooper3@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="2bmbxXVaXr22Ps88AGM8Pb2xFxf7SRExT"
 
-There is no dependency on libxenctrl.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--2bmbxXVaXr22Ps88AGM8Pb2xFxf7SRExT
+Content-Type: multipart/mixed; boundary="Fu28pdw7D7dlcS4cf9xLP4rFA07CqfuNe";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
+Message-ID: <0a006343-4d2c-acd7-d2ce-abd04220e0de@suse.com>
+Subject: Re: [PATCH for-4.14] tools: Fix pkg-config file for libxenstore
+References: <20210322162013.12639-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20210322162013.12639-1-andrew.cooper3@citrix.com>
 
-Fixes: 1b008e99 ("tools: provide pkg-config file for libxenstore")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Juergen Gross <jgross@suse.com>
-CC: Jan Beulich <JBeulich@suse.com>
+--Fu28pdw7D7dlcS4cf9xLP4rFA07CqfuNe
+Content-Type: multipart/mixed;
+ boundary="------------BFACF1303978B6FFDEB638B5"
+Content-Language: en-US
 
-This has been fixed in Xen 4.15 by the uselibs.mk logic, but 4.14 and older
-cause everything linking against libxenstore to also try linking against
-libxenctrl.  It also causes RPM to create unexpected dependencies between
-subpackages, which is a problem when trying to separate the stable and
-unstable libs.
----
- tools/xenstore/xenstore.pc.in | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is a multi-part message in MIME format.
+--------------BFACF1303978B6FFDEB638B5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/tools/xenstore/xenstore.pc.in b/tools/xenstore/xenstore.pc.in
-index 2f64a6b824..98c3f1ab39 100644
---- a/tools/xenstore/xenstore.pc.in
-+++ b/tools/xenstore/xenstore.pc.in
-@@ -8,4 +8,4 @@ Version: @@version@@
- Cflags: -I${includedir} @@cflagslocal@@
- Libs: @@libsflag@@${libdir} -lxenstore
- Libs.private: -ldl
--Requires.private: xenevtchn,xencontrol,xengnttab,xentoolcore
-+Requires.private: xenevtchn,xengnttab,xentoolcore
--- 
-2.11.0
+On 22.03.21 17:20, Andrew Cooper wrote:
+> There is no dependency on libxenctrl.
+>=20
+> Fixes: 1b008e99 ("tools: provide pkg-config file for libxenstore")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Ian Jackson <iwj@xenproject.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+>=20
+> This has been fixed in Xen 4.15 by the uselibs.mk logic, but 4.14 and o=
+lder
+> cause everything linking against libxenstore to also try linking agains=
+t
+> libxenctrl.  It also causes RPM to create unexpected dependencies betwe=
+en
+> subpackages, which is a problem when trying to separate the stable and
+> unstable libs.
+> ---
+>   tools/xenstore/xenstore.pc.in | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/tools/xenstore/xenstore.pc.in b/tools/xenstore/xenstore.pc=
+=2Ein
+> index 2f64a6b824..98c3f1ab39 100644
+> --- a/tools/xenstore/xenstore.pc.in
+> +++ b/tools/xenstore/xenstore.pc.in
+> @@ -8,4 +8,4 @@ Version: @@version@@
+>   Cflags: -I${includedir} @@cflagslocal@@
+>   Libs: @@libsflag@@${libdir} -lxenstore
+>   Libs.private: -ldl
+> -Requires.private: xenevtchn,xencontrol,xengnttab,xentoolcore
+> +Requires.private: xenevtchn,xengnttab,xentoolcore
 
+Any reason you are keeping xenevtchn and xengnttab?
+
+
+Juergen
+
+--------------BFACF1303978B6FFDEB638B5
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------BFACF1303978B6FFDEB638B5--
+
+--Fu28pdw7D7dlcS4cf9xLP4rFA07CqfuNe--
+
+--2bmbxXVaXr22Ps88AGM8Pb2xFxf7SRExT
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBYxqsFAwAAAAAACgkQsN6d1ii/Ey/7
+agf/dUVX8bXgTJwMvrgKWWaYAwfzOazflm4rvGK6dk20kIw+4XJRcHz3bQQ7ZOTfzP8PqdsyHLqd
+zh6O+HI9e9LJolE+7u1+CVkhcqnhvLwVyktQbe2vTgAU/xsUQFkTMPc1NU75AA3tNp1pzHI48yxh
+pRv0dLPJi7nvDyIcMmlommAaEzhDJQsXYf85MItKSU+iit0Orvz2e8FC3l+zxcu3WlxIyfZr2+Kx
+YzQrZdg4bL2FGUzAGtNIi4Qi6FePsiN401UzQ9P3jnzOtUs7quTx3zRhcIuXFv+No0cMcqTEVCPU
+kmtDVfmgGoQkG/3BOyVMmNVdpWTrdH7Gmpi9kUHDKg==
+=E9zg
+-----END PGP SIGNATURE-----
+
+--2bmbxXVaXr22Ps88AGM8Pb2xFxf7SRExT--
 
