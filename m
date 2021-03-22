@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87B22343A60
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 08:14:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100013.190403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DACE343B86
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 09:18:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100032.190452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOEkk-00067M-SL; Mon, 22 Mar 2021 07:13:30 +0000
+	id 1lOFkd-0003yW-Ak; Mon, 22 Mar 2021 08:17:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100013.190403; Mon, 22 Mar 2021 07:13:30 +0000
+Received: by outflank-mailman (output) from mailman id 100032.190452; Mon, 22 Mar 2021 08:17:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOEkk-00066x-PQ; Mon, 22 Mar 2021 07:13:30 +0000
-Received: by outflank-mailman (input) for mailman id 100013;
- Mon, 22 Mar 2021 07:13:29 +0000
+	id 1lOFkd-0003y7-7E; Mon, 22 Mar 2021 08:17:27 +0000
+Received: by outflank-mailman (input) for mailman id 100032;
+ Mon, 22 Mar 2021 08:17:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SYKs=IU=kernel.org=leon@srs-us1.protection.inumbo.net>)
- id 1lOEkj-00066s-EU
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 07:13:29 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c9f20681-ec23-4df5-be74-ccdf84a541c9;
- Mon, 22 Mar 2021 07:13:28 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E91661924;
- Mon, 22 Mar 2021 07:13:27 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=czuN=IU=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lOFkc-0003y2-I8
+ for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 08:17:26 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 361744bb-cdba-4ba6-a5ec-7bacc7b3d8cb;
+ Mon, 22 Mar 2021 08:17:24 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C3591042;
+ Mon, 22 Mar 2021 01:17:23 -0700 (PDT)
+Received: from e123311-lin.arm.com (unknown [10.57.15.231])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 084413F719;
+ Mon, 22 Mar 2021 01:17:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,117 +41,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9f20681-ec23-4df5-be74-ccdf84a541c9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1616397208;
-	bh=LFgbb7l9KEu7Z6OAYZRvyu6Do2gcidBM2ddbIvOEWrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zd3+s2OeoaOuzP1Xenkromp3abbFxeEdHfs6d7rqu0IVAMmK+ykrB9MRNcHuNJ2MR
-	 vkHlkZWY0FilJxuZCdG3GGRLDZ0PC3Rm+xM0y6bHgYqcXg0Cx3xrrmH0Evgrp2IyS6
-	 kg/W95bfTCSERGyq9naq2YYwqdRZ3DqD61CQhEEIFhYnhFyCpsCQSu3C6GYLl0GDBs
-	 wWBLVXJRpdJxeLsnFjmV8FqIX36ZAQMmks+JUrdpDmpF8mUGUplaM/IG3LFtnl9iP1
-	 CCvwIktMW6m1AarZ3tfDhyPeeDVzpRDmGI4Alvab1O8ZxhUxfrgAHtLlHpvnJrZInP
-	 LSHX4pxgZd4RA==
-Date: Mon, 22 Mar 2021 09:13:24 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: "Hsu, Chiahao" <andyhsu@amazon.com>, Andrew Lunn <andrew@lunn.ch>,
-	netdev@vger.kernel.org, wei.liu@kernel.org, paul@xen.org,
-	davem@davemloft.net, kuba@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [net-next 1/2] xen-netback: add module parameter to disable
- ctrl-ring
-Message-ID: <YFhDlLkXLSs30/Ci@unreal>
-References: <YE3foiFJ4sfiFex2@unreal>
- <64f5c7a8-cc09-3a7f-b33b-a64d373aed60@amazon.com>
- <YFI676dumSDJvTlV@unreal>
- <f3b76d9b-7c82-d3bd-7858-9e831198e33c@amazon.com>
- <YFeAzfJsHAqPvPuY@unreal>
- <12f643b5-7a35-d960-9b1f-22853aea4b4c@amazon.com>
- <YFgtf6NBPMjD/U89@unreal>
- <c7b2a12d-bf81-3d5f-40ae-f70e6cfa1637@suse.com>
- <YFg9w980NkZzEHmb@unreal>
- <facd5d2e-510e-4fc4-5e22-c934ea237b1b@suse.com>
+X-Inumbo-ID: 361744bb-cdba-4ba6-a5ec-7bacc7b3d8cb
+From: Michal Orzel <michal.orzel@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	bertrand.marquis@arm.com
+Subject: [PATCH v8] arm: Add Kconfig entry to select CONFIG_DTB_FILE
+Date: Mon, 22 Mar 2021 09:17:15 +0100
+Message-Id: <20210322081715.26175-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <facd5d2e-510e-4fc4-5e22-c934ea237b1b@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Mar 22, 2021 at 08:01:17AM +0100, J=FCrgen Gro=DF wrote:
-> On 22.03.21 07:48, Leon Romanovsky wrote:
-> > On Mon, Mar 22, 2021 at 06:58:34AM +0100, J=FCrgen Gro=DF wrote:
-> > > On 22.03.21 06:39, Leon Romanovsky wrote:
-> > > > On Sun, Mar 21, 2021 at 06:54:52PM +0100, Hsu, Chiahao wrote:
-> > > > >=20
-> > > >=20
-> > > > <...>
-> > > >=20
-> > > > > > > Typically there should be one VM running netback on each host,
-> > > > > > > and having control over what interfaces or features it expose=
-s is also
-> > > > > > > important for stability.
-> > > > > > > How about we create a 'feature flags' modparam, each bits is =
-specified for
-> > > > > > > different new features?
-> > > > > > At the end, it will be more granular module parameter that user=
- still
-> > > > > > will need to guess.
-> > > > > I believe users always need to know any parameter or any tool's f=
-lag before
-> > > > > they use it.
-> > > > > For example, before user try to set/clear this ctrl_ring_enabled,=
- they
-> > > > > should already have basic knowledge about this feature,
-> > > > > or else they shouldn't use it (the default value is same as befor=
-e), and
-> > > > > that's also why we use the 'ctrl_ring_enabled' as parameter name.
-> > > >=20
-> > > > It solves only forward migration flow. Move from machine A with no
-> > > > option X to machine B with option X. It doesn't work for backward
-> > > > flow. Move from machine B to A back will probably break.
-> > > >=20
-> > > > In your flow, you want that users will set all module parameters for
-> > > > every upgrade and keep those parameters differently per-version.
-> > >=20
-> > > I think the flag should be a per guest config item. Adding this item =
-to
-> > > the backend Xenstore nodes for netback to consume it should be rather
-> > > easy.
-> > >=20
-> > > Yes, this would need a change in Xen tools, too, but it is the most
-> > > flexible way to handle it. And in case of migration the information
-> > > would be just migrated to the new host with the guest's config data.
-> >=20
-> > Yes, it will overcome global nature of module parameters, but how does
-> > it solve backward compatibility concern?
->=20
-> When creating a guest on A the (unknown) feature will not be set to
-> any value in the guest's config data. A migration stream not having any
-> value for that feature on B should set it to "false".
->=20
-> When creating a guest on B it will either have the feature value set
-> explicitly in the guest config (either true or false), or it will get
-> the server's default (this value should be configurable in a global
-> config file, default for that global value would be "true").
->=20
-> So with the guest created on B with feature specified as "false" (either
-> for this guest only, or per global config), it will be migratable to
-> machine A without problem. Migrating it back to B would work the same
-> way as above. Trying to migrate a guest with feature set to "true" to
-> B would not work, but this would be the host admin's fault due to not
-> configuring the guest correctly.
+Currently in order to link existing DTB into Xen image
+we need to either specify option CONFIG_DTB_FILE on the
+command line or manually add it into .config.
+Add Kconfig entry: CONFIG_DTB_FILE
+to be able to provide the path to DTB we want to embed
+into Xen image. If no path provided - the dtb will not
+be embedded.
 
-As long as all new features are disabled by default, it will be ok.
+Remove the line: AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+as it is not needed since Kconfig will define it in a header
+with all the other config options.
 
-Thanks
+Move definition of _sdtb into dtb.S to prevent defining it
+if there is no reference to it or if someone protects
+_sdtb with #ifdef rather than with .ifnes. If the latter,
+we will get a compiler error.
 
->=20
->=20
-> Juergen
+Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+---
+ xen/arch/arm/Makefile     |  5 ++---
+ xen/arch/arm/arm32/head.S |  4 ++--
+ xen/arch/arm/arm64/head.S |  4 ++--
+ xen/arch/arm/dtb.S        |  1 +
+ xen/arch/arm/xen.lds.S    |  3 ---
+ xen/common/Kconfig        | 10 ++++++++++
+ 6 files changed, 17 insertions(+), 10 deletions(-)
 
-
-
-
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 16e6523e2c..46e6a95fec 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -68,9 +68,8 @@ extra-y += $(TARGET_SUBARCH)/head.o
+ 
+ #obj-bin-y += ....o
+ 
+-ifdef CONFIG_DTB_FILE
++ifneq ($(CONFIG_DTB_FILE),"")
+ obj-y += dtb.o
+-AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
+ endif
+ 
+ ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
+@@ -137,7 +136,7 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+ xen.lds: xen.lds.S
+ 	$(CPP) -P $(a_flags) -MQ $@ -o $@ $<
+ 
+-dtb.o: $(CONFIG_DTB_FILE)
++dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
+ 
+ .PHONY: clean
+ clean::
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index c404fa973e..50f019ed98 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -156,10 +156,10 @@ past_zImage:
+         sub   r10, r9, r0            /* r10 := phys-offset */
+ 
+         /* Using the DTB in the .dtb section? */
+-#ifdef CONFIG_DTB_FILE
++.ifnes CONFIG_DTB_FILE,""
+         ldr   r8, =_sdtb
+         add   r8, r10                /* r8 := paddr(DTB) */
+-#endif
++.endif
+ 
+         /* Initialize the UART if earlyprintk has been enabled. */
+ #ifdef CONFIG_EARLY_PRINTK
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index 5d44667bd8..f38a8dfca7 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -296,9 +296,9 @@ real_start_efi:
+         sub   x20, x19, x0           /* x20 := phys-offset */
+ 
+         /* Using the DTB in the .dtb section? */
+-#ifdef CONFIG_DTB_FILE
++.ifnes CONFIG_DTB_FILE,""
+         load_paddr x21, _sdtb
+-#endif
++.endif
+ 
+         /* Initialize the UART if earlyprintk has been enabled. */
+ #ifdef CONFIG_EARLY_PRINTK
+diff --git a/xen/arch/arm/dtb.S b/xen/arch/arm/dtb.S
+index c703aef12b..c39f3a095c 100644
+--- a/xen/arch/arm/dtb.S
++++ b/xen/arch/arm/dtb.S
+@@ -1,2 +1,3 @@
+         .section .dtb,#alloc
++        GLOBAL(_sdtb)
+         .incbin CONFIG_DTB_FILE
+diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+index 004b182acb..fc1d39a886 100644
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -220,11 +220,8 @@ SECTIONS
+   } :text
+   _end = . ;
+ 
+-#ifdef CONFIG_DTB_FILE
+   /* Section for the device tree blob (if any). */
+-  _sdtb = .;
+   .dtb : { *(.dtb) } :text
+-#endif
+ 
+   /* Sections to be discarded */
+   /DISCARD/ : {
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index eb953d171e..a1755cd380 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -400,6 +400,16 @@ config DOM0_MEM
+ 
+ 	  Leave empty if you are not sure what to specify.
+ 
++config DTB_FILE
++	string "Absolute path to device tree blob"
++	depends on HAS_DEVICE_TREE
++	help
++	  When using a bootloader that has no device tree support or when there
++	  is no bootloader at all, use this option to specify the absolute path
++	  to a device tree that will be linked directly inside Xen binary.
++
++	  This is an optional config. Leave empty if not needed.
++
+ config TRACEBUFFER
+ 	bool "Enable tracing infrastructure" if EXPERT
+ 	default y
+-- 
+2.29.0
 
 
