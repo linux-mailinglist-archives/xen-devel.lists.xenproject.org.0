@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBA1D34488C
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 16:04:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100272.190975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A63663448FD
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 16:16:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100278.190991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOM5h-0002po-6I; Mon, 22 Mar 2021 15:03:37 +0000
+	id 1lOMHR-0003rx-AS; Mon, 22 Mar 2021 15:15:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100272.190975; Mon, 22 Mar 2021 15:03:37 +0000
+Received: by outflank-mailman (output) from mailman id 100278.190991; Mon, 22 Mar 2021 15:15:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOM5h-0002pO-1q; Mon, 22 Mar 2021 15:03:37 +0000
-Received: by outflank-mailman (input) for mailman id 100272;
- Mon, 22 Mar 2021 15:03:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UvDz=IU=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1lOM5f-0002pJ-1a
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 15:03:35 +0000
-Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5d2df914-acb7-4cbf-9885-cbb33211ccaf;
- Mon, 22 Mar 2021 15:03:34 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id x16so17403688wrn.4
- for <xen-devel@lists.xenproject.org>; Mon, 22 Mar 2021 08:03:34 -0700 (PDT)
-Received: from [192.168.1.186]
- (host86-180-176-157.range86-180.btcentralplus.com. [86.180.176.157])
- by smtp.gmail.com with ESMTPSA id h20sm16581667wmm.19.2021.03.22.08.03.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Mar 2021 08:03:32 -0700 (PDT)
+	id 1lOMHR-0003rY-7K; Mon, 22 Mar 2021 15:15:45 +0000
+Received: by outflank-mailman (input) for mailman id 100278;
+ Mon, 22 Mar 2021 15:15:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/O5u=IU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lOMHQ-0003rT-03
+ for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 15:15:44 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a53eac39-0335-46c8-bd93-9f858c093683;
+ Mon, 22 Mar 2021 15:15:43 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2DC2CACFC;
+ Mon, 22 Mar 2021 15:15:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,112 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d2df914-acb7-4cbf-9885-cbb33211ccaf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=FyP9CipjvFpnfIqIEbRW3KkKZKHL4tdWtHw8eenVhOs=;
-        b=ngsJbkSbB68/BK8rR8NN4PR8UYpk7qy0aweAHGnrs3lvNHF+79dWdjGn5dfdnzKv1q
-         187iK4judF55K+6+yw7N3pPYUvpkWLd+iYyLk/ytKZUl3GM67n0/AW7MBb406TA+RU31
-         wLT5Dqox1/LyC9NKW7I6QCYZgEzHiD8kqMRI+FPdypGgB4B6R1K1RnV9JefMwBhmbh7O
-         e3sGwZmtXgnz+YznGhSoihqT60QPiDXBru1Bb9esXsS/V5j6v7VUv6KuEOtv5k0AP4OR
-         cMV7aX0bL5Qn1TuJYPa6vYb3+4X0oyiEsX3Vb32luXEhu0VzgIrB4A/ccwNaPGH0tNXl
-         FcNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:subject:to:cc:references
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=FyP9CipjvFpnfIqIEbRW3KkKZKHL4tdWtHw8eenVhOs=;
-        b=p6SP4Bz3va/wYFuRxRHZrzR59kZ/EFMhvHOFiYP/sTz6aEQ+7+VQF+izscNLD3iI6D
-         H8Hc13HTicoDlc38j7g2j3udWWjcGKA24XxzIZhdj2Nyhdt6EYtXJDlOR1t+9X0hzKj7
-         QC7/xRmUBbG/uZs1cWINO/GxMyQoj6v+WwBHGGSW7Ylkazfc8OQo8cDD4Y0B6+/ML5iL
-         9Qfza40OGwWMKWGNP7HSrq8Am114sXAZndiJ/Qdso7qQMbsy+U4tGimfQ1xA8kkao9Ta
-         auwycGRck+pObbkXOwhtwqt6tHCUXbVpOxvsdT5v35hs5WPbQz5CyDQgjMGwE74FT4sj
-         8ATw==
-X-Gm-Message-State: AOAM530g39vMir2eKmkOiZxw1NOhon4of/zjqZZ8i6vx8qD9DixvqgxD
-	i4ZJjtZGfNZNqB3y04WrSes=
-X-Google-Smtp-Source: ABdhPJwl+Akc0f4Vw6dmZAHeDuIS90Prg7ispLruT5TEXhAJEajQoiQ3XN64LU46pmJxRWSgR67SSQ==
-X-Received: by 2002:adf:fd48:: with SMTP id h8mr18745163wrs.229.1616425413226;
-        Mon, 22 Mar 2021 08:03:33 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Reply-To: paul@xen.org
-Subject: Re: [PATCH] xen-block: Fix removal of backend instance via xenstore
-To: Anthony PERARD <anthony.perard@citrix.com>, qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi
- <stefanha@redhat.com>, Maxim Levitsky <mlevitsk@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Kevin Wolf <kwolf@redhat.com>,
- Max Reitz <mreitz@redhat.com>, xen-devel@lists.xenproject.org,
- qemu-block@nongnu.org
-References: <20210308143232.83388-1-anthony.perard@citrix.com>
-Message-ID: <b15e2f65-7e4d-b129-d5e1-a69667c5ee5c@xen.org>
-Date: Mon, 22 Mar 2021 15:03:31 +0000
+X-Inumbo-ID: a53eac39-0335-46c8-bd93-9f858c093683
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616426142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LMnxDHlFh0KEiXr2igI18wn4J3EBLsaAX28JH8HC9wY=;
+	b=lsXhN1Bf2XxKoAxctghnaemkmDTagHb4JbTV9yKQEtZ+ckyVukLQG8ZmjYjfeDrNo3ejdo
+	HVlH16LgE2v+LCNydMc3sBivz5rWZ1AETeeoEoB41uOSaqJXqgiX9hJNbjSpque/UQYzDg
+	IDE3joDHCA6yQe2i/ju9E/nzl1BeUQ0=
+Subject: Re: [PATCH] xen: Create EFI_VENDOR directory
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>
+References: <20210322133301.11308-1-jandryuk@gmail.com>
+ <c5736ca0-de24-bac7-f1d9-3f90df997454@suse.com>
+ <d410d743-5479-bbf6-676b-c8749ab07c06@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f53db67e-8344-8da7-6658-c521d2e3c527@suse.com>
+Date: Mon, 22 Mar 2021 16:15:41 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210308143232.83388-1-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <d410d743-5479-bbf6-676b-c8749ab07c06@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 08/03/2021 14:32, Anthony PERARD wrote:
-> From: Anthony PERARD <anthony.perard@citrix.com>
+On 22.03.2021 15:59, Andrew Cooper wrote:
+> On 22/03/2021 14:52, Jan Beulich wrote:
+>> On 22.03.2021 14:33, Jason Andryuk wrote:
+>>> make install-xen fails when EFI_VENDOR is set (=fedora) with:
+>>> install: cannot create regular file '/home/user/xen/dist/install/boot/efi/efi/fedora/xen-4.15.0-rc.efi': No such file or directory
+>>>
+>>> Create the EFI_VENDOR directory so xen.efi can be installed within.
+>>>
+>>> This removes the need for Fedora and Qubes xen.spec files to manually
+>>> create the directory in advance.
+>> While I'm not strictly against, I'd like to point out that it was
+>> deliberate to not create this directory here. I also didn't expect
+>> anyone's xen.spec to do so. Instead I'd expect the distro to create
+>> it during OS installation. If this was a bad assumption, I'd prefer
+>> if the commit message here could point out why such an expectation
+>> won't hold in general.
 > 
-> Whenever a Xen block device is detach via xenstore, the image
-> associated with it remained open by the backend QEMU and an error is
-> logged:
->      qemu-system-i386: failed to destroy drive: Node xvdz-qcow2 is in use
+> This reasoning is broken for anything other `make install DESTDIR=/` on
+> a live system.
 > 
-> This happened since object_unparent() doesn't immediately frees the
-> object and thus keep a reference to the node we are trying to free.
-> The reference is hold by the "drive" property and the call
-> xen_block_drive_destroy() fails.
-> 
-> In order to fix that, we call drain_call_rcu() to run the callback
-> setup by bus_remove_child() via object_unparent().
-> 
-> Fixes: 2d24a6466154 ("device-core: use RCU for list of children of a bus")
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
-> CCing people whom introduced/reviewed the change to use RCU to give
-> them a chance to say if the change is fine.
-> ---
->   hw/block/xen-block.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-> index a3b69e27096f..fe5f828e2d25 100644
-> --- a/hw/block/xen-block.c
-> +++ b/hw/block/xen-block.c
-> @@ -972,6 +972,15 @@ static void xen_block_device_destroy(XenBackendInstance *backend,
->   
->       object_unparent(OBJECT(xendev));
->   
-> +    /*
-> +     * Drall all pending RCU callbacks as object_unparent() frees `xendev'
+> It is incompatible with how RPM, deb, etc packages work.
 
-s/Drall/Drain ?
+I'm afraid I don't understand, for both of your statements. If distro
+installation put in place the designated directory, there wouldn't be
+any live system lacking it, and there wouldn't be any concern in the
+packaging of any software.
 
-> +     * in a RCU callback.
-> +     * And due to the property "drive" still existing in `xendev', we
-> +     * cann't destroy the XenBlockDrive associated with `xendev' with
+To take a perhaps too extreme example - packages typically expect e.g.
+/usr to exist as well, don't they?
 
-s/cann't/can't
-
-With those fixed...
-
-Reviewed-by: Paul Durrant <paul@xen.org>
-
-> +     * xen_block_drive_destroy() below.
-> +     */
-> +    drain_call_rcu();
-> +
->       if (iothread) {
->           xen_block_iothread_destroy(iothread, errp);
->           if (*errp) {
-> 
-
+Jan
 
