@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4287E343A25
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 08:01:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100008.190386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B22343A60
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Mar 2021 08:14:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100013.190403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOEZ0-00053c-O1; Mon, 22 Mar 2021 07:01:22 +0000
+	id 1lOEkk-00067M-SL; Mon, 22 Mar 2021 07:13:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100008.190386; Mon, 22 Mar 2021 07:01:22 +0000
+Received: by outflank-mailman (output) from mailman id 100013.190403; Mon, 22 Mar 2021 07:13:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOEZ0-00053D-KS; Mon, 22 Mar 2021 07:01:22 +0000
-Received: by outflank-mailman (input) for mailman id 100008;
- Mon, 22 Mar 2021 07:01:21 +0000
+	id 1lOEkk-00066x-PQ; Mon, 22 Mar 2021 07:13:30 +0000
+Received: by outflank-mailman (input) for mailman id 100013;
+ Mon, 22 Mar 2021 07:13:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lx7y=IU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lOEYy-000538-WE
- for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 07:01:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=SYKs=IU=kernel.org=leon@srs-us1.protection.inumbo.net>)
+ id 1lOEkj-00066s-EU
+ for xen-devel@lists.xenproject.org; Mon, 22 Mar 2021 07:13:29 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0154e2f1-4fd2-4703-801d-5f346ba97c7d;
- Mon, 22 Mar 2021 07:01:19 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 00DD3AD4A;
- Mon, 22 Mar 2021 07:01:18 +0000 (UTC)
+ id c9f20681-ec23-4df5-be74-ccdf84a541c9;
+ Mon, 22 Mar 2021 07:13:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E91661924;
+ Mon, 22 Mar 2021 07:13:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,245 +37,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0154e2f1-4fd2-4703-801d-5f346ba97c7d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1616396479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ikdRbjYwrh6jMOeo5QgfZnIqyWaL0H+nMzfLn9qBY+0=;
-	b=i3fuAO3/9AJ6D78I8hJbTgo7/dJINVsaVaiq5rqBsLQNwwLHqBLM63NvFuspPOh6OtKms3
-	JEW/vNHZP7NjQlMgSS4Z91h7zr03OQOF1wMHQsVW1O6on2indryxLVZMHx4Qq85zP/j4H8
-	1oNf/90t4g4YFYaYuYQK5o40fWdf0pE=
-To: Leon Romanovsky <leon@kernel.org>
+X-Inumbo-ID: c9f20681-ec23-4df5-be74-ccdf84a541c9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1616397208;
+	bh=LFgbb7l9KEu7Z6OAYZRvyu6Do2gcidBM2ddbIvOEWrA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Zd3+s2OeoaOuzP1Xenkromp3abbFxeEdHfs6d7rqu0IVAMmK+ykrB9MRNcHuNJ2MR
+	 vkHlkZWY0FilJxuZCdG3GGRLDZ0PC3Rm+xM0y6bHgYqcXg0Cx3xrrmH0Evgrp2IyS6
+	 kg/W95bfTCSERGyq9naq2YYwqdRZ3DqD61CQhEEIFhYnhFyCpsCQSu3C6GYLl0GDBs
+	 wWBLVXJRpdJxeLsnFjmV8FqIX36ZAQMmks+JUrdpDmpF8mUGUplaM/IG3LFtnl9iP1
+	 CCvwIktMW6m1AarZ3tfDhyPeeDVzpRDmGI4Alvab1O8ZxhUxfrgAHtLlHpvnJrZInP
+	 LSHX4pxgZd4RA==
+Date: Mon, 22 Mar 2021 09:13:24 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
 Cc: "Hsu, Chiahao" <andyhsu@amazon.com>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, wei.liu@kernel.org, paul@xen.org,
- davem@davemloft.net, kuba@kernel.org, xen-devel@lists.xenproject.org
-References: <ec5baac1-1410-86e4-a0d1-7c7f982a0810@amazon.com>
- <YEvQ6z5WFf+F4mdc@lunn.ch> <YE3foiFJ4sfiFex2@unreal>
- <64f5c7a8-cc09-3a7f-b33b-a64d373aed60@amazon.com> <YFI676dumSDJvTlV@unreal>
- <f3b76d9b-7c82-d3bd-7858-9e831198e33c@amazon.com> <YFeAzfJsHAqPvPuY@unreal>
- <12f643b5-7a35-d960-9b1f-22853aea4b4c@amazon.com> <YFgtf6NBPMjD/U89@unreal>
- <c7b2a12d-bf81-3d5f-40ae-f70e6cfa1637@suse.com> <YFg9w980NkZzEHmb@unreal>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+	netdev@vger.kernel.org, wei.liu@kernel.org, paul@xen.org,
+	davem@davemloft.net, kuba@kernel.org,
+	xen-devel@lists.xenproject.org
 Subject: Re: [net-next 1/2] xen-netback: add module parameter to disable
  ctrl-ring
-Message-ID: <facd5d2e-510e-4fc4-5e22-c934ea237b1b@suse.com>
-Date: Mon, 22 Mar 2021 08:01:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+Message-ID: <YFhDlLkXLSs30/Ci@unreal>
+References: <YE3foiFJ4sfiFex2@unreal>
+ <64f5c7a8-cc09-3a7f-b33b-a64d373aed60@amazon.com>
+ <YFI676dumSDJvTlV@unreal>
+ <f3b76d9b-7c82-d3bd-7858-9e831198e33c@amazon.com>
+ <YFeAzfJsHAqPvPuY@unreal>
+ <12f643b5-7a35-d960-9b1f-22853aea4b4c@amazon.com>
+ <YFgtf6NBPMjD/U89@unreal>
+ <c7b2a12d-bf81-3d5f-40ae-f70e6cfa1637@suse.com>
+ <YFg9w980NkZzEHmb@unreal>
+ <facd5d2e-510e-4fc4-5e22-c934ea237b1b@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <YFg9w980NkZzEHmb@unreal>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="XNey0EOIqh5lWhHqjRdvYYllC8uxFqu6T"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---XNey0EOIqh5lWhHqjRdvYYllC8uxFqu6T
-Content-Type: multipart/mixed; boundary="Ov0WnZb01U1s0agqQzQ7tBpupQeAGgOZ7";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: "Hsu, Chiahao" <andyhsu@amazon.com>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, wei.liu@kernel.org, paul@xen.org,
- davem@davemloft.net, kuba@kernel.org, xen-devel@lists.xenproject.org
-Message-ID: <facd5d2e-510e-4fc4-5e22-c934ea237b1b@suse.com>
-Subject: Re: [net-next 1/2] xen-netback: add module parameter to disable
- ctrl-ring
-References: <ec5baac1-1410-86e4-a0d1-7c7f982a0810@amazon.com>
- <YEvQ6z5WFf+F4mdc@lunn.ch> <YE3foiFJ4sfiFex2@unreal>
- <64f5c7a8-cc09-3a7f-b33b-a64d373aed60@amazon.com> <YFI676dumSDJvTlV@unreal>
- <f3b76d9b-7c82-d3bd-7858-9e831198e33c@amazon.com> <YFeAzfJsHAqPvPuY@unreal>
- <12f643b5-7a35-d960-9b1f-22853aea4b4c@amazon.com> <YFgtf6NBPMjD/U89@unreal>
- <c7b2a12d-bf81-3d5f-40ae-f70e6cfa1637@suse.com> <YFg9w980NkZzEHmb@unreal>
-In-Reply-To: <YFg9w980NkZzEHmb@unreal>
-
---Ov0WnZb01U1s0agqQzQ7tBpupQeAGgOZ7
-Content-Type: multipart/mixed;
- boundary="------------8A2B5EA9D8912C96E9D361F3"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------8A2B5EA9D8912C96E9D361F3
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <facd5d2e-510e-4fc4-5e22-c934ea237b1b@suse.com>
 
-On 22.03.21 07:48, Leon Romanovsky wrote:
-> On Mon, Mar 22, 2021 at 06:58:34AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
->> On 22.03.21 06:39, Leon Romanovsky wrote:
->>> On Sun, Mar 21, 2021 at 06:54:52PM +0100, Hsu, Chiahao wrote:
->>>>
->>>
->>> <...>
->>>
->>>>>> Typically there should be one VM running netback on each host,
->>>>>> and having control over what interfaces or features it exposes is =
-also
->>>>>> important for stability.
->>>>>> How about we create a 'feature flags' modparam, each bits is speci=
-fied for
->>>>>> different new features?
->>>>> At the end, it will be more granular module parameter that user sti=
-ll
->>>>> will need to guess.
->>>> I believe users always need to know any parameter or any tool's flag=
- before
->>>> they use it.
->>>> For example, before user try to set/clear this ctrl_ring_enabled, th=
-ey
->>>> should already have basic knowledge about this feature,
->>>> or else they shouldn't use it (the default value is same as before),=
- and
->>>> that's also why we use the 'ctrl_ring_enabled' as parameter name.
->>>
->>> It solves only forward migration flow. Move from machine A with no
->>> option X to machine B with option X. It doesn't work for backward
->>> flow. Move from machine B to A back will probably break.
->>>
->>> In your flow, you want that users will set all module parameters for
->>> every upgrade and keep those parameters differently per-version.
->>
->> I think the flag should be a per guest config item. Adding this item t=
-o
->> the backend Xenstore nodes for netback to consume it should be rather
->> easy.
->>
->> Yes, this would need a change in Xen tools, too, but it is the most
->> flexible way to handle it. And in case of migration the information
->> would be just migrated to the new host with the guest's config data.
+On Mon, Mar 22, 2021 at 08:01:17AM +0100, J=FCrgen Gro=DF wrote:
+> On 22.03.21 07:48, Leon Romanovsky wrote:
+> > On Mon, Mar 22, 2021 at 06:58:34AM +0100, J=FCrgen Gro=DF wrote:
+> > > On 22.03.21 06:39, Leon Romanovsky wrote:
+> > > > On Sun, Mar 21, 2021 at 06:54:52PM +0100, Hsu, Chiahao wrote:
+> > > > >=20
+> > > >=20
+> > > > <...>
+> > > >=20
+> > > > > > > Typically there should be one VM running netback on each host,
+> > > > > > > and having control over what interfaces or features it expose=
+s is also
+> > > > > > > important for stability.
+> > > > > > > How about we create a 'feature flags' modparam, each bits is =
+specified for
+> > > > > > > different new features?
+> > > > > > At the end, it will be more granular module parameter that user=
+ still
+> > > > > > will need to guess.
+> > > > > I believe users always need to know any parameter or any tool's f=
+lag before
+> > > > > they use it.
+> > > > > For example, before user try to set/clear this ctrl_ring_enabled,=
+ they
+> > > > > should already have basic knowledge about this feature,
+> > > > > or else they shouldn't use it (the default value is same as befor=
+e), and
+> > > > > that's also why we use the 'ctrl_ring_enabled' as parameter name.
+> > > >=20
+> > > > It solves only forward migration flow. Move from machine A with no
+> > > > option X to machine B with option X. It doesn't work for backward
+> > > > flow. Move from machine B to A back will probably break.
+> > > >=20
+> > > > In your flow, you want that users will set all module parameters for
+> > > > every upgrade and keep those parameters differently per-version.
+> > >=20
+> > > I think the flag should be a per guest config item. Adding this item =
+to
+> > > the backend Xenstore nodes for netback to consume it should be rather
+> > > easy.
+> > >=20
+> > > Yes, this would need a change in Xen tools, too, but it is the most
+> > > flexible way to handle it. And in case of migration the information
+> > > would be just migrated to the new host with the guest's config data.
+> >=20
+> > Yes, it will overcome global nature of module parameters, but how does
+> > it solve backward compatibility concern?
 >=20
-> Yes, it will overcome global nature of module parameters, but how does
-> it solve backward compatibility concern?
+> When creating a guest on A the (unknown) feature will not be set to
+> any value in the guest's config data. A migration stream not having any
+> value for that feature on B should set it to "false".
+>=20
+> When creating a guest on B it will either have the feature value set
+> explicitly in the guest config (either true or false), or it will get
+> the server's default (this value should be configurable in a global
+> config file, default for that global value would be "true").
+>=20
+> So with the guest created on B with feature specified as "false" (either
+> for this guest only, or per global config), it will be migratable to
+> machine A without problem. Migrating it back to B would work the same
+> way as above. Trying to migrate a guest with feature set to "true" to
+> B would not work, but this would be the host admin's fault due to not
+> configuring the guest correctly.
 
-When creating a guest on A the (unknown) feature will not be set to
-any value in the guest's config data. A migration stream not having any
-value for that feature on B should set it to "false".
+As long as all new features are disabled by default, it will be ok.
 
-When creating a guest on B it will either have the feature value set
-explicitly in the guest config (either true or false), or it will get
-the server's default (this value should be configurable in a global
-config file, default for that global value would be "true").
+Thanks
 
-So with the guest created on B with feature specified as "false" (either
-for this guest only, or per global config), it will be migratable to
-machine A without problem. Migrating it back to B would work the same
-way as above. Trying to migrate a guest with feature set to "true" to
-B would not work, but this would be the host admin's fault due to not
-configuring the guest correctly.
+>=20
+>=20
+> Juergen
 
 
-Juergen
 
---------------8A2B5EA9D8912C96E9D361F3
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------8A2B5EA9D8912C96E9D361F3--
-
---Ov0WnZb01U1s0agqQzQ7tBpupQeAGgOZ7--
-
---XNey0EOIqh5lWhHqjRdvYYllC8uxFqu6T
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBYQL0FAwAAAAAACgkQsN6d1ii/Ey9G
-CQgAiHIxxi5KIe3wo0sRuWyXuC7W48WgTdRt0A5zxkVkfT8QCGk50L3jRKk4ykkWw5ksw4j0ttEt
-ks4I5B+2FixAsKqQnv7ZqhropUQhMrn9KIr+UYXN2pCyxgVEtQbrRKr+XK5ylnAD3UwZnfjrsizT
-Q2mKKQWgk83KFyCTmW5FsE0FhIcMfJl9npdxeTewaucsycTAG9vGj2Gjxk4j/v/qBxRKUPLWfY+s
-cezaGKS7OuUDvnKf1ZRYgpNnfnQLltGZ6t+ESN/yEe+1xFXPjjz14Puax6hu8TDgRTZo+TXVuDG1
-Y3nLga6TPeyTYbEBwTVL7EZdhNy6KZpefOqU5iYbGA==
-=fEL1
------END PGP SIGNATURE-----
-
---XNey0EOIqh5lWhHqjRdvYYllC8uxFqu6T--
 
