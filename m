@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BED643468FA
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Mar 2021 20:26:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100791.192248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10C3346949
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Mar 2021 20:49:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100797.192263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOmfc-0002lJ-Ed; Tue, 23 Mar 2021 19:26:28 +0000
+	id 1lOn1X-00055v-E3; Tue, 23 Mar 2021 19:49:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100791.192248; Tue, 23 Mar 2021 19:26:28 +0000
+Received: by outflank-mailman (output) from mailman id 100797.192263; Tue, 23 Mar 2021 19:49:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOmfc-0002ku-Ba; Tue, 23 Mar 2021 19:26:28 +0000
-Received: by outflank-mailman (input) for mailman id 100791;
- Tue, 23 Mar 2021 19:26:26 +0000
+	id 1lOn1X-00055V-94; Tue, 23 Mar 2021 19:49:07 +0000
+Received: by outflank-mailman (input) for mailman id 100797;
+ Tue, 23 Mar 2021 19:49:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lOmfa-0002kp-3F
- for xen-devel@lists.xenproject.org; Tue, 23 Mar 2021 19:26:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lOn1W-00055L-7h; Tue, 23 Mar 2021 19:49:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lOmfZ-0005GF-UY; Tue, 23 Mar 2021 19:26:25 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lOmfZ-0002YM-MI; Tue, 23 Mar 2021 19:26:25 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lOn1V-0005e1-VX; Tue, 23 Mar 2021 19:49:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lOn1V-0005UQ-O6; Tue, 23 Mar 2021 19:49:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lOn1V-0007Po-Nf; Tue, 23 Mar 2021 19:49:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,97 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=YQaMh62nSe7DvVoi+4Bau/eO1tss8Tm22vjQaGMyU1E=; b=16Ok74XA9VMF3tuCW//har6l2P
-	8cof9opVZuhpIEIRdLjn2C4ZLQbmuiHMlL98A4y3P18ulwcEFvwpPN1cQVbEn6vli/TwmkYtPz3a9
-	PKmV1OTuT65kfRK59FZVMqPCgvgj2I1zllD6r6c2UdvSR5mvOtB6NzXFSQh7GcPFrutQ=;
-Subject: Re: xen/evtchn: Dom0 boot hangs using preempt_rt kernel 5.10
-To: Luca Fancellu <luca.fancellu@arm.com>, Jason Andryuk <jandryuk@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-References: <VI1PR08MB3629824170C1707255465D8BE46A9@VI1PR08MB3629.eurprd08.prod.outlook.com>
- <VI1PR08MB36292202FAA817F9FFDCAD81E46A9@VI1PR08MB3629.eurprd08.prod.outlook.com>
- <cb4badc8-a932-2d4e-956e-4d474a137b0b@suse.com>
- <EC3489FE-8151-4EE7-B177-22CC2F92131C@arm.com>
- <1FAD6C91-2B3A-48F0-88D7-CFCFC8B53BA9@arm.com>
- <c2e9268d-daec-95d8-cbb9-a2d2ecf233ec@suse.com>
- <2BC82A95-DFB9-4F90-8CC6-AE39405157ED@arm.com>
- <CAKf6xptBm8G-T8UCfht22nfeS_4XOj2sN9fBvJhOVA1QKbfnhA@mail.gmail.com>
- <565C6475-4693-4A7C-8316-9613146300C2@arm.com>
- <2A09774F-ADDF-41B0-8E72-DC0FA0A6B1F3@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <d5551ce9-6934-6228-e9da-e1ecc87ec015@xen.org>
-Date: Tue, 23 Mar 2021 19:26:23 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <2A09774F-ADDF-41B0-8E72-DC0FA0A6B1F3@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=t87b+JsAbov1EX8lnvnW/MzIKOBaFzMFmNC5TTuSW8U=; b=z/AtKS8/H/nJFleX7zVgpqmI2y
+	ach2A4WeP8UHmFIZQDUHnAX0iQ48xtPJ7quvL2FD2yEpIAtqdbhnMpR+HtXVsu3t36f/IA0IIi0dy
+	9DG8YNLJcTQIYLA/YMFDS28XUiDQZwnj6muuplaqKROHpKgJXa9a3ze7CBsGCG5GuJjE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160366-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 160366: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b9b3082002cac68726fb303e0abd2ff0113d4657
+X-Osstest-Versions-That:
+    xen=ecdff2f5a03210119b71806c3f5571d6906dd85e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 23 Mar 2021 19:49:05 +0000
+
+flight 160366 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160366/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  b9b3082002cac68726fb303e0abd2ff0113d4657
+baseline version:
+ xen                  ecdff2f5a03210119b71806c3f5571d6906dd85e
+
+Last test of basis   160297  2021-03-22 11:00:26 Z    1 days
+Testing same since   160366  2021-03-23 17:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 23/03/2021 17:06, Luca Fancellu wrote:
-> Hi all,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Please avoid top posting when answering to a comment. This makes more 
-difficult to follow.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> I have an update, changing the lock introduced by the serie from spinlock_t to raw_spinlock_t, changing the lock/unlock function to use the raw_* version and keeping the BUG_ON(…) (now we can because raw_* implementation disable interrupts on preempt_rt) the kernel is booting correctly.
-> So seems that the BUG_ON(…) is needed and the unmask function should run with interrupt disabled, anyone knows why this change worked?
 
-Do you mean why no-one spotted the issue before? If so, AFAIK, on 
-vanilla Linux, spin_lock is still just a wrapper to raw_spinlock. IOW 
-there is no option to replace it with a RT spinlock.
+Pushing revision :
 
-So if you don't apply the RT patches, you would not be able to trigger 
-the issue.
-
-As to the fix itself, I think using raw_spinlock_t is the correct thing 
-to do because the lock is also used in interrupt context (even with RT 
-enabled).
-
-Would you be able to send a patch?
-
-> 
->> On 23 Mar 2021, at 15:39, Luca Fancellu <luca.fancellu@arm.com> wrote:
->>
->> Hi Jason,
->>
->> Thanks for your hints, unfortunately seems not an init problem because in the same init configuration I tried the 5.10.23 (preempt_rt) without the Juergen patch but with the BUG_ON removed and it boots without problem. So seems that applying the serie does something (on a preempt_rt kernel) and we are trying to figure out what.
->>
->>
->>> On 23 Mar 2021, at 12:36, Jason Andryuk <jandryuk@gmail.com> wrote:
->>>
->>> On Mon, Mar 22, 2021 at 3:09 PM Luca Fancellu <luca.fancellu@arm.com> wrote:
->>>>
->>>> Hi Juergen,
->>>>
->>>> Yes you are right it was my mistake, as you said to remove the BUG_ON(…) this serie (https://patchwork.kernel.org/project/xen-devel/cover/20210306161833.4552-1-jgross@suse.com/) is needed, since I’m using yocto I’m able to build a preempt_rt kernel up to the 5.10.23 and for this reason I’m applying that serie on top of this version, then I’m removing the BUG_ON(…).
->>>>
->>>> A thing that was not expected is that now the Dom0 kernel is stuck on “Setting domain 0 name, domid and JSON config…” step and the system seems unresponsive. Seems like a deadlock issue but looking into the serie we can’t spot anything and that serie was also tested by others from the community.
-
-The deadlock is expected. When you enable RT spinlock, the interrupts 
-will not disabled even when you call spin_lock_irqsave().
-
-As the lock is also used in interrupt context (e.g. with interrupt 
-masked), this will lead to a deadlock because the lock can be held with 
-interrupt unmasked.
-
-This is quite a common error as developpers are not yet used to test RT. 
-I remember finding a few other instances like that when I worked on RT a 
-couple of years ago.
-
-For future reference, I think CONFIG_PROVE_LOCKING=y could help you to 
-detect (potential) deadlock.
-
-Cheers,
-
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/xen.git
+   ecdff2f5a0..b9b3082002  b9b3082002cac68726fb303e0abd2ff0113d4657 -> smoke
 
