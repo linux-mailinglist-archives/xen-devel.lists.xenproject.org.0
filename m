@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F43345EB0
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Mar 2021 13:58:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100672.191945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 150A7345F9F
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Mar 2021 14:28:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100681.191964 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOgb8-0002Xj-4z; Tue, 23 Mar 2021 12:57:26 +0000
+	id 1lOh4V-0005kZ-ME; Tue, 23 Mar 2021 13:27:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100672.191945; Tue, 23 Mar 2021 12:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 100681.191964; Tue, 23 Mar 2021 13:27:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lOgb8-0002XL-1q; Tue, 23 Mar 2021 12:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 100672;
- Tue, 23 Mar 2021 12:57:25 +0000
+	id 1lOh4V-0005kA-Ie; Tue, 23 Mar 2021 13:27:47 +0000
+Received: by outflank-mailman (input) for mailman id 100681;
+ Tue, 23 Mar 2021 13:27:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r5Jx=IV=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1lOgb6-0002XA-V3
- for xen-devel@lists.xenproject.org; Tue, 23 Mar 2021 12:57:24 +0000
-Received: from mail-wr1-f49.google.com (unknown [209.85.221.49])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lOh4T-0005k5-SW
+ for xen-devel@lists.xenproject.org; Tue, 23 Mar 2021 13:27:45 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 20df10a7-bfca-4295-9848-be040d7bec82;
- Tue, 23 Mar 2021 12:57:23 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id j7so20685010wrd.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Mar 2021 05:57:23 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id s20sm2479983wmj.36.2021.03.23.05.57.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 05:57:22 -0700 (PDT)
+ id 5ba9e8c7-9ed8-4ddb-b064-763220cd7372;
+ Tue, 23 Mar 2021 13:27:44 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E43F1AD80;
+ Tue, 23 Mar 2021 13:27:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,43 +38,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20df10a7-bfca-4295-9848-be040d7bec82
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=etZp46PwEAVTsIYpopwYLgqaradwBQk3LEAbkmAGV1Q=;
-        b=bA1Px6sl3r+sIZ9TGyfr9vqk28/GQsrFqnH9aoTfgfjcAIZ27dg2HbG9WTO3eJkY+9
-         mBJ0VvnlS6j17qHqmnZKqM0r1lMYbbI0XcBUC9bepXUBRGURp1rTtzwv2HGbGq58ihMU
-         peM5CvBUn0k4f/dU8pkIW2FFYa6MN0C3gswrRF1vZbiTVtSa5j0iwpyvYxjBtQrNpR9h
-         hKywUGKVdl0vbahuIhBRj7JSWJI10Op5l1LCcM74jZI7ug2n83+PSZvGh6N8z31K7659
-         N5MBOSVOfuIZTr0/8Z1CGFa80S0EbmD0GU/4BoXgg5LEXOHYXOapLlRZ4095AHSG5h8x
-         OZow==
-X-Gm-Message-State: AOAM531GDG7xXc7cmqiyvJu8PqGoYNMk4BRK5RqmysFL3UnNHjAOE+ko
-	JeAwHex92jwRjf5inrTfpzs=
-X-Google-Smtp-Source: ABdhPJzdEfQdNPtN2Ep5XhSd1r/VeLB0n7wO216rXsVmPRudAb4UJGeRMw9SOVfYspwgp/Ro6C0IRA==
-X-Received: by 2002:a5d:698d:: with SMTP id g13mr3981164wru.2.1616504243238;
-        Tue, 23 Mar 2021 05:57:23 -0700 (PDT)
-Date: Tue, 23 Mar 2021 12:57:21 +0000
-From: Wei Liu <wl@xen.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>, Jan Beulich <JBeulich@suse.com>
-Subject: Re: [PATCH v2 for-4.14] tools: Fix pkg-config file for libxenstore
-Message-ID: <20210323125721.2ljuaechs4k65d3v@liuwe-devbox-debian-v2>
-References: <20210322162013.12639-1-andrew.cooper3@citrix.com>
- <20210322163847.23941-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 5ba9e8c7-9ed8-4ddb-b064-763220cd7372
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616506064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X65oIzopQz6eDf2StZGhkSyfEOhs7gyqxVPNHz+iQ70=;
+	b=IBjLPjvxRVs1HEbYIMWUCRYK1PUqvKIGv9l/J3S6Nx1toY3TaCVXkw+1TtEsfLfuaNdtzx
+	C4SjzJCwxRFdwsAEz39R4NLXhcoHgf7tcHlngt3nK1o9ktB4qr9rWM4EyY/2+9qAG8Ghud
+	3OT7KtLnmC4hZe6P89EYM/uh5d6f8e0=
+Subject: Re: [PATCH 0/4][4.15?] VT-d: mostly S3 related corrections
+To: "Tian, Kevin" <kevin.tian@intel.com>, Ian Jackson <iwj@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c19fe2b5-b682-374c-d30f-83fb8b367286@suse.com>
+ <MWHPR11MB1886A8DBD8B93A612A1B09958C649@MWHPR11MB1886.namprd11.prod.outlook.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <35150558-6a4a-d6bb-b51a-4e2bf37e5ae5@suse.com>
+Date: Tue, 23 Mar 2021 14:27:43 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210322163847.23941-1-andrew.cooper3@citrix.com>
+In-Reply-To: <MWHPR11MB1886A8DBD8B93A612A1B09958C649@MWHPR11MB1886.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 22, 2021 at 04:38:47PM +0000, Andrew Cooper wrote:
-> There are no dependenices on evtchn, ctrl or gnttab.
+On 23.03.2021 09:12, Tian, Kevin wrote:
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Thursday, March 18, 2021 6:12 PM
+>>
+>> None of these are regressions afaict, so considering how late we are
+>> in the 4.15 process, I can see reasons to not take any of these. All
+>> of them are backporting candidates though, imo.
+>>
+>> 1: correct off-by-1 in number-of-IOMMUs check
+>> 2: leave FECTL write to vtd_resume()
+>> 3: re-order register restoring in vtd_resume()
+>> 4: restore flush hooks when disabling qinval
+>>
 > 
-> Fixes: 1b008e99 ("tools: provide pkg-config file for libxenstore")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> For the series:
+> 
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
-Acked-by: Wei Liu <wl@xen.org>
+Thanks Kevin. Ian - what are your thoughts here towards 4.15?
+
+Jan
 
