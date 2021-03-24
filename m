@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F1ED34810B
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 19:57:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101145.193256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8F2A348110
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 19:59:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101148.193268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP8go-0006uL-S3; Wed, 24 Mar 2021 18:57:10 +0000
+	id 1lP8j7-0007EI-8U; Wed, 24 Mar 2021 18:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101145.193256; Wed, 24 Mar 2021 18:57:10 +0000
+Received: by outflank-mailman (output) from mailman id 101148.193268; Wed, 24 Mar 2021 18:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP8go-0006tx-Oe; Wed, 24 Mar 2021 18:57:10 +0000
-Received: by outflank-mailman (input) for mailman id 101145;
- Wed, 24 Mar 2021 18:57:10 +0000
+	id 1lP8j7-0007Dw-5L; Wed, 24 Mar 2021 18:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 101148;
+ Wed, 24 Mar 2021 18:59:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KDsp=IW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lP8go-0006ts-8D
- for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 18:57:10 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=z1F8=IW=infradead.org=rdunlap@srs-us1.protection.inumbo.net>)
+ id 1lP8j5-0007Dq-RY
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 18:59:32 +0000
+Received: from desiato.infradead.org (unknown
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ea92b105-a5eb-4a6e-9cc2-a7c26d8714b6;
- Wed, 24 Mar 2021 18:57:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CBC5561A0A;
- Wed, 24 Mar 2021 18:57:08 +0000 (UTC)
+ id 8627bbaa-d657-4441-852b-724eb93c4860;
+ Wed, 24 Mar 2021 18:59:28 +0000 (UTC)
+Received: from [2601:1c0:6280:3f0::3ba4]
+ by desiato.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lP8iv-0005bz-W7; Wed, 24 Mar 2021 18:59:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,55 +39,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea92b105-a5eb-4a6e-9cc2-a7c26d8714b6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1616612229;
-	bh=oxi7KhqA+5LwKJUqAnw0YhZzT2kqbxuT0l6F33/JQOQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LbzqYW1i/G0ckG0lbcouUeQotXxzs10BH2rNtp+n/fO61uJAXoEe5huO+mcHIzwGu
-	 Mjb9CVs1vCOXzXF0tPhFMlpElGqLYW3eMqv/BvqZPy0/FSYKWn5UX+IDMe8Iv+wiCC
-	 ejPGjLGQmze7iySUbcKD/C7yK3wAlLZt/WW0ygaskrzyXlr32L7Sk4KL1JDj7a1d1h
-	 Za513CcyKSKomZCa+7nmQ0gzz83hrgIRPJe66TQAAo0V5JbYX4LQKxQ2gibT4vtgD0
-	 AR6Y32ks4/qm+p/oV+j1aXSsS6VXWm/86GAiEeXT4xrOSf87CtxRzDGcjt+xhAylu3
-	 mGoPaMIKCFykg==
-Date: Wed, 24 Mar 2021 11:57:08 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: George Dunlap <george.dunlap@citrix.com>
-cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH 6/6] CHANGELOG.md: Add entries for CI loop
-In-Reply-To: <20210324164407.302062-6-george.dunlap@citrix.com>
-Message-ID: <alpine.DEB.2.21.2103241156170.439@sstabellini-ThinkPad-T480s>
-References: <20210324164407.302062-1-george.dunlap@citrix.com> <20210324164407.302062-6-george.dunlap@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 8627bbaa-d657-4441-852b-724eb93c4860
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+	:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=S5c08tH94DbYnQq7ubCip4+4vB1dGbmIUGgd0vL4esY=; b=oqZZIo5N0eBy6O8OrtRF/DBDva
+	Dumskv2fuiudyaQYnfIUyXCfX3m6uEo7wgpTan3zTZG5PO8boMSelZzFH9ZY7Ai7Nc7rQ/Yh+KJiL
+	8EseYgIWFqIMKKzmtjI0BKV21t5t+cudxABVee1F0hZ6RPPxum8MhOZiD8pP35Svz7BWeaLlhoGqP
+	f/1qJ8MS2RtDwjDl/7Qbex8WQawEwDwAXPtxhoZ0ze7yqIFVsEBC/VNOuwViKs3WlJL75mWD6NfIY
+	cb7jkAwpwBBArKJW4gpvh9C0joyVTKTZp+yBwu5VNcgvqDpEQ9mJQP92lyCJVp8V1QRZQBbGH9xjf
+	d1vGh48Q==;
+Subject: Re: [PATCH] ARM: xen/mm.c: A mundane typo fix
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Bhaskar Chowdhury <unixbhaskar@gmail.com>
+Cc: linux@armlinux.org.uk, xen-devel@lists.xenproject.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ jgross@suse.com, boris.ostrovsky@oracle.com
+References: <20210324133036.17665-1-unixbhaskar@gmail.com>
+ <alpine.DEB.2.21.2103241154320.439@sstabellini-ThinkPad-T480s>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <5e1b573a-6dc7-7f28-28ae-c509e6782fbf@infradead.org>
+Date: Wed, 24 Mar 2021 11:59:18 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <alpine.DEB.2.21.2103241154320.439@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Wed, 24 Mar 2021, George Dunlap wrote:
-> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-> ---
-> CC: Wei Liu <wl@xen.org>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Doug Goldstein <cardoe@cardoe.com>
-> ---
->  CHANGELOG.md | 2 ++
->  1 file changed, 2 insertions(+)
+On 3/24/21 11:55 AM, Stefano Stabellini wrote:
+> On Wed, 24 Mar 2021, Bhaskar Chowdhury wrote:
+>> s/acrros/across/
+>>
+>> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 > 
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index df6c638152..15a22d6bde 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   - Library improvements from NetBSD ports upstreamed
->   - x86_emulate: Support AVX-VNNI instructions
->   - x86_emulate: Expanded testing for several instruction classes
-> + - CI loop: Add Alpine Linux, Ubuntu Focal targets; drop CentOS 6
-> + - CI loop: Add dom0less aarch64 smoke test
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> 
 
-We also have a full Dom0+DomU test on ARM using xl to create the guest,
-see automation/scripts/qemu-alpine-arm64.sh
+Hi,
+It seems to me like some of those "page" should be "pages".
+
+>> ---
+>>  arch/arm/xen/mm.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+>> index 467fa225c3d0..be7c942c74bf 100644
+>> --- a/arch/arm/xen/mm.c
+>> +++ b/arch/arm/xen/mm.c
+>> @@ -105,7 +105,7 @@ bool xen_arch_need_swiotlb(struct device *dev,
+>>  	 *	- The Linux page refers to foreign memory
+>>  	 *	- The device doesn't support coherent DMA request
+>>  	 *
+>> -	 * The Linux page may be spanned acrros multiple Xen page, although>> +	 * The Linux page may be spanned across multiple Xen page, although
+
+	                                                     pages,
+
+>>  	 * it's not possible to have a mix of local and foreign Xen page.
+
+	                                                            pages.
+
+>>  	 * Furthermore, range_straddles_page_boundary is already checking
+>>  	 * if buffer is physically contiguous in the host RAM.
+>> --
+
+
+-- 
+~Randy
+
 
