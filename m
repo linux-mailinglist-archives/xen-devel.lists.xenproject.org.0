@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B10B347CD2
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 16:41:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101049.192944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B16E5347CD7
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 16:43:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101055.192956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP5cb-0001os-Fd; Wed, 24 Mar 2021 15:40:37 +0000
+	id 1lP5fa-0001xm-0V; Wed, 24 Mar 2021 15:43:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101049.192944; Wed, 24 Mar 2021 15:40:37 +0000
+Received: by outflank-mailman (output) from mailman id 101055.192956; Wed, 24 Mar 2021 15:43:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP5cb-0001oS-AM; Wed, 24 Mar 2021 15:40:37 +0000
-Received: by outflank-mailman (input) for mailman id 101049;
- Wed, 24 Mar 2021 15:40:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lP5cZ-0001oN-Hi
- for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 15:40:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lP5cY-0003vM-7r; Wed, 24 Mar 2021 15:40:34 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lP5cX-0006wn-Vf; Wed, 24 Mar 2021 15:40:34 +0000
+	id 1lP5fZ-0001xN-TW; Wed, 24 Mar 2021 15:43:41 +0000
+Received: by outflank-mailman (input) for mailman id 101055;
+ Wed, 24 Mar 2021 15:43:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u5GA=IW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lP5fY-0001xH-EH
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 15:43:40 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 78e7b1b7-76f2-40fc-a8e4-bf93909a0ac3;
+ Wed, 24 Mar 2021 15:43:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,127 +36,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=mjZUN8RkTSnvwH1Bvlo1YVV/OrF/o2G5mw7vhhDrAHY=; b=g0jiVGn64brKvq6S0axKUR3emX
-	9D+8ETzeNySJP9tF62BbOiTG8/dzyFzdOLzJluL7bum3+AfinpxJdLWVlLVQeG3zMCbNlPbRekP6v
-	Yns1c0OYsfjnMOqpctQfGtEqvDTiqfW+sBWi9Urxx2czOgI5xT6c7rsnkixeqzm28BCY=;
-Subject: Re: [PATCH-for-4.15 V2] tools/libs/store: tidy up libxenstore
- interface
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20210324113035.32691-1-jgross@suse.com>
- <043461f3-9b5e-7d29-bc52-275d663579c9@xen.org>
- <88a63fe9-e752-285d-3a3f-f00db02df980@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <598182a3-0d62-723f-8582-3b73ec38c7f9@xen.org>
-Date: Wed, 24 Mar 2021 15:40:32 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <88a63fe9-e752-285d-3a3f-f00db02df980@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+X-Inumbo-ID: 78e7b1b7-76f2-40fc-a8e4-bf93909a0ac3
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1616600619;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=4t8h/V5VL/2YLVJYxqD1SyLsO/NLKW39GY5oNhNfJew=;
+  b=C1eGdwJE3CgcT8sJSlj+8Ta/m5duUCPCGeezvYrqyXARynxE9EmXqR++
+   D5gIC3B3FCgCDzdZhuB5cZh3K6ybNwVtJqhQp6Zfzb+Q3sPxqDlsRnoxK
+   sWkGetM/74NRiyDgfJqhu7wPvvKmBY1K83U1hV34Z1IR0x4iqRd6xWJXf
+   o=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: jTeEk/lbNR9qEfHw84rDBy5E3ddNzhCj1EvIfD12oB1OwAfQcGHQTqXoihpnNsjmbqyjdwFAqR
+ w6O46a73e1o3HcN3OfDkgFlx+lhpIClKOdtNhTH7I4qN96lLSZxObqMLkgIF2DuUFGrffy/xdQ
+ bDqKK1L/MWnFCNc5OkL9QW13euWjODcBknRONke5575Pe6o1lpn1BX9mi96QBHPYzeriqS+Zzs
+ vqbNw0IqJ5NxOqaSS+hS91S12AoC+qqL9D5zb6udkST3rDssTRFGNWMO7V1mgtjQuOrbbmzb/Q
+ sYI=
+X-SBRS: 5.2
+X-MesageID: 40038641
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:O+q+y6gZKQOfU4iYmmZMhp/t1XBQX31w3DAbvn1ZSRFFG/Gwv/
+ uF2NwGyB75jysQUnk8mdaGfJKNW2/Y6IQd2+QsFJ+Ydk3DtHGzJI9vqbHjzTrpBjHk+odmv5
+ tIW5NVTOf9BV0St63HySGzGdo43Z2j+Kenme/Rwx5WPHlXQotn6Bp0DRveN0VwShVPC5ZRLu
+ vm2uNsoT28dXMLKvmqH3VtZZmPm/TntrLDJSQHCRku9RWUgVqThILSPhCE0n4lIldy6Jg492
+ ytqW3Ez4Wl98q20xrNk1LUhq4m4efJ7vtmKIiyhtMOKjPq4zzYKLhJf7GZpjg6rKWOxT8R4b
+ 7xiiwtNchy9H/dF1vdyXSC5yDa3Dkj8HPkw1OD6EGTx/DRfi4wCMZKmOtiA3jkwncgp9113e
+ Zq2G+UpvNsfHb9tRn9/NTBWlVWkFO1qxMZ4IwupkFYOLF/VJZh6agkuG9FGpYJGyz3rKo9Fv
+ N1Mc3a7PFKNXuHcnHwpABUsZKRd0V2Oi3DblkJu8ST3TQTtmt+1VEkyMsWmWpF3I4hSqND+/
+ /PPs1T5fBzZ/5TSZg4KPYKQMOxBGCIawnLKniuLVPuE7xCHH7RtZjt4vEQ6PuxcJIFiLs+8a
+ 6xEG9whCoXQQbDGMeO1JpE/lTmW2OmRwngzclY+tx3obv5SL33MTCSSVwnnse6ys9vQPHzar
+ KWAtZ7EvXjJWzhFcJixAvlQaRfLnEYTYkUt78AKhezi/OODrevmv3Qcf7VKraoOy0jQHnDDn
+ wKWyW2IM1B60usS2LpmRS5YQKoRmXPubZLVITK9ekaz4YAcqdWtBIOtFi/7saXbTtYsqI3e0
+ N6KKj9kryyoHS3+Wqg1RQrBjNtSmJupJnwWXJDogEHd2nud6wYhtmZcWdOmGecKgRnVMPQGg
+ 5Hr1Fx8aa6RqbgghwKOpaCCCa3nnETrHWFQ9MggaWF/97iYY59JI0hQrZNGQLCEAFVlQ5mpH
+ xYUhINQlbSG1rV+OOYpa1RINuaVtFnxC+3PMZfqBvkxD+hjPBqYkFeYhmDfoq8hx00Sz9dm1
+ trmpVv/YaoqHKIMmswgOMxLVtWTn+YaYg2QzitbJlIm7ztZQF7RXqLgzvfkB0oZm/27Swp9x
+ DcBDzRdvfRDlVHvHdElq7s7VNvb22YO1l9c3ZgrORGZC/7k2c21e+Afayo1WSNLlME3+EGKT
+ nACAFiaz9G1pSy1BSPniyFGmhjzpIyPvbFBLBmd73IwHuiJMmJkq4BdsUktKpNJZTrsuURV/
+ iYdBLQJDTkC/kx0wjQv207IkBP2QwZuOKt3Aeg4Hmz3XY5D/aXKFN6R6sDK9XZ62T/Xf6H3J
+ hwkNpdh5r7DkzhLtqdja3HZT9KLR3e5XS7SOwlsphYt6M/vrkbJeisbRLYkHVcmBkuJsb9k0
+ 0TBLlh6LfaI4l1YogcfTla8ldBrqX8EGI79gjtRukwclEmgyWFY5eH47/UpaEuBUPErg3qIl
+ Wb+zBc+fCAXybr789rN4sgZWBNLE4y53Rp8LncK8neCAC2e/pC+1T/M2LVSs4tdIGVXbEL6h
+ B96JWUmuXScSzy0gXZpyF6LaJD6HzPe7LEPCucXepTt8WnMlGNiLaw6MG9jD3rWSK2An5o+7
+ FtZAgVdIBfkTEsg408zziqRqH2qkwjlUFC4TsPrC+f5qG2pGHBHU9HNgXFgpJZGTlLW0L48v
+ jt4KyG3HH87TBZ1d3JFkhLF+s+b+Qtcg==
+X-IronPort-AV: E=Sophos;i="5.81,275,1610427600"; 
+   d="scan'208";a="40038641"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SnZtZ31uyTy8GgIBhWrpw+0uZhdA18obqrEszjxVp9xMACjwuwu4I0Qq0XiwCnNgi7x41JxF3ScEvCJrjQjkpb8Tmq2NphUaaoy8E6osLM6WiqxFbe79DY3KL4RMUPJVtbf7pF1Vt6UcUh6WG8w+/OL+xs5hQHCboSt5ci52LvdQk8I2uMyK6fW2iEbRdR0jH0es0p0lg/WkpecoPY4jZOnqlR0JSf0s5y2e7J9NFv55+3i1E5caN22bSyqtNlLJYDEmKaKpL4/YKGYI5G5jubDWpA7DRVyjMOVsJjrcWPyKZXq8tgyWkpY9beFf1VFb6+OTglSSKd7U3dBGRla+2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rli26qDOxYcb4kpE5ga12+P45RCsjyWASRzYmRxUWtc=;
+ b=LYWlBPaUBt75BNtkqYaCpviAOCvjE+zNge2Ei6HML0RGjnOxCe78uMeDCxLDSOhV1HAJGFsbBsvz+OL5DCerZIXf4/LrNIBu3B2yscs/N3lb1sxHkLornFsrNj23chSdOkHLvKDJu008JzbWc2WXd4upxWBeC1d79sF1dtdyHTCDnNLivFx0QLt78yU/ddI0r3qqrnOLe2He7lsFY7ss50yM822l2+1copqN7FZkcwulr0bkOg9bgXTlsr4jgCmxni7AX7qXaQbUQQaLTC1t6aPpzMOqI3QdCfkUSRk+ApSDoKVzqdQU3ZKLz+yV2qO7+b88FgVL5t+AhPfnAIk1wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rli26qDOxYcb4kpE5ga12+P45RCsjyWASRzYmRxUWtc=;
+ b=U6Ln8Jl4RB7FCTcYj5OT537APEnBExNj9J5Lzc6ByRgr8JH7bIQqNmbyPM10EKHe0vPYfu5Gvp0rOHqeATdfmBzJguLAjf8zc3HTZokglO2F1Yc4m4Yy0HaYe8WsS+y3yCLEwgyXAp5/OwO4dHHdtL8CM0YDCjnPCocxHoErNKg=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>, Andy Shevchenko
+	<andy@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+	<linux-gpio@vger.kernel.org>
+Subject: [PATCH v2 0/2] intel/pinctrl: check some registers reads
+Date: Wed, 24 Mar 2021 16:43:10 +0100
+Message-ID: <20210324154312.61878-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.30.1
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR2P264CA0048.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::36)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 75109aae-d4fa-42cc-ca9b-08d8eedb957f
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4763:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB47634E087B53E5572CF731198F639@DM6PR03MB4763.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FqjHesKsUuAe5wbEP/a8iH7UTAwoNpecjDpDA8MB1IDwSE1TgFQsv5Y/DIfrYlH1WUipOQ1i2y82ALcqmOEXJ6OggCzSA7EnQOPeME/iabM/PaVVcAFiNjp83QWKNlHgJp6lug4dlRGKP6YTKbZHvtbiTCAV4wGISP4yRr4JRbsyD/JP1JUnTHrSqOTWmOsh3kiWfJ3wF4ZU7FFJSsCE3O3HtfTnBD27IPeo//fZQlSM3csf3NordgewwDJtHHYT+pXaXp9t4wdXWf/wspQqNcpEByZyjjJwFcGppRkzdFxzGx0UE8nYjcgdQE0NKcQSJbWue9G6VX173JERstZ+FFVwjJEEwow4bJBQF+ijb8NcF1soXlNKCEk/pWN3Kh7nlbq0WiGQPZdIKIuJk00Z+1RpI8Ws5OHYEOLb77iB5pb6m8MY2vu/fA8NCH2kDTybj0fTA+jtZGpcGDOp3+bL/TFKIAXef3JmJjvOKciu/xGm8nqA1SGzRchy9/qZpehZrVRMHw4uUyZltx9MZfMTSsIilIWAgOAy0swEX7JaTX4NPf1ILiUX5JbrpdwPxNBjys7M66uhy+tydUiOAC4h/fELbDIEZSu/4CNgE9uR0eWgYm+SYd1gABGUFqbb/Cw53NUMBDjWsVHex3nZXV+rZc3vam5VSjlNzTgoaapDJtI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(956004)(478600001)(8676002)(186003)(6666004)(4326008)(86362001)(36756003)(16526019)(54906003)(26005)(4744005)(8936002)(38100700001)(6486002)(316002)(6496006)(2906002)(6916009)(66556008)(66476007)(83380400001)(66946007)(1076003)(2616005)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZFNzNWxGaWRZT2VKMkIvRHZiVU85ay91L000ckZWdS9aTkcvcmVWRUFWQnhr?=
+ =?utf-8?B?RzE0VjZlLzVObG5laDB0eGNaa1ZkTHZaa1d3U2pNaUEvUm5PczRlTUljU1hD?=
+ =?utf-8?B?bmh5NXJYOUxZbmtTeXN0c3Y2VjlWRy9Nd1ZOaWl2c3c1WlQ1VG90VGlCTExI?=
+ =?utf-8?B?Z29BVXZYTC9ha01zK1dGckp5NVdPa1pvWFpyUVgrRUNQcTdNQ0lpOXkvRkVF?=
+ =?utf-8?B?bWY3MXRncVo0dkpIY0VnOFg0TmhyV1NGemJ2VVVWOFFZQ1crWTdPTjFpNGpi?=
+ =?utf-8?B?WmtEb0hneDZXaXYxblNieGxnUGt5V0dMRGVBNWU5dFNQT293U3FtUllYQjh5?=
+ =?utf-8?B?VEhnQ3lDKzhsQVk2Ly9TeUtRNnJLSzZFeENxL3pnajdCNXBNakkveDZ6czBq?=
+ =?utf-8?B?SURuaHBvSmxaQVBPL2pvdmJaajJNUWs4TTFiMXUyRm54aTJoQjJtQ3pldzlH?=
+ =?utf-8?B?RndsazhTempLK0dhTjllRlFJUlRIcW9vM0tRSy9ET1ZnREMvbnZNaXBzWGxV?=
+ =?utf-8?B?RTJabGhSdUdKOE0rY2UzMWdIa0hHUU43OE9hTHYyTzlJUFNCbVMwYk8rR2pJ?=
+ =?utf-8?B?UmpBK1FXSHRnUmQxeStHZHBzRHRXc0pZdFFTeVNSUDhEYjhWWkk1QlpOU0J0?=
+ =?utf-8?B?cnRySVBoLytxY2JCNXREM1hGMGdBYXM2ZkVFSzE0UkMvRUkrc0pkME93dDhk?=
+ =?utf-8?B?WUkzdzYxWUV3aGlwQ1krRm5TRmwrK2x0aG5jZzRxZkZsSVBQdmpIeFhoMzVO?=
+ =?utf-8?B?U3lJNnVHbExlaENvemRFSDJWdDdRVjZJYVE4SjVaM1hqV3hSN2pQYVpKSXRu?=
+ =?utf-8?B?SGJpZmsvUjdaRU43eWdFYnI4eTQxaDIybCtldXJyK3Z2bmZvUVJ2YlZNMFhG?=
+ =?utf-8?B?RERoeWkrTjBxWE4zY3N0VEdwY2p2SEJLNEJrTDYvSmJLWVhRb1JKWVVsRTNL?=
+ =?utf-8?B?c1RpL2xEMFkvTVFZckJlWVE1Q1h4d00zT3ltc1NtTGhaOXlnL3llWVlxZ1VF?=
+ =?utf-8?B?QTY1YUpRSjhGRkswaHF2ZE1qQW9ZdGRoZnBIZERubDBQRTdRc3kwVHNhczYw?=
+ =?utf-8?B?OHRaMis3RjRDOW1VdDRpZGlhRjE2OW5sdTM1emU4YytaZlR4UEJiVVlybHhV?=
+ =?utf-8?B?STFOb1IweFNTYUk3d0JhN1hnbFdLSzVxOXg3alVQeEhNNzY2VXJraUI0M2FT?=
+ =?utf-8?B?dGo4YVFMLzZVSnNaeVU0Vy9GdC9KQlcrZHJ4dGh4VXNJYnFUbE1oT2F2MGRq?=
+ =?utf-8?B?SUxRektSTFNVSHhCd1Z4UHkyRm8wdEU1Z3pYbzVOVGNNb2d0TGVxZEp3R0o5?=
+ =?utf-8?B?VEdpRHRYUFJnSHhFVGdqWVFoR0N2TStFbEJWa01nZ25HOGZ4ZldKcy9ZcjNL?=
+ =?utf-8?B?dEEzSy8xUGNDWFZHZHF6M1l0Ungrc1FlOFIwWXU5Q204YXgwTWhMWndtSFNS?=
+ =?utf-8?B?NzlOWVIzcFEvdCtzMWlUSG4yWGN1eFZBd1p3ZTJIdVJYRGowSDd6THdDcHZX?=
+ =?utf-8?B?SGJra2pwd1Y1eUxFL09wcEkrWXpFWnlzRVVyallmNnJCNzZCMGJBWXBuNjlY?=
+ =?utf-8?B?QUw2MCt6VzJEbllMbGtsMnhxL0VEa1JoZjZIZDNaYU1MK0pSS0xOTDRPVXRY?=
+ =?utf-8?B?N25DQW5hWDJIVktMWjB2dkdycENNTU41YlB3bUw2VzArY2VSdkVIeURDUHJu?=
+ =?utf-8?B?S2JVZTdaRVFXR0p4Qit2YTdnMnIxcE1DdEdnYkRHajQ1T1BtSFdJS3pzZFNJ?=
+ =?utf-8?Q?xWs71vojz9tCfzu4FVErbJuUPKdDQJHw3SwvLuc?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75109aae-d4fa-42cc-ca9b-08d8eedb957f
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2021 15:43:34.7160
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QyRlHSEHw19c3Odstel2gRWs3PBsvC/DiZyOJPcBHvavDQzq0QaxYIknhXk4Iu+UdnNTodjuNRS4tGh4clk0Ug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4763
+X-OriginatorOrg: citrix.com
 
+Hello,
 
+The following series adds some consistency checks to the values returned
+by some of the MMIO registers of the Intel pinctrl device.
 
-On 24/03/2021 14:33, Jürgen Groß wrote:
-> On 24.03.21 15:09, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 24/03/2021 11:30, Juergen Gross wrote:
->>> xenstore_lib.h is in need to be tidied up a little bit:
->>>
->>> - the definition of struct xs_tdb_record_hdr shouldn't be here
->>> - some symbols are not namespaced correctly
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> V2: minimal variant (Ian Jackson)
->>> ---
->>>   tools/include/xenstore_lib.h     | 17 ++++-------------
->>>   tools/libs/store/libxenstore.map |  6 +++---
->>>   tools/libs/store/xs.c            | 12 ++++++------
->>>   tools/xenstore/utils.h           | 11 +++++++++++
->>>   tools/xenstore/xenstore_client.c | 12 ++++++------
->>>   5 files changed, 30 insertions(+), 28 deletions(-)
->>>
->>> diff --git a/tools/include/xenstore_lib.h b/tools/include/xenstore_lib.h
->>> index 4c9b6d1685..f74ad7024b 100644
->>> --- a/tools/include/xenstore_lib.h
->>> +++ b/tools/include/xenstore_lib.h
->>> @@ -43,15 +43,6 @@ struct xs_permissions
->>>       enum xs_perm_type perms;
->>>   };
->>> -/* Header of the node record in tdb. */
->>> -struct xs_tdb_record_hdr {
->>> -    uint64_t generation;
->>> -    uint32_t num_perms;
->>> -    uint32_t datalen;
->>> -    uint32_t childlen;
->>> -    struct xs_permissions perms[0];
->>> -};
->>> -
->>>   /* Each 10 bits takes ~ 3 digits, plus one, plus one for nul 
->>> terminator. */
->>>   #define MAX_STRLEN(x) ((sizeof(x) * CHAR_BIT + CHAR_BIT-1) / 10 * 3 
->>> + 2)
->>> @@ -78,18 +69,18 @@ bool xs_perm_to_string(const struct 
->>> xs_permissions *perm,
->>>   unsigned int xs_count_strings(const char *strings, unsigned int len);
->>>   /* Sanitising (quoting) possibly-binary strings. */
->>> -struct expanding_buffer {
->>> +struct xs_expanding_buffer {
->>>       char *buf;
->>>       int avail;
->>>   };
->>>   /* Ensure that given expanding buffer has at least min_avail 
->>> characters. */
->>> -char *expanding_buffer_ensure(struct expanding_buffer *, int 
->>> min_avail);
->>> +char *xs_expanding_buffer_ensure(struct xs_expanding_buffer *, int 
->>> min_avail);
->>>   /* sanitise_value() may return NULL if malloc fails. */
->>> -char *sanitise_value(struct expanding_buffer *, const char *val, 
->>> unsigned len);
->>> +char *xs_sanitise_value(struct xs_expanding_buffer *, const char 
->>> *val, unsigned len);
->>>   /* *out_len_r on entry is ignored; out must be at least 
->>> strlen(in)+1 bytes. */
->>> -void unsanitise_value(char *out, unsigned *out_len_r, const char *in);
->>> +void xs_unsanitise_value(char *out, unsigned *out_len_r, const char 
->>> *in);
->>>   #endif /* XENSTORE_LIB_H */
->>> diff --git a/tools/libs/store/libxenstore.map 
->>> b/tools/libs/store/libxenstore.map
->>> index 9854305a2c..fc1c213f13 100644
->>> --- a/tools/libs/store/libxenstore.map
->>> +++ b/tools/libs/store/libxenstore.map
->>> @@ -42,8 +42,8 @@ VERS_3.0.3 {
->>>           xs_strings_to_perms;
->>>           xs_perm_to_string;
->>>           xs_count_strings;
->>> -        expanding_buffer_ensure;
->>> -        sanitise_value;
->>> -        unsanitise_value;
->>> +        xs_expanding_buffer_ensure;
->>> +        xs_sanitise_value;
->>> +        xs_unsanitise_value;
->>
->> Isn't libxenstore considered stable? If so, shouldn't we bump the 
->> version to avoid any breakage for existing app?
-> 
-> See https://lists.xen.org/archives/html/xen-devel/2021-03/msg01267.html
+That done to avoid a crash when running as a PVH dom0. See patch #1 for
+more details.
 
-Thanks! Can the content of the discusison be summarized in the commit 
-message? This would avoid other reviewers to wonder why the change is fine.
+Thanks, Roger.
 
-Cheers,
+Roger Pau Monne (2):
+  intel/pinctrl: check REVID register value for device presence
+  intel/pinctrl: check capability offset is between MMIO region
+
+ drivers/pinctrl/intel/pinctrl-intel.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
 -- 
-Julien Grall
+2.30.1
+
 
