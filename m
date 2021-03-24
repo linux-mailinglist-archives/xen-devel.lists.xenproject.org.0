@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45646347885
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 13:32:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100977.192749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B4213478B1
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 13:40:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100983.192761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP2g8-0007KM-EE; Wed, 24 Mar 2021 12:32:04 +0000
+	id 1lP2nh-0007gG-A7; Wed, 24 Mar 2021 12:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100977.192749; Wed, 24 Mar 2021 12:32:04 +0000
+Received: by outflank-mailman (output) from mailman id 100983.192761; Wed, 24 Mar 2021 12:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP2g8-0007Jw-9g; Wed, 24 Mar 2021 12:32:04 +0000
-Received: by outflank-mailman (input) for mailman id 100977;
- Wed, 24 Mar 2021 12:32:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u5GA=IW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lP2g5-0007Jr-Vz
- for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 12:32:02 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 23fcc9b2-0187-4fec-a75a-4561bb1f131c;
- Wed, 24 Mar 2021 12:32:01 +0000 (UTC)
+	id 1lP2nh-0007fr-74; Wed, 24 Mar 2021 12:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 100983;
+ Wed, 24 Mar 2021 12:39:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jyEQ=IW=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lP2ng-0007fk-95
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 12:39:52 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 184b7ed3-510b-4ceb-90fb-a53fee583e66;
+ Wed, 24 Mar 2021 12:39:50 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E76ADAB8A;
+ Wed, 24 Mar 2021 12:39:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,205 +38,363 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23fcc9b2-0187-4fec-a75a-4561bb1f131c
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1616589120;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=R4gkis194kilftpQstf9rZL9/bcNSgw//ydipzRXofk=;
-  b=Sh00lpc788MCSytamy/RnLUPpI4lSQXVpR8dGoBHniD0DFaolCgv0qhz
-   dSNijZBzJkPJBkZdcPKDXpDvwb4qVlLDeHSx03cTdOK9fyXn66YLOLHso
-   hE3Xvgm04g7DxHouDlaRKhPBbMyXbAN0G/Czda8N8li894Il/k28dM+xz
-   4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: YvE/SYBQjZkmiLZVR/s9RWc1wp0hPbnz1mMDbt7SupI7cYiHIMeRb1MFVLD7rBDO/rz1jL7fzR
- JFdw6HovvlLqbNLqkQQZ/oi9hvbLDEwk/BzFTN/0fJR/etdBtb3TUwfpM0j0k3OVTDOOiGFyjQ
- WTos7uIbE03rXG9TnoOeoep+aj90Wc69s0JBlPs24eUUYMzIOwfC1J8Pi2FFGiIG0v4MtItG2u
- di1ABYmmkntoPY3bCjKcXQvr1yh/Ov60NxoYkJ5ZTkE/C2FUKuhe6Yrb5JEFzc1DFO6YDIRhcH
- 55g=
-X-SBRS: 5.2
-X-MesageID: 40164727
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:Zt6Y4qHcc/kVw6ZYpLqFDJTXdLJzesId70hD6mlYcjYQWtCEls
- yogfQQ3QL1jjFUY307hdWcIsC7Lk/03aVepa0cJ62rUgWjgmunK4l+8ZDvqgeNJwTXzcQY76
- tpdsFFZeHYJURmjMr8/QmzG8shxt7Cy6yzmeLC1R5WLD1CQYsI1XYcNi+wFEpqSA5aQacjHJ
- 2H6cZd4xamc3IbbsO0b0N1JdTrjdvNiZ7gfFo6FwcqgTP+9g+AxZzbN1yj3hkYWy5S2rtKyw
- b4uiHw+6nLiYDc9jbyzGnWhq4m+ufJ7vtmKIiyhtMOKjPq4zzYGrhJf7GZpjg6rKWOxT8R4a
- DxiiwtNchy9H/dF1vdyXCGu3iCoUYTwkTv1EOChj/bqdH5LQhKdPZpv55TcRfS9iMbzbZB+Z
- 9Mtljp0qZ/PFfrmSTw4MXwTBd6lka4impKq59us1VvFaQZc7NftooZ4Qd8F4oBBjvz7MQdHP
- BpF9y03ocdTXqqK1Ti+kV/yt2lWXo+Wj+AX0g5o8SQlxxbhmpwwUc0zNEW901wua4Vet1h3a
- DpI65onLZBQos9dqRmHtoMRsOxFyjkXQ/MGHj6GyWoKIg3f1b277Ln6rQ84++nPLYSyoEppZ
- jHWFRE8UYvZkPVD9GU1pEjyGGDfEyNGRDWju1O7ZlwvbPxAJDxNzeYdVwom8y859oFBMn2XO
- uyJYJ2D/fvIXCGI/cI4yTOH71pbVUOWswcvdg2H3iUpNjQF4HsvuvHNNbfTYCdUgoMayfaOD
- 8uTTLzLMJP4gSAQXnjmiXcXHvrZwja9ZJ0G67KwvgLxOE2R89xmzlQrW78ytCAKDVEvKBzVl
- B5OqnbnqSyonTz2mrU8WNzOF54AlxO6LvtF1NGzDV6f3/cQPImgZGyaGpS1HyIKltUVMXNCj
- NSoFxx5OaQNJyfxScrDvq9KWKEh34vpHaHJq1s25Gr1IPAQNcVH5wmUKt+GUHgDBpugztnr2
- 9FdUs5XEPFLyjvjq+klZQQI+nae7BH8UKWCP8RjUiamVSXpMkpSHdeezK1S8aYjTwjQCduik
- Rr/7USh6eBnjiTOXIy6d5IQWFkWSCyOvZrHQ6FbIJblvTQdAZ8QXyjqBaahxswE1Cavnk6ty
- jEF2m5aPvLCl1StjRkya7s6kpzbXjYVVl3cGpGvYp0Ennmtn5/3fSQXLe613KcZzI5s6UgGQ
- CARQFXDhJlxtix2hLQpS2LEm8+wI4yesPaF7YuftjoqweQAbzNsZtDOfBa/Jxobo+z9sAKVP
- +SYA+TInfTDfgz1wmcu3YiP21VpRAf4IHV8SygyFL9+ng1Rcf2ChBBYZowJtmH9WjqR/qSyv
- xC/KQIlNr1Fl+0U8KMzKHcUiVKJRzSq1OnVu1Ak+EmgYsC8J9IW6TBWTTG1Ht7zAwzAcf9mk
- QZWrl66tn6S/pSVv1XXypY+1Yz/e7/VHcDg0jTAuUke0sqgGKeF9SV46DQob5HODzImCLAfX
- 2e+TZa5fHLQm+q0qMbEbs5JSBzZFIn4HpvuMOEeIu4MnTgS8hzuH67OGS6arlTVeysHqgRtA
- 9z55WwpNCsHhCIrzz4jH9cOaJB82GuXMO0DkatIIdzgqGHEGXJpLCr7s61hCrwUh2hZS0j9M
- p4SXA=
-X-IronPort-AV: E=Sophos;i="5.81,274,1610427600"; 
-   d="scan'208";a="40164727"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UgDQOaSsfd3W3qD9htEZcTaPiyPjAN+aVMqunwhtdUzIXAEc1c/F6YeLFjFWYKeFmIMr4erpDIdP/+Z4TDsvaCl1xErXkNshG9re4q6XaJdXwNWMMcI4d4oLGx9QDQRyhnEHyUqOjsTZ/1OERgr6SGEMmgmJMY++ZegwH6z3TLKFMs6G1aPCReLlnxclIKX8RcWK/wts9GSC+HHwD+F0IxpKCxgdTwZ9gurO40Kg+qbjsCW8nPgmQgQZyjI8dYyj8nB51DSLPc7RRZu+6u+3LT8yhsvfrwL7B4mp7W2Ke/vxVHWb9ABCcRbR9uY5hMlL3nWmgr5fu4B6dpjFqhaPog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POqR+yGlRcp/InBe4dSo99f2+VyBz/rcTmCM4AxG96w=;
- b=GIiI9WOcFt6E9RLyXnT1fglJ3B9WzlQZUDnrxcu5XITGaMjn1fDEMUjD5ykidavFk7tpb/R9bMIJscUQ4nDpjrYWmHAbOTJ/4Rdjuri47ROG3Hb2JLB7+WhvO0R6NgyAYSh+sHkusdW97V6m3p0FBRjZGJc6tYHGK7MeMJ7YdUS35gVQ71cm/vzcLrQZQztzFRFOufQv4TMTWQabPXXMCPiYyajMkuBjVwEy8VObl55annQlGQEIruqxe1Ok2r/17M2csSxoRHrX6RpKnhyHDrTAgTP7NWXI7fGbDrJBVm9uT9YgoXFxoahYXfsYiTZqybWkEGblzBKeibtSUXq74Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POqR+yGlRcp/InBe4dSo99f2+VyBz/rcTmCM4AxG96w=;
- b=mQJ+v9ZlRgcbMPOXMfz9prtuKnnR0rHEneCml8nBCrCe4O+mfRJgRqGwEYKSMUr/5Q1GM8tz1rQATuFiU58hMVhsIb0y3mjU8U131e0PFK95F4/TBT2Niw+EWAX5Ot4hv4BIGUAtn9HqwV86nae1cChJgAr3hSjQDHMfiuZpjzw=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <linux-kernel@vger.kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>, Andy Shevchenko
-	<andy@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
-	<linux-gpio@vger.kernel.org>
-Subject: [PATCH RESEND] intel/pinctrl: check capability offset is between MMIO region
-Date: Wed, 24 Mar 2021 13:31:18 +0100
-Message-ID: <20210324123118.58865-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.30.1
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MRXP264CA0020.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:15::32) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 184b7ed3-510b-4ceb-90fb-a53fee583e66
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616589590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=oYu8+J3fSRjtZy4WyLNOzW1Ncx/3pJsJfPxBiYP8hzM=;
+	b=o2mIh2EGkWEtMEQxVgzrrX2uM6MObLxCBLpLuWep51EdzSKnwfrVEl9TwH/ZqG7sS9g3zL
+	h0zbT5m7PLaa9G7m5BiSoYlY3oc6DJ5nNkziNEoAl9iqhibExsjF+TXLkFpyIZNX0DToaI
+	sz4S4JG6LxAO2IIOm/nHmbLxKtxrFwg=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH-for-4.15 v3] tools/libs/store: tidy up libxenstore interface
+Date: Wed, 24 Mar 2021 13:39:48 +0100
+Message-Id: <20210324123948.7207-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0d6d2bac-85c1-4936-e2b7-08d8eec0d031
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4539:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB45395BED1AA69CBB56F227FB8F639@DM6PR03MB4539.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j+BTsEOI/Yk7IN6cquruSnNPhksZGXV17HknzSm0EO7b+bvjjc42Q4n/SWTwe+yl1kbI3uze+tywyOREB+ODqGAW+MGtsagVUYvpVsD/GvGwfik7lnM08fMfwLVFcZ2W+LapHqErIDfFXhekQ4bUUJ0gv4gx6N2/y4ZFcAa3OOG72UYc+xcsQvPIz0FXXqFWNJdKrSoOhrnaYxt0plFn7XN8RWdWV+XUB8prACktKIwFSdUT0eTgmm7kzvyl0ZrsgxFSEIpTnV4ZKZPzls6o4Y73pigfzEtLQj+J/sT/X1bTJWlyTjA7axSAq6hqGRw6HUF3U/zApU5MP5vpIQZbtNbkyCTo7Gs0ffTU8VnhXHFHBNxzO7A4n0EFs0YkTD9Zf+AXZgCxOVURGLvDuKp/jwRJRbChRljhtbmzQ+Aa9HIXlrLnzWE5Vvya1zGqaRXYcLOMiUYodNG0Cl+xj1Lz6hjkotZmi0M5IOmPIR5Hr1PsIdIPXYNWpxoNs3a6Cr2gO3idHkwguIV6/ol0A6wV7KV+8u8mEEm/k6Tj5hGawfixnk0vpBC+TKaetiNJcEKYrjwsUtWO9+TG1EODlSYOfFUfTnEyrZWT8qAZqEOj4tKq47NenWHJl+asi8doezpSNDFOItGiClYPkZyYHGI44bTZBP5b1snHxBZY/5qlme4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(396003)(366004)(136003)(346002)(376002)(83380400001)(6666004)(2906002)(186003)(86362001)(4326008)(5660300002)(26005)(54906003)(36756003)(38100700001)(1076003)(316002)(16526019)(8676002)(2616005)(6486002)(66476007)(6916009)(66946007)(956004)(8936002)(66556008)(478600001)(6496006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MFhWZFZIUXduOVVYTlZVcjZjcFl3cWxLSWdBQVFHcUtsTWE0bzlVbDVBVmd2?=
- =?utf-8?B?MUJGclZISkI4eHpKOGsvTG9lNXhCRU0xb3hTR2VJaHlNMjUwN2tzcUxTS1l1?=
- =?utf-8?B?VGlXMDMzUTU4d0VvZWhOSm1SdlkvRlBlQ0VibEpiaHJPUmdCdGlTZ3oxT0l0?=
- =?utf-8?B?Vi83KzV4QlkvaFpjRjFiWmMxTU54ajVmd0IyZUR0M01xTkh4VHJYeDVKcW9V?=
- =?utf-8?B?U25DcUJRWGIrRzVsMHM3bjlFeEhoUExIUzhBWHJJKzNNc1V1aFFtaHdJSDJI?=
- =?utf-8?B?aWxPSzQ1bGJncFExa3FRdk9tTXZQb3RuWFhQWWlsN1JGUXo2eVVJSkI3SWlx?=
- =?utf-8?B?bnpvU1VIbjRTWkhxZXdYRHd4OWhrSE5FQ3Bid3JIem5lenp3ZXpLVDhjU2Nx?=
- =?utf-8?B?S0JrRWdCNEdNWXB0b2dBWWc3U0FoYnZPaG9ZQUVJYWlnQVU2UDk1cWdtcmx0?=
- =?utf-8?B?YytDOVdVQ1ZYdjlVL0dCNkkyTmo0Ry81NXJHQXVxYyt0aC9xcmxhUEJYVzM5?=
- =?utf-8?B?Z1NISnRkWlNwNTlaS0NsU1UvRjNVMEZZa21HemwveVpoSzZYSC9PUjNCSnJ0?=
- =?utf-8?B?Sm04ZUZka0FGUUg2ZWpRanZkSjJ5YllKR2NHNDN0YVVuZDlTaERTOGFIdVox?=
- =?utf-8?B?R0pmMGlxTU5QVjB4MVQ2eVAwbDRJNkc5K2FvZllTbVdRSnVFeStFYTc5NVZC?=
- =?utf-8?B?U1gwSE5RMDAvQS9uY3NpLy9PU1ArekdmeGRRT0hVOU5vRGRQeTNQYytCMnlo?=
- =?utf-8?B?ejlzaWIvUExobzhoSXMrbDlHdzVIYXo5R0dEdDZaa2dKdjJWK2xTeEYzaWxk?=
- =?utf-8?B?WlJrYjNneVZUem1wcVZ2Qm9SaTJ4OTFNZEZXV3JpOFpINnpaTUNZaXM2NFNK?=
- =?utf-8?B?Zm05Wit6cWx0ZUxZeUdwNkJPOENBWUNMMFZVOWl0ekNiRjgzUHcvbzdoRS9Z?=
- =?utf-8?B?c2JOalZrOXFCVmQ4SWFSM2FmeU1TZ2taWFlzZnIvTG1ySExWMGxuVDkySHV5?=
- =?utf-8?B?RmN3bHB3Y1FWU0EydU1oOHRBOHlPenNidThkcUVkdUlwT0ZFWWwzV3poNlFr?=
- =?utf-8?B?N3hMYkRWM3B2OEEzbGRVZWpoY3VPRUFrYUpuUDB1MXZQYTRyQ0xDbHFsQmI1?=
- =?utf-8?B?SHRPVmIvSGtNWlJ3NDNvZGYyYzRCZUsvRGVlM1gyaHFCZlpCUVl4bit3bmpV?=
- =?utf-8?B?YXV0Z1Y1ZFpudWF4dUNwRHdCU0F3S2F1UmhKZlQwbDdJL2xaWjMybEpraDFz?=
- =?utf-8?B?Q3FpV3RwOGlidnRqRG9ITnFzNWVOWnFicmRUalRJQm1FRHJOWHpSbmFILzBU?=
- =?utf-8?B?NUFsdUE1akJVSE5zbk54T3BnSTB3UXB1RzJsY0xja0hUYXk5RkNvRGNnSHU3?=
- =?utf-8?B?N2Nkc3g5NTUrK3FUUHcrMytvbzRhZ0ZiT0lhSE1ia0hwVEkxTlpSOUtFdkZE?=
- =?utf-8?B?Wk1oUTBhTEUxQ0NJU1JRTjhWdFM2TS9zcXVyeUlUMjhwS091eVAzKzFUeVR2?=
- =?utf-8?B?dUM0WWdmbGtkenN0LzFLRjhCUzhKT1NVSTJ2Y1BXNkRLNTVycTJjMmJ5Y21y?=
- =?utf-8?B?Wm5FNk1wTEFwWHVJeDM1UHVYeTVtZjlHWUJmWUFqNkt3d3luS2dKQ2t6Qmlh?=
- =?utf-8?B?RmR5N1UrUE9HMzFxVW51WkUvZWNZRFg5UnVkd0EzbEZIZDlmNXJkSXQxZ3Bp?=
- =?utf-8?B?cEFCeFpnbGE2ekY2MlBGODJvaGNTcGxETURlQmpHVzBSWjBXNmJncTNpajBH?=
- =?utf-8?Q?dwWuqF53Nx1KqR31R509HT/VO6cxnUhWg64C58X?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d6d2bac-85c1-4936-e2b7-08d8eec0d031
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2021 12:31:56.9097
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V9oFOlKY/6NeDTSIPMKZLXlX8D16tgYJIzZHHVecf9LrQBWW8SNfRGewzeZ3cvbb41RFCMB1t7YbRcy7UCZj+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4539
-X-OriginatorOrg: citrix.com
+Content-Transfer-Encoding: 8bit
 
-When parsing the capability list make sure the offset is between the
-MMIO region mapped in 'regs', or else the kernel hits a page fault.
+xenstore_lib.h is in need to be tidied up a little bit:
 
-This fault has been seen when running as a Xen PVH dom0, which doesn't
-have the MMIO regions mapped into the domain physical memory map,
-despite having the device reported in the ACPI DSDT table. This
-results in reporting a capability offset of 0xffff (because the kernel
-is accessing unpopulated memory), and such offset is outside of the
-mapped region.
+- the definition of struct xs_tdb_record_hdr shouldn't be here
+- some symbols are not namespaced correctly
+- the layout of a structure with an enum inside it depends on the
+  implementation of the compiler
 
-Adding the check is harmless, and prevents buggy or broken systems
-from crashing the kernel if the MMIO region is not properly reported.
-
-Fixes: 91d898e51e60 ('pinctrl: intel: Convert capability list to features')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Andy Shevchenko <andy@kernel.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: linux-gpio@vger.kernel.org
+V2: minimal variant (Ian Jackson)
+V3: replace enum with unsigned int (Andrew Cooper)
 ---
-Resend because I've missed adding the maintainers, sorry for the spam.
----
- drivers/pinctrl/intel/pinctrl-intel.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ tools/include/xenstore_lib.h     | 37 +++++++++++---------------------
+ tools/libs/store/libxenstore.map |  6 +++---
+ tools/libs/store/xs.c            | 12 +++++------
+ tools/xenstore/utils.h           | 11 ++++++++++
+ tools/xenstore/xenstore_client.c | 12 +++++------
+ tools/xenstore/xenstored_core.c  | 16 +++++++-------
+ tools/xenstore/xenstored_core.h  |  8 +++----
+ tools/xenstore/xenstored_watch.c |  2 +-
+ tools/xenstore/xs_tdb_dump.c     |  2 +-
+ 9 files changed, 52 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/pinctrl/intel/pinctrl-intel.c b/drivers/pinctrl/intel/pinctrl-intel.c
-index 8085782cd8f9..bc8b990d8021 100644
---- a/drivers/pinctrl/intel/pinctrl-intel.c
-+++ b/drivers/pinctrl/intel/pinctrl-intel.c
-@@ -1481,16 +1481,22 @@ static int intel_pinctrl_probe(struct platform_device *pdev,
+diff --git a/tools/include/xenstore_lib.h b/tools/include/xenstore_lib.h
+index 4c9b6d1685..fdf8752b16 100644
+--- a/tools/include/xenstore_lib.h
++++ b/tools/include/xenstore_lib.h
+@@ -26,30 +26,17 @@
+ #include <stdint.h>
+ #include <xen/io/xs_wire.h>
  
- 	for (i = 0; i < pctrl->ncommunities; i++) {
- 		struct intel_community *community = &pctrl->communities[i];
-+		struct resource *res;
- 		void __iomem *regs;
-+		size_t size;
- 		u32 offset;
- 		u32 value;
+-/* Bitmask of permissions. */
+-enum xs_perm_type {
+-	XS_PERM_NONE = 0,
+-	XS_PERM_READ = 1,
+-	XS_PERM_WRITE = 2,
+-	/* Internal use. */
+-	XS_PERM_ENOENT_OK = 4,
+-	XS_PERM_OWNER = 8,
+-	XS_PERM_IGNORE = 16,
+-};
+-
+ struct xs_permissions
+ {
+ 	unsigned int id;
+-	enum xs_perm_type perms;
+-};
+-
+-/* Header of the node record in tdb. */
+-struct xs_tdb_record_hdr {
+-	uint64_t generation;
+-	uint32_t num_perms;
+-	uint32_t datalen;
+-	uint32_t childlen;
+-	struct xs_permissions perms[0];
++	unsigned int perms;	/* Bitmask of permissions. */
++#define XS_PERM_NONE		0x00
++#define XS_PERM_READ		0x01
++#define XS_PERM_WRITE		0x02
++	/* Internal use. */
++#define XS_PERM_ENOENT_OK	0x04
++#define XS_PERM_OWNER		0x08
++#define XS_PERM_IGNORE		0x10
+ };
  
- 		*community = pctrl->soc->communities[i];
+ /* Each 10 bits takes ~ 3 digits, plus one, plus one for nul terminator. */
+@@ -78,18 +65,18 @@ bool xs_perm_to_string(const struct xs_permissions *perm,
+ unsigned int xs_count_strings(const char *strings, unsigned int len);
  
--		regs = devm_platform_ioremap_resource(pdev, community->barno);
-+		regs = devm_platform_get_and_ioremap_resource(pdev,
-+							      community->barno,
-+							      &res);
- 		if (IS_ERR(regs))
- 			return PTR_ERR(regs);
+ /* Sanitising (quoting) possibly-binary strings. */
+-struct expanding_buffer {
++struct xs_expanding_buffer {
+ 	char *buf;
+ 	int avail;
+ };
  
-+		size = res->end - res->start;
+ /* Ensure that given expanding buffer has at least min_avail characters. */
+-char *expanding_buffer_ensure(struct expanding_buffer *, int min_avail);
++char *xs_expanding_buffer_ensure(struct xs_expanding_buffer *, int min_avail);
+ 
+ /* sanitise_value() may return NULL if malloc fails. */
+-char *sanitise_value(struct expanding_buffer *, const char *val, unsigned len);
++char *xs_sanitise_value(struct xs_expanding_buffer *, const char *val, unsigned len);
+ 
+ /* *out_len_r on entry is ignored; out must be at least strlen(in)+1 bytes. */
+-void unsanitise_value(char *out, unsigned *out_len_r, const char *in);
++void xs_unsanitise_value(char *out, unsigned *out_len_r, const char *in);
+ 
+ #endif /* XENSTORE_LIB_H */
+diff --git a/tools/libs/store/libxenstore.map b/tools/libs/store/libxenstore.map
+index 9854305a2c..fc1c213f13 100644
+--- a/tools/libs/store/libxenstore.map
++++ b/tools/libs/store/libxenstore.map
+@@ -42,8 +42,8 @@ VERS_3.0.3 {
+ 		xs_strings_to_perms;
+ 		xs_perm_to_string;
+ 		xs_count_strings;
+-		expanding_buffer_ensure;
+-		sanitise_value;
+-		unsanitise_value;
++		xs_expanding_buffer_ensure;
++		xs_sanitise_value;
++		xs_unsanitise_value;
+ 	local: *; /* Do not expose anything by default */
+ };
+diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+index c91377c27f..109ea16d1e 100644
+--- a/tools/libs/store/xs.c
++++ b/tools/libs/store/xs.c
+@@ -1358,7 +1358,7 @@ static void *read_thread(void *arg)
+ }
+ #endif
+ 
+-char *expanding_buffer_ensure(struct expanding_buffer *ebuf, int min_avail)
++char *xs_expanding_buffer_ensure(struct xs_expanding_buffer *ebuf, int min_avail)
+ {
+ 	int want;
+ 	char *got;
+@@ -1379,8 +1379,8 @@ char *expanding_buffer_ensure(struct expanding_buffer *ebuf, int min_avail)
+ 	return ebuf->buf;
+ }
+ 
+-char *sanitise_value(struct expanding_buffer *ebuf,
+-		     const char *val, unsigned len)
++char *xs_sanitise_value(struct xs_expanding_buffer *ebuf,
++			const char *val, unsigned len)
+ {
+ 	int used, remain, c;
+ 	unsigned char *ip;
+@@ -1394,7 +1394,7 @@ char *sanitise_value(struct expanding_buffer *ebuf,
+ 	used = 0;
+ 	remain = len;
+ 
+-	if (!expanding_buffer_ensure(ebuf, remain + 1))
++	if (!xs_expanding_buffer_ensure(ebuf, remain + 1))
+ 		return NULL;
+ 
+ 	while (remain-- > 0) {
+@@ -1405,7 +1405,7 @@ char *sanitise_value(struct expanding_buffer *ebuf,
+ 			continue;
+ 		}
+ 
+-		if (!expanding_buffer_ensure(ebuf, used + remain + 5))
++		if (!xs_expanding_buffer_ensure(ebuf, used + remain + 5))
+ 			/* for "<used>\\nnn<remain>\0" */
+ 			return 0;
+ 
+@@ -1429,7 +1429,7 @@ char *sanitise_value(struct expanding_buffer *ebuf,
+ #undef ADDF
+ }
+ 
+-void unsanitise_value(char *out, unsigned *out_len_r, const char *in)
++void xs_unsanitise_value(char *out, unsigned *out_len_r, const char *in)
+ {
+ 	const char *ip;
+ 	char *op;
+diff --git a/tools/xenstore/utils.h b/tools/xenstore/utils.h
+index 87713a8e5d..9d012b97c1 100644
+--- a/tools/xenstore/utils.h
++++ b/tools/xenstore/utils.h
+@@ -7,6 +7,17 @@
+ 
+ #include <xen-tools/libs.h>
+ 
++#include "xenstore_lib.h"
 +
- 		/* Determine community features based on the revision */
- 		value = readl(regs + REVID);
- 		if (((value & REVID_MASK) >> REVID_SHIFT) >= 0x94) {
-@@ -1519,6 +1525,12 @@ static int intel_pinctrl_probe(struct platform_device *pdev,
- 				break;
- 			}
- 			offset = (value & CAPLIST_NEXT_MASK) >> CAPLIST_NEXT_SHIFT;
-+			if (offset >= size) {
-+				dev_err(&pdev->dev,
-+					"wrong capability offset: %#x\n",
-+					offset);
-+				return -ENOENT;
-+			}
- 		} while (offset);
++/* Header of the node record in tdb. */
++struct xs_tdb_record_hdr {
++	uint64_t generation;
++	uint32_t num_perms;
++	uint32_t datalen;
++	uint32_t childlen;
++	struct xs_permissions perms[0];
++};
++
+ /* Is A == B ? */
+ #define streq(a,b) (strcmp((a),(b)) == 0)
  
- 		dev_dbg(&pdev->dev, "Community%d features: %#08x\n", i, community->features);
+diff --git a/tools/xenstore/xenstore_client.c b/tools/xenstore/xenstore_client.c
+index 8015bfe5be..3d9d399e91 100644
+--- a/tools/xenstore/xenstore_client.c
++++ b/tools/xenstore/xenstore_client.c
+@@ -40,7 +40,7 @@ enum mode {
+ 
+ static char *output_buf = NULL;
+ static int output_pos = 0;
+-static struct expanding_buffer ebuf;
++static struct xs_expanding_buffer ebuf;
+ 
+ static int output_size = 0;
+ 
+@@ -203,11 +203,11 @@ static void do_ls(struct xs_handle *h, char *path, int cur_depth, int show_perms
+             if (max_width < (linewid + len + TAG_LEN)) {
+                 printf(" = \"%.*s\\...\"",
+                        (int)(max_width - TAG_LEN - linewid),
+-		       sanitise_value(&ebuf, val, len));
++		       xs_sanitise_value(&ebuf, val, len));
+             }
+             else {
+                 linewid += printf(" = \"%s\"",
+-				  sanitise_value(&ebuf, val, len));
++				  xs_sanitise_value(&ebuf, val, len));
+                 if (show_perms) {
+                     putchar(' ');
+                     for (linewid++;
+@@ -346,7 +346,7 @@ perform(enum mode mode, int optind, int argc, char **argv, struct xs_handle *xsh
+             if (raw)
+                 output_raw(val, len);
+             else
+-                output("%s\n", sanitise_value(&ebuf, val, len));
++                output("%s\n", xs_sanitise_value(&ebuf, val, len));
+             free(val);
+             optind++;
+             break;
+@@ -359,8 +359,8 @@ perform(enum mode mode, int optind, int argc, char **argv, struct xs_handle *xsh
+                 val = val_spec;
+                 len = strlen(val_spec);
+             } else {
+-                expanding_buffer_ensure(&ebuf, strlen(val_spec)+1);
+-                unsanitise_value(ebuf.buf, &len, val_spec);
++                xs_expanding_buffer_ensure(&ebuf, strlen(val_spec)+1);
++                xs_unsanitise_value(ebuf.buf, &len, val_spec);
+                 val = ebuf.buf;
+             }
+             if (!xs_write(xsh, xth, argv[optind], val, len)) {
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 8033c1e0eb..244220c5a3 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -542,11 +542,11 @@ static int write_node(struct connection *conn, struct node *node,
+ 	return write_node_raw(conn, &key, node, no_quota_check);
+ }
+ 
+-enum xs_perm_type perm_for_conn(struct connection *conn,
+-				const struct node_perms *perms)
++unsigned int perm_for_conn(struct connection *conn,
++			   const struct node_perms *perms)
+ {
+ 	unsigned int i;
+-	enum xs_perm_type mask = XS_PERM_READ|XS_PERM_WRITE|XS_PERM_OWNER;
++	unsigned int mask = XS_PERM_READ | XS_PERM_WRITE | XS_PERM_OWNER;
+ 
+ 	/* Owners and tools get it all... */
+ 	if (!domain_is_unprivileged(conn) || perms->p[0].id == conn->id
+@@ -584,7 +584,7 @@ char *get_parent(const void *ctx, const char *node)
+  * Temporary memory allocations are done with ctx.
+  */
+ static int ask_parents(struct connection *conn, const void *ctx,
+-		       const char *name, enum xs_perm_type *perm)
++		       const char *name, unsigned int *perm)
+ {
+ 	struct node *node;
+ 
+@@ -619,9 +619,9 @@ static int ask_parents(struct connection *conn, const void *ctx,
+  */
+ static int errno_from_parents(struct connection *conn, const void *ctx,
+ 			      const char *node, int errnum,
+-			      enum xs_perm_type perm)
++			      unsigned int perm)
+ {
+-	enum xs_perm_type parent_perm = XS_PERM_NONE;
++	unsigned int parent_perm = XS_PERM_NONE;
+ 
+ 	/* We always tell them about memory failures. */
+ 	if (errnum == ENOMEM)
+@@ -641,7 +641,7 @@ static int errno_from_parents(struct connection *conn, const void *ctx,
+ static struct node *get_node(struct connection *conn,
+ 			     const void *ctx,
+ 			     const char *name,
+-			     enum xs_perm_type perm)
++			     unsigned int perm)
+ {
+ 	struct node *node;
+ 
+@@ -873,7 +873,7 @@ static struct node *get_node_canonicalized(struct connection *conn,
+ 					   const void *ctx,
+ 					   const char *name,
+ 					   char **canonical_name,
+-					   enum xs_perm_type perm)
++					   unsigned int perm)
+ {
+ 	char *tmp_name;
+ 
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 0c9a0961b5..0b2f88dd4a 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -186,8 +186,8 @@ void send_ack(struct connection *conn, enum xsd_sockmsg_type type);
+ char *canonicalize(struct connection *conn, const void *ctx, const char *node);
+ 
+ /* Get access permissions. */
+-enum xs_perm_type perm_for_conn(struct connection *conn,
+-				const struct node_perms *perms);
++unsigned int perm_for_conn(struct connection *conn,
++			   const struct node_perms *perms);
+ 
+ /* Write a node to the tdb data base. */
+ int write_node_raw(struct connection *conn, TDB_DATA *key, struct node *node,
+@@ -201,8 +201,8 @@ struct connection *new_connection(connwritefn_t *write, connreadfn_t *read);
+ struct connection *get_connection_by_id(unsigned int conn_id);
+ void check_store(void);
+ void corrupt(struct connection *conn, const char *fmt, ...);
+-enum xs_perm_type perm_for_conn(struct connection *conn,
+-				const struct node_perms *perms);
++unsigned int perm_for_conn(struct connection *conn,
++			   const struct node_perms *perms);
+ 
+ /* Is this a valid node name? */
+ bool is_valid_nodename(const char *node);
+diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
+index db89e0141f..aca0a71bad 100644
+--- a/tools/xenstore/xenstored_watch.c
++++ b/tools/xenstore/xenstored_watch.c
+@@ -124,7 +124,7 @@ static bool watch_permitted(struct connection *conn, const void *ctx,
+ 			    const char *name, struct node *node,
+ 			    struct node_perms *perms)
+ {
+-	enum xs_perm_type perm;
++	unsigned int perm;
+ 	struct node *parent;
+ 	char *parent_name;
+ 
+diff --git a/tools/xenstore/xs_tdb_dump.c b/tools/xenstore/xs_tdb_dump.c
+index f74676cf1c..5d2db392b4 100644
+--- a/tools/xenstore/xs_tdb_dump.c
++++ b/tools/xenstore/xs_tdb_dump.c
+@@ -17,7 +17,7 @@ static uint32_t total_size(struct xs_tdb_record_hdr *hdr)
+ 		+ hdr->datalen + hdr->childlen;
+ }
+ 
+-static char perm_to_char(enum xs_perm_type perm)
++static char perm_to_char(unsigned int perm)
+ {
+ 	return perm == XS_PERM_READ ? 'r' :
+ 		perm == XS_PERM_WRITE ? 'w' :
 -- 
-2.30.1
+2.26.2
 
 
