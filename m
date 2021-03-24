@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1068E347A78
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 15:18:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101006.192863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36E973479C7
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 14:41:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101011.192826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP4Ko-0001FD-SK; Wed, 24 Mar 2021 14:18:10 +0000
+	id 1lP3ke-0006Cq-B7; Wed, 24 Mar 2021 13:40:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101006.192863; Wed, 24 Mar 2021 14:18:10 +0000
+Received: by outflank-mailman (output) from mailman id 101011.192826; Wed, 24 Mar 2021 13:40:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP4Ko-0001Eo-Ov; Wed, 24 Mar 2021 14:18:10 +0000
-Received: by outflank-mailman (input) for mailman id 101006;
- Wed, 24 Mar 2021 13:28:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8uro=IW=gmail.com=unixbhaskar@srs-us1.protection.inumbo.net>)
- id 1lP3Z9-0004SL-EM
- for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 13:28:55 +0000
-Received: from mail-qk1-x734.google.com (unknown [2607:f8b0:4864:20::734])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c808549-f3bf-4382-83eb-b18b74097656;
- Wed, 24 Mar 2021 13:28:54 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id y18so17922405qky.11
- for <xen-devel@lists.xenproject.org>; Wed, 24 Mar 2021 06:28:54 -0700 (PDT)
-Received: from Slackware.localdomain ([156.146.36.138])
- by smtp.gmail.com with ESMTPSA id k138sm1620627qke.60.2021.03.24.06.28.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 06:28:53 -0700 (PDT)
+	id 1lP3ke-0006CT-7U; Wed, 24 Mar 2021 13:40:48 +0000
+Received: by outflank-mailman (input) for mailman id 101011;
+ Wed, 24 Mar 2021 13:40:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nnUc=IW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lP3kc-0006CO-HV
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 13:40:46 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 49c42590-0167-45af-b5bc-b92137048bfc;
+ Wed, 24 Mar 2021 13:40:45 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4F05EAD80;
+ Wed, 24 Mar 2021 13:40:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,70 +39,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c808549-f3bf-4382-83eb-b18b74097656
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ZA4TMh4IQBJtlxJtgRg6PC7dBsn/y/DHlKXiLg69OBw=;
-        b=vIAeFill0cXse/9RJBHavhpguN7xSunFa2f+v2bdmqARM2G7mS5PMrrSXhVx41lH6C
-         KEoxKR6UuHlDbKnwsl3p8z1F9EFzOiKeQiP6l1rb3/izBA9tTqaPzehpikrq0vZSDJqX
-         4aYH5LwedhVmaeOhOF27DD4tsZ7vIEXYAtxgGiJFJze7Yym/DsuR2d8v52g6HBlbPBSJ
-         Q83bXj2BXfllIoypNNVaug2C5phbhumK16MeagjM7IQ1G0/qdfuzKUrqONR+ykO933p9
-         oUZtP2EDjgf8AIShCLpnSfIN1xoyKJiMYl4vIR+CYy9PfPkNg11J+z29APLScd3neX/j
-         inRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ZA4TMh4IQBJtlxJtgRg6PC7dBsn/y/DHlKXiLg69OBw=;
-        b=Hdkg9AOg7EiP0HwZS2DF/j79ctybFdYSBXow4KcpzVP8P99zxqqJgY2DxV1DUicJL9
-         KDY4UzXApQumyrZOfu+qO3INioocHlhCwq89ILOJ5U74Y6c7wo3ShrIpAHqS6cDwOU/S
-         KmDRh1qPuujV0oiZjFgV8IsU7jeRuy9Y4rcdVGj44E8tUSCP4avElih5iJfjDUGsXBoO
-         /tTKEo295FaODoo8JeYswJFfooKffj2Ag5OvSu5h8OFt+UaoAmSWGt15kaIL45NvZC1n
-         wJoD3NjbuddjYXZEyMuRTCblFZkrQjyUfEv5BZXBmplFH16CJZuswkQQ2S9gqlK5KSCb
-         yVUA==
-X-Gm-Message-State: AOAM5303t7rkWMbUfYbsTuvdt3Qu8AvyYrRU2S91M45i4A8aeCwOi2Cc
-	qqEarmjWTg8pxd95lHq7bbE=
-X-Google-Smtp-Source: ABdhPJy2CjjpOmQpimqajsFZOrQh+V4XiC9VHO5NNVgJMDvkS8TP9WHAV0Aahm5348sd/33RwTJrfA==
-X-Received: by 2002:a37:a2c2:: with SMTP id l185mr2986406qke.178.1616592534322;
-        Wed, 24 Mar 2021 06:28:54 -0700 (PDT)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: sstabellini@kernel.org,
-	linux@armlinux.org.uk,
-	xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: rdunlap@infradead.org,
-	Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Subject: [PATCH] ARM: xen/mm.c: A mundane typo fix
-Date: Wed, 24 Mar 2021 19:00:36 +0530
-Message-Id: <20210324133036.17665-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.30.1
+X-Inumbo-ID: 49c42590-0167-45af-b5bc-b92137048bfc
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616593244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mmWBLwuAjQTD3R0E7Rrg/jNF+8iv7spYDJUONDz4gyc=;
+	b=q+04gCb4ZC+NLX4ziaYzBZjGeQi+X5Mi5ioD/Su1FPsQvt+cO5P1bCq6xcM+D9TNCv2ohW
+	gI457B2gT2HIOKo6G0iEtFLMDJL9ypcyhzDMsI6UTmk39RjiPL9LTn+TJz5cEPR7dXDBYD
+	R0jMIoeu1JvnJIYONxgK/IUZruWKzCY=
+Subject: Re: [PATCH][4.15] x86/HPET: don't enable legacy replacement mode
+ unconditionally
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>
+References: <8e18a2a5-bc19-615d-0c8c-cea49adcf976@suse.com>
+ <CABfawhmbVyVAf7y6S+4SvdUZKUYe8kg=h-kvLfBzpVZhzquyiw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5666cd15-02c9-6aa8-c8fc-c44c826b14b2@suse.com>
+Date: Wed, 24 Mar 2021 14:40:43 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABfawhmbVyVAf7y6S+4SvdUZKUYe8kg=h-kvLfBzpVZhzquyiw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-s/acrros/across/
+On 24.03.2021 12:37, Tamas K Lengyel wrote:
+> On Wed, Mar 24, 2021 at 6:34 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> Commit e1de4c196a2e ("x86/timer: Fix boot on Intel systems using ITSSPRC
+>> static PIT clock gating") was reported to cause boot failures on certain
+>> AMD Ryzen systems. Until we can figure out what the actual issue there
+>> is, skip this new part of HPET setup by default. Introduce a "hpet"
+>> command line option to allow enabling this on hardware where it's really
+>> needed for Xen to boot successfully (i.e. where the PIT doesn't drive
+>> the timer interrupt).
+>>
+>> Since it makes little sense to introduce just "hpet=legacy-replacement",
+>> also allow for a boolean argument as well as "broadcast" to replace the
+>> separate "hpetbroadcast" option.
+> 
+> While having the command line option to control it is fine what would
+> really be the best solution is if Xen could figure out when the
+> legacy-replacement option is necessary to begin with and enable it on
+> its own, even if it's done as a fallback route.
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- arch/arm/xen/mm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This was the original plan, but no patch has arrived by now. I can
+imagine this being due to things being easier to state than to
+actually carry out. Plus of course this fallback approach still
+isn't ideal - even better would be if we could address the actual
+failure. I for one lack sufficient technical data to at least try
+to think of possible solutions.
 
-diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-index 467fa225c3d0..be7c942c74bf 100644
---- a/arch/arm/xen/mm.c
-+++ b/arch/arm/xen/mm.c
-@@ -105,7 +105,7 @@ bool xen_arch_need_swiotlb(struct device *dev,
- 	 *	- The Linux page refers to foreign memory
- 	 *	- The device doesn't support coherent DMA request
- 	 *
--	 * The Linux page may be spanned acrros multiple Xen page, although
-+	 * The Linux page may be spanned across multiple Xen page, although
- 	 * it's not possible to have a mix of local and foreign Xen page.
- 	 * Furthermore, range_straddles_page_boundary is already checking
- 	 * if buffer is physically contiguous in the host RAM.
---
-2.30.1
+> We'll have issues with
+> telling users when the option is needed and when it isn't. I don't
+> like the idea of users having to go through a route of "well, let's
+> see if Xen boots and if you get this weird crash/reboot add this
+> obscure boot option". It's just a bad user experience all around.
 
+I can't see how it's worse than what we've had so far, crashing
+during boot _without_ there being any option available.
+
+Jan
 
