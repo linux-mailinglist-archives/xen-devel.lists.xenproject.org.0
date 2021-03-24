@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E41C3475E9
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 11:23:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100893.192490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8106434762D
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 11:34:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100901.192515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP0ex-0001By-Cd; Wed, 24 Mar 2021 10:22:43 +0000
+	id 1lP0qS-0002IP-IS; Wed, 24 Mar 2021 10:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100893.192490; Wed, 24 Mar 2021 10:22:43 +0000
+Received: by outflank-mailman (output) from mailman id 100901.192515; Wed, 24 Mar 2021 10:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP0ex-0001BV-98; Wed, 24 Mar 2021 10:22:43 +0000
-Received: by outflank-mailman (input) for mailman id 100893;
- Wed, 24 Mar 2021 10:22:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lP0qS-0002I0-F8; Wed, 24 Mar 2021 10:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 100901;
+ Wed, 24 Mar 2021 10:34:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lP0ev-0001BN-GX; Wed, 24 Mar 2021 10:22:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lP0ev-00071v-7L; Wed, 24 Mar 2021 10:22:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lP0eu-00069y-Vb; Wed, 24 Mar 2021 10:22:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lP0eu-0002BU-V7; Wed, 24 Mar 2021 10:22:40 +0000
+ (envelope-from <SRS0=nnUc=IW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lP0qR-0002Hv-Az
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 10:34:35 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fd221857-e8aa-4367-a4fc-3e6dc49f8f3e;
+ Wed, 24 Mar 2021 10:34:34 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8ACFBAE20;
+ Wed, 24 Mar 2021 10:34:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +39,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=unH53bQNL1ZP/5up2h8Pg/9YLjqqdf2pJlCrK2QfSvc=; b=0jqD3zRO3NrKE5zQTIE+wqyifR
-	wmHIo8PSRJWrbAv5TfP6UM1C4lmX5uHbDvdjGFfKdV9szg31gYxARkkC8/uEdEA3PaI4yi6+hfmN5
-	6QVoMlC+LYt+zTzKBo+D1IsL5TMMJ0dKU/RZd0n/MxmlQ5/2yAfmBjSTnpWTNqHr4oUw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160385-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: fd221857-e8aa-4367-a4fc-3e6dc49f8f3e
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616582073; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=E3sM+MHdMWPuK3E9lJOyRxJeBHE9Ske6vJlUmMvX6Z4=;
+	b=NDOiO9ZwJRWKTA2v1y9oajxe+KOLRr7QEDLcW3CNShvU53tA67S0Mp+7JiVmd23o3CGROY
+	g+k12hKhmY06AcVdCIjUJsYqQGr2CBYibxh53n2Fek6W4s9NqaVanTBWAzioK9o0yVw6fd
+	p1PcZSmGf7idItawH/oQlIKxM2G4Q/w=
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH][4.15] x86/HPET: don't enable legacy replacement mode
+ unconditionally
+Message-ID: <8e18a2a5-bc19-615d-0c8c-cea49adcf976@suse.com>
+Date: Wed, 24 Mar 2021 11:34:32 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 160385: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=b9b3082002cac68726fb303e0abd2ff0113d4657
-X-Osstest-Versions-That:
-    xen=1b47cc852fd130ed9ce274a0f1600a4a62949a2c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Mar 2021 10:22:40 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 160385 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160385/
+Commit e1de4c196a2e ("x86/timer: Fix boot on Intel systems using ITSSPRC
+static PIT clock gating") was reported to cause boot failures on certain
+AMD Ryzen systems. Until we can figure out what the actual issue there
+is, skip this new part of HPET setup by default. Introduce a "hpet"
+command line option to allow enabling this on hardware where it's really
+needed for Xen to boot successfully (i.e. where the PIT doesn't drive
+the timer interrupt).
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  b9b3082002cac68726fb303e0abd2ff0113d4657
-baseline version:
- xen                  1b47cc852fd130ed9ce274a0f1600a4a62949a2c
+Since it makes little sense to introduce just "hpet=legacy-replacement",
+also allow for a boolean argument as well as "broadcast" to replace the
+separate "hpetbroadcast" option.
 
-Last test of basis   159907  2021-03-10 09:18:33 Z   14 days
-Failing since        160076  2021-03-14 09:18:27 Z   10 days    4 attempts
-Testing same since   160385  2021-03-24 09:18:28 Z    0 days    1 attempts
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Boris Ostrovsky <boris.ostrovsky@oracle.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Doug Goldstein <cardoe@cardoe.com>
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Ian Jackson <iwj@xenproject.org>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Olaf Hering <olaf@aepfle.de>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   1b47cc852f..b9b3082002  b9b3082002cac68726fb303e0abd2ff0113d4657 -> coverity-tested/smoke
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1274,9 +1274,26 @@ supported. See docs/misc/arm/big.LITTLE.
+ When the hmp-unsafe option is disabled (default), CPUs that are not
+ identical to the boot CPU will be parked and not used by Xen.
+ 
++### hpet (x86)
++> `= List of [ <boolean> | broadcast | legacy-replacement ]`
++
++> Default : `true`, `no-broadcast`, 'no-legacy-replacement`
++
++Controls Xen's use of the system's High Precision Event Timer.  The boolean
++allows to turn off use altogether.
++
++`broadcast` forces Xen to keep using the broadcast for CPUs in deep C-states
++even when an RTC interrupt got enabled.
++
++`legacy-replacement` is intended to be used on platforms where the timer
++interrupt doesn't get raised by the legacy PIT.  This then also affects
++raising of the RTC interrupt.
++
+ ### hpetbroadcast (x86)
+ > `= <boolean>`
+ 
++Deprecated alternative of `hpet=broadcast`.
++
+ ### hvm_debug (x86)
+ > `= <integer>`
+ 
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -52,6 +52,8 @@ static unsigned int __read_mostly num_hp
+ DEFINE_PER_CPU(struct hpet_event_channel *, cpu_bc_channel);
+ 
+ unsigned long __initdata hpet_address;
++static bool __initdata opt_hpet = true;
++static bool __initdata opt_legacy_replacement;
+ u8 __initdata hpet_blockid;
+ u8 __initdata hpet_flags;
+ 
+@@ -63,6 +65,32 @@ u8 __initdata hpet_flags;
+ static bool __initdata force_hpet_broadcast;
+ boolean_param("hpetbroadcast", force_hpet_broadcast);
+ 
++static int __init parse_hpet_param(const char *s)
++{
++    const char *ss;
++    int val, rc = 0;
++
++    do {
++        ss = strchr(s, ',');
++        if ( !ss )
++            ss = strchr(s, '\0');
++
++        if ( (val = parse_bool(s, ss)) >= 0 )
++            opt_hpet = val;
++        else if ( (val = parse_boolean("broadcast", s, ss)) >= 0 )
++            force_hpet_broadcast = val;
++        else if ( (val = parse_boolean("legacy-replacement", s, ss)) >= 0 )
++            opt_legacy_replacement = val;
++        else
++            rc = -EINVAL;
++
++        s = ss + 1;
++    } while ( *ss );
++
++    return rc;
++}
++custom_param("hpet", parse_hpet_param);
++
+ /*
+  * Calculate a multiplication factor for scaled math, which is used to convert
+  * nanoseconds based values to clock ticks:
+@@ -761,12 +789,9 @@ u64 __init hpet_setup(void)
+     unsigned int hpet_id, hpet_period, hpet_cfg;
+     unsigned int last, rem;
+ 
+-    if ( hpet_rate )
++    if ( hpet_rate || !hpet_address || !opt_hpet )
+         return hpet_rate;
+ 
+-    if ( hpet_address == 0 )
+-        return 0;
+-
+     set_fixmap_nocache(FIX_HPET_BASE, hpet_address);
+ 
+     hpet_id = hpet_read32(HPET_ID);
+@@ -803,9 +828,9 @@ u64 __init hpet_setup(void)
+      * IRQ routing is configured.
+      *
+      * Reconfigure the HPET into legacy mode to re-establish the timer
+-     * interrupt.
++     * interrupt, if available and if so requested.
+      */
+-    if ( hpet_id & HPET_ID_LEGSUP &&
++    if ( opt_legacy_replacement && (hpet_id & HPET_ID_LEGSUP) &&
+          !((hpet_cfg = hpet_read32(HPET_CFG)) & HPET_CFG_LEGACY) )
+     {
+         unsigned int c0_cfg, ticks, count;
 
