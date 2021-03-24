@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 340E2347765
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 12:31:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.100925.192598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B56DF34776E
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Mar 2021 12:33:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.100929.192611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP1ij-0000Ek-97; Wed, 24 Mar 2021 11:30:41 +0000
+	id 1lP1kj-0000On-My; Wed, 24 Mar 2021 11:32:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 100925.192598; Wed, 24 Mar 2021 11:30:41 +0000
+Received: by outflank-mailman (output) from mailman id 100929.192611; Wed, 24 Mar 2021 11:32:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lP1ij-0000EK-5j; Wed, 24 Mar 2021 11:30:41 +0000
-Received: by outflank-mailman (input) for mailman id 100925;
- Wed, 24 Mar 2021 11:30:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lP1kj-0000OO-J0; Wed, 24 Mar 2021 11:32:45 +0000
+Received: by outflank-mailman (input) for mailman id 100929;
+ Wed, 24 Mar 2021 11:32:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jyEQ=IW=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lP1ii-0000EC-13
- for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 11:30:40 +0000
+ id 1lP1kh-0000OI-NO
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 11:32:43 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36245714-d718-4300-90cd-011627dd5428;
- Wed, 24 Mar 2021 11:30:38 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2ba726a5-1290-42ca-a246-74719b2aaaa7;
+ Wed, 24 Mar 2021 11:32:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BCB7CAD38;
- Wed, 24 Mar 2021 11:30:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4DD92AD38;
+ Wed, 24 Mar 2021 11:32:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,223 +39,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36245714-d718-4300-90cd-011627dd5428
+X-Inumbo-ID: 2ba726a5-1290-42ca-a246-74719b2aaaa7
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1616585437; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=VyTpib7WnXRWcI3JhV+PM28m0yWeZRL8EroC8XOiql8=;
-	b=s+SYVuBxBksYzoz5pZ6JK0T4UFbS7Jx4Eb6hDB4CKFoEz4lKg9ntMt2yFgfj249l9Q1hFM
-	fnz0VWQBkYQlzY3m2hEPAgBkWZoqphBswFcH71J97e5CqQIs0XObnKyqvCycne9eryiCSi
-	sXOMwJ5YTtrXyQSr6bRBKzqjyaeNzRc=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH-for-4.15 V2] tools/libs/store: tidy up libxenstore interface
-Date: Wed, 24 Mar 2021 12:30:35 +0100
-Message-Id: <20210324113035.32691-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+	t=1616585562; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DPp9Q5DWrtC2aDxiHJOr40tP4y1H6Oj1MqHWCDZ3Ldk=;
+	b=iGkI5RmgiKLbuRwEa0exi2ASgRwjP4CZ+YhvZWQaKP3C/gYEBU9bHQ6xZ7DZ/p178cJgoG
+	Mq29FUPY/ior7FhEDN5QcXLR0FB4i7XDjnbV7IXVZHxGM5A1W4c02rjJQPepWLsCy4M9KA
+	tDuWEzXjBo8mHmR9DfS5xzCfsTk/4AI=
+Subject: Re: [PATCH-for-4.15] tools/libs/store: cleanup libxenstore interface
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <20210324072645.10596-1-jgross@suse.com>
+ <24667.7211.431280.743192@mariner.uk.xensource.com>
+ <b6e10cf8-5ea2-53c8-30ba-f617bdb96f81@suse.com>
+ <24667.8900.993418.152255@mariner.uk.xensource.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <2ccb24a7-a927-cfe7-f102-b8ef02052522@suse.com>
+Date: Wed, 24 Mar 2021 12:32:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <24667.8900.993418.152255@mariner.uk.xensource.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="J7MMgfD5echwzdA6ES78JWiAyCKyvqs3u"
 
-xenstore_lib.h is in need to be tidied up a little bit:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--J7MMgfD5echwzdA6ES78JWiAyCKyvqs3u
+Content-Type: multipart/mixed; boundary="gjfW9Vut9XwlHaIsURM2sL7Ut1B8MV9Ag";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Message-ID: <2ccb24a7-a927-cfe7-f102-b8ef02052522@suse.com>
+Subject: Re: [PATCH-for-4.15] tools/libs/store: cleanup libxenstore interface
+References: <20210324072645.10596-1-jgross@suse.com>
+ <24667.7211.431280.743192@mariner.uk.xensource.com>
+ <b6e10cf8-5ea2-53c8-30ba-f617bdb96f81@suse.com>
+ <24667.8900.993418.152255@mariner.uk.xensource.com>
+In-Reply-To: <24667.8900.993418.152255@mariner.uk.xensource.com>
 
-- the definition of struct xs_tdb_record_hdr shouldn't be here
-- some symbols are not namespaced correctly
+--gjfW9Vut9XwlHaIsURM2sL7Ut1B8MV9Ag
+Content-Type: multipart/mixed;
+ boundary="------------BBE6C4F0BBA2788D920BABBE"
+Content-Language: en-US
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2: minimal variant (Ian Jackson)
----
- tools/include/xenstore_lib.h     | 17 ++++-------------
- tools/libs/store/libxenstore.map |  6 +++---
- tools/libs/store/xs.c            | 12 ++++++------
- tools/xenstore/utils.h           | 11 +++++++++++
- tools/xenstore/xenstore_client.c | 12 ++++++------
- 5 files changed, 30 insertions(+), 28 deletions(-)
+This is a multi-part message in MIME format.
+--------------BBE6C4F0BBA2788D920BABBE
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/tools/include/xenstore_lib.h b/tools/include/xenstore_lib.h
-index 4c9b6d1685..f74ad7024b 100644
---- a/tools/include/xenstore_lib.h
-+++ b/tools/include/xenstore_lib.h
-@@ -43,15 +43,6 @@ struct xs_permissions
- 	enum xs_perm_type perms;
- };
- 
--/* Header of the node record in tdb. */
--struct xs_tdb_record_hdr {
--	uint64_t generation;
--	uint32_t num_perms;
--	uint32_t datalen;
--	uint32_t childlen;
--	struct xs_permissions perms[0];
--};
--
- /* Each 10 bits takes ~ 3 digits, plus one, plus one for nul terminator. */
- #define MAX_STRLEN(x) ((sizeof(x) * CHAR_BIT + CHAR_BIT-1) / 10 * 3 + 2)
- 
-@@ -78,18 +69,18 @@ bool xs_perm_to_string(const struct xs_permissions *perm,
- unsigned int xs_count_strings(const char *strings, unsigned int len);
- 
- /* Sanitising (quoting) possibly-binary strings. */
--struct expanding_buffer {
-+struct xs_expanding_buffer {
- 	char *buf;
- 	int avail;
- };
- 
- /* Ensure that given expanding buffer has at least min_avail characters. */
--char *expanding_buffer_ensure(struct expanding_buffer *, int min_avail);
-+char *xs_expanding_buffer_ensure(struct xs_expanding_buffer *, int min_avail);
- 
- /* sanitise_value() may return NULL if malloc fails. */
--char *sanitise_value(struct expanding_buffer *, const char *val, unsigned len);
-+char *xs_sanitise_value(struct xs_expanding_buffer *, const char *val, unsigned len);
- 
- /* *out_len_r on entry is ignored; out must be at least strlen(in)+1 bytes. */
--void unsanitise_value(char *out, unsigned *out_len_r, const char *in);
-+void xs_unsanitise_value(char *out, unsigned *out_len_r, const char *in);
- 
- #endif /* XENSTORE_LIB_H */
-diff --git a/tools/libs/store/libxenstore.map b/tools/libs/store/libxenstore.map
-index 9854305a2c..fc1c213f13 100644
---- a/tools/libs/store/libxenstore.map
-+++ b/tools/libs/store/libxenstore.map
-@@ -42,8 +42,8 @@ VERS_3.0.3 {
- 		xs_strings_to_perms;
- 		xs_perm_to_string;
- 		xs_count_strings;
--		expanding_buffer_ensure;
--		sanitise_value;
--		unsanitise_value;
-+		xs_expanding_buffer_ensure;
-+		xs_sanitise_value;
-+		xs_unsanitise_value;
- 	local: *; /* Do not expose anything by default */
- };
-diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
-index c91377c27f..109ea16d1e 100644
---- a/tools/libs/store/xs.c
-+++ b/tools/libs/store/xs.c
-@@ -1358,7 +1358,7 @@ static void *read_thread(void *arg)
- }
- #endif
- 
--char *expanding_buffer_ensure(struct expanding_buffer *ebuf, int min_avail)
-+char *xs_expanding_buffer_ensure(struct xs_expanding_buffer *ebuf, int min_avail)
- {
- 	int want;
- 	char *got;
-@@ -1379,8 +1379,8 @@ char *expanding_buffer_ensure(struct expanding_buffer *ebuf, int min_avail)
- 	return ebuf->buf;
- }
- 
--char *sanitise_value(struct expanding_buffer *ebuf,
--		     const char *val, unsigned len)
-+char *xs_sanitise_value(struct xs_expanding_buffer *ebuf,
-+			const char *val, unsigned len)
- {
- 	int used, remain, c;
- 	unsigned char *ip;
-@@ -1394,7 +1394,7 @@ char *sanitise_value(struct expanding_buffer *ebuf,
- 	used = 0;
- 	remain = len;
- 
--	if (!expanding_buffer_ensure(ebuf, remain + 1))
-+	if (!xs_expanding_buffer_ensure(ebuf, remain + 1))
- 		return NULL;
- 
- 	while (remain-- > 0) {
-@@ -1405,7 +1405,7 @@ char *sanitise_value(struct expanding_buffer *ebuf,
- 			continue;
- 		}
- 
--		if (!expanding_buffer_ensure(ebuf, used + remain + 5))
-+		if (!xs_expanding_buffer_ensure(ebuf, used + remain + 5))
- 			/* for "<used>\\nnn<remain>\0" */
- 			return 0;
- 
-@@ -1429,7 +1429,7 @@ char *sanitise_value(struct expanding_buffer *ebuf,
- #undef ADDF
- }
- 
--void unsanitise_value(char *out, unsigned *out_len_r, const char *in)
-+void xs_unsanitise_value(char *out, unsigned *out_len_r, const char *in)
- {
- 	const char *ip;
- 	char *op;
-diff --git a/tools/xenstore/utils.h b/tools/xenstore/utils.h
-index 87713a8e5d..9d012b97c1 100644
---- a/tools/xenstore/utils.h
-+++ b/tools/xenstore/utils.h
-@@ -7,6 +7,17 @@
- 
- #include <xen-tools/libs.h>
- 
-+#include "xenstore_lib.h"
-+
-+/* Header of the node record in tdb. */
-+struct xs_tdb_record_hdr {
-+	uint64_t generation;
-+	uint32_t num_perms;
-+	uint32_t datalen;
-+	uint32_t childlen;
-+	struct xs_permissions perms[0];
-+};
-+
- /* Is A == B ? */
- #define streq(a,b) (strcmp((a),(b)) == 0)
- 
-diff --git a/tools/xenstore/xenstore_client.c b/tools/xenstore/xenstore_client.c
-index 8015bfe5be..3d9d399e91 100644
---- a/tools/xenstore/xenstore_client.c
-+++ b/tools/xenstore/xenstore_client.c
-@@ -40,7 +40,7 @@ enum mode {
- 
- static char *output_buf = NULL;
- static int output_pos = 0;
--static struct expanding_buffer ebuf;
-+static struct xs_expanding_buffer ebuf;
- 
- static int output_size = 0;
- 
-@@ -203,11 +203,11 @@ static void do_ls(struct xs_handle *h, char *path, int cur_depth, int show_perms
-             if (max_width < (linewid + len + TAG_LEN)) {
-                 printf(" = \"%.*s\\...\"",
-                        (int)(max_width - TAG_LEN - linewid),
--		       sanitise_value(&ebuf, val, len));
-+		       xs_sanitise_value(&ebuf, val, len));
-             }
-             else {
-                 linewid += printf(" = \"%s\"",
--				  sanitise_value(&ebuf, val, len));
-+				  xs_sanitise_value(&ebuf, val, len));
-                 if (show_perms) {
-                     putchar(' ');
-                     for (linewid++;
-@@ -346,7 +346,7 @@ perform(enum mode mode, int optind, int argc, char **argv, struct xs_handle *xsh
-             if (raw)
-                 output_raw(val, len);
-             else
--                output("%s\n", sanitise_value(&ebuf, val, len));
-+                output("%s\n", xs_sanitise_value(&ebuf, val, len));
-             free(val);
-             optind++;
-             break;
-@@ -359,8 +359,8 @@ perform(enum mode mode, int optind, int argc, char **argv, struct xs_handle *xsh
-                 val = val_spec;
-                 len = strlen(val_spec);
-             } else {
--                expanding_buffer_ensure(&ebuf, strlen(val_spec)+1);
--                unsanitise_value(ebuf.buf, &len, val_spec);
-+                xs_expanding_buffer_ensure(&ebuf, strlen(val_spec)+1);
-+                xs_unsanitise_value(ebuf.buf, &len, val_spec);
-                 val = ebuf.buf;
-             }
-             if (!xs_write(xsh, xth, argv[optind], val, len)) {
--- 
-2.26.2
+On 24.03.21 12:30, Ian Jackson wrote:
+> J=C3=BCrgen Gro=C3=9F writes ("Re: [PATCH-for-4.15] tools/libs/store: c=
+leanup libxenstore interface"):
+>> On 24.03.21 12:02, Ian Jackson wrote:
+>>> Is it possible to do sort this out in a more minimal way ?  Eg we
+>>> could change the name to namespace it properly.  (I haven't looked at=
 
+>>> the code in detail and am still rather under-caffeinated so maybe I a=
+m
+>>> talking nonsense here.)
+>>
+>> No nonsense. This would be the really minimum option (apart from doing=
+
+>> nothing).
+>>
+>> I can setup the patch for that and keep the rest for 4.16 (which will
+>> then probably need to bump the so version).
+>=20
+> Hmmm.  Maybe it would be less disruptive to punt the whole lot for
+> xen-next.  That way we don't have a silent withdrawl in one release
+> followed by a soname bump in the next.
+>=20
+> If you're keen to change this for 4.15, please feel free to show me
+> what the patch looks like.  But I would be inclined to postpone this.
+
+Minimal variant sent. I'm not keen to have that for 4.15, but the patch
+was just ready. :-)
+
+Juergen
+
+--------------BBE6C4F0BBA2788D920BABBE
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------BBE6C4F0BBA2788D920BABBE--
+
+--gjfW9Vut9XwlHaIsURM2sL7Ut1B8MV9Ag--
+
+--J7MMgfD5echwzdA6ES78JWiAyCKyvqs3u
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBbI1kFAwAAAAAACgkQsN6d1ii/Ey8O
+Hgf/RHTQWG3vjbwzG8uNNTUQIV0QO71ZGZ8Y8159WpCeawEDtOkzESISzeQiSmClrvAXVjWIo6Mr
+/3EweTM+RwPVqYgoZSRZvjXgDUek91Q0T+dwOH3GhdggxTkb+5L3gnAVsHf4R+5HB6W1p6ZTPdQX
+txe90ywhWgksQ06KqBmYMsqJoM2z5M1ToUtsltorvgtasFM2IVOH3av6R+2U8uBwJhPDddh/NnzD
+e4IwZykTtn/XT2dUW2BQEIozjsyUX1DcQW7hbulzTH02xZRyW3r7aroFslT6thGxrEdqx4nxPjap
+Js5O5E6sFxIHIzavVp2qyeQq7+UnVsKGu2EHJ+8ikQ==
+=8gPu
+-----END PGP SIGNATURE-----
+
+--J7MMgfD5echwzdA6ES78JWiAyCKyvqs3u--
 
