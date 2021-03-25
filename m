@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A727D348505
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 00:06:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101211.193412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94991348509
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 00:07:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101215.193425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPCZL-0007hG-5V; Wed, 24 Mar 2021 23:05:43 +0000
+	id 1lPCaw-0007oE-Hg; Wed, 24 Mar 2021 23:07:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101211.193412; Wed, 24 Mar 2021 23:05:43 +0000
+Received: by outflank-mailman (output) from mailman id 101215.193425; Wed, 24 Mar 2021 23:07:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPCZL-0007gu-2Q; Wed, 24 Mar 2021 23:05:43 +0000
-Received: by outflank-mailman (input) for mailman id 101211;
- Wed, 24 Mar 2021 23:05:41 +0000
+	id 1lPCaw-0007np-E5; Wed, 24 Mar 2021 23:07:22 +0000
+Received: by outflank-mailman (input) for mailman id 101215;
+ Wed, 24 Mar 2021 23:07:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8uro=IW=gmail.com=unixbhaskar@srs-us1.protection.inumbo.net>)
- id 1lPCZJ-0007gp-GU
- for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 23:05:41 +0000
-Received: from mail-qt1-x82c.google.com (unknown [2607:f8b0:4864:20::82c])
+ id 1lPCau-0007nk-Ib
+ for xen-devel@lists.xenproject.org; Wed, 24 Mar 2021 23:07:20 +0000
+Received: from mail-qk1-x729.google.com (unknown [2607:f8b0:4864:20::729])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee4404f4-84b5-47ef-bcc3-8101b4c863fa;
- Wed, 24 Mar 2021 23:05:40 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id x9so360612qto.8
- for <xen-devel@lists.xenproject.org>; Wed, 24 Mar 2021 16:05:40 -0700 (PDT)
-Received: from Slackware.localdomain ([156.146.55.193])
- by smtp.gmail.com with ESMTPSA id i14sm2469165qtq.81.2021.03.24.16.05.36
+ id 2efdf1de-2b15-471e-af28-c7949d341672;
+ Wed, 24 Mar 2021 23:07:19 +0000 (UTC)
+Received: by mail-qk1-x729.google.com with SMTP id y18so17424qky.11
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Mar 2021 16:07:19 -0700 (PDT)
+Received: from Slackware ([156.146.55.193])
+ by smtp.gmail.com with ESMTPSA id m13sm2793041qkm.103.2021.03.24.16.07.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 16:05:39 -0700 (PDT)
+ Wed, 24 Mar 2021 16:07:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,77 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee4404f4-84b5-47ef-bcc3-8101b4c863fa
+X-Inumbo-ID: 2efdf1de-2b15-471e-af28-c7949d341672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=v9ZgYPAV5pW+3XJfUObq1OKDOd+yO9AzIKh8BGAyxbg=;
-        b=KzoKhamrTRrMxphlj7fx+9rr9/duDd3NAJV74WetzwLcxfGF3aWdxrJqDlaEjdcZv8
-         OGjEIzp0SQ865SEX0+Pa960oUbKrZhLJS9+WSRLofUM6rCn1r/S23A57nfMMSG5QPxA4
-         U28uMnTQ2xZTkb6DXHm6vPi9TGRanq/4ebhS99MxtVGCNVjyWMAIPnkdwte29XDHKVG5
-         9gjU1dRChcSTbYXnpVmiSW+2mfVIgVsd6OxyD1BRKGAu8eaWq7HAwnaafzrlFYt7VZmn
-         hF/QbXeIx8C8LB4w00jJrnhj3NhbTSGpNLbhUa8dylq7TsE8u5Eq6ylnrNfEtXJKMS3j
-         g/UA==
+        h=date:from:to:cc:subject:message-id:mail-followup-to:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=unU9mIXis029RymGHdH7V1zjjWKUJpo7L/5r2jBdOHw=;
+        b=Aw54LjN39oNkovcR3V4TfpdwnEylMj/oVtzW/NXQdaYCxg3Z1Ec6YWTJf/U+L1LIjf
+         35ZXylU6/XHmVtfM6knNs2/JPE81nifQvV5LbfJPqpX/txjlJFIpkoNMXSvXNR45JeN4
+         scwViwmTM2ZaZcE4fK8t6bREcUD+COLNZBIQkktPUelFaQ64yTnrwNX3B7V0pGztfYQY
+         UHxVmGhKa4Vcmg8LjpzVCWi5T78/dOtGgBzxKDzrdcJHyIjkuM24Fcc8qbKHGFlWy6Qo
+         p3HTj2YIogqMHlwBlzT5cTsiAG43mqH3xFT3Ei4RnVgk6mk9UtlMkWge4kpsPogcioxs
+         IXiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=v9ZgYPAV5pW+3XJfUObq1OKDOd+yO9AzIKh8BGAyxbg=;
-        b=YyiMpMAywjwzFyMxTosA8J3A7EX0OUyghEussVp54OJxxOaZDd2EZzyIdVHHjQBkUv
-         ThMhPBDQ8xa5j5NNwYY0y6S9psEUUgLPDU4O6Ida89pfqYRkUtWlZ0bo6VTFkH6NeW04
-         zduHeEaMyv05KbXbEuidJLPuBEd4U8s/ysZU018XsmhbfMCgWenL1hXFWHj12hzkCV6c
-         oVAneAoVMw1h+qYmKHKQX9xS4g6nmNgfwVCBNkidJ7niFQz3VxpwoBL/3Ou6kGofyo1M
-         RwCzPM2MXgidaXFN7foHQ0CSyoD2qdl1Baql19nuFBbmv/E0MN4A9HlKOhD2bStW+dio
-         8Gpg==
-X-Gm-Message-State: AOAM5311OWTS9dTZSGTa9zGT0AeOn+lZ08nF4OM+cUsbw5OOKCbUrFXs
-	aEGszANht8CrjqHsN+88lX4=
-X-Google-Smtp-Source: ABdhPJz2BebuSA40Vdzk5htYesmp/PuEjJIxloaJ2qKs7iFRMQWVilb2ccB524lYZyZ9FyJ9LxGEQg==
-X-Received: by 2002:ac8:777c:: with SMTP id h28mr5133646qtu.63.1616627140346;
-        Wed, 24 Mar 2021 16:05:40 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id
+         :mail-followup-to:references:mime-version:content-disposition
+         :in-reply-to;
+        bh=unU9mIXis029RymGHdH7V1zjjWKUJpo7L/5r2jBdOHw=;
+        b=KiY/HP2VnjxerkZwPysWLZlW+0vJTqQ5Hs7+6fBiQVGwoMIV+67bbcWu90iAX+GuMJ
+         lhjM58mGlIIOebaDPDUioxsyFAAUoODkgBM4ADhTXALxdOj661jvNpluJ+pFQO/Aj4sF
+         5Um71Qda/+wsqDm8aFyLODx0s9Lv3WixDanO/K7bBrvUbu3tb1xHLrQKNIm70/9xURCC
+         +R2rvlSsFdnaUlM7ZUQC1vKh9lCmzq61OvHbgObSR8LbGWtXy4wsdaIjv5gB+vIq/Ox8
+         RCxo4TIaA3IbjWldDssx6ksYraaMUHIG4N6WLZBEbgcJZPxH2Gc7nkUGFRFaD1Olgo/G
+         IdDw==
+X-Gm-Message-State: AOAM531aU1YX3mnH9E5JtcVaaz7oPGcd4jhskeW0ZFEwLZXLSdyzP2h8
+	9aPvQOMV80kQgBFqd0qHmnE=
+X-Google-Smtp-Source: ABdhPJy0XDX6xf+AUtITEYmLy/Evqhue1H4jw/H6OCKGGRWyxuZQkdH3VsEtvbV9hUJzchPL3P/mIA==
+X-Received: by 2002:a37:2749:: with SMTP id n70mr5477245qkn.105.1616627239714;
+        Wed, 24 Mar 2021 16:07:19 -0700 (PDT)
+Date: Thu, 25 Mar 2021 10:07:08 +0530
 From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: sstabellini@kernel.org,
-	linux@armlinux.org.uk,
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, linux@armlinux.org.uk,
 	xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: rdunlap@infradead.org,
-	Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Subject: [PATCH V2] ARM: xen/mm.c: A mundane typo fix
-Date: Thu, 25 Mar 2021 10:05:26 +0530
-Message-Id: <20210325043526.16289-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.30.1
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	jgross@suse.com, boris.ostrovsky@oracle.com
+Subject: Re: [PATCH] ARM: xen/mm.c: A mundane typo fix
+Message-ID: <YFwTdAnamANFsBPZ@Slackware>
+Mail-Followup-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, linux@armlinux.org.uk,
+	xen-devel@lists.xenproject.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	jgross@suse.com, boris.ostrovsky@oracle.com
+References: <20210324133036.17665-1-unixbhaskar@gmail.com>
+ <alpine.DEB.2.21.2103241154320.439@sstabellini-ThinkPad-T480s>
+ <5e1b573a-6dc7-7f28-28ae-c509e6782fbf@infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TCrfE9v/6+6uxuTN"
+Content-Disposition: inline
+In-Reply-To: <5e1b573a-6dc7-7f28-28ae-c509e6782fbf@infradead.org>
 
-s/acrros/across/
 
-Plus some words need prural version...so did it.(page->pages)
+--TCrfE9v/6+6uxuTN
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- Changes from V1:
-  Randy's findings incorporated.
+On 11:59 Wed 24 Mar 2021, Randy Dunlap wrote:
+>On 3/24/21 11:55 AM, Stefano Stabellini wrote:
+>> On Wed, 24 Mar 2021, Bhaskar Chowdhury wrote:
+>>> s/acrros/across/
+>>>
+>>> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+>>
+>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>
+>>
+>
+>Hi,
+>It seems to me like some of those "page" should be "pages".
+>
+>>> ---
+>>>  arch/arm/xen/mm.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+>>> index 467fa225c3d0..be7c942c74bf 100644
+>>> --- a/arch/arm/xen/mm.c
+>>> +++ b/arch/arm/xen/mm.c
+>>> @@ -105,7 +105,7 @@ bool xen_arch_need_swiotlb(struct device *dev,
+>>>  	 *	- The Linux page refers to foreign memory
+>>>  	 *	- The device doesn't support coherent DMA request
+>>>  	 *
+>>> -	 * The Linux page may be spanned acrros multiple Xen page, although>> +	 * The Linux page may be spanned across multiple Xen page, although
+>
+>	                                                     pages,
+>
+>>>  	 * it's not possible to have a mix of local and foreign Xen page.
+>
+>	                                                            pages.
+>
+>>>  	 * Furthermore, range_straddles_page_boundary is already checking
+>>>  	 * if buffer is physically contiguous in the host RAM.
+>>> --
+>
+Thank you....I have sent a V2 now.
+>
+>
+>~Randy
+>
 
- arch/arm/xen/mm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--TCrfE9v/6+6uxuTN
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-index 467fa225c3d0..8596dd32dcd5 100644
---- a/arch/arm/xen/mm.c
-+++ b/arch/arm/xen/mm.c
-@@ -105,8 +105,8 @@ bool xen_arch_need_swiotlb(struct device *dev,
- 	 *	- The Linux page refers to foreign memory
- 	 *	- The device doesn't support coherent DMA request
- 	 *
--	 * The Linux page may be spanned acrros multiple Xen page, although
--	 * it's not possible to have a mix of local and foreign Xen page.
-+	 * The Linux page may be spanned across multiple Xen pages, although
-+	 * it's not possible to have a mix of local and foreign Xen pages.
- 	 * Furthermore, range_straddles_page_boundary is already checking
- 	 * if buffer is physically contiguous in the host RAM.
- 	 *
---
-2.30.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCAAdFiEEnwF+nWawchZUPOuwsjqdtxFLKRUFAmBcE20ACgkQsjqdtxFL
+KRUvIggA0Bu+io2ijz60vfhZz7xZNVSid1OoUl1Om/MMq2kve/J9NbkNzt7dGSaO
+Nb8vdiEZT77497MkjBJ8U/pxck9POJdv7RJ4S5s949pPcbuP6PsGhlzk35nN7NqM
+vZ42o9L0cEtLrIrAxWtl3Rscy6x7W90BHhDMhix174CXg5S8ciQ+MCPdo3EyBwuN
+crlJJJZ6VbQiaxOkjGnxyRobSz+WpFCJa/XPioII8xf3p854qdgbVE0GLRaC5f9y
+koN0TLULWOVyX8tm1LOkP8ACv6wIQehPlFCkxRLk8C67CUdmQdx+Mz/u6hQK54K2
+WjwbqPHASv5QkWa+p9PHbF+GjV7yqg==
+=PKSI
+-----END PGP SIGNATURE-----
+
+--TCrfE9v/6+6uxuTN--
 
