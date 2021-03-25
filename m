@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEFCF349600
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 16:47:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101435.194095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4013C349601
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 16:47:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101439.194105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPSD3-00082p-5H; Thu, 25 Mar 2021 15:47:45 +0000
+	id 1lPSD8-00089X-F3; Thu, 25 Mar 2021 15:47:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101435.194095; Thu, 25 Mar 2021 15:47:45 +0000
+Received: by outflank-mailman (output) from mailman id 101439.194105; Thu, 25 Mar 2021 15:47:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPSD3-00081q-0j; Thu, 25 Mar 2021 15:47:45 +0000
-Received: by outflank-mailman (input) for mailman id 101435;
- Thu, 25 Mar 2021 15:47:43 +0000
+	id 1lPSD8-00088l-Bv; Thu, 25 Mar 2021 15:47:50 +0000
+Received: by outflank-mailman (input) for mailman id 101439;
+ Thu, 25 Mar 2021 15:47:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cfrO=IX=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lPSD1-0007aB-FS
- for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 15:47:43 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zQ/e=IX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lPSD6-0007aB-Fj
+ for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 15:47:48 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 24bc23c7-a82f-4d74-a313-cf5a4ff99df6;
- Thu, 25 Mar 2021 15:47:27 +0000 (UTC)
+ id a6b6b779-42ee-43d8-b147-97f408e94207;
+ Thu, 25 Mar 2021 15:47:36 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5AAFAAA55;
+ Thu, 25 Mar 2021 15:47:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,116 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24bc23c7-a82f-4d74-a313-cf5a4ff99df6
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1616687247;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=9NIhmInwFrEyRfF/0lSClNIrgZWInTJXzd/zYMEZRIY=;
-  b=ZAr701+KvOpLohM4d9X2X4uGGhN85izEGHT9REjZC22LJTkMvndNqpxS
-   djRk/LvYzNHCSP03jKb8QsrPmhTZ+WEja1EV7ytLvkQEAN1/rqb8Vn6WJ
-   sMwb8ZJWAuPDLGS3xynYvguac2UYeEDV61Y6QYd+2ZLdz0eo0TT/9RvK3
-   M=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: QFQ1b6fWFHLgb+DjGLN6WF/XkBqAje0fgdLo8kJXuhuKCfvWyOq3oikI8sgAanJR2P6PbS+qPy
- 3D28XJzkRYLzcu9J6FEThhoIDDWo+6oK091dtrda6s5mu0ZATAr1qzD99MTmqCwp3jhvurbvs3
- HYAA2NnMLNv7MnOBI6QqIXzkA/YXx1HTt6LIxi+exNDftkR796KphVIQ3dJLIw6z7U1WgEm8C0
- HCOBYP4/jRSQxbKCPsWvZnnlG1f89jNHrBnPHZ8RX6W6kuJqdadUMjsfEfnXPFJ2OwWfrk3YXB
- mGM=
-X-SBRS: 5.1
-X-MesageID: 40123477
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:5QOVKqEOtvtoO/FZpLqFOpHXdLJzesId70hD6mlYVQFVfsuEl8
- qngfQc0lvOhCwMXWw78OrsBICrSxrnlaJdy48XILukQU3aqHKlRbsSibfK7h/BP2nF9uBb3b
- p9aKQWMrfNJHVzkMqS2maFOvk6xt3vys6VrMP/61socg1wcaFn6G5Ce2OmO2l7XhNPC5Z8NL
- f03LslmxOadX4abtu2CxA+NoCum/TxmI/7ehlDPhY76WC15g+A0qLwEBSTw34lIlFy6IolmF
- KlryXJop+Nntv+4R/a2m/V4f1t6abc4+oGPuOgoIw4Lj3tjyyheYhuXaaT1QpF3N2H2RIRv/
- Tn5zsmIsRv+1PdF1vF3ifF6k3b/xsFr1/k1FOCjnPoraXCNUwHIvsEv611WF/9ySMbzbZB+Z
- MO5U21nd5rKCmFuyLH693BR3hR5zGJiEtnq8E/pThiS4cEAYUhy7A3zQduP7orOjn104wjGP
- kGNrCn2N9mNWmXaH3UpQBUsaWRd0V2Gh+HR34LsdCO3w5Xm2hkz1AZyNZ3pAZ5yK4A
-X-IronPort-AV: E=Sophos;i="5.81,277,1610427600"; 
-   d="scan'208";a="40123477"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <devel@edk2.groups.io>
-CC: <xen-devel@lists.xenproject.org>, Jordan Justen
-	<jordan.l.justen@intel.com>, Anthony PERARD <anthony.perard@citrix.com>, "Ard
- Biesheuvel" <ard.biesheuvel@linaro.org>, Laszlo Ersek <lersek@redhat.com>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v2 7/7] OvmfPkg/OvmfXen: Set PcdFSBClock
-Date: Thu, 25 Mar 2021 15:47:13 +0000
-Message-ID: <20210325154713.670104-8-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210325154713.670104-1-anthony.perard@citrix.com>
-References: <20210325154713.670104-1-anthony.perard@citrix.com>
+X-Inumbo-ID: a6b6b779-42ee-43d8-b147-97f408e94207
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616687255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jfrDyWtRkvt7SP9dXjXX5Oxi8t/Y+WDKK79HHfKzu14=;
+	b=uD7jPqTjOd2ce4VsMXSOqUSdoPINa9f0OlGaaJYvxgNm3mN9g/2TNFAiac8nNb33iinjRj
+	O9KZtwV1Ry5zmz4+7jsSDDI381h+aZSjGZI+J+a5+saIcCM6GCHHHsh53fizkqdOIefV6y
+	zXe/t8pJ18vtkGUgTvJXmYjQaCbR/x4=
+Subject: Re: [PATCH] xen: Drop "-rc" suffix from XEN_EXTRAVERSION
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210325150702.7582-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <fabc8f83-e534-4615-cd14-17876be29273@suse.com>
+Date: Thu, 25 Mar 2021 16:47:34 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Type: text/plain
+In-Reply-To: <20210325150702.7582-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-VXBkYXRlIGdFZmlNZGVQa2dUb2tlblNwYWNlR3VpZC5QY2RGU0JDbG9jayBzbyBpdCBjYW4gaGF2
-ZSB0aGUgY29ycmVjdAp2YWx1ZSB3aGVuIFNlY1BlaUR4ZVRpbWVyTGliQ3B1IHN0YXJ0IHRvIHVz
-ZSBpdCBmb3IgdGhlIEFQSUMgdGltZXIuCgpDdXJyZW50bHksIG5vdGhpbmcgYXBwZWFyIHRvIHVz
-ZSB0aGUgdmFsdWUgaW4gUGNkRlNCQ2xvY2sgYmVmb3JlClhlblBsYXRmb3JtUGVpIGhhZCBhIGNo
-YW5jZSB0byBzZXQgaXQgZXZlbiB0aG91Z2ggVGltZXJMaWIgaXMgaW5jbHVkZWQKaW4gbW9kdWxl
-cyBydW5uZWQgYmVmb3JlIFhlblBsYXRmb3JtUGVpLgoKWGVuUGxhdGZvcm1QZWkgZG9lc24ndCB1
-c2UgYW55IG9mIHRoZSBmdW5jdGlvbnMgdGhhdCB3b3VsZCB1c2UgdGhhdAp2YWx1ZS4gTm8gb3Ro
-ZXIgbW9kdWxlcyBpbiB0aGUgUEVJIHBoYXNlIHNlZW1zIHRvIHVzZSB0aGUgVGltZXJMaWIKYmVm
-b3JlIFBjZEZTQkNsb2NrIGlzIHNldC4gVGhlcmUgYXJlIGN1cnJlbnRseSB0d28gb3RoZXIgbW9k
-dWxlcyBpbgp0aGUgUEVJIHBoYXNlIHRoYXQgbmVlZHMgdGhlIFRpbWVyTGliOgotIFMzUmVzdW1l
-MlBlaSwgYnV0IG9ubHkgYmVjYXVzZSBMb2NhbEFwaWNMaWIgbmVlZHMgaXQsIGJ1dCBub3RoaW5n
-IGlzCiAgdXNpbmcgdGhlIHZhbHVlIGZyb20gUGNkRlNCQ2xvY2suCi0gQ3B1TXBQZWksIGJ1dCBJ
-IGJlbGlldmUgaXQgb25seSBydW5zIGFmdGVyIFhlblBsYXRmb3JtUGVpCgpCZWZvcmUgdGhlIFBF
-SSBwaGFzZSwgdGhlcmUncyB0aGUgU0VDIHBoYXNlLCBhbmQgU2VjTWFpbiBuZWVkcwpUaW1lckxp
-YiBiZWNhdXNlIG9mIExvY2FsQXBpY0xpYi4gQW5kIGl0IGluaXRpYWxpc2UgdGhlIEFQSUMgdGlt
-ZXJzCmZvciB0aGUgZGVidWcgYWdlbnQuIEJ1dCBJIGRvbid0IHRoaW5rIGFueSBvZiB0aGUgRGVi
-dWdMaWIgdGhhdApPdm1mWGVuIGNvdWxkIHVzZSBhcmUgYWN0dWFsbHkgdXNpbmcgdGhlICpEZWxh
-eSBmdW5jdGlvbnMgaW4gVGltZXJMaWIsCmFuZCBzbyB3b3VsZCBub3QgdXNlIHRoZSB2YWx1ZSBm
-cm9tIFBjZEZTQkNsb2NrIHdoaWNoIHdvdWxkIGJlCnVuaW5pdGlhbGlzZWQuCgpBIHNpbXBsZSBy
-dW50aW1lIHRlc3Qgc2hvd2VkIHRoYXQgVGltZXJMaWIgZG9lc24ndCB1c2UgUGNkRlNCQ2xvY2sK
-dmFsdWUgYmVmb3JlIGl0IGlzIHNldC4KClJlZjogaHR0cHM6Ly9idWd6aWxsYS50aWFub2NvcmUu
-b3JnL3Nob3dfYnVnLmNnaT9pZD0yNDkwClNpZ25lZC1vZmYtYnk6IEFudGhvbnkgUEVSQVJEIDxh
-bnRob255LnBlcmFyZEBjaXRyaXguY29tPgpSZXZpZXdlZC1ieTogTGFzemxvIEVyc2VrIDxsZXJz
-ZWtAcmVkaGF0LmNvbT4KLS0tCgpOb3RlczoKICAgIHYyOgogICAgLSBrZWVwIHRoZSBkZWZhdWx0
-IHZhbHVlIG9mIFBjZEZTQkNsb2NrIGJlY2F1c2UgdGhhdCBpcyBwYXJ0IG9mIHRoZSBzeW50YXgu
-CgogT3ZtZlBrZy9Pdm1mWGVuLmRzYyAgICAgICAgICAgICAgICAgICAgICAgfCA0ICstLS0KIE92
-bWZQa2cvWGVuUGxhdGZvcm1QZWkvWGVuUGxhdGZvcm1QZWkuaW5mIHwgMSArCiBPdm1mUGtnL1hl
-blBsYXRmb3JtUGVpL1hlbi5jICAgICAgICAgICAgICB8IDQgKysrKwogMyBmaWxlcyBjaGFuZ2Vk
-LCA2IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvT3ZtZlBrZy9P
-dm1mWGVuLmRzYyBiL092bWZQa2cvT3ZtZlhlbi5kc2MKaW5kZXggNTA3MDI5NDA0ZjBiLi5mYWYz
-OTMwYWNlMDQgMTAwNjQ0Ci0tLSBhL092bWZQa2cvT3ZtZlhlbi5kc2MKKysrIGIvT3ZtZlBrZy9P
-dm1mWGVuLmRzYwpAQCAtNDQyLDkgKzQ0Miw2IEBAIFtQY2RzRml4ZWRBdEJ1aWxkXQogICAjIFBv
-aW50IHRvIHRoZSBNZGVNb2R1bGVQa2cvQXBwbGljYXRpb24vVWlBcHAvVWlBcHAuaW5mDQogICBn
-RWZpTWRlTW9kdWxlUGtnVG9rZW5TcGFjZUd1aWQuUGNkQm9vdE1hbmFnZXJNZW51RmlsZXx7IDB4
-MjEsIDB4YWEsIDB4MmMsIDB4NDYsIDB4MTQsIDB4NzYsIDB4MDMsIDB4NDUsIDB4ODMsIDB4NmUs
-IDB4OGEsIDB4YjYsIDB4ZjQsIDB4NjYsIDB4MjMsIDB4MzEgfQ0KIA0KLSAgIyMgWGVuIHZsYXBp
-YydzIGZyZXF1ZW5jZSBpcyAxMDAgTUh6DQotICBnRWZpTWRlUGtnVG9rZW5TcGFjZUd1aWQuUGNk
-RlNCQ2xvY2t8MTAwMDAwMDAwDQotDQogICAjIFdlIHBvcHVsYXRlIERYRSBJUEwgdGFibGVzIHdp
-dGggMUcgcGFnZXMgcHJlZmVyYWJseSBvbiBYZW4NCiAgIGdFZmlNZGVNb2R1bGVQa2dUb2tlblNw
-YWNlR3VpZC5QY2RVc2UxR1BhZ2VUYWJsZXxUUlVFDQogDQpAQCAtNDcxLDYgKzQ2OCw3IEBAIFtQ
-Y2RzRHluYW1pY0RlZmF1bHRdCiAgIGdVZWZpT3ZtZlBrZ1Rva2VuU3BhY2VHdWlkLlBjZFBjaU1t
-aW82NEJhc2V8MHgwDQogICBnVWVmaU92bWZQa2dUb2tlblNwYWNlR3VpZC5QY2RQY2lNbWlvNjRT
-aXplfDB4ODAwMDAwMDAwDQogDQorICBnRWZpTWRlUGtnVG9rZW5TcGFjZUd1aWQuUGNkRlNCQ2xv
-Y2t8MTAwMDAwMDAwDQogICBnRWZpTWRlUGtnVG9rZW5TcGFjZUd1aWQuUGNkUGxhdGZvcm1Cb290
-VGltZU91dHwwDQogDQogICAjIFNldCB2aWRlbyByZXNvbHV0aW9uIGZvciB0ZXh0IHNldHVwLg0K
-ZGlmZiAtLWdpdCBhL092bWZQa2cvWGVuUGxhdGZvcm1QZWkvWGVuUGxhdGZvcm1QZWkuaW5mIGIv
-T3ZtZlBrZy9YZW5QbGF0Zm9ybVBlaS9YZW5QbGF0Zm9ybVBlaS5pbmYKaW5kZXggNTczMmQyMTg4
-ODcxLi44N2RkNGIyNDY3OWEgMTAwNjQ0Ci0tLSBhL092bWZQa2cvWGVuUGxhdGZvcm1QZWkvWGVu
-UGxhdGZvcm1QZWkuaW5mCisrKyBiL092bWZQa2cvWGVuUGxhdGZvcm1QZWkvWGVuUGxhdGZvcm1Q
-ZWkuaW5mCkBAIC04NSw2ICs4NSw3IEBAIFtQY2RdCiAgIGdFZmlNZGVNb2R1bGVQa2dUb2tlblNw
-YWNlR3VpZC5QY2REeGVJcGxTd2l0Y2hUb0xvbmdNb2RlDQogICBnRWZpTWRlTW9kdWxlUGtnVG9r
-ZW5TcGFjZUd1aWQuUGNkVXNlMUdQYWdlVGFibGUNCiAgIGdFZmlNZGVNb2R1bGVQa2dUb2tlblNw
-YWNlR3VpZC5QY2RQdGVNZW1vcnlFbmNyeXB0aW9uQWRkcmVzc09yTWFzaw0KKyAgZ0VmaU1kZVBr
-Z1Rva2VuU3BhY2VHdWlkLlBjZEZTQkNsb2NrDQogICBnRWZpU2VjdXJpdHlQa2dUb2tlblNwYWNl
-R3VpZC5QY2RPcHRpb25Sb21JbWFnZVZlcmlmaWNhdGlvblBvbGljeQ0KICAgZ1VlZmlDcHVQa2dU
-b2tlblNwYWNlR3VpZC5QY2RDcHVMb2NhbEFwaWNCYXNlQWRkcmVzcw0KIA0KZGlmZiAtLWdpdCBh
-L092bWZQa2cvWGVuUGxhdGZvcm1QZWkvWGVuLmMgYi9Pdm1mUGtnL1hlblBsYXRmb3JtUGVpL1hl
-bi5jCmluZGV4IDc1MjRhYWExMWEyOS4uYTI5YjRlMDQwODZlIDEwMDY0NAotLS0gYS9Pdm1mUGtn
-L1hlblBsYXRmb3JtUGVpL1hlbi5jCisrKyBiL092bWZQa2cvWGVuUGxhdGZvcm1QZWkvWGVuLmMK
-QEAgLTYzMiw1ICs2MzIsOSBAQCBDYWxpYnJhdGVMYXBpY1RpbWVyICgKICAgRnJlcSA9IERpdlU2
-NHg2NFJlbWFpbmRlciAoRGl2aWRlbmQsIFRzY1RpY2syIC0gVHNjVGljaywgTlVMTCk7DQogICBE
-RUJVRyAoKERFQlVHX0lORk8sICJBUElDIEZyZXEgJSA4bHUgSHpcbiIsIEZyZXEpKTsNCiANCisg
-IEFTU0VSVCAoRnJlcSA8PSBNQVhfVUlOVDMyKTsNCisgIFN0YXR1cyA9IFBjZFNldDMyUyAoUGNk
-RlNCQ2xvY2ssIEZyZXEpOw0KKyAgQVNTRVJUX1JFVFVSTl9FUlJPUiAoU3RhdHVzKTsNCisNCiAg
-IFVubWFwWGVuUGFnZSAoU2hhcmVkSW5mbyk7DQogfQ0KLS0gCkFudGhvbnkgUEVSQVJECgo=
+On 25.03.2021 16:07, Andrew Cooper wrote:
+> Fixes: a04509d34d ("Branching: Update version files etc. for newly unstable")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
 
