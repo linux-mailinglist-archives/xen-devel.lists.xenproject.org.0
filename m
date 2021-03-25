@@ -2,41 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FCE6349970
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 19:24:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101515.194270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B2CB349A97
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 20:43:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101522.194288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPUdd-0001oe-GY; Thu, 25 Mar 2021 18:23:21 +0000
+	id 1lPVrx-0001rH-IK; Thu, 25 Mar 2021 19:42:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101515.194270; Thu, 25 Mar 2021 18:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 101522.194288; Thu, 25 Mar 2021 19:42:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPUdd-0001oF-DN; Thu, 25 Mar 2021 18:23:21 +0000
-Received: by outflank-mailman (input) for mailman id 101515;
- Thu, 25 Mar 2021 18:23:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tqer=IX=redhat.com=lersek@srs-us1.protection.inumbo.net>)
- id 1lPUdc-0001oA-2Z
- for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 18:23:20 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 723b6338-6627-45a1-9498-3eb9d2ea3e19;
- Thu, 25 Mar 2021 18:23:18 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-48-HqhYvH7cNryB9nYeNtIcww-1; Thu, 25 Mar 2021 14:23:11 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD4638030DD;
- Thu, 25 Mar 2021 18:22:09 +0000 (UTC)
-Received: from lacos-laptop-7.usersys.redhat.com (ovpn-114-200.ams2.redhat.com
- [10.36.114.200])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 53DFC1000358;
- Thu, 25 Mar 2021 18:22:08 +0000 (UTC)
+	id 1lPVrx-0001qs-Ew; Thu, 25 Mar 2021 19:42:13 +0000
+Received: by outflank-mailman (input) for mailman id 101522;
+ Thu, 25 Mar 2021 19:42:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gSM8=IX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lPVrv-0001qn-Sw
+ for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 19:42:12 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8356ec69-dd3e-4d8d-9faa-f9b92af8e329;
+ Thu, 25 Mar 2021 19:42:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,92 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 723b6338-6627-45a1-9498-3eb9d2ea3e19
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616696598;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jIcoE/aP9OWTquxuzaRGcRIdXcSeCOahwq33fGzKmI4=;
-	b=JFaOU4IrTRQGEc4vcWJNkToA8ZcojViADHYruvX/sMF70sbUdfHgTvI/JjVEcBp3045ack
-	QUOjh2drzi+HWicrgSFHGYlzVxFqSb84RUm8TpwYAu/uVjVPFUB6fsDJ9xepbiItK8mxLm
-	KHXeIHbcjZbF6MQ7uVS2T0yCmrumoLU=
-X-MC-Unique: HqhYvH7cNryB9nYeNtIcww-1
-Subject: Re: [PATCH v2 0/7] OvmfXen: Set PcdFSBClock at runtime
-To: Anthony PERARD <anthony.perard@citrix.com>, devel@edk2.groups.io
-Cc: xen-devel@lists.xenproject.org, Jordan Justen
- <jordan.l.justen@intel.com>, Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- Julien Grall <julien@xen.org>
-References: <20210325154713.670104-1-anthony.perard@citrix.com>
-From: Laszlo Ersek <lersek@redhat.com>
-Message-ID: <21719b4f-0da5-f5f1-bafa-9d2a399bc87d@redhat.com>
-Date: Thu, 25 Mar 2021 19:22:07 +0100
+X-Inumbo-ID: 8356ec69-dd3e-4d8d-9faa-f9b92af8e329
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1616701330;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=aIIfJIAzczl8EGWOaraqkh2HmY3ZaEAZ9d3r68Bfg0s=;
+  b=GVAa0msrC0Nklc1X/XVDfIRHu7rjKfX949tx7s5umcpVbB0qGSGBrqZI
+   xVc/9IVd4nBM7AFmZV1Q/caaJgKYvouuRGJFLLVlyTvAYac2CH6dWDc/y
+   qyhqOzGjD0re2lVyWnIUoFM4j5UPKEyoo1ruj8mnxJLvejQkteVGEG9RC
+   Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: BtKYWRideZ7y8j0+kLJIxalzpUbhtB6UtuVKo4lwhoYa8/QL3qHhghQB8acMKXDqCFttmu2xk8
+ 9fxWoaefdYyUetblSCKNItWbKRYn5XC8n3N5XwR58k9EcXqTJSMsY3Imwuk9WvxZy9F5SBgc20
+ 7TRRlmv+iv7W2wVUXpNQRNgrTXHL8uiV0wmSFurbG6z+D63m4ACheCGOrdfldCM0qvIFmJyeNa
+ jc2O6MFtTyyB74EH9ONJgnThqTWXxhJmmzTl/h2al8EZlLSrVU3E4OtI9rtIh/IakVy1rILbuG
+ LXw=
+X-SBRS: 5.1
+X-MesageID: 40523826
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:gRtLWa0atCvyDClphdXKzgqjBWByeYIsi2QD101hICF9WtCEls
+ yogfQQ3QL1jjFUY307hdWcIsC7LE/035Qd2+ksFJ2lWxTrv3btEZF64eLZslndMgDd1soY76
+ dvdKBiFMb9ZGIRse/W6BS1euxO/PCp66at7N2x815IbSVHL55t9B14DAHzKDwSeCBjCYAiHJ
+ SRouprzgDQGkg/VciwCnkbU+WrnbSi+K7OWhIaGwUhrDCHkDLA0tXHOiKF1RQTWS4n+8ZBzU
+ H5lWXCh5mLgrWA5TL3k0TS6JlXn9WJ8Ko/OOW8zvI7Bx+ppgKhZIFKU6CPsjYvsIiUmSoXue
+ iJmTgMFYBe7G7QY3GUrHLWqnbd+Qdr0VDO4xu5hmbuusPwTj5SMbs+uatpNiH3xmBlmfMU6t
+ Mt40up86B5IDmFoQHGo//PbB1unlrcmwtYrccjy0ZxfKFbVKVctuUkjSVoOaZFJg3WwqY9Ht
+ JjCcnNjcwmC2+yXjTism5jzMfEZAVLIj62BkwLusmi2zNLhnxOz0wB2MwFnnsbnahNM6V52w
+ ==
+X-IronPort-AV: E=Sophos;i="5.81,278,1610427600"; 
+   d="scan'208";a="40523826"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH] tools/libfsimage: Bump SONAME to 4.16
+Date: Thu, 25 Mar 2021 19:42:01 +0000
+Message-ID: <20210325194201.10998-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210325154713.670104-1-anthony.perard@citrix.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 03/25/21 16:47, Anthony PERARD wrote:
-> Patch series available in this git branch:
-> git://xenbits.xen.org/people/aperard/ovmf.git br.apic-timer-freq-v2
+Fixes: a04509d34d ("Branching: Update version files etc. for newly unstable")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Wei Liu <wl@xen.org>
+---
+ tools/libfsimage/common/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'll get to this sometime in April, possibly after the SEV-SNP series.
-That shouldn't discourage others from reviewing sooner, of course.
-
-Thanks
-Laszlo
-
-> 
-> Changes in v2:
-> - main change is to allow mapping of Xen pages outside of the RAM
->   see patch: "OvmfPkg/XenPlatformPei: Map extra physical address"
-> - that new function allows to map the Xen shared info page (where we can find
->   information about tsc frequency) at the highest physical address allowed.
-> 
-> Hi,
-> 
-> OvmfXen uses the APIC timer, but with an hard-coded frequency that may change
-> as pointed out here:
->   https://edk2.groups.io/g/devel/message/45185
->   <20190808134423.ybqg3qkpw5ucfzk4@Air-de-Roger>
-> 
-> This series changes that so the frequency is calculated at runtime.
-> 
-> Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2490
-> 
-> There is also one cleanup patch that has nothing to do with the rest.
-> 
-> Cheers,
-> 
-> Anthony PERARD (7):
->   OvmfPkg/XenResetVector: Silent a warning from nasm
->   MdePkg: Allow PcdFSBClock to by Dynamic
->   OvmfPkg/IndustryStandard/Xen: Apply EDK2 coding style to
->     XEN_VCPU_TIME_INFO
->   OvmfPkg/IndustryStandard: Introduce PageTable.h
->   OvmfPkg/XenPlatformPei: Map extra physical address
->   OvmfPkg/XenPlatformPei: Calibrate APIC timer frequency
->   OvmfPkg/OvmfXen: Set PcdFSBClock
-> 
->  MdePkg/MdePkg.dec                             |   8 +-
->  OvmfPkg/OvmfXen.dsc                           |   4 +-
->  OvmfPkg/XenPlatformPei/XenPlatformPei.inf     |   4 +
->  .../IndustryStandard/PageTable.h}             | 117 +-------
->  OvmfPkg/Include/IndustryStandard/Xen/xen.h    |  17 +-
->  .../BaseMemEncryptSevLib/X64/VirtualMemory.h  | 143 +---------
->  OvmfPkg/XenPlatformPei/Platform.h             |  10 +
->  OvmfPkg/XenPlatformPei/Platform.c             |   1 +
->  OvmfPkg/XenPlatformPei/Xen.c                  | 252 ++++++++++++++++++
->  OvmfPkg/XenResetVector/Ia32/XenPVHMain.asm    |   2 +-
->  10 files changed, 287 insertions(+), 271 deletions(-)
->  copy OvmfPkg/{Library/BaseMemEncryptSevLib/X64/VirtualMemory.h => Include/IndustryStandard/PageTable.h} (60%)
-> 
+diff --git a/tools/libfsimage/common/Makefile b/tools/libfsimage/common/Makefile
+index 060f029ca9..24bc90e73e 100644
+--- a/tools/libfsimage/common/Makefile
++++ b/tools/libfsimage/common/Makefile
+@@ -1,7 +1,7 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+ 
+-MAJOR = 4.15
++MAJOR = 4.16
+ MINOR = 0
+ 
+ LDFLAGS-$(CONFIG_SunOS) = -Wl,-M -Wl,mapfile-SunOS
+-- 
+2.11.0
 
 
