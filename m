@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9A7349753
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 17:52:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101471.194159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1A82349752
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 17:52:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101472.194170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPTDw-0008AE-CP; Thu, 25 Mar 2021 16:52:44 +0000
+	id 1lPTDw-0008BS-RA; Thu, 25 Mar 2021 16:52:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101471.194159; Thu, 25 Mar 2021 16:52:44 +0000
+Received: by outflank-mailman (output) from mailman id 101472.194170; Thu, 25 Mar 2021 16:52:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPTDw-00089j-8N; Thu, 25 Mar 2021 16:52:44 +0000
-Received: by outflank-mailman (input) for mailman id 101471;
+	id 1lPTDw-0008AG-L7; Thu, 25 Mar 2021 16:52:44 +0000
+Received: by outflank-mailman (input) for mailman id 101472;
  Thu, 25 Mar 2021 16:52:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gSM8=IX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lPTDu-00086s-8e
+ id 1lPTDu-00089F-MZ
  for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 16:52:42 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e47308dd-7b06-4e4a-843d-dac0c04026ed;
- Thu, 25 Mar 2021 16:52:37 +0000 (UTC)
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c614e899-3e75-4f93-9eda-704564dac97a;
+ Thu, 25 Mar 2021 16:52:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,48 +36,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e47308dd-7b06-4e4a-843d-dac0c04026ed
+X-Inumbo-ID: c614e899-3e75-4f93-9eda-704564dac97a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1616691155;
+  d=citrix.com; s=securemail; t=1616691161;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=LF+lVlyKXExW6Io/IYUvBnZgXV3D7BVJSGsgMrjUOUs=;
-  b=YHFLKxJKVx870MMzJ9EdWJauFtoOfUtV4BMe5sZa4y/O11Oz3qJ9ssat
-   pLR0q8mOEuz6YcHvX8IVXIRc7l0RxitN2ztaKS4d8MwTgSQM+43/Llcwi
-   yT8+n1jvMmE8liPTBGAWl5lKNGogLRgleDhOtkbFAQ+qzD9AqTBECa20D
-   Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: bmaiUR7yfJ8R/GUMREX9NrRJ3FNleS1FK8wrw7uP7vcOwjdf38dLKs2dKsdtryATOcOR42Dtxd
- egzIL1EYDR/v3bbaxkTW2FT7oW5ZdN4H36o6JrRLlRCqCM8g/ldjIgk1nqpMG7fF8AFgKPnyTP
- tAf9vYOjlD7wdi7nfOAXbsiPxXX4uubMpbAvJXCkqlBd9381O2OA7ibyd/sPSL81D9WQ/6FzuE
- pKlin/tTdVp06HLPidV8DDD2LZTewcPtrvmc8c6MLxDhoNFJbvH3HHYUn1Buenqx0eBsLGcd7o
- Zkw=
+  bh=UmOB2jpI/LNrB0BQxya0yK8puikk3iTXwPa1pCoadQg=;
+  b=MtzR9I0JgDMdaQNLPvFAoJiOpc/i+Ka+uS+vI9nSq9MlDfXgWbBib68Y
+   3IMTWRwfW5vQzD9Oq7Ss3K/BdE8vNKFQwRmxhi0qjOIhBJR/ZcrwLzG1p
+   IOH6pm0FasRgLtXiRYESs88tUUTDBxCEBKp9j83Zg71hNwaAzgcOtLoLD
+   o=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: ZF5JUZj0PBnumeYqkxjXpDB5Z2DdwGuyRJDmERprCcJ4u4Ga1RzxYMvyBth5h0f0+GNast+IvF
+ JXKM0sch9PNPhAFhVwVXcD/kH+pgBJ35h4pFyqqXgt9anXVbodmJHDl9g3RWEsPVwxf8rRKYoy
+ 49suzN2HEGxPsq8A4P2LjHLJi/DfkM1Dzwrw8XTudMDuWE5oErW2Jgbnb1/A+8jkrGzdLjRZ/X
+ 4q5DVrAogqBjRkmVtkyoqLYqRAumKEb/xVIwxL78doOQiV5wTHN8OymPWXmnebnkhhUURm/ILb
+ 55c=
 X-SBRS: 5.1
-X-MesageID: 40150746
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 40024416
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:1/9vfaGHtPdr4ZzmpLqFMpHXdLJzesId70hD6mlYVQFVfsuEl8
- qngfQc0lvOhCwMXWw78OrsBICrR3TA+ZlppbQAJLvKZniChEKEDqFHqbHjzTrpBjHk+odmv5
- tIXqBiBLTLYmRSot395GCDfeoI5Pmi3OSWifzFz3FrJDsaCZ1IywtiEA6UHglXaWB9ZaYRL5
- aX6spZqzfIQx1+AviTPXUZQ/PF4+TCiZOOW3U7LiQ64wqDhy7A0s+YLzGk2H4lMg9n8PMZ3k
- Xu1yf44aiitP/T8G6n60bjq654tfGk5t9KBMmngtUYJDP2mm+TFflccozHhh8ZiqWC70srjc
- ntrn4bTrhOwkKURE6Zi1/M3BTtyzkn4XOK8y7mvVLT5fbXaRh/Lugpv/M8TjLpr3AOkfs57Y
- dwm0WejJZTBQOoplWE2/H4EytEu2DxnWAvioco/htieLpbUpB9h6oF8nhYFZ8RdRiKk7wPIa
- 1VAMbQ6O0+SyL9U1np+m1mwNmbVn8uBBuxQk8bpsyP0zRN9UoJtncl+A==
+IronPort-HdrOrdr: A9a23:Iy04eK0FOg1DhiKEDkc51QqjBWByeYIsi2QD101hICF9WtCEls
+ yogfQQ3QL1jjFUY307hdWcIsC7LE/035Qd2+ksFJ2lWxTrv3btEZF64eLZslndMgDd1soY76
+ dvdKBiFMb9ZGIRse/W6BS1euxO/PCp66at7N2x815IbSVHL55t9B14DAHzKDwSeCBjCYAiHJ
+ SRouprzgDQGkg/VciwCnkbU+WrnbSi+K7OWhIaGwUhrDCHkDLA0tXHOiKF1RQTWS4n+8ZBzU
+ H5lWXCh5mLgrWA5TL3k0TS6JlXn9WJ8Ko/OOW8zvI7Bx+ppgKhZIFKU6CPsjYvsIiUmSoXue
+ iJmTgMFYBe7G7QY3GUrHLWqnbd+Qdr0VDO4xu5hmbuusPwTj5SMbs+uatpNiH3xmBlmfMU6t
+ Mt40up86B5IDmFoQHGo//PbB1unlrcmwtYrccjy0ZxfKFbVKVctuUkjSVoOaZFJg3WwqY9Ht
+ JjCcnNjcwmC2+yXjTism5jzMfEZAVLIj62BkwLusmi2zNLhnxOz0wB2MwFnnsbnahNM6V52w
+ ==
 X-IronPort-AV: E=Sophos;i="5.81,278,1610427600"; 
-   d="scan'208";a="40150746"
+   d="scan'208";a="40024416"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
-	<iwj@xenproject.org>, =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
 	<marmarek@invisiblethingslab.com>, =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Pierret?=
 	<frederic.pierret@qubes-os.org>
-Subject: [PATCH 1/2] x86/hpet: Factor hpet_enable_legacy_replacement_mode() out of hpet_setup()
-Date: Thu, 25 Mar 2021 16:52:23 +0000
-Message-ID: <20210325165224.10306-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] x86/hpet: Don't enable legacy replacement mode unconditionally
+Date: Thu, 25 Mar 2021 16:52:24 +0000
+Message-ID: <20210325165224.10306-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210325165224.10306-1-andrew.cooper3@citrix.com>
 References: <20210325165224.10306-1-andrew.cooper3@citrix.com>
@@ -84,10 +87,21 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-... in preparation to introduce a second caller.
+From: Jan Beulich <jbeulich@suse.com>
 
-No functional change.
+Commit e1de4c196a2e ("x86/timer: Fix boot on Intel systems using ITSSPRC
+static PIT clock gating") was reported to cause boot failures on certain
+AMD Ryzen systems.
 
+Refine the fix to do nothing in the default case, and only attempt to
+configure legacy replacement mode if IRQ0 is found to not be working.
+
+In addition, introduce a "hpet" command line option so this heuristic
+can be overridden.  Since it makes little sense to introduce just
+"hpet=legacy-replacement", also allow for a boolean argument as well as
+"broadcast" to replace the separate "hpetbroadcast" option.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
@@ -97,166 +111,193 @@ CC: Ian Jackson <iwj@xenproject.org>
 CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 CC: Frédéric Pierret <frederic.pierret@qubes-os.org>
 
-For 4.15.  Pre-req for trying to unbreak AMD Ryzen 1800X systems.
+For 4.15: Attempt to unbreak AMD Ryzen 1800X systems.
 ---
- xen/arch/x86/hpet.c        | 116 ++++++++++++++++++++++++---------------------
- xen/include/asm-x86/hpet.h |   6 +++
- 2 files changed, 68 insertions(+), 54 deletions(-)
+ docs/misc/xen-command-line.pandoc | 33 ++++++++++++++++++++++++++++++
+ xen/arch/x86/hpet.c               | 43 +++++++++++++++++++++++++++------------
+ xen/arch/x86/io_apic.c            | 26 +++++++++++++++++++++++
+ xen/include/asm-x86/hpet.h        |  1 +
+ 4 files changed, 90 insertions(+), 13 deletions(-)
 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index a0601ff838..4d020d4ad7 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1274,9 +1274,42 @@ supported. See docs/misc/arm/big.LITTLE.txt for more information.
+ When the hmp-unsafe option is disabled (default), CPUs that are not
+ identical to the boot CPU will be parked and not used by Xen.
+ 
++### hpet (x86)
++    = List of [ <bool> | broadcast=<bool> | legacy-replacement=<bool> ]
++
++    Applicability: x86
++
++Controls Xen's use of the system's High Precision Event Timer.  By default,
++Xen will use an HPET when available and not subject to errata.  Use of the
++HPET can be disabled by specifying `hpet=0`.
++
++ * The `broadcast` boolean is disabled by default, but forces Xen to keep
++   using the broadcast for CPUs in deep C-states even when an RTC interrupt is
++   enabled.  This then also affects raising of the RTC interrupt.
++
++ * The `legacy-replacement` boolean allows for control over whether Legacy
++   Replacement mode is enabled.
++
++   Legacy Replacement mode is intended for hardware which does not have an
++   8025 PIT, and allows the HPET to be configured into a compatible mode.
++   Intel chipsets from Skylake/ApolloLake onwards can turn the PIT off for
++   power saving reasons, and there is no platform-agnostic mechanism for
++   discovering this.
++
++   By default, Xen will not change hardware configuration, unless the PIT
++   appears to be absent, at which point Xen will try to enable Legacy
++   Replacement mode before falling back to pre-IO-APIC interrupt routing
++   options.
++
++   This behaviour can be inhibited by specifying `legacy-replacement=0`.
++   Alternatively, this mode can be enabled unconditionally (if available) by
++   specifying `legacy-replacement=1`.
++
+ ### hpetbroadcast (x86)
+ > `= <boolean>`
+ 
++Deprecated alternative of `hpet=broadcast`.
++
+ ### hvm_debug (x86)
+ > `= <integer>`
+ 
 diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
-index 1ff005fb4a..c73135bb15 100644
+index c73135bb15..270fef38c3 100644
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -754,11 +754,70 @@ int hpet_legacy_irq_tick(void)
- }
+@@ -52,6 +52,8 @@ static unsigned int __read_mostly num_hpets_used;
+ DEFINE_PER_CPU(struct hpet_event_channel *, cpu_bc_channel);
  
- static u32 *hpet_boot_cfg;
-+static u64 __initdata hpet_rate;
-+
-+bool __init hpet_enable_legacy_replacement_mode(void)
+ unsigned long __initdata hpet_address;
++int8_t __initdata opt_hpet_legacy_replacement = -1;
++static bool __initdata opt_hpet = true;
+ u8 __initdata hpet_blockid;
+ u8 __initdata hpet_flags;
+ 
+@@ -63,6 +65,32 @@ u8 __initdata hpet_flags;
+ static bool __initdata force_hpet_broadcast;
+ boolean_param("hpetbroadcast", force_hpet_broadcast);
+ 
++static int __init parse_hpet_param(const char *s)
 +{
-+    unsigned int id, cfg, c0_cfg, ticks, count;
++    const char *ss;
++    int val, rc = 0;
 +
-+    if ( !hpet_rate ||
-+         !((id = hpet_read32(HPET_ID)) & HPET_ID_LEGSUP) ||
-+         (cfg = hpet_read32(HPET_CFG) & HPET_CFG_LEGACY) )
-+        return false;
++    do {
++        ss = strchr(s, ',');
++        if ( !ss )
++            ss = strchr(s, '\0');
 +
-+    /* Stop the main counter. */
-+    hpet_write32(cfg & ~HPET_CFG_ENABLE, HPET_CFG);
++        if ( (val = parse_bool(s, ss)) >= 0 )
++            opt_hpet = val;
++        else if ( (val = parse_boolean("broadcast", s, ss)) >= 0 )
++            force_hpet_broadcast = val;
++        else if ( (val = parse_boolean("legacy-replacement", s, ss)) >= 0 )
++            opt_hpet_legacy_replacement = val;
++        else
++            rc = -EINVAL;
 +
-+    /* Reconfigure channel 0 to be 32bit periodic. */
-+    c0_cfg = hpet_read32(HPET_Tn_CFG(0));
-+    c0_cfg |= (HPET_TN_ENABLE | HPET_TN_PERIODIC | HPET_TN_SETVAL |
-+               HPET_TN_32BIT);
-+    hpet_write32(c0_cfg, HPET_Tn_CFG(0));
++        s = ss + 1;
++    } while ( *ss );
 +
-+    /*
-+     * The exact period doesn't have to match a legacy PIT.  All we need
-+     * is an interrupt queued up via the IO-APIC to check routing.
-+     *
-+     * Use HZ as the frequency.
-+     */
-+    ticks = ((SECONDS(1) / HZ) * div_sc(hpet_rate, SECONDS(1), 32)) >> 32;
-+
-+    count = hpet_read32(HPET_COUNTER);
-+
-+    /*
-+     * HPET_TN_SETVAL above is atrociously documented in the spec.
-+     *
-+     * Periodic HPET channels have a main comparator register, and
-+     * separate "accumulator" register.  Despite being named accumulator
-+     * in the spec, this is not an accurate description of its behaviour
-+     * or purpose.
-+     *
-+     * Each time an interrupt is generated, the "accumulator" register is
-+     * re-added to the comparator set up the new period.
-+     *
-+     * Normally, writes to the CMP register update both registers.
-+     * However, under these semantics, it is impossible to set up a
-+     * periodic timer correctly without the main HPET counter being at 0.
-+     *
-+     * Instead, HPET_TN_SETVAL is a self-clearing control bit which we can
-+     * use for periodic timers to mean that the second write to CMP
-+     * updates the accumulator only, and not the absolute comparator
-+     * value.
-+     *
-+     * This lets us set a period when the main counter isn't at 0.
-+     */
-+    hpet_write32(count + ticks, HPET_Tn_CMP(0));
-+    hpet_write32(ticks,         HPET_Tn_CMP(0));
-+
-+    /* Restart the main counter, and legacy mode. */
-+    hpet_write32(cfg | HPET_CFG_ENABLE | HPET_CFG_LEGACY, HPET_CFG);
-+
-+    return true;
++    return rc;
 +}
++custom_param("hpet", parse_hpet_param);
++
+ /*
+  * Calculate a multiplication factor for scaled math, which is used to convert
+  * nanoseconds based values to clock ticks:
+@@ -852,19 +880,8 @@ u64 __init hpet_setup(void)
+     if ( (rem * 2) > hpet_period )
+         hpet_rate++;
  
- u64 __init hpet_setup(void)
- {
--    static u64 __initdata hpet_rate;
--    unsigned int hpet_id, hpet_period, hpet_cfg;
-+    unsigned int hpet_id, hpet_period;
-     unsigned int last, rem;
- 
-     if ( hpet_rate )
-@@ -805,58 +864,7 @@ u64 __init hpet_setup(void)
-      * Reconfigure the HPET into legacy mode to re-establish the timer
-      * interrupt.
-      */
--    if ( hpet_id & HPET_ID_LEGSUP &&
--         !((hpet_cfg = hpet_read32(HPET_CFG)) & HPET_CFG_LEGACY) )
--    {
--        unsigned int c0_cfg, ticks, count;
--
--        /* Stop the main counter. */
--        hpet_write32(hpet_cfg & ~HPET_CFG_ENABLE, HPET_CFG);
--
--        /* Reconfigure channel 0 to be 32bit periodic. */
--        c0_cfg = hpet_read32(HPET_Tn_CFG(0));
--        c0_cfg |= (HPET_TN_ENABLE | HPET_TN_PERIODIC | HPET_TN_SETVAL |
--                   HPET_TN_32BIT);
--        hpet_write32(c0_cfg, HPET_Tn_CFG(0));
--
--        /*
--         * The exact period doesn't have to match a legacy PIT.  All we need
--         * is an interrupt queued up via the IO-APIC to check routing.
--         *
--         * Use HZ as the frequency.
--         */
--        ticks = ((SECONDS(1) / HZ) * div_sc(hpet_rate, SECONDS(1), 32)) >> 32;
--
--        count = hpet_read32(HPET_COUNTER);
--
--        /*
--         * HPET_TN_SETVAL above is atrociously documented in the spec.
--         *
--         * Periodic HPET channels have a main comparator register, and
--         * separate "accumulator" register.  Despite being named accumulator
--         * in the spec, this is not an accurate description of its behaviour
--         * or purpose.
--         *
--         * Each time an interrupt is generated, the "accumulator" register is
--         * re-added to the comparator set up the new period.
--         *
--         * Normally, writes to the CMP register update both registers.
--         * However, under these semantics, it is impossible to set up a
--         * periodic timer correctly without the main HPET counter being at 0.
--         *
--         * Instead, HPET_TN_SETVAL is a self-clearing control bit which we can
--         * use for periodic timers to mean that the second write to CMP
--         * updates the accumulator only, and not the absolute comparator
--         * value.
--         *
--         * This lets us set a period when the main counter isn't at 0.
--         */
--        hpet_write32(count + ticks, HPET_Tn_CMP(0));
--        hpet_write32(ticks,         HPET_Tn_CMP(0));
--
--        /* Restart the main counter, and legacy mode. */
--        hpet_write32(hpet_cfg | HPET_CFG_ENABLE | HPET_CFG_LEGACY, HPET_CFG);
--    }
-+    hpet_enable_legacy_replacement_mode();
+-    /*
+-     * Intel chipsets from Skylake/ApolloLake onwards can statically clock
+-     * gate the 8259 PIT.  This option is enabled by default in slightly later
+-     * systems, as turning the PIT off is a prerequisite to entering the C11
+-     * power saving state.
+-     *
+-     * Xen currently depends on the legacy timer interrupt being active while
+-     * IRQ routing is configured.
+-     *
+-     * Reconfigure the HPET into legacy mode to re-establish the timer
+-     * interrupt.
+-     */
+-    hpet_enable_legacy_replacement_mode();
++    if ( opt_hpet_legacy_replacement > 0 )
++        hpet_enable_legacy_replacement_mode();
  
      return hpet_rate;
  }
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index e93265f379..f08c60d71f 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -29,6 +29,8 @@
+ #include <xen/acpi.h>
+ #include <xen/keyhandler.h>
+ #include <xen/softirq.h>
++
++#include <asm/hpet.h>
+ #include <asm/mc146818rtc.h>
+ #include <asm/smp.h>
+ #include <asm/desc.h>
+@@ -1922,14 +1924,38 @@ static void __init check_timer(void)
+            vector, apic1, pin1, apic2, pin2);
+ 
+     if (pin1 != -1) {
++        bool hpet_changed = false;
++
+         /*
+          * Ok, does IRQ0 through the IOAPIC work?
+          */
+         unmask_IO_APIC_irq(irq_to_desc(0));
++    retry_ioapic_pin:
+         if (timer_irq_works()) {
+             local_irq_restore(flags);
+             return;
+         }
++
++        /*
++         * Intel chipsets from Skylake/ApolloLake onwards can statically clock
++         * gate the 8259 PIT.  This option is enabled by default in slightly
++         * later systems, as turning the PIT off is a prerequisite to entering
++         * the C11 power saving state.
++         *
++         * Xen currently depends on the legacy timer interrupt being active
++         * while IRQ routing is configured.
++         *
++         * If the user hasn't made an explicit option, attempt to reconfigure
++         * the HPET into legacy mode to re-establish the timer interrupt.
++         */
++        if ( opt_hpet_legacy_replacement < 0 &&
++             !hpet_changed && hpet_enable_legacy_replacement_mode() )
++        {
++            printk(XENLOG_ERR "..no 8254 timer found - trying HPET Legacy Replacement Mode\n");
++            hpet_changed = true;
++            goto retry_ioapic_pin;
++        }
++
+         clear_IO_APIC_pin(apic1, pin1);
+         printk(KERN_ERR "..MP-BIOS bug: 8254 timer not connected to "
+                "IO-APIC\n");
 diff --git a/xen/include/asm-x86/hpet.h b/xen/include/asm-x86/hpet.h
-index fb6bf05065..50176de3d2 100644
+index 50176de3d2..07bc8d6079 100644
 --- a/xen/include/asm-x86/hpet.h
 +++ b/xen/include/asm-x86/hpet.h
-@@ -73,6 +73,12 @@ void hpet_disable(void);
- int hpet_legacy_irq_tick(void);
+@@ -53,6 +53,7 @@
+ extern unsigned long hpet_address;
+ extern u8 hpet_blockid;
+ extern u8 hpet_flags;
++extern int8_t opt_hpet_legacy_replacement;
  
  /*
-+ * Try to enable HPET Legacy Replacement mode.  Returns a boolean indicating
-+ * whether the HPET configuration was changed.
-+ */
-+bool hpet_enable_legacy_replacement_mode(void);
-+
-+/*
-  * Temporarily use an HPET event counter for timer interrupt handling,
-  * rather than using the LAPIC timer. Used for Cx state entry.
-  */
+  * Detect and initialise HPET hardware: return counter update frequency.
 -- 
 2.11.0
 
