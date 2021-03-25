@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A11348E48
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 11:46:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101365.193834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB75E348EBD
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 12:13:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101374.193849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPNTl-0000ho-8f; Thu, 25 Mar 2021 10:44:41 +0000
+	id 1lPNv5-0003rj-Hv; Thu, 25 Mar 2021 11:12:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101365.193834; Thu, 25 Mar 2021 10:44:41 +0000
+Received: by outflank-mailman (output) from mailman id 101374.193849; Thu, 25 Mar 2021 11:12:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPNTl-0000hP-50; Thu, 25 Mar 2021 10:44:41 +0000
-Received: by outflank-mailman (input) for mailman id 101365;
- Thu, 25 Mar 2021 10:44:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lPNv5-0003rK-Eq; Thu, 25 Mar 2021 11:12:55 +0000
+Received: by outflank-mailman (input) for mailman id 101374;
+ Thu, 25 Mar 2021 11:12:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lPNTk-0000hH-FN; Thu, 25 Mar 2021 10:44:40 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lPNTk-0001sm-5z; Thu, 25 Mar 2021 10:44:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lPNTj-0003al-TH; Thu, 25 Mar 2021 10:44:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lPNTj-0007HK-Sm; Thu, 25 Mar 2021 10:44:39 +0000
+ (envelope-from <SRS0=z95P=IX=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1lPNv3-0003rF-7P
+ for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 11:12:53 +0000
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::8])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5bc5925a-58cc-4269-a3c2-1b03395ed618;
+ Thu, 25 Mar 2021 11:12:51 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.22.0 SBL|AUTH)
+ with ESMTPSA id 204541x2PBCW50T
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 25 Mar 2021 12:12:32 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,357 +40,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nFEf2RmnF/oQ7oIH6iO9u0HO+LzCgEpjdhNHw1OAMrI=; b=z69/a7lUxZ+9Up8xH2RvfyVFNo
-	bLJwnZPT3RF+wiRdkCsvirSkooFIbDy2xrZ/G+8ZtrAcqvuCYnwr4hcD4UwNxSmsqKnYu/dXPB22W
-	jHJLImKlhjcLIpQxuK10147+03o+1UmICO0kXV3Ba1FpAcFcAWVt22gemnINJAzb3nt0=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160387-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5bc5925a-58cc-4269-a3c2-1b03395ed618
+ARC-Seal: i=1; a=rsa-sha256; t=1616670753; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=JcWZ8Vl/Y739zpvIuEeh6F6rtvsYzFNPDhA1PZTV380+4Jc4Z8o+zQ1/NFhQGlZcxy
+    WnH9WjJO9BERmhLzcuv28ybkXa2C4JCwRz4uQ6M618PPwpYqF0hh472337stu5sjNhwa
+    YECnOl9IZ1n+jpCLFR0pD6Qv7dz9F85ghtgPLtaDHJPML2SuAMbIh5R5+c1p8wwGZcWD
+    ozd7L4uHgSBLByW5hsWnqsAq2tgz5AnYeH9Y915OusZShBD9+l7jSEAF97JHYiY8/Mqy
+    EBcKInxYF+199hzCGMehT8wR60Tv5NrMLD584l2rk0Sv0OTtOXni6fbSIZy20KkYsngA
+    cCLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1616670753;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=BHLafyRjRvEA3puYQ80EOvJ1Vi/2uXDQaBXaQ3IFZJA=;
+    b=pgA2u+tTUV4ad5xzkGDZ8z3CYeu8WwjTEJox4eYNtk0ZDYuoHBLq89hJ1oH4hc3tsa
+    rsiyRnL4kPP8K/6WO2fAn57vzs6qDJj0I/TUKwCL96rRtw42Tn4gVK6p29S4prB1zo9i
+    JIafA/+Rq2X9rGpkp6hI8f6mtE4prisvYBLmHUfFuy6x0B8w6KUGpYiWgHVDSe5QpHOr
+    eLsipMPz/VBmNi2b36u1qMHt6qDgXnJYKhlTUt9F6TQ4gw86GvaBSwTUW7GiLq8RkJAu
+    t8cF3xPdUL4wwB9s2Hj/LWkpJOzr6+sH0ucLiM/KW9fMlGCYTEeK3X8j0JxbzuFQMA6c
+    E4pw==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1616670753;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=BHLafyRjRvEA3puYQ80EOvJ1Vi/2uXDQaBXaQ3IFZJA=;
+    b=AV8Y9/W7xPLUqF42tea0B+oHK77nz9jfGDsHHm6uE1BmEDdwks8bZvphyzv/SRzxxa
+    3N4GOaiVPhjkudPRhNLwX8FQlfs+nH2m4eb/bU908+i5XLojLmEwO7xIAvAXg46FgnYz
+    I/y2s5Bx4k8dCjyk1HGn2A/UMlIpSZ2d4b/NEgdCniIMpIBHeAOou7oTcHI2i1/pVCRJ
+    tlCLK6ufg1JbcFDtoXC1Vbt4XoFMhniIrcSH6MQdZmbnHTJoBemN4OiJKMU7p1lgmBXN
+    Knp7ZkOtXVD3cAdx1tTzC4iqVSm+vahN3bgAmF7yK6oYcrnXanrCTBfRLH9t2jE8oJLC
+    meew==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+n4/A=="
+X-RZG-CLASS-ID: mo00
+Date: Thu, 25 Mar 2021 12:12:19 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: John Snow <jsnow@redhat.com>
+Cc: xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+ qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <f4bug@amsat.org>
+Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
+Message-ID: <20210325121219.7b5daf76.olaf@aepfle.de>
+In-Reply-To: <4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com>
+References: <20210317070046.17860-1-olaf@aepfle.de>
+	<4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com>
+X-Mailer: Claws Mail 2021.03.05 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 160387: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=b90344f7d6000deba0709d75225f30cbf79ec2f0
-X-Osstest-Versions-That:
-    linux=a65e788634437d7cdaf402930acdf210000f3957
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 25 Mar 2021 10:44:39 +0000
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/sOLp+_RWfRI_U2rhB9e8ruU"; protocol="application/pgp-signature"
 
-flight 160387 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160387/
+--Sig_/sOLp+_RWfRI_U2rhB9e8ruU
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Failures :-/ but no regressions.
+Am Mon, 22 Mar 2021 18:09:17 -0400
+schrieb John Snow <jsnow@redhat.com>:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 160152
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 160152
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 160152
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 160152
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 160152
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 160152
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 160152
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 160152
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 160152
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 160152
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 160152
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+> My understanding is that XEN has some extra disks that it unplugs when=20
+> it later figures out it doesn't need them. How exactly this works is=20
+> something I've not looked into too closely.
 
-version targeted for testing:
- linux                b90344f7d6000deba0709d75225f30cbf79ec2f0
-baseline version:
- linux                a65e788634437d7cdaf402930acdf210000f3957
+It has no extra disks, why would it?
 
-Last test of basis   160152  2021-03-20 10:11:17 Z    5 days
-Testing same since   160387  2021-03-24 10:40:15 Z    1 days    1 attempts
+I assume each virtualization variant has some sort of unplug if it has to s=
+upport guests that lack PV/virtio/enlightened/whatever drivers.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alan Stern <stern@rowland.harvard.edu>
-  Alex Williamson <alex.williamson@redhat.com>
-  Alexander Lobakin <alobakin@pm.me>
-  Alexander Shiyan <shc_work@mail.ru>
-  Ard Biesheuvel <ardb@kernel.org>
-  Aurelien Aptel <aaptel@suse.com>
-  Badhri Jagan Sridharan <badhri@google.com>
-  Bjorn Andersson <bjorn.andersson@linaro.org>
-  Christoph Hellwig <hch@lst.de>
-  Chuck Lever <chuck.lever@oracle.com>
-  Colin Ian King <colin.king@canonical.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Daniel Kobras <kobras@puzzle-itc.de>
-  David Howells <dhowells@redhat.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Dinghao Liu <dinghao.liu@zju.edu.cn>
-  Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-  Filipe Manana <fdmanana@suse.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Gaja Sophie Peters <gaja.peters@math.uni-hamburg.de>
-  Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Heiko Carstens <hca@linux.ibm.com>
-  Hui Wang <hui.wang@canonical.com>
-  Hulk Robot <hulkrobot@huawei.com>
-  Jason Gunthorpe <jgg@nvidia.com>
-  Jason Self <jason@bluehome.net>
-  Jim Lin <jilin@nvidia.com>
-  Joe Korty <joe.korty@concurrent-rt.com>
-  Johan Hovold <johan@kernel.org>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonathan Albrieux <jonathan.albrieux@gmail.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Kan Liang <kan.liang@linux.intel.com>
-  Kefeng Wang <wangkefeng.wang@huawei.com>
-  Klaus Jensen <k.jensen@samsung.com>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lv Yunlong <lyl2019@mail.ustc.edu.cn>
-  Macpaul Lin <macpaul.lin@mediatek.com>
-  Mark Brown <broonie@kernel.org>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael Walle <michael@walle.cc>
-  Nathan Chancellor <nathan@kernel.org>
-  Nick Desaulniers <ndesaulniers@google.com>
-  Nicolin Chen <nicoleotsuka@gmail.com>
-  Oleg Nesterov <oleg@redhat.com>
-  Palmer Dabbelt <palmerdabbelt@google.com>
-  Pan Xiuli <xiuli.pan@linux.intel.com>
-  Pavel Skripkin <paskripkin@gmail.com>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Russell King <rmk+kernel@armlinux.org.uk>
-  Sagi Grimberg <sagi@grimberg.me>
-  Sameer Pujar <spujar@nvidia.com>
-  Sasha Levin <sashal@kernel.org>
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-  Shengjiu Wang <shengjiu.wang@nxp.com>
-  Shijie Luo <luoshijie1@huawei.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Steve French <stfrench@microsoft.com>
-  Takashi Iwai <tiwai@suse.de>
-  Takashi Sakamoto <o-takashi@sakamocchi.jp>
-  Theodore Ts'o <tytso@mit.edu>
-  Thomas Gleixner <tglx@linutronix.de>
-  Timo Rothenpieler <timo@rothenpieler.org>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Tyrel Datwyler <tyreld@linux.ibm.com>
-  Vincent Whitchurch <vincent.whitchurch@axis.com>
-  Vitaly Kuznetsov <vkuznets@redhat.com>
-  Wilfried Wessner <wilfried.wessner@gmail.com>
-  William Breathitt Gray <vilhelm.gray@gmail.com>
-  Xiaoliang Yu <yxl_22@outlook.com>
-  Ye Xiang <xiang.ye@intel.com>
-  zhangyi (F) <yi.zhang@huawei.com>
+In case of HVM, the configured block or network devices can be either acces=
+sed via emulated PCI or via the PV drivers. Since the BIOS, the bootloader =
+and potentially the operating system kernel typically lack PV drivers, they=
+ will find the devices only via the PCI bus. In case they happen to have PV=
+ drivers in addition to PCI drivers, both drivers will find and offer the s=
+ame resource via different paths. In case of a block device, ata_piix.ko wi=
+ll show it via "/dev/sda" and xen-blkfront.ko will show it via "/dev/xvda".=
+ This is obviously bad, at least in the read-write case.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+The pvops kernel triggers the unplug of the emulated PCI hardware early, pr=
+ior any other PCI initialization. As a result the PCI drivers will not find=
+ their hardware anymore. In case of ata_piix, only the non-CDROM storage wi=
+ll be removed in qmeu, because there is no PV-CDROM driver.
+
+The PV support in old xenlinux based kernels is only available as modules. =
+As a result the unplug will happen after PCI was initialized, but it must h=
+appen before any PCI device drivers are loaded.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> So if these IDE devices have been "unplugged" already, we avoid=20
+> resetting them here. What about this reset causes the bug you describe=20
+> in the commit message?
+>=20
+> Does this reset now happen earlier/later as compared to what it did=20
+> prior to ee358e91 ?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Prior this commit, piix_ide_reset was only called when the entire emulated =
+machine was reset. Like: never.
+With this commit, piix_ide_reset will be called from pci_piix3_xen_ide_unpl=
+ug. For some reason it confuses the emulated USB hardware. Why it does conf=
+used it, no idea.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I wonder what the purpose of the qdev_reset_all() call really is. It is 10 =
+years old. It might be stale.
 
 
-Pushing revision :
+Olaf
 
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   a65e78863443..b90344f7d600  b90344f7d6000deba0709d75225f30cbf79ec2f0 -> tested/linux-5.4
+--Sig_/sOLp+_RWfRI_U2rhB9e8ruU
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmBccBUACgkQ86SN7mm1
+DoBpfRAApO8ObWyfk/aH+aRPfNasALKYjlGgNR8CNaz0Tkxqx2fFggdGZZQwfsp2
+dsbOmCw6W9hBQSZZ2naOknqO9BLfjiJr+DHgnxCqfmxd+udmtl9j2qd+nFFRJRik
+GFz5ecM3zi4c/ZOU/+pk1kmYTiHeART4JcjrAuPd9mCF8btk5JP7FJ5LuikVAosU
+FDzM4gp1h6hA+6avJv7gwhb+Is0UFuDrAgugjHiHbpwX3jSjAh+YyrpCOUEvQe99
+s0v8Sp831x/x3ulc+z/jhb3ZcvAZY42iFBsy0YwRmi3UMTQlWA16WJjfHj0x6VUd
+WhZcmtpeVFLlPgTE/Ioc9lx2CA4WFkT10jub+l8A03uPNw0ADC7KzgEz1JspwwK9
+8a9JVaJNmtzE3eqXRnyguCYCtFI76vT31NeQxZLDfvUCpaLoKKO2l65+x6GS6X9i
+CsvH5M/DacZjstogrdx7KOczNrh/uW3zxbX3PSFj66KT6uO+mmTPyYYeNrzkavLp
+8rzIZ0WV/AsapimTOUvQ2MDCmraqPyUsJ6GVdhA+UpTJatRsjdfVT7MjpL2kzWZ6
+qAH3K85PXE1Tdyx977sQvMOYtvW0HB5/Av8TfY3uk2FHHfbMK/JtL5hoXIc97OVo
+F+6HwgHEQEkueZUtNlAJh7ED6h7GvZWpewd0eQ255vxEXejjVd8=
+=14YY
+-----END PGP SIGNATURE-----
+
+--Sig_/sOLp+_RWfRI_U2rhB9e8ruU--
 
