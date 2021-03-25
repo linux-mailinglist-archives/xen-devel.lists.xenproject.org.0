@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B04349810
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 18:31:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101503.194240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8353F3498F3
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 19:06:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101509.194258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPTon-0004ga-0w; Thu, 25 Mar 2021 17:30:49 +0000
+	id 1lPUN3-00084H-Tw; Thu, 25 Mar 2021 18:06:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101503.194240; Thu, 25 Mar 2021 17:30:48 +0000
+Received: by outflank-mailman (output) from mailman id 101509.194258; Thu, 25 Mar 2021 18:06:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPTom-0004gB-U8; Thu, 25 Mar 2021 17:30:48 +0000
-Received: by outflank-mailman (input) for mailman id 101503;
- Thu, 25 Mar 2021 17:30:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vwwn=IX=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
- id 1lPTol-0004g6-K3
- for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 17:30:47 +0000
-Received: from mail-pf1-x430.google.com (unknown [2607:f8b0:4864:20::430])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 20ca499a-88b6-40c6-b83a-1780b5a386f3;
- Thu, 25 Mar 2021 17:30:46 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id c17so2773553pfn.6
- for <xen-devel@lists.xenproject.org>; Thu, 25 Mar 2021 10:30:46 -0700 (PDT)
-Received: from ?IPv6:2601:1c2:4f80:d230::5? ([2601:1c2:4f80:d230::5])
- by smtp.gmail.com with ESMTPSA id i1sm6170632pfo.160.2021.03.25.10.30.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Mar 2021 10:30:44 -0700 (PDT)
+	id 1lPUN3-00083s-Qr; Thu, 25 Mar 2021 18:06:13 +0000
+Received: by outflank-mailman (input) for mailman id 101509;
+ Thu, 25 Mar 2021 18:06:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lPUN2-00083n-B3
+ for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 18:06:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lPUN1-0001K7-5H; Thu, 25 Mar 2021 18:06:11 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lPUN0-0007BL-MF; Thu, 25 Mar 2021 18:06:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +40,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20ca499a-88b6-40c6-b83a-1780b5a386f3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=to:cc:from:subject:organization:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=JppXalVXiges66IliMlooSi5DLsqExUwrrbjlmg8Smk=;
-        b=Ykf9PZU8qCOoeNQdUs8g+RFXb2CsI33DvImF1jxBdBTBA321eZIWK5KFtyZfTPNk0o
-         oIeHgNIYshmaAR/zMFoWAD/7eKcuMce1u0hSm/1VcLcxtU7DejmvE8ZS1dqNXyufR+cS
-         Z/KH9mtrnN76kBBE2Jj+fWOndH0p/rFoOYp/NsqXRWnaZWkK7peXskHpTrL+FpHVafuf
-         1BociYY5mrZ+eShau1xLmKQI+MmwZ3Be8LEFEHxwh9eX7nHv166tIml+aHuyv1bbQW9E
-         aXqRF8iCzCBY6tjP16mXXWiZyP1PViP1oSnzDBjm810G/KtpKL0AbldhUuENYEhSaEyI
-         Vo+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:organization:message-id:date
-         :user-agent:mime-version:content-language:content-transfer-encoding;
-        bh=JppXalVXiges66IliMlooSi5DLsqExUwrrbjlmg8Smk=;
-        b=s7Ie/T2eVFWRlkkLEP2W1QKsmRS3M/J/mc720nmrw7egmrfsvgWEgHHbit0bSRHxpO
-         DtL9yasLtTdbdMmexCuV5APSG5/wPftvZVrfnqbd6HDiZQFEXK/3XQpEHFpwOGzAPEFe
-         vGYOSPpK2ETWIDCZuy69/67dQ2vJTaLcGJQhbedwfcfCA3g/2bkPsZBX/LrM3hSwkeYn
-         jM+K0GiL0YlE7XFZDFZrSNanG1FjmyebbrOPKRkXHTHLkn+gmpjBNd2JfEtjxIJBsfzC
-         uioUomAAHZAig7Luyb6m5aoaFvoBrVKVCgH34KFUr32Y3cbboD+ZrCTfWyRsr06R35cW
-         ljSw==
-X-Gm-Message-State: AOAM531iOUJv8tmmXxo5PfPfCjSkwjGkXUOW4e/EtKbc9IIsfNtaEuNY
-	4gaIwct9T7FQh78GFvaJXHU=
-X-Google-Smtp-Source: ABdhPJyL1DW0B18xPAwCDsarEqNjvMgRGgC7u6Po+CpTsJxiL55MNi1KNAkyrDYRXuJo1A4zlCf3/Q==
-X-Received: by 2002:a62:78d4:0:b029:1f1:595b:dfdf with SMTP id t203-20020a6278d40000b02901f1595bdfdfmr9224826pfc.81.1616693446081;
-        Thu, 25 Mar 2021 10:30:46 -0700 (PDT)
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Olivier Lambert <olivier.lambert@vates.fr>, Trammell Hudson
- <hudson@trmm.net>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Roman Shaposhnik <roman@zededa.com>,
- Christopher Clark <christopher.w.clark@gmail.com>
-From: Bob Eshleman <bobbyeshleman@gmail.com>
-Subject: Secure Boot / Lockdown WG Meeting
-Organization: Vates SAS
-Message-ID: <82cc3e8d-0deb-d3e5-b901-3c2f39abf9bf@gmail.com>
-Date: Thu, 25 Mar 2021 10:30:42 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=qRNFWzZA5VgpVn9HQse1rowwm85yesvKUlr0ASDLAfU=; b=jFVTTcOfMI1HxtnCk/3SII8Ysi
+	CnHOTAjC/jTOXea+ihRTtvxpDgAzw24zZjdb0OJP0LPyGv+rPXfT+Yrg/qVttMixkDIhpR1dNt11Q
+	7Gazvnq9YUhGIo1uqbR/kavzxXVRIzGMr8WUd4QEqN26EhT+gb162g9m82J0gym2Emo0=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	raphning@gmail.com,
+	jgross@suse.com,
+	paul@xen.org
+Subject: [PATCH for-4.15?] docs/misc: xenstored: Re-instate and tweak the documentation for XS_RESUME
+Date: Thu, 25 Mar 2021 18:06:06 +0000
+Message-Id: <20210325180607.13158-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-Hey all,
+From: Julien Grall <jgrall@amazon.com>
 
-I just wanted to send this out as a new email thread in case
-anyone missed the reply on the previous thread.
+Commit 13dd372834a4 removed the documentation for XS_RESUME, however
+this command is still implemented (at least in C Xenstored) and used by
+libxl when resuming a domain.
 
-It looks like the following date works best:
+So re-instate the documentation for the XS_RESUME. Take the opportunity
+to update it as there is a user of the command.
 
-Mon. March 29th, 16:00 UTC
-https://meet.vates.fr/xen-lockdown
+Fixes: 13dd372834a4 ("docs/designs: re-work the xenstore migration document...")
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Feel free to let us know if the time presents a conflict.
+---
 
+Cc: raphning@gmail.com
+Cc: jgross@suse.com
+Cc: paul@xen.org
+
+Ian, would you still consider documentation update for 4.15?
+
+I looked at the implementation of domain_resume() in Xen, it doesn't
+look like we can get away with XS_RESUME because Xen will not send
+VIRQ_DOM_EXC on resume.
+---
+ docs/misc/xenstore.txt | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 148074233001..334dc8b6fdf5 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -294,6 +294,22 @@ IS_DOMAIN_INTRODUCED	<domid>|		T| or F|
+ 	ie, if INTRODUCE for the domain has not yet been followed by
+ 	domain destruction or explicit RELEASE.
+ 
++RESUME			<domid>|
++
++	Arranges that @releaseDomain events will once more be
++	generated when the domain becomes shut down.  This might have
++	to be used if a domain were to be shut down (generating one
++	@releaseDomain) and then subsequently restarted, since the
++	state-sensitive algorithm in xenstored will not otherwise send
++	further watch event notifications if the domain were to be
++	shut down again.
++
++	This command will be issued in place such as resume because
++	Xen will "shutdown" the domain on suspend.
++
++	xenstored prevents the use of RESUME other than by dom0.
++
++
+ SET_TARGET		<domid>|<tdomid>|
+ 	Notifies xenstored that domain <domid> is targeting domain
+ 	<tdomid>. This grants domain <domid> full access to paths
 -- 
-Bobby Eshleman
-SE at Vates SAS
+2.17.1
+
 
