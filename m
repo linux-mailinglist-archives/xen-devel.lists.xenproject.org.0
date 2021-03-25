@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D316434977F
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 18:01:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101495.194215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A0C83497CF
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Mar 2021 18:22:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101498.194228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPTM2-0001LT-Ba; Thu, 25 Mar 2021 17:01:06 +0000
+	id 1lPTg7-0003Y0-3u; Thu, 25 Mar 2021 17:21:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101495.194215; Thu, 25 Mar 2021 17:01:06 +0000
+Received: by outflank-mailman (output) from mailman id 101498.194228; Thu, 25 Mar 2021 17:21:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPTM2-0001L4-89; Thu, 25 Mar 2021 17:01:06 +0000
-Received: by outflank-mailman (input) for mailman id 101495;
- Thu, 25 Mar 2021 17:01:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lPTg7-0003Xb-0V; Thu, 25 Mar 2021 17:21:51 +0000
+Received: by outflank-mailman (input) for mailman id 101498;
+ Thu, 25 Mar 2021 17:21:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gSM8=IX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lPTM0-0001Kz-Ks
- for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 17:01:04 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7f147eaf-7df5-4199-a5c4-4d9d2014dff9;
- Thu, 25 Mar 2021 17:01:03 +0000 (UTC)
+ id 1lPTg5-0003XV-2I
+ for xen-devel@lists.xenproject.org; Thu, 25 Mar 2021 17:21:49 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af112a75-8ea3-4b1d-acf3-f547a9fbfe11;
+ Thu, 25 Mar 2021 17:21:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,156 +35,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f147eaf-7df5-4199-a5c4-4d9d2014dff9
+X-Inumbo-ID: af112a75-8ea3-4b1d-acf3-f547a9fbfe11
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1616691663;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=of9uTjYXa2KnwTP7U3XcP7cO9GuPetoBzf4Bucsvx5E=;
-  b=FoejQrJ/OwJUNhX0g1b5PKeIeahuVk4wwh+SPomOdQyIGB2nCQqrrsaV
-   aYf7SN9Mvz9gKjKzb30iZBbn7wId4oyjzgSH3mS/XZJYF/lIrzDWg86fL
-   yhBgBfXom+VkSkvnuP6f/efqSTjymbEVUcOT1uZs6vo8dN0g1BzO/72bK
-   A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 4kLbUBEMymQvmuh5kHi2WnKYKlhl+UQQWhAXtj9X7Ee+InWBQXY9H+aAyl0z3mFhATbyb+UoPE
- yszODfQhcek7ThwxoftrRE2h076LJmrevhQu4MoSRTFsvJYhGwyI1kQDq8tFmjH72H6gKL77P3
- oo9sXDuhTFZoFBGmn616S9MmwmNCnbyyUZiqupbLH4GJI5fUFaZBs8YYdanZel3ze5j7wqu7lu
- S6KU2ktq92DZASM9+6izs2BAYy3ided616F5x+1VBKX06/DYZTywzKZ8HnT7so+BoWF63CXRVV
- OBE=
-X-SBRS: 5.2
-X-MesageID: 40508281
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
+  d=citrix.com; s=securemail; t=1616692907;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=2FMF6636s1gd6L4x9OdWGb34bMRPcKFxHYCWNbXcEZg=;
+  b=a0oJWyirGdR81W+NoOHdz2oWSncoaZ/IGTrsFn05R560G8Pv68S6jtO0
+   ai9bvfQyxI0UJXmANUy1kmspJJHkYRmbXSodF9F09h36ePRArtnC8+mDG
+   K4LYGmYOgtLClj+bn/ulWJAEanc40paNJrnP5xG87y1Vnwmqww8+8eDGe
+   g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: m0+xdxxoX/hLVE7LURmN4a+75BCvTd9e4du/kfefGjjro87k4UuJk4CUhrYm6fE52kiwPmevUd
+ EGV72VJ2MoQzi/XR++JZV0FmFt2cGpyR6AMk+k3+NEdqRqp+lRLRY0vsU08cEKCo5q2WL9RTLz
+ VO6IQ3pYND16M8avFwLGw7+plKyFl1WLMc+sHopGDx/t5wHc5I//7CfNGZhwYlfJWwptKBpfNe
+ qBXdli1t3x6K0pmGA7LOh9nhLjp1fot/k+sFTLanhGTH+d6GUVq6VpammCWcrUXz+kGtL07W5Y
+ jik=
+X-SBRS: 5.1
+X-MesageID: 40027912
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:VmQcRarhom+7SFMXhcxCy+oaV5vYL9V00zAX/kB9WHVpW+SFis
- Gjm+ka3xfoiDAXHEotg8yEJbPoex7h3LR+iLNwAZ6JWg76tGy0aLxz9IeK+UyHJwTS1M54kZ
- 1hfa93FcHqATFB5/rSzQGkH78br+Wv37uvgY7loUtFbQYvUK146hc8NwDzKDwVeCBjJb4UUK
- WR/dBGoT3IQwVxUu2eCmMeV+bO4/3n/aiWAiIuPBIs5AmQgT7A0teTfySw5RsQXyhCxr0v6w
- H+4mnEz56uru2hzVvk33LThq48pPLa1tBBCMaQ4/JlTgnEtwDAXuVccozHhh8ZiqWF6FEmkN
- 7Dyi1QQPhb2jfqUUye5Tfo0wnk+j4y53Hl0k/wuwqcneXJAAgUJuAEqYVFcgbIy0dIhqAM7I
- t7m1i3mrASLRTckD/z79LFPisa5nackD4ZvsM4y1l8OLFuEYN5nMgk025+VKokJmbc7rsqFe
- F/Zfusmcp+QBehQF3y+lV0zMfEZAVKIj62BnIsl+ayyDZskHVw3yIjtbAit0ZFzp47RpVejt
- 60SZhApfVLRs8SW6p3GP0Md8uxEnDMWhLBKgupUC7aKJ0=
+IronPort-HdrOrdr: A9a23:DtIqEamkPBwbuZ+2IH5hGMDyolHpDfP+imdD5ilNYBxZY6Wkvu
+ izgfUW0gL1gj4NWHcm3euNIrWEXGm0z/NIyKMaVI3DYCDNvmy0IIZ+qbbz2jGIIVybysdx94
+ dFN5J/Btr5EERgga/BijWQPt48zLC8n5yAqvzZyx5WIz1CT4FFw0NHBh2AEktwLTM2YKYRMJ
+ aH/MJIq36BVB0sH6eGL0IIVeTCuNHH/aiOCXI7LiUq9RWUineQ4KP6eiLy4j4lTzhNzb0+mF
+ K18TDR26PLiZCG4y6Z7UD/xdB8mNztytxMbfb89/Q9G3HXpSuDIKhkU72GljgprO+o80ZCqq
+ ixnz4Qe/5dxlmUUmapoQb8+wSI6kdQ11bSjWW2rFGmgcvlSCk0A8BM7LgpDCfx2g4bk/xXlI
+ dotljp0KZ/PFf7swnWo+XsbVVMkHG5pHIz+NRj9EB3YM8lR5J66bAE8Fg9KuZnIAvKrLoJPc
+ NJF8/m6PNfYTqhHgrkl1gq+tCqU3gpdy32O3Qqi4iQ2zhSqnhz01EV8swZhmsB75IwUfB/lp
+ z5Dpg=
 X-IronPort-AV: E=Sophos;i="5.81,278,1610427600"; 
-   d="scan'208";a="40508281"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RgI5tVdC+N5xe70hD/0W3p4+19VJUM6PE5UXVHygNC2lUevSSEUeqRFNYxovYtxPdBNc4a0a9Dw0D49yFIfxzcPCxmETFt3UZJQu/Q1OOob9rw1Gym020G+hnEOgXfVxv+a9bMJ/3JlKJN4p2jzOfApUyoljOg+7bDz9u+uWUib3Pd4oUgTfcfdRL0cMoV8kM/csHFFagjjM77ic/kPvvcO25BOqXcXu5OwYqpKdvfSKG43Qo7g3gR31qAQkOJpnWmZBGRix//X6ig2hHKwWpXg/CZCOX4SlgEi5mbikYXZqPqrCoToVne0gB10PZHhtAN1bqMhwUDi08JJ/Gmd6ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ux+DkcVLmnAoFtLq5LB3V6huJv5fnM7DaMb63yfG/v0=;
- b=OEfpORitd/JeX21uodOQioOurV5vUdxzNHT4jLBs4v9Tbvd/WHUrm4bJE79KxprXeEjf2BDvFa2k84W2TDnQHL7nrWEwpPUk+ESGUh1PeNEjLOle9iAQzaIu4yod+Ces60PKhZOmEjANJPSSXbxXgiq6rBw4QXtErEb18aTPfTrrYkGWwceWQqfwIhfWTFBqrd7We+G73PmGtJZbe+zWOfhigfI9RiW5hZ3rLFBEBUS+QlJvlshtHH5KCd1JQS4AGvIEohLjjngakj6WU5+gEzBkX6+O0xNoed9RVjOn9ItbZHTA4kItzwKiyn/4//8WEVjx5skUakeaRa/h/ciwAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ux+DkcVLmnAoFtLq5LB3V6huJv5fnM7DaMb63yfG/v0=;
- b=GSMX3Ug1mQvNcrhARvlI2cU5S5RQuH7fKw5KROqLa2JS/3Ww7tWIl1zXhm3KbvOC2aD/gewmToU4S0BdgABNlagIXXUqBEMuUoTNMOeIZMOEZ3a3QX4xz2J4XcUTqZOISrf2BFfP98DgjtVJj0r38se7qTS4WvbZ959GfR5QGCA=
-Subject: Re: [PATCH 2/2] x86/hpet: Don't enable legacy replacement mode
- unconditionally
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
-	<iwj@xenproject.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
-	<marmarek@invisiblethingslab.com>, =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?=
-	<frederic.pierret@qubes-os.org>
-References: <20210325165224.10306-1-andrew.cooper3@citrix.com>
- <20210325165224.10306-3-andrew.cooper3@citrix.com>
+   d="scan'208";a="40027912"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <8e8d8fe6-afb1-eb2a-adad-912b857670fd@citrix.com>
-Date: Thu, 25 Mar 2021 17:00:55 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Pierret?=
+	<frederic.pierret@qubes-os.org>
+Subject: [PATCH v1.1 2/2] x86/hpet: Don't enable legacy replacement mode unconditionally
+Date: Thu, 25 Mar 2021 17:21:32 +0000
+Message-ID: <20210325172132.14980-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210325165224.10306-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0506.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::13) To BN7PR03MB3618.namprd03.prod.outlook.com
- (2603:10b6:406:c3::27)
+References: <20210325165224.10306-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 720e2e45-6c09-4323-f949-08d8efaf90fd
-X-MS-TrafficTypeDiagnostic: BN6PR03MB2515:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN6PR03MB251582CFA6D2F1ED9E3430E4BA629@BN6PR03MB2515.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L6Og2lbgPlR0F8GOiIcMLRm7HI4cTyDEtYUvQs3EEEAk9fFvQvXFNaTZy2/pVxcEOr/rTWwm3XQfhOQgJhnJN477hTYXawokUvUnX/lw62uRjFPrAagoK2I8kASq46Gwq4oWDK4muq4c2fClDtYIJHEKeyqkWvHUljchZqtaV5NImnEXx4bnNF2+kRv2zm/+HAVITelgTAOsLKvvwiXLUz2EZey2C/pxClwngwVAn+2csBXrc1nIzsseLCII4KXuXEbGvlBTNM8IqF+xHL8lozL17Hsi5ILg+bUsWvsuPwRFj48nxeiMVmG42S29RXoMrnSdWEhuAP5/4fsbATq8K5XqC23AGL1/mg//N3600weQ2hTU0Q6o4Hw79tHvRccb52tolRbjTpPago/ybLl10vlVJl2KUH9cuEjNk6FDqG5UAGCuLift8bk3iHvX8B4Ltsyk5EUxt8jR2cVXKDFPX7uliaEhA5/yjHY9ecnVaB0EP9dpmAvEGNrQp4iGu9Hpm01p5xZ4HS0doxTt+DM0xK7rz/rp3qwOQCSCT7QLVQIRMo/x7OoiTQ5K+BXrkFeaoO6wOKCVtA/gMSSUhUUwwtzMz1GEp+mm7vXlDVom9pV8qtgwt7LliP6ZRcDV/9pIq504hE05JVX/7Fxim+4CqtfECmPSECERxSCycPoP8tdn2fVvi2GN8WwSXRBNCRriZifPxZWlPd8N73e8yGO14g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(66476007)(86362001)(66946007)(66556008)(2616005)(38100700001)(8676002)(8936002)(83380400001)(36756003)(31686004)(5660300002)(31696002)(956004)(4326008)(53546011)(6916009)(26005)(16576012)(478600001)(2906002)(316002)(16526019)(6486002)(54906003)(186003)(6666004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?T2p1NmUrTnpGOHAyMGVOcHhudVpVeDJzek9VRjJoZmFrcDVSaVRMQmcyYVJm?=
- =?utf-8?B?QXVEYlB3K2FJYnI1T3p0RkQ3UlVsbThhaXp4MkE1NzVET2FnZVJBTm55S1pM?=
- =?utf-8?B?bmVNODVQR0owTzFtc3RLTFlsYmNzc0tncHBPMTY0RzMyUlVtNXF5YTh1bFBW?=
- =?utf-8?B?NHgwZGhSV0R1c1RBZE9uZUhkYkRSZkc4aUtGaUc2T0RTeVFvcHJ6RVRBNmt1?=
- =?utf-8?B?VG50SlpuWndoVDFyS0I5LzV2bTFFSEhsN2dhQ2F6ekd4VlZVNzMrTGRWcjNp?=
- =?utf-8?B?eTVreDVsTUYwb1lJc3lDMUQwR2h0YzZtK3lhU2d1SDNwVHQyOTBuMXZNcUFq?=
- =?utf-8?B?bWw0Y3lmWElrdDd1NzZWMG5CZnlnOVdRb1hhZjZTTVVHdmlqRldIdk90TlRD?=
- =?utf-8?B?QkZsZVplNXQ0MmVwVjRZeE9ZNXRtQzMyUVoreFRDZkFiTU1rR3ZaT3hCc2t5?=
- =?utf-8?B?clV2N1JBK2FvZU81cFFiUjF0TklMUFUxT1d4OUpKdG5iVVdEbDdFc2FhZlNS?=
- =?utf-8?B?NXhVMGVDeFdBVnpVeTdzd2tzRG15dU1TVTRBbkpEV1ZJWHErVk0xekNoRGpq?=
- =?utf-8?B?VEp5Q1Q5TTU3V0pVYUVyNzBuN2ZnbkJWNjhYTTJDblRkRDZsTDVSamZmUisz?=
- =?utf-8?B?dy80NGZ2NGxrbDJFbWY1TlZMVnBvUzdNKytlcnFnTHB6SDNnOWsrVzQ3QUt6?=
- =?utf-8?B?akxGOW16Q1JSbnFxRCtCSzQ2cERhUHZVNnFCUUVpT3AyWmt5UVZnNmxVeW1u?=
- =?utf-8?B?YXJsNFhCcVptVkJ4WU9TKy8yYWUzYVVLSU8wN0J1Qy9KSHFPZjlwalhCeWhh?=
- =?utf-8?B?SzByTFk4MGZhS2pBYnROTnk0SFl4cUdYb05rTDhhVjlVT3kyd0RIT0RQQ3ZG?=
- =?utf-8?B?SU9tVFFIbVF6cC9OOW44RnhnUVdwM0VtYldhNElTQXhrNkNPUEI0NG94V0xz?=
- =?utf-8?B?QllxY0pVcnFIVjY1MCtPTUpZTkgzQS9UUXhCT2c0V3RrcjJkc0xEMFRTY2o0?=
- =?utf-8?B?L1YwUE5mb1AyZmc4NlZQdEZieVhlbVZZTy9qU3FTWEh1c2NRWHZ6UVAxZ3BI?=
- =?utf-8?B?VTlEOE1sK1g4dGhCMHQ4cVhkZ2NLdTNoMXlyeWZYbFNUU1VNVnJJNFhGWHlG?=
- =?utf-8?B?T0RCVVNzeVA4Y0xJVERpWll6UW96L1BYNDdGWkxTVjh6Y2l3a1RmcDVFbzln?=
- =?utf-8?B?dG5hSUMyWk1YM295K2xsRis1Qk1tOW45ZnJwMjRseXhWbHJ1eWo2OGRrK3ps?=
- =?utf-8?B?SlowcHlUejBVKzYxeFpQdkpvTjIwemMyTDcrZHExTUcvanVFRWNaQkpUSE9w?=
- =?utf-8?B?QTVCaWV2QXgyZFJxQkVRMCtYaUEwQXBYMmUyNlpQM2lFSSs0eW1uTE5tVzFH?=
- =?utf-8?B?VXdGMVp5dWpsMlNLLzRsN0o2OE5KMzhidjU3WEc4cTFoOWJUaWFyWVI1VSt6?=
- =?utf-8?B?UDNjZmYyZkxmNW1qTlRjSkg3WkJ1RStLWHBMeEhlNXdkWHhzQ1I1MnFzQ1F1?=
- =?utf-8?B?aHMyZkRYRmk4dC9NTXdkWkszTm1qMm1reUpwS2tUUlpYbm1ocEdlZWg2SUo0?=
- =?utf-8?B?T29RdnN4M3dqUTd6UmF0cXpFRTJydGhwMVA4QVlZUUh3ZElFQVZUbExnMXNz?=
- =?utf-8?B?WVp4Z05UTnhPbzJEKzZmbXJVMGg2VktVMU42K0VUOVNNZDdJRmpYUzNMYkN3?=
- =?utf-8?B?K0NTK1VETW5Zei9MelZacWdLM1Y3QmRBOGJzZjRyYVZpdjB6ZDZ6ZVVrRjkx?=
- =?utf-8?Q?TjSRoFDNsQeSu+No5lo4LUD8BJsJPRRDxvHgoXg?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 720e2e45-6c09-4323-f949-08d8efaf90fd
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2021 17:01:00.6812
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G1A7tNm6zlieLEUgc0KPhlUQQfm4kqLJ1mb0xDsOSVTeEju1D+Q8nmLHkV2QGZbeR2J+m7387FGvXCwpKjvLPGxvfM6XK6LG4g60uxi2/VI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB2515
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 25/03/2021 16:52, Andrew Cooper wrote:
-> From: Jan Beulich <jbeulich@suse.com>
->
-> Commit e1de4c196a2e ("x86/timer: Fix boot on Intel systems using ITSSPRC
-> static PIT clock gating") was reported to cause boot failures on certain
-> AMD Ryzen systems.
->
-> Refine the fix to do nothing in the default case, and only attempt to
-> configure legacy replacement mode if IRQ0 is found to not be working.
->
-> In addition, introduce a "hpet" command line option so this heuristic
-> can be overridden.  Since it makes little sense to introduce just
-> "hpet=legacy-replacement", also allow for a boolean argument as well as
-> "broadcast" to replace the separate "hpetbroadcast" option.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Ian Jackson <iwj@xenproject.org>
-> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> CC: Frédéric Pierret <frederic.pierret@qubes-os.org>
->
-> For 4.15: Attempt to unbreak AMD Ryzen 1800X systems.
+From: Jan Beulich <jbeulich@suse.com>
 
-Sorry - lost a hunk during a rebase (the one to cope with hpet=0).  I'll
-fold that in and post a v1.1 in due course.
+Commit e1de4c196a2e ("x86/timer: Fix boot on Intel systems using ITSSPRC
+static PIT clock gating") was reported to cause boot failures on certain
+AMD Ryzen systems.
+
+Refine the fix to do nothing in the default case, and only attempt to
+configure legacy replacement mode if IRQ0 is found to not be working.
+
+In addition, introduce a "hpet" command line option so this heuristic
+can be overridden.  Since it makes little sense to introduce just
+"hpet=legacy-replacement", also allow for a boolean argument as well as
+"broadcast" to replace the separate "hpetbroadcast" option.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Frédéric Pierret <frederic.pierret@qubes-os.org>
+
+v2:
+ * Drop missing hunk from Jan's original patch.
+
+For 4.15: Attempt to unbreak AMD Ryzen 1800X systems.
+---
+ docs/misc/xen-command-line.pandoc | 33 +++++++++++++++++++++++++++
+ xen/arch/x86/hpet.c               | 48 +++++++++++++++++++++++++--------------
+ xen/arch/x86/io_apic.c            | 26 +++++++++++++++++++++
+ xen/include/asm-x86/hpet.h        |  1 +
+ 4 files changed, 91 insertions(+), 17 deletions(-)
+
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index a0601ff838..4d020d4ad7 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1274,9 +1274,42 @@ supported. See docs/misc/arm/big.LITTLE.txt for more information.
+ When the hmp-unsafe option is disabled (default), CPUs that are not
+ identical to the boot CPU will be parked and not used by Xen.
+ 
++### hpet (x86)
++    = List of [ <bool> | broadcast=<bool> | legacy-replacement=<bool> ]
++
++    Applicability: x86
++
++Controls Xen's use of the system's High Precision Event Timer.  By default,
++Xen will use an HPET when available and not subject to errata.  Use of the
++HPET can be disabled by specifying `hpet=0`.
++
++ * The `broadcast` boolean is disabled by default, but forces Xen to keep
++   using the broadcast for CPUs in deep C-states even when an RTC interrupt is
++   enabled.  This then also affects raising of the RTC interrupt.
++
++ * The `legacy-replacement` boolean allows for control over whether Legacy
++   Replacement mode is enabled.
++
++   Legacy Replacement mode is intended for hardware which does not have an
++   8025 PIT, and allows the HPET to be configured into a compatible mode.
++   Intel chipsets from Skylake/ApolloLake onwards can turn the PIT off for
++   power saving reasons, and there is no platform-agnostic mechanism for
++   discovering this.
++
++   By default, Xen will not change hardware configuration, unless the PIT
++   appears to be absent, at which point Xen will try to enable Legacy
++   Replacement mode before falling back to pre-IO-APIC interrupt routing
++   options.
++
++   This behaviour can be inhibited by specifying `legacy-replacement=0`.
++   Alternatively, this mode can be enabled unconditionally (if available) by
++   specifying `legacy-replacement=1`.
++
+ ### hpetbroadcast (x86)
+ > `= <boolean>`
+ 
++Deprecated alternative of `hpet=broadcast`.
++
+ ### hvm_debug (x86)
+ > `= <integer>`
+ 
+diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+index c73135bb15..957e053a47 100644
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -52,6 +52,8 @@ static unsigned int __read_mostly num_hpets_used;
+ DEFINE_PER_CPU(struct hpet_event_channel *, cpu_bc_channel);
+ 
+ unsigned long __initdata hpet_address;
++int8_t __initdata opt_hpet_legacy_replacement = -1;
++static bool __initdata opt_hpet = true;
+ u8 __initdata hpet_blockid;
+ u8 __initdata hpet_flags;
+ 
+@@ -63,6 +65,32 @@ u8 __initdata hpet_flags;
+ static bool __initdata force_hpet_broadcast;
+ boolean_param("hpetbroadcast", force_hpet_broadcast);
+ 
++static int __init parse_hpet_param(const char *s)
++{
++    const char *ss;
++    int val, rc = 0;
++
++    do {
++        ss = strchr(s, ',');
++        if ( !ss )
++            ss = strchr(s, '\0');
++
++        if ( (val = parse_bool(s, ss)) >= 0 )
++            opt_hpet = val;
++        else if ( (val = parse_boolean("broadcast", s, ss)) >= 0 )
++            force_hpet_broadcast = val;
++        else if ( (val = parse_boolean("legacy-replacement", s, ss)) >= 0 )
++            opt_hpet_legacy_replacement = val;
++        else
++            rc = -EINVAL;
++
++        s = ss + 1;
++    } while ( *ss );
++
++    return rc;
++}
++custom_param("hpet", parse_hpet_param);
++
+ /*
+  * Calculate a multiplication factor for scaled math, which is used to convert
+  * nanoseconds based values to clock ticks:
+@@ -820,12 +848,9 @@ u64 __init hpet_setup(void)
+     unsigned int hpet_id, hpet_period;
+     unsigned int last, rem;
+ 
+-    if ( hpet_rate )
++    if ( hpet_rate || !hpet_address || !opt_hpet )
+         return hpet_rate;
+ 
+-    if ( hpet_address == 0 )
+-        return 0;
+-
+     set_fixmap_nocache(FIX_HPET_BASE, hpet_address);
+ 
+     hpet_id = hpet_read32(HPET_ID);
+@@ -852,19 +877,8 @@ u64 __init hpet_setup(void)
+     if ( (rem * 2) > hpet_period )
+         hpet_rate++;
+ 
+-    /*
+-     * Intel chipsets from Skylake/ApolloLake onwards can statically clock
+-     * gate the 8259 PIT.  This option is enabled by default in slightly later
+-     * systems, as turning the PIT off is a prerequisite to entering the C11
+-     * power saving state.
+-     *
+-     * Xen currently depends on the legacy timer interrupt being active while
+-     * IRQ routing is configured.
+-     *
+-     * Reconfigure the HPET into legacy mode to re-establish the timer
+-     * interrupt.
+-     */
+-    hpet_enable_legacy_replacement_mode();
++    if ( opt_hpet_legacy_replacement > 0 )
++        hpet_enable_legacy_replacement_mode();
+ 
+     return hpet_rate;
+ }
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index e93265f379..f08c60d71f 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -29,6 +29,8 @@
+ #include <xen/acpi.h>
+ #include <xen/keyhandler.h>
+ #include <xen/softirq.h>
++
++#include <asm/hpet.h>
+ #include <asm/mc146818rtc.h>
+ #include <asm/smp.h>
+ #include <asm/desc.h>
+@@ -1922,14 +1924,38 @@ static void __init check_timer(void)
+            vector, apic1, pin1, apic2, pin2);
+ 
+     if (pin1 != -1) {
++        bool hpet_changed = false;
++
+         /*
+          * Ok, does IRQ0 through the IOAPIC work?
+          */
+         unmask_IO_APIC_irq(irq_to_desc(0));
++    retry_ioapic_pin:
+         if (timer_irq_works()) {
+             local_irq_restore(flags);
+             return;
+         }
++
++        /*
++         * Intel chipsets from Skylake/ApolloLake onwards can statically clock
++         * gate the 8259 PIT.  This option is enabled by default in slightly
++         * later systems, as turning the PIT off is a prerequisite to entering
++         * the C11 power saving state.
++         *
++         * Xen currently depends on the legacy timer interrupt being active
++         * while IRQ routing is configured.
++         *
++         * If the user hasn't made an explicit option, attempt to reconfigure
++         * the HPET into legacy mode to re-establish the timer interrupt.
++         */
++        if ( opt_hpet_legacy_replacement < 0 &&
++             !hpet_changed && hpet_enable_legacy_replacement_mode() )
++        {
++            printk(XENLOG_ERR "..no 8254 timer found - trying HPET Legacy Replacement Mode\n");
++            hpet_changed = true;
++            goto retry_ioapic_pin;
++        }
++
+         clear_IO_APIC_pin(apic1, pin1);
+         printk(KERN_ERR "..MP-BIOS bug: 8254 timer not connected to "
+                "IO-APIC\n");
+diff --git a/xen/include/asm-x86/hpet.h b/xen/include/asm-x86/hpet.h
+index 50176de3d2..07bc8d6079 100644
+--- a/xen/include/asm-x86/hpet.h
++++ b/xen/include/asm-x86/hpet.h
+@@ -53,6 +53,7 @@
+ extern unsigned long hpet_address;
+ extern u8 hpet_blockid;
+ extern u8 hpet_flags;
++extern int8_t opt_hpet_legacy_replacement;
+ 
+ /*
+  * Detect and initialise HPET hardware: return counter update frequency.
+-- 
+2.11.0
+
 
