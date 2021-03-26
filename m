@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8775534A2B2
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Mar 2021 08:49:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101615.194500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C43E534A2C9
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Mar 2021 08:57:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101625.194517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPhDe-0007Fi-Un; Fri, 26 Mar 2021 07:49:22 +0000
+	id 1lPhKr-0008Cf-QQ; Fri, 26 Mar 2021 07:56:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101615.194500; Fri, 26 Mar 2021 07:49:22 +0000
+Received: by outflank-mailman (output) from mailman id 101625.194517; Fri, 26 Mar 2021 07:56:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPhDe-0007FJ-Rb; Fri, 26 Mar 2021 07:49:22 +0000
-Received: by outflank-mailman (input) for mailman id 101615;
- Fri, 26 Mar 2021 07:49:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lPhKr-0008CJ-NM; Fri, 26 Mar 2021 07:56:49 +0000
+Received: by outflank-mailman (input) for mailman id 101625;
+ Fri, 26 Mar 2021 07:56:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+hki=IY=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lPhDc-0007FD-MK
- for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 07:49:20 +0000
+ id 1lPhKq-0008CE-8z
+ for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 07:56:48 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef035bb3-f850-42e3-9ddf-35eac9c72a3e;
- Fri, 26 Mar 2021 07:49:19 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b4b2e2e4-b093-4a79-b5ac-4e3094d618b1;
+ Fri, 26 Mar 2021 07:56:47 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1676BADF1;
- Fri, 26 Mar 2021 07:49:19 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 94976ADEF;
+ Fri, 26 Mar 2021 07:56:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,79 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef035bb3-f850-42e3-9ddf-35eac9c72a3e
+X-Inumbo-ID: b4b2e2e4-b093-4a79-b5ac-4e3094d618b1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1616744959; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1616745406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tx8pHdfaHZgJECaTkkUpSJfSjQ3fgHbIeajI5YrwFJg=;
-	b=ajHm/zJHFkBZTZReZsyjWdb+EMnt2gCszHPn1odl36VvaGy1b0qshtwVaY6vSf0f3VeDBQ
-	5WwcKx864jXYb3tFbGDCx88Jx0+yuMlupOxoUpNf9bYwD3OzloJDnTkalP4L7LZLE4s/NV
-	NIhm/Cpu6oKBm2/E7HHHXnvdJIwyAj8=
-Subject: Re: [PATCH for-4.15?] docs/misc: xenstored: Re-instate and tweak the
- documentation for XS_RESUME
+	bh=lJPcveMA77tb9BZN4aofonkxyFlq6nWgUh62MG8UD7k=;
+	b=Tabmm2ahAD5+nJxyVY6RoU+Zyafhwpn1dbNvqS88KDe6xRG+fvMVapk6idUFEU1Aac/zFR
+	9P5knCQIwQsM0YaMtQlO85DNQFM065RhFdsHXBhmNbYiTnyZzMZcEZKz5unyaToQabDOpn
+	+2G2swK+6tusg4Bq9bsb2TxuDHVdUHU=
+Subject: Re: [PATCH] tools/xenstored: Remove unnecessary define
+ XC_WANT_COMPAT_MAP_FOREIGN_API
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, raphning@gmail.com,
- paul@xen.org
-References: <20210325180607.13158-1-julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <20210325114243.12284-1-julien@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <615b1f45-c64a-0917-ab4c-f0bb3a9b80fd@suse.com>
-Date: Fri, 26 Mar 2021 08:49:18 +0100
+Message-ID: <03d11251-4e1b-ba1d-8724-0867fbe6345b@suse.com>
+Date: Fri, 26 Mar 2021 08:56:45 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210325180607.13158-1-julien@xen.org>
+In-Reply-To: <20210325114243.12284-1-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="fblZicCrADbV6gtcuU7krE5wDEmnNjhoK"
+ boundary="b7pZMXpLlUbJC6EKsikwbzOvOnHsLmzHa"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---fblZicCrADbV6gtcuU7krE5wDEmnNjhoK
-Content-Type: multipart/mixed; boundary="qEAk6Pvvaak7LVOsnMGf5NL2V6cpocn63";
+--b7pZMXpLlUbJC6EKsikwbzOvOnHsLmzHa
+Content-Type: multipart/mixed; boundary="fMMyCkA5LRYf54OMjrZB50pqNXPBcXyyb";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, raphning@gmail.com,
- paul@xen.org
-Message-ID: <615b1f45-c64a-0917-ab4c-f0bb3a9b80fd@suse.com>
-Subject: Re: [PATCH for-4.15?] docs/misc: xenstored: Re-instate and tweak the
- documentation for XS_RESUME
-References: <20210325180607.13158-1-julien@xen.org>
-In-Reply-To: <20210325180607.13158-1-julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+Message-ID: <03d11251-4e1b-ba1d-8724-0867fbe6345b@suse.com>
+Subject: Re: [PATCH] tools/xenstored: Remove unnecessary define
+ XC_WANT_COMPAT_MAP_FOREIGN_API
+References: <20210325114243.12284-1-julien@xen.org>
+In-Reply-To: <20210325114243.12284-1-julien@xen.org>
 
---qEAk6Pvvaak7LVOsnMGf5NL2V6cpocn63
+--fMMyCkA5LRYf54OMjrZB50pqNXPBcXyyb
 Content-Type: multipart/mixed;
- boundary="------------0CFEA9DE27D287AA55357961"
+ boundary="------------CA65D90FBA23F3443C719D0F"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------0CFEA9DE27D287AA55357961
+--------------CA65D90FBA23F3443C719D0F
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 25.03.21 19:06, Julien Grall wrote:
+On 25.03.21 12:42, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 >=20
-> Commit 13dd372834a4 removed the documentation for XS_RESUME, however
-> this command is still implemented (at least in C Xenstored) and used by=
-
-> libxl when resuming a domain.
+> The last use of the compat foreign API was dropped in commit
+> 38eeb3864de4 "tools/xenstored: Drop mapping of the ring via foreign
+> map".
 >=20
-> So re-instate the documentation for the XS_RESUME. Take the opportunity=
-
-> to update it as there is a user of the command.
+> Therefore, we don't need to define XC_WANT_COMPAT_MAP_FOREIGN_API.
 >=20
-> Fixes: 13dd372834a4 ("docs/designs: re-work the xenstore migration docu=
-ment...")
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 
 Reviewed-by: Juergen Gross <jgross@suse.com>
@@ -118,7 +106,8 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------0CFEA9DE27D287AA55357961
+
+--------------CA65D90FBA23F3443C719D0F
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -209,25 +198,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------0CFEA9DE27D287AA55357961--
+--------------CA65D90FBA23F3443C719D0F--
 
---qEAk6Pvvaak7LVOsnMGf5NL2V6cpocn63--
+--fMMyCkA5LRYf54OMjrZB50pqNXPBcXyyb--
 
---fblZicCrADbV6gtcuU7krE5wDEmnNjhoK
+--b7pZMXpLlUbJC6EKsikwbzOvOnHsLmzHa
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBdkf4FAwAAAAAACgkQsN6d1ii/Ey/H
-2QgAmDvRghRoFA8WEvQMpX23VVeRqmGJrDsXc5FzPGEojaiMOVE2A69JREYiJ0SZJTlgj+Plzy9h
-iTlhzxgUZNccrx3HQNZePqnxDNf102mqJXaWsTnz2ju0iG5Lc8a2yz6qi0flmgO8j2EmsicQXa95
-AFOpoE28DWsddD7yGR3BaXDFoZtB4rbZDlMvGEVvqT+NkHwKDDnnJnjKeBhxaL3LOAaxjTPIwgtD
-ksK834GoNpRJB2Xq25Rqlps/jUpbVum/P7eg1YKLQs272XuO11P03Uu9YDNTs7BZRMw9dWrkZ2ZT
-OLulVSfN34dXRYdti+BS8oDR7iXUY/A/Zz1bFCh93Q==
-=5PXi
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmBdk70FAwAAAAAACgkQsN6d1ii/Ey+j
+Zwf/RVKISzhgZzgXimfjkFV2QbHOQJCQpEl5CZkc4Daev/CJgij57cIlwjggpP2lmyQKITipGD4n
+DyCFnLp13d+HrR3LTPMs4AlHXOCsYGCM/n2G5eoiZXoJ9Wu7VXJJlVtFc8sAangZbF8fYz+iRfhn
+HE+yteqb0QFD2w89q3FopfuuKaH5OEQcVPr5eAwq5E0YsHsyk+N4EM1QPNNQS6VptWanMwnVRX6k
+S+nbjZUzdL0QpxlFYyflVglj5w4vu7YyZl/dl3drUk3LEgzvAOoetgVRQrugPrhFCC8c9ADQoE2L
+DSiaCq1LOIUzBxfzv8Kfe0nMlTKA3f+I6pddL9k0Sw==
+=/TpU
 -----END PGP SIGNATURE-----
 
---fblZicCrADbV6gtcuU7krE5wDEmnNjhoK--
+--b7pZMXpLlUbJC6EKsikwbzOvOnHsLmzHa--
 
