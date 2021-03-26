@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D75B34AE38
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Mar 2021 19:04:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101994.195424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 141AF34B491
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Mar 2021 06:56:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.102012.195715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPqoE-0008OX-I3; Fri, 26 Mar 2021 18:03:46 +0000
+	id 1lQ1vO-000308-G6; Sat, 27 Mar 2021 05:55:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101994.195424; Fri, 26 Mar 2021 18:03:46 +0000
+Received: by outflank-mailman (output) from mailman id 102012.195715; Sat, 27 Mar 2021 05:55:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPqoE-0008OB-Eg; Fri, 26 Mar 2021 18:03:46 +0000
-Received: by outflank-mailman (input) for mailman id 101994;
- Fri, 26 Mar 2021 18:03:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lPqoD-0008O6-FI
- for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 18:03:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lPqoC-0004TC-6Y; Fri, 26 Mar 2021 18:03:44 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lPqoB-0000qd-UM; Fri, 26 Mar 2021 18:03:44 +0000
+	id 1lQ1vO-0002zl-Cc; Sat, 27 Mar 2021 05:55:54 +0000
+Received: by outflank-mailman (input) for mailman id 102012;
+ Fri, 26 Mar 2021 18:14:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1xeO=IY=gmail.com=musamaanjum@srs-us1.protection.inumbo.net>)
+ id 1lPqyz-0001PT-DB
+ for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 18:14:53 +0000
+Received: from mail-ed1-x530.google.com (unknown [2a00:1450:4864:20::530])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 79f21421-deeb-4e81-8d58-2bdcee3a6bad;
+ Fri, 26 Mar 2021 18:14:52 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id z1so7334178edb.8
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Mar 2021 11:14:52 -0700 (PDT)
+Received: from LEGION ([111.119.187.49])
+ by smtp.gmail.com with ESMTPSA id gj26sm4087570ejb.67.2021.03.26.11.14.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Mar 2021 11:14:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,60 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Vn5K8+827u0j2tL/5w3PXoqi0Zay3eOA6Y3FQXE9aRY=; b=bQygGXYFmHzTRVI0A2j+rP4ojN
-	qNnrMGbeJwpX6/K7saK47RDejSof4oLZdW1X03/AN2mzSnEA+K1aASs3rsFLkELvfJhAHy0L1iptl
-	wecc66xtoAM14jCX4KKt3H1mwkxHPms5ao8FZ/NyyrrbBtb8EEzZhYjI+IsKwTXK4hU4=;
-Subject: Re: [PATCH-for-4.15 v3] tools/libs/store: tidy up libxenstore
- interface
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210324123948.7207-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a638d4e4-14c0-634d-433b-42b6ec6b50a8@xen.org>
-Date: Fri, 26 Mar 2021 18:03:42 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
+X-Inumbo-ID: 79f21421-deeb-4e81-8d58-2bdcee3a6bad
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+        bh=7OwN9sCDoll1kfeOV96JvARjVXcCMVl5pE1420CYpOw=;
+        b=grFMxIfnyiOWnB9RplEKcznwJgBk59Dlw9m/Qd10lgjvSNTNyzIknJNEsP1Iwd8yNr
+         HRPlwIIiJtJjlO56hyU+aj25+jJzjSuEL6e8XvtMnonsZO+DF3p2//gSHa0AgfmAKhSK
+         lUvmNgqIUyOGCWYRIocMdwhD4n8gQlW56XzgqdVjVKtK362IkPsTOi6dKFyDylOD1njO
+         FWZFFFKwXsoV+F6LURvZ9bXSfQhbbFRI3ivclSqPkze8Gu3nrm0G29dikRKZoDblCDNH
+         mmcPUn1iQxeZmfWhELA4i+As9kT/iYgE+Dlk3135pa+uE/d6S+bfjxf9Ej1F62aWDSBg
+         Swlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition;
+        bh=7OwN9sCDoll1kfeOV96JvARjVXcCMVl5pE1420CYpOw=;
+        b=MxaArpvejsu8wIYFNdEFWBFy0EWDzUrQBFbck1ojQpovy8vNTXLAg25gC6bhcbqo3D
+         k+ITrmvwRuUqNEbWAfvg5p9a9uyUHL1WKzGtcu8j70XoKHTSuPJuCUlGw4fu9kvnpLnG
+         t5dfqhae49iriMb6X6bLRi2z/Bu5tqcpJj0kc7r0LFCKrLoXGupeo2SQKcA00nTYKFx1
+         x/nFmBnCZbu50tjpTdWgjHFeorru+e6M5q883BgYmYKA13jUkWJD6U5MFXXs5VDfO6pR
+         /wBL4O9Kxd+QFTswDslk+vXEIp0nZaX7wY+GPywHMIiJyGcvdGwTIMhBqQCz4EipGhHV
+         wnbw==
+X-Gm-Message-State: AOAM5325Im8eZhjgKm8xvr3lX7QO+wKAtTNVmcJjMJIPS1+lccYrmzDB
+	/467q7AFe/dKTLNIRu5M8xo=
+X-Google-Smtp-Source: ABdhPJxuA8CArC7vp83Y/bQZyxiB/zWeAqtySapkwLOjb+muwylYkJwlFNtddIpQu548xwd6Df9rEw==
+X-Received: by 2002:a05:6402:1545:: with SMTP id p5mr16503433edx.155.1616782491559;
+        Fri, 26 Mar 2021 11:14:51 -0700 (PDT)
+Date: Fri, 26 Mar 2021 23:14:42 +0500
+From: Muhammad Usama Anjum <musamaanjum@gmail.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	kernel-janitors@vger.kernel.org, colin.king@canonical.com,
+	dan.carpenter@oracle.com
+Cc: musamaanjum@gmail.com
+Subject: [PATCH] xen/pciback: Fix incorrect type warnings
+Message-ID: <20210326181442.GA1735905@LEGION>
 MIME-Version: 1.0
-In-Reply-To: <20210324123948.7207-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Juergen,
+Correct enum pci_channel_io_normal should be used instead of putting
+integer value 1.
 
-On 24/03/2021 12:39, Juergen Gross wrote:
-> xenstore_lib.h is in need to be tidied up a little bit:
-> 
-> - the definition of struct xs_tdb_record_hdr shouldn't be here
-> - some symbols are not namespaced correctly
-> - the layout of a structure with an enum inside it depends on the
->    implementation of the compiler
+Fix following smatch warnings:
+drivers/xen/xen-pciback/pci_stub.c:805:40: warning: incorrect type in argument 2 (different base types)
+drivers/xen/xen-pciback/pci_stub.c:805:40:    expected restricted pci_channel_state_t [usertype] state
+drivers/xen/xen-pciback/pci_stub.c:805:40:    got int
+drivers/xen/xen-pciback/pci_stub.c:862:40: warning: incorrect type in argument 2 (different base types)
+drivers/xen/xen-pciback/pci_stub.c:862:40:    expected restricted pci_channel_state_t [usertype] state
+drivers/xen/xen-pciback/pci_stub.c:862:40:    got int
+drivers/xen/xen-pciback/pci_stub.c:973:31: warning: incorrect type in argument 2 (different base types)
+drivers/xen/xen-pciback/pci_stub.c:973:31:    expected restricted pci_channel_state_t [usertype] state
+drivers/xen/xen-pciback/pci_stub.c:973:31:    got int
 
-TBH, they seem that each of them should be in their own patch. I am fine 
-with one patch but I think you should at least outline the solution in 
-the commit message. This will be easier to relate with the rest of the 
-code (you are solving 3 issues at once).
+Signed-off-by: Muhammad Usama Anjum <musamaanjum@gmail.com>
+---
+ drivers/xen/xen-pciback/pci_stub.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-
-Sorry I didn't realize, you already sent a v3. So I will repeat my 
-comment here.
-
-I think you want to summarize the discussion [1] in the commit message 
-so it is clear that
-   1) You are breaking the ABI (although it is technically broken as we 
-use enum)
-   2) Why this is fine to do it.
-
-Cheers,
-
-[1]  https://lists.xen.org/archives/html/xen-devel/2021-03/msg01267.html
-
+diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+index cb904ac83006..f8e4faa96ad6 100644
+--- a/drivers/xen/xen-pciback/pci_stub.c
++++ b/drivers/xen/xen-pciback/pci_stub.c
+@@ -802,7 +802,7 @@ static pci_ers_result_t xen_pcibk_slot_reset(struct pci_dev *dev)
+ 			"guest with no AER driver should have been killed\n");
+ 		goto end;
+ 	}
+-	result = common_process(psdev, 1, XEN_PCI_OP_aer_slotreset, result);
++	result = common_process(psdev, pci_channel_io_normal, XEN_PCI_OP_aer_slotreset, result);
+ 
+ 	if (result == PCI_ERS_RESULT_NONE ||
+ 		result == PCI_ERS_RESULT_DISCONNECT) {
+@@ -859,7 +859,7 @@ static pci_ers_result_t xen_pcibk_mmio_enabled(struct pci_dev *dev)
+ 			"guest with no AER driver should have been killed\n");
+ 		goto end;
+ 	}
+-	result = common_process(psdev, 1, XEN_PCI_OP_aer_mmio, result);
++	result = common_process(psdev, pci_channel_io_normal, XEN_PCI_OP_aer_mmio, result);
+ 
+ 	if (result == PCI_ERS_RESULT_NONE ||
+ 		result == PCI_ERS_RESULT_DISCONNECT) {
+@@ -970,7 +970,7 @@ static void xen_pcibk_error_resume(struct pci_dev *dev)
+ 		kill_domain_by_device(psdev);
+ 		goto end;
+ 	}
+-	common_process(psdev, 1, XEN_PCI_OP_aer_resume,
++	common_process(psdev, pci_channel_io_normal, XEN_PCI_OP_aer_resume,
+ 		       PCI_ERS_RESULT_RECOVERED);
+ end:
+ 	if (psdev)
 -- 
-Julien Grall
+2.25.1
+
 
