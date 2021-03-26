@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8F2934A7EB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Mar 2021 14:16:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.101790.194906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C342334A808
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Mar 2021 14:22:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.101797.194919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPmJa-0004G4-Ml; Fri, 26 Mar 2021 13:15:50 +0000
+	id 1lPmQA-0005QR-Hu; Fri, 26 Mar 2021 13:22:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 101790.194906; Fri, 26 Mar 2021 13:15:50 +0000
+Received: by outflank-mailman (output) from mailman id 101797.194919; Fri, 26 Mar 2021 13:22:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lPmJa-0004Ff-JR; Fri, 26 Mar 2021 13:15:50 +0000
-Received: by outflank-mailman (input) for mailman id 101790;
- Fri, 26 Mar 2021 13:15:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lPmQA-0005Q2-Ei; Fri, 26 Mar 2021 13:22:38 +0000
+Received: by outflank-mailman (input) for mailman id 101797;
+ Fri, 26 Mar 2021 13:22:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lPmJZ-0004Fa-B6
- for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 13:15:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lPmJZ-0007LF-8e
- for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 13:15:49 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lPmJZ-0006c5-7Y
- for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 13:15:49 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lPmJS-0002bm-IZ; Fri, 26 Mar 2021 13:15:42 +0000
+ (envelope-from <SRS0=G+eI=IY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lPmQ9-0005Pv-0E
+ for xen-devel@lists.xenproject.org; Fri, 26 Mar 2021 13:22:37 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id efcfec63-6af8-4d0b-b469-acc1d26e8cf6;
+ Fri, 26 Mar 2021 13:22:35 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 00065ADD7;
+ Fri, 26 Mar 2021 13:22:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +39,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=20g2J7MwDZnikxbnbSJAC9FAWMPrL7UpYoJbVngFzQg=; b=ZwSRf2qRU+uOCuD+t6FYvbzT3V
-	VhYUZ2//afWUfHRlld0krKavxkxBldPIZezWdtCbcPFUW7veB4ybRZJ05K/mBj0r1GGCbssxggTWs
-	lA2Xwk0f3AmxX+Q2xa+p3hwGaZu5+6pgSqF1lG6SsIDP5nqFdgCHTRtW7D5josnFDK2E=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: efcfec63-6af8-4d0b-b469-acc1d26e8cf6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1616764955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5xTRBoX5Eec5DHd69ZJfPbue1Pa6T+i8850yVhierx0=;
+	b=oVL9MqHHbSf/WPKFGT4yqE535Dr2LmNo+EXVlcQkqgSzxwdUNBaUi/1STJ1lMrjgbInRop
+	d4gy9uiL4wihXrNhUvigCNV3GmFNu8IM5DDXZFzOytPJy141hcqBcvy6skoHmxqoLBEQtG
+	JIfNReg4CWLn9vkXglZV1X4bagko4mE=
+Subject: Re: [PATCH][4.15] Performance regression due to XSA-336
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>, andrew.cooper3@citrix.com,
+ roger.pau@citrix.com, wl@xen.org, stephen.s.brennan@oracle.com,
+ xen-devel@lists.xenproject.org
+References: <1616619905-640-1-git-send-email-boris.ostrovsky@oracle.com>
+ <e3657f74-5b62-fe59-3bbf-41df5fbe4593@suse.com>
+ <24669.52030.995324.426028@mariner.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0f14edcd-5ac7-0403-bccb-a97bf27bf392@suse.com>
+Date: Fri, 26 Mar 2021 14:22:34 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <24669.52030.995324.426028@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Message-ID: <24669.56958.383583.53595@mariner.uk.xensource.com>
-Date: Fri, 26 Mar 2021 13:15:42 +0000
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Xen-devel <xen-devel@lists.xenproject.org>,
-    Jan Beulich <jbeulich@suse.com>,
-    Wei Liu <wl@xen.org>,
-    Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-    =?iso-8859-1?Q?Fr=E9d=E9ric?= Pierret <frederic.pierret@qubes-os.org>
-Subject: Re: [PATCH v1.1 2/2] x86/hpet: Don't enable legacy replacement mode unconditionally
-In-Reply-To: <CABfawh=O1hdycEr0+=JXU6USZ8DAzQvKoXQOnRnoWL643FTa+g@mail.gmail.com>
-References: <20210325165224.10306-3-andrew.cooper3@citrix.com>
-	<20210325172132.14980-1-andrew.cooper3@citrix.com>
-	<24669.52641.499147.88002@mariner.uk.xensource.com>
-	<24669.54213.173154.400771@mariner.uk.xensource.com>
-	<CABfawh=O1hdycEr0+=JXU6USZ8DAzQvKoXQOnRnoWL643FTa+g@mail.gmail.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Tamas K Lengyel writes ("Re: [PATCH v1.1 2/2] x86/hpet: Don't enable legacy replacement mode unconditionally"):
-> The problem from my perspective is that the end-users have no way to
-> determine when that boot option is needing to be set. Having an
-> installation step of "check if things explode when you reboot" is just
-> plain bad. Many times you don't even have access to a remote serial
-> console to check why Xen didn't boot. So that's not a realistic route
-> that can be taken. If Jan's patch is applied then the only thing I'll
-> be able to do is make all installations always-enable this option even
-> on systems that would have booted fine otherwise without it. It is
-> unclear if that has any downsides of its own and could very well just
-> kick the can down the road and lead to other issues.
+On 26.03.2021 12:53, Ian Jackson wrote:
+> Jan Beulich writes ("Re: [PATCH][4.15] Performance regression due to XSA-336"):
+>> While the change is more intrusive than one would like at this point, an
+>> up-to-40% regression imo makes this at least a change to be considered
+>> for 4.15. I will admit though that before next week I won't get around
+>> to look at this in any more detail than just having read through this
+>> cover letter. But perhaps someone else might find time earlier.
+> 
+> As I understand it:
+> 
+> This amounts to a request to consider a release ack for "x86/vpt:
+> Replace per-guest pt_migrate lock with per pt lock".
 
-Thanks for the clear explanation.
+Or, as already suggested by Roger, perhaps something simpler. First of
+all I wanted you to be aware.
 
-I think our options are:
+> That patch fixes a regression due to XSA-336.  XSA-336 affected many
+> versions of Xen.  Therefore this is not a regression between 4.14 and
+> 4.15; rather it's a regresion from pre-XSA-336 to post-XSA-336.
+> 
+> I looked at the patch and I am really not comfortable with that kind
+> of change at this stage of the release.
+> 
+> So I'm afraid the answer is no, unless I have misunderstood something.
 
- 1. What is currently in xen.git#staging-4.15: some different set of
-    machines do not work (reliably? at all?), constituting a
-    regression on older hardware.
+Understood.
 
- 2. Jan's patch, with the consequences you describe.  Constituing a
-    continued failure to properly support the newer hardware.
-
- 3. Andy's patches which are not finished yet and are therefore high
-    risk.  Ie, delay the release.
-
-Please let me know if you think this characterisation of the situation
-is inaccurate or misleading.
-
-This is not a good set of options.
-
-Of them, I still think I would choose (2).  But I would love it if
-someone were to come up with a better suggestion (perhaps a variant on
-one of the above).
-
-Ian.
+Jan
 
