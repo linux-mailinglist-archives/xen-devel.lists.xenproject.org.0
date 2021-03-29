@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9434634D7FD
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Mar 2021 21:19:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103248.197012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5828C34D86E
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Mar 2021 21:42:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103254.197029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lQxPA-0002G2-Nt; Mon, 29 Mar 2021 19:18:28 +0000
+	id 1lQxlu-0005Ky-Js; Mon, 29 Mar 2021 19:41:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103248.197012; Mon, 29 Mar 2021 19:18:28 +0000
+Received: by outflank-mailman (output) from mailman id 103254.197029; Mon, 29 Mar 2021 19:41:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lQxPA-0002FZ-K0; Mon, 29 Mar 2021 19:18:28 +0000
-Received: by outflank-mailman (input) for mailman id 103248;
- Mon, 29 Mar 2021 19:18:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lQxP9-0002FR-6e; Mon, 29 Mar 2021 19:18:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lQxP8-0004Hq-Td; Mon, 29 Mar 2021 19:18:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lQxP8-0000gO-MT; Mon, 29 Mar 2021 19:18:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lQxP8-0000tH-Jb; Mon, 29 Mar 2021 19:18:26 +0000
+	id 1lQxlu-0005KZ-Ga; Mon, 29 Mar 2021 19:41:58 +0000
+Received: by outflank-mailman (input) for mailman id 103254;
+ Mon, 29 Mar 2021 19:41:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wUqM=I3=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
+ id 1lQxls-0005KU-VK
+ for xen-devel@lists.xenproject.org; Mon, 29 Mar 2021 19:41:57 +0000
+Received: from mail-ej1-x630.google.com (unknown [2a00:1450:4864:20::630])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c7439ef1-727f-4efa-823c-78dac536d8aa;
+ Mon, 29 Mar 2021 19:41:56 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id hq27so21237890ejc.9
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Mar 2021 12:41:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +37,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=PBQ/CdOUh90lqhu7e7A6POPhC8mIUhDwMVntX9qK96c=; b=HiO8N0CVvL5c3dwyvsISfko89R
-	thhT/421B2mD6qd+pi8jray+WUPqh7Z0cUY6KThM97cwMzrfX211SiStB9gBZqhysKBCEkPxOBDDq
-	q5zdcjsCqa0nZBbVo7dsndXoxvMpMZE0MYk+WBX9HB6TJGEXZD/Ljo3CQyQQulf4AK60=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160535-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c7439ef1-727f-4efa-823c-78dac536d8aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=LNwciN1+aKLrfAajIeX8oyDJ4fRN7O1tEYVPKp96JTU=;
+        b=JebqtA6n0mG+MR0mx55xMpdLlg48O7eh2STrYuDILb8Z8OYveDo/4LmB43bLCzO746
+         +5/8i7PfhJo8y66NoIqsdQZYLdwGUSERrZ30x+L7fQzHBE1L7X2B6VqjevHtDkF+WwAE
+         NlUanZih8N+tOmHLPhFJ71R79cQ+pNY55VLwZRh6f1cz/Fp8hXEWQwSewCUMua8/YBIq
+         fRgEyO5ps9QegstpWuKrQV8VBPJoecHBGlpVbLRoEe88VhOYxGZC3yDS1MkIkz9P+k2/
+         gGbQMAb2FasCkHgUoiuELj3+KYq9WoXylS60kRrgABmWX+WRCwrI+YAb9HpqxWlptQBq
+         y5CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=LNwciN1+aKLrfAajIeX8oyDJ4fRN7O1tEYVPKp96JTU=;
+        b=mxc0r5ePaPt04Yp88I7C+wVsb++eA7ZzNAUMZQngkfjr2x9sqnJCNDrRh8Req0KQ0x
+         wRujIKp+pa4R0rs/0hjMQhjMXV6KVh7rnevmFBTwbdayvb4SxnQ+CwLN66sJN3Nb738O
+         TJTcT024/NznB0O1sfdGJw72oFoiyWh8CVxqyToqWKoMAUVap5Q/t6m1C7ErogD0p1yB
+         Ut3PQCFQsY2AuT6Lq3yl8SwX1arcOE0rQ/S7z4dnc0jQe83777tx/TwMkfcQ8EG3Z1c6
+         C80DVJlps/DE2AoDI0618iVw+/Lk+9K9CC92t6JA385jYZsQ9AoU7moXwrlLQlfH52K7
+         QEjw==
+X-Gm-Message-State: AOAM531uoRxdtotdWGjkU3mDlW6W59wNl5P2q89FCXlyEFe2Pt2cJQom
+	u3k5seP0W2a11gtZQfg5MyJudAf/9Et5uP8fjxsPoA==
+X-Google-Smtp-Source: ABdhPJxWJO2Uv9tI4iJCeNNkMldIGTiuNbrnyUesdunReGr7gRstV/EjgM3FksR6BGNwGI2LBvxiKhPDhEOH/IHjt9U=
+X-Received: by 2002:a17:906:c301:: with SMTP id s1mr29332463ejz.382.1617046915270;
+ Mon, 29 Mar 2021 12:41:55 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 160535: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
-X-Osstest-Versions-That:
-    xen=e680cc48b7184d3489873d6776f84ba1fc238ced
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 29 Mar 2021 19:18:26 +0000
+References: <CAKqicRBsCxFY=A=RD6kHaZa7bFag+hmUkwAJc-LSYy8XvsbGPg@mail.gmail.com>
+ <889B1827-1FEB-4AC0-9002-278337D19ED5@citrix.com> <CAKqicRCiahd5bt1Qo=Mdh4DYRQbGWf410gF=CG51J9AD=4YwmA@mail.gmail.com>
+In-Reply-To: <CAKqicRCiahd5bt1Qo=Mdh4DYRQbGWf410gF=CG51J9AD=4YwmA@mail.gmail.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Mon, 29 Mar 2021 19:41:24 +0000
+Message-ID: <CAFEAcA-bYZnxwCtOJxoDWsMxtjPqgc5n6Mq8Z5gbjDCqi6t_Hg@mail.gmail.com>
+Subject: Re: An error due to installation that require binutils package
+To: John Simpson <ttr9droid@gmail.com>
+Cc: QEMU Developers <qemu-devel@nongnu.org>, "open list:X86" <xen-devel@lists.xenproject.org>, 
+	"gcc-help@gcc.gnu.org" <gcc-help@gcc.gnu.org>, Community Manager <community.manager@xenproject.org>, 
+	George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 160535 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160535/
+On Mon, 29 Mar 2021 at 20:20, John Simpson <ttr9droid@gmail.com> wrote:
+>
+> Hello,
+>
+> Kindly ask you to have a look at this bug.
+> Thank you for your replies.
 
-Failures :-/ but no regressions.
+>> > On Sun, Mar 28, 2021 at 12:55:23PM +0300, John Simpson via Binutils wrote:
+>> > >   BUILD   pc-bios/optionrom/kvmvapic.img
+>> > > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+This is a known issue when trying to compile with newer binutils,
+fixed in QEMU commit bbd2d5a8120771, which will be in 5.2.1 and 6.0.
 
-version targeted for testing:
- xen                  cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
-baseline version:
- xen                  e680cc48b7184d3489873d6776f84ba1fc238ced
-
-Last test of basis   160454  2021-03-26 20:00:28 Z    2 days
-Testing same since   160535  2021-03-29 17:01:29 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e680cc48b7..cead8c0d17  cead8c0d17462f3a1150b5657d3f4eaa88faf1cb -> smoke
+thanks
+-- PMM
 
