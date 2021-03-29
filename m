@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F97934D5AD
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Mar 2021 19:05:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103203.196929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A08D734D5E0
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Mar 2021 19:16:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103207.196940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lQvKR-0004qw-Fe; Mon, 29 Mar 2021 17:05:27 +0000
+	id 1lQvV6-0005ye-Ge; Mon, 29 Mar 2021 17:16:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103203.196929; Mon, 29 Mar 2021 17:05:27 +0000
+Received: by outflank-mailman (output) from mailman id 103207.196940; Mon, 29 Mar 2021 17:16:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lQvKR-0004qZ-CL; Mon, 29 Mar 2021 17:05:27 +0000
-Received: by outflank-mailman (input) for mailman id 103203;
- Mon, 29 Mar 2021 17:05:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lQvKQ-0004qT-0N
- for xen-devel@lists.xenproject.org; Mon, 29 Mar 2021 17:05:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lQvKP-0001xb-Un
- for xen-devel@lists.xenproject.org; Mon, 29 Mar 2021 17:05:25 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lQvKP-000689-TC
- for xen-devel@lists.xenproject.org; Mon, 29 Mar 2021 17:05:25 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lQvKL-0002Hx-8x; Mon, 29 Mar 2021 18:05:21 +0100
+	id 1lQvV6-0005yF-DS; Mon, 29 Mar 2021 17:16:28 +0000
+Received: by outflank-mailman (input) for mailman id 103207;
+ Mon, 29 Mar 2021 17:16:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V6tS=I3=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1lQvV5-0005yA-Fs
+ for xen-devel@lists.xenproject.org; Mon, 29 Mar 2021 17:16:27 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5df2846e-d37d-40f1-8b07-b437444c0d3e;
+ Mon, 29 Mar 2021 17:16:26 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6DF36AFE2;
+ Mon, 29 Mar 2021 17:16:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,45 +38,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:CC:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=GgG3+Ks6Vmz+LcEfKplO16OsuXqMnsANClzwh3J1DM4=; b=CtoqbgRaayWRSZo0vCors6kY9l
-	rqzRqDhTkXILz9zk9G93KASJ078jPLISI8Hn7Wmd+F0F9+GyxmN5m5b3bZ/rRSuo/Pmjkyw9Mrwa7
-	FYF82dTVHwPe5ZgOQb9aZcknTLzb0GF5SRVQits5a1XPC7CCFI1Hdhri1jggGVAMtzWI=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 5df2846e-d37d-40f1-8b07-b437444c0d3e
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1617038185; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ai6DzfaiyobueiWo4GUDCJOAvIrc4jVq3SJuy2jSUjI=;
+	b=sbX7CQ1iitRUNztdxI/RSPQZt/6sG1kDbslFZstq++iDmmfrr+C1pDLlaclv0NTYIJE+4K
+	WJErHiRwzCrQP/6VdwZrHW0AgVGAoN3QjAkVmzYmBGJALTibqaHUX1Jtmxvai7M8kSAxEY
+	k7NkjNSzFCt7/7+JDvLvge+IyLWjUMQ=
+Message-ID: <970850cb5839e06dca089229029850cc67eae260.camel@suse.com>
+Subject: Re: [ANNOUNCE] Xen 4.15 release update - still in feature freeze
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Ian Jackson <iwj@xenproject.org>, committers@xenproject.org, 
+	xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  =?ISO-8859-1?Q?Fr=E9d=E9ric?= Pierret
+ <frederic.pierret@qubes-os.org>, George Dunlap <George.Dunlap@citrix.com>
+Date: Mon, 29 Mar 2021 19:16:24 +0200
+In-Reply-To: <e98fa56dd32a73c6b230683958c433170315671e.camel@suse.com>
+References: <24655.20609.834996.744652@mariner.uk.xensource.com>
+	 <e98fa56dd32a73c6b230683958c433170315671e.camel@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-A9rtXkDLvTo5CitN2QWV"
+User-Agent: Evolution 3.38.4 (by Flathub.org) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+
+
+--=-A9rtXkDLvTo5CitN2QWV
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2021-03-18 at 19:11 +0100, Dario Faggioli wrote:
+> On Mon, 2021-03-15 at 12:18 +0000, Ian Jackson wrote:
+>=20
+> > =20
+> > =C2=A0 https://bugzilla.opensuse.org/show_bug.cgi?id=3D1179246
+> >=20
+> So, this is mostly about the third issue, the one described in the
+> openSUSE bug, which was however also reported here, by different
+> people.
+>=20
+> As I've just wrote there (on the bug), I've been working on trying to
+> reproduce the problem on a variety of different machines. Seems AMD
+> seemed to be the most impacted, I've lately focused on hardware from
+> such vendor.
+>=20
+FWIW, as a further update, there are now new info/logs here:
+https://bugzilla.opensuse.org/show_bug.cgi?id=3D1179246
+
+which I'm analyzing. And I should be able to have direct access to a
+box where the issue can reproduced.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-A9rtXkDLvTo5CitN2QWV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-Message-ID: <24674.2257.82806.365406@mariner.uk.xensource.com>
-Date: Mon, 29 Mar 2021 18:05:21 +0100
-To: committers@xenproject.org
-CC: George Dunlap <george.dunlap@citrix.com>,
-    <xen-devel@lists.xenproject.org>,
-    Jan Beulich <jbeulich@suse.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 for-4.15 3/7] CHANGELOG.md: Add dom0/domU zstd compression support
-In-Reply-To: <24674.2042.737729.423760@mariner.uk.xensource.com>
-References: <20210329161457.345360-1-george.dunlap@citrix.com>
-	<20210329161457.345360-3-george.dunlap@citrix.com>
-	<24674.2042.737729.423760@mariner.uk.xensource.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Ian Jackson writes ("Re: [PATCH v2 for-4.15 3/7] CHANGELOG.md: Add dom0/domU zstd compression support"):
-> George Dunlap writes ("[PATCH v2 for-4.15 3/7] CHANGELOG.md: Add dom0/domU zstd compression support"):
-> > Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-> 
-> Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+-----BEGIN PGP SIGNATURE-----
 
-Actually, better idea: I hereby give a blanket release ack for
-anything in CHANGELOG.md that is committed by the end of Wednesday.
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmBiC2gACgkQFkJ4iaW4
+c+4K5RAAwZviGTD38d9qj1kijO6ZeQXGOMPi89cj+P9ZLq73CpJ80B7N+LfTVc66
+NODK6jI1rqu5xW1981HEdEEmNx7Xfn9mI9AXwg2q9+eS3L4c7c3La5Yyj6/u7xcb
+G+xKWbPC6adHr+W5kxd5CHV8ORn9/nl4/IFtRky/fi/hLRpbn09ld/A6KoMGmpgv
+aKWaWOKP5VpkOtpRvS4qKP04ciXGVmmzYoQ1ugi8alISv4tYtB/ez7F2orn5/WfF
+V8xLZnVCaHYIE7+CEly7ZiM1jQ+KSzq+Jge9uWtJNo6vTZUgXD2hbbw3CxP9z6r9
+ruI4CQIVWdDVa7jSOQqkmqbaHdfdZbTQqOmOvvpAgaGV3aCBHm17xAOOGDvEqVO7
+DO6c4Cfpwg1QIdZWzOPbuHohgLS7AS7+I7RfB02TnHNG+Lansb7XfVnqoawXVa/t
+IH+YOT7HQdU1Jp4LGZ1OUx8Cj3HrNzvJnBwyAHuPj5V3QP40cf/w61FJ78/bXq+N
+SkJgM92Rns16Bovab0kp9JTjmBuwGcWbpZojN5UpejpD4oVFLtPqWK3kgpxwkpV/
+kNgZUeucfLN7CXHcOR4ZIRNievqA++NgZ5X1KX3G9XUDQXQgaFNaJkpnIdYyFU0Q
+fY3jnA+pqmdIotypiOC+J2k/4hrTu8nGgfFXRHQBizuOdmnnREE=
+=CV/+
+-----END PGP SIGNATURE-----
 
-Whatever isn't ready by then I will look properly at.  I expect us to
-commit final docs updates early on Tuesday the 6th.  So in practice I
-think that means that any input from people who are away for Easter
-needs to be finalised before the Easter weekend so that George and I
-can get it properly into the tree.
+--=-A9rtXkDLvTo5CitN2QWV--
 
-Thanks,
-Ian.
 
