@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A7C34E52E
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Mar 2021 12:14:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103383.197268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6100534E53A
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Mar 2021 12:17:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103388.197283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRBNu-0002d6-8S; Tue, 30 Mar 2021 10:14:06 +0000
+	id 1lRBRM-0002nV-On; Tue, 30 Mar 2021 10:17:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103383.197268; Tue, 30 Mar 2021 10:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 103388.197283; Tue, 30 Mar 2021 10:17:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRBNu-0002cj-46; Tue, 30 Mar 2021 10:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 103383;
- Tue, 30 Mar 2021 10:14:04 +0000
+	id 1lRBRM-0002n6-Le; Tue, 30 Mar 2021 10:17:40 +0000
+Received: by outflank-mailman (input) for mailman id 103388;
+ Tue, 30 Mar 2021 10:17:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lRBNs-0002ce-FH
- for xen-devel@lists.xenproject.org; Tue, 30 Mar 2021 10:14:04 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lRBRK-0002n1-SZ
+ for xen-devel@lists.xenproject.org; Tue, 30 Mar 2021 10:17:38 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lRBNs-0001mG-8w; Tue, 30 Mar 2021 10:14:04 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lRBNs-0006Nk-2V; Tue, 30 Mar 2021 10:14:04 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lRBRK-0001oj-Rl
+ for xen-devel@lists.xenproject.org; Tue, 30 Mar 2021 10:17:38 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lRBRK-0006Xj-Qh
+ for xen-devel@lists.xenproject.org; Tue, 30 Mar 2021 10:17:38 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lRBRH-0004Lp-9w; Tue, 30 Mar 2021 11:17:35 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +41,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=wGOvvFS7oL2RTpJn6wu6DZnoKHUTw6iywo9DO8TrGp4=; b=WS8jHiAvs788KDiickJKtfi2MP
-	VXsOTmFSlpHIAqHMx+Kae5Z9Mtjg8TH73N3IlNi7xN6gNIiiHqXDtsEAP6gdfXz3FyTMv4xdLkUlS
-	BAnYepbx3B5lQeXMhN2lctm9fYRCAGawtmoQ8HqnXmT+Wr3MsWLk4u9dToneWzJVKQJI=;
-Subject: Re: [PATCH v2 for-4.15 3/7] CHANGELOG.md: Add dom0/domU zstd
- compression support
-To: George Dunlap <George.Dunlap@citrix.com>,
- Julien Grall <julien.grall.oss@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Ian Jackson <Ian.Jackson@citrix.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>
-References: <20210329161457.345360-1-george.dunlap@citrix.com>
- <20210329161457.345360-3-george.dunlap@citrix.com>
- <CAJ=z9a0DxKKkLGMDK1nisVsefwE=8RQcD8M4vpOO1QopjzZtjw@mail.gmail.com>
- <87E259CB-2BB4-4BAE-9916-BE46584E0EF4@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c2610906-bae2-520d-a8c3-da37849d96aa@xen.org>
-Date: Tue, 30 Mar 2021 11:14:02 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=kGFjmhwv28S5BmdLGRUB64O4XneaUjd/SKx70mFBhks=; b=klmQjcuAaauvH65JLXUf80ovQA
+	8VJbRDJIgOzBlzgM/TB1P6jm5G07RdZMGRAUtig8lwSoln2AWivKi86uLVBXbpL5CqwlhIqdTvKRf
+	Y1yoCdXlAzoWdvte0IH0y1/YFSZu7R9Y5r6nCxJe8/QbAbSMjMXmnnsPyzY0lVZ4YEWk=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <87E259CB-2BB4-4BAE-9916-BE46584E0EF4@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24674.64189.466454.374@mariner.uk.xensource.com>
+Date: Tue, 30 Mar 2021 11:17:33 +0100
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: xen-devel@lists.xenproject.org,
+    jbeulich@suse.com,
+    andrew.cooper3@citrix.com,
+    roger.pau@citrix.com,
+    wl@xen.org,
+    stephen.s.brennan@oracle.com
+Subject: Re: [PATCH v3 0/2] Performance regression due to XSA-336
+In-Reply-To: <1617052502-14181-1-git-send-email-boris.ostrovsky@oracle.com>
+References: <1617052502-14181-1-git-send-email-boris.ostrovsky@oracle.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
+Boris Ostrovsky writes ("[PATCH v3 0/2] Performance regression due to XSA-336"):
+> The first patch addresses performance regression introduced by XSA-336 fixes.
+> This patch could be considered as a candidate for inclusion in 4.15.
 
+Thank you, but I think this is too late for 4.15.
 
-On 30/03/2021 11:08, George Dunlap wrote:
-> 
-> 
->> On Mar 29, 2021, at 7:54 PM, Julien Grall <julien.grall.oss@gmail.com> wrote:
->>
->> Hi George,
->>
->> On Mon, 29 Mar 2021 at 17:15, George Dunlap <george.dunlap@citrix.com> wrote:
->>> diff --git a/CHANGELOG.md b/CHANGELOG.md
->>> index 8c89212f14..538eae611c 100644
->>> --- a/CHANGELOG.md
->>> +++ b/CHANGELOG.md
->>> @@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>>   - ARM SMMUv3 (Tech Preview)
->>>   - Intel Processor Trace support (Tech Preview)
->>>   - Named PCI devices for xl/libxl
->>> + - Support for zstd-compressed dom0 and domU kernels
->>
->> Looking at the log, the feature looks x86 only (at least the dom0 part).
-> 
-> Oh, interesting.  So what about the following?
-> 
-> - Support for zstd-compressed dom0 (x86) and domU kernels
-
-Sounds fine to me. Note that I haven't tried zstd-compressed for domu 
-Kernel on Arm.
-
-Maybe the author (Jan) can confirm whether this was plumbed in common 
-libxc code?
-
-Cheers,
-
--- 
-Julien Grall
+Regards,
+Ian.
 
