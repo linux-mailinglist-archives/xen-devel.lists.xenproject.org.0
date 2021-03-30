@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 256E134EDA0
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Mar 2021 18:21:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103634.197678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4574434F101
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Mar 2021 20:30:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103650.197699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRH7M-0002mj-W5; Tue, 30 Mar 2021 16:21:24 +0000
+	id 1lRJ6s-0006y4-55; Tue, 30 Mar 2021 18:29:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103634.197678; Tue, 30 Mar 2021 16:21:24 +0000
+Received: by outflank-mailman (output) from mailman id 103650.197699; Tue, 30 Mar 2021 18:29:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRH7M-0002mD-R0; Tue, 30 Mar 2021 16:21:24 +0000
-Received: by outflank-mailman (input) for mailman id 103634;
- Tue, 30 Mar 2021 16:21:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lRJ6s-0006xf-1d; Tue, 30 Mar 2021 18:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 103650;
+ Tue, 30 Mar 2021 18:28:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lRH7L-0002m5-QO; Tue, 30 Mar 2021 16:21:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lRH7L-00005n-LF; Tue, 30 Mar 2021 16:21:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lRH7L-0005xw-6K; Tue, 30 Mar 2021 16:21:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lRH7L-00049u-5p; Tue, 30 Mar 2021 16:21:23 +0000
+ (envelope-from <SRS0=STym=I4=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1lRJ6p-0006xa-Mv
+ for xen-devel@lists.xenproject.org; Tue, 30 Mar 2021 18:28:59 +0000
+Received: from mail-qv1-xf32.google.com (unknown [2607:f8b0:4864:20::f32])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bf1fcd9c-9de4-4f6e-814b-cb76e67bc9fa;
+ Tue, 30 Mar 2021 18:28:58 +0000 (UTC)
+Received: by mail-qv1-xf32.google.com with SMTP id x27so8661459qvd.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Mar 2021 11:28:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +37,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=NJ4CQrrvJGug/2lWzLAL85wA9F76Op1hIaDalPvhOls=; b=qLojt0dLZHOXphLe8gumWB5p9p
-	ryp7ONkhQMOmtnjhBTwDm8rYXaYseotbnmt53e1yfkckxzKD7YyJ1/Eu8f3Z2DlRFBnHQ8F/k3djQ
-	MMQNiFvBjUQWWsk+apLTB19+Gs0OuMkahxUsJ6iA6k62ICwm8/so1N0noh5Gx2K7r7TU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160558-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: bf1fcd9c-9de4-4f6e-814b-cb76e67bc9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=lGfHpDwA5adg4O1hCUW5AZ5ID+ShkkhzHGarXjuElwU=;
+        b=dGo84S8bHxvj0OeaCD2okzWM3u9dhUpNXxN+XP8yGj//tn+IJjrRAgRRjUvoqrSHxi
+         h/CU34psLfzRDLnPN+n1g6HdX13MKrZKS+lof6P6g+Jf6elwwYZYtryRgACfwafmQ1hw
+         Hsr0GRH/f1k9zUOqFknTiNW89aBsUhOWGx6B25CsH7lbWlveSX0NnigXrdwYcm33So61
+         exWYHNUnFjQyPwC1omGBSqMVn/dI/5NOr+pXDwesrJplfmK1ddR/vbe3gn2EzTmOawaH
+         zatebMytGrUwqNi3NYaz73mpWQwRJj8qULhITvC4pMXmSxLF7yuWulZkhO4avafDNvSK
+         g1ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=lGfHpDwA5adg4O1hCUW5AZ5ID+ShkkhzHGarXjuElwU=;
+        b=fdY+ljPX5HMkNR97Hp867XD/3RjkCHvYTaP5gXmAse6Tq02bljR16lLT0S66zVNtaP
+         ZlgHY9QOE3iORWW9AY4OuHLNkxEBTOTcLXbtKglVjWBDharTUgOtihOGaxWhY5LGCJFm
+         ORE6F2DkLbCw3+QYBIE2LRfNIEjgNg7Bhe3kQgBmVbPtxHDhuTMjFaZoQsb403f6tJP8
+         ZoZjlcZ7W2cJTtmGTJZXdPE1g1kqAghgT+j3xu/r59INE6SZM93UNzstYK2xnitJU5kv
+         NUWVNwfytPBySSXcRxbdrLZFOiyOODL7fX0O3y1lxjQ50rKskiZbZ6PD6q/RrmZSN9YE
+         33GQ==
+X-Gm-Message-State: AOAM530Tuon7KtyHAGbKEW8iobXL8qPXItUUQEBUbtw7icXJ0C1PV0AJ
+	Gt/sRWORCrGvzfLyqPSJDTPRrHgc37FH7QMVrndTRrBnUuyW8K9A
+X-Google-Smtp-Source: ABdhPJxqoySOLWxKbvthlCvsjfDMQqJ27e0UnI78mcfZDJN2LS8noQ6wI/20QqcM8JsOVY+hRpmizPgGKpP8NtdhdRU=
+X-Received: by 2002:a0c:9ad7:: with SMTP id k23mr31617571qvf.52.1617128938005;
+ Tue, 30 Mar 2021 11:28:58 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 160558: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9c39dba2b179c0f4c42c98e97ea0878119718530
-X-Osstest-Versions-That:
-    xen=cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 30 Mar 2021 16:21:23 +0000
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Tue, 30 Mar 2021 11:28:49 -0700
+Message-ID: <CAMmSBy8Wpwgj3V0U8OhsZCgyAxOjTeHDMt-Vw+om1koopmxTsg@mail.gmail.com>
+Subject: multiboot2 and module2 boot issues via GRUB2
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000e7fd2405bec52bb0"
 
-flight 160558 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160558/
+--000000000000e7fd2405bec52bb0
+Content-Type: text/plain; charset="UTF-8"
 
-Failures :-/ but no regressions.
+Hi!
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+seems like I've run into an issue with multiboot2 and module2
+commands that I can't quite explain. Since it may be something
+super simply and silly -- I wanted to reach out here before I do
+a GRUB/Xen/LK source deepdive.
 
-version targeted for testing:
- xen                  9c39dba2b179c0f4c42c98e97ea0878119718530
-baseline version:
- xen                  cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
+So here's the deal: whenever I boot straight up Linux kernel
+I can do the following sequence of commands:
+   linux /kernel
+   initrd foo.cpio.gz bar.cpio.gz
+and have linux kernel effectively stack content of bar.cpio.gz
+on top of foo.cpio.gz and present a unified initramfs that way.
 
-Last test of basis   160535  2021-03-29 17:01:29 Z    0 days
-Testing same since   160558  2021-03-30 13:02:39 Z    0 days    1 attempts
+I'm trying to replicate it with Xen, but:
+     multiboot2 /boot/xen.gz
+     module2 /kernel
+     module2 foo.cpio.gz
+     module2 bar.cpio.gz
+only seems to be picking up foo.cpio.gz
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
+Has anyone run into this issue before?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Thanks,
+Roman.
 
+--000000000000e7fd2405bec52bb0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+<div dir=3D"ltr"><div dir=3D"ltr">Hi!<br><div><br></div><div>seems like I&#=
+39;ve run into an issue with multiboot2=C2=A0and module2</div><div>commands=
+ that I can&#39;t quite explain. Since it may be something</div><div>super =
+simply and silly -- I wanted to reach out here before I do</div><div>a GRUB=
+/Xen/LK source deepdive.</div><div><br></div><div>So here&#39;s the deal: w=
+henever I boot straight up Linux kernel</div><div>I can do the following se=
+quence of commands:</div><div>=C2=A0 =C2=A0linux /kernel</div><div>=C2=A0 =
+=C2=A0initrd foo.cpio.gz bar.cpio.gz</div><div>and have linux kernel effect=
+ively stack content of bar.cpio.gz</div><div>on top of foo.cpio.gz and pres=
+ent a unified initramfs that way.</div><div><br></div><div>I&#39;m trying t=
+o replicate it with Xen, but:</div><div>=C2=A0 =C2=A0 =C2=A0multiboot2 /boo=
+t/xen.gz<br></div><div>=C2=A0 =C2=A0 =C2=A0module2 /kernel</div><div>=C2=A0=
+ =C2=A0 =C2=A0module2 foo.cpio.gz</div><div>=C2=A0 =C2=A0 =C2=A0module2 bar=
+.cpio.gz</div><div>only seems to be picking up foo.cpio.gz</div><div><br></=
+div><div>Has anyone run into this=C2=A0issue before?</div><div><br></div><d=
+iv>Thanks,</div><div>Roman.</div></div></div>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   cead8c0d17..9c39dba2b1  9c39dba2b179c0f4c42c98e97ea0878119718530 -> smoke
+--000000000000e7fd2405bec52bb0--
 
