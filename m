@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2090134FE28
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 12:36:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103861.198130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DCA134FF18
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 13:02:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103881.198155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRYDP-0005Qo-Lz; Wed, 31 Mar 2021 10:36:47 +0000
+	id 1lRYbU-0008Pm-9S; Wed, 31 Mar 2021 11:01:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103861.198130; Wed, 31 Mar 2021 10:36:47 +0000
+Received: by outflank-mailman (output) from mailman id 103881.198155; Wed, 31 Mar 2021 11:01:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRYDP-0005QI-H9; Wed, 31 Mar 2021 10:36:47 +0000
-Received: by outflank-mailman (input) for mailman id 103861;
- Wed, 31 Mar 2021 10:36:45 +0000
+	id 1lRYbU-0008PL-4Z; Wed, 31 Mar 2021 11:01:40 +0000
+Received: by outflank-mailman (input) for mailman id 103881;
+ Wed, 31 Mar 2021 11:01:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9hby=I5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lRYDN-0005P3-NK
- for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 10:36:45 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=NSS5=I5=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1lRYbS-0008PG-Lq
+ for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 11:01:38 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e8057e55-bac8-4d14-b16e-6e684cd096bf;
- Wed, 31 Mar 2021 10:36:44 +0000 (UTC)
+ id 0faf9e6b-a84b-41d3-a062-93f5261adafe;
+ Wed, 31 Mar 2021 11:01:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,419 +35,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8057e55-bac8-4d14-b16e-6e684cd096bf
+X-Inumbo-ID: 0faf9e6b-a84b-41d3-a062-93f5261adafe
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617187004;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=JPCmVO9asq4INCZJr57/0dCrCiXwQMJC6md2SxhVFUA=;
-  b=c9zNBZqcsB2+0+gVHTEXdjt7yXbQZLT9gH+Gspal3Va/LVhX+Jjv9bic
-   musVEHh5as9n4ZqQw+FLN6pb2pFWeasX5yWFYiqDPOuhBohBtxzneX5ev
-   x+qFb7fFSiG4NxieZEK3W40KR5ii/KwEI6+JF8H3y3+/MQcqtheIASWbh
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: re6kwNWVYOTXd+BZWHE3Mnn33KcpCYvPJYP3KfhJe2Z85yyiXaDDrrVO843nBt9yiU2I8yU16T
- hg/8H8nDDO2aP7nA3YcqucSQSDrjg30z0UO6ex91pDDXmN13GEMU67vIXTYsc3cTYBvZrxhYAc
- j3Sltq+WLRB2BZRAOACqOV6qdeVvfKtEQSo1m3p6KDNBZ8mYzE6k2gc+EYoUi8LYBgGT3aleMX
- LZ+z1W6hHa8G66a1p1OGYEQwFoODkv3BCS301vsceJbwdw0gNZLy1UDyArZN+RDFUUB2/NDHGM
- hSM=
+  d=citrix.com; s=securemail; t=1617188497;
+  h=from:to:cc:subject:date:message-id:content-id:
+   content-transfer-encoding:mime-version;
+  bh=Dtb4SWVY/ALu2efMJsjgL3lkR/P7PyQK5Gppvr6xvqk=;
+  b=Lk4DUCvzUeW9BdO9UIJuKwpuAOo8ANVGHo5RfeUaDn9QRixPOFBo5flL
+   zLMmVbWF0M3BbpjTk7U+Z06FSVgw8dvY+ZHpTFYxRSDEWEVfa9TF75Fzj
+   dgBS9xw4MPKox3glTW62Qb8s+SbefDMJDKIDeMVE5c+Jnk0q/AF2acYUn
+   c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: fnu1kk8YrtbCA1MlrcghGbH+dJK6HxNyok4A9gsmn3vEt/Od545pQV4TX8WC0qJ66/mqpvuQa1
+ 2hlAHR+UFwFJSwjJjEvGarhCtcFOm7ySKj3QPyVch8tTT8nqpTNO5ZF5BQJJARJgr8mXdWFygn
+ /zPmxKgHGt+tGG9hAYZrkDMj479HoWWXCGnBfMHfnXJmkOF5z7YUgsHogYkFIoL01kfU6Dsr8n
+ rbiUOLA6yGcRbkiKtaGsaLgsMJlDPP6qkj42Vckau+mQTksheZ2JFfwxHiCsEotQR54AnjRkS1
+ 1sI=
 X-SBRS: 5.2
-X-MesageID: 40415700
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 41996257
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:RyErbq9TtTZ4PCIjgRJuk+ECdb1zdoIgy1knxilNYDRIb82VkN
- 2vlvwH1RnyzA0cQm0khMroAsS9aFnb8oN45pRUAKe6UGDdyQ6VBaxBza+n+T3vHCXi6vVQvJ
- 0LT4FSAMD9ZGIUse/U+w+9euxP/PCi0ISFwdjT1G1sSwYCUdAD0y5cBhyAGkN7AClqbKBYKL
- Om6sBKpyWtdB0sB6zWOlA/U/XevNqOrZr6YHc9bCIP0hWEjj+j9dfBYnul9yoZOgkv/Z4StV
- Lrvia8zaWlvvG9xHbnphXuxqUTovTN4J9uAMSNj+IcNznjjB25Db4RJoGqjXQOj8yErHosjd
- nQszcsVv4Dl0/5TyWOjjbGnynmzTo05HfpxTaj8ATeiP28fh0WIY5lp+tiA3/kwntlhv5Q+u
- Z3+ljckJxtARbJjE3GlqD1fiAvrGWYiz4fi+IJ5kYvNrc2WftqgqE02lhaK5sEFDKS0vFdLM
- BeSPvR4/tbajqhHhbkl1gqxNStW0I6FQudTn4DvdSI0yNXkGoR9Tpg+PAi
+IronPort-HdrOrdr: A9a23:ilwXOqGVbMYrr2MwpLqEfseALOonbusQ8zAX/mp6ICYlFfCwvc
+ aogfgdyFvIkz4XQn4tgpStP6OHTHPa+/dOjbU5F7GkQQXgpS+UPJhvhLGM/xTMOQ3bstRc26
+ BpbrRkBLTLZmRSoM7m7GCDfeoI78KA9MmT5Nv263t2VwllZ+VBwm5Ce2WmO2l3QAUDOpYjDp
+ qb4aN8xwaIQngcYsSlCnRtZYGqzbD2vaj7ah0LDQNP0njtsRqU7tfBYnyl9yZbfzRTwaoztU
+ jp+jaJgJmLgrWA5Fvx90K71eUypOfc
 X-IronPort-AV: E=Sophos;i="5.81,293,1610427600"; 
-   d="scan'208";a="40415700"
+   d="scan'208";a="41996257"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FeoLPm0S04X22AEQ4NWEiE6YXTD7MgmfZVE+WmQ0XzFHcZGqRnQ+KIsOgaEmROPIo6+quiO622/eymc7Y/rgMjJrHaDNhVK8bkSogrIEAVeYP2/WzDySqfQM0NNp6EdTqqOd6h1lJ4iB/VD6flrqgvPiSZz4KAy00nSnpUGhSKtGiAOzScnt2/FrnbMbAx6ZHtybnLAzkCBU4AMADF+4pSOApop4WyS0BWlJ/KX34I+ULoqmCHG1b0LK5WhABiRuYOPv16sfXrUL6E0Fk9IqQiAxTBzWOpkcTQwUMlCLVsgNfHRAE038+Kn8XSt1fjXkR1Ne2c0po4W/kFTW69lFpw==
+ b=c9ON4SsJZ9aQ1lqRGIHKqfbr6YngS6N8h32nP7Cx0MH0t8g4xIL1/00Fy5XRTJfXxVo6bC8tzApEfWb5Vdmm7BjEOFs06hZvwU5sO8WCeE4HrP1lFTsLwuinenEO5kYXN/IE9UeFeslcvt2dBYHdTIJYY7Yv4KRvA0FrcrVosC8PTvRSd4zbaEBu+TCImZQzZi/7AE/IW2Pg8PiUe/DYtCX16wwFJN4mDCTmHvzWQc0RQh5fDfv4C+e7f+FqS+C0R8U8oA/KmZDS7c6pOAjMAoL1GEppvKoAx7+1MRPGE5ZkJU2ai+9eSj3UzNKp1j00LZYW6Sr45J407OUNgZ686g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SoQnGzbvC7IXy//qY3Etmc+ztTD9ZjxducZ3X6OtCAg=;
- b=hNUXZrIbieTUVJKplkJ7eIGMd6FDmUtlPkGcd6tQ5Skqh5TLRXB5ri2C1nsmcxQyQr3O7SK8JUhD5i++Eq57FWlHSRu17C2VEtw3uzVenrxrJQ9UbkRlkltGpY7NLkLmynXybnc+sUPBs5wuLAUBaarPt6yUElPN9HTPleCc0AHhqa6Wm1Jp5S60Y/b5XztJfAGrf5QklCeENwKIZG39OIBJf4sL72X5cc63bNmVGoyMfNuhWM+kxRVRJK2JcVf/8Y/wyqEXQpEj16UWIs2IaU67F4VtXEWadvutdzc/XGjeU+puinwSC1Gex6USg8I2HUPYSqHOveMMSV7RuOFYSQ==
+ bh=Dtb4SWVY/ALu2efMJsjgL3lkR/P7PyQK5Gppvr6xvqk=;
+ b=QHIYOrpX3lqVBqyD83WXvMmoUDhenrvvfjkwLm+UGJsvF+jTNLV3IDcI/XDWmL67llWx+owNIeT746xNH+VHckh1IIYpCTiTKroppXp3DZeUFbUXz5wDB8fG1wcLUbkhl0/QXCu4Qjh8Xo+8m6EpAOdjOcWCqiJQO/X/hwdSiXxlvNo/i4y4MwPyzJCRg6JEaKhuixm3qI9Lo2S3KySSbw8Ub2QJxc7qgPwyPMDEdskv366dMnIwAQskMJafFs9T4ONZXm9xZhOQt8rE0uWR/fevnQAdfT7g1QkrxXOm1q2i6SKJNhv0KHbafvUCDkG3MlTeq4e+JyIlVznS77abvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SoQnGzbvC7IXy//qY3Etmc+ztTD9ZjxducZ3X6OtCAg=;
- b=Z8H4ow4GMZloXwn1ykrpTSomkhCnprm8xPFTU7dK3LgvziGoFlUSbYkLkTrNmDnjJIsDFF6NkpI3TU8gVK+KDVqN7sHK2EJ0niFmcFlJ9Bwoy8Mev0oCHQ8lnbO2mf/rOzUd2iol+zkni9WwRu1R089yqS0oF6p9dp2LJNLGqt4=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 11/11] x86/vpt: introduce a per-vPT lock
-Date: Wed, 31 Mar 2021 12:33:03 +0200
-Message-ID: <20210331103303.79705-12-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210331103303.79705-1-roger.pau@citrix.com>
-References: <20210331103303.79705-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR2P264CA0077.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::17) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ bh=Dtb4SWVY/ALu2efMJsjgL3lkR/P7PyQK5Gppvr6xvqk=;
+ b=Lz4SxG9dONJV4plzcz9WSpJI7ojrT/+LppZ+aLkDApe7/LhxpsGHhMBcqTQKlqAGBD3D1peBKIj2E6Yyq5r05IqCktInnehJTi9Dm4FWQLHI9hiprwlEL0zPYvEuarr1Bag4ABsMcTIaHaSMt8P0YARB9SBSp4cHCS2mxVuPqK0=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+CC: Tamas K Lengyel <tamas.k.lengyel@gmail.com>, "intel-xen@intel.com"
+	<intel-xen@intel.com>, "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
+	Roger Pau Monne <roger.pau@citrix.com>, Sergey Dyasli
+	<sergey.dyasli@citrix.com>, Christopher Clark
+	<christopher.w.clark@gmail.com>, Rich Persaud <persaur@gmail.com>, "Kevin
+ Pearson" <kevin.pearson@ortmanconsulting.com>, Juergen Gross
+	<jgross@suse.com>, =?utf-8?B?UGF1bCBEdXJyYW50wqA=?= <pdurrant@amazon.com>,
+	"Ji, John" <john.ji@intel.com>, "edgar.iglesias@xilinx.com"
+	<edgar.iglesias@xilinx.com>, "robin.randhawa@arm.com"
+	<robin.randhawa@arm.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>, "Matt
+ Spencer" <Matt.Spencer@arm.com>, Stewart Hildebrand
+	<Stewart.Hildebrand@dornerworks.com>, Volodymyr Babchuk
+	<volodymyr_babchuk@epam.com>, "mirela.simonovic@aggios.com"
+	<mirela.simonovic@aggios.com>, Jarvis Roach <Jarvis.Roach@dornerworks.com>,
+	Jeff Kubascik <Jeff.Kubascik@dornerworks.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Ian Jackson
+	<Ian.Jackson@citrix.com>, Rian Quinn <rianquinn@gmail.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>,
+	=?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLRG91ZyBHb2xkc3RlaW4=?=
+	<cardoe@cardoe.com>, George Dunlap <George.Dunlap@citrix.com>, "David
+ Woodhouse" <dwmw@amazon.co.uk>,
+	=?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQW1pdCBTaGFo?= <amit@infradead.org>,
+	=?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLVmFyYWQgR2F1dGFt?=
+	<varadgautam@gmail.com>, Brian Woods <brian.woods@xilinx.com>, Robert Townley
+	<rob.townley@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>,
+	=?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQ29yZXkgTWlueWFyZA==?=
+	<cminyard@mvista.com>, Olivier Lambert <olivier.lambert@vates.fr>, "Andrew
+ Cooper" <Andrew.Cooper3@citrix.com>, Wei Liu <wl@xen.org>, Ash Wilding
+	<ash.j.wilding@gmail.com>, Rahul Singh <Rahul.Singh@arm.com>,
+	=?utf-8?B?UGlvdHIgS3LDs2w=?= <piotr.krol@3mdeb.com>, Brendan Kerrigan
+	<brendank310@gmail.com>, "Thierry Laurion (Insurgo)" <insurgo@riseup.net>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "Oleksandr
+ Tyshchenko" <oleksandr_tyshchenko@epam.com>, Deepthi <deepthi.m@ltts.com>
+Subject: [ANNOUNCE] Call for agenda items for 8 April Community Call @ 1500
+ UTC
+Thread-Topic: [ANNOUNCE] Call for agenda items for 8 April Community Call @
+ 1500 UTC
+Thread-Index: AQHXJh01Lcq41mTG202PuZUd4eityw==
+Date: Wed, 31 Mar 2021 11:01:32 +0000
+Message-ID: <C05CE6DF-0498-429E-A2D0-88514FA77E99@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3654.20.0.2.21)
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0f86529b-5ad7-4cd3-093f-08d8f4345857
+x-ms-traffictypediagnostic: PH0PR03MB5927:
+x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <PH0PR03MB5927CB30F77AE1A565E45612997C9@PH0PR03MB5927.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +qv7LuI9Vp4TIBXzXYVBKFpiDLt86Q4jcPzBVz2u84ffh+2vSwzvJTX6bY5iO18QYPOn3DvWnqRTCgKm2PJeoWksdLO7kFaYooFeV9PMo0hotESO5UI3TtfzxjYjG/K8z1MyzWRswjs6Ozf8ytlgiq6Nv1KHZCa0Y/4yJdi3Hb8IVDWpOYPWMBr3P0L5OdR7Tpl6Y6ykBycT4ksnivR4q6Z/7hMTjQhs+veQyL0lIQ0d62UadIk0eRe4eUhYQ7VV4JbDdxbBQJqoaw9Bgv5+7KAPD23iXAytRrsGlCGbccx02/r64ilyyoaNGuOJ/Qr8O6hcy2GmX53PbX9wGTACSG+L9KcYdsExRylVS3C6xehTQcINvKDAOqmz9ZY2MpPOOqI0Om0DXSeSoc4c394u/C7Yr8lW0Nt5k/UgfH+GNtmLAU+Wd1d+pTGXw/lcaG0mqDSk4zY6iDypnerTlaqX2SEQDFiOqH+FFIglpV0fpoBQU28N3s42k18kvQF2xX+tsLppP/vXFpZlt6vuBFdVY48k+ng9GlsR2PlSaD/9ayPpDg/62/G0wcT5zyAb5Kyqcur6H9ptxvjwwWmOwZXrWkcO7C4TvMWeKa88tl2sNl4QT6kZeMGinTETv3rtiaeJ6/syRGe818G/tq5MVk7Hh7VTsBEOxHiB/VznHfGpU35d6VWRCiYozskdpY8gdpUZpu819piUyCOorrKIvY6eIh2AKwVjc9OVKyimc1RQhWx0SoiyUJfBOBlRfj97EeOK6tWvK2s6TS+i+UQxYoiP2PmC+VRRepqvBVajWJ6kzhk=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(346002)(376002)(366004)(136003)(39860400002)(8936002)(26005)(83380400001)(478600001)(66556008)(8676002)(64756008)(36756003)(6486002)(966005)(66946007)(6512007)(38100700001)(4326008)(2616005)(186003)(66476007)(6506007)(86362001)(6916009)(7416002)(33656002)(54906003)(316002)(71200400001)(76116006)(2906002)(7406005)(91956017)(66446008)(5660300002)(221023002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: =?utf-8?B?KzE1aTVkWEdkNnVkQzdxdTFNWHVqNzVGMjNRRTg2aHk2eUlRd3h2WWVhL0k0?=
+ =?utf-8?B?N1hEYUlkMk5xRVF6YllNZ3BRakhFdTRmcGtFQlZ4cjZ0NWV4aDVHMGMrbloz?=
+ =?utf-8?B?UjgwSmhjMmZyMlJjVEZ3RU9pTFhHd2EzMXg3L1N2OGcxUVNCMlZydG9uVUl3?=
+ =?utf-8?B?V1JOQXB5T0o1dlpEdGFYa1pPUjUvdHdBSWovQVNmN0tKNjNwS2dISXhzb0h2?=
+ =?utf-8?B?VXN3ejc4ODlPYXVhZ2NnYkFVWHh0Z1QzcFY0MnVEWHgvZFlhM0V0TEplMXRK?=
+ =?utf-8?B?WVI4WmI5b2hTM3J3UE82SkE0cTUva3RqR0krb3E2VGxRcm1Jd2dOOGlTbThl?=
+ =?utf-8?B?TXZpMGpURzN5aEZoY3BPTkFkTHZyVzliLzh5dmpoZFNEUXlTOFcwcVdaQVVh?=
+ =?utf-8?B?RnVBOW5PY2NFRmNKbnNkN2NPa3A2bnVYVlZHekJGNmdOaC9hN0xRa2wyV0J6?=
+ =?utf-8?B?b2pJUmhnSU5zNjQ5c2JXM0NkcU1jYWVZUFRYaE80cjhRRk00U2JwVGpMaFY5?=
+ =?utf-8?B?RFhZVW5tN08rTzJTMTl4SHpCc3Q1ZkRqWUZwcGd5aUQ4clp1MHVxTlVRUkRt?=
+ =?utf-8?B?UzVTR3cvSGRRR0xjaGl6bnJWYXZSYWVLWEwvbGp4Q2NGVkVCbWY4cjVXYjdu?=
+ =?utf-8?B?QVhCZWJuL0dsWmV4c1pVV0xYemlScGxoZDJpOHplbFk5M0FJUExWZUgvNE5X?=
+ =?utf-8?B?SzdhYkIvaW5aZVdYSDUvbDcrT2VreEIvbFNNUElkNmYrSWI0RUxodnM3aElZ?=
+ =?utf-8?B?Q2p4MDNMRk4vd0FJQU9TaC9vVGgydXZLNDNHSC9FUHJhYnB2VWVEa1NLZjMv?=
+ =?utf-8?B?bHZsRHZOVHBEay9YUXpIQnZWeGhaanJkTkduU3dNelRTbGFuaWVNck9ndmxY?=
+ =?utf-8?B?dTFWRW5QWWp3M1Y3S213UEJjZzZrTXA0UzFNL2lOY1pDYTQvM0ZLRWZ1c08r?=
+ =?utf-8?B?Z2JHRHVJOEJKVit3OHJKMFZKTW5GRUJQYzBVVFZkR09ad2VyUlpBUDlQUW5S?=
+ =?utf-8?B?RkY4MW1GMTlqcmR5aHpuSTRTamNyN1R6dzBFcml4NS8xMk5CU2NIcU9DTWdr?=
+ =?utf-8?B?RWFxSzJLbStvbXIwdURzRnhnMytXcHpDTmpVekRVTDI1ZWRoNzdFd1lkditq?=
+ =?utf-8?B?TjcxOU4yK2hDS0plcHA0UnQvZVNKZW5Qc1VBSWkwVTJoRVZlNks2Y1JDRXg3?=
+ =?utf-8?B?bTNMZEVNcy9jVFlYNUpEdlhXNUpid3psbjVUYVQrdUh5RnNvT05HSnRNUUEv?=
+ =?utf-8?B?ZGlLR1VKckJFRmIyT2JCdjJDbkxubXdINWlJd3gzZVhPbU41aktOZVNnWnNq?=
+ =?utf-8?B?ZXhNV2JKM2YrVkkxb2tBTEE0NUF4Z29OK2QxcjBIdy9EN3UyL2RkcWhKdWRt?=
+ =?utf-8?B?ZmZoRUpid2svbFpLb0NERGxFZzUwZ0lTNGQzYzFkNEJSd2FOUGwveFVDQTZR?=
+ =?utf-8?B?TmY3NzhHTTJIU29lbUFuTjhsQXJHVVQ5a1NkVzdaQ2hRQysvK0l1N0ZvbHJ3?=
+ =?utf-8?B?bDlZOEY3Qkw0TktZUzF3UHdLcWhjS0ZqbFRNTUVIbWQ4WC91QXpXb2JqWDUw?=
+ =?utf-8?B?UG9SWCtNdWl1WjJpdUtTOTBkRTh6cFhYMzZtY1hqT3J2LytlT0VMUHNobnBE?=
+ =?utf-8?B?NXFtZGV2S0pZVDdlcGtPZkFqZHlIY1lZb3dEUmw2NjdwNHZLWG56VG5nUDZ2?=
+ =?utf-8?B?d2RmeGJ4NENGVGtRVE91aXE2OVN1MjM2ZVhHOFFTL3g4a1plWGR1TG1zdW9h?=
+ =?utf-8?B?ekZEQmZvU2FZdG5rQ0h6VnN2WVhGNm9ZSXJEbWVNOTltNXQrbnkzMFd1b0t5?=
+ =?utf-8?B?MG05ZVpDTG85QmV4dUN0dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <44E976E338C80841856ED2414D692AA9@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 38e6f590-6b03-4422-99d2-08d8f430ded4
-X-MS-TrafficTypeDiagnostic: DM4PR03MB5968:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR03MB59684B6DE460BF2BE1671B198F7C9@DM4PR03MB5968.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:261;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SHJCVJYXsinhDJK20ruHDKPFq2a/Tfit3eRZDPoiB0xpZUWsLX5ON9RvbIdfybicUnLsDuWg2xSz+T5QxKwxna4eXD1l/FC3TpsUvNPC+o3dmIrMpBNbSSfEVFZOxndV+BVgCgKEtQdKObmRTWaJKyVJIY8TBRX8or+bwTr66YbFhEr/cD1vCGmlzkZGgmanyGGglIgtcqsg/NIEtDNr/BO0P4MWq7G2nslgWyP22bmajqQXhvgCV5+sRMqGMY/HF7+/SibPrY5HtpNNvPLhINblexDeud2dDPWYJfEZrh7K3qfL+jEWDW1R0WUJt7AHjP/MgfU8D5UMlU9K+RYcHXFesj5szUBQVMYhY0HJVGd280JJYwHyQcg8L9UhM6tCVErd/sxKpQCad5k6WF8JGG6/PS/vLDB4tn7gdwy3OdXWJLaaThcY6/gKc4tgvQyMSSMnYO7Fe/vTFm/eO5rronv1HEc2YViREmYAiNCEyCm1gOM64sABNOL1yoGkVnrhAykwUKOPu67M4DnzSS1gcFjob3jnZr0AYC+u7tHUJD4sUMAYfhITt+faNR/A5rfz2Apjd8DZVKpKEkI7nt4t9PDpj/Qn9WJDrwgadBx4ApbPOpX7xGkZHH8SOcbazF6Q14jbeY75VPqKhOxewFGKtA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(366004)(136003)(39860400002)(396003)(26005)(2906002)(6486002)(8676002)(1076003)(36756003)(38100700001)(8936002)(83380400001)(16526019)(86362001)(186003)(6916009)(6496006)(66556008)(66946007)(478600001)(66476007)(5660300002)(316002)(4326008)(2616005)(6666004)(956004)(54906003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?R3RhU1BlZkdhK2I0aDlPeEpqMStwLzdIa1dnQkY5Rmh5ZUpXRXV3aHNkRFQr?=
- =?utf-8?B?emlMbkdrSzNkc0lseXh6QmdYWnZZVGxlMlFWV0RwakVxT1JuNXpmczdhRUkv?=
- =?utf-8?B?UXF1d2hoMHBFNHJSeEdiSEtxZURJL1N4ZlZQd2xiaEpOY1owdjhhUUJ4TW0r?=
- =?utf-8?B?YnEzMW0xdHlpT2ZSVk03c2ZpbWlYODFkQnNsREhrQUIwSHpJRGprWmRLWERx?=
- =?utf-8?B?OU5TV2szUjlGZDBwWWN5ZVlIZ3piN3dPQ0g3aHlQUHNId0Z3YlV2N21HWXJZ?=
- =?utf-8?B?TEtxOHVEMERoSWF0OWh6cksyYVI1cythdi9WNUNRbHhqRE03cWhiSFkvWWdF?=
- =?utf-8?B?UjUyS3FXUnNSeGVUdTlVbUN1Rmtvc1A3am9BemZHTUNIK0lLNEdqMk1GeG9R?=
- =?utf-8?B?dnBudFU5VWc4eXdNczRIRHZpZXBIM2lnRGFKcDU3eWVzckxiamdQRU90dUta?=
- =?utf-8?B?MmlMZ1g1RHFJMnNTR2tjRi9VZlROUk1HYUVkdEJ1SkYzNVNsNjR2cUdZb0pP?=
- =?utf-8?B?N1RCRUQzUjJXWEJWQSt6d3FqeC9saVZ5d3NWeGVhdzFoVjRhN3Y0U0ZiSm9x?=
- =?utf-8?B?UWFLU1RyWGIrRXNIdEtBYWE0MU9YSnh5N2cxKyt6bTQvSGloVHpjSGVhcTd1?=
- =?utf-8?B?cnRZeWZoOTJzbkorQlV3SGRkWXpGUEZkNDdtZTBXNHlqMERYMnE2bWkxL25J?=
- =?utf-8?B?TmUrRmRtWWlJOWsva1l5K2tMQnpxRHNzSGRQYk5tRVlYeEtibnJTUnJEbGNB?=
- =?utf-8?B?UnRmVEhmdWt2SElCSTZnbEZjNm5ueTQvNC93QlRud2pnZnBUS0JMRzVXa0hZ?=
- =?utf-8?B?cFdxS2x1RDkzSkQ2N0dvRHl4aGk3c1UrNWVvQk1DSTRFUUhwUFVhU1g4czVN?=
- =?utf-8?B?RDJzWDR4RGlqbEI1ekRHaElBK3pCOXQ0UVlyVHBlK2V3SldobU4rcm1nemda?=
- =?utf-8?B?MXJpNElEdnRMcHRZMWQxc1hFYzJrMmJuTzMrVmVMWUtsQXBCc09KN3k0Tkl5?=
- =?utf-8?B?T3NCNGp4amNqZFJJemgzelJOMW8vUWdld0hoN1o1UTBldXY5eVhnTUNHL2t3?=
- =?utf-8?B?c3VZc0RpcjlPeWFUdGJNUDZDQ1Z4NVhVL0ZUSzErU0xzY3dBY01FaHNPaDBu?=
- =?utf-8?B?NmRSbFM2TU0wMk5nYXVubjd1Wno1ZzRqN1Z3U3hycnJGNzE2dzRHV0U2VGN4?=
- =?utf-8?B?R3Qxd210QnZMSStZQ0p3VG5DTlh6d0p0YTR5NHRTOHhJU04vR3BrOCt6WjFL?=
- =?utf-8?B?MHlNS2w3dXdQaExLeklJQUhCYnBPbEQzUWRqcGZpTnhQNENpM1dGTmFIdmNm?=
- =?utf-8?B?Sy8xdDFoVW9SdTFKUTlXalNwaGNIbVdMZkFSUmZZenZEbG54Zm96dzd2VXRj?=
- =?utf-8?B?WG9NelJzbU1Tbkp5QnBnNDNudmlDbVdhZ2doSyszdUxUZzJFZjhwYllGOXYv?=
- =?utf-8?B?YXIvalp1aEo5V2VzN2xjWllKL0YzdERmUExSakMxSjc5aGVIcndtVlZhamxy?=
- =?utf-8?B?MnBzbjhXVy9YL0daV0xxZzV2eXFzVTY4czUvUzdDUTRoM3A1Z254OHJVdm5N?=
- =?utf-8?B?dWt3MWZoWFdBamw2Mlg3OGVRV1BsZjhmV2NRZktSK2R6TEFwU0hmdWNEUDJM?=
- =?utf-8?B?ZGFIMTZFZXBpYm1yQk5sOW9Ic05OOFEvWnBzZnNpNWV5YlFaaW5pWnNlNU1K?=
- =?utf-8?B?UHhaM25Ub1F2dUNMemZxT2VKZ2Q0UmVzNUc0ZHdMTWhtdXhpSkFrNExYUU5L?=
- =?utf-8?Q?80b/sCpWmUJmh9NAtRbdUVI5QMvzHuoMZCLmkcX?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38e6f590-6b03-4422-99d2-08d8f430ded4
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2021 10:36:40.7923
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f86529b-5ad7-4cd3-093f-08d8f4345857
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2021 11:01:32.7683
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UzBoUqqnaX7cmcSwvHyMqDesYwrSL0pDPxYDUPnGM9+W02FIX7EwEI8iDYse2fB4RNeVX2AXFpyo028Fh0uI8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5968
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: G+C9BgCGa0raDSsXwmin/3yObBQVxkeePj1JF4qt/ddz6hxM2YiaYQOBsWBdlYKZVdz0W3N247GUc8gd8rRLY1wWQZ2DIIMsPRVBFjX8GIU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5927
 X-OriginatorOrg: citrix.com
 
-Introduce a per virtual timer lock that replaces the existing per-vCPU
-and per-domain vPT locks. Since virtual timers are no longer assigned
-or migrated between vCPUs the locking can be simplified to a
-in-structure spinlock that protects all the fields.
-
-This requires introducing a helper to initialize the spinlock, and
-that could be used to initialize other virtual timer fields in the
-future.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v1:
- - New in his version.
----
- xen/arch/x86/emul-i8254.c      |  1 +
- xen/arch/x86/hvm/hpet.c        |  8 +++++-
- xen/arch/x86/hvm/hvm.c         |  4 ---
- xen/arch/x86/hvm/rtc.c         |  1 +
- xen/arch/x86/hvm/vlapic.c      |  1 +
- xen/arch/x86/hvm/vpt.c         | 48 +++++++++++++++-------------------
- xen/include/asm-x86/hvm/vcpu.h |  3 ---
- xen/include/asm-x86/hvm/vpt.h  |  9 ++-----
- 8 files changed, 33 insertions(+), 42 deletions(-)
-
-diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
-index 73be4188ad4..a47138cbab7 100644
---- a/xen/arch/x86/emul-i8254.c
-+++ b/xen/arch/x86/emul-i8254.c
-@@ -484,6 +484,7 @@ void pit_init(struct domain *d, unsigned long cpu_khz)
-     {
-         register_portio_handler(d, PIT_BASE, 4, handle_pit_io);
-         register_portio_handler(d, 0x61, 1, handle_speaker_io);
-+        init_periodic_timer(&pit->pt0);
-     }
- 
-     pit_reset(d);
-diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-index ca94e8b4538..20593c3862d 100644
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -739,12 +739,18 @@ static void hpet_set(HPETState *h)
- 
- void hpet_init(struct domain *d)
- {
-+    HPETState *h = domain_vhpet(d);
-+    unsigned int i;
-+
-     if ( !has_vhpet(d) )
-         return;
- 
--    hpet_set(domain_vhpet(d));
-+    hpet_set(h);
-     register_mmio_handler(d, &hpet_mmio_ops);
-     d->arch.hvm.params[HVM_PARAM_HPET_ENABLED] = 1;
-+
-+    for ( i = 0; i < HPET_TIMER_NUM; i++ )
-+        init_periodic_timer(&h->pt[i]);
- }
- 
- void hpet_deinit(struct domain *d)
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 3a72da67ef2..1c014fc26c3 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -665,8 +665,6 @@ int hvm_domain_initialise(struct domain *d)
-     /* need link to containing domain */
-     d->arch.hvm.pl_time->domain = d;
- 
--    rwlock_init(&d->arch.hvm.pl_time->pt_migrate);
--
-     /* Set the default IO Bitmap. */
-     if ( is_hardware_domain(d) )
-     {
-@@ -1556,8 +1554,6 @@ int hvm_vcpu_initialise(struct vcpu *v)
- 
-     hvm_asid_flush_vcpu(v);
- 
--    spin_lock_init(&v->arch.hvm.tm_lock);
--
-     rc = hvm_vcpu_cacheattr_init(v); /* teardown: vcpu_cacheattr_destroy */
-     if ( rc != 0 )
-         goto fail1;
-diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
-index 3150f5f1479..2d540b16acd 100644
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -846,6 +846,7 @@ void rtc_init(struct domain *d)
-     init_timer(&s->update_timer, rtc_update_timer, s, smp_processor_id());
-     init_timer(&s->update_timer2, rtc_update_timer2, s, smp_processor_id());
-     init_timer(&s->alarm_timer, rtc_alarm_cb, s, smp_processor_id());
-+    init_periodic_timer(&s->pt);
- 
-     register_portio_handler(d, RTC_PORT(0), 2, handle_rtc_io);
- 
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 8091b6d8925..688ff85e710 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1651,6 +1651,7 @@ int vlapic_init(struct vcpu *v)
-         return 0;
-     }
- 
-+    init_periodic_timer(&vlapic->pt);
-     vlapic->pt.source = PTSRC_lapic;
- 
-     vlapic->regs_page = alloc_domheap_page(v->domain, MEMF_no_owner);
-diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-index 84d49c1b25c..9cb0b8a0a82 100644
---- a/xen/arch/x86/hvm/vpt.c
-+++ b/xen/arch/x86/hvm/vpt.c
-@@ -126,23 +126,6 @@ static int pt_irq_masked(struct periodic_time *pt)
-     return 1;
- }
- 
--static void pt_lock(struct periodic_time *pt)
--{
--    /*
--     * We cannot use pt_vcpu_lock here, because we need to acquire the
--     * per-domain lock first and then (re-)fetch the value of pt->vcpu, or
--     * else we might be using a stale value of pt->vcpu.
--     */
--    read_lock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
--    spin_lock(&pt->vcpu->arch.hvm.tm_lock);
--}
--
--static void pt_unlock(struct periodic_time *pt)
--{
--    spin_unlock(&pt->vcpu->arch.hvm.tm_lock);
--    read_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
--}
--
- static void pt_process_missed_ticks(struct periodic_time *pt)
- {
-     s_time_t missed_ticks, now = NOW();
-@@ -213,7 +196,7 @@ static void pt_timer_fn(void *data)
-     void *cb_priv;
-     unsigned int irq;
- 
--    pt_lock(pt);
-+    spin_lock(&pt->lock);
- 
-     v = pt->vcpu;
-     irq = pt->irq;
-@@ -228,7 +211,7 @@ static void pt_timer_fn(void *data)
-         cb_priv = pt->priv;
-     }
- 
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     if ( cb )
-         cb(v, cb_priv);
-@@ -245,7 +228,7 @@ static void eoi_callback(unsigned int unused, void *data)
-     time_cb *cb = NULL;
-     void *cb_priv;
- 
--    pt_lock(pt);
-+    spin_lock(&pt->lock);
- 
-     pt_irq_fired(pt->vcpu, pt);
-     if ( pt->pending_intr_nr && inject_interrupt(pt) )
-@@ -256,7 +239,7 @@ static void eoi_callback(unsigned int unused, void *data)
-         v = pt->vcpu;
-     }
- 
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     if ( cb )
-         cb(v, cb_priv);
-@@ -312,6 +295,11 @@ static bool inject_interrupt(struct periodic_time *pt)
-     return true;
- }
- 
-+void init_periodic_timer(struct periodic_time *pt)
-+{
-+    spin_lock_init(&pt->lock);
-+}
-+
- void create_periodic_time(
-     struct vcpu *v, struct periodic_time *pt, uint64_t delta,
-     uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level)
-@@ -328,7 +316,7 @@ void create_periodic_time(
- 
-     destroy_periodic_time(pt);
- 
--    write_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
-+    spin_lock(&pt->lock);
- 
-     pt->pending_intr_nr = 0;
- 
-@@ -391,18 +379,21 @@ void create_periodic_time(
-     init_timer(&pt->timer, pt_timer_fn, pt, v->processor);
-     set_timer(&pt->timer, pt->scheduled);
- 
--    write_unlock(&v->domain->arch.hvm.pl_time->pt_migrate);
-+    spin_unlock(&pt->lock);
- }
- 
- void destroy_periodic_time(struct periodic_time *pt)
- {
-     unsigned int gsi;
- 
-+    spin_lock(&pt->lock);
-     /* Was this structure previously initialised by create_periodic_time()? */
-     if ( pt->vcpu == NULL )
-+    {
-+        spin_unlock(&pt->lock);
-         return;
-+    }
- 
--    pt_lock(pt);
-     pt->pending_intr_nr = 0;
- 
-     gsi = pt->irq;
-@@ -415,7 +406,7 @@ void destroy_periodic_time(struct periodic_time *pt)
-         hvm_gsi_unregister_callback(pt->vcpu->domain, gsi, &pt->eoi_cb);
-         break;
-     }
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     /*
-      * pt_timer_fn() can run until this kill_timer() returns. We must do this
-@@ -430,10 +421,13 @@ static void pt_resume(struct periodic_time *pt)
-     time_cb *cb = NULL;
-     void *cb_priv;
- 
-+    spin_lock(&pt->lock);
-     if ( pt->vcpu == NULL )
-+    {
-+        spin_unlock(&pt->lock);
-         return;
-+    }
- 
--    pt_lock(pt);
-     if ( pt->pending_intr_nr && inject_interrupt(pt) )
-     {
-         pt->pending_intr_nr--;
-@@ -441,7 +435,7 @@ static void pt_resume(struct periodic_time *pt)
-         cb_priv = pt->priv;
-         v = pt->vcpu;
-     }
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     if ( cb )
-         cb(v, cb_priv);
-diff --git a/xen/include/asm-x86/hvm/vcpu.h b/xen/include/asm-x86/hvm/vcpu.h
-index 9a756964fb0..fe3d0e10426 100644
---- a/xen/include/asm-x86/hvm/vcpu.h
-+++ b/xen/include/asm-x86/hvm/vcpu.h
-@@ -148,9 +148,6 @@ struct hvm_vcpu {
-     s64                 cache_tsc_offset;
-     u64                 guest_time;
- 
--    /* Lock for virtual platform timers. */
--    spinlock_t          tm_lock;
--
-     bool                flag_dr_dirty;
-     bool                debug_state_latch;
-     bool                single_step;
-diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
-index af04efa5e01..5628cff8f7a 100644
---- a/xen/include/asm-x86/hvm/vpt.h
-+++ b/xen/include/asm-x86/hvm/vpt.h
-@@ -48,6 +48,7 @@ struct periodic_time {
-     time_cb *cb;
-     void *priv;                 /* point back to platform time source */
-     struct hvm_gsi_eoi_callback eoi_cb; /* EOI callback registration data */
-+    spinlock_t lock;
- };
- 
- 
-@@ -126,13 +127,6 @@ struct pl_time {    /* platform time */
-     struct RTCState  vrtc;
-     struct HPETState vhpet;
-     struct PMTState  vpmt;
--    /*
--     * rwlock to prevent periodic_time vCPU migration. Take the lock in read
--     * mode in order to prevent the vcpu field of periodic_time from changing.
--     * Lock must be taken in write mode when changes to the vcpu field are
--     * performed, as it allows exclusive access to all the timers of a domain.
--     */
--    rwlock_t pt_migrate;
-     /* guest_time = Xen sys time + stime_offset */
-     int64_t stime_offset;
-     /* Ensures monotonicity in appropriate timer modes. */
-@@ -167,6 +161,7 @@ void create_periodic_time(
-     struct vcpu *v, struct periodic_time *pt, uint64_t delta,
-     uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level);
- void destroy_periodic_time(struct periodic_time *pt);
-+void init_periodic_timer(struct periodic_time *pt);
- 
- int pv_pit_handler(int port, int data, int write);
- void pit_reset(struct domain *d);
--- 
-2.30.1
-
+SGkgYWxsLA0KDQpQTEVBU0UgTk9URSBUSEUgTU9ESUZJRUQgREFURS4NCg0KVGhlIHByb3Bvc2Vk
+IGFnZW5kYSBpcyBpbiBodHRwczovL2NyeXB0cGFkLmZyL3BhZC8jLzIvcGFkL2VkaXQvSzFmYjRH
+clVGM2xIOXpRcklrbDgrSFRoLyBhbmQgeW91IGNhbiBlZGl0IHRvIGFkZCBpdGVtcy4gIEFsdGVy
+bmF0aXZlbHksIHlvdSBjYW4gcmVwbHkgdG8gdGhpcyBtYWlsIGRpcmVjdGx5Lg0KDQpBZ2VuZGEg
+aXRlbXMgYXBwcmVjaWF0ZWQgYSBmZXcgZGF5cyBiZWZvcmUgdGhlIGNhbGw6IHBsZWFzZSBwdXQg
+eW91ciBuYW1lIGJlc2lkZXMgaXRlbXMgaWYgeW91IGVkaXQgdGhlIGRvY3VtZW50Lg0KDQpOb3Rl
+IHRoZSBmb2xsb3dpbmcgYWRtaW5pc3RyYXRpdmUgY29udmVudGlvbnMgZm9yIHRoZSBjYWxsOg0K
+KiBVbmxlc3MsIGFncmVlZCBpbiB0aGUgcGVydmlvdXMgbWVldGluZyBvdGhlcndpc2UsIHRoZSBj
+YWxsIGlzIG9uIHRoZSAxc3QgVGh1cnNkYXkgb2YgZWFjaCBtb250aCBhdCAxNjAwIEJyaXRpc2gg
+VGltZSAoZWl0aGVyIEdNVCBvciBCU1QpDQoqIEkgdXN1YWxseSBzZW5kIG91dCBhIG1lZXRpbmcg
+cmVtaW5kZXIgYSBmZXcgZGF5cyBiZWZvcmUgd2l0aCBhIHByb3Zpc2lvbmFsIGFnZW5kYQ0KDQoq
+IFRvIGFsbG93IHRpbWUgdG8gc3dpdGNoIGJldHdlZW4gbWVldGluZ3MsIHdlJ2xsIHBsYW4gb24g
+c3RhcnRpbmcgdGhlIGFnZW5kYSBhdCAxNjowNSBzaGFycC4gIEFpbSB0byBqb2luIGJ5IDE2OjAz
+IGlmIHBvc3NpYmxlIHRvIGFsbG9jYXRlIHRpbWUgdG8gc29ydCBvdXQgdGVjaG5pY2FsIGRpZmZp
+Y3VsdGllcyAmYw0KDQoqIElmIHlvdSB3YW50IHRvIGJlIENDJ2VkIHBsZWFzZSBhZGQgb3IgcmVt
+b3ZlIHlvdXJzZWxmIGZyb20gdGhlIHNpZ24tdXAtc2hlZXQgYXQgaHR0cHM6Ly9jcnlwdHBhZC5m
+ci9wYWQvIy8yL3BhZC9lZGl0L0Q5dkd6aWhQeHhBT2U2UkZQejBzUkNmKy8NCg0KQmVzdCBSZWdh
+cmRzDQpHZW9yZ2UNCg0KDQoNCj09IERpYWwtaW4gSW5mb3JtYXRpb24gPT0NCiMjIE1lZXRpbmcg
+dGltZQ0KDQoxNTowMCAtIDE2OjAwIFVUQw0KRnVydGhlciBJbnRlcm5hdGlvbmFsIG1lZXRpbmcg
+dGltZXM6IGh0dHBzOi8vd3d3LnRpbWVhbmRkYXRlLmNvbS93b3JsZGNsb2NrL21lZXRpbmdkZXRh
+aWxzLmh0bWw/eWVhcj0yMDIxJm1vbnRoPTA0JmRheT04JmhvdXI9MTUmbWluPTAmc2VjPTAmcDE9
+MTIzNCZwMj0zNyZwMz0yMjQmcDQ9MTc5DQoNCg0KIyMgRGlhbCBpbiBkZXRhaWxzDQpXZWI6IGh0
+dHBzOi8vbWVldC5qaXQuc2kvWGVuUHJvamVjdENvbW11bml0eUNhbGwNCg0KRGlhbC1pbiBpbmZv
+IGFuZCBwaW4gY2FuIGJlIGZvdW5kIGhlcmU6DQoNCmh0dHBzOi8vbWVldC5qaXQuc2kvc3RhdGlj
+L2RpYWxJbkluZm8uaHRtbD9yb29tPVhlblByb2plY3RDb21tdW5pdHlDYWxs
 
