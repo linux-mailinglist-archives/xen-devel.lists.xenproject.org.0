@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B5D3501D1
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 16:03:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103977.198353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43E533501DC
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 16:06:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103980.198365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRbR5-0000TP-HJ; Wed, 31 Mar 2021 14:03:07 +0000
+	id 1lRbUJ-0000ep-0z; Wed, 31 Mar 2021 14:06:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103977.198353; Wed, 31 Mar 2021 14:03:07 +0000
+Received: by outflank-mailman (output) from mailman id 103980.198365; Wed, 31 Mar 2021 14:06:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRbR5-0000T0-E0; Wed, 31 Mar 2021 14:03:07 +0000
-Received: by outflank-mailman (input) for mailman id 103977;
- Wed, 31 Mar 2021 14:03:05 +0000
+	id 1lRbUI-0000eQ-Td; Wed, 31 Mar 2021 14:06:26 +0000
+Received: by outflank-mailman (input) for mailman id 103980;
+ Wed, 31 Mar 2021 14:06:25 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hPDw=I5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lRbR3-0000St-JM
- for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 14:03:05 +0000
+ id 1lRbUH-0000eJ-By
+ for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 14:06:25 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 647a201c-3ea3-4352-a043-4d5398091e99;
- Wed, 31 Mar 2021 14:03:04 +0000 (UTC)
+ id 8735c65c-c5da-490a-aae1-f8c2ca817dc0;
+ Wed, 31 Mar 2021 14:06:24 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DB6F6B270;
- Wed, 31 Mar 2021 14:03:03 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id B6AB2B270;
+ Wed, 31 Mar 2021 14:06:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 647a201c-3ea3-4352-a043-4d5398091e99
+X-Inumbo-ID: 8735c65c-c5da-490a-aae1-f8c2ca817dc0
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617199384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617199583; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=m0wEriq9iFOnD68mNAtBmUmWQ3lCURXb3bswRldYuXA=;
-	b=qJLs5/OeacrcPiBDOXO/+WgHXcGWhLXtt7DYv951+W88Y1xrSqyWGNKGby7e9cn6GFdjN3
-	cMIh2o6Nkc+PaOnOlWlZD+jT0il8PsvOkpY4LeAjyEyPxRU/caD1jU9gnJnuLqNvPWoHIL
-	NfcubHBPAWHhE46X5adFHg3w5S8Zgd0=
-Subject: Re: [PATCH] x86/hvm: Fix double free from vlapic_init() early error
- path
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210331133125.7072-1-andrew.cooper3@citrix.com>
+	bh=+QpEtAifekDShYETGEvojnZoC/tZl+b+wwBjFr0RoNw=;
+	b=EDfplck+fgQJmzNPptoZqa+FshwE1arGKAe9w9nw2ALhGJWGshRdMVHEgvypjHnbqPIRib
+	kseY/goHW+KWfF8kRwQlAd1X+ORqoOLG7YtQL+jmRAmqIGBAFIiy7Ew5AG6xgXOK7zGS2T
+	ef28Yn4T2oz9dGQLN1jHMeQBD52nwoU=
+Subject: Re: [PATCH] CHANGELOG.md: Make PV shim smaller by factoring out
+ HVM-specific shadow code
+To: George Dunlap <George.Dunlap@citrix.com>
+Cc: Ian Jackson <iwj@xenproject.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul.durrant@citrix.com>
+References: <20210324172608.302316-1-george.dunlap@citrix.com>
+ <f41680a0-9415-ea2e-c1e3-db8b0552823c@suse.com>
+ <FB9CBC51-5793-41DD-A331-5274E6A82AF4@citrix.com>
+ <23461afc-c0e0-eb33-9ed3-52f050b6aef0@suse.com>
+ <27ecde00-f0aa-b701-6928-5480ed805064@citrix.com>
+ <2A1FCD39-D0C0-468D-A977-2FBF7126FDE6@citrix.com>
+ <24676.32400.548088.26254@mariner.uk.xensource.com>
+ <1a87cfa9-d6c0-5da5-ea07-eae47186da9a@suse.com>
+ <1832DBFA-B215-4CEA-9C8A-F53F2A5321E9@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <95d8688b-2e54-ae02-09ce-45203959e08a@suse.com>
-Date: Wed, 31 Mar 2021 16:03:03 +0200
+Message-ID: <9b899068-e0df-3f5f-5537-b9ff81bfa279@suse.com>
+Date: Wed, 31 Mar 2021 16:06:23 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <20210331133125.7072-1-andrew.cooper3@citrix.com>
+In-Reply-To: <1832DBFA-B215-4CEA-9C8A-F53F2A5321E9@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.03.2021 15:31, Andrew Cooper wrote:
-> vlapic_init()'s caller calls vlapic_destroy() on error.  Therefore, the error
-> path from __map_domain_page_global() failing would doubly free
-> vlapic->regs_page.
-
-I'm having difficulty seeing this. What I find at present is
-
-    rc = vlapic_init(v);
-    if ( rc != 0 ) /* teardown: vlapic_destroy */
-        goto fail2;
-
-and then
-
- fail3:
-    vlapic_destroy(v);
- fail2:
-
-Am I missing some important aspect?
-
-> Rework vlapic_destroy() to be properly idempotent, introducing the necessary
-> UNMAP_DOMAIN_PAGE_GLOBAL() and FREE_DOMHEAP_PAGE() wrappers.
+On 31.03.2021 16:00, George Dunlap wrote:
 > 
-> Rearrange vlapic_init() to group all trivial initialisation, and leave all
-> cleanup to the caller, in line with our longer term plans.
+> 
+>> On Mar 31, 2021, at 2:54 PM, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 31.03.2021 15:52, Ian Jackson wrote:
+>>> George Dunlap writes ("Re: [PATCH] CHANGELOG.md: Make PV shim smaller by factoring out HVM-specific shadow code"):
+>>>> I don’t understand why the two of you are downplaying your work so much. Yes, these are all only incremental improvements; but they are improvements; and the cumulative effect of loads of incremental improvements can be significant.  Communicating to people just what the nature of all these incremental improvements are is important.
+>>>
+>>> I agree with George here.
+>>>
+>>> There ae a number of reasons why behind-the-scenes work with little
+>>> (intentional) user-visible impact are useful to note in the
+>>> CHANGELOG.md.  With my Release Manager hat on I would like to see, for
+>>> example,
+>>>
+>>>>> + - Factored out HVM-specific shadow code, allowing PV shim to be slimmer
+>>>
+>>> something about htis work in the CHANGELOG.md.
+>>>
+>>> IDK precisely, and I don't think George does either, what a good and
+>>> accurate statement is.  But I guess we will go with the text above if
+>>> we don't get something better.
+>>
+>> At the very least the part after the comma ought to be deleted. As
+>> said in an earlier reply, at least the shim default config disables
+>> shadow code anyway, so the factoring out has no effect there.
+> 
+> Thanks.  So when you wrote the series, what was your motivation?  Did you have a particular technical outcome in mind?  Or did it just bother you that there was HVM-only code in a PV-only build? :-)
 
-Cleanup functions becoming idempotent is what I understand is the
-longer term plan. I didn't think this necessarily included leaving
-cleanup after failure in a function to it caller(s). At least in the
-general case I think it would be quite a bit better if functions
-cleaned up after themselves - perhaps (using the example here) by
-vlapic_init() calling vlapic_destroy() in such a case.
+What bothers me are more the implications - it being rather hard in
+many cases, and in particular in shadow code, to be able to tell what
+paths are involved in the handling of what kind(s) of guests. This
+has made more time consuming investigation of (suspected) misbehavior
+in more than one case.
 
 Jan
 
