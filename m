@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19AFC3501B7
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 15:52:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103942.198266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D752A3501B5
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 15:52:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103943.198277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRbGl-0007AI-Av; Wed, 31 Mar 2021 13:52:27 +0000
+	id 1lRbH2-0007ER-J3; Wed, 31 Mar 2021 13:52:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103942.198266; Wed, 31 Mar 2021 13:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 103943.198277; Wed, 31 Mar 2021 13:52:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRbGl-00079r-7G; Wed, 31 Mar 2021 13:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 103942;
- Wed, 31 Mar 2021 13:52:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lRbH2-0007Dz-G4; Wed, 31 Mar 2021 13:52:44 +0000
+Received: by outflank-mailman (input) for mailman id 103943;
+ Wed, 31 Mar 2021 13:52:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lRbGj-00079l-5Y
- for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 13:52:25 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lRbGj-0003Yp-1M
- for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 13:52:25 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1lRbGj-0002ep-09
- for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 13:52:25 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1lRbGa-0007pR-QH; Wed, 31 Mar 2021 14:52:16 +0100
+ (envelope-from <SRS0=hPDw=I5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lRbH1-0007Dq-9A
+ for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 13:52:43 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d24f7b25-4a52-4318-a3fc-ea577d4bd3cf;
+ Wed, 31 Mar 2021 13:52:42 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 662F2B288;
+ Wed, 31 Mar 2021 13:52:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,58 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=ha601ufuWA3gjkFhjVblxHpt8Fuyb01LY639RGVAdHI=; b=eSzt8KaeJ8dA/cN+bXii6QYhGq
-	wWkLjeqJVn5kYm0MPHBMUVsWN8729+a0ccgzyyJ55B2qdDnkK5S085vqAlSwzMNhLXwKN4X//EuUH
-	8lTw8HjdHq2nbSlGv+OK7aNsC26dAFX5qZr1tZ7K5rQeTrme5dq3wbnstHP+3CmnfE+c=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: d24f7b25-4a52-4318-a3fc-ea577d4bd3cf
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1617198761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yKknCWV6+9pJC7xqpVlz2vjQm1QbRp0EQF62y/4fyuw=;
+	b=JJMUgnCENn62x+WwJQ57GVFhsFzqtthfcoo3BqPj8emLHIzwLHzs0I1u+V0SIWy3BtTgH3
+	0+uG05wuudRUClA5x2knRiqFU7z9gaE/wunXLqxlS3KPTJg9R/IhdQjjWsirTpmH0+TCX6
+	jOqhbms24jzBkPk2swGenWbZRkw8/OE=
+Subject: Re: [PATCH] x86/hvm: Fix double free from vlapic_init() early error
+ path
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20210331133125.7072-1-andrew.cooper3@citrix.com>
+ <YGR9+is03vAZgtd0@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4679a1fb-2935-1cda-acb6-429e783248d4@suse.com>
+Date: Wed, 31 Mar 2021 15:52:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
+In-Reply-To: <YGR9+is03vAZgtd0@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Message-ID: <24676.32400.548088.26254@mariner.uk.xensource.com>
-Date: Wed, 31 Mar 2021 14:52:16 +0100
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-    Jan Beulich <jbeulich@suse.com>,
-    Roger Pau Monne <roger.pau@citrix.com>,
-    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Paul Durrant <paul.durrant@citrix.com>
-Subject: Re: [PATCH] CHANGELOG.md: Make PV shim smaller by factoring out
- HVM-specific shadow code
-In-Reply-To: <2A1FCD39-D0C0-468D-A977-2FBF7126FDE6@citrix.com>
-References: <20210324172608.302316-1-george.dunlap@citrix.com>
-	<f41680a0-9415-ea2e-c1e3-db8b0552823c@suse.com>
-	<FB9CBC51-5793-41DD-A331-5274E6A82AF4@citrix.com>
-	<23461afc-c0e0-eb33-9ed3-52f050b6aef0@suse.com>
-	<27ecde00-f0aa-b701-6928-5480ed805064@citrix.com>
-	<2A1FCD39-D0C0-468D-A977-2FBF7126FDE6@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-George Dunlap writes ("Re: [PATCH] CHANGELOG.md: Make PV shim smaller by factoring out HVM-specific shadow code"):
-> I don’t understand why the two of you are downplaying your work so much.  Yes, these are all only incremental improvements; but they are improvements; and the cumulative effect of loads of incremental improvements can be significant.  Communicating to people just what the nature of all these incremental improvements are is important.
+On 31.03.2021 15:49, Roger Pau Monné wrote:
+> On Wed, Mar 31, 2021 at 02:31:25PM +0100, Andrew Cooper wrote:
+>> @@ -1645,8 +1642,8 @@ void vlapic_destroy(struct vcpu *v)
+>>      tasklet_kill(&vlapic->init_sipi.tasklet);
+>>      TRACE_0D(TRC_HVM_EMUL_LAPIC_STOP_TIMER);
+>>      destroy_periodic_time(&vlapic->pt);
+>> -    unmap_domain_page_global(vlapic->regs);
+>> -    free_domheap_page(vlapic->regs_page);
+>> +    UNMAP_DOMAIN_PAGE_GLOBAL(vlapic->regs);
+> 
+> I think you need to check whether vlapic->regs_page is NULL here...
+> 
+>> +    FREE_DOMHEAP_PAGE(vlapic->regs_page);
+>>  }
+>>  
+>>  /*
+>> diff --git a/xen/include/xen/domain_page.h b/xen/include/xen/domain_page.h
+>> index a182d33b67..0cb7f2aad3 100644
+>> --- a/xen/include/xen/domain_page.h
+>> +++ b/xen/include/xen/domain_page.h
+>> @@ -77,4 +77,9 @@ static inline void unmap_domain_page_global(const void *va) {};
+>>      (p) = NULL;                     \
+>>  } while ( false )
+>>  
+>> +#define UNMAP_DOMAIN_PAGE_GLOBAL(p) do {   \
+>> +    unmap_domain_page_global(p);           \
+>> +    (p) = NULL;                            \
+>> +} while ( false )
+>> +
+>>  #endif /* __XEN_DOMAIN_PAGE_H__ */
+>> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+>> index 667f9dac83..c274e2eac4 100644
+>> --- a/xen/include/xen/mm.h
+>> +++ b/xen/include/xen/mm.h
+>> @@ -85,6 +85,12 @@ bool scrub_free_pages(void);
+>>  } while ( false )
+>>  #define FREE_XENHEAP_PAGE(p) FREE_XENHEAP_PAGES(p, 0)
+>>  
+>> +#define FREE_DOMHEAP_PAGES(p, o) do { \
+>> +    free_domheap_pages(p, o);         \
+> 
+> ...as both unmap_domain_page_global and free_domheap_pages don't
+> support being passed a NULL pointer.
 
-I agree with George here.
+Except that such checking would better go into the new macros,
+alongside their clearing the pointers afterwards.
 
-There ae a number of reasons why behind-the-scenes work with little
-(intentional) user-visible impact are useful to note in the
-CHANGELOG.md.  With my Release Manager hat on I would like to see, for
-example,
-
->> + - Factored out HVM-specific shadow code, allowing PV shim to be slimmer
-
-something about htis work in the CHANGELOG.md.
-
-IDK precisely, and I don't think George does either, what a good and
-accurate statement is.  But I guess we will go with the text above if
-we don't get something better.
-
-George, were there other changelog items that were subject to a
-a similar question ?  I don't find them in my email with a quick look
-but I suspect I have missed one or two ?
-
-
-Thanks,
-Ian,
+Jan
 
