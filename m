@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E7E434FE29
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 12:37:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.103864.198142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1878334FE27
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Mar 2021 12:36:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.103858.198119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRYDW-0005XW-9j; Wed, 31 Mar 2021 10:36:54 +0000
+	id 1lRYDJ-0005KF-Bc; Wed, 31 Mar 2021 10:36:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 103864.198142; Wed, 31 Mar 2021 10:36:54 +0000
+Received: by outflank-mailman (output) from mailman id 103858.198119; Wed, 31 Mar 2021 10:36:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRYDW-0005Wm-3j; Wed, 31 Mar 2021 10:36:54 +0000
-Received: by outflank-mailman (input) for mailman id 103864;
- Wed, 31 Mar 2021 10:36:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lRYDJ-0005Jb-69; Wed, 31 Mar 2021 10:36:41 +0000
+Received: by outflank-mailman (input) for mailman id 103858;
+ Wed, 31 Mar 2021 10:36:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9hby=I5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lRYDU-0004so-Ke
- for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 10:36:52 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 848fdff6-3a6a-4e73-975d-5606b01201b4;
- Wed, 31 Mar 2021 10:36:31 +0000 (UTC)
+ id 1lRYDH-0005Ed-JG
+ for xen-devel@lists.xenproject.org; Wed, 31 Mar 2021 10:36:39 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 440c7728-2050-4477-a6dd-05bb39e4a66f;
+ Wed, 31 Mar 2021 10:36:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,780 +35,583 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 848fdff6-3a6a-4e73-975d-5606b01201b4
+X-Inumbo-ID: 440c7728-2050-4477-a6dd-05bb39e4a66f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617186991;
+  d=citrix.com; s=securemail; t=1617186997;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=NZnmw6vdqBrw2HPwEJs9LRsvlJ7YMCZXRIR6F1TNqXQ=;
-  b=Y6gnRn3/AlNV9F//I+VVFamzBmulVq3teDNd0llH7sQVs1oON+UxSrSp
-   JqswhCSgB7Q7M12Xk6PDs77xH9VYFXglyaFTkUiEnH3DBa/AtyJedvRrr
-   FlvZ0PpRcftuZgd5aJAlOSzId4dO3tK+CwV+Uff7lhxpo2jgKx5eloqJ0
-   c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: GzYTQ1HxW4/iEHxlp2hC6o+GzQMoG5d0fUIe3/pRAVPJraW/n3TDyEZFC07via+8zjiwpi0wVc
- whzUJTXHFmdgyYsAGF6gSqIc6OBoI1TYrUzOctuhoZb58JZQfia4zBrp4zAl+Xkmzyc+sKWIB2
- XZBKXgmeSu/RPHlPu15yRTo5AhE35ksYLV9w1EutHraI2rIoZN5ShsI4yEkYH7Ct2Ch53aeECO
- de5GAgKBkdtUgmmVdpDM4Wqij899u08/dX7BzYh8qsG4psfO6WzVx36NlhQ0BtDX0d98VFiFO/
- HZs=
+  bh=B3R84wGa0btRIL/3aNgrKfpGpevLyFpwyXFTHJnsMJ0=;
+  b=SSPNJfXwG/1rMAzA3rau21NMjcro7nbt87SNDxUR9G3MaUUumcRUgA11
+   6q0Qo2xAbo+qxmamXchS9OpoyJYRCeK1dbJt/YK2It3EfltWaNhFBO9Lr
+   tmrdZIT1zlvOv1PfDX4V3WE3ZUnAaZwZjR2QyBzZrKaV5+nf6lu3ZkCdG
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: J0+egh/HB9w0uExws+9FQpNDWGM/17eI9U5UUsZUD9o912kloBjPpsMtSfje76GBCX7Yrgk3u9
+ empouI3GLEc1z/GUM1CYrm0Em4q9ezUxPH78HFRkFllkEIpbH7N3kf36HLnrLHNhtKUr2Yqedn
+ csfK+Klyqe5W25YumqNessRWB4pIcWXOTrGQrHYPjB+TW/Np4ekU3Ph0I5NGvx48JS9LK87X6S
+ Rc85jLJu4Pz33RV5CR1Ho+vWhBUerwtH2wyrl5wmOQR2twHnhLKOumVJyhNuAa6ctNu61aoSAl
+ XEE=
 X-SBRS: 5.2
-X-MesageID: 41994610
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 40526885
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:5Z2CPqzAJ2ZG66JsG6yaKrPx9uskLtp033Aq2lEZdDV8btGYm8
- eynP4SyB/zj3IrVGs9nM2bUZPsfVr385lp7Y4NeYqzRQWOghrMEKhOz6vHhwfhFSr36/JH2c
- 5bGZRWJdXsATFB4vrSzxK/F78bruWv1ICNqaPgw2x2TQdsApsQjTtRLgqACEV5SE1nKPMCdK
- a03cZMqzq+dXl/VK3SakUtZOTfu8bN0KvvfB9uPXUawTOThjCl4qOSKWn64j4iVVp0oIsKwC
- z+vCHSoo6itPy6zRG07R6o071m3OHP5/EGKMiFis0+IijhhACydO1aKsC/lQFwms6DwhIHl8
- TNvgcBMq1Img/sV1DwmzTB8U3B1ysj8HDrw1PwuwqdneXJAAgUJuAEoKAxSGq812MQ+OtS/Y
- gO4kei871QNh/ElDSV3amxazha0nCajFBnrfQelBVkIOwjQY4Ul6Mz1mVPHqwNGSrrgbpXa9
- VGPYXn6PFafUjyVQG+gkBfhNilXnEEFhybWEQ1usuMzzhMnHxipnFovfAiog==
+IronPort-HdrOrdr: A9a23:DHm5Kq4VNS/c6S4p4APXwU2EI+orLtY04lQ7vn1ZYSd+NuSFis
+ Gjm+ka3xfoiDAXHEotg8yEJbPoexzh3LZPy800Ma25VAfr/FGpIoZr8Jf4z1TbdxHW3tV2kZ
+ 1te60WMrDNJHBnkMf35xS5Gd48wN+BtJuln/va0m0Fd2BXQotLhj0JbjqzOEtwWQVAGN4FD5
+ Ka/MVKvH6Nfn4QY8S9CBA+LpT+jvfMk4/rZgNDOg4/5GC1/E6VwZPZMzzd5BcRVDtT3awvmF
+ KqryXV7riu2svLrCP0+HTU6/1t6bnc4/tFQPeBk80Ebgjr4zzYH7hJf52nkHQLrPq06FAs+e
+ O80ysIG8ho8XveciWUjHLWqnDd+Q0j4XPj1lOU6EGLyaeSJENYerh8rLlUfRfD500rsMsU6t
+ Mw40uju4dKFhSFpSzh5rHzJmBXv3Cpqnkvm/N7tQ05baIibtZq3Oki1XIQOpIBECXm0ZsgAe
+ ljAerNjcwmD2+yXjT3uHJiz8erWWl2NhCaQlIassjQ6DROmmtlpnFoiPA3rzMlztYQWpNE7+
+ PLPuBBk6xPdNYfaeZYCP0aScW6J2TRSXv3QS2vCGWiMJtCF2PGqpbx7rlwzvqtYoY0wJw7n4
+ mEeE9EtEYpEnieSfGm7dluyFTgUW+9VTPixoV1/J5ioIDxQ7LtLGmqVE0uqc29uP8Sa/erGs
+ qbCdZzObvOPGHuEYFG00nVQJ9JM0QTV8UTp5IVQFSLjsXXKpD7l+DSffrJTYCdUwoMayfaOD
+ 8uTTLzLMJP4gSAQXnjmiXcXHvrZwje8PtLYe3n1tlW7LJIGpxHswATh1j8zNqMMyd+vqs/e1
+ Y7BLvml6i8tFSn5Gqg1RQsBjNtSmJupJnwWXJDogEHd2nud6wYhtmZcWdOmFyKOwF4VMGTNA
+ JEvVx49eaWIvWrtG4fIuPiFljfo2oYpXqMQZtZsLaE/93ZdpQxCYtjfrdwGwXNHxlcgh1rt2
+ 9HVQ8BSibkZ3DToJTgqKZRKPDUdtF6jgvuC9VTs2jjuUKVotxqemEWRAe0UcmcgR8nQh1dgl
+ EZyd5ZvJOw3RKUbUcviuUxN1NBLECaGqhPAgi+aIJIobzzYw1rQWCWhTuVtgErdgPRhjYvr1
+ 2kCRfRVeDAA1JbtHwd6Krs/V9uXki2fk57aBlBwMZAPFWDnkw2/f6AZ6K13WfUV0ALxfsFNi
+ rZJREIJBl1+tyx3BmJuTqLGHk83K8yNujFALlLScCU5lqdbKmz0Y0WFf5d+5hocO30uugQSO
+ SFZku7Kij7B+5B4X3iml8VfA1P7F8qnvPj1Ee7sCyW3HsjDeHTJ1ojbbcBON2Y53XlQfHN8J
+ gRt6NAgcKAdkHKLviBwuXrShQGDDX5i2u/VfspppBZprhajso6I7DrFR/zkEha1xA/JvrunE
+ wQQK5H8KnMU7UfCvA6SmZ8xB4Vj9yBI0sgjxzuDsI/dV8riWXHP9nh2cu+lZMfRmmIpA79Ij
+ CkglVg1saAeyuIzrgBDa0sZUxQdUgn8XxnldnyPbH4OUGPd+tZ+kC9PWL4WLhBSLKdEbFVih
+ ph+dmHk6u2cCX/sTqg8AdTE+Zr82y9R9m1Dx/JMelU88aiMVDJu5CU2qeI/X7KYAr+TV8Zi4
+ 1DfVERacoGqgBKtvxJ7gGCDortokwklFNC5ypAjVCF4Pn+3Fvm
 X-IronPort-AV: E=Sophos;i="5.81,293,1610427600"; 
-   d="scan'208";a="41994610"
+   d="scan'208";a="40526885"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d2Ojk7gvmCog++XfKvxRBCX2dedGlbt9kTsPQ3gTWFf1BC/5PNZWST30tG9c+FqLs3xzoaHt8Cznj9Eh9ysrkEQsux89s7V9QBKIjyNlUD+bfgrtRtAF9lcY9T73JIfwm9iDKbokbqdlc1z8kht2f+ynWepRXr65GMgrcFuRXZZ+LvPZ99I7JBDkSX3GZqfk2jyl9YBqUXVJnHOXBVV0GnYLB5M4CrkS6a5WQPxDpMVbm8UvJnyCGu8T3+l68VXW+SMtrszN4F/3DI90UucpdZ1ii5iB4LNhyvAcZ5EmeKLDzkfStVL3KuyFfQJN5BsKJwx+NDfchGVmE4HcZIB2hg==
+ b=Zzc/wNQ3ljeOR4eZhtwJUbxP/AuLct8xKDkONao4O3aXc13WRZsA0D+11QY0XVwyETlmrB9xLOJWTkEyjDyCR82d+lqkKYEjdoWfe3RgDnezp/EB2AeN4bcqboWztzBht23dWz25DxlD5huxZMvHImjkiEb1NK8zDS0LCYK/pP2hPKk6jEQv0dhi6k7BPvQxTJ9XJvMQcXbvdhQRvfSkR3noZ7XnSPz3bRYDscUJTGYcY+EuOHCTeoMv8VLsMtpmmcpehtS7CWswcaJ1L7ziJg3FBBdubHVFNb4JeNY86cQ7Wuuw6gc6EbVv6yAf8DgyowlR9orFxiQFSHAXpTnFjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uvejW0nULK+NfwUACCxHzbAooqbar4wdYJPJ8qc6zcg=;
- b=bbT5V746CEPGMTMzqUwWJEzbuPM+hPhw6fOPzFhfuNo95GZr13T0Jgf9zMpGkcqu8oOA+nBXLCT8Jix/PeYgudYrlSUpayheIqFZMHgbSRkA9xzmT11yJdvflMzvQJhdoJwm3/TQbO11bHSttserEeCjCiq3vBRBdX/knllbiFLqMVuF+onVTo7Xz0aiB7u1DGO//fn29XJ4t3Yqcbcjzrc+tTgZhao+3/KN4EEPE0uAS+Wl25L79prXqNkbMG1iduY2VWHZGiilhR4Hmx00Y4YsPMXmKidmKk9sqw3POCQAq6cQZqLVZR6DbC2v1RtHUGKBwnjHaR7uOrnp3l9w1A==
+ bh=OBYI1lpn/Fj2wAf8tHHymIobOKG3y0f6hpA3NmNveyE=;
+ b=aleQpKvS2SO0DBknfMZ5EkFTOzRlnwfF4sVpIUSegYCJPNguTymaw+md6/3URuG5wrsIJI70A/b17FxkrAFgJxMJZ6o1ZQDpCQiWaReaPHr3NbLrm72EVJ4PaKkIujV8J14EKYEx78ZihJ6fl25ysukFfhH6Ac5eFGx+riTI/5kI9WVXYEqRTp3UycursdyhV50dXDATpms6FNPjJs3vg6kAHMP+dcj/TrLLBZGQ4LaQR1CSYaiRRGsbuLVX7hctI+dij5n+swGBGnfaTaBWBxKjm94Rb2ADwplkcY6KgATlLAHWTVDTVVM36m60H3hhu7rdo8Gj9ToHznQ3FNfymw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uvejW0nULK+NfwUACCxHzbAooqbar4wdYJPJ8qc6zcg=;
- b=HB2zT/oIfOOy0/9rv2+bWWk4cy+78gf/RNXpLHcP25E6JznNdUb10UKHS2sZel6LLjke4LY41wAXaYB1l6ReT1Z6bVQcI3ib4ens53gvs4vwKEXNrAEBkpey1XWKf4va46sLZGP9ec9igIjKwhBi6GKPm52cTio1m0cPPxi3K4o=
+ bh=OBYI1lpn/Fj2wAf8tHHymIobOKG3y0f6hpA3NmNveyE=;
+ b=ApRSLVEpeO1RkHrFz+izAix7NlukknuZu9a3BB/Ez1F1DNZa4GFynfHttRxfcelcnMjKDCYuBg8G00Ndm9BvNRZyXwVwIzZ4mYbJpms66cgbg+7PqcjCNeZg0Cp+mJfN/wnNu4jF9U+waTv1oXdZHVrGDGrdyOIBB3TENd6idhY=
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
-	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v3 09/11] x86/vpt: switch interrupt injection model
-Date: Wed, 31 Mar 2021 12:33:01 +0200
-Message-ID: <20210331103303.79705-10-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3 10/11] x86/vpt: remove vPT timers per-vCPU lists
+Date: Wed, 31 Mar 2021 12:33:02 +0200
+Message-ID: <20210331103303.79705-11-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210331103303.79705-1-roger.pau@citrix.com>
 References: <20210331103303.79705-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR2P264CA0074.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::14) To DS7PR03MB5608.namprd03.prod.outlook.com
+X-ClientProxiedBy: MR2P264CA0079.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:32::19) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1fc51022-c600-476c-0387-08d8f430d76e
+X-MS-Office365-Filtering-Correlation-Id: aed7e27a-8a5d-4e4e-d2fd-08d8f430db10
 X-MS-TrafficTypeDiagnostic: DM4PR03MB5968:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR03MB5968D3EAC0EC909F6D10141F8F7C9@DM4PR03MB5968.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <DM4PR03MB5968C422491B68B1EB3573DB8F7C9@DM4PR03MB5968.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CWBMoWg50CVpYeXzJCIsg0l+OuXpEzcGG372ZehWBqSgPv1O7ABsq8iDAAFXIQplDQasHG+/3k6YMBSF5bfLr3E8k186JD9GWC5J68R7NFXaQmObx292vfV09bZj3NDGLV7WqyFO4NgbZtS2pxUtLnefJD1b9tLMl51LJx7vZ06HO7Ye9WmaoPCOg0Sf+IHKiPj530PiTQPa2XbBn5GtxcctxHnc24nvHSOvS8giAdVFlw5QxutGXAgSxNSqTQCGDocIJ2no3xlpc2O0mtPd/zUSLqclcvWBpNorR8watRgSEOsC+hu7CPUVL/iUs5K9j72GsWbIgX1eNSOZitoSnAHIprFTqST/2VwBu7oG5RqWGEu8JvCp2tblICP91h5zogNBXTMyTQJDYodjq/JPq8/jnYB8OvTud1MeZoBiLMViw2oWcd6xHcWZL1w+kZ8YQ+Ww2kYCYPZ/GozkJ7YLHZajsc3rvuhmlLK6N+osK+hGg4+8KPTNFrwOgqRKlN8h6+8YUWX7SwLrftFKUroqtwKWTWfzqT69IAFe4YT+F57ZPPY+pu3kcNlJjo1WEcS3i7sBAPNlo3coMGsfDcgT2dGkOkeB+iwC+VSuq3U+/Q06y8n4nVvSI4zBsjflojqeITHQr7Fj3iCdIxb5XGeeiDvbgaulDk/rooetDc5aHwc=
+X-Microsoft-Antispam-Message-Info: 0PS4fuAgedwJDFLy+NSQUDq58ytXpZ/X9mmNtwnv86dlymuEghiUCFGgNmNGw4OUjJZ4RTa3V04BCz8U2NiyYUX4yFAqP4Rs6GkVLZAvk3yORj8wNqXhRvV+UuYaTT0x7FmpWRgqR30jivksDhLJkvM7C+iVGBWyylW4jcKDqwSvbfwU8CQlbFGp8LVQluyXNXbioGub5L1aBr9aP79R3Uoc4VuY8QrhUUkbuiiPSD1LXk7ilAUX9RjYDUTyt5VNZSZVgdIyGSdwyJTDU1wNbtQW254peqBIV3gKyVMzDiB6Aoumr6jYROKtckAG5ktasx61uvmSHYvTiohJc6l93bR6DOHXN3WEgw0DE9ZE7r5aaZnzgQs4MdCGQZZAAZ7z/9ZQq5YiP4DRU0jd9b/Nb16Cq7P17b+LhGzOrNyQmLs+7SMqttlkTkIZPMLbhT0V7ZyaJ0wO2t7aa79EjAb+k6nNXr9B4Fw4FsceRYs0Mi+MzwijsmRFssVgiRMmdlXcGK8yZlglKog3uMGw+Vr9tbjT/OP+Dnr3oWf4F2Daopi93bCz5lLMIfC0TmZrFlUdBmQ8RyenQHJpBcWO8UAjsmVJ8f7vx+GvXr2dMm5Vb20WToYvDFcyIg7SbUqUCHQURhRyxO7WodsPLUQhSujGHRtq5KIQnQ/4W4i0FyJ4eq0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(366004)(136003)(39860400002)(396003)(26005)(2906002)(6486002)(30864003)(8676002)(1076003)(36756003)(38100700001)(8936002)(83380400001)(16526019)(86362001)(186003)(6916009)(6496006)(66556008)(66946007)(478600001)(66476007)(5660300002)(316002)(4326008)(2616005)(6666004)(956004)(54906003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?cHpEMEh1VUpHb29HWkJrSlNWbHlvZVdZY1owaU1qajFUWVZkVVRaOXp4cERT?=
- =?utf-8?B?TTRqbjA3UVBrdXI5RU9PWWxrZzZtU0hNMkFVcUoxVkZ2bGpRK0Vrc05jMk1I?=
- =?utf-8?B?a0lyNGlnd0hRMDl2NXhsTHBJYnNDZndtR0tyMXpoa0ZRZm8zTVJKVkl4VXcr?=
- =?utf-8?B?UzZOZ3dhd3JoRE14UUJoMDZHS2lDbXNOZXIrZ3Q1WHFGQ0cyVlh1dnlhNm1z?=
- =?utf-8?B?ZkZPOFZveXN1R2U1OWdSS1lhSVlSNW16aFA1Z2FKMVRMSHUyV0dwSEJVQUlJ?=
- =?utf-8?B?SGtlS2dSTFlWWDlSVEJwTDYzNUhCMlNUL2h1YlZSQzhTbUp4c1hOL3lOcTFD?=
- =?utf-8?B?bHEzSEgwWkdQOEpxTVdWR1RDZmZQbTZ2UUx1SDJiaWVvZ3BUeGxKN2hSUzd3?=
- =?utf-8?B?cVdLcmxaNjRRbmgvSTlVV2hic2kxQjBja29Udyt6c3J1U3VHdVhFQkdQRXNL?=
- =?utf-8?B?WXhIWlh4QS9kd3VjanNjM0NQU2hRUHZYY2NPaUNMaGlrYzhNUlQrbTRpaFhY?=
- =?utf-8?B?QjlkZC91cXg0M2FZbzErMU02cTVINjc2aVJFYWZiTW95ZC9JbmlCSlJRcnZ2?=
- =?utf-8?B?SmdETk40YVMrR1luWmpVQ0FsNE5UWXFEa2liS1Q1MHpsNzJ1UkVyMVUya1VZ?=
- =?utf-8?B?WGg1dmRoZTV3aGpHZ0xuSUNkUFMyY04zNlZIcFdidmhGUmtmdnI4K2lYTGdM?=
- =?utf-8?B?QWJ3NEdtVUxjZ3ozVGpGa3JZd0dUdTY2U3NQTnBUbnJjSXp2U0ZpNTNUVFV5?=
- =?utf-8?B?Yy9rNG8ybWRFUDlRYzBRcElXZWpCbXNERTRWZkt2VDF3alM4UkRLVGZDWU8w?=
- =?utf-8?B?aHBGekxZNFhZNHR4U01yK3V2WndTMC9aVjhZNk1pMGM1OEUrcGt1L25HYVQ4?=
- =?utf-8?B?RjAxb0JpeEVQd2xlVTNZRUhBNlVocWZQT2tZSVZVSHpWRGw0VURNYndLcmZN?=
- =?utf-8?B?a1RFZFhoRDFqazhWeS9CcWoxZmdBQng5MEdONU1UY2N3T2prRkdBK0U4Kzkv?=
- =?utf-8?B?Mi9hTnlISzdGc3c4WWRZbHZMbmdGdFhVLzA1dmtSNXNYL1VTbnRnWWY4bFl6?=
- =?utf-8?B?cUtGNnFVTFN3L2VFUnBOUHcwN2djcXVMZUE1ODJ6ZXk2WGE5Ti9NMzNMQW5n?=
- =?utf-8?B?VFR4V2czZjRXTUcwMWthS3Q1dXZIYXMyODRlSGlsV1pxZk1xVWhhNnBFMkx5?=
- =?utf-8?B?M1VHMVJVVEsyc29SckNHTG5yc1NuVVBOQzhqYStvMUhqV0IwalhnUFJrRDA5?=
- =?utf-8?B?OTdIcll1Qy9FdDhwK21UL29kdHA3aFg4TGRxQjl0RnZ0ZmpkU0FjcEU2RXZX?=
- =?utf-8?B?eEhaZ3U5MXozU0pkYUlMY2ZVV3NqaGF2dktqNXhRNDMvaDRyN0oyOVhtRUpP?=
- =?utf-8?B?ODhZMUg5YWZobGZ4YzFldmNvWFVvV20wQmlZTWlZdE1VODFoNkZ3QldBeWQ3?=
- =?utf-8?B?U25zdzE0VkFpY2lKUXprekhnbTJJNUh2TldnYitocExPajRQcENEV21yYUYv?=
- =?utf-8?B?VHh4UVlWaDlvWkRRTjBEQVNBMFJrK3BBejFxNXFBNG1mWUlMSEJHVXMwY0Iv?=
- =?utf-8?B?NUsyRmZZeGg2c2t5VGRMZVQ1SWlEY1JCekdRcDhoL1Q0azREaHlYVUhXcm5t?=
- =?utf-8?B?eDdnWWQ5M3I1SlZ5bHkreTdTYTJiTVhTdzBXeXNqRnRLM3dFc1VsSFA3UkI1?=
- =?utf-8?B?WnlEdzRzaG9iaE0vUldEcTRrQlptR3A3SFFJS1BEQVVzdExhU0dpRCtSTVcz?=
- =?utf-8?Q?K3ZmGWP+WVjZXG9BpaNAKvp3zd4zXNIpBC0xO6T?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fc51022-c600-476c-0387-08d8f430d76e
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VzYvT0duUnhyWVdCQlFWT1g5SnFMVFVXeTNrMEtuSHhvemFNY3FHOU1MbFJE?=
+ =?utf-8?B?dzlGQjRTcndRd2hhYXRFK2s5S0QvU2NPT0o2ZXZpOVAzL0p3RTRKeHpmek1J?=
+ =?utf-8?B?emQ0NDVkT3FFenVlYmpDYlVtbGFHNlVvTmtGY21jSEhGTThnRUluSFBTTHlD?=
+ =?utf-8?B?NzAvUlkyOEQ0SnFveUFBZkwyd3lrUXg3VTJkZzJaL1BOTEVZUnBpOXdXVURY?=
+ =?utf-8?B?MzFzd041dHk5QnZ2WnFoVjRqZWZHSlA3a0VLaVFnYlo4bUtYQWNjTGkrb0RU?=
+ =?utf-8?B?OW4xaXBLWGNudU56anorcXpPMGJoT25GTmtRcnlIRHpvUkQ4R3Zjd29oY2ZW?=
+ =?utf-8?B?Y0g4amRKWkJkRmUvZEo1L2tmV052Z2RCS0hRb1V4U3c0MHdpeFMvZTJXQkND?=
+ =?utf-8?B?NzhpWm5selUvUm5HNTVNaW1CQjcxZk5RSWdNRkNqczZCT1hMWFpIQ1Voa3l6?=
+ =?utf-8?B?Tk9JMFcrWGYrZkl5aWllY0k3aWMvTjJ0N3ZjK0VjUXI0ZHExcWhRdGpySnJV?=
+ =?utf-8?B?Q2J2V0xMV1k2aWcrK3lBNGxnNTNiTWNVZzJsU2U4bGNOS1VMZ3BucmJNc0JN?=
+ =?utf-8?B?K3IrU05nZ1RwVnY0Z0tacGhwTGdkSUtnbE5oc2NnM1BQNDV6SCs0aUgrTUhQ?=
+ =?utf-8?B?cTU1NVlLbTZNaXN6Nll5VUhHaFgycjJCclJmVStNRHNlYkowNWl6VDJzSFgx?=
+ =?utf-8?B?SjQ0c1B0aUJlWVZyNHo3MFY0enEzM2xoV1VDejA3a3pNem9UU0cycThaMGJj?=
+ =?utf-8?B?UDROSW1zSHlNbmdJb0pGRkJmRWlDenJNRHUxb3pTbWNBSUM2SkZnTW5TTkJB?=
+ =?utf-8?B?R0gwd0RieXM2dG9tOVhkMDBpQjlTaVZ6bkVxdlI0dGZWRm5lakZDS1VuVTVT?=
+ =?utf-8?B?ZHltOFpkSXgwQWFoaHl1NTYwUXlzTE45RzlKRmdXUzIxOTN2d0Vnc0Nkdjlk?=
+ =?utf-8?B?ak9ybzcxRzlrSUtMenVJaFpCS0JRVHpETEhGUW8rQmRFT2pMMWtYSVdKZjQy?=
+ =?utf-8?B?Z1lhejhQTTBMTFQzelFjN2s4REd1a05wdHZWZElLQlpVUDZsYkN1SEQrNys3?=
+ =?utf-8?B?VjBvMFJCVTUyRnRpVkJ4OGlGUnUyaityYXZodnRMYWZJRzdrUEJXMXNabXFG?=
+ =?utf-8?B?ZlpjK0F5MlJXVGg5Y2JUWWViK0t0ZWU3RlVHVUhyNXpURWlTOXhWSHpoR29w?=
+ =?utf-8?B?cEIyZGJDL2ZITWRjTkovZytWU0R3Ly9nQk44LzdHalBpSHJ6Q2Q5a1hMY3Zj?=
+ =?utf-8?B?Qk02VkZBYkt1V1U2VnBSbUpSeis4bjAvK2lBTnhLb2xNSDdTUXMzSGpoRUt0?=
+ =?utf-8?B?Yjgydmp4dis4NThLRE5EZWZvUUdkL09WSCtmSTh4RXdGdkdvMmFMOCtEd3Jv?=
+ =?utf-8?B?U1c3cjJmeWxvZDBzSnNmemRsaHlPNVEyRnl4NDFyYmQ2eVA2Z1JHS3ZJa1FM?=
+ =?utf-8?B?Nzg5R0hySnZUd1N6enQzY3FtaWJrR0R1ZVQ0S205dDdBSkhQN2Q5bGhYTmlr?=
+ =?utf-8?B?Qk9qam9HTWdYdHVQNTd3N0lWdURoSlYwdkZjTWhBWU5EbVlaNVFhRyt5ZkNt?=
+ =?utf-8?B?WEdlaXJYYUN3YXJQc25lUXA2YTJKSnRxVGVsb1lxSnJsZTNsaVhGbER0TG5a?=
+ =?utf-8?B?TWY3dk9CenlwU1gxYVhEaitqQkdqaUlodG5pSE5GUVI2VGVzTURNT0hJOUFQ?=
+ =?utf-8?B?V01jSFJiTWwyZmxzcjE1SmRsMnQ1a1l0MVBaSloyS2NoNDJVTG95UElub3pZ?=
+ =?utf-8?Q?YRHzQmSsUE+1XoBjzLO6P7yG90Mh2+Vi2+rcMtO?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: aed7e27a-8a5d-4e4e-d2fd-08d8f430db10
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2021 10:36:28.4815
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2021 10:36:34.4831
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oq/D4JsxTXKPEZp8VZR+pp4Y3uzK1S8PJFomABCQlqW83us1hS5UlrK8jntNbYwpauZUGra09OU4prD9zD7dSA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: b9TtQBuLChHUbdsPZotUwQ+IHZ++3MlAJI5FN7ZTQ+Ki6MDfd60FE8FBxTCNe4X10V++9JGzVeWMo+vXE8iMYg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5968
 X-OriginatorOrg: citrix.com
 
-Currently vPT relies on timers being assigned to a vCPU and performing
-checks on every return to HVM guest in order to check if an interrupt
-from a vPT timer assigned to the vCPU is currently being injected.
+No longer add vPT timers to lists on specific vCPUs, since there's no
+need anymore to check if timer interrupts have been injected on return
+to HVM guest.
 
-This model doesn't work properly since the interrupt destination vCPU
-of a vPT timer can be different from the vCPU where the timer is
-currently assigned, in which case the timer would get stuck because it
-never sees the interrupt as being injected.
+Such change allows to get rid of virtual timers vCPU migration, and
+also cleanup some of the virtual timers fields that are no longer
+required.
 
-Knowing when a vPT interrupt is injected is relevant for the guest
-timer modes where missed vPT interrupts are not discarded and instead
-are accumulated and injected when possible.
+The model is also slightly different now in that timers are not
+stopped when a vCPU is de-scheduled. Such timers will continue
+running, and when triggered the function will try to inject the
+corresponding interrupt to the guest (which might be different than
+the currently running one). Note that the timer triggering when the
+guest is no longer running can only happen once, as the timer callback
+will not reset the interrupt to fire again. Such resetting if required
+will be done by the EOI callback.
 
-This change aims to modify the logic described above, so that vPT
-doesn't need to check on every return to HVM guest if a vPT interrupt
-is being injected. In order to achieve this the vPT code is modified
-to make use of the new EOI callbacks, so that virtual timers can
-detect when a interrupt has been serviced by the guest by waiting for
-the EOI callback to execute.
-
-This model also simplifies some of the logic, as when executing the
-timer EOI callback Xen can try to inject another interrupt if the
-timer has interrupts pending for delivery.
-
-Note that timers are still bound to a vCPU for the time being, this
-relation however doesn't limit the interrupt destination anymore, and
-will be removed by further patches.
-
-This model has been tested with Windows 7 guests without showing any
-timer delay, even when the guest was limited to have very little CPU
-capacity and pending virtual timer interrupts accumulate.
+Since virtual timers are no longer added to per-VCPU lists when active
+a new 'masked' field is added to the structure, to signal whether a
+timer has it's interrupt source currently masked.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v2:
- - Avoid and explicit != NULL check.
- - Use a switch in inject_interrupt to evaluate the timer mode.
- - Print the pt->source field on error in create_periodic_time.
+ - Remove pt_{save/restore}_timer and instead use
+   pt_{freeze/thaw}_time.
+ - Remove the introduction of the 'masked' field, it's not needed.
+ - Rework pt_active to use timer_is_active.
 
 Changes since v1:
  - New in this version.
 ---
- xen/arch/x86/hvm/svm/intr.c   |   3 -
- xen/arch/x86/hvm/vmx/intr.c   |  59 ------
- xen/arch/x86/hvm/vpt.c        | 334 ++++++++++++++--------------------
- xen/include/asm-x86/hvm/vpt.h |   5 +-
- 4 files changed, 143 insertions(+), 258 deletions(-)
+ xen/arch/x86/domain.c          |   4 +-
+ xen/arch/x86/hvm/hvm.c         |   4 +-
+ xen/arch/x86/hvm/vlapic.c      |   1 -
+ xen/arch/x86/hvm/vpt.c         | 174 ++++-----------------------------
+ xen/include/asm-x86/hvm/vcpu.h |   3 +-
+ xen/include/asm-x86/hvm/vpt.h  |  12 +--
+ 6 files changed, 27 insertions(+), 171 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
-index 7f815d23078..2ee2332253b 100644
---- a/xen/arch/x86/hvm/svm/intr.c
-+++ b/xen/arch/x86/hvm/svm/intr.c
-@@ -146,8 +146,6 @@ void svm_intr_assist(void)
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index b2127298800..a711ff2814a 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -2014,8 +2014,8 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
+     vpmu_switch_from(prev);
+     np2m_schedule(NP2M_SCHEDLE_OUT);
+ 
+-    if ( is_hvm_domain(prevd) && !list_empty(&prev->arch.hvm.tm_list) )
+-        pt_save_timer(prev);
++    if ( is_hvm_domain(prevd) )
++        pt_freeze_time(prev);
+ 
+     local_irq_disable();
+ 
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 0279014e66e..3a72da67ef2 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -489,7 +489,6 @@ void hvm_set_info_guest(struct vcpu *v)
+ void hvm_migrate_timers(struct vcpu *v)
+ {
+     rtc_migrate_timers(v);
+-    pt_migrate(v);
+ }
+ 
+ void hvm_migrate_pirq(struct hvm_pirq_dpci *pirq_dpci, const struct vcpu *v)
+@@ -544,7 +543,7 @@ void hvm_do_resume(struct vcpu *v)
+ {
+     check_wakeup_from_wait();
+ 
+-    pt_restore_timer(v);
++    pt_thaw_time(v);
+ 
+     if ( !vcpu_ioreq_handle_completion(v) )
          return;
+@@ -1558,7 +1557,6 @@ int hvm_vcpu_initialise(struct vcpu *v)
+     hvm_asid_flush_vcpu(v);
  
-     /* Crank the handle on interrupt state. */
--    pt_update_irq(v);
--
-     do {
-         intack = hvm_vcpu_has_pending_irq(v);
-         if ( likely(intack.source == hvm_intsrc_none) )
-@@ -219,7 +217,6 @@ void svm_intr_assist(void)
-     {
-         HVMTRACE_2D(INJ_VIRQ, intack.vector, /*fake=*/ 0);
-         svm_inject_extint(v, intack.vector);
--        pt_intr_post(v, intack);
-     }
+     spin_lock_init(&v->arch.hvm.tm_lock);
+-    INIT_LIST_HEAD(&v->arch.hvm.tm_list);
  
-     /* Is there another IRQ to queue up behind this one? */
-diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
-index 80bfbb47878..3fcc7073db2 100644
---- a/xen/arch/x86/hvm/vmx/intr.c
-+++ b/xen/arch/x86/hvm/vmx/intr.c
-@@ -203,7 +203,6 @@ static int nvmx_intr_intercept(struct vcpu *v, struct hvm_intack intack)
-             {
-                 /* for now, duplicate the ack path in vmx_intr_assist */
-                 hvm_vcpu_ack_pending_irq(v, intack);
--                pt_intr_post(v, intack);
+     rc = hvm_vcpu_cacheattr_init(v); /* teardown: vcpu_cacheattr_destroy */
+     if ( rc != 0 )
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 63fa3780767..8091b6d8925 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -1339,7 +1339,6 @@ void vlapic_adjust_i8259_target(struct domain *d)
+     if ( d->arch.hvm.i8259_target == v )
+         return;
+     d->arch.hvm.i8259_target = v;
+-    pt_adjust_global_vcpu_target(v);
+ }
  
-                 intack = hvm_vcpu_has_pending_irq(v);
-                 if ( unlikely(intack.source != hvm_intsrc_none) )
-@@ -242,7 +241,6 @@ void vmx_intr_assist(void)
-     struct vcpu *v = current;
-     unsigned int tpr_threshold = 0;
-     enum hvm_intblk intblk;
--    int pt_vector;
- 
-     /* Block event injection when single step with MTF. */
-     if ( unlikely(v->arch.hvm.single_step) )
-@@ -263,8 +261,6 @@ void vmx_intr_assist(void)
- #endif
- 
-     /* Crank the handle on interrupt state. */
--    pt_vector = pt_update_irq(v);
--
-     do {
-         unsigned long intr_info;
- 
-@@ -337,58 +333,6 @@ void vmx_intr_assist(void)
-     {
-         unsigned long status;
- 
--       /*
--        * intack.vector is the highest priority vector. So we set eoi_exit_bitmap
--        * for intack.vector - give a chance to post periodic time interrupts when
--        * periodic time interrupts become the highest one
--        */
--        if ( pt_vector != -1 )
--        {
--#ifndef NDEBUG
--            /*
--             * We assert that intack.vector is the highest priority vector for
--             * only an interrupt from vlapic can reach this point and the
--             * highest vector is chosen in hvm_vcpu_has_pending_irq().
--             * But, in fact, the assertion failed sometimes. It is suspected
--             * that PIR is not synced to vIRR which makes pt_vector is left in
--             * PIR. In order to verify this suspicion, dump some information
--             * when the assertion fails.
--             */
--            if ( unlikely(intack.vector < pt_vector) )
--            {
--                const struct vlapic *vlapic;
--                const struct pi_desc *pi_desc;
--                const uint32_t *word;
--                unsigned int i;
--
--                printk(XENLOG_ERR "%pv: intack: %u:%02x pt: %02x\n",
--                       current, intack.source, intack.vector, pt_vector);
--
--                vlapic = vcpu_vlapic(v);
--                if ( vlapic && vlapic->regs )
--                {
--                    word = (const void *)&vlapic->regs->data[APIC_IRR];
--                    printk(XENLOG_ERR "vIRR:");
--                    for ( i = X86_NR_VECTORS / 32; i-- ; )
--                        printk(" %08x", word[i*4]);
--                    printk("\n");
--                }
--
--                pi_desc = &v->arch.hvm.vmx.pi_desc;
--                if ( pi_desc )
--                {
--                    word = (const void *)&pi_desc->pir;
--                    printk(XENLOG_ERR " PIR:");
--                    for ( i = X86_NR_VECTORS / 32; i-- ; )
--                        printk(" %08x", word[i]);
--                    printk("\n");
--                }
--            }
--#endif
--            ASSERT(intack.vector >= pt_vector);
--            vmx_set_eoi_exit_bitmap(v, intack.vector);
--        }
--
-         /* we need update the RVI field */
-         __vmread(GUEST_INTR_STATUS, &status);
-         status &= ~VMX_GUEST_INTR_STATUS_SUBFIELD_BITMASK;
-@@ -397,14 +341,11 @@ void vmx_intr_assist(void)
-         __vmwrite(GUEST_INTR_STATUS, status);
- 
-         vmx_sync_exit_bitmap(v);
--
--        pt_intr_post(v, intack);
-     }
-     else
-     {
-         HVMTRACE_2D(INJ_VIRQ, intack.vector, /*fake=*/ 0);
-         vmx_inject_extint(intack.vector, intack.source);
--        pt_intr_post(v, intack);
-     }
- 
-     /* Is there another IRQ to queue up behind this one? */
+ int vlapic_has_pending_irq(struct vcpu *v)
 diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-index 4c2afe2e915..f951cd95bcf 100644
+index f951cd95bcf..84d49c1b25c 100644
 --- a/xen/arch/x86/hvm/vpt.c
 +++ b/xen/arch/x86/hvm/vpt.c
-@@ -27,6 +27,8 @@
- #define mode_is(d, name) \
-     ((d)->arch.hvm.params[HVM_PARAM_TIMER_MODE] == HVMPTM_##name)
- 
-+static bool inject_interrupt(struct periodic_time *pt);
-+
- void hvm_init_guest_time(struct domain *d)
- {
-     struct pl_time *pl = d->arch.hvm.pl_time;
-@@ -76,35 +78,6 @@ void hvm_set_guest_time(struct vcpu *v, u64 guest_time)
-     }
+@@ -126,18 +126,6 @@ static int pt_irq_masked(struct periodic_time *pt)
+     return 1;
  }
  
--static int pt_irq_vector(struct periodic_time *pt, enum hvm_intsrc src)
+-static void pt_vcpu_lock(struct vcpu *v)
 -{
--    struct vcpu *v = pt->vcpu;
--    unsigned int gsi, isa_irq;
--    int vector;
--
--    if ( pt->source == PTSRC_lapic )
--        return pt->irq;
--
--    isa_irq = pt->irq;
--
--    if ( src == hvm_intsrc_pic )
--        return (v->domain->arch.hvm.vpic[isa_irq >> 3].irq_base
--                + (isa_irq & 7));
--
--    ASSERT(src == hvm_intsrc_lapic);
--    gsi = pt->source == PTSRC_isa ? hvm_isa_irq_to_gsi(isa_irq) : pt->irq;
--    vector = vioapic_get_vector(v->domain, gsi);
--    if ( vector < 0 )
--    {
--        dprintk(XENLOG_WARNING, "d%u: invalid GSI (%u) for platform timer\n",
--                v->domain->domain_id, gsi);
--        domain_crash(v->domain);
--        return -1;
--    }
--
--    return vector;
+-    read_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
+-    spin_lock(&v->arch.hvm.tm_lock);
 -}
 -
- static int pt_irq_masked(struct periodic_time *pt)
+-static void pt_vcpu_unlock(struct vcpu *v)
+-{
+-    spin_unlock(&v->arch.hvm.tm_lock);
+-    read_unlock(&v->domain->arch.hvm.pl_time->pt_migrate);
+-}
+-
+ static void pt_lock(struct periodic_time *pt)
  {
-     struct vcpu *v = pt->vcpu;
-@@ -247,34 +220,14 @@ void pt_restore_timer(struct vcpu *v)
-     pt_vcpu_lock(v);
+     /*
+@@ -151,7 +139,8 @@ static void pt_lock(struct periodic_time *pt)
  
-     list_for_each_entry ( pt, head, list )
--    {
-         if ( pt->pending_intr_nr == 0 )
--        {
--            pt_process_missed_ticks(pt);
-             set_timer(&pt->timer, pt->scheduled);
--        }
--    }
- 
-     pt_thaw_time(v);
- 
-     pt_vcpu_unlock(v);
+ static void pt_unlock(struct periodic_time *pt)
+ {
+-    pt_vcpu_unlock(pt->vcpu);
++    spin_unlock(&pt->vcpu->arch.hvm.tm_lock);
++    read_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
  }
  
--static void pt_timer_fn(void *data)
+ static void pt_process_missed_ticks(struct periodic_time *pt)
+@@ -166,14 +155,12 @@ static void pt_process_missed_ticks(struct periodic_time *pt)
+         return;
+ 
+     missed_ticks = missed_ticks / (s_time_t) pt->period + 1;
+-    if ( mode_is(pt->vcpu->domain, no_missed_ticks_pending) )
+-        pt->do_not_freeze = !pt->pending_intr_nr;
+-    else
++    if ( !mode_is(pt->vcpu->domain, no_missed_ticks_pending) )
+         pt->pending_intr_nr += missed_ticks;
+     pt->scheduled += missed_ticks * pt->period;
+ }
+ 
+-static void pt_freeze_time(struct vcpu *v)
++void pt_freeze_time(struct vcpu *v)
+ {
+     if ( !mode_is(v->domain, delay_for_missed_ticks) )
+         return;
+@@ -181,7 +168,7 @@ static void pt_freeze_time(struct vcpu *v)
+     v->arch.hvm.guest_time = hvm_get_guest_time(v);
+ }
+ 
+-static void pt_thaw_time(struct vcpu *v)
++void pt_thaw_time(struct vcpu *v)
+ {
+     if ( !mode_is(v->domain, delay_for_missed_ticks) )
+         return;
+@@ -193,52 +180,11 @@ static void pt_thaw_time(struct vcpu *v)
+     v->arch.hvm.guest_time = 0;
+ }
+ 
+-void pt_save_timer(struct vcpu *v)
 -{
--    struct periodic_time *pt = data;
+-    struct list_head *head = &v->arch.hvm.tm_list;
+-    struct periodic_time *pt;
 -
--    pt_lock(pt);
+-    if ( v->pause_flags & VPF_blocked )
+-        return;
 -
--    pt->pending_intr_nr++;
--    pt->scheduled += pt->period;
--    pt->do_not_freeze = 0;
+-    pt_vcpu_lock(v);
 -
--    vcpu_kick(pt->vcpu);
+-    list_for_each_entry ( pt, head, list )
+-        if ( !pt->do_not_freeze )
+-            stop_timer(&pt->timer);
 -
--    pt_unlock(pt);
+-    pt_freeze_time(v);
+-
+-    pt_vcpu_unlock(v);
+-}
+-
+-void pt_restore_timer(struct vcpu *v)
+-{
+-    struct list_head *head = &v->arch.hvm.tm_list;
+-    struct periodic_time *pt;
+-
+-    pt_vcpu_lock(v);
+-
+-    list_for_each_entry ( pt, head, list )
+-        if ( pt->pending_intr_nr == 0 )
+-            set_timer(&pt->timer, pt->scheduled);
+-
+-    pt_thaw_time(v);
+-
+-    pt_vcpu_unlock(v);
 -}
 -
  static void pt_irq_fired(struct vcpu *v, struct periodic_time *pt)
  {
-     pt->irq_issued = false;
-@@ -285,189 +238,144 @@ static void pt_irq_fired(struct vcpu *v, struct periodic_time *pt)
-             list_del(&pt->list);
-         pt->on_list = false;
+-    pt->irq_issued = false;
+-
+     if ( pt->one_shot )
+     {
+-        if ( pt->on_list )
+-            list_del(&pt->list);
+-        pt->on_list = false;
          pt->pending_intr_nr = 0;
-+
-+        return;
-     }
--    else if ( mode_is(v->domain, one_missed_tick_pending) ||
--              mode_is(v->domain, no_missed_ticks_pending) )
-+
-+    if ( mode_is(v->domain, one_missed_tick_pending) ||
-+         mode_is(v->domain, no_missed_ticks_pending) )
-     {
--        pt->last_plt_gtime = hvm_get_guest_time(v);
-         pt_process_missed_ticks(pt);
-         pt->pending_intr_nr = 0; /* 'collapse' all missed ticks */
-+    }
-+    else if ( !pt->pending_intr_nr )
-+        pt_process_missed_ticks(pt);
-+
-+    if ( !pt->pending_intr_nr )
-         set_timer(&pt->timer, pt->scheduled);
-+}
-+
-+static void pt_timer_fn(void *data)
-+{
-+    struct periodic_time *pt = data;
-+    struct vcpu *v;
-+    time_cb *cb = NULL;
-+    void *cb_priv;
-+    unsigned int irq;
-+
-+    pt_lock(pt);
-+
-+    v = pt->vcpu;
-+    irq = pt->irq;
-+
-+    if ( inject_interrupt(pt) )
-+    {
-+        pt->scheduled += pt->period;
-+        pt->do_not_freeze = 0;
-+        cb = pt->cb;
-+        cb_priv = pt->priv;
-     }
-     else
-     {
--        pt->last_plt_gtime += pt->period;
--        if ( --pt->pending_intr_nr == 0 )
--        {
--            pt_process_missed_ticks(pt);
--            if ( pt->pending_intr_nr == 0 )
--                set_timer(&pt->timer, pt->scheduled);
--        }
-+        /* Masked. */
-+        if ( pt->on_list )
-+            list_del(&pt->list);
-+        pt->on_list = false;
-+        pt->pending_intr_nr++;
-     }
- 
--    if ( mode_is(v->domain, delay_for_missed_ticks) &&
--         (hvm_get_guest_time(v) < pt->last_plt_gtime) )
--        hvm_set_guest_time(v, pt->last_plt_gtime);
-+    pt_unlock(pt);
-+
-+    if ( cb )
-+        cb(v, cb_priv);
- }
- 
--int pt_update_irq(struct vcpu *v)
-+/*
-+ * The same callback is shared between LAPIC and PIC/IO-APIC based timers, as
-+ * we ignore the first parameter that's different between them.
-+ */
-+static void eoi_callback(unsigned int unused, void *data)
- {
--    struct list_head *head = &v->arch.hvm.tm_list;
--    struct periodic_time *pt, *temp, *earliest_pt;
--    uint64_t max_lag;
--    int irq, pt_vector = -1;
--    bool level;
-+    struct periodic_time *pt = data;
-+    struct vcpu *v;
-+    time_cb *cb = NULL;
-+    void *cb_priv;
- 
--    pt_vcpu_lock(v);
-+    pt_lock(pt);
- 
--    earliest_pt = NULL;
--    max_lag = -1ULL;
--    list_for_each_entry_safe ( pt, temp, head, list )
-+    pt_irq_fired(pt->vcpu, pt);
-+    if ( pt->pending_intr_nr )
-     {
--        if ( pt->pending_intr_nr )
-+        if ( inject_interrupt(pt) )
-+        {
-+            pt->pending_intr_nr--;
-+            cb = pt->cb;
-+            cb_priv = pt->priv;
-+            v = pt->vcpu;
-+        }
-+        else
-         {
--            /* RTC code takes care of disabling the timer itself. */
--            if ( (pt->irq != RTC_IRQ || !pt->priv) && pt_irq_masked(pt) &&
--                 /* Level interrupts should be asserted even if masked. */
--                 !pt->level )
--            {
--                /* suspend timer emulation */
-+            /* Masked. */
-+            if ( pt->on_list )
-                 list_del(&pt->list);
--                pt->on_list = 0;
--            }
--            else
--            {
--                if ( (pt->last_plt_gtime + pt->period) < max_lag )
--                {
--                    max_lag = pt->last_plt_gtime + pt->period;
--                    earliest_pt = pt;
--                }
--            }
-+            pt->on_list = false;
-         }
-     }
- 
--    if ( earliest_pt == NULL )
--    {
--        pt_vcpu_unlock(v);
--        return -1;
--    }
-+    pt_unlock(pt);
- 
--    earliest_pt->irq_issued = 1;
--    irq = earliest_pt->irq;
--    level = earliest_pt->level;
-+    if ( cb )
-+        cb(v, cb_priv);
-+}
- 
--    pt_vcpu_unlock(v);
-+static bool inject_interrupt(struct periodic_time *pt)
-+{
-+    struct vcpu *v = pt->vcpu;
-+    struct domain *d = v->domain;
-+    unsigned int irq = pt->irq;
- 
--    switch ( earliest_pt->source )
-+    if ( pt_irq_masked(pt) )
-+        return false;
-+
-+    switch ( pt->source )
-     {
-     case PTSRC_lapic:
--        /*
--         * If periodic timer interrupt is handled by lapic, its vector in
--         * IRR is returned and used to set eoi_exit_bitmap for virtual
--         * interrupt delivery case. Otherwise return -1 to do nothing.
--         */
--        vlapic_set_irq(vcpu_vlapic(v), irq, 0);
--        pt_vector = irq;
-+        vlapic_set_irq_callback(vcpu_vlapic(v), pt->irq, 0, eoi_callback, pt);
-         break;
- 
-     case PTSRC_isa:
--        hvm_isa_irq_deassert(v->domain, irq);
-+        hvm_isa_irq_deassert(d, irq);
-         if ( platform_legacy_irq(irq) && vlapic_accept_pic_intr(v) &&
--             v->domain->arch.hvm.vpic[irq >> 3].int_output )
--            hvm_isa_irq_assert(v->domain, irq, NULL);
-+             d->arch.hvm.vpic[irq >> 3].int_output )
-+            hvm_isa_irq_assert(d, irq, NULL);
-         else
--        {
--            pt_vector = hvm_isa_irq_assert(v->domain, irq, vioapic_get_vector);
--            /*
--             * hvm_isa_irq_assert may not set the corresponding bit in vIRR
--             * when mask field of IOAPIC RTE is set. Check it again.
--             */
--            if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
--                pt_vector = -1;
--        }
-+            hvm_isa_irq_assert(d, irq, vioapic_get_vector);
-         break;
- 
-     case PTSRC_ioapic:
--        pt_vector = hvm_ioapic_assert(v->domain, irq, level);
--        if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
--        {
--            pt_vector = -1;
--            if ( level )
--            {
--                /*
--                 * Level interrupts are always asserted because the pin assert
--                 * count is incremented regardless of whether the pin is masked
--                 * or the vector latched in IRR, so also execute the callback
--                 * associated with the timer.
--                 */
--                time_cb *cb = NULL;
--                void *cb_priv = NULL;
 -
--                pt_vcpu_lock(v);
--                /* Make sure the timer is still on the list. */
--                list_for_each_entry ( pt, &v->arch.hvm.tm_list, list )
--                    if ( pt == earliest_pt )
--                    {
--                        pt_irq_fired(v, pt);
--                        cb = pt->cb;
--                        cb_priv = pt->priv;
--                        break;
--                    }
--                pt_vcpu_unlock(v);
--
--                if ( cb != NULL )
--                    cb(v, cb_priv);
--            }
--        }
-+        hvm_ioapic_assert(d, irq, pt->level);
-         break;
-     }
- 
--    return pt_vector;
--}
--
--static struct periodic_time *is_pt_irq(
--    struct vcpu *v, struct hvm_intack intack)
--{
--    struct list_head *head = &v->arch.hvm.tm_list;
--    struct periodic_time *pt;
--
--    list_for_each_entry ( pt, head, list )
-+    switch ( d->arch.hvm.params[HVM_PARAM_TIMER_MODE] )
-     {
--        if ( pt->pending_intr_nr && pt->irq_issued &&
--             (intack.vector == pt_irq_vector(pt, intack.source)) )
--            return pt;
--    }
--
--    return NULL;
--}
--
--void pt_intr_post(struct vcpu *v, struct hvm_intack intack)
--{
--    struct periodic_time *pt;
--    time_cb *cb;
--    void *cb_priv;
--
--    if ( intack.source == hvm_intsrc_vector )
--        return;
-+    case HVMPTM_one_missed_tick_pending:
-+    case HVMPTM_no_missed_ticks_pending:
-+        pt->last_plt_gtime = hvm_get_guest_time(v);
-+        break;
- 
--    pt_vcpu_lock(v);
-+    case HVMPTM_delay_for_missed_ticks:
-+        pt->last_plt_gtime += pt->period;
-+        if ( hvm_get_guest_time(v) < pt->last_plt_gtime )
-+            hvm_set_guest_time(v, pt->last_plt_gtime);
-+        break;
- 
--    pt = is_pt_irq(v, intack);
--    if ( pt == NULL )
--    {
--        pt_vcpu_unlock(v);
--        return;
-+    default:
-+        pt->last_plt_gtime += pt->period;
-+        break;
-     }
- 
--    pt_irq_fired(v, pt);
--
--    cb = pt->cb;
--    cb_priv = pt->priv;
--
--    pt_vcpu_unlock(v);
--
--    if ( cb != NULL )
--        cb(v, cb_priv);
-+    return true;
- }
- 
- void pt_migrate(struct vcpu *v)
-@@ -543,6 +451,24 @@ void create_periodic_time(
-     pt->cb = cb;
-     pt->priv = data;
- 
-+    switch ( pt->source )
-+    {
-+        int rc;
-+
-+    case PTSRC_isa:
-+        irq = hvm_isa_irq_to_gsi(irq);
-+        /* fallthrough */
-+    case PTSRC_ioapic:
-+        pt->eoi_cb.callback = eoi_callback;
-+        pt->eoi_cb.data = pt;
-+        rc = hvm_gsi_register_callback(v->domain, irq, &pt->eoi_cb);
-+        if ( rc )
-+            gdprintk(XENLOG_WARNING,
-+                     "unable to register callback for timer GSI %u source %u: %d\n",
-+                     irq, pt->source, rc);
-+        break;
-+    }
-+
-     pt->on_list = 1;
-     list_add(&pt->list, &v->arch.hvm.tm_list);
- 
-@@ -554,6 +480,8 @@ void create_periodic_time(
- 
- void destroy_periodic_time(struct periodic_time *pt)
- {
-+    unsigned int gsi;
-+
-     /* Was this structure previously initialised by create_periodic_time()? */
-     if ( pt->vcpu == NULL )
          return;
-@@ -563,6 +491,17 @@ void destroy_periodic_time(struct periodic_time *pt)
-         list_del(&pt->list);
-     pt->on_list = 0;
-     pt->pending_intr_nr = 0;
-+
-+    gsi = pt->irq;
-+    switch ( pt->source )
+     }
+ 
+@@ -252,7 +198,11 @@ static void pt_irq_fired(struct vcpu *v, struct periodic_time *pt)
+         pt_process_missed_ticks(pt);
+ 
+     if ( !pt->pending_intr_nr )
 +    {
-+    case PTSRC_isa:
-+        gsi = hvm_isa_irq_to_gsi(pt->irq);
-+        /* fallthrough */
-+    case PTSRC_ioapic:
-+        hvm_gsi_unregister_callback(pt->vcpu->domain, gsi, &pt->eoi_cb);
-+        break;
++        /* Make sure timer follows vCPU. */
++        migrate_timer(&pt->timer, current->processor);
+         set_timer(&pt->timer, pt->scheduled);
 +    }
+ }
+ 
+ static void pt_timer_fn(void *data)
+@@ -268,21 +218,15 @@ static void pt_timer_fn(void *data)
+     v = pt->vcpu;
+     irq = pt->irq;
+ 
+-    if ( inject_interrupt(pt) )
++    pt->scheduled += pt->period;
++
++    if ( !inject_interrupt(pt) )
++        pt->pending_intr_nr++;
++    else
+     {
+-        pt->scheduled += pt->period;
+-        pt->do_not_freeze = 0;
+         cb = pt->cb;
+         cb_priv = pt->priv;
+     }
+-    else
+-    {
+-        /* Masked. */
+-        if ( pt->on_list )
+-            list_del(&pt->list);
+-        pt->on_list = false;
+-        pt->pending_intr_nr++;
+-    }
+ 
      pt_unlock(pt);
  
-     /*
-@@ -617,20 +556,29 @@ void pt_adjust_global_vcpu_target(struct vcpu *v)
-     write_unlock(&pl_time->vhpet.lock);
- }
- 
--
- static void pt_resume(struct periodic_time *pt)
- {
-+    struct vcpu *v;
-+    time_cb *cb = NULL;
-+    void *cb_priv;
-+
-     if ( pt->vcpu == NULL )
-         return;
- 
+@@ -304,22 +248,12 @@ static void eoi_callback(unsigned int unused, void *data)
      pt_lock(pt);
--    if ( pt->pending_intr_nr && !pt->on_list )
-+    if ( pt->pending_intr_nr && !pt->on_list && inject_interrupt(pt) )
+ 
+     pt_irq_fired(pt->vcpu, pt);
+-    if ( pt->pending_intr_nr )
++    if ( pt->pending_intr_nr && inject_interrupt(pt) )
      {
+-        if ( inject_interrupt(pt) )
+-        {
+-            pt->pending_intr_nr--;
+-            cb = pt->cb;
+-            cb_priv = pt->priv;
+-            v = pt->vcpu;
+-        }
+-        else
+-        {
+-            /* Masked. */
+-            if ( pt->on_list )
+-                list_del(&pt->list);
+-            pt->on_list = false;
+-        }
 +        pt->pending_intr_nr--;
 +        cb = pt->cb;
 +        cb_priv = pt->priv;
 +        v = pt->vcpu;
-         pt->on_list = 1;
-         list_add(&pt->list, &pt->vcpu->arch.hvm.tm_list);
--        vcpu_kick(pt->vcpu);
      }
+ 
      pt_unlock(pt);
-+
-+    if ( cb )
-+        cb(v, cb_priv);
+@@ -378,19 +312,6 @@ static bool inject_interrupt(struct periodic_time *pt)
+     return true;
  }
  
- void pt_may_unmask_irq(struct domain *d, struct periodic_time *vlapic_pt)
+-void pt_migrate(struct vcpu *v)
+-{
+-    struct list_head *head = &v->arch.hvm.tm_list;
+-    struct periodic_time *pt;
+-
+-    pt_vcpu_lock(v);
+-
+-    list_for_each_entry ( pt, head, list )
+-        migrate_timer(&pt->timer, v->processor);
+-
+-    pt_vcpu_unlock(v);
+-}
+-
+ void create_periodic_time(
+     struct vcpu *v, struct periodic_time *pt, uint64_t delta,
+     uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level)
+@@ -410,8 +331,6 @@ void create_periodic_time(
+     write_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
+ 
+     pt->pending_intr_nr = 0;
+-    pt->do_not_freeze = 0;
+-    pt->irq_issued = 0;
+ 
+     /* Periodic timer must be at least 0.1ms. */
+     if ( (period < 100000) && period )
+@@ -469,9 +388,6 @@ void create_periodic_time(
+         break;
+     }
+ 
+-    pt->on_list = 1;
+-    list_add(&pt->list, &v->arch.hvm.tm_list);
+-
+     init_timer(&pt->timer, pt_timer_fn, pt, v->processor);
+     set_timer(&pt->timer, pt->scheduled);
+ 
+@@ -487,9 +403,6 @@ void destroy_periodic_time(struct periodic_time *pt)
+         return;
+ 
+     pt_lock(pt);
+-    if ( pt->on_list )
+-        list_del(&pt->list);
+-    pt->on_list = 0;
+     pt->pending_intr_nr = 0;
+ 
+     gsi = pt->irq;
+@@ -511,51 +424,6 @@ void destroy_periodic_time(struct periodic_time *pt)
+     kill_timer(&pt->timer);
+ }
+ 
+-static void pt_adjust_vcpu(struct periodic_time *pt, struct vcpu *v)
+-{
+-    ASSERT(pt->source == PTSRC_isa || pt->source == PTSRC_ioapic);
+-
+-    if ( pt->vcpu == NULL )
+-        return;
+-
+-    write_lock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
+-    pt->vcpu = v;
+-    if ( pt->on_list )
+-    {
+-        list_del(&pt->list);
+-        list_add(&pt->list, &v->arch.hvm.tm_list);
+-        migrate_timer(&pt->timer, v->processor);
+-    }
+-    write_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
+-}
+-
+-void pt_adjust_global_vcpu_target(struct vcpu *v)
+-{
+-    struct PITState *vpit;
+-    struct pl_time *pl_time;
+-    int i;
+-
+-    if ( !v || !has_vpit(v->domain) )
+-        return;
+-
+-    vpit = &v->domain->arch.vpit;
+-
+-    spin_lock(&vpit->lock);
+-    pt_adjust_vcpu(&vpit->pt0, v);
+-    spin_unlock(&vpit->lock);
+-
+-    pl_time = v->domain->arch.hvm.pl_time;
+-
+-    spin_lock(&pl_time->vrtc.lock);
+-    pt_adjust_vcpu(&pl_time->vrtc.pt, v);
+-    spin_unlock(&pl_time->vrtc.lock);
+-
+-    write_lock(&pl_time->vhpet.lock);
+-    for ( i = 0; i < HPET_TIMER_NUM; i++ )
+-        pt_adjust_vcpu(&pl_time->vhpet.pt[i], v);
+-    write_unlock(&pl_time->vhpet.lock);
+-}
+-
+ static void pt_resume(struct periodic_time *pt)
+ {
+     struct vcpu *v;
+@@ -566,14 +434,12 @@ static void pt_resume(struct periodic_time *pt)
+         return;
+ 
+     pt_lock(pt);
+-    if ( pt->pending_intr_nr && !pt->on_list && inject_interrupt(pt) )
++    if ( pt->pending_intr_nr && inject_interrupt(pt) )
+     {
+         pt->pending_intr_nr--;
+         cb = pt->cb;
+         cb_priv = pt->priv;
+         v = pt->vcpu;
+-        pt->on_list = 1;
+-        list_add(&pt->list, &pt->vcpu->arch.hvm.tm_list);
+     }
+     pt_unlock(pt);
+ 
+diff --git a/xen/include/asm-x86/hvm/vcpu.h b/xen/include/asm-x86/hvm/vcpu.h
+index 8adf4555c2a..9a756964fb0 100644
+--- a/xen/include/asm-x86/hvm/vcpu.h
++++ b/xen/include/asm-x86/hvm/vcpu.h
+@@ -148,9 +148,8 @@ struct hvm_vcpu {
+     s64                 cache_tsc_offset;
+     u64                 guest_time;
+ 
+-    /* Lock and list for virtual platform timers. */
++    /* Lock for virtual platform timers. */
+     spinlock_t          tm_lock;
+-    struct list_head    tm_list;
+ 
+     bool                flag_dr_dirty;
+     bool                debug_state_latch;
 diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
-index 39d26cbda49..9440fe4ac7d 100644
+index 9440fe4ac7d..af04efa5e01 100644
 --- a/xen/include/asm-x86/hvm/vpt.h
 +++ b/xen/include/asm-x86/hvm/vpt.h
-@@ -23,6 +23,7 @@
- #include <xen/list.h>
- #include <xen/rwlock.h>
- #include <asm/hvm/hvm.h>
-+#include <asm/hvm/irq.h>
+@@ -31,11 +31,7 @@
+ typedef void time_cb(struct vcpu *v, void *opaque);
  
- /*
-  * Abstract layer of periodic time, one short time.
-@@ -50,6 +51,7 @@ struct periodic_time {
-     struct timer timer;         /* ac_timer */
-     time_cb *cb;
-     void *priv;                 /* point back to platform time source */
-+    struct hvm_gsi_eoi_callback eoi_cb; /* EOI callback registration data */
+ struct periodic_time {
+-    struct list_head list;
+-    bool on_list;
+     bool one_shot;
+-    bool do_not_freeze;
+-    bool irq_issued;
+     bool warned_timeout_too_short;
+     bool level;
+ #define PTSRC_isa    1 /* ISA time source */
+@@ -145,11 +141,9 @@ struct pl_time {    /* platform time */
+     struct domain *domain;
  };
  
+-void pt_save_timer(struct vcpu *v);
+-void pt_restore_timer(struct vcpu *v);
+-void pt_migrate(struct vcpu *v);
++void pt_freeze_time(struct vcpu *v);
++void pt_thaw_time(struct vcpu *v);
  
-@@ -145,9 +147,6 @@ struct pl_time {    /* platform time */
+-void pt_adjust_global_vcpu_target(struct vcpu *v);
+ #define pt_global_vcpu_target(d) \
+     (is_hvm_domain(d) && (d)->arch.hvm.i8259_target ? \
+      (d)->arch.hvm.i8259_target : \
+@@ -158,7 +152,7 @@ void pt_adjust_global_vcpu_target(struct vcpu *v);
+ void pt_may_unmask_irq(struct domain *d, struct periodic_time *vlapic_pt);
  
- void pt_save_timer(struct vcpu *v);
- void pt_restore_timer(struct vcpu *v);
--int pt_update_irq(struct vcpu *v);
--struct hvm_intack;
--void pt_intr_post(struct vcpu *v, struct hvm_intack intack);
- void pt_migrate(struct vcpu *v);
+ /* Is given periodic timer active? */
+-#define pt_active(pt) ((pt)->on_list || (pt)->pending_intr_nr)
++#define pt_active(pt) ((pt)->pending_intr_nr || timer_is_active(&(pt)->timer))
  
- void pt_adjust_global_vcpu_target(struct vcpu *v);
+ /*
+  * Create/destroy a periodic (or one-shot!) timer.
 -- 
 2.30.1
 
