@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22BA8350B7E
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 03:08:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104091.198684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E3F350D5F
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 06:01:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104099.198710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRlnE-0006c3-Tu; Thu, 01 Apr 2021 01:06:40 +0000
+	id 1lRoUo-0003ra-Jm; Thu, 01 Apr 2021 03:59:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104091.198684; Thu, 01 Apr 2021 01:06:40 +0000
+Received: by outflank-mailman (output) from mailman id 104099.198710; Thu, 01 Apr 2021 03:59:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRlnE-0006bh-QX; Thu, 01 Apr 2021 01:06:40 +0000
-Received: by outflank-mailman (input) for mailman id 104091;
- Thu, 01 Apr 2021 01:06:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lRoUo-0003qy-AS; Thu, 01 Apr 2021 03:59:50 +0000
+Received: by outflank-mailman (input) for mailman id 104099;
+ Thu, 01 Apr 2021 03:59:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0cfn=I6=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1lRlnD-0006bc-ON
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 01:06:39 +0000
-Received: from mail-qt1-x82d.google.com (unknown [2607:f8b0:4864:20::82d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57233a77-0717-43da-8c2d-705c60856b16;
- Thu, 01 Apr 2021 01:06:37 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id g24so393038qts.6
- for <xen-devel@lists.xenproject.org>; Wed, 31 Mar 2021 18:06:37 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lRoUm-0003qq-6v; Thu, 01 Apr 2021 03:59:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lRoUl-0004BX-Uf; Thu, 01 Apr 2021 03:59:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lRoUl-0006lk-B8; Thu, 01 Apr 2021 03:59:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lRoUl-0001Se-Ad; Thu, 01 Apr 2021 03:59:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,203 +42,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57233a77-0717-43da-8c2d-705c60856b16
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=zededa.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=I4XnTBqWaNHfJM0uifctrfC1GtW1564zJxX4MuGrMVI=;
-        b=j4JCaWgTgHeE9hNCyf3zLgLl3NZvmOoLiw4Ep/EC6ix7jX0/TAzMjB+byX+ZGjleg1
-         tlNWElFHsnba0WSpmSvZVrmBUBLfaeYKGv3Mc8ilJN6xtyu/5Jt9XvWQbvt0PXJpvx95
-         jYOogg0fpdsx6ZmBvcrEa70SERHP4L6GMG4AQZm3ejWOFjLPGEy9gTUj76prrx6RccTT
-         a14OEn6o3qJwbyRWZT5BJw5TUimbm3lXCtkhpPKCKJeEGZCB9w/T8Qp+ybP9yht/6RBD
-         B4DlodB28DAGjJVdFlWDy4P57Yb3RaWiE+gTVk08iOh92euQ/XYTWh8wKOGJHUsDQkId
-         rBlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=I4XnTBqWaNHfJM0uifctrfC1GtW1564zJxX4MuGrMVI=;
-        b=FQJKh2Jo0ko1zJ1u6uFXxvNEzUni9WXk/R8JfpQOrzFcNu715evzZZGE6ZnPRHuuUB
-         uBbQf/kHnmggYuhCc7ZETLYxrQrb54XtKYWHsDD0UW4sohuzNxAKC94bu7zjC7oFpk1f
-         VFbdslzAot2qQmdnBflRNYPD8HRAp+WzRQrOKzOaHj2jbMzUEstPaaPBDfjDv78zhYCX
-         xYA9yoSBMME2yhCcHkCPIesDEjlJDM4bo3BdVAk8OydmhfaLJ59Z4KiykwPYMljYhhlM
-         LAnp0iAgl1K92eUUhaG6mBzhzOmZEhYhiBMO3+QfxaO6DaJqYkLnDtm9rZZ6YJ/4MwXN
-         BJpA==
-X-Gm-Message-State: AOAM532RuWtGjI4URlBunrU3fRDkwVG8NVMTQwT/M1vvGgoZdLo7/Trb
-	eGCSHjVTlICmvhKbHCh+Sfp28hadt1WS4KrxWjJQhA==
-X-Google-Smtp-Source: ABdhPJwGa4irE89lKL5j7+qT7fRWuH62QG8dMMrr/BtnompBjfBQ5fQ3cVmy8GlUz5hnj8n23BMFDOCaDyC0diXaLjY=
-X-Received: by 2002:ac8:1093:: with SMTP id a19mr5064689qtj.365.1617239197376;
- Wed, 31 Mar 2021 18:06:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAMmSBy8Wpwgj3V0U8OhsZCgyAxOjTeHDMt-Vw+om1koopmxTsg@mail.gmail.com>
- <23baec07-a3ae-949a-a1fb-09100efd53e5@citrix.com>
-In-Reply-To: <23baec07-a3ae-949a-a1fb-09100efd53e5@citrix.com>
-From: Roman Shaposhnik <roman@zededa.com>
-Date: Wed, 31 Mar 2021 18:06:31 -0700
-Message-ID: <CAMmSBy96=FwR0zZy199e0YhFefgZj_PFOMiaB2nKjqdQvKufow@mail.gmail.com>
-Subject: Re: multiboot2 and module2 boot issues via GRUB2
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, grub-devel@gnu.org
-Content-Type: multipart/alternative; boundary="000000000000e0809d05beded750"
-
---000000000000e0809d05beded750
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=B987X/bvncCJUt2TB/PBhd/FvG5R7pr/ew2B3UB/fQs=; b=2QMr1IKrMuyCMSLmwnRKGCsOZH
+	QMUiReBADUvpEr4DdktV9ku08635lu3u1pDeW7MUO2i0UCigWUZukRrLhQpuUfZeSglYcm1sasJAf
+	ZN2Emsn72fXLxAfSu76f+lPu7rsihSShlIu+q5AbT3WCWe1alWcOeh+E5pyFoiRp2QVw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160619-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 160619: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-freebsd10-i386:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:guest-saverestore:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=b307a3174ffc293d4af9a0f03d9f78ae63327157
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 01 Apr 2021 03:59:47 +0000
 
-Hi Andrew!
+flight 160619 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160619/
 
-first of all -- thanks for pointing me in the right direction. So after
-reading relevant sources: comments inline.
+Regressions :-(
 
-On Tue, Mar 30, 2021 at 12:08 PM Andrew Cooper <andrew.cooper3@citrix.com>
-wrote:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-qemuu-freebsd11-amd64 16 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-freebsd10-i386 16 guest-saverestore      fail REGR. vs. 152631
+ test-amd64-i386-freebsd10-amd64 16 guest-saverestore     fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 152631
+ test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 152631
+ test-amd64-amd64-qemuu-freebsd12-amd64 16 guest-saverestore fail REGR. vs. 152631
+ test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-ovmf-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-win7-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail REGR. vs. 152631
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-qemuu-nested-intel 20 debian-hvm-install/l1/l2 fail REGR. vs. 152631
 
-> On 30/03/2021 19:28, Roman Shaposhnik wrote:
-> > Hi!
-> >
-> > seems like I've run into an issue with multiboot2 and module2
-> > commands that I can't quite explain. Since it may be something
-> > super simply and silly -- I wanted to reach out here before I do
-> > a GRUB/Xen/LK source deepdive.
-> >
-> > So here's the deal: whenever I boot straight up Linux kernel
-> > I can do the following sequence of commands:
-> >    linux /kernel
-> >    initrd foo.cpio.gz bar.cpio.gz
-> > and have linux kernel effectively stack content of bar.cpio.gz
-> > on top of foo.cpio.gz and present a unified initramfs that way.
-> >
-> > I'm trying to replicate it with Xen, but:
-> >      multiboot2 /boot/xen.gz
-> >      module2 /kernel
-> >      module2 foo.cpio.gz
-> >      module2 bar.cpio.gz
-> > only seems to be picking up foo.cpio.gz
-> >
-> > Has anyone run into this issue before?
->
-> I can explain why that happens.  Not sure if it counts as a feature, bug
-> or mis-expectation, but CC'ing grub-devel for their input.
->
-> The initrd command is presumably concatenating those two files together
-> in memory, and presenting Linux a single initrd pointer.
->
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-It is indeed what seems to be happening.
+version targeted for testing:
+ qemuu                b307a3174ffc293d4af9a0f03d9f78ae63327157
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z  223 days
+Failing since        152659  2020-08-21 14:07:39 Z  222 days  420 attempts
+Testing same since   160619  2021-03-31 13:54:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+469 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-> For the module2 example, you're putting 3 distinct files in memory, and
-> giving Xen a list 3 modules.
->
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-And that is also correct -- nothing like that is possible with modules.
-Kernel actually needs to be aware of them. So the question then
-becomes...
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> Xen is capable of taking various things via modules, such as an
-> XSM/Flask policy, or microcode, so has logic to identify these if
-> present and separate them from "other stuff".  However, there is a
-> hardcoded expectation that the first module is the dom0 kernel, and the
-> next unrecognised module, if present, is *the* initrd.
+Not pushing.
 
-I expect that Xen isn't handing bar.cpio.gz on to dom0, but I'm not sure
-> whether passing two distinct initrd-like-things to Linux is even possible.
->
-> What you presumably want is some `initrd` side effect in Grub so you can
-> write `module2 foo.cpio.gz bar.cpio.gz` and have it concatenate things
-> together in memory and present one MB2 module, but I suspect that exact
-> syntax might be ambiguous with command line handling.  I have no idea
-> whether such a command currently exists.
->
-
-...I guess there's no mechanism out-of-the box to achieve what I want?
-
-And the obvious next question: is my EVE usecase esoteric enough that
-I should just go ahead and do a custom GRUB patch or is there a more
-general interest in this?
-
-Thanks,
-Roman.
-
---000000000000e0809d05beded750
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hi Andrew!<div><br></div=
-><div>first of all -- thanks for pointing me in the right direction. So aft=
-er reading relevant sources: comments inline.</div></div><br><div class=3D"=
-gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 30, 2021 at =
-12:08 PM Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com">and=
-rew.cooper3@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_q=
-uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
-04);padding-left:1ex">On 30/03/2021 19:28, Roman Shaposhnik wrote:<br>
-&gt; Hi!<br>
-&gt;<br>
-&gt; seems like I&#39;ve run into an issue with multiboot2=C2=A0and module2=
-<br>
-&gt; commands that I can&#39;t quite explain. Since it may be something<br>
-&gt; super simply and silly -- I wanted to reach out here before I do<br>
-&gt; a GRUB/Xen/LK source deepdive.<br>
-&gt;<br>
-&gt; So here&#39;s the deal: whenever I boot straight up Linux kernel<br>
-&gt; I can do the following sequence of commands:<br>
-&gt; =C2=A0 =C2=A0linux /kernel<br>
-&gt; =C2=A0 =C2=A0initrd foo.cpio.gz bar.cpio.gz<br>
-&gt; and have linux kernel effectively stack content of bar.cpio.gz<br>
-&gt; on top of foo.cpio.gz and present a unified initramfs that way.<br>
-&gt;<br>
-&gt; I&#39;m trying to replicate it with Xen, but:<br>
-&gt; =C2=A0 =C2=A0 =C2=A0multiboot2 /boot/xen.gz<br>
-&gt; =C2=A0 =C2=A0 =C2=A0module2 /kernel<br>
-&gt; =C2=A0 =C2=A0 =C2=A0module2 foo.cpio.gz<br>
-&gt; =C2=A0 =C2=A0 =C2=A0module2 bar.cpio.gz<br>
-&gt; only seems to be picking up foo.cpio.gz<br>
-&gt;<br>
-&gt; Has anyone run into this=C2=A0issue before?<br>
-<br>
-I can explain why that happens.=C2=A0 Not sure if it counts as a feature, b=
-ug<br>
-or mis-expectation, but CC&#39;ing grub-devel for their input.<br>
-<br>
-The initrd command is presumably concatenating those two files together<br>
-in memory, and presenting Linux a single initrd pointer.<br></blockquote><d=
-iv><br></div><div>It is indeed what seems to be happening.</div><div>=C2=A0=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex">
-For the module2 example, you&#39;re putting 3 distinct files in memory, and=
-<br>
-giving Xen a list 3 modules.<br></blockquote><div><br></div><div>And that i=
-s also correct -- nothing like that is possible with modules.</div><div>Ker=
-nel actually needs to be aware of them. So the question then</div><div>beco=
-mes...</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">
-Xen is capable of taking various things via modules, such as an<br>
-XSM/Flask policy, or microcode, so has logic to identify these if<br>
-present and separate them from &quot;other stuff&quot;.=C2=A0 However, ther=
-e is a<br>
-hardcoded expectation that the first module is the dom0 kernel, and the<br>
-next unrecognised module, if present, is *the* initrd.=C2=A0</blockquote><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">I expect that Xen isn&#39;t=
- handing bar.cpio.gz on to dom0, but I&#39;m not sure<br>
-whether passing two distinct initrd-like-things to Linux is even possible.<=
-br>
-<br>
-What you presumably want is some `initrd` side effect in Grub so you can<br=
->
-write `module2 foo.cpio.gz bar.cpio.gz` and have it concatenate things<br>
-together in memory and present one MB2 module, but I suspect that exact<br>
-syntax might be ambiguous with command line handling.=C2=A0 I have no idea<=
-br>
-whether such a command currently exists.<br></blockquote><div><br></div><di=
-v><div>...I guess there&#39;s no mechanism out-of-the box to achieve=C2=A0w=
-hat I want?</div><div></div></div><div>=C2=A0</div><div>And the obvious nex=
-t question: is my EVE usecase esoteric enough that</div><div>I should just =
-go ahead and do a custom=C2=A0GRUB patch or is there a more</div><div>gener=
-al interest in this?</div><div><br></div><div>Thanks,<br>Roman.</div></div>=
-</div></div>
-
---000000000000e0809d05beded750--
+(No revision log; it would be 138842 lines long.)
 
