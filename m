@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4BD351358
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 12:23:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104309.199369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43CA135135A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 12:23:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104313.199393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRuTm-0002GI-NV; Thu, 01 Apr 2021 10:23:10 +0000
+	id 1lRuU7-0002Rl-9R; Thu, 01 Apr 2021 10:23:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104309.199369; Thu, 01 Apr 2021 10:23:10 +0000
+Received: by outflank-mailman (output) from mailman id 104313.199393; Thu, 01 Apr 2021 10:23:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRuTm-0002Fr-Jh; Thu, 01 Apr 2021 10:23:10 +0000
-Received: by outflank-mailman (input) for mailman id 104309;
- Thu, 01 Apr 2021 10:23:09 +0000
+	id 1lRuU7-0002RM-5r; Thu, 01 Apr 2021 10:23:31 +0000
+Received: by outflank-mailman (input) for mailman id 104313;
+ Thu, 01 Apr 2021 10:23:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=evtz=I6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lRuTl-0002Ep-1a
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 10:23:09 +0000
+ id 1lRuU5-0002Qp-2l
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 10:23:29 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5993ffe6-787f-475b-b7ec-368f2c9a3671;
- Thu, 01 Apr 2021 10:23:07 +0000 (UTC)
+ id 8f259c5c-d47e-4d74-96f7-75188448331c;
+ Thu, 01 Apr 2021 10:23:28 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1529BAED7;
- Thu,  1 Apr 2021 10:23:07 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A5E6EAE86;
+ Thu,  1 Apr 2021 10:23:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,18 +39,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5993ffe6-787f-475b-b7ec-368f2c9a3671
+X-Inumbo-ID: 8f259c5c-d47e-4d74-96f7-75188448331c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617272587; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617272607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5742tdH/lAsOCplYSlX/aqstUJg8Rlv97TdWNCdRmSk=;
-	b=ANROaimZWyzPlbs+4BeRDilkJtvIDsazHfGxSUcZuaQRhSHX2z0Sjb4Bb/sOszH8YVl/lX
-	PH6jFzbeGidL4IhDn7Gyi6zXcWSZFqKKxFmhYaCw6iNB74mjlsJniiTasoOgEV94SxvN6a
-	0W8/f1ceznKvCPDD+VZsPlyDN7H/Zbw=
-Subject: [PATCH 09/23] lib: move memchr_inv()
+	bh=nBbweA3vL9rMSj+WwvAqtgbZp6SBSyR96p37O2EqfpE=;
+	b=IQTMtGb9knfLlR5xxb9YeGf2M90KdEeJ9v8Ftz46dP/kUuwkZXjOhWzJkGswOBSTUCJpBJ
+	qoLEbyC1jamnFozUKQzTW3yJed1Db/gbrVZZ5GxQNAj0SUeG63ki/MPWA8wZZBH0u96CV8
+	NDJGkjmZiVUdEszQX1pKTw9IDzrSbKY=
+Subject: [PATCH 10/23] lib: move strlen()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -58,8 +58,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <c53a6802-8bae-1dc6-5ac4-6238e122aaa4@suse.com>
-Message-ID: <adf1c065-396a-562d-e91b-c5167f298846@suse.com>
-Date: Thu, 1 Apr 2021 12:23:06 +0200
+Message-ID: <7e82929a-5eb0-a8a2-ec61-005311d74b44@suse.com>
+Date: Thu, 1 Apr 2021 12:23:27 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -72,46 +72,41 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/common/string.c
 +++ b/xen/common/string.c
-@@ -311,26 +311,6 @@ char *(strstr)(const char *s1, const cha
+@@ -184,21 +184,6 @@ char *(strrchr)(const char *s, int c)
  }
  #endif
  
+-#ifndef __HAVE_ARCH_STRLEN
 -/**
-- * memchr_inv - Find an unmatching character in an area of memory.
-- * @s: The memory area
-- * @c: The byte that is expected
-- * @n: The size of the area.
-- *
-- * returns the address of the first occurrence of a character other than @c,
-- * or %NULL if the whole buffer contains just @c.
+- * strlen - Find the length of a string
+- * @s: The string to be sized
 - */
--void *memchr_inv(const void *s, int c, size_t n)
+-size_t (strlen)(const char * s)
 -{
--	const unsigned char *p = s;
+-	const char *sc;
 -
--	while (n--)
--		if ((unsigned char)c != *p++)
--			return (void *)(p - 1);
--
--	return NULL;
+-	for (sc = s; *sc != '\0'; ++sc)
+-		/* nothing */;
+-	return sc - s;
 -}
+-#endif
 -
- /*
-  * Local variables:
-  * mode: C
+ #ifndef __HAVE_ARCH_STRNLEN
+ /**
+  * strnlen - Find the length of a length-limited string
 --- a/xen/lib/Makefile
 +++ b/xen/lib/Makefile
-@@ -5,6 +5,7 @@ lib-y += ctors.o
- lib-y += ctype.o
- lib-y += list-sort.o
- lib-y += memchr.o
-+lib-y += memchr_inv.o
- lib-y += memcmp.o
- lib-y += memcpy.o
- lib-y += memmove.o
+@@ -14,6 +14,7 @@ lib-y += muldiv64.o
+ lib-y += parse-size.o
+ lib-y += rbtree.o
+ lib-y += sort.o
++lib-y += strlen.o
+ lib-$(CONFIG_X86) += xxhash32.o
+ lib-$(CONFIG_X86) += xxhash64.o
+ 
 --- /dev/null
-+++ b/xen/lib/memchr_inv.c
-@@ -0,0 +1,35 @@
++++ b/xen/lib/strlen.c
+@@ -0,0 +1,28 @@
 +/*
 + *  Copyright (C) 1991, 1992  Linus Torvalds
 + */
@@ -119,23 +114,16 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
 +#include <xen/string.h>
 +
 +/**
-+ * memchr_inv - Find an unmatching character in an area of memory.
-+ * @s: The memory area
-+ * @c: The byte that is expected
-+ * @n: The size of the area.
-+ *
-+ * returns the address of the first occurrence of a character other than @c,
-+ * or %NULL if the whole buffer contains just @c.
++ * strlen - Find the length of a string
++ * @s: The string to be sized
 + */
-+void *memchr_inv(const void *s, int c, size_t n)
++size_t (strlen)(const char * s)
 +{
-+	const unsigned char *p = s;
++	const char *sc;
 +
-+	while (n--)
-+		if ((unsigned char)c != *p++)
-+			return (void *)(p - 1);
-+
-+	return NULL;
++	for (sc = s; *sc != '\0'; ++sc)
++		/* nothing */;
++	return sc - s;
 +}
 +
 +/*
