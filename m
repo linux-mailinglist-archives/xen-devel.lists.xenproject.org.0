@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D3BC351514
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 15:22:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104451.199752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02FCA35153A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 15:33:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104455.199764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRxFr-0004Tt-90; Thu, 01 Apr 2021 13:20:59 +0000
+	id 1lRxRa-0005TR-DF; Thu, 01 Apr 2021 13:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104451.199752; Thu, 01 Apr 2021 13:20:59 +0000
+Received: by outflank-mailman (output) from mailman id 104455.199764; Thu, 01 Apr 2021 13:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRxFr-0004TU-5q; Thu, 01 Apr 2021 13:20:59 +0000
-Received: by outflank-mailman (input) for mailman id 104451;
- Thu, 01 Apr 2021 13:20:57 +0000
+	id 1lRxRa-0005T4-9d; Thu, 01 Apr 2021 13:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 104455;
+ Thu, 01 Apr 2021 13:33:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Onq8=I6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lRxFp-0004TN-6P
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 13:20:57 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1lRxRY-0005Sz-F8
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 13:33:04 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b4392d44-e5ca-496f-b9c7-2de643c40e69;
- Thu, 01 Apr 2021 13:20:55 +0000 (UTC)
+ id 2b51ede2-3768-4e82-96cd-66e5c45d1d2d;
+ Thu, 01 Apr 2021 13:33:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,204 +35,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4392d44-e5ca-496f-b9c7-2de643c40e69
+X-Inumbo-ID: 2b51ede2-3768-4e82-96cd-66e5c45d1d2d
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617283255;
+  d=citrix.com; s=securemail; t=1617283982;
   h=to:cc:references:from:subject:message-id:date:
    in-reply-to:content-transfer-encoding:mime-version;
-  bh=Ot1NR4kkHo35XY5Tw4cWLBaToELK32ub+ZiUd8PP1KI=;
-  b=d54GNFsppOz9iFHg08pv6V/dB+JoP5Y6mo/ZLuy8JXUkUq54zBckJKot
-   osvIlYn0YR+YvpvPkS4I7E6nOGA8eZB7nyT6yr+B8uxsfc/Vn7DQn/wKv
-   dE9Q5hmJP+zv1+1dfVifR5UNomDDWLbVXN0i790tzkFxCvwLtmOlMSsHb
-   w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: mJryrkgdok5c80cSLcrSnpJOC0vh7kSpkZiFqGFwkqi6UvK+L7hed/H4KxM1CzmKEufEEf/X5j
- TzdBC9jX1y/NT9z9G+mQp1mdnA7f4rqHuO5d8/ACH6bC6LhX62nOPGs+ek2xBULTZk33UNQtq1
- 7DDpYICwWd6xqi79VcmEX1xJNyJNKKonPIM66fKbxrKi38eTVxa12AIXrtw3EBTFrpN0ZKJyNM
- Yi48d4COgGHn08inHlZudWHDcMJrvLG5X/CQkmd+xvf0xcQ6KEhIbDVbZjmTFo4YzPSCoAR5xI
- z0E=
+  bh=WgvTekEWeEc0gEBpw9NIx3wGqTvh7izwE7TdeeV+6tQ=;
+  b=NBPbPwx/jtpyGmn6T10z7fxqGQVx+ZPgQZaOZQRSN2cRNK7Urk9aSXOK
+   C8r5q3H+KHNEDshnwK0/gnifYWF74yhukpH59Ou1KEwWOiPWverFo+0Tg
+   CPeqEnwMk0HSfW1WntmhS7cf1ivbcNzgrInSM5p6tfH63ZmfK+PdpXG1E
+   Y=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: t6PBrsHe+O5PWQWBtko7Y1XG1ug77vd2m5wkV+9Kh4jLt8tlA5XkpH5rg9u0Hu+nnypskeO63z
+ EuVq+dG9b7ss+OopeI6KA5gyGATvfWF6AcjwUGFOum+A8HlUN1V6N3+QlasUhQyTbY/+gk4wZF
+ zlVV6Ov3cFwHjjgh/b/QWu1BJe/b4tLCdggg4UqqU0yhPKw9xUj1FTAb4CBzMYbz8OQMUXRONY
+ Ntgq3YLGR/6XNZmmcbd6PTvY93wfU04/L3vnOhdqbXsJmMMXU4TXW1urSTGTCvXvBAvQ34XcNy
+ ay4=
 X-SBRS: 5.2
-X-MesageID: 40555887
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 40697609
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:/rmui6vkQ73CWQaucu7UOrth7skC2YYji2hD6mlwRA09T+WxrO
- rrtOgH1BPylTYaUGwhn9fFA6WbXXbA7/dOj7U5FYyJGC3ronGhIo0n14vtxDX8Bzbzn9Qz6Y
- 5JSII7MtH5CDFB4frSyBWkEtom3dmM+L2pg+Cb9Ht2UQR2cchbjztRICzzKDwTeCBtA50lGJ
- 2Aou9OoDS9cXoaB/7LeEUtde7FutHNidbaehYAHREq802jijmv5b78HXGjr2gjehlIxqov9n
- WArhzh6syYwo2G4zL/90uW1ZRZn9P91sBObfbstuE5Iijh4zzYH7hJdKaFuFkO0YeSwXYs1O
- LBuhIxe/l0gkmhA12dhTvI903e3C0163nkoGXo80fLhcDiXjo1B45gqOtiA2PkwnEttt19z6
- 5Htljx3/E8YGKi7UaNk+TgbB1kmlG5pnAvi4co/htieLATdaNLqsgn9F5Vea1wbx7S0pwtE+
- VlEajnlY9rWG6dBkqp21VH/MahRTAaEBuAXyE5y7ao+gkTtnV4w0wE/dcYj3cN+bksIqM0l9
- jsA+BGkqpDQdQRar84LOAdQdGvAmiIeh7UNnmOSG6XWp0vCjbokdra8b817OaldNghy4Yzoo
- 3IVBd9uXQpc0zjJMWS1PRwg1HwaVT4eQ6o5tBV5pB/tLG5bqHsKze/RFcnlNbli+kDA+XAMs
- zDeq5+MrvGFy/DCIxJ1wrxV915Mn8FSvAYvd49Rhanvt/LEIv3rebWGcyjZ4bFIHIBYCfSE3
- EDVD/8KIFr9UawQEL1hxDXRjfDYUr60ZVsELXL3uQaxYQXX7c89jQ9uBCc3IWmODdCuqs5cA
- 9VO7X8iJ62omGw4CLp4gxSS11gJ3cQxI+lf2JBpAcMPU+xW60Eoc+jdWdb22bCAhd+SsjRAT
- NOvlgfw9PwE7WggQQZT/63OGOTiHUe4FiQSY0Hp6GF7cD5PrQ1E4ghQ640MQnQDRR6lUJLpQ
- 54GU85b36aMgmrpbSujZQSCu2aXcJ7mh2XLcldrm+ak16dq8EpTn4yRCWvTsaTvAYrS1Nv9x
- hM2p5apIDFtSekKGM5juh9GkZLcn6rDLVPCxnAWJ9ZgYnxeAZ7TX6DgBuTjx1bQBuyy2wiwk
- jaaQGEc/DCBVRQ/lRVyLzj/l9PemKBRE5ocXxhvYphFWPJh2Zr3YawF9+O+lrUTmFH7vAWMT
- nDbzdXGA9oytyt/DO+mTqJFxwdt9gTF92YKI5mX6DY23urJoHNqLoPGOVM+o15cPr0tPUQbO
- 6ZcwiJDT/xBu8zwTaJrnI9NCQckgh9rdrYnDneqESo1n82BvTfZGl8T7YAOteG8izKQe2L3J
- gRt6N8gcKAdkHKLviIxqHcY2Qddlf9oWuqQ/oprp4Rl6Qor7d3F4TaVzyN9Hwv5mRJEO7E0G
- clBIJ86/T9H6UqWeo4USdQ5EAom9SCN1FDiH29PsYOOXUWy0bGNNaI6YfSobUhAke9tBL9UG
- PvhBF1zrPgZW+/zrYUBKI7HHROZGU94Hpk+vmed4e4MnTiS8hzuH67OGS6arlTVeysHqgRtA
- 9z57iz7qOqXhu9/ADbpj1gJK1St06hXMOpGQqJXcpF6cazN1jJoqyk5qeI/XjKYAr+T0QTno
- tec0MMKuxFlzk5lYUylhGIdZafmDNvr3JupRd9llDs3YC64GDUWWF+WDep86l+bH10KXiHjc
- PM7O6C8m/yiQI1gqX+KA==
+IronPort-HdrOrdr: A9a23:FFlMn6+N9qxkUzy3SCluk+F1cL1zdoIgy1knxilNYDRvWIixi9
+ 2ukPMH1RX9lTYWXzUalcqdPbSbKEmyybdc2qNUGbu5RgHptC+TLI9k5Zb/2DGIIUHD38Zn/+
+ Nbf6B6YeecMXFTkdv67A6kE9wp3dmA9+SSif3Dymp2JDsKV4hLxW5Ce2OmO2dxQxRLAod8MZ
+ Ka6NZOqTbIQwVpUu2QAH4ZU+/f4+DRnJX9bhIcQzIh4g+CjTSngYSKbySw9BEYTj9J3PMe4X
+ HI+jaJm5mLntOa7lvn12HV54lLg9eJ8LV+LeGFl8R9EESVti+Gf4JkMofy2wwdgObq01oylc
+ mJnhFIBbUI11r0XkWY5STgwBPh1jFG0Q6Q9Xa9jWH4qcL0ABIWYvAx/L5xSRfS50o+sNwU6s
+ sitAj4xvkneC/opyjz68PFUBtnjCOP0B4fuNUekmBFVs8mYKJRxLZvjH99KosKHy7x9ekcYY
+ 9TJfzbjcwmE2+yU2rUpS1GztCqQx0Ib2y7a3lHkMmU3z9KpWt+3ksVyecO901wha4Vet1q4f
+ /JPb9vk6wLZsgKbbhlDONEesevDHfRKCi8f166EBDCLuUqKnjNo5n47PEc4/yrQoUByN8XlI
+ 7aWF1VmGYucyvVeIOz9awO1iqIbHS2XDzrxM0bzYN+oKfASL3iNjDGYEwykuO7ys9vQfHzar
+ KWAtZ7EvXjJWzhFcJixAvlQaRfLnEYTYk8pss7YVSTucjGQ7ea9tDzQbL2Hv7AADwkUmTwDj
+ 8oRz7oPvhN6UitRzvWmx7Ud3TxelHu3J55HaTAltJjjbQlB8lpiEw4mF657saEJXlpqaotZn
+ ZzJ7vhj+eaqACNjCL1xlQsHiAYIlde4b3mXX8PjxQNKVnIfbEKvMjaXWhT2XCANyJuVs++Kn
+ 8Zm31HvYaMa7CAzyErDNyqdkiAiWEImX6MR5AA3oqO+NniYZF9Kpo9QqR+GUHqGnVO6EdXgV
+ YGTDVBal7UFzvoh6ngpocTHvvje951hxruB9VVp3LZvUC1vtouWXMfYj6rXaes8EQTbgsRom
+ c0374UgbKGlzrqA3A4mv4EPFpFb3nSPKhLFz2fZIJfmqnifSZ5SWviv03dtzgDPk7Rs2kCjG
+ 3oKiOZPdXGGEBUtHxj3qH2y19sbWmGc0Vsand1jJ1lGQ39ywRO+N7OQpD2/3qaa1MEzO1YCj
+ 3DbDcICi5Fxty81neu6Xy/PERj4q9rEv3WDbwlfb2W52ikL5eQk7oaW9VO+ox+CdzouugXcO
+ 6WdgOPNgnkA+cx1wH9nAd9BABE7F0f1d/40hzs62a1mEMlCf3JOVJ8WvU1Jcqf42WMfYfA7L
+ xJyfYO+c2+PWX6ZoTYleX5bztfJgjSpmDzZecyspxQtb8zsrw2P5Sza0q+6Fh3mDEFaOHznw
+ ciZY4+xpbrEIpmZdYTdCJU5UBBrqXFEGIb9ijNRtYjdlQshULBN9yH47D0uaMia3fx0DfYCB
+ 26yWlh5P/LUCuI6K4CB48xKWpQblIg6H4KxpL1S6TgTCGrffpE5ly0LzuUd6JcUrGMHdwr31
+ tHyuDNu++cbCzj3g/M+RN9P6JV6m6iBee/GhiFF+IN09u0Pz238+eXyf/2qDf8Uj2gbUsEwa
+ VDaEwLd8xGzgAYs7df6Fn7doXH5mQ/k1Vf5jl7llninqieiV2rY31uAEn+mZVZXT5aL36Sq9
+ /KmNLojEjA3A==
 X-IronPort-AV: E=Sophos;i="5.81,296,1610427600"; 
-   d="scan'208";a="40555887"
+   d="scan'208";a="40697609"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mLLnjO1dPcifTSOHaIGs8xIisJ7GBNJ4ftASX4+aUadtB9ZIWhr/XmwRd6BSMqG7BQMzfSCjrsiI8lNuSqdxLqbqLG0sHmJGf/DPeczg1h04Wi8CpRvoq9qKFwMxS9C7uPvKJkGgzamTAAyc8v+bUtWdYW8sCnHPoy52Z/ZIP7yHztBbq2VvUNaEQmLbGI8fnqzalRXOCrCpojgEHLY9N9hXZwL1iKvaVxXrCRvNdesfu4gYxSGppnAUIaUTtNq4jZMCxRxhorefWIndERRzN75UmVEw8Qpr3u/94BVcprJ537JwbgFPkjfk9P3EEd308+dlwM0zH4LWgxiJI4v9Fg==
+ b=IdJWk2NxmslbdkFUGevaTWX8KS670H95SOb0WzGHt4WFGHoryjb26DIZsuqAIQ+82Lpp3SwN9XJb5Y/6+9jc21dQ6BqjMU2aJ8QK1ALfEPWYdeDXqRDUoB9Bkw6IZh1a/lJhpiHT66uKL6/AS4NGQL5ddReyB8GIdOoVkfQgCd92U89gU4U6cmGDXSs0cV0wGNusI+uIeMV/u1+lZ8/2IH8nIs0SD3eCvHBxpkpbfuO4pNGM4h3IfIHq87NylWH+qAc8NFpt9+3g7rGdIQPMVCZivdYAR+0yW2d1Ual28vp8tsURdNVDFlsRJbznfbX2NQUd9hNK9Rvjw3mB2mjaag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/OyQ2vrdQax1SqwU6XUja7IVbjW+nUkz7HxDGveAYrc=;
- b=ZPg2PrUgUKNdBUlRz9V2R1cw6lUe+cjYllO8p22jeIH8HoXcALQ5BLi1/xOS3EcoX5iAV9k9fwkHMH4DUG7kIZwxsiR0zdT6MkpYNCQ0MxRdon9SvwvSt27HEFc9iYOWq8on3zD46AQZYUXzDoMd//shEdMu7R3XwFps2ywYOgg7uhR3H/CX8+aYhdVDkPEvPmdbHfpi55Z+IfSjkAg+8/xy0UPE5VdV5pqYP9LtOHQPMJOXd4IS53NhSmR+KQBM3mhdI8dUaKcwpPpdQqb+vuoEwkeNFW99hrySUN/Cxt+G0YHKgQ7HIGNVML5ZbCu1XRDRV2fZkhbkXXDl+P0fhQ==
+ bh=yqhfqYHbcZHVO7ustC/BjskR5c/CovCVK45ufO95EOQ=;
+ b=Np4CGdeAKD/5c8ss8INDHHBjvpgkQ6xmouRfsK1dfo9oOvIdlZshTbof17OLpUFXZyRFpLsNfG1Uzx5GwjEGXMmndODgXqM5iE5mGJi5wBMoch0ow8oNpLExMBjcLKfgU6XqKexF0QMjIcZEmv8Lw8d/jb7ll3BuFmR3tsnqTlHc87PCqydvtBvM1AIDHC3cvEAag4i00FIW3ah/JGRX6Haj+4go0wssvsF/Cgkv725OcY2LmbwZricjzAY45R+n+NKUDrSAFAG+3wBLJ5xXzBafu4S52dRhLcDcO9VuHm+3SqVTvWaB9Qk5dH8K32xeeU/HhHiObt2GG7GXbGhorg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/OyQ2vrdQax1SqwU6XUja7IVbjW+nUkz7HxDGveAYrc=;
- b=lKaGnBY74GKP9LpFkktQ7jDV2UcqY+FJ9vDfhFkKX4uHSs6J7rauxiv+m3JQmttTvOSPWzOBqOh/fA25aYG5yGNsXdgKJGyMbU/ud9SacYSk8TCo/9YOz87sWYGWpSv3V3CCv84mEpsS9fgPyzn4A3dVnbTFWk8FiFhLrQv+a1w=
-To: Jan Beulich <jbeulich@suse.com>
-CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210331133125.7072-1-andrew.cooper3@citrix.com>
- <95d8688b-2e54-ae02-09ce-45203959e08a@suse.com>
+ bh=yqhfqYHbcZHVO7ustC/BjskR5c/CovCVK45ufO95EOQ=;
+ b=HkFwt6o4w0Gx1sjwVlMvhY772pamacqJyM/M73VeBAkmZPDmfoxuJ6w7Nwkv2x0DS0kLTdWEYr2LAvPts9FdK5QB2AWPCK2DlLQcDOquQvtQAf2h5lIbgxb7yBGT2Ph97A80vZGQDYLJRzY/NT/nPN4QcYeLDMRAip1EdMa6tOk=
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20210323095849.37858-1-roger.pau@citrix.com>
+ <20210323095849.37858-6-roger.pau@citrix.com>
+ <87d48996-6b8b-d801-c43b-30b919244fcb@suse.com>
+ <YGRXzRw+wBP5Gm+w@Air-de-Roger>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/hvm: Fix double free from vlapic_init() early error
- path
-Message-ID: <ac94721d-1741-5523-e70d-1eac15c23603@citrix.com>
-Date: Thu, 1 Apr 2021 14:20:46 +0100
+Subject: Re: [PATCH 05/21] libs/guest: introduce helper to fetch a domain cpu
+ policy
+Message-ID: <da79b1c1-b195-d11d-af1a-b694a0558220@citrix.com>
+Date: Thu, 1 Apr 2021 14:32:32 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
-In-Reply-To: <95d8688b-2e54-ae02-09ce-45203959e08a@suse.com>
+In-Reply-To: <YGRXzRw+wBP5Gm+w@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0053.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:60::17) To BN7PR03MB3618.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0166.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18a::9) To BN7PR03MB3618.namprd03.prod.outlook.com
  (2603:10b6:406:c3::27)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: be416b3d-b446-40e0-1cd2-08d8f510f8cc
-X-MS-TrafficTypeDiagnostic: BN8PR03MB4801:
+X-MS-Office365-Filtering-Correlation-Id: 662a7b76-68df-464c-b82b-08d8f5129db6
+X-MS-TrafficTypeDiagnostic: BN6PR03MB2515:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN8PR03MB4801F7551206D9C3F5926C98BA7B9@BN8PR03MB4801.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <BN6PR03MB251549C6FE5A1716D421F352BA7B9@BN6PR03MB2515.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7rKxCIc/bbBMVgebxX/S4RSdj/vHo2dOVL5DBrcrSYn2zYSdiquQ2g22u5QzDZpoTItgMz+yDMoJO11XnJuldXEZfSe05sffKBDpdBStng00v4Xrn+nN8kS++xbUU5f/NKSLPdL/8dnJThMk3pD+jE41W2DMMeqa5fgTwKzA+wtRtsPdETzSwHBzDUoZmWtERj4gKdn68QpJWK98hu9aH/2qZ38X94doUbvXx7L1hHuemstiA4uye+8PyTJ6kOdWkcFtpOOExXl2w2R0OCh7ojrvdYJQc4uWxKKIOCCKhthjkfuSc6vbLAGYSVgd3GkSw1mk/NMeoVUJjQWIuPsA1hqic4I+tLeD94QBZH5kSrxDmFyKylwbe4NJ8F+1WqaOifWnGfQRbg6bW1NJV3aJVB6Y1/cVMmvMsDhHZ6WLGGkcQH9VaJxZS0t6pSt5ewoI96YlHfmnwrlzL8E/uw3+kUumqMv1kc+FLxwISxmkhV5YogivetPlJ0mJhIBOw7cKPFjC3gFmDN8VEa5ycQLp+YeiQaLrM3k1lNNv8TouPKl/16hzhc4Vu4KaG80m86gCoy2d4UW1aPKRG8cPUVpx8qtSMTSrIWKBsiRpOa1DBj3hKHOL9EBa+pxCPI4VE4WgWw4rJ4CGLM0AM9j4e7HPBBLPSMq9i9LlVyvd0sfOjSycidcYk8XYdvEnbf35Vv49YLn5FtZsoJ8F0TI32hXKs9ZifNiwoWgGZOtEUUw6IpA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(2906002)(6916009)(86362001)(38100700001)(66946007)(6486002)(186003)(16576012)(316002)(54906003)(83380400001)(26005)(53546011)(16526019)(66556008)(5660300002)(478600001)(4326008)(8936002)(8676002)(6666004)(36756003)(31696002)(31686004)(66476007)(956004)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dXc1aFlZMm1YYnViTFRlb0h6dGlVdUxOeDh0WnJaWGI4VHNsZiswN0JYN25J?=
- =?utf-8?B?eVhyUWxRS2drL21jU082Vk1md0cyOTZoYnNLRzVjb2ZXUEU4cUFzRGkyVW9M?=
- =?utf-8?B?TStlNzRkOEZWblpQWjExN3VvSUl2bzQrSEp6Z3lWNFN4TUlHQU1ZUjBOVzBF?=
- =?utf-8?B?SGZiMS8xM1JuaGthb0xHZ0crSFpNc1NUU2dVUTAzMmpmQ055MkNreW9DUHpT?=
- =?utf-8?B?TFZrYWkxWml0ZS9DYmRhMXpZYVRJMVl1VXA2UUFRUUZtMkdXdFB6cnNGYUhw?=
- =?utf-8?B?cHJDN1RoSSthVldxZFZUNlJvdldoTHIxNmU3WiszTzRDbFJPMDhib2JlYVkr?=
- =?utf-8?B?Ujh5UXlqRHJyb3l1QVhNZGhrbTQ1dGNlejd1SmpsY1NHcU1XY3JPMGxjenlC?=
- =?utf-8?B?SVhmK1YxeWRESjlTL2NoNTZYVTBCejZmbFM4MVpScXREMDdnVEE1VXlyUnNX?=
- =?utf-8?B?MWpFQlFQV1NQUm13Y3BkV0RzLzRnRGxGRUNPbzlia3hjc0dRNE9ZYnJjeGR5?=
- =?utf-8?B?ZFFHMDdocjVnQUtKUHRzd0thU0NtMVBTM0ZOZ3RZREZvQkNzOFVqL2FUMUYy?=
- =?utf-8?B?ZTA1OUlMQVBqSTZXZVBYSFEzdlcvV0txTGVLSkRTNVRGb3J6ZmxrZlRtaVRN?=
- =?utf-8?B?UGc0QXBOTFBNMjdqaEdLK1pwL1hzWVh1NHUxK3dpUjNNVjM2VW5GWVEreW9O?=
- =?utf-8?B?WE5LTE1VbEtvZE5tbHRxeU9lRThPVkJHMGNPUzljb2gvenpKRGljcURNdVkr?=
- =?utf-8?B?aDZLNjZ0cENNb2I4RDRRVDhvdEVLenUwYXNCUm1NSzRETzVzY0paa1B6dHJr?=
- =?utf-8?B?TkNsa3R5VFk0Y0VqUE53UXFTN2dvS3BnOHBpSXNQWndUNDBueEk3R003VDht?=
- =?utf-8?B?N3N6amRaVklsRVg3ckZQWVZyU3hIblVucDZweFZrYUswNHp5SjlCVFJOYjM4?=
- =?utf-8?B?MWR6cWdpU1FiK2dScVJJbkpTUVRMNTIyZno3OXdzZ2lEbXl0Z1dTQytGOGNO?=
- =?utf-8?B?Z3FtMHJrMVNSU3ZpcXd6UTJPbDJyRG8xV2VwT2ZKOXFaOGg2SXdWU0pLdUFY?=
- =?utf-8?B?bnd3ZldVaytmRmFhMHhUUGlVb2JncEV6d3lKR3llbERqdytyd2VGU25zTTgy?=
- =?utf-8?B?NGdBQUlMMWM2V3F5Yk9rTXdGWGh5dWk2OWNlVW9UUi9PN1BzKzFRTGc5T05G?=
- =?utf-8?B?bHFITm9wZ3dCb0lFMG1sakU3N1F6MXhDQktlOHljU1drSGpYdGk1VUVsWEly?=
- =?utf-8?B?S1Y4eG1xb2tzY3A1d3lMRFVPR0p6dk5tNWIyb2JuSXdhMHBpOFpsODBFSGNL?=
- =?utf-8?B?bWpTeEprNzhmTHhNZXlLTUV6L3h4RW12cWtkMlhLS0V2a2xBV3BHc3kxY3Bs?=
- =?utf-8?B?R3dyNzZGaGozVnVxYkpLRytrbEthQkxLUkN1RW5HVkhiMDhZSlFEMEZ1VkdG?=
- =?utf-8?B?cWYzWkh2WGZzWGVYWC9mSGZsOGYxZVdBV0M5R2VTYUpweG1DVHJqZ3l6dVJ3?=
- =?utf-8?B?ZFIwaXVuR1p5OTJQakRDY0JyWXhxcWx3TGM0UUNkUmdJWXYrblJhT0M1S213?=
- =?utf-8?B?WTJmYTBvNStPYVBOYlhaeTdmdnV5OWdkSkdmRU14dkJMWHlJcUZHQVBKZThx?=
- =?utf-8?B?WnYzR2VOZEFYeFVMUHkvT21iMEZpT0hZMCtsYTRjdWhJYm0wQTVGaHppU1Rv?=
- =?utf-8?B?TlNGaHBKbks3ZE9iT2dGQlJTdlRQU1AvbjM2QkJzR2RoWEdNU2JuMm1SQkRX?=
- =?utf-8?Q?Xsjy9LQvKFfenZCqH/dH5qrVX961SuImBUrwlpO?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: be416b3d-b446-40e0-1cd2-08d8f510f8cc
+X-Microsoft-Antispam-Message-Info: aamXuZBm0H6zp58xvnaj3Uue5NTr7/kqYT44iO3a8TPRruaQAlO1RhXVplWzlSmiNxyE8u5u3MxVbifksIRLsrnLPiMJFVq31ysSRC8M+uFNC7kIGly4mSJqc0tpjhla6Av78tPoP7FNWy69JoO0r0gacrhR19hWDG+Sp6Oz8sI2yB7Wqr2+WoJJ3zAth2z2ttxhpOaNZMspxnTJQYSpGvy6N2wjByg7TlzHty0wNvlvJnqdnuFjXeZKDK7Qg0UrUnP64MERPX4FnF4K8AHIOPrR3l/jfb1t0ULUYowILpT+5CLmtQ8cDkQY7NtaV08QrpCGMe8J4AhGZ4UNQK7z2sXjfsyUpVDPwpANdpMEjw5FGfVQ4JSh8uSLa/I6ODzlHAkL5ewSamI7EuOpLxhbpy4pApWwbY0L8W5kLaQJugAT3D/IeBTHs+YvTL/Lmzv1wElqm8AYTtwf1GNe9rzOLbrDQJefVg8U54DBCqPFst7ZBsgiJbBiVKE/2yuYFpuSulkf2jOE0E4AZ+fgB3h62xqycVQctlh4R0IQ7hnsLVD/VM/b22OE1BX2KVUyucyVlBABQp4jlqzlnW/glp6/rSYtSYypXm/ZoOHoP77lvclbMdIFN9PWgKBzAkx94hurSbw5csBZ0+VETf4ZbLCudCugKhbB6cQGy5PihInXw2Ym76YTxqRxxzJfkt0dIVJtWqq6B1o9GLMYbnLKijjp+r/hZWmMwrMwut7HTWinUgE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(366004)(376002)(396003)(346002)(136003)(86362001)(31686004)(2906002)(5660300002)(2616005)(478600001)(36756003)(31696002)(66476007)(66946007)(110136005)(66556008)(54906003)(186003)(4326008)(53546011)(8676002)(6486002)(8936002)(316002)(16526019)(6666004)(956004)(26005)(38100700001)(16576012)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WFFUWCs5TFlQZStSeC9JTzZjTVhsc2VWa2l6bWhuMnlIR0xDeWNUenNHZUQx?=
+ =?utf-8?B?RnhEbGxVRmpnRDU4Q1Nsakk5eWR5V0ZhUFFPYWl3WVhUS1J2STk4M3J5TVlw?=
+ =?utf-8?B?UHJmTTROQ1p5R2NXb3oxa1JGUkhxNStPS3V2aXZtZzY1bFBjNmQzVW94ODdO?=
+ =?utf-8?B?WU1XRllESEgyRDFxM21SQWpyQTR5THVOVENUdFU5bWY4dFNYdTNjRFQ1WldR?=
+ =?utf-8?B?d3J2eDNOWENmUHkrVm01dmRDa3VtSjVrOGlTTWlCcVBodEFVV3kwM1g3amcr?=
+ =?utf-8?B?N0hla3Jvak1JaXV1UHJrNFJteWhSaTNDalljaW40Qy90S285eXA5WkZxRkh2?=
+ =?utf-8?B?dFdnbVpsWXhGeE8yTzhGQkxucThkdWJhcW5XM1V6cG9HL2VnNHNLVDNZcmcz?=
+ =?utf-8?B?QlBoc2ptSWxLTGU1TGNLZDMrN3ZIZnU2S1BNNjYzM01jTWd0VlptdEllK2xI?=
+ =?utf-8?B?QWphWG9hK0lmMFhaRUoxZmdnckVNQ2xFejA3VmlHTk1CVFdvSHVuaGlpNUpi?=
+ =?utf-8?B?aUlZcFlxYjQ2RFgwSjIzYVR4L2h4dENMMm9OZngzWGFlT3pxcHVHYndTeU01?=
+ =?utf-8?B?ZEw1Ylh3bjlWV3B5Q3k2YUNGNml5Szk2THZudHVmbW55RkJLcHhhV2toNUJT?=
+ =?utf-8?B?VXZVRnJOR2JiME1vUXI4WVk0ekZ0QnJxNjhubGtGSEdoV1hEYVJyMXVLQUpx?=
+ =?utf-8?B?WjJua0xLRzFZSVNhZTh4RmFyeGs4VmFVcW11UmJ4RW4rLy82YWNZMGUzU00x?=
+ =?utf-8?B?OWRYQUlIM3RURHRIb0FiTVdDOVFXVm9vVmxGcGY3bWNxRnphQ3NFSXh6YjB6?=
+ =?utf-8?B?WU9xNDJJNHhEVkNDRlNwSzlMRVpWNk83VWdLVnFHUTZrZ1N2ZWgzQko1azlN?=
+ =?utf-8?B?ZitydEdkb2dBNDZ1a0VkK3dyUXdpQkN5WmhiM3Uzcy9ucGU5aDBhWndDUVRG?=
+ =?utf-8?B?ejh2RkdwdFZvYkxlbTdkWTN1Q0NOQWZ0dnlicFhzYzZHbTJ4RkZRSXMybXg5?=
+ =?utf-8?B?bnYreS90aW1mWlppUmgyRm5zVzI1UjVIYmVXRnZIVFJzK0hnSUU4QWh4YTRa?=
+ =?utf-8?B?S3R2YkZxYnRXcFgwMHUxK0lCMVlHMGtkaGNOTkxzTHFJbW0xRU4rVk5DQXFT?=
+ =?utf-8?B?MFFmS3I2S3VPR25Ob0ZYN3BDeFZEU1hIWTZNRi9ZbFQ5dUFTZzJrdkY0Sjl6?=
+ =?utf-8?B?YlVjVElJUmN6bTByMjBQZDJPTnEvcnB2NmU0ZzZBbnQ3Uklqcm81VUNYR2Y3?=
+ =?utf-8?B?aWp4TlltZE9HZFJKc08raHVXU3lDcFFKZmxDV3JMQnFwam5pRXpCYXVNTXJp?=
+ =?utf-8?B?V3FBd0VrTGpnVWJYWnk0dzlJU0s3V1JxQ3RMbnZ1aU5tTzFYM2VYMm1JV1l5?=
+ =?utf-8?B?K3ZBczNzSXhraHh4NFBHZmxuRDBiMkk2eUMwV1d5UHpSY1F5aTNzRU9yVXBW?=
+ =?utf-8?B?YUdrNnJ1VzhsMThQUVp5RFMyV1MzNjBXM1B6TG5yMEd0bUZCeTNxVzAwa3hh?=
+ =?utf-8?B?RFhiUW1OVGsxZ2hyN3dBejFNK3N2K2ZnckRiVnp2M1dYdS9oQlJPSWZzY3ZM?=
+ =?utf-8?B?ak9Ecm40dUtVRlNpTExsTWFyMWlDbC9hRnhnb2xEMGJ2WVpzUTVzaHArdG5K?=
+ =?utf-8?B?SGNDbkw0VXdBMVVoS2VXNHA5TDYyWVRxMDVLK1NrM1VuTWswMTNGNHpjMndU?=
+ =?utf-8?B?cHR4Vm53MjNvTmtPZXJ3L29RWXRDbDdTLzJoRjE4Ny9VeFB2V1IyRUF1d1NG?=
+ =?utf-8?Q?2nhLSkER4Ddu+l5HM/iQnNv5MhGA2jTRUHMkLV0?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 662a7b76-68df-464c-b82b-08d8f5129db6
 X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 13:20:51.7871
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 13:32:38.0257
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BwZbrG6EGFslqxZX/eMZYk6zbW9ARDlZglLfX9oGdFywGrrTVgC4OSnNPNYaoHSqzsVCRrBCOSXxrMGPwUtM91J8MMtB34Xr8B495yAjdM4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4801
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6J++VQbTp+l+Mzdk1aLsWOc+bjaCS4qvbnUxhSpKawjsCv2tCQx7PZS59H0zMSTslaMXiq+e6hW58p5tfbCgda8x0ps7rM2w4JCn6BRZQBI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB2515
 X-OriginatorOrg: citrix.com
 
-On 31/03/2021 15:03, Jan Beulich wrote:
-> On 31.03.2021 15:31, Andrew Cooper wrote:
->> vlapic_init()'s caller calls vlapic_destroy() on error.  Therefore, the =
-error
->> path from __map_domain_page_global() failing would doubly free
->> vlapic->regs_page.
-> I'm having difficulty seeing this. What I find at present is
->
->     rc =3D vlapic_init(v);
->     if ( rc !=3D 0 ) /* teardown: vlapic_destroy */
->         goto fail2;
->
-> and then
->
->  fail3:
->     vlapic_destroy(v);
->  fail2:
->
-> Am I missing some important aspect?
-
-No - I'm blind.=C2=A0 (although I do blame the code comment for being
-actively misleading.)
-
-I retract the patch at this point.=C2=A0 It needs to be part of a bigger
-series making changes like this consistently across the callers.
-
->> Rework vlapic_destroy() to be properly idempotent, introducing the neces=
-sary
->> UNMAP_DOMAIN_PAGE_GLOBAL() and FREE_DOMHEAP_PAGE() wrappers.
+On 31/03/2021 12:06, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Mar 30, 2021 at 05:37:02PM +0200, Jan Beulich wrote:
+>> On 23.03.2021 10:58, Roger Pau Monne wrote:
+>>> Such helper is based on the existing functions to fetch a CPUID and
+>>> MSR policies, but uses the xc_cpu_policy_t type to return the data to
+>>> the caller.
+>>>
+>>> No user of the interface introduced on the patch.
+>>>
+>>> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> with again a minor remark (plus of course the same that I made for
+>> patch 4):
 >>
->> Rearrange vlapic_init() to group all trivial initialisation, and leave a=
-ll
->> cleanup to the caller, in line with our longer term plans.
-> Cleanup functions becoming idempotent is what I understand is the
-> longer term plan. I didn't think this necessarily included leaving
-> cleanup after failure in a function to it caller(s).
+>>> --- a/tools/include/xenctrl.h
+>>> +++ b/tools/include/xenctrl.h
+>>> @@ -2599,6 +2599,8 @@ void xc_cpu_policy_destroy(xc_cpu_policy_t policy=
+);
+>>>  /* Retrieve a system policy, or get/set a domains policy. */
+>>>  int xc_cpu_policy_get_system(xc_interface *xch, unsigned int idx,
+>>>                               xc_cpu_policy_t policy);
+>>> +int xc_cpu_policy_get_domain(xc_interface *xch, uint32_t domid,
+>>> +                             xc_cpu_policy_t policy);
+>> Generally I'd expect domid_t to be used for domain IDs.
+> Me too, but xenctrl.h seems to consistently use uint32_t for domain
+> ids. I'm fine to use domid_t here, but I assumed there was a reason
+> for using uint32_t uniformly there.
 
-That's literally the point of the exercise.
-
->  At least in the
-> general case I think it would be quite a bit better if functions
-> cleaned up after themselves - perhaps (using the example here) by
-> vlapic_init() calling vlapic_destroy() in such a case.
-
-That pattern is the cause of code duplication (not a problem per say),
-and many bugs (the problem needing solving) caused by the duplicated
-logic not being equivalent.
-
-We've got the start of the top-level pattern in progress, with
-{domain,vcpu}_create() calling {d,v}_teardown() then {d,v}_destroy() for
-errors.
-
-This top-level pattern is also necessary so we can remove the need to
-put partially constructed objects into full view of the system, and wait
-for a subsequent hypercall to clean them up.=C2=A0 This series of bugs is
-still active, and there are still a load of NULL pointer deferences
-reachable from out-of-order toolstack hypercalls in failure cases.
-
-We've also got some subsystems (vmtrace) moved into the new pattern, and
-some minor parts of existing mess moved over too, but the end goal is to
-have exactly one create() path and exactly one cleanup path, so its
-impossible to introduce mismatched duplicate cleanup logic.
+There was a tools-wide change making everything uint32_t a while ago,
+but libxc itself has never used domid_t.=C2=A0 IIRC, it was to do with
+problems concerning the INVALID_DOMID constant.
 
 ~Andrew
 
