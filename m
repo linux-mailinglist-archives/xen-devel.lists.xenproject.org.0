@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5017351367
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 12:25:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104331.199451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F441351368
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 12:26:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104335.199464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRuWC-00033q-Tn; Thu, 01 Apr 2021 10:25:40 +0000
+	id 1lRuWa-0003Bm-7i; Thu, 01 Apr 2021 10:26:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104331.199451; Thu, 01 Apr 2021 10:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 104335.199464; Thu, 01 Apr 2021 10:26:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRuWC-00033O-Qc; Thu, 01 Apr 2021 10:25:40 +0000
-Received: by outflank-mailman (input) for mailman id 104331;
- Thu, 01 Apr 2021 10:25:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lRuWa-0003BN-4c; Thu, 01 Apr 2021 10:26:04 +0000
+Received: by outflank-mailman (input) for mailman id 104335;
+ Thu, 01 Apr 2021 10:26:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=evtz=I6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lRuWB-000337-PI
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 10:25:39 +0000
+ id 1lRuWY-00039I-FF
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 10:26:02 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 677c0a98-d866-4d9b-8b1c-3e8a1ba29d84;
- Thu, 01 Apr 2021 10:25:38 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 02ab72af-98ca-4dc6-a62f-7c7dc437c736;
+ Thu, 01 Apr 2021 10:25:58 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2C59AAE86;
- Thu,  1 Apr 2021 10:25:38 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 525B3AEA6;
+ Thu,  1 Apr 2021 10:25:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,18 +38,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 677c0a98-d866-4d9b-8b1c-3e8a1ba29d84
+X-Inumbo-ID: 02ab72af-98ca-4dc6-a62f-7c7dc437c736
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617272738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617272757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7zV0Im6IiPxLCpobC1iQxqhPYJiA+5gcc1UKfDC95jE=;
-	b=qIHew1rsKfuK2G8m4BneQjMHSn9siyKtHP3DEuIQq+5oQ1nJmQe+9C7nowdbf14CV0WPRy
-	etbSo5fCeiotdcA1wIInQqazlEfXO1VD0T9Ry7knf37V9+41Dm7TpLxn7KbayQHofmtlsE
-	p46FEbFxVz1EMvN4NvzMZGJH7SMAMQ4=
-Subject: [PATCH 15/23] lib: move strlcat()
+	bh=JFsPHBSFCRbpswM140dIBX+K0lYDWe8o/0ZUhNbUxao=;
+	b=sGJ4tbmKIwfb/xiCiCgT6875Pw/IKeNIwYR5si/L2whCsOoKqVFH1PA4xmzr4ohBkZ064U
+	j+3tXw6o3Hyon76EnJ5IIg2TECUlaApHLOhDcMbl+OeKrqdikZDTzZSZfiWgWES9/c4t/T
+	94hpE5DenHFl9dCJp3cKyAp22WQT8jM=
+Subject: [PATCH 16/23] lib: move strchr()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -58,8 +57,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <c53a6802-8bae-1dc6-5ac4-6238e122aaa4@suse.com>
-Message-ID: <e4ae348e-dd54-ebbe-6ef8-b47a47fde49e@suse.com>
-Date: Thu, 1 Apr 2021 12:25:37 +0200
+Message-ID: <d855bf46-4431-0c90-6999-81743e7553e1@suse.com>
+Date: Thu, 1 Apr 2021 12:25:56 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -72,55 +71,41 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/common/string.c
 +++ b/xen/common/string.c
-@@ -56,35 +56,6 @@ int (strcasecmp)(const char *s1, const c
+@@ -56,21 +56,6 @@ int (strcasecmp)(const char *s1, const c
  }
  #endif
  
--#ifndef __HAVE_ARCH_STRLCAT
+-#ifndef __HAVE_ARCH_STRCHR
 -/**
-- * strlcat - Append a %NUL terminated string into a sized buffer
-- * @dest: Where to copy the string to
-- * @src: Where to copy the string from
-- * @size: size of destination buffer
-- *
-- * Compatible with *BSD: the result is always a valid
-- * NUL-terminated string that fits in the buffer (unless,
-- * of course, the buffer size is zero).
+- * strchr - Find the first occurrence of a character in a string
+- * @s: The string to be searched
+- * @c: The character to search for
 - */
--size_t strlcat(char *dest, const char *src, size_t size)
+-char *(strchr)(const char *s, int c)
 -{
--	size_t slen = strlen(src);
--	size_t dlen = strnlen(dest, size);
--	char *p = dest + dlen;
--
--	while ((p - dest) < size)
--		if ((*p++ = *src++) == '\0')
--			break;
--
--	if (dlen < size)
--		*(p-1) = '\0';
--
--	return slen + dlen;
+-	for(; *s != (char) c; ++s)
+-		if (*s == '\0')
+-			return NULL;
+-	return (char *) s;
 -}
--EXPORT_SYMBOL(strlcat);
 -#endif
 -
- #ifndef __HAVE_ARCH_STRCHR
+ #ifndef __HAVE_ARCH_STRRCHR
  /**
-  * strchr - Find the first occurrence of a character in a string
+  * strrchr - Find the last occurrence of a character in a string
 --- a/xen/lib/Makefile
 +++ b/xen/lib/Makefile
-@@ -15,6 +15,7 @@ lib-y += parse-size.o
+@@ -14,6 +14,7 @@ lib-y += muldiv64.o
+ lib-y += parse-size.o
  lib-y += rbtree.o
  lib-y += sort.o
++lib-y += strchr.o
  lib-y += strcmp.o
-+lib-y += strlcat.o
+ lib-y += strlcat.o
  lib-y += strlcpy.o
- lib-y += strlen.o
- lib-y += strncmp.o
 --- /dev/null
-+++ b/xen/lib/strlcat.c
-@@ -0,0 +1,41 @@
++++ b/xen/lib/strchr.c
+@@ -0,0 +1,28 @@
 +/*
 + *  Copyright (C) 1991, 1992  Linus Torvalds
 + */
@@ -128,29 +113,16 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
 +#include <xen/string.h>
 +
 +/**
-+ * strlcat - Append a %NUL terminated string into a sized buffer
-+ * @dest: Where to copy the string to
-+ * @src: Where to copy the string from
-+ * @size: size of destination buffer
-+ *
-+ * Compatible with *BSD: the result is always a valid
-+ * NUL-terminated string that fits in the buffer (unless,
-+ * of course, the buffer size is zero).
++ * strchr - Find the first occurrence of a character in a string
++ * @s: The string to be searched
++ * @c: The character to search for
 + */
-+size_t strlcat(char *dest, const char *src, size_t size)
++char *(strchr)(const char *s, int c)
 +{
-+	size_t slen = strlen(src);
-+	size_t dlen = strnlen(dest, size);
-+	char *p = dest + dlen;
-+
-+	while ((p - dest) < size)
-+		if ((*p++ = *src++) == '\0')
-+			break;
-+
-+	if (dlen < size)
-+		*(p-1) = '\0';
-+
-+	return slen + dlen;
++	for(; *s != (char) c; ++s)
++		if (*s == '\0')
++			return NULL;
++	return (char *) s;
 +}
 +
 +/*
