@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82C37350AC4
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 01:29:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104069.198623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BA8350B7E
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 03:08:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104091.198684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRkGb-0008OC-LS; Wed, 31 Mar 2021 23:28:53 +0000
+	id 1lRlnE-0006c3-Tu; Thu, 01 Apr 2021 01:06:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104069.198623; Wed, 31 Mar 2021 23:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 104091.198684; Thu, 01 Apr 2021 01:06:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRkGb-0008Ni-GY; Wed, 31 Mar 2021 23:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 104069;
- Wed, 31 Mar 2021 23:28:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lRlnE-0006bh-QX; Thu, 01 Apr 2021 01:06:40 +0000
+Received: by outflank-mailman (input) for mailman id 104091;
+ Thu, 01 Apr 2021 01:06:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lRkGZ-0008NX-Om; Wed, 31 Mar 2021 23:28:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lRkGZ-0005Pv-Fy; Wed, 31 Mar 2021 23:28:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lRkGZ-0008Be-3m; Wed, 31 Mar 2021 23:28:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lRkGZ-0003AW-31; Wed, 31 Mar 2021 23:28:51 +0000
+ (envelope-from <SRS0=0cfn=I6=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1lRlnD-0006bc-ON
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 01:06:39 +0000
+Received: from mail-qt1-x82d.google.com (unknown [2607:f8b0:4864:20::82d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 57233a77-0717-43da-8c2d-705c60856b16;
+ Thu, 01 Apr 2021 01:06:37 +0000 (UTC)
+Received: by mail-qt1-x82d.google.com with SMTP id g24so393038qts.6
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Mar 2021 18:06:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,289 +37,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oXIIq2z5DSOVCU0uBjHyi7428NluRn/U66mbo6BR10A=; b=rWIvBW3Ep99fR57R54m4OUJLD3
-	BDMsQhPm175jT6NSTTF2w6Cq2cBxPPySC7y8AJ+gC7pKgFGJF0oZXff2YEsyfwpEefUFzkUNVuoKV
-	vsaHhWefNH+vpEQAxhSJkuvFJE638JA5/dTwFYVG+DlINa91JEukhXemJjqvYZ3zjMn4=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-160581-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 57233a77-0717-43da-8c2d-705c60856b16
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=I4XnTBqWaNHfJM0uifctrfC1GtW1564zJxX4MuGrMVI=;
+        b=j4JCaWgTgHeE9hNCyf3zLgLl3NZvmOoLiw4Ep/EC6ix7jX0/TAzMjB+byX+ZGjleg1
+         tlNWElFHsnba0WSpmSvZVrmBUBLfaeYKGv3Mc8ilJN6xtyu/5Jt9XvWQbvt0PXJpvx95
+         jYOogg0fpdsx6ZmBvcrEa70SERHP4L6GMG4AQZm3ejWOFjLPGEy9gTUj76prrx6RccTT
+         a14OEn6o3qJwbyRWZT5BJw5TUimbm3lXCtkhpPKCKJeEGZCB9w/T8Qp+ybP9yht/6RBD
+         B4DlodB28DAGjJVdFlWDy4P57Yb3RaWiE+gTVk08iOh92euQ/XYTWh8wKOGJHUsDQkId
+         rBlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=I4XnTBqWaNHfJM0uifctrfC1GtW1564zJxX4MuGrMVI=;
+        b=FQJKh2Jo0ko1zJ1u6uFXxvNEzUni9WXk/R8JfpQOrzFcNu715evzZZGE6ZnPRHuuUB
+         uBbQf/kHnmggYuhCc7ZETLYxrQrb54XtKYWHsDD0UW4sohuzNxAKC94bu7zjC7oFpk1f
+         VFbdslzAot2qQmdnBflRNYPD8HRAp+WzRQrOKzOaHj2jbMzUEstPaaPBDfjDv78zhYCX
+         xYA9yoSBMME2yhCcHkCPIesDEjlJDM4bo3BdVAk8OydmhfaLJ59Z4KiykwPYMljYhhlM
+         LAnp0iAgl1K92eUUhaG6mBzhzOmZEhYhiBMO3+QfxaO6DaJqYkLnDtm9rZZ6YJ/4MwXN
+         BJpA==
+X-Gm-Message-State: AOAM532RuWtGjI4URlBunrU3fRDkwVG8NVMTQwT/M1vvGgoZdLo7/Trb
+	eGCSHjVTlICmvhKbHCh+Sfp28hadt1WS4KrxWjJQhA==
+X-Google-Smtp-Source: ABdhPJwGa4irE89lKL5j7+qT7fRWuH62QG8dMMrr/BtnompBjfBQ5fQ3cVmy8GlUz5hnj8n23BMFDOCaDyC0diXaLjY=
+X-Received: by 2002:ac8:1093:: with SMTP id a19mr5064689qtj.365.1617239197376;
+ Wed, 31 Mar 2021 18:06:37 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable test] 160581: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=90629587e16e2efdb61da77f25c25fba3c4a5fd7
-X-Osstest-Versions-That:
-    xen=cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 31 Mar 2021 23:28:51 +0000
+References: <CAMmSBy8Wpwgj3V0U8OhsZCgyAxOjTeHDMt-Vw+om1koopmxTsg@mail.gmail.com>
+ <23baec07-a3ae-949a-a1fb-09100efd53e5@citrix.com>
+In-Reply-To: <23baec07-a3ae-949a-a1fb-09100efd53e5@citrix.com>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Wed, 31 Mar 2021 18:06:31 -0700
+Message-ID: <CAMmSBy96=FwR0zZy199e0YhFefgZj_PFOMiaB2nKjqdQvKufow@mail.gmail.com>
+Subject: Re: multiboot2 and module2 boot issues via GRUB2
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, grub-devel@gnu.org
+Content-Type: multipart/alternative; boundary="000000000000e0809d05beded750"
 
-flight 160581 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/160581/
+--000000000000e0809d05beded750
+Content-Type: text/plain; charset="UTF-8"
 
-Failures :-/ but no regressions.
+Hi Andrew!
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 160559
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 160559
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 160559
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 160559
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 160559
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 160559
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 160559
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 160559
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 160559
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 160559
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 160559
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+first of all -- thanks for pointing me in the right direction. So after
+reading relevant sources: comments inline.
 
-version targeted for testing:
- xen                  90629587e16e2efdb61da77f25c25fba3c4a5fd7
-baseline version:
- xen                  cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
+On Tue, Mar 30, 2021 at 12:08 PM Andrew Cooper <andrew.cooper3@citrix.com>
+wrote:
 
-Last test of basis   160559  2021-03-30 13:03:24 Z    1 days
-Testing same since   160581  2021-03-31 08:40:54 Z    0 days    1 attempts
+> On 30/03/2021 19:28, Roman Shaposhnik wrote:
+> > Hi!
+> >
+> > seems like I've run into an issue with multiboot2 and module2
+> > commands that I can't quite explain. Since it may be something
+> > super simply and silly -- I wanted to reach out here before I do
+> > a GRUB/Xen/LK source deepdive.
+> >
+> > So here's the deal: whenever I boot straight up Linux kernel
+> > I can do the following sequence of commands:
+> >    linux /kernel
+> >    initrd foo.cpio.gz bar.cpio.gz
+> > and have linux kernel effectively stack content of bar.cpio.gz
+> > on top of foo.cpio.gz and present a unified initramfs that way.
+> >
+> > I'm trying to replicate it with Xen, but:
+> >      multiboot2 /boot/xen.gz
+> >      module2 /kernel
+> >      module2 foo.cpio.gz
+> >      module2 bar.cpio.gz
+> > only seems to be picking up foo.cpio.gz
+> >
+> > Has anyone run into this issue before?
+>
+> I can explain why that happens.  Not sure if it counts as a feature, bug
+> or mis-expectation, but CC'ing grub-devel for their input.
+>
+> The initrd command is presumably concatenating those two files together
+> in memory, and presenting Linux a single initrd pointer.
+>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+It is indeed what seems to be happening.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> For the module2 example, you're putting 3 distinct files in memory, and
+> giving Xen a list 3 modules.
+>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+And that is also correct -- nothing like that is possible with modules.
+Kernel actually needs to be aware of them. So the question then
+becomes...
 
 
-Pushing revision :
+> Xen is capable of taking various things via modules, such as an
+> XSM/Flask policy, or microcode, so has logic to identify these if
+> present and separate them from "other stuff".  However, there is a
+> hardcoded expectation that the first module is the dom0 kernel, and the
+> next unrecognised module, if present, is *the* initrd.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   cead8c0d17..90629587e1  90629587e16e2efdb61da77f25c25fba3c4a5fd7 -> master
+I expect that Xen isn't handing bar.cpio.gz on to dom0, but I'm not sure
+> whether passing two distinct initrd-like-things to Linux is even possible.
+>
+> What you presumably want is some `initrd` side effect in Grub so you can
+> write `module2 foo.cpio.gz bar.cpio.gz` and have it concatenate things
+> together in memory and present one MB2 module, but I suspect that exact
+> syntax might be ambiguous with command line handling.  I have no idea
+> whether such a command currently exists.
+>
+
+...I guess there's no mechanism out-of-the box to achieve what I want?
+
+And the obvious next question: is my EVE usecase esoteric enough that
+I should just go ahead and do a custom GRUB patch or is there a more
+general interest in this?
+
+Thanks,
+Roman.
+
+--000000000000e0809d05beded750
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hi Andrew!<div><br></div=
+><div>first of all -- thanks for pointing me in the right direction. So aft=
+er reading relevant sources: comments inline.</div></div><br><div class=3D"=
+gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 30, 2021 at =
+12:08 PM Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com">and=
+rew.cooper3@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex">On 30/03/2021 19:28, Roman Shaposhnik wrote:<br>
+&gt; Hi!<br>
+&gt;<br>
+&gt; seems like I&#39;ve run into an issue with multiboot2=C2=A0and module2=
+<br>
+&gt; commands that I can&#39;t quite explain. Since it may be something<br>
+&gt; super simply and silly -- I wanted to reach out here before I do<br>
+&gt; a GRUB/Xen/LK source deepdive.<br>
+&gt;<br>
+&gt; So here&#39;s the deal: whenever I boot straight up Linux kernel<br>
+&gt; I can do the following sequence of commands:<br>
+&gt; =C2=A0 =C2=A0linux /kernel<br>
+&gt; =C2=A0 =C2=A0initrd foo.cpio.gz bar.cpio.gz<br>
+&gt; and have linux kernel effectively stack content of bar.cpio.gz<br>
+&gt; on top of foo.cpio.gz and present a unified initramfs that way.<br>
+&gt;<br>
+&gt; I&#39;m trying to replicate it with Xen, but:<br>
+&gt; =C2=A0 =C2=A0 =C2=A0multiboot2 /boot/xen.gz<br>
+&gt; =C2=A0 =C2=A0 =C2=A0module2 /kernel<br>
+&gt; =C2=A0 =C2=A0 =C2=A0module2 foo.cpio.gz<br>
+&gt; =C2=A0 =C2=A0 =C2=A0module2 bar.cpio.gz<br>
+&gt; only seems to be picking up foo.cpio.gz<br>
+&gt;<br>
+&gt; Has anyone run into this=C2=A0issue before?<br>
+<br>
+I can explain why that happens.=C2=A0 Not sure if it counts as a feature, b=
+ug<br>
+or mis-expectation, but CC&#39;ing grub-devel for their input.<br>
+<br>
+The initrd command is presumably concatenating those two files together<br>
+in memory, and presenting Linux a single initrd pointer.<br></blockquote><d=
+iv><br></div><div>It is indeed what seems to be happening.</div><div>=C2=A0=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">
+For the module2 example, you&#39;re putting 3 distinct files in memory, and=
+<br>
+giving Xen a list 3 modules.<br></blockquote><div><br></div><div>And that i=
+s also correct -- nothing like that is possible with modules.</div><div>Ker=
+nel actually needs to be aware of them. So the question then</div><div>beco=
+mes...</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">
+Xen is capable of taking various things via modules, such as an<br>
+XSM/Flask policy, or microcode, so has logic to identify these if<br>
+present and separate them from &quot;other stuff&quot;.=C2=A0 However, ther=
+e is a<br>
+hardcoded expectation that the first module is the dom0 kernel, and the<br>
+next unrecognised module, if present, is *the* initrd.=C2=A0</blockquote><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">I expect that Xen isn&#39;t=
+ handing bar.cpio.gz on to dom0, but I&#39;m not sure<br>
+whether passing two distinct initrd-like-things to Linux is even possible.<=
+br>
+<br>
+What you presumably want is some `initrd` side effect in Grub so you can<br=
+>
+write `module2 foo.cpio.gz bar.cpio.gz` and have it concatenate things<br>
+together in memory and present one MB2 module, but I suspect that exact<br>
+syntax might be ambiguous with command line handling.=C2=A0 I have no idea<=
+br>
+whether such a command currently exists.<br></blockquote><div><br></div><di=
+v><div>...I guess there&#39;s no mechanism out-of-the box to achieve=C2=A0w=
+hat I want?</div><div></div></div><div>=C2=A0</div><div>And the obvious nex=
+t question: is my EVE usecase esoteric enough that</div><div>I should just =
+go ahead and do a custom=C2=A0GRUB patch or is there a more</div><div>gener=
+al interest in this?</div><div><br></div><div>Thanks,<br>Roman.</div></div>=
+</div></div>
+
+--000000000000e0809d05beded750--
 
