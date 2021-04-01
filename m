@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67A0351551
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 15:43:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104486.199873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14528351556
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 15:45:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104490.199885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRxbU-0007LM-2h; Thu, 01 Apr 2021 13:43:20 +0000
+	id 1lRxdL-0007UE-Ek; Thu, 01 Apr 2021 13:45:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104486.199873; Thu, 01 Apr 2021 13:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 104490.199885; Thu, 01 Apr 2021 13:45:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRxbT-0007Kx-Vs; Thu, 01 Apr 2021 13:43:19 +0000
-Received: by outflank-mailman (input) for mailman id 104486;
- Thu, 01 Apr 2021 13:43:18 +0000
+	id 1lRxdL-0007Tp-BO; Thu, 01 Apr 2021 13:45:15 +0000
+Received: by outflank-mailman (input) for mailman id 104490;
+ Thu, 01 Apr 2021 13:45:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=evtz=I6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lRxbS-0007Ks-AG
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 13:43:18 +0000
+ id 1lRxdJ-0007Te-FQ
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 13:45:13 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8411d6d6-b774-4778-a803-b2d8168943f2;
- Thu, 01 Apr 2021 13:43:17 +0000 (UTC)
+ id ba5cc7f9-de0e-4828-9aea-da80d81bc17d;
+ Thu, 01 Apr 2021 13:45:12 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D5F38AF23;
- Thu,  1 Apr 2021 13:43:16 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 9C5C0AF23;
+ Thu,  1 Apr 2021 13:45:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,58 +38,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8411d6d6-b774-4778-a803-b2d8168943f2
+X-Inumbo-ID: ba5cc7f9-de0e-4828-9aea-da80d81bc17d
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617284597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617284711; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KrgYsx1UP6iZuNfaU2C4DpL8Uvgwht3nbDd3oOYHCZk=;
-	b=R0nfvDDx3MsC+2xnyhgScJVGsQ+wFaKMUepGsMk98XDnQW/nkyCLoVwv1mNkbxNJXpkNtL
-	3vMPn/RPOl3XtJDUQjfJnGYldwsq8QDCxfd8uXba4oQrj6YiOGTAySV9jxUFpqnGBCWQIV
-	tqcmP3IpFKIsBKvk+UlzupZb7bIO9TU=
-Subject: Re: [PATCH 00/23] further population of xen/lib/
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c53a6802-8bae-1dc6-5ac4-6238e122aaa4@suse.com>
- <27916fa0-9ebd-a49a-bbb9-1ef47c2b5bf6@xen.org>
+	bh=zi1iTupuL2Ht8KEZSjEM8o0HXNdVSkE57LdTRo3luNs=;
+	b=Xx2nRWuP2giTPbGgg7FP823UWZakdk6IncdGxCOUL0u5RdTMWClKYBfGR/Az7Ctb69IoQG
+	1kxfr+EqDa8MZ5VN0huNZlwR7YJYjMP0T49wYhGR0/Xt92P2xnhxT4Iea6vYDOMsnL1TMA
+	lUMCLrw/UnCmpsAmODuJXptAzqORBV8=
+Subject: Re: [PATCH] x86/hvm: Fix double free from vlapic_init() early error
+ path
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210331133125.7072-1-andrew.cooper3@citrix.com>
+ <95d8688b-2e54-ae02-09ce-45203959e08a@suse.com>
+ <ac94721d-1741-5523-e70d-1eac15c23603@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4f745d03-baa8-e9e6-692c-f9c9f401b766@suse.com>
-Date: Thu, 1 Apr 2021 15:43:16 +0200
+Message-ID: <d4d0df58-58a3-b21d-db5f-4895a36bb917@suse.com>
+Date: Thu, 1 Apr 2021 15:45:11 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <27916fa0-9ebd-a49a-bbb9-1ef47c2b5bf6@xen.org>
+In-Reply-To: <ac94721d-1741-5523-e70d-1eac15c23603@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.04.2021 13:54, Julien Grall wrote:
-> On 01/04/2021 11:14, Jan Beulich wrote:
->> This is to dissolve / move xen/common/lib.c and xen/common/string.c.
->> One benefit of moving these functions into an archive is that we can
->> drop some of the related __HAVE_ARCH_* #define-s: By living in an
->> archive, the per-arch functions will preempt any loading of the
->> respective functions (objects) from the archive. (Down the road we
->> may want to move the per-arch functions into archives as well, at
->> which point the per-arch archive(s) would need to be specified ahead
->> of the common one(s) to the linker.)
+On 01.04.2021 15:20, Andrew Cooper wrote:
+> On 31/03/2021 15:03, Jan Beulich wrote:
+>> On 31.03.2021 15:31, Andrew Cooper wrote:
+>>> vlapic_init()'s caller calls vlapic_destroy() on error.  Therefore, the error
+>>> path from __map_domain_page_global() failing would doubly free
+>>> vlapic->regs_page.
+>> I'm having difficulty seeing this. What I find at present is
+>>
+>>     rc = vlapic_init(v);
+>>     if ( rc != 0 ) /* teardown: vlapic_destroy */
+>>         goto fail2;
+>>
+>> and then
+>>
+>>  fail3:
+>>     vlapic_destroy(v);
+>>  fail2:
+>>
+>> Am I missing some important aspect?
 > 
-> While I think it is a good idea to move code in xen/lib, I am not 
-> convinced that having a single function per file is that beneficial.
+> No - I'm blind.  (although I do blame the code comment for being
+> actively misleading.)
 > 
-> Do you have numbers showing how much Xen will shrink after this series?
+> I retract the patch at this point.  It needs to be part of a bigger
+> series making changes like this consistently across the callers.
+> 
+>>> Rework vlapic_destroy() to be properly idempotent, introducing the necessary
+>>> UNMAP_DOMAIN_PAGE_GLOBAL() and FREE_DOMHEAP_PAGE() wrappers.
+>>>
+>>> Rearrange vlapic_init() to group all trivial initialisation, and leave all
+>>> cleanup to the caller, in line with our longer term plans.
+>> Cleanup functions becoming idempotent is what I understand is the
+>> longer term plan. I didn't think this necessarily included leaving
+>> cleanup after failure in a function to it caller(s).
+> 
+> That's literally the point of the exercise.
+> 
+>>  At least in the
+>> general case I think it would be quite a bit better if functions
+>> cleaned up after themselves - perhaps (using the example here) by
+>> vlapic_init() calling vlapic_destroy() in such a case.
+> 
+> That pattern is the cause of code duplication (not a problem per say),
+> and many bugs (the problem needing solving) caused by the duplicated
+> logic not being equivalent.
+> 
+> We've got the start of the top-level pattern in progress, with
+> {domain,vcpu}_create() calling {d,v}_teardown() then {d,v}_destroy() for
+> errors.
 
-In the default build, from all I was able to tell, there's one function
-that's unused (strspn(), as mentioned in the respective patch description).
-I don't think I've been claiming any space savings here, though, so I
-wonder why you make this a criteria at all. The functions being one per
-CU is such that they can be individually overridden by an arch, without
-pulling in dead code.
+Hmm, in which case you mean to shift the responsibility not to "the
+caller" (many instances) but "the top level caller" (a single
+instance)?
 
 Jan
 
