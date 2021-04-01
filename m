@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55CB7351541
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 15:38:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104460.199797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A67A0351551
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 15:43:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104486.199873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRxWy-0005is-SW; Thu, 01 Apr 2021 13:38:40 +0000
+	id 1lRxbU-0007LM-2h; Thu, 01 Apr 2021 13:43:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104460.199797; Thu, 01 Apr 2021 13:38:40 +0000
+Received: by outflank-mailman (output) from mailman id 104486.199873; Thu, 01 Apr 2021 13:43:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRxWy-0005hs-Mf; Thu, 01 Apr 2021 13:38:40 +0000
-Received: by outflank-mailman (input) for mailman id 104460;
- Thu, 01 Apr 2021 13:38:39 +0000
+	id 1lRxbT-0007Kx-Vs; Thu, 01 Apr 2021 13:43:19 +0000
+Received: by outflank-mailman (input) for mailman id 104486;
+ Thu, 01 Apr 2021 13:43:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j8z4=I6=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1lRxWx-0005gw-9M
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 13:38:39 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=evtz=I6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lRxbS-0007Ks-AG
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 13:43:18 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ebeda8f-f861-421f-9bee-65818108e557;
- Thu, 01 Apr 2021 13:38:38 +0000 (UTC)
+ id 8411d6d6-b774-4778-a803-b2d8168943f2;
+ Thu, 01 Apr 2021 13:43:17 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D5F38AF23;
+ Thu,  1 Apr 2021 13:43:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,70 +38,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ebeda8f-f861-421f-9bee-65818108e557
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617284317;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ELcf/BsHGsdjVKKgU0twdyS5n3PZCQDzd1s9Mf5xBZo=;
-  b=YAb2Dp8zFe9QChW0VLhQ5V6kH9vTBhGrUPj/P/BU26ZEhbMf1yxDcM8l
-   muP+dZiK7VkKYNl12pZT47JwR8ElKd6EtuHArE1z/9SqFeA9+xRvaL+oy
-   eNkQlYPWh191tm9oCGajRSirulpxqtHN63CFIorRad7kwGZcTW83CZUEy
-   Y=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: EByghpkyZ0qje9sG3P+qAgA3a8me0upou0kNG0fCwc2NpYHBoNrV7B1kQsPwVplUs0C739mSDe
- KkBtUjXcIOq2qLg0Nwh6H8ipZLnmyH/bVu/5X3uehQkO+ADxKnMBOqyE9oeZZ6tPhKSSaMzHOU
- TWwIJLVibcxGU6QSYRMyN6e1krwwSczqpymV97ziYvQuu7OJRPRxRoXVVpGjz7/ceVctALKT2R
- 2TZegb90QAV3RPyIRz4YGGsEMnOJ95N6qW/6WmfrojzRkyGrHTn2Jxc/tQkE2DCOztalXtH0EB
- cP4=
-X-SBRS: 5.1
-X-MesageID: 40837413
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:gQR/Ca7JVoBHbaA1sgPXwADXdLJzesId70hD6mlaTxtJfsuE0/
- 2/hfhz73DJoRsYRX1Io729EYaaR3e0z/5IyK0wGZvnYwX8omuvK+hZh7fK5zH7ASXx+qp8+M
- 5bH5RWM9H7AVhkgcuS2mDReOoI+9Wf9bDtuOG29QYPcShRd6pi4w1lYzz7LmRKQmB9dPgEPa
- vZ39FGoSGhZGR/VKqGOkU=
-X-IronPort-AV: E=Sophos;i="5.81,296,1610427600"; 
-   d="scan'208";a="40837413"
-From: George Dunlap <george.dunlap@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Igor Druzhinin
-	<igor.druzhinin@citrix.com>, Jan Beulich <jbeulich@suse.com>, Ian Jackson
-	<ian.jackson@citrix.com>
-Subject: [PATCH for-4.15 7/7] CHANGELOG.md: irq-max-guests
-Date: Thu, 1 Apr 2021 14:38:27 +0100
-Message-ID: <20210401133827.362216-7-george.dunlap@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210401133827.362216-1-george.dunlap@citrix.com>
-References: <20210401133827.362216-1-george.dunlap@citrix.com>
+X-Inumbo-ID: 8411d6d6-b774-4778-a803-b2d8168943f2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1617284597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KrgYsx1UP6iZuNfaU2C4DpL8Uvgwht3nbDd3oOYHCZk=;
+	b=R0nfvDDx3MsC+2xnyhgScJVGsQ+wFaKMUepGsMk98XDnQW/nkyCLoVwv1mNkbxNJXpkNtL
+	3vMPn/RPOl3XtJDUQjfJnGYldwsq8QDCxfd8uXba4oQrj6YiOGTAySV9jxUFpqnGBCWQIV
+	tqcmP3IpFKIsBKvk+UlzupZb7bIO9TU=
+Subject: Re: [PATCH 00/23] further population of xen/lib/
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c53a6802-8bae-1dc6-5ac4-6238e122aaa4@suse.com>
+ <27916fa0-9ebd-a49a-bbb9-1ef47c2b5bf6@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4f745d03-baa8-e9e6-692c-f9c9f401b766@suse.com>
+Date: Thu, 1 Apr 2021 15:43:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <27916fa0-9ebd-a49a-bbb9-1ef47c2b5bf6@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
-CC: Igor Druzhinin <igor.druzhinin@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Ian Jackson <ian.jackson@citrix.com>
----
- CHANGELOG.md | 1 +
- 1 file changed, 1 insertion(+)
+On 01.04.2021 13:54, Julien Grall wrote:
+> On 01/04/2021 11:14, Jan Beulich wrote:
+>> This is to dissolve / move xen/common/lib.c and xen/common/string.c.
+>> One benefit of moving these functions into an archive is that we can
+>> drop some of the related __HAVE_ARCH_* #define-s: By living in an
+>> archive, the per-arch functions will preempt any loading of the
+>> respective functions (objects) from the archive. (Down the road we
+>> may want to move the per-arch functions into archives as well, at
+>> which point the per-arch archive(s) would need to be specified ahead
+>> of the common one(s) to the linker.)
+> 
+> While I think it is a good idea to move code in xen/lib, I am not 
+> convinced that having a single function per file is that beneficial.
+> 
+> Do you have numbers showing how much Xen will shrink after this series?
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 9c272a0113..7237b0a020 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - Some additional affordances in various xl subcommands.
-  - Added the following ARM errata: Cortex A53 #843419, Cortex A55 #1530923, Cortex A72 #853709, Cortex A73 #858921, Cortex A76 #1286807, Neoverse-N1 #1165522
-  - On detecting a host crash, some debug key handlers can automatically triggered to aid in debugging
-+ - Increase the maximum number of guests which can share a single IRQ from 7 to 16, and make this configurable with irq-max-guests
- 
- ### Removed / support downgraded
- 
--- 
-2.30.2
+In the default build, from all I was able to tell, there's one function
+that's unused (strspn(), as mentioned in the respective patch description).
+I don't think I've been claiming any space savings here, though, so I
+wonder why you make this a criteria at all. The functions being one per
+CU is such that they can be individually overridden by an arch, without
+pulling in dead code.
 
+Jan
 
