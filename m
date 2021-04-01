@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77AB435159E
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 16:26:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104545.200080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 157ED35159F
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 16:28:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104551.200091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRyG6-0004Is-P9; Thu, 01 Apr 2021 14:25:18 +0000
+	id 1lRyId-0004RL-At; Thu, 01 Apr 2021 14:27:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104545.200080; Thu, 01 Apr 2021 14:25:18 +0000
+Received: by outflank-mailman (output) from mailman id 104551.200091; Thu, 01 Apr 2021 14:27:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRyG6-0004IT-M2; Thu, 01 Apr 2021 14:25:18 +0000
-Received: by outflank-mailman (input) for mailman id 104545;
- Thu, 01 Apr 2021 14:25:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lRyId-0004Qw-7p; Thu, 01 Apr 2021 14:27:55 +0000
+Received: by outflank-mailman (input) for mailman id 104551;
+ Thu, 01 Apr 2021 14:27:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rEwQ=I6=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lRyG5-0004IO-2k
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 14:25:17 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::b])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32a6c0d1-7127-439c-9264-39585dc02db7;
- Thu, 01 Apr 2021 14:25:15 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.24.0 DYNA|AUTH)
- with ESMTPSA id 005bafx31EP99L9
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 1 Apr 2021 16:25:09 +0200 (CEST)
+ (envelope-from <SRS0=evtz=I6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lRyIb-0004Qq-HA
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 14:27:53 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6abfc8e0-307b-48a0-8f78-f7d7717b2082;
+ Thu, 01 Apr 2021 14:27:52 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9CFFEB1BC;
+ Thu,  1 Apr 2021 14:27:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,99 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32a6c0d1-7127-439c-9264-39585dc02db7
-ARC-Seal: i=1; a=rsa-sha256; t=1617287110; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=j4iAYUbgEisykYQRzKU0rugcUpNY7CL/gaqgVLpkf/lr8b/YHG4MoGK2zQzm2odIK/
-    tU41KXALKj1wrbTmWP0vrAfGdMaqd/k++X9rw8NYSik8eiLtDN06nRhvMmvINCP5+SgM
-    K4AqBlwfQOmgGjCQLWzjclkyEcXP7/L/bnoc34boIM4vhZZGnwmX1OMGspSWRvqKhFy7
-    5lfTZEoNooxAsMj10en9SdfpcltIvSfHBPufE9Gb45jE8+QHYYx7RE3Qio3PTsPy/kgs
-    tZMDIwB9+Sl8L/LfApEkmPI17K7405oAcwwV5wqcKuSUlZQJxdA9kOUYA6p1cNDrYaq1
-    sglw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1617287110;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=FM41hKIuLgnoLVd8uBVj7PEK15Ao/d5Jsy/Z+nsM4dU=;
-    b=AwbgkmDOZE8QubP0r0NyehAL9JfvSvj95Yl6uybNBIaxSGPAX3DIKfz/vOzi8BnFkT
-    s3fPO40PaEedLoerldGvruCkDXrhylA/ijRBHdSbb6DU78NRY4UjIaOmY8NwtHMcOEp0
-    tWYUlA8+wZcdyx5UiHphp8XJl3ZJ5By7P5+EGr9FJUQez4qbLm3v0ObGD1Stg9Y/Lt13
-    8g55h1JS7DBJj9teeEdc35YeVVug4GCSc9Jj5aciyM4/if9gq/ILXJedKX23Yidr+4eR
-    Z7tt8AZtvR36hJ/gkFg9Ih/h8LrEndNeZagRk+3U/g5D0QFG5Ruy457EDYrr9lmE1etS
-    9uwQ==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1617287110;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=FM41hKIuLgnoLVd8uBVj7PEK15Ao/d5Jsy/Z+nsM4dU=;
-    b=MXVE+hGinVIwP1D8PSNVFCa9IOVjfgh8F7JhvBCPey7XbMJgAzzCOCd7yh+5tz8FG2
-    +98mLaIC2XC9d3XHZAgQZPGblkdwhnrdfONTd9SncK4aGbeEc5bWuGFxFRiE2vUT4SaE
-    6qXIcV5xB+RSO1y8bGWY8SBLWZ5fOBlsi/0wMpilIAXFKjKrUlbzW2IHlFv5wYdlE9Gj
-    Tvvrj6IS3RahCR7v0ItY2uXPanYJL8IOgWGHMTbFRO7OaZzr4tGGDxiB+Y8tZ476KObN
-    ISV+ggVJa42vpSc+NOjeE9KLBvBKcotOHTlupcKNjk1fse0FnmdkmvOz/GZK46MVMk1Z
-    8Zrg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+P6/A=="
-X-RZG-CLASS-ID: mo00
-Date: Thu, 1 Apr 2021 16:24:54 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
- Liu <wl@xen.org>
-Subject: Re: [XEN PATCH for-4.15] libxl: Replace deprecated QMP command by
- "query-cpus-fast"
-Message-ID: <20210401162454.78fb0290.olaf@aepfle.de>
-In-Reply-To: <20210322141744.522041-1-anthony.perard@citrix.com>
-References: <20210322141744.522041-1-anthony.perard@citrix.com>
-X-Mailer: Claws Mail 2021.03.05 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 6abfc8e0-307b-48a0-8f78-f7d7717b2082
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1617287271; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uqjRHjMJw8JbA2dlMGmgldrt6ty/trqzJ0kd0jTS3x0=;
+	b=T6OHUx5p4RbTA9CYGUOWblyujMjReWbQ0qY2dzRovS2e9vKkFK2OgTk2yLQNg8i9iKwK5N
+	v4Pn3LeN8YcI6VX8SeV2py/tn7eJWdebUY9nQTBDVsc0PiVHIBGyXuiSt3bYVJZImsd3ax
+	bUvpux0c5QaMfyh8VyHOoj7Xn9jp/1A=
+Subject: Re: [PATCH 00/23] further population of xen/lib/
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c53a6802-8bae-1dc6-5ac4-6238e122aaa4@suse.com>
+ <27916fa0-9ebd-a49a-bbb9-1ef47c2b5bf6@xen.org>
+ <4f745d03-baa8-e9e6-692c-f9c9f401b766@suse.com>
+ <6a38f0db-938b-fd13-48e6-6b538c85fe42@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d9a21b2c-8eca-027d-5672-e5d9dfaaf4b7@suse.com>
+Date: Thu, 1 Apr 2021 16:27:50 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/4cFygLJ1LDJGH5ZoXulrxJK"; protocol="application/pgp-signature"
+In-Reply-To: <6a38f0db-938b-fd13-48e6-6b538c85fe42@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---Sig_/4cFygLJ1LDJGH5ZoXulrxJK
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 01.04.2021 16:04, Julien Grall wrote:
+> Hi Jan,
+> 
+> On 01/04/2021 14:43, Jan Beulich wrote:
+>> On 01.04.2021 13:54, Julien Grall wrote:
+>>> On 01/04/2021 11:14, Jan Beulich wrote:
+>>>> This is to dissolve / move xen/common/lib.c and xen/common/string.c.
+>>>> One benefit of moving these functions into an archive is that we can
+>>>> drop some of the related __HAVE_ARCH_* #define-s: By living in an
+>>>> archive, the per-arch functions will preempt any loading of the
+>>>> respective functions (objects) from the archive. (Down the road we
+>>>> may want to move the per-arch functions into archives as well, at
+>>>> which point the per-arch archive(s) would need to be specified ahead
+>>>> of the common one(s) to the linker.)
+>>>
+>>> While I think it is a good idea to move code in xen/lib, I am not
+>>> convinced that having a single function per file is that beneficial.
+>>>
+>>> Do you have numbers showing how much Xen will shrink after this series?
+>>
+>> In the default build, from all I was able to tell, there's one function
+>> that's unused (strspn(), as mentioned in the respective patch description).
+>> I don't think I've been claiming any space savings here, though, so I
+> 
+> You didn't. I was trying to guess why you wrote this series given that 
+> your cover letter doesn't provide a lot of benefits (other than dropping 
+> __HAVE_ARCH_*).
+> 
+>> wonder why you make this a criteria at all.
+> 
+> Because this is the main reason I would be willing to ack this series. 
+> This outweight the increase number of files with just a single function 
+> implemented.
+> 
+>> The functions being one per
+>> CU is such that they can be individually overridden by an arch, without
+>> pulling in dead code.
+> 
+> I would agree with functions like memcpy/memset() because you can gain a 
+> lot to outweight the implementation in assembly. I am not convinced this 
+> would be true for functions such as strlen().
 
-Am Mon, 22 Mar 2021 14:17:44 +0000
-schrieb Anthony PERARD <anthony.perard@citrix.com>:
+strlen() is actually a pretty good candidate for overriding, and
+we may even want to on x86 with newer hardware's "Fast Short REP
+CMPSB/SCASB".
 
-> We use the deprecated QMP command "query-cpus"
+> So overall, the number of functions requiring overriding will likely be 
+> pretty limited and #ifdef would be IMHO tolerable.
+> 
+> Although, I would be OK with creating a file per function that are 
+> already overrided. For all the others, I think this is just pointless.
 
-There is also the already removed "cpu-add" command used, which apparently =
-has to be replaced by "device_add".
+Well, I don't see a reason to special case individual functions.
+Plus any reasonable static library should imo have one (global)
+function per object file in the normal case; there may be very
+few exceptions. Drawing an ad hoc boundary at what currently has
+an override somewhere doesn't look very attractive to me. Plus
+to be honest while I would find it unfair to ask to further
+split things if I did just a partial conversion (i.e. invest yet
+more time), I find it rather odd to be asked to undo some of the
+splitting when I've already taken the extra time to make things
+consistent.
 
-Do you happen to have a fix for this as well?
-
-
-Another thread suggests that more deprecated commands are used. I think the=
-y have to be adjusted as well, ideally before they finally disappear from u=
-pstream qemu.
-
-Olaf
-
---Sig_/4cFygLJ1LDJGH5ZoXulrxJK
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmBl17cACgkQ86SN7mm1
-DoBz+A//ZMJcUonxTlK57+9aisiRzk8Z7AQ7iM4r8iPX7athCtqpCplQNkhKvvx7
-Ky3t3VR7+r4E+INxdtscZONRDS1RmhtJTy0Fa7VK8cpfeQo4YyHVBMk37gEN0CN/
-1m6K21Pc+EBMopoyBo6EvHPPibYt7bRjnhTRg/g/4OM0mWyTQPuzzhYAgsUo5g+d
-svnYW2hCNRXq0ZI0U5w+wM8oxO4ldRJQDM2DrPmeFeuBzid/QKXKd+M0PtTTEovr
-OjWdFBNtD9uGR0SbKy1ow6pS27muzJd3Ilo+E4FVehUm/Q45Xoxch5z1JbsqloDC
-IxQMrRYyOwNYyn2q22NrlEU7XsnU/SpJdsGuITiF0anShLLO8CpSmMvskwNlXQKA
-k1xaxPGm3N0LnqCnnvvmC0Jvt9wcrOw1BwVJfU9l7aLlGdQft57a3MDEtizCNlFx
-KUxyAURACD3oBhjiUwbNu7VQMj9BbUQSUI0zSV+0qPL32M5x5EDrWpDxr6/hz1o2
-3mVf2rJuSQ5COKA3X/uEsaXDS0k4KB4fGDAHlMnSjLd+e0rcaJBbZ8ZjTzGP4TGr
-Bzqnpm1RVti7Ce1+1pkSCR+rP0NJUKhtYtRKPCR8SjzEbe3T5sRnwe10cmxkR1bk
-JX4ScbsAmsG4rr61YWqNJKYIEFmHyDgKM2vWUrVNI/zY0gLdHl8=
-=QY7s
------END PGP SIGNATURE-----
-
---Sig_/4cFygLJ1LDJGH5ZoXulrxJK--
+Jan
 
