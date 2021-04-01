@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65859351077
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 10:00:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.104129.198787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDAD35108E
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Apr 2021 10:05:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.104132.198798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRsFn-0001Uf-01; Thu, 01 Apr 2021 08:00:35 +0000
+	id 1lRsKV-0001gL-Jl; Thu, 01 Apr 2021 08:05:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 104129.198787; Thu, 01 Apr 2021 08:00:34 +0000
+Received: by outflank-mailman (output) from mailman id 104132.198798; Thu, 01 Apr 2021 08:05:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lRsFm-0001UG-Sk; Thu, 01 Apr 2021 08:00:34 +0000
-Received: by outflank-mailman (input) for mailman id 104129;
- Thu, 01 Apr 2021 08:00:33 +0000
+	id 1lRsKV-0001g0-G1; Thu, 01 Apr 2021 08:05:27 +0000
+Received: by outflank-mailman (input) for mailman id 104132;
+ Thu, 01 Apr 2021 08:05:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=evtz=I6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lRsFl-0001UB-JI
- for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 08:00:33 +0000
+ id 1lRsKU-0001fu-4l
+ for xen-devel@lists.xenproject.org; Thu, 01 Apr 2021 08:05:26 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id df1147cc-8342-4dfe-b6d1-d69926d99a1d;
- Thu, 01 Apr 2021 08:00:31 +0000 (UTC)
+ id cef6a366-a162-45c2-8f87-fee1d92a60c0;
+ Thu, 01 Apr 2021 08:05:25 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DD4E9B1F1;
- Thu,  1 Apr 2021 08:00:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5EC53AD6D;
+ Thu,  1 Apr 2021 08:05:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +39,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df1147cc-8342-4dfe-b6d1-d69926d99a1d
+X-Inumbo-ID: cef6a366-a162-45c2-8f87-fee1d92a60c0
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617264031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617264324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2sZt9qo8NcRMWOTASDKrGZPc39F8TkStruAYUradwBg=;
-	b=BNI9vvGASYaxegAmu077BgRMLih4wIpzx5xfZ6xgZMVG7uo1OBWbtayuuxFSFbMn3YbVcr
-	JmYaYTKewcCCx7v43l9n+CWJkPQKaHVPwYlZ3kDm70JCVxgS2K/ncgILy+/31+Pv/0ZijS
-	WppXTO+lpU3Ems6Hg3beCRlhcMEm9ys=
-Subject: =?UTF-8?Q?Ping=c2=b2=3a_=5bPATCH_v2=5d_x86/PV=3a_make_post-migratio?=
- =?UTF-8?Q?n_page_state_consistent?=
+	bh=VqrCyBIF8QFz2KGAE0AiTc4J1eYaPJ7bzhliUAFzRms=;
+	b=PBhTZPGW1iG5KOP1Mjy/xCpSbtoJovXsgHbmssSYzjSbS7sOrZVI5ZtAAVX/LaPUXUo9Zo
+	UHc7aIDkr3ZqhZVmAGbv+22O2l8cFkwuYpJ7yrE7n8FG4gtORwgMYLTmdbQMUfFwZv1/sx
+	gVaYrsOV6MqEZvKrrdY3nvBi1y97s34=
+Subject: =?UTF-8?Q?Ping=c2=b2=3a_=5bPATCH=5d_x86emul=3a_de-duplicate_scatter?=
+ =?UTF-8?Q?s_to_the_same_linear_address?=
 From: Jan Beulich <jbeulich@suse.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <07ebce3c-4dcf-bc9e-6d82-7f3def486ab8@suse.com>
- <b733914b-1bfd-d95d-470e-af3ca7a4f69f@suse.com>
- <e2ac69e3-64ef-5362-427b-7e52735ea834@citrix.com>
- <8df7e434-6cea-54ca-4f24-09cbd692ad3b@suse.com>
-Message-ID: <e0bd5b60-2c0b-77cf-8d3b-0c5ac9ba09c2@suse.com>
-Date: Thu, 1 Apr 2021 10:00:30 +0200
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6064996d-943f-1be3-9bfd-e872149da2a1@suse.com>
+ <fcf7e123-3cdd-fd4d-6c58-36facb26a68e@citrix.com>
+ <2e559806-5bc0-0f61-8e23-95e0dba34c41@suse.com>
+ <ca22a3b6-8194-7880-8e84-e709ee20bcf3@suse.com>
+Message-ID: <6f200e53-02fc-c540-3b23-46f8f4b3385e@suse.com>
+Date: Thu, 1 Apr 2021 10:05:23 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <8df7e434-6cea-54ca-4f24-09cbd692ad3b@suse.com>
+In-Reply-To: <ca22a3b6-8194-7880-8e84-e709ee20bcf3@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 23.11.2020 13:50, Jan Beulich wrote:
-> On 23.11.2020 13:26, Andrew Cooper wrote:
->> On 20/11/2020 12:48, Jan Beulich wrote:
->>> On 04.11.2020 08:56, Jan Beulich wrote:
->>>> When a page table page gets de-validated, its type reference count drops
->>>> to zero (and PGT_validated gets cleared), but its type remains intact.
->>>> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
->>>> such pages. An intermediate write to such a page via e.g.
->>>> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
->>>> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
->>>> return. In libxc the decision which pages to normalize / localize
->>>> depends solely on the type returned from the domctl. As a result without
->>>> further precautions the guest won't be able to tell whether such a page
->>>> has had its (apparent) PTE entries transitioned to the new MFNs.
+On 17.02.2021 09:32, Jan Beulich wrote:
+> On 05.02.2021 12:28, Jan Beulich wrote:
+>> On 05.02.2021 11:41, Andrew Cooper wrote:
+>>> On 10/11/2020 13:26, Jan Beulich wrote:
+>>>> The SDM specifically allows for earlier writes to fully overlapping
+>>>> ranges to be dropped. If a guest did so, hvmemul_phys_mmio_access()
+>>>> would crash it if varying data was written to the same address. Detect
+>>>> overlaps early, as doing so in hvmemul_{linear,phys}_mmio_access() would
+>>>> be quite a bit more difficult.
+>>>
+>>> Are you saying that there is currently a bug if a guest does encode such
+>>> an instruction, and we emulate it?
+>>
+>> That is my take on it, yes.
+>>
+>>>> Note that due to cache slot use being linear address based, there's no
+>>>> similar issue with multiple writes to the same physical address (mapped
+>>>> through different linear addresses).
 >>>>
->>>> Add a check of PGT_validated, thus consistently avoiding normalization /
->>>> localization in the tool stack.
->>>>
->>>> Also use XEN_DOMCTL_PFINFO_NOTAB in the variable's initializer instead
->>>> open coding it.
+>>>> Since this requires an adjustment to the EVEX Disp8 scaling test,
+>>>> correct a comment there at the same time.
 >>>>
 >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>>> ---
->>>> v2: Don't change type's type.
->>> Ping?
+>>>> TBD: The SDM isn't entirely unambiguous about the faulting behavior in
+>>>>      this case: If a fault would need delivering on the earlier slot
+>>>>      despite the write getting squashed, we'd have to call ops->write()
+>>>>      with size set to zero for the earlier write(s). However,
+>>>>      hvm/emulate.c's handling of zero-byte accesses extends only to the
+>>>>      virtual-to-linear address conversions (and raising of involved
+>>>>      faults), so in order to also observe #PF changes to that logic
+>>>>      would then also be needed. Can we live with a possible misbehavior
+>>>>      here?
+>>>
+>>> Do you have a chapter/section reference?
 >>
->> Ping what?  There is still nothing addressing my concerns from v1.
+>> The instruction pages. They say in particular
+>>
+>> "If two or more destination indices completely overlap, the “earlier”
+>>  write(s) may be skipped."
+>>
+>> and
+>>
+>> "Faults are delivered in a right-to-left manner. That is, if a fault
+>>  is triggered by an element and delivered ..."
+>>
+>> To me this may or may not mean the skipping of indices includes the
+>> skipping of faults (which a later element then would raise anyway).
 > 
-> I did reply to your concerns on Sep 11th, and then replied to this
-> reply of mine another time on Sep 28th. Neither of these got any
-> response from you, hence I had to conclude - after two further
-> pings on v1 - that they were satisfactory to you. Now you say they
-> weren't, but without saying in which way, so I still wouldn't know
-> what to change in the description.
-> 
-> On the code change itself you did say "... so this is probably a
-> good change", so I was further understanding that your concern is
-> merely with the description. Maybe I misunderstood this aspect,
-> too?
-> 
->> To re-iterate - this is a very subtle change, in a very complicated
->> piece of migration.  As the problems described do not manifest in
->> practice, it is vital to understand why.
-> 
-> Until now it has been my understanding that they just don't happen
-> to manifest, because guests know to behave themselves (read: pin,
-> first and foremost, all their page tables, which means we wouldn't
-> in practice run into ones with an in-flight state change).
+> Does the above address your concerns / questions? If not, what else
+> do I need to provide?
 
-Another example where I think I have waited long enough for a reply.
-Roger has acked the change, so unless I hear otherwise by then I'm
-intending to commit this, too, once the tree is fully open again.
+I have to admit that I find it quite disappointing that this bug fix
+has missed 4.15. It doesn't feel well here even more than elsewhere,
+but again I'm intending to commit this - if need be without any acks -
+once the tree is fully open again. As a bug fix it'll want backporting
+as well.
 
 Jan
 
