@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E676354F15
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Apr 2021 10:52:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.105712.202191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2832354F69
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Apr 2021 11:06:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.105724.202204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lThRl-0008Ut-ME; Tue, 06 Apr 2021 08:52:29 +0000
+	id 1lThfJ-00018f-5s; Tue, 06 Apr 2021 09:06:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 105712.202191; Tue, 06 Apr 2021 08:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 105724.202204; Tue, 06 Apr 2021 09:06:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lThRl-0008UU-Iv; Tue, 06 Apr 2021 08:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 105712;
- Tue, 06 Apr 2021 08:52:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ww1H=JD=linaro.org=lee.jones@srs-us1.protection.inumbo.net>)
- id 1lThRk-0008UP-A7
- for xen-devel@lists.xenproject.org; Tue, 06 Apr 2021 08:52:28 +0000
-Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b3ae95d4-c32e-4159-bc3e-52f3b204efb9;
- Tue, 06 Apr 2021 08:52:27 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id e12so242108wro.11
- for <xen-devel@lists.xenproject.org>; Tue, 06 Apr 2021 01:52:26 -0700 (PDT)
-Received: from dell ([91.110.221.193])
- by smtp.gmail.com with ESMTPSA id i8sm32058595wrx.43.2021.04.06.01.52.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Apr 2021 01:52:25 -0700 (PDT)
+	id 1lThfJ-00018D-0y; Tue, 06 Apr 2021 09:06:29 +0000
+Received: by outflank-mailman (input) for mailman id 105724;
+ Tue, 06 Apr 2021 09:06:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lThfH-000185-Ho; Tue, 06 Apr 2021 09:06:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lThfH-0002yk-88; Tue, 06 Apr 2021 09:06:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lThfG-0007ii-W1; Tue, 06 Apr 2021 09:06:27 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lThfG-0005cH-VS; Tue, 06 Apr 2021 09:06:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,96 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3ae95d4-c32e-4159-bc3e-52f3b204efb9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=3BgNDMl40dnCwKRmhOLm+B9cf4ULCtKCWabOrS4ebcw=;
-        b=Asdziv4oEb1GmkAaeVVDLWI3Znln2RaErCLNpsXLzuYFdOjFmI+wtm1ABBb8Qzrhny
-         TcmAdlweTBezZn6bLWI5bxAO6sixQ1qoRcBGyyLqdiQLPIYhlFyN1h+5meYfiH4JkWto
-         p6pFe2LqKb8alZFUYIMjJAMVfORnDXryC0wNScdPtyGiNK6QyfD0bVL+lTSMwej9pLcV
-         iQzMPvscomIPMUzjFxPNO4iPBn4L4vhotDqv492YkhoERqcLIfLNP5vCfCnxSMMP6sSJ
-         KcvhK8JYrWbX7nPWHQ5J91FkPJXnbjYB6Ap1ZgdEBSg2YwCnF2NloEpC1gpS/cLHXxVn
-         QScw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=3BgNDMl40dnCwKRmhOLm+B9cf4ULCtKCWabOrS4ebcw=;
-        b=FxJSYKCOF0TmpCyGgJTRhJhnZkl/aOrLXM4ARyaknun7i9ouY/RywVyvwOvUYoFaly
-         riEItBMEOQ1wVMs88dgK21Yknp36/Gjkcg6Wrhf7foJ6w91nFtlALjARMgNzFqcw2xsD
-         QxqXccsuqI5gteQP887WsCFtlHXWyF4ve/MAy6VBl+Uue4nZv7G/Oul/FwbbDuLGNzv2
-         UnF2VDBrZ+Y3drAOucOk9Byh2pwSkj2AWmI2GMo2UDfdvIcbThc8VcLDlGsTiJfqL/dC
-         4W2nFo9bYxCl2QkTqMUKlhA+j+ZOVmWQ+yNR2Do6e3q7W6fHGlhlg4g1lfBD6XBjXM6O
-         wtaw==
-X-Gm-Message-State: AOAM531u1fw3EZ6S4TaPcb802a/gOICN9I3x2H/+FrFMDGjnZLesfnVY
-	eN/64e+p1aJ++cpbi2fhd8kfLQ==
-X-Google-Smtp-Source: ABdhPJyxLFG0M7WFSnkeNEm7vMCed81i1TOhAivLtyeLJw56m312VuEzXAMWCWyLobQLxSOjXKutyg==
-X-Received: by 2002:adf:90f0:: with SMTP id i103mr32839523wri.318.1617699146143;
-        Tue, 06 Apr 2021 01:52:26 -0700 (PDT)
-Date: Tue, 6 Apr 2021 09:52:23 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: linux-kernel@vger.kernel.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	drbd-dev@lists.linbit.com, Jens Axboe <axboe@kernel.dk>,
-	Joshua Morris <josh.h.morris@us.ibm.com>,
-	Juergen Gross <jgross@suse.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	linux-block@vger.kernel.org,
-	Philip Kelleher <pjk1939@linux.ibm.com>,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 00/11] Rid W=1 warnings from Block
-Message-ID: <20210406085223.GR2916463@dell>
-References: <20210312105530.2219008-1-lee.jones@linaro.org>
- <20210330132130.GK2916463@dell>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=shW1A4LbaSfzfW1PBgHyPHuJiNLAHQgnqblrNZ4X2so=; b=QkSu93q+MqdAVeUN+FHqGQeLky
+	ztuUWOnQKbnn3amSxgGp4trQ1EwaPNp0xE55ySw3VuS0EKE7jpN2fLe6hT5iL2Y4boE5jzywsWhwY
+	wMN62Sg9o3vkImUwxjRSUjDAZ+fQ4JYYKwqgssh+sI8ttXZEYgt7akxb//gewoOJ6bSo=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160757-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210330132130.GK2916463@dell>
+MIME-Version: 1.0
+Subject: [ovmf test] 160757: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=4ac02962017c77bf38b462f970c884c2dc7931cf
+X-Osstest-Versions-That:
+    ovmf=f95cdd316c3d56e8f76b5044be54b9645e1dc60f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 06 Apr 2021 09:06:26 +0000
 
-On Tue, 30 Mar 2021, Lee Jones wrote:
+flight 160757 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160757/
 
-> On Fri, 12 Mar 2021, Lee Jones wrote:
-> 
-> > This set is part of a larger effort attempting to clean-up W=1
-> > kernel builds, which are currently overwhelmingly riddled with
-> > niggly little warnings.
-> > 
-> > Lee Jones (11):
-> >   block: rsxx: core: Remove superfluous const qualifier
-> >   block: drbd: drbd_interval: Demote some kernel-doc abuses and fix
-> >     another header
-> >   block: mtip32xx: mtip32xx: Mark debugging variable 'start' as
-> >     __maybe_unused
-> >   block: drbd: drbd_state: Fix some function documentation issues
-> >   block: drbd: drbd_receiver: Demote non-conformant kernel-doc headers
-> >   block: drbd: drbd_main: Remove duplicate field initialisation
-> >   block: drbd: drbd_nl: Make conversion to 'enum drbd_ret_code' explicit
-> >   block: drbd: drbd_main: Fix a bunch of function documentation
-> >     discrepancies
-> >   block: drbd: drbd_receiver: Demote less than half complete kernel-doc
-> >     header
-> >   block: xen-blkfront: Demote kernel-doc abuses
-> >   block: drbd: drbd_nl: Demote half-complete kernel-doc headers
-> 
-> Would you like me to resubmit these?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 4ac02962017c77bf38b462f970c884c2dc7931cf
+baseline version:
+ ovmf                 f95cdd316c3d56e8f76b5044be54b9645e1dc60f
 
-It's been 3.5 weeks since these were submitted.
+Last test of basis   160687  2021-04-03 01:55:05 Z    3 days
+Testing same since   160757  2021-04-06 01:11:18 Z    0 days    1 attempts
 
-We are now at -rc6, so these should be merged soon.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jiaxin Wu <Jiaxin.wu@intel.com>
+  Zhang Hongbin1 <hongbin1.zhang@intel.com>
 
-Is there anything you'd like me to do to help?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   f95cdd316c..4ac0296201  4ac02962017c77bf38b462f970c884c2dc7931cf -> xen-tested-master
 
