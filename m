@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B396E3555EF
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Apr 2021 16:01:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.105984.202665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 536993555F1
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Apr 2021 16:01:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.105986.202676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lTmGl-0005IA-Jj; Tue, 06 Apr 2021 14:01:27 +0000
+	id 1lTmH3-0005NI-Sg; Tue, 06 Apr 2021 14:01:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 105984.202665; Tue, 06 Apr 2021 14:01:27 +0000
+Received: by outflank-mailman (output) from mailman id 105986.202676; Tue, 06 Apr 2021 14:01:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lTmGl-0005Hl-Gd; Tue, 06 Apr 2021 14:01:27 +0000
-Received: by outflank-mailman (input) for mailman id 105984;
- Tue, 06 Apr 2021 14:01:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lTmH3-0005Mu-PM; Tue, 06 Apr 2021 14:01:45 +0000
+Received: by outflank-mailman (input) for mailman id 105986;
+ Tue, 06 Apr 2021 14:01:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lTmGj-0005Hf-Vg
- for xen-devel@lists.xenproject.org; Tue, 06 Apr 2021 14:01:26 +0000
+ id 1lTmH2-0005Mf-CT
+ for xen-devel@lists.xenproject.org; Tue, 06 Apr 2021 14:01:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0490220a-22ad-41a5-9b4f-ee345d756fe1;
- Tue, 06 Apr 2021 14:01:24 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 064f3cdc-1ed3-49c2-832d-0e1228125673;
+ Tue, 06 Apr 2021 14:01:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4077AB1BD;
- Tue,  6 Apr 2021 14:01:23 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 488C5B1BC;
+ Tue,  6 Apr 2021 14:01:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,26 +38,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0490220a-22ad-41a5-9b4f-ee345d756fe1
+X-Inumbo-ID: 064f3cdc-1ed3-49c2-832d-0e1228125673
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617717683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617717702; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wEnWGL/BSIvoY8CXWjvvr4hQ9Rbcec+UPdK7vVB1MBg=;
-	b=hPWawKy4pvj9a6moTqEg5jPb4ALOHXaXDni0WTAF4YmoS9SwN90pTeWclCO8R37fr8gZD8
-	CEcYCtA4D3rcym0sF8cHdG23PpXX//ZNbnzQR+JmV8VO5xYZ/fHSLD7G7aKNJ8gryeyvey
-	2YsDsRK6N0MAJUzLR1Fcetq5WO6+ONE=
-Subject: [PATCH v2 1/3] x86: don't build unused entry code when !PV32
+	bh=vEZ17NvnwSlKSweZ+wN2qQa/aenPa2meHi6XZJOo/ow=;
+	b=B4MIKukkk9wf7G+VZI2BNpDegW/ZAbH99YjD5I0cIz+vq1jyqONPXHex3Oufol0t2fc1dt
+	nKIs0KJn53sbqh3XZ8rVzVuC7VE04YUnvx8t4Q3t+0/sIrGxvKyK3cbC3FwMRTA72khhWg
+	COTDsw9gcEOmWGvKX/Fp2HGstxg+pFM=
+Subject: [PATCH v2 2/3] x86: slim down hypercall handling when !PV32
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <bf79f745-078b-071d-cf01-dfede456041a@suse.com>
-Message-ID: <213007e3-bb4c-a564-ca1d-860283646be4@suse.com>
-Date: Tue, 6 Apr 2021 16:01:22 +0200
+Message-ID: <d85736e6-bca9-de3a-328d-d727c327dbda@suse.com>
+Date: Tue, 6 Apr 2021 16:01:41 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -67,330 +67,321 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Except for the initial part of cstar_enter compat/entry.S is all dead
-code in this case. Further, along the lines of the PV conditionals we
-already have in entry.S, make code PV32-conditional there too (to a
-fair part because this code actually references compat/entry.S).
-
-This has the side effect of moving the tail part (now at compat_syscall)
-of the code out of .text.entry (in line with e.g. compat_sysenter).
+In such a build various of the compat handlers aren't needed. Don't
+reference them from the hypercall table, and compile out those which
+aren't needed for HVM. Also compile out switch_compat(), which has no
+purpose in such a build.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Avoid #ifdef-ary in compat/entry.S.
----
-TBD: I'm on the fence of whether (in a separate patch) to also make
-     conditional struct pv_domain's is_32bit field.
+v2: New.
 
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -9,7 +9,7 @@
- #include <xen/perfc.h>
- #endif
- #include <xen/sched.h>
--#ifdef CONFIG_PV
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -17,7 +17,8 @@ obj-bin-y += bzimage.init.o
+ obj-bin-y += clear_page.o
+ obj-bin-y += copy_page.o
+ obj-y += cpuid.o
+-obj-$(CONFIG_PV) += compat.o x86_64/compat.o
++obj-$(CONFIG_PV) += compat.o
++obj-$(CONFIG_PV32) += x86_64/compat.o
+ obj-$(CONFIG_KEXEC) += crash.o
+ obj-$(CONFIG_GDBSX) += debug.o
+ obj-y += delay.o
+--- a/xen/arch/x86/hvm/hypercall.c
++++ b/xen/arch/x86/hvm/hypercall.c
+@@ -121,7 +121,9 @@ static long hvm_physdev_op(int cmd, XEN_
+ 
+ #define do_arch_1             paging_domctl_continuation
+ 
+-static const hypercall_table_t hvm_hypercall_table[] = {
++static const struct {
++    hypercall_fn_t *native, *compat;
++} hvm_hypercall_table[] = {
+     HVM_CALL(memory_op),
+ #ifdef CONFIG_GRANT_TABLE
+     HVM_CALL(grant_table_op),
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -4498,7 +4498,9 @@ long do_update_va_mapping_otherdomain(un
+ 
+     return rc;
+ }
++#endif /* CONFIG_PV */
+ 
 +#ifdef CONFIG_PV32
- #include <compat/xen.h>
- #endif
- #include <asm/hardirq.h>
-@@ -102,19 +102,21 @@ void __dummy__(void)
-     BLANK();
- #endif
+ int compat_update_va_mapping(unsigned int va, uint32_t lo, uint32_t hi,
+                              unsigned int flags)
+ {
+@@ -4533,7 +4535,7 @@ int compat_update_va_mapping_otherdomain
  
--#ifdef CONFIG_PV
+     return rc;
+ }
+-#endif /* CONFIG_PV */
++#endif /* CONFIG_PV32 */
+ 
+ typedef struct e820entry e820entry_t;
+ DEFINE_XEN_GUEST_HANDLE(e820entry_t);
+--- a/xen/arch/x86/pv/callback.c
++++ b/xen/arch/x86/pv/callback.c
+@@ -19,12 +19,11 @@
+ #include <xen/event.h>
+ #include <xen/hypercall.h>
+ #include <xen/guest_access.h>
+-#include <compat/callback.h>
+-#include <compat/nmi.h>
+ 
+ #include <asm/shared.h>
+ 
+ #include <public/callback.h>
++#include <public/nmi.h>
+ 
+ static int register_guest_nmi_callback(unsigned long address)
+ {
+@@ -203,6 +202,11 @@ long do_set_callbacks(unsigned long even
+     return 0;
+ }
+ 
 +#ifdef CONFIG_PV32
-     OFFSET(DOMAIN_is_32bit_pv, struct domain, arch.pv.is_32bit);
-     BLANK();
- 
--    OFFSET(VCPUINFO_upcall_pending, struct vcpu_info, evtchn_upcall_pending);
--    OFFSET(VCPUINFO_upcall_mask, struct vcpu_info, evtchn_upcall_mask);
--    BLANK();
--
-     OFFSET(COMPAT_VCPUINFO_upcall_pending, struct compat_vcpu_info, evtchn_upcall_pending);
-     OFFSET(COMPAT_VCPUINFO_upcall_mask, struct compat_vcpu_info, evtchn_upcall_mask);
-     BLANK();
- #endif
- 
-+#ifdef CONFIG_PV
-+    OFFSET(VCPUINFO_upcall_pending, struct vcpu_info, evtchn_upcall_pending);
-+    OFFSET(VCPUINFO_upcall_mask, struct vcpu_info, evtchn_upcall_mask);
-+    BLANK();
-+#endif
 +
-     OFFSET(CPUINFO_guest_cpu_user_regs, struct cpu_info, guest_cpu_user_regs);
-     OFFSET(CPUINFO_verw_sel, struct cpu_info, verw_sel);
-     OFFSET(CPUINFO_current_vcpu, struct cpu_info, current_vcpu);
---- a/xen/arch/x86/x86_64/compat/entry.S
-+++ b/xen/arch/x86/x86_64/compat/entry.S
-@@ -11,8 +11,6 @@
- #include <public/xen.h>
++#include <compat/callback.h>
++#include <compat/nmi.h>
++
+ static long compat_register_guest_callback(struct compat_callback_register *reg)
+ {
+     long ret = 0;
+@@ -343,6 +347,8 @@ long compat_set_callbacks(unsigned long
+     return 0;
+ }
+ 
++#endif /* CONFIG_PV32 */
++
+ long do_set_trap_table(XEN_GUEST_HANDLE_PARAM(const_trap_info_t) traps)
+ {
+     struct trap_info cur;
+@@ -388,6 +394,7 @@ long do_set_trap_table(XEN_GUEST_HANDLE_
+     return rc;
+ }
+ 
++#ifdef CONFIG_PV32
+ int compat_set_trap_table(XEN_GUEST_HANDLE(trap_info_compat_t) traps)
+ {
+     struct vcpu *curr = current;
+@@ -429,6 +436,7 @@ int compat_set_trap_table(XEN_GUEST_HAND
+ 
+     return rc;
+ }
++#endif
+ 
+ long do_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+@@ -455,6 +463,7 @@ long do_nmi_op(unsigned int cmd, XEN_GUE
+     return rc;
+ }
+ 
++#ifdef CONFIG_PV32
+ int compat_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     struct compat_nmi_callback cb;
+@@ -479,6 +488,7 @@ int compat_nmi_op(unsigned int cmd, XEN_
+ 
+     return rc;
+ }
++#endif
+ 
+ /*
+  * Local variables:
+--- a/xen/arch/x86/pv/descriptor-tables.c
++++ b/xen/arch/x86/pv/descriptor-tables.c
+@@ -149,6 +149,8 @@ long do_set_gdt(XEN_GUEST_HANDLE_PARAM(x
+     return ret;
+ }
+ 
++#ifdef CONFIG_PV32
++
+ int compat_set_gdt(XEN_GUEST_HANDLE_PARAM(uint) frame_list,
+                    unsigned int entries)
+ {
+@@ -185,6 +187,18 @@ int compat_set_gdt(XEN_GUEST_HANDLE_PARA
+     return ret;
+ }
+ 
++int compat_update_descriptor(uint32_t pa_lo, uint32_t pa_hi,
++                             uint32_t desc_lo, uint32_t desc_hi)
++{
++    seg_desc_t d;
++
++    d.raw = ((uint64_t)desc_hi << 32) | desc_lo;
++
++    return do_update_descriptor(pa_lo | ((uint64_t)pa_hi << 32), d);
++}
++
++#endif /* CONFIG_PV32 */
++
+ static bool check_descriptor(const struct domain *dom, seg_desc_t *d)
+ {
+     unsigned int a = d->a, b = d->b, cs, dpl;
+@@ -334,16 +348,6 @@ long do_update_descriptor(uint64_t gaddr
+     return ret;
+ }
+ 
+-int compat_update_descriptor(uint32_t pa_lo, uint32_t pa_hi,
+-                             uint32_t desc_lo, uint32_t desc_hi)
+-{
+-    seg_desc_t d;
+-
+-    d.raw = ((uint64_t)desc_hi << 32) | desc_lo;
+-
+-    return do_update_descriptor(pa_lo | ((uint64_t)pa_hi << 32), d);
+-}
+-
+ /*
+  * Local variables:
+  * mode: C
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -212,6 +212,7 @@ unsigned long pv_make_cr4(const struct v
+     return cr4;
+ }
+ 
++#ifdef CONFIG_PV32
+ int switch_compat(struct domain *d)
+ {
+     struct vcpu *v;
+@@ -256,6 +257,7 @@ int switch_compat(struct domain *d)
+ 
+     return rc;
+ }
++#endif
+ 
+ static int pv_create_gdt_ldt_l1tab(struct vcpu *v)
+ {
+--- a/xen/arch/x86/pv/hypercall.c
++++ b/xen/arch/x86/pv/hypercall.c
+@@ -25,12 +25,18 @@
+ #include <xen/trace.h>
  #include <irq_vectors.h>
  
--#ifdef CONFIG_PV32
--
- ENTRY(entry_int82)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
-@@ -29,8 +27,6 @@ ENTRY(entry_int82)
-         mov   %rsp, %rdi
-         call  do_entry_int82
- 
--#endif /* CONFIG_PV32 */
--
- /* %rbx: struct vcpu */
- ENTRY(compat_test_all_events)
-         ASSERT_NOT_IN_ATOMIC
-@@ -197,43 +193,7 @@ ENTRY(cr4_pv32_restore)
-         xor   %eax, %eax
-         ret
- 
--        .section .text.entry, "ax", @progbits
--
--/* See lstar_enter for entry register state. */
--ENTRY(cstar_enter)
--#ifdef CONFIG_XEN_SHSTK
--        ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
--#endif
--        /* sti could live here when we don't switch page tables below. */
--        CR4_PV32_RESTORE
--        movq  8(%rsp),%rax /* Restore %rax. */
--        movq  $FLAT_USER_SS32, 8(%rsp) /* Assume a 64bit domain.  Compat handled lower. */
--        pushq %r11
--        pushq $FLAT_USER_CS32
--        pushq %rcx
--        pushq $0
--        movl  $TRAP_syscall, 4(%rsp)
--        SAVE_ALL
--
--        SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, Clob: acd */
--        /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
--
--        GET_STACK_END(bx)
--        mov   STACK_CPUINFO_FIELD(xen_cr3)(%rbx), %rcx
--        test  %rcx, %rcx
--        jz    .Lcstar_cr3_okay
--        movb  $0, STACK_CPUINFO_FIELD(use_pv_cr3)(%rbx)
--        mov   %rcx, %cr3
--        /* %r12 is still zero at this point. */
--        mov   %r12, STACK_CPUINFO_FIELD(xen_cr3)(%rbx)
--.Lcstar_cr3_okay:
--        sti
--
--        movq  STACK_CPUINFO_FIELD(current_vcpu)(%rbx), %rbx
--        movq  VCPU_domain(%rbx),%rcx
--        cmpb  $0,DOMAIN_is_32bit_pv(%rcx)
--        je    switch_to_kernel
--
-+ENTRY(compat_syscall)
-         /* Fix up reported %cs/%ss for compat domains. */
-         movl  $FLAT_COMPAT_USER_SS, UREGS_ss(%rsp)
-         movl  $FLAT_COMPAT_USER_CS, UREGS_cs(%rsp)
-@@ -262,8 +222,6 @@ UNLIKELY_END(compat_syscall_gpf)
-         movb  %cl,TRAPBOUNCE_flags(%rdx)
-         jmp   .Lcompat_bounce_exception
- 
--        .text
--
- ENTRY(compat_sysenter)
-         CR4_PV32_RESTORE
-         movq  VCPU_trap_ctxt(%rbx),%rcx
---- a/xen/arch/x86/x86_64/Makefile
-+++ b/xen/arch/x86/x86_64/Makefile
-@@ -1,4 +1,4 @@
--obj-$(CONFIG_PV) += compat/
-+obj-$(CONFIG_PV32) += compat/
- 
- obj-bin-y += entry.o
- obj-y += traps.o
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -24,7 +24,7 @@
- 
- #ifdef CONFIG_PV
- /* %rbx: struct vcpu */
--ENTRY(switch_to_kernel)
-+switch_to_kernel:
-         leaq  VCPU_trap_bounce(%rbx),%rdx
- 
-         /* TB_eip = 32-bit syscall ? syscall32_addr : syscall_addr */
-@@ -283,6 +283,45 @@ ENTRY(lstar_enter)
-         call  pv_hypercall
-         jmp   test_all_events
- 
-+/* See lstar_enter for entry register state. */
-+ENTRY(cstar_enter)
-+#ifdef CONFIG_XEN_SHSTK
-+        ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
-+#endif
-+        /* sti could live here when we don't switch page tables below. */
-+        CR4_PV32_RESTORE
-+        movq  8(%rsp), %rax /* Restore %rax. */
-+        movq  $FLAT_USER_SS32, 8(%rsp) /* Assume a 64bit domain.  Compat handled lower. */
-+        pushq %r11
-+        pushq $FLAT_USER_CS32
-+        pushq %rcx
-+        pushq $0
-+        movl  $TRAP_syscall, 4(%rsp)
-+        SAVE_ALL
-+
-+        SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, Clob: acd */
-+        /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
-+
-+        GET_STACK_END(bx)
-+        mov   STACK_CPUINFO_FIELD(xen_cr3)(%rbx), %rcx
-+        test  %rcx, %rcx
-+        jz    .Lcstar_cr3_okay
-+        movb  $0, STACK_CPUINFO_FIELD(use_pv_cr3)(%rbx)
-+        mov   %rcx, %cr3
-+        /* %r12 is still zero at this point. */
-+        mov   %r12, STACK_CPUINFO_FIELD(xen_cr3)(%rbx)
-+.Lcstar_cr3_okay:
-+        sti
-+
-+        movq  STACK_CPUINFO_FIELD(current_vcpu)(%rbx), %rbx
-+
 +#ifdef CONFIG_PV32
-+        movq  VCPU_domain(%rbx), %rcx
-+        cmpb  $0, DOMAIN_is_32bit_pv(%rcx)
-+        jne   compat_syscall
-+#endif
-+        jmp   switch_to_kernel
-+
- ENTRY(sysenter_entry)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
-@@ -340,8 +379,10 @@ UNLIKELY_END(sysenter_gpf)
-         movq  VCPU_domain(%rbx),%rdi
-         movq  %rax,TRAPBOUNCE_eip(%rdx)
-         movb  %cl,TRAPBOUNCE_flags(%rdx)
-+#ifdef CONFIG_PV32
-         cmpb  $0, DOMAIN_is_32bit_pv(%rdi)
-         jne   compat_sysenter
-+#endif
-         jmp   .Lbounce_exception
- 
- ENTRY(int80_direct_trap)
-@@ -382,6 +423,7 @@ UNLIKELY_END(msi_check)
-         mov    0x80 * TRAPINFO_sizeof + TRAPINFO_eip(%rsi), %rdi
-         movzwl 0x80 * TRAPINFO_sizeof + TRAPINFO_cs (%rsi), %ecx
- 
-+#ifdef CONFIG_PV32
-         mov   %ecx, %edx
-         and   $~3, %edx
- 
-@@ -390,6 +432,10 @@ UNLIKELY_END(msi_check)
- 
-         test  %rdx, %rdx
-         jz    int80_slow_path
+ #define HYPERCALL(x)                                                \
+     [ __HYPERVISOR_ ## x ] = { (hypercall_fn_t *) do_ ## x,         \
+                                (hypercall_fn_t *) do_ ## x }
+ #define COMPAT_CALL(x)                                              \
+     [ __HYPERVISOR_ ## x ] = { (hypercall_fn_t *) do_ ## x,         \
+                                (hypercall_fn_t *) compat_ ## x }
 +#else
-+        test  %rdi, %rdi
-+        jz    int80_slow_path
++#define HYPERCALL(x)                                                \
++    [ __HYPERVISOR_ ## x ] = { (hypercall_fn_t *) do_ ## x }
++#define COMPAT_CALL(x) HYPERCALL(x)
 +#endif
  
-         /* Construct trap_bounce from trap_ctxt[0x80]. */
-         lea   VCPU_trap_bounce(%rbx), %rdx
-@@ -402,8 +448,10 @@ UNLIKELY_END(msi_check)
-         lea   (, %rcx, TBF_INTERRUPT), %ecx
-         mov   %cl, TRAPBOUNCE_flags(%rdx)
+ #define do_arch_1             paging_domctl_continuation
  
-+#ifdef CONFIG_PV32
-         cmpb  $0, DOMAIN_is_32bit_pv(%rax)
-         jne   compat_int80_direct_trap
-+#endif
- 
-         call  create_bounce_frame
-         jmp   test_all_events
-@@ -555,12 +603,16 @@ ENTRY(dom_crash_sync_extable)
-         GET_STACK_END(ax)
-         leaq  STACK_CPUINFO_FIELD(guest_cpu_user_regs)(%rax),%rsp
-         # create_bounce_frame() temporarily clobbers CS.RPL. Fix up.
-+#ifdef CONFIG_PV32
-         movq  STACK_CPUINFO_FIELD(current_vcpu)(%rax), %rax
-         movq  VCPU_domain(%rax),%rax
-         cmpb  $0, DOMAIN_is_32bit_pv(%rax)
-         sete  %al
-         leal  (%rax,%rax,2),%eax
-         orb   %al,UREGS_cs(%rsp)
-+#else
-+        orb   $3, UREGS_cs(%rsp)
-+#endif
-         xorl  %edi,%edi
-         jmp   asm_domain_crash_synchronous /* Does not return */
-         .popsection
-@@ -578,11 +630,15 @@ ret_from_intr:
-         GET_CURRENT(bx)
-         testb $3, UREGS_cs(%rsp)
-         jz    restore_all_xen
-+#ifdef CONFIG_PV32
-         movq  VCPU_domain(%rbx), %rax
-         cmpb  $0, DOMAIN_is_32bit_pv(%rax)
-         je    test_all_events
-         jmp   compat_test_all_events
- #else
-+        jmp   test_all_events
-+#endif
-+#else
- ret_from_intr:
-         ASSERT_CONTEXT_IS_XEN
-         jmp   restore_all_xen
-@@ -671,7 +727,7 @@ handle_exception_saved:
-         testb $X86_EFLAGS_IF>>8,UREGS_eflags+1(%rsp)
-         jz    exception_with_ints_disabled
- 
--#ifdef CONFIG_PV
-+#if defined(CONFIG_PV32)
-         ALTERNATIVE_2 "jmp .Lcr4_pv32_done", \
-             __stringify(mov VCPU_domain(%rbx), %rax), X86_FEATURE_XEN_SMEP, \
-             __stringify(mov VCPU_domain(%rbx), %rax), X86_FEATURE_XEN_SMAP
-@@ -711,7 +767,7 @@ handle_exception_saved:
-         test  $~(PFEC_write_access|PFEC_insn_fetch),%eax
-         jz    compat_test_all_events
- .Lcr4_pv32_done:
--#else
-+#elif !defined(CONFIG_PV)
-         ASSERT_CONTEXT_IS_XEN
- #endif /* CONFIG_PV */
-         sti
-@@ -730,9 +786,11 @@ handle_exception_saved:
- #ifdef CONFIG_PV
-         testb $3,UREGS_cs(%rsp)
-         jz    restore_all_xen
-+#ifdef CONFIG_PV32
-         movq  VCPU_domain(%rbx),%rax
-         cmpb  $0, DOMAIN_is_32bit_pv(%rax)
-         jne   compat_test_all_events
-+#endif
-         jmp   test_all_events
- #else
-         ASSERT_CONTEXT_IS_XEN
-@@ -968,11 +1026,16 @@ handle_ist_exception:
-         je    1f
-         movl  $EVENT_CHECK_VECTOR,%edi
-         call  send_IPI_self
--1:      movq  VCPU_domain(%rbx),%rax
-+1:
-+#ifdef CONFIG_PV32
-+        movq  VCPU_domain(%rbx),%rax
-         cmpb  $0,DOMAIN_is_32bit_pv(%rax)
-         je    restore_all_guest
-         jmp   compat_restore_all_guest
- #else
-+        jmp   restore_all_guest
-+#endif
-+#else
-         ASSERT_CONTEXT_IS_XEN
-         jmp   restore_all_xen
+@@ -176,6 +182,7 @@ void pv_hypercall(struct cpu_user_regs *
+         }
  #endif
---- a/xen/include/asm-x86/asm_defns.h
-+++ b/xen/include/asm-x86/asm_defns.h
-@@ -305,7 +305,7 @@ static always_inline void stac(void)
-         subq  $-(UREGS_error_code-UREGS_r15+\adj), %rsp
- .endm
- 
--#ifdef CONFIG_PV
+     }
 +#ifdef CONFIG_PV32
- #define CR4_PV32_RESTORE                               \
-     ALTERNATIVE_2 "",                                  \
-         "call cr4_pv32_restore", X86_FEATURE_XEN_SMEP, \
+     else
+     {
+         unsigned int ebx = regs->ebx;
+@@ -225,6 +232,7 @@ void pv_hypercall(struct cpu_user_regs *
+         }
+ #endif
+     }
++#endif /* CONFIG_PV32 */
+ 
+     /*
+      * PV guests use SYSCALL or INT $0x82 to make a hypercall, both of which
+@@ -255,7 +263,7 @@ enum mc_disposition arch_do_multicall_ca
+         else
+             call->result = -ENOSYS;
+     }
+-#ifdef CONFIG_COMPAT
++#ifdef CONFIG_PV32
+     else
+     {
+         struct compat_multicall_entry *call = &state->compat_call;
+--- a/xen/arch/x86/pv/iret.c
++++ b/xen/arch/x86/pv/iret.c
+@@ -104,6 +104,7 @@ unsigned long do_iret(void)
+     return 0;
+ }
+ 
++#ifdef CONFIG_PV32
+ unsigned int compat_iret(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+@@ -223,6 +224,7 @@ unsigned int compat_iret(void)
+      */
+     return regs->eax;
+ }
++#endif
+ 
+ /*
+  * Local variables:
+--- a/xen/arch/x86/pv/shim.c
++++ b/xen/arch/x86/pv/shim.c
+@@ -255,13 +255,17 @@ void __init pv_shim_setup_dom(struct dom
+      */
+     rw_pv_hypercall_table = __va(__pa(pv_hypercall_table));
+     rw_pv_hypercall_table[__HYPERVISOR_event_channel_op].native =
+-        rw_pv_hypercall_table[__HYPERVISOR_event_channel_op].compat =
+         (hypercall_fn_t *)pv_shim_event_channel_op;
+-
+     rw_pv_hypercall_table[__HYPERVISOR_grant_table_op].native =
+-        rw_pv_hypercall_table[__HYPERVISOR_grant_table_op].compat =
+         (hypercall_fn_t *)pv_shim_grant_table_op;
+ 
++#ifdef CONFIG_PV32
++    rw_pv_hypercall_table[__HYPERVISOR_event_channel_op].compat =
++        (hypercall_fn_t *)pv_shim_event_channel_op;
++    rw_pv_hypercall_table[__HYPERVISOR_grant_table_op].compat =
++        (hypercall_fn_t *)pv_shim_grant_table_op;
++#endif
++
+     guest = d;
+ 
+     /*
+--- a/xen/include/asm-x86/compat.h
++++ b/xen/include/asm-x86/compat.h
+@@ -6,3 +6,11 @@
+ 
+ typedef uint32_t compat_ptr_t;
+ typedef unsigned long full_ptr_t;
++
++struct domain;
++#ifdef CONFIG_PV32
++int switch_compat(struct domain *);
++#else
++#include <xen/errno.h>
++static inline int switch_compat(struct domain *d) { return -EOPNOTSUPP; }
++#endif
+--- a/xen/include/asm-x86/hypercall.h
++++ b/xen/include/asm-x86/hypercall.h
+@@ -16,7 +16,10 @@ typedef unsigned long hypercall_fn_t(
+     unsigned long, unsigned long, unsigned long);
+ 
+ typedef struct {
+-    hypercall_fn_t *native, *compat;
++    hypercall_fn_t *native;
++#ifdef CONFIG_PV32
++    hypercall_fn_t *compat;
++#endif
+ } hypercall_table_t;
+ 
+ typedef struct {
+--- a/xen/include/xen/compat.h
++++ b/xen/include/xen/compat.h
+@@ -227,9 +227,6 @@ void xlat_start_info(struct start_info *
+ struct vcpu_runstate_info;
+ void xlat_vcpu_runstate_info(struct vcpu_runstate_info *);
+ 
+-struct domain;
+-int switch_compat(struct domain *);
+-
+ #else
+ 
+ #define compat_handle_is_null(hnd) 0
 
 
