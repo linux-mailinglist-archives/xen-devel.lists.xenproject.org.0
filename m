@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79E6B355C15
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Apr 2021 21:16:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106262.203252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55AA8355C26
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Apr 2021 21:23:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106269.203265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lTrB9-0003Ka-Hr; Tue, 06 Apr 2021 19:15:59 +0000
+	id 1lTrHp-0004Fw-8X; Tue, 06 Apr 2021 19:22:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106262.203252; Tue, 06 Apr 2021 19:15:59 +0000
+Received: by outflank-mailman (output) from mailman id 106269.203265; Tue, 06 Apr 2021 19:22:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lTrB9-0003KB-EQ; Tue, 06 Apr 2021 19:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 106262;
- Tue, 06 Apr 2021 19:15:57 +0000
+	id 1lTrHp-0004FX-5a; Tue, 06 Apr 2021 19:22:53 +0000
+Received: by outflank-mailman (input) for mailman id 106269;
+ Tue, 06 Apr 2021 19:22:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lTrB7-0003K1-Bl
- for xen-devel@lists.xenproject.org; Tue, 06 Apr 2021 19:15:57 +0000
+ (envelope-from <julien@xen.org>) id 1lTrHm-0004FS-SV
+ for xen-devel@lists.xenproject.org; Tue, 06 Apr 2021 19:22:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lTrB7-0005WU-3h; Tue, 06 Apr 2021 19:15:57 +0000
+ id 1lTrHl-0005d3-P7; Tue, 06 Apr 2021 19:22:49 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=ufe34d9ed68d054.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lTrB6-0000Jq-Qx; Tue, 06 Apr 2021 19:15:57 +0000
+ id 1lTrHl-0000zd-9m; Tue, 06 Apr 2021 19:22:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +42,73 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
-	bh=sDGEHF39zFGZyELm+jyFow2YFF3B1K268E33vzxWd5Y=; b=OZAnBc6X721bAtOGBshJa0Gn35
-	ucTToMYW/epkY2aYkW3tbv/iQK8CIjKQvS0H+19czmVzFNI8NcerV3ulXs+Kaf47SL5Gd23uNOi2F
-	nKyOa34+cl1DWIf9vDR6NPsB1B/dpog5duo6ENwcBGe5H+0vPfulV6Bs/UOgy/Lt3IOA=;
+	bh=PrkuCfGhHLJrZ4S+yOEu6s9dgnK1NNTZT78cqa6PGl8=; b=YvMSibRja/Vs2ECLsL57FpEjVl
+	dJUh3M+WZZx8cSxrzl376E8sX3VXWiKPaFR4X8pYdvK0O0B1n4Irhef2cuBFaeIp+xpqM7i5ONEMj
+	5NZ0j0/k0U6R1mzLtJ2ObHG3/iMz8DHsup96H8Nq1HwIDjzU2cNvNbKP/OIXq4VoD2oA=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v2] xen/arm: kernel: Propagate the error if we fail to decompress the kernel
-Date: Tue,  6 Apr 2021 20:15:54 +0100
-Message-Id: <20210406191554.12012-1-julien@xen.org>
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] xen/page_alloc: Remove dead code in alloc_domheap_pages()
+Date: Tue,  6 Apr 2021 20:22:46 +0100
+Message-Id: <20210406192246.15657-1-julien@xen.org>
 X-Mailer: git-send-email 2.17.1
 
 From: Julien Grall <jgrall@amazon.com>
 
-Currently, we are ignoring any error from perform_gunzip() and replacing
-the compressed kernel with the "uncompressed" kernel.
+Since commit 1aac966e24e9 "xen: support RAM at addresses 0 and 4096",
+bits_to_zone() will never return 0 and it is expected that we have
+minimum 2 zones.
 
-If there is a gzip failure, then it means that the output buffer may
-contain garbagge. So it can result to various sort of behavior that may
-be difficult to root cause.
+Therefore the check in alloc_domheap_pages() is unnecessary and can
+be removed. However, for sanity, it is replaced with an ASSERT().
 
-In case of failure, free the output buffer and propagate the error.
-We also need to adjust the return check for kernel_compress() as
-perform_gunzip() may return a positive value.
+Also take the opportunity to check atbuild time that NR_ZONES is minimum
+2.
 
-Take the opportunity to adjust the code style for the check.
+This bug was discovered and resolved using Coverity Static Analysis
+Security Testing (SAST) by Synopsys, Inc.
 
 Signed-off-by: Julien Grall <jgrall@amazon.com>
-
 ---
-    Changes in v2:
-        - Fix build
----
- xen/arch/arm/kernel.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ xen/common/page_alloc.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index ab78689ed2a6..8f43caa1866d 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -292,6 +292,12 @@ static __init int kernel_decompress(struct bootmodule *mod)
-     iounmap(input);
-     vunmap(output);
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 1744e6faa5c4..68e47d963842 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -457,6 +457,12 @@ static long total_avail_pages;
+ static DEFINE_SPINLOCK(heap_lock);
+ static long outstanding_claims; /* total outstanding claims by all domains */
  
-+    if ( rc )
-+    {
-+        free_domheap_pages(pages, kernel_order_out);
-+        return rc;
-+    }
++static void __init __maybe_unused build_assertions(void)
++{
++    /* Zone 0 is reserved for Xen, so we at least need two zones to function.*/
++    BUILD_BUG_ON(NR_ZONES < 2);
++}
 +
-     mod->start = page_to_maddr(pages);
-     mod->size = output_size;
+ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+ {
+     long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+@@ -2340,8 +2346,9 @@ struct page_info *alloc_domheap_pages(
  
-@@ -503,7 +509,7 @@ int __init kernel_probe(struct kernel_info *info,
+     bits = domain_clamp_alloc_bitsize(memflags & MEMF_no_owner ? NULL : d,
+                                       bits ? : (BITS_PER_LONG+PAGE_SHIFT));
+-    if ( (zone_hi = min_t(unsigned int, bits_to_zone(bits), zone_hi)) == 0 )
+-        return NULL;
++
++    zone_hi = min_t(unsigned int, bits_to_zone(bits), zone_hi);
++    ASSERT(zone_hi != 0);
  
-     /* if it is a gzip'ed image, 32bit or 64bit, uncompress it */
-     rc = kernel_decompress(mod);
--    if (rc < 0 && rc != -EINVAL)
-+    if ( rc && rc != -EINVAL )
-         return rc;
- 
- #ifdef CONFIG_ARM_64
+     if ( memflags & MEMF_no_owner )
+         memflags |= MEMF_no_refcount;
 -- 
 2.17.1
 
