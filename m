@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C6883567F4
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 11:26:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106540.203746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE4D235680C
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 11:29:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106545.203759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU4Rn-0004C4-60; Wed, 07 Apr 2021 09:26:03 +0000
+	id 1lU4Un-0004M4-Nn; Wed, 07 Apr 2021 09:29:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106540.203746; Wed, 07 Apr 2021 09:26:03 +0000
+Received: by outflank-mailman (output) from mailman id 106545.203759; Wed, 07 Apr 2021 09:29:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU4Rn-0004Bf-37; Wed, 07 Apr 2021 09:26:03 +0000
-Received: by outflank-mailman (input) for mailman id 106540;
- Wed, 07 Apr 2021 09:26:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lU4Un-0004Lc-IA; Wed, 07 Apr 2021 09:29:09 +0000
+Received: by outflank-mailman (input) for mailman id 106545;
+ Wed, 07 Apr 2021 09:29:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dICN=JE=redhat.com=lersek@srs-us1.protection.inumbo.net>)
- id 1lU4Rl-0004BT-Ca
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 09:26:01 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 826b33aa-3274-4784-833e-1f19f995e6c4;
- Wed, 07 Apr 2021 09:26:00 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-480-kmYcCR7DOvOT_ybhReY07g-1; Wed, 07 Apr 2021 05:25:53 -0400
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 14C9810054F6;
- Wed,  7 Apr 2021 09:25:52 +0000 (UTC)
-Received: from lacos-laptop-7.usersys.redhat.com (ovpn-112-38.ams2.redhat.com
- [10.36.112.38])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6B4AE610A8;
- Wed,  7 Apr 2021 09:25:50 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lU4Ul-0004LP-O1; Wed, 07 Apr 2021 09:29:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lU4Ul-0001yS-Dm; Wed, 07 Apr 2021 09:29:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lU4Ul-0006YP-6Y; Wed, 07 Apr 2021 09:29:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lU4Ul-0005Mh-66; Wed, 07 Apr 2021 09:29:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,179 +42,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 826b33aa-3274-4784-833e-1f19f995e6c4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1617787560;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AGDPLz2rv7Dxm/1+5sRCpoSWxvO7t5QmRgUEQ0bp0/c=;
-	b=isyR/ohvZ7Mp83z1+K/oVupyYbO4WvReHshlM1ic+qXNA/6S2eJC91n3W/zqhyX60Dv0tE
-	hQ3S/CFumUgYFnoxIlw+O2WxpHJI+XIYSq+iuP5mzAwdtj2XYFfaYu7H5RkDYd3jsIz0rh
-	FjBmjFOl2Zeys7i41C2NCPGViDbj/K0=
-X-MC-Unique: kmYcCR7DOvOT_ybhReY07g-1
-Subject: Re: [edk2-devel] [PATCH v2 7/7] OvmfPkg/OvmfXen: Set PcdFSBClock
-To: devel@edk2.groups.io, anthony.perard@citrix.com
-Cc: xen-devel@lists.xenproject.org, Jordan Justen
- <jordan.l.justen@intel.com>, Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- Julien Grall <julien@xen.org>
-References: <20210325154713.670104-1-anthony.perard@citrix.com>
- <20210325154713.670104-8-anthony.perard@citrix.com>
-From: Laszlo Ersek <lersek@redhat.com>
-Message-ID: <344af4b2-0ce4-23a9-7fde-bf1ee0343d27@redhat.com>
-Date: Wed, 7 Apr 2021 11:25:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NJzOGnK3VqEW1Oi7DL7J1eZWQu7xrRFY9GI6fG6SMLw=; b=5dD9P5cUKLingcxuCSdiWSV7b2
+	lw+rsAVXLLJJtbBBpggUvzZXU6ecOWX/Kw7aM0rW0iwLQ8tck73KgOHnVIZdxbUwW3Am9i8fKukvL
+	DhC9d7VbJubMAPpEBgJ7a37l77SJ2QWcQMH/Q9t7s90xU8/dFPUtSdlhcSxx9amrrO1s=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160783-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20210325154713.670104-8-anthony.perard@citrix.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 160783: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=c54b1bdcfb9c812a42ff48fe41e2fc8d9a0af86d
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 07 Apr 2021 09:29:07 +0000
 
-On 03/25/21 16:47, Anthony PERARD via groups.io wrote:
-> Update gEfiMdePkgTokenSpaceGuid.PcdFSBClock so it can have the correct
-> value when SecPeiDxeTimerLibCpu start to use it for the APIC timer.
-> 
-> Currently, nothing appear to use the value in PcdFSBClock before
-> XenPlatformPei had a chance to set it even though TimerLib is included
-> in modules runned before XenPlatformPei.
+flight 160783 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160783/
 
-(1) s/runned/run/
+Regressions :-(
 
-> 
-> XenPlatformPei doesn't use any of the functions that would use that
-> value. No other modules in the PEI phase seems to use the TimerLib
-> before PcdFSBClock is set. There are currently two other modules in
-> the PEI phase that needs the TimerLib:
-> - S3Resume2Pei, but only because LocalApicLib needs it, but nothing is
->   using the value from PcdFSBClock.
-> - CpuMpPei, but I believe it only runs after XenPlatformPei
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-Effectively, yes.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              c54b1bdcfb9c812a42ff48fe41e2fc8d9a0af86d
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  271 days
+Failing since        151818  2020-07-11 04:18:52 Z  270 days  263 attempts
+Testing same since   160783  2021-04-07 04:18:51 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
-* Assuming CpuMpPei were loaded / dispatched before XenPlatformPei, the
-following would happen:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-CpuMpPeimInit() [UefiCpuPkg/CpuMpPei/CpuMpPei.c] is the entry point
-function of CpuMpPei, and all it does is register a notify for the
-"memory discovered" PPI. The actual module initialization occurs in
-MemoryDiscoveredPpiNotifyCallback().
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-The "memory discovered PPI" is produced as follows:
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-- XenPlatformPei calls PublishSystemMemory()
-
-- XenPlatformPei exits
-
-- the PEI Core relocates stuff (HOBs, PEIMs) to the permanent PEI
-memory, and re-enters itself in the new area
-
-- the PEI core installs the "memory discovered" PPI
-
-- MemoryDiscoveredPpiNotifyCallback() is called.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-* If XenPlatformPei is loaded / dispatched before CpuMpPei (and so the
-"memory discovered" PPI exist at the time of CpuMpPei starting), then
-MemoryDiscoveredPpiNotifyCallback() is immediately invoked in CpuMpPei,
-when the PPI notify is registered.
+Not pushing.
 
-
-> 
-> Before the PEI phase, there's the SEC phase, and SecMain needs
-> TimerLib because of LocalApicLib. And it initialise the APIC timers
-> for the debug agent. But I don't think any of the DebugLib that
-> OvmfXen could use are actually using the *Delay functions in TimerLib,
-> and so would not use the value from PcdFSBClock which would be
-> uninitialised.
-> 
-> A simple runtime test showed that TimerLib doesn't use PcdFSBClock
-> value before it is set.
-
-OK.
-
-> 
-> Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2490
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-> ---
-> 
-> Notes:
->     v2:
->     - keep the default value of PcdFSBClock because that is part of the syntax.
-> 
->  OvmfPkg/OvmfXen.dsc                       | 4 +---
->  OvmfPkg/XenPlatformPei/XenPlatformPei.inf | 1 +
->  OvmfPkg/XenPlatformPei/Xen.c              | 4 ++++
->  3 files changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/OvmfPkg/OvmfXen.dsc b/OvmfPkg/OvmfXen.dsc
-> index 507029404f0b..faf3930ace04 100644
-> --- a/OvmfPkg/OvmfXen.dsc
-> +++ b/OvmfPkg/OvmfXen.dsc
-> @@ -442,9 +442,6 @@ [PcdsFixedAtBuild]
->    # Point to the MdeModulePkg/Application/UiApp/UiApp.inf
->    gEfiMdeModulePkgTokenSpaceGuid.PcdBootManagerMenuFile|{ 0x21, 0xaa, 0x2c, 0x46, 0x14, 0x76, 0x03, 0x45, 0x83, 0x6e, 0x8a, 0xb6, 0xf4, 0x66, 0x23, 0x31 }
->  
-> -  ## Xen vlapic's frequence is 100 MHz
-> -  gEfiMdePkgTokenSpaceGuid.PcdFSBClock|100000000
-> -
->    # We populate DXE IPL tables with 1G pages preferably on Xen
->    gEfiMdeModulePkgTokenSpaceGuid.PcdUse1GPageTable|TRUE
->  
-> @@ -471,6 +468,7 @@ [PcdsDynamicDefault]
->    gUefiOvmfPkgTokenSpaceGuid.PcdPciMmio64Base|0x0
->    gUefiOvmfPkgTokenSpaceGuid.PcdPciMmio64Size|0x800000000
->  
-> +  gEfiMdePkgTokenSpaceGuid.PcdFSBClock|100000000
->    gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
->  
->    # Set video resolution for text setup.
-> diff --git a/OvmfPkg/XenPlatformPei/XenPlatformPei.inf b/OvmfPkg/XenPlatformPei/XenPlatformPei.inf
-> index 5732d2188871..87dd4b24679a 100644
-> --- a/OvmfPkg/XenPlatformPei/XenPlatformPei.inf
-> +++ b/OvmfPkg/XenPlatformPei/XenPlatformPei.inf
-> @@ -85,6 +85,7 @@ [Pcd]
->    gEfiMdeModulePkgTokenSpaceGuid.PcdDxeIplSwitchToLongMode
->    gEfiMdeModulePkgTokenSpaceGuid.PcdUse1GPageTable
->    gEfiMdeModulePkgTokenSpaceGuid.PcdPteMemoryEncryptionAddressOrMask
-> +  gEfiMdePkgTokenSpaceGuid.PcdFSBClock
->    gEfiSecurityPkgTokenSpaceGuid.PcdOptionRomImageVerificationPolicy
->    gUefiCpuPkgTokenSpaceGuid.PcdCpuLocalApicBaseAddress
->  
-> diff --git a/OvmfPkg/XenPlatformPei/Xen.c b/OvmfPkg/XenPlatformPei/Xen.c
-> index 7524aaa11a29..a29b4e04086e 100644
-> --- a/OvmfPkg/XenPlatformPei/Xen.c
-> +++ b/OvmfPkg/XenPlatformPei/Xen.c
-> @@ -632,5 +632,9 @@ CalibrateLapicTimer (
->    Freq = DivU64x64Remainder (Dividend, TscTick2 - TscTick, NULL);
->    DEBUG ((DEBUG_INFO, "APIC Freq % 8lu Hz\n", Freq));
->  
-> +  ASSERT (Freq <= MAX_UINT32);
-> +  Status = PcdSet32S (PcdFSBClock, Freq);
-
-(2) Please use an explicit cast here: (UINT32)Freq; I'm concerned about
-VS emitting a warning (despite the ASSERT()).
-
-> +  ASSERT_RETURN_ERROR (Status);
-
-(3) "Status" has type EFI_STATUS here; the assignment from PcdSet32S()
-(RETURN_STATUS) is fine, but it's more idiomatic to use
-ASSERT_EFI_ERROR(), given the type of "Status".
-
-> +
->    UnmapXenPage (SharedInfo);
->  }
-> 
-
-Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-
-Thanks
-Laszlo
-
+(No revision log; it would be 50036 lines long.)
 
