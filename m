@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 228183573E8
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 20:07:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106884.204343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A3C357412
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 20:18:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106890.204358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUCZe-0004t3-SI; Wed, 07 Apr 2021 18:06:42 +0000
+	id 1lUCkp-0005rk-0F; Wed, 07 Apr 2021 18:18:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106884.204343; Wed, 07 Apr 2021 18:06:42 +0000
+Received: by outflank-mailman (output) from mailman id 106890.204358; Wed, 07 Apr 2021 18:18:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUCZe-0004se-PI; Wed, 07 Apr 2021 18:06:42 +0000
-Received: by outflank-mailman (input) for mailman id 106884;
- Wed, 07 Apr 2021 18:06:41 +0000
+	id 1lUCko-0005rL-TA; Wed, 07 Apr 2021 18:18:14 +0000
+Received: by outflank-mailman (input) for mailman id 106890;
+ Wed, 07 Apr 2021 18:18:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lUCZd-0004sZ-60
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 18:06:41 +0000
+ (envelope-from <julien@xen.org>) id 1lUCkn-0005rG-76
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 18:18:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lUCZW-0002qA-Md; Wed, 07 Apr 2021 18:06:34 +0000
+ id 1lUCkl-00033A-Nc; Wed, 07 Apr 2021 18:18:11 +0000
 Received: from 54-240-197-233.amazon.com ([54.240.197.233]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lUCZW-0006Ws-CU; Wed, 07 Apr 2021 18:06:34 +0000
+ id 1lUCkl-0007KG-De; Wed, 07 Apr 2021 18:18:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,75 +43,71 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=dBa7CWhB0OTByIuNtqoL61JE69DlmcrrbF4W9M1CZ6U=; b=HYpy3NR1SvWsTDKf0spz2CUywo
-	E+6MBQYgocNBm81lBGC3qTOdW1hPxaU7Ra6rti6snn6og1RIqwskSf4sgH37q8Gz5IAOU8DQrEmNL
-	p1a2yL61D4lyo2ZeDN+d9H10M5ctG7xlvflcq4iU3xa5Ris+WVpqxL3O3mRu1g3Gm1vU=;
-Subject: Re: [PATCH 2/2] xen/pci: Gate all MSI code in common code with
- CONFIG_HAS_PCI_MSI
-To: Jan Beulich <jbeulich@suse.com>, Rahul Singh <rahul.singh@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	bh=VXVYu3Y20NlIZqA2sOvrBQ3YXhMqU2scmRniSTf3EgQ=; b=4EE0hSgl6nsFgkPBkxlFFbDLNs
+	2qctr019Igj0tXQ3sHwumeGyEmLlhFe6Jp4zpWhiNDUrsZTpD/RAEXWnCE7hOS0660XupYVh4vA5v
+	/Q+KmyK7sV7NI2QX4IK9PnAXweyb2CJN2yZCdxZdfYX27WYeO8PfONQXpQ451swDI9Ik=;
+Subject: Re: [PATCH 2/2] xen/gunzip: Allow perform_gunzip() to be called
+ multiple times
+To: Jan Beulich <jbeulich@suse.com>
+Cc: bertrand.marquis@arm.com, Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <cover.1617702520.git.rahul.singh@arm.com>
- <4471ba4fffc8a0cef24cc11314fc788334f85ccc.1617702520.git.rahul.singh@arm.com>
- <YGxsfdK9GEefLgAv@Air-de-Roger>
- <75848a0d-d060-6a8b-5ebc-7376ffc14af0@xen.org>
- <b0eb0833-50aa-d9a1-3265-3255970ef210@suse.com>
+ xen-devel@lists.xenproject.org
+References: <20210402152105.29387-1-julien@xen.org>
+ <20210402152105.29387-3-julien@xen.org>
+ <2caf0bed-9a31-64a8-e764-2ed222f2e828@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <4ab1e7ed-cdf6-1b06-4f55-bbb981cade91@xen.org>
-Date: Wed, 7 Apr 2021 19:06:31 +0100
+Message-ID: <e6a9bcc4-14c7-7f5f-ee13-f2e45742aef5@xen.org>
+Date: Wed, 7 Apr 2021 19:18:09 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <b0eb0833-50aa-d9a1-3265-3255970ef210@suse.com>
+In-Reply-To: <2caf0bed-9a31-64a8-e764-2ed222f2e828@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi Jan,
 
-On 06/04/2021 16:25, Jan Beulich wrote:
-> On 06.04.2021 16:30, Julien Grall wrote:
->> Hi Roger,
->>
->> On 06/04/2021 15:13, Roger Pau Monné wrote:
->>> On Tue, Apr 06, 2021 at 12:39:11PM +0100, Rahul Singh wrote:
->>>> MSI support is not implemented for ARM architecture but it is enabled
->>>> for x86 architecture and referenced in common passthrough/pci.c code.
->>>>
->>>> Therefore introducing the new flag to gate the MSI code for ARM in
->>>> common code to avoid compilation error when HAS_PCI is enabled for ARM.
->>>
->>> Is such option really interesting long term?
->>>
->>> IIRC PCI Express mandates MSI support, at which point I don't see much
->>> value in being able to compile out the MSI support.
->>
->> I am pretty sure there are board out with PCI support but no MSI
->> support. Anyway, even if the spec may mandate it...
->>
->>>
->>> So while maybe helpful for Arm PCI efforts ATM, I'm not sure it
->>> warrants a Kconfig option, I would rather see Arm introduce dummy
->>> helpers for the missing functionality, even if unimplemented at the
->>> moment.
->>
->> ... from my understanding, most of (if not all) the MSI code is not very
->> useful on Arm when using the GICv3 ITS.
->>
->> The GICv3 ITS will do the isolation for you and therefore we should not
->> need to keep track of the state at the vPCI level.
+On 07/04/2021 11:39, Jan Beulich wrote:
+> On 02.04.2021 17:21, Julien Grall wrote:
+>> --- a/xen/common/inflate.c
+>> +++ b/xen/common/inflate.c
+>> @@ -238,6 +238,12 @@ STATIC const ush mask_bits[] = {
+>>   static unsigned long INITDATA malloc_ptr;
+>>   static int INITDATA malloc_count;
+>>   
+>> +static void init_allocator(void)
+>> +{
+>> +    malloc_ptr = free_mem_ptr;
+>> +    malloc_count = 0;
+>> +}
+>> +
+>>   static void *INIT malloc(int size)
+>>   {
+>>       void *p;
 > 
-> But that's then not "has PCI MSI" but "need to intercept PCI MSI
-> accesses", i.e. I don't think the Kconfig option is correctly
-> named. If a device with MSI support is used, you can't make that
-> MSI support go away, after all.
+> I'm sorry for noticing this only now, but I'm afraid this may break
+> the build in certain environments / configurations.
 
-That's actually a good point. Rahul, do you think the config can be 
-renamed to something like CONFIG_PCI_MSI_NEED_INTERCEPT?
+You actually mentioned it on the original thread that reported the bug. 
+But I forgot to add INIT. Sorry for that :(.
+
+> Iirc clang is
+> relatively likely to not inline functions in debug builds even when
+> they're used just once. Yet when the new function doesn't end up
+> getting inlined, it needs INIT added or else the cmd_obj_init_o
+> checking would find a non-empty .text section. (If there's no actual
+> build breakage anywhere, I can also address this in my to-be-re-based
+> "gunzip: drop INIT{,DATA} and STATIC", which is intended to go in as
+> soon as the tree is fully open again.)
+
+The pipeline actually reported some failure. But I initially didn't 
+notice them. I think we want to fix it because your rework, so I will 
+send a patch.
+
+Sorry for the breakage.
 
 Cheers,
 
