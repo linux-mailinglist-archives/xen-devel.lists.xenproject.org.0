@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D9B6356EE7
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 16:37:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106710.204039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C806C356EE8
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 16:37:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106713.204049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU9Iv-0000IV-0R; Wed, 07 Apr 2021 14:37:13 +0000
+	id 1lU9JG-0000NX-9R; Wed, 07 Apr 2021 14:37:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106710.204039; Wed, 07 Apr 2021 14:37:12 +0000
+Received: by outflank-mailman (output) from mailman id 106713.204049; Wed, 07 Apr 2021 14:37:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU9Iu-0000I6-TJ; Wed, 07 Apr 2021 14:37:12 +0000
-Received: by outflank-mailman (input) for mailman id 106710;
- Wed, 07 Apr 2021 14:37:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lU9JG-0000N7-5y; Wed, 07 Apr 2021 14:37:34 +0000
+Received: by outflank-mailman (input) for mailman id 106713;
+ Wed, 07 Apr 2021 14:37:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fjXx=JE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lU9Is-0000I0-P0
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 14:37:10 +0000
+ id 1lU9JF-0000Mx-D2
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 14:37:33 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ad8feeeb-105d-4109-9eac-9139ac9511ca;
- Wed, 07 Apr 2021 14:37:09 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9663923e-363a-4c8c-8c8b-6169e901c5ff;
+ Wed, 07 Apr 2021 14:37:32 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8FC69B02B;
- Wed,  7 Apr 2021 14:37:08 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 74DBEB034;
+ Wed,  7 Apr 2021 14:37:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,26 +39,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad8feeeb-105d-4109-9eac-9139ac9511ca
+X-Inumbo-ID: 9663923e-363a-4c8c-8c8b-6169e901c5ff
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617806228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617806251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RVTfOHZt+5GTfUvqHRoOkSW+lbhVxEv08w2Zo444uTE=;
-	b=dxVMt1/MVxgxezDMjlgFkrsbkJzJf8KChJcL8kJJ1zHCy9qoOD2zfpNADajoT/Nr6KBjwo
-	K0ayqSBdIFgYfl9hZ9vTy5u6JM/xcbZj9wo5X0WIqG9Pyr+x7WN8/bP6o7YxOckCBKkQda
-	sP/6d+ZqCyE66qO8kJHMEj3IqxxEmlg=
-Subject: [PATCH 1/3] xen-pciback: redo VF placement in the virtual topology
+	bh=VS4wzz4JN1F6uBq2W5fhu7rrdUSiDdslm/RtnI7Yyw0=;
+	b=V+qWN/caw4IVWpZnWxOfPRmNweRh3TWDlswo2itZariZbCfk8clHdAwL66wTavooDRgCfv
+	tLoYX/24ibzLiOg94lE2cc3L9HyZY89UXXs0X4V4ci7zA1goVy2AvSiStjTKTzJEWfN6nm
+	SK8Izn6jcRFuiKggP1VBfL5WPxrgOAE=
+Subject: [PATCH 2/3] xen-pciback: reconfigure also from backend watch handler
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Juergen Gross <jgross@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Konrad Wilk <konrad.wilk@oracle.com>
 References: <d2ac85d9-0ad1-71a3-fa3b-b99340b3204d@suse.com>
-Message-ID: <32d6a8d4-c06f-7fe0-1376-4b80fac8c6de@suse.com>
-Date: Wed, 7 Apr 2021 16:37:08 +0200
+Message-ID: <74955b48-80b1-3436-06b4-d8569260aa65@suse.com>
+Date: Wed, 7 Apr 2021 16:37:31 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -66,79 +67,81 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-The commit referenced below was incomplete: It merely affected what
-would get written to the vdev-<N> xenstore node. The guest would still
-find the function at the original function number as long as 
-__xen_pcibk_get_pci_dev() wouldn't be in sync. The same goes for AER wrt
-__xen_pcibk_get_pcifront_dev().
+When multiple PCI devices get assigned to a guest right at boot, libxl
+incrementally populates the backend tree. The writes for the first of
+the devices trigger the backend watch. In turn xen_pcibk_setup_backend()
+will set the XenBus state to Initialised, at which point no further
+reconfigures would happen unless a device got hotplugged. Arrange for
+reconfigure to also get triggered from the backend watch handler.
 
-Undo overriding the function to zero and instead make sure that VFs at
-function zero remain alone in their slot. This has the added benefit of
-improving overall capacity, considering that there's only a total of 32
-slots available right now (PCI segment and bus can both only ever be
-zero at present).
-
-Fixes: 8a5248fe10b1 ("xen PV passthru: assign SR-IOV virtual functions to separate virtual slots")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Cc: stable@vger.kernel.org
 ---
-Like the original change this has the effect of changing where devices
-would appear in the guest, when there are multiple of them. I don't see
-an immediate problem with this, but if there is we may need to reduce
-the effect of the change.
-Taking into account, besides the described breakage, how xen-pcifront's
-pcifront_scan_bus() works, I also wonder what problem it was in the
-first place that needed fixing. It may therefore also be worth to
-consider simply reverting the original change.
+I will admit that this isn't entirely race-free (with the guest actually
+attaching in parallel), but from the looks of it such a race ought to be
+benign (not the least thanks to the mutex). Ideally the tool stack
+wouldn't write num_devs until all devices had their information
+populated. I tried doing so in libxl, but xen_pcibk_setup_backend()
+calling xenbus_dev_fatal() when not being able to read that node
+prohibits such an approach (or else libxl and driver changes would need
+to go into use in lock-step).
 
---- a/drivers/xen/xen-pciback/vpci.c
-+++ b/drivers/xen/xen-pciback/vpci.c
-@@ -70,7 +70,7 @@ static int __xen_pcibk_add_pci_dev(struc
- 				   struct pci_dev *dev, int devid,
- 				   publish_pci_dev_cb publish_cb)
+I wonder why what is being watched isn't just the num_devs node. Right
+now the watch triggers quite frequently without anything relevant
+actually having changed (I suppose in at least some cases in response
+to writes by the backend itself).
+
+--- a/drivers/xen/xen-pciback/xenbus.c
++++ b/drivers/xen/xen-pciback/xenbus.c
+@@ -359,7 +359,8 @@ out:
+ 	return err;
+ }
+ 
+-static int xen_pcibk_reconfigure(struct xen_pcibk_device *pdev)
++static int xen_pcibk_reconfigure(struct xen_pcibk_device *pdev,
++				 enum xenbus_state state)
  {
--	int err = 0, slot, func = -1;
-+	int err = 0, slot, func = PCI_FUNC(dev->devfn);
- 	struct pci_dev_entry *t, *dev_entry;
- 	struct vpci_dev_data *vpci_dev = pdev->pci_dev_data;
+ 	int err = 0;
+ 	int num_devs;
+@@ -374,8 +375,7 @@ static int xen_pcibk_reconfigure(struct
  
-@@ -95,22 +95,25 @@ static int __xen_pcibk_add_pci_dev(struc
+ 	mutex_lock(&pdev->dev_lock);
+ 	/* Make sure we only reconfigure once */
+-	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
+-	    XenbusStateReconfiguring)
++	if (xenbus_read_driver_state(pdev->xdev->nodename) != state)
+ 		goto out;
  
- 	/*
- 	 * Keep multi-function devices together on the virtual PCI bus, except
--	 * virtual functions.
-+	 * that we want to keep virtual functions at func 0 on their own. They
-+	 * aren't multi-function devices and hence their presence at func 0
-+	 * may cause guests to not scan the other functions.
- 	 */
--	if (!dev->is_virtfn) {
-+	if (!dev->is_virtfn || func) {
- 		for (slot = 0; slot < PCI_SLOT_MAX; slot++) {
- 			if (list_empty(&vpci_dev->dev_list[slot]))
- 				continue;
- 
- 			t = list_entry(list_first(&vpci_dev->dev_list[slot]),
- 				       struct pci_dev_entry, list);
-+			if (t->dev->is_virtfn && !PCI_FUNC(t->dev->devfn))
-+				continue;
- 
- 			if (match_slot(dev, t->dev)) {
- 				dev_info(&dev->dev, "vpci: assign to virtual slot %d func %d\n",
--					 slot, PCI_FUNC(dev->devfn));
-+					 slot, func);
- 				list_add_tail(&dev_entry->list,
- 					      &vpci_dev->dev_list[slot]);
--				func = PCI_FUNC(dev->devfn);
- 				goto unlock;
- 			}
+ 	err = xenbus_scanf(XBT_NIL, pdev->xdev->nodename, "num_devs", "%d",
+@@ -500,6 +500,9 @@ static int xen_pcibk_reconfigure(struct
  		}
-@@ -123,7 +126,6 @@ static int __xen_pcibk_add_pci_dev(struc
- 				 slot);
- 			list_add_tail(&dev_entry->list,
- 				      &vpci_dev->dev_list[slot]);
--			func = dev->is_virtfn ? 0 : PCI_FUNC(dev->devfn);
- 			goto unlock;
- 		}
+ 	}
+ 
++	if (state != XenbusStateReconfiguring)
++		goto out;
++
+ 	err = xenbus_switch_state(pdev->xdev, XenbusStateReconfigured);
+ 	if (err) {
+ 		xenbus_dev_fatal(pdev->xdev, err,
+@@ -525,7 +528,7 @@ static void xen_pcibk_frontend_changed(s
+ 		break;
+ 
+ 	case XenbusStateReconfiguring:
+-		xen_pcibk_reconfigure(pdev);
++		xen_pcibk_reconfigure(pdev, XenbusStateReconfiguring);
+ 		break;
+ 
+ 	case XenbusStateConnected:
+@@ -664,6 +667,10 @@ static void xen_pcibk_be_watch(struct xe
+ 		xen_pcibk_setup_backend(pdev);
+ 		break;
+ 
++	case XenbusStateInitialised:
++		xen_pcibk_reconfigure(pdev, XenbusStateInitialised);
++		break;
++
+ 	default:
+ 		break;
  	}
 
 
