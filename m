@@ -2,31 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21CBB356F90
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 17:00:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106745.204099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB219356FBF
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 17:04:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106751.204111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU9ex-0002dA-Uk; Wed, 07 Apr 2021 14:59:59 +0000
+	id 1lU9ij-0003XZ-Fn; Wed, 07 Apr 2021 15:03:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106745.204099; Wed, 07 Apr 2021 14:59:59 +0000
+Received: by outflank-mailman (output) from mailman id 106751.204111; Wed, 07 Apr 2021 15:03:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU9ex-0002cl-R2; Wed, 07 Apr 2021 14:59:59 +0000
-Received: by outflank-mailman (input) for mailman id 106745;
- Wed, 07 Apr 2021 14:59:58 +0000
+	id 1lU9ij-0003XA-CE; Wed, 07 Apr 2021 15:03:53 +0000
+Received: by outflank-mailman (input) for mailman id 106751;
+ Wed, 07 Apr 2021 15:03:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fjXx=JE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lU9ew-0002cg-PV
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 14:59:58 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L9xm=JE=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1lU9ih-0003X5-ST
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 15:03:51 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 10bbff3d-b3bb-4f63-a4f3-2e788eee0f2c;
- Wed, 07 Apr 2021 14:59:58 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 254A5B03D;
- Wed,  7 Apr 2021 14:59:57 +0000 (UTC)
+ id 3c42e1a3-a204-4685-b51e-da852e24e71e;
+ Wed, 07 Apr 2021 15:03:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,52 +35,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10bbff3d-b3bb-4f63-a4f3-2e788eee0f2c
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617807597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hFjbxnTPGwRNZoBNKz1nnOU5P9FQ4glztgCAmAlvJW4=;
-	b=f2/Q72ibyhBvta9cHeJG4WEMuLWNflLfSwE5s611j410LxMSi0GTtukdL7lzogHxWZrlQE
-	rHIO+eRMD7l8QPwzlB2OjqbKy0BYHEKOoY1GIYgBxHg/uQAYebyYX4FQJAaVqxwdqwwmmg
-	JrAnGELSQ0z490ZdslIJsGe6SEDh5Nw=
-Subject: Re: [PATCH v3 04/11] x86/vmsi: use the newly introduced EOI callbacks
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <20210331103303.79705-1-roger.pau@citrix.com>
- <20210331103303.79705-5-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5e42180d-378d-82ac-acd8-c4a56b8c0829@suse.com>
-Date: Wed, 7 Apr 2021 16:59:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+X-Inumbo-ID: 3c42e1a3-a204-4685-b51e-da852e24e71e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1617807831;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dCcL9tZYdKA331q4Nw5XFfidGGKXo1yPU3a7vQpENx8=;
+  b=TCSr5wLlQEMETFoUJsxUxGQBLjlzX54UfyXVIg/GlWuMMraP7o2yvrpO
+   9woG7Pa/OCl5rgOxqtJQKzkhVbdxqD7ojo8NGwudkHSs6rGZGlZWNqEmr
+   A3lgs8oIyq00GzvvOcsHleLf287rSRoRGr0yWXqKJL4VK80sCBE6PPnmx
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: JcQOxFw4MmKPgtigDh26hoXUhDov/kliljCizXGag/AHX/T7E7ZfgBqK9YrFvqRy8hh9CIF8eX
+ H0Vh5lUsEx+Ypo/5mmmWDuSfSrd1VWk/xJpXr5Wq+aAV5kkzjo9wJNAGvvictWjhW2ChSA5yCb
+ jOefKMhiOFa1KTdK6Sg1fMKKpuOMkOcvRWg9ydq3AFz3BHsMJKHD7Jcl1UtGp77fUS0A69HKoQ
+ fOHtqF9t3+ii4tMK3zn9AthlzF/h2zFj0RINSAcTcVZi3H9mBWseNf8+YFJJMMg9ie4prbS0DX
+ CCo=
+X-SBRS: 5.1
+X-MesageID: 42544777
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:qqPDYqBGaBULchHlHekz55DYdL4zR+YMi2QD/WoZc3JoW+afkN
+ 2jm+le+B/vkTAKWGwhn9foAtjlfVr385lp7Y4NeYqzRQWOghrMEKhO5ZbvqgeMJwTQ7ehYvJ
+ 0NT4FfD5nKAUF+nYLG5mCDYrEd6f2m1IztuuvE1XdqSmhRGsNdxiN0EBySHEEzZCQuP/oEPa
+ GR7MZGuDasEE5/Bq/QOlA/U+fOvNHNnp79CCR2ZCIP0wWSkSiurIfzDhnw5GZ5bxp03bwg/W
+ LZ+jaZ2oyftZiApSPh6w==
+X-IronPort-AV: E=Sophos;i="5.82,203,1613451600"; 
+   d="scan'208";a="42544777"
+Date: Wed, 7 Apr 2021 16:03:46 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Olaf Hering <olaf@aepfle.de>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [XEN PATCH for-4.15] libxl: Replace deprecated QMP command by
+ "query-cpus-fast"
+Message-ID: <YG3J0rRCCG0JotRq@perard>
+References: <20210322141744.522041-1-anthony.perard@citrix.com>
+ <20210401162454.78fb0290.olaf@aepfle.de>
 MIME-Version: 1.0
-In-Reply-To: <20210331103303.79705-5-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20210401162454.78fb0290.olaf@aepfle.de>
 
-On 31.03.2021 12:32, Roger Pau Monne wrote:
-> Remove the unconditional call to hvm_dpci_msi_eoi in vlapic_handle_EOI
-> and instead use the newly introduced EOI callback mechanism in order
-> to register a callback for MSI vectors injected from passed through
-> devices.
+On Thu, Apr 01, 2021 at 04:24:54PM +0200, Olaf Hering wrote:
+> Am Mon, 22 Mar 2021 14:17:44 +0000
+> schrieb Anthony PERARD <anthony.perard@citrix.com>:
 > 
-> This avoids having multiple callback functions open-coded in
-> vlapic_handle_EOI, as there is now a generic framework for registering
-> such callbacks. It also avoids doing an unconditional call to
-> hvm_dpci_msi_eoi for each EOI processed by the local APIC.
+> > We use the deprecated QMP command "query-cpus"
 > 
-> Note that now the callback is only registered (and thus executed) when
-> there's an MSI interrupt originating from a PCI passthrough device
-> being injected into the guest, so the check in hvm_dpci_msi_eoi can be
-> removed as it's already done by hvm_dirq_assist which is the only
-> caller of vmsi_deliver_pirq.
+> There is also the already removed "cpu-add" command used, which apparently has to be replaced by "device_add".
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Do you happen to have a fix for this as well?
+>
+> Another thread suggests that more deprecated commands are used. I think they have to be adjusted as well, ideally before they finally disappear from upstream qemu.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I'm working on a fix for cpu hotplug and other deprecated/removed
+things, I'll try to propose the patches upstream soon after the release
+of Xen.
+
+Thanks,
+
+-- 
+Anthony PERARD
 
