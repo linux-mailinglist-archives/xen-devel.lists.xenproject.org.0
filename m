@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DF56357258
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 18:47:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106852.204286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB0D3572C6
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 19:09:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106860.204301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUBKf-0005sn-QN; Wed, 07 Apr 2021 16:47:09 +0000
+	id 1lUBfH-0007k5-Lr; Wed, 07 Apr 2021 17:08:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106852.204286; Wed, 07 Apr 2021 16:47:09 +0000
+Received: by outflank-mailman (output) from mailman id 106860.204301; Wed, 07 Apr 2021 17:08:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUBKf-0005sO-Mj; Wed, 07 Apr 2021 16:47:09 +0000
-Received: by outflank-mailman (input) for mailman id 106852;
- Wed, 07 Apr 2021 16:47:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lUBfH-0007jg-ID; Wed, 07 Apr 2021 17:08:27 +0000
+Received: by outflank-mailman (input) for mailman id 106860;
+ Wed, 07 Apr 2021 17:08:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gkPf=JE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lUBKd-0005sI-DU
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 16:47:07 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 974b7d54-a817-46fb-a33a-a1e32bfd94a1;
- Wed, 07 Apr 2021 16:47:05 +0000 (UTC)
+ id 1lUBfG-0007jb-31
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 17:08:26 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cbfa56ed-c6eb-481c-a05f-f745abc74e39;
+ Wed, 07 Apr 2021 17:08:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,214 +35,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 974b7d54-a817-46fb-a33a-a1e32bfd94a1
+X-Inumbo-ID: cbfa56ed-c6eb-481c-a05f-f745abc74e39
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617814025;
+  d=citrix.com; s=securemail; t=1617815304;
   h=date:from:to:cc:subject:message-id:references:
    in-reply-to:mime-version;
-  bh=w23i8GSsuj4BQov6vS2VilAQeeBQJuwxLnojVwx7HHI=;
-  b=emyrIj0gHWy1fDu5Vq7Cjg2Bx79JlbQe7YbNKKHWjxBiPZm9bgnUk2qZ
-   fGekg1Jqi6K7enrz1IvXqS6V2Ns95Tq2oxso+7k5G9+uHT6k4llvkfaam
-   +/RjarOkyaRB/ZcGDlFuGNezSKSOWYtHhFONmWZ0DOEjtiH7cJX+HKrWL
-   U=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: WuFP++YhHZrjqPuBny0ZM7r0gtMY9caWhH16cab2eKwVUHAu5ZarjotoZj9uRyPWUvCJJZf95Z
- bD5gJxWHOHGuhMW2NUoodQ/g2vtuKOunI0exg43zDGe4WAClZHVYE/1ogfzReZ+WNRw0Q8/Crn
- Gw//pzOlxWMumFpKd2O/P6jxMnL1hk4edRNoDqPM/LE0DgoriryMWfZPxzEBzoYM87T2iSlk4F
- mi8e/dR244RQnl7l0kgrmYGvlwjcc1obxM5wuv+NedJgli9V/hWSapWX3WALEB7pAy7smc63cS
- 2kk=
+  bh=tbSlAJqOVZnqbsZhPkwjBxLWhtyYW006qpspGifeuK4=;
+  b=VzyHpxbZ7BohurAphOJZ5s2KLqNBo8/78vgooOyqzu6MR236dR655QkI
+   dJGRXCeLauzAmxo3OE+WVaILIbg5j9FjLdQeNh0t6YzPOp3LQ+pA89gKo
+   8p8a5rcBfo1G0KGEaP4lbdPT9O8YRTs6LFyDVcmjAskzwTMMp28q2j/Nz
+   I=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: +yK8MahubZTKYZIfQ+5pyGsqL3/2/B47gRyY3Ez6oDsM5LakjEsQkWn01sbtixu3NvKcmcaTyb
+ SfQzNGdKJa7jczmxdqQIdWLrjrhuhYkBUXgrovwvqtnKcZ70TwFiOEh2c0BgjsesYtkoIMX/mm
+ CSM9n/tKzif7IP8VEK5l5lry/iDb3Ws+/ZqmeTATNOzKwHWGfeQxNACWfrHJNwEpPKBwdV6jme
+ AOqxOkcksQpWzvJnvtJ+YP9n6LRNKfojaN0/toDUy+g8RY/VRj5pAjxQQ0DeQWQc4gLEfMJ2E2
+ HvE=
 X-SBRS: 5.2
-X-MesageID: 41470308
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 41095372
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:lDWbQ6pswUNWNvzk/YACWFoaV5v5L9V00zAX/kB9WHVpW+SFis
- Gjm+ka3xfoiDAXHEotg8yEJbPoex7h3LR+iLNwAZ6JWg76tGy0aLxz9IeK+UyFJwTS1M54kZ
- 1hfa93FcHqATFB5/rSzQGkH78br+Wv37uvgY7loUtFaSFPR+Ve4xxiCgCde3cGITVuIZYiDp
- KT6o5milObCBcqR/+2DHUEQOTPzuej/P7bSCULGgI97022hS6ogYSQLzGjwhwcXzlTqI1Sk1
- TtrgqR3MSemsD+8DDw/Sv575NamNzuo+EzefCku4wuBRjHziqtbIRlcbWesD4yu/HH0idXrP
- D85y0OEu42x3TNfnykgRaF4Xie7B8er0XM5HXdoXz/rdf3TDg3YvAx+75xQ1/ixGcL+PRfuZ
- g7uF6xht5sIj7r2BnZ3ZzuUSpnk0KlyEBS6tI7vjhkfqY1LINKoZd3xjIyLL4wWBjUxaoAC+
- dUAMTV9J9tACmnRkGchGVpzdC2N05DZyuucwwHssyR5TBcgGp0+Use3NAehXcN7vsGOuF529
- g=
+IronPort-HdrOrdr: A9a23:O6U+z65nZsoYSd3R5QPXwRqBI+orLtY04lQ7vn1ZYQBJc8Ceis
+ CllOka0xixszoKRHQ8g7m7VZWoa3m0z/5IyKMWOqqvWxSjhXuwIOhZnO/f6hDDOwm7zO5S0q
+ 98b7NzYeebMXFWhdv3iTPWL/8O29+CmZrHuc7771NACT5ncLth6QARMHf/LmRTSBNdDZQ0UL
+ qwj/A3xAaIQngcYsSlCnRtZYGqy+Hjr576fQUAQycu9Qjmt1iVwYTnGBuV1Ap2aUIs/Z4e9w
+ H+8jDR1+GYnNyQjjTd0GLS6Jo+oqqd9vJzQPaip+JQBjHligODbJlsVbuYrFkO0Z2SwWdvqv
+ bgiVMNONly9mPwcwiO0GTQ8jil6hkCwTvDzkKVmnTqq8CRfkNFN+Nxwbh3XzGczmhIhqAa7I
+ t7m1i3mrASMDb72AP63NTMXwECrDvOnVMS1dQ9olYabZETc9Zq3Ooi1XIQKrgsNgTg5rsqFe
+ F/Zfusnsp+QBehY3fVsnIH+q3UYl0DWhOPQk01sseIyTRhnHdg00sCxMAE901wjK4Adw==
 X-IronPort-AV: E=Sophos;i="5.82,203,1613451600"; 
-   d="scan'208";a="41470308"
+   d="scan'208";a="41095372"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TeuADc7OF0XvVGxKF0fkQQ+YgllDAcGmJwIrcY2nAMhN6PE3/1Cj4NhcNAmaMdOEa7Rsrw6ROxhL/cJnN3bhg4foTivdB9onH/nr5kHi6sJTrw7fII+5hRNY0ZSMh/2LpnWyNBmwELUkWYU5MFHQxsAhGF2WD9N7N73Eb37BHNA9y6pLXWfOLB+plpfEpv8TIRq4idHHmhnLcx5QiUlSRVNumR/pBFwMSsy0dn9qvcHEZ72m+39OTuva0rzLfOLq3l81YD+XhnV3sGejkrBryLKho9Q1rrEbLfo8ZyUzECt/UJhjLfvRiwWAzyVWDU7EVtTsEhVOoEIMpJ7lFaTz4w==
+ b=OELFKVpETRdmoTs5NWwcAJSOG+VKa0KU29dBzzbvMUUiSUzyIivVGv30Nv6UbjBiUaWjqTIkq9HKvqfBCsSZoGHQ8zaLuEIlfhSr0pjQYHa8tGF/E3cjd07eZqZI2OaCsjeg6LZDWJNyJshFtxdDYEp8hVWsAWWJk4qYZDHsS72nqa7yN3kWbR3RFklMVZjSY/dXAMYd/6XwKNT9bEQEnqrRPE8Wj0eUOuxdzCdGXf++bb7VBy1JQqgR5Aq22JTuc+WxZq09cxkvhGMwZo0wb+zlsn3NC+12YU4uaW2GVBWvF7H4uglVF8o0jqPiREXRUueDwPcmoMZfslCfUXBxuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IQISxLn7cl+Xpu0aBwzT99DyZWyjhTJ0C1evcy3bkkc=;
- b=eHJwwrrAKFkS/dYR3Nq1S+wJKm2X5vDFJbYMh9ycAUhNhdMnS0n5ETp+BrW288CmoCORp+gejBLqAu4lgr424MpEp47svzYA4wzZ/GJZZP9V0HjgkPOwydIWQg8EpDSCo89a2QGGTT3nkwMS8jEE2y80DwWVHi/T8CaMwuaj4//S88YhY9KaRGQH/S7W66IzeYqU3c/6ET1o6BwODPSYJmzZXesZe7JC7SAfqOgSwymPMmYuXtPZE8Iu+bxE5bVKRYmACvQdkgU2x270nsxZCEX/E0v6/biRA7Cs3UdNp2ex154aCkpbiTicJ4WTeMDw6XFbSc+5DDnnn43svWw37w==
+ bh=1t7+AMStHmLCsfi6rt8034ry140rhrQQSlgl5JVwRCY=;
+ b=KX3i3gko5+h0PyzXgisjKT5gIsYZKDKDUtW1Pb9tgdfcNZ7goTTf2O+Z2jnS2YBSL0xSMCsgjoWn+va4Li1kzrXULkH4tCpN+D/Rqr3fIQJCpk6DPPfN2v4qeEYDYSZvKpEoww0N85+h0ZnDLrZhIly43a4/4grCW1ICCcKzf9HIr9xMdQt95DioE9JGq4QSAsWCqbIgO+Hdpr42idKOf5kgCKGpyjQdnqAVjo9PB5p8qGClLopQa2XN6kmXbe8IUBYIPkR9GIPkYTto+PfD+Y2tT65fOKDQErZRvLcqCNE4G4w/+dY9Wj3glc15m8NXPv6n17/SZvJj3c+b3bh4cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IQISxLn7cl+Xpu0aBwzT99DyZWyjhTJ0C1evcy3bkkc=;
- b=ebYshAW5sTCt+MdkpiDkW0fRvTw9YjYwBhFH8jixPcVFDlW4zgD4tlblUzg1S7/MppVrBkcthkAtTalRLVVh4dnbV7eIZ3xW3RdSY6yKU9qPl7aiiDpdt2cHBq47uP2seCPMxSZIzTy/RjAtAC5D4CWigV6XX4bG+bIxegK7cUw=
-Date: Wed, 7 Apr 2021 18:46:57 +0200
+ bh=1t7+AMStHmLCsfi6rt8034ry140rhrQQSlgl5JVwRCY=;
+ b=PE4JIQyldn013X1S/qMdeIOcCtezShyz6ryAwu9+20gYr/1Kv+xidSleOw/4IUD9x3/BVxnv0gKFOI3EzWYMFUbSX0is6LhkEP6bNjc46DyKbFdehOOI03TPXtWkg9NTRj04dxTxNSmsyP0cgtSxAuTgaWe59TGp6tfM2lbENS4=
+Date: Wed, 7 Apr 2021 19:08:06 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 05/11] x86/vioapic: switch to use the EOI callback
- mechanism
-Message-ID: <YG3iAeFFA/ZJh5es@Air-de-Roger>
+Subject: Re: [PATCH v3 06/11] x86/hvm: allowing registering EOI callbacks for
+ GSIs
+Message-ID: <YG3m9nW6xPeL7MPr@Air-de-Roger>
 References: <20210331103303.79705-1-roger.pau@citrix.com>
- <20210331103303.79705-6-roger.pau@citrix.com>
- <f8d9c37f-8896-36af-712a-ac0765567409@suse.com>
+ <20210331103303.79705-7-roger.pau@citrix.com>
+ <a57f0f75-341d-e6e1-823c-2083184a8f08@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <f8d9c37f-8896-36af-712a-ac0765567409@suse.com>
-X-ClientProxiedBy: MR1P264CA0017.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::22) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+In-Reply-To: <a57f0f75-341d-e6e1-823c-2083184a8f08@suse.com>
+X-ClientProxiedBy: MR2P264CA0146.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:1::9)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f52d145a-87d2-402a-cc9d-08d8f9e4c4ff
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4217:
+X-MS-Office365-Filtering-Correlation-Id: d6e8e3da-1321-4a8d-2a69-08d8f9e7bd33
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4601:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB42171ACC9DAF13DD349635678F759@DM6PR03MB4217.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <DM6PR03MB460113C195B263C67E2FBC6F8F759@DM6PR03MB4601.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VD78VIOA+j2Kz2sXCEZEK2Cz4ZnNM9PHODe0zbJc/uoi5g3PXgQwcwZEsa4ANdwCV/0G7xeArBPF7atthdrLwaAIpYzHIwvFQPYwlgILWavIQ84Kn69Kel1VQUu6XcYfVbdnY/y+LVd3xSVMskSkyyu0Q/M5R26er98noimfoyIt6QdGscYLV+VjyL3zNhz5/PUrkIFNkwQPCDL7TLDToUgA5vWCnSQq31lilZ2oiEm0d/L0p2bmezwv7xJnP6W1+7OUUt4Zw0pCq5baPXTm69WXEkxIiUp86b+v5wPmC0etjPwDRWCstSctPxVqtHcb6/6mGIH9992+UORaS56gZ7Haqg+e78F/YuUTBrvw0DOlsDX4oCZe7aFyMFu5N/ahjfBEVgvR2Z3oB8hwpwrBmr9qwgv6lO0jOl+6eWQJnU8RVrNf6x2TMDTTlWcqKlqIKVZ8Y4yZWytfX5nPdsts5jvCJu5Fed1l+1LzDGY2DrqFL7gcNKjM/IJsQYG+NukrxOGd72zL9f5DckccbBuaaWXGM5Vfu+oEjAFaM4yu51kZVfIIdgsmyUmxP0sObLLITrlI7Fh+zsgLo389Cowp+i3HpIDw3SpMHNVLNbuMSstEuwIJNuoD4UGfV+aTlyp3wctgL0XO+/cdgKXPjykQTvweizPa8Pdq5u9ripN+KANi8NxJFkj6kMKJrlkiXs59
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(396003)(366004)(136003)(346002)(376002)(86362001)(6486002)(66476007)(66946007)(66556008)(8936002)(9686003)(8676002)(6916009)(6496006)(83380400001)(956004)(85182001)(4326008)(6666004)(26005)(53546011)(16526019)(2906002)(186003)(33716001)(38100700001)(5660300002)(54906003)(478600001)(316002)(309714004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WVNRRWVXOWwzdnphVDYyd2RKbWNtd0FkM1pNL3JiLy9hZ2FNM1JCU0NqZEZG?=
- =?utf-8?B?MkRrWFZGd0dHZXNPU0drVjdPd3dSSjVsakNlVlVNMlkzejBQWW1ZVU1NYUgw?=
- =?utf-8?B?RnJkcE9jWDF6aHVxNjZaaHlIN2tGVTJzL0wvT0o1bHUyMnlKandZZC9FWHg5?=
- =?utf-8?B?ZUJLQW92QjJnbkpnZnBqV24vREJ0aW9kaC9tUCthUlVyTEN1aXBEN2IvUUln?=
- =?utf-8?B?K1p3VDAzdGFaWWFMdG45TFVMNGNUVFB6c2ZaZ0JDUE1jT1VxYWVTdkUrQjJZ?=
- =?utf-8?B?Y1ZNTDJUbGR0akVnOFpEclBNeEs1d0Fkd3BJZWtLMEJ4VzJQMGlmSG5FdG92?=
- =?utf-8?B?OUU5MXBJeHJJaXJJNjdqTXlRWlE1c1Zvd1dIdHNCRkFnUHhoMDFXbG5wUjU2?=
- =?utf-8?B?ajFuMFBOQkdjR2JOdkk5ZWo4YzhsMUFuZVlrVTFkaFJoMTZ4bnNIcTROUmRD?=
- =?utf-8?B?K0grZjFWMTUzWVdTcTlaZ213SStGaUVib3Q3RmN1dXRrZEhuejVpT28vUzNM?=
- =?utf-8?B?d1BLNyt1d1RTWU9WUHQwNVpSR2ZpbUJFTnJuTWE3d0VuNjVzYU1LTGFrbDlZ?=
- =?utf-8?B?dDlka1lrY0E3OU9NaWV6KzFGSSs0RzdUdGs0RlJHUG9xSm5tMmhUOGZBVkxN?=
- =?utf-8?B?YVBzVHNVSVdxUHNxbEpQZmsyTG1MUFF3eFBiY3RldGZwWUFlNlJZRlczbmMr?=
- =?utf-8?B?S0VkR0xCcnVYVGp5ZFlOM1plMGc0U28wVUppUVJSMzNxSFptNWRnT2I5N2pF?=
- =?utf-8?B?ZHQwNUF6RHJHRUdlaGNqNGErZ1AwSFVocnJ1MVdYUFhqYWJuU0Nlb29CRnUw?=
- =?utf-8?B?ZlVwdi9iVkF6T2lUc1dhaThyMU1PeEUyRDVQcVl3MjdBeVUzcytTOXNUaW96?=
- =?utf-8?B?bGFJNjU2eFBVRk9TWHlPdDBIbDdaQllZUnFJcUxhZ3VEamMxU2tDVGttRENT?=
- =?utf-8?B?akFld0l0LzNtYURLVjNTZHJ2TG9lTndtNytjNGs4ZWJtKzh1NERGMVVoRlFL?=
- =?utf-8?B?T2krZ0s5c2FCMnpFbHlkMmVsYnJzM3g4blNlWFZnV29ZOGhnL0NvSVhQVFlZ?=
- =?utf-8?B?SzdmWjhHck8yVjZ1azF2Z1pibStyMU5OOHNzUmNDem1XRVAwYm1BZytrSlNR?=
- =?utf-8?B?azNkRXJ6aUEvbXZPTHZNUmtXRk52OGsxbUJ3YVF2R2QvSEo5UUdnUzhCVUJF?=
- =?utf-8?B?SDdxVFhtSmFaY1JNY1JZZmNWU0lEWkxIellLbGpzUXNVRDA4M2IxN0RKNklj?=
- =?utf-8?B?a3NZS0RUKzRNQktZYS9hTU9oRVlDRXBuLy9CRWZmWVVOYjNvQzZ3MXd4VW1U?=
- =?utf-8?B?cGF2NFRjcXVMazYvUWFvMkQ1ZUZjWmtHd3h3aThmVis2NG52eU5YOHpDeWhz?=
- =?utf-8?B?TXNlTStSNXlHQWF3aUxnQk1kcUV3NlpEbWRhK0UrMG9RUjRxYnpEUmJSRzBo?=
- =?utf-8?B?bjlNY2RsK3JXNnZMUlVCd2tiaUo3M1ltNGtzMEkvK3ZzZmNCZWZyRXBRMkFV?=
- =?utf-8?B?eEQ5T1FTWUJXMkZlY2tWK1dHajdkTUtSUzcyZWV0ZVYzMU80b2FXdnBVZGhM?=
- =?utf-8?B?YVhTcDRrNDBXQy9meHZqb1hKcUpwTlhuUXl4aVhWS0Zmbm51cWx6Z2JZZURM?=
- =?utf-8?B?L2lneE5sK2ovWHZxUXJlazkzcGxwb09HRk9xaXZFdG5tZ081NFlLa2wyZlJB?=
- =?utf-8?B?TmdMVTlHV1VkRjlLVlVpMHZjclEwRGdWQkRpMGE1RUcxa0RNaFdPWHRQcFg3?=
- =?utf-8?Q?4WZ/OECVhyZiW+jk4BR28dwdJvfvhxXk6skrRi1?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f52d145a-87d2-402a-cc9d-08d8f9e4c4ff
+X-Microsoft-Antispam-Message-Info: ai3ChuNhW4idI6+luDeG+NSb4S3Mq9+sOTSrLphs/nKyKnEm+wivZV0wlRlL1tgV05BsY8VBQDd+82Hwt33ChOvaOzj9SY6l+zNxqKOm5S4YggYjlXxH+6WArsdln3brxaQ1Qw+ThAuNrgh5PR+QVHZ40eBOgynPIPxiAq0GOSh/yuEhV15SYK1X3HYute5ZpaoDXqWF5QaFlffQNavtwHJnTQv0DNn/bJStxdkailY8BkN7dLYmWdqgk80Rntydom9MuMhJwGDERr8ZMDz3K6XVjDZF+4GFlXxvtLRhDkyOUg0iWzuizrkPEkNQLPvMpVnAvbauz76SmdQ5yDI5PyRCwg6iF8rF5EMwiSaHbzNbjwUaigFshVspgHKJZ6IQ1ChVXUU2sfwYxZOGCf/ps1mthiw9XiRKnWWtYm6eJoMNRk9yi8AYDAQl8ZxDxmeSwwzK6WLhPN63pcgl/ljLTvhoPUTe/pQOrlfoBc6r8oodEHEzzgAu2odKKy2zQTxSXt2XeMWVYgzYgi5B6hpDkGnTa8TQXr2rkF4SJdfOZhjcQrUrrNY1D6yiKNvPMW/cbiaWR+dmEUh2RQDS6S8FU/lEZIwJJhQcXWOIkoiwM+SIILO3RDQNtB6B/xTZ6q2TZTPej8n0BaJvHF+bx0TXXkbpYxo0A0Rjfdhrs8g3hXw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(346002)(376002)(39860400002)(396003)(136003)(33716001)(16526019)(83380400001)(4326008)(186003)(5660300002)(9686003)(66476007)(66556008)(66946007)(6666004)(26005)(2906002)(86362001)(478600001)(6496006)(53546011)(6916009)(8936002)(8676002)(54906003)(956004)(316002)(6486002)(85182001)(38100700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?djNtUklNci9rVFJVcC9UTmtEUlpTbi9iZ3prbCtiU2JvcHlXSDUxZ2hraDV2?=
+ =?utf-8?B?QmFSOStrOGtzSDVVbUpnc1l2Z1RzeWpDcGhyT1ZLTitqVGZGekpHM3djc3Rs?=
+ =?utf-8?B?L0ZrbDdJYmtKZlpyTDlZMXRiTS9xOGRqRXZrcG9GV25hNFo3SzF5WHdSdXc3?=
+ =?utf-8?B?S0plRm9iTDBaNWZkZXA1ZjRHNnlWS04xcjI5UmltNmxFZmovRmFOU25rQVJy?=
+ =?utf-8?B?MlNsbjNtTHJVSEw0S0dIajkxMnpIaHVGWnMzd2tEcHNyRHcwTzVKNFN2ZzBu?=
+ =?utf-8?B?YVFjYWlOUWdCQzQzZkQwN2JSVjVoQzRCL0lvblFLMGI2Ky9qMFpKdmNKZnV6?=
+ =?utf-8?B?OE1CQ21HTkJRbTY2eno5WUtvdjI1akJsSmJrNEw4N28rQk10Ti9TZUJvZWZi?=
+ =?utf-8?B?bmJvcUpUYVFXUzNodkJDaFhoK1JtcmphU1V1YkR0Vmp3N2JUOVVZWVVxL2hl?=
+ =?utf-8?B?b2M5eWd5YW9GMVJUVFZoT1dScTEyK2FobFVGSVptakt3NTlBK0dNV1l4dEoy?=
+ =?utf-8?B?dk9ZZkQ2dEwzeGwxSVplS3Yya0p0RGN4VVYxRHNCcGNDK0VCUWNwTkxETVFR?=
+ =?utf-8?B?S0dqY054VXhyMHY2b2R5SEtxQjdRWk1hQ2loSzJaeWhBR0hkSlFSZENrYzF4?=
+ =?utf-8?B?U2lTRUNUaWY3YkVxSHRsMndqQVRDNzBBdDE5UTdPRlVQajBJTzlTYUxVTXF2?=
+ =?utf-8?B?MzBQbG4wNjExeTArSEY5RlhibTJtdithdXI4dGdPQVJTaHBYbkxHdERTTS9v?=
+ =?utf-8?B?TkxzTzRhdVRPMjhud1ROUC92KzlLODZ0SWw1UEZLeHB1bCtSK1dib0hFV0Vj?=
+ =?utf-8?B?ZTlpa1hONkwwWHA2aWt3b2FGc2Z6VHN1VjYvTGQxeUpVTGpTaFAvODVJRFhB?=
+ =?utf-8?B?VFo0R1kwMjVMMFNmOTdPOEhpOS9nRngrWHhxV3RqYUhFbzNaZzBpUTBSSVZH?=
+ =?utf-8?B?NVlvdEhJWWhHcUxOcXdlRjB3UWV3K1dhdGwrL0hHa0lKQzR3S2hzSWdFSHZM?=
+ =?utf-8?B?U1pZYWxkVGtBT0g4ZE91UzV6ZWpIK3dwWnpkc1BUdFcrMFRVSW85NzFVY3Ju?=
+ =?utf-8?B?bDVrQitxSzFYVDJXMnhyN2lySkNnQzVMZ3I5YW9pbVlKYTNxOTQwL2hWZHJ6?=
+ =?utf-8?B?dCtQMk9DaXUwQ3ZRNjFxWjhDS0RZeVNrcUM4bi9yc2N6ZURtZzhhTGE4cmNk?=
+ =?utf-8?B?cTBxYzJ4bW9SeE43WWFMbmJ3N1MxWWNla2dDZmxUSG4ydi90SUk1NDZkYVJR?=
+ =?utf-8?B?WGhVMGt1ajdlR2Z4RnlHcmV2TEtZZkJpUE9qWDJsblA2UjhRNEdFYzJ6SWRk?=
+ =?utf-8?B?b1RwSGZmM3pPcEtTdGRNYS9pN3Rwd3hVNEtJL1hFRkpQc0xqOXRtYlFsNU5v?=
+ =?utf-8?B?NG1kYVRNZk1acGZXTVFpelp3K3pIOGlEVW5hYWZ1a3RIY0tsa1lheDRNU1A4?=
+ =?utf-8?B?M0xCR1ZPVEF6OEZIWEZhbXhrTUdwd0wyVnZ1QmRuZnJSdjhPaURZWHVKN3NM?=
+ =?utf-8?B?WUFvQWRjTm5KbFFqak45eVdnTXY1cWd0ZEQralRUYmNNRlIwdWRlWlp3OGlX?=
+ =?utf-8?B?WmQxQW43Y0hiZDgrTmdwUU9oWklNMFBIMGFrbUxoOXB2UlI5OG8zTHJZVXBX?=
+ =?utf-8?B?VnJZZmtpRlVXcG9vTTFkeEdyellabVQzbWY0cm1uV3Bmbm5sTEN4Tko0bFRw?=
+ =?utf-8?B?ZzNGOEk2OHdMTlFaR0haME1BVlhGSWFjL0R2T2dtUUpNMHUvMUoxT3EwTnJW?=
+ =?utf-8?Q?lI7C+L2UTXGPQsjDYeoxGGPfiPv2Xe///fz+yCZ?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6e8e3da-1321-4a8d-2a69-08d8f9e7bd33
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2021 16:47:02.8377
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2021 17:08:18.1024
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EnSo4BlnT6d95fAmdx0/P4zd2ittwKcHSPf6IYcT5gTJyi6GvC+KpxRfpj07tWkmrA+onXlKB3TMcssmBDe2uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4217
+X-MS-Exchange-CrossTenant-UserPrincipalName: ukLwh+eZKwo8J1wx/lSjwt4UrnMISKDgYhFvUbgZrhe2LTBWvY/Fjtvj3R7jdxakBRPp4rR1bKIN7GStk3a4QQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4601
 X-OriginatorOrg: citrix.com
 
-On Wed, Apr 07, 2021 at 05:19:06PM +0200, Jan Beulich wrote:
+On Wed, Apr 07, 2021 at 05:51:14PM +0200, Jan Beulich wrote:
 > On 31.03.2021 12:32, Roger Pau Monne wrote:
-> > --- a/xen/arch/x86/hvm/vioapic.c
-> > +++ b/xen/arch/x86/hvm/vioapic.c
-> > @@ -621,7 +624,43 @@ static int ioapic_load(struct domain *d, hvm_domain_context_t *h)
-> >           d->arch.hvm.nr_vioapics != 1 )
-> >          return -EOPNOTSUPP;
+> > --- a/xen/arch/x86/hvm/irq.c
+> > +++ b/xen/arch/x86/hvm/irq.c
+> > +void hvm_gsi_execute_callbacks(unsigned int gsi)
+> > +{
+> > +    struct hvm_irq *hvm_irq = hvm_domain_irq(current->domain);
+> > +    struct hvm_gsi_eoi_callback *cb;
+> > +
+> > +    read_lock(&hvm_irq->gsi_callbacks_lock);
+> > +    list_for_each_entry ( cb, &hvm_irq->gsi_callbacks[gsi], list )
+> > +        cb->callback(gsi, cb->data);
+> > +    read_unlock(&hvm_irq->gsi_callbacks_lock);
+> > +}
+> 
+> Just as an observation (for now at least) - holding the lock here
+> means the callbacks cannot re-register themselves.
+
+Well, re-registering would be weird, as the callback is not
+unregistered after execution. What is likely more relevant is that the
+callback cannot unregister itself. I haven't found a need for this so
+far, so I think it's fine.
+
+> > +bool hvm_gsi_has_callbacks(const struct domain *d, unsigned int gsi)
+> > +{
+> > +    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+> > +    bool has_callbacks;
+> > +
+> > +    read_lock(&hvm_irq->gsi_callbacks_lock);
+> > +    has_callbacks = !list_empty(&hvm_irq->gsi_callbacks[gsi]);
+> > +    read_unlock(&hvm_irq->gsi_callbacks_lock);
+> > +
+> > +    return has_callbacks;
+> > +}
+> 
+> What use is this function? Its result is stale by the time the
+> caller can look at it, as you've dropped the lock.
+
+Right, that function is only used to decide whether the vIOAPIC needs
+to register an EOI callback when injecting a vector to the vlapic. The
+workflow is to first register a callback with the vIOAPIC and
+afterwards inject an interrupt which will trigger the callback
+logic.
+
+Playing with the callback registration while interrupts can be
+injected will likely result in a malfunction of the device that relies
+on those callbacks, but that's to be expected anyway when playing such
+games.
+
+That said multiple users sharing a vIOAPIC pin should be fine as long
+as they follow the logic above: always register a callback before
+attempting to inject an interrupt.
+
+> > @@ -421,13 +423,25 @@ static void eoi_callback(unsigned int vector, void *data)
+> >              if ( is_iommu_enabled(d) )
+> >              {
+> >                  spin_unlock(&d->arch.hvm.irq_lock);
+> > -                hvm_dpci_eoi(vioapic->base_gsi + pin);
+> > +                hvm_dpci_eoi(gsi);
+> >                  spin_lock(&d->arch.hvm.irq_lock);
+> >              }
 > >  
-> > -    return hvm_load_entry(IOAPIC, h, &s->domU);
-> > +    rc = hvm_load_entry(IOAPIC, h, &s->domU);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    for ( i = 0; i < ARRAY_SIZE(s->domU.redirtbl); i++ )
-> > +    {
-> > +        const union vioapic_redir_entry *ent = &s->domU.redirtbl[i];
-> > +        unsigned int vector = ent->fields.vector;
-> > +        unsigned int delivery_mode = ent->fields.delivery_mode;
-> > +        struct vcpu *v;
-> > +
-> > +        /*
-> > +         * Add a callback for each possible vector injected by a redirection
-> > +         * entry.
-> > +         */
-> > +        if ( vector < 16 || !ent->fields.remote_irr ||
-> > +             (delivery_mode != dest_LowestPrio && delivery_mode != dest_Fixed) )
-> > +            continue;
-> > +
-> > +        for_each_vcpu ( d, v )
-> > +        {
-> > +            struct vlapic *vlapic = vcpu_vlapic(v);
-> > +
 > > +            /*
-> > +             * NB: if the vlapic registers were restored before the vio-apic
-> > +             * ones we could test whether the vector is set in the vlapic IRR
-> > +             * or ISR registers before unconditionally setting the callback.
-> > +             * This is harmless as eoi_callback is capable of dealing with
-> > +             * spurious callbacks.
+> > +             * Callbacks don't expect to be executed with any lock held, so
+> > +             * drop the lock that protects the vIO-APIC fields from changing.
+> > +             *
+> > +             * Note that the redirection entry itself cannot go away, so upon
+> > +             * retaking the lock we only need to avoid making assumptions on
+> > +             * redirection entry field values (ie: recheck the IRR field).
 > > +             */
-> > +            if ( vlapic_match_dest(vlapic, NULL, 0, ent->fields.dest_id,
-> > +                                   ent->fields.dest_mode) )
-> > +                vlapic_set_callback(vlapic, vector, eoi_callback, NULL);
+> > +            spin_unlock(&d->arch.hvm.irq_lock);
+> > +            hvm_gsi_execute_callbacks(gsi);
+> > +            spin_lock(&d->arch.hvm.irq_lock);
 > 
-> eoi_callback()'s behavior is only one of the aspects to consider here.
-> The other is vlapic_set_callback()'s complaining if it finds a
-> callback already set. What guarantees that a mistakenly set callback
-> here won't get in conflict with some future use of the same vector by
-> the guest?
+> The two pairs of unlock / re-lock want folding, I think - there's
+> no point causing extra contention on the lock here.
 
-Such conflict would only manifest as a warning message, but won't
-cause any malfunction, as the later callback would override the
-current one.
+The chunk above will go away on the next patch - there's no need to
+fold it as it makes the following patch less clear.
 
-This model I'm proposing doesn't support lapic vector sharing with
-different devices that require EOI callbacks, I think we already
-discussed this on a previous series and agreed it was fine.
-
-> And btw - like in the earlier patch you could again pass d instead of
-> NULL here, avoiding the need to establish it from current in the
-> callback.
-
-On the new version the vlapic callback gets passed a vcpu parameter,
-as I will drop the prepatches to remove passing a domain parameter to
-vioapic_update_EOI.
-
-> > --- a/xen/arch/x86/hvm/vlapic.c
-> > +++ b/xen/arch/x86/hvm/vlapic.c
-> > @@ -192,7 +192,13 @@ void vlapic_set_irq_callback(struct vlapic *vlapic, uint8_t vec, uint8_t trig,
+> > @@ -443,7 +457,8 @@ static void ioapic_inj_irq(
+> >      struct vlapic *target,
+> >      uint8_t vector,
+> >      uint8_t trig_mode,
+> > -    uint8_t delivery_mode)
+> > +    uint8_t delivery_mode,
+> > +    bool callback)
+> >  {
+> >      HVM_DBG_LOG(DBG_LEVEL_IOAPIC, "irq %d trig %d deliv %d",
+> >                  vector, trig_mode, delivery_mode);
+> > @@ -452,7 +467,7 @@ static void ioapic_inj_irq(
+> >             (delivery_mode == dest_LowestPrio));
 > >  
-> >      if ( hvm_funcs.update_eoi_exit_bitmap )
-> >          alternative_vcall(hvm_funcs.update_eoi_exit_bitmap, target, vec,
-> > -                          trig || callback);
-> > +                          /*
-> > +                           * NB: need to explicitly convert to boolean to avoid
-> > +                           * truncation wrongly result in false begin reported
-> > +                           * for example when the pointer sits on a page
-> > +                           * boundary.
-> > +                           */
-> > +                          !!callback);
+> >      vlapic_set_irq_callback(target, vector, trig_mode,
+> > -                            trig_mode ? eoi_callback : NULL, NULL);
+> > +                            callback ? eoi_callback : NULL, NULL);
 > 
-> I've had quite a bit of difficulty with the comment. Once I realized
-> that you likely mean "being" instead of "begin" it got a bit better.
-> I'd like to suggest also s/result/resulting/, a comma after "reported",
-> and maybe then s/being reported/getting passed/.
+> I think you'd better use trig_mode || callback here and ...
 > 
-> As to explicitly converting to bool, wouldn't a cast to bool do? That's
-> more explicitly an "explicit conversion" than using !!.
+> > @@ -466,6 +481,7 @@ static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
+> >      struct vlapic *target;
+> >      struct vcpu *v;
+> >      unsigned int irq = vioapic->base_gsi + pin;
+> > +    bool callback = trig_mode || hvm_gsi_has_callbacks(d, irq);
+> >  
+> >      ASSERT(spin_is_locked(&d->arch.hvm.irq_lock));
+> >  
+> > @@ -492,7 +508,8 @@ static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
+> >              target = vlapic_lowest_prio(d, NULL, 0, dest, dest_mode);
+> >          if ( target != NULL )
+> >          {
+> > -            ioapic_inj_irq(vioapic, target, vector, trig_mode, delivery_mode);
+> > +            ioapic_inj_irq(vioapic, target, vector, trig_mode, delivery_mode,
+> > +                           callback);
+> 
+> ... invoke hvm_gsi_has_callbacks() right here and ...
+> 
+> > @@ -507,7 +524,7 @@ static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
+> >          for_each_vcpu ( d, v )
+> >              if ( vlapic_match_dest(vcpu_vlapic(v), NULL, 0, dest, dest_mode) )
+> >                  ioapic_inj_irq(vioapic, vcpu_vlapic(v), vector, trig_mode,
+> > -                               delivery_mode);
+> > +                               delivery_mode, callback);
+> 
+> ... here, avoiding to call the function when you don't need the
+> result.
 
-I've always used !! in the past for such cases because it's shorter, I
-can explicitly cast if you prefer that instead.
+I think there's a slim chance of not needing to use the callback local
+variable, and hence didn't consider limiting it. I can do, but I'm
+unsure this will bring any real benefit while making the code more
+complex IMO.
 
 Thanks, Roger.
 
