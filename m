@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05720356AF8
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 13:17:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106612.203865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08D8F356CD0
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 15:01:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106636.203883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU6AL-0006R2-Le; Wed, 07 Apr 2021 11:16:09 +0000
+	id 1lU7nK-0007eK-LO; Wed, 07 Apr 2021 13:00:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106612.203865; Wed, 07 Apr 2021 11:16:09 +0000
+Received: by outflank-mailman (output) from mailman id 106636.203883; Wed, 07 Apr 2021 13:00:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU6AL-0006Qd-HL; Wed, 07 Apr 2021 11:16:09 +0000
-Received: by outflank-mailman (input) for mailman id 106612;
- Wed, 07 Apr 2021 11:16:07 +0000
+	id 1lU7nK-0007dt-IB; Wed, 07 Apr 2021 13:00:30 +0000
+Received: by outflank-mailman (input) for mailman id 106636;
+ Wed, 07 Apr 2021 13:00:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dFqK=JE=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lU6AJ-0006QY-3n
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 11:16:07 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=bfSB=JE=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
+ id 1lU7nJ-0007do-5q
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 13:00:29 +0000
+Received: from mail-wr1-f43.google.com (unknown [209.85.221.43])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7dabf354-4efd-49a4-9bc7-e4239911a7de;
- Wed, 07 Apr 2021 11:16:05 +0000 (UTC)
+ id 8464b059-9ca3-4f83-af16-c47bd6c2d70f;
+ Wed, 07 Apr 2021 13:00:28 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id a12so8115562wrq.13
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Apr 2021 06:00:28 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id k3sm19834667wrc.67.2021.04.07.06.00.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Apr 2021 06:00:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,180 +42,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dabf354-4efd-49a4-9bc7-e4239911a7de
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617794165;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=3Feb04uJ2mT3yvkWQEWoEMDV9q3cUo0X77tX0WyXk/8=;
-  b=LIxmoRu3l2tMzlCunvi7AqpAyTkZihc54iPS1tVS0rNSMO60UGAmsvRY
-   0xDbHmKeBalaZpd8HmRVMQ+R6/aWIae6sG4ZcyaEpye7TT1kqWGTCrTtn
-   qqbjLicr56xzqyuWAfaIoG6OZByfzarNjgF77xQwGxrHGZjs3zYQNmF0e
-   E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: au6gzlD1/or/7Oex6GTk2CbqexviU8RooZn1LeRxp2XsIfgsjceRC1QjysE8zliHKM5EH/qjdS
- Y/KtwcXSX4K5Tk2Y5Xjwr7XSWXRaJwXzgbJnlfQ3/lHbEixbOa6sHOZLaIOERfkksJkp/e6cU8
- SpTSnLE1ObDOQD36i3XaCj5eFU2414Szm+1dZVVPhNKUt0lM1BjCICSfmRdXEKGBBBioKcqlo5
- cQSP0XMkUZXU7qnUq8Na76Ju1quBu1ry2F1YK7CPVOoOkCIf+apenxMW379Zrbz383HDW5ZymX
- 7G0=
-X-SBRS: 5.2
-X-MesageID: 40910267
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:uLktNK6/dKziCEzZbgPXwGbXdLJzesId70hD6mlaQ3VuEvCwvc
- aogfgdyFvImC8cMUtQ++yoFaGcTRrnmKJdzpIWOd6ZMzXOmGztF4166Jun/juIIVyGysd49Y
- NNN5dzE8fxC18St7eY3CCdH8w7yNeKtICE7N21815XQQtna75t4m5CY26mO3Z7SwVcCZ0yGI
- D03LsgmxOadW0TfoCHABA+MdTrnNHXiIngJScPGh9P0mKzpAm14733GQXw5Hsjeg5IqI1CzU
- H11yHBooCZn97T8G6460bjq7lbgtnZ8f0GL9CNj8V9EESKti+YIKlsQb+6hxZwhO208l4lnO
- LBrH4bTqBO108=
-X-IronPort-AV: E=Sophos;i="5.82,203,1613451600"; 
-   d="scan'208";a="40910267"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aeKNrlPepNDZ/MP2SYnIRNNkd8654Xf6c3GYAZDUbjMV6+5qzc9l68vn//Fk2tGwyRWhWOf0ZMAxXXx6qXXtj0GTIGNr66+83Mk1+4o4QVuJLVeB9kLIgk/JOIewcW6sOKZiGFtOkVr5Rdn5KbEFast/ksBbMxjEM2fW/WiwWlT6ET7s6z8hZSReJjWRJ6mQw5eTXKfVwRDwSbA98UOvFEjooxR0BVgCyrgfxvo18lY7iDNyWXF5r0eLxziIsYGWHMX14FdOAhzavgbyz9jRYicJc/MYnBMQyEve/CShi2wQclF/ISJ8XPDyUEjCHxmq6sTkGWEf/muxXmY9y/6RIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Feb04uJ2mT3yvkWQEWoEMDV9q3cUo0X77tX0WyXk/8=;
- b=SrMlxJkdVv1S+CHkh4pKS1N5UKzbnasvZeUjfanQdXRwoDId2aFuvhOqY2rWBFY7VIBo+UOOZBjq2F0Am0d7bycNo9pnYY984KU4rA44r9GW1rihmuw03PuB3W6kXqRdIIAiVgePTdBSyTZb2doXJNiWZoBM4rsnmp5KUgI7WNpmte8E26C2mrYo7N6Q0cRMMqV+QvqVf8hX0vywFRE47/xRsQ07eCuiZK878UZmN07GntY2cMKO5td+tspvlMPyfAVIPv1NIhfw45nRz7xmuAttUvsXn0hHShJ4Ru1rvLYGO9yq9mFcgPvLuiKQN463sVeITm4Oc4yUWU7IwKcuxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Feb04uJ2mT3yvkWQEWoEMDV9q3cUo0X77tX0WyXk/8=;
- b=NX1RaljHJoHlPyB1IVnb8B6xjC+9NlbmKV6f9vaKi0CE5iff3UJFFQsYGaKpKKbTGyM78SFJuWrM+2J7g3+CmQX6vWi9Su9Yht4vZEFZ226YJJq9vwvMiyY0EFOmfL3/IneAbsJmW6taLHDrCp1jaL7Lu7/jqW4VPpIEnfAwAto=
-Subject: Re: [PATCH 0/3] Use Doxygen and sphinx for html documentation
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>,
-	<bertrand.marquis@arm.com>, <wei.chen@arm.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-References: <20210406103603.8530-1-luca.fancellu@arm.com>
- <225d7e0a-c5c6-a954-9141-ba1d859f400a@citrix.com>
- <alpine.DEB.2.21.2104061418360.31460@sstabellini-ThinkPad-T480s>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <51bce878-89a3-d940-f40d-bfde794a0f4f@citrix.com>
-Date: Wed, 7 Apr 2021 12:15:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <alpine.DEB.2.21.2104061418360.31460@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0144.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::23) To BN7PR03MB3618.namprd03.prod.outlook.com
- (2603:10b6:406:c3::27)
+X-Inumbo-ID: 8464b059-9ca3-4f83-af16-c47bd6c2d70f
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=NwLKTNKDKP75b7p50B/o71iDiFr0JTQFhm3wPogEFdU=;
+        b=gjg3DxMqeiXNCFKV8t5c1VnagBqFZ2YxeqGx1Tc224cGJyCmIIVRUASOXvgauLW/aw
+         4yjO1YY79sizaCy9O/hCLVpsBlEjadeVCmPp50gC2NhHF7C1uTkbgxTZ9zc5O6tLyzk8
+         2xcmyob+14B1MkXuWoW6AW99FcrqYhik2VtX3E2+9abPzUwJNrQ5bTsK3+p50dm9N6Le
+         44VQ6kLGmn3W2cixwsmM4QWtCsANfdkUg0nGbIK2lnXoRfKylcgtvh+5uYbxC1qFlFhu
+         7b1NBvb/9w9G4bnHNwdYSZlbL9p5oUSSUj2bA6ySYe4QiD9t5VkMYvCeKe6Uryxbjzq3
+         0OSw==
+X-Gm-Message-State: AOAM5327pjg/YbulBNq12tAPcl7Kw1cj/T2NoC9u78YlXd9VPswqsBTj
+	HVsttDnqUta+puKLGlzOViE=
+X-Google-Smtp-Source: ABdhPJze8GqaoC7VT4EBUo/P3ST9s9tLdsZXJdoXUKWyW/Gkw8UQr9VDY3nhMuQID9gqjD7B0tz1BA==
+X-Received: by 2002:a05:6000:2a7:: with SMTP id l7mr3338450wry.413.1617800427739;
+        Wed, 07 Apr 2021 06:00:27 -0700 (PDT)
+Date: Wed, 7 Apr 2021 13:00:25 +0000
+From: Wei Liu <wei.liu@kernel.org>
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: sstabellini@kernel.org, jgross@suse.com, jgrall@amazon.com,
+	boris.ostrovsky@oracle.com, tglx@linutronix.de, wei.liu@kernel.org,
+	jbeulich@suse.com, yyankovskyi@gmail.com,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, bertrand.marquis@arm.com
+Subject: Re: [PATCH] xen/evtchn: Change irq_info lock to raw_spinlock_t
+Message-ID: <20210407130025.tfe6aszjyjzz6ar2@liuwe-devbox-debian-v2>
+References: <20210406105105.10141-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5727a4fe-fa28-4951-c190-08d8f9b686b7
-X-MS-TrafficTypeDiagnostic: BN3PR03MB2132:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN3PR03MB2132CB2319F7934F0253335BBA759@BN3PR03MB2132.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NkoLj3xs0OjCf4PqYz7nX8SlL03BzkuKWJ1pIJGN+1QM2I5QKdUz3k8sP1/7e0zB3zf+fbhWM1DRwrxwFQAEQyuE4X/WnPx42Fjo2SeguXN+4VRIaSrVS0+9UN2bIZaAg8fQmDKIIwhCIyQ++6n6A51asX/CJxk+VUNmzAJfh1zaq0f9Z/H8acBiDajm2LBmu2moSxRQQyD02s8849lQQ90rHK271Bl+st1+qGT5cY0lRkaXDJqAveiTV9naGr5FVqKwXkPiU/P7bDoF4ZjKd7uO6JfZto53+WhfRNjPXdsaTyF7IBJwrgU4F+iJOJQP/3akRNGEU9ua+rUp/Yow6Mar2vu3SKzWFITRraeD3RXo0O03NSc4WDZqdC2IyoXDsnc4d4+HecZMYOk2KIK8gD0KsfFUyBwKNKOkmcz4Dnruk31f4H8pirFhuqjTaaNtRWn0/BFLa4hy3D8Ye8SP9thif5j7e5X2jXTQZAa8g4Zet8SHOSJWreJQddfH4WuqcKKEyyZH4jUe7A3qxiSIa8bHkgU9f9LNo7gXPB37cS8qLdw+zGohE4+olN23PY8WgBIwMrd60aPjEW4zFrz7avNar+AmySoOloVpVkpesF3eCToBjkDvCHlde8MI6sBM9qlC6Y3iSZ/ZrJoD14rFOiXgCsbVr7mF9rRgyeW3JdIhup3Dn9mR73OQaifqbqsEMCdlY/Au2efPt9VoUti/Dl/gIs1LLmWBYGJmgXo5KNA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(376002)(366004)(39850400004)(956004)(478600001)(2906002)(83380400001)(5660300002)(2616005)(6486002)(53546011)(26005)(66556008)(66476007)(66946007)(16576012)(31696002)(36756003)(31686004)(4326008)(6916009)(38100700001)(8676002)(6666004)(8936002)(316002)(54906003)(16526019)(86362001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UzgxTFBkSWtCdnBvOGVma0tGKzFKZkw1TVlUSmtmSjF3dFJDRGhCVEYvSTZy?=
- =?utf-8?B?WVR0LzMyY2syL0wrS25aLzZzQ2V4Yk5OWHNNTksyNHZnOFZIR0ppTG9Mc1h3?=
- =?utf-8?B?aEg4dnVXVGNORXpGSktVMkFmQXJUaVdwVnBMOWdhSUlURXh3K2dZbm1DSkNl?=
- =?utf-8?B?WFVRQjh4RkIzWFJjaEkrbDRwZHh4MlJLaVR4czlieE9IUm9Fazl2MlFndUJq?=
- =?utf-8?B?OUhRV2s5RHM5WndaVUhITmtzdzhURUYwMGtrbGYvOFFCNWVsbnB6dHl2K0pF?=
- =?utf-8?B?QWdBNXdSRFFaVzMrR1krKzV5Q3JzMmk0ZEpLZTI0Yy9BMEVhNUwvaE4wZkZN?=
- =?utf-8?B?UjNrcENHMGJReDM0ek5hQTJ2TFhKREtSUmtUQ1pGMWg2V2dJa1FoY1ZEdXgx?=
- =?utf-8?B?S0hwdTBXM2xZdWhyODV1Y3l6YjVEb0p6NGJicE1pcU1BU1NJZ04wN0FQWWVO?=
- =?utf-8?B?aEZKUm9HdkRIRHpMMnBJYXdGZDhtUzJLNk4vcEpQV2p5MUhTd1hyQlJTWGsr?=
- =?utf-8?B?cy9FZ0p4TW5ObFc4eCtiYnpLNFgwZGF3cEw5L1cwRmlZU3cvaEFTNDVyYkFs?=
- =?utf-8?B?REJ0dGxHb1gyRXhudWhGR1NON2VqN0kzQk1UYk52VzlzNXJkVzUvY2dhWnJE?=
- =?utf-8?B?b1RMcmE2SVVuZVdQUFh3dGxpVXV2VlZYSS9rRm44ZE45S3RhNlVITEZrM3hs?=
- =?utf-8?B?Q09PZDVFNW1tVjNXb252QmVSRjJramZyMjBaMjRMMm9XYlg0YzFEMlhIODJJ?=
- =?utf-8?B?bksrOU9TRUNEcTlReWdRUGFKSFN1TkVZWWJBT3BLUHlaSUhRd2hJZnBnc1hm?=
- =?utf-8?B?aXV1TTlVTmFzTUNJa1JYWkFWOXByN3dmY1FZcmUwUjZmaWRKc3NuWkJaeHZV?=
- =?utf-8?B?NDBuaElZOGJaazRKMzN1WDZxelJocTF6d3dJVUdBN2dITHI1VDhOemdGbGt6?=
- =?utf-8?B?MVdiM25tMU83MGNzOVJBRkJzWFlzVjlKdXZWMHZ5bXBSSlFSNVJBTzhGVUNS?=
- =?utf-8?B?eXBxM1dPQkdTUVBFaU1NdzJDSFl3eG1OTFMxNnJ0QkVKa2RZM0hMekd2Y3dM?=
- =?utf-8?B?eFRxQzBQRTJUMVFLeUNWVDA1TXM0VFZ3REhVSTNQSTgycFplVXl4OHFjR3gr?=
- =?utf-8?B?eFZucWVJakJKVzFZTGRHcytpRFpmQTZyU1ByVDhPWE1uUldUbVNmMkIyN1BP?=
- =?utf-8?B?Ti9hL0lEaCtWbDl4NnZLeGc1Y3dJVStWZUhiV1VFWjNKSE90T1gwaGlOTmRx?=
- =?utf-8?B?SFZsQVYxaCt3anBERzF1bFhKMDdHUzVmVmZTQ2YrSWhGUjQ1dVlYZVFVSUhS?=
- =?utf-8?B?ZlJCY3p4UzFjdWVyb2QzdnFWZkRKRVdFcjNPdUpnREZwM1dCSlVkZ1hJK1po?=
- =?utf-8?B?TiswYTl2YzdWbnBCdzJTa1oyN1VXSFNLd1diOThoWjN4UlJzVEVOQUtPdi9n?=
- =?utf-8?B?aXVVTFJNcU16Syt4MXRuN3BKMTBzV1ZIeXB0MjVFc2VaNXF2Ny9FMnp1c1dx?=
- =?utf-8?B?RW5EeVJXV2JvWDAyTXd1dEN6WUdxdi9ubyt6cjQzRUcvU0I3YjJwZUZHZ1pO?=
- =?utf-8?B?aUZieTFDK0RzVDh6Z014eTl1a3phUWVIOVNhYmZERUFjcXdiR1I0VFlSd3pE?=
- =?utf-8?B?VFVpeC9yRUhIdnRSUy9MRCtrNlh1RUowODlsRVVoUzVmQlZ1TjhxSEpaOTJX?=
- =?utf-8?B?bDRaZmJqb2h1ZHZLYWNYQWxrTXBmRUF3aUtocEx0cFBSOGU2L0cydDg5L1pB?=
- =?utf-8?Q?PvSEnZJ2iT+6OOXA3MUIw+V08+/FSZGgnK9fpnR?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5727a4fe-fa28-4951-c190-08d8f9b686b7
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2021 11:16:01.5896
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wtulnwS2xg0GjhjHD1N9tbCNZMviPiRGJbQs52jdppZ12cIjR5IvD+tTHdhGh2nHgkOm5mZQBWalqmQJyrmiuSK69TnDQlV+KqKQEYhj6G0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR03MB2132
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210406105105.10141-1-luca.fancellu@arm.com>
 
-On 06/04/2021 22:24, Stefano Stabellini wrote:
-> On Tue, 6 Apr 2021, Andrew Cooper wrote:
->> On 06/04/2021 11:36, Luca Fancellu wrote:
->>> This serie introduce doxygen in the sphinx html docs generation.
->>> One benefit is to keep most of the documentation in the source
->>> files of xen so that it's more maintainable, on the other hand
->>> there are some limitation of doxygen that must be addressed
->>> modifying the current codebase (for example doxygen can't parse
->>> anonymous structure/union).
->>>
->>> To reproduce the documentation xen must be compiled because
->>> most of the headers are generated on compilation time from
->>> the makefiles.
->>>
->>> Here follows the steps to generate the sphinx html docs, some
->>> package may be required on your machine, everything is suggested
->>> by the autoconf script.
->>> Here I'm building the arm64 docs (the only introduced for now by
->>> this serie):
->>>
->>> ./configure
->>> make -C xen XEN_TARGET_ARCH="arm64" CROSS_COMPILE="aarch64-linux-gnu-" menuconfig
->>> make -C xen XEN_TARGET_ARCH="arm64" CROSS_COMPILE="aarch64-linux-gnu-"
->>> make -C docs XEN_TARGET_ARCH="arm64" sphinx-html
->>>
->>> now in docs/sphinx/html/ we have the generated docs starting
->>> from the index.html page.
->> Do you have a sample rendered output?
->>
->> The plan was to try and use Linux's kernel-doc plugin for Sphinx, which
->> is very doxygen-like.  Did you experiment with this option?
-> As you probably know the end goal for Luca (and the Xen FuSa SIG as a
-> whole) is to generate all FuSa documents, including requirements docs,
-> interface docs, etc.
->
-> FuSa requires us to follow the famous V model, where the high level
-> requirements are linked to the lower level requirements, which are
-> linked to the interface docs, which are linked all the way down to the
-> code.
->
-> Maintaining the linking is difficult and typically done with expensive
-> proprietary FuSa tools.
->
-> Fortunately, an engineer working with the Zephyr project developed a set
-> of scripts for Doxygen that are able to generate the required FuSa docs
-> and also links from in-code comments and markdown/rst docs in the tree.
->
-> This is great work, and in the FuSa SIG we thought it would be best to
-> align ourselves with Zephyr to be able to pull our efforts together on
-> the tooling side instead of doing the same thing again on our own.
->
-> This is the reason why we ended up with Doxygen.
+On Tue, Apr 06, 2021 at 11:51:04AM +0100, Luca Fancellu wrote:
+> Unmask operation must be called with interrupt disabled,
+> on preempt_rt spin_lock_irqsave/spin_unlock_irqrestore
+> don't disable/enable interrupts, so use raw_* implementation
+> and change lock variable in struct irq_info from spinlock_t
+> to raw_spinlock_t
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 25da4618af24 ("xen/events: don't unmask an event channel
+> when an eoi is pending")
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-So are we're saying that Doxygen is a hard dependency because there is
-an extension for Doxygen to generate other safety docs?
-
-~Andrew
+Reviewed-by: Wei Liu <wei.liu@kernel.org>
 
