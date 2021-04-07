@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4CCD3574E8
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 21:25:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106905.204386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7C483575B9
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 22:15:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106916.204404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUDmN-0003cu-7i; Wed, 07 Apr 2021 19:23:55 +0000
+	id 1lUEZq-0008BO-3X; Wed, 07 Apr 2021 20:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106905.204386; Wed, 07 Apr 2021 19:23:55 +0000
+Received: by outflank-mailman (output) from mailman id 106916.204404; Wed, 07 Apr 2021 20:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUDmN-0003c4-4O; Wed, 07 Apr 2021 19:23:55 +0000
-Received: by outflank-mailman (input) for mailman id 106905;
- Wed, 07 Apr 2021 19:23:53 +0000
+	id 1lUEZq-0008Az-0F; Wed, 07 Apr 2021 20:15:02 +0000
+Received: by outflank-mailman (input) for mailman id 106916;
+ Wed, 07 Apr 2021 20:15:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qzdh=JE=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1lUDmK-0003bz-V9
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 19:23:53 +0000
-Received: from mail-ot1-x32d.google.com (unknown [2607:f8b0:4864:20::32d])
+ id 1lUEZp-0008Au-5J
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 20:15:01 +0000
+Received: from mail-ot1-x335.google.com (unknown [2607:f8b0:4864:20::335])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 85e5cd0c-e185-4c84-8cce-a56787d58571;
- Wed, 07 Apr 2021 19:23:51 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 68-20020a9d0f4a0000b02901b663e6258dso19119298ott.13
- for <xen-devel@lists.xenproject.org>; Wed, 07 Apr 2021 12:23:51 -0700 (PDT)
+ id 1b802661-70ee-45f4-8610-72a3455779bb;
+ Wed, 07 Apr 2021 20:15:00 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ s16-20020a0568301490b02901b83efc84a0so24963otq.10
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Apr 2021 13:15:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,103 +38,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85e5cd0c-e185-4c84-8cce-a56787d58571
+X-Inumbo-ID: 1b802661-70ee-45f4-8610-72a3455779bb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ZG8dNjLgKHWguic5fRmPLrhHTwWgDNYwLC7kfPBPkDI=;
-        b=uRA8vlrBqhimzm4AvdK5rzuVd78FrvAHsLGGcPwvLe+6BbDxYbI76k2CF2ql/eYA5i
-         EF+0YzHDNERym6dJOYhPUYSmjhEqi8E/kE9HOsgy0kJY8SXK6qrLHpkHkdAjp655MvRP
-         057fpvyJMvjGNu8Hvf8Wq7WYdbTltHeuyga0rDawAYZAOx5C+QYwUM6VraJpuXduykxQ
-         kcI9M9QLsRImqHWAUfVYpdNcRFDy4gIcouygL2v4hhnVz5yuTGy906rrj4cQWLXmOX2/
-         t5QgTC+SikxW737T25r2AoY+lngmpOkYLfbVWwYOu1Wirw07v3zAOEYUHKwaBKdKj7w+
-         46Pw==
+         :cc:content-transfer-encoding;
+        bh=5uG9lxYhHgyiHF740meal13Prr1RWoX7mzKdVlWs8qA=;
+        b=V38X0u7hBiNQS6V98F3Advke2RVTgNjoGEEWkd6AtfmjbMPIxmloAjtEWilJrdfY3M
+         6HrcDrWFaarELKd767OPpIs9F/wO2tac6dFT3wKS8s2KPYOK7LKhGMo7HvPd8fSD1ymN
+         g06j8NxSVxay7Dcxa/ypwTe2eRSEEBV6vv8nLbSzQetDwRA8nvyp7xdn3OQbQ9BAURyA
+         87zriKwb7IKSts0aQJO4IMSH8zR04DXJK3na5lTMu22tk0OwAPDNOkXLqW1cwH94+J/L
+         X0FbRzhIF/2DAghRUxMRCSI29kv8ZVG6a+80bGQOc4l7fPOHjFl72pGghKdYmuuf2VtV
+         t5LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ZG8dNjLgKHWguic5fRmPLrhHTwWgDNYwLC7kfPBPkDI=;
-        b=qRLTcf3x29gP9rlWiPZleySi8LuuN5Iq8QAbYcLFGTu8AFaY5ZYDrtfFGW2CGQW0fi
-         OmivV7fCDw4+O7S+fFxM4uUlFVvdNDomKev9qjFZgoRmwEccSFIvFJO4UofgbTKTDoYT
-         DILMszaFWxW5PIoZT0CBY+5BRoMJ8jmd3s3FEljir9VTZzKVVsK4TAxdhacVRZ4nkchW
-         eGLVRXvOB07EtSNKUGaNI6aD9PRhSyhK1HbIZ8iJbuDTfPKPsxLmzdkNnM+Bq5G782Zh
-         Jc9e8tIsf3KEmGSEp6o80XQKg9EEejUrFsXnzLeFprjSajnUQQhXv3tsr4ejutrPRwkg
-         eeEA==
-X-Gm-Message-State: AOAM531GkbehiO3M1y87XJG4uH5xspvQZ99oDEqrNe8UBykX00Ep10DB
-	P8nPCRw2SdwWw1+Zs5igtnKx2z25e4zky9CYo0g=
-X-Google-Smtp-Source: ABdhPJxV2iav5USRnUA98DQvn2RrK66SdOQbFIYLj7pIbSxhsQ7fFODDZ/W5E1uVSloe9tFsxjjUSNwcB9972B1j+4s=
-X-Received: by 2002:a9d:70ce:: with SMTP id w14mr4192391otj.183.1617823431203;
- Wed, 07 Apr 2021 12:23:51 -0700 (PDT)
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=5uG9lxYhHgyiHF740meal13Prr1RWoX7mzKdVlWs8qA=;
+        b=mohKKmm60HlBiSnR3vlghOX1Hr7oHPPh3qx+82uhXjbxSkwabVr/2n6gndYVOXgeS+
+         eUeLfrzpMukHohmi+8dEW2bYnt9lAx2Z0U/i9K1wAGpT9PNX1RTgJcvY4Gxa/2HmCRFZ
+         84wvNlMe/UJt5Y9hbNFuL9lu4QEoSrwThxk0mWo8ZLYdyBRKZ+VbA+eS37Fihv2CrCkM
+         rqiOV6SOx8VFCuLlfSwgZyKKSMxRWf3s60ch7rUU/BlFDBvBOJj+MmWJliBprbUr9o17
+         9RavenVPZHS0T6V+bRs5oWLnuucXTn7Io7ZPneSyfBxHa5Mb31HEBY9UHEWQlfIQdZqW
+         1xZg==
+X-Gm-Message-State: AOAM531wEmVxaVy/mEAg49L7XNbr8Yu4m/KLfhMlnOEnyeUs1/ZvlWhE
+	ic7uGGBxQUT3YG7tl0QrIQt/whvrBMhTdT6FjoM=
+X-Google-Smtp-Source: ABdhPJxZ0yYhLwO8KB+jIQ4QIRdiASWJe4pCAauWM4fRWBVdPkAhPu2OZ6M6xs7S3pmdwNck8bhLNEW6y3BVhDklaEw=
+X-Received: by 2002:a9d:70ce:: with SMTP id w14mr4355501otj.183.1617826499658;
+ Wed, 07 Apr 2021 13:14:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210316031814.10311-1-dpsmith@apertussolutions.com>
- <6314f50f-b4fc-e472-4c9a-3591e168d2c3@apertussolutions.com> <bd61f993-f719-ec87-638f-f53d6e983c3e@suse.com>
-In-Reply-To: <bd61f993-f719-ec87-638f-f53d6e983c3e@suse.com>
+ <20210316031814.10311-2-dpsmith@apertussolutions.com> <YFODOnQRAntdETY7@Air-de-Roger>
+ <CACMJ4GaWtSWAyqbgqDa-DuLy1bYCBx8E6PucxtGfVeiraAy5cA@mail.gmail.com>
+ <YFrxznV1kXeXsRCa@Air-de-Roger> <CACMJ4GZMNfbCjTKR5ngQBMwwAfUnSOptP+UJV8BcNqKAUy9Row@mail.gmail.com>
+ <YFxKjeGGTG5naH/I@Air-de-Roger> <FA42F3EC-AD7B-485A-9B50-8D8F8210C9F6@citrix.com>
+ <YFxcqCtnLe0UUVdy@Air-de-Roger> <alpine.DEB.2.21.2103250945390.439@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2103250945390.439@sstabellini-ThinkPad-T480s>
 From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Wed, 7 Apr 2021 12:23:39 -0700
-Message-ID: <CACMJ4GY1QpTYUYV5oG5zOfah_PzPq_-__K3-F3qUfzX95R3w8g@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Introducing hyperlaunch capability design (formerly:
- DomB mode of dom0less)
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+Date: Wed, 7 Apr 2021 13:14:48 -0700
+Message-ID: <CACMJ4GarYwAOpyeJhh2Udm-e0QXm_mrqsv=rpBDwyJAKSjZzrQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] docs/designs/launch: hyperlaunch design document
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <George.Dunlap@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>, 
 	Stefano Stabellini <stefano.stabellini@xilinx.com>, Julien Grall <jgrall@amazon.com>, 
-	Julien Grall <Julien.grall.oss@gmail.com>, iwj@xenproject.org, Wei Liu <wl@xen.org>, 
-	George Dunlap <george.dunlap@citrix.com>, Rich Persaud <persaur@gmail.com>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	luca.fancellu@arm.com, paul@xen.org, Adam Schwalm <adam.schwalm@starlab.io>, 
-	xen-devel <xen-devel@lists.xenproject.org>
+	Julien Grall <Julien.grall.oss@gmail.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+	Jan Beulich <jbeulich@suse.com>, Rich Persaud <persaur@gmail.com>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, "luca.fancellu@arm.com" <luca.fancellu@arm.com>, 
+	"paul@xen.org" <paul@xen.org>, Adam Schwalm <adam.schwalm@starlab.io>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 30, 2021 at 7:31 AM Jan Beulich <jbeulich@suse.com> wrote:
+On Thu, Mar 25, 2021 at 9:55 AM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+> On Thu, 25 Mar 2021, Roger Pau Monn=C3=A9 wrote:
+> > On Thu, Mar 25, 2021 at 10:14:31AM +0100, George Dunlap wrote:
+> > >
+> > > > On Mar 25, 2021, at 8:32 AM, Roger Pau Monne <roger.pau@citrix.com>=
+ wrote:
+> > > > On Wed, Mar 24, 2021 at 05:53:26AM -0700, Christopher Clark wrote:
+> > > >> On Wed, Mar 24, 2021 at 1:01 AM Roger Pau Monn=C3=A9 <roger.pau@ci=
+trix.com> wrote:
+> > > >>> On Tue, Mar 23, 2021 at 10:39:53AM -0700, Christopher Clark wrote=
+:
+> > > >>>> On Thu, Mar 18, 2021 at 9:43 AM Roger Pau Monn=C3=A9 <roger.pau@=
+citrix.com> wrote:
+> > > >>> If you offload domain creation of guests with
+> > > >>> pci-passthrough devices to a control domain and/or hardware domai=
+n,
+> > > >>> I'm not sure I see the difference from normal domain creation, ie=
+:
+> > > >>> it's no longer something specific to hyperlaunch, as I could achi=
+eve
+> > > >>> the same by using the existing xendomains init script.
+> > > >>
+> > > >> So that's not what we've proposed, and hopefully not what we'll ne=
+ed to do.
+> > > >>
+> > > >> Do you know if there is a need to perform work to support the
+> > > >> assignment of PCI devices at the point of domain creation (ie. in
+> > > >> domain_create), rather than handling it in a later step of domain
+> > > >> configuration, prior to the domain being started?
+> > > >
+> > > > So while I think you could indeed create a domain from the hypervis=
+or
+> > > > in a paused state and attach the pci devices later from a
+> > > > control/hardware domain, I don't see much benefit in doing it. If y=
+ou
+> > > > need to end up waiting for a control/hardware domain to attach the
+> > > > devices and unpause you might as well do the whole domain creation
+> > > > from such control/hardware domain.
+> > >
+> > > My understanding was that one of the primary advantages of domB was
+> > > that you could compile and run arbitrary code in whatever language
+> > > you wanted to, using already known tools.  If *all* we want to do is
+> > > to assign some pre-defined specific BDFs to specific domains, then
+> > > sure, we could add that capability to Xen.
+> >
+> > Well, it's not so easy because we require QEMU or pciback ATM on x86
+> > in order to do pci passthrough to guests, so assigning BDFs to
+> > specific domains from the hypervisor would need to be done using vPCI
+> > (which is not yet ready for unprivileged guest usage) and only support
+> > HVM kind of guests strictly.
+> >
+> > Doing passthrough to PV guests directly from the hypervisor is
+> > impossible AFAICT without putting pciback inside of the hypervisor.
+> >
+> > > But suppose you wanted
+> > > to have the flexibility to handle changes in hardware at boot time?
+> > > =E2=80=9CScan through the PCI bus and assign anything that looks like=
+ a
+> > > network card to domNet, and anything that looks like a USB
+> > > controller to domUSB=E2=80=9D is something you could easily do in dom=
+B, but
+> > > would be way too complicated to add to Xen.
+> >
+> > Right, but then you might as well create the domain from domB instead
+> > of doing it in the hypervisor?
+> >
+> > I'm not arguing about not using domB, I just don't see the benefit of
+> > creating a paused domain from the hypervisor that then requires the
+> > intervention of a further domain (domB) in order to finish creation.
+> > Won't it be simpler to just create the domain and attach the pci
+> > devices from domB?
 >
-> On 16.03.2021 04:56, Daniel P. Smith wrote:
-> > To assist in reading, please find attached rendered copies of the design
-> > docs. It should be noted that due to poor rendering by pandoc, we forced
-> > the tables to stay as ASCII tables in the patches whereas the attached
-> > docs have the tables rendered properly by rst2pdf.
+> I think that the ability of creating multiple VMs from Xen is actually a
+> very good one to have for a few reasons. It would align x86 with ARM, it
+> would be useful in cases where PCI passthrough is not involved, and it
+> is a powerful tool to have in our toolbox.
 >
-> In section 3.6 I found "As a result, on x86 the hyperlaunch capability does
-> not rely on nor preclude any specific BIOS boot protocol, i.e legacy BIOS
-> boot or UEFI boot. The only requirement is that the boot loader supports
-> the Multiboot2 (MB2) protocol." I'm afraid the two sentences contradict
-> one another, as UEFI on its own doesn't provide MB2 functionality. It is
-> my understanding that you don't require this anyway - what you need is a
-> way to load modules beyond just Dom0 kernel and an initrd.
+> I see that handling PCI passthrough at domain creation time can be
+> difficult, so I think Christopher's solution is a good compromise.
+>
+> FYI for dom0less/ARM we have been discussing doing device assignment at
+> creation time, but the idea was to provide the PCI topology in device
+> tree to Xen to help with discovery.
 
-Thanks - we'll amend the doc. Given the already sizeable scope of the
-project, our current approach for host UEFI is to recommend use of
-GRUB.efi to load Xen and the initial domains via the multiboot2 method.
+a quick note:
 
-> I'm also struggling to see how you mean to associate the (MB2) modules
-> passed to Xen with the individual functions. I.e. I don't see how it will
-> be ensure that the embedded mb-index is in sync with the order or modules
-> actually supplied.
+- thanks for all the feedback and questions in this thread, which we
+will cover in the next version of the design document
 
-To make sure I'm following the concern raised here, my understanding is:
+- we have made available the code developed for our prototype, first
+development milestone:
+https://github.com/apertussolutions/xen-hyperlaunch/tree/hyperlaunch-protot=
+ype-lcm
 
-- the multiboot module list is ordered and stable, so that the order
-  that the bootloader provides the modules in is the same order in which
-  Xen receives them, in the multiboot data structure, so the modules can
-  be referenced by an index into that list
-
-- for a given Launch Control Module file (expressed in a Device Tree, as
-  described in our second design document), the provided multiboot
-  modules will need to match, both in type (kernel, ramdisk, microcode,
-  xsm policy) and order
-
-- we think that at some point the LCM will end up being dynamically
-  generated by an enlightened bootloader, assembling it from the
-  bootloader config file, which will list the modules and their types
-
-> As to modules - iirc there are placement restrictions by at least some
-> boot loaders (below 4Gb). If that's correct, do you have any thoughts
-> towards dealing with the limited space available to hold these modules?
-> I've seem systems with lots of memory, but with as little as just 1Gb
-> below the 4Gb boundary.
-
-At this point, I don't think that we'll break anything that currently
-works, and that hardware or platform limitations can always constrain
-what is deployable.
+- we look forward to discussion on the Community Call tomorrow
 
 Christopher
 
