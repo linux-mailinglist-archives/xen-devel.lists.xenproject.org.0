@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB219356FBF
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 17:04:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106751.204111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB0B235700C
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 17:19:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106757.204126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU9ij-0003XZ-Fn; Wed, 07 Apr 2021 15:03:53 +0000
+	id 1lU9xW-0004ZV-Rt; Wed, 07 Apr 2021 15:19:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106751.204111; Wed, 07 Apr 2021 15:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 106757.204126; Wed, 07 Apr 2021 15:19:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU9ij-0003XA-CE; Wed, 07 Apr 2021 15:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 106751;
- Wed, 07 Apr 2021 15:03:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L9xm=JE=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lU9ih-0003X5-ST
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 15:03:51 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c42e1a3-a204-4685-b51e-da852e24e71e;
- Wed, 07 Apr 2021 15:03:51 +0000 (UTC)
+	id 1lU9xW-0004Z6-OS; Wed, 07 Apr 2021 15:19:10 +0000
+Received: by outflank-mailman (input) for mailman id 106757;
+ Wed, 07 Apr 2021 15:19:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fjXx=JE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lU9xV-0004Z1-Ev
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 15:19:09 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 087ffc5a-fb8d-4dda-b637-5da2f28a23cb;
+ Wed, 07 Apr 2021 15:19:08 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 54740B166;
+ Wed,  7 Apr 2021 15:19:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,67 +39,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c42e1a3-a204-4685-b51e-da852e24e71e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1617807831;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dCcL9tZYdKA331q4Nw5XFfidGGKXo1yPU3a7vQpENx8=;
-  b=TCSr5wLlQEMETFoUJsxUxGQBLjlzX54UfyXVIg/GlWuMMraP7o2yvrpO
-   9woG7Pa/OCl5rgOxqtJQKzkhVbdxqD7ojo8NGwudkHSs6rGZGlZWNqEmr
-   A3lgs8oIyq00GzvvOcsHleLf287rSRoRGr0yWXqKJL4VK80sCBE6PPnmx
-   w=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: JcQOxFw4MmKPgtigDh26hoXUhDov/kliljCizXGag/AHX/T7E7ZfgBqK9YrFvqRy8hh9CIF8eX
- H0Vh5lUsEx+Ypo/5mmmWDuSfSrd1VWk/xJpXr5Wq+aAV5kkzjo9wJNAGvvictWjhW2ChSA5yCb
- jOefKMhiOFa1KTdK6Sg1fMKKpuOMkOcvRWg9ydq3AFz3BHsMJKHD7Jcl1UtGp77fUS0A69HKoQ
- fOHtqF9t3+ii4tMK3zn9AthlzF/h2zFj0RINSAcTcVZi3H9mBWseNf8+YFJJMMg9ie4prbS0DX
- CCo=
-X-SBRS: 5.1
-X-MesageID: 42544777
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:qqPDYqBGaBULchHlHekz55DYdL4zR+YMi2QD/WoZc3JoW+afkN
- 2jm+le+B/vkTAKWGwhn9foAtjlfVr385lp7Y4NeYqzRQWOghrMEKhO5ZbvqgeMJwTQ7ehYvJ
- 0NT4FfD5nKAUF+nYLG5mCDYrEd6f2m1IztuuvE1XdqSmhRGsNdxiN0EBySHEEzZCQuP/oEPa
- GR7MZGuDasEE5/Bq/QOlA/U+fOvNHNnp79CCR2ZCIP0wWSkSiurIfzDhnw5GZ5bxp03bwg/W
- LZ+jaZ2oyftZiApSPh6w==
-X-IronPort-AV: E=Sophos;i="5.82,203,1613451600"; 
-   d="scan'208";a="42544777"
-Date: Wed, 7 Apr 2021 16:03:46 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Olaf Hering <olaf@aepfle.de>
-CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
- Liu <wl@xen.org>
-Subject: Re: [XEN PATCH for-4.15] libxl: Replace deprecated QMP command by
- "query-cpus-fast"
-Message-ID: <YG3J0rRCCG0JotRq@perard>
-References: <20210322141744.522041-1-anthony.perard@citrix.com>
- <20210401162454.78fb0290.olaf@aepfle.de>
+X-Inumbo-ID: 087ffc5a-fb8d-4dda-b637-5da2f28a23cb
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1617808747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=smC/S1KIKYAb/PZDexjTRT4X2DWdjUvdDeqpVkTO6kI=;
+	b=fViEUPZbM6QgII2QIOfrEogKaUJ49q5AiFD80Y+ewT7u7SqB46Ye/n7EjQYVy1SjPM6Y1X
+	QoMpxsicaIqRAN1FwEqNLf2Y1rmf+iJY/GRieJIAb3hYJvStVDRMRB2xANU9CNzwzUkZvx
+	BGy71IhFNyOJ79pr8+qEZs1FBvQBxmQ=
+Subject: Re: [PATCH v3 05/11] x86/vioapic: switch to use the EOI callback
+ mechanism
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210331103303.79705-1-roger.pau@citrix.com>
+ <20210331103303.79705-6-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f8d9c37f-8896-36af-712a-ac0765567409@suse.com>
+Date: Wed, 7 Apr 2021 17:19:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210401162454.78fb0290.olaf@aepfle.de>
+In-Reply-To: <20210331103303.79705-6-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 01, 2021 at 04:24:54PM +0200, Olaf Hering wrote:
-> Am Mon, 22 Mar 2021 14:17:44 +0000
-> schrieb Anthony PERARD <anthony.perard@citrix.com>:
-> 
-> > We use the deprecated QMP command "query-cpus"
-> 
-> There is also the already removed "cpu-add" command used, which apparently has to be replaced by "device_add".
-> 
-> Do you happen to have a fix for this as well?
->
-> Another thread suggests that more deprecated commands are used. I think they have to be adjusted as well, ideally before they finally disappear from upstream qemu.
+On 31.03.2021 12:32, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/hvm/vioapic.c
+> +++ b/xen/arch/x86/hvm/vioapic.c
+> @@ -394,6 +394,50 @@ static const struct hvm_mmio_ops vioapic_mmio_ops = {
+>      .write = vioapic_write
+>  };
+>  
+> +static void eoi_callback(unsigned int vector, void *data)
+> +{
+> +    struct domain *d = current->domain;
+> +    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+> +    unsigned int i;
+> +
+> +    ASSERT(has_vioapic(d));
 
-I'm working on a fix for cpu hotplug and other deprecated/removed
-things, I'll try to propose the patches upstream soon after the release
-of Xen.
+On the same grounds on which you dropped checks from hvm_dpci_msi_eoi()
+in the previous patch you could imo now drop this assertion.
 
-Thanks,
+> @@ -621,7 +624,43 @@ static int ioapic_load(struct domain *d, hvm_domain_context_t *h)
+>           d->arch.hvm.nr_vioapics != 1 )
+>          return -EOPNOTSUPP;
+>  
+> -    return hvm_load_entry(IOAPIC, h, &s->domU);
+> +    rc = hvm_load_entry(IOAPIC, h, &s->domU);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    for ( i = 0; i < ARRAY_SIZE(s->domU.redirtbl); i++ )
+> +    {
+> +        const union vioapic_redir_entry *ent = &s->domU.redirtbl[i];
+> +        unsigned int vector = ent->fields.vector;
+> +        unsigned int delivery_mode = ent->fields.delivery_mode;
+> +        struct vcpu *v;
+> +
+> +        /*
+> +         * Add a callback for each possible vector injected by a redirection
+> +         * entry.
+> +         */
+> +        if ( vector < 16 || !ent->fields.remote_irr ||
+> +             (delivery_mode != dest_LowestPrio && delivery_mode != dest_Fixed) )
+> +            continue;
+> +
+> +        for_each_vcpu ( d, v )
+> +        {
+> +            struct vlapic *vlapic = vcpu_vlapic(v);
+> +
+> +            /*
+> +             * NB: if the vlapic registers were restored before the vio-apic
+> +             * ones we could test whether the vector is set in the vlapic IRR
+> +             * or ISR registers before unconditionally setting the callback.
+> +             * This is harmless as eoi_callback is capable of dealing with
+> +             * spurious callbacks.
+> +             */
+> +            if ( vlapic_match_dest(vlapic, NULL, 0, ent->fields.dest_id,
+> +                                   ent->fields.dest_mode) )
+> +                vlapic_set_callback(vlapic, vector, eoi_callback, NULL);
 
--- 
-Anthony PERARD
+eoi_callback()'s behavior is only one of the aspects to consider here.
+The other is vlapic_set_callback()'s complaining if it finds a
+callback already set. What guarantees that a mistakenly set callback
+here won't get in conflict with some future use of the same vector by
+the guest?
+
+And btw - like in the earlier patch you could again pass d instead of
+NULL here, avoiding the need to establish it from current in the
+callback.
+
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -192,7 +192,13 @@ void vlapic_set_irq_callback(struct vlapic *vlapic, uint8_t vec, uint8_t trig,
+>  
+>      if ( hvm_funcs.update_eoi_exit_bitmap )
+>          alternative_vcall(hvm_funcs.update_eoi_exit_bitmap, target, vec,
+> -                          trig || callback);
+> +                          /*
+> +                           * NB: need to explicitly convert to boolean to avoid
+> +                           * truncation wrongly result in false begin reported
+> +                           * for example when the pointer sits on a page
+> +                           * boundary.
+> +                           */
+> +                          !!callback);
+
+I've had quite a bit of difficulty with the comment. Once I realized
+that you likely mean "being" instead of "begin" it got a bit better.
+I'd like to suggest also s/result/resulting/, a comma after "reported",
+and maybe then s/being reported/getting passed/.
+
+As to explicitly converting to bool, wouldn't a cast to bool do? That's
+more explicitly an "explicit conversion" than using !!.
+
+Jan
 
