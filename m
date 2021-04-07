@@ -2,31 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3677B3565D4
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 09:55:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.106450.203558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835393565F1
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Apr 2021 10:01:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.106457.203569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU31T-0002MK-BI; Wed, 07 Apr 2021 07:54:47 +0000
+	id 1lU380-0003qK-7e; Wed, 07 Apr 2021 08:01:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 106450.203558; Wed, 07 Apr 2021 07:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 106457.203569; Wed, 07 Apr 2021 08:01:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lU31T-0002Lv-7Z; Wed, 07 Apr 2021 07:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 106450;
- Wed, 07 Apr 2021 07:54:45 +0000
+	id 1lU380-0003pv-4T; Wed, 07 Apr 2021 08:01:32 +0000
+Received: by outflank-mailman (input) for mailman id 106457;
+ Wed, 07 Apr 2021 08:01:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fjXx=JE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lU31R-0002Lq-6I
- for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 07:54:45 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0af082a5-4b7c-48b6-bf0b-c729fe319e15;
- Wed, 07 Apr 2021 07:54:44 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5BF30AF39;
- Wed,  7 Apr 2021 07:54:43 +0000 (UTC)
+ (envelope-from <SRS0=dICN=JE=redhat.com=lersek@srs-us1.protection.inumbo.net>)
+ id 1lU37z-0003pq-By
+ for xen-devel@lists.xenproject.org; Wed, 07 Apr 2021 08:01:31 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 437b472c-6800-4fed-a64e-c7c27dc18db2;
+ Wed, 07 Apr 2021 08:01:30 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-184-5ZccmnLQO5CYOnHN6o16WQ-1; Wed, 07 Apr 2021 04:01:25 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7782C18BA280;
+ Wed,  7 Apr 2021 08:01:24 +0000 (UTC)
+Received: from lacos-laptop-7.usersys.redhat.com (ovpn-112-38.ams2.redhat.com
+ [10.36.112.38])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 158AF5D741;
+ Wed,  7 Apr 2021 08:01:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,83 +48,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0af082a5-4b7c-48b6-bf0b-c729fe319e15
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617782083; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 437b472c-6800-4fed-a64e-c7c27dc18db2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1617782490;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=trqA/CX1H2/rPui5/OkyYkNberezRL+pK08vzT5qvKM=;
-	b=URorqoJSrfEAww9xnNhy9OcPYhXkg1Ep4KJL86SvKOHM6JqNbdxL7DbaKmBG227tGEzyqE
-	MeCU/Rrzs/nhEji39fMgMUreobWZ4uVJlHyPjWeTMPW3xNj4gvTrU0gjly70V5gcrLK7Cm
-	euow5NvC/C8+rxrodApVc8T++xjLuVs=
-Subject: Re: [PATCH 5/5] x86: don't build unused entry code when !PV32
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <46d83c92-0b06-fc09-4832-7a7d7935d5c2@suse.com>
- <d417d3f9-3278-ed08-1ff6-45a13b5e3757@suse.com>
- <eea7162f-bbf8-bce9-b989-2a44fe10fa99@citrix.com>
- <ba34f9cf-0815-9671-a59d-04f16397ad90@suse.com>
- <e34f599a-689c-6116-989f-407789e004f9@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <cda3a94e-33f6-8c38-2dde-795cef3fbc83@suse.com>
-Date: Wed, 7 Apr 2021 09:54:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+	bh=gANcOduiS5qwqHjaF+KRPhsM0SyVb9ZQmC/3XolK80E=;
+	b=DnEw01bNNMzBQmVk5pSzDraODW4nKzbQOY/6x6oTejBg8JxaMkoi9Paj3vJ+PBNLhWoyQW
+	dqm2CcFEHyVLEzo/FEle/eVAHN4z2gHEGPJDqHcwbnJWa8TAd8z30f7/oDQ+k9H3X7MXVd
+	dcRMY4ZyxatXitfh2VIsp3+5T6NvXYs=
+X-MC-Unique: 5ZccmnLQO5CYOnHN6o16WQ-1
+Subject: Re: [edk2-devel] [PATCH v2 4/7] OvmfPkg/IndustryStandard: Introduce
+ PageTable.h
+To: devel@edk2.groups.io, thomas.lendacky@amd.com,
+ Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jordan Justen
+ <jordan.l.justen@intel.com>, Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+ Julien Grall <julien@xen.org>, Brijesh Singh <brijesh.singh@amd.com>
+References: <20210325154713.670104-1-anthony.perard@citrix.com>
+ <20210325154713.670104-5-anthony.perard@citrix.com>
+ <90eb3caa-2116-e665-7dde-3fc7198409f2@amd.com>
+From: Laszlo Ersek <lersek@redhat.com>
+Message-ID: <fe267622-7c98-c1dd-6c37-49d17b4b0433@redhat.com>
+Date: Wed, 7 Apr 2021 10:01:21 +0200
 MIME-Version: 1.0
-In-Reply-To: <e34f599a-689c-6116-989f-407789e004f9@citrix.com>
+In-Reply-To: <90eb3caa-2116-e665-7dde-3fc7198409f2@amd.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.04.2021 19:34, Andrew Cooper wrote:
-> On 01/04/2021 15:37, Jan Beulich wrote:
->> On 01.04.2021 16:31, Andrew Cooper wrote:
->>> On 25/11/2020 08:51, Jan Beulich wrote:
->>>> @@ -102,19 +102,21 @@ void __dummy__(void)
->>>>      BLANK();
->>>>  #endif
->>>>  
->>>> -#ifdef CONFIG_PV
->>>> +#ifdef CONFIG_PV32
->>>>      OFFSET(DOMAIN_is_32bit_pv, struct domain, arch.pv.is_32bit);
->>> Even if PV32 is compiled out, the is_32bit field still exists, and is
->>> still necessary for crash analysis.  XCA parses this offset information
->>> as part of dissecting /proc/vmcore.
->>>
->>> It's one single bool in a fixed size allocation which we've got plenty
->>> of room in.  It can and should stay to avoid impacting the existing
->>> diagnostic tools.
->> I'm afraid I don't understand at all: I'm not removing the field.
+On 03/26/21 15:16, Lendacky, Thomas wrote:
+> On 3/25/21 10:47 AM, Anthony PERARD wrote:
+>> We are going to use the page table structure in yet another place,
+>> collect the types and macro that can be used from another module
+>> rather that making yet another copy.
+>>
+>> Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2490
+>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 > 
-> You talked about removing it in the commit message.
+> This begs the question of whether there should be only one version of this
+> header file, now. There are still copies in other places, but maybe that
+> can be a future cleanup? I'll leave that decision to Laszlo.
 
-Oh, in a post-commit message TBD remark, yes. Is your objection here
-then merely to this possible further plan of removing that field, but
-not against the changes in this patch?
+Optimally the header file (a single header file) would exist solely in
+MdePkg, but I'm OK with this patch too.
 
->> All I'm removing is the entry for it in asm-offsets.h.
 > 
-> Yes, and that will break XCA, which is used by several downstreams, not
-> just XenServer.
+> With one minor comment below, otherwise:
 > 
-> For RPM package reasons, you can't use debuginfo packages, because
-> what's on disk doesn't match what's in memory until you've rebooted. 
-> Livepatching adds an extra dimension of fun here.  There's not enough
-> space in the vmcoreinfo page to pass enough structure information, so
-> asm offsets is appended to the symbol table.  Yes its a gross hack, but
-> its how things currently work.
+> Acked-by: Tom Lendacky <thomas.lendacky@amd.com>
+> 
+>> ---
+>> CC: Tom Lendacky <thomas.lendacky@amd.com>
+>> CC: Brijesh Singh <brijesh.singh@amd.com>
+>> ---
+>>
+>> Notes:
+>>     v2:
+>>     - new patch
+>>
+>>  .../IndustryStandard/PageTable.h}             | 117 +-------------
+>>  .../BaseMemEncryptSevLib/X64/VirtualMemory.h  | 143 +-----------------
+>>  2 files changed, 5 insertions(+), 255 deletions(-)
+>>  copy OvmfPkg/{Library/BaseMemEncryptSevLib/X64/VirtualMemory.h => Include/IndustryStandard/PageTable.h} (60%)
+>>
+> 
+> ...
+> 
+>> diff --git a/OvmfPkg/Library/BaseMemEncryptSevLib/X64/VirtualMemory.h b/OvmfPkg/Library/BaseMemEncryptSevLib/X64/VirtualMemory.h
+>> index 996f94f07ebb..b621d811ca6f 100644
+>> --- a/OvmfPkg/Library/BaseMemEncryptSevLib/X64/VirtualMemory.h
+>> +++ b/OvmfPkg/Library/BaseMemEncryptSevLib/X64/VirtualMemory.h
+>> @@ -20,151 +20,10 @@
+>>  #include <Library/DebugLib.h>
+>>  #include <Library/MemoryAllocationLib.h>
+>>  #include <Uefi.h>
+>> +#include <IndustryStandard/PageTable.h>
+> 
+> Typically, these are preferred to be in sorted order.
 
-Would you mind pointing me at where this appending is happening? You
-can't mean the ELF symbol table in xen-syms - there's no entry for
-DOMAIN_is_32bit_pv there. Plus I don't see the problem here, as the
-asm-offsets entry already is conditional - it's merely the condition
-which gets changed. Or if you mean the is_32bit field - there's no
-representation there either in xen-syms (except, when enabled, in
-debug info).
+Exactly, thanks.
 
-Jan
+Laszlo
+
+> 
+> Thanks,
+> Tom
+> 
+>>  
+>>  #define SYS_CODE64_SEL 0x38
+>>  
+> 
+> 
+> -=-=-=-=-=-=-=-=-=-=-=-
+> Groups.io Links: You receive all messages sent to this group.
+> View/Reply Online (#73391): https://edk2.groups.io/g/devel/message/73391
+> Mute This Topic: https://groups.io/mt/81605804/1721875
+> Group Owner: devel+owner@edk2.groups.io
+> Unsubscribe: https://edk2.groups.io/g/devel/unsub [lersek@redhat.com]
+> -=-=-=-=-=-=-=-=-=-=-=-
+> 
+> 
+
 
