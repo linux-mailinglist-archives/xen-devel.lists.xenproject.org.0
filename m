@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCC80357C4E
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Apr 2021 08:18:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.107043.204605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826D8357C73
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Apr 2021 08:20:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.107047.204616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUNz2-0001QP-Jz; Thu, 08 Apr 2021 06:17:40 +0000
+	id 1lUO1a-0002GU-1V; Thu, 08 Apr 2021 06:20:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 107043.204605; Thu, 08 Apr 2021 06:17:40 +0000
+Received: by outflank-mailman (output) from mailman id 107047.204616; Thu, 08 Apr 2021 06:20:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUNz2-0001Q0-GK; Thu, 08 Apr 2021 06:17:40 +0000
-Received: by outflank-mailman (input) for mailman id 107043;
- Thu, 08 Apr 2021 06:17:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lUO1Z-0002G5-UU; Thu, 08 Apr 2021 06:20:17 +0000
+Received: by outflank-mailman (input) for mailman id 107047;
+ Thu, 08 Apr 2021 06:20:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=e/uL=JF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lUNz0-0001Pv-Dc
- for xen-devel@lists.xenproject.org; Thu, 08 Apr 2021 06:17:38 +0000
+ id 1lUO1Y-0002Fz-Uf
+ for xen-devel@lists.xenproject.org; Thu, 08 Apr 2021 06:20:16 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e70c1a65-c673-4fcf-b139-03a79cb099e5;
- Thu, 08 Apr 2021 06:17:37 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 20b1fd93-8af7-4eb6-ae70-d88b01b390c3;
+ Thu, 08 Apr 2021 06:20:16 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72FE5AFF5;
- Thu,  8 Apr 2021 06:17:36 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 673B8AE56;
+ Thu,  8 Apr 2021 06:20:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,54 +38,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e70c1a65-c673-4fcf-b139-03a79cb099e5
+X-Inumbo-ID: 20b1fd93-8af7-4eb6-ae70-d88b01b390c3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617862656; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1617862815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u6JothBE6sZgySqbyFqB3ODE8g4BwjXU76JRr4M0/oE=;
-	b=jEbRajOq5xO3WbLj3s8CWMPNBDJjJk6RDQn6eu8ETnzETRtoblcXaNSy6ru00W7NEHAZMj
-	MHTj7gjuZcpPtk8xWfkoyJsP/gipx0QF1R2AdiGQZjEEmglLiPz0KSretXd+8Bl9a44UAA
-	3HeWf3yMmbYqssbf7vUrs8SdP7WJKR4=
-Subject: Re: [PATCH] xen/gunzip: Fix build with clang after 33bc2a8495f7
-To: Julien Grall <julien@xen.org>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	bh=rwqytcB5B0WIPQt9yvtK6b25nB9sj1W53HWhXgDISW4=;
+	b=F6Vv6AI0DbNP68c5Lnwqh8DyYj3qN8xhMJ2UoePtukVKF3Or+ZnVtjfgSo97hczOZPAbvq
+	NYzdUDSaoAluRQWdMyXtZQLOJqIRdRNQDZzUH5Vt550Od3GdmJn/wCrPKRQ1uycDYRT188
+	6x1MbHblCq1qj6K8H1vkyEB3FX7qDiI=
+Subject: Re: [PATCH v3 03/11] x86/vlapic: introduce an EOI callback mechanism
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20210407182726.26603-1-julien@xen.org>
+References: <20210331103303.79705-1-roger.pau@citrix.com>
+ <20210331103303.79705-4-roger.pau@citrix.com>
+ <d18d9e3b-872f-b0cb-aebf-5e55d4433b75@suse.com>
+ <YG3djUEiAd9wqQvv@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <59afb632-f2c9-bf3d-ef97-bc9f5a95d0a6@suse.com>
-Date: Thu, 8 Apr 2021 08:17:36 +0200
+Message-ID: <e5a45339-a79a-a903-0599-86e14f493818@suse.com>
+Date: Thu, 8 Apr 2021 08:20:15 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <20210407182726.26603-1-julien@xen.org>
+In-Reply-To: <YG3djUEiAd9wqQvv@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.04.2021 20:27, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On 07.04.2021 18:27, Roger Pau Monné wrote:
+> On Wed, Apr 07, 2021 at 04:55:43PM +0200, Jan Beulich wrote:
+>> On 31.03.2021 12:32, Roger Pau Monne wrote:
+>>> Add a new vlapic_set_irq_callback helper in order to inject a vector
+>>> and set a callback to be executed when the guest performs the end of
+>>> interrupt acknowledgment.
+>>>
+>>> Such functionality will be used to migrate the current ad hoc handling
+>>> done in vlapic_handle_EOI for the vectors that require some logic to
+>>> be executed when the end of interrupt is performed.
+>>>
+>>> The setter of the callback will be in charge for setting the callback
+>>> again on resume. That is the reason why vlapic_set_callback is not a
+>>> static function.
+>>
+>> I'm struggling with your use of "resume" here: Resuming from S3
+>> doesn't require re-doing anything that's kept in memory, does it?
+>> So what meaning does the word have here?
 > 
-> The compilation will fail when building Xen with clang and
-> CONFIG_DEBUG=y:
+> Right, I can see the confusion. Resume here means a guest being
+> migrated or restored, not Xen itself being resumed. Callbacks are not
+> part of the exported guest state, and hence any emulated device that
+> requires a callback will have to register it as part of loading the
+> saved state.
 > 
-> make[4]: Leaving directory '/oss/xen/xen/common/libelf'
->   INIT_O  gunzip.init.o
-> Error: size of gunzip.o:.text is 0x00000019
-> 
-> This is because the function init_allocator() will not be inlined
-> and is not part of the init section.
-> 
-> Fix it by marking init_allocator() with INIT.
-> 
-> Fixes: 33bc2a8495f7 ("xen/gunzip: Allow perform_gunzip() to be called multiple times")
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>> Apart from this, and with the xzalloc_array() change requested
+>> by Andrew, this looks good to me.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+In which case with this change and "resume" replaced suitably in the
+description
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
