@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F3B358FD1
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 00:28:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.107558.205570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77D8359534
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 08:14:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.107608.205628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUd8j-0004iu-C3; Thu, 08 Apr 2021 22:28:41 +0000
+	id 1lUkNs-0003Nd-NI; Fri, 09 Apr 2021 06:12:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 107558.205570; Thu, 08 Apr 2021 22:28:41 +0000
+Received: by outflank-mailman (output) from mailman id 107608.205628; Fri, 09 Apr 2021 06:12:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUd8j-0004iV-8Y; Thu, 08 Apr 2021 22:28:41 +0000
-Received: by outflank-mailman (input) for mailman id 107558;
- Thu, 08 Apr 2021 22:28:40 +0000
+	id 1lUkNs-0003NL-I1; Fri, 09 Apr 2021 06:12:48 +0000
+Received: by outflank-mailman (input) for mailman id 107608;
+ Fri, 09 Apr 2021 06:09:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=94b1=JF=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1lUd8i-0004iQ-57
- for xen-devel@lists.xenproject.org; Thu, 08 Apr 2021 22:28:40 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ <SRS0=c7vn=JG=oracle.com=ankur.a.arora@srs-us1.protection.inumbo.net>)
+ id 1lUkKC-0002YL-P1
+ for xen-devel@lists.xenproject.org; Fri, 09 Apr 2021 06:09:01 +0000
+Received: from aserp2130.oracle.com (unknown [141.146.126.79])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f7508017-c9c9-4e8b-bdf2-67658635ad80;
- Thu, 08 Apr 2021 22:28:39 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 138MORjS113138;
- Thu, 8 Apr 2021 22:28:38 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 37rvagfgxv-1
+ id 8a9550ed-9d7a-4469-954a-90436a789e06;
+ Fri, 09 Apr 2021 06:08:59 +0000 (UTC)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13965A6N016603;
+ Fri, 9 Apr 2021 06:08:57 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2130.oracle.com with ESMTP id 37rvaw841e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 08 Apr 2021 22:28:38 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 138MPQZj114716;
- Thu, 8 Apr 2021 22:28:37 GMT
-Received: from nam02-sn1-obe.outbound.protection.outlook.com
- (mail-sn1nam02lp2050.outbound.protection.outlook.com [104.47.36.50])
- by userp3020.oracle.com with ESMTP id 37rvb1sevm-1
+ Fri, 09 Apr 2021 06:08:57 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13965Pe7046365;
+ Fri, 9 Apr 2021 06:08:56 GMT
+Received: from nam04-bn3-obe.outbound.protection.outlook.com
+ (mail-bn3nam04lp2051.outbound.protection.outlook.com [104.47.46.51])
+ by aserp3020.oracle.com with ESMTP id 37rvb67163-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 08 Apr 2021 22:28:37 +0000
-Received: from BYAPR10MB3288.namprd10.prod.outlook.com (2603:10b6:a03:156::21)
- by BYAPR10MB2535.namprd10.prod.outlook.com (2603:10b6:a02:ae::30)
+ Fri, 09 Apr 2021 06:08:56 +0000
+Received: from SJ0PR10MB4605.namprd10.prod.outlook.com (2603:10b6:a03:2d9::24)
+ by BY5PR10MB3780.namprd10.prod.outlook.com (2603:10b6:a03:1ff::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Thu, 8 Apr
- 2021 22:28:35 +0000
-Received: from BYAPR10MB3288.namprd10.prod.outlook.com
- ([fe80::f489:4e25:63e0:c721]) by BYAPR10MB3288.namprd10.prod.outlook.com
- ([fe80::f489:4e25:63e0:c721%7]) with mapi id 15.20.3999.032; Thu, 8 Apr 2021
- 22:28:35 +0000
-Received: from [10.74.101.36] (138.3.201.36) by
- SJ0PR03CA0144.namprd03.prod.outlook.com (2603:10b6:a03:33c::29) with
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.20; Fri, 9 Apr
+ 2021 06:08:54 +0000
+Received: from SJ0PR10MB4605.namprd10.prod.outlook.com
+ ([fe80::a021:790:7ce6:6f16]) by SJ0PR10MB4605.namprd10.prod.outlook.com
+ ([fe80::a021:790:7ce6:6f16%6]) with mapi id 15.20.4020.017; Fri, 9 Apr 2021
+ 06:08:54 +0000
+Received: from localhost.localdomain (70.36.60.91) by
+ MWHPR2001CA0008.namprd20.prod.outlook.com (2603:10b6:301:15::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17 via Frontend
- Transport; Thu, 8 Apr 2021 22:28:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.16 via Frontend
+ Transport; Fri, 9 Apr 2021 06:08:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,153 +64,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7508017-c9c9-4e8b-bdf2-67658635ad80
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=VYSnf9l1OC5O8EYLNRYIZUAWKQaSDVwJBLhdBC1FlwY=;
- b=ZMlPSRw26xZapslhAcdu7WtcORkNC6yJ/hsEHEyQdXDGIQiD3kMMWCDzZgd5d8T/4p4D
- MIsdp2CC6uLNpzzK1tgqtoqqvjSLMt0o5lI32fNnXeMr7nTiWeVSSX5/kIh66SP0aAso
- QwMfedk8CIuorQ39fXKOGyp5Y5eI0GmWCaW0YHtvdNHSOyz5eM0KE7FmbD+tT49iQQ6z
- w7DH9X+dohUo1/wPRJWzECdM4cSoPrqMDphZjeF+x9z2P9rMrtBXWxVazylVUZYo67pZ
- JQrYQqwWzwmdhltnZ1+exroZFYNT4FfqcG0H8T8X/xtFKe3r/lI/bb8vM+8kSKrBRyNv yw== 
+X-Inumbo-ID: 8a9550ed-9d7a-4469-954a-90436a789e06
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
+ subject : date : message-id : in-reply-to : references :
+ content-transfer-encoding : content-type : mime-version;
+ s=corp-2020-01-29; bh=QU+vUFAgfWQAcpiYJv8KvXXmhJ5GhVE0kd9+7VWGA84=;
+ b=IvBVVKxBldXaj+o+EsNaKuQ7F0FtrMRgqtvNQXWimfBEyPRRKDlFUY1gUTq3K7Uf5xWc
+ rGNCgGP085hJPWyxQhKP5KVEDwWdpSC0Rs4gGU57geJjUvPrFJWgSMp3oxUPLHesgpkx
+ JCbA2ecPBOvbMc/bP+1ac7/xTP0vAG/P1TKotvbjXGBcOxQu+6ZrLB5rj3nKuOJUwjj6
+ 62kFWuuc3SrY6WafM+KRRWD1cy/b+0Hg04UYSNBTnnKRS+UlIhno/+F9gVvtSmu8th5I
+ ttaHInpEsRB2fgvcv8kL9NqdIS0pjnD2hExRbmGvb2J937zmPgpkpChO0/qDZS8bR/Ws dw== 
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QErKCI/UTYIdNKZlyKMNGfNZZeFrSFByXm6WJ1ipit9J+e+Xv5lJTgoJsIMMFcIiJFVvBNseL6SabnkzeQMfT92XB478lWac61ORMnKzNriMGc5lHrQvGe6Fu9bINMa0Vc+Cq5HjZb/PiQLe2rqX9KdUVT4wyBjbB84Ncvq7vLrV4bJmZJ88DD7T8iQMkw1Yo33E+lM1AhdJmSwYOmdwfbGtdPO33xreDOiZwPaCZ5S3dwOKooUL48ARj7wqJC382q+9mfZRsRKzcu0dYtMNhPrVap2Ub6z1LHI3TwngjLHBiqFP5jcCzZMKhycgl42N1UYZVW554pgleBm39zYAdA==
+ b=SESaxICiWt4u3PcT+W2ccLPKa0Nu8hiPTlXD2c2Dv0DOFKrEFyf+0mlevwSf/2IP+QEwfQOqTNux0flj6BKQn5KvuuhGSglN2IRehZA2s2RTY8xaoCRTh95xc22RupZo+RrEFMOcrnq1GnOWqBE+s0FP5tNGXqA817VfONXlXbypBrR8QbMzk1XXIpTxt9LyKQBTJs1eyVAIYR7rYVMp2AsSKj/kjlBGaJ+4OFc29zLl2PIWTdlb4AaiEIiX/+Ij6rRJxURksW26PGJgcK9kEEIsEAQVTOJKLRxYt+r0a3N21vJb7ZVrI7ZdaSPna/OvdL4kge3rh4kjNCkZwS7nNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VYSnf9l1OC5O8EYLNRYIZUAWKQaSDVwJBLhdBC1FlwY=;
- b=fL+UUqyGGS3/pyCRiWLZgFLB52kUfi61Nv7cFVWGfEsQja4xu7zn0LFX5D3J1XcqLp6q4RaBlbHFmrFptf6Qf0n7EVVvnHzg4eJ8ne534FyUoeT/7q869qw5kMYaLtYVgBcq6Rl4Xx0FGp7hhShQxxQCSRszSIXXxm+PeM/TcGXYXQLYgsyf2s/W5S7ogQ5hPLBbnRnp/vDqioxVWv55BTlE2mnAguGwm8OFlXwR+K6XZRKgHr78SV8iSCGl+mIDX794RGzu8wVhvrnCGIU5q3yCV1aTy5XcDbSxFBlKxkE8Xhc0irmCdF4ZsL/HrMzl730pCi8cda/QN0q2JqyWzg==
+ bh=QU+vUFAgfWQAcpiYJv8KvXXmhJ5GhVE0kd9+7VWGA84=;
+ b=B8eyChHlh0onwzi/oB1/aQhntbRekYR7EwgGMwaM1bN6Fru+fTWDsmPv7PpiCzpHXJCartURA9gwYqZtbpRLTg4c3XoXqdYb0GqD5kGzYlHoLwxHT43wiF8i4hlFBCtes1xJj4FHsuHZiEm+WVUPZB57ln3nlZ+drGsKzpUL6CjbXoJngpJLaEpXbEpzrRTQRkS86L+VWsCTNCABmdUigWqAr9AHgWpBqsVwH/9b/IEA5PCNRWByfKD0LFt6BTv9FDOygKLlxRD0ZdtbhZ/BB/56bjvDzdjvzp8xmBlLrFPpasM5iLImA4Qh8A94ybFvZt46N10Zo41q/xE0HNKqyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VYSnf9l1OC5O8EYLNRYIZUAWKQaSDVwJBLhdBC1FlwY=;
- b=VQF1h2GO5le4EAU4EVYp0Cn5YKcpCmV3T3OlrC02zxLYVrKUCryjxssq1YH1kcGJ1dy/c9jVMkdKVgHUS+sX5CfhIcWKl3AfDiZrEZ6i+tv7x/1H7SYXKHdgRivkL/34AejmWB+dUtmfGWsw3dO8w2+8zy68GaPCh6RlXf+7Byk=
-Subject: Re: [PATCH 1/3] xen-pciback: redo VF placement in the virtual
- topology
-To: Jan Beulich <jbeulich@suse.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>, Konrad Wilk <konrad.wilk@oracle.com>
-References: <d2ac85d9-0ad1-71a3-fa3b-b99340b3204d@suse.com>
- <32d6a8d4-c06f-7fe0-1376-4b80fac8c6de@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <b41663ff-6a90-877d-9cd3-7e052c28eb6a@oracle.com>
-Date: Thu, 8 Apr 2021 18:28:31 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.0
-In-Reply-To: <32d6a8d4-c06f-7fe0-1376-4b80fac8c6de@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [138.3.201.36]
-X-ClientProxiedBy: SJ0PR03CA0144.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::29) To BYAPR10MB3288.namprd10.prod.outlook.com
- (2603:10b6:a03:156::21)
+ bh=QU+vUFAgfWQAcpiYJv8KvXXmhJ5GhVE0kd9+7VWGA84=;
+ b=CjgRdmZrib4kkJA5AwTSaE0RwbAzIEXwu4HOct61vQtAf89cfW8z7SywZFcK++i8FAQCjOnJ+z/4iWyxYDKE8EfzVLg3VKaWqJuGe5HiJ7tuxOFlTDuZrgMdXU2V8uFNKHA4cysD00gBB2yFcLrVlJvcXZRB1gMfSW0gdiEUXGo=
+Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=oracle.com;
+From: Ankur Arora <ankur.a.arora@oracle.com>
+To: jbeulich@suse.com
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+        xen-devel@lists.xenproject.org
+Subject: Re: x86: memset() / clear_page() / page scrubbing
+Date: Thu,  8 Apr 2021 23:08:45 -0700
+Message-Id: <20210409060845.3503745-1-ankur.a.arora@oracle.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <0753c049-9572-c12a-c74f-7e2fac3f5a24@suse.com>
+References: <0753c049-9572-c12a-c74f-7e2fac3f5a24@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [70.36.60.91]
+X-ClientProxiedBy: MWHPR2001CA0008.namprd20.prod.outlook.com
+ (2603:10b6:301:15::18) To SJ0PR10MB4605.namprd10.prod.outlook.com
+ (2603:10b6:a03:2d9::24)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69846650-4792-40db-e9f7-08d8fadda5fd
-X-MS-TrafficTypeDiagnostic: BYAPR10MB2535:
-X-MS-Exchange-Transport-Forked: True
+X-MS-Office365-Filtering-Correlation-Id: fa3d3a38-5219-48ce-df79-08d8fb1df41f
+X-MS-TrafficTypeDiagnostic: BY5PR10MB3780:
 X-Microsoft-Antispam-PRVS: 
-	<BYAPR10MB2535F1C29B8B2C67EEE2D7DC8A749@BYAPR10MB2535.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<BY5PR10MB3780C271D7FF9746F9035969CE739@BY5PR10MB3780.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	uCOfw1I1TSm21f/0lcT9KXev+XwX7zRtmzNPS/JOnuD/yEDEWb8iaDAe69pSxx2KeoFlTLbHcibul5kN9WHCoBPBZL+tiOYIxkVsoxALNCwVgshaExCP37cecTRh/+a1mm3HYciy4eYUOxvPauqI+2snsTUoGiU2AUdRRVFSXSm0E8K8V7XrXw0cJwp1atF34NaYXbF9UOisGYR8AXyHluJnx+nwjWDov7SlNoUfEuUAPc09VTsK4LUG8yzkTsLGuYk+95Tdtmzug52Qtrr8aKiSsP+1bJqhWVQ6e3BL1lv8/rCFqfn4YXDOFxjaDOXvraMPoxiR8oyX+6xAQjhZIBOrMtfCgrRX3dNKvfoTD0Uz9Vz7CU+z7CfiaVyvWUXhpSk2Nhj/Jel/YDFzpDDGkT58WR0avF2ZodWO5tOt/bmDLLB3ckWCZzLjlBrqQuvOm4SdI6W/Bs7f8C9fpjXTFVuZATzevxzuE6rWqFGBj/NAEEztaKRmvKRKEAU8Xo0chZadSm3QXuR33OpvEzuxq4WiZVJLuCRkn5+Y3T2i8MRcjrV6UvL/my1v5NrvGYldRVYzeN4YaZbuLZxAz7zrM19l5/lbZFXTn2y3E2KIrCtZOJysqNaVzyr5Drat2qQnJ5Wc7F830rJVAgZG8KDTE3M+au6G0VraclP0TglPAAFzcGV+J0hy8OSnaXljovbCClQADzIsyq8PBq9x+2vEvA==
+	zFcODhwnjlZH5XCqA/5G6orqKH0i4LZNIXx6F3UV0hzg/jl5akV/wkydsaH1dAuPZCo6eq3RIfFlXVE302cIHR88mRH8PKP4Tj65Pat0c6Y0UKwZGqnmDbriJY1/DcLrhSO9EWkP6+RBc0WhqtwP1sDbNaSiFbjNEM02jDTHlCm/Dubsap19PgtyYg9NOFU0+C9K7dwczKiJND34Ie6FHtRddU5j52CLhnkL+DQaEFkZCPiSWyOnO9QA2h6fyv7zEakkhfMQC2Yy9s/3dXz/QXYvzuGskG+9w6DduSk6dgR7939C98rcXtGnDhFXo91ACulEkO/RA8EOHm7eeHDRHXajkikn6znN9KNtR/iY08g+2/Mc1f+Uqe7JtDLWbbNjCBOqZi3M4zrCfJxgpa3iMNdgqV6Sadwf48RtCQZFhVM85D3lqQTqVeYn2SyOpJyggZmLFUuberCqeAP2xBlXjU0MPNhTgesaZudTU4/3+CYYU2RSJSuu2xfcd3M1cLI7CIJmwpVea4mzB76VxfznrjPSogXvjInkJ/rBZC1rsm3fl5ch5P0MHkeRMuIvl4rImvE/UjYd1po1EmhplHlfUvn18fXpoMwLpa90KLrvmQ3MZmvd45H3FTxfHy3kKvlYeIjZ3LfS4zHD9HHMiJbuSuZBVXraJZiwMj//Xn/OiByGEIkw1ZYaCOrEucuGqE6XaaWkDvutkgCR3dyatU8GlIW9ceWTKGWWQ3ofERXMngmWC1zZ4wf8LdbUtV7IL4ue+/9Mp9GgJCkkbE1s3XBPu7e4hPWAjnZegAK9emqpIUk=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB3288.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(376002)(366004)(39860400002)(396003)(136003)(956004)(31696002)(31686004)(2616005)(83380400001)(38100700001)(86362001)(44832011)(16526019)(316002)(66476007)(4326008)(107886003)(66556008)(186003)(36756003)(6666004)(16576012)(8936002)(26005)(6486002)(2906002)(5660300002)(8676002)(53546011)(54906003)(110136005)(66946007)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB4605.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(366004)(39860400002)(376002)(396003)(136003)(36756003)(478600001)(26005)(53546011)(6506007)(66946007)(8936002)(966005)(66476007)(69590400012)(956004)(6512007)(66556008)(6486002)(103116003)(5660300002)(2906002)(38100700001)(6916009)(1076003)(8676002)(2616005)(38350700001)(83380400001)(316002)(86362001)(52116002)(4326008)(16526019)(186003)(6666004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData: 
-	=?utf-8?B?SzBKMk5FNXR5SDl6dGdkT2VRVHJwWGdycUpQWVUrWmxTOFA0K0hWQWk5Tm91?=
- =?utf-8?B?Yk0xSDdSMEU2WjV6d0RlcmJ2ZHNLcWx4bTUyZmRHUVhBbldFQWFFVWZmbDJI?=
- =?utf-8?B?azNqQ20wVWJ6R1NYNzAxVVpqUXhpb25xWmFhTVYzMVlhQzFMUnBkT2NmSWlr?=
- =?utf-8?B?QzZkMFd2enRiM1plVXZaOExzZHBjOU1uUm5zQlQ2VWRpMjVHejdteUpOVW9T?=
- =?utf-8?B?OVlULzA1Wm9vaUhvOCthSlVhcmdKVnZzUU9DdW56Wkx1VkhiUDNkZU5TSE9J?=
- =?utf-8?B?VE1RK3RoNXBZME14Tk90VmQ2OUl0bzQyOGJpRXQ5WEttS3FuZ1FKS2dWTkhS?=
- =?utf-8?B?QS9kamYyeFFSTVNMcnBlVkRoZ0l0RlB2ZGRqN0pYamk0THhJYjFRblZQMlZF?=
- =?utf-8?B?WW5wTFBDUXE1a0t3MnNIYzZLNlVJT1VxN3lMYmx5MDQyU29TQ2ZMZGZRNWRy?=
- =?utf-8?B?K1VGVDlMc3VKK05sVlY4M3czUlBLK0pCeFZtODdJSFpoR3JpSlBPNmsyYnJi?=
- =?utf-8?B?UW5GMmtuVjNEM1RCdVVhTXVhc3VQVGpDei85L0ZFeFk0WVNNU0diSzgxb3pE?=
- =?utf-8?B?KzA3TUVTRzdIZkJmakpqbmxyeUtNMWlERDZSaTF1bHhWMFlvYnMyM0dwNnNt?=
- =?utf-8?B?Mks4VFdyb1JSQ1A4QjBOSXFHWHVEQlpRdnR6SExyUXloN3FzVVhRS3RvZzdw?=
- =?utf-8?B?RlhXWjVOeHRRZXR4WGF0cDg2Z1dERzc4L3ZBcE9rNFpzME43a3IzS0VOYTJQ?=
- =?utf-8?B?bC9xWlNScXFyNW1odEp2L2ZRZkV2SmRSeDRmVGN5ZTFHdDJ0blhRQkR2RG90?=
- =?utf-8?B?aXAzVFh2SnNNSDZxN3F4YUtIb0RkY05OVDd3RlAyN01kRHFqWXVFZjBxL21t?=
- =?utf-8?B?aFZIRzJXcGQ0NHhteWJOcDkvSHlTVnhuaEw3ZmJFQTBxSmF3YzFrL3MrTjNq?=
- =?utf-8?B?Q0J1SVhaR1FRbVA1T2U4d0MrcmM4ZEJtVS9MMFEzb2VWeEhhdUxDaTdRL00x?=
- =?utf-8?B?SHF0Q09VaDRrN1JYV1p1R0c3L1ZwcEszcVpEYUJUSUIrYUhvWFB2VmF6SlZ6?=
- =?utf-8?B?N1BNOVVRb1NzVHRZK2dHY0FRYUpxaEFreWdIcmw5OE1QOC9RbURMUkV2Tys2?=
- =?utf-8?B?THVWUVBpOUg1dEw0amxWb1RGcHAyckkvV3BGOWMvYnlxa1QrbHJQdkxqeDVT?=
- =?utf-8?B?akdXMHNEdUJLSFBkaFoycW9xQ0RuMWRrenlERmx3K1ZLSEVwK1lLMmVlYU5B?=
- =?utf-8?B?cDVudHUzbXVubS9lbE5yNjloKzBnOCtibWpQanozaVlhNDJtNVhuSjFHcHVR?=
- =?utf-8?B?VFhQQ1VTcVBpdGR1TmNLb3BtZFdwRG56OWdWMlBBR25td29HQnc4SXljSUNQ?=
- =?utf-8?B?VGt1d2NhNGxXWlA4bTJnRjY0QjZRN2ZyUFRUYWNLa1pmdE9ITUZMMUNQaWdi?=
- =?utf-8?B?ZEV0d1UzeEZuUmk0dWphaTduQjBPcWhickFiaWcxNzlranFBRDVoMFRwZGR3?=
- =?utf-8?B?Q0lNUXhLS2tkQWN0MXpWcWJ2Y3Fyc2EzeDh1TURoRzdpSmthOGdMWWdTamJy?=
- =?utf-8?B?bWxSNGtlczFhT0pGM3cwdnNndlgwR1Y2YWs0QzZsRmZrbElTbGkzdkFPZ25O?=
- =?utf-8?B?RytsYWgxQ1Erd1Vrc2R6VDRyMFJiQUIxcUtJSlduVXNDTXdTYnlQZElNRGdl?=
- =?utf-8?B?WWxyT3hmYUEzZXAwRGJuOFFrT2piZWV3d2tydDlJRXU1REFVbUpucDBabFNh?=
- =?utf-8?Q?dyCGjMnUM0cr1jKjU2bvHkq/WrUAP05TaUs/WGz?=
+	=?us-ascii?Q?XUfN5XHXYSncC4+RnOl5GZ5WHaG+XBTP2lnl9GFeLU+O1VAJkdoCTMRr2w/A?=
+ =?us-ascii?Q?MmCnO+OS54VrSRV6EcG2cjsnk6jPbKXRzHA+Q+sGezGRhzaHRlB8mKhK72By?=
+ =?us-ascii?Q?04SM8R+j0el4amU54Eht1+owAaoIeKhnwH+3yvYcLLjIMrPuLfgHEK/GPJNu?=
+ =?us-ascii?Q?rwatFoj9Yxclmg7Y2OUr/pk62dQe/ALCh4TpeOwskWCba4MYFiaXmLwyzhNp?=
+ =?us-ascii?Q?J/Dst8bHbD0PLIOGV3DMXF3lyQYhdaJa6Cd4QYI6AAXMxpc8qq6fgwoNMLTm?=
+ =?us-ascii?Q?xItF9HRWoNMAECgNWAbXMKrSO5e/ZpZa9UIDWLDC94gVp1lrMK2Za7sewkTR?=
+ =?us-ascii?Q?5VGbjkqsct2NeHkqyyFg1IfG7te6EQIxxpOKKSJfAE9ra+jTlfvaWSGHZuQB?=
+ =?us-ascii?Q?G8Rec3jqWlvrYXth+pqWwN9UrCdU7KPPqrzYRF9uolh9hHK7nWAK6rJvC+D9?=
+ =?us-ascii?Q?nFx1PrwziiQWf117tcpYG8FFI2NPAJ2ELDuOdB/esEnurkk5Doabj67upQKv?=
+ =?us-ascii?Q?fBoIo8O0ntp/4/L7eA+GuV57phpeMg4MiKswaEbu/APqc6O0h/AsvxHMAkCy?=
+ =?us-ascii?Q?dEtzjLq/0MAbukt8N3dEOjFQpKb7c0dkxw4yU/lo+2NxoB9NVjm7cVksC60a?=
+ =?us-ascii?Q?fCAp7s+TeSf5nc/0H/kht/LyTCVXxIHi+IKWEpXSJ+54uHjnWsNoEoptT738?=
+ =?us-ascii?Q?BM5XbvXB5dtnxPG37PvEJwnEoHDjZUi++JYR+iSAvMi/womJ0oMocDvxZLjR?=
+ =?us-ascii?Q?i9ztJHXOjEVPD76PbHg8c0yu70xO0M3tDsKMLclJn0QFI/mtZ/Elou1LueKX?=
+ =?us-ascii?Q?8DGzi7uEvDqjSWRtEDXBaWVSp34GeRK2UDKK/uqJtJ0QlpobPTBNszSl2+3/?=
+ =?us-ascii?Q?UtCRd10aNhwuxpo2PT/xnhv5watHvl1CFZTMlg2n8yBIQiws7fAXLSUfAdZi?=
+ =?us-ascii?Q?1MlFVZ7A6dQ3n/PnSgBn2VihRwtg+NL7m9HY1IvwRGZJs9GEpGClcUgYXffe?=
+ =?us-ascii?Q?ZIKKYwcFFlgvw+l5X4Q5ECXMr80UtJMxxIKvl5qF2IOVh2bNut9hcaTGRxvX?=
+ =?us-ascii?Q?NevWpms0Jn5NBEcJGI9VNzAoIgvuOmpgY7a68us5P2Zu6gNm7M45eC2JKmnb?=
+ =?us-ascii?Q?2TnBvyLdTCp/cWErpgy9GUZkvY2N+Jf7nxyZRGZ+H24vU2Xqu5+K+uOh82Mk?=
+ =?us-ascii?Q?NWx3k5jllPoRFj7CroFsGUk7UgF1RFRLAohCxUHQzbGcVFhVpeNRqXl4Gvcc?=
+ =?us-ascii?Q?SpS41EcvfiPGvK3cel2LPlwAJiW5ZRaBN3cpeFOyuazQLu4DsS4kWd5cFAbl?=
+ =?us-ascii?Q?GAwoymYE+vUac2qCYoX+rEjZ?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69846650-4792-40db-e9f7-08d8fadda5fd
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3288.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa3d3a38-5219-48ce-df79-08d8fb1df41f
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB4605.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2021 22:28:35.5421
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2021 06:08:54.2791
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SS4jSoRleo06UGMn8nBg15ukb/kPrjBkuYw3GLirjZxuW3K4hTGotOxNpSfyVqHwvP8vIJdAmhGUN12QmfMJ3NSzg5W9fUr06qUGGADO8DY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2535
+X-MS-Exchange-CrossTenant-UserPrincipalName: ey3sxOloYUZj9hBL+YP87iBuQirDuyxzt7LbWXWG5BmUc6E+3UG0m+tMpLiJLj89ZnpIkIGxJN945RxeJC/oiBSUEmBrfHgD9EXcF0a1YBc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB3780
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9948 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 adultscore=0 bulkscore=0
- mlxlogscore=999 suspectscore=0 spamscore=0 phishscore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
- definitions=main-2104080147
-X-Proofpoint-GUID: VVNlyBSqJEAZgcT_r6-l84aLcoASG6Ou
-X-Proofpoint-ORIG-GUID: VVNlyBSqJEAZgcT_r6-l84aLcoASG6Ou
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 mlxlogscore=999
+ malwarescore=0 mlxscore=0 suspectscore=0 adultscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104060000 definitions=main-2104090046
+X-Proofpoint-ORIG-GUID: EtO8WnLCk8vqCxSujLpDL3mrXsWT3try
+X-Proofpoint-GUID: EtO8WnLCk8vqCxSujLpDL3mrXsWT3try
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9948 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 mlxlogscore=999
- suspectscore=0 spamscore=0 phishscore=0 clxscore=1015 bulkscore=0
- mlxscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 phishscore=0 mlxlogscore=999 spamscore=0 malwarescore=0
+ mlxscore=0 bulkscore=0 impostorscore=0 adultscore=0 clxscore=1011
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
- definitions=main-2104080147
+ definitions=main-2104090046
 
+Hi Jan,
 
-On 4/7/21 10:37 AM, Jan Beulich wrote:
-> The commit referenced below was incomplete: It merely affected what
-> would get written to the vdev-<N> xenstore node. The guest would still
-> find the function at the original function number as long as 
-> __xen_pcibk_get_pci_dev() wouldn't be in sync. The same goes for AER wrt
-> __xen_pcibk_get_pcifront_dev().
+I'm working on somewhat related optimizations on Linux (clear_page(),
+going in the opposite direction, from REP STOSB to MOVNT) and have
+some comments/questions below.
+
+(Discussion on v1 here:
+https://lore.kernel.org/lkml/20201014083300.19077-1-ankur.a.arora@oracle.com/)
+
+On 4/8/2021 6:58 AM, Jan Beulich wrote:
+> All,
 >
-> Undo overriding the function to zero and instead make sure that VFs at
-> function zero remain alone in their slot. This has the added benefit of
-> improving overall capacity, considering that there's only a total of 32
-> slots available right now (PCI segment and bus can both only ever be
-> zero at present).
+> since over the years we've been repeatedly talking of changing the
+> implementation of these fundamental functions, I've taken some time
+> to do some measurements (just for possible clear_page() alternatives
+> to keep things manageable). I'm not sure I want to spend as much time
+> subsequently on memcpy() / copy_page() (or more, because there are
+> yet more combinations of arguments to consider), so for the moment I
+> think the route we're going to pick here is going to more or less
+> also apply to those.
 >
-> Fixes: 8a5248fe10b1 ("xen PV passthru: assign SR-IOV virtual functions to separate virtual slots")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Cc: stable@vger.kernel.org
-> ---
-> Like the original change this has the effect of changing where devices
-> would appear in the guest, when there are multiple of them. I don't see
-> an immediate problem with this, but if there is we may need to reduce
-> the effect of the change.
-> Taking into account, besides the described breakage, how xen-pcifront's
-> pcifront_scan_bus() works, I also wonder what problem it was in the
-> first place that needed fixing. It may therefore also be worth to
-> consider simply reverting the original change.
+> The present copy_page() is the way it is because of the desire to
+> avoid disturbing the cache. The effect of REP STOS on the L1 cache
+> (compared to the present use of MOVNTI) is more or less noticable on
+> all hardware, and at least on Intel hardware more noticable when the
+> cache starts out clean. For L2 the results are more mixed when
+> comparing cache-clean and cache-filled cases, but the difference
+> between MOVNTI and REP STOS remains or (at least on Zen2 and older
+> Intel hardware) becomes more prominent.
+
+Could you give me any pointers on the cache-effects on this? This
+obviously makes sense but I couldn't come up with any benchmarks
+which would show this in a straight-forward fashion.
+
+>
+> Otoh REP STOS, as was to be expected, in most cases has meaningfully
+> lower latency than MOVNTI.
+>
+> Because I was curious I also included AVX (32-byte stores), AVX512
+> (64-byte stores), and AMD's CLZERO in my testing. While AVX is a
+> clear win except on the vendors' first generations implementing it
+> (but I've left out any playing with CR0.TS, which is what I expect
+> would take this out as an option), AVX512 isn't on Skylake (perhaps
+> newer hardware does better). CLZERO has slightly higher impact on
+> L1 than MOVNTI, but lower than REP STOS.
+
+Could you elaborate on what kind of difference in L1 impact you are
+talking about? Evacuation of cachelines?
+
+> Its latency is between
+> both when the caches are warm, and better than both when the caches
+> are cold.
+>
+> Therefore I think that we want to distinguish page clearing (where
+> we care about latency) from (background) page scrubbing (where I
+> think the goal ought to be to avoid disturbing the caches). That
+> would make it
+> - REP STOS{L,Q} for clear_page() (perhaps also to be used for
+>   synchronous scrubbing),
+> - MOVNTI for scrub_page() (when done from idle context), unless
+>   CLZERO is available.
+> Whether in addition we should take into consideration activity of
+> other (logical) CPUs sharing caches I don't know - this feels like
+> it could get complex pretty quickly.
+
+The one other case might be for ~L3 (or larger) regions. In my tests,
+MOVNT/CLZERO is almost always better (the one exception being Skylake)
+wrt both cache and latency for larger extents.
+
+In the particular cases I was looking at (mmap+MAP_POPULATE and
+page-fault path), that makes the choice of always using MOVNT/CLZERO
+easy for GB pages, but fuzzier for 2MB pages.
+
+Not sure if the large-page case is interesting for you though.
 
 
-Perhaps this is no longer a problem, it's been 9 years since that patch. Have you tried reverting to 8a5248fe10b101104d92d01438f918e899414fd1~1 and testing that?
+Thanks
+Ankur
 
-
--boris
-
+>
+> For memset() we already simply use REP STOSB. I don't see a strong
+> need to change that, but it may be worth to consider bringing it
+> closer to memcpy() - try to do the main chunk with REP STOS{L,Q}.
+> They perform somewhat better in a number of cases (including when
+> ERMS is advertised, i.e. on my Haswell and Skylake, which isn't
+> what I would have expected). We may want to put the whole thing in
+> a .S file though, seeing that the C function right now consists of
+> little more than an asm().
+>
+> For memcpy() I'm inclined to suggest that we simply use REP MOVSB
+> on ERMS hardware, and stay with what we have everywhere else.
+>
+> copy_page() (or really copy_domain_page()) doesn't have many uses,
+> so I'm not sure how worthwhile it is to do much optimization there.
+> It might be an option to simply expand it to memcpy(), like Arm
+> does.
+>
+> Looking forward, on CPUs having "Fast Short REP CMPSB/SCASB" we
+> may want to figure out whether using these for strlen(), strcmp(),
+> strchr(), memchr(), and/or memcmp() would be a win.
+>
+> Thoughts anyone, before I start creating actual patches?
+>
+> Jan
+>
 
