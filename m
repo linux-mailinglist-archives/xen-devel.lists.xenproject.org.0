@@ -2,67 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24993599D9
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 11:52:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.107713.205887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FCA359A4D
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 11:57:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.107720.205902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUnnb-0000FL-JM; Fri, 09 Apr 2021 09:51:35 +0000
+	id 1lUntF-0000YN-Eh; Fri, 09 Apr 2021 09:57:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 107713.205887; Fri, 09 Apr 2021 09:51:35 +0000
+Received: by outflank-mailman (output) from mailman id 107720.205902; Fri, 09 Apr 2021 09:57:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUnnb-0000Ex-Fl; Fri, 09 Apr 2021 09:51:35 +0000
-Received: by outflank-mailman (input) for mailman id 107713;
- Fri, 09 Apr 2021 09:51:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lUntF-0000Xy-BC; Fri, 09 Apr 2021 09:57:25 +0000
+Received: by outflank-mailman (input) for mailman id 107720;
+ Fri, 09 Apr 2021 09:57:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TN0Z=JG=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lUnna-0000Er-0v
- for xen-devel@lists.xenproject.org; Fri, 09 Apr 2021 09:51:34 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.47]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d959a7a7-a29b-4c5e-96d3-9726a91094b0;
- Fri, 09 Apr 2021 09:51:31 +0000 (UTC)
-Received: from AM7PR04CA0020.eurprd04.prod.outlook.com (2603:10a6:20b:110::30)
- by AM0PR08MB4497.eurprd08.prod.outlook.com (2603:10a6:208:146::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.32; Fri, 9 Apr
- 2021 09:51:29 +0000
-Received: from AM5EUR03FT028.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:110:cafe::57) by AM7PR04CA0020.outlook.office365.com
- (2603:10a6:20b:110::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.16 via Frontend
- Transport; Fri, 9 Apr 2021 09:51:29 +0000
+ id 1lUntE-0000Xt-Dh
+ for xen-devel@lists.xenproject.org; Fri, 09 Apr 2021 09:57:24 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
+ [40.107.20.62]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f983c2c2-233e-4eb6-bf34-faa1caddb193;
+ Fri, 09 Apr 2021 09:57:21 +0000 (UTC)
+Received: from DB8P191CA0026.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::36)
+ by DB6PR0802MB2613.eurprd08.prod.outlook.com (2603:10a6:4:a0::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17; Fri, 9 Apr
+ 2021 09:57:18 +0000
+Received: from DB5EUR03FT014.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:130:cafe::4a) by DB8P191CA0026.outlook.office365.com
+ (2603:10a6:10:130::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17 via Frontend
+ Transport; Fri, 9 Apr 2021 09:57:17 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT028.mail.protection.outlook.com (10.152.16.118) with
+ DB5EUR03FT014.mail.protection.outlook.com (10.152.20.102) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.17 via Frontend Transport; Fri, 9 Apr 2021 09:51:28 +0000
+ 15.20.4020.17 via Frontend Transport; Fri, 9 Apr 2021 09:57:17 +0000
 Received: ("Tessian outbound 34291f7cb530:v90");
- Fri, 09 Apr 2021 09:51:28 +0000
-Received: from e2b301df2a10.2
+ Fri, 09 Apr 2021 09:57:17 +0000
+Received: from dc070bde98a8.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 7FF84257-55B2-4262-A77D-F58B479B7589.1; 
- Fri, 09 Apr 2021 09:51:17 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e2b301df2a10.2
+ 54A0F0C7-024C-459F-8A7D-CED5D1590855.1; 
+ Fri, 09 Apr 2021 09:57:07 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id dc070bde98a8.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 09 Apr 2021 09:51:17 +0000
+ Fri, 09 Apr 2021 09:57:07 +0000
 Received: from VI1PR08MB3629.eurprd08.prod.outlook.com (2603:10a6:803:7f::25)
- by VI1PR0801MB1933.eurprd08.prod.outlook.com (2603:10a6:800:8d::19)
+ by VI1PR08MB5486.eurprd08.prod.outlook.com (2603:10a6:803:13b::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17; Fri, 9 Apr
- 2021 09:51:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.20; Fri, 9 Apr
+ 2021 09:57:05 +0000
 Received: from VI1PR08MB3629.eurprd08.prod.outlook.com
  ([fe80::9ed:7407:c969:2a7c]) by VI1PR08MB3629.eurprd08.prod.outlook.com
  ([fe80::9ed:7407:c969:2a7c%6]) with mapi id 15.20.3999.034; Fri, 9 Apr 2021
- 09:51:08 +0000
+ 09:57:05 +0000
 Received: from a75445.arm.com (82.8.129.65) by
- LO4P123CA0046.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:152::15) with Microsoft
+ LO2P265CA0267.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:a1::15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.27 via Frontend Transport; Fri, 9 Apr 2021 09:51:07 +0000
+ 15.20.3999.32 via Frontend Transport; Fri, 9 Apr 2021 09:57:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,12 +73,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d959a7a7-a29b-4c5e-96d3-9726a91094b0
+X-Inumbo-ID: f983c2c2-233e-4eb6-bf34-faa1caddb193
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zj/6L+2aLx5tVKXKPbhmg+6y+QPk6WRDdRAegL9fC3U=;
- b=fFI2IWyJ700JQUxHcjl9BkznRS/MhYDZdo5aDgLwDag+zs8aOQXnFvQSlFUtHuoLrZTlTWf3dB2aObzC9QfV2alNypGi3qLmtWcsrHgbljizzMR8JWlf6cOUoWvcB/oG2o4rX1TigQvNguuTvd4wLbOwkTrLk/G9sgi0iYlLntg=
+ bh=PTcDNk9eaYGnqWKROT4awA9sVRxuNmZnOOXEFkXMkzQ=;
+ b=vOHiHOG05DBzfLEVdbAI/boVY8iir6FYytBZxy0nhHxYxEvTdqLHO8qycnDTwV9qXqLQ9RjJg8N0tdF3pTiwaS3fkA0v/UIb8CcXtHQit2KJu/vra2Zo8hdK49UQZwAUlxyY3OFM6Lgj3hGOphh88peStyayyMZT3pCdeBWtgJE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -88,267 +87,251 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 10a0c30e76f33e5e
+X-CR-MTA-CID: 8374d9a841fee1d1
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U5j771RZbzvLDwqbFKn+cKze7Yw7KcA+hsmGaYr4wEOfO1rnIH8hEKzlheVFWYNOzuBukzjssnunvga7DPIUvUYx858IC4jghqM/adFMgVxYmJmxjxQH6jLP4OimB12LnIL1p7Xsg6DrA7sYZ40G4g9sj5dr7FjIVhcPzu4jmAjFXQhVdCwLWwp/nkOA66hkcIVOYKrqoyVg2iEiDX3QDMpGaN0mZ/YE90RqHyJ7MbRiN4IriPYfQm477D5j9poE4sfA8il1fUJUTidQKTcvWcQBhLGxWrm7KHhFQsE3gLduq1l/h8z/+FFfJPotqnAbeIgU0Q5H99dEWrbKnlquLw==
+ b=OPTPT/5Mh+XocYuBhcd4yADC8BcVOR7640IG2BbGERrUS9VaSgzMyk1ChCAN//sNSdCgz7o0KfWN9kGB6Z6yUGZgqMO8p9EEVbnIXnqmkd0+WFuUwHlLpnVJqsau2Em9EoQWEAFR9yefepdiQ2pLeOXNCmaJBbmehjMHdM0TD8DpkH4Orgn9WiMYHoQWnXghCO9kgtPeW6lWV5HXDdWJQGrAkg+v6+QDkW9oEvJZH3lSfSz53Zxh5R6MHIjkXk2suMZQ4WNV5UHH/B2so8dGZwArxAykz44HHyvFbRQ3L9s9O4y4wZvw50H1RbnrI9iJFhjnjMIwBgezqw7Q0A12Vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zj/6L+2aLx5tVKXKPbhmg+6y+QPk6WRDdRAegL9fC3U=;
- b=ScwcTb0E/pPNJuPya61axwfRJRoo3jknoaRIsZtARDCDDorcFc6/Vw1Atpq97ymSKyAOhDL91UkWJSCnvBk1fWli0BEb7zvwzidyoyePYg3IX4FODnQoVDdmYr8uGrwmEb9TQk2H/6a5plHAnqpcCsAbe4PFP+QiFmdtVZbpZTMXJ6iJhAb2pyquHjlh8Dk5swvsK/sJF+6Af01mbYHJ+M2a4E5UfmCrI8R2skFUAyYOVUZD2eBj4K1yQTLz4UGbPbdEFpPPGGu1D9xMlG1XT7ubaSdo24Xn1j7M7Mz2BrUnJntfOsuQ7E6NK7SuZOLhoaDNp6+san8xpAisgxdP/w==
+ bh=PTcDNk9eaYGnqWKROT4awA9sVRxuNmZnOOXEFkXMkzQ=;
+ b=gIR435W5T6XajhhHQWcaNr/5fG2rriYHYq2MFtODPYQH0XwKo37oqlwmt13fjTV3fBVZIsAhSIE36Uxe4cUiFQC82BVQ3t5nTebbaxlJlV2f0Lz6GLyglVO3fvsxNOE/eA1qoL1B1G0oeL2FoAMhvOJ63w+hIqvw8sOwJ65tVC/GKt9H3Lk7YE7rOzJNqT5oezJBwEy6pdlp58zq6f3/rUxQx94+nWpb5FdWtVQNVPtEz2dpsY8ZxeNN4RlQtgzsPuYzSYdjE//yxVcg5QIDmfprRE4F1IYjxC/1Le6iDggIIupRFU1GImPRGixtCeMroTOVCuUWCio/e6V2llWy3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zj/6L+2aLx5tVKXKPbhmg+6y+QPk6WRDdRAegL9fC3U=;
- b=fFI2IWyJ700JQUxHcjl9BkznRS/MhYDZdo5aDgLwDag+zs8aOQXnFvQSlFUtHuoLrZTlTWf3dB2aObzC9QfV2alNypGi3qLmtWcsrHgbljizzMR8JWlf6cOUoWvcB/oG2o4rX1TigQvNguuTvd4wLbOwkTrLk/G9sgi0iYlLntg=
+ bh=PTcDNk9eaYGnqWKROT4awA9sVRxuNmZnOOXEFkXMkzQ=;
+ b=vOHiHOG05DBzfLEVdbAI/boVY8iir6FYytBZxy0nhHxYxEvTdqLHO8qycnDTwV9qXqLQ9RjJg8N0tdF3pTiwaS3fkA0v/UIb8CcXtHQit2KJu/vra2Zo8hdK49UQZwAUlxyY3OFM6Lgj3hGOphh88peStyayyMZT3pCdeBWtgJE=
 Authentication-Results-Original: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH v2 1/4] xen/arm: Move dom0 creation in domain_build.c
+	charset=us-ascii
+Subject: Re: [PATCH v2 4/4] xen/arm: Prevent Dom0 to be loaded when using
+ dom0less
 From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <f6bca491-afdb-df20-c50e-af1c294db91b@xen.org>
-Date: Fri, 9 Apr 2021 10:51:00 +0100
+In-Reply-To: <ebd93270-c8c3-7fb9-9abe-e40fdce8680a@xen.org>
+Date: Fri, 9 Apr 2021 10:56:58 +0100
 Cc: xen-devel@lists.xenproject.org,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <FE296364-070D-43FA-B302-E2D998D0146B@arm.com>
+Message-Id: <48EBE04B-F36C-441C-89A5-44E988A67F1C@arm.com>
 References: <20210408094818.8173-1-luca.fancellu@arm.com>
- <20210408094818.8173-2-luca.fancellu@arm.com>
- <f6bca491-afdb-df20-c50e-af1c294db91b@xen.org>
+ <20210408094818.8173-5-luca.fancellu@arm.com>
+ <ebd93270-c8c3-7fb9-9abe-e40fdce8680a@xen.org>
 To: Julien Grall <julien@xen.org>
 X-Mailer: Apple Mail (2.3654.60.0.2.21)
 X-Originating-IP: [82.8.129.65]
-X-ClientProxiedBy: LO4P123CA0046.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:152::15) To VI1PR08MB3629.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0267.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a1::15) To VI1PR08MB3629.eurprd08.prod.outlook.com
  (2603:10a6:803:7f::25)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 33e42a5a-aadd-42df-791e-08d8fb3d0c13
-X-MS-TrafficTypeDiagnostic: VI1PR0801MB1933:|AM0PR08MB4497:
+X-MS-Office365-Filtering-Correlation-Id: c1dea2a3-93fb-464b-3c38-08d8fb3ddc02
+X-MS-TrafficTypeDiagnostic: VI1PR08MB5486:|DB6PR0802MB2613:
 X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<AM0PR08MB4497A9A9FD4B04488D24322DE4739@AM0PR08MB4497.eurprd08.prod.outlook.com>
+	<DB6PR0802MB26139100381948EF00C910A3E4739@DB6PR0802MB2613.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;OLM:8882;
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- nzaxmPK7Xws4orwbb+TSa09Jxu46UUbKzDeE7wmnHgfKeNJmhVpSo80xWH2/KYRi9hK3vQ3GHMAR5VNTRRS9rNHDxbrCSi140OCVJrBRa0vAjkkS5/pVNJlgvVvtrcRwshwSkKQzm3Ezztb23oq4AhSAnoh1pUsw2YnbRiQrwMOurEtb4TazEgW+JTF8eIdl68lwJzf7Pd0bYKwhrYhEJuJ2e1dCHalVTyC7l5DZD/4Xr3r8+Sdl8RB5wIL2DR0RgbhrsYTjndS3I/G//nFAgTySBbj9Jkte1HPSdSyzpfaYTjPBI8aXYDakidTJUodwyjXhqzOLcewTcp8+jxnhfF8SLjZACJ5IbqBqkmxzXOAlWizF2wEeUErUFTQTBnn/v00q+kfkVKTS677k73OZlJY6JWNxDQv7XJx/tPTWPbiReOEcACiPdlE4ABrH9Vm1iWJcW19ANjIt8KsQg7A/fGCmiBtBVnBmS4lFh+MZjwyPAR5iVi9VzbtZ5hjcLo4SwHcuUQKdLgzMcxFU5sQ7zEJGLQvHfE6bRGSpPkrW6JM3gXpSwPR3za0edhsP1gle3jG7Z9P2i56Y672Sh7PmCFUSbu0agwiyU8u5Rxsw5mm/myNkwhs+Qz6Qk2npiYQ/tIIWLvotgydxjsF4PnfsSxXUR/yPelZETltEFpsm/YIndG1nclo1NvV3oSI3ggp3JR4ky24jYdunFTrahWERYeLS6JxkQ77zH5i//qmq/y0=
+ yBX8WDGcfKGNqXo3LyKFC2PotBXE4q+Eg/Twh7Pn1JkoT9ltSQLlgu7J2AuRktfiiKNswJddbk5xyIW4U4+F4nNVP5hv1S8V9Y+gSSr0WVYw6IovmPde5g3OUryeJiYPD9vQp2DnFZpeH4si887YxZLQUpRyX39+ihpMygZcDcnufllOBTRcTNXhdfmdFnoSHYPrvYYrclHZDwoARwr2qUXJsnDXAigJgUmJLXPOCimb1M4x1kpPVAHeMq/QKufwA0R2PY6/w7UYjPmz3WTebL6F4KMaVGhpFZf07j2wWqsfzRPWmpAT3LqQPPa6TnPYqiX/ppGhudj08zMOnDq5D6L/EJ77BumeyT62rhpulRYG/KlNbp5ufSGnJKiGl/EUPg2mscK5y+ShrQGgfAUQi0HUIP9NOOtxmQkO6Tm32gb3POO9Fx4wJyG2jMAGaqCl/OxkFDBg5xiqMBuQYlWfCP+DD8TjFaRqWGjreVtbXg+VgO7jkU9Vv+OYCH68l0xiwbDuF/D9PotNyfskMVslQT4wvuAMVi8RiVgfwHkAuDPmAYrhQNeC1CQacDuL8bPkK77gou0N9UKoEDHrcRhMp+ziD4ksYlV8GG9nSx2u9PcUkokW0CzahHR4VtXHbDJgnzyeChMiiaFQZqBiBCLmVm3Lq1s8Jfw8cA76HrYMJM0Za8GjiEuujiODlCOE2HcYInsgyVZvUKpJfG8jgXHTRT/ZwBvGcAdCnxPRf5P2n101dsIsdElR2rdRqGaKvL8+
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3629.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(44832011)(36756003)(66476007)(5660300002)(478600001)(66556008)(6916009)(83380400001)(38100700001)(66946007)(2906002)(2616005)(16526019)(956004)(26005)(186003)(4326008)(6666004)(6486002)(7696005)(38350700001)(52116002)(316002)(53546011)(33656002)(54906003)(86362001)(8936002)(8676002)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3629.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(39860400002)(136003)(396003)(376002)(366004)(38100700001)(66556008)(66476007)(38350700001)(956004)(2616005)(5660300002)(186003)(2906002)(26005)(66946007)(86362001)(16526019)(478600001)(83380400001)(8676002)(8936002)(6486002)(53546011)(6916009)(33656002)(316002)(54906003)(36756003)(4326008)(6666004)(7696005)(44832011)(52116002)(32563001)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData:
- =?utf-8?B?b2Z1M1BUR1luZ2Q2M1VrU0x3TXFzdDh6L2dsMVp3ZUJYUE1ZaFNQL3pJNDIz?=
- =?utf-8?B?Z3VDd3ZZeGE0QTRUN3RqeUw1bVJJZ1JUb2JQdUswdGt2UE5WdnppNWNvWHl6?=
- =?utf-8?B?RVV5RGVsU20wNWZuczA0dm5rcHgwQWpBd00wbE5QNGRFeUVBVnVIaU53VWFX?=
- =?utf-8?B?MFR1bFBxT3B5WDNQS1dBR2MyRXJYUEpBZWx4ZlhBU0VBcWlvaXZ0ZjdCR1Fv?=
- =?utf-8?B?Z0ZtRWp3cUR4S1BuM01JWnpxNTNaMEs4SjU0cUhuZ09sZThnVkZKVWNOSFR4?=
- =?utf-8?B?WCt0RThDajZwdzNmQVRRLy9YYVhlY0VZM3dFaG9BYVVJSEJCZ2dtN3ordkw3?=
- =?utf-8?B?aTFlb1JoNEJSWjBQb1BqTEtpN3NIQmpnUWVuSXNwVm9YdEZTd0l5bTU5MGcr?=
- =?utf-8?B?Q1RLRFk4UWo5T2RkK1dZc3NiY1lyUnovQkJWSGI4alFvUU9YSGFJUVF4azY2?=
- =?utf-8?B?NzZrandjNUljZmZxUTVjbWhmTkY2elVGc1JUT1ZtVTh1d1VOc0RBRXhjaVV4?=
- =?utf-8?B?dHFJVUlxeCtuTDcwYy9pdHd1OUllQVlPRE45Lzk3YVJJNmUwODNoNkU4REp1?=
- =?utf-8?B?dndhUy9qUzBIY00vT05haDRSLy9KT3plMm5FazZKdzRORE5rNGVmLzRSL01S?=
- =?utf-8?B?Mjk3NGp6ZlZlZlpPMFBTT2s5azNRWVgrTjBSMEhndnFiOTVhbU80RGppbGVP?=
- =?utf-8?B?OFN5YktsWjIrNnRLS0l5QXRNN0VkYnBFNTBZVWYvNjdBS0llc2FKczQxUWkz?=
- =?utf-8?B?V05EVnpMNDBOeTYwOCtMSkt6cVVlZisvbk1VUzhWVTN1bzljeTZPZXJuck1R?=
- =?utf-8?B?WGthdHVGcEFuTVd6emZrTWduN2oyOFF2RkNER1J4WFV3eDdhU0xkS0MyRHIz?=
- =?utf-8?B?WHZYbVZZanFrQkhVbGR3N01URzZ1cXlpRVV2ZjN0bjIwZTU2b2Z6UlIwNnN0?=
- =?utf-8?B?Y2VScnF1WVNOZTluSkYyTDJ3Y050QnhyL1U1a1RGSERhNHNhckxhTHN1R25n?=
- =?utf-8?B?WVN6TmdYbVlpeEU2Qlkxdmx0bDlPNEo5d3ZUYndIWkdoTHZibWgrS0xjZThz?=
- =?utf-8?B?emYvWkQ1eXRTeWlwVzQ5WG8zRUVqRmZPNjNKQVNRbVhFREFlcXozNTl3UUda?=
- =?utf-8?B?cFFEVW9sNmVqSUpaUWZ5MXJpNGFLSlQzKzR6WnZCU2VMOWtPN1RRM3hBV2Z5?=
- =?utf-8?B?Y00yRzJoVXVObytsbUF5SVdGMXUxVHNud1pQNnhSS0dHVCs3ZDM1QjVPQ0RQ?=
- =?utf-8?B?L3RwV1FTVERLVlUxeExyYlI4WkNHZU1uTzR4ekF5OG43UFBCNEdYYzZTMGNx?=
- =?utf-8?B?RDZSR2VEdDFCK3BDa01lbFNVc1pyZHlRRTF4WkQ0ZEx3NW1ZVTFadlJoNmtY?=
- =?utf-8?B?UUlHWHdTZ2ZDV001TWpvcndQMThWV1dYeEhjd1V1U01xVkpBenJMa0JUR2RP?=
- =?utf-8?B?dlZTc3pPTkdhQ0tERkExa3kvUkxjeGc5QjhHdUNsZkxpdzlqblZMaTFieUd3?=
- =?utf-8?B?NDdSaGF5MWcyemVGOFczWFJ3VlRKQUExQWx3dmlCNm9jdkpmWjl3OURSSVp1?=
- =?utf-8?B?ajdtVXBBRU90VUdDY2ZMT01EQms4Y2tLK3F2M2xjSFR4TEFFNnhjYzRQYTEv?=
- =?utf-8?B?T3JkK2NXcytsODJoaTcwZ2ZhbkhyYlNmc1cxQXVzeFNjUlBoSG1SaWJwUmJD?=
- =?utf-8?B?Y1FqOVV2OG90czdUV3R4ODJQbVNYTjkrT1V4WU1POFNtbkxFaEJDRCtjMXZD?=
- =?utf-8?Q?5lwHcvLzsaVXBRayJYy6R2wSUPz47Xxx9oAQmsg?=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1933
+ =?us-ascii?Q?w9TpocW8k674TS31jg7NvhheqWUpQQTYFPk2OfYiQ8LPF4X6ICE+GGEvNvb8?=
+ =?us-ascii?Q?7p1Lyh/G6VbuVip4PtWyjJSO/aOl9nB8CiEXNrc1kXdJTvdYhCoXqOQsuBOH?=
+ =?us-ascii?Q?OE5lSZQ5Pbt3DFCVlj+YpAc37ZMTdSR3bOgTxWVidDfwuW8AB/VH9CCKF1d4?=
+ =?us-ascii?Q?FFjwGr+OmYGFHPHa7WzgxqzGIDFH58bnHPnMdD6r2tAcEVQs+davHCFgw9aZ?=
+ =?us-ascii?Q?8kCYsefbvBMUa6LgZA8zdZ1pvTRzes3otHmtm9lhQB/fdFkS7SjJvXwlZWOF?=
+ =?us-ascii?Q?sw+Ff5TLLnKs9xm+oTAct0PbcrcWYpsdC2b2569fGFuklO4pYgs3opyNrD1n?=
+ =?us-ascii?Q?63dXmNTqv7Izks78enxeK9QFPTOQd15HOWh+MBrOEGiZrkncu2eviakrdtd5?=
+ =?us-ascii?Q?JjHtUHjyOyxpxgv3M/29JXKoWfVV7+xgLYJmTuKupvNMmwxOIUffFQr+MULy?=
+ =?us-ascii?Q?4MJWbzz1yHY0wNtVEJas6EjLWbLEuBEpaqac7qJ2S9Tu8WFl+t6JwggHywI8?=
+ =?us-ascii?Q?a/Q2iC7BnVHdOAR72Z5loYlMQAADUXiBbz44lFpVq00dTBjZSmE9FuN+r64X?=
+ =?us-ascii?Q?pjqI9gVdI/TIUlTa8QHxAi7dESihXXUYGRRPeXlueW14IlUl0P9WrOvGkBMM?=
+ =?us-ascii?Q?MTAsp+QkH4nENN3BpRFq+J5Gkb2Mh/9rWOaNHdeLdzYyKbp9T2kFLEIcttGH?=
+ =?us-ascii?Q?YZACwyQ1zwnHTzEqZskHgJyDyQTPsmoyGn1SC7Zb3A72bemGX3JMjRCRd7rX?=
+ =?us-ascii?Q?Y95Zx5U7ICxdFr+0o4JXJ4XOnuRL7nsxCdcI8O3P/Y5oASAEnRRlxjWp0+ZC?=
+ =?us-ascii?Q?DeGUC+RiJ8WS8cZ7INsMSUngQtvxSTTXderVdhsSpA7rw8wFBHgef6yxm+c7?=
+ =?us-ascii?Q?39BZDe00X3lgqNhZhp7HnYnoPjuK1kO44+FuL7QaeCLtPqCa1TSLSWm0VvtA?=
+ =?us-ascii?Q?MyxAOhiJwPiBviXQ3xg8+pzHvz9JdksFGPYai/eoJGSsmLwT2M0x9bS0jH4h?=
+ =?us-ascii?Q?KBPXK49TYaiwU3Dgm50t/9YTIrsvGkwHjRfr0154wsrTnoxRAz5ilSbyNKeM?=
+ =?us-ascii?Q?tWjWCPjPyvIc2qMv9c8n4+SjfwNiQFGb4SzfuUCBdtodyeyMZAgUrmFzQ8LB?=
+ =?us-ascii?Q?AuDj2XCe2pLnR15vo8AKNAf1xQ33zkURzwM1ZR+Oi7PvGYYk5XlpxrKlESd2?=
+ =?us-ascii?Q?WOFAxS/tCUnPmh8Qwu4vKAgkZEEGCLA+PrjwRtsH4kN+fEr1Hr7Hn7xtOKr7?=
+ =?us-ascii?Q?wfDn5WnRVU/kVXLBlO+DLZZmGKeUnYPxstpcQd0x+4E6qo1jT/IwlbNOacpA?=
+ =?us-ascii?Q?DcVfQeC0KzvckMPVl56zytPi?=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5486
 Original-Authentication-Results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT028.eop-EUR03.prod.protection.outlook.com
+ DB5EUR03FT014.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	94cfce92-2137-4e91-a39c-08d8fb3cff98
+	3e046168-a940-409d-67da-08d8fb3dd4d1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	s6gnQyJzqysCQ5ulTI68FP6whImeALhRmGBWBBkWn49D1gxDiRgiScAEqGboCIHPM8+C+tsYzLBybkD8TuIZ2BTA1jmimtd899MeJ5DzIFkXhBuxqNXslA7xLxYrpySbG30AbLUvzAgRQLP6ghcHV5cNjXz54DZk6fH8VbeWyPe+7rnYjHl2Lgmq/exICu56m71tQKBumjyB8pLeRbmR07q3eT+TzmwUZv3RyqyEqnUeSN90I6bygdaCyNAZBskzkiv/5Cz38iYsOVJ33XGJbtv9ZVl4m46NQpZIZVRVHikHBPK/WgIeFxZyNjyEUr1xPtkJ84kLLQsKpr9KLafECyFXEDh72HF8ylsxDjXwnW3v98gc1xY6FUAYXap60beSQDlo65kCHT9kKb/rRmvNuCIj7Db0S6cPMBibu6iAjooEvFsfOK0I0zOpmbBURjiBGy08kt/Kb5/UaN8gR+fKGYF+0yHaiwlM5jCL3AnNJJUWegaQDvuM8xCGkK7SCKGXfeqDTwzGEvcgVKe5yYcgj8u6WHdbVeRhCz+FT3SFnuNqU/HLSKFLW6vBgaP0wM52ch1yr0Eug399ISNeBElNYdIJ8/ZjnZ5c4SBxOTMP2UBlU20JVZb3vITN8pk/5G6A8L/Ipsn2Njee5uxpu/a2vmGVLDqIeAdGhgpc0eUciFE=
+	G0XDoKmFGbpAk6EYkXmht2fie9DQeHJ3juMSMqVAPbCf3wVpSJ+/cORC9MuX8oOW7DCyqoZWjo4cKk9zgifXbu8IRIIaTEwrD6sRZW07g/N56VZlSLriNVGgCLNyYs6gDlUMKozjYG49wNW5YqBSxNMi1HzKD68uLdE8/lNXoQJrzcoy3hrUXiX9up8ivXFICswmVc4SY/mDsT1cTJvYn1cL2RMVvc89M8IxCDcGY4mim5bxou+1OI8tYG1K8uRGGuoHhdQfDaoLjWe9BWuZ5Zjj2ilPkC1rgkc4n8pBSB1YtpZv+WOa9TKQLgUCkOpvWzCpL6eFtyBVnh9pR8ZnlgJnuX19u1AmuDGIIiMXQF9nQ7jufcCnhi7prIermsVgLCgFJYD5+WD0acAj8dpXTk0oxyj8FBcmPm5R7zXGh7jBm+CsIcsT8nahEswdaXa1YqEQot/WCwg7L/8HtG3Nbni3inowhP7t75y9oxU9BpeTEDmQbOXYzkaGPNUPlp4Hisi9lM2NMDphFLwU9EMfjzNvaUnFPl5ZsaoreQkA2bolREh8Z6jq0IFM8dRe1vr99tpGGrBP3DuuaaSDY210yzKCfW1J18W23dmceEWyr7z0EQ+fftqoR8LbHOtmUXhmJiUQXcFTsAf5URYAYV6gBHgLADAXtEceFRPIx2n4Nl0OTLQxJ2/71rXxrFNHXD9f
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(136003)(346002)(396003)(39860400002)(36840700001)(46966006)(5660300002)(70586007)(356005)(70206006)(33656002)(47076005)(82740400003)(26005)(16526019)(107886003)(6486002)(7696005)(6862004)(36860700001)(83380400001)(54906003)(36756003)(8936002)(316002)(82310400003)(6666004)(44832011)(8676002)(336012)(4326008)(2616005)(2906002)(53546011)(956004)(81166007)(86362001)(186003)(478600001);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(46966006)(36840700001)(478600001)(36756003)(5660300002)(4326008)(70586007)(70206006)(186003)(26005)(956004)(2616005)(44832011)(6862004)(336012)(6666004)(107886003)(16526019)(2906002)(6486002)(8676002)(82740400003)(53546011)(33656002)(83380400001)(47076005)(81166007)(54906003)(316002)(7696005)(82310400003)(356005)(36860700001)(86362001)(8936002)(32563001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2021 09:51:28.6605
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2021 09:57:17.5566
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33e42a5a-aadd-42df-791e-08d8fb3d0c13
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1dea2a3-93fb-464b-3c38-08d8fb3ddc02
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT028.eop-EUR03.prod.protection.outlook.com
+	DB5EUR03FT014.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB4497
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0802MB2613
 
 
 
-> On 9 Apr 2021, at 09:30, Julien Grall <julien@xen.org> wrote:
+> On 9 Apr 2021, at 10:12, Julien Grall <julien@xen.org> wrote:
 >=20
 > Hi Luca,
 >=20
 > On 08/04/2021 10:48, Luca Fancellu wrote:
->> Move dom0 creation and start from setup.c to domain_build.c
->> on a dedicate function.
+>> This patch prevents the dom0 to be loaded skipping its
+>> building and going forward to build domUs when the dom0
+>> kernel is not found and at least one domU is present.
 >> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 >> ---
->>  xen/arch/arm/domain_build.c | 36 ++++++++++++++++++++++++++++++++++++
->>  xen/arch/arm/setup.c        | 29 +----------------------------
->>  xen/include/asm-arm/setup.h |  1 +
->>  3 files changed, 38 insertions(+), 28 deletions(-)
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index 374bf655ee..d7c9c7f4d1 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -21,6 +21,7 @@
->>  #include <asm/device.h>
->>  #include <asm/kernel.h>
->>  #include <asm/setup.h>
->> +#include <asm/tee/tee.h>
->>  #include <asm/platform.h>
->>  #include <asm/psci.h>
->>  #include <asm/setup.h>
->> @@ -2520,6 +2521,41 @@ void __init create_domUs(void)
->>      }
->>  }
->>  +struct domain* __init create_dom0(void)
->> +{
->> +    struct domain *dom0;
->> +    struct xen_domctl_createdomain dom0_cfg =3D {
->> +        .flags =3D XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
->> +        .max_evtchn_port =3D -1,
->> +        .max_grant_frames =3D gnttab_dom0_frames(),
->> +        .max_maptrack_frames =3D -1,
->> +    };
->> +
->> +    /* The vGIC for DOM0 is exactly emulating the hardware GIC */
->> +    dom0_cfg.arch.gic_version =3D XEN_DOMCTL_CONFIG_GIC_NATIVE;
->> +    /*
->> +     * Xen vGIC supports a maximum of 992 interrupt lines.
->> +     * 32 are substracted to cover local IRQs.
->> +     */
->> +    dom0_cfg.arch.nr_spis =3D min(gic_number_lines(), (unsigned int) 99=
-2) - 32;
->> +    if ( gic_number_lines() > 992 )
->> +        printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.\n"=
-);
->> +    dom0_cfg.arch.tee_type =3D tee_get_type();
->> +    dom0_cfg.max_vcpus =3D dom0_max_vcpus();
->> +
->> +    if ( iommu_enabled )
->> +        dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
->> +
->> +    dom0 =3D domain_create(0, &dom0_cfg, true);
->> +    if ( IS_ERR(dom0) || (alloc_dom0_vcpu0(dom0) =3D=3D NULL) )
->> +        panic("Error creating domain 0\n");
->> +
->> +    if ( construct_dom0(dom0) !=3D 0)
->> +        panic("Could not set up DOM0 guest OS\n");
->> +
->> +    return dom0;
->> +}
->> +
+>>  docs/features/dom0less.pandoc |  7 +++---
+>>  xen/arch/arm/setup.c          | 42 ++++++++++++++++++++++++++++++++---
+>>  2 files changed, 43 insertions(+), 6 deletions(-)
+>> diff --git a/docs/features/dom0less.pandoc b/docs/features/dom0less.pand=
+oc
+>> index d798596cdf..a5eb5bcda0 100644
+>> --- a/docs/features/dom0less.pandoc
+>> +++ b/docs/features/dom0less.pandoc
+>> @@ -16,9 +16,10 @@ Multiboot specification has been extended to allow fo=
+r multiple domains
+>>  to be passed to Xen. See docs/misc/arm/device-tree/booting.txt for more
+>>  information about the Multiboot specification and how to use it.
+>>  -Currently, a control domain ("dom0") is still required, but in the
+>> -future it will become unnecessary when all domains are created
+>> -directly from Xen. Instead of waiting for the control domain to be full=
+y
+>> +Currently, a control domain ("dom0") is still required to manage the Do=
+mU
+>> +domains, but the system can start also without dom0 if the hypervisor
 >=20
-> I would move the function after...
+> "hypervisor Device Tree" sounds a bit strange to me. I would either drop =
+"hypervisor" or say "host Devicet Tree".
 >=20
->>  int __init construct_dom0(struct domain *d)
+>> +Device Tree doesn't specify it and it declares one or more domUs.
 >=20
-> ... this function so we can mark construct_dom0() static as create_dom0()=
- is the only caller.
+> AFAICT, the first "it" refer to dom0 but it is not clear what exact prope=
+rty will used to do the decision.
+>=20
+> Also you have two 'it' in a row that refers to two different entities. I =
+would name it to avoid confusion.
 
-Yes, I=E2=80=99ll modify it in the v3.
+Yes I will rephrase it, what about:
 
-Cheers,
-Luca
+Currently, a control domain ("dom0") is still required to manage the DomU
+domains, but the system can start also without dom0 if the Device Tree
+doesn't specify the dom0 kernel and it declares one or more domUs.
 
 >=20
->>  {
->>      struct kernel_info kinfo =3D {};
+>> +Instead of waiting for the control domain (when declared) to be fully
+>>  booted and the Xen tools to become available, domains created by Xen
+>>  this way are started right away in parallel. Hence, their boot time is
+>>  typically much shorter.
 >> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
->> index 2532ec9739..b405f58996 100644
+>> index b405f58996..ecc4f0ae98 100644
 >> --- a/xen/arch/arm/setup.c
 >> +++ b/xen/arch/arm/setup.c
->> @@ -51,7 +51,6 @@
->>  #include <asm/platform.h>
->>  #include <asm/procinfo.h>
->>  #include <asm/setup.h>
->> -#include <asm/tee/tee.h>
->>  #include <xsm/xsm.h>
->>  #include <asm/acpi.h>
->>  @@ -805,12 +804,6 @@ void __init start_xen(unsigned long boot_phys_offs=
-et,
+>> @@ -793,6 +793,38 @@ static void __init setup_mm(void)
+>>  }
+>>  #endif
+>>  +static bool __init is_dom0less_mode(void)
+>> +{
+>> +    struct bootmodules *mods =3D &bootinfo.modules;
+>> +    struct bootmodule *mod;
+>> +    unsigned int i;
+>> +    bool dom0found =3D false;
+>> +    bool domUfound =3D false;
+>> +
+>> +    /* Look into the bootmodules */
+>> +    for ( i =3D 0 ; i < mods->nr_mods ; i++ )
+>> +    {
+>> +        mod =3D &mods->module[i];
+>> +        /* Find if dom0 and domU kernels are present */
+>> +        if ( mod->kind =3D=3D BOOTMOD_KERNEL )
+>> +        {
+>> +            if ( mod->domU =3D=3D false )
+>> +            {
+>> +                dom0found =3D true;
+>> +                break;
+>> +            }
+>=20
+> NIT: You can directly return false here because if you have dom0 the it c=
+an't be dom0less.
+
+When I can I try to have just one exit point from a function, do you think =
+here it can cause
+issues?
+
+>=20
+>> +            else
+>> +                domUfound =3D true;
+>> +        }
+>> +    }
+>> +
+>> +    /*
+>> +     * If there is no dom0 kernel but at least one domU, then we are in
+>> +     * dom0less mode
+>> +     */
+>> +    return ( !dom0found && domUfound );
+>> +}
+>> +
+>>  size_t __read_mostly dcache_line_bytes;
+>>    /* C entry point for boot CPU */
+>> @@ -803,7 +835,7 @@ void __init start_xen(unsigned long boot_phys_offset=
+,
+>>      int cpus, i;
 >>      const char *cmdline;
 >>      struct bootmodule *xen_bootmodule;
->>      struct domain *dom0;
->> -    struct xen_domctl_createdomain dom0_cfg =3D {
->> -        .flags =3D XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
->> -        .max_evtchn_port =3D -1,
->> -        .max_grant_frames =3D gnttab_dom0_frames(),
->> -        .max_maptrack_frames =3D -1,
->> -    };
+>> -    struct domain *dom0;
+>> +    struct domain *dom0 =3D NULL;
 >>      int rc;
 >>        dcache_line_bytes =3D read_dcache_line_bytes();
->> @@ -965,27 +958,7 @@ void __init start_xen(unsigned long boot_phys_offse=
+>> @@ -958,7 +990,10 @@ void __init start_xen(unsigned long boot_phys_offse=
 t,
 >>      enable_errata_workarounds();
 >>        /* Create initial domain 0. */
->> -    /* The vGIC for DOM0 is exactly emulating the hardware GIC */
->> -    dom0_cfg.arch.gic_version =3D XEN_DOMCTL_CONFIG_GIC_NATIVE;
->> -    /*
->> -     * Xen vGIC supports a maximum of 992 interrupt lines.
->> -     * 32 are substracted to cover local IRQs.
->> -     */
->> -    dom0_cfg.arch.nr_spis =3D min(gic_number_lines(), (unsigned int) 99=
-2) - 32;
->> -    if ( gic_number_lines() > 992 )
->> -        printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.\n"=
-);
->> -    dom0_cfg.arch.tee_type =3D tee_get_type();
->> -    dom0_cfg.max_vcpus =3D dom0_max_vcpus();
->> -
->> -    if ( iommu_enabled )
->> -        dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
->> -
->> -    dom0 =3D domain_create(0, &dom0_cfg, true);
->> -    if ( IS_ERR(dom0) || (alloc_dom0_vcpu0(dom0) =3D=3D NULL) )
->> -        panic("Error creating domain 0\n");
->> -
->> -    if ( construct_dom0(dom0) !=3D 0)
->> -        panic("Could not set up DOM0 guest OS\n");
->> +    dom0 =3D create_dom0();
+>> -    dom0 =3D create_dom0();
+>> +    if ( !is_dom0less_mode() )
+>> +        dom0 =3D create_dom0();
+>> +    else
+>> +        printk(XENLOG_INFO "Xen dom0less mode detected\n");
 >>        heap_init_late();
->>  diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
->> index 28bf622aa1..e5f5c7ebc6 100644
->> --- a/xen/include/asm-arm/setup.h
->> +++ b/xen/include/asm-arm/setup.h
->> @@ -95,6 +95,7 @@ int acpi_make_efi_nodes(void *fdt, struct membank tbl_=
-add[]);
->>    int construct_dom0(struct domain *d);
->>  void create_domUs(void);
->> +struct domain* create_dom0(void);
->>    void discard_initial_modules(void);
->>  void fw_unreserved_regions(paddr_t s, paddr_t e,
+>>  @@ -976,7 +1011,8 @@ void __init start_xen(unsigned long boot_phys_offs=
+et,
+>>      if ( acpi_disabled )
+>>          create_domUs();
+>>  -    domain_unpause_by_systemcontroller(dom0);
+>> +    if ( dom0 )
+>> +        domain_unpause_by_systemcontroller(dom0);
+>>        /* Switch on to the dynamically allocated stack for the idle vcpu
+>>       * since the static one we're running on is about to be freed. */
 >=20
 > Cheers,
 >=20
