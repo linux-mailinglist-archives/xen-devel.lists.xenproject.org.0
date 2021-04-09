@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B6035A349
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 18:27:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.107902.206209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE03135A45F
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 19:05:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.107915.206233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUtyO-00052M-Is; Fri, 09 Apr 2021 16:27:08 +0000
+	id 1lUuYX-0000J8-Ds; Fri, 09 Apr 2021 17:04:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 107902.206209; Fri, 09 Apr 2021 16:27:08 +0000
+Received: by outflank-mailman (output) from mailman id 107915.206233; Fri, 09 Apr 2021 17:04:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUtyO-00051z-F9; Fri, 09 Apr 2021 16:27:08 +0000
-Received: by outflank-mailman (input) for mailman id 107902;
- Fri, 09 Apr 2021 16:27:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lUuYX-0000Ij-AL; Fri, 09 Apr 2021 17:04:29 +0000
+Received: by outflank-mailman (input) for mailman id 107915;
+ Fri, 09 Apr 2021 16:59:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0eme=JG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lUtyM-00051t-Ve
- for xen-devel@lists.xenproject.org; Fri, 09 Apr 2021 16:27:07 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 696d9388-b6c9-4b1c-9752-110f1605d933;
- Fri, 09 Apr 2021 16:27:06 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 59CD9B02B;
- Fri,  9 Apr 2021 16:27:05 +0000 (UTC)
+ (envelope-from <SRS0=9CxF=JG=gmail.com=mcgrof@srs-us1.protection.inumbo.net>)
+ id 1lUuTZ-0007qd-8T
+ for xen-devel@lists.xenproject.org; Fri, 09 Apr 2021 16:59:21 +0000
+Received: from mail-pf1-f170.google.com (unknown [209.85.210.170])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 95eb8f1a-44b9-44d2-9a5f-1b18ef61f1a3;
+ Fri, 09 Apr 2021 16:59:20 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id c17so4634819pfn.6
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Apr 2021 09:59:20 -0700 (PDT)
+Received: from 42.do-not-panic.com (42.do-not-panic.com. [157.230.128.187])
+ by smtp.gmail.com with ESMTPSA id i22sm73788pfq.170.2021.04.09.09.59.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Apr 2021 09:59:18 -0700 (PDT)
+Received: by 42.do-not-panic.com (Postfix, from userid 1000)
+ id 6D85340256; Fri,  9 Apr 2021 16:59:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,46 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 696d9388-b6c9-4b1c-9752-110f1605d933
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1617985625; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=fhUPXYAbVhvraSv5r/RZz5v2Ni5ifrFujAGOxwr66WE=;
-	b=juGDQ4WZ4Ko+BG6+oZPCXrgp95TotOf5V39FseY8r2yi6IyjkSchaPWeor2DPo4bUDORsZ
-	DGX1VygdB9PVkicLSraGhQOEzyzIRvG6IZeHBFKqnCvB1UuRXl3MkO9tmySSuEvPSu9gmP
-	YAKVpDGjQnVbxhNeu8a0fONUIRfKn1s=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	boris.ostrovsky@oracle.com
-Subject: [GIT PULL] xen: branch for v5.12-rc7
-Date: Fri,  9 Apr 2021 18:27:04 +0200
-Message-Id: <20210409162704.27220-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 95eb8f1a-44b9-44d2-9a5f-1b18ef61f1a3
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=+9xha/pXNeFBGiuagKWknyCqPbUKuPA8GXpvrC9Jx0I=;
+        b=pLZfyrDz7hD2Xv2STs77lIPlCUpqsIxiHjwuy9PLFfIp2W/wWf24HXI2350+/1oSvz
+         +9gUfaKbjMtieAoUXqBlHNCu3tdhhQ7CqGHMwPowh2JWfzb9eW7HvSaR5DtM8DUQzqyA
+         ctpy9xssweH/jOaisakqdC7LlGj25KghAJNXaXZpyL8jcDqhcJkMfHegAhfjDh+GX44f
+         Dylo+fh8zcAAcjQBgkij0Y2vVeOaZSbzhqLEwgUS6yg//V5naF7/EEvzKcc6i9uRYiaX
+         B5UrqNADVSxuHQsaGNrRIKFFOoyR0ANwRu2SSiA2BBI+/izyYqd+A2c3nCL1PKD62vRR
+         3+ZA==
+X-Gm-Message-State: AOAM531/MoU4XkYN6eawnSnCN7qE0ja7QwZ8JYCKUVbMz5EPosSiz6ri
+	JRpXx7W5FagaURqkxijVW4E=
+X-Google-Smtp-Source: ABdhPJw6kXgrPuw8A7YDvuzOsmJlxLxKBkWC3Ar3os6uxRVSPlCkaHeQd8atCkDOR792q4QQZ8VNRA==
+X-Received: by 2002:a65:40c7:: with SMTP id u7mr14223236pgp.29.1617987559416;
+        Fri, 09 Apr 2021 09:59:19 -0700 (PDT)
+Date: Fri, 9 Apr 2021 16:59:17 +0000
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Alexander Lobakin <alobakin@pm.me>, Wei Liu <wei.liu@kernel.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Bjorn Andersson <bjorn.andersson@linaro.org>,
+	Christian Brauner <christian.brauner@ubuntu.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <keescook@chromium.org>, Mike Rapoport <rppt@kernel.org>,
+	Corey Minyard <cminyard@mvista.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	"Jason J. Herne" <jjherne@linux.ibm.com>,
+	Joerg Roedel <jroedel@suse.de>,
+	Michael Kelley <mikelley@microsoft.com>,
+	Joe Perches <joe@perches.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Scott Branden <scott.branden@broadcom.com>,
+	Olof Johansson <olof@lixom.net>,
+	Mihai Carabas <mihai.carabas@oracle.com>,
+	Wang Wenhu <wenhu.wang@vivo.com>,
+	Marek Czerski <ma.czerski@gmail.com>,
+	Hongbo Yao <yaohongbo@huawei.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Vineeth Vijayan <vneethv@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Alexander Egorenkov <egorenar@linux.ibm.com>,
+	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	"Steven Rostedt (VMware)" <rostedt@goodmis.org>,
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-hyperv@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
+	openipmi-developer@lists.sourceforge.net, linux-clk@vger.kernel.org,
+	linux-edac@vger.kernel.org, coresight@lists.linaro.org,
+	linux-leds@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+	netdev@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+	linux-arch@vger.kernel.org, kexec@lists.infradead.org,
+	rcu@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	Richard Henderson <rth@twiddle.net>,
+	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+	Matt Turner <mattst88@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Paul Mackerras <paulus@samba.org>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jeff Dike <jdike@addtoit.com>, Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+	Corey Minyard <minyard@acm.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tony Luck <tony.luck@intel.com>, James Morse <james.morse@arm.com>,
+	Robert Richter <rric@kernel.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@linaro.org>, Leo Yan <leo.yan@linaro.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Pavel Machek <pavel@ucw.cz>, Alex Elder <elder@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Ohad Ben-Cohen <ohad@wizery.com>,
+	Jens Frederich <jfrederich@gmail.com>,
+	Daniel Drake <dsd@laptop.org>,
+	Jon Nettleton <jon.nettleton@gmail.com>,
+	Eric Biederman <ebiederm@xmission.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Iurii Zaikin <yzaikin@google.com>,
+	Mike Rapoport <rppt@linux.ibm.com>
+Subject: Re: [PATCH v2 1/1] kernel.h: Split out panic and oops helpers
+Message-ID: <20210409165917.GH4332@42.do-not-panic.com>
+References: <20210409100250.25922-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210409100250.25922-1-andriy.shevchenko@linux.intel.com>
 
-Linus,
+On Fri, Apr 09, 2021 at 01:02:50PM +0300, Andy Shevchenko wrote:
+> kernel.h is being used as a dump for all kinds of stuff for a long time.
+> Here is the attempt to start cleaning it up by splitting out panic and
+> oops helpers.
+> 
+> There are several purposes of doing this:
+> - dropping dependency in bug.h
+> - dropping a loop by moving out panic_notifier.h
+> - unload kernel.h from something which has its own domain
+> 
+> At the same time convert users tree-wide to use new headers, although
+> for the time being include new header back to kernel.h to avoid twisted
+> indirected includes for existing users.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Acked-by: Mike Rapoport <rppt@linux.ibm.com>
+> Acked-by: Corey Minyard <cminyard@mvista.com>
+> Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Kees Cook <keescook@chromium.org>
+> Acked-by: Wei Liu <wei.liu@kernel.org>
+> Acked-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-Please git pull the following tag:
+Acked-by: Luis Chamberlain <mcgrof@kernel.org>
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.12b-rc7-tag
-
-xen: branch for v5.12-rc7
-
-It contains a single fix of a 5.12 patch for the rather uncommon problem of
-running as a Xen guest with a real time kernel config.
-
-
-Thanks.
-
-Juergen
-
- drivers/xen/events/events_base.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-Luca Fancellu (1):
-      xen/evtchn: Change irq_info lock to raw_spinlock_t
+  Luis
 
