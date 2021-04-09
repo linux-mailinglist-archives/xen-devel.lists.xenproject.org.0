@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE03135A45F
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 19:05:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.107915.206233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE9CC35A5ED
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Apr 2021 20:40:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.107928.206257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUuYX-0000J8-Ds; Fri, 09 Apr 2021 17:04:29 +0000
+	id 1lUw2C-0008Vh-8H; Fri, 09 Apr 2021 18:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 107915.206233; Fri, 09 Apr 2021 17:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 107928.206257; Fri, 09 Apr 2021 18:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lUuYX-0000Ij-AL; Fri, 09 Apr 2021 17:04:29 +0000
-Received: by outflank-mailman (input) for mailman id 107915;
- Fri, 09 Apr 2021 16:59:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lUw2C-0008V8-26; Fri, 09 Apr 2021 18:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 107928;
+ Fri, 09 Apr 2021 18:39:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9CxF=JG=gmail.com=mcgrof@srs-us1.protection.inumbo.net>)
- id 1lUuTZ-0007qd-8T
- for xen-devel@lists.xenproject.org; Fri, 09 Apr 2021 16:59:21 +0000
-Received: from mail-pf1-f170.google.com (unknown [209.85.210.170])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 95eb8f1a-44b9-44d2-9a5f-1b18ef61f1a3;
- Fri, 09 Apr 2021 16:59:20 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id c17so4634819pfn.6
- for <xen-devel@lists.xenproject.org>; Fri, 09 Apr 2021 09:59:20 -0700 (PDT)
-Received: from 42.do-not-panic.com (42.do-not-panic.com. [157.230.128.187])
- by smtp.gmail.com with ESMTPSA id i22sm73788pfq.170.2021.04.09.09.59.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Apr 2021 09:59:18 -0700 (PDT)
-Received: by 42.do-not-panic.com (Postfix, from userid 1000)
- id 6D85340256; Fri,  9 Apr 2021 16:59:17 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lUw2A-0008V0-Hu; Fri, 09 Apr 2021 18:39:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lUw2A-0007wG-Bm; Fri, 09 Apr 2021 18:39:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lUw2A-0004p2-3Q; Fri, 09 Apr 2021 18:39:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lUw2A-0006eA-2x; Fri, 09 Apr 2021 18:39:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95eb8f1a-44b9-44d2-9a5f-1b18ef61f1a3
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=+9xha/pXNeFBGiuagKWknyCqPbUKuPA8GXpvrC9Jx0I=;
-        b=pLZfyrDz7hD2Xv2STs77lIPlCUpqsIxiHjwuy9PLFfIp2W/wWf24HXI2350+/1oSvz
-         +9gUfaKbjMtieAoUXqBlHNCu3tdhhQ7CqGHMwPowh2JWfzb9eW7HvSaR5DtM8DUQzqyA
-         ctpy9xssweH/jOaisakqdC7LlGj25KghAJNXaXZpyL8jcDqhcJkMfHegAhfjDh+GX44f
-         Dylo+fh8zcAAcjQBgkij0Y2vVeOaZSbzhqLEwgUS6yg//V5naF7/EEvzKcc6i9uRYiaX
-         B5UrqNADVSxuHQsaGNrRIKFFOoyR0ANwRu2SSiA2BBI+/izyYqd+A2c3nCL1PKD62vRR
-         3+ZA==
-X-Gm-Message-State: AOAM531/MoU4XkYN6eawnSnCN7qE0ja7QwZ8JYCKUVbMz5EPosSiz6ri
-	JRpXx7W5FagaURqkxijVW4E=
-X-Google-Smtp-Source: ABdhPJw6kXgrPuw8A7YDvuzOsmJlxLxKBkWC3Ar3os6uxRVSPlCkaHeQd8atCkDOR792q4QQZ8VNRA==
-X-Received: by 2002:a65:40c7:: with SMTP id u7mr14223236pgp.29.1617987559416;
-        Fri, 09 Apr 2021 09:59:19 -0700 (PDT)
-Date: Fri, 9 Apr 2021 16:59:17 +0000
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Alexander Lobakin <alobakin@pm.me>, Wei Liu <wei.liu@kernel.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Christian Brauner <christian.brauner@ubuntu.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kees Cook <keescook@chromium.org>, Mike Rapoport <rppt@kernel.org>,
-	Corey Minyard <cminyard@mvista.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	"Jason J. Herne" <jjherne@linux.ibm.com>,
-	Joerg Roedel <jroedel@suse.de>,
-	Michael Kelley <mikelley@microsoft.com>,
-	Joe Perches <joe@perches.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Scott Branden <scott.branden@broadcom.com>,
-	Olof Johansson <olof@lixom.net>,
-	Mihai Carabas <mihai.carabas@oracle.com>,
-	Wang Wenhu <wenhu.wang@vivo.com>,
-	Marek Czerski <ma.czerski@gmail.com>,
-	Hongbo Yao <yaohongbo@huawei.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Alexander Egorenkov <egorenar@linux.ibm.com>,
-	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	"Steven Rostedt (VMware)" <rostedt@goodmis.org>,
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-hyperv@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
-	openipmi-developer@lists.sourceforge.net, linux-clk@vger.kernel.org,
-	linux-edac@vger.kernel.org, coresight@lists.linaro.org,
-	linux-leds@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
-	netdev@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-arch@vger.kernel.org, kexec@lists.infradead.org,
-	rcu@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Richard Henderson <rth@twiddle.net>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jeff Dike <jdike@addtoit.com>, Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
-	Corey Minyard <minyard@acm.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Luck <tony.luck@intel.com>, James Morse <james.morse@arm.com>,
-	Robert Richter <rric@kernel.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@linaro.org>, Leo Yan <leo.yan@linaro.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Pavel Machek <pavel@ucw.cz>, Alex Elder <elder@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Ohad Ben-Cohen <ohad@wizery.com>,
-	Jens Frederich <jfrederich@gmail.com>,
-	Daniel Drake <dsd@laptop.org>,
-	Jon Nettleton <jon.nettleton@gmail.com>,
-	Eric Biederman <ebiederm@xmission.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Iurii Zaikin <yzaikin@google.com>,
-	Mike Rapoport <rppt@linux.ibm.com>
-Subject: Re: [PATCH v2 1/1] kernel.h: Split out panic and oops helpers
-Message-ID: <20210409165917.GH4332@42.do-not-panic.com>
-References: <20210409100250.25922-1-andriy.shevchenko@linux.intel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1gNlxXyzQNNcVeLssvHRkOiJU2RIHQ+uVi0a3m8Nshc=; b=GrINAPbl5n+vY8MAfZturTtTVv
+	PkD1BIHxmKa5wOJ9hIfTzWtMCXWuVvNGuTrlt6MsqTN+9pXd0dzghrWIbnP7A35rigCa55BVqAtao
+	xGRj31XrFFGgvqDr4tBE6rzGEcuYJEUDnhfsxFFitca6lMeMTNiuCttHl3CTYOn35xmM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-160859-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210409100250.25922-1-andriy.shevchenko@linux.intel.com>
+Subject: [ovmf test] 160859: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=efa7f4df0f3b9e70d49dc41b397ec8400c1ad374
+X-Osstest-Versions-That:
+    ovmf=19d5bccc7663399c0726aac800ddd4591be0176a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 09 Apr 2021 18:39:10 +0000
 
-On Fri, Apr 09, 2021 at 01:02:50PM +0300, Andy Shevchenko wrote:
-> kernel.h is being used as a dump for all kinds of stuff for a long time.
-> Here is the attempt to start cleaning it up by splitting out panic and
-> oops helpers.
-> 
-> There are several purposes of doing this:
-> - dropping dependency in bug.h
-> - dropping a loop by moving out panic_notifier.h
-> - unload kernel.h from something which has its own domain
-> 
-> At the same time convert users tree-wide to use new headers, although
-> for the time being include new header back to kernel.h to avoid twisted
-> indirected includes for existing users.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Acked-by: Mike Rapoport <rppt@linux.ibm.com>
-> Acked-by: Corey Minyard <cminyard@mvista.com>
-> Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
-> Acked-by: Arnd Bergmann <arnd@arndb.de>
-> Acked-by: Kees Cook <keescook@chromium.org>
-> Acked-by: Wei Liu <wei.liu@kernel.org>
-> Acked-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+flight 160859 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/160859/
 
-Acked-by: Luis Chamberlain <mcgrof@kernel.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 efa7f4df0f3b9e70d49dc41b397ec8400c1ad374
+baseline version:
+ ovmf                 19d5bccc7663399c0726aac800ddd4591be0176a
 
-  Luis
+Last test of basis   160841  2021-04-09 01:14:33 Z    0 days
+Testing same since   160859  2021-04-09 10:33:55 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+  Ray Ni <ray.ni@intel.com>
+  Sheng Wei <w.sheng@intel.com>
+  Sheng, W <w.sheng@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   19d5bccc76..efa7f4df0f  efa7f4df0f3b9e70d49dc41b397ec8400c1ad374 -> xen-tested-master
 
