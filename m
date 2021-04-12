@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3CAB35C9ED
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 17:31:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109317.208695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F08E35CA41
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 17:41:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109328.208708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVyXE-00078n-Ee; Mon, 12 Apr 2021 15:31:32 +0000
+	id 1lVygY-00087F-CS; Mon, 12 Apr 2021 15:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109317.208695; Mon, 12 Apr 2021 15:31:32 +0000
+Received: by outflank-mailman (output) from mailman id 109328.208708; Mon, 12 Apr 2021 15:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVyXE-00078O-BV; Mon, 12 Apr 2021 15:31:32 +0000
-Received: by outflank-mailman (input) for mailman id 109317;
- Mon, 12 Apr 2021 15:31:30 +0000
+	id 1lVygY-00086q-9O; Mon, 12 Apr 2021 15:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 109328;
+ Mon, 12 Apr 2021 15:41:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=L7uB=JJ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lVyXC-00078J-KX
- for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 15:31:30 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1lVygW-00086l-9K
+ for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 15:41:08 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1f58916a-9d62-487d-9df4-26a23896dbd9;
- Mon, 12 Apr 2021 15:31:29 +0000 (UTC)
+ id c0d499fe-ad17-426e-abbf-021bb1f16f7d;
+ Mon, 12 Apr 2021 15:41:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,357 +35,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f58916a-9d62-487d-9df4-26a23896dbd9
+X-Inumbo-ID: c0d499fe-ad17-426e-abbf-021bb1f16f7d
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1618241488;
+  d=citrix.com; s=securemail; t=1618242067;
   h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=z9ZvNDb5GYWxEvtS6e+Gb7YmS7TOM2LYH+yd+1gwSYE=;
-  b=YVA5/YSz/E8NhUwx8G3BToi3oyDMlFOhzcqVXc9oUxrJsCeGgtyGRrKV
-   wnbsEe/kY/oJjK7x42NK7neaa2xdHiPAaBopxlDgNgC8Bi96EZzQ53R0a
-   B6DXpAL9Om7eXom4QnhSQa10/9Q9SS6q6t355ixFNw6w0wjjs7+t+N8Gq
-   g=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 1vpToFZtLOOUTnX8MJzp53pKZfkmvAvfne/egcEZZRJWvoA00CYlL5y+qHCM9y2eb2kX/CF7fi
- rVA5nLDWDqlOCi6Q0oLASeI+m+sfJbb3DXxOXonrSZqId3scYDerdOKXxsyVKo1XyQ0ZJTKuKv
- /ocayYnOcXCCFClEtCowmuiEg3qzSBaGi1ua9B7x6TwBOxISYVH6yS7/VGSuNKGPaXn5xIPXde
- Qd1LPIYEV7LRLHCgI6tVyIK4/LJ7JIdd+uvjLyILtgIQluyzMDOHDGVCzmQ0CoxaAg2SMM3ynU
- Tmc=
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=H80Y4Edr7Rrc7qCHhExSs6Vzni0yEDlV/lKokyrM7hU=;
+  b=cEA+jCfRwpGMcKqRfzcNyhuzP1L9kbikz12uOrucarTIf8e0/rFQc7Qe
+   Bo8BxLPuZ4K5MPSYSMIWQbNYF0NFXaH6n2r7VD3v3+M0oep2jwfWYS/lC
+   xCBX11O5cLOxK8Cr9oa9Ffu1KLAmFuoppA8w0wSs8Hy8rTAN77tjm5FS7
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: VVDngNiPeL2o+E1JoCbJ80D+M0d+uR8upa5BfOM9G/NlY6Jpo6lSgIK8/cM3//235VAJPjX7Ht
+ P9knX0+HR9ylpk4nsRNOVOfhJBg0sM/tReKEluDazmoM17Z+NNDSZs1qBZgmPdwgLWUxiaqqCP
+ HMxPsprvNx4FBFoFuGDKVI/mfJJjy6xD7ItH+WteBTogwiit8LEAvjYcy1ubNXRbv6JjbIRK03
+ WY04eva+aKFVa7aps9aX5MjM3UpNb1LnzyRglzhl5njEhqfB2Q+H+TcYzu7FrHIAI0fkoQLyNE
+ J/8=
 X-SBRS: 5.1
-X-MesageID: 41399735
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 41247005
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:eJxlxaElBnoOOCDrpLqFb5TXdLJzesId70hD6mlYcjYQWtCEls
- yogfQQ3QL1jjFUY307hdWcIsC7L0/03aVepa0cJ62rUgWjgmunK4l+8ZDvqgeOJwTXzcQY76
- tpdsFFZOHYJURmjMr8/QmzG8shxt7Cy6yzmeLC1R5WLT1CQYsI1XYeNi+wFEpqSA5aQbc4Do
- Ob/MpbpzymEE5nE/iTLH8DQuTFupn3hIvrCCR2fSIPxSuvqXeT6LD8GwWFxRt2aVJy6Jor7G
- StqX2d2oyNqPe+oyWss1P7z5MTo9f5z8sGOcrksLloFhzJqiKFILtsQKeDujddmpDe1H8PnM
- PXqxkte+RfgkmhBl2dmhfm1wn+3DtG0RaLojX08BiTw72KeBsAB8VMno5feBfCgnBQx+1U66
- 5Xw3mf86NeEBKoplWN2/HzSxpomkCoyEBS6NI7sno3a/p4VJZh6aYb/E9TDa4aGjP75I0NAI
- BVfb/hzccTXlWAY3/DuG5zhPSqQ3QoBx+DBnMPo8qPzlFt7T9E5npd4eFap2wH/p4mUZVIjt
- 60RJhApfVrdIs7fKh9DOAOTY+eDXHMewvFNCa3LU78HK8KFnrRo/fMkfsIzdDvXKZN4Io5mZ
- zHXl8dn3U1YVjSBcqH24AO2gzRQU2mNA6dif121txcgPnRVbDrOSqMRBQFiM27ucgSBcXdRr
- KaJI9WOfn+NmHjcLw5nzHWat13Ez0zQccVstE0VxalucTQMLDnseTdbbL9P7zoPTE4Wn7uI3
- cKUTTpTf8wq3yDazvdulz8Snntckvw8dZbC67B5dUez4ALK8ltv2Eu+BCEz/DODQcHnr09fU
- N4Lr+iuLi8v3OK8WHB6HgsHhJcC01S8YjxSn8in35MD2rENZI4//mPc2Fb23WKYjVlSdnNLQ
- JZr1NrvYW6MoKX3iJnL968KGqVgz8yqRuxPtYhs5zGwf2gVoIzD54gVqA0Px7MDQZJlQFjr3
- oGThQFSE/ZHjbHkr6kk5QQOeHae7BH8UWWCP8RjUiamVSXpMkpSHdedSWpS9SrjQEnQCcRuk
- d86JYFgL2LmS+mLEw2hOhQCiwLVE2nRJZ9SCiVboRdnb7mPCV9V32DizChhxYvQWby7EkJim
- v9LSqbROHTDjNmywNl+5ev1GkxWnSWfkp2ZHw/i4F7GGjckltY0OOAZMOIoiGsQ2pH5ttYHC
- DOYDMULA8r+su+0wSNni2eUV88wI81A+DbBLM/Ur3a13+3MreUnaUeE/I8xuc9CPne9sswFc
- 6PcQ6cKz31T94z0wuOv3A/JW1armInnf6A4myt0EGImFoERdzcL1RtS+tFf5Wy7234S+2J15
- s8p9Qvpue0OnjwbNnD6ay/VU82Fjrj5UqNC8cvotRomIh3kp1ZNZzSSyHJ23FKxw9WFra+qG
- ouBIBApIncMYpudfEIcy1X/lAVhM2CRXFbxzDeM6sbRxURlHfVMNOC3qrQpZcuCkOHohHsOV
- P3yVwrw971Gw+C36UdEaQ+PCB/b1U98m1r+Iq5BsDtITTvU+FI51yhNHChNJdbVaieAL0V6j
- J3+cuBkePSVy323mnrzHdGC5ML12asWsWpBg2QXcZO7tyhIFyJxpKQ3/Tbtka+dRKLL2IChY
- NEckQMbsNMzhka5bdHrRSae+jQuUIqk1xX/Dd9sEXis7LWuFvmIQ==
+IronPort-HdrOrdr: A9a23:peEVMKsfzbzO/716bT8S3Lr77skCEIcji2hD6mlwRA09T+WxrO
+ rrtOgH1BPylTYaUGwhn9fFA6WbXXbA7/dOj7U5FYyJGC3ronGhIo0n14vtxDX8Bzbzn9Qz6Y
+ 5JSII7MtH5CDFB4frSyAOzH888hPyO9661jenTpk0dNz1CQadm8gt/F0K/Gkp5WAFJCfMCZe
+ ehz+BAoCetfmlSU9SjChA+LqX+jvDotLajWx4JABY79BKD5AnD1JfWGwWVty1uNQ9n7qwl9Q
+ H+4m/Ez4Wl98q20xrNk1LUhq4m4+fJ7vtmKIiyhtMOKjPq4zzYKLhJf7GZpjg6rKWOxT8R4a
+ DxiiwtNchy9H/dF1vdyXCBumnd+Q0j5HP4xViTjWGLm72AeBsBF8FDiYhFGyGpjnYIgdBm3K
+ pHm0KfupZHZCmw+xjV2tnSWxlm0nezuHop+NRj60B3bI12Us4ykaUvuGduVLsQFiPz744qVM
+ N0CtvH2fpQeVSGK1jEo2hG2rWXLzoONybDZnJHlt2e0jBQknw85VAf3tYjknAJ8494Y4VY5t
+ 7DLr9jmNh1P44rRJM4IN1Ebdq8C2TLTx6JGnmVO07bGKYOPG+IjJLr/rMv5qWPdIYTxJU/3L
+ TNOWko9VIaSgbLM4mjzZdL+hfCTCGWRjL20PxT4JB/p/nyX7zuPSqfSE0/kseprvkFa/erGc
+ qbCdZzObvOPGHuEYFG00nVQJ9JM0QTV8UTp5I6Vju104f2A7yvktaeXOfYJbLrHzphcHj4GG
+ E/UD/6I9gF6kiqX3T/kQXAQn+FQD26wbtAVIzhu8QDwokEMYNB9iIPj06i282NITpe9qosfE
+ V/J7vjmrihpXa/+HvJ62kBAGsfMm9lpJHbF19arw4DNE35NZwZvc+ERGxU1HybYgNkQ9jOCw
+ 5ZrVRv8aexJ5idrBpSTO6PAya/tT8+tXiKR5ATlum//s/jYIo/FYtjcrd2Dx/3Gxt8nhtKpG
+ 9PZBQffFLWEirjhMye/dopLdCaU+M5oQ+wZeZItHrUtCyn1L0Sb0peewTrbOm6rkIFQSFOil
+ h47qkF6YDw5gqHGC8Ym+Q3MFpFdWKNJqlJZT71K7l8q/TTYwd3Qn6NhTuGzz8OWkeCzTRKuk
+ XRaRSOf/fFG1xcvW0d9J3L3hdbSkWxFngAMkxSgMlFDmLBtW900eiXIpCr22/UUVcL2OcbWQ
+ u1Owc6E0dW3Naw2weSmDGeUUon3Yk1etPQF64idba74AL3FKSBibwGE/hI/JxsKdDptasRXf
+ iCfhKORQmIdd8BykiboG0oNzJzr2RhmfT02Af95Gz9x3InB+HOSW4WDI0zMpWZ72L+QeyP34
+ g8hdUpvfGoOmGZUK/O9YjHKzpCIAjUu2i4UqUhro1Vp7s7sP92E4PAWTXFkHFB0xNWFra9qG
+ oOBKB66qvGIIlhYogbfD9Y5EMgkJCXN1Qw2zaGdtMWbBUolTvWLtmJ673Hpf4mBVCAvhL5PR
+ 2a/zdG9/nIUiOf3dcheugNCHUTbFJ55GVp/euEeYGVEgmseu1Z9FexM3O2ctZmOd64MKRVqg
+ w/78CDnueReSa9xRvZuiFjJLlSt2mgWsG/DWu3aJt12s3/PU7JhKSk4MS+1miqDTS6blkVno
+ 1DewgbaN9ZhjwrkY0w1WyzR8XM0zEYukob5SsikFjnnpWi6iPcG0pNNAXCmJVYXTVJKBGz/L
+ P42Pnd0G64+SRP3JnICVxZcd5PEcUBV4SfFVYfFeEA+Lqzu7c1iitNYB0yH3cxhTD00eRhx6
+ q40pzpKp/fIGatP0kA9z5DDpN1mSJuqXgoSbnO0a6A
 X-IronPort-AV: E=Sophos;i="5.82,216,1613451600"; 
-   d="scan'208";a="41399735"
+   d="scan'208";a="41247005"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IY7vh2iXnI6PPxhjFED+yJYjJuwvmxwMH6nCLhPz29ldJnNzTI9ZmyIyxOWZirFHZzTZT0P4+9AXGAtcsPj71R4LLXm4prM4SA1Gn/Yv5limmtTR72a22vLe+3GQ8bBJAeGPeGR6XWdouklzGBTMSSYJGTSjll4pNFCRBfst9PWkTKJzCgFI92opqO926Pi3mnUJUTcc4Ad6RUnhBsbGz8yeoG78vdE3So3MnDG+YWh/pZactEfebeR+vbTfTe65i0FEE2c74skViK9YZoxqBqYO8Sf1aQKEFRJxDc9ycRsqQGCKDTPfQrxdQE0y08Y0GsKCmZqrXtNABU4Rs4DeqA==
+ b=FIURgxl/BLBXP2FZSBcRnl436iwkYpDpVJT7jil3R26Ai5QjNipU7GBzNOKEEn2MpHSWUJVhEed17igsxY/Ya4AXhT8lrgTB0K3CJh3ruRyVEdLVLrdwoPDUoEi4h2IFioAbP288tsePRV++KprFAr45GdWuifkUaKYVVtqozgdo9uftQp28+mw1MmQ6rPNvYwAm0Qxq3CcOndP75jV1coYjWb973VwCfyjtDatkbAmkxNk5oicKTOxqUTwvCxSSdyWc9quImSSTwV/xZGdFWO+dQShMiyknAZvqVvLqWp6GDwUT2fuHeFYoSh2xW/PJsHnTurs0/slQ3cOjkWlMXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=14l+Phv4R2uRqhvMOZ9ffFIQv1zgoSBmCpCxhFnXL54=;
- b=Payjt03faO209ssbkiIgTmi7+q3WqMMWdjIkr8bIp8kpzKwr6Joj9ubecq89fDrFflQMceB1sg/fDCI7XgR7KZxQKTnsY6UYAed8s4URjmaeB2Z+80tIHAReFT+JIc3NKH5LAPzGaXmMxqvJkndlEA+pIsSCyCz7eKZtEtnzz+RC6lzePG3HtpR3THNvvnB9cCqVyU6sS06yMB0TkPs1fXPinRc/Kjt0gRrVmIDb7bwTzrHE/lzsC5NGzeOVKHcp9DCRmLOdNSuJ7siniWqN+piiDjN1b5HbijOQKXgMcyos96LKjoSYVdWHzKLIqTW3lklw5/Da3YmBXRw44XcYjQ==
+ bh=XjlsgBhoYdU8eRzneX+I5WwcgTL5MZ/MmZsV/C1k4UA=;
+ b=aZ2CooS2vPInuxqHBkjJq/7otyRQ2qBgQKTKXZx8Wxl6m5h6cXxDcmmEh31LQPbZNYlE7RpycM1R1Mk/iXzkdIspNb63UgZFKtJlfr/1iZLr/VzSArsCI+aPpu4knF88EtnME4CgogL5qpmFFBxWD2BY6jL/YQIxVlLtgD420MttMUDXkFRwSg2wwjXdZaIgUHuktWWLH2JqMMp2KlGgUvUrib86tTbmrri5Xc+0kVJCGmI03auFQffHXR2RQDqnjmmmLF5hhKDLRGIPSSC27UBHAUsx9x/Lp/Ydh7f3Yn6JQEf22voy+jsg6SKS/pQxrtvYFPCYlFAli2i3jq4b4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=14l+Phv4R2uRqhvMOZ9ffFIQv1zgoSBmCpCxhFnXL54=;
- b=CdmT1PFzA/O8CkuMg5w1YahdmL9JZs9K9kRb5G3dIJ/HqavVGxXNSgKRa6JnIoljdmwR9/6QibZ8q0JAGONGn9lEo13HE3yBgrutdN8oIROpBdz0a8MXTOIsJNBq8Za8JQEDfXS9ENZ0+9HiVDOoWFBMQ0nwreL89FHJN2WIHqw=
-Date: Mon, 12 Apr 2021 17:31:09 +0200
+ bh=XjlsgBhoYdU8eRzneX+I5WwcgTL5MZ/MmZsV/C1k4UA=;
+ b=D2i4647tUri08DtXqD0Bh6F38BhItI830e6yxMwwhS4vmJ5/JnUvFvAu5IEeEqGdANcA6C9JpEasoeyQ/ND5mSzUiXZPFLgknYXlowjRKbMTSFuBg3jmfsYrsCVTN3He/mt4lf/Ek6CTEB582WbwVniiNdpOiL5a4dcbOpLfkPg=
+Date: Mon, 12 Apr 2021 17:40:58 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Kevin Tian <kevin.tian@intel.com>, Jun Nakajima
-	<jun.nakajima@intel.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH v4] VMX: use a single, global APIC access page
-Message-ID: <YHRnvQvWJ7QsXVgX@Air-de-Roger>
-References: <4731a3a3-906a-98ac-11ba-6a0723903391@suse.com>
- <1c489e77-6e65-6121-6c28-3c4bd377223c@suse.com>
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/2] x86: correct is_pv_domain() when !CONFIG_PV
+Message-ID: <YHRqCh3zjUh1l2Kt@Air-de-Roger>
+References: <7c040eff-2746-59e3-b657-64f5df3c9085@suse.com>
+ <54013074-1fc4-1047-0d00-2762fcbc9ade@suse.com>
+ <YHQUJw8H2tgNy5iY@Air-de-Roger>
+ <169d6a5b-81ec-f347-8edc-60ba6ab0864f@suse.com>
+ <YHReAkwZPnnh2itL@Air-de-Roger>
+ <9571d2ac-e8ae-4105-5f92-0a81728f44d2@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1c489e77-6e65-6121-6c28-3c4bd377223c@suse.com>
-X-ClientProxiedBy: AM6PR10CA0101.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:8c::42) To DS7PR03MB5608.namprd03.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9571d2ac-e8ae-4105-5f92-0a81728f44d2@suse.com>
+X-ClientProxiedBy: MR1P264CA0027.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2f::14) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e5a6ccc0-38e0-4c0c-c654-08d8fdc80349
-X-MS-TrafficTypeDiagnostic: DM4PR03MB5968:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Office365-Filtering-Correlation-Id: be99c3a6-322c-43b1-2190-08d8fdc96166
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4604:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR03MB596832FD6D9EFE918A998D908F709@DM4PR03MB5968.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4604347B5CFD13478D4A1D5F8F709@DM6PR03MB4604.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Q6bPhP8EBpX/tcs8dEu/No4feeETSRmKhCbw3Oc+DcvOQBz9Nf2VEJ0p4e+kgtHt3s9Ri26RlzCn5NG0H3nMCj4z7KLUlB1aMcX4h0CECmlf0EUcZeKQa1weJ5ryPSKwfa9Z6K2/jCiW1JywT88v+F/lCggml3YoAtHbabFU8FTj7f3FkRXKCtoQgKAkpsXWkD+4Dmdn1kKSH9vf3AP71E6JmD0lBMtO0p8KKpAorRNLdFKpeVY4gXi5Z1GMakk56LBMwRJ0UCXWHEfueOD6mVKxycFWazBKrlcDUr1TJBHKHOFunK9hxs8XTMcnjXobhe8QZE34zXCpvgdupZYDjUlcqQcLWdbs44euywPXeA9fjrgKyKW7n2V1LGjbKbTBGxK1qlJ1wPi4WJUNAlIT1MvZnQzrSPnI62VNGqsvgRhn3msv2tJUx49di5/mdIqvLHN4vrVHk1ujW1UMpLI4Xg2wqJD21J1pym1moFKj2Bz3FopMTttGHT6IImt50bWCPzocEeynKy7qPxOWN086dipcpA8iJGjTz4qWTXNo7xsvds9/2c7FAWxaqgw9bYKEWsWHDudDOmu9MnDo9Z9FqvmfI3YYaSpVqOFht91voY3wxKYt6qyI65QKyZrXLaHYr4OIUB8m1Cd+Y4CYZJcIZd4b/j5FhSZG/gjiVyJcTTgknI3QBGziYT9YmXlrlVXs
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(366004)(346002)(376002)(136003)(396003)(83380400001)(9686003)(6666004)(2906002)(8936002)(86362001)(316002)(4326008)(16526019)(26005)(85182001)(33716001)(186003)(8676002)(66946007)(54906003)(66476007)(6486002)(66556008)(5660300002)(966005)(6916009)(478600001)(6496006)(38100700002)(956004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MW1ETFM2S1p5UTIvNWpWVG8zOGljV3VOdWNoTFRnWXN0bzNxcjBNOE1OenJZ?=
- =?utf-8?B?d2hMUFNSUkFlM0ZMY1QzVkt4S0FJL3hoZ2dGVkJKY0xKZ3QvMHdSUFEyeFgy?=
- =?utf-8?B?czE2ckVvUzJxQm1UejV2MnRNbUFMS3pHMFpaNzhUNlg5RUQwc3JaVnBZM0ln?=
- =?utf-8?B?ZzYwZFlxSXpIclBIWThJZXBwcGlhc0JZUEJnOTdRaDN0NWxaWkRkTnZFM2Z6?=
- =?utf-8?B?TDhjUkZ6SzNnZ2taTXpTdzZDcWRhQktTRytSQ0JKWU5rWHJjTzJLbW16M291?=
- =?utf-8?B?czZObHFkYWp6NjVSU3J6S0IvV0FDYlVGMFpSVjNNNDQvWUVleWVvSUVFM0sv?=
- =?utf-8?B?NnJHWHBySk5MSm5ETzBVMVV6bEdKN21va000Z0MrbEJPTjNuRngvV21LTU52?=
- =?utf-8?B?U2NqM1c2dFp2cVNrNFpZRy9oMFFmYTJHdE1OQk9qTVJ0Q1dvNzgwZDFCeWJL?=
- =?utf-8?B?cEJFRmdXaVllRUNVSWNnVTJkWEtIaHlvMExHTjlJN255MmZDYWNZWE5Ta1JG?=
- =?utf-8?B?NFpwbDNac1JKa0wwbUJLcWxPbkg3SzhBUXd4V3kzMjJyczB0eVFLd3lGL1ZK?=
- =?utf-8?B?OTcwajJBUUp3TU9pOTZjQlJRYTVKR21rZGxOS1Vnc2ZRelpkQVQ0aThCQXBj?=
- =?utf-8?B?eXBIZlUyeTRza2ZHb2Uvc2Rzb0VMbE8rdnN2WW1wbEF5b2lXZVp3S0pJaDNQ?=
- =?utf-8?B?Y3BvN2dQdS9jdmJvRzk2bGNBci9XRUxmRTVtUDVyaWZEV2g1QjBULzZ2QTE2?=
- =?utf-8?B?L3dZeFB3WTNZZVFsN2FXYWNaVFREN3B4bDBsL1hmSllGQjZlQTQ2bHJMVUtz?=
- =?utf-8?B?MlVyeVZaMUtVWmI0MXRlYVhXdlFNOXVISkwwQ0ZFeVIxbDBZc3lyMDMyOXRY?=
- =?utf-8?B?a2c2L0FYeERGME1Pck9DSnF4ZVdKTmNrQUhuMUVsTWgwY05GZm5UUTZ3SFp3?=
- =?utf-8?B?VUdkNW9acTMrNHozOW1zY0dhRC9PbFpaRVMrWWFjZmRlWEVPZG1RbTdZM0R2?=
- =?utf-8?B?NzRoNVB0N0p2VDNTRW5nN3FRVk94Mk9ZQTBacm9BTjRZMkt5VWgwNXVBOEdO?=
- =?utf-8?B?bFRoRGpaMnpNcXVNeE1zcFNML1Y0c0M2WVV6WXRrQ1BlNHNHVHZWd0VYRW03?=
- =?utf-8?B?eE5GM2FRNWlxSXg1Wnp5a0EzdTc1dlJlbXE3ZFl1YzJieU1paDhGSERkaCs0?=
- =?utf-8?B?NTVSQmY2UVBOUGRFYmM0U2x5dFFuaTBteE1MbUg0SWtwV1BPV2NjejQ2VkVS?=
- =?utf-8?B?cFQ2eE5TL0FKY3NZNCtHTUVCTEZ6dnl0TzhRUS9qdjMvbEFNK0p5OTBnQlRS?=
- =?utf-8?B?dGEwalJoVmwxTFBuV3FxTHdxcEh2YUx0SFFyQ1ZPZUFMcHEvcHIwQ1lZcjFV?=
- =?utf-8?B?R0g3cmk1OFpjcmJCUVJEVWdJVW5ESndQZCtaWFd1WUpGL3BFWHJZOU1JSmlT?=
- =?utf-8?B?OStVODV3YTIvbjYwNTdjZ3l1NEV5ZzMwMkw5UTdVOGtIb01FY01kejJIaHRm?=
- =?utf-8?B?YXFmQlRBVElLV1ozTXRaSDlMT01jVVhqd2thcitxSWNSYXFWTFN3WmdMcXZm?=
- =?utf-8?B?djRhaVo4SkpTalVXSFc1azgyc2NDQXBSSUorc0tYNXlQNHNmSmVCcDMxQzZv?=
- =?utf-8?B?am1CVnIweFlRNFV0WFRKc1V3S1paZGxpNFBxdHNQb0FBamQ2dWt0OUVvVVFT?=
- =?utf-8?B?SlFNSTdpbEZDclA5RzE3SUNKVmlpcjY3Ykc5NlpjZlhnbFpjTmQra3cwakx3?=
- =?utf-8?Q?CMnPDigQM/xZg4zfrDC7v8BZJ9i3qHGCHeFAVxG?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5a6ccc0-38e0-4c0c-c654-08d8fdc80349
+X-Microsoft-Antispam-Message-Info: asj49Ay9Ct+RrtwmVOaqK4VsobZ/PMS+UnQ6j3CtDItMjMWcKiuDJq2saAIl92Nhc+JpZMwHsLYxatghYB6b1jrGywm9MswfDc89uSWRd4yySGLmsacC6rq6zEMqoUQprK8KZGJL/Pnc7R95J5+JTUahZpz++VMNojGfDAh0c10TLZQ1SXKKTNrLJZ2KoghmgKL0EgU8v2ygWa4WK1OVzsn+YPMTWyRzhnz5V+xPyipTyXQPOdhknw/Y0R8dp9L0mG6qglgYHH/WlzLFkpezKunNdHHYIzSz2T+SIIBdN40ybF1W6CsKbxWjIRzk2e54w8ia01ptPB2GGpl0Sw6OvE3owQFvWaY0SDBXU0XZ7Np9zj2azauz2I5iP0zcB+hWL84xt43SQbZlA6egj9pjKG10U6+ckSSZVpR4tgHwcvpPNQFVbp9kDpiDFxCU41kiuQVqgnvPzMqD3HbVsuOG/TeiHSj17JyKzBwlmblvjZ5z1qj71FOoKPImVUO7HIN4VDkN3kzvl+Y3LhYXX899Lneosf3YLsd4mO/0FT2qUtylzXy3o4k7Y/gd9NKUphM4fuyJVKPjM4qrt3CwUD8ASrkkRDDNF60NmoErMG8IywE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(346002)(396003)(376002)(366004)(136003)(16526019)(6666004)(26005)(2906002)(316002)(54906003)(86362001)(186003)(9686003)(6916009)(6486002)(4326008)(33716001)(5660300002)(478600001)(53546011)(6496006)(8936002)(956004)(38100700002)(85182001)(66476007)(66946007)(66556008)(8676002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eUVwY05XM3RNVzVSTFlraUVYY1dVSS9WWjRxQnhPQ1Z3RVQ1SlhXdlpQUUNW?=
+ =?utf-8?B?WmJPRTRBVWNUR1hLK1VNVDl0a0ZEUm5oSVV3U2dJeE43VFV6b1Mza0hMZmxU?=
+ =?utf-8?B?UVlqOGhUcm1GcWw2T0xWZ3gzUjJ5K3hKeWI2eURsZUozUjREWFZTOE5wbmRF?=
+ =?utf-8?B?Yi9wUnBZd2ZWWXViNmV4bGc3Yit3WkR2WWtWT0N1OWQrM3FxSWJUdWI1cmJn?=
+ =?utf-8?B?V0FQMWNrRTZraU00L3F6WjhiakVoeGZuMm5pZzZCemswS0UvbzBHRDRTZml4?=
+ =?utf-8?B?VWhUYUpIRjVqQndxenZWbzFXWUlHaHBVWHVGRWNOTnEwY0tlQlBXeU5nemN6?=
+ =?utf-8?B?VEJTbFJvcGlET1JnV2RpWEJJREdVVnhacnlJc0l4R3lBVlVYWTB5c3dIREln?=
+ =?utf-8?B?clpCY2s2TkJIUmxXVEN4V0REVmNCWjNXemswVkdHa2RlQ1prSm85SlpRMjhj?=
+ =?utf-8?B?b3NyWFYxYjRXbG02Rmh6Qkc0aXgzZDlCUTFLOHU3Z05pU1NDQURjbmlsaW92?=
+ =?utf-8?B?eE1yWFMvZDdKQnJCWmpOVDcxMWpxWWZaWU5DVDF1bmgvVGVSWWlINjdBTHQw?=
+ =?utf-8?B?aDRSN3laa2M1aTNLWUZ3ZHFlaHZqY2hoWjRyNE51bkt3Y3hmUnBQd2QzbWxz?=
+ =?utf-8?B?cUZlVWpWYmhpdzh2TjJodVBkQmFPVlliSlF5ekYwYmdUYUIzY0hTRkdXS01i?=
+ =?utf-8?B?bDdtY0xwd0JIdmk1Vm9YT09rOU5pV1RYRUZTakRQZm9xMFJCcmtKQXpHYUdP?=
+ =?utf-8?B?WSs3cjhJWTkydUpGSXU2dlkvcDE3amdEU0xxejFhVFpOUStEdHdSM2huakI3?=
+ =?utf-8?B?bURrQXNzK0xXcTBKSUJIZy84S0FBTndOWXRlVTZheWI1MVpPdENlekVwL25V?=
+ =?utf-8?B?aVJOVFNodHBrb2VwbnlXdHFFTHZ3NjM4a0NUbVFRT3QzSVdjUEhuNnRxRVdX?=
+ =?utf-8?B?ajJiK2hxcWNjUVdwbXlCSzUzTEdzTnFHTTF3b3hZRkZ0ZmNGdFgzcjIzaWl3?=
+ =?utf-8?B?UFM4eHRzYVdqZzRLUmlrSUtLM2I2U2dDMHhScTFzMkJRVkZISFdyNlpGenB1?=
+ =?utf-8?B?RnJtcUVoWi8wT1ltYlg5TVEvNmh1anNudlc0RHJIcDVnZEIxcVlsbWx4M0pL?=
+ =?utf-8?B?Y0VDS25mcm9pWDFPQmlJWm1NbjlvTjhyOVRITWFrOUJZS2FiVFBTbmxUdjdP?=
+ =?utf-8?B?OFFkby82cHNHMmswa0F1Z1JTN3BMd2EvOFhpYUxLRGxXNmtGODB5MEVVeFYr?=
+ =?utf-8?B?dHdrbXlKZURjUElacHRVUm5OcmlrTnV3VWVBTWZpTUhGWkY3aXM0anl4OVRs?=
+ =?utf-8?B?MERnanB5Y01pWUs2clVpay82Ui9TdXV0RndKaW5YNVFHTnlsd0RvWFlvN2li?=
+ =?utf-8?B?cXk5NjVhREdpSmZNUWE1S1VjY2VXSTliSUVEMUNMVjd4TGUwU1N3Ym90NmVx?=
+ =?utf-8?B?UmsxN2NNYUF4bVBxTGJ5WGtaWGhIdjl4K1ozSCtHdnltL3JZQzh2ajQ1emVC?=
+ =?utf-8?B?YWxPWVNkb3hWN3AvNU02THArRTNiTWIwTzZjNFYrQVp1REt3WWFQYXN0SVJk?=
+ =?utf-8?B?TExOeHRodno3M2NtUE0xMGliS3ptVXJ0UVZ0MGtiS2RsZWU4L0Z2MzFmRDU2?=
+ =?utf-8?B?Y1RYQ0ZVclNRb0p4MXQvN3pCMmtmNHBWTXMzS3pBbEZ3MTl4NXVLVjRYVmRx?=
+ =?utf-8?B?bisvMmlUNXhqTUxqOCtmQXdYSDA5TnFBV25VTTkxTmhPVDVXNVlBRkxXdENN?=
+ =?utf-8?Q?gf5lJPyeGiNj9vAeHB0HSg5H01iaN7VDtZo2jgU?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: be99c3a6-322c-43b1-2190-08d8fdc96166
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2021 15:31:25.2451
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2021 15:41:03.9233
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TVCMHwRN6gS/7mMgdpehLxBoVddhHfQQJmH2wqnxsvLU/Hh7Z17nTpdqgG58l5HmsoBkRwuJLVVD/SlBIITtJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5968
+X-MS-Exchange-CrossTenant-UserPrincipalName: WTBJyazyjaS5G5xIjjuysmGNbP+31ejUFWS6vg5/g14kgwhCO4Jc9ZGy/+k/dGur5zpfg7DB5VdN590p5upYvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4604
 X-OriginatorOrg: citrix.com
 
-On Mon, Apr 12, 2021 at 12:40:48PM +0200, Jan Beulich wrote:
-> The address of this page is used by the CPU only to recognize when to
-> access the virtual APIC page instead. No accesses would ever go to this
-> page. It only needs to be present in the (CPU) page tables so that
-> address translation will produce its address as result for respective
-> accesses.
+On Mon, Apr 12, 2021 at 05:24:41PM +0200, Jan Beulich wrote:
+> On 12.04.2021 16:49, Roger Pau Monné wrote:
+> > On Mon, Apr 12, 2021 at 12:07:12PM +0200, Jan Beulich wrote:
+> >> On 12.04.2021 11:34, Roger Pau Monné wrote:
+> >>> On Fri, Nov 27, 2020 at 05:54:57PM +0100, Jan Beulich wrote:
+> >>>> --- a/xen/include/xen/sched.h
+> >>>> +++ b/xen/include/xen/sched.h
+> >>>> @@ -985,7 +985,7 @@ static always_inline bool is_control_dom
+> >>>>  
+> >>>>  static always_inline bool is_pv_domain(const struct domain *d)
+> >>>>  {
+> >>>> -    return IS_ENABLED(CONFIG_PV) &&
+> >>>> +    return IS_ENABLED(CONFIG_X86) &&
+> >>>>          evaluate_nospec(!(d->options & XEN_DOMCTL_CDF_hvm));
+> >>>>  }
+> >>>>  
+> >>>> @@ -1011,7 +1011,7 @@ static always_inline bool is_pv_32bit_vc
+> >>>>  
+> >>>>  static always_inline bool is_pv_64bit_domain(const struct domain *d)
+> >>>>  {
+> >>>> -    if ( !is_pv_domain(d) )
+> >>>> +    if ( !IS_ENABLED(CONFIG_PV) || !is_pv_domain(d) )
+> >>>>          return false;
+> >>>
+> >>> I think overall is confusing to have a domain that returns true for
+> >>> is_pv_domain but false for both is_pv_{64,32}bit_domain checks.
+> >>>
+> >>> I know those are only the system domains, but it feels confusing and
+> >>> could cause mistakes in the future IMO, as then we would have to
+> >>> carefully think where to use ( is_pv_64bit_domain(d)
+> >>> || is_pv_32bit_domain(d) ) vs just using is_pv_domain(d), or
+> >>> IS_ENABLED(CONFIG_PV) && is_pv_domain(d)
+> >>
+> >> Imo it's not "then we would have to carefully think where to use ..."
+> >> but instead this patch is an indication that we should have been for
+> >> quite some time. For this reason (coming back to your first comment
+> >> at the top) I'm not sure adding a comment _there_ is actually useful.
+> >> Every use of is_pv_*() needs carefully considering which domains are
+> >> really meant.
+> > 
+> > Maybe we shouldn't have used is_pv_domain as a way to hide code from
+> > the compiler and instead always provide dummy functions, as even with
+> > PV support compiled out we still need some of it for system domains.
+> > 
+> > I'm not sure I have a good proposal to make, but it seems wrong to me
+> > that is_pv_domain(d) could be different than is_pv_64bit_domain(d) ||
+> > is_pv_32bit_domain(d).
 > 
-> By making this page global, we also eliminate the need to refcount it,
-> or to assign it to any domain in the first place.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-> ---
-> v4: Set PGC_extra on the page. Make shadow mode work.
-> v3: Split p2m insertion change to a separate patch.
-> v2: Avoid insertion when !has_vlapic(). Split off change to
->     p2m_get_iommu_flags().
-> ---
-> I did further consider not allocating any real page at all, but just
-> using the address of some unpopulated space (which would require
-> announcing this page as reserved to Dom0, so it wouldn't put any PCI
-> MMIO BARs there). But I thought this would be too controversial, because
-> of the possible risks associated with this.
+> Hmm, so we're of opposite opinions - not sure what to do. Short of
+> having / introducing is_system_domain() or some such (with all the
+> needed auditing) I can't see how assuming the two would mean the
+> same could ever have been true. With what we have is_pv_domain() is
+> legitimately true for them, and both is_pv_{32,64}bit_domain() ought
+> to be false (as there's no specific bitness associated with them)
+> imo _at least_ when !PV.
 
-Really seems more trouble than reward. Also there are systems with
-MMIO regions in holes on the memory map, like the issue I had with the
-Intel pinctrl stuff that had an MMIO region in a hole on the memory
-map [0], so I'm not sure Xen would be in a position to select a
-suitable unpopulated page anyway.
+It's all quite ugly, but I wasn't really getting your reasoning that
+system domains can be considered PV domains without a bitness.
 
-[0] https://lore.kernel.org/xen-devel/YFx80wYt%2FKcHanC7@smile.fi.intel.com/
-
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -66,8 +66,7 @@ boolean_param("force-ept", opt_force_ept
->  static void vmx_ctxt_switch_from(struct vcpu *v);
->  static void vmx_ctxt_switch_to(struct vcpu *v);
->  
-> -static int  vmx_alloc_vlapic_mapping(struct domain *d);
-> -static void vmx_free_vlapic_mapping(struct domain *d);
-> +static int alloc_vlapic_mapping(void);
->  static void vmx_install_vlapic_mapping(struct vcpu *v);
->  static void vmx_update_guest_cr(struct vcpu *v, unsigned int cr,
->                                  unsigned int flags);
-> @@ -78,6 +77,8 @@ static int vmx_msr_read_intercept(unsign
->  static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content);
->  static void vmx_invlpg(struct vcpu *v, unsigned long linear);
->  
-> +static mfn_t __read_mostly apic_access_mfn;
-> +
->  /* Values for domain's ->arch.hvm_domain.pi_ops.flags. */
->  #define PI_CSW_FROM (1u << 0)
->  #define PI_CSW_TO   (1u << 1)
-> @@ -401,7 +402,6 @@ static int vmx_domain_initialise(struct
->          .to   = vmx_ctxt_switch_to,
->          .tail = vmx_do_resume,
->      };
-> -    int rc;
->  
->      d->arch.ctxt_switch = &csw;
->  
-> @@ -411,28 +411,22 @@ static int vmx_domain_initialise(struct
->       */
->      d->arch.hvm.vmx.exec_sp = is_hardware_domain(d) || opt_ept_exec_sp;
->  
-> -    if ( !has_vlapic(d) )
-> -        return 0;
-> -
-> -    if ( (rc = vmx_alloc_vlapic_mapping(d)) != 0 )
-> -        return rc;
-> -
->      return 0;
->  }
->  
-> -static void vmx_domain_relinquish_resources(struct domain *d)
-> +static void domain_creation_finished(struct domain *d)
->  {
-> -    if ( !has_vlapic(d) )
-> +    gfn_t gfn = gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE);
-
-Worth making it const static?
-
-> +    uint8_t ipat;
-> +
-> +    if ( !has_vlapic(d) || mfn_eq(apic_access_mfn, _mfn(0)) )
-
-It would be better to use INVALID_MFN here, and init apic_access_mfn
-to that value.
-
->          return;
->  
-> -    vmx_free_vlapic_mapping(d);
-> -}
-> +    ASSERT(epte_get_entry_emt(d, gfn_x(gfn), apic_access_mfn, 0, &ipat,
-> +                              true) == MTRR_TYPE_WRBACK);
-> +    ASSERT(ipat);
->  
-> -static void domain_creation_finished(struct domain *d)
-> -{
-> -    if ( has_vlapic(d) && !mfn_eq(d->arch.hvm.vmx.apic_access_mfn, _mfn(0)) &&
-> -         set_mmio_p2m_entry(d, gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE),
-> -                            d->arch.hvm.vmx.apic_access_mfn, PAGE_ORDER_4K) )
-> +    if ( set_mmio_p2m_entry(d, gfn, apic_access_mfn, PAGE_ORDER_4K) )
->          domain_crash(d);
->  }
->  
-> @@ -2415,7 +2409,6 @@ static struct hvm_function_table __initd
->      .cpu_up_prepare       = vmx_cpu_up_prepare,
->      .cpu_dead             = vmx_cpu_dead,
->      .domain_initialise    = vmx_domain_initialise,
-> -    .domain_relinquish_resources = vmx_domain_relinquish_resources,
->      .domain_creation_finished = domain_creation_finished,
->      .vcpu_initialise      = vmx_vcpu_initialise,
->      .vcpu_destroy         = vmx_vcpu_destroy,
-> @@ -2662,7 +2655,7 @@ const struct hvm_function_table * __init
->  {
->      set_in_cr4(X86_CR4_VMXE);
->  
-> -    if ( vmx_vmcs_init() )
-> +    if ( vmx_vmcs_init() || alloc_vlapic_mapping() )
->      {
->          printk("VMX: failed to initialise.\n");
->          return NULL;
-> @@ -3224,7 +3217,7 @@ gp_fault:
->      return X86EMUL_EXCEPTION;
->  }
->  
-> -static int vmx_alloc_vlapic_mapping(struct domain *d)
-> +static int __init alloc_vlapic_mapping(void)
->  {
->      struct page_info *pg;
->      mfn_t mfn;
-> @@ -3232,52 +3225,31 @@ static int vmx_alloc_vlapic_mapping(stru
->      if ( !cpu_has_vmx_virtualize_apic_accesses )
->          return 0;
->  
-> -    pg = alloc_domheap_page(d, MEMF_no_refcount);
-> +    pg = alloc_domheap_page(NULL, 0);
->      if ( !pg )
->          return -ENOMEM;
->  
-> -    if ( !get_page_and_type(pg, d, PGT_writable_page) )
-> -    {
-> -        /*
-> -         * The domain can't possibly know about this page yet, so failure
-> -         * here is a clear indication of something fishy going on.
-> -         */
-> -        domain_crash(d);
-> -        return -ENODATA;
-> -    }
-> +    /* Arrange for epte_get_entry_emt() to recognize this page as "special". */
-> +    pg->count_info |= PGC_extra;
->  
->      mfn = page_to_mfn(pg);
->      clear_domain_page(mfn);
-> -    d->arch.hvm.vmx.apic_access_mfn = mfn;
-> +    apic_access_mfn = mfn;
->  
->      return 0;
->  }
->  
-> -static void vmx_free_vlapic_mapping(struct domain *d)
-> -{
-> -    mfn_t mfn = d->arch.hvm.vmx.apic_access_mfn;
-> -
-> -    d->arch.hvm.vmx.apic_access_mfn = _mfn(0);
-> -    if ( !mfn_eq(mfn, _mfn(0)) )
-> -    {
-> -        struct page_info *pg = mfn_to_page(mfn);
-> -
-> -        put_page_alloc_ref(pg);
-> -        put_page_and_type(pg);
-> -    }
-> -}
-> -
->  static void vmx_install_vlapic_mapping(struct vcpu *v)
->  {
->      paddr_t virt_page_ma, apic_page_ma;
->  
-> -    if ( mfn_eq(v->domain->arch.hvm.vmx.apic_access_mfn, _mfn(0)) )
-> +    if ( !has_vlapic(v->domain) || mfn_eq(apic_access_mfn, _mfn(0)) )
->          return;
->  
->      ASSERT(cpu_has_vmx_virtualize_apic_accesses);
->  
->      virt_page_ma = page_to_maddr(vcpu_vlapic(v)->regs_page);
-> -    apic_page_ma = mfn_to_maddr(v->domain->arch.hvm.vmx.apic_access_mfn);
-> +    apic_page_ma = mfn_to_maddr(apic_access_mfn);
->  
->      vmx_vmcs_enter(v);
->      __vmwrite(VIRTUAL_APIC_PAGE_ADDR, virt_page_ma);
-> --- a/xen/arch/x86/mm/shadow/set.c
-> +++ b/xen/arch/x86/mm/shadow/set.c
-> @@ -94,6 +94,22 @@ shadow_get_page_from_l1e(shadow_l1e_t sl
->      ASSERT(!sh_l1e_is_magic(sl1e));
->      ASSERT(shadow_mode_refcounts(d));
->  
-> +    /*
-> +     * VMX'es APIC access MFN is just a surrogate page.  It doesn't actually
-> +     * get accessed, and hence there's no need to refcount it (and refcounting
-> +     * would fail, due to the page having no owner).
-> +     */
-> +    if ( mfn_valid(mfn = shadow_l1e_get_mfn(sl1e)) )
-
-I find this assignment inside the parameter list quite ugly, I would
-rather split it on it's own line.
-
-> +    {
-> +        const struct page_info *pg = mfn_to_page(mfn);
-> +
-> +        if ( !page_get_owner(pg) && (pg->count_info & PGC_extra) )
-> +        {
-> +            ASSERT(type == p2m_mmio_direct);
-> +            return 0;
-
-Are there any other pages that could pass this check? I don't think
-so, but wanted to assert.
+I think we both agree that long term having is_system_domain would be
+the cleanest solution, but it needs a lot of auditing. I think I would
+be fine if you could add a comment somewhere noting that system
+domains can be identified as PV domains without a bitness, so that
+it's likely less confusing in the future.
 
 Thanks, Roger.
 
