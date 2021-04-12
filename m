@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C95A235C432
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 12:41:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.108921.207827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17EF535C43C
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 12:42:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.108924.207839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVtzv-0007JQ-4V; Mon, 12 Apr 2021 10:40:51 +0000
+	id 1lVu1H-0007RP-Fj; Mon, 12 Apr 2021 10:42:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 108921.207827; Mon, 12 Apr 2021 10:40:51 +0000
+Received: by outflank-mailman (output) from mailman id 108924.207839; Mon, 12 Apr 2021 10:42:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVtzv-0007J1-1S; Mon, 12 Apr 2021 10:40:51 +0000
-Received: by outflank-mailman (input) for mailman id 108921;
- Mon, 12 Apr 2021 10:40:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lVu1H-0007Qz-CA; Mon, 12 Apr 2021 10:42:15 +0000
+Received: by outflank-mailman (input) for mailman id 108924;
+ Mon, 12 Apr 2021 10:42:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lVtzu-0007Iw-6y
- for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 10:40:50 +0000
+ id 1lVu1G-0007Qt-3A
+ for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 10:42:14 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f83a7bb4-9236-424c-b0c1-f508be185464;
- Mon, 12 Apr 2021 10:40:48 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id eabf7540-391f-456d-bbff-88df6ed21618;
+ Mon, 12 Apr 2021 10:42:12 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1C3FBAFF3;
- Mon, 12 Apr 2021 10:40:48 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id F2C27B2EB;
+ Mon, 12 Apr 2021 10:42:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,266 +39,284 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f83a7bb4-9236-424c-b0c1-f508be185464
+X-Inumbo-ID: eabf7540-391f-456d-bbff-88df6ed21618
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618224048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1618224132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B8XdBCV3ZHHBXe8G2hAxtsic+SP3eU55ZEg8/ttTlE8=;
-	b=F6Mx/R3NZXDMaJCRGUeP/JGvovnsVDjpNcXAo841kiP+k6015KT8mgtcZuGaRpXVykMt8W
-	g0Vokvr1giV60l5PNISQc+pDqXD5b41U61pgCvD5+nNizgjEgZobOebEy+2L7BIuCFKi31
-	d+FU6UYijqjMPGSwoUDbJByMIYdCnR4=
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4] VMX: use a single, global APIC access page
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qgEXU89AJcNr+Qc1cc168ENn6atfOxLVyI/6cq3iLMc=;
+	b=i/yEhQfbxG0RtclYr+S8bncveufkaPY8qbGEse+0ABbHIfHBVDIF5tu/r+Jlym0FJBNkLG
+	7weF1rOanPB5QQr7LjCqtG/IiyIhJge67pl1CbuMv4YZ5FZM8v4pMg3DzERuJAM3IrH1pf
+	iNs3YbL+xrSuI159AIR9O9TPEGURzYM=
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Tim Deegan <tim@xen.org>
-References: <4731a3a3-906a-98ac-11ba-6a0723903391@suse.com>
-Message-ID: <1c489e77-6e65-6121-6c28-3c4bd377223c@suse.com>
-Date: Mon, 12 Apr 2021 12:40:48 +0200
+Cc: Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/shadow: adjust callback arrays
+Message-ID: <621aa6f6-d7f8-25eb-9aeb-f181a9cb3bbc@suse.com>
+Date: Mon, 12 Apr 2021 12:42:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <4731a3a3-906a-98ac-11ba-6a0723903391@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-The address of this page is used by the CPU only to recognize when to
-access the virtual APIC page instead. No accesses would ever go to this
-page. It only needs to be present in the (CPU) page tables so that
-address translation will produce its address as result for respective
-accesses.
+Some of them have entries with stale comments. Rather than correcting
+these comments, re-arrange how these arrays get populated, shrinking
+their sizes at the same time (by omitting trailing NULL entries: Use
+dedicated element initializers, serving the purpose of what the
+comments did so far. This then also makes these arrays independent of
+the actual ordering of the individual SH_type_*.
 
-By making this page global, we also eliminate the need to refcount it,
-or to assign it to any domain in the first place.
+While tightening respective ASSERT()s in hash_{vcpu,domain}_foreach(),
+also tighten related ones in shadow_hash_{insert,delete}().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
----
-v4: Set PGC_extra on the page. Make shadow mode work.
-v3: Split p2m insertion change to a separate patch.
-v2: Avoid insertion when !has_vlapic(). Split off change to
-    p2m_get_iommu_flags().
----
-I did further consider not allocating any real page at all, but just
-using the address of some unpopulated space (which would require
-announcing this page as reserved to Dom0, so it wouldn't put any PCI
-MMIO BARs there). But I thought this would be too controversial, because
-of the possible risks associated with this.
 
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -66,8 +66,7 @@ boolean_param("force-ept", opt_force_ept
- static void vmx_ctxt_switch_from(struct vcpu *v);
- static void vmx_ctxt_switch_to(struct vcpu *v);
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -1565,7 +1565,7 @@ void shadow_hash_insert(struct domain *d
  
--static int  vmx_alloc_vlapic_mapping(struct domain *d);
--static void vmx_free_vlapic_mapping(struct domain *d);
-+static int alloc_vlapic_mapping(void);
- static void vmx_install_vlapic_mapping(struct vcpu *v);
- static void vmx_update_guest_cr(struct vcpu *v, unsigned int cr,
-                                 unsigned int flags);
-@@ -78,6 +77,8 @@ static int vmx_msr_read_intercept(unsign
- static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content);
- static void vmx_invlpg(struct vcpu *v, unsigned long linear);
+     ASSERT(paging_locked_by_me(d));
+     ASSERT(d->arch.paging.shadow.hash_table);
+-    ASSERT(t);
++    ASSERT(t >= SH_type_min_shadow && t <= SH_type_max_shadow);
  
-+static mfn_t __read_mostly apic_access_mfn;
-+
- /* Values for domain's ->arch.hvm_domain.pi_ops.flags. */
- #define PI_CSW_FROM (1u << 0)
- #define PI_CSW_TO   (1u << 1)
-@@ -401,7 +402,6 @@ static int vmx_domain_initialise(struct
-         .to   = vmx_ctxt_switch_to,
-         .tail = vmx_do_resume,
+     sh_hash_audit(d);
+ 
+@@ -1590,7 +1590,7 @@ void shadow_hash_delete(struct domain *d
+ 
+     ASSERT(paging_locked_by_me(d));
+     ASSERT(d->arch.paging.shadow.hash_table);
+-    ASSERT(t);
++    ASSERT(t >= SH_type_min_shadow && t <= SH_type_max_shadow);
+ 
+     sh_hash_audit(d);
+ 
+@@ -1668,7 +1668,7 @@ static void hash_vcpu_foreach(struct vcp
+         {
+             if ( callback_mask & (1 << x->u.sh.type) )
+             {
+-                ASSERT(x->u.sh.type < SH_type_unused);
++                ASSERT(x->u.sh.type <= SH_type_max_shadow);
+                 ASSERT(callbacks[x->u.sh.type] != NULL);
+                 done = callbacks[x->u.sh.type](v, page_to_mfn(x),
+                                                callback_mfn);
+@@ -1715,7 +1715,7 @@ static void hash_domain_foreach(struct d
+         {
+             if ( callback_mask & (1 << x->u.sh.type) )
+             {
+-                ASSERT(x->u.sh.type < SH_type_unused);
++                ASSERT(x->u.sh.type <= SH_type_max_shadow);
+                 ASSERT(callbacks[x->u.sh.type] != NULL);
+                 done = callbacks[x->u.sh.type](d, page_to_mfn(x),
+                                                callback_mfn);
+@@ -1819,26 +1819,16 @@ int sh_remove_write_access(struct domain
+                            unsigned long fault_addr)
+ {
+     /* Dispatch table for getting per-type functions */
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
+-        NULL, /* none    */
++    static const hash_domain_callback_t callbacks[] = {
+ #ifdef CONFIG_HVM
+-        SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 2), /* l1_32   */
+-        SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 2), /* fl1_32  */
+-        NULL, /* l2_32   */
+-        SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 3), /* l1_pae  */
+-        SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 3), /* fl1_pae */
+-        NULL, /* l2_pae  */
++        [SH_type_l1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 2),
++        [SH_type_fl1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 2),
++        [SH_type_l1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 3),
++        [SH_type_fl1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 3),
+ #endif
+-        SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 4), /* l1_64   */
+-        SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 4), /* fl1_64  */
+-        NULL, /* l2_64   */
+-        NULL, /* l2h_64  */
+-        NULL, /* l3_64   */
+-        NULL, /* l4_64   */
+-        NULL, /* p2m     */
+-        NULL  /* unused  */
++        [SH_type_l1_64_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 4),
++        [SH_type_fl1_64_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 4),
      };
--    int rc;
- 
-     d->arch.ctxt_switch = &csw;
- 
-@@ -411,28 +411,22 @@ static int vmx_domain_initialise(struct
-      */
-     d->arch.hvm.vmx.exec_sp = is_hardware_domain(d) || opt_ept_exec_sp;
- 
--    if ( !has_vlapic(d) )
--        return 0;
 -
--    if ( (rc = vmx_alloc_vlapic_mapping(d)) != 0 )
--        return rc;
+     static const unsigned int callback_mask = SHF_L1_ANY | SHF_FL1_ANY;
+     struct page_info *pg = mfn_to_page(gmfn);
+ #if SHADOW_OPTIMIZATIONS & SHOPT_WRITABLE_HEURISTIC
+@@ -2044,26 +2034,16 @@ int sh_remove_all_mappings(struct domain
+     struct page_info *page = mfn_to_page(gmfn);
+ 
+     /* Dispatch table for getting per-type functions */
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
+-        NULL, /* none    */
++    static const hash_domain_callback_t callbacks[] = {
+ #ifdef CONFIG_HVM
+-        SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 2), /* l1_32   */
+-        SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 2), /* fl1_32  */
+-        NULL, /* l2_32   */
+-        SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 3), /* l1_pae  */
+-        SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 3), /* fl1_pae */
+-        NULL, /* l2_pae  */
++        [SH_type_l1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 2),
++        [SH_type_fl1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 2),
++        [SH_type_l1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 3),
++        [SH_type_fl1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 3),
+ #endif
+-        SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 4), /* l1_64   */
+-        SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 4), /* fl1_64  */
+-        NULL, /* l2_64   */
+-        NULL, /* l2h_64  */
+-        NULL, /* l3_64   */
+-        NULL, /* l4_64   */
+-        NULL, /* p2m     */
+-        NULL  /* unused  */
++        [SH_type_l1_64_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 4),
++        [SH_type_fl1_64_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 4),
+     };
 -
-     return 0;
- }
+     static const unsigned int callback_mask = SHF_L1_ANY | SHF_FL1_ANY;
  
--static void vmx_domain_relinquish_resources(struct domain *d)
-+static void domain_creation_finished(struct domain *d)
+     perfc_incr(shadow_mappings);
+@@ -2189,45 +2169,27 @@ void sh_remove_shadows(struct domain *d,
+ 
+     /* Dispatch table for getting per-type functions: each level must
+      * be called with the function to remove a lower-level shadow. */
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
+-        NULL, /* none    */
++    static const hash_domain_callback_t callbacks[] = {
+ #ifdef CONFIG_HVM
+-        NULL, /* l1_32   */
+-        NULL, /* fl1_32  */
+-        SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 2), /* l2_32   */
+-        NULL, /* l1_pae  */
+-        NULL, /* fl1_pae */
+-        SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 3), /* l2_pae  */
++        [SH_type_l2_32_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 2),
++        [SH_type_l2_pae_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 3),
+ #endif
+-        NULL, /* l1_64   */
+-        NULL, /* fl1_64  */
+-        SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 4), /* l2_64   */
+-        SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 4), /* l2h_64  */
+-        SHADOW_INTERNAL_NAME(sh_remove_l2_shadow, 4), /* l3_64   */
+-        SHADOW_INTERNAL_NAME(sh_remove_l3_shadow, 4), /* l4_64   */
+-        NULL, /* p2m     */
+-        NULL  /* unused  */
++        [SH_type_l2_64_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 4),
++        [SH_type_l2h_64_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 4),
++        [SH_type_l3_64_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l2_shadow, 4),
++        [SH_type_l4_64_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l3_shadow, 4),
+     };
+ 
+     /* Another lookup table, for choosing which mask to use */
+-    static const unsigned int masks[SH_type_unused] = {
+-        0, /* none    */
++    static const unsigned int masks[SH_type_max_shadow + 1] = {
+ #ifdef CONFIG_HVM
+-        SHF_L2_32, /* l1_32   */
+-        0, /* fl1_32  */
+-        0, /* l2_32   */
+-        SHF_L2_PAE, /* l1_pae  */
+-        0, /* fl1_pae */
+-        0, /* l2_pae  */
++        [SH_type_l1_32_shadow] = SHF_L2_32,
++        [SH_type_l1_pae_shadow] = SHF_L2_PAE,
+ #endif
+-        SHF_L2H_64 | SHF_L2_64, /* l1_64   */
+-        0, /* fl1_64  */
+-        SHF_L3_64, /* l2_64   */
+-        SHF_L3_64, /* l2h_64  */
+-        SHF_L4_64, /* l3_64   */
+-        0, /* l4_64   */
+-        0, /* p2m     */
+-        0  /* unused  */
++        [SH_type_l1_64_shadow] = SHF_L2H_64 | SHF_L2_64,
++        [SH_type_l2_64_shadow] = SHF_L3_64,
++        [SH_type_l2h_64_shadow] = SHF_L3_64,
++        [SH_type_l3_64_shadow] = SHF_L4_64,
+     };
+ 
+     ASSERT(!(all && fast));
+@@ -2356,24 +2318,8 @@ static int sh_clear_up_pointer(struct vc
+ 
+ void sh_reset_l3_up_pointers(struct vcpu *v)
  {
--    if ( !has_vlapic(d) )
-+    gfn_t gfn = gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE);
-+    uint8_t ipat;
-+
-+    if ( !has_vlapic(d) || mfn_eq(apic_access_mfn, _mfn(0)) )
-         return;
+-    static const hash_vcpu_callback_t callbacks[SH_type_unused] = {
+-        NULL, /* none    */
+-#ifdef CONFIG_HVM
+-        NULL, /* l1_32   */
+-        NULL, /* fl1_32  */
+-        NULL, /* l2_32   */
+-        NULL, /* l1_pae  */
+-        NULL, /* fl1_pae */
+-        NULL, /* l2_pae  */
+-#endif
+-        NULL, /* l1_64   */
+-        NULL, /* fl1_64  */
+-        NULL, /* l2_64   */
+-        NULL, /* l2h_64  */
+-        sh_clear_up_pointer, /* l3_64   */
+-        NULL, /* l4_64   */
+-        NULL, /* p2m     */
+-        NULL  /* unused  */
++    static const hash_vcpu_callback_t callbacks[] = {
++        [SH_type_l3_64_shadow] = sh_clear_up_pointer,
+     };
+     static const unsigned int callback_mask = SHF_L3_64;
  
--    vmx_free_vlapic_mapping(d);
--}
-+    ASSERT(epte_get_entry_emt(d, gfn_x(gfn), apic_access_mfn, 0, &ipat,
-+                              true) == MTRR_TYPE_WRBACK);
-+    ASSERT(ipat);
- 
--static void domain_creation_finished(struct domain *d)
--{
--    if ( has_vlapic(d) && !mfn_eq(d->arch.hvm.vmx.apic_access_mfn, _mfn(0)) &&
--         set_mmio_p2m_entry(d, gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE),
--                            d->arch.hvm.vmx.apic_access_mfn, PAGE_ORDER_4K) )
-+    if ( set_mmio_p2m_entry(d, gfn, apic_access_mfn, PAGE_ORDER_4K) )
-         domain_crash(d);
- }
- 
-@@ -2415,7 +2409,6 @@ static struct hvm_function_table __initd
-     .cpu_up_prepare       = vmx_cpu_up_prepare,
-     .cpu_dead             = vmx_cpu_dead,
-     .domain_initialise    = vmx_domain_initialise,
--    .domain_relinquish_resources = vmx_domain_relinquish_resources,
-     .domain_creation_finished = domain_creation_finished,
-     .vcpu_initialise      = vmx_vcpu_initialise,
-     .vcpu_destroy         = vmx_vcpu_destroy,
-@@ -2662,7 +2655,7 @@ const struct hvm_function_table * __init
+@@ -3381,25 +3327,23 @@ int shadow_domctl(struct domain *d,
+ void shadow_audit_tables(struct vcpu *v)
  {
-     set_in_cr4(X86_CR4_VMXE);
+     /* Dispatch table for getting per-type functions */
+-    static const hash_vcpu_callback_t callbacks[SH_type_unused] = {
+-        NULL, /* none    */
++    static const hash_vcpu_callback_t callbacks[] = {
+ #if SHADOW_AUDIT & (SHADOW_AUDIT_ENTRIES | SHADOW_AUDIT_ENTRIES_FULL)
+ # ifdef CONFIG_HVM
+-        SHADOW_INTERNAL_NAME(sh_audit_l1_table, 2),  /* l1_32   */
+-        SHADOW_INTERNAL_NAME(sh_audit_fl1_table, 2), /* fl1_32  */
+-        SHADOW_INTERNAL_NAME(sh_audit_l2_table, 2),  /* l2_32   */
+-        SHADOW_INTERNAL_NAME(sh_audit_l1_table, 3),  /* l1_pae  */
+-        SHADOW_INTERNAL_NAME(sh_audit_fl1_table, 3), /* fl1_pae */
+-        SHADOW_INTERNAL_NAME(sh_audit_l2_table, 3),  /* l2_pae  */
++        [SH_type_l1_32_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l1_table, 2),
++        [SH_type_fl1_32_shadow] = SHADOW_INTERNAL_NAME(sh_audit_fl1_table, 2),
++        [SH_type_l2_32_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l2_table, 2),
++        [SH_type_l1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l1_table, 3),
++        [SH_type_fl1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_audit_fl1_table, 3),
++        [SH_type_l2_pae_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l2_table, 3),
+ # endif
+-        SHADOW_INTERNAL_NAME(sh_audit_l1_table, 4),  /* l1_64   */
+-        SHADOW_INTERNAL_NAME(sh_audit_fl1_table, 4), /* fl1_64  */
+-        SHADOW_INTERNAL_NAME(sh_audit_l2_table, 4),  /* l2_64   */
+-        SHADOW_INTERNAL_NAME(sh_audit_l2_table, 4),  /* l2h_64   */
+-        SHADOW_INTERNAL_NAME(sh_audit_l3_table, 4),  /* l3_64   */
+-        SHADOW_INTERNAL_NAME(sh_audit_l4_table, 4),  /* l4_64   */
++        [SH_type_l1_64_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l1_table, 4),
++        [SH_type_fl1_64_shadow] = SHADOW_INTERNAL_NAME(sh_audit_fl1_table, 4),
++        [SH_type_l2_64_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l2_table, 4),
++        [SH_type_l2h_64_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l2_table, 4),
++        [SH_type_l3_64_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l3_table, 4),
++        [SH_type_l4_64_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l4_table, 4),
+ #endif
+-        NULL  /* All the rest */
+     };
+     unsigned int mask;
  
--    if ( vmx_vmcs_init() )
-+    if ( vmx_vmcs_init() || alloc_vlapic_mapping() )
-     {
-         printk("VMX: failed to initialise.\n");
-         return NULL;
-@@ -3224,7 +3217,7 @@ gp_fault:
-     return X86EMUL_EXCEPTION;
+@@ -3427,7 +3371,9 @@ void shadow_audit_tables(struct vcpu *v)
+         }
+     }
+ 
+-    HASH_CALLBACKS_CHECK(SHF_page_type_mask);
++    HASH_CALLBACKS_CHECK(SHADOW_AUDIT & (SHADOW_AUDIT_ENTRIES |
++                                         SHADOW_AUDIT_ENTRIES_FULL)
++                         ? SHF_page_type_mask : 0);
+     hash_vcpu_foreach(v, mask, callbacks, INVALID_MFN);
  }
- 
--static int vmx_alloc_vlapic_mapping(struct domain *d)
-+static int __init alloc_vlapic_mapping(void)
- {
-     struct page_info *pg;
-     mfn_t mfn;
-@@ -3232,52 +3225,31 @@ static int vmx_alloc_vlapic_mapping(stru
-     if ( !cpu_has_vmx_virtualize_apic_accesses )
-         return 0;
- 
--    pg = alloc_domheap_page(d, MEMF_no_refcount);
-+    pg = alloc_domheap_page(NULL, 0);
-     if ( !pg )
-         return -ENOMEM;
- 
--    if ( !get_page_and_type(pg, d, PGT_writable_page) )
--    {
--        /*
--         * The domain can't possibly know about this page yet, so failure
--         * here is a clear indication of something fishy going on.
--         */
--        domain_crash(d);
--        return -ENODATA;
--    }
-+    /* Arrange for epte_get_entry_emt() to recognize this page as "special". */
-+    pg->count_info |= PGC_extra;
- 
-     mfn = page_to_mfn(pg);
-     clear_domain_page(mfn);
--    d->arch.hvm.vmx.apic_access_mfn = mfn;
-+    apic_access_mfn = mfn;
- 
-     return 0;
- }
- 
--static void vmx_free_vlapic_mapping(struct domain *d)
--{
--    mfn_t mfn = d->arch.hvm.vmx.apic_access_mfn;
--
--    d->arch.hvm.vmx.apic_access_mfn = _mfn(0);
--    if ( !mfn_eq(mfn, _mfn(0)) )
--    {
--        struct page_info *pg = mfn_to_page(mfn);
--
--        put_page_alloc_ref(pg);
--        put_page_and_type(pg);
--    }
--}
--
- static void vmx_install_vlapic_mapping(struct vcpu *v)
- {
-     paddr_t virt_page_ma, apic_page_ma;
- 
--    if ( mfn_eq(v->domain->arch.hvm.vmx.apic_access_mfn, _mfn(0)) )
-+    if ( !has_vlapic(v->domain) || mfn_eq(apic_access_mfn, _mfn(0)) )
-         return;
- 
-     ASSERT(cpu_has_vmx_virtualize_apic_accesses);
- 
-     virt_page_ma = page_to_maddr(vcpu_vlapic(v)->regs_page);
--    apic_page_ma = mfn_to_maddr(v->domain->arch.hvm.vmx.apic_access_mfn);
-+    apic_page_ma = mfn_to_maddr(apic_access_mfn);
- 
-     vmx_vmcs_enter(v);
-     __vmwrite(VIRTUAL_APIC_PAGE_ADDR, virt_page_ma);
---- a/xen/arch/x86/mm/shadow/set.c
-+++ b/xen/arch/x86/mm/shadow/set.c
-@@ -94,6 +94,22 @@ shadow_get_page_from_l1e(shadow_l1e_t sl
-     ASSERT(!sh_l1e_is_magic(sl1e));
-     ASSERT(shadow_mode_refcounts(d));
- 
-+    /*
-+     * VMX'es APIC access MFN is just a surrogate page.  It doesn't actually
-+     * get accessed, and hence there's no need to refcount it (and refcounting
-+     * would fail, due to the page having no owner).
-+     */
-+    if ( mfn_valid(mfn = shadow_l1e_get_mfn(sl1e)) )
-+    {
-+        const struct page_info *pg = mfn_to_page(mfn);
-+
-+        if ( !page_get_owner(pg) && (pg->count_info & PGC_extra) )
-+        {
-+            ASSERT(type == p2m_mmio_direct);
-+            return 0;
-+        }
-+    }
-+
-     res = get_page_from_l1e(sl1e, d, d);
- 
-     /*
---- a/xen/arch/x86/mm/shadow/types.h
-+++ b/xen/arch/x86/mm/shadow/types.h
-@@ -276,9 +276,20 @@ int shadow_set_l4e(struct domain *d, sha
- static void inline
- shadow_put_page_from_l1e(shadow_l1e_t sl1e, struct domain *d)
- {
-+    mfn_t mfn;
-+
-     if ( !shadow_mode_refcounts(d) )
-         return;
- 
-+    if ( mfn_valid(mfn = shadow_l1e_get_mfn(sl1e)) )
-+    {
-+        const struct page_info *pg = mfn_to_page(mfn);
-+
-+        /* See the respective comment in shadow_get_page_from_l1e(). */
-+        if ( !page_get_owner(pg) && (pg->count_info & PGC_extra) )
-+            return;
-+    }
-+
-     put_page_from_l1e(sl1e, d);
- }
- 
---- a/xen/include/asm-x86/hvm/vmx/vmcs.h
-+++ b/xen/include/asm-x86/hvm/vmx/vmcs.h
-@@ -58,7 +58,6 @@ struct ept_data {
- #define _VMX_DOMAIN_PML_ENABLED    0
- #define VMX_DOMAIN_PML_ENABLED     (1ul << _VMX_DOMAIN_PML_ENABLED)
- struct vmx_domain {
--    mfn_t apic_access_mfn;
-     /* VMX_DOMAIN_* */
-     unsigned int status;
  
 
