@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D135E35C847
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 16:07:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109173.208359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B8B635C850
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 16:08:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109179.208372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVxDe-0004iD-28; Mon, 12 Apr 2021 14:07:14 +0000
+	id 1lVxEH-0004qn-Bh; Mon, 12 Apr 2021 14:07:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109173.208359; Mon, 12 Apr 2021 14:07:14 +0000
+Received: by outflank-mailman (output) from mailman id 109179.208372; Mon, 12 Apr 2021 14:07:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVxDd-0004hr-VN; Mon, 12 Apr 2021 14:07:13 +0000
-Received: by outflank-mailman (input) for mailman id 109173;
- Mon, 12 Apr 2021 14:07:13 +0000
+	id 1lVxEH-0004qO-8I; Mon, 12 Apr 2021 14:07:53 +0000
+Received: by outflank-mailman (input) for mailman id 109179;
+ Mon, 12 Apr 2021 14:07:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lVxDc-0004hl-W8
- for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 14:07:13 +0000
+ id 1lVxEG-0004qG-3W
+ for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 14:07:52 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e4421fbc-ab4a-4cf0-85cd-98c7ae45dba4;
- Mon, 12 Apr 2021 14:07:12 +0000 (UTC)
+ id 4545c696-18c8-4dca-85ae-b40de634959f;
+ Mon, 12 Apr 2021 14:07:51 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 53B18B01E;
- Mon, 12 Apr 2021 14:07:11 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id AC32CAF95;
+ Mon, 12 Apr 2021 14:07:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,26 +38,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4421fbc-ab4a-4cf0-85cd-98c7ae45dba4
+X-Inumbo-ID: 4545c696-18c8-4dca-85ae-b40de634959f
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618236431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1618236470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=a9yqIDWLh5sL3LqtehE9yMAlebDtEpvP4PzPBcBcKu8=;
-	b=gBemrL+XQb9PjafG9Nm2xTEp1U7Txo/JkyIlEp4O5dpko8uD0OYBsuYOUhIrSBJaQee3IA
-	JzRwWFglL54Bz88RFVWnPUUmIPFU7kV9Qp7skw1zn8uFwh4EUzklxXsqV4w9sybHeQCHTs
-	ZcRx3kZKf8C0lG54XssEVqOM7uFj+zQ=
-Subject: [PATCH v2 03/12] x86/mm: the gva_to_gfn() hook is HVM-only
+	bh=3wdroPuGfKuZZGJHeiqndko2WBYxJIqNkRfSw3fJY0U=;
+	b=uGiwk5AfKObcwe/w+SEj7r8Dy134Nk/Mg6Pe6QjbzK6xyF8Nm2ECE9yJcwJKiCkAWkWdel
+	dLZKkpfqnFIQz+PVk0ZCylxM93jXm559EyYni4xj1AKHuj7VNbDXbZhpdBk3fESMVDHfl8
+	JzmARMwxoEkzyvro6EDt9idcrp71qe0=
+Subject: [PATCH v2 04/12] AMD/IOMMU: guest IOMMU support is for HVM only
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
 References: <3cf73378-b9d6-0eca-12b6-0f628518bebf@suse.com>
-Message-ID: <ff26a66b-3cee-5f92-01a4-6096e7d28556@suse.com>
-Date: Mon, 12 Apr 2021 16:07:10 +0200
+Message-ID: <187fa031-c237-2298-6b39-2c4a63b06c0f@suse.com>
+Date: Mon, 12 Apr 2021 16:07:50 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -66,121 +65,42 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-As is the adjacent ga_to_gfn() one as well as paging_gva_to_gfn().
+Generally all of this is dead code anyway, but there's a caller of
+guest_iommu_add_ppr_log(), and the code itself calls
+p2m_change_type_one(), which is about to become HVM-only. Hence this
+code, short of deleting it altogether, needs to become properly HVM-
+only as well.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Fix !SHADOW_PAGING && !HVM build.
+v2: New.
 
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -1793,7 +1793,6 @@ void np2m_schedule(int dir)
-         p2m_unlock(p2m);
-     }
- }
--#endif
+--- a/xen/drivers/passthrough/amd/Makefile
++++ b/xen/drivers/passthrough/amd/Makefile
+@@ -5,4 +5,4 @@ obj-y += pci_amd_iommu.o
+ obj-bin-y += iommu_acpi.init.o
+ obj-y += iommu_intr.o
+ obj-y += iommu_cmd.o
+-obj-y += iommu_guest.o
++obj-$(CONFIG_HVM) += iommu_guest.o
+--- a/xen/drivers/passthrough/amd/iommu.h
++++ b/xen/drivers/passthrough/amd/iommu.h
+@@ -307,12 +307,16 @@ int __must_check amd_iommu_suspend(void)
+ void amd_iommu_crash_shutdown(void);
  
- unsigned long paging_gva_to_gfn(struct vcpu *v,
-                                 unsigned long va,
-@@ -1844,6 +1843,8 @@ unsigned long paging_gva_to_gfn(struct v
-     return hostmode->gva_to_gfn(v, hostp2m, va, pfec);
- }
- 
-+#endif /* CONFIG_HVM */
-+
- /*
-  * If the map is non-NULL, we leave this function having acquired an extra ref
-  * on mfn_to_page(*mfn).  In all cases, *pfec contains appropriate
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -3030,6 +3030,7 @@ static bool sh_invlpg(struct vcpu *v, un
-     return true;
- }
- 
+ /* guest iommu support */
 +#ifdef CONFIG_HVM
- 
- static unsigned long
- sh_gva_to_gfn(struct vcpu *v, struct p2m_domain *p2m,
-@@ -3063,6 +3064,7 @@ sh_gva_to_gfn(struct vcpu *v, struct p2m
-     return gfn_x(gfn);
- }
- 
-+#endif /* CONFIG_HVM */
- 
- static inline void
- sh_update_linear_entries(struct vcpu *v)
-@@ -4183,7 +4185,9 @@ int sh_audit_l4_table(struct vcpu *v, mf
- const struct paging_mode sh_paging_mode = {
-     .page_fault                    = sh_page_fault,
-     .invlpg                        = sh_invlpg,
-+#ifdef CONFIG_HVM
-     .gva_to_gfn                    = sh_gva_to_gfn,
+ void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[]);
+ void guest_iommu_add_ppr_log(struct domain *d, u32 entry[]);
+ void guest_iommu_add_event_log(struct domain *d, u32 entry[]);
+ int guest_iommu_init(struct domain* d);
+ void guest_iommu_destroy(struct domain *d);
+ int guest_iommu_set_base(struct domain *d, uint64_t base);
++#else
++static inline void guest_iommu_add_ppr_log(struct domain *d, uint32_t entry[]) {}
 +#endif
-     .update_cr3                    = sh_update_cr3,
-     .update_paging_modes           = shadow_update_paging_modes,
-     .flush_tlb                     = shadow_flush_tlb,
---- a/xen/arch/x86/mm/shadow/none.c
-+++ b/xen/arch/x86/mm/shadow/none.c
-@@ -43,12 +43,14 @@ static bool _invlpg(struct vcpu *v, unsi
-     return true;
- }
  
-+#ifdef CONFIG_HVM
- static unsigned long _gva_to_gfn(struct vcpu *v, struct p2m_domain *p2m,
-                                  unsigned long va, uint32_t *pfec)
+ static inline u32 get_field_from_reg_u32(u32 reg_value, u32 mask, u32 shift)
  {
-     ASSERT_UNREACHABLE();
-     return gfn_x(INVALID_GFN);
- }
-+#endif
- 
- static void _update_cr3(struct vcpu *v, int do_locking, bool noflush)
- {
-@@ -63,7 +65,9 @@ static void _update_paging_modes(struct
- static const struct paging_mode sh_paging_none = {
-     .page_fault                    = _page_fault,
-     .invlpg                        = _invlpg,
-+#ifdef CONFIG_HVM
-     .gva_to_gfn                    = _gva_to_gfn,
-+#endif
-     .update_cr3                    = _update_cr3,
-     .update_paging_modes           = _update_paging_modes,
- };
---- a/xen/include/asm-x86/paging.h
-+++ b/xen/include/asm-x86/paging.h
-@@ -127,6 +127,7 @@ struct paging_mode {
-                                             struct cpu_user_regs *regs);
-     bool          (*invlpg                )(struct vcpu *v,
-                                             unsigned long linear);
-+#ifdef CONFIG_HVM
-     unsigned long (*gva_to_gfn            )(struct vcpu *v,
-                                             struct p2m_domain *p2m,
-                                             unsigned long va,
-@@ -136,6 +137,7 @@ struct paging_mode {
-                                             unsigned long cr3,
-                                             paddr_t ga, uint32_t *pfec,
-                                             unsigned int *page_order);
-+#endif
-     void          (*update_cr3            )(struct vcpu *v, int do_locking,
-                                             bool noflush);
-     void          (*update_paging_modes   )(struct vcpu *v);
-@@ -287,6 +289,8 @@ unsigned long paging_gva_to_gfn(struct v
-                                 unsigned long va,
-                                 uint32_t *pfec);
- 
-+#ifdef CONFIG_HVM
-+
- /* Translate a guest address using a particular CR3 value.  This is used
-  * to by nested HAP code, to walk the guest-supplied NPT tables as if
-  * they were pagetables.
-@@ -305,6 +309,8 @@ static inline unsigned long paging_ga_to
-         page_order);
- }
- 
-+#endif /* CONFIG_HVM */
-+
- /* Update all the things that are derived from the guest's CR3.
-  * Called when the guest changes CR3; the caller can then use v->arch.cr3
-  * as the value to load into the host CR3 to schedule this vcpu */
 
 
