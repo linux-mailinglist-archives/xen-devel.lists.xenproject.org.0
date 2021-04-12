@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD9A35BA20
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 08:30:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.108799.207581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23BCA35BA43
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 08:46:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.108806.207593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVq43-0001vh-Mv; Mon, 12 Apr 2021 06:28:51 +0000
+	id 1lVqKf-0003mg-5Z; Mon, 12 Apr 2021 06:46:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 108799.207581; Mon, 12 Apr 2021 06:28:51 +0000
+Received: by outflank-mailman (output) from mailman id 108806.207593; Mon, 12 Apr 2021 06:46:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVq43-0001vI-JO; Mon, 12 Apr 2021 06:28:51 +0000
-Received: by outflank-mailman (input) for mailman id 108799;
- Mon, 12 Apr 2021 06:28:49 +0000
+	id 1lVqKf-0003mH-1j; Mon, 12 Apr 2021 06:46:01 +0000
+Received: by outflank-mailman (input) for mailman id 108806;
+ Mon, 12 Apr 2021 06:46:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oSjc=JJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lVq41-0001vB-AX
- for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 06:28:49 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 26cd1147-9695-4101-b337-9d3edc036ae3;
- Mon, 12 Apr 2021 06:28:48 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4AC3CAEB6;
- Mon, 12 Apr 2021 06:28:47 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vqkM=JJ=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lVqKe-0003mC-2A
+ for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 06:46:00 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id cd3c1913-bcbc-4ddb-8ec2-adc024b06e12;
+ Mon, 12 Apr 2021 06:45:58 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8EEAA1FB;
+ Sun, 11 Apr 2021 23:45:58 -0700 (PDT)
+Received: from [10.57.12.29] (unknown [10.57.12.29])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6C3983F73B;
+ Sun, 11 Apr 2021 23:45:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,75 +42,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26cd1147-9695-4101-b337-9d3edc036ae3
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618208927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=hIOX7yB5Y0iyrXL4fYN85Uind6dSDN3lEdKNG2E6Sx4=;
-	b=lBcjwNYz+YxHtnSTj9qd0CwfQJhYM039W3b0CHzlbcZpkEGE9mpTHGTjoseZpUu/Q/Q9I1
-	vzleBGHOdaaWrqN3543kLKe7/SbCv/lRweORzy97oI7/MpLoByW4DRiI7BEgJd2tS91dSQ
-	hqsDNMYC0pyecL0xf6uYcGZ29OkH4WU=
-From: Juergen Gross <jgross@suse.com>
-To: stable@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/events: fix setting irq affinity
-Date: Mon, 12 Apr 2021 08:28:45 +0200
-Message-Id: <20210412062845.13946-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: cd3c1913-bcbc-4ddb-8ec2-adc024b06e12
+Subject: Re: [PATCH v2] xen/arm: kernel: Propagate the error if we fail to
+ decompress the kernel
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Julien Grall <jgrall@amazon.com>
+References: <20210406191554.12012-1-julien@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <591603c5-ebcb-e9d6-74a0-bed921458a69@arm.com>
+Date: Mon, 12 Apr 2021 08:45:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210406191554.12012-1-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-The backport of upstream patch 25da4618af240fbec61 ("xen/events: don't
-unmask an event channel when an eoi is pending") introduced a
-regression for stable kernels 5.10 and older: setting IRQ affinity for
-IRQs related to interdomain events would no longer work, as moving the
-IRQ to its new cpu was not included in the irq_ack callback for those
-events.
+On 06.04.2021 21:15, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Currently, we are ignoring any error from perform_gunzip() and replacing
+> the compressed kernel with the "uncompressed" kernel.
+> 
+> If there is a gzip failure, then it means that the output buffer may
+> contain garbagge. So it can result to various sort of behavior that may
+> be difficult to root cause.
+> 
+> In case of failure, free the output buffer and propagate the error.
+> We also need to adjust the return check for kernel_compress() as
+> perform_gunzip() may return a positive value.
+> 
+> Take the opportunity to adjust the code style for the check.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+>     Changes in v2:
+>         - Fix build
+> ---
 
-Fix that by adding the needed call.
-
-Note that kernels 5.11 and later don't need the explicit moving of the
-IRQ to the target cpu in the irq_ack callback, due to a rework of the
-affinity setting in kernel 5.11.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-This patch should be applied to all stable kernel branches up to
-(including) linux-5.10.y, where upstream patch 25da4618af240fbec61 has
-been added.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/xen/events/events_base.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index 7bd03f6e0422..ee5269331406 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -1809,7 +1809,7 @@ static void lateeoi_ack_dynirq(struct irq_data *data)
- 
- 	if (VALID_EVTCHN(evtchn)) {
- 		do_mask(info, EVT_MASK_REASON_EOI_PENDING);
--		event_handler_exit(info);
-+		ack_dynirq(data);
- 	}
- }
- 
-@@ -1820,7 +1820,7 @@ static void lateeoi_mask_ack_dynirq(struct irq_data *data)
- 
- 	if (VALID_EVTCHN(evtchn)) {
- 		do_mask(info, EVT_MASK_REASON_EXPLICIT);
--		event_handler_exit(info);
-+		ack_dynirq(data);
- 	}
- }
- 
--- 
-2.26.2
-
+Reviewed-by: Michal Orzel <michal.orzel@arm.com>
 
