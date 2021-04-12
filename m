@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 912AD35C867
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 16:12:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109204.208432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C0C35C86B
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 16:13:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109207.208443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVxJ0-0006Cy-40; Mon, 12 Apr 2021 14:12:46 +0000
+	id 1lVxJb-0006IL-DX; Mon, 12 Apr 2021 14:13:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109204.208432; Mon, 12 Apr 2021 14:12:46 +0000
+Received: by outflank-mailman (output) from mailman id 109207.208443; Mon, 12 Apr 2021 14:13:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVxJ0-0006CZ-0i; Mon, 12 Apr 2021 14:12:46 +0000
-Received: by outflank-mailman (input) for mailman id 109204;
- Mon, 12 Apr 2021 14:12:44 +0000
+	id 1lVxJb-0006I1-9y; Mon, 12 Apr 2021 14:13:23 +0000
+Received: by outflank-mailman (input) for mailman id 109207;
+ Mon, 12 Apr 2021 14:13:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lVxIy-0006CA-1V
- for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 14:12:44 +0000
+ id 1lVxJZ-0006Hs-MB
+ for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 14:13:21 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6d77315c-b830-495f-8b5f-88d1697ed773;
- Mon, 12 Apr 2021 14:12:43 +0000 (UTC)
+ id e732afb0-b721-44b7-97b4-18aede15e640;
+ Mon, 12 Apr 2021 14:13:20 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6EC03B02C;
- Mon, 12 Apr 2021 14:12:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 1FDB5AF95;
+ Mon, 12 Apr 2021 14:13:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,32 +39,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d77315c-b830-495f-8b5f-88d1697ed773
+X-Inumbo-ID: e732afb0-b721-44b7-97b4-18aede15e640
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618236762; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1618236800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kdzk5wmAXjisOcJzpMedbV3NzErzKi8Z0MukFBUTB+o=;
-	b=V/Nq+qGJOPSgrAxgpLSOhZjh4q+WO9SATeW+SzUB2hNrHhjA8IZ5R98AZcVSTbR6DoyQXK
-	pSqa/1AOkiyMzb8Wmyp9wBNm2sZEAgeF+VA7OKp27JktIbIQ8dp98guYv2eQmqtQ0rDUkn
-	+3fDNHQn2jHJRJoO8gJoFfTIYTt6Rc0=
-Subject: [PATCH v2 09/12] x86: make mem-paging configuarable and default it to
- off for being unsupported
+	bh=gYXEbMRpB/ru7Klc+cGqatrS8eIXTxopFHC0OSl4Opk=;
+	b=d9Yaxg/9DIR+lgT8j3ISwrPUmAYtKR94BCxdhLTprHSq8AeK42dUhE4sT4+vOq+dBwhuQP
+	TnpTb4VAW6Ae8TAnQPFl3sWWHak2kDB7z2vafKC9AjszdLsq5TdA/fX6FBUvXSkTuzmv+g
+	YKBt6dfCjXM+9cPq8YmbYOFByT7YjII=
+Subject: [PATCH v2 10/12] x86/p2m: {get,set}_entry hooks and p2m-pt.c are
+ HVM-only
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Daniel de Graaf <dgdegra@tycho.nsa.gov>,
- Paul Durrant <paul@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Alexandru Isaila <aisaila@bitdefender.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
 References: <3cf73378-b9d6-0eca-12b6-0f628518bebf@suse.com>
-Message-ID: <26dae9ef-5fcb-f806-059d-7cdd2974ad40@suse.com>
-Date: Mon, 12 Apr 2021 16:12:41 +0200
+Message-ID: <fdcdb91f-87ee-084a-da55-b6ef560d5508@suse.com>
+Date: Mon, 12 Apr 2021 16:13:19 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
@@ -73,282 +68,287 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-While doing so, make the option dependent upon HVM, which really is the
-main purpose of the change.
+With the hooks no longer needing setting, p2m_pt_init() degenerates to
+(about) nothing when !HVM. As a result, p2m-pt.c doesn't need building
+anymore in this case, as long as p2m_pt_init() has proper surrogates put
+in place.
+
+Unfortunately this means some new #ifdef-ary in p2m.c, but the mid-term
+plan there is to get rid of (almost) all of it by splitting out the then
+hopefully very few remaining non-HVM pieces.
+
+While the movement of the paging_mode_translate() check from
+p2m_remove_page() to guest_physmap_remove_page() may not be strictly
+necessary anymore (it was in an early version of this change), it looks
+more logical to live in the latter function, allowing to avoid acquiring
+the lock in the PV case. All other callers of p2m_remove_page() already
+have such a check anyway (in the altp2m case up the call stack).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v2: New.
 
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -15,7 +15,6 @@ config X86
- 	select HAS_FAST_MULTIPLY
- 	select HAS_IOPORTS
- 	select HAS_KEXEC
--	select HAS_MEM_PAGING
- 	select HAS_NS16550
- 	select HAS_PASSTHROUGH
- 	select HAS_PCI
-@@ -251,6 +250,10 @@ config HYPERV_GUEST
- 
- endif
- 
-+config MEM_PAGING
-+	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
-+	depends on HVM
-+
- config MEM_SHARING
- 	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on HVM
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -1932,9 +1932,11 @@ int hvm_hap_nested_page_fault(paddr_t gp
-         goto out_put_gfn;
-     }
- 
-+#ifdef CONFIG_MEM_PAGING
-     /* Check if the page has been paged out */
-     if ( p2m_is_paged(p2mt) || (p2mt == p2m_ram_paging_out) )
-         paged = 1;
-+#endif
- 
- #ifdef CONFIG_MEM_SHARING
-     /* Mem sharing: if still shared on write access then its enomem */
 --- a/xen/arch/x86/mm/Makefile
 +++ b/xen/arch/x86/mm/Makefile
-@@ -5,7 +5,7 @@ obj-$(CONFIG_HVM) += altp2m.o
- obj-$(CONFIG_HVM) += guest_walk_2.o guest_walk_3.o guest_walk_4.o
- obj-$(CONFIG_SHADOW_PAGING) += guest_walk_4.o
+@@ -7,8 +7,8 @@ obj-$(CONFIG_SHADOW_PAGING) += guest_wal
  obj-$(CONFIG_MEM_ACCESS) += mem_access.o
--obj-y += mem_paging.o
-+obj-$(CONFIG_MEM_PAGING) += mem_paging.o
+ obj-$(CONFIG_MEM_PAGING) += mem_paging.o
  obj-$(CONFIG_MEM_SHARING) += mem_sharing.o
- obj-y += p2m.o p2m-pt.o
- obj-$(CONFIG_HVM) += p2m-ept.o p2m-pod.o
---- a/xen/arch/x86/x86_64/compat/mm.c
-+++ b/xen/arch/x86/x86_64/compat/mm.c
-@@ -155,8 +155,10 @@ int compat_arch_memory_op(unsigned long
-     case XENMEM_get_sharing_shared_pages:
-         return mem_sharing_get_nr_shared_mfns();
+-obj-y += p2m.o p2m-pt.o
+-obj-$(CONFIG_HVM) += p2m-ept.o p2m-pod.o
++obj-y += p2m.o
++obj-$(CONFIG_HVM) += p2m-ept.o p2m-pod.o p2m-pt.o
+ obj-y += paging.o
  
-+#ifdef CONFIG_MEM_PAGING
-     case XENMEM_paging_op:
-         return mem_paging_memop(guest_handle_cast(arg, xen_mem_paging_op_t));
+ guest_walk_%.o: guest_walk.c Makefile
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -494,8 +494,10 @@ mfn_t __get_gfn_type_access(struct p2m_d
+                     p2m_type_t *t, p2m_access_t *a, p2m_query_t q,
+                     unsigned int *page_order, bool_t locked)
+ {
++#ifdef CONFIG_HVM
+     mfn_t mfn;
+     gfn_t gfn = _gfn(gfn_l);
 +#endif
  
- #ifdef CONFIG_MEM_SHARING
-     case XENMEM_sharing_op:
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -994,8 +994,10 @@ long subarch_memory_op(unsigned long cmd
-     case XENMEM_get_sharing_shared_pages:
-         return mem_sharing_get_nr_shared_mfns();
+     /* Unshare makes no sense withuot populate. */
+     if ( q & P2M_UNSHARE )
+@@ -509,6 +511,7 @@ mfn_t __get_gfn_type_access(struct p2m_d
+         return _mfn(gfn_l);
+     }
  
-+#ifdef CONFIG_MEM_PAGING
-     case XENMEM_paging_op:
-         return mem_paging_memop(guest_handle_cast(arg, xen_mem_paging_op_t));
++#ifdef CONFIG_HVM
+     if ( locked )
+         /* Grab the lock here, don't release until put_gfn */
+         gfn_lock(p2m, gfn, 0);
+@@ -542,6 +545,7 @@ mfn_t __get_gfn_type_access(struct p2m_d
+     }
+ 
+     return mfn;
 +#endif
- 
- #ifdef CONFIG_MEM_SHARING
-     case XENMEM_sharing_op:
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -40,9 +40,6 @@ config HAS_IOPORTS
- config HAS_KEXEC
- 	bool
- 
--config HAS_MEM_PAGING
--	bool
--
- config HAS_PDX
- 	bool
- 
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1096,7 +1096,7 @@ static void complete_domain_destroy(stru
-     free_xenoprof_pages(d);
- #endif
- 
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     xfree(d->vm_event_paging);
- #endif
-     xfree(d->vm_event_monitor);
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1856,7 +1856,7 @@ int check_get_page_from_gfn(struct domai
- 
-     page = get_page_from_gfn(d, gfn_x(gfn), &p2mt, q);
- 
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     if ( p2m_is_paging(p2mt) )
-     {
-         if ( page )
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -390,7 +390,7 @@ static int vm_event_resume(struct domain
-         /* Check flags which apply only when the vCPU is paused */
-         if ( atomic_read(&v->vm_event_pause_count) )
-         {
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-             if ( rsp.reason == VM_EVENT_REASON_MEM_PAGING )
-                 p2m_mem_paging_resume(d, &rsp);
- #endif
-@@ -521,7 +521,7 @@ int __vm_event_claim_slot(struct domain
-         return vm_event_grab_slot(ved, current->domain != d);
  }
  
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
- /* Registered with Xen-bound event channel for incoming notifications. */
- static void mem_paging_notification(struct vcpu *v, unsigned int port)
- {
-@@ -546,7 +546,7 @@ static void mem_sharing_notification(str
- /* Clean up on domain destruction */
- void vm_event_cleanup(struct domain *d)
- {
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     if ( vm_event_check_ring(d->vm_event_paging) )
-     {
-         /* Destroying the wait queue head means waking up all
-@@ -613,7 +613,7 @@ int vm_event_domctl(struct domain *d, st
- 
-     switch ( vec->mode )
-     {
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     case XEN_DOMCTL_VM_EVENT_OP_PAGING:
-     {
-         rc = -EINVAL;
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -23,6 +23,7 @@
- 
- #include <asm/hvm/io.h>
- #include <asm/io_apic.h>
-+#include <asm/mem_paging.h>
- #include <asm/setup.h>
- 
- const struct iommu_init_ops *__initdata iommu_init_ops;
-@@ -336,7 +337,7 @@ bool arch_iommu_use_permitted(const stru
-      */
-     return d == dom_io ||
-            (likely(!mem_sharing_enabled(d)) &&
--            likely(!vm_event_check_ring(d->vm_event_paging)) &&
-+            likely(!mem_paging_enabled(d)) &&
-             likely(!p2m_get_hostp2m(d)->global_logdirty));
+ void __put_gfn(struct p2m_domain *p2m, unsigned long gfn)
+@@ -620,6 +624,7 @@ struct page_info *p2m_get_page_from_gfn(
+     return page;
  }
  
---- a/xen/include/asm-x86/mem_paging.h
-+++ b/xen/include/asm-x86/mem_paging.h
-@@ -24,6 +24,12 @@
++#ifdef CONFIG_HVM
+ /* Returns: 0 for success, -errno for failure */
+ int p2m_set_entry(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
+                   unsigned int page_order, p2m_type_t p2mt, p2m_access_t p2ma)
+@@ -659,6 +664,7 @@ int p2m_set_entry(struct p2m_domain *p2m
  
- int mem_paging_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_paging_op_t) arg);
- 
-+#ifdef CONFIG_MEM_PAGING
-+# define mem_paging_enabled(d) vm_event_check_ring((d)->vm_event_paging)
-+#else
-+# define mem_paging_enabled(d) false
+     return rc;
+ }
 +#endif
+ 
+ mfn_t p2m_alloc_ptp(struct p2m_domain *p2m, unsigned int level)
+ {
+@@ -777,6 +783,8 @@ void p2m_final_teardown(struct domain *d
+     p2m_teardown_hostp2m(d);
+ }
+ 
++#ifdef CONFIG_HVM
 +
- #endif /*__ASM_X86_MEM_PAGING_H__ */
+ static int __must_check
+ p2m_remove_page(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
+                 unsigned int page_order)
+@@ -785,10 +793,6 @@ p2m_remove_page(struct p2m_domain *p2m,
+     p2m_type_t t;
+     p2m_access_t a;
+ 
+-    /* IOMMU for PV guests is handled in get_page_type() and put_page(). */
+-    if ( !paging_mode_translate(p2m->domain) )
+-        return 0;
+-
+     ASSERT(gfn_locked_by_me(p2m, gfn));
+     P2M_DEBUG("removing gfn=%#lx mfn=%#lx\n", gfn_x(gfn), mfn_x(mfn));
+ 
+@@ -829,6 +833,10 @@ guest_physmap_remove_page(struct domain
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     int rc;
+ 
++    /* IOMMU for PV guests is handled in get_page_type() and put_page(). */
++    if ( !paging_mode_translate(d) )
++        return 0;
++
+     gfn_lock(p2m, gfn, page_order);
+     rc = p2m_remove_page(p2m, gfn, mfn, page_order);
+     gfn_unlock(p2m, gfn, page_order);
+@@ -836,6 +844,8 @@ guest_physmap_remove_page(struct domain
+     return rc;
+ }
+ 
++#endif /* CONFIG_HVM */
++
+ int
+ guest_physmap_add_page(struct domain *d, gfn_t gfn, mfn_t mfn,
+                        unsigned int page_order)
+@@ -1400,14 +1410,16 @@ int clear_mmio_p2m_entry(struct domain *
+ int set_identity_p2m_entry(struct domain *d, unsigned long gfn_l,
+                            p2m_access_t p2ma, unsigned int flag)
+ {
++#ifdef CONFIG_HVM
+     p2m_type_t p2mt;
+     p2m_access_t a;
+     gfn_t gfn = _gfn(gfn_l);
+     mfn_t mfn;
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     int ret;
++#endif
+ 
+-    if ( !paging_mode_translate(p2m->domain) )
++    if ( !paging_mode_translate(d) )
+     {
+         if ( !is_iommu_enabled(d) )
+             return 0;
+@@ -1416,6 +1428,7 @@ int set_identity_p2m_entry(struct domain
+                                 IOMMUF_readable | IOMMUF_writable);
+     }
+ 
++#ifdef CONFIG_HVM
+     gfn_lock(p2m, gfn, 0);
+ 
+     mfn = p2m->get_entry(p2m, gfn, &p2mt, &a, 0, NULL, NULL);
+@@ -1439,16 +1452,19 @@ int set_identity_p2m_entry(struct domain
+ 
+     gfn_unlock(p2m, gfn, 0);
+     return ret;
++#endif
+ }
+ 
+ int clear_identity_p2m_entry(struct domain *d, unsigned long gfn_l)
+ {
++#ifdef CONFIG_HVM
+     p2m_type_t p2mt;
+     p2m_access_t a;
+     gfn_t gfn = _gfn(gfn_l);
+     mfn_t mfn;
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     int ret;
++#endif
+ 
+     if ( !paging_mode_translate(d) )
+     {
+@@ -1457,6 +1473,7 @@ int clear_identity_p2m_entry(struct doma
+         return iommu_legacy_unmap(d, _dfn(gfn_l), 1ul << PAGE_ORDER_4K);
+     }
+ 
++#ifdef CONFIG_HVM
+     gfn_lock(p2m, gfn, 0);
+ 
+     mfn = p2m->get_entry(p2m, gfn, &p2mt, &a, 0, NULL, NULL);
+@@ -1476,6 +1493,7 @@ int clear_identity_p2m_entry(struct doma
+     }
+ 
+     return ret;
++#endif
+ }
+ 
+ #ifdef CONFIG_MEM_SHARING
+--- a/xen/arch/x86/mm/p2m-pt.c
++++ b/xen/arch/x86/mm/p2m-pt.c
+@@ -324,7 +324,6 @@ p2m_next_level(struct p2m_domain *p2m, v
+     return rc;
+ }
+ 
+-#ifdef CONFIG_HVM
+ /*
+  * Mark (via clearing the U flag) as needing P2M type re-calculation all valid
+  * present entries at the targeted level for the passed in GFN range, which is
+@@ -393,7 +392,6 @@ static int p2m_pt_set_recalc_range(struc
+ 
+     return err;
+ }
+-#endif /* CONFIG_HVM */
  
  /*
+  * Handle possibly necessary P2M type re-calculation (U flag clear for a
+@@ -932,8 +930,6 @@ pod_retry_l1:
+     return (p2m_is_valid(*t) || p2m_is_any_ram(*t)) ? mfn : INVALID_MFN;
+ }
+ 
+-#ifdef CONFIG_HVM
+-
+ static void p2m_pt_change_entry_type_global(struct p2m_domain *p2m,
+                                             p2m_type_t ot, p2m_type_t nt)
+ {
+@@ -1015,8 +1011,6 @@ static int p2m_pt_change_entry_type_rang
+     return err;
+ }
+ 
+-#endif /* CONFIG_HVM */
+-
+ #if P2M_AUDIT
+ static long p2m_pt_audit_p2m(struct p2m_domain *p2m)
+ {
+@@ -1173,11 +1167,9 @@ void p2m_pt_init(struct p2m_domain *p2m)
+ {
+     p2m->set_entry = p2m_pt_set_entry;
+     p2m->get_entry = p2m_pt_get_entry;
+-#ifdef CONFIG_HVM
+     p2m->recalc = do_recalc;
+     p2m->change_entry_type_global = p2m_pt_change_entry_type_global;
+     p2m->change_entry_type_range = p2m_pt_change_entry_type_range;
+-#endif
+ 
+     /* Still too early to use paging_mode_hap(). */
+     if ( hap_enabled(p2m->domain) )
 --- a/xen/include/asm-x86/p2m.h
 +++ b/xen/include/asm-x86/p2m.h
-@@ -136,11 +136,16 @@ typedef unsigned int p2m_query_t;
- #define P2M_PAGEABLE_TYPES (p2m_to_mask(p2m_ram_rw) \
-                             | p2m_to_mask(p2m_ram_logdirty) )
+@@ -251,6 +251,7 @@ struct p2m_domain {
+     /* Pages used to construct the p2m */
+     struct page_list_head pages;
  
-+#ifdef CONFIG_MEM_PAGING
- #define P2M_PAGING_TYPES (p2m_to_mask(p2m_ram_paging_out)        \
-                           | p2m_to_mask(p2m_ram_paged)           \
-                           | p2m_to_mask(p2m_ram_paging_in))
++#ifdef CONFIG_HVM
+     int                (*set_entry)(struct p2m_domain *p2m,
+                                     gfn_t gfn,
+                                     mfn_t mfn, unsigned int page_order,
+@@ -264,7 +265,6 @@ struct p2m_domain {
+                                     p2m_query_t q,
+                                     unsigned int *page_order,
+                                     bool_t *sve);
+-#ifdef CONFIG_HVM
+     int                (*recalc)(struct p2m_domain *p2m,
+                                  unsigned long gfn);
+     void               (*enable_hardware_log_dirty)(struct p2m_domain *p2m);
+@@ -785,8 +785,14 @@ int __must_check p2m_set_entry(struct p2
+                                unsigned int page_order, p2m_type_t p2mt,
+                                p2m_access_t p2ma);
  
- #define P2M_PAGED_TYPES (p2m_to_mask(p2m_ram_paged))
++#if defined(CONFIG_HVM)
+ /* Set up function pointers for PT implementation: only for use by p2m code */
+ extern void p2m_pt_init(struct p2m_domain *p2m);
++#elif defined(CONFIG_SHADOW_PAGING)
++# define p2m_pt_init shadow_p2m_init
 +#else
-+#define P2M_PAGING_TYPES 0
-+#define P2M_PAGED_TYPES 0
++static inline void p2m_pt_init(struct p2m_domain *p2m) {}
 +#endif
  
- /* Shared types */
- /* XXX: Sharable types could include p2m_ram_ro too, but we would need to
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -530,7 +530,7 @@ struct domain
-     struct domain *parent; /* VM fork parent */
- #endif
-     /* Memory paging support */
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     struct vm_event_domain *vm_event_paging;
- #endif
-     /* VM event monitor support */
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -592,7 +592,7 @@ static XSM_INLINE int xsm_mem_access(XSM
- }
- #endif
+ void *map_domain_gfn(struct p2m_domain *p2m, gfn_t gfn, mfn_t *mfn,
+                      p2m_query_t q, uint32_t *pfec);
+--- a/xen/include/xen/p2m-common.h
++++ b/xen/include/xen/p2m-common.h
+@@ -8,9 +8,18 @@ int set_foreign_p2m_entry(struct domain
+                           unsigned long gfn, mfn_t mfn);
  
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
- static XSM_INLINE int xsm_mem_paging(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
---- a/xen/include/xsm/xsm.h
-+++ b/xen/include/xsm/xsm.h
-@@ -146,7 +146,7 @@ struct xsm_operations {
-     int (*mem_access) (struct domain *d);
- #endif
+ /* Remove a page from a domain's p2m table */
++#ifdef CONFIG_HVM
+ int __must_check
+ guest_physmap_remove_page(struct domain *d, gfn_t gfn, mfn_t mfn,
+                           unsigned int page_order);
++#else
++static inline int
++guest_physmap_remove_page(struct domain *d, gfn_t gfn, mfn_t mfn,
++                          unsigned int page_order)
++{
++    return 0;
++}
++#endif
  
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     int (*mem_paging) (struct domain *d);
- #endif
- 
-@@ -592,7 +592,7 @@ static inline int xsm_mem_access (xsm_de
- }
- #endif
- 
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
- static inline int xsm_mem_paging (xsm_default_t def, struct domain *d)
- {
-     return xsm_ops->mem_paging(d);
---- a/xen/xsm/dummy.c
-+++ b/xen/xsm/dummy.c
-@@ -124,7 +124,7 @@ void __init xsm_fixup_ops (struct xsm_op
-     set_to_dummy_if_null(ops, mem_access);
- #endif
- 
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     set_to_dummy_if_null(ops, mem_paging);
- #endif
- 
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -1256,7 +1256,7 @@ static int flask_mem_access(struct domai
- }
- #endif
- 
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
- static int flask_mem_paging(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__MEM_PAGING);
-@@ -1829,7 +1829,7 @@ static struct xsm_operations flask_ops =
-     .mem_access = flask_mem_access,
- #endif
- 
--#ifdef CONFIG_HAS_MEM_PAGING
-+#ifdef CONFIG_MEM_PAGING
-     .mem_paging = flask_mem_paging,
- #endif
- 
+ /* Map MMIO regions in the p2m: start_gfn and nr describe the range in
+  *  * the guest physical address space to map, starting from the machine
 
 
