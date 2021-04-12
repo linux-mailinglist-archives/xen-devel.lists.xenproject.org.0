@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F6BA35C465
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D1735C464
 	for <lists+xen-devel@lfdr.de>; Mon, 12 Apr 2021 12:53:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.108961.207967 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.108960.207954 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVuBp-0000mq-SX; Mon, 12 Apr 2021 10:53:09 +0000
+	id 1lVuBn-0000kQ-In; Mon, 12 Apr 2021 10:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 108961.207967; Mon, 12 Apr 2021 10:53:09 +0000
+Received: by outflank-mailman (output) from mailman id 108960.207954; Mon, 12 Apr 2021 10:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lVuBp-0000mC-Om; Mon, 12 Apr 2021 10:53:09 +0000
-Received: by outflank-mailman (input) for mailman id 108961;
- Mon, 12 Apr 2021 10:53:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lVuBn-0000jl-FK; Mon, 12 Apr 2021 10:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 108960;
+ Mon, 12 Apr 2021 10:53:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VKKJ=JJ=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lVuBo-0000hn-0H
- for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 10:53:08 +0000
+ id 1lVuBl-0000jA-MG
+ for xen-devel@lists.xenproject.org; Mon, 12 Apr 2021 10:53:05 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 0dfdfd44-22ae-4134-b6e0-b309473b5af6;
- Mon, 12 Apr 2021 10:53:02 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 36946a84-f473-4f29-99fd-a68ce6a6bc01;
+ Mon, 12 Apr 2021 10:53:04 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3AA52D6E;
- Mon, 12 Apr 2021 03:53:02 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0130EED1;
+ Mon, 12 Apr 2021 03:53:04 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
  [10.1.197.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52AEC3F694;
- Mon, 12 Apr 2021 03:53:01 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6EE903F694;
+ Mon, 12 Apr 2021 03:53:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,166 +43,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dfdfd44-22ae-4134-b6e0-b309473b5af6
+X-Inumbo-ID: 36946a84-f473-4f29-99fd-a68ce6a6bc01
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	wei.chen@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 1/4] xen/arm: Move dom0 creation in domain_build.c
-Date: Mon, 12 Apr 2021 11:52:40 +0100
-Message-Id: <20210412105243.23354-2-luca.fancellu@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Rahul Singh <rahul.singh@arm.com>
+Subject: [PATCH v3 2/4] xen/arm: Handle cases when hardware_domain is NULL
+Date: Mon, 12 Apr 2021 11:52:41 +0100
+Message-Id: <20210412105243.23354-3-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210412105243.23354-1-luca.fancellu@arm.com>
 References: <20210412105243.23354-1-luca.fancellu@arm.com>
 
-Move dom0 creation and start from setup.c to domain_build.c
-on a dedicate function.
+The function is_hardware_domain() returns true if the
+hardware_domain and the passed domain is NULL, here we
+add a check to return false if there is no hardware_domain.
+
+Among the common and arm codebase there are few cases where
+the hardware_domain variable is checked to see if the current
+domain is equal to the hardware_domain, change this cases to
+use is_hardware_domain() function instead.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
 v3 changes:
-- move create_dom0 function after construct_dom0 and
-  make construct_dom0 static
+- removed unneeded parenthesis for macro is_domain_direct_mapped
+- is_hardware_domain() checks for the passed domain and if it is
+  NULL, it returns false.
+- reverted back checks in the function late_hwdom_init
 ---
- xen/arch/arm/domain_build.c | 38 ++++++++++++++++++++++++++++++++++++-
- xen/arch/arm/setup.c        | 29 +---------------------------
- xen/include/asm-arm/setup.h |  2 +-
- 3 files changed, 39 insertions(+), 30 deletions(-)
+ xen/arch/arm/irq.c                       | 2 +-
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c | 2 +-
+ xen/drivers/passthrough/arm/smmu-v3.c    | 2 +-
+ xen/drivers/passthrough/arm/smmu.c       | 2 +-
+ xen/include/asm-arm/domain.h             | 2 +-
+ xen/include/xen/sched.h                  | 3 +++
+ 6 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 374bf655ee..359957dc1b 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -21,6 +21,7 @@
- #include <asm/device.h>
- #include <asm/kernel.h>
- #include <asm/setup.h>
-+#include <asm/tee/tee.h>
- #include <asm/platform.h>
- #include <asm/psci.h>
- #include <asm/setup.h>
-@@ -2520,7 +2521,7 @@ void __init create_domUs(void)
-     }
- }
- 
--int __init construct_dom0(struct domain *d)
-+static int __init construct_dom0(struct domain *d)
+diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+index b71b099e6f..b761d90c40 100644
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -412,7 +412,7 @@ bool is_assignable_irq(unsigned int irq)
+  */
+ bool irq_type_set_by_domain(const struct domain *d)
  {
-     struct kernel_info kinfo = {};
-     int rc;
-@@ -2578,6 +2579,41 @@ int __init construct_dom0(struct domain *d)
-     return construct_domain(d, &kinfo);
+-    return (d == hardware_domain);
++    return is_hardware_domain(d);
  }
  
-+struct domain* __init create_dom0(void)
-+{
-+    struct domain *dom0;
-+    struct xen_domctl_createdomain dom0_cfg = {
-+        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
-+        .max_evtchn_port = -1,
-+        .max_grant_frames = gnttab_dom0_frames(),
-+        .max_maptrack_frames = -1,
-+    };
-+
-+    /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-+    dom0_cfg.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
-+    /*
-+     * Xen vGIC supports a maximum of 992 interrupt lines.
-+     * 32 are substracted to cover local IRQs.
-+     */
-+    dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 992) - 32;
-+    if ( gic_number_lines() > 992 )
-+        printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.\n");
-+    dom0_cfg.arch.tee_type = tee_get_type();
-+    dom0_cfg.max_vcpus = dom0_max_vcpus();
-+
-+    if ( iommu_enabled )
-+        dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
-+
-+    dom0 = domain_create(0, &dom0_cfg, true);
-+    if ( IS_ERR(dom0) || (alloc_dom0_vcpu0(dom0) == NULL) )
-+        panic("Error creating domain 0\n");
-+
-+    if ( construct_dom0(dom0) != 0)
-+        panic("Could not set up DOM0 guest OS\n");
-+
-+    return dom0;
-+}
-+
  /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 2532ec9739..b405f58996 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -51,7 +51,6 @@
- #include <asm/platform.h>
- #include <asm/procinfo.h>
- #include <asm/setup.h>
--#include <asm/tee/tee.h>
- #include <xsm/xsm.h>
- #include <asm/acpi.h>
+diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+index aef358d880..8b8e3a00ba 100644
+--- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
++++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+@@ -1168,7 +1168,7 @@ static int ipmmu_reassign_device(struct domain *s, struct domain *t,
+     int ret = 0;
  
-@@ -805,12 +804,6 @@ void __init start_xen(unsigned long boot_phys_offset,
-     const char *cmdline;
-     struct bootmodule *xen_bootmodule;
-     struct domain *dom0;
--    struct xen_domctl_createdomain dom0_cfg = {
--        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
--        .max_evtchn_port = -1,
--        .max_grant_frames = gnttab_dom0_frames(),
--        .max_maptrack_frames = -1,
--    };
-     int rc;
+     /* Don't allow remapping on other domain than hwdom */
+-    if ( t && t != hardware_domain )
++    if ( t && !is_hardware_domain(t) )
+         return -EPERM;
  
-     dcache_line_bytes = read_dcache_line_bytes();
-@@ -965,27 +958,7 @@ void __init start_xen(unsigned long boot_phys_offset,
-     enable_errata_workarounds();
+     if ( t == s )
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+index 53d150cdb6..d115df7320 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -3366,7 +3366,7 @@ static int arm_smmu_reassign_dev(struct domain *s, struct domain *t,
+ 	int ret = 0;
  
-     /* Create initial domain 0. */
--    /* The vGIC for DOM0 is exactly emulating the hardware GIC */
--    dom0_cfg.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
--    /*
--     * Xen vGIC supports a maximum of 992 interrupt lines.
--     * 32 are substracted to cover local IRQs.
--     */
--    dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 992) - 32;
--    if ( gic_number_lines() > 992 )
--        printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.\n");
--    dom0_cfg.arch.tee_type = tee_get_type();
--    dom0_cfg.max_vcpus = dom0_max_vcpus();
--
--    if ( iommu_enabled )
--        dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
--
--    dom0 = domain_create(0, &dom0_cfg, true);
--    if ( IS_ERR(dom0) || (alloc_dom0_vcpu0(dom0) == NULL) )
--        panic("Error creating domain 0\n");
--
--    if ( construct_dom0(dom0) != 0)
--        panic("Could not set up DOM0 guest OS\n");
-+    dom0 = create_dom0();
+ 	/* Don't allow remapping on other domain than hwdom */
+-	if (t && t != hardware_domain)
++	if ( t && !is_hardware_domain(t) )
+ 		return -EPERM;
  
-     heap_init_late();
+ 	if (t == s)
+diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+index 3e8aa37866..932fdfd6dd 100644
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -2670,7 +2670,7 @@ static int arm_smmu_reassign_dev(struct domain *s, struct domain *t,
+ 	int ret = 0;
  
-diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
-index 28bf622aa1..5283244015 100644
---- a/xen/include/asm-arm/setup.h
-+++ b/xen/include/asm-arm/setup.h
-@@ -93,8 +93,8 @@ void acpi_create_efi_mmap_table(struct domain *d,
+ 	/* Don't allow remapping on other domain than hwdom */
+-	if (t && t != hardware_domain)
++	if ( t && !is_hardware_domain(t) )
+ 		return -EPERM;
  
- int acpi_make_efi_nodes(void *fdt, struct membank tbl_add[]);
+ 	if (t == s)
+diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+index 1da90f207d..0a74df9931 100644
+--- a/xen/include/asm-arm/domain.h
++++ b/xen/include/asm-arm/domain.h
+@@ -30,7 +30,7 @@ enum domain_type {
+ #endif
  
--int construct_dom0(struct domain *d);
- void create_domUs(void);
-+struct domain* create_dom0(void);
+ /* The hardware domain has always its memory direct mapped. */
+-#define is_domain_direct_mapped(d) ((d) == hardware_domain)
++#define is_domain_direct_mapped(d) is_hardware_domain(d)
  
- void discard_initial_modules(void);
- void fw_unreserved_regions(paddr_t s, paddr_t e,
+ struct vtimer {
+     struct vcpu *v;
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 5485d08afb..5ba90f1214 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -1022,6 +1022,9 @@ static always_inline bool is_hardware_domain(const struct domain *d)
+     if ( IS_ENABLED(CONFIG_PV_SHIM_EXCLUSIVE) )
+         return false;
+ 
++    if ( !d )
++        return false;
++
+     return evaluate_nospec(d == hardware_domain);
+ }
+ 
 -- 
 2.17.1
 
