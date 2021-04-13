@@ -2,32 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C5335DC3C
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 12:11:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109644.209323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46D4535DC5B
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 12:18:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109654.209334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWG0H-00005x-Tu; Tue, 13 Apr 2021 10:10:41 +0000
+	id 1lWG7p-0000Ns-SJ; Tue, 13 Apr 2021 10:18:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109644.209323; Tue, 13 Apr 2021 10:10:41 +0000
+Received: by outflank-mailman (output) from mailman id 109654.209334; Tue, 13 Apr 2021 10:18:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWG0H-00005X-QG; Tue, 13 Apr 2021 10:10:41 +0000
-Received: by outflank-mailman (input) for mailman id 109644;
- Tue, 13 Apr 2021 10:10:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lWG7p-0000NT-PB; Tue, 13 Apr 2021 10:18:29 +0000
+Received: by outflank-mailman (input) for mailman id 109654;
+ Tue, 13 Apr 2021 10:18:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lWG0G-00005Q-CL
- for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 10:10:40 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lWG0F-0000hi-Aq; Tue, 13 Apr 2021 10:10:39 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lWG0F-0004yx-4y; Tue, 13 Apr 2021 10:10:39 +0000
+ (envelope-from <SRS0=OBYq=JK=redhat.com=lersek@srs-us1.protection.inumbo.net>)
+ id 1lWG7p-0000NO-4O
+ for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 10:18:29 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id d78b20a2-8dd4-4d9e-93d0-882a3f574ab0;
+ Tue, 13 Apr 2021 10:18:28 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-401-4L1p0jZGPi2EEMc9htak4w-1; Tue, 13 Apr 2021 06:18:24 -0400
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 058CB814337;
+ Tue, 13 Apr 2021 10:18:22 +0000 (UTC)
+Received: from lacos-laptop-7.usersys.redhat.com (ovpn-115-199.ams2.redhat.com
+ [10.36.115.199])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6ECF62967D;
+ Tue, 13 Apr 2021 10:18:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,123 +48,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=s+A0Nhy8kv+x0OJ02mSRMHQxeTxYgb0EeRnaVa3gzh4=; b=XcHe4mTLCFFazxoiJUOn8Dt3sY
-	dySSj/Ik3q9FOwVCJCTuqBTRGpLE8lDEqydhJTc9qsywKdK1jpxBe2+OjSalC+Wc0qjH4bpYyf2px
-	OPoOHlF1sgepPRyS4IU+on2WHkYwXl5xwuhSsGsC/D9IWw6qOGNCGOg5cMFKEmsd3tOE=;
-Subject: Re: [PATCH] Remove support for ThumbEE
-To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com,
- wei.chen@arm.com
-References: <20210413082447.30313-1-michal.orzel@arm.com>
- <1c3d1c69-976c-6626-74e7-ded112f6ed03@xen.org>
- <83218c74-3d71-6165-31a3-1f6c77b95f94@arm.com>
- <693507bd-5640-dd2a-3e37-9f8ea7da1a53@xen.org>
- <616b27e4-8882-d577-188d-0a183c94bc52@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <384d0e85-bc14-b465-ddf0-a1d4ce399b9e@xen.org>
-Date: Tue, 13 Apr 2021 11:10:37 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.0
+X-Inumbo-ID: d78b20a2-8dd4-4d9e-93d0-882a3f574ab0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1618309107;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D6JXSOnWFPQcYcJpN/lhDhlxyRcMiYtsdgrU+YMw8Wk=;
+	b=EmfwRS6PWD698uws/nxmroElmHEhQyl0eynrMA4cH+gQSdq50ESywP1GwnIRh/n05r8CDV
+	ALDVvQTHhujax8cASHYLGV+sMnDDL4YqmyLSFo9GByZRez4JjY2VcPgZUcUbLtuax7j1eQ
+	IOsJOcRAjipKoaF2ARFMpdhuh5f7Ki0=
+X-MC-Unique: 4L1p0jZGPi2EEMc9htak4w-1
+Subject: =?UTF-8?Q?Re:_=e5=9b=9e=e5=a4=8d:_[edk2-devel]_[PATCH_v3_2/7]_MdePk?=
+ =?UTF-8?Q?g:_Allow_PcdFSBClock_to_by_Dynamic?=
+To: gaoliming <gaoliming@byosoft.com.cn>, devel@edk2.groups.io,
+ anthony.perard@citrix.com
+Cc: 'Jordan Justen' <jordan.l.justen@intel.com>,
+ 'Ard Biesheuvel' <ardb+tianocore@kernel.org>,
+ xen-devel@lists.xenproject.org, 'Julien Grall' <julien@xen.org>,
+ 'Michael D Kinney' <michael.d.kinney@intel.com>,
+ 'Zhiguang Liu' <zhiguang.liu@intel.com>, 'Liming Gao' <liming.gao@intel.com>
+References: <20210412133003.146438-1-anthony.perard@citrix.com>
+ <20210412133003.146438-3-anthony.perard@citrix.com>
+ <00c601d73000$350a7510$9f1f5f30$@byosoft.com.cn>
+From: Laszlo Ersek <lersek@redhat.com>
+Message-ID: <8fce5f56-de1b-f2e0-6ec6-ed7c29d56ede@redhat.com>
+Date: Tue, 13 Apr 2021 12:18:16 +0200
 MIME-Version: 1.0
-In-Reply-To: <616b27e4-8882-d577-188d-0a183c94bc52@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <00c601d73000$350a7510$9f1f5f30$@byosoft.com.cn>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=gbk
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
+On 04/13/21 02:59, gaoliming wrote:
+> Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
 
+Thanks, I've updated the email address in your existent R-b on the patch.
 
-On 13/04/2021 10:59, Michal Orzel wrote:
-> 
-> 
-> On 13.04.2021 11:42, Julien Grall wrote:
->>
->>
->> On 13/04/2021 10:32, Michal Orzel wrote:
->>> Hi Julien,
->>>
->>> On 13.04.2021 11:07, Julien Grall wrote:
->>>> Hi Michal,
->>>>
->>>> On 13/04/2021 09:24, Michal Orzel wrote:
->>>>> ThumbEE(T32EE) was introduced in ARMv7 and removed in ARMv8.
->>>>> In 2011 ARM deprecated any use of the ThumbEE instruction set.
->>>>
->>>> This doesn't mean this is not present in any CPU. In fact, in the same section (see A2.10 in ARM DDI 0406C.d):
->>>>
->>>> "ThumbEE is both the name of the instruction set and the name of the extension that provides support for that
->>>> instruction set. The ThumbEE Extension is:
->>>>  聽聽 - Required in implementations of the ARMv7-A profile.
->>>>  聽聽 - Optional in implementations of the ARMv7-R profile.
->>>> "
->>>>
->>>>>
->>>>> This feature is untested and as per my understanding
->>>>> there are no reported users for it. >
->>>>> Remove all the bits related to it.
->>>>>
->>>>> Signed-off-by: Michal Orzel <michal.orzel@arm.com> > ---
->>>>>  聽聽 xen/arch/arm/cpufeature.c聽聽聽聽聽聽聽 |聽 3 +++
->>>>>  聽聽 xen/arch/arm/domain.c聽聽聽聽聽聽聽聽聽聽聽 | 12 ------------
->>>>>  聽聽 xen/arch/arm/setup.c聽聽聽聽聽聽聽聽聽聽聽聽 |聽 3 +--
->>>>>  聽聽 xen/include/asm-arm/cpregs.h聽聽聽聽 |聽 6 ------
->>>>>  聽聽 xen/include/asm-arm/cpufeature.h |聽 1 -
->>>>>  聽聽 xen/include/asm-arm/domain.h聽聽聽聽 |聽 1 -
->>>>>  聽聽 6 files changed, 4 insertions(+), 22 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
->>>>> index 1d88783809..82265a72f4 100644
->>>>> --- a/xen/arch/arm/cpufeature.c
->>>>> +++ b/xen/arch/arm/cpufeature.c
->>>>> @@ -209,6 +209,9 @@ static int __init create_guest_cpuinfo(void)
->>>>>  聽聽聽聽聽聽 guest_cpuinfo.pfr32.ras = 0;
->>>>>  聽聽聽聽聽聽 guest_cpuinfo.pfr32.ras_frac = 0;
->>>>>  聽聽 +聽聽聽 /* Hide ThumbEE support */
->>>>> +聽聽聽 guest_cpuinfo.pfr32.thumbee = 0;
->>>>
->>>> Even if you hide the feature from the guest, the registers are still accessible. So you are not removing support but just opening a potential security hole as the registers now gets shared...
->>>>
->>>> Looking at the spec, it doesn't look like it is possible to trap them.
->>> Looking at the spec for ARMv7A/R:
->>> https://developer.arm.com/documentation/ddi0406/c/System-Level-Architecture/System-Control-Registers-in-a-VMSA-implementation/VMSA-System-control-registers-descriptions--in-register-order/HSTR--Hyp-System-Trap-Register--Virtualization-Extensions
->>> we can trap Thumbee operations.
->>> This means that we will not open the security hole.
->>
->> That's for pointing that out. However, I am not still not sure why you want to drop the code. Yes this is technically untested, but:
->>  聽 1) The change is very small
->>  聽 2) There are CPU out there supporting it (it is mandated after all).
->>
-> I wanted to drop the support for thumbee due to the following reasons:
-> -it is untested
-> -it is deprecated
-
-Deprecated only means new code should avoid to use the instruction set. 
-But it is still present for existing code until they are migrated to a 
-newer instruction set.
-
-However, as I pointed out only the instruction set is deprecated. The 
-extension itself is mandated by Armv7-A.
-
-> -no reported users for this feature
-We probably only see the tip of the iceberg in term of the users. If the 
-feature/pain is quite small to the community, then we should try to not 
-drop feature.
-
-> -KVM did that
-
-Well, KVM fully dropped 32-bit support. But I am not yet in favor of 
-that in Xen.
+Laszlo
 
 > 
-> If you think we should not do this, then I am ok to abandon this patch.
+>> -----邮件原件-----
+>> 发件人: devel@edk2.groups.io <devel@edk2.groups.io> 代表 Anthony
+>> PERARD via groups.io
+>> 发送时间: 2021年4月12日 21:30
+>> 收件人: devel@edk2.groups.io
+>> 抄送: Laszlo Ersek <lersek@redhat.com>; Jordan Justen
+>> <jordan.l.justen@intel.com>; Ard Biesheuvel <ardb+tianocore@kernel.org>;
+>> xen-devel@lists.xenproject.org; Anthony PERARD
+>> <anthony.perard@citrix.com>; Julien Grall <julien@xen.org>; Michael D
+>> Kinney <michael.d.kinney@intel.com>; Liming Gao
+>> <gaoliming@byosoft.com.cn>; Zhiguang Liu <zhiguang.liu@intel.com>; Liming
+>> Gao <liming.gao@intel.com>
+>> 主题: [edk2-devel] [PATCH v3 2/7] MdePkg: Allow PcdFSBClock to by
+>> Dynamic
+>>
+>> We are going to want to change the value of PcdFSBClock at run time in
+>> OvmfXen, so move it to the PcdsDynamic section.
+>>
+>> Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2490
+>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+>> Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+>> Reviewed-by: Liming Gao <liming.gao@intel.com>
+>> ---
+>>
+>> Notes:
+>>     CC: Michael D Kinney <michael.d.kinney@intel.com>
+>>     CC: Liming Gao <gaoliming@byosoft.com.cn>
+>>     CC: Zhiguang Liu <zhiguang.liu@intel.com>
+>>
+>>  MdePkg/MdePkg.dec | 8 ++++----
+>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/MdePkg/MdePkg.dec b/MdePkg/MdePkg.dec
+>> index f4156920e599..8965e903e093 100644
+>> --- a/MdePkg/MdePkg.dec
+>> +++ b/MdePkg/MdePkg.dec
+>> @@ -2265,10 +2265,6 @@ [PcdsFixedAtBuild,PcdsPatchableInModule]
+>>    # @ValidList  0x80000001 | 8, 16, 32
+>>    gEfiMdePkgTokenSpaceGuid.PcdPort80DataWidth|8|UINT8|0x0000002d
+>>
+>> -  ## This value is used to configure X86 Processor FSB clock.
+>> -  # @Prompt FSB Clock.
+>> -
+>> gEfiMdePkgTokenSpaceGuid.PcdFSBClock|200000000|UINT32|0x0000000c
+>> -
+>>    ## The maximum printable number of characters. UefLib functions:
+>> AsciiPrint(), AsciiErrorPrint(),
+>>    #  PrintXY(), AsciiPrintXY(), Print(), ErrorPrint() base on this PCD
+> value to
+>> print characters.
+>>    # @Prompt Maximum Printable Number of Characters.
+>> @@ -2372,5 +2368,9 @@ [PcdsFixedAtBuild, PcdsPatchableInModule,
+>> PcdsDynamic, PcdsDynamicEx]
+>>    # @Prompt Boot Timeout (s)
+>>
+>> gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0xffff|UINT16|0x0000
+>> 002c
+>>
+>> +  ## This value is used to configure X86 Processor FSB clock.
+>> +  # @Prompt FSB Clock.
+>> +
+>> gEfiMdePkgTokenSpaceGuid.PcdFSBClock|200000000|UINT32|0x0000000c
+>> +
+>>  [UserExtensions.TianoCore."ExtraFiles"]
+>>    MdePkgExtra.uni
+>> --
+>> Anthony PERARD
+>>
+>>
+>>
+>> -=-=-=-=-=-=-=-=-=-=-=-
+>> Groups.io Links: You receive all messages sent to this group.
+>> View/Reply Online (#73954): https://edk2.groups.io/g/devel/message/73954
+>> Mute This Topic: https://groups.io/mt/82037830/4905953
+>> Group Owner: devel+owner@edk2.groups.io
+>> Unsubscribe: https://edk2.groups.io/g/devel/unsub
+>> [gaoliming@byosoft.com.cn]
+>> -=-=-=-=-=-=-=-=-=-=-=-
+>>
+> 
+> 
+> 
 
-Based on the information you provided, I think we should keep support.
-
-Cheers,
-
--- 
-Julien Grall
 
