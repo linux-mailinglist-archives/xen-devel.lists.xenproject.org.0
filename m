@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA6BB35DB10
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 11:24:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109604.209232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A908135DB3C
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 11:33:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109611.209245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWFHI-0003Ot-HR; Tue, 13 Apr 2021 09:24:12 +0000
+	id 1lWFPa-0004M5-CK; Tue, 13 Apr 2021 09:32:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109604.209232; Tue, 13 Apr 2021 09:24:12 +0000
+Received: by outflank-mailman (output) from mailman id 109611.209245; Tue, 13 Apr 2021 09:32:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWFHI-0003OU-ES; Tue, 13 Apr 2021 09:24:12 +0000
-Received: by outflank-mailman (input) for mailman id 109604;
- Tue, 13 Apr 2021 09:24:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lWFHG-0003OO-UJ
- for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 09:24:10 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f9911ded-f39a-4bf6-a234-252def82cb15;
- Tue, 13 Apr 2021 09:24:09 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ECAD9AF0D;
- Tue, 13 Apr 2021 09:24:08 +0000 (UTC)
+	id 1lWFPa-0004Lg-95; Tue, 13 Apr 2021 09:32:46 +0000
+Received: by outflank-mailman (input) for mailman id 109611;
+ Tue, 13 Apr 2021 09:32:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RIKl=JK=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lWFPZ-0004Lb-Hn
+ for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 09:32:45 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 6a3a0dc4-c136-44c6-b875-3ad6cd0a2d56;
+ Tue, 13 Apr 2021 09:32:44 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DAF50106F;
+ Tue, 13 Apr 2021 02:32:43 -0700 (PDT)
+Received: from [10.57.30.107] (unknown [10.57.30.107])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9BAA3F73B;
+ Tue, 13 Apr 2021 02:32:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,142 +42,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9911ded-f39a-4bf6-a234-252def82cb15
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618305849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0JyzQT29QISH1n2na2do1XSDb0Bj3BwcVDJrbVg7+zo=;
-	b=j0sTeKWFOS/ctbjv1DJD3oxq5NHFWsQy5Dz4csHgGQMerAyk0wESxHS7QrMFICD54wkktY
-	/edukcNjcIIduBti1iDW2BCZZsan+J7tfzgITIshs5hgnYPYEOyyvsVoQlULlp+0hq8iO/
-	qgyEb6oTSxvtdfbTmY7ygEZqTZSgWtA=
-Subject: Re: [PATCH v4] VMX: use a single, global APIC access page
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Tim Deegan <tim@xen.org>
-References: <4731a3a3-906a-98ac-11ba-6a0723903391@suse.com>
- <1c489e77-6e65-6121-6c28-3c4bd377223c@suse.com>
- <YHRnvQvWJ7QsXVgX@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c07396f2-b0c5-092b-4e3e-5f452c453e56@suse.com>
-Date: Tue, 13 Apr 2021 11:24:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+X-Inumbo-ID: 6a3a0dc4-c136-44c6-b875-3ad6cd0a2d56
+Subject: Re: [PATCH] Remove support for ThumbEE
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com,
+ wei.chen@arm.com
+References: <20210413082447.30313-1-michal.orzel@arm.com>
+ <1c3d1c69-976c-6626-74e7-ded112f6ed03@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <83218c74-3d71-6165-31a3-1f6c77b95f94@arm.com>
+Date: Tue, 13 Apr 2021 11:32:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YHRnvQvWJ7QsXVgX@Air-de-Roger>
+In-Reply-To: <1c3d1c69-976c-6626-74e7-ded112f6ed03@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 12.04.2021 17:31, Roger Pau Monné wrote:
-> On Mon, Apr 12, 2021 at 12:40:48PM +0200, Jan Beulich wrote:
->> The address of this page is used by the CPU only to recognize when to
->> access the virtual APIC page instead. No accesses would ever go to this
->> page. It only needs to be present in the (CPU) page tables so that
->> address translation will produce its address as result for respective
->> accesses.
+Hi Julien,
+
+On 13.04.2021 11:07, Julien Grall wrote:
+> Hi Michal,
+> 
+> On 13/04/2021 09:24, Michal Orzel wrote:
+>> ThumbEE(T32EE) was introduced in ARMv7 and removed in ARMv8.
+>> In 2011 ARM deprecated any use of the ThumbEE instruction set.
+> 
+> This doesn't mean this is not present in any CPU. In fact, in the same section (see A2.10 in ARM DDI 0406C.d):
+> 
+> "ThumbEE is both the name of the instruction set and the name of the extension that provides support for that
+> instruction set. The ThumbEE Extension is:
+>   - Required in implementations of the ARMv7-A profile.
+>   - Optional in implementations of the ARMv7-R profile.
+> "
+> 
 >>
->> By making this page global, we also eliminate the need to refcount it,
->> or to assign it to any domain in the first place.
+>> This feature is untested and as per my understanding
+>> there are no reported users for it. >
+>> Remove all the bits related to it.
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
->> ---
->> v4: Set PGC_extra on the page. Make shadow mode work.
->> v3: Split p2m insertion change to a separate patch.
->> v2: Avoid insertion when !has_vlapic(). Split off change to
->>     p2m_get_iommu_flags().
->> ---
->> I did further consider not allocating any real page at all, but just
->> using the address of some unpopulated space (which would require
->> announcing this page as reserved to Dom0, so it wouldn't put any PCI
->> MMIO BARs there). But I thought this would be too controversial, because
->> of the possible risks associated with this.
+>> Signed-off-by: Michal Orzel <michal.orzel@arm.com> > ---
+>>   xen/arch/arm/cpufeature.c        |  3 +++
+>>   xen/arch/arm/domain.c            | 12 ------------
+>>   xen/arch/arm/setup.c             |  3 +--
+>>   xen/include/asm-arm/cpregs.h     |  6 ------
+>>   xen/include/asm-arm/cpufeature.h |  1 -
+>>   xen/include/asm-arm/domain.h     |  1 -
+>>   6 files changed, 4 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+>> index 1d88783809..82265a72f4 100644
+>> --- a/xen/arch/arm/cpufeature.c
+>> +++ b/xen/arch/arm/cpufeature.c
+>> @@ -209,6 +209,9 @@ static int __init create_guest_cpuinfo(void)
+>>       guest_cpuinfo.pfr32.ras = 0;
+>>       guest_cpuinfo.pfr32.ras_frac = 0;
+>>   +    /* Hide ThumbEE support */
+>> +    guest_cpuinfo.pfr32.thumbee = 0;
 > 
-> Really seems more trouble than reward. Also there are systems with
-> MMIO regions in holes on the memory map, like the issue I had with the
-> Intel pinctrl stuff that had an MMIO region in a hole on the memory
-> map [0], so I'm not sure Xen would be in a position to select a
-> suitable unpopulated page anyway.
+> Even if you hide the feature from the guest, the registers are still accessible. So you are not removing support but just opening a potential security hole as the registers now gets shared...
 > 
-> [0] https://lore.kernel.org/xen-devel/YFx80wYt%2FKcHanC7@smile.fi.intel.com/
+> Looking at the spec, it doesn't look like it is possible to trap them.
+Looking at the spec for ARMv7A/R:
+https://developer.arm.com/documentation/ddi0406/c/System-Level-Architecture/System-Control-Registers-in-a-VMSA-implementation/VMSA-System-control-registers-descriptions--in-register-order/HSTR--Hyp-System-Trap-Register--Virtualization-Extensions
+we can trap Thumbee operations.
+This means that we will not open the security hole.
 
-Yeah, I had seen that. What I'm having trouble to understand is how the
-OS will know to avoid that range for e.g. placing BARs.
-
->> @@ -411,28 +411,22 @@ static int vmx_domain_initialise(struct
->>       */
->>      d->arch.hvm.vmx.exec_sp = is_hardware_domain(d) || opt_ept_exec_sp;
->>  
->> -    if ( !has_vlapic(d) )
->> -        return 0;
->> -
->> -    if ( (rc = vmx_alloc_vlapic_mapping(d)) != 0 )
->> -        return rc;
->> -
->>      return 0;
->>  }
->>  
->> -static void vmx_domain_relinquish_resources(struct domain *d)
->> +static void domain_creation_finished(struct domain *d)
->>  {
->> -    if ( !has_vlapic(d) )
->> +    gfn_t gfn = gaddr_to_gfn(APIC_DEFAULT_PHYS_BASE);
 > 
-> Worth making it const static?
-
-The compiler ought to be able to fold this into a suitable constant
-at the use site. Definitely not static imo, and I see little point
-in making a local variable const, unless one really wants to
-document something very special.
-
->> +    uint8_t ipat;
->> +
->> +    if ( !has_vlapic(d) || mfn_eq(apic_access_mfn, _mfn(0)) )
+> In any case, the number of registers to save/restore is pretty limited. So I don't see the problem to keep the code around. It doesn't mean the feature is working, it just means we properly keep the domain isolated from each other.
 > 
-> It would be better to use INVALID_MFN here, and init apic_access_mfn
-> to that value.
-
-Oh, yes, that's easier possible now that the variable is static.
-
->> --- a/xen/arch/x86/mm/shadow/set.c
->> +++ b/xen/arch/x86/mm/shadow/set.c
->> @@ -94,6 +94,22 @@ shadow_get_page_from_l1e(shadow_l1e_t sl
->>      ASSERT(!sh_l1e_is_magic(sl1e));
->>      ASSERT(shadow_mode_refcounts(d));
->>  
->> +    /*
->> +     * VMX'es APIC access MFN is just a surrogate page.  It doesn't actually
->> +     * get accessed, and hence there's no need to refcount it (and refcounting
->> +     * would fail, due to the page having no owner).
->> +     */
->> +    if ( mfn_valid(mfn = shadow_l1e_get_mfn(sl1e)) )
+> Cheers,
 > 
-> I find this assignment inside the parameter list quite ugly, I would
-> rather split it on it's own line.
 
-Well, okay. To be honest I'm not even sure why I did it this way, as
-I could have expected a respective comment.
-
->> +    {
->> +        const struct page_info *pg = mfn_to_page(mfn);
->> +
->> +        if ( !page_get_owner(pg) && (pg->count_info & PGC_extra) )
->> +        {
->> +            ASSERT(type == p2m_mmio_direct);
->> +            return 0;
-> 
-> Are there any other pages that could pass this check? I don't think
-> so, but wanted to assert.
-
-"Normal" extra pages have an owner, so no, there aren't any others.
-If and when any appear, this may need further customizing, albeit
-generally I'd hope further pages matching this pattern would also
-want similar treatment.
-
-Jan
+Cheers,
+Michal
 
