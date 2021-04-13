@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3262B35E379
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 18:06:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109970.209897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD4435E3A7
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 18:18:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109975.209910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWLYX-0002rD-Pw; Tue, 13 Apr 2021 16:06:25 +0000
+	id 1lWLj8-0003r4-QT; Tue, 13 Apr 2021 16:17:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109970.209897; Tue, 13 Apr 2021 16:06:25 +0000
+Received: by outflank-mailman (output) from mailman id 109975.209910; Tue, 13 Apr 2021 16:17:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWLYX-0002qs-Mb; Tue, 13 Apr 2021 16:06:25 +0000
-Received: by outflank-mailman (input) for mailman id 109970;
- Tue, 13 Apr 2021 16:06:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MzG+=JK=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1lWLYW-0002qn-7A
- for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 16:06:24 +0000
-Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a673bb3f-73fb-472f-8a2e-a21dc51dca85;
- Tue, 13 Apr 2021 16:06:23 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id w8so19706469lfr.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 Apr 2021 09:06:23 -0700 (PDT)
+	id 1lWLj8-0003qf-NH; Tue, 13 Apr 2021 16:17:22 +0000
+Received: by outflank-mailman (input) for mailman id 109975;
+ Tue, 13 Apr 2021 16:17:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lWLj7-0003qa-QS
+ for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 16:17:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lWLj7-0007Sx-9S; Tue, 13 Apr 2021 16:17:21 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lWLj7-00070i-1s; Tue, 13 Apr 2021 16:17:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,92 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a673bb3f-73fb-472f-8a2e-a21dc51dca85
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=e1fd25UFmEZ/ZTlF5UgodHjiEAkehs5Oy53Oboyxk4g=;
-        b=kqanzS1LrM6Bu6VOWkYJ0ofYXh7Yth7t6N9jK0FYfqB/veeHBm9rmWg8hAyz35KjY9
-         Ow+oHKtCkl6QkrWvu9Kwqni3Bt0w2Q9np1YBAk1zhc90qH77y6Q8Vr+P8fGtkbdiJSjv
-         patj07mWM4ShBfqFvKlU8Gg9HdocLtEZZL+TKRE2NniIV9jpQPRgnaWaFsnbaSrj7boc
-         BUEOGBEzg2jf/63CozpSvdPVeg85ZkLcOd0835TUq12B4Hnty5QsTNzpCrZbrZ/Nbeos
-         iyTxA2ieBm183TJKv+bMJH0BU2jPFQTypAMfcc2Qy6ahExXpVAIMTExBtUWqqZyVmzxK
-         5/+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=e1fd25UFmEZ/ZTlF5UgodHjiEAkehs5Oy53Oboyxk4g=;
-        b=p4i9rsjIYZAVIVoQcum2+5uXpnooScdw17Bnj6KVx/nwnnN+vnRl9EADQzXvEUQzOP
-         iBFoRfCcffDAZvRQkW5ax5pNsAQOHF3TfqBem5Dc6zRnUdyg1dYVE7nLj6W+t03tst/6
-         0dAQyQmtTvdfZCVumJY+8+6GjfOM3itzRekS+2P+X1+5mxkodZ+C3GeX3I4b6EJhTmBH
-         4fWNr9Lr8UqRndoR2P3omdU/ZytKJ/cgijg1nKasRiwnOilLs6vIDh5xI6xh/JK/yogy
-         hOBIOinHDprW3kGJMxqt7jhJY19g8rsC1bJbCr1W4rbEEarQ0h7t9cLfK7qm7roRwe/l
-         sr6w==
-X-Gm-Message-State: AOAM531PyG8WTQFarTHvO+ZiIsxs4fAfyuVGVM/R/x5DfLWtjKpjtCPV
-	JFLGrBZ0SnZjPn2siB7y2fGtURIroVG7dcoDrPA=
-X-Google-Smtp-Source: ABdhPJwgkA0IgrdjYFu/tkXFmMTchvqtVB2XrLQ/dwq1hgpccvnXLda/5YWGjrYyXmSuG/+Bzkzx9sVbwTQZNdsdr4M=
-X-Received: by 2002:ac2:5083:: with SMTP id f3mr15015956lfm.562.1618329980772;
- Tue, 13 Apr 2021 09:06:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=GkceW10k83A2HTyah+YJ6/nafU0HIMcdaI/31a8rfIQ=; b=zGirWaOox1shZkh1wOaMVUf3mG
+	9o4wmv1pADtEtQ+64izPMHlS31FmpPOU+NwkD1fw+Q5qPXUOe/npzQuGHzoH6GMUcHoFPjmO61sVs
+	jq211oqoJJ0ImjsbH7ySCHc2PCvMwJmXv7rg/sifJJ5qOHQM29hABkMiO96cmAEOksho=;
+Subject: Re: [xen-unstable bisection] complete test-armhf-armhf-xl-multivcpu
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org,
+ osstest service owner <osstest-admin@xenproject.org>
+References: <E1lVPaB-0007ue-Ho@osstest.test-lab.xenproject.org>
+ <b7800c49-8106-e2cc-2fa3-9682305f333f@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <867e0bc1-ba0d-771a-0cfd-1e83fad431aa@xen.org>
+Date: Tue, 13 Apr 2021 17:17:19 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.0
 MIME-Version: 1.0
-References: <602469f5-1028-8f36-7195-f102b6d2af0c@tabit.pro>
- <427bfd62-48c0-5859-7300-c618331b4e5a@citrix.com> <20200922133047.4646b2ab62cszn46@liuwe-devbox-debian-v2>
- <CAKf6xpsOfM=PSFW6sUx5yozmEji9f5t2p+5+mrpX_2cOqGBOmQ@mail.gmail.com> <301e8abc-f50f-0159-a373-d9eb54f9836b@citrix.com>
-In-Reply-To: <301e8abc-f50f-0159-a373-d9eb54f9836b@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 13 Apr 2021 12:06:08 -0400
-Message-ID: <CAKf6xps7XihHRjMKUnng9z8Uvu1ERTS+Zn5LjB-+tEKhYXpDzg@mail.gmail.com>
-Subject: Re: [PATCH] libxl: User defined max_maptrack_frames in a stub domain
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Dmitry Fedorov <d.fedorov@tabit.pro>, 
-	xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <b7800c49-8106-e2cc-2fa3-9682305f333f@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 13, 2021 at 10:23 AM Andrew Cooper
-<andrew.cooper3@citrix.com> wrote:
->
-> On 10/04/2021 16:55, Jason Andryuk wrote:
-> > On Tue, Sep 22, 2020 at 9:31 AM Wei Liu <wl@xen.org> wrote:
-> >> On Mon, Sep 14, 2020 at 04:27:45PM +0100, Andrew Cooper wrote:
-> >>> On 14/09/2020 15:50, Dmitry Fedorov wrote:
-> >>>> Hi,
-> >>>>
-> >>>> Implementing qrexec+usbip+qemu in Linux-based stub domain leads me to
-> >>>> an issue where a device model stub domain doesn't have maptrack entries.
-> >>>>
-> >>>> Would it be possible to apply a user defined max_maptrack_frames value
-> >>>> to dm_config in the same way as for max_grant_frames?
-> >>>>
-> >>>> Signed-off-by: Dmitry Fedorov <d.fedorov@tabit.pro>
-> >>> This looks entirely reasonable.
-> >>>
-> >>> CC'ing the maintainers for their opinion.
-> >>>
-> >> Looks fine to me.
-> >>
-> >> Acked-by: Wei Liu <wl@xen.org>
-> > Hi,
-> >
-> > Wei, looks like you Acked but did not apply this patch.  And after the
-> > libs rename, the file paths no longer match.  Do you want to fix this
-> > up, or should Dmitry re-submit?
->
-> Apologies for the process failure here.
+Hi Jan,
 
-No worries.
+On 12/04/2021 09:53, Jan Beulich wrote:
+> On 11.04.2021 04:12, osstest service owner wrote:
+>> branch xen-unstable
+>> xenbranch xen-unstable
+>> job test-armhf-armhf-xl-multivcpu
+>> testid guest-start/debian.repeat
+>>
+>> Tree: linux git://xenbits.xen.org/linux-pvops.git
+>> Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+>> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+>> Tree: xen git://xenbits.xen.org/xen.git
+>>
+>> *** Found and reproduced problem changeset ***
+>>
+>>    Bug is in tree:  xen git://xenbits.xen.org/xen.git
+>>    Bug introduced:  9617d5f9c19d1d157629e1e436791509526e0ce5
+>>    Bug not present: 5c3c410bd2ea8d2cc520e8e8f83ad143c9c5cff7
+>>    Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/160931/
+>>
+>>
+>>    commit 9617d5f9c19d1d157629e1e436791509526e0ce5
+>>    Author: Julien Grall <jgrall@amazon.com>
+>>    Date:   Sat Feb 20 17:54:13 2021 +0000
+>>    
+>>        xen/arm: mm: flush_page_to_ram() only need to clean to PoC
+>>        
+>>        At the moment, flush_page_to_ram() is both cleaning and invalidate to
+>>        PoC the page.
+>>        
+>>        The goal of flush_page_to_ram() is to prevent corruption when the guest
+>>        has disabled the cache (the cache line may be dirty) and the guest to
+>>        read previous content.
+>>        
+>>        Per this definition, the invalidating the line is not necessary. So
+>>        invalidating the cache is unnecessary. In fact, it may be counter-
+>>        productive as the line may be (speculatively) accessed a bit after.
+>>        So this will incurr an expensive access to the memory.
+>>        
+>>        More generally, we should avoid interferring too much with cache.
+>>        Therefore, flush_page_to_ram() is updated to only clean to PoC the page.
+>>        
+>>        The performance impact of this change will depend on your
+>>        workload/processor.
+>>        
+>>        Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>        Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>        Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> Is it possible that other code (guest one in particular considering the
+> failure pattern, but possibly not limited to that) has developed a
+> dependency on the prior behavior?
 
-> I have committed
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=80714e55042b2242cd82eccfb7405d671ecbebda
+This is not a problem in the guest. I overlooked that 
+flush_page_to_ram() is also used when emulating the instruction to 
+invalidate by set/way the data cache.
 
-Thank you, Andrew.
+We would need to tell flush_page_to_ram() which type of operation we 
+want to do. I will not have time to work on it right now, so I have 
+reverted the patch to unblock OssTest.
 
-> I take it that it wants flagging for backports?
+Sorry for the breakage.
 
-The Qubes qrexec+usbip+qemu feature isn't merged yet, but they have a
-backport to 4.14 as part of the series.
+Cheers,
 
-Regards,
-Jason
+-- 
+Julien Grall
 
