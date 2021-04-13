@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94BDB35E261
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 17:12:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.109931.209832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AB5135E271
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Apr 2021 17:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.109935.209844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWKh8-0005gz-AR; Tue, 13 Apr 2021 15:11:14 +0000
+	id 1lWKke-0005qd-PA; Tue, 13 Apr 2021 15:14:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 109931.209832; Tue, 13 Apr 2021 15:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 109935.209844; Tue, 13 Apr 2021 15:14:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWKh8-0005ga-6l; Tue, 13 Apr 2021 15:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 109931;
- Tue, 13 Apr 2021 15:11:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lWKke-0005qE-Lq; Tue, 13 Apr 2021 15:14:52 +0000
+Received: by outflank-mailman (input) for mailman id 109935;
+ Tue, 13 Apr 2021 15:14:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=A51V=JK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lWKh6-0005gV-6h
- for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 15:11:12 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3a09ad80-de26-4547-b336-720c1cc64498;
- Tue, 13 Apr 2021 15:11:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9C9A3AEE5;
- Tue, 13 Apr 2021 15:11:09 +0000 (UTC)
+ (envelope-from <SRS0=8rNj=JK=ipxe.org=mcb30@srs-us1.protection.inumbo.net>)
+ id 1lWKkc-0005q8-Ji
+ for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 15:14:50 +0000
+Received: from blyat.fensystems.co.uk (unknown [54.246.183.96])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f2953e1c-8cd5-4c95-8b18-f77f74c554ce;
+ Tue, 13 Apr 2021 15:14:49 +0000 (UTC)
+Received: from dolphin.home (unknown
+ [IPv6:2a00:23c6:5495:5e00:72b3:d5ff:feb1:e101])
+ by blyat.fensystems.co.uk (Postfix) with ESMTPSA id DEBBC4427E;
+ Tue, 13 Apr 2021 15:14:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,213 +39,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a09ad80-de26-4547-b336-720c1cc64498
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618326669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x7rGm/jLz+ZBzNaJ0qeXzn5zJ6EqqFxKlX1Xuf2FMCo=;
-	b=BYA4HgLArgjmbnp99iiGkufhdQwwIdhHszPUuWxXhi+k7pQgGtjFuF6cvPC6vZcx+xhVWt
-	4Kc8FwYE+wPDd104OEgmJ5L++7bxheJR4QIGrnVGTDdqpHQ9WH70lGRFj++FyOcB20VUr4
-	PDNfKeIxzaNWg0Wr5hNN+Tethdz51Go=
-Subject: Re: [PATCH v2 3/6] tools/libs/ctrl: use common p2m mapping code in
- xc_domain_resume_any()
-To: Christian Lindig <christian.lindig@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- David Scott <dave@recoil.org>
-References: <20210412152236.1975-1-jgross@suse.com>
- <20210412152236.1975-4-jgross@suse.com>
- <A21C5456-8017-4A9A-9460-91D250E100FF@citrix.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <341cc353-b467-8335-ed0c-d5e054057e27@suse.com>
-Date: Tue, 13 Apr 2021 17:11:08 +0200
+X-Inumbo-ID: f2953e1c-8cd5-4c95-8b18-f77f74c554ce
+Subject: Re: xen-netback hotplug-status regression bug
+To: paul@xen.org, Wei Liu <wei.liu@kernel.org>,
+ xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ Paul Durrant <pdurrant@amazon.com>
+References: <afedd7cb-a291-e773-8b0d-4db9b291fa98@ipxe.org>
+ <f469cdee-f97e-da3f-bcab-0be9ed8cd836@xen.org>
+ <58ccc3b7-9ccb-b9bf-84e7-4a023ccb5c56@ipxe.org>
+ <54659eec-e315-5dc5-1578-d91633a80077@xen.org>
+From: Michael Brown <mcb30@ipxe.org>
+Message-ID: <d452efde-a2cc-ee5e-bea8-a34e657e2f02@ipxe.org>
+Date: Tue, 13 Apr 2021 16:14:46 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <A21C5456-8017-4A9A-9460-91D250E100FF@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="5jywfwWt8f6ryxKRUQqIAs3ti5NhzshlV"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---5jywfwWt8f6ryxKRUQqIAs3ti5NhzshlV
-Content-Type: multipart/mixed; boundary="b4dwaPpfXpizgfC4WLSNmsp7267XBDFZu";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Christian Lindig <christian.lindig@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- David Scott <dave@recoil.org>
-Message-ID: <341cc353-b467-8335-ed0c-d5e054057e27@suse.com>
-Subject: Re: [PATCH v2 3/6] tools/libs/ctrl: use common p2m mapping code in
- xc_domain_resume_any()
-References: <20210412152236.1975-1-jgross@suse.com>
- <20210412152236.1975-4-jgross@suse.com>
- <A21C5456-8017-4A9A-9460-91D250E100FF@citrix.com>
-In-Reply-To: <A21C5456-8017-4A9A-9460-91D250E100FF@citrix.com>
-
---b4dwaPpfXpizgfC4WLSNmsp7267XBDFZu
-Content-Type: multipart/mixed;
- boundary="------------D425F7D73E410331C6FEC20E"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------D425F7D73E410331C6FEC20E
+In-Reply-To: <54659eec-e315-5dc5-1578-d91633a80077@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham autolearn_force=no version=3.4.2
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	blyat.fensystems.co.uk
 
-On 13.04.21 17:00, Christian Lindig wrote:
->=20
->=20
->> On 12 Apr 2021, at 16:22, Juergen Gross <jgross@suse.com=20
->> <mailto:jgross@suse.com>> wrote:
->>
->> Instead of open coding the mapping of the p2m list use the already
->> existing xc_core_arch_map_p2m() call, especially as the current code
->> does not support guests with the linear p2m map. It should be noted
->> that this code is needed for colo/remus only.
->> [..]
->> diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c=20
->> b/tools/ocaml/libs/xc/xenctrl_stubs.c
->> index d05d7bb30e..6e4bc567f5 100644
->> --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
->> +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
->> @@ -32,6 +32,7 @@
->>
->> #define XC_WANT_COMPAT_MAP_FOREIGN_API
->> #include <xenctrl.h>
->> +#include <xenguest.h>
->> #include <xen-tools/libs.h>
->>
->> #include "mmap_stubs.h"
->> =E2=80=94
->> 2.26.2
->=20
-> Do we need this when there are no other changes in the file?
+On 13/04/2021 11:55, Paul Durrant wrote:
+> Ok, so it sound like this was probably my misunderstanding of xenstore 
+> semantics in the first place (although I'm sure I remember watch 
+> registration failing for non-existent nodes at some point in the past... 
+> that may have been with a non-upstream version of oxenstored though).
+> 
+> Anyway... a reasonable fix would therefore be to read the node first and 
+> only register the watch if it does exist.
 
-Yes. Some definitions moved from xenctrl.h into xenguest.h.
+Thanks.  Patch coming up shortly!
 
->=20
-> Acked-by: Christian Lindig <christian.lindig@citrix.com=20
-> <mailto:christian.lindig@citrix.com>>
+Michael
 
-Thanks,
-
-Juergen
-
-
---------------D425F7D73E410331C6FEC20E
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------D425F7D73E410331C6FEC20E--
-
---b4dwaPpfXpizgfC4WLSNmsp7267XBDFZu--
-
---5jywfwWt8f6ryxKRUQqIAs3ti5NhzshlV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmB1tIwFAwAAAAAACgkQsN6d1ii/Ey+Z
-Zwf/Y7pieIgAShLCiyuhD6XLfg7A8hIinNujYuJe2Of384bnOXY5WwMAzjOhYEyqxScyWasS+4gV
-NtxB+0e+L9mS/GlJ9fzojsQ/4tuCLH90Xo+F/4eLsDgQQyL+0w8xTcuJSJaY9qeJQBFwIFUihLCL
-UkMqxF7pvTk1xrPXVm4RobKo+H6BbfSX33rmVfiD+ukGXipH+6OzTznyL92qJ07RWC/JZNTmkktG
-kF8eYqauPebJT69bCWwXrsoWz672Zh3ZauDFQaYIhcG91Vb7Qy0X1dqnWzaoZAtPYcElSfKZERGP
-yLWtcpArAIE+jx67INgHFQn/O8qQkNN/SXe1dYvfKQ==
-=bNyd
------END PGP SIGNATURE-----
-
---5jywfwWt8f6ryxKRUQqIAs3ti5NhzshlV--
 
