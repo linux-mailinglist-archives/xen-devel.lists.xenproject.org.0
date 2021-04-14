@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CDB135F00F
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 10:47:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110369.210662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4821E35F011
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 10:49:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110379.210674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWbB5-00062z-O6; Wed, 14 Apr 2021 08:47:15 +0000
+	id 1lWbDX-0006E4-B4; Wed, 14 Apr 2021 08:49:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110369.210662; Wed, 14 Apr 2021 08:47:15 +0000
+Received: by outflank-mailman (output) from mailman id 110379.210674; Wed, 14 Apr 2021 08:49:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWbB5-00062Z-KJ; Wed, 14 Apr 2021 08:47:15 +0000
-Received: by outflank-mailman (input) for mailman id 110369;
- Wed, 14 Apr 2021 08:47:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lWbDX-0006Df-7Q; Wed, 14 Apr 2021 08:49:47 +0000
+Received: by outflank-mailman (input) for mailman id 110379;
+ Wed, 14 Apr 2021 08:49:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WBRZ=JL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lWbB4-00062U-VZ
- for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 08:47:15 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e4018436-0f9e-4935-ae33-8813a53348ec;
- Wed, 14 Apr 2021 08:47:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0A371ACC4;
- Wed, 14 Apr 2021 08:47:13 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lWbDV-0006Da-TJ
+ for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 08:49:45 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lWbDQ-0005yL-3L; Wed, 14 Apr 2021 08:49:40 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lWbDP-0007Bp-Qn; Wed, 14 Apr 2021 08:49:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,101 +39,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4018436-0f9e-4935-ae33-8813a53348ec
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618390033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D4lEBVogTgQ1ZXXAYsO22rt4q6Shor33gD5YfZD62g4=;
-	b=tdMnNQVkMbfZrfcNG65NCHpqwtNw5vmB2h4n05/8aSs6tqQyu9iAFzCJrYZzfqI6/8+ch8
-	AXDJGnBZei3BT26URNaWHTBqqFXWMwrCtC4lDdhm89y0S/eT3Yro25oP1A1xD2Ph9pyFhC
-	UNaBhT6v/83oESzocFnnEZ7RCpvL564=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=BJ/mrWa1vDI4MEX+z4BXgXxOBIj3SU4Xpw3gXYq0KgU=; b=4cQeyOMFNAFUdfW/CYS4YCzmap
+	KwvVvAPqSVFOkXlZUhpx/tKP6GGOOgdmsVKMyStmUFzsv2b9fdmHk7LkYhMiomGeVIkCP7iR50pjM
+	E9N18QcDRsLV10CQ18bfdJI8btv0HEloX0YQAmnJ58arY9vABjBBvwDJZpsDcNSTqtEA=;
 Subject: Re: [PATCH v2] xen/pci: Refactor PCI MSI interrupts related code
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+Cc: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
+ bertrand.marquis@arm.com, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Rahul Singh <rahul.singh@arm.com>
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>
 References: <e4ca856b19d9128cae5f6aa4ace550ace17fd877.1617977720.git.rahul.singh@arm.com>
  <YHQlptvoC06rqNhQ@Air-de-Roger>
  <f7659788-ff1b-23dd-e838-b35ae8ef9e50@xen.org>
- <ca4bef26-0869-8a56-e96c-04d3b41ffcd6@suse.com>
- <YHanlHbEvzXHbQoj@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <026a9a34-b010-39eb-ad2c-e404f69cb4d4@suse.com>
-Date: Wed, 14 Apr 2021 10:47:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+ <YHaiW4xX0p6ov2Z9@Air-de-Roger>
+From: Julien Grall <julien@xen.org>
+Message-ID: <258c91c7-e733-3c40-5e4e-7b107e4d20c3@xen.org>
+Date: Wed, 14 Apr 2021 09:49:37 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.1
 MIME-Version: 1.0
-In-Reply-To: <YHanlHbEvzXHbQoj@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <YHaiW4xX0p6ov2Z9@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-On 14.04.2021 10:28, Roger Pau Monné wrote:
-> On Wed, Apr 14, 2021 at 09:08:53AM +0200, Jan Beulich wrote:
->> On 13.04.2021 19:12, Julien Grall wrote:
->>> On 12/04/2021 11:49, Roger Pau Monné wrote:
->>>> On Fri, Apr 09, 2021 at 05:00:41PM +0100, Rahul Singh wrote:
->>>>> --- a/xen/include/xen/vpci.h
->>>>> +++ b/xen/include/xen/vpci.h
->>>>> @@ -91,6 +91,7 @@ struct vpci {
->>>>>           /* FIXME: currently there's no support for SR-IOV. */
->>>>>       } header;
->>>>>   
->>>>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
->>>>>       /* MSI data. */
->>>>>       struct vpci_msi {
->>>>>         /* Address. */
->>>>> @@ -136,6 +137,7 @@ struct vpci {
->>>>>               struct vpci_arch_msix_entry arch;
->>>>>           } entries[];
->>>>>       } *msix;
->>>>> +#endif /* CONFIG_PCI_MSI_INTERCEPT */
->>>>
->>>> Note that here you just remove two pointers from the struct, not that
->>>> I'm opposed to it, but it's not that much space that's saved anyway.
->>>> Ie: it might also be fine to just leave them as NULL unconditionally
->>>> on Arm.
->>>
->>> Can the two pointers be NULL on x86? If not, then I would prefer if they 
->>> disappear on Arm so there is less chance to make any mistake (such as 
->>> unconditionally accessing the pointer in common code).
+Hi Roger,
+
+On 14/04/2021 09:05, Roger Pau Monné wrote:
+> On Tue, Apr 13, 2021 at 06:12:10PM +0100, Julien Grall wrote:
+>> Hi Roger,
 >>
->> Alternative proposal: How about making it effectively impossible to
->> de-reference the pointer on Arm by leaving the field there, but having
->> the struct definition available on non-Arm only?
+>> On 12/04/2021 11:49, Roger Pau Monné wrote:
+>>> On Fri, Apr 09, 2021 at 05:00:41PM +0100, Rahul Singh wrote:
+>>>> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+>>>> index 705137f8be..1b473502a1 100644
+>>>> --- a/xen/drivers/passthrough/pci.c
+>>>> +++ b/xen/drivers/passthrough/pci.c
+>>>> @@ -1303,12 +1279,15 @@ static int __init setup_dump_pcidevs(void)
+>>>>    }
+>>>>    __initcall(setup_dump_pcidevs);
+>>>> +
+>>>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
+>>>>    int iommu_update_ire_from_msi(
+>>>>        struct msi_desc *msi_desc, struct msi_msg *msg)
+>>>>    {
+>>>>        return iommu_intremap
+>>>>               ? iommu_call(&iommu_ops, update_ire_from_msi, msi_desc, msg) : 0;
+>>>>    }
+>>>> +#endif
+>>>
+>>> This is not exactly related to MSI intercepts, the IOMMU interrupt
+>>> remapping table will also be used for interrupt entries for devices
+>>> being used by Xen directly, where no intercept is required.
+>>
+>> On Arm, this is not tie to the IOMMU. Instead, this handled is a separate
+>> MSI controller (such as the ITS).
+>>
+>>>
+>>> And then you also want to gate the hook from iommu_ops itself with
+>>> CONFIG_PCI_MSI_INTERCEPT, if we want to got this route.
+>>
+>>
+>> All the callers are in the x86 code. So how about moving the function in an
+>> x86 specific file?
 > 
-> We could place the struct definitions somewhere else protected by
-> CONFIG_PCI_MSI_INTERCEPT, but I'm not sure that would be much
-> different than the current proposal, and overall I think I prefer this
-> approach then, as we keep the definition and the usage closer
-> together.
+> Yes, that seems fine. Just place it in asm-x86/iommu.h. I wonder why
+> update_ire_from_msi wasn't moved when the rest of the x86 specific
+> functions where moved there.
+
+I am guessing it is because the function was protected by CONFIG_HAS_PCI 
+rather than CONFIG_X86. So it was deferred until another arch enables 
+CONFIG_HAS_PCI (it is easier to know what code should be moved).
+
+> Was there an aim to use that in other
+> arches?
+
+In the future we may need to use MSIs in Xen (IIRC some SMMUs only 
+support MSI interrupt). But I think the naming would be misleading as 
+the IOMMU will not be used for the remapping.
+
+So most likely, we would want a more generic name (maybe 
+"arch_register_msi()"). This could call iommu_update_ire_from_msi() on 
+x86 and the ITS on Arm.
+
+I don't know how RISCv and PowerPC remap the interrupt. But if they are 
+using the IOMMU then we could provide a generic helper protected by 
+CONFIG_HAS_IOMMU_INTERRUPT_REMAP (or a similar name).
+
 > 
-> Maybe we could slightly modify the current layout so that
-> the field is always present, but the struct definition is made
-> conditional to CONFIG_PCI_MSI_INTERCEPT?
+> The hook in iommu_ops also need to be moved inside the x86 region.
+> Please do this iommu change in a separate patch.
 
-You mean like this
++1
 
-    /* MSI data. */
-    struct vpci_msi {
-#ifdef CONFIG_PCI_MSI_INTERCEPT
-        /* Address. */
-...
-            struct vpci_arch_msix_entry arch;
-        } entries[];
-#endif /* CONFIG_PCI_MSI_INTERCEPT */
-    } *msix;
+Cheers,
 
-? I could live with it, but this would have the compiler not
-refuse e.g. sizeof(struct vpci_msi) or instantiation of the
-struct as a (local) variable, unlike my proposal.
-
-Jan
+-- 
+Julien Grall
 
