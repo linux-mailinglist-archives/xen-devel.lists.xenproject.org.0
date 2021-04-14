@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991D435EE03
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 09:09:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110291.210530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54E2835EE07
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 09:14:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110297.210542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWZdx-0003X2-Ij; Wed, 14 Apr 2021 07:08:57 +0000
+	id 1lWZjQ-0004PF-8L; Wed, 14 Apr 2021 07:14:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110291.210530; Wed, 14 Apr 2021 07:08:57 +0000
+Received: by outflank-mailman (output) from mailman id 110297.210542; Wed, 14 Apr 2021 07:14:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWZdx-0003Wd-Fg; Wed, 14 Apr 2021 07:08:57 +0000
-Received: by outflank-mailman (input) for mailman id 110291;
- Wed, 14 Apr 2021 07:08:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lWZjQ-0004Oq-4k; Wed, 14 Apr 2021 07:14:36 +0000
+Received: by outflank-mailman (input) for mailman id 110297;
+ Wed, 14 Apr 2021 07:14:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WBRZ=JL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lWZdv-0003WY-OA
- for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 07:08:55 +0000
+ id 1lWZjO-0004Ol-KI
+ for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 07:14:34 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3edbe01e-fd5c-449c-86bc-4c78dda82757;
- Wed, 14 Apr 2021 07:08:54 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 51ee62b7-55f4-4436-94db-68291943ca7b;
+ Wed, 14 Apr 2021 07:14:33 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 092C6ABF6;
- Wed, 14 Apr 2021 07:08:54 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 8EB60AC87;
+ Wed, 14 Apr 2021 07:14:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,71 +39,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3edbe01e-fd5c-449c-86bc-4c78dda82757
+X-Inumbo-ID: 51ee62b7-55f4-4436-94db-68291943ca7b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618384134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1618384472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RiFrZyUPfSjBNn4B9b7ANfZDAeDCAhfH65U6rhgfmbI=;
-	b=G4uLbLZXs0Tjk8cckPDDjnzNtZMjKFWxT0lUa9I9A7ZjobfWQx4i3HGSnV+20ghRUYJCxo
-	i8Dmi5ZbrbwQaPIaUfKR7bhiZDzpucO2cpHIekgxJzNM0nxA3Ma/tpqV698giuhyjlJANB
-	QuKN+eXBnYWGcCGky556p9A02V4Xju8=
-Subject: Re: [PATCH v2] xen/pci: Refactor PCI MSI interrupts related code
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	bh=hdWr5/U5TTPs0RLXGmwsFsCGeIhFI3JzXBqGgU9LIFU=;
+	b=ali0RsZLwqKGWLkfzCwjtn794SgIaFKWK2MRzorIKkO3rh4YqNuNIjvDmurEAYjKiXjz5/
+	yq0N9AdKq10IuntufVJpfndiSdNGU88QolgaDcHKuELNHAZJJdqKRZc99692Xx1NjfC6Vf
+	th8T3RcxxBLIWRhV9cgFodC8zkyFGOM=
+Subject: Re: [PATCH v3] tools: create libxensaverestore
+To: Juergen Gross <jgross@suse.com>, Olaf Hering <olaf@aepfle.de>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Rahul Singh <rahul.singh@arm.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <e4ca856b19d9128cae5f6aa4ace550ace17fd877.1617977720.git.rahul.singh@arm.com>
- <YHQlptvoC06rqNhQ@Air-de-Roger>
- <f7659788-ff1b-23dd-e838-b35ae8ef9e50@xen.org>
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20210413172028.29373-1-olaf@aepfle.de>
+ <5d483005-c6ca-88f1-0469-dd4a23c6752d@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ca4bef26-0869-8a56-e96c-04d3b41ffcd6@suse.com>
-Date: Wed, 14 Apr 2021 09:08:53 +0200
+Message-ID: <7c342ee1-c275-5cd2-8129-e384e0bcd827@suse.com>
+Date: Wed, 14 Apr 2021 09:14:31 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.1
 MIME-Version: 1.0
-In-Reply-To: <f7659788-ff1b-23dd-e838-b35ae8ef9e50@xen.org>
+In-Reply-To: <5d483005-c6ca-88f1-0469-dd4a23c6752d@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.04.2021 19:12, Julien Grall wrote:
-> On 12/04/2021 11:49, Roger Pau Monné wrote:
->> On Fri, Apr 09, 2021 at 05:00:41PM +0100, Rahul Singh wrote:
->>> --- a/xen/include/xen/vpci.h
->>> +++ b/xen/include/xen/vpci.h
->>> @@ -91,6 +91,7 @@ struct vpci {
->>>           /* FIXME: currently there's no support for SR-IOV. */
->>>       } header;
->>>   
->>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
->>>       /* MSI data. */
->>>       struct vpci_msi {
->>>         /* Address. */
->>> @@ -136,6 +137,7 @@ struct vpci {
->>>               struct vpci_arch_msix_entry arch;
->>>           } entries[];
->>>       } *msix;
->>> +#endif /* CONFIG_PCI_MSI_INTERCEPT */
+On 14.04.2021 07:46, Juergen Gross wrote:
+> On 13.04.21 19:20, Olaf Hering wrote:
+>> Move all save/restore related code from libxenguest.so into a separate
+>> library libxensaverestore.so. The only consumer is libxl-save-helper.
+>> There is no need to have the moved code mapped all the time in binaries
+>> where libxenguest.so is used.
 >>
->> Note that here you just remove two pointers from the struct, not that
->> I'm opposed to it, but it's not that much space that's saved anyway.
->> Ie: it might also be fine to just leave them as NULL unconditionally
->> on Arm.
+>> According to size(1) the change is:
+>>     text	   data	    bss	    dec	    hex	filename
+>>   187183	   4304	     48	 191535	  2ec2f	guest/libxenguest.so.4.15.0
+>>
+>>   124106	   3376	     48	 127530	  1f22a	guest/libxenguest.so.4.15.0
+>>    67841	   1872	      8	  69721	  11059	saverestore/libxensaverestore.so.4.15.0
+>>
+>> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+>> ---
+>> v3:
+>> - repost in time for 4.16
+>> v2:
+>> - copy also license header
+>> - move xg_nomigrate.c
+>> - add size(1) output to commit msg
+>> - remove change from libxl_create.c
+>>
+>>   .gitignore                                    |   2 +
+>>   tools/include/xenguest.h                      | 186 ----------------
+>>   tools/include/xensaverestore.h                | 208 ++++++++++++++++++
+>>   tools/libs/Makefile                           |   1 +
+>>   tools/libs/guest/Makefile                     |  11 -
+>>   tools/libs/guest/xg_offline_page.c            |   1 -
+>>   tools/libs/light/Makefile                     |   4 +-
+>>   tools/libs/light/libxl_internal.h             |   1 +
+>>   tools/libs/light/libxl_save_helper.c          |   1 +
+>>   tools/libs/light/libxl_save_msgs_gen.pl       |   2 +-
+>>   tools/libs/saverestore/Makefile               |  38 ++++
+>>   .../{guest => saverestore}/xg_nomigrate.c     |   0
+>>   .../{guest => saverestore}/xg_save_restore.h  |   2 -
+>>   .../{guest => saverestore}/xg_sr_common.c     |   0
+>>   .../{guest => saverestore}/xg_sr_common.h     |  12 +
+>>   .../{guest => saverestore}/xg_sr_common_x86.c |   0
+>>   .../{guest => saverestore}/xg_sr_common_x86.h |   0
+>>   .../xg_sr_common_x86_pv.c                     |   0
+>>   .../xg_sr_common_x86_pv.h                     |   0
+>>   .../{guest => saverestore}/xg_sr_restore.c    |   0
+>>   .../xg_sr_restore_x86_hvm.c                   |   0
+>>   .../xg_sr_restore_x86_pv.c                    |   0
+>>   .../libs/{guest => saverestore}/xg_sr_save.c  |   0
+>>   .../xg_sr_save_x86_hvm.c                      |   0
+>>   .../xg_sr_save_x86_pv.c                       |   0
+>>   .../xg_sr_stream_format.h                     |   0
+>>   tools/libs/uselibs.mk                         |   4 +-
+>>   27 files changed, 269 insertions(+), 204 deletions(-)
+>>   create mode 100644 tools/include/xensaverestore.h
+>>   create mode 100644 tools/libs/saverestore/Makefile
+>>   rename tools/libs/{guest => saverestore}/xg_nomigrate.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_save_restore.h (98%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_common.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_common.h (98%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_common_x86.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_common_x86.h (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_common_x86_pv.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_common_x86_pv.h (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_restore.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_restore_x86_hvm.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_restore_x86_pv.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_save.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_save_x86_hvm.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_save_x86_pv.c (100%)
+>>   rename tools/libs/{guest => saverestore}/xg_sr_stream_format.h (100%)
 > 
-> Can the two pointers be NULL on x86? If not, then I would prefer if they 
-> disappear on Arm so there is less chance to make any mistake (such as 
-> unconditionally accessing the pointer in common code).
+> What about dropping the "xg_" prefix from the filenames?
 
-Alternative proposal: How about making it effectively impossible to
-de-reference the pointer on Arm by leaving the field there, but having
-the struct definition available on non-Arm only?
+To be honest, dropping xg_ here should not even be under question.
+sr_ is what I would think should also be dropped, but which may
+be controversial, seeing that some (but not all) of the libraries
+under tools/libs/ use such redundant (with their directory's name)
+prefixes. Besides being longer to read/write, these unnecessary
+prefixes hamper name completion mechanisms.
 
 Jan
 
