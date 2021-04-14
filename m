@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DE135E9B6
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 01:33:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110164.210259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 235FB35E9D9
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 02:02:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110172.210277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWSWe-00047u-CV; Tue, 13 Apr 2021 23:32:56 +0000
+	id 1lWSz4-0007VJ-J2; Wed, 14 Apr 2021 00:02:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110164.210259; Tue, 13 Apr 2021 23:32:56 +0000
+Received: by outflank-mailman (output) from mailman id 110172.210277; Wed, 14 Apr 2021 00:02:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWSWe-00047Z-9F; Tue, 13 Apr 2021 23:32:56 +0000
-Received: by outflank-mailman (input) for mailman id 110164;
- Tue, 13 Apr 2021 23:32:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1MWi=JK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lWSWc-00047U-Uz
- for xen-devel@lists.xenproject.org; Tue, 13 Apr 2021 23:32:54 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16d6cc9f-0d1b-4a16-974c-979b6c1342d8;
- Tue, 13 Apr 2021 23:32:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 46F1A61222;
- Tue, 13 Apr 2021 23:32:53 +0000 (UTC)
+	id 1lWSz4-0007Ut-F7; Wed, 14 Apr 2021 00:02:18 +0000
+Received: by outflank-mailman (input) for mailman id 110172;
+ Wed, 14 Apr 2021 00:02:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lWSz2-0007Ul-Q0; Wed, 14 Apr 2021 00:02:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lWSz2-0007MV-IS; Wed, 14 Apr 2021 00:02:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lWSz2-00087T-BF; Wed, 14 Apr 2021 00:02:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lWSz2-0008RR-Al; Wed, 14 Apr 2021 00:02:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,53 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16d6cc9f-0d1b-4a16-974c-979b6c1342d8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1618356773;
-	bh=PDWurdlRjIMbrz/aF4frD96uw6kSwSCdW9WLetMQJ2g=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eeuhNogG6wddYtSlkqY1kbW3362Mq3rQbyckLffkXQRGwR3+0/CGNRxXsHqetDY0g
-	 gqo/fXuPFNghVznGTNPoeKHpQF0syEU9/X7eAk6M9Yn9IiFfqTBybKfhyko1Xzg5uy
-	 fsZ3tCNMZNRWcKkP8XLERt66sdgVW5qzihwxFfl6C51q7nmsx//T7vpOKTXCaX47/e
-	 HefDbr0C32qp3gGRa3I9Xqy6A2Evo8pLCzrcOnjaY388eYUYJ7hyt85OhiwWMC3W2T
-	 PrJkKKWnZRYlkFBH+sGs08UuMdMSwKPbV9F4JJ8bXFVBXx/pWZqnFigbDVJnJ+vZig
-	 ig3wvHl9CFjvQ==
-Date: Tue, 13 Apr 2021 16:32:52 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-cc: Juergen Gross <jgross@suse.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: Support of old Xen versions in the Linux kernel
-In-Reply-To: <b7684e00-8675-5768-b4b2-f9435620b34e@oracle.com>
-Message-ID: <alpine.DEB.2.21.2104131631470.4885@sstabellini-ThinkPad-T480s>
-References: <1e4dc7c0-4364-1095-bb6b-c6341bc58e60@suse.com> <b7684e00-8675-5768-b4b2-f9435620b34e@oracle.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=23gQhNfntUO5lTDr8ihEz0VtB69wtpOar0jQDIxOyvU=; b=uned7kfeewm6mkqeETPrG/TTt9
+	bpQiWvIrrsKD/xCop9CaEznEpT3vZZTm4SYA7+ZqhhWfbOIz8UDJHmmReSBvmzOUyiA0HLW7JnUjG
+	y8cVDLAldgtyADi8wpgZIyldlxmyYWPQMKVW6yVJwof4veHBw7JauWWZOiAcWf0QN530=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161099-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 161099: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=83876950ab3cf5278d0ae7542086bd4be75059d3
+X-Osstest-Versions-That:
+    ovmf=54211ab10fcd8532b49f4024ebdb601a8eb07e3e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 14 Apr 2021 00:02:16 +0000
 
-On Tue, 13 Apr 2021, Boris Ostrovsky wrote:
-> On 4/13/21 2:14 AM, Juergen Gross wrote:
-> > In x86 kernel development the question came up whether we need to
-> > support XENFEAT_gnttab_map_avail_bits not being set when running as a PV
-> > guest.
-> >
-> > This feature is active for PV guests since Xen 3.4.
-> >
-> > So the basic question is: which is the oldest version of Xen we want to
-> > support in the Linux kernel? As far as I know there is no Xen based
-> > product in productive use with Xen older than 4.2.
-> >
-> > Would we be fine to drop support for older versions (feel free to
-> > suggest other versions than 4.2 as the first to be supported Xen
-> > version)?
-> >
-> > In case the answer is yes, I'd post some patches to clean up the kernel,
-> > including a safety net to bail out in case a feature needed isn't
-> > available.
-> 
-> Sounds good to me.
+flight 161099 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161099/
 
-For ARM, the Xen ABI became stable only with Xen 4.4.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 83876950ab3cf5278d0ae7542086bd4be75059d3
+baseline version:
+ ovmf                 54211ab10fcd8532b49f4024ebdb601a8eb07e3e
+
+Last test of basis   161081  2021-04-13 05:19:44 Z    0 days
+Testing same since   161099  2021-04-13 17:40:12 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Joey Gouly <joey.gouly@arm.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   54211ab10f..83876950ab  83876950ab3cf5278d0ae7542086bd4be75059d3 -> xen-tested-master
 
