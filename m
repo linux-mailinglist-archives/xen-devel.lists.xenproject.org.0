@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F354F35F30D
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 13:59:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110540.210994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 676C535F38A
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 14:25:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110559.211013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWeAU-0001fd-FX; Wed, 14 Apr 2021 11:58:50 +0000
+	id 1lWeZD-0004Vu-UJ; Wed, 14 Apr 2021 12:24:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110540.210994; Wed, 14 Apr 2021 11:58:50 +0000
+Received: by outflank-mailman (output) from mailman id 110559.211013; Wed, 14 Apr 2021 12:24:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWeAU-0001fE-CQ; Wed, 14 Apr 2021 11:58:50 +0000
-Received: by outflank-mailman (input) for mailman id 110540;
- Wed, 14 Apr 2021 11:58:49 +0000
+	id 1lWeZD-0004VV-RC; Wed, 14 Apr 2021 12:24:23 +0000
+Received: by outflank-mailman (input) for mailman id 110559;
+ Wed, 14 Apr 2021 12:24:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eQnP=JL=intel.com=chao.gao@srs-us1.protection.inumbo.net>)
- id 1lWeAT-0001f9-7F
- for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 11:58:49 +0000
-Received: from mga05.intel.com (unknown [192.55.52.43])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WBRZ=JL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lWeZC-0004VQ-8T
+ for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 12:24:22 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f8019497-9c36-491b-b146-2eb922696768;
- Wed, 14 Apr 2021 11:58:46 +0000 (UTC)
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:58:41 -0700
-Received: from gao-cwp.sh.intel.com (HELO gao-cwp) ([10.239.159.149])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:58:38 -0700
+ id 0a4ba0ce-54a5-4304-846f-fe6d4f4fb207;
+ Wed, 14 Apr 2021 12:24:21 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 78276AFC1;
+ Wed, 14 Apr 2021 12:24:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,64 +38,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8019497-9c36-491b-b146-2eb922696768
-IronPort-SDR: r0+/vT+D/+aLk1mUQ9DqFub21BRr7h28/Ebrrx5awxfsIjMSxyUD+qzoGyIRvEOF5+mK38Putk
- OMsRhYkvTSIQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="279934442"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; 
-   d="scan'208";a="279934442"
-IronPort-SDR: B38S8vVuqKzwYdq23hXPr8Sm0GFo+06Lx9MbaHDNBCb0zeb9hN++yIxTBZgCk3zpSr0i6vHTFq
- qSAMEHX5ekDA==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; 
-   d="scan'208";a="424708734"
-Date: Wed, 14 Apr 2021 20:02:49 +0800
-From: Chao Gao <chao.gao@intel.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-Subject: Re: [RFC PATCH] VT-d: Don't assume register-based invalidation is
- always supported
-Message-ID: <20210414120248.GA29028@gao-cwp>
-References: <20210414005526.36760-1-chao.gao@intel.com>
- <568f7b59-57e0-7daf-c27d-b771869209c4@suse.com>
+X-Inumbo-ID: 0a4ba0ce-54a5-4304-846f-fe6d4f4fb207
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1618403060; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+fJvyFXVddqOT3O88Gc5kGj2yAEhp5+dwg70m8mdMkw=;
+	b=D1QodvSfVnvsCpQzKYQTrenIVYFx23ovaRxeucJd+p/RUwqSIH4jTbXQLFMW8l51De0Uwd
+	vrBpdAZxlL6Y+CJf0XwLuMa3DbxD936mz59uHtwZDBiXkJPdnB6OUpCUmikHIhAvb1Ybu9
+	ESTGCVEt57uNrLTP0lGaUvJzlyCxoos=
+Subject: Re: [PATCH v4 2/2] x86/intel: insert Ice Lake-SP and Ice Lake-D model
+ numbers
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
+ jun.nakajima@intel.com, kevin.tian@intel.com, xen-devel@lists.xenproject.org
+References: <1618375222-9283-1-git-send-email-igor.druzhinin@citrix.com>
+ <1618375222-9283-2-git-send-email-igor.druzhinin@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d29db3ab-3e49-41cb-8380-a025d9ba4127@suse.com>
+Date: Wed, 14 Apr 2021 14:24:20 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <568f7b59-57e0-7daf-c27d-b771869209c4@suse.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <1618375222-9283-2-git-send-email-igor.druzhinin@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 14, 2021 at 12:07:02PM +0200, Jan Beulich wrote:
->On 14.04.2021 02:55, Chao Gao wrote:
->> According to Intel VT-d SPEC rev3.3 Section 6.5, Register-based Invalidation
->> isn't supported by Intel VT-d version 6 and beyond.
->> 
->> This hardware change impacts following two scenarios: admin can disable
->> queued invalidation via 'qinval' cmdline and use register-based interface;
->> VT-d switches to register-based invalidation when queued invalidation needs
->> to be disabled, for example, during disabling x2apic or during system
->> suspension.
->> 
->> To deal with this hardware change, if register-based invalidation isn't
->> supported, queued invalidation cannot be disabled through Xen cmdline; and
->> if queued invalidation has to be disabled temporarily in some scenarios,
->> VT-d won't switch to register-based interface but use some dummy functions
->> to catch errors in case there is any invalidation request issued when queued
->> invalidation is disabled.
->> 
->> Signed-off-by: Chao Gao <chao.gao@intel.com>
->> ---
->> I only tested Xen boot with qinval/no-qinval. I also want to do system
->> suspension and resumption to see if any unexpected error. But I don't
->> know how to trigger them. Any recommendation?
->
->Iirc, if your distro doesn't support a proper interface for this, it's
->as simple as "echo mem >/sys/power/state".
+On 14.04.2021 06:40, Igor Druzhinin wrote:
+> LBR, C-state MSRs should correspond to Ice Lake desktop according to
+> SDM rev. 74 for both models.
+> 
+> Ice Lake-SP is known to expose IF_PSCHANGE_MC_NO in IA32_ARCH_CAPABILITIES MSR
+> (as advisory tells and Whitley SDP confirms) which means the erratum is fixed
+> in hardware for that model and therefore it shouldn't be present in
+> has_if_pschange_mc list. Provisionally assume the same to be the case
+> for Ice Lake-D while advisory is not yet updated.
+> 
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 
-Thanks. I will give it a try. And all your comments make a lot of sense.
-Will fix all of them in the next version.
-
-Chao
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
