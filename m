@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E768335EE0D
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 09:20:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110320.210572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D59B035EF36
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 10:23:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110353.210617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWZos-0005Y6-8v; Wed, 14 Apr 2021 07:20:14 +0000
+	id 1lWanX-0003cO-5B; Wed, 14 Apr 2021 08:22:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110320.210572; Wed, 14 Apr 2021 07:20:14 +0000
+Received: by outflank-mailman (output) from mailman id 110353.210617; Wed, 14 Apr 2021 08:22:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWZos-0005Xg-5P; Wed, 14 Apr 2021 07:20:14 +0000
-Received: by outflank-mailman (input) for mailman id 110320;
- Wed, 14 Apr 2021 07:20:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ow40=JL=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lWZoq-0005XY-Fl
- for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 07:20:12 +0000
-Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:400:200::2])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7abfd449-1df8-48af-9db5-5522493e3ff6;
- Wed, 14 Apr 2021 07:20:11 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.24.2 DYNA|AUTH)
- with ESMTPSA id 603b2dx3E7Jx1XU
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 14 Apr 2021 09:19:59 +0200 (CEST)
+	id 1lWanX-0003bz-1o; Wed, 14 Apr 2021 08:22:55 +0000
+Received: by outflank-mailman (input) for mailman id 110353;
+ Wed, 14 Apr 2021 08:22:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eQnP=JL=intel.com=chao.gao@srs-us1.protection.inumbo.net>)
+ id 1lWanV-0003bu-Me
+ for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 08:22:53 +0000
+Received: from mga02.intel.com (unknown [134.134.136.20])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a9bee840-1f62-4592-8592-b75c6df97c02;
+ Wed, 14 Apr 2021 08:22:50 +0000 (UTC)
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2021 01:22:49 -0700
+Received: from unknown (HELO hyperv-sh4.sh.intel.com) ([10.239.48.33])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2021 01:22:46 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,97 +42,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7abfd449-1df8-48af-9db5-5522493e3ff6
-ARC-Seal: i=1; a=rsa-sha256; t=1618384800; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=N+tS4NLrknEppOkm+Zoe/MMyjWzeo39Sc+MjrOZjc+DtjwSjN7Xtz+EadctWGSPt1s
-    2H3xD1yWtAXbKvewiFeqpwvb1cQnX/7KhmplUkvB1gVtcdLCPjcg296W/ZKfZ1vjOUaE
-    vQ15ntnnxWx9YRCUGlPlUvw3aKtkGvzdvv1gDE7XpYJXV/vd1sqm2yohjxWwCeEG2ndl
-    tYm2IpAC2tjgbXvOp4Cin3CkDMkOaCiIVPXZ2u0x9vIcl5cRYwxPbzZB/wgewl9SoMTg
-    spSEZET/vZAUx7OEbyMi+1rb792DCLaqR2T73NGgbGZwZiuOPN0myyoMqVCS4ZRty+eF
-    ttAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1618384800;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=Dd2Gix0oisdWq7KeY6Dqs8jNrF0K7WZF5HjPN/OKm0s=;
-    b=d48l29suwGGdz7vkld9+N6nD61j2DEjGYGQlf3rLxeZ7V5VhinjDjvCjku/J0jvaoB
-    Cyvejgj7icaSS5F346rWJ3h1CpBwqjFR8tu1X7CMY5lts9Mo/RVfYMSxEgs6/DA/mUnw
-    pGDDl1QjUBAmgB89pVlvwAqPbVe+8ZkbzWKAYGCCt1Ri/ZZGBcQa7cLYQH6AKbvKtAcr
-    CSYP6+JFzKAPrQYTq5mO2ohvRV9Rfm2S7yA5wWpqWYyteBIrc+judtfqo5KO3/GJML6o
-    mzZOWCdMJ4qR+6ohvMdC/CqaeYh3MgB90Yw8ZMxrgFQoxo2m5u7QoA5EpA7Nxw23ym8q
-    ormQ==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1618384800;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=Dd2Gix0oisdWq7KeY6Dqs8jNrF0K7WZF5HjPN/OKm0s=;
-    b=g1VSZ651JQAibYCPtRUGaUVwPs/w8EXXceuuXTxH995ypoSZDsaMzgHtpALkJOml87
-    2tty8epXD2aVSQCJY+bcv6pHg556fRYEbZ+4hWFuGR+5JO2ZUOFlRpR43ni44Kla7OdM
-    HpMmI3CzziXgrJaaYCY6mPi4Ai7decWfDXLbifBCze6QEVkcA2ziFEgpWy/SbewUPXv/
-    th0n14pT9TpQPeekt3RysJoEACzngZaOE589EOfPjFqX7HsLSp/AOo7N+Ne+aLLfGYMO
-    9lQb9oQsFa+5iXc92eMrBa3a7CKnxYPa9TpKXrx8E29so4pxM8hxTmuDGcNWR+DGEQ3b
-    +tDg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTWeiX"
-X-RZG-CLASS-ID: mo00
-Date: Wed, 14 Apr 2021 09:19:45 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v3] tools: create libxensaverestore
-Message-ID: <20210414091945.138b12f8.olaf@aepfle.de>
-In-Reply-To: <5d483005-c6ca-88f1-0469-dd4a23c6752d@suse.com>
-References: <20210413172028.29373-1-olaf@aepfle.de>
-	<5d483005-c6ca-88f1-0469-dd4a23c6752d@suse.com>
-X-Mailer: Claws Mail 2021.03.05 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: a9bee840-1f62-4592-8592-b75c6df97c02
+IronPort-SDR: pvkxHMBbtyE44qGu8d6Nhbc0mArhfvwKoXxtl9X1sd45oADEFoW3yhZTgsB5bTONii4SY1pPNZ
+ V67DAbxloVrQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="181715370"
+X-IronPort-AV: E=Sophos;i="5.82,221,1613462400"; 
+   d="scan'208";a="181715370"
+IronPort-SDR: dI9AmB6jIeR57Bskm5ThJiCmxAseeWAVFROpB20vOGLjevnoTZoWNckk1rcXLa0T2DQP5TGnwC
+ xaUxAwHaArLA==
+X-IronPort-AV: E=Sophos;i="5.82,221,1613462400"; 
+   d="scan'208";a="418232839"
+From: Chao Gao <chao.gao@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Chao Gao <chao.gao@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: [RFC PATCH] VT-d: Don't assume register-based invalidation is always supported
+Date: Wed, 14 Apr 2021 08:55:26 +0800
+Message-Id: <20210414005526.36760-1-chao.gao@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/hqFfU2YC3spdR8IeP0APbOY"; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
 
---Sig_/hqFfU2YC3spdR8IeP0APbOY
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+According to Intel VT-d SPEC rev3.3 Section 6.5, Register-based Invalidation
+isn't supported by Intel VT-d version 6 and beyond.
 
-Am Wed, 14 Apr 2021 07:46:24 +0200
-schrieb Juergen Gross <jgross@suse.com>:
+This hardware change impacts following two scenarios: admin can disable
+queued invalidation via 'qinval' cmdline and use register-based interface;
+VT-d switches to register-based invalidation when queued invalidation needs
+to be disabled, for example, during disabling x2apic or during system
+suspension.
 
-> What about dropping the "xg_" prefix from the filenames?
+To deal with this hardware change, if register-based invalidation isn't
+supported, queued invalidation cannot be disabled through Xen cmdline; and
+if queued invalidation has to be disabled temporarily in some scenarios,
+VT-d won't switch to register-based interface but use some dummy functions
+to catch errors in case there is any invalidation request issued when queued
+invalidation is disabled.
 
-None of the other moved files where renamed during the move.
+Signed-off-by: Chao Gao <chao.gao@intel.com>
+---
+I only tested Xen boot with qinval/no-qinval. I also want to do system
+suspension and resumption to see if any unexpected error. But I don't
+know how to trigger them. Any recommendation?
+---
+ docs/misc/xen-command-line.pandoc    |  4 ++-
+ xen/drivers/passthrough/vtd/iommu.c  | 40 +++++++++++++++++++++++++---
+ xen/drivers/passthrough/vtd/iommu.h  |  7 +++++
+ xen/drivers/passthrough/vtd/qinval.c | 33 +++++++++++++++++++++--
+ 4 files changed, 77 insertions(+), 7 deletions(-)
 
-But sure, if this the single blocking issue, why not.
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index deef6d0b4c..4ff4a87844 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1442,7 +1442,9 @@ The following options are specific to Intel VT-d hardware:
+ *   The `qinval` boolean controls the Queued Invalidation sub-feature, and is
+     active by default on compatible hardware.  Queued Invalidation is a
+     feature in second-generation IOMMUs and is a functional prerequisite for
+-    Interrupt Remapping.
++    Interrupt Remapping. Note that Xen disregards this setting for Intel VT-d
++    version 6 and greater as Registered-Based Invalidation isn't supported
++    by them.
+ 
+ *   The `igfx` boolean is active by default, and controls whether the IOMMU in
+     front of an Intel Graphics Device is enabled or not.
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index 6428c8fe3e..e738d04543 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1193,6 +1193,14 @@ int __init iommu_alloc(struct acpi_drhd_unit *drhd)
+ 
+     iommu->cap = dmar_readq(iommu->reg, DMAR_CAP_REG);
+     iommu->ecap = dmar_readq(iommu->reg, DMAR_ECAP_REG);
++    iommu->version = dmar_readl(iommu->reg, DMAR_VER_REG);
++
++    if ( !iommu_qinval && !has_register_based_invalidation(iommu) )
++    {
++        printk(XENLOG_WARNING VTDPREFIX "IOMMU %d: cannot disable Queued Invalidation.\n",
++               iommu->index);
++        iommu_qinval = true;
++    }
+ 
+     if ( iommu_verbose )
+     {
+@@ -2231,6 +2239,8 @@ static int __init vtd_setup(void)
+     struct acpi_drhd_unit *drhd;
+     struct vtd_iommu *iommu;
+     int ret;
++    bool queued_inval_supported = true;
++    bool reg_inval_supported = true;
+ 
+     if ( list_empty(&acpi_drhd_units) )
+     {
+@@ -2252,8 +2262,8 @@ static int __init vtd_setup(void)
+     }
+ 
+     /* We enable the following features only if they are supported by all VT-d
+-     * engines: Snoop Control, DMA passthrough, Queued Invalidation, Interrupt
+-     * Remapping, and Posted Interrupt
++     * engines: Snoop Control, DMA passthrough, Register-based Invalidation,
++     * Queued Invalidation, Interrupt Remapping, and Posted Interrupt.
+      */
+     for_each_drhd_unit ( drhd )
+     {
+@@ -2272,8 +2282,11 @@ static int __init vtd_setup(void)
+         if ( iommu_hwdom_passthrough && !ecap_pass_thru(iommu->ecap) )
+             iommu_hwdom_passthrough = false;
+ 
+-        if ( iommu_qinval && !ecap_queued_inval(iommu->ecap) )
+-            iommu_qinval = 0;
++        if ( reg_inval_supported && !has_register_based_invalidation(iommu) )
++            reg_inval_supported = false;
++
++        if ( queued_inval_supported && !ecap_queued_inval(iommu->ecap) )
++            queued_inval_supported = false;
+ 
+         if ( iommu_intremap && !ecap_intr_remap(iommu->ecap) )
+             iommu_intremap = iommu_intremap_off;
+@@ -2301,6 +2314,25 @@ static int __init vtd_setup(void)
+ 
+     softirq_tasklet_init(&vtd_fault_tasklet, do_iommu_page_fault, NULL);
+ 
++    if ( !queued_inval_supported && !reg_inval_supported )
++    {
++        dprintk(XENLOG_ERR VTDPREFIX, "No available invalidation interface.\n");
++        ret = -ENODEV;
++        goto error;
++    }
++
++    /*
++     * We cannot have !iommu_qinval && !reg_inval_supported here since
++     * iommu_qinval is set in iommu_alloc() if any iommu doesn't support
++     * Register-based Invalidation.
++     */
++    if ( iommu_qinval && !queued_inval_supported )
++    {
++        dprintk(XENLOG_WARNING VTDPREFIX, "Disable Queued Invalidation as "
++                "it isn't supported.\n");
++        iommu_qinval = false;
++    }
++
+     if ( !iommu_qinval && iommu_intremap )
+     {
+         iommu_intremap = iommu_intremap_off;
+diff --git a/xen/drivers/passthrough/vtd/iommu.h b/xen/drivers/passthrough/vtd/iommu.h
+index 216791b3d6..644224051a 100644
+--- a/xen/drivers/passthrough/vtd/iommu.h
++++ b/xen/drivers/passthrough/vtd/iommu.h
+@@ -540,6 +540,7 @@ struct vtd_iommu {
+     struct list_head ats_devices;
+     unsigned long *domid_bitmap;  /* domain id bitmap */
+     u16 *domid_map;               /* domain id mapping array */
++    u32 version;
+ };
+ 
+ #define INTEL_IOMMU_DEBUG(fmt, args...) \
+@@ -549,4 +550,10 @@ struct vtd_iommu {
+             dprintk(XENLOG_WARNING VTDPREFIX, fmt, ## args);    \
+     } while(0)
+ 
++/* Register-based invalidation isn't supported by VT-d version 6 and beyond. */
++static inline bool has_register_based_invalidation(struct vtd_iommu *iommu)
++{
++    return VER_MAJOR(iommu->version) < 6;
++}
++
+ #endif
+diff --git a/xen/drivers/passthrough/vtd/qinval.c b/xen/drivers/passthrough/vtd/qinval.c
+index 764ef9f0fc..1e90f50ff8 100644
+--- a/xen/drivers/passthrough/vtd/qinval.c
++++ b/xen/drivers/passthrough/vtd/qinval.c
+@@ -442,6 +442,23 @@ int enable_qinval(struct vtd_iommu *iommu)
+     return 0;
+ }
+ 
++static int vtd_flush_context_noop(struct vtd_iommu *iommu, uint16_t did,
++                                  uint16_t source_id, uint8_t function_mask,
++                                  uint64_t type, bool flush_non_present_entry)
++{
++    dprintk(XENLOG_ERR VTDPREFIX, "IOMMU: Cannot flush CONTEXT.\n");
++    return -EIO;
++}
++
++static int vtd_flush_iotlb_noop(struct vtd_iommu *iommu, uint16_t did,
++                                uint64_t addr, unsigned int size_order,
++                                uint64_t type, bool flush_non_present_entry,
++                                bool flush_dev_iotlb)
++{
++    dprintk(XENLOG_ERR VTDPREFIX, "IOMMU: Cannot flush IOTLB.\n");
++    return -EIO;
++}
++
+ void disable_qinval(struct vtd_iommu *iommu)
+ {
+     u32 sts;
+@@ -463,6 +480,18 @@ void disable_qinval(struct vtd_iommu *iommu)
+ out:
+     spin_unlock_irqrestore(&iommu->register_lock, flags);
+ 
+-    iommu->flush.context = vtd_flush_context_reg;
+-    iommu->flush.iotlb   = vtd_flush_iotlb_reg;
++    /*
++     * Assign callbacks to noop to catch errors if register-based invalidation
++     * isn't supported.
++     */
++    if ( has_register_based_invalidation(iommu) )
++    {
++        iommu->flush.context = vtd_flush_context_reg;
++        iommu->flush.iotlb   = vtd_flush_iotlb_reg;
++    }
++    else
++    {
++        iommu->flush.context = vtd_flush_context_noop;
++        iommu->flush.iotlb = vtd_flush_iotlb_noop;
++    }
+ }
+-- 
+2.25.1
 
-
-Olaf
-
---Sig_/hqFfU2YC3spdR8IeP0APbOY
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmB2l5IACgkQ86SN7mm1
-DoDZSA//fgD+rsQi1Eb2b1VjdH+7aDvULQFpGaQrtymcOgmFJ60LLeVm7IkTeuPw
-6mStOsIfW7m+bYYieKY409wllTODivj8h9SotSsZ79xtmas8ACo79ueP4yRnisAO
-Ude+wS01OA5z3PkKBA8PCScJjRS18HzKSnT+7JiOAfNONWdZhy5n5lYkTyOeL9vG
-MB+EXVwU5OFsV2QfsyHns6E/7UYBp5a7csD7K3c/O8DHT9qqwZfwpNemJHFl/tvr
-lcpPJHJabFiWuI61E2VWouMZUYd/SkkgJPYBAQES4EbCIWPBwtDLuPSz8Z0CL3i+
-XXg8uxU69mNJgSCq+jHqysLv31YzRXOt78jNnPsutqN7O6TCNY1bCiTWLISXoDAU
-uL7LA/simkUkrdxWtrOr/SQ2h/800Nk8GH32LURykN8LJCk0zzIvoLUpbH7s9DPy
-UC1uZYWPEOSv9qG19qEEY2tW/u/uaJpv7MMtUohiBUOo85Yr1sdLWyLKWCniC7qV
-X/IVya6NswQOxJhT6u42/CvJ3z6QpgdQMpSP1o24A8yfJdy3VVtIFnMtdo516nQ4
-ZBO7o+xIUhSghKT+gD2SKiqd1+YRoT1zNhUXnnbM6OWXd5xK20q4SIKmdmy0mInu
-GFx04Z6/mIl4sZKDcWNiickcuF/6M4iqccaImsIfYLBGptvC348=
-=g18a
------END PGP SIGNATURE-----
-
---Sig_/hqFfU2YC3spdR8IeP0APbOY--
 
