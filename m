@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD78C35F10B
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 11:50:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110423.210764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043CF35F13F
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Apr 2021 12:07:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110431.210779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWc9j-00048o-Ej; Wed, 14 Apr 2021 09:49:55 +0000
+	id 1lWcQO-0006A4-15; Wed, 14 Apr 2021 10:07:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110423.210764; Wed, 14 Apr 2021 09:49:55 +0000
+Received: by outflank-mailman (output) from mailman id 110431.210779; Wed, 14 Apr 2021 10:07:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWc9j-00048L-AR; Wed, 14 Apr 2021 09:49:55 +0000
-Received: by outflank-mailman (input) for mailman id 110423;
- Wed, 14 Apr 2021 09:49:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lWcQN-00069f-Sy; Wed, 14 Apr 2021 10:07:07 +0000
+Received: by outflank-mailman (input) for mailman id 110431;
+ Wed, 14 Apr 2021 10:07:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lWc9i-00048D-G3; Wed, 14 Apr 2021 09:49:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lWc9i-0006yo-A0; Wed, 14 Apr 2021 09:49:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lWc9i-0002Ag-1D; Wed, 14 Apr 2021 09:49:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lWc9i-000673-0j; Wed, 14 Apr 2021 09:49:54 +0000
+ (envelope-from <SRS0=WBRZ=JL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lWcQM-00069a-43
+ for xen-devel@lists.xenproject.org; Wed, 14 Apr 2021 10:07:06 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 28c2ab46-5424-4db3-a9af-555ef1eb2a16;
+ Wed, 14 Apr 2021 10:07:04 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 73D22AEC2;
+ Wed, 14 Apr 2021 10:07:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +39,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8EunPK5uDBxoqKX+I7VT3ROsVlujaR40L3WQxsm5lXU=; b=6JCdi8zbt18DSGHcczgyHyVBw6
-	QAP+3pOG4wxKMG36vS07mtT4vEflV3FDYmWGDITtofUFv3dw82Pw96/44EngszC5rDSYtWMAl04mO
-	w3EfUMaqy5ctcLBrSuoJSkm7gJIEHg75n6LxEvp45DhXPm72zZMqkQ09lyxQGAgu9LCk=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161129-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 28c2ab46-5424-4db3-a9af-555ef1eb2a16
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1618394823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+BFNuRrnu/f/EndnfZG2/F8EA9Ao/8PPSJJTwXHVb4=;
+	b=KKPFybKDW2qtdtA/Bfvrb9ceupyJGcLSbnMSrSe6++11af7BydC8ITSdiTST0Ijtr6cfNO
+	ZqpK8voup5bpSXoDStpZeGMo4PTj6pYJCax6z+NF5h9qBVz5cfD/zINyeKPCCGvvjnJ/ZD
+	QZXJnEj/WRR0X5kPTeUlK2Nu/uutuSA=
+Subject: Re: [RFC PATCH] VT-d: Don't assume register-based invalidation is
+ always supported
+To: Chao Gao <chao.gao@intel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ xen-devel@lists.xenproject.org
+References: <20210414005526.36760-1-chao.gao@intel.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <568f7b59-57e0-7daf-c27d-b771869209c4@suse.com>
+Date: Wed, 14 Apr 2021 12:07:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 161129: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=264aa183ad85b2779b27d1312724a291259ccc9f
-X-Osstest-Versions-That:
-    xen=935d501ccbf5b8c4db1f6d0730a4a4c998e9e76a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 14 Apr 2021 09:49:54 +0000
+In-Reply-To: <20210414005526.36760-1-chao.gao@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 161129 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161129/
+On 14.04.2021 02:55, Chao Gao wrote:
+> According to Intel VT-d SPEC rev3.3 Section 6.5, Register-based Invalidation
+> isn't supported by Intel VT-d version 6 and beyond.
+> 
+> This hardware change impacts following two scenarios: admin can disable
+> queued invalidation via 'qinval' cmdline and use register-based interface;
+> VT-d switches to register-based invalidation when queued invalidation needs
+> to be disabled, for example, during disabling x2apic or during system
+> suspension.
+> 
+> To deal with this hardware change, if register-based invalidation isn't
+> supported, queued invalidation cannot be disabled through Xen cmdline; and
+> if queued invalidation has to be disabled temporarily in some scenarios,
+> VT-d won't switch to register-based interface but use some dummy functions
+> to catch errors in case there is any invalidation request issued when queued
+> invalidation is disabled.
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
+> ---
+> I only tested Xen boot with qinval/no-qinval. I also want to do system
+> suspension and resumption to see if any unexpected error. But I don't
+> know how to trigger them. Any recommendation?
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  264aa183ad85b2779b27d1312724a291259ccc9f
-baseline version:
- xen                  935d501ccbf5b8c4db1f6d0730a4a4c998e9e76a
+Iirc, if your distro doesn't support a proper interface for this, it's
+as simple as "echo mem >/sys/power/state".
 
-Last test of basis   160967  2021-04-11 09:18:29 Z    3 days
-Testing same since   161129  2021-04-14 09:19:54 Z    0 days    1 attempts
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -1193,6 +1193,14 @@ int __init iommu_alloc(struct acpi_drhd_unit *drhd)
+>  
+>      iommu->cap = dmar_readq(iommu->reg, DMAR_CAP_REG);
+>      iommu->ecap = dmar_readq(iommu->reg, DMAR_ECAP_REG);
+> +    iommu->version = dmar_readl(iommu->reg, DMAR_VER_REG);
+> +
+> +    if ( !iommu_qinval && !has_register_based_invalidation(iommu) )
+> +    {
+> +        printk(XENLOG_WARNING VTDPREFIX "IOMMU %d: cannot disable Queued Invalidation.\n",
+> +               iommu->index);
+> +        iommu_qinval = true;
+> +    }
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Dmitry Fedorov <d.fedorov@tabit.pro>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Wei Liu <wl@xen.org>
+With this I don't see ...
 
-jobs:
- coverity-amd64                                               pass    
+> @@ -2231,6 +2239,8 @@ static int __init vtd_setup(void)
+>      struct acpi_drhd_unit *drhd;
+>      struct vtd_iommu *iommu;
+>      int ret;
+> +    bool queued_inval_supported = true;
+> +    bool reg_inval_supported = true;
 
+... the need for the first variable here. You'd simply ...
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> @@ -2272,8 +2282,11 @@ static int __init vtd_setup(void)
+>          if ( iommu_hwdom_passthrough && !ecap_pass_thru(iommu->ecap) )
+>              iommu_hwdom_passthrough = false;
+>  
+> -        if ( iommu_qinval && !ecap_queued_inval(iommu->ecap) )
+> -            iommu_qinval = 0;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+... clear iommu_qinval here again, and use that in the 1st if() you
+add in the next hunk; the 2nd if() there would go away again.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> +        if ( reg_inval_supported && !has_register_based_invalidation(iommu) )
+> +            reg_inval_supported = false;
+> +
+> +        if ( queued_inval_supported && !ecap_queued_inval(iommu->ecap) )
+> +            queued_inval_supported = false;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I don't see the need for the left sides of the && in both of these
+(or in fact any of the pre-existing) if()-s. (Of course this is not
+a request to also adjust the ones that are already there.)
 
+> @@ -2301,6 +2314,25 @@ static int __init vtd_setup(void)
+>  
+>      softirq_tasklet_init(&vtd_fault_tasklet, do_iommu_page_fault, NULL);
+>  
+> +    if ( !queued_inval_supported && !reg_inval_supported )
+> +    {
+> +        dprintk(XENLOG_ERR VTDPREFIX, "No available invalidation interface.\n");
+> +        ret = -ENODEV;
+> +        goto error;
+> +    }
+> +
+> +    /*
+> +     * We cannot have !iommu_qinval && !reg_inval_supported here since
+> +     * iommu_qinval is set in iommu_alloc() if any iommu doesn't support
+> +     * Register-based Invalidation.
+> +     */
+> +    if ( iommu_qinval && !queued_inval_supported )
+> +    {
+> +        dprintk(XENLOG_WARNING VTDPREFIX, "Disable Queued Invalidation as "
+> +                "it isn't supported.\n");
+> +        iommu_qinval = false;
+> +    }
+> +
+>      if ( !iommu_qinval && iommu_intremap )
+>      {
+>          iommu_intremap = iommu_intremap_off;
+> --- a/xen/drivers/passthrough/vtd/iommu.h
+> +++ b/xen/drivers/passthrough/vtd/iommu.h
+> @@ -540,6 +540,7 @@ struct vtd_iommu {
+>      struct list_head ats_devices;
+>      unsigned long *domid_bitmap;  /* domain id bitmap */
+>      u16 *domid_map;               /* domain id mapping array */
+> +    u32 version;
 
-Pushing revision :
+Nit: uint32_t please in new code, assuming a fixed-width value is
+needed here in the first place (see ./CODING_STYLE).
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   935d501ccb..264aa183ad  264aa183ad85b2779b27d1312724a291259ccc9f -> coverity-tested/smoke
+> @@ -549,4 +550,10 @@ struct vtd_iommu {
+>              dprintk(XENLOG_WARNING VTDPREFIX, fmt, ## args);    \
+>      } while(0)
+>  
+> +/* Register-based invalidation isn't supported by VT-d version 6 and beyond. */
+> +static inline bool has_register_based_invalidation(struct vtd_iommu *iommu)
+
+"const" please
+
+> @@ -463,6 +480,18 @@ void disable_qinval(struct vtd_iommu *iommu)
+>  out:
+>      spin_unlock_irqrestore(&iommu->register_lock, flags);
+>  
+> -    iommu->flush.context = vtd_flush_context_reg;
+> -    iommu->flush.iotlb   = vtd_flush_iotlb_reg;
+> +    /*
+> +     * Assign callbacks to noop to catch errors if register-based invalidation
+> +     * isn't supported.
+> +     */
+> +    if ( has_register_based_invalidation(iommu) )
+> +    {
+> +        iommu->flush.context = vtd_flush_context_reg;
+> +        iommu->flush.iotlb   = vtd_flush_iotlb_reg;
+> +    }
+> +    else
+> +    {
+> +        iommu->flush.context = vtd_flush_context_noop;
+> +        iommu->flush.iotlb = vtd_flush_iotlb_noop;
+
+Nit: Would be nice if aligning (or not) the = operators was done
+the same in both cases.
+
+Seeing this part of the change I wonder whether you shouldn't also
+alter the other place where the register-based invalidation hooks
+get put in place: It can't be right to install them when enabling
+qinval fails but register-based invalidation is also not available.
+I guess, no matter how much we'd like to avoid such, panic() may be
+needed there in this case, or IOMMU initialization as a whole needs
+to be failed.
+
+Jan
 
