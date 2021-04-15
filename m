@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159F036067B
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 12:05:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111012.212176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1E54360712
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 12:26:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111021.212201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWyrW-0004O0-3c; Thu, 15 Apr 2021 10:04:38 +0000
+	id 1lWzCS-0006Us-9d; Thu, 15 Apr 2021 10:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111012.212176; Thu, 15 Apr 2021 10:04:38 +0000
+Received: by outflank-mailman (output) from mailman id 111021.212201; Thu, 15 Apr 2021 10:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWyrV-0004Ne-WC; Thu, 15 Apr 2021 10:04:38 +0000
-Received: by outflank-mailman (input) for mailman id 111012;
- Thu, 15 Apr 2021 10:04:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C/wI=JM=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1lWyrU-0004NU-N2
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 10:04:36 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 564343f5-6711-48bd-bd92-18067bf0bcc3;
- Thu, 15 Apr 2021 10:04:35 +0000 (UTC)
+	id 1lWzCS-0006UR-5Q; Thu, 15 Apr 2021 10:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 111021;
+ Thu, 15 Apr 2021 10:26:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lWzCP-0006UM-SQ
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 10:26:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lWzCP-0005nz-Jn; Thu, 15 Apr 2021 10:26:13 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lWzCP-00010I-AA; Thu, 15 Apr 2021 10:26:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,101 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 564343f5-6711-48bd-bd92-18067bf0bcc3
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1618481075;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=36FTba6wXpKsrGSytruNVcKh7iyTzyBZ7hcdmzqIxUw=;
-  b=djDs4sktKJoLmtJ1hTp5BXN7BQdMZ40V+7kPCkKlH0CvngmM3LaQ59gL
-   1ZcLDuq8H2njJ0Hlzq0MVfdeptKY9llJ17Q/oZ9aJo9MuSb4VNQsb5QT2
-   KjptvlftmhUEJDrqJZqgtq9dTME7v97cgGq8pZmJKnNM7NlWKS4swRnoR
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 50X7pzc+yaPzBHTOPz+2vLHLRv+wIDS7xksK3+oZDNUsQ0r2P38fvtcQjMgl4udd8iazdOBx1O
- RvQYMzb7HPatbBT/G3osYqywFovXhJHe2nMLFRhW1YzJ5mjhp6VXnXWwSfSIZ3uoCQ9nGAr3xm
- fKznlRMO28a3Cvl+n7lJu6ijw76p7TQm1P9SvvIRXI6mtwCf6aNbvaBQmdzOXWLcFbR0vQUptQ
- D4CEkg4lAnWDkszuZVlcCIjrJRJhq5Omp3ZGf8pTJkimmy8evDbbduAoo1E3jmtLRU22pwhwn9
- zVg=
-X-SBRS: 4.0
-X-MesageID: 41658484
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:mibTiK7301shrSv0ngPXwC7XdLJzesId70hD6mlaY3VuHPCwvc
- aogfgdyFvImC8cMUtQ4OyoFaGcTRrnlaJdzpIWOd6ZMDXOmGztF4166Jun/juIIVyaysd49Y
- NNN5dzE8fxC18St7ed3CCdH8w7yNeKtICE7N2urEtFdg1hZ6F+4woRMG/yeScaeCB8CZU0D5
- aa7MZczgDQHUg/VcinGmIDG9HKutyjruOAXTc9GxUl5AOS5AnI1JfGFXGjsSs2Yndqybcm/X
- OtqX2a2pme
-X-IronPort-AV: E=Sophos;i="5.82,223,1613451600"; 
-   d="scan'208";a="41658484"
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <jun.nakajima@intel.com>, <kevin.tian@intel.com>, <jbeulich@suse.com>,
-	<andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, <wl@xen.org>, "Igor
- Druzhinin" <igor.druzhinin@citrix.com>
-Subject: [PATCH v5 2/2] x86/intel: insert Ice Lake-SP and Ice Lake-D model numbers
-Date: Thu, 15 Apr 2021 11:04:22 +0100
-Message-ID: <1618481062-16094-2-git-send-email-igor.druzhinin@citrix.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1618481062-16094-1-git-send-email-igor.druzhinin@citrix.com>
-References: <1618481062-16094-1-git-send-email-igor.druzhinin@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=NZ07Qcw1Cctb6iKARQGabUrJslVL16xSSfmjvDjEfmQ=; b=k7StNO7A8s8cRusMz7QXsQY76t
+	f8tWcHeeoA03pSMvheHzbhF2eio5ffTu8xpaxwH51BOSo73yErW/jpsRKXJNymwF42WANHuXExD44
+	erOEqZUZK0vG8KLWmrvvNw/xim17t8TMyWjTd4K91t6eydbC2YFq/75UyshFnA1/PzGw=;
+Subject: Re: [PATCH 11/11] Arm/optee: don't open-code xzalloc_flex_struct()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a3fef3b0-c9f3-208e-3728-62ca9cff70ba@suse.com>
+ <aad23304-c727-2921-59fe-ab3763f5da03@suse.com>
+ <9f95c37b-dc4a-d2cf-01c1-98d2108fae88@xen.org>
+ <1c9229ac-5491-313e-f053-bc5bee01c3de@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7945a56e-337d-3c84-ecfd-2be759adda4a@xen.org>
+Date: Thu, 15 Apr 2021 11:26:11 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.1
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <1c9229ac-5491-313e-f053-bc5bee01c3de@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-LBR, C-state MSRs should correspond to Ice Lake desktop according to
-SDM rev. 74 for both models.
+Hi Jan,
 
-Ice Lake-SP is known to expose IF_PSCHANGE_MC_NO in IA32_ARCH_CAPABILITIES MSR
-(as advisory tells and Whitley SDP confirms) which means the erratum is fixed
-in hardware for that model and therefore it shouldn't be present in
-has_if_pschange_mc list. Provisionally assume the same to be the case
-for Ice Lake-D.
+On 14/04/2021 08:03, Jan Beulich wrote:
+> On 13.04.2021 20:19, Julien Grall wrote:
+>> On 08/04/2021 13:23, Jan Beulich wrote:
+>>> There is a difference in generated code: xzalloc_bytes() forces
+>>> SMP_CACHE_BYTES alignment. I think we not only don't need this here, but
+>>> actually don't want it.
+>>
+>> So I think moving to xmalloc_flex_struct() is a pretty good move. But I
+>> am actually a bit confused with the argument used.
+>>
+>> Could you provide some details why you think forcing the array to be
+>> aligned to the maximum cache line supported (128 bytes on Arm) is wrong?
+> 
+> It is not "wrong" in that sense, but if this is intended it shouldn't
+> be arranged via use of xmalloc_bytes().
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
----
-No changes in v5.
+This is not very clear from the commit message (or even the cover 
+letter). How about:
 
-Changes in v4:
-- now based on SDM update
-- new LBR (0x1e0)does not seem to be exposed in the docs
+"
+The current use xzalloc_bytes() in optee is nearly an open-coded version 
+of xzalloc_flex_struct() which was introduced after the driver was merged.
 
-Changes in v3:
-- Add Ice Lake-D model numbers
-- Drop has_if_pschange_mc hunk following Tiger Lake related discussion
----
- xen/arch/x86/acpi/cpu_idle.c | 2 ++
- xen/arch/x86/hvm/vmx/vmx.c   | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+The main difference is xzalloc_bytes() will also force the allocation to 
+be SMP_CACHE_BYTES aligned and therefore avoid sharing the cache line.
 
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index c092086..d788c8b 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -181,6 +181,8 @@ static void do_get_hw_residencies(void *arg)
-     case 0x55:
-     case 0x5E:
-     /* Ice Lake */
-+    case 0x6A:
-+    case 0x6C:
-     case 0x7D:
-     case 0x7E:
-     /* Tiger Lake */
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 30c6a57..91cba19 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2990,7 +2990,7 @@ static const struct lbr_info *last_branch_msr_get(void)
-         /* Goldmont Plus */
-         case 0x7a:
-         /* Ice Lake */
--        case 0x7d: case 0x7e:
-+        case 0x6a: case 0x6c: case 0x7d: case 0x7e:
-         /* Tiger Lake */
-         case 0x8c: case 0x8d:
-         /* Tremont */
+While sharing the cache line can have an impact on the performance, this 
+is also true for most of the other users of  x*alloc_flex_struct(). So 
+if we want to prevent sharing a cache line, it should be part of 
+x*alloc_flex_struct().
+
+In this case, we don't need stricter alignment than what the allocator 
+does. So the call to xzalloc_bytes() is now replaced with a call 
+xzalloc_flex_Struct().
+"
+
+Ideally, we want the same sort of the commit message in the other patches.
+
+> As also pointed out in a
+> similar discussion on another sub-thread, imo xmalloc_bytes(), being
+> type-unsafe, should go away altogether mid-term.
+
+And I will support dropping xmalloc_bytes().
+
+> If individual callers
+> have specific alignment requirements (which ought to be the exception),
+> they should explicitly request the needed alignment. If architectures
+> would prefer all allocations to have certain minimum alignment (e.g.
+> to avoid cacheline sharing, which was Andrew's argument) or other
+> "arrangement" (alignment by itself may not be that interesting due to
+> the bhdr placed ahead of the allocation), it should be the allocator
+> itself that provides for this, not individual callers.
+
+And I agree that the allocator should do the alignment if this benefits 
+every allocation.
+
+Cheers,
+
 -- 
-2.7.4
-
+Julien Grall
 
