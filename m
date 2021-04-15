@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFDF8360CEA
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:56:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111347.212982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF1A360EF5
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 17:28:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111355.212993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX3PM-0004Nf-Ga; Thu, 15 Apr 2021 14:55:52 +0000
+	id 1lX3tl-0007Ih-5K; Thu, 15 Apr 2021 15:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111347.212982; Thu, 15 Apr 2021 14:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 111355.212993; Thu, 15 Apr 2021 15:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX3PM-0004NG-CO; Thu, 15 Apr 2021 14:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 111347;
- Thu, 15 Apr 2021 14:55:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lX3PK-0004NA-UW
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:55:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lX3PJ-00020U-UP; Thu, 15 Apr 2021 14:55:49 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lX3PJ-0000Vy-Ln; Thu, 15 Apr 2021 14:55:49 +0000
+	id 1lX3tl-0007IL-2B; Thu, 15 Apr 2021 15:27:17 +0000
+Received: by outflank-mailman (input) for mailman id 111355;
+ Thu, 15 Apr 2021 15:27:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LGOb=JM=gmail.com=charles.fg@srs-us1.protection.inumbo.net>)
+ id 1lX3ti-0007IG-S2
+ for xen-devel@lists.xen.org; Thu, 15 Apr 2021 15:27:14 +0000
+Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id be441f65-7826-4946-8fc6-0c5d6491afaa;
+ Thu, 15 Apr 2021 15:27:13 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id h4so14680065wrt.12
+ for <xen-devel@lists.xen.org>; Thu, 15 Apr 2021 08:27:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +37,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=g0oeXqtScPDkBsnqkFi22FqfWRL9wdHvI2x2GPtJMJM=; b=ZwA4k6vyILnRixKnG44D9mTQBv
-	ZSHH2W2UI+gT6jwgozM+FWa+xZCHqYjTNVdUAB2bmSnaADbxX7yMwX4ffHDHv2LfPxo0ZIeIkjsM4
-	glll/8gCylRRbU5ZQOQ5nVdHi+QXZ+E6JKOYfmeR5HClLwuF/gall+lS77u7mISNXyRw=;
-Subject: Re: [PATCH v3 12/15] unxz: replace INIT{,DATA} and STATIC
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
- <4e0a0db2-db34-a738-2f5e-1d5cd2c37e19@suse.com>
- <c52c9670-d87e-79f9-0104-e6e074419c31@xen.org>
- <a9adf993-0f2d-acb1-b671-7b8c3b15b4d8@suse.com>
- <eaf819a8-985f-d33f-902d-58320c99a8d8@xen.org>
- <1a3f4d72-d57a-dde3-fb46-c91508f09b2a@suse.com>
- <3642f590-e3b9-ce65-7dce-04681dbfb02f@xen.org>
- <a76656e4-1b19-df2f-aba0-e7b26b3ab968@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <ffbe985e-c8a7-331c-cb6d-6f4621b5c71c@xen.org>
-Date: Thu, 15 Apr 2021 15:55:47 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.1
+X-Inumbo-ID: be441f65-7826-4946-8fc6-0c5d6491afaa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=2i7ATkMG7IFwB9WeGIbn7By6DeWuN11jgSSqiHd955k=;
+        b=nhqECUeIjHxCoVf+FjzFiv75yMIo2Ew6mMBhXMdmZfu3kwzr940PTzgc7qdslOduZ8
+         zlp4ov5XnsbTpPhikaTINZ/AJftYk8hG54J8rwZhwO0DEIgYRbPzgHS/h4xBrTdasCMJ
+         KZjSbQ8nAgnJTtArPpEvekBEmboB4o50bxjD2jwHSUe6bDbafp19R1Dd3j3G3I6kpQCQ
+         CACdyhXE2HTSvBc3HekX3SdwnZkt04K1S9KgusnX9G6MzekSVjZRvtggFLW3IckNvcYE
+         gFev1EPyKdiVrOicOGdJhxFvLKpHwia5ofVw9O/2Ivv3N9DriRGn9C6QPhPpudT+3m5z
+         +OfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=2i7ATkMG7IFwB9WeGIbn7By6DeWuN11jgSSqiHd955k=;
+        b=c0+2/TGl2cPduY/OKBNZekYgvVm2fs+uLHiN2Cvv6R9BUND9hcuLDTUCLpnzO3MfAq
+         rrM4Lgxc9hODe6uLGdlOsBOso56JFa1TQvdETBb9ki1QeYrdXKERfmYM6O9TjsDCeh/P
+         J9HqdILokObAmIwqw8x+lU33gMh5OKrYuU1UfWyGDvsrJBzjQQ+h7PznJgG/fKZVhWXn
+         E/1UZbJeUOD1IDMNjWdvx1sPsxbP1FZoRLc8hPPjJiedl/20ChPc5ixG2PAUv86aaQJG
+         HQGguA/6rcFHrN5NHwgpsEno+DaweD6XaYUJqhUQRaG+qQfr87anUJxa0riemaECBdsF
+         jvaw==
+X-Gm-Message-State: AOAM533bNk8ymfI6/LbLytXhp/ag1Bf3RICPFvw36xoOokWVpf9LYNLl
+	CsZmp7wfD4YJ/zmKQFibxCvLOXcRA3/r13zKogo=
+X-Google-Smtp-Source: ABdhPJxpEmHpgA6Og6ZoYis5brH0ytDZPhaPB8iUUmERHYtn+Ruyyn6nYBnFOm6QtHTfCBpN0d1nHSEd2JxbowLUAxE=
+X-Received: by 2002:a5d:4851:: with SMTP id n17mr4167550wrs.215.1618500432785;
+ Thu, 15 Apr 2021 08:27:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a76656e4-1b19-df2f-aba0-e7b26b3ab968@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <CAAQRGoD4yEEhiQk8LkKuOU_F2As3BsichHNY_ijoiVWwd3JZPw@mail.gmail.com>
+ <e8c69e6e-e600-7f78-fb66-eddec17d618a@suse.com>
+In-Reply-To: <e8c69e6e-e600-7f78-fb66-eddec17d618a@suse.com>
+From: =?UTF-8?Q?Charles_Gon=C3=A7alves?= <charles.fg@gmail.com>
+Date: Thu, 15 Apr 2021 16:26:36 +0100
+Message-ID: <CAAQRGoAyxTCOGTnoapqnRG__xmpoCM+2RjJEmeB2CnG2-WX3JQ@mail.gmail.com>
+Subject: Re: Failed to enable debug messages in xen 4.13
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xen.org
+Content-Type: multipart/alternative; boundary="0000000000005d73b005c0047f5f"
+
+--0000000000005d73b005c0047f5f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks, @Jan and  @Andrew
+
+
+`make -C xen menuconfig` helped a lot ....
+And indeed there a typo in the grub line
+
+It's working now!
+
+Thanks for helping with this question!
 
 
 
-On 15/04/2021 15:28, Jan Beulich wrote:
-> On 15.04.2021 16:24, Julien Grall wrote:
->>
->>
->> On 15/04/2021 15:22, Jan Beulich wrote:
->>> On 15.04.2021 16:18, Julien Grall wrote:
->>>>
->>>>
->>>> On 15/04/2021 15:16, Jan Beulich wrote:
->>>>> On 15.04.2021 13:58, Julien Grall wrote:
->>>>>> On 26/01/2021 09:52, Jan Beulich wrote:
->>>>>>> --- a/xen/common/decompress.h
->>>>>>> +++ b/xen/common/decompress.h
->>>>>>> @@ -9,7 +9,6 @@
->>>>>>>      
->>>>>>>      #define STATIC static
->>>>>>>      #define INIT __init
->>>>>>> -#define INITDATA __initdata
->>>>>>>      
->>>>>>>      #define malloc xmalloc_bytes
->>>>>>>      #define free xfree
->>>>>>> @@ -21,7 +20,6 @@
->>>>>>>      
->>>>>>>      #define STATIC static
->>>>>>>      #define INIT
->>>>>>> -#define INITDATA
->>>>>>
->>>>>> Shouldn't the two changes be part of patch #14?
->>>>>
->>>>> One could do it that way, sure, but the last uses are gone here,
->>>>> and hence I wanted to get rid of this one item right away.
->>>>
->>>> AFAICT, the same is true for STATIC and INIT. So it doesn't sense to not
->>>> be consistent in the way you treat them.
->>>
->>> No, further uses of STATIC and INIT get dropped by later patches.
->>
->> I think you misundertood my comment. What I meant is you drop INIT in
->> patch #14 when the last caller was dropped in a previous patch.
-> 
-> Now this and some other of your comments are getting really nitpicky.
 
-You misundertood my question, so I was clarifying what I meant.
+Atenciosamente,
+*Charles Ferreira Gon=C3=A7alves *
 
-> The end result is the same. I can certainly move removals around
-> further, but I think I ought to have some leeway on how exactly I
-> achieve an identical end result. Things would be different, I agree,
-> if the end result was not suitably consistent.
 
-As I mentionned in patch #14, this is not very different from requesting 
-to reshuffle the code. I find a bit surprising you are complaining about 
-this...
 
-I guess I could have add NIT in front to make clearer this was only a 
-suggestion.
 
- From your answer, I am assuming this is a no which is fair:
+On Thu, Apr 15, 2021 at 3:01 PM Jan Beulich <jbeulich@suse.com> wrote:
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+> On 15.04.2021 15:55, Charles Gon=C3=A7alves wrote:
+> > I've enabled the log_lvl=3Dall guest_loglvl=3Dall,
+>
+> The first one is mis-spelled and needs to be "loglvl=3D".
+>
+> > tried the xl debug-key +,
+>
+> If this didn't help, did you perhaps not do a debug build of Xen?
+> Debug messages get completely compiled out of release builds.
+>
+> > configured the build with
+> > ./configure --enable-debug
+>
+> This, in any event, has an effect on the tool stack build only.
+> The hypervisor build gets configured via kconfig, with the settings
+> tracked in xen/.config.
+>
+> Jan
+>
 
-Cheers,
+--0000000000005d73b005c0047f5f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Julien Grall
+<div dir=3D"ltr">Thanks, @Jan and=C2=A0
+
+@Andrew=20
+
+<div><br></div><div><br></div><div>`make -C xen menuconfig` helped a lot ..=
+..</div><div>And indeed there a typo in the grub line</div><div><br></div><=
+div>It&#39;s working now!</div><div><br></div><div>Thanks for helping with =
+this question!</div><div><br></div><div><br></div><div><br clear=3D"all"><d=
+iv><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signa=
+ture"><div dir=3D"ltr"><div><br></div><div>Atenciosamente,</div><b>Charles =
+Ferreira Gon=C3=A7alves </b><br><font color=3D"#666666"><br></font><font co=
+lor=3D"#666666" size=3D"1"><br></font></div></div></div><br></div></div><br=
+><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, A=
+pr 15, 2021 at 3:01 PM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com"=
+>jbeulich@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
+padding-left:1ex">On 15.04.2021 15:55, Charles Gon=C3=A7alves wrote:<br>
+&gt; I&#39;ve enabled the log_lvl=3Dall guest_loglvl=3Dall,<br>
+<br>
+The first one is mis-spelled and needs to be &quot;loglvl=3D&quot;.<br>
+<br>
+&gt; tried the xl debug-key +,<br>
+<br>
+If this didn&#39;t help, did you perhaps not do a debug build of Xen?<br>
+Debug messages get completely compiled out of release builds.<br>
+<br>
+&gt; configured the build with<br>
+&gt; ./configure --enable-debug<br>
+<br>
+This, in any event, has an effect on the tool stack build only.<br>
+The hypervisor build gets configured via kconfig, with the settings<br>
+tracked in xen/.config.<br>
+<br>
+Jan<br>
+</blockquote></div>
+
+--0000000000005d73b005c0047f5f--
 
