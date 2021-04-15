@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B12360B66
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:05:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111212.212692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64ED9360B83
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:11:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111232.212705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2c2-0005RS-6g; Thu, 15 Apr 2021 14:04:54 +0000
+	id 1lX2hn-0006UE-Qx; Thu, 15 Apr 2021 14:10:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111212.212692; Thu, 15 Apr 2021 14:04:54 +0000
+Received: by outflank-mailman (output) from mailman id 111232.212705; Thu, 15 Apr 2021 14:10:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2c2-0005Qz-3J; Thu, 15 Apr 2021 14:04:54 +0000
-Received: by outflank-mailman (input) for mailman id 111212;
- Thu, 15 Apr 2021 14:04:52 +0000
+	id 1lX2hn-0006Ts-O5; Thu, 15 Apr 2021 14:10:51 +0000
+Received: by outflank-mailman (input) for mailman id 111232;
+ Thu, 15 Apr 2021 14:10:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DGSX=JM=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1lX2c0-0005QS-H3
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:04:52 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x7n8=JM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lX2hl-0006Tn-RV
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:10:49 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e48585a6-b32a-45d2-9d93-ae5ed314f5b3;
- Thu, 15 Apr 2021 14:04:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E07DE611F1;
- Thu, 15 Apr 2021 14:04:50 +0000 (UTC)
+ id 1a2d2088-5e3a-4a74-b685-c5522fe8416b;
+ Thu, 15 Apr 2021 14:10:48 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D421EAEF8;
+ Thu, 15 Apr 2021 14:10:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,96 +38,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e48585a6-b32a-45d2-9d93-ae5ed314f5b3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1618495491;
-	bh=InKw4zxjZjE30ezO3My2+utu1Qvgljuk6Zk+g4yv8Fs=;
-	h=Subject:To:Cc:From:Date:In-Reply-To:From;
-	b=dqbuVDi5ZtdqBE74NwCxQ2zLUCUETjljPb0PJHkx+ASjhwbykWGST3wpFmVcK07VP
-	 ndy2QtAup5ZRgzAHa3rOAFbIAmYhzRCXv3ZFLrNWvVTd4M/r9f9MxGLcLE9eSEiV5N
-	 PgtMK0cBcQdQJs0QS3gOnuNAsnVsz5dpYNayciT4=
-Subject: Patch "xen/events: fix setting irq affinity" has been added to the 5.10-stable tree
-To: boris.ostrovsky@oracle.com,gregkh@linuxfoundation.org,jgross@suse.com,sstabellini@kernel.org,xen-devel@lists.xenproject.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 15 Apr 2021 16:04:36 +0200
-In-Reply-To: <20210412062845.13946-1-jgross@suse.com>
-Message-ID: <16184954768817@kroah.com>
+X-Inumbo-ID: 1a2d2088-5e3a-4a74-b685-c5522fe8416b
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1618495847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0TTFh9Dr2yyhOlKHTxLwq9LZ9NWKFoQiijCwiK7xK3o=;
+	b=hC+kwsmsJcsUaN/OFNxAFYc+oPiN4pNAoVhnMnUILTsJtTjiLikaWzJ5y1wgQjychrv3ht
+	s8IwfX3ZJv2LcGShxCC1Nmt7Z20k2w/8KoiuORypmN8EzDnX7OSAc1RcrlrMUEM8U7Jg4z
+	Lqt3hqTONirGQEsw0n+42IDhOxLhiR0=
+Subject: Re: [PATCH v2 12/17] x86/CPUID: shrink max_{,sub}leaf fields
+ according to actual leaf contents
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>
+References: <255f466c-3c95-88c5-3e55-0f04c9ae1b12@suse.com>
+ <2aaffa0e-e17f-6581-6003-e58d2c9fc1d7@suse.com>
+ <YHgM6eTT2OJY89aU@Air-de-Roger>
+ <1862ca8d-c16c-8f47-1999-15809fcacdfe@suse.com>
+ <YHgx8M06ZC1+MpEK@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <61be9da8-943e-81b7-e198-481e76255574@suse.com>
+Date: Thu, 15 Apr 2021 16:10:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+In-Reply-To: <YHgx8M06ZC1+MpEK@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 
+On 15.04.2021 14:30, Roger Pau Monné wrote:
+> On Thu, Apr 15, 2021 at 12:37:20PM +0200, Jan Beulich wrote:
+>> On 15.04.2021 11:52, Roger Pau Monné wrote:
+>>> On Mon, Nov 23, 2020 at 03:33:03PM +0100, Jan Beulich wrote:
+>>>> --- a/tools/tests/cpu-policy/test-cpu-policy.c
+>>>> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
+>>>> @@ -8,10 +8,13 @@
+>>>>  #include <err.h>
+>>>>  
+>>>>  #include <xen-tools/libs.h>
+>>>> +#include <xen/asm/x86-defns.h>
+>>>>  #include <xen/asm/x86-vendors.h>
+>>>>  #include <xen/lib/x86/cpu-policy.h>
+>>>>  #include <xen/domctl.h>
+>>>>  
+>>>> +#define XSTATE_FP_SSE  (X86_XCR0_FP | X86_XCR0_SSE)
+>>>
+>>> This gets used only once...
+>>>
+>>>> +
+>>>>  static unsigned int nr_failures;
+>>>>  #define fail(fmt, ...)                          \
+>>>>  ({                                              \
+>>>> @@ -564,6 +567,103 @@ static void test_cpuid_out_of_range_clea
+>>>>      }
+>>>>  }
+>>>>  
+>>>> +static void test_cpuid_maximum_leaf_shrinking(void)
+>>>> +{
+>>>> +    static const struct test {
+>>>> +        const char *name;
+>>>> +        struct cpuid_policy p;
+>>>> +    } tests[] = {
+>>>> +        {
+>>>> +            .name = "basic",
+>>>> +            .p = {
+>>>> +                /* Very basic information only. */
+>>>> +                .basic.max_leaf = 1,
+>>>> +                .basic.raw_fms = 0xc2,
+>>>> +            },
+>>>> +        },
+>>>> +        {
+>>>> +            .name = "cache",
+>>>> +            .p = {
+>>>> +                /* Cache subleaves present. */
+>>>> +                .basic.max_leaf = 4,
+>>>> +                .cache.subleaf[0].type = 1,
+>>>> +            },
+>>>> +        },
+>>>> +        {
+>>>> +            .name = "feat#0",
+>>>> +            .p = {
+>>>> +                /* Subleaf 0 only with some valid bit. */
+>>>> +                .basic.max_leaf = 7,
+>>>> +                .feat.max_subleaf = 0,
+>>>> +                .feat.fsgsbase = 1,
+>>>> +            },
+>>>> +        },
+>>>> +        {
+>>>> +            .name = "feat#1",
+>>>> +            .p = {
+>>>> +                /* Subleaf 1 only with some valid bit. */
+>>>> +                .basic.max_leaf = 7,
+>>>> +                .feat.max_subleaf = 1,
+>>>> +                .feat.avx_vnni = 1,
+>>>> +            },
+>>>> +        },
+>>>> +        {
+>>>> +            .name = "topo",
+>>>> +            .p = {
+>>>> +                /* Topology subleaves present. */
+>>>> +                .basic.max_leaf = 0xb,
+>>>> +                .topo.subleaf[0].type = 1,
+>>>> +            },
+>>>> +        },
+>>>> +        {
+>>>> +            .name = "xstate",
+>>>> +            .p = {
+>>>> +                /* First subleaf always valid (and then non-zero). */
+>>>> +                .basic.max_leaf = 0xd,
+>>>> +                .xstate.xcr0_low = XSTATE_FP_SSE,
+>>>
+>>> ...here.
+>>
+>> For now, yes. I'm introducing the constant because I think it wants
+>> using in other places too, to avoid using literal numbers. See e.g.
+>>
+>>                 .xstate.xcr0_low = 7,
+>>
+>> in test_cpuid_serialise_success().
+>>
+>>> And then I also wonder whether this requires having any
+>>> specific values rather than just using ~0 or any random non-0 value.
+>>
+>> I'm afraid I don't understand: There's no ~0 here and no random
+>> non-zero value - all other structure elements are left default-
+>> initialized.
+> 
+> Oh, I've worded that sentence wrongly I think. What I meant to say is
+> that for the purposes of the test here you could just fill the fields
+> with ~0 instead of using things like XSTATE_FP_SSE?
 
-This is a note to let you know that I've just added the patch titled
+The test would perhaps be fine, at least right now. But ~0 is not
+really a legitimate value, especially if - for consistency - also
+putting it in .xcr0_high. I wanted to have a well-defined, always
+valid value here, avoiding the risk of needing to change the value
+again later on.
 
-    xen/events: fix setting irq affinity
-
-to the 5.10-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     xen-events-fix-setting-irq-affinity.patch
-and it can be found in the queue-5.10 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From jgross@suse.com  Thu Apr 15 15:56:08 2021
-From: Juergen Gross <jgross@suse.com>
-Date: Mon, 12 Apr 2021 08:28:45 +0200
-Subject: xen/events: fix setting irq affinity
-To: stable@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <20210412062845.13946-1-jgross@suse.com>
-
-From: Juergen Gross <jgross@suse.com>
-
-The backport of upstream patch 25da4618af240fbec61 ("xen/events: don't
-unmask an event channel when an eoi is pending") introduced a
-regression for stable kernels 5.10 and older: setting IRQ affinity for
-IRQs related to interdomain events would no longer work, as moving the
-IRQ to its new cpu was not included in the irq_ack callback for those
-events.
-
-Fix that by adding the needed call.
-
-Note that kernels 5.11 and later don't need the explicit moving of the
-IRQ to the target cpu in the irq_ack callback, due to a rework of the
-affinity setting in kernel 5.11.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
----
- drivers/xen/events/events_base.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -1809,7 +1809,7 @@ static void lateeoi_ack_dynirq(struct ir
- 
- 	if (VALID_EVTCHN(evtchn)) {
- 		do_mask(info, EVT_MASK_REASON_EOI_PENDING);
--		event_handler_exit(info);
-+		ack_dynirq(data);
- 	}
- }
- 
-@@ -1820,7 +1820,7 @@ static void lateeoi_mask_ack_dynirq(stru
- 
- 	if (VALID_EVTCHN(evtchn)) {
- 		do_mask(info, EVT_MASK_REASON_EXPLICIT);
--		event_handler_exit(info);
-+		ack_dynirq(data);
- 	}
- }
- 
-
-
-Patches currently in stable-queue which might be from jgross@suse.com are
-
-queue-5.10/xen-events-fix-setting-irq-affinity.patch
+Jan
 
