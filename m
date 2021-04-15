@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E02360B25
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 15:57:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111170.212574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70EB6360B29
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 15:57:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111176.212586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2UE-0003RT-MW; Thu, 15 Apr 2021 13:56:50 +0000
+	id 1lX2V1-0003Z7-07; Thu, 15 Apr 2021 13:57:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111170.212574; Thu, 15 Apr 2021 13:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 111176.212586; Thu, 15 Apr 2021 13:57:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2UE-0003R3-Iz; Thu, 15 Apr 2021 13:56:50 +0000
-Received: by outflank-mailman (input) for mailman id 111170;
- Thu, 15 Apr 2021 13:56:49 +0000
+	id 1lX2V0-0003Yi-Sh; Thu, 15 Apr 2021 13:57:38 +0000
+Received: by outflank-mailman (input) for mailman id 111176;
+ Thu, 15 Apr 2021 13:57:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x7n8=JM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lX2UD-0003Qw-23
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 13:56:49 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=uKzl=JM=kroah.com=greg@srs-us1.protection.inumbo.net>)
+ id 1lX2Uz-0003Ya-Sn
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 13:57:38 +0000
+Received: from out2-smtp.messagingengine.com (unknown [66.111.4.26])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ff141ed0-e8c6-43d0-968d-eea0c8639df6;
- Thu, 15 Apr 2021 13:56:47 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D879EAFBF;
- Thu, 15 Apr 2021 13:56:46 +0000 (UTC)
+ id 833c651a-936c-433b-9c72-cfaf311eca7b;
+ Thu, 15 Apr 2021 13:57:36 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 88B1E5C0194;
+ Thu, 15 Apr 2021 09:57:36 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Thu, 15 Apr 2021 09:57:36 -0400
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ by mail.messagingengine.com (Postfix) with ESMTPA id ADEC0240057;
+ Thu, 15 Apr 2021 09:57:35 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff141ed0-e8c6-43d0-968d-eea0c8639df6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618495007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XNJeB01swBoa7frEzDJ795xvk8RU/K28iYVC5K/YFP0=;
-	b=mR/TMh/hsyW/diHxKS7LSx3CK34nSk5cHcULhkM9PKCPD75n+f5+nQPJgNHBIP8B3SSKVD
-	8sKnzYemnmCqHo9Hd704IkzF9YK45p6MQfx/O3Mqbij3h8N4HVQK87SewaIL5jajQcCMNb
-	j8cRt2Q5AbRVo8TmZ2CtKFSbhV88E+A=
-Subject: Re: [PATCH v2 11/17] x86/CPUID: adjust extended leaves out of range
- clearing
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <255f466c-3c95-88c5-3e55-0f04c9ae1b12@suse.com>
- <0f04f568-e55a-ef20-aa97-fbb199dfae37@suse.com>
- <b8960b03-4671-8653-2897-7d1b116e599b@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2cca15ba-b704-c038-5b3d-63435d3c6e80@suse.com>
-Date: Thu, 15 Apr 2021 15:56:46 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+X-Inumbo-ID: 833c651a-936c-433b-9c72-cfaf311eca7b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=fm3; bh=jfSg5duuUTsC7Zu0OFnc3g37Jmr
+	ZtyX1JeECNWT8APg=; b=eJw02QP5SgDmfUXxhsua6b3XvtLIq9aVxluANpWttRs
+	Z7V1t9B6eqcN/B4gD7Uq7tF176lw3J7A1glyl/dKHqij09uXsqfN9ArvCYgqEHMi
+	Kc+76/HlA7wk0JauDvco/5pFhAaJHEsTMSqbmMqDVss4NKwmp+5iu0Jj243E1iJO
+	IL1BiBWftqpIlHEmPPyJN7pL8k3h6UUZNIUMNm4RRW4bwrQcbfkP3HuJb59EP0+J
+	p//23UO7Izc6+mnpIz4mwHlNhjjj0goUzZnVqt9BgHgdfUu1W8GZatA/RYNzuOQD
+	afEYvkEafvGinyJRI95BXl0k3FClWkqgbsSH9Nilq7Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=jfSg5d
+	uuUTsC7Zu0OFnc3g37JmrZtyX1JeECNWT8APg=; b=BDVbxagipk3EkwKdf9ucJr
+	Xntythxjk2r4IBWfDCPtIvH1WjOhQIaeho9jGjss8za7zhY9PmSML1QEoKhUl1+K
+	mKla9G+IPbm4JF2c9GnOrvrzmbPYIVN7mo5Rf7cym5ILXtzd3nXN/pJhE+Vw52gA
+	UyFMx6CEgzKZC9DWrm4zmxoJ6TIo1Y+BuiZDmYXrZ5uRDZk3iqkP8wqAra/q6KSx
+	3xJeTJfz47d+YY19kSLUfWsflelQ+USAN+AwJUdWTZa86sej/26vWdG7+mUJCDbU
+	JMTEzIbfRsKENN9qMTVSmoTj0i4SrYYRylPUlFrTGpvKmDflN+Okx6OFNqLjEDmQ
+	==
+X-ME-Sender: <xms:T0Z4YBRnKDhOmXcowo_JglIbZz22p8nU99lcIQKp3weLGch7F8fykg>
+    <xme:T0Z4YKz3NdyTsu5b-6LeyzoRb-NOvdmqycCF9yQkj1RwIsIC4HiDkz4ot12S5Ib8F
+    2njL7ujF8apqA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudelfedgjeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
+    mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeevueehje
+    fgfffgiedvudekvdektdelleelgefhleejieeugeegveeuuddukedvteenucfkphepkeef
+    rdekiedrjeegrdeigeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+    hlfhhrohhmpehgrhgvgheskhhrohgrhhdrtghomh
+X-ME-Proxy: <xmx:T0Z4YG1Ub7HDFpw-MSJ_PQn6GD0aB3SQqlPTXR1RnjyhSdMT7BifJg>
+    <xmx:T0Z4YJBMoDFFTT_GzQw7P0IsLVs2twWbjPGmDO96yKKRAZVOnH7MrQ>
+    <xmx:T0Z4YKi9DdfzYbcKBRn4tzZgx68s2kJinVXFpN2Z_ODJo3uu-Ibajg>
+    <xmx:UEZ4YNvXo7_PRAacA12fLSOkT1IwBBUjRWux3Z7jSiyh1h7BFT95xA>
+Date: Thu, 15 Apr 2021 15:57:33 +0200
+From: Greg KH <greg@kroah.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: stable@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/events: fix setting irq affinity
+Message-ID: <YHhGTZFXzPg+FaEq@kroah.com>
+References: <20210412062845.13946-1-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <b8960b03-4671-8653-2897-7d1b116e599b@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210412062845.13946-1-jgross@suse.com>
 
-On 15.04.2021 14:48, Andrew Cooper wrote:
-> On 23/11/2020 14:32, Jan Beulich wrote:
->> --- a/xen/lib/x86/cpuid.c
->> +++ b/xen/lib/x86/cpuid.c
->> @@ -232,7 +232,9 @@ void x86_cpuid_policy_clear_out_of_range
->>                      ARRAY_SIZE(p->xstate.raw) - 1);
->>      }
->>  
->> -    zero_leaves(p->extd.raw, (p->extd.max_leaf & 0xffff) + 1,
->> +    zero_leaves(p->extd.raw,
->> +                ((p->extd.max_leaf >> 16) == 0x8000
->> +                 ? (p->extd.max_leaf & 0xffff) + 1 : 0),
->>                  ARRAY_SIZE(p->extd.raw) - 1);
+On Mon, Apr 12, 2021 at 08:28:45AM +0200, Juergen Gross wrote:
+> The backport of upstream patch 25da4618af240fbec61 ("xen/events: don't
+> unmask an event channel when an eoi is pending") introduced a
+> regression for stable kernels 5.10 and older: setting IRQ affinity for
+> IRQs related to interdomain events would no longer work, as moving the
+> IRQ to its new cpu was not included in the irq_ack callback for those
+> events.
 > 
-> Honestly, this is unnecessary complexity and overhead, and the logic is
-> already hard enough to follow.
+> Fix that by adding the needed call.
 > 
-> There won't be extd.max_leaf with the high half != 0x8000 in real
-> policies, because of how we fill them.  Nor ought there to be, given the
-> intended meaning of this part of the union.
+> Note that kernels 5.11 and later don't need the explicit moving of the
+> IRQ to the target cpu in the irq_ack callback, due to a rework of the
+> affinity setting in kernel 5.11.
 > 
-> I think we simply forbid this case, rather than taking extra complexity
-> to cope with it.  Approximately all VMs will have 0x80000008 as a
-> minimum, and I don't think catering to pre-64bit Intel CPUs is worth our
-> effort either.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> This patch should be applied to all stable kernel branches up to
+> (including) linux-5.10.y, where upstream patch 25da4618af240fbec61 has
+> been added.
 
-"Forbid" has got to mean something other than "assume all input is fine".
-Aiui guest config files can restrict the maximum sub-leaves exposed to a
-guest. If we don't want to handle the case here, where else to you
-suggest we at least and complain about the broken assumption? (IOW I'd
-be okay dropping this patch if your "forbid" actually means some
-enforcement elsewhere, and then perhaps a comment pointing there ahead
-of the zero_leaves() invocation here.)
+Now queued up, thanks.
 
-Jan
+greg k-h
 
