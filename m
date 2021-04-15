@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90B69360CD9
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:55:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111342.212966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDF8360CEA
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:56:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111347.212982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX3OJ-0004DZ-5B; Thu, 15 Apr 2021 14:54:47 +0000
+	id 1lX3PM-0004Nf-Ga; Thu, 15 Apr 2021 14:55:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111342.212966; Thu, 15 Apr 2021 14:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 111347.212982; Thu, 15 Apr 2021 14:55:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX3OJ-0004D9-1E; Thu, 15 Apr 2021 14:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 111342;
- Thu, 15 Apr 2021 14:54:45 +0000
+	id 1lX3PM-0004NG-CO; Thu, 15 Apr 2021 14:55:52 +0000
+Received: by outflank-mailman (input) for mailman id 111347;
+ Thu, 15 Apr 2021 14:55:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lX3OH-0004D1-EV; Thu, 15 Apr 2021 14:54:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lX3PK-0004NA-UW
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:55:50 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lX3OH-0001zp-Aj; Thu, 15 Apr 2021 14:54:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lX3OH-000800-2p; Thu, 15 Apr 2021 14:54:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lX3OH-0002HI-2L; Thu, 15 Apr 2021 14:54:45 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lX3PJ-00020U-UP; Thu, 15 Apr 2021 14:55:49 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lX3PJ-0000Vy-Ln; Thu, 15 Apr 2021 14:55:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=X7fO4z19kTIjrSCdZj5hTcQQvzwbVT1ZUBj2ei0g6lM=; b=BeqmYE/mF+GOvArO0/a4ANXsyC
-	KOEZDhkTjHZG2KT78oSxWgJ/6hfJsBhMShx9Teu2aG7HujoMLAauRHt9wHt0mmhq0GotlPb0Qo9ev
-	mHFVQWH8gSzRWbeHIzlB6ypbDhpZFwndMwZ7KcvGPLH4yFYvD11aXJ2HtnSglo+dxZjQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161167-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=g0oeXqtScPDkBsnqkFi22FqfWRL9wdHvI2x2GPtJMJM=; b=ZwA4k6vyILnRixKnG44D9mTQBv
+	ZSHH2W2UI+gT6jwgozM+FWa+xZCHqYjTNVdUAB2bmSnaADbxX7yMwX4ffHDHv2LfPxo0ZIeIkjsM4
+	glll/8gCylRRbU5ZQOQ5nVdHi+QXZ+E6JKOYfmeR5HClLwuF/gall+lS77u7mISNXyRw=;
+Subject: Re: [PATCH v3 12/15] unxz: replace INIT{,DATA} and STATIC
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
+ <4e0a0db2-db34-a738-2f5e-1d5cd2c37e19@suse.com>
+ <c52c9670-d87e-79f9-0104-e6e074419c31@xen.org>
+ <a9adf993-0f2d-acb1-b671-7b8c3b15b4d8@suse.com>
+ <eaf819a8-985f-d33f-902d-58320c99a8d8@xen.org>
+ <1a3f4d72-d57a-dde3-fb46-c91508f09b2a@suse.com>
+ <3642f590-e3b9-ce65-7dce-04681dbfb02f@xen.org>
+ <a76656e4-1b19-df2f-aba0-e7b26b3ab968@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <ffbe985e-c8a7-331c-cb6d-6f4621b5c71c@xen.org>
+Date: Thu, 15 Apr 2021 15:55:47 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 161167: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=3e9460ec93341fa6a80ecf99832aa5d9975339c9
-X-Osstest-Versions-That:
-    xen=ed3ea7e95b0d94cc92a0fcf6c57e784ddfb24c97
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Apr 2021 14:54:45 +0000
-
-flight 161167 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161167/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  3e9460ec93341fa6a80ecf99832aa5d9975339c9
-baseline version:
- xen                  ed3ea7e95b0d94cc92a0fcf6c57e784ddfb24c97
-
-Last test of basis   161150  2021-04-15 01:01:32 Z    0 days
-Testing same since   161167  2021-04-15 12:01:32 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+In-Reply-To: <a76656e4-1b19-df2f-aba0-e7b26b3ab968@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 15/04/2021 15:28, Jan Beulich wrote:
+> On 15.04.2021 16:24, Julien Grall wrote:
+>>
+>>
+>> On 15/04/2021 15:22, Jan Beulich wrote:
+>>> On 15.04.2021 16:18, Julien Grall wrote:
+>>>>
+>>>>
+>>>> On 15/04/2021 15:16, Jan Beulich wrote:
+>>>>> On 15.04.2021 13:58, Julien Grall wrote:
+>>>>>> On 26/01/2021 09:52, Jan Beulich wrote:
+>>>>>>> --- a/xen/common/decompress.h
+>>>>>>> +++ b/xen/common/decompress.h
+>>>>>>> @@ -9,7 +9,6 @@
+>>>>>>>      
+>>>>>>>      #define STATIC static
+>>>>>>>      #define INIT __init
+>>>>>>> -#define INITDATA __initdata
+>>>>>>>      
+>>>>>>>      #define malloc xmalloc_bytes
+>>>>>>>      #define free xfree
+>>>>>>> @@ -21,7 +20,6 @@
+>>>>>>>      
+>>>>>>>      #define STATIC static
+>>>>>>>      #define INIT
+>>>>>>> -#define INITDATA
+>>>>>>
+>>>>>> Shouldn't the two changes be part of patch #14?
+>>>>>
+>>>>> One could do it that way, sure, but the last uses are gone here,
+>>>>> and hence I wanted to get rid of this one item right away.
+>>>>
+>>>> AFAICT, the same is true for STATIC and INIT. So it doesn't sense to not
+>>>> be consistent in the way you treat them.
+>>>
+>>> No, further uses of STATIC and INIT get dropped by later patches.
+>>
+>> I think you misundertood my comment. What I meant is you drop INIT in
+>> patch #14 when the last caller was dropped in a previous patch.
+> 
+> Now this and some other of your comments are getting really nitpicky.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+You misundertood my question, so I was clarifying what I meant.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> The end result is the same. I can certainly move removals around
+> further, but I think I ought to have some leeway on how exactly I
+> achieve an identical end result. Things would be different, I agree,
+> if the end result was not suitably consistent.
 
+As I mentionned in patch #14, this is not very different from requesting 
+to reshuffle the code. I find a bit surprising you are complaining about 
+this...
 
-Pushing revision :
+I guess I could have add NIT in front to make clearer this was only a 
+suggestion.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   ed3ea7e95b..3e9460ec93  3e9460ec93341fa6a80ecf99832aa5d9975339c9 -> smoke
+ From your answer, I am assuming this is a no which is fair:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
