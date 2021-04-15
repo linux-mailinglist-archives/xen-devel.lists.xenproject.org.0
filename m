@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36C17360B5C
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:04:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111198.212646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167CA360B5E
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:04:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111204.212658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2bC-0004x4-UY; Thu, 15 Apr 2021 14:04:02 +0000
+	id 1lX2bV-00053Z-A4; Thu, 15 Apr 2021 14:04:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111198.212646; Thu, 15 Apr 2021 14:04:02 +0000
+Received: by outflank-mailman (output) from mailman id 111204.212658; Thu, 15 Apr 2021 14:04:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2bC-0004wb-Qy; Thu, 15 Apr 2021 14:04:02 +0000
-Received: by outflank-mailman (input) for mailman id 111198;
- Thu, 15 Apr 2021 14:04:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lX2bV-000535-3s; Thu, 15 Apr 2021 14:04:21 +0000
+Received: by outflank-mailman (input) for mailman id 111204;
+ Thu, 15 Apr 2021 14:04:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DGSX=JM=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1lX2bA-0004wE-TV
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:04:00 +0000
+ id 1lX2bT-00052i-4t
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:04:19 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 516207dd-c719-4615-8140-68da640f7a32;
- Thu, 15 Apr 2021 14:04:00 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 212C561222;
- Thu, 15 Apr 2021 14:03:58 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 11f2237f-ac21-44b3-bc7b-fbe4fc6764d1;
+ Thu, 15 Apr 2021 14:04:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2BD96611AD;
+ Thu, 15 Apr 2021 14:04:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,21 +38,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 516207dd-c719-4615-8140-68da640f7a32
+X-Inumbo-ID: 11f2237f-ac21-44b3-bc7b-fbe4fc6764d1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1618495439;
-	bh=ZMD2AHRmPSgbm8MpL2i0lM66+/iwoZLs04+Me4ZyMfI=;
+	s=korg; t=1618495457;
+	bh=HPeQUgz2LZg+X3+n9xnOcb7OSYnzeyabXbD4uoDwaMA=;
 	h=Subject:To:Cc:From:Date:In-Reply-To:From;
-	b=RfKTHZ/Jj0LHqkdmzsEz4FKpcxI2tHQdXpNmuIFbnK7fc+z8+B5Fj/pQ7joyW9Rb+
-	 4lsBHQb7DBbqkDJ4IceRzELsdtwUiLOXRDQm2aBtm4Tobw5NroqMpnd9s+Mfwcv4C2
-	 dxsNc+vGv5jpT+lnEbhs75cEZ93oXG39ZxR/Tfag=
-Subject: Patch "xen/events: fix setting irq affinity" has been added to the 4.14-stable tree
+	b=ucSuwCf7prcPe5chX1WbHP8TpwaCPe0A/q6FYVh3s8AP6UBKdAs8R3deOJrUcvVO3
+	 5WOrRVh83wvI2kYy9THcEfAQNP93nXB5UsU8dOAIYWh2mFYs3JZu8x9cnSCHXcoXFs
+	 EX1EphsEXRTVwaiyfHhW9jFdNUT9j/BGsobgWug0=
+Subject: Patch "xen/events: fix setting irq affinity" has been added to the 4.19-stable tree
 To: boris.ostrovsky@oracle.com,gregkh@linuxfoundation.org,jgross@suse.com,sstabellini@kernel.org,xen-devel@lists.xenproject.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 15 Apr 2021 16:03:49 +0200
+Date: Thu, 15 Apr 2021 16:04:04 +0200
 In-Reply-To: <20210412062845.13946-1-jgross@suse.com>
-Message-ID: <161849542930243@kroah.com>
+Message-ID: <161849544423478@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -63,12 +64,12 @@ This is a note to let you know that I've just added the patch titled
 
     xen/events: fix setting irq affinity
 
-to the 4.14-stable tree which can be found at:
+to the 4.19-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      xen-events-fix-setting-irq-affinity.patch
-and it can be found in the queue-4.14 subdirectory.
+and it can be found in the queue-4.19 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -128,5 +129,5 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from jgross@suse.com are
 
-queue-4.14/xen-events-fix-setting-irq-affinity.patch
+queue-4.19/xen-events-fix-setting-irq-affinity.patch
 
