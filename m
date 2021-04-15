@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DF5B35FF14
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 02:51:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.110881.211856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89E1B35FF22
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 03:12:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.110887.211868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWqDi-0003PK-GE; Thu, 15 Apr 2021 00:50:58 +0000
+	id 1lWqXi-0002dC-AO; Thu, 15 Apr 2021 01:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 110881.211856; Thu, 15 Apr 2021 00:50:58 +0000
+Received: by outflank-mailman (output) from mailman id 110887.211868; Thu, 15 Apr 2021 01:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lWqDi-0003Ov-CU; Thu, 15 Apr 2021 00:50:58 +0000
-Received: by outflank-mailman (input) for mailman id 110881;
- Thu, 15 Apr 2021 00:50:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lWqXi-0002cn-7N; Thu, 15 Apr 2021 01:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 110887;
+ Thu, 15 Apr 2021 01:11:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8wfo=JM=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1lWqDg-0003Oq-Ko
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 00:50:56 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b8fec132-a1ad-4145-96bf-5b44521ecfc7;
- Thu, 15 Apr 2021 00:50:55 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C5757AFE8;
- Thu, 15 Apr 2021 00:50:54 +0000 (UTC)
+ <SRS0=clmd=JM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lWqXh-0002ci-BD
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 01:11:37 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8129c747-bd19-45f7-8cc5-ddadf3afe090;
+ Thu, 15 Apr 2021 01:11:36 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A3B5D61029;
+ Thu, 15 Apr 2021 01:11:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,108 +38,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8fec132-a1ad-4145-96bf-5b44521ecfc7
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618447854; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dlYSapZ/7bzlynnCiHUirDDpulbBa6SiYnz7NV4uVao=;
-	b=n630jxTO3aLbC2wjboZ60L7moOGNnolNdHh1blZtvfk4GLUPZFFWYgvlDWGdgEeiz4Z/4e
-	OUDGbOipJwDiY/UfU9CQY6SpAc0NHz67prJuSd55aRDSH7oqEvKewwhrl5beOl990r1FLO
-	xl7xK//mD0RN7rCf0GxY0/ZavnwiKLs=
-Message-ID: <281ee74f5ce416feeafbca7cb8370889e0d2067f.camel@suse.com>
-Subject: Re: A KernelShark plugin for Xen traces analysis
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Steven Rostedt <rostedt@goodmis.org>, Andrew Cooper
-	 <andrew.cooper3@citrix.com>
-Cc: Giuseppe Eletto <giuseppe.eletto@edu.unito.it>, 
- linux-trace-devel@vger.kernel.org, xen-devel@lists.xenproject.org, Enrico
- Bini <enrico.bini@unito.it>
-Date: Thu, 15 Apr 2021 02:50:53 +0200
-In-Reply-To: <20210414150752.34366b99@gandalf.local.home>
-References: 
-	<CALTQNB5X1+G33Qoh5nNxttQe_GkzKvJFLfEXQszsc6XYr+NgUA@mail.gmail.com>
-	 <f33b39a5-9bbd-934f-a9cd-c536a0ba7416@citrix.com>
-	 <eefc512b8c1ac26c4eaae81e79ee0243901a3de2.camel@suse.com>
-	 <7184a7d7-6bca-4106-d70e-8cf9d5b227fb@citrix.com>
-	 <20210414150752.34366b99@gandalf.local.home>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-2AQ1hzKpsCodCCgwu1uf"
-User-Agent: Evolution 3.40.0 (by Flathub.org) 
-MIME-Version: 1.0
+X-Inumbo-ID: 8129c747-bd19-45f7-8cc5-ddadf3afe090
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1618449095;
+	bh=nN5vxw7wu7IXl4SI40VE6V1scdLwwyhGyhvUjTu+P4o=;
+	h=From:To:Cc:Subject:Date:From;
+	b=parpw4CwFAlLxAz2JjWa8g1RVei0h9H2t5E0VKwdfAmYc77/QdgKeB0V7R6lVR1dw
+	 1OK6zmaNwD3KD3uAXwltfN2U1ZaMcW4c5DUpfAv+E4kwOQ7dNwwUglD3mQsNK+zvgr
+	 Y9UIg0AxPXp0lOsfBFh4B1EHqLI0tCfd6HZA1Fr3G1ARvyFARN1zqjSYC1Kfv2rLnK
+	 kUCl539BNGaSWwkh6CnxhcSThb3RrNS3SkxKxG9VSRAmyTROHbApXC5I0l4Az5xAC1
+	 xJ/AVdaWSZRKwPHzFUfWXbUZZhNYpx1PhlSR+Z99WErbMnHLhZoYOMnEcXaqJobSuo
+	 xiKNZM41QR0Dg==
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	wl@xen.org,
+	cardoe@cardoe.com,
+	andrew.cooper3@citrix.com,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH v2] automation: add arm32 cross-build tests for Xen
+Date: Wed, 14 Apr 2021 18:11:33 -0700
+Message-Id: <20210415011133.24000-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
+Add a debian build container with cross-gcc for arm32 installed.
+Add build jobs to cross-compile Xen-only for arm32.
 
---=-2AQ1hzKpsCodCCgwu1uf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Acked-by: Wei Liu <wl@xen.org>
+---
 
-On Wed, 2021-04-14 at 15:07 -0400, Steven Rostedt wrote:
-> On Wed, 14 Apr 2021 19:11:19 +0100
-> Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->=20
-> > Where the plugin (ought to) live depends heavily on whether we
-> > consider
-> > the trace format a stable ABI or not.
->=20
-> Agreed. Like the VMware plugin to handle ESX traces. It's internal
-> and not
-> published as the API is not stable.
->=20
-Mmm... Does this imply that Linux's tracepoints should be considered a
-stable ABI then? :-D :-D :-D
+Rebased on top of staging, using the new "hypervisor_only" option.
 
-> But if it ever becomes stable, and you would like it to live with
-> KernelShark, we are looking to have a place to store third party
-> plugins.
->=20
-Sure. TBH, either Xen or KernelShark main or plugin repositories would
-be fine for me.
+---
+ .../debian/unstable-arm32-gcc.dockerfile      | 24 +++++++++
+ automation/gitlab-ci/build.yaml               | 50 +++++++++++++++++++
+ automation/scripts/build                      |  5 ++
+ 3 files changed, 79 insertions(+)
+ create mode 100644 automation/build/debian/unstable-arm32-gcc.dockerfile
 
-Which doesn't mean we should choose randomly, as clearly each solution
-has pros and cons that needs to be evaluated.
-
-I'm just saying that we would prefer the plugin to end up in one of
-those places, rather than remaining its own project. And of course
-we're up for maintaining it, wherever it lands. :-)
-
-> We are working to make sure that the API for KernelShark plugins
-> remains
-> stable, so your plugins should always work too.
->=20
-Great!
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-2AQ1hzKpsCodCCgwu1uf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmB3je0ACgkQFkJ4iaW4
-c+4g1xAAyNZnLAMDBqCg/xvPLTBFwcx1vx9zIc4zYPKhCWbQwbhVPlVzwumZ+IN7
-hNiPbSphYIi+AanJ1cLp0xHclH3Z/5DMFOAfHIh+tqPghWnASi6a/4/ah+4QNMWK
-N862BrNCaCMj3Pt4ig35HgQoDNBnu+tp4pcSpSrDPTXEEv5aTqmx8a1kBMqYacba
-suoePMzpZ8ksXdaMATQ375dDKxtEihXfwiGP4Si94Rfebvp/fAJZ41yZO2qRv6wp
-vG+PSRQrT723U9HEnW3bO2mrGAm1giLrL004zQE8TvdgzYG7eLvOkGFqSOkOpafT
-DliJSRNdQC3/jMVprby/A1ypmVTmUm34RGhDq2os5b8BqYwQHx180odgD+KCf7/4
-ZqqkwewMDRQelqCM5a8OB3TvhbfM3PRjekDIiiAy+7ExRihtIb6pqtj2I0d/ubB7
-VwsViousoUQidt9+uPYUCZxwLOaUCyb/SKsFcJEfs4xJ5C3mFv9YNv0DoWX+nvSR
-+m03nc/M+P1BL44qUpcpHhG/9kp5sCz1LvqTIyOmU7Eaf2LgKQ4pz6Zm/bomDUcX
-TJBzJzhYNKqCvCBOwQn4q6VsUX62uAyuX5quLVtOM6ybe2nWuQzqmSvhBpkuNgXX
-NUT4gclT4bdE5cM7TQgpddgB8p5BO4uRcEmAd3S8Nj3Fz/lCpdY=
-=SC4N
------END PGP SIGNATURE-----
-
---=-2AQ1hzKpsCodCCgwu1uf--
+diff --git a/automation/build/debian/unstable-arm32-gcc.dockerfile b/automation/build/debian/unstable-arm32-gcc.dockerfile
+new file mode 100644
+index 0000000000..b41a57f197
+--- /dev/null
++++ b/automation/build/debian/unstable-arm32-gcc.dockerfile
+@@ -0,0 +1,24 @@
++FROM debian:unstable
++LABEL maintainer.name="The Xen Project" \
++      maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV DEBIAN_FRONTEND=noninteractive
++ENV USER root
++ENV CROSS_COMPILE /usr/bin/arm-linux-gnueabihf-
++
++RUN mkdir /build
++WORKDIR /build
++
++# build depends
++RUN apt-get update && \
++    apt-get --quiet --yes install \
++        build-essential \
++        flex \
++        bison \
++        git \
++        gcc-arm-linux-gnueabihf \
++        && \
++        apt-get autoremove -y && \
++        apt-get clean && \
++        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
++
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index cca2c310e2..57bf2c7f80 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -117,6 +117,33 @@
+   variables:
+     <<: *clang
+ 
++.arm32-cross-build-tmpl:
++  <<: *build
++  variables:
++    XEN_TARGET_ARCH: arm32
++  tags:
++    - x86_64
++
++.arm32-cross-build:
++  extends: .arm32-cross-build-tmpl
++  variables:
++    debug: n
++
++.arm32-cross-build-debug:
++  extends: .arm32-cross-build-tmpl
++  variables:
++    debug: y
++
++.gcc-arm32-cross-build:
++  extends: .arm32-cross-build
++  variables:
++    <<: *gcc
++
++.gcc-arm32-cross-build-debug:
++  extends: .arm32-cross-build-debug
++  variables:
++    <<: *gcc
++
+ .arm64-build-tmpl:
+   <<: *build
+   variables:
+@@ -450,6 +477,29 @@ alpine-3.12-clang-debug:
+   variables:
+     CONTAINER: alpine:3.12
+ 
++# Arm32 cross-build
++
++debian-unstable-gcc-arm32:
++  extends: .gcc-arm32-cross-build
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++
++debian-unstable-gcc-arm32-debug:
++  extends: .gcc-arm32-cross-build-debug
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++
++debian-unstable-gcc-arm32-randconfig:
++  extends: .gcc-arm32-cross-build
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++    RANDCONFIG: y
++
++debian-unstable-gcc-arm32-debug-randconfig:
++  extends: .gcc-arm32-cross-build-debug
++  variables:
++    CONTAINER: debian:unstable-arm32-gcc
++    RANDCONFIG: y
+ 
+ # Arm builds
+ 
+diff --git a/automation/scripts/build b/automation/scripts/build
+index 1b752edfe6..eaf70b11d1 100755
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -16,6 +16,11 @@ else
+     make -j$(nproc) -C xen defconfig
+ fi
+ 
++# arm32 only cross-compiles the hypervisor
++if [[ "${XEN_TARGET_ARCH}" = "arm32" ]]; then
++    hypervisor_only="y"
++fi
++
+ # build up our configure options
+ cfgargs=()
+ cfgargs+=("--enable-docs")
+-- 
+2.17.1
 
 
