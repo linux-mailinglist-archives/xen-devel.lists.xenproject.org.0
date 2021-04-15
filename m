@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA636360BC9
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:29:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111292.212841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88FA6360BCD
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Apr 2021 16:30:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111296.212853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2z7-0000Qe-7E; Thu, 15 Apr 2021 14:28:45 +0000
+	id 1lX30j-0001Ea-IN; Thu, 15 Apr 2021 14:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111292.212841; Thu, 15 Apr 2021 14:28:45 +0000
+Received: by outflank-mailman (output) from mailman id 111296.212853; Thu, 15 Apr 2021 14:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lX2z7-0000QF-31; Thu, 15 Apr 2021 14:28:45 +0000
-Received: by outflank-mailman (input) for mailman id 111292;
- Thu, 15 Apr 2021 14:28:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lX30j-0001EB-F6; Thu, 15 Apr 2021 14:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 111296;
+ Thu, 15 Apr 2021 14:30:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x7n8=JM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lX2z5-0000QA-V0
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:28:43 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f75b17db-1389-4e07-9505-d6186d97db51;
- Thu, 15 Apr 2021 14:28:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 66DD2AF1F;
- Thu, 15 Apr 2021 14:28:42 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lX30i-0001E6-6A
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 14:30:24 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lX30h-0001Yf-7q; Thu, 15 Apr 2021 14:30:23 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lX30g-0006tl-Uk; Thu, 15 Apr 2021 14:30:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,85 +39,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f75b17db-1389-4e07-9505-d6186d97db51
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618496922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T8PbSeELSq3i/ET+RhIXIVZHrkQorWfYNJyfxRnGXeU=;
-	b=KcbEPhEhscwMSxFQP/8dmMQrtKTw+ZXDKpXgh0bMHGk76pqMgsoy8Nh73VN8oeL+t+ekj3
-	DvqXpnjKVp6W3yzVdMhwOapij47yPn+HudjnANcy2S9xW8m7qWuZIfwYLtdKfHAO/ZzFEL
-	LdCyPLeW5JTDz21Cvg8lCYzSVlZHBy0=
-Subject: Re: [PATCH v3 12/15] unxz: replace INIT{,DATA} and STATIC
-To: Julien Grall <julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=VuLWvDMiu59wCnGBCK8F/vMf6sIRwoC7SubguMFQhXs=; b=GTMOlV0q51S51b9f/crWnuBNVa
+	QmbDPknZOmylH+N+pXsIIJhaXwCHPgpvoh03Y55lxlLlCYVu5TUqRv9CbsoC7XT8jfXm3th3ELOdp
+	AfgVIwkMo4QA5XjPmeJjVnW2A45morMyhMX1qe126xB/4ZWuafOCNiOqi/uuAFGimpQU=;
+Subject: Re: [PATCH v3 13/15] unzstd: replace INIT{,DATA} and STATIC
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
- <4e0a0db2-db34-a738-2f5e-1d5cd2c37e19@suse.com>
- <c52c9670-d87e-79f9-0104-e6e074419c31@xen.org>
- <a9adf993-0f2d-acb1-b671-7b8c3b15b4d8@suse.com>
- <eaf819a8-985f-d33f-902d-58320c99a8d8@xen.org>
- <1a3f4d72-d57a-dde3-fb46-c91508f09b2a@suse.com>
- <3642f590-e3b9-ce65-7dce-04681dbfb02f@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a76656e4-1b19-df2f-aba0-e7b26b3ab968@suse.com>
-Date: Thu, 15 Apr 2021 16:28:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+ <19f12930-df0e-5a00-9e5e-53edffcf51d7@suse.com>
+ <467ed62e-e5c3-0a08-b9a7-5b4e913b3c90@xen.org>
+ <e1d08ced-c2e8-22e3-2da3-8116b69cb627@suse.com>
+ <e861b617-7b9f-317d-9941-0fd7577147cb@xen.org>
+ <950e7ec1-3d4a-594d-ce8f-62d9d5930265@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <75195be2-ca13-28c2-b871-992c0168e1e7@xen.org>
+Date: Thu, 15 Apr 2021 15:30:21 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.1
 MIME-Version: 1.0
-In-Reply-To: <3642f590-e3b9-ce65-7dce-04681dbfb02f@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <950e7ec1-3d4a-594d-ce8f-62d9d5930265@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 15.04.2021 16:24, Julien Grall wrote:
-> 
-> 
-> On 15/04/2021 15:22, Jan Beulich wrote:
->> On 15.04.2021 16:18, Julien Grall wrote:
->>>
->>>
->>> On 15/04/2021 15:16, Jan Beulich wrote:
->>>> On 15.04.2021 13:58, Julien Grall wrote:
->>>>> On 26/01/2021 09:52, Jan Beulich wrote:
->>>>>> --- a/xen/common/decompress.h
->>>>>> +++ b/xen/common/decompress.h
->>>>>> @@ -9,7 +9,6 @@
->>>>>>     
->>>>>>     #define STATIC static
->>>>>>     #define INIT __init
->>>>>> -#define INITDATA __initdata
->>>>>>     
->>>>>>     #define malloc xmalloc_bytes
->>>>>>     #define free xfree
->>>>>> @@ -21,7 +20,6 @@
->>>>>>     
->>>>>>     #define STATIC static
->>>>>>     #define INIT
->>>>>> -#define INITDATA
->>>>>
->>>>> Shouldn't the two changes be part of patch #14?
+
+
+On 15/04/2021 15:25, Jan Beulich wrote:
+> On 15.04.2021 16:22, Julien Grall wrote:
+>> On 15/04/2021 15:21, Jan Beulich wrote:
+>>> On 15.04.2021 13:59, Julien Grall wrote:
+>>>> On 26/01/2021 09:52, Jan Beulich wrote:
+>>>>> With xen/common/decompress.h now agreeing in both build modes about
+>>>>> what STATIC expands to, there's no need for this abstraction anymore.
 >>>>
->>>> One could do it that way, sure, but the last uses are gone here,
->>>> and hence I wanted to get rid of this one item right away.
+>>>> Shouldn't you also mention "INIT" and "INITDATA" here?
 >>>
->>> AFAICT, the same is true for STATIC and INIT. So it doesn't sense to not
->>> be consistent in the way you treat them.
+>>> Two parts: INITDATA was mistakenly mentioned in the title. I've
+>>> dropped that.
 >>
->> No, further uses of STATIC and INIT get dropped by later patches.
+>> Ok.
+>>
+>> And what I'm saying about STATIC does not apply to
+>>> INIT - for it, we replace the extra level of abstraction by
+>>> directly using __init, just like was done in the earlier patches.
+>>
+>> This should be mention in the commit message.
 > 
-> I think you misundertood my comment. What I meant is you drop INIT in 
-> patch #14 when the last caller was dropped in a previous patch.
+> It already is by what is being said after the comma. May I direct
+> you back to the commit messages of earlier patches in this series
+> (when talk was of just INIT)?
+ From the way the commit message is written it sounds like more you are 
+referring to STATIC only. This is a clearer on the other commit messages 
+because there is no other way to interpret "this".
 
-Now this and some other of your comments are getting really nitpicky.
-The end result is the same. I can certainly move removals around
-further, but I think I ought to have some leeway on how exactly I
-achieve an identical end result. Things would be different, I agree,
-if the end result was not suitably consistent.
+So I would suggest to clarify it.
 
-Jan
+Cheers,
+
+-- 
+Julien Grall
 
