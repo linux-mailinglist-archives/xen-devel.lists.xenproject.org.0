@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865DB361586
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 00:33:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111515.213286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10434361589
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 00:34:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111519.213298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXAXM-0007ea-Gb; Thu, 15 Apr 2021 22:32:36 +0000
+	id 1lXAYh-0007lP-SA; Thu, 15 Apr 2021 22:33:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111515.213286; Thu, 15 Apr 2021 22:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 111519.213298; Thu, 15 Apr 2021 22:33:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXAXM-0007eD-D2; Thu, 15 Apr 2021 22:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 111515;
- Thu, 15 Apr 2021 22:32:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lXAYh-0007ky-Og; Thu, 15 Apr 2021 22:33:59 +0000
+Received: by outflank-mailman (input) for mailman id 111519;
+ Thu, 15 Apr 2021 22:33:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=clmd=JM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lXAXL-0007e8-KB
- for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 22:32:35 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2d6c84b4-9ef6-4ebb-b8f5-5d01052538de;
- Thu, 15 Apr 2021 22:32:34 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CE9E4610FB;
- Thu, 15 Apr 2021 22:32:33 +0000 (UTC)
+ <SRS0=ByZD=JM=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
+ id 1lXAYg-0007kq-D2
+ for xen-devel@lists.xenproject.org; Thu, 15 Apr 2021 22:33:58 +0000
+Received: from mail-oi1-x235.google.com (unknown [2607:f8b0:4864:20::235])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f58cb268-38cb-448b-a700-20650fd0b951;
+ Thu, 15 Apr 2021 22:33:57 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id d12so25897936oiw.12
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Apr 2021 15:33:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,222 +37,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d6c84b4-9ef6-4ebb-b8f5-5d01052538de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1618525954;
-	bh=Yco3/ZrSA35N5drUJsJpua5yUrh1ZrhfpMmLaz+V8H0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MHyw0xOPXDyc52Zw/pF2IOjef0BKgGi2LRvoReHN7Ccc8IHiwFPpgh7N7md0S0HeT
-	 7gcCfipl+yFZ8UmnsM4YYZL6uhMOD+wQpxfXNU0sdUKxWi7RX5ENWPgwHhO+zu1PEu
-	 lBosEP7gU8JM4jKVqJbmQidQlrR1LDP0HjF+7fvSZZqWLPqZGeBMCOhCy03KZqQnTd
-	 3lS3Qto9W3Xo3oUeusMHdwP54PGHKxsTF74eUWOecJHkoZim0oM5OUlyZJyvsu4O+q
-	 gdD6a71BelxhDdN5W4mLgyD+RJ23L22QKgXrB/colSpethnUloHlJnxKSoysJ5C3Aj
-	 Jwvu3r4ORR2bw==
-Date: Thu, 15 Apr 2021 15:32:33 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Julien Grall <jgrall@amazon.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Julien Grall <julien@amazon.com>
-Subject: Re: [PATCH] xen/arm: guest_walk: Only generate necessary
- offsets/masks
-In-Reply-To: <20210405162046.9353-1-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2104151532190.4885@sstabellini-ThinkPad-T480s>
-References: <20210405162046.9353-1-julien@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: f58cb268-38cb-448b-a700-20650fd0b951
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=FV+gdqUn0A036xmpndUBZcIkZFxF01wHkgn1UQCMFrQ=;
+        b=ElSAmkoRHFPwfz9iTj+VjDS414UiRd3U3fzWYBDWCJKojcoOEGNXaYNsdBWu1DLR/F
+         13KNZBKqcOJ+XkUgTAnHRcazRCLeRkAMc81CfpXdC+Z0KvJPcgt3ENeMYL3BA1e/VYvu
+         hrFRy1zuBThMloXd1z1VE5iXL6DwujilBb9TB1uAQgd8F/oGnUJoAb/8nXfo1QHXsHq2
+         19zeqjmwx+u7w2v58Y74h2r33f8gKr/tmFTOAPKjQ/UzyHTrYagVxGa/4J0M9YJvI7MW
+         EV1OOb260xb8Zy0OFF0GI76p0/GNZMJ2o205ykudVTpfF0U1nmd4+KK++8taO+SQ88ZA
+         piqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=FV+gdqUn0A036xmpndUBZcIkZFxF01wHkgn1UQCMFrQ=;
+        b=olprYvg0FU4gauH+Qd6PMEGbhiZzvApylCpskvvps+84/tq2esYriw4cmUhkqTnM7R
+         MTomAWLj0koUxgHzzeZq2xyG9b/TSmTPG2uYazrWb2AwH++NQgM+V+qSGh61LgweMRpa
+         nRFIxcBOqpFkyrivwEeS4V0nZPsTaQZb8rQcVHrawVOGVX71IVU8W+h0LLRkdesOHyBJ
+         c3RkkvcsRfrNeVmqI2wx+5hTPJ99Ipn2dWCxEEjcrLu0nOoJXyo/g5Y/+Ep7eNRKSbHN
+         pDiej62PRYeX8+q8jOJGwc4tJncb/7XdNfddTqV3igl01P/Cg6x277uMVhT8vIu9ueoz
+         q7Hg==
+X-Gm-Message-State: AOAM530BP1wsYiM9QNFG1knQDPby/4rrUSS+oDItJotbm376hBi3R/8F
+	WBAz6Wof1LdHyRLl3TPjgGu1WTOz567uopw1uWE=
+X-Google-Smtp-Source: ABdhPJzfvrejgbAE1Xf8wsZ9NPYxeaVqf6t1fFnffzc5c7NKwPiCspQi+TZxua9832f0vMI1Ix/3kCglqJL64ON3rKs=
+X-Received: by 2002:aca:534d:: with SMTP id h74mr4177827oib.152.1618526036967;
+ Thu, 15 Apr 2021 15:33:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20210316031814.10311-1-dpsmith@apertussolutions.com>
+ <6314f50f-b4fc-e472-4c9a-3591e168d2c3@apertussolutions.com>
+ <bd61f993-f719-ec87-638f-f53d6e983c3e@suse.com> <CACMJ4GY1QpTYUYV5oG5zOfah_PzPq_-__K3-F3qUfzX95R3w8g@mail.gmail.com>
+ <2651d116-7c44-261e-8561-c9b3b5a4aab8@suse.com>
+In-Reply-To: <2651d116-7c44-261e-8561-c9b3b5a4aab8@suse.com>
+From: Christopher Clark <christopher.w.clark@gmail.com>
+Date: Thu, 15 Apr 2021 15:33:45 -0700
+Message-ID: <CACMJ4GbEEAkpA-aynWa=nw41HBxqENmx6NNXAhqmVxkTNB5kEw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] Introducing hyperlaunch capability design (formerly:
+ DomB mode of dom0less)
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Stefano Stabellini <stefano.stabellini@xilinx.com>, Julien Grall <jgrall@amazon.com>, 
+	Julien Grall <Julien.grall.oss@gmail.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+	George Dunlap <george.dunlap@citrix.com>, Rich Persaud <persaur@gmail.com>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	luca.fancellu@arm.com, paul@xen.org, Adam Schwalm <adam.schwalm@starlab.io>, 
+	xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 5 Apr 2021, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> At the moment, we are computing offsets/masks for each level and
-> granularity. This is a bit of waste given that we only need to
-> know the offsets/masks for the granularity used by the guest.
-> 
-> All the LPAE information can easily be inferred with just the
-> page shift for a given granularity and the level.
-> 
-> So rather than providing a set of helpers per granularity, we can
-> provide a single set that takes the granularity and the level in
-> parameters.
-> 
-> With the new helpers in place, we can rework guest_walk_ld() to
-> only compute necessary information.
-> 
-> Signed-off-by: Julien Grall <julien@amazon.com>
+On Wed, Apr 7, 2021 at 10:56 PM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 07.04.2021 21:23, Christopher Clark wrote:
+> > On Tue, Mar 30, 2021 at 7:31 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>
+> >> On 16.03.2021 04:56, Daniel P. Smith wrote:
+> >>> To assist in reading, please find attached rendered copies of the design
+> >>> docs. It should be noted that due to poor rendering by pandoc, we forced
+> >>> the tables to stay as ASCII tables in the patches whereas the attached
+> >>> docs have the tables rendered properly by rst2pdf.
+> >>
+> >> In section 3.6 I found "As a result, on x86 the hyperlaunch capability does
+> >> not rely on nor preclude any specific BIOS boot protocol, i.e legacy BIOS
+> >> boot or UEFI boot. The only requirement is that the boot loader supports
+> >> the Multiboot2 (MB2) protocol." I'm afraid the two sentences contradict
+> >> one another, as UEFI on its own doesn't provide MB2 functionality. It is
+> >> my understanding that you don't require this anyway - what you need is a
+> >> way to load modules beyond just Dom0 kernel and an initrd.
+> >
+> > Thanks - we'll amend the doc. Given the already sizeable scope of the
+> > project, our current approach for host UEFI is to recommend use of
+> > GRUB.efi to load Xen and the initial domains via the multiboot2 method.
+> >
+> >> I'm also struggling to see how you mean to associate the (MB2) modules
+> >> passed to Xen with the individual functions. I.e. I don't see how it will
+> >> be ensure that the embedded mb-index is in sync with the order or modules
+> >> actually supplied.
+> >
+> > To make sure I'm following the concern raised here, my understanding is:
+> >
+> > - the multiboot module list is ordered and stable, so that the order
+> >   that the bootloader provides the modules in is the same order in which
+> >   Xen receives them, in the multiboot data structure, so the modules can
+> >   be referenced by an index into that list
+>
+> In a separate context (parallel ongoing discussion under "multiboot2
+> and module2 boot issues via GRUB2") Andrew raised the (imo valid)
+> point of this getting the more fragile the more modules there are.
 
-Very nice!!
+It is a separate context though: ie. your (controversial!) proposal to
+use the Xen command line to direct the hypervisor to concatenate
+multiboot modules to form a single initrd before assembling a domain.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Boot via Multiboot2 relies on the positional correctness (ie. ordering)
+of the modules supplied.
 
+Andrew's first message in the thread describes Xen's longstanding
+convention for handling the multiboot modules that it receives:
 
-> ---
->  xen/arch/arm/guest_walk.c  | 37 ++---------------
->  xen/include/asm-arm/lpae.h | 82 +++++++++++++-------------------------
->  2 files changed, 30 insertions(+), 89 deletions(-)
-> 
-> diff --git a/xen/arch/arm/guest_walk.c b/xen/arch/arm/guest_walk.c
-> index b4496c4c86c6..87de40d0cb68 100644
-> --- a/xen/arch/arm/guest_walk.c
-> +++ b/xen/arch/arm/guest_walk.c
-> @@ -372,38 +372,6 @@ static bool guest_walk_ld(const struct vcpu *v,
->      register_t tcr = READ_SYSREG(TCR_EL1);
->      struct domain *d = v->domain;
->  
-> -#define OFFSETS(gva, gran)              \
-> -{                                       \
-> -    zeroeth_table_offset_##gran(gva),   \
-> -    first_table_offset_##gran(gva),     \
-> -    second_table_offset_##gran(gva),    \
-> -    third_table_offset_##gran(gva)      \
-> -}
-> -
-> -    const paddr_t offsets[3][4] = {
-> -        OFFSETS(gva, 4K),
-> -        OFFSETS(gva, 16K),
-> -        OFFSETS(gva, 64K)
-> -    };
-> -
-> -#undef OFFSETS
-> -
-> -#define MASKS(gran)                     \
-> -{                                       \
-> -    zeroeth_size(gran) - 1,             \
-> -    first_size(gran) - 1,               \
-> -    second_size(gran) - 1,              \
-> -    third_size(gran) - 1                \
-> -}
-> -
-> -    static const paddr_t masks[3][4] = {
-> -        MASKS(4K),
-> -        MASKS(16K),
-> -        MASKS(64K)
-> -    };
-> -
-> -#undef MASKS
-> -
->      static const unsigned int grainsizes[3] = {
->          PAGE_SHIFT_4K,
->          PAGE_SHIFT_16K,
-> @@ -519,7 +487,7 @@ static bool guest_walk_ld(const struct vcpu *v,
->           * Add offset given by the GVA to the translation table base address.
->           * Shift the offset by 3 as it is 8-byte aligned.
->           */
-> -        paddr |= offsets[gran][level] << 3;
-> +        paddr |= LPAE_TABLE_INDEX_GS(grainsizes[gran], level, gva) << 3;
->  
->          /* Access the guest's memory to read only one PTE. */
->          ret = access_guest_memory_by_ipa(d, paddr, &pte, sizeof(lpae_t), false);
-> @@ -572,7 +540,8 @@ static bool guest_walk_ld(const struct vcpu *v,
->  
->      /* Make sure that the lower bits of the PTE's base address are zero. */
->      mask = GENMASK_ULL(47, grainsizes[gran]);
-> -    *ipa = (pfn_to_paddr(pte.walk.base) & mask) | (gva & masks[gran][level]);
-> +    *ipa = (pfn_to_paddr(pte.walk.base) & mask) |
-> +        (gva & (LEVEL_SIZE_GS(grainsizes[gran], level) - 1));
->  
->      /*
->       * Set permissions so that the caller can check the flags by herself. Note
-> diff --git a/xen/include/asm-arm/lpae.h b/xen/include/asm-arm/lpae.h
-> index 4797f9cee494..e94de2e7d8e8 100644
-> --- a/xen/include/asm-arm/lpae.h
-> +++ b/xen/include/asm-arm/lpae.h
-> @@ -160,63 +160,35 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
->  #define lpae_set_mfn(pte, mfn)  ((pte).walk.base = mfn_x(mfn))
->  
->  /*
-> - * AArch64 supports pages with different sizes (4K, 16K, and 64K). To enable
-> - * page table walks for various configurations, the following helpers enable
-> - * walking the translation table with varying page size granularities.
-> + * AArch64 supports pages with different sizes (4K, 16K, and 64K).
-> + * Provide a set of generic helpers that will compute various
-> + * information based on the page granularity.
-> + *
-> + * Note the parameter 'gs' is the page shift of the granularity used.
-> + * Some macro will evaluate 'gs' twice rather than storing in a
-> + * variable. This is to allow using the macros in assembly.
-> + */
-> +
-> +/*
-> + * Granularity | PAGE_SHIFT | LPAE_SHIFT
-> + * -------------------------------------
-> + * 4K          | 12         | 9
-> + * 16K         | 14         | 11
-> + * 64K         | 16         | 13
-> + *
-> + * This is equivalent to LPAE_SHIFT = PAGE_SHIFT - 3
->   */
-> +#define LPAE_SHIFT_GS(gs)         ((gs) - 3)
-> +#define LPAE_ENTRIES_GS(gs)       (_AC(1, U) << LPAE_SHIFT_GS(gs))
-> +#define LPAE_ENTRIES_MASK_GS(gs)  (LPAE_ENTRIES_GS(gs) - 1)
-> +
-> +#define LEVEL_ORDER_GS(gs, lvl)   ((3 - (lvl)) * LPAE_SHIFT_GS(gs))
-> +#define LEVEL_SHIFT_GS(gs, lvl)   (LEVEL_ORDER_GS(gs, lvl) + (gs))
-> +#define LEVEL_SIZE_GS(gs, lvl)    (_AT(paddr_t, 1) << LEVEL_SHIFT_GS(gs, lvl))
->  
-> -#define LPAE_SHIFT_4K           (9)
-> -#define LPAE_SHIFT_16K          (11)
-> -#define LPAE_SHIFT_64K          (13)
-> -
-> -#define lpae_entries(gran)      (_AC(1,U) << LPAE_SHIFT_##gran)
-> -#define lpae_entry_mask(gran)   (lpae_entries(gran) - 1)
-> -
-> -#define third_shift(gran)       (PAGE_SHIFT_##gran)
-> -#define third_size(gran)        ((paddr_t)1 << third_shift(gran))
-> -
-> -#define second_shift(gran)      (third_shift(gran) + LPAE_SHIFT_##gran)
-> -#define second_size(gran)       ((paddr_t)1 << second_shift(gran))
-> -
-> -#define first_shift(gran)       (second_shift(gran) + LPAE_SHIFT_##gran)
-> -#define first_size(gran)        ((paddr_t)1 << first_shift(gran))
-> -
-> -/* Note that there is no zeroeth lookup level with a 64K granule size. */
-> -#define zeroeth_shift(gran)     (first_shift(gran) + LPAE_SHIFT_##gran)
-> -#define zeroeth_size(gran)      ((paddr_t)1 << zeroeth_shift(gran))
-> -
-> -#define TABLE_OFFSET(offs, gran)      (offs & lpae_entry_mask(gran))
-> -#define TABLE_OFFSET_HELPERS(gran)                                          \
-> -static inline paddr_t third_table_offset_##gran##K(paddr_t va)              \
-> -{                                                                           \
-> -    return TABLE_OFFSET((va >> third_shift(gran##K)), gran##K);             \
-> -}                                                                           \
-> -                                                                            \
-> -static inline paddr_t second_table_offset_##gran##K(paddr_t va)             \
-> -{                                                                           \
-> -    return TABLE_OFFSET((va >> second_shift(gran##K)), gran##K);            \
-> -}                                                                           \
-> -                                                                            \
-> -static inline paddr_t first_table_offset_##gran##K(paddr_t va)              \
-> -{                                                                           \
-> -    return TABLE_OFFSET((va >> first_shift(gran##K)), gran##K);             \
-> -}                                                                           \
-> -                                                                            \
-> -static inline paddr_t zeroeth_table_offset_##gran##K(paddr_t va)            \
-> -{                                                                           \
-> -    /* Note that there is no zeroeth lookup level with 64K granule sizes. */\
-> -    if ( gran == 64 )                                                       \
-> -        return 0;                                                           \
-> -    else                                                                    \
-> -        return TABLE_OFFSET((va >> zeroeth_shift(gran##K)), gran##K);       \
-> -}                                                                           \
-> -
-> -TABLE_OFFSET_HELPERS(4);
-> -TABLE_OFFSET_HELPERS(16);
-> -TABLE_OFFSET_HELPERS(64);
-> -
-> -#undef TABLE_OFFSET
-> -#undef TABLE_OFFSET_HELPERS
-> +/* Offset in the table at level 'lvl' */
-> +#define LPAE_TABLE_INDEX_GS(gs, lvl, addr)   \
-> +    (((addr) >> LEVEL_SHIFT_GS(gs, lvl)) & LPAE_ENTRIES_MASK_GS(gs))
->  
->  /* Generate an array @var containing the offset for each level from @addr */
->  #define DECLARE_OFFSETS(var, addr)          \
-> -- 
-> 2.17.1
-> 
+    Xen is capable of taking various things via modules, such as an
+    XSM/Flask policy, or microcode, so has logic to identify these if
+    present and separate them from "other stuff".  However, there is a
+    hardcoded expectation that the first module is the dom0 kernel, and
+    the next unrecognised module, if present, is *the* initrd.
+
+We are proposing to make that hardcoded expectation become configurable
+via the definition provided in the Launch Control Module. The modules
+supplied will have to be correctly ordered, matching that definition.
+
+Xen has behaviour today for when the boot materials are incorrect
+(eg. when dom0 initrd is supplied before the dom0 kernel) and that is
+reasonable, and the same can apply to misconfigured systems in future
+too.
+
+> > - for a given Launch Control Module file (expressed in a Device Tree, as
+> >   described in our second design document), the provided multiboot
+> >   modules will need to match, both in type (kernel, ramdisk, microcode,
+> >   xsm policy) and order
+>
+> "Need to match" meaning what? You don't clarify how boot loader
+> config and device tree blob are meant to be kept in sync.
+
+A given Launch Control Module (or device tree blob) defines the
+expectation for boot module ordering. The boot loader config needs to be
+written with an awareness of that ordering.
+
+Tooling to support that synchronization can be provided - as noted here:
+
+> > - we think that at some point the LCM will end up being dynamically
+> >   generated by an enlightened bootloader, assembling it from the
+> >   bootloader config file, which will list the modules and their types
+
+which should help address usability concerns.
+
+> >> As to modules - iirc there are placement restrictions by at least some
+> >> boot loaders (below 4Gb). If that's correct, do you have any thoughts
+> >> towards dealing with the limited space available to hold these modules?
+> >> I've seem systems with lots of memory, but with as little as just 1Gb
+> >> below the 4Gb boundary.
+> >
+> > At this point, I don't think that we'll break anything that currently
+> > works, and that hardware or platform limitations can always constrain
+> > what is deployable.
+>
+> I'm not concerned of you breaking anything. I merely raised a possible
+> scalability issue of your current proposal.
+
+Fair. Thanks for the review.
+
+Christopher
 
