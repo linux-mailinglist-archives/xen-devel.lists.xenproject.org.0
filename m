@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A38953620AB
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 15:17:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111727.213682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B56C3620BF
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 15:20:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111732.213694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXOL0-0007qs-4w; Fri, 16 Apr 2021 13:16:46 +0000
+	id 1lXOOI-0000JJ-NZ; Fri, 16 Apr 2021 13:20:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111727.213682; Fri, 16 Apr 2021 13:16:46 +0000
+Received: by outflank-mailman (output) from mailman id 111732.213694; Fri, 16 Apr 2021 13:20:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXOL0-0007qW-1g; Fri, 16 Apr 2021 13:16:46 +0000
-Received: by outflank-mailman (input) for mailman id 111727;
- Fri, 16 Apr 2021 13:16:44 +0000
+	id 1lXOOI-0000Iu-KX; Fri, 16 Apr 2021 13:20:10 +0000
+Received: by outflank-mailman (input) for mailman id 111732;
+ Fri, 16 Apr 2021 13:20:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vDum=JN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lXOKy-0007qR-Qh
- for xen-devel@lists.xenproject.org; Fri, 16 Apr 2021 13:16:44 +0000
+ id 1lXOOH-0000Io-EC
+ for xen-devel@lists.xenproject.org; Fri, 16 Apr 2021 13:20:09 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c300a326-e2b3-450e-a3c5-07e2c361dd49;
- Fri, 16 Apr 2021 13:16:42 +0000 (UTC)
+ id b56f86bc-1101-4907-82e2-99d0d9f5d287;
+ Fri, 16 Apr 2021 13:20:08 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 814A7B158;
- Fri, 16 Apr 2021 13:16:41 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 953C1B1BD;
+ Fri, 16 Apr 2021 13:20:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,24 +39,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c300a326-e2b3-450e-a3c5-07e2c361dd49
+X-Inumbo-ID: b56f86bc-1101-4907-82e2-99d0d9f5d287
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618579001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1618579207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=GWMb2nTdNosSGv/vN708YUhwk/cUBkUU7Dm5oA2g0ak=;
-	b=TiPKevv+YZISbB/1tAI83CYNOHrlDe/gQMDsUO/Nj1u23w7K/ifDMhONg+wB2YKSf/RgSR
-	KHusAZ+mXwQWBK4Q5nz2Lx0N2n54nMkW5/VSE9KL3XEMPhje5aJb3gIV6M2eJhhCV14wik
-	FeTp1B/prMnW1Byec+GhQG9DY7kBBcM=
+	bh=ufOnfHp0O3E+Vzmx++SRiq0i7FViNrJkcL0Lqmis+28=;
+	b=sVzyghNDqdAJnWjuJlB2F2Lozc1my8GqDYUe2F38JEkK3x/c7DHeaGxGNg4lCgVNsgjBqX
+	qJa8G1gbOBfHej6yJnHWwL4T4/VwRIiFcaovF8COkPFhsuh1wSHzEtIqFOQWk9AE7JnxC1
+	M0CrMJhL1HaygMw1G+XbIlYN6FyNVWg=
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3] x86/CPUID: shrink max_{,sub}leaf fields according to
- actual leaf contents
-Message-ID: <9ecd03b2-f8fa-2a8b-69ad-4b31920ea205@suse.com>
-Date: Fri, 16 Apr 2021 15:16:41 +0200
+Subject: [PATCH] x86/AMD: also determine L3 cache size
+Message-ID: <7ffeec9f-2ce4-9122-4699-32c3ffb06a5d@suse.com>
+Date: Fri, 16 Apr 2021 15:20:07 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.1
 MIME-Version: 1.0
@@ -64,321 +63,76 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Zapping leaf data for out of range leaves is just one half of it: To
-avoid guests (bogusly or worse) inferring information from mere leaf
-presence, also shrink maximum indicators such that the respective
-trailing entry is not all blank (unless of course it's the initial
-subleaf of a leaf that's not the final one).
+For Intel CPUs we record L3 cache size, hence we should also do so for
+AMD and alike.
 
-This is also in preparation of bumping the maximum basic leaf we
-support, to ensure guests not getting exposed related features won't
-observe a change in behavior.
+While making these additions, also make sure (throughout the function)
+that we don't needlessly overwrite prior values when the new value to be
+stored is zero.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v3: Record the actual non-empty subleaf in p->basic.raw[0x7], rather
-    than subleaf 0. Re-base over Viridian leaf 40000005 addition.
-v2: New.
+I have to admit though that I'm not convinced the sole real use of the
+field (in flush_area_local()) is a good one - flushing an entire L3's
+worth of lines via CLFLUSH may not be more efficient than using WBINVD.
+But I didn't measure it (yet).
 
---- a/tools/tests/cpu-policy/test-cpu-policy.c
-+++ b/tools/tests/cpu-policy/test-cpu-policy.c
-@@ -8,10 +8,13 @@
- #include <err.h>
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -240,28 +240,41 @@ int get_model_name(struct cpuinfo_x86 *c
  
- #include <xen-tools/libs.h>
-+#include <xen/asm/x86-defns.h>
- #include <xen/asm/x86-vendors.h>
- #include <xen/lib/x86/cpu-policy.h>
- #include <xen/domctl.h>
- 
-+#define XSTATE_FP_SSE  (X86_XCR0_FP | X86_XCR0_SSE)
-+
- static unsigned int nr_failures;
- #define fail(fmt, ...)                          \
- ({                                              \
-@@ -553,6 +556,103 @@ static void test_cpuid_out_of_range_clea
-     }
- }
- 
-+static void test_cpuid_maximum_leaf_shrinking(void)
-+{
-+    static const struct test {
-+        const char *name;
-+        struct cpuid_policy p;
-+    } tests[] = {
-+        {
-+            .name = "basic",
-+            .p = {
-+                /* Very basic information only. */
-+                .basic.max_leaf = 1,
-+                .basic.raw_fms = 0xc2,
-+            },
-+        },
-+        {
-+            .name = "cache",
-+            .p = {
-+                /* Cache subleaves present. */
-+                .basic.max_leaf = 4,
-+                .cache.subleaf[0].type = 1,
-+            },
-+        },
-+        {
-+            .name = "feat#0",
-+            .p = {
-+                /* Subleaf 0 only with some valid bit. */
-+                .basic.max_leaf = 7,
-+                .feat.max_subleaf = 0,
-+                .feat.fsgsbase = 1,
-+            },
-+        },
-+        {
-+            .name = "feat#1",
-+            .p = {
-+                /* Subleaf 1 only with some valid bit. */
-+                .basic.max_leaf = 7,
-+                .feat.max_subleaf = 1,
-+                .feat.avx_vnni = 1,
-+            },
-+        },
-+        {
-+            .name = "topo",
-+            .p = {
-+                /* Topology subleaves present. */
-+                .basic.max_leaf = 0xb,
-+                .topo.subleaf[0].type = 1,
-+            },
-+        },
-+        {
-+            .name = "xstate",
-+            .p = {
-+                /* First subleaf always valid (and then non-zero). */
-+                .basic.max_leaf = 0xd,
-+                .xstate.xcr0_low = XSTATE_FP_SSE,
-+            },
-+        },
-+        {
-+            .name = "extd",
-+            .p = {
-+                /* Commonly available information only. */
-+                .extd.max_leaf = 0x80000008,
-+                .extd.maxphysaddr = 0x28,
-+                .extd.maxlinaddr = 0x30,
-+            },
-+        },
-+    };
-+
-+    printf("Testing CPUID maximum leaf shrinking:\n");
-+
-+    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
-+    {
-+        const struct test *t = &tests[i];
-+        struct cpuid_policy *p = memdup(&t->p);
-+
-+        p->basic.max_leaf = ARRAY_SIZE(p->basic.raw) - 1;
-+        p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
-+        p->extd.max_leaf = 0x80000000 | (ARRAY_SIZE(p->extd.raw) - 1);
-+
-+        x86_cpuid_policy_shrink_max_leaves(p);
-+
-+        /* Check the the resulting max (sub)leaf values against expecations. */
-+        if ( p->basic.max_leaf != t->p.basic.max_leaf )
-+             fail("  Test %s basic fail - expected %#x, got %#x\n",
-+                  t->name, t->p.basic.max_leaf, p->basic.max_leaf);
-+
-+        if ( p->extd.max_leaf != t->p.extd.max_leaf )
-+             fail("  Test %s extd fail - expected %#x, got %#x\n",
-+                  t->name, t->p.extd.max_leaf, p->extd.max_leaf);
-+
-+        if ( p->feat.max_subleaf != t->p.feat.max_subleaf )
-+             fail("  Test %s feat fail - expected %#x, got %#x\n",
-+                  t->name, t->p.feat.max_subleaf, p->feat.max_subleaf);
-+
-+        free(p);
-+    }
-+}
-+
- static void test_is_compatible_success(void)
+ void display_cacheinfo(struct cpuinfo_x86 *c)
  {
-     static struct test {
-@@ -668,6 +768,7 @@ int main(int argc, char **argv)
-     test_cpuid_serialise_success();
-     test_cpuid_deserialise_failure();
-     test_cpuid_out_of_range_clearing();
-+    test_cpuid_maximum_leaf_shrinking();
+-	unsigned int dummy, ecx, edx, l2size;
++	unsigned int dummy, ecx, edx, size;
  
-     test_msr_serialise_success();
-     test_msr_deserialise_failure();
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -341,6 +341,8 @@ static void __init calculate_host_policy
-         p->extd.raw[0xa].d |= ((1u << SVM_FEATURE_VMCBCLEAN) |
-                                (1u << SVM_FEATURE_TSCRATEMSR));
-     }
+ 	if (c->extended_cpuid_level >= 0x80000005) {
+ 		cpuid(0x80000005, &dummy, &dummy, &ecx, &edx);
+-		if (opt_cpu_info)
+-			printk("CPU: L1 I cache %dK (%d bytes/line),"
+-			              " D cache %dK (%d bytes/line)\n",
+-			       edx>>24, edx&0xFF, ecx>>24, ecx&0xFF);
+-		c->x86_cache_size=(ecx>>24)+(edx>>24);	
++		if ((edx | ecx) >> 24) {
++			if (opt_cpu_info)
++				printk("CPU: L1 I cache %uK (%u bytes/line),"
++				              " D cache %uK (%u bytes/line)\n",
++				       edx >> 24, edx & 0xFF, ecx >> 24, ecx & 0xFF);
++			c->x86_cache_size = (ecx >> 24) + (edx >> 24);
++		}
+ 	}
+ 
+ 	if (c->extended_cpuid_level < 0x80000006)	/* Some chips just has a large L1. */
+ 		return;
+ 
+-	ecx = cpuid_ecx(0x80000006);
+-	l2size = ecx >> 16;
+-	
+-	c->x86_cache_size = l2size;
+-
+-	if (opt_cpu_info)
+-		printk("CPU: L2 Cache: %dK (%d bytes/line)\n",
+-		       l2size, ecx & 0xFF);
++	cpuid(0x80000006, &dummy, &dummy, &ecx, &edx);
 +
-+    x86_cpuid_policy_shrink_max_leaves(p);
++	size = ecx >> 16;
++	if (size) {
++		c->x86_cache_size = size;
++
++		if (opt_cpu_info)
++			printk("CPU: L2 Cache: %uK (%u bytes/line)\n",
++			       size, ecx & 0xFF);
++	}
++
++	size = edx >> 18;
++	if (size) {
++		c->x86_cache_size = size * 512;
++
++		if (opt_cpu_info)
++			printk("CPU: L3 Cache: %uM (%u bytes/line)\n",
++			       (size + (size & 1)) >> 1, edx & 0xFF);
++	}
  }
  
- static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-@@ -410,6 +412,8 @@ static void __init calculate_pv_max_poli
-     recalculate_xstate(p);
- 
-     p->extd.raw[0xa] = EMPTY_LEAF; /* No SVM for PV guests. */
-+
-+    x86_cpuid_policy_shrink_max_leaves(p);
- }
- 
- static void __init calculate_pv_def_policy(void)
-@@ -430,6 +434,8 @@ static void __init calculate_pv_def_poli
-     sanitise_featureset(pv_featureset);
-     cpuid_featureset_to_policy(pv_featureset, p);
-     recalculate_xstate(p);
-+
-+    x86_cpuid_policy_shrink_max_leaves(p);
- }
- 
- static void __init calculate_hvm_max_policy(void)
-@@ -495,6 +501,8 @@ static void __init calculate_hvm_max_pol
-     sanitise_featureset(hvm_featureset);
-     cpuid_featureset_to_policy(hvm_featureset, p);
-     recalculate_xstate(p);
-+
-+    x86_cpuid_policy_shrink_max_leaves(p);
- }
- 
- static void __init calculate_hvm_def_policy(void)
-@@ -519,6 +527,8 @@ static void __init calculate_hvm_def_pol
-     sanitise_featureset(hvm_featureset);
-     cpuid_featureset_to_policy(hvm_featureset, p);
-     recalculate_xstate(p);
-+
-+    x86_cpuid_policy_shrink_max_leaves(p);
- }
- 
- void __init init_guest_cpuid(void)
-@@ -699,6 +709,8 @@ void recalculate_cpuid_policy(struct dom
- 
-     if ( !p->extd.page1gb )
-         p->extd.raw[0x19] = EMPTY_LEAF;
-+
-+    x86_cpuid_policy_shrink_max_leaves(p);
- }
- 
- int init_domain_cpuid_policy(struct domain *d)
---- a/xen/arch/x86/hvm/viridian/viridian.c
-+++ b/xen/arch/x86/hvm/viridian/viridian.c
-@@ -124,7 +124,15 @@ void cpuid_viridian_leaves(const struct
-     switch ( leaf )
-     {
-     case 0:
--        res->a = 0x40000006; /* Maximum leaf */
-+        /* Maximum leaf */
-+        cpuid_viridian_leaves(v, 0x40000006, 0, res);
-+        if ( res->a | res->b | res->c | res->d )
-+            res->a = 0x40000006;
-+        else
-+        {
-+            cpuid_viridian_leaves(v, 0x40000005, 0, res);
-+            res->a = 0x40000005 - !(res->a | res->b | res->c | res->d);
-+        }
-         memcpy(&res->b, "Micr", 4);
-         memcpy(&res->c, "osof", 4);
-         memcpy(&res->d, "t Hv", 4);
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -964,13 +964,15 @@ void cpuid_hypervisor_leaves(const struc
-     uint32_t base = is_viridian_domain(d) ? 0x40000100 : 0x40000000;
-     uint32_t idx  = leaf - base;
-     unsigned int limit = is_viridian_domain(d) ? p->hv2_limit : p->hv_limit;
-+    unsigned int dflt = is_pv_domain(d) ? XEN_CPUID_MAX_PV_NUM_LEAVES
-+                                        : XEN_CPUID_MAX_HVM_NUM_LEAVES;
- 
-     if ( limit == 0 )
-         /* Default number of leaves */
--        limit = XEN_CPUID_MAX_NUM_LEAVES;
-+        limit = dflt;
-     else
-         /* Clamp toolstack value between 2 and MAX_NUM_LEAVES. */
--        limit = min(max(limit, 2u), XEN_CPUID_MAX_NUM_LEAVES + 0u);
-+        limit = min(max(limit, 2u), dflt);
- 
-     if ( idx > limit )
-         return;
---- a/xen/include/public/arch-x86/cpuid.h
-+++ b/xen/include/public/arch-x86/cpuid.h
-@@ -113,6 +113,10 @@
- /* Max. address width in bits taking memory hotplug into account. */
- #define XEN_CPUID_MACHINE_ADDRESS_WIDTH_MASK (0xffu << 0)
- 
--#define XEN_CPUID_MAX_NUM_LEAVES 5
-+#define XEN_CPUID_MAX_PV_NUM_LEAVES 5
-+#define XEN_CPUID_MAX_HVM_NUM_LEAVES 4
-+#define XEN_CPUID_MAX_NUM_LEAVES \
-+    (XEN_CPUID_MAX_PV_NUM_LEAVES > XEN_CPUID_MAX_HVM_NUM_LEAVES ? \
-+     XEN_CPUID_MAX_PV_NUM_LEAVES : XEN_CPUID_MAX_HVM_NUM_LEAVES)
- 
- #endif /* __XEN_PUBLIC_ARCH_X86_CPUID_H__ */
---- a/xen/include/xen/lib/x86/cpuid.h
-+++ b/xen/include/xen/lib/x86/cpuid.h
-@@ -351,6 +351,13 @@ void x86_cpuid_policy_fill_native(struct
-  */
- void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p);
- 
-+/**
-+ * Shrink max leaf/subleaf values such that the last respective valid entry
-+ * isn't all blank.  While permitted by the spec, such extraneous leaves may
-+ * provide undue "hints" to guests.
-+ */
-+void x86_cpuid_policy_shrink_max_leaves(struct cpuid_policy *p);
-+
- #ifdef __XEN__
- #include <public/arch-x86/xen.h>
- typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -236,6 +236,45 @@ void x86_cpuid_policy_clear_out_of_range
-                 ARRAY_SIZE(p->extd.raw) - 1);
- }
- 
-+void x86_cpuid_policy_shrink_max_leaves(struct cpuid_policy *p)
-+{
-+    unsigned int i;
-+
-+    p->basic.raw[0x4] = p->cache.raw[0];
-+
-+    for ( i = p->feat.max_subleaf; i; --i )
-+        if ( p->feat.raw[i].a | p->feat.raw[i].b |
-+             p->feat.raw[i].c | p->feat.raw[i].d )
-+            break;
-+    p->feat.max_subleaf = i;
-+    p->basic.raw[0x7] = p->feat.raw[i];
-+
-+    p->basic.raw[0xb] = p->topo.raw[0];
-+
-+    /*
-+     * Due to the way xstate gets handled in the hypervisor (see
-+     * recalculate_xstate()) there is (for now at least) no need to fiddle
-+     * with the xstate subleaves (IOW we assume they're already in consistent
-+     * shape, for coming from either hardware or recalculate_xstate()).
-+     */
-+    p->basic.raw[0xd] = p->xstate.raw[0];
-+
-+    for ( i = p->basic.max_leaf; i; --i )
-+        if ( p->basic.raw[i].a | p->basic.raw[i].b |
-+             p->basic.raw[i].c | p->basic.raw[i].d )
-+            break;
-+    p->basic.max_leaf = i;
-+
-+    for ( i = p->extd.max_leaf & 0xffff; i; --i )
-+        if ( p->extd.raw[i].a | p->extd.raw[i].b |
-+             p->extd.raw[i].c | p->extd.raw[i].d )
-+            break;
-+    if ( i | p->extd.raw[0].b | p->extd.raw[0].c | p->extd.raw[0].d )
-+        p->extd.max_leaf = 0x80000000 | i;
-+    else
-+        p->extd.max_leaf = 0;
-+}
-+
- const uint32_t *x86_cpuid_lookup_deep_deps(uint32_t feature)
- {
-     static const uint32_t deep_features[] = INIT_DEEP_FEATURES;
+ static inline u32 _phys_pkg_id(u32 cpuid_apic, int index_msb)
 
