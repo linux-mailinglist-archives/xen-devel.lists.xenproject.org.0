@@ -2,62 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89BB6362507
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 18:05:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111899.213967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E287036250B
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 18:05:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111904.213979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXQxu-0001JR-IC; Fri, 16 Apr 2021 16:05:06 +0000
+	id 1lXQyV-0001Pe-W9; Fri, 16 Apr 2021 16:05:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111899.213967; Fri, 16 Apr 2021 16:05:06 +0000
+Received: by outflank-mailman (output) from mailman id 111904.213979; Fri, 16 Apr 2021 16:05:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXQxu-0001J2-EX; Fri, 16 Apr 2021 16:05:06 +0000
-Received: by outflank-mailman (input) for mailman id 111899;
- Fri, 16 Apr 2021 16:05:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lXQyV-0001PE-Sa; Fri, 16 Apr 2021 16:05:43 +0000
+Received: by outflank-mailman (input) for mailman id 111904;
+ Fri, 16 Apr 2021 16:05:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tm2+=JN=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1lXQxs-0001Ix-Pk
- for xen-devel@lists.xenproject.org; Fri, 16 Apr 2021 16:05:04 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [40.107.6.78]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab4dbcf2-2439-43e5-b5ad-50ba054c872c;
- Fri, 16 Apr 2021 16:05:02 +0000 (UTC)
-Received: from AM6PR0502CA0057.eurprd05.prod.outlook.com
- (2603:10a6:20b:56::34) by AS8PR08MB7045.eurprd08.prod.outlook.com
- (2603:10a6:20b:345::7) with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=ZDfs=JN=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+ id 1lXQyU-0001Or-Cz
+ for xen-devel@lists.xenproject.org; Fri, 16 Apr 2021 16:05:42 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.7.52]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6c10c664-d123-4823-8b7d-b9f1a868642b;
+ Fri, 16 Apr 2021 16:05:37 +0000 (UTC)
+Received: from AM6P192CA0046.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:82::23)
+ by AM6PR08MB3176.eurprd08.prod.outlook.com (2603:10a6:209:46::25) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Fri, 16 Apr
- 2021 16:05:01 +0000
-Received: from VE1EUR03FT044.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:56:cafe::52) by AM6PR0502CA0057.outlook.office365.com
- (2603:10a6:20b:56::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.19 via Frontend
- Transport; Fri, 16 Apr 2021 16:05:01 +0000
+ 2021 16:05:35 +0000
+Received: from AM5EUR03FT035.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:82::4) by AM6P192CA0046.outlook.office365.com
+ (2603:10a6:209:82::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16 via Frontend
+ Transport; Fri, 16 Apr 2021 16:05:35 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT044.mail.protection.outlook.com (10.152.19.106) with
+ AM5EUR03FT035.mail.protection.outlook.com (10.152.16.119) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4042.16 via Frontend Transport; Fri, 16 Apr 2021 16:05:00 +0000
-Received: ("Tessian outbound 9bcb3c8d6cb1:v90");
- Fri, 16 Apr 2021 16:05:00 +0000
-Received: from 914cdf3e778f.1
+ 15.20.4042.16 via Frontend Transport; Fri, 16 Apr 2021 16:05:35 +0000
+Received: ("Tessian outbound 4ee49f77c636:v90");
+ Fri, 16 Apr 2021 16:05:35 +0000
+Received: from 960b9dbb921f.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- BF33E2CF-17E4-4358-B3E6-606C16F788AF.1; 
- Fri, 16 Apr 2021 16:04:51 +0000
+ D6329339-139F-4889-84A6-E250668077F9.1; 
+ Fri, 16 Apr 2021 16:05:29 +0000
 Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 914cdf3e778f.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 960b9dbb921f.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 16 Apr 2021 16:04:51 +0000
-Received: from VE1PR08MB5696.eurprd08.prod.outlook.com (2603:10a6:800:1ae::15)
- by VI1PR0802MB2333.eurprd08.prod.outlook.com (2603:10a6:800:9f::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.18; Fri, 16 Apr
- 2021 16:04:49 +0000
-Received: from VE1PR08MB5696.eurprd08.prod.outlook.com
- ([fe80::b538:7f7:f4f3:8c0e]) by VE1PR08MB5696.eurprd08.prod.outlook.com
- ([fe80::b538:7f7:f4f3:8c0e%7]) with mapi id 15.20.4042.019; Fri, 16 Apr 2021
- 16:04:48 +0000
+ Fri, 16 Apr 2021 16:05:28 +0000
+Received: from DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10)
+ by DB7PR08MB3609.eurprd08.prod.outlook.com (2603:10a6:10:42::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Fri, 16 Apr
+ 2021 16:05:27 +0000
+Received: from DB7PR08MB3500.eurprd08.prod.outlook.com
+ ([fe80::5959:35df:3647:b78d]) by DB7PR08MB3500.eurprd08.prod.outlook.com
+ ([fe80::5959:35df:3647:b78d%7]) with mapi id 15.20.4020.023; Fri, 16 Apr 2021
+ 16:05:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,12 +70,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab4dbcf2-2439-43e5-b5ad-50ba054c872c
+X-Inumbo-ID: 6c10c664-d123-4823-8b7d-b9f1a868642b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXqBPmRtrTxv65RFtb2V6PD9vCaVGJ6A0iv/qJkl4Mo=;
- b=2ul2CX+bWdza83eCPqMli2ih7vHO8Wj4EQs4huWyyZfaNIeRgpNrBSMnqnKxZZCfUGi0o0QZewP0GY1sfANYPOp1UBWRh0T53joCpFn5uZF3Zuolc9Xb3zRDCjNDoaaLMM6yXdj+gFEBo5kTyORrRGxCcihmncQSWXTW0dQoKHY=
+ bh=8KFReuE0FmVr3GvtQBInnd0NKFlbfuUdNy9x3RKwJ6g=;
+ b=iAuoDfk+pOn7svbsemv8D1y9ZxRdzIhoJ/ztW+gbXbj2KNZPxLoCBOlBVpDHppqxAlA7EmNqugM/Epuf921zo3T7xga4AjgPmDl0VPA6vwR8oibZ1hiqRdytdFbaVLO6ZUWVN7lvaPCpBbVhXYc8H38/4T6oQJjsmTE5shuBjQE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -83,347 +84,159 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 3a726e488d8344c9
+X-CR-MTA-CID: 9be9b89c10df6db4
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IulZrKUopanTRkgjSUwFHNzzNxOvry83LmutINzMrm9nXd56CRW7Wd6H2SucCpF72MHnI0Ck8AgceeAic+hdDP7aot5iGJhqrEkr6km+kbfdTCg/PwXM27t2czOAWWYS9c276CxIlHGiPclSRsUsQ0ZW+/vX6SajOIgtU8W6F7Tnh3F6cogRy7YOx0Z2edAidIzoLqJriHM3zNjRgg19SEOk3HHJ5KD91+mg/FOHijvSMXQorVoRcktAUiQkSser6sKk5YMn9p2pr4HOgTafIYtlnGQ3lC6zBhCRFIQdLhj8v2ORKthEP1p2UPnxmQKq2Ghy8RqeSg1JT5frD6FKug==
+ b=kuKpRaLkTCFwnM5nbDYbaBJZ7KRNfcTv9yMNTNNtK2Pq4W2lNtfNSNTCcHwXm3ZKYYp472ItpgT5EkUBJ0+IRa/VnDJje0XyHz+1uWK/v+d4JTxzO+cEDTgk1/coQ0htdRofqY71F6mpnKLj+xb50a+rCajBzBTWUQK1mq9MAUgpxZPqkDoceTFVo+Lz9S1Ilh43iuxE2xEUoeRkVseTIaulMyOlwuNdckURPFeV4OvHO6Xw6WxuftB7NzFsFJ075VxDXRwH7aMOB1v9VehySUVrz3oqMjagHRQ5ZZqCTuMPtdFQs3tuLitKGHOGN2a8V48H7VHqffilpbbOTjE6kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXqBPmRtrTxv65RFtb2V6PD9vCaVGJ6A0iv/qJkl4Mo=;
- b=AnoUhqwITrtDcj4HQqsDkaadlne+CduiKxGmoHShd9YdWnH/DC0tg2n18tBtpHiw6BdLPNAlx/o9u0NS4LwurbZFmS1pZIL9tdfOkKdRO3wHPEGPMcrRgVeAQTJnIjYm1Eq8ri1F5SwSFz/4/b3dYlL8b7iYDdvNFOrnaHr1V3hHO5h+cgaZOMQpVkgK/Y4ZkOWcXJVSR8r1V6rvbYjKzeEkmz1U55bwubRFjs5Gz+6qTam+YFdXKa8OgX0j+Vrj2NQxTh6pfI1NVXed+BBuFMYxhlRSrytnuNh5k9GKlsphgtUQyjNiY5YWNlGR2KlZSK/WQpHdyTXLcHBCDf/eng==
+ bh=8KFReuE0FmVr3GvtQBInnd0NKFlbfuUdNy9x3RKwJ6g=;
+ b=ktDQtScD5ROVsUQN3YQ+5sGTqsP57aJHwugM8rgHUvTg3l/LCS0qUVFUfWa7M2+otOJYFhJcLmRQJFXdidav/CyFMikKmwMBbzcaEnd0R8vzdMJDo5LCqsM9eHTitjb1BNzuUphxLZrXKkrsMggo1dZD9DBqJMObZKAkaYuh55QpYuZfh3iu50plfyjcY9BBAyViiej1EmT4PWDWuGMziLrFjPFywWIqgSQ4E6xWOtR7TkSHSmHdmee+qeGulGuH/iVy6SsH1yMhardVIKwxZT9WBIMEV7v5e8/7zjZvRq+YWTsQlMOQq7lVNdlehA/arhqarvEG/qwD9Nu5XYfcXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXqBPmRtrTxv65RFtb2V6PD9vCaVGJ6A0iv/qJkl4Mo=;
- b=2ul2CX+bWdza83eCPqMli2ih7vHO8Wj4EQs4huWyyZfaNIeRgpNrBSMnqnKxZZCfUGi0o0QZewP0GY1sfANYPOp1UBWRh0T53joCpFn5uZF3Zuolc9Xb3zRDCjNDoaaLMM6yXdj+gFEBo5kTyORrRGxCcihmncQSWXTW0dQoKHY=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+ bh=8KFReuE0FmVr3GvtQBInnd0NKFlbfuUdNy9x3RKwJ6g=;
+ b=iAuoDfk+pOn7svbsemv8D1y9ZxRdzIhoJ/ztW+gbXbj2KNZPxLoCBOlBVpDHppqxAlA7EmNqugM/Epuf921zo3T7xga4AjgPmDl0VPA6vwR8oibZ1hiqRdytdFbaVLO6ZUWVN7lvaPCpBbVhXYc8H38/4T6oQJjsmTE5shuBjQE=
+From: Rahul Singh <Rahul.Singh@arm.com>
 To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
- Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Julien Grall
-	<julien@amazon.com>
-Subject: Re: [PATCH] xen/arm: guest_walk: Only generate necessary
- offsets/masks
-Thread-Topic: [PATCH] xen/arm: guest_walk: Only generate necessary
- offsets/masks
-Thread-Index: AQHXKjesiGPIh/24CEW4HMn8sjGqgKq3YAMA
-Date: Fri, 16 Apr 2021 16:04:48 +0000
-Message-ID: <964513D8-D6CD-4419-9804-CF77363B81FD@arm.com>
-References: <20210405162046.9353-1-julien@xen.org>
-In-Reply-To: <20210405162046.9353-1-julien@xen.org>
-Accept-Language: en-GB, en-US
+CC: xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: smmuv1: Revert associating the group pointer
+ with the S2CR
+Thread-Topic: [PATCH] xen/arm: smmuv1: Revert associating the group pointer
+ with the S2CR
+Thread-Index: AQHXMrMxW8Hpcs9A7Ei4/6fuLjr236q3NfuAgAAHXICAAAYsgIAAC7YA
+Date: Fri, 16 Apr 2021 16:05:26 +0000
+Message-ID: <4C9CE5FC-551A-4F26-B975-FC7F33877FF2@arm.com>
+References:
+ <d2e4ed0eaf25a6b581fdec63cd31a742f3182118.1618572178.git.rahul.singh@arm.com>
+ <6e75d112-6cc1-4b7c-9751-4064b3250dbf@xen.org>
+ <E2FE265F-B7A4-45C3-BA9C-3EF9109F8B5E@arm.com>
+ <8569c856-8838-e5d1-b653-e7eb476dacdc@xen.org>
+In-Reply-To: <8569c856-8838-e5d1-b653-e7eb476dacdc@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.60.0.2.21)
 Authentication-Results-Original: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [154.57.226.134]
+x-originating-ip: [80.1.41.211]
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 56407a45-4679-477a-88cc-08d900f163c8
-x-ms-traffictypediagnostic: VI1PR0802MB2333:|AS8PR08MB7045:
+X-MS-Office365-Filtering-Correlation-Id: 96b44b8d-a36a-4bf5-bca5-08d900f1783d
+x-ms-traffictypediagnostic: DB7PR08MB3609:|AM6PR08MB3176:
+x-ms-exchange-transport-forked: True
 X-Microsoft-Antispam-PRVS:
-	<AS8PR08MB70452D38F1AF6D8CE9684F249D4C9@AS8PR08MB7045.eurprd08.prod.outlook.com>
+	<AM6PR08MB3176DF8031A36F67A9C0ED72FC4C9@AM6PR08MB3176.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
 x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- jR4PWYnLnKVVmOrhbYkruJDOhKQ+o3wX3O7y0vQ/ECS88y52zgNMGjFKHrxgV+uu1qmPA7OH1WNOrPjZgUuepX6/XooDBGjJpX6wBXWO53er7ByCfp2d8wFSOyXW8q+oB64nHBitBP8rGKP0xJpWNAbh+hbND0LBv5nTgh3xiDM4Cx6LHCthYsyn/L1/ih6HssfMJzbaw35V+INrzpZzEh2TNcwQS52NlAErJVeP+UCiZiIgX+q8Yqt+Grw8X+8dBtQQkOfC8bjx6nzBDXxlsFr3NJOB1EGZH2xLO4fQLDFEEgY3WFZXSVX1lljuLf2RRFjxtCWL5YqXogmj/vr6evUNh5+mKuBfP03ZKsFJXBTP0hWD0PQ/S9GB13CN2pBey6aCN972pX/S6aNnzP0IyId9leLBE4azWiKRvM5sQcKsSpbf2pCFLlkihNi45VLe0QoXFTfl4/dA7t41ZgE4pMK6eStuZ/MsXPL/ecPFCbGiDGzFkewWr24g29PJhYjn+A6K//Gxzu1ei+ciwmHE+xRmoexv3iK2ZfSHmHADVkLAMhEqS9xNPrNcsedI3fYUECcGUznQWtHKKwaPcrK8GXZHojHGXt97+50fap2t05gXMp0c0FHSrTaF1e/aY0+nJwh2tHbmQICsSCh036HTEUV6IfM0zFH5dU5WdwXD+3s=
+ xstj2cs7nTa345REmqlhpyScrfN/2xgQnRvIAGu76kGq1d2GfY3XTNUP8Uht6HUw3Uge/lWJyVfDVSzPfM+Hy8DO3fiZHD5zW8tG7IteWtFy5FB3JiMUY3e/Ize3p93me1mxvGLNTQyiBCVoS7TZilLnrC1HVAZRRhXp32YQnc6wU6m48PzqS+0xeNRHbwui3QHVZYrj2F+g0DD6Zsd92uXI6VeutU08D6o3obj6BzRCS7IIsbxAa665dA+7674K/eLtP01K9VpucVoledWVPV19LhY2XSLrv1uR1Wslm3wB9T5WnJNN1Azbnhzse/8g7KQ7jBL5MD8d19y36G/j0Nm/We+IKff1LX1GYyE5hm6YRLQiRm8/ZPeH6Kw9xsf6ySOUp/hW2U5IPhKyezF/8cD6SgCaoCjaWzPHlSE8oHJbObcRxzCfZ46R3D2OgnDMdsMPEgYNIJZH2+6hNdLXQYGEnL/sq16sAofTvL21RLUdWdB87f4Uow0Pkw3DKrcZR6Fsv5wWUbrLnFOJEo6Z2eJAdrQR4g2Ct2UDBCPF0A3AHVlmr65pTBaQ4ep9h5oHWnwiA5ZTBZvFiGps+keV3AQFgtq+SC2n4k20oUry/t2ZKYqZKSeq4xxLAJjDgPJblUT63fXNM3ZIC09RrehNzJpwl3VjbhgupSclpmbmhRc=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5696.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(376002)(346002)(136003)(39860400002)(366004)(54906003)(6506007)(6512007)(478600001)(122000001)(6486002)(66556008)(64756008)(53546011)(8936002)(8676002)(38100700002)(186003)(5660300002)(4326008)(316002)(26005)(2906002)(33656002)(86362001)(71200400001)(83380400001)(66476007)(66946007)(76116006)(66446008)(91956017)(6916009)(2616005)(36756003)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3500.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(346002)(136003)(396003)(366004)(64756008)(36756003)(66556008)(66946007)(66476007)(186003)(66446008)(4326008)(122000001)(8676002)(54906003)(26005)(6512007)(2906002)(5660300002)(316002)(38100700002)(91956017)(2616005)(478600001)(76116006)(33656002)(53546011)(71200400001)(6506007)(6486002)(83380400001)(8936002)(6916009)(86362001)(45980500001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?EqW6SMOfoFqsiN9/mV4qqbNh8/zRYU93gc57kPjH7XUN/0Hh4S4iwPxyqMuz?=
- =?us-ascii?Q?WQGFlSWM1ucE5iTvd90b+ul13KTUbeq+aCyhf1f8as3PNHhS3uv6wo6ct05+?=
- =?us-ascii?Q?MseZpSwjViCUogDrPstULrQE0Qjz951qjEM1KGACjlbtVYLAEf7cKJgmHByv?=
- =?us-ascii?Q?01Avlwo87MDSSGYGGuvSEbj8oxci82G9jmJ38sfX34w4gPRG65ocdQBFEWI4?=
- =?us-ascii?Q?l4UbpNWy43gWUCpyCjQAHN7XhDXjxHXNNU+h6X12y0FG9cPXQTH6T2aE3lZK?=
- =?us-ascii?Q?tUk3R0sJvLjGIZN2DfCou4PCzpNAZDchSMW8SoWzDfqjn/u8xYIQX8Pbn/U1?=
- =?us-ascii?Q?8tzQRUL7jlP4zeJ8vClCb61FQo/DcwhCSzHWszlrADngtDKun5wYe8HWWwEO?=
- =?us-ascii?Q?OqSl4TGl7jH7ktefSELEPSzwbpFWzfisKYHX9sP4xMLScUigFB4aSnaIbEV0?=
- =?us-ascii?Q?iBfYa2lbF166j15STv2jsw9dpkWZBkO4mdPbcXtQrlpSK+R8lVp7bqvJ0EgZ?=
- =?us-ascii?Q?Hp/0RmBOzcBezk94FjxP3ykFXptzIv6jJb7wrrillNAdlptWIVU4akMkIlhM?=
- =?us-ascii?Q?++uMgAQM4B6zDsFNwUtMtDF4AcJ3m8MW+MtVdXbH9t7xbGs9PsKGfHJjzMXE?=
- =?us-ascii?Q?Nhsf4sSbZU1xNSYOpe0IoQcuxoFzGQCIEBHF8bxywqqGPh/88IQ7svLNmK9P?=
- =?us-ascii?Q?g13dfv2efFBhi49HbQzEJZ4WUuOUStz+Jy7T7zQ5WkvERZAFliPJmZNLIPTJ?=
- =?us-ascii?Q?Qi7iGPj12XFeaGN4gGTCsS+IrnLqnBUOq1MD+qq+Y5bs7Js87XY+V2dDfIvo?=
- =?us-ascii?Q?uD9Sca2KxfYD4iSItfWH5Wny9pUg0uGvRKrbAX90g14s2GP7ivu4T1d8sdI8?=
- =?us-ascii?Q?3lwK7DZMyRfidQX3kObS3Yjf+I4tSXZr5WqmGDu73N+AYCtc2indcPRj9TDB?=
- =?us-ascii?Q?t8i76ltcbLUvQou9/GYtIV3rT4qZzprZZyC4QGpviFv4iAw9NzqR/IbTI9BL?=
- =?us-ascii?Q?87qRCa4KXI7gB8PdXkg21jzTNFu1+F6Yl7/iKJoFbUH/ezGzGF5PJBArF999?=
- =?us-ascii?Q?AMN1EsvvaaZf1O/4/RVrgZk9qsUaB1SbwQA2jn05vQygsvnNFbbp6AApneT0?=
- =?us-ascii?Q?OD+/PBndJ7S1udxMv+yvfoOQSr4kLZr68EmHOVXExXcXb10P3MvvLF4Mh7tM?=
- =?us-ascii?Q?f7VCE/lJdMGy2n/mC2rvKJrr5r99N2tcg5uF+rHa5g25nUgGa40yQAcbfgdW?=
- =?us-ascii?Q?oYtCKJ9MEQBfQKYsRrT1ZltcBOAjh7riq7Lr0m4mvWyKEuUlpAYtf6khw+aX?=
- =?us-ascii?Q?CqJfGC5XNE1Mm0YTvmXeiRs8qv0xLpoHOx0aD2TqaRBXKQ=3D=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <D394565FBD6AB9419B0FC95FFB77A2A5@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+ =?utf-8?B?alYrMkNlWjdORXk5bjBYUnR3UmM4aVNDL0lNUGxZVWQrRm81aTF5UFVkZjli?=
+ =?utf-8?B?NFF2YVZKTnBpbXhEK0Y4OWhGQ0xvenp4SG1iNmVOdzN1Nkx4ZThFSWFMbm1u?=
+ =?utf-8?B?TS93eEM1b1hRVlRhN1paeWdVaDllL1N4cUNObUlTdHlJeXNraEYvQk9YMG5L?=
+ =?utf-8?B?WHczcEYzS2dwNVpDTHMrZnRuTlhFaXVlSGdBcUpNRlBWaTl3TFNsck9NVEwy?=
+ =?utf-8?B?WFJ3VmpoMXlvdDMyZDdrL2NuaGtVZlMrTGZPZ3NFT1dMc0RFcmNQallNdHZN?=
+ =?utf-8?B?UHhETklHSzE1NzlMM3ZLcVhJQ0dQaUlMUW9xVkNoMXovZ3FkbXhudXFIWWNk?=
+ =?utf-8?B?SGY1N0pKanljR2R5cU9wUWV1ekhoNDY0S2ZraC9Ka0dOeURjaDRoRTEwaFBE?=
+ =?utf-8?B?c2lkeGhISzZBR3ZFU2RCT2FId1dJL3lYMjcrKzhvL3dZa2ZRcEMzOEtVV0ZB?=
+ =?utf-8?B?M3FsZGRXckZpRnVBckduc25qV0c0RFpmYmRSTy9PUmFtWFdZNmk2SE8vQ250?=
+ =?utf-8?B?RzhKdUlWRVdlczl4RFNqeGx6Tk5HRW41NGxqZ0FPQVJSTlhIL0l3ZitpUTJk?=
+ =?utf-8?B?NFZpajV2T3hLSFpFN1ZlaWFqN1VTWUVHVzhuQW4wci91Y0R1L1NScmVpVWlW?=
+ =?utf-8?B?R2MwRFdvak56aVJQNDFFZVI3bUhUWVRFTkIyS0FHYmpJb2sxY2VtVFpVc1Vo?=
+ =?utf-8?B?NnA0cEQxTUFoNFQrMTZiWVZZMVRER01XNjdzZ0Q2UUZGbWxqRG0yVldENkZV?=
+ =?utf-8?B?ckJMdC9UU3orblpXeXpnc3UyOGJwcnVNa1FYSnRyYjg4MkdVTmxYVVdGZVB6?=
+ =?utf-8?B?UjRIbW8xQjkycUVaWFF1QzdScG5kL05xRmZhMEVzTmNBMERZb05zTVJjV1hO?=
+ =?utf-8?B?WmRtMkVKQWQrMU1JN1pmb0JjZWVoWkdYdWJEMFBibWhGQUhqWmhMcTYrMXRM?=
+ =?utf-8?B?RWg0R2V2R1Y1ay8zTjlMY1NXMzBBUGo5TjluKzBScm1taGtYMXhnV0hTd1Ju?=
+ =?utf-8?B?NStRNGRKY2x4YTZwa2lnaW8xaFhvUmJOVGxZNUxMTXJDVlVjcGswRkdiZjB4?=
+ =?utf-8?B?K0lMSGhjQTJ1b05oK0ZBeXdWR3hDQnYwbStPZXpqVUwwemVWeFMyQ05vbm1Y?=
+ =?utf-8?B?c0NCYWdiQytCV0c0UkVHNklCdEFHS3pxZ1NKTkNGQ3AwUTBDS1cvUVVsZ25o?=
+ =?utf-8?B?MTVRdHkrU1V2M3kvdXVqamVWM3FpVXpod1dIZ3JJSmxSbGtrc2FnUXh2RnJK?=
+ =?utf-8?B?S25iNjRhKzc0WEthWDZpSzV4UDdkUG1TQjRrNHJpWDNUZW1paE1YT0xBTG9t?=
+ =?utf-8?B?akxMQzJidVllSXQ2Y21uUlh2MWMwOG5HcWswb3ZyUzhJbndhUHVZTnlOUi8r?=
+ =?utf-8?B?N1g4enhiNnBvSHJjaFBkalRCS082cWFIZlVHTFNxTVhLTkJzTFlLOXpIbTN6?=
+ =?utf-8?B?T3VSdlhFdUpENXQ0azRrK2tkSGh6cjBzVVB3OElBaXZPdlJCY01KckNMVWZW?=
+ =?utf-8?B?TkwrSDhwNEdvTTlzV2RUSnNGOXl3R0k0eHZmQThUQ2R5RE9YYnFRN1JTcU1p?=
+ =?utf-8?B?a0w4NngxdGhReGYvM0xpLzV3YklJZ3k5TjlVU3ZNU2V4bTRMdlVUVHJuRHc3?=
+ =?utf-8?B?czdoMnhiSVc1Ym1kRmk1NFZzbUY5ak9hMUNuTjZzb2xrSlNydzZRL0RYVWYw?=
+ =?utf-8?B?N3VLZkh2K3ppLzg1V2wreW5JQURGSkdhSXJ5aGhRZ01FY0Q4eVpPRGgvTEo4?=
+ =?utf-8?Q?kc82D1IMlNOJ4hYuT+wp63HojLE1tgY+CWo8xX/?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <01A9DE35E919BA428FD72EF31933D049@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2333
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3609
 Original-Authentication-Results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT044.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT035.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	6cd849cb-aa26-4b20-9769-08d900f15c81
+	6c4fbbdf-be2c-443c-5ea5-08d900f1733f
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	jZO5LzOpIK75XWK1Zf98X6geZML1jdA1k4eoB+eiRs/xha4GUk5UDB5GoLXAaCTt9sJup8CsQdMwATQWeObshGiwOUG+kKBZjxxEB1lsfl/OQ5Q9rn75ZPhdnWMaTTb2Waxr8gy0NQstSzmXuO6OpisYX8pdc9oWJdLCCftrfuX4ER8tdGc67aEbsJ2o2IgZp+B+5lsFY/UAi8dLeQqdxEYSEE/+EMbCHSFU9/t2xd80c13FNn9NbwyR8zn4MWJxkA1hhuTS/izxuUVkEb+pPAPQ6toZCNgOwQhu5DV+sGwquKCI51g+ZX6exWe35isPMnJYvROjwuLlMRW2Gs1ytgN5q9KO4O4sHxzGXDg5cgx1xWHXQAJIlgp3LV2VNicQcSkPlTriytRBKGTegliLp0T9EC0JwBu5WJR67G18DY1aYsjZHiL4hSYC8pX/Uv60OZD0NMpPJFUUA1Zi0ToxXX9u7tm9bsWu8uZIsmsg9pwS0lPWfBNu6d/+yOpGZNJhZv3uz0feddeicby6EJ4FyFDc5gCkt1Hc+vGp+dzmT0lAyhq0NuV/AGfEx8hzvrbZIZcocGku3O+dggLFVXH1iuZhhRDT06OQqj3OIrAz2ZpTpZh9+iPKHEzYc75FdWnDwyxd8n19TJaZYCpYoMEB0xlOmAs/1jnRH2v/m8a6Fl8=
+	hLnsiBgf9ay62PJEw2BkAiksZ3JYHC3tFbVkOrv+Grh18vhMeYNpF4oPmP1B1kQw0SEMyObKOYf4KKGhy+c+1F4DmC5ObBWED0e6SoH8igI6nvEj6JO91s48Zd2hXVd+SJ7jWi1mnCtzkQhEufgUI1VRk1Ar6gsP1ehHRbbpoUZB8uGtuAXye+KIdE5aTkhYH4AAKvNOBPUWE1PWZN5kXwPdTooyLqMZNfyHq5Xx9DM7iuNnPHKtTbS9lNWOAwWpBxXFjqNkV9oBvbDSzTOqTOzxvKddqmb7OFQu4SSal8bIEeKFjmacz3BMFpR4yzfLE713DZYVcY0bwmebiq63g69qkMBqpFMMA8lgQRBHSyvDrDEBNC8u+HiH5PgCPLNn4OtGTWnhSUuKhJWH1zBzqCAMIszezkq+YkGSyWx2+vg+wU5W35lPFf/1gGTqw7fXp71PoJe+JRRd1yJGv0bMk7WEZ5xCgaMlmbs/3s2mkuqUz22fPYpp8Boqc3UYZMlENcwWPcMTzNSXe4G3cIR+5JXfPkzaKRcNkrMBoDmRC+Y0XGtMEG8yGuDSkZAqDVjADhRcB4CsdBae+g3WaS2Wr0hygvSJBDmfWSleW04qKWQR9lYs/AalEhBLh5IFCyncMYcjise1TCSg9H6U8o09k6U1+vmgxlj8i8z36Ty/M/Y=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(346002)(396003)(39860400002)(376002)(36840700001)(46966006)(47076005)(186003)(54906003)(6862004)(36756003)(33656002)(81166007)(8676002)(82310400003)(53546011)(70586007)(4326008)(336012)(82740400003)(70206006)(36860700001)(478600001)(356005)(83380400001)(6512007)(6486002)(5660300002)(107886003)(2906002)(26005)(316002)(6506007)(2616005)(86362001)(8936002);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(376002)(136003)(39860400002)(346002)(36840700001)(46966006)(8936002)(5660300002)(54906003)(33656002)(6486002)(316002)(86362001)(356005)(83380400001)(53546011)(36756003)(336012)(47076005)(6506007)(26005)(2616005)(8676002)(70206006)(36860700001)(82740400003)(478600001)(82310400003)(6512007)(186003)(107886003)(6862004)(70586007)(81166007)(2906002)(4326008);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2021 16:05:00.9121
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2021 16:05:35.3486
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56407a45-4679-477a-88cc-08d900f163c8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96b44b8d-a36a-4bf5-bca5-08d900f1783d
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT044.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT035.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7045
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3176
 
-Hi Julien,
-
-> On 5 Apr 2021, at 17:20, Julien Grall <julien@xen.org> wrote:
->=20
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> At the moment, we are computing offsets/masks for each level and
-> granularity. This is a bit of waste given that we only need to
-> know the offsets/masks for the granularity used by the guest.
->=20
-> All the LPAE information can easily be inferred with just the
-> page shift for a given granularity and the level.
->=20
-> So rather than providing a set of helpers per granularity, we can
-> provide a single set that takes the granularity and the level in
-> parameters.
->=20
-> With the new helpers in place, we can rework guest_walk_ld() to
-> only compute necessary information.
->=20
-> Signed-off-by: Julien Grall <julien@amazon.com>
-
-Very nice cleanup.
-
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-I validated the changes on arm64 but not on arm32.
-
-Regards
-Bertrand
-
-> ---
-> xen/arch/arm/guest_walk.c  | 37 ++---------------
-> xen/include/asm-arm/lpae.h | 82 +++++++++++++-------------------------
-> 2 files changed, 30 insertions(+), 89 deletions(-)
->=20
-> diff --git a/xen/arch/arm/guest_walk.c b/xen/arch/arm/guest_walk.c
-> index b4496c4c86c6..87de40d0cb68 100644
-> --- a/xen/arch/arm/guest_walk.c
-> +++ b/xen/arch/arm/guest_walk.c
-> @@ -372,38 +372,6 @@ static bool guest_walk_ld(const struct vcpu *v,
->     register_t tcr =3D READ_SYSREG(TCR_EL1);
->     struct domain *d =3D v->domain;
->=20
-> -#define OFFSETS(gva, gran)              \
-> -{                                       \
-> -    zeroeth_table_offset_##gran(gva),   \
-> -    first_table_offset_##gran(gva),     \
-> -    second_table_offset_##gran(gva),    \
-> -    third_table_offset_##gran(gva)      \
-> -}
-> -
-> -    const paddr_t offsets[3][4] =3D {
-> -        OFFSETS(gva, 4K),
-> -        OFFSETS(gva, 16K),
-> -        OFFSETS(gva, 64K)
-> -    };
-> -
-> -#undef OFFSETS
-> -
-> -#define MASKS(gran)                     \
-> -{                                       \
-> -    zeroeth_size(gran) - 1,             \
-> -    first_size(gran) - 1,               \
-> -    second_size(gran) - 1,              \
-> -    third_size(gran) - 1                \
-> -}
-> -
-> -    static const paddr_t masks[3][4] =3D {
-> -        MASKS(4K),
-> -        MASKS(16K),
-> -        MASKS(64K)
-> -    };
-> -
-> -#undef MASKS
-> -
->     static const unsigned int grainsizes[3] =3D {
->         PAGE_SHIFT_4K,
->         PAGE_SHIFT_16K,
-> @@ -519,7 +487,7 @@ static bool guest_walk_ld(const struct vcpu *v,
->          * Add offset given by the GVA to the translation table base addr=
-ess.
->          * Shift the offset by 3 as it is 8-byte aligned.
->          */
-> -        paddr |=3D offsets[gran][level] << 3;
-> +        paddr |=3D LPAE_TABLE_INDEX_GS(grainsizes[gran], level, gva) << =
-3;
->=20
->         /* Access the guest's memory to read only one PTE. */
->         ret =3D access_guest_memory_by_ipa(d, paddr, &pte, sizeof(lpae_t)=
-, false);
-> @@ -572,7 +540,8 @@ static bool guest_walk_ld(const struct vcpu *v,
->=20
->     /* Make sure that the lower bits of the PTE's base address are zero. =
-*/
->     mask =3D GENMASK_ULL(47, grainsizes[gran]);
-> -    *ipa =3D (pfn_to_paddr(pte.walk.base) & mask) | (gva & masks[gran][l=
-evel]);
-> +    *ipa =3D (pfn_to_paddr(pte.walk.base) & mask) |
-> +        (gva & (LEVEL_SIZE_GS(grainsizes[gran], level) - 1));
->=20
->     /*
->      * Set permissions so that the caller can check the flags by herself.=
- Note
-> diff --git a/xen/include/asm-arm/lpae.h b/xen/include/asm-arm/lpae.h
-> index 4797f9cee494..e94de2e7d8e8 100644
-> --- a/xen/include/asm-arm/lpae.h
-> +++ b/xen/include/asm-arm/lpae.h
-> @@ -160,63 +160,35 @@ static inline bool lpae_is_superpage(lpae_t pte, un=
-signed int level)
-> #define lpae_set_mfn(pte, mfn)  ((pte).walk.base =3D mfn_x(mfn))
->=20
-> /*
-> - * AArch64 supports pages with different sizes (4K, 16K, and 64K). To en=
-able
-> - * page table walks for various configurations, the following helpers en=
-able
-> - * walking the translation table with varying page size granularities.
-> + * AArch64 supports pages with different sizes (4K, 16K, and 64K).
-> + * Provide a set of generic helpers that will compute various
-> + * information based on the page granularity.
-> + *
-> + * Note the parameter 'gs' is the page shift of the granularity used.
-> + * Some macro will evaluate 'gs' twice rather than storing in a
-> + * variable. This is to allow using the macros in assembly.
-> + */
-> +
-> +/*
-> + * Granularity | PAGE_SHIFT | LPAE_SHIFT
-> + * -------------------------------------
-> + * 4K          | 12         | 9
-> + * 16K         | 14         | 11
-> + * 64K         | 16         | 13
-> + *
-> + * This is equivalent to LPAE_SHIFT =3D PAGE_SHIFT - 3
->  */
-> +#define LPAE_SHIFT_GS(gs)         ((gs) - 3)
-> +#define LPAE_ENTRIES_GS(gs)       (_AC(1, U) << LPAE_SHIFT_GS(gs))
-> +#define LPAE_ENTRIES_MASK_GS(gs)  (LPAE_ENTRIES_GS(gs) - 1)
-> +
-> +#define LEVEL_ORDER_GS(gs, lvl)   ((3 - (lvl)) * LPAE_SHIFT_GS(gs))
-> +#define LEVEL_SHIFT_GS(gs, lvl)   (LEVEL_ORDER_GS(gs, lvl) + (gs))
-> +#define LEVEL_SIZE_GS(gs, lvl)    (_AT(paddr_t, 1) << LEVEL_SHIFT_GS(gs,=
- lvl))
->=20
-> -#define LPAE_SHIFT_4K           (9)
-> -#define LPAE_SHIFT_16K          (11)
-> -#define LPAE_SHIFT_64K          (13)
-> -
-> -#define lpae_entries(gran)      (_AC(1,U) << LPAE_SHIFT_##gran)
-> -#define lpae_entry_mask(gran)   (lpae_entries(gran) - 1)
-> -
-> -#define third_shift(gran)       (PAGE_SHIFT_##gran)
-> -#define third_size(gran)        ((paddr_t)1 << third_shift(gran))
-> -
-> -#define second_shift(gran)      (third_shift(gran) + LPAE_SHIFT_##gran)
-> -#define second_size(gran)       ((paddr_t)1 << second_shift(gran))
-> -
-> -#define first_shift(gran)       (second_shift(gran) + LPAE_SHIFT_##gran)
-> -#define first_size(gran)        ((paddr_t)1 << first_shift(gran))
-> -
-> -/* Note that there is no zeroeth lookup level with a 64K granule size. *=
-/
-> -#define zeroeth_shift(gran)     (first_shift(gran) + LPAE_SHIFT_##gran)
-> -#define zeroeth_size(gran)      ((paddr_t)1 << zeroeth_shift(gran))
-> -
-> -#define TABLE_OFFSET(offs, gran)      (offs & lpae_entry_mask(gran))
-> -#define TABLE_OFFSET_HELPERS(gran)                                      =
-    \
-> -static inline paddr_t third_table_offset_##gran##K(paddr_t va)          =
-    \
-> -{                                                                       =
-    \
-> -    return TABLE_OFFSET((va >> third_shift(gran##K)), gran##K);         =
-    \
-> -}                                                                       =
-    \
-> -                                                                        =
-    \
-> -static inline paddr_t second_table_offset_##gran##K(paddr_t va)         =
-    \
-> -{                                                                       =
-    \
-> -    return TABLE_OFFSET((va >> second_shift(gran##K)), gran##K);        =
-    \
-> -}                                                                       =
-    \
-> -                                                                        =
-    \
-> -static inline paddr_t first_table_offset_##gran##K(paddr_t va)          =
-    \
-> -{                                                                       =
-    \
-> -    return TABLE_OFFSET((va >> first_shift(gran##K)), gran##K);         =
-    \
-> -}                                                                       =
-    \
-> -                                                                        =
-    \
-> -static inline paddr_t zeroeth_table_offset_##gran##K(paddr_t va)        =
-    \
-> -{                                                                       =
-    \
-> -    /* Note that there is no zeroeth lookup level with 64K granule sizes=
-. */\
-> -    if ( gran =3D=3D 64 )                                               =
-        \
-> -        return 0;                                                       =
-    \
-> -    else                                                                =
-    \
-> -        return TABLE_OFFSET((va >> zeroeth_shift(gran##K)), gran##K);   =
-    \
-> -}                                                                       =
-    \
-> -
-> -TABLE_OFFSET_HELPERS(4);
-> -TABLE_OFFSET_HELPERS(16);
-> -TABLE_OFFSET_HELPERS(64);
-> -
-> -#undef TABLE_OFFSET
-> -#undef TABLE_OFFSET_HELPERS
-> +/* Offset in the table at level 'lvl' */
-> +#define LPAE_TABLE_INDEX_GS(gs, lvl, addr)   \
-> +    (((addr) >> LEVEL_SHIFT_GS(gs, lvl)) & LPAE_ENTRIES_MASK_GS(gs))
->=20
-> /* Generate an array @var containing the offset for each level from @addr=
- */
-> #define DECLARE_OFFSETS(var, addr)          \
-> --=20
-> 2.17.1
->=20
->=20
-
+SGkgSnVsZWluDQoNCj4gT24gMTYgQXByIDIwMjEsIGF0IDQ6MjMgcG0sIEp1bGllbiBHcmFsbCA8
+anVsaWVuQHhlbi5vcmc+IHdyb3RlOg0KPiANCj4gDQo+IA0KPiBPbiAxNi8wNC8yMDIxIDE2OjAx
+LCBSYWh1bCBTaW5naCB3cm90ZToNCj4+IEhpIEp1bGllbiwNCj4gDQo+IEhpIFJhaHVsLA0KPiAN
+Cj4+PiBPbiAxNiBBcHIgMjAyMSwgYXQgMzozNSBwbSwgSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVu
+Lm9yZz4gd3JvdGU6DQo+Pj4gDQo+Pj4gSGksDQo+Pj4gDQo+Pj4gT24gMTYvMDQvMjAyMSAxMjoy
+NSwgUmFodWwgU2luZ2ggd3JvdGU6DQo+Pj4+IFJldmVydCB0aGUgY29kZSB0aGF0IGFzc29jaWF0
+ZXMgdGhlIGdyb3VwIHBvaW50ZXIgd2l0aCB0aGUgUzJDUiBhcyB0aGlzDQo+Pj4+IGNvZGUgY2F1
+c2luZyBhbiBpc3N1ZSB3aGVuIHRoZSBTTU1VIGRldmljZSBoYXMgbW9yZSB0aGFuIG9uZSBtYXN0
+ZXINCj4+Pj4gZGV2aWNlLg0KPj4+IA0KPj4+IEl0IGlzIG5vdCBjbGVhciB0byBtZSB3aHkgdGhp
+cyBjaGFuZ2Ugd2FzIGZpcnN0IGFkZGVkLiBBcmUgd2UgbWlzc2luZyBhbnkgZmVhdHVyZSB3aGVu
+IHJldmVydGluZyBpdD8NCj4+IFRoaXMgZmVhdHVyZSB3YXMgYWRkZWQgd2hlbiB3ZSBiYWNrcG9y
+dGVkIHRoZSBjb2RlIGZyb20gTGludXggdG8gZml4IHRoZSBzdHJlYW0gbWF0Y2ggY29uZmxpY3Qg
+aXNzdWUNCj4+IGFzIHBhcnQgb2YgY29tbWl0ICJ4ZW4vYXJtOiBzbW11djE6IEludGVsbGlnZW50
+IFNNUiBhbGxvY2F0aW9u4oCdLg0KPj4gVGhpcyBpcyBhbiBleHRyYSBmZWF0dXJlIGFkZGVkIHRv
+IGFsbG9jYXRlIElPTU1VIGdyb3VwIGJhc2VkIG9uIHN0cmVhbS1pZC4gSWYgdHdvIGRldmljZSBo
+YXMgdGhlDQo+PiBzYW1lIHN0cmVhbS1pZCB0aGVuIHdlIGFzc2lnbiB0aG9zZSBkZXZpY2VzIHRv
+IHRoZSBzYW1lIGdyb3VwLiANCj4gDQo+IElmIHdlIHJldmVydCB0aGUgcGF0Y2gsIHRoZW4gaXQg
+d291bGQgbm90IGJlIHBvc3NpYmxlIHRvIHVzZSB0aGUgU01NVSBpZiB0d28gZGV2aWNlcyB1c2Ug
+dGhlIHNhbWUgc3RyZWFtLWlkLiBJcyB0aGF0IGNvcnJlY3Q/DQoNCk5vLiBJZiB3ZSByZXZlcnQg
+dGhlIHBhdGNoIHdlIGNhbiB1c2UgdGhlIFNNTVUgaWYgdHdvIGRldmljZXMgdXNlIHRoZSBzYW1l
+IHN0cmVhbS1pZCB3aXRob3V0IGFueSBpc3N1ZSBidXQgZWFjaCBkZXZpY2Ugd2lsbCBiZSBpbiBh
+IHNlcGFyYXRlIGdyb3VwLlRoaXMgaXMgc2FtZSBiZWhhdmlvdXIgYmVmb3JlIHRoZSBjb2RlIGlz
+IG1lcmdlZC4NCiANCj4gDQo+PiBUaGlzIGNvZGUgd2FzIHJlbW92ZWQgZnJvbSBMaW51eA0KPj4g
+bGF0ZXIgcG9pbnQgaW4gdGltZSB3aGVuIElPTU1VIGdyb3VwIGhhbmRsaW5nIGlzIGRvbmUgYnkg
+TGludXggY29kZSBub3QgYnkgYSBzcGVjaWZpYyBJT01NVSBkcml2ZXIuDQo+IA0KPiBSaWdodC4u
+Li4gQnV0IExpbnV4IHN0aWxsIHN1cHBvcnQgdGhhdCBvcHRpb24uIElzIHRoYXQgY29ycmVjdD8N
+Cg0KWWVzIExpbnV4IHN1cHBvcnQgSU9NTVUgZ3JvdXBzIGhhbmRsaW5nIGF0IExpbnV4IGNvZGUg
+bGV2ZWwgYW5kIG5vdCBieSBldmVyeSBJT01NVSBkcml2ZXIuIA0KVGhhdCB3aHkgSSB0aG91Z2gg
+d2hlbiB3ZSBhZGQgdGhlIHN1cHBvcnQgZm9yIElPTU1VIGdyb3VwIGF0IFhFTiBsZXZlbCB3ZSBj
+YW4gYWRkIHRoaXMgZnVuY3Rpb25hbGl0eS4NCg0KPiANCj4+IFRoZXJlZm9yZSBJIHRoaW5rIGl0
+IGlzIG9rIHJldmVydCB0aGUgY29kZS4NCj4gDQo+IEkgYW0gb2sgd2l0aCB0aGUgcHJpbmNpcGxl
+IG9mIChwYXJ0aWFsbHkpIHJldmVydGluZyBwYXRjaCB0byB1bmJsb2NrIHRoZSBzaXR1YXRpb24u
+IEJ1dCBJIGhhdmUgdG8gYWRtaXQsIEkgZG9uJ3QgcXVpdGUgdW5kZXJzdGFuZCB3aHkgdGhpcyBp
+cyByZXZlcnRlZCByYXRoZXIgdGhhbiBmaXhlZC4NCg0KQXMgSSBtZW50aW9uIGVhcmxpZXIgSSBy
+ZXZlcnRlZCB0aGlzIHBhdGNoIHVudGlsIHdlIGhhdmUgcHJvcGVyIHN1cHBvcnQgZm9yIElPTU1V
+IGdyb3VwcyBmb3IgQVJNLiBPbmNlIHdlIGhhdmUgSU9NTVUgZ3JvdXAgc3VwcG9ydCBmb3IgQVJN
+IHdlIGNhbiBhZGQgdGhpcyBmdW5jdGlvbmFsaXR5Lg0KDQpSZWdhcmRzLA0KUmFodWwNCj4gDQo+
+IENoZWVycywNCj4gDQo+IC0tIA0KPiBKdWxpZW4gR3JhbGwNCg0K
 
