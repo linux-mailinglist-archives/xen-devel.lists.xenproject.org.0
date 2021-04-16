@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4207F36276F
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 20:07:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.111933.214033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377043627A0
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Apr 2021 20:22:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.111939.214050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXSqf-0004QG-N6; Fri, 16 Apr 2021 18:05:45 +0000
+	id 1lXT6E-0006CK-2u; Fri, 16 Apr 2021 18:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 111933.214033; Fri, 16 Apr 2021 18:05:45 +0000
+Received: by outflank-mailman (output) from mailman id 111939.214050; Fri, 16 Apr 2021 18:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lXSqf-0004Pt-JT; Fri, 16 Apr 2021 18:05:45 +0000
-Received: by outflank-mailman (input) for mailman id 111933;
- Fri, 16 Apr 2021 18:05:44 +0000
+	id 1lXT6D-0006Bv-VW; Fri, 16 Apr 2021 18:21:49 +0000
+Received: by outflank-mailman (input) for mailman id 111939;
+ Fri, 16 Apr 2021 18:21:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lXSqe-0004Pl-GO; Fri, 16 Apr 2021 18:05:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lXT6C-0006Bq-EG
+ for xen-devel@lists.xenproject.org; Fri, 16 Apr 2021 18:21:48 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lXSqe-0003qo-9A; Fri, 16 Apr 2021 18:05:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lXSqe-0003ix-1z; Fri, 16 Apr 2021 18:05:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lXSqe-00068m-1T; Fri, 16 Apr 2021 18:05:44 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lXT67-00047K-B6; Fri, 16 Apr 2021 18:21:43 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lXT66-0006Wk-TY; Fri, 16 Apr 2021 18:21:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +39,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=on67LrB/9sU2ieLLLxoXI4K4JZzoePKTcsJYUI+adUo=; b=r/6mwUyV+/zpaslQmabrscrYmv
-	vlIryMVg9dE/sKrhZ3pOlFT7lgiG+KBljqO9OG2j4NW7g0CILV28/ZRMVgMIE+P55OzaHnpSVJ5zi
-	JLuDb5d/AYhejoBhfVLKkChULVbe8hS1igcAUl8iHCe3k2qJ09IcXVjQC+tb7deTLbNY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161209-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=tnclYvkX4VcnfkAKxyCBDpaPTSyUQ85vYR89NoseVOc=; b=Fwz4jYeGEODvjZIe9PE7Gppofl
+	6wmLebp60uOtLGJgEJDqyNYB8Fs7QBLsENzZgB2azZgrM4iEpf/l8QLSbKz5PBP9eWqYV3eMUiIbV
+	hOr7t5FBZtLu7W3mgsSTqJ1caXLerQnepk95gxKyzIDN5UmmUWHN/2eL5eTgTDvE+9ss=;
+Subject: Re: [PATCH] xen/arm: Ensure the vCPU context is seen before clearing
+ the _VPF_down
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
+ ash.j.wilding@gmail.com, Julien Grall <jgrall@amazon.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Dario Faggioli <dfaggioli@suse.com>, George Dunlap <george.dunlap@citrix.com>
+References: <20210226205158.20991-1-julien@xen.org>
+ <alpine.DEB.2.21.2102261756280.2682@sstabellini-ThinkPad-T480s>
+ <ca41bfbb-d942-d8fd-e96e-c464f6b3643f@xen.org>
+ <alpine.DEB.2.21.2103191652450.439@sstabellini-ThinkPad-T480s>
+ <86165804-34a1-59e5-1b51-fecc60dbf796@xen.org>
+ <alpine.DEB.2.21.2104131541370.4885@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <ebcaad65-a155-6979-9754-a8ef0ece3590@xen.org>
+Date: Fri, 16 Apr 2021 19:21:40 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 161209: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=dd22a64de7e02b48312839a15179528c8f7db5c6
-X-Osstest-Versions-That:
-    xen=9b47be876f2a9521bb1f247d855603c00bc99465
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 16 Apr 2021 18:05:44 +0000
+In-Reply-To: <alpine.DEB.2.21.2104131541370.4885@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 161209 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161209/
+Hi Stefano,
 
-Failures :-/ but no regressions.
+On 13/04/2021 23:43, Stefano Stabellini wrote:
+> On Sat, 20 Mar 2021, Julien Grall wrote:
+>> On 20/03/2021 00:01, Stefano Stabellini wrote:
+>>> On Sat, 27 Feb 2021, Julien Grall wrote:
+>>>> (+ Dario and George)
+>>>>
+>>>> Hi Stefano,
+>>>>
+>>>> I have added Dario and George to get some inputs from the scheduling part.
+>>>>
+>>>> On 27/02/2021 01:58, Stefano Stabellini wrote:
+>>>>> On Fri, 26 Feb 2021, Julien Grall wrote:
+>>>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> A vCPU can get scheduled as soon as _VPF_down is cleared. As there is
+>>>>>> currently not ordering guarantee in arch_set_info_guest(), it may be
+>>>>>> possible that flag can be observed cleared before the new values of
+>>>>>> vCPU
+>>>>>> registers are observed.
+>>>>>>
+>>>>>> Add an smp_mb() before the flag is cleared to prevent re-ordering.
+>>>>>>
+>>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> ---
+>>>>>>
+>>>>>> Barriers should work in pair. However, I am not entirely sure whether
+>>>>>> to
+>>>>>> put the other half. Maybe at the beginning of context_switch_to()?
+>>>>>
+>>>>> It should be right after VGCF_online is set or cleared, right?
+>>>>
+>>>> vcpu_guest_context_t is variable allocated on the heap just for the
+>>>> purpose of
+>>>> this call. So an ordering with VGFC_online is not going to do anything.
+>>>>
+>>>>> So it
+>>>>> would be:
+>>>>>
+>>>>> xen/arch/arm/domctl.c:arch_get_info_guest
+>>>>> xen/arch/arm/vpsci.c:do_common_cpu_on
+>>>>>
+>>>>> But I think it is impossible that either of them get called at the same
+>>>>> time as arch_set_info_guest, which makes me wonder if we actually need
+>>>>> the barrier...
+>>>> arch_get_info_guest() is called without the domain lock held and I can't
+>>>> see
+>>>> any other lock that could prevent it to be called in // of
+>>>> arch_set_info_guest().
+>>>>
+>>>> So you could technically get corrupted information from
+>>>> XEN_DOMCTL_getvcpucontext. For this case, we would want a smp_wmb() before
+>>>> writing to v->is_initialised. The corresponding read barrier would be in
+>>>> vcpu_pause() -> vcpu_sleep_sync() -> sync_vcpu_execstate().
+>>>>
+>>>> But this is not the issue I was originally trying to solve. Currently,
+>>>> do_common_cpu_on() will roughly do:
+>>>>
+>>>>    1) domain_lock(d)
+>>>>
+>>>>    2) v->arch.sctlr = ...
+>>>>       v->arch.ttbr0 = ...
+>>>>
+>>>>    3) clear_bit(_VFP_down, &v->pause_flags);
+>>>>
+>>>>    4) domain_unlock(d)
+>>>>
+>>>>    5) vcpu_wake(v);
+>>>>
+>>>> If we had only one pCPU on the system, then we would only wake the vCPU in
+>>>> step 5. We would be fine in this situation. But that's not the interesting
+>>>> case.
+>>>>
+>>>> If you add a second pCPU in the story, it may be possible to have
+>>>> vcpu_wake()
+>>>> happening in // (see more below). As there is no memory barrier, step 3
+>>>> may be
+>>>> observed before 2. So, assuming the vcpu is runnable, we could start to
+>>>> schedule a vCPU before any update to the registers (step 2) are observed.
+>>>>
+>>>> This means that when context_switch_to() is called, we may end up to
+>>>> restore
+>>>> some old values.
+>>>>
+>>>> Now the question is can vcpu_wake() be called in // from another pCPU?
+>>>> AFAICT,
+>>>> it would be only called if a given flag in v->pause_flags is cleared (e.g.
+>>>> _VFP_blocked). But can we rely on that?
+>>>>
+>>>> Even if we can rely on it, v->pause_flags has other flags in it. I
+>>>> couldn't
+>>>> rule out that _VPF_down cannot be set at the same time as the other
+>>>> _VPF_*.
+>>>>
+>>>> Therefore, I think a barrier is necessary to ensure the ordering.
+>>>>
+>>>> Do you agree with this analysis?
+>>>    Yes, I think this makes sense. The corresponding barrier in the
+>>> scheduling code would have to be after reading _VPF_down and before
+>>> reading v->arch.sctlr, etc.
+>>>
+>>>
+>>>>>> The issues described here is also quite theoritical because there are
+>>>>>> hundreds of instructions executed between the time a vCPU is seen
+>>>>>> runnable and scheduled. But better be safe than sorry :).
+>>>>>> ---
+>>>>>>     xen/arch/arm/domain.c | 7 +++++++
+>>>>>>     1 file changed, 7 insertions(+)
+>>>>>>
+>>>>>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+>>>>>> index bdd3d3e5b5d5..2b705e66be81 100644
+>>>>>> --- a/xen/arch/arm/domain.c
+>>>>>> +++ b/xen/arch/arm/domain.c
+>>>>>> @@ -914,7 +914,14 @@ int arch_set_info_guest(
+>>>>>>         v->is_initialised = 1;
+>>>>>>           if ( ctxt->flags & VGCF_online )
+>>>>>> +    {
+>>>>>> +        /*
+>>>>>> +         * The vCPU can be scheduled as soon as _VPF_down is cleared.
+>>>>>> +         * So clear the bit *after* the context was loaded.
+>>>>>> +         */
+>>>>>> +        smp_mb();
+>>>>
+>>>>   From the discussion above, I would move this barrier before
+>>>> v->is_initialised.
+>>>> So we also take care of the issue with arch_get_info_guest().
+>>>>
+>>>> This barrier also can be reduced to a smp_wmb() as we only expect an
+>>>> ordering
+>>>> between writes.
+>>>>
+>>>> The barrier would be paired with the barrier in:
+>>>>      - sync_vcpu_execstate() in the case of arch_get_vcpu_info_guest().
+>>>>      - context_switch_to() in the case of scheduling (The exact barrier is
+>>>> TDB).
+>>>
+>>> OK, this makes sense, but why before:
+>>>
+>>>     v->is_initialised = 1;
+>>>
+>>> instead of right after it? It is just v->pause_flags we care about,
+>>> right?
+>>
+>> The issue I originally tried to address was a race with v->pause_flags. But I
+>> also discovered one with v->initialised while answering to your previous
+>> e-mail. This was only briefly mentioned so let me expand it.
+>>
+>> A toolstack can take a snapshot of the vCPU context using
+>> XEN_DOMCTL_get_vcpucontext. The helper will bail out if v->is_initialized is
+>> 0.
+>>
+>> If v->is_initialized is 1, it will temporarily pause the vCPU and then call
+>> arch_get_info_guest().
+>>
+>> AFAICT, arch_get_info_guest() and arch_set_info_guest() (called from PSCI CPU
+>> on) can run concurrently.
+>>
+>> If you put the barrier right after v->is_initialised, then a
+>> processor/compiler is allowed to re-order the write with what comes before.
+>> Therefore, the new value of v->is_initialised may be observed before
+>> v->arch.{sctlr, ttbr0,...}.
+>>
+>> Hence, we need a barrier before setting v->is_initialized so the new value is
+>> observed *after* the changes to v->arch.{sctlr, ttbr0, ...) have been
+>> observed.
+>>
+>> A single smp_wmb() barrier before v->is_initialized should be sufficient to
+>> cover the two problems discussed as I don't think we need to observe
+>> v->is_initialized *before* v->pause_flags.
+> 
+> I think your explanation is correct. However, don't we need a smp_rmb()
+> barrier after reading v->is_initialised in xen/common/domctl.c:do_domctl
+> ? That would be the barrier that pairs with smp_wmb in regards to
+> v->is_initialised.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+There is already a smp_mb() in sync_vcpu_exec_state() which is called 
+from vcpu_pause() -> vcpu_sleep_sync().
 
-version targeted for testing:
- xen                  dd22a64de7e02b48312839a15179528c8f7db5c6
-baseline version:
- xen                  9b47be876f2a9521bb1f247d855603c00bc99465
+I don't think we can ever remove the memory barrier in 
+sync_vcpu_exec_state() because the vCPU paused may have run (or 
+initialized) on a different pCPU. So I would like to rely on the barrier 
+rather than adding an extra one (even thought it is not a fast path).
 
-Last test of basis   161206  2021-04-16 13:00:27 Z    0 days
-Testing same since   161209  2021-04-16 16:01:30 Z    0 days    1 attempts
+I am thinking to add a comment on top of vcpu_pause() to clarify that 
+after the call, the vCPU context will be observed without extra 
+synchronization required.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+Cheers,
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   9b47be876f..dd22a64de7  dd22a64de7e02b48312839a15179528c8f7db5c6 -> smoke
+-- 
+Julien Grall
 
