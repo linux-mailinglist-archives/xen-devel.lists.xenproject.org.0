@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E57AC364230
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 15:02:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.112900.215234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BB933642BB
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 15:13:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.112905.215247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYTXH-0000LE-65; Mon, 19 Apr 2021 13:01:55 +0000
+	id 1lYTh8-0001La-3L; Mon, 19 Apr 2021 13:12:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 112900.215234; Mon, 19 Apr 2021 13:01:55 +0000
+Received: by outflank-mailman (output) from mailman id 112905.215247; Mon, 19 Apr 2021 13:12:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYTXH-0000Ks-34; Mon, 19 Apr 2021 13:01:55 +0000
-Received: by outflank-mailman (input) for mailman id 112900;
- Mon, 19 Apr 2021 13:01:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B3mF=JQ=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1lYTXF-0000Kj-TS
- for xen-devel@lists.xenproject.org; Mon, 19 Apr 2021 13:01:53 +0000
-Received: from mx.upb.ro (unknown [141.85.13.200])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 50124ff3-ad54-47c9-9f1c-e51125f8ae7e;
- Mon, 19 Apr 2021 13:01:52 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id C6E48B560053;
- Mon, 19 Apr 2021 16:01:50 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id GJZW3Ua5WQdA; Mon, 19 Apr 2021 16:01:48 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id CF696B5600AE;
- Mon, 19 Apr 2021 16:01:48 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id QFE4my-dm-kM; Mon, 19 Apr 2021 16:01:48 +0300 (EEST)
-Received: from localhost.localdomain (unknown [188.25.174.245])
- by mx.upb.ro (Postfix) with ESMTPSA id 6FD45B560053;
- Mon, 19 Apr 2021 16:01:48 +0300 (EEST)
+	id 1lYTh7-0001L4-Tg; Mon, 19 Apr 2021 13:12:05 +0000
+Received: by outflank-mailman (input) for mailman id 112905;
+ Mon, 19 Apr 2021 13:12:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYTh6-0001Ku-Go; Mon, 19 Apr 2021 13:12:04 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYTh6-0001C9-6m; Mon, 19 Apr 2021 13:12:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYTh5-0000RG-Tp; Mon, 19 Apr 2021 13:12:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYTh5-0002eH-TH; Mon, 19 Apr 2021 13:12:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,73 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50124ff3-ad54-47c9-9f1c-e51125f8ae7e
-X-Virus-Scanned: amavisd-new at upb.ro
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] tools/libs/light: Remove unnecessary libxl_list_vm() call
-Date: Mon, 19 Apr 2021 16:01:42 +0300
-Message-Id: <cf7c0f8869a087008fbe10888ebf96336b1ccb7b.1618837159.git.costin.lupu@cs.pub.ro>
-X-Mailer: git-send-email 2.20.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CuKg8lQ/0IbFnUiPZsurQtG0dWIYNhMv0zbYUm6EZ/c=; b=adwMxwbgxlNgzQWaXEDwWpPejA
+	XwFNzqVGO6wTtpu50iWr97RejqmoO+JWokCATTg6eIENH57GYL5DdGBIRhR5bgOhw6JTSneqAoJrp
+	B2+MLcfjoR8s17paSDwvgTs9trIT4Kp5zsZfnkV6hZ9evpdTLnbGR6HUah39FvRptS8E=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161288-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Subject: [xen-unstable-smoke test] 161288: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b5b93627dd1c398a90b832af765b4720fc71814e
+X-Osstest-Versions-That:
+    xen=05031fa87357fad155f659cfc2dcce6614834684
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 19 Apr 2021 13:12:03 +0000
 
-The removed lines were initially added by commit 314e64084d31, but the
-subsequent code which was using the nb_vm variable was later removed by
-commit 2ba368d13893, which makes these lines of code an overlooked
-reminiscence. Moreover, the call becomes very expensive when there is a
-considerable number of VMs (~1000 instances) running on the host.
+flight 161288 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161288/
 
-Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
----
- tools/libs/light/libxl_create.c | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+Failures :-/ but no regressions.
 
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_cre=
-ate.c
-index 0c64268f66..43e9ba9c63 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -578,7 +578,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_co=
-nfig *d_config,
-                        uint32_t *domid, bool soft_reset)
- {
-     libxl_ctx *ctx =3D libxl__gc_owner(gc);
--    int ret, rc, nb_vm;
-+    int ret, rc;
-     const char *dom_type;
-     char *uuid_string;
-     char *dom_path, *vm_path, *libxl_path;
-@@ -586,7 +586,6 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_co=
-nfig *d_config,
-     struct xs_permissions rwperm[1];
-     struct xs_permissions noperm[1];
-     xs_transaction_t t =3D 0;
--    libxl_vminfo *vm_list;
-=20
-     /* convenience aliases */
-     libxl_domain_create_info *info =3D &d_config->c_info;
-@@ -869,14 +868,6 @@ retry_transaction:
-                         ARRAY_SIZE(rwperm));
-     }
-=20
--    vm_list =3D libxl_list_vm(ctx, &nb_vm);
--    if (!vm_list) {
--        LOGD(ERROR, *domid, "cannot get number of running guests");
--        rc =3D ERROR_FAIL;
--        goto out;
--    }
--    libxl_vminfo_list_free(vm_list, nb_vm);
--
-     xs_write(ctx->xsh, t, GCSPRINTF("%s/uuid", vm_path), uuid_string, st=
-rlen(uuid_string));
-     xs_write(ctx->xsh, t, GCSPRINTF("%s/name", vm_path), info->name, str=
-len(info->name));
-=20
---=20
-2.20.1
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  b5b93627dd1c398a90b832af765b4720fc71814e
+baseline version:
+ xen                  05031fa87357fad155f659cfc2dcce6614834684
+
+Last test of basis   161269  2021-04-18 19:00:28 Z    0 days
+Testing same since   161288  2021-04-19 11:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   05031fa873..b5b93627dd  b5b93627dd1c398a90b832af765b4720fc71814e -> smoke
 
