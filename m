@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 989B5363E47
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 11:13:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.112732.215025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF2A2363E5F
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 11:16:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.112747.215037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYPxi-0003Ll-VV; Mon, 19 Apr 2021 09:12:58 +0000
+	id 1lYQ1C-0003lE-Ev; Mon, 19 Apr 2021 09:16:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 112732.215025; Mon, 19 Apr 2021 09:12:58 +0000
+Received: by outflank-mailman (output) from mailman id 112747.215037; Mon, 19 Apr 2021 09:16:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYPxi-0003LG-RR; Mon, 19 Apr 2021 09:12:58 +0000
-Received: by outflank-mailman (input) for mailman id 112732;
- Mon, 19 Apr 2021 09:12:57 +0000
+	id 1lYQ1C-0003kX-Ak; Mon, 19 Apr 2021 09:16:34 +0000
+Received: by outflank-mailman (input) for mailman id 112747;
+ Mon, 19 Apr 2021 09:16:32 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=euet=JQ=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lYPxh-0003D5-Dk
- for xen-devel@lists.xenproject.org; Mon, 19 Apr 2021 09:12:57 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id d8286f12-9daf-4062-8e85-fe3e40dcc95d;
- Mon, 19 Apr 2021 09:12:48 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4467DED1;
- Mon, 19 Apr 2021 02:12:48 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.197.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E6F2A3F85F;
- Mon, 19 Apr 2021 02:12:46 -0700 (PDT)
+ <SRS0=2xPN=JQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lYQ1A-0003kR-3d
+ for xen-devel@lists.xenproject.org; Mon, 19 Apr 2021 09:16:32 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id edf516cd-bed8-4b87-978d-7f2f8548a714;
+ Mon, 19 Apr 2021 09:16:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,340 +36,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8286f12-9daf-4062-8e85-fe3e40dcc95d
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 3/3] docs/doxygen: doxygen documentation for grant_table.h
-Date: Mon, 19 Apr 2021 10:12:31 +0100
-Message-Id: <20210419091231.55684-4-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210419091231.55684-1-luca.fancellu@arm.com>
-References: <20210419091231.55684-1-luca.fancellu@arm.com>
+X-Inumbo-ID: edf516cd-bed8-4b87-978d-7f2f8548a714
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1618823791;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=nq6VMSDq3Hg9M4OVHynOZLLxvIBm7lu4U6CkezA0eB0=;
+  b=NPXSDf5Qss1YyaUI3jHQL7bdvpK6i0YWBCu2mEZdNiNbyr8OtxHVJxMZ
+   K/UgfvHIIItZdBTccbnsKv3ePXIrFdzBoNvdJHnNsqic6e7r35UUpELGz
+   BSdSXFenuu+4evXOqHQCaPyJs89s8fSwuWbbX5kGg0bTdXsoOKVaNJQ3S
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: MX7KVcCsGh5U0FRapQiRICjmg3Tc5tUhf3H7vHz6cKqE3h/s+0NlWr4HBFv6HzJKMggbtHddl5
+ wHfwzulkov3oQ2+rW27hn38DoOdQANw1z3QsdVi5mEM8Bcwh/xEBUPgYkKLmodRnAAOLw8D3pE
+ NkJDTMDLr82dm2df76qgJPXLWyxkyhlHssk+0Xeub6O8xPi7qGDRTS8HL51EZ7nPDLuA4L1IeX
+ dIa96SSEzNRh0rSHluehWWY285QUXIMwRoAjXinoHwVpE+KtEO7jzS7xmrPgUBroLHwQzio3Ru
+ /Z4=
+X-SBRS: 5.2
+X-MesageID: 41870793
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:a5htuqzOAU4gtFMvsWj4KrPx/uskLtp033Aq2lEZdDV8btGYm8
+ eynP4SyB/zj3IrVGs9nM2bUZPsfVr3//dOgbU5F7GkQQXgpS+UPJhvhLGSpwHINg/f0qpm1a
+ lme7VjE9GYNzJHpOvz/QXQKbkd6fad9qTAv4nj5lNMaS0vVK169Qd+DW+gYyhLbS1LH4AwGp
+ bZxucvnUvCRV0tYs62BmYIUoH4zrWmqLvcbQMbHBli0QGSjFqTg4LSKQSS3RsVTlp0sNUf2F
+ XC+jaZ2oyT98uV5zWZ/G/V4pRQlrLau6Z+Lf3JsOc5AHHBjg6pYa5oRrGNuiskydvflGoCoZ
+ 33jDoLe+h19nPNbkG5yCGdpDXI4XIVxFLJjX+enHf5rsTySFsBerR8rLMcSDT1wQ4EnrhHoc
+ V29lPcjbV7J1f8uR64wN7yWxRjhiOP0AEfuN9WtVNze88jcrNLxLZvmn99IdM7Mw/RzpsoK+
+ VqBNG03octTXqqK0rUuWRi27WXLw0ONybDRkADv/qc2CRNkEZ4yFMFxNcekm1ozuNEd6V5
+X-IronPort-AV: E=Sophos;i="5.82,233,1613451600"; 
+   d="scan'208";a="41870793"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RT18DcPMLPQFayN/O4ekb8HxsBXjvF7Zsa/4gDyE+gNcyJ4O4UkQSY3LNK2KtoOKh5Wp/yWfR4WMa48B3c/BI0zYPObOCraCPHQOTWTN9MgqItbx67gKkgq8FY2m9J1YfUdKGWK9MXW3ljIIfs3pJxmQr6wMM4XsCLHw5IugFpHEDlg2K62ZW3y04yQuEw58KViO5zNXRBEKwWsZtHhBF0nPS9w+3xobKftLvwQE28YuKJhTGMS2zH7yCB8aLYe0uls/YeQyw793mg8a04dvSQ5KF89hvgvvpPmbKVS3ly+bb8qy4f00l1p0cyQUCUk1hKOkdNeD/5rXAvzHs3E4cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6PLY0aKOfIuDgUiZ8ThRy7y/O7VBHTAieLUwYA6ba14=;
+ b=oMgBGZW6wOQebqolBItz4K+3g/fnegTLDG5xPFyssjHy88ojov8SBCSkbtPrQGeCOidmloOW4RXiZyijdY0iRsAYWb8NGED+QVwk0/c97bGEp169fcrG8CTDYBZdrnClVyUR+CsfDu77Z1QZ6zdopevmpVrOCDHE2OjU6yIuu+40pNRfFw1Bp6qjYxUqQ7Y4ie/8pxFrua97FuZTaFxAF3og2Cu6ZKJrazpASgDivdAHMLQ/QWh9Vo7M0Sr4Jc51khyOYn5UPjpUv2TLc0z2HqQwW4SJy8eVvPLURJN+6QKhM3YCcDfHwLSpvihxDpO0ngul/6RW9YF06F0rFzkV7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6PLY0aKOfIuDgUiZ8ThRy7y/O7VBHTAieLUwYA6ba14=;
+ b=Nr0sZ4CW5E/fjDhEaFlltaUZkOCg98A9JGVxtyp3dbmVnmX08+CMEG24sTC6WTbs33sx1v4iZOajB67WYcrHhdjjIhLD2tf6eS7fa2tw0XDbffpuEhM6ubHE5pNoDpLWYNjLU/cXRBW6rli4u9hWRi36MTto22f9BMqBhEa7bKU=
+Date: Mon, 19 Apr 2021 11:16:22 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
+	<paul@xen.org>
+Subject: Re: [PATCH v3] x86/CPUID: shrink max_{,sub}leaf fields according to
+ actual leaf contents
+Message-ID: <YH1KZhLrC6anI/Hm@Air-de-Roger>
+References: <9ecd03b2-f8fa-2a8b-69ad-4b31920ea205@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9ecd03b2-f8fa-2a8b-69ad-4b31920ea205@suse.com>
+X-ClientProxiedBy: MR2P264CA0031.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::19)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a519f0ce-0b8b-429f-e1ac-08d90313d06a
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5606:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DS7PR03MB560601E04D1D0390EDB7B9D18F499@DS7PR03MB5606.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XzrM8lw73HqGYr04N3NKDD6f3LnRsib3X5o4kWEziLKR0cEQED5owW7E7t/ekDmi+eETpaWP9O7EiuZgL9bj2ItjEVH8WN8TvRDAouNcw2I/WBF14JVaqVQyEUeqMLNXn6jg4YHuXzV8UW9WgqQeavoQ9y78M3VtY6sbW6i719tyhWROfy9b+yf2Boi/+2wnm7mhIxDcus0gne55KvFZsENgm1SjIEuzBvoGu1PFdfDd0uu6JUVowBRrusH9VXo5r4d4/ayhaFgQ62AEVc83dFwkPRayftfifBB8IJU4hSdMuB/6XKX/IcExhDcBzXRIyYnH6EDzlK5Sm3bCxyHORbVAyCeyKNrXM/gH3+KdZsGV8fmSsQBLPrPl5iQYAJQfD7r8pU7czSnRjcVCs4AL/8aVUp6eCiEljlogqSOAqa24Q+q1KJF3lE4VRGSfrPjBBXJkIwor0O6YOL1kXpnomXuBSdpJlQhWWAQwLzyIMIgUjc5CBy2rLwnREwByjRfTutQIuivE+WV97xPSfZPiKNXan8OK6kKZ9ZWXq1sgo+0tp+aTsBM+HCQfV5ksLNFw8LFPtDqKKtQ0FLoEt/PPpCGV4mqOHIEq3cQFQwj/Bfo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39850400004)(396003)(346002)(136003)(366004)(376002)(9686003)(6916009)(54906003)(38100700002)(5660300002)(85182001)(2906002)(86362001)(6496006)(66946007)(16526019)(83380400001)(8676002)(66476007)(8936002)(66556008)(33716001)(956004)(6486002)(186003)(478600001)(316002)(6666004)(4326008)(26005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RDFpejUySmI0dm9GWUh3ckRoZ1RucEhxb3dCV1NHK1k0TTBLVEwweFpnV05M?=
+ =?utf-8?B?SkFROWd0T1RvSmgwVHVSWXZoQmt6VG1Cc0hDam0yZHkyUnFTeVUyemQvSFJC?=
+ =?utf-8?B?eGR4dFhXOFlrcGpBSHRNTmZOSnJPa0owQ2o2Z3VaS3ZPS2FoQTRYcWFFQTg5?=
+ =?utf-8?B?cjFUNFRuQ2UwY2F5QkFpNWRNMkNkdmc2VnBtU25PbzlsR2RLZFdOV2lKNCtT?=
+ =?utf-8?B?YzJwbXlRZkZFMGM1Qks2MHJzODZWSWlHcEE3WTJOMjBrSnY5Z1FCZVpLbVNQ?=
+ =?utf-8?B?UjIrMHZjOWNDenF1UzF1M2RTQnhmRVA4NWJ5U01hcEJ1VVVQc3cwRWFWVWR5?=
+ =?utf-8?B?aC95aGZKODkwVUZUQk1nOCt0MCtBT0tYQUpDVkFvZVF1c2dVUk9Kazl5YjhK?=
+ =?utf-8?B?VEFSVjdZeFRYZzBqeTEzMktRT0lZNUFQdisrbVcwRVc3SlZ2UEE4UFEyQm9P?=
+ =?utf-8?B?dHRtNXRkdk55MnF6d0RCUTBFcHBTTVpZU1FreWhtY05JSTg5U1VreTZCMU1M?=
+ =?utf-8?B?VWp0cVJkV1R6c0VGN3hMSGFmZlRqanBUR29OQW9LM3Z2eFByeG1PdkRTcFRW?=
+ =?utf-8?B?U25MeXVjSmFwREd4cHpMY21FK0tSQS94MFhmdklqbEpyelJySmd0dGVJZnUz?=
+ =?utf-8?B?TWFvbXBvaU95cElWamNnQnNDMVpZUTZzTmh4bVkwUmtpWHRVK3h6ZGZiWjIw?=
+ =?utf-8?B?cTJqUi9jT1hOd2VpaWtwM29raE9JdW1WQmF6NUhXdjZxYVBXQkZJL0QrMGl6?=
+ =?utf-8?B?QWpCNUZNWHdoZ0gxUlQwb3hLcm1vU0lQS3hmV3VKME5KaFowTGdLRWVRWEJK?=
+ =?utf-8?B?R0VjV3JPS3lmMTk0NW1QSUtTZFVIU3Q2WGdGTEZNTk9Nc3ZzNnhJVWg5alli?=
+ =?utf-8?B?b01wNERocWRObm5UMkpjeS9qa3NmOXIwZHhoU2cwZVZEU21Mekc1OUhmOWtR?=
+ =?utf-8?B?ckFzSHdXMDlNR0o1M3ltU3JsWWZJSnhzSVkyRDhxYkcyeGlTclZUa0o3bWYy?=
+ =?utf-8?B?YWpTY2NYRW5iZi9NSjVuUExiNnJ1ajFNOUtYZTlhM0NRV2dVVW9lWkVRalFn?=
+ =?utf-8?B?RHhTR2dGdDBvTEp5YitLUzdZeEtKeWpleng1eEhHVjZSS1ZWT3RrRHkyL2lo?=
+ =?utf-8?B?QnVaelFkaDYzNnFOZVArSXdiQUp0bUNrVnRGY2hMRmE0dmpnWSs1MkoyS0FS?=
+ =?utf-8?B?SHlrdFV5VUtqdWRXd2h4YjhYWlkyQlg3ankrU1RET1RBZlM2WnRqUENsckFz?=
+ =?utf-8?B?eEo1K3ZvYVRqY0ZjalN3eTN2NlZzK3BmVDBlU1Y5ektQcDdqbHdQNUxqZUlj?=
+ =?utf-8?B?d3luQXFDYXloSkQyT21RN0VxT0FHWTNOWFJydWVSeDc4WFJUQ3pzMXp3Ynpo?=
+ =?utf-8?B?ZEpaSnBBU1l5ZFZ0ZkZNckRFQ0dTazVjR0NXV3JsOENnVk9EcWNDNVlZU09q?=
+ =?utf-8?B?NXEzcG1GT0s5azZ2bEhyUENZSEtBeHRURTViY1RuVms2eTNaTTJGLzIxZjJG?=
+ =?utf-8?B?MkpGSnI4OTA2NklxMVIwK2hWaDVkeEI2bkVNZFBZSVNzTjR2ZmkyN0t6YnAz?=
+ =?utf-8?B?WnpLcUYzd2t4dEc5VEsycWswSUtyci85M3pVRGNkd2hmenhCcUVFa09nRE9B?=
+ =?utf-8?B?V0tyem1kbWorZ2JuMExSbHJXN1VUam9PeDVpYjlwbzhKSWFkaldkSzlnZG1i?=
+ =?utf-8?B?S1lmUExjT202RTRIZEI2L2xLZExYVURVTFFjQzhxN2w0c3ZVTHBjRy81bWxh?=
+ =?utf-8?Q?gzEf1hXYgcDQRF+dWZw2osRnq0fPz4uv5oI7iiW?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a519f0ce-0b8b-429f-e1ac-08d90313d06a
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2021 09:16:28.6678
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mQGmd7qxzkdFQwr1slSfDD6U+/LkXusHC5DyYCtoef5Mc2QoRcKKLofUuZbxXZ1LiFid5JeBLQe5gKqzXbzCAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5606
+X-OriginatorOrg: citrix.com
 
-Modification to include/public/grant_table.h:
+Adding Paul also for the Viridian part.
 
-1) Add doxygen tags to:
- - Create Grant tables section
- - include variables in the generated documentation
-2) Add .rst file for grant table for Arm64
+On Fri, Apr 16, 2021 at 03:16:41PM +0200, Jan Beulich wrote:
+> Zapping leaf data for out of range leaves is just one half of it: To
+> avoid guests (bogusly or worse) inferring information from mere leaf
+> presence, also shrink maximum indicators such that the respective
+> trailing entry is not all blank (unless of course it's the initial
+> subleaf of a leaf that's not the final one).
+> 
+> This is also in preparation of bumping the maximum basic leaf we
+> support, to ensure guests not getting exposed related features won't
+> observe a change in behavior.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v3: Record the actual non-empty subleaf in p->basic.raw[0x7], rather
+>     than subleaf 0. Re-base over Viridian leaf 40000005 addition.
+> v2: New.
+> 
+> --- a/tools/tests/cpu-policy/test-cpu-policy.c
+> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
+> @@ -8,10 +8,13 @@
+>  #include <err.h>
+>  
+>  #include <xen-tools/libs.h>
+> +#include <xen/asm/x86-defns.h>
+>  #include <xen/asm/x86-vendors.h>
+>  #include <xen/lib/x86/cpu-policy.h>
+>  #include <xen/domctl.h>
+>  
+> +#define XSTATE_FP_SSE  (X86_XCR0_FP | X86_XCR0_SSE)
+> +
+>  static unsigned int nr_failures;
+>  #define fail(fmt, ...)                          \
+>  ({                                              \
+> @@ -553,6 +556,103 @@ static void test_cpuid_out_of_range_clea
+>      }
+>  }
+>  
+> +static void test_cpuid_maximum_leaf_shrinking(void)
+> +{
+> +    static const struct test {
+> +        const char *name;
+> +        struct cpuid_policy p;
+> +    } tests[] = {
+> +        {
+> +            .name = "basic",
+> +            .p = {
+> +                /* Very basic information only. */
+> +                .basic.max_leaf = 1,
+> +                .basic.raw_fms = 0xc2,
+> +            },
+> +        },
+> +        {
+> +            .name = "cache",
+> +            .p = {
+> +                /* Cache subleaves present. */
+> +                .basic.max_leaf = 4,
+> +                .cache.subleaf[0].type = 1,
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-v2 changes:
-- Revert back to anonymous union/struct
-- add doxygen tags to skip anonymous union/struct
----
- docs/hypercall-interfaces/arm64.rst           |  1 +
- .../arm64/grant_tables.rst                    |  8 ++
- docs/xen-doxygen/doxy_input.list              |  1 +
- xen/include/public/grant_table.h              | 97 ++++++++++++-------
- 4 files changed, 73 insertions(+), 34 deletions(-)
- create mode 100644 docs/hypercall-interfaces/arm64/grant_tables.rst
+On a private conversation with Andrew he raised the issue that the
+shrinking might be overly simplistic. For example if the x2APIC
+feature bit in leaf 1 is set then the max leaf should be at least 0xb
+in order to be able to fetch the x2APIC ID, even if it's 0.
 
-diff --git a/docs/hypercall-interfaces/arm64.rst b/docs/hypercall-interfaces/arm64.rst
-index 5e701a2adc..c30a7142b1 100644
---- a/docs/hypercall-interfaces/arm64.rst
-+++ b/docs/hypercall-interfaces/arm64.rst
-@@ -8,6 +8,7 @@ Starting points
- .. toctree::
-    :maxdepth: 2
- 
-+   arm64/grant_tables
- 
- 
- Functions
-diff --git a/docs/hypercall-interfaces/arm64/grant_tables.rst b/docs/hypercall-interfaces/arm64/grant_tables.rst
-new file mode 100644
-index 0000000000..8955ec5812
---- /dev/null
-+++ b/docs/hypercall-interfaces/arm64/grant_tables.rst
-@@ -0,0 +1,8 @@
-+.. SPDX-License-Identifier: CC-BY-4.0
-+
-+Grant Tables
-+============
-+
-+.. doxygengroup:: grant_table
-+   :project: Xen
-+   :members:
-diff --git a/docs/xen-doxygen/doxy_input.list b/docs/xen-doxygen/doxy_input.list
-index e69de29bb2..233d692fa7 100644
---- a/docs/xen-doxygen/doxy_input.list
-+++ b/docs/xen-doxygen/doxy_input.list
-@@ -0,0 +1 @@
-+xen/include/public/grant_table.h
-diff --git a/xen/include/public/grant_table.h b/xen/include/public/grant_table.h
-index 84b1d26b36..51c8d85822 100644
---- a/xen/include/public/grant_table.h
-+++ b/xen/include/public/grant_table.h
-@@ -25,15 +25,19 @@
-  * Copyright (c) 2004, K A Fraser
-  */
- 
--#ifndef __XEN_PUBLIC_GRANT_TABLE_H__
-+/**
-+ * @file
-+ * @brief Interface for granting foreign access to page frames, and receiving
-+ * page-ownership transfers.
-+ */
-+
-+#if !defined(__XEN_PUBLIC_GRANT_TABLE_H__) || defined(DOXYGEN)
- #define __XEN_PUBLIC_GRANT_TABLE_H__
- 
- #include "xen.h"
- 
--/*
-- * `incontents 150 gnttab Grant Tables
-- *
-- * Xen's grant tables provide a generic mechanism to memory sharing
-+/**
-+ * @brief Xen's grant tables provide a generic mechanism to memory sharing
-  * between domains. This shared memory interface underpins the split
-  * device drivers for block and network IO.
-  *
-@@ -51,13 +55,10 @@
-  * know the real machine address of a page it is sharing. This makes
-  * it possible to share memory correctly with domains running in
-  * fully virtualised memory.
-- */
--
--/***********************************
-+ *
-  * GRANT TABLE REPRESENTATION
-- */
--
--/* Some rough guidelines on accessing and updating grant-table entries
-+ *
-+ * Some rough guidelines on accessing and updating grant-table entries
-  * in a concurrency-safe manner. For more information, Linux contains a
-  * reference implementation for guest OSes (drivers/xen/grant_table.c, see
-  * http://git.kernel.org/?p=linux/kernel/git/torvalds/linux.git;a=blob;f=drivers/xen/grant-table.c;hb=HEAD
-@@ -66,6 +67,7 @@
-  *     compiler barrier will still be required.
-  *
-  * Introducing a valid entry into the grant table:
-+ * @code
-  *  1. Write ent->domid.
-  *  2. Write ent->frame:
-  *      GTF_permit_access:   Frame to which access is permitted.
-@@ -73,20 +75,25 @@
-  *                           frame, or zero if none.
-  *  3. Write memory barrier (WMB).
-  *  4. Write ent->flags, inc. valid type.
-+ * @endcode
-  *
-  * Invalidating an unused GTF_permit_access entry:
-+ * @code
-  *  1. flags = ent->flags.
-  *  2. Observe that !(flags & (GTF_reading|GTF_writing)).
-  *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
-  *  NB. No need for WMB as reuse of entry is control-dependent on success of
-  *      step 3, and all architectures guarantee ordering of ctrl-dep writes.
-+ * @endcode
-  *
-  * Invalidating an in-use GTF_permit_access entry:
-+ *
-  *  This cannot be done directly. Request assistance from the domain controller
-  *  which can set a timeout on the use of a grant entry and take necessary
-  *  action. (NB. This is not yet implemented!).
-  *
-  * Invalidating an unused GTF_accept_transfer entry:
-+ * @code
-  *  1. flags = ent->flags.
-  *  2. Observe that !(flags & GTF_transfer_committed). [*]
-  *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
-@@ -97,47 +104,55 @@
-  *      transferred frame is written. It is safe for the guest to spin waiting
-  *      for this to occur (detect by observing GTF_transfer_completed in
-  *      ent->flags).
-+ * @endcode
-  *
-  * Invalidating a committed GTF_accept_transfer entry:
-  *  1. Wait for (ent->flags & GTF_transfer_completed).
-  *
-  * Changing a GTF_permit_access from writable to read-only:
-+ *
-  *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writing.
-  *
-  * Changing a GTF_permit_access from read-only to writable:
-+ *
-  *  Use SMP-safe bit-setting instruction.
-- */
--
--/*
-- * Reference to a grant entry in a specified domain's grant table.
-- */
--typedef uint32_t grant_ref_t;
--
--/*
-+ *
-  * A grant table comprises a packed array of grant entries in one or more
-  * page frames shared between Xen and a guest.
-+ *
-  * [XEN]: This field is written by Xen and read by the sharing guest.
-+ *
-  * [GST]: This field is written by the guest and read by Xen.
-+ *
-+ * @addtogroup grant_table Grant Tables
-+ * @{
-  */
- 
--/*
-- * Version 1 of the grant table entry structure is maintained purely
-- * for backwards compatibility.  New guests should use version 2.
-+/**
-+ * Reference to a grant entry in a specified domain's grant table.
-  */
-+typedef uint32_t grant_ref_t;
-+
- #if __XEN_INTERFACE_VERSION__ < 0x0003020a
- #define grant_entry_v1 grant_entry
- #define grant_entry_v1_t grant_entry_t
- #endif
-+/**
-+ * Version 1 of the grant table entry structure is maintained purely
-+ * for backwards compatibility.  New guests should use version 2.
-+ */
- struct grant_entry_v1 {
--    /* GTF_xxx: various type and flag information.  [XEN,GST] */
-+    /** GTF_xxx: various type and flag information.  [XEN,GST] */
-     uint16_t flags;
--    /* The domain being granted foreign privileges. [GST] */
-+    /** The domain being granted foreign privileges. [GST] */
-     domid_t  domid;
--    /*
-+    /**
-+     * @code
-      * GTF_permit_access: GFN that @domid is allowed to map and access. [GST]
-      * GTF_accept_transfer: GFN that @domid is allowed to transfer into. [GST]
-      * GTF_transfer_completed: MFN whose ownership transferred by @domid
-      *                         (non-translated guests only). [XEN]
-+     * @endcode
-      */
-     uint32_t frame;
- };
-@@ -243,23 +258,27 @@ union grant_entry_v2 {
-      * In that case, the frame field has the same semantics as the
-      * field of the same name in the V1 entry structure.
-      */
-+    /** @cond skip anonymous struct/union for doxygen */
-     struct {
-         grant_entry_header_t hdr;
-         uint32_t pad0;
-         uint64_t frame;
-     } full_page;
-+    /** @endcond */
- 
-     /*
-      * If the grant type is GTF_grant_access and GTF_sub_page is set,
-      * @domid is allowed to access bytes [@page_off,@page_off+@length)
-      * in frame @frame.
-      */
-+    /** @cond skip anonymous struct/union for doxygen */
-     struct {
-         grant_entry_header_t hdr;
-         uint16_t page_off;
-         uint16_t length;
-         uint64_t frame;
-     } sub_page;
-+    /** @endcond */
- 
-     /*
-      * If the grant is GTF_transitive, @domid is allowed to use the
-@@ -270,12 +289,14 @@ union grant_entry_v2 {
-      * The current version of Xen does not allow transitive grants
-      * to be mapped.
-      */
-+    /** @cond skip anonymous struct/union for doxygen */
-     struct {
-         grant_entry_header_t hdr;
-         domid_t trans_domid;
-         uint16_t pad0;
-         grant_ref_t gref;
-     } transitive;
-+    /** @endcond */
- 
-     uint32_t __spacer[4]; /* Pad to a power of two */
- };
-@@ -433,7 +454,12 @@ typedef struct gnttab_transfer gnttab_transfer_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
- 
- 
--/*
-+#define _GNTCOPY_source_gref      (0)
-+#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
-+#define _GNTCOPY_dest_gref        (1)
-+#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
-+
-+/**
-  * GNTTABOP_copy: Hypervisor based copy
-  * source and destinations can be eithers MFNs or, for foreign domains,
-  * grant references. the foreign domain has to grant read/write access
-@@ -451,18 +477,15 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
-  * bytes to be copied.
-  */
- 
--#define _GNTCOPY_source_gref      (0)
--#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
--#define _GNTCOPY_dest_gref        (1)
--#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
--
- struct gnttab_copy {
-     /* IN parameters. */
-     struct gnttab_copy_ptr {
-+        /** @cond skip anonymous struct/union for doxygen */
-         union {
-             grant_ref_t ref;
-             xen_pfn_t   gmfn;
-         } u;
-+        /** @endcond */
-         domid_t  domid;
-         uint16_t offset;
-     } source, dest;
-@@ -579,17 +602,19 @@ struct gnttab_swap_grant_ref {
- typedef struct gnttab_swap_grant_ref gnttab_swap_grant_ref_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_swap_grant_ref_t);
- 
--/*
-+/**
-  * Issue one or more cache maintenance operations on a portion of a
-  * page granted to the calling domain by a foreign domain.
-  */
- struct gnttab_cache_flush {
-+    /** @cond skip anonymous struct/union for doxygen */
-     union {
-         uint64_t dev_bus_addr;
-         grant_ref_t ref;
-     } a;
--    uint16_t offset; /* offset from start of grant */
--    uint16_t length; /* size within the grant */
-+    /** @endcond */
-+    uint16_t offset; /**< offset from start of grant */
-+    uint16_t length; /**< size within the grant */
- #define GNTTAB_CACHE_CLEAN          (1u<<0)
- #define GNTTAB_CACHE_INVAL          (1u<<1)
- #define GNTTAB_CACHE_SOURCE_GREF    (1u<<31)
-@@ -673,6 +698,10 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_cache_flush_t);
-     "operation not done; try again"             \
- }
- 
-+/**
-+ * @}
-+*/
-+
- #endif /* __XEN_PUBLIC_GRANT_TABLE_H__ */
- 
- /*
--- 
-2.17.1
+I also wonder if we are shrinking the leaves too much, for example we
+should always report up to 0x40000000 (or 0x40000100) plus the Xen
+leaves, as we never hide those and it's also documented in the public
+headers?
 
+Thanks, Roger.
 
