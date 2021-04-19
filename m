@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34909363D42
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 10:18:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.112690.214915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3474363D58
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 10:20:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.112694.214928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYP6q-0005r7-BL; Mon, 19 Apr 2021 08:18:20 +0000
+	id 1lYP8y-0006fs-P0; Mon, 19 Apr 2021 08:20:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 112690.214915; Mon, 19 Apr 2021 08:18:20 +0000
+Received: by outflank-mailman (output) from mailman id 112694.214928; Mon, 19 Apr 2021 08:20:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYP6q-0005qi-7e; Mon, 19 Apr 2021 08:18:20 +0000
-Received: by outflank-mailman (input) for mailman id 112690;
- Mon, 19 Apr 2021 08:18:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lYP8y-0006fT-Lb; Mon, 19 Apr 2021 08:20:32 +0000
+Received: by outflank-mailman (input) for mailman id 112694;
+ Mon, 19 Apr 2021 08:20:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lYP6p-0005qa-C5; Mon, 19 Apr 2021 08:18:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lYP6p-00049e-5f; Mon, 19 Apr 2021 08:18:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lYP6o-0001P2-Rz; Mon, 19 Apr 2021 08:18:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lYP6o-0003mm-RQ; Mon, 19 Apr 2021 08:18:18 +0000
+ (envelope-from <SRS0=6e0X=JQ=riomar.se=rio@srs-us1.protection.inumbo.net>)
+ id 1lYP8x-0006fM-7a
+ for xen-devel@lists.xenproject.org; Mon, 19 Apr 2021 08:20:31 +0000
+Received: from mail2.riocities.com (unknown [185.20.14.89])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3b415107-6a44-4747-a3bc-714eba19c6e4;
+ Mon, 19 Apr 2021 08:20:30 +0000 (UTC)
+Received: from mail.riomar.se (81-230-197-241-no510.tbcn.telia.com
+ [81.230.197.241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail2.riocities.com (Postfix) with ESMTPSA id 2C7E6403B2;
+ Mon, 19 Apr 2021 10:20:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,272 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EZej1DfDFTLQg4cIwf3i/7fwrn0+EPWGQA07Z0pZulE=; b=L+om6zkyLOADiIu7a7j/s169gM
-	w2atvCLCJ3TJbGfrCiAfb68sq1fJx7IXF/BQ10N5Js52F5xqdiuZa9+dBZ4mzKiZcQbHCju+2Hv0D
-	DeJOsoek5D+IOqWbGYLHbASDl6QKfDMEiwba/qOepf/+DlBbhnvFLeWO4P2wsvo2Q2Sk=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161282-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [libvirt test] 161282: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=ac87f612ba8e4eb44f8dad34503f8673dc846db3
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 19 Apr 2021 08:18:18 +0000
+X-Inumbo-ID: 3b415107-6a44-4747-a3bc-714eba19c6e4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=riomar.se; s=mail;
+	t=1618820429; bh=dAvRtOAtF82txCYx8CqXAHZFc1ZLErZRiETcAItRFaM=;
+	h=Date:From:To:Subject:In-Reply-To:References:From;
+	b=TmwRxydKlvXSY8dmyIlOj7F27Gbjk2fe0ZXnspmk5M0Bs22RkODtCJVS52jr7bRqD
+	 Hibp52vKDlT+9sdcnWrKyZmndNH66a+QAd/4fqlaE2mUK0LCvw0xCFI9/4Rs19rrcO
+	 yZG7l6lhOs6VgZPB7UMQFG2Fu52ActWkRTerq55s=
+Date: Mon, 19 Apr 2021 10:20:28 +0200
+From: Henrik Riomar <rio@riomar.se>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: xenstore utils dropped support for -s in 4.15
+Message-Id: <20210419102028.2159633400d98830a54d4d0a@riomar.se>
+In-Reply-To: <6340da5e-a604-1ca3-4d89-0319e6ad12bc@suse.com>
+References: <20210411000215.0d0f4015bbfab8b1f20876bb@riomar.se>
+	<215bcc74-baff-6345-73ed-16f7da266a1b@suse.com>
+	<20210411091734.09ef653bf97aa954fecac079@riomar.se>
+	<6340da5e-a604-1ca3-4d89-0319e6ad12bc@suse.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-flight 161282 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161282/
+On Sun, 11 Apr 2021 11:17:38 +0200
+Juergen Gross <jgross@suse.com> wrote:
 
-Regressions :-(
+> On 11.04.21 09:17, Henrik Riomar wrote:
+> > On Sun, 11 Apr 2021 07:34:16 +0200
+> > Juergen Gross <jgross@suse.com> wrote:
+> > 
+> >> On 11.04.21 00:02, Henrik Riomar wrote:
+> >>> Hi,
+> >>>
+> >>> In Alpine and Debian (probably elsewhere as well), the -s flag removed in these two commits:
+> >>>    * https://github.com/xen-project/xen/commit/fa06cb8c38832aafe597d719040ba1d216e367b8
+> >>>    * https://github.com/xen-project/xen/commit/c65687ed16d2289ec91036ec2862a4b4bd34ea4f
+> >>> is actually used in the init scripts.
+> > 
+> >>> Reverting the two commits mentioned above restores a booting system.
+> >>>
+> >>> The -s flag was introduced in 2005 or so, so I guess you can say that dropping it should
+> >>> at least be mentioned in the release notices, and an alternative be described, or
+> >>> -s functionally should be brought back.
+> >>
+> >> The -s served exactly no purpose.
+> > 
+> > yes its used by dists to check that the socket is actually accessible (without falling back to
+> > direct access to /dev/xen/xenbus).
+> 
+> There are Xen configurations where the socket is never accessible,
+> as it is not existing.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+sure, but this is in the start script for the daemon it self we use "xenstore-read -s /"
+so it will also work if that script is used in a domain only running xenstored, right?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+> 
+> >> It was meant to force socket usage. A socket will be used anyway in
+> >> case xenstored is running in dom0, so specifying -s won't change
+> >> anything in this case.
+> > 
+> > yes reverting the to commits above and using -s, brings back the original behavior, returning
+> > with failure if the socket is not there.
+> 
+> And returning failure when Xenstore is running fine, but not in dom0.
 
-version targeted for testing:
- libvirt              ac87f612ba8e4eb44f8dad34503f8673dc846db3
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+sure, -s means access via local socket so yes.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  283 days
-Failing since        151818  2020-07-11 04:18:52 Z  282 days  275 attempts
-Testing same since   161223  2021-04-17 04:21:08 Z    2 days    3 attempts
+> 
+> > There are two issues here I think:
+> >   1. dists actually use -s to check if the daemon is up (and been doing this for a long time)
+> 
+> This should be changed, as it is based on wrong assumptions.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Luke Yue <lukedyue@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+changed to what exactly? check for a pid file? that also only works locally just like
+-s.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+> 
+> >   2. Reads of /dev/xen/xenbus (via xenstore-read -s /), blocks for ever in 4.15
+> 
+> So you are basically saying that you'd like to have a test "is Xenstore
+> running", and this test should work with the "-s" flag.
+> 
+> I can look into that, but reverting the "access via socket" removal flag
+> is not the way to go.
+> 
 
+Ok, so what should dists packaging 4.15 do? can the release notices be updated with this?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 52471 lines long.)
+Thanks,
+ Henrik
 
