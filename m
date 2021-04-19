@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D4E3640C4
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 13:46:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.112849.215175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5932364119
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Apr 2021 13:55:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.112855.215185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYSLr-0001Jr-A2; Mon, 19 Apr 2021 11:46:03 +0000
+	id 1lYSUU-0002GG-60; Mon, 19 Apr 2021 11:54:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 112849.215175; Mon, 19 Apr 2021 11:46:03 +0000
+Received: by outflank-mailman (output) from mailman id 112855.215185; Mon, 19 Apr 2021 11:54:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYSLr-0001JS-6W; Mon, 19 Apr 2021 11:46:03 +0000
-Received: by outflank-mailman (input) for mailman id 112849;
- Mon, 19 Apr 2021 11:46:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lYSUU-0002Fr-2t; Mon, 19 Apr 2021 11:54:58 +0000
+Received: by outflank-mailman (input) for mailman id 112855;
+ Mon, 19 Apr 2021 11:54:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lYSLp-0001JN-Fu
- for xen-devel@lists.xenproject.org; Mon, 19 Apr 2021 11:46:01 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c9d57a44-3484-4d8d-9d6a-6a11bfb2aa53;
- Mon, 19 Apr 2021 11:46:00 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D16DDAF3D;
- Mon, 19 Apr 2021 11:45:59 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lYSUS-0002Em-7s
+ for xen-devel@lists.xenproject.org; Mon, 19 Apr 2021 11:54:56 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lYSUL-0008HN-S5; Mon, 19 Apr 2021 11:54:49 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lYSUL-0002aR-HI; Mon, 19 Apr 2021 11:54:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,116 +39,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9d57a44-3484-4d8d-9d6a-6a11bfb2aa53
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618832759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RCGs1l9yEBWDJEBTNgcVgb5Q71nS/XvSkI1mkCSsAA8=;
-	b=LVDFerTI8469gRHj4hzcbwcQUL8frE9UaEqFmCqv7aZvm/sE4Q05u7jXaMbQOyclMMAMAH
-	suv843QFWKY0jiwrsbN4SpHLfjlFt9nV/1KdekRPKJt/Gr6foVOTeNrJU3k355km94oG/S
-	aj5jWIkSY0HS6CfwMjaM2qeyre3VF2E=
-Subject: Re: [PATCH v3] x86/CPUID: shrink max_{,sub}leaf fields according to
- actual leaf contents
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-References: <9ecd03b2-f8fa-2a8b-69ad-4b31920ea205@suse.com>
- <YH1KZhLrC6anI/Hm@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1612e2ac-87ad-4f7f-aaed-05486365b9dc@suse.com>
-Date: Mon, 19 Apr 2021 13:46:02 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=6wbZMU6F53nhJ6Ik1I9Gy9Zvrv8Ewa5Qk/CdC8a4w1M=; b=XXjJlwElKnQ6lsjuOnbxiFGaPr
+	S+cy/Lh3eW6lbIARnBXmK9oLlKyRQOdk1ALHH6CRZjJRw+PjE4iofU/zGkxQj6Z2pQHRg9IAqIK0I
+	d3fSwyiI59ji+L7DtPq2bRDXCRHZj+MkIG5kizUVJrYJkXZknhgOx9ffPs9F3MQV0GcM=;
+Subject: Re: [PATCH v2] xen/pci: Refactor PCI MSI interrupts related code
+To: Jan Beulich <jbeulich@suse.com>, Rahul Singh <Rahul.Singh@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <e4ca856b19d9128cae5f6aa4ace550ace17fd877.1617977720.git.rahul.singh@arm.com>
+ <YHQlptvoC06rqNhQ@Air-de-Roger>
+ <f7659788-ff1b-23dd-e838-b35ae8ef9e50@xen.org>
+ <YHaiW4xX0p6ov2Z9@Air-de-Roger>
+ <258c91c7-e733-3c40-5e4e-7b107e4d20c3@xen.org>
+ <YHg+6rLN0rBWXcTs@Air-de-Roger>
+ <788665ad-9815-e3e9-2d5a-851b35c566d0@xen.org>
+ <AD2BC1CD-74AF-48FF-8B42-2853C0E7A7BE@arm.com>
+ <YH1CBP8At7lVoHCz@Air-de-Roger>
+ <a365ffbd-5b88-85c3-9e68-46a9a730a6fa@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0d5539e3-32e3-8275-f695-351eda49cb29@xen.org>
+Date: Mon, 19 Apr 2021 12:54:46 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.1
 MIME-Version: 1.0
-In-Reply-To: <YH1KZhLrC6anI/Hm@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <a365ffbd-5b88-85c3-9e68-46a9a730a6fa@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-On 19.04.2021 11:16, Roger Pau Monné wrote:
-> Adding Paul also for the Viridian part.
+
+
+On 19/04/2021 12:16, Jan Beulich wrote:
+> On 19.04.2021 10:40, Roger Pau Monné wrote:
+>> On Mon, Apr 19, 2021 at 07:16:52AM +0000, Rahul Singh wrote:
+>>> Thanks you everyone for reviewing the code. I will summarise what I have understood from all the comments
+>>> and what I will be doing for the next version of the patch.  Please let me know your view on this.
+>>>
+>>> 1. Create a separate non-arch specific file "msi-intercept.c"  for the below newly introduced function and
+>>>      compile that file if CONFIG_PCI_MSI_INTERCEPT is enabled.CONFIG_PCI_MSI_INTERCEPT  will  be
+>>>      enabled for x86 by default.
 > 
-> On Fri, Apr 16, 2021 at 03:16:41PM +0200, Jan Beulich wrote:
->> Zapping leaf data for out of range leaves is just one half of it: To
->> avoid guests (bogusly or worse) inferring information from mere leaf
->> presence, also shrink maximum indicators such that the respective
->> trailing entry is not all blank (unless of course it's the initial
->> subleaf of a leaf that's not the final one).
->>
->> This is also in preparation of bumping the maximum basic leaf we
->> support, to ensure guests not getting exposed related features won't
->> observe a change in behavior.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> v3: Record the actual non-empty subleaf in p->basic.raw[0x7], rather
->>     than subleaf 0. Re-base over Viridian leaf 40000005 addition.
->> v2: New.
->>
->> --- a/tools/tests/cpu-policy/test-cpu-policy.c
->> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
->> @@ -8,10 +8,13 @@
->>  #include <err.h>
->>  
->>  #include <xen-tools/libs.h>
->> +#include <xen/asm/x86-defns.h>
->>  #include <xen/asm/x86-vendors.h>
->>  #include <xen/lib/x86/cpu-policy.h>
->>  #include <xen/domctl.h>
->>  
->> +#define XSTATE_FP_SSE  (X86_XCR0_FP | X86_XCR0_SSE)
->> +
->>  static unsigned int nr_failures;
->>  #define fail(fmt, ...)                          \
->>  ({                                              \
->> @@ -553,6 +556,103 @@ static void test_cpuid_out_of_range_clea
->>      }
->>  }
->>  
->> +static void test_cpuid_maximum_leaf_shrinking(void)
->> +{
->> +    static const struct test {
->> +        const char *name;
->> +        struct cpuid_policy p;
->> +    } tests[] = {
->> +        {
->> +            .name = "basic",
->> +            .p = {
->> +                /* Very basic information only. */
->> +                .basic.max_leaf = 1,
->> +                .basic.raw_fms = 0xc2,
->> +            },
->> +        },
->> +        {
->> +            .name = "cache",
->> +            .p = {
->> +                /* Cache subleaves present. */
->> +                .basic.max_leaf = 4,
->> +                .cache.subleaf[0].type = 1,
+> Everything up to here wants to be separate from ...
 > 
-> On a private conversation with Andrew he raised the issue that the
-> shrinking might be overly simplistic. For example if the x2APIC
-> feature bit in leaf 1 is set then the max leaf should be at least 0xb
-> in order to be able to fetch the x2APIC ID, even if it's 0.
+>>> Also Mention in the commit message that these function will be needed for Xen to
+>>>      support MSI interrupt within XEN.
+>>>
+>>> 	pdev_msi_initi(..)
+>>> 	pdev_msi_deiniti(..)
+> 
+> ... this (if all of these functions really are needed beyond the
+> purpose of intercepting MSI accesses).
+> 
+>> I would drop the last 'i' from both function names above, as we use
+>> init/deinit in the rest of the code base.
+> 
+> +1
+> 
+>>> 	pdev_dump_msi(..),
+>>> 	pdev_msix_assign(..)
+>>>
+>>> 2. Create separate patch for iommu_update_ire_from_msi() related code. There are two suggestion please help me which one to choose.
+>>>   
+>>>       - Move the iommu_update_ire_from_msi() function to asm-x86/iommu.h and also move the hook from iommu_ops under CONFIG_X86.
+>>
+>> I would go for this one.
+> 
+> Strictly speaking this isn't x86-specific and hence shouldn't move there.
+> It merely depends on whether full MSI support is wanted by an arch. 
 
-But in such a case the "type" field of leaf 0xb's first sub-leaf is
-going to be non-zero, isn't it?
+As I pointed out before, Arm doesn't use the IOMMU to setup the MSIs. So 
+the naming and using an IOMMU callback is definitely wrong for Arm.
 
-> I also wonder if we are shrinking the leaves too much, for example we
-> should always report up to 0x40000000 (or 0x40000100) plus the Xen
-> leaves, as we never hide those and it's also documented in the public
-> headers?
+> I'd
+> therefore guard the declaration by an #ifdef (if needed at all - have a
+> declaration without implementation isn't really that problematic). For
+> the definition question is going to be whether you introduce another new
+> file for the pdev_*() functions above. If not, #ifdef may again be better
+> than moving to an x86-specific file.
+AFAIK, this helper is only called by x86 specific code and it will not 
+be used as-is by Arm.
 
-Not sure I follow - I'm likely confused by you quoting 0x40000000
-and 0x40000100 rather than 0x400000nn and 0x400001nn, as elsewhere
-you suggested we may not want to clip sub-leaves there. Can you
-clarify whether you really mean only the first sub-leaves (each)
-here, and if so why you say "up to"? Furthermore for the Xen leaves
-I don't think I do excessive clipping ...
+I can't tell for other arch (e.g RISCv, PowerPC). However... we can take 
+the decision to move the code back to common back when it is necessary.
 
-Jan
+For the time being, I think move this code in x86 is a lot better than 
+#ifdef or keep the code in common code.
+
+Cheers,
+
+-- 
+Julien Grall
 
