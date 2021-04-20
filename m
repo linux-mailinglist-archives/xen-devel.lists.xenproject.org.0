@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C3F3652E3
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 09:09:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.113308.215909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5868B3652E8
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 09:09:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.113310.215932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYkVX-0006Om-KJ; Tue, 20 Apr 2021 07:09:15 +0000
+	id 1lYkVc-0006UT-NG; Tue, 20 Apr 2021 07:09:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 113308.215909; Tue, 20 Apr 2021 07:09:15 +0000
+Received: by outflank-mailman (output) from mailman id 113310.215932; Tue, 20 Apr 2021 07:09:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYkVX-0006O6-Fb; Tue, 20 Apr 2021 07:09:15 +0000
-Received: by outflank-mailman (input) for mailman id 113308;
- Tue, 20 Apr 2021 07:09:13 +0000
+	id 1lYkVc-0006TB-Cz; Tue, 20 Apr 2021 07:09:20 +0000
+Received: by outflank-mailman (input) for mailman id 113310;
+ Tue, 20 Apr 2021 07:09:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8gRw=JR=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1lYkVV-0006Ja-NO
- for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 07:09:13 +0000
+ id 1lYkVa-0006Ja-Na
+ for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 07:09:18 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id aa01ec39-8aab-4e59-b44c-5e2fe6ec18a6;
- Tue, 20 Apr 2021 07:09:08 +0000 (UTC)
+ id 96ea6986-5d1d-4ec3-a367-d26f9eb199db;
+ Tue, 20 Apr 2021 07:09:09 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CA30814BF;
- Tue, 20 Apr 2021 00:09:07 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5695C1435;
+ Tue, 20 Apr 2021 00:09:09 -0700 (PDT)
 Received: from e123311-lin.arm.com (unknown [10.57.29.239])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B348E3F85F;
- Tue, 20 Apr 2021 00:09:06 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1D0B13F85F;
+ Tue, 20 Apr 2021 00:09:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,16 +42,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa01ec39-8aab-4e59-b44c-5e2fe6ec18a6
+X-Inumbo-ID: 96ea6986-5d1d-4ec3-a367-d26f9eb199db
 From: Michal Orzel <michal.orzel@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	bertrand.marquis@arm.com
-Subject: [PATCH 2/9] arm/domain: Get rid of READ/WRITE_SYSREG32
-Date: Tue, 20 Apr 2021 09:08:46 +0200
-Message-Id: <20210420070853.8918-3-michal.orzel@arm.com>
+Subject: [PATCH 3/9] arm/gic: Get rid of READ/WRITE_SYSREG32
+Date: Tue, 20 Apr 2021 09:08:47 +0200
+Message-Id: <20210420070853.8918-4-michal.orzel@arm.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210420070853.8918-1-michal.orzel@arm.com>
 References: <20210420070853.8918-1-michal.orzel@arm.com>
@@ -67,106 +67,304 @@ which can correspond to uint64_t or uint32_t.
 Even though many AArch64 sysregs have upper 32bit reserved
 it does not mean that they can't be widen in the future.
 
-Modify type of registers: actlr, cntkctl to register_t.
+Modify types of following members of struct gic_v3 to register_t:
+-hcr(not used at all in Xen)
+-vmcr
+-sre_el1
+-apr0
+-apr1
 
 Signed-off-by: Michal Orzel <michal.orzel@arm.com>
 ---
- xen/arch/arm/domain.c        | 20 ++++++++++----------
- xen/include/asm-arm/domain.h |  4 ++--
- 2 files changed, 12 insertions(+), 12 deletions(-)
+ xen/arch/arm/gic-v3-lpi.c |  2 +-
+ xen/arch/arm/gic-v3.c     | 96 ++++++++++++++++++++-------------------
+ xen/include/asm-arm/gic.h |  6 +--
+ 3 files changed, 54 insertions(+), 50 deletions(-)
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index bdd3d3e5b5..c021a03c61 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -113,13 +113,13 @@ static void ctxt_switch_from(struct vcpu *p)
-     p->arch.tpidr_el1 = READ_SYSREG(TPIDR_EL1);
+diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+index 869bc97fa1..e1594dd20e 100644
+--- a/xen/arch/arm/gic-v3-lpi.c
++++ b/xen/arch/arm/gic-v3-lpi.c
+@@ -178,7 +178,7 @@ void gicv3_do_LPI(unsigned int lpi)
+     irq_enter();
  
-     /* Arch timer */
--    p->arch.cntkctl = READ_SYSREG32(CNTKCTL_EL1);
-+    p->arch.cntkctl = READ_SYSREG(CNTKCTL_EL1);
-     virt_timer_save(p);
+     /* EOI the LPI already. */
+-    WRITE_SYSREG32(lpi, ICC_EOIR1_EL1);
++    WRITE_SYSREG(lpi, ICC_EOIR1_EL1);
  
-     if ( is_32bit_domain(p->domain) && cpu_has_thumbee )
-     {
--        p->arch.teecr = READ_SYSREG32(TEECR32_EL1);
--        p->arch.teehbr = READ_SYSREG32(TEEHBR32_EL1);
-+        p->arch.teecr = READ_SYSREG(TEECR32_EL1);
-+        p->arch.teehbr = READ_SYSREG(TEEHBR32_EL1);
-     }
- 
- #ifdef CONFIG_ARM_32
-@@ -175,7 +175,7 @@ static void ctxt_switch_from(struct vcpu *p)
- 
- static void ctxt_switch_to(struct vcpu *n)
+     /* Find out if a guest mapped something to this physical LPI. */
+     hlpip = gic_get_host_lpi(lpi);
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index ac28013c19..0634013a67 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -246,12 +246,12 @@ static void gicv3_ich_write_lr(int lr, uint64_t val)
+  */
+ static void gicv3_enable_sre(void)
  {
--    uint32_t vpidr;
-+    register_t vpidr;
+-    uint32_t val;
++    register_t val;
  
-     /* When the idle VCPU is running, Xen will always stay in hypervisor
-      * mode. Therefore we don't need to restore the context of an idle VCPU.
-@@ -183,8 +183,8 @@ static void ctxt_switch_to(struct vcpu *n)
-     if ( is_idle_vcpu(n) )
-         return;
+-    val = READ_SYSREG32(ICC_SRE_EL2);
++    val = READ_SYSREG(ICC_SRE_EL2);
+     val |= GICC_SRE_EL2_SRE;
  
--    vpidr = READ_SYSREG32(MIDR_EL1);
--    WRITE_SYSREG32(vpidr, VPIDR_EL2);
-+    vpidr = READ_SYSREG(MIDR_EL1);
-+    WRITE_SYSREG(vpidr, VPIDR_EL2);
-     WRITE_SYSREG(n->arch.vmpidr, VMPIDR_EL2);
- 
-     /* VGIC */
-@@ -257,8 +257,8 @@ static void ctxt_switch_to(struct vcpu *n)
- 
-     if ( is_32bit_domain(n->domain) && cpu_has_thumbee )
-     {
--        WRITE_SYSREG32(n->arch.teecr, TEECR32_EL1);
--        WRITE_SYSREG32(n->arch.teehbr, TEEHBR32_EL1);
-+        WRITE_SYSREG(n->arch.teecr, TEECR32_EL1);
-+        WRITE_SYSREG(n->arch.teehbr, TEEHBR32_EL1);
-     }
- 
- #ifdef CONFIG_ARM_32
-@@ -274,7 +274,7 @@ static void ctxt_switch_to(struct vcpu *n)
- 
-     /* This is could trigger an hardware interrupt from the virtual
-      * timer. The interrupt needs to be injected into the guest. */
--    WRITE_SYSREG32(n->arch.cntkctl, CNTKCTL_EL1);
-+    WRITE_SYSREG(n->arch.cntkctl, CNTKCTL_EL1);
-     virt_timer_restore(n);
+-    WRITE_SYSREG32(val, ICC_SRE_EL2);
++    WRITE_SYSREG(val, ICC_SRE_EL2);
+     isb();
  }
  
-@@ -330,7 +330,7 @@ static void schedule_tail(struct vcpu *prev)
+@@ -315,16 +315,16 @@ static void restore_aprn_regs(const union gic_state_data *d)
+     switch ( gicv3.nr_priorities )
+     {
+     case 7:
+-        WRITE_SYSREG32(d->v3.apr0[2], ICH_AP0R2_EL2);
+-        WRITE_SYSREG32(d->v3.apr1[2], ICH_AP1R2_EL2);
++        WRITE_SYSREG(d->v3.apr0[2], ICH_AP0R2_EL2);
++        WRITE_SYSREG(d->v3.apr1[2], ICH_AP1R2_EL2);
+         /* Fall through */
+     case 6:
+-        WRITE_SYSREG32(d->v3.apr0[1], ICH_AP0R1_EL2);
+-        WRITE_SYSREG32(d->v3.apr1[1], ICH_AP1R1_EL2);
++        WRITE_SYSREG(d->v3.apr0[1], ICH_AP0R1_EL2);
++        WRITE_SYSREG(d->v3.apr1[1], ICH_AP1R1_EL2);
+         /* Fall through */
+     case 5:
+-        WRITE_SYSREG32(d->v3.apr0[0], ICH_AP0R0_EL2);
+-        WRITE_SYSREG32(d->v3.apr1[0], ICH_AP1R0_EL2);
++        WRITE_SYSREG(d->v3.apr0[0], ICH_AP0R0_EL2);
++        WRITE_SYSREG(d->v3.apr1[0], ICH_AP1R0_EL2);
+         break;
+     default:
+         BUG();
+@@ -338,16 +338,16 @@ static void save_aprn_regs(union gic_state_data *d)
+     switch ( gicv3.nr_priorities )
+     {
+     case 7:
+-        d->v3.apr0[2] = READ_SYSREG32(ICH_AP0R2_EL2);
+-        d->v3.apr1[2] = READ_SYSREG32(ICH_AP1R2_EL2);
++        d->v3.apr0[2] = READ_SYSREG(ICH_AP0R2_EL2);
++        d->v3.apr1[2] = READ_SYSREG(ICH_AP1R2_EL2);
+         /* Fall through */
+     case 6:
+-        d->v3.apr0[1] = READ_SYSREG32(ICH_AP0R1_EL2);
+-        d->v3.apr1[1] = READ_SYSREG32(ICH_AP1R1_EL2);
++        d->v3.apr0[1] = READ_SYSREG(ICH_AP0R1_EL2);
++        d->v3.apr1[1] = READ_SYSREG(ICH_AP1R1_EL2);
+         /* Fall through */
+     case 5:
+-        d->v3.apr0[0] = READ_SYSREG32(ICH_AP0R0_EL2);
+-        d->v3.apr1[0] = READ_SYSREG32(ICH_AP1R0_EL2);
++        d->v3.apr0[0] = READ_SYSREG(ICH_AP0R0_EL2);
++        d->v3.apr1[0] = READ_SYSREG(ICH_AP1R0_EL2);
+         break;
+     default:
+         BUG();
+@@ -371,15 +371,15 @@ static void gicv3_save_state(struct vcpu *v)
+     dsb(sy);
+     gicv3_save_lrs(v);
+     save_aprn_regs(&v->arch.gic);
+-    v->arch.gic.v3.vmcr = READ_SYSREG32(ICH_VMCR_EL2);
+-    v->arch.gic.v3.sre_el1 = READ_SYSREG32(ICC_SRE_EL1);
++    v->arch.gic.v3.vmcr = READ_SYSREG(ICH_VMCR_EL2);
++    v->arch.gic.v3.sre_el1 = READ_SYSREG(ICC_SRE_EL1);
+ }
  
- static void continue_new_vcpu(struct vcpu *prev)
+ static void gicv3_restore_state(const struct vcpu *v)
  {
--    current->arch.actlr = READ_SYSREG32(ACTLR_EL1);
-+    current->arch.actlr = READ_SYSREG(ACTLR_EL1);
-     processor_vcpu_initialise(current);
+-    uint32_t val;
++    register_t val;
  
-     schedule_tail(prev);
-diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-index 0a74df9931..2d4f38c669 100644
---- a/xen/include/asm-arm/domain.h
-+++ b/xen/include/asm-arm/domain.h
-@@ -156,7 +156,7 @@ struct arch_vcpu
+-    val = READ_SYSREG32(ICC_SRE_EL2);
++    val = READ_SYSREG(ICC_SRE_EL2);
+     /*
+      * Don't give access to system registers when the guest is using
+      * GICv2
+@@ -388,7 +388,7 @@ static void gicv3_restore_state(const struct vcpu *v)
+         val &= ~GICC_SRE_EL2_ENEL1;
+     else
+         val |= GICC_SRE_EL2_ENEL1;
+-    WRITE_SYSREG32(val, ICC_SRE_EL2);
++    WRITE_SYSREG(val, ICC_SRE_EL2);
  
-     /* Control Registers */
-     register_t sctlr;
--    uint32_t actlr;
-+    register_t actlr;
-     uint32_t cpacr;
+     /*
+      * VFIQEn is RES1 if ICC_SRE_EL1.SRE is 1. This causes a Group0
+@@ -398,9 +398,9 @@ static void gicv3_restore_state(const struct vcpu *v)
+      * want before starting to mess with the rest of the GIC, and
+      * VMCR_EL1 in particular.
+      */
+-    WRITE_SYSREG32(v->arch.gic.v3.sre_el1, ICC_SRE_EL1);
++    WRITE_SYSREG(v->arch.gic.v3.sre_el1, ICC_SRE_EL1);
+     isb();
+-    WRITE_SYSREG32(v->arch.gic.v3.vmcr, ICH_VMCR_EL2);
++    WRITE_SYSREG(v->arch.gic.v3.vmcr, ICH_VMCR_EL2);
+     restore_aprn_regs(&v->arch.gic);
+     gicv3_restore_lrs(v);
  
-     uint32_t contextidr;
-@@ -190,7 +190,7 @@ struct arch_vcpu
-     struct vgic_cpu vgic;
+@@ -468,24 +468,25 @@ static void gicv3_mask_irq(struct irq_desc *irqd)
+ static void gicv3_eoi_irq(struct irq_desc *irqd)
+ {
+     /* Lower the priority */
+-    WRITE_SYSREG32(irqd->irq, ICC_EOIR1_EL1);
++    WRITE_SYSREG(irqd->irq, ICC_EOIR1_EL1);
+     isb();
+ }
  
-     /* Timer registers  */
--    uint32_t cntkctl;
-+    register_t cntkctl;
+ static void gicv3_dir_irq(struct irq_desc *irqd)
+ {
+     /* Deactivate */
+-    WRITE_SYSREG32(irqd->irq, ICC_DIR_EL1);
++    WRITE_SYSREG(irqd->irq, ICC_DIR_EL1);
+     isb();
+ }
  
-     struct vtimer phys_timer;
-     struct vtimer virt_timer;
+ static unsigned int gicv3_read_irq(void)
+ {
+-    unsigned int irq = READ_SYSREG32(ICC_IAR1_EL1);
++    register_t irq = READ_SYSREG(ICC_IAR1_EL1);
+ 
+     dsb(sy);
+ 
+-    return irq;
++    /* Number of IRQs do not exceed 32bit. */
++    return (unsigned int)irq;
+ }
+ 
+ /*
+@@ -857,16 +858,16 @@ static int gicv3_cpu_init(void)
+     gicv3_enable_sre();
+ 
+     /* No priority grouping */
+-    WRITE_SYSREG32(0, ICC_BPR1_EL1);
++    WRITE_SYSREG(0, ICC_BPR1_EL1);
+ 
+     /* Set priority mask register */
+-    WRITE_SYSREG32(DEFAULT_PMR_VALUE, ICC_PMR_EL1);
++    WRITE_SYSREG(DEFAULT_PMR_VALUE, ICC_PMR_EL1);
+ 
+     /* EOI drops priority, DIR deactivates the interrupt (mode 1) */
+-    WRITE_SYSREG32(GICC_CTLR_EL1_EOImode_drop, ICC_CTLR_EL1);
++    WRITE_SYSREG(GICC_CTLR_EL1_EOImode_drop, ICC_CTLR_EL1);
+ 
+     /* Enable Group1 interrupts */
+-    WRITE_SYSREG32(1, ICC_IGRPEN1_EL1);
++    WRITE_SYSREG(1, ICC_IGRPEN1_EL1);
+ 
+     /* Sync at once at the end of cpu interface configuration */
+     isb();
+@@ -876,15 +877,15 @@ static int gicv3_cpu_init(void)
+ 
+ static void gicv3_cpu_disable(void)
+ {
+-    WRITE_SYSREG32(0, ICC_CTLR_EL1);
++    WRITE_SYSREG(0, ICC_CTLR_EL1);
+     isb();
+ }
+ 
+ static void gicv3_hyp_init(void)
+ {
+-    uint32_t vtr;
++    register_t vtr;
+ 
+-    vtr = READ_SYSREG32(ICH_VTR_EL2);
++    vtr = READ_SYSREG(ICH_VTR_EL2);
+     gicv3_info.nr_lrs  = (vtr & ICH_VTR_NRLRGS) + 1;
+     gicv3.nr_priorities = ((vtr >> ICH_VTR_PRIBITS_SHIFT) &
+                           ICH_VTR_PRIBITS_MASK) + 1;
+@@ -892,8 +893,8 @@ static void gicv3_hyp_init(void)
+     if ( !((gicv3.nr_priorities > 4) && (gicv3.nr_priorities < 8)) )
+         panic("GICv3: Invalid number of priority bits\n");
+ 
+-    WRITE_SYSREG32(ICH_VMCR_EOI | ICH_VMCR_VENG1, ICH_VMCR_EL2);
+-    WRITE_SYSREG32(GICH_HCR_EN, ICH_HCR_EL2);
++    WRITE_SYSREG(ICH_VMCR_EOI | ICH_VMCR_VENG1, ICH_VMCR_EL2);
++    WRITE_SYSREG(GICH_HCR_EN, ICH_HCR_EL2);
+ }
+ 
+ /* Set up the per-CPU parts of the GIC for a secondary CPU */
+@@ -917,11 +918,11 @@ out:
+ 
+ static void gicv3_hyp_disable(void)
+ {
+-    uint32_t hcr;
++    register_t hcr;
+ 
+-    hcr = READ_SYSREG32(ICH_HCR_EL2);
++    hcr = READ_SYSREG(ICH_HCR_EL2);
+     hcr &= ~GICH_HCR_EN;
+-    WRITE_SYSREG32(hcr, ICH_HCR_EL2);
++    WRITE_SYSREG(hcr, ICH_HCR_EL2);
+     isb();
+ }
+ 
+@@ -1140,39 +1141,42 @@ static void gicv3_write_lr(int lr_reg, const struct gic_lr *lr)
+ 
+ static void gicv3_hcr_status(uint32_t flag, bool status)
+ {
+-    uint32_t hcr;
++    register_t hcr;
+ 
+-    hcr = READ_SYSREG32(ICH_HCR_EL2);
++    hcr = READ_SYSREG(ICH_HCR_EL2);
+     if ( status )
+-        WRITE_SYSREG32(hcr | flag, ICH_HCR_EL2);
++        WRITE_SYSREG(hcr | flag, ICH_HCR_EL2);
+     else
+-        WRITE_SYSREG32(hcr & (~flag), ICH_HCR_EL2);
++        WRITE_SYSREG(hcr & (~flag), ICH_HCR_EL2);
+     isb();
+ }
+ 
+ static unsigned int gicv3_read_vmcr_priority(void)
+ {
+-   return ((READ_SYSREG32(ICH_VMCR_EL2) >> ICH_VMCR_PRIORITY_SHIFT) &
++   return ((READ_SYSREG(ICH_VMCR_EL2) >> ICH_VMCR_PRIORITY_SHIFT) &
+             ICH_VMCR_PRIORITY_MASK);
+ }
+ 
+ /* Only support reading GRP1 APRn registers */
+ static unsigned int gicv3_read_apr(int apr_reg)
+ {
++    register_t apr;
+     switch ( apr_reg )
+     {
+     case 0:
+         ASSERT(gicv3.nr_priorities > 4 && gicv3.nr_priorities < 8);
+-        return READ_SYSREG32(ICH_AP1R0_EL2);
++        apr = READ_SYSREG(ICH_AP1R0_EL2);
+     case 1:
+         ASSERT(gicv3.nr_priorities > 5 && gicv3.nr_priorities < 8);
+-        return READ_SYSREG32(ICH_AP1R1_EL2);
++        apr = READ_SYSREG(ICH_AP1R1_EL2);
+     case 2:
+         ASSERT(gicv3.nr_priorities > 6 && gicv3.nr_priorities < 8);
+-        return READ_SYSREG32(ICH_AP1R2_EL2);
++        apr = READ_SYSREG(ICH_AP1R2_EL2);
+     default:
+         BUG();
+     }
++    /* Number of priority levels do not exceed 32bit */
++    return (unsigned int)apr;
+ }
+ 
+ static bool gicv3_read_pending_state(struct irq_desc *irqd)
+diff --git a/xen/include/asm-arm/gic.h b/xen/include/asm-arm/gic.h
+index ad0f7452d0..d750d070b4 100644
+--- a/xen/include/asm-arm/gic.h
++++ b/xen/include/asm-arm/gic.h
+@@ -171,9 +171,9 @@
+  * GICv3 registers that needs to be saved/restored
+  */
+ struct gic_v3 {
+-    uint32_t hcr, vmcr, sre_el1;
+-    uint32_t apr0[4];
+-    uint32_t apr1[4];
++    register_t hcr, vmcr, sre_el1;
++    register_t apr0[4];
++    register_t apr1[4];
+     uint64_t lr[16];
+ };
+ #endif
 -- 
 2.29.0
 
