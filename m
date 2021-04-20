@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF1936551A
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 11:15:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.113410.216088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF2836552C
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 11:21:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.113415.216099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYmSj-0003Ey-Qw; Tue, 20 Apr 2021 09:14:29 +0000
+	id 1lYmZU-0004Bm-In; Tue, 20 Apr 2021 09:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 113410.216088; Tue, 20 Apr 2021 09:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 113415.216099; Tue, 20 Apr 2021 09:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYmSj-0003EZ-NK; Tue, 20 Apr 2021 09:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 113410;
- Tue, 20 Apr 2021 09:14:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lYmZU-0004BL-FS; Tue, 20 Apr 2021 09:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 113415;
+ Tue, 20 Apr 2021 09:21:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lYmSi-0003EU-Io
- for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 09:14:28 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 07e20466-2c81-4e25-bcec-a1cdf9778306;
- Tue, 20 Apr 2021 09:14:27 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A60B7AEE7;
- Tue, 20 Apr 2021 09:14:26 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYmZT-0004BD-5m; Tue, 20 Apr 2021 09:21:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYmZT-0005lW-0e; Tue, 20 Apr 2021 09:21:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYmZS-0002hk-OW; Tue, 20 Apr 2021 09:21:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYmZS-0006ae-O2; Tue, 20 Apr 2021 09:21:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,324 +42,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07e20466-2c81-4e25-bcec-a1cdf9778306
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618910066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Kbcl8vcjPy9kXVmjDwpVpgdRC4aOqedP4eAuRtc4iQY=;
-	b=LQ565028EfdQ7y7OHUZHXahiU1QXWNhooSLizbCofygvy3wysG3u+cJOKzYlo7w17ccrsq
-	x5IzgosdN7S+Wn/ofOfsbqN0SMqTrAp6Zyc0fzM+P7++0BiVFcl3jDlJNZt1/CK9gtjrFw
-	q+GaESDUQlUxCI/iIVoKavrjADT8DpA=
-Subject: Re: [PATCH v2 3/3] docs/doxygen: doxygen documentation for
- grant_table.h
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20210419091231.55684-1-luca.fancellu@arm.com>
- <20210419091231.55684-4-luca.fancellu@arm.com>
- <c8e1022f-abb0-56f3-db37-5cec4d01dead@suse.com>
- <0F26E53E-0C0A-4596-AC88-F803BC7A0493@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c6d80a92-b8e7-703a-e051-18dc845b242a@suse.com>
-Date: Tue, 20 Apr 2021 11:14:22 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
-MIME-Version: 1.0
-In-Reply-To: <0F26E53E-0C0A-4596-AC88-F803BC7A0493@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=wQ8hmB0zh1Sfol7RsOsx7ExbVnvkiiJeNi1d5Tnph0o=; b=3oik9zeHHUUeEYRazmwgCvrifS
+	EdSA0TgRc89Px1xQYDQN7Mvi8mw0toWOdLCqoMS0I5ghE6DsbSfB6R5TKjtEL7S6xTfYK7iwKRQJO
+	SRB8o2kWndlF0Nt+cATH3714+QnFgMRUdXdj6B6zaL/g+Tsnis3+CuF84kNmEVJXF+Eg=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161311-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 161311: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=1c34211c22de28127a509edbf2cf2f44cb0d891e
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 20 Apr 2021 09:21:26 +0000
 
-On 20.04.2021 10:46, Luca Fancellu wrote:
->> On 19 Apr 2021, at 12:05, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 19.04.2021 11:12, Luca Fancellu wrote:
->>> Modification to include/public/grant_table.h:
->>>
->>> 1) Add doxygen tags to:
->>> - Create Grant tables section
->>> - include variables in the generated documentation
->>> 2) Add .rst file for grant table for Arm64
->>
->> I'm missing some reasoning about at least some of the changes done
->> to grant_table.h. Looking at this and the earlier patches I also
->> couldn't spot any general outline of what is acceptable or even
->> necessary in such a header to be understood by doxygen. Without
->> this written down somewhere (or, if documented elsewhere, a
->> pointer provided to that doc) I'm afraid things might get screwed
->> up again later on.
-> 
-> Doxygen is a tool that generates documentation based on parsing the source code comments, it recognises some
-> commands in the comments and builds the documentation sticking to what you wrote.
-> 
-> Here the doxygen docs: https://www.doxygen.nl/manual/docblocks.html
-> 
-> Basically it doesn’t react to all comments, it parses only some well crafted comments as explained in its documentation.
+flight 161311 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161311/
 
-Providing this link somewhere might be helpful. However, also seeing
-some of your further comments, it feels like to edit a public header
-enabled for doxygen one has to know fair parts of this documentation.
-While I'm certainly in favor of having a way to generate docs from
-the headers, I'm afraid I don't think such knowledge should become a
-prereq to e.g. adding a new sub-function of a hypercall. So far I was
-assuming that the formatting requirements would be quite limited, and
-that it would hence be possible to just glean them from existing code.
-But e.g. the "/**<" notation isn't going to be obvious to spot.
+Regressions :-(
 
->>> --- a/docs/hypercall-interfaces/arm64.rst
->>> +++ b/docs/hypercall-interfaces/arm64.rst
->>> @@ -8,6 +8,7 @@ Starting points
->>> .. toctree::
->>>    :maxdepth: 2
->>>
->>> +   arm64/grant_tables
->>>
->>>
->>> Functions
->>> diff --git a/docs/hypercall-interfaces/arm64/grant_tables.rst b/docs/hypercall-interfaces/arm64/grant_tables.rst
->>> new file mode 100644
->>> index 0000000000..8955ec5812
->>> --- /dev/null
->>> +++ b/docs/hypercall-interfaces/arm64/grant_tables.rst
->>> @@ -0,0 +1,8 @@
->>> +.. SPDX-License-Identifier: CC-BY-4.0
->>> +
->>> +Grant Tables
->>> +============
->>> +
->>> +.. doxygengroup:: grant_table
->>
->> Why is this Arm64-specific?
-> 
-> This particular one is Arm64 specific, but it doesn’t mean that grant tables are arm specific, it is only that for now I’m
-> Introducing a partial documentation in the arm side. Any other user can in the future add more documentation for
-> each platform.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-I'm of the pretty strong opinion that common hypercalls should be
-documented as common, and hence not live in an arch-specific
-section.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
->>> @@ -73,20 +75,25 @@
->>>  *                           frame, or zero if none.
->>>  *  3. Write memory barrier (WMB).
->>>  *  4. Write ent->flags, inc. valid type.
->>> + * @endcode
->>>  *
->>>  * Invalidating an unused GTF_permit_access entry:
->>> + * @code
->>>  *  1. flags = ent->flags.
->>>  *  2. Observe that !(flags & (GTF_reading|GTF_writing)).
->>>  *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
->>>  *  NB. No need for WMB as reuse of entry is control-dependent on success of
->>>  *      step 3, and all architectures guarantee ordering of ctrl-dep writes.
->>> + * @endcode
->>>  *
->>>  * Invalidating an in-use GTF_permit_access entry:
->>> + *
->>>  *  This cannot be done directly. Request assistance from the domain controller
->>>  *  which can set a timeout on the use of a grant entry and take necessary
->>>  *  action. (NB. This is not yet implemented!).
->>>  *
->>>  * Invalidating an unused GTF_accept_transfer entry:
->>> + * @code
->>>  *  1. flags = ent->flags.
->>>  *  2. Observe that !(flags & GTF_transfer_committed). [*]
->>>  *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
->>> @@ -97,47 +104,55 @@
->>>  *      transferred frame is written. It is safe for the guest to spin waiting
->>>  *      for this to occur (detect by observing GTF_transfer_completed in
->>>  *      ent->flags).
->>> + * @endcode
->>>  *
->>>  * Invalidating a committed GTF_accept_transfer entry:
->>>  *  1. Wait for (ent->flags & GTF_transfer_completed).
->>>  *
->>>  * Changing a GTF_permit_access from writable to read-only:
->>> + *
->>>  *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writing.
->>>  *
->>>  * Changing a GTF_permit_access from read-only to writable:
->>> + *
->>>  *  Use SMP-safe bit-setting instruction.
->>
->> For example - are the blank lines you add necessary or merely nice
->> to have in your personal opinion?
-> 
-> The blank lines makes the docs output more good looking
+version targeted for testing:
+ libvirt              1c34211c22de28127a509edbf2cf2f44cb0d891e
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-I'm inclined to suggest to split beautification from basic enabling.
+Last test of basis   151777  2020-07-10 04:19:19 Z  284 days
+Failing since        151818  2020-07-11 04:18:52 Z  283 days  276 attempts
+Testing same since   161311  2021-04-20 04:18:55 Z    0 days    1 attempts
 
->>> - */
->>> -
->>> -/*
->>> - * Reference to a grant entry in a specified domain's grant table.
->>> - */
->>> -typedef uint32_t grant_ref_t;
->>
->> Why does this get moved ...
->>
->>> -
->>> -/*
->>> + *
->>>  * A grant table comprises a packed array of grant entries in one or more
->>>  * page frames shared between Xen and a guest.
->>> + *
->>>  * [XEN]: This field is written by Xen and read by the sharing guest.
->>> + *
->>>  * [GST]: This field is written by the guest and read by Xen.
->>> + *
->>> + * @addtogroup grant_table Grant Tables
->>> + * @{
->>>  */
->>>
->>> -/*
->>> - * Version 1 of the grant table entry structure is maintained purely
->>> - * for backwards compatibility.  New guests should use version 2.
->>> +/**
->>> + * Reference to a grant entry in a specified domain's grant table.
->>>  */
->>> +typedef uint32_t grant_ref_t;
->>
->> ... here, past a comment unrelated to it?
-> 
-> The comment “Version 1 of the grant table entry […]” was moved on top of the struct grant_entry_v1, in this way
-> Doxygen associate the comment to that structure.
-> 
-> The comment “Reference to a grant entry in a specified domain's grant table.” Is moved on top of typedef uint32_t grant_ref_t
-> for the same reason above
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
-But it's the other comment ("A grant table comprises ...") that I
-was asking about.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
->>> @@ -243,23 +258,27 @@ union grant_entry_v2 {
->>>      * In that case, the frame field has the same semantics as the
->>>      * field of the same name in the V1 entry structure.
->>>      */
->>> +    /** @cond skip anonymous struct/union for doxygen */
->>>     struct {
->>>         grant_entry_header_t hdr;
->>>         uint32_t pad0;
->>>         uint64_t frame;
->>>     } full_page;
->>> +    /** @endcond */
->>>
->>>     /*
->>>      * If the grant type is GTF_grant_access and GTF_sub_page is set,
->>>      * @domid is allowed to access bytes [@page_off,@page_off+@length)
->>>      * in frame @frame.
->>>      */
->>> +    /** @cond skip anonymous struct/union for doxygen */
->>>     struct {
->>>         grant_entry_header_t hdr;
->>>         uint16_t page_off;
->>>         uint16_t length;
->>>         uint64_t frame;
->>>     } sub_page;
->>> +    /** @endcond */
->>>
->>>     /*
->>>      * If the grant is GTF_transitive, @domid is allowed to use the
->>> @@ -270,12 +289,14 @@ union grant_entry_v2 {
->>>      * The current version of Xen does not allow transitive grants
->>>      * to be mapped.
->>>      */
->>> +    /** @cond skip anonymous struct/union for doxygen */
->>>     struct {
->>>         grant_entry_header_t hdr;
->>>         domid_t trans_domid;
->>>         uint16_t pad0;
->>>         grant_ref_t gref;
->>>     } transitive;
->>> +    /** @endcond */
->>
->> While already better than the introduction of strange struct tags,
->> I'm still not convinced we want this extra clutter (sorry). Plus -
->> don't these additions mean the sub-structures then won't be
->> represented in the generated doc, rendering it (partly) useless?
-> 
-> Are you suggesting to remove the structure from docs?
 
-Just yet I'm not suggesting anything here - I was merely guessing at
-the effect of "@cond" and the associated "skip ..." to mean that this
-construct makes doxygen skip the enclosed section. If that's not the
-effect, then maybe the comment wants rewording? (And then - what does
-@cond mean?)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
->>> @@ -433,7 +454,12 @@ typedef struct gnttab_transfer gnttab_transfer_t;
->>> DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
->>>
->>>
->>> -/*
->>> +#define _GNTCOPY_source_gref      (0)
->>> +#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
->>> +#define _GNTCOPY_dest_gref        (1)
->>> +#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
->>> +
->>> +/**
->>>  * GNTTABOP_copy: Hypervisor based copy
->>>  * source and destinations can be eithers MFNs or, for foreign domains,
->>>  * grant references. the foreign domain has to grant read/write access
->>> @@ -451,18 +477,15 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
->>>  * bytes to be copied.
->>>  */
->>>
->>> -#define _GNTCOPY_source_gref      (0)
->>> -#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
->>> -#define _GNTCOPY_dest_gref        (1)
->>> -#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
->>> -
->>> struct gnttab_copy {
->>
->> Again the question - why the movement?
-> 
-> Doxygen takes the comment just above the data structure to build the docs, so here we are moving the
-> Comment just on top of the described structure.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Well, okay, this then is an explanation _that_ the #define-s want
-moving, but not an explanation for where they got moved (father
-away from what they actually relate to). Personally I consider it
-good practice to have such #define-s next to the field they relate
-to (and we have such placement elsewhere). Perhaps worth
-considering to move them down rather than up?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Jan
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
->>> @@ -579,17 +602,19 @@ struct gnttab_swap_grant_ref {
->>> typedef struct gnttab_swap_grant_ref gnttab_swap_grant_ref_t;
->>> DEFINE_XEN_GUEST_HANDLE(gnttab_swap_grant_ref_t);
->>>
->>> -/*
->>> +/**
->>>  * Issue one or more cache maintenance operations on a portion of a
->>>  * page granted to the calling domain by a foreign domain.
->>>  */
->>> struct gnttab_cache_flush {
->>> +    /** @cond skip anonymous struct/union for doxygen */
->>>     union {
->>>         uint64_t dev_bus_addr;
->>>         grant_ref_t ref;
->>>     } a;
->>> -    uint16_t offset; /* offset from start of grant */
->>> -    uint16_t length; /* size within the grant */
->>> +    /** @endcond */
->>> +    uint16_t offset; /**< offset from start of grant */
->>> +    uint16_t length; /**< size within the grant */
->>
->> Skipping just part of a struct is perhaps even more confusing than
->> omitting it altogether.
->>
->> Also, what's the significance of "/**<" ?
-> 
-> It is a doxygen pattern that tells it to use the comment as a field related documentation.
-> If you build the documentation you will find the result, I encourage you to see it to
-> realize the power of the tool and the benefits that Xen can get with it.
-> 
-> Cheers,
-> Luca
+
+Not pushing.
+
+(No revision log; it would be 53283 lines long.)
 
