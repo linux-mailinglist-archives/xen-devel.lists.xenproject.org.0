@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5020A3658FB
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 14:33:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.113603.216505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 126EF365905
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 14:35:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.113609.216518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYpYj-0007HY-6u; Tue, 20 Apr 2021 12:32:53 +0000
+	id 1lYpb9-0007Sg-Mk; Tue, 20 Apr 2021 12:35:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 113603.216505; Tue, 20 Apr 2021 12:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 113609.216518; Tue, 20 Apr 2021 12:35:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYpYj-0007H9-3p; Tue, 20 Apr 2021 12:32:53 +0000
-Received: by outflank-mailman (input) for mailman id 113603;
- Tue, 20 Apr 2021 12:32:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lYpb9-0007SE-Gz; Tue, 20 Apr 2021 12:35:23 +0000
+Received: by outflank-mailman (input) for mailman id 113609;
+ Tue, 20 Apr 2021 12:35:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lYpYh-0007Gl-2G
- for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 12:32:51 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fdb9ad0c-b35f-4107-8f88-7526e3f83690;
- Tue, 20 Apr 2021 12:32:50 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4A8D4B2E2;
- Tue, 20 Apr 2021 12:32:49 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYpb7-0007S6-Ad; Tue, 20 Apr 2021 12:35:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYpb7-0000jF-6M; Tue, 20 Apr 2021 12:35:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYpb6-0004lO-Si; Tue, 20 Apr 2021 12:35:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lYpb6-0002nc-SE; Tue, 20 Apr 2021 12:35:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdb9ad0c-b35f-4107-8f88-7526e3f83690
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618921969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hzJ2zvxaFBZEyJ0VfIKGlqu6FRZCu862q22MyiJu+rw=;
-	b=JzU43WafOKQqIbkeGqy8fYj5opIEFiQDgCN0Ezi7CTGeNay2XbC0OMdnVSb11SnvkDtYfc
-	Hyfksasn3xJ83paWoW0eM30vSlj4rCySYmJll597Z7rU4z9fOMMu5irXpKSQK0P/Ff2+m5
-	dqBK2lY6EN2Ak3jdLUX75f375ijBAIY=
-Subject: Re: [PATCH v9 10/13] x86/smpboot: switch clone_mapping() to new APIs
-To: Hongyan Xia <hx242@xen.org>
-Cc: jgrall@amazon.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1617706782.git.hongyxia@amazon.com>
- <d55bcecc33df5b277bc3e1dbb48826bc816d8d10.1617706782.git.hongyxia@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <de0df262-6c83-41d2-02d6-ce56d484baa2@suse.com>
-Date: Tue, 20 Apr 2021 14:32:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=O6qMETFo2APbB8l2xG4bAs4BfYr3qp76tjVG7GqNbJI=; b=Pm8WNISQiBCEe6XsWc1FsWRFsU
+	1HuTA77DFU/KmC2ZN6cMzXJYBLUL14uQAKL4kIE3QjPQjzw9h/xfCrAQAPmAWF/2//1IvsEKwtREs
+	OU47GIyGh6M91Wj57PKXlRjaeR2MKK4RmUO1PaGHBlq9NM+cwvh0hhLhnZswaj6mgUEo=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161312-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <d55bcecc33df5b277bc3e1dbb48826bc816d8d10.1617706782.git.hongyxia@amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 161312: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=0bbc20727598421c4e47d46b982246217df8c6bc
+X-Osstest-Versions-That:
+    ovmf=64138c95db5a7a3e4768d8a01ba71dc3475e6524
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 20 Apr 2021 12:35:20 +0000
 
-On 06.04.2021 13:05, Hongyan Xia wrote:
-> @@ -742,51 +742,58 @@ static int clone_mapping(const void *ptr, root_pgentry_t *rpt)
->          }
->      }
->  
-> +    UNMAP_DOMAIN_PAGE(pl1e);
-> +    UNMAP_DOMAIN_PAGE(pl2e);
-> +    UNMAP_DOMAIN_PAGE(pl3e);
+flight 161312 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161312/
 
-Just one minor remark: A pedantic(?) compiler might warn about the
-setting to NULL of pl3e here, when
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 0bbc20727598421c4e47d46b982246217df8c6bc
+baseline version:
+ ovmf                 64138c95db5a7a3e4768d8a01ba71dc3475e6524
 
->      if ( !(root_get_flags(rpt[root_table_offset(linear)]) & _PAGE_PRESENT) )
->      {
-> -        pl3e = alloc_xen_pagetable();
-> +        mfn_t l3mfn;
-> +
-> +        pl3e = alloc_map_clear_xen_pt(&l3mfn);
->          rc = -ENOMEM;
->          if ( !pl3e )
->              goto out;
-> -        clear_page(pl3e);
->          l4e_write(&rpt[root_table_offset(linear)],
-> -                  l4e_from_paddr(__pa(pl3e), __PAGE_HYPERVISOR));
-> +                  l4e_from_mfn(l3mfn, __PAGE_HYPERVISOR));
->      }
->      else
-> -        pl3e = l4e_to_l3e(rpt[root_table_offset(linear)]);
-> +        pl3e = map_l3t_from_l4e(rpt[root_table_offset(linear)]);
+Last test of basis   161301  2021-04-19 21:40:07 Z    0 days
+Testing same since   161312  2021-04-20 04:56:06 Z    0 days    1 attempts
 
-... it is guaranteed to get initialized again before any further
-consumption. IOW strictly speaking the last of those three would
-want to be unmap_domain_page(), just like you have ...
+------------------------------------------------------------
+People who touched revisions under test:
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Kun Qin <kuqin12@gmail.com>
 
-> @@ -802,6 +809,9 @@ static int clone_mapping(const void *ptr, root_pgentry_t *rpt)
->  
->      rc = 0;
->   out:
-> +    unmap_domain_page(pl1e);
-> +    unmap_domain_page(pl2e);
-> +    unmap_domain_page(pl3e);
->      return rc;
->  }
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-... here.
 
-Jan
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   64138c95db..0bbc207275  0bbc20727598421c4e47d46b982246217df8c6bc -> xen-tested-master
 
