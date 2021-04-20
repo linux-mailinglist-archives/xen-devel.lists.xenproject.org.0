@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06960365793
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 13:29:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.113550.216411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8EFF3657AF
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 13:38:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.113560.216422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYoYj-0000TD-Jp; Tue, 20 Apr 2021 11:28:49 +0000
+	id 1lYoi6-0001Ro-Fr; Tue, 20 Apr 2021 11:38:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 113550.216411; Tue, 20 Apr 2021 11:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 113560.216422; Tue, 20 Apr 2021 11:38:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYoYj-0000So-GT; Tue, 20 Apr 2021 11:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 113550;
- Tue, 20 Apr 2021 11:28:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lYoi6-0001RP-Cr; Tue, 20 Apr 2021 11:38:30 +0000
+Received: by outflank-mailman (input) for mailman id 113560;
+ Tue, 20 Apr 2021 11:38:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lYoYh-0000Sj-DT
- for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 11:28:47 +0000
+ id 1lYoi4-0001RK-C0
+ for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 11:38:28 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f157fb83-a4e2-4008-93b2-ece1b8f341b2;
- Tue, 20 Apr 2021 11:28:46 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0f149d5f-2b32-4e6e-a54f-bbb5f9a5ec6a;
+ Tue, 20 Apr 2021 11:38:27 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8FE17AF98;
- Tue, 20 Apr 2021 11:28:45 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 88048AF52;
+ Tue, 20 Apr 2021 11:38:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,77 +38,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f157fb83-a4e2-4008-93b2-ece1b8f341b2
+X-Inumbo-ID: 0f149d5f-2b32-4e6e-a54f-bbb5f9a5ec6a
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618918125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1618918706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lRmWvHXX3TgjY2Zoj9JrTfd/UE48CQS1mOvA3YQ4IiE=;
-	b=iz50U2V611fdqXAnyaqTMOdA9E7DdED5grCVotBRt4DEU4UYqPlaMUq6k2CyN/5yRjEVjl
-	UmpbLi1JXpUw5nw1sOQY9zccdhblx+3LeCJgOWpogoVlG7XA1qsZZlMuO1JwjlPZB74k7c
-	JjbR1BWIHOjSiCNPbqW4saCAbXFVA1Y=
-Subject: Re: [PATCH v2 2/2] x86/cpuid: support LFENCE always serializing CPUID
- bit
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20210415144731.3356-1-roger.pau@citrix.com>
- <20210415144731.3356-3-roger.pau@citrix.com>
- <1bcda034-b08d-ec06-05fa-2d0f5cb26339@suse.com>
- <YH6xXeYVTEKsswQp@Air-de-Roger>
+	bh=o46pYuyr1Fj8rLslI2UzFnxj0+NBg4CnXwVdzT0j2mw=;
+	b=SmwyKflvLprWZbRn/9A2RQttJ8jgHnmBPpLPWyXF7IS0QFw9nAwQ/vCbiInmFyTUrZiLkZ
+	oB/8Cqz0GWaevXcMlK+Y7Kf9T8lZP2EIB4qKOTmloa9aLkdUropNQCmpl8+fEdC1YrqQVx
+	/81mYzIGs2Pun7/ZySX4BF7N9qyvGxA=
+Subject: Re: [PATCH v2] VT-d: Don't assume register-based invalidation is
+ always supported
+To: Chao Gao <chao.gao@intel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ xen-devel@lists.xenproject.org
+References: <20200401200606.48752-1-chao.gao@intel.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <131cdf88-7942-9cc5-ff7d-ec538055ea9f@suse.com>
-Date: Tue, 20 Apr 2021 13:28:45 +0200
+Message-ID: <f4b3ad3b-16b9-5e42-c7a6-0c5c81b1f392@suse.com>
+Date: Tue, 20 Apr 2021 13:38:26 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <YH6xXeYVTEKsswQp@Air-de-Roger>
+In-Reply-To: <20200401200606.48752-1-chao.gao@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.04.2021 12:47, Roger Pau Monné wrote:
-> On Tue, Apr 20, 2021 at 12:35:54PM +0200, Jan Beulich wrote:
->> I'd like to give Andrew a day or two more to respond there in case he
->> continues to see an issue, before I commit that with your R-b and this
->> one here. I'll assume you'll subsequently take care of that missing
->> piece then - if not, i.e. if e.g. I should, please let me know.
+On 01.04.2020 22:06, Chao Gao wrote:
+> According to Intel VT-d SPEC rev3.3 Section 6.5, Register-based Invalidation
+> isn't supported by Intel VT-d version 6 and beyond.
 > 
-> I think it should be something like the above,
+> This hardware change impacts following two scenarios: admin can disable
+> queued invalidation via 'qinval' cmdline and use register-based interface;
+> VT-d switches to register-based invalidation when queued invalidation needs
+> to be disabled, for example, during disabling x2apic or during system
+> suspension or after enabling queued invalidation fails.
+> 
+> To deal with this hardware change, if register-based invalidation isn't
+> supported, queued invalidation cannot be disabled through Xen cmdline; and
+> if queued invalidation has to be disabled temporarily in some scenarios,
+> VT-d won't switch to register-based interface but use some dummy functions
+> to catch errors in case there is any invalidation request issued when queued
+> invalidation is disabled.
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
 
-Right (assuming you meant "below).
+In principle (with a minor nit further down)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> in fact I think it
-> would be perfectly fine to merge that chunk into your patch?
+However, ...
 
-I'd rather not, so that this change can have its own reasoning in its
-description.
+> ---
+> Changes in v2:
+>  - verify system suspension and resumption with this patch applied
+>  - don't fall back to register-based interface if enabling qinval failed.
+>    see the change in init_vtd_hw().
+>  - remove unnecessary "queued_inval_supported" variable
+>  - constify the "struct vtd_iommu *" of has_register_based_invalidation()
+>  - coding-style changes
+
+... while this suggests this is v2 of a recently sent patch, the
+submission is dated a little over a year ago. This is confusing.
+It is additionally confusing that there were two copies of it in
+my inbox, despite mails coming from a list normally getting
+de-duplicated somewhere at our end (I believe).
+
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -1193,6 +1193,14 @@ int __init iommu_alloc(struct acpi_drhd_unit *drhd)
+>  
+>      iommu->cap = dmar_readq(iommu->reg, DMAR_CAP_REG);
+>      iommu->ecap = dmar_readq(iommu->reg, DMAR_ECAP_REG);
+> +    iommu->version = dmar_readl(iommu->reg, DMAR_VER_REG);
+> +
+> +    if ( !iommu_qinval && !has_register_based_invalidation(iommu) )
+> +    {
+> +        printk(XENLOG_WARNING VTDPREFIX "IOMMU %d: cannot disable Queued Invalidation.\n",
+> +               iommu->index);
+
+Here (and at least once more yet further down): We don't normally end
+log messages with a full stop. Easily addressable while committing, of
+course.
 
 Jan
-
-> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-> index 050cd5713e2..daf501779fe 100644
-> --- a/xen/arch/x86/cpuid.c
-> +++ b/xen/arch/x86/cpuid.c
-> @@ -314,12 +314,9 @@ static void __init calculate_host_policy(void)
->  
->      *p = raw_cpuid_policy;
->  
-> -    p->basic.max_leaf =
-> -        min_t(uint32_t, p->basic.max_leaf,   ARRAY_SIZE(p->basic.raw) - 1);
-> -    p->feat.max_subleaf =
-> -        min_t(uint32_t, p->feat.max_subleaf, ARRAY_SIZE(p->feat.raw) - 1);
-> -    p->extd.max_leaf = 0x80000000 | min_t(uint32_t, p->extd.max_leaf & 0xffff,
-> -                                          ARRAY_SIZE(p->extd.raw) - 1);
-> +    p->basic.max_leaf = ARRAY_SIZE(p->basic.raw) - 1;
-> +    p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
-> +    p->extd.max_leaf = 0x80000000 | ARRAY_SIZE(p->extd.raw) - 1;
->  
->      cpuid_featureset_to_policy(boot_cpu_data.x86_capability, p);
->      recalculate_xstate(p);
-> 
-
 
