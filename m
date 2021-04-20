@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142ED3652E7
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 09:09:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.113309.215924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3AE83652E6
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Apr 2021 09:09:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.113311.215942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYkVc-0006TI-9t; Tue, 20 Apr 2021 07:09:20 +0000
+	id 1lYkVd-0006W8-BO; Tue, 20 Apr 2021 07:09:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 113309.215924; Tue, 20 Apr 2021 07:09:20 +0000
+Received: by outflank-mailman (output) from mailman id 113311.215942; Tue, 20 Apr 2021 07:09:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lYkVc-0006Sg-05; Tue, 20 Apr 2021 07:09:20 +0000
-Received: by outflank-mailman (input) for mailman id 113309;
- Tue, 20 Apr 2021 07:09:18 +0000
+	id 1lYkVc-0006UO-SX; Tue, 20 Apr 2021 07:09:20 +0000
+Received: by outflank-mailman (input) for mailman id 113311;
+ Tue, 20 Apr 2021 07:09:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8gRw=JR=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1lYkVa-0006RY-Ef
+ id 1lYkVa-0006RY-VL
  for xen-devel@lists.xenproject.org; Tue, 20 Apr 2021 07:09:18 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 827889b3-273a-4a00-a68b-589de8dfa309;
- Tue, 20 Apr 2021 07:09:16 +0000 (UTC)
+ id da5caf71-00df-4133-af6e-706a268879af;
+ Tue, 20 Apr 2021 07:09:18 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 711D11474;
- Tue, 20 Apr 2021 00:09:16 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF3F01435;
+ Tue, 20 Apr 2021 00:09:17 -0700 (PDT)
 Received: from e123311-lin.arm.com (unknown [10.57.29.239])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3619B3F85F;
- Tue, 20 Apr 2021 00:09:15 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9E773F85F;
+ Tue, 20 Apr 2021 00:09:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,16 +41,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 827889b3-273a-4a00-a68b-589de8dfa309
+X-Inumbo-ID: da5caf71-00df-4133-af6e-706a268879af
 From: Michal Orzel <michal.orzel@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	bertrand.marquis@arm.com
-Subject: [PATCH 8/9] arm: Change type of hsr to register_t
-Date: Tue, 20 Apr 2021 09:08:52 +0200
-Message-Id: <20210420070853.8918-9-michal.orzel@arm.com>
+Subject: [PATCH 9/9] xen/arm64: Remove READ/WRITE_SYSREG32 helper macros
+Date: Tue, 20 Apr 2021 09:08:53 +0200
+Message-Id: <20210420070853.8918-10-michal.orzel@arm.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210420070853.8918-1-michal.orzel@arm.com>
 References: <20210420070853.8918-1-michal.orzel@arm.com>
@@ -66,353 +66,65 @@ which can correspond to uint64_t or uint32_t.
 Even though many AArch64 sysregs have upper 32bit reserved
 it does not mean that they can't be widen in the future.
 
-Modify type of hsr to register_t.
-When on AArch64 add 32bit RES0 members to structures inside hsr union.
+As there are no other places in the code using READ/WRITE_SYSREG32,
+remove the helper macros.
 
 Signed-off-by: Michal Orzel <michal.orzel@arm.com>
 ---
- xen/arch/arm/arm64/entry.S            |  2 +-
- xen/arch/arm/arm64/traps.c            |  2 +-
- xen/arch/arm/arm64/vsysreg.c          |  3 ++-
- xen/arch/arm/traps.c                  | 20 +++++++++-------
- xen/arch/arm/vcpreg.c                 | 13 +++++-----
- xen/include/asm-arm/arm32/processor.h |  2 +-
- xen/include/asm-arm/arm64/processor.h |  5 ++--
- xen/include/asm-arm/hsr.h             | 34 ++++++++++++++++++++++++++-
- 8 files changed, 59 insertions(+), 22 deletions(-)
+ xen/arch/arm/vcpreg.c               | 16 ++++++++++++++++
+ xen/include/asm-arm/arm64/sysregs.h |  5 -----
+ 2 files changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
-index ab9a65fc14..218b063c97 100644
---- a/xen/arch/arm/arm64/entry.S
-+++ b/xen/arch/arm/arm64/entry.S
-@@ -155,7 +155,7 @@
-         add     x21, sp, #UREGS_CPSR
-         mrs     x22, spsr_el2
-         mrs     x23, esr_el2
--        stp     w22, w23, [x21]
-+        stp     x22, x23, [x21]
- 
-         .endm
- 
-diff --git a/xen/arch/arm/arm64/traps.c b/xen/arch/arm/arm64/traps.c
-index babfc1d884..9113a15c7a 100644
---- a/xen/arch/arm/arm64/traps.c
-+++ b/xen/arch/arm/arm64/traps.c
-@@ -36,7 +36,7 @@ void do_bad_mode(struct cpu_user_regs *regs, int reason)
-     union hsr hsr = { .bits = regs->hsr };
- 
-     printk("Bad mode in %s handler detected\n", handler[reason]);
--    printk("ESR=0x%08"PRIx32":  EC=%"PRIx32", IL=%"PRIx32", ISS=%"PRIx32"\n",
-+    printk("ESR=%#"PRIregister":  EC=%"PRIx32", IL=%"PRIx32", ISS=%"PRIx32"\n",
-            hsr.bits, hsr.ec, hsr.len, hsr.iss);
- 
-     local_irq_disable();
-diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
-index 41f18612c6..3c10d464e7 100644
---- a/xen/arch/arm/arm64/vsysreg.c
-+++ b/xen/arch/arm/arm64/vsysreg.c
-@@ -368,7 +368,8 @@ void do_sysreg(struct cpu_user_regs *regs,
-                      sysreg.op2,
-                      sysreg.read ? "=>" : "<=",
-                      sysreg.reg, regs->pc);
--            gdprintk(XENLOG_ERR, "unhandled 64-bit sysreg access %#x\n",
-+            gdprintk(XENLOG_ERR, "unhandled 64-bit sysreg access"
-+                     " %#"PRIregister"\n",
-                      hsr.bits & HSR_SYSREG_REGS_MASK);
-             inject_undef_exception(regs, hsr);
-             return;
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index e7384381cc..db15a2c647 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -546,7 +546,7 @@ void inject_undef64_exception(struct cpu_user_regs *regs, int instr_len)
-         PSR_IRQ_MASK | PSR_DBG_MASK;
-     regs->pc = handler;
- 
--    WRITE_SYSREG32(esr.bits, ESR_EL1);
-+    WRITE_SYSREG(esr.bits, ESR_EL1);
- }
- 
- /* Inject an abort exception into a 64 bit guest */
-@@ -580,7 +580,7 @@ static void inject_abt64_exception(struct cpu_user_regs *regs,
-     regs->pc = handler;
- 
-     WRITE_SYSREG(addr, FAR_EL1);
--    WRITE_SYSREG32(esr.bits, ESR_EL1);
-+    WRITE_SYSREG(esr.bits, ESR_EL1);
- }
- 
- static void inject_dabt64_exception(struct cpu_user_regs *regs,
-@@ -919,7 +919,7 @@ static void _show_registers(const struct cpu_user_regs *regs,
-     printk("   HCR_EL2: %"PRIregister"\n", READ_SYSREG(HCR_EL2));
-     printk(" TTBR0_EL2: %016"PRIx64"\n", READ_SYSREG64(TTBR0_EL2));
-     printk("\n");
--    printk("   ESR_EL2: %08"PRIx32"\n", regs->hsr);
-+    printk("   ESR_EL2: %"PRIregister"\n", regs->hsr);
-     printk(" HPFAR_EL2: %"PRIregister"\n", READ_SYSREG(HPFAR_EL2));
- 
- #ifdef CONFIG_ARM_32
-@@ -2004,13 +2004,15 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
- 
-         break;
-     default:
--        gprintk(XENLOG_WARNING, "Unsupported FSC: HSR=%#x DFSC=%#x\n",
-+        gprintk(XENLOG_WARNING, "Unsupported FSC:"
-+                " HSR=%#"PRIregister" DFSC=%#x\n",
-                 hsr.bits, xabt.fsc);
-     }
- 
- inject_abt:
--    gdprintk(XENLOG_DEBUG, "HSR=0x%x pc=%#"PRIregister" gva=%#"PRIvaddr
--             " gpa=%#"PRIpaddr"\n", hsr.bits, regs->pc, gva, gpa);
-+    gdprintk(XENLOG_DEBUG, "HSR=%#"PRIregister" pc=%#"PRIregister""
-+             " gva=%#"PRIvaddr" gpa=%#"PRIpaddr"\n",
-+             hsr.bits, regs->pc, gva, gpa);
-     if ( is_data )
-         inject_dabt_exception(regs, gva, hsr.len);
-     else
-@@ -2204,7 +2206,8 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
- 
-     default:
-         gprintk(XENLOG_WARNING,
--                "Unknown Guest Trap. HSR=0x%x EC=0x%x IL=%x Syndrome=0x%"PRIx32"\n",
-+                "Unknown Guest Trap. HSR=%#"PRIregister" EC=0x%x IL=%x"
-+                " Syndrome=0x%"PRIx32"\n",
-                 hsr.bits, hsr.ec, hsr.len, hsr.iss);
-         inject_undef_exception(regs, hsr);
-     }
-@@ -2242,7 +2245,8 @@ void do_trap_hyp_sync(struct cpu_user_regs *regs)
-         break;
-     }
-     default:
--        printk("Hypervisor Trap. HSR=0x%x EC=0x%x IL=%x Syndrome=0x%"PRIx32"\n",
-+        printk("Hypervisor Trap. HSR=%#"PRIregister" EC=0x%x IL=%x"
-+               " Syndrome=0x%"PRIx32"\n",
-                hsr.bits, hsr.ec, hsr.len, hsr.iss);
-         do_unexpected_trap("Hypervisor", regs);
-     }
 diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-index 55351fc087..c7f516ee0a 100644
+index c7f516ee0a..6cb7f3108c 100644
 --- a/xen/arch/arm/vcpreg.c
 +++ b/xen/arch/arm/vcpreg.c
-@@ -385,7 +385,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
-                  "%s p15, %d, r%d, cr%d, cr%d, %d @ 0x%"PRIregister"\n",
-                  cp32.read ? "mrc" : "mcr",
-                  cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
--        gdprintk(XENLOG_ERR, "unhandled 32-bit CP15 access %#x\n",
-+        gdprintk(XENLOG_ERR, "unhandled 32-bit CP15 access %#"PRIregister"\n",
-                  hsr.bits & HSR_CP32_REGS_MASK);
-         inject_undef_exception(regs, hsr);
-         return;
-@@ -454,7 +454,8 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
-                      "%s p15, %d, r%d, r%d, cr%d @ 0x%"PRIregister"\n",
-                      cp64.read ? "mrrc" : "mcrr",
-                      cp64.op1, cp64.reg1, cp64.reg2, cp64.crm, regs->pc);
--            gdprintk(XENLOG_ERR, "unhandled 64-bit CP15 access %#x\n",
-+            gdprintk(XENLOG_ERR, "unhandled 64-bit CP15 access"
-+                     " %#"PRIregister"\n",
-                      hsr.bits & HSR_CP64_REGS_MASK);
-             inject_undef_exception(regs, hsr);
-             return;
-@@ -585,7 +586,7 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
-                  "%s p14, %d, r%d, cr%d, cr%d, %d @ 0x%"PRIregister"\n",
-                   cp32.read ? "mrc" : "mcr",
-                   cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
--        gdprintk(XENLOG_ERR, "unhandled 32-bit cp14 access %#x\n",
-+        gdprintk(XENLOG_ERR, "unhandled 32-bit cp14 access %#"PRIregister"\n",
-                  hsr.bits & HSR_CP32_REGS_MASK);
-         inject_undef_exception(regs, hsr);
-         return;
-@@ -627,7 +628,7 @@ void do_cp14_64(struct cpu_user_regs *regs, const union hsr hsr)
-              "%s p14, %d, r%d, r%d, cr%d @ 0x%"PRIregister"\n",
-              cp64.read ? "mrrc" : "mcrr",
-              cp64.op1, cp64.reg1, cp64.reg2, cp64.crm, regs->pc);
--    gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 access %#x\n",
-+    gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 access %#"PRIregister"\n",
-              hsr.bits & HSR_CP64_REGS_MASK);
-     inject_undef_exception(regs, hsr);
+@@ -48,6 +48,7 @@
+  */
+ 
+ /* The name is passed from the upper macro to workaround macro expansion. */
++#ifdef CONFIG_ARM_32
+ #define TVM_REG(sz, func, reg...)                                           \
+ static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
+ {                                                                           \
+@@ -61,6 +62,21 @@ static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
+                                                                             \
+     return true;                                                            \
  }
-@@ -658,7 +659,7 @@ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
-              "%s p14, %d, r%d, r%d, cr%d @ 0x%"PRIregister"\n",
-              cp64.read ? "mrrc" : "mcrr",
-              cp64.op1, cp64.reg1, cp64.reg2, cp64.crm, regs->pc);
--    gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 DBG access %#x\n",
-+    gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 DBG access %#"PRIregister"\n",
-              hsr.bits & HSR_CP64_REGS_MASK);
++#else /* CONFIG_ARM_64 */
++#define TVM_REG(sz, func, reg...)                                           \
++static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
++{                                                                           \
++    struct vcpu *v = current;                                               \
++    bool cache_enabled = vcpu_has_cache_enabled(v);                         \
++                                                                            \
++    GUEST_BUG_ON(read);                                                     \
++    WRITE_SYSREG(*r, reg);                                                  \
++                                                                            \
++    p2m_toggle_cache(v, cache_enabled);                                     \
++                                                                            \
++    return true;                                                            \
++}
++#endif
  
-     inject_undef_exception(regs, hsr);
-@@ -692,7 +693,7 @@ void do_cp10(struct cpu_user_regs *regs, const union hsr hsr)
-                  "%s p10, %d, r%d, cr%d, cr%d, %d @ 0x%"PRIregister"\n",
-                  cp32.read ? "mrc" : "mcr",
-                  cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
--        gdprintk(XENLOG_ERR, "unhandled 32-bit CP10 access %#x\n",
-+        gdprintk(XENLOG_ERR, "unhandled 32-bit CP10 access %#"PRIregister"\n",
-                  hsr.bits & HSR_CP32_REGS_MASK);
-         inject_undef_exception(regs, hsr);
-         return;
-diff --git a/xen/include/asm-arm/arm32/processor.h b/xen/include/asm-arm/arm32/processor.h
-index 4e679f3273..395ce10692 100644
---- a/xen/include/asm-arm/arm32/processor.h
-+++ b/xen/include/asm-arm/arm32/processor.h
-@@ -37,7 +37,7 @@ struct cpu_user_regs
-         uint32_t pc, pc32;
-     };
-     uint32_t cpsr; /* Return mode */
--    uint32_t hsr;  /* Exception Syndrome */
-+    register_t hsr;  /* Exception Syndrome */
+ #define TVM_REG32(regname, xreg) TVM_REG(32, vreg_emulate_##regname, xreg)
+ #define TVM_REG64(regname, xreg) TVM_REG(64, vreg_emulate_##regname, xreg)
+diff --git a/xen/include/asm-arm/arm64/sysregs.h b/xen/include/asm-arm/arm64/sysregs.h
+index 077fd95fb7..83a1157ac4 100644
+--- a/xen/include/asm-arm/arm64/sysregs.h
++++ b/xen/include/asm-arm/arm64/sysregs.h
+@@ -86,11 +86,6 @@
+ #endif
  
-     /* Outer guest frame only from here on... */
- 
-diff --git a/xen/include/asm-arm/arm64/processor.h b/xen/include/asm-arm/arm64/processor.h
-index 81dfc5e615..40f628d216 100644
---- a/xen/include/asm-arm/arm64/processor.h
-+++ b/xen/include/asm-arm/arm64/processor.h
-@@ -64,8 +64,9 @@ struct cpu_user_regs
-     /* Return address and mode */
-     __DECL_REG(pc,           pc32);             /* ELR_EL2 */
-     uint32_t cpsr;                              /* SPSR_EL2 */
--    uint32_t hsr;                               /* ESR_EL2 */
-+    register_t hsr;                             /* ESR_EL2 */
- 
-+    register_t pad1; /* Doubleword-align the user half of the frame */
-     /* Outer guest frame only from here on... */
- 
-     union {
-@@ -73,8 +74,6 @@ struct cpu_user_regs
-         uint32_t spsr_svc;       /* AArch32 */
-     };
- 
--    uint32_t pad1; /* Doubleword-align the user half of the frame */
+ /* Access to system registers */
 -
-     /* AArch32 guests only */
-     uint32_t spsr_fiq, spsr_irq, spsr_und, spsr_abt;
- 
-diff --git a/xen/include/asm-arm/hsr.h b/xen/include/asm-arm/hsr.h
-index 29d4531f40..7424402c6e 100644
---- a/xen/include/asm-arm/hsr.h
-+++ b/xen/include/asm-arm/hsr.h
-@@ -16,11 +16,14 @@ enum dabt_size {
- };
- 
- union hsr {
--    uint32_t bits;
-+    register_t bits;
-     struct {
-         unsigned long iss:25;  /* Instruction Specific Syndrome */
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     };
- 
-     /* Common to all conditional exception classes (0x0N, except 0x00). */
-@@ -30,6 +33,9 @@ union hsr {
-         unsigned long ccvalid:1;/* CC Valid */
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } cond;
- 
-     struct hsr_wfi_wfe {
-@@ -39,6 +45,9 @@ union hsr {
-         unsigned long ccvalid:1;/* CC Valid */
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } wfi_wfe;
- 
-     /* reg, reg0, reg1 are 4 bits on AArch32, the fifth bit is sbzp. */
-@@ -53,6 +62,9 @@ union hsr {
-         unsigned long ccvalid:1;/* CC Valid */
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } cp32; /* HSR_EC_CP15_32, CP14_32, CP10 */
- 
-     struct hsr_cp64 {
-@@ -66,6 +78,9 @@ union hsr {
-         unsigned long ccvalid:1;/* CC Valid */
-         unsigned long len:1;    /* Instruction length */
-         unsigned long ec:6;     /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } cp64; /* HSR_EC_CP15_64, HSR_EC_CP14_64 */
- 
-      struct hsr_cp {
-@@ -77,6 +92,9 @@ union hsr {
-         unsigned long ccvalid:1;/* CC Valid */
-         unsigned long len:1;    /* Instruction length */
-         unsigned long ec:6;     /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } cp; /* HSR_EC_CP */
- 
-     /*
-@@ -94,6 +112,9 @@ union hsr {
-         unsigned long ccvalid:1;/* CC Valid */
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } smc32; /* HSR_EC_SMC32 */
- 
- #ifdef CONFIG_ARM_64
-@@ -108,6 +129,7 @@ union hsr {
-         unsigned long res0:3;
-         unsigned long len:1;    /* Instruction length */
-         unsigned long ec:6;
-+        unsigned long _res0:32;
-     } sysreg; /* HSR_EC_SYSREG */
- #endif
- 
-@@ -121,6 +143,9 @@ union hsr {
-         unsigned long res2:14;
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } iabt; /* HSR_EC_INSTR_ABORT_* */
- 
-     struct hsr_dabt {
-@@ -143,6 +168,9 @@ union hsr {
-         unsigned long valid:1; /* Syndrome Valid */
-         unsigned long len:1;   /* Instruction length */
-         unsigned long ec:6;    /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } dabt; /* HSR_EC_DATA_ABORT_* */
- 
-     /* Contain the common bits between DABT and IABT */
-@@ -156,6 +184,9 @@ union hsr {
-         unsigned long pad3:14;  /* Not common */
-         unsigned long len:1;    /* Instruction length */
-         unsigned long ec:6;     /* Exception Class */
-+#ifdef CONFIG_ARM_64
-+        unsigned long _res0:32;
-+#endif
-     } xabt;
- 
- #ifdef CONFIG_ARM_64
-@@ -164,6 +195,7 @@ union hsr {
-         unsigned long res0:9;
-         unsigned long len:1;        /* Instruction length */
-         unsigned long ec:6;         /* Exception Class */
-+        unsigned long _res0:32;
-     } brk;
- #endif
- };
+-#define READ_SYSREG32(name) ((uint32_t)READ_SYSREG64(name))
+-
+-#define WRITE_SYSREG32(v, name) WRITE_SYSREG64((uint64_t)v, name)
+-
+ #define WRITE_SYSREG64(v, name) do {                    \
+     uint64_t _r = v;                                    \
+     asm volatile("msr "__stringify(name)", %0" : : "r" (_r));       \
 -- 
 2.29.0
 
