@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6037C3668D2
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 12:06:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114272.217733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 148313668DD
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 12:08:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114276.217746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZ9kk-0005GT-0i; Wed, 21 Apr 2021 10:06:38 +0000
+	id 1lZ9mI-0005P1-Cj; Wed, 21 Apr 2021 10:08:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114272.217733; Wed, 21 Apr 2021 10:06:37 +0000
+Received: by outflank-mailman (output) from mailman id 114276.217746; Wed, 21 Apr 2021 10:08:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZ9kj-0005G4-TS; Wed, 21 Apr 2021 10:06:37 +0000
-Received: by outflank-mailman (input) for mailman id 114272;
- Wed, 21 Apr 2021 10:06:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZ9ki-0005Fy-PL
- for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 10:06:36 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 73a17307-1590-47e1-92d6-755c5f67f484;
- Wed, 21 Apr 2021 10:06:35 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C594FAEE6;
- Wed, 21 Apr 2021 10:06:34 +0000 (UTC)
+	id 1lZ9mI-0005Oc-9X; Wed, 21 Apr 2021 10:08:14 +0000
+Received: by outflank-mailman (input) for mailman id 114276;
+ Wed, 21 Apr 2021 10:08:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7+nN=JS=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1lZ9mG-0005OU-4Y
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 10:08:12 +0000
+Received: from mail-wr1-f41.google.com (unknown [209.85.221.41])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a7e4b3f3-ee73-459c-972f-897736d6cc30;
+ Wed, 21 Apr 2021 10:08:10 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id w4so37008924wrt.5
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Apr 2021 03:08:10 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id t63sm1829372wma.20.2021.04.21.03.08.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Apr 2021 03:08:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,93 +42,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73a17307-1590-47e1-92d6-755c5f67f484
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618999594; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6XxM6xFOMDLu9LYguFtAcK7QLYq9erSVmErekZV9gcM=;
-	b=GXwydkoYSd/ESnX0yvVarZNg2RJWdOliEwmidhSnuUqbJg8IWXJn4dh2nJ74Rgo8x72yJm
-	GTDmPXaWa8H+hvWD5VYsTaT7g6TRW1lOC8IERW59mvmrMUSsJDARtlKi+Bw6NIYTXykQcy
-	JjwVx1jW5tV3LJSHivgD8eVVUhEIVmI=
-Subject: Re: [PATCH v4 3/3] x86/time: avoid reading the platform timer in
- rendezvous functions
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <d929903c-0e7a-adb9-3317-b66782f13b36@suse.com>
- <bdf9640d-3c70-461f-6680-9ce883c19719@suse.com>
- <YH79ZxNRhW24jmUS@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <88819ae1-d021-9192-4be7-a70064f23feb@suse.com>
-Date: Wed, 21 Apr 2021 12:06:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: a7e4b3f3-ee73-459c-972f-897736d6cc30
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=rpUxQWaXQ59G8LS8+0aqgmg2SpC0z7dC5DkZaoSnb6g=;
+        b=NuirogYqiAbNAGFWacdsAc4g728X9DG6NS6XAi0Io7ino54J8bu4yKqpoEdlBZgY7J
+         +TGpFzEvwUdGhsqDvB0ibPhJGDPafUb/0g9FTwymcvSiuC53re0CkWLm4qaFk4Byd6LN
+         +JHQoZvxnKyTmzYoveJyNpeMg8Y6CzKKow7HVFev1NwVyO7mEIZEegtZiLxj7MDt1wpG
+         VBRSgU0YqkTVTOJvY0dYGhXvvRWJ6Y3WVk4a271cS34fUUDry3wjfbAflbC3REfcaJxN
+         5zf8NRPcDtmDLz2TLhr+WFA5BlyD8SWJ5ZQY2e9MXg0ZNUvVkdXDNJ9bnoJPBCRSeFgv
+         xIfQ==
+X-Gm-Message-State: AOAM530tcUgn3FanGu+/jmUDh/H81dIBS2eTB6Im8tvinmr7yt2cEZvR
+	M/wqgAbL0LrTsgjc6S58R8omhANF+3Q=
+X-Google-Smtp-Source: ABdhPJzzMekXKnSHk2kM3RH5/JNpjwSf0QhL3eL8OsZdDb6eJrQu+9NRS7wlxqtHlewK4df62ezgag==
+X-Received: by 2002:adf:d0cc:: with SMTP id z12mr26434558wrh.18.1618999690208;
+        Wed, 21 Apr 2021 03:08:10 -0700 (PDT)
+Date: Wed, 21 Apr 2021 10:08:08 +0000
+From: Wei Liu <wl@xen.org>
+To: Costin Lupu <costin.lupu@cs.pub.ro>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] tools/libs/light: Remove unnecessary libxl_list_vm() call
+Message-ID: <20210421100808.fvl6argtpmstwrev@liuwe-devbox-debian-v2>
+References: <cf7c0f8869a087008fbe10888ebf96336b1ccb7b.1618837159.git.costin.lupu@cs.pub.ro>
 MIME-Version: 1.0
-In-Reply-To: <YH79ZxNRhW24jmUS@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cf7c0f8869a087008fbe10888ebf96336b1ccb7b.1618837159.git.costin.lupu@cs.pub.ro>
 
-On 20.04.2021 18:12, Roger Pau Monné wrote:
-> On Thu, Apr 01, 2021 at 11:55:10AM +0200, Jan Beulich wrote:
->> Reading the platform timer isn't cheap, so we'd better avoid it when the
->> resulting value is of no interest to anyone.
->>
->> The consumer of master_stime, obtained by
->> time_calibration_{std,tsc}_rendezvous() and propagated through
->> this_cpu(cpu_calibration), is local_time_calibration(). With
->> CONSTANT_TSC the latter function uses an early exit path, which doesn't
->> explicitly use the field. While this_cpu(cpu_calibration) (including the
->> master_stime field) gets propagated to this_cpu(cpu_time).stamp on that
->> path, both structures' fields get consumed only by the !CONSTANT_TSC
->> logic of the function.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> v4: New.
->> ---
->> I realize there's some risk associated with potential new uses of the
->> field down the road. What would people think about compiling time.c a
->> 2nd time into a dummy object file, with a conditional enabled to force
->> assuming CONSTANT_TSC, and with that conditional used to suppress
->> presence of the field as well as all audited used of it (i.e. in
->> particular that large part of local_time_calibration())? Unexpected new
->> users of the field would then cause build time errors.
+On Mon, Apr 19, 2021 at 04:01:42PM +0300, Costin Lupu wrote:
+> The removed lines were initially added by commit 314e64084d31, but the
+> subsequent code which was using the nb_vm variable was later removed by
+> commit 2ba368d13893, which makes these lines of code an overlooked
+> reminiscence. Moreover, the call becomes very expensive when there is a
+> considerable number of VMs (~1000 instances) running on the host.
 > 
-> Wouldn't that add quite a lot of churn to the file itself in the form
-> of pre-processor conditionals?
 
-Possibly - I didn't try yet, simply because of fearing this might
-not be liked even without presenting it in patch form.
+Nice catch.
 
-> Could we instead set master_stime to an invalid value that would make
-> the consumers explode somehow?
+> Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
 
-No idea whether there is any such "reliable" value.
+Acked-by: Wei Liu <wl@xen.org>
 
-> I know there might be new consumers, but those should be able to
-> figure whether the value is sane by looking at the existing ones.
-
-This could be the hope, yes. But the effort of auditing the code to
-confirm the potential of optimizing this (after vaguely getting the
-impression there might be room) was non-negligible (in fact I did
-three runs just to be really certain). This in particular means
-that I'm in no way certain that looking at existing consumers would
-point out the possible pitfall.
-
-> Also, since this is only done on the BSP on the last iteration I
-> wonder if it really makes such a difference performance-wise to
-> warrant all this trouble.
-
-By "all this trouble", do you mean the outlined further steps or
-the patch itself? In the latter case, while it's only the BSP to
-read the value, all other CPUs are waiting for the BSP to get its
-part done. So the extra time it takes to read the platform clock
-affects the overall duration of the rendezvous, and hence the time
-not "usefully" spent by _all_ of the CPUs.
-
-Jan
+> ---
+>  tools/libs/light/libxl_create.c | 11 +----------
+>  1 file changed, 1 insertion(+), 10 deletions(-)
+> 
+> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+> index 0c64268f66..43e9ba9c63 100644
+> --- a/tools/libs/light/libxl_create.c
+> +++ b/tools/libs/light/libxl_create.c
+> @@ -578,7 +578,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+>                         uint32_t *domid, bool soft_reset)
+>  {
+>      libxl_ctx *ctx = libxl__gc_owner(gc);
+> -    int ret, rc, nb_vm;
+> +    int ret, rc;
+>      const char *dom_type;
+>      char *uuid_string;
+>      char *dom_path, *vm_path, *libxl_path;
+> @@ -586,7 +586,6 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+>      struct xs_permissions rwperm[1];
+>      struct xs_permissions noperm[1];
+>      xs_transaction_t t = 0;
+> -    libxl_vminfo *vm_list;
+>  
+>      /* convenience aliases */
+>      libxl_domain_create_info *info = &d_config->c_info;
+> @@ -869,14 +868,6 @@ retry_transaction:
+>                          ARRAY_SIZE(rwperm));
+>      }
+>  
+> -    vm_list = libxl_list_vm(ctx, &nb_vm);
+> -    if (!vm_list) {
+> -        LOGD(ERROR, *domid, "cannot get number of running guests");
+> -        rc = ERROR_FAIL;
+> -        goto out;
+> -    }
+> -    libxl_vminfo_list_free(vm_list, nb_vm);
+> -
+>      xs_write(ctx->xsh, t, GCSPRINTF("%s/uuid", vm_path), uuid_string, strlen(uuid_string));
+>      xs_write(ctx->xsh, t, GCSPRINTF("%s/name", vm_path), info->name, strlen(info->name));
+>  
+> -- 
+> 2.20.1
+> 
 
