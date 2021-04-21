@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07803366F47
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 17:34:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114862.218982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEEF6366F52
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 17:39:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114868.218996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZEs3-0004qp-Vo; Wed, 21 Apr 2021 15:34:31 +0000
+	id 1lZEwA-00059G-Hf; Wed, 21 Apr 2021 15:38:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114862.218982; Wed, 21 Apr 2021 15:34:31 +0000
+Received: by outflank-mailman (output) from mailman id 114868.218996; Wed, 21 Apr 2021 15:38:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZEs3-0004qT-Sh; Wed, 21 Apr 2021 15:34:31 +0000
-Received: by outflank-mailman (input) for mailman id 114862;
- Wed, 21 Apr 2021 15:34:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lZEwA-00058r-EG; Wed, 21 Apr 2021 15:38:46 +0000
+Received: by outflank-mailman (input) for mailman id 114868;
+ Wed, 21 Apr 2021 15:38:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZEs3-0004qO-6B
- for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 15:34:31 +0000
+ id 1lZEw9-00058m-5N
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 15:38:45 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7b9b76f-5799-4841-b26b-1d28f7fd7936;
- Wed, 21 Apr 2021 15:34:30 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b36b8141-7719-4f80-8ccd-5e1ea4143308;
+ Wed, 21 Apr 2021 15:38:44 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9AFABB4F4;
- Wed, 21 Apr 2021 15:34:29 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 46131B507;
+ Wed, 21 Apr 2021 15:38:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,68 +39,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7b9b76f-5799-4841-b26b-1d28f7fd7936
+X-Inumbo-ID: b36b8141-7719-4f80-8ccd-5e1ea4143308
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619019269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619019523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Hx6gVI3xRsjkXarMiANOTT/HKfqcKKR2dg+OLV983X8=;
-	b=e2Cxvdb/e8C0pIv1dbxHXPts2XAsPkEZAZ7f5qpFOYnkrM76G8gATimRxB+jyN5q0zYE17
-	5Dw6W7xHijgjLdQh4GXh4NxCTjWYIWa+0UpwGXt9ij1FnqBWtRNqdlkioJXvt3wEJY28pD
-	VMb7MKUAQ0khkF9k+h5V1s0sa8opzWw=
-Subject: Re: [PATCH 6/8] x86/EFI: avoid use of GNU ld's
- --disable-reloc-section when possible
+	bh=bpQYbSW9SyfWq939gplb9qY3MYbPo3DyCYq1sj8w6Z8=;
+	b=ZV46OphOcipd0QqCJ5ray5oAgOHmFlJgP1UvDwuh8FfZv0g3KCHMSW9iclq/3sgv5ekn6z
+	t5VYDzqlJZE9PJGK3UCBiiJc7s8nKKcZzOhtKUTnrXSFwee2gCPlJnVtbdYwOyHeNBCNVI
+	y+sfTrKz6I73Gfh9XotDk2f4vIuScyo=
+Subject: Re: [PATCH 7/8] x86/EFI: keep debug info in xen.efi
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
 References: <b327185f-db31-50c8-ec76-6ef8f2fcfdfd@suse.com>
- <ff15338a-ca10-ff38-3c2a-459303ce9d68@suse.com>
- <YH/8rb0aENMqOLAn@Air-de-Roger>
- <dada98e8-3e4a-94df-0678-bdd2a0e8de04@suse.com>
- <YIBC1XWTQzjykk1k@Air-de-Roger>
+ <96cb4039-5f43-8eac-d855-c9f1587ed2d0@suse.com>
+ <YIAJP0SCq0nOKZVL@Air-de-Roger>
+ <6023c1d3-4f50-d207-1ea1-30dd1d5f68d2@suse.com>
+ <YIBFD4i6bLaeaXdE@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <fa822374-ce07-473d-b6b6-2d8073ff83a6@suse.com>
-Date: Wed, 21 Apr 2021 17:34:29 +0200
+Message-ID: <3cda296d-e88e-5fe0-4924-4cf974c4f909@suse.com>
+Date: Wed, 21 Apr 2021 17:38:42 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <YIBC1XWTQzjykk1k@Air-de-Roger>
+In-Reply-To: <YIBFD4i6bLaeaXdE@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 21.04.2021 17:20, Roger Pau Monné wrote:
-> On Wed, Apr 21, 2021 at 02:03:49PM +0200, Jan Beulich wrote:
->> On 21.04.2021 12:21, Roger Pau Monné wrote:
->>> On Thu, Apr 01, 2021 at 11:46:44AM +0200, Jan Beulich wrote:
->>>> @@ -189,7 +208,11 @@ EFI_LDFLAGS += --no-insert-timestamp
->>>>  endif
->>>>  
->>>>  $(TARGET).efi: VIRT_BASE = 0x$(shell $(NM) efi/relocs-dummy.o | sed -n 's, A VIRT_START$$,,p')
->>>> +ifeq ($(MKRELOC),:)
->>>> +$(TARGET).efi: ALT_BASE :=
->>>> +else
->>>>  $(TARGET).efi: ALT_BASE = 0x$(shell $(NM) efi/relocs-dummy.o | sed -n 's, A ALT_START$$,,p')
+On 21.04.2021 17:30, Roger Pau Monné wrote:
+> On Wed, Apr 21, 2021 at 03:06:36PM +0200, Jan Beulich wrote:
+>> On 21.04.2021 13:15, Roger Pau Monné wrote:
+>>> On Thu, Apr 01, 2021 at 11:47:03AM +0200, Jan Beulich wrote:
+>>>> --- a/xen/arch/x86/xen.lds.S
+>>>> +++ b/xen/arch/x86/xen.lds.S
+>>>> @@ -312,10 +312,60 @@ SECTIONS
+>>>>      *(.reloc)
+>>>>      __base_relocs_end = .;
+>>>>    }
+>>>> -  /* Trick the linker into setting the image size to exactly 16Mb. */
+>>>> -  . = ALIGN(__section_alignment__);
+>>>> -  DECL_SECTION(.pad) {
+>>>> -    . = ALIGN(MB(16));
+>>>> +  .debug_abbrev ALIGN(1) (NOLOAD) : {
+>>>> +     *(.debug_abbrev)
+>>>> +  }
+>>>> +  .debug_info ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_info)
+>>>> +    *(.gnu.linkonce.wi.*)
+>>>> +  }
+>>>> +  .debug_types ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_types)
+>>>> +  }
+>>>> +  .debug_str ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_str)
+>>>> +  }
+>>>> +  .debug_line ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_line)
+>>>> +    *(.debug_line.*)
+>>>> +  }
+>>>> +  .debug_line_str ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_line_str)
+>>>> +  }
+>>>> +  .debug_names ALIGN(4) (NOLOAD) : {
+>>>> +    *(.debug_names)
+>>>> +  }
+>>>> +  .debug_frame ALIGN(4) (NOLOAD) : {
+>>>> +    *(.debug_frame)
+>>>> +  }
+>>>> +  .debug_loc ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_loc)
+>>>> +  }
+>>>> +  .debug_loclists ALIGN(4) (NOLOAD) : {
+>>>> +    *(.debug_loclists)
+>>>> +  }
+>>>> +  .debug_ranges ALIGN(8) (NOLOAD) : {
+>>>> +    *(.debug_ranges)
+>>>> +  }
+>>>> +  .debug_rnglists ALIGN(4) (NOLOAD) : {
+>>>> +    *(.debug_rnglists)
+>>>> +  }
+>>>> +  .debug_addr ALIGN(8) (NOLOAD) : {
+>>>> +    *(.debug_addr)
+>>>> +  }
+>>>> +  .debug_aranges ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_aranges)
+>>>> +  }
+>>>> +  .debug_pubnames ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_pubnames)
+>>>> +  }
+>>>> +  .debug_pubtypes ALIGN(1) (NOLOAD) : {
+>>>> +    *(.debug_pubtypes)
+>>>> +  }
+>>>> +  /* Trick the linker into setting the image size to no less than 16Mb. */
+>>>> +  __image_end__ = .;
+>>>> +  .pad ALIGN(__section_alignment__) : {
+>>>> +    . = __image_end__ < __image_base__ + MB(16) ? ALIGN(MB(16)) : .;
 >>>
->>> Could you maybe check whether $(relocs-dummy) is set as the condition
->>> here and use it here instead of efi/relocs-dummy.o?
+>>> I think this is inside an ifdef EFI region, since this is DWARF info
+>>> couldn't it also be present when building with EFI disabled?
 >>
->> I can use it in the ifeq() if you think that's neater (the current way
->> is minimally shorter), but using it in the ALT_BASE assignment would
->> make this differ more from the VIRT_BASE one, which I'd like to avoid.
+>> Of course (and it's not just "could" but "will"), yet the linker will
+>> do fine (and perhaps even better) without when building ELF. Also
+>> note that we'll be responsible for keeping the list of sections up-to-
+>> date. The linker will recognize Dwarf sections by looking for a
+>> .debug_ prefix. We can't use such here (or at least I'm not aware of
+>> a suitable mechanism); .debug_* would mean munging together all the
+>> different kinds of Dwarf sections. Hence by limiting the explicit
+>> enumeration to PE, I'm trying to avoid anomalies in ELF down the road.
 > 
-> Sorry, I think I'm slightly confused because when the linker can
-> produce the required relocations relocs-dummy variable is left empty,
-> so it won't be added to $(TARGET).efi.
-> 
-> But we still need to generate the efi/relocs-dummy.o file for the ELF
-> build I assume?
+> Right, so we will have to keep this list of debug_ sections updated
+> manually if/when more of those appear as part of DWARF updates?
 
-Not anymore (after "x86/EFI: redo .reloc section bounds determination").
-We need it, as said, to fish VIRT_BASE out of it. It indeed wouldn't get
-linked into any of the final binaries anymore.
+Yes.
+
+> Do we have a way to get some kind of warning or error when a new
+> section not explicitly handled here appears?
+
+ld 2.37 will start warning about such sections, as they'd land at
+VA 0 and hence below image base.
+
+> Instead of adding DWARF debug info to the xen.efi binary, is there a
+> way to translate the DWARF from the ELF build into the native debug
+> format for PE/COFF?
+
+I'm unaware of a single, "native" debug format (Dwarf also isn't
+specifically tied to ELF). I further don't think all of the Dwarf
+bits could reasonably be expressed in another debug format.
 
 Jan
 
