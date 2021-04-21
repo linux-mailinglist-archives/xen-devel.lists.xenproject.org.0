@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B310366F9E
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 18:01:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114881.219020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA298367063
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 18:43:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114896.219038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZFHw-00006r-I2; Wed, 21 Apr 2021 16:01:16 +0000
+	id 1lZFw2-00043i-OT; Wed, 21 Apr 2021 16:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114881.219020; Wed, 21 Apr 2021 16:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 114896.219038; Wed, 21 Apr 2021 16:42:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZFHw-00006U-E0; Wed, 21 Apr 2021 16:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 114881;
- Wed, 21 Apr 2021 16:01:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lZFHu-00006P-Kj
- for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 16:01:14 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lZFHt-0003Sm-IJ; Wed, 21 Apr 2021 16:01:13 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lZFHt-0004j4-Ao; Wed, 21 Apr 2021 16:01:13 +0000
+	id 1lZFw2-00043J-LQ; Wed, 21 Apr 2021 16:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 114896;
+ Wed, 21 Apr 2021 16:42:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7+nN=JS=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1lZFw0-00043E-GC
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 16:42:40 +0000
+Received: from mail-wm1-f53.google.com (unknown [209.85.128.53])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4f7c3aad-da0c-423d-8a09-c049f02782bd;
+ Wed, 21 Apr 2021 16:42:39 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id y204so21161133wmg.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Apr 2021 09:42:39 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id c16sm3520490wrm.93.2021.04.21.09.42.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Apr 2021 09:42:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=EPgZvzfKablW+4qSusQxEHmnHR6eBF3jPK4qYnAZ9dw=; b=udhsbI2OC43rGzI9ssWHDHmkTe
-	AwLhvxmSAczO/yvnVX/bNvpsAUn4xqNMuwjtxS1DyGnGbCJO5mamQTvD469GYJwxYKCYfe+Lf3jWD
-	YH+aT7e+ePdlN2p2dVBo8G2JnnP60sZjUfjP64Tx2YtWsFmKLF+WTlFVdfRdvs+zjm4U=;
-Subject: Re: [PATCH 7/9] arm/time,vtimer: Get rid of READ/WRITE_SYSREG32
-To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
-References: <20210420070853.8918-1-michal.orzel@arm.com>
- <20210420070853.8918-8-michal.orzel@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <1f4788b6-d74a-f5e7-1bb0-5c25c126f171@xen.org>
-Date: Wed, 21 Apr 2021 17:01:11 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.1
+X-Inumbo-ID: 4f7c3aad-da0c-423d-8a09-c049f02782bd
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=0YpwlqFkcdBa5ITQPtCb0MJqzgFpJOQmRCg3NbwtzEM=;
+        b=rb8IX8qe+MnzQOEkjg2rWqD72QWaz5ak0UAInZwA1LQFbiRKY8NrxehoAk0DlzcBUs
+         r5JQ6A2rmlokbBzRPOAdVkuJeEq1B9950K6NlBqnpslhpp9ytlhbr1zm08OSMoGoMP4k
+         ttQU2DOHfi1gIEIjz2vzMpCKLcYXS7w1tx/Bz5HuYEciF7KSCDAbkvBBoNKfqm5DBj3f
+         AR1L50uZUdcCUV9C2CUxV71vT/nHQ880KYkP5Jtm+PUVdro4BsT3vZJqdf5OYKskn7sw
+         cGHMMo2OtvCirt+Z5ceXXovZdF2If1JgbL8jSc/hISxudvd3G8mYIbmR1pm2feW9nwTO
+         ZIqQ==
+X-Gm-Message-State: AOAM532XCn4PgcNG29YzJnNuFlqBUMFReQHxENzINycdc2/dpXwuCuqJ
+	sKR6FKn2Eopgw3PuNE3Iw94=
+X-Google-Smtp-Source: ABdhPJzfCzALqWYTfpbCZ/HzaKebSjy2Bq7LbG/eat2xye2WRZavkjmFCIf5IG3ZfTLZ3J8/06l9YQ==
+X-Received: by 2002:a1c:b6c4:: with SMTP id g187mr10548787wmf.119.1619023358982;
+        Wed, 21 Apr 2021 09:42:38 -0700 (PDT)
+Date: Wed, 21 Apr 2021 16:42:37 +0000
+From: Wei Liu <wl@xen.org>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v2 15/21] libs/guest: obtain a compatible cpu policy from
+ two input ones
+Message-ID: <20210421164237.im72bpddu52oruzw@liuwe-devbox-debian-v2>
+References: <20210413140140.73690-1-roger.pau@citrix.com>
+ <20210413140140.73690-16-roger.pau@citrix.com>
+ <20210421102239.tlesqrxsplk5vthm@liuwe-devbox-debian-v2>
+ <YIAL+bTKvPsAfM2a@Air-de-Roger>
 MIME-Version: 1.0
-In-Reply-To: <20210420070853.8918-8-michal.orzel@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YIAL+bTKvPsAfM2a@Air-de-Roger>
 
-Hi Michal,
-
-On 20/04/2021 08:08, Michal Orzel wrote:
-> AArch64 system registers are 64bit whereas AArch32 ones
-> are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
-> we should get rid of helpers READ/WRITE_SYSREG32
-> in favour of using READ/WRITE_SYSREG.
-> We should also use register_t type when reading sysregs
-> which can correspond to uint64_t or uint32_t.
-> Even though many AArch64 sysregs have upper 32bit reserved
-> it does not mean that they can't be widen in the future.
+On Wed, Apr 21, 2021 at 01:26:49PM +0200, Roger Pau Monné wrote:
+> On Wed, Apr 21, 2021 at 10:22:39AM +0000, Wei Liu wrote:
+> > On Tue, Apr 13, 2021 at 04:01:33PM +0200, Roger Pau Monne wrote:
+> > > Introduce a helper to obtain a compatible cpu policy based on two
+> > > input cpu policies. Currently this is done by and'ing all CPUID leaves
+> > > and MSR entries, except for MSR_ARCH_CAPABILITIES which has the RSBA
+> > > bit or'ed.
+> > > 
+> > 
+> > I thought canonical source for compatibility was to be put into the
+> > hypervisor, thus all this functionality would be in the hypervisor. Am I
+> > misremembering?
 > 
-> Modify type of vtimer structure's member: ctl to register_t.
+> Andrew said something similar on v1, but I'm not able to figure how
+> this would be used by the hypervisor.
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-> ---
->   xen/arch/arm/time.c          | 28 ++++++++++++++--------------
->   xen/arch/arm/vtimer.c        | 10 +++++-----
->   xen/include/asm-arm/domain.h |  2 +-
->   3 files changed, 20 insertions(+), 20 deletions(-)
+> It's my understating that the toolstack will attempt to generate a CPU
+> policy and forward it to the hypervisor, which will either accept or
+> reject it based on the capabilities of the system. I'm not sure I see
+> why we would need to give the hypervisor two policies in order to
+> generate a resulting compatible one - it should all be done by the
+> toolstack AFAICT.
 > 
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index b0021c2c69..e6c96eb90c 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -145,7 +145,7 @@ void __init preinit_xen_time(void)
->           preinit_acpi_xen_time();
->   
->       if ( !cpu_khz )
-> -        cpu_khz = READ_SYSREG32(CNTFRQ_EL0) / 1000;
-> +        cpu_khz = (unsigned long)(READ_SYSREG(CNTFRQ_EL0) / 1000);
+> If there's a use case for this being in the hypervisor I'm happy to
+> add it there, but so far I haven't been able to come up with one
+> myself, and hence I don't see the need to make the code available.
 
- From the Arm Arm (DDI 0486 F.c), only the lower 32-bit represents the 
-clock frequency. The rest are RES0 (IOW can have a different meaning in 
-the future). So I think you want to mask it.
+I have no opinion here. Just wanted to get on the same page.
 
->   
->   static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
-> @@ -347,7 +347,7 @@ bool vtimer_emulate(struct cpu_user_regs *regs, union hsr hsr)
->   }
->   
->   static void vtimer_update_irq(struct vcpu *v, struct vtimer *vtimer,
-> -                              uint32_t vtimer_ctl)
-> +                              register_t vtimer_ctl)
->   {
->       bool level;
->   
-> @@ -389,7 +389,7 @@ void vtimer_update_irqs(struct vcpu *v)
->        * but this requires reworking the arch timer to implement this.
->        */
->       vtimer_update_irq(v, &v->arch.virt_timer,
-> -                      READ_SYSREG32(CNTV_CTL_EL0) & ~CNTx_CTL_MASK);
-> +                      READ_SYSREG(CNTV_CTL_EL0) & ~CNTx_CTL_MASK);
+Thanks for the explanation.
 
-AFAICT, CNTx_CTL_MASK is an unsigned int. This will not only mask IMASK 
-but also the bits 32-63 for Armv8.
+Wei.
 
-So I think you want to switch CTNx_CTL_MASK to return an unsigned long 
-and explain it in the commit message.
-
-Cheers,
-
--- 
-Julien Grall
+> 
+> Thanks, Roger.
 
