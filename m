@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFBDE366653
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 09:39:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114130.217373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F87236666A
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 09:49:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114135.217386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZ7SN-0005K9-HW; Wed, 21 Apr 2021 07:39:31 +0000
+	id 1lZ7bY-0006Ib-Dv; Wed, 21 Apr 2021 07:49:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114130.217373; Wed, 21 Apr 2021 07:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 114135.217386; Wed, 21 Apr 2021 07:49:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZ7SN-0005Jk-ES; Wed, 21 Apr 2021 07:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 114130;
- Wed, 21 Apr 2021 07:39:29 +0000
+	id 1lZ7bY-0006IC-Ax; Wed, 21 Apr 2021 07:49:00 +0000
+Received: by outflank-mailman (input) for mailman id 114135;
+ Wed, 21 Apr 2021 07:48:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=37lK=JS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lZ7SL-0005Ja-DD
- for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 07:39:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e825508c-f1f2-4433-9915-20c27b73c061;
- Wed, 21 Apr 2021 07:39:28 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 89BFCB118;
- Wed, 21 Apr 2021 07:39:27 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6IQv=JS=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lZ7bW-0006I6-Pk
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 07:48:58 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id cde2ad99-4129-4a23-99ae-fc0a6795c4ac;
+ Wed, 21 Apr 2021 07:48:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D48611B3;
+ Wed, 21 Apr 2021 00:48:56 -0700 (PDT)
+Received: from [10.57.28.119] (unknown [10.57.28.119])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 18F1D3F73B;
+ Wed, 21 Apr 2021 00:48:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,179 +41,335 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e825508c-f1f2-4433-9915-20c27b73c061
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1618990767; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/tKwVzMWedGWsdJSQhBlJY7TimKW3yM7eSnrFJ7OcPw=;
-	b=R1ieuNi8TAWhCg6sOkHkGIWnvBPc8jMXNVCv214IuBBY4Ih3bNTlRrdC4fgml4HcmFNnw7
-	7Z/FR4qaixfgGkqFnxp8Ep/cGCk9uLM0gjwOQYuSXx2bZmcqb5t+ogObV/IyorbDzSgunW
-	FW83wuOAAdcWIWCI4C2wJ7ZCF9qI7eE=
-Subject: Re: [PATCH] tools/xenstored: Remove unused prototype
+X-Inumbo-ID: cde2ad99-4129-4a23-99ae-fc0a6795c4ac
+Subject: Re: [PATCH 3/9] arm/gic: Get rid of READ/WRITE_SYSREG32
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <20210420134906.10910-1-julien@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <756df886-2e18-f2d0-a6d7-27e9817cb9c6@suse.com>
-Date: Wed, 21 Apr 2021 09:39:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
+References: <20210420070853.8918-1-michal.orzel@arm.com>
+ <20210420070853.8918-4-michal.orzel@arm.com>
+ <1a087bed-94e5-bada-76c4-92e0c429cce6@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <fd5924c5-685d-a9fc-1116-c1b8909c9aea@arm.com>
+Date: Wed, 21 Apr 2021 09:48:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210420134906.10910-1-julien@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="f0gssjl8SvGTGXySjF7XHkkg1ZA4AjklP"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---f0gssjl8SvGTGXySjF7XHkkg1ZA4AjklP
-Content-Type: multipart/mixed; boundary="OjsEyMb1I9sk2e7w4YQxWzVtlHCVK6ulp";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-Message-ID: <756df886-2e18-f2d0-a6d7-27e9817cb9c6@suse.com>
-Subject: Re: [PATCH] tools/xenstored: Remove unused prototype
-References: <20210420134906.10910-1-julien@xen.org>
-In-Reply-To: <20210420134906.10910-1-julien@xen.org>
-
---OjsEyMb1I9sk2e7w4YQxWzVtlHCVK6ulp
-Content-Type: multipart/mixed;
- boundary="------------AF747BE277D7E706BDF9EAC0"
+In-Reply-To: <1a087bed-94e5-bada-76c4-92e0c429cce6@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------AF747BE277D7E706BDF9EAC0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Hi Julien,
 
-On 20.04.21 15:49, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> A prototype for dump_conn() has been present for quite a long time
-> but there are no implementation. Even, AFAICT in the patch that
-> introduced it. So drop it.
->=20
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+On 20.04.2021 15:28, Julien Grall wrote:
+> Hi Michal,
+> 
+> On 20/04/2021 08:08, Michal Orzel wrote:
+>> AArch64 system registers are 64bit whereas AArch32 ones
+>> are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
+>> we should get rid of helpers READ/WRITE_SYSREG32
+>> in favour of using READ/WRITE_SYSREG.
+>> We should also use register_t type when reading sysregs
+>> which can correspond to uint64_t or uint32_t.
+>> Even though many AArch64 sysregs have upper 32bit reserved
+>> it does not mean that they can't be widen in the future.
+>>
+>> Modify types of following members of struct gic_v3 to register_t:
+>> -hcr(not used at all in Xen)
+> 
+> It looks like we never used it (even in the patch introducing it). So I would suggest to remove it in a patch before this one.
+>
+Ok. In v2 I will add a patch before this one removing hcr from gic_v3.
+>> -vmcr
+>> -sre_el1
+>> -apr0
+>> -apr1
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>> ---
+>>   xen/arch/arm/gic-v3-lpi.c |  2 +-
+>>   xen/arch/arm/gic-v3.c     | 96 ++++++++++++++++++++-------------------
+>>   xen/include/asm-arm/gic.h |  6 +--
+>>   3 files changed, 54 insertions(+), 50 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+>> index 869bc97fa1..e1594dd20e 100644
+>> --- a/xen/arch/arm/gic-v3-lpi.c
+>> +++ b/xen/arch/arm/gic-v3-lpi.c
+>> @@ -178,7 +178,7 @@ void gicv3_do_LPI(unsigned int lpi)
+>>       irq_enter();
+>>         /* EOI the LPI already. */
+>> -    WRITE_SYSREG32(lpi, ICC_EOIR1_EL1);
+>> +    WRITE_SYSREG(lpi, ICC_EOIR1_EL1);
+>>         /* Find out if a guest mapped something to this physical LPI. */
+>>       hlpip = gic_get_host_lpi(lpi);
+>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+>> index ac28013c19..0634013a67 100644
+>> --- a/xen/arch/arm/gic-v3.c
+>> +++ b/xen/arch/arm/gic-v3.c
+>> @@ -246,12 +246,12 @@ static void gicv3_ich_write_lr(int lr, uint64_t val)
+>>    */
+>>   static void gicv3_enable_sre(void)
+>>   {
+>> -    uint32_t val;
+>> +    register_t val;
+>>   -    val = READ_SYSREG32(ICC_SRE_EL2);
+>> +    val = READ_SYSREG(ICC_SRE_EL2);
+>>       val |= GICC_SRE_EL2_SRE;
+>>   -    WRITE_SYSREG32(val, ICC_SRE_EL2);
+>> +    WRITE_SYSREG(val, ICC_SRE_EL2);
+>>       isb();
+>>   }
+>>   @@ -315,16 +315,16 @@ static void restore_aprn_regs(const union gic_state_data *d)
+>>       switch ( gicv3.nr_priorities )
+>>       {
+>>       case 7:
+>> -        WRITE_SYSREG32(d->v3.apr0[2], ICH_AP0R2_EL2);
+>> -        WRITE_SYSREG32(d->v3.apr1[2], ICH_AP1R2_EL2);
+>> +        WRITE_SYSREG(d->v3.apr0[2], ICH_AP0R2_EL2);
+>> +        WRITE_SYSREG(d->v3.apr1[2], ICH_AP1R2_EL2);
+>>           /* Fall through */
+>>       case 6:
+>> -        WRITE_SYSREG32(d->v3.apr0[1], ICH_AP0R1_EL2);
+>> -        WRITE_SYSREG32(d->v3.apr1[1], ICH_AP1R1_EL2);
+>> +        WRITE_SYSREG(d->v3.apr0[1], ICH_AP0R1_EL2);
+>> +        WRITE_SYSREG(d->v3.apr1[1], ICH_AP1R1_EL2);
+>>           /* Fall through */
+>>       case 5:
+>> -        WRITE_SYSREG32(d->v3.apr0[0], ICH_AP0R0_EL2);
+>> -        WRITE_SYSREG32(d->v3.apr1[0], ICH_AP1R0_EL2);
+>> +        WRITE_SYSREG(d->v3.apr0[0], ICH_AP0R0_EL2);
+>> +        WRITE_SYSREG(d->v3.apr1[0], ICH_AP1R0_EL2);
+>>           break;
+>>       default:
+>>           BUG();
+>> @@ -338,16 +338,16 @@ static void save_aprn_regs(union gic_state_data *d)
+>>       switch ( gicv3.nr_priorities )
+>>       {
+>>       case 7:
+>> -        d->v3.apr0[2] = READ_SYSREG32(ICH_AP0R2_EL2);
+>> -        d->v3.apr1[2] = READ_SYSREG32(ICH_AP1R2_EL2);
+>> +        d->v3.apr0[2] = READ_SYSREG(ICH_AP0R2_EL2);
+>> +        d->v3.apr1[2] = READ_SYSREG(ICH_AP1R2_EL2);
+>>           /* Fall through */
+>>       case 6:
+>> -        d->v3.apr0[1] = READ_SYSREG32(ICH_AP0R1_EL2);
+>> -        d->v3.apr1[1] = READ_SYSREG32(ICH_AP1R1_EL2);
+>> +        d->v3.apr0[1] = READ_SYSREG(ICH_AP0R1_EL2);
+>> +        d->v3.apr1[1] = READ_SYSREG(ICH_AP1R1_EL2);
+>>           /* Fall through */
+>>       case 5:
+>> -        d->v3.apr0[0] = READ_SYSREG32(ICH_AP0R0_EL2);
+>> -        d->v3.apr1[0] = READ_SYSREG32(ICH_AP1R0_EL2);
+>> +        d->v3.apr0[0] = READ_SYSREG(ICH_AP0R0_EL2);
+>> +        d->v3.apr1[0] = READ_SYSREG(ICH_AP1R0_EL2);
+>>           break;
+>>       default:
+>>           BUG();
+>> @@ -371,15 +371,15 @@ static void gicv3_save_state(struct vcpu *v)
+>>       dsb(sy);
+>>       gicv3_save_lrs(v);
+>>       save_aprn_regs(&v->arch.gic);
+>> -    v->arch.gic.v3.vmcr = READ_SYSREG32(ICH_VMCR_EL2);
+>> -    v->arch.gic.v3.sre_el1 = READ_SYSREG32(ICC_SRE_EL1);
+>> +    v->arch.gic.v3.vmcr = READ_SYSREG(ICH_VMCR_EL2);
+>> +    v->arch.gic.v3.sre_el1 = READ_SYSREG(ICC_SRE_EL1);
+>>   }
+>>     static void gicv3_restore_state(const struct vcpu *v)
+>>   {
+>> -    uint32_t val;
+>> +    register_t val;
+>>   -    val = READ_SYSREG32(ICC_SRE_EL2);
+>> +    val = READ_SYSREG(ICC_SRE_EL2);
+>>       /*
+>>        * Don't give access to system registers when the guest is using
+>>        * GICv2
+>> @@ -388,7 +388,7 @@ static void gicv3_restore_state(const struct vcpu *v)
+>>           val &= ~GICC_SRE_EL2_ENEL1;
+>>       else
+>>           val |= GICC_SRE_EL2_ENEL1;
+>> -    WRITE_SYSREG32(val, ICC_SRE_EL2);
+>> +    WRITE_SYSREG(val, ICC_SRE_EL2);
+>>         /*
+>>        * VFIQEn is RES1 if ICC_SRE_EL1.SRE is 1. This causes a Group0
+>> @@ -398,9 +398,9 @@ static void gicv3_restore_state(const struct vcpu *v)
+>>        * want before starting to mess with the rest of the GIC, and
+>>        * VMCR_EL1 in particular.
+>>        */
+>> -    WRITE_SYSREG32(v->arch.gic.v3.sre_el1, ICC_SRE_EL1);
+>> +    WRITE_SYSREG(v->arch.gic.v3.sre_el1, ICC_SRE_EL1);
+>>       isb();
+>> -    WRITE_SYSREG32(v->arch.gic.v3.vmcr, ICH_VMCR_EL2);
+>> +    WRITE_SYSREG(v->arch.gic.v3.vmcr, ICH_VMCR_EL2);
+>>       restore_aprn_regs(&v->arch.gic);
+>>       gicv3_restore_lrs(v);
+>>   @@ -468,24 +468,25 @@ static void gicv3_mask_irq(struct irq_desc *irqd)
+>>   static void gicv3_eoi_irq(struct irq_desc *irqd)
+>>   {
+>>       /* Lower the priority */
+>> -    WRITE_SYSREG32(irqd->irq, ICC_EOIR1_EL1);
+>> +    WRITE_SYSREG(irqd->irq, ICC_EOIR1_EL1);
+>>       isb();
+>>   }
+>>     static void gicv3_dir_irq(struct irq_desc *irqd)
+>>   {
+>>       /* Deactivate */
+>> -    WRITE_SYSREG32(irqd->irq, ICC_DIR_EL1);
+>> +    WRITE_SYSREG(irqd->irq, ICC_DIR_EL1);
+>>       isb();
+>>   }
+>>     static unsigned int gicv3_read_irq(void)
+>>   {
+>> -    unsigned int irq = READ_SYSREG32(ICC_IAR1_EL1);
+>> +    register_t irq = READ_SYSREG(ICC_IAR1_EL1);
+>>         dsb(sy);
+>>   -    return irq;
+>> +    /* Number of IRQs do not exceed 32bit. */
+> 
+> If we want to be pedantic, the IRQs are encoded using 23-bit. So maybe we want to mask them below.
+> 
+>> +    return (unsigned int)irq;
+> 
+> NIT: We tend to avoid explicit cast unless they are strictly necessary because they can be more harmful than implicit cast (the compiler may not cast every conversion). So I would drop it and just keep the comment.
+> 
+Ok. I will do:
+return (irq & 0xffffff);
+>>   }
+>>     /*
+>> @@ -857,16 +858,16 @@ static int gicv3_cpu_init(void)
+>>       gicv3_enable_sre();
+>>         /* No priority grouping */
+>> -    WRITE_SYSREG32(0, ICC_BPR1_EL1);
+>> +    WRITE_SYSREG(0, ICC_BPR1_EL1);
+>>         /* Set priority mask register */
+>> -    WRITE_SYSREG32(DEFAULT_PMR_VALUE, ICC_PMR_EL1);
+>> +    WRITE_SYSREG(DEFAULT_PMR_VALUE, ICC_PMR_EL1);
+>>         /* EOI drops priority, DIR deactivates the interrupt (mode 1) */
+>> -    WRITE_SYSREG32(GICC_CTLR_EL1_EOImode_drop, ICC_CTLR_EL1);
+>> +    WRITE_SYSREG(GICC_CTLR_EL1_EOImode_drop, ICC_CTLR_EL1);
+>>         /* Enable Group1 interrupts */
+>> -    WRITE_SYSREG32(1, ICC_IGRPEN1_EL1);
+>> +    WRITE_SYSREG(1, ICC_IGRPEN1_EL1);
+>>         /* Sync at once at the end of cpu interface configuration */
+>>       isb();
+>> @@ -876,15 +877,15 @@ static int gicv3_cpu_init(void)
+>>     static void gicv3_cpu_disable(void)
+>>   {
+>> -    WRITE_SYSREG32(0, ICC_CTLR_EL1);
+>> +    WRITE_SYSREG(0, ICC_CTLR_EL1);
+>>       isb();
+>>   }
+>>     static void gicv3_hyp_init(void)
+>>   {
+>> -    uint32_t vtr;
+>> +    register_t vtr;
+>>   -    vtr = READ_SYSREG32(ICH_VTR_EL2);
+>> +    vtr = READ_SYSREG(ICH_VTR_EL2);
+>>       gicv3_info.nr_lrs  = (vtr & ICH_VTR_NRLRGS) + 1;
+>>       gicv3.nr_priorities = ((vtr >> ICH_VTR_PRIBITS_SHIFT) &
+>>                             ICH_VTR_PRIBITS_MASK) + 1;
+>> @@ -892,8 +893,8 @@ static void gicv3_hyp_init(void)
+>>       if ( !((gicv3.nr_priorities > 4) && (gicv3.nr_priorities < 8)) )
+>>           panic("GICv3: Invalid number of priority bits\n");
+>>   -    WRITE_SYSREG32(ICH_VMCR_EOI | ICH_VMCR_VENG1, ICH_VMCR_EL2);
+>> -    WRITE_SYSREG32(GICH_HCR_EN, ICH_HCR_EL2);
+>> +    WRITE_SYSREG(ICH_VMCR_EOI | ICH_VMCR_VENG1, ICH_VMCR_EL2);
+>> +    WRITE_SYSREG(GICH_HCR_EN, ICH_HCR_EL2);
+>>   }
+>>     /* Set up the per-CPU parts of the GIC for a secondary CPU */
+>> @@ -917,11 +918,11 @@ out:
+>>     static void gicv3_hyp_disable(void)
+>>   {
+>> -    uint32_t hcr;
+>> +    register_t hcr;
+>>   -    hcr = READ_SYSREG32(ICH_HCR_EL2);
+>> +    hcr = READ_SYSREG(ICH_HCR_EL2);
+>>       hcr &= ~GICH_HCR_EN;
+>> -    WRITE_SYSREG32(hcr, ICH_HCR_EL2);
+>> +    WRITE_SYSREG(hcr, ICH_HCR_EL2);
+>>       isb();
+>>   }
+>>   @@ -1140,39 +1141,42 @@ static void gicv3_write_lr(int lr_reg, const struct gic_lr *lr)
+>>     static void gicv3_hcr_status(uint32_t flag, bool status)
+>>   {
+>> -    uint32_t hcr;
+>> +    register_t hcr;
+>>   -    hcr = READ_SYSREG32(ICH_HCR_EL2);
+>> +    hcr = READ_SYSREG(ICH_HCR_EL2);
+>>       if ( status )
+>> -        WRITE_SYSREG32(hcr | flag, ICH_HCR_EL2);
+>> +        WRITE_SYSREG(hcr | flag, ICH_HCR_EL2);
+>>       else
+>> -        WRITE_SYSREG32(hcr & (~flag), ICH_HCR_EL2);
+>> +        WRITE_SYSREG(hcr & (~flag), ICH_HCR_EL2);
+>>       isb();
+>>   }
+>>     static unsigned int gicv3_read_vmcr_priority(void)
+>>   {
+>> -   return ((READ_SYSREG32(ICH_VMCR_EL2) >> ICH_VMCR_PRIORITY_SHIFT) &
+>> +   return ((READ_SYSREG(ICH_VMCR_EL2) >> ICH_VMCR_PRIORITY_SHIFT) &
+>>               ICH_VMCR_PRIORITY_MASK);
+>>   }
+>>     /* Only support reading GRP1 APRn registers */
+>>   static unsigned int gicv3_read_apr(int apr_reg)
+>>   {
+>> +    register_t apr;
+> 
+> NIT: Please add a newline after the declaration. This will be easier to read.
+> 
+Ok.
+>>       switch ( apr_reg )
+>>       {
+>>       case 0:
+>>           ASSERT(gicv3.nr_priorities > 4 && gicv3.nr_priorities < 8);
+>> -        return READ_SYSREG32(ICH_AP1R0_EL2);
+>> +        apr = READ_SYSREG(ICH_AP1R0_EL2);
+>>       case 1:
+>>           ASSERT(gicv3.nr_priorities > 5 && gicv3.nr_priorities < 8);
+>> -        return READ_SYSREG32(ICH_AP1R1_EL2);
+>> +        apr = READ_SYSREG(ICH_AP1R1_EL2);
+>>       case 2:
+>>           ASSERT(gicv3.nr_priorities > 6 && gicv3.nr_priorities < 8);
+>> -        return READ_SYSREG32(ICH_AP1R2_EL2);
+>> +        apr = READ_SYSREG(ICH_AP1R2_EL2);
+>>       default:
+>>           BUG();
+>>       }
+> 
+> NIT: Please add a newline here. This will be easier to read.
+> 
+Ok.
+>> +    /* Number of priority levels do not exceed 32bit */
+>> +    return (unsigned int)apr;
+> 
+> NIT: Same remark as before for the cast.
+> 
+Ok. I will do just:
+return apr;
+>>   }
+>>     static bool gicv3_read_pending_state(struct irq_desc *irqd)
+>> diff --git a/xen/include/asm-arm/gic.h b/xen/include/asm-arm/gic.h
+>> index ad0f7452d0..d750d070b4 100644
+>> --- a/xen/include/asm-arm/gic.h
+>> +++ b/xen/include/asm-arm/gic.h
+>> @@ -171,9 +171,9 @@
+>>    * GICv3 registers that needs to be saved/restored
+>>    */
+>>   struct gic_v3 {
+>> -    uint32_t hcr, vmcr, sre_el1;
+>> -    uint32_t apr0[4];
+>> -    uint32_t apr1[4];
+>> +    register_t hcr, vmcr, sre_el1;
+>> +    register_t apr0[4];
+>> +    register_t apr1[4];
+>>       uint64_t lr[16];
+>>   };
+>>   #endif
+>>
+> 
+> Cheers,
+> 
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
-
-
-Juergen
-
---------------AF747BE277D7E706BDF9EAC0
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------AF747BE277D7E706BDF9EAC0--
-
---OjsEyMb1I9sk2e7w4YQxWzVtlHCVK6ulp--
-
---f0gssjl8SvGTGXySjF7XHkkg1ZA4AjklP
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmB/1q4FAwAAAAAACgkQsN6d1ii/Ey/k
-4Qf/dOTwdnrMaymU2yPwINTZqx3RuvdrBvqyCmeoJm2g9grkikLUwLQ3eEk0k14mjepdBfSCPucD
-7xyr8kigYwJOQNk6/Nl4N3Y69Vx88fMv9nOMf00vhq1hrdQJmO9yq3U14vkadfyAdA91+MmfoiF3
-lg+V+QYPOjSoVyeetZpvgkHLPcb/hfA0Ht1upH5xHzVrSY8LsT7ZIQbAFbs8Ia43dMjgHkMNL/mw
-5sRvPZNn2noeLnOQ4PXJ4DeUW1d+pQUDcBdOrwKCGam2TV+uFlHl4uM7x7dBLXN01sQmWqL57Eeg
-ppkuDUHxAJHjSIyeYAphn4sGlcfZ5T0uDLWpOtzM4w==
-=P4ob
------END PGP SIGNATURE-----
-
---f0gssjl8SvGTGXySjF7XHkkg1ZA4AjklP--
+Cheers
 
