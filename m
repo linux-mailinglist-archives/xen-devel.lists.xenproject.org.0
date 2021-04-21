@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C23366BD6
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 15:07:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114488.218200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F64366C50
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 15:16:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114497.218213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZCYy-0000X7-Aa; Wed, 21 Apr 2021 13:06:40 +0000
+	id 1lZChv-0001Wp-6b; Wed, 21 Apr 2021 13:15:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114488.218200; Wed, 21 Apr 2021 13:06:40 +0000
+Received: by outflank-mailman (output) from mailman id 114497.218213; Wed, 21 Apr 2021 13:15:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZCYy-0000Wl-7K; Wed, 21 Apr 2021 13:06:40 +0000
-Received: by outflank-mailman (input) for mailman id 114488;
- Wed, 21 Apr 2021 13:06:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lZChv-0001WQ-3P; Wed, 21 Apr 2021 13:15:55 +0000
+Received: by outflank-mailman (input) for mailman id 114497;
+ Wed, 21 Apr 2021 13:15:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZCYx-0000Wg-0O
- for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 13:06:39 +0000
+ id 1lZCht-0001WL-I7
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 13:15:53 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5bdbdbdc-5727-4d42-baef-f90f6345b8c6;
- Wed, 21 Apr 2021 13:06:38 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 32dcd834-9a5a-4bef-b94d-317a15100a25;
+ Wed, 21 Apr 2021 13:15:52 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 46521AF3B;
- Wed, 21 Apr 2021 13:06:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E9C81B4A7;
+ Wed, 21 Apr 2021 13:15:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,143 +38,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bdbdbdc-5727-4d42-baef-f90f6345b8c6
+X-Inumbo-ID: 32dcd834-9a5a-4bef-b94d-317a15100a25
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619010397; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619010952; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P2vRYHLBXHOsV7x3MygxRE94imiXLDsi74b8duVPmSc=;
-	b=AsPooKBpPkurtzdQq2Fm2Q2hiCLkTavIPgvnC/e5SzYQ37v96HF/zZRfvRBXaSRcyuTab+
-	xuzI8q6GCPHDEk27Z3eGWC89KwZraYBaBrDlDI61a3fn4EAh+DHEb4T2VcmNND1QFqQU43
-	PtY90FDBP8H3kytSv9xxHi6X/i4X0Mw=
-Subject: Re: [PATCH 7/8] x86/EFI: keep debug info in xen.efi
+	bh=KSbujstBrsDXB9I9QXW9yNl1x7BU7KwrwpMefgybHmU=;
+	b=m5Xv/dsWLYlRQLeYMBj5gW0yMZTtfQYpta1tmlMHeMQPeU0m7FPUl3QbkrEdY7d0rhlB83
+	TW7R1IY9nhsY4k3B/Cfov4x2IPUwl+ns22Y8oW1G6Gq+brukfAKW8DIjB/fDwjEUCYBReA
+	Wff376Ycn+jqk7E5SxWmFzbG6I8czSY=
+Subject: Re: [PATCH 8/8] x86/EFI: don't have an overly large image size
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
 References: <b327185f-db31-50c8-ec76-6ef8f2fcfdfd@suse.com>
- <96cb4039-5f43-8eac-d855-c9f1587ed2d0@suse.com>
- <YIAJP0SCq0nOKZVL@Air-de-Roger>
+ <26ec4a83-cda9-5193-d797-357c05b26ab7@suse.com>
+ <YIAKIx0JuYDzEKqK@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6023c1d3-4f50-d207-1ea1-30dd1d5f68d2@suse.com>
-Date: Wed, 21 Apr 2021 15:06:36 +0200
+Message-ID: <5b9af9cc-fdd6-aa16-f902-0c5836bb2cbc@suse.com>
+Date: Wed, 21 Apr 2021 15:15:51 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <YIAJP0SCq0nOKZVL@Air-de-Roger>
+In-Reply-To: <YIAKIx0JuYDzEKqK@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 21.04.2021 13:15, Roger Pau Monné wrote:
-> On Thu, Apr 01, 2021 at 11:47:03AM +0200, Jan Beulich wrote:
->> ... provided the linker supports it (which it does as of commit
->> 2dfa8341e079 ["ELF DWARF in PE output"]).
->>
->> Without mentioning debugging sections, the linker would put them at
->> VA 0, thus making them unreachable by 32-bit (relative or absolute)
->> relocations. If relocations were resolvable (or absent) the resulting
->> binary would have invalid section RVAs (0 - __image_base__, truncated to
->> 32 bits). Mentioning debugging sections without specifying an address
->> will result in the linker putting them all on the same RVA. A loader is,
->> afaict, free to reject loading such an image, as sections shouldn't
->> overlap. (The above describes GNU ld 2.36 behavior, which - if deemed
->> buggy - could change.)
+On 21.04.2021 13:18, Roger Pau Monné wrote:
+> On Thu, Apr 01, 2021 at 11:47:35AM +0200, Jan Beulich wrote:
+>> While without debug info the difference is benign (so far), since we pad
+>> the image to 16Mb anyway, forcing the .reloc section to a 2Mb boundary
+>> causes subsequent .debug_* sections to go farther beyond 16Mb than
+>> needed. There's no reason to advance . for establishing __2M_rwdata_end,
+>> as all data past _end is of no interest at runtime anymore anyway.
 > 
-> Isn't just using (NOLOAD) to signal those sections shouldn't be
-> loaded enough, and thus don't care about it's RVA?
+> So you just expand the load size.
 
-As said in a reply earlier on another sub-thread, (NOLOAD) is meaningless
-for PE. The fact that I add them nevertheless is just for docs purposes
-(or if, in the future, the item gains significance).
+Shrink. Or maybe I'm misunderstanding you.
 
-The main problem though isn't "load" vs "no-load" but, as I thought I
-have expressed in the description, that there's no "don't care about it's
-RVA" in PE. All sections have to have a non-zero VA above the image base.
-This is the only way via which sane RVA values can result. If sections
-get placed at VA 0 (which is perfectly fine for ELF), the RVA would be a
-huge negative number truncated to 32 bits. (Again, prior to binutils 2.37
-this will go all silently.) Plus the respective sections would come first
-(rather than last) in the binary (which by itself may or may not be a
-problem for the EFI loader, but I wouldn't want to chance it).
-
->> --- a/xen/arch/x86/xen.lds.S
->> +++ b/xen/arch/x86/xen.lds.S
->> @@ -312,10 +312,60 @@ SECTIONS
->>      *(.reloc)
->>      __base_relocs_end = .;
->>    }
->> -  /* Trick the linker into setting the image size to exactly 16Mb. */
->> -  . = ALIGN(__section_alignment__);
->> -  DECL_SECTION(.pad) {
->> -    . = ALIGN(MB(16));
->> +  .debug_abbrev ALIGN(1) (NOLOAD) : {
->> +     *(.debug_abbrev)
->> +  }
->> +  .debug_info ALIGN(1) (NOLOAD) : {
->> +    *(.debug_info)
->> +    *(.gnu.linkonce.wi.*)
->> +  }
->> +  .debug_types ALIGN(1) (NOLOAD) : {
->> +    *(.debug_types)
->> +  }
->> +  .debug_str ALIGN(1) (NOLOAD) : {
->> +    *(.debug_str)
->> +  }
->> +  .debug_line ALIGN(1) (NOLOAD) : {
->> +    *(.debug_line)
->> +    *(.debug_line.*)
->> +  }
->> +  .debug_line_str ALIGN(1) (NOLOAD) : {
->> +    *(.debug_line_str)
->> +  }
->> +  .debug_names ALIGN(4) (NOLOAD) : {
->> +    *(.debug_names)
->> +  }
->> +  .debug_frame ALIGN(4) (NOLOAD) : {
->> +    *(.debug_frame)
->> +  }
->> +  .debug_loc ALIGN(1) (NOLOAD) : {
->> +    *(.debug_loc)
->> +  }
->> +  .debug_loclists ALIGN(4) (NOLOAD) : {
->> +    *(.debug_loclists)
->> +  }
->> +  .debug_ranges ALIGN(8) (NOLOAD) : {
->> +    *(.debug_ranges)
->> +  }
->> +  .debug_rnglists ALIGN(4) (NOLOAD) : {
->> +    *(.debug_rnglists)
->> +  }
->> +  .debug_addr ALIGN(8) (NOLOAD) : {
->> +    *(.debug_addr)
->> +  }
->> +  .debug_aranges ALIGN(1) (NOLOAD) : {
->> +    *(.debug_aranges)
->> +  }
->> +  .debug_pubnames ALIGN(1) (NOLOAD) : {
->> +    *(.debug_pubnames)
->> +  }
->> +  .debug_pubtypes ALIGN(1) (NOLOAD) : {
->> +    *(.debug_pubtypes)
->> +  }
->> +  /* Trick the linker into setting the image size to no less than 16Mb. */
->> +  __image_end__ = .;
->> +  .pad ALIGN(__section_alignment__) : {
->> +    . = __image_end__ < __image_base__ + MB(16) ? ALIGN(MB(16)) : .;
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I think this is inside an ifdef EFI region, since this is DWARF info
-> couldn't it also be present when building with EFI disabled?
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Of course (and it's not just "could" but "will"), yet the linker will
-do fine (and perhaps even better) without when building ELF. Also
-note that we'll be responsible for keeping the list of sections up-to-
-date. The linker will recognize Dwarf sections by looking for a
-.debug_ prefix. We can't use such here (or at least I'm not aware of
-a suitable mechanism); .debug_* would mean munging together all the
-different kinds of Dwarf sections. Hence by limiting the explicit
-enumeration to PE, I'm trying to avoid anomalies in ELF down the road.
+Thanks.
+
+>> ---
+>> This makes more explicit a possible latent problem with the ELF image:
+>> It ends at _end, not __2M_rwdata_end (advancing . as was done here does
+>> not have the effect of increasing the image size). Interestingly the
+>> conversion xen-syms => xen rounds up the program header specified size
+>> suitably, as per the comment "Do not use p_memsz: it does not include
+>> BSS alignment padding" in mkelf32.c. I do think this would instead want
+>> taking care of in the linker script. Commit 7a95e0a2c572 ("x86: properly
+>> calculate xen ELF end of image address") clearly only hacked an existing
+>> hack rather than addressing the root cause. Thoughts?
+> 
+> We should likely define _end after __2M_rwdata_end to account for this
+> padding?
+
+I don't think this would help - we'd need to arrange for the image size
+to cover that extra padding. Like advancing . doesn't grow the image
+size, I also don't think placing _end later would do.
 
 Jan
 
