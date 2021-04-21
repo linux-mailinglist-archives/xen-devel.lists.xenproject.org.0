@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9874B366E5C
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 16:37:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114766.218759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FAA2366E8F
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 16:55:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114777.218774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZDzC-0005dh-VK; Wed, 21 Apr 2021 14:37:50 +0000
+	id 1lZEFd-0007WE-FT; Wed, 21 Apr 2021 14:54:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114766.218759; Wed, 21 Apr 2021 14:37:50 +0000
+Received: by outflank-mailman (output) from mailman id 114777.218774; Wed, 21 Apr 2021 14:54:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZDzC-0005dF-Rq; Wed, 21 Apr 2021 14:37:50 +0000
-Received: by outflank-mailman (input) for mailman id 114766;
- Wed, 21 Apr 2021 14:37:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lZEFd-0007Vc-CB; Wed, 21 Apr 2021 14:54:49 +0000
+Received: by outflank-mailman (input) for mailman id 114777;
+ Wed, 21 Apr 2021 14:54:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lZDzB-0005d7-3O; Wed, 21 Apr 2021 14:37:49 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lZDzA-0001Tk-UN; Wed, 21 Apr 2021 14:37:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lZDzA-0004qB-MZ; Wed, 21 Apr 2021 14:37:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lZDzA-0003Ra-M8; Wed, 21 Apr 2021 14:37:48 +0000
+ (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lZEFb-0007VQ-W3
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 14:54:48 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 92f763f3-70eb-41cb-8f21-9180ffba85e1;
+ Wed, 21 Apr 2021 14:54:46 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D8318AD8A;
+ Wed, 21 Apr 2021 14:54:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +38,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xbgvd9mevhIcUKajIqXbiKdkFSR8tErRCKMzgWiqKdM=; b=jEXtSwtB1uizZz4ZJdkD3rsocV
-	GKTY3jTy3mfOqx355kjEn+zofWEMlBcvGZG8/ef9HrjwRhcvzmoSyf7qYX9t9sMI3ENJJViPg7OOC
-	2dFzntgnXH7a/3JJQA2CduMCvcD0QOBz9hz/iE1aQyzWZzh8kRRxLZ/9kAvebPHch6DE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161326-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 92f763f3-70eb-41cb-8f21-9180ffba85e1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1619016886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=baVbHeaFpUHOoNNbdk+uVfa5XQKMT3TNCD4TV0hYMkc=;
+	b=m2OioZfDKHsX3nrdfqUjFtDwlQnn20Et7qSeEz+Zzysk6UsW1bHGbmav56msdc993oQSsz
+	tfGU59WlWDubHANeEr5g0oMyN8XY3n+QmhZ9pVThHZ6wkuSo18rnPOeU7ZFJRaG0emE+KW
+	rQsD3ApceeS6eCJT/apjqfW+TZQY+50=
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/8] assorted replacement of x[mz]alloc_bytes()
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Message-ID: <091b4b91-712f-3526-78d1-80d31faf8e41@suse.com>
+Date: Wed, 21 Apr 2021 16:54:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Subject: [ovmf test] 161326: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d3b0d007a135284981fa750612a47234b83976f9
-X-Osstest-Versions-That:
-    ovmf=0bbc20727598421c4e47d46b982246217df8c6bc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 21 Apr 2021 14:37:48 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 161326 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161326/
+In the long run I think we want to do away with these type-unsafe
+interfaces, the more that they also request (typically) excess
+alignment. This series of entirely independent patches is
+eliminating the instances where it's relatively clear that they're
+not just "blob" allocations.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d3b0d007a135284981fa750612a47234b83976f9
-baseline version:
- ovmf                 0bbc20727598421c4e47d46b982246217df8c6bc
+v2 only has commit messages extended.
 
-Last test of basis   161312  2021-04-20 04:56:06 Z    1 days
-Testing same since   161326  2021-04-20 12:41:12 Z    1 days    1 attempts
+1: x86/MCE: avoid effectively open-coding xmalloc_array()
+2: x86/HVM: avoid effectively open-coding xmalloc_array()
+3: x86/oprofile: avoid effectively open-coding xmalloc_array()
+4: x86/IRQ: avoid over-alignment in alloc_pirq_struct()
+5: EFI/runtime: avoid effectively open-coding xmalloc_array()
+6: kexec: avoid effectively open-coding xzalloc_flex_struct()
+7: video/lfb: avoid effectively open-coding xzalloc_array()
+8: Arm/optee: don't open-code xzalloc_flex_struct()
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Shi, Steven <steven.shi@intel.com>
-  Steven Shi <steven.shi@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   0bbc207275..d3b0d007a1  d3b0d007a135284981fa750612a47234b83976f9 -> xen-tested-master
+Jan
 
