@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8AD6366755
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 10:54:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.114155.217425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7256F366779
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Apr 2021 11:02:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.114161.217440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZ8bY-0004j6-2Q; Wed, 21 Apr 2021 08:53:04 +0000
+	id 1lZ8k8-0005k4-WD; Wed, 21 Apr 2021 09:01:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 114155.217425; Wed, 21 Apr 2021 08:53:04 +0000
+Received: by outflank-mailman (output) from mailman id 114161.217440; Wed, 21 Apr 2021 09:01:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZ8bX-0004ih-V1; Wed, 21 Apr 2021 08:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 114155;
- Wed, 21 Apr 2021 08:53:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wOap=JS=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lZ8bW-0004ic-4l
- for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 08:53:02 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 142f0581-5d81-47d9-9c19-3f2658ac5683;
- Wed, 21 Apr 2021 08:53:00 +0000 (UTC)
+	id 1lZ8k8-0005je-ST; Wed, 21 Apr 2021 09:01:56 +0000
+Received: by outflank-mailman (input) for mailman id 114161;
+ Wed, 21 Apr 2021 09:01:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lZ8k7-0005jZ-4C
+ for xen-devel@lists.xenproject.org; Wed, 21 Apr 2021 09:01:55 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b3d9a00f-bdbe-4b65-a763-7a959b4d637a;
+ Wed, 21 Apr 2021 09:01:54 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 702FBB1FD;
+ Wed, 21 Apr 2021 09:01:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,162 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 142f0581-5d81-47d9-9c19-3f2658ac5683
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1618995180;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=wUVbrR4X6MsBe8UWzAQNouDNy/1e0xTUjosLEQ2Vq7g=;
-  b=eJXTzelorhRBShaJqEW6McIS4I4dr8KUM+yJBtPg0Z5gnE6vjthrTrl1
-   Z2aqQ6y/c2djEjo3JfboxB1YlZzBFTBjoO76sz00GJsMhdn4ekU93XVXC
-   F+9nvjSQNOTivrTQirc6OQIMaP+xNhgYQIyQTkm6YJgxV0SJlQ9h1n6Jj
-   0=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: +i45jOJgid6M+RLv47Hek0PI+9nzsmjIz9wxTYrkX7MQqfHSM5VN/GcvL1yI6VFNATykaIph27
- F0ECkjJOo1udSkZBqaPVXaNGixM9QRy7ipsQillOFPMP8YGUA49Zg4frAfE0MGWJgm3R50sx8Z
- tN0m94/USr4tx9LzuFcX1b99PilOUh407MEpVJgHXK+0COehZYiMaOnx7YGl/7cDju9uK4703d
- i81qVzc76S5IQhFbrHOQ1IOaTmRUutsYn9+qCOAVpbRH5rkNNoF6I7AvRxX/wtQ1NQrQoNK6XP
- yDI=
-X-SBRS: 5.2
-X-MesageID: 41891863
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:Ox/B3K4KbM8k4sN4igPXwVuEI+orLtY04lQ7vn1ZYSd+NuSFis
- Gjm+ka3xfoiDAXHEotg8yEJbPoex3h3LZPy800Ma25VAfr/FGpIoZr8Jf4z1TbdBHW3tV2kZ
- 1te60WMrHNJHBnkMf35xS5Gd48wN+BtJuln/va0m0Fd2FXQotLhj0JbDqzOEtwWQVAGN4VFI
- CE4NBGujqnfh0sH7mGL1MCWPXOoMCOqYL+bXc9dmQawSStrRft0r71FBCEwgwTOgkv/Z4O+X
- XI+jaJg5mLnOq8znbnpgvuxrRQ3ODs095SQPGL4/JlVgnEriaNSMBfV6aZvDYzydvfmGoCtN
- XXuR8vM4BSxhrqDxmIiCDg0QXhzzoigkWKoTTz7AqB0K6JNg4SMMZPiZlUdRHU8SMbzapB+Z
- lGwn6DsN5vBQ7A9R6NluTgbQ1glUa/vBMZ4JcupkFYOLFuD4N5nMg0+UNYF4o4ByTq6IwrO/
- kGNrCj2N9mNXyddHzXpW9p3ZiFWWkyBA6PRgw4ttWSyCU+pgE082IogOgk2lsQ/pM0TJdJo8
- zCL6RTjblLCusbd7h0CustSda+Y1a9Di7kASa3GxDKBasHM3XCp9rc+7Mu/tynf5QO0d8bhI
- nBeEkwjx9zR2veTem1mLFb+BHER2uwGR73zNtF2pR/srrgAJL2LCy4Tkw0mcfImYRfPuTrH9
- KIfL5GCf7qKmXjXaxT2RflZpVUIX4CFOIPvNIWXE+Pv9LrJoXmuvezSoeQGJPdVRIfHk/vCH
- oKWzb+YO9a6FqwZ3P+iB/NH1PhE3aPuK5YIez/xaw+2YINPopDvkw+klKi/PyGLjVEr+gTdE
- t6K7X3r7OjqQCNjCL1xlQsHiAYIlde4b3mXX8PjxQNKVnIfbEKvMjaXmxOwn2dJFtaQ9nNGA
- BS43R7kJjHYaC49GQHMZaKI2iah3wcqDahVJEHgJCO4s/jZ9cfFZYpWKt4EC3RDBxrkQNWqG
- NOATV0BXP3J3fLs+GInZYUDObQe51XmwGwO/NZrnrZqAGhv801f2AaWDSvSMaTpg4rS1Nv9x
- pM2p5apIDFtSekKGM5juh9FFFXcmyYDIhLCxm/aJxOlqrmfxxxSmm2lSWX4itDCVbCxgE3vC
- jMPCeUcfbEDh5mtndU3r3D3Xl0em+eFngAIUxSgMlYLyDrq3xz2eiEau6PyGOXcEIF2fxYGi
- rCeyEuLgRnwM2X2BaZlC2ZL2gvwowjM4XmffIeWoCW/knoBJyDlKkAEfMRwY1sM8r2tPQXFc
- 2YYA2YIVrDepUU8j3QgkxgHiZ6qHMpy6y1nDLk6XW1x345D775Jk98S7QSPtGb6CzFSp+zoe
- FEpONwmdH1FGP7LuOi4+XwSRVoLxvIu264T+0ys/lvzOoPnYo2O6OeaCfC0XFM4Q43I8j1nn
- 4PWagT2sG1BqZfO+gpPx9D9lUnlN6zPFImnwz/DOg5Z0wshRbgTqS0youNjbokGUuaogTsfX
- GZ7i1G5v/ANhHzn4IyOuYVIW5MblI752kn1OSed5fIAAHvU+1Y5lK1Pjucd7BaIZL1VIk4n1
- Jf49uSmfWQeDe98AfMvSFjKqYLyl2Ze6qJcUuxMN8N1ce7N1SKirar58D2rA6fc0rFV20owa
- tfdUIRacxfjCIFl4Nf6FnqdpDK
-X-IronPort-AV: E=Sophos;i="5.82,238,1613451600"; 
-   d="scan'208";a="41891863"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ltL+mKbcNO6ELuUGWhKeDLhDRdxhi8qOWhJ89zyRzpsWXnyaJNz9pjry5cMpQ2krEL+pJNbre92g+pl1D2+bFxsHcstOCilwgJ/NRgHwCFxCZvD0LneeyF8CEWyrmInCRblA7LVIt9mN/I3j795x/npQk9UsthpsRTvfWILvhVqBnrcP9qORLKeGxsUW3TMz+j9d/KmtWoc6JpgliqaBm9CJdkma4bJys23USKvDS/udzA7yyr5nov22wtKBwPBFgAWv4JCGuARamuo987xxLyZlLmQInMhewfPRAT6PdcigjELoGP8Gjx5EXNTeLcDc9f5G+tzmTisGhonsITF8IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VSLUUaZ+LeZR2cL3b2vS2vOSstN/bAtcZudGm9it4m4=;
- b=aOI4YjposfSqpTLY970o+llDS05jtQ3DOvqkDFyuXCdiviYEq75yeNLZfRmQNipceDq8IYbCLb3vEwebK/4ydMeBk3oa2ydyf78N+zNtGe40Lor53rqchJeasHtBIgDvZmBXZl+YtIoVBZa1FI6ttBL2PjagKgy0nZlQVrYRpDKTqTFZ0RxmTLj0pXVK5LTumpy9ckCmbVL90/a2p9lki5xnzQpE4wZBBbIwUaymPwSm38XUqeNK7a9OCKSH08JjkBH0ksg858JpQS/dVTmCFzuQJljj2djbHTJYLFw8SAFtfJTHwJGcabGAPfTnB6RcUVRF+avZz6xA7M+652WfCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VSLUUaZ+LeZR2cL3b2vS2vOSstN/bAtcZudGm9it4m4=;
- b=FgLMCJGoi9SMRQuoVh+NQT2IxE/+iw5awKdF+EBid7vBAAWGO6sKo46OHYrFbQVxK3nL49mfMLQq0L9YTfIZyBuswm7lWcj0l0OKUbi1bfraLL7dum11ZIPwrrkdp9AfPqKH3NDZZGclj0efPVqDBr8ldie0OsXqTDGetes2mDc=
-Date: Wed, 21 Apr 2021 10:52:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 2/8] x86/EFI: sections may not live at VA 0 in PE binaries
-Message-ID: <YH/nzmkQMhsJE4mw@Air-de-Roger>
-References: <b327185f-db31-50c8-ec76-6ef8f2fcfdfd@suse.com>
- <5d7c61b0-8441-dccc-4917-cc8a436fd96f@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5d7c61b0-8441-dccc-4917-cc8a436fd96f@suse.com>
-X-ClientProxiedBy: PR0P264CA0242.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100::14)
- To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+X-Inumbo-ID: b3d9a00f-bdbe-4b65-a763-7a959b4d637a
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1618995713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=665YTB6/AiRmXP0ytNCZ50BcWCbq1ij67+hhBzIqmYQ=;
+	b=NR2zfIUMnKMRKHkr2elZwwxjKDW/Id/x5VvWUtB0P7s4gkO36BedfMOYtiN0vngwmLzg1y
+	l3stDUpY8GFwlc9of3waJPrHSIWmkrjs4U25lVsf8X076O0J4K7EpiyZ6rF69E9F0joLxM
+	modC1SxaDSpzQ91UeI41qLlYjIWZoTw=
+Subject: Re: [PATCH v2] xen/pci: Refactor PCI MSI interrupts related code
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: Julien Grall <julien@xen.org>, xen-devel
+ <xen-devel@lists.xenproject.org>, Bertrand Marquis
+ <Bertrand.Marquis@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <e4ca856b19d9128cae5f6aa4ace550ace17fd877.1617977720.git.rahul.singh@arm.com>
+ <YHQlptvoC06rqNhQ@Air-de-Roger>
+ <f7659788-ff1b-23dd-e838-b35ae8ef9e50@xen.org>
+ <YHaiW4xX0p6ov2Z9@Air-de-Roger>
+ <258c91c7-e733-3c40-5e4e-7b107e4d20c3@xen.org>
+ <YHg+6rLN0rBWXcTs@Air-de-Roger>
+ <788665ad-9815-e3e9-2d5a-851b35c566d0@xen.org>
+ <AD2BC1CD-74AF-48FF-8B42-2853C0E7A7BE@arm.com>
+ <YH1CBP8At7lVoHCz@Air-de-Roger>
+ <a365ffbd-5b88-85c3-9e68-46a9a730a6fa@suse.com>
+ <0d5539e3-32e3-8275-f695-351eda49cb29@xen.org>
+ <6291effa-1589-1013-e89d-c795bce44d9c@suse.com>
+ <D2D9A348-3B21-47FD-A9C6-4C66C5778F11@arm.com>
+ <a1beaee4-0d6b-e38e-07f7-90a014c504b6@suse.com>
+ <30D00B1B-ECB9-4A5B-ACBD-37E532285CCD@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <45147776-10a2-7e8f-3135-6a5a2f8f921a@suse.com>
+Date: Wed, 21 Apr 2021 11:01:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e0517ad6-c6bd-40f1-2ffb-08d904a2ce7f
-X-MS-TrafficTypeDiagnostic: DS7PR03MB5463:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DS7PR03MB5463B95958CD45057ABAB4BA8F479@DS7PR03MB5463.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ssrm1ZYb0s1NBYJagxKHosYsCnCGKkMPkFHuJnm5TZ2oBY7Gahy8nb7N5ascSzX4q3Pyt49hf3ajYNr0xkRNxG4Pf7sRX4gtmekh4vEOiwm5HNQ9y9sE6FRJI6bgudJMGWeIdnBZpW+2SsSYN/qeA7g9116+eOty85CMLLlDiMIJj/Oe+MKpFwvw1AwPBHHksO6NViaNxW4gfs/CT3z1K+cqT11LdTAc4l7AG48DGwEv+FcVttoW6s9xr/CnwqBPmHxgVokEjWA5eiePslwigYiaEasuUifbvqYuaGlO0LBmFJjeLomXs01BKQ8EdNuJCXvHHF+/qNNUCJAbPVn0IbbX7YBdQ91OgKOhbEWoCXFlrVxEp154NxKnuucDOx44wwyxluLuj4Gfd6Y9/gpMkMW98zFKXjRoK6TDiVsxpJuKXpXWlHa3mZL4P4FF+ehrYS3ikegPpTH/TgugljNC+Gwt7Ng80w2V/b6cXHcC+q+VyL5ecMcJwcfojOVrhKGvM7982IicBSspdXJF8ivxeMEiRDKiLpo+WSFSfSxib7CAk/OfE+x0HoYtmsspcSbgaGG/lYTXO6OF+QUaaIWaX/oYK7W8CyjnVYwHxHea6yY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(346002)(39860400002)(376002)(366004)(136003)(396003)(4326008)(54906003)(26005)(186003)(478600001)(6486002)(5660300002)(6496006)(6666004)(956004)(6916009)(8676002)(316002)(2906002)(16526019)(86362001)(38100700002)(85182001)(33716001)(66476007)(66946007)(9686003)(66556008)(8936002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VFlCMnJ5TExGMFlsemxzcUh6bmcyVEkrK0x0UHFKYVRTbzU1Z2NiUWZJMktB?=
- =?utf-8?B?ZlVWT0xlckE1cVpzT3RmOGNsTTJFZWg2WGh4T21BUHVzeGpNbHg1UHZyakV1?=
- =?utf-8?B?UXRoWWk0eHlpWnljR3JoMzlHZE1aVSs2V0FvTEpiTThVMmYxV0RFRnd2Nnpj?=
- =?utf-8?B?c1MxUHc0N2tVcGlyK2hSaVVXMDR0VS95TWhaaWZFNHBMZ1lLblk2V29xYkNG?=
- =?utf-8?B?S3hPYk1EVHkrZjliMCtXWTE1VTB0Wmk5dXF6WE4yRENmWngwUTV2SVg1RnRi?=
- =?utf-8?B?cGdCMUNYK0Z3czQzaUd6cS82QUdVMGk3SzJjdzZzQnNBWldIMXRMV3psK282?=
- =?utf-8?B?bXFTRE5lcTZnSGFMdEN0OEtudHJBa1BDa3U2ZlFOWXJPUlUzcmtVelpoNVJM?=
- =?utf-8?B?eVFXblUxUkk2OTFLWEFHQlVPQitNL0FRdFlTRC9mTFBnWVZSNjBsZ2I4M3Q1?=
- =?utf-8?B?V3BrS08xTzJSS0crRWhidU5vR3BTbGsyRDNYV3RMd2w3SzRvemlpVHBtRkxB?=
- =?utf-8?B?VXpDWjRBejcvNHBic0k5NnVBYXZxeEgzQXJGSDg3WDRrZDRTRHBGc1JkOVRX?=
- =?utf-8?B?K0NYMG0xaVpIanJLcGxoaExFRW9mc1k3NXFkY2xVRUwxa2VPc3dmV2NJdUM2?=
- =?utf-8?B?OEdTeVlrNHFiejc4RTgyRldFb3RydzdIY3ZZV2pTeU1DSmc4Rm9FUk8xZWFl?=
- =?utf-8?B?akJNdGRER1BmU21ud1VCWkwzOXM2STRhRVpUb2psODdnUmpKMzErL1NTSE1U?=
- =?utf-8?B?a1BoL3JHV0U0UzdtL3U2MFRGNURYN0lwVDFEbXhmM1BLbUdudi9xUGNNMVp3?=
- =?utf-8?B?VWJUcEY1bkJBd0t2Y2ZhUi9xS1ZBUURqbVNoOHRSZEZqb1gzYmhQZEhvcmpH?=
- =?utf-8?B?bkFUVGxvTW9wMTlaVXdRRFJSb0hqTUZSYkw5aG01UHhzVmlOc1kxR3NyUEow?=
- =?utf-8?B?T2ZyL1NFRG9ra1hXQlpQMjMzNFdDWW1xWDgxQkNsdTQzQjZSMlZ6em1kdlUx?=
- =?utf-8?B?TVhjaWY3VUV4VUtzVEJRa2Y5THUvTE1iaUMvZGFOV2NzckhCWEU5QkpIb2l4?=
- =?utf-8?B?MGkyS1l0T29UVE9BNDVNWjVXWVF2SzN6K0YxVVFkYVluL2tTa2ZWM1VBQkRO?=
- =?utf-8?B?blNkOFdFZkUxb3hOb2o2N2ltYkNya1NPeDByVDZiSjl5bEUyb2JVRjVNTFpK?=
- =?utf-8?B?cFJoWTRlZFNqME1RaFM1TWM1TnlNM2JNeDZNN2VzRS9BL1dnbXpzbDREM1A5?=
- =?utf-8?B?T2tGaWhZd1BNZzE4bGVrRGJyT1h3eEVieWx1dU14YkZRY21TODZwRzh2TGlG?=
- =?utf-8?B?RG1NclZ4SW04ay93YXhzZ3MvdVU2NXVuaENERDRlK0VGNUVuSmJZQVJIckhj?=
- =?utf-8?B?ZHlwZWhnQ3I4OXZsZUdIRFBEQWFmeTZsR2MzUVdMZmNic2ZqYWorTm95S0NJ?=
- =?utf-8?B?UlpSaVBwQ25WNlJMTms2TVJkMndzWU5UaDdSV29kb2hKS3l3eWxZeG1yWVVv?=
- =?utf-8?B?aThFL2d6K0p6RzN1bEZGZVNsK3ZiYWcvUVRKMjRKemxXTzRiSHN1ZnNjL01B?=
- =?utf-8?B?c3pyODZMckZtUmpZOTArRGFicnBCV3BFVjZBdmNDUC82N0RqOG9aRURvRGZx?=
- =?utf-8?B?eHM2c3VLY01sZzNRTjFQdTZLT1JtSjUxQVQ1bnZEaVF3TTNoZ2l6SlV1Vng0?=
- =?utf-8?B?c2p0dzhBTTJuN2hTUTdnYXBRR1RGSGpKNkZaVlowQ1pqSWV1Rk1qSVJCYldo?=
- =?utf-8?Q?lUhnvMqXQasLa6tw+yvpnZeayyTewq0G52gdVEk?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0517ad6-c6bd-40f1-2ffb-08d904a2ce7f
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2021 08:52:34.7610
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c7r0bb4+SIKXPzhpHsvVQ9VqePBoMByk6CEH5QgtIYl9BhLbqdGlk77V9v8p3wkf7D1Fpa0OzlvnLdkENe+8bg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5463
-X-OriginatorOrg: citrix.com
+In-Reply-To: <30D00B1B-ECB9-4A5B-ACBD-37E532285CCD@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 01, 2021 at 11:44:45AM +0200, Jan Beulich wrote:
-> PE binaries specify section addresses by (32-bit) RVA. GNU ld up to at
-> least 2.36 would silently truncate the (negative) difference when a
-> section is placed below the image base. Such sections would also be
-> wrongly placed ahead of all "normal" ones. Since, for the time being,
-> we build xen.efi with --strip-debug anyway, .stab* can't appear. And
-> .comment has an entry in /DISCARD/ already anyway in the EFI case.
+On 21.04.2021 10:07, Rahul Singh wrote:
+> Hi Jan,
 > 
-> Because of their unclear origin, keep the directives for the ELF case
-> though.
+>> On 20 Apr 2021, at 4:36 pm, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 20.04.2021 15:45, Rahul Singh wrote:
+>>>> On 19 Apr 2021, at 1:33 pm, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 19.04.2021 13:54, Julien Grall wrote:
+>>>>> For the time being, I think move this code in x86 is a lot better than 
+>>>>> #ifdef or keep the code in common code.
+>>>>
+>>>> Well, I would perhaps agree if it ended up being #ifdef CONFIG_X86.
+>>>> I would perhaps not agree if there was a new CONFIG_* which other
+>>>> (future) arch-es could select if desired.
+>>>
+>>> I agree with Julien moving the code to x86 file as currently it is referenced only in x86 code
+>>> and as of now we are not sure how other architecture will implement the Interrupt remapping
+>>> (via IOMMU or any other means).  
+>>>
+>>> Let me know if you are ok with moving the code to x86.
+>>
+>> I can't answer this with "yes" or "no" without knowing what the alternative
+>> would be. As said, if the alternative is CONFIG_X86 #ifdef-ary, then yes.
+>> If a separate CONFIG_* gets introduced (and selected by X86), then a
+>> separate file (getting built only when that new setting is y) would seem
+>> better to me.
+> 
+> I just made a quick patch. Please let me know if below patch is ok. I move the definition to  "passthrough/x86/iommu.c” file.
 
-It's my understadng thonse sections are only there for debug purposes,
-and never part of the final xen binary as they are stripped?
+This patch on its own looks okay, but assumes you've already taken the
+decision that no proper new CONFIG_* would want introducing. That
+decision, however, touches (aiui) more than just this one hook.
 
-Could we maybe remove the section load address of 0 and instead just
-use the (NOLOAD) directive?
-
-Does it really matter to place them at address 0?
-
-I also wonder, is this change fixing some existing bug, or it's just a
-cleanup change?
-
-I also only see the .comment section in my binary output, so maybe
-it's fine to just remove them from the script?
-
-Does the Arm linker script need a similar treatment?
-
-Thanks, Roger.
+Jan
 
