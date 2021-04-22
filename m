@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B9F367F35
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 13:03:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115281.219847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A9E367F3B
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 13:05:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115288.219859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZX76-0004hj-EY; Thu, 22 Apr 2021 11:03:16 +0000
+	id 1lZX9C-0004yT-Th; Thu, 22 Apr 2021 11:05:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115281.219847; Thu, 22 Apr 2021 11:03:16 +0000
+Received: by outflank-mailman (output) from mailman id 115288.219859; Thu, 22 Apr 2021 11:05:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZX76-0004hJ-A6; Thu, 22 Apr 2021 11:03:16 +0000
-Received: by outflank-mailman (input) for mailman id 115281;
- Thu, 22 Apr 2021 11:03:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lZX9C-0004y4-Qc; Thu, 22 Apr 2021 11:05:26 +0000
+Received: by outflank-mailman (input) for mailman id 115288;
+ Thu, 22 Apr 2021 11:05:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uib8=JT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZX74-0004hE-MF
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 11:03:14 +0000
+ id 1lZX9B-0004xz-D2
+ for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 11:05:25 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dfe6e62c-f4cd-443b-bb8b-50f45f4ef8ed;
- Thu, 22 Apr 2021 11:03:13 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3f667938-496e-4ad5-8c4d-dac2873f9c81;
+ Thu, 22 Apr 2021 11:05:24 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C9B75B140;
- Thu, 22 Apr 2021 11:03:12 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id B5B64AD8D;
+ Thu, 22 Apr 2021 11:05:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,153 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfe6e62c-f4cd-443b-bb8b-50f45f4ef8ed
+X-Inumbo-ID: 3f667938-496e-4ad5-8c4d-dac2873f9c81
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619089392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619089523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7iNoklgm6JQu7xkYYO3/Pd4UfNKFHRvv592T+kRUroc=;
-	b=FFsRYvkibu6SDCWOudnT5K9gNoBa4cUk9xR0onJpjBYk60m1P+hCcB++W26xb5sd0WH+1h
-	osFcVEBDL//FZhLmaUbTr9EPAoA4AyXR+JFv5H/wlFqREUFSWscjfvZm+T3Ze8pB4cgkui
-	jDiz+WJi0SUABLFqYrpPT5Kp6kdhLpM=
-Subject: Re: [PATCH 7/8] x86/EFI: keep debug info in xen.efi
+	bh=kUYTcQUp0/mJCLYPG6gLPeNLdSxlpqqTB7glypM/QhA=;
+	b=qvqgXQubzLvTMwLVWUMrn9luStIPYCzphfFC5RlCJM/H38wM4wRhIj3VZ0qZWvExS6MZz7
+	QwzHVeXtHe97lJqQ4pAspy2tYZ4TW9K+Sqd26rSOQIk/uxIQOk19bPPfezvtAA/OhBVaUe
+	tlvpIL5edVUa9l00tB3OXDWYd+iw9tw=
+Subject: Re: [PATCH v2 15/21] libs/guest: obtain a compatible cpu policy from
+ two input ones
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <b327185f-db31-50c8-ec76-6ef8f2fcfdfd@suse.com>
- <96cb4039-5f43-8eac-d855-c9f1587ed2d0@suse.com>
- <YIAJP0SCq0nOKZVL@Air-de-Roger>
- <6023c1d3-4f50-d207-1ea1-30dd1d5f68d2@suse.com>
- <YIBFD4i6bLaeaXdE@Air-de-Roger>
- <3cda296d-e88e-5fe0-4924-4cf974c4f909@suse.com>
- <YIEwW3HQuTtgWH5M@Air-de-Roger>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20210413140140.73690-1-roger.pau@citrix.com>
+ <20210413140140.73690-16-roger.pau@citrix.com>
+ <391b56d0-bb4d-8d3c-231c-e2e3ad7e2f42@suse.com>
+ <YIFFBEhPYSYQhycf@Air-de-Roger>
+ <c692e77f-1a9a-ea1d-e029-2a8f62ee0e35@suse.com>
+ <YIFRQu/CLEId2uMi@Air-de-Roger>
+ <d877502d-9c18-6ff3-6e01-ee997c9f196a@suse.com>
+ <YIFWUnQ6d4Pk7nf4@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a00cfe95-06bd-4999-05ab-cae737ab6f4c@suse.com>
-Date: Thu, 22 Apr 2021 13:03:13 +0200
+Message-ID: <320d9aca-1f72-f357-d303-487a67f39655@suse.com>
+Date: Thu, 22 Apr 2021 13:05:23 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <YIEwW3HQuTtgWH5M@Air-de-Roger>
+In-Reply-To: <YIFWUnQ6d4Pk7nf4@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 22.04.2021 10:14, Roger Pau Monné wrote:
-> On Wed, Apr 21, 2021 at 05:38:42PM +0200, Jan Beulich wrote:
->> On 21.04.2021 17:30, Roger Pau Monné wrote:
->>> On Wed, Apr 21, 2021 at 03:06:36PM +0200, Jan Beulich wrote:
->>>> On 21.04.2021 13:15, Roger Pau Monné wrote:
->>>>> On Thu, Apr 01, 2021 at 11:47:03AM +0200, Jan Beulich wrote:
->>>>>> --- a/xen/arch/x86/xen.lds.S
->>>>>> +++ b/xen/arch/x86/xen.lds.S
->>>>>> @@ -312,10 +312,60 @@ SECTIONS
->>>>>>      *(.reloc)
->>>>>>      __base_relocs_end = .;
->>>>>>    }
->>>>>> -  /* Trick the linker into setting the image size to exactly 16Mb. */
->>>>>> -  . = ALIGN(__section_alignment__);
->>>>>> -  DECL_SECTION(.pad) {
->>>>>> -    . = ALIGN(MB(16));
->>>>>> +  .debug_abbrev ALIGN(1) (NOLOAD) : {
->>>>>> +     *(.debug_abbrev)
->>>>>> +  }
->>>>>> +  .debug_info ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_info)
->>>>>> +    *(.gnu.linkonce.wi.*)
->>>>>> +  }
->>>>>> +  .debug_types ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_types)
->>>>>> +  }
->>>>>> +  .debug_str ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_str)
->>>>>> +  }
->>>>>> +  .debug_line ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_line)
->>>>>> +    *(.debug_line.*)
->>>>>> +  }
->>>>>> +  .debug_line_str ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_line_str)
->>>>>> +  }
->>>>>> +  .debug_names ALIGN(4) (NOLOAD) : {
->>>>>> +    *(.debug_names)
->>>>>> +  }
->>>>>> +  .debug_frame ALIGN(4) (NOLOAD) : {
->>>>>> +    *(.debug_frame)
->>>>>> +  }
->>>>>> +  .debug_loc ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_loc)
->>>>>> +  }
->>>>>> +  .debug_loclists ALIGN(4) (NOLOAD) : {
->>>>>> +    *(.debug_loclists)
->>>>>> +  }
->>>>>> +  .debug_ranges ALIGN(8) (NOLOAD) : {
->>>>>> +    *(.debug_ranges)
->>>>>> +  }
->>>>>> +  .debug_rnglists ALIGN(4) (NOLOAD) : {
->>>>>> +    *(.debug_rnglists)
->>>>>> +  }
->>>>>> +  .debug_addr ALIGN(8) (NOLOAD) : {
->>>>>> +    *(.debug_addr)
->>>>>> +  }
->>>>>> +  .debug_aranges ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_aranges)
->>>>>> +  }
->>>>>> +  .debug_pubnames ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_pubnames)
->>>>>> +  }
->>>>>> +  .debug_pubtypes ALIGN(1) (NOLOAD) : {
->>>>>> +    *(.debug_pubtypes)
->>>>>> +  }
->>>>>> +  /* Trick the linker into setting the image size to no less than 16Mb. */
->>>>>> +  __image_end__ = .;
->>>>>> +  .pad ALIGN(__section_alignment__) : {
->>>>>> +    . = __image_end__ < __image_base__ + MB(16) ? ALIGN(MB(16)) : .;
+On 22.04.2021 12:56, Roger Pau Monné wrote:
+> On Thu, Apr 22, 2021 at 12:48:36PM +0200, Jan Beulich wrote:
+>> On 22.04.2021 12:34, Roger Pau Monné wrote:
+>>> On Thu, Apr 22, 2021 at 11:58:45AM +0200, Jan Beulich wrote:
+>>>> On 22.04.2021 11:42, Roger Pau Monné wrote:
+>>>>> On Wed, Apr 14, 2021 at 03:49:02PM +0200, Jan Beulich wrote:
+>>>>>> On 13.04.2021 16:01, Roger Pau Monne wrote:
+>>>>>>> @@ -944,3 +945,130 @@ bool xc_cpu_policy_is_compatible(xc_interface *xch, const xc_cpu_policy_t host,
+>>>>>>>  
+>>>>>>>      return false;
+>>>>>>>  }
+>>>>>>> +
+>>>>>>> +static uint64_t level_msr(unsigned int index, uint64_t val1, uint64_t val2)
+>>>>>>> +{
+>>>>>>> +    uint64_t val = val1 & val2;;
+>>>>>>
+>>>>>> For arbitrary MSRs this isn't going to do any good. If only very
+>>>>>> specific MSRs are assumed to make it here, I think this wants
+>>>>>> commenting on.
 >>>>>
->>>>> I think this is inside an ifdef EFI region, since this is DWARF info
->>>>> couldn't it also be present when building with EFI disabled?
+>>>>> I've added: "MSRs passed to level_msr are expected to be bitmaps of
+>>>>> features"
 >>>>
->>>> Of course (and it's not just "could" but "will"), yet the linker will
->>>> do fine (and perhaps even better) without when building ELF. Also
->>>> note that we'll be responsible for keeping the list of sections up-to-
->>>> date. The linker will recognize Dwarf sections by looking for a
->>>> .debug_ prefix. We can't use such here (or at least I'm not aware of
->>>> a suitable mechanism); .debug_* would mean munging together all the
->>>> different kinds of Dwarf sections. Hence by limiting the explicit
->>>> enumeration to PE, I'm trying to avoid anomalies in ELF down the road.
+>>>> How does such a comment help? I.e. how does the caller tell which MSRs
+>>>> to pass here and which to deal with anyother way?
 >>>
->>> Right, so we will have to keep this list of debug_ sections updated
->>> manually if/when more of those appear as part of DWARF updates?
+>>> All MSRs should be passed to level_msr, but it's handling logic would
+>>> need to be expanded to support MSRs that are not feature bitmaps.
+>>>
+>>> It might be best to restore the previous switch and handle each MSR
+>>> specifically?
 >>
->> Yes.
->>
->>> Do we have a way to get some kind of warning or error when a new
->>> section not explicitly handled here appears?
->>
->> ld 2.37 will start warning about such sections, as they'd land at
->> VA 0 and hence below image base.
+>> I think so, yes. We need to be very careful with what a possible
+>> default case does there, though.
 > 
-> That seems like a bug in ld?
+> Maybe it would be better to handle level_msr in a way similar to
+> level_leaf: return true/false to notice whether the MSR should be
+> added to the resulting compatible policy?
 > 
-> The '--image-base' option description mentions: "This is the lowest
-> memory location that will be used when your program or dll is
-> loaded.", so I would expect that if the option is used the default VA
-> should be >= image-base, or else the description of the option is not
-> consistent, as ld will still place sections at addresses below
-> image-base.
+> And then make the default case in level_msr just return false in order
+> to prevent adding MSRs not properly leveled to the policy?
 
-ld's "general" logic is pretty ELF-centric. Hence debugging sections
-get placed at VA 0 by default, not matter what the (PE-specific)
---image-base says. Whether that's a bug though I'm not sure: There
-are no really good alternatives that could be used by default. Doing
-what we do here (and what e.g. Cygwin does) via linker script may not
-be appropriate in the common case. In particular it is not generally
-correct for debug info to be part of what gets loaded into memory.
-Microsoft's CodeView / PDB debug info gets represented differently,
-for example, such that it can be part of the file, but wouldn't get
-loaded. But that's a vendor's choice, again not something that's
-necessarily generalizable.
+I'm afraid I'm not clear about the implications. What again is the
+(planned?) final effect of an MSR not getting added there?
 
 Jan
 
