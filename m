@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED43E368816
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 22:35:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115805.220980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEED1368862
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 23:02:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115811.220995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZg1V-0001GX-4X; Thu, 22 Apr 2021 20:34:05 +0000
+	id 1lZgS7-0004Bf-DX; Thu, 22 Apr 2021 21:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115805.220980; Thu, 22 Apr 2021 20:34:05 +0000
+Received: by outflank-mailman (output) from mailman id 115811.220995; Thu, 22 Apr 2021 21:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZg1V-0001G8-1L; Thu, 22 Apr 2021 20:34:05 +0000
-Received: by outflank-mailman (input) for mailman id 115805;
- Thu, 22 Apr 2021 20:34:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L918=JT=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lZg1T-0001G3-0f
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 20:34:03 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2d337d86-22a6-46b0-b30e-30842f9bb5c7;
- Thu, 22 Apr 2021 20:34:02 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 03792613CD;
- Thu, 22 Apr 2021 20:34:00 +0000 (UTC)
+	id 1lZgS7-0004BC-8x; Thu, 22 Apr 2021 21:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 115811;
+ Thu, 22 Apr 2021 21:01:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZgS5-0004B4-LO; Thu, 22 Apr 2021 21:01:33 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZgS5-0006n4-Do; Thu, 22 Apr 2021 21:01:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZgS5-0004X0-54; Thu, 22 Apr 2021 21:01:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZgS5-0001cN-4Z; Thu, 22 Apr 2021 21:01:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,136 +42,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d337d86-22a6-46b0-b30e-30842f9bb5c7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1619123641;
-	bh=SwAIGuGxD6la/d9ib9xuS1hge+YaX9OIf1tKUllFCig=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FwYu4+r+LEMjqfdG/TuvIFrGbw9R5DFnD7hyZ18LDeNmc5uG1QWb56uyX0vxTvEns
-	 ayrMt6jUvX0G7WSksvB+MXCwV58fryXQHxAOFLBAo63oUI8al21BSsfs9bNjRuYYhE
-	 FqXXOFK5HlqTRgLdE1yccRLWqYvncCRJZBTqL1ugNV/n+oRy/oKCoDlZtArh1ReGgD
-	 /bTtIlBymlxT/PsOSUTuz2lM86pnLCN6+eNdSOeITESZh92aYdPlamXPW/R53eJQKJ
-	 fK+BzVAGzKjAnM8FVFnXeqnC4zgZULoB04h0v05X+7RY8t4LKNzdq5v7yoS92sOR8S
-	 ZtfYy5N/ci1bw==
-Date: Thu, 22 Apr 2021 13:33:59 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    ash.j.wilding@gmail.com, Julien Grall <jgrall@amazon.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Dario Faggioli <dfaggioli@suse.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] xen/arm: Ensure the vCPU context is seen before clearing
- the _VPF_down
-In-Reply-To: <0660d553-54e3-0c5e-ef2d-41c3dc740695@xen.org>
-Message-ID: <alpine.DEB.2.21.2104221330090.5018@sstabellini-ThinkPad-T480s>
-References: <20210226205158.20991-1-julien@xen.org> <alpine.DEB.2.21.2102261756280.2682@sstabellini-ThinkPad-T480s> <ca41bfbb-d942-d8fd-e96e-c464f6b3643f@xen.org> <alpine.DEB.2.21.2103191652450.439@sstabellini-ThinkPad-T480s> <86165804-34a1-59e5-1b51-fecc60dbf796@xen.org>
- <alpine.DEB.2.21.2104131541370.4885@sstabellini-ThinkPad-T480s> <ebcaad65-a155-6979-9754-a8ef0ece3590@xen.org> <alpine.DEB.2.21.2104201234060.26180@sstabellini-ThinkPad-T480s> <37631386-a53f-d99d-d71b-0b871b5dd9b0@xen.org> <alpine.DEB.2.21.2104201726061.26180@sstabellini-ThinkPad-T480s>
- <0660d553-54e3-0c5e-ef2d-41c3dc740695@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=pksFPkCNmivK7AwqchEckWdzAPsdK31amW+87y89/QQ=; b=Aej6/J1SGISdPNTNunSJondSYa
+	lmAWR4XxsQwSpRCUUmmTp6oXAW9qrFs2TR3tOsKTRRL8CFDpooFpjZuCiO9kvCp3tB9Sk6Oiy8+xs
+	dPn1FcfjnvWh3loy3XIHP4LO+1mPxs1g+bMRaF6vjfn1049jBqXM+i9n0pTUht2teEUE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161386-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 161386: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=f889fa267c47c3495d304da5da9dd2ef8a4c95af
+X-Osstest-Versions-That:
+    xen=1be65ec4c8bc172aadd6bc1b6553c668152899ae
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 22 Apr 2021 21:01:33 +0000
 
-On Wed, 21 Apr 2021, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 21/04/2021 01:38, Stefano Stabellini wrote:
-> > On Tue, 20 Apr 2021, Julien Grall wrote:
-> > > AFAICT, there is nothing in the implementation of
-> > > XEN_DOMCTL_getvcpucontext
-> > > that justify the extra barrier (assuming we consider vcpu_pause() as a
-> > > full
-> > > memory barrier).
-> > > 
-> > >  From your e-mail, I also could not infer what is your exact concern
-> > > regarding
-> > > the memory ordering. If you have something in mind, then would you mind to
-> > > provide a sketch showing what could go wrong?
-> > 
-> > Let me start with what I had in mind:
-> > 
-> > initialized = v->is_initialized;
-> > smp_rmb();
-> > if ( !initialized )
-> >    goto getvcpucontext_out;
-> > 
-> > 
-> > Without smp_rmb there are no guarantees that we see an up-to-date value
-> > of v->is_initialized, right?
-> 
-> No. The smp_*mb() barriers only guarantee an ordering, it doesn't say anything
-> about when the values will be seen. The write may in fact still be in the
-> write buffer of the other CPU.
-> 
-> > This READ of v->is_initialized is supposed
-> > to pair with the WRITE in arch_set_info_guest.
-> 
-> I am assuming you meant the access and not the barrier, right? Regardless, the
-> barriers used, the access will happen in any order. IOW the following two
-> ordering is possible:
-> 
-> Sequence 1:
-> 
-> CPU0: v->vcpu_initialized = 1
-> CPU1: read v->vcpu_initialized
-> 
-> Sequence 2:
-> 
-> CPU1: read v->vcpu_initialized
-> CPU0: v->vcpu_initialized = 0
-> 
-> In the first sequence, CPU1 will observe 0 and therefore bailout. In the
-> second sequence, we will be observing 1 and continue.
-> 
-> > 
-> > Relying on the the barrier in vcpu_pause is OK only if is_initialised
-> > was already read as "1".
-> > 
-> > I think it might be OK in this case, because probably nothing wrong
-> > happens if we read the old value of v->is_initialized as "0" but it
-> > doesn't seem to be a good idea.
-> 
-> The smp_rmb() is not going to give you that guarantee. If you need it, then
-> you mostly likely want to use a synchronization primitives such as
-> spin_lock().
-> 
-> > Theoretically it could pass a very long
-> > time before we see v->is_initialized as "1" without the smp_rmb.
-> 
-> I have the impression that there might be confusion about what I am aiming to
-> achieve.
-> 
-> The code today looks roughly like:
-> 
-> 1) if ( v->is_initialized )
-> 2)   return;
-> 3) vcpu_pause();
-> 4) /* Access registers */
-> 
-> My aim is to ensure that a processor will not READ any value for 4) are not
-> happening before 1). If this happens, then we may provide garbagge to the
-> domctl.
-> 
-> Returning an error is a lot better because the caller of the domctl will know
-> the vCPU is not yet setup and can provide the infrastructure to try again.
-> 
-> From this PoV, your proposal and my two proposals are functionally equivalent.
-> The main differences is whether there is an extra barrier and how easy is it
-> to figure out the ordering.
-> 
-> Speaking with Ash, your proposal is probably the easiest one to understand.
-> However, it also adds a barrier for the failure path (which is pointless).
-> 
-> I would like to avoid barriers when they are not necessary. Hence why I prefer
-> the vcpu_pause() solution (we may want to add a comment).
-> 
-> Although, I could live with your proposal if the others are happy with it
-> (Andrew? Jan?) because this is not an hot path.
+flight 161386 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161386/
 
-I prefer my proposal because it is easier to understand its correctness
-and, like you wrote, it is OK to have one more barrier than strictly
-necessary in this case. But I wouldn't argue over this.
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  f889fa267c47c3495d304da5da9dd2ef8a4c95af
+baseline version:
+ xen                  1be65ec4c8bc172aadd6bc1b6553c668152899ae
+
+Last test of basis   161377  2021-04-22 12:00:26 Z    0 days
+Failing since        161380  2021-04-22 15:00:25 Z    0 days    2 attempts
+Testing same since   161386  2021-04-22 18:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Costin Lupu <costin.lupu@cs.pub.ro>
+  Dario Faggioli <dfaggioli@suse.com>
+  Doug Goldstein <cardoe@cardoe.com>
+  Hongyan Xia <hongyxia@amazon.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Wei Liu <wei.liu2@citrix.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   1be65ec4c8..f889fa267c  f889fa267c47c3495d304da5da9dd2ef8a4c95af -> smoke
 
