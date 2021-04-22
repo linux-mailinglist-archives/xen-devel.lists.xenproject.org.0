@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F474367FB7
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 13:43:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115310.219901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF5D0367FC9
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 13:48:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115322.219937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZXjN-0000Qj-Fz; Thu, 22 Apr 2021 11:42:49 +0000
+	id 1lZXoI-0000pS-AR; Thu, 22 Apr 2021 11:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115310.219901; Thu, 22 Apr 2021 11:42:49 +0000
+Received: by outflank-mailman (output) from mailman id 115322.219937; Thu, 22 Apr 2021 11:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZXjN-0000QK-Cl; Thu, 22 Apr 2021 11:42:49 +0000
-Received: by outflank-mailman (input) for mailman id 115310;
- Thu, 22 Apr 2021 11:42:47 +0000
+	id 1lZXoI-0000p3-7K; Thu, 22 Apr 2021 11:47:54 +0000
+Received: by outflank-mailman (input) for mailman id 115322;
+ Thu, 22 Apr 2021 11:47:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uib8=JT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZXjL-0000QF-8z
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 11:42:47 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a872038b-2e75-4c90-8b3a-487a43aee638;
- Thu, 22 Apr 2021 11:42:46 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 582E1AD8D;
- Thu, 22 Apr 2021 11:42:45 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=21uR=JT=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lZXoH-0000oy-7o
+ for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 11:47:53 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id d8cb1487-332a-484c-b01d-3e1906bb3109;
+ Thu, 22 Apr 2021 11:47:51 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4FAD13A1;
+ Thu, 22 Apr 2021 04:47:50 -0700 (PDT)
+Received: from [10.57.23.240] (unknown [10.57.23.240])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 921A73F774;
+ Thu, 22 Apr 2021 04:47:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,104 +41,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a872038b-2e75-4c90-8b3a-487a43aee638
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619091765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jv8CDtHU9y7mrGsR1ty+Y53Z0UbXKZZl7uNWPAUhCVg=;
-	b=VEG1PTJW4z4aF9crsvcgrCfodPRlH3Hulcu/Bb958CuOyNtJW/hOkChSlEO5i1OYBrkSsM
-	dcY6XOQhl4LzNyF61Q1ce0wSym/zpeNlgkMCay0rwrib2I4d0lMfWvZb7tOT2MoorzIpDk
-	kPz1boDDKLn84ixpOVd5AxyFTrAG2cE=
-Subject: Re: [PATCH v2 15/21] libs/guest: obtain a compatible cpu policy from
- two input ones
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-References: <20210413140140.73690-1-roger.pau@citrix.com>
- <20210413140140.73690-16-roger.pau@citrix.com>
- <391b56d0-bb4d-8d3c-231c-e2e3ad7e2f42@suse.com>
- <YIFFBEhPYSYQhycf@Air-de-Roger>
- <c692e77f-1a9a-ea1d-e029-2a8f62ee0e35@suse.com>
- <YIFRQu/CLEId2uMi@Air-de-Roger>
- <d877502d-9c18-6ff3-6e01-ee997c9f196a@suse.com>
- <YIFWUnQ6d4Pk7nf4@Air-de-Roger>
- <320d9aca-1f72-f357-d303-487a67f39655@suse.com>
- <YIFgCoyQaZefKZvi@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8a25c636-d20c-f45f-0901-314b22b70bfe@suse.com>
-Date: Thu, 22 Apr 2021 13:42:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: d8cb1487-332a-484c-b01d-3e1906bb3109
+Subject: Re: [PATCH 5/9] arm/mm: Get rid of READ/WRITE_SYSREG32
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
+References: <20210420070853.8918-1-michal.orzel@arm.com>
+ <20210420070853.8918-6-michal.orzel@arm.com>
+ <32bfa7d7-33cb-0deb-32bb-fa7d2052e0d9@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <3cee323f-7273-094f-150f-8f790a347d87@arm.com>
+Date: Thu, 22 Apr 2021 13:47:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YIFgCoyQaZefKZvi@Air-de-Roger>
+In-Reply-To: <32bfa7d7-33cb-0deb-32bb-fa7d2052e0d9@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 22.04.2021 13:37, Roger Pau Monné wrote:
-> On Thu, Apr 22, 2021 at 01:05:23PM +0200, Jan Beulich wrote:
->> On 22.04.2021 12:56, Roger Pau Monné wrote:
->>> On Thu, Apr 22, 2021 at 12:48:36PM +0200, Jan Beulich wrote:
->>>> On 22.04.2021 12:34, Roger Pau Monné wrote:
->>>>> On Thu, Apr 22, 2021 at 11:58:45AM +0200, Jan Beulich wrote:
->>>>>> On 22.04.2021 11:42, Roger Pau Monné wrote:
->>>>>>> On Wed, Apr 14, 2021 at 03:49:02PM +0200, Jan Beulich wrote:
->>>>>>>> On 13.04.2021 16:01, Roger Pau Monne wrote:
->>>>>>>>> @@ -944,3 +945,130 @@ bool xc_cpu_policy_is_compatible(xc_interface *xch, const xc_cpu_policy_t host,
->>>>>>>>>  
->>>>>>>>>      return false;
->>>>>>>>>  }
->>>>>>>>> +
->>>>>>>>> +static uint64_t level_msr(unsigned int index, uint64_t val1, uint64_t val2)
->>>>>>>>> +{
->>>>>>>>> +    uint64_t val = val1 & val2;;
->>>>>>>>
->>>>>>>> For arbitrary MSRs this isn't going to do any good. If only very
->>>>>>>> specific MSRs are assumed to make it here, I think this wants
->>>>>>>> commenting on.
->>>>>>>
->>>>>>> I've added: "MSRs passed to level_msr are expected to be bitmaps of
->>>>>>> features"
->>>>>>
->>>>>> How does such a comment help? I.e. how does the caller tell which MSRs
->>>>>> to pass here and which to deal with anyother way?
->>>>>
->>>>> All MSRs should be passed to level_msr, but it's handling logic would
->>>>> need to be expanded to support MSRs that are not feature bitmaps.
->>>>>
->>>>> It might be best to restore the previous switch and handle each MSR
->>>>> specifically?
->>>>
->>>> I think so, yes. We need to be very careful with what a possible
->>>> default case does there, though.
->>>
->>> Maybe it would be better to handle level_msr in a way similar to
->>> level_leaf: return true/false to notice whether the MSR should be
->>> added to the resulting compatible policy?
->>>
->>> And then make the default case in level_msr just return false in order
->>> to prevent adding MSRs not properly leveled to the policy?
+Hi Julien,
+
+On 20.04.2021 15:37, Julien Grall wrote:
+> Hi Michal,
+> 
+> On 20/04/2021 08:08, Michal Orzel wrote:
+>> AArch64 system registers are 64bit whereas AArch32 ones
+>> are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
+>> we should get rid of helpers READ/WRITE_SYSREG32
+>> in favour of using READ/WRITE_SYSREG.
+>> We should also use register_t type when reading sysregs
+>> which can correspond to uint64_t or uint32_t.
+>> Even though many AArch64 sysregs have upper 32bit reserved
+>> it does not mean that they can't be widen in the future.
 >>
->> I'm afraid I'm not clear about the implications. What again is the
->> (planned?) final effect of an MSR not getting added there?
+>> Modify SCTLR_EL2 accesses to use READ/WRITE_SYSREG.
 > 
-> Adding the MSR with a 0 value will zero out any previous value on the
-> 'out' policy, while not adding it would leave the previous value
-> there given the current code in xc_cpu_policy_calc_compatible added by
-> this patch.
+> SCTLR_EL2 already has bits defined in the range [32:63]. So this change is going to have a side effect as AFAICT head.S will not touch those bits. So they are now going to be preserved.
 > 
-> I would expect callers of xc_cpu_policy_calc_compatible to pass a
-> zeroed 'out' policy, so I think the end result should be the same.
+> The Arm Arm defines them as unknown if implemented. Therefore shouldn't we zero them somewhere else?
+> 
+SCTLR_EL2 is set in head.S using SCTLR_EL2_SET which means that we are zeroing the upper 32bit half.
 
-But we're not talking about actual MSR values here, as this is all
-about policy. So in the end we'll have to see how things need to
-be once we have the first non-feature-flag-like entries there. It
-feels as if simply zeroing can't be generally the right thing in
-such a case. It may e.g. be that min() is wanted instead.
+> In any case, I think the commit message ought to contain an analysis for system registers that happened to have bits defined in the range [32:63].
+> 
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>> ---
+>>   xen/arch/arm/mm.c    | 2 +-
+>>   xen/arch/arm/traps.c | 2 +-
+>>   2 files changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>> index 59f8a3f15f..0e07335291 100644
+>> --- a/xen/arch/arm/mm.c
+>> +++ b/xen/arch/arm/mm.c
+>> @@ -613,7 +613,7 @@ void __init remove_early_mappings(void)
+>>    */
+>>   static void xen_pt_enforce_wnx(void)
+>>   {
+>> -    WRITE_SYSREG32(READ_SYSREG32(SCTLR_EL2) | SCTLR_Axx_ELx_WXN, SCTLR_EL2);
+>> +    WRITE_SYSREG(READ_SYSREG(SCTLR_EL2) | SCTLR_Axx_ELx_WXN, SCTLR_EL2);
+>>       /*
+>>        * The TLBs may cache SCTLR_EL2.WXN. So ensure it is synchronized
+>>        * before flushing the TLBs.
+>> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+>> index c7acdb2087..e7384381cc 100644
+>> --- a/xen/arch/arm/traps.c
+>> +++ b/xen/arch/arm/traps.c
+>> @@ -915,7 +915,7 @@ static void _show_registers(const struct cpu_user_regs *regs,
+>>       printk(" VTTBR_EL2: %016"PRIx64"\n", ctxt->vttbr_el2);
+>>       printk("\n");
+>>   -    printk(" SCTLR_EL2: %08"PRIx32"\n", READ_SYSREG32(SCTLR_EL2));
+>> +    printk(" SCTLR_EL2: %"PRIregister"\n", READ_SYSREG(SCTLR_EL2));
+>>       printk("   HCR_EL2: %"PRIregister"\n", READ_SYSREG(HCR_EL2));
+>>       printk(" TTBR0_EL2: %016"PRIx64"\n", READ_SYSREG64(TTBR0_EL2));
+>>       printk("\n");
+>>
+> 
+> Cheers,
+> 
 
-Jan
+Cheers,
+Michal
 
