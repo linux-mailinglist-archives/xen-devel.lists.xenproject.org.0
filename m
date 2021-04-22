@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59C26367D96
+	by mail.lfdr.de (Postfix) with ESMTPS id 5377A367D95
 	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 11:19:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115207.219694 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.115210.219707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZVUd-0001mX-Ig; Thu, 22 Apr 2021 09:19:27 +0000
+	id 1lZVUt-0001rg-VK; Thu, 22 Apr 2021 09:19:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115207.219694; Thu, 22 Apr 2021 09:19:27 +0000
+Received: by outflank-mailman (output) from mailman id 115210.219707; Thu, 22 Apr 2021 09:19:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZVUd-0001m9-EW; Thu, 22 Apr 2021 09:19:27 +0000
-Received: by outflank-mailman (input) for mailman id 115207;
- Thu, 22 Apr 2021 09:19:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lZVUt-0001rB-R3; Thu, 22 Apr 2021 09:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 115210;
+ Thu, 22 Apr 2021 09:19:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uib8=JT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZVUb-0001m4-Qi
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 09:19:25 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0eccb9d2-e0ff-4d07-ae3a-3baa08abef6a;
- Thu, 22 Apr 2021 09:19:23 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 80329B05D;
- Thu, 22 Apr 2021 09:19:22 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZVUs-0001qp-Ig; Thu, 22 Apr 2021 09:19:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZVUs-0002bz-A4; Thu, 22 Apr 2021 09:19:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZVUr-0001t9-TI; Thu, 22 Apr 2021 09:19:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZVUr-0007oV-Sq; Thu, 22 Apr 2021 09:19:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +42,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0eccb9d2-e0ff-4d07-ae3a-3baa08abef6a
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619083162; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mjZIW8F7ShEhu7kwALitgVftcYme7G9NkWxXavTB1QM=;
-	b=OuzDnZAdP2q7q69vb9ff++Iz5f2Ce4gnfmfX8nfjlygJP9tA+lCQdOdF3jwpmLdtwnUNUV
-	XIsNshAIHNe8FgdvXyNGoG2b0ypuxk6TdDHmILkMJSkUfPL1S2fpYRFHUk6g0ijDURhWHy
-	+KGWJBamvIf6Qfs9unHeOiy63y7qETY=
-Subject: Re: [PATCH v3] evtchn/fifo: don't enforce higher than necessary
- alignment
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2a08aa31-fdbf-89ee-cd49-813f818b709a@suse.com>
- <e6ce03a5-cfec-42ea-91c4-b51849e2f299@suse.com>
- <69766ecb-d234-eebb-9b31-1533389a502e@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0377e61a-3813-0a9e-f724-418383c01050@suse.com>
-Date: Thu, 22 Apr 2021 11:19:22 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
-MIME-Version: 1.0
-In-Reply-To: <69766ecb-d234-eebb-9b31-1533389a502e@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=vXWLGL9Jz6Ikqs3XQC3Aj5nsSAnk6qDTlInqPJ/HQxQ=; b=nZoqTtBmCJape1je7l1yCTXfWx
+	eDpDMyLCmWLEeHgAn5c3546gMDR8bJBpOWjMKgvFPYGxSIoc27JWaAXxLIhO0eT3RQmajBU0lMfQw
+	QWX3lYgDSdKrebDa4ijER4GaE+AQo7vXTS2tyz6qOmL2Wm/ZPJCwd0H9bLGJzNTu2wLw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [qemu-mainline bisection] complete test-amd64-i386-xl-qemuu-debianhvm-i386-xsm
+Message-Id: <E1lZVUr-0007oV-Sq@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 22 Apr 2021 09:19:41 +0000
 
-On 21.04.2021 21:52, Julien Grall wrote:
-> Hi,
-> 
-> On 21/04/2021 15:36, Jan Beulich wrote:
->> Neither the code nor the original commit provide any justification for
->> the need to 8-byte align the struct in all cases. Enforce just as much
->> alignment as the structure actually needs - 4 bytes - by using alignof()
->> instead of a literal number.
-> 
-> I had another fresh look today at this patch. The 32-bit padding is 
-> right after the field 'ready'.
-> 
-> I can't for sure tell how the second half is going to ever be used and how.
-> 
-> However, one possibility would be to extend the field 'ready' to 64-bit. 
-> With the current code, we could easily make a single 64-bit access 
-> without having to know whether the guest is able to interpret the top half.
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-i386-xl-qemuu-debianhvm-i386-xsm
+testid guest-saverestore
 
-I don't think extending field sizes is generally to be considered ABI-
-compatible. I also don't think we can re-use the field at all, as I
-couldn't find any checking of it being zero (input) or it getting set
-to zero (output). struct evtchn_init_control, which in principle could
-be a way to convey respective controlling flags, similarly has no room
-for extension, as its _pad[] also doesn't look to get checked anywhere.
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Jan
+*** Found and reproduced problem changeset ***
 
-> With your approach, we may need to have different path depending on the 
-> padding and ensure the new extension cannot be enabled if the padding is 
-> 4-byte. Otherwise, the atomicity would be broken.
-> 
->> While relaxation of the requirements is intended here, the primary goal
->> is to simply get rid of the hard coded number as well its lack of
->> connection to the structure that is is meant to apply to.
-> 
-> Based on what I wrote above, I think the relaxation should not be done 
-> to give us more flexibility about possible extension to the structure.
-> 
-> Although, I would be worth documenting the reasoning in the code.
-> 
-> Cheers,
-> 
+  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
+  Bug introduced:  8af54b9172ff3b9bbdbb3191ed84994d275a0d81
+  Bug not present: cbde7be900d2a2279cbc4becb91d1ddd6a014def
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/161372/
+
+
+  commit 8af54b9172ff3b9bbdbb3191ed84994d275a0d81
+  Author: Daniel P. Berrangé <berrange@redhat.com>
+  Date:   Mon Feb 22 12:54:55 2021 +0000
+  
+      machine: remove 'query-cpus' QMP command
+      
+      The newer 'query-cpus-fast' command avoids side effects on the guest
+      execution. Note that some of the field names are different in the
+      'query-cpus-fast' command.
+      
+      Reviewed-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
+      Tested-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
+      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-i386-xsm.guest-saverestore.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-i386-xsm.guest-saverestore --summary-out=tmp/161372.bisection-summary --basis-template=152631 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-i386-xl-qemuu-debianhvm-i386-xsm guest-saverestore
+Searching for failure / basis pass:
+ 161334 fail [host=chardonnay0] / 160125 [host=fiano1] 160119 [host=pinot1] 160113 [host=albana1] 160104 [host=albana0] 160097 [host=huxelrebe1] 160091 [host=elbling0] 160082 ok.
+Failure / basis pass flights: 161334 / 160082
+(tree with no url: minios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0bbc20727598421c4e47d46b982246217df8c6bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bac9b87bd208e1d5adde7d7ba2634f957c22012c b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee b5b93627dd1c398a90b832af765b4720fc71814e
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4751a48aeb2ab828b0a5cbdc585fd3642967cda1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6157b0e19721aadb4c7fdcfe57b2924af6144b14 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 14b95b3b8546db201e7efd0636ae0e215fae98f3
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#4751a48aeb2ab828b0a5cbdc585fd3642967cda1-0bbc20727598421c4e47d46b982246217df8c6bc git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
+ 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#6157b0e19721aadb4c7fdcfe57b2924af6144b14-bac9b87bd208e1d5adde7d7ba2634f957c22012c git://xenbits.xen.org/osstest/seabios.git#b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee-b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee git://xenbits.xen.org/xen.git#14b95b3b8546db201e7efd0636ae0e215fae98f3-b5b93627dd1c398a90b832af765b4720fc71814e
+Loaded 35038 nodes in revision graph
+Searching for test results:
+ 160082 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4751a48aeb2ab828b0a5cbdc585fd3642967cda1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6157b0e19721aadb4c7fdcfe57b2924af6144b14 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 14b95b3b8546db201e7efd0636ae0e215fae98f3
+ 160088 []
+ 160091 [host=elbling0]
+ 160097 [host=huxelrebe1]
+ 160104 [host=albana0]
+ 160113 [host=albana1]
+ 160119 [host=pinot1]
+ 160125 [host=fiano1]
+ 160134 fail irrelevant
+ 160147 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2e1293cbaac75e84f541f9acfa8e26749f4c3562 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 160167 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca318882714080fb81fe9eb89a7b7934efc5bfae 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bdee969c0e65d4d509932b1d70e3a3b2ffbff6d5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 160328 fail irrelevant
+ 160361 fail irrelevant
+ 160392 fail irrelevant
+ 160418 fail irrelevant
+ 160448 fail irrelevant
+ 160477 fail irrelevant
+ 160501 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7b9a3c9f94bcac23c534bc9f42a9e914b433b299 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee e680cc48b7184d3489873d6776f84ba1fc238ced
+ 160522 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7b9a3c9f94bcac23c534bc9f42a9e914b433b299 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee e680cc48b7184d3489873d6776f84ba1fc238ced
+ 160541 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ec2e6e016d24bd429792d08cf607e4c5350dcdaa b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee e680cc48b7184d3489873d6776f84ba1fc238ced
+ 160563 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7993b0f83fe5c3f8555e79781d5d098f99751a94 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
+ 160619 fail irrelevant
+ 160632 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 62bad17dcae18f55cb3bdc19909543dfdf928a2b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6ee55e1d10c25c2f6bf5ce2084ad2327e17affa5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 90629587e16e2efdb61da77f25c25fba3c4a5fd7
+ 160650 fail irrelevant
+ 160736 fail irrelevant
+ 160748 fail irrelevant
+ 160779 fail irrelevant
+ 160801 fail irrelevant
+ 160827 fail irrelevant
+ 160851 fail irrelevant
+ 160883 fail irrelevant
+ 160916 fail irrelevant
+ 160980 fail irrelevant
+ 161050 fail irrelevant
+ 161088 fail irrelevant
+ 161121 fail irrelevant
+ 161147 fail irrelevant
+ 161171 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2ad22420a710dc07e3b644f91a5b55c09c39ecf3 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 264aa183ad85b2779b27d1312724a291259ccc9f
+ 161191 fail irrelevant
+ 161210 fail irrelevant
+ 161232 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee b53173e7cdafb7a318a239d557478fd73734a86a
+ 161256 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
+ 161276 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
+ 161290 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
+ 161319 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4751a48aeb2ab828b0a5cbdc585fd3642967cda1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6157b0e19721aadb4c7fdcfe57b2924af6144b14 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 14b95b3b8546db201e7efd0636ae0e215fae98f3
+ 161325 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
+ 161329 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 f2a9a6c2a86570ccbf8c5c30cbb8bf723168c459 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 161308 fail irrelevant
+ 161333 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8a40754bca14df63c6d2ffe473b68a270dc50679 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 161336 fail irrelevant
+ 161337 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7286d62d4e259be8cecf3dc2deea80ecc14489a5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 161339 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2255564fd21059960966b47212def9069cb56077 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161341 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6e71c36557ed41017e634ae392fa80f03ced7fa1 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 161342 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 fc4a62f65cbd2d5d2c247ed4fbf64a05e6485859 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161344 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8b858f9998a9d59a9a7188f2c5c6ffb99eff6115 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161346 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 30ca7eddc486646fa19c9619fcf233ceaa65e28c b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161347 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 283d845c9164f57f5dba020a4783bb290493802f b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161349 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a752dd07466c4f0bda5c14d001b096e778a44ad5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6e31b3a5c34c6e5be7ef60773e607f189eaa15f3 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee b4011741e6b39a8fd0ed5aded96c16c45ead5888
+ 161351 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 db492ebb91059b818d5b5ea5975d227e5c3c9bcc b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161353 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 313d86c956d4599054a9dcd524668f67797d317a 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 56b89f455894e4628ad7994fe5dd348145d1a9c5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161354 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4083904bc9fe5da580f7ca397b1e828fbc322732 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
+ 161355 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f720c55637410062041f68dc908645cd18aaa b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161356 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ad1324e044240ae9fcf67e4c215481b7a35591b9 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161357 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 445a5b4087567bf4d4ce76d394adf78d9d5c88a5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161358 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 cbde7be900d2a2279cbc4becb91d1ddd6a014def b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161361 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8af54b9172ff3b9bbdbb3191ed84994d275a0d81 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161334 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0bbc20727598421c4e47d46b982246217df8c6bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bac9b87bd208e1d5adde7d7ba2634f957c22012c b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee b5b93627dd1c398a90b832af765b4720fc71814e
+ 161362 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 cbde7be900d2a2279cbc4becb91d1ddd6a014def b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161365 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4751a48aeb2ab828b0a5cbdc585fd3642967cda1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6157b0e19721aadb4c7fdcfe57b2924af6144b14 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 14b95b3b8546db201e7efd0636ae0e215fae98f3
+ 161366 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0bbc20727598421c4e47d46b982246217df8c6bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bac9b87bd208e1d5adde7d7ba2634f957c22012c b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee b5b93627dd1c398a90b832af765b4720fc71814e
+ 161367 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8af54b9172ff3b9bbdbb3191ed84994d275a0d81 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161370 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 cbde7be900d2a2279cbc4becb91d1ddd6a014def b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+ 161372 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8af54b9172ff3b9bbdbb3191ed84994d275a0d81 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+Searching for interesting versions
+ Result found: flight 160082 (pass), for basis pass
+ Result found: flight 161334 (fail), for basis failure (at ancestor ~14)
+ Repro found: flight 161365 (pass), for basis pass
+ Repro found: flight 161366 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 cbde7be900d2a2279cbc4becb91d1ddd6a014def b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
+No revisions left to test, checking graph state.
+ Result found: flight 161358 (pass), for last pass
+ Result found: flight 161361 (fail), for first failure
+ Repro found: flight 161362 (pass), for last pass
+ Repro found: flight 161367 (fail), for first failure
+ Repro found: flight 161370 (pass), for last pass
+ Repro found: flight 161372 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
+  Bug introduced:  8af54b9172ff3b9bbdbb3191ed84994d275a0d81
+  Bug not present: cbde7be900d2a2279cbc4becb91d1ddd6a014def
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/161372/
+
+
+  commit 8af54b9172ff3b9bbdbb3191ed84994d275a0d81
+  Author: Daniel P. Berrangé <berrange@redhat.com>
+  Date:   Mon Feb 22 12:54:55 2021 +0000
+  
+      machine: remove 'query-cpus' QMP command
+      
+      The newer 'query-cpus-fast' command avoids side effects on the guest
+      execution. Note that some of the field names are different in the
+      'query-cpus-fast' command.
+      
+      Reviewed-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
+      Tested-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
+      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+
+neato: graph is too large for cairo-renderer bitmaps. Scaling by 0.911892 to fit
+pnmtopng: 226 colors found
+Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-i386-xsm.guest-saverestore.{dot,ps,png,html,svg}.
+----------------------------------------
+161372: tolerable ALL FAIL
+
+flight 161372 qemu-mainline real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161372/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail baseline untested
+
+
+jobs:
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
