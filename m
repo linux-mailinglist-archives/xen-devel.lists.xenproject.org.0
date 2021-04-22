@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19D27367FAC
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 13:38:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115297.219873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE25A367FAD
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 13:38:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115301.219886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZXeg-0007rG-Ds; Thu, 22 Apr 2021 11:37:58 +0000
+	id 1lZXfX-0007wt-PE; Thu, 22 Apr 2021 11:38:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115297.219873; Thu, 22 Apr 2021 11:37:58 +0000
+Received: by outflank-mailman (output) from mailman id 115301.219886; Thu, 22 Apr 2021 11:38:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZXeg-0007qr-Aj; Thu, 22 Apr 2021 11:37:58 +0000
-Received: by outflank-mailman (input) for mailman id 115297;
- Thu, 22 Apr 2021 11:37:56 +0000
+	id 1lZXfX-0007wT-LX; Thu, 22 Apr 2021 11:38:51 +0000
+Received: by outflank-mailman (input) for mailman id 115301;
+ Thu, 22 Apr 2021 11:38:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=96sM=JT=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lZXee-0007qm-Qk
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 11:37:56 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uib8=JT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lZXfW-0007wN-0u
+ for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 11:38:50 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2b6ca517-b395-4729-b66f-5a9baafa3f76;
- Thu, 22 Apr 2021 11:37:55 +0000 (UTC)
+ id 5c6ca6ff-4549-43c3-a431-3ed834baaec1;
+ Thu, 22 Apr 2021 11:38:48 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B3DACAD8D;
+ Thu, 22 Apr 2021 11:38:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,204 +38,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b6ca517-b395-4729-b66f-5a9baafa3f76
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1619091475;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=ml2qelRoNeEw/w/rOdoKROzuQXzr+vv26hWg7rN2k4g=;
-  b=ezcQ0dxKBh781LOX6WPrUO7p1uH6eLs/jfkP7yo0wXRGLZtgwHrQdn4S
-   q7NMDSaglRvMG8XJScWMkQlOCk07Xrbs4xqXwzv6d8lE/GfTxLd1E7lln
-   YILr45nhpyjZs04pkuxpF6+q+SUyzrzeqIGqfnfDh7aP+lEyh12iKp/7Q
-   o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: Wberg1xC0CB7k7e37l3TmPm5RrkgcLijCv2OskEIN2BW2mzxqiwgxWMjxHhS7j3DREMWOdbToh
- 1HaJkuqlxFuV8ku2f3huFUfIR3iOCvzG07A0bYWbEdo0s4u0LH/yzrnnJrqw+seFjNU7bp2exl
- HLGwCLEsc+31GodVJVVAUOfWrf8/4vGWRd8u2hZP3JmeQ5EEdAmECR/eZvHKwpqPrfVB7h8su8
- 7Kgl7w3ICcTPR2p+yd6AZ+r4wuPRkh/QFoOAWYHcOf62o2z7SuB9bLupyEvNjNy6UWGymbRgox
- 9yA=
-X-SBRS: 5.2
-X-MesageID: 42290484
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:oqCISatrEmMsCMlPZSE3gNlt7skCxIYji2hD6mlwRA09T+WxrO
- rrtOgH1BPylTYaUGwhn9fFA6WbXXbA7/dOj7U5FYyJGC3ronGhIo0n14vtxDX8Bzbzn9Qz6Y
- 5JSII7MtH5CDFB4frSyBWkEtom3dmM+L2pg+Cb9Ht2UQR2cchbjztRICzzKDwReCBtA50lGJ
- 2AoudGvSOnY3QLbsK9b0N1ItTrjdvNiZ7gfFo6HBYh8gaDlneF77T9Hhie0H4lIk9y6J0l9n
- XIlBG827W7v5iAu2Xh/kLwz7ATotvuzdNfGNeB4/J1FhzAghulDb4RPoGqkysypIiUmTIXuf
- nK5ywtJsFir07WF1vF3ifF/ynF/HIQ52T5yVme6EGT0vDRYD4hEcJOicZ4X3LimjIdlepx2q
- 5KwG6V3qA/ZXir8VWflrq4Ii1CrUa6rWEvluQelRVkIPAjQYRcsJAF+wdtGIoAdRiKmLwPKv
- VkD83X+Z9tACqnRk3e11Mfp+CEbzAYGxeLRVU6ocqF0zRat2AR9Tpo+OUv2lgH754zUJ9C+q
- DtNblpjqhHSossYbt6H/ppe7r5NkX9BTb3dE6CK1XuE68Kf1rLtp7M+b0woMWnYoYBwpcekI
- nIOWko+1IaSgbLM4mjzZdL+hfCTCGWRjL20PxT4JB/p/nVWKfrGTfrciFsr+KQ59EkRuHLUf
- e6P5xbR9X5K3H1JIpP1wriH7FPNHglVtEPsNpTYSPPnuv7bqnR8sDLevfaI7TgVRw+XHnkP3
- cFVD/vYOpa6ESGXWL5nQjxV3vhdleXx+M0LIHqu8wojKQdPIxFtQYYzX6j4NuQFDFEuqsqOG
- tySYmX1p+TlC2TxyLl/m9pMh1SAgJ++7P7SU5HogcMLgfRebYHsNOPRHBK0BK8V1hCZvKTND
- Qai0V8+KqxIZDV7zslEcibPmWTiGZWg36WUZEGmOmm6d3+cp01SrYqMZYBVDnjJlhQo0JHuW
- 1DYAgLSgv0DTX1k5ioi5QSGaX4bNlzgACiJOZOsnLBvUCgpcUiL0FrHQKGYIqyu0IDVjBUjl
- p+/+s0m7ybgwuiLmM5naAFKlFWUX+WB7hHFQyBQ41RltnQCUdNZFbPoQbfpwA4e2Ls+UlXom
- D6NyWbdcvGBUdntmlC3rzn9051cWuhb1t9A0oKw7FVJCDjgDJewOWLbq283y+qZlwOzvo0HR
- vFbTERSzkejeyf5VqwonKvBH8mzpIhMqjhF7wlaajUwW7oApaPj7s6E/hd+4tFONjivvQQa/
- +WfxaYIVrDeroU8j3QgkxgFDh/qXEin/+t5Qbs63Kg2mUjRdXVO1ZrStggUpihxlmhY8zN9p
- p3jdg457Ttdkrwb8OL0qHRYXpoLAjJrWu/UuEvrtR1sMsJxcxONqiedQGN8ndNmCgaBoPTsm
- g1Raxg+rDPOoN1ZaUpCmlk12tssO7KFVchtwz9P/Q3cl4shULKJt/h2cu9lZMfRmm64DbqMV
- aR8ydh7+7IciuK27kdEb8xKw1tGT4BwUUn2OOJbIvLDgq2M8lF4VqhK3e4GYUtBZStKPE1rh
- xg5cuPkPLSXy3k2BrItT8+Bq5V6W6oTYeTBw2LcNQ4v+CSCBCpgqGw5tS0gyqyYTyna14AjY
- kATHcuVK14+3Efpbxy9DOzRKzxql8klFUbwQgPrC+S5qGWpEHBHU9HNgXFhI5xRjc7CAnRsf
- j4
-X-IronPort-AV: E=Sophos;i="5.82,242,1613451600"; 
-   d="scan'208";a="42290484"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BpvsSgvPnpVEpsB6gfTuiAgU4Dgk94aoBBrpE5TJqdudotC/q1CV4Li200w5lDM75c6E3z8KGeakHP0i2vukzt79BN2hsH1nAnw1/F+aWYJaxGikQNG0fBwEvWKppR4NBbaGCdh2ONl5OjWfsFEmq5N0cXdjuMCPCKQQK4owt+5EBH/j5WfEcfuAGBjBrdyGR1NvGp7npkIVm5b9rfra+IU1wk2fzXRj1VK4Iq0XOIfsOqQdOxkdmetgFtbD1qiJChAiWelyYv5k9hfQW8j7kCI6s9+hUt9jnyVMmwqnjpbB7lKeb8AG+fy/URqjHdk/BzMsIgDHHo46KdGwJIQjcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=htLj8WU6wm4I7XA0zn9KFIuwOuTxfkMX7ApT/yhLWfo=;
- b=DkmcCV8siJz4rwXInLOo8xGtJLDmvcLth/OsEoA5TMcfWfDpdU2y1mN5JYcATMRfxvphzTyByr7VX6kr4YVHVdfJ45gPZn1pIUBlEIlNTda+y59TlIK0D3/Opmmh4p6G4HFBBr0xNHJtVKbozVGBa3RyuLh5PJ981mmmHNziBIG+0d/P++MNrB6Q13NkzqHmcm7B7ZJnK/uB2xUgFZv68h7gOMDxuF7MEIyzLo9b91rqP1zBxxGLUJhUI5B2v7g+3R9lwBvUeAkHviugAY4xLCB5Bd+oZH2k72zT5GWHwdfHU6LFJ9F5AWVDA1wf3XWCdWkHG0kL51bUj8Hn2vVT5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=htLj8WU6wm4I7XA0zn9KFIuwOuTxfkMX7ApT/yhLWfo=;
- b=WcPJFDsriq7hqSDxEmgg3MJuAQcRjMJ5WgrPcttDPeulAQzf02VwhUPIbaa4wVtHUX9Xm0jOqnUvdvAiksYNN1OWWlEkhPM5/LgQI0Sn3ZTkMcxGnW6BydyvOnanM0ZcAKptFKJqPc5NB5g8hyw4UaouGBkL55SNAT4h0OW/m8Q=
-Date: Thu, 22 Apr 2021 13:37:46 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 15/21] libs/guest: obtain a compatible cpu policy from
- two input ones
-Message-ID: <YIFgCoyQaZefKZvi@Air-de-Roger>
-References: <20210413140140.73690-1-roger.pau@citrix.com>
- <20210413140140.73690-16-roger.pau@citrix.com>
- <391b56d0-bb4d-8d3c-231c-e2e3ad7e2f42@suse.com>
- <YIFFBEhPYSYQhycf@Air-de-Roger>
- <c692e77f-1a9a-ea1d-e029-2a8f62ee0e35@suse.com>
- <YIFRQu/CLEId2uMi@Air-de-Roger>
- <d877502d-9c18-6ff3-6e01-ee997c9f196a@suse.com>
- <YIFWUnQ6d4Pk7nf4@Air-de-Roger>
- <320d9aca-1f72-f357-d303-487a67f39655@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <320d9aca-1f72-f357-d303-487a67f39655@suse.com>
-X-ClientProxiedBy: PR0P264CA0082.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:18::22) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 5c6ca6ff-4549-43c3-a431-3ed834baaec1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1619091527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7yX/ted2E5C/j5NM3ejyEI0B4mH3miz2yFmcr7Iixw=;
+	b=CXKnNZ+eNh3gofqcxrgdeBcUI082ghWbV2KVP/RMdlzcmHZNu8goIcVc0K31Bpm9Qu0tfk
+	xdpqwe4YFCQJEYD3WUMBtPo7dme/rs6/vXzI3s62ezcsaYUfjt+A9o6sgVsmuBoLtCTs35
+	7tY6uB3QOjYRJ84kFQy40nBsjVbLWws=
+Subject: Ping: [PATCH v3] x86/CPUID: shrink max_{,sub}leaf fields according to
+ actual leaf contents
+From: Jan Beulich <jbeulich@suse.com>
+To: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <9ecd03b2-f8fa-2a8b-69ad-4b31920ea205@suse.com>
+Message-ID: <9a2058cc-d6af-d01a-8630-ab897a75ccbc@suse.com>
+Date: Thu, 22 Apr 2021 13:38:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5b802c10-a78f-4716-cb7d-08d905830f33
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3289:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB328983DB91B250193359C8608F469@DM5PR03MB3289.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 09uyR/CkFgF0qUihUwXqeaIyRZXjXUD2dU1SafRM+bsqIYEFJQmLa4AKtVq3WIQEMIEt9RywlY45qrjwTc0o5xjoUupkFRIPXm2USkuUKK6LLEMZNVxBNL877c/x13MV51unk/NCj7LaDjo5UJXTt2vW5EiGOtGd0tIIRgDgE9v59K4YH1a9OL2AlOxUKN17pjNJRrOTvZRPTLYVYjKxS1q4EA5n42d4KfaVNKi5x0rsGyW+1ogE9I3BhXwEcpNxrFV1euN8iy3urLOglrIKswLh9EXi5TUqJ0tts6Qvx10ANN0w5BURFOachXu/NN66bYbDYIrTZSdGkUICFLMkJ6VeikyUoN0ItCTW1qHXbivq0Sd0eyN5fuiBVOfxsTzeSFKN6Xwc3MH1mez/r1/1fZVV5IS7fCqSnXsPhdPW240GZpALg2uXWZE7ks8thGc/6G/DGHDhndYWti/mbnE8qYR3nNLD/Ck1U2U3KOZ5LugYIa12QgV/lGOPlZyUAmpo2lCo2c6143+J56ewNM6fYLuIooo2ClmrcJxE2dchLvXhf0cBYyXA4apNAygxXS3Jg6z9YBgy5xhO7FZJzmrl59oS70zR4TO8lBVr2VkENQI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(39860400002)(366004)(346002)(136003)(376002)(396003)(38100700002)(4326008)(478600001)(186003)(6666004)(16526019)(316002)(86362001)(9686003)(83380400001)(33716001)(5660300002)(66556008)(66946007)(8676002)(956004)(53546011)(26005)(6486002)(85182001)(8936002)(2906002)(54906003)(6916009)(6496006)(66476007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?V3Nsako0ZWY0ZytDdlRQRlV0Q3dBcGRDZnhPSkloOS9GbE1OYkdOais2YzYy?=
- =?utf-8?B?S3RaUy9sRk5yZmQxTDlLQmdSenBVVzNJYjlYZlNiZXc4Sm1KVHg1ZzZsQ09O?=
- =?utf-8?B?MWdvcE54WFJoYWtqME5jTFkrSlNacmFpVVZ6ZnVuc1ZXc1ZJWW15NUFzaEZp?=
- =?utf-8?B?Y0hCMzlCaU9wdnQrWkJMRzlhNFZsRkVxczNhckJMTVZhTXZzaVdHQjlXWHl5?=
- =?utf-8?B?NWUvamw5VmJzLzYyVkF3TG1UbWE5ZldDdVU1M3F3bzJZZXEvZWwrK2N5SzJi?=
- =?utf-8?B?TEdlQ1lKdFpUWHcxMWxDU0hFWlFXN1IxWTZBYkFpMDJ3Uk9FdDRYUFhHN3Va?=
- =?utf-8?B?aUc2d2h5WGhlK0VBQkc2bEp5c01weGxkVXMrWExObExnTUlzd1JmbU5tbTMz?=
- =?utf-8?B?QkVReWRiWlRCWmlxTVVrcW5nL29DQnFMa3ZDMXNJc1BPM3RTSGJLSitsemRp?=
- =?utf-8?B?QSt0elNHTmU3T3RuSlVaOFpVeStLVk03MmFGZElmZnl5SW1DUXJtanFUQXhJ?=
- =?utf-8?B?NnYrSTQrbG9ZVGFuWXpLaU83dVJKSjNWQVZDZnpFcmFqMUUyRmtJUmVQdUVX?=
- =?utf-8?B?OFlXVElPY3k3S2JXSEJBYlJXNXVISDlkNXh5a3JyM3BVRWtDdjZXVUNobTh2?=
- =?utf-8?B?bWVoNUY4RThmUGF1azhJMmdPeEZsRTg4Q1oxbFNINHRRNE14cEdBcng0K3V2?=
- =?utf-8?B?aDBPSUNzcGpyTlQ4dmdKUjBraTlnaWtBOFBDdWJwRTY3ZS9mRit3UFZqNmZq?=
- =?utf-8?B?d2xUNWIveUxjRW01WTVNdU92NVNreDI4SU9qbzVKTUl4RUZDeVYwYzl6SnhZ?=
- =?utf-8?B?bDRuZTBBY1U4bis3VGR0bW9TOE1pUTg0SDI0NXNxMWVZOHNIdFpVUEFQbEli?=
- =?utf-8?B?UjJQYXQ0czI0ZjNtREJuZEJYeTFaNkUvaFNkQ3NYVlZrL0lKa0hMNE5zNHo3?=
- =?utf-8?B?MEh6Z1dMK1g2N1pwZk5tcy95Vk5RQzUwV0hTb0FFZWFZNkpwWFVOVm1uSHdS?=
- =?utf-8?B?eU5ydDFTRTNKblA2UVQ0eit5eDdiZEVnTmpScnlIN3VSN3ZlTVdRMGw3bm9T?=
- =?utf-8?B?c2xGQ29HNE5tTUpua09EZ2hHckxhQm5MNjJndHdLQVR2eStvWUdXUHZqd2sv?=
- =?utf-8?B?OWV2ODRFaE9uaVVwSS96VEVxcXZNVDM0MW12bnBIbG8ySGR2VHhJbWVKVVNR?=
- =?utf-8?B?QUo5bklnYmVXdFJsSkUwZFkzdmNNNEJjM0NMbWhlR0lBTHErQ29RaU9GS25Z?=
- =?utf-8?B?M3hTTHVQOHVQTW9udWw1NVd4SUZsM1c4Z0VKb0xLSnh4bW1MdE44dWV2bGZn?=
- =?utf-8?B?YmE3aWwyRnZZSG1tdi9KcE8wakkwYkpJallQSXpUa0J1ZTFLOVZBczV4ajFH?=
- =?utf-8?B?RUdtMHVzRzcyUUU1ZXF6NmVQOFVMZDhOS3ZyaWVZZ2VNYXpWWjkySzZsNElu?=
- =?utf-8?B?RllUbE14ZnA1Uzkwd1FkYVdvUkZyNVUvZ1c4b0YvYUVGN1d1aDBFY3BmbG9U?=
- =?utf-8?B?cVdhZ2cyQnVtdzF4SGkxV2tYajZSbTNsWVl0b3VBVUhmM1Ara2tDNy9mL1E2?=
- =?utf-8?B?dURzTkFMYzMyL0l0UjJGVnY4WUc5SVF6M1RBOGN6YkNtQWRPS1o3SUYwZzNw?=
- =?utf-8?B?eDMxSEZGVktybXFjNEVFSk9aZTJ0UkVkVHpBckZocUZCbnUwSkxGVkFQd0xw?=
- =?utf-8?B?VHhiT1lRYzYyK1JNN0lQT3lvdGZiYmNFYUIvMkppeVR5ZTRkOEVSRDBFSXFk?=
- =?utf-8?Q?zAJmebLtpHC4Z+d1LcuSyZEP37IZmvFiPbgKalk?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b802c10-a78f-4716-cb7d-08d905830f33
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2021 11:37:50.5335
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wp9lZIGKRaKa6I6BQJNNerDXUbvWDzJpXd9dpTfdee6GAhg5SGys9NNDEFchb3lQLEE7bqqhuc21AtgszOo0Ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3289
-X-OriginatorOrg: citrix.com
+In-Reply-To: <9ecd03b2-f8fa-2a8b-69ad-4b31920ea205@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 22, 2021 at 01:05:23PM +0200, Jan Beulich wrote:
-> On 22.04.2021 12:56, Roger Pau Monné wrote:
-> > On Thu, Apr 22, 2021 at 12:48:36PM +0200, Jan Beulich wrote:
-> >> On 22.04.2021 12:34, Roger Pau Monné wrote:
-> >>> On Thu, Apr 22, 2021 at 11:58:45AM +0200, Jan Beulich wrote:
-> >>>> On 22.04.2021 11:42, Roger Pau Monné wrote:
-> >>>>> On Wed, Apr 14, 2021 at 03:49:02PM +0200, Jan Beulich wrote:
-> >>>>>> On 13.04.2021 16:01, Roger Pau Monne wrote:
-> >>>>>>> @@ -944,3 +945,130 @@ bool xc_cpu_policy_is_compatible(xc_interface *xch, const xc_cpu_policy_t host,
-> >>>>>>>  
-> >>>>>>>      return false;
-> >>>>>>>  }
-> >>>>>>> +
-> >>>>>>> +static uint64_t level_msr(unsigned int index, uint64_t val1, uint64_t val2)
-> >>>>>>> +{
-> >>>>>>> +    uint64_t val = val1 & val2;;
-> >>>>>>
-> >>>>>> For arbitrary MSRs this isn't going to do any good. If only very
-> >>>>>> specific MSRs are assumed to make it here, I think this wants
-> >>>>>> commenting on.
-> >>>>>
-> >>>>> I've added: "MSRs passed to level_msr are expected to be bitmaps of
-> >>>>> features"
-> >>>>
-> >>>> How does such a comment help? I.e. how does the caller tell which MSRs
-> >>>> to pass here and which to deal with anyother way?
-> >>>
-> >>> All MSRs should be passed to level_msr, but it's handling logic would
-> >>> need to be expanded to support MSRs that are not feature bitmaps.
-> >>>
-> >>> It might be best to restore the previous switch and handle each MSR
-> >>> specifically?
-> >>
-> >> I think so, yes. We need to be very careful with what a possible
-> >> default case does there, though.
-> > 
-> > Maybe it would be better to handle level_msr in a way similar to
-> > level_leaf: return true/false to notice whether the MSR should be
-> > added to the resulting compatible policy?
-> > 
-> > And then make the default case in level_msr just return false in order
-> > to prevent adding MSRs not properly leveled to the policy?
+On 16.04.2021 15:16, Jan Beulich wrote:
+> Zapping leaf data for out of range leaves is just one half of it: To
+> avoid guests (bogusly or worse) inferring information from mere leaf
+> presence, also shrink maximum indicators such that the respective
+> trailing entry is not all blank (unless of course it's the initial
+> subleaf of a leaf that's not the final one).
 > 
-> I'm afraid I'm not clear about the implications. What again is the
-> (planned?) final effect of an MSR not getting added there?
+> This is also in preparation of bumping the maximum basic leaf we
+> support, to ensure guests not getting exposed related features won't
+> observe a change in behavior.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Adding the MSR with a 0 value will zero out any previous value on the
-'out' policy, while not adding it would leave the previous value
-there given the current code in xc_cpu_policy_calc_compatible added by
-this patch.
+First of all - I'm sorry Paul, I forgot to Cc you on the original
+submission.
 
-I would expect callers of xc_cpu_policy_calc_compatible to pass a
-zeroed 'out' policy, so I think the end result should be the same.
+May I ask for an ack or otherwise for the Viridian part of this?
+Please be sure, however, that you have seen the earlier discussion,
+also on v2, as Roger is questioning whether the Viridian change
+here wouldn't better be dropped.
 
-Maybe I should also clear 'out' in xc_cpu_policy_calc_compatible, at
-which point both options will get the same exact result.
+Jan
 
-Thanks, Roger.
+> ---
+> v3: Record the actual non-empty subleaf in p->basic.raw[0x7], rather
+>     than subleaf 0. Re-base over Viridian leaf 40000005 addition.
+> v2: New.
+> 
+> --- a/tools/tests/cpu-policy/test-cpu-policy.c
+> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
+> @@ -8,10 +8,13 @@
+>  #include <err.h>
+>  
+>  #include <xen-tools/libs.h>
+> +#include <xen/asm/x86-defns.h>
+>  #include <xen/asm/x86-vendors.h>
+>  #include <xen/lib/x86/cpu-policy.h>
+>  #include <xen/domctl.h>
+>  
+> +#define XSTATE_FP_SSE  (X86_XCR0_FP | X86_XCR0_SSE)
+> +
+>  static unsigned int nr_failures;
+>  #define fail(fmt, ...)                          \
+>  ({                                              \
+> @@ -553,6 +556,103 @@ static void test_cpuid_out_of_range_clea
+>      }
+>  }
+>  
+> +static void test_cpuid_maximum_leaf_shrinking(void)
+> +{
+> +    static const struct test {
+> +        const char *name;
+> +        struct cpuid_policy p;
+> +    } tests[] = {
+> +        {
+> +            .name = "basic",
+> +            .p = {
+> +                /* Very basic information only. */
+> +                .basic.max_leaf = 1,
+> +                .basic.raw_fms = 0xc2,
+> +            },
+> +        },
+> +        {
+> +            .name = "cache",
+> +            .p = {
+> +                /* Cache subleaves present. */
+> +                .basic.max_leaf = 4,
+> +                .cache.subleaf[0].type = 1,
+> +            },
+> +        },
+> +        {
+> +            .name = "feat#0",
+> +            .p = {
+> +                /* Subleaf 0 only with some valid bit. */
+> +                .basic.max_leaf = 7,
+> +                .feat.max_subleaf = 0,
+> +                .feat.fsgsbase = 1,
+> +            },
+> +        },
+> +        {
+> +            .name = "feat#1",
+> +            .p = {
+> +                /* Subleaf 1 only with some valid bit. */
+> +                .basic.max_leaf = 7,
+> +                .feat.max_subleaf = 1,
+> +                .feat.avx_vnni = 1,
+> +            },
+> +        },
+> +        {
+> +            .name = "topo",
+> +            .p = {
+> +                /* Topology subleaves present. */
+> +                .basic.max_leaf = 0xb,
+> +                .topo.subleaf[0].type = 1,
+> +            },
+> +        },
+> +        {
+> +            .name = "xstate",
+> +            .p = {
+> +                /* First subleaf always valid (and then non-zero). */
+> +                .basic.max_leaf = 0xd,
+> +                .xstate.xcr0_low = XSTATE_FP_SSE,
+> +            },
+> +        },
+> +        {
+> +            .name = "extd",
+> +            .p = {
+> +                /* Commonly available information only. */
+> +                .extd.max_leaf = 0x80000008,
+> +                .extd.maxphysaddr = 0x28,
+> +                .extd.maxlinaddr = 0x30,
+> +            },
+> +        },
+> +    };
+> +
+> +    printf("Testing CPUID maximum leaf shrinking:\n");
+> +
+> +    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
+> +    {
+> +        const struct test *t = &tests[i];
+> +        struct cpuid_policy *p = memdup(&t->p);
+> +
+> +        p->basic.max_leaf = ARRAY_SIZE(p->basic.raw) - 1;
+> +        p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
+> +        p->extd.max_leaf = 0x80000000 | (ARRAY_SIZE(p->extd.raw) - 1);
+> +
+> +        x86_cpuid_policy_shrink_max_leaves(p);
+> +
+> +        /* Check the the resulting max (sub)leaf values against expecations. */
+> +        if ( p->basic.max_leaf != t->p.basic.max_leaf )
+> +             fail("  Test %s basic fail - expected %#x, got %#x\n",
+> +                  t->name, t->p.basic.max_leaf, p->basic.max_leaf);
+> +
+> +        if ( p->extd.max_leaf != t->p.extd.max_leaf )
+> +             fail("  Test %s extd fail - expected %#x, got %#x\n",
+> +                  t->name, t->p.extd.max_leaf, p->extd.max_leaf);
+> +
+> +        if ( p->feat.max_subleaf != t->p.feat.max_subleaf )
+> +             fail("  Test %s feat fail - expected %#x, got %#x\n",
+> +                  t->name, t->p.feat.max_subleaf, p->feat.max_subleaf);
+> +
+> +        free(p);
+> +    }
+> +}
+> +
+>  static void test_is_compatible_success(void)
+>  {
+>      static struct test {
+> @@ -668,6 +768,7 @@ int main(int argc, char **argv)
+>      test_cpuid_serialise_success();
+>      test_cpuid_deserialise_failure();
+>      test_cpuid_out_of_range_clearing();
+> +    test_cpuid_maximum_leaf_shrinking();
+>  
+>      test_msr_serialise_success();
+>      test_msr_deserialise_failure();
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -341,6 +341,8 @@ static void __init calculate_host_policy
+>          p->extd.raw[0xa].d |= ((1u << SVM_FEATURE_VMCBCLEAN) |
+>                                 (1u << SVM_FEATURE_TSCRATEMSR));
+>      }
+> +
+> +    x86_cpuid_policy_shrink_max_leaves(p);
+>  }
+>  
+>  static void __init guest_common_default_feature_adjustments(uint32_t *fs)
+> @@ -410,6 +412,8 @@ static void __init calculate_pv_max_poli
+>      recalculate_xstate(p);
+>  
+>      p->extd.raw[0xa] = EMPTY_LEAF; /* No SVM for PV guests. */
+> +
+> +    x86_cpuid_policy_shrink_max_leaves(p);
+>  }
+>  
+>  static void __init calculate_pv_def_policy(void)
+> @@ -430,6 +434,8 @@ static void __init calculate_pv_def_poli
+>      sanitise_featureset(pv_featureset);
+>      cpuid_featureset_to_policy(pv_featureset, p);
+>      recalculate_xstate(p);
+> +
+> +    x86_cpuid_policy_shrink_max_leaves(p);
+>  }
+>  
+>  static void __init calculate_hvm_max_policy(void)
+> @@ -495,6 +501,8 @@ static void __init calculate_hvm_max_pol
+>      sanitise_featureset(hvm_featureset);
+>      cpuid_featureset_to_policy(hvm_featureset, p);
+>      recalculate_xstate(p);
+> +
+> +    x86_cpuid_policy_shrink_max_leaves(p);
+>  }
+>  
+>  static void __init calculate_hvm_def_policy(void)
+> @@ -519,6 +527,8 @@ static void __init calculate_hvm_def_pol
+>      sanitise_featureset(hvm_featureset);
+>      cpuid_featureset_to_policy(hvm_featureset, p);
+>      recalculate_xstate(p);
+> +
+> +    x86_cpuid_policy_shrink_max_leaves(p);
+>  }
+>  
+>  void __init init_guest_cpuid(void)
+> @@ -699,6 +709,8 @@ void recalculate_cpuid_policy(struct dom
+>  
+>      if ( !p->extd.page1gb )
+>          p->extd.raw[0x19] = EMPTY_LEAF;
+> +
+> +    x86_cpuid_policy_shrink_max_leaves(p);
+>  }
+>  
+>  int init_domain_cpuid_policy(struct domain *d)
+> --- a/xen/arch/x86/hvm/viridian/viridian.c
+> +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> @@ -124,7 +124,15 @@ void cpuid_viridian_leaves(const struct
+>      switch ( leaf )
+>      {
+>      case 0:
+> -        res->a = 0x40000006; /* Maximum leaf */
+> +        /* Maximum leaf */
+> +        cpuid_viridian_leaves(v, 0x40000006, 0, res);
+> +        if ( res->a | res->b | res->c | res->d )
+> +            res->a = 0x40000006;
+> +        else
+> +        {
+> +            cpuid_viridian_leaves(v, 0x40000005, 0, res);
+> +            res->a = 0x40000005 - !(res->a | res->b | res->c | res->d);
+> +        }
+>          memcpy(&res->b, "Micr", 4);
+>          memcpy(&res->c, "osof", 4);
+>          memcpy(&res->d, "t Hv", 4);
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -964,13 +964,15 @@ void cpuid_hypervisor_leaves(const struc
+>      uint32_t base = is_viridian_domain(d) ? 0x40000100 : 0x40000000;
+>      uint32_t idx  = leaf - base;
+>      unsigned int limit = is_viridian_domain(d) ? p->hv2_limit : p->hv_limit;
+> +    unsigned int dflt = is_pv_domain(d) ? XEN_CPUID_MAX_PV_NUM_LEAVES
+> +                                        : XEN_CPUID_MAX_HVM_NUM_LEAVES;
+>  
+>      if ( limit == 0 )
+>          /* Default number of leaves */
+> -        limit = XEN_CPUID_MAX_NUM_LEAVES;
+> +        limit = dflt;
+>      else
+>          /* Clamp toolstack value between 2 and MAX_NUM_LEAVES. */
+> -        limit = min(max(limit, 2u), XEN_CPUID_MAX_NUM_LEAVES + 0u);
+> +        limit = min(max(limit, 2u), dflt);
+>  
+>      if ( idx > limit )
+>          return;
+> --- a/xen/include/public/arch-x86/cpuid.h
+> +++ b/xen/include/public/arch-x86/cpuid.h
+> @@ -113,6 +113,10 @@
+>  /* Max. address width in bits taking memory hotplug into account. */
+>  #define XEN_CPUID_MACHINE_ADDRESS_WIDTH_MASK (0xffu << 0)
+>  
+> -#define XEN_CPUID_MAX_NUM_LEAVES 5
+> +#define XEN_CPUID_MAX_PV_NUM_LEAVES 5
+> +#define XEN_CPUID_MAX_HVM_NUM_LEAVES 4
+> +#define XEN_CPUID_MAX_NUM_LEAVES \
+> +    (XEN_CPUID_MAX_PV_NUM_LEAVES > XEN_CPUID_MAX_HVM_NUM_LEAVES ? \
+> +     XEN_CPUID_MAX_PV_NUM_LEAVES : XEN_CPUID_MAX_HVM_NUM_LEAVES)
+>  
+>  #endif /* __XEN_PUBLIC_ARCH_X86_CPUID_H__ */
+> --- a/xen/include/xen/lib/x86/cpuid.h
+> +++ b/xen/include/xen/lib/x86/cpuid.h
+> @@ -351,6 +351,13 @@ void x86_cpuid_policy_fill_native(struct
+>   */
+>  void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p);
+>  
+> +/**
+> + * Shrink max leaf/subleaf values such that the last respective valid entry
+> + * isn't all blank.  While permitted by the spec, such extraneous leaves may
+> + * provide undue "hints" to guests.
+> + */
+> +void x86_cpuid_policy_shrink_max_leaves(struct cpuid_policy *p);
+> +
+>  #ifdef __XEN__
+>  #include <public/arch-x86/xen.h>
+>  typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
+> --- a/xen/lib/x86/cpuid.c
+> +++ b/xen/lib/x86/cpuid.c
+> @@ -236,6 +236,45 @@ void x86_cpuid_policy_clear_out_of_range
+>                  ARRAY_SIZE(p->extd.raw) - 1);
+>  }
+>  
+> +void x86_cpuid_policy_shrink_max_leaves(struct cpuid_policy *p)
+> +{
+> +    unsigned int i;
+> +
+> +    p->basic.raw[0x4] = p->cache.raw[0];
+> +
+> +    for ( i = p->feat.max_subleaf; i; --i )
+> +        if ( p->feat.raw[i].a | p->feat.raw[i].b |
+> +             p->feat.raw[i].c | p->feat.raw[i].d )
+> +            break;
+> +    p->feat.max_subleaf = i;
+> +    p->basic.raw[0x7] = p->feat.raw[i];
+> +
+> +    p->basic.raw[0xb] = p->topo.raw[0];
+> +
+> +    /*
+> +     * Due to the way xstate gets handled in the hypervisor (see
+> +     * recalculate_xstate()) there is (for now at least) no need to fiddle
+> +     * with the xstate subleaves (IOW we assume they're already in consistent
+> +     * shape, for coming from either hardware or recalculate_xstate()).
+> +     */
+> +    p->basic.raw[0xd] = p->xstate.raw[0];
+> +
+> +    for ( i = p->basic.max_leaf; i; --i )
+> +        if ( p->basic.raw[i].a | p->basic.raw[i].b |
+> +             p->basic.raw[i].c | p->basic.raw[i].d )
+> +            break;
+> +    p->basic.max_leaf = i;
+> +
+> +    for ( i = p->extd.max_leaf & 0xffff; i; --i )
+> +        if ( p->extd.raw[i].a | p->extd.raw[i].b |
+> +             p->extd.raw[i].c | p->extd.raw[i].d )
+> +            break;
+> +    if ( i | p->extd.raw[0].b | p->extd.raw[0].c | p->extd.raw[0].d )
+> +        p->extd.max_leaf = 0x80000000 | i;
+> +    else
+> +        p->extd.max_leaf = 0;
+> +}
+> +
+>  const uint32_t *x86_cpuid_lookup_deep_deps(uint32_t feature)
+>  {
+>      static const uint32_t deep_features[] = INIT_DEEP_FEATURES;
+> 
+
 
