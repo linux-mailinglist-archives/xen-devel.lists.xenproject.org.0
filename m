@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E60823683EB
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 17:43:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115669.220741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21695368428
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 17:46:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115674.220753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZbSu-0004rD-Qn; Thu, 22 Apr 2021 15:42:04 +0000
+	id 1lZbXE-0005D1-Ch; Thu, 22 Apr 2021 15:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115669.220741; Thu, 22 Apr 2021 15:42:04 +0000
+Received: by outflank-mailman (output) from mailman id 115674.220753; Thu, 22 Apr 2021 15:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZbSu-0004qo-NV; Thu, 22 Apr 2021 15:42:04 +0000
-Received: by outflank-mailman (input) for mailman id 115669;
- Thu, 22 Apr 2021 15:42:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lZbXE-0005Cc-9S; Thu, 22 Apr 2021 15:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 115674;
+ Thu, 22 Apr 2021 15:46:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uib8=JT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZbSt-0004qj-O2
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 15:42:03 +0000
+ id 1lZbXC-0005CX-JL
+ for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 15:46:30 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05bfbfef-cea8-4ba3-9dcf-a92cffc0d314;
- Thu, 22 Apr 2021 15:42:02 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f42098b1-f2d4-43d1-beb9-7b1e644c3192;
+ Thu, 22 Apr 2021 15:46:29 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 13C3CB16C;
- Thu, 22 Apr 2021 15:42:02 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 43017AD8A;
+ Thu, 22 Apr 2021 15:46:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,76 +39,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05bfbfef-cea8-4ba3-9dcf-a92cffc0d314
+X-Inumbo-ID: f42098b1-f2d4-43d1-beb9-7b1e644c3192
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619106122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619106388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Xtm0h32BFPnTcDwgXfrX7MV0oVJSpbCO+IQZgIprEFY=;
-	b=ETe1ZDrLs8a6EXU5cPptTq6iEl++eNx+zJ6gy25QIZEwYdJUUzQePqOcpwoxUegfsPMbvO
-	0DMvi/Q3brXZvpF8a+YI4ueuQl2Fdi/yZ8b8nA92JxWlR9DnPpwIWnGsS6rez9cKwJrZG2
-	RvNp5MpdoDH6+1BfRTx9CTFG+MbsyxE=
-Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
- features
-To: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- x86@kernel.org, xen-devel@lists.xenproject.org
-References: <20210422151007.2205-1-jgross@suse.com>
- <df27aba6-c67e-d66e-f00e-75a1f76de921@suse.com>
- <b69df7d3-6fcb-a565-9ec5-a272b6163320@suse.com>
- <08e3fcf1-dabc-c550-f76c-47a78a12274b@suse.com>
- <ee2bc5f9-58ea-bad3-1343-2156d2b80ad3@suse.com>
+	bh=hldtQOqJyVc74yWwVP2TFRdnx9LVlWLkWySq+1YHgcg=;
+	b=vTrA2M1dT+rJ7ugE/ZpyOBm11XFyI3H9wAOCs19oOzeY+W5kOqAmL/yDFAtxajU1yL3jaS
+	LPg/cgp1r4OZ5CEZB/CPKHp1aCjIQ3Ql+Fgm00bQQSiBCLgvUOB7gBXJqXNetjEE6wn839
+	qinFcXDxyM7kj33PpaoauDFmDUjZ+SE=
+Subject: Re: [PATCH 7/8] x86/EFI: keep debug info in xen.efi
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <b327185f-db31-50c8-ec76-6ef8f2fcfdfd@suse.com>
+ <96cb4039-5f43-8eac-d855-c9f1587ed2d0@suse.com>
+ <YIAJP0SCq0nOKZVL@Air-de-Roger>
+ <6023c1d3-4f50-d207-1ea1-30dd1d5f68d2@suse.com>
+ <YIBFD4i6bLaeaXdE@Air-de-Roger>
+ <3cda296d-e88e-5fe0-4924-4cf974c4f909@suse.com>
+ <YIEwW3HQuTtgWH5M@Air-de-Roger>
+ <a00cfe95-06bd-4999-05ab-cae737ab6f4c@suse.com>
+ <YIGOrOL+pKGaHqwX@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e293427d-b178-fd22-28bf-e6c6fe7e3f83@suse.com>
-Date: Thu, 22 Apr 2021 17:42:01 +0200
+Message-ID: <8fabc56b-8e2d-96cd-e9b2-81bf38777d52@suse.com>
+Date: Thu, 22 Apr 2021 17:46:28 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <ee2bc5f9-58ea-bad3-1343-2156d2b80ad3@suse.com>
+In-Reply-To: <YIGOrOL+pKGaHqwX@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.04.2021 17:28, Juergen Gross wrote:
-> On 22.04.21 17:23, Jan Beulich wrote:
->> On 22.04.2021 17:17, Juergen Gross wrote:
->>> On 22.04.21 17:16, Jan Beulich wrote:
->>>> On 22.04.2021 17:10, Juergen Gross wrote:
->>>>> Some features of Xen can be assumed to be always present, so add a
->>>>> central check to verify this being true and remove the other checks.
+On 22.04.2021 16:56, Roger Pau Monné wrote:
+> On Thu, Apr 22, 2021 at 01:03:13PM +0200, Jan Beulich wrote:
+>> On 22.04.2021 10:14, Roger Pau Monné wrote:
+>>> On Wed, Apr 21, 2021 at 05:38:42PM +0200, Jan Beulich wrote:
+>>>> On 21.04.2021 17:30, Roger Pau Monné wrote:
+>>>>> On Wed, Apr 21, 2021 at 03:06:36PM +0200, Jan Beulich wrote:
+>>>>>> On 21.04.2021 13:15, Roger Pau Monné wrote:
+>>>>>>> On Thu, Apr 01, 2021 at 11:47:03AM +0200, Jan Beulich wrote:
+>>>>>>>> --- a/xen/arch/x86/xen.lds.S
+>>>>>>>> +++ b/xen/arch/x86/xen.lds.S
+>>>>>>>> @@ -312,10 +312,60 @@ SECTIONS
+>>>>>>>>      *(.reloc)
+>>>>>>>>      __base_relocs_end = .;
+>>>>>>>>    }
+>>>>>>>> -  /* Trick the linker into setting the image size to exactly 16Mb. */
+>>>>>>>> -  . = ALIGN(__section_alignment__);
+>>>>>>>> -  DECL_SECTION(.pad) {
+>>>>>>>> -    . = ALIGN(MB(16));
+>>>>>>>> +  .debug_abbrev ALIGN(1) (NOLOAD) : {
+>>>>>>>> +     *(.debug_abbrev)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_info ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_info)
+>>>>>>>> +    *(.gnu.linkonce.wi.*)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_types ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_types)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_str ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_str)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_line ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_line)
+>>>>>>>> +    *(.debug_line.*)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_line_str ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_line_str)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_names ALIGN(4) (NOLOAD) : {
+>>>>>>>> +    *(.debug_names)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_frame ALIGN(4) (NOLOAD) : {
+>>>>>>>> +    *(.debug_frame)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_loc ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_loc)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_loclists ALIGN(4) (NOLOAD) : {
+>>>>>>>> +    *(.debug_loclists)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_ranges ALIGN(8) (NOLOAD) : {
+>>>>>>>> +    *(.debug_ranges)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_rnglists ALIGN(4) (NOLOAD) : {
+>>>>>>>> +    *(.debug_rnglists)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_addr ALIGN(8) (NOLOAD) : {
+>>>>>>>> +    *(.debug_addr)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_aranges ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_aranges)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_pubnames ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_pubnames)
+>>>>>>>> +  }
+>>>>>>>> +  .debug_pubtypes ALIGN(1) (NOLOAD) : {
+>>>>>>>> +    *(.debug_pubtypes)
+>>>>>>>> +  }
+>>>>>>>> +  /* Trick the linker into setting the image size to no less than 16Mb. */
+>>>>>>>> +  __image_end__ = .;
+>>>>>>>> +  .pad ALIGN(__section_alignment__) : {
+>>>>>>>> +    . = __image_end__ < __image_base__ + MB(16) ? ALIGN(MB(16)) : .;
+>>>>>>>
+>>>>>>> I think this is inside an ifdef EFI region, since this is DWARF info
+>>>>>>> couldn't it also be present when building with EFI disabled?
+>>>>>>
+>>>>>> Of course (and it's not just "could" but "will"), yet the linker will
+>>>>>> do fine (and perhaps even better) without when building ELF. Also
+>>>>>> note that we'll be responsible for keeping the list of sections up-to-
+>>>>>> date. The linker will recognize Dwarf sections by looking for a
+>>>>>> .debug_ prefix. We can't use such here (or at least I'm not aware of
+>>>>>> a suitable mechanism); .debug_* would mean munging together all the
+>>>>>> different kinds of Dwarf sections. Hence by limiting the explicit
+>>>>>> enumeration to PE, I'm trying to avoid anomalies in ELF down the road.
 >>>>>
->>>>> Juergen Gross (3):
->>>>>     xen: check required Xen features
->>>>>     xen: assume XENFEAT_mmu_pt_update_preserve_ad being set for pv guests
->>>>>     xen: assume XENFEAT_gnttab_map_avail_bits being set for pv guests
+>>>>> Right, so we will have to keep this list of debug_ sections updated
+>>>>> manually if/when more of those appear as part of DWARF updates?
 >>>>
->>>> I wonder whether it's a good idea to infer feature presence from
->>>> version numbers. If (at some point in the past) you had inferred
->>>> gnttab v2 being available by version, this would have been broken
->>>> by its availability becoming controllable by a command line option
->>>> in Xen.
+>>>> Yes.
+>>>>
+>>>>> Do we have a way to get some kind of warning or error when a new
+>>>>> section not explicitly handled here appears?
+>>>>
+>>>> ld 2.37 will start warning about such sections, as they'd land at
+>>>> VA 0 and hence below image base.
 >>>
->>> I'm testing the feature to be really present when booting and issue a
->>> message if it is not there.
+>>> That seems like a bug in ld?
+>>>
+>>> The '--image-base' option description mentions: "This is the lowest
+>>> memory location that will be used when your program or dll is
+>>> loaded.", so I would expect that if the option is used the default VA
+>>> should be >= image-base, or else the description of the option is not
+>>> consistent, as ld will still place sections at addresses below
+>>> image-base.
 >>
->> And how does this help if the feature really isn't there yet other code
->> assumes it is?
+>> ld's "general" logic is pretty ELF-centric. Hence debugging sections
+>> get placed at VA 0 by default, not matter what the (PE-specific)
+>> --image-base says. Whether that's a bug though I'm not sure: There
+>> are no really good alternatives that could be used by default. Doing
+>> what we do here (and what e.g. Cygwin does) via linker script may not
+>> be appropriate in the common case. In particular it is not generally
+>> correct for debug info to be part of what gets loaded into memory.
 > 
-> Did you look at the features I'm testing?
+> So with this change here you placate the warnings from newer ld about
+> having a VA < image base,
 
-I did, yes.
+It's not just about silencing the warnings. The resulting image is
+unusable when the sections don't get placed at a suitable VA.
 
-> Those are really just low
-> level additions I can't imagine will ever be removed again.
+> but the end result is that now the debug
+> sections will also get loaded when booted from the EFI loader?
+> (because the NOLOAD doesn't have any effect with PE)
 
-I don't expect them to be removed. But I don't think the people having
-contributed gnttab v2 expected any such for it, either.
+Yes. I currently see no other way to retain debug info in xen.efi.
+But to be clear, the memory debug info occupies isn't lost - we
+still free space from _end (or alike) onwards. .reloc, for example,
+also lives there. And I was wondering whether we shouldn't keep
+.comment this way as well.
 
 Jan
 
