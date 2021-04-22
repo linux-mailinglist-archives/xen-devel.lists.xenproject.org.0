@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3208368350
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 17:28:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115655.220714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FCE236835E
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 17:32:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115664.220729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZbFx-0002qZ-4m; Thu, 22 Apr 2021 15:28:41 +0000
+	id 1lZbJk-0003jr-Rx; Thu, 22 Apr 2021 15:32:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115655.220714; Thu, 22 Apr 2021 15:28:41 +0000
+Received: by outflank-mailman (output) from mailman id 115664.220729; Thu, 22 Apr 2021 15:32:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZbFx-0002q9-0n; Thu, 22 Apr 2021 15:28:41 +0000
-Received: by outflank-mailman (input) for mailman id 115655;
- Thu, 22 Apr 2021 15:28:39 +0000
+	id 1lZbJk-0003jS-Oj; Thu, 22 Apr 2021 15:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 115664;
+ Thu, 22 Apr 2021 15:32:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGUy=JT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lZbFv-0002q4-KE
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 15:28:39 +0000
+ id 1lZbJj-0003jN-Em
+ for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 15:32:35 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1e1ec2be-9966-4476-82a5-672b10999730;
- Thu, 22 Apr 2021 15:28:38 +0000 (UTC)
+ id 41328a5f-1828-4ecf-b0b1-44e82fb347dd;
+ Thu, 22 Apr 2021 15:32:34 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B83C8B173;
- Thu, 22 Apr 2021 15:28:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 8A014B179;
+ Thu, 22 Apr 2021 15:32:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,106 +38,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e1ec2be-9966-4476-82a5-672b10999730
+X-Inumbo-ID: 41328a5f-1828-4ecf-b0b1-44e82fb347dd
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619105317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619105553; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=S2s8d3b/btx56QtdjB6CaPjK6sRnOI8xTAb1jIG6CP4=;
-	b=gKlHsP004cKaavaGty6eAilBjsn32BXi8GxNGVNZQ3Auye5rclIv+J2+hr/DRgp9ycm/5p
-	d+yaCMu/Ey3L7YXJPsv4RmCUkmWDiqvR37XCdiQDqbKN8A1n47Z524DZsSmVlMnBYAFZH2
-	S8jHh3sSdJd36D2YHnCG5DZycpoWJTQ=
-Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
- features
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- x86@kernel.org, xen-devel@lists.xenproject.org
+	bh=iQ6FPFHZQRUWwK1WFV9xuIql7UDydCraqdC8XsOGujc=;
+	b=KA1wYIi7ooX7MRU4eDU93LL1CI1FRbElssNxfUJLBKVtJR9zaF16TMy8YCZk+y5BV2CtJ6
+	oo5MAF+IrLigcBaeJpgSoWBgg+Azuvlf9i/MQN8+ZGZpfL2Q+Oo/4ozRHC7+nOUY7O1YFR
+	Mn9DsAoJz+CfIOEF8rY6pen/kY2xYtQ=
+Subject: Re: [PATCH 1/3] xen: check required Xen features
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Peter Zijlstra <peterz@infradead.org>
 References: <20210422151007.2205-1-jgross@suse.com>
- <df27aba6-c67e-d66e-f00e-75a1f76de921@suse.com>
- <b69df7d3-6fcb-a565-9ec5-a272b6163320@suse.com>
- <08e3fcf1-dabc-c550-f76c-47a78a12274b@suse.com>
+ <20210422151007.2205-2-jgross@suse.com>
+ <alpine.DEB.2.21.2104220823160.5018@sstabellini-ThinkPad-T480s>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <ee2bc5f9-58ea-bad3-1343-2156d2b80ad3@suse.com>
-Date: Thu, 22 Apr 2021 17:28:36 +0200
+Message-ID: <6f3a782b-0d1d-e86e-998b-bc3b46e1f4c3@suse.com>
+Date: Thu, 22 Apr 2021 17:32:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <08e3fcf1-dabc-c550-f76c-47a78a12274b@suse.com>
+In-Reply-To: <alpine.DEB.2.21.2104220823160.5018@sstabellini-ThinkPad-T480s>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="9rkSk1vSn9FbOegTsaEK6WLbeoKsWPGaO"
+ boundary="9jsmYefyZXuxd8BEDEztk8fd9EHtUlzTD"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---9rkSk1vSn9FbOegTsaEK6WLbeoKsWPGaO
-Content-Type: multipart/mixed; boundary="I3qPelmf7Vi6Vq6oeYr6pX5DdsUKm5jN6";
+--9jsmYefyZXuxd8BEDEztk8fd9EHtUlzTD
+Content-Type: multipart/mixed; boundary="vO2PCTeA41QelLhMxxseFypK2vpnN563G";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- x86@kernel.org, xen-devel@lists.xenproject.org
-Message-ID: <ee2bc5f9-58ea-bad3-1343-2156d2b80ad3@suse.com>
-Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
- features
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Peter Zijlstra <peterz@infradead.org>
+Message-ID: <6f3a782b-0d1d-e86e-998b-bc3b46e1f4c3@suse.com>
+Subject: Re: [PATCH 1/3] xen: check required Xen features
 References: <20210422151007.2205-1-jgross@suse.com>
- <df27aba6-c67e-d66e-f00e-75a1f76de921@suse.com>
- <b69df7d3-6fcb-a565-9ec5-a272b6163320@suse.com>
- <08e3fcf1-dabc-c550-f76c-47a78a12274b@suse.com>
-In-Reply-To: <08e3fcf1-dabc-c550-f76c-47a78a12274b@suse.com>
+ <20210422151007.2205-2-jgross@suse.com>
+ <alpine.DEB.2.21.2104220823160.5018@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2104220823160.5018@sstabellini-ThinkPad-T480s>
 
---I3qPelmf7Vi6Vq6oeYr6pX5DdsUKm5jN6
+--vO2PCTeA41QelLhMxxseFypK2vpnN563G
 Content-Type: multipart/mixed;
- boundary="------------C85339484172C36ACC5E171B"
+ boundary="------------7E3599148FA0E975EDDBF1E7"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C85339484172C36ACC5E171B
+--------------7E3599148FA0E975EDDBF1E7
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 22.04.21 17:23, Jan Beulich wrote:
-> On 22.04.2021 17:17, Juergen Gross wrote:
->> On 22.04.21 17:16, Jan Beulich wrote:
->>> On 22.04.2021 17:10, Juergen Gross wrote:
->>>> Some features of Xen can be assumed to be always present, so add a
->>>> central check to verify this being true and remove the other checks.=
-
->>>>
->>>> Juergen Gross (3):
->>>>     xen: check required Xen features
->>>>     xen: assume XENFEAT_mmu_pt_update_preserve_ad being set for pv g=
-uests
->>>>     xen: assume XENFEAT_gnttab_map_avail_bits being set for pv guest=
-s
->>>
->>> I wonder whether it's a good idea to infer feature presence from
->>> version numbers. If (at some point in the past) you had inferred
->>> gnttab v2 being available by version, this would have been broken
->>> by its availability becoming controllable by a command line option
->>> in Xen.
+On 22.04.21 17:26, Stefano Stabellini wrote:
+> On Thu, 22 Apr 2021, Juergen Gross wrote:
+>> Linux kernel is not supported to run on Xen versions older than 4.0.
 >>
->> I'm testing the feature to be really present when booting and issue a
->> message if it is not there.
+>> Add tests for required Xen features always being present in Xen 4.0
+>> and newer.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   drivers/xen/features.c | 18 ++++++++++++++++++
+>>   1 file changed, 18 insertions(+)
+>>
+>> diff --git a/drivers/xen/features.c b/drivers/xen/features.c
+>> index 25c053b09605..60503299c9bc 100644
+>> --- a/drivers/xen/features.c
+>> +++ b/drivers/xen/features.c
+>> @@ -9,13 +9,26 @@
+>>   #include <linux/types.h>
+>>   #include <linux/cache.h>
+>>   #include <linux/export.h>
+>> +#include <linux/printk.h>
+>>  =20
+>>   #include <asm/xen/hypercall.h>
+>>  =20
+>> +#include <xen/xen.h>
+>>   #include <xen/interface/xen.h>
+>>   #include <xen/interface/version.h>
+>>   #include <xen/features.h>
+>>  =20
+>> +/*
+>> + * Linux kernel expects at least Xen 4.0.
+>> + *
+>> + * Assume some features to be available for that reason (depending on=
+ guest
+>> + * mode, of course).
+>> + */
+>> +#define chk_feature(f) {						\
+>> +		if (!xen_feature(f))					\
+>> +			pr_err("Xen: feature %s not available!\n", #f);	\
+>> +	}
 >=20
-> And how does this help if the feature really isn't there yet other code=
+> I think this could be done as a static inline function in
+> include/xen/features.h. That way it would be available everywhere. Also=
+,
+> static inlines are better than macro when it is possible to use them in=
 
-> assumes it is?
+> terms of code safety.
 
-Did you look at the features I'm testing? Those are really just low
-level additions I can't imagine will ever be removed again.
+It is a macro in order to have only one parameter.
+
+And being a local macro is rendering the code safety reasoning moot.
+
+Additionally I don't want this testing to be scattered all over the
+code base. It should be done in one place only.
 
 
 Juergen
 
---------------C85339484172C36ACC5E171B
+--------------7E3599148FA0E975EDDBF1E7
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -228,25 +242,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C85339484172C36ACC5E171B--
+--------------7E3599148FA0E975EDDBF1E7--
 
---I3qPelmf7Vi6Vq6oeYr6pX5DdsUKm5jN6--
+--vO2PCTeA41QelLhMxxseFypK2vpnN563G--
 
---9rkSk1vSn9FbOegTsaEK6WLbeoKsWPGaO
+--9jsmYefyZXuxd8BEDEztk8fd9EHtUlzTD
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCBliQFAwAAAAAACgkQsN6d1ii/Ey8R
-kAf/Yn8ZB8bHah0fvuPFH2DhwdOi6paaQoWP1M7PTJteX5Rw+3lPCM4q18Rh+r9AQZu67wVkCwwR
-HTTaSwvOA6t5bfLroJcyDz6EEPa8PogSjCljSEUCJbU2nWD1t/OzMuozAr0iZ1LM1MHmojKDjfy1
-xdKUtbfkObaaHTuV/yqsMrncDAT0GQGDtDbyG6qWex94a304g6Sh1b0khyuje+r9E7ozVwsKiH74
-96Ta6f2fvb43kmQLd/ol/SeMzDnuOjLGHiDKx/jZbq1/Lqf1LAIYhtLv+lPKzVZgUoNaLttToN6K
-IluqnFluwQ7FehfJYbClQLmkdi+OhFCyDowQMYLaEg==
-=5oYG
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCBlxAFAwAAAAAACgkQsN6d1ii/Ey8L
+CQf5AT0Wvlrt5lx4Bs58DO6d3FuHdrHUfBJgu78N6o4y9e/+jqIVYzO8jVfkZtO3kuLUWlM33fka
+h+0NEOKoJFB9mlD5iASgb/tcswOIrWekzGH8AxDZ3F3R/Hi+JsVoNe0k4xlgWXlzO2SQKRGNlCxf
+i83mMiZEUeE6eUgWwqhZVMbGpuS1SM8rmeRne9IMozSZLNpOGKZ0XNZ2srG5po41CFKERYN/H1NW
+6Eq3rxVWU1T04xDuAQYNx2YY4NkPHRoCm/3AHnp2QpfUSoLWb7G5YIpZ2EmugpkEf5eyp2FMoanb
+IPRDxrapVjq4KFAjZfJteXtnNXD0MaYQgFpuinVxoA==
+=7nvl
 -----END PGP SIGNATURE-----
 
---9rkSk1vSn9FbOegTsaEK6WLbeoKsWPGaO--
+--9jsmYefyZXuxd8BEDEztk8fd9EHtUlzTD--
 
