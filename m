@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0705C367C95
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 10:32:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115196.219671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122B8367CF1
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Apr 2021 10:53:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115201.219683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZUki-0005mw-Ml; Thu, 22 Apr 2021 08:32:00 +0000
+	id 1lZV5A-0007qE-DR; Thu, 22 Apr 2021 08:53:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115196.219671; Thu, 22 Apr 2021 08:32:00 +0000
+Received: by outflank-mailman (output) from mailman id 115201.219683; Thu, 22 Apr 2021 08:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZUki-0005mX-IT; Thu, 22 Apr 2021 08:32:00 +0000
-Received: by outflank-mailman (input) for mailman id 115196;
- Thu, 22 Apr 2021 08:31:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lZV5A-0007pp-9x; Thu, 22 Apr 2021 08:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 115201;
+ Thu, 22 Apr 2021 08:53:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uib8=JT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZUkg-0005mS-TH
- for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 08:31:58 +0000
+ id 1lZV59-0007pk-Fn
+ for xen-devel@lists.xenproject.org; Thu, 22 Apr 2021 08:53:07 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 664c74df-573b-489b-bd76-7ebe9fee989e;
- Thu, 22 Apr 2021 08:31:58 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0fd0ef89-5c54-4332-94ac-d439acb5be0d;
+ Thu, 22 Apr 2021 08:53:06 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3D383AD80;
- Thu, 22 Apr 2021 08:31:57 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 8DC5DB04F;
+ Thu, 22 Apr 2021 08:53:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,84 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 664c74df-573b-489b-bd76-7ebe9fee989e
+X-Inumbo-ID: 0fd0ef89-5c54-4332-94ac-d439acb5be0d
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619080317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619081585; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Itmj1dp0jX2qjPeM0M8JlSoAYgWKoD9M1ycMH63OQYY=;
-	b=F37WVmwdpCK+X/rQmCbQWirxjRYK9Ed2TOa8K/JvUovkrHiGQKuUHDTqL7asM0CnnkHSdn
-	uUyqCgdw3Gg9brY1auKlhPg/2IP1zzEwyGNRcytvGz+AquRqcKqZzyM5oA/Q+UprnhUu65
-	zwUs3AMkNPch8cpw5EM08qTUmnjM8Hs=
-Subject: Re: [PATCH v2 14/21] libs/guest: introduce helper to check cpu policy
- compatibility
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210413140140.73690-1-roger.pau@citrix.com>
- <20210413140140.73690-15-roger.pau@citrix.com>
- <f20144fb-9ed5-1819-1d00-13506ba2178e@suse.com>
- <YIEyTZ5E1StTMIBk@Air-de-Roger>
+	bh=vvJVZKIQ7nzqthQNf7Gjf4K0aXrUNPHb1yrWcFsulSo=;
+	b=IaX3+o/Luox0mL1UZX83zixbdOI9yCxzgUWjdrXKmvH4DgnZUms+q8Js82HY5fAQK0vftq
+	oAaMuZXXPPYIvR/AKH4UNwUT+MjXxD15qIh7TdIvjcCD4iXKrXT9u1YQPcxY9ivpJDhNnN
+	uy3ximAQDTa+pFW83gq93Hr563QT59w=
+Subject: Re: Ping: [PATCH v5 0/6] evtchn: (not so) recent XSAs follow-on
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <306e62e8-9070-2db9-c959-858465c50c1d@suse.com>
+ <d29fa89b-ea0a-bdbd-04c9-02eff0854d47@suse.com>
+ <40e90456-90dc-7932-68ec-6f4d0941999f@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9349102e-7019-c6c3-3830-6374b47f314b@suse.com>
-Date: Thu, 22 Apr 2021 10:31:57 +0200
+Message-ID: <0e19fb4c-4a87-ff80-fa98-fab623d6704f@suse.com>
+Date: Thu, 22 Apr 2021 10:53:05 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <YIEyTZ5E1StTMIBk@Air-de-Roger>
+In-Reply-To: <40e90456-90dc-7932-68ec-6f4d0941999f@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.04.2021 10:22, Roger Pau Monné wrote:
-> On Wed, Apr 14, 2021 at 03:36:54PM +0200, Jan Beulich wrote:
->> On 13.04.2021 16:01, Roger Pau Monne wrote:
->>> --- a/tools/libs/guest/xg_cpuid_x86.c
->>> +++ b/tools/libs/guest/xg_cpuid_x86.c
->>> @@ -925,3 +925,22 @@ int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t policy,
->>>  
->>>      return rc;
->>>  }
->>> +
->>> +bool xc_cpu_policy_is_compatible(xc_interface *xch, const xc_cpu_policy_t host,
->>> +                                 const xc_cpu_policy_t guest)
->>> +{
->>> +    struct cpu_policy_errors err = INIT_CPU_POLICY_ERRORS;
->>> +    struct cpu_policy h = { &host->cpuid, &host->msr };
->>> +    struct cpu_policy g = { &guest->cpuid, &guest->msr };
->>> +    int rc = x86_cpu_policies_are_compatible(&h, &g, &err);
->>> +
->>> +    if ( !rc )
->>> +        return true;
->>> +
->>> +    if ( err.leaf != -1 )
->>> +        ERROR("Leaf %#x subleaf %#x is not compatible", err.leaf, err.subleaf);
->>> +    if ( err.msr != -1 )
->>> +        ERROR("MSR index %#x is not compatible", err.msr);
+On 21.04.2021 17:56, Julien Grall wrote:
+> 
+> 
+> On 21/04/2021 16:23, Jan Beulich wrote:
+>> On 27.01.2021 09:13, Jan Beulich wrote:
+>>> These are grouped into a series largely because of their origin,
+>>> not so much because there are (heavy) dependencies among them.
+>>> The main change from v4 is the dropping of the two patches trying
+>>> to do away with the double event lock acquires in interdomain
+>>> channel handling. See also the individual patches.
+>>>
+>>> 1: use per-channel lock where possible
+>>> 2: convert domain event lock to an r/w one
+>>> 3: slightly defer lock acquire where possible
+>>> 4: add helper for port_is_valid() + evtchn_from_port()
+>>> 5: type adjustments
+>>> 6: drop acquiring of per-channel lock from send_guest_{global,vcpu}_virq()
 >>
->> Personally I'm against making assumptions like these ones about what
->> (in this case) INIT_CPU_POLICY_ERRORS actually expands to (i.e. three
->> times -1). I can see how alternatives to this are quickly going to
->> get ugly, so I'll leave it to others to judge.
+>> Only patch 4 here has got an ack so far - may I ask for clear feedback
+>> as to at least some of these being acceptable (I can see the last one
+>> being controversial, and if this was the only one left I probably
+>> wouldn't even ping, despite thinking that it helps reduce unecessary
+>> overhead).
 > 
-> Would you like me to define a separate POLICY_ERROR? ie:
-> 
-> #define INIT_CPU_POLICY_ERROR -1
-> #define INIT_CPU_POLICY_ERRORS { INIT_CPU_POLICY_ERROR, \
->                                  INIT_CPU_POLICY_ERROR, \
->                                  INIT_CPU_POLICY_ERROR }
+> I left feedback for the series one the previous version (see [1]). It 
+> would have been nice is if it was mentionned somewhere as this is still 
+> unresolved.
 
-I would prefer this; I'm not sure (nit: properly parenthesized)
--1 is  the value to use though, considering the fields are unsigned.
-I wonder what Andrew thinks, as he did introduce all of this.
+I will admit I forgot about the controversy on patch 1. I did, however,
+reply to your concerns. What didn't happen is the feedback from others
+that you did ask for.
 
-> We already have a bunch of open coded -1 checks anyway, but might
-> prevent new ones from appearing.
-
-Indeed.
+And of course there are 4 more patches here (one of them having an ack,
+yes) which could do with feedback. I'm certainly willing, where possible,
+to further re-order the series such that controversial changes are at its
+end.
 
 Jan
 
