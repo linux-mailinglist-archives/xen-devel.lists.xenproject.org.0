@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBC336941D
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 15:55:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.116397.222178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32505369478
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 16:14:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.116412.222198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZwHG-0000nu-2U; Fri, 23 Apr 2021 13:55:26 +0000
+	id 1lZwZd-0002qD-Q5; Fri, 23 Apr 2021 14:14:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 116397.222178; Fri, 23 Apr 2021 13:55:26 +0000
+Received: by outflank-mailman (output) from mailman id 116412.222198; Fri, 23 Apr 2021 14:14:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZwHF-0000nV-VS; Fri, 23 Apr 2021 13:55:25 +0000
-Received: by outflank-mailman (input) for mailman id 116397;
- Fri, 23 Apr 2021 13:55:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vTXC=JU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZwHE-0000nQ-63
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 13:55:24 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1e410179-4005-4dc4-be59-52355106fb68;
- Fri, 23 Apr 2021 13:55:22 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0FA21ADD7;
- Fri, 23 Apr 2021 13:55:22 +0000 (UTC)
+	id 1lZwZd-0002po-Ms; Fri, 23 Apr 2021 14:14:25 +0000
+Received: by outflank-mailman (input) for mailman id 116412;
+ Fri, 23 Apr 2021 14:14:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YtAR=JU=unikie.com=jukka.kaartinen@srs-us1.protection.inumbo.net>)
+ id 1lZwZc-0002pj-1t
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 14:14:24 +0000
+Received: from mail-lj1-x22b.google.com (unknown [2a00:1450:4864:20::22b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 32cf899f-9ef6-4e36-a08b-a3df296ee9d6;
+ Fri, 23 Apr 2021 14:14:20 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id o5so22768918ljc.1
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Apr 2021 07:14:20 -0700 (PDT)
+Received: from [192.168.1.76] (91-153-193-15.elisa-laajakaista.fi.
+ [91.153.193.15])
+ by smtp.gmail.com with ESMTPSA id t18sm583489lfe.20.2021.04.23.07.14.18
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Apr 2021 07:14:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,113 +43,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e410179-4005-4dc4-be59-52355106fb68
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619186122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uF42qcj6uAe5IJIPaKlA6x1rKHWEXo6WJFxStEKqz/Y=;
-	b=kzVBCtaRe9X+hRFvMnmW+SIphuaCj4nVXkpY6U3tQA0x/gT8CvIsnSOSrETEGalRGZWbRY
-	Trm1VUpL9jZJl2yKylWrOyJ9kvgcTtMw07n2aMyDVZED4PElrPcc4j9FxwHPyYCv9xvmx5
-	rDX2XozwQMRP0e6FAVKRb0M4o/Z0/FY=
-Subject: Re: [PATCH] x86/oprofile: remove compat accessors usage from
- backtrace
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210423123509.9354-1-roger.pau@citrix.com>
- <7d77cd67-5866-9d58-b2d0-b8d28b827084@suse.com>
- <YILQ0tj8QceN1jaB@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c55c8955-89c1-c5f8-4a56-9596eb0ebd3b@suse.com>
-Date: Fri, 23 Apr 2021 15:55:22 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 32cf899f-9ef6-4e36-a08b-a3df296ee9d6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=unikie-com.20150623.gappssmtp.com; s=20150623;
+        h=to:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=Rokc5goIx5MEohH/KTq/EAesJqBbmeNhipOj+YlK0B0=;
+        b=PWmpVNZYVxSqKyeb6il1NDgak2knUiNUEwjFacbBS4wq37/T/yWs8nnGzt5PZ7kI2a
+         3tO51V1xJHmmjo0ZwPtp++gCtrgK9Nz84l3KyVv05YYUk7pvLRf3dOXijnd/hQbzDe29
+         0BHoEubXv4anYQItZBq10rx51LkWPQjRpqG4mibM8bvFq38AsgiLTnuGFibN13Wsf/62
+         bQos9i5xp0aFzrdtAusaHEaIecoSFQs8jGcAgaF//wnkP8PiSYBAneZXIBW1kbl934eV
+         KMnco1U4480y9GOffX/g84QGuU68SPOQ6Ybup+UkxWh3ZmrZwXhxFkspFaZktx1km+/Z
+         GXWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=Rokc5goIx5MEohH/KTq/EAesJqBbmeNhipOj+YlK0B0=;
+        b=qJxli23P2ZM2Z9SsPM4pkhHN8E0PVLUgiWgNU1F/XOH7yD5kmqfpYGzc+KmRaxMykA
+         ZTMpkiAI83Osiyt3yiLapHNmcQDi9wG9cA4x4wONeq8u+CfNBmutF632QtxDxVYpE7g7
+         FjZ2qansiW03EmA3xp395sGVZH3s0hLg9AeAf1ID0LXJhoer/95ReEexlOcg9sWYghAF
+         /7IYgRnZYstJnetD5o4mFSKNa7krHVJseCCtOrkfLaLL8eV6//07I7zG3qyJ/j7f0D3O
+         NZ+C8+sH58njw9wa40+BGIC3CBiVWTh8564x+agQytEA+kQeoSeTtF7PJ71C+IGK8a9p
+         Hcgg==
+X-Gm-Message-State: AOAM532/UnG+m0KWGi0klF6CC4SrRci+QeObCzsiE6gM5PrCE6PTcI96
+	H6e9HufXb8qIrqHyg8p6+z+j2gv6biYJWA==
+X-Google-Smtp-Source: ABdhPJzT7iY1Z296X8gDn1mQ5DLFl37LZsLNiELxed+UVpMHXPg+UwIqAWUe+ObF8ca2QNXwvzFgjA==
+X-Received: by 2002:a2e:b801:: with SMTP id u1mr2928214ljo.224.1619187259333;
+        Fri, 23 Apr 2021 07:14:19 -0700 (PDT)
+To: Xen-devel <xen-devel@lists.xenproject.org>
+From: Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Subject: Looking for arm based mobile platform that can run Xen
+Message-ID: <0d5e878a-31d8-a491-edab-6d48f447fd7c@unikie.com>
+Date: Fri, 23 Apr 2021 17:14:16 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <YILQ0tj8QceN1jaB@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.04.2021 15:51, Roger Pau Monné wrote:
-> On Fri, Apr 23, 2021 at 02:53:14PM +0200, Jan Beulich wrote:
->> On 23.04.2021 14:35, Roger Pau Monne wrote:
->>> Remove the unneeded usage of the compat layer to copy frame pointers
->>> from guest address space. Instead just use raw_copy_from_guest.
->>>
->>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> Just build tested. Note sure I'm missing something, since using the
->>> compat layer here was IMO much more complicated than just using the
->>> raw accessors.
->>
->> The main reason, I suppose, was that raw_copy_*() aren't supposed to
->> be used directly.
->>
->>> @@ -59,34 +56,17 @@ dump_guest_backtrace(struct vcpu *vcpu, const struct frame_head *head,
->>>  {
->>>      frame_head_t bufhead;
->>>  
->>> -#ifdef CONFIG_COMPAT
->>>      if ( is_32bit_vcpu(vcpu) )
->>>      {
->>> -        DEFINE_COMPAT_HANDLE(frame_head32_t);
->>> -        __compat_handle_const_frame_head32_t guest_head =
->>> -            { .c = (unsigned long)head };
->>
->> You're losing the truncation to 32 bits here.
-> 
-> I didn't think it was relevant here, as value should already have the
-> high bits zeroed?
-> 
-> One being the rbp from the guest cpu registers and the other a
-> recursive call using bufhead.ebp.
+Hi,
 
-Would you mind stating this (i.e. what guarantees the zero-extension)
-in the description?
+We are trying to find Raspberry like mobile HW that can run Xen with 
+full features enabled like pass through devices and iommu support.
 
->>>          frame_head32_t bufhead32;
->>>  
->>> -        /* Also check accessibility of one struct frame_head beyond */
->>> -        if (!compat_handle_okay(guest_head, 2))
->>> -            return 0;
->>
->> If you intentionally remove this and ...
->>
->>> -        if (__copy_from_compat(&bufhead32, guest_head, 1))
->>> +        if (raw_copy_from_guest(&bufhead32, head, sizeof(bufhead32)))
->>>              return 0;
->>>          bufhead.ebp = (struct frame_head *)(unsigned long)bufhead32.ebp;
->>>          bufhead.ret = bufhead32.ret;
->>>      }
->>> -    else
->>> -#endif
->>> -    {
->>> -        XEN_GUEST_HANDLE_PARAM(const_frame_head_t) guest_head =
->>> -            const_guest_handle_from_ptr(head, frame_head_t);
->>> -
->>> -        /* Also check accessibility of one struct frame_head beyond */
->>> -        if (!guest_handle_okay(guest_head, 2))
->>> -            return 0;
->>
->> ... this, then you should justify why these aren't needed anymore
->> (or maybe were never really needed). They've been put there for a
->> purpose, I'm sure, even if I'm unclear about what one it was/is.
-> 
-> I've been doing some archaeology on Linux and I'm still not sure why
-> this is required. Linux copies two frame_head{32,}_t elements, so we
-> could follow suit and do the same - albeit I won't be able to provide
-> a reasoning myself as to why this is required, the second element
-> seems to be completely unused.
+So far we have tried these:
 
-Well, my guess has always been that this is an attempt at making sure
-the stack with the frame popped is still a valid one. This would still
-seem to me to be a somewhat questionable reasoning for the two-element
-access, but I couldn't think of any other possible thoughts behind
-this.
+These don't have iommu:
+   * Raspberry Pi 4b
 
-Jan
+iommu doesn't cover whole io address space only some devices are behind 
+iommu:
+   *OrangePi 4b
+
+Bad upstream kernel support:
+   *Nvidia Xavier NX 
+https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/
+
+Closed source bootloader that won't boot kernel into EL2:
+   * DragonBoard 845c https://www.96boards.org/product/rb3-platform/
+   * Snapdragon 845 mobile hdk 
+https://www.lantronix.com/products/snapdragon-845-mobile-hdk/
+
+
+Any ideas? :)
+
+We could consider using some low end laptop.
+
+
+-Jukka
 
