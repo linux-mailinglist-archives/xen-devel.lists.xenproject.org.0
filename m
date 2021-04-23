@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E1FD369041
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 12:22:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.116060.221470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD54369078
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 12:38:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.116070.221481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZsxN-0007hs-4a; Fri, 23 Apr 2021 10:22:41 +0000
+	id 1lZtBZ-0000cu-Hz; Fri, 23 Apr 2021 10:37:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 116060.221470; Fri, 23 Apr 2021 10:22:41 +0000
+Received: by outflank-mailman (output) from mailman id 116070.221481; Fri, 23 Apr 2021 10:37:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZsxN-0007hS-18; Fri, 23 Apr 2021 10:22:41 +0000
-Received: by outflank-mailman (input) for mailman id 116060;
- Fri, 23 Apr 2021 10:22:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lZtBZ-0000cX-Eo; Fri, 23 Apr 2021 10:37:21 +0000
+Received: by outflank-mailman (input) for mailman id 116070;
+ Fri, 23 Apr 2021 10:37:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YHlh=JU=list.ru=valor@srs-us1.protection.inumbo.net>)
- id 1lZsxL-0007gv-OL
- for xen-devel@lists.xen.org; Fri, 23 Apr 2021 10:22:40 +0000
-Received: from smtp36.i.mail.ru (unknown [94.100.177.96])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 796a99cc-ef37-4de2-bf7d-3da3cf806460;
- Fri, 23 Apr 2021 10:22:37 +0000 (UTC)
-Received: by smtp36.i.mail.ru with esmtpa (envelope-from <valor@list.ru>)
- id 1lZsxH-0002dK-FO; Fri, 23 Apr 2021 13:22:35 +0300
+ (envelope-from <SRS0=o87G=JU=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1lZtBY-0000cS-54
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 10:37:20 +0000
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::6])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 70cd2550-dcc7-4010-a015-32e776718dcb;
+ Fri, 23 Apr 2021 10:37:18 +0000 (UTC)
+Received: from aepfle.de by smtp.strato.de (RZmta 47.24.3 DYNA|AUTH)
+ with ESMTPSA id g00c91x3NAbGZa9
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 23 Apr 2021 12:37:16 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,360 +40,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 796a99cc-ef37-4de2-bf7d-3da3cf806460
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=list.ru; s=mail3;
-	h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:Cc:To:From:References:Subject:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc; bh=FgzuYzveHfgDiRmpu14dVa4tC6zz3tdUhrDe7LeebVw=;
-	b=AwOgrKydjXoO5dSV4yi7BdRLEKEfGBpXJuzmi5W/Qz60Gbj2MGd3whXrk4OF4mR4L35YajZyvCjs3EuzloUWhFNw0BvFGhO6kui7qgaKX4UoVWoKl8Pa6azPQ81vkhss5e+SEINeIVrOZWjtJb/VRj2KUdwUW46oTtTL6bOE3Qs=;
-Subject: Fwd: [BUG] Windows is frozen after restore from snapshot
-References: <6237e102-f2cf-a66e-09b6-954ebfe28f8c@list.ru>
-From: Sergey Kovalev <valor@list.ru>
-To: xen-devel@lists.xen.org
-Cc: zaytsevgu@gmail.com
-X-Forwarded-Message-Id: <6237e102-f2cf-a66e-09b6-954ebfe28f8c@list.ru>
-Message-ID: <46f8bf3e-cd6e-e2de-94c1-c8a55fb10648@list.ru>
-Date: Fri, 23 Apr 2021 13:22:34 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+X-Inumbo-ID: 70cd2550-dcc7-4010-a015-32e776718dcb
+ARC-Seal: i=1; a=rsa-sha256; t=1619174237; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=p8Bbg5NZEYJfBI8D+QpKeG+3iKBKl6jIho2jiU4gySxPm2YIynZjtCN9Os22tRdrcE
+    GNKFDmnmzQWIXnQnsIPLOozgntJE6bU4L8KkOA9hbXyI7ehHwpycvzzegBILqkGmHVXV
+    SGcLT/jCiXPX7xWQG3M97KZkbogBbIAahuSucr/pPxwzcF0cBhVTGMwyuklRyG5cpQKl
+    CXOfxHffqp43K5m3iv0uuYxLOINyrJXnx0NSsicSChFGpl0Sc+U06WZteaxOxHWb3TCz
+    IX9hC33Pyc5ON7azisjkjumXOeaaFOxpKf43rBEvI0sNApYlQHkF1gZ4YO5K5isWwAdV
+    hWYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1619174237;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=j93W4MdtcJ06QaKj+KWzi2ni53gGP1p2Z/Qqky/mcFc=;
+    b=moRMwC7htqeXvbZH0Zlj2JkpKXCGff7ci1mMAiBWenUpqn4C8I9eIqWDiIkV5Ew0M6
+    xWIbvB77BfO1xVH1jHB21XjSUWYD0kdZBWBVcUCQThO+XOt63wvCCv8pSmTczaK2ztBY
+    h/SULOnjR8qfs3iYhKWxCKRqwiN9lE0rXqB5yHmENvPnGZ39gbxVRjWTT9JaxZ0rTBRP
+    FGAmd69LUAKCGAG8GmgV1HlrOVbDnwCoek/Io/2/hnGHMd9Q+HE8zlsNinIXYDW0tvir
+    +GOyV7tLmAUvzUsSyOqeuzuJ1GteEslgsb70u6XRPH53evuOLUp1RvPLdLCQHRrDmCPT
+    HwEg==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1619174237;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=j93W4MdtcJ06QaKj+KWzi2ni53gGP1p2Z/Qqky/mcFc=;
+    b=CV32QIIkQlMcvnqckvLL3zrEI1NXs7cCmC1JvkeC970tm8griaFGLe5hcUJrK9jl/S
+    NHu9oqM2k0bC5kEqXUfpY1JLgZ9nMMAkiLTXhVPJ8Ryq3oDDx4AkLVp9Ndnw9JinTG8I
+    FSRUYTwwOvLwxq6QZSUvnbhi/IhKTHvefhSIG5QJ+a6V6FCM1EBnHapZpy/otZ9DOvky
+    LnP4RtWi9SOrM/y50UMnSt+SFxP5He0aV5WliGBBCerVYWLeOreOp1ECMGDiuUe8cT2m
+    MgqExuFQ6cEz14I6SZhpPqI2/+Y9TyxJcF1OfQXjJGfZzENddwnSza/3b/C6DBuJK1di
+    FKRg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuz7MdiQehTvc3RdcLGMdqQ=="
+X-RZG-CLASS-ID: mo00
+Date: Fri, 23 Apr 2021 12:37:12 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Wei Liu <wei.liu2@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [Xen-devel] [PATCH v2] hotplug/Linux: fix starting of xenstored
+ with restarting systemd
+Message-ID: <YIKjWBSSV++6mBpd@aepfle.de>
+References: <20190517095621.24271-1-olaf@aepfle.de>
 MIME-Version: 1.0
-In-Reply-To: <6237e102-f2cf-a66e-09b6-954ebfe28f8c@list.ru>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: ru-RU
-Content-Transfer-Encoding: 7bit
-Authentication-Results: smtp36.i.mail.ru; auth=pass smtp.auth=valor@list.ru smtp.mailfrom=valor@list.ru
-X-7564579A: 78E4E2B564C1792B
-X-77F55803: 4F1203BC0FB41BD9203E2ABA940B7548F5BB1D231581C270E5D52311C6CD930F182A05F538085040BBA653FF584691B923390E41C51DC3537C5491697FDD0F38C07E61312F23B3F4
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE70043D879A87EF1BCEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006371005780D56A98C20EA1F7E6F0F101C67CDEEF6D7F21E0D1D9295C2E9FA3191EE1B59CA4C82EFA658F78FA424D9502CF54F62EC466A4B22E1F6B57BC7E64490618DEB871D839B73339E8FC8737B5C22498424CA1AAF98A6958941B15DA834481FCF19DD082D7633A0EF3E4896CB9E6436389733CBF5DBD5E9D5E8D9A59859A8B68424CA1AAF98A6958941B15DA834481F9449624AB7ADAF37BA3038C0950A5D3613377AFFFEAFD269176DF2183F8FC7C0287EE14F2A8630337B076A6E789B0E97A8DF7F3B2552694A1E7802607F20496D49FD398EE364050F33AC447995A7AD18AD7EC71F1DB88427C4224003CC8364764FCD328C77E6096CE2021AF6380DFAD1A18204E546F3947CB11811A4A51E3B096D1867E19FE1407959CC434672EE6371089D37D7C0E48F6C8AA50765F79006377870F476E0DB9443EFF80C71ABB335746BA297DBC24807EABDAD6C7F3747799A
-X-C1DE0DAB: 0D63561A33F958A5A5AFD6085112A9D461A8B0219E5F8AA32770F8F87B085582D59269BC5F550898D99A6476B3ADF6B47008B74DF8BB9EF7333BD3B22AA88B938A852937E12ACA751098AAFFB0A1231D8E8E86DC7131B365E7726E8460B7C23C
-X-C8649E89: 4E36BF7865823D7055A7F0CF078B5EC49A30900B95165D34A9A0A0BF1A2CAC62EA6EDFC063BF2FD9096CD9767523C0F220692F36B91914C009152201A81279B91D7E09C32AA3244CF2E9079A8573FB001E6FB7A11CE9FC0764EE5813BBCA3A9D729B2BEF169E0186
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojMA4lh0BuVjMw3MQdBa5Bdg==
-X-Mailru-Sender: 6C3E74F07C41AE94CB3BE32A189147468D5125A9A80EED180AC2A19F178796C7739DF2B2D2CF89AEE54CE59283E19BE8E66B5C1DBFD5D09DD72DCFCE6FA85F85A74E2CAFD6E5C6FC67EA787935ED9F1B
-X-Mras: Ok
-
-# Abstract
-
-After `xl save win win.mem` and then `xl restore win.hvm win.mem`
-the Windows 10 VM remain frozen for about a minute. After the
-minute it becomes responsive.
-
-During the freeze the OS remains semi-responsive: on `Ctrl+Shift+Esc`
-press the wait cursor appears (blue circle indicator).
-
-This is an intermittent fault been reproduced only twice.
-
-# Technical notes
-
-It have been noticed that there were no timer interrupts during
-the freeze.
-
-zaytsevgu@gmail.com has debugged the received Xen state file and
-noticed that the flag HPET_TN_PERIODIC been set after unfreeze.
-
-Based on that he provided two Python scripts: one to check the
-value and one to patch it.
-
-Both "broken" state files we have been detected and patched
-successfully.
-
-# Other information
-
-## Target machine
-
-```bash
-$ uname -a
-Linux localhost 5.4.0-66-generic #74~18.04.2-Ubuntu SMP
-Fri Feb 5 11:17:31 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
-```
-
-## Xen version
-
-Build from source on tag RELEASE-4.12.4
-
-## OS version
-
-* Windows 10 build 1803 x64
-* Hibernation, sleep and other disabled with powershell commands:
-```
-powercfg /hibernate off
-powercfg /change standby-timeout-ac 0
-powercfg /change standby-timeout-dc 0
-powercfg /change monitor-timeout-ac 0
-powercfg /change monitor-timeout-dc 0
-powercfg /change disk-timeout-ac 0
-powercfg /change disk-timeout-dc 0
-```
-
-## Configuration file
-
-Build with envsubst from template:
-
-```
-name = "$VM_NAME"
-type = "hvm"
-
-vcpus = 2
-maxvcpus = 2
-
-memory = 2048
-maxmem = 2048
-
-on_poweroff = "destroy"
-on_reboot = "destroy"
-on_watchdog = "destroy"
-on_crash = "destroy"
-on_soft_reset = "soft-reset"
-
-nomigrate = 1
-
-disk = [ "format=qcow2, vdev=hda, target=$VM_DISK_IMAGE_PATH" ]
-
-vif = [ "type=ioemu, model=e1000" ]
-
-hdtype = "ahci"
-
-shadow_memory = 16
-
-altp2m = "external"
-
-viridian = [ "defaults" ]
-
-videoram = 128
-vga = "stdvga"
-
-vnc = 1
-vncunused = 1
-
-soundhw = "hda"
-
-usb = 1
-usbdevice = [ "usb-tablet" ]
-```
-
-## Check script
-
-The script has been provided by zaytsevgu@gmail.com
-(with little refactoring).
-
-It checks that image is broken.
-
-```python
-#!/usr/bin/env python3
-
-
-import logging
-from pathlib import Path
-import sys
-import struct
-
-
-def check_snapshot_hpet(snapshot: Path) -> bool:
-     def get_b32(file):
-         data = file.read(4)
-         return struct.unpack('>L', data)[0]
-
-     def get_l32(file):
-         data = file.read(4)
-         return struct.unpack('<L', data)[0]
-
-     def get_l64(file):
-         data = file.read(8)
-         return struct.unpack('<Q', data)[0]
-
-     def get_hpet_loc_by_tag9(file):
-         while True:
-             tag = get_l32(file)
-             tlen = get_l32(file)
-             if tag == 12:
-                 break
-             file.seek(tlen, 1)
-         _ = get_l64(file) # caps
-         _ = [get_l64(file) for i in range(31)]
-         timer1_conf = get_l64(file)
-         # Basic check
-         if timer1_conf & 0xff == 0x34:
-             return file.tell() - 8
-         return None
-
-     def get_hpet(file):
-         _ = get_l32(file)  # x1
-         _ = get_l32(file)  # x2
-         hdr = file.read(4)
-         if hdr != b'XENF':
-             return None
-         _ = get_b32(file)  # version
-         get_b32(file)
-         get_b32(file)
-         _ = get_l32(file)  # dmt
-         _ = get_l32(file)  # page_shift
-         _ = get_l32(file)  # xmj
-         _ = get_l32(file)  # xmn
-
-         while True:
-             tag_type = get_l32(file)
-             rlen = get_l32(file)
-             if tag_type == 9:
-                 break
-             else:
-                 file.seek(rlen, 1)
-         return get_hpet_loc_by_tag9(file)
-
-     original = open(snapshot, 'rb')
-
-     header = original.read(0x1000)
-     xl_offset = header.index(b'LibxlFmt')
-     original.seek(xl_offset)
-     magic = original.read(8)
-     if magic != b'LibxlFmt':
-         logging.error('Invalid snapshot format')
-         raise RuntimeError
-
-     _ = get_b32(original)  # version
-     _ = get_b32(original)  # options
-     record_type = get_l32(original)
-     _ = get_l32(original)  # blen
-     if record_type != 1:
-         logging.error('Invalid snapshot record type')
-         raise RuntimeError
-     hpet_flag_byte_offset = get_hpet(original)
-     if hpet_flag_byte_offset is not None:
-         original.close()
-         return False
-     else:
-         original.close()
-         return True
-
-
-if check_snapshot_hpet(sys.argv[1]):
-     print('The image is good! :)')
-     sys.exit(0)
-else:
-     print('The image is so bad... :(')
-     sys.exit(1)
-```
-
-The image could be fixed with a little addition:
-```python
-hpet_new = hpet[0] ^ 0x8
-```
-, on `hpet_flag_byte_offset`
-
-## Patch script
-
-```python
-import sys
-import struct
-import io
-
-def get_b32(file):
-     data = file.read(4)
-     return struct.unpack(">L", data)[0]
-
-def get_l32(file):
-     data = file.read(4)
-     return struct.unpack("<L", data)[0]
-
-def get_l64(file):
-     data = file.read(8)
-     return struct.unpack("<Q", data)[0]
-
-
-def get_hpet_loc_by_tag9(file, rlen):
-     while True:
-         tag = get_l32(file)
-         tlen = get_l32(file)
-         if tag == 12:
-             break
-         file.seek(tlen, 1)
-     caps = get_l64(file)
-     [get_l64(file) for i in range(31)]
-     timer1_conf = get_l64(file)
-     print(hex(timer1_conf))
-     if timer1_conf & 0xff == 0x34: #VERY DUMMY CHECK
-         return file.tell() - 8
-     return None
-
-def get_hpet(file):
-     x1 = get_l32(file)
-     x2 = get_l32(file)
-     hdr = file.read(4)
-     # print(hdr)
-     if hdr != b"XENF":
-         return None
-     version = get_b32(file)
-     get_b32(file)
-     get_b32(file)
-     dmt = get_l32(file)
-     page_shift = get_l32(file)
-     xmj = get_l32(file)
-     xmn = get_l32(file)
-
-     while True:
-         tag_type = get_l32(file)
-         # print(tag_type)
-         rlen = get_l32(file)
-         if tag_type == 9:
-             break
-         else:
-             file.seek(rlen, 1)
-     print("Found tag 9!")
-     return get_hpet_loc_by_tag9(file, rlen)
-
-
-original = open(sys.argv[1], "rb")
-new = open(sys.argv[1]+".hpet_enable_periodic", "wb")
-
-header = original.read(0x1000)
-xl_offset = header.index(b"LibxlFmt")
-print("Found offset to xl data: {:x}".format(xl_offset))
-original.seek(xl_offset)
-magic = original.read(8)
-if magic != b"LibxlFmt":
-     print("ERROR INVALID FORMAT")
-else:
-     version = get_b32(original)
-     options = get_b32(original)
-     record_type = get_l32(original)
-     blen = get_l32(original)
-     # print(record_type, blen)
-     if record_type != 1:
-         0/0
-     hpet_flag_byte_offset = get_hpet(original)
-     if hpet_flag_byte_offset != None:
-         print("Got hpet timer flag!")
-         file_size = 0
-         original.seek(0, 2)
-         file_size = original.tell()
-         original.seek(0,0)
-         pos = 0
-         block_size = 4*1024*1024
-         print(hex(hpet_flag_byte_offset))
-         while pos != hpet_flag_byte_offset:
-             if hpet_flag_byte_offset - pos < block_size:
-                 block_size = hpet_flag_byte_offset - pos
-             data = original.read(block_size)
-             new.write(data)
-             pos += block_size
-         hpet = original.read(8)
-         # print(hpet)
-         hpet_new = hpet[0] ^ 0x8
-         # print(hpet_new)
-         new.write(bytes((hpet_new,)))
-         new.write(hpet[1:])
-         pos = pos + 8
-         block_size = 4*1024*1024
-         while pos != file_size:
-             if file_size - pos < block_size:
-                 block_size = file_size - pos
-             data = original.read(block_size)
-             new.write(data)
-             pos += block_size
-     else:
-         print("can't find")
-original.close()
-new.close()
-```
-
--- 
-With best regards,
-Sergey Kovalev
-
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="oWmjQS5dK1GEjOsR"
+Content-Disposition: inline
+In-Reply-To: <20190517095621.24271-1-olaf@aepfle.de>
+
+
+--oWmjQS5dK1GEjOsR
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Ping?
+
+On Fri, May 17, Olaf Hering wrote:
+
+> A hard to trigger race with another unrelated systemd service and
+> xenstored.service unveiled a bug in the way how xenstored is launched
+> with systemd.
+>=20
+> launch-xenstore may start either a daemon or a domain. In case a domain
+> is used, systemd-notify was called. If another service triggered a
+> restart of systemd while xenstored.service was executed, systemd may
+> temporary lose track of services with Type=3Dnotify. As a result,
+> xenstored.service would be marked as failed and units that depend on it
+> will not be started anymore. This breaks the enire Xen toolstack.
+>=20
+> The chain of events is basically: xenstored.service sends the
+> notification to systemd, this is a one-way event. Then systemd may be
+> restarted by the other unit. During this time xenstored.service is done
+> and exits. Once systemd is done with its restart it collects the pending
+> notifications and childs. If it does not find the unit which sent the
+> notification it will declare it as failed.
+>=20
+> A workaround for this scenario is to wait for a short time after sending
+> to notification. If systemd happens to restart it will still find the
+> unit it launched.
+>=20
+> Adjust the callers of launch-xenstore to specifiy the init system.
+> Do not fork xenstored with systemd, preserve pid.
+> Be verbose about xenstored startup only with sysv to avoid interleaved
+> output in systemd journal. Do the same also for domain case, even if is
+> not strictly needed because init-xenstore-domain has no output.
+>=20
+> The fix for upstream systemd which is supposed to fix it:
+> 575b300b795b6 ("pid1: rework how we dispatch SIGCHLD and other signals")
+>=20
+> v02:
+> - preserve Type=3Dnotify
+>=20
+> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+> ---
+>  tools/hotplug/Linux/init.d/xencommons.in         |  2 +-
+>  tools/hotplug/Linux/launch-xenstore.in           | 56 ++++++++++++++++++=
+------
+>  tools/hotplug/Linux/systemd/xenstored.service.in |  2 +-
+>  3 files changed, 44 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/tools/hotplug/Linux/init.d/xencommons.in b/tools/hotplug/Lin=
+ux/init.d/xencommons.in
+> index 7fd6903b98..dcb0ce4b73 100644
+> --- a/tools/hotplug/Linux/init.d/xencommons.in
+> +++ b/tools/hotplug/Linux/init.d/xencommons.in
+> @@ -60,7 +60,7 @@ do_start () {
+>  	mkdir -m700 -p ${XEN_LOCK_DIR}
+>  	mkdir -p ${XEN_LOG_DIR}
+> =20
+> -	@XEN_SCRIPT_DIR@/launch-xenstore || exit 1
+> +	@XEN_SCRIPT_DIR@/launch-xenstore 'sysv' || exit 1
+> =20
+>  	echo Setting domain 0 name, domid and JSON config...
+>  	${LIBEXEC_BIN}/xen-init-dom0 ${XEN_DOM0_UUID}
+> diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux=
+/launch-xenstore.in
+> index 991dec8d25..8ff243670d 100644
+> --- a/tools/hotplug/Linux/launch-xenstore.in
+> +++ b/tools/hotplug/Linux/launch-xenstore.in
+> @@ -15,6 +15,16 @@
+>  # License along with this library; If not, see <http://www.gnu.org/licen=
+ses/>.
+>  #
+> =20
+> +initd=3D$1
+> +
+> +case "$initd" in
+> +	sysv|systemd) ;;
+> +	*)
+> +	echo "first argument must be 'sysv' or 'systemd'"
+> +	exit 1
+> +	;;
+> +esac
+> +
+>  XENSTORED=3D@XENSTORED@
+> =20
+>  . @XEN_SCRIPT_DIR@/hotplugpath.sh
+> @@ -44,15 +54,9 @@ timeout_xenstore () {
+>  	return 0
+>  }
+> =20
+> -test_xenstore && exit 0
+> -
+> -test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CON=
+FIG_LEAF_DIR@/xencommons
+> -
+> -[ "$XENSTORETYPE" =3D "" ] && XENSTORETYPE=3Ddaemon
+> +run_xenstored () {
+> +	local maybe_exec=3D$1
+> =20
+> -/bin/mkdir -p @XEN_RUN_DIR@
+> -
+> -[ "$XENSTORETYPE" =3D "daemon" ] && {
+>  	[ -z "$XENSTORED_ROOTDIR" ] && XENSTORED_ROOTDIR=3D"@XEN_LIB_STORED@"
+>  	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS=3D"$XENSTORED_ARGS -T @XEN_=
+LOG_DIR@/xenstored-trace.log"
+>  	[ -z "$XENSTORED" ] && XENSTORED=3D@XENSTORED@
+> @@ -60,13 +64,30 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && =
+=2E @CONFIG_DIR@/@CONFIG_LEAF
+>  		echo "No xenstored found"
+>  		exit 1
+>  	}
+> +	$maybe_exec $XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORE=
+D_ARGS
+> +}
+> =20
+> -	echo -n Starting $XENSTORED...
+> -	$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
+> +if test "$initd" =3D 'sysv' ; then
+> +	test_xenstore && exit 0
+> +fi
+> =20
+> -	systemd-notify --booted 2>/dev/null || timeout_xenstore $XENSTORED || e=
+xit 1
+> +test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CON=
+FIG_LEAF_DIR@/xencommons
+> =20
+> -	exit 0
+> +[ "$XENSTORETYPE" =3D "" ] && XENSTORETYPE=3Ddaemon
+> +
+> +/bin/mkdir -p @XEN_RUN_DIR@
+> +
+> +[ "$XENSTORETYPE" =3D "daemon" ] && {
+> +	if test "$initd" =3D 'sysv' ; then
+> +		echo -n Starting $XENSTORED...
+> +		run_xenstored ''
+> +		timeout_xenstore $XENSTORED || exit 1
+> +		exit 0
+> +	else
+> +		XENSTORED_ARGS=3D"$XENSTORED_ARGS -N"
+> +		run_xenstored 'exec'
+> +		exit 1
+> +	fi
+>  }
+> =20
+>  [ "$XENSTORETYPE" =3D "domain" ] && {
+> @@ -76,9 +97,16 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && .=
+ @CONFIG_DIR@/@CONFIG_LEAF
+>  	XENSTORE_DOMAIN_ARGS=3D"$XENSTORE_DOMAIN_ARGS --memory $XENSTORE_DOMAIN=
+_SIZE"
+>  	[ -z "$XENSTORE_MAX_DOMAIN_SIZE" ] || XENSTORE_DOMAIN_ARGS=3D"$XENSTORE=
+_DOMAIN_ARGS --maxmem $XENSTORE_MAX_DOMAIN_SIZE"
+> =20
+> -	echo -n Starting $XENSTORE_DOMAIN_KERNEL...
+> +	if test "$initd" =3D 'sysv' ; then
+> +		echo -n Starting $XENSTORE_DOMAIN_KERNEL...
+> +	else
+> +		echo Starting $XENSTORE_DOMAIN_KERNEL...
+> +	fi
+>  	${LIBEXEC_BIN}/init-xenstore-domain $XENSTORE_DOMAIN_ARGS || exit 1
+> -	systemd-notify --ready 2>/dev/null
+> +	if test "$initd" =3D 'systemd' ; then
+> +		systemd-notify --ready
+> +		sleep 9
+> +	fi
+> =20
+>  	exit 0
+>  }
+> diff --git a/tools/hotplug/Linux/systemd/xenstored.service.in b/tools/hot=
+plug/Linux/systemd/xenstored.service.in
+> index 80c1d408a5..c226eb3635 100644
+> --- a/tools/hotplug/Linux/systemd/xenstored.service.in
+> +++ b/tools/hotplug/Linux/systemd/xenstored.service.in
+> @@ -11,7 +11,7 @@ Type=3Dnotify
+>  NotifyAccess=3Dall
+>  RemainAfterExit=3Dtrue
+>  ExecStartPre=3D/bin/grep -q control_d /proc/xen/capabilities
+> -ExecStart=3D@XEN_SCRIPT_DIR@/launch-xenstore
+> +ExecStart=3D@XEN_SCRIPT_DIR@/launch-xenstore 'systemd'
+> =20
+>  [Install]
+>  WantedBy=3Dmulti-user.target
+>=20
+> _______________________________________________
+> Xen-devel mailing list
+> Xen-devel@lists.xenproject.org
+> https://lists.xenproject.org/mailman/listinfo/xen-devel
+
+--oWmjQS5dK1GEjOsR
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmCCo1IACgkQ86SN7mm1
+DoBJug//Xiy0vVZ/cGpxy5gHSR1QbrE8Vq75nSzAC5NegSIWYs3xHBUzhIF/5Jg/
+nIz3eDCL3hwgeqaTAEPCPkqi1PUlWJC2Yb/UM0zUbQoAr0WRDJornihnfcCOHhgl
+YpQ7ddgBqQzeKfCzufmSbcAuYnzfMqFQ9gofwlrpa+qQ/Zw+tssUxDgDT6FEq59Z
+6rz1gUKQjKay4enlyiNrBh+ISnEb+aCoVzMCLrewhmFqY549sZrTnP0c8TeU8POl
+YWp+PALp7YPZWbWv4qVTq90+l6Vm5o8yRNbe3SZt5vR0SienAGJIgYh+R7FO2VpQ
+qabUBR4YoTjjyWWP1SWpG4eXnu2DfcNdwvUqFPchbJgP0FOqmBOtyCRTGENgaGi8
+NqXvu8T/0skzyibVQUJ1ud4zVVYOPQAfBfPASzO9BCHn63rbnySij4iFPF1lftTt
+PaDg1EO1XUSgYmRXXxBvZFJDnktZY1HDFXP6Omn1+UJj6jUTTY3lCqxdFIIRwNUO
+EwktlHRlbYrLZUZLcKJnZWqsyIuOeyBE7Q6SbQkPAehIonvCvCaUGyH/l2si54No
+MZ/SjOKkcSx09a4XUiHcJR2YfVTlbCrMN3RVFnj+4GjZvEIcJsHQKL18ha/Lf83D
+w+JAyjbKTN7qEYn+h36E3FiELP2nvXnPqPP4nnuvWA79je5NMzg=
+=BGb/
+-----END PGP SIGNATURE-----
+
+--oWmjQS5dK1GEjOsR--
 
