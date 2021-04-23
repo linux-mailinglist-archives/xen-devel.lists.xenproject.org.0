@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54481368E63
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:05:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115941.221257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6363D368E65
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:05:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115945.221267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZqnt-0000T2-4n; Fri, 23 Apr 2021 08:04:45 +0000
+	id 1lZqoI-0000YW-DJ; Fri, 23 Apr 2021 08:05:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115941.221257; Fri, 23 Apr 2021 08:04:45 +0000
+Received: by outflank-mailman (output) from mailman id 115945.221267; Fri, 23 Apr 2021 08:05:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZqnt-0000Rt-1N; Fri, 23 Apr 2021 08:04:45 +0000
-Received: by outflank-mailman (input) for mailman id 115941;
- Fri, 23 Apr 2021 08:04:44 +0000
+	id 1lZqoI-0000Y8-A0; Fri, 23 Apr 2021 08:05:10 +0000
+Received: by outflank-mailman (input) for mailman id 115945;
+ Fri, 23 Apr 2021 08:05:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hwNy=JU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lZqnr-0000Ra-Uw
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:04:43 +0000
+ id 1lZqoG-0000Y0-Gl
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:05:08 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7a43aa86-c47f-4c65-9eaa-77f3120b750b;
- Fri, 23 Apr 2021 08:04:43 +0000 (UTC)
+ id 5e9cb5cc-3f81-4dbd-af0f-71608ae29bd6;
+ Fri, 23 Apr 2021 08:05:07 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 43C66AFD7;
- Fri, 23 Apr 2021 08:04:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0B169AD69;
+ Fri, 23 Apr 2021 08:05:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,90 +38,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a43aa86-c47f-4c65-9eaa-77f3120b750b
+X-Inumbo-ID: 5e9cb5cc-3f81-4dbd-af0f-71608ae29bd6
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619165082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1619165107; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AQgpXqpqVe/bVy58qF3bnspjQyycb6OTgqVpMz/1hr4=;
-	b=XAlNi6xQ5HnYip+nUFUUBHjx4vCyeAfaaz05Dha0p34wu6qDlUtaQ6XVfz3IZFxd+MEyKy
-	XVSHRl+FlJ9wSgCIxTp/rdWbPkrwbAuFRKKRlnIvzJgooT66S2otqlr03Zoge8J4glBbdM
-	IQ6ufb9/q8uN2XUQgmpNVqnbWebMUHM=
-Subject: Re: [PATCH] xen/pciback: Fix incorrect type warnings
-To: Muhammad Usama Anjum <musamaanjum@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>,
- open list <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- colin.king@canonical.com, dan.carpenter@oracle.com
-References: <20210326181442.GA1735905@LEGION>
+	bh=Z+6YpCPUV4ccd1rioanDGpfvVaD+DlEua0cKwyIl52g=;
+	b=TA7Yq1Hn4cE2DOaP28V7/XAb1qMmM7nsIhwhQ/kft3tvbcmON7MCUV4emKDxmVxa++32a/
+	FMQBoGf6MtG8EqrAMzYPO3NuSfOc75Sg1vMJ98xByRwbjdY1BlF9weP7cm/YVGGm8XiLE/
+	FceuMtq8CurZg1AYCOZ9GEd+iGjREWk=
+Subject: Re: [PATCH 3/3] xen-pciback: simplify vpci's find hook
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Konrad Wilk <konrad.wilk@oracle.com>
+References: <d2ac85d9-0ad1-71a3-fa3b-b99340b3204d@suse.com>
+ <158273a2-d1b9-3545-b25d-affca867376c@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <8a07f428-0835-efa5-f285-817229492651@suse.com>
-Date: Fri, 23 Apr 2021 10:04:41 +0200
+Message-ID: <5109252b-aa53-2377-13ec-8d3cfe14b351@suse.com>
+Date: Fri, 23 Apr 2021 10:05:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210326181442.GA1735905@LEGION>
+In-Reply-To: <158273a2-d1b9-3545-b25d-affca867376c@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="lrp80yW3hM8erKV88EXiHa3NmyISQVXUV"
+ boundary="sRpLhjY5h1UDMH378KPGCyI5mrUOHu19N"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---lrp80yW3hM8erKV88EXiHa3NmyISQVXUV
-Content-Type: multipart/mixed; boundary="5JvMzIyznpelaOsjRxselBNmkpPH1pTgb";
+--sRpLhjY5h1UDMH378KPGCyI5mrUOHu19N
+Content-Type: multipart/mixed; boundary="fec24xKKxCNCNTnY62Tl5mp76g1Z0QHWX";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Muhammad Usama Anjum <musamaanjum@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>,
- open list <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- colin.king@canonical.com, dan.carpenter@oracle.com
-Message-ID: <8a07f428-0835-efa5-f285-817229492651@suse.com>
-Subject: Re: [PATCH] xen/pciback: Fix incorrect type warnings
-References: <20210326181442.GA1735905@LEGION>
-In-Reply-To: <20210326181442.GA1735905@LEGION>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Konrad Wilk <konrad.wilk@oracle.com>
+Message-ID: <5109252b-aa53-2377-13ec-8d3cfe14b351@suse.com>
+Subject: Re: [PATCH 3/3] xen-pciback: simplify vpci's find hook
+References: <d2ac85d9-0ad1-71a3-fa3b-b99340b3204d@suse.com>
+ <158273a2-d1b9-3545-b25d-affca867376c@suse.com>
+In-Reply-To: <158273a2-d1b9-3545-b25d-affca867376c@suse.com>
 
---5JvMzIyznpelaOsjRxselBNmkpPH1pTgb
+--fec24xKKxCNCNTnY62Tl5mp76g1Z0QHWX
 Content-Type: multipart/mixed;
- boundary="------------260D26FC03A0C094DBCEF425"
+ boundary="------------2C9285B894172A88EAE8A0F7"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------260D26FC03A0C094DBCEF425
+--------------2C9285B894172A88EAE8A0F7
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 26.03.21 19:14, Muhammad Usama Anjum wrote:
-> Correct enum pci_channel_io_normal should be used instead of putting
-> integer value 1.
+On 07.04.21 16:37, Jan Beulich wrote:
+> There's no point in comparing SBDF - we can simply compare the struct
+> pci_dev pointers. If they weren't the same for a given device, we'd hav=
+e
+> bigger problems from having stored a stale pointer.
 >=20
-> Fix following smatch warnings:
-> drivers/xen/xen-pciback/pci_stub.c:805:40: warning: incorrect type in a=
-rgument 2 (different base types)
-> drivers/xen/xen-pciback/pci_stub.c:805:40:    expected restricted pci_c=
-hannel_state_t [usertype] state
-> drivers/xen/xen-pciback/pci_stub.c:805:40:    got int
-> drivers/xen/xen-pciback/pci_stub.c:862:40: warning: incorrect type in a=
-rgument 2 (different base types)
-> drivers/xen/xen-pciback/pci_stub.c:862:40:    expected restricted pci_c=
-hannel_state_t [usertype] state
-> drivers/xen/xen-pciback/pci_stub.c:862:40:    got int
-> drivers/xen/xen-pciback/pci_stub.c:973:31: warning: incorrect type in a=
-rgument 2 (different base types)
-> drivers/xen/xen-pciback/pci_stub.c:973:31:    expected restricted pci_c=
-hannel_state_t [usertype] state
-> drivers/xen/xen-pciback/pci_stub.c:973:31:    got int
->=20
-> Signed-off-by: Muhammad Usama Anjum <musamaanjum@gmail.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Pushed to xen/tip.git for-linus-5.13
 
 
 Juergen
 
---------------260D26FC03A0C094DBCEF425
+--------------2C9285B894172A88EAE8A0F7
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -212,25 +195,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------260D26FC03A0C094DBCEF425--
+--------------2C9285B894172A88EAE8A0F7--
 
---5JvMzIyznpelaOsjRxselBNmkpPH1pTgb--
+--fec24xKKxCNCNTnY62Tl5mp76g1Z0QHWX--
 
---lrp80yW3hM8erKV88EXiHa3NmyISQVXUV
+--sRpLhjY5h1UDMH378KPGCyI5mrUOHu19N
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCCf5kFAwAAAAAACgkQsN6d1ii/Ey9z
-Bwf/ef4bUO4tEqa798jN0Xc/MX89v8tXTn2YAGZoh6IEQdzcOHflv6c+Kv6KgGM2G4FyQJfpaWFS
-jbCugMrvx85n7JhcuCjZL/KtXzuaU6GI5NmEoTUiRrN6ZWWTEKd19ohSWP+aiVklj5QyD77rgHQp
-7GBYTnhtQ3Jwu7MhgJVx+CbHyRn7cX9uIburAqbIqt08jNvD98JZpQVyq1EfT+ZaS+ab5vQDOHi3
-JNMw32F52lS+BSQbsEaVKNwFqVeTfvmIV+nqGVbRSu8UsgBC1444cqnOZQyO0MZq/F/XOTGQ5MME
-dWmdWyyAVN4yRv8G8XhsWOTg0c42g3Nkhe0Xg6LYcw==
-=pE5U
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCCf7IFAwAAAAAACgkQsN6d1ii/Ey+S
+MggAmToJjKAEubOQ94UxGwDfSrwt9/Gxw7lGdPUZMhOGWiVIOMx7RFnqxQ2ZsMhy+Ir4fWC1sJ2J
+7GDjN0rzq9A9DAk3LOpvpa1zI8cI8OSenoRyamR7Fuj04qWgIpfzUz7CFaSWQOhwNaObCvdGPPXD
+aWEtV4O/V44WfmprPs1LZtT9FbDZcfQUsn6H14Ze3jnJUtJH+upGi+paSWK3bOugypjJozSKHcsX
+qLz2cw3/iKbuwWR+nzEY36ixEsKfZ0PyDmrb/D/L+46wwck8zgf5MI+KFJKTmzk/VV1zaH1q5MAy
+4qq1CuCXyYBlpTNElgsDMHWS43hPbLrM+l6yswY01g==
+=SxVw
 -----END PGP SIGNATURE-----
 
---lrp80yW3hM8erKV88EXiHa3NmyISQVXUV--
+--sRpLhjY5h1UDMH378KPGCyI5mrUOHu19N--
 
