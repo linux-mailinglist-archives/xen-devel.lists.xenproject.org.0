@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 075BD368ED4
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:30:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115968.221306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D037B368F1B
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:52:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115977.221320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZrBz-00031B-3W; Fri, 23 Apr 2021 08:29:39 +0000
+	id 1lZrXM-0005jg-Tj; Fri, 23 Apr 2021 08:51:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115968.221306; Fri, 23 Apr 2021 08:29:39 +0000
+Received: by outflank-mailman (output) from mailman id 115977.221320; Fri, 23 Apr 2021 08:51:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZrBy-00030o-Uc; Fri, 23 Apr 2021 08:29:38 +0000
-Received: by outflank-mailman (input) for mailman id 115968;
- Fri, 23 Apr 2021 08:29:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lZrXM-0005jH-QD; Fri, 23 Apr 2021 08:51:44 +0000
+Received: by outflank-mailman (input) for mailman id 115977;
+ Fri, 23 Apr 2021 08:51:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lZrBx-00030N-Gm; Fri, 23 Apr 2021 08:29:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lZrBx-0000MI-8n; Fri, 23 Apr 2021 08:29:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lZrBx-0005eG-1p; Fri, 23 Apr 2021 08:29:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lZrBx-0005SO-1L; Fri, 23 Apr 2021 08:29:37 +0000
+ (envelope-from <SRS0=vTXC=JU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lZrXL-0005jC-8v
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:51:43 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0f56d0d4-c060-497f-b9fe-5626b23edad4;
+ Fri, 23 Apr 2021 08:51:41 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7BFADAFF6;
+ Fri, 23 Apr 2021 08:51:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,275 +39,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=WEkRjFZesAWTJyC3G1+wPxZ59UePOiSVBknBc5FBuAc=; b=qimQ79zUcCqD9w6tbWJ5N2Yyks
-	h1rFv4GHbVr8jwfYf5Oy1GjZUczUGtbApmudcKEGfFynnSIpgCJgsvNwe/VXPayfgLsdGfqpxHSE7
-	wgT7AB8MYRMzRzmf3G/+A/ncVXgJgzRnWy0UwKY/WLPEyi0llfC5V5mV5G+aDYLmdHpA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161398-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0f56d0d4-c060-497f-b9fe-5626b23edad4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1619167900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EJRbJARp9Jqjvbm2dOXwJ/2spzu93AyQ9/E2OwMXc3M=;
+	b=ESyc+xXq2XsC8UsSy6AothWZL+k9jM/2/ckW5SCuEYgtIkFLFkWQkgK/BOX643RyimeTP0
+	5Tnwg8W/YqzeN05/Jxz9jb4jkMho8lF+sTi4zHYMLDzE8quBvkzJf4PffYVB6NdxDYiGXC
+	JHzKN9Qs4Z/7j/M34m6EPlfJfcClaJU=
+Subject: Re: [PATCH 7/8] x86/EFI: keep debug info in xen.efi
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <YIAJP0SCq0nOKZVL@Air-de-Roger>
+ <6023c1d3-4f50-d207-1ea1-30dd1d5f68d2@suse.com>
+ <YIBFD4i6bLaeaXdE@Air-de-Roger>
+ <3cda296d-e88e-5fe0-4924-4cf974c4f909@suse.com>
+ <YIEwW3HQuTtgWH5M@Air-de-Roger>
+ <a00cfe95-06bd-4999-05ab-cae737ab6f4c@suse.com>
+ <YIGOrOL+pKGaHqwX@Air-de-Roger>
+ <8fabc56b-8e2d-96cd-e9b2-81bf38777d52@suse.com>
+ <YIGcE5Cr+xK4K6gw@Air-de-Roger>
+ <98431d14-d4a0-61a8-148e-221652f37b61@suse.com>
+ <YIJ3icwAoGEW/AO+@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <32bba278-12cc-d105-7b95-6a788992d70c@suse.com>
+Date: Fri, 23 Apr 2021 10:51:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Subject: [libvirt test] 161398: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=509d9b5b9f539cebaaa905437ba58b5a80a4d4a4
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 23 Apr 2021 08:29:37 +0000
+In-Reply-To: <YIJ3icwAoGEW/AO+@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 161398 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161398/
+On 23.04.2021 09:30, Roger Pau Monné wrote:
+> On Thu, Apr 22, 2021 at 06:01:06PM +0200, Jan Beulich wrote:
+>> On 22.04.2021 17:53, Roger Pau Monné wrote:
+>>> On Thu, Apr 22, 2021 at 05:46:28PM +0200, Jan Beulich wrote:
+>>>> On 22.04.2021 16:56, Roger Pau Monné wrote:
+>>>>> On Thu, Apr 22, 2021 at 01:03:13PM +0200, Jan Beulich wrote:
+>>>>>> On 22.04.2021 10:14, Roger Pau Monné wrote:
+>>>>>>> On Wed, Apr 21, 2021 at 05:38:42PM +0200, Jan Beulich wrote:
+>>>>>>>> On 21.04.2021 17:30, Roger Pau Monné wrote:
+>>>>>>>>> On Wed, Apr 21, 2021 at 03:06:36PM +0200, Jan Beulich wrote:
+>>>>>>>>>> On 21.04.2021 13:15, Roger Pau Monné wrote:
+>>>>>>>>>>> On Thu, Apr 01, 2021 at 11:47:03AM +0200, Jan Beulich wrote:
+>>>>>>>>>>>> --- a/xen/arch/x86/xen.lds.S
+>>>>>>>>>>>> +++ b/xen/arch/x86/xen.lds.S
+>>>>>>>>>>>> @@ -312,10 +312,60 @@ SECTIONS
+>>>>>>>>>>>>      *(.reloc)
+>>>>>>>>>>>>      __base_relocs_end = .;
+>>>>>>>>>>>>    }
+>>>>>>>>>>>> -  /* Trick the linker into setting the image size to exactly 16Mb. */
+>>>>>>>>>>>> -  . = ALIGN(__section_alignment__);
+>>>>>>>>>>>> -  DECL_SECTION(.pad) {
+>>>>>>>>>>>> -    . = ALIGN(MB(16));
+>>>>>>>>>>>> +  .debug_abbrev ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +     *(.debug_abbrev)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_info ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_info)
+>>>>>>>>>>>> +    *(.gnu.linkonce.wi.*)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_types ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_types)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_str ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_str)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_line ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_line)
+>>>>>>>>>>>> +    *(.debug_line.*)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_line_str ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_line_str)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_names ALIGN(4) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_names)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_frame ALIGN(4) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_frame)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_loc ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_loc)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_loclists ALIGN(4) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_loclists)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_ranges ALIGN(8) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_ranges)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_rnglists ALIGN(4) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_rnglists)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_addr ALIGN(8) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_addr)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_aranges ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_aranges)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_pubnames ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_pubnames)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  .debug_pubtypes ALIGN(1) (NOLOAD) : {
+>>>>>>>>>>>> +    *(.debug_pubtypes)
+>>>>>>>>>>>> +  }
+>>>>>>>>>>>> +  /* Trick the linker into setting the image size to no less than 16Mb. */
+>>>>>>>>>>>> +  __image_end__ = .;
+>>>>>>>>>>>> +  .pad ALIGN(__section_alignment__) : {
+>>>>>>>>>>>> +    . = __image_end__ < __image_base__ + MB(16) ? ALIGN(MB(16)) : .;
+>>>>>>>>>>>
+>>>>>>>>>>> I think this is inside an ifdef EFI region, since this is DWARF info
+>>>>>>>>>>> couldn't it also be present when building with EFI disabled?
+>>>>>>>>>>
+>>>>>>>>>> Of course (and it's not just "could" but "will"), yet the linker will
+>>>>>>>>>> do fine (and perhaps even better) without when building ELF. Also
+>>>>>>>>>> note that we'll be responsible for keeping the list of sections up-to-
+>>>>>>>>>> date. The linker will recognize Dwarf sections by looking for a
+>>>>>>>>>> .debug_ prefix. We can't use such here (or at least I'm not aware of
+>>>>>>>>>> a suitable mechanism); .debug_* would mean munging together all the
+>>>>>>>>>> different kinds of Dwarf sections. Hence by limiting the explicit
+>>>>>>>>>> enumeration to PE, I'm trying to avoid anomalies in ELF down the road.
+>>>>>>>>>
+>>>>>>>>> Right, so we will have to keep this list of debug_ sections updated
+>>>>>>>>> manually if/when more of those appear as part of DWARF updates?
+>>>>>>>>
+>>>>>>>> Yes.
+>>>>>>>>
+>>>>>>>>> Do we have a way to get some kind of warning or error when a new
+>>>>>>>>> section not explicitly handled here appears?
+>>>>>>>>
+>>>>>>>> ld 2.37 will start warning about such sections, as they'd land at
+>>>>>>>> VA 0 and hence below image base.
+>>>>>>>
+>>>>>>> That seems like a bug in ld?
+>>>>>>>
+>>>>>>> The '--image-base' option description mentions: "This is the lowest
+>>>>>>> memory location that will be used when your program or dll is
+>>>>>>> loaded.", so I would expect that if the option is used the default VA
+>>>>>>> should be >= image-base, or else the description of the option is not
+>>>>>>> consistent, as ld will still place sections at addresses below
+>>>>>>> image-base.
+>>>>>>
+>>>>>> ld's "general" logic is pretty ELF-centric. Hence debugging sections
+>>>>>> get placed at VA 0 by default, not matter what the (PE-specific)
+>>>>>> --image-base says. Whether that's a bug though I'm not sure: There
+>>>>>> are no really good alternatives that could be used by default. Doing
+>>>>>> what we do here (and what e.g. Cygwin does) via linker script may not
+>>>>>> be appropriate in the common case. In particular it is not generally
+>>>>>> correct for debug info to be part of what gets loaded into memory.
+>>>>>
+>>>>> So with this change here you placate the warnings from newer ld about
+>>>>> having a VA < image base,
+>>>>
+>>>> It's not just about silencing the warnings. The resulting image is
+>>>> unusable when the sections don't get placed at a suitable VA.
+>>>
+>>> And this wasn't an issue before because the linker won't even attempt
+>>> to place DWARF sections into a PE output.
+>>
+>> No, this wasn't an issue before since, for things to work, we
+>> simply had to uniformly strip debug info when linking xen.efi. And
+>> this is what Andrew said should change. I was initially opposed,
+>> until I saw that Cygwin does just this as well.
+> 
+> Just for my own education, do you have a reference about this way of
+> packaging debug data by Cygwin?
 
-Regressions :-(
+I've simply built a test program and looked at the binary. The best
+reference I could think of is their default linker script in binutils
+(ld/scripttempl/pep.sc).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+> I've found:
+> 
+> https://cygwin.com/pipermail/cygwin/2003-January/090110.html
+> 
+> Which mentions not setting the ALLOC flag on the debug sections in
+> order to prevent them from being loaded. I'm however not able to
+> figure out which flag is that on the PE spec, or whether it can be set
+> from the linker script.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+There's no truly corresponding flag in COFF.
 
-version targeted for testing:
- libvirt              509d9b5b9f539cebaaa905437ba58b5a80a4d4a4
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+>>>>> but the end result is that now the debug
+>>>>> sections will also get loaded when booted from the EFI loader?
+>>>>> (because the NOLOAD doesn't have any effect with PE)
+>>>>
+>>>> Yes. I currently see no other way to retain debug info in xen.efi.
+>>>> But to be clear, the memory debug info occupies isn't lost - we
+>>>> still free space from _end (or alike) onwards. .reloc, for example,
+>>>> also lives there. And I was wondering whether we shouldn't keep
+>>>> .comment this way as well.
+>>>
+>>> Yes, I already realized all this is past _end.
+>>>
+>>> I wonder however if the use of (NOLOAD) makes all this more confusing,
+>>> such sections should only be present on the linker script used for the
+>>> PE output, and then the (NOLOAD) doesn't make sense there?
+>>>
+>>> If so, I think the (NOLOAD) directive should be dropped, and a comment
+>>> noting that the debug sections need to be manually added to the PE
+>>> output in order to avoid them being placed at VA 0 would be helpful
+>>> IMO, likely also mentioning that they would be loaded but discarded
+>>> afterwards by Xen because they are all past _end.
+>>
+>> Earlier on (another sub-thread, maybe) I think I've already said that
+>> I'd like to keep (NOLOAD) both for documentation purposes and just in
+>> case the linker develops some smarts to actually translate it into
+>> anything sensible when linking PE. This is quite different from
+>> .reloc, after all - that section has to be loaded for our re-
+>> relocation to work correctly. Hence that section not having (NOLOAD)
+>> and the debugging sections having it points out the difference.
+> 
+> Sure, that's all fine. I think a comment could be appropriate here, to
+> note both that NOLOAD is likely useless and just used for
+> documentation purposes, and to also mention the sections needs to be
+> explicitly placed in the PE linker script so they are not set at VA 0.
+> 
+> /*
+>  * Explicitly list debug section for the PE output so that they don't
+>  * end up at VA 0 which is below image base and thus invalid. Also use
+>  * the NOLOAD directive, even when currently ignored by PE output, in
+>  * order to note those sections shouldn't be loaded into memory.
+>  *
+>  * Note such sections are past _end, so if loaded will be discarded by
+>  * Xen anyway.
+>  */
+> 
+> Feel free to reword or expand the comment.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  287 days
-Failing since        151818  2020-07-11 04:18:52 Z  286 days  279 attempts
-Testing same since   161398  2021-04-23 04:20:02 Z    0 days    1 attempts
+Yes, I've edited it some while inserting. Will see to get to
+submitting v2 then.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+> Not sure there's some
+> reference we could add here about how debug sections are placed in PE
+> files usually.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+As said before - I don't think there's any "usually" here, which is
+why different environments have invented different ways. The debug
+info native to COFF is more like ELF's symbol table (with a little
+bit of extra information) plus Dwarf's .debug_line, but not really
+fully covering what you'd expect from debug info.
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 54399 lines long.)
+Jan
 
