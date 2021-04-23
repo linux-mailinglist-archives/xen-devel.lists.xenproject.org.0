@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 692A8368E66
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:05:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115949.221281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C91368E67
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:05:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115950.221293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZqol-0000f6-Ni; Fri, 23 Apr 2021 08:05:39 +0000
+	id 1lZqor-0000iV-4n; Fri, 23 Apr 2021 08:05:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115949.221281; Fri, 23 Apr 2021 08:05:39 +0000
+Received: by outflank-mailman (output) from mailman id 115950.221293; Fri, 23 Apr 2021 08:05:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZqol-0000ef-Il; Fri, 23 Apr 2021 08:05:39 +0000
-Received: by outflank-mailman (input) for mailman id 115949;
- Fri, 23 Apr 2021 08:05:37 +0000
+	id 1lZqor-0000hr-12; Fri, 23 Apr 2021 08:05:45 +0000
+Received: by outflank-mailman (input) for mailman id 115950;
+ Fri, 23 Apr 2021 08:05:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hwNy=JU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lZqoj-0000e9-Pp
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:05:37 +0000
+ id 1lZqoq-0000hW-1w
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:05:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c8590789-caad-471b-9e61-efb3a5acab07;
- Fri, 23 Apr 2021 08:05:35 +0000 (UTC)
+ id c19b3faf-ae91-4c3c-b3d6-05d3b47a8486;
+ Fri, 23 Apr 2021 08:05:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1F13AB080;
- Fri, 23 Apr 2021 08:05:35 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 77DCDAD69;
+ Fri, 23 Apr 2021 08:05:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,81 +39,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8590789-caad-471b-9e61-efb3a5acab07
+X-Inumbo-ID: c19b3faf-ae91-4c3c-b3d6-05d3b47a8486
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619165135; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619165142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EfBBQQctPna0dlqKuDq5uBTkMpfxT/mlGGC3KyebVT4=;
-	b=TAIEFU5klJzwxgc3kY6CJAMLhbsFxeg/QD2VFyFfi6tS+zmupVxZJ1bxlfgP5Ccav5AOk8
-	Ce87htVdXnE3CxS/rWxHxNrmGl7ayTnWDGk7XMv6OPGBM4aeGZeYCNuo1yntholBTWOSyC
-	ReADnXbC/7+3DfKGHadifsYV6fapbfo=
-Subject: Re: [PATCH] xen: Remove support for PV ACPI cpu/memory hotplug
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, rafael@kernel.org, linux-kernel@vger.kernel.org
-References: <1618336344-3162-1-git-send-email-boris.ostrovsky@oracle.com>
+	bh=Jasu6yk2IA4zFYev9Y7M8RjEkfW0qQ9vxYUohK6/c3s=;
+	b=bWd3bGN8e03ITJif5n9laXMeQix8PoGTewf/JA8s84AB0WiRGs9yCX3AYdQBYSNMN63c9P
+	/dfSchmWYCSlDNfxQDVY7vG2SSzGfIDVQ5l6/bFiu1GAjgss0uAyfo7ndTno52HVFXRnZA
+	QvPDU9T56+s6ZY+WGs3Mr0vdGta1vgE=
+Subject: Re: [PATCH] xen-blkfront: Fix 'physical' typos
+To: Bjorn Helgaas <helgaas@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: xen-devel@lists.xenproject.org, Bjorn Helgaas <bhelgaas@google.com>
+References: <20210126205509.2917606-1-helgaas@kernel.org>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <bc87249e-9ca7-8746-0acb-c74290a49910@suse.com>
-Date: Fri, 23 Apr 2021 10:05:34 +0200
+Message-ID: <cabd994a-e3e6-3c80-3539-1ab95a251c73@suse.com>
+Date: Fri, 23 Apr 2021 10:05:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <1618336344-3162-1-git-send-email-boris.ostrovsky@oracle.com>
+In-Reply-To: <20210126205509.2917606-1-helgaas@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="yG0mwjc9rgIW6S3MiUtiVtkkHx2HQ8IAr"
+ boundary="PfjFVBQB5nKpyDoAgxEXfXxT9P7igg0SJ"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---yG0mwjc9rgIW6S3MiUtiVtkkHx2HQ8IAr
-Content-Type: multipart/mixed; boundary="d4HwASjpKkwit4PlOUN3W8KDfy35cc1HZ";
+--PfjFVBQB5nKpyDoAgxEXfXxT9P7igg0SJ
+Content-Type: multipart/mixed; boundary="wLoOzezHovbfQCqX4qMv36fjEaOfgcT7e";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, rafael@kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <bc87249e-9ca7-8746-0acb-c74290a49910@suse.com>
-Subject: Re: [PATCH] xen: Remove support for PV ACPI cpu/memory hotplug
-References: <1618336344-3162-1-git-send-email-boris.ostrovsky@oracle.com>
-In-Reply-To: <1618336344-3162-1-git-send-email-boris.ostrovsky@oracle.com>
+To: Bjorn Helgaas <helgaas@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: xen-devel@lists.xenproject.org, Bjorn Helgaas <bhelgaas@google.com>
+Message-ID: <cabd994a-e3e6-3c80-3539-1ab95a251c73@suse.com>
+Subject: Re: [PATCH] xen-blkfront: Fix 'physical' typos
+References: <20210126205509.2917606-1-helgaas@kernel.org>
+In-Reply-To: <20210126205509.2917606-1-helgaas@kernel.org>
 
---d4HwASjpKkwit4PlOUN3W8KDfy35cc1HZ
+--wLoOzezHovbfQCqX4qMv36fjEaOfgcT7e
 Content-Type: multipart/mixed;
- boundary="------------BD6622B2ED14218016AADC87"
+ boundary="------------C7D42CCBFEE24D5447147948"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------BD6622B2ED14218016AADC87
+--------------C7D42CCBFEE24D5447147948
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 13.04.21 19:52, Boris Ostrovsky wrote:
-> Commit 76fc253723ad ("xen/acpi-stub: Disable it b/c the acpi_processor_=
-add
-> is no longer called.") declared as BROKEN support for Xen ACPI stub (wh=
-ich
-> is required for xen-acpi-{cpu|memory}-hotplug) and suggested that this
-> is temporary and will be soon fixed. This was in March 2013.
+On 26.01.21 21:55, Bjorn Helgaas wrote:
+> From: Bjorn Helgaas <bhelgaas@google.com>
 >=20
-> Further, commit cfafae940381 ("xen: rename dom0_op to platform_op")
-> renamed an interface used by memory hotplug code without updating that
-> code (as it was BROKEN and therefore not compiled). This was
-> in November 2015 and has gone unnoticed for over 5 year.
+> Fix misspelling of "physical".
 >=20
-> It is now clear that this code is of no interest to anyone and therefor=
-e
-> should be removed.
->=20
-> Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 
 Pushed to xen/tip.git for-linus-5.13
 
 
 Juergen
 
-
---------------BD6622B2ED14218016AADC87
+--------------C7D42CCBFEE24D5447147948
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -204,25 +195,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------BD6622B2ED14218016AADC87--
+--------------C7D42CCBFEE24D5447147948--
 
---d4HwASjpKkwit4PlOUN3W8KDfy35cc1HZ--
+--wLoOzezHovbfQCqX4qMv36fjEaOfgcT7e--
 
---yG0mwjc9rgIW6S3MiUtiVtkkHx2HQ8IAr
+--PfjFVBQB5nKpyDoAgxEXfXxT9P7igg0SJ
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCCf84FAwAAAAAACgkQsN6d1ii/Ey/t
-dQf+O3mDv5rAdo78PrFclGElyubJL6oAfCO5AnCluJCIg6MAa1QZa66gnRYfZwWPK5gah2oi07og
-Q1RyWY9ZEY+NaK5q67cnpjuNbGwXEgRHzJL5XZ/Ap17UCTe0mYRY0zUIWXhJcntsw/QTIJk3TqoW
-sKzpemMm62Ye+RpRYjDcBE7OA7a72En1jQZk2fGfiCK+PsARa02RvJ6N1joeLmQpaoapPUrXNWLG
-bgkB+2OfF/gSDNJaquG4wQXRhxj/Hz3ex5MpDdyNGRGqAaEDsO5C0BI7pQ+0JcnsrlNwIupzCDzY
-jSrDogDqLHOY69L2gLz641gfCqhL+/pR2jczaBjRHw==
-=X13G
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCCf9UFAwAAAAAACgkQsN6d1ii/Ey8C
+xAf7BoKoUTwXC9xxOXa2zEWeKDOT5oQHHH+Iy0ryGmsHKBROhEraecTLeldAPdMQ4RACW9NCgS2n
+pOwyJtITFbzwYRIbDiH+lsuYtHGYMD4wwpgC3F0lZ3p6e/yVw0d7TOobjLgYSQU57ZWKAnSvRzrk
+GdRS8tqmELTdnxCd8FyPnBmo4dUksQ6o+GTZDtU9KsurFL/iLilpSq0jWY4yp1wXWmFtmVKmFGyc
+m9xG6IgPLMcCBXuh1ZuZr7An5eMJIxQDxdH/B3mBnf16pu0Q0olbFJRrksx6AW5eR8YLbjf6GIUg
+IxJ+Bk4bOltYYqilAG6zqIBvPu27dROTp3i6N0qhVQ==
+=P3Xp
 -----END PGP SIGNATURE-----
 
---yG0mwjc9rgIW6S3MiUtiVtkkHx2HQ8IAr--
+--PfjFVBQB5nKpyDoAgxEXfXxT9P7igg0SJ--
 
