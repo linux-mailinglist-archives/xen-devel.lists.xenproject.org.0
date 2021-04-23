@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67AC3696CF
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 18:22:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.116541.222442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65098369826
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 19:18:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.116557.222455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZyZZ-0001cx-Tb; Fri, 23 Apr 2021 16:22:29 +0000
+	id 1lZzQf-00077g-0m; Fri, 23 Apr 2021 17:17:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 116541.222442; Fri, 23 Apr 2021 16:22:29 +0000
+Received: by outflank-mailman (output) from mailman id 116557.222455; Fri, 23 Apr 2021 17:17:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZyZZ-0001cc-QD; Fri, 23 Apr 2021 16:22:29 +0000
-Received: by outflank-mailman (input) for mailman id 116541;
- Fri, 23 Apr 2021 16:22:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lZzQe-00077L-Tr; Fri, 23 Apr 2021 17:17:20 +0000
+Received: by outflank-mailman (input) for mailman id 116557;
+ Fri, 23 Apr 2021 17:17:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o87G=JU=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lZyZX-0001cG-Ux
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 16:22:27 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::7])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca4c08f0-d1cc-43ba-876f-760dc91c0f09;
- Fri, 23 Apr 2021 16:22:27 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.24.4 DYNA|AUTH)
- with ESMTPSA id e071aex3NGMM0id
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 23 Apr 2021 18:22:22 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZzQd-00077D-Qd; Fri, 23 Apr 2021 17:17:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZzQd-0001Vf-5g; Fri, 23 Apr 2021 17:17:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZzQc-0008Qs-Up; Fri, 23 Apr 2021 17:17:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lZzQc-0002Gg-UL; Fri, 23 Apr 2021 17:17:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca4c08f0-d1cc-43ba-876f-760dc91c0f09
-ARC-Seal: i=1; a=rsa-sha256; t=1619194942; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=lx7n1RXA36amjui9NQdOB9/q62gPdls584peNsYK5HwtbpQl4yVcQwxdW1m+qObDjw
-    EECXeY6NcJM33dHirZFBOLK3CMaolvHGDX9MqKyxf9S2d6L+FufGuxx6476QZJkvWpKp
-    upt1LZp2tW7nj79sZ4rEC+OU03lul5I/Fsy7unBDLS76pLSXgf9f+naykhCwvnBpOXRY
-    wDbMRTcP11dH53rRvbWMlHTqDZ2o+ynkMISjjj8jIhv+H+NFkHIVnXzxfLlf7W1zak3d
-    N5NO8QeWHFZ/KSrISrz/gHw8NHLevcGOwcXzJ7ll0vPnq0BMKYOVcvgCZ0fW+w8UUu9O
-    Y/VA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1619194942;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=mNKIMqULF7kR8MrcG2bGI6z6DdGHqTagxazENcRLhu0=;
-    b=VZobgJX2Ndo1tPN1OvUIveHJrxKwR7QUvP7un2M/emQghwW0Ll2bw5L0y/vHAmN0SQ
-    pns1uRkhFqv2SWN3kFhnaHC4YESOG9kjy6isXbAcPoFmmMyo2ikfnbgCPr57ryg5YO+H
-    Grfy9rJ1qnUVRplHF0dHfqcCauMF4jUjxYlf7XWR3mr8bPVToFMMES5C4mzCoPgOVcRa
-    HwL07TPANQSIkZ1DQj/RZJ/iRcn3y0GIuCGNwxO2PfbU0dUZvNquEUh/+9q1sz+EZTfj
-    xmtIG1R/vsD2u9WfrkJQXdr0vED466LixPwtzwUlM39GMA6D/akFdVwZupHV9L56PuA5
-    JF+A==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1619194942;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=mNKIMqULF7kR8MrcG2bGI6z6DdGHqTagxazENcRLhu0=;
-    b=OUpNAwECq7hnovO0cvG/jANKu6osftrbj53TLI373ER9NQXCioKfwQWeqQJqcv2sCa
-    5jnB8gvYiRmJ1VxmPuTFBSsVRfb+UvkAbr1cKXjipOm2oic78k+5MT5pFPfhilE90Qj8
-    fYFDV/XTqRBVuCMAWWenSMEjdp7RFL4zQ/wBgAD2NALDkkYUxnlowJEr51Qkqjwi+bk2
-    226FAzUsEwIKFzublau2fT0q68VxqjFa0BOHtqsQRSC2zz3ib9DogSxtA6kFqqyMW29l
-    0TEZpzaAPFeBIQnYJ9xwXptChtQ6KCO2ihJF1aR2ykyuLnnYe0S61ebYs8My9bXicb8I
-    AkoA==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuz7MdiQehTvc3RdcLGMdqQ=="
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v1] tools: remove unused XENSTORED_ROOTDIR from Linux launch-xenstore
-Date: Fri, 23 Apr 2021 18:22:19 +0200
-Message-Id: <20210423162219.16744-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Di7qQFCh/yaifBswfV/1v/NWp2GWOCEFKZ1Otr2GaQw=; b=xWrLXWbIH6vCnJ/wFmTi9FDbmm
+	KT2AiwpHP0weVHxFf9Ret7j6/Kg0n7BDCYGbuOkbEj2A6BS5c03WpB7JkS6giB2tWZ0/xeZMzAyiy
+	52WmO3ghcfJ/MPJ2qbrj9+08nrBHblWjFwAxEuXNPnCWMGch/Hk1vqnelrZ1AZYkrmj0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161409-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 161409: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=fc5d0c98076b4c84fa978259eae0f521e95962c7
+X-Osstest-Versions-That:
+    xen=e9b4fe26364950258c9f57f0f68eccb778eeadbb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 23 Apr 2021 17:17:18 +0000
 
-The sysconfig variable XENSTORED_ROOTDIR is not used anymore.
-It used to point to a directory with tdb files, which is now a tmpfs.
+flight 161409 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161409/
 
-Fixes commit 2ef6ace428dec4795b8b0a67fff6949e817013de
+Failures :-/ but no regressions.
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 7 -------
- tools/hotplug/Linux/launch-xenstore.in             | 1 -
- 2 files changed, 8 deletions(-)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-index b059a2910d..00cf7f91d4 100644
---- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-+++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-@@ -48,13 +48,6 @@ XENSTORED_ARGS=
- # Only evaluated if XENSTORETYPE is "daemon".
- #XENSTORED_TRACE=[yes|on|1]
- 
--## Type: string
--## Default: "@XEN_LIB_STORED@"
--#
--# Running xenstored on XENSTORED_ROOTDIR
--# Only evaluated if XENSTORETYPE is "daemon".
--#XENSTORED_ROOTDIR=@XEN_LIB_STORED@
--
- ## Type: string
- ## Default: @LIBEXEC@/boot/xenstore-stubdom.gz
- #
-diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
-index 3c30010e3c..bc3c13931d 100644
---- a/tools/hotplug/Linux/launch-xenstore.in
-+++ b/tools/hotplug/Linux/launch-xenstore.in
-@@ -65,7 +65,6 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
- [ "$XENSTORETYPE" = "" ] && XENSTORETYPE=daemon
- 
- [ "$XENSTORETYPE" = "daemon" ] && {
--	[ -z "$XENSTORED_ROOTDIR" ] && XENSTORED_ROOTDIR="@XEN_LIB_STORED@"
- 	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS="$XENSTORED_ARGS -T @XEN_LOG_DIR@/xenstored-trace.log"
- 	[ -z "$XENSTORED" ] && XENSTORED=@XENSTORED@
- 	[ -x "$XENSTORED" ] || {
+version targeted for testing:
+ xen                  fc5d0c98076b4c84fa978259eae0f521e95962c7
+baseline version:
+ xen                  e9b4fe26364950258c9f57f0f68eccb778eeadbb
+
+Last test of basis   161392  2021-04-22 22:00:28 Z    0 days
+Testing same since   161409  2021-04-23 14:01:34 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   e9b4fe2636..fc5d0c9807  fc5d0c98076b4c84fa978259eae0f521e95962c7 -> smoke
 
