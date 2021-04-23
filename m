@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25572368B4A
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 04:53:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115864.221110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CECC8368B8D
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 05:24:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115872.221122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZlwb-00029Z-BV; Fri, 23 Apr 2021 02:53:25 +0000
+	id 1lZmPH-00056z-O6; Fri, 23 Apr 2021 03:23:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115864.221110; Fri, 23 Apr 2021 02:53:25 +0000
+Received: by outflank-mailman (output) from mailman id 115872.221122; Fri, 23 Apr 2021 03:23:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZlwb-00029A-87; Fri, 23 Apr 2021 02:53:25 +0000
-Received: by outflank-mailman (input) for mailman id 115864;
- Fri, 23 Apr 2021 02:53:23 +0000
+	id 1lZmPH-00056a-Kx; Fri, 23 Apr 2021 03:23:03 +0000
+Received: by outflank-mailman (input) for mailman id 115872;
+ Fri, 23 Apr 2021 03:23:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6fiG=JU=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lZlwZ-000294-2H
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 02:53:23 +0000
-Received: from mail-pj1-x1034.google.com (unknown [2607:f8b0:4864:20::1034])
+ <SRS0=O7KW=JU=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1lZmPF-00056V-Q7
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 03:23:02 +0000
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 76c447c3-3565-493a-9f5b-bd598b913b0f;
- Fri, 23 Apr 2021 02:53:22 +0000 (UTC)
-Received: by mail-pj1-x1034.google.com with SMTP id
- y22-20020a17090a8b16b0290150ae1a6d2bso493643pjn.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 Apr 2021 19:53:22 -0700 (PDT)
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com.
- [209.85.215.172])
- by smtp.gmail.com with ESMTPSA id u12sm6556784pji.45.2021.04.22.19.53.20
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Apr 2021 19:53:20 -0700 (PDT)
-Received: by mail-pg1-f172.google.com with SMTP id f29so34216405pgm.8
- for <xen-devel@lists.xenproject.org>; Thu, 22 Apr 2021 19:53:20 -0700 (PDT)
+ id 7133674c-c0ce-49c3-94a7-0b4c2e98cb67;
+ Fri, 23 Apr 2021 03:23:00 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 79AA65C00E6;
+ Thu, 22 Apr 2021 23:23:00 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 22 Apr 2021 23:23:00 -0400
+Received: from mail-itl (ip5b434f04.dynamic.kabel-deutschland.de [91.67.79.4])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BA978240054;
+ Thu, 22 Apr 2021 23:22:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,162 +43,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76c447c3-3565-493a-9f5b-bd598b913b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=40nhsz+kltJTf7tq6pLLkes92lT1dy5Rll207DlKzWM=;
-        b=HdsQJQRkixDre+dpQSVR58nl8K7T4MbrI4XmlnSivkYb875qGKmhwngqhS/XX43exh
-         bg5Ne9Oub0puKLH8FRaSSn/FCuQxwpgf1ynisAFuTF4Wvjhe+t5iF+WotV6g96hB8Oro
-         fWaQA0hAXWZxawu4WTORJsnwcVbFEg+0cCZO8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=40nhsz+kltJTf7tq6pLLkes92lT1dy5Rll207DlKzWM=;
-        b=MZsZ4pSPJ4dCVZHls6VtxP38cfYfnsQ7Bom6r+3BCIFm4701zGD4ar8Ehysye8QiLR
-         D4md2hTJFvtQL8ULbgsW/2RSz3/00a9eyMPQXozVYffEtm7Yy/sZlcZhRCnMMQ0jZMf5
-         MH5ksKnaIgYlN7DEM/L+WDuPXcsSOBQjLteVAXbPXVlZ0SsbPOc3oQ60hAA2sBIDX5aE
-         IdWFJ8lDvIEcDUpqgfXbd64zgsaW+SscBAlgbCBOKx51cgLeC/0osLH+fGPUkObn7ZnY
-         7YQLD0Vzi7zXAgmxaLJT9EOXn67KZI0HsdrBylZMNsL2TVb4DwQz39pKHN5JPLz76txk
-         Gcvg==
-X-Gm-Message-State: AOAM531mq1IdS6LJmsJts1cuZMkGQD+iwq2wRGCdZyS6/9QfunIOu+Zw
-	kkLBAfLedatjODGVEmZ4s8+9fDNRtZWt4g==
-X-Google-Smtp-Source: ABdhPJzWnUCvHFfO+w/TiuDRjCZ3wO/0KPZ96zCBEM4eWzT8b7FPGbUB5wyBYDOY8gwW5n4uPwDTbw==
-X-Received: by 2002:a17:90a:6b4f:: with SMTP id x15mr3272223pjl.227.1619146400919;
-        Thu, 22 Apr 2021 19:53:20 -0700 (PDT)
-X-Received: by 2002:a6b:c913:: with SMTP id z19mr1627785iof.50.1619146389385;
- Thu, 22 Apr 2021 19:53:09 -0700 (PDT)
+X-Inumbo-ID: 7133674c-c0ce-49c3-94a7-0b4c2e98cb67
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=TMBZ87
+	ZIj72qlTGO9EzQBABC75/I35kqRRc6fQWWK68=; b=pplClVawUClPX62BMVQYYZ
+	fEr1hwQlWNiC4kwYZ2PPOge0FX3yNisj+yh0yjOGSKph3fer7sPArg/CHymwbrio
+	zUfmZHcFtZRG/p9QEScurSH4TtCZwXYoMTiUBc3hnx+duU3fy+RE2UBOiZqiiLZG
+	69E7H/Qx49hIM4cD79dQB80dYVsS/BQuqubXGo9wkkIPGM7p881RxRvETqeETyJp
+	2QKhwk6ouV+UHPM2SWVD/si4VAZUOsidO4zlwtlMZIi+uM2Bbn8vsmAWp24+P2c5
+	JdBm7rFqxQle2OlpJsNGUi1b/uGzCeVXC8nAXaF/q0fXjYCbgcsqL/RZ8Ua9hNFg
+	==
+X-ME-Sender: <xms:lD2CYCf6d7cba5V32xTQp7bjvlFPhHRV2kAtP2TmYfAL77WobHKTqw>
+    <xme:lD2CYMOovp5hdMnhCHAk8U9WCTLVPYqCBnE69P3R54ZC4RyglUl0rjp06Tb_iv4wF
+    lU-lFsEaycqKQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdduuddgieeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+    durdeijedrjeelrdegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+    lhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
+    homh
+X-ME-Proxy: <xmx:lD2CYDhl8YcrlKfe5HicqxUmNVbV555bx85prbIDOUhSyggWube50g>
+    <xmx:lD2CYP_UO-e8_iVXilIbjupkxbzYqXUaDD6cFk4Tkqw74rokdol6Wg>
+    <xmx:lD2CYOuOLu9w85KzYo7aRHdMySJGY7rW9WNwDkL5HBLcGn5JqwBbXQ>
+    <xmx:lD2CYM7iyBfAdCozS-FCg031L_8e5m79eCWn_P1c_IxNh1xcY1Q1zg>
+Date: Fri, 23 Apr 2021 05:22:54 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: kernel NULL pointer dereference in gntdev_mmap ->
+ mmu_interval_notifier_remove
+Message-ID: <YII9jv9rJ7QMkG+2@mail-itl>
+References: <YHxFtj3dyjFbeusP@mail-itl>
+ <68f4d2e3-4b25-58a6-d690-d5854c509354@suse.com>
 MIME-Version: 1.0
-References: <20210422081508.3942748-1-tientzu@chromium.org> <20210422081508.3942748-17-tientzu@chromium.org>
-In-Reply-To: <20210422081508.3942748-17-tientzu@chromium.org>
-From: Claire Chang <tientzu@chromium.org>
-Date: Fri, 23 Apr 2021 10:52:58 +0800
-X-Gmail-Original-Message-ID: <CALiNf29NzRTRB-0JbCL7=0qF0SAiER_pJ_-SCtVRA7DHCsSpEg@mail.gmail.com>
-Message-ID: <CALiNf29NzRTRB-0JbCL7=0qF0SAiER_pJ_-SCtVRA7DHCsSpEg@mail.gmail.com>
-Subject: Re: [PATCH v5 16/16] of: Add plumbing for restricted DMA pool
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
-	boris.ostrovsky@oracle.com, jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, bhelgaas@google.com, 
-	chris@chris-wilson.co.uk, daniel@ffwll.ch, airlied@linux.ie, 
-	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	jani.nikula@linux.intel.com, jxgao@google.com, 
-	joonas.lahtinen@linux.intel.com, linux-pci@vger.kernel.org, 
-	maarten.lankhorst@linux.intel.com, matthew.auld@intel.com, 
-	nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="o1x60crC72dVyh1D"
+Content-Disposition: inline
+In-Reply-To: <68f4d2e3-4b25-58a6-d690-d5854c509354@suse.com>
 
-On Thu, Apr 22, 2021 at 4:17 PM Claire Chang <tientzu@chromium.org> wrote:
->
-> If a device is not behind an IOMMU, we look up the device node and set
-> up the restricted DMA when the restricted-dma-pool is presented.
->
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
+
+--o1x60crC72dVyh1D
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Apr 2021 05:22:54 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: kernel NULL pointer dereference in gntdev_mmap ->
+ mmu_interval_notifier_remove
+
+On Mon, Apr 19, 2021 at 11:33:27AM +0200, Juergen Gross wrote:
+> Could you try the attached patch?
+
+I've tried and it works, as in - I didn't get the crash in ~20 runs.
+Since the issue is quite hard to reproduce, I'm not fully sure it
+helped, but sounds plausible. I think you can treat this as Tested-by:
+;)
+
+Thanks!
+
+> From 7ff3c32b36279aacef9cf80f4103fc6050759c10 Mon Sep 17 00:00:00 2001
+> From: Juergen Gross <jgross@suse.com>
+> Date: Mon, 19 Apr 2021 11:15:59 +0200
+> Subject: [PATCH] xen/gntdev: fix gntdev_mmap() error exit path
+> MIME-Version: 1.0
+> Content-Type: text/plain; charset=3DUTF-8
+> Content-Transfer-Encoding: 8bit
+>=20
+> Commit d3eeb1d77c5d0af ("xen/gntdev: use mmu_interval_notifier_insert")
+> introduced an error in gntdev_mmap(): in case the call of
+> mmu_interval_notifier_insert_locked() fails the exit path should not
+> call mmu_interval_notifier_remove().
+>=20
+> One reason for failure is e.g. a signal pending for the running
+> process.
+>=20
+> Fixes: d3eeb1d77c5d0af ("xen/gntdev: use mmu_interval_notifier_insert")
+> Cc: stable@vger.kernel.org
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 > ---
->  drivers/of/address.c    | 25 +++++++++++++++++++++++++
->  drivers/of/device.c     |  3 +++
->  drivers/of/of_private.h |  5 +++++
->  3 files changed, 33 insertions(+)
->
-> diff --git a/drivers/of/address.c b/drivers/of/address.c
-> index 54f221dde267..fff3adfe4986 100644
-> --- a/drivers/of/address.c
-> +++ b/drivers/of/address.c
-> @@ -8,6 +8,7 @@
->  #include <linux/logic_pio.h>
->  #include <linux/module.h>
->  #include <linux/of_address.h>
-> +#include <linux/of_reserved_mem.h>
->  #include <linux/pci.h>
->  #include <linux/pci_regs.h>
->  #include <linux/sizes.h>
-> @@ -1109,6 +1110,30 @@ bool of_dma_is_coherent(struct device_node *np)
->  }
->  EXPORT_SYMBOL_GPL(of_dma_is_coherent);
->
-> +int of_dma_set_restricted_buffer(struct device *dev)
-> +{
-> +       struct device_node *node;
-> +       int count, i;
-> +
-> +       if (!dev->of_node)
-> +               return 0;
-> +
-> +       count = of_property_count_elems_of_size(dev->of_node, "memory-region",
-> +                                               sizeof(phandle));
-> +       for (i = 0; i < count; i++) {
-> +               node = of_parse_phandle(dev->of_node, "memory-region", i);
-> +               /* There might be multiple memory regions, but only one
-> +                * restriced-dma-pool region is allowed.
-> +                */
-> +               if (of_device_is_compatible(node, "restricted-dma-pool") &&
-> +                   of_device_is_available(node))
-> +                       return of_reserved_mem_device_init_by_idx(
-> +                               dev, dev->of_node, i);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  /**
->   * of_mmio_is_nonposted - Check if device uses non-posted MMIO
->   * @np:        device node
-> diff --git a/drivers/of/device.c b/drivers/of/device.c
-> index c5a9473a5fb1..d8d865223e51 100644
-> --- a/drivers/of/device.c
-> +++ b/drivers/of/device.c
-> @@ -165,6 +165,9 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
->
->         arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
->
-> +       if (!iommu)
-> +               return of_dma_set_restricted_buffer(dev);
-> +
->         return 0;
->  }
->  EXPORT_SYMBOL_GPL(of_dma_configure_id);
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index d717efbd637d..e9237f5eff48 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -163,12 +163,17 @@ struct bus_dma_region;
->  #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
->  int of_dma_get_range(struct device_node *np,
->                 const struct bus_dma_region **map);
-> +int of_dma_set_restricted_buffer(struct device *dev);
->  #else
->  static inline int of_dma_get_range(struct device_node *np,
->                 const struct bus_dma_region **map)
->  {
->         return -ENODEV;
->  }
-> +static inline int of_dma_get_restricted_buffer(struct device *dev)
+>  drivers/xen/gntdev.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+> index f01d58c7a042..a3e7be96527d 100644
+> --- a/drivers/xen/gntdev.c
+> +++ b/drivers/xen/gntdev.c
+> @@ -1017,8 +1017,10 @@ static int gntdev_mmap(struct file *flip, struct v=
+m_area_struct *vma)
+>  		err =3D mmu_interval_notifier_insert_locked(
+>  			&map->notifier, vma->vm_mm, vma->vm_start,
+>  			vma->vm_end - vma->vm_start, &gntdev_mmu_ops);
+> -		if (err)
+> +		if (err) {
+> +			map->vma =3D NULL;
+>  			goto out_unlock_put;
+> +		}
+>  	}
+>  	mutex_unlock(&priv->lock);
+> =20
 
-This one should be of_dma_set_restricted_buffer. Sorry for the typo.
 
-> +{
-> +       return -ENODEV;
-> +}
->  #endif
->
->  #endif /* _LINUX_OF_PRIVATE_H */
-> --
-> 2.31.1.368.gbe11c130af-goog
->
+
+
+
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--o1x60crC72dVyh1D
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmCCPY8ACgkQ24/THMrX
+1yxDvQf/a5/045ARCP+KU/yraPlWcKOUG6NaUlFLE4V3Y6VVDqjQa6ze/vCGqVkM
+BJpMchFGbZ7XkIsRv8ziKMWwNXrP5Jr6jvqDm/HZ9kpItJ4Ulg5JQnD0fnyc11S2
+DTc3tnFhMJIx2Vwf4tdI3VmTygWKEMG23w6J3JNTcLCwkHNV0KsuAfCayU0MKpQX
+WgrX8OQd7CovCITYFHe2edQ6ol0AeWpJEjacAVFO9wEsslaPZAZCYs4W24WJJqpu
+2rHLDqFDxUQJGZHx8LwxnQjkp61og8xXWYxiKxOHqDZSAgspH3qwplIDhIk0KLY8
+ul0dfcgjrDhEgjGWOIiPC/yGjoMSrA==
+=9/y9
+-----END PGP SIGNATURE-----
+
+--o1x60crC72dVyh1D--
 
