@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E9B3696B9
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 18:16:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.116492.222395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40A993696BB
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 18:16:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.116494.222407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZyTh-0008TC-C6; Fri, 23 Apr 2021 16:16:25 +0000
+	id 1lZyTm-00008p-MH; Fri, 23 Apr 2021 16:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 116492.222395; Fri, 23 Apr 2021 16:16:25 +0000
+Received: by outflank-mailman (output) from mailman id 116494.222407; Fri, 23 Apr 2021 16:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZyTh-0008SN-7R; Fri, 23 Apr 2021 16:16:25 +0000
-Received: by outflank-mailman (input) for mailman id 116492;
- Fri, 23 Apr 2021 16:16:23 +0000
+	id 1lZyTm-000083-Hj; Fri, 23 Apr 2021 16:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 116494;
+ Fri, 23 Apr 2021 16:16:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c6bT=JU=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lZyTf-00082q-H4
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 16:16:23 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1lZyTk-00082q-HE
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 16:16:28 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9cccee8e-9fb5-4356-9798-0c34a9140295;
- Fri, 23 Apr 2021 16:16:07 +0000 (UTC)
+ id a25425e1-f1d0-45cb-aff2-8f769b5f6828;
+ Fri, 23 Apr 2021 16:16:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,41 +36,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cccee8e-9fb5-4356-9798-0c34a9140295
+X-Inumbo-ID: a25425e1-f1d0-45cb-aff2-8f769b5f6828
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1619194567;
+  d=citrix.com; s=securemail; t=1619194568;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Ph38A5j1OWE1s08PgJbUwpGtJdMyhhVSIRMRnKmNdPw=;
-  b=C/oUHc1zHPGStt/cwPY4k2TIph+2rC7ZY8xk8m1ioBBrfvM1TCjMPmM1
-   n0hPAfxTBKnlwXMpzpZft+Wu83ArBXqIwfhWJJmekljhzkRm7AeLWfjMq
-   Qre/0K5onhHpI/wr+VLiutpDJDsjv/XBJ3fXy8hA6rMIZCZ9ROX1Nxi+q
-   M=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: pqqW2xtefipI1Zu4wSr7cp2dOjCFBX9jV3eA1mtnDqlXfQw2/54LqblDcbH0tHQv/6vMsw0xxk
- DzN6gvr/fWQ/Tb4uu2aZ/3ZcOxYdp1//oUF+g0mB/YgFPR2Y/pzO6LcacpUe/o/0bYABsobp0x
- QBbor4EGgdDAw6VneRhT4/I7wZWyG3jiykm44EsXXNN4kiUHUh00pF3f82wybJ8AnNfDS7K51B
- Xm6qsIMPfWoA/N2pJ2PjOf4Gu4wjQ8x1QR5cMP54OtnKKLS5Jr+l2ox6SzqQ64+S5pMgpFydGl
- rVk=
+  bh=4+T21LhPNuthVDj7BNA6YAigMRwkRpvcvJyGv+dq/ps=;
+  b=SOLC15s72rz/89vYDI4t7zA7nFfz86YT22nMl2iiGMJKE3OXVDE2wul2
+   1PK6To0JUlUoxVWbxK3sNviS1hs0IxRUJxchU51PrlAa0d4GXe0Oq2Qzn
+   xm1MHojRJKlmXHCZluofoLafgFwmz2346cmHJMrzkHv4AqWKfaICIHL2B
+   E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: P6My/Z8aM1o8STHsTRAiZoDW9jzU+Y7vzkkAbzjreb7tqDurvzQrpBQfYXoPD+Gh6Ov53CxROm
+ qpcDLGYXbAsii2i8px3vAMVjKYCexuq/y8/QJ5ZWASgCdjH/YYN3fdF6bR99NRUlp1CnjYAQzn
+ 1wot1YSmJ/UzzHUP1xeqDnbx1arvsgY+kV6EDgqBv+njpEQdr9e9s6jhkOMJeo77EcY0nr0Flu
+ YvuD5PsJ/ZtaDdiDiYefUB0xXUhKucpqHNfR3XDtMsXkfawbm/EITjdChj5vWKj3YpDJARILQ7
+ V4I=
 X-SBRS: 5.1
-X-MesageID: 42672689
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 42290111
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:LmzmdqHze4v+x9dhpLqEbceALOonbusQ8zAX/mpaICY6TuWzkc
- eykPMHkSLugDEKV3063fyGMq+MQXTTnKQFh7U5F7GkQQXgpS+UPJhvhLGSuwHINiXi+odmtZ
- tIXLN5DLTLYWRSrcG/2wWgFsZl/d/vytHMuc7771NACT5ncLth6QARMHf9LmRTSBNdDZQ0UL
- qwj/A3xAaIQngcYsSlCnRtZYGqzLenqLvcbRELHBIh4gWV5AnYjILSKBSEwgwYFwpG3LZKyx
- m9ryXC+q6hv/unoyW860bv6f1t9+fJ+59mDMyIhtN9EESPtjqV
+IronPort-HdrOrdr: A9a23:F0PkEqC+CuPZZ67lHegltMeALOonbusQ8zAX/mhLY1h8btGYm8
+ eynP4SyB/zj3IrVGs9nM2bUZPsfVr1zrQwxYUKJ7+tUE3duGWuJJx/9oeK+VfdMgXE3Kpm2a
+ 9kGpIUNPTZB1J3lNu/xQG+HcopztXvytHSuc715R5WPGJXQotn6Bp0DRveN0VwShVPC5ZRLu
+ vn2uNsoT28dXMLKvmqH3VtZZmIm/TntrLDJSQHCRku9RWUgVqThILSPhCE0n4lIlRy6Jg492
+ ytqW3Ez4Wl98q20xrNk1LUhq4m4OfJ7vtmKIiyhtMOKjPq4zzYKbhJf7GZpjg6rKWOxT8R4b
+ /xiiwtNchy9H/dF1vdyXSC5yDa3Dkj8HPkw1OD6EGT2PDRfi4wCMZKmOtiA3nkwncgp9113e
+ Zq2G+UpvNsfHf9tRn9/NTBWlVWkFO1qxMZ4IsupkFYOLF/VJZh6agkuG9FGpYJGyz3rKo9Fv
+ N1Mc3a7PFKNXuHcnHwpABUsZORd0V2Oi3DblkJu8ST3TQTtmt+1VEkyMsWmWpF3I4hSqND+/
+ /PPs1T5f9zZ/5TSZg4KPYKQMOxBGCIawnLKniuLVPuE7xCHH7RtZjt4vEQ6PuxcJIFiLs+8a
+ 6xEW9whCoXQQbDGMeO1JpE/lTmW2OmRwngzclY+tx3obv5SL33MTCSSVwnnse6ys9vQfHzar
+ KWAtZ7EvXjJWzhFcJixAvlQaRfLnEYTYkUt78AKhCzi/OODrevmv3Qcf7VKraoOy0jQHnDDn
+ wKWyW2IM1B60usS2LpmRS5YQKpRmXPubZLVITK9ekaz4YAcqdWtBIOtFi/7saXbTtYsqI3e0
+ N6KKj9kryyoHS3+Wqg1RQoBjNtSmJupJnwWXJDogEHd2nud6wYhtmZcWdOmGecKgRnVMPQGg
+ 5Hr1Fx8aa6RqbggRwKOpaCCCa3nnETrHWFQ9MggaWF/97iYY59JI0hQrZNGQLCEAFVlQ5mpH
+ xYUhINQlbSG1rV+OKYpa1RINuaVtFnxC+3PMZfqBvkxDihjPBqYkFeYhmDfoq8hx00Sz9dm1
+ trmpVv/IaoqHKIMmswgOMxLVtWTn+YaYg2QDitbJlIm7ztZQF7RXqLgzvfkB0oZm/27Swp9x
+ PcBDzRdvfRDlVHvHdElq7s7VNvb22YO1l9c3ZgrORGZCz7k2c21e+Afayo1WSNLlME3+EGKT
+ nACAFiVD9G1pSy1BSPniyFGmhjzpIyPvbFBLBmd73IwHuiJMmJkq4BdsUktapNJZTrsuURV/
+ iYdBLQJDTkC/kx0wjQv207IkBP2QwZuOKt3Aeg4Hmz3XY5D/aXKFN6R6sDK9XZ62T/Xf6H3J
+ hwkNpdh5r6DkzhLtqdja3HZT9KLR3e5XS7SOwlsphYt6M/vrkbJeitbRLYkHVcmBkuJsb9k0
+ 0TBLlh6LfaI4l1YogcfTla8ldBrqX8EGI79gjtRukwclEmgyWFY5eH47/UpaEuBUPErg3qIl
+ Wb+zBc+fCAXybr789rN4sgZWBNLE474zB++enHcYvaAgCjbftC81q3KWXVSs4odIGVXbEL6g
+ 9n6NSJlfKNfyX22ArMrSJ2S5g+glqPUIe3GkaQAuZG/NyxJESUjqar6MC1ii3rSTHTUTVqua
+ RVMUoKbspCjTE+jIo4liiqI5aH3H4Yrw==
 X-IronPort-AV: E=Sophos;i="5.82,246,1613451600"; 
-   d="scan'208";a="42672689"
+   d="scan'208";a="42290111"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Ian Jackson
 	<iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 6/8] libxl: Export libxl__qmp_ev_qemu_compare_version
-Date: Fri, 23 Apr 2021 17:15:56 +0100
-Message-ID: <20210423161558.224367-7-anthony.perard@citrix.com>
+Subject: [XEN PATCH 7/8] libxl: Use `id` with the "eject" QMP command
+Date: Fri, 23 Apr 2021 17:15:57 +0100
+Message-ID: <20210423161558.224367-8-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210423161558.224367-1-anthony.perard@citrix.com>
 References: <20210423161558.224367-1-anthony.perard@citrix.com>
@@ -78,56 +97,84 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-We are going to want to check QEMU's version in other places where we
-can use libxl__ev_qmp_send.
+`device` parameter is deprecated since QEMU 2.8.
+
+This requires changes to the command line introduced by:
+    "libxl: Use -device for cd-rom drives"
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- tools/libs/light/libxl_internal.h | 8 ++++++++
- tools/libs/light/libxl_qmp.c      | 4 ++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ tools/libs/light/libxl_disk.c | 43 +++++++++++++++++++++++++++++------
+ 1 file changed, 36 insertions(+), 7 deletions(-)
 
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index c6a4a187f5b0..c114f6d39960 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -492,6 +492,14 @@ _hidden int libxl__ev_qmp_send(libxl__egc *egc, libxl__ev_qmp *ev,
-                                const char *cmd, libxl__json_object *args);
- _hidden void libxl__ev_qmp_dispose(libxl__gc *gc, libxl__ev_qmp *ev);
+diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
+index 411ffeaca6ce..faabdea7a4c3 100644
+--- a/tools/libs/light/libxl_disk.c
++++ b/tools/libs/light/libxl_disk.c
+@@ -656,6 +656,8 @@ typedef struct {
  
-+/* return values:
-+ *   < 0  if qemu's version <  asked version
-+ *   = 0  if qemu's version == asked version
-+ *   > 0  if qemu's version >  asked version
-+ */
-+_hidden int libxl__qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
-+                                               int minor, int micro);
+ static void cdrom_insert_lock_acquired(libxl__egc *, libxl__ev_slowlock *,
+                                        int rc);
++static void cdrom_insert_qmp_connected(libxl__egc *, libxl__ev_qmp *,
++                                       const libxl__json_object *, int rc);
+ static void cdrom_insert_ejected(libxl__egc *egc, libxl__ev_qmp *,
+                                  const libxl__json_object *, int rc);
+ static void cdrom_insert_addfd_cb(libxl__egc *egc, libxl__ev_qmp *,
+@@ -770,13 +772,12 @@ static void cdrom_insert_lock_acquired(libxl__egc *egc,
+      */
+ 
+     if (cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
+-        libxl__json_object *args = NULL;
+-        int devid = libxl__device_disk_dev_number(cis->disk->vdev,
+-                                                  NULL, NULL);
+-
+-        QMP_PARAMETERS_SPRINTF(&args, "device", "ide-%i", devid);
+-        cis->qmp.callback = cdrom_insert_ejected;
+-        rc = libxl__ev_qmp_send(egc, &cis->qmp, "eject", args);
++        /* Before running the "eject" command, we need to know QEMU's
++         * version to find out which command to issue.
++         * cis->qmp isn't in Connected state yet, so run a dummy command
++         * to have QEMU's version available. */
++        cis->qmp.callback = cdrom_insert_qmp_connected;
++        rc = libxl__ev_qmp_send(egc, &cis->qmp, "query-version", NULL);
+         if (rc) goto out;
+     } else {
+         cdrom_insert_ejected(egc, &cis->qmp, NULL, 0); /* must be last */
+@@ -787,6 +788,34 @@ static void cdrom_insert_lock_acquired(libxl__egc *egc,
+     cdrom_insert_done(egc, cis, rc); /* must be last */
+ }
+ 
++static void cdrom_insert_qmp_connected(libxl__egc *egc, libxl__ev_qmp *qmp,
++                                       const libxl__json_object *response,
++                                       int rc)
++{
++    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
++    STATE_AO_GC(cis->ao);
++    libxl__json_object *args = NULL;
++    int devid = libxl__device_disk_dev_number(cis->disk->vdev,
++                                              NULL, NULL);
 +
- typedef enum {
-     /* initial state */
-     qmp_state_disconnected = 1,
-diff --git a/tools/libs/light/libxl_qmp.c b/tools/libs/light/libxl_qmp.c
-index d0967c9f029f..fb146a54cb9c 100644
---- a/tools/libs/light/libxl_qmp.c
-+++ b/tools/libs/light/libxl_qmp.c
-@@ -289,7 +289,7 @@ static int qmp_handle_response(libxl__gc *gc, libxl__qmp_handler *qmp,
-  *   = 0  if qemu's version == asked version
-  *   > 0  if qemu's version >  asked version
-  */
--static int qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
-+int libxl__qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
-                                        int minor, int micro)
- {
-     assert(ev->state == qmp_state_connected);
-@@ -1073,7 +1073,7 @@ static void dm_state_save_to_fdset(libxl__egc *egc, libxl__ev_qmp *ev, int fdset
-     /* The `live` parameter was added to QEMU 2.11. It signals QEMU that
-      * the save operation is for a live migration rather than for taking a
-      * snapshot. */
--    if (qmp_ev_qemu_compare_version(ev, 2, 11, 0) >= 0)
-+    if (libxl__qmp_ev_qemu_compare_version(ev, 2, 11, 0) >= 0)
-         libxl__qmp_param_add_bool(gc, &args, "live", dsps->live);
-     QMP_PARAMETERS_SPRINTF(&args, "filename", "/dev/fdset/%d", fdset);
-     rc = libxl__ev_qmp_send(egc, ev, "xen-save-devices-state", args);
++    if (rc) goto out;
++
++    /* Using `device` parameter is deprecated since QEMU 2.8, we should
++     * use `id` now. They both have different meaning but we set the
++     * same `id` on -drive and -device on the command line.
++     */
++    if (libxl__qmp_ev_qemu_compare_version(qmp, 2, 8, 0) >= 0)
++        QMP_PARAMETERS_SPRINTF(&args, "id", "ide-%i", devid);
++    else
++        QMP_PARAMETERS_SPRINTF(&args, "device", "ide-%i", devid);
++    qmp->callback = cdrom_insert_ejected;
++    rc = libxl__ev_qmp_send(egc, qmp, "eject", args);
++    if (rc) goto out;
++    return;
++out:
++    cdrom_insert_done(egc, cis, rc); /* must be last */
++}
++
+ static void cdrom_insert_ejected(libxl__egc *egc,
+                                  libxl__ev_qmp *qmp,
+                                  const libxl__json_object *response,
 -- 
 Anthony PERARD
 
