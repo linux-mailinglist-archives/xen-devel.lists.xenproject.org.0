@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA335368E64
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:05:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115938.221245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54481368E63
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:05:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115941.221257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZqnE-0000Mn-Ql; Fri, 23 Apr 2021 08:04:04 +0000
+	id 1lZqnt-0000T2-4n; Fri, 23 Apr 2021 08:04:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115938.221245; Fri, 23 Apr 2021 08:04:04 +0000
+Received: by outflank-mailman (output) from mailman id 115941.221257; Fri, 23 Apr 2021 08:04:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZqnE-0000MO-NU; Fri, 23 Apr 2021 08:04:04 +0000
-Received: by outflank-mailman (input) for mailman id 115938;
- Fri, 23 Apr 2021 08:04:04 +0000
+	id 1lZqnt-0000Rt-1N; Fri, 23 Apr 2021 08:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 115941;
+ Fri, 23 Apr 2021 08:04:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hwNy=JU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lZqnD-0000MJ-Uf
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:04:03 +0000
+ id 1lZqnr-0000Ra-Uw
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:04:43 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4bf3fbbb-5c38-43f7-8e94-3a885b0d8d18;
- Fri, 23 Apr 2021 08:04:02 +0000 (UTC)
+ id 7a43aa86-c47f-4c65-9eaa-77f3120b750b;
+ Fri, 23 Apr 2021 08:04:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DACBDAF16;
- Fri, 23 Apr 2021 08:04:01 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 43C66AFD7;
+ Fri, 23 Apr 2021 08:04:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,111 +38,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bf3fbbb-5c38-43f7-8e94-3a885b0d8d18
+X-Inumbo-ID: 7a43aa86-c47f-4c65-9eaa-77f3120b750b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619165042; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619165082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HkRlvaYTqjK3GrkRds200WV8JDhuRaotVBC6y/2NlWs=;
-	b=DfFUGDPJ05zE9F048eQFJ2HcmiZYSDHQH32l3mNZ6vJnPjHfLRxXEDCditZSn5lzzbxS4y
-	O4DcwftOID4UZFzTYbw5Btv3CV0s41wiJ1Ty0CLhIMiowdhgLAiBo+XVDQPllZIu4N6Dlm
-	2n9DHlkQ623OUxa4lf3qtTM9T6yxZCw=
-Subject: Re: [PATCH v3] xen-blkback: fix compatibility bug with single page
- rings
-To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>
-References: <20210202175659.18452-1-paul@xen.org>
+	bh=AQgpXqpqVe/bVy58qF3bnspjQyycb6OTgqVpMz/1hr4=;
+	b=XAlNi6xQ5HnYip+nUFUUBHjx4vCyeAfaaz05Dha0p34wu6qDlUtaQ6XVfz3IZFxd+MEyKy
+	XVSHRl+FlJ9wSgCIxTp/rdWbPkrwbAuFRKKRlnIvzJgooT66S2otqlr03Zoge8J4glBbdM
+	IQ6ufb9/q8uN2XUQgmpNVqnbWebMUHM=
+Subject: Re: [PATCH] xen/pciback: Fix incorrect type warnings
+To: Muhammad Usama Anjum <musamaanjum@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>,
+ open list <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ colin.king@canonical.com, dan.carpenter@oracle.com
+References: <20210326181442.GA1735905@LEGION>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <1327bf3a-f5cf-6e1f-1a0e-e55aeabf787d@suse.com>
-Date: Fri, 23 Apr 2021 10:04:00 +0200
+Message-ID: <8a07f428-0835-efa5-f285-817229492651@suse.com>
+Date: Fri, 23 Apr 2021 10:04:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210202175659.18452-1-paul@xen.org>
+In-Reply-To: <20210326181442.GA1735905@LEGION>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="HiSLAGeXxpHtgrXTnsn1bi68Vp1T9MZiA"
+ boundary="lrp80yW3hM8erKV88EXiHa3NmyISQVXUV"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---HiSLAGeXxpHtgrXTnsn1bi68Vp1T9MZiA
-Content-Type: multipart/mixed; boundary="KYOMrkLS20NrNcftsjlupQXkXXuIEx1jr";
+--lrp80yW3hM8erKV88EXiHa3NmyISQVXUV
+Content-Type: multipart/mixed; boundary="5JvMzIyznpelaOsjRxselBNmkpPH1pTgb";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>
-Message-ID: <1327bf3a-f5cf-6e1f-1a0e-e55aeabf787d@suse.com>
-Subject: Re: [PATCH v3] xen-blkback: fix compatibility bug with single page
- rings
-References: <20210202175659.18452-1-paul@xen.org>
-In-Reply-To: <20210202175659.18452-1-paul@xen.org>
+To: Muhammad Usama Anjum <musamaanjum@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>,
+ open list <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ colin.king@canonical.com, dan.carpenter@oracle.com
+Message-ID: <8a07f428-0835-efa5-f285-817229492651@suse.com>
+Subject: Re: [PATCH] xen/pciback: Fix incorrect type warnings
+References: <20210326181442.GA1735905@LEGION>
+In-Reply-To: <20210326181442.GA1735905@LEGION>
 
---KYOMrkLS20NrNcftsjlupQXkXXuIEx1jr
+--5JvMzIyznpelaOsjRxselBNmkpPH1pTgb
 Content-Type: multipart/mixed;
- boundary="------------28833C7213E99D38DDDDA630"
+ boundary="------------260D26FC03A0C094DBCEF425"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------28833C7213E99D38DDDDA630
+--------------260D26FC03A0C094DBCEF425
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 02.02.21 18:56, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
+On 26.03.21 19:14, Muhammad Usama Anjum wrote:
+> Correct enum pci_channel_io_normal should be used instead of putting
+> integer value 1.
 >=20
-> Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to av=
-oid
-> inconsistent xenstore 'ring-page-order' set by malicious blkfront"), th=
-e
-> behaviour of xen-blkback when connecting to a frontend was:
+> Fix following smatch warnings:
+> drivers/xen/xen-pciback/pci_stub.c:805:40: warning: incorrect type in a=
+rgument 2 (different base types)
+> drivers/xen/xen-pciback/pci_stub.c:805:40:    expected restricted pci_c=
+hannel_state_t [usertype] state
+> drivers/xen/xen-pciback/pci_stub.c:805:40:    got int
+> drivers/xen/xen-pciback/pci_stub.c:862:40: warning: incorrect type in a=
+rgument 2 (different base types)
+> drivers/xen/xen-pciback/pci_stub.c:862:40:    expected restricted pci_c=
+hannel_state_t [usertype] state
+> drivers/xen/xen-pciback/pci_stub.c:862:40:    got int
+> drivers/xen/xen-pciback/pci_stub.c:973:31: warning: incorrect type in a=
+rgument 2 (different base types)
+> drivers/xen/xen-pciback/pci_stub.c:973:31:    expected restricted pci_c=
+hannel_state_t [usertype] state
+> drivers/xen/xen-pciback/pci_stub.c:973:31:    got int
 >=20
-> - read 'ring-page-order'
-> - if not present then expect a single page ring specified by 'ring-ref'=
-
-> - else expect a ring specified by 'ring-refX' where X is between 0 and
->    1 << ring-page-order
->=20
-> This was correct behaviour, but was broken by the afforementioned commi=
-t to
-> become:
->=20
-> - read 'ring-page-order'
-> - if not present then expect a single page ring (i.e. ring-page-order =3D=
- 0)
-> - expect a ring specified by 'ring-refX' where X is between 0 and
->    1 << ring-page-order
-> - if that didn't work then see if there's a single page ring specified =
-by
->    'ring-ref'
->=20
-> This incorrect behaviour works most of the time but fails when a fronte=
-nd
-> that sets 'ring-page-order' is unloaded and replaced by one that does n=
-ot
-> because, instead of reading 'ring-ref', xen-blkback will read the stale=
-
-> 'ring-ref0' left around by the previous frontend will try to map the wr=
-ong
-> grant reference.
->=20
-> This patch restores the original behaviour.
->=20
-> Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid incon=
-sistent xenstore 'ring-page-order' set by malicious blkfront")
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> Reviewed-by: Dongli Zhang <dongli.zhang@oracle.com>
-> Reviewed-by: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> Signed-off-by: Muhammad Usama Anjum <musamaanjum@gmail.com>
 
 Pushed to xen/tip.git for-linus-5.13
 
 
 Juergen
 
---------------28833C7213E99D38DDDDA630
+--------------260D26FC03A0C094DBCEF425
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -233,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------28833C7213E99D38DDDDA630--
+--------------260D26FC03A0C094DBCEF425--
 
---KYOMrkLS20NrNcftsjlupQXkXXuIEx1jr--
+--5JvMzIyznpelaOsjRxselBNmkpPH1pTgb--
 
---HiSLAGeXxpHtgrXTnsn1bi68Vp1T9MZiA
+--lrp80yW3hM8erKV88EXiHa3NmyISQVXUV
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCCf3AFAwAAAAAACgkQsN6d1ii/Ey9D
-LggAiqRlKq5tD+f7ISaZt7G6MbBridODJTOpvzT99wC5fNYKhUCztJbjnWRkcmX6nx+mYPcNvRcW
-dJYlxWpFOpPEklUalT5Ovjtcv0ySVDFPNbymx6kI72PpeSmgil4cq1x+o2MeVR13Z0sn8kEfxYXt
-o2XX6N+Q8F4aM7+X+ZiI2EoWoc7ZwjGL260dtJZQlTc3rf8ojVHJASVDxVY41JMvEhxpOgJIcUio
-pDZMbdminWY3zO6ozl3QYpcYwlkd111vimzYHDnn7j1ez8ED/IsvprntyVJ0AlEBxqdgaPTbtdE+
-nu6bsP1MTXO6ZdK+gUNMafQiYVPRBrq3OIdTox9gYw==
-=bs1D
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCCf5kFAwAAAAAACgkQsN6d1ii/Ey9z
+Bwf/ef4bUO4tEqa798jN0Xc/MX89v8tXTn2YAGZoh6IEQdzcOHflv6c+Kv6KgGM2G4FyQJfpaWFS
+jbCugMrvx85n7JhcuCjZL/KtXzuaU6GI5NmEoTUiRrN6ZWWTEKd19ohSWP+aiVklj5QyD77rgHQp
+7GBYTnhtQ3Jwu7MhgJVx+CbHyRn7cX9uIburAqbIqt08jNvD98JZpQVyq1EfT+ZaS+ab5vQDOHi3
+JNMw32F52lS+BSQbsEaVKNwFqVeTfvmIV+nqGVbRSu8UsgBC1444cqnOZQyO0MZq/F/XOTGQ5MME
+dWmdWyyAVN4yRv8G8XhsWOTg0c42g3Nkhe0Xg6LYcw==
+=pE5U
 -----END PGP SIGNATURE-----
 
---HiSLAGeXxpHtgrXTnsn1bi68Vp1T9MZiA--
+--lrp80yW3hM8erKV88EXiHa3NmyISQVXUV--
 
