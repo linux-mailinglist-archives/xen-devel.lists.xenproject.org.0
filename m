@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367BA3690DA
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 13:08:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.116218.221875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F6C36913C
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 13:39:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.116225.221887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZtff-0006Wi-Tr; Fri, 23 Apr 2021 11:08:27 +0000
+	id 1lZu8x-00017l-5N; Fri, 23 Apr 2021 11:38:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 116218.221875; Fri, 23 Apr 2021 11:08:27 +0000
+Received: by outflank-mailman (output) from mailman id 116225.221887; Fri, 23 Apr 2021 11:38:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZtff-0006WJ-QU; Fri, 23 Apr 2021 11:08:27 +0000
-Received: by outflank-mailman (input) for mailman id 116218;
- Fri, 23 Apr 2021 11:08:26 +0000
+	id 1lZu8x-00017O-2H; Fri, 23 Apr 2021 11:38:43 +0000
+Received: by outflank-mailman (input) for mailman id 116225;
+ Fri, 23 Apr 2021 11:34:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vTXC=JU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZtfe-0006WE-88
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 11:08:26 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4ebea252-91e6-4e6a-ad85-553790eb5166;
- Fri, 23 Apr 2021 11:08:25 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 82DBBB113;
- Fri, 23 Apr 2021 11:08:24 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Uz3Y=JU=arm.com=steven.price@srs-us1.protection.inumbo.net>)
+ id 1lZu54-0000uV-81
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 11:34:42 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 69878617-cae8-489e-9545-f81ddfd0fdb9;
+ Fri, 23 Apr 2021 11:34:39 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 204A413A1;
+ Fri, 23 Apr 2021 04:34:39 -0700 (PDT)
+Received: from [192.168.1.179] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D48233F694;
+ Fri, 23 Apr 2021 04:34:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,105 +41,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ebea252-91e6-4e6a-ad85-553790eb5166
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619176104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=luVPk/KJynSlFpcA3TQTLGHH5Ntcm/8OQtNYX4o0yNQ=;
-	b=go04YATnAmROQ3gX/6LgS7MFw3BVD6oISlVC1JomgVB3vWic5NcHVslgdds8lWd1ZOuClv
-	XCPG+qKwUF0XGuYVVE1IfwQo2AIAIhLwpUpkwPOTC9vUFybYYV/nZUMVBDn91MFbORY3f3
-	qsYnie4VyDXAM1eTO91bd2Gfqa2IWXw=
-Subject: Re: [PATCH] x86/oprof: fix !HVM && !PV32 build
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <694c9c98-1197-3378-cc43-235e2609c1dd@suse.com>
- <eaed70b7-c387-1ae1-28bf-7d52a4b650ae@citrix.com>
- <caab96a2-3949-9ddb-e6ab-9a95c958e4d6@suse.com>
- <YIKYaCr13TiwxqRq@Air-de-Roger>
- <98d0b627-de38-f7a0-7487-cbf83864c82f@citrix.com>
- <135f8bc2-d07c-c531-e498-9f0e15207cca@suse.com>
- <e386f7eb-8ae8-2f18-b9e8-30a319354ec0@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d03bbe0f-6ba3-8383-82cd-be340483f09f@suse.com>
-Date: Fri, 23 Apr 2021 13:08:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 69878617-cae8-489e-9545-f81ddfd0fdb9
+Subject: Re: [PATCH v5 05/16] swiotlb: Add restricted DMA pool initialization
+To: Claire Chang <tientzu@chromium.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: benh@kernel.crashing.org, paulus@samba.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ grant.likely@arm.com, xypron.glpk@gmx.de, Thierry Reding
+ <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com,
+ peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>,
+ Saravana Kannan <saravanak@google.com>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ heikki.krogerus@linux.intel.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Dan Williams
+ <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-devicetree <devicetree@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org,
+ bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk,
+ daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ jxgao@google.com, joonas.lahtinen@linux.intel.com,
+ linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ matthew.auld@intel.com, nouveau@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com
+References: <20210422081508.3942748-1-tientzu@chromium.org>
+ <20210422081508.3942748-6-tientzu@chromium.org>
+From: Steven Price <steven.price@arm.com>
+Message-ID: <c9abca62-328d-d0d6-a8a6-a67475171f92@arm.com>
+Date: Fri, 23 Apr 2021 12:34:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <e386f7eb-8ae8-2f18-b9e8-30a319354ec0@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210422081508.3942748-6-tientzu@chromium.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 23.04.2021 13:04, Andrew Cooper wrote:
-> On 23/04/2021 11:58, Jan Beulich wrote:
->> On 23.04.2021 12:51, Andrew Cooper wrote:
->>> On 23/04/2021 10:50, Roger Pau Monné wrote:
->>>> On Fri, Apr 16, 2021 at 04:20:59PM +0200, Jan Beulich wrote:
->>>>> On 16.04.2021 15:41, Andrew Cooper wrote:
->>>>>> On 16/04/2021 09:16, Jan Beulich wrote:
->>>>>>> clang, at the very least, doesn't like unused inline functions, unless
->>>>>>> their definitions live in a header.
->>>>>>>
->>>>>>> Fixes: d23d792478 ("x86: avoid building COMPAT code when !HVM && !PV32")
->>>>>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>> I agree this will fix the build.  However, looking at the code, I'm not
->>>>>> sure the original CONFIG_COMPAT was correct.  In particular, ...
->>>>>>
->>>>>>> --- a/xen/arch/x86/oprofile/backtrace.c
->>>>>>> +++ b/xen/arch/x86/oprofile/backtrace.c
->>>>>>> @@ -43,6 +43,7 @@ dump_hypervisor_backtrace(struct vcpu *v
->>>>>>>      return head->ebp;
->>>>>>>  }
->>>>>>>  
->>>>>>> +#ifdef CONFIG_COMPAT
->>>>>>>  static inline int is_32bit_vcpu(struct vcpu *vcpu)
->>>>>>>  {
->>>>>>>      if (is_hvm_vcpu(vcpu))
->>>>>> ... this chunk of logic demonstrates that what oprofile is doing isn't
->>>>>> related to the Xen ABI in the slightest.
->>>>>>
->>>>>> I think OProfile is misusing the guest handle infrastructure, and
->>>>>> shouldn't be using it for this task.
->>>>> I'm afraid I consider this something for another day. Both the
->>>>> original #ifdef and the one getting added here are merely
->>>>> measures to get things to build.
->>>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> Without entering on the debate whether CONFIG_COMPAT is the correct
->>>> conditional to use it's not making the issue any worse, and it will
->>>> allow to unblock the build. We can discuss about the CONFIG_COMPAT
->>>> stuff later.
->>> I disagree.  Fixing this less effort than the time wasted arguing about
->>> fixing it.
->>>
->>> But if you are going to insist on not fixing it, and putting in a patch
->>> like this, then at a minimum, it needs to include a TODO comment stating
->>> that the use of CONFIG_COMPAT is bogus and needs fixing.
->> I disagree: It is (for now) just you saying this is bogus. The (ab)use
->> of the handle infrastructure was there before. You could have sent a
->> fix long ago, therefore, if you were thinking this needs fixing.
+On 22/04/2021 09:14, Claire Chang wrote:
+> Add the initialization function to create restricted DMA pools from
+> matching reserved-memory nodes.
 > 
-> I only know it needed fixing because you didn't build test your change
-> in CI.  Don't make it out to be my fault I didn't spot this 6 months ago.
+> Signed-off-by: Claire Chang <tientzu@chromium.org>
+> ---
+>   include/linux/device.h  |  4 +++
+>   include/linux/swiotlb.h |  3 +-
+>   kernel/dma/swiotlb.c    | 80 +++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 86 insertions(+), 1 deletion(-)
 > 
->> I can
->> see that you have good intentions, but orthogonal issues shouldn't be
->> used to block necessary adjustments (and this applies to other pending
->> build fixes as well).
-> 
-> You genuinely regressed things for 32bit HVM guests, with the
-> CONFIG_COMPAT change.
-> 
-> The code may have been using inappropriate interfaces to perform its job
-> before, but its actually broken now.
+> diff --git a/include/linux/device.h b/include/linux/device.h
+> index 38a2071cf776..4987608ea4ff 100644
+> --- a/include/linux/device.h
+> +++ b/include/linux/device.h
+> @@ -416,6 +416,7 @@ struct dev_links_info {
+>    * @dma_pools:	Dma pools (if dma'ble device).
+>    * @dma_mem:	Internal for coherent mem override.
+>    * @cma_area:	Contiguous memory area for dma allocations
+> + * @dma_io_tlb_mem: Internal for swiotlb io_tlb_mem override.
+>    * @archdata:	For arch-specific additions.
+>    * @of_node:	Associated device tree node.
+>    * @fwnode:	Associated device node supplied by platform firmware.
+> @@ -521,6 +522,9 @@ struct device {
+>   #ifdef CONFIG_DMA_CMA
+>   	struct cma *cma_area;		/* contiguous memory area for dma
+>   					   allocations */
+> +#endif
+> +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> +	struct io_tlb_mem *dma_io_tlb_mem;
+>   #endif
+>   	/* arch specific additions */
+>   	struct dev_archdata	archdata;
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index 216854a5e513..03ad6e3b4056 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -72,7 +72,8 @@ extern enum swiotlb_force swiotlb_force;
+>    *		range check to see if the memory was in fact allocated by this
+>    *		API.
+>    * @nslabs:	The number of IO TLB blocks (in groups of 64) between @start and
+> - *		@end. This is command line adjustable via setup_io_tlb_npages.
+> + *		@end. For default swiotlb, this is command line adjustable via
+> + *		setup_io_tlb_npages.
+>    * @used:	The number of used IO TLB block.
+>    * @list:	The free list describing the number of free entries available
+>    *		from each index.
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 57a9adb920bf..ffbb8724e06c 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -39,6 +39,13 @@
+>   #ifdef CONFIG_DEBUG_FS
+>   #include <linux/debugfs.h>
+>   #endif
+> +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/of_fdt.h>
+> +#include <linux/of_reserved_mem.h>
+> +#include <linux/slab.h>
+> +#endif
+>   
+>   #include <asm/io.h>
+>   #include <asm/dma.h>
+> @@ -681,3 +688,76 @@ static int __init swiotlb_create_default_debugfs(void)
+>   late_initcall(swiotlb_create_default_debugfs);
+>   
+>   #endif
+> +
+> +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> +static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+> +				    struct device *dev)
+> +{
+> +	struct io_tlb_mem *mem = rmem->priv;
+> +	unsigned long nslabs = rmem->size >> IO_TLB_SHIFT;
+> +
+> +	if (dev->dma_io_tlb_mem)
+> +		return 0;
+> +
+> +	/* Since multiple devices can share the same pool, the private data,
+> +	 * io_tlb_mem struct, will be initialized by the first device attached
+> +	 * to it.
+> +	 */
+> +	if (!mem) {
+> +		mem = kzalloc(struct_size(mem, slots, nslabs), GFP_KERNEL);
+> +		if (!mem)
+> +			return -ENOMEM;
+> +#ifdef CONFIG_ARM
+> +		if (!PageHighMem(pfn_to_page(PHYS_PFN(rmem->base)))) {
+> +			kfree(mem);
+> +			return -EINVAL;
+> +		}
+> +#endif /* CONFIG_ARM */
+> +		swiotlb_init_io_tlb_mem(mem, rmem->base, nslabs, false);
+> +
+> +		rmem->priv = mem;
+> +	}
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	if (!io_tlb_default_mem->debugfs)
+> +		io_tlb_default_mem->debugfs =
+> +			debugfs_create_dir("swiotlb", NULL);
 
-In which way? COMPAT gets selected by both PV32 and HVM.
+At this point it's possible for io_tlb_default_mem to be NULL, leading 
+to a splat.
 
-Jan
+But even then if it's not and we have the situation where debugfs==NULL 
+then the debugfs_create_dir() here will cause a subsequent attempt in 
+swiotlb_create_debugfs() to fail (directory already exists) leading to 
+mem->debugfs being assigned an error value. I suspect the creation of 
+the debugfs directory needs to be separated from io_tlb_default_mem 
+being set.
+
+Other than that I gave this series a go with our prototype of Arm's 
+Confidential Computer Architecture[1] - since the majority of the 
+guest's memory is protected from the host the restricted DMA pool allows 
+(only) a small area to be shared with the host.
+
+After fixing (well hacking round) the above it all seems to be working 
+fine with virtio drivers.
+
+Thanks,
+
+Steve
+
+[1] 
+https://www.arm.com/why-arm/architecture/security-features/arm-confidential-compute-architecture
 
