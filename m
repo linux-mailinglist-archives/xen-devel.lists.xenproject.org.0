@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D037B368F1B
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 10:52:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.115977.221320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1EBF368F7D
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Apr 2021 11:37:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.115995.221338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZrXM-0005jg-Tj; Fri, 23 Apr 2021 08:51:44 +0000
+	id 1lZsER-0001XD-KV; Fri, 23 Apr 2021 09:36:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 115977.221320; Fri, 23 Apr 2021 08:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 115995.221338; Fri, 23 Apr 2021 09:36:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lZrXM-0005jH-QD; Fri, 23 Apr 2021 08:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 115977;
- Fri, 23 Apr 2021 08:51:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lZsER-0001Wq-HN; Fri, 23 Apr 2021 09:36:15 +0000
+Received: by outflank-mailman (input) for mailman id 115995;
+ Fri, 23 Apr 2021 09:36:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vTXC=JU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lZrXL-0005jC-8v
- for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 08:51:43 +0000
+ (envelope-from <SRS0=hwNy=JU=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lZsEQ-0001Wl-AU
+ for xen-devel@lists.xenproject.org; Fri, 23 Apr 2021 09:36:14 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0f56d0d4-c060-497f-b9fe-5626b23edad4;
- Fri, 23 Apr 2021 08:51:41 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 19b63ea5-89a2-4b5b-93d6-7f379df70717;
+ Fri, 23 Apr 2021 09:36:13 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7BFADAFF6;
- Fri, 23 Apr 2021 08:51:40 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 38139AEC2;
+ Fri, 23 Apr 2021 09:36:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,251 +38,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f56d0d4-c060-497f-b9fe-5626b23edad4
+X-Inumbo-ID: 19b63ea5-89a2-4b5b-93d6-7f379df70717
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619167900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619170572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EJRbJARp9Jqjvbm2dOXwJ/2spzu93AyQ9/E2OwMXc3M=;
-	b=ESyc+xXq2XsC8UsSy6AothWZL+k9jM/2/ckW5SCuEYgtIkFLFkWQkgK/BOX643RyimeTP0
-	5Tnwg8W/YqzeN05/Jxz9jb4jkMho8lF+sTi4zHYMLDzE8quBvkzJf4PffYVB6NdxDYiGXC
-	JHzKN9Qs4Z/7j/M34m6EPlfJfcClaJU=
-Subject: Re: [PATCH 7/8] x86/EFI: keep debug info in xen.efi
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <YIAJP0SCq0nOKZVL@Air-de-Roger>
- <6023c1d3-4f50-d207-1ea1-30dd1d5f68d2@suse.com>
- <YIBFD4i6bLaeaXdE@Air-de-Roger>
- <3cda296d-e88e-5fe0-4924-4cf974c4f909@suse.com>
- <YIEwW3HQuTtgWH5M@Air-de-Roger>
- <a00cfe95-06bd-4999-05ab-cae737ab6f4c@suse.com>
- <YIGOrOL+pKGaHqwX@Air-de-Roger>
- <8fabc56b-8e2d-96cd-e9b2-81bf38777d52@suse.com>
- <YIGcE5Cr+xK4K6gw@Air-de-Roger>
- <98431d14-d4a0-61a8-148e-221652f37b61@suse.com>
- <YIJ3icwAoGEW/AO+@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <32bba278-12cc-d105-7b95-6a788992d70c@suse.com>
-Date: Fri, 23 Apr 2021 10:51:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+	bh=RmLe1O+3ff2TQ1FdTrJScYCHmQhBjBXhSfJ3gw+6osE=;
+	b=SriE5kRL6/FMhs1ZCdbJFdSYmJ/sMWIIyz59LshbAstVlDebl8LWAXv87jiJr6560iQJP/
+	DreP1K5JSchf0SExfUGpdSDqNA2NPrSUh3yQ7Bg+nNFosvPd59RIAVvS7CxaSaDlEvodn0
+	JhjF8q8Ij+xAnbYLYi62T5sT2z7CIIY=
+Subject: Re: [PATCH v3] xen/arm: introduce XENFEAT_direct_mapped and
+ XENFEAT_not_direct_mapped
+To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20210319200140.12512-1-sstabellini@kernel.org>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <56cf75d3-bac9-8697-b4b6-0745cdd4edfc@suse.com>
+Date: Fri, 23 Apr 2021 11:36:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <YIJ3icwAoGEW/AO+@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20210319200140.12512-1-sstabellini@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="GHtW8vjf8QfPFTivYTLURdUW8ziv8LYiK"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--GHtW8vjf8QfPFTivYTLURdUW8ziv8LYiK
+Content-Type: multipart/mixed; boundary="q907IkgVh7j08IjPHXMGOEhPJZc4FhFPN";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+Message-ID: <56cf75d3-bac9-8697-b4b6-0745cdd4edfc@suse.com>
+Subject: Re: [PATCH v3] xen/arm: introduce XENFEAT_direct_mapped and
+ XENFEAT_not_direct_mapped
+References: <20210319200140.12512-1-sstabellini@kernel.org>
+In-Reply-To: <20210319200140.12512-1-sstabellini@kernel.org>
+
+--q907IkgVh7j08IjPHXMGOEhPJZc4FhFPN
+Content-Type: multipart/mixed;
+ boundary="------------B66082D1FF76C1C67F6D5FB9"
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 
-On 23.04.2021 09:30, Roger Pau Monné wrote:
-> On Thu, Apr 22, 2021 at 06:01:06PM +0200, Jan Beulich wrote:
->> On 22.04.2021 17:53, Roger Pau Monné wrote:
->>> On Thu, Apr 22, 2021 at 05:46:28PM +0200, Jan Beulich wrote:
->>>> On 22.04.2021 16:56, Roger Pau Monné wrote:
->>>>> On Thu, Apr 22, 2021 at 01:03:13PM +0200, Jan Beulich wrote:
->>>>>> On 22.04.2021 10:14, Roger Pau Monné wrote:
->>>>>>> On Wed, Apr 21, 2021 at 05:38:42PM +0200, Jan Beulich wrote:
->>>>>>>> On 21.04.2021 17:30, Roger Pau Monné wrote:
->>>>>>>>> On Wed, Apr 21, 2021 at 03:06:36PM +0200, Jan Beulich wrote:
->>>>>>>>>> On 21.04.2021 13:15, Roger Pau Monné wrote:
->>>>>>>>>>> On Thu, Apr 01, 2021 at 11:47:03AM +0200, Jan Beulich wrote:
->>>>>>>>>>>> --- a/xen/arch/x86/xen.lds.S
->>>>>>>>>>>> +++ b/xen/arch/x86/xen.lds.S
->>>>>>>>>>>> @@ -312,10 +312,60 @@ SECTIONS
->>>>>>>>>>>>      *(.reloc)
->>>>>>>>>>>>      __base_relocs_end = .;
->>>>>>>>>>>>    }
->>>>>>>>>>>> -  /* Trick the linker into setting the image size to exactly 16Mb. */
->>>>>>>>>>>> -  . = ALIGN(__section_alignment__);
->>>>>>>>>>>> -  DECL_SECTION(.pad) {
->>>>>>>>>>>> -    . = ALIGN(MB(16));
->>>>>>>>>>>> +  .debug_abbrev ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +     *(.debug_abbrev)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_info ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_info)
->>>>>>>>>>>> +    *(.gnu.linkonce.wi.*)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_types ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_types)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_str ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_str)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_line ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_line)
->>>>>>>>>>>> +    *(.debug_line.*)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_line_str ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_line_str)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_names ALIGN(4) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_names)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_frame ALIGN(4) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_frame)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_loc ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_loc)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_loclists ALIGN(4) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_loclists)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_ranges ALIGN(8) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_ranges)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_rnglists ALIGN(4) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_rnglists)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_addr ALIGN(8) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_addr)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_aranges ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_aranges)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_pubnames ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_pubnames)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  .debug_pubtypes ALIGN(1) (NOLOAD) : {
->>>>>>>>>>>> +    *(.debug_pubtypes)
->>>>>>>>>>>> +  }
->>>>>>>>>>>> +  /* Trick the linker into setting the image size to no less than 16Mb. */
->>>>>>>>>>>> +  __image_end__ = .;
->>>>>>>>>>>> +  .pad ALIGN(__section_alignment__) : {
->>>>>>>>>>>> +    . = __image_end__ < __image_base__ + MB(16) ? ALIGN(MB(16)) : .;
->>>>>>>>>>>
->>>>>>>>>>> I think this is inside an ifdef EFI region, since this is DWARF info
->>>>>>>>>>> couldn't it also be present when building with EFI disabled?
->>>>>>>>>>
->>>>>>>>>> Of course (and it's not just "could" but "will"), yet the linker will
->>>>>>>>>> do fine (and perhaps even better) without when building ELF. Also
->>>>>>>>>> note that we'll be responsible for keeping the list of sections up-to-
->>>>>>>>>> date. The linker will recognize Dwarf sections by looking for a
->>>>>>>>>> .debug_ prefix. We can't use such here (or at least I'm not aware of
->>>>>>>>>> a suitable mechanism); .debug_* would mean munging together all the
->>>>>>>>>> different kinds of Dwarf sections. Hence by limiting the explicit
->>>>>>>>>> enumeration to PE, I'm trying to avoid anomalies in ELF down the road.
->>>>>>>>>
->>>>>>>>> Right, so we will have to keep this list of debug_ sections updated
->>>>>>>>> manually if/when more of those appear as part of DWARF updates?
->>>>>>>>
->>>>>>>> Yes.
->>>>>>>>
->>>>>>>>> Do we have a way to get some kind of warning or error when a new
->>>>>>>>> section not explicitly handled here appears?
->>>>>>>>
->>>>>>>> ld 2.37 will start warning about such sections, as they'd land at
->>>>>>>> VA 0 and hence below image base.
->>>>>>>
->>>>>>> That seems like a bug in ld?
->>>>>>>
->>>>>>> The '--image-base' option description mentions: "This is the lowest
->>>>>>> memory location that will be used when your program or dll is
->>>>>>> loaded.", so I would expect that if the option is used the default VA
->>>>>>> should be >= image-base, or else the description of the option is not
->>>>>>> consistent, as ld will still place sections at addresses below
->>>>>>> image-base.
->>>>>>
->>>>>> ld's "general" logic is pretty ELF-centric. Hence debugging sections
->>>>>> get placed at VA 0 by default, not matter what the (PE-specific)
->>>>>> --image-base says. Whether that's a bug though I'm not sure: There
->>>>>> are no really good alternatives that could be used by default. Doing
->>>>>> what we do here (and what e.g. Cygwin does) via linker script may not
->>>>>> be appropriate in the common case. In particular it is not generally
->>>>>> correct for debug info to be part of what gets loaded into memory.
->>>>>
->>>>> So with this change here you placate the warnings from newer ld about
->>>>> having a VA < image base,
->>>>
->>>> It's not just about silencing the warnings. The resulting image is
->>>> unusable when the sections don't get placed at a suitable VA.
->>>
->>> And this wasn't an issue before because the linker won't even attempt
->>> to place DWARF sections into a PE output.
->>
->> No, this wasn't an issue before since, for things to work, we
->> simply had to uniformly strip debug info when linking xen.efi. And
->> this is what Andrew said should change. I was initially opposed,
->> until I saw that Cygwin does just this as well.
-> 
-> Just for my own education, do you have a reference about this way of
-> packaging debug data by Cygwin?
+This is a multi-part message in MIME format.
+--------------B66082D1FF76C1C67F6D5FB9
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-I've simply built a test program and looked at the binary. The best
-reference I could think of is their default linker script in binutils
-(ld/scripttempl/pep.sc).
+On 19.03.21 21:01, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>=20
+> Newer Xen versions expose two Xen feature flags to tell us if the domai=
+n
+> is directly mapped or not. Only when a domain is directly mapped it
+> makes sense to enable swiotlb-xen on ARM.
+>=20
+> Introduce a function on ARM to check the new Xen feature flags and also=
 
-> I've found:
-> 
-> https://cygwin.com/pipermail/cygwin/2003-January/090110.html
-> 
-> Which mentions not setting the ALLOC flag on the debug sections in
-> order to prevent them from being loaded. I'm however not able to
-> figure out which flag is that on the PE spec, or whether it can be set
-> from the linker script.
+> to deal with the legacy case. Call the function xen_swiotlb_detect.
+>=20
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-There's no truly corresponding flag in COFF.
+Pushed to xen/tip.git for-linus-5.13
 
->>>>> but the end result is that now the debug
->>>>> sections will also get loaded when booted from the EFI loader?
->>>>> (because the NOLOAD doesn't have any effect with PE)
->>>>
->>>> Yes. I currently see no other way to retain debug info in xen.efi.
->>>> But to be clear, the memory debug info occupies isn't lost - we
->>>> still free space from _end (or alike) onwards. .reloc, for example,
->>>> also lives there. And I was wondering whether we shouldn't keep
->>>> .comment this way as well.
->>>
->>> Yes, I already realized all this is past _end.
->>>
->>> I wonder however if the use of (NOLOAD) makes all this more confusing,
->>> such sections should only be present on the linker script used for the
->>> PE output, and then the (NOLOAD) doesn't make sense there?
->>>
->>> If so, I think the (NOLOAD) directive should be dropped, and a comment
->>> noting that the debug sections need to be manually added to the PE
->>> output in order to avoid them being placed at VA 0 would be helpful
->>> IMO, likely also mentioning that they would be loaded but discarded
->>> afterwards by Xen because they are all past _end.
->>
->> Earlier on (another sub-thread, maybe) I think I've already said that
->> I'd like to keep (NOLOAD) both for documentation purposes and just in
->> case the linker develops some smarts to actually translate it into
->> anything sensible when linking PE. This is quite different from
->> .reloc, after all - that section has to be loaded for our re-
->> relocation to work correctly. Hence that section not having (NOLOAD)
->> and the debugging sections having it points out the difference.
-> 
-> Sure, that's all fine. I think a comment could be appropriate here, to
-> note both that NOLOAD is likely useless and just used for
-> documentation purposes, and to also mention the sections needs to be
-> explicitly placed in the PE linker script so they are not set at VA 0.
-> 
-> /*
->  * Explicitly list debug section for the PE output so that they don't
->  * end up at VA 0 which is below image base and thus invalid. Also use
->  * the NOLOAD directive, even when currently ignored by PE output, in
->  * order to note those sections shouldn't be loaded into memory.
->  *
->  * Note such sections are past _end, so if loaded will be discarded by
->  * Xen anyway.
->  */
-> 
-> Feel free to reword or expand the comment.
 
-Yes, I've edited it some while inserting. Will see to get to
-submitting v2 then.
+Juergen
 
-> Not sure there's some
-> reference we could add here about how debug sections are placed in PE
-> files usually.
+--------------B66082D1FF76C1C67F6D5FB9
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-As said before - I don't think there's any "usually" here, which is
-why different environments have invented different ways. The debug
-info native to COFF is more like ELF's symbol table (with a little
-bit of extra information) plus Dwarf's .debug_line, but not really
-fully covering what you'd expect from debug info.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Jan
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------B66082D1FF76C1C67F6D5FB9--
+
+--q907IkgVh7j08IjPHXMGOEhPJZc4FhFPN--
+
+--GHtW8vjf8QfPFTivYTLURdUW8ziv8LYiK
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCClQsFAwAAAAAACgkQsN6d1ii/Ey/n
+3Af9F4g9q2lOnO71qo4Vuozm5qN5tuf2GcQ2ODeJtYOv2eKBfBlhp1xxwDBvRWeZCiIPc/QO6Yxm
+fwaFj6s8n8eeLTIRnKSP4qggvJD0AED1IpdoNxll0um08k5hGyRwCsBy2l2VOsVYsJC8KxOzg35Q
+hBrnvY2ggqfdeJnMyompUhuF/UfDyOKxnaDYhK/a/funFiic6ztEbf0lLtOT1/jXRsxqkmKp50qY
+UPdDxE7tESizKMRLF+G78uS+HFPTmqgxJVqTQxTurD3WOIoPyY38/9mPOZOmau4ER6RnDOd7KieO
+obybcgBisHM7N2tp9X6uC5obmaDVIN8QuF0K3qfiiw==
+=fgJk
+-----END PGP SIGNATURE-----
+
+--GHtW8vjf8QfPFTivYTLURdUW8ziv8LYiK--
 
