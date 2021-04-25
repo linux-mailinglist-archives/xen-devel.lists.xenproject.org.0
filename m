@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16D736A3D6
-	for <lists+xen-devel@lfdr.de>; Sun, 25 Apr 2021 03:08:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.116952.222845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DE7436A3DD
+	for <lists+xen-devel@lfdr.de>; Sun, 25 Apr 2021 03:10:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.116956.222856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1laTFo-0005Pb-DY; Sun, 25 Apr 2021 01:08:08 +0000
+	id 1laTHz-0006HR-Qi; Sun, 25 Apr 2021 01:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 116952.222845; Sun, 25 Apr 2021 01:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 116956.222856; Sun, 25 Apr 2021 01:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1laTFo-0005P4-9h; Sun, 25 Apr 2021 01:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 116952;
- Sun, 25 Apr 2021 01:08:06 +0000
+	id 1laTHz-0006H0-NJ; Sun, 25 Apr 2021 01:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 116956;
+ Sun, 25 Apr 2021 01:10:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LSnA=JW=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1laTFm-0005Ox-Tl
- for xen-devel@lists.xenproject.org; Sun, 25 Apr 2021 01:08:06 +0000
-Received: from mga03.intel.com (unknown [134.134.136.65])
+ id 1laTHx-0006Go-R7
+ for xen-devel@lists.xenproject.org; Sun, 25 Apr 2021 01:10:21 +0000
+Received: from mga01.intel.com (unknown [192.55.52.88])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dc04f40e-0c3a-462e-88e3-f85743dbd91b;
- Sun, 25 Apr 2021 01:08:00 +0000 (UTC)
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2021 18:07:59 -0700
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga004.fm.intel.com with ESMTP; 24 Apr 2021 18:07:57 -0700
-Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ id aaaf6924-c5b4-424b-a73e-4e581f2df216;
+ Sun, 25 Apr 2021 01:10:20 +0000 (UTC)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2021 18:10:19 -0700
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orsmga004.jf.intel.com with ESMTP; 24 Apr 2021 18:10:18 -0700
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Sat, 24 Apr 2021 18:07:57 -0700
-Received: from fmsmsx606.amr.corp.intel.com (10.18.126.86) by
- fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ 15.1.2106.2; Sat, 24 Apr 2021 18:10:18 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Sat, 24 Apr 2021 18:07:57 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ 15.1.2106.2; Sat, 24 Apr 2021 18:10:17 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2
- via Frontend Transport; Sat, 24 Apr 2021 18:07:56 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.107)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ via Frontend Transport; Sat, 24 Apr 2021 18:10:17 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.168)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2106.2; Sat, 24 Apr 2021 18:07:56 -0700
+ 15.1.2106.2; Sat, 24 Apr 2021 18:10:17 -0700
 Received: from MWHPR11MB1886.namprd11.prod.outlook.com (2603:10b6:300:110::9)
  by MWHPR11MB1840.namprd11.prod.outlook.com (2603:10b6:300:112::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25; Sun, 25 Apr
- 2021 01:07:55 +0000
+ 2021 01:10:16 +0000
 Received: from MWHPR11MB1886.namprd11.prod.outlook.com
  ([fe80::75b0:a8e9:60cb:7a29]) by MWHPR11MB1886.namprd11.prod.outlook.com
  ([fe80::75b0:a8e9:60cb:7a29%9]) with mapi id 15.20.4065.025; Sun, 25 Apr 2021
- 01:07:54 +0000
+ 01:10:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,48 +65,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc04f40e-0c3a-462e-88e3-f85743dbd91b
-IronPort-SDR: Zmb0g3+2S4ZlQX3ervQ4vsbvMN9dZ1gCYdbBpqrKTp1Qz/HZTQD8g+95gzH33fplMuEPWP0mzJ
- M4dq+xsAeGyg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9964"; a="196263549"
+X-Inumbo-ID: aaaf6924-c5b4-424b-a73e-4e581f2df216
+IronPort-SDR: ioOIO+BTcrUQF7jhCxbkHlfr1CAsgu3J+fPHAefhecyKKGd2BnhgK0vXECj7X5zA6lAxC59qS1
+ aC9VWXz01LcA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9964"; a="216896652"
 X-IronPort-AV: E=Sophos;i="5.82,249,1613462400"; 
-   d="scan'208";a="196263549"
-IronPort-SDR: AePcSC5nwzceo1taRPFG3fApFP83A/Q6gzJIdEWFc6zWDYOdI4EN+yN8gG4oueal7Clno6B+PF
- DOK7DONtF9GQ==
+   d="scan'208";a="216896652"
+IronPort-SDR: VBeTIbqsZz23ETQh6XAnM6ZHWdqIDYWawRNXR9Nqx8PZeToI3mKP+RFyaD5tm2M9xjuY3usKpX
+ B9kZwiKAVWnA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.82,249,1613462400"; 
-   d="scan'208";a="446910220"
+   d="scan'208";a="535869252"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GWAnLMXNRlHnb+NcWL3zTQhM3Z/sbjjv0xkr9Fd0UgkgpoCUpt70Vmq3cD2mmyn4vB4NK/vetyWTkOnbmdVM12fAP14nl3yMj6gy0WxnpFD0RDLqA6DlzH2dsk5CX5zn6Xn8sUWq2VYbpnsyRTK5IOX1PvEZitXt2o2ShK78KERxScdgIVjI2WbN0dE7OQ08oR2ia505KpXNZHmh98KhR2BsdQ0PRvzrUHVquJgFEZyezC7yPNavJEOqmCtr9pK6bO9zkVwvfBNJacjOeWIkn8h0jlYwWrB+Vx8mt2gmGI4HVzBP3jOAP+V8HvfYcvwMyHAuIN3OAT0PuJrEVyRkHg==
+ b=U/9kHF+OPuYtvDLoDU93Mx/Ytby3pWbYH9x/zNGoTi8kU1BJpIVd2eE+ye14eirb7tE0eUu3yFkG4wPyWyEnLM5d93EYtdM5VCLmX3B7+xN3lmS8+isZjyE20AV9JQFjmCk6dmoXSMIjPPMW/tgd7sVCLuZPkNc3QvYcvdKJSD90kh+QYrpE0i7hWd3BRus4V4KaBXEMPbEkg8dng4pydEagiMwkiTypghL2N0DV5k154CRxM/stqa4UrDMPw+FvJyR3F0n+1T+mnG/nTDEBGWVpYVIoFSyQyJnSmbMZsLZRzeAjvyf5hryjZxgNzGHnqRRj4KgJjDoeqXBgrBM3nA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cRyCHxZeb86c0G1/R7IXEyOhBEkPaNpAVBEwvRoSyno=;
- b=i2+2GhgRkx7lIDFcwwEGjwEuSQscrxpuOmFZf0sCgfbt+fDuQCBDHJMnCB+61pl+oEyrqFvNLhw2y0pwVeKvUhe6SSWO7Yu5rMTBnNSB+ISXCCXoVJm0bjj3XCC5a2JteELf6P0mKXaa0M7QSUdbWJJ1do/wRpP3uBAa+iVtMCbx9SJ2SzLLR2g5fUadpYir7XqNIwDFlkHMAy0cpT39/F2y9zrI8nDH0ELtUfRptq673I4U5gLndrviCNcA5VNPRBNQrwskLeVP04PnNQdE2hFwtEmOps1fiPW/otuvw25qvMAFRetbb7V6HRgaeAfj/9yg9Mk9Jm+lC4fZxEX1HQ==
+ bh=4Pz75R9i1uLcgRh7sOihE+t3Fk3xYyqxHGE8sI8n/Rg=;
+ b=gMuC69AvbUjmSffagVJW4rQNDUutIuzVjbbvJQwGCD6DpX1Eh4Ww+VDp3y+PHMsj1hclTgET1zhOR0+WguG7yiEmWf++D3aKctb5rB+WHd0SfK/LH6lpaSLH0cqZGCTMXdTHPxKh+oRTlYm6CmYFZEoGkxDpRdgYKsXOmjSYEZbpdUNmaGq1ZWJYv4izyRwi4I4Jyx36BCnfjsCJ+kQVwKOx4OlxtrNEQp3Gv/Nop1KZKyWmR0UBCxFpOM2bRVPMQJBLvZ+BoiyiUB+/BFEFob0ZseuX5X/cPeqeWjHDFU0TCZqTEa6wWv4Jh0KEZJK95BnloHClQRX0rEapAggnyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com;
  s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cRyCHxZeb86c0G1/R7IXEyOhBEkPaNpAVBEwvRoSyno=;
- b=fsLxKFT3IfyG1RdvCcsLGoLydom3JLQGnJ3Aemi0oUKTZX+ueIG9z5o8X83tOoI6SfYfGh6RyK5QCA1oNUIbAIwxGO3UNQf+joD9YO25lYVG7W9ueqB7FEKxNPg79z1csRQiPXqNFcldDKFQDTRWJfY6yzFbLpWiBg+/ncE0ylU=
+ bh=4Pz75R9i1uLcgRh7sOihE+t3Fk3xYyqxHGE8sI8n/Rg=;
+ b=jT3AE4CLju2VHlx5kZLs42YI0hFRTIsSs8Ic+PIslu7lh4h7N0y6Fkz8shpbQuHo9GIjP6WvvZ8txq13MwSOD5lb1QacXRnucjfE63kt2l+5hDgK0OlKF8LKNfli1/hugVLVsXaPrL59qPLkvomhb8O22aZqKeGSWyZWeitUCX8=
 From: "Tian, Kevin" <kevin.tian@intel.com>
 To: Igor Druzhinin <igor.druzhinin@citrix.com>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: "Nakajima, Jun" <jun.nakajima@intel.com>, "jbeulich@suse.com"
 	<jbeulich@suse.com>, "Cooper, Andrew" <andrew.cooper3@citrix.com>,
 	"roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>
-Subject: RE: [PATCH v5 2/2] x86/intel: insert Ice Lake-SP and Ice Lake-D model
- numbers
-Thread-Topic: [PATCH v5 2/2] x86/intel: insert Ice Lake-SP and Ice Lake-D
- model numbers
-Thread-Index: AQHXMd7GTVAjJC2DV0yy3tll9lVDHKrEevtQ
-Date: Sun, 25 Apr 2021 01:07:54 +0000
-Message-ID: <MWHPR11MB18860623069EA111BAFD94C78C439@MWHPR11MB1886.namprd11.prod.outlook.com>
-References: <1618481062-16094-1-git-send-email-igor.druzhinin@citrix.com>
- <1618481062-16094-2-git-send-email-igor.druzhinin@citrix.com>
-In-Reply-To: <1618481062-16094-2-git-send-email-igor.druzhinin@citrix.com>
+Subject: RE: [PATCH] x86/vPMU: Extend vPMU support to version 5
+Thread-Topic: [PATCH] x86/vPMU: Extend vPMU support to version 5
+Thread-Index: AQHXMIoR1jV8zFesQ0OCx12H13L7jKrEfksw
+Date: Sun, 25 Apr 2021 01:10:15 +0000
+Message-ID: <MWHPR11MB18862FC0F7D25E072113CF048C439@MWHPR11MB1886.namprd11.prod.outlook.com>
+References: <1618334701-8263-1-git-send-email-igor.druzhinin@citrix.com>
+In-Reply-To: <1618334701-8263-1-git-send-email-igor.druzhinin@citrix.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -118,115 +115,96 @@ authentication-results: citrix.com; dkim=none (message not signed)
  header.d=none;citrix.com; dmarc=none action=none header.from=intel.com;
 x-originating-ip: [101.88.226.48]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ced85643-3e66-4879-6d3c-08d907868ea5
+x-ms-office365-filtering-correlation-id: 251bdd90-4def-4889-96dd-08d90786e2c2
 x-ms-traffictypediagnostic: MWHPR11MB1840:
 x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR11MB184041E9708462DD01E4D6E38C439@MWHPR11MB1840.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-microsoft-antispam-prvs: <MWHPR11MB18404722EF7F04D8D02DD8488C439@MWHPR11MB1840.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:268;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: nJMdOoziVukTAslwa7bbGVcTnwf3Z6Rh/2ESX1f9r9jIsc9eZfUKZ0libWbzACgAh0YzQv9cNZGaJdAA/TQfPBcKQg3ucTzQvrKH7zylNen99f0W6A3f5zlp22CCGWzP893UFpM+IjzZckcLVBGBN6xG4Ic910IwDMe1PLIpcIGGkRu+nf9alwHdAFjb0ltS2/1xLkrUS6bJ7xHbyoJR+0xnZguWoqXLL53ZKl3ONtrRwhyB5rYtdIIs4wpy79F/1BSwYw9BByiFjjuGP/tFxUtnckjJLmmyOAyTeg/tMcNikt+4q5jIxdSSiII4198gKFNQisi24DNwRXB3J8bIHcuM2mmQJ+x+zYtH22PtkDTnnke2Y+SiX/dcrFBDjXD9L3GG5L0tkMftqUqTInXUpRsutHs0GuxwfCjx5hzRy8KEhvez1Vn7g2Q63t0OzzUwdE0xa3oAaimvPbX3FSdHqfwhSkxG7GlMbHo2pIFQ+k58G7JWN/AoTcJtVqLbRWbdRXZm5W/L0+jDTWkpqlun6/dLxTM7GSFEq9QlYDaIS0KbF+0zTNnQruBnSewBTqnZAe0xxczfNMmFLBhOBRp8bWHts5M/4YiDWzXePJNvBQo=
+x-microsoft-antispam-message-info: hw+/8q9Vloy2R//Hde07RbC7PgLDUNWFuwz256Cl9bkzW6eNOPm/Ld4pDfP7finc9QRqSyXIRPl0yA2PPzr2/5yXgYE+CD/YeqSKpPs7CmpDVETbvQIobemPFCRaYzaFenz6yaTEheK2vWbc01zxSXMC426PLbSiyHXQ7MOUW1/cz5ArTYhdSnB8bW5G+Lha6BlRqVvx+YuDQL1LyI2oggC3UTVD5G9wKbjhO/bnJPIYGJ/FRsdLndCW3wmCgQHgWaTaaDDx8OuUSDM5VQipwDx+tUJyvWi6aqSCfoDOHf0jM7K/Ozp3BBvDXNAiEB0q7LqMxRsxP+KSJ+Wos22d0ulBAJKjBO5+ChgZ4SG3te2FqFRjfYs03Pay5Q2a7dpZE/nmUYIDvu0MASGvRBYETSnz6ck4ov+l6qA17hExdXd6EEOmCxq1YF0WY3jitcVsNcX/8tl+l8K8Kioe3dxepGaFbG8bS0j0GewLeVQwBMQUph29QlbEF3+rVwrEEv23kPhWhjmLryWmvCT1jXaB6rdGd+YqY9wGZww5982VUR7NSfxwChzJY8TLYtmluxbWZbHLk75R6JftFukJh2utljCuPQBxQm1e0X+aq/elHaA=
 x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR11MB1886.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(376002)(396003)(136003)(366004)(39860400002)(66446008)(64756008)(66946007)(86362001)(110136005)(33656002)(66476007)(66556008)(8676002)(71200400001)(5660300002)(38100700002)(4326008)(54906003)(6506007)(76116006)(26005)(55016002)(7696005)(316002)(2906002)(83380400001)(122000001)(8936002)(478600001)(52536014)(9686003)(186003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?fEcKLmwQu3KXVujnEynVTS+rH7WFbGzqH2ZpVUGNTtew9tUwQg4ur32eEkay?=
- =?us-ascii?Q?+XESIOco9x8gK/AgDCY4RsLf30Qm7Nzf5M3AD2d5Y+Js8WSE1DH8i/pfAocE?=
- =?us-ascii?Q?COYQEpFgCio9rqAySb96YX6FP8QiLeVmu0adW83wbqr3B9ywLAHX7J/MqDR8?=
- =?us-ascii?Q?BslcwLyiEC1o3UjDXlBFWzn0/R0o1jA9KB2N/IBD4zgX8PXJp+KtOQpAqSSh?=
- =?us-ascii?Q?3wyZWfKHo9lvYlfeyiT/xBNVGxN7crdzCd+6cOYPATRvue2lh7KoZ7/zExkp?=
- =?us-ascii?Q?5VrBV14vTHl7qhjL6lCcIzxwX0jTXz4dxLH/fQRTnRdkkrJH0iUWboBmQhmM?=
- =?us-ascii?Q?63PsAuAnLan9isrnZdwNFMK2iusEMxtga2wfCiq9jVairoQ39zzdwvAkj/7l?=
- =?us-ascii?Q?0A1CK7H2/X5eYWpED1j5F61GIJszFy1srluPGM2dVCJQvR/J6mk6lLZYQFiy?=
- =?us-ascii?Q?suhPCq40d7d6ryClBMZRfjDHK21/dil7YoI9FVvi3nuQ4zdWoy+tQeeMenuT?=
- =?us-ascii?Q?CqNnUbwusm6PfK3tISZJtxuRWnm5xdUe+cbrMFRG6Z7wvoPqZikPiIrwNOav?=
- =?us-ascii?Q?uDX73nZFOzugJRtabmwJGm9YJJ1yQprV65ZxeGQbuoO6IZ/6YJt8PN9l9e7L?=
- =?us-ascii?Q?jTIWAxeXSf2OqvRz4uGQ9LtUBLbeL3UG0KjOy5IWDx+cNyiPTfRXEFP9XwJe?=
- =?us-ascii?Q?8X0+PNmbwXiCHWmzKxXi1/wbfTj2aRl2lv9sEHf9iOIiANXph4gEJu/gkOg7?=
- =?us-ascii?Q?xLC9VPrZO6OIiOc1XQBTX02axgaaMEwhjXsl/p8Lgkto7h6bpfZ+0kQNH1il?=
- =?us-ascii?Q?9Haq4dZvNCZ8tWJsjZj3QWZndYbthGUgtTosGOlCJkKL5vtbxFIWH10KY35K?=
- =?us-ascii?Q?HQk/jM2jR+eBjxGWzTGQtSZgIvn3XiwF1sAuyaqDmwBeOqOkHh73nMalkBhr?=
- =?us-ascii?Q?OXB6N5PF6NFt+wFO2JKga7wlfujM4M5rdwLCByWAe4zwiul/xE+xNkNlcP+D?=
- =?us-ascii?Q?4aGyhIO6M6n2XhVuvWL/QOVcVp67KPYZzXr6pAXi8CF+chDos0pksW9hpruv?=
- =?us-ascii?Q?qEgzWNZxMcu1qns+4ZPwl9rnr+E7vxYDgmITcE1i7pFuxNHdZ5Nag4W8+PZV?=
- =?us-ascii?Q?gSWuyuo7YK4oFmBIFCl3nga5fecwJfyS0Uv515Pj0i8K01C4vPXyQx2WtlTC?=
- =?us-ascii?Q?zZ62k3M8CuEsGhSLdcOigid+Lo259L7vkp30eSYm49KMbwJjvSJMGX8rgpVP?=
- =?us-ascii?Q?5W8t+1AfQfMgKg6iondjK75f+FYBCeNFA5/QaK2W6rEKG+k9x5CCKBnlRsMl?=
- =?us-ascii?Q?gZYKcDmvYY5wSpW0POV2hzEx?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?peI96gYsF1rDvOAu/1uEFKne4skaXU9knsp4LIysTVByBG6MuOaos1O5uTDC?=
+ =?us-ascii?Q?eH7yiz2ij4VCF1EpILlcWJ1pxiO30Ewvk7Tas6V5byc1heQues2mQc+iaDK8?=
+ =?us-ascii?Q?gJSYzc7TN0aBZq7b+TDJwdnkjoPRE6/oaJuSPxWRDSQsbNfcw0DM+572SIqZ?=
+ =?us-ascii?Q?WRIiUlD7FdUs76wTTkQlV7f551Rm37Vt3Ntp8HUJFZ33KE2tjyYQYHJLGIph?=
+ =?us-ascii?Q?u9Vt4pU9g8EWybUYWqS40WwHenUwAoTuwqMKTURLnTBeOicqqN02LMAy+9Y0?=
+ =?us-ascii?Q?q1S/304HJ21fJYITce5IiortKqe91CvOpfNJi+Rdz2H9P8VPqOFglERVsKKs?=
+ =?us-ascii?Q?qcQRfxqeSV4D57hji7bHgzv25C9bQk6HIdalLfXkQkRrnoYnIIIPU7r2pEgg?=
+ =?us-ascii?Q?eVi/2vWPexw9ewekPELyQ8XzWwMOs64eFFlOMF0CXdIN5u42Z66vncaochiZ?=
+ =?us-ascii?Q?C3JI/DYkV7xhpp5lKlKROq51fljIeazTExKTNss9enaoZJNbSoZqntQJGeJ9?=
+ =?us-ascii?Q?ZvKmGr+nFbMqTGKjl4kJ3J8nZW7FT0bIo8NwrzmMUrnuweSefJpW2V2fqzE4?=
+ =?us-ascii?Q?8JHguj9qGzd8/jLTPG3Txj713bQ5iLsEswP0jJ2QjircaEZyLLJdgkW12k4o?=
+ =?us-ascii?Q?344zvfx1F5lde0TvlrDoabWDH7siN3O63+h5Ljo+nZsBAWEUo+PRyyPTTo3t?=
+ =?us-ascii?Q?7gRHHEu9X9ofJoD+KG/IoymrWRwrBMIxM8FkDqMgDIhGxY0v49mFaAG+455P?=
+ =?us-ascii?Q?uudsayB9AbtRIOzAP93kwb/HYFkwN2E39r3XPR1tIB6L+W4ms3uk3z3lE4kd?=
+ =?us-ascii?Q?ntKyL65zTMvKTaOljx7JY5jJ/vSyVfd1f2DqtRpIeQ4qktVafl7KodExMO4h?=
+ =?us-ascii?Q?CITfW2i/RayoA1oE5lw6MZ1gb+4sqV4LfAFttz7R7eOTPzF2Ye6IpdT25/yS?=
+ =?us-ascii?Q?gGyVJbjOX9DIzcafQohw9gircfM40K1rXVj74vU0p2+bje2kaYq1OxgtxA8c?=
+ =?us-ascii?Q?dVb7rCSB+vWzlRfqz2NofRC6D7Y6iZSpW/bqGwGXcQGBqmVVrUvC0i2pHRM8?=
+ =?us-ascii?Q?DR8DIUu1nRdm8pOu65IVC5HjwDFQxCUramv1N9JVkSZh26PVybnzBAbfksAP?=
+ =?us-ascii?Q?tVLkvTefg1Ae85pD4Wp0u7f1HvPfu29LMmgS8qNTiz3z/8Rrkd00y7pbez+e?=
+ =?us-ascii?Q?A3D1yTNBlZx0OaKMAyYa3WIGEhAc9Aa21nn/7vmxn9B6uZQx7BC09ozn25KF?=
+ =?us-ascii?Q?C4NrYwaAoCel9MS1pysHigVt2ZKEZIpWDdZNDSsvDJ9f+3hraQWbkPb41Wv0?=
+ =?us-ascii?Q?0BnSlRhoHjfhIn2L8f1qtxiY?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1886.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ced85643-3e66-4879-6d3c-08d907868ea5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Apr 2021 01:07:54.8904
+X-MS-Exchange-CrossTenant-Network-Message-Id: 251bdd90-4def-4889-96dd-08d90786e2c2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Apr 2021 01:10:16.0231
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kZ3UCSAliTse/z2ZI/ADiG9NJJuXKvQ4JshWNwkp/4Q8lsqUFMDIpvVPgrxufmIOhlPFV2MDE3IoiCPLa1AdQQ==
+X-MS-Exchange-CrossTenant-userprincipalname: b9JSrBmLx/uZa+IkMMHqDs0ha/4Tpv0QzO2hwVexcMMuJsZhoyhgIZUiQ4sjMv5ffwq0kCpyKivyU4X7muLpww==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1840
 X-OriginatorOrg: intel.com
 
 > From: Igor Druzhinin <igor.druzhinin@citrix.com>
-> Sent: Thursday, April 15, 2021 6:04 PM
+> Sent: Wednesday, April 14, 2021 1:25 AM
 >=20
-> LBR, C-state MSRs should correspond to Ice Lake desktop according to
-> SDM rev. 74 for both models.
+> Version 5 is backwards compatible with version 3. This allows to enable
+> vPMU on Ice Lake CPUs.
 >=20
-> Ice Lake-SP is known to expose IF_PSCHANGE_MC_NO in
-> IA32_ARCH_CAPABILITIES MSR
-> (as advisory tells and Whitley SDP confirms) which means the erratum is
-> fixed
-> in hardware for that model and therefore it shouldn't be present in
-> has_if_pschange_mc list. Provisionally assume the same to be the case
-> for Ice Lake-D.
->=20
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
 > ---
-> No changes in v5.
+>  xen/arch/x86/cpu/vpmu_intel.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 >=20
-> Changes in v4:
-> - now based on SDM update
-> - new LBR (0x1e0)does not seem to be exposed in the docs
+> diff --git a/xen/arch/x86/cpu/vpmu_intel.c
+> b/xen/arch/x86/cpu/vpmu_intel.c
+> index 6e97ce7..0dfc256 100644
+> --- a/xen/arch/x86/cpu/vpmu_intel.c
+> +++ b/xen/arch/x86/cpu/vpmu_intel.c
+> @@ -839,7 +839,7 @@ int vmx_vpmu_initialise(struct vcpu *v)
+>          return 0;
 >=20
-> Changes in v3:
-> - Add Ice Lake-D model numbers
-> - Drop has_if_pschange_mc hunk following Tiger Lake related discussion
-> ---
->  xen/arch/x86/acpi/cpu_idle.c | 2 ++
->  xen/arch/x86/hvm/vmx/vmx.c   | 2 +-
->  2 files changed, 3 insertions(+), 1 deletion(-)
+>      if ( v->domain->arch.cpuid->basic.pmu_version <=3D 1 ||
+> -         v->domain->arch.cpuid->basic.pmu_version >=3D 5 )
+> +         v->domain->arch.cpuid->basic.pmu_version >=3D 6 )
+>          return -EINVAL;
 >=20
-> diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-> index c092086..d788c8b 100644
-> --- a/xen/arch/x86/acpi/cpu_idle.c
-> +++ b/xen/arch/x86/acpi/cpu_idle.c
-> @@ -181,6 +181,8 @@ static void do_get_hw_residencies(void *arg)
->      case 0x55:
->      case 0x5E:
->      /* Ice Lake */
-> +    case 0x6A:
-> +    case 0x6C:
->      case 0x7D:
->      case 0x7E:
->      /* Tiger Lake */
-> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-> index 30c6a57..91cba19 100644
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -2990,7 +2990,7 @@ static const struct lbr_info
-> *last_branch_msr_get(void)
->          /* Goldmont Plus */
->          case 0x7a:
->          /* Ice Lake */
-> -        case 0x7d: case 0x7e:
-> +        case 0x6a: case 0x6c: case 0x7d: case 0x7e:
->          /* Tiger Lake */
->          case 0x8c: case 0x8d:
->          /* Tremont */
+>      if ( (arch_pmc_cnt + fixed_pmc_cnt) =3D=3D 0 )
+> @@ -909,8 +909,9 @@ int __init core2_vpmu_init(void)
+>      switch ( version )
+>      {
+>      case 4:
+> -        printk(XENLOG_INFO "VPMU: PMU version 4 is not fully supported. =
+"
+> -               "Emulating version 3\n");
+> +    case 5:
+> +        printk(XENLOG_INFO "VPMU: PMU version %u is not fully supported.=
+ "
+> +               "Emulating version 3\n", version);
+>          /* FALLTHROUGH */
+>=20
+>      case 2:
 > --
 > 2.7.4
 
