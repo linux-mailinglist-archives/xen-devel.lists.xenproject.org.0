@@ -2,31 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEB3636AED4
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Apr 2021 09:50:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.117479.223403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B0A936B0D5
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Apr 2021 11:43:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.117526.223450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lavzZ-0006F4-Vb; Mon, 26 Apr 2021 07:49:17 +0000
+	id 1laxkb-0000gG-JP; Mon, 26 Apr 2021 09:41:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 117479.223403; Mon, 26 Apr 2021 07:49:17 +0000
+Received: by outflank-mailman (output) from mailman id 117526.223450; Mon, 26 Apr 2021 09:41:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lavzZ-0006Ef-ST; Mon, 26 Apr 2021 07:49:17 +0000
-Received: by outflank-mailman (input) for mailman id 117479;
- Mon, 26 Apr 2021 07:49:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lavzY-0006Ea-CQ
- for xen-devel@lists.xenproject.org; Mon, 26 Apr 2021 07:49:16 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c2fc105-64e5-429a-9c02-0b7d03a9dbee;
- Mon, 26 Apr 2021 07:49:15 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8AAECB005;
- Mon, 26 Apr 2021 07:49:14 +0000 (UTC)
+	id 1laxkb-0000fr-GE; Mon, 26 Apr 2021 09:41:57 +0000
+Received: by outflank-mailman (input) for mailman id 117526;
+ Mon, 26 Apr 2021 09:41:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mXBP=JX=amazon.com=prvs=74380e36c=hongyxia@srs-us1.protection.inumbo.net>)
+ id 1laxka-0000fm-Mc
+ for xen-devel@lists.xenproject.org; Mon, 26 Apr 2021 09:41:56 +0000
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 71f77170-66e2-478b-8dcf-df5a3c4a83c2;
+ Mon, 26 Apr 2021 09:41:54 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1d-2c665b5d.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-4101.iad4.amazon.com with ESMTP; 26 Apr 2021 09:41:48 +0000
+Received: from EX13D37EUA003.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-1d-2c665b5d.us-east-1.amazon.com (Postfix) with ESMTPS
+ id D46B5A1D41; Mon, 26 Apr 2021 09:41:43 +0000 (UTC)
+Received: from EX13D37EUA003.ant.amazon.com (10.43.165.7) by
+ EX13D37EUA003.ant.amazon.com (10.43.165.7) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Mon, 26 Apr 2021 09:41:42 +0000
+Received: from EX13D37EUA003.ant.amazon.com ([10.43.165.7]) by
+ EX13D37EUA003.ant.amazon.com ([10.43.165.7]) with mapi id 15.00.1497.015;
+ Mon, 26 Apr 2021 09:41:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,152 +47,148 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c2fc105-64e5-429a-9c02-0b7d03a9dbee
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619423354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q6Z72miestu9ihm0WvJW4RRO+RGPuGjuzeLPySU/wqc=;
-	b=OR88A73DBSRXH32WiuIQ4bxGU27R4iJI5c5n2OCdK6heV0mFSL/3LDqt6KJMUWZcvFSHB8
-	vdBMLga/14TczSoLLPGC8JBf4El2tWkSxU22viBdUXes2VGUXxKlv77xjDxMTc1EMG97Aa
-	DzUBrOZGT7+qOJE3bQkEgjkEVIoshaY=
-Subject: Re: [PATCH v2] x86/oprofile: remove compat accessors usage from
- backtrace
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210423143755.12189-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e2f1f3a6-ca54-7459-c60e-ff02e6857b17@suse.com>
-Date: Mon, 26 Apr 2021 09:49:13 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210423143755.12189-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
+X-Inumbo-ID: 71f77170-66e2-478b-8dcf-df5a3c4a83c2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1619430115; x=1650966115;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=JQi79qMmHO7NYKbh8fcMxghGDhxN/rf8QDLGHzK2lV0=;
+  b=g0V7h4cjRq654J3QbU/rbkHtfmq388yN09r9v13qrtwxuRBCzj0csxg+
+   yIBRnw3CiWTQ5oqbP7mV9ITBn+XrbLvHMrD41vLy72hl5/+ALBazO0yXE
+   QEsot2mxQTy2nxspe7CJg9YJScwIwwC6LQ4/ga+xo9kUQ2PuBmtRbyfev
+   Y=;
+X-IronPort-AV: E=Sophos;i="5.82,252,1613433600"; 
+   d="scan'208";a="103927592"
+From: "Xia, Hongyan" <hongyxia@amazon.com>
+To: "julien@xen.org" <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "Penny.Zheng@arm.com" <Penny.Zheng@arm.com>, "Bertrand.Marquis@arm.com"
+	<Bertrand.Marquis@arm.com>, "Wei.Chen@arm.com" <Wei.Chen@arm.com>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>, "wei.liu2@citrix.com"
+	<wei.liu2@citrix.com>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
+	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+	"hongyax@amazon.com" <hongyax@amazon.com>, "Henry.Wang@arm.com"
+	<Henry.Wang@arm.com>, "wl@xen.org" <wl@xen.org>, "Grall, Julien"
+	<jgrall@amazon.co.uk>, "jbeulich@suse.com" <jbeulich@suse.com>
+Subject: Re: [PATCH RFCv2 12/15] xen/arm: add Persistent Map (PMAP)
+ infrastructure
+Thread-Topic: [PATCH RFCv2 12/15] xen/arm: add Persistent Map (PMAP)
+ infrastructure
+Thread-Index: AQHXOoBcsB9zBVKLMkGe/ouZ8wFP5w==
+Date: Mon, 26 Apr 2021 09:41:41 +0000
+Message-ID: <baccb4ab6c71a655a4ac19cc27f2eacc116b8d4b.camel@amazon.com>
+References: <20210425201318.15447-1-julien@xen.org>
+	 <20210425201318.15447-13-julien@xen.org>
+In-Reply-To: <20210425201318.15447-13-julien@xen.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.162.28]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E6E7D978078988419BCAEDDE1B852C82@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 
-On 23.04.2021 16:37, Roger Pau Monne wrote:
-> Remove the unneeded usage of the compat layer to copy frame pointers
-> from guest address space. Instead just use raw_copy_from_guest.
-> 
-> While there drop the checks for the accessibility of one struct
-> frame_head beyond the current one: it's not clear why it's needed and
-> all the hypnoses point to dropping such check being harmless. The
-
-DYM "hypotheses"?
-
-> worse that could happen is that a failure happens later if data past
-> frame_head is attempted to be fetched, albeit I'm not able to spot any
-> such access.
-> 
-> Also drop the explicit truncation of the head pointer in the 32bit
-> case as all callers already pass a zero extended value. The first
-> value being rsp from the guest registers,
-
-While I know I'm guilty of splitting hair saying so, I'd like to point
-out that I'm unaware of guarantees that the upper halves of GPRs are
-zero after a switch from compat to 64-bit mode. With this I'm also
-unconvinced there are guarantees that the %rsp stored into a stack
-frame is actually guaranteed to be zero-extended. Nevertheless I'm not
-meaning this remark to keep the change from going in as is - for all
-practical purposes what you say is presumably true.
-
-What I would consider nice though is if the two remaining if() could
-be corrected for coding style: Adjacent code is already inconsistent,
-so taking the opportunity to move it a little in the right direction
-would seem desirable to me. (I would suggest doing so myself while
-committing, but because I don't fully agree with dropping the 2-frame
-checks described further up without properly understanding why they're
-there, I'd like to not put my name on this change in any way, not even
-just as committer. But I guess Andrew or Wei or whoever ends up
-committing this could do so, as long as they agree of course.)
-
-Jan
-
-> and further calls will use ebp from frame_head_32bit struct.
-> 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> Changes since v2:
->  - Expand commit message.
-> ---
->  xen/arch/x86/oprofile/backtrace.c | 26 +++-----------------------
->  1 file changed, 3 insertions(+), 23 deletions(-)
-> 
-> diff --git a/xen/arch/x86/oprofile/backtrace.c b/xen/arch/x86/oprofile/backtrace.c
-> index bd5d1b0f6ce..45f7fb65fa2 100644
-> --- a/xen/arch/x86/oprofile/backtrace.c
-> +++ b/xen/arch/x86/oprofile/backtrace.c
-> @@ -20,7 +20,6 @@ struct __packed frame_head {
->      unsigned long ret;
->  };
->  typedef struct frame_head frame_head_t;
-> -DEFINE_XEN_GUEST_HANDLE(frame_head_t);
->  
->  struct __packed frame_head_32bit {
->      uint32_t ebp;
-> @@ -43,7 +42,6 @@ dump_hypervisor_backtrace(struct vcpu *vcpu, const struct frame_head *head,
->      return head->ebp;
->  }
->  
-> -#ifdef CONFIG_COMPAT
->  static inline int is_32bit_vcpu(struct vcpu *vcpu)
->  {
->      if (is_hvm_vcpu(vcpu))
-> @@ -51,7 +49,6 @@ static inline int is_32bit_vcpu(struct vcpu *vcpu)
->      else
->          return is_pv_32bit_vcpu(vcpu);
->  }
-> -#endif
->  
->  static struct frame_head *
->  dump_guest_backtrace(struct vcpu *vcpu, const struct frame_head *head,
-> @@ -59,34 +56,17 @@ dump_guest_backtrace(struct vcpu *vcpu, const struct frame_head *head,
->  {
->      frame_head_t bufhead;
->  
-> -#ifdef CONFIG_COMPAT
->      if ( is_32bit_vcpu(vcpu) )
->      {
-> -        DEFINE_COMPAT_HANDLE(frame_head32_t);
-> -        __compat_handle_const_frame_head32_t guest_head =
-> -            { .c = (unsigned long)head };
->          frame_head32_t bufhead32;
->  
-> -        /* Also check accessibility of one struct frame_head beyond */
-> -        if (!compat_handle_okay(guest_head, 2))
-> -            return 0;
-> -        if (__copy_from_compat(&bufhead32, guest_head, 1))
-> +        if (raw_copy_from_guest(&bufhead32, head, sizeof(bufhead32)))
->              return 0;
->          bufhead.ebp = (struct frame_head *)(unsigned long)bufhead32.ebp;
->          bufhead.ret = bufhead32.ret;
->      }
-> -    else
-> -#endif
-> -    {
-> -        XEN_GUEST_HANDLE_PARAM(const_frame_head_t) guest_head =
-> -            const_guest_handle_from_ptr(head, frame_head_t);
-> -
-> -        /* Also check accessibility of one struct frame_head beyond */
-> -        if (!guest_handle_okay(guest_head, 2))
-> -            return 0;
-> -        if (__copy_from_guest(&bufhead, guest_head, 1))
-> -            return 0;
-> -    }
-> +    else if (raw_copy_from_guest(&bufhead, head, sizeof(bufhead)))
-> +        return 0;
->      
->      if (!xenoprof_add_trace(vcpu, bufhead.ret, mode))
->          return 0;
-> 
-
+T24gU3VuLCAyMDIxLTA0LTI1IGF0IDIxOjEzICswMTAwLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+
+IEZyb206IFdlaSBMaXUgPHdlaS5saXUyQGNpdHJpeC5jb20+DQo+IA0KPiBUaGUgYmFzaWMgaWRl
+YSBpcyBsaWtlIFBlcnNpc3RlbnQgS2VybmVsIE1hcCAoUEtNQVApIGluIExpbnV4LiBXZQ0KPiBw
+cmUtcG9wdWxhdGUgYWxsIHRoZSByZWxldmFudCBwYWdlIHRhYmxlcyBiZWZvcmUgdGhlIHN5c3Rl
+bSBpcyBmdWxseQ0KPiBzZXQgdXAuDQo+IA0KPiBXZSB3aWxsIG5lZWQgaXQgb24gQXJtIGluIG9y
+ZGVyIHRvIHJld29yayB0aGUgYXJtNjQgdmVyc2lvbiBvZg0KPiB4ZW5oZWFwX3NldHVwX21hcHBp
+bmdzKCkgYXMgd2UgbWF5IG5lZWQgdG8gdXNlIHBhZ2VzIGFsbG9jYXRlZCBmcm9tDQo+IHRoZSBi
+b290IGFsbG9jYXRvciBiZWZvcmUgdGhleSBhcmUgZWZmZWN0aXZlbHkgbWFwcGVkLg0KPiANCj4g
+VGhpcyBpbmZyYXN0cnVjdHVyZSBpcyBub3QgbG9jay1wcm90ZWN0ZWQgdGhlcmVmb3JlIGNhbiBv
+bmx5IGJlIHVzZWQNCj4gYmVmb3JlIHNtcGJvb3QuIEFmdGVyIHNtcGJvb3QsIG1hcF9kb21haW5f
+cGFnZSgpIGhhcyB0byBiZSB1c2VkLg0KPiANCj4gVGhpcyBpcyBiYXNlZCBvbiB0aGUgeDg2IHZl
+cnNpb24gWzFdIHRoYXQgd2FzIG9yaWdpbmFsbHkgaW1wbGVtZW50ZWQNCj4gYnkgV2VpIExpdS4N
+Cj4gDQo+IFRha2UgdGhlIG9wcG9ydHVuaXR5IHRvIHN3aXRjaCB0aGUgcGFyYW1ldGVyIGF0dHIg
+ZnJvbSB1bnNpZ25lZCB0bw0KPiB1bnNpZ25lZCBpbnQuDQo+IA0KPiBbMV0gPA0KPiBlOTJkYTRh
+ZDYwMTViNjA4OTczN2ZjY2NiYTNlYzFkNjQyNDY0OWE1LjE1ODgyNzgzMTcuZ2l0Lmhvbmd5eGlh
+QGFtYXpvbi5jb20NCj4gPg0KPiANCj4gU2lnbmVkLW9mZi1ieTogV2VpIExpdSA8d2VpLmxpdTJA
+Y2l0cml4LmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogSG9uZ3lhbiBYaWEgPGhvbmd5eGlhQGFtYXpv
+bi5jb20+DQo+IFtqdWxpZW46IEFkYXB0ZWQgZm9yIEFybV0NCj4gU2lnbmVkLW9mZi1ieTogSnVs
+aWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9uLmNvbT4NCg0KWy4uLl0NCg0KPiBkaWZmIC0tZ2l0IGEv
+eGVuL2FyY2gvYXJtL3BtYXAuYyBiL3hlbi9hcmNoL2FybS9wbWFwLmMNCj4gbmV3IGZpbGUgbW9k
+ZSAxMDA2NDQNCj4gaW5kZXggMDAwMDAwMDAwMDAwLi43MDJiMWJkZTk4MmQNCj4gLS0tIC9kZXYv
+bnVsbA0KPiArKysgYi94ZW4vYXJjaC9hcm0vcG1hcC5jDQo+IEBAIC0wLDAgKzEsMTAxIEBADQo+
+ICsjaW5jbHVkZSA8eGVuL2luaXQuaD4NCj4gKyNpbmNsdWRlIDx4ZW4vbW0uaD4NCj4gKw0KPiAr
+I2luY2x1ZGUgPGFzbS9iaXRvcHMuaD4NCj4gKyNpbmNsdWRlIDxhc20vZmx1c2h0bGIuaD4NCj4g
+KyNpbmNsdWRlIDxhc20vcG1hcC5oPg0KPiArDQo+ICsvKg0KPiArICogVG8gYmUgYWJsZSB0byB1
+c2UgRklYTUFQX1BNQVBfQkVHSU4uDQo+ICsgKiBYWFg6IG1vdmUgZml4bWFwIGRlZmluaXRpb24g
+aW4gYSBzZXBhcmF0ZSBoZWFkZXINCj4gKyAqLw0KPiArI2luY2x1ZGUgPHhlbi9hY3BpLmg+DQo+
+ICsNCj4gKy8qDQo+ICsgKiBTaW1wbGUgbWFwcGluZyBpbmZyYXN0cnVjdHVyZSB0byBtYXAgLyB1
+bm1hcCBwYWdlcyBpbiBmaXhlZCBtYXAuDQo+ICsgKiBUaGlzIGlzIHVzZWQgdG8gc2V0IHVwIHRo
+ZSBwYWdlIHRhYmxlIGZvciBtYXBjYWNoZSwgd2hpY2ggaXMgdXNlZA0KPiArICogYnkgbWFwIGRv
+bWFpbiBwYWdlIGluZnJhc3RydWN0dXJlLg0KPiArICoNCj4gKyAqIFRoaXMgc3RydWN0dXJlIGlz
+IG5vdCBwcm90ZWN0ZWQgYnkgYW55IGxvY2tzLCBzbyBpdCBtdXN0IG5vdCBiZQ0KPiB1c2VkIGFm
+dGVyDQo+ICsgKiBzbXAgYnJpbmctdXAuDQo+ICsgKi8NCj4gKw0KPiArLyogQml0bWFwIHRvIHRy
+YWNrIHdoaWNoIHNsb3QgaXMgdXNlZCAqLw0KPiArc3RhdGljIHVuc2lnbmVkIGxvbmcgX19pbml0
+ZGF0YSBpbnVzZTsNCj4gKw0KPiArLyogWFhYOiBGaW5kIGFuIGhlYWRlciB0byBkZWNsYXJlIGl0
+ICovDQo+ICtleHRlcm4gbHBhZV90IHhlbl9maXhtYXBbTFBBRV9FTlRSSUVTXTsNCj4gKw0KPiAr
+dm9pZCAqX19pbml0IHBtYXBfbWFwKG1mbl90IG1mbikNCj4gK3sNCj4gKyAgICB1bnNpZ25lZCBs
+b25nIGZsYWdzOw0KPiArICAgIHVuc2lnbmVkIGludCBpZHg7DQo+ICsgICAgdmFkZHJfdCBsaW5l
+YXI7DQo+ICsgICAgdW5zaWduZWQgaW50IHNsb3Q7DQo+ICsgICAgbHBhZV90ICplbnRyeSwgcHRl
+Ow0KPiArDQo+ICsgICAgQlVJTERfQlVHX09OKHNpemVvZihpbnVzZSkgKiBCSVRTX1BFUl9MT05H
+IDwgTlVNX0ZJWF9QTUFQKTsNCg0KVGhpcyBzZWVtcyB3cm9uZyB0byBtZS4gSXQgc2hvdWxkIG11
+bHRpcGx5IHdpdGggc29tZXRoaW5nIGxpa2UNCkJJVFNfUEVSX0JZVEUuDQoNCkkgbm90aWNlZCB0
+aGlzIGxpbmUgd2FzIGFscmVhZHkgcHJlc2VudCBiZWZvcmUgdGhlIEFybSB2ZXJzaW9uIHNvDQpw
+cm9iYWJseSBteSBmYXVsdCA6KCwgd2hpY2ggYWxzbyBuZWVkcyB0byBiZSBmaXhlZC4NCg0KPiAr
+DQo+ICsgICAgQVNTRVJUKHN5c3RlbV9zdGF0ZSA8IFNZU19TVEFURV9zbXBfYm9vdCk7DQo+ICsN
+Cj4gKyAgICBsb2NhbF9pcnFfc2F2ZShmbGFncyk7DQo+ICsNCj4gKyAgICBpZHggPSBmaW5kX2Zp
+cnN0X3plcm9fYml0KCZpbnVzZSwgTlVNX0ZJWF9QTUFQKTsNCj4gKyAgICBpZiAoIGlkeCA9PSBO
+VU1fRklYX1BNQVAgKQ0KPiArICAgICAgICBwYW5pYygiT3V0IG9mIFBNQVAgc2xvdHNcbiIpOw0K
+PiArDQo+ICsgICAgX19zZXRfYml0KGlkeCwgJmludXNlKTsNCj4gKw0KPiArICAgIHNsb3QgPSBp
+ZHggKyBGSVhNQVBfUE1BUF9CRUdJTjsNCj4gKyAgICBBU1NFUlQoc2xvdCA+PSBGSVhNQVBfUE1B
+UF9CRUdJTiAmJiBzbG90IDw9IEZJWE1BUF9QTUFQX0VORCk7DQo+ICsNCg0KRnJvbSBoZXJlLi4u
+DQoNCj4gKyAgICBsaW5lYXIgPSBGSVhNQVBfQUREUihzbG90KTsNCj4gKyAgICAvKg0KPiArICAg
+ICAqIFdlIGNhbm5vdCB1c2Ugc2V0X2ZpeG1hcCgpIGhlcmUuIFdlIHVzZSBQTUFQIHdoZW4gdGhl
+cmUgaXMgbm8NCj4gZGlyZWN0IG1hcCwNCj4gKyAgICAgKiBzbyBtYXBfcGFnZXNfdG9feGVuKCkg
+Y2FsbGVkIGJ5IHNldF9maXhtYXAoKSBuZWVkcyB0byBtYXANCj4gcGFnZXMgb24NCj4gKyAgICAg
+KiBkZW1hbmQsIHdoaWNoIHRoZW4gY2FsbHMgcG1hcCgpIGFnYWluLCByZXN1bHRpbmcgaW4gYSBs
+b29wLg0KPiBNb2RpZnkgdGhlDQo+ICsgICAgICogUFRFcyBkaXJlY3RseSBpbnN0ZWFkLiBUaGUg
+c2FtZSBpcyB0cnVlIGZvciBwbWFwX3VubWFwKCkuDQo+ICsgICAgICovDQo+ICsgICAgZW50cnkg
+PSAmeGVuX2ZpeG1hcFt0aGlyZF90YWJsZV9vZmZzZXQobGluZWFyKV07DQo+ICsNCj4gKyAgICBB
+U1NFUlQoIWxwYWVfaXNfdmFsaWQoKmVudHJ5KSk7DQo+ICsNCj4gKyAgICBwdGUgPSBtZm5fdG9f
+eGVuX2VudHJ5KG1mbiwgUEFHRV9IWVBFUlZJU09SX1JXKTsNCj4gKyAgICBwdGUucHQudGFibGUg
+PSAxOw0KPiArICAgIHdyaXRlX3B0ZShlbnRyeSwgcHRlKTsNCj4gKw0KDQouLi50byBoZXJlLCBJ
+IHdvbmRlciBpZiB3ZSBjYW4gbW92ZSB0aGlzIGNodW5rIGludG8gYXJjaCAobGlrZSB2b2lkDQoq
+YXJjaF93cml0ZV9wbWFwX3Nsb3Qoc2xvdCkpLiBTdWNoIGFuIGFyY2ggZnVuY3Rpb24gaGlkZXMg
+aG93IGZpeG1hcCBpcw0KaGFuZGxlZCBhbmQgaG93IHBhZ2UgdGFibGUgZW50cnkgaXMgd3JpdHRl
+biBiZWhpbmQgYXJjaCwgYW5kIHRoZSByZXN0DQpjYW4ganVzdCBiZSBjb21tb24uDQoNCj4gKyAg
+ICBsb2NhbF9pcnFfcmVzdG9yZShmbGFncyk7DQo+ICsNCj4gKyAgICByZXR1cm4gKHZvaWQgKils
+aW5lYXI7DQo+ICt9DQo+ICsNCj4gK3ZvaWQgX19pbml0IHBtYXBfdW5tYXAoY29uc3Qgdm9pZCAq
+cCkNCj4gK3sNCj4gKyAgICB1bnNpZ25lZCBsb25nIGZsYWdzOw0KPiArICAgIHVuc2lnbmVkIGlu
+dCBpZHg7DQo+ICsgICAgbHBhZV90ICplbnRyeTsNCj4gKyAgICBscGFlX3QgcHRlID0geyAwIH07
+DQo+ICsgICAgdW5zaWduZWQgaW50IHNsb3QgPSB0aGlyZF90YWJsZV9vZmZzZXQoKHZhZGRyX3Qp
+cCk7DQo+ICsNCj4gKyAgICBBU1NFUlQoc3lzdGVtX3N0YXRlIDwgU1lTX1NUQVRFX3NtcF9ib290
+KTsNCj4gKyAgICBBU1NFUlQoc2xvdCA+PSBGSVhNQVBfUE1BUF9CRUdJTiAmJiBzbG90IDw9IEZJ
+WE1BUF9QTUFQX0VORCk7DQo+ICsNCj4gKyAgICBpZHggPSBzbG90IC0gRklYTUFQX1BNQVBfQkVH
+SU47DQo+ICsgICAgbG9jYWxfaXJxX3NhdmUoZmxhZ3MpOw0KPiArDQo+ICsgICAgX19jbGVhcl9i
+aXQoaWR4LCAmaW51c2UpOw0KPiArICAgIGVudHJ5ID0gJnhlbl9maXhtYXBbdGhpcmRfdGFibGVf
+b2Zmc2V0KCh2YWRkcl90KXApXTsNCj4gKyAgICB3cml0ZV9wdGUoZW50cnksIHB0ZSk7DQo+ICsg
+ICAgZmx1c2hfeGVuX3RsYl9yYW5nZV92YV9sb2NhbCgodmFkZHJfdClwLCBQQUdFX1NJWkUpOw0K
+DQphbmQgdGhlIHNhbWUgZm9yIHRoZSBhYm92ZSwgc29tZXRoaW5nIGxpa2UgYXJjaF9jbGVhcl9w
+bWFwKHZvaWQgKikgYW5kDQp0aGUgcmVzdCBpbnRvIGNvbW1vbi4NCg0KRnJvbSBhIHF1aWNrIGds
+YW5jZSwgSSBkb24ndCB0aGluayB4ODYgYW5kIEFybSBzaGFyZSBhbnkgdXNlZnVsIFRMQg0KZmx1
+c2ggaGVscGVycz8gU28gdGhlIFRMQiBmbHVzaCBwcm9iYWJseSBzaG91bGQgYmUgYmVoaW5kIGFy
+Y2ggYXMgd2VsbC4NCg0KPiArDQo+ICsgICAgbG9jYWxfaXJxX3Jlc3RvcmUoZmxhZ3MpOw0KPiAr
+fQ0KPiArDQo+ICsvKg0KPiArICogTG9jYWwgdmFyaWFibGVzOg0KPiArICogbW9kZTogQw0KPiAr
+ICogYy1maWxlLXN0eWxlOiAiQlNEIg0KPiArICogYy1iYXNpYy1vZmZzZXQ6IDQNCj4gKyAqIGlu
+ZGVudC10YWJzLW1vZGU6IG5pbA0KPiArICogRW5kOg0KPiArICovDQoNClsuLi5dDQoNCj4gZGlm
+ZiAtLWdpdCBhL3hlbi9pbmNsdWRlL2FzbS1hcm0vcG1hcC5oIGIveGVuL2luY2x1ZGUvYXNtLWFy
+bS9wbWFwLmgNCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4gaW5kZXggMDAwMDAwMDAwMDAwLi44
+ZTFkY2U5M2Y4ZTQNCj4gLS0tIC9kZXYvbnVsbA0KPiArKysgYi94ZW4vaW5jbHVkZS9hc20tYXJt
+L3BtYXAuaA0KPiBAQCAtMCwwICsxLDEwIEBADQo+ICsjaWZuZGVmIF9fQVNNX1BNQVBfSF9fDQo+
+ICsjZGVmaW5lIF9fQVJNX1BNQVBfSF9fDQoNClRoaXMgbGluZSBkb2Vzbid0IHNlZW0gdG8gbWF0
+Y2ggdGhlICNpZm5kZWYsIGJ1dCBpZiB0aGUgZnVuY3Rpb25zIGFyZQ0KbW92ZWQgdG8gY29tbW9u
+LCB0aGlzIGhlYWRlciBjYW4gYmUgbW92ZWQgdG8gY29tbW9uIGFzIHdlbGwuDQoNCkhvbmd5YW4N
+Cg==
 
