@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2B336C90B
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Apr 2021 18:04:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.118683.224910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B3D336C910
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Apr 2021 18:08:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.118689.224922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbQCE-00077K-FR; Tue, 27 Apr 2021 16:04:22 +0000
+	id 1lbQGM-0007LW-1L; Tue, 27 Apr 2021 16:08:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 118683.224910; Tue, 27 Apr 2021 16:04:22 +0000
+Received: by outflank-mailman (output) from mailman id 118689.224922; Tue, 27 Apr 2021 16:08:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbQCE-00076v-C6; Tue, 27 Apr 2021 16:04:22 +0000
-Received: by outflank-mailman (input) for mailman id 118683;
- Tue, 27 Apr 2021 16:04:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DJzn=JY=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lbQCC-00076m-Im
- for xen-devel@lists.xenproject.org; Tue, 27 Apr 2021 16:04:20 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88c953f8-dc97-4b4e-a6bf-c618cc8a8e04;
- Tue, 27 Apr 2021 16:04:15 +0000 (UTC)
+	id 1lbQGL-0007L7-UD; Tue, 27 Apr 2021 16:08:37 +0000
+Received: by outflank-mailman (input) for mailman id 118689;
+ Tue, 27 Apr 2021 16:08:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lbQGK-0007L2-Mk
+ for xen-devel@lists.xenproject.org; Tue, 27 Apr 2021 16:08:36 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ccb77838-5384-4d1f-b1e9-7233640b6b57;
+ Tue, 27 Apr 2021 16:08:35 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B8AB2B121;
+ Tue, 27 Apr 2021 16:08:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,95 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88c953f8-dc97-4b4e-a6bf-c618cc8a8e04
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1619539455;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VtRKiZFtOx0T950MQ1uHjCSXNqxajWiX6qcEGgMUJ5Q=;
-  b=QB1z8ohQbgNymipi011+vY+PNbrvfhOONRW83Rfv4gMm8SYOW3UXGFgY
-   wNxgs8MHgiSI5Aojh4sbZtDZbkepMnZUXaAAZPPYAKKnbbX/SBEtX24vh
-   zFVJFcwt8EbUitmhUVsmG0uMmMEsLBCpXB2xgrSvgbvVTxgOZjOmMcMQX
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: CYJCK2B+Nsj5xqlWeyHlX63lEcJtxsSC+uY1vxQUpUbMFK34mtuGfQW3U+A1HVpD09tJtHKf+H
- 52iph6cukiZsGPgd11FveQ741TnZZBB8VOguWXjjAvXy285FjEnLusZDdA95udL6Qw2zTKi5Rx
- NDjBH1UXeJiAZSmraU+SUGbLUkokfFYBNuxRMRV0Q8SCdkvvsOPSUDYLscMtR4u8cetJOWqW3L
- 1fCMOGHWjoW/4R2lldTR2F6Xjjqphyf9gzx6l+pyisLyqfhh7+RJ7DN98+OdVs0X1pXDiVrfRI
- fpQ=
-X-SBRS: 5.1
-X-MesageID: 42344144
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:y0wbDKiDqam3VUVtrPH+cKElBXBQXwB13DAbvn1ZSRFFG/Gwv9
- yynfgdyB//gCsQXnZlotybJKycWxrnmKJdy48XILukQU3aqHKlRbsSiLfK7h/BP2nF9uBb3b
- p9aKQWMrfNJHVzkMqS2maFOvk6xt3vys6VrMP/61socg1wcaFn6G5Ce2SmO2l7XhNPC5Z8NL
- f03Kp6jgGtc3gWcci3b0NtN4T+jubGiY78Zlo+DwMngTPksRqT9LX4HxKEty1uMA9n/LFKyw
- n4uj283IqPmbWRyhjQ12jchq4m4ufJ+594K+GnzuQQIjXooA60aIpmQK3qhkFJnMifrGwEvf
- OJjxA8P9liy365RBDInTLdnzPO/Rxry3j+xUSWiXHuyPaJOw4SOo56qq9yNj76gnBQ2O1U4e
- Zw8E+y86dzN1fmmh/w4tDZPisa7nackD4ZvsM4y0BEXZB2Us43kaUvuHl7Pb0nByzA5IUuAI
- BVfbrhzccTS1+cYnzD11MfpuCEbzA2FheCdEAIptaY5ThQhGx41EsV3qUk7w49yK4=
-X-IronPort-AV: E=Sophos;i="5.82,254,1613451600"; 
-   d="scan'208";a="42344144"
-Date: Tue, 27 Apr 2021 17:04:11 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Julien Grall <julien@xen.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <jgrall@amazon.com>, Ian
- Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 07/14] tools/xl: Use const whenever we point to literal
- strings
-Message-ID: <YIg1+x/cR1Ft5H3u@perard>
-References: <20210405155713.29754-1-julien@xen.org>
- <20210405155713.29754-8-julien@xen.org>
+X-Inumbo-ID: ccb77838-5384-4d1f-b1e9-7233640b6b57
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1619539714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lZiSY23CY1+qj+w9k/ix6u/jHIc98/LgC2nmXFIovmk=;
+	b=VZ/F3bIfO7AkLiNBvAjqSk6zKnMwx2GEbUNWwgLHoe47NzCCEj6UHM+BjVUcw1Me2ZNP3T
+	tqhQWM8kD3FKhIu2QG3TIdOv9MEvsqbpatpyDKC9fuSZ6CBJe9WXKwiWpMOnZBtVLhufoi
+	cx+69jc088UuEGVW1XE9RzTd+sUAW00=
+Subject: Ping: [PATCH v4] x86/shim: don't permit HVM and PV_SHIM_EXCLUSIVE at
+ the same time
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <d09b0690-c5e0-a90b-b4c0-4396a5f62c59@suse.com>
+ <164d8e67-fd65-9e98-53ef-51187310de0b@suse.com>
+Message-ID: <d9d62ba4-2a0f-5fe8-a0be-e6e1f0777348@suse.com>
+Date: Tue, 27 Apr 2021 18:08:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210405155713.29754-8-julien@xen.org>
+In-Reply-To: <164d8e67-fd65-9e98-53ef-51187310de0b@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 05, 2021 at 04:57:06PM +0100, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On 15.04.2021 11:27, Jan Beulich wrote:
+> This combination doesn't really make sense (and there likely are more);
+> in particular even if the code built with both options set, HVM guests
+> wouldn't work (and I think one wouldn't be able to create one in the
+> first place). The alternative here would be some presumably intrusive
+> #ifdef-ary to get this combination to actually build (but still not
+> work) again.
 > 
-> literal strings are not meant to be modified. So we should use const
-> char * rather than char * when we want to store a pointer to them.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Fixes: 8b5b49ceb3d9 ("x86: don't include domctl and alike in shim-exclusive builds")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Andrew,
+
+I know you're not happy with this change, but I also don't recall
+you proposing any sufficiently straightforward alternative. Nor do
+I recall you responding to my claim that the combination is useless
+anyway, since the PV shim exists solely to create a single PV guest.
+Since I have Roger's ack, may I ask that you firmly NACK the change
+here (accompanied by an alternative proposal), if you're really
+convinced that your view on the situation is the only sensible one?
+If I don't hear back by the end of the week, I guess I'll put the
+change in early next week.
+
+Jan
+
+
 > ---
-> diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-> index 137a29077c1e..3052e3db0072 100644
-> --- a/tools/xl/xl.h
-> +++ b/tools/xl/xl.h
-> @@ -21,13 +21,13 @@
->  #include <xentoollog.h>
+> v4: Default HVM to !PV_SHIM, as suggested by Jürgen.
+> v2: Restore lost default setting.
+> 
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -23,7 +23,7 @@ config X86
+>  	select HAS_PDX
+>  	select HAS_SCHED_GRANULARITY
+>  	select HAS_UBSAN
+> -	select HAS_VPCI if !PV_SHIM_EXCLUSIVE && HVM
+> +	select HAS_VPCI if HVM
+>  	select NEEDS_LIBELF
+>  	select NUMA
 >  
->  struct cmd_spec {
-> -    char *cmd_name;
-> +    const char *cmd_name;
->      int (*cmd_impl)(int argc, char **argv);
->      int can_dryrun;
->      int modifies;
-> -    char *cmd_desc;
-> -    char *cmd_usage;
-> -    char *cmd_option;
-> +    const char *cmd_desc;
-> +    const char *cmd_usage;
-> +    const char *cmd_option;
->  };
+> @@ -90,9 +90,10 @@ config PV_LINEAR_PT
+>           If unsure, say Y.
+>  
+>  config HVM
+> -	def_bool !PV_SHIM_EXCLUSIVE
+> +	bool "HVM support"
+> +	depends on !PV_SHIM_EXCLUSIVE
+> +	default !PV_SHIM
+>  	select IOREQ_SERVER
+> -	prompt "HVM support"
+>  	---help---
+>  	  Interfaces to support HVM domains.  HVM domains require hardware
+>  	  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
+> 
 
-Those const in cmd_spec feels almost the wrong things to do, but it is
-also unlikely that we would want to modify the strings in a cmd_spec so
-I guess that's fine.
-
-I'm thinking that `cmd_table` should be const as well (I mean
-const struct cmd_spec cmd_table[];) as there is no reason to modify the
-entries once they are in the table. I'll send a patch.
-
-
-The rest looks good.
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-Thanks,
-
--- 
-Anthony PERARD
 
