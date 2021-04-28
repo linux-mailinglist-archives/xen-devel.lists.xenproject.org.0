@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B76EF36D469
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 11:04:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119102.225436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70FD436D46E
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 11:04:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119106.225448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbg6V-0007Ao-6L; Wed, 28 Apr 2021 09:03:31 +0000
+	id 1lbg7j-0007Ha-IA; Wed, 28 Apr 2021 09:04:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119102.225436; Wed, 28 Apr 2021 09:03:31 +0000
+Received: by outflank-mailman (output) from mailman id 119106.225448; Wed, 28 Apr 2021 09:04:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbg6V-0007AP-35; Wed, 28 Apr 2021 09:03:31 +0000
-Received: by outflank-mailman (input) for mailman id 119102;
- Wed, 28 Apr 2021 09:03:29 +0000
+	id 1lbg7j-0007HB-Eg; Wed, 28 Apr 2021 09:04:47 +0000
+Received: by outflank-mailman (input) for mailman id 119106;
+ Wed, 28 Apr 2021 09:04:46 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lbg6T-0007AK-9x
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 09:03:29 +0000
+ (envelope-from <julien@xen.org>) id 1lbg7i-0007H5-AD
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 09:04:46 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lbg6Q-0001bC-Lb; Wed, 28 Apr 2021 09:03:26 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ id 1lbg7g-0001c3-QT; Wed, 28 Apr 2021 09:04:44 +0000
+Received: from [54.239.6.190] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lbg6Q-0001f6-Eq; Wed, 28 Apr 2021 09:03:26 +0000
+ id 1lbg7g-0001ja-GS; Wed, 28 Apr 2021 09:04:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,65 +42,69 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=eHFzXnHUscmXvrgxAaF8yNtuyNlmy6RdKsx6rlFJHpc=; b=TfaNUbE1ksxC67omLjCM1MFgsZ
-	7DsGXXObcMC+3fLCLrevbLozMhG41vHP5hz4ytNAXqcmfexZYnD89evViOAn0GfUmS0LeKGcHXFWl
-	GyD68jED9bLBuyIfsW6suydzr47Qszdrn9ZzQs5Ieq3dAGsczI1rhjcCETus9eEhZRoo=;
-Subject: Re: [PATCH 3/5] tools/libs/foreignmemory: Fix PAGE_SIZE redefinition
- error
+	bh=1HhgNlvVh89LsWYdwwB897Go5ylU1RxlYREqwp+CApw=; b=29BppQjSc/AKH5NKCVuU4qykuR
+	OrAApK0ik4fiE7J5OgLaz8EfNZtB1kFmliYkCEbomL8IpQ0glg2srW4Jndp7Y9AQhfP6mkNhC+xym
+	8cMp2F9JEJsosgWdShfSMtFm6IAia27XcEwND9J7xRCtEb7UmeRcpB07zoWBzrojScHs=;
+Subject: Re: [PATCH 2/5] tools/libfsimage: Fix PATH_MAX redefinition error
 To: Costin Lupu <costin.lupu@cs.pub.ro>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <cover.1619524463.git.costin.lupu@cs.pub.ro>
- <b9a300edca034d44375d8b16d352110186657e75.1619524463.git.costin.lupu@cs.pub.ro>
+ <e44209c8981a68604a34f3066d53989f84ce8f49.1619524463.git.costin.lupu@cs.pub.ro>
 From: Julien Grall <julien@xen.org>
-Message-ID: <8803561c-b3bd-4979-f9ef-3f58542af70b@xen.org>
-Date: Wed, 28 Apr 2021 10:03:23 +0100
+Message-ID: <9ef85c5b-b757-bbaa-be23-4ceb1d45cddd@xen.org>
+Date: Wed, 28 Apr 2021 10:04:43 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <b9a300edca034d44375d8b16d352110186657e75.1619524463.git.costin.lupu@cs.pub.ro>
+In-Reply-To: <e44209c8981a68604a34f3066d53989f84ce8f49.1619524463.git.costin.lupu@cs.pub.ro>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Costin,
+
 
 On 27/04/2021 13:05, Costin Lupu wrote:
->   tools/libs/foreignmemory/private.h | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
+> If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
+> header) then gcc will trigger a redefinition error because of -Werror.
 > 
-> diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemory/private.h
-> index 1ee3626dd2..f3c1ba2867 100644
-> --- a/tools/libs/foreignmemory/private.h
-> +++ b/tools/libs/foreignmemory/private.h
-> @@ -10,11 +10,13 @@
->   #include <xen/xen.h>
->   #include <xen/sys/privcmd.h>
+> Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+> ---
+>   tools/libfsimage/ext2fs/fsys_ext2fs.c     | 2 ++
+>   tools/libfsimage/reiserfs/fsys_reiserfs.c | 2 ++
+>   2 files changed, 4 insertions(+)
+> 
+> diff --git a/tools/libfsimage/ext2fs/fsys_ext2fs.c b/tools/libfsimage/ext2fs/fsys_ext2fs.c
+> index a4ed10419c..5ed8fce90e 100644
+> --- a/tools/libfsimage/ext2fs/fsys_ext2fs.c
+> +++ b/tools/libfsimage/ext2fs/fsys_ext2fs.c
+> @@ -278,7 +278,9 @@ struct ext4_extent_header {
 >   
-> -#ifndef PAGE_SHIFT /* Mini-os, Yukk */
-> +#ifndef PAGE_SHIFT
->   #define PAGE_SHIFT           12
->   #endif
-> -#ifndef __MINIOS__ /* Yukk */
-> +#ifndef PAGE_SIZE
->   #define PAGE_SIZE            (1UL << PAGE_SHIFT)
+>   #define EXT2_SUPER_MAGIC      0xEF53	/* include/linux/ext2_fs.h */
+>   #define EXT2_ROOT_INO              2	/* include/linux/ext2_fs.h */
+> +#ifndef PATH_MAX
+>   #define PATH_MAX                1024	/* include/linux/limits.h */
 > +#endif
-> +#ifndef PAGE_MASK
->   #define PAGE_MASK            (~(PAGE_SIZE-1))
->   #endif
 
-Looking at the usage, I believe PAGE_* are referring to the page 
-granularity of Xen rather than the page granularity of the control 
-domain itself.
+Can we drop it completely and just rely on limits.h?
 
-So it would be incorrect to use the domain's page granularity here and 
-would break dom0 using 64KB page granularity on Arm.
-
-Instead, we should replace PAGE_* with XC_PAGE_*. If some of them are 
-still referring to the control domain granularity, then we should use 
-getpageshift() (Or equivalent) because the userspace shouldn't rely on a 
-specific page granularity.
-
-Cheers,
+>   #define MAX_LINK_COUNT             5	/* number of symbolic links to follow */
+>   
+>   /* made up, these are pointers into FSYS_BUF */
+> diff --git a/tools/libfsimage/reiserfs/fsys_reiserfs.c b/tools/libfsimage/reiserfs/fsys_reiserfs.c
+> index 916eb15292..10ca657476 100644
+> --- a/tools/libfsimage/reiserfs/fsys_reiserfs.c
+> +++ b/tools/libfsimage/reiserfs/fsys_reiserfs.c
+> @@ -284,7 +284,9 @@ struct reiserfs_de_head
+>   #define S_ISDIR(mode) (((mode) & 0170000) == 0040000)
+>   #define S_ISLNK(mode) (((mode) & 0170000) == 0120000)
+>   
+> +#ifndef PATH_MAX
+>   #define PATH_MAX       1024	/* include/linux/limits.h */
+> +#endif
+>   #define MAX_LINK_COUNT    5	/* number of symbolic links to follow */
+>   
+>   /* The size of the node cache */
+> 
 
 -- 
 Julien Grall
