@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0F1236D60B
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 13:04:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119218.225625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE3836D610
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 13:05:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119225.225636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbhz9-00029b-QS; Wed, 28 Apr 2021 11:04:03 +0000
+	id 1lbi04-0002HI-87; Wed, 28 Apr 2021 11:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119218.225625; Wed, 28 Apr 2021 11:04:03 +0000
+Received: by outflank-mailman (output) from mailman id 119225.225636; Wed, 28 Apr 2021 11:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbhz9-00029E-N1; Wed, 28 Apr 2021 11:04:03 +0000
-Received: by outflank-mailman (input) for mailman id 119218;
- Wed, 28 Apr 2021 11:04:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lbi04-0002Gt-56; Wed, 28 Apr 2021 11:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 119225;
+ Wed, 28 Apr 2021 11:04:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vSVs=JZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lbhz7-00028t-PI
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 11:04:02 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::5])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f9812885-e5e9-449f-98ad-f3506912a14a;
- Wed, 28 Apr 2021 11:04:00 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.25.2 AUTH)
- with ESMTPSA id D0155dx3SB3x4vw
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 28 Apr 2021 13:03:59 +0200 (CEST)
+ (envelope-from <hx242@xen.org>) id 1lbi02-0002Gm-Qp
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 11:04:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1lbhzz-0003hQ-LJ; Wed, 28 Apr 2021 11:04:55 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=ua82172827c7b5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1lbhzz-00026Q-6P; Wed, 28 Apr 2021 11:04:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,101 +40,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9812885-e5e9-449f-98ad-f3506912a14a
-ARC-Seal: i=1; a=rsa-sha256; t=1619607839; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=BV4m9YABiwArQ+YcLdS9A6E79UsxIPgCu4DoZ31VGwhQd37gR6sUoqVWWVX6zmetF5
-    TGah1M0qqU2gXhKFojVYHGMk2HfG/sB4R7cp4qjwUMIHXBIvoVkEQZw+mQTeM0foUgtI
-    aGeNRGNyruZ/lXbw1X7T/L8JONHOmobCVzJH3t0w1UQP0chZgur7DH261gwCwUmOAVjX
-    DmMqJBzyOMZhNLd0pDzSr40vAsjowpK1L4p3N1mOOY+HmEw8iezZryPvD7C14GgrBzsD
-    gq9enmwgm5LtsK5M5t7shOtyip4FIiA5M1EneRB0x7eJeWHmw6kPprIMEoG1A3ngtXJc
-    RJyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1619607839;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=CJKpLB6He3yiYcrruXOeknmH/h0X8Q5MiiC/wF/SVsI=;
-    b=WLxCt5tAWaskRX0spMTlo355PRMsg9ZbgqY4ZmGOuXtKI4ozixBaTSlxrQ7z308ec8
-    /1GLfVLsgw2jRtByEDjJzWW2eOlZR0CfwCu4Pw0xD91o5GFEWwFgFsyis6ANfUVv8/uM
-    2/LGXs1d1x9KfO+xlO02Z6noc3+xgFCAj/Urhi/tT/Y/Ks3I/fJGwX9Y3jizE9gxUEqo
-    rPNcwotypIbw497Uo8xVrt/rhTBCiII8594THbNu3HWI2UZvBIxFl4FlpqtEAxx8QssE
-    8FTDf0Bg1opHS7JuPP90CRwJD5YZT70BfdwhmInBbNJnFRDDx/kVDmUxe1EYOZDIgQ2f
-    Gd4A==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1619607839;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=CJKpLB6He3yiYcrruXOeknmH/h0X8Q5MiiC/wF/SVsI=;
-    b=L1hEdCdwCJ23JnJbA28HIzRLJMYA+Hu2VLn5XkES1nHHz5lyQcNxHcP2SusA22p8P/
-    9R4MwINGOQmiX7SefOwmSuL1pXlQ9eQfxER4BGW1mmbw9D6N2tej9pjesBOQpLNFB/AO
-    GKSRqhmylbpltQRID3pgJGXZid0R5l/8aT8LJag+8AwKLvfDXnGPMpCEScjLpcefmEW/
-    DVEbjQnBKscKgZ+3tBOmIsdNPJYloQPscA50p9I6HhYM0N9fG+f6FFiHUxmEk8eRYNq8
-    RcumFsPCbWSzDdUbTMHpLIsPan8HZv9x3xINhvvpYV0q/5lwBf1Nu8DDAuzb1VOImRRA
-    yOXA==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisEsVR6GbU3svGYLiH9zFD0wpO7hNb2D/K88Gfjs"
-X-RZG-CLASS-ID: mo00
-Date: Wed, 28 Apr 2021 13:03:46 +0200
-From: Olaf Hering <olaf@aepfle.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+	bh=69MVAyGcIfT3FsUHh/jvNeUT2ENrdkUxLG6OCXyG6fk=; b=QaNvjseb5/dS22R0e5rjWavcSF
+	nQk5gdR1E8361Qc0T6yvXXlxFEGkDQ45LN8/fbM9lQ64KFnM65fOuTwsfDU7Qo7nJEcFZbb+95clb
+	ziqcRCU3SgFATKg+C52OR1Ze1Fk9YSfvBvqKqORmg33oKnn+awpd/7UWxS1KPOb3ihqQ=;
+Message-ID: <943480f695052163b540919c9c55655e5b4f741a.camel@xen.org>
+Subject: Re: [PATCH 13/16] xen/page_alloc: add a path for xenheap when there
+ is no direct map
+From: Hongyan Xia <hx242@xen.org>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: obtain a list of granttable PFNs from toolstack
-Message-ID: <20210428130346.2477ffda.olaf@aepfle.de>
-In-Reply-To: <d508af0b-dd4a-7c13-f33e-bc60a4fb7272@suse.com>
-References: <20210428095049.14a8272b.olaf@aepfle.de>
-	<8427397f-0953-94df-04f6-8dfe2a4ceee8@suse.com>
-	<20210428121701.3272b369.olaf@aepfle.de>
-	<d508af0b-dd4a-7c13-f33e-bc60a4fb7272@suse.com>
-X-Mailer: Claws Mail 2021.04.23 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
-MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/sqePbG.ExxylZ16qgiB28K=";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Cc: julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Wed, 28 Apr 2021 12:04:51 +0100
+In-Reply-To: <a1bd2c72-1310-f018-dda5-90521be03fe4@suse.com>
+References: <cover.1588278317.git.hongyxia@amazon.com>
+	 <32ae7c14babf7e78b60febb53095a74c5e865456.1588278317.git.hongyxia@amazon.com>
+	 <a1bd2c72-1310-f018-dda5-90521be03fe4@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---Sig_/sqePbG.ExxylZ16qgiB28K=
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Thu, 2021-04-22 at 14:31 +0200, Jan Beulich wrote:
+> On 30.04.2020 22:44, Hongyan Xia wrote:
+> > From: Hongyan Xia <hongyxia@amazon.com>
+> > 
+> > When there is not an always-mapped direct map, xenheap allocations
+> > need
+> > to be mapped and unmapped on-demand.
+> > 
+> > Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> 
+> This series has been left uncommented for far too long - I'm sorry.
+> While earlier patches here are probably reasonable (but would likely
+> need re-basing, so I'm not sure whether to try to get to look though
+> them before that makes much sense),
 
-Am Wed, 28 Apr 2021 12:42:54 +0200
-schrieb Jan Beulich <jbeulich@suse.com>:
+No worries. This series depends on the domheap Xen page table
+conversion series anyway (which was just fully merged. Thanks.). I will
+re-base now since the dependency is resolved.
 
-> It might help if you would outline what you're actually after by
-> knowing a domain's active grants.
+> As I don't think we have many cases where code actually depends on
+> being able to apply __va() (or equivalent) to the address returned
+> from alloc_xenheap_pages(), I think this should instead involve
+> vmap(), with the vmap area drastically increased (perhaps taking all
+> of the space the direct map presently consumes). For any remaining
+> users of __va() or alike these should perhaps be converted into an
+> alias / derivation of vmap_to_{mfn,page}() then.
 
-There is REC_TYPE_VERIFY, which will re-transmit all memory of a paused dom=
-U and compare what was previously transferred. Last time I used it a large =
-number of pages are different. I did not spent time to dig further into it,=
- what pfns are affected, how the pages differ. I suspect the backends do st=
-ill write into the granted pages, hence the question.
+That's true, and this was my first implementation (and also Wei's
+original proposal) which worked okay. But, several problems got in the
+way.
 
-I think the domU may undo all grants during its suspend anyway, that is som=
-ething to explore as well.
+1. Partial unmap. Biggest offender is xmalloc which allocates and could
+then free part of it, which means we need to be able to partially unmap
+the region. vmap() does not support this.
 
+2. Fast PA->VA. There is currently no way to go from PA to VA in
+vmapped pages, unless we somehow repurpose or add new fields in
+page_info. Also, VA->PA is possible but very slow now. There is not
+much PA->VA in the critical path but see 3.
 
-Olaf
+3. EPT. Mapping and unmapping EPT in HVM hypercalls and MMIO are so
+many and so slow that it is probably not possible to keep them as
+domheap pages due to the big performance drop after removing the direct
+map. If we move them to xenheap pages on vmap, then this depends on 2
+for page table walking.
 
---Sig_/sqePbG.ExxylZ16qgiB28K=
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+In the end, I could not find a way that met all 3 above without massive
+and intrusive changes. If there is a way, it certainly needs a design
+document. The "on-demand" direct map solves all the problems without
+breaking any APIs and is very easy to understand. We have been using
+Xen without the direct map for a while now with this approach with
+decent performance (in fact, you cannot tell that this is a Xen without
+the direct map by just real-world benchmarks alone).
 
------BEGIN PGP SIGNATURE-----
+I too agree that this approach is a litte hacky and wastes a big chunk
+of virtual address space. Definitely wants some discussion if a better
+way can be found that solves the problems.
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmCJQRIACgkQ86SN7mm1
-DoAmrhAAiSnuk4q+fVLzLd/yaw3pPXQXDPveClVE68p7VwoRGiWqktWdaqJelhLt
-7rIgs+YxAOPaaazhPphQungs1HyyEjdcH7J9YWsk20xSqMTmRUMEmQaFRR+aDsBB
-Gk6AtdzP5JM9iMSJcN1lBxR7y74nvvynj7Ahq0QsKJhodUQuBAYG/JUHN8PgoWKf
-eqS2xFLt8ZF9+s6FbmDbT1PLY+948Xdno1zlSe88gW+F5pYL6I8UKEj1vEqsQc+3
-wGtr3EGp8tKVaCjjWh1hfFgitR+1HtWrJwFQKxofY1EdOqLd8u1Kv0CnvxpkV61R
-EQjDkbAdS+B8aY8u8PO4dtqrifBvkU/qs6hQ+ex+5t3j5MVa0ZCYyRmxxjxg70uO
-sffcVh9zhQ6lUTUIPgAya1VafOOXIV1wiLMAESBWELmBUp9N4XmowOfBU5WuOHNt
-3HpHThcGT7lEqKQ07SN1c5IMjtL4SdTbZ0/Nhg+3cSaBgh5mutx9ZPUkf78eSAZY
-dEQePugIUnkpcqZM26uf5LXdT3xRydxA69lPuvTyOPHNnfoymlYLe/eU3GNca5dn
-fh8kaoXXpt8snQxGnV43MkxZK0S/HvTvYCVBrxP6bTGEJQkQL9oGail+p9qMJ2f3
-G+8YUE2FV7eGn3RokVRz26bOq/xjo2wyPlEJ1DsagHSPewhtYMU=
-=jBFO
------END PGP SIGNATURE-----
+Thanks,
+Hongyan
 
---Sig_/sqePbG.ExxylZ16qgiB28K=--
 
