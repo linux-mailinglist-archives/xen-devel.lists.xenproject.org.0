@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E484936D7A3
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 14:47:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119310.225742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52AC36D7B1
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 14:51:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119316.225753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbja1-0003Dh-0y; Wed, 28 Apr 2021 12:46:13 +0000
+	id 1lbjed-00044u-Kb; Wed, 28 Apr 2021 12:50:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119310.225742; Wed, 28 Apr 2021 12:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 119316.225753; Wed, 28 Apr 2021 12:50:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbja0-0003DI-UH; Wed, 28 Apr 2021 12:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 119310;
- Wed, 28 Apr 2021 12:46:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lbjed-00044Y-HN; Wed, 28 Apr 2021 12:50:59 +0000
+Received: by outflank-mailman (input) for mailman id 119316;
+ Wed, 28 Apr 2021 12:50:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lbjZy-0003DD-V0
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 12:46:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lbjZy-0005O2-F3; Wed, 28 Apr 2021 12:46:10 +0000
-Received: from [54.239.6.190] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lbjZy-0000f1-7x; Wed, 28 Apr 2021 12:46:10 +0000
+ (envelope-from <SRS0=vSVs=JZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1lbjec-00044T-7R
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 12:50:58 +0000
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::2])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 27ad9e1f-da35-4bed-837b-e065ee620a2b;
+ Wed, 28 Apr 2021 12:50:56 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.25.2 AUTH)
+ with ESMTPSA id D0155dx3SCot5dk
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 28 Apr 2021 14:50:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,110 +40,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=uJsCxf4Vu0qb3CoGNz7sE9H1wWrv8iQ7ATmxRvsCo4s=; b=N8iVWdBCyYixJQLqGkrpncOGMn
-	IlqO/UOg+DRe/s405KNuvmTN7xM8FE5DoceDzOyD/NiuUFsk4mOfB1A+AVaue3dwGe1iOwu2WpC2+
-	FKW+NkB06q5Ok4rqZ3kfcDbNjJS9ZnYIgHi9hpxJGRMysjTxh9wQNb3Yl+BHhC3twmYQ=;
-Subject: Re: Discussion of Xenheap problems on AArch64
-To: Henry Wang <Henry.Wang@arm.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Chen <Wei.Chen@arm.com>, Penny Zheng <Penny.Zheng@arm.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <PA4PR08MB6253F49C13ED56811BA5B64E92479@PA4PR08MB6253.eurprd08.prod.outlook.com>
- <cdde98ca-4183-c92b-adca-801330992fc5@xen.org>
- <PA4PR08MB62538BBA256E66A0415F0C7192479@PA4PR08MB6253.eurprd08.prod.outlook.com>
- <f14aa1d6-35d2-a9a3-0672-7f0d3ae3ec89@xen.org>
- <PA4PR08MB62534C4130B59CAA9A8A8BF792419@PA4PR08MB6253.eurprd08.prod.outlook.com>
- <PA4PR08MB6253FBC7F5E690DB74F2E11F92409@PA4PR08MB6253.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <2a65b8c0-fccc-2ccc-f736-7f3f666e84d1@xen.org>
-Date: Wed, 28 Apr 2021 13:46:08 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.0
+X-Inumbo-ID: 27ad9e1f-da35-4bed-837b-e065ee620a2b
+ARC-Seal: i=1; a=rsa-sha256; t=1619614255; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Os4jWg6LUFqj2Hqx7jbOfOjmn0F49ylbbb9MX2WVXkwjaT23kGLp4CokQBJ2bIbbZH
+    JhPDpO2CLEHqNsxbS3E/qYokm16jXSOsCqDIUB7Lz++Bf+UGqj7lxMo+07+3JU4RiXbC
+    pZRY0DyyazOF5xywjTnYJDX4YPph05Des/lSAua98lPkdOO6Di4V0Mnm3Hs01hwZ5hhM
+    PY4c6zJVzeHtugRQWaY0LyueFv/3QFwmwrN5G0gPC5Wrhn9aZUtPwHqEd1++LRensP1q
+    KHkp7oq5vztqxMNwbCWbysTVNrTfw/UypIMFwHVDTuVy8bCc2CwA0v3cZupfjajX5DN7
+    m8mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1619614255;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=VKzqJlyu9RYeBB6aIvGkP+DPfcPhMEW0M2dD+tfVMSk=;
+    b=p7YewUciqGodMk5bkxiUqIfDL3seXXpYl18PIXDZ1wOdMChaFKj1UhN0YA3938z82E
+    2AKdm+65xRM98HazP5LNtS5d9TpWEG+fsloN5NO6/H4wH/d566nvVVN7MBV/1FwR2anp
+    BILKBbsBvGM4pPE/6iMSwKaiPjB0/cx9WPa6T/3QVhffR0ry02LNcsjIT320Hm1yxye2
+    1JifJ0ZOE3TjZZJUQ23BlBTcn/Kh7vQ34H+K07/J7LJDWUChRtNHCtNGJya2RCKXtTKq
+    gvkFkYcWft2kly1enTH0Y0Z/kxro5+5KBHMktyCbwb63jDCkA0L4D2AqwY3aOOaF00dc
+    o5lw==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1619614255;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=VKzqJlyu9RYeBB6aIvGkP+DPfcPhMEW0M2dD+tfVMSk=;
+    b=JEImOL71mDyrbS+6wvpATg70vrLGo+NR6AZPE1LiWhTWC4N6uRG84oTL4rIm3/uaAU
+    csD8QCwbofTnkLpX+nY8Fi/qeJhSJlxuSyCFqx7BiiAacK/iWOffuRQf/PuWPYMDogeD
+    QsRkGwW4gkyu4u4oJocpW4Fh3zhoJ5DFrh/fgFgWOfRYoHJJ4bEJhfxCetia13aY48in
+    C3EESBbqJNY5WlQ5te4GZYltlSs6hkyX4FYWaUZ1F1gsCvDYvZ+JX/BwoneYiSTE5cuw
+    wCneSLU5fK/esHTWNP3k98hSzHzp77h63xaxmda7Cw9BtKMgichxe5vIY7tSD1MNtJwv
+    8lvQ==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisEsVR6GbU3svGYLiH9zFD0wpO7hNb2D/K88Gfjs"
+X-RZG-CLASS-ID: mo00
+Date: Wed, 28 Apr 2021 14:50:44 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: obtain a list of granttable PFNs from toolstack
+Message-ID: <20210428145044.75ab84cc.olaf@aepfle.de>
+In-Reply-To: <efef0c49-aa39-8df2-4f0c-2b4f86795956@citrix.com>
+References: <20210428095049.14a8272b.olaf@aepfle.de>
+	<8427397f-0953-94df-04f6-8dfe2a4ceee8@suse.com>
+	<20210428121701.3272b369.olaf@aepfle.de>
+	<d508af0b-dd4a-7c13-f33e-bc60a4fb7272@suse.com>
+	<20210428130346.2477ffda.olaf@aepfle.de>
+	<efef0c49-aa39-8df2-4f0c-2b4f86795956@citrix.com>
+X-Mailer: Claws Mail 2021.04.23 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <PA4PR08MB6253FBC7F5E690DB74F2E11F92409@PA4PR08MB6253.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/x8Jm_K5T7DcQ.rDVU.ozvuO";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On 28/04/2021 10:28, Henry Wang wrote:
-> Hi Julien,
+--Sig_/x8Jm_K5T7DcQ.rDVU.ozvuO
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Hi Henry,
+Am Wed, 28 Apr 2021 12:43:45 +0100
+schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
 
-> 
-> I've done some test about the patch series in
-> https://xenbits.xen.org/gitweb/?p=people/julieng/xen-unstable.git;a=shortlog;h=refs/heads/pt/rfc-v2
-> 
+> Grants are not properly accounted for in the logdirty bitmap, because
+> they're not unmapped during the final phase.
 
-Thanks you for the testing. Some questions below.
+Yeah, which means the verify code can do no useful work.
 
-> Log:
-> (XEN)   VTCR_EL2: 80000000
-> (XEN)  VTTBR_EL2: 0000000000000000
-> (XEN)
-> (XEN)  SCTLR_EL2: 30cd183d
-> (XEN)    HCR_EL2: 0000000000000038
-> (XEN)  TTBR0_EL2: 000000008413d000
-> (XEN)
-> (XEN)    ESR_EL2: 96000041
-> (XEN)  HPFAR_EL2: 0000000000000000
-> (XEN)    FAR_EL2: 00008010c3fff000
-> (XEN) Xen call trace:
-> (XEN)    [<000000000025c7a0>] clear_page+0x10/0x2c (PC)
-> (XEN)    [<00000000002caa30>] setup_frametable_mappings+0x1ac/0x2e0 (LR)
-> (XEN)    [<00000000002cbf34>] start_xen+0x348/0xbc4
-> (XEN)    [<00000000002001c0>] arm64/head.o#primary_switched+0x10/0x30
-> (XEN)
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 0:
-> (XEN) CPU0: Unexpected Trap: Data Abort
-> (XEN) ****************************************
-> 
-> 2. Apply patch and use two memory banks which have a big gap:
-> Memory node:
-> memory@80000000 {
->                  device_type = "memory";
->                  reg = <0x00 0x80000000 0x00 0x7f000000 0x8800 0x00000000 0x00 0x80000000>;
-> };
-> 
-> Log:
-> (XEN)   VTCR_EL2: 80000000
-> (XEN)  VTTBR_EL2: 0000000000000000
-> (XEN)
-> (XEN)  SCTLR_EL2: 30cd183d
-> (XEN)    HCR_EL2: 0000000000000038
-> (XEN)  TTBR0_EL2: 000000008413c000
-> (XEN)
-> (XEN)    ESR_EL2: 96000043
-> (XEN)  HPFAR_EL2: 0000000000000000
-> (XEN)    FAR_EL2: 0000000000443000
-> (XEN)
-> (XEN) Xen call trace:
-> (XEN)    [<000000000025c7a0>] clear_page+0x10/0x2c (PC)
-> (XEN)    [<000000000026cf9c>] mm.c#xen_pt_update+0x1b8/0x7b0 (LR)
-> (XEN)    [<00000000002ca298>] setup_xenheap_mappings+0xb4/0x134
-> (XEN)    [<00000000002cc1b0>] start_xen+0xb6c/0xbcc
-> (XEN)    [<00000000002001c0>] arm64/head.o#primary_switched+0x10/0x30
-> (XEN)
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 0:
-> (XEN) CPU0: Unexpected Trap: Data Abort
-> (XEN) ****************************************
+This can be addressed by either removing it. Or by giving the granted pages=
+ a dedicate type so that the verify code can skip them. I assume if assigni=
+ng a dedicated type is easy, it would have been done already.
 
-I am a bit confused with the output with and without my patches. Both of 
-them are showing a data abort in clear_page().
 
-Above, you suggested that there is a big gap between the two memory 
-banks. Are the banks still point to actual RAM?
+Olaf
 
-Cheers,
+--Sig_/x8Jm_K5T7DcQ.rDVU.ozvuO
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
--- 
-Julien Grall
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmCJWiQACgkQ86SN7mm1
+DoB2YBAAjBbafIG4eiL+QxRuEg5pvLVD4Y7mHLkok9ASqDusiV+odL1CMydD+PeD
+ciP+h7NMCHMfk5LNvLHko8paItt32oyD0jDHA2+mGnRzNJnndU2bgwoeXdMvKy61
+R2HZuE/RZy2H1AD2Hne2LPHyRwSy2qOoPispcwyTyJl2AgCAlkQvU6eGJ66fTnBn
+sB4iDk+zJSt5nP1t6sLC7zfiQ1d9KH5Bv1aolTcIv5oaOyaZWgFoGDizuYJPPRIL
+WX0fVWy2mcQXbtdM9EFS8PjZDPtruIaN2+2N9E5zGKi5UELVzI9H2n0tzNAJ+oK7
+Hf1VPn9u+zaBFjszp+6WV1aJwpnl49afLHp+qfcUJf/jSIeAFOipgy7l++167+FY
+d+ocDzFvpZR7rOd+ZjWFH8BcHkvCX/2Ah4VD6aKRFJmOY4PgHrm+r3kDJ2jJQ463
+v8rSJXb7cAwJOXmBAVF8Vr+dfyEzx1D4zqQ6TtANy7LI4k8S2LOAOn8IkmJAikbT
+pNY4/ACz2YxCrlcx+NIHytZ3lBeALmF4CP0vgTj/I0wbb3pb8R9z4pT8CTl2dIDh
+xKwAXMpql3QPju549s3xiiIcWDD3JLQ5b7r8PXpcD5AhDo9KX/+rxPPGdy6Nbj+M
+Q0bAVRC9/Qh1LejXzOTdi8jmDz/1FD04ReRWK9dLic3kN1h4hFo=
+=2L9b
+-----END PGP SIGNATURE-----
+
+--Sig_/x8Jm_K5T7DcQ.rDVU.ozvuO--
 
