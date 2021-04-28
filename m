@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD2D636D375
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 09:51:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119057.225376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AFA36D3BD
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 10:10:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119068.225388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbeyO-0000G6-G5; Wed, 28 Apr 2021 07:51:04 +0000
+	id 1lbfGh-0001pC-Ac; Wed, 28 Apr 2021 08:09:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119057.225376; Wed, 28 Apr 2021 07:51:04 +0000
+Received: by outflank-mailman (output) from mailman id 119068.225388; Wed, 28 Apr 2021 08:09:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbeyO-0000Fh-D6; Wed, 28 Apr 2021 07:51:04 +0000
-Received: by outflank-mailman (input) for mailman id 119057;
- Wed, 28 Apr 2021 07:51:02 +0000
+	id 1lbfGh-0001on-7N; Wed, 28 Apr 2021 08:09:59 +0000
+Received: by outflank-mailman (input) for mailman id 119068;
+ Wed, 28 Apr 2021 08:09:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vSVs=JZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lbeyM-0000Fc-4K
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 07:51:02 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::1])
+ (envelope-from <SRS0=x+xa=JZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lbfGf-0001oi-Jp
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 08:09:57 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b795db7-9504-4ea0-86b4-7c294e4bccf2;
- Wed, 28 Apr 2021 07:51:00 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.25.2 AUTH)
- with ESMTPSA id D0155dx3S7ow3hl
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate)
- for <xen-devel@lists.xenproject.org>;
- Wed, 28 Apr 2021 09:50:58 +0200 (CEST)
+ id 97d2edf3-2dee-4b06-9462-9ca424369808;
+ Wed, 28 Apr 2021 08:09:56 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C77B6AF95;
+ Wed, 28 Apr 2021 08:09:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,80 +38,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b795db7-9504-4ea0-86b4-7c294e4bccf2
-ARC-Seal: i=1; a=rsa-sha256; t=1619596259; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Eq7L8vJwqnIbI6PCSzdg9/PEOAzpyGzoVPlazYpm5jnnIfuOF3n4J2w5j+NMOFilfD
-    b3fugFwMLhKXDYbJGKdvkJre7y2FG0c//nHgmXnGXS6rDCs6vyc7ehSxM2Tz6ttS387N
-    suy40KMtj4Arced931E/v459qXRpBoyfwFsrTCG6wA7jpiRhOL7uhkCpczs7v4FkWmXL
-    4VDE8adAryKtsTUEcFRdQiTTQ80dN1AF1Oq1ylZm8Cbg7IZQooTjH4rNTTo/6xANVoc7
-    ft44R+fsVAglo1dM1yK6AZN/h7HQbp7hS0qU93F8ERZUlwstPgb/EaKVBLYBv3UZszxF
-    im8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1619596259;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=Vf4gFG2hXiU7RxjRytL1xvL8OT69uRvJR5wULQDYZ1Q=;
-    b=oCMtTreFdB2mUfRVxQwFJ+sArLnvp+xpFwTMmY6Gvpc/9c98i/rGhr+Vna07XV9uuH
-    sJB/kRVSei1tMuzuvsSwejt2ZC/vLP9nhQiezCWJ235koXi9P/a4QcdP3U8otRu1OHcd
-    hnIz1k2uOnzjykUcANqdo6NX9/8ScaE05OIE420bILKt1EUJ4vV7IUSAGOyW8vKxz52d
-    Vh4hhIyZusSh5N/K7IfWzhKW/nJlf5/EhTQ1OseQz0Yi4Uy7ZPJAAk9c6a9t+ic9LJN0
-    cjfVhpC+S3DdnQ60LSrEXwBWlgTbRAKQRAV2VWN7/VDMtQbwZeeeY0EE/7DHG3mxUPpy
-    aVkA==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1619596259;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=Vf4gFG2hXiU7RxjRytL1xvL8OT69uRvJR5wULQDYZ1Q=;
-    b=UmquaNWoOsC9wuypOTomaxwKkCxSKCAF5eCQTwsrK0I6FVn0zbHiFg2zqYT/1BE6g0
-    9T8fI5vGDFkSChIbXZY+UUanng+gP78RuM0Mqf4JjhzQPF0hb3biCPR3BGXnmYaGUw6b
-    4y82jhYjBYyHjNoJx+H6iY0623gPPguAlnSXC55n0ta/2K0+vc6PQrK8RCsc3SCm4kIP
-    KwzV0pF/gfo+FWhw63Vxyp+w1rtKOPaNjJsEqK4kYNWOysy7dEPprfgW7sa1yl3sZAeC
-    3z7I++itqe3rIPAr0uwXJ2ZR/uTwvtJr4P0HlZW8BMG6QWbPP6kyHv9qivNJ3xBXqzjt
-    Dxow==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisEsVR6GbU3svGYLiH9zFD0wpO7hNb2D/K88Gfjs"
-X-RZG-CLASS-ID: mo00
-Date: Wed, 28 Apr 2021 09:50:49 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Subject: obtain a list of granttable PFNs from toolstack
-Message-ID: <20210428095049.14a8272b.olaf@aepfle.de>
-X-Mailer: Claws Mail 2021.04.21 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 97d2edf3-2dee-4b06-9462-9ca424369808
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1619597395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fReZqMPUNfMhAARkRPCF3f9jLn936E5fNOwz/nQswsY=;
+	b=WqVVf0hnfDFxavXCaWh0g7ObHvSMn7huwszwhHZx17BQkNobBJIcT3+MHTBBOVks431nit
+	n1v3juvO9/ma7AxfFDMD9OUFgWSid0j0M29HLz+rq1ifQ7Hb5g53qBxNLXhlDAkdwCk3bK
+	NDsX0HGJgxVE/eVIIsZ8W/WfkKe+BgI=
+Subject: Re: [PATCH] x86/pv: Drop HYPERVISOR_COMPAT_VIRT_START()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210427130201.2142-1-andrew.cooper3@citrix.com>
+ <bdc85c8d-db7c-e9cb-d436-317a31f96e69@suse.com>
+ <bdd45821-5164-a785-67bd-8f660c6353cf@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <159b5b07-7d09-3cf3-0ce9-4280d931480a@suse.com>
+Date: Wed, 28 Apr 2021 10:09:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/dE8OC3P8fXpfa_9Ehs93HrM";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+In-Reply-To: <bdd45821-5164-a785-67bd-8f660c6353cf@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---Sig_/dE8OC3P8fXpfa_9Ehs93HrM
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 27.04.2021 20:05, Andrew Cooper wrote:
+> On 27/04/2021 14:18, Jan Beulich wrote:
+>> On 27.04.2021 15:02, Andrew Cooper wrote:
+>>> --- a/xen/include/asm-x86/config.h
+>>> +++ b/xen/include/asm-x86/config.h
+>>> @@ -254,21 +254,16 @@ extern unsigned char boot_edid_info[128];
+>>>  
+>>>  /* This is not a fixed value, just a lower limit. */
+>>>  #define __HYPERVISOR_COMPAT_VIRT_START 0xF5800000
+>>> -#define HYPERVISOR_COMPAT_VIRT_START(d) ((d)->arch.hv_compat_vstart)
+>>> -
+>>> -#else /* !CONFIG_PV32 */
+>>> -
+>>> -#define HYPERVISOR_COMPAT_VIRT_START(d) ((void)(d), 0)
+>> ... this to allow things to build in the absence of the actual struct
+>> member.
+> 
+> Hmm - I really should have got this change in earlier, shouldn't I...
+> 
+> For this example you've pointed out, feeding 0 into the limit
+> calculation is not a correct thing to do in the slightest.
 
-Is there an API to get a list of PFNs which are currently being active in t=
-he grant table for a given domid?
+Does it actually get fed into any such calculation? From looking
+around yesterday as well as from when I made that change over
+half a year ago I seem to recall that all potentially problematic
+uses are already suitably guarded.
 
-Olaf
-
---Sig_/dE8OC3P8fXpfa_9Ehs93HrM
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmCJE9kACgkQ86SN7mm1
-DoCxzQ//XxJprA3nZdIGwu9eqqyBgDMtwI994+GogphqN9S9j52V7ewHVuBvMqsY
-Kgl6JCvmS4e+LYNXI+sz2PoPNMvgH+oUfZcHGa2Sirtoo13BqsNzYCIW+cZhUhat
-g75J4GdeKrDfAOdPA8drJNFvjQkoGJiqI0cwXvRzaMsRMBj8FFQEY6OWu8kdzIPD
-rfggo8XIJgyfrx0z1N/fRHW+D6WCyVLXZZrhfHSmZcYYeIzTwwMP6H4z8TtpsYy7
-g8ockcD30CtgkvQhZCaVy5s5HB8XgZ87i38Pf5lK0r9VqIu0xXnuEGCgAFbeY9D8
-3b3sjEg94TA7XwojMm2WFB84Q1Q4blJQoIHQeuVLXXopk1weTRI6vxkvuWiVj5gV
-lDQhUCfI2kHbBV6Bpt4OpijuxBxIAnDNI6ngZ/T5MNCa9FxskB3Inf2u1bMvYDWT
-j7Rfa58/D8HHlqReHjWfc5v+U0HWfrSJOs6YtO9FYNP/F7Sl+WQgTiyGyVjKD8if
-tl1CYBAjbHfWmc6YalPTW3/ZuJxkiUtdIEh1h3VviWSzHFZuh2QoRZ+rIcHghGrr
-ZGmuJwQ6YLiK4sGmkA+BoeGyeqOLoz5jjDnoNGqlDj0QtHji9Js4BBOYMmI6/ml3
-UxbNtJUybym0WKvT7jaRUCuRRPHaYUGvO3w7B4nN4O39mbJXl/A=
-=PyOQ
------END PGP SIGNATURE-----
-
---Sig_/dE8OC3P8fXpfa_9Ehs93HrM--
+Jan
 
