@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F30436E0EA
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 23:28:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119583.226117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3312A36E123
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 23:47:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119588.226129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbriO-0000Ed-7v; Wed, 28 Apr 2021 21:27:24 +0000
+	id 1lbs1c-00020c-T8; Wed, 28 Apr 2021 21:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119583.226117; Wed, 28 Apr 2021 21:27:24 +0000
+Received: by outflank-mailman (output) from mailman id 119588.226129; Wed, 28 Apr 2021 21:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbriO-0000EE-4f; Wed, 28 Apr 2021 21:27:24 +0000
-Received: by outflank-mailman (input) for mailman id 119583;
- Wed, 28 Apr 2021 21:27:22 +0000
+	id 1lbs1c-00020D-Q2; Wed, 28 Apr 2021 21:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 119588;
+ Wed, 28 Apr 2021 21:47:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RKXr=JZ=goodmis.org=rostedt@kernel.org>)
- id 1lbriM-0000E6-33
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 21:27:22 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CQXR=JZ=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1lbs1b-000208-C5
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 21:47:15 +0000
+Received: from mail-wm1-f47.google.com (unknown [209.85.128.47])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 83793284-a4c2-4e3d-9a80-719f8191aa93;
- Wed, 28 Apr 2021 21:27:21 +0000 (UTC)
-Received: from gandalf.local.home (cpe-66-24-58-225.stny.res.rr.com
- [66.24.58.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CB10F6143C;
- Wed, 28 Apr 2021 21:27:15 +0000 (UTC)
+ id 3d98b096-9b14-4177-882b-4407b4fa9ec5;
+ Wed, 28 Apr 2021 21:47:14 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ b19-20020a05600c06d3b029014258a636e8so5453225wmn.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 14:47:14 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id g11sm1415698wri.59.2021.04.28.14.47.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Apr 2021 14:47:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,51 +42,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83793284-a4c2-4e3d-9a80-719f8191aa93
-Date: Wed, 28 Apr 2021 17:27:14 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Lai Jiangshan <jiangshanlai@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <laijs@linux.alibaba.com>,
- Thomas Gleixner <tglx@linutronix.de>, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Andi Kleen <ak@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
- Joerg Roedel <joro@8bytes.org>, kvm@vger.kernel.org, Josh Poimboeuf
- <jpoimboe@redhat.com>, Uros Bizjak <ubizjak@gmail.com>, Maxim Levitsky
- <mlevitsk@redhat.com>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Alexandre Chartre <alexandre.chartre@oracle.com>,
- Joerg Roedel <jroedel@suse.de>, Jian Cai <caij2003@gmail.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/4] x86/xen/entry: Rename xenpv_exc_nmi to
- noist_exc_nmi
-Message-ID: <20210428172714.53adac43@gandalf.local.home>
-In-Reply-To: <20210426230949.3561-2-jiangshanlai@gmail.com>
-References: <20210426230949.3561-1-jiangshanlai@gmail.com>
-	<20210426230949.3561-2-jiangshanlai@gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+X-Inumbo-ID: 3d98b096-9b14-4177-882b-4407b4fa9ec5
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=HEMsuhb6RIOSWGDsdfDgT0wSbV+yIfaLeVOJdIJc/Gg=;
+        b=orU6LhuB6qVmyOt8e23pLemBSolMyJKuu7NttcNrTy/NS5jWhDJkeFL2SgnOL9mp3W
+         vfRfn48xKrFx4jjqzlZXabPHa8LdWoE2xnCm2Zo4daQADxn2pGZpSzkYKvrKcV7KForN
+         I4QZeO5JNfC9X7NpC+lEbuSE62FWwRYUjw9IkkF86srSCtxeSYBFLQgiQIzb0iDjzbak
+         edNn3XlIfr1ooZimLl2v5vsK2D/utBq8+TVW0OChU5N5JN9koSs6RZc13pLGeP2j9Lb1
+         AYvMaG0mlR4TsHUu7WzQIIWg0M6irawIHBROyFSmueiM6m+o8ZdSXOg88CC8F1rSbibw
+         2/oQ==
+X-Gm-Message-State: AOAM530vUY2nIIxiBXLeQcuXzsHg99NUli0wVS70hBA1/FMncG9cbWmG
+	1llfYWnBjJAI1X3YXMipO/U=
+X-Google-Smtp-Source: ABdhPJwt4S3YZg9772iJOslM8XH6XCAOKnZw6qBWYfusg5VwBsDdt9QFtLftVjbgDbk5RPIbHth7jg==
+X-Received: by 2002:a1c:e906:: with SMTP id q6mr33474523wmc.138.1619646433741;
+        Wed, 28 Apr 2021 14:47:13 -0700 (PDT)
+Date: Wed, 28 Apr 2021 21:47:11 +0000
+From: Wei Liu <wl@xen.org>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com,
+	Penny.Zheng@arm.com, Bertrand.Marquis@arm.com,
+	Wei Liu <wei.liu2@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Hongyan Xia <hongyxia@amazon.com>, Julien Grall <jgrall@amazon.com>,
+	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Hongian Xia <hongyax@amazon.com>
+Subject: Re: [PATCH RFCv2 12/15] xen/arm: add Persistent Map (PMAP)
+ infrastructure
+Message-ID: <20210428214711.7kujg337ja34jb7k@liuwe-devbox-debian-v2>
+References: <20210425201318.15447-1-julien@xen.org>
+ <20210425201318.15447-13-julien@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210425201318.15447-13-julien@xen.org>
 
-On Tue, 27 Apr 2021 07:09:46 +0800
-Lai Jiangshan <jiangshanlai@gmail.com> wrote:
-
-> From: Lai Jiangshan <laijs@linux.alibaba.com>
+On Sun, Apr 25, 2021 at 09:13:15PM +0100, Julien Grall wrote:
+> From: Wei Liu <wei.liu2@citrix.com>
 > 
-> There is no any functionality change intended.  Just rename it and
-> move it to arch/x86/kernel/nmi.c so that we can resue it later in
-> next patch for early NMI and kvm.
+> The basic idea is like Persistent Kernel Map (PKMAP) in Linux. We
+> pre-populate all the relevant page tables before the system is fully
+> set up.
+> 
+> We will need it on Arm in order to rework the arm64 version of
+> xenheap_setup_mappings() as we may need to use pages allocated from
+> the boot allocator before they are effectively mapped.
+> 
+> This infrastructure is not lock-protected therefore can only be used
+> before smpboot. After smpboot, map_domain_page() has to be used.
+> 
+> This is based on the x86 version [1] that was originally implemented
+> by Wei Liu.
+> 
+> Take the opportunity to switch the parameter attr from unsigned to
+> unsigned int.
+> 
+> [1] <e92da4ad6015b6089737fcccba3ec1d6424649a5.1588278317.git.hongyxia@amazon.com>
+> 
+> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> [julien: Adapted for Arm]
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+>     Changes in v2:
+>         - New patch
+> 
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Wei Liu <wl@xen.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Roger Pau Monné <roger.pau@citrix.com>
+> Cc: Hongian Xia <hongyax@amazon.com>
+> 
+> This is mostly a copy of the PMAP infrastructure currently discussed
+> on x86. The only difference is how the page-tables are updated.
+> 
+> I think we want to consider to provide a common infrastructure. But
+> I haven't done it yet to gather feedback on the overall series
+> first.
 
-Nit, but in change logs, please avoid stating "next patch" as searching git
-history (via git blame or whatever) there is no such thing as "next patch".
++1. This infrastructure should be common code with arch hooks where
+appropriate.
 
-Just state: "so that we can reuse it for early NMI and KVM."
-
-I also just noticed the typo in "resue". Or maybe both NMI and KVM should
-be sued again ;-)
-
--- Steve
+Wei.
 
