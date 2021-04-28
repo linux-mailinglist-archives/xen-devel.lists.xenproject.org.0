@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BECC936D8EE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 15:56:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119378.225826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44B2736D8F2
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 15:56:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119382.225838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbkei-0001Uh-Qt; Wed, 28 Apr 2021 13:55:08 +0000
+	id 1lbkgF-0001cW-67; Wed, 28 Apr 2021 13:56:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119378.225826; Wed, 28 Apr 2021 13:55:08 +0000
+Received: by outflank-mailman (output) from mailman id 119382.225838; Wed, 28 Apr 2021 13:56:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbkei-0001UI-Nv; Wed, 28 Apr 2021 13:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 119378;
- Wed, 28 Apr 2021 13:55:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lbkgF-0001c7-2p; Wed, 28 Apr 2021 13:56:43 +0000
+Received: by outflank-mailman (input) for mailman id 119382;
+ Wed, 28 Apr 2021 13:56:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x+xa=JZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lbkeh-0001UD-97
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 13:55:07 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 54927e7a-1631-463e-92ec-6c1af4a60206;
- Wed, 28 Apr 2021 13:55:06 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 70778B197;
- Wed, 28 Apr 2021 13:55:05 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lbkgD-0001bG-Pl
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 13:56:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lbkgC-0006XB-5s; Wed, 28 Apr 2021 13:56:40 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lbkgB-0005jy-ST; Wed, 28 Apr 2021 13:56:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,82 +39,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54927e7a-1631-463e-92ec-6c1af4a60206
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619618105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UMVnwNnoLMDZf5nSSh7sqO65rAV0iBlhVquou0Wers8=;
-	b=eHLEJ5NoTutlamblIYkYZKBRMFkEQq/Jlx4ITifXsL++rh1Z6qGfMLfxhEjPY0ieYnhbhW
-	ddt3cvhDV0oKpDZftK8iXIL4V8jIo0hdpqPqT7cRiFw5auZkwppy3ntunaEOH36TizaoXU
-	E3GHh5mq/43n0I/pMs/bs7WPb9L0M58=
-Subject: Re: [PATCH 13/16] xen/page_alloc: add a path for xenheap when there
- is no direct map
-To: Hongyan Xia <hx242@xen.org>
-Cc: julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=z+23nAtDHbUY6XtDN0eg5wKMgkU70ngjKlgGQv+CiUg=; b=tg1BVbf7E59GdeIW3ghPuyhEqH
+	4yjSCsVeKyaswNUY0hJa/p/mfmM8sw1d6Y9t3anpnuUG/T8sZGA1jEw4WWNQA/3aF/uNYhDDvtgvX
+	XwRCDg+A8YOaqxFBCm07gWG7pqErAm1xnZSz5pKRTLo2Yo99SEkntVVm3vGUA2INiDC4=;
+Subject: Re: [PATCH RESEND v3 3/3] arm,smmu: add support for generic DT
+ bindings. Implement add_device and dt_xlate.
+To: Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1588278317.git.hongyxia@amazon.com>
- <32ae7c14babf7e78b60febb53095a74c5e865456.1588278317.git.hongyxia@amazon.com>
- <a1bd2c72-1310-f018-dda5-90521be03fe4@suse.com>
- <943480f695052163b540919c9c55655e5b4f741a.camel@xen.org>
- <1edc8d66-ca10-8e90-d8e8-2e299ef715d7@suse.com>
- <4317b9a308cce76de8c75288d41af9dde10cbe6e.camel@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3a5deabc-d711-651a-8d76-44fb03613901@suse.com>
-Date: Wed, 28 Apr 2021 15:55:03 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+Cc: Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ rahul.singh@arm.com, brian.woods@xilinx.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <alpine.DEB.2.21.2104131055580.4885@sstabellini-ThinkPad-T480s>
+ <20210413175905.15123-3-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a9802e45-9405-5b19-3d21-9c4b56374f23@xen.org>
+Date: Wed, 28 Apr 2021 14:56:37 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <4317b9a308cce76de8c75288d41af9dde10cbe6e.camel@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <20210413175905.15123-3-sstabellini@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 28.04.2021 15:22, Hongyan Xia wrote:
-> On Wed, 2021-04-28 at 13:51 +0200, Jan Beulich wrote:
->> See my proposal to defer unmapping of the domain's own pages
->> (and I would consider the p2m pages to be part of the domain's
->> ones for this purpose). In fact, since the p2m pages come from a
->> fixed, separate pool I wonder whether the entire pool couldn't
->> be mapped in e.g. the per-domain VA range.
+
+
+On 13/04/2021 18:59, Stefano Stabellini wrote:
+> From: Brian Woods <brian.woods@xilinx.com>
 > 
-> I thought about that as well, not just EPT but a lot of domain-private
-> pages can be moved to the per-domain range, and the secrets are hidden
-> by virtue of cr3 switches when switching to other domains. But still we
-> have the problem of quickly finding PA->VA (I don't mean __va(), I mean
-> finding the VA that can access a page table page) for EPT walks.
+> Now that all arm iommu drivers support generic bindings we can remove
+> the workaround from iommu_add_dt_device().
+
+Well, it was just added in a different place in patch #1. ;) I have 
+commented about it in patch #1.
+
 > 
-> Mapping in bigger pages should work wonders for pre-partitioned guests
-> where we know the guest mostly just has contiguous physical memory and
-> a superpage map probably covers all pages in an HVM 2-level walk. But
-> for a generic solution where domain memory can be really fragmented
-> (and context switches can happen a lot on a pCPU), how can we quickly
-> find PA->VA in EPT walking without some intrusive changes to Xen? Of
-> course, if we do not allow the HAP pool to change and force the HAP
-> pool to be physically contiguous, we can just remember the base VA of
-> its vmapped region for quick PA->VA, but I don't think this is a
-> generic solution.
+> Note that if both legacy bindings and generic bindings are present in
+> device tree, the legacy bindings are the ones that are used
+Can you oultine what guarantee that? Also what happen if some of devices 
+are using the generic bindings while other are using the legacy one?
+> 
+> Signed-off-by: Brian Woods <brian.woods@xilinx.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Reviewed-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>   xen/drivers/passthrough/arm/smmu.c    | 42 ++++++++++++++++++++++++++-
+>   xen/drivers/passthrough/device_tree.c | 17 +----------
+>   2 files changed, 42 insertions(+), 17 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index f949c110ad..b564851a56 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -254,6 +254,8 @@ struct iommu_group
+>   	atomic_t ref;
+>   };
+>   
+> +static struct arm_smmu_device *find_smmu(const struct device *dev);
+> +
+>   static struct iommu_group *iommu_group_alloc(void)
+>   {
+>   	struct iommu_group *group = xzalloc(struct iommu_group);
+> @@ -442,6 +444,8 @@ static struct iommu_group *iommu_group_get(struct device *dev)
+>   #define SMR_VALID			(1U << 31)
+>   #define SMR_MASK_SHIFT			16
+>   #define SMR_ID_SHIFT			0
+> +#define SMR_ID_MASK			0x7fff
+> +#define SMR_MASK_MASK			0x7fff
+>   
+>   #define ARM_SMMU_GR0_S2CR(n)		(0xc00 + ((n) << 2))
+>   #define S2CR_CBNDX_SHIFT		0
+> @@ -872,6 +876,40 @@ static int register_smmu_master(struct arm_smmu_device *smmu,
+>   					     fwspec);
+>   }
+>   
+> +static int arm_smmu_dt_add_device_generic(u8 devfn, struct device *dev)
+> +{
+> +	struct arm_smmu_device *smmu;
+> +	struct iommu_fwspec *fwspec;
+> +
+> +	fwspec = dev_iommu_fwspec_get(dev);
+> +	if (fwspec == NULL)
+> +		return -ENXIO;
+> +
+> +	smmu = find_smmu(fwspec->iommu_dev);
+> +	if (smmu == NULL)
+> +		return -ENXIO;
+> +
+> +	return arm_smmu_dt_add_device_legacy(smmu, dev, fwspec);
 
-We don't need to make the p2m pool static, but I think we can build on
-it changing rarely, if ever. Hence it changing may be acceptable to be
-moderately expensive.
+Patch #2 seems to imply the code was reworked to have distinct path 
+between legacy and generic. But now, you are calling the legacy code 
+from the generic helper. This is pretty confusing, can you explain 
+what's going on?
 
-If we made the pool physically contiguous, translation - as you say -
-would be easy. But even if we can't find enough physical memory for it
-to be contiguous, we can still help ourselves. The intermediate case is
-when we can still make it consist of all 2M pages. There translation
-may be fast enough even via a brute force array lookup. If we need to
-resort to 4k pages, why not maintain the PA->VA association in a radix
-tree?
+> +}
+> +
+> +static int arm_smmu_dt_xlate_generic(struct device *dev,
+> +				    const struct dt_phandle_args *spec)
 
-Independent of that I think there are some cycles to be gained by,
-already today, not having to map and unmap the root page table for
-every access (get, set, etc).
+This seems to be a verbatim copy from Linux. It would be good to mention 
+it in the commit message. This would make easier to track any change.
 
-Jan
+> +{
+> +	uint32_t mask, fwid = 0;
+> +
+> +	if (spec->args_count > 0)
+> +		fwid |= (SMR_ID_MASK & spec->args[0]) << SMR_ID_SHIFT;
+> +
+> +	if (spec->args_count > 1)
+> +		fwid |= (SMR_MASK_MASK & spec->args[1]) << SMR_MASK_SHIFT;
+> +	else if (!of_property_read_u32(spec->np, "stream-match-mask", &mask))
+> +		fwid |= (SMR_MASK_MASK & mask) << SMR_MASK_SHIFT;
+> +
+> +	return iommu_fwspec_add_ids(dev,
+> +				    &fwid,
+> +				    1);
+
+NIT: This feels a bit odd to read. Can't they be defined on the same line?
+
+> +}
+> +
+>   static struct arm_smmu_device *find_smmu_for_device(struct device *dev)
+>   {
+>   	struct arm_smmu_device *smmu;
+> @@ -2836,6 +2874,7 @@ static void arm_smmu_iommu_domain_teardown(struct domain *d)
+>   static const struct iommu_ops arm_smmu_iommu_ops = {
+>       .init = arm_smmu_iommu_domain_init,
+>       .hwdom_init = arm_smmu_iommu_hwdom_init,
+> +    .add_device = arm_smmu_dt_add_device_generic,
+>       .teardown = arm_smmu_iommu_domain_teardown,
+>       .iotlb_flush = arm_smmu_iotlb_flush,
+>       .iotlb_flush_all = arm_smmu_iotlb_flush_all,
+> @@ -2843,9 +2882,10 @@ static const struct iommu_ops arm_smmu_iommu_ops = {
+>       .reassign_device = arm_smmu_reassign_dev,
+>       .map_page = arm_iommu_map_page,
+>       .unmap_page = arm_iommu_unmap_page,
+> +    .dt_xlate = arm_smmu_dt_xlate_generic,
+>   };
+>   
+> -static __init const struct arm_smmu_device *find_smmu(const struct device *dev)
+> +static struct arm_smmu_device *find_smmu(const struct device *dev)
+>   {
+>   	struct arm_smmu_device *smmu;
+>   	bool found = false;
+> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
+> index a51ae3c9c3..ae07f272e1 100644
+> --- a/xen/drivers/passthrough/device_tree.c
+> +++ b/xen/drivers/passthrough/device_tree.c
+> @@ -162,22 +162,7 @@ int iommu_add_dt_device(struct dt_device_node *np)
+>            * these callback implemented.
+>            */
+>           if ( !ops->add_device || !ops->dt_xlate )
+> -        {
+> -            /*
+> -             * Some Device Trees may expose both legacy SMMU and generic
+> -             * IOMMU bindings together. However, the SMMU driver is only
+> -             * supporting the former and will protect them during the
+> -             * initialization. So we need to skip them and not return
+> -             * error here.
+> -             *
+> -             * XXX: This can be dropped when the SMMU is able to deal
+> -             * with generic bindings.
+> -             */
+> -            if ( dt_device_is_protected(np) )
+> -                return 0;
+> -            else
+> -                return -EINVAL;
+> -        }
+> +            return -EINVAL;
+>   
+>           if ( !dt_device_is_available(iommu_spec.np) )
+>               break;
+> 
+
+-- 
+Julien Grall
 
