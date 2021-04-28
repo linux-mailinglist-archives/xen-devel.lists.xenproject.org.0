@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 065DC36D617
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 13:06:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119230.225649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A2036D621
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 13:10:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119239.225661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbi1a-0002Qx-K7; Wed, 28 Apr 2021 11:06:34 +0000
+	id 1lbi5T-0003Hg-67; Wed, 28 Apr 2021 11:10:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119230.225649; Wed, 28 Apr 2021 11:06:34 +0000
+Received: by outflank-mailman (output) from mailman id 119239.225661; Wed, 28 Apr 2021 11:10:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbi1a-0002QY-Gi; Wed, 28 Apr 2021 11:06:34 +0000
-Received: by outflank-mailman (input) for mailman id 119230;
- Wed, 28 Apr 2021 11:06:33 +0000
+	id 1lbi5T-0003HH-2t; Wed, 28 Apr 2021 11:10:35 +0000
+Received: by outflank-mailman (input) for mailman id 119239;
+ Wed, 28 Apr 2021 11:10:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SCdR=JZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lbi1Y-0002QS-UJ
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 11:06:32 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=X8fo=JZ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lbi5R-0003HC-Fv
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 11:10:33 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a13cb6ce-6c81-47f5-aa74-1577f614331a;
- Wed, 28 Apr 2021 11:06:31 +0000 (UTC)
+ id ecbaf8c1-15ec-47c2-9c08-6382afc4204e;
+ Wed, 28 Apr 2021 11:10:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,349 +36,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a13cb6ce-6c81-47f5-aa74-1577f614331a
+X-Inumbo-ID: ecbaf8c1-15ec-47c2-9c08-6382afc4204e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1619607991;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=+8qCObxRB8JssHPAPVXli65FHYrSPDhjLFOe6o/JdWs=;
-  b=PEZ9boZfhG3Tjymren/KWKE0LjzDdYVdcz2S6wYeBZp3AbQE6Y9PiTHU
-   JxXJr0SDFliBuLGJxk6GebBK2cSiEloukOooaA+89R/SC7dHYb3DL0QIL
-   K/bQPeFnSwnMN9MdJjTFUrBAzRfV8IIXYBZ8V3KbZKEb8aqG1Rm6rVMh6
-   c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: WgASG3NqSUC6CIZoLqE21aEE3+3k2QgspxjPPbvlkZ/02o3lVH68S6BYGosEqdQNIkyepy15Ut
- feAMpngzq/VCgCjCRx0dHkcRKdrXMX8qMInhwDrRa1MpErpQSOM6PeXPF4F3f8DXxapLjLFFAL
- dzxcncBFxJL7Yy4ZJvR25pFJKYpOOiLa2J7qhDrntuOwv9FrlhKbzmzdxTUpVEAcpAVSfDp2gm
- 2AgtE3hRpGTaCJu0MiTf5eE7u36uUPRSCzxnKWb/VpYY+rasN6KjiQ28wrDtf4CQLT5sUmbn5s
- IcE=
+  d=citrix.com; s=securemail; t=1619608232;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=BJVMstSmdT9cBJonoVkZZzlvQ+PVVaGm1iirV4qXqBY=;
+  b=WPPYrIFTOzluqYNgKbJ0ipnGcvD1AZnMMYc0z9+ls2WVbYVwgaSB0fZl
+   qsr/FEm4Q4BIzEMPfXwP5/eunF4804eF/3lxUVJW3Rm+he4gN7WnHuTs9
+   va2T4eEOYoN0Kfc5zDSAyFaQmyPrdoRbHxDNhszD4mYMH2PrRNayWovX4
+   g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=hardfail (body hash did not verify [final]) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 5DV938n/vaVp8JZoFAnaL+dwDy0ut0DOLIxi8KMCVvSyUfl1aS9glQqLLR58wAiJecKw3bxFQq
+ a1ijpR1+lCUe+1+h7zPjsq+McfqFaq2sa11MpqORq+E9mMKgYmKhh6Ls4tcC/eelVJH0go9nIC
+ q1U4ErRF/rwpn0nnGmgxP5SGOk6Iolz6Zp4UaXRIK3RshcxWvtPbfW4DANxPxxZrPrsMoG4fJT
+ GsmfpgZyHcsKAg5F1OOh+T92usoESRe9VuSgmuGTld3Y8nOMi3UcCBckrNJ4XpSs7U/Qk+vMzi
+ rG0=
 X-SBRS: 5.1
-X-MesageID: 42712285
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 42606162
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:b9yFG6wip6jTjUdzJ5dVKrPxnu4kLtp033Aq2lEZdDV8Sebdv9
- yynfgdyB//gCsQXnZlotybJKycWxrnm6JdybI6eZOvRhPvtmftFoFt6oP+3ybtcheQysd07o
- 0lSaR3DbTLYWRSpdrm4QW+DtYryMSG9qftvuvF03JxV2hRC51IxS0RMHf8LmRdQg5aCZ0lUL
- ed/NNAvTq8eXIRB/7Le0Utde7FutHNidbaehYAHREq802jijmv5b78HXGjr2sjehlIxqov9n
- WArhzh6syYwouG4zL/90uW1ZRZn9P91sBObfbstuE5Iijh4zzYAbhJdKaFuFkO0YWSwXYs1O
- LBuhIxe/l0gkmhAV2dhTvI903e3C0163nkoGXo8kfLhcDiXjo1B45gqOtiA2PkwnEttt19z6
- 5Htljx3/E8YGKi7UaNkuTgbB1kmlG5pnAvi4co/gdieLATdaNLqsgn9F5Vea1wbB7S0pwtE+
- VlEajnlY9rWG6dBkqp2VVH8ZiHW3Q+GQq+WU4SusCZ+Cg+pgEJ82IogOMYhXsO75Q7Vt1t4P
- nFKL1hkPV0QtYRdr8VPpZPfeKHTkj2BT7cOmObJlrqUIkBJnL2spbypJE4/vujdpAkxIY78a
- 6xHm9whCoXQQbDGMeO1JpE/lTmW2OmRwngzclY+txQpqD8bKCDC1zBdHke1++b59kPCMzSXP
- i+fLhMBeX4EGfoEYFVmyXjRphpL2UEWsF9gKd6Z3u+5ubwbqH6vO3Sd/jeYJD3Fyw/Z2/5Cn
- wfGBfpIsFt6V2qR2/YjBDdV2iFQD27wbtAVIzhu8QDwokEMYNB9iIPj06i282NITpe9ow6FX
- EOZI/Po+eeny2b7GzI52JmNl52FUBO+ojtVHtMuEsvO0PwerAThsWHdQlprTy6Dy46a/mTPB
- 9Uplxx967yBYeX3zoeB9WuNX/fqHcPunSQTdM5lreY7cnoPrM0Z6xWGZBZJEHuLVhYiAxqoG
- BMZEsvXUnEDA7jjq2jkdgzH+HQd951hS+xOs5KoXfjtUGRzPtfBEczbnqLa4q6kAwuTz1bih
- la6KkEmoeNnj6pNC8CmugiCUZNb26WGbpCKwyAaOxv6/bWUTA1aV3PqS2Rihk1dGav00kJnG
- TuIReZfuzxDkNHtmpV1bvr911IZnyQFngAGExSgMlYLyDrq3xz2eiEau6I32ydZkAr78sdPD
- vGCAFiaD9G9pSS7lq4iTyCHXIpytESJeTbFq0kaKyW8GiqMpe0maYPGOJ08J5pOMv1iPICVf
- uSdmauXWrFItJs/zbQimcuOSFypnVhrOjh3wf96nOkmFE4GvjfLT1dNvgmCuDZy1KhYfmG0J
- 90141o+cSxN3j8cd6Ax+X8aSVZJhbavG6xSKUJpPlvzNUPnYo2O6Oedz3CkExj9lEZCuzfkU
- sFWqR14LzbIOZUDocvUhMc2mBsrciFKUsgjxf/DeA/d2w8lnOzBaL835P47Z4URnCbrAT+OV
- Oj4zRQ0vfMUSyEz6MbAcsLUBJrQXl5zHRp5+WZcYLMTC2sauFY5VK/W0XNPYN1eeygGb8KqA
- x97MzNt+iLdzDg0ASVmTdgOKpB/yKGRsy1aTj8VdJgwpifOV6WhLGt79P2pDDrSSGjY0BdvL
- Z7TyUrH4x+owhnqpY23Ci0QrH2pUxgs2I220AYqnfdnq684GnaGklaNxb+mZs+Z0gKDkS1
+IronPort-HdrOrdr: A9a23:gI2lDKkgWeh7azk2/LTMUHN6LsbpDfOnj2dD5ilNYBxZY6Wkvu
+ iUtrAyyQL0hDENWHsphNCHP+26TWnB8INuiLN+AZ6LZyOjnGezNolt4c/ZwzPmEzDj7eI178
+ hdWoBEIpnLAVB+5PyX3CCRD8sgzN6b8KqhmOfZyDNXQRt3brx7hj0YNi+wOCRNNW57LLA+E4
+ eR4dcCgjKmd2geYMjTPAh6Y8HoodrXmJX6JSMcDxk85wWUyR+u4rj2Ex+Xty1uLA9n67Ek7G
+ TDjkjF9ryu2svLtiP0+k3yy9BtmNXnwsZeH8DksKkoAxjllwrAXvUbZ5SspzYwydvfkWoCsN
+ 6JmBs4OtQ21nW5RBDJnTLI+y3NlAkj8GXjz1jwuwqQneXcSCghA8RMwaJ1GyGpk3YIh9133K
+ JV02/xjfM+Znms7UeNham9azhQmkW5unYkm+II5kYvN7c2U7NNsZcZuHpcDZZoJlOI1KkcDO
+ JsAMvAjcwmFG+yUnaxhBgK/PWRRHgpWj+JTk8e0/blqQR+rTRSyksVw9EnhXEQ9J4xYIks3Z
+ W1Do1Y0J5JVcMYdqR7GaMoRta2EHXERVb2PHuVOkmPLtBJB1v977rMpJkl7uCjf5IFiLM0hZ
+ T6SVtd8Uo/YVjnB8Gi1IBCmyq9DlmVbHDI8IVz9pJ5srrzSP7AKiuYUm0jlMOmvrE2HtDbc+
+ zbAuMUP9bTaU/VXapZ1Qz3XJdfbVMEVtcOh9o9U1WS5urWN4zRsPDBevq7HsusLR8UHkfERl
+ cTVjn6I8tNqmqxXGXjvRTXU3TxPmPl+5ZdF7Xb4vgzxIABOpYkiHlRtX2JouWwbRFSuK0/e0
+ VzZJn9lLmgmGWw9WHUq0VlUyAtSnp90fHFaTdntAUKO0T7ffIooNOEY11f23OBO1taR8PSGw
+ hPmkRv9cuMXtut7BFnL+jiHnORjnMVqn7PZYwbgLe/6cDsfY59KZo6RqprF0HuGwZukQhn7E
+ dPATV0B3P3J3fLs+GInZYUDObQe51XmwGwO/NZrnrZqAG7vsEgRnwSWha0Ss6JiQMSRz5Z72
+ cBsZM3sf6lo3KCOGE/iOM3PBlnc2KMGo9LCwyDecFpgLzxQRpxSm2LnDSerBk2dgPRhgMvr1
+ 2kCRfRVeDAA1JbtHwd9qrx6lt7el+QeF9KZmlgvZdwEnnHvXhPwfaGD5DDple5Wx8n+KUwIT
+ vFaTwdLkdVy9e72AW8tRyCGX8lr69edND1PfAGSfX+y3mtIIqHmeU6BPdS5o9iL82rmPQMS/
+ ijdwicKy7YB+sl1xeOnGssPDB5pRAf4KrV8SygyFL9+nExAfDfegs7A54aJsyR9GjiSbKj1o
+ 5jgdc8oOu3NSHQZ7e9uNfqRg8GDimWh2i8C9wMg9Rzm4kZsbNoBZnVUTfSzhh8rV4DBfaxsH
+ lbebhx5bDKB5RmcMMTcR9I51ZBrqX5EGIb9ijNRtIkdV4jj3XnL8qEzrrBp70oGFCArmLLSB
+ Ci2hwY2/fORC2Y07EGT4o2PGRNcUA5gU4Ssd+qRsn1CA+wcftE80f/GnihcKVFQKzAPbkLtB
+ 5175WpmOCQHhCIlDz4jH9eIqhU9XygTt73KAWQGfRQ+9j/AG+yuMKRkYaOpQaybyC6ZUQejZ
+ BEckJVTv0rsEhSsKQHlg6oSqL2pUo5lUB5+j8PrC+05rSb
 X-IronPort-AV: E=Sophos;i="5.82,258,1613451600"; 
-   d="scan'208";a="42712285"
+   d="scan'208";a="42606162"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ToX4TrWcP1uqBKGzFkNmwGlsEHkPV/9hf0AauPSpvP1bGT7Jdb5M96Hh/GPzcC8BMYgdiCqS77LliGKxVOFRsoiq7uTR0xzaXBjw0pTrjVtx2peM7YjT1c1/diCmszFphen49kUIEkoEA4rh2MFWCTXZOv59oD7h7sJlU0Ikaigrc9Aoe8bMo0J2Ewg8UhoVPCVnJEJPoFhj6rFd6guYODL2ioo2h/4vlKinOUAxhXFFmQ6QKG7+yfh4ymwdBDO93eNV5bk/bVwDiyEFOClEwCrIlWmJK4RlpgjKSCT3Z76lWIM8uGSpjwBTMRJpsqkVtCjkTpc0NNpVYiCJGEx2rg==
+ b=kOEz9NRafsamUc4LN1W0I6pjHgqsQNf5twiVg+F3uCPhDrLvh8vhciYgTyFclh40xjsj1C2FTk8mg9hu7sv6SUv/Ewf6dDpLZgQ7VgfhHaOQ2vLuLH5rOcBaPnW6DcjxlwrrgR6X64Xd9q33KfxhHUERsc5OQSiQc+F55k/gtKhDk1RVWGdwZ9+SPPbc8AlWgNJELjIud9BWGMqAJgoOoAxfRsVr4zhJNOEwufjJRTqw1Syw7CMIAbQ4PhVy8BuV2jcmRhS9NG2AaLOsRTWje8ShACyFIRNOM97HLIxyMJju9+Bp2vPUvwyxpHL/TvurMSW4Ozq2+oUA8ZUonQswTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SkHRjpcmHEhszRzziguO/Z26ZAnZT1U3ct/YJ0mTU3Q=;
- b=BABmtcxtDN0r56VszU5gHsFlbCH8XisqrsQXnYQ/GwO4rTwygjbWRQ0lLdnOd5SPOkd+kglga3b8TnV8Ym45x/AND8VBy0sBFtrPvJeTHz3RPXph4cq+9ubmzS8UOMuK4SLY0EYmsGF67ztCekldO3cpjiz1dfbYOfxbSz7c5NuRG5DKe+UqA/5TMMuCA9eYrjUlZnRBzlRzlSmMYxGX9ju+xv/aHoQufmuZk76pV7c3A2pdLn/scY5Qm8DtZPeGNFDSmnqMzcnjoYHvRArZg9lwR1pPyopabStUEnjeay6buVJ/XR3UMNEL2S9weuCEumhyKp1kWJf5nkZwsl/Dzg==
+ bh=nF5Z5XFVP+34JlH6bPaU+/FlpvrsSKOTrIb97eHbun8=;
+ b=O2ataJVEtkQJM+/heBU+8KmPFAk9mfDmXaYuUtr4KekpDvDTy3313rI5NevIf0ZySEed8QkIGJL0jKaWEPyfDw1tyw03wLWZZ0l8U25QLKmprnv7RMfmmFcYqQsiEIBIR5JtwqUk5n6EHaYmy6qacFEKQAPKDniDCRIx4F+APjHbAW+B/4iZc/6qre/jCAaydhOK90mXXbD+LG737agcLHFctzoy0azDeMhuGzeiQh22I52vl4vWE1SUUHXq7usBgIOLbkH1zT7BPKLAr2z/MdVPtqxrOAmPAJl1+91Y7rj4P/oWbO3ASGUsKvbkDG6UXm3hc0LvRp6ZXbRVmjkPOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SkHRjpcmHEhszRzziguO/Z26ZAnZT1U3ct/YJ0mTU3Q=;
- b=ELg9QEmOMIGtEk8/d8JSsX11G5m7FG0ylc9CCbrBWaud38jERA3sCMeb6jNebME0Ru2FOtd8UuWOBaJuLU3Vs7htunAe96316N1MLNgh2lYuPt21PU/IkNfIikG6Xi1qwTfSFouJyftZ/prkgcDhXoLOOekii6PVlwJrxxTPEMk=
-Date: Wed, 28 Apr 2021 13:06:05 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Rahul Singh <rahul.singh@arm.com>
-CC: <xen-devel@lists.xenproject.org>, <bertrand.marquis@arm.com>, Jan Beulich
-	<jbeulich@suse.com>, Paul Durrant <paul@xen.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
- Jackson" <iwj@xenproject.org>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 3/3] xen/pci: Refactor MSI code that implements MSI
- functionality within XEN
-Message-ID: <YIlBnQO+iuFFx2XO@Air-de-Roger>
-References: <cover.1619453100.git.rahul.singh@arm.com>
- <7b6651f10922571a10685dc7652fbce03b6b6e51.1619453100.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ bh=nF5Z5XFVP+34JlH6bPaU+/FlpvrsSKOTrIb97eHbun8=;
+ b=I36W5zw9JkGSfBbx8ughpCemxa1j3pa5lAq/iXpCZqwtvZBWad0nE2AJiq24D6rYZqvvUoiRvYxYSHikzw2vAdRtBt1+H/scgOEjxrBdSO5xQERvAow1mK6Iu8LLnk+jl9UHUc0J6PFahGw9JGkUR2KfLqwxRIjuOxm6en4zCrU=
+Subject: Re: obtain a list of granttable PFNs from toolstack
+To: Olaf Hering <olaf@aepfle.de>, Jan Beulich <jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>
+References: <20210428095049.14a8272b.olaf@aepfle.de>
+ <8427397f-0953-94df-04f6-8dfe2a4ceee8@suse.com>
+ <20210428121701.3272b369.olaf@aepfle.de>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <244fb189-c740-7625-3242-568d82bc394c@citrix.com>
+Date: Wed, 28 Apr 2021 12:10:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210428121701.3272b369.olaf@aepfle.de>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7b6651f10922571a10685dc7652fbce03b6b6e51.1619453100.git.rahul.singh@arm.com>
-X-ClientProxiedBy: MR2P264CA0003.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:1::15) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0193.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9e::13) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a2577591-a4a4-463f-20b0-08d90a35a1e9
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5323:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB532398EFA6ABA3A2B579054E8F409@DM6PR03MB5323.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: bd6b0c6e-a274-4bee-3aa8-08d90a363433
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4120:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4120C29B59501B3DA80D1FC3BA409@BYAPR03MB4120.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xhBlnDjSCk5MzE43rF4yUwzror7C8wGxw6XLvdtNIsH60WwQNuiwrc+w1/zO6PBmsgogTW3Mf+szpIrbrNaTcBI27Z+hqI5m4OMmZZ7iMnIVtP/cwoAsmtMExoK5+ce4KhbfakVJ4qoYRn0u5Yks+cqrW4yCgKglXKD8UE8MR+t7CmNTw8JwdxYtuwi3UcPXYrWSX+w7uaoF0lhGZyHZpPGgdtKUVpZsE17imAFqexDaeXtsr2WtKwGtOU6GhmMrKWRwEtDh6SQGJfFdYySRzoIBM+1geCe9iS/zkjoKTPNI4iwPQtTlAtut4Hd8Tc2KY6+yhkWl92pqoAcod0Savwz8qCiaFBDOXGRZJkyqFs9BgkyodNS74MblIq3ow9hmoL8NozQ+7tg1/qvazLDXqIpj0FQfsjmSFcffmVT/v7vZ8khTipXR2agz/kYG4pbUToqKWkDtY6CuMXbgyMdF5e/2pK1E3n9PePW/ngWDQRpq9MteM46KgigHPo0/9DNsU1Q3mof58eUCSXC4X+G5nUhSoM+Ac+WIaSDu/UvtKIQAD/J7vzRr1UT87Tr2hVL1ql0RwynsFGXC6uGj6+0BIdyKKVLPtH0YqNu6DI8Z8ADsrHdkhFo2Mu5SLJtibNq7RkuQZndAPbevh1jlb2piTw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(478600001)(4326008)(2906002)(6916009)(8936002)(6496006)(33716001)(8676002)(38100700002)(6486002)(54906003)(6666004)(316002)(16526019)(26005)(186003)(85182001)(66946007)(66556008)(66476007)(956004)(9686003)(83380400001)(86362001)(5660300002)(67856001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Z2hUZ3UyNTgwY1IvdWJuWG5PZFNocG4xQ01xL3BRRzBBb0IvVEQzdkZqWmRY?=
- =?utf-8?B?N0NBSUZSb2REenpTa20wUk0wUlpyeFZQVnA4UDRuZ0NKbXpmazA4b05OS1hH?=
- =?utf-8?B?SkwwUDBYdVNRRjJkeFRnY3lqUWZWbjgwZElQZjUxaDVNeHA4U3dvR05DTm9R?=
- =?utf-8?B?WHkralh6QjdQNmh2c1NKTTVZZGpUMTNWU2hnakJnNGVJS2dtOVRuVjVBbGFs?=
- =?utf-8?B?bDhzeXVjOFVoaDFzL0lodEZ6ZjNVYUE5Vm5aWXlIcThQMm92MUY2ZGdieXVu?=
- =?utf-8?B?dSt6ZW5UK040Ynd0VnBOOUoxU0pQM1ZKaGNoMVhFbXA2S05aS0xhaWh6VUpx?=
- =?utf-8?B?V2FKNGQ0R001UStBeFBjMWFZK2piTzZuYVArQlNTM2lYME9DMm1wQ0NNRjN4?=
- =?utf-8?B?R0lKRFFOaFhySDlRWUVYR2g1bUZRTmVFblR0Q1pxcEJxT1VJVTJDdFpzRGlW?=
- =?utf-8?B?c3RuZGRQZHc1eFpQZmFvbmNPanNWYkkrV2J6Z0FyZnA5ekJVUG9MblRMN2ZI?=
- =?utf-8?B?NXQvSkNWYWs4cmY1cy81UlUxZXVxTzA4MklBMXIreTJETWRDNkZ3UWdXdWp1?=
- =?utf-8?B?bitLYWtzZGIzRWNMcUhJbFIrcG1jQy9FNEFlc0hYMWRyV2o4YXJnZlB0UGFV?=
- =?utf-8?B?a294b0E4dmpiSE14MFpjVmJYZlM3SWJFbkJ0UTZ0a1N3VExWdnVuOHhPRUNC?=
- =?utf-8?B?alB0eGdmOUlycldRaEpVNHNuU1RxcDIvYURxei8wNkRpUEJRVTUyNE1kVFJL?=
- =?utf-8?B?WFJxdkNNWXplcXVIbHZ5TDYvUmVjZ1ltUkMxQ1hKR3VxWVE2SWdMUk1PZTZL?=
- =?utf-8?B?WlF5aTNBZkVmbFYreWl1ckZZNHpZTnA2VFZxaFBVTXU2aElJcUV5ajZleGZY?=
- =?utf-8?B?VXR6bHFKNEV0NU1rUWQ3cGlpMWE3VEt3TzhEYm4vd3ZpYmUrd1lDRFRiRkpi?=
- =?utf-8?B?RjJLQkM3ZHJKczJBcDhoSURlYmI4OVBveStkTEdWczB3MlFrcVNON3JBaldt?=
- =?utf-8?B?TjRyUUMvT0EzTlZXWHJITkVYWXVkYTZwMFpGRm50eGM0OUdWRXg3Rnh1YUVY?=
- =?utf-8?B?MkhsM3VYZGxDdmw0dkRhTGRJaXQ5K2J0VEhWM2hCWHFuY3habmVtdlJsQVJo?=
- =?utf-8?B?S3RLMk9GWGhMaDltQjg4Rnh1aFhJdWhUTTlZN2F4NHFiaUxOVEk0OXVxN0lo?=
- =?utf-8?B?SkMwK3ppL3QwY3F1elFwRVBzNXR2YjdOd2NzUUlaTkF0WThCUVpHQzRZMEJ2?=
- =?utf-8?B?L1U1RE5pbmI1Nk13d1Aya29SQzU4ek95QncxbS9ZUExLcG5DejZ4RkNwNGJE?=
- =?utf-8?B?dWhvRnAzclJydkZmMklDeDRYcnE1VHM3NlFsNmVvazRmU3h0bjhXQSs0YmRN?=
- =?utf-8?B?NDNzVG56bVdMSXJkY2xHVjBRVThiZ05ETUVSdDVrT0diOHRzTUdHNkkybko2?=
- =?utf-8?B?Z2wwdkU3a0p0RFBEU3BVdDBUeGZIUlVXeUZRRmhuTHoyL25EeTIyU2tiSFBk?=
- =?utf-8?B?UUFhY1J6dzhPakhCZU4xNERLbFhDdGE3K3JDTHN6ZnFqc0diOGtEV2VrM044?=
- =?utf-8?B?QmZmN3RyOHNuQ05zLytpdWNOTm51OVc5QjhneUdneHllMVd5b2Y2dDJmb3dt?=
- =?utf-8?B?SjJKUlUvak5GYWZOaXdXWURqbVc3RWViVHVOYmFDcm5yVTdSSEp3SGlUYzBJ?=
- =?utf-8?B?bmk2UDIwdk5MT0pNVG5mRXRWcWtMaktCbGZnVnFUOXNHbkxaRitiaDljUXEx?=
- =?utf-8?Q?mTgMG/H9zSquo1JCf35CqxZQDHawnj5d3j6Zl1G?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2577591-a4a4-463f-20b0-08d90a35a1e9
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-Microsoft-Antispam-Message-Info: eubCEpifcQpHJNsFvSy7EpyX6Ekad2zgrh8cFcvzmXnkh6VINvhZkSsNksys57iTpbShEjS7MUgg2D4qK8JQjyLs+QxQB5KTDsqwPEsOXLnh8sutRAOuGpBt7ij5lN4pbO9Kf+bm1oLuBSLuyAOyL4hzaO42W+roEAXyrr5270VXLdnRfHykDH/moq1068K+VHw2ap1mbx9qonHtFnckJ47opgLyJAfUH4L/eJnZV7H7xn4wia0YczJFRPSUxx1ZfmAZlSl46mqlB9X9S7HgR8mQ6b48d8CQy/CA+wEKlIez3nPMSRUjQ0FP2qvtQKVvqG3PbTLWaZooLve55hG06OMNqw389eTdlS+FahzzRI+++wfJl6HL3hzsNbtiAvudFQJ5lIwOz8RZ91ExNfVnRweUAd0lFvGIJacbnpP7UXWhLq0OenKhb+HcXIaPiVFbzbVTJUizKM3SBh1eQ1GfjaBJCqMp8OWcQuu4Du4FDTiTElMH6yu7mH/9OasVz45NrBTrJoXxWmKM8HuMR3VLSBQzt3wANASxl/BwZK9euGI4TQsPccZ0BzZ2Sk9Li4mIAu1N+f4cEWAK5mdW0QvzqgsnnS1qdiY9EdyhhZO2iZaYQ7fFrR+OuHwOZ8F5+HfvyOhULS/z05ktcjmPwmCp8A46dYrAw5sFS2N9w/QcJoH72MJh9Mjil80lEhUktj9f
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(31686004)(478600001)(53546011)(316002)(8936002)(8676002)(956004)(6486002)(16576012)(66476007)(5660300002)(4326008)(2616005)(38100700002)(4744005)(26005)(83380400001)(2906002)(110136005)(6666004)(186003)(31696002)(66946007)(36756003)(16526019)(86362001)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?Windows-1252?Q?Ned07F3XfQlyKQ6h7oLMpoImlnxOVhYIsrl1l5lisoKlTzjntcvDef49?=
+ =?Windows-1252?Q?MhiKP0hpscNcKnzVSKVSuRmLAKmubOJniYbMemiSsJKE13Y5KcMJPTsZ?=
+ =?Windows-1252?Q?sn/MO6CyotJ0snxm6v15Gh6abplQE6DOTCytVmROwxwlaM3cEraBfbNG?=
+ =?Windows-1252?Q?z6w12rBrXO86tt/k97dpewhss7MsWhNTvKr+J/od1R6ccCnqswIzwIrT?=
+ =?Windows-1252?Q?7Gazi3ltJj5wbKo2MT2wjJiSdPkg8LbOCuLbATDSdHynEKx1Io3wKXx3?=
+ =?Windows-1252?Q?/6heBzMOgSZn8jaJE7CHqJ2OqBE2kVwAIaVr4vCboOUnJpi8ATkuzm5R?=
+ =?Windows-1252?Q?r7aofHv3RkhpVRy+p5XJu8JwGs97szQ0DaD01XUnj/mZHme85rD3u/QP?=
+ =?Windows-1252?Q?mfabkappuCkzAQSa5L7f5fPY+NDyOca7VRepkCafPv20pdkVuJHHbdnJ?=
+ =?Windows-1252?Q?Vj4hV62BO6/83SS8vdVwRrn2KMnzowDm/LySYzxtn1ghfFnALfSDAnYB?=
+ =?Windows-1252?Q?ah9KH0EzK7DFYwKm65dD7w0LysC5yaZ7ozguPpA88aYn63eN4CvvGOtp?=
+ =?Windows-1252?Q?rOy45njK7JuYDdhxdv+HV5tY6V0JHmQ5PacBkpi8ZxjxknNrQzCWTgFJ?=
+ =?Windows-1252?Q?OQVXkOZqcHDqwuez047XU5fM0vWQMCo/YVbToWVqJic3DZQZty54xI8j?=
+ =?Windows-1252?Q?ubtzVFxYC9nssNEmneB15yoCXZoEsWsuyNTg3KLCO3HjCh6hPZiPTH5a?=
+ =?Windows-1252?Q?WMwtiw67AacMwJVemhAQL0Pi08DJJGPbW6Rs71hleLPrGdtl8vBqiFtj?=
+ =?Windows-1252?Q?esv18DBJWPVYe08WZo+EyFR9SX2A0dxVyiWzVQ45E59aVeSoymy+kZky?=
+ =?Windows-1252?Q?ddHtMrWtTKejsAYi8TCvkdQsd5waen+1ei60YLQf8UNWclWKQzR0U3Qv?=
+ =?Windows-1252?Q?CEQL7dfLGZ11pzdftAACQbFtTA8X9bR/yZ2rGWWP/gwWGERNCbs2LLJz?=
+ =?Windows-1252?Q?J9C/EGySyAauWuRYr0WIgtwq1Stbo4Tx2Vp3NDWc5tp/OQTksYycERZ6?=
+ =?Windows-1252?Q?b3yWjOrGankma67q8GbbsDJb55wlgMxQHOwQI5fSlWrhpA33eJQqyqIq?=
+ =?Windows-1252?Q?gMwnrH/CwyrXfTnJ7s0BlBdyyyCPB2e968zP9Z3qENhwTAa7Qcq78zrv?=
+ =?Windows-1252?Q?yxDhjx8gXY4pPtPA7LuZqrdXn7iGwxNV2/HcUYZPFvXaQRt4wXBPM1FW?=
+ =?Windows-1252?Q?gzwz3piigtToz6r/3WTovlWTURNE0qEwBP+M0Zr72vEWaEKzv5/392GZ?=
+ =?Windows-1252?Q?7ai+msbTl7Y77RWAWPLTRMGOENOr9W7l8sjTmEPk6kI9P3jlbkM2EMYI?=
+ =?Windows-1252?Q?LvYmBBCee1QZrQztEjmwvRy4c5efC39kb/VFeZbe45gobadTOcnkBkf/?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd6b0c6e-a274-4bee-3aa8-08d90a363433
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2021 11:06:11.6914
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2021 11:10:17.1929
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: safv87N3NCM2gGNWvYPT5xqlsYNATr4b8aoWP8XoAV5LD6fMW8CeFo7w1g5r2bjNWYoDAQaPctya9xqudVr0Pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5323
+X-MS-Exchange-CrossTenant-UserPrincipalName: Iw4YXXeo6nl5J7DhlguUpiIh4tXHNv6j3ByWgs5KCtBYOzWpqA1yAewdoaSJA9HtYj0QG/5G65otKCP3sA8YfL3rMa4for413SWtyyblJYU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4120
 X-OriginatorOrg: citrix.com
 
-On Mon, Apr 26, 2021 at 05:21:27PM +0100, Rahul Singh wrote:
-> MSI code that implements MSI functionality to support MSI within XEN is
-> not usable on ARM. Move the code under CONFIG_PCI_MSI_INTERCEPT flag to
-> gate the code for ARM.
-> 
-> Currently, we have no idea how MSI functionality will be supported for
-> other architecture therefore we have decided to move the code under
-> CONFIG_PCI_MSI_INTERCEPT. We know this is not the right flag to gate the
-> code but to avoid an extra flag we decided to use this.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+On 28/04/2021 11:17, Olaf Hering wrote:
+> Am Wed, 28 Apr 2021 11:49:59 +0200
+> schrieb Jan Beulich <jbeulich@suse.com>:
+>
+>> On 28.04.2021 09:50, Olaf Hering wrote:
+>>> Is there an API to get a list of PFNs which are currently being active in the grant table for a given domid?  
+>> Do you really mean PFNs?
+> The save/restore code uses the term "pfn" to refer to page indices from the domU point of view. Since I usually just follow the HVM code paths, the term might indeed be incorrect for PV.
 
-I think this is fine, as we don't really want to add another Kconfig
-option (ie: CONFIG_PCI_MSI) for just the non explicitly intercept MSI
-code.
+pfn's is correct here.† The migration logic tracks dirty pages in the
+same address space as Xen's logdirty bitmap.
 
-Reviewed-by: Roger Pau Monn√© <roger.pau@citrix.com>
+For HVM guests, this is ==gfn.
 
-Some nits below...
+For PV guests, this is the guest's logical idea of its physmap layout,
+as written in the M2P, and specifically not mfn/gfn's.
 
-> ---
-> Changes since v2:
->  - This patch is added in this version.
-> ---
->  xen/drivers/passthrough/msi-intercept.c | 41 +++++++++++++++++++++++++
->  xen/drivers/passthrough/pci.c           | 34 ++++----------------
->  xen/include/xen/msi-intercept.h         |  7 +++++
->  xen/include/xen/pci.h                   | 11 ++++---
->  4 files changed, 61 insertions(+), 32 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/msi-intercept.c b/xen/drivers/passthrough/msi-intercept.c
-> index 1edae6d4e8..33ab71514d 100644
-> --- a/xen/drivers/passthrough/msi-intercept.c
-> +++ b/xen/drivers/passthrough/msi-intercept.c
-> @@ -19,6 +19,47 @@
->  #include <asm/msi.h>
->  #include <asm/hvm/io.h>
->  
-> +int pdev_msi_init(struct pci_dev *pdev)
-> +{
-> +    unsigned int pos;
-> +
-> +    INIT_LIST_HEAD(&pdev->msi_list);
-> +
-> +    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
-> +                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSI);
-> +    if ( pos )
-> +    {
-> +        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
-> +
-> +        pdev->msi_maxvec = multi_msi_capable(ctrl);
-> +    }
-> +
-> +    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
-> +                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSIX);
-> +    if ( pos )
-> +    {
-> +        struct arch_msix *msix = xzalloc(struct arch_msix);
-> +        uint16_t ctrl;
-> +
-> +        if ( !msix )
-> +            return -ENOMEM;
-> +
-> +        spin_lock_init(&msix->table_lock);
-> +
-> +        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-> +        msix->nr_entries = msix_table_size(ctrl);
-> +
-> +        pdev->msix = msix;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +void pdev_msi_deinit(struct pci_dev *pdev)
-> +{
-> +    XFREE(pdev->msix);
-> +}
-> +
->  int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
->  {
->      int rc;
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 298be21b5b..b1e3c711ad 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -314,6 +314,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->  {
->      struct pci_dev *pdev;
->      unsigned int pos;
-> +    int rc;
->  
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
-> @@ -327,35 +328,12 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->      *((u8*) &pdev->bus) = bus;
->      *((u8*) &pdev->devfn) = devfn;
->      pdev->domain = NULL;
-> -    INIT_LIST_HEAD(&pdev->msi_list);
-> -
-> -    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
-> -                              PCI_CAP_ID_MSI);
-> -    if ( pos )
-> -    {
-> -        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
->  
-> -        pdev->msi_maxvec = multi_msi_capable(ctrl);
-> -    }
-> -
-> -    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
-> -                              PCI_CAP_ID_MSIX);
-> -    if ( pos )
-> +    rc = pdev_msi_init(pdev);
-> +    if ( rc )
->      {
-> -        struct arch_msix *msix = xzalloc(struct arch_msix);
-> -        uint16_t ctrl;
-> -
-> -        if ( !msix )
-> -        {
-> -            xfree(pdev);
-> -            return NULL;
-> -        }
-> -        spin_lock_init(&msix->table_lock);
-> -
-> -        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-> -        msix->nr_entries = msix_table_size(ctrl);
-> -
-> -        pdev->msix = msix;
-> +        XFREE(pdev);
-
-There's no need to use XFREE here, plain xfree is fine since pdev is a
-local variable so makes no sense to assign to NULL before returning.
-
-> +        return NULL;
->      }
->  
->      list_add(&pdev->alldevs_list, &pseg->alldevs_list);
-> @@ -449,7 +427,7 @@ static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
->      }
->  
->      list_del(&pdev->alldevs_list);
-> -    xfree(pdev->msix);
-> +    pdev_msi_deinit(pdev);
->      xfree(pdev);
->  }
->  
-> diff --git a/xen/include/xen/msi-intercept.h b/xen/include/xen/msi-intercept.h
-> index 77c105e286..38ff7a09e1 100644
-> --- a/xen/include/xen/msi-intercept.h
-> +++ b/xen/include/xen/msi-intercept.h
-> @@ -21,16 +21,23 @@
->  
->  #include <asm/msi.h>
->  
-> +int pdev_msi_init(struct pci_dev *pdev);
-> +void pdev_msi_deinit(struct pci_dev *pdev);
->  int pdev_msix_assign(struct domain *d, struct pci_dev *pdev);
->  void pdev_dump_msi(const struct pci_dev *pdev);
->  
->  #else /* !CONFIG_PCI_MSI_INTERCEPT */
-> +static inline int pdev_msi_init(struct pci_dev *pdev)
-> +{
-> +    return 0;
-> +}
->  
->  static inline int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
->  {
->      return 0;
->  }
->  
-> +static inline void pdev_msi_deinit(struct pci_dev *pdev) {}
->  static inline void pdev_dump_msi(const struct pci_dev *pdev) {}
->  static inline void pci_cleanup_msi(struct pci_dev *pdev) {}
->  
-> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
-> index 8e3d4d9454..f5b57270be 100644
-> --- a/xen/include/xen/pci.h
-> +++ b/xen/include/xen/pci.h
-> @@ -79,10 +79,6 @@ struct pci_dev {
->      struct list_head alldevs_list;
->      struct list_head domain_list;
->  
-> -    struct list_head msi_list;
-> -
-> -    struct arch_msix *msix;
-> -
->      struct domain *domain;
->  
->      const union {
-> @@ -94,7 +90,14 @@ struct pci_dev {
->          pci_sbdf_t sbdf;
->      };
->  
-> +#ifdef CONFIG_PCI_MSI_INTERCEPT
-> +    struct list_head msi_list;
-> +
-> +    struct arch_msix *msix;
-> +
->      uint8_t msi_maxvec;
-> +#endif
-
-This seems to introduce some padding between the sbdf and the msi_list
-field. I guess that's better than having two different
-CONFIG_PCI_MSI_INTERCEPT guarded regions?
-
-Thanks, Roger.
+~Andrew
 
