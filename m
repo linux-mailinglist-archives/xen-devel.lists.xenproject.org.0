@@ -2,30 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD90E36DD93
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 18:53:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119493.225991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CADF36DDF5
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 19:13:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119502.226002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbnRI-0001vf-6A; Wed, 28 Apr 2021 16:53:28 +0000
+	id 1lbnjm-0003hs-NG; Wed, 28 Apr 2021 17:12:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119493.225991; Wed, 28 Apr 2021 16:53:28 +0000
+Received: by outflank-mailman (output) from mailman id 119502.226002; Wed, 28 Apr 2021 17:12:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbnRI-0001vG-2k; Wed, 28 Apr 2021 16:53:28 +0000
-Received: by outflank-mailman (input) for mailman id 119493;
- Wed, 28 Apr 2021 16:53:26 +0000
+	id 1lbnjm-0003hX-K7; Wed, 28 Apr 2021 17:12:34 +0000
+Received: by outflank-mailman (input) for mailman id 119502;
+ Wed, 28 Apr 2021 17:12:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IcpV=JZ=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1lbnRG-0001vB-Gq
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 16:53:26 +0000
-Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
+ <SRS0=k1fc=JZ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1lbnjl-0003hS-UQ
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 17:12:33 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57342018-1a9b-46a9-b2a9-212fe78e5c6e;
- Wed, 28 Apr 2021 16:53:25 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id 12so100009725lfq.13
- for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 09:53:25 -0700 (PDT)
+ id c5fa1fd5-bbf6-4a70-aa77-e1975c64c6db;
+ Wed, 28 Apr 2021 17:12:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,103 +35,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57342018-1a9b-46a9-b2a9-212fe78e5c6e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=XVXPPNqMC7N1jiFQWqYQF+nR/MNLUt8azTiplue1Zoc=;
-        b=iUmy5r3jYCUtyIZQKiT8gey3l7muLBcQVSO9toPRT7R7PrHZTb2xex0K/1eqld7Lv2
-         FA6O2G9aLfzYFnwcO4oWqwNLfF8vNm3dFcABdOeEV+c4xOEuKjNmJGeR3j8kyqJILGEe
-         bHGYWPKXebS6GJLmyT999f4ZWJAGGf3iGW1ORKZ8KDdLSm9xRY8KJAaag6N1CBX1/mFz
-         v/GT++WY9L4/sAVbiDH0BDJmveCQkopxiwPnWg1Q14NH5y2WlTzY2Rxe10zi/9hIpATi
-         bC5Hami+ULR6GAAVtsJOwLG6RtiAbc5yMDaPRvjZGE1opUUwnX2UB3IGkPmB40qK4Uxb
-         4rCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=XVXPPNqMC7N1jiFQWqYQF+nR/MNLUt8azTiplue1Zoc=;
-        b=XoMCJhjjO447NmLda7XQDb+vrjyO/F0MmVByzxd9Fv1NPLvFFLuGkj2yAgOrzwZVCZ
-         wmpNrXQEq5PZpJYi1xIUyilqoNYXmvaxfZS+DlalXbzUp8+d0B4ppa67z6HKlxIieB0m
-         WD+xXMy7lhdzTpxYWH79OmlkcSgYSk+5oiuqsaIqznJ06VsPhwWEZik2XLc4RmcLfHZz
-         30wFLUZ+pHRPNjUzHfIrspeJ3MUa8ZFe51USzTMsbXbb6WgrqyCu+fVrYNqxULwrbZEY
-         eCXioCf4cfDiK5Ue/S0sYec+stuRg8LEtSGXCbS5eff74g2eZML7yjF0vVc6nZFlL7vB
-         Vgvg==
-X-Gm-Message-State: AOAM532juNJrkKt+2FbAVS30XGDPUJml1FsuYAw7rperSZ1aoResOs27
-	mgP2c6zUJmVj4a+VLqhQta3gCv//MGhGKSZQkys=
-X-Google-Smtp-Source: ABdhPJy5lEqqTi8pI6bq0RuBQi12wXaz/8xP6rvPjJdB8PEtg6UJefePHG8g+AW9jKt7tg6EkUeWRwM2a9vaXsnedFM=
-X-Received: by 2002:a19:431b:: with SMTP id q27mr8040535lfa.226.1619628804485;
- Wed, 28 Apr 2021 09:53:24 -0700 (PDT)
+X-Inumbo-ID: c5fa1fd5-bbf6-4a70-aa77-e1975c64c6db
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1619629952;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mklfZ2wXVf5x/X6VQtHr66OIW5LFqHBxp/SN4TTXNOU=;
+  b=M3/15tLVFPSaKYCmbh7tQu+BmSvWSgGfv9c2pVMHJAphrsOirYNK76zM
+   dQu1G3vPTii4qvcjuOYn45GM3X0yTlabnNwVPmZlxUd5JnPgapj2u+I1a
+   bKZzcVBjh2oGMGtTBRk+aRwYT0L2NEducc4CoBYdXsFl549PL03EC3Xux
+   Y=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 1ZkLDtpa6R+gCGA4tSZJAVut+9ez2wS+Gg4LBrfueD6uSZNLwz2x32kXtiIy2YR6tOVKGZIM67
+ +E7xyb1Ymn0oTfH7Qh0Dhc9qw15M8hPSJ21NTKp56sMDocKqs0aw1JC+G6e25VRUiaq0Q/32pG
+ 3UKrwL3azARVtFaIMdpJT4qeaCWthxXP6mkYE1Iaku12UVGND2USnrs5zY8sPXkkNH0XB93JXE
+ Gu1FTDvGf2obah4f56wPnHnTi1FyNBYAL+0yfMY4MQhDPJrddDPzlM2nshFet5tNnZO72i1Q+i
+ SZU=
+X-SBRS: 5.1
+X-MesageID: 42644011
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:Ovf2BajE6NSRCH4cFjOKv3PWLXBQXksji2hD6mlwRA09T+Wzva
+ mV/cgz/xnylToXRTUMmcqYPrOBXHPb8vdOkO4sFJ2lWxTrv3btEZF64eLZslndMgD36+I178
+ tdWodkDtmYNzdHpOb8pDK1CtMxhOSAmZrY49v261dIYUVUZ7p77wF/Yzzrd3FeYAVdH5I2GN
+ 69y6N81lmdUE8aZMi6GXUJNtKrz7ag+a7OWhIICwUq7wODl1qTmdzHOiOVwwsEVHd3yaoimF
+ K16jDR3LmpsP2w13bnt1P70pI+orXc9uc=
+X-IronPort-AV: E=Sophos;i="5.82,258,1613451600"; 
+   d="scan'208";a="42644011"
+Date: Wed, 28 Apr 2021 18:12:29 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, "Wei
+ Liu" <wl@xen.org>
+Subject: Re: [SUSPECTED SPAM][RESEND PATCH 1/2] tools/libxl: Mark pointer
+ args of many functions constant
+Message-ID: <YImXfc4oaPgWzkeT@perard>
+References: <cover.1613496229.git.ehem+xen@m5p.com>
+ <2e18b114fc91028459b2d6cbfd0f1204501dfde9.1613496229.git.ehem+xen@m5p.com>
 MIME-Version: 1.0
-References: <20210423161558.224367-1-anthony.perard@citrix.com> <20210423161558.224367-2-anthony.perard@citrix.com>
-In-Reply-To: <20210423161558.224367-2-anthony.perard@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 28 Apr 2021 12:53:12 -0400
-Message-ID: <CAKf6xpuDQuUbJ+Gn9OHNU6BXb2Rm+Bdv7hPNtMxcX1CA4d_aYA@mail.gmail.com>
-Subject: Re: [XEN PATCH 1/8] libxl: Replace deprecated QMP command by "query-cpus-fast"
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
-	Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2e18b114fc91028459b2d6cbfd0f1204501dfde9.1613496229.git.ehem+xen@m5p.com>
 
-On Fri, Apr 23, 2021 at 12:16 PM Anthony PERARD
-<anthony.perard@citrix.com> wrote:
->
-> We use the deprecated QMP command "query-cpus" which is removed in the
-> QEMU 6.0 release. There's a replacement which is "query-cpus-fast",
-> and have been available since QEMU 2.12 (April 2018).
->
-> This patch try the new command first and when the command isn't
-> available, it fall back to the deprecated one so libxl still works
-> with older QEMU versions.
->
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
->
-> Notes:
->     This is v2 of '[XEN PATCH for-4.15] libxl: Replace deprecated QMP
->     command by "query-cpus-fast"' as the patch never made it into the
->     release.
->
->     changes:
->     - introduce a fallback for when the new command isn't available.
->
->  tools/libs/light/libxl_domain.c | 103 ++++++++++++++++++++++++++++++--
->  1 file changed, 98 insertions(+), 5 deletions(-)
->
-> diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
-> index 5d4ec9071160..8c003aa7cb04 100644
-> --- a/tools/libs/light/libxl_domain.c
-> +++ b/tools/libs/light/libxl_domain.c
-> @@ -1740,6 +1740,35 @@ static int libxl__set_vcpuonline_xenstore(libxl__gc *gc, uint32_t domid,
->      return rc;
->  }
->
-> +static int qmp_parse_query_cpus_fast(libxl__gc *gc,
-> +                                     libxl_domid domid,
-> +                                     const libxl__json_object *response,
-> +                                     libxl_bitmap *const map)
-> +{
-> +    int i;
-> +    const libxl__json_object *cpu;
-> +
-> +    libxl_bitmap_set_none(map);
-> +    /* Parse response to QMP command "query-cpus-fast":
-> +     * [ { 'cpu-index': 'int',...} ]
-> +     */
-> +    for (i = 0; (cpu = libxl__json_array_get(response, i)); i++) {
-> +        unsigned int cpu_index;
-> +        const libxl__json_object *o;
-> +
-> +        o = libxl__json_map_get("cpu-index", cpu, JSON_INTEGER);
+On Fri, Dec 18, 2020 at 01:37:44PM -0800, Elliott Mitchell wrote:
+> --- a/tools/libs/light/libxl_internal.h
+> +++ b/tools/libs/light/libxl_internal.h
+> @@ -2073,9 +2073,9 @@ struct libxl__xen_console_reader {
+>  /* parse the string @s as a sequence of 6 colon separated bytes in to @mac */
+>  _hidden int libxl__parse_mac(const char *s, libxl_mac mac);
+>  /* compare mac address @a and @b. 0 if the same, -ve if a<b and +ve if a>b */
+> -_hidden int libxl__compare_macs(libxl_mac *a, libxl_mac *b);
+> +_hidden int libxl__compare_macs(const libxl_mac *a, const libxl_mac *b);
+>  /* return true if mac address is all zero (the default value) */
+> -_hidden int libxl__mac_is_default(libxl_mac *mac);
+> +_hidden int libxl__mac_is_default(const libxl_mac *mac);
 
-Looks like qmp_parse_query_cpus_fast and qmp_parse_query_cpus just
-differ by the key string.  So you could pass it in as an argument -
-maybe with qmp_parse_query_cpus_fast and qmp_parse_query_cpus as
-wrappers around a common implementation?
+It turns out that older version of gcc complains about the const of
+libxl_mac:
 
-But if you prefer this separate function, it's fine.
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+    libxl_nic.c: In function 'libxl_mac_to_device_nic':
+    libxl_nic.c:40:9: error: passing argument 1 of 'libxl__compare_macs' from incompatible pointer type [-Werror]
+             if (!libxl__compare_macs(&mac_n, &nics[i].mac)) {
+             ^
+    In file included from libxl_nic.c:18:0:
+    libxl_internal.h:2076:13: note: expected 'const uint8_t (*)[6]' but argument is of type 'uint8_t (*)[6]'
+     _hidden int libxl__compare_macs(const libxl_mac *a, const libxl_mac *b);
+                 ^
+    libxl_nic.c:40:9: error: passing argument 2 of 'libxl__compare_macs' from incompatible pointer type [-Werror]
+             if (!libxl__compare_macs(&mac_n, &nics[i].mac)) {
+             ^
+    In file included from libxl_nic.c:18:0:
+    libxl_internal.h:2076:13: note: expected 'const uint8_t (*)[6]' but argument is of type 'uint8_t (*)[6]'
+     _hidden int libxl__compare_macs(const libxl_mac *a, const libxl_mac *b);
+                 ^
+    libxl_nic.c: In function 'libxl__device_nic_setdefault':
+    libxl_nic.c:69:5: error: passing argument 1 of 'libxl__mac_is_default' from incompatible pointer type [-Werror]
+         if (libxl__mac_is_default(&nic->mac)) {
+         ^
+    In file included from libxl_nic.c:18:0:
+    libxl_internal.h:2078:13: note: expected 'const uint8_t (*)[6]' but argument is of type 'uint8_t (*)[6]'
+     _hidden int libxl__mac_is_default(const libxl_mac *mac);
+                 ^
+    cc1: all warnings being treated as errors
+
+
+That happens on ubuntu trusty, debian jessie, and centos 7.
+
+Cheers,
+
+-- 
+Anthony PERARD
 
