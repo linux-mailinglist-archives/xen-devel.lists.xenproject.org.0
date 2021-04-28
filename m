@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5ACA36D7C8
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 14:54:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119323.225765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 278FA36D7EB
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 15:04:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119330.225778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbjiG-0004FQ-5M; Wed, 28 Apr 2021 12:54:44 +0000
+	id 1lbjqg-0005F3-0b; Wed, 28 Apr 2021 13:03:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119323.225765; Wed, 28 Apr 2021 12:54:44 +0000
+Received: by outflank-mailman (output) from mailman id 119330.225778; Wed, 28 Apr 2021 13:03:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbjiG-0004F4-2H; Wed, 28 Apr 2021 12:54:44 +0000
-Received: by outflank-mailman (input) for mailman id 119323;
- Wed, 28 Apr 2021 12:54:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lbjqf-0005Ee-Tc; Wed, 28 Apr 2021 13:03:25 +0000
+Received: by outflank-mailman (input) for mailman id 119330;
+ Wed, 28 Apr 2021 13:03:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lbjiE-0004Ez-72
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 12:54:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lbjiD-0005VL-8O; Wed, 28 Apr 2021 12:54:41 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lbjiD-0001Im-21; Wed, 28 Apr 2021 12:54:41 +0000
+ (envelope-from <SRS0=x+xa=JZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lbjqe-0005EZ-6x
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 13:03:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d45dd5e4-2d19-452e-8446-f71693284ce6;
+ Wed, 28 Apr 2021 13:03:22 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E4C1EB181;
+ Wed, 28 Apr 2021 13:03:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=VOmnTql4yGp3HV6+dThJmA2YVQ5HHGu99D0K71CUp0A=; b=E7+oyqDjBm5qEZiRP0xpoCKRoc
-	QetUCs1bsQMkNfbWgcRKwsAc9h2p9sI90dWKDBnaJ+9bJvAPq18O8lDznx/C4BWZCT5ddne2tVdEu
-	K5w2O9NtVTWCFnlBZYEx7gZStgiIJ+Y86mKuKhWCfPgihtwSUUTF5vPq4QEJqqL3E0FM=;
-Subject: Re: [XEN PATCH] xl: constify cmd_table entries
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210427161105.91731-1-anthony.perard@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5cbe94d4-2d07-b517-af9f-c5f1e47f7588@xen.org>
-Date: Wed, 28 Apr 2021 13:54:39 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.0
+X-Inumbo-ID: d45dd5e4-2d19-452e-8446-f71693284ce6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1619615002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Bb2X/zWNGgoHjla4O1+5XkvRuAvUb+IU89t7YVxTqbc=;
+	b=JuWCwOERnc3gYm7cGj1uzbs/9aJ19eaS97f2ISXYdmXM4mQdkYofgkEDf5wPQ+cf49uFd4
+	xx2VIz6LGpalUKqoKy6cOXHRJKcigu7b5G728oEF22k6XNWcEUmmx7NVJ9lSM0OOySANlN
+	ey7f9+Z14IDX6qd32BAXSLETaXrEAlU=
+Subject: Re: [PATCH 0/3] x86: Initial pieces for guest CET support
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210426175421.30497-1-andrew.cooper3@citrix.com>
+ <03630ebd-861e-b02c-e845-1e2324211562@suse.com>
+ <3e5369d1-a6eb-92c4-868c-0b9d205aba7a@citrix.com>
+ <d687a294-f0d8-62d0-12ac-2cb5582b8605@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d4f0446c-545f-f7c0-172a-a2ff88e19ad9@suse.com>
+Date: Wed, 28 Apr 2021 15:03:21 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210427161105.91731-1-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <d687a294-f0d8-62d0-12ac-2cb5582b8605@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-NIT: I would suggest to add "..." so it is clear...
-
-On 27/04/2021 17:11, Anthony PERARD wrote:
-> and cmdtable_len.
-
-... this is a continuation of the title.
-
+On 28.04.2021 14:25, Andrew Cooper wrote:
+> On 27/04/2021 11:13, Andrew Cooper wrote:
+>> There are 3 emulator complexities for shadow stack instructions.  SSP
+>> itself as a register, WRUSS no longer being CPL-based for
+>> user/supervisor, and the fact that RSTORSSP in particular uses an atomic
+>> block which microcode can express, but can't be encoded at an ISA
+>> level.  I've got no idea what to do about this last problem, because we
+>> can't map the two guest frames and re-issue the instruction - the
+>> aliasing check on the tokens forces us to map the two frames in their
+>> correct linear addresses.
 > 
-> The entries in cmd_table don't need to be modified once xl is running.
+> Actually, RSTORSSP isn't too difficult.  I'd mis-read the pseudocode.
 > 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
->   tools/xl/xl.c          | 4 ++--
->   tools/xl/xl.h          | 6 +++---
->   tools/xl/xl_cmdtable.c | 8 ++++----
->   3 files changed, 9 insertions(+), 9 deletions(-)
+> The atomic block is a check&edit of the token on the remote stack (not
+> both stacks, as I'd mistakenly thought).  The purpose is to prevent two
+> concurrent RSTORSSP's moving two threads onto the same shadow stack.
 > 
-> diff --git a/tools/xl/xl.c b/tools/xl/xl.c
-> index 3a8929580212..4107d10fd469 100644
-> --- a/tools/xl/xl.c
-> +++ b/tools/xl/xl.c
-> @@ -362,7 +362,7 @@ int main(int argc, char **argv)
->   {
->       int opt = 0;
->       char *cmd = 0;
-> -    struct cmd_spec *cspec;
-> +    const struct cmd_spec *cspec;
->       int ret;
->       void *config_data = 0;
->       int config_len = 0;
-> @@ -462,7 +462,7 @@ int child_report(xlchildnum child)
->   void help(const char *command)
->   {
->       int i;
-> -    struct cmd_spec *cmd;
-> +    const struct cmd_spec *cmd;
->   
->       if (!command || !strcmp(command, "help")) {
->           printf("Usage xl [-vfNtT] <subcommand> [args]\n\n");
-> diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-> index 137a29077c1e..e5a106dfbc82 100644
-> --- a/tools/xl/xl.h
-> +++ b/tools/xl/xl.h
-> @@ -218,10 +218,10 @@ int main_qemu_monitor_command(int argc, char **argv);
->   void help(const char *command);
->   
->   extern const char *common_domname;
-> -extern struct cmd_spec cmd_table[];
-> -extern int cmdtable_len;
-> +extern const struct cmd_spec cmd_table[];
-> +extern const int cmdtable_len;
->   /* Look up a command in the table, allowing unambiguous truncation */
-> -struct cmd_spec *cmdtable_lookup(const char *s);
-> +const struct cmd_spec *cmdtable_lookup(const char *s);
->   
->   extern libxl_ctx *ctx;
->   extern xentoollog_logger_stdiostream *logger;
-> diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-> index 07f54daabec3..84e2067e278b 100644
-> --- a/tools/xl/xl_cmdtable.c
-> +++ b/tools/xl/xl_cmdtable.c
-> @@ -18,7 +18,7 @@
->   
->   #include "xl.h"
->   
-> -struct cmd_spec cmd_table[] = {
-> +const struct cmd_spec cmd_table[] = {
->       { "create",
->         &main_create, 1, 1,
->         "Create a domain from config file <filename>",
-> @@ -631,12 +631,12 @@ struct cmd_spec cmd_table[] = {
->       },
->   };
->   
-> -int cmdtable_len = sizeof(cmd_table)/sizeof(struct cmd_spec);
-> +const int cmdtable_len = sizeof(cmd_table)/sizeof(struct cmd_spec);
-
-NIT: This can be replaced with ARRAY_SIZE().
-
->   
->   /* Look up a command in the table, allowing unambiguous truncation */
-> -struct cmd_spec *cmdtable_lookup(const char *s)
-> +const struct cmd_spec *cmdtable_lookup(const char *s)
->   {
-> -    struct cmd_spec *cmd = NULL;
-> +    const struct cmd_spec *cmd = NULL;
->       size_t len;
->       int i, count = 0;
->   
+> Without microcode superpowers, the best we can do this with a read,
+> check, cmpxchg() loop.
 > 
+> The common case will be no conflict, as stack switching will be well
+> formed (outside of debugging).  Any conflict here from real code is
+> going to yield #GP/#CP on one of the threads participating, so in the
+> case of a conflict in the emulator, a likely consequence of the 2nd
+> iteration is going to be a hard failure.
+> 
+> That said, malicious cases within the guest, or from foreign mappings,
+> can cause the cmpxchg() loop to take an unbounded time, so after 3
+> retries or so, we need to escalate to vcpu_pause_all_except_self(), and
+> or the ARM stop_machine() big hammer.
+> 
+> I'm tempted to just throw #GP back after 3 retries.  Its potentially
+> non-architectural behaviour, but won't occur in non-malicious
+> circumstances, and all fallback mechanisms have system-wide implications
+> that we oughtn't to be bowing to in a malicious circumstance.
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+I agree.
 
-Cheers,
-
--- 
-Julien Grall
+Jan
 
