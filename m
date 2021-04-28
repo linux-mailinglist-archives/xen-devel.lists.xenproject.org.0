@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4B836D2FB
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 09:21:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119044.225362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD2D636D375
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Apr 2021 09:51:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119057.225376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbeUN-0005gV-TO; Wed, 28 Apr 2021 07:20:03 +0000
+	id 1lbeyO-0000G6-G5; Wed, 28 Apr 2021 07:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119044.225362; Wed, 28 Apr 2021 07:20:03 +0000
+Received: by outflank-mailman (output) from mailman id 119057.225376; Wed, 28 Apr 2021 07:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbeUN-0005fD-QB; Wed, 28 Apr 2021 07:20:03 +0000
-Received: by outflank-mailman (input) for mailman id 119044;
- Wed, 28 Apr 2021 07:20:02 +0000
+	id 1lbeyO-0000Fh-D6; Wed, 28 Apr 2021 07:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 119057;
+ Wed, 28 Apr 2021 07:51:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1uJE=JZ=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1lbeUM-0005Wf-7i
- for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 07:20:02 +0000
-Received: from mail-wm1-x332.google.com (unknown [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vSVs=JZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1lbeyM-0000Fc-4K
+ for xen-devel@lists.xenproject.org; Wed, 28 Apr 2021 07:51:02 +0000
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a2386d2-c7dc-428e-9722-5ed356ce97e0;
- Wed, 28 Apr 2021 07:20:01 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id n127so21288002wmb.5
- for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 00:20:01 -0700 (PDT)
-Received: from [192.168.1.186]
- (host86-180-176-157.range86-180.btcentralplus.com. [86.180.176.157])
- by smtp.gmail.com with ESMTPSA id h63sm2810018wmh.13.2021.04.28.00.19.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Apr 2021 00:19:59 -0700 (PDT)
+ id 1b795db7-9504-4ea0-86b4-7c294e4bccf2;
+ Wed, 28 Apr 2021 07:51:00 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.25.2 AUTH)
+ with ESMTPSA id D0155dx3S7ow3hl
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate)
+ for <xen-devel@lists.xenproject.org>;
+ Wed, 28 Apr 2021 09:50:58 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,140 +41,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a2386d2-c7dc-428e-9722-5ed356ce97e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=r5xGVk7hzGDeqe6D9siNjnGXs4m1MYAh6B0t/kk7rXk=;
-        b=XbiCyyaQk0Sd1WHxBa9jRmZuW5f3v5+D4/DNHkRdgkjXIHmb4lEg0TgiCKv8iNX6eh
-         8510ZbTTR097+zBBiwAOQt5PgDhrb/VD2NI1BUDqZnnJbRKYDTO46wH4d15ve543cTsE
-         hA5/HZ8Dtu9yzq3BIbV4IDVL0pWz/hYwr/fhsQzxwhcnHmdjTCQ2UW7/+SaiapELuddf
-         yz8/+m8ICAbjbB6x3djqCkNLnN3uTMr7tu5jFrMaM6mYU3h7SCZFznRb7qQjBVXbSHQf
-         XwzEdxPOthpH+h062SQazOKgdveCQWtVhgTNSbt+9QK/+nryat8eknq8p2PfFdshYUlj
-         yyyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:subject:to:cc:references
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=r5xGVk7hzGDeqe6D9siNjnGXs4m1MYAh6B0t/kk7rXk=;
-        b=Gd/KSVRmeNAobuFUCmnba0lJG7c0HESyyr6jupWglZuu6hrnSHMKVfz/OGxblKMPZs
-         GbbxfBq+GDr5OEOz64c6omZ9/R4m2cLT7mp82cZ2U3ve8la9lnWIPc+yjahMT4/4FZig
-         z8kP4ijU/2ntZSPZZxrsfTZFyJcHSBmO06ImjbnOE0c6Q4y5diNGklJyq1CdrRbRjXbH
-         J/4Kqu7aHrLS2raTy+9ACUySaJdqzVCjwh2xDBLc5AnNlYc3hLT2yMeT+sW0dkZNSll4
-         DBoMS66xGhhUKtb8sCTzxNAcKl2JzYFVqSiVlSucxmdkRMqg1FckqsP2L132xbDuDATe
-         UD1A==
-X-Gm-Message-State: AOAM533UzkWtwtooTrXBsm6bWCU83vVF+Kvarx083o75IoqYLkCaqD3v
-	PkaByUtf3kg6TpehYlpCfdg74urmXX0=
-X-Google-Smtp-Source: ABdhPJzreyOhtk6E+heq9UbzAYTMnkmac6Ad/iNc402Ol4Zc5ovemv2y9Pw7wtZENnX58SytF9L9bw==
-X-Received: by 2002:a7b:c248:: with SMTP id b8mr2789584wmj.150.1619594400378;
-        Wed, 28 Apr 2021 00:20:00 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Reply-To: paul@xen.org
-Subject: Re: [RFC PATCH] iommu: make no-quarantine mean no-quarantine
-To: Jan Beulich <jbeulich@suse.com>, Scott Davis <scott.davis@starlab.io>,
- Scott Davis <scottwd@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0a292d952ff71dbfed5234d27b42a05f7b49a1fe.1619451434.git.scott.davis@starlab.io>
- <cea1d2d0-fd69-a4cd-6653-dd881d07b96a@suse.com>
- <56F61E81-511E-4ECA-B2A0-B91F250804D7@starlab.io>
- <237ad45b-b68d-9d31-0fbc-1af52dfca808@suse.com>
-Message-ID: <dc6556ae-c653-8519-1a81-9524e4472f26@xen.org>
-Date: Wed, 28 Apr 2021 08:19:58 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 1b795db7-9504-4ea0-86b4-7c294e4bccf2
+ARC-Seal: i=1; a=rsa-sha256; t=1619596259; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Eq7L8vJwqnIbI6PCSzdg9/PEOAzpyGzoVPlazYpm5jnnIfuOF3n4J2w5j+NMOFilfD
+    b3fugFwMLhKXDYbJGKdvkJre7y2FG0c//nHgmXnGXS6rDCs6vyc7ehSxM2Tz6ttS387N
+    suy40KMtj4Arced931E/v459qXRpBoyfwFsrTCG6wA7jpiRhOL7uhkCpczs7v4FkWmXL
+    4VDE8adAryKtsTUEcFRdQiTTQ80dN1AF1Oq1ylZm8Cbg7IZQooTjH4rNTTo/6xANVoc7
+    ft44R+fsVAglo1dM1yK6AZN/h7HQbp7hS0qU93F8ERZUlwstPgb/EaKVBLYBv3UZszxF
+    im8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1619596259;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=Vf4gFG2hXiU7RxjRytL1xvL8OT69uRvJR5wULQDYZ1Q=;
+    b=oCMtTreFdB2mUfRVxQwFJ+sArLnvp+xpFwTMmY6Gvpc/9c98i/rGhr+Vna07XV9uuH
+    sJB/kRVSei1tMuzuvsSwejt2ZC/vLP9nhQiezCWJ235koXi9P/a4QcdP3U8otRu1OHcd
+    hnIz1k2uOnzjykUcANqdo6NX9/8ScaE05OIE420bILKt1EUJ4vV7IUSAGOyW8vKxz52d
+    Vh4hhIyZusSh5N/K7IfWzhKW/nJlf5/EhTQ1OseQz0Yi4Uy7ZPJAAk9c6a9t+ic9LJN0
+    cjfVhpC+S3DdnQ60LSrEXwBWlgTbRAKQRAV2VWN7/VDMtQbwZeeeY0EE/7DHG3mxUPpy
+    aVkA==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1619596259;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=Vf4gFG2hXiU7RxjRytL1xvL8OT69uRvJR5wULQDYZ1Q=;
+    b=UmquaNWoOsC9wuypOTomaxwKkCxSKCAF5eCQTwsrK0I6FVn0zbHiFg2zqYT/1BE6g0
+    9T8fI5vGDFkSChIbXZY+UUanng+gP78RuM0Mqf4JjhzQPF0hb3biCPR3BGXnmYaGUw6b
+    4y82jhYjBYyHjNoJx+H6iY0623gPPguAlnSXC55n0ta/2K0+vc6PQrK8RCsc3SCm4kIP
+    KwzV0pF/gfo+FWhw63Vxyp+w1rtKOPaNjJsEqK4kYNWOysy7dEPprfgW7sa1yl3sZAeC
+    3z7I++itqe3rIPAr0uwXJ2ZR/uTwvtJr4P0HlZW8BMG6QWbPP6kyHv9qivNJ3xBXqzjt
+    Dxow==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisEsVR6GbU3svGYLiH9zFD0wpO7hNb2D/K88Gfjs"
+X-RZG-CLASS-ID: mo00
+Date: Wed, 28 Apr 2021 09:50:49 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Subject: obtain a list of granttable PFNs from toolstack
+Message-ID: <20210428095049.14a8272b.olaf@aepfle.de>
+X-Mailer: Claws Mail 2021.04.21 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <237ad45b-b68d-9d31-0fbc-1af52dfca808@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/dE8OC3P8fXpfa_9Ehs93HrM";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On 28/04/2021 07:15, Jan Beulich wrote:
-> On 28.04.2021 00:00, Scott Davis wrote:
->> On 4/27/21, 2:56 AM, Jan Beulich wrote:
->>> On 26.04.2021 19:25, Scott Davis wrote:
->>>> This patch modifies Xen's behavior when making devices assignable while the
->>>> iommu=no-quarantine command line option is in effect. Currently this option
->>>> only affects device deassignment, causing devices to get immediately assigned
->>>> back to Dom0 instead of to the quarantine dom_io domain. This patch extends
->>>> no-quarantine to device assignment as well, preventing devices from being
->>>> assigned to dom_io when they are made assignable while no-quarantine is in
->>>> effect.
->>>
->>> Well, the term "quarantine" to me means a safety action taken _after_
->>> possible exposure to something "bad". Therefore I see this being specific
->>> to device de-assignment as the logical thing. Hence if a mode like what
->>> you describe was wanted, I don't think it should be the result of
->>> "iommu=no-quarantine".
->>
->> Sorry I'm a bit confused by this. Correct me if wrong, but my understanding is
->> that the purpose of assigning a device to dom_io on de-assignment is to protect
->> Dom0 from the effects of in-flight DMA operations initiated by a DomU. I assumed
->> that the purpose of (temporarily) assigning to dom_io on assignment was the same
->> but in reverse: protecting a DomU from Dom0-initiated ops. Is this not the case?
-> 
-> Well, no, not really. Dom0 is considered fully trusted for a variety of
-> reasons.
-> 
->> Also, documentation and code already refer to the operation in question as a
->> "quarantine" (see xl command line docs and libxl__device_pci_assignable_add)
->> and to devices that have undergone it as being "quarantined" (see assign_device
->> in xen/drivers/passthrough/pci.c). So if that is not the correct term, there may
->> be some additional changes needed for consistency. Is there another name that
->> would be more appropriate?
-> 
-> I don't see what's wrong with the term for how things are currently. If
-> you talk about an adjustment to terminology to accompany your proposed
-> change - not sure.
-> 
->> I would also point out that, currently, there does not appear to be a way for an
->> xl user to opt out of quarantine functionality in either direction other than by
->> manually making devices assignable. There is no xl command line flag to disable
->> it and iommu=no-quarantine will have no effect because any device that xl itself
->> makes assignable will have the struct pci_dev.quarantine flag set, which
->> overrides iommu=no-quarantine. Is that intentional?
-> 
-> Not sure here either: It may also have been that it was assumed to not
-> be of interest. Paul?
-> 
+--Sig_/dE8OC3P8fXpfa_9Ehs93HrM
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-TBH I'm not sure. When I implemented quarantining it was non-optional 
-for good reason and no-quarantine came along later (and somewhat 
-hurriedly IIRC).
+Is there an API to get a list of PFNs which are currently being active in t=
+he grant table for a given domid?
 
->> If I misunderstood and your objection is simply that "quarantine-on-assignment"
->> and "quarantine-on-deassignment" should be controllable by separate iommu
->> options, that's an easy enough change to make.
-> 
-> Yes, effectively it's that what I think things would want to be, if
-> "quarantine-on-assignment" is really something that we think is needed.
-> It would default to off imo.
-> 
->> Although I think that might also
->> negate the need for/effect of struct pci_dev.quarantine as described above. If
->> that's what is desired, any thoughts on what the new option(s) should be called?
-> 
-> Following the extension to the command line option I'm putting in place
-> in "IOMMU: make DMA containment of quarantined devices optional" (which
-> I still need to get around to address review feedback for and resubmit),
-> I'd be inclined to suggest "iommu=quarantine=always" or
-> "iommu=quarantine=on-assign". Unless of course we'd prefer to have the
-> caller of the assignment operation have full control over the behavior
-> here anyway (in which case a command line option control simply is not
-> necessary).
-> 
+Olaf
 
-I'm still not entirely sure why not quarantining on is a problem, other 
-than it triggering an as-yet undiagnosed issue in QEMU, but I agree that 
-that the expectation of 'no-quarantine' meaning just that (i.e. the old 
-dom0->domU and domU->dom0 transitions are re-instated) is reasonable. Do 
-we really want yet more command line options?
+--Sig_/dE8OC3P8fXpfa_9Ehs93HrM
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
-   Paul
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmCJE9kACgkQ86SN7mm1
+DoCxzQ//XxJprA3nZdIGwu9eqqyBgDMtwI994+GogphqN9S9j52V7ewHVuBvMqsY
+Kgl6JCvmS4e+LYNXI+sz2PoPNMvgH+oUfZcHGa2Sirtoo13BqsNzYCIW+cZhUhat
+g75J4GdeKrDfAOdPA8drJNFvjQkoGJiqI0cwXvRzaMsRMBj8FFQEY6OWu8kdzIPD
+rfggo8XIJgyfrx0z1N/fRHW+D6WCyVLXZZrhfHSmZcYYeIzTwwMP6H4z8TtpsYy7
+g8ockcD30CtgkvQhZCaVy5s5HB8XgZ87i38Pf5lK0r9VqIu0xXnuEGCgAFbeY9D8
+3b3sjEg94TA7XwojMm2WFB84Q1Q4blJQoIHQeuVLXXopk1weTRI6vxkvuWiVj5gV
+lDQhUCfI2kHbBV6Bpt4OpijuxBxIAnDNI6ngZ/T5MNCa9FxskB3Inf2u1bMvYDWT
+j7Rfa58/D8HHlqReHjWfc5v+U0HWfrSJOs6YtO9FYNP/F7Sl+WQgTiyGyVjKD8if
+tl1CYBAjbHfWmc6YalPTW3/ZuJxkiUtdIEh1h3VviWSzHFZuh2QoRZ+rIcHghGrr
+ZGmuJwQ6YLiK4sGmkA+BoeGyeqOLoz5jjDnoNGqlDj0QtHji9Js4BBOYMmI6/ml3
+UxbNtJUybym0WKvT7jaRUCuRRPHaYUGvO3w7B4nN4O39mbJXl/A=
+=PyOQ
+-----END PGP SIGNATURE-----
+
+--Sig_/dE8OC3P8fXpfa_9Ehs93HrM--
 
