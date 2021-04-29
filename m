@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBE3E36ECA5
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 16:48:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.120096.227108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED94336ECBF
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 16:50:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.120106.227121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lc7y5-0002MQ-91; Thu, 29 Apr 2021 14:48:41 +0000
+	id 1lc7zK-0002WZ-Jr; Thu, 29 Apr 2021 14:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 120096.227108; Thu, 29 Apr 2021 14:48:41 +0000
+Received: by outflank-mailman (output) from mailman id 120106.227121; Thu, 29 Apr 2021 14:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lc7y5-0002M0-5x; Thu, 29 Apr 2021 14:48:41 +0000
-Received: by outflank-mailman (input) for mailman id 120096;
- Thu, 29 Apr 2021 14:48:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SJyU=J2=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1lc7y3-0002Lt-KN
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 14:48:39 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a4c3f26a-87f7-4661-a924-0cfb53d3d8a4;
- Thu, 29 Apr 2021 14:48:38 +0000 (UTC)
+	id 1lc7zK-0002W8-Fs; Thu, 29 Apr 2021 14:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 120106;
+ Thu, 29 Apr 2021 14:49:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lc7zI-0002W0-Us; Thu, 29 Apr 2021 14:49:56 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lc7zI-0006TH-PM; Thu, 29 Apr 2021 14:49:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lc7zI-0006kJ-FQ; Thu, 29 Apr 2021 14:49:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lc7zI-0004Cw-Ex; Thu, 29 Apr 2021 14:49:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,289 +42,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4c3f26a-87f7-4661-a924-0cfb53d3d8a4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1619707718;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=uGRKuWDFEhDA18TLkC0O0XmtGBHNUZZgLuda8cHIjpU=;
-  b=YIc5JG+2yDA4wbmJSsz7RTDkVLw6RdOOBZKQa8zAJg+JSwmek7sPXadq
-   4THQ1fFeekwkTC+mkY7KhfEjJHVmJeDssMN3e7hax/62VKF/YkONvhpnV
-   87EkanJyOe2cNjkXxKOOVbZ7mIu8DbqXwYmqNzxEVEslrMbnk4iufL6Ne
-   0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: j6M3DB7Bbs+8es7ITWchEyYVbv1jP8VrAUkGn/BjMoKxmXNX818WYV9VwRNIJwlEK6QH42SG8K
- g/sU2AVculHLus3MZu7XUzTJkGOe8b+Zg5oAbXeG1AO6odBhURzKag5xE4kW7oPdeFNQBKWlp4
- WezRtiWHTXTjdN45fokeXqDUW7p9ug52/KUqOY8Bax4CuVcyYG5hxJMDjK6Qr8FgC+juILM9gi
- n0BiM21AizN2nBmp1CP7JKAUcTh38BKRgSvxcQITAarbgM0ddGGNB3FV539bVpEf0D/Vf4I8Td
- rJs=
-X-SBRS: 5.1
-X-MesageID: 44226658
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:IKQkzK1jWom5Bk+CmG5S6QqjBWByeYIsi2QD101hICF9WtCEls
- yogfQQ3QL1jjFUY307hdWcIsC7LE/035Qd2+ksFJ2lWxTrv3btEZF64eLZslndMgDd1soY76
- dvdKBiFMb9ZGIRse/W6BS1euxO/PCp66at7N2x815IbSVHL55t9B14DAHzKDwSeCBjCYAiHJ
- SRouprzgDQGkg/VciwCnkbU+WrnbSi+K7OWhIaGwUhrDCHkDLA0tXHOiKF1RQTWS4n+8ZBzU
- H5lWXCh5mLgrWA5TL3k0TS6JlXn9WJ8Ko/OOW8zvI7Bx+ppgKhZIFKU6CPsjYvsIiUmSoXue
- iJmTgMFYBe7G7QY3GUrHLWqnbd+Qdr0VDO4xu5hmbuusPwTj5SMbs+uatpNiH3xmBlmfMU6t
- Mt40up86B5IDmFoQHGo//PbB1unlrcmwtYrccjy0ZxfKFbVKVctuUkjSVoOaZFJg3WwqY9Ht
- JjCcnNjcwmC2+yXjTism5jzMfEZAVLIj62BkwLusmi2zNLhnxOz0wB2MwFnnsbnahNM6V52w
- ==
-X-IronPort-AV: E=Sophos;i="5.82,259,1613451600"; 
-   d="scan'208";a="44226658"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OAg/1RJr+GYM6XkerJ5xaWiQ+alps+Yrkm+/ZdNH4j6wMPP511DCVInnjHsZ39g81j43j4Yl5F4j9W9DCwHYXo1o3G59AixIzT2agGxz7VFb5xSH+SBDvodS/YHoekBWsmWyJsZ4t3SiGvTTx/QRg86LZ1sQfVflua+S/QP7uQqYjENKzHt0PCdXRFxqH+6163UNsbaobm1+YS9wx9S1hRl03g95CdHQZW5XoOdpVr+1KVdMkBEqNJI220ZwxNXJcTMoFJUM7P/D1zuhqEa18HdlIXMLfvGS3LWrd804cHv2RlqPQ6R9a95M16lyY9NUupJEwdZO1W8KVpHbQyFEUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Ts9uf6fqgeWYkiCVUmkIi2paOGwarj6Nlyuw81TH8Y=;
- b=XibxoVjY7h8qY92/SE7wNu5mpOa3Ibg+Gfc0ky+ScJKVTAclLa20SE4jPzsH9zDA6W+QeiwPvPeSGSh/Es8K/lasZX+NwbFeMCw2lWPhnGiO4ZsB8cs7zjSLiPErHqiZSxFHdnCWOSbGtqTIjgJOGwZdG4uSmLISJJUea0CqH/eCsu2sdA9QgLlbNm0INjA68aXYnCqNrX72AHYB6Nq89HOQi0PpLSPYk1fhke1jX7cfTh/8UU74y4R+sFfckQRAX1dthUuYC16CBVDWoW7wE5/RVvNynmx2mI8B/Qsr3AS9yYqaOEasguXMAeQUj0lAm2otrFPiD/T5hvynpeK5Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Ts9uf6fqgeWYkiCVUmkIi2paOGwarj6Nlyuw81TH8Y=;
- b=VSF0DY8dpQcmS5Q8L5I0xRqD3pe25D+NsKwmIimvkls7gus7q5ddyM1StodPeox//HtpE24xT3GlO7enDBBY0BWn9+f0oISv8b7zfS5WO9nsEUqRsoHslUYcTgUboq7uYd2jxdMH/ZfLfQLn3X/8+EKFaajUZlrGtZjVVKXNnmI=
-Date: Thu, 29 Apr 2021 16:48:27 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [PATCH v2 02/12] x86/p2m: {,un}map_mmio_regions() are HVM-only
-Message-ID: <YIrHO9N6YgQEOpJh@Air-de-Roger>
-References: <3cf73378-b9d6-0eca-12b6-0f628518bebf@suse.com>
- <7f8ca70d-8bbe-bd5d-533a-c5ea81dc91a2@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=nKFB3gg/Djm7eeleHZ2Ml7TA0sJxzSD9V6Tbz8ntAZo=; b=5MAM9Ey3t+MBYYMwgE+KIo24a2
+	ikq4Ta1lHMAqMuU6L4be2R4VyL8oaUatP15ZjSmQ3ER7HZWONvf2qlLfy9ejOwaq8dWZdx1TzHABg
+	Btf74oojdUPeKlTX6aP1P/4wnX9K4J712yCJJEh9dWIUqmb5njLeyXxExlAJBJW3YhM8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161516-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7f8ca70d-8bbe-bd5d-533a-c5ea81dc91a2@suse.com>
-X-ClientProxiedBy: PR3P195CA0016.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:102:b6::21) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 73594721-1c41-4f79-1c40-08d90b1ddca6
-X-MS-TrafficTypeDiagnostic: DM4PR03MB5997:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR03MB5997B7C55626A426EBACE1D18F5F9@DM4PR03MB5997.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: udC5F/24Q8rvYIhLPOxFG1ESiZART0mEXQdgkp1zIRq1y6yT130HIPN9eon1mbF9lp5ssYj72ojzWqDmIsoFp4O23v7WBiyHBhlIW8071RGB9cvam/FKCPZVa4wD0h2h/ERGqdkJNrf8UOi5sYe/jfa9Wy40Z9nLqR+q87sap6DfTPH/5AkUD8PkTCpqojbkIPncWBOqNh7FG61u1IiTR3pemj5+PbPszxkWIqqMxAiEYN5+ttDN/LZLK3M5gpZlbCaqN6gPYbyb213dnnzbVQc/J3SrDsJ53n75tdacWbSDHZbKbRui4ObmWfHUxEEhVL+9wXXctN3HDlz8cebFclSgWv0gG/4LWcvCz4ZwdkAT0RgFoazpq9zXWr1SknXhjLrQpdsV2sT3JTM2iOiHq/UR66x1KmGidWr95ZTq/LAZWysoy1vF9DkyVSmbwWGs3GbJVdGNpsQo7KsjKoQfO1NpLq3TCBwatX+Djm66awSMXzgXx1YY9UM3aaCGGPmnTR3UbV5iyOTwCrGH/559LTwiMKpK/ulDkC+4xBLvWNRVdC933TwJmaAxhj2NhrZDXzipoV+g1pW1cPF/RSxsbkndL3jCXLRG72uAkXLwZzo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(376002)(346002)(396003)(136003)(39860400002)(366004)(8676002)(6486002)(83380400001)(54906003)(16526019)(6916009)(2906002)(86362001)(85182001)(4326008)(316002)(956004)(6496006)(66946007)(66556008)(8936002)(66476007)(186003)(9686003)(33716001)(5660300002)(38100700002)(6666004)(478600001)(26005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?S25mejR3R1lZdkhMZWxlK2N1ck52MmdKdW40alIyOGp0ZnF0cUtDVWJIellI?=
- =?utf-8?B?V3lnRC9HdXdiblJKODZTN2lqTjZqVi9CWmgwZWVlZFR2ZzAxbTF4NWlSNTd4?=
- =?utf-8?B?V2QwNk5uVWNSMW5UbUZhN1NkS3B4dTY1Z0RDYllCaElnQW83NHhzcXJEOE9J?=
- =?utf-8?B?T1M4ZmFEM2FiZGtSalVaOFQybTR0VWxFeEh1SzNCaVdhOWl2UXhRVUlJRUN0?=
- =?utf-8?B?eE9OMHRRMU1rdm9nQXA0aWhVQm5JM3VqUkh1VCtLK1NJUktPNWlIWUNYMm5U?=
- =?utf-8?B?bFRVZHo2VXNxS2lnek1QeVlyMHBzT0UxQzZGRnhNYTV0ZXhsdmExb2FveGIr?=
- =?utf-8?B?ekFhaHZLMWJPeDNGV1hPbVlwSjhNeXdnZGl0V2RWZm9GNzBIajNvQkhtWTdR?=
- =?utf-8?B?RWJlN2pQSDJIZWJObW5NTjc5T0VmVzIrUFArcnVVTFpHclNlZFp0cmY3SnBH?=
- =?utf-8?B?Z0JqZ0llZDNwbU84OWpuTTduVEhmcW4wYmxsTk13cDQ3L3JOQmY1ZDVodzNo?=
- =?utf-8?B?MmNuQXZJcHprQi8yRG9zdW5lNlJibVZobkM1TDJZTE9lMDVvVVRxUnJ2ZzM1?=
- =?utf-8?B?VFQ3UTdnTWdJZ0tRRWp1dGhjM29hNTJRY3QrQi9zc00wQTFvOGtRK2hreVpp?=
- =?utf-8?B?Tko5L3RCQitJRTJQUkxyMWduZXIyYkFPL1RyS2habG0rWHQramVlY1NXUkp5?=
- =?utf-8?B?bW1Fbk80QVNhT05iQit5KzFqZzRRcXpLQ1prdk1wRHZwbFpxTEJMSGpBcHlh?=
- =?utf-8?B?c3ZTOGhjNXU2ZGFOdlFwakxlSHRIRCtRM25RL3V0UDJ4L1JVWDNwWkRGYWVl?=
- =?utf-8?B?My8waFpZckM3Yk53ZU82QlZvZW51WjlNQTVjWVQ1S3lQeFNwMWdJWndyeEIw?=
- =?utf-8?B?VmJvMGV4UkhoU1BnRmVFV0s4WDVsVk5RbWkzK0xpbm9VZ3FPb2xxVWJHbm5y?=
- =?utf-8?B?OVMwdHhYN2gyVzc1WEFOMjMvbFYweS9TQnlqV1N2L1BGdWt0c1BwN3RXLy8v?=
- =?utf-8?B?UkpHZUVtYXFhZHZMa2lyU0FBUzJpc2s5eWplcmtjM1gvZ2RYRzQ4aGZNdE94?=
- =?utf-8?B?eGVBN3dkT2RLQytjWGM0MEt5UlZ4M1A3ZUdiQWExSW5ySldmWUNMV0IvNVBw?=
- =?utf-8?B?V1hhZmg0K1I4V2thRk1tb1d4dW1aYitlcVUxbGVoUmY4WGk3NEVxMUNjQUZQ?=
- =?utf-8?B?bmdSRUNLQ1ZzbGZ4NzI3VFBUQXc2MHVod3VEYk53cjBXNkRwcFR0OGhPVXhN?=
- =?utf-8?B?Wk8yaHE1aUw5YVVOazVqV054TUFYZ05lbGRjamVKZ3RTaXI1U0lHWDh2UDJD?=
- =?utf-8?B?VU1EVFNvN1ovSlhaWnVMdnZSNlRCVEoxU3ZWMUdhWkVzaVh6N0lDVUdSelNM?=
- =?utf-8?B?bXprR1AxNGd5TnVnMWh1ZzFzdEF0V0NhUm9TREJHaEUrY29raVZSKzl5eHpj?=
- =?utf-8?B?ZFpQSmsyTnVNK2xsZmU3elRycTR6eHYzVzN0TndhYWUvb3ZYTWtwMzJ1TC9I?=
- =?utf-8?B?WkYxVXVZNU1hT1NHeUVkbjBwelo1RWttTFBNSWV3TFRubzdpd2Jpb0dHYmpy?=
- =?utf-8?B?Rm1TQ2JJTnFXUXM0cFVldzJlL01td2xMUFV3aklsRlUvRkR4ZTlZUmUzY25U?=
- =?utf-8?B?emNDVWhBVVZUd3FRR3BsclVkam1FY0JIdXJiNjRLcHN2THdiaEw3d09TUDBy?=
- =?utf-8?B?WHNPZHBZeTMvNVRLbWFBWGtVWk8xbzJMbFN4ZENSTk1LVzllb1prT1pFUXJO?=
- =?utf-8?Q?h3n27gav37sIdMbdkgSzgDkISsO1DlFbX+L+fFI?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73594721-1c41-4f79-1c40-08d90b1ddca6
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 14:48:33.5398
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mhyHzAaq8i4o8XeIkXGfoJT5AzrTKUFrKtkp1Gi2i1SWs6+4+zsN5tnFi37VdXHYi8PlelTYImPlKoXkHkv0Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5997
-X-OriginatorOrg: citrix.com
+Subject: [libvirt test] 161516: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=ec2e3336b8c8df572600043976e1ab5feead656e
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 29 Apr 2021 14:49:56 +0000
 
-On Mon, Apr 12, 2021 at 04:06:34PM +0200, Jan Beulich wrote:
-> Mirror the "translated" check the functions do to do_domctl(), allowing
-> the calls to be DCEd by the compiler. Add ASSERT_UNREACHABLE() to the
-> original checks.
-> 
-> Also arrange for {set,clear}_mmio_p2m_entry() and
-> {set,clear}_identity_p2m_entry() to respectively live next to each
-> other, such that clear_mmio_p2m_entry() can also be covered by the
-> #ifdef already covering set_mmio_p2m_entry().
+flight 161516 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161516/
 
-Seeing the increase in HVM specific regions, would it make sense to
-consider splitting the HVM bits into p2m-hvm.c or some such?
+Regressions :-(
 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: Fix build.
-> ---
-> Arguably the original checks, returning success, could also be dropped
-> at this point.
-> 
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -1352,52 +1352,6 @@ int set_mmio_p2m_entry(struct domain *d,
->                                 p2m_get_hostp2m(d)->default_access);
->  }
->  
-> -#endif /* CONFIG_HVM */
-> -
-> -int set_identity_p2m_entry(struct domain *d, unsigned long gfn_l,
-> -                           p2m_access_t p2ma, unsigned int flag)
-> -{
-> -    p2m_type_t p2mt;
-> -    p2m_access_t a;
-> -    gfn_t gfn = _gfn(gfn_l);
-> -    mfn_t mfn;
-> -    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> -    int ret;
-> -
-> -    if ( !paging_mode_translate(p2m->domain) )
-> -    {
-> -        if ( !is_iommu_enabled(d) )
-> -            return 0;
-> -        return iommu_legacy_map(d, _dfn(gfn_l), _mfn(gfn_l),
-> -                                1ul << PAGE_ORDER_4K,
-> -                                IOMMUF_readable | IOMMUF_writable);
-> -    }
-> -
-> -    gfn_lock(p2m, gfn, 0);
-> -
-> -    mfn = p2m->get_entry(p2m, gfn, &p2mt, &a, 0, NULL, NULL);
-> -
-> -    if ( p2mt == p2m_invalid || p2mt == p2m_mmio_dm )
-> -        ret = p2m_set_entry(p2m, gfn, _mfn(gfn_l), PAGE_ORDER_4K,
-> -                            p2m_mmio_direct, p2ma);
-> -    else if ( mfn_x(mfn) == gfn_l && p2mt == p2m_mmio_direct && a == p2ma )
-> -        ret = 0;
-> -    else
-> -    {
-> -        if ( flag & XEN_DOMCTL_DEV_RDM_RELAXED )
-> -            ret = 0;
-> -        else
-> -            ret = -EBUSY;
-> -        printk(XENLOG_G_WARNING
-> -               "Cannot setup identity map d%d:%lx,"
-> -               " gfn already mapped to %lx.\n",
-> -               d->domain_id, gfn_l, mfn_x(mfn));
-> -    }
-> -
-> -    gfn_unlock(p2m, gfn, 0);
-> -    return ret;
-> -}
-> -
->  /*
->   * Returns:
->   *    0        for success
-> @@ -1447,6 +1401,52 @@ int clear_mmio_p2m_entry(struct domain *
->      return rc;
->  }
->  
-> +#endif /* CONFIG_HVM */
-> +
-> +int set_identity_p2m_entry(struct domain *d, unsigned long gfn_l,
-> +                           p2m_access_t p2ma, unsigned int flag)
-> +{
-> +    p2m_type_t p2mt;
-> +    p2m_access_t a;
-> +    gfn_t gfn = _gfn(gfn_l);
-> +    mfn_t mfn;
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    int ret;
-> +
-> +    if ( !paging_mode_translate(p2m->domain) )
-> +    {
-> +        if ( !is_iommu_enabled(d) )
-> +            return 0;
-> +        return iommu_legacy_map(d, _dfn(gfn_l), _mfn(gfn_l),
-> +                                1ul << PAGE_ORDER_4K,
-> +                                IOMMUF_readable | IOMMUF_writable);
-> +    }
-> +
-> +    gfn_lock(p2m, gfn, 0);
-> +
-> +    mfn = p2m->get_entry(p2m, gfn, &p2mt, &a, 0, NULL, NULL);
-> +
-> +    if ( p2mt == p2m_invalid || p2mt == p2m_mmio_dm )
-> +        ret = p2m_set_entry(p2m, gfn, _mfn(gfn_l), PAGE_ORDER_4K,
-> +                            p2m_mmio_direct, p2ma);
-> +    else if ( mfn_x(mfn) == gfn_l && p2mt == p2m_mmio_direct && a == p2ma )
-> +        ret = 0;
-> +    else
-> +    {
-> +        if ( flag & XEN_DOMCTL_DEV_RDM_RELAXED )
-> +            ret = 0;
-> +        else
-> +            ret = -EBUSY;
-> +        printk(XENLOG_G_WARNING
-> +               "Cannot setup identity map d%d:%lx,"
-> +               " gfn already mapped to %lx.\n",
-> +               d->domain_id, gfn_l, mfn_x(mfn));
-> +    }
-> +
-> +    gfn_unlock(p2m, gfn, 0);
-> +    return ret;
-> +}
-> +
->  int clear_identity_p2m_entry(struct domain *d, unsigned long gfn_l)
->  {
->      p2m_type_t p2mt;
-> @@ -1892,6 +1892,8 @@ void *map_domain_gfn(struct p2m_domain *
->      return map_domain_page(*mfn);
->  }
->  
-> +#ifdef CONFIG_HVM
-> +
->  static unsigned int mmio_order(const struct domain *d,
->                                 unsigned long start_fn, unsigned long nr)
->  {
-> @@ -1932,7 +1934,10 @@ int map_mmio_regions(struct domain *d,
->      unsigned int iter, order;
->  
->      if ( !paging_mode_translate(d) )
-> +    {
-> +        ASSERT_UNREACHABLE();
->          return 0;
-> +    }
->  
->      for ( iter = i = 0; i < nr && iter < MAP_MMIO_MAX_ITER;
->            i += 1UL << order, ++iter )
-> @@ -1964,7 +1969,10 @@ int unmap_mmio_regions(struct domain *d,
->      unsigned int iter, order;
->  
->      if ( !paging_mode_translate(d) )
-> +    {
-> +        ASSERT_UNREACHABLE();
->          return 0;
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-Maybe consider returning an error here now instead of silently
-failing? It's not supposed to be reached, so getting here likely means
-something else has gone wrong and it's best to just report an error?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-The rest LGTM:
+version targeted for testing:
+ libvirt              ec2e3336b8c8df572600043976e1ab5feead656e
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Last test of basis   151777  2020-07-10 04:19:19 Z  293 days
+Failing since        151818  2020-07-11 04:18:52 Z  292 days  285 attempts
+Testing same since   161516  2021-04-29 04:18:53 Z    0 days    1 attempts
 
-Thanks, Roger.
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 55101 lines long.)
 
