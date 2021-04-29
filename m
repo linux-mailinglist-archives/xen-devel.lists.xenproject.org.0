@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A64EF36F08C
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 21:59:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.120187.227294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132EC36F08E
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 21:59:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.120194.227305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcCo1-0004i8-9l; Thu, 29 Apr 2021 19:58:37 +0000
+	id 1lcCp0-0004pJ-Nz; Thu, 29 Apr 2021 19:59:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 120187.227294; Thu, 29 Apr 2021 19:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 120194.227305; Thu, 29 Apr 2021 19:59:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcCo1-0004hj-67; Thu, 29 Apr 2021 19:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 120187;
- Thu, 29 Apr 2021 19:58:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lcCp0-0004op-KZ; Thu, 29 Apr 2021 19:59:38 +0000
+Received: by outflank-mailman (input) for mailman id 120194;
+ Thu, 29 Apr 2021 19:59:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DefK=J2=xen.org=tim@srs-us1.protection.inumbo.net>)
- id 1lcCnz-0004hb-Je
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 19:58:35 +0000
-Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 184d094b-3b00-411c-8b04-17e8809499e8;
- Thu, 29 Apr 2021 19:58:34 +0000 (UTC)
-Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
- (envelope-from <tim@xen.org>)
- id 1lcCnv-0002je-Vr; Thu, 29 Apr 2021 19:58:31 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcCoz-0004og-5u; Thu, 29 Apr 2021 19:59:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcCoy-0003gi-Vs; Thu, 29 Apr 2021 19:59:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcCoy-0007B2-PG; Thu, 29 Apr 2021 19:59:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcCoy-0004NG-Ol; Thu, 29 Apr 2021 19:59:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,41 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 184d094b-3b00-411c-8b04-17e8809499e8
-Date: Thu, 29 Apr 2021 20:58:31 +0100
-From: Tim Deegan <tim@xen.org>
-To: Costin Lupu <costin.lupu@cs.pub.ro>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/5] tools/debugger: Fix PAGE_SIZE redefinition error
-Message-ID: <YIsP5z1ejJbUhmPc@deinos.phlegethon.org>
-References: <cover.1619524463.git.costin.lupu@cs.pub.ro>
- <0cd234096c9bfa8d29eac9906553af79d378733e.1619524463.git.costin.lupu@cs.pub.ro>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EgqsTLl6Rc3bvYJRylZMiNsw9niNwKdTyxt31C6whHg=; b=fmBX1z9Xo7b42kOj4DBSVYQiMS
+	XRmKRbNleT6QAi53GhUjmH5VPQxEIIfDIzWmBkCaNRrN88BmiPgR027C7Vk7U/L6GEVSWQiSiMsON
+	h+BSiiTHpSH9XXsdPWqfJo6VYZnmqGf56EGHnPMZHZPoIIy4xS3Ekywf/so39GC3nMtw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161518-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <0cd234096c9bfa8d29eac9906553af79d378733e.1619524463.git.costin.lupu@cs.pub.ro>
-X-SA-Known-Good: Yes
-X-SA-Exim-Connect-IP: <locally generated>
-X-SA-Exim-Mail-From: tim@xen.org
-X-SA-Exim-Scanned: No (on deinos.phlegethon.org); SAEximRunCond expanded to false
+Subject: [ovmf test] 161518: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=612edbe6cd71f4392b681b75849b2ab6e48f592d
+X-Osstest-Versions-That:
+    ovmf=01c0ab90beb3d2a80f913d4a0866b4e92656a42a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 29 Apr 2021 19:59:36 +0000
 
-Hi,
+flight 161518 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161518/
 
-At 15:05 +0300 on 27 Apr (1619535916), Costin Lupu wrote:
-> If PAGE_SIZE is already defined in the system (e.g. in
-> /usr/include/limits.h header) then gcc will trigger a redefinition error
-> because of -Werror. This commit also protects PAGE_SHIFT definitions for
-> keeping consistency.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 612edbe6cd71f4392b681b75849b2ab6e48f592d
+baseline version:
+ ovmf                 01c0ab90beb3d2a80f913d4a0866b4e92656a42a
 
-Thanks for looking into this!  I think properly speaking we should fix
-this by defining KDD_PAGE_SHIFT and KDD_PAGE_SIZE in kdd.h and using
-those everywhere we currently use PAGE_SIZE/PAGE_SHIFT. in kdd.c and
-kdd-xen.c.  If for some reason we ever ended up with a system-defined
-PAGE_SIZE that wasn't 4096u then we would not want to use it here
-because it would break our guest operations.
+Last test of basis   161504  2021-04-28 12:10:11 Z    1 days
+Testing same since   161518  2021-04-29 06:44:35 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael D Kinney <michael.d.kinney@intel.com>
 
-Tim
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   01c0ab90be..612edbe6cd  612edbe6cd71f4392b681b75849b2ab6e48f592d -> xen-tested-master
 
