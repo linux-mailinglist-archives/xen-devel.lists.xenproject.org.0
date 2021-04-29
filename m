@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A6F36E28F
+	by mail.lfdr.de (Postfix) with ESMTPS id DC37736E290
 	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 02:25:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119678.226294 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.119679.226301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbuU4-0000cF-If; Thu, 29 Apr 2021 00:24:48 +0000
+	id 1lbuU4-0000co-QQ; Thu, 29 Apr 2021 00:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119678.226294; Thu, 29 Apr 2021 00:24:48 +0000
+Received: by outflank-mailman (output) from mailman id 119679.226301; Thu, 29 Apr 2021 00:24:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbuU4-0000bq-Ef; Thu, 29 Apr 2021 00:24:48 +0000
-Received: by outflank-mailman (input) for mailman id 119678;
+	id 1lbuU4-0000cH-My; Thu, 29 Apr 2021 00:24:48 +0000
+Received: by outflank-mailman (input) for mailman id 119679;
  Thu, 29 Apr 2021 00:24:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S48z=J2=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1lbuL7-00072A-VB
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 00:15:33 +0000
-Received: from mail-qk1-x72f.google.com (unknown [2607:f8b0:4864:20::72f])
+ id 1lbuLC-00072A-VU
+ for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 00:15:39 +0000
+Received: from mail-qk1-x733.google.com (unknown [2607:f8b0:4864:20::733])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8575b3df-66e4-428c-9981-ed711e13a6d6;
- Thu, 29 Apr 2021 00:14:48 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id o5so65593965qkb.0
- for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 17:14:48 -0700 (PDT)
+ id 7791350c-8fd4-4740-ba4f-cc1d7a80a2d8;
+ Thu, 29 Apr 2021 00:14:50 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id q136so44605762qka.7
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 17:14:50 -0700 (PDT)
 Received: from localhost.localdomain (c-73-89-138-5.hsd1.vt.comcast.net.
  [73.89.138.5])
- by smtp.gmail.com with ESMTPSA id r185sm1021694qkf.78.2021.04.28.17.14.47
+ by smtp.gmail.com with ESMTPSA id r185sm1021694qkf.78.2021.04.28.17.14.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Apr 2021 17:14:47 -0700 (PDT)
+ Wed, 28 Apr 2021 17:14:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8575b3df-66e4-428c-9981-ed711e13a6d6
+X-Inumbo-ID: 7791350c-8fd4-4740-ba4f-cc1d7a80a2d8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :in-reply-to:references;
-        bh=8RHEO4rjzSWCDCSeU8KH/ouMS7fzg0KSm8WpWB6iQ0M=;
-        b=WuagplF/N+6Qq3E3bKSharLO65EdAjIlxj0a/hc7jj5kuwpyBG1FZx14nl01G5YTCq
-         LHhx+jn0FnfUtRbj4/xtTRPICM+M2YM7N30iH1B0utAd7t1sB73yZSNu9wjXl2w5+Xh4
-         AW396aY11QYihqi1MV7Fu495FGeyyN2gjzl1xgLLS6MKZTNkMt4t7gnuayA6rVbOyKLk
-         +7vKsndChV4728Zbr8rWg8uWZRYgzhfrhjvw+UNQOmVoZICskbdvA5ZtM9ZLxRDgZ0eA
-         FElsAcFCCGetVd0MOIioW7qOvXJ4Bts4JJ5vEJ/ibUq6RcJ8x4o8PidJk2Mg1PPNyTH+
-         YQyA==
+        bh=qZQxVcviBuvDjUeKOepu8YHqa+eGuG2DXDt5FNQL7LQ=;
+        b=Wmm7rj/vyt50koaS67R5V5VtQ04AK9utAPe54iBby3oY7Cy+nLzkYQ1rwyKaigciEN
+         0RT4FZX6lVOgNpi9JtuICBw+qRFZbU/KRgXiHbEn8+vqGBEhtj+LqEqba/AU1fHfwW1m
+         eaYltcHWDFyLDU5Ob2Z87zERdA6lkDZX6VcV+YVGq9cMbHOyD7FY71qg9oTScdipxcGV
+         KRXlBdc8QoPG8euVyHhq/7lmFBKuFC+GQTmf45ukF8/dg3+z8EGtvhZ+uZod6L4Zu9+Y
+         B7sWhTKdiBsdqxuL0FwhjbBy9KOrXIat+bE1P/NqqJeFfCabyBDRKFZpjvkWt6K3QsIt
+         i95g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:in-reply-to:references;
-        bh=8RHEO4rjzSWCDCSeU8KH/ouMS7fzg0KSm8WpWB6iQ0M=;
-        b=p/DcpLka2CRs0rinA5iVlWRim+33zpzEyi1kfHFLzN0fnqJhPOpE9U7SlTiUZXJ/IX
-         7kpPNI3pCyKBmGq94cqi3l220/Ad1AJA5Q5XFIZE0o3gxtu7vwQb+MzrrImoNCNAwF/B
-         KRGDMOFKe9jHPWJn3oaFhUi13IAAV5bZ9PH84lw8raRwq0GX6zRy8tQd+oxDlONg1P8+
-         nMsFL2N2TB6/R4j+8S3rRhjAJzikSkQ31j3j0n0ZEucGC6tyPO4JAGYeP384drLzEgXm
-         0isezo9OarSO6Cpw88pMa905LBZKvGYFeguxeASqL09QKwYUCdJBMRAcsO1Z4qQKvHF4
-         +0Cw==
-X-Gm-Message-State: AOAM531H/VO2PjR/jjgFK0a+mBZNrM12kvSWGjgSuRzKaEqU2jp7F5W0
-	Ya57+eu+0V2/yxzfVK7iJHWDyIHMtlA=
-X-Google-Smtp-Source: ABdhPJxDHHI9SX8SkOYc/LaA6GkpLiaYOCLPx1hZghaJbVgf3Qube0QSBLyc+Ww/Bu6L15GUalEg6A==
-X-Received: by 2002:a37:6249:: with SMTP id w70mr24335100qkb.99.1619655288147;
-        Wed, 28 Apr 2021 17:14:48 -0700 (PDT)
+        bh=qZQxVcviBuvDjUeKOepu8YHqa+eGuG2DXDt5FNQL7LQ=;
+        b=jWgPym+CFm4Oh1PclF7l2zhJObbDKVBIaHYff9BpaMVgEV3KfUEdT7fZU2ixbV94dF
+         tdo3RIWXbof7UDGlM1h8cdwMkplyZS+uaFgcOVJpE09hCgzSDSbuiBEx/p9jF9t66Kju
+         QHN2zklln4A8TYt984VJ+ofcGRfV+5cF6bkgMbh6sYoG4kx38fZJp+TK91rQBfbqxRCo
+         QmOUWF/MIRK5sSBWpIxgaRaWRjkBaI5R+8oQ2NJg6ZszOFZ4LnNkGDfsnoIbKNDPbJG+
+         rCFoBJ/Edluml2nTwFNKWa0lzpzWfqFMKmKfNijUBNq+F/z1WTMeAvo/fiUIhtlauCZd
+         lPww==
+X-Gm-Message-State: AOAM533zaWkMvT3246Os3Jp9WvoZHLpVnoruNvvzMxalhUpK5pTWKHWV
+	y7WaiAxzULJjwsne/QiPMwhvTbUR6EA=
+X-Google-Smtp-Source: ABdhPJwqF5FqnlBcGP5vzfDZED1P0vTiFUV/Etl+1E4/OMgfLzLyiP/fs3umjbOR+C2uVj88o022Mg==
+X-Received: by 2002:a37:a1d5:: with SMTP id k204mr32185392qke.164.1619655289437;
+        Wed, 28 Apr 2021 17:14:49 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.org
@@ -77,240 +77,144 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 11/12] golang/xenlight: do not negate ret when converting to Error
-Date: Wed, 28 Apr 2021 20:14:33 -0400
-Message-Id: <82bc8b720c3dfb178e52d10ddbebfa8dc5880e7b.1619655104.git.rosbrookn@ainfosec.com>
+Subject: [PATCH 12/12] golang/xenlight: add NotifyDomainDeath method to Context
+Date: Wed, 28 Apr 2021 20:14:34 -0400
+Message-Id: <e415b0e26954cfc6689fbd3ba7d79fe664f3bb50.1619655104.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1619650820.git.rosbrookn@ainfosec.com>
 References: <cover.1619650820.git.rosbrookn@ainfosec.com>
 In-Reply-To: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
 References: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
 
-There are several locations where the return code from calling into C is
-negated when being converted to Error. This results in error strings
-like "libxl error: <x>", rather than the correct message. Fix all
-occurrances of this by running:
+Add a helper function to wait for domain death events, and then write
+the events to a provided channel. This handles the enabling/disabling of
+the event type, freeing the event, and converting it to a Go type. The
+caller can then handle the event however they need to. This function
+will run until a provided context.Context is cancelled.
 
-  gofmt -w -r 'Error(-ret) -> Error(ret)' xenlight.go
+NotifyDomainDeath spawns two goroutines that return when the
+context.Context is done. The first will make sure that the domain death
+event is disabled, and that the corresponding event queue is cleared.
+The second calls libxl_event_wait, and writes the event to the provided
+channel.
 
-from tools/golang/xenlight.
+With this, callers should be able to manage a full domain life cycle.
+Add to the comment of DomainCreateNew so that package uses know they
+should use this method in conjunction with DomainCreateNew.
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 ---
- tools/golang/xenlight/xenlight.go | 46 +++++++++++++++----------------
- 1 file changed, 23 insertions(+), 23 deletions(-)
+ tools/golang/xenlight/xenlight.go | 83 ++++++++++++++++++++++++++++++-
+ 1 file changed, 82 insertions(+), 1 deletion(-)
 
 diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
-index d153feb851..6fb22665cc 100644
+index 6fb22665cc..8406883433 100644
 --- a/tools/golang/xenlight/xenlight.go
 +++ b/tools/golang/xenlight/xenlight.go
-@@ -668,7 +668,7 @@ func SchedulerFromString(name string) (s Scheduler, err error) {
+@@ -53,6 +53,7 @@ import "C"
+  */
  
- 	ret := C.libxl_scheduler_from_string(cname, &cs)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -707,7 +707,7 @@ func (ctx *Context) CpupoolInfo(Poolid uint32) (pool Cpupoolinfo, err error) {
- 
- 	ret := C.libxl_cpupool_info(ctx.ctx, &c_cpupool, C.uint32_t(Poolid))
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 	defer C.libxl_cpupoolinfo_dispose(&c_cpupool)
-@@ -741,7 +741,7 @@ func (ctx *Context) CpupoolCreate(Name string, Scheduler Scheduler, Cpumap Bitma
- 	ret := C.libxl_cpupool_create(ctx.ctx, name, C.libxl_scheduler(Scheduler),
- 		cbm, &uuid, &poolid)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -754,7 +754,7 @@ func (ctx *Context) CpupoolCreate(Name string, Scheduler Scheduler, Cpumap Bitma
- func (ctx *Context) CpupoolDestroy(Poolid uint32) (err error) {
- 	ret := C.libxl_cpupool_destroy(ctx.ctx, C.uint32_t(Poolid))
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -765,7 +765,7 @@ func (ctx *Context) CpupoolDestroy(Poolid uint32) (err error) {
- func (ctx *Context) CpupoolCpuadd(Poolid uint32, Cpu int) (err error) {
- 	ret := C.libxl_cpupool_cpuadd(ctx.ctx, C.uint32_t(Poolid), C.int(Cpu))
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -783,7 +783,7 @@ func (ctx *Context) CpupoolCpuaddCpumap(Poolid uint32, Cpumap Bitmap) (err error
- 
- 	ret := C.libxl_cpupool_cpuadd_cpumap(ctx.ctx, C.uint32_t(Poolid), &cbm)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -794,7 +794,7 @@ func (ctx *Context) CpupoolCpuaddCpumap(Poolid uint32, Cpumap Bitmap) (err error
- func (ctx *Context) CpupoolCpuremove(Poolid uint32, Cpu int) (err error) {
- 	ret := C.libxl_cpupool_cpuremove(ctx.ctx, C.uint32_t(Poolid), C.int(Cpu))
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -812,7 +812,7 @@ func (ctx *Context) CpupoolCpuremoveCpumap(Poolid uint32, Cpumap Bitmap) (err er
- 
- 	ret := C.libxl_cpupool_cpuremove_cpumap(ctx.ctx, C.uint32_t(Poolid), &cbm)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -826,7 +826,7 @@ func (ctx *Context) CpupoolRename(Name string, Poolid uint32) (err error) {
- 
- 	ret := C.libxl_cpupool_rename(ctx.ctx, name, C.uint32_t(Poolid))
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -839,7 +839,7 @@ func (ctx *Context) CpupoolCpuaddNode(Poolid uint32, Node int) (Cpus int, err er
- 
- 	ret := C.libxl_cpupool_cpuadd_node(ctx.ctx, C.uint32_t(Poolid), C.int(Node), &ccpus)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -854,7 +854,7 @@ func (ctx *Context) CpupoolCpuremoveNode(Poolid uint32, Node int) (Cpus int, err
- 
- 	ret := C.libxl_cpupool_cpuremove_node(ctx.ctx, C.uint32_t(Poolid), C.int(Node), &ccpus)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -867,7 +867,7 @@ func (ctx *Context) CpupoolCpuremoveNode(Poolid uint32, Node int) (Cpus int, err
- func (ctx *Context) CpupoolMovedomain(Poolid uint32, Id Domid) (err error) {
- 	ret := C.libxl_cpupool_movedomain(ctx.ctx, C.uint32_t(Poolid), C.uint32_t(Id))
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -1028,7 +1028,7 @@ func (bm Bitmap) String() (s string) {
- func (ctx *Context) GetMaxCpus() (maxCpus int, err error) {
- 	ret := C.libxl_get_max_cpus(ctx.ctx)
- 	if ret < 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 	maxCpus = int(ret)
-@@ -1039,7 +1039,7 @@ func (ctx *Context) GetMaxCpus() (maxCpus int, err error) {
- func (ctx *Context) GetOnlineCpus() (onCpus int, err error) {
- 	ret := C.libxl_get_online_cpus(ctx.ctx)
- 	if ret < 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 	onCpus = int(ret)
-@@ -1050,7 +1050,7 @@ func (ctx *Context) GetOnlineCpus() (onCpus int, err error) {
- func (ctx *Context) GetMaxNodes() (maxNodes int, err error) {
- 	ret := C.libxl_get_max_nodes(ctx.ctx)
- 	if ret < 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 	maxNodes = int(ret)
-@@ -1063,7 +1063,7 @@ func (ctx *Context) GetFreeMemory() (memkb uint64, err error) {
- 	ret := C.libxl_get_free_memory(ctx.ctx, &cmem)
- 
- 	if ret < 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -1108,7 +1108,7 @@ func (ctx *Context) DomainInfo(Id Domid) (di *Dominfo, err error) {
- 	ret := C.libxl_domain_info(ctx.ctx, &cdi, C.uint32_t(Id))
- 
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 
-@@ -1121,7 +1121,7 @@ func (ctx *Context) DomainUnpause(Id Domid) (err error) {
- 	ret := C.libxl_domain_unpause(ctx.ctx, C.uint32_t(Id), nil)
- 
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 	}
- 	return
+ import (
++	"context"
+ 	"fmt"
+ 	"os"
+ 	"os/signal"
+@@ -1340,7 +1341,9 @@ func (ctx *Context) DeviceUsbdevRemove(domid Domid, usbdev *DeviceUsbdev) error
+ 	return nil
  }
-@@ -1131,7 +1131,7 @@ func (ctx *Context) DomainPause(id Domid) (err error) {
- 	ret := C.libxl_domain_pause(ctx.ctx, C.uint32_t(id), nil)
  
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 	}
- 	return
+-// DomainCreateNew creates a new domain.
++// DomainCreateNew creates a new domain. Callers of DomainCreateNew are
++// responsible for handling the death of the resulting domain. This should be
++// done using NotifyDomainDeath.
+ func (ctx *Context) DomainCreateNew(config *DomainConfig) (Domid, error) {
+ 	var cdomid C.uint32_t
+ 	var cconfig C.libxl_domain_config
+@@ -1358,6 +1361,84 @@ func (ctx *Context) DomainCreateNew(config *DomainConfig) (Domid, error) {
+ 	return Domid(cdomid), nil
  }
-@@ -1141,7 +1141,7 @@ func (ctx *Context) DomainShutdown(id Domid) (err error) {
- 	ret := C.libxl_domain_shutdown(ctx.ctx, C.uint32_t(id), nil)
  
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 	}
- 	return
- }
-@@ -1151,7 +1151,7 @@ func (ctx *Context) DomainReboot(id Domid) (err error) {
- 	ret := C.libxl_domain_reboot(ctx.ctx, C.uint32_t(id), nil)
- 
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 	}
- 	return
- }
-@@ -1214,7 +1214,7 @@ func (ctx *Context) ConsoleGetTty(id Domid, consNum int, conType ConsoleType) (p
- 	var cpath *C.char
- 	ret := C.libxl_console_get_tty(ctx.ctx, C.uint32_t(id), C.int(consNum), C.libxl_console_type(conType), &cpath)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 	defer C.free(unsafe.Pointer(cpath))
-@@ -1229,7 +1229,7 @@ func (ctx *Context) PrimaryConsoleGetTty(domid uint32) (path string, err error)
- 	var cpath *C.char
- 	ret := C.libxl_primary_console_get_tty(ctx.ctx, C.uint32_t(domid), &cpath)
- 	if ret != 0 {
--		err = Error(-ret)
-+		err = Error(ret)
- 		return
- 	}
- 	defer C.free(unsafe.Pointer(cpath))
++// NotifyDomainDeath registers an event handler for domain death events for a
++// given domnid, and writes events received to ec. NotifyDomainDeath returns an
++// error if it cannot register the event handler, but other errors encountered
++// are just logged. The goroutine spawned by calling NotifyDomainDeath runs
++// until the provided context.Context's Done channel is closed.
++func (ctx *Context) NotifyDomainDeath(c context.Context, domid Domid, ec chan<- Event) error {
++	var deathw *C.libxl_evgen_domain_death
++
++	ret := C.libxl_evenable_domain_death(ctx.ctx, C.uint32_t(domid), 0, &deathw)
++	if ret != 0 {
++		return Error(ret)
++	}
++
++	// Spawn a goroutine that is responsible for cleaning up when the
++	// passed context.Context's Done channel is closed.
++	go func() {
++		<-c.Done()
++
++		ctx.logd("cleaning up domain death event handler for domain %d", domid)
++
++		// Disable the event generation.
++		C.libxl_evdisable_domain_death(ctx.ctx, deathw)
++
++		// Make sure any events that were generated get cleaned up so they
++		// do not linger in the libxl event queue.
++		var evc *C.libxl_event
++		for {
++			ret := C.libxl_event_check(ctx.ctx, &evc, C.LIBXL_EVENTMASK_ALL, nil, nil)
++			if ret != 0 {
++				return
++			}
++			C.libxl_event_free(ctx.ctx, evc)
++		}
++	}()
++
++	go func() {
++		var (
++			ev  Event
++			evc *C.libxl_event
++		)
++
++		for {
++			select {
++			case <-c.Done():
++				return
++			default:
++				// Go on and check for an event...
++			}
++
++			ret := C.libxl_event_wait(ctx.ctx, &evc, C.LIBXL_EVENTMASK_ALL, nil, nil)
++			if ret != 0 {
++				ctx.logw("unexpected error waiting for event: %s", Error(ret))
++				continue
++			}
++
++			// Try to convert the event to Go, and then free the
++			// C.libxl_event no matter what.
++			err := ev.fromC(evc)
++			C.libxl_event_free(ctx.ctx, evc)
++			if err != nil {
++				ctx.logw("error converting event from C: %v", err)
++				continue
++			}
++
++			ctx.logd("received domain death event (domid=%v, type=%v)", ev.Domid, ev.Type)
++
++			// Write the event to the channel
++			select {
++			case ec <- ev:
++			case <-c.Done():
++				return
++			}
++		}
++	}()
++
++	return nil
++}
++
+ // DomainDestroy destroys a domain given a domid.
+ func (ctx *Context) DomainDestroy(domid Domid) error {
+ 	ret := C.libxl_domain_destroy(ctx.ctx, C.uint32_t(domid), nil)
 -- 
 2.17.1
 
