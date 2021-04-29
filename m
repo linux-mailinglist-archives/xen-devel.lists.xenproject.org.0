@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A283F36E803
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 11:31:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119836.226566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D5F36E809
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 11:33:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119843.226579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lc30v-0005Iv-Qq; Thu, 29 Apr 2021 09:31:17 +0000
+	id 1lc32T-0005Qp-Bz; Thu, 29 Apr 2021 09:32:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119836.226566; Thu, 29 Apr 2021 09:31:17 +0000
+Received: by outflank-mailman (output) from mailman id 119843.226579; Thu, 29 Apr 2021 09:32:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lc30v-0005IY-Ne; Thu, 29 Apr 2021 09:31:17 +0000
-Received: by outflank-mailman (input) for mailman id 119836;
- Thu, 29 Apr 2021 09:31:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lc32T-0005QS-82; Thu, 29 Apr 2021 09:32:53 +0000
+Received: by outflank-mailman (input) for mailman id 119843;
+ Thu, 29 Apr 2021 09:32:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xfjL=J2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lc30t-0005IA-TP
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 09:31:15 +0000
+ id 1lc32S-0005QM-63
+ for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 09:32:52 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id daf7eead-c94e-4af9-aea9-f483e61b1c38;
- Thu, 29 Apr 2021 09:31:10 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id da431c97-9227-4130-8623-7ec2ca63f1e3;
+ Thu, 29 Apr 2021 09:32:51 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3BA10B004;
- Thu, 29 Apr 2021 09:31:09 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 76672B139;
+ Thu, 29 Apr 2021 09:32:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,150 +38,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: daf7eead-c94e-4af9-aea9-f483e61b1c38
+X-Inumbo-ID: da431c97-9227-4130-8623-7ec2ca63f1e3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619688669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1619688770; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oAekxrxornC8EWfdiuAI1iWCTS4Ircvg83KybkTn3k8=;
-	b=dO2PY+4Hj1nUgvHnzWwBU6IXA2Mr4eekbaQ9tRQdJ9HIJq/ZngLak+DmhOWgDxb/HoLO0r
-	GYAesu49/40OE0lNVOEM9rDlqSobD8nEf3IkXWpUo0QfYIsa12lYCP28LcLhASAZfbDblU
-	JyzHTJwBJEPBR0rWZcb6PhsIQyQxSeY=
-Subject: Ping: [PATCH v3] gnttab: defer allocation of status frame tracking
- array
+	bh=EUYmNWnLJxTNmla9okYoJpep/XPGDEc2+rHLv9z/CaE=;
+	b=S/40pMkosT/PEb4+xsCaamHz03k0TimzEu76JGCai7L4tLgcPXWfOSLblh37cefYz7ZPPa
+	9dqRL3R4+1FLlI/FfFv5DcMkDDPwzPKnLBBnjPHUcfBVrfxiWt9cDNjzX1kqCg8tIxqGId
+	LNyabRjVuplDs2zQXDoVVUr5zu8kSUQ=
+Subject: Re: [PATCH v4 3/3] x86/time: avoid reading the platform timer in
+ rendezvous functions
 From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d2397cd4-040e-3cc0-22d8-3f65d01f9326@suse.com>
-Message-ID: <bea459c9-32ed-a800-40ea-456b465cd38a@suse.com>
-Date: Thu, 29 Apr 2021 11:31:08 +0200
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <d929903c-0e7a-adb9-3317-b66782f13b36@suse.com>
+ <bdf9640d-3c70-461f-6680-9ce883c19719@suse.com>
+ <YH79ZxNRhW24jmUS@Air-de-Roger>
+ <88819ae1-d021-9192-4be7-a70064f23feb@suse.com>
+Message-ID: <0c00ed2c-0f8d-ad6e-863e-71c904270407@suse.com>
+Date: Thu, 29 Apr 2021 11:32:49 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <d2397cd4-040e-3cc0-22d8-3f65d01f9326@suse.com>
+In-Reply-To: <88819ae1-d021-9192-4be7-a70064f23feb@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.04.2021 11:41, Jan Beulich wrote:
-> This array can be large when many grant frames are permitted; avoid
-> allocating it when it's not going to be used anyway, by doing this only
-> in gnttab_populate_status_frames().
+On 21.04.2021 12:06, Jan Beulich wrote:
+> On 20.04.2021 18:12, Roger Pau Monné wrote:
+>> On Thu, Apr 01, 2021 at 11:55:10AM +0200, Jan Beulich wrote:
+>>> Reading the platform timer isn't cheap, so we'd better avoid it when the
+>>> resulting value is of no interest to anyone.
+>>>
+>>> The consumer of master_stime, obtained by
+>>> time_calibration_{std,tsc}_rendezvous() and propagated through
+>>> this_cpu(cpu_calibration), is local_time_calibration(). With
+>>> CONSTANT_TSC the latter function uses an early exit path, which doesn't
+>>> explicitly use the field. While this_cpu(cpu_calibration) (including the
+>>> master_stime field) gets propagated to this_cpu(cpu_time).stamp on that
+>>> path, both structures' fields get consumed only by the !CONSTANT_TSC
+>>> logic of the function.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> v4: New.
+>>> ---
+>>> I realize there's some risk associated with potential new uses of the
+>>> field down the road. What would people think about compiling time.c a
+>>> 2nd time into a dummy object file, with a conditional enabled to force
+>>> assuming CONSTANT_TSC, and with that conditional used to suppress
+>>> presence of the field as well as all audited used of it (i.e. in
+>>> particular that large part of local_time_calibration())? Unexpected new
+>>> users of the field would then cause build time errors.
+>>
+>> Wouldn't that add quite a lot of churn to the file itself in the form
+>> of pre-processor conditionals?
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-I know there has been controversy here. Julien - you seemed to agree,
-and iirc you partly drove how the patch is looking now. May I ask for
-an ack? Andrew - you disagreed for reasons that neither Julien nor I
-could really understand. Would you firmly nack the change and suggest
-a way out, or would you allow this to go in with someone else's ack?
-
-Thanks, Jan
-
-> ---
-> v3: Drop smp_wmb(). Re-base.
-> v2: Defer allocation to when a domain actually switches to the v2 grant
->     API.
+> Possibly - I didn't try yet, simply because of fearing this might
+> not be liked even without presenting it in patch form.
 > 
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -1747,6 +1747,17 @@ gnttab_populate_status_frames(struct dom
->      /* Make sure, prior version checks are architectural visible */
->      block_speculation();
->  
-> +    if ( gt->status == ZERO_BLOCK_PTR )
-> +    {
-> +        gt->status = xzalloc_array(grant_status_t *,
-> +                                   grant_to_status_frames(gt->max_grant_frames));
-> +        if ( !gt->status )
-> +        {
-> +            gt->status = ZERO_BLOCK_PTR;
-> +            return -ENOMEM;
-> +        }
-> +    }
-> +
->      for ( i = nr_status_frames(gt); i < req_status_frames; i++ )
->      {
->          if ( (gt->status[i] = alloc_xenheap_page()) == NULL )
-> @@ -1767,18 +1778,23 @@ status_alloc_failed:
->          free_xenheap_page(gt->status[i]);
->          gt->status[i] = NULL;
->      }
-> +    if ( !nr_status_frames(gt) )
-> +    {
-> +        xfree(gt->status);
-> +        gt->status = ZERO_BLOCK_PTR;
-> +    }
->      return -ENOMEM;
->  }
->  
->  static int
->  gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
->  {
-> -    unsigned int i;
-> +    unsigned int i, n = nr_status_frames(gt);
->  
->      /* Make sure, prior version checks are architectural visible */
->      block_speculation();
->  
-> -    for ( i = 0; i < nr_status_frames(gt); i++ )
-> +    for ( i = 0; i < n; i++ )
->      {
->          struct page_info *pg = virt_to_page(gt->status[i]);
->          gfn_t gfn = gnttab_get_frame_gfn(gt, true, i);
-> @@ -1833,12 +1849,11 @@ gnttab_unpopulate_status_frames(struct d
->          page_set_owner(pg, NULL);
->      }
->  
-> -    for ( i = 0; i < nr_status_frames(gt); i++ )
-> -    {
-> -        free_xenheap_page(gt->status[i]);
-> -        gt->status[i] = NULL;
-> -    }
->      gt->nr_status_frames = 0;
-> +    for ( i = 0; i < n; i++ )
-> +        free_xenheap_page(gt->status[i]);
-> +    xfree(gt->status);
-> +    gt->status = ZERO_BLOCK_PTR;
->  
->      return 0;
->  }
-> @@ -1969,11 +1984,11 @@ int grant_table_init(struct domain *d, i
->      if ( gt->shared_raw == NULL )
->          goto out;
->  
-> -    /* Status pages for grant table - for version 2 */
-> -    gt->status = xzalloc_array(grant_status_t *,
-> -                               grant_to_status_frames(gt->max_grant_frames));
-> -    if ( gt->status == NULL )
-> -        goto out;
-> +    /*
-> +     * Status page tracking array for v2 gets allocated on demand. But don't
-> +     * leave a NULL pointer there.
-> +     */
-> +    gt->status = ZERO_BLOCK_PTR;
->  
->      grant_write_lock(gt);
->  
-> @@ -4047,11 +4062,12 @@ int gnttab_acquire_resource(
->          if ( gt->gt_version != 2 )
->              break;
->  
-> +        rc = gnttab_get_status_frame_mfn(d, final_frame, &tmp);
-> +
->          /* Check that void ** is a suitable representation for gt->status. */
->          BUILD_BUG_ON(!__builtin_types_compatible_p(
->                           typeof(gt->status), grant_status_t **));
->          vaddrs = (void **)gt->status;
-> -        rc = gnttab_get_status_frame_mfn(d, final_frame, &tmp);
->          break;
->      }
->  
+>> Could we instead set master_stime to an invalid value that would make
+>> the consumers explode somehow?
 > 
+> No idea whether there is any such "reliable" value.
+> 
+>> I know there might be new consumers, but those should be able to
+>> figure whether the value is sane by looking at the existing ones.
+> 
+> This could be the hope, yes. But the effort of auditing the code to
+> confirm the potential of optimizing this (after vaguely getting the
+> impression there might be room) was non-negligible (in fact I did
+> three runs just to be really certain). This in particular means
+> that I'm in no way certain that looking at existing consumers would
+> point out the possible pitfall.
+> 
+>> Also, since this is only done on the BSP on the last iteration I
+>> wonder if it really makes such a difference performance-wise to
+>> warrant all this trouble.
+> 
+> By "all this trouble", do you mean the outlined further steps or
+> the patch itself? In the latter case, while it's only the BSP to
+> read the value, all other CPUs are waiting for the BSP to get its
+> part done. So the extra time it takes to read the platform clock
+> affects the overall duration of the rendezvous, and hence the time
+> not "usefully" spent by _all_ of the CPUs.
 
+Ping? Your answer here has a significant effect on the disposition
+of this change.
+
+Jan
 
