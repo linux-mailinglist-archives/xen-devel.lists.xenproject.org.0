@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 093C036E272
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 02:15:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119631.226258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0056F36E273
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 02:15:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119634.226270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbuKo-0007Zl-Uo; Thu, 29 Apr 2021 00:15:14 +0000
+	id 1lbuKu-0007fq-B6; Thu, 29 Apr 2021 00:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119631.226258; Thu, 29 Apr 2021 00:15:14 +0000
+Received: by outflank-mailman (output) from mailman id 119634.226270; Thu, 29 Apr 2021 00:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbuKo-0007ZA-Qx; Thu, 29 Apr 2021 00:15:14 +0000
-Received: by outflank-mailman (input) for mailman id 119631;
- Thu, 29 Apr 2021 00:15:14 +0000
+	id 1lbuKu-0007f3-5U; Thu, 29 Apr 2021 00:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 119634;
+ Thu, 29 Apr 2021 00:15:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S48z=J2=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1lbuKn-00072A-Ue
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 00:15:13 +0000
-Received: from mail-qk1-x72e.google.com (unknown [2607:f8b0:4864:20::72e])
+ id 1lbuKs-00072A-V0
+ for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 00:15:18 +0000
+Received: from mail-qk1-x734.google.com (unknown [2607:f8b0:4864:20::734])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 37bb3426-b71e-45e2-bc68-03a2f74e5d3c;
- Thu, 29 Apr 2021 00:14:44 +0000 (UTC)
-Received: by mail-qk1-x72e.google.com with SMTP id 66so26014683qkf.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 17:14:44 -0700 (PDT)
+ id 386a6d89-0e87-4b8b-8b32-2cc2046bbd63;
+ Thu, 29 Apr 2021 00:14:45 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id z2so28593406qkb.9
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 17:14:45 -0700 (PDT)
 Received: from localhost.localdomain (c-73-89-138-5.hsd1.vt.comcast.net.
  [73.89.138.5])
- by smtp.gmail.com with ESMTPSA id r185sm1021694qkf.78.2021.04.28.17.14.43
+ by smtp.gmail.com with ESMTPSA id r185sm1021694qkf.78.2021.04.28.17.14.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 28 Apr 2021 17:14:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37bb3426-b71e-45e2-bc68-03a2f74e5d3c
+X-Inumbo-ID: 386a6d89-0e87-4b8b-8b32-2cc2046bbd63
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :in-reply-to:references;
-        bh=9uXGDDpJ9CrrbQAMDJkXAgE2yF4sZn3Mfqg0mD2vt8w=;
-        b=GnTD7+ioGmWtK61iTA0bx7cyHU0a79TZRJjUpxX7SJpCsngstCsdi8DNFAftO8wNct
-         qdsunU3kYNZsykJBWeKY9spMoDYeZTlwDTrJg5/GttOrqKBg02GZnPcaktxDb3OPGdEj
-         knlQn9X9yacB7NSIEouOOdQ/nIFAbH1jlrd+bAl05cFNz0xU4xUf4cjnhP2WWo4BXCUl
-         vnwqEJmOto/5beyWSbfhiIq7ICi4KgPJqm3562XL8nWxBQnyXRX/JEkuoJRJcOHif0BN
-         Oih51vEEyTJjO4eRNgQ/rrGNSzMqqNkM/8Nz0s3zceE86DnA+yXmOXjk264HW2uoevLo
-         I4yw==
+        bh=kEyMtRkVLFS8i1iO7mYtPK1CFn3AKiqVnXMVPcMO4BI=;
+        b=X3RpbNRLFIasvagDXGGPh4iUBDU69CrFMYzRIyLErGYCEdZ/F3ViE3SE66plN6a5Es
+         gQkA6VfDpOKa+gfrhuUgEQqg0s3s40nSIS0TD3SKMmysMLO81KwfJelOvzVR/RmrX6cQ
+         DYx9BKcFLihTy9DxumdgX4q5TTVzgoqJZcwTSPMFIi6nsa/0EBoxCmDlGmviX/RMozqb
+         R/jrQU19YigGSDaIQJgF2vtl0vhDSvVydYT8kUALZT9MBoxn2zyyhzDNkhXrl8B4IvFZ
+         TMiNDUapu0vrLGPlIa+fa3zAPGUy8OJ03glUmg8F2pe3wgirARY73Gk192qkx1ImG9Kz
+         H4rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:in-reply-to:references;
-        bh=9uXGDDpJ9CrrbQAMDJkXAgE2yF4sZn3Mfqg0mD2vt8w=;
-        b=c9sZN3w70RzfS87gsYc4Kb9bz1ipUcCkk1pqCrwvd8NF+KH/I09EY16p2xrEiihFI/
-         K8rwcwCaYfHZ9LlscadZOgWpbY5ugn6VKtR6lPMbx7oYnAcX62e9JgHRQ0BVlkMp4eYi
-         yVTIJXwGuZWQee8agpe5YOv3CgmeRsTFsdT8QvQgsrAja0mVaUbaEwTi1z9sknck3y8m
-         y6v5EKnx3wvRTRKXcRtx5uVK83YL/VlRUw6Z2KxSPVtnHxZEWmg4UJpgnNdsogNtl3PO
-         JH7L9tOy/R+0CZDy9krzgOLC8PfRB13Y1d9D6/A2QgXSkdOMjIKlwhrSRSI40+KBDdBv
-         Ip5w==
-X-Gm-Message-State: AOAM530ApSorZxHeTCZxyTqpIiSheFNDiwQ3BIBQu+ViMOXg1aOzId+2
-	8oaFTqs8Bg6Rpiumz26kYnpC2Wobsvo=
-X-Google-Smtp-Source: ABdhPJzmlwZ2l6XQ2OEYQV12XIJkjXJHZ2yBLWVjPqShw9X6B6nDd+5PO1V3AVAs411HFMk1LjskBA==
-X-Received: by 2002:a37:492:: with SMTP id 140mr31742249qke.161.1619655284380;
-        Wed, 28 Apr 2021 17:14:44 -0700 (PDT)
+        bh=kEyMtRkVLFS8i1iO7mYtPK1CFn3AKiqVnXMVPcMO4BI=;
+        b=NAPg34CgIfU0i5z8vvzL6l5VBDcrl6r0rMdq0IK0a6FLk71vEydQ29IQyh/0s9UGzq
+         1VInsBCNBuZfKEVhfOaW8UnnvyubYfjyFmVjC979q0cm29ZRVtItcmlpX1I5c9Vc3zYK
+         KhK8bla3mfcVWJQJbBlID7gMrD2Qv42VI1ykENqV5TTF/8UQLV0XXTA+yASFXMefiL0N
+         Qo4bmr3ywxTKmX4sKCmNhx/FVRBcs8TClMdx0yuysHxa2J9whcu/NudYQwvnbYIC1KTL
+         sgmYpWeTqqjz3JuN3GDahmAry75DqT6OOxoD+n+iTwDemPGIv7yDTFCoZRzmOerf/WbN
+         OEOA==
+X-Gm-Message-State: AOAM531zPF0Cm4R673pW/vnebAFeTesIHxbS+S0ZBPu+jBEOfhbdQvH2
+	o6TYSQDfxHn7DqSSoUUTi8IWhkr5fbQ=
+X-Google-Smtp-Source: ABdhPJwd6DikwTnvprfp3pacBRfo7u3DzsZpMRnz89VqwVPX1hHAa4qPM5XCgXmkwZii7SBHi9g5wA==
+X-Received: by 2002:ae9:ebd1:: with SMTP id b200mr31607745qkg.200.1619655285229;
+        Wed, 28 Apr 2021 17:14:45 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.org
@@ -77,93 +77,100 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 07/12] golang/xenlight: add logging conveniences for within xenlight
-Date: Wed, 28 Apr 2021 20:14:29 -0400
-Message-Id: <452aac2489990ac0195c62d8cb820fbe5786c466.1619655104.git.rosbrookn@ainfosec.com>
+Subject: [PATCH 08/12] golang/xenlight: add functional options to configure Context
+Date: Wed, 28 Apr 2021 20:14:30 -0400
+Message-Id: <dc5cd6728e8477c9eb3ba75a55c7128da46a86ef.1619655104.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1619650820.git.rosbrookn@ainfosec.com>
 References: <cover.1619650820.git.rosbrookn@ainfosec.com>
 In-Reply-To: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
 References: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
 
-Add some logging methods to Context to provide easy use of the
-Contenxt's xentoollog_logger. These are not exported, but the LogLevel
-type is so that a later commit can allow the Context's log level to be
-configurable.
+Add a ContextOption type to support functional options in NewContext.
+Then, add a variadic ContextOption parameter to NewContext, which allows
+callers to specify 0 or more configuration options.
 
-Becuase cgo does not support calling C functions with variable
-arguments, e.g. xtl_log, add an xtl_log_wrap function to the cgo preamble
-that accepts an already formatted string, and handle the formatting in
-Go.
+For now, just add the WithLogLevel option so that callers can set the
+log level of the Context's xentoollog_logger. Future configuration
+options can be created by adding an appropriate field to the
+contextOptions struct and creating a With<OptionName> function to return
+a ContextOption
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 ---
- tools/golang/xenlight/xenlight.go | 45 +++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ tools/golang/xenlight/xenlight.go | 44 +++++++++++++++++++++++++++++--
+ 1 file changed, 42 insertions(+), 2 deletions(-)
 
 diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
-index fc3eb0bf3f..f68d7b6e97 100644
+index f68d7b6e97..65f93abe32 100644
 --- a/tools/golang/xenlight/xenlight.go
 +++ b/tools/golang/xenlight/xenlight.go
-@@ -32,6 +32,15 @@ static const libxl_childproc_hooks childproc_hooks = { .chldowner = libxl_sigchl
- void xenlight_set_chldproc(libxl_ctx *ctx) {
- 	libxl_childproc_setmode(ctx, &childproc_hooks, NULL);
+@@ -136,7 +136,7 @@ func sigchldHandler(ctx *Context) {
  }
-+
-+void xtl_log_wrap(struct xentoollog_logger *logger,
-+		  xentoollog_level level,
-+		  int errnoval,
-+		  const char *context,
-+		  const char *msg)
-+{
-+    xtl_log(logger, level, errnoval, context, "%s", msg);
-+}
- */
- import "C"
  
-@@ -192,6 +201,42 @@ func (ctx *Context) Close() error {
+ // NewContext returns a new Context.
+-func NewContext() (ctx *Context, err error) {
++func NewContext(opts ...ContextOption) (ctx *Context, err error) {
+ 	ctx = &Context{}
+ 
+ 	defer func() {
+@@ -146,8 +146,19 @@ func NewContext() (ctx *Context, err error) {
+ 		}
+ 	}()
+ 
++	// Set the default context options. These fields may
++	// be modified by the provided opts.
++	copts := &contextOptions{
++		logLevel: LogLevelError,
++	}
++
++	for _, opt := range opts {
++		opt.apply(copts)
++	}
++
+ 	// Create a logger
+-	ctx.logger = C.xtl_createlogger_stdiostream(C.stderr, C.XTL_ERROR, 0)
++	ctx.logger = C.xtl_createlogger_stdiostream(C.stderr,
++		C.xentoollog_level(copts.logLevel), 0)
+ 
+ 	// Allocate a context
+ 	ret := C.libxl_ctx_alloc(&ctx.ctx, C.LIBXL_VERSION, 0,
+@@ -201,6 +212,35 @@ func (ctx *Context) Close() error {
  	return nil
  }
  
-+// LogLevel represents an xentoollog_level, and can be used to configre the log
-+// level of a Context's logger.
-+type LogLevel int
-+
-+const (
-+	//LogLevelNone     LogLevel = C.XTL_NONE
-+	LogLevelDebug    LogLevel = C.XTL_DEBUG
-+	LogLevelVerbose  LogLevel = C.XTL_VERBOSE
-+	LogLevelDetail   LogLevel = C.XTL_DETAIL
-+	LogLevelProgress LogLevel = C.XTL_PROGRESS
-+	LogLevelInfo     LogLevel = C.XTL_INFO
-+	LogLevelNotice   LogLevel = C.XTL_NOTICE
-+	LogLevelWarn     LogLevel = C.XTL_WARN
-+	LogLevelError    LogLevel = C.XTL_ERROR
-+	LogLevelCritical LogLevel = C.XTL_CRITICAL
-+	//LogLevelNumLevels LogLevel = C.XTL_NUM_LEVELS
-+)
-+
-+func (ctx *Context) log(lvl LogLevel, errnoval int, format string, a ...interface{}) {
-+	msg := C.CString(fmt.Sprintf(format, a...))
-+	defer C.free(unsafe.Pointer(msg))
-+	context := C.CString("xenlight")
-+	defer C.free(unsafe.Pointer(context))
-+
-+	C.xtl_log_wrap((*C.xentoollog_logger)(unsafe.Pointer(ctx.logger)),
-+		C.xentoollog_level(lvl), C.int(errnoval), context, msg)
++type contextOptions struct {
++	logLevel LogLevel
 +}
 +
-+func (ctx *Context) logd(format string, a ...interface{}) {
-+	ctx.log(LogLevelDebug, -1, format, a...)
++// ContextOption is used to configure options for a Context.
++type ContextOption interface {
++	apply(*contextOptions)
 +}
 +
-+func (ctx *Context) logw(format string, a ...interface{}) {
-+	ctx.log(LogLevelWarn, -1, format, a...)
++type funcContextOption struct {
++	f func(*contextOptions)
 +}
 +
- /*
-  * Types: Builtins
-  */
++func (fco *funcContextOption) apply(c *contextOptions) {
++	fco.f(c)
++}
++
++func newFuncContextOption(f func(*contextOptions)) *funcContextOption {
++	return &funcContextOption{f}
++}
++
++// WithLogLevel sets the log level for a Context's logger. The default level is
++// LogLevelError.
++func WithLogLevel(level LogLevel) ContextOption {
++	return newFuncContextOption(func(co *contextOptions) {
++		co.logLevel = level
++	})
++}
++
+ // LogLevel represents an xentoollog_level, and can be used to configre the log
+ // level of a Context's logger.
+ type LogLevel int
 -- 
 2.17.1
 
