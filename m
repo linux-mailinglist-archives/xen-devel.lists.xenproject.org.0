@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F03836E26D
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 02:15:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119615.226185 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AA936E26B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 02:15:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119616.226198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbuKL-00074r-JZ; Thu, 29 Apr 2021 00:14:45 +0000
+	id 1lbuKQ-00078Z-Tf; Thu, 29 Apr 2021 00:14:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119615.226185; Thu, 29 Apr 2021 00:14:45 +0000
+Received: by outflank-mailman (output) from mailman id 119616.226198; Thu, 29 Apr 2021 00:14:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lbuKL-00074D-G7; Thu, 29 Apr 2021 00:14:45 +0000
-Received: by outflank-mailman (input) for mailman id 119615;
- Thu, 29 Apr 2021 00:14:43 +0000
+	id 1lbuKQ-00077z-PE; Thu, 29 Apr 2021 00:14:50 +0000
+Received: by outflank-mailman (input) for mailman id 119616;
+ Thu, 29 Apr 2021 00:14:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S48z=J2=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1lbuKJ-00072A-Tc
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 00:14:43 +0000
-Received: from mail-qt1-x82b.google.com (unknown [2607:f8b0:4864:20::82b])
+ id 1lbuKO-00072A-Tq
+ for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 00:14:48 +0000
+Received: from mail-qk1-x736.google.com (unknown [2607:f8b0:4864:20::736])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b171eda-13ee-459c-a382-a7efd0e3d097;
- Thu, 29 Apr 2021 00:14:39 +0000 (UTC)
-Received: by mail-qt1-x82b.google.com with SMTP id j19so7738082qtx.13
- for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 17:14:39 -0700 (PDT)
+ id 436ed0b2-c47d-45a4-a919-3f92849f675e;
+ Thu, 29 Apr 2021 00:14:40 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id o5so65593653qkb.0
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Apr 2021 17:14:40 -0700 (PDT)
 Received: from localhost.localdomain (c-73-89-138-5.hsd1.vt.comcast.net.
  [73.89.138.5])
- by smtp.gmail.com with ESMTPSA id r185sm1021694qkf.78.2021.04.28.17.14.37
+ by smtp.gmail.com with ESMTPSA id r185sm1021694qkf.78.2021.04.28.17.14.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Apr 2021 17:14:38 -0700 (PDT)
+ Wed, 28 Apr 2021 17:14:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,33 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b171eda-13ee-459c-a382-a7efd0e3d097
+X-Inumbo-ID: 436ed0b2-c47d-45a4-a919-3f92849f675e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=CIwXzDWTaek3ruD8eh2yS/rqRAAsDRXtMIQbC1kOPa4=;
-        b=f4V0FpJy9dRR1osaw30MbdWHpAUh9x90l7i8MllowCfeAGnUpma9AH3jZ8bTYzatum
-         c7Dq6lKdNNqZPysBSV7COSk/TwuvsYfQ+BxFgh4EkzTtl5ukyN1xjO2amvCMfd76HdPZ
-         5YML492by4O2ov+4fI5kux8KA8ldGwd0WIKD+73iUtj8S+Gmy3lJkXGbxNilpziBGAGI
-         teUpGyA4MI8phADiH05UjHQ7Q4JqZdeiZEbah/vxIf5O+//57sDqmIK8GiyJs3eZvFOJ
-         wtDqHs4EapiS0T2u7J3nGMpr2Hih/GuNM1QQmGdWPrdbypJLRJJJpnoMX6es13s3URs9
-         559g==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :in-reply-to:references;
+        bh=0XtO/J2QIxV3EsCnIwGPbPpW2RCXziWsO8eq8KNOMcc=;
+        b=brDXVwtZ9DOU5zpYvrl7RNpKNGJxeMznujlMSHAqojenCtF9ZFdDnle8brORshOy7M
+         42qo8z82cPE5wzfyb+2yYp6twrd4mnfILFLsVK+77Pracr3i9pZ6ztpMC99BTMdm1ClA
+         cYKE9wUNf+ykjqnyoqoZIny5xYvuAEi8abL9Bv6/zuc4ztmY6Hr9rK4KeSXqKyojuI83
+         mC2dAy3kzNXxXwIn1B96GCBBQrpOeBaemjL7aIDEppDSR1t5BREoVz1lQv0cDq0HJchR
+         zI+iRFU2g+no3aAw/asUTOlJ6M7kTf9Jj4nMTw85NAm9DZ8GlLSZFOWPqn0NFfea4Ana
+         CFBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=CIwXzDWTaek3ruD8eh2yS/rqRAAsDRXtMIQbC1kOPa4=;
-        b=Jij7OVThzqNPxk1KIjAMZmNFIJYUDXHPK7SUYgcF/E8Y1VPleNgSsu3Z8pH821yPqx
-         dvr0aj+y7nNX0UonNTMNQs339GqC2MO5dTopYx2qiMZA4SZa5+fX66b9bwkPWrCnc6F4
-         3UuOhGwVJEP2sUvC48Xwx/jsOdR+ZiymRn9CBarG873VXLdtUeNX5Y+FHqao/mrWpdOQ
-         LxHvhHZPK8F6b2CXrA9ToXgb8UD/mxyF6h+Y9v93L3BZyi1ASzse7HkstSIz2Fpgqo/j
-         G73mH241acD+eEupc4ixI9lWLBcJFfUkGoMmlSmbdrBQwTT9E/7SK4E7N31zLfCXdwK2
-         DjHA==
-X-Gm-Message-State: AOAM530BWuZvO8VYw6MaTs3/foXzSldufWuju/Ej3GlxHTMejxpY/QvU
-	t64OY7NNNVnOAcVSzYVqO0S+aHDUsRc=
-X-Google-Smtp-Source: ABdhPJx5ujgeg0d2gbXMFIdGB8a53HLirR//KrIoxV+Z+RbA2Qo/1ZTg9ErpjBQj8PdPoOQsS9nFWA==
-X-Received: by 2002:ac8:5286:: with SMTP id s6mr29135170qtn.71.1619655278457;
-        Wed, 28 Apr 2021 17:14:38 -0700 (PDT)
+         :references:in-reply-to:references;
+        bh=0XtO/J2QIxV3EsCnIwGPbPpW2RCXziWsO8eq8KNOMcc=;
+        b=rS38t0/Fq5TYiC1cNCFXxkcJwdO32E5vGvGW6xZ2REZ0awie+FmlMl799UV8j9pf+J
+         t7gZqydtFbGaCDOrsMNJH+x0iy/FhumylDnIBTuV/Yh1lSSoTxvVHS9dnMEqG30QdJeW
+         r90Xn0bY5XhailyT4m9OgwbJGLV0Tz0YBthKn3R5BL3bHXIyRWzPr83Jpx5p4+kQtkEP
+         S6diJ9ZYztqGX5B3XpcJsaWtEWOendMgLu8eCi3djim0EY/U7V88bpsQU7QIsh6kQcit
+         CMT6ZIMWhMykaKfKOUkLy1hP87FmFwdzpTZjW8pq+gsd70OZA9wHMkFgLcJ+Ym2urW/R
+         EVXw==
+X-Gm-Message-State: AOAM5339gN5Vw3hmG8X+/HIXMfyLFRJLeYxkFJC/aVvAcVbhQo6qNFI2
+	3SA0hVwwgMxa9DHAO9hVwsuzes8LzSk=
+X-Google-Smtp-Source: ABdhPJzvTftEET+PZK17rrlsHnVK9BhzZX5bMB8KQl6sVY3DdiswQ0xNZIi3w0WOnBBdguaMxlnOJQ==
+X-Received: by 2002:a37:5a46:: with SMTP id o67mr31675105qkb.240.1619655279544;
+        Wed, 28 Apr 2021 17:14:39 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.org
@@ -76,72 +77,53 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 01/12] golang/xenlight: update generated code
-Date: Wed, 28 Apr 2021 20:14:23 -0400
-Message-Id: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
+Subject: [PATCH 02/12] golang/xenlight: fix StringList toC conversion
+Date: Wed, 28 Apr 2021 20:14:24 -0400
+Message-Id: <0a15ed9eb6cd70416995f5d9805c98572eb6bd50.1619655104.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1619650820.git.rosbrookn@ainfosec.com>
 References: <cover.1619650820.git.rosbrookn@ainfosec.com>
+In-Reply-To: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
+References: <29e665fc1c9313f5e221e9e5e15d7c2d9c1eb4a7.1619655104.git.rosbrookn@ainfosec.com>
 
-Re-generate code to reflect changes to libxl_types.idl from the
-following commits:
+The current implementation of StringList.toC does not correctly account
+for how libxl_string_list is expected to be laid out in C, which is clear
+when one looks at libxl_string_list_length in libxl.c. In particular,
+StringList.toC does not account for the extra memory that should be
+allocated for the "sentinel" entry. And, when using the "slice trick" to
+create a slice that can address C memory, the unsafe.Pointer conversion
+should be on a C.libxl_string_list, not *C.libxl_string_list.
 
-0570d7f276 x86/msr: introduce an option for compatible MSR behavior selection
-7e5cffcd1e viridian: allow vCPU hotplug for Windows VMs
-9835246710 viridian: remove implicit limit of 64 VPs per partition
+Fix these problems by (1) allocating an extra slot in the slice used to
+address the C memory, and explicity set the last entry to nil so the C
+memory will be zeroed out, and (2) dereferencing csl in the
+unsafe.Pointer conversion.
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 ---
- tools/golang/xenlight/helpers.gen.go | 6 ++++++
- tools/golang/xenlight/types.gen.go   | 5 +++++
- 2 files changed, 11 insertions(+)
+ tools/golang/xenlight/xenlight.go | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index 4c60d27a9c..b454b12d52 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1113,6 +1113,9 @@ default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
- x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
- x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
-+if err := x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err != nil {
-+return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
-+}
- x.Altp2M = Altp2MMode(xc.altp2m)
- x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
+diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
+index b9189dec5c..13171d0ad1 100644
+--- a/tools/golang/xenlight/xenlight.go
++++ b/tools/golang/xenlight/xenlight.go
+@@ -491,13 +491,14 @@ func (sl *StringList) fromC(csl *C.libxl_string_list) error {
  
-@@ -1589,6 +1592,9 @@ default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
- xc.arch_arm.gic_version = C.libxl_gic_version(x.ArchArm.GicVersion)
- xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
-+if err := x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err != nil {
-+return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
-+}
- xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
- xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
+ func (sl StringList) toC(csl *C.libxl_string_list) error {
+ 	var char *C.char
+-	size := len(sl)
++	size := len(sl) + 1
+ 	*csl = (C.libxl_string_list)(C.malloc(C.ulong(size) * C.ulong(unsafe.Sizeof(char))))
+-	clist := (*[1 << 30]*C.char)(unsafe.Pointer(csl))[:size:size]
++	clist := (*[1 << 30]*C.char)(unsafe.Pointer(*csl))[:size:size]
  
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index cb13002fdb..f2ceceb61c 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -211,6 +211,8 @@ ViridianEnlightenmentSynic ViridianEnlightenment = 7
- ViridianEnlightenmentStimer ViridianEnlightenment = 8
- ViridianEnlightenmentHcallIpi ViridianEnlightenment = 9
- ViridianEnlightenmentExProcessorMasks ViridianEnlightenment = 10
-+ViridianEnlightenmentNoVpLimit ViridianEnlightenment = 11
-+ViridianEnlightenmentCpuHotplug ViridianEnlightenment = 12
- )
+ 	for i, v := range sl {
+ 		clist[i] = C.CString(v)
+ 	}
++	clist[len(clist)-1] = nil
  
- type Hdtype int
-@@ -513,6 +515,9 @@ ArchArm struct {
- GicVersion GicVersion
- Vuart VuartType
- }
-+ArchX86 struct {
-+MsrRelaxed Defbool
-+}
- Altp2M Altp2MMode
- VmtraceBufKb int
+ 	return nil
  }
 -- 
 2.17.1
