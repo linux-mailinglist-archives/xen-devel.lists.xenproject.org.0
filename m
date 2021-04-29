@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382FB36F298
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 00:29:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.120241.227407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D29336F2D4
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 01:16:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.120246.227419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcF9v-000172-Dc; Thu, 29 Apr 2021 22:29:23 +0000
+	id 1lcFs6-0005JU-Vn; Thu, 29 Apr 2021 23:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 120241.227407; Thu, 29 Apr 2021 22:29:23 +0000
+Received: by outflank-mailman (output) from mailman id 120246.227419; Thu, 29 Apr 2021 23:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcF9v-00016e-AT; Thu, 29 Apr 2021 22:29:23 +0000
-Received: by outflank-mailman (input) for mailman id 120241;
- Thu, 29 Apr 2021 22:29:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5QnA=J2=gmail.com=dmitry.torokhov@srs-us1.protection.inumbo.net>)
- id 1lcF9t-00016Z-EI
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 22:29:21 +0000
-Received: from mail-pl1-x631.google.com (unknown [2607:f8b0:4864:20::631])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c54d38aa-83fb-4f36-8d4e-dc3ec78d15a9;
- Thu, 29 Apr 2021 22:29:20 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id v13so21962959ple.9
- for <xen-devel@lists.xenproject.org>; Thu, 29 Apr 2021 15:29:20 -0700 (PDT)
-Received: from google.com ([2620:15c:202:201:6b9:8bd2:eb38:bd68])
- by smtp.gmail.com with ESMTPSA id j7sm2048pfd.129.2021.04.29.15.29.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Apr 2021 15:29:18 -0700 (PDT)
+	id 1lcFs6-0005J0-QV; Thu, 29 Apr 2021 23:15:02 +0000
+Received: by outflank-mailman (input) for mailman id 120246;
+ Thu, 29 Apr 2021 23:15:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcFs6-0005Is-4z; Thu, 29 Apr 2021 23:15:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcFs5-0006yn-Qg; Thu, 29 Apr 2021 23:15:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcFs5-0000Lc-JN; Thu, 29 Apr 2021 23:15:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcFs5-0007xm-Iw; Thu, 29 Apr 2021 23:15:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,88 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c54d38aa-83fb-4f36-8d4e-dc3ec78d15a9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=sgF8y4qSHbAjhen0CmXgaqp9XHrSaJSa2Q0ESkD13WA=;
-        b=tq/cCsIlvCnJBh+3GLUA7LgqRyfI04kFbPdD9WHZk2Znx/Zt/POlsXiTUSE7byz8iu
-         5Nk1Vml6RCrecdX0Mj8NfTIy1LQSsNzyO6qPu1Ap6FbanlAKVxZi9rt/bAz94dpFmhdP
-         FfPfYN3B90VIAW3APEFFyEFrZ0j0A5AYYbc3AA0jQBzMncEU0jXHmk7au9r966Q/ys+/
-         DxUOK+OrQVAGqrM9DkAGb5x8mHOXQdtvz9BFfKc3nWPEhYULmb1iHgD4QOlv27PydA8h
-         RdJDISkmkSr6mOEBfrUxevPGXE8GzZGH/jVoCgaf3XUrCmcqI7n5fwkR9p98ECahB/2y
-         ycuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=sgF8y4qSHbAjhen0CmXgaqp9XHrSaJSa2Q0ESkD13WA=;
-        b=tELtKCimgvq+wbCLuC0aK3V768MV8HkIu2Dfp5Xt8EcWOzc+pgA/2GBjnKlazuEqPE
-         F177w2fZ8RsoJKDfS4cHD0d9vzySUwVf9Mb9LJFDH6aS6Rhi64ELVRubyD6oyNO5rChv
-         OrKgzJaUgS8sH0Csd0Nz3VuuWGmXKX6kSbLByz+CAH1Bv2R8SfHXS01mBr1VpkHmStb6
-         pWZPQ3YfGhaCL+bh0zWb93TP+J2ic7wqrI5UouhvIolVzVAixumDKcBOtLpA1IExMY5z
-         z6KqNXthtUPRZ6sWISNM0cybMDr7C7QD6fzu0IqdIA8IEMR4pJrAs/GCa5uK0656XCSD
-         bWQQ==
-X-Gm-Message-State: AOAM531hRcktiq3T3Xew1/AoD56QBQtxyZRob7fBP+gNHslNsmnOlA3B
-	P/40dhUUE9mYPUAXeFlwe4E=
-X-Google-Smtp-Source: ABdhPJwgS6dsHbtbdrmvAQv+WZG+s4dvsTwRZXxtfYQ5DPAe1rBRbtNpHlCFOQxg18hW22IsKoszwA==
-X-Received: by 2002:a17:90b:915:: with SMTP id bo21mr2068048pjb.27.1619735359172;
-        Thu, 29 Apr 2021 15:29:19 -0700 (PDT)
-Date: Thu, 29 Apr 2021 15:29:15 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Phillip Susi <phill@thesusis.net>
-Cc: xen-devel@lists.xenproject.org, linux-input@vger.kernel.org
-Subject: Re: Xen Virtual Keyboard modalias breaking uevents
-Message-ID: <YIszOwADJ8jdBov8@google.com>
-References: <87o8dw52jc.fsf@vps.thesusis.net>
- <87fsz84zn1.fsf@vps.thesusis.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=asmbWmcPqWZVFeXa4gPbODJD00tWJ7L17nOXTEUwMcY=; b=s7d5iul4N0M4ej0bTf/3qS8Zts
+	Mdm9srwln8jbRFQZUb2LwnOG6x4eFDPGvNZTQxLxZGOJluyPr7lXaEAKXMvJyC7fGtnjHCUnD/byF
+	yMjc2+yT6PHvErF4hZNc8ivmF3fvr8k2GAmY4I1e5WN5qx2PYx648vVHBN0hw0/iKTyM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161533-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87fsz84zn1.fsf@vps.thesusis.net>
+Subject: [xen-unstable-smoke test] 161533: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b8e53a81ba538849b98b0d417436f8be653fa1ff
+X-Osstest-Versions-That:
+    xen=972ba1d1d4bcb77018b50fd2bb63c0e628859ed3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 29 Apr 2021 23:15:01 +0000
 
-On Thu, Apr 29, 2021 at 04:10:09PM -0400, Phillip Susi wrote:
-> 
-> It appears that input/input.c is responsible for the insane modalias
-> length.  If I am reading input_print_modalias() correctly, it appends a
-> "k" plus every key code that the keyboard supports,
+flight 161533 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161533/
 
-Not every keyboard, but all keycodes above KEY_MIN_INTERESTING which is
-KEY_MUTE, so that interested handlers could match on devices they are
-interested in without first opening them or poking through sysfs.
+Failures :-/ but no regressions.
 
-> and the Xen Virtual
-> Keyboard supports a lot of keycodes.  Why does it do this?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-I don't know why Xen keyboard exports that many keycodes ;) In general,
-my recommendation is to mirror the physical device when possible, and
-instantiate several devices so there is 1:1 relationship between virtual
-and physical devices.
+version targeted for testing:
+ xen                  b8e53a81ba538849b98b0d417436f8be653fa1ff
+baseline version:
+ xen                  972ba1d1d4bcb77018b50fd2bb63c0e628859ed3
 
-In cases where it is not feasible, we need to be more careful about
-declaring capabilities. For xen-kbdfront I do not think the keyboard
-portion should be declaring keys from the various BTN_* ranges.
+Last test of basis   161483  2021-04-27 13:00:27 Z    2 days
+Failing since        161525  2021-04-29 15:01:31 Z    0 days    2 attempts
+Testing same since   161533  2021-04-29 21:03:42 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
->  
-> Phillip Susi writes:
-> 
-> > So I have finally drilled down to the modalias for the Xen Virtual
-> > Keyboard driver being so long ( over 2KB ) that it causes an -ENOMEM
-> > when trying to add it to the environment for uevents.  This causes
-> > coldplug to fail, which causes the script doing coldplug as part of the
-> > debian-installer init to fail, which causes a kernel panic when init
-> > exits, which then for reasons I have yet to understand, causes the Xen
-> > domU to reboot.
-> >
-> > Why is this modalias so huge?  Can we pare it down, or or is there
-> > another solution to get uevents working on this device again?  Maybe the
-> > environment block size needs to be increased?  I don't know.
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Thanks.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
--- 
-Dmitry
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   972ba1d1d4..b8e53a81ba  b8e53a81ba538849b98b0d417436f8be653fa1ff -> smoke
 
