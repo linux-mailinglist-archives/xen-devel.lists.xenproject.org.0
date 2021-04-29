@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9335136E9C4
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 13:48:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.119921.226743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E127636E9D7
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Apr 2021 13:55:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.119930.226756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lc59H-0000vR-Uh; Thu, 29 Apr 2021 11:48:03 +0000
+	id 1lc5GZ-0001sU-R7; Thu, 29 Apr 2021 11:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 119921.226743; Thu, 29 Apr 2021 11:48:03 +0000
+Received: by outflank-mailman (output) from mailman id 119930.226756; Thu, 29 Apr 2021 11:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lc59H-0000v2-RG; Thu, 29 Apr 2021 11:48:03 +0000
-Received: by outflank-mailman (input) for mailman id 119921;
- Thu, 29 Apr 2021 11:48:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lc5GZ-0001s5-Nw; Thu, 29 Apr 2021 11:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 119930;
+ Thu, 29 Apr 2021 11:55:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xfjL=J2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lc59F-0000uu-Q5
- for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 11:48:01 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e63c8a20-dab0-46ba-a9ce-c488cd60c323;
- Thu, 29 Apr 2021 11:48:00 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F1000AF8A;
- Thu, 29 Apr 2021 11:47:59 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1lc5GY-0001s0-5g
+ for xen-devel@lists.xenproject.org; Thu, 29 Apr 2021 11:55:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lc5GY-0003VT-0M; Thu, 29 Apr 2021 11:55:34 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lc5GX-00034d-O7; Thu, 29 Apr 2021 11:55:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,95 +40,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e63c8a20-dab0-46ba-a9ce-c488cd60c323
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1619696880; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EXLsYN96hM0C4264e2h1fST5VV7WfoE/9uYTOFO3urk=;
-	b=LYU37jyiTn/BHvsztU1yXichoY0uIxQGhOspN9KXkeE/W27WFXucx7sc11I6L/Dv5aXP4r
-	jRY3IwNpyEsphXkYo17nmpFG9luVJYA1eAasN1UE3iAKFaz8BjVbZa6gqLcwYvkU50RG0g
-	4nkj05knGUWIEfTDUCGIoOHW5rgSfvg=
-Subject: Re: [PATCH v3 2/3] xen/pci: Refactor PCI MSI intercept related code
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>
-References: <cover.1619453100.git.rahul.singh@arm.com>
- <480947d549c46270fccc4c6d83ae8beca3c0fce6.1619453100.git.rahul.singh@arm.com>
- <69e0f583-3c61-afe9-0710-6531f99e8a2e@suse.com>
- <636D798B-3635-4F3A-ABF0-ECA42695352B@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7db06025-374e-e431-1ad6-3710ef99d62d@suse.com>
-Date: Thu, 29 Apr 2021 13:47:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=6uim1+IRw/02nA1d4ujSW+6FKnUnu1DbHh1PJtrZPJ0=; b=T1YhCNNAz/yIpqwjSd8zrpt4Sz
+	wrR7QiBNR+dpoROVfh2NPzSke48Mh+sQaypyWOIfaudVd18JKtFOYKvV3wgDaQ/YU6lsergy5DRki
+	HSX9xxFnwL1BBXpiJHi45DWX2r0YPxnIBN5fQIOzM/mwRLWgVlM1GBLey+of9dIwA+uQ=;
+Subject: Re: [PATCH v3] evtchn/fifo: don't enforce higher than necessary
+ alignment
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2a08aa31-fdbf-89ee-cd49-813f818b709a@suse.com>
+ <e6ce03a5-cfec-42ea-91c4-b51849e2f299@suse.com>
+ <69766ecb-d234-eebb-9b31-1533389a502e@xen.org>
+ <0377e61a-3813-0a9e-f724-418383c01050@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <04ef688f-1eb4-c17f-02f0-2cb7e5cb5c68@xen.org>
+Date: Thu, 29 Apr 2021 12:55:31 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <636D798B-3635-4F3A-ABF0-ECA42695352B@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <0377e61a-3813-0a9e-f724-418383c01050@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 29.04.2021 13:31, Rahul Singh wrote:
->> On 28 Apr 2021, at 3:06 pm, Jan Beulich <jbeulich@suse.com> wrote:
->> On 26.04.2021 18:21, Rahul Singh wrote:
->>> --- a/xen/xsm/flask/hooks.c
->>> +++ b/xen/xsm/flask/hooks.c
->>> @@ -21,7 +21,7 @@
->>> #include <xen/guest_access.h>
->>> #include <xen/xenoprof.h>
->>> #include <xen/iommu.h>
->>> -#ifdef CONFIG_HAS_PCI
->>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
->>> #include <asm/msi.h>
->>> #endif
->>> #include <public/xen.h>
->>> @@ -114,7 +114,7 @@ static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
->>>         }
->>>         return security_irq_sid(irq, sid);
->>>     }
->>> -#ifdef CONFIG_HAS_PCI
->>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
->>>     {
->>>         struct irq_desc *desc = irq_to_desc(irq);
->>>         if ( desc->msi_desc && desc->msi_desc->dev ) {
->>> @@ -874,7 +874,7 @@ static int flask_map_domain_pirq (struct domain *d)
->>> static int flask_map_domain_msi (struct domain *d, int irq, const void *data,
->>>                                  u32 *sid, struct avc_audit_data *ad)
->>> {
->>> -#ifdef CONFIG_HAS_PCI
->>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
->>>     const struct msi_info *msi = data;
->>>     u32 machine_bdf = (msi->seg << 16) | (msi->bus << 8) | msi->devfn;
->>>
->>> @@ -940,7 +940,7 @@ static int flask_unmap_domain_pirq (struct domain *d)
->>> static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
->>>                                    u32 *sid, struct avc_audit_data *ad)
->>> {
->>> -#ifdef CONFIG_HAS_PCI
->>> +#ifdef CONFIG_PCI_MSI_INTERCEPT
->>>     const struct pci_dev *pdev = data;
->>>     u32 machine_bdf = (pdev->seg << 16) | (pdev->bus << 8) | pdev->devfn;
->>>
+Hi Jan,
+
+On 22/04/2021 10:19, Jan Beulich wrote:
+> On 21.04.2021 21:52, Julien Grall wrote:
+>> Hi,
 >>
->> Is all of this really related to MSI interception? Iirc the code here
->> has been around for much longer, and hence is more related to MSI
->> support in Xen in general (as required for PV guests in particular).
+>> On 21/04/2021 15:36, Jan Beulich wrote:
+>>> Neither the code nor the original commit provide any justification for
+>>> the need to 8-byte align the struct in all cases. Enforce just as much
+>>> alignment as the structure actually needs - 4 bytes - by using alignof()
+>>> instead of a literal number.
+>>
+>> I had another fresh look today at this patch. The 32-bit padding is
+>> right after the field 'ready'.
+>>
+>> I can't for sure tell how the second half is going to ever be used and how.
+>>
+>> However, one possibility would be to extend the field 'ready' to 64-bit.
+>> With the current code, we could easily make a single 64-bit access
+>> without having to know whether the guest is able to interpret the top half.
 > 
-> Yes I agree this code is not related to MSI interception but I decide to move the code 
-> under CONFIG_PCI_MSI_INTERCEPT flag to gate the code for ARM as to avoid an 
-> extra flag. We can modify this code once we have more data how MSI will be 
-> supported for other architecture.  
+> I don't think extending field sizes is generally to be considered ABI-
+> compatible. I also don't think we can re-use the field at all, as I
+> couldn't find any checking of it being zero (input) or it getting set
+> to zero (output). 
 
-In any event the change belongs into the other patch. My objection
-there then still holds, but if I'm to be outvoted there, so be it.
+That's would be fine so long we have a flag to control it. We can still 
+write unconditionally because a guest can't rely on the pad...
 
-Jan
+> struct evtchn_init_control, which in principle could
+> be a way to convey respective controlling flags, similarly has no room
+> for extension, as its _pad[] also doesn't look to get checked anywhere.
+Right, we would need to have a different way to convey. Yet, I am still 
+unconvinced of the benefits change offer in this patch.
+
+I am not going to Nack. So another maintainer in "THE REST" can express 
+support for your patch and ack it.
+
+Cheers,
+
+-- 
+Julien Grall
 
