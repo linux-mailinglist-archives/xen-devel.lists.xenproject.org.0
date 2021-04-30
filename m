@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1946736F7A1
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 11:14:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.120413.227713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F2236F7EB
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 11:28:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.120424.227733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcPDm-00060L-BT; Fri, 30 Apr 2021 09:14:02 +0000
+	id 1lcPQq-0006zQ-RI; Fri, 30 Apr 2021 09:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 120413.227713; Fri, 30 Apr 2021 09:14:02 +0000
+Received: by outflank-mailman (output) from mailman id 120424.227733; Fri, 30 Apr 2021 09:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcPDm-0005zw-84; Fri, 30 Apr 2021 09:14:02 +0000
-Received: by outflank-mailman (input) for mailman id 120413;
- Fri, 30 Apr 2021 09:14:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lcPDk-0005zo-Eb; Fri, 30 Apr 2021 09:14:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lcPDk-0007AU-6Z; Fri, 30 Apr 2021 09:14:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lcPDj-0000aQ-Ub; Fri, 30 Apr 2021 09:14:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lcPDj-00022d-U6; Fri, 30 Apr 2021 09:13:59 +0000
+	id 1lcPQq-0006z0-Np; Fri, 30 Apr 2021 09:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 120424;
+ Fri, 30 Apr 2021 09:27:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jCGG=J3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lcPQp-0006ys-1L
+ for xen-devel@lists.xenproject.org; Fri, 30 Apr 2021 09:27:31 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7e9e7d1a-1f98-4a1c-bd8b-fdc83389265a;
+ Fri, 30 Apr 2021 09:27:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,632 +36,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=Y6yWxI9os++ZlEHuGmOhsUvEAu5IdhKhgcahRQUUJnA=; b=NXqY1hXH+zEM6TnksrbjsWx0tr
-	LzyeNN9V2pqQbXKAi18oEmiLrup1Qqk3wbxGnxEGhGHuQ8ZFBL74QCTurd7oHReL/0B39Q7xQlCAF
-	Cg3Bm5xem6JeDtvH99g0CDvAtQYwiRku1nM7YQLhBSXtYB62Ni1WSnhtHT6peptrLKMQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-i386-xl-qemuu-win7-amd64
-Message-Id: <E1lcPDj-00022d-U6@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Apr 2021 09:13:59 +0000
+X-Inumbo-ID: 7e9e7d1a-1f98-4a1c-bd8b-fdc83389265a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1619774849;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Wd4oGLUCn58ujj+D6RpzwvNyloUoBpzwsL1wmk/htKI=;
+  b=Gjfr8CuSeC8Uk99ii1CQNXW7L59ObWn5DYKJophw4phAIjPuEYTRjjs0
+   gKLGVq4le6QXgVolPRQBnPHSLoNlKsx5NRTcJt593GkjjzbgDg+kuTGqt
+   DOkY4cysfM+1tqNjTLqQCH5ZW05W5vsdZ0z7aq+uneeCba/NF4UMCfecG
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: /6ZctzDox71SBbbhFS1pEGVmQPsLfJrE5QBTgNQyWIyQAxmn036mJxrjrpUwjuFFhsIs/hYLKo
+ CqwgQrrOG29KWuyDgB62qNQ8y6rTE2TKqcc8dsPmJvx4+NI8JAZBu4GJJ8GLM3AMlaZMmH1tP9
+ FkqkEayMvP68lQEtE8kdBLk+008fiWt4cA2bLcc/zztkudKZVFSqrD5wcDaTKXvMeUpS5WR5KI
+ mBo1LiN0L7yZbSDY+T/JBwSBfJXBF+FpF5vJ+29t+U1sBH/sRypX+ZLWkJ1CJ0C+Lk25vFb1c5
+ MIk=
+X-SBRS: 5.1
+X-MesageID: 44299964
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:wDq7l6BGaLKLwMblHegetMeALOonbusQ8zAX/mhLY1h8btGYm8
+ eynP4SyB/zj3IrVGs9nM2bUZPvfVr1zrQwxYUKJ7+tUE3duGWuJJx/9oeK+VLdMgXE3Kpm2a
+ 9kGpITNPTZEUV6gcHm4AOxDtYnx529/Lq1gPrFpk0McShBQchbnmFEIyycFVB7QxQDKJoiDZ
+ yH5tdGoT3IQwVrUu2QAH4ZU+/f4+DRnJX9bhIcQzIh4g+CjTSngYSKbySw9BEYTj9J3PMe4X
+ HI+jaJnJmLntOa7lvn12HV54lLg9eJ8Lp+LeGFl8R9EESIti+Gf4JkMofy2AwdgObq01oylc
+ mJnhFIBbUN11r0XkWY5STgwBPh1jFG0Q6Q9Xa9jWH4qcL0ABIWYvAx/b5xSRfS50o+sNwU6s
+ sitAj1xvknb2K0oA3H69fFTB1snEavyEBS6tI7tHBDTZAYLIZYsI13xjIkLL47ACn45Io7ed
+ Medf302fA+SyL8U1np+kNrwNCqQ00pGAaHTkUoqqWuoklrtUE84E0CyMMFmHAcsLo7Vplf/u
+ zBdp9ljbdUU6YtHO1ALdZEZfHyJn3GQBrKPm7XCVP7FJsfM3aIj5Ls+r066MyjZZRg9up9pL
+ 3xFHdj8UIicUPnDsODmLdR9ArWfWm7VTPxjulD+plQoNTHNfnWGBzGbGprv9qrov0ZDMGece
+ 20IohqD/jqKnarMZpV3jf5R4JZJRAlIY0ok+d+f2jLjtPAK4XsuOCeWu3UPqDRHTEtXX66LW
+ AEWBT1OcVc/mGmUnL1m3HqKjbQU3262ag1PLnR/uAVxoRIHJZLqBIphVOw4dzOCTAqiN1zQG
+ JOZJfc1o+rr2i/+mjFq09zPABGM0pT6LL8F1dDpQoANVLIYa8O0u/vPlx67T+iHFtSXsnWGA
+ lQqxBc4qSsNaGdwigkFpaBPn+FiWAQ4FaHVY0VlKHGxcqNQOJ4Mr8WHIhKUSnbHR18nghn7E
+ 1ZbhUfe0PZHjTyzYO/jJIVA+nbX8JmgBiiJPNVrX63jzTfmegfAl8gGxK+W8+ehggjAxBOgE
+ dqzqMZiL2c3Qq0JXAHm+Q+Ol1UYGGxCLZLZT71Irl8q/TOQkVdXG2KjTuVh1UWdnDx/0sfvG
+ DnMBaZYOrGGFZbp3Be3Jv76V8cTBTuQ2tALlRB9aFtH2XPvXh+ldWGYae+yEO9QFoPyON1Ck
+ COXRIiZidVg/yn3h+cnziPUUg8zpI1J+rHEfAIaLfIwE6gL4WOiIALF/JZ54xeKdjrq+MHON
+ jvIjO9HXfdMacEygaVrnEqNG1Is3Eii+rvwwCgw26i3nIzaMCiaWhOdvU+GZW74GflTfrTj8
+ k8otIxoOeqMmL+LvSB0rraajZfKhXV5U66JttY3qx8jOYXjv9UGZKebB7jkFdg9z86JN3vlE
+ wfTL9giYqxcbNHTog3QWZh4lEtlN6zN0MlvQz9P/8mcTgW/gvmFuLMx4CNlKEmDUKArjbhIF
+ Wz8yVS+PHeQiuIvIRqfZ4YECBzaEIm7m5l8/7HX4rMCB+yf+Urxiv2DlaNNJtcQrOCA7Mes1
+ JT5MyJhfaec27d1BrLtTV2ZoJI/GDPe7L/PCu8XcpJ+ce9I1KCn++D59Oyli7+TX+DUHsj7L
+ c1PXA4X4BkkTktjIo+zyi0ROjWmyse4iVjyAAisEXs1Iig6HrcBmdcP2Ti881rYQU=
+X-IronPort-AV: E=Sophos;i="5.82,262,1613451600"; 
+   d="scan'208";a="44299964"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Xor/Mk48uwBnpZk7/o0FcoNX2SrQVYtr78Im0Kgrnsk2hAyK38A1pyX2A1xkfXbuJLKCrSwNQT1oHZJPqHA5PxREYgZCGBO+ma5bFlXjw4BeetKc5mGcVTzjU1DwU4KjeuJ+R0WKLbloqM9cYUy4yw0XEjPJbSA584U+7nRobQz2/fqFFRROBT2D33g/sjEXAyU1t3kCobMbzRWIMjOXisLRLYGvZQORtd1BbqkuUi2T1pOwfjoM7to0CHpjq08GIz/dvXB4+fayNLSFrszLp4oiRRvO3I/o+TbevDbif9VIpTa/8cY69q3Q24tj03k56iSSkT+Rr1WpS1xlcIODww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2hGM3BEftBMwCwPrYwEQRChJCVSj8+w/8zrmQPt3DTY=;
+ b=SpsRa5VENAw0KncG2I3/9umxTFwGO6Qm3HO7MNFYYx6NG7aaOMQdmZVYsZLzm2gwqNANeLWgimjtwCsjxgkvZfl6EXzW4Avx4AX5O5sYIA+32K82qfnkCSImX6KRPQHEXaUcZ60n5cuG0h82du4v2lmOo81kodI/3z+aMBShCE2SHY8J8rQ29P1bJY3zv7B24gSrur+SHNUHn1z+BcbBmYGJjnZiX7wKjWlRd7hAWdqUq7C/hoSsUF9I1LohWyJds8P2DGPUoWbRrL95fCj33KwdyLWKOLTpqOn6HvhA6wm/DCBzQxF6ESQe5rbgLP5jAxlYmfY6K6u674oE+cf/3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2hGM3BEftBMwCwPrYwEQRChJCVSj8+w/8zrmQPt3DTY=;
+ b=ksJj8+hcuL47ppCsnuBKojm0iZxSYsBIedLCrgfUGP+mVKocPUZyGiKAQ0R8lelvLlxVEKz8oct5NidhQ0/o1/rJZUV2XU6uzFPfTyKPM3PGhy+hMQLx57o1SSEH7LttIfTHgvQ45YtkoeVDF6y6rlnkip6E/gkXijckm6sWylo=
+Date: Fri, 30 Apr 2021 11:27:18 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>
+Subject: Re: [PATCH v2 07/12] x86/p2m: the recalc hook is HVM-only
+Message-ID: <YIvNdhW+8QOP18aP@Air-de-Roger>
+References: <3cf73378-b9d6-0eca-12b6-0f628518bebf@suse.com>
+ <b99313df-f466-cf95-d772-c3153745c56b@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: attachment
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b99313df-f466-cf95-d772-c3153745c56b@suse.com>
+X-ClientProxiedBy: MRXP264CA0025.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:14::13) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 49f8928e-b784-4402-a87f-08d90bba2a48
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4843:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4843A40115A55AB4BAD66F958F5E9@DM6PR03MB4843.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9Rj/bg7fz6gVPuAeQiEm9l4S3y9eUx4GUR53dnLwzzLhW7/Wn4VoRhbFTMAfbbBUoGxKvypzim88VSVU8rFw2bI4/pcEUdWFc9QmHwyxFMHqe0avKg+TdeWQ5g/+ITp+iPZ/DkOh4rW3qvKCnfO+FGTxrMgIzP1ImST/lUVQOpfV6J2v+7wTQ7bJJx8mUbTyyJYzsTWFbacp47suYjflEtgEbqrdgdSUahSdZoVrfQi9wKTe6dHS1jEsrfqoi5YGPxVuqTmu7SedHc0Cd4FbW3VbphhzrKsysuIBHCY+02ni4PeEYjfgl1kOVJEYVCYEVMuJHfl1fQ0Z1Tp6YGmI+tpmM/Y6GCG7vLPdl7j6pOQwW19VoeXLLqgRSjB6pjS7so2b7ajIeoO+e3/RwPkrNQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(136003)(376002)(39860400002)(346002)(366004)(396003)(66616009)(2906002)(621065003)(956004)(8676002)(107886003)(316002)(6916009)(9686003)(33716001)(54906003)(4326008)(186003)(26005)(6496006)(86362001)(6486002)(38100700002)(4270600006)(16526019)(66946007)(478600001)(73894004)(6666004)(66556008)(8936002)(85182001)(66476007)(67856001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SDJTT256eE9CTm1oUCtjWDZlZksyUHdMYUMrSWZvSlZTNW00eEFJYXhiQU5n?=
+ =?utf-8?B?dDFQOUd0TUg2SWFmc1R2UG9QQzlodUw0dE9DVWZBelphWlc2MnB3R1IrM2t0?=
+ =?utf-8?B?K3dHWklIbUpGY1ArNVNsMVVrUXJZWGt2TzVKd3dNNi9Uc0JHREFENVpPeTFK?=
+ =?utf-8?B?MDlhSVZQVUJXdXEvODlmV1VYWkEyUUtqemRaSzhJU3Vua051ejkrejBSd09l?=
+ =?utf-8?B?STk0elVzMm9MY1JHQlkrRTJ4dWh1TzNVRzRuSGxOdkZnYi9XVStVdmRMVDFv?=
+ =?utf-8?B?NFBNVjhpU0NjclZVUEdsR0xvemhHblBSMi9xOC9pTmhmK0IrUEI0V25wVkxE?=
+ =?utf-8?B?S3hZbkRCVmxwSFRlcUc0S2gzeS9Eb2FRdTJ0THVFd2tEc2Q4cHRwbjhHdyts?=
+ =?utf-8?B?R2NEVE5tZEt0ODlHVlRqa25XdWJaWlFLbnA1UDNRbHRUQTRvb1VCZi9mQnRT?=
+ =?utf-8?B?a3JPNFpmNDQ2SDM4U28rQjZ5V3J1eGhtckxkeTBlaUdkYnJLTEVvbmhuQzZT?=
+ =?utf-8?B?a3hiOVVoQlBXbjdiWFA1MWgyU3F1Rm9GYXFyN0F5dFBXQ2pnNWVoOXdPUzJx?=
+ =?utf-8?B?WGdRQW5nVFpwTDhQNlVqM0hETUdwL3RGRGUvU2N4TTZXcWZ0RU1TTUdPUE5a?=
+ =?utf-8?B?VjNDOVJXdmNHcFkweWpUamVPYUQ5NkFub1RyRE9XWmdwSW43dm1MbWRCSS9H?=
+ =?utf-8?B?M2R0ZVRhL0p1VnRrNmNxRUFJcHNRTDVFUVdQMUF1YmkzSTFDZFlSSlp0bXBY?=
+ =?utf-8?B?Q2VyK3ErK0hQRnhpZTh6MU1nRU9HQXdsakFNQzkxMXVocUpXczZZSjR0anln?=
+ =?utf-8?B?Q1MvaDczVTVMamFJM2lsWERTUUgrVmpaRFNvajROSnFxK0tPblZ1WVBReHht?=
+ =?utf-8?B?WUhUMGFXenZXRnZUdGJkM3dYcENMcWxEcGxEc25DYW5TUXZPeEJlTndiYnNM?=
+ =?utf-8?B?c1dIS3IzS041Vmp6TFBXbmo0Qk01UDNxNTlqTXVmMCtETzgrbzJCMVZOY2Iw?=
+ =?utf-8?B?U3orUnF1UWtMNTQzeEYvTGVhQ3IvSjlPSzJGZFppWEdJTE9kZGxseXBrSjRT?=
+ =?utf-8?B?cVRyOXc0V1liMnlZRDYvQXNPUkUxWHhzb2Z0MVdKdnlGN0FjcUNVNlNjUVh1?=
+ =?utf-8?B?bjhEdzJsNkpYVjg5NVJrMzI3ZWswbmY5NkZIWUZKWTRNQXI3bDVNTEtENWo3?=
+ =?utf-8?B?S0dIcW84dFJqSzdEZHBWNDNSVUFzWURmRTNHRDJGOWhkQmhnaDkwN0FHeml5?=
+ =?utf-8?B?R0RaaXVWZ0RURUhMb0ltazhLd0dUVXZPQzRGZERuRmUvT3duMWYrWURMd0hM?=
+ =?utf-8?B?VFJxR2ZPcDFObzk2dldVNVdYQVdVZGFmWHdrMDk0TGFZLzVzM01JK1BnMlhy?=
+ =?utf-8?B?Nk9vRGN3NGVrY3UyVTZGVzA0NEszQ3ZyaVU4N2NocFFJRFFwdk43ZVpaOHNC?=
+ =?utf-8?B?OU5rZlhSdXF5bDJTVlQ4SjBTOGZjTEJTSEhOZGJDV3lBbXFKYnJKUXRlN2U4?=
+ =?utf-8?B?NnkxbWk2eW96WXo4cTFqYmxCV05ZUUVqdWFlTkgyMFNzdE1TbHBnZUdhTnE3?=
+ =?utf-8?B?SE5BbjlhYW5DSWpERnd3WjdZQTBXQ2VyN0wvTS8wcFE3bzJwemhQMXJES1U4?=
+ =?utf-8?B?T2E3NTYwWmNaV2dDL014bm9Kd0hjOXYrZ2NYWFlyN2s0QmxVcXovSmZqMzBv?=
+ =?utf-8?B?WFZMSExlYmJ3SW1kcVhveHlHL1lWb0VVT0tqU0ltbUppVHNlaHJMYmVrTEZJ?=
+ =?utf-8?Q?G6ytK1BHpheuvEUfGYd+KiOqlDeC1fktNkCzj3f?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49f8928e-b784-4402-a87f-08d90bba2a48
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2021 09:27:25.2227
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dF2du3pnBQqtZoizTRzIwGP4r6cgnsXs+P6fcVc8IW3bCqHqW9LiOL50BceYuL/pSP2aeiPA/YzELgtRuocvlQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4843
+X-OriginatorOrg: citrix.com
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-win7-amd64
-testid guest-saverestore
+On Mon, Apr 12, 2021 at 04:09:18PM +0200, Jan Beulich wrote:
+> Exclude functions involved in its use from !HVM builds, thus making it
+> possible to exclude the hook as well.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  8a40754bca14df63c6d2ffe473b68a270dc50679
-  Bug not present: dc04d25e2f3f7e26f7f97b860992076b5f04afdb
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/161539/
-
-
-  (Revision log too long, omitted.)
-
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  1b507e55f8199eaad99744613823f6929e4d57c6
-  Bug not present: 4083904bc9fe5da580f7ca397b1e828fbc322732
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/161547/
-
-
-  commit 1b507e55f8199eaad99744613823f6929e4d57c6
-  Merge: 4083904bc9 8d17adf34f
-  Author: Peter Maydell <peter.maydell@linaro.org>
-  Date:   Thu Mar 18 19:00:49 2021 +0000
-  
-      Merge remote-tracking branch 'remotes/berrange-gitlab/tags/dep-many-pull-request' into staging
-      
-      Remove many old deprecated features
-      
-      The following features have been deprecated for well over the 2
-      release cycle we promise
-      
-        ``-drive file=json:{...{'driver':'file'}}`` (since 3.0)
-        ``-vnc acl`` (since 4.0.0)
-        ``-mon ...,control=readline,pretty=on|off`` (since 4.1)
-        ``migrate_set_downtime`` and ``migrate_set_speed`` (since 2.8.0)
-        ``query-named-block-nodes`` result ``encryption_key_missing`` (since 2.10.0)
-        ``query-block`` result ``inserted.encryption_key_missing`` (since 2.10.0)
-        ``migrate-set-cache-size`` and ``query-migrate-cache-size`` (since 2.11.0)
-        ``query-named-block-nodes`` and ``query-block`` result dirty-bitmaps[i].status (since 4.0)
-        ``query-cpus`` (since 2.12.0)
-        ``query-cpus-fast`` ``arch`` output member (since 3.0.0)
-        ``query-events`` (since 4.0)
-        chardev client socket with ``wait`` option (since 4.0)
-        ``acl_show``, ``acl_reset``, ``acl_policy``, ``acl_add``, ``acl_remove`` (since 4.0.0)
-        ``ide-drive`` (since 4.2)
-        ``scsi-disk`` (since 4.2)
-      
-      # gpg: Signature made Thu 18 Mar 2021 09:23:39 GMT
-      # gpg:                using RSA key DAF3A6FDB26B62912D0E8E3FBE86EBB415104FDF
-      # gpg: Good signature from "Daniel P. Berrange <dan@berrange.com>" [full]
-      # gpg:                 aka "Daniel P. Berrange <berrange@redhat.com>" [full]
-      # Primary key fingerprint: DAF3 A6FD B26B 6291 2D0E  8E3F BE86 EBB4 1510 4FDF
-      
-      * remotes/berrange-gitlab/tags/dep-many-pull-request:
-        block: remove support for using "file" driver with block/char devices
-        block: remove 'dirty-bitmaps' field from 'BlockInfo' struct
-        block: remove dirty bitmaps 'status' field
-        block: remove 'encryption_key_missing' flag from QAPI
-        hw/scsi: remove 'scsi-disk' device
-        hw/ide: remove 'ide-drive' device
-        chardev: reject use of 'wait' flag for socket client chardevs
-        machine: remove 'arch' field from 'query-cpus-fast' QMP command
-        machine: remove 'query-cpus' QMP command
-        migrate: remove QMP/HMP commands for speed, downtime and cache size
-        monitor: remove 'query-events' QMP command
-        monitor: raise error when 'pretty' option is used with HMP
-        ui, monitor: remove deprecated VNC ACL option and HMP commands
-      
-      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-  
-  commit 8d17adf34f501ded65a106572740760f0a75577c
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 11:16:32 2021 +0000
-  
-      block: remove support for using "file" driver with block/char devices
-      
-      The 'host_device' and 'host_cdrom' drivers must be used instead.
-      
-      Reviewed-by: Eric Blake <eblake@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit e67d8e2928200e24ecb47c7be3ea8270077f2996
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 19:22:36 2021 +0000
-  
-      block: remove 'dirty-bitmaps' field from 'BlockInfo' struct
-      
-      The same data is available in the 'BlockDeviceInfo' struct.
-      
-      Reviewed-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 81cbfd5088690c53541ffd0d74851c8ab055a829
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 19:19:54 2021 +0000
-  
-      block: remove dirty bitmaps 'status' field
-      
-      The same information is available via the 'recording' and 'busy' fields.
-      
-      Reviewed-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit ad1324e044240ae9fcf67e4c215481b7a35591b9
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 18:53:17 2021 +0000
-  
-      block: remove 'encryption_key_missing' flag from QAPI
-      
-      This has been hardcoded to "false" since 2.10.0, since secrets required
-      to unlock block devices are now always provided up front instead of using
-      interactive prompts.
-      
-      Reviewed-by: Eric Blake <eblake@redhat.com>
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 879be3af49132d232602e0ca783ec9b4112530fa
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:40:56 2021 +0000
-  
-      hw/scsi: remove 'scsi-disk' device
-      
-      The 'scsi-hd' and 'scsi-cd' devices provide suitable alternatives.
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit b50101833987b47e0740f1621de48637c468c3d1
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:40:56 2021 +0000
-  
-      hw/ide: remove 'ide-drive' device
-      
-      The 'ide-hd' and 'ide-cd' devices provide suitable alternatives.
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 24e13a4dc1eb1630eceffc7ab334145d902e763d
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:47:17 2021 +0000
-  
-      chardev: reject use of 'wait' flag for socket client chardevs
-      
-      This only makes sense conceptually when used with listener chardevs.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 445a5b4087567bf4d4ce76d394adf78d9d5c88a5
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:29:31 2021 +0000
-  
-      machine: remove 'arch' field from 'query-cpus-fast' QMP command
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 8af54b9172ff3b9bbdbb3191ed84994d275a0d81
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 12:54:55 2021 +0000
-  
-      machine: remove 'query-cpus' QMP command
-      
-      The newer 'query-cpus-fast' command avoids side effects on the guest
-      execution. Note that some of the field names are different in the
-      'query-cpus-fast' command.
-      
-      Reviewed-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
-      Tested-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit cbde7be900d2a2279cbc4becb91d1ddd6a014def
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 18:40:12 2021 +0000
-  
-      migrate: remove QMP/HMP commands for speed, downtime and cache size
-      
-      The generic 'migrate_set_parameters' command handle all types of param.
-      
-      Only the QMP commands were documented in the deprecations page, but the
-      rationale for deprecating applies equally to HMP, and the replacements
-      exist. Furthermore the HMP commands are just shims to the QMP commands,
-      so removing the latter breaks the former unless they get re-implemented.
-      
-      Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 8becb36063fb14df1e3ae4916215667e2cb65fa2
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:35:15 2021 +0000
-  
-      monitor: remove 'query-events' QMP command
-      
-      The code comment suggests removing QAPIEvent_(str|lookup) symbols too,
-      however, these are both auto-generated as standard for any enum in
-      QAPI. As such it they'll exist whether we use them or not.
-      
-      Reviewed-by: Eric Blake <eblake@redhat.com>
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 283d845c9164f57f5dba020a4783bb290493802f
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 17:56:13 2021 +0000
-  
-      monitor: raise error when 'pretty' option is used with HMP
-      
-      This is only semantically useful for QMP.
-      
-      Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 5994dcb8d8525ac044a31913c6bceeee788ec700
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 17:47:31 2021 +0000
-  
-      ui, monitor: remove deprecated VNC ACL option and HMP commands
-      
-      The VNC ACL concept has been replaced by the pluggable "authz" framework
-      which does not use monitor commands.
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-win7-amd64.guest-saverestore.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-win7-amd64.guest-saverestore --summary-out=tmp/161547.bisection-summary --basis-template=152631 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-i386-xl-qemuu-win7-amd64 guest-saverestore
-Searching for failure / basis pass:
- 161514 fail [host=pinot0] / 160125 ok.
-Failure / basis pass flights: 161514 / 160125
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5b90b8abb4049e2d98040f548ad23b6ab22d5d19 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0cef06d18762374c94eb4d511717a4735d668a24 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 972ba1d1d4bcb77018b50fd2bb63c0e628859ed3
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b12498fc575f2ad30f09fe78badc7fef526e2d76 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#030ba3097a6e7d08b99f8a9d19a322f61409c1f6-5b90b8abb4049e2d98040f548ad23b6ab22d5d19 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
- 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#b12498fc575f2ad30f09fe78badc7fef526e2d76-0cef06d18762374c94eb4d511717a4735d668a24 git://xenbits.xen.org/osstest/seabios.git#b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee-b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee git://xenbits.xen.org/xen.git#21657ad4f01a634beac570c64c0691e51b9cf366-972ba1d1d4bcb77018b50fd2bb63c0e628859ed3
-Loaded 25109 nodes in revision graph
-Searching for test results:
- 160125 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b12498fc575f2ad30f09fe78badc7fef526e2d76 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
- 160134 fail irrelevant
- 160147 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2e1293cbaac75e84f541f9acfa8e26749f4c3562 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 160167 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca318882714080fb81fe9eb89a7b7934efc5bfae 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bdee969c0e65d4d509932b1d70e3a3b2ffbff6d5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 160328 fail irrelevant
- 160361 fail irrelevant
- 160392 fail irrelevant
- 160418 fail irrelevant
- 160448 fail irrelevant
- 160477 fail irrelevant
- 160501 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7b9a3c9f94bcac23c534bc9f42a9e914b433b299 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee e680cc48b7184d3489873d6776f84ba1fc238ced
- 160522 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7b9a3c9f94bcac23c534bc9f42a9e914b433b299 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee e680cc48b7184d3489873d6776f84ba1fc238ced
- 160541 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ec2e6e016d24bd429792d08cf607e4c5350dcdaa b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee e680cc48b7184d3489873d6776f84ba1fc238ced
- 160563 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b33cf5bfcb4c941370739dfbbe1532ff508fd29d 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7993b0f83fe5c3f8555e79781d5d098f99751a94 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee cead8c0d17462f3a1150b5657d3f4eaa88faf1cb
- 160619 fail irrelevant
- 160632 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 62bad17dcae18f55cb3bdc19909543dfdf928a2b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6ee55e1d10c25c2f6bf5ce2084ad2327e17affa5 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 90629587e16e2efdb61da77f25c25fba3c4a5fd7
- 160650 fail irrelevant
- 160736 fail irrelevant
- 160748 fail irrelevant
- 160779 fail irrelevant
- 160801 fail irrelevant
- 160827 fail irrelevant
- 160851 fail irrelevant
- 160883 fail irrelevant
- 160916 fail irrelevant
- 160980 fail irrelevant
- 161050 fail irrelevant
- 161088 fail irrelevant
- 161121 fail irrelevant
- 161147 fail irrelevant
- 161171 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2ad22420a710dc07e3b644f91a5b55c09c39ecf3 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 264aa183ad85b2779b27d1312724a291259ccc9f
- 161191 fail irrelevant
- 161210 fail irrelevant
- 161232 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee b53173e7cdafb7a318a239d557478fd73734a86a
- 161256 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
- 161276 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
- 161290 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 99e7e48cc7117c37fc1c08a741872d0875595796 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8fe9f1f891eff4e37f82622b7480ee748bf4af74 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dd22a64de7e02b48312839a15179528c8f7db5c6
- 161308 fail irrelevant
- 161334 fail irrelevant
- 161364 fail irrelevant
- 161388 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d3b0d007a135284981fa750612a47234b83976f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b1cffefa1b163bce9aebc3416f562c1d3886eeaa b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 9f6cd4983715cb31f0ea540e6bbb63f799a35d8a
- 161401 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d3b0d007a135284981fa750612a47234b83976f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b1cffefa1b163bce9aebc3416f562c1d3886eeaa b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee aaa3eafb3ba8b544d19ca41cda1477640b22b8fc
- 161419 fail irrelevant
- 161434 fail irrelevant
- 161444 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f2f4c6be2dba3f8e97ac544b9c3da71e9f81b294 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffa090bc56e73e287a63261e70ac02c0970be61a b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee bea65a212c0581520203b6ad0d07615693f42f73
- 161455 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f2f4c6be2dba3f8e97ac544b9c3da71e9f81b294 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ffa090bc56e73e287a63261e70ac02c0970be61a b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee bea65a212c0581520203b6ad0d07615693f42f73
- 161472 fail irrelevant
- 161481 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5396354b868bd6652600a654bba7df16701ac1cb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0cef06d18762374c94eb4d511717a4735d668a24 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 11e7f0fe72ca0060762d18268e0388731fe8ccb6
- 161507 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 030ba3097a6e7d08b99f8a9d19a322f61409c1f6 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b12498fc575f2ad30f09fe78badc7fef526e2d76 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 21657ad4f01a634beac570c64c0691e51b9cf366
- 161511 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5396354b868bd6652600a654bba7df16701ac1cb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0cef06d18762374c94eb4d511717a4735d668a24 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 11e7f0fe72ca0060762d18268e0388731fe8ccb6
- 161495 fail irrelevant
- 161513 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 f2a9a6c2a86570ccbf8c5c30cbb8bf723168c459 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161515 fail irrelevant
- 161517 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 17422da082ffcecb38bd1f2e2de6d56a61e8cd9c b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161519 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dc04d25e2f3f7e26f7f97b860992076b5f04afdb b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161520 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0f418a207696b37f05d38f978c8873ee0a4f9815 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161523 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fd7e88c23f6fb056d25fbc3f8e2e7c1a53859d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6e71c36557ed41017e634ae392fa80f03ced7fa1 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161526 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8a40754bca14df63c6d2ffe473b68a270dc50679 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161527 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 87a80dc4f2f5e51894db143685a5e39c8ce6f651 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4083904bc9fe5da580f7ca397b1e828fbc322732 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161529 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4083904bc9fe5da580f7ca397b1e828fbc322732 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161532 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1b507e55f8199eaad99744613823f6929e4d57c6 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161536 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dc04d25e2f3f7e26f7f97b860992076b5f04afdb b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161537 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8a40754bca14df63c6d2ffe473b68a270dc50679 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161538 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dc04d25e2f3f7e26f7f97b860992076b5f04afdb b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161514 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5b90b8abb4049e2d98040f548ad23b6ab22d5d19 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0cef06d18762374c94eb4d511717a4735d668a24 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee 972ba1d1d4bcb77018b50fd2bb63c0e628859ed3
- 161539 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8a40754bca14df63c6d2ffe473b68a270dc50679 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161541 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4083904bc9fe5da580f7ca397b1e828fbc322732 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161544 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1b507e55f8199eaad99744613823f6929e4d57c6 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161546 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4083904bc9fe5da580f7ca397b1e828fbc322732 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
- 161547 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1b507e55f8199eaad99744613823f6929e4d57c6 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
-Searching for interesting versions
- Result found: flight 160125 (pass), for basis pass
- Result found: flight 161388 (fail), for basis failure (at ancestor ~100)
- Repro found: flight 161507 (pass), for basis pass
- Repro found: flight 161514 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb07bfb09ef5483ad58ed0eba713f32fb0c909f9 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4083904bc9fe5da580f7ca397b1e828fbc322732 b0d61ecef66eb05bd7a4eb7ada88ec5dab06dfee dae3c3e8b257cd27d6b35a467a34bf79a6650340
-No revisions left to test, checking graph state.
- Result found: flight 161519 (pass), for last pass
- Result found: flight 161526 (fail), for first failure
- Repro found: flight 161536 (pass), for last pass
- Repro found: flight 161537 (fail), for first failure
- Repro found: flight 161538 (pass), for last pass
- Repro found: flight 161539 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  8a40754bca14df63c6d2ffe473b68a270dc50679
-  Bug not present: dc04d25e2f3f7e26f7f97b860992076b5f04afdb
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/161539/
-
-
-  (Revision log too long, omitted.)
-
- Result found: flight 161529 (pass), for last pass
- Result found: flight 161532 (fail), for first failure
- Repro found: flight 161541 (pass), for last pass
- Repro found: flight 161544 (fail), for first failure
- Repro found: flight 161546 (pass), for last pass
- Repro found: flight 161547 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  1b507e55f8199eaad99744613823f6929e4d57c6
-  Bug not present: 4083904bc9fe5da580f7ca397b1e828fbc322732
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/161547/
-
-
-  commit 1b507e55f8199eaad99744613823f6929e4d57c6
-  Merge: 4083904bc9 8d17adf34f
-  Author: Peter Maydell <peter.maydell@linaro.org>
-  Date:   Thu Mar 18 19:00:49 2021 +0000
-  
-      Merge remote-tracking branch 'remotes/berrange-gitlab/tags/dep-many-pull-request' into staging
-      
-      Remove many old deprecated features
-      
-      The following features have been deprecated for well over the 2
-      release cycle we promise
-      
-        ``-drive file=json:{...{'driver':'file'}}`` (since 3.0)
-        ``-vnc acl`` (since 4.0.0)
-        ``-mon ...,control=readline,pretty=on|off`` (since 4.1)
-        ``migrate_set_downtime`` and ``migrate_set_speed`` (since 2.8.0)
-        ``query-named-block-nodes`` result ``encryption_key_missing`` (since 2.10.0)
-        ``query-block`` result ``inserted.encryption_key_missing`` (since 2.10.0)
-        ``migrate-set-cache-size`` and ``query-migrate-cache-size`` (since 2.11.0)
-        ``query-named-block-nodes`` and ``query-block`` result dirty-bitmaps[i].status (since 4.0)
-        ``query-cpus`` (since 2.12.0)
-        ``query-cpus-fast`` ``arch`` output member (since 3.0.0)
-        ``query-events`` (since 4.0)
-        chardev client socket with ``wait`` option (since 4.0)
-        ``acl_show``, ``acl_reset``, ``acl_policy``, ``acl_add``, ``acl_remove`` (since 4.0.0)
-        ``ide-drive`` (since 4.2)
-        ``scsi-disk`` (since 4.2)
-      
-      # gpg: Signature made Thu 18 Mar 2021 09:23:39 GMT
-      # gpg:                using RSA key DAF3A6FDB26B62912D0E8E3FBE86EBB415104FDF
-      # gpg: Good signature from "Daniel P. Berrange <dan@berrange.com>" [full]
-      # gpg:                 aka "Daniel P. Berrange <berrange@redhat.com>" [full]
-      # Primary key fingerprint: DAF3 A6FD B26B 6291 2D0E  8E3F BE86 EBB4 1510 4FDF
-      
-      * remotes/berrange-gitlab/tags/dep-many-pull-request:
-        block: remove support for using "file" driver with block/char devices
-        block: remove 'dirty-bitmaps' field from 'BlockInfo' struct
-        block: remove dirty bitmaps 'status' field
-        block: remove 'encryption_key_missing' flag from QAPI
-        hw/scsi: remove 'scsi-disk' device
-        hw/ide: remove 'ide-drive' device
-        chardev: reject use of 'wait' flag for socket client chardevs
-        machine: remove 'arch' field from 'query-cpus-fast' QMP command
-        machine: remove 'query-cpus' QMP command
-        migrate: remove QMP/HMP commands for speed, downtime and cache size
-        monitor: remove 'query-events' QMP command
-        monitor: raise error when 'pretty' option is used with HMP
-        ui, monitor: remove deprecated VNC ACL option and HMP commands
-      
-      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-  
-  commit 8d17adf34f501ded65a106572740760f0a75577c
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 11:16:32 2021 +0000
-  
-      block: remove support for using "file" driver with block/char devices
-      
-      The 'host_device' and 'host_cdrom' drivers must be used instead.
-      
-      Reviewed-by: Eric Blake <eblake@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit e67d8e2928200e24ecb47c7be3ea8270077f2996
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 19:22:36 2021 +0000
-  
-      block: remove 'dirty-bitmaps' field from 'BlockInfo' struct
-      
-      The same data is available in the 'BlockDeviceInfo' struct.
-      
-      Reviewed-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 81cbfd5088690c53541ffd0d74851c8ab055a829
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 19:19:54 2021 +0000
-  
-      block: remove dirty bitmaps 'status' field
-      
-      The same information is available via the 'recording' and 'busy' fields.
-      
-      Reviewed-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit ad1324e044240ae9fcf67e4c215481b7a35591b9
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 18:53:17 2021 +0000
-  
-      block: remove 'encryption_key_missing' flag from QAPI
-      
-      This has been hardcoded to "false" since 2.10.0, since secrets required
-      to unlock block devices are now always provided up front instead of using
-      interactive prompts.
-      
-      Reviewed-by: Eric Blake <eblake@redhat.com>
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 879be3af49132d232602e0ca783ec9b4112530fa
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:40:56 2021 +0000
-  
-      hw/scsi: remove 'scsi-disk' device
-      
-      The 'scsi-hd' and 'scsi-cd' devices provide suitable alternatives.
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit b50101833987b47e0740f1621de48637c468c3d1
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:40:56 2021 +0000
-  
-      hw/ide: remove 'ide-drive' device
-      
-      The 'ide-hd' and 'ide-cd' devices provide suitable alternatives.
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 24e13a4dc1eb1630eceffc7ab334145d902e763d
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:47:17 2021 +0000
-  
-      chardev: reject use of 'wait' flag for socket client chardevs
-      
-      This only makes sense conceptually when used with listener chardevs.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 445a5b4087567bf4d4ce76d394adf78d9d5c88a5
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:29:31 2021 +0000
-  
-      machine: remove 'arch' field from 'query-cpus-fast' QMP command
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 8af54b9172ff3b9bbdbb3191ed84994d275a0d81
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 12:54:55 2021 +0000
-  
-      machine: remove 'query-cpus' QMP command
-      
-      The newer 'query-cpus-fast' command avoids side effects on the guest
-      execution. Note that some of the field names are different in the
-      'query-cpus-fast' command.
-      
-      Reviewed-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
-      Tested-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit cbde7be900d2a2279cbc4becb91d1ddd6a014def
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 18:40:12 2021 +0000
-  
-      migrate: remove QMP/HMP commands for speed, downtime and cache size
-      
-      The generic 'migrate_set_parameters' command handle all types of param.
-      
-      Only the QMP commands were documented in the deprecations page, but the
-      rationale for deprecating applies equally to HMP, and the replacements
-      exist. Furthermore the HMP commands are just shims to the QMP commands,
-      so removing the latter breaks the former unless they get re-implemented.
-      
-      Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 8becb36063fb14df1e3ae4916215667e2cb65fa2
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Mon Feb 22 13:35:15 2021 +0000
-  
-      monitor: remove 'query-events' QMP command
-      
-      The code comment suggests removing QAPIEvent_(str|lookup) symbols too,
-      however, these are both auto-generated as standard for any enum in
-      QAPI. As such it they'll exist whether we use them or not.
-      
-      Reviewed-by: Eric Blake <eblake@redhat.com>
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 283d845c9164f57f5dba020a4783bb290493802f
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 17:56:13 2021 +0000
-  
-      monitor: raise error when 'pretty' option is used with HMP
-      
-      This is only semantically useful for QMP.
-      
-      Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-  
-  commit 5994dcb8d8525ac044a31913c6bceeee788ec700
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Feb 19 17:47:31 2021 +0000
-  
-      ui, monitor: remove deprecated VNC ACL option and HMP commands
-      
-      The VNC ACL concept has been replaced by the pluggable "authz" framework
-      which does not use monitor commands.
-      
-      Reviewed-by: Thomas Huth <thuth@redhat.com>
-      Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-neato: graph is too large for cairo-renderer bitmaps. Scaling by 0.887009 to fit
-pnmtopng: 211 colors found
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-win7-amd64.guest-saverestore.{dot,ps,png,html,svg}.
-----------------------------------------
-161547: tolerable ALL FAIL
-
-flight 161547 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161547/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-win7-amd64 15 guest-saverestore fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Thanks, Roger.
 
