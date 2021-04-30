@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0647C37014E
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 21:33:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.120739.228354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5627370250
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 22:42:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.120758.228374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcYsv-00057s-7k; Fri, 30 Apr 2021 19:33:09 +0000
+	id 1lcZxD-0002cG-JQ; Fri, 30 Apr 2021 20:41:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 120739.228354; Fri, 30 Apr 2021 19:33:09 +0000
+Received: by outflank-mailman (output) from mailman id 120758.228374; Fri, 30 Apr 2021 20:41:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcYsv-00057X-4a; Fri, 30 Apr 2021 19:33:09 +0000
-Received: by outflank-mailman (input) for mailman id 120739;
- Fri, 30 Apr 2021 19:33:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ll2C=J3=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1lcYss-00057S-W3
- for xen-devel@lists.xenproject.org; Fri, 30 Apr 2021 19:33:07 +0000
-Received: from mx.upb.ro (unknown [141.85.13.200])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9330d184-cde3-4af2-afff-fdf45d01dbbe;
- Fri, 30 Apr 2021 19:33:05 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 4C6C7B56006A;
- Fri, 30 Apr 2021 22:33:04 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id qwi_VDOIRYLe; Fri, 30 Apr 2021 22:33:02 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 6ED13B56007A;
- Fri, 30 Apr 2021 22:33:02 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id ZmGTByysu8Uy; Fri, 30 Apr 2021 22:33:02 +0300 (EEST)
-Received: from [192.168.1.35] (unknown [188.25.174.245])
- by mx.upb.ro (Postfix) with ESMTPSA id A5F42B56006A;
- Fri, 30 Apr 2021 22:33:01 +0300 (EEST)
+	id 1lcZxD-0002bh-Eb; Fri, 30 Apr 2021 20:41:39 +0000
+Received: by outflank-mailman (input) for mailman id 120758;
+ Fri, 30 Apr 2021 20:41:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcZxC-0002bZ-Ag; Fri, 30 Apr 2021 20:41:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcZxC-0002XT-4U; Fri, 30 Apr 2021 20:41:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcZxB-0004dM-Ol; Fri, 30 Apr 2021 20:41:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcZxB-0005ZY-OH; Fri, 30 Apr 2021 20:41:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,61 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9330d184-cde3-4af2-afff-fdf45d01dbbe
-X-Virus-Scanned: amavisd-new at upb.ro
-Subject: Re: [PATCH 1/5] tools/debugger: Fix PAGE_SIZE redefinition error
-To: Tim Deegan <tim@xen.org>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>
-References: <cover.1619524463.git.costin.lupu@cs.pub.ro>
- <0cd234096c9bfa8d29eac9906553af79d378733e.1619524463.git.costin.lupu@cs.pub.ro>
- <YIsP5z1ejJbUhmPc@deinos.phlegethon.org>
- <128f6672-eec7-fc8b-d43c-1e53d93d93b0@cs.pub.ro>
- <YIxQMCOsy7snOFJ0@deinos.phlegethon.org>
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <3e7f6771-1f1a-eb00-95f8-5ef6998091be@cs.pub.ro>
-Date: Fri, 30 Apr 2021 22:33:01 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WUQDCqv/vN9R0+JMXvB4wJ1hSuAmPRzdM6lRuvM7Zjw=; b=R+0lMgDDkEuYVZgx8sy7a7yxZ5
+	hWD4l7tQC4ZA6CiqpSUwiPM9s/VIKHFCpPi1zBllo+fOn4KaKSjjT4RCo9QM9gY8KGmUsUlJY2vVj
+	O46lNz0rn2yrRAm377fOumWADgKwYHGRxH3G9g7jv2IPcs3DfXovzeotnz22Kw0owbFI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161556-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <YIxQMCOsy7snOFJ0@deinos.phlegethon.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 161556: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=1f8ee4cb430e5a9da37096574c41632cf69a0bc7
+X-Osstest-Versions-That:
+    xen=b8e53a81ba538849b98b0d417436f8be653fa1ff
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Apr 2021 20:41:37 +0000
 
-On 4/30/21 9:45 PM, Tim Deegan wrote:
-> At 14:36 +0300 on 30 Apr (1619793419), Costin Lupu wrote:
->> Hi Tim,
->>
->> On 4/29/21 10:58 PM, Tim Deegan wrote:
->>> Hi,
->>>
->>> At 15:05 +0300 on 27 Apr (1619535916), Costin Lupu wrote:
->>>> If PAGE_SIZE is already defined in the system (e.g. in
->>>> /usr/include/limits.h header) then gcc will trigger a redefinition error
->>>> because of -Werror. This commit also protects PAGE_SHIFT definitions for
->>>> keeping consistency.
->>>
->>> Thanks for looking into this!  I think properly speaking we should fix
->>> this by defining KDD_PAGE_SHIFT and KDD_PAGE_SIZE in kdd.h and using
->>> those everywhere we currently use PAGE_SIZE/PAGE_SHIFT. in kdd.c and
->>> kdd-xen.c.  If for some reason we ever ended up with a system-defined
->>> PAGE_SIZE that wasn't 4096u then we would not want to use it here
->>> because it would break our guest operations.
->>
->> As discussed for another patch of the series, an agreed solution that
->> would apply for other libs as well would be to use XC_PAGE_* macros
->> instead of PAGE_* macros. I've just sent a v2 doing that. Please let me
->> know if you think it would be better to introduce the KDD_PAGE_*
->> definitions instead.
-> 
-> Sorry to be annoying, but yes, please do introduce the KDD_ versions.
-> All the xen-specific code in KDD lives in kdd-xen.c; kdd.c shouldn't
-> include any xen headers.
+flight 161556 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161556/
 
-No worries, will do. I imagined that might be the case for kdd.c, but I
-wasn't sure.
+Failures :-/ but no regressions.
 
-Cheers,
-Costin
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  1f8ee4cb430e5a9da37096574c41632cf69a0bc7
+baseline version:
+ xen                  b8e53a81ba538849b98b0d417436f8be653fa1ff
+
+Last test of basis   161533  2021-04-29 21:03:42 Z    0 days
+Testing same since   161556  2021-04-30 17:01:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b8e53a81ba..1f8ee4cb43  1f8ee4cb430e5a9da37096574c41632cf69a0bc7 -> smoke
 
