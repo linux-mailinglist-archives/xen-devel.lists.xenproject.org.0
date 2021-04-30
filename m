@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2C336F326
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 02:21:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.120258.227444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE40236F327
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Apr 2021 02:24:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.120263.227454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcGt8-0003Hh-Gn; Fri, 30 Apr 2021 00:20:10 +0000
+	id 1lcGxP-0003SG-2J; Fri, 30 Apr 2021 00:24:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 120258.227444; Fri, 30 Apr 2021 00:20:10 +0000
+Received: by outflank-mailman (output) from mailman id 120263.227454; Fri, 30 Apr 2021 00:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lcGt8-0003HI-DX; Fri, 30 Apr 2021 00:20:10 +0000
-Received: by outflank-mailman (input) for mailman id 120258;
- Fri, 30 Apr 2021 00:20:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=963z=J3=vps.thesusis.net=psusi@srs-us1.protection.inumbo.net>)
- id 1lcGt6-0003HD-HL
- for xen-devel@lists.xenproject.org; Fri, 30 Apr 2021 00:20:08 +0000
-Received: from vps.thesusis.net (unknown [34.202.238.73])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 76ac7c02-43e2-4ae8-b860-e1b2d6938946;
- Fri, 30 Apr 2021 00:20:07 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by vps.thesusis.net (Postfix) with ESMTP id 6E9B22ECD1;
- Thu, 29 Apr 2021 20:20:07 -0400 (EDT)
-Received: from vps.thesusis.net ([127.0.0.1])
- by localhost (vps.thesusis.net [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id oj1xF6OGsgDn; Thu, 29 Apr 2021 20:20:07 -0400 (EDT)
-Received: by vps.thesusis.net (Postfix, from userid 1000)
- id 3B0DE2ECD0; Thu, 29 Apr 2021 20:20:07 -0400 (EDT)
+	id 1lcGxO-0003Rq-VD; Fri, 30 Apr 2021 00:24:34 +0000
+Received: by outflank-mailman (input) for mailman id 120263;
+ Fri, 30 Apr 2021 00:24:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcGxO-0003Ri-4U; Fri, 30 Apr 2021 00:24:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcGxN-0000Fv-SJ; Fri, 30 Apr 2021 00:24:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcGxN-00049B-KF; Fri, 30 Apr 2021 00:24:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lcGxN-0006C4-Jp; Fri, 30 Apr 2021 00:24:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,40 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76ac7c02-43e2-4ae8-b860-e1b2d6938946
-References: <87o8dw52jc.fsf@vps.thesusis.net> <87fsz84zn1.fsf@vps.thesusis.net> <YIszOwADJ8jdBov8@google.com>
-User-agent: mu4e 1.5.7; emacs 26.3
-From: Phillip Susi <phill@thesusis.net>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: xen-devel@lists.xenproject.org, linux-input@vger.kernel.org
-Subject: Re: Xen Virtual Keyboard modalias breaking uevents
-Date: Thu, 29 Apr 2021 20:11:03 -0400
-In-reply-to: <YIszOwADJ8jdBov8@google.com>
-Message-ID: <87o8dw8vyg.fsf@vps.thesusis.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/iT4IfywKB+M3NW2atfTyUeo9R2B2Q2dlwvtQ2lqnNs=; b=eGEIAmqxoRxvD1l8XONc5pVV2G
+	tb8ATAGIMFblShM5m4mTpQyyqEcREEGgt95uJ14yf6JejrwWDSOeyKhebWgZppUHPkPnOlgMbEZ+l
+	T0GTTc9kLlk7DWdhvcQcogC75zCzJLkF47vQTvIEbZ5NcAyXQxoOqmjB8k9HjNREoFHg=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161530-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [ovmf test] 161530: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ab957f036f6711869283217227480b109aedc8ef
+X-Osstest-Versions-That:
+    ovmf=612edbe6cd71f4392b681b75849b2ab6e48f592d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Apr 2021 00:24:33 +0000
+
+flight 161530 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161530/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ab957f036f6711869283217227480b109aedc8ef
+baseline version:
+ ovmf                 612edbe6cd71f4392b681b75849b2ab6e48f592d
+
+Last test of basis   161518  2021-04-29 06:44:35 Z    0 days
+Testing same since   161530  2021-04-29 20:10:02 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael D Kinney <michael.d.kinney@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-Dmitry Torokhov writes:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> Not every keyboard, but all keycodes above KEY_MIN_INTERESTING which is
-> KEY_MUTE, so that interested handlers could match on devices they are
-> interested in without first opening them or poking through sysfs.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-/Shouldn't/ they be reading sysfs attributes to find that information
-out though?  Isn't modalias there to help modprobe find the right module
-that wants to bind to this device, which doesn't happen for input
-devices?  If user space is looking at this information then isn't it
-getting it by reading from sysfs anyway?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-What in user space looks at input devices other than X and Wayland?  And
-those aren't looking for particular "interesting" keys are they?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> I don't know why Xen keyboard exports that many keycodes ;) In general,
-> my recommendation is to mirror the physical device when possible, and
-> instantiate several devices so there is 1:1 relationship between virtual
-> and physical devices.
 
-Xen guys: any input as to why it supports so many "interesting" keys?
+Pushing revision :
 
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   612edbe6cd..ab957f036f  ab957f036f6711869283217227480b109aedc8ef -> xen-tested-master
 
