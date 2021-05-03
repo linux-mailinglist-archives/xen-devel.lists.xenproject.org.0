@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E39371866
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 17:47:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121729.229602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0987E371873
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 17:51:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121737.229613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldan9-0002cz-GZ; Mon, 03 May 2021 15:47:27 +0000
+	id 1ldaqK-0003Uv-1p; Mon, 03 May 2021 15:50:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121729.229602; Mon, 03 May 2021 15:47:27 +0000
+Received: by outflank-mailman (output) from mailman id 121737.229613; Mon, 03 May 2021 15:50:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldan9-0002cZ-C4; Mon, 03 May 2021 15:47:27 +0000
-Received: by outflank-mailman (input) for mailman id 121729;
- Mon, 03 May 2021 15:47:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ldaqJ-0003UW-V1; Mon, 03 May 2021 15:50:43 +0000
+Received: by outflank-mailman (input) for mailman id 121737;
+ Mon, 03 May 2021 15:50:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lc2c=J6=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ldan7-0002cE-2d
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 15:47:25 +0000
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:400:100::2])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a5b6d815-dc03-4f13-a96f-221b87bde8c6;
- Mon, 03 May 2021 15:47:24 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.25.5 AUTH)
- with ESMTPSA id g034cex43FlH029
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 3 May 2021 17:47:17 +0200 (CEST)
+ (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldaqI-0003UR-Cn
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 15:50:42 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 03490bff-fbd4-4548-9724-83d10e329e84;
+ Mon, 03 May 2021 15:50:41 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 38305B20F;
+ Mon,  3 May 2021 15:50:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +39,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5b6d815-dc03-4f13-a96f-221b87bde8c6
-ARC-Seal: i=1; a=rsa-sha256; t=1620056837; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=AaOW5fBW0PeSjI7JEmiMO5CeTXc9BPGx84g3bK5Es1hAOYlIIEI2ns29sSPDtOjn4B
-    qAAQTVdY/gI28AmI3/iPfkepHgcKpDV5TTvLyrQRhwAne1GuphjmVDyoyepDC35ePTfk
-    WIjreC2xDHedJjBdHAHLjiDJ6vnpWV/joQc5ZCv2y/iYNoc1LC10qpFoZ0lmm54vwGli
-    AtKaQlnZcKUqclUdSn5gpidEUVw6hkegPF01B71dh/9EMAxLLTXiv+7z2gdxi9ZVzdVt
-    cFcGi3RX+Jhg4coary7IWNZDFO8Xtrlxao8UgeIifO2ZqRqf8yU2T4gEuailJnRYIH0m
-    d4LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1620056837;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ycCpPkfjO2T5krNvdESPBnNfk/UB5Msvnwpt33xdYeg=;
-    b=Z3key5YpWusSNdHDORNH0htvRxhqxpzxtV8Q/INgML2jN9jDchjtKnXWZPEBQgCUuq
-    Qt7AgaJoSWoVEjFcqduMKSUFoaRJOCg01FSlo9FkLq4JXTGIGAkMdckbUkO64llu0pWX
-    vI2U4CFRNNlcIyu1AlNLFuhmchX/DI/YpPTtKWe0Gkfpk1OeSJMroQqJJZjolQU2kMX0
-    KaYwKwlNGvpZAFb+lxiayoubJ5aBEDkMhLO3Zd4V932DiNh6Q8HR3UKhfYYav6dSuwS7
-    clJGgWsM3dJnspdju/WMRcM3tRp1kNQxZ0UohQ8C66/X3DlyDogRWQx8VMKh6R/Op8yP
-    T9gQ==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1620056837;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ycCpPkfjO2T5krNvdESPBnNfk/UB5Msvnwpt33xdYeg=;
-    b=P9iTvs9pIja6nGxzlYeRAsEppWTHMH70IZNNrex9d2Z+ZorTr2FtZsIxDFcnmJL6es
-    S66+3fMnQOEso11Pix4qmUZxq4rhDN4hi7m2I8UNcEw63D+kNktw/r7AaXuzic/4mpwU
-    SvUnitKfc2ftP6omg9xW4gqPsVkQ5pgg5Q/O+tnQ5U8x8bxew1M+c92kS5AJyt9Knb6b
-    QOejD4xsWBSJzwOyD5RuJhbWiaSEsmn+Iiah0AHTqYMh8ZiKEOewEIInOkS4LkhtRo7W
-    8IkuZK1EIkKqo6/b86F/+dwYN805uusSQREKYQQO5VcucbSCAGc+AKHdHQ9JeIPdfqPr
-    Jkjw==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgtl+1b1FMstFZvCqIQN5N7TvWFg4vzhFVdoKAuQ"
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v1] tools: add newlines to xenstored WRL_LOG
-Date: Mon,  3 May 2021 17:47:12 +0200
-Message-Id: <20210503154712.508-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 03490bff-fbd4-4548-9724-83d10e329e84
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620057040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7vgsUSIt1qrfYBtRqm5wgG+fvrjDxM14z0fDosLzFv8=;
+	b=bXipMq5TMsk3/0DHUMOOHXAakdAPEhlBR1L7eSabUUhsPu5/FLGeowjLnICskCq7Xt9YEK
+	e4q7GOmpYhCB8Woanbn6jO7CK4fqzWph/em7McWC3y4ACLX0HlbJLYbhvVf8y3vpKC1dFn
+	sj9uO7avpHksmi8oNkGbM1R9O4KQtDE=
+Subject: Re: [PATCH v4 05/12] x86/hvm: allowing registering EOI callbacks for
+ GSIs
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210420140723.65321-1-roger.pau@citrix.com>
+ <20210420140723.65321-6-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <19b0b30d-2fd6-4cc3-fd7a-4f4a3ce735f7@suse.com>
+Date: Mon, 3 May 2021 17:50:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
+In-Reply-To: <20210420140723.65321-6-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-According to syslog(3) the fmt string does not need a newline.
-The mini-os implementation of syslog requires the trailing newline.
-Other calls to syslog do include the newline already, add it also to WRL_LOG.
+On 20.04.2021 16:07, Roger Pau Monne wrote:
+> Such callbacks will be executed once a EOI is performed by the guest,
+> regardless of whether the interrupts are injected from the vIO-APIC or
+> the vPIC, as ISA IRQs are translated to GSIs and then the
+> corresponding callback is executed at EOI.
+> 
+> The vIO-APIC infrastructure for handling EOIs is build on top of the
+> existing vlapic EOI callback functionality, while the vPIC one is
+> handled when writing to the vPIC EOI register.
+> 
+> Note that such callbacks need to be registered and de-registered, and
+> that a single GSI can have multiple callbacks associated. That's
+> because GSIs can be level triggered and shared, as that's the case
+> with legacy PCI interrupts shared between several devices.
+> 
+> Strictly speaking this is a non-functional change, since there are no
+> users of this new interface introduced by this change.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/xenstore/xenstored_domain.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+In principle, as everything looks functionally correct to me,
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 3d4d0649a2..2d333b3ff6 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -1132,10 +1132,10 @@ void wrl_apply_debit_actual(struct domain *domain)
- 	if (domain->wrl_credit < 0) {
- 		if (!domain->wrl_delay_logged) {
- 			domain->wrl_delay_logged = true;
--			WRL_LOG(now, "domain %ld is affected",
-+			WRL_LOG(now, "domain %ld is affected\n",
- 				(long)domain->domid);
- 		} else if (!wrl_log_last_warning) {
--			WRL_LOG(now, "rate limiting restarts");
-+			WRL_LOG(now, "rate limiting restarts\n");
- 		}
- 		wrl_log_last_warning = now.sec;
- 	}
-@@ -1145,7 +1145,7 @@ void wrl_log_periodic(struct wrl_timestampt now)
- {
- 	if (wrl_log_last_warning &&
- 	    (now.sec - wrl_log_last_warning) > WRL_LOGEVERY) {
--		WRL_LOG(now, "not in force recently");
-+		WRL_LOG(now, "not in force recently\n");
- 		wrl_log_last_warning = 0;
- 	}
- }
+Nevertheless, besides a few remarks further down, I have to admit I'm
+concerned of the direct-to-indirect calls conversion (not just here,
+but also covering earlier patches), which (considering we're talking
+of EOI) I expect may occur quite frequently for at least some guests.
+There aren't that many different callback functions which get
+registered, are there? Hence I wonder whether enumerating them and
+picking the right one via, say, an enum wouldn't be more efficient
+and still allow elimination of (in the case here) unconditional calls
+to hvm_dpci_eoi() for every EOI.
+
+> --- a/xen/arch/x86/hvm/irq.c
+> +++ b/xen/arch/x86/hvm/irq.c
+> @@ -595,6 +595,81 @@ int hvm_local_events_need_delivery(struct vcpu *v)
+>      return !hvm_interrupt_blocked(v, intack);
+>  }
+>  
+> +int hvm_gsi_register_callback(struct domain *d, unsigned int gsi,
+> +                              struct hvm_gsi_eoi_callback *cb)
+> +{
+> +    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+> +
+> +    if ( gsi >= hvm_irq->nr_gsis )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return -EINVAL;
+> +    }
+> +
+> +    write_lock(&hvm_irq->gsi_callbacks_lock);
+> +    list_add(&cb->list, &hvm_irq->gsi_callbacks[gsi]);
+> +    write_unlock(&hvm_irq->gsi_callbacks_lock);
+> +
+> +    return 0;
+> +}
+> +
+> +int hvm_gsi_unregister_callback(struct domain *d, unsigned int gsi,
+> +                                struct hvm_gsi_eoi_callback *cb)
+> +{
+> +    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+> +    const struct list_head *tmp;
+> +    bool found = false;
+> +
+> +    if ( gsi >= hvm_irq->nr_gsis )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return -EINVAL;
+> +    }
+> +
+> +    write_lock(&hvm_irq->gsi_callbacks_lock);
+> +    list_for_each ( tmp, &hvm_irq->gsi_callbacks[gsi] )
+> +        if ( tmp == &cb->list )
+> +        {
+> +            list_del(&cb->list);
+
+Minor remark: Would passing "tmp" here lead to better generated
+code?
+
+> @@ -419,13 +421,25 @@ static void eoi_callback(struct vcpu *v, unsigned int vector, void *data)
+>              if ( is_iommu_enabled(d) )
+>              {
+>                  spin_unlock(&d->arch.hvm.irq_lock);
+> -                hvm_dpci_eoi(d, vioapic->base_gsi + pin);
+> +                hvm_dpci_eoi(d, gsi);
+>                  spin_lock(&d->arch.hvm.irq_lock);
+>              }
+>  
+> +            /*
+> +             * Callbacks don't expect to be executed with any lock held, so
+> +             * drop the lock that protects the vIO-APIC fields from changing.
+> +             *
+> +             * Note that the redirection entry itself cannot go away, so upon
+> +             * retaking the lock we only need to avoid making assumptions on
+> +             * redirection entry field values (ie: recheck the IRR field).
+> +             */
+> +            spin_unlock(&d->arch.hvm.irq_lock);
+> +            hvm_gsi_execute_callbacks(d, gsi);
+> +            spin_lock(&d->arch.hvm.irq_lock);
+
+While this may be transient in the series, as said before I'm not
+happy about this double unlock/relock sequence. I didn't really
+understand what would be wrong with
+
+            spin_unlock(&d->arch.hvm.irq_lock);
+            if ( is_iommu_enabled(d) )
+                hvm_dpci_eoi(d, gsi);
+            hvm_gsi_execute_callbacks(d, gsi);
+            spin_lock(&d->arch.hvm.irq_lock);
+
+This in particular wouldn't grow but even shrink the later patch
+dropping the call to hvm_dpci_eoi().
+
+> --- a/xen/arch/x86/hvm/vpic.c
+> +++ b/xen/arch/x86/hvm/vpic.c
+> @@ -235,6 +235,8 @@ static void vpic_ioport_write(
+>                  unsigned int pin = __scanbit(pending, 8);
+>  
+>                  ASSERT(pin < 8);
+> +                hvm_gsi_execute_callbacks(current->domain,
+> +                        hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+>                  hvm_dpci_eoi(current->domain,
+>                               hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+>                  __clear_bit(pin, &pending);
+> @@ -285,6 +287,8 @@ static void vpic_ioport_write(
+>                  /* Release lock and EOI the physical interrupt (if any). */
+>                  vpic_update_int_output(vpic);
+>                  vpic_unlock(vpic);
+> +                hvm_gsi_execute_callbacks(current->domain,
+> +                        hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+>                  hvm_dpci_eoi(current->domain,
+>                               hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+>                  return; /* bail immediately */
+
+Another presumably minor remark: In the IO-APIC case you insert after
+the call to hvm_dpci_eoi(). I wonder if consistency wouldn't help
+avoid questions of archeologists in a couple of years time.
+
+Jan
 
