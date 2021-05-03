@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E5DF371708
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 16:48:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121663.229464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C59637172F
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 16:55:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121671.229476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldZrk-0004p0-OA; Mon, 03 May 2021 14:48:08 +0000
+	id 1ldZxw-0005j0-Ko; Mon, 03 May 2021 14:54:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121663.229464; Mon, 03 May 2021 14:48:08 +0000
+Received: by outflank-mailman (output) from mailman id 121671.229476; Mon, 03 May 2021 14:54:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldZrk-0004ob-KV; Mon, 03 May 2021 14:48:08 +0000
-Received: by outflank-mailman (input) for mailman id 121663;
- Mon, 03 May 2021 14:48:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ldZxw-0005ib-HO; Mon, 03 May 2021 14:54:32 +0000
+Received: by outflank-mailman (input) for mailman id 121671;
+ Mon, 03 May 2021 14:54:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iacE=J6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1ldZri-0004oV-Pk
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 14:48:07 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ceffe932-87d1-42c0-8f5c-d106409c7349;
- Mon, 03 May 2021 14:48:05 +0000 (UTC)
+ id 1ldZxv-0005iW-KT
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 14:54:31 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 42293fd5-40af-409c-b838-8d71a38f7d21;
+ Mon, 03 May 2021 14:54:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,294 +36,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceffe932-87d1-42c0-8f5c-d106409c7349
+X-Inumbo-ID: 42293fd5-40af-409c-b838-8d71a38f7d21
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620053285;
+  d=citrix.com; s=securemail; t=1620053670;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=Nz7vPGC3Mw3YCooAlDH3j29Mg4awrUWSkegvVxd5JM0=;
-  b=GhTHfdIgUbSZQ+dCwPA/mM3KLehR65eZ6GgWLMKwyL2N1d1V/o26ZUjX
-   G2PhxXHBGPE3TpISi+HjbR2Ur4cq+sG/txiVNYGtxFC2mlnH2PaFV9TDZ
-   0XEElwz789GI/jIGzvkeuORyXSW0fVLvcXAd79mLp58TtUTxUwr6BKWrl
-   A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: uhpS1FFOEnXjnvNHCF21VoeQM6NThp0VMsdyxhN1qsk5jeDv/nFhLp4a8uIrPEhHyvFzqpJjAi
- /hrN6H0gMn1hpSyeVOrHPYagU68QxrUlNhkZH1VN+YOgkRqMkl0IdwaKUlQhBntMUds0ZbFuYq
- dYuqXoXm4SSy20u+Y7au3mPXaw3HBb4ohCA8N6cFgeXWLUt8xd6n7RgugZtTBpa4N0BLQ5UXJb
- j6cWJHPqydMYu9vBvoXMhYajT7X51oC5jzBjd9AmT9aGvQJZ/q8gZkVcxr34k62IBb1PwKrCCl
- 5GA=
+  bh=tE6xTS0ox8T508wp0RiTVObjPvt4tI/lok2HkAV5F7Y=;
+  b=O8437evpAcActHG4TrSnWozlI2wBpIVNrtpOkfeH52PJm5w46hWv8SWr
+   p6r3iFj2krDnXoSQH6ZjPrg/vdQVS871ODYdnARc+W6V/N57UaN862XyS
+   PxaV0ltAFmjbf7YaYEzwxkuzBFGySFke7wL22MODLQ7fdw1Eev7LQxqqV
+   E=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: miHaRGsVOtgYeVCoTMAD1NxzVzOqaRAgmHtMAeAtTeuiCHR4dHHKvniwif5nNVOLdj8FBMqeBD
+ 6je7cy/HeB2Hb7202V0CkAf9g8TTZqc3LjuNlEb7guaTfD41gl1ohfJ3LSe6KYUCGRn1Oc0C5l
+ dbATIiF7hdxSFYldB2xNY598i0A0FbsEE2Zk4o04HMcb7PP4DRnlrPesJAVR3uFA5O2HmTC7jK
+ rlA5BNlFMEG2r4U/vsHOJ6EHI2C787lB3lzN+N+LAScyvJjNS8yRqO8RnGmMm6CRM6zmAehPh5
+ Qw0=
 X-SBRS: 5.1
-X-MesageID: 42954217
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 42752441
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:Un7Yaq/9GeQqraSDxtVuk+FqcL1zdoIgy1knxilNYDRvWIixi9
- 2ukPMH1RX9lTYWXzUalcqdPbSbKEmzybdc2qNUGbu5RgHptC+TLI9k5Zb/2DGIIULD38Zn/+
- Nbf6B6YeedMXFTkdv67A6kE9wp3dmA9+SSif3Dymp2JDsLV4hLxW5Ce2CmO2dxQxRLAod8OZ
- qH/8xcpyehf3N/VLXHOlAuWe/fq9rX0K/8aRkdCBI9rCWIhzWk6Ln1eiLoois2eTVJ3Lsk7C
- z5gxX0j5/Tyc2T5z398yvo75pQkMb80dcrPq2xo+UcNzmEsHfMWK1PQLuH1QpFxN2HyFFvq9
- XUpgdlAsIb0QKvQkiQgT/Anzbtyywv7XiK8y7qvVLGrdbiTDw3T+pt7LgpCifx0EYrsNFi3K
- 8j5Qvw3PA7fHCw/lWJ2/HyWx5njUayq3Y5+NRj9EB3aocCdKRX6bUW4UI9KuZxIAvB9IslHO
- NyZfusncp+TFXyVQG/gkBfhPaoXng1Ay6cRFkDtsG/w1Ft7QFE5npd68oFknga8pUhD7FC+u
- TfK6xt0IpDV8kMcMtGdag8aPryLlaIbQPHMWqUL1iiPKYbO0jVo5qyxLku/umldLEB0ZNaou
- WObHpo8UoJP27+A8yH25NGtjrXRn+mYDjrwsZCo7Bkp7zVXtPQQG6+YWFrt/Hlj+QUA8XdVf
- r2EolRGeXfIWznHpsM9xHiWqNVNWIVXKQuy5YGcmPLhviOBpzht+TdfvqWDqHqCywYVmT2BW
- ZGcyP0IOlG80C3Sl71iBXcQBrWCwnC1KM1NJKf0/kYyYALOIEJmBMSk06F6saCLiAHkqFeRj
- o7HJrX1oeA4UWm92fB6GtkfjBHCFxO3bnmW3RW4SsDM0b+d6c/q8ySEFoim0evF1tadYf7AQ
- Rfr1N49eacNJqL3x0vDNqhLya8g2YMommJC7MRgLeK68ugWp5QNOdmZIVBUSHwUzBlkwdjr2
- lOLCUeQFXEKz/ogaK5yLoOBO/ecNF4qByxIdFdrE/esUn0n7BselIrGxqVFeKHiwcnQDRZwn
- dr9bUEvbaGkTGzbVckjP8AK11KYmSPCLdgBACIDb8k3IzDSUVVdyOnlDaagxY8di7P+18Jjm
- LsFyGSZMrGG0FQoHxez6bs/m5lb2n1RTMDVllK9alGUUjWsHd61uGGIpC+1GaccXMu6OAQOj
- OtW0pZHipeg/SMkDKFkjeLEnsrgqg0NuvGFbI5bvX4wXW2MrCFkqkAAt5Z9JtoL8rVr+cOSO
- 6TEjXldQ/QOqcM4Ui4t3wlMC57pD0YivvuwgTi93X983glA/beSW4WDo0zEpW51SzDSPmJ2p
- ki0o5wkuu0L2nratmJjYvQdCVOLxvPoWiwC8EkwKokyp4ahf9WJd38VzCN6VRsmDMZB+3wnF
- kFQKt67KvaU7UfNPA6SmZ8xB4RiN+LLEEXqQT4De81QEE1gxbgTqe0youNjYBqP1aIqwTxM2
- SO6iFx///KWC2YyL4RYphAV1h+WQwZ6H54+vmFeJCVIAK2d/tb9F7SCA7xTJZtDIyEE64XtB
- B0/pWhmPKWbTPx3ET1sSFgKqxDt0ahTsXaOnPBJcd4t/i7M0+LmK2k/Yqaiyr2UyKybwAgvr
- J+HHZgJvhru30Fl4040i+7V6zxrAYEqjJlkE9av2+o/JOn7mfdFVxBKivDjPxtLGFuDkQ=
+IronPort-HdrOrdr: A9a23:kqr5MqNTTI32YsBcT3Pw55DYdL4zR+YMi2QD/3taDTRIb82VkN
+ 2vlvwH1RnyzA0cQm0khMroAse9aFvm39pQ7ZMKNbmvGDPntmyhMZ144eLZrAHIMxbVstRQ3a
+ IIScRDIfXtEFl3itv76gGkE9AmhOKK6rysmP229RdQZCtBApsQiTtRIACdD0FwWU1qBYAhEo
+ Cd+8pAoFObCAkqR+68AWQIWPWGmsbCk4jobQVDKxks7gSPij3A0s+HLzGz2BACXzRThYoz6G
+ StqX2C2oyPkdGejiXd2Wja8ohMlLLaq+drKcSQhqEuW1DRoymyYoAJYczngBkUp6WV5E8ugJ
+ 3wpX4bTrtOwlfwWk3wnhf3wQnn118Vmgzf4HuVm2Hqr8C8ZB9SMbs4uatjfhHU61UtsbhHuc
+ ohtQ/p1Os0fGb9tR/w6NTSWxZhmlDcmwtYrccpg2FCSoxbUbdNrOUkjTNoOa0dFyH34p1PKp
+ gWMOjg4p9tADSnRkGclGxuzNuwZ280DxeLT2MT0/blogR+rTRXyVAVy9cYmWpF3JUhS4Nc7+
+ CBCahwkqpSJ/VmIp5VNaMke4+aG2bNSRXDPCa7JknmLrgOPzbop4Ts6Ls4yem2cPUzvdUPsa
+ WEdGkdmX85ekroB8HL9oZM6ArxTGK0Wimo4t1C5rBi04eMB4bDAGmmchQDgsGgq/IQDonwQP
+ CoIq9bBPflMC/HBZtJ5QvjQJNfQENuEPE9i5IeYRajs8jLIorluqjwa/DIPofgFj4iRyfRGX
+ 0GcD/vJNhRz0yiV3Pi6SKhHk/FSwjax9ZdAaLa9+8cxMwmLYtXqDUYjly/+4WqJFR5w+gLVX
+ o7BImivrKwpGGw82qNxX5uIABhAkFc56ild3tLoAQNIn7laLprgaTZRUlimF+8YjNvRcLfFw
+ BS435t/7isEpCWzSc+T/WqL3ydlHlWgH6RVZ8Tlumi6K7eC9IFJ6djfJY0ORTAFhRzlwovgn
+ xEchU4SkjWES6rr76kgpwSDOT2bMJ9nw+vHM5RpRvkxAehjPBqYkFecy+lUMaRjwprbSFTnE
+ dN/6gWh6fFpSyiMlIlgOMzMERFbUOeBL4uNnXCWKxk3pTQPC1gR2aDgjKXzzU+YHDj+Ukpim
+ v9FiGMYv3QDl1BundX77by/DpPBxegVnM1Tko/nZx2FGzAtHo26+ONa6ap+0a6a1cJwIgmQX
+ v4SApXBjkr68G81RaTljrHKG4vwY82OPfBSJ45davI53+rIIqUtK0PEvNO5qx5PNT2vuJja5
+ PHRyalaBfDT8850Q2coXgofBRuoH4/iPXyxVnL6nO70HNXO4uaHH1WA5UgZ/eS4GjvS6zWjN
+ FXjdcpsfCxNWu0QNic0q3TZyNCLBSWgWPedZBelblk+YYJ8J10FN3ndBGN8ldt9hA3Nt31m0
+ MTW74T2sGLBqZfO+gpPxtE9V8onumVJEQlsgbKEvYzFGtd+0PzDpes2f70srIhDU2KmRvoNX
+ Se+yNb+e3ZXyHr789tN4sAZUBXYlM78nJs4aercJDREhyjc4h4jReHG074VL9WU66eH7oM6j
+ 58/tGThueSMw71whrZszc+AqVA9Q+cMI+PKTPJPe5D6NqhP1uQxoOs/c6olT/yDQKBVH5wv/
+ wMSWUgKuJZijcji4Ur0i+9DozPy3hV7Wd20HVAjV7i2o+v/WHBO1pJWDep2qlrYQ==
 X-IronPort-AV: E=Sophos;i="5.82,270,1613451600"; 
-   d="scan'208";a="42954217"
+   d="scan'208";a="42752441"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YKiN2IftHEkTaeCZDp8th+bQxtjQBA85Gn7nhoEApom0LXreNFCw4DhmOkDJbW4pLhQToY06Jwx7+GC8Umd44QwprTX0yGNNkKV3WEipG2QxiAoIdmZ4vrysfveYBZ4BtDwxcBJmPKmkrawjFDXWmicLNJJJGcpcu18aBp21P3X89jRqbpU/Rk8TtCAXuQ4FgNp/ykmqhueNdEGVYOdODINRVSXIoDMk6uLDrCzV+qKvG2SZ5M5Gygiud31WG8t/nfaJp8DHM9ow53y8903UctzkxH5EHnW0M1wN2pD2MRSiawGPY+ZL9S3o+Uw1mp7zak+k5KCItreTeyrW3592CQ==
+ b=QL43WIBaAk4Q4A9kQSqU7z2rWfG0CspCfR/yJYw4kOO2kevt0iB8N/6jMVn1FHJsGDt7x28fJkSaE8FF7X1xVYZgcx/6nDtv9XVQO/JQ3saBUrltuszFhgDE3+BEUxhsKp5k8cGM0haMDIithM866H7xP+q4x8SZqqc1dUkcXDvJJ4E0LiNdyNTi6r++x4ePO9xBbmzwNk3jhBBsruY3W0mmD4zMx4G1hQ6PORvDmgorViqPsYW5BOsQ1Z2kx1SXTG+dZVLw/rlMULDxekddHCW0N0U8Waem7U85cdHw5q3SjvsiMywWKA1OmJx1NWSFgLyG5/v6cM5okk+F82gv6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=55J7BXfXNPgVyghL59YD0llMk3eR8G1yedZKy4xUUko=;
- b=TgOfz1nLN0Bef/5Tv38HDNSOnZeNnZlOvrX7z3rZUrS+iQ1qZZi201ouAWg3P/yrnhgtFwo5hA3O+CxCIxKyMrjxS9qBgMMxEfnNAttfOvJEO1sV70ExVhKd3+ZeN+KVwjNe7Kem092tjc/ejAwal1gMHRxcVr32jJI0d5S9QW5+6J1RZLOg3dFbsYhUMcl69K6b+ayEv2pzORnjZNBh5coIQyP5136UGnG7ALKAsd/7wWSovmYhLHVCt1SUvzmZhW9C9bq/JYdFBxoGvs5asy1H6oJloYPJjJ8zlRxMk63jUivbK/wyqBTeRa8/lzzuzbOeJEqHF0bsWbOSmA5HbA==
+ bh=fTcGgbRpcF+yx991N5BmQYXfWGnNdRb9WDIQjayhgOM=;
+ b=ni11iJHBspRnqf0Uj3OKVEFJWROP3j9nBbpYP5mRJpQwf6e9iwmLXZGLFCdtSXWLTKfco0Lw1DcN4cohX8YJjAmPVlbeTfz4K9VMYfkvjO7p6xy0qbfDUkbytFerefnauN6aaFiR/IQ2yIffet8fxpHBkRY9K8pq2Vw0jLF4xg7kHvWcFQV10pT+ROqx3Q6AgKtfd7BXXF8aq43TgbAxFkQgybGQWrQoKQTmTfnRVhwlzo+eupL+RPZz2fbGY79hcnpWjm5jpgcQ9hSR3d1rRmKIHkBq7d61pz7LCmceW8Er1p1pmPCiKF9p2jTBCZgvT3O8Fz3KbsQgq/FVVhY1+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=55J7BXfXNPgVyghL59YD0llMk3eR8G1yedZKy4xUUko=;
- b=UwfWs5G4iiE6yda9+jM27iDu40uZWnbzrvhTozY2OBFWM408pxVR8IYr8FxoN7RSpPKSCMM9dr9fnYSLrW2KYozQCNCVMvretmxBQDpw2Ig6A1V0scLygsXpyxtcsikRIbSIWybomLTEUDm1/aeBWF/yKkjN+hjH/X8L2y34IXk=
-Date: Mon, 3 May 2021 16:47:55 +0200
+ bh=fTcGgbRpcF+yx991N5BmQYXfWGnNdRb9WDIQjayhgOM=;
+ b=tsTTaUqemXdhhz6QYCFTIzL9KXrO9fyp6yketoEAaOKV5zktS8pVldbjuYbCAY/ts7x2C6J71LVOAQ1W3KP/jahBQvzGzxZ4ZipOHs7BpydJIPCVONIgzmsHytgzfuEuaLnCzY13fCa1WIizsRwWhYJeI2pqiE/3kz6iJf9O4wc=
+Date: Mon, 3 May 2021 16:54:19 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v4 01/12] x86/rtc: drop code related to strict mode
-Message-ID: <YJANG3LeuA3Ygt/Q@Air-de-Roger>
-References: <20210420140723.65321-1-roger.pau@citrix.com>
- <20210420140723.65321-2-roger.pau@citrix.com>
- <f282a2a2-e5cb-6a65-690a-b9c27c03089a@suse.com>
- <YI/CSKpqWrilNKi8@Air-de-Roger>
- <5b06565e-1f2e-3498-c18f-e7eac0042761@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [PATCH v3 01/22] mm: introduce xvmalloc() et al and use for
+ grant table allocations
+Message-ID: <YJAOm+rmKb5gbYJq@Air-de-Roger>
+References: <322de6db-e01f-0b57-5777-5d94a13c441a@suse.com>
+ <69778de6-3b94-64d1-99d9-1a0fcfa503fd@suse.com>
+ <YI/e9wyOpsVDkFQi@Air-de-Roger>
+ <aeb6aa8e-7c90-be22-1888-21b7b178e1d1@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5b06565e-1f2e-3498-c18f-e7eac0042761@suse.com>
-X-ClientProxiedBy: MR2P264CA0015.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:1::27) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <aeb6aa8e-7c90-be22-1888-21b7b178e1d1@suse.com>
+X-ClientProxiedBy: PR1P264CA0033.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:19f::20) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a79c18fe-435b-4b30-e957-08d90e42734c
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3147:
+X-MS-Office365-Filtering-Correlation-Id: dd5ddf60-5a52-47ba-8f7a-08d90e43583e
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3372:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB31475DE68BED9878AF7F0AF58F5B9@DM5PR03MB3147.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <DM5PR03MB3372F1AB54454A93AB624CE08F5B9@DM5PR03MB3372.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eIo0NBbLa9x26YX7LStBfkGit3BwzUB/0nfNpKI/di5C34mbAiK6VOg3z5fCHeI70OKWH166XbZW3M1PkgJQtwoz9eGFOVV6APL1VmoiD97G8z23MzjdGwLngidJP/p7Yd3cyiom8VGPzVbI0Tg+vBNELO2P9CxBS4wfEdtLd1xwgaIjo2R8NCQTk6z4nzchwagt3GXvgElB2Ec0NT+paDiAz6OPbLuwBs0h55ymiiPzB7NuNtyrmx8cxomAJcZSL83cA/nr6mgW+YzGuBTUtYtznS3to20HwYJoFKbpFe/U6QWjTKTD4CdTpkMdzft7bWygcDL3Cx1zNwQdRG4EzNyMsxqREOAl40S0pbwOmTnjpFqpbehZNShf5NWECsFkPQIlADWZlW11X6gnp5+pS5fJziZG0HK8uUhVgGDtVzm2ah0OQPyAMMt9B4XqIb6fTw0CXr3Lz77eNjcKs135UW7F4hRNCKiV6onhbXR0WlUOOzcs+gq67MxOmLMxp9pBUwbJXyhtVRM+6WwQkJEFBxS6aS7XSWTp4dhMTG4PtcL3MGqDRDPXKro6k4bahEO90+dtr7t0J6WjsHqqjZaW2spkxg+K7jSc+ZA+jesJl8sBvvbjwOylBaF9nQzw9MXvlqW2qS9UmRHtCGM30POSpdX2aUPcXOcYMmcayIdYT/U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(136003)(346002)(376002)(39860400002)(396003)(366004)(6486002)(26005)(16526019)(956004)(316002)(6916009)(6496006)(33716001)(6666004)(5660300002)(9686003)(478600001)(66476007)(85182001)(66556008)(8676002)(66946007)(186003)(83380400001)(38100700002)(8936002)(966005)(4326008)(53546011)(86362001)(45080400002)(54906003)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?R1ZsdFNNSjhvWmREdTA0Z0tPc3JDUllmanRKL2RkMzU2dU1YQ2VSZWNYU2Iv?=
- =?utf-8?B?VDZNM2N3SnIzSzkrMWdCcHFYdlh1cVJwR3hDWVZYcHZ3L1dpUFArZlk4ZVNT?=
- =?utf-8?B?RWx6U0djR280VDdoZVFtV0hFWG9KZWNiYS84ano2TUtnU2pqRmxwQitVd3hC?=
- =?utf-8?B?aGxvN0VpYWZBSlVCMGlUdXRBcVBTUVkwUXljM0IvdjZ1elAvZTc3Y1p4OWZw?=
- =?utf-8?B?K0IwWEFtZEtvcGdZczVlcTZnVS93UmlmTVhPMGNONGRITk9aMmRJaVk1SXFs?=
- =?utf-8?B?eUlxQ1dmbnhtdmxnU1J1RCtjTWxvSkRxSURTNHdvS3NTK0ROQzlVRE82WFZC?=
- =?utf-8?B?aERXM3dlWktLYkdSNVZtbnpoWlIvRGFPeHpvVkhJdUhwNFNhWk9FRTEzUW5S?=
- =?utf-8?B?ODdZNVJzRVhZTFhaeDBzYm9iV2JBaUJOTUUydzhqaEt0NW4yRzVudkc0b1Np?=
- =?utf-8?B?QmlXTW80MkNvSHpzbnhOMCtmN2NCTlZaZlRzZENIRlpna2RrQnNGemhtT01R?=
- =?utf-8?B?R0QxNDI2bzdGNjdydHVqKzNVck5qSFRFaUxJQW1ja3NxSkRXREQ5VmtxTEMz?=
- =?utf-8?B?dmgybmZIa1JWY3lGK0hhdTZWN1VDTnI0N0M1aGZFSnBWTUdYZHA3aHhVTGlT?=
- =?utf-8?B?Y2R2VkROSHVjVzg3NWV5N2dUL0N3bERldE1hZjlNeHp3VUVSZ3EyNWxNZWpG?=
- =?utf-8?B?N1M0WDU1aUF3SFFJa24vbnRmaWZWN3dXS1RXVXppS0Y5Vkl0TGl2ZkxWNDhr?=
- =?utf-8?B?REdkME9xanZ1UHd1dyt4Vmw3dFBvQmlYWXBuUHVjRm96MlpWZ0VNbndNY281?=
- =?utf-8?B?UEVYVW1rdW9kY3Bhem00cTUyaDY1TFR6SkdaTG1KVmJldjhIZUNuODNSVlVn?=
- =?utf-8?B?d0I1Q3FpU0NhODV5alJ1aHdNNmRJS3paNjJTaFltM1BKU3F0eDk5SGx4S3RQ?=
- =?utf-8?B?VDNOQ0tmZmFLTG9ZR1kxeE9NTk5CZVVWTlVicDVIeXNxZTc5M3NvTnVleFJO?=
- =?utf-8?B?RnlRNkxyRVdWeFJaRUJJLzMrakZaWlF2WmJlNVYxVi95b3dJSkVuMGNXeUFR?=
- =?utf-8?B?bTNTN0x2WG5nRUtYamJmdjREa0lIVG9NKzBtNXlQK1RxVlJTa0lEMTRzRG91?=
- =?utf-8?B?OVVCYkFIcnBNM044TzRESndzZkdUYXBFeVgwTFlONW9WZDNVN0QxZ2RmRGwv?=
- =?utf-8?B?VjY1MnpFbTV0ZFpydGEvejFsaEFqcC8rUWVFM3c1a1EzeTAxM0JYYjlIRWRP?=
- =?utf-8?B?MG9TTkNFSkJzOXZSMk5POWdiTVJVVjNUbU5ldi9HSktUL2NhS0F5dklMTE5B?=
- =?utf-8?B?RlZBOGNYMXI3K0xmeUhuMW1UYXpCZUJ3MlhYYW1OT2NQcStpbEtGc3hjbnIv?=
- =?utf-8?B?Y1hVMFFJeEZaSzU4OWxoQ2Q0WmZoWGFXRnczaXZHdlRXV1ZBL3ByQk5QOWZq?=
- =?utf-8?B?NFc3UDcvM1dzQzA2K29VVDlTcUVpVlJGekdhdEpmc29DOGNqRGxIQkxoTC9Q?=
- =?utf-8?B?ekZ3WVRVNmJIcS9Hc1RCcDQvNUNTdFJTOTBWR0JWNVgrS3JWYTRnK09OaTNQ?=
- =?utf-8?B?RzRPNnkvc3c1b0pqQVhPQTM0b0VnQVpaTitnRDFWUjNYdmVrSmNrM0RoZVNl?=
- =?utf-8?B?UHNQK0lXSjlLY3hYM3hPanZFSUxRS21hK2U5SXpPZjNCcGZaYnlUWG5JYVM5?=
- =?utf-8?B?TWt3MG9vUXJSeXozSVFKZ3J4a01BUjJQaC9VM3ZSbnRCSW93b0NobGVWNHZV?=
- =?utf-8?Q?Em4vdJKYIcPliJO34vbdxAwVql97OUUd9xsGq3V?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a79c18fe-435b-4b30-e957-08d90e42734c
+X-Microsoft-Antispam-Message-Info: qEm0yB6fcRoF7eq41JeJg2sz4Udw3OE/5kn0kpg18tGd6AO5B+EcvffpZ21wdMGMd8IPsK4eqUJRtzOH2pi1b0mrLHPWxPH+NYiQbyCidHn2epqy7Sou73lAdVdJeWzSwbd3zdAYVIZXSFbgdUk7hXC6X9L9tl6yFQT0LsrRfOb0HHwHJUTCI3sC1CERqaqpDqH+UXIlrGWENGu/3OkG5UtA5s1YF/rRXtxvVqroM+sKJsDLzFVJD8kuX4gnhRp1TeUhGvKIVJIEU6RyaLcSuEqS6TI5jdor6tQizg+7wHN3HcA1iko6yBtU4lRvpgqUCEuz30ybdveIFINMMSJ9LbBopDVbKW+fBRfcg0YcpjNF7pid8tqSZXx7mcJpebXhJ1WG0EczPVAL2/8FozUw9+/Nn+S7kJVkh7aTPy9nx31REr6DI1Atm49aKlfH0Y9HgmLeQbjfRzv/cH0xy61W5xKzcCUuee6V7DIWuOsTKyRGEQ137NWh19vkjfRClw3S9EqtFzGMMYa1md0ECCON8akJuNRPMss1H5tNJN0PbXLHz8ZfumYdQk6YMU+iDWaDkTUZSXQ5zXdyYl1POWU4l2nybzKkzDiMkAAYkwq9SJTLAoCgDO2rFIzQHPucg+lCf9IqPkSR6+iAPH6IxgdW/w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(396003)(376002)(366004)(39860400002)(346002)(136003)(4326008)(54906003)(85182001)(16526019)(8676002)(9686003)(8936002)(38100700002)(6486002)(956004)(53546011)(66476007)(5660300002)(86362001)(6916009)(66946007)(26005)(478600001)(6496006)(316002)(2906002)(83380400001)(33716001)(186003)(6666004)(66556008)(67856001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RzBHUHJGTHI4Zi8wYnFydUpES3NocklCb1VwWUU0elRmb0NZa3N0VStFWHMx?=
+ =?utf-8?B?RGQ4ZUtOQXVvb3BoN2gyUzdWMi9nY0VORGNPaytKaXJRZmY3Sk0vVWg0K0cr?=
+ =?utf-8?B?QVpBdmJLb3JNVVQwaWN4M0J3dUJvY0djSHNLT0YwZlpvZEppRDU2WWluYUhQ?=
+ =?utf-8?B?VjZrL1VpNzBXTnNSNzZTSkdnMXRmS1NSdm0vNlYycUxRNThJSXhVcEdYSGFo?=
+ =?utf-8?B?dUhlb3JqeUxVQU5scVhHTTR3ZUJ1NnlhNlhnWGRRRkFkVjl6NHQ1RkJ4SnpG?=
+ =?utf-8?B?VS9pVFBBcEp3bFpCVWd2Zk5JUXVxNFNEM1Qva1FSSGF6MVJ1NUxlVDlVM0ZD?=
+ =?utf-8?B?anhHT3VuREhlcVFvbUZpN2RXVnY3a3ZKSGxEMUtHSm1QVnZUVkdUYkI3ZEJn?=
+ =?utf-8?B?QmJTc0psOUVxSDFGaU13YmJrT1ZPeGRxMVVtYmthd3l4eUo0TUxRUlI1Y0J6?=
+ =?utf-8?B?NEMybW1DWk5KT3h2VEcvVms2OHhVT0c4d3M4ZHdGQjlGV0NWcEVieSsyNWpD?=
+ =?utf-8?B?dTVpQWloalJMb0RiUEg5VmFmKzBmc1dPWEFQWCtqVkRkanJvRUZBbFN2dkU2?=
+ =?utf-8?B?dS9ZUkxyYy93VkQ0ZEo5dHFnUDFzOE5CalovOEZOdGd0QXlPSk9CNXhzeFpq?=
+ =?utf-8?B?cDd4Yk9BMHZoUHJ5cEpBRTVYSWlqeDYwUUJpd1NVTlFzKzlTbkJiY2FzS3Ex?=
+ =?utf-8?B?d2pOR1F0UG44NHU4YWg0cktudWIyaUxaeEpjNlVya0t4QjZBRWVpdTZmV25E?=
+ =?utf-8?B?eVh0Y1QxR2tsRWx6MlFUL3orbU1ZbWIrSWlNVjlqMkUyTTlkRC8yaUVsTEdj?=
+ =?utf-8?B?elVZMUpvS2VHNWVSbVlDY2pkSUQ0Z2dKYmcxU242TDRZS25BMXMxRkVPTThs?=
+ =?utf-8?B?ZzdrVm00LytSd2dzVHlMc1FOUXhCelAyeG1KQVpoSm9JMjlJNngzVGRYdjBv?=
+ =?utf-8?B?K05ncTh2a1N5aWFPNnhKTERucE9iVHdheGo2Zkxzd2xIekUveXhrWUtSR2lv?=
+ =?utf-8?B?aUg4OFdrOUpxQ2N3WndGQmw5d3AzK092Yy8wT1hOQi9zR05JT3I1dWp6L2w3?=
+ =?utf-8?B?b2QyaTlCYlFONll3YmVKUERzc0JxQmorWGNxN3hZQ3dKbDhSSnZCOGZvU1Jl?=
+ =?utf-8?B?ZDdEeTZGaks5YzlHUzM4OTlZRUhvQ1RQcVlVTERsY0xMdnVaYW10OHY3WjBt?=
+ =?utf-8?B?VU40bVljaGwxTy9QQ0xySGxmcDNmQmJHdGgwLytLeitDQ2tQRVl5TWZPT2Zp?=
+ =?utf-8?B?cnMvaTFYdHpIR3ZpSmkwNERsWDVwUFhiN280cTlOTTE4VHQvbVJvK2xaQnR2?=
+ =?utf-8?B?SXA1UXBvSWNob2Y2MXBwZTRDSHFpa3VoU0JhYytQSW84cFIxVU1UTDN3NU9N?=
+ =?utf-8?B?WGxhSVZkbDF5WnNLUWduaEVwYmNiRU1JQk00NTBjS1puM3VsR21lemVXaStw?=
+ =?utf-8?B?Vko0NVVPM2tjTGxxNkFWK2NGSnpZMnhFZk1oYWpoOWt1OU92QXRPQjJ2UjFa?=
+ =?utf-8?B?MzI3dzBGa1Brb2V0c1NscGIyQU4wc3BGZHFBeFdyR3pxTXBNU1M2eFZtWC9h?=
+ =?utf-8?B?ZEhmYTlJbjZhZDhFQktOSDA2SHFOMFRLTTRQZGhsSGpodUNQS096Rm9ZM3NN?=
+ =?utf-8?B?YkF4OTNDODZSZGgzUnpMUTNBcDkrNHpNQ3lYR0FGK2Fkall6Lzc1UnBmeGFG?=
+ =?utf-8?B?QzdKeklWeWtsUHRtS1hja0xGdzlTa3kvSmFtRzh6WVFxM2dVMVZJOEI2NkdP?=
+ =?utf-8?Q?pLti2LWAFAFJToM78J9GtNDfpdtP1pVKgMMbNCM?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd5ddf60-5a52-47ba-8f7a-08d90e43583e
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2021 14:48:01.5901
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2021 14:54:25.7122
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g0ZTyF+WvZX+yGHXOAikeFlFqdA58/mM/3umV8LxDm+7d/kxdi4w9cDA8XFVCuCvjgP3X+8MsELM7IOscpYmJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3147
+X-MS-Exchange-CrossTenant-UserPrincipalName: NEcNxm1l8sQug2DSKOmvbKcKb8c9QYJHvPtEBQzalIIrVjwetP6iqZlaSDogba6DicX8sUcPLiOnRMtDLcQbDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3372
 X-OriginatorOrg: citrix.com
 
-On Mon, May 03, 2021 at 02:26:51PM +0200, Jan Beulich wrote:
-> On 03.05.2021 11:28, Roger Pau Monné wrote:
-> > On Thu, Apr 29, 2021 at 04:53:07PM +0200, Jan Beulich wrote:
-> >> On 20.04.2021 16:07, Roger Pau Monne wrote:
-> >>> --- a/xen/arch/x86/hvm/rtc.c
-> >>> +++ b/xen/arch/x86/hvm/rtc.c
-> >>> @@ -46,15 +46,6 @@
-> >>>  #define epoch_year     1900
-> >>>  #define get_year(x)    (x + epoch_year)
-> >>>  
-> >>> -enum rtc_mode {
-> >>> -   rtc_mode_no_ack,
-> >>> -   rtc_mode_strict
-> >>> -};
-> >>> -
-> >>> -/* This must be in sync with how hvmloader sets the ACPI WAET flags. */
-> >>> -#define mode_is(d, m) ((void)(d), rtc_mode_##m == rtc_mode_no_ack)
-> >>> -#define rtc_mode_is(s, m) mode_is(vrtc_domain(s), m)
+On Mon, May 03, 2021 at 03:50:48PM +0200, Jan Beulich wrote:
+> On 03.05.2021 13:31, Roger Pau Monné wrote:
+> > On Thu, Apr 22, 2021 at 04:43:39PM +0200, Jan Beulich wrote:
+> >> All of the array allocations in grant_table_init() can exceed a page's
+> >> worth of memory, which xmalloc()-based interfaces aren't really suitable
+> >> for after boot. We also don't need any of these allocations to be
+> >> physically contiguous.. Introduce interfaces dynamically switching
+> >> between xmalloc() et al and vmalloc() et al, based on requested size,
+> >> and use them instead.
 > >>
-> >> Leaving aside my concerns about this removal, I think some form of
-> >> reference to hvmloader and its respective behavior should remain
-> >> here, presumably in form of a (replacement) comment.
+> >> All the wrappers in the new header get cloned mostly verbatim from
+> >> xmalloc.h, with the sole adjustment to switch unsigned long to size_t
+> >> for sizes and to unsigned int for alignments.
 > > 
-> > What about adding a comment in rtc_pf_callback:
+> > We seem to be growing a non-trivial amount of memory allocation
+> > families of functions: xmalloc, vmalloc and now xvmalloc.
 > > 
-> > /*
-> >  * The current RTC implementation will inject an interrupt regardless
-> >  * of whether REG_C has been read since the last interrupt was
-> >  * injected. This is why the ACPI WAET 'RTC good' flag must be
-> >  * unconditionally set by hvmloader.
-> >  */
+> > I think from a consumer PoV it would make sense to only have two of
+> > those: one for allocations that require to be physically contiguous,
+> > and one for allocation that don't require it.
+> > 
+> > Even then, requesting for physically contiguous allocations could be
+> > done by passing a flag to the same interface that's used for
+> > non-contiguous allocations.
+> > 
+> > Maybe another option would be to expand the existing
+> > v{malloc,realloc,...} set of functions to have your proposed behaviour
+> > for xv{malloc,realloc,...}?
 > 
-> For one I'm unconvinced this is "must"; I think it is "may". We're
-> producing excess interrupts for an unaware guest, aiui. Presumably most
-> guests can tolerate this, but - second - it may be unnecessary overhead.
-> Which in turn may be why nobody has complained so far, as this sort of
-> overhead my be hard to notice. I also suspect the RTC may not be used
-> very often for generating a periodic interrupt.
+> All of this and some of your remarks further down has already been
+> discussed. A working group has been formed. No progress since. Yes,
+> a smaller set of interfaces may be the way to go. Controlling
+> behavior via flags, otoh, is very much not malloc()-like. Making
+> existing functions have the intended new behavior is a no-go without
+> auditing all present uses, to find those few which actually may need
+> physically contiguous allocations.
 
-I agree that there might be some overhead here, but asking for the
-guest to read REG_C in order to receive further interrupts also seems
-like quite a lot of overhead because all the interception involved.
-IMO it's best to unconditionally offer the no_ack mode (like Xen has
-been doing).
+But you could make your proposed xvmalloc logic the implementation
+behind vmalloc, as that would still be perfectly fine and safe? (ie:
+existing users of vmalloc already expect non-physically contiguous
+memory). You would just optimize the size < PAGE_SIZE for that
+interface?
 
-Also strict_mode wasn't really behaving according to the spec either,
-as it would injected up to 10 interrupts without the user have read
-REG_C.
-
-> (I've also not seen the
-> flag named "RTC good" - the ACPI constant is ACPI_WAET_RTC_NO_ACK, for
-> example.)
-
-I'm reading the WAET spec as published my Microsoft:
-
-http://msdn.microsoft.com/en-us/windows/hardware/gg487524.aspx
-
-Where the flag is listed as 'RTC good'. Maybe that's outdated now?
-Seems to be the official source for the specification from
-https://uefi.org/acpi.
-
-> >>> @@ -337,8 +336,7 @@ int pt_update_irq(struct vcpu *v)
-> >>>      {
-> >>>          if ( pt->pending_intr_nr )
-> >>>          {
-> >>> -            /* RTC code takes care of disabling the timer itself. */
-> >>> -            if ( (pt->irq != RTC_IRQ || !pt->priv) && pt_irq_masked(pt) &&
-> >>> +            if ( pt_irq_masked(pt) &&
-> >>>                   /* Level interrupts should be asserted even if masked. */
-> >>>                   !pt->level )
-> >>>              {
-> >>
-> >> I'm struggling to relate this to any other part of the patch. In
-> >> particular I can't find the case where a periodic timer would be
-> >> registered with RTC_IRQ and a NULL private pointer. The only use
-> >> I can find is with a non-NULL pointer, which would mean the "else"
-> >> path is always taken at present for the RTC case (which you now
-> >> change).
-> > 
-> > Right, the else case was always taken because as the comment noted RTC
-> > would take care of disabling itself (by calling destroy_periodic_time
-> > from the callback when using strict_mode). When no_ack mode was
-> > implemented this wasn't taken into account AFAICT, and thus the RTC
-> > was never removed from the list even when masked.
-> > 
-> > I think with no_ack mode the RTC shouldn't have this specific handling
-> > in pt_update_irq, as it should behave like any other virtual timer.
-> > I could try to split this as a separate bugfix, but then I would have
-> > to teach pt_update_irq to differentiate between strict_mode and no_ack
-> > mode.
+> Having seen similar naming elsewhere, I did propose xnew() /
+> xdelete() (plus array and flex-struct counterparts) as the single
+> new recommended interface; didn't hear back yet. But we'd switch to
+> that gradually, so intermediately there would still be a larger set
+> of interfaces.
 > 
-> A fair part of my confusion was about "&& !pt->priv".
-
-I think you meant "|| !pt->priv"?
-
-> I've looked back
-> at 9607327abbd3 ("x86/HVM: properly handle RTC periodic timer even when
-> !RTC_PIE"), where this was added. It was, afaict, to cover for
-> hpet_set_timer() passing NULL with RTC_IRQ.
-
-That's tricky, as hpet_set_timer hardcodes 8 instead of using RTC_IRQ
-which makes it really easy to miss.
-
-> Which makes me suspect that
-> be07023be115 ("x86/vhpet: add support for level triggered interrupts")
-> may have subtly broken things.
-
-Right - as that would have made the RTC irq when generated from the
-HPET no longer be suspended when masked (as pt->priv would no longer
-be NULL). Could be fixed with:
-
-diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-index ca94e8b4538..f2cbd12f400 100644
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -318,7 +318,8 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
-                          hpet_tick_to_ns(h, diff),
-                          oneshot ? 0 : hpet_tick_to_ns(h, h->hpet.period[tn]),
-                          irq, timer_level(h, tn) ? hpet_timer_fired : NULL,
--                         (void *)(unsigned long)tn, timer_level(h, tn));
-+                         timer_level(h, tn) ? (void *)(unsigned long)tn : NULL,
-+                         timer_level(h, tn));
- }
- 
- static inline uint64_t hpet_fixup_reg(
-
-Passing again NULL as the callback private data for edge triggered
-interrupts.
-
-> > Would you be fine if the following is added to the commit message
-> > instead:
-> > 
-> > "Note that the special handling of the RTC timer done in pt_update_irq
-> > is wrong for the no_ack mode, as the RTC timer callback won't disable
-> > the timer anymore when it detects the guest is not reading REG_C. As
-> > such remove the code as part of the removal of strict_mode, and don't
-> > special case the RTC timer anymore in pt_update_irq."
+> I'm not convinced we should continue to have byte-granular allocation
+> functions producing physically contiguous memory. I think the page
+> allocator should be used directly in such cases.
 > 
-> Not sure yet - as per above I'm still not convinced this part of the
-> change is correct.
+> >> --- /dev/null
+> >> +++ b/xen/include/xen/xvmalloc.h
+> >> @@ -0,0 +1,73 @@
+> >> +
+> >> +#ifndef __XVMALLOC_H__
+> >> +#define __XVMALLOC_H__
+> >> +
+> >> +#include <xen/cache.h>
+> >> +#include <xen/types.h>
+> >> +
+> >> +/*
+> >> + * Xen malloc/free-style interface for allocations possibly exceeding a page's
+> >> + * worth of memory, as long as there's no need to have physically contiguous
+> >> + * memory allocated.  These should be used in preference to xmalloc() et al
+> >> + * whenever the size is not known to be constrained to at most a single page.
+> > 
+> > Even when it's know that size <= PAGE_SIZE this helpers are
+> > appropriate as they would end up using xmalloc, so I think it's fine to
+> > recommend them universally as long as there's no need to alloc
+> > physically contiguous memory?
+> > 
+> > Granted there's a bit more overhead from the logic to decide between
+> > using xmalloc or vmalloc &c, but that's IMO not that big of a deal in
+> > order to not recommend this interface globally for non-contiguous
+> > alloc.
+> 
+> As long as xmalloc() and vmalloc() are meant stay around as separate
+> interfaces, I wouldn't want to "forbid" their use when it's sufficiently
+> clear that they would be chosen by the new function anyway. Otoh, if the
+> new function became more powerful in terms of falling back to the
 
-I believe part of this handling is kind of bogus - for example I'm
-unsure Xen should account masked interrupt injections as missed ticks.
-A guest might decide to mask it's interrupt source for whatever
-reason, and then it shouldn't receive a flurry of interrupts when
-unmasked. Ie: missed ticks should only be accounted for interrupts
-that should have been delivered but the guest wasn't scheduled. I
-think such model would also simplify some of the logic that we
-currently have.
-
-In fact I have a patch on top of this current series which I haven't
-posted yet that does implement this new mode of not accounting masked
-interrupts as missed ticks to the delivered later.
+What do you mean with more powerful here?
 
 Thanks, Roger.
 
