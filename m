@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EEF937162F
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 15:48:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121608.229356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDAB537163D
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 15:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121611.229367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldYva-0007Fj-St; Mon, 03 May 2021 13:48:02 +0000
+	id 1ldYyL-00085p-BX; Mon, 03 May 2021 13:50:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121608.229356; Mon, 03 May 2021 13:48:02 +0000
+Received: by outflank-mailman (output) from mailman id 121611.229367; Mon, 03 May 2021 13:50:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldYva-0007FK-Pb; Mon, 03 May 2021 13:48:02 +0000
-Received: by outflank-mailman (input) for mailman id 121608;
- Mon, 03 May 2021 13:48:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wh1Q=J6=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1ldYvY-0007FF-U5
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 13:48:00 +0000
-Received: from mail-lj1-x22d.google.com (unknown [2a00:1450:4864:20::22d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 65a14cdb-26c2-4965-9da6-fd9880529dab;
- Mon, 03 May 2021 13:48:00 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id d15so6807243ljo.12
- for <xen-devel@lists.xenproject.org>; Mon, 03 May 2021 06:48:00 -0700 (PDT)
+	id 1ldYyL-00085S-8U; Mon, 03 May 2021 13:50:53 +0000
+Received: by outflank-mailman (input) for mailman id 121611;
+ Mon, 03 May 2021 13:50:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldYyJ-00085N-Bb
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 13:50:51 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d92f5217-d3b0-4323-b6fa-ca72bee66489;
+ Mon, 03 May 2021 13:50:49 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 19F1BB062;
+ Mon,  3 May 2021 13:50:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,91 +39,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65a14cdb-26c2-4965-9da6-fd9880529dab
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=t8VSLvr8273ChxxroJtJkEHq3wxjGJJ/+aPa9QEx1+s=;
-        b=F9CoZZqJgnWRblqgPEkmqzuHT2glOTa2rXBm6PsjrSdk06uniSsQCDsnMLEpkS3Nzq
-         U+xrUyv2RFWWNYuzcvE+82KyEmaapIE0gR+3gstID3rYjswyj0Fxk836WG7sM18HOPDF
-         HlhnKNGx6azN5/fOV6Y8ksoRs6pz6AyGQc5J7NQEeSIz/0hKq50e60u34TnUod958hAR
-         Ekemirkg+JLw8z5k6Mm0MBkynGDsR4re67RkUu/PC+tlw3b2IXrxxjRHMAJWWQIzH2cY
-         Nr+HVHlZIxeUKJ3t28EiujZLbyGDR2z2zG27NlmtUjU/Uxzlt7V8vaFVffKRaT2J3B5j
-         rrOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=t8VSLvr8273ChxxroJtJkEHq3wxjGJJ/+aPa9QEx1+s=;
-        b=jlNYfYXUAfes67TLZWhv6eyMMq6fe0K5u6T+pMzx9IEMWW7+MHvrrtE27EwNxtdynj
-         VKKOA9psljrs2TNH9fqj+d32XC9GYx2iQWUA/eQ1f1Ou2pu6jh9buOE+xEa1susouwDG
-         aeEmIY/XtLc6CbAW37TUH9pB9CWvPEU1xAr5ZE7XGkSaGaO98EaF0SeQfJFwXQ2kAQun
-         FI8NKhwF++XCzzYcvUY0vAc/2v1IiUjGVa44b+qC4SwF/TrxR4HfFrTN6kR5BwlChczO
-         xQPXUgYT255kF4ET9tZml7JPLiLGKhdlvQJXxMB3vKUsCs2l6TzVXZbMiajn00QsT6WM
-         YPuQ==
-X-Gm-Message-State: AOAM530HFMpPp9BPy6AGMzEDqUuhgZTWcH5qO2+QbJaRjBIheUAHA2+P
-	getfpjO1yYByO6Wu5x5q5fr5KsJ7tXOgoLQT/X4=
-X-Google-Smtp-Source: ABdhPJwKnPqGNCSh0cuSBMwWuEC8Bkcg3MWlqUMNEm7lk3rTxYvTvbS0OJz3Uj0wHzmP4WLRnvlOL4kEbTR93JtBU/0=
-X-Received: by 2002:a2e:a7d4:: with SMTP id x20mr13590940ljp.285.1620049679087;
- Mon, 03 May 2021 06:47:59 -0700 (PDT)
+X-Inumbo-ID: d92f5217-d3b0-4323-b6fa-ca72bee66489
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620049849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9d2ZDMWcYWgpewOQuhG9aaHgilKUbd8W/T81pjlWNtE=;
+	b=S9Hqsei5TXp932nsHa4vy+YoMR0N6LeUsf51b7zomx43YhNiXlp1npt+Bju4pxpTXeCJ9R
+	wSXjgcThNdPU/LaaJ34CxKj4Sj8MVnHy5TkR7hhF9mKobytZ/UuafWv1SC9Ecv8Ll2RHOr
+	ZGGv8nyTQsZ5yCREC4tlXpIxkYV4Ncg=
+Subject: Re: [PATCH v3 01/22] mm: introduce xvmalloc() et al and use for grant
+ table allocations
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <322de6db-e01f-0b57-5777-5d94a13c441a@suse.com>
+ <69778de6-3b94-64d1-99d9-1a0fcfa503fd@suse.com>
+ <YI/e9wyOpsVDkFQi@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <aeb6aa8e-7c90-be22-1888-21b7b178e1d1@suse.com>
+Date: Mon, 3 May 2021 15:50:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-References: <20210423161558.224367-1-anthony.perard@citrix.com> <20210423161558.224367-4-anthony.perard@citrix.com>
-In-Reply-To: <20210423161558.224367-4-anthony.perard@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 3 May 2021 09:47:47 -0400
-Message-ID: <CAKf6xpugza2tpXq52_TgUUvVfZ7_ccPcbszvu6VYO=ryGAAp5g@mail.gmail.com>
-Subject: Re: [XEN PATCH 3/8] libxl: Replace deprecated "cpu-add" QMP command
- by "device_add"
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
-	Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <YI/e9wyOpsVDkFQi@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Fri, Apr 23, 2021 at 12:16 PM Anthony PERARD
-<anthony.perard@citrix.com> wrote:
->
-> The command "cpu-add" for CPU hotplug is deprecated and has been
-> removed from QEMU 6.0 (April 2021). We need to add cpus with the
-> command "device_add" now.
->
-> In order to find out which parameters to pass to "device_add" we first
-> make a call to "query-hotpluggable-cpus" which list the cpus drivers
-> and properties.
->
-> The algorithm to figure out which CPU to add, and by extension if any
-> CPU needs to be hotplugged, is in the function that adds the cpus.
-> Because of that, the command "query-hotpluggable-cpus" is always
-> called, even when not needed.
->
-> In case we are using a version of QEMU older than 2.7 (Sept 2016)
-> which don't have "query-hotpluggable-cpus", we fallback to using
-> "cpu-add".
->
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
->  tools/libs/light/libxl_domain.c | 87 ++++++++++++++++++++++++++++++++-
->  1 file changed, 85 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
-> index 8c003aa7cb04..e130deb0757f 100644
-> --- a/tools/libs/light/libxl_domain.c
-> +++ b/tools/libs/light/libxl_domain.c
+On 03.05.2021 13:31, Roger Pau Monné wrote:
+> On Thu, Apr 22, 2021 at 04:43:39PM +0200, Jan Beulich wrote:
+>> All of the array allocations in grant_table_init() can exceed a page's
+>> worth of memory, which xmalloc()-based interfaces aren't really suitable
+>> for after boot. We also don't need any of these allocations to be
+>> physically contiguous.. Introduce interfaces dynamically switching
+>> between xmalloc() et al and vmalloc() et al, based on requested size,
+>> and use them instead.
+>>
+>> All the wrappers in the new header get cloned mostly verbatim from
+>> xmalloc.h, with the sole adjustment to switch unsigned long to size_t
+>> for sizes and to unsigned int for alignments.
+> 
+> We seem to be growing a non-trivial amount of memory allocation
+> families of functions: xmalloc, vmalloc and now xvmalloc.
+> 
+> I think from a consumer PoV it would make sense to only have two of
+> those: one for allocations that require to be physically contiguous,
+> and one for allocation that don't require it.
+> 
+> Even then, requesting for physically contiguous allocations could be
+> done by passing a flag to the same interface that's used for
+> non-contiguous allocations.
+> 
+> Maybe another option would be to expand the existing
+> v{malloc,realloc,...} set of functions to have your proposed behaviour
+> for xv{malloc,realloc,...}?
 
-> +
-> +/* Fallback function for QEMU older than 2.7, when
-> + * 'query-hotpluggable-cpus' wasn't available and vcpu object couldn't be
-> + * added with 'device_add'. */
-> +static void set_vcpuonline_qmp_add_cpu(libxl__egc *egc, libxl__ev_qmp *qmp,
-> +                                       const libxl__json_object *response,
-> +                                       int rc) { STATE_AO_GC(qmp->ao);
+All of this and some of your remarks further down has already been
+discussed. A working group has been formed. No progress since. Yes,
+a smaller set of interfaces may be the way to go. Controlling
+behavior via flags, otoh, is very much not malloc()-like. Making
+existing functions have the intended new behavior is a no-go without
+auditing all present uses, to find those few which actually may need
+physically contiguous allocations.
 
-STATE_AO_GC should be on a new line.
+Having seen similar naming elsewhere, I did propose xnew() /
+xdelete() (plus array and flex-struct counterparts) as the single
+new recommended interface; didn't hear back yet. But we'd switch to
+that gradually, so intermediately there would still be a larger set
+of interfaces.
 
-With that,
+I'm not convinced we should continue to have byte-granular allocation
+functions producing physically contiguous memory. I think the page
+allocator should be used directly in such cases.
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+>> --- /dev/null
+>> +++ b/xen/include/xen/xvmalloc.h
+>> @@ -0,0 +1,73 @@
+>> +
+>> +#ifndef __XVMALLOC_H__
+>> +#define __XVMALLOC_H__
+>> +
+>> +#include <xen/cache.h>
+>> +#include <xen/types.h>
+>> +
+>> +/*
+>> + * Xen malloc/free-style interface for allocations possibly exceeding a page's
+>> + * worth of memory, as long as there's no need to have physically contiguous
+>> + * memory allocated.  These should be used in preference to xmalloc() et al
+>> + * whenever the size is not known to be constrained to at most a single page.
+> 
+> Even when it's know that size <= PAGE_SIZE this helpers are
+> appropriate as they would end up using xmalloc, so I think it's fine to
+> recommend them universally as long as there's no need to alloc
+> physically contiguous memory?
+> 
+> Granted there's a bit more overhead from the logic to decide between
+> using xmalloc or vmalloc &c, but that's IMO not that big of a deal in
+> order to not recommend this interface globally for non-contiguous
+> alloc.
 
-Thanks,
-Jason
+As long as xmalloc() and vmalloc() are meant stay around as separate
+interfaces, I wouldn't want to "forbid" their use when it's sufficiently
+clear that they would be chosen by the new function anyway. Otoh, if the
+new function became more powerful in terms of falling back to the
+respectively other lower level function, that might be an argument in
+favor of always using the new interfaces.
+
+>> + */
+>> +
+>> +/* Allocate space for typed object. */
+>> +#define xvmalloc(_type) ((_type *)_xvmalloc(sizeof(_type), __alignof__(_type)))
+>> +#define xvzalloc(_type) ((_type *)_xvzalloc(sizeof(_type), __alignof__(_type)))
+>> +
+>> +/* Allocate space for array of typed objects. */
+>> +#define xvmalloc_array(_type, _num) \
+>> +    ((_type *)_xvmalloc_array(sizeof(_type), __alignof__(_type), _num))
+>> +#define xvzalloc_array(_type, _num) \
+>> +    ((_type *)_xvzalloc_array(sizeof(_type), __alignof__(_type), _num))
+>> +
+>> +/* Allocate space for a structure with a flexible array of typed objects. */
+>> +#define xvzalloc_flex_struct(type, field, nr) \
+>> +    ((type *)_xvzalloc(offsetof(type, field[nr]), __alignof__(type)))
+>> +
+>> +#define xvmalloc_flex_struct(type, field, nr) \
+>> +    ((type *)_xvmalloc(offsetof(type, field[nr]), __alignof__(type)))
+>> +
+>> +/* Re-allocate space for a structure with a flexible array of typed objects. */
+>> +#define xvrealloc_flex_struct(ptr, field, nr)                          \
+>> +    ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
+>> +                             __alignof__(typeof(*(ptr)))))
+>> +
+>> +/* Allocate untyped storage. */
+>> +#define xvmalloc_bytes(_bytes) _xvmalloc(_bytes, SMP_CACHE_BYTES)
+>> +#define xvzalloc_bytes(_bytes) _xvzalloc(_bytes, SMP_CACHE_BYTES)
+> 
+> I see xmalloc does the same, wouldn't it be enough to align to a lower
+> value? Seems quite wasteful to align to 128 on x86 by default?
+
+Yes, it would. Personally (see "[PATCH v2 0/8] assorted replacement of
+x[mz]alloc_bytes()") I think these ..._bytes() wrappers should all go
+away. Hence I don't think it's very important how exactly they behave,
+and in turn it's then best to have them match x[mz]alloc_bytes().
+
+>> +
+>> +/* Free any of the above. */
+>> +extern void xvfree(void *);
+>> +
+>> +/* Free an allocation, and zero the pointer to it. */
+>> +#define XVFREE(p) do { \
+>> +    xvfree(p);         \
+>> +    (p) = NULL;        \
+>> +} while ( false )
+>> +
+>> +/* Underlying functions */
+>> +extern void *_xvmalloc(size_t size, unsigned int align);
+>> +extern void *_xvzalloc(size_t size, unsigned int align);
+>> +extern void *_xvrealloc(void *ptr, size_t size, unsigned int align);
+> 
+> Nit: I would drop the 'extern' keyword from the function prototypes.
+
+Ah yes, will do. Simply a result of taking the other header as basis.
+
+Jan
 
