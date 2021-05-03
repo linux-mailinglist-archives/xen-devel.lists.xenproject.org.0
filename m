@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C057F371820
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 17:40:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121699.229530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C23C371829
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 17:40:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121708.229578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldafo-00019q-4m; Mon, 03 May 2021 15:39:52 +0000
+	id 1ldagG-00029k-FC; Mon, 03 May 2021 15:40:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121699.229530; Mon, 03 May 2021 15:39:52 +0000
+Received: by outflank-mailman (output) from mailman id 121708.229578; Mon, 03 May 2021 15:40:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldafo-00019R-1M; Mon, 03 May 2021 15:39:52 +0000
-Received: by outflank-mailman (input) for mailman id 121699;
- Mon, 03 May 2021 15:39:51 +0000
+	id 1ldagG-00029B-AX; Mon, 03 May 2021 15:40:20 +0000
+Received: by outflank-mailman (input) for mailman id 121708;
+ Mon, 03 May 2021 15:40:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gWh3=J6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1ldafm-00019M-Uc
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 15:39:50 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1ldagE-00024k-PX
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 15:40:18 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 335820cc-7388-415e-bf6d-33d452fd8cb8;
- Mon, 03 May 2021 15:39:50 +0000 (UTC)
+ id 6c9f735a-84bf-45b9-93ac-1f6aa835f82c;
+ Mon, 03 May 2021 15:40:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,41 +35,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 335820cc-7388-415e-bf6d-33d452fd8cb8
+X-Inumbo-ID: 6c9f735a-84bf-45b9-93ac-1f6aa835f82c
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620056390;
+  d=citrix.com; s=securemail; t=1620056413;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=w7Xo1CRX6LgQwvrOXLUtnY7XKHYy8vBzRGguf0D0ZzU=;
-  b=V05TcB4VfeAvhuszyvDSWlXfCCwBPVr2ixm8fZ6G4uR8nSsn3k5WfUbj
-   FNB/6G2wle/pD2af6UTqabFBpFN4P7dhS//xLdvxk8pS2ZF4pBOsvIN1T
-   LNYnucFQsXoqRfILqHhA4TCkIOR/LK08BLHqjYKZiys6Uw/C1aYJegStK
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: vAYGs1Hij7qrprczXNX/gUlo7yBa9ui7IFjWJMPWCgq/AWEMZ+Euoz2iNLBf7NBIRU3+e9qUsi
- BGNyXhKmtCemdtRJINHLmWFi165SmJDLpzOnkk/UmI6g/C8tVEEN52OI28sAl4pC7c+1UFuiP4
- dRngxbWub4HGWauMHLjZdCQUd8w+b6gCyIliaGyFdSZk3je3Iw7NhCUqLnRfvAX1q47/UyJPJO
- Aqu1N+MkaT6b3Q958vwIoDcvHo3jd5mobTU/RvlQQrXziWw7SrEgCP9VSzX3SdKbVC2ni6udrv
- m7U=
+  bh=jIHwbXNLvjr4f1oZ4tb+qy7o6+MtjNlDvDcd+ysvfTI=;
+  b=BuqCEfw74JtwAkbgUHEaJ4rW7Lvf+g4qEZ2gem1LZsno/9w2T50EiQzC
+   1hjkaCF43UD5FvAxD5vkXiWC2hhI4BrEEo02kSn6Jqc2E8LSJeV8PSfO5
+   uAM8B2hUPOXRKdQvySIjKreLPUe89c/837zxvqHj5/ubatgU7Hx2dTBIB
+   s=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: H8alMazpCCJaYOggVvYZDMfYy/DJMgq68K+15edzm5ilvKT9vOwyZAbK4zXMFQsGjpvIl4Ip/0
+ nwLK/2Zp9/y1udBRVGmlXdRyG4omwm65Jugrc0AMhyjBcJM022qsa80ghR3JcJVnUZILxfJav9
+ gnpBHL2P//yUwAI+4a8TTlnlUuyxAf04CVtk+J7l2zgXYRXL4S31rkABAslf3MqDY+N23PEZpe
+ /VmAKPrEU9vp2EXqUxVFK4ByskrxZ4Io22/XvN3/gNd9OGtI1/Nx3vQrFO1WMR69GPug7arKUI
+ t2U=
 X-SBRS: 5.1
-X-MesageID: 43332330
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 42942252
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:ECAIYKq21n+vdPLaZJjR6okaV5rUeYIsi2QD101hICF9WMqeis
- yogbAnxQb54Qx8ZFgMu/ClfJOBT3TV6IJv7eAqVouKcQH6tAKTQ71KwpDlx1TbdRHW0uJGz6
- 9vf+xfJbTLbWRSqcb/7E2GH807wN+BmZrIuc7kw31gTR5nZshbhm8SZzqzKFF8RwVNGPMCZf
- mhz/dAzgDQHEg/X4CWAWQEQviGh/CjruODXTc2QyQIrCWvoFqTmdzHLyQ=
+IronPort-HdrOrdr: A9a23:gYQGjKgbg5jonU+AM8TG8wVStHBQXl0ji2hD6mlwRA09T+Wzva
+ mV/cgz/xnylToXRTUcgtiGIqaNWjfx8pRy7IkXM96ZLXHbkUGvK5xv6pan/i34F0TFh5dg/I
+ ppbqQWMqySMXFUlsD/iTPWL/8Bx529/LmslaPiyR5WPGVXQoVByys8NQqBCE1xQ2B9dPwEPb
+ 6R/NBOqTblWVl/VLXYOlA/U+LOp8LGmfvdCHZsbXNK1CC0gTyl87L8GRSDty1uNA9n+rs+7X
+ PD1zXw+6TLiYDB9jbny2TR455K8eGA9vJ/AqW35PQ9G3HJggasaJ8JYczmgAwI
 X-IronPort-AV: E=Sophos;i="5.82,270,1613451600"; 
-   d="scan'208";a="43332330"
+   d="scan'208";a="42942252"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 1/5] x86/xstate: Elide redundant writes in set_xcr0()
-Date: Mon, 3 May 2021 16:39:34 +0100
-Message-ID: <20210503153938.14109-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/5] x86/xstate: Rename _xstate_ctxt_size() to hw_uncompressed_size()
+Date: Mon, 3 May 2021 16:39:35 +0100
+Message-ID: <20210503153938.14109-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210503153938.14109-1-andrew.cooper3@citrix.com>
 References: <20210503153938.14109-1-andrew.cooper3@citrix.com>
@@ -77,15 +78,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-XSETBV is an expensive instruction as, amongst other things, it involves
-reconfiguring the instruction decode at the frontend of the pipeline.
+The latter is a more descriptive name, as it explicitly highlights the query
+from hardware.
 
-We have several paths which reconfigure %xcr0 in quick succession (the context
-switch path has 5, including the fpu save/restore helpers), and only a single
-caller takes any care to try to skip redundant writes.
-
-Update set_xcr0() to perform amortisation automatically, and simplify the
-__context_switch() path as a consequence.
+Simplify the internal logic using cpuid_count_ebx(), and drop the curr/max
+assertion as this property is guaranteed by the x86 ISA.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -93,52 +90,63 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/domain.c |  4 +---
- xen/arch/x86/xstate.c | 15 +++++++++++----
- 2 files changed, 12 insertions(+), 7 deletions(-)
+ xen/arch/x86/xstate.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 4dc27f798e..50a27197b5 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1977,9 +1977,7 @@ static void __context_switch(void)
-         memcpy(stack_regs, &n->arch.user_regs, CTXT_SWITCH_STACK_BYTES);
-         if ( cpu_has_xsave )
-         {
--            u64 xcr0 = n->arch.xcr0 ?: XSTATE_FP_SSE;
--
--            if ( xcr0 != get_xcr0() && !set_xcr0(xcr0) )
-+            if ( !set_xcr0(n->arch.xcr0 ?: XSTATE_FP_SSE) )
-                 BUG();
- 
-             if ( cpu_has_xsaves && is_hvm_vcpu(n) )
 diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index 3794d9a5a5..f82dae8053 100644
+index f82dae8053..e6c225a16b 100644
 --- a/xen/arch/x86/xstate.c
 +++ b/xen/arch/x86/xstate.c
-@@ -55,11 +55,18 @@ static inline bool xsetbv(u32 index, u64 xfeatures)
-     return lo != 0;
+@@ -554,19 +554,18 @@ void xstate_free_save_area(struct vcpu *v)
+     v->arch.xsave_area = NULL;
  }
  
--bool set_xcr0(u64 xfeatures)
-+bool set_xcr0(u64 val)
+-static unsigned int _xstate_ctxt_size(u64 xcr0)
++static unsigned int hw_uncompressed_size(uint64_t xcr0)
  {
--    if ( !xsetbv(XCR_XFEATURE_ENABLED_MASK, xfeatures) )
--        return false;
--    this_cpu(xcr0) = xfeatures;
-+    uint64_t *this_xcr0 = &this_cpu(xcr0);
-+
-+    if ( *this_xcr0 != val )
-+    {
-+        if ( !xsetbv(XCR_XFEATURE_ENABLED_MASK, val) )
-+            return false;
-+
-+        *this_xcr0 = val;
-+    }
-+
-     return true;
+     u64 act_xcr0 = get_xcr0();
+-    u32 eax, ebx = 0, ecx, edx;
++    unsigned int size;
+     bool ok = set_xcr0(xcr0);
+ 
+     ASSERT(ok);
+-    cpuid_count(XSTATE_CPUID, 0, &eax, &ebx, &ecx, &edx);
+-    ASSERT(ebx <= ecx);
++    size = cpuid_count_ebx(XSTATE_CPUID, 0);
+     ok = set_xcr0(act_xcr0);
+     ASSERT(ok);
+ 
+-    return ebx;
++    return size;
  }
  
+ /* Fastpath for common xstate size requests, avoiding reloads of xcr0. */
+@@ -578,7 +577,7 @@ unsigned int xstate_ctxt_size(u64 xcr0)
+     if ( xcr0 == 0 )
+         return 0;
+ 
+-    return _xstate_ctxt_size(xcr0);
++    return hw_uncompressed_size(xcr0);
+ }
+ 
+ /* Collect the information of processor's extended state */
+@@ -635,14 +634,14 @@ void xstate_init(struct cpuinfo_x86 *c)
+          * xsave_cntxt_size is the max size required by enabled features.
+          * We know FP/SSE and YMM about eax, and nothing about edx at present.
+          */
+-        xsave_cntxt_size = _xstate_ctxt_size(feature_mask);
++        xsave_cntxt_size = hw_uncompressed_size(feature_mask);
+         printk("xstate: size: %#x and states: %#"PRIx64"\n",
+                xsave_cntxt_size, xfeature_mask);
+     }
+     else
+     {
+         BUG_ON(xfeature_mask != feature_mask);
+-        BUG_ON(xsave_cntxt_size != _xstate_ctxt_size(feature_mask));
++        BUG_ON(xsave_cntxt_size != hw_uncompressed_size(feature_mask));
+     }
+ 
+     if ( setup_xstate_features(bsp) && bsp )
 -- 
 2.11.0
 
