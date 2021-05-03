@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A734371499
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 13:55:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121539.229235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3427937153A
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 14:27:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121559.229247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldX97-0005M1-KI; Mon, 03 May 2021 11:53:53 +0000
+	id 1ldXf6-00085K-CD; Mon, 03 May 2021 12:26:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121539.229235; Mon, 03 May 2021 11:53:53 +0000
+Received: by outflank-mailman (output) from mailman id 121559.229247; Mon, 03 May 2021 12:26:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldX97-0005Lc-Gg; Mon, 03 May 2021 11:53:53 +0000
-Received: by outflank-mailman (input) for mailman id 121539;
- Mon, 03 May 2021 11:53:52 +0000
+	id 1ldXf6-00084v-8f; Mon, 03 May 2021 12:26:56 +0000
+Received: by outflank-mailman (input) for mailman id 121559;
+ Mon, 03 May 2021 12:26:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gWh3=J6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1ldX96-0005LX-9m
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 11:53:52 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldXf4-00084q-SW
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 12:26:54 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 663d979e-6a08-43e1-98b4-c46a35d13160;
- Mon, 03 May 2021 11:53:51 +0000 (UTC)
+ id 458c1e55-d696-468b-ba1e-5b8563e00a19;
+ Mon, 03 May 2021 12:26:53 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CFE86AD22;
+ Mon,  3 May 2021 12:26:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,148 +39,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 663d979e-6a08-43e1-98b4-c46a35d13160
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620042830;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=CN5kqgy5ofU8tAD/6dZSU/2wGyQeJYxSKvPSU6mxuCg=;
-  b=IuzPUIkhNLAMUmObNXZp5yeKCEFfjGV/Fup4GmSqXW+TjobnnwI6fPbV
-   SUuGU++BVVkK4riej1vweBSOW6iHzInMyiB79+CnZsU6xvVHNbco9iFGR
-   Ro6aCR12TSYZzkuJO8iiHCKjWibMDDrHceyJXobNRYEQu36apZan1BaRZ
-   Q=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: KXmcaWjcg6iYKvUf90eo+2RcAtkaI7aNLAU4jsZI2yXRf6tTEstKzdQgUc2joc8po/0CqqWg6p
- A2O5zet3q6SSZpdh2QxyNhNa+VTwSNUH0ZGsXfe5VvpGEPPsHskaOevUB+OlI/KUYSOjN8qHl/
- El8wUwRhJvC0LmcRv+zjlZJ0R7ErwYQZsGxSSGIj1bWPXk6FYb13PvKf535qLFTEtsC6PLMmqZ
- dCdTnkW/kdc43JD83EozsHdnecc3VSPd1Mvjlwc95YoYwkHlXDhL8OB/BTfxtun+LUSPUlvRif
- 2SE=
-X-SBRS: 5.1
-X-MesageID: 43039139
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:oolmfax1ujxNIQPfWfOLKrPxg+4kLtp033Aq2lEZdDV8Sebdv9
- yynfgdyB//gCsQXnZlotybJKycWxrnm6JdybI6eZOvRhPvtmftFoFt6oP+3ybtcheQysd07o
- 0lSaR3DbTLYWRSpdrm4QW+DtYryMSG9qftvuvF03JxV2hRC51IxS0RMHf9LmRdQg5aCZ0lUL
- +V4cRarzStEE5nEPiTLH8DQuTFupn3j5rgexELHFoK7wOJgDOu5tfBYmel9z0ZVC5CxqpnzH
- jdn2XCl9memtyY6juZ7W/c6JxKhMDso+EjOOWggtUYQw+c8TqAS59mX9S5zUkIicGprG0nid
- zd5yonVv4Dlk/5WkGQjV/T1xL70DAogkWSu2OwpXf4u8T2SHYbJqN69PpkWyDU4UYho91wuZ
- gjtwny2us1fHGw6BjV3NTGWwpnkUC5uxMZ4IgupkdSTJcEb/tppZEflXklY6soJj7w64wsDY
- BVfaThzctRGGnqC0zxgnNi25iFUHg1A369MzI/k/3Q+T1XkHdl9lAf1cwSk1wRnahNO6Vs1q
- DqNL9lm6pJSdJTRaVhBP0ZSc/yMWDVRwnQWVjib2jPJeUiATbgupT36LI66KWDf4EJ9oI7nN
- DkXElDvWA/VkryAaS1rdx22yGIZF/4cSXmy8lY6ZQ8kKb7XqDXPSqKT01ru9e8ot0Ea/erGc
- qbCdZzObvOPGHuEYFG00nVQJ9JM0QTV8UTp5ISR0+OmMTWMYfn39arM8r7Ff7IK3IJS2n/Cn
- wMUHzYP8Nb9H2mXXf+nVz/QHXoVkvj/Y9hMaTT8uQJobJ9crFkg0wwsxCU98uLITpNvugdZ0
- 1lOo7qlau9uC2X8A/zniJUEysYKnwQzKTrUntMqwNPGVjza6w/t9KWfn0X+HOGIxR4Xv7HCQ
- I3nSUwxYuHa7irgQwyAdOuNWyXy1EJomiRcpsakqqfoeDoZ40/FZRjfKBqDw3EG1hUlG9R2S
- d+QT5BYnWaOiLliK2jgpBRLvrYbcNAjACiJtMRj2neu0WarcQGXWAaQDaqbM6SjW8VNn9pr2
- w015VarKuLmD6pJ2d6qv8/KkdwZGOeB68DMB6If7xOmrfgeBh5SECDgTDysWBrRkPas2Epwk
- DxJyydfv/GRn5QoGpR3KrR/FRoTWmFZE5rZndmsYpyKHTeth9IoJq2T5v291HURkoJw+kbPj
- 2AWzcULw907/2c1RKeml+5ZDgb76RrGtaYIKUocrnV1H/oFZaBkrseGeRIuLx/Msr1j+MNWe
- WDWgOcIT/iEdk10wiNqntNAlgtlFAU1dfTnDH15mmx23AyRcfIKFN9XrcBPpWy6XPnS/vg6u
- QwsfsF+c+LdkP/Zd6NxfuJM3ptKhbPrXW3SO9tg5ZOpq42vKZyGZ6ecTag7gAw4DwOaOPP0G
- UZS+BHxZqEHKlFVckbYThY8Vokj87nFjpgjiXGRssFOWgwhHraNe6T67XGqbATElSMzTGATm
- W3wml4xbP5RCON2r4RNrIoLUlXYEY67m5+/OnqTfyYNCyaM8VC9kG9KHmzbft0T7WEA6wZqn
- 9Bkp21tt7SUyrzwwbLuzRnZopI7ma8WMu3RCaBA/RB/dD/GVOChMKRkYGOpQaybTuwcEIDg4
- JZMWQWc8RYkzEnyLQN7RLacN29nmsV131E4T9mkVbx2o+ppEfjdHs2QDHxs9FxRjlcMn+BkM
- Lf1/OXvU6NuwR45Q==
-X-IronPort-AV: E=Sophos;i="5.82,270,1613451600"; 
-   d="scan'208";a="43039139"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g0+r0RHQUkmpxITkybaQ0ULzD+bQsdAxjLjWggtqay+BqICTmUvsLyjm0eBFm+ZKIrG7z7/x5wzbD/sAEec3NufrKCxxV/j+JpUFimikrM/vqZcPcsN7bX6ZcjeUyxH6/Lkdo26GkMwxptDuHOusLlYa9D0h17zgsaC1TZEcXZdOYU9Henul9hoolPq0Q+1yOgNGpcrebW0u1T3DWLe0uZKN2N8w5D7FURd4hXmcM6Xb+3sg6aExYQzw6u7ppKEzwAV3oMU0XeLiFRuZO4IrrFv/xQMcovyFlHr91eQmWIbjrMxRAUSZgBM3e8ecG/7LnhJND0OrAMWd4icJCTk6vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CN5kqgy5ofU8tAD/6dZSU/2wGyQeJYxSKvPSU6mxuCg=;
- b=fkbgZ+jVXWpOLEEWsP6Bi0MIe/+EmCin/uZgWzzqPWhlIMlyPEtzKeJN839qxPXkLjp4UDJcX3Hu49qp4Bz3p4MMGp1pzNMUwTnBUHPlR7S5cV2M+gikelEIn+NiiPcn/dYUZunOtEzLwi5HvW+fEZclw76Kz97QBOjAX68ywAro/8nUoHvyORIF1oaO6Jop+f8xFS7zwU8XrkpUl76z9dvilAtMA/qfucgR7OtsloLGz4+PMPSgJb716Vh7XDguj4aZB2RaHJky/0ZrTxSHZUycrm36Bvw3VtRDTv32RqjAwPTIvc4uVp0weBdeCNIRov8xzehq1QTG7mJVvPVYEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CN5kqgy5ofU8tAD/6dZSU/2wGyQeJYxSKvPSU6mxuCg=;
- b=CGYR+VUHIjf5eoiUgNquin6jt1Tiirqxf3N6x+zsbTLmTH3dAiHDckI12wM50gqkdXuq7SoFB+uIwq+duWWXUUvR98MSb8bpSZZpQCJOKpiw8e1cYJBXkCu3gTYbA/DPPZ024ffuFsQICUyeOgnx0pVb2v6iFCg9OLJLy2ZFCLY=
-Subject: Re: [PATCH v3 04/22] x86/xstate: re-use valid_xcr0() for boot-time
- checks
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <322de6db-e01f-0b57-5777-5d94a13c441a@suse.com>
- <77b149c5-e7b8-6335-dd86-745c6cc69a06@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <426e6d04-13fb-5ef4-0916-274077d47692@citrix.com>
-Date: Mon, 3 May 2021 12:53:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <77b149c5-e7b8-6335-dd86-745c6cc69a06@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0110.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::7) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 458c1e55-d696-468b-ba1e-5b8563e00a19
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620044812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jTTC7MOxUAEw3uWRU8ucnwrk9K5jqZFX/s22+9DkceY=;
+	b=QhgEdmy+Pxolp72h/ebZutqlj0nBw2YcawA+B3/ds+RPWBErkyHpS01q4uxD+UQdZXsWHu
+	SPmzrtfkhgQ5eGY0sVb0DifcJXhPLDH+v2EmRAzUt/T8O1CEIve5lxUtbx80g/tLEeaURq
+	SwhYb0FYPHV3j30bqs+ye6CZyet2er8=
+Subject: Re: [PATCH v4 01/12] x86/rtc: drop code related to strict mode
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210420140723.65321-1-roger.pau@citrix.com>
+ <20210420140723.65321-2-roger.pau@citrix.com>
+ <f282a2a2-e5cb-6a65-690a-b9c27c03089a@suse.com>
+ <YI/CSKpqWrilNKi8@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5b06565e-1f2e-3498-c18f-e7eac0042761@suse.com>
+Date: Mon, 3 May 2021 14:26:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f66e12b-ded8-476b-3a3d-08d90e2a1bad
-X-MS-TrafficTypeDiagnostic: BY5PR03MB5220:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BY5PR03MB5220DCA6B665442B7236DECDBA5B9@BY5PR03MB5220.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:820;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cq2K5wgS8GVPTXYmWRbhldvh0yrnXo+UPZDHAg8j/jNc77pz14pgz/Wyu44uoonQqR+olsiNbjFr+Go39ALcgFH4wkPXf2KMSDhDoe4QuuiEqWaFIJyNnptP1PYfPgBJt1ILg69oqW2MMuPW8ygduP1tnVR/aexs04KP8MuiaIwGrdGFw9e0Erb5kWBUZzKrG/3vX62OH+01D/tzmxincsmIROiVWqIt/FMAi+2oO8wKyhtqNa0j+E/Hucld8IrlughJT2zI/XVi/aHVy5vyicuhbqOpuQGc75wXqPGSQLTzg4zPwCZeExVVsBs9WtB4PHqJGkVWbGylS8QXDmB5m9ODRhf3sJ+dE2D01lL94tCSDJmfqBAny84onW0CEfgpcWKxIbV7D8WuJxwhqYdFSp6+P+jxy5ZKQLxb4J3CRaUyJLa09KAWALSIqZeYpuH/cff6/X4jUOeSea8pblI5a8FX8jIYyPauoR/KC6VC2RguN6r9MB8n92JYFbvw9jkCtNMlgqlpXS7JjgNQ7p4Zy9gklx9O3YuR0hO8HGCPYZDzOXFApRkTjxexm76qSFRl+mAzA/W826a94a0/CaEiBVVhwHH1FLSwJcm0/7pkjnSo8j653KodkcsyQV/hcyUSMNkF6EZu+3R6XyMcDKcQSFXMkCTIxe+/+8QUk5LHag9+JO82Cj+z6iw7bZh7vMzI
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(366004)(346002)(39850400004)(376002)(6666004)(316002)(478600001)(8936002)(107886003)(31686004)(4326008)(16576012)(36756003)(6486002)(110136005)(956004)(2616005)(5660300002)(86362001)(186003)(2906002)(558084003)(31696002)(8676002)(54906003)(16526019)(66556008)(66476007)(38100700002)(66946007)(53546011)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NnZPcHNsUEhIQndaRnB6R2cwMys0bWIvNDU3VEpYbE1vVnJjRWVaQWxTNzJL?=
- =?utf-8?B?cWNIRmlTS3F1SEo4TmFqaStVMkc1TVdGc2NwVC81RVVmSkxNQm9EbmM2ZUlI?=
- =?utf-8?B?VVlPR3F5T1R6ZmdqTUxmdXRsbzlQdHU3RHd3djJpQTZmREYxcG5JcXdUaFBI?=
- =?utf-8?B?YVdzZHZLR2FySndSNXJaN2RSOVhnVTcwbzJhSnFsbTAwZ0JUK0lQbG02OU5Q?=
- =?utf-8?B?d01GV3hVRUhuMGxwOWdOUjZzNFlScmVnNDE2Wkl4L3V2SzFCTjRZR0UxUmVN?=
- =?utf-8?B?cXhyL2NZU25PeFp3c0J5aGFNNHAyMnNZSWRDV3FqaHY4SC9mSnNEL2hLWFVW?=
- =?utf-8?B?Rk9lZ25zakQ1R1pEMS9iUmhoekl3M2FJUzE0TkZ0RWsxZWZPME1FVjJRR1JB?=
- =?utf-8?B?eDdaemVtcXZIMzNnNmxUUzgvTW8wUmMvTUJHVzdWeE9OVG1rWnBzWUMrM0xS?=
- =?utf-8?B?SmpXYTJEWEdDN05EUnBaWWZXdmVNOTZlN0lwbDkwcXNMc2U4MEhqcVhCcTcw?=
- =?utf-8?B?eGFNOW9YLzFwTHE2bGlIZzlaeWhxeGlZendEU2dOcXFOVFJwQm9hRndxbnZE?=
- =?utf-8?B?emhEZExOVC9jaUxVdEtPNFhjUUxwZm1wRC9Kank1T25TT0JDYnBhcXdSQVBq?=
- =?utf-8?B?dnMwZXllTUFKRVdNRG5GeHZIcUwxZnVyNWlsL21rcDhYQkY2UER3bStNOE5v?=
- =?utf-8?B?WXk3Z01XNU0zcTRrZHRJVk1ZVkFEb1h3Vy9tdVZjNFJxVnlRblBhcVF2aDVB?=
- =?utf-8?B?eXBabjhibWtvbUt5SEZoV2x4V1pxNHEwR2hFUkNHS1dET2Z0ZkJsVUQwMlpr?=
- =?utf-8?B?WVdMcXVmdG5ySWllbG1LYUhZNW1uMm00UnZ2QkVOT0ZIM1Y4aklIQnBaM0tI?=
- =?utf-8?B?WEo3eEFNQ0dVTnhQWHFsUDhUeEFqSGRkUS96alhUeVNBWExCY3FSbUtvdThX?=
- =?utf-8?B?YnE4QnlGbExhaG5QaWJnK1Nwbmo4cGY2eEhQcnV5RURHMERxZFlOUUgvTjFt?=
- =?utf-8?B?OW1INWNhU2RmTW94bi9Ib2NnLzlKTGlkWlc0clpyNEdWbTBrcjJ6S0lBK3Vs?=
- =?utf-8?B?dkhta2tBbnZXRW4raUpGWnpHMTAvV1hvVlZ5M3N0blJ4N2JDZTBBNFk2SDV3?=
- =?utf-8?B?M091em5vN3gwT2ErQUErTHBKUWtPTlBrZ21RdjFIR1FKN2lSQzIvWVVQY1JN?=
- =?utf-8?B?RjlOMkEzQW96VDF2UnExLzZnNzcxcVc0R2F2VGUyc1JKWXpYL2xBTE0weG5P?=
- =?utf-8?B?aUV2OXJzR3VaVGRseDdUczlmdi92SlFlc1VPbysrR1FzRm5ydEl1ZDFPMDlF?=
- =?utf-8?B?VjVpMjNWMG1lV3Z2T0l4bVFIdmVMKzhBNzZyRkc1UEdWcnVUS0s2NEcwSlQv?=
- =?utf-8?B?YWJhc1dnNTBLQTRxQ2YyY3Blc25iaUlEZ0o3UUdDTjVrVjgzVTI0eDVQYTFx?=
- =?utf-8?B?cmloQmtONmtrRkZJRVRIMm50bjlKNEExL2VCeUxZRk92WmhyWGRkSkJKSWd6?=
- =?utf-8?B?Ky8wOGptcFVPRi9OQ3kyS2VBQml4bm9aTnovUVcrcEs3WDJoUnpqcnNqOVZp?=
- =?utf-8?B?Rk9pdjZoK0pQNktDUkJrUFpHR3pVcGNIWWVCa2drcXVkSjFnbWZrR2NhT3Fk?=
- =?utf-8?B?Q1g4ZVE4Q3dyaEdzTkMvNWgzQkxKczZieXJHM0theFZIVUpnZkIwS2lOenA4?=
- =?utf-8?B?ZmQwelhuR2h1SXlGSGRjbjBycFZUUDBxMFVMSFNxY2NkSWNxWGpjTW1qMHJL?=
- =?utf-8?Q?2+cBVLZ/pDeAp0MLJbVF4Q2baDHOOsf+1Hp4h0L?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f66e12b-ded8-476b-3a3d-08d90e2a1bad
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2021 11:53:46.6707
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WV/BzxKassOipmv21QKeXMZqdhMJbkEg39M0LXQ5tMg7xXBfE0Z215t5EimXfwrHGP7dDAq4aZXcxgX35/9FWDFGeIBxbad+OORe+1UC1PE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5220
-X-OriginatorOrg: citrix.com
+In-Reply-To: <YI/CSKpqWrilNKi8@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On 22/04/2021 15:45, Jan Beulich wrote:
-> Instead of (just partially) open-coding it, re-use the function after
-> suitably moving it up.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 03.05.2021 11:28, Roger Pau Monné wrote:
+> On Thu, Apr 29, 2021 at 04:53:07PM +0200, Jan Beulich wrote:
+>> On 20.04.2021 16:07, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/hvm/rtc.c
+>>> +++ b/xen/arch/x86/hvm/rtc.c
+>>> @@ -46,15 +46,6 @@
+>>>  #define epoch_year     1900
+>>>  #define get_year(x)    (x + epoch_year)
+>>>  
+>>> -enum rtc_mode {
+>>> -   rtc_mode_no_ack,
+>>> -   rtc_mode_strict
+>>> -};
+>>> -
+>>> -/* This must be in sync with how hvmloader sets the ACPI WAET flags. */
+>>> -#define mode_is(d, m) ((void)(d), rtc_mode_##m == rtc_mode_no_ack)
+>>> -#define rtc_mode_is(s, m) mode_is(vrtc_domain(s), m)
+>>
+>> Leaving aside my concerns about this removal, I think some form of
+>> reference to hvmloader and its respective behavior should remain
+>> here, presumably in form of a (replacement) comment.
+> 
+> What about adding a comment in rtc_pf_callback:
+> 
+> /*
+>  * The current RTC implementation will inject an interrupt regardless
+>  * of whether REG_C has been read since the last interrupt was
+>  * injected. This is why the ACPI WAET 'RTC good' flag must be
+>  * unconditionally set by hvmloader.
+>  */
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+For one I'm unconvinced this is "must"; I think it is "may". We're
+producing excess interrupts for an unaware guest, aiui. Presumably most
+guests can tolerate this, but - second - it may be unnecessary overhead.
+Which in turn may be why nobody has complained so far, as this sort of
+overhead my be hard to notice. I also suspect the RTC may not be used
+very often for generating a periodic interrupt. (I've also not seen the
+flag named "RTC good" - the ACPI constant is ACPI_WAET_RTC_NO_ACK, for
+example.)
+
+>>> @@ -337,8 +336,7 @@ int pt_update_irq(struct vcpu *v)
+>>>      {
+>>>          if ( pt->pending_intr_nr )
+>>>          {
+>>> -            /* RTC code takes care of disabling the timer itself. */
+>>> -            if ( (pt->irq != RTC_IRQ || !pt->priv) && pt_irq_masked(pt) &&
+>>> +            if ( pt_irq_masked(pt) &&
+>>>                   /* Level interrupts should be asserted even if masked. */
+>>>                   !pt->level )
+>>>              {
+>>
+>> I'm struggling to relate this to any other part of the patch. In
+>> particular I can't find the case where a periodic timer would be
+>> registered with RTC_IRQ and a NULL private pointer. The only use
+>> I can find is with a non-NULL pointer, which would mean the "else"
+>> path is always taken at present for the RTC case (which you now
+>> change).
+> 
+> Right, the else case was always taken because as the comment noted RTC
+> would take care of disabling itself (by calling destroy_periodic_time
+> from the callback when using strict_mode). When no_ack mode was
+> implemented this wasn't taken into account AFAICT, and thus the RTC
+> was never removed from the list even when masked.
+> 
+> I think with no_ack mode the RTC shouldn't have this specific handling
+> in pt_update_irq, as it should behave like any other virtual timer.
+> I could try to split this as a separate bugfix, but then I would have
+> to teach pt_update_irq to differentiate between strict_mode and no_ack
+> mode.
+
+A fair part of my confusion was about "&& !pt->priv". I've looked back
+at 9607327abbd3 ("x86/HVM: properly handle RTC periodic timer even when
+!RTC_PIE"), where this was added. It was, afaict, to cover for
+hpet_set_timer() passing NULL with RTC_IRQ. Which makes me suspect that
+be07023be115 ("x86/vhpet: add support for level triggered interrupts")
+may have subtly broken things.
+
+> Would you be fine if the following is added to the commit message
+> instead:
+> 
+> "Note that the special handling of the RTC timer done in pt_update_irq
+> is wrong for the no_ack mode, as the RTC timer callback won't disable
+> the timer anymore when it detects the guest is not reading REG_C. As
+> such remove the code as part of the removal of strict_mode, and don't
+> special case the RTC timer anymore in pt_update_irq."
+
+Not sure yet - as per above I'm still not convinced this part of the
+change is correct.
+
+Jan
 
