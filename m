@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7898537182A
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 17:40:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121711.229590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1DE8371821
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 17:40:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121701.229554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldagI-0002CQ-OZ; Mon, 03 May 2021 15:40:22 +0000
+	id 1ldaft-0001ES-Rl; Mon, 03 May 2021 15:39:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121711.229590; Mon, 03 May 2021 15:40:22 +0000
+Received: by outflank-mailman (output) from mailman id 121701.229554; Mon, 03 May 2021 15:39:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldagI-0002Bj-K6; Mon, 03 May 2021 15:40:22 +0000
-Received: by outflank-mailman (input) for mailman id 121711;
- Mon, 03 May 2021 15:40:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ldaft-0001Df-Nt; Mon, 03 May 2021 15:39:57 +0000
+Received: by outflank-mailman (input) for mailman id 121701;
+ Mon, 03 May 2021 15:39:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gWh3=J6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1ldagG-00023Q-Jm
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 15:40:20 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 503cc877-2ae4-455c-add3-a9ba24c79b18;
- Mon, 03 May 2021 15:40:14 +0000 (UTC)
+ id 1ldafr-00019M-Qf
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 15:39:55 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3bbfcf4-ecb2-4c99-a13a-5e390c53d09e;
+ Mon, 03 May 2021 15:39:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,42 +35,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 503cc877-2ae4-455c-add3-a9ba24c79b18
+X-Inumbo-ID: c3bbfcf4-ecb2-4c99-a13a-5e390c53d09e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620056414;
+  d=citrix.com; s=securemail; t=1620056390;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=L7RgdbGEd1jyg+A5R9ekb1vmEPCeoLbeT25HF5YV6ys=;
-  b=Fo6y/mfH4tilvi2rNZGdCRu3ELjtjTRKZFN75E0ja+DjNRNaU2MumzpS
-   FYUtliEd0BmgfxJGvCegInLmKaff+DAncDGV7uJlf4DO/1PoZVI2r23YV
-   YkJRjy4tlg8FDtW+QUUaCD/UrXVjyXYx4uH97egXIbZyWhO+lfRsveG2T
-   Q=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: GmP/0IMBbxNpZqx3flufAKBbnNuepUNa6zZBqCJSu5LACseXfw6ekok5Z0rgXVko7KX9BIRgd3
- mBvcUPI63l31kjEYczwPlFfJkZjevfhSbt7ca7YvmTuCzQMept3XJ4uupBCOIWMsEBIJcrYHEy
- L/KBJlZXSDmwHxjogGD3hRT4T/5Sc3m5NV3GGD/72f3orz9PTfpxBTAgPapVCWN/tocfcRQrnt
- 17bq54ACAzCZsff1MTMinMDTg+wHPOIGPe3KpdlWSOX/JHbWgqF0jdoPbANaDsIGZbWilv+/T9
- NtY=
+  bh=UBDI32eRY/hcnx9jebSRvWF1wyrbcX7Hg6wiMTv7Ipw=;
+  b=S8dCWq2rP7/xXKspjjOofl+wDIrtDuFJQLS8Hk6HU38vHvzkiyA+sLwJ
+   sN07PFNNkPZ1RmeOR6/LEKzucLuw+eS8fvOan78RU9IKbMDd56Bx1auA3
+   8YmqwN7RlAfJb/69VjrNucZH9Pku+4cJZ3Wpl0j6tajNwbxyFxbqr7SCO
+   c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: H5HLuDGyqEByLnCPYbYjLdx7mfF/ERASTva30yvuQ1iok75tvfyaLNmFDOJjcdrg22kapJlzVo
+ /DYx6XvBIdcuSXrsWC2CXKgZhZxazfprOKt5dQJz0I1bNkUPTPNQvfw2zrPiN7b+3OEUuUAmYo
+ 0MkXfJgzwAeV8myO2Kx6f7EqhHyjn6qTUc9mdRVk8FsUxNRXBKZkMNicsQxj1HdFoAfUvv5+VF
+ YdqFWwptXKqRhyk06x/iJkSd9+S4a7zYPcFkLhITqW6X+uOX6QhwuT+79ahopfezdA9puN9XoA
+ oDg=
 X-SBRS: 5.1
-X-MesageID: 42942253
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 43332332
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:EOUCG6/QoiV6zIOdCWNuk+BfI+orLtY04lQ7vn1ZYzY9SK2lvu
- qpm+kW0gKxtS0YX2sulcvFFK6LR37d8pAd2/hoAZ6JWg76tGy0aLxz9IeK+UyYJwTS/vNQvJ
- 0QEJRWJ8b3CTFB4vrSwA79KNo4xcnCzabAv5a7815IbSVHL55t9B14DAHzKDwReCBjCYAiHJ
- SRouprzgDQG0g/VciwCnkbU+WrnbSi//iKDSIuPBIp5BKDijml8tfBYn+l9ywTTi9VxvMa+X
- XF+jaJnZmLie2xyRPXygboj6h+pd2J8LV+Lf3JrsAULzn24zzYAbhcZw==
+IronPort-HdrOrdr: A9a23:KLSibKFGXtC7fUmdpLqEF8eALOonbusQ8zAX/mp2TgFYddHdqt
+ C2kJ0guSPcpRQwfDUbmd6GMLSdWn+0z/VIyKQYILvKZmbbkUSyKoUK1+Xf6hntATf3+OIY9Y
+ oISchDIfnxCVQ/ssrg+gm/FL8boeWvy6yjiefAw3oFd2gDAcxdxj1kAQWWGFAefngkObMFEv
+ Onl696jgvlVXMLbtmqQlkpNtKzw+HjpdbdT1orJzNP0njtsQ+V
 X-IronPort-AV: E=Sophos;i="5.82,270,1613451600"; 
-   d="scan'208";a="42942253"
+   d="scan'208";a="43332332"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 3/5] x86/xstate: Rework xstate_ctxt_size() as xstate_uncompressed_size()
-Date: Mon, 3 May 2021 16:39:36 +0100
-Message-ID: <20210503153938.14109-4-andrew.cooper3@citrix.com>
+Subject: [PATCH 4/5] x86/cpuid: Simplify recalculate_xstate()
+Date: Mon, 3 May 2021 16:39:37 +0100
+Message-ID: <20210503153938.14109-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210503153938.14109-1-andrew.cooper3@citrix.com>
 References: <20210503153938.14109-1-andrew.cooper3@citrix.com>
@@ -79,136 +77,123 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-We're soon going to need a compressed helper of the same form.
+Make use of the new xstate_uncompressed_size() helper rather than maintaining
+the running calculation while accumulating feature components.
 
-The size of the uncompressed image is a strictly a property of the highest
-user state.  This can be calculated trivially with xstate_offsets/sizes, and
-is much faster than a CPUID instruction in the first place, let alone the two
-XCR0 writes surrounding it.
+The rest of the CPUID data can come direct from the raw cpuid policy.  All
+per-component data forms an ABI through the behaviour of the X{SAVE,RSTOR}*
+instructions, and are constant.
 
-Retain the cross-check with hardware in debug builds, but forgo it normal
-builds.  In particular, this means that the migration paths don't need to mess
-with XCR0 just to sanity check the buffer size.
+Use for_each_set_bit() rather than opencoding a slightly awkward version of
+it.  Mask the attributes in ecx down based on the visible features.  This
+isn't actually necessary for any components or attributes defined at the time
+of writing (up to AMX), but is added out of an abundance of caution.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/domctl.c        |  2 +-
- xen/arch/x86/hvm/hvm.c       |  2 +-
- xen/arch/x86/xstate.c        | 40 +++++++++++++++++++++++++++++++---------
- xen/include/asm-x86/xstate.h |  2 +-
- 4 files changed, 34 insertions(+), 12 deletions(-)
 
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index e440bd021e..8c3552410d 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -899,7 +899,7 @@ long arch_do_domctl(
-         uint32_t offset = 0;
- 
- #define PV_XSAVE_HDR_SIZE (2 * sizeof(uint64_t))
--#define PV_XSAVE_SIZE(xcr0) (PV_XSAVE_HDR_SIZE + xstate_ctxt_size(xcr0))
-+#define PV_XSAVE_SIZE(xcr0) (PV_XSAVE_HDR_SIZE + xstate_uncompressed_size(xcr0))
- 
-         ret = -ESRCH;
-         if ( (evc->vcpu >= d->max_vcpus) ||
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 28beacc45b..e5fda6b387 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -1203,7 +1203,7 @@ HVM_REGISTER_SAVE_RESTORE(CPU, hvm_save_cpu_ctxt, hvm_load_cpu_ctxt, 1,
- 
- #define HVM_CPU_XSAVE_SIZE(xcr0) (offsetof(struct hvm_hw_cpu_xsave, \
-                                            save_area) + \
--                                  xstate_ctxt_size(xcr0))
-+                                  xstate_uncompressed_size(xcr0))
- 
- static int hvm_save_cpu_xsave_states(struct vcpu *v, hvm_domain_context_t *h)
+Using min() in for_each_set_bit() leads to awful code generation, as it
+prohibits the optimiations for spotting that the bitmap is <= BITS_PER_LONG.
+As p->xstate is long enough already, use a BUILD_BUG_ON() instead.
+---
+ xen/arch/x86/cpuid.c | 52 +++++++++++++++++-----------------------------------
+ 1 file changed, 17 insertions(+), 35 deletions(-)
+
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index 752bf244ea..c7f8388e5d 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -154,8 +154,7 @@ static void sanitise_featureset(uint32_t *fs)
+ static void recalculate_xstate(struct cpuid_policy *p)
  {
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index e6c225a16b..d4c01da574 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -184,7 +184,7 @@ void expand_xsave_states(struct vcpu *v, void *dest, unsigned int size)
-     /* Check there is state to serialise (i.e. at least an XSAVE_HDR) */
-     BUG_ON(!v->arch.xcr0_accum);
-     /* Check there is the correct room to decompress into. */
--    BUG_ON(size != xstate_ctxt_size(v->arch.xcr0_accum));
-+    BUG_ON(size != xstate_uncompressed_size(v->arch.xcr0_accum));
+     uint64_t xstates = XSTATE_FP_SSE;
+-    uint32_t xstate_size = XSTATE_AREA_MIN_SIZE;
+-    unsigned int i, Da1 = p->xstate.Da1;
++    unsigned int i, ecx_bits = 0, Da1 = p->xstate.Da1;
  
-     if ( !(xsave->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED) )
+     /*
+      * The Da1 leaf is the only piece of information preserved in the common
+@@ -167,61 +166,44 @@ static void recalculate_xstate(struct cpuid_policy *p)
+         return;
+ 
+     if ( p->basic.avx )
+-    {
+         xstates |= X86_XCR0_YMM;
+-        xstate_size = max(xstate_size,
+-                          xstate_offsets[X86_XCR0_YMM_POS] +
+-                          xstate_sizes[X86_XCR0_YMM_POS]);
+-    }
+ 
+     if ( p->feat.mpx )
+-    {
+         xstates |= X86_XCR0_BNDREGS | X86_XCR0_BNDCSR;
+-        xstate_size = max(xstate_size,
+-                          xstate_offsets[X86_XCR0_BNDCSR_POS] +
+-                          xstate_sizes[X86_XCR0_BNDCSR_POS]);
+-    }
+ 
+     if ( p->feat.avx512f )
+-    {
+         xstates |= X86_XCR0_OPMASK | X86_XCR0_ZMM | X86_XCR0_HI_ZMM;
+-        xstate_size = max(xstate_size,
+-                          xstate_offsets[X86_XCR0_HI_ZMM_POS] +
+-                          xstate_sizes[X86_XCR0_HI_ZMM_POS]);
+-    }
+ 
+     if ( p->feat.pku )
+-    {
+         xstates |= X86_XCR0_PKRU;
+-        xstate_size = max(xstate_size,
+-                          xstate_offsets[X86_XCR0_PKRU_POS] +
+-                          xstate_sizes[X86_XCR0_PKRU_POS]);
+-    }
+ 
+-    p->xstate.max_size  =  xstate_size;
++    /* Subleaf 0 */
++    p->xstate.max_size =
++        xstate_uncompressed_size(xstates & ~XSTATE_XSAVES_ONLY);
+     p->xstate.xcr0_low  =  xstates & ~XSTATE_XSAVES_ONLY;
+     p->xstate.xcr0_high = (xstates & ~XSTATE_XSAVES_ONLY) >> 32;
+ 
++    /* Subleaf 1 */
+     p->xstate.Da1 = Da1;
+     if ( p->xstate.xsaves )
      {
-@@ -246,7 +246,7 @@ void compress_xsave_states(struct vcpu *v, const void *src, unsigned int size)
-     u64 xstate_bv, valid;
++        ecx_bits |= 3; /* Align64, XSS */
+         p->xstate.xss_low   =  xstates & XSTATE_XSAVES_ONLY;
+         p->xstate.xss_high  = (xstates & XSTATE_XSAVES_ONLY) >> 32;
+     }
+-    else
+-        xstates &= ~XSTATE_XSAVES_ONLY;
  
-     BUG_ON(!v->arch.xcr0_accum);
--    BUG_ON(size != xstate_ctxt_size(v->arch.xcr0_accum));
-+    BUG_ON(size != xstate_uncompressed_size(v->arch.xcr0_accum));
-     ASSERT(!xsave_area_compressed(src));
- 
-     xstate_bv = ((const struct xsave_struct *)src)->xsave_hdr.xstate_bv;
-@@ -568,16 +568,38 @@ static unsigned int hw_uncompressed_size(uint64_t xcr0)
-     return size;
+-    for ( i = 2; i < min(63ul, ARRAY_SIZE(p->xstate.comp)); ++i )
++    /* Subleafs 2+ */
++    xstates &= ~XSTATE_FP_SSE;
++    BUILD_BUG_ON(ARRAY_SIZE(p->xstate.comp) < 63);
++    for_each_set_bit ( i, &xstates, 63 )
+     {
+-        uint64_t curr_xstate = 1ul << i;
+-
+-        if ( !(xstates & curr_xstate) )
+-            continue;
+-
+-        p->xstate.comp[i].size   = xstate_sizes[i];
+-        p->xstate.comp[i].offset = xstate_offsets[i];
+-        p->xstate.comp[i].xss    = curr_xstate & XSTATE_XSAVES_ONLY;
+-        p->xstate.comp[i].align  = curr_xstate & xstate_align;
++        /*
++         * Pass through size (eax) and offset (ebx) directly.  Visbility of
++         * attributes in ecx limited by visible features in Da1.
++         */
++        p->xstate.raw[i].a = raw_cpuid_policy.xstate.raw[i].a;
++        p->xstate.raw[i].b = raw_cpuid_policy.xstate.raw[i].b;
++        p->xstate.raw[i].c = raw_cpuid_policy.xstate.raw[i].c & ecx_bits;
+     }
  }
  
--/* Fastpath for common xstate size requests, avoiding reloads of xcr0. */
--unsigned int xstate_ctxt_size(u64 xcr0)
-+unsigned int xstate_uncompressed_size(uint64_t xcr0)
- {
--    if ( xcr0 == xfeature_mask )
--        return xsave_cntxt_size;
-+    unsigned int size;
-+    int idx = flsl(xcr0) - 1;
- 
--    if ( xcr0 == 0 )
--        return 0;
-+    /*
-+     * The maximum size of an uncompressed XSAVE area is determined by the
-+     * highest user state, as the size and offset of each component is fixed.
-+     */
-+    if ( idx >= 2 )
-+    {
-+        ASSERT(xstate_offsets[idx] && xstate_sizes[idx]);
-+        size = xstate_offsets[idx] + xstate_sizes[idx];
-+    }
-+    else
-+        size = XSTATE_AREA_MIN_SIZE;
- 
--    return hw_uncompressed_size(xcr0);
-+    /* In debug builds, cross-check our calculation with hardware. */
-+    if ( IS_ENABLED(CONFIG_DEBUG) )
-+    {
-+        unsigned int hwsize;
-+
-+        xcr0 |= XSTATE_FP_SSE;
-+        hwsize = hw_uncompressed_size(xcr0);
-+
-+        if ( size != hwsize )
-+            printk_once(XENLOG_ERR "%s(%#"PRIx64") size %#x != hwsize %#x\n",
-+                        __func__, xcr0, size, hwsize);
-+        size = hwsize;
-+    }
-+
-+    return size;
- }
- 
- /* Collect the information of processor's extended state */
-diff --git a/xen/include/asm-x86/xstate.h b/xen/include/asm-x86/xstate.h
-index 7ab0bdde89..02d6f171b8 100644
---- a/xen/include/asm-x86/xstate.h
-+++ b/xen/include/asm-x86/xstate.h
-@@ -107,7 +107,7 @@ void compress_xsave_states(struct vcpu *v, const void *src, unsigned int size);
- void xstate_free_save_area(struct vcpu *v);
- int xstate_alloc_save_area(struct vcpu *v);
- void xstate_init(struct cpuinfo_x86 *c);
--unsigned int xstate_ctxt_size(u64 xcr0);
-+unsigned int xstate_uncompressed_size(uint64_t xcr0);
- 
- static inline uint64_t xgetbv(unsigned int index)
- {
 -- 
 2.11.0
 
