@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A121371693
-	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 16:26:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.121649.229428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A483716C0
+	for <lists+xen-devel@lfdr.de>; Mon,  3 May 2021 16:39:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.121655.229439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldZWk-0002rI-Dt; Mon, 03 May 2021 14:26:26 +0000
+	id 1ldZin-0003nA-I4; Mon, 03 May 2021 14:38:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 121649.229428; Mon, 03 May 2021 14:26:26 +0000
+Received: by outflank-mailman (output) from mailman id 121655.229439; Mon, 03 May 2021 14:38:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldZWk-0002qt-AY; Mon, 03 May 2021 14:26:26 +0000
-Received: by outflank-mailman (input) for mailman id 121649;
- Mon, 03 May 2021 14:26:25 +0000
+	id 1ldZin-0003mn-EY; Mon, 03 May 2021 14:38:53 +0000
+Received: by outflank-mailman (input) for mailman id 121655;
+ Mon, 03 May 2021 14:38:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ngRQ=J6=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1ldZWj-0002qV-5H
- for xen-devel@lists.xenproject.org; Mon, 03 May 2021 14:26:25 +0000
-Received: from mail-il1-x134.google.com (unknown [2607:f8b0:4864:20::134])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TA2L=J6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldZim-0003mi-Iz
+ for xen-devel@lists.xenproject.org; Mon, 03 May 2021 14:38:52 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b67027b-9310-414c-b710-5a85310b8e63;
- Mon, 03 May 2021 14:26:24 +0000 (UTC)
-Received: by mail-il1-x134.google.com with SMTP id h6so3793967ila.7
- for <xen-devel@lists.xenproject.org>; Mon, 03 May 2021 07:26:24 -0700 (PDT)
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com.
- [209.85.166.182])
- by smtp.gmail.com with ESMTPSA id z25sm5614971iob.26.2021.05.03.07.26.22
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 May 2021 07:26:22 -0700 (PDT)
-Received: by mail-il1-f182.google.com with SMTP id p15so3814262iln.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 May 2021 07:26:22 -0700 (PDT)
+ id 13357f0e-b62f-41b8-befb-bed81e559c3f;
+ Mon, 03 May 2021 14:38:51 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7B12FB154;
+ Mon,  3 May 2021 14:38:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,195 +38,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b67027b-9310-414c-b710-5a85310b8e63
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ELcNibbwxopbe4wnzShPTb7xRMLVvYpqQ8un28QQp9U=;
-        b=nOyrfh2thpmQagEkzKEHJkMTgRy+3FJJdT9Oo6MZndwooAl8msGQ2IZHFMeS6aJ6Md
-         +OeRGM111zl+0t7XmNgYC8WpP2ka9OwZM9VN//prTwlXpUXb+Muztthx/dt4YfUeTqwD
-         ene0+k2RSvchnHpwNfAnGfkLV6l7GmkYIbRvE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ELcNibbwxopbe4wnzShPTb7xRMLVvYpqQ8un28QQp9U=;
-        b=UOhNSxIFI4CPa00XUq803vxMg2VjRi+Js/VOcw0oJYonAWOV+fn4L4w6hvHxrDQsAc
-         S3Z34MUbu29Jn5K8v4bp8zNOu8Q0WragyJDh8lsiX8MbAOl3IdwCbtF3DvGBeZeiX/7u
-         qpR7iRRPNccGwypVjBrKD8RNGrSL6t4Z2Mcmw0/CyBuLH1E+myot/jookHgm/Fl6oJ5T
-         bFVK7U6Jpy6MXOR7FspMw+iSlRdgahoMHACosBS+aaKWum2qoDPeCi+/N09lFcDPFNAT
-         nXxTz7R8l9f+efoOenwTz2yeMJR81jmQROp+eJMrvNuiOG3aKAWpqi5kslxiFtG+QUXr
-         LrvQ==
-X-Gm-Message-State: AOAM532mb3um9NnV4hEVE7Mv8ZQSX/JPFDDeh+BMn+rG0yuX79WyRxwJ
-	y5xzYYm0ehho+hZjgdmS4Jfo/zGz7E8ZSQ==
-X-Google-Smtp-Source: ABdhPJyb25KahPJML9LRmuSA0bTQPqmpTuPaaB0/CjLKnl05wCrQa/ybeGSbW8ptyK9nLIhnzcHosQ==
-X-Received: by 2002:a92:c0cf:: with SMTP id t15mr16572406ilf.117.1620051983158;
-        Mon, 03 May 2021 07:26:23 -0700 (PDT)
-X-Received: by 2002:a05:6e02:f4e:: with SMTP id y14mr3397094ilj.18.1620051971892;
- Mon, 03 May 2021 07:26:11 -0700 (PDT)
+X-Inumbo-ID: 13357f0e-b62f-41b8-befb-bed81e559c3f
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620052730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EI0/5AZAJ0srZZhXeydEjwnccgoJ4Y6/d/4/L9xJUeU=;
+	b=ms0MGcdcfMhSPzt9WJ1HFCIJgRFRWABiTCNVYc0AMImCutqT07ZwHrggz9frmm8sYGQ9rD
+	ktCs7asBWa4h45KuaHiu/Rj/T21ZQMYpYQy5G2xs8mCjsO7wXoxVi3AbuK8wvwOQt4Q+Jk
+	miyhReHo8WxpsyrzMF/Jza8+E4ILvgY=
+Subject: Re: [PATCH v4 2/3] xen/pci: Refactor PCI MSI intercept related code
+To: Rahul Singh <rahul.singh@arm.com>
+Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1619707144.git.rahul.singh@arm.com>
+ <07cb9f45a91a283af1991c42266555bb0bfe3b71.1619707144.git.rahul.singh@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <65539f2a-8b0c-7f1a-6de1-4032140a4e0e@suse.com>
+Date: Mon, 3 May 2021 16:38:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-References: <20210422081508.3942748-1-tientzu@chromium.org>
- <20210422081508.3942748-15-tientzu@chromium.org> <70b895c2-4a39-bbbd-a719-5c8b6b922026@arm.com>
-In-Reply-To: <70b895c2-4a39-bbbd-a719-5c8b6b922026@arm.com>
-From: Claire Chang <tientzu@chromium.org>
-Date: Mon, 3 May 2021 22:26:00 +0800
-X-Gmail-Original-Message-ID: <CALiNf28cc5T-cMZxNPZnrTQvqu2Ge_MmZj-teN4mE_-E-6_6XQ@mail.gmail.com>
-Message-ID: <CALiNf28cc5T-cMZxNPZnrTQvqu2Ge_MmZj-teN4mE_-E-6_6XQ@mail.gmail.com>
-Subject: Re: [PATCH v5 14/16] dma-direct: Allocate memory from restricted DMA
- pool if available
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
-	boris.ostrovsky@oracle.com, jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	grant.likely@arm.com, xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, 
-	mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org, 
-	Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan <saravanak@google.com>, 
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	matthew.auld@intel.com, nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <07cb9f45a91a283af1991c42266555bb0bfe3b71.1619707144.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 23, 2021 at 9:46 PM Robin Murphy <robin.murphy@arm.com> wrote:
->
-> On 2021-04-22 09:15, Claire Chang wrote:
-> > The restricted DMA pool is preferred if available.
-> >
-> > The restricted DMA pools provide a basic level of protection against the
-> > DMA overwriting buffer contents at unexpected times. However, to protect
-> > against general data leakage and system memory corruption, the system
-> > needs to provide a way to lock down the memory access, e.g., MPU.
-> >
-> > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > ---
-> >   kernel/dma/direct.c | 35 ++++++++++++++++++++++++++---------
-> >   1 file changed, 26 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> > index 7a27f0510fcc..29523d2a9845 100644
-> > --- a/kernel/dma/direct.c
-> > +++ b/kernel/dma/direct.c
-> > @@ -78,6 +78,10 @@ static bool dma_coherent_ok(struct device *dev, phys_addr_t phys, size_t size)
-> >   static void __dma_direct_free_pages(struct device *dev, struct page *page,
-> >                                   size_t size)
-> >   {
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +     if (swiotlb_free(dev, page, size))
-> > +             return;
-> > +#endif
-> >       dma_free_contiguous(dev, page, size);
-> >   }
-> >
-> > @@ -92,7 +96,17 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
-> >
-> >       gfp |= dma_direct_optimal_gfp_mask(dev, dev->coherent_dma_mask,
-> >                                          &phys_limit);
-> > -     page = dma_alloc_contiguous(dev, size, gfp);
-> > +
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +     page = swiotlb_alloc(dev, size);
-> > +     if (page && !dma_coherent_ok(dev, page_to_phys(page), size)) {
-> > +             __dma_direct_free_pages(dev, page, size);
-> > +             page = NULL;
-> > +     }
-> > +#endif
-> > +
-> > +     if (!page)
-> > +             page = dma_alloc_contiguous(dev, size, gfp);
-> >       if (page && !dma_coherent_ok(dev, page_to_phys(page), size)) {
-> >               dma_free_contiguous(dev, page, size);
-> >               page = NULL;
-> > @@ -148,7 +162,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
-> >               gfp |= __GFP_NOWARN;
-> >
-> >       if ((attrs & DMA_ATTR_NO_KERNEL_MAPPING) &&
-> > -         !force_dma_unencrypted(dev)) {
-> > +         !force_dma_unencrypted(dev) && !is_dev_swiotlb_force(dev)) {
-> >               page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO);
-> >               if (!page)
-> >                       return NULL;
-> > @@ -161,8 +175,8 @@ void *dma_direct_alloc(struct device *dev, size_t size,
-> >       }
-> >
-> >       if (!IS_ENABLED(CONFIG_ARCH_HAS_DMA_SET_UNCACHED) &&
-> > -         !IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) &&
-> > -         !dev_is_dma_coherent(dev))
-> > +         !IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) && !dev_is_dma_coherent(dev) &&
-> > +         !is_dev_swiotlb_force(dev))
-> >               return arch_dma_alloc(dev, size, dma_handle, gfp, attrs);
-> >
-> >       /*
-> > @@ -172,7 +186,9 @@ void *dma_direct_alloc(struct device *dev, size_t size,
-> >       if (IS_ENABLED(CONFIG_DMA_COHERENT_POOL) &&
-> >           !gfpflags_allow_blocking(gfp) &&
-> >           (force_dma_unencrypted(dev) ||
-> > -          (IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) && !dev_is_dma_coherent(dev))))
-> > +          (IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) &&
-> > +           !dev_is_dma_coherent(dev))) &&
-> > +         !is_dev_swiotlb_force(dev))
-> >               return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
-> >
-> >       /* we always manually zero the memory once we are done */
-> > @@ -253,15 +269,15 @@ void dma_direct_free(struct device *dev, size_t size,
-> >       unsigned int page_order = get_order(size);
-> >
-> >       if ((attrs & DMA_ATTR_NO_KERNEL_MAPPING) &&
-> > -         !force_dma_unencrypted(dev)) {
-> > +         !force_dma_unencrypted(dev) && !is_dev_swiotlb_force(dev)) {
-> >               /* cpu_addr is a struct page cookie, not a kernel address */
-> >               dma_free_contiguous(dev, cpu_addr, size);
-> >               return;
-> >       }
-> >
-> >       if (!IS_ENABLED(CONFIG_ARCH_HAS_DMA_SET_UNCACHED) &&
-> > -         !IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) &&
-> > -         !dev_is_dma_coherent(dev)) {
-> > +         !IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) && !dev_is_dma_coherent(dev) &&
-> > +         !is_dev_swiotlb_force(dev)) {
-> >               arch_dma_free(dev, size, cpu_addr, dma_addr, attrs);
-> >               return;
-> >       }
-> > @@ -289,7 +305,8 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
-> >       void *ret;
-> >
-> >       if (IS_ENABLED(CONFIG_DMA_COHERENT_POOL) &&
-> > -         force_dma_unencrypted(dev) && !gfpflags_allow_blocking(gfp))
-> > +         force_dma_unencrypted(dev) && !gfpflags_allow_blocking(gfp) &&
-> > +         !is_dev_swiotlb_force(dev))
-> >               return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
->
-> Wait, this seems broken for non-coherent devices - in that case we need
-> to return a non-cacheable address, but we can't simply fall through into
-> the remapping path below in GFP_ATOMIC context. That's why we need the
-> atomic pool concept in the first place :/
+On 29.04.2021 16:46, Rahul Singh wrote:
+> --- /dev/null
+> +++ b/xen/drivers/passthrough/msi-intercept.c
+> @@ -0,0 +1,53 @@
+> +/*
+> + * Copyright (C) 2008,  Netronome Systems, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify it
+> + * under the terms and conditions of the GNU General Public License,
+> + * version 2, as published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope it will be useful, but WITHOUT
+> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> + * more details.
+> + *
+> + * You should have received a copy of the GNU General Public License along with
+> + * this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/init.h>
+> +#include <xen/pci.h>
+> +#include <asm/msi.h>
+> +#include <asm/hvm/io.h>
+> +
+> +int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
+> +{
+> +    int rc;
+> +
+> +    if ( pdev->msix )
+> +    {
+> +        rc = pci_reset_msix_state(pdev);
+> +        if ( rc )
+> +            return rc;
+> +        msixtbl_init(d);
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +void pdev_dump_msi(const struct pci_dev *pdev)
+> +{
+> +    const struct msi_desc *msi;
+> +
+> +    list_for_each_entry ( msi, &pdev->msi_list, list )
+> +        printk("- MSIs < %d >", msi->irq);
 
-Sorry for the late reply. I'm not very familiar with this. I wonder if
-the memory returned here must be coherent. If yes, could we say for
-this case, one must set up another device coherent pool
-(shared-dma-pool) and go with dma_alloc_from_dev_coherent()[1]?
+Only the %d and a blank should be part of the format string inside the
+loop body; the rest wants printing exactly once.
 
-[1] https://elixir.bootlin.com/linux/v5.12/source/kernel/dma/mapping.c#L435
+> +static inline size_t vmsix_table_size(const struct vpci *vpci, unsigned int nr)
+> +{
+> +    return
+> +        (nr == VPCI_MSIX_TABLE) ? vpci->msix->max_entries * PCI_MSIX_ENTRY_SIZE
+> +                                : ROUNDUP(DIV_ROUND_UP(vpci->msix->max_entries,
+> +                                                       8), 8);
 
->
-> Unless I've overlooked something, we're still using the regular
-> cacheable linear map address of the dma_io_tlb_mem buffer, no?
->
-> Robin.
->
-> >
-> >       page = __dma_direct_alloc_pages(dev, size, gfp);
-> >
+I'm afraid I don't view this as an acceptable way of wrapping lines.
+How about
+
+    return (nr == VPCI_MSIX_TABLE)
+           ? vpci->msix->max_entries * PCI_MSIX_ENTRY_SIZE
+           : ROUNDUP(DIV_ROUND_UP(vpci->msix->max_entries, 8), 8);
+
+> @@ -428,6 +458,31 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
+>      return 0;
+>  }
+>  
+> +int vpci_remove_msix_regions(const struct vpci *vpci, struct rangeset *mem)
+> +{
+> +    const struct vpci_msix *msix = vpci->msix;
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    for ( i = 0; msix && i < ARRAY_SIZE(msix->tables); i++ )
+> +    {
+> +        unsigned long start = PFN_DOWN(vmsix_table_addr(vpci, i));
+> +        unsigned long end = PFN_DOWN(vmsix_table_addr(vpci, i) +
+> +                vmsix_table_size(vpci, i) - 1);
+> +
+> +        rc = rangeset_remove_range(mem, start, end);
+> +        if ( rc )
+> +        {
+> +            printk(XENLOG_G_WARNING
+> +                    "Failed to remove MSIX table [%lx, %lx]: %d\n",
+> +                    start, end, rc);
+
+Indentation looks to be off by one space on the last two lines.
+
+> --- /dev/null
+> +++ b/xen/include/xen/msi-intercept.h
+> @@ -0,0 +1,49 @@
+> +/*
+> + * Copyright (C) 2008,  Netronome Systems, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify it
+> + * under the terms and conditions of the GNU General Public License,
+> + * version 2, as published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope it will be useful, but WITHOUT
+> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> + * more details.
+> + *
+> + * You should have received a copy of the GNU General Public License along with
+> + * this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#ifndef __XEN_MSI_INTERCEPT_H_
+> +#define __XEN_MSI_INTERCEPT_H_
+> +
+> +#ifdef CONFIG_HAS_PCI_MSI_INTERCEPT
+> +
+> +#include <asm/msi.h>
+> +
+> +int pdev_msix_assign(struct domain *d, struct pci_dev *pdev);
+> +void pdev_dump_msi(const struct pci_dev *pdev);
+> +
+> +#else /* !CONFIG_HAS_PCI_MSI_INTERCEPT */
+> +
+> +static inline int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline void pdev_dump_msi(const struct pci_dev *pdev) {}
+> +static inline void pci_cleanup_msi(struct pci_dev *pdev) {}
+
+I don't think this last one is intercept related (and hence doesn't belong
+here)?
+
+> @@ -148,6 +150,7 @@ struct vpci_vcpu {
+>  };
+>  
+>  #ifdef __XEN__
+> +#ifdef CONFIG_HAS_PCI_MSI_INTERCEPT
+
+Since both start and ...
+
+> +static inline void vpci_msi_free(struct vpci *vpci) {}
+> +#endif /* CONFIG_HAS_PCI_MSI_INTERCEPT */
+>  #endif /* __XEN__ */
+
+... end look to match, may I suggest to simply replace the __XEN__ ones,
+as the test harness isn't supposed to (randomly) define CONFIG_*? Or
+alternatively at least combine both #ifdef-s?
+
+Jan
 
