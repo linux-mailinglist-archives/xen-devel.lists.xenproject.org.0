@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A4D372779
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 10:43:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122005.230107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD147372799
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 10:54:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122012.230119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldqdb-0006a5-Lw; Tue, 04 May 2021 08:42:39 +0000
+	id 1ldqoz-0007bn-NV; Tue, 04 May 2021 08:54:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122005.230107; Tue, 04 May 2021 08:42:39 +0000
+Received: by outflank-mailman (output) from mailman id 122012.230119; Tue, 04 May 2021 08:54:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldqdb-0006ZV-Hv; Tue, 04 May 2021 08:42:39 +0000
-Received: by outflank-mailman (input) for mailman id 122005;
- Tue, 04 May 2021 08:42:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ldqoz-0007bO-KB; Tue, 04 May 2021 08:54:25 +0000
+Received: by outflank-mailman (input) for mailman id 122012;
+ Tue, 04 May 2021 08:54:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ldqda-0006ZH-HF
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 08:42:38 +0000
+ id 1ldqox-0007bJ-LA
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 08:54:23 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id db5d6744-d172-4a28-bd53-2491b2c74f2c;
- Tue, 04 May 2021 08:42:37 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id df7881b7-04fb-496b-a336-321115daab1b;
+ Tue, 04 May 2021 08:54:22 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B381FB158;
- Tue,  4 May 2021 08:42:36 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 45677AED7;
+ Tue,  4 May 2021 08:54:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,146 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db5d6744-d172-4a28-bd53-2491b2c74f2c
+X-Inumbo-ID: df7881b7-04fb-496b-a336-321115daab1b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620117756; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1620118461; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=t7pOKaQXzpRytMdA4ZFAwyRv6nAp2aFO8FSE0pQddp8=;
-	b=RkgIBAkp8+7NeSTaAzy1gImnP6TWxlhE6TRahF2gXrsiKBwF5JzZEEeYQb+n+Xew0ZPu2w
-	uciv1rMdM36Ui1XimTetieS8r7+bcVxHtlflRhk7XepNWs/XNBO8O80nuYC2eWXEHle+Ry
-	W1hCRbKcaiQ2c6SzNBD92WtPxE5nFns=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TSP9FYSdRM7WifVs0K5hQNwiRkkZf+HdtxO2eRrGRfI=;
+	b=Goa7fDAAHu6bz4DmhUWPSWoqT1Gwu0DxihlvmcJO44ItT8uxlHrZJiJTSfIt4DO9N/tmxa
+	npNaLDmIJnTrihgUSpYs+9TWi6/Xyr5lu5v3wf5gEZh0uNZqfGpdNACRT8CeJvRPJHW2jV
+	frjhuGMJbLzO+Yy8pOIvribHMXt0CSY=
+Subject: Re: [PATCH] x86/vhpet: fix RTC special casing
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210504084208.62823-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4] gnttab: defer allocation of status frame tracking array
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-Message-ID: <74048f89-fee7-06c2-ffd5-6e5a14bdf440@suse.com>
-Date: Tue, 4 May 2021 10:42:36 +0200
+Message-ID: <15dd7e21-0077-936f-740c-90c2ed991bdf@suse.com>
+Date: Tue, 4 May 2021 10:54:20 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
+In-Reply-To: <20210504084208.62823-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-This array can be large when many grant frames are permitted; avoid
-allocating it when it's not going to be used anyway, by doing this only
-in gnttab_populate_status_frames(). While the delaying of the respective
-memory allocation adds possible reasons for failure of the respective
-enclosing operations, there are other memory allocations there already,
-so callers can't expect these operations to always succeed anyway.
+On 04.05.2021 10:42, Roger Pau Monne wrote:
+> Restore setting the virtual timer callback private data to NULL if the
+> timer is not level triggered. This fixes the special casing done in
+> pt_update_irq so that the RTC interrupt when originating from the HPET
+> is suspended if the interrupt source is masked.
+> 
+> Note the RTC special casing done in pt_update_irq should only apply to
+> the RTC interrupt originating from the emulated RTC device (which does
+> set the callback private data), as in that case the callback itself
+> will destroy the virtual timer if the interrupt is ignored.
+> 
+> While there also use RTC_IRQ instead of 8 when the HPET is configured
+> in LegacyReplacement Mode.
+> 
+> Fixes: be07023be115 ("x86/vhpet: add support for level triggered interrupts")
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-As to the re-ordering at the end of gnttab_unpopulate_status_frames(),
-this is merely to represent intended order of actions (shrink array
-bound, then free higher array entries). If there were racing accesses,
-suitable barriers would need adding in addition.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v4: Add a comment. Add a few blank lines. Extend description.
-v3: Drop smp_wmb(). Re-base.
-v2: Defer allocation to when a domain actually switches to the v2 grant
-    API.
+> @@ -318,7 +319,8 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
+>                           hpet_tick_to_ns(h, diff),
+>                           oneshot ? 0 : hpet_tick_to_ns(h, h->hpet.period[tn]),
+>                           irq, timer_level(h, tn) ? hpet_timer_fired : NULL,
+> -                         (void *)(unsigned long)tn, timer_level(h, tn));
+> +                         timer_level(h, tn) ? (void *)(unsigned long)tn : NULL,
+> +                         timer_level(h, tn));
 
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -1747,6 +1747,17 @@ gnttab_populate_status_frames(struct dom
-     /* Make sure, prior version checks are architectural visible */
-     block_speculation();
- 
-+    if ( gt->status == ZERO_BLOCK_PTR )
-+    {
-+        gt->status = xzalloc_array(grant_status_t *,
-+                                   grant_to_status_frames(gt->max_grant_frames));
-+        if ( !gt->status )
-+        {
-+            gt->status = ZERO_BLOCK_PTR;
-+            return -ENOMEM;
-+        }
-+    }
-+
-     for ( i = nr_status_frames(gt); i < req_status_frames; i++ )
-     {
-         if ( (gt->status[i] = alloc_xenheap_page()) == NULL )
-@@ -1767,18 +1778,25 @@ status_alloc_failed:
-         free_xenheap_page(gt->status[i]);
-         gt->status[i] = NULL;
-     }
-+
-+    if ( !nr_status_frames(gt) )
-+    {
-+        xfree(gt->status);
-+        gt->status = ZERO_BLOCK_PTR;
-+    }
-+
-     return -ENOMEM;
- }
- 
- static int
- gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
- {
--    unsigned int i;
-+    unsigned int i, n = nr_status_frames(gt);
- 
-     /* Make sure, prior version checks are architectural visible */
-     block_speculation();
- 
--    for ( i = 0; i < nr_status_frames(gt); i++ )
-+    for ( i = 0; i < n; i++ )
-     {
-         struct page_info *pg = virt_to_page(gt->status[i]);
-         gfn_t gfn = gnttab_get_frame_gfn(gt, true, i);
-@@ -1833,12 +1849,11 @@ gnttab_unpopulate_status_frames(struct d
-         page_set_owner(pg, NULL);
-     }
- 
--    for ( i = 0; i < nr_status_frames(gt); i++ )
--    {
--        free_xenheap_page(gt->status[i]);
--        gt->status[i] = NULL;
--    }
-     gt->nr_status_frames = 0;
-+    for ( i = 0; i < n; i++ )
-+        free_xenheap_page(gt->status[i]);
-+    xfree(gt->status);
-+    gt->status = ZERO_BLOCK_PTR;
- 
-     return 0;
- }
-@@ -1969,11 +1984,11 @@ int grant_table_init(struct domain *d, i
-     if ( gt->shared_raw == NULL )
-         goto out;
- 
--    /* Status pages for grant table - for version 2 */
--    gt->status = xzalloc_array(grant_status_t *,
--                               grant_to_status_frames(gt->max_grant_frames));
--    if ( gt->status == NULL )
--        goto out;
-+    /*
-+     * Status page tracking array for v2 gets allocated on demand. But don't
-+     * leave a NULL pointer there.
-+     */
-+    gt->status = ZERO_BLOCK_PTR;
- 
-     grant_write_lock(gt);
- 
-@@ -4047,11 +4062,13 @@ int gnttab_acquire_resource(
-         if ( gt->gt_version != 2 )
-             break;
- 
-+        /* This may change gt->status, so has to happen before setting vaddrs. */ 
-+        rc = gnttab_get_status_frame_mfn(d, final_frame, &tmp);
-+
-         /* Check that void ** is a suitable representation for gt->status. */
-         BUILD_BUG_ON(!__builtin_types_compatible_p(
-                          typeof(gt->status), grant_status_t **));
-         vaddrs = (void **)gt->status;
--        rc = gnttab_get_status_frame_mfn(d, final_frame, &tmp);
-         break;
-     }
- 
+Depending on what further changes to this call may be planned, it
+may help readability if we split the call into a level and an edge
+one.
+
+Jan
 
