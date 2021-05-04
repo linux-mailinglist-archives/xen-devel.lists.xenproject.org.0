@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 485C2372EE4
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 19:26:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122628.231300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C55B9372EE8
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 19:27:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122632.231311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldyoj-0003MP-Or; Tue, 04 May 2021 17:26:41 +0000
+	id 1ldypq-0003TZ-2m; Tue, 04 May 2021 17:27:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122628.231300; Tue, 04 May 2021 17:26:41 +0000
+Received: by outflank-mailman (output) from mailman id 122632.231311; Tue, 04 May 2021 17:27:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldyoj-0003M0-Lm; Tue, 04 May 2021 17:26:41 +0000
-Received: by outflank-mailman (input) for mailman id 122628;
- Tue, 04 May 2021 17:26:41 +0000
+	id 1ldypp-0003TE-Vy; Tue, 04 May 2021 17:27:49 +0000
+Received: by outflank-mailman (input) for mailman id 122632;
+ Tue, 04 May 2021 17:27:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E2aX=J7=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1ldyoj-0003Lv-13
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 17:26:41 +0000
-Received: from mail-qk1-x729.google.com (unknown [2607:f8b0:4864:20::729])
+ <SRS0=tMRT=J7=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1ldypo-0003T8-PS
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 17:27:48 +0000
+Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ce38a9c-592a-4b90-9b97-b800ec854132;
- Tue, 04 May 2021 17:26:40 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id o27so9339825qkj.9
- for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 10:26:40 -0700 (PDT)
-Received: from six (c-73-89-138-5.hsd1.vt.comcast.net. [73.89.138.5])
- by smtp.gmail.com with ESMTPSA id g25sm935209qtu.93.2021.05.04.10.26.38
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 04 May 2021 10:26:39 -0700 (PDT)
+ id 11b6ea1c-dac8-4593-bb01-3fbcfee913c9;
+ Tue, 04 May 2021 17:27:48 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id c3so10410194lfs.7
+ for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 10:27:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,119 +37,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ce38a9c-592a-4b90-9b97-b800ec854132
+X-Inumbo-ID: 11b6ea1c-dac8-4593-bb01-3fbcfee913c9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=Q0A+THcWBgMm6tqQiWxwcEZdK2rcBHSm8cjiNNwjTMs=;
-        b=FWHc9H2k/L66PF9EKRO6TYr6gPDB12UyoSnWh65ewlR7QF/CuU2HeAh4+oJMDIDfs8
-         BK8rymhueB2j0BHJG5Qi/W0opvdXqgUQrl8dKtuFZEARHm4FoUKedRDe3C+qbd06iNpt
-         IQNJIJPh1JlSl/DVx8FQD5uAAVkHOSUrnBcYqXtsWx+OH4RTez5lfyd+Ms3WxeXVXGgy
-         07iRmAdZG6mJ+bTNvJ0kcPlM1rkRHU3UqJ6LCc0x7YopNkZplXMYsz11Oyif5i+su5Oh
-         0BPDtKjHq0e2x1bIAw+8RbnDyfrGjVjjsG+PQdG3UVZlaVi1iIzyA+IAy2a/8pl/KiBz
-         IvdQ==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=v0CVkEbf9Ck0jddg6MwqLyIswronxdSbnoHybmIUOck=;
+        b=Mug5UL+qcO57rvyTmXzlCgCzqYZiCpOmzlaZ8iZMSyyESNOyGpkIhy9W/TpmjLtY/H
+         8JxjeOq65PabpjnCZl7kYoyAKlY6f/wLef/WxxC/9PBplGWQk2cOTt0WwRtT7cwXZacv
+         7jcZM88wlfvcxdg9Jxb92R3mbb1dw2iyPomAywIWaV7m16GXd83dO6uuj9m09nsdViOy
+         WztbkRH5TkArbFCKMunL+9ijubupBsD/nBMN1I/Ak9Pzyvo9FyiaNWVt0B8NOzCnEcG4
+         GMswuksjVybkW8rLwuEgWpzbQemU7ITgp1VPJ5UJ8QpuOHJgLzAgisUZ9/AXGoV7fnuc
+         j9GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=Q0A+THcWBgMm6tqQiWxwcEZdK2rcBHSm8cjiNNwjTMs=;
-        b=Xj245EylRPbjQutanaaMmas9u+bTbM3VAiiaDClNGqj1t4BEyvN6iunsiA7VPTF1Gb
-         xSrtMgazPCkGubcz6Lq0jB3i1Sd4OPaapJZ/OQBVouxHUiVnmYTVmkr7zZlCc4E9vpi1
-         rx873dgyNZc+h3O6K/bm/MuFrLgTc0ZpbSoXqVUyMoYjZ3PLrayevXC3NioebWbbEJ/0
-         1V9P/jrJT3ykQkZLbA2y4C2e0KpXkS5xDPgx3LFUmyJVV7zduL0cTF/ifKOu9Xu1vMbU
-         sn3lAjF5LFjTren1FADdi3u4f24dSc0c/7spDfEZiN3NYNkaPm87XVKWx7jFJdh+HpZk
-         MmAw==
-X-Gm-Message-State: AOAM533CuSPWKjbL595vsRCoI6AXDjauPlIaIuOlaUENIaGtC3BF2yTI
-	Gg5n16gPar7Y4uxlY48qRsY=
-X-Google-Smtp-Source: ABdhPJxW4R0R8Pp38jsXDjxIPkp5ZAamG2jqOVe6u+ZY5sjFiJLffceFBXByVWFSjbYsyU80KWCW2g==
-X-Received: by 2002:a05:620a:138f:: with SMTP id k15mr13272719qki.471.1620149200029;
-        Tue, 04 May 2021 10:26:40 -0700 (PDT)
-Date: Tue, 4 May 2021 13:26:37 -0400
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, george.dunlap@citrix.com,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [RFC v2 5/7] libxl: add device function definitions to
- libxl_types.idl
-Message-ID: <20210504172637.GA7941@six>
-References: <cover.1614734296.git.rosbrookn@ainfosec.com>
- <2cd96b7e884c6f0c2667ef7499ff7179b99ea635.1614734296.git.rosbrookn@ainfosec.com>
- <YJFrn7+4AQt7K2Fa@perard>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=v0CVkEbf9Ck0jddg6MwqLyIswronxdSbnoHybmIUOck=;
+        b=SuYl5VJeTow5CkBtg8a3YP7oST64y6aXct7BeocfU1CkUJwlWDg9J5N7hhFL9+me00
+         /mLaJc2/IvDcgtoiDxeAxcMV59UZZaAYpvNNhtSsXzbr8365qG7hjNh8QjZRV8Gd9Dke
+         u1QXdYJ3OiBfGD0yMTAzOrURc175UsBRX3D2QPASl7fXBDd5B6wogvQgCIUSnuGoUqdM
+         /jpb2AZMPnNlH6MJsJl6txG+0WE2IN3+Hmj3DwDQ6BcglIcUUOIRnoyyGj19Pt2IuG7P
+         mtzPOIbKYmUGE7S8dg8KOpYBXdMCIjMp5B0GH5jE8iz0LcUmHK4UU8TWMKxEto+gJeVc
+         LJEA==
+X-Gm-Message-State: AOAM530txqdeOzVApCV+eLeNdzUqbVTnid6zapvnmzpn92AqyDf0BvT8
+	qU3DcA2dLps45fhFGLdXGQsZmjCItcviTEofQ/0=
+X-Google-Smtp-Source: ABdhPJyvULL6JNy2sHMgHfno0mV+fsqDnG6koDpptwQNp8/tuS+MmI9d9Oc6KUBjWuv7m+8oGYAKRlOV7vvuFL2m8C0=
+X-Received: by 2002:a05:6512:3e7:: with SMTP id n7mr17519120lfq.150.1620149267110;
+ Tue, 04 May 2021 10:27:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YJFrn7+4AQt7K2Fa@perard>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+References: <20210504124842.220445-1-jandryuk@gmail.com> <20210504124842.220445-5-jandryuk@gmail.com>
+ <20210504131328.wtoe4swz7nyzyuts@begin> <CAKf6xpsVJQ7LeV63hb8Sm_6gq+xjCwMDOkuMKNsn+-vqHF=9rQ@mail.gmail.com>
+ <20210504170719.mnu3e3av7klsvyuq@begin>
+In-Reply-To: <20210504170719.mnu3e3av7klsvyuq@begin>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 4 May 2021 13:27:36 -0400
+Message-ID: <CAKf6xpvP2TCqZwew8_ykYEcXfsmhsef2TefcV++h2u4BsWVo2A@mail.gmail.com>
+Subject: Re: [PATCH 4/9] vtpmmgr: Allow specifying srk_handle for TPM2
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>, 
+	xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
+	Wei Liu <wl@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, May 04, 2021 at 04:43:27PM +0100, Anthony PERARD wrote:
-> On Tue, Mar 02, 2021 at 08:46:17PM -0500, Nick Rosbrook wrote:
-> > diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> > index 5b85a7419f..550af7a1c7 100644
-> > --- a/tools/libs/light/libxl_types.idl
-> > +++ b/tools/libs/light/libxl_types.idl
-> > @@ -666,6 +668,24 @@ libxl_device_vfb = Struct("device_vfb", [
-> >      ("keymap",        string),
-> >      ])
-> >  
-> > +libxl_device_vfb_add = DeviceAddFunction("device_vfb_add",
-> > +    device_param=("vfb", libxl_device_vfb),
-> > +    extra_params=[("ao_how", libxl_asyncop_how)],
-> > +    return_type=libxl_error
-> > +)
-> > +
-> > +libxl_device_vfb_remove = DeviceRemoveFunction("device_vfb_remove",
-> > +    device_param=("vfb", libxl_device_vfb),
-> > +    extra_params=[("ao_how", libxl_asyncop_how)],
-> > +    return_type=libxl_error
-> > +)
-> > +
-> > +libxl_device_vfb_destroy = DeviceDestroyFunction("device_vfb_destroy",
-> > +    device_param=("vfb", libxl_device_vfb),
-> > +    extra_params=[("ao_how", libxl_asyncop_how)],
-> > +    return_type=libxl_error
-> > +)
-> > +
-> >  libxl_device_vkb = Struct("device_vkb", [
-> >      ("backend_domid", libxl_domid),
-> >      ("backend_domname", string),
-> 
-> In future version of the series that is deem ready, I think it would be
-> useful to have this change in libxl_types.idl and the change that remove
-> the macro call from the C file in the same patch. It would make it
-> possible to review discrepancies.
-> 
-> The change in the idl for vfb is different that the change in the C
-> file:
-> 
-> > --- a/tools/libs/light/libxl_console.c
-> > +++ b/tools/libs/light/libxl_console.c
-> > @@ -723,8 +723,6 @@ static LIBXL_DEFINE_UPDATE_DEVID(vfb)
-> >  static LIBXL_DEFINE_DEVICE_FROM_TYPE(vfb)
-> > 
-> >  /* vfb */
-> > -LIBXL_DEFINE_DEVICE_REMOVE(vfb)
-> > -
-> >  DEFINE_DEVICE_TYPE_STRUCT(vfb, VFB, vfbs,
-> >      .skip_attach = 1,
-> >      .set_xenstore_config = (device_set_xenstore_config_fn_t)
-> 
-> No add function ;-)
-> 
+On Tue, May 4, 2021 at 1:07 PM Samuel Thibault
+<samuel.thibault@ens-lyon.org> wrote:
+>
+> Jason Andryuk, le mar. 04 mai 2021 13:04:47 -0400, a ecrit:
+> > owner_auth & srk_auth don't check :, but then they don't skip : or =
+> > when passing the string to parse_auth_string.  So they can't work
+> > properly?
+>
+> They happen to "work" just because there is no other parameter prefixed
+> the same.
 
-Good catch, thanks. I will consolidate these two patches in the next
-version.
+parse_auth_string fails on the ":".
 
-> And libxl doesn't build anymore with the last patch applied. They are
-> maybe also issues with functions that are static and thus are not
-> accessible from other c files.
+Just tested "owner_auth:well-known"
+ERROR[VTPM]: Invalid auth string :well-known
+ERROR[VTPM]: Invalid Option owner_auth:well-known
+ERROR[VTPM]: Command line parsing failed! exiting..
 
-Yes, I wanted to receive a bit of feedback on the code generation
-approach before mangling things to build. As you say, there are
-currently static functions in libxl_<device>.c files that will need to
-be accessible from the generated C file. I will address this in v3.
+> > > We'd better clean this up to avoid confusions.
+> >
+> > Right, so what do we want?  I'm leaning toward standardizing on =
+> > since the tpm.*= options look to parse properly.
+>
+> I'd say so too. Also because that's what is apparently documented.
 
-Thanks,
-NR
+Ok, thanks.
+
+Regards,
+Jason
 
