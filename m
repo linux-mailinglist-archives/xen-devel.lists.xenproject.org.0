@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4EF37293A
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 12:56:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122101.230277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE8A372960
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 13:01:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122110.230289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldsj1-00021k-6z; Tue, 04 May 2021 10:56:23 +0000
+	id 1ldsnD-0002x1-S9; Tue, 04 May 2021 11:00:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122101.230277; Tue, 04 May 2021 10:56:23 +0000
+Received: by outflank-mailman (output) from mailman id 122110.230289; Tue, 04 May 2021 11:00:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldsj1-00021O-3h; Tue, 04 May 2021 10:56:23 +0000
-Received: by outflank-mailman (input) for mailman id 122101;
- Tue, 04 May 2021 10:56:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n4Og=J7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1ldsiz-00021G-Pv
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 10:56:21 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 76ea8337-7c06-4d40-ad59-1ccda7360c49;
- Tue, 04 May 2021 10:56:20 +0000 (UTC)
+	id 1ldsnD-0002wc-P5; Tue, 04 May 2021 11:00:43 +0000
+Received: by outflank-mailman (input) for mailman id 122110;
+ Tue, 04 May 2021 11:00:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldsnC-0002wX-OI
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 11:00:42 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 575acd95-a739-4f2d-baba-74d80dcb17eb;
+ Tue, 04 May 2021 11:00:41 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 218BCB166;
+ Tue,  4 May 2021 11:00:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,208 +38,368 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76ea8337-7c06-4d40-ad59-1ccda7360c49
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620125780;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=24s7pfBxLw5B9HRBk9sZdMZrfIdgjjIhoIOVsbTcupE=;
-  b=ZzypOTkg9mRdtXUHeAUZcMST6RRt1EELPXaZUOAJBSoHCsQNwf59ZHho
-   m/UDSKmtv4Ftkfq0fL61K0/MX50wE+6pnFNYTLHyIx1TU6mMUVakdP0Ss
-   4NzZvgT6U78GjckEEh52embpuKBl9WxpCLHMEbstic/59QZ4X7TbBv8F5
-   w=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: gFANDSTfiwQX/V7EffnZX9PXR4nJXWLk3fUqqFDQnSvZogL/JmayJrtNueUjqkpoFzKODjiXXP
- 7E6ES4aM3RtpCH8ng1KV0sV9KFKY+cprPuUPIiYwnnR79OVCXIr04mAsyIQFH2X+CnD4sS8WCC
- hB/IU0YX1n4gNfXWt6pAmiA1xm8U9AcTRAKLdFI6FIT/xL55BYuGtkSFGXmw5Licxg0fxZfXnc
- 21k8iryRH6Q8LZ5EYY4nvarTz7uL3zgyoKR/oFb2bnkP/NLCuYY+A/74soR1p+Yt8ezoMkfCTq
- c20=
-X-SBRS: 5.1
-X-MesageID: 43122271
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:u7qwCa36i6LhUsnx2gnTvgqjBQB3eYIsi2QD101hICF9Wvez0+
- izgfUW0gL1gj4NWHcm3euNIrWEXGm0z/BIyKErF/OHUBP9sGWlaLtj44zr3iH6F0TFmdJ1/Z
- xLN5JzANiYNzRHpO7n/Qi1FMshytGb8KauwdzT1WtpUBsCUcFdxi1SYzzrdHFebg9AGJY/Cd
- 6w5tBfoSChZHQQaa2AdwQ4dsLEoMDGk4+jXAUPAAQp5BLLoTSj7rP7FBbw5GZjbxpkx7A+/W
- /Z1zHo/6nLiYDA9jbw9U/2q65Xltzo18dZCKW36/Q9Bz3whm+TFeFccpKYujRdmpDK1H8Ll5
- 32rw4kL4BP7RrqDx6IiD/M/yWl7zo08X/lzjaj8AjeiOj0XigzBcYEpa8xSGqg12MasNtx0L
- 1G0gui3vI9Z36w/1Welq31fipnmUaurX0pnfR7tQ0lbaIkZKJMtotaxUtJEf47bVLHwbo6G+
- pjBty03ocuTXqmaRnizw5S6e3pdHEyEhCae1MFq8yY3hNH9UoJvncw9YgxmGwN+4k6TIQBz+
- PYMr5wnLULdcMOa7lhbd1xDvefOyjoe1bhIWiSKVPoGOUuPG/MkYf+5PEQ6PuxcJIF4ZMukP
- 36IR1lnF93X3irJdyF3ZVN/ByIan66Ry7RxsZX4IU8kqHgRZLwWBfzC2wGoo+FmbEyE8fbU/
- G8NNZ9GPn4N1bjHo5PwknXR4RSE38DS8cY0+xLG26mk4buEMnHp+bbePHcKP7GCjA/QF7yBX
- MFQXzdP8NFwke3WmLpoRTYVn/3E3aPuK5YIez/xaw+2YINPopDvkw+klKi/PyGLjVEr+gXcS
- JFUffau5L+gVPz0XfD7m1vNBYYJF1S+q/cX3RDohJPF0v1dL0EquiOYGw65grBGjZPC+ftVC
- JPrVV+/qy6a7aKwzo5Nt6hOmWGy1weuWyNVJVZvqGY/8/qdtcZA/8dKe1MPDSOMyYwtRdhqW
- 9FZgNBbFTYDCnShaKsi4FRIvreedl6iAKCOtVVtnrbiEWZqagUNzkmdg/rdfTSrRclRjJSiF
- E02bQYmqC8lTGmLnZ6vP41K2RWaGOcAKtPCSOMYIk8oMGsRChACUOxwRCKgRA6fWTns2EfnH
- boIyGvdfbXOVZFoXxD3qH28FR7S3WFcytLGwJHmLw4MV6Dlmd40OeNaKb26WeXZ1cY6sw2MT
- 3OY1IpU0lT7uHy8CTQtCeJFH0gyJlrA/fUC647darPnlm3LpeTqK0AF/hI3ZpsOdz0qNUXWe
- aHdwL9FkKgN8oZnyiu4lo1Mih9r3cp1c7y0Br+9W6iwToRB+HRLFkOfcBTH/isq0zfA9CG35
- VygYhr4a+eMmDtZsWHzq+SRThZMR/XqXO3SeZtiZ08h9NEiJJDW73gFR3P3zV7+T97CuHevk
- YXWr5677DMIZUHRb1YRwtpun4S0O2SJ04quDHsCuAwfVsRn2bWVun5l4bgmP4KOAm9vwP+Nl
- mUzj1F89rEVyWF06QGC6hYGxUhVGEMrFBj9viFbYveFUGDcPxC5kOzNhaGAfJgYZnAPbUbtR
- Bh5d6U28eRairjwQjV+R92OLhH/WriYcS8Bmu3aKJ12u3/HVSHma2x5sGvyB/xVDugckwdwb
- R/SnZ4VLUKthASyKst0iazTaTrokUq13tmiAsX6GLF68yB+2fUHUZPLAvDpI5ZNAMjakS1sQ
- ==
-X-IronPort-AV: E=Sophos;i="5.82,272,1613451600"; 
-   d="scan'208";a="43122271"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AwxPL+Czi1+3uath0xc6RLXiIfurmQtRaLY7X+IGZwOpLVuwjnq5JUorY7LeWQSiVh7nyvo9cC+gd67PTfNsTEASK2yU6rdvxHI92H9IwwRihHfR5sCcrLa0R7JFC7sX85aHUBYCOko8nf3XjFMCMTPvbJ1G0tG4UuXptjpg4FtZWEvCZv2jBqviP+vCZbeB4V9QplCJylQgeeRsbmi8YLGUqdsRgLv/fCaaNANjBvaGapjvzRvjqklQOTJwURVGx9tzBNSeNKbwGJK7QSo5/pDk19RPTDY10Qi5UbYqpe76mQlL7B3XyuNde44o7U9CvHM9joDnDYlvV3PYHNzNqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fcY4ysDXt9Hr533qwosADRT5FVEQ/4539qETJLeVOwQ=;
- b=lZ63qDqWxmt6madIZqPDTi83o5h4iyGi7JyRFbGbFGcShM8LL5ChVFgoEbarFG8b0o2vMCHxlp0sDGqXZ8tDMin0WsE5gVIbqWS/2TlI0SofvDQuiuEQOcg/dKbPn0vc4mosrxBfur4FbpCR1N9itXll9BXutUOUvbMNf9R01fi310AOws+Wq1SHKG3IJgrRgMiJ9WD1nha/lbN24zl2ZBhU5CGPLzrNnSwmLXbDIDK5cmhNvyXz05p1J+hxbTHFU1fiv+vdoCtM7RjrLWm9RjSjWIO7Q8Qenk7n0JPK1s2WSprg8+TkXdZ3taPISv2xBnorHtkl/uQU4TiItUHMLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fcY4ysDXt9Hr533qwosADRT5FVEQ/4539qETJLeVOwQ=;
- b=C3H6lywyXDYY733qXrkp1FTMZiRcvq3/RLMkbbuImXts5oidIBkmo0ikAiLyxo+/v2sMXVWem5ftd06Mb4rkR5DGUeGt5Bj4Lol6TNstJWKwQOAhEJPdga1R5FBaMpxbZR9qa6+KOs/Zx+5KPNfcazdC2RW3KvJomHCk9k9sIxQ=
-Date: Tue, 4 May 2021 12:56:11 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 03/13] libs/guest: allow fetching a specific MSR entry
- from a cpu policy
-Message-ID: <YJEoS6P1S6NbySFd@Air-de-Roger>
-References: <20210430155211.3709-1-roger.pau@citrix.com>
- <20210430155211.3709-4-roger.pau@citrix.com>
- <273ba6f9-dee9-00db-407b-10325d21afae@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <273ba6f9-dee9-00db-407b-10325d21afae@suse.com>
-X-ClientProxiedBy: AM0PR10CA0097.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:208:e6::14) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 575acd95-a739-4f2d-baba-74d80dcb17eb
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620126040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/3Gg8MY9+0WFljQhbZmbClJvUb35ue3ybLPt5I0ZFlI=;
+	b=iw5dGp0q/hGvxaRtRTcMxPypPn4nuTTGDsszNBZUyK7mSa/bq3OSnav+ezHUzIpv1bUB9V
+	6uQRJEYY84rvgc7bfAYtsfrXll7ordw7K8Vgusq1dH/ajlNTBtgATA/O1eF0PNWN9EE6q5
+	Uk6q0jYYhP9yJRnxwnNv4/eZ3EQYVZU=
+Subject: Re: [PATCH v4 08/12] x86/vpt: switch interrupt injection model
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ xen-devel@lists.xenproject.org
+References: <20210420140723.65321-1-roger.pau@citrix.com>
+ <20210420140723.65321-9-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <b2e83796-ea71-ce71-4fc4-2bf1fc3bc3dc@suse.com>
+Date: Tue, 4 May 2021 13:00:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b5691a7b-f310-4d92-6f32-08d90eeb3e43
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5338:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB53387C724FA5E5D0EF0071DE8F5A9@DM6PR03MB5338.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4m7+NTXHdTe6fyd3gvhlZBMosG+GK0MogHRc6QOiWnC8TKYYr4bmCvQN5f4UsnaDS6/T194EWWokyyBnh31asl4PUtfLPHK3Dq8F2+xCF2y9rV1LwvqfjsOjqeCOr9hHIHCXN9cEFDqopyRT5oqnCu9t9i6IVNLMF8/ORB94qfEeJNTRMNxEsKXA56br9Or4lM+s+4BnoXZb6RKfdBcdLUFMraqo8cWJv5FCjmMbR7MF3uqPgjsdXyyflNgP186NYH3vkhAXM8EYpJHrALMOBBjlcgKKQnLiRFNkrHvkwIUuGtfXleG8f2KMiZFos+bXBvfMImrnTV5RG7nhzQMAPGczdD9/VSyKD3obKwQu7bQD9nA7AQbXA4AKue+AihEsVqfYrmDYRigA9/JGRpp3bOEyEuXkLUaIdWZVkKrXc5kFihnM3J2rAY+uli6ef2SnM37tMT91lHsCKC8Qt33BzU+BQIOfgGYHz8zta40n6wIlYmvBDlzYakhT/ULQ3jdjMUZRehkxFHIL0XE1LsKs381AfJnt6QWh3X4K2muDzImuWlsXFY0nVjMGHktT0XdYBUCkVf59uKrK4khp2tTmy7CcIYR7zKlTr1VHCYlC8VU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(346002)(396003)(136003)(376002)(39860400002)(53546011)(26005)(8936002)(2906002)(6666004)(66946007)(478600001)(186003)(85182001)(38100700002)(5660300002)(8676002)(9686003)(6486002)(956004)(66476007)(16526019)(66556008)(83380400001)(6916009)(6496006)(316002)(4326008)(54906003)(86362001)(33716001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?cmJMTHg3NEFDcHZvang4Zkk3MldHSTQ4c1dmZmVzc1NRRURQcWhHMGprVHBJ?=
- =?utf-8?B?OVV0UGVyaHhVS1MvSkllTHoxZ1I5SDFUTE01elpQR0FxWkxzcUIxV0l5SXBh?=
- =?utf-8?B?WHBYdEhUMGNsOXhucHFteEd2dlNXR3cyVWVvSnB2eW4zSitnYWlVQW1TUDVk?=
- =?utf-8?B?bk92b0lWT2VtRk0zczNKZjV3UkMzY1FXMVlCN3JIVVJVcW5mak4rQk45eS83?=
- =?utf-8?B?aVZJUFJsZmtLM1NOZUNua3FvUjJ3Sy9BRTVyNFhjM2ZIc3lFVjZkWGRjN3ZE?=
- =?utf-8?B?aXlZVStwTnhhSzNhUDczcWlNbmsvTlNVWDFtY2h6bERSSHd1WUFwckJIS3dx?=
- =?utf-8?B?aE5GcDdvbFNJNHN6VFRnZnNXd1N6N2xGSnlVL25LUGErMVRvQnNwMWp4dmN1?=
- =?utf-8?B?MVhTbnVVbDBqcHNHVTR5ekxuWVpQUXpWRjVqRlN1UU91SSs1dk5oN0U4Wk91?=
- =?utf-8?B?OFg2YlpWeU1mUXBwVFJPR1YvbnpXbUV6SlAybGJlY2hwU21yVDYxbURseElB?=
- =?utf-8?B?Ry8rRldUQlJMdWp1QnUwMFBHUDFUOWVLRi9aQzNnbThuV2NTc3dKdW5YbW9B?=
- =?utf-8?B?UEdTZzJZOGc4T0JlRUdJYnc3bTZXcVltY3Y5c0I4MERPYWcwZGkzTWRzSVg1?=
- =?utf-8?B?dEVPNlFYeUN6RGdxNEJXbTkvVzBxTk56UTFKeXNjNC9kWkVtaHZNZkoxUHEy?=
- =?utf-8?B?dUk2NDd6eUt3ekFGVFVZRmRXMUpQOTM1WktkTGRaUUlxRTJjZUt6ZTJzdGRs?=
- =?utf-8?B?SUZVS3Q1eTVWU0I4NTZ6ejl1OHJPWWVEczVYdDZ3Q2Fod1NlUmc0TnNrbnZj?=
- =?utf-8?B?SFRxRmM3N1VUMUdxT2Rib0hVU1Y5OTAxeng2VDJYbjFvSm1JdHI3dWZZY1lK?=
- =?utf-8?B?TEEydEd1OU9KK3QrdUlWZEZtTkR5VnRZZFovamR0RGU0TkpBTkhBSW50b3Rw?=
- =?utf-8?B?N2hvYTNoekpnZ05pK0lMQmIrZUxPaFo4QmN5RlQ5L25zN1g1VGthOTE2YTRk?=
- =?utf-8?B?RGNUV3JWczYwNVhiN3VSUlNWdmJNeUI3VytTc1RpOWU4dzhxSFhZMjVkbHlo?=
- =?utf-8?B?MTF4NE55Myt3dHduL3BCbjlKQjZyempCczNJdFNpbXdqeGFrL2JWeEVXZUJ5?=
- =?utf-8?B?Z0pCTnRjSnVhTnJJOFNrYStta3VHTTgrYlkxQVAvWWVvVEx1cFZzZnpESmU1?=
- =?utf-8?B?WU9EV1F3MlNOamxGcGM4R0w1VkM1RU9sS1Fjd0VoeDZSclh4NkVZTWdxbmhN?=
- =?utf-8?B?MXNaS1VKcTlFM0NzcFpuTEpkQ3dVZThzL1FGWW5JcGZZSG5UVS8xc2krQzNz?=
- =?utf-8?B?Tk5ldklRUDFGamM2TnJ0NHBTd0ZyQWVQbFl1L0Rja0l1SmgzSmJveTVpRldT?=
- =?utf-8?B?T3A3ZHlLaGg3SlBncnYyMzJ4NjdPaFdOTWhBZjZFNFZER1VRRVlvdkRNVXhI?=
- =?utf-8?B?QzI4Tmg5MHlpY2ErUkxmZzhVdG13ekNNanl2UTdYbHA2R2Rqbm5zZHZVOVh1?=
- =?utf-8?B?TXI3L0owUTdxdEN2bitqUFIwS3E1bmJyekU4d2cvZ2t0Rk1XUkUzU2VoaXJi?=
- =?utf-8?B?ekJjWDAxd0dZRmthdTdNK09QNmJoclhzQ1pnV1JNYW42eTFWQVM5NFVTNENH?=
- =?utf-8?B?MHRoM2k1dUg5aXRsTndVUk12MktYRGgxOHo5bHVLTUg0ckZLNGdzZUI3ejlv?=
- =?utf-8?B?QUZtZnltVnNmNzEvQWUvU2IxckplaXNTLzFrNGtjSEY2enRlQkNOQ29PbC9S?=
- =?utf-8?Q?/kuwB1CGP6nY5ZR65vSocxu5mUj1m+/773Qk6D9?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5691a7b-f310-4d92-6f32-08d90eeb3e43
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2021 10:56:17.5590
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 78lGe3i/xhIG3j+dd47oTUHrTIZPhO+s9EIjoFV6ud8+k8kgzELyM/c1gikagWm6BBNBllTemF8Uw+bNWESOkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5338
-X-OriginatorOrg: citrix.com
+In-Reply-To: <20210420140723.65321-9-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 03, 2021 at 12:41:29PM +0200, Jan Beulich wrote:
-> On 30.04.2021 17:52, Roger Pau Monne wrote:
-> > Introduce an interface that returns a specific MSR entry from a cpu
-> > policy in xen_msr_entry_t format. Provide a helper to perform a binary
-> > search against an array of MSR entries.
-> > 
-> > This is useful to callers can peek data from the opaque
-> > xc_cpu_policy_t type.
-> > 
-> > No caller of the interface introduced on this patch.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Changes since v1:
-> >  - Introduce a helper to perform a binary search of the MSR entries
-> >    array.
-> > ---
-> >  tools/include/xenctrl.h         |  2 ++
-> >  tools/libs/guest/xg_cpuid_x86.c | 42 +++++++++++++++++++++++++++++++++
-> >  2 files changed, 44 insertions(+)
-> > 
-> > diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-> > index cbca7209e34..605c632cf30 100644
-> > --- a/tools/include/xenctrl.h
-> > +++ b/tools/include/xenctrl.h
-> > @@ -2611,6 +2611,8 @@ int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t policy,
-> >  int xc_cpu_policy_get_cpuid(xc_interface *xch, const xc_cpu_policy_t policy,
-> >                              uint32_t leaf, uint32_t subleaf,
-> >                              xen_cpuid_leaf_t *out);
-> > +int xc_cpu_policy_get_msr(xc_interface *xch, const xc_cpu_policy_t policy,
-> > +                          uint32_t msr, xen_msr_entry_t *out);
-> >  
-> >  int xc_get_cpu_levelling_caps(xc_interface *xch, uint32_t *caps);
-> >  int xc_get_cpu_featureset(xc_interface *xch, uint32_t index,
-> > diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
-> > index de27826f415..9e83daca0e6 100644
-> > --- a/tools/libs/guest/xg_cpuid_x86.c
-> > +++ b/tools/libs/guest/xg_cpuid_x86.c
-> > @@ -850,3 +850,45 @@ int xc_cpu_policy_get_cpuid(xc_interface *xch, const xc_cpu_policy_t policy,
-> >      *out = *tmp;
-> >      return 0;
-> >  }
-> > +
-> > +static int compare_entries(const void *l, const void *r)
-> > +{
-> > +    const xen_msr_entry_t *lhs = l;
-> > +    const xen_msr_entry_t *rhs = r;
-> > +
-> > +    if ( lhs->idx == rhs->idx )
-> > +        return 0;
-> > +    return lhs->idx < rhs->idx ? -1 : 1;
-> > +}
-> > +
-> > +static xen_msr_entry_t *find_entry(xen_msr_entry_t *entries,
-> > +                                   unsigned int nr_entries, unsigned int index)
-> > +{
-> > +    const xen_msr_entry_t key = { index };
-> > +
-> > +    return bsearch(&key, entries, nr_entries, sizeof(*entries), compare_entries);
-> > +}
-> 
-> Isn't "entries" / "entry" a little too generic a name here, considering
-> the CPUID equivalents use "leaves" / "leaf"? (Noticed really while looking
-> at patch 7.)
+On 20.04.2021 16:07, Roger Pau Monne wrote:
+> @@ -295,188 +248,153 @@ static void pt_irq_fired(struct vcpu *v, struct periodic_time *pt)
+>              list_del(&pt->list);
+>          pt->on_list = false;
+>          pt->pending_intr_nr = 0;
+> +
+> +        return;
+>      }
+> -    else if ( mode_is(v->domain, one_missed_tick_pending) ||
+> -              mode_is(v->domain, no_missed_ticks_pending) )
+> -    {
+> -        pt->last_plt_gtime = hvm_get_guest_time(v);
+> -        pt_process_missed_ticks(pt);
+> -        pt->pending_intr_nr = 0; /* 'collapse' all missed ticks */
+> -        set_timer(&pt->timer, pt->scheduled);
+> -    }
+> -    else
+> +
+> +    pt_process_missed_ticks(pt);
+> +    /* 'collapse' missed ticks according to the selected mode. */
+> +    switch ( pt->vcpu->domain->arch.hvm.params[HVM_PARAM_TIMER_MODE] )
+>      {
+> -        pt->last_plt_gtime += pt->period;
+> -        if ( --pt->pending_intr_nr == 0 )
+> -        {
+> -            pt_process_missed_ticks(pt);
+> -            if ( pt->pending_intr_nr == 0 )
+> -                set_timer(&pt->timer, pt->scheduled);
+> -        }
+> +    case HVMPTM_one_missed_tick_pending:
+> +        pt->pending_intr_nr = min(pt->pending_intr_nr, 1u);
+> +        break;
+> +
+> +    case HVMPTM_no_missed_ticks_pending:
+> +        pt->pending_intr_nr = 0;
+> +        break;
+>      }
+>  
+> -    if ( mode_is(v->domain, delay_for_missed_ticks) &&
+> -         (hvm_get_guest_time(v) < pt->last_plt_gtime) )
+> -        hvm_set_guest_time(v, pt->last_plt_gtime);
+> +    if ( !pt->pending_intr_nr )
+> +        set_timer(&pt->timer, pt->scheduled);
+>  }
+>  
+> -int pt_update_irq(struct vcpu *v)
+> +static void pt_timer_fn(void *data)
+>  {
+> -    struct list_head *head = &v->arch.hvm.tm_list;
+> -    struct periodic_time *pt, *temp, *earliest_pt;
+> -    uint64_t max_lag;
+> -    int irq, pt_vector = -1;
+> -    bool level;
+> +    struct periodic_time *pt = data;
+> +    struct vcpu *v;
+> +    time_cb *cb = NULL;
+> +    void *cb_priv;
+> +    unsigned int irq;
+>  
+> -    pt_vcpu_lock(v);
+> +    pt_lock(pt);
+>  
+> -    earliest_pt = NULL;
+> -    max_lag = -1ULL;
+> -    list_for_each_entry_safe ( pt, temp, head, list )
+> +    v = pt->vcpu;
+> +    irq = pt->irq;
+> +
+> +    if ( inject_interrupt(pt) )
+>      {
+> -        if ( pt->pending_intr_nr )
+> -        {
+> -            if ( pt_irq_masked(pt) &&
+> -                 /* Level interrupts should be asserted even if masked. */
+> -                 !pt->level )
+> -            {
+> -                /* suspend timer emulation */
+> -                list_del(&pt->list);
+> -                pt->on_list = 0;
+> -            }
+> -            else
+> -            {
+> -                if ( (pt->last_plt_gtime + pt->period) < max_lag )
+> -                {
+> -                    max_lag = pt->last_plt_gtime + pt->period;
+> -                    earliest_pt = pt;
+> -                }
+> -            }
+> -        }
+> +        pt->scheduled += pt->period;
+> +        pt->do_not_freeze = 0;
 
-Would you be fine with naming the function find_msr and leaving the
-rest of the parameters names as-is?
+Nit: "false" please.
 
-Thanks, Roger.
+> +        cb = pt->cb;
+> +        cb_priv = pt->priv;
+>      }
+> -
+> -    if ( earliest_pt == NULL )
+> +    else
+>      {
+> -        pt_vcpu_unlock(v);
+> -        return -1;
+> +        /* Masked. */
+> +        if ( pt->on_list )
+> +            list_del(&pt->list);
+> +        pt->on_list = false;
+> +        pt->pending_intr_nr++;
+>      }
+
+inject_interrupt() returns whether it was able to deliver the interrupt.
+This in particular fails if the interrupt was masked and is edge
+triggered. This, unexpectedly to me, reports success if a level triggered
+interrupt was already pending. But in either event, the missed ticks
+accounting is, as per my understanding of the comment in hvm/params.h,
+supposed to be dealing with missing delivery due to preemption only. An
+interrupt being masked / already pending may not be in this state due to
+the guest having got preempted, though. A guest keeping a timer interrupt
+masked for an extended period of time should not get a flood of
+interrupts later on, no matter what HVM_PARAM_TIMER_MODE is set to.
+
+However, I'm not going to exclude that little bit of doc is wrong, or
+implementation and doc aren't in agreement already before your change.
+
+> -    earliest_pt->irq_issued = 1;
+
+This looks to be the only place where the field gets set to non-zero.
+If the field is unused after this change, it wants deleting. I notice
+patch 11 does so, but it may be worthwhile pointing out
+- in the description here, that field removal will happen later,
+- in the later patch, that this field was already unused (and doesn't
+  become dead by the other removal done there).
+
+> -    irq = earliest_pt->irq;
+> -    level = earliest_pt->level;
+> +    pt_unlock(pt);
+>  
+> -    pt_vcpu_unlock(v);
+> +    if ( cb )
+> +        cb(v, cb_priv);
+> +}
+>  
+> -    switch ( earliest_pt->source )
+> -    {
+> -    case PTSRC_lapic:
+> -        /*
+> -         * If periodic timer interrupt is handled by lapic, its vector in
+> -         * IRR is returned and used to set eoi_exit_bitmap for virtual
+> -         * interrupt delivery case. Otherwise return -1 to do nothing.
+> -         */
+> -        vlapic_set_irq(vcpu_vlapic(v), irq, 0);
+> -        pt_vector = irq;
+> -        break;
+> +static void eoi_callback(struct periodic_time *pt)
+> +{
+> +    struct vcpu *v = NULL;
+> +    time_cb *cb = NULL;
+> +    void *cb_priv = NULL;
+>  
+> -    case PTSRC_isa:
+> -        hvm_isa_irq_deassert(v->domain, irq);
+> -        if ( platform_legacy_irq(irq) && vlapic_accept_pic_intr(v) &&
+> -             v->domain->arch.hvm.vpic[irq >> 3].int_output )
+> -            hvm_isa_irq_assert(v->domain, irq, NULL);
+> -        else
+> +    pt_lock(pt);
+> +
+> +    irq_eoi(pt);
+> +    if ( pt->pending_intr_nr )
+> +    {
+> +        if ( inject_interrupt(pt) )
+>          {
+> -            pt_vector = hvm_isa_irq_assert(v->domain, irq, vioapic_get_vector);
+> -            /*
+> -             * hvm_isa_irq_assert may not set the corresponding bit in vIRR
+> -             * when mask field of IOAPIC RTE is set. Check it again.
+> -             */
+> -            if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
+> -                pt_vector = -1;
+> +            pt->pending_intr_nr--;
+> +            cb = pt->cb;
+> +            cb_priv = pt->priv;
+> +            v = pt->vcpu;
+>          }
+> -        break;
+> -
+> -    case PTSRC_ioapic:
+> -        pt_vector = hvm_ioapic_assert(v->domain, irq, level);
+> -        if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
+> +        else
+>          {
+> -            pt_vector = -1;
+> -            if ( level )
+> -            {
+> -                /*
+> -                 * Level interrupts are always asserted because the pin assert
+> -                 * count is incremented regardless of whether the pin is masked
+> -                 * or the vector latched in IRR, so also execute the callback
+> -                 * associated with the timer.
+> -                 */
+> -                time_cb *cb = NULL;
+> -                void *cb_priv = NULL;
+> -
+> -                pt_vcpu_lock(v);
+> -                /* Make sure the timer is still on the list. */
+> -                list_for_each_entry ( pt, &v->arch.hvm.tm_list, list )
+> -                    if ( pt == earliest_pt )
+> -                    {
+> -                        pt_irq_fired(v, pt);
+> -                        cb = pt->cb;
+> -                        cb_priv = pt->priv;
+> -                        break;
+> -                    }
+> -                pt_vcpu_unlock(v);
+> -
+> -                if ( cb != NULL )
+> -                    cb(v, cb_priv);
+> -            }
+> +            /* Masked. */
+> +            if ( pt->on_list )
+> +                list_del(&pt->list);
+> +            pt->on_list = false;
+>          }
+> -        break;
+>      }
+>  
+> -    return pt_vector;
+> +    pt_unlock(pt);
+> +
+> +    if ( cb )
+> +        cb(v, cb_priv);
+>  }
+>  
+> -static struct periodic_time *is_pt_irq(
+> -    struct vcpu *v, struct hvm_intack intack)
+> +static void vlapic_eoi_callback(struct vcpu *unused, unsigned int unused2,
+> +                                void *data)
+>  {
+> -    struct list_head *head = &v->arch.hvm.tm_list;
+> -    struct periodic_time *pt;
+> -
+> -    list_for_each_entry ( pt, head, list )
+> -    {
+> -        if ( pt->pending_intr_nr && pt->irq_issued &&
+> -             (intack.vector == pt_irq_vector(pt, intack.source)) )
+> -            return pt;
+> -    }
+> +    eoi_callback(data);
+> +}
+>  
+> -    return NULL;
+> +static void vioapic_eoi_callback(struct domain *unused, unsigned int unused2,
+> +                                 void *data)
+> +{
+> +    eoi_callback(data);
+>  }
+>  
+> -void pt_intr_post(struct vcpu *v, struct hvm_intack intack)
+> +static bool inject_interrupt(struct periodic_time *pt)
+>  {
+> -    struct periodic_time *pt;
+> -    time_cb *cb;
+> -    void *cb_priv;
+> +    struct vcpu *v = pt->vcpu;
+> +    struct domain *d = v->domain;
+> +    unsigned int irq = pt->irq;
+>  
+> -    if ( intack.source == hvm_intsrc_vector )
+> -        return;
+> +    /* Level interrupts should be asserted even if masked. */
+> +    if ( pt_irq_masked(pt) && !pt->level )
+> +        return false;
+>  
+> -    pt_vcpu_lock(v);
+> -
+> -    pt = is_pt_irq(v, intack);
+> -    if ( pt == NULL )
+> +    switch ( pt->source )
+>      {
+> -        pt_vcpu_unlock(v);
+> -        return;
+> +    case PTSRC_lapic:
+> +        vlapic_set_irq_callback(vcpu_vlapic(v), pt->irq, 0, vlapic_eoi_callback,
+> +                                pt);
+> +        break;
+> +
+> +    case PTSRC_isa:
+> +        hvm_isa_irq_deassert(d, irq);
+> +        hvm_isa_irq_assert(d, irq, NULL);
+> +        break;
+> +
+> +    case PTSRC_ioapic:
+> +        hvm_ioapic_assert(d, irq, pt->level);
+> +        break;
+>      }
+
+Why do ISA IRQs get de-asserted first, but IO-APIC ones don't? I
+notice e.g. hvm_set_callback_irq_level() and hvm_set_pci_link_route()
+have similar apparent asymmetries, so I guess I'm missing something.
+In particular I can't spot - even prior to this change - where
+hvm_irq->gsi_assert_count[gsi] would get decremented for a level
+triggered IRQ, when hvm_ioapic_deassert() gets called only from
+hvm/hpet.c:hpet_write(). I guess the main point is that that's the
+only case of a level triggered timer interrupt for us?
+
+> @@ -641,20 +590,29 @@ void pt_adjust_global_vcpu_target(struct vcpu *v)
+>      write_unlock(&pl_time->vhpet.lock);
+>  }
+>  
+> -
+>  static void pt_resume(struct periodic_time *pt)
+>  {
+> +    struct vcpu *v;
+> +    time_cb *cb = NULL;
+> +    void *cb_priv;
+> +
+>      if ( pt->vcpu == NULL )
+>          return;
+>  
+>      pt_lock(pt);
+> -    if ( pt->pending_intr_nr && !pt->on_list )
+> +    if ( pt->pending_intr_nr && !pt->on_list && inject_interrupt(pt) )
+>      {
+> +        pt->pending_intr_nr--;
+> +        cb = pt->cb;
+> +        cb_priv = pt->priv;
+> +        v = pt->vcpu;
+>          pt->on_list = 1;
+>          list_add(&pt->list, &pt->vcpu->arch.hvm.tm_list);
+> -        vcpu_kick(pt->vcpu);
+
+Just for my own understanding: The replacement of this is what happens
+down the call tree from inject_interrupt()?
+
+Jan
 
