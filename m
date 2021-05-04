@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B4C43729A0
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 13:40:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122123.230315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4383729A1
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 13:40:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122125.230329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldtPO-0006Ql-6m; Tue, 04 May 2021 11:40:10 +0000
+	id 1ldtPT-0006T7-Fa; Tue, 04 May 2021 11:40:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122123.230315; Tue, 04 May 2021 11:40:10 +0000
+Received: by outflank-mailman (output) from mailman id 122125.230329; Tue, 04 May 2021 11:40:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldtPO-0006QF-2P; Tue, 04 May 2021 11:40:10 +0000
-Received: by outflank-mailman (input) for mailman id 122123;
- Tue, 04 May 2021 11:40:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ldtPT-0006Se-BP; Tue, 04 May 2021 11:40:15 +0000
+Received: by outflank-mailman (input) for mailman id 122125;
+ Tue, 04 May 2021 11:40:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ldtPM-0006Q7-Gw; Tue, 04 May 2021 11:40:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ldtPM-0001BM-8g; Tue, 04 May 2021 11:40:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ldtPM-0001UN-1v; Tue, 04 May 2021 11:40:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ldtPM-0002RF-1O; Tue, 04 May 2021 11:40:08 +0000
+ (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldtPR-0006SB-Or
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 11:40:13 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6007ed61-587b-4a88-95d8-5bb06f376c3e;
+ Tue, 04 May 2021 11:40:12 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8D227B278;
+ Tue,  4 May 2021 11:40:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=JJR9BAJnpf9DuYSxgcL7kc02DNZfoWrovGTB5QB1JPk=; b=ieUWSNZSe9SyLdxdPzXEOnKzpt
-	Um3TZQ+jQ4o7Zg54tC4tOo8TM5sR0DAV2mMcKk7exzu43ymYEB3KOIl66M2r+bLNeSdEAgx2xMRov
-	l7jp/7nEIQRG8GXJb3p9oLUqeJz6DkKYRroxrlTm6E4iuVdCGNTjX2RcDDCRvHzR4fIU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161758-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6007ed61-587b-4a88-95d8-5bb06f376c3e
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620128411; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y/0v17JDLn1s0Zf9Y3DlKqsVYyq+mWO8XcEqT48QLr4=;
+	b=BD6xR3Yp16U41B8j4eOhw1JEtqp73v7aqltUBVe1SMO65+4PheCDJVjzvX78KFVuu7SSCJ
+	oqb4bGj6WU+OxuXCP+w/HNESfrQ/HgYh7XU95H794f2J7dIIxrBfpjpz5NLjrUUTxJpV3A
+	qlJuVon7LWHSUTEkFUFJKOEmVHAQbFM=
+Subject: Re: [PATCH v3 03/13] libs/guest: allow fetching a specific MSR entry
+ from a cpu policy
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210430155211.3709-1-roger.pau@citrix.com>
+ <20210430155211.3709-4-roger.pau@citrix.com>
+ <273ba6f9-dee9-00db-407b-10325d21afae@suse.com>
+ <YJEoS6P1S6NbySFd@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <54c48a0f-075f-c379-eeb4-60b4439d8907@suse.com>
+Date: Tue, 4 May 2021 13:40:11 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 161758: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=e927a3b89ae82ac875aafedbefd6b4bc46201b7d
-X-Osstest-Versions-That:
-    xen=d26c277826dbbd64b3e3cb57159e1ecbfad33bc8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 May 2021 11:40:08 +0000
+In-Reply-To: <YJEoS6P1S6NbySFd@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 161758 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161758/
+On 04.05.2021 12:56, Roger Pau Monné wrote:
+> On Mon, May 03, 2021 at 12:41:29PM +0200, Jan Beulich wrote:
+>> On 30.04.2021 17:52, Roger Pau Monne wrote:
+>>> --- a/tools/libs/guest/xg_cpuid_x86.c
+>>> +++ b/tools/libs/guest/xg_cpuid_x86.c
+>>> @@ -850,3 +850,45 @@ int xc_cpu_policy_get_cpuid(xc_interface *xch, const xc_cpu_policy_t policy,
+>>>      *out = *tmp;
+>>>      return 0;
+>>>  }
+>>> +
+>>> +static int compare_entries(const void *l, const void *r)
+>>> +{
+>>> +    const xen_msr_entry_t *lhs = l;
+>>> +    const xen_msr_entry_t *rhs = r;
+>>> +
+>>> +    if ( lhs->idx == rhs->idx )
+>>> +        return 0;
+>>> +    return lhs->idx < rhs->idx ? -1 : 1;
+>>> +}
+>>> +
+>>> +static xen_msr_entry_t *find_entry(xen_msr_entry_t *entries,
+>>> +                                   unsigned int nr_entries, unsigned int index)
+>>> +{
+>>> +    const xen_msr_entry_t key = { index };
+>>> +
+>>> +    return bsearch(&key, entries, nr_entries, sizeof(*entries), compare_entries);
+>>> +}
+>>
+>> Isn't "entries" / "entry" a little too generic a name here, considering
+>> the CPUID equivalents use "leaves" / "leaf"? (Noticed really while looking
+>> at patch 7.)
+> 
+> Would you be fine with naming the function find_msr and leaving the
+> rest of the parameters names as-is?
 
-Failures :-/ but no regressions.
+Yes. But recall I'm not the maintainer of this code anyway.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  e927a3b89ae82ac875aafedbefd6b4bc46201b7d
-baseline version:
- xen                  d26c277826dbbd64b3e3cb57159e1ecbfad33bc8
-
-Last test of basis   161625  2021-05-03 14:01:31 Z    0 days
-Testing same since   161758  2021-05-04 09:01:35 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   d26c277826..e927a3b89a  e927a3b89ae82ac875aafedbefd6b4bc46201b7d -> smoke
+Jan
 
