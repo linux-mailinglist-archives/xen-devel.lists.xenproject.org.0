@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15CC5372ABF
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 15:15:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122370.230802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B37CC372AC4
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 15:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122374.230814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldutd-0001lQ-4i; Tue, 04 May 2021 13:15:29 +0000
+	id 1lduud-0001sF-Dq; Tue, 04 May 2021 13:16:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122370.230802; Tue, 04 May 2021 13:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 122374.230814; Tue, 04 May 2021 13:16:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldutd-0001l0-0n; Tue, 04 May 2021 13:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 122370;
- Tue, 04 May 2021 13:15:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lduud-0001rq-Aj; Tue, 04 May 2021 13:16:31 +0000
+Received: by outflank-mailman (input) for mailman id 122374;
+ Tue, 04 May 2021 13:16:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c7IS=J7=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1ldutc-0001ks-25
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 13:15:28 +0000
+ id 1lduub-0001rd-NC
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 13:16:29 +0000
 Received: from hera.aquilenet.fr (unknown [185.233.100.1])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 46662dda-9f14-4d1b-bc15-399849c508a0;
- Tue, 04 May 2021 13:15:27 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id db7c420d-2f84-4127-a455-19cc2312fd9e;
+ Tue, 04 May 2021 13:16:28 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 6C3D4237;
- Tue,  4 May 2021 15:15:26 +0200 (CEST)
+ by hera.aquilenet.fr (Postfix) with ESMTP id 0BB71365;
+ Tue,  4 May 2021 15:16:28 +0200 (CEST)
 Received: from hera.aquilenet.fr ([127.0.0.1])
  by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id rooe7fDGSXGH; Tue,  4 May 2021 15:15:25 +0200 (CEST)
+ with ESMTP id XyzKQs3AJ772; Tue,  4 May 2021 15:16:27 +0200 (CEST)
 Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 717481E8;
- Tue,  4 May 2021 15:15:25 +0200 (CEST)
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 42FA3301;
+ Tue,  4 May 2021 15:16:27 +0200 (CEST)
 Received: from samy by begin with local (Exim 4.94)
  (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1ldutY-00FpXJ-Ka; Tue, 04 May 2021 15:15:24 +0200
+ id 1lduuY-00FpYD-3f; Tue, 04 May 2021 15:16:26 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,31 +47,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46662dda-9f14-4d1b-bc15-399849c508a0
+X-Inumbo-ID: db7c420d-2f84-4127-a455-19cc2312fd9e
 X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Tue, 4 May 2021 15:15:24 +0200
+Date: Tue, 4 May 2021 15:16:26 +0200
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Jason Andryuk <jandryuk@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
-Subject: Re: [PATCH 6/9] vtpmmgr: Flush transient keys on shutdown
-Message-ID: <20210504131524.5emfxq2eykdjj6av@begin>
+Subject: Re: [PATCH 7/9] vtpmmgr: Flush all transient keys
+Message-ID: <20210504131626.h2ylaamk35evw6yg@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org,
 	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
 References: <20210504124842.220445-1-jandryuk@gmail.com>
- <20210504124842.220445-7-jandryuk@gmail.com>
+ <20210504124842.220445-8-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210504124842.220445-7-jandryuk@gmail.com>
+In-Reply-To: <20210504124842.220445-8-jandryuk@gmail.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 X-Spamd-Bar: --
 Authentication-Results: hera.aquilenet.fr
 X-Rspamd-Server: hera
-X-Rspamd-Queue-Id: 6C3D4237
+X-Rspamd-Queue-Id: 0BB71365
 X-Spamd-Result: default: False [-2.50 / 15.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -91,37 +90,38 @@ X-Spamd-Result: default: False [-2.50 / 15.00];
 	 MID_RHS_NOT_FQDN(0.50)[];
 	 BAYES_HAM(-3.00)[100.00%]
 
-Jason Andryuk, le mar. 04 mai 2021 08:48:39 -0400, a ecrit:
-> Remove our key so it isn't left in the TPM for someone to come along
-> after vtpmmgr shutsdown.
+Jason Andryuk, le mar. 04 mai 2021 08:48:40 -0400, a ecrit:
+> We're only flushing 2 transients, but there are 3 handles.  Use <= to also
+> flush the third handle.
+> 
+> The number of transient handles/keys is hardware dependent, so this
+> should query for the limit.  And assignment of handles is assumed to be
+> sequential from the minimum.  That may not be guaranteed, but seems okay
+> with my tpm2.
 > 
 > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+
+Maybe explicit in the log that TRANSIENT_LAST is actually inclusive?
 
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
 > ---
->  stubdom/vtpmmgr/init.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  stubdom/vtpmmgr/init.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/stubdom/vtpmmgr/init.c b/stubdom/vtpmmgr/init.c
-> index 569b0dd1dc..d9fefa9be6 100644
+> index d9fefa9be6..e0dbcac3ad 100644
 > --- a/stubdom/vtpmmgr/init.c
 > +++ b/stubdom/vtpmmgr/init.c
-> @@ -792,6 +792,14 @@ void vtpmmgr_shutdown(void)
->     /* Close tpmback */
->     shutdown_tpmback();
+> @@ -656,7 +656,7 @@ static TPM_RC flush_tpm2(void)
+>  {
+>      int i;
 >  
-> +    if (hw_is_tpm2()) {
-> +        /* Blow away all stale handles left in the tpm*/
-> +        if (flush_tpm2() != TPM_SUCCESS) {
-> +            vtpmlogerror(VTPM_LOG_TPM,
-> +                         "TPM2_FlushResources failed, continuing shutdown..\n");
-> +        }
-> +    }
-> +
->     /* Close tpmfront/tpm_tis */
->     close(vtpm_globals.tpm_fd);
+> -    for (i = TRANSIENT_FIRST; i < TRANSIENT_LAST; i++)
+> +    for (i = TRANSIENT_FIRST; i <= TRANSIENT_LAST; i++)
+>           TPM2_FlushContext(i);
 >  
+>      return TPM_SUCCESS;
 > -- 
 > 2.30.2
 > 
