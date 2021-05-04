@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6141A372DD6
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 18:15:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122564.231168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C5DC372DD2
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 18:15:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122563.231156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldxhS-00049O-Fd; Tue, 04 May 2021 16:15:06 +0000
+	id 1ldxh5-00043J-5U; Tue, 04 May 2021 16:14:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122564.231168; Tue, 04 May 2021 16:15:06 +0000
+Received: by outflank-mailman (output) from mailman id 122563.231156; Tue, 04 May 2021 16:14:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldxhS-00048x-BZ; Tue, 04 May 2021 16:15:06 +0000
-Received: by outflank-mailman (input) for mailman id 122564;
- Tue, 04 May 2021 16:15:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HwvY=J7=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1ldxhQ-00048f-If
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 16:15:04 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a0874d7-1103-4742-a191-09a704b2fbd8;
- Tue, 04 May 2021 16:15:03 +0000 (UTC)
+	id 1ldxh5-00042u-2O; Tue, 04 May 2021 16:14:43 +0000
+Received: by outflank-mailman (input) for mailman id 122563;
+ Tue, 04 May 2021 16:14:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ldxh3-000422-CU
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 16:14:41 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e7ecddd5-e8a9-49bb-a161-748115da0f87;
+ Tue, 04 May 2021 16:14:40 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3416AB1A6;
+ Tue,  4 May 2021 16:14:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,139 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a0874d7-1103-4742-a191-09a704b2fbd8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620144903;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=RbE9Angj5xJVvHKryCVkZNxXmr6wlbJe7cuv7VsWjZQ=;
-  b=OjLu0BIMP6VKLAJiCv3cg2YkW3Qiw5masuTjw74ymIXZ94WKOVVcxWjO
-   9mcNGvSennboACpdddUi8Ar09HPklevJy9GuFjdu5MBBRChDx6itrsBND
-   7bUrweZYZR4VWnJsLR6+wX4MtLzLGOgHIs/Xh9HG/9813Lo8d65QKRnM9
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: jrZFDAdcWP9PxAV4qiOrl5myQKBMA4t1Mg/dxxGX5aQb+gmTtFmuMon/lzloVuamPKPqnUh/O2
- fhU3+y7T4x5cEDrNrN/zrpJPO1QCXm9q+xJS6aDKKwLRKUAktm2xrRZxqQ1KDHU/8OX6LYyeTw
- 4fmU/K2udp7d3WxGFIqy7hO0qaM62mqPoweMqng1FkNhkCy3yWLC2PL4OgNZ5b2s/3lZJHtBuY
- Ib15SZ2mNFe9rqRmMYLnycgkCR6ptCRVQSBcfJwQwwLXf2O2zZXxyLpZwHwTUfS6NcyVEGYx+g
- 7Dw=
-X-SBRS: 5.1
-X-MesageID: 44563269
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:bz+VS6HP6TG5kpwwpLqEDMeALOonbusQ8zAX/mpaICY6TuWzkc
- eykPMHkSLugDEKV3063fyGMq+MQXTTnKQFhbU5F7GkQQXgpS+UPJhvhLGSpQHINiXi+odmtZ
- tIXLN5DLTLYWRSqebfzE2GH807wN+BmZrY4Nv263t2VwllZ+VBwm5Ce2WmO3Z7TgVHGpY1fa
- D0jqEsygaIQngLct+9QkAMQumrnaytqLvdfRUECxQ7gTPusRqU7tfBfCSw71M7WzNLzaxKyx
- mmrzDE
-X-IronPort-AV: E=Sophos;i="5.82,272,1613451600"; 
-   d="scan'208";a="44563269"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Julien Grall
-	<jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2] xl: constify cmd_table entries
-Date: Tue, 4 May 2021 17:14:36 +0100
-Message-ID: <20210504161436.613782-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: e7ecddd5-e8a9-49bb-a161-748115da0f87
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620144879; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xW1+wKt2bKdnpd6LFoRvJpieoTt7d2HR0ECbtlV39XE=;
+	b=QirFRRnIpP+btT0j59d9nu/4h6xSnC+3HlphhpdtPUKxkHEJtc2F8BY+uApX00g8M7FAX6
+	9mvCe4WLSZLDRzD20jkoFQwOUZVd2D2LOLFkxYtvFfCX5mBnL4mJBeOPDeRKtjGtXq73UL
+	CcwKM2GHyoGs/fSdFTyiHqSB5ueFLDw=
+Subject: Re: [PATCH v4 3/3] docs/doxygen: doxygen documentation for
+ grant_table.h
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210504094606.7125-1-luca.fancellu@arm.com>
+ <20210504094606.7125-4-luca.fancellu@arm.com>
+ <37e5b461-40fe-ac78-59b9-033ff8cdc6d1@suse.com>
+ <1853929B-AC45-42AF-8FE4-7B23C700B2E2@arm.com>
+ <e3f816df-a3ee-f880-ad6f-68c9cc2db517@suse.com>
+ <5D19A76C-DBD5-463D-975C-65FBDA0297C4@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c910c146-453c-23e5-e2df-0b8790fb3624@suse.com>
+Date: Tue, 4 May 2021 18:14:38 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
+In-Reply-To: <5D19A76C-DBD5-463D-975C-65FBDA0297C4@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Also constify cmdtable_len and make use of ARRAY_SIZE, which is
-available in "xen-tools/libs.h".
+On 04.05.2021 15:33, Luca Fancellu wrote:
+> 
+> 
+>> On 4 May 2021, at 14:28, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 04.05.2021 15:09, Luca Fancellu wrote:
+>>>> On 4 May 2021, at 12:48, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 04.05.2021 11:46, Luca Fancellu wrote:
+>>>>> @@ -451,11 +466,6 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
+>>>>> * bytes to be copied.
+>>>>> */
+>>>>>
+>>>>> -#define _GNTCOPY_source_gref      (0)
+>>>>> -#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
+>>>>> -#define _GNTCOPY_dest_gref        (1)
+>>>>> -#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
+>>>>> -
+>>>>> struct gnttab_copy {
+>>>>>    /* IN parameters. */
+>>>>>    struct gnttab_copy_ptr {
+>>>>> @@ -471,6 +481,12 @@ struct gnttab_copy {
+>>>>>    /* OUT parameters. */
+>>>>>    int16_t       status;
+>>>>> };
+>>>>> +
+>>>>> +#define _GNTCOPY_source_gref      (0)
+>>>>> +#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
+>>>>> +#define _GNTCOPY_dest_gref        (1)
+>>>>> +#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
+>>>>
+>>>> Didn't you say you agree with moving this back up some, next to the
+>>>> field using these?
+>>>
+>>> My mistake! I’ll move it in the next patch, did you spot anything else I might have forgot of what we agreed?
+>>
+>> No, thanks. I don't think I have any more comments to make on this
+>> series (once this last aspect got addressed, and assuming no new
+>> issues get introduced). But to be clear on that side as well - I
+>> don't think I'm up to actually ack-ing the patch (let alone the
+>> entire series).
+> 
+> Ok, at least would you mind to do a review by of the patches we discussed together?
 
-The entries in cmd_table don't need to be modified once xl is running.
+I'm afraid I don't understand: I did look over this one.
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
----
-
-Notes:
-    v2:
-    - use ARRAY_SIZE()
-    - rework commit message
-
- tools/xl/xl.c          | 4 ++--
- tools/xl/xl.h          | 6 +++---
- tools/xl/xl_cmdtable.c | 9 +++++----
- 3 files changed, 10 insertions(+), 9 deletions(-)
-
-diff --git a/tools/xl/xl.c b/tools/xl/xl.c
-index 3a8929580212..4107d10fd469 100644
---- a/tools/xl/xl.c
-+++ b/tools/xl/xl.c
-@@ -362,7 +362,7 @@ int main(int argc, char **argv)
- {
-     int opt = 0;
-     char *cmd = 0;
--    struct cmd_spec *cspec;
-+    const struct cmd_spec *cspec;
-     int ret;
-     void *config_data = 0;
-     int config_len = 0;
-@@ -462,7 +462,7 @@ int child_report(xlchildnum child)
- void help(const char *command)
- {
-     int i;
--    struct cmd_spec *cmd;
-+    const struct cmd_spec *cmd;
- 
-     if (!command || !strcmp(command, "help")) {
-         printf("Usage xl [-vfNtT] <subcommand> [args]\n\n");
-diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-index 137a29077c1e..e5a106dfbc82 100644
---- a/tools/xl/xl.h
-+++ b/tools/xl/xl.h
-@@ -218,10 +218,10 @@ int main_qemu_monitor_command(int argc, char **argv);
- void help(const char *command);
- 
- extern const char *common_domname;
--extern struct cmd_spec cmd_table[];
--extern int cmdtable_len;
-+extern const struct cmd_spec cmd_table[];
-+extern const int cmdtable_len;
- /* Look up a command in the table, allowing unambiguous truncation */
--struct cmd_spec *cmdtable_lookup(const char *s);
-+const struct cmd_spec *cmdtable_lookup(const char *s);
- 
- extern libxl_ctx *ctx;
- extern xentoollog_logger_stdiostream *logger;
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 07f54daabec3..661323d4884e 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -15,10 +15,11 @@
- #include <string.h>
- 
- #include <libxl.h>
-+#include <xen-tools/libs.h>
- 
- #include "xl.h"
- 
--struct cmd_spec cmd_table[] = {
-+const struct cmd_spec cmd_table[] = {
-     { "create",
-       &main_create, 1, 1,
-       "Create a domain from config file <filename>",
-@@ -631,12 +632,12 @@ struct cmd_spec cmd_table[] = {
-     },
- };
- 
--int cmdtable_len = sizeof(cmd_table)/sizeof(struct cmd_spec);
-+const int cmdtable_len = ARRAY_SIZE(cmd_table);
- 
- /* Look up a command in the table, allowing unambiguous truncation */
--struct cmd_spec *cmdtable_lookup(const char *s)
-+const struct cmd_spec *cmdtable_lookup(const char *s)
- {
--    struct cmd_spec *cmd = NULL;
-+    const struct cmd_spec *cmd = NULL;
-     size_t len;
-     int i, count = 0;
- 
--- 
-Anthony PERARD
-
+Jan
 
