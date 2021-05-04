@@ -2,30 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D5F372E77
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 19:05:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122603.231240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4788A372E7A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 19:07:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122606.231252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldyUU-00015R-Tz; Tue, 04 May 2021 17:05:46 +0000
+	id 1ldyW5-0001DK-9g; Tue, 04 May 2021 17:07:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122603.231240; Tue, 04 May 2021 17:05:46 +0000
+Received: by outflank-mailman (output) from mailman id 122606.231252; Tue, 04 May 2021 17:07:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldyUU-000151-Qn; Tue, 04 May 2021 17:05:46 +0000
-Received: by outflank-mailman (input) for mailman id 122603;
- Tue, 04 May 2021 17:05:45 +0000
+	id 1ldyW5-0001Cv-6J; Tue, 04 May 2021 17:07:25 +0000
+Received: by outflank-mailman (input) for mailman id 122606;
+ Tue, 04 May 2021 17:07:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tMRT=J7=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1ldyUT-00014v-Tj
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 17:05:45 +0000
-Received: from mail-lf1-x12b.google.com (unknown [2a00:1450:4864:20::12b])
+ <SRS0=c7IS=J7=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1ldyW3-0001Cp-Lm
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 17:07:23 +0000
+Received: from hera.aquilenet.fr (unknown [185.233.100.1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4181a9dc-ea2e-47aa-aad3-fd080edb2212;
- Tue, 04 May 2021 17:05:45 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id n138so14391297lfa.3
- for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 10:05:45 -0700 (PDT)
+ id cf359cd7-3e35-47c1-81fb-22870f7a37d9;
+ Tue, 04 May 2021 17:07:22 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id 784BD1E8;
+ Tue,  4 May 2021 19:07:21 +0200 (CEST)
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id v6cCmkSJ2K4K; Tue,  4 May 2021 19:07:20 +0200 (CEST)
+Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id BDC24AF;
+ Tue,  4 May 2021 19:07:20 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.94)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1ldyVz-00GOoe-Dw; Tue, 04 May 2021 19:07:19 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,66 +47,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4181a9dc-ea2e-47aa-aad3-fd080edb2212
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=tcon4j7AC3gVKmFEWSyXjWC+cBOcg4Zdc/1k3QPFtDY=;
-        b=YDRNSyYpZ7k/nWhfWNE01Tnc+lZIzIxcIIVPlH1+EMLvHl82DYJogoN0fLHf8zjWad
-         1+lQVTtsVDJh6Lq9UjW5vvwsmIotkQ4MKuVKB1HjECaRUp0kLqWj3M21NXDIKML7MCf2
-         4Ja13Nkj0if+jSxy9Ag/AxmNUguKH7Pd/ndgOyzSwediIY7Ti9qvd5Z+Pnym3IpI8vSn
-         dE7u+JuoIV0xpESfXIIBSQKzImSAwRVh57CsrNnUV+K37EBv9QnJ3YgldlyZU1E/dyxV
-         vUiamwxHMKByU1/oVu85i/CUlB9EGaDQswai/0PWbp6wxfzUFoB2SYW2iAxcz5LVuGWB
-         YOPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=tcon4j7AC3gVKmFEWSyXjWC+cBOcg4Zdc/1k3QPFtDY=;
-        b=tMeicLSzoeHznEpkTm1u6j8KM5oEv4i1cOxB1kHbQy5AxNuOmykuOaSscbTPpjg/2s
-         52xHh7IZQHWqf2GqwGLp/juX/RUfEplUQgqt4Dc36FV/YsdCuzKXyYiWW3j63FUe+Nlj
-         lyOTYwDeeNbjCL9Cw/BiYu6lNmDCHCWj6WN7AHH/VOjIs4Ml2D8UIRH6VJSbZ4q3pZLK
-         0BrFA/kdstam/afvgQD1VahS+mzIcM7l5K2awQDCv+/CSNcNEf6hCPfB1oktmq5oxm0f
-         +grdvtKB22Dgq9i1rSQ8DH1mZAR5RbNcMuydwpdHjstOw0fY/DTC/fdUTp/0/Mc8ECUd
-         aSwg==
-X-Gm-Message-State: AOAM5300dtkZTMM2dAS/9H3Y1VqoIVqbbNlDvI3ZcAmq771z3hRTvpkO
-	yOCEtUX/UTtkeGut0Zy57hGOKqwQIr9j7vUnEkTsqs9I
-X-Google-Smtp-Source: ABdhPJykU0l+G7JZnihj+z4nWpGgKUrkaB9GXMva3mQFt0zvMYOrYdbKJH3r/92STDkpZjc7agcXHaiOyY+Ni6ZDdc0=
-X-Received: by 2002:ac2:5e36:: with SMTP id o22mr8124029lfg.529.1620147944309;
- Tue, 04 May 2021 10:05:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210504124842.220445-1-jandryuk@gmail.com> <20210504124842.220445-8-jandryuk@gmail.com>
- <20210504131626.h2ylaamk35evw6yg@begin>
-In-Reply-To: <20210504131626.h2ylaamk35evw6yg@begin>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 4 May 2021 13:05:33 -0400
-Message-ID: <CAKf6xptnmC9FQzZ_2Z1uBaFYS1s0F7VAVu0cm=a_5YKyPSEdxA@mail.gmail.com>
-Subject: Re: [PATCH 7/9] vtpmmgr: Flush all transient keys
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>, Jason Andryuk <jandryuk@gmail.com>, 
-	xen-devel <xen-devel@lists.xenproject.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
+X-Inumbo-ID: cf359cd7-3e35-47c1-81fb-22870f7a37d9
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Date: Tue, 4 May 2021 19:07:19 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH 4/9] vtpmmgr: Allow specifying srk_handle for TPM2
+Message-ID: <20210504170719.mnu3e3av7klsvyuq@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Jason Andryuk <jandryuk@gmail.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	Quan Xu <quan.xu0@gmail.com>
+References: <20210504124842.220445-1-jandryuk@gmail.com>
+ <20210504124842.220445-5-jandryuk@gmail.com>
+ <20210504131328.wtoe4swz7nyzyuts@begin>
+ <CAKf6xpsVJQ7LeV63hb8Sm_6gq+xjCwMDOkuMKNsn+-vqHF=9rQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKf6xpsVJQ7LeV63hb8Sm_6gq+xjCwMDOkuMKNsn+-vqHF=9rQ@mail.gmail.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Spamd-Bar: --
+Authentication-Results: hera.aquilenet.fr
+X-Rspamd-Server: hera
+X-Rspamd-Queue-Id: 784BD1E8
+X-Spamd-Result: default: False [-2.50 / 15.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCPT_COUNT_FIVE(0.00)[6];
+	 HAS_ORG_HEADER(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 TO_DN_ALL(0.00)[];
+	 FREEMAIL_TO(0.00)[gmail.com];
+	 RCVD_NO_TLS_LAST(0.10)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 BAYES_HAM(-3.00)[100.00%]
 
-On Tue, May 4, 2021 at 9:16 AM Samuel Thibault
-<samuel.thibault@ens-lyon.org> wrote:
->
-> Jason Andryuk, le mar. 04 mai 2021 08:48:40 -0400, a ecrit:
-> > We're only flushing 2 transients, but there are 3 handles.  Use <= to also
-> > flush the third handle.
-> >
-> > The number of transient handles/keys is hardware dependent, so this
-> > should query for the limit.  And assignment of handles is assumed to be
-> > sequential from the minimum.  That may not be guaranteed, but seems okay
-> > with my tpm2.
-> >
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
->
-> Maybe explicit in the log that TRANSIENT_LAST is actually inclusive?
+Jason Andryuk, le mar. 04 mai 2021 13:04:47 -0400, a ecrit:
+> owner_auth & srk_auth don't check :, but then they don't skip : or =
+> when passing the string to parse_auth_string.  So they can't work
+> properly?
 
-In the commit message?  Sounds good to me.
+They happen to "work" just because there is no other parameter prefixed
+the same.
 
-> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+> > We'd better clean this up to avoid confusions.
+> 
+> Right, so what do we want?  I'm leaning toward standardizing on =
+> since the tpm.*= options look to parse properly.
 
-Thanks,
-Jason
+I'd say so too. Also because that's what is apparently documented.
+
+Samuel
 
