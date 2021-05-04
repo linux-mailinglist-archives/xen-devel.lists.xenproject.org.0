@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A37AD372A56
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 14:49:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122284.230626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3210372A57
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 14:49:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122286.230638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lduUT-0005y6-UQ; Tue, 04 May 2021 12:49:29 +0000
+	id 1lduUY-00063D-9J; Tue, 04 May 2021 12:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122284.230626; Tue, 04 May 2021 12:49:29 +0000
+Received: by outflank-mailman (output) from mailman id 122286.230638; Tue, 04 May 2021 12:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lduUT-0005xN-Px; Tue, 04 May 2021 12:49:29 +0000
-Received: by outflank-mailman (input) for mailman id 122284;
- Tue, 04 May 2021 12:49:27 +0000
+	id 1lduUY-00062U-3x; Tue, 04 May 2021 12:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 122286;
+ Tue, 04 May 2021 12:49:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tMRT=J7=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1lduUR-0005hX-RX
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 12:49:27 +0000
-Received: from mail-qk1-x72d.google.com (unknown [2607:f8b0:4864:20::72d])
+ id 1lduUW-0005hX-Rg
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 12:49:32 +0000
+Received: from mail-qk1-x733.google.com (unknown [2607:f8b0:4864:20::733])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9cf9e786-2da6-4426-a16e-07b399763b73;
- Tue, 04 May 2021 12:49:15 +0000 (UTC)
-Received: by mail-qk1-x72d.google.com with SMTP id u20so8296617qku.10
- for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 05:49:15 -0700 (PDT)
+ id 49133945-3ed6-47e0-953f-deaafcdad809;
+ Tue, 04 May 2021 12:49:16 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id i17so8324308qki.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 05:49:16 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:92e5:6d58:b544:4daa])
  by smtp.gmail.com with ESMTPSA id
- i11sm2355001qtv.8.2021.05.04.05.49.13
+ i11sm2355001qtv.8.2021.05.04.05.49.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 May 2021 05:49:14 -0700 (PDT)
+ Tue, 04 May 2021 05:49:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,108 +42,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cf9e786-2da6-4426-a16e-07b399763b73
+X-Inumbo-ID: 49133945-3ed6-47e0-953f-deaafcdad809
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=NzGJMXzPpKRh7oGL0zGJA40Q9xjMNDkXow9gtE6yA3E=;
-        b=Sup3MNbEW57h/VsmIS0kBok+uAZWBc3oAU6hzp6wCLu+3wA1dhIdbFwvmvBkh7bMy+
-         Ovfp2rakfnwrj7sLKqbJGlfPPJR/9Phko11nJexPcbALlZb1QMxK56MGL8BC1VKhj+3w
-         YQQEKqCbPXeMvHyIxFrj4tzMz/e6SHvlOrGO7cx4h/8o5s1ABtGQOfwdjTIJGfJzitxv
-         V5dFPk7/BhOmaHa+JoKJM4PvamLMRayKXIKBF/KJw9Go8uSSAS1k+aEY+2KKBTMMCRTe
-         /HQBD9+QDF0cnMkhFwqxk5I00Zrek0e0hk2nrRXLSXjSojI0JFe6AuQ4UNKEvT8z7eWY
-         z8QA==
+        bh=EcH+63aPNYFng4f+xHjI7oU7HEm0WiVbIzYTc1mGNtw=;
+        b=XicsVm3VzRnST1nHLjHEHOgRNYyW3z62WGVZqJgCZ2WUO2n+pVVbUqhmvPjK64iTqh
+         cjWqp2Wqm4fhQPgxTgGtT8Pu5jDLckiRX6+Y9bX5WWn10ufb3LAW9e94l+hesFvbquYE
+         UJv/vDZlTzXFfQdYSX3r8Ya8pT2tK9VyTQUhK2vYpfvKOmByM+lnqIW4b9M61x81jKN/
+         OGIG/h/2oIjwgMcGUR0lms9XodeXi1ARLH5DuNaxQtg0EaWRBXiVmBpQ3pMd+Jk298//
+         /A7eHTBilOMl9WxV2ATRn3NEVHd8bIP83L+ZtZNiT5mkYMDJ8/RswJv5RLnKjDZbdFwa
+         zy7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=NzGJMXzPpKRh7oGL0zGJA40Q9xjMNDkXow9gtE6yA3E=;
-        b=bIY0V9Pdjdkid8La2QOLaHlRaIHIhh408+7TxtCHU1mUd54EZ7rA9MoDLxQYr22bhe
-         GCbU62uMncCd7McxKL9YPypxj7IV9bNdEO1NHyZ4WG2BPoVyf8xBI5SqsK7dwiLbG+JY
-         1uvTh8HZvybhE1yg9hqEh/EVIK1Lu2cRZsKum2JeA8N7S7VrmTh1VgPaD9pnZ5poWTeZ
-         4NbAVCTYkcWwmBSzzJ0lhbY+aHxqypEH9+/HsRctbWRkKXXcf/KG3+l7O1O21NbW5R7Q
-         7pEZz9r0cCu1aahdWsDmMtzcMbMJiRcG7fLqjsutWPjgu1WNFpimohqfaljDJob0HBIw
-         Aciw==
-X-Gm-Message-State: AOAM533JO9Y9I2548LdeNSHGwphOAMKIWkAIofjwz4BsYb23IuhWaxt7
-	q6HtCSSvvfKWSWcjTsNpuky2KtO49jk=
-X-Google-Smtp-Source: ABdhPJw4AohCj+xilj3RZmADBGUvFfvRHx+tfERd2JyoFkgLdp0H0S6qbdcoyBto7IJ6ROqHQ4eYYQ==
-X-Received: by 2002:a37:745:: with SMTP id 66mr20175763qkh.5.1620132554549;
-        Tue, 04 May 2021 05:49:14 -0700 (PDT)
+        bh=EcH+63aPNYFng4f+xHjI7oU7HEm0WiVbIzYTc1mGNtw=;
+        b=rUQsA6sVteIZsGY7mN1yYf/wpLSV1J5uV41Oj35HZObAintTk/4xzAl8WuINuVTt6d
+         MAAKd2yF1mNrbIJUfW0KYgSbBOUSVypcCVeNbzVLM6s7XjwEPq0aiKjV5i0bsynYb/yf
+         QnIqIwN5wGNamqMNbWAZmCJzm0/vkS9ZdS0cjBwL0wW+P3R/gsakvOjvXsTfzBRLL6FK
+         6mTeDtCoKWcFqwg9uDWHhHeJ6c6RrOw7VDKpYqbVKUGFYUr8hjLMnwtGcWQMjLZHIoG6
+         1W0k2+0sVltzWLUErKKMq89TYnjtuZP64l53qR2dpZMKzBK0OsID/Mt3TxaI7/RT0lcT
+         njaQ==
+X-Gm-Message-State: AOAM533RuI/aW+gd/NSmSsEHSB1oyUOd+yaYiXiUOwo8MRKoN/wNCq1F
+	BoXgmGSWhzXTM4+7vIFbeuS3OpPh080=
+X-Google-Smtp-Source: ABdhPJw/+ohffaaA5Um631ptKNm5wa1RdxFRcwvA4+8PC+zZc3l8NcdkTmCvJba514s3Jrryj5dFhg==
+X-Received: by 2002:a05:620a:1230:: with SMTP id v16mr1496277qkj.14.1620132555775;
+        Tue, 04 May 2021 05:49:15 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
 	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>,
 	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH 4/9] vtpmmgr: Allow specifying srk_handle for TPM2
-Date: Tue,  4 May 2021 08:48:37 -0400
-Message-Id: <20210504124842.220445-5-jandryuk@gmail.com>
+Subject: [PATCH 5/9] vtpmmgr: Move vtpmmgr_shutdown
+Date: Tue,  4 May 2021 08:48:38 -0400
+Message-Id: <20210504124842.220445-6-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210504124842.220445-1-jandryuk@gmail.com>
 References: <20210504124842.220445-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bypass taking ownership of the TPM2 if an srk_handle is specified.
-
-This srk_handle must be usable with Null auth for the time being.
+Reposition vtpmmgr_shutdown so it can call flush_tpm2 without a forward
+declaration.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- docs/man/xen-vtpmmgr.7.pod |  7 +++++++
- stubdom/vtpmmgr/init.c     | 11 ++++++++++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
+ stubdom/vtpmmgr/init.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/docs/man/xen-vtpmmgr.7.pod b/docs/man/xen-vtpmmgr.7.pod
-index 875dcce508..3286954568 100644
---- a/docs/man/xen-vtpmmgr.7.pod
-+++ b/docs/man/xen-vtpmmgr.7.pod
-@@ -92,6 +92,13 @@ Valid arguments:
- 
- =over 4
- 
-+=item srk_handle=<HANDLE>
-+
-+Specify a srk_handle for TPM 2.0.  TPM 2.0 uses a key hierarchy, and
-+this allow specifying the parent handle for vtpmmgr to create its own
-+key under.  Using this option bypasses vtpmmgr trying to take ownership
-+of the TPM.
-+
- =item owner_auth=<AUTHSPEC>
- 
- =item srk_auth=<AUTHSPEC>
 diff --git a/stubdom/vtpmmgr/init.c b/stubdom/vtpmmgr/init.c
-index 1506735051..c01d03e9f4 100644
+index c01d03e9f4..569b0dd1dc 100644
 --- a/stubdom/vtpmmgr/init.c
 +++ b/stubdom/vtpmmgr/init.c
-@@ -302,6 +302,11 @@ int parse_cmdline_opts(int argc, char** argv, struct Opts* opts)
-             goto err_invalid;
-          }
-       }
-+      else if(!strncmp(argv[i], "srk_handle:", 11)) {
-+         if(sscanf(argv[i] + 11, "%x", &vtpm_globals.srk_handle) != 1) {
-+            goto err_invalid;
-+         }
-+      }
-       else if(!strncmp(argv[i], "tpmdriver=", 10)) {
-          if(!strcmp(argv[i] + 10, "tpm_tis")) {
-             opts->tpmdriver = TPMDRV_TPM_TIS;
-@@ -586,7 +591,11 @@ TPM_RESULT vtpmmgr2_create(void)
- {
-     TPM_RESULT status = TPM_SUCCESS;
+@@ -503,20 +503,6 @@ egress:
+    return status;
+ }
  
--    TPMTRYRETURN(tpm2_take_ownership());
-+    if ( vtpm_globals.srk_handle == 0 ) {
-+        TPMTRYRETURN(tpm2_take_ownership());
-+    } else {
-+        tpm2_AuthArea_ctor(NULL, 0, &vtpm_globals.srk_auth_area);
-+    }
+-void vtpmmgr_shutdown(void)
+-{
+-   /* Cleanup TPM resources */
+-   TPM_TerminateHandle(vtpm_globals.oiap.AuthHandle);
+-
+-   /* Close tpmback */
+-   shutdown_tpmback();
+-
+-   /* Close tpmfront/tpm_tis */
+-   close(vtpm_globals.tpm_fd);
+-
+-   vtpmloginfo(VTPM_LOG_VTPM, "VTPM Manager stopped.\n");
+-}
+-
+ /* TPM 2.0 */
  
-    /* create SK */
-     TPM2_Create_Params_out out;
+ static void tpm2_AuthArea_ctor(const char *authValue, UINT32 authLen,
+@@ -797,3 +783,17 @@ abort_egress:
+ egress:
+     return status;
+ }
++
++void vtpmmgr_shutdown(void)
++{
++   /* Cleanup TPM resources */
++   TPM_TerminateHandle(vtpm_globals.oiap.AuthHandle);
++
++   /* Close tpmback */
++   shutdown_tpmback();
++
++   /* Close tpmfront/tpm_tis */
++   close(vtpm_globals.tpm_fd);
++
++   vtpmloginfo(VTPM_LOG_VTPM, "VTPM Manager stopped.\n");
++}
 -- 
 2.30.2
 
