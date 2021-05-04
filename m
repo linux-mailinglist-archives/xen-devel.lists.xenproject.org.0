@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21116372839
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 11:46:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122055.230220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7902037290E
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 12:28:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122079.230233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldrdN-0003yh-3D; Tue, 04 May 2021 09:46:29 +0000
+	id 1ldsGu-0007f1-5d; Tue, 04 May 2021 10:27:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122055.230220; Tue, 04 May 2021 09:46:29 +0000
+Received: by outflank-mailman (output) from mailman id 122079.230233; Tue, 04 May 2021 10:27:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldrdM-0003y3-Uq; Tue, 04 May 2021 09:46:28 +0000
-Received: by outflank-mailman (input) for mailman id 122055;
- Tue, 04 May 2021 09:46:27 +0000
+	id 1ldsGu-0007ef-2A; Tue, 04 May 2021 10:27:20 +0000
+Received: by outflank-mailman (input) for mailman id 122079;
+ Tue, 04 May 2021 10:27:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8884=J7=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1ldrdK-0003rw-Ui
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 09:46:26 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id aa94bf46-2607-42ad-b6bf-b3b3c6f4157f;
- Tue, 04 May 2021 09:46:21 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 64CF8106F;
- Tue,  4 May 2021 02:46:21 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.197.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F4493F73B;
- Tue,  4 May 2021 02:46:19 -0700 (PDT)
+ <SRS0=n4Og=J7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1ldsGt-0007ea-2D
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 10:27:19 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d642e090-c73b-4b09-88dc-ad84ada52c15;
+ Tue, 04 May 2021 10:27:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,292 +35,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa94bf46-2607-42ad-b6bf-b3b3c6f4157f
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v4 3/3] docs/doxygen: doxygen documentation for grant_table.h
-Date: Tue,  4 May 2021 10:46:06 +0100
-Message-Id: <20210504094606.7125-4-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210504094606.7125-1-luca.fancellu@arm.com>
-References: <20210504094606.7125-1-luca.fancellu@arm.com>
+X-Inumbo-ID: d642e090-c73b-4b09-88dc-ad84ada52c15
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1620124037;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=CMKq6+bwsHCfmJ6XKcTLGMWTHi26fPUtc48zVuzErx4=;
+  b=c04NjM9A2iUHNd8/Q7QjEmlwO87vZyRZMFYMNoX9dZQ5U21RNu8Ukhoe
+   KUT2bHPnW7M0E7eq+gX21wnzaw4+UilwR5B2p21OQ7q4+IW3/gaYoKpxw
+   upEMjsBEbWbciMDuzQD2nDfaaL5gYchf/e2sysM4/al1sgt3QtDHeTflL
+   0=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: y42Gwvmg6SwfujHWV+n0DnwO6IuuNxfHPkg2Z2zv8dd1wOAwoa0gtQTOjibgUPPoDgIpAQiZqk
+ L/fQiyfKIlm+E5HVMlAzAAR4I6A7Im70e1CeUXQuqHUtQjuQQdAqTva8/IcGOnMdYJv54oTV+9
+ 8yvOOjhZ3HM/sMe4NWlLW7DHqpy/RnCGh6lTe2/wL7mIqG0JCe/g+CuDSJdWqaJhb2bZ2sWQ/B
+ vg5IoFLLizU6SOahDoHl6e1sQOzIZcfJ/vIbi7+ahJTIAmH5h8wwB3Ubbqariz05sfuPP4gRq1
+ WWc=
+X-SBRS: 5.1
+X-MesageID: 43121103
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:t/huD6ilrcRieYtzMWBGIr09U3BQX2hw3DAbvn1ZSRFFG/Gwv/
+ uF2NwGyB75jysQUnk8mdaGfJKNW2/Y6IQd2+csFJ+Ydk3DtHGzJI9vqbHjzTrpBjHk+odmup
+ tIW5NVTOf9BV0St6rHySGlDtctx8SG+qi0heHYi0xgVx1udrsI1WdEIyywe3cGIjVuL5w/CZ
+ aa+45rpyC4f24Wc8S8ARA+LpX+jvfMk4/rZgNDOgUu7xOAgSjtxLnxFRWZ2Rl2aUIy/Z4J92
+ /Znwvlopiyqv3T8G6n60b/zbRz3OHgxNxKGdCWhqEuSwnEpw60aO1aKti/lR8vpuXH0idPrP
+ DtpFMaM913+zfteAiO0GTQ8i3B9Bpr1HP401+fhhLY0L/EbRY3EdBIi44cUjax0TtZgPhG3K
+ hG332UuvNsZHuq9kmNhKmrJmRXv3G5rnY4nekYg2Y3a/pkVJZroZEC50QQKZ8cHUvBmfAaOd
+ NzB8LR7us+SyLiU1nluABUsbuRd0V2NBKHTk8eg9eSwjhbkVtopnFotfA3rzMu8okwRIJD4P
+ mBGqN0lKtWRstTVq5lAvwdKPHHRVDlcFbpCia/MF7nHKYINzbkrIP22qw84KWPdIYTxJU/tZ
+ zdWDpjxCAPUnOrLffL8IxA8xjLTmn4dy/q0Nti659wvaC5bKb3MAWYIWpe0PeIkrE6OIn2Sv
+ yzMJVZD7vINm31A7tE2AX4Rt17NWQeassIodw2Mmj+4v7jG8nPjKj2YfzTLL3iHXIPQWXkGE
+ YOWzD1OYFu9UaudnjkgAXAen/kd0DllKgAVZTyzqw28swgJ4dMug8ahRCS/ceQMwBPtaQwYQ
+ 9fLdrc4+eGjFjz2VyNw3RiOxJbAEoQyq7nSWl2qQgDNF6xVb4Cvt6YaF1DxXfvHG45c+rmVC
+ pk43hn86O+KJKdgQo4Dci8D26ch3wP4FWHUokbga/Gwcv+YJs3AtIHVcVKZET2Pi0wvTwvhH
+ ZIaQcCSEOaPCjpk7+ZgJsdA/yaUcJ9jgetKct9smneqk2YmMEqShIgLnyTeP/SpTxraytfh1
+ V3/aNaqqGHgyyTJWw2h/l9DEdBc12NALVNDB2MYaJdnryDQnA3cU66wRihzz0jcGvj8Esfwk
+ jsNzedd/3wDl1BgXxAyarx/FRodmKSQlJoZhlBwP9APFWDnkw2/f6AZ6K13WfUUFcEz+0HGB
+ zuYDcZIGpVtpqK/S/QvAzHOWQtx50oMOCYMa8qdKvL3GixbKeSk7sdIvNS9JF5Fdznv+MRS9
+ iDcwuNID6QMZJx5yWl4lIefAVkongtlv3lnCD/5G+jxXglHL78Jk9lS7xzGaDU00HUA9KzlL
+ N3gtI+sbHubiHfatuaxbrWaDAGABXJumKyR/wpr5cRna9ajsoFI7DrFR/zkFdA11ECCe2xsm
+ U0aqFy+qrANY9iZNZ6QVMTwnMZ0PC0aHI2uQn3CNIkdV4jj3XnL8qEioC43YYHMwmknk/MIl
+ GR/C1WwufdUwaC3bAcDbgsIW4+UjlL1F1SuMeDfZbXEgOkaqVq+0e7KGa0dNZmOeW4MIRVih
+ Zx+NeTmeCLMwL+xQDLpDN+ZoZD6XyuT8/3IAWCH4dzgpCHEGXJpquh+8ioijjrDRO9dkQDnI
+ VAMXUqUf4rsEhrsKQHlg6oSqL2pUo5k1xRpRFf/2SdpLSO0SP8BkFJMQrQn5NMeyJcW0L41f
+ j4zQ==
+X-IronPort-AV: E=Sophos;i="5.82,272,1613451600"; 
+   d="scan'208";a="43121103"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=f+kLTFSEK4mDkfOomMLrnhwT9ZPrg7YlRPK/6GjgnphGUasD2uEeUuO06JORbdo+V4uL+vYizIjV4xqfTfELde4//4dI74nz62ABlrY269iwVeQgWSzV0FILS+t4WBEV54gwNpcGkAIB//psRZ/X/ciXX3jITBn9RnwW0t3HnWAX9kk37LC/fPhhsyFuBRiSR4PayIRqN536oh4wkDwiWYPLD/2TiR3gb1dbBwyFlFLuRDafhnv8QVfEkc+18Y7ffcheHj5LL0zUQ6mwBkz/y30/fg4Yjh6WkUm2xv6uF20RnMP/3dHlqlTIZtgda4mBDl0rUquibkOrhtZ1gNN3Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rMbsXZI1ILwSgYxitoIFgSUXxsw7I48Mp9yc+OCjGCA=;
+ b=TVJcjPwuF4eUoEosVOAQjHj5/yGRYVvth36eVqoBM/pKImEGM5KDEcTieS34OvTgWVSG/Dub+GvTMX5INFuhiiHN2nb+2M7RSbi7kF1Dij28BjhPbK4jfrQP1jcI/onYYSHU1q/l/QpJXgKuZMTXNtC8v0WgRWSw2GBUXo7Bka58GfQntWlmShfJfd0NhUHVG8ziVDwWPvliJ17MryKvQfnK+zffWZpaioX46I7d0XaCpbh2y1+1y9TT0+BraSCOOlyHPhnWZKhl1uwj7ukzJY4UTlLBtO4Ho9wXue3qr0m7uBrQJegWwpbwhvf2y1cQF8AOTE+dxGQQNVE86NpG0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rMbsXZI1ILwSgYxitoIFgSUXxsw7I48Mp9yc+OCjGCA=;
+ b=WsaqyG00S8/QE6DdOLHxYg9qoMNiGdMr5bMr7nIUM/5pzrIov2YPjB26NCTw4JXkm+e6I6D9u8LN9KPl6vmaG9+Wcuizpif3K1QjS/h+tlW9moRHzdm2bpESM2W+bkrsSeztuXULX28ImLX0rvuiXzRj7CErl+gTz+V8wijCSao=
+Date: Tue, 4 May 2021 12:27:08 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 05/12] x86/hvm: allowing registering EOI callbacks for
+ GSIs
+Message-ID: <YJEhfO0gSxFJQc8u@Air-de-Roger>
+References: <20210420140723.65321-1-roger.pau@citrix.com>
+ <20210420140723.65321-6-roger.pau@citrix.com>
+ <19b0b30d-2fd6-4cc3-fd7a-4f4a3ce735f7@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <19b0b30d-2fd6-4cc3-fd7a-4f4a3ce735f7@suse.com>
+X-ClientProxiedBy: MR2P264CA0066.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:31::30) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0221180a-e5de-4e2e-4241-08d90ee72ed7
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6062:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR03MB6062619FEBA95CEC1FAB080B8F5A9@DM4PR03MB6062.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sjG/lnrroAGCYHcloqvhC7QSLRGdyocgv4w+wNvqU9R8drac1qnHIGYjoCh9RopcLcL6iLhcOr+WFbMNNvobx917vXhuLk3+5hVBKnL+P1SpOEETj94MVQ59ydtir+F9kWKnX/NLS1jQcClNKLagem1dW3AHUJyICW1M6eD8oXk3j0EI2GtLdvp7OeqlE7aRXtV0sPO0w0xANbjiMRIsp7teIf5VRfc0cu0A0QXNQ3vDHCWoHOiFGhcywmKGlhHE8CBhARTVZg6oiykXFUJ490zxq0e40QsGEucBjm2/MtiB7I1MaKf9FjT9Tn5RbTWScu1hOCjNkkEnbz41Lu9hxoDeUhPpJZII0+jA4FV3/ASP3rxOD2oPNoCq+KzB2L86NEeQhD+ftidOSZGJhynM03CU1/QyKTfq+YFZLi6a7dYqncSxb9TZvH4dmmDMhzA97WAiZdN4SLcn3fNH6GoABRunz7E7AzqGZN0maAtPBDxmfagx9enBdR+ZbV0XROjvlZR+Z+1kLGkyr43FkwcGfwU7DARckNEPv2htrfGDp0244/o1unsRGEtdYtxVYMtX3faL81whcTPO2t9EaaPdSXs2oo8B9K9zvJcflzfvxTY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(136003)(396003)(39860400002)(376002)(366004)(346002)(66556008)(53546011)(6666004)(66946007)(66476007)(5660300002)(83380400001)(2906002)(16526019)(85182001)(478600001)(33716001)(86362001)(4326008)(956004)(6496006)(186003)(6486002)(26005)(38100700002)(8676002)(54906003)(316002)(6916009)(8936002)(9686003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?b0cvNGMrQ3RBeXdUVjZLZUFFa0pRWlB5YkE5WFQwRWdxQTZhbDJ0NEV4cWN6?=
+ =?utf-8?B?R0VGK09DVmVndlc3UjUxMnBNZUltTlNOOTM2WE1iTmlLcTVCdzRHVmdCeU5D?=
+ =?utf-8?B?dGVnQlBzNHhEemVoa0FGTnlYd1JYU2xrdUhkSWtkcUJ1aEFYbElDM2NjU2JL?=
+ =?utf-8?B?TXlxNXJlSkd4UmdNTWNJejZxekxQZlB2WEFETmNUYTQ5aFp5c1M0U0lVM3c1?=
+ =?utf-8?B?cmRieXkxbmlnWGM2dndKTjNtQTc1bzROOFZCUFVJcDhmSWdxVmVnQW94TjhX?=
+ =?utf-8?B?ZmV2K3RqVi9idmFiYy9UdFNyNXlFbDNiRHh4MmszbGhEaTBBV1BnSUNCNzQ4?=
+ =?utf-8?B?bzRzVkd2a3V1RHRsQ3FtTm1CTjZ6MTh4cktWS3hsQm92N1pSS2dGVGlLZXVH?=
+ =?utf-8?B?dUJ5MmRScldzeXhiRVhJVm1WRFBjTGVRK0VzWnVSWHg3dVVYMG1GNmpLVGov?=
+ =?utf-8?B?UGN2b1E4ZUI2ckVQNk94Tzd4UHN3RVRyNTVFWTU0eVVWVldSOVZYb0NWMnZY?=
+ =?utf-8?B?QnFhY0FST1FERWFwc1luR2NiSTIvZUJSOVNyaVV2TFdCL2s0NXplbGNPbVZT?=
+ =?utf-8?B?SmRqUjkxWHZoOUo4ZzhIL0VMQnBEdmNMR0xMelpIVEsySVBHOWZBa01DeFFJ?=
+ =?utf-8?B?ZW1CREVLOU1Nc0pFdmpBUzd3MmJFT01NeGRrSUVNNlhjSEZwOUd3ZXNNR2pG?=
+ =?utf-8?B?ZnhsMldVdCtrcUNvSnE4YzlWa3J5RDROVFZZQW1zNW1tT1ZGR3NtUjhBTUUr?=
+ =?utf-8?B?cU5rNzJZa3pHUnBNR0M5dWU0eStvSlNSZDFHRGlkd3dlUjdnRU1qZkhHUkhY?=
+ =?utf-8?B?SDVsTGlsd2x2RndNRG9aaVViQnZKNEdkSThEMTlJMXBJRDcrK0crdUxWNDFY?=
+ =?utf-8?B?MFJFKzV1U3ltN1VDbUs4OUl4djlrc1FXb2VVZVVLQm1wbS8xZEpXc2V2THdk?=
+ =?utf-8?B?cGxJS3NHT1Boby9zVFdjczNMU0IzYUFnZk0wUUV0WG5TMDQwdUdIdXNMMEcw?=
+ =?utf-8?B?L2kvL2ZPWkZjM1RRTDhrY1k5cS92eC9KVWV1cGdZOUFNanBWUGJ3N3ExMUNN?=
+ =?utf-8?B?NGhZZTQvU1NROXgremZwRHpQMzNQY0pPTDhqc1VQTFdjK2psMVFtMXByWEkv?=
+ =?utf-8?B?NUVnemF3aFR5K0xVcmtpY0lpTEgyUitTbU9yNnduNnlZSWJJZzd1VlFOU0p2?=
+ =?utf-8?B?VTBoVWVIUlEzSndRd3k0UTQ0a0xxSE1IV0pEM1RtUWUybGhBZkRRTlFKR3lD?=
+ =?utf-8?B?bExNYlhsdlgxL3I1ZmxYN2tsQmdjVEQ0ZWJBU0R2NlJlQnNOU1RBbzJpdXF2?=
+ =?utf-8?B?OUIxc29MSWtwbEpwV3ZZTTBnUU0ybXVmRkk0eDEwUGJBeXpHemZVSnMzV04r?=
+ =?utf-8?B?OWlwUUlKT1J0YXRQUU0rVWFjYWxUbVU2N0FDS2JNK2IwaCs5U1N0U1hySWdl?=
+ =?utf-8?B?RHFBZENjenBlRks3Wk0rV2JBVHdNdXpqVkVtK0hPUnZTdWVxKzNiWlRyVWYw?=
+ =?utf-8?B?Wm50TGZKQVZ3K0J2alIrN1ZucXgvKzk4NHYvdUxaYmtySE01SWlhT2dpSGVs?=
+ =?utf-8?B?eTdzcG9HWEdnWm9BalZYWktqVXU2UE1vdFJxSC9FWjhNQ2xEeFhJUStVZ1lT?=
+ =?utf-8?B?bjlDakdmS0hSTnNnL1IxUy93MEFXNUFia2paaWRxSkpxNjJzUDhzUkRoM0RR?=
+ =?utf-8?B?UDdXT2xmRVBPdnYvRXFXWklGUHd5ODAzdkNJNndKVWlXYzRIcmhYQXRmaXhl?=
+ =?utf-8?Q?R4GFuUjN22xe2wwuavfyTFH3CLiMGMru1nXIYRk?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0221180a-e5de-4e2e-4241-08d90ee72ed7
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2021 10:27:13.6744
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qx/ufi2V63PtrE4B8+OZTfMt+L3Gj+RFkFLvAHwnYnsPLbsyV8zNHF9GYPR32aDkkY7QVIoMiKJ1BYcoTKHJGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6062
+X-OriginatorOrg: citrix.com
 
-Modification to include/public/grant_table.h:
+On Mon, May 03, 2021 at 05:50:39PM +0200, Jan Beulich wrote:
+> On 20.04.2021 16:07, Roger Pau Monne wrote:
+> > Such callbacks will be executed once a EOI is performed by the guest,
+> > regardless of whether the interrupts are injected from the vIO-APIC or
+> > the vPIC, as ISA IRQs are translated to GSIs and then the
+> > corresponding callback is executed at EOI.
+> > 
+> > The vIO-APIC infrastructure for handling EOIs is build on top of the
+> > existing vlapic EOI callback functionality, while the vPIC one is
+> > handled when writing to the vPIC EOI register.
+> > 
+> > Note that such callbacks need to be registered and de-registered, and
+> > that a single GSI can have multiple callbacks associated. That's
+> > because GSIs can be level triggered and shared, as that's the case
+> > with legacy PCI interrupts shared between several devices.
+> > 
+> > Strictly speaking this is a non-functional change, since there are no
+> > users of this new interface introduced by this change.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> In principle, as everything looks functionally correct to me,
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Nevertheless, besides a few remarks further down, I have to admit I'm
+> concerned of the direct-to-indirect calls conversion (not just here,
+> but also covering earlier patches), which (considering we're talking
+> of EOI) I expect may occur quite frequently for at least some guests.
 
-1) Add doxygen tags to:
- - Create Grant tables section
- - include variables in the generated documentation
- - Used @keepindent/@endkeepindent to enclose comment
-   section that are indented using spaces, to keep
-   the indentation.
-2) Add .rst file for grant table for Arm64
+I would expect the vmexit cost for each EOI would shadow any gain
+between using direct vs indirect calls.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-v4 changes:
-- Used @keepindent/@endkeepindent doxygen commands
-  to keep text with spaces indentation.
-- drop changes to grant_entry_v1 comment, it will
-  be changed and included in the docs in a future patch
-- Move docs .rst to "common" folder
-v3 changes:
-- removed tags to skip anonymous union/struct
-- moved back comment pointed out by Jan
-- moved down defines related to struct gnttab_copy
-  as pointed out by Jan
-v2 changes:
-- Revert back to anonymous union/struct
-- add doxygen tags to skip anonymous union/struct
----
- docs/hypercall-interfaces/arm64.rst           |  1 +
- .../common/grant_tables.rst                   |  8 +++
- docs/xen-doxygen/doxy_input.list              |  1 +
- xen/include/public/grant_table.h              | 68 ++++++++++++-------
- 4 files changed, 54 insertions(+), 24 deletions(-)
- create mode 100644 docs/hypercall-interfaces/common/grant_tables.rst
+> There aren't that many different callback functions which get
+> registered, are there? Hence I wonder whether enumerating them and
+> picking the right one via, say, an enum wouldn't be more efficient
+> and still allow elimination of (in the case here) unconditional calls
+> to hvm_dpci_eoi() for every EOI.
 
-diff --git a/docs/hypercall-interfaces/arm64.rst b/docs/hypercall-interfaces/arm64.rst
-index 5e701a2adc..cb4c0d13de 100644
---- a/docs/hypercall-interfaces/arm64.rst
-+++ b/docs/hypercall-interfaces/arm64.rst
-@@ -8,6 +8,7 @@ Starting points
- .. toctree::
-    :maxdepth: 2
- 
-+   common/grant_tables
- 
- 
- Functions
-diff --git a/docs/hypercall-interfaces/common/grant_tables.rst b/docs/hypercall-interfaces/common/grant_tables.rst
-new file mode 100644
-index 0000000000..8955ec5812
---- /dev/null
-+++ b/docs/hypercall-interfaces/common/grant_tables.rst
-@@ -0,0 +1,8 @@
-+.. SPDX-License-Identifier: CC-BY-4.0
-+
-+Grant Tables
-+============
-+
-+.. doxygengroup:: grant_table
-+   :project: Xen
-+   :members:
-diff --git a/docs/xen-doxygen/doxy_input.list b/docs/xen-doxygen/doxy_input.list
-index e69de29bb2..233d692fa7 100644
---- a/docs/xen-doxygen/doxy_input.list
-+++ b/docs/xen-doxygen/doxy_input.list
-@@ -0,0 +1 @@
-+xen/include/public/grant_table.h
-diff --git a/xen/include/public/grant_table.h b/xen/include/public/grant_table.h
-index 84b1d26b36..d879c3e23e 100644
---- a/xen/include/public/grant_table.h
-+++ b/xen/include/public/grant_table.h
-@@ -25,15 +25,19 @@
-  * Copyright (c) 2004, K A Fraser
-  */
- 
-+/**
-+ * @file
-+ * @brief Interface for granting foreign access to page frames, and receiving
-+ * page-ownership transfers.
-+ */
-+
- #ifndef __XEN_PUBLIC_GRANT_TABLE_H__
- #define __XEN_PUBLIC_GRANT_TABLE_H__
- 
- #include "xen.h"
- 
--/*
-- * `incontents 150 gnttab Grant Tables
-- *
-- * Xen's grant tables provide a generic mechanism to memory sharing
-+/**
-+ * @brief Xen's grant tables provide a generic mechanism to memory sharing
-  * between domains. This shared memory interface underpins the split
-  * device drivers for block and network IO.
-  *
-@@ -51,13 +55,10 @@
-  * know the real machine address of a page it is sharing. This makes
-  * it possible to share memory correctly with domains running in
-  * fully virtualised memory.
-- */
--
--/***********************************
-+ *
-  * GRANT TABLE REPRESENTATION
-- */
--
--/* Some rough guidelines on accessing and updating grant-table entries
-+ *
-+ * Some rough guidelines on accessing and updating grant-table entries
-  * in a concurrency-safe manner. For more information, Linux contains a
-  * reference implementation for guest OSes (drivers/xen/grant_table.c, see
-  * http://git.kernel.org/?p=linux/kernel/git/torvalds/linux.git;a=blob;f=drivers/xen/grant-table.c;hb=HEAD
-@@ -66,6 +67,7 @@
-  *     compiler barrier will still be required.
-  *
-  * Introducing a valid entry into the grant table:
-+ * @keepindent
-  *  1. Write ent->domid.
-  *  2. Write ent->frame:
-  *      GTF_permit_access:   Frame to which access is permitted.
-@@ -73,20 +75,25 @@
-  *                           frame, or zero if none.
-  *  3. Write memory barrier (WMB).
-  *  4. Write ent->flags, inc. valid type.
-+ * @endkeepindent
-  *
-  * Invalidating an unused GTF_permit_access entry:
-+ * @keepindent
-  *  1. flags = ent->flags.
-  *  2. Observe that !(flags & (GTF_reading|GTF_writing)).
-  *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
-  *  NB. No need for WMB as reuse of entry is control-dependent on success of
-  *      step 3, and all architectures guarantee ordering of ctrl-dep writes.
-+ * @endkeepindent
-  *
-  * Invalidating an in-use GTF_permit_access entry:
-+ *
-  *  This cannot be done directly. Request assistance from the domain controller
-  *  which can set a timeout on the use of a grant entry and take necessary
-  *  action. (NB. This is not yet implemented!).
-  *
-  * Invalidating an unused GTF_accept_transfer entry:
-+ * @keepindent
-  *  1. flags = ent->flags.
-  *  2. Observe that !(flags & GTF_transfer_committed). [*]
-  *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
-@@ -97,18 +104,24 @@
-  *      transferred frame is written. It is safe for the guest to spin waiting
-  *      for this to occur (detect by observing GTF_transfer_completed in
-  *      ent->flags).
-+ * @endkeepindent
-  *
-  * Invalidating a committed GTF_accept_transfer entry:
-  *  1. Wait for (ent->flags & GTF_transfer_completed).
-  *
-  * Changing a GTF_permit_access from writable to read-only:
-+ *
-  *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writing.
-  *
-  * Changing a GTF_permit_access from read-only to writable:
-+ *
-  *  Use SMP-safe bit-setting instruction.
-+ *
-+ * @addtogroup grant_table Grant Tables
-+ * @{
-  */
- 
--/*
-+/**
-  * Reference to a grant entry in a specified domain's grant table.
-  */
- typedef uint32_t grant_ref_t;
-@@ -129,15 +142,17 @@ typedef uint32_t grant_ref_t;
- #define grant_entry_v1_t grant_entry_t
- #endif
- struct grant_entry_v1 {
--    /* GTF_xxx: various type and flag information.  [XEN,GST] */
-+    /** GTF_xxx: various type and flag information.  [XEN,GST] */
-     uint16_t flags;
--    /* The domain being granted foreign privileges. [GST] */
-+    /** The domain being granted foreign privileges. [GST] */
-     domid_t  domid;
--    /*
-+    /**
-+     * @keepindent
-      * GTF_permit_access: GFN that @domid is allowed to map and access. [GST]
-      * GTF_accept_transfer: GFN that @domid is allowed to transfer into. [GST]
-      * GTF_transfer_completed: MFN whose ownership transferred by @domid
-      *                         (non-translated guests only). [XEN]
-+     * @endkeepindent
-      */
-     uint32_t frame;
- };
-@@ -228,7 +243,7 @@ struct grant_entry_header {
- };
- typedef struct grant_entry_header grant_entry_header_t;
- 
--/*
-+/**
-  * Version 2 of the grant entry structure.
-  */
- union grant_entry_v2 {
-@@ -433,7 +448,7 @@ typedef struct gnttab_transfer gnttab_transfer_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
- 
- 
--/*
-+/**
-  * GNTTABOP_copy: Hypervisor based copy
-  * source and destinations can be eithers MFNs or, for foreign domains,
-  * grant references. the foreign domain has to grant read/write access
-@@ -451,11 +466,6 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
-  * bytes to be copied.
-  */
- 
--#define _GNTCOPY_source_gref      (0)
--#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
--#define _GNTCOPY_dest_gref        (1)
--#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
--
- struct gnttab_copy {
-     /* IN parameters. */
-     struct gnttab_copy_ptr {
-@@ -471,6 +481,12 @@ struct gnttab_copy {
-     /* OUT parameters. */
-     int16_t       status;
- };
-+
-+#define _GNTCOPY_source_gref      (0)
-+#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
-+#define _GNTCOPY_dest_gref        (1)
-+#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
-+
- typedef struct gnttab_copy  gnttab_copy_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_copy_t);
- 
-@@ -579,7 +595,7 @@ struct gnttab_swap_grant_ref {
- typedef struct gnttab_swap_grant_ref gnttab_swap_grant_ref_t;
- DEFINE_XEN_GUEST_HANDLE(gnttab_swap_grant_ref_t);
- 
--/*
-+/**
-  * Issue one or more cache maintenance operations on a portion of a
-  * page granted to the calling domain by a foreign domain.
-  */
-@@ -588,8 +604,8 @@ struct gnttab_cache_flush {
-         uint64_t dev_bus_addr;
-         grant_ref_t ref;
-     } a;
--    uint16_t offset; /* offset from start of grant */
--    uint16_t length; /* size within the grant */
-+    uint16_t offset; /**< offset from start of grant */
-+    uint16_t length; /**< size within the grant */
- #define GNTTAB_CACHE_CLEAN          (1u<<0)
- #define GNTTAB_CACHE_INVAL          (1u<<1)
- #define GNTTAB_CACHE_SOURCE_GREF    (1u<<31)
-@@ -673,6 +689,10 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_cache_flush_t);
-     "operation not done; try again"             \
- }
- 
-+/**
-+ * @}
-+*/
-+
- #endif /* __XEN_PUBLIC_GRANT_TABLE_H__ */
- 
- /*
--- 
-2.17.1
+So for the vlapic (vector) callbacks we have the current consumers:
+ - MSI passthrough.
+ - vPT.
+ - IO-APIC.
 
+For GSI callbacks we have:
+ - GSI passthrough.
+ - vPT.
+
+I could see about implementing this.
+
+This is also kind of blocked on the RTC stuff, since vPT cannot be
+migrated to this new model unless we remove strict_mode or changfe the
+logic here to allow GSI callbacks to de-register themselves.
+
+> 
+> > --- a/xen/arch/x86/hvm/irq.c
+> > +++ b/xen/arch/x86/hvm/irq.c
+> > @@ -595,6 +595,81 @@ int hvm_local_events_need_delivery(struct vcpu *v)
+> >      return !hvm_interrupt_blocked(v, intack);
+> >  }
+> >  
+> > +int hvm_gsi_register_callback(struct domain *d, unsigned int gsi,
+> > +                              struct hvm_gsi_eoi_callback *cb)
+> > +{
+> > +    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+> > +
+> > +    if ( gsi >= hvm_irq->nr_gsis )
+> > +    {
+> > +        ASSERT_UNREACHABLE();
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    write_lock(&hvm_irq->gsi_callbacks_lock);
+> > +    list_add(&cb->list, &hvm_irq->gsi_callbacks[gsi]);
+> > +    write_unlock(&hvm_irq->gsi_callbacks_lock);
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +int hvm_gsi_unregister_callback(struct domain *d, unsigned int gsi,
+> > +                                struct hvm_gsi_eoi_callback *cb)
+> > +{
+> > +    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+> > +    const struct list_head *tmp;
+> > +    bool found = false;
+> > +
+> > +    if ( gsi >= hvm_irq->nr_gsis )
+> > +    {
+> > +        ASSERT_UNREACHABLE();
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    write_lock(&hvm_irq->gsi_callbacks_lock);
+> > +    list_for_each ( tmp, &hvm_irq->gsi_callbacks[gsi] )
+> > +        if ( tmp == &cb->list )
+> > +        {
+> > +            list_del(&cb->list);
+> 
+> Minor remark: Would passing "tmp" here lead to better generated
+> code?
+
+Maybe? I don't mind doing so.
+
+> > @@ -419,13 +421,25 @@ static void eoi_callback(struct vcpu *v, unsigned int vector, void *data)
+> >              if ( is_iommu_enabled(d) )
+> >              {
+> >                  spin_unlock(&d->arch.hvm.irq_lock);
+> > -                hvm_dpci_eoi(d, vioapic->base_gsi + pin);
+> > +                hvm_dpci_eoi(d, gsi);
+> >                  spin_lock(&d->arch.hvm.irq_lock);
+> >              }
+> >  
+> > +            /*
+> > +             * Callbacks don't expect to be executed with any lock held, so
+> > +             * drop the lock that protects the vIO-APIC fields from changing.
+> > +             *
+> > +             * Note that the redirection entry itself cannot go away, so upon
+> > +             * retaking the lock we only need to avoid making assumptions on
+> > +             * redirection entry field values (ie: recheck the IRR field).
+> > +             */
+> > +            spin_unlock(&d->arch.hvm.irq_lock);
+> > +            hvm_gsi_execute_callbacks(d, gsi);
+> > +            spin_lock(&d->arch.hvm.irq_lock);
+> 
+> While this may be transient in the series, as said before I'm not
+> happy about this double unlock/relock sequence. I didn't really
+> understand what would be wrong with
+> 
+>             spin_unlock(&d->arch.hvm.irq_lock);
+>             if ( is_iommu_enabled(d) )
+>                 hvm_dpci_eoi(d, gsi);
+>             hvm_gsi_execute_callbacks(d, gsi);
+>             spin_lock(&d->arch.hvm.irq_lock);
+> 
+> This in particular wouldn't grow but even shrink the later patch
+> dropping the call to hvm_dpci_eoi().
+
+Sure.
+
+> > --- a/xen/arch/x86/hvm/vpic.c
+> > +++ b/xen/arch/x86/hvm/vpic.c
+> > @@ -235,6 +235,8 @@ static void vpic_ioport_write(
+> >                  unsigned int pin = __scanbit(pending, 8);
+> >  
+> >                  ASSERT(pin < 8);
+> > +                hvm_gsi_execute_callbacks(current->domain,
+> > +                        hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+> >                  hvm_dpci_eoi(current->domain,
+> >                               hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+> >                  __clear_bit(pin, &pending);
+> > @@ -285,6 +287,8 @@ static void vpic_ioport_write(
+> >                  /* Release lock and EOI the physical interrupt (if any). */
+> >                  vpic_update_int_output(vpic);
+> >                  vpic_unlock(vpic);
+> > +                hvm_gsi_execute_callbacks(current->domain,
+> > +                        hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+> >                  hvm_dpci_eoi(current->domain,
+> >                               hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
+> >                  return; /* bail immediately */
+> 
+> Another presumably minor remark: In the IO-APIC case you insert after
+> the call to hvm_dpci_eoi(). I wonder if consistency wouldn't help
+> avoid questions of archeologists in a couple of years time.
+
+Hm, sorry, I remember trying to place them in the same order, but
+likely messed up the order during some rebase.
+
+Thanks, Roger.
 
