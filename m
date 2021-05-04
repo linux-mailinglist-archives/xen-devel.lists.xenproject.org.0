@@ -2,33 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78304372C10
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 16:32:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122495.231045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBB78372C34
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 16:39:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122500.231057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldw5K-0002L6-BP; Tue, 04 May 2021 14:31:38 +0000
+	id 1ldwCo-0002ZM-4G; Tue, 04 May 2021 14:39:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122495.231045; Tue, 04 May 2021 14:31:38 +0000
+Received: by outflank-mailman (output) from mailman id 122500.231057; Tue, 04 May 2021 14:39:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldw5K-0002Kh-7s; Tue, 04 May 2021 14:31:38 +0000
-Received: by outflank-mailman (input) for mailman id 122495;
- Tue, 04 May 2021 14:31:36 +0000
+	id 1ldwCo-0002Yx-0n; Tue, 04 May 2021 14:39:22 +0000
+Received: by outflank-mailman (input) for mailman id 122500;
+ Tue, 04 May 2021 14:39:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c6am=J7=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ldw5I-0002Kc-Io
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 14:31:36 +0000
-Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:400:200::3])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HwvY=J7=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1ldwCm-0002Ys-O8
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 14:39:20 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b18d0a1f-964e-4a84-9ed0-25c3bdd4e64a;
- Tue, 04 May 2021 14:31:35 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.25.6 AUTH)
- with ESMTPSA id J02652x44EVU18F
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 4 May 2021 16:31:30 +0200 (CEST)
+ id 2270ca45-af1e-4ff0-a54a-c848ddfeb789;
+ Tue, 04 May 2021 14:39:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,73 +35,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b18d0a1f-964e-4a84-9ed0-25c3bdd4e64a
-ARC-Seal: i=1; a=rsa-sha256; t=1620138691; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=kSmVLoVjuW7ipSwAwohtZoqtJDhnwRhD1u14OrAk3cGarmM5BqjhAtlZdpKIt0jZio
-    OzFSx0LIrnUxindCy9E1klF9ACPDwme5zOavzjOzHWpc3NWLadVXuzWc84zSSm/16HFW
-    mt8lstMAafQpu8PvfI+UA9egk6i3Z96zYw8If5/QB33FzxvqmAW4QvSLKkZ2ej7fMg+6
-    iGJKfRt4MfQE1Z+X6wdAec5TqRitZg4xV83e1Vb+UW0zh6X5z0tNXHkHqlIT0AXT4BSV
-    dOeHFHxFMSJiCZZPxaTl8668nTGrLz5AJThL1ihOznnEB3PfKsUc7XEK3F1p1DiepXx1
-    TfwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1620138691;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=PMt+6Y2zd1tLCLAyzAtE9v1z1cHR2MrHavRovAkAb3k=;
-    b=T+7riswwGJG6XnBywZ6Q9KbJMFtolNqdJskFgVFWLp0ypM6OYGpTcXlJiTe+VXh8WI
-    5wNGsUJEIKEFKLJyW6j5pBrDa+Yf9SxJ4eDgD/ntblkJSB6a1Swr3MO5wct9f5Lle9sl
-    IUo0JoIA4NcHz95Tj66dV5j3mB6ZvhR8OUG4YjmyHI4Y6mS73CmKjq5R4XvVjM4xckcH
-    8W0sWF294F4DYedIHqZY3UbZMTLRvoViA/cYtPlp6HUEW10yK2CcKkY0YkXLWqlz24xW
-    hDKPfSlusPf54stm6P05crB+OF/pEJLS8aXTNKi/j/5LX145y8RgI19QoRB8RWlbp4/B
-    dT9g==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1620138691;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=PMt+6Y2zd1tLCLAyzAtE9v1z1cHR2MrHavRovAkAb3k=;
-    b=e39bkJMH6P+puU/IcojW2Y2rzZSA0HAHZxbu/Qlm7iWzs2F3PZKKfzrPmI/OpFLnTG
-    Ps8TSRnswKaGw+JJou7I75MONufqWo9aCrq135OXU49WYUxUMUUQsBIdmUi8yeDmieey
-    YSlfiB8y7DSAvPD5QD1GLJUEOqPC+Q76gFWxcmCsx6Pkim+w7yyROjW+mvPq64quIQKW
-    nE2iSWsM7J4be65uId4wJ94XBVhY6VuQCkxaQUuW44E6UvDED4D+nyQl5cDrWVPAS1i3
-    775inPhxUuB4LQGR3URcUjcIsZwlZVo6MY1h+1WEaLne0dTICYXIdIxsq6yaudQ41YJ8
-    As+A==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgtl+1b1FMstFZvCqIQN5N7TvWFg4vzhFVdoKAuQ"
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v1] tools: handle missing xencommons in xen-init-dom0.service
-Date: Tue,  4 May 2021 16:31:28 +0200
-Message-Id: <20210504143128.16456-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 2270ca45-af1e-4ff0-a54a-c848ddfeb789
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1620139159;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5PynkD+3oVBooqyRQbevV7cegVq//k1+w7uE7ORl0TU=;
+  b=Q5YeS6SyH7skE7PdDCTGkvUk738JNYDasr9u1XygxMEo7xdQeRkbHTYq
+   d1yDOmpHUqdPF0isIDWHtFqYcYkECYdyKyH6FayEvMEjXrkPfL/QFZF24
+   1JsZeA+1JCQODfCi7GF3EY1Bxv+k1BCg2a7RrGf3IlteXgN07OwD/RJJd
+   Y=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: U5RaGnfdi66XYNbPNrX4YnNboXV+jgxe6eNDIZcFgS0U8nHJqPrJhG0sgFtC9qORJD8NGh1Ejn
+ P6fg3fMFJKCsXhDf2A7XwTyHUXEhFUDYgz5x3wu5wedDpeEC4dAAP45ASKg6zEugzlcqpGe5CD
+ w8+Oy19ygUiIIpziV4NqgpUnb8jGIUI70+qCvKUqU6rIkiZf9flL2GFy93krYIB4p4WDuC/N8P
+ oEWjXluDnELmotfYaLjczuP62OCDMnPQ40FMUChSDnBDEp7cSd+HYYvi1cid3GJ/lUp5G0WCyy
+ cBY=
+X-SBRS: 5.1
+X-MesageID: 43041665
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:xhfDgKHmnk4eiVPvpLqEeceALOonbusQ8zAX/mpaICY1TuWzkc
+ eykPMHkTL1ki8WQnE8mdaGUZPwJk/035hz/IUXIPOeTBDr0VHYSL1KwIP+z1TbdxHW2fVa0c
+ 5bHJRWKNq1NlRiiNa/3Q/QKadH/PCi0ISFwdjT1G1sSwYCUdAE0y5cBhyAGkN7AClqbKBJd6
+ a03cZMqzq+dXl/VK3SbRNpY8H5q9LGj57gaxIdbiRXijWmtj+09KX8VyGRwxZ2aUI3/Z4Z7W
+ PHnwblj5/Cj9iHzHbnuVPu0w==
+X-IronPort-AV: E=Sophos;i="5.82,272,1613451600"; 
+   d="scan'208";a="43041665"
+Date: Tue, 4 May 2021 15:39:15 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Nick Rosbrook <rosbrookn@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, <george.dunlap@citrix.com>, "Nick
+ Rosbrook" <rosbrookn@ainfosec.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [RFC v2 1/7] libxl: remove extra whitespace from gentypes.py
+Message-ID: <YJFckz3BLlOr8/I+@perard>
+References: <cover.1614734296.git.rosbrookn@ainfosec.com>
+ <7a75b14f66acac499a0b17ab1c5595549421bac7.1614734296.git.rosbrookn@ainfosec.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <7a75b14f66acac499a0b17ab1c5595549421bac7.1614734296.git.rosbrookn@ainfosec.com>
 
-sysconfig files are not mandatory.
-Adjust xen-init-dom0.service to handle a missing sysconfig file by
-prepending a dash to the to-be-sourced filename.
+On Tue, Mar 02, 2021 at 08:46:13PM -0500, Nick Rosbrook wrote:
+> No functional change, just remove the extra whitespace from gentypes.py.
+> 
+> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/hotplug/Linux/systemd/xen-init-dom0.service.in | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-diff --git a/tools/hotplug/Linux/systemd/xen-init-dom0.service.in b/tools/hotplug/Linux/systemd/xen-init-dom0.service.in
-index beed3126c6..98779b8507 100644
---- a/tools/hotplug/Linux/systemd/xen-init-dom0.service.in
-+++ b/tools/hotplug/Linux/systemd/xen-init-dom0.service.in
-@@ -7,7 +7,7 @@ ConditionPathExists=/proc/xen/capabilities
- [Service]
- Type=oneshot
- RemainAfterExit=true
--EnvironmentFile=@CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
-+EnvironmentFile=-@CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
- ExecStartPre=/bin/grep -q control_d /proc/xen/capabilities
- ExecStart=@LIBEXEC_BIN@/xen-init-dom0 $XEN_DOM0_UUID
- 
+Thanks,
+
+-- 
+Anthony PERARD
 
