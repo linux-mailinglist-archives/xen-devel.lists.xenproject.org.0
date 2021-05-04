@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EEB9372A4C
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 14:45:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122270.230566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18D7E372A52
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 14:49:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122279.230576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lduQS-0005Vv-V2; Tue, 04 May 2021 12:45:20 +0000
+	id 1lduU9-0005hz-Gm; Tue, 04 May 2021 12:49:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122270.230566; Tue, 04 May 2021 12:45:20 +0000
+Received: by outflank-mailman (output) from mailman id 122279.230576; Tue, 04 May 2021 12:49:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lduQS-0005VX-R1; Tue, 04 May 2021 12:45:20 +0000
-Received: by outflank-mailman (input) for mailman id 122270;
- Tue, 04 May 2021 12:45:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lduQR-0005VQ-FB
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 12:45:19 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f8ecbd8d-6cb2-4cf1-9f43-0f0dcb8043ba;
- Tue, 04 May 2021 12:45:18 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D74C3AF21;
- Tue,  4 May 2021 12:45:17 +0000 (UTC)
+	id 1lduU9-0005hc-Dd; Tue, 04 May 2021 12:49:09 +0000
+Received: by outflank-mailman (input) for mailman id 122279;
+ Tue, 04 May 2021 12:49:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tMRT=J7=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1lduU7-0005hX-VY
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 12:49:08 +0000
+Received: from mail-qk1-x72e.google.com (unknown [2607:f8b0:4864:20::72e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b60ccf20-5525-43f5-87ae-b1dfd6a5731d;
+ Tue, 04 May 2021 12:49:07 +0000 (UTC)
+Received: by mail-qk1-x72e.google.com with SMTP id u20so8296200qku.10
+ for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 05:49:07 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:92e5:6d58:b544:4daa])
+ by smtp.gmail.com with ESMTPSA id
+ i11sm2355001qtv.8.2021.05.04.05.49.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 May 2021 05:49:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +42,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8ecbd8d-6cb2-4cf1-9f43-0f0dcb8043ba
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620132317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VZRmz45DfhcROUIiTINUpEqr8mhThAOu9eoy8T3dNXc=;
-	b=SJLZvKp+ixTW1QCIfXqbI9HSdDy+5krV6PCR2I29BNmerWAvfLZeSvSrPj59C3/3LuuOj7
-	132gNIAPbCQhktWYIOv7LsApZut8a1Tv1kYEAe4RaLMQr3xTlX9s7bF52il3bcYSDN6jJz
-	ZBX0YoPHPYv82nWMEr9YHFGbnnKfuJY=
-Subject: Re: [PATCH 3/5] x86/xstate: Rework xstate_ctxt_size() as
- xstate_uncompressed_size()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210503153938.14109-1-andrew.cooper3@citrix.com>
- <20210503153938.14109-4-andrew.cooper3@citrix.com>
- <4deac8bb-3252-36e0-b728-b78c2132984b@suse.com>
- <0015b645-3e76-8a03-4a5f-b81edff43623@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8b6e5904-eebe-b01b-119c-7dc7202d286d@suse.com>
-Date: Tue, 4 May 2021 14:45:17 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: b60ccf20-5525-43f5-87ae-b1dfd6a5731d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=3Tal1ALW05zmL2hsosOStx0zh1sfSUh+K85bAjmwB0s=;
+        b=g+zsHD5UKRDMcY71P8S37WwU7yTMTXKBdFvm/mB+j42Ll9sJG2HAabiggqE1fKEoLW
+         7vzugJF3g4LFJguXY6616H7LfXXkcSRT3YB/SoTAP0fIeKjA6GdhcAkzhVToeKHzK4iC
+         k/B9bRsHEkKZ/9jYuBA6uh6Zv9u7bWghKSZYW39ASCOW5vkU3seScFxUnoYueK8P0W1o
+         ++nvp1b5QRWiC0UhOEiSnjczqanU9jx5TqJ6eytDl2nVP0+FwE73AcsEGG/36PYE+EYh
+         hECuCwk34VkwGB1BTzAlgaR9p/656rfx82QIzggYGbl/i+U/eyzDKNrnCxsakx/VPhY3
+         hmUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=3Tal1ALW05zmL2hsosOStx0zh1sfSUh+K85bAjmwB0s=;
+        b=YwkBZmV4esowj89i2QXwl9Bwb5KP5KZxuFvkk0seeb3K9793/+A8BpmtAQUyNiMYN2
+         63FZN+usUS8R5WqW8YWeXO6lCWAyeUQ+sPYH8MYIWn6c7FyJAcdVd7MArbnCVDzSk0Tt
+         lWdVCRf7kpl8HG7FSOBGn36C3ieS1brn3q7v6YX2zuFg62chUVYRYUoWRlFSIIaWLbi5
+         PFRkXHL0dqH5q+b4hzPtxcBswc/fDzF2aS5TT9K/kfPiGvY3NHaNuAyTHNLxwHkemqLn
+         j6A55tKPVO8DEGod7zYNTH12NOXPab74wIibCnl20wu5LR4ddtV8H0iFx7r1X730PAr+
+         npoA==
+X-Gm-Message-State: AOAM532d97bu6TYiMfXvqIpFSGr0ya4nI7skEHRhxsYKtIGOgJIaIJvH
+	kyYpo4G4AmDRwrbD7tlsEytGC+NIUyA=
+X-Google-Smtp-Source: ABdhPJy5/Jft3DXtjDP9GwNUBxgzKrfsRvUUNHQx+GTa/Eck1jXs+Dxc0b5qzzHOmmmX5f5Gppskng==
+X-Received: by 2002:a05:620a:13bc:: with SMTP id m28mr8490152qki.357.1620132546581;
+        Tue, 04 May 2021 05:49:06 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	Quan Xu <quan.xu0@gmail.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Dag Nygren <dag@newtech.fi>
+Subject: [PATCH 0/9] vtpmmgr: Some fixes - still incomplete
+Date: Tue,  4 May 2021 08:48:33 -0400
+Message-Id: <20210504124842.220445-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <0015b645-3e76-8a03-4a5f-b81edff43623@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 04.05.2021 14:22, Andrew Cooper wrote:
-> On 04/05/2021 13:20, Jan Beulich wrote:
->> On 03.05.2021 17:39, Andrew Cooper wrote:
->>> @@ -568,16 +568,38 @@ static unsigned int hw_uncompressed_size(uint64_t xcr0)
->>>      return size;
->>>  }
->>>  
->>> -/* Fastpath for common xstate size requests, avoiding reloads of xcr0. */
->>> -unsigned int xstate_ctxt_size(u64 xcr0)
->>> +unsigned int xstate_uncompressed_size(uint64_t xcr0)
->> Since you rewrite the function anyway, and since taking into account
->> the XSS-controlled features here is going to be necessary as well
->> (even if just down the road, but that's what your ultimate goal is
->> from all I can tell), how about renaming the parameter to "xstates"
->> or "states" at the same time?
-> 
-> I'm working on some cleanup of terminology, which I haven't posted yet.
-> 
-> For this one, I'm not sure.  For uncompressed size, we genuinely mean
-> user states only.
+vtpmmgr TPM 2.0 support is incomplete.  There is no code to save the
+tpm2 keys generated by the vtpmmgr, so it's impossible to restore vtpm
+state with tpm2.  The vtpmmgr also issues TPM 1.2 commands to the TPM
+2.0 hardware which naturally fails.  Dag reported this [1][2], and I
+independently re-discovered it.
 
-Ah, yes - fair point.
+I have not fixed the above issues.  These are some fixes I made while
+investigating tpm2 support.  At a minimum, "docs: Warn about incomplete
+vtpmmgr TPM 2.0 support" should be applied to warn others.
 
-Jan
+This is useful for debugging:
+vtpmmgr: Print error code to aid debugging
+
+This fixes vtpmmgr output (also noted by Dag [3]) but maybe removing %z
+would be better:
+stubom: newlib: Enable C99 formats for %z
+
+This gives more flexibility if you are already using the TPM2 hardware:
+vtpmmgr: Allow specifying srk_handle for TPM2
+
+These are some changes to unload keys from the TPM hardware (so they
+are not still loaded for anything that runs afterwards):
+vtpmmgr: Move vtpmmgr_shutdown
+vtpmmgr: Flush transient keys on shutdown
+vtpmmgr: Flush all transient keys
+vtpmmgr: Shutdown more gracefully
+
+This lets vtpms initialize their random pools:
+vtpmmgr: Support GetRandom passthrough on TPM 2.0
+
+[1] https://lore.kernel.org/xen-devel/8285393.eUs1EhXEQl@eseries.newtech.fi/
+[2] https://lore.kernel.org/xen-devel/1615731.eyaQ0j4tC5@eseries.newtech.fi/
+[3] https://lore.kernel.org/xen-devel/3151252.0ZAaMuH7Fy@dag.newtech.fi/
+
+Jason Andryuk (9):
+  docs: Warn about incomplete vtpmmgr TPM 2.0 support
+  vtpmmgr: Print error code to aid debugging
+  stubom: newlib: Enable C99 formats for %z
+  vtpmmgr: Allow specifying srk_handle for TPM2
+  vtpmmgr: Move vtpmmgr_shutdown
+  vtpmmgr: Flush transient keys on shutdown
+  vtpmmgr: Flush all transient keys
+  vtpmmgr: Shutdown more gracefully
+  vtpmmgr: Support GetRandom passthrough on TPM 2.0
+
+ docs/man/xen-vtpmmgr.7.pod         | 18 +++++++++++
+ stubdom/Makefile                   |  2 +-
+ stubdom/vtpmmgr/init.c             | 49 ++++++++++++++++++++----------
+ stubdom/vtpmmgr/marshal.h          | 10 ++++++
+ stubdom/vtpmmgr/tpm.c              |  2 +-
+ stubdom/vtpmmgr/tpm2.c             |  2 +-
+ stubdom/vtpmmgr/vtpm_cmd_handler.c | 48 +++++++++++++++++++++++++++++
+ stubdom/vtpmmgr/vtpmmgr.c          | 12 +++++++-
+ 8 files changed, 123 insertions(+), 20 deletions(-)
+
+-- 
+2.30.2
+
 
