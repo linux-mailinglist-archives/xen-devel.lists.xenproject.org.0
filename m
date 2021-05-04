@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55B9372EE8
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 19:27:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122632.231311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BD0A372EF0
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 19:29:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122636.231324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldypq-0003TZ-2m; Tue, 04 May 2021 17:27:50 +0000
+	id 1ldyri-0003dK-F4; Tue, 04 May 2021 17:29:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122632.231311; Tue, 04 May 2021 17:27:50 +0000
+Received: by outflank-mailman (output) from mailman id 122636.231324; Tue, 04 May 2021 17:29:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldypp-0003TE-Vy; Tue, 04 May 2021 17:27:49 +0000
-Received: by outflank-mailman (input) for mailman id 122632;
- Tue, 04 May 2021 17:27:48 +0000
+	id 1ldyri-0003cv-C7; Tue, 04 May 2021 17:29:46 +0000
+Received: by outflank-mailman (input) for mailman id 122636;
+ Tue, 04 May 2021 17:29:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tMRT=J7=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1ldypo-0003T8-PS
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 17:27:48 +0000
-Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
+ <SRS0=E2aX=J7=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1ldyrg-0003cq-FZ
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 17:29:44 +0000
+Received: from mail-qv1-xf34.google.com (unknown [2607:f8b0:4864:20::f34])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11b6ea1c-dac8-4593-bb01-3fbcfee913c9;
- Tue, 04 May 2021 17:27:48 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id c3so10410194lfs.7
- for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 10:27:48 -0700 (PDT)
+ id 56b1b6b4-cd4e-4bdd-b672-162de0ee2689;
+ Tue, 04 May 2021 17:29:43 +0000 (UTC)
+Received: by mail-qv1-xf34.google.com with SMTP id i8so4865560qvv.0
+ for <xen-devel@lists.xenproject.org>; Tue, 04 May 2021 10:29:43 -0700 (PDT)
+Received: from six (c-73-89-138-5.hsd1.vt.comcast.net. [73.89.138.5])
+ by smtp.gmail.com with ESMTPSA id k1sm11377700qkh.5.2021.05.04.10.29.42
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 04 May 2021 10:29:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,74 +41,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11b6ea1c-dac8-4593-bb01-3fbcfee913c9
+X-Inumbo-ID: 56b1b6b4-cd4e-4bdd-b672-162de0ee2689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=v0CVkEbf9Ck0jddg6MwqLyIswronxdSbnoHybmIUOck=;
-        b=Mug5UL+qcO57rvyTmXzlCgCzqYZiCpOmzlaZ8iZMSyyESNOyGpkIhy9W/TpmjLtY/H
-         8JxjeOq65PabpjnCZl7kYoyAKlY6f/wLef/WxxC/9PBplGWQk2cOTt0WwRtT7cwXZacv
-         7jcZM88wlfvcxdg9Jxb92R3mbb1dw2iyPomAywIWaV7m16GXd83dO6uuj9m09nsdViOy
-         WztbkRH5TkArbFCKMunL+9ijubupBsD/nBMN1I/Ak9Pzyvo9FyiaNWVt0B8NOzCnEcG4
-         GMswuksjVybkW8rLwuEgWpzbQemU7ITgp1VPJ5UJ8QpuOHJgLzAgisUZ9/AXGoV7fnuc
-         j9GA==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=prttDhQN8uYHL1d//3odkJa/kJ4jXGOhgl6bvJXgbHY=;
+        b=DhCgFeoAclfq0YjXw1hYxIsPOp2pDIupFTeD2pHMwoxAnH/zrq+TEFQ692aue3f2fV
+         gjwlE0reGloapoj69Varw9Pb+cMGKvMENoaJ6/KtpI1zzCONbpsXqOgWDpHJue4JODUN
+         diTVGM86yHH5YHVN4acVhQK7GEuyJaoOmHtUQL99AFQeZJZ08RC4CblXNvmgUkqslAlk
+         Hr0sLt2yWEGp2JnPyTRKe3I8mDwHDgGhBbcEoo6XqMLewNzIiX1uwTE5cgG2p06NJQCn
+         EqNmqzccnXeqMoy0c2AzHYGa0rrYK8HoQhMVySl66gj5T1VMnoBaYg79f5RE984lXv+5
+         y4/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=v0CVkEbf9Ck0jddg6MwqLyIswronxdSbnoHybmIUOck=;
-        b=SuYl5VJeTow5CkBtg8a3YP7oST64y6aXct7BeocfU1CkUJwlWDg9J5N7hhFL9+me00
-         /mLaJc2/IvDcgtoiDxeAxcMV59UZZaAYpvNNhtSsXzbr8365qG7hjNh8QjZRV8Gd9Dke
-         u1QXdYJ3OiBfGD0yMTAzOrURc175UsBRX3D2QPASl7fXBDd5B6wogvQgCIUSnuGoUqdM
-         /jpb2AZMPnNlH6MJsJl6txG+0WE2IN3+Hmj3DwDQ6BcglIcUUOIRnoyyGj19Pt2IuG7P
-         mtzPOIbKYmUGE7S8dg8KOpYBXdMCIjMp5B0GH5jE8iz0LcUmHK4UU8TWMKxEto+gJeVc
-         LJEA==
-X-Gm-Message-State: AOAM530txqdeOzVApCV+eLeNdzUqbVTnid6zapvnmzpn92AqyDf0BvT8
-	qU3DcA2dLps45fhFGLdXGQsZmjCItcviTEofQ/0=
-X-Google-Smtp-Source: ABdhPJyvULL6JNy2sHMgHfno0mV+fsqDnG6koDpptwQNp8/tuS+MmI9d9Oc6KUBjWuv7m+8oGYAKRlOV7vvuFL2m8C0=
-X-Received: by 2002:a05:6512:3e7:: with SMTP id n7mr17519120lfq.150.1620149267110;
- Tue, 04 May 2021 10:27:47 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=prttDhQN8uYHL1d//3odkJa/kJ4jXGOhgl6bvJXgbHY=;
+        b=eKyo3EOAoXYQREl8BllL6peyu9CWuOGoJRCre5huqRZ6Ec2Q9WYNkE2YlYB+sZHwev
+         ntW/KqmFmxbLQnkl+OWHXuEVqGQki1JkOWebQkbwFKInlyLmR3m4cT/inZvfzAp+tMtN
+         d9pwS4uoqdKZsm3xIT/B3N+2OmTGmTzpCSWI5/EUczXc1SiamRt45ymRRxr++jbqSfAA
+         wRiisg/9CNGEAl6a/g1LzPzVprvxb8zf4RKII/YrnkUt6gZlaCnqlh4ynmonXEcfT3eD
+         f/dnYqeRdZs9cGHDc9n4N6R6+vFxfCbidbtdoGFTjlCvJxVIcJO4oOWLUW3e/lvv/s2w
+         foXg==
+X-Gm-Message-State: AOAM5320QBOelO0xahEPswWItpOmjCuakkaZeJnboA1GIYhPpI80pXuI
+	dWoJ4sB5E8fzmsX12OP99AA=
+X-Google-Smtp-Source: ABdhPJye0JTFhTt9LWMNpuVfSlGSvKsk+xrKtYLXt26swZoAikXcO41OUe3nq9BsySCzhOYuvfrx7Q==
+X-Received: by 2002:ad4:54c5:: with SMTP id j5mr27393657qvx.4.1620149383222;
+        Tue, 04 May 2021 10:29:43 -0700 (PDT)
+Date: Tue, 4 May 2021 13:29:40 -0400
+From: Nick Rosbrook <rosbrookn@gmail.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, george.dunlap@citrix.com,
+	Nick Rosbrook <rosbrookn@ainfosec.com>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [RFC v2 6/7] libxl: implement device add/remove/destroy
+ functions generation
+Message-ID: <20210504172940.GB7941@six>
+References: <cover.1614734296.git.rosbrookn@ainfosec.com>
+ <5986715fe1d677533b67c06e9561cd716716d46a.1614734296.git.rosbrookn@ainfosec.com>
+ <YJFiH9dFdlq2l87k@perard>
 MIME-Version: 1.0
-References: <20210504124842.220445-1-jandryuk@gmail.com> <20210504124842.220445-5-jandryuk@gmail.com>
- <20210504131328.wtoe4swz7nyzyuts@begin> <CAKf6xpsVJQ7LeV63hb8Sm_6gq+xjCwMDOkuMKNsn+-vqHF=9rQ@mail.gmail.com>
- <20210504170719.mnu3e3av7klsvyuq@begin>
-In-Reply-To: <20210504170719.mnu3e3av7klsvyuq@begin>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 4 May 2021 13:27:36 -0400
-Message-ID: <CAKf6xpvP2TCqZwew8_ykYEcXfsmhsef2TefcV++h2u4BsWVo2A@mail.gmail.com>
-Subject: Re: [PATCH 4/9] vtpmmgr: Allow specifying srk_handle for TPM2
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>, 
-	xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
-	Wei Liu <wl@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YJFiH9dFdlq2l87k@perard>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 
-On Tue, May 4, 2021 at 1:07 PM Samuel Thibault
-<samuel.thibault@ens-lyon.org> wrote:
->
-> Jason Andryuk, le mar. 04 mai 2021 13:04:47 -0400, a ecrit:
-> > owner_auth & srk_auth don't check :, but then they don't skip : or =
-> > when passing the string to parse_auth_string.  So they can't work
-> > properly?
->
-> They happen to "work" just because there is no other parameter prefixed
-> the same.
+On Tue, May 04, 2021 at 04:02:55PM +0100, Anthony PERARD wrote:
+> On Tue, Mar 02, 2021 at 08:46:18PM -0500, Nick Rosbrook wrote:
+> > +def libxl_func_define_device_add(func):
+> > +    s = ''
+> > +
+> > +    return_type = func.return_type.typename
+> > +    if isinstance(func.return_type, idl.Enumeration):
+> > +        return_type = idl.integer.typename
+> > +
+> > +    params = ', '.join([ ty.make_arg(name) for (name,ty) in func.params ])
+> > +
+> > +    s += '{0} {1}({2})\n'.format(return_type, func.name, params)
+> > +    s += '{\n'
+> > +    s += '\tAO_CREATE(ctx, domid, ao_how);\n'
+> > +    s += '\tlibxl__ao_device *aodev;\n\n'
+> > +    s += '\tGCNEW(aodev);\n'
+> > +    s += '\tlibxl__prepare_ao_device(ao, aodev);\n'
+> > +    s += '\taodev->action = LIBXL__DEVICE_ACTION_ADD;\n'
+> > +    s += '\taodev->callback = device_addrm_aocomplete;\n'
+> > +    s += '\taodev->update_json = true;\n'
+> > +    s += '\tlibxl__{0}(egc, domid, type, aodev);\n\n'.format(func.rawname)
+> > +    s += '\treturn AO_INPROGRESS;\n'
+> > +    s += '}\n'
+> 
+> That's kind of hard to read, I think we could use python's triple-quote
+> (or triple double-quote) ''' or """ to have a multi-line string and
+> remove all those \t \n
+> Something like:
+> 
+>     s = '''
+>     {ret} {func}({params})
+>     {{
+>         return ERROR_FAIL;
+>         libxl__{rawname}(gc);
+>     }}
+>     '''.format(ret=return_type, func=func.name, params=params,
+>                rawname=func.rawname)
+> 
+> That would produce some extra indentation in the generated C file, but
+> that doesn't matter to me. They could be removed with textwrap.dedent()
+> if needed.
+> 
+That sounds good to me.
 
-parse_auth_string fails on the ":".
-
-Just tested "owner_auth:well-known"
-ERROR[VTPM]: Invalid auth string :well-known
-ERROR[VTPM]: Invalid Option owner_auth:well-known
-ERROR[VTPM]: Command line parsing failed! exiting..
-
-> > > We'd better clean this up to avoid confusions.
-> >
-> > Right, so what do we want?  I'm leaning toward standardizing on =
-> > since the tpm.*= options look to parse properly.
->
-> I'd say so too. Also because that's what is apparently documented.
-
-Ok, thanks.
-
-Regards,
-Jason
+Thanks,
+NR
 
