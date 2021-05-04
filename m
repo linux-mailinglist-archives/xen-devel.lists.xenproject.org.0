@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C456372B03
-	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 15:28:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122389.230838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB1CA372B13
+	for <lists+xen-devel@lfdr.de>; Tue,  4 May 2021 15:32:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122397.230886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldv5z-0002xY-LP; Tue, 04 May 2021 13:28:15 +0000
+	id 1ldvA1-0003yR-96; Tue, 04 May 2021 13:32:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122389.230838; Tue, 04 May 2021 13:28:15 +0000
+Received: by outflank-mailman (output) from mailman id 122397.230886; Tue, 04 May 2021 13:32:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ldv5z-0002x9-I7; Tue, 04 May 2021 13:28:15 +0000
-Received: by outflank-mailman (input) for mailman id 122389;
- Tue, 04 May 2021 13:28:14 +0000
+	id 1ldvA1-0003xw-4S; Tue, 04 May 2021 13:32:25 +0000
+Received: by outflank-mailman (input) for mailman id 122397;
+ Tue, 04 May 2021 13:32:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1gXq=J7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ldv5x-0002wz-VB
- for xen-devel@lists.xenproject.org; Tue, 04 May 2021 13:28:13 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eb30eb11-e99d-4291-9783-5a5d3127cae0;
- Tue, 04 May 2021 13:28:12 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1C885AF2F;
- Tue,  4 May 2021 13:28:12 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8884=J7=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
+ id 1ldv9z-0003nw-9s
+ for xen-devel@lists.xenproject.org; Tue, 04 May 2021 13:32:23 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id c4ce2a06-0283-4f51-99ab-0c1796251262;
+ Tue, 04 May 2021 13:32:04 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06073ED1;
+ Tue,  4 May 2021 06:31:54 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.197.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E25F3F73B;
+ Tue,  4 May 2021 06:31:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,75 +43,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb30eb11-e99d-4291-9783-5a5d3127cae0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620134892; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AaFdGfB8BZpSS75FzAWGpKYG+lMXN2kqMmw3gSrRoSo=;
-	b=fcJ8k92/e/CFi0J1rMoovhZYquKhkQeAtXHNHCk8aQoqplc/lBZ0oohvfwaRUZ+4yN8CC5
-	oPHN/GY1ay+5jxN0AqCSw+4yOWN0bnQER/E7BWsU/cgYbvA/P2DUEtFNvpDb2/swJiJ5oN
-	ki0Vwr+kAOmVAcxmZugGjalxkF+fddo=
-Subject: Re: [PATCH v4 3/3] docs/doxygen: doxygen documentation for
- grant_table.h
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20210504094606.7125-1-luca.fancellu@arm.com>
- <20210504094606.7125-4-luca.fancellu@arm.com>
- <37e5b461-40fe-ac78-59b9-033ff8cdc6d1@suse.com>
- <1853929B-AC45-42AF-8FE4-7B23C700B2E2@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e3f816df-a3ee-f880-ad6f-68c9cc2db517@suse.com>
-Date: Tue, 4 May 2021 15:28:11 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
-MIME-Version: 1.0
-In-Reply-To: <1853929B-AC45-42AF-8FE4-7B23C700B2E2@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c4ce2a06-0283-4f51-99ab-0c1796251262
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v5 0/3] Use Doxygen and sphinx for html documentation
+Date: Tue,  4 May 2021 14:31:42 +0100
+Message-Id: <20210504133145.767-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-On 04.05.2021 15:09, Luca Fancellu wrote:
->> On 4 May 2021, at 12:48, Jan Beulich <jbeulich@suse.com> wrote:
->> On 04.05.2021 11:46, Luca Fancellu wrote:
->>> @@ -451,11 +466,6 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_t);
->>>  * bytes to be copied.
->>>  */
->>>
->>> -#define _GNTCOPY_source_gref      (0)
->>> -#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
->>> -#define _GNTCOPY_dest_gref        (1)
->>> -#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
->>> -
->>> struct gnttab_copy {
->>>     /* IN parameters. */
->>>     struct gnttab_copy_ptr {
->>> @@ -471,6 +481,12 @@ struct gnttab_copy {
->>>     /* OUT parameters. */
->>>     int16_t       status;
->>> };
->>> +
->>> +#define _GNTCOPY_source_gref      (0)
->>> +#define GNTCOPY_source_gref       (1<<_GNTCOPY_source_gref)
->>> +#define _GNTCOPY_dest_gref        (1)
->>> +#define GNTCOPY_dest_gref         (1<<_GNTCOPY_dest_gref)
->>
->> Didn't you say you agree with moving this back up some, next to the
->> field using these?
-> 
-> My mistake! I’ll move it in the next patch, did you spot anything else I might have forgot of what we agreed?
+This serie introduce doxygen in the sphinx html docs generation.
+One benefit is to keep most of the documentation in the source
+files of xen so that it's more maintainable, on the other hand
+there are some limitation of doxygen that should be addressed
+modifying the current codebase (for example doxygen can't parse
+anonymous structure/union).
 
-No, thanks. I don't think I have any more comments to make on this
-series (once this last aspect got addressed, and assuming no new
-issues get introduced). But to be clear on that side as well - I
-don't think I'm up to actually ack-ing the patch (let alone the
-entire series).
+To reproduce the documentation xen must be compiled because
+most of the headers are generated on compilation time from
+the makefiles.
 
-Jan
+Here follows the steps to generate the sphinx html docs, some
+package may be required on your machine, everything is suggested
+by the autoconf script.
+Here I'm building the arm64 docs (the only introduced for now by
+this serie):
+
+./configure
+make -C xen XEN_TARGET_ARCH="arm64" CROSS_COMPILE="aarch64-linux-gnu-" menuconfig
+make -C xen XEN_TARGET_ARCH="arm64" CROSS_COMPILE="aarch64-linux-gnu-"
+make -C docs XEN_TARGET_ARCH="arm64" sphinx-html
+
+now in docs/sphinx/html/ we have the generated docs starting
+from the index.html page.
+
+Luca Fancellu (3):
+  docs: add doxygen support for html documentation
+  docs: hypercalls sphinx skeleton for generated html
+  docs/doxygen: doxygen documentation for grant_table.h
+
+ .gitignore                                    |    7 +
+ config/Docs.mk.in                             |    2 +
+ docs/Makefile                                 |   46 +-
+ docs/conf.py                                  |   48 +-
+ docs/configure                                |  258 ++
+ docs/configure.ac                             |   15 +
+ docs/hypercall-interfaces/arm32.rst           |    4 +
+ docs/hypercall-interfaces/arm64.rst           |   33 +
+ .../common/grant_tables.rst                   |    8 +
+ docs/hypercall-interfaces/index.rst.in        |    7 +
+ docs/hypercall-interfaces/x86_64.rst          |    4 +
+ docs/index.rst                                |    8 +
+ docs/xen-doxygen/customdoxygen.css            |   36 +
+ docs/xen-doxygen/doxy-preprocessor.py         |  110 +
+ docs/xen-doxygen/doxy_input.list              |    1 +
+ docs/xen-doxygen/doxygen_include.h.in         |   32 +
+ docs/xen-doxygen/footer.html                  |   21 +
+ docs/xen-doxygen/header.html                  |   56 +
+ docs/xen-doxygen/mainpage.md                  |    5 +
+ docs/xen-doxygen/xen_project_logo_165x67.png  |  Bin 0 -> 18223 bytes
+ docs/xen.doxyfile.in                          | 2316 +++++++++++++++++
+ m4/ax_python_module.m4                        |   56 +
+ m4/docs_tool.m4                               |    9 +
+ xen/include/public/grant_table.h              |   66 +-
+ 24 files changed, 3118 insertions(+), 30 deletions(-)
+ create mode 100644 docs/hypercall-interfaces/arm32.rst
+ create mode 100644 docs/hypercall-interfaces/arm64.rst
+ create mode 100644 docs/hypercall-interfaces/common/grant_tables.rst
+ create mode 100644 docs/hypercall-interfaces/index.rst.in
+ create mode 100644 docs/hypercall-interfaces/x86_64.rst
+ create mode 100644 docs/xen-doxygen/customdoxygen.css
+ create mode 100755 docs/xen-doxygen/doxy-preprocessor.py
+ create mode 100644 docs/xen-doxygen/doxy_input.list
+ create mode 100644 docs/xen-doxygen/doxygen_include.h.in
+ create mode 100644 docs/xen-doxygen/footer.html
+ create mode 100644 docs/xen-doxygen/header.html
+ create mode 100644 docs/xen-doxygen/mainpage.md
+ create mode 100644 docs/xen-doxygen/xen_project_logo_165x67.png
+ create mode 100644 docs/xen.doxyfile.in
+ create mode 100644 m4/ax_python_module.m4
+
+-- 
+2.17.1
+
 
