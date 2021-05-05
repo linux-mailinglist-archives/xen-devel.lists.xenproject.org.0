@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C70193735B9
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 09:42:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122815.231664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAE0E3735BD
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 09:43:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122819.231678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leCAe-0003WP-SV; Wed, 05 May 2021 07:42:12 +0000
+	id 1leCBm-00048E-74; Wed, 05 May 2021 07:43:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122815.231664; Wed, 05 May 2021 07:42:12 +0000
+Received: by outflank-mailman (output) from mailman id 122819.231678; Wed, 05 May 2021 07:43:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leCAe-0003TW-OU; Wed, 05 May 2021 07:42:12 +0000
-Received: by outflank-mailman (input) for mailman id 122815;
- Wed, 05 May 2021 07:42:11 +0000
+	id 1leCBm-00044z-23; Wed, 05 May 2021 07:43:22 +0000
+Received: by outflank-mailman (input) for mailman id 122819;
+ Wed, 05 May 2021 07:43:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6083=KA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1leCAd-0003TQ-DQ
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 07:42:11 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 25167c04-4e5c-4942-be75-4ae7b7b966ae;
- Wed, 05 May 2021 07:42:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A78B3AF3E;
- Wed,  5 May 2021 07:42:09 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J0XF=KA=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1leCBj-00044r-QI
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 07:43:19 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id a3525501-7e8c-465c-8b62-8bd864c11538;
+ Wed, 05 May 2021 07:43:17 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 88181D6E;
+ Wed,  5 May 2021 00:43:17 -0700 (PDT)
+Received: from e123311-lin.arm.com (unknown [10.57.0.42])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 704903F718;
+ Wed,  5 May 2021 00:43:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,62 +41,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25167c04-4e5c-4942-be75-4ae7b7b966ae
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620200529; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3zWsE1sxa136Lt1kOqw+xOkbfvzZsgPmokPr5KESenI=;
-	b=eWj6MqDGg6giYvDvR45i8JPO8Anm/7o+MoNDpR8ilAoZ9hbue3+xXXtL86dEFOrCqlWumA
-	JvIkk1r39dzvm7yfoggCDomxjvMA4pVgrMCp9oe9R8paAgtPsqAStOrK/wpQcrtV48RWzc
-	ogc+ihj/C4KXMmfRLX36TyQmriIQccE=
-Subject: Re: [PATCH v3 08/13] libs/guest: make a cpu policy compatible with
- older Xen versions
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210430155211.3709-1-roger.pau@citrix.com>
- <20210430155211.3709-9-roger.pau@citrix.com>
- <51ee228a-2d53-2dd4-55cf-233d81ba4958@suse.com>
- <YJFpdA8qmYca9bUO@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6a3bc5cd-10a2-1d13-0033-c22d16da25b7@suse.com>
-Date: Wed, 5 May 2021 09:42:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: a3525501-7e8c-465c-8b62-8bd864c11538
+From: Michal Orzel <michal.orzel@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	bertrand.marquis@arm.com,
+	wei.chen@arm.com
+Subject: [PATCH v3 00/10] arm64: Get rid of READ/WRITE_SYSREG32
+Date: Wed,  5 May 2021 09:42:58 +0200
+Message-Id: <20210505074308.11016-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-In-Reply-To: <YJFpdA8qmYca9bUO@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 04.05.2021 17:34, Roger Pau Monné wrote:
-> On Mon, May 03, 2021 at 01:09:41PM +0200, Jan Beulich wrote:
->> On 30.04.2021 17:52, Roger Pau Monne wrote:
->>> @@ -1086,3 +1075,42 @@ int xc_cpu_policy_calc_compatible(xc_interface *xch,
->>>  
->>>      return rc;
->>>  }
->>> +
->>> +int xc_cpu_policy_make_compatible(xc_interface *xch, xc_cpu_policy_t policy,
->>> +                                  bool hvm)
->>
->> I'm concerned of the naming, and in particular the two very different
->> meanings of "compatible" for xc_cpu_policy_calc_compatible() and this
->> new one. I'm afraid I don't have a good suggestion though, short of
->> making the name even longer and inserting "backwards".
-> 
-> Would xc_cpu_policy_make_compat_412 be acceptable?
-> 
-> That's the more concise one I can think of.
+The purpose of this patch series is to remove usage of 32bit helper
+macros READ/WRITE_SYSREG32 on arm64 as the idea of them is
+not following the latest ARMv8 specification and mrs/msr instructions
+are expecting 64bit values.
+According to ARM DDI 0487G.a all the AArch64 system registers
+are 64bit wide even though many of them have upper 32bit reserved.
+This does not mean that in the newer versions of ARMv8 or in the next
+architecture, some of the sysregs will get widen.
+Also when dealing with system registers we should use register_t
+type.
 
-Hmm, maybe (perhaps with an underscore inserted between 4 and 12). Yet
-(sorry) a comment in the function says "since Xen 4.13", which includes
-changes that have happened later. Therefore it's not really clear to me
-whether the function really _only_ deals with the 4.12 / 4.13 boundary.
+This patch series removes the use of READ/WRITE_SYSREG32
+and replaces these calls with READ/WRITE_SYSREG. The change was
+splited into several small patches to make the review proces easier.
 
-Jan
+This patch series focuses on removing READ/WRITE_SYSREG32.
+The next thing to do is to also get rid of vreg_emulate_sysreg32
+and other parts related to it like TVM_REG macro.
+The final part will be to completely remove macros READ/WRITE_SYSREG32.
+
+Michal Orzel (10):
+  arm64/vfp: Get rid of READ/WRITE_SYSREG32
+  arm/domain: Get rid of READ/WRITE_SYSREG32
+  arm: Modify type of actlr to register_t
+  arm/gic: Remove member hcr of structure gic_v3
+  arm/gic: Get rid of READ/WRITE_SYSREG32
+  arm/p2m: Get rid of READ/WRITE_SYSREG32
+  xen/arm: Always access SCTLR_EL2 using READ/WRITE_SYSREG()
+  arm/page: Get rid of READ/WRITE_SYSREG32
+  arm/time,vtimer: Get rid of READ/WRITE_SYSREG32
+  arm64: Change type of hsr, cpsr, spsr_el1 to uint64_t
+
+ xen/arch/arm/arm64/entry.S            |  4 +-
+ xen/arch/arm/arm64/traps.c            |  2 +-
+ xen/arch/arm/arm64/vfp.c              | 12 ++--
+ xen/arch/arm/arm64/vsysreg.c          |  3 +-
+ xen/arch/arm/domain.c                 | 22 +++---
+ xen/arch/arm/gic-v3-lpi.c             |  2 +-
+ xen/arch/arm/gic-v3.c                 | 98 ++++++++++++++-------------
+ xen/arch/arm/mm.c                     |  2 +-
+ xen/arch/arm/p2m.c                    |  8 +--
+ xen/arch/arm/time.c                   | 28 ++++----
+ xen/arch/arm/traps.c                  | 34 ++++++----
+ xen/arch/arm/vcpreg.c                 | 13 ++--
+ xen/arch/arm/vtimer.c                 | 10 +--
+ xen/include/asm-arm/arm64/processor.h | 11 +--
+ xen/include/asm-arm/arm64/vfp.h       |  6 +-
+ xen/include/asm-arm/domain.h          |  6 +-
+ xen/include/asm-arm/gic.h             |  6 +-
+ xen/include/asm-arm/gic_v3_defs.h     |  2 +
+ xen/include/asm-arm/hsr.h             |  2 +-
+ xen/include/asm-arm/page.h            |  4 +-
+ xen/include/asm-arm/processor.h       |  5 +-
+ xen/include/public/arch-arm.h         |  4 +-
+ xen/include/public/domctl.h           |  2 +-
+ xen/include/public/vm_event.h         |  3 +-
+ 24 files changed, 153 insertions(+), 136 deletions(-)
+
+-- 
+2.29.0
+
 
