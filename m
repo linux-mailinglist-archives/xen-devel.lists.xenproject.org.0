@@ -2,29 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26BD43738D6
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 12:50:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122988.232017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F22393738D8
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 12:52:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122991.232030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leF65-0002Yc-2x; Wed, 05 May 2021 10:49:41 +0000
+	id 1leF8W-0003uq-Il; Wed, 05 May 2021 10:52:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122988.232017; Wed, 05 May 2021 10:49:41 +0000
+Received: by outflank-mailman (output) from mailman id 122991.232030; Wed, 05 May 2021 10:52:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leF64-0002Wk-Vq; Wed, 05 May 2021 10:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 122988;
- Wed, 05 May 2021 10:49:39 +0000
+	id 1leF8W-0003rN-Eq; Wed, 05 May 2021 10:52:12 +0000
+Received: by outflank-mailman (input) for mailman id 122991;
+ Wed, 05 May 2021 10:52:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Yav=KA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1leF63-0002WY-Fs
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 10:49:39 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fdfd3b10-c425-4b9c-89e5-3883e83f8cf9;
- Wed, 05 May 2021 10:49:38 +0000 (UTC)
+ <SRS0=3EPH=KA=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
+ id 1leF8V-0003rF-2E
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 10:52:11 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.14.57]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0617f20a-4073-49d1-96d5-d206e008667c;
+ Wed, 05 May 2021 10:51:59 +0000 (UTC)
+Received: from AM5PR0701CA0054.eurprd07.prod.outlook.com (2603:10a6:203:2::16)
+ by VI1PR08MB2784.eurprd08.prod.outlook.com (2603:10a6:802:25::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.38; Wed, 5 May
+ 2021 10:51:46 +0000
+Received: from VE1EUR03FT010.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:2:cafe::92) by AM5PR0701CA0054.outlook.office365.com
+ (2603:10a6:203:2::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.9 via Frontend
+ Transport; Wed, 5 May 2021 10:51:46 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT010.mail.protection.outlook.com (10.152.18.113) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4108.25 via Frontend Transport; Wed, 5 May 2021 10:51:46 +0000
+Received: ("Tessian outbound 8ca198b738d3:v91");
+ Wed, 05 May 2021 10:51:46 +0000
+Received: from 3183eb751811.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ C2E83D08-C077-4856-9140-0FBAA0644FA4.1; 
+ Wed, 05 May 2021 10:51:37 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3183eb751811.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 05 May 2021 10:51:37 +0000
+Received: from VI1PR08MB3629.eurprd08.prod.outlook.com (2603:10a6:803:7f::25)
+ by VI1PR08MB3758.eurprd08.prod.outlook.com (2603:10a6:803:bd::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.41; Wed, 5 May
+ 2021 10:51:29 +0000
+Received: from VI1PR08MB3629.eurprd08.prod.outlook.com
+ ([fe80::4502:9762:8b3b:63d9]) by VI1PR08MB3629.eurprd08.prod.outlook.com
+ ([fe80::4502:9762:8b3b:63d9%4]) with mapi id 15.20.4087.044; Wed, 5 May 2021
+ 10:51:29 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO4P123CA0281.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:195::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4108.25 via Frontend Transport; Wed, 5 May 2021 10:51:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,178 +74,4719 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdfd3b10-c425-4b9c-89e5-3883e83f8cf9
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620211778;
-  h=to:cc:references:from:subject:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=4sJlPosmIk4YYQxNqqdB7begx8Af51a7fFR4y6gxgBQ=;
-  b=friUIZ2VYSC+sUB3OlN/cm9tfzfoUuDWmfahgsETiFVvOcmWCp9dApeN
-   rkcWElzSy5AU0Hr0UMlhHtWNbzINuvCoOcspTQ/35kY+gmgl5P8S5Oq5W
-   l4QPAegKoTVtI5XaNVR3aks3rp9skq5/WHHREGjBxm6CIrfqDkQ1mPUkB
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: rtSyyteCkLLKuiuffrjPpeAjIjazETaix54pw9OLRWL6Z15akbdRmTHjgbDqUlzE82xwfyFk22
- +Bx4QK5slyzCXKadHlL2RfMAeRfqS6Yb39bghqvlgn0kIUqRq9oPsA3JtAOuezJw5EQJfG/yfy
- 1w2GryGOBNRwJclwQiGQMZJs5Gy5lxnPxYind9Y0vZNxJmi0jPoUvt8r1lHNtSCmfBAnnCUGOA
- IlhFp24Bk3IlBnUu9t+//f2L1P9ebkHtwjG28ITft+7+4M9uXliN6Q7Mg2r15fpaSZHgwEUO1m
- NZA=
-X-SBRS: 5.1
-X-MesageID: 43096500
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:ziIGH6xRtQkKr46dLyXIKrPxge4kLtp033Aq2lEZdDV8Sebdv9
- yynfgdyB//gCsQXnZlotybJKycWxrnmqJdybI6eZOvRhPvtmftFoFt6oP+3ybtcheTysd07o
- 0lSaR3DbTLYGRSpdrm4QW+DtYryMSG9qftvuvF03JxV2hRCp1IxS0RMHf/LmRdQg5aCZ0lUL
- +V4cRarzStEE5nEfiTLH8DQuTFupn3j5rgexELHFoK7wOJgDOu5tfBYmSl9z0ZVC5CxqpnzH
- jdn2XCl9iemtyY6juZ7W/c6JxKhMDso+EsOOWggtUYQw+c8jqAS59mX9S5zVcIicGprG0nid
- zd5yonVv4DkU/5WkGQjV/T1xL70DAogkWSumOwpXf4u8T2SHYbJqN69PtkWyDU4UYho91wuZ
- gjtwny1+s1fGb9tR/w6NTSWxZhmlDcmwtHrccpg2FCSoxbUbdNrOUkjTNoOa0dFyH34p1PKp
- gJMOjg4p9tADGnRkzCsnIq6NKhWWlbJGb8fmEy/uaR0zRQgUljyVoZyME1jh47heMAYqgByO
- LePqtykrZSCucQcKJmHe8EBfC6E2rXXHv3QS2vCGWiMJtCF2PGqpbx7rlwzOa2eKYQxJ93vJ
- jaSltXuUM7ZkqGM7zB4LR7tjT2BEmtVzXkzc9To7JjvKfnebbtOSqfDHgzjsqJuZwkc47mcs
- f2HKgTL+7oLGPoF4oM9Rb5QYNuJX4XV9BQksonWmiJvtnAJuTRx6zmWceWAICoPScvW2v5DH
- dGdiP0Pt984keiXWK9rwPWX1/rZ0zj7bN9GKXX5IEouc0wH7wJljJQpUWy58mNJzEHmLcxZl
- FCLLTulb7+hWTexxeN00xZfj5mSmpF6rTpVH1H4SUQNVnvTLoFs9KDPURb3H6NIA5DX9rbeT
- Qv4GhfyOaSFdi91CoiA9WoPiaxlH0Ivk+HSJ8ah+ml6dr6fIg7SrIrQrZ4GwmONxEdo3cqlE
- 5zLCs/AmPPHDLnjquoyLYOAvvEStV6iAC3ZehOqXzesk2Yjdo1RmQSWgOvVcL/u3dtexNkwn
- lKt4MPiruJnjiibUElhv4jDVFKYGOLRI5dAB+9f4VSkLDzcARWRWOH7AbqzS0bSy7PzQE/l2
- bhJSqbdbXuDkBGsn5V6Krs7Wh5b36QZU52d3B8v7BsDGiugAcA7ca7Io6Il0eBYFoLxe8QdA
- vIZjYfOStC7dG63hz9okfJKVwWgrEVesDNBrUqdL/enk63IIqTjKccArt/55B+Lu3jtecNTM
- OScwKYNynDFusswgCZz0xVYRVcmT0Bq7fFyRfl5G+30DoDGvLUOk1hXKxeDNeG7WToLsz4ma
- lRvJYQh6+XPWrwYNLdlv2SQD5HNx/JoWm5C8svsotZuKoutL11W7nXOAG4o01v7VEbFoPTkk
- hbfYFQpJbmEaVrd9YJey1Y8kEy/e7/Z3cDg0jTOKsGYVopj3XnJNuH7LrDlKo3DiS61X/NEG
- ja1xcYwuzMUCSC34MLEq4cIWxZb04n9XRpldnyAbH4OUGPd+tZ+kC9PWL4WLhBSLKdEbF4lG
- c23/i428uWfTH/wgbeoH9SJb9P6X+uRYeXDBiXEeBFt/y8NlLkuNrn3OeDyBP2QyC8cUIWmM
- lsclERdN1Kjn0at7IMuxLCApDfkwYCiFtR4TZui17r1MyH2Q7gbD97GDycpI5XUzlVOmWPlu
- Lf/4GjpSzA3AQ=
-X-IronPort-AV: E=Sophos;i="5.82,274,1613451600"; 
-   d="scan'208";a="43096500"
+X-Inumbo-ID: 0617f20a-4073-49d1-96d5-d206e008667c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SQuhihuktO+p7OS9loCQjTVC8zQWtC2OYhyNMnJssBA=;
+ b=7/e25+cagESvhNQJmJ+yhAIa3lvId6umLEkMZpezXe4uYFmCSw1TBN3IJFlWCmGcZoFu3jD6UxhZnJbDf09LsS2UJNZyh2Fo0NrGl6w5fY3kRU1XkJ3Ej0LWAYsr7+7FYTQmss26pImrGvBM0weZDoZiNVxz8j+3Iglo56XOTqk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: ca612930dbba5433
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DJO1U1Cs20szntbCqI7+CeKW3v2dEp54NWc8MaF3VZbXfw3B2ozZ/9NjomWQ/v1kMSFVjk8wESXCumjfNHOEUyYlQrwK1BdUwmVGuwpfBeEyLbr0NFuQp6ojNrkzmtwguihz8Cdmao+zmGgDbrQIQxe64hGAi6NwP0DC0sNFYnowVs0EoRu/NxfA9Bz4H16P+STkYufklGpYTYgCoR2WziSBy0EMcWKlNlcWoSqxBpJfP18VNVNSzhRNYZ6vAQecvmY+y+SzEpdAoJUk7wWpee7LFbdcscuTX69QD4NrW+jZ6zaDUsXnhlv8yHuhgNZ6NI1X4vD00Yv9BYRrTbQdow==
+ b=jjK8XdhLopSsRS4BAD3l/tmNSQXUi77RIht0l4qF7Z2V0e6BhRpvn8wEe0DUar54UTJVphZee81tg+yIcOkUDqtKWq6v6IFadvbTfPoGIS6bzPUesCEupu8+iBLurNA6N409C1RFZLVT3cKnuZYexJhOAHl9C5oyIHxn8iJlW9TVR2nk1sKgo2Jr8SIHPfxh2d8tG63KgqdzLbH/6N7WSp08xjfmEX8k58svdMFuy5KReZ7qcbrWKZw4XLRx5XAbxQbvKUL+DdG8p2pwjBC9NhCa596CDsDxrBbbbHs24WSuyNOtu46zyGWGXdCyr0olZ//m8MvmaUja7cCmyDeC6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4sJlPosmIk4YYQxNqqdB7begx8Af51a7fFR4y6gxgBQ=;
- b=OUa4J3wordvsf5n7B8aFnvvbZ9rVCAPVNJyeINOtv/2ZBrWkkeXov22xTJLbmQFoKcummonlww+s6rf6QXfutdcHCg3vHWoCyfAHfc9RvfTNtWl9+z/Xvyb/RcBUJlp2SN5Uq/uhdM5YR9CQGI1XCb+ACsB7B4VcOFPQxHqy3w1qUiSqAk1NPpI+tw8TJv1Jy6yQ6nVT4L7eKTMxTwFwfDb8qVXObLG62+u0Nt6bzWLaBsdaUyXt3q+Dc4ArFQWmr7AL3rHes8nP81Km9RHgKUY1gLsPbgX/8kJeKos957YbeioUHb0HiNtCVbvtYgStyQNf8SeHkSy7AinSm5gnmQ==
+ bh=SQuhihuktO+p7OS9loCQjTVC8zQWtC2OYhyNMnJssBA=;
+ b=lP/7t8Qs6HSOpCz3H8teMN5xusMvibcNiYuWwu5XoN9xVF8F9fl+VOuP8tqBmLnoRaaNOn+Qv3JnCZei5Qb6hZdRgZdTXvhyD0905bfWiBYvntYu1YIeAvd7vD3GiXeQcj7IgIPdxoic6vXkBy2RWuPS+QsodzGnqLZmx+EmnkpWO2m9TD9A2pdCEqNbP0xs3t+7+UVmfBDFGc0wlnwAXjeyN9UWwri+NdtMVF81+fVwnwt6qmaY4mFx1pwX0FalD+J3uPCuDAPefv6bJpIaDUEU0H7L+yrsZkeXbdK2U8L+cRDnvRURz6YJjCyPERWMQ7L3EJp0ljMVqV3QfSvBTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4sJlPosmIk4YYQxNqqdB7begx8Af51a7fFR4y6gxgBQ=;
- b=u005Wd46Nmq7eKsMndRUKmZy+Gl5oLUJEGQo2/R8/mMqJcAmiQC0kSw0dygRQj0+F16xebxPiqrIHy5UIw3QlchnItbnZr1YFVhIgBmLCyLpWVTmxfZ6NRnryJScOaj76vF6J8j76xlbEyK2Q7uH3tnO9UPkug4/0WRX6mL4IUk=
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <74048f89-fee7-06c2-ffd5-6e5a14bdf440@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v4] gnttab: defer allocation of status frame tracking
- array
-Message-ID: <4450085e-be97-a1ba-dbd8-c72468406fd5@citrix.com>
-Date: Wed, 5 May 2021 11:49:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <74048f89-fee7-06c2-ffd5-6e5a14bdf440@suse.com>
-Content-Type: text/plain; charset=utf-8
+ bh=SQuhihuktO+p7OS9loCQjTVC8zQWtC2OYhyNMnJssBA=;
+ b=7/e25+cagESvhNQJmJ+yhAIa3lvId6umLEkMZpezXe4uYFmCSw1TBN3IJFlWCmGcZoFu3jD6UxhZnJbDf09LsS2UJNZyh2Fo0NrGl6w5fY3kRU1XkJ3Ej0LWAYsr7+7FYTQmss26pImrGvBM0weZDoZiNVxz8j+3Iglo56XOTqk=
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=utf-8
+Subject: Re: [PATCH v5 1/3] docs: add doxygen support for html documentation
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <alpine.DEB.2.21.2105041532030.5018@sstabellini-ThinkPad-T480s>
+Date: Wed, 5 May 2021 11:51:22 +0100
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
 Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0141.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::20) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+Message-Id: <A0FCD64F-722B-4FC2-97C2-C9130E457920@arm.com>
+References: <20210504133145.767-1-luca.fancellu@arm.com>
+ <20210504133145.767-2-luca.fancellu@arm.com>
+ <alpine.DEB.2.21.2105041532030.5018@sstabellini-ThinkPad-T480s>
+To: Stefano Stabellini <sstabellini@kernel.org>
+X-Mailer: Apple Mail (2.3654.80.0.2.43)
+X-Originating-IP: [82.8.129.65]
+X-ClientProxiedBy: LO4P123CA0281.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:195::16) To VI1PR08MB3629.eurprd08.prod.outlook.com
+ (2603:10a6:803:7f::25)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 159c06d6-f7c7-4300-c869-08d90fb37331
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4360:
+X-MS-Office365-Filtering-Correlation-Id: bcea167d-aac7-4fa3-463d-08d90fb3c72e
+X-MS-TrafficTypeDiagnostic: VI1PR08MB3758:|VI1PR08MB2784:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB43604E5E0D295FC06558EE5FBA599@BYAPR03MB4360.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS:
+	<VI1PR08MB2784289C5D0F87815A6F63BCE4599@VI1PR08MB2784.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ MLOc42lEvu3XUmDCLYhG1gect2j84R6Ua//1LvDom1gq4funfxi1HQpgBqMwIMdlm/i3nCBvfSR57ICSbJ215w1sLkPilYaoAKP1SNLrng+lU6Cm2JGf/FiTRFICeUGcy/Z2VXkzLEDc9K31gtlwfUQrLsCpPDE3dOFjVl5AnIDxW/bkbhBSUDvlHUBWx11/pDd+P9u9Bt46RbYjPi8gXvaZDG6x5o1Lo+Z4spBq3EGSwqVn+cUrSMX7hESayXyzJJaIiiiTwrx83RoQ3AMccUBagUzqeSybAtAJTkVeps8CBGMtk19QSdf/nx55s/iG8UGvuXM6hFsTLumriH251S4G5sw8KFcFzrr1PrRvmxt7pnIkbrudykAvqUJ/RHQaeycoOswzLv29eXEIDkfq2cAYlkB5DebxA9vRnqpraL4bzgDxEg9OymxK8hJoxNTKlfkOHt4zVM6idbYMoCXVceP9CI9gvPpsF0fM8lweiw7Qz5iXeKXCY12F9roC4O8DxwwoCxb9FWJnsAIglanNhtw3WcpG7rTXlDF1Nutpk7vjwvp9+h91fOokR4xdcVLiTcbkQHT595odK46hNApoiaJ2Gug4pWFLEiiuD0omINEyi1Wjpr8EB0UA7vJ5IWkQZloDoJPM4vZx1fQ8HAqNWTtjuQkf1ScYuK9NlY54jnuxHxDWC7uZRC0Q/3R8MLfMWECt9PECH71hkqZ5pgyhHxyunsDopKORyu/ua+NqJID7fJv1UOI5w7BY5HlWxTZJ/K0bfxf6zWyBgNVnuIkrS2cjs/mEFBnh7c5G5Whr79gkhEN+TzQWB85KpHvzth7cMIaFze4hp1AWJzLOf51W8pFpbeTEMy2rV6C1EC3sCsyDMYbjqMwGj3fIHHH3E+l/
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3629.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(136003)(346002)(396003)(376002)(366004)(66574015)(4326008)(166002)(83380400001)(478600001)(956004)(44832011)(186003)(45080400002)(21615005)(38350700002)(2616005)(6512007)(86362001)(6486002)(6916009)(26005)(16799955002)(2906002)(30864003)(66556008)(66946007)(66476007)(16526019)(36756003)(316002)(19273905006)(966005)(52116002)(5660300002)(38100700002)(33656002)(54906003)(8936002)(53546011)(6506007)(8676002)(6666004)(292474003)(21314003)(45980500001)(579004)(559001)(563064011)(460985005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData:
+ 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
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3758
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT010.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	bd9aac0f-1280-4bb6-514b-08d90fb3bcd6
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bsQHEp1BZ4WSuPE5TQwZGSvEDHSys6nrvn0LE4j0QJRAXxB+gS/SBKkq1uOzT87f1FJ0GKHTAqdiScQsZ82s/qWio+tfGk9lS/EUPm/1zp5/54ACRV62gvZZI1VF/u/DNGP3yRf/UodFK5VNzDDH4X0mP3lneDQL1Pwf3tdq46IjoboGwn7uxglhDgdf0vItkhi9SIiz9KPPXIBbybElJUNAdHP4KAN5OaqlAKkWNKY9CzuPlX+eUvVAj/jMit+Y4rWH11EyAyHBdc/g+r9vfWk3x8Ni4ryXcvRoBT7RHjl0PLT8YiSgM8sj9ZNM68PEB+RrE/A/v6UvRMT3WJq58V4RJkqsYDg4iTHn0pa8RRV/4RgJ2729K7z94bchBmshhkv59jSGnQ/RTmBXtWIP2wnDERPXAbdTH+ylbr/wAUBOBxXtsu/A7BU+JYB5lg7Cko4XRONIzPOYHAP8/LBre6j8/JjFKmNqjn/m691TmxwZ0oNM4Yfad0bp+/NOXawcHxLa47bcThAbLV4qtICXTWUiT0WfDfDVf4M92tMj7cX6jB0eB53eauaHkEyhPWUEv5LzdAx6pDDdoOl6pp/OSIh4qPnItM2Z22FWFpOxDQKE8rrPzB0BD5pupzi559a5LaL1CLRABe/kZRR16/+PL+xdSXhZ1xfCoHrgasgxDPFWUwKHkvmZYHoxQl/jAIm5
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(66946007)(8676002)(186003)(16526019)(31696002)(66476007)(31686004)(2906002)(66556008)(38100700002)(2616005)(86362001)(36756003)(6666004)(4326008)(6486002)(956004)(5660300002)(53546011)(316002)(16576012)(54906003)(26005)(478600001)(83380400001)(8936002)(110136005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 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/vFraP5s?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 159c06d6-f7c7-4300-c869-08d90fb37331
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2021 10:49:25.7709
+X-Microsoft-Antispam-Message-Info:
+	7x17Err4fUWUyEEQPlKxqHFpzl5AK0fI1Ed5Viqh5Zh18VeNWZv4Nh9HhgLffJEynlg10by8JI75XcR6WCiSzydhQmj/E/FJ+6lj0pMlRsPjMb1jONaY6y18OuHMADanEENG0lCrJJq6nS70kqdAoRHMlpt/FmvOp88Po7qSbIM3wSIGjrEirKGk2cfouT1CQJJkma32910OVLkhjNOMkHfzCGpkb1XLITjMPj8CHdlGfCr1VghMYPjYRGIlEjTSM2XIevtBk2VMm7EX+p8F2RdL23oLKe+YOu7BJ4qdkgaeEl9rOBzhaXDQdjsLwTptKZv+Q4xBa4YKAv2yOakZa7CiXxdPm6idlbPzGsVb/3NUxppTAUVjz7byH5O7nkAmbTGoDQdfFuHznHOetFl5UAlaDDgT6p/0FzEZm4NLAiw/FTtSZXNC2gOtOfookH1vvcfh2kbmTHcvSf7uHSNT5l1LKuzfhyHumDUpGGS3SspmJTFjUfakoLo2/OgK3PjXiXPfwsazPYsHNvBfg8RFJmTvlU5WjM1xeXlTf9Vin1uXsSM1O2MiaSbvzEZUA5aXzhjb8JQpR5knM2Q0YUQER+RixCpHviVgqRWfNo4ud4lLhy09TwnlZ0vLolMb6QXa/lCJnsRbzLPhPvVF3bTNDeCngvqx1nCWZp5MKGf6HSjEJwZK1lZnHCU47CbcxjPeUE/q2Wiv3yGRUtMGJmMShOyl/TfRxQecRCsm9EZk03RKxCjxBvGhJmlx6bVNOMvvydI+Lfd5Qxp5V+/enwijDQU/su2ftiXSyhQfFBly13UmSlLyZsyhm/7INmXtj8N0RVSmISKOq3tPWjs7yCqqLA==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(39860400002)(396003)(346002)(376002)(46966006)(36840700001)(21615005)(5660300002)(44832011)(6512007)(4326008)(36756003)(2616005)(86362001)(47076005)(45080400002)(30864003)(70586007)(336012)(70206006)(82310400003)(956004)(6862004)(26005)(2906002)(66574015)(316002)(54906003)(478600001)(6486002)(6506007)(53546011)(19273905006)(166002)(36860700001)(81166007)(83380400001)(186003)(16799955002)(8676002)(16526019)(966005)(8936002)(6666004)(82740400003)(356005)(33656002)(292474003)(21314003)(579004)(559001)(563064011)(460985005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2021 10:51:46.3227
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rOql2WliqxDLE2hzv3Um8M9z4ZP4Dm4gOguJZSMpX2v/oyynQdTrnfRH6jodY6z9V12q6b4YNqDq81ASrP70LpLBa8nu/ajAyb1J4Rig3W8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4360
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcea167d-aac7-4fa3-463d-08d90fb3c72e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT010.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB2784
 
-On 04/05/2021 09:42, Jan Beulich wrote:
-> This array can be large when many grant frames are permitted; avoid
-> allocating it when it's not going to be used anyway, by doing this only
-> in gnttab_populate_status_frames(). While the delaying of the respective
-> memory allocation adds possible reasons for failure of the respective
-> enclosing operations, there are other memory allocations there already,
-> so callers can't expect these operations to always succeed anyway.
->
-> As to the re-ordering at the end of gnttab_unpopulate_status_frames(),
-> this is merely to represent intended order of actions (shrink array
-> bound, then free higher array entries). If there were racing accesses,
-> suitable barriers would need adding in addition.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Nack.
 
-The argument you make says that the grant status frames is "large
-enough" to care about not allocating.=C2=A0 (I frankly disagree, but that
-isn't relevant to my to my nack).
+> On 4 May 2021, at 23:55, Stefano Stabellini <sstabellini@kernel.org> wrot=
+e:
+>=20
+> On Tue, 4 May 2021, Luca Fancellu wrote:
+>> Add doxygen support to build html documentation with sphinx,
+>> to do that the following modification are applied:
+>>=20
+>> 1) Modify docs/configure.ac and consequently configure script
+>>   to check, through the ./configure script, the presence in
+>>   the system of the sphinx-build binary, if it is found then
+>>   it checks also the presence of the doxygen binary, breathe
+>>   and sphinx-rtd-theme python packages.
+>>   Doxygen and the packages are required only if sphinx-build
+>>   is found, otherwise the Makefile will simply skip the
+>>   sphinx html generation.
+>>   The ax_python_module.m4 support is needed to check for
+>>   python packages.
+>> 2) Add doxygen templates and configuration file
+>> 3) Modify docs/Makefile to call in sequence doxygen and
+>>   sphinx-build, the doxygen configuration file will be
+>>   modified to include the xen absolute path and
+>>   a list of header to parse.
+>>   A doxygen_input.h file is generated to include every
+>>   header listed in the doxy_input.list file.
+>> 4) Add preprocessor called by doxygen before parsing headers,
+>>   it will include in every header a doxygen_include.h file
+>>   that provides missing defines and includes that are
+>>   usually passed by the compiler.
+>=20
+> This is clearly is a gargantuan work! Thank you so much!
+>=20
+> Is there a way we can split this patch somehow? Given the nature of the
+> work, obvious we can't do a line-by-line review of everything, but I
+> think it would be good to split it so that we can more easily ack parts
+> of it and review others.
+>=20
+> For instance something like the following:
+>=20
+> - one patch for docs/xen.doxyfile.in for which you can already add my
+>  acked-by judging by the output[1]
+> - one patch to add the png image, also add my acked-by
+> - one patch for mainpage.md, header.html, footer.html, and
+>  customdoxygen.css, I think they can all be on a single patch and have
+>  my acked-by
+> - one patch to add the new m4 macros under m4/
+> - one patch with changes to docs/configure.ac, docs/configure,
+>  config/Docs.mk.in
+> - one patch with doxy-preprocessor.py, doxy_input.list,
+>  doxygen_include.h.in
+> - one patch with changes to docs/Makefile and docs/conf.py
+>=20
+> Does this sound reasonable to you?
 
-The change in logic here moves a failure in DOMCTL_createdomain, to
-GNTTABOP_setversion.=C2=A0 We know, from the last minute screwups in XSA-22=
-6,
-that there are versions of Windows and Linux in the field, used by
-customers, which will BUG()/BSOD when GNTTABOP_setversion doesn't succeed.
+Hi Stefano,
 
-You're literally adding even more complexity to the grant table, to also
-increase the chance of regressing VMs in the wild.=C2=A0 This is not ok.
+Yes I=E2=80=99ll split the patch and I=E2=80=99ll push everything in the v6=
+.
 
-The only form of this patch which is in any way acceptable, is to avoid
-the allocation when you know *in DOMCTL_createdomain* that it will never
-be needed by the VM.=C2=A0 So far, that is from Kconfig and/or the command
-line options.
+Cheers,
+Luca
 
-~Andrew
+>=20
+>=20
+> [1] https://luca.fancellu.gitlab.io/xen-docs/hypercall-interfaces/arm64/g=
+rant_tables.html
+>=20
+>=20
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> ---
+>> v4 changes:
+>> - create alias @keepindent/@endkeepindent for the doxygen
+>>  command @code/@endcode
+>> v3 changes:
+>> - add preprocessor to handle missing defines and anonymous
+>>  structs/unions before doxygen parsing
+>> - modification to Makefile to handle the new process
+>> v2 changes:
+>> - Fix bug in Makefile when sphinx is not found in the system
+>> ---
+>> .gitignore                                   |    6 +
+>> config/Docs.mk.in                            |    2 +
+>> docs/Makefile                                |   42 +-
+>> docs/conf.py                                 |   48 +-
+>> docs/configure                               |  258 ++
+>> docs/configure.ac                            |   15 +
+>> docs/xen-doxygen/customdoxygen.css           |   36 +
+>> docs/xen-doxygen/doxy-preprocessor.py        |  110 +
+>> docs/xen-doxygen/doxy_input.list             |    0
+>> docs/xen-doxygen/doxygen_include.h.in        |   32 +
+>> docs/xen-doxygen/footer.html                 |   21 +
+>> docs/xen-doxygen/header.html                 |   56 +
+>> docs/xen-doxygen/mainpage.md                 |    5 +
+>> docs/xen-doxygen/xen_project_logo_165x67.png |  Bin 0 -> 18223 bytes
+>> docs/xen.doxyfile.in                         | 2316 ++++++++++++++++++
+>> m4/ax_python_module.m4                       |   56 +
+>> m4/docs_tool.m4                              |    9 +
+>> 17 files changed, 3006 insertions(+), 6 deletions(-)
+>> create mode 100644 docs/xen-doxygen/customdoxygen.css
+>> create mode 100755 docs/xen-doxygen/doxy-preprocessor.py
+>> create mode 100644 docs/xen-doxygen/doxy_input.list
+>> create mode 100644 docs/xen-doxygen/doxygen_include.h.in
+>> create mode 100644 docs/xen-doxygen/footer.html
+>> create mode 100644 docs/xen-doxygen/header.html
+>> create mode 100644 docs/xen-doxygen/mainpage.md
+>> create mode 100644 docs/xen-doxygen/xen_project_logo_165x67.png
+>> create mode 100644 docs/xen.doxyfile.in
+>> create mode 100644 m4/ax_python_module.m4
+>>=20
+>> diff --git a/.gitignore b/.gitignore
+>> index 1c2fa1530b..d271e0ce6a 100644
+>> --- a/.gitignore
+>> +++ b/.gitignore
+>> @@ -58,6 +58,12 @@ docs/man7/
+>> docs/man8/
+>> docs/pdf/
+>> docs/txt/
+>> +docs/doxygen-output
+>> +docs/sphinx
+>> +docs/xen.doxyfile
+>> +docs/xen.doxyfile.tmp
+>> +docs/xen-doxygen/doxygen_include.h
+>> +docs/xen-doxygen/doxygen_include.h.tmp
+>> extras/mini-os*
+>> install/*
+>> stubdom/*-minios-config.mk
+>> diff --git a/config/Docs.mk.in b/config/Docs.mk.in
+>> index e76e5cd5ff..dfd4a02838 100644
+>> --- a/config/Docs.mk.in
+>> +++ b/config/Docs.mk.in
+>> @@ -7,3 +7,5 @@ POD2HTML            :=3D @POD2HTML@
+>> POD2TEXT            :=3D @POD2TEXT@
+>> PANDOC              :=3D @PANDOC@
+>> PERL                :=3D @PERL@
+>> +SPHINXBUILD         :=3D @SPHINXBUILD@
+>> +DOXYGEN             :=3D @DOXYGEN@
+>> diff --git a/docs/Makefile b/docs/Makefile
+>> index 8de1efb6f5..2f784c36ce 100644
+>> --- a/docs/Makefile
+>> +++ b/docs/Makefile
+>> @@ -17,6 +17,18 @@ TXTSRC-y :=3D $(sort $(shell find misc -name '*.txt' =
+-print))
+>>=20
+>> PANDOCSRC-y :=3D $(sort $(shell find designs/ features/ misc/ process/ s=
+pecs/ \( -name '*.pandoc' -o -name '*.md' \) -print))
+>>=20
+>> +# Directory in which the doxygen documentation is created
+>> +# This must be kept in sync with breathe_projects value in conf.py
+>> +DOXYGEN_OUTPUT =3D doxygen-output
+>> +
+>> +# Doxygen input headers from xen-doxygen/doxy_input.list file
+>> +DOXY_LIST_SOURCES !=3D cat "xen-doxygen/doxy_input.list"
+>> +DOXY_LIST_SOURCES :=3D $(realpath $(addprefix $(XEN_ROOT)/,$(DOXY_LIST_=
+SOURCES)))
+>> +
+>> +DOXY_DEPS :=3D xen.doxyfile \
+>> +			 xen-doxygen/mainpage.md \
+>> +			 xen-doxygen/doxygen_include.h
+>> +
+>> # Documentation targets
+>> $(foreach i,$(MAN_SECTIONS), \
+>>   $(eval DOC_MAN$(i) :=3D $(patsubst man/%.$(i),man$(i)/%.$(i), \
+>> @@ -46,8 +58,28 @@ all: build
+>> build: html txt pdf man-pages figs
+>>=20
+>> .PHONY: sphinx-html
+>> -sphinx-html:
+>> -	sphinx-build -b html . sphinx/html
+>> +sphinx-html: $(DOXY_DEPS) $(DOXY_LIST_SOURCES)
+>> +ifneq ($(SPHINXBUILD),no)
+>> +	$(DOXYGEN) xen.doxyfile
+>> +	XEN_ROOT=3D$(realpath $(XEN_ROOT)) $(SPHINXBUILD) -b html . sphinx/htm=
+l
+>> +else
+>> +	@echo "Sphinx is not installed; skipping sphinx-html documentation."
+>> +endif
+>> +
+>> +xen.doxyfile: xen.doxyfile.in xen-doxygen/doxy_input.list
+>> +	@echo "Generating $@"
+>> +	@sed -e "s,@XEN_BASE@,$(realpath $(XEN_ROOT)),g" $< \
+>> +		| sed -e "s,@DOXY_OUT@,$(DOXYGEN_OUTPUT),g" > $@.tmp
+>> +	@$(foreach inc,\
+>> +		$(DOXY_LIST_SOURCES),\
+>> +		echo "INPUT +=3D \"$(inc)\"" >> $@.tmp; \
+>> +	)
+>> +	mv $@.tmp $@
+>> +
+>> +xen-doxygen/doxygen_include.h: xen-doxygen/doxygen_include.h.in
+>> +	@echo "Generating $@"
+>> +	@sed -e "s,@XEN_BASE@,$(realpath $(XEN_ROOT)),g" $< > $@.tmp
+>> +	@mv $@.tmp $@
+>>=20
+>> .PHONY: html
+>> html: $(DOC_HTML) html/index.html
+>> @@ -71,7 +103,11 @@ clean: clean-man-pages
+>> 	$(MAKE) -C figs clean
+>> 	rm -rf .word_count *.aux *.dvi *.bbl *.blg *.glo *.idx *~
+>> 	rm -rf *.ilg *.log *.ind *.toc *.bak *.tmp core
+>> -	rm -rf html txt pdf sphinx/html
+>> +	rm -rf html txt pdf sphinx $(DOXYGEN_OUTPUT)
+>> +	rm -f xen.doxyfile
+>> +	rm -f xen.doxyfile.tmp
+>> +	rm -f xen-doxygen/doxygen_include.h
+>> +	rm -f xen-doxygen/doxygen_include.h.tmp
+>>=20
+>> .PHONY: distclean
+>> distclean: clean
+>> diff --git a/docs/conf.py b/docs/conf.py
+>> index 50e41501db..a48de42331 100644
+>> --- a/docs/conf.py
+>> +++ b/docs/conf.py
+>> @@ -13,13 +13,17 @@
+>> # add these directories to sys.path here. If the directory is relative t=
+o the
+>> # documentation root, use os.path.abspath to make it absolute, like show=
+n here.
+>> #
+>> -# import os
+>> -# import sys
+>> +import os
+>> +import sys
+>> # sys.path.insert(0, os.path.abspath('.'))
+>>=20
+>>=20
+>> # -- Project information -----------------------------------------------=
+------
+>>=20
+>> +if "XEN_ROOT" not in os.environ:
+>> +    sys.exit("$XEN_ROOT environment variable undefined.")
+>> +XEN_ROOT =3D os.path.abspath(os.environ["XEN_ROOT"])
+>> +
+>> project =3D u'Xen'
+>> copyright =3D u'2019, The Xen development community'
+>> author =3D u'The Xen development community'
+>> @@ -35,6 +39,7 @@ try:
+>>             xen_subver =3D line.split(u"=3D")[1].strip()
+>>         elif line.startswith(u"export XEN_EXTRAVERSION"):
+>>             xen_extra =3D line.split(u"=3D")[1].split(u"$", 1)[0].strip(=
+)
+>> +
+>> except:
+>>     pass
+>> finally:
+>> @@ -44,6 +49,15 @@ finally:
+>>     else:
+>>         version =3D release =3D u"unknown version"
+>>=20
+>> +try:
+>> +    xen_doxygen_output =3D None
+>> +
+>> +    for line in open(u"Makefile"):
+>> +        if line.startswith(u"DOXYGEN_OUTPUT"):
+>> +                xen_doxygen_output =3D line.split(u"=3D")[1].strip()
+>> +except:
+>> +    sys.exit("DOXYGEN_OUTPUT variable undefined.")
+>> +
+>> # -- General configuration ---------------------------------------------=
+------
+>>=20
+>> # If your documentation needs a minimal Sphinx version, state it here.
+>> @@ -53,7 +67,8 @@ needs_sphinx =3D '1.4'
+>> # Add any Sphinx extension module names here, as strings. They can be
+>> # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+>> # ones.
+>> -extensions =3D []
+>> +# breathe -> extension that integrates doxygen xml output with sphinx
+>> +extensions =3D ['breathe']
+>>=20
+>> # Add any paths that contain templates here, relative to this directory.
+>> templates_path =3D ['_templates']
+>> @@ -175,6 +190,33 @@ texinfo_documents =3D [
+>>      'Miscellaneous'),
+>> ]
+>>=20
+>> +# -- Options for Breathe extension ------------------------------------=
+-------
+>> +
+>> +breathe_projects =3D {
+>> +    "Xen": "{}/docs/{}/xml".format(XEN_ROOT, xen_doxygen_output)
+>> +}
+>> +breathe_default_project =3D "Xen"
+>> +
+>> +breathe_domain_by_extension =3D {
+>> +    "h": "c",
+>> +    "c": "c",
+>> +}
+>> +breathe_separate_member_pages =3D True
+>> +breathe_show_enumvalue_initializer =3D True
+>> +breathe_show_define_initializer =3D True
+>> +
+>> +# Qualifiers to a function are causing Sphihx/Breathe to warn about
+>> +# Error when parsing function declaration and more.  This is a list
+>> +# of strings that the parser additionally should accept as
+>> +# attributes.
+>> +cpp_id_attributes =3D [
+>> +    '__syscall', '__deprecated', '__may_alias',
+>> +    '__used', '__unused', '__weak',
+>> +    '__DEPRECATED_MACRO', 'FUNC_NORETURN',
+>> +    '__subsystem',
+>> +]
+>> +c_id_attributes =3D cpp_id_attributes
+>> +
+>>=20
+>> # -- Options for Epub output -------------------------------------------=
+------
+>>=20
+>> diff --git a/docs/configure b/docs/configure
+>> index 569bd4c2ff..0ebf046a79 100755
+>> --- a/docs/configure
+>> +++ b/docs/configure
+>> @@ -588,6 +588,8 @@ ac_unique_file=3D"misc/xen-command-line.pandoc"
+>> ac_subst_vars=3D'LTLIBOBJS
+>> LIBOBJS
+>> PERL
+>> +DOXYGEN
+>> +SPHINXBUILD
+>> PANDOC
+>> POD2TEXT
+>> POD2HTML
+>> @@ -673,6 +675,7 @@ POD2MAN
+>> POD2HTML
+>> POD2TEXT
+>> PANDOC
+>> +DOXYGEN
+>> PERL'
+>>=20
+>>=20
+>> @@ -1318,6 +1321,7 @@ Some influential environment variables:
+>>   POD2HTML    Path to pod2html tool
+>>   POD2TEXT    Path to pod2text tool
+>>   PANDOC      Path to pandoc tool
+>> +  DOXYGEN     Path to doxygen tool
+>>   PERL        Path to Perl parser
+>>=20
+>> Use these variables to override the choices made by `configure' or to he=
+lp
+>> @@ -1800,6 +1804,7 @@ ac_configure=3D"$SHELL $ac_aux_dir/configure"  # P=
+lease don't use this var.
+>>=20
+>>=20
+>>=20
+>> +
+>> case "$host_os" in
+>> *freebsd*) XENSTORED_KVA=3D/dev/xen/xenstored ;;
+>> *) XENSTORED_KVA=3D/proc/xen/xsd_kva ;;
+>> @@ -1812,6 +1817,53 @@ case "$host_os" in
+>> esac
+>>=20
+>>=20
+>> +# =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>> +#     https://www.gnu.org/software/autoconf-archive/ax_python_module.ht=
+ml
+>> +# =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>> +#
+>> +# SYNOPSIS
+>> +#
+>> +#   AX_PYTHON_MODULE(modname[, fatal, python])
+>> +#
+>> +# DESCRIPTION
+>> +#
+>> +#   Checks for Python module.
+>> +#
+>> +#   If fatal is non-empty then absence of a module will trigger an erro=
+r.
+>> +#   The third parameter can either be "python" for Python 2 or "python3=
+" for
+>> +#   Python 3; defaults to Python 3.
+>> +#
+>> +# LICENSE
+>> +#
+>> +#   Copyright (c) 2008 Andrew Collier
+>> +#
+>> +#   Copying and distribution of this file, with or without modification=
+, are
+>> +#   permitted in any medium without royalty provided the copyright noti=
+ce
+>> +#   and this notice are preserved. This file is offered as-is, without =
+any
+>> +#   warranty.
+>> +
+>> +#serial 9
+>> +
+>> +# This is what autoupdate's m4 run will expand.  It fires
+>> +# the warning (with _au_warn_XXX), outputs it into the
+>> +# updated configure.ac (with AC_DIAGNOSE), and then outputs
+>> +# the replacement expansion.
+>> +
+>> +
+>> +# This is an auxiliary macro that is also run when
+>> +# autoupdate runs m4.  It simply calls m4_warning, but
+>> +# we need a wrapper so that each warning is emitted only
+>> +# once.  We break the quoting in m4_warning's argument in
+>> +# order to expand this macro's arguments, not AU_DEFUN's.
+>> +
+>> +
+>> +# Finally, this is the expansion that is picked up by
+>> +# autoconf.  It tells the user to run autoupdate, and
+>> +# then outputs the replacement expansion.  We do not care
+>> +# about autoupdate's warning because that contains
+>> +# information on what to do *after* running autoupdate.
+>> +
+>> +
+>>=20
+>>=20
+>> test "x$prefix" =3D "xNONE" && prefix=3D$ac_default_prefix
+>> @@ -2232,6 +2284,212 @@ $as_echo "$as_me: WARNING: pandoc is not availab=
+le so some documentation won't b
+>> fi
+>>=20
+>>=20
+>> +# If sphinx is installed, make sure to have also the dependencies to bu=
+ild
+>> +# Sphinx documentation.
+>> +for ac_prog in sphinx-build
+>> +do
+>> +  # Extract the first word of "$ac_prog", so it can be a program name w=
+ith args.
+>> +set dummy $ac_prog; ac_word=3D$2
+>> +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+>> +$as_echo_n "checking for $ac_word... " >&6; }
+>> +if ${ac_cv_prog_SPHINXBUILD+:} false; then :
+>> +  $as_echo_n "(cached) " >&6
+>> +else
+>> +  if test -n "$SPHINXBUILD"; then
+>> +  ac_cv_prog_SPHINXBUILD=3D"$SPHINXBUILD" # Let the user override the t=
+est.
+>> +else
+>> +as_save_IFS=3D$IFS; IFS=3D$PATH_SEPARATOR
+>> +for as_dir in $PATH
+>> +do
+>> +  IFS=3D$as_save_IFS
+>> +  test -z "$as_dir" && as_dir=3D.
+>> +    for ac_exec_ext in '' $ac_executable_extensions; do
+>> +  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+>> +    ac_cv_prog_SPHINXBUILD=3D"$ac_prog"
+>> +    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_ex=
+ec_ext" >&5
+>> +    break 2
+>> +  fi
+>> +done
+>> +  done
+>> +IFS=3D$as_save_IFS
+>> +
+>> +fi
+>> +fi
+>> +SPHINXBUILD=3D$ac_cv_prog_SPHINXBUILD
+>> +if test -n "$SPHINXBUILD"; then
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SPHINXBUILD" >&5
+>> +$as_echo "$SPHINXBUILD" >&6; }
+>> +else
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+>> +$as_echo "no" >&6; }
+>> +fi
+>> +
+>> +
+>> +  test -n "$SPHINXBUILD" && break
+>> +done
+>> +test -n "$SPHINXBUILD" || SPHINXBUILD=3D"no"
+>> +
+>> +    if test "x$SPHINXBUILD" =3D xno; then :
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: sphinx-build is not=
+ available so sphinx documentation \
+>> +won't be built" >&5
+>> +$as_echo "$as_me: WARNING: sphinx-build is not available so sphinx docu=
+mentation \
+>> +won't be built" >&2;}
+>> +else
+>> +
+>> +            # Extract the first word of "sphinx-build", so it can be a =
+program name with args.
+>> +set dummy sphinx-build; ac_word=3D$2
+>> +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+>> +$as_echo_n "checking for $ac_word... " >&6; }
+>> +if ${ac_cv_path_SPHINXBUILD+:} false; then :
+>> +  $as_echo_n "(cached) " >&6
+>> +else
+>> +  case $SPHINXBUILD in
+>> +  [\\/]* | ?:[\\/]*)
+>> +  ac_cv_path_SPHINXBUILD=3D"$SPHINXBUILD" # Let the user override the t=
+est with a path.
+>> +  ;;
+>> +  *)
+>> +  as_save_IFS=3D$IFS; IFS=3D$PATH_SEPARATOR
+>> +for as_dir in $PATH
+>> +do
+>> +  IFS=3D$as_save_IFS
+>> +  test -z "$as_dir" && as_dir=3D.
+>> +    for ac_exec_ext in '' $ac_executable_extensions; do
+>> +  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+>> +    ac_cv_path_SPHINXBUILD=3D"$as_dir/$ac_word$ac_exec_ext"
+>> +    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_ex=
+ec_ext" >&5
+>> +    break 2
+>> +  fi
+>> +done
+>> +  done
+>> +IFS=3D$as_save_IFS
+>> +
+>> +  ;;
+>> +esac
+>> +fi
+>> +SPHINXBUILD=3D$ac_cv_path_SPHINXBUILD
+>> +if test -n "$SPHINXBUILD"; then
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SPHINXBUILD" >&5
+>> +$as_echo "$SPHINXBUILD" >&6; }
+>> +else
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+>> +$as_echo "no" >&6; }
+>> +fi
+>> +
+>> +
+>> +
+>> +
+>> +    # Extract the first word of "doxygen", so it can be a program name =
+with args.
+>> +set dummy doxygen; ac_word=3D$2
+>> +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+>> +$as_echo_n "checking for $ac_word... " >&6; }
+>> +if ${ac_cv_path_DOXYGEN+:} false; then :
+>> +  $as_echo_n "(cached) " >&6
+>> +else
+>> +  case $DOXYGEN in
+>> +  [\\/]* | ?:[\\/]*)
+>> +  ac_cv_path_DOXYGEN=3D"$DOXYGEN" # Let the user override the test with=
+ a path.
+>> +  ;;
+>> +  *)
+>> +  as_save_IFS=3D$IFS; IFS=3D$PATH_SEPARATOR
+>> +for as_dir in $PATH
+>> +do
+>> +  IFS=3D$as_save_IFS
+>> +  test -z "$as_dir" && as_dir=3D.
+>> +    for ac_exec_ext in '' $ac_executable_extensions; do
+>> +  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+>> +    ac_cv_path_DOXYGEN=3D"$as_dir/$ac_word$ac_exec_ext"
+>> +    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_ex=
+ec_ext" >&5
+>> +    break 2
+>> +  fi
+>> +done
+>> +  done
+>> +IFS=3D$as_save_IFS
+>> +
+>> +  ;;
+>> +esac
+>> +fi
+>> +DOXYGEN=3D$ac_cv_path_DOXYGEN
+>> +if test -n "$DOXYGEN"; then
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $DOXYGEN" >&5
+>> +$as_echo "$DOXYGEN" >&6; }
+>> +else
+>> +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+>> +$as_echo "no" >&6; }
+>> +fi
+>> +
+>> +
+>> +    if ! test -x "$ac_cv_path_DOXYGEN"; then :
+>> +
+>> +        as_fn_error $? "doxygen is needed" "$LINENO" 5
+>> +
+>> +fi
+>> +
+>> +
+>> +    if test -z $PYTHON;
+>> +    then
+>> +        if test -z "";
+>> +        then
+>> +            PYTHON=3D"python3"
+>> +        else
+>> +            PYTHON=3D""
+>> +        fi
+>> +    fi
+>> +    PYTHON_NAME=3D`basename $PYTHON`
+>> +    { $as_echo "$as_me:${as_lineno-$LINENO}: checking $PYTHON_NAME modu=
+le: breathe" >&5
+>> +$as_echo_n "checking $PYTHON_NAME module: breathe... " >&6; }
+>> +    $PYTHON -c "import breathe" 2>/dev/null
+>> +    if test $? -eq 0;
+>> +    then
+>> +        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+>> +$as_echo "yes" >&6; }
+>> +        eval HAVE_PYMOD_BREATHE=3Dyes
+>> +    else
+>> +        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+>> +$as_echo "no" >&6; }
+>> +        eval HAVE_PYMOD_BREATHE=3Dno
+>> +        #
+>> +        if test -n "yes"
+>> +        then
+>> +            as_fn_error $? "failed to find required module breathe" "$L=
+INENO" 5
+>> +            exit 1
+>> +        fi
+>> +    fi
+>> +
+>> +
+>> +    if test -z $PYTHON;
+>> +    then
+>> +        if test -z "";
+>> +        then
+>> +            PYTHON=3D"python3"
+>> +        else
+>> +            PYTHON=3D""
+>> +        fi
+>> +    fi
+>> +    PYTHON_NAME=3D`basename $PYTHON`
+>> +    { $as_echo "$as_me:${as_lineno-$LINENO}: checking $PYTHON_NAME modu=
+le: sphinx_rtd_theme" >&5
+>> +$as_echo_n "checking $PYTHON_NAME module: sphinx_rtd_theme... " >&6; }
+>> +    $PYTHON -c "import sphinx_rtd_theme" 2>/dev/null
+>> +    if test $? -eq 0;
+>> +    then
+>> +        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+>> +$as_echo "yes" >&6; }
+>> +        eval HAVE_PYMOD_SPHINX_RTD_THEME=3Dyes
+>> +    else
+>> +        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+>> +$as_echo "no" >&6; }
+>> +        eval HAVE_PYMOD_SPHINX_RTD_THEME=3Dno
+>> +        #
+>> +        if test -n "yes"
+>> +        then
+>> +            as_fn_error $? "failed to find required module sphinx_rtd_t=
+heme" "$LINENO" 5
+>> +            exit 1
+>> +        fi
+>> +    fi
+>> +
+>> +
+>> +
+>> +fi
+>> +
+>>=20
+>> # Extract the first word of "perl", so it can be a program name with arg=
+s.
+>> set dummy perl; ac_word=3D$2
+>> diff --git a/docs/configure.ac b/docs/configure.ac
+>> index c2e5edd3b3..a2ff55f30a 100644
+>> --- a/docs/configure.ac
+>> +++ b/docs/configure.ac
+>> @@ -20,6 +20,7 @@ m4_include([../m4/docs_tool.m4])
+>> m4_include([../m4/path_or_fail.m4])
+>> m4_include([../m4/features.m4])
+>> m4_include([../m4/paths.m4])
+>> +m4_include([../m4/ax_python_module.m4])
+>>=20
+>> AX_XEN_EXPAND_CONFIG()
+>>=20
+>> @@ -29,6 +30,20 @@ AX_DOCS_TOOL_PROG([POD2HTML], [pod2html])
+>> AX_DOCS_TOOL_PROG([POD2TEXT], [pod2text])
+>> AX_DOCS_TOOL_PROG([PANDOC], [pandoc])
+>>=20
+>> +# If sphinx is installed, make sure to have also the dependencies to bu=
+ild
+>> +# Sphinx documentation.
+>> +AC_CHECK_PROGS([SPHINXBUILD], [sphinx-build], [no])
+>> +    AS_IF([test "x$SPHINXBUILD" =3D xno],
+>> +        [AC_MSG_WARN(sphinx-build is not available so sphinx documentat=
+ion \
+>> +won't be built)],
+>> +        [
+>> +            AC_PATH_PROG([SPHINXBUILD], [sphinx-build])
+>> +            AX_DOCS_TOOL_REQ_PROG([DOXYGEN], [doxygen])
+>> +            AX_PYTHON_MODULE([breathe],[yes])
+>> +            AX_PYTHON_MODULE([sphinx_rtd_theme], [yes])
+>> +        ]
+>> +    )
+>> +
+>> AC_ARG_VAR([PERL], [Path to Perl parser])
+>> AX_PATH_PROG_OR_FAIL([PERL], [perl])
+>>=20
+>> diff --git a/docs/xen-doxygen/customdoxygen.css b/docs/xen-doxygen/custo=
+mdoxygen.css
+>> new file mode 100644
+>> index 0000000000..4735e41cf5
+>> --- /dev/null
+>> +++ b/docs/xen-doxygen/customdoxygen.css
+>> @@ -0,0 +1,36 @@
+>> +/* Custom CSS for Doxygen-generated HTML
+>> + * Copyright (c) 2015 Intel Corporation
+>> + * SPDX-License-Identifier: Apache-2.0
+>> + */
+>> +
+>> +code {
+>> +  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+>> +  background-color: #D8D8D8;
+>> +  padding: 0 0.25em 0 0.25em;
+>> +}
+>> +
+>> +pre.fragment {
+>> +  display: block;
+>> +  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+>> +  padding: 1rem;
+>> +  word-break: break-all;
+>> +  word-wrap: break-word;
+>> +  white-space: pre;
+>> +  background-color: #D8D8D8;
+>> +}
+>> +
+>> +#projectlogo
+>> +{
+>> +  vertical-align: middle;
+>> +}
+>> +
+>> +#projectname
+>> +{
+>> +  font: 200% Tahoma, Arial,sans-serif;
+>> +  color: #3D578C;
+>> +}
+>> +
+>> +#projectbrief
+>> +{
+>> +  color: #3D578C;
+>> +}
+>> diff --git a/docs/xen-doxygen/doxy-preprocessor.py b/docs/xen-doxygen/do=
+xy-preprocessor.py
+>> new file mode 100755
+>> index 0000000000..496899d8e6
+>> --- /dev/null
+>> +++ b/docs/xen-doxygen/doxy-preprocessor.py
+>> @@ -0,0 +1,110 @@
+>> +#!/usr/bin/python3
+>> +#
+>> +# Copyright (c) 2021, Arm Limited.
+>> +#
+>> +# SPDX-License-Identifier: GPL-2.0
+>> +#
+>> +
+>> +import os, sys, re
+>> +
+>> +
+>> +# Variables that holds the preprocessed header text
+>> +output_text =3D ""
+>> +header_file_name =3D ""
+>> +
+>> +# Variables to enumerate the anonymous structs/unions
+>> +anonymous_struct_count =3D 0
+>> +anonymous_union_count =3D 0
+>> +
+>> +
+>> +def error(text):
+>> +    sys.stderr.write("{}\n".format(text))
+>> +    sys.exit(1)
+>> +
+>> +
+>> +def write_to_output(text):
+>> +    sys.stdout.write(text)
+>> +
+>> +
+>> +def insert_doxygen_header(text):
+>> +    # Here the strategy is to insert the #include <doxygen_include.h> i=
+n the
+>> +    # first line of the header
+>> +    abspath =3D os.path.dirname(os.path.abspath(__file__))
+>> +    text +=3D "#include \"{}/doxygen_include.h\"\n".format(abspath)
+>> +
+>> +    return text
+>> +
+>> +
+>> +def enumerate_anonymous(match):
+>> +    global anonymous_struct_count
+>> +    global anonymous_union_count
+>> +
+>> +    if "struct" in match.group(1):
+>> +        label =3D "anonymous_struct_%d" % anonymous_struct_count
+>> +        anonymous_struct_count +=3D 1
+>> +    else:
+>> +        label =3D "anonymous_union_%d" % anonymous_union_count
+>> +        anonymous_union_count +=3D 1
+>> +
+>> +    return match.group(1) + " " + label + " {"
+>> +
+>> +
+>> +def manage_anonymous_structs_unions(text):
+>> +    # Match anonymous unions/structs with this pattern:
+>> +    # struct/union {
+>> +    #     [...]
+>> +    #
+>> +    # and substitute it in this way:
+>> +    #
+>> +    # struct anonymous_struct_# {
+>> +    #     [...]
+>> +    # or
+>> +    # union anonymous_union_# {
+>> +    #     [...]
+>> +    # where # is a counter starting from zero, different between struct=
+s and
+>> +    # unions
+>> +    #
+>> +    # We don't count anonymous union/struct that are part of a typedef =
+because
+>> +    # they don't create any issue for doxygen
+>> +    text =3D re.sub(
+>> +        "(?<!typedef\s)(struct|union)\s+?\{",
+>> +        enumerate_anonymous,
+>> +        text,
+>> +        flags=3Dre.S
+>> +    )
+>> +
+>> +    return text
+>> +
+>> +
+>> +def main(argv):
+>> +    global output_text
+>> +    global header_file_name
+>> +
+>> +    if len(argv) !=3D 1:
+>> +        error("Script called without arguments!")
+>> +
+>> +    header_file_name =3D argv[0]
+>> +
+>> +    # Open header file
+>> +    input_header_file =3D open(header_file_name, 'r')
+>> +    # Read all lines
+>> +    lines =3D input_header_file.readlines()
+>> +
+>> +    # Inject config.h and some defines in the current header, during co=
+mpilation
+>> +    # this job is done by the -include argument passed to the compiler.
+>> +    output_text =3D insert_doxygen_header(output_text)
+>> +
+>> +    # Load file content in a variable
+>> +    for line in lines:
+>> +        output_text +=3D "{}".format(line)
+>> +
+>> +    # Try to get rid of any anonymous union/struct
+>> +    output_text =3D manage_anonymous_structs_unions(output_text)
+>> +
+>> +    # Final stage of the preprocessor, print the output to stdout
+>> +    write_to_output(output_text)
+>> +
+>> +
+>> +if __name__ =3D=3D "__main__":
+>> +    main(sys.argv[1:])
+>> +    sys.exit(0)
+>> diff --git a/docs/xen-doxygen/doxy_input.list b/docs/xen-doxygen/doxy_in=
+put.list
+>> new file mode 100644
+>> index 0000000000..e69de29bb2
+>> diff --git a/docs/xen-doxygen/doxygen_include.h.in b/docs/xen-doxygen/do=
+xygen_include.h.in
+>> new file mode 100644
+>> index 0000000000..df284f3931
+>> --- /dev/null
+>> +++ b/docs/xen-doxygen/doxygen_include.h.in
+>> @@ -0,0 +1,32 @@
+>> +/*
+>> + * Doxygen include header
+>> + * It supplies the xen/include/xen/config.h that is included using the =
+-include
+>> + * argument of the compiler in Xen Makefile.
+>> + * Other macros are defined because they are usually provided by the co=
+mpiler.
+>> + *
+>> + * Copyright (C) 2021 ARM Limited
+>> + *
+>> + * Author: Luca Fancellu <luca.fancellu@arm.com>
+>> + *
+>> + * SPDX-License-Identifier: GPL-2.0
+>> + */
+>> +
+>> +#include "@XEN_BASE@/xen/include/xen/config.h"
+>> +
+>> +#if defined(CONFIG_X86_64)
+>> +
+>> +#define __x86_64__ 1
+>> +
+>> +#elif defined(CONFIG_ARM_64)
+>> +
+>> +#define __aarch64__ 1
+>> +
+>> +#elif defined(CONFIG_ARM_32)
+>> +
+>> +#define __arm__ 1
+>> +
+>> +#else
+>> +
+>> +#error Architecture not supported/recognized.
+>> +
+>> +#endif
+>> diff --git a/docs/xen-doxygen/footer.html b/docs/xen-doxygen/footer.html
+>> new file mode 100644
+>> index 0000000000..a24bf2b9b4
+>> --- /dev/null
+>> +++ b/docs/xen-doxygen/footer.html
+>> @@ -0,0 +1,21 @@
+>> +<!-- HTML footer for doxygen 1.8.13-->
+>> +<!-- start footer part -->
+>> +<!--BEGIN GENERATE_TREEVIEW-->
+>> +<div id=3D"nav-path" class=3D"navpath"><!-- id is needed for treeview f=
+unction! -->
+>> +  <ul>
+>> +    $navpath
+>> +    <li class=3D"footer">$generatedby
+>> +    <a href=3D"http://www.doxygen.org/index.html">
+>> +    <img class=3D"footer" src=3D"$relpath^doxygen.png" alt=3D"doxygen"/=
+></a> $doxygenversion </li>
+>> +  </ul>
+>> +</div>
+>> +<!--END GENERATE_TREEVIEW-->
+>> +<!--BEGIN !GENERATE_TREEVIEW-->
+>> +<hr class=3D"footer"/><address class=3D"footer"><small>
+>> +$generatedby &#160;<a href=3D"http://www.doxygen.org/index.html">
+>> +<img class=3D"footer" src=3D"$relpath^doxygen.png" alt=3D"doxygen"/>
+>> +</a> $doxygenversion
+>> +</small></address>
+>> +<!--END !GENERATE_TREEVIEW-->
+>> +</body>
+>> +</html>
+>> diff --git a/docs/xen-doxygen/header.html b/docs/xen-doxygen/header.html
+>> new file mode 100644
+>> index 0000000000..83ac2f1835
+>> --- /dev/null
+>> +++ b/docs/xen-doxygen/header.html
+>> @@ -0,0 +1,56 @@
+>> +<!-- HTML header for doxygen 1.8.13-->
+>> +<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://=
+www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+>> +<html xmlns=3D"http://www.w3.org/1999/xhtml">
+>> +<head>
+>> +<meta http-equiv=3D"Content-Type" content=3D"text/xhtml;charset=3DUTF-8=
+"/>
+>> +<meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3D9"/>
+>> +<meta name=3D"generator" content=3D"Doxygen $doxygenversion"/>
+>> +<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1"/>
+>> +<!--BEGIN PROJECT_NAME--><title>$projectname: $title</title><!--END PRO=
+JECT_NAME-->
+>> +<!--BEGIN !PROJECT_NAME--><title>$title</title><!--END !PROJECT_NAME-->
+>> +<link href=3D"$relpath^tabs.css" rel=3D"stylesheet" type=3D"text/css"/>
+>> +<script type=3D"text/javascript" src=3D"$relpath^jquery.js"></script>
+>> +<script type=3D"text/javascript" src=3D"$relpath^dynsections.js"></scri=
+pt>
+>> +$treeview
+>> +$search
+>> +$mathjax
+>> +<link href=3D"$relpath^$stylesheet" rel=3D"stylesheet" type=3D"text/css=
+" />
+>> +$extrastylesheet
+>> +</head>
+>> +<body>
+>> +<div id=3D"top"><!-- do not remove this div, it is closed by doxygen! -=
+->
+>> +
+>> +<!--BEGIN TITLEAREA-->
+>> +<div id=3D"titlearea">
+>> +<table cellspacing=3D"0" cellpadding=3D"0">
+>> + <tbody>
+>> + <tr style=3D"height: 56px;">
+>> +  <!--BEGIN PROJECT_LOGO-->
+>> +  <td id=3D"projectlogo"><img alt=3D"Logo" src=3D"$relpath^$projectlogo=
+"/></td>
+>> +  <!--END PROJECT_LOGO-->
+>> +  <!--BEGIN PROJECT_NAME-->
+>> +  <td id=3D"projectalign" style=3D"padding-left: 1em;">
+>> +   <div id=3D"projectname">$projectname
+>> +   <!--BEGIN PROJECT_NUMBER-->&#160;<span id=3D"projectnumber">$project=
+number</span><!--END PROJECT_NUMBER-->
+>> +   </div>
+>> +   <!--BEGIN PROJECT_BRIEF--><div id=3D"projectbrief">$projectbrief</di=
+v><!--END PROJECT_BRIEF-->
+>> +  </td>
+>> +  <!--END PROJECT_NAME-->
+>> +  <!--BEGIN !PROJECT_NAME-->
+>> +   <!--BEGIN PROJECT_BRIEF-->
+>> +    <td style=3D"padding-left: 0.5em;">
+>> +    <div id=3D"projectbrief">$projectbrief</div>
+>> +    </td>
+>> +   <!--END PROJECT_BRIEF-->
+>> +  <!--END !PROJECT_NAME-->
+>> +  <!--BEGIN DISABLE_INDEX-->
+>> +   <!--BEGIN SEARCHENGINE-->
+>> +   <td>$searchbox</td>
+>> +   <!--END SEARCHENGINE-->
+>> +  <!--END DISABLE_INDEX-->
+>> + </tr>
+>> + </tbody>
+>> +</table>
+>> +</div>
+>> +<!--END TITLEAREA-->
+>> +<!-- end header part -->
+>> diff --git a/docs/xen-doxygen/mainpage.md b/docs/xen-doxygen/mainpage.md
+>> new file mode 100644
+>> index 0000000000..ff548b87fc
+>> --- /dev/null
+>> +++ b/docs/xen-doxygen/mainpage.md
+>> @@ -0,0 +1,5 @@
+>> +# API Documentation   {#index}
+>> +
+>> +## Introduction
+>> +
+>> +## Licensing
+>> diff --git a/docs/xen-doxygen/xen_project_logo_165x67.png b/docs/xen-dox=
+ygen/xen_project_logo_165x67.png
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..7244959d59cdeb9f23c52021=
+60ea45508dfc7265
+>> GIT binary patch
+>> literal 18223
+>> zcmV+NKn=3Df%P)<h;3K|Lk000e1NJLTq005-`002V>1^@s6{Wir#00004XF*Lt006O$
+>> zeEU(80000WV@Og>004&%004{+008|`004nN004b?008NW002DY000@xb3BE2000U(
+>> zX+uL$P-t&-Z*ypGa3D!TLm+T+Z)Rz1WdHz3$DNjUR8-d%htIutdZEoQ0#b(FyTAa_
+>> zdy`&8VVD_UC<6{NG_fI~0ue<-nj%P0#DLLIBvwSR5EN9f2P6n6F&ITuEN@2Ei>|D^
+>> z_ww@l<E(G(v-i3C?7h!g7XXr{FPE1FO97C|6YzsPoaqsfQFQD8fB_z0fGGe>Rz|vC
+>> zuzLs)$;-`!o*{AqUjza0dRV*yaMRE;fKCVhpQKsoe1Yhg01=3DzBIT<Vw7l=3D3|OOP(M
+>> z&x)8Dmn>!&C1$=3DTK@rP|Ibo3vKKm@PqnO#LJhq6%Ij6Hz*<$V$@wQAMN5qJ)hzm2h
+>> zoGcOF60t^#FqJFfH{#e-4l@G)6iI9sa9D{VHW4w29}?su;^hF~NC{tY+*d5%WDCTX
+>> za!E_i;d2ub1#}&jF5T4HnnCyEWTkKf0>c0%E1Ah>(_PY1)0w;+02c53Su*0<(nUqK
+>> zG_|(0G&D0Z{i;y^b@OjZ+}lNZ8Th$p5Uu}<?XUdO8USF-iE6X+i!H7SfX*!d$ld#5
+>> z(>MTtq^NHl*T1?CO*}7&0ztZsv2j*bmJyf3G7=3DZ`5B*PvzoD<bXCyxEkMhu6Iq^(k
+>> zihwSz8!Ig(O~|Kbq%&C@y5XOP_#X%Ubsh#moOlkO!xKe>iKdLpOAxi2$L0#SX*@cY
+>> z_n(^h55xYX#km%V()bZjV~l{*bt*u9?FT3d5g^g~#a;iSZ@&02Abxq_DwB(I|L-^b
+>> zXThc7C4-yrInE_0gw7K3GZ**7&k~>k0Z0NWkO#^@9q0f<U<Ry!EpP;Gz#I635D*Dg
+>> z0~SaGseli%Kpxlx3PCa03HE?$PzM@8GiU|JK_@r`&Vx(f8n^*&gZp3<On_%#7Q6-v
+>> z5CmZ%GDLyoAr(jy(ud3-24oMpLB3EB6bZ#b2@nqwLV3_;s2D1Ps-b$Q8TuYN37v<o
+>> zK!ea-XbhT$euv({2uy;huoA2V8^a9P3HE_Q;8kz}yavvN3*a4aCENfXg*)K$@HO~0
+>> zJPJR9=3DMaDp5gMY37$OYB1@T9ska&cTtVfEF3ZwyPMY@qb<R&tT%ph-37!(CXM;W4Q
+>> zQJ$z!6brQmwH{T1szx0~b)b4tH&J7#S=3D2`~8Lf!cN86yi&=3DKeabQZc0U4d>wx1%qj
+>> zZ=3D)yBuQ3=3D54Wo^*!gyjLF-e%Um=3DerBOdIALW)L%unZshS@>qSW9o8Sq#0s#5*edK%
+>> z>{;v(b^`kbN5rY%%y90wC>#%$kE_5P!JWYk;U;klcqzOl-UjcFXXA75rT9jCH~u<)
+>> z0>40zCTJ7v2qA<d!X`o`p_Oov@PP1=3DNF=3DHet%-p|E^#BVl6Z`GnK(v#OOhe!kz7d8
+>> zBq3=3DB=3D@980=3D`QIdnM~FqJCdWw0`d-WGx-Af5&4Y-MZ!qJOM)%2L83;YLt;qcxg=3D=
+gv
+>> zQ_@LtwPdbjh2#mz>yk54cquI@7b&LHdZ`+zlTss6bJ7%PQ)z$cROu4wBhpu-r)01)
+>> zS~6}jY?%U?gEALn#wiFzo#H}aQ8rT=3DDHkadR18&{>P1bW7E`~Y4p3)hWn`DhhRJ5j
+>> z*2tcg9i<^OEt(fCg;q*CP8+7ZTcWhYX$fb^_9d-LhL+6BEtPYW<H!}swaML<dnZqq
+>> zcau++-zDEE|4;#?pr;V1kfpF+;iAIKQtDFMrL3hzOOG$TrwA+RDF!L7RXnKJuQ;cq
+>> ztmL7Tu2iLTL1{*rrtGMkq+G6iMtNF=3DqGGSYRVi0FtMZgCOLwBD&@1V^^jTF!RZmr+
+>> zYQ5@!>VlfKTBusSTASKKb%HuWJzl+By+?gkLq)?+BTu76<DMp7lcAZYxmUAKb6!hZ
+>> zD_m=3D<R;SjKww$(?cCL1d_5&TVj)Tq`od%s-x)@!CZnEw^-5Ywao`qhbUX9*$eOTX8
+>> zpR2!5f6xGJU~RxNXfPNtBpEsxW*W8_jv3L6e2wyrI*pziYZylv?=3DtQ){%B%hl48<m
+>> za^F<O)Y~-QwA=3DJ|Gd(kwS&i8(bF#U+`3CbY^B2qXmvNTuUv|fWV&P}8)uPAZgQb-v
+>> z-?G(m+DgMJ)~eQOgh6ElFiIGgt<l!b)*Gx(S--Whv=3DP`GxB1Q1&^Foji0#yJ?d6>1
+>> zjmyXF)a;mc^>(B7bo*HQ1NNg1st!zt28YLv>W*y3CdWx9U8f|cqfXDAO`Q48?auQq
+>> zHZJR2&bcD49<D{M18y>Ip>EY~kKEPV6Wm+eXFV)D)_R=3DtM0@&p?(!V*Qu1PXHG9o^
+>> zTY0bZ?)4%01p8F`JoeS|<@<K~!G7L;yZs)l&|JY=3D(diHTz5I9kKMc?gSQGGLASN&%
+>> zuqN<HkZDj}P+u@5I41Z=3D@aqugkkXL*p*o?$(4H{Ku;{Snu=3D#M;@UrmH2;+!#5!WIW
+>> zBDs-WQP`-ksHUj7m2NBdtel9ph%SsCUZuS%d)1ZI3ae9ApN^4?VaA+@MaPE69*KR=3D
+>> z^k+6O=3Di<ELYU5^EF08$*XKY7yIeVI8$0_4X#@of0#ZM*JCG1X^PIO4DNSxuiaI3j5
+>> zl01{@lID~BlMf|-N(oPCOU0$erk>=3D<@RE7GY07EYX@lwd>4oW|Yi!o+Su@M`;WuSK
+>> z8LKk71XR(_RKHM1xJ5XYX`fk>`6eqY>qNG6HZQwBM=3Dxi4&Sb88?zd}EYguc1@>KIS
+>> z<&CX#T35dwS|7K*XM_5Nf(;WJJvJWRMA($P>8E^?{IdL4o5MGE7bq2MEEwP7v8AO@
+>> zqL5!WvekBL-8R%V?zVyL=3DG&{be=3DK4bT`e{#t|)$A!YaA?jp;X)-+bB;zhj`(vULAW
+>> z%ue3U;av{94wp%n<(7@__S@Z2PA@Mif3+uO&y|X06?J<Fdxd*PD}5`wsx+#0R=3DuxI
+>> ztiE02T+>#oSi8M;ejj_^(0<4Lt#wLu#dYrva1Y$6_o(k^&}yhSh&h;f@JVA>W8b%o
+>> zZ=3D0JGnu?n~9O4}sJsfnnx7n(>`H13?(iXTy*fM=3DI`sj`CT)*pTHEgYKqqP+u1IL8N
+>> zo_-(u{qS+0<2@%BCt82d{Gqm;(q7a7b>wu+b|!X?c13m#p7cK1({0<`{-e>4hfb-U
+>> zsyQuty7Ua;Ou?B?XLHZaol8GAb3Wnxcu!2v{R<HnZuJKC4qWuPc=3D?k1r3-ydeP=3DJ*
+>> zT|RZi=3DE}*djH{j3EU$I+TlBa8Wbsq`faO5Pb*t-LH>_`T4=3Dx`(GvqLI{-*2AOSimk
+>> zUAw*F_TX^n@STz9k<mNsJ5zU4?!LH}d2iwV#s}yJMGvJORy<OC)bO+J&uycYqo>DQ
+>> z$NC=3D!KfXWC8h`dn#xL(D3Z9UkR7|Q&Hcy#Notk!^zVUSB(}`#4&lYA1f0h2V_PNgU
+>> zAAWQEt$#LRcH#y9#i!p(Udq2b^lI6wp1FXzN3T;~FU%Lck$-deE#qz9yYP3D3t8{6
+>> z?<+s(e(3(_^YOu_)K8!O1p}D#{JO;G(*OVf32;bRa{vGf4*&oQ4*`<-1El}}02*{f
+>> zSaefwW^{L9a%BKeVQFr3E>1;MAa*k@H7+qQF!XYv002BXNkl<ZcwX&&2Ur%z_P#e7
+>> z6Qi+fqA~V@E%vU7y^D&10wPTTDJm);MHEC76-DVCL_kmw?7jDbz4s2N*c<Kq-*@37
+>> z#Au5Dn|t;CJm2#^yWj4#-8pmSoS8GTMLrU$3Dg1V0S)qxwSgKyRp2vyrhkMg0%Wkd
+>> zKntJ?&<p4b^aln21A#&LNB-{z@P1FA6VMc>1$+-w06x=3Da`rA|vr~**(wFP<rWHvJ1
+>> z+fW~4G{)LwjHRuWrIk&K7A;2c+FM}=3DGH^GbB|rwP43q&r(`WiaDhp7WH3WVE3K+3O
+>> zi4q#qr%!j?xN+0UGiS~ozkBEIovf@Z$;`}>#~E32=3Dhh>6`k4PSh1Z`vdHU@7wd+^*
+>> z?%lU7ARy4EXV0EvkdBI3DMdQ~?D{JKrGd}%nSMu<T$GGI14?&XzI^%No}LTlpE-Rt
+>> z<;|PSY>>im&!4}Ld-qc1+`03zf8TytnYc<qg2QFa>h*H?@DaIi{(_{Yrpb#JFO=3D|E
+>> zS&WyBYw34aC9jU}(WB>Bq)!HAH&01S-IQv=3DXXgA&3Y7=3Dgowf(q#gZ8{6ILWFefi?m
+>> zi=3D3QX0Yl2ehmXK)mt@z@J(7@+D3Oto;^X5hvuDqiY15{Ot*xy<lFGb!^CU1ZP-3EE
+>> zWYwxwvTxr3xpe7@JbLs*NhdoyM{=3D@r1&n@V`0(LY$dAm~2WSQS2vBwS2KY?>M~Pi0
+>> zyJ{LP>{f?_hJ^ZOJbd&pCtJWoSqd}Vx^-JFT(}^|jvWJ&?UVKE*GpVnoP>mg$btn6
+>> z#MRYRoSd9w)~s2wXwf1G4GmT9uUofHcJACMM~)m(q$;H=3Dr7RgUH%EZnoC60AZ12*g
+>> zi>hm<?n*13#!yM%GyNYTc9XQIX-!i)4t92);db|K>g{Yuu}m=3DI^Jg!?kdGxJ;}N9f
+>> zLon1mxpL)-!eC@hV)N$Bl9-q$HOYuPMn^}>#*G_g|Ni}Q>eMMoNlB3tCr-%Kt5+pG
+>> zJzbtXd!}^hxw%q6Z$O(iZAz|MwdzQeh5BY=3DfDPs|WBwl@TD;W(4%JY19GaB4CNc9(
+>> zj=3DX-IDNmm~lSdhk!IaMxqa_#IL*0-Jb?Ve<*}8SBczJor`0?XKPft$<4<0PNdi4@W
+>> zJL%rNy9^jGKr}Tq#n8}Drc9Y4OO`B=3D-Me?o_3Jla{5+9YuU<(`4#ec!1SY+E_wLO;
+>> zefn6SOl&C4fbW1(z-Rg&CQ3*e6|}6?t5m6?bNJBllxI(0%Hzk+APv*xe)@fMvCkDg
+>> zfdG@+w{I)bjuJ6EJY2lJy~V}FMXar@MPFZEh7KJny?ghTK7IO1zkdBiU0q#9j2Iy%
+>> zCMF6~y1BW@;>C-VxLdYtQKT&;<=3De#WoV@zv@zZCMCQX`w@=3D=3D{=3D18_9pGh_ab(zg=
+I5
+>> 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
+=3D
+>> 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
+>>=20
+>> literal 0
+>> HcmV?d00001
+>>=20
+>> diff --git a/docs/xen.doxyfile.in b/docs/xen.doxyfile.in
+>> new file mode 100644
+>> index 0000000000..00969d9b78
+>> --- /dev/null
+>> +++ b/docs/xen.doxyfile.in
+>> @@ -0,0 +1,2316 @@
+>> +# Doxyfile 1.8.13
+>> +
+>> +# This file describes the settings to be used by the documentation syst=
+em
+>> +# doxygen (www.doxygen.org) for a project.
+>> +#
+>> +# All text after a double hash (##) is considered a comment and is plac=
+ed in
+>> +# front of the TAG it is preceding.
+>> +#
+>> +# All text after a single hash (#) is considered a comment and will be =
+ignored.
+>> +# The format is:
+>> +# TAG =3D value [value, ...]
+>> +# For lists, items can also be appended using:
+>> +# TAG +=3D value [value, ...]
+>> +# Values that contain spaces should be placed between quotes (\" \").
+>> +#
+>> +# This file is base on doc/zephyr.doxyfile.in zephry 2.3
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Project related configuration options
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# This tag specifies the encoding used for all characters in the config=
+ file
+>> +# that follow. The default is UTF-8 which is also the encoding used for=
+ all text
+>> +# before the first occurrence of this tag. Doxygen uses libiconv (or th=
+e iconv
+>> +# built into libc) for the transcoding. See
+>> +# https://www.gnu.org/software/libiconv/ for the list of possible encod=
+ings.
+>> +# The default value is: UTF-8.
+>> +
+>> +DOXYFILE_ENCODING      =3D UTF-8
+>> +
+>> +# The PROJECT_NAME tag is a single word (or a sequence of words surroun=
+ded by
+>> +# double-quotes, unless you are using Doxywizard) that should identify =
+the
+>> +# project for which the documentation is generated. This name is used i=
+n the
+>> +# title of most generated pages and in a few other places.
+>> +# The default value is: My Project.
+>> +
+>> +PROJECT_NAME           =3D "Xen Project"
+>> +
+>> +# The PROJECT_NUMBER tag can be used to enter a project or revision num=
+ber. This
+>> +# could be handy for archiving the generated documentation or if some v=
+ersion
+>> +# control system is used.
+>> +
+>> +PROJECT_NUMBER         =3D
+>> +
+>> +# Using the PROJECT_BRIEF tag one can provide an optional one line desc=
+ription
+>> +# for a project that appears at the top of each page and should give vi=
+ewer a
+>> +# quick idea about the purpose of the project. Keep the description sho=
+rt.
+>> +
+>> +PROJECT_BRIEF          =3D "An Open Source Type 1 Hypervisor"
+>> +
+>> +# With the PROJECT_LOGO tag one can specify a logo or an icon that is i=
+ncluded
+>> +# in the documentation. The maximum height of the logo should not excee=
+d 55
+>> +# pixels and the maximum width should not exceed 200 pixels. Doxygen wi=
+ll copy
+>> +# the logo to the output directory.
+>> +
+>> +PROJECT_LOGO           =3D "xen-doxygen/xen_project_logo_165x67.png"
+>> +
+>> +# The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute=
+) path
+>> +# into which the generated documentation will be written. If a relative=
+ path is
+>> +# entered, it will be relative to the location where doxygen was starte=
+d. If
+>> +# left blank the current directory will be used.
+>> +
+>> +OUTPUT_DIRECTORY       =3D @DOXY_OUT@
+>> +
+>> +# If the CREATE_SUBDIRS tag is set to YES then doxygen will create 4096=
+ sub-
+>> +# directories (in 2 levels) under the output directory of each output f=
+ormat and
+>> +# will distribute the generated files over these directories. Enabling =
+this
+>> +# option can be useful when feeding doxygen a huge amount of source fil=
+es, where
+>> +# putting all generated files in the same directory would otherwise cau=
+ses
+>> +# performance problems for the file system.
+>> +# The default value is: NO.
+>> +
+>> +CREATE_SUBDIRS         =3D NO
+>> +
+>> +# The OUTPUT_LANGUAGE tag is used to specify the language in which all
+>> +# documentation generated by doxygen is written. Doxygen will use this
+>> +# information to generate all constant output in the proper language.
+>> +# Possible values are: Afrikaans, Arabic, Armenian, Brazilian, Catalan,=
+ Chinese,
+>> +# Chinese-Traditional, Croatian, Czech, Danish, Dutch, English (United =
+States),
+>> +# Esperanto, Farsi (Persian), Finnish, French, German, Greek, Hungarian=
+,
+>> +# Indonesian, Italian, Japanese, Japanese-en (Japanese with English mes=
+sages),
+>> +# Korean, Korean-en (Korean with English messages), Latvian, Lithuanian=
+,
+>> +# Macedonian, Norwegian, Persian (Farsi), Polish, Portuguese, Romanian,=
+ Russian,
+>> +# Serbian, Serbian-Cyrillic, Slovak, Slovene, Spanish, Swedish, Turkish=
+,
+>> +# Ukrainian and Vietnamese.
+>> +# The default value is: English.
+>> +
+>> +OUTPUT_LANGUAGE        =3D English
+>> +
+>> +# If the BRIEF_MEMBER_DESC tag is set to YES, doxygen will include brie=
+f member
+>> +# descriptions after the members that are listed in the file and class
+>> +# documentation (similar to Javadoc). Set to NO to disable this.
+>> +# The default value is: YES.
+>> +
+>> +BRIEF_MEMBER_DESC      =3D YES
+>> +
+>> +# If the REPEAT_BRIEF tag is set to YES, doxygen will prepend the brief
+>> +# description of a member or function before the detailed description
+>> +#
+>> +# Note: If both HIDE_UNDOC_MEMBERS and BRIEF_MEMBER_DESC are set to NO,=
+ the
+>> +# brief descriptions will be completely suppressed.
+>> +# The default value is: YES.
+>> +
+>> +REPEAT_BRIEF           =3D YES
+>> +
+>> +# This tag implements a quasi-intelligent brief description abbreviator=
+ that is
+>> +# used to form the text in various listings. Each string in this list, =
+if found
+>> +# as the leading text of the brief description, will be stripped from t=
+he text
+>> +# and the result, after processing the whole list, is used as the annot=
+ated
+>> +# text. Otherwise, the brief description is used as-is. If left blank, =
+the
+>> +# following values are used ($name is automatically replaced with the n=
+ame of
+>> +# the entity):The $name class, The $name widget, The $name file, is, pr=
+ovides,
+>> +# specifies, contains, represents, a, an and the.
+>> +
+>> +ABBREVIATE_BRIEF       =3D YES
+>> +
+>> +# If the ALWAYS_DETAILED_SEC and REPEAT_BRIEF tags are both set to YES =
+then
+>> +# doxygen will generate a detailed section even if there is only a brie=
+f
+>> +# description.
+>> +# The default value is: NO.
+>> +
+>> +ALWAYS_DETAILED_SEC    =3D YES
+>> +
+>> +# If the INLINE_INHERITED_MEMB tag is set to YES, doxygen will show all
+>> +# inherited members of a class in the documentation of that class as if=
+ those
+>> +# members were ordinary class members. Constructors, destructors and as=
+signment
+>> +# operators of the base classes will not be shown.
+>> +# The default value is: NO.
+>> +
+>> +INLINE_INHERITED_MEMB  =3D YES
+>> +
+>> +# If the FULL_PATH_NAMES tag is set to YES, doxygen will prepend the fu=
+ll path
+>> +# before files name in the file list and in the header files. If set to=
+ NO the
+>> +# shortest path that makes the file name unique will be used
+>> +# The default value is: YES.
+>> +
+>> +FULL_PATH_NAMES        =3D YES
+>> +
+>> +# The STRIP_FROM_PATH tag can be used to strip a user-defined part of t=
+he path.
+>> +# Stripping is only done if one of the specified strings matches the le=
+ft-hand
+>> +# part of the path. The tag can be used to show relative paths in the f=
+ile list.
+>> +# If left blank the directory from which doxygen is run is used as the =
+path to
+>> +# strip.
+>> +#
+>> +# Note that you can specify absolute paths here, but also relative path=
+s, which
+>> +# will be relative from the directory where doxygen is started.
+>> +# This tag requires that the tag FULL_PATH_NAMES is set to YES.
+>> +
+>> +STRIP_FROM_PATH        =3D @XEN_BASE@
+>> +
+>> +# The STRIP_FROM_INC_PATH tag can be used to strip a user-defined part =
+of the
+>> +# path mentioned in the documentation of a class, which tells the reade=
+r which
+>> +# header file to include in order to use a class. If left blank only th=
+e name of
+>> +# the header file containing the class definition is used. Otherwise on=
+e should
+>> +# specify the list of include paths that are normally passed to the com=
+piler
+>> +# using the -I flag.
+>> +
+>> +STRIP_FROM_INC_PATH    =3D
+>> +
+>> +# If the SHORT_NAMES tag is set to YES, doxygen will generate much shor=
+ter (but
+>> +# less readable) file names. This can be useful is your file systems do=
+esn't
+>> +# support long names like on DOS, Mac, or CD-ROM.
+>> +# The default value is: NO.
+>> +
+>> +SHORT_NAMES            =3D NO
+>> +
+>> +# If the JAVADOC_AUTOBRIEF tag is set to YES then doxygen will interpre=
+t the
+>> +# first line (until the first dot) of a Javadoc-style comment as the br=
+ief
+>> +# description. If set to NO, the Javadoc-style will behave just like re=
+gular Qt-
+>> +# style comments (thus requiring an explicit @brief command for a brief
+>> +# description.)
+>> +# The default value is: NO.
+>> +
+>> +JAVADOC_AUTOBRIEF      =3D NO
+>> +
+>> +# If the QT_AUTOBRIEF tag is set to YES then doxygen will interpret the=
+ first
+>> +# line (until the first dot) of a Qt-style comment as the brief descrip=
+tion. If
+>> +# set to NO, the Qt-style will behave just like regular Qt-style commen=
+ts (thus
+>> +# requiring an explicit \brief command for a brief description.)
+>> +# The default value is: NO.
+>> +
+>> +QT_AUTOBRIEF           =3D NO
+>> +
+>> +# The MULTILINE_CPP_IS_BRIEF tag can be set to YES to make doxygen trea=
+t a
+>> +# multi-line C++ special comment block (i.e. a block of //! or /// comm=
+ents) as
+>> +# a brief description. This used to be the default behavior. The new de=
+fault is
+>> +# to treat a multi-line C++ comment block as a detailed description. Se=
+t this
+>> +# tag to YES if you prefer the old behavior instead.
+>> +#
+>> +# Note that setting this tag to YES also means that rational rose comme=
+nts are
+>> +# not recognized any more.
+>> +# The default value is: NO.
+>> +
+>> +MULTILINE_CPP_IS_BRIEF =3D NO
+>> +
+>> +# If the INHERIT_DOCS tag is set to YES then an undocumented member inh=
+erits the
+>> +# documentation from any documented member that it re-implements.
+>> +# The default value is: YES.
+>> +
+>> +INHERIT_DOCS           =3D YES
+>> +
+>> +# If the SEPARATE_MEMBER_PAGES tag is set to YES then doxygen will prod=
+uce a new
+>> +# page for each member. If set to NO, the documentation of a member wil=
+l be part
+>> +# of the file/class/namespace that contains it.
+>> +# The default value is: NO.
+>> +
+>> +SEPARATE_MEMBER_PAGES  =3D YES
+>> +
+>> +# The TAB_SIZE tag can be used to set the number of spaces in a tab. Do=
+xygen
+>> +# uses this value to replace tabs by spaces in code fragments.
+>> +# Minimum value: 1, maximum value: 16, default value: 4.
+>> +
+>> +TAB_SIZE               =3D 8
+>> +
+>> +# This tag can be used to specify a number of aliases that act as comma=
+nds in
+>> +# the documentation. An alias has the form:
+>> +# name=3Dvalue
+>> +# For example adding
+>> +# "sideeffect=3D@par Side Effects:\n"
+>> +# will allow you to put the command \sideeffect (or @sideeffect) in the
+>> +# documentation, which will result in a user-defined paragraph with hea=
+ding
+>> +# "Side Effects:". You can put \n's in the value part of an alias to in=
+sert
+>> +# newlines.
+>> +
+>> +ALIASES                =3D "rst=3D\verbatim embed:rst:leading-asterisk"=
+ \
+>> +                         "endrst=3D\endverbatim" \
+>> +                         "keepindent=3D\code" \
+>> +                         "endkeepindent=3D\endcode"
+>> +
+>> +ALIASES +=3D req{1}=3D"\ref XEN_\1 \"XEN-\1\" "
+>> +ALIASES +=3D satisfy{1}=3D"\xrefitem satisfy \"Satisfies requirement\" =
+\"Requirement Implementation\" \1"
+>> +ALIASES +=3D verify{1}=3D"\xrefitem verify \"Verifies requirement\" \"R=
+equirement Verification\" \1"
+>> +
+>> +# Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of =
+C sources
+>> +# only. Doxygen will then generate output that is more tailored for C. =
+For
+>> +# instance, some of the names that are used will be different. The list=
+ of all
+>> +# members will be omitted, etc.
+>> +# The default value is: NO.
+>> +
+>> +OPTIMIZE_OUTPUT_FOR_C  =3D YES
+>> +
+>> +# Set the OPTIMIZE_OUTPUT_JAVA tag to YES if your project consists of J=
+ava or
+>> +# Python sources only. Doxygen will then generate output that is more t=
+ailored
+>> +# for that language. For instance, namespaces will be presented as pack=
+ages,
+>> +# qualified scopes will look different, etc.
+>> +# The default value is: NO.
+>> +
+>> +OPTIMIZE_OUTPUT_JAVA   =3D NO
+>> +
+>> +# Set the OPTIMIZE_FOR_FORTRAN tag to YES if your project consists of F=
+ortran
+>> +# sources. Doxygen will then generate output that is tailored for Fortr=
+an.
+>> +# The default value is: NO.
+>> +
+>> +OPTIMIZE_FOR_FORTRAN   =3D NO
+>> +
+>> +# Set the OPTIMIZE_OUTPUT_VHDL tag to YES if your project consists of V=
+HDL
+>> +# sources. Doxygen will then generate output that is tailored for VHDL.
+>> +# The default value is: NO.
+>> +
+>> +OPTIMIZE_OUTPUT_VHDL   =3D NO
+>> +
+>> +# Doxygen selects the parser to use depending on the extension of the f=
+iles it
+>> +# parses. With this tag you can assign which parser to use for a given
+>> +# extension. Doxygen has a built-in mapping, but you can override or ex=
+tend it
+>> +# using this tag. The format is ext=3Dlanguage, where ext is a file ext=
+ension, and
+>> +# language is one of the parsers supported by doxygen: IDL, Java, Javas=
+cript,
+>> +# C#, C, C++, D, PHP, Objective-C, Python, Fortran (fixed format Fortra=
+n:
+>> +# FortranFixed, free formatted Fortran: FortranFree, unknown formatted =
+Fortran:
+>> +# Fortran. In the later case the parser tries to guess whether the code=
+ is fixed
+>> +# or free formatted code, this is the default for Fortran type files), =
+VHDL. For
+>> +# instance to make doxygen treat .inc files as Fortran files (default i=
+s PHP),
+>> +# and .f files as C (default is Fortran), use: inc=3DFortran f=3DC.
+>> +#
+>> +# Note: For files without extension you can use no_extension as a place=
+holder.
+>> +#
+>> +# Note that for custom extensions you also need to set FILE_PATTERNS ot=
+herwise
+>> +# the files are not read by doxygen.
+>> +
+>> +EXTENSION_MAPPING      =3D
+>> +
+>> +# If the MARKDOWN_SUPPORT tag is enabled then doxygen pre-processes all=
+ comments
+>> +# according to the Markdown format, which allows for more readable
+>> +# documentation. See http://daringfireball.net/projects/markdown/ for d=
+etails.
+>> +# The output of markdown processing is further processed by doxygen, so=
+ you can
+>> +# mix doxygen, HTML, and XML commands with Markdown formatting. Disable=
+ only in
+>> +# case of backward compatibilities issues.
+>> +# The default value is: YES.
+>> +
+>> +MARKDOWN_SUPPORT       =3D YES
+>> +
+>> +# When enabled doxygen tries to link words that correspond to documente=
+d
+>> +# classes, or namespaces to their corresponding documentation. Such a l=
+ink can
+>> +# be prevented in individual cases by putting a % sign in front of the =
+word or
+>> +# globally by setting AUTOLINK_SUPPORT to NO.
+>> +# The default value is: YES.
+>> +
+>> +AUTOLINK_SUPPORT       =3D YES
+>> +
+>> +# If you use STL classes (i.e. std::string, std::vector, etc.) but do n=
+ot want
+>> +# to include (a tag file for) the STL sources as input, then you should=
+ set this
+>> +# tag to YES in order to let doxygen match functions declarations and
+>> +# definitions whose arguments contain STL classes (e.g. func(std::strin=
+g);
+>> +# versus func(std::string) {}). This also make the inheritance and coll=
+aboration
+>> +# diagrams that involve STL classes more complete and accurate.
+>> +# The default value is: NO.
+>> +
+>> +BUILTIN_STL_SUPPORT    =3D NO
+>> +
+>> +# If you use Microsoft's C++/CLI language, you should set this option t=
+o YES to
+>> +# enable parsing support.
+>> +# The default value is: NO.
+>> +
+>> +CPP_CLI_SUPPORT        =3D YES
+>> +
+>> +# Set the SIP_SUPPORT tag to YES if your project consists of sip (see:
+>> +# https://www.riverbankcomputing.com/software/sip/intro) sources only. =
+Doxygen
+>> +# will parse them like normal C++ but will assume all classes use publi=
+c instead
+>> +# of private inheritance when no explicit protection keyword is present=
+.
+>> +# The default value is: NO.
+>> +
+>> +SIP_SUPPORT            =3D NO
+>> +
+>> +# For Microsoft's IDL there are propget and propput attributes to indic=
+ate
+>> +# getter and setter methods for a property. Setting this option to YES =
+will make
+>> +# doxygen to replace the get and set methods by a property in the docum=
+entation.
+>> +# This will only work if the methods are indeed getting or setting a si=
+mple
+>> +# type. If this is not the case, or you want to show the methods anyway=
+, you
+>> +# should set this option to NO.
+>> +# The default value is: YES.
+>> +
+>> +IDL_PROPERTY_SUPPORT   =3D YES
+>> +
+>> +# If member grouping is used in the documentation and the DISTRIBUTE_GR=
+OUP_DOC
+>> +# tag is set to YES then doxygen will reuse the documentation of the fi=
+rst
+>> +# member in the group (if any) for the other members of the group. By d=
+efault
+>> +# all members of a group must be documented explicitly.
+>> +# The default value is: NO.
+>> +
+>> +DISTRIBUTE_GROUP_DOC   =3D NO
+>> +
+>> +# Set the SUBGROUPING tag to YES to allow class member groups of the sa=
+me type
+>> +# (for instance a group of public functions) to be put as a subgroup of=
+ that
+>> +# type (e.g. under the Public Functions section). Set it to NO to preve=
+nt
+>> +# subgrouping. Alternatively, this can be done per class using the
+>> +# \nosubgrouping command.
+>> +# The default value is: YES.
+>> +
+>> +SUBGROUPING            =3D YES
+>> +
+>> +# When the INLINE_GROUPED_CLASSES tag is set to YES, classes, structs a=
+nd unions
+>> +# are shown inside the group in which they are included (e.g. using \in=
+group)
+>> +# instead of on a separate page (for HTML and Man pages) or section (fo=
+r LaTeX
+>> +# and RTF).
+>> +#
+>> +# Note that this feature does not work in combination with
+>> +# SEPARATE_MEMBER_PAGES.
+>> +# The default value is: NO.
+>> +
+>> +INLINE_GROUPED_CLASSES =3D NO
+>> +
+>> +# When the INLINE_SIMPLE_STRUCTS tag is set to YES, structs, classes, a=
+nd unions
+>> +# with only public data fields or simple typedef fields will be shown i=
+nline in
+>> +# the documentation of the scope in which they are defined (i.e. file,
+>> +# namespace, or group documentation), provided this scope is documented=
+. If set
+>> +# to NO, structs, classes, and unions are shown on a separate page (for=
+ HTML and
+>> +# Man pages) or section (for LaTeX and RTF).
+>> +# The default value is: NO.
+>> +
+>> +INLINE_SIMPLE_STRUCTS  =3D YES
+>> +
+>> +# When TYPEDEF_HIDES_STRUCT tag is enabled, a typedef of a struct, unio=
+n, or
+>> +# enum is documented as struct, union, or enum with the name of the typ=
+edef. So
+>> +# typedef struct TypeS {} TypeT, will appear in the documentation as a =
+struct
+>> +# with name TypeT. When disabled the typedef will appear as a member of=
+ a file,
+>> +# namespace, or class. And the struct will be named TypeS. This can typ=
+ically be
+>> +# useful for C code in case the coding convention dictates that all com=
+pound
+>> +# types are typedef'ed and only the typedef is referenced, never the ta=
+g name.
+>> +# The default value is: NO.
+>> +
+>> +TYPEDEF_HIDES_STRUCT   =3D NO
+>> +
+>> +# The size of the symbol lookup cache can be set using LOOKUP_CACHE_SIZ=
+E. This
+>> +# cache is used to resolve symbols given their name and scope. Since th=
+is can be
+>> +# an expensive process and often the same symbol appears multiple times=
+ in the
+>> +# code, doxygen keeps a cache of pre-resolved symbols. If the cache is =
+too small
+>> +# doxygen will become slower. If the cache is too large, memory is wast=
+ed. The
+>> +# cache size is given by this formula: 2^(16+LOOKUP_CACHE_SIZE). The va=
+lid range
+>> +# is 0..9, the default is 0, corresponding to a cache size of 2^16=3D65=
+536
+>> +# symbols. At the end of a run doxygen will report the cache usage and =
+suggest
+>> +# the optimal cache size from a speed point of view.
+>> +# Minimum value: 0, maximum value: 9, default value: 0.
+>> +
+>> +LOOKUP_CACHE_SIZE      =3D 9
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Build related configuration options
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the EXTRACT_ALL tag is set to YES, doxygen will assume all entitie=
+s in
+>> +# documentation are documented, even if no documentation was available.=
+ Private
+>> +# class members and static file members will be hidden unless the
+>> +# EXTRACT_PRIVATE respectively EXTRACT_STATIC tags are set to YES.
+>> +# Note: This will also disable the warnings about undocumented members =
+that are
+>> +# normally produced when WARNINGS is set to YES.
+>> +# The default value is: NO.
+>> +
+>> +EXTRACT_ALL            =3D YES
+>> +
+>> +# If the EXTRACT_PRIVATE tag is set to YES, all private members of a cl=
+ass will
+>> +# be included in the documentation.
+>> +# The default value is: NO.
+>> +
+>> +EXTRACT_PRIVATE        =3D NO
+>> +
+>> +# If the EXTRACT_PACKAGE tag is set to YES, all members with package or=
+ internal
+>> +# scope will be included in the documentation.
+>> +# The default value is: NO.
+>> +
+>> +EXTRACT_PACKAGE        =3D YES
+>> +
+>> +# If the EXTRACT_STATIC tag is set to YES, all static members of a file=
+ will be
+>> +# included in the documentation.
+>> +# The default value is: NO.
+>> +
+>> +EXTRACT_STATIC         =3D YES
+>> +
+>> +# If the EXTRACT_LOCAL_CLASSES tag is set to YES, classes (and structs)=
+ defined
+>> +# locally in source files will be included in the documentation. If set=
+ to NO,
+>> +# only classes defined in header files are included. Does not have any =
+effect
+>> +# for Java sources.
+>> +# The default value is: YES.
+>> +
+>> +EXTRACT_LOCAL_CLASSES  =3D YES
+>> +
+>> +# This flag is only useful for Objective-C code. If set to YES, local m=
+ethods,
+>> +# which are defined in the implementation section but not in the interf=
+ace are
+>> +# included in the documentation. If set to NO, only methods in the inte=
+rface are
+>> +# included.
+>> +# The default value is: NO.
+>> +
+>> +EXTRACT_LOCAL_METHODS  =3D YES
+>> +
+>> +# If this flag is set to YES, the members of anonymous namespaces will =
+be
+>> +# extracted and appear in the documentation as a namespace called
+>> +# 'anonymous_namespace{file}', where file will be replaced with the bas=
+e name of
+>> +# the file that contains the anonymous namespace. By default anonymous =
+namespace
+>> +# are hidden.
+>> +# The default value is: NO.
+>> +
+>> +EXTRACT_ANON_NSPACES   =3D NO
+>> +
+>> +# If the HIDE_UNDOC_MEMBERS tag is set to YES, doxygen will hide all
+>> +# undocumented members inside documented classes or files. If set to NO=
+ these
+>> +# members will be included in the various overviews, but no documentati=
+on
+>> +# section is generated. This option has no effect if EXTRACT_ALL is ena=
+bled.
+>> +# The default value is: NO.
+>> +
+>> +HIDE_UNDOC_MEMBERS     =3D NO
+>> +
+>> +# If the HIDE_UNDOC_CLASSES tag is set to YES, doxygen will hide all
+>> +# undocumented classes that are normally visible in the class hierarchy=
+. If set
+>> +# to NO, these classes will be included in the various overviews. This =
+option
+>> +# has no effect if EXTRACT_ALL is enabled.
+>> +# The default value is: NO.
+>> +
+>> +HIDE_UNDOC_CLASSES     =3D NO
+>> +
+>> +# If the HIDE_FRIEND_COMPOUNDS tag is set to YES, doxygen will hide all=
+ friend
+>> +# (class|struct|union) declarations. If set to NO, these declarations w=
+ill be
+>> +# included in the documentation.
+>> +# The default value is: NO.
+>> +
+>> +HIDE_FRIEND_COMPOUNDS  =3D NO
+>> +
+>> +# If the HIDE_IN_BODY_DOCS tag is set to YES, doxygen will hide any
+>> +# documentation blocks found inside the body of a function. If set to N=
+O, these
+>> +# blocks will be appended to the function's detailed documentation bloc=
+k.
+>> +# The default value is: NO.
+>> +
+>> +HIDE_IN_BODY_DOCS      =3D NO
+>> +
+>> +# The INTERNAL_DOCS tag determines if documentation that is typed after=
+ a
+>> +# \internal command is included. If the tag is set to NO then the docum=
+entation
+>> +# will be excluded. Set it to YES to include the internal documentation=
+.
+>> +# The default value is: NO.
+>> +
+>> +INTERNAL_DOCS          =3D NO
+>> +
+>> +# If the CASE_SENSE_NAMES tag is set to NO then doxygen will only gener=
+ate file
+>> +# names in lower-case letters. If set to YES, upper-case letters are al=
+so
+>> +# allowed. This is useful if you have classes or files whose names only=
+ differ
+>> +# in case and if your file system supports case sensitive file names. W=
+indows
+>> +# and Mac users are advised to set this option to NO.
+>> +# The default value is: system dependent.
+>> +
+>> +CASE_SENSE_NAMES       =3D YES
+>> +
+>> +# If the HIDE_SCOPE_NAMES tag is set to NO then doxygen will show membe=
+rs with
+>> +# their full class and namespace scopes in the documentation. If set to=
+ YES, the
+>> +# scope will be hidden.
+>> +# The default value is: NO.
+>> +
+>> +HIDE_SCOPE_NAMES       =3D NO
+>> +
+>> +# If the SHOW_INCLUDE_FILES tag is set to YES then doxygen will put a l=
+ist of
+>> +# the files that are included by a file in the documentation of that fi=
+le.
+>> +# The default value is: YES.
+>> +
+>> +SHOW_INCLUDE_FILES     =3D YES
+>> +
+>> +# If the SHOW_GROUPED_MEMB_INC tag is set to YES then Doxygen will add =
+for each
+>> +# grouped member an include statement to the documentation, telling the=
+ reader
+>> +# which file to include in order to use the member.
+>> +# The default value is: NO.
+>> +
+>> +SHOW_GROUPED_MEMB_INC  =3D YES
+>> +
+>> +# If the FORCE_LOCAL_INCLUDES tag is set to YES then doxygen will list =
+include
+>> +# files with double quotes in the documentation rather than with sharp =
+brackets.
+>> +# The default value is: NO.
+>> +
+>> +FORCE_LOCAL_INCLUDES   =3D NO
+>> +
+>> +# If the INLINE_INFO tag is set to YES then a tag [inline] is inserted =
+in the
+>> +# documentation for inline members.
+>> +# The default value is: YES.
+>> +
+>> +INLINE_INFO            =3D YES
+>> +
+>> +# If the SORT_MEMBER_DOCS tag is set to YES then doxygen will sort the
+>> +# (detailed) documentation of file and class members alphabetically by =
+member
+>> +# name. If set to NO, the members will appear in declaration order.
+>> +# The default value is: YES.
+>> +
+>> +SORT_MEMBER_DOCS       =3D YES
+>> +
+>> +# If the SORT_BRIEF_DOCS tag is set to YES then doxygen will sort the b=
+rief
+>> +# descriptions of file, namespace and class members alphabetically by m=
+ember
+>> +# name. If set to NO, the members will appear in declaration order. Not=
+e that
+>> +# this will also influence the order of the classes in the class list.
+>> +# The default value is: NO.
+>> +
+>> +SORT_BRIEF_DOCS        =3D NO
+>> +
+>> +# If the SORT_MEMBERS_CTORS_1ST tag is set to YES then doxygen will sor=
+t the
+>> +# (brief and detailed) documentation of class members so that construct=
+ors and
+>> +# destructors are listed first. If set to NO the constructors will appe=
+ar in the
+>> +# respective orders defined by SORT_BRIEF_DOCS and SORT_MEMBER_DOCS.
+>> +# Note: If SORT_BRIEF_DOCS is set to NO this option is ignored for sort=
+ing brief
+>> +# member documentation.
+>> +# Note: If SORT_MEMBER_DOCS is set to NO this option is ignored for sor=
+ting
+>> +# detailed member documentation.
+>> +# The default value is: NO.
+>> +
+>> +SORT_MEMBERS_CTORS_1ST =3D NO
+>> +
+>> +# If the SORT_GROUP_NAMES tag is set to YES then doxygen will sort the =
+hierarchy
+>> +# of group names into alphabetical order. If set to NO the group names =
+will
+>> +# appear in their defined order.
+>> +# The default value is: NO.
+>> +
+>> +SORT_GROUP_NAMES       =3D YES
+>> +
+>> +# If the SORT_BY_SCOPE_NAME tag is set to YES, the class list will be s=
+orted by
+>> +# fully-qualified names, including namespaces. If set to NO, the class =
+list will
+>> +# be sorted only by class name, not including the namespace part.
+>> +# Note: This option is not very useful if HIDE_SCOPE_NAMES is set to YE=
+S.
+>> +# Note: This option applies only to the class list, not to the alphabet=
+ical
+>> +# list.
+>> +# The default value is: NO.
+>> +
+>> +SORT_BY_SCOPE_NAME     =3D YES
+>> +
+>> +# If the STRICT_PROTO_MATCHING option is enabled and doxygen fails to d=
+o proper
+>> +# type resolution of all parameters of a function it will reject a matc=
+h between
+>> +# the prototype and the implementation of a member function even if the=
+re is
+>> +# only one candidate or it is obvious which candidate to choose by doin=
+g a
+>> +# simple string match. By disabling STRICT_PROTO_MATCHING doxygen will =
+still
+>> +# accept a match between prototype and implementation in such cases.
+>> +# The default value is: NO.
+>> +
+>> +STRICT_PROTO_MATCHING  =3D YES
+>> +
+>> +# The GENERATE_TODOLIST tag can be used to enable (YES) or disable (NO)=
+ the todo
+>> +# list. This list is created by putting \todo commands in the documenta=
+tion.
+>> +# The default value is: YES.
+>> +
+>> +GENERATE_TODOLIST      =3D NO
+>> +
+>> +# The GENERATE_TESTLIST tag can be used to enable (YES) or disable (NO)=
+ the test
+>> +# list. This list is created by putting \test commands in the documenta=
+tion.
+>> +# The default value is: YES.
+>> +
+>> +GENERATE_TESTLIST      =3D NO
+>> +
+>> +# The GENERATE_BUGLIST tag can be used to enable (YES) or disable (NO) =
+the bug
+>> +# list. This list is created by putting \bug commands in the documentat=
+ion.
+>> +# The default value is: YES.
+>> +
+>> +GENERATE_BUGLIST       =3D NO
+>> +
+>> +# The GENERATE_DEPRECATEDLIST tag can be used to enable (YES) or disabl=
+e (NO)
+>> +# the deprecated list. This list is created by putting \deprecated comm=
+ands in
+>> +# the documentation.
+>> +# The default value is: YES.
+>> +
+>> +GENERATE_DEPRECATEDLIST=3D YES
+>> +
+>> +# The ENABLED_SECTIONS tag can be used to enable conditional documentat=
+ion
+>> +# sections, marked by \if <section_label> ... \endif and \cond <section=
+_label>
+>> +# ... \endcond blocks.
+>> +
+>> +ENABLED_SECTIONS       =3D YES
+>> +
+>> +# The MAX_INITIALIZER_LINES tag determines the maximum number of lines =
+that the
+>> +# initial value of a variable or macro / define can have for it to appe=
+ar in the
+>> +# documentation. If the initializer consists of more lines than specifi=
+ed here
+>> +# it will be hidden. Use a value of 0 to hide initializers completely. =
+The
+>> +# appearance of the value of individual variables and macros / defines =
+can be
+>> +# controlled using \showinitializer or \hideinitializer command in the
+>> +# documentation regardless of this setting.
+>> +# Minimum value: 0, maximum value: 10000, default value: 30.
+>> +
+>> +MAX_INITIALIZER_LINES  =3D 300
+>> +
+>> +# Set the SHOW_USED_FILES tag to NO to disable the list of files genera=
+ted at
+>> +# the bottom of the documentation of classes and structs. If set to YES=
+, the
+>> +# list will mention the files that were used to generate the documentat=
+ion.
+>> +# The default value is: YES.
+>> +
+>> +SHOW_USED_FILES        =3D YES
+>> +
+>> +# Set the SHOW_FILES tag to NO to disable the generation of the Files p=
+age. This
+>> +# will remove the Files entry from the Quick Index and from the Folder =
+Tree View
+>> +# (if specified).
+>> +# The default value is: YES.
+>> +
+>> +SHOW_FILES             =3D YES
+>> +
+>> +# Set the SHOW_NAMESPACES tag to NO to disable the generation of the Na=
+mespaces
+>> +# page. This will remove the Namespaces entry from the Quick Index and =
+from the
+>> +# Folder Tree View (if specified).
+>> +# The default value is: YES.
+>> +
+>> +SHOW_NAMESPACES        =3D YES
+>> +
+>> +# The FILE_VERSION_FILTER tag can be used to specify a program or scrip=
+t that
+>> +# doxygen should invoke to get the current version for each file (typic=
+ally from
+>> +# the version control system). Doxygen will invoke the program by execu=
+ting (via
+>> +# popen()) the command command input-file, where command is the value o=
+f the
+>> +# FILE_VERSION_FILTER tag, and input-file is the name of an input file =
+provided
+>> +# by doxygen. Whatever the program writes to standard output is used as=
+ the file
+>> +# version. For an example see the documentation.
+>> +
+>> +FILE_VERSION_FILTER    =3D
+>> +
+>> +# The LAYOUT_FILE tag can be used to specify a layout file which will b=
+e parsed
+>> +# by doxygen. The layout file controls the global structure of the gene=
+rated
+>> +# output files in an output format independent way. To create the layou=
+t file
+>> +# that represents doxygen's defaults, run doxygen with the -l option. Y=
+ou can
+>> +# optionally specify a file name after the option, if omitted DoxygenLa=
+yout.xml
+>> +# will be used as the name of the layout file.
+>> +#
+>> +# Note that if you run doxygen from a directory containing a file calle=
+d
+>> +# DoxygenLayout.xml, doxygen will parse it automatically even if the LA=
+YOUT_FILE
+>> +# tag is left empty.
+>> +
+>> +LAYOUT_FILE            =3D
+>> +
+>> +# The CITE_BIB_FILES tag can be used to specify one or more bib files c=
+ontaining
+>> +# the reference definitions. This must be a list of .bib files. The .bi=
+b
+>> +# extension is automatically appended if omitted. This requires the bib=
+tex tool
+>> +# to be installed. See also https://en.wikipedia.org/wiki/BibTeX for mo=
+re info.
+>> +# For LaTeX the style of the bibliography can be controlled using
+>> +# LATEX_BIB_STYLE. To use this feature you need bibtex and perl availab=
+le in the
+>> +# search path. See also \cite for info how to create references.
+>> +
+>> +CITE_BIB_FILES         =3D
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to warning and progress messages
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# The QUIET tag can be used to turn on/off the messages that are genera=
+ted to
+>> +# standard output by doxygen. If QUIET is set to YES this implies that =
+the
+>> +# messages are off.
+>> +# The default value is: NO.
+>> +
+>> +QUIET                  =3D YES
+>> +
+>> +# The WARNINGS tag can be used to turn on/off the warning messages that=
+ are
+>> +# generated to standard error (stderr) by doxygen. If WARNINGS is set t=
+o YES
+>> +# this implies that the warnings are on.
+>> +#
+>> +# Tip: Turn warnings on while writing the documentation.
+>> +# The default value is: YES.
+>> +
+>> +WARNINGS               =3D YES
+>> +
+>> +# If the WARN_IF_UNDOCUMENTED tag is set to YES then doxygen will gener=
+ate
+>> +# warnings for undocumented members. If EXTRACT_ALL is set to YES then =
+this flag
+>> +# will automatically be disabled.
+>> +# The default value is: YES.
+>> +
+>> +WARN_IF_UNDOCUMENTED   =3D YES
+>> +
+>> +# If the WARN_IF_DOC_ERROR tag is set to YES, doxygen will generate war=
+nings for
+>> +# potential errors in the documentation, such as not documenting some p=
+arameters
+>> +# in a documented function, or documenting parameters that don't exist =
+or using
+>> +# markup commands wrongly.
+>> +# The default value is: YES.
+>> +
+>> +WARN_IF_DOC_ERROR      =3D YES
+>> +
+>> +# This WARN_NO_PARAMDOC option can be enabled to get warnings for funct=
+ions that
+>> +# are documented, but have no documentation for their parameters or ret=
+urn
+>> +# value. If set to NO, doxygen will only warn about wrong or incomplete
+>> +# parameter documentation, but not about the absence of documentation.
+>> +# The default value is: NO.
+>> +
+>> +WARN_NO_PARAMDOC       =3D NO
+>> +
+>> +# The WARN_FORMAT tag determines the format of the warning messages tha=
+t doxygen
+>> +# can produce. The string should contain the $file, $line, and $text ta=
+gs, which
+>> +# will be replaced by the file and line number from which the warning o=
+riginated
+>> +# and the warning text. Optionally the format may contain $version, whi=
+ch will
+>> +# be replaced by the version of the file (if it could be obtained via
+>> +# FILE_VERSION_FILTER)
+>> +# The default value is: $file:$line: $text.
+>> +
+>> +WARN_FORMAT            =3D "$file:$line: $text"
+>> +
+>> +# The WARN_LOGFILE tag can be used to specify a file to which warning a=
+nd error
+>> +# messages should be written. If left blank the output is written to st=
+andard
+>> +# error (stderr).
+>> +
+>> +WARN_LOGFILE           =3D
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the input files
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# The INPUT tag is used to specify the files and/or directories that co=
+ntain
+>> +# documented source files. You may enter file names like myfile.cpp or
+>> +# directories like /usr/src/myproject. Separate the files or directorie=
+s with
+>> +# spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
+>> +# Note: If this tag is empty the current directory is searched.
+>> +
+>> +INPUT                  =3D "@XEN_BASE@/docs/xen-doxygen/mainpage.md"
+>> +
+>> +# This tag can be used to specify the character encoding of the source =
+files
+>> +# that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxy=
+gen uses
+>> +# libiconv (or the iconv built into libc) for the transcoding. See the =
+libiconv
+>> +# documentation (see: https://www.gnu.org/software/libiconv/) for the l=
+ist of
+>> +# possible encodings.
+>> +# The default value is: UTF-8.
+>> +
+>> +INPUT_ENCODING         =3D UTF-8
+>> +
+>> +# If the value of the INPUT tag contains directories, you can use the
+>> +# FILE_PATTERNS tag to specify one or more wildcard patterns (like *.cp=
+p and
+>> +# *.h) to filter out the source-files in the directories.
+>> +#
+>> +# Note that for custom extensions or not directly supported extensions =
+you also
+>> +# need to set EXTENSION_MAPPING for the extension otherwise the files a=
+re not
+>> +# read by doxygen.
+>> +#
+>> +# If left blank the following patterns are tested:*.c, *.cc, *.cxx, *.c=
+pp,
+>> +# *.c++, *.java, *.ii, *.ixx, *.ipp, *.i++, *.inl, *.idl, *.ddl, *.odl,=
+ *.h,
+>> +# *.hh, *.hxx, *.hpp, *.h++, *.cs, *.d, *.php, *.php4, *.php5, *.phtml,=
+ *.inc,
+>> +# *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.pyw, *.f90, *.f95, *.f03,=
+ *.f08,
+>> +# *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf and *.qsf.
+>> +
+>> +# This MUST be kept in sync with DOXY_SOURCES in doc/CMakeLists.txt
+>> +# for incremental (and faster) builds to work correctly.
+>> +FILE_PATTERNS          =3D "*.c" \
+>> +                         "*.h" \
+>> +                         "*.S" \
+>> +                         "*.md"
+>> +
+>> +# The RECURSIVE tag can be used to specify whether or not subdirectorie=
+s should
+>> +# be searched for input files as well.
+>> +# The default value is: NO.
+>> +
+>> +RECURSIVE              =3D YES
+>> +
+>> +# The EXCLUDE tag can be used to specify files and/or directories that =
+should be
+>> +# excluded from the INPUT source files. This way you can easily exclude=
+ a
+>> +# subdirectory from a directory tree whose root is specified with the I=
+NPUT tag.
+>> +#
+>> +# Note that relative paths are relative to the directory from which dox=
+ygen is
+>> +# run.
+>> +
+>> +EXCLUDE                =3D @XEN_BASE@/include/nothing.h
+>> +
+>> +# The EXCLUDE_SYMLINKS tag can be used to select whether or not files o=
+r
+>> +# directories that are symbolic links (a Unix file system feature) are =
+excluded
+>> +# from the input.
+>> +# The default value is: NO.
+>> +
+>> +EXCLUDE_SYMLINKS       =3D NO
+>> +
+>> +# If the value of the INPUT tag contains directories, you can use the
+>> +# EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to excl=
+ude
+>> +# certain files from those directories.
+>> +#
+>> +# Note that the wildcards are matched against the file with absolute pa=
+th, so to
+>> +# exclude all test directories for example use the pattern */test/*
+>> +
+>> +EXCLUDE_PATTERNS       =3D
+>> +
+>> +# The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol nam=
+es
+>> +# (namespaces, classes, functions, etc.) that should be excluded from t=
+he
+>> +# output. The symbol name can be a fully qualified name, a word, or if =
+the
+>> +# wildcard * is used, a substring. Examples: ANamespace, AClass,
+>> +# AClass::ANamespace, ANamespace::*Test
+>> +#
+>> +# Note that the wildcards are matched against the file with absolute pa=
+th, so to
+>> +# exclude all test directories use the pattern */test/*
+>> +
+>> +# Hide internal names (starting with an underscore, and doxygen-generat=
+ed names
+>> +# for nested unnamed unions that don't generate meaningful sphinx outpu=
+t anyway.
+>> +EXCLUDE_SYMBOLS        =3D
+>> +# _*  *.__unnamed__ z_* Z_*
+>> +
+>> +# The EXAMPLE_PATH tag can be used to specify one or more files or dire=
+ctories
+>> +# that contain example code fragments that are included (see the \inclu=
+de
+>> +# command).
+>> +
+>> +EXAMPLE_PATH           =3D
+>> +
+>> +# If the value of the EXAMPLE_PATH tag contains directories, you can us=
+e the
+>> +# EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.=
+cpp and
+>> +# *.h) to filter out the source-files in the directories. If left blank=
+ all
+>> +# files are included.
+>> +
+>> +EXAMPLE_PATTERNS       =3D
+>> +
+>> +# If the EXAMPLE_RECURSIVE tag is set to YES then subdirectories will b=
+e
+>> +# searched for input files to be used with the \include or \dontinclude=
+ commands
+>> +# irrespective of the value of the RECURSIVE tag.
+>> +# The default value is: NO.
+>> +
+>> +EXAMPLE_RECURSIVE      =3D YES
+>> +
+>> +# The IMAGE_PATH tag can be used to specify one or more files or direct=
+ories
+>> +# that contain images that are to be included in the documentation (see=
+ the
+>> +# \image command).
+>> +
+>> +IMAGE_PATH             =3D
+>> +
+>> +# The INPUT_FILTER tag can be used to specify a program that doxygen sh=
+ould
+>> +# invoke to filter for each input file. Doxygen will invoke the filter =
+program
+>> +# by executing (via popen()) the command:
+>> +#
+>> +# <filter> <input-file>
+>> +#
+>> +# where <filter> is the value of the INPUT_FILTER tag, and <input-file>=
+ is the
+>> +# name of an input file. Doxygen will then use the output that the filt=
+er
+>> +# program writes to standard output. If FILTER_PATTERNS is specified, t=
+his tag
+>> +# will be ignored.
+>> +#
+>> +# Note that the filter must not add or remove lines; it is applied befo=
+re the
+>> +# code is scanned, but not when the output code is generated. If lines =
+are added
+>> +# or removed, the anchors will not be placed correctly.
+>> +#
+>> +# Note that for custom extensions or not directly supported extensions =
+you also
+>> +# need to set EXTENSION_MAPPING for the extension otherwise the files a=
+re not
+>> +# properly processed by doxygen.
+>> +
+>> +INPUT_FILTER           =3D
+>> +
+>> +# The FILTER_PATTERNS tag can be used to specify filters on a per file =
+pattern
+>> +# basis. Doxygen will compare the file name with each pattern and apply=
+ the
+>> +# filter if there is a match. The filters are a list of the form: patte=
+rn=3Dfilter
+>> +# (like *.cpp=3Dmy_cpp_filter). See INPUT_FILTER for further informatio=
+n on how
+>> +# filters are used. If the FILTER_PATTERNS tag is empty or if none of t=
+he
+>> +# patterns match the file name, INPUT_FILTER is applied.
+>> +#
+>> +# Note that for custom extensions or not directly supported extensions =
+you also
+>> +# need to set EXTENSION_MAPPING for the extension otherwise the files a=
+re not
+>> +# properly processed by doxygen.
+>> +
+>> +FILTER_PATTERNS     =3D *.h=3D"\"@XEN_BASE@/docs/xen-doxygen/doxy-prepr=
+ocessor.py\""
+>> +
+>> +# If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if se=
+t using
+>> +# INPUT_FILTER) will also be used to filter the input files that are us=
+ed for
+>> +# producing the source files to browse (i.e. when SOURCE_BROWSER is set=
+ to YES).
+>> +# The default value is: NO.
+>> +
+>> +FILTER_SOURCE_FILES    =3D NO
+>> +
+>> +# The FILTER_SOURCE_PATTERNS tag can be used to specify source filters =
+per file
+>> +# pattern. A pattern will override the setting for FILTER_PATTERN (if a=
+ny) and
+>> +# it is also possible to disable source filtering for a specific patter=
+n using
+>> +# *.ext=3D (so without naming a filter).
+>> +# This tag requires that the tag FILTER_SOURCE_FILES is set to YES.
+>> +
+>> +FILTER_SOURCE_PATTERNS =3D
+>> +
+>> +# If the USE_MDFILE_AS_MAINPAGE tag refers to the name of a markdown fi=
+le that
+>> +# is part of the input, its contents will be placed on the main page
+>> +# (index.html). This can be useful if you have a project on for instanc=
+e GitHub
+>> +# and want to reuse the introduction page also for the doxygen output.
+>> +
+>> +USE_MDFILE_AS_MAINPAGE =3D "mainpage.md"
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to source browsing
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the SOURCE_BROWSER tag is set to YES then a list of source files w=
+ill be
+>> +# generated. Documented entities will be cross-referenced with these so=
+urces.
+>> +#
+>> +# Note: To get rid of all source code in the generated output, make sur=
+e that
+>> +# also VERBATIM_HEADERS is set to NO.
+>> +# The default value is: NO.
+>> +
+>> +SOURCE_BROWSER         =3D NO
+>> +
+>> +# Setting the INLINE_SOURCES tag to YES will include the body of functi=
+ons,
+>> +# classes and enums directly into the documentation.
+>> +# The default value is: NO.
+>> +
+>> +INLINE_SOURCES         =3D NO
+>> +
+>> +# Setting the STRIP_CODE_COMMENTS tag to YES will instruct doxygen to h=
+ide any
+>> +# special comment blocks from generated source code fragments. Normal C=
+, C++ and
+>> +# Fortran comments will always remain visible.
+>> +# The default value is: YES.
+>> +
+>> +STRIP_CODE_COMMENTS    =3D YES
+>> +
+>> +# If the REFERENCED_BY_RELATION tag is set to YES then for each documen=
+ted
+>> +# function all documented functions referencing it will be listed.
+>> +# The default value is: NO.
+>> +
+>> +REFERENCED_BY_RELATION =3D NO
+>> +
+>> +# If the REFERENCES_RELATION tag is set to YES then for each documented=
+ function
+>> +# all documented entities called/used by that function will be listed.
+>> +# The default value is: NO.
+>> +
+>> +REFERENCES_RELATION    =3D NO
+>> +
+>> +# If the REFERENCES_LINK_SOURCE tag is set to YES and SOURCE_BROWSER ta=
+g is set
+>> +# to YES then the hyperlinks from functions in REFERENCES_RELATION and
+>> +# REFERENCED_BY_RELATION lists will link to the source code. Otherwise =
+they will
+>> +# link to the documentation.
+>> +# The default value is: YES.
+>> +
+>> +REFERENCES_LINK_SOURCE =3D YES
+>> +
+>> +# If SOURCE_TOOLTIPS is enabled (the default) then hovering a hyperlink=
+ in the
+>> +# source code will show a tooltip with additional information such as p=
+rototype,
+>> +# brief description and links to the definition and documentation. Sinc=
+e this
+>> +# will make the HTML file larger and loading of large files a bit slowe=
+r, you
+>> +# can opt to disable this feature.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag SOURCE_BROWSER is set to YES.
+>> +
+>> +SOURCE_TOOLTIPS        =3D YES
+>> +
+>> +# If the USE_HTAGS tag is set to YES then the references to source code=
+ will
+>> +# point to the HTML generated by the htags(1) tool instead of doxygen b=
+uilt-in
+>> +# source browser. The htags tool is part of GNU's global source tagging=
+ system
+>> +# (see https://www.gnu.org/software/global/global.html). You will need =
+version
+>> +# 4.8.6 or higher.
+>> +#
+>> +# To use it do the following:
+>> +# - Install the latest version of global
+>> +# - Enable SOURCE_BROWSER and USE_HTAGS in the config file
+>> +# - Make sure the INPUT points to the root of the source tree
+>> +# - Run doxygen as normal
+>> +#
+>> +# Doxygen will invoke htags (and that will in turn invoke gtags), so th=
+ese
+>> +# tools must be available from the command line (i.e. in the search pat=
+h).
+>> +#
+>> +# The result: instead of the source browser generated by doxygen, the l=
+inks to
+>> +# source code will now point to the output of htags.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag SOURCE_BROWSER is set to YES.
+>> +
+>> +USE_HTAGS              =3D NO
+>> +
+>> +# If the VERBATIM_HEADERS tag is set the YES then doxygen will generate=
+ a
+>> +# verbatim copy of the header file for each class for which an include =
+is
+>> +# specified. Set to NO to disable this.
+>> +# See also: Section \class.
+>> +# The default value is: YES.
+>> +
+>> +VERBATIM_HEADERS       =3D YES
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the alphabetical class index
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the ALPHABETICAL_INDEX tag is set to YES, an alphabetical index of=
+ all
+>> +# compounds will be generated. Enable this if the project contains a lo=
+t of
+>> +# classes, structs, unions or interfaces.
+>> +# The default value is: YES.
+>> +
+>> +ALPHABETICAL_INDEX     =3D YES
+>> +
+>> +# The COLS_IN_ALPHA_INDEX tag can be used to specify the number of colu=
+mns in
+>> +# which the alphabetical index list will be split.
+>> +# Minimum value: 1, maximum value: 20, default value: 5.
+>> +# This tag requires that the tag ALPHABETICAL_INDEX is set to YES.
+>> +
+>> +COLS_IN_ALPHA_INDEX    =3D 2
+>> +
+>> +# In case all classes in a project start with a common prefix, all clas=
+ses will
+>> +# be put under the same header in the alphabetical index. The IGNORE_PR=
+EFIX tag
+>> +# can be used to specify a prefix (or a list of prefixes) that should b=
+e ignored
+>> +# while generating the index headers.
+>> +# This tag requires that the tag ALPHABETICAL_INDEX is set to YES.
+>> +
+>> +IGNORE_PREFIX          =3D
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the HTML output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_HTML tag is set to YES, doxygen will generate HTML ou=
+tput
+>> +# The default value is: YES.
+>> +
+>> +GENERATE_HTML          =3D YES
+>> +
+>> +# The HTML_OUTPUT tag is used to specify where the HTML docs will be pu=
+t. If a
+>> +# relative path is entered the value of OUTPUT_DIRECTORY will be put in=
+ front of
+>> +# it.
+>> +# The default directory is: html.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_OUTPUT            =3D html
+>> +
+>> +# The HTML_FILE_EXTENSION tag can be used to specify the file extension=
+ for each
+>> +# generated HTML page (for example: .htm, .php, .asp).
+>> +# The default value is: .html.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_FILE_EXTENSION    =3D .html
+>> +
+>> +# The HTML_HEADER tag can be used to specify a user-defined HTML header=
+ file for
+>> +# each generated HTML page. If the tag is left blank doxygen will gener=
+ate a
+>> +# standard header.
+>> +#
+>> +# To get valid HTML the header file that includes any scripts and style=
+ sheets
+>> +# that doxygen needs, which is dependent on the configuration options u=
+sed (e.g.
+>> +# the setting GENERATE_TREEVIEW). It is highly recommended to start wit=
+h a
+>> +# default header using
+>> +# doxygen -w html new_header.html new_footer.html new_stylesheet.css
+>> +# YourConfigFile
+>> +# and then modify the file new_header.html. See also section "Doxygen u=
+sage"
+>> +# for information on how to generate the default header that doxygen no=
+rmally
+>> +# uses.
+>> +# Note: The header is subject to change so you typically have to regene=
+rate the
+>> +# default header when upgrading to a newer version of doxygen. For a de=
+scription
+>> +# of the possible markers and block names see the documentation.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_HEADER            =3D xen-doxygen/header.html
+>> +
+>> +# The HTML_FOOTER tag can be used to specify a user-defined HTML footer=
+ for each
+>> +# generated HTML page. If the tag is left blank doxygen will generate a=
+ standard
+>> +# footer. See HTML_HEADER for more information on how to generate a def=
+ault
+>> +# footer and what special commands can be used inside the footer. See a=
+lso
+>> +# section "Doxygen usage" for information on how to generate the defaul=
+t footer
+>> +# that doxygen normally uses.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_FOOTER            =3D
+>> +
+>> +# The HTML_STYLESHEET tag can be used to specify a user-defined cascadi=
+ng style
+>> +# sheet that is used by each HTML page. It can be used to fine-tune the=
+ look of
+>> +# the HTML output. If left blank doxygen will generate a default style =
+sheet.
+>> +# See also section "Doxygen usage" for information on how to generate t=
+he style
+>> +# sheet that doxygen normally uses.
+>> +# Note: It is recommended to use HTML_EXTRA_STYLESHEET instead of this =
+tag, as
+>> +# it is more robust and this tag (HTML_STYLESHEET) will in the future b=
+ecome
+>> +# obsolete.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_STYLESHEET        =3D
+>> +
+>> +# The HTML_EXTRA_STYLESHEET tag can be used to specify additional user-=
+defined
+>> +# cascading style sheets that are included after the standard style she=
+ets
+>> +# created by doxygen. Using this option one can overrule certain style =
+aspects.
+>> +# This is preferred over using HTML_STYLESHEET since it does not replac=
+e the
+>> +# standard style sheet and is therefore more robust against future upda=
+tes.
+>> +# Doxygen will copy the style sheet files to the output directory.
+>> +# Note: The order of the extra style sheet files is of importance (e.g.=
+ the last
+>> +# style sheet in the list overrules the setting of the previous ones in=
+ the
+>> +# list). For an example see the documentation.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_EXTRA_STYLESHEET  =3D xen-doxygen/customdoxygen.css
+>> +
+>> +# The HTML_EXTRA_FILES tag can be used to specify one or more extra ima=
+ges or
+>> +# other source files which should be copied to the HTML output director=
+y. Note
+>> +# that these files will be copied to the base HTML output directory. Us=
+e the
+>> +# $relpath^ marker in the HTML_HEADER and/or HTML_FOOTER files to load =
+these
+>> +# files. In the HTML_STYLESHEET file, use the file name only. Also note=
+ that the
+>> +# files will be copied as-is; there are no commands or markers availabl=
+e.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_EXTRA_FILES       =3D
+>> +
+>> +# The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. Do=
+xygen
+>> +# will adjust the colors in the style sheet and background images accor=
+ding to
+>> +# this color. Hue is specified as an angle on a colorwheel, see
+>> +# https://en.wikipedia.org/wiki/Hue for more information. For instance =
+the value
+>> +# 0 represents red, 60 is yellow, 120 is green, 180 is cyan, 240 is blu=
+e, 300
+>> +# purple, and 360 is red again.
+>> +# Minimum value: 0, maximum value: 359, default value: 220.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_COLORSTYLE_HUE    =3D
+>> +
+>> +# The HTML_COLORSTYLE_SAT tag controls the purity (or saturation) of th=
+e colors
+>> +# in the HTML output. For a value of 0 the output will use grayscales o=
+nly. A
+>> +# value of 255 will produce the most vivid colors.
+>> +# Minimum value: 0, maximum value: 255, default value: 100.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_COLORSTYLE_SAT    =3D
+>> +
+>> +# The HTML_COLORSTYLE_GAMMA tag controls the gamma correction applied t=
+o the
+>> +# luminance component of the colors in the HTML output. Values below 10=
+0
+>> +# gradually make the output lighter, whereas values above 100 make the =
+output
+>> +# darker. The value divided by 100 is the actual gamma applied, so 80 r=
+epresents
+>> +# a gamma of 0.8, The value 220 represents a gamma of 2.2, and 100 does=
+ not
+>> +# change the gamma.
+>> +# Minimum value: 40, maximum value: 240, default value: 80.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_COLORSTYLE_GAMMA  =3D
+>> +
+>> +# If the HTML_TIMESTAMP tag is set to YES then the footer of each gener=
+ated HTML
+>> +# page will contain the date and time when the page was generated. Sett=
+ing this
+>> +# to YES can help to show when doxygen was last run and thus if the
+>> +# documentation is up to date.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_TIMESTAMP         =3D YES
+>> +
+>> +# If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTM=
+L
+>> +# documentation will contain sections that can be hidden and shown afte=
+r the
+>> +# page has loaded.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_DYNAMIC_SECTIONS  =3D YES
+>> +
+>> +# With HTML_INDEX_NUM_ENTRIES one can control the preferred number of e=
+ntries
+>> +# shown in the various tree structured indices initially; the user can =
+expand
+>> +# and collapse entries dynamically later on. Doxygen will expand the tr=
+ee to
+>> +# such a level that at most the specified number of entries are visible=
+ (unless
+>> +# a fully collapsed tree already exceeds this amount). So setting the n=
+umber of
+>> +# entries 1 will produce a full collapsed tree by default. 0 is a speci=
+al value
+>> +# representing an infinite number of entries and will result in a full =
+expanded
+>> +# tree by default.
+>> +# Minimum value: 0, maximum value: 9999, default value: 100.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +HTML_INDEX_NUM_ENTRIES =3D 100
+>> +
+>> +# If the GENERATE_DOCSET tag is set to YES, additional index files will=
+ be
+>> +# generated that can be used as input for Apple's Xcode 3 integrated de=
+velopment
+>> +# environment (see: https://developer.apple.com/tools/xcode/), introduc=
+ed with
+>> +# OSX 10.5 (Leopard). To create a documentation set, doxygen will gener=
+ate a
+>> +# Makefile in the HTML output directory. Running make will produce the =
+docset in
+>> +# that directory and running make install will install the docset in
+>> +# ~/Library/Developer/Shared/Documentation/DocSets so that Xcode will f=
+ind it at
+>> +# startup. See https://developer.apple.com/tools/creatingdocsetswithdox=
+ygen.html
+>> +# for more information.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +GENERATE_DOCSET        =3D YES
+>> +
+>> +# This tag determines the name of the docset feed. A documentation feed=
+ provides
+>> +# an umbrella under which multiple documentation sets from a single pro=
+vider
+>> +# (such as a company or product suite) can be grouped.
+>> +# The default value is: Doxygen generated docs.
+>> +# This tag requires that the tag GENERATE_DOCSET is set to YES.
+>> +
+>> +DOCSET_FEEDNAME        =3D "Doxygen generated docs"
+>> +
+>> +# This tag specifies a string that should uniquely identify the documen=
+tation
+>> +# set bundle. This should be a reverse domain-name style string, e.g.
+>> +# com.mycompany.MyDocSet. Doxygen will append .docset to the name.
+>> +# The default value is: org.doxygen.Project.
+>> +# This tag requires that the tag GENERATE_DOCSET is set to YES.
+>> +
+>> +DOCSET_BUNDLE_ID       =3D org.doxygen.Project
+>> +
+>> +# The DOCSET_PUBLISHER_ID tag specifies a string that should uniquely i=
+dentify
+>> +# the documentation publisher. This should be a reverse domain-name sty=
+le
+>> +# string, e.g. com.mycompany.MyDocSet.documentation.
+>> +# The default value is: org.doxygen.Publisher.
+>> +# This tag requires that the tag GENERATE_DOCSET is set to YES.
+>> +
+>> +DOCSET_PUBLISHER_ID    =3D org.doxygen.Publisher
+>> +
+>> +# The DOCSET_PUBLISHER_NAME tag identifies the documentation publisher.
+>> +# The default value is: Publisher.
+>> +# This tag requires that the tag GENERATE_DOCSET is set to YES.
+>> +
+>> +DOCSET_PUBLISHER_NAME  =3D Publisher
+>> +
+>> +# If the GENERATE_HTMLHELP tag is set to YES then doxygen generates thr=
+ee
+>> +# additional HTML index files: index.hhp, index.hhc, and index.hhk. The
+>> +# index.hhp is a project file that can be read by Microsoft's HTML Help=
+ Workshop
+>> +# (see: http://www.microsoft.com/en-us/download/details.aspx?id=3D21138=
+) on
+>> +# Windows.
+>> +#
+>> +# The HTML Help Workshop contains a compiler that can convert all HTML =
+output
+>> +# generated by doxygen into a single compiled HTML file (.chm). Compile=
+d HTML
+>> +# files are now used as the Windows 98 help format, and will replace th=
+e old
+>> +# Windows help format (.hlp) on all Windows platforms in the future. Co=
+mpressed
+>> +# HTML files also contain an index, a table of contents, and you can se=
+arch for
+>> +# words in the documentation. The HTML workshop also contains a viewer =
+for
+>> +# compressed HTML files.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +GENERATE_HTMLHELP      =3D NO
+>> +
+>> +# The CHM_FILE tag can be used to specify the file name of the resultin=
+g .chm
+>> +# file. You can add a path in front of the file if the result should no=
+t be
+>> +# written to the html output directory.
+>> +# This tag requires that the tag GENERATE_HTMLHELP is set to YES.
+>> +
+>> +CHM_FILE               =3D NO
+>> +
+>> +# The HHC_LOCATION tag can be used to specify the location (absolute pa=
+th
+>> +# including file name) of the HTML help compiler (hhc.exe). If non-empt=
+y,
+>> +# doxygen will try to run the HTML help compiler on the generated index=
+.hhp.
+>> +# The file has to be specified with full path.
+>> +# This tag requires that the tag GENERATE_HTMLHELP is set to YES.
+>> +
+>> +HHC_LOCATION           =3D
+>> +
+>> +# The GENERATE_CHI flag controls if a separate .chi index file is gener=
+ated
+>> +# (YES) or that it should be included in the master .chm file (NO).
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTMLHELP is set to YES.
+>> +
+>> +GENERATE_CHI           =3D NO
+>> +
+>> +# The CHM_INDEX_ENCODING is used to encode HtmlHelp index (hhk), conten=
+t (hhc)
+>> +# and project file content.
+>> +# This tag requires that the tag GENERATE_HTMLHELP is set to YES.
+>> +
+>> +CHM_INDEX_ENCODING     =3D
+>> +
+>> +# The BINARY_TOC flag controls whether a binary table of contents is ge=
+nerated
+>> +# (YES) or a normal table of contents (NO) in the .chm file. Furthermor=
+e it
+>> +# enables the Previous and Next buttons.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTMLHELP is set to YES.
+>> +
+>> +BINARY_TOC             =3D YES
+>> +
+>> +# The TOC_EXPAND flag can be set to YES to add extra items for group me=
+mbers to
+>> +# the table of contents of the HTML help documentation and to the tree =
+view.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTMLHELP is set to YES.
+>> +
+>> +TOC_EXPAND             =3D NO
+>> +
+>> +# If the GENERATE_QHP tag is set to YES and both QHP_NAMESPACE and
+>> +# QHP_VIRTUAL_FOLDER are set, an additional index file will be generate=
+d that
+>> +# can be used as input for Qt's qhelpgenerator to generate a Qt Compres=
+sed Help
+>> +# (.qch) of the generated HTML documentation.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +GENERATE_QHP           =3D NO
+>> +
+>> +# If the QHG_LOCATION tag is specified, the QCH_FILE tag can be used to=
+ specify
+>> +# the file name of the resulting .qch file. The path specified is relat=
+ive to
+>> +# the HTML output folder.
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QCH_FILE               =3D
+>> +
+>> +# The QHP_NAMESPACE tag specifies the namespace to use when generating =
+Qt Help
+>> +# Project output. For more information please see Qt Help Project / Nam=
+espace
+>> +# (see: http://doc.qt.io/qt-4.8/qthelpproject.html#namespace).
+>> +# The default value is: org.doxygen.Project.
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QHP_NAMESPACE          =3D org.doxygen.Project
+>> +
+>> +# The QHP_VIRTUAL_FOLDER tag specifies the namespace to use when genera=
+ting Qt
+>> +# Help Project output. For more information please see Qt Help Project =
+/ Virtual
+>> +# Folders (see: http://doc.qt.io/qt-4.8/qthelpproject.html#virtual-fold=
+ers).
+>> +# The default value is: doc.
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QHP_VIRTUAL_FOLDER     =3D doc
+>> +
+>> +# If the QHP_CUST_FILTER_NAME tag is set, it specifies the name of a cu=
+stom
+>> +# filter to add. For more information please see Qt Help Project / Cust=
+om
+>> +# Filters (see: http://doc.qt.io/qt-4.8/qthelpproject.html#custom-filte=
+rs).
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QHP_CUST_FILTER_NAME   =3D
+>> +
+>> +# The QHP_CUST_FILTER_ATTRS tag specifies the list of the attributes of=
+ the
+>> +# custom filter to add. For more information please see Qt Help Project=
+ / Custom
+>> +# Filters (see: http://doc.qt.io/qt-4.8/qthelpproject.html#custom-filte=
+rs).
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QHP_CUST_FILTER_ATTRS  =3D
+>> +
+>> +# The QHP_SECT_FILTER_ATTRS tag specifies the list of the attributes th=
+is
+>> +# project's filter section matches. Qt Help Project / Filter Attributes=
+ (see:
+>> +# http://doc.qt.io/qt-4.8/qthelpproject.html#filter-attributes).
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QHP_SECT_FILTER_ATTRS  =3D
+>> +
+>> +# The QHG_LOCATION tag can be used to specify the location of Qt's
+>> +# qhelpgenerator. If non-empty doxygen will try to run qhelpgenerator o=
+n the
+>> +# generated .qhp file.
+>> +# This tag requires that the tag GENERATE_QHP is set to YES.
+>> +
+>> +QHG_LOCATION           =3D
+>> +
+>> +# If the GENERATE_ECLIPSEHELP tag is set to YES, additional index files=
+ will be
+>> +# generated, together with the HTML files, they form an Eclipse help pl=
+ugin. To
+>> +# install this plugin and make it available under the help contents men=
+u in
+>> +# Eclipse, the contents of the directory containing the HTML and XML fi=
+les needs
+>> +# to be copied into the plugins directory of eclipse. The name of the d=
+irectory
+>> +# within the plugins directory should be the same as the ECLIPSE_DOC_ID=
+ value.
+>> +# After copying Eclipse needs to be restarted before the help appears.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +GENERATE_ECLIPSEHELP   =3D NO
+>> +
+>> +# A unique identifier for the Eclipse help plugin. When installing the =
+plugin
+>> +# the directory name containing the HTML and XML files should also have=
+ this
+>> +# name. Each documentation set should have its own identifier.
+>> +# The default value is: org.doxygen.Project.
+>> +# This tag requires that the tag GENERATE_ECLIPSEHELP is set to YES.
+>> +
+>> +ECLIPSE_DOC_ID         =3D org.doxygen.Project
+>> +
+>> +# If you want full control over the layout of the generated HTML pages =
+it might
+>> +# be necessary to disable the index and replace it with your own. The
+>> +# DISABLE_INDEX tag can be used to turn on/off the condensed index (tab=
+s) at top
+>> +# of each HTML page. A value of NO enables the index and the value YES =
+disables
+>> +# it. Since the tabs in the index contain the same information as the n=
+avigation
+>> +# tree, you can set this option to YES if you also set GENERATE_TREEVIE=
+W to YES.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +DISABLE_INDEX          =3D NO
+>> +
+>> +# The GENERATE_TREEVIEW tag is used to specify whether a tree-like inde=
+x
+>> +# structure should be generated to display hierarchical information. If=
+ the tag
+>> +# value is set to YES, a side panel will be generated containing a tree=
+-like
+>> +# index structure (just like the one that is generated for HTML Help). =
+For this
+>> +# to work a browser that supports JavaScript, DHTML, CSS and frames is =
+required
+>> +# (i.e. any modern browser). Windows users are probably better off usin=
+g the
+>> +# HTML help feature. Via custom style sheets (see HTML_EXTRA_STYLESHEET=
+) one can
+>> +# further fine-tune the look of the index. As an example, the default s=
+tyle
+>> +# sheet generated by doxygen has an example that shows how to put an im=
+age at
+>> +# the root of the tree instead of the PROJECT_NAME. Since the tree basi=
+cally has
+>> +# the same information as the tab index, you could consider setting
+>> +# DISABLE_INDEX to YES when enabling this option.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +GENERATE_TREEVIEW      =3D YES
+>> +
+>> +# The ENUM_VALUES_PER_LINE tag can be used to set the number of enum va=
+lues that
+>> +# doxygen will group on one line in the generated HTML documentation.
+>> +#
+>> +# Note that a value of 0 will completely suppress the enum values from =
+appearing
+>> +# in the overview section.
+>> +# Minimum value: 0, maximum value: 20, default value: 4.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +ENUM_VALUES_PER_LINE   =3D 4
+>> +
+>> +# If the treeview is enabled (see GENERATE_TREEVIEW) then this tag can =
+be used
+>> +# to set the initial width (in pixels) of the frame in which the tree i=
+s shown.
+>> +# Minimum value: 0, maximum value: 1500, default value: 250.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +TREEVIEW_WIDTH         =3D 250
+>> +
+>> +# If the EXT_LINKS_IN_WINDOW option is set to YES, doxygen will open li=
+nks to
+>> +# external symbols imported via tag files in a separate window.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +EXT_LINKS_IN_WINDOW    =3D NO
+>> +
+>> +# Use this tag to change the font size of LaTeX formulas included as im=
+ages in
+>> +# the HTML documentation. When you change the font size after a success=
+ful
+>> +# doxygen run you need to manually remove any form_*.png images from th=
+e HTML
+>> +# output directory to force them to be regenerated.
+>> +# Minimum value: 8, maximum value: 50, default value: 10.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +FORMULA_FONTSIZE       =3D 10
+>> +
+>> +# Use the FORMULA_TRANPARENT tag to determine whether or not the images
+>> +# generated for formulas are transparent PNGs. Transparent PNGs are not
+>> +# supported properly for IE 6.0, but are supported on all modern browse=
+rs.
+>> +#
+>> +# Note that when changing this option you need to delete any form_*.png=
+ files in
+>> +# the HTML output directory before the changes have effect.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +FORMULA_TRANSPARENT    =3D YES
+>> +
+>> +# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax =
+(see
+>> +# https://www.mathjax.org) which uses client side Javascript for the re=
+ndering
+>> +# instead of using pre-rendered bitmaps. Use this if you do not have La=
+TeX
+>> +# installed or if you want to formulas look prettier in the HTML output=
+. When
+>> +# enabled you may also need to install MathJax separately and configure=
+ the path
+>> +# to it using the MATHJAX_RELPATH option.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +USE_MATHJAX            =3D NO
+>> +
+>> +# When MathJax is enabled you can set the default output format to be u=
+sed for
+>> +# the MathJax output. See the MathJax site (see:
+>> +# http://docs.mathjax.org/en/latest/output.html) for more details.
+>> +# Possible values are: HTML-CSS (which is slower, but has the best
+>> +# compatibility), NativeMML (i.e. MathML) and SVG.
+>> +# The default value is: HTML-CSS.
+>> +# This tag requires that the tag USE_MATHJAX is set to YES.
+>> +
+>> +MATHJAX_FORMAT         =3D HTML-CSS
+>> +
+>> +# When MathJax is enabled you need to specify the location relative to =
+the HTML
+>> +# output directory using the MATHJAX_RELPATH option. The destination di=
+rectory
+>> +# should contain the MathJax.js script. For instance, if the mathjax di=
+rectory
+>> +# is located at the same level as the HTML output directory, then
+>> +# MATHJAX_RELPATH should be ../mathjax. The default value points to the=
+ MathJax
+>> +# Content Delivery Network so you can quickly see the result without in=
+stalling
+>> +# MathJax. However, it is strongly recommended to install a local copy =
+of
+>> +# MathJax from https://www.mathjax.org before deployment.
+>> +# The default value is: http://cdn.mathjax.org/mathjax/latest.
+>> +# This tag requires that the tag USE_MATHJAX is set to YES.
+>> +
+>> +MATHJAX_RELPATH        =3D http://cdn.mathjax.org/mathjax/latest
+>> +
+>> +# The MATHJAX_EXTENSIONS tag can be used to specify one or more MathJax
+>> +# extension names that should be enabled during MathJax rendering. For =
+example
+>> +# MATHJAX_EXTENSIONS =3D TeX/AMSmath TeX/AMSsymbols
+>> +# This tag requires that the tag USE_MATHJAX is set to YES.
+>> +
+>> +MATHJAX_EXTENSIONS     =3D
+>> +
+>> +# The MATHJAX_CODEFILE tag can be used to specify a file with javascrip=
+t pieces
+>> +# of code that will be used on startup of the MathJax code. See the Mat=
+hJax site
+>> +# (see: http://docs.mathjax.org/en/latest/output.html) for more details=
+. For an
+>> +# example see the documentation.
+>> +# This tag requires that the tag USE_MATHJAX is set to YES.
+>> +
+>> +MATHJAX_CODEFILE       =3D
+>> +
+>> +# When the SEARCHENGINE tag is enabled doxygen will generate a search b=
+ox for
+>> +# the HTML output. The underlying search engine uses javascript and DHT=
+ML and
+>> +# should work on any modern browser. Note that when using HTML help
+>> +# (GENERATE_HTMLHELP), Qt help (GENERATE_QHP), or docsets (GENERATE_DOC=
+SET)
+>> +# there is already a search function so this one should typically be di=
+sabled.
+>> +# For large projects the javascript based search engine can be slow, th=
+en
+>> +# enabling SERVER_BASED_SEARCH may provide a better solution. It is pos=
+sible to
+>> +# search using the keyboard; to jump to the search box use <access key>=
+ + S
+>> +# (what the <access key> is depends on the OS and browser, but it is ty=
+pically
+>> +# <CTRL>, <ALT>/<option>, or both). Inside the search box use the <curs=
+or down
+>> +# key> to jump into the search results window, the results can be navig=
+ated
+>> +# using the <cursor keys>. Press <Enter> to select an item or <escape> =
+to cancel
+>> +# the search. The filter options can be selected when the cursor is ins=
+ide the
+>> +# search box by pressing <Shift>+<cursor down>. Also here use the <curs=
+or keys>
+>> +# to select a filter and <Enter> or <escape> to activate or cancel the =
+filter
+>> +# option.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag GENERATE_HTML is set to YES.
+>> +
+>> +SEARCHENGINE           =3D YES
+>> +
+>> +# When the SERVER_BASED_SEARCH tag is enabled the search engine will be
+>> +# implemented using a web server instead of a web client using Javascri=
+pt. There
+>> +# are two flavors of web server based searching depending on the EXTERN=
+AL_SEARCH
+>> +# setting. When disabled, doxygen will generate a PHP script for search=
+ing and
+>> +# an index file used by the script. When EXTERNAL_SEARCH is enabled the=
+ indexing
+>> +# and searching needs to be provided by external tools. See the section
+>> +# "External Indexing and Searching" for details.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag SEARCHENGINE is set to YES.
+>> +
+>> +SERVER_BASED_SEARCH    =3D NO
+>> +
+>> +# When EXTERNAL_SEARCH tag is enabled doxygen will no longer generate t=
+he PHP
+>> +# script for searching. Instead the search results are written to an XM=
+L file
+>> +# which needs to be processed by an external indexer. Doxygen will invo=
+ke an
+>> +# external search engine pointed to by the SEARCHENGINE_URL option to o=
+btain the
+>> +# search results.
+>> +#
+>> +# Doxygen ships with an example indexer (doxyindexer) and search engine
+>> +# (doxysearch.cgi) which are based on the open source search engine lib=
+rary
+>> +# Xapian (see: https://xapian.org/).
+>> +#
+>> +# See the section "External Indexing and Searching" for details.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag SEARCHENGINE is set to YES.
+>> +
+>> +EXTERNAL_SEARCH        =3D NO
+>> +
+>> +# The SEARCHENGINE_URL should point to a search engine hosted by a web =
+server
+>> +# which will return the search results when EXTERNAL_SEARCH is enabled.
+>> +#
+>> +# Doxygen ships with an example indexer (doxyindexer) and search engine
+>> +# (doxysearch.cgi) which are based on the open source search engine lib=
+rary
+>> +# Xapian (see: https://xapian.org/). See the section "External Indexing=
+ and
+>> +# Searching" for details.
+>> +# This tag requires that the tag SEARCHENGINE is set to YES.
+>> +
+>> +SEARCHENGINE_URL       =3D
+>> +
+>> +# When SERVER_BASED_SEARCH and EXTERNAL_SEARCH are both enabled the uni=
+ndexed
+>> +# search data is written to a file for indexing by an external tool. Wi=
+th the
+>> +# SEARCHDATA_FILE tag the name of this file can be specified.
+>> +# The default file is: searchdata.xml.
+>> +# This tag requires that the tag SEARCHENGINE is set to YES.
+>> +
+>> +SEARCHDATA_FILE        =3D searchdata.xml
+>> +
+>> +# When SERVER_BASED_SEARCH and EXTERNAL_SEARCH are both enabled the
+>> +# EXTERNAL_SEARCH_ID tag can be used as an identifier for the project. =
+This is
+>> +# useful in combination with EXTRA_SEARCH_MAPPINGS to search through mu=
+ltiple
+>> +# projects and redirect the results back to the right project.
+>> +# This tag requires that the tag SEARCHENGINE is set to YES.
+>> +
+>> +EXTERNAL_SEARCH_ID     =3D
+>> +
+>> +# The EXTRA_SEARCH_MAPPINGS tag can be used to enable searching through=
+ doxygen
+>> +# projects other than the one defined by this configuration file, but t=
+hat are
+>> +# all added to the same external search index. Each project needs to ha=
+ve a
+>> +# unique id set via EXTERNAL_SEARCH_ID. The search mapping then maps th=
+e id of
+>> +# to a relative location where the documentation can be found. The form=
+at is:
+>> +# EXTRA_SEARCH_MAPPINGS =3D tagname1=3Dloc1 tagname2=3Dloc2 ...
+>> +# This tag requires that the tag SEARCHENGINE is set to YES.
+>> +
+>> +EXTRA_SEARCH_MAPPINGS  =3D
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the LaTeX output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_LATEX tag is set to YES, doxygen will generate LaTeX =
+output.
+>> +# The default value is: YES.
+>> +
+>> +GENERATE_LATEX         =3D NO
+>> +
+>> +# The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be =
+put. If a
+>> +# relative path is entered the value of OUTPUT_DIRECTORY will be put in=
+ front of
+>> +# it.
+>> +# The default directory is: latex.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_OUTPUT           =3D latex
+>> +
+>> +# The LATEX_CMD_NAME tag can be used to specify the LaTeX command name =
+to be
+>> +# invoked.
+>> +#
+>> +# Note that when enabling USE_PDFLATEX this option is only used for gen=
+erating
+>> +# bitmaps for formulas in the HTML output, but not in the Makefile that=
+ is
+>> +# written to the output directory.
+>> +# The default file is: latex.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_CMD_NAME         =3D latex
+>> +
+>> +# The MAKEINDEX_CMD_NAME tag can be used to specify the command name to=
+ generate
+>> +# index for LaTeX.
+>> +# The default file is: makeindex.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +MAKEINDEX_CMD_NAME     =3D makeindex
+>> +
+>> +# If the COMPACT_LATEX tag is set to YES, doxygen generates more compac=
+t LaTeX
+>> +# documents. This may be useful for small projects and may help to save=
+ some
+>> +# trees in general.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +COMPACT_LATEX          =3D NO
+>> +
+>> +# The PAPER_TYPE tag can be used to set the paper type that is used by =
+the
+>> +# printer.
+>> +# Possible values are: a4 (210 x 297 mm), letter (8.5 x 11 inches), leg=
+al (8.5 x
+>> +# 14 inches) and executive (7.25 x 10.5 inches).
+>> +# The default value is: a4.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +PAPER_TYPE             =3D a4
+>> +
+>> +# The EXTRA_PACKAGES tag can be used to specify one or more LaTeX packa=
+ge names
+>> +# that should be included in the LaTeX output. The package can be speci=
+fied just
+>> +# by its name or with the correct syntax as to be used with the LaTeX
+>> +# \usepackage command. To get the times font for instance you can speci=
+fy :
+>> +# EXTRA_PACKAGES=3Dtimes or EXTRA_PACKAGES=3D{times}
+>> +# To use the option intlimits with the amsmath package you can specify:
+>> +# EXTRA_PACKAGES=3D[intlimits]{amsmath}
+>> +# If left blank no extra packages will be included.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +EXTRA_PACKAGES         =3D
+>> +
+>> +# The LATEX_HEADER tag can be used to specify a personal LaTeX header f=
+or the
+>> +# generated LaTeX document. The header should contain everything until =
+the first
+>> +# chapter. If it is left blank doxygen will generate a standard header.=
+ See
+>> +# section "Doxygen usage" for information on how to let doxygen write t=
+he
+>> +# default header to a separate file.
+>> +#
+>> +# Note: Only use a user-defined header if you know what you are doing! =
+The
+>> +# following commands have a special meaning inside the header: $title,
+>> +# $datetime, $date, $doxygenversion, $projectname, $projectnumber,
+>> +# $projectbrief, $projectlogo. Doxygen will replace $title with the emp=
+ty
+>> +# string, for the replacement values of the other commands the user is =
+referred
+>> +# to HTML_HEADER.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_HEADER           =3D
+>> +
+>> +# The LATEX_FOOTER tag can be used to specify a personal LaTeX footer f=
+or the
+>> +# generated LaTeX document. The footer should contain everything after =
+the last
+>> +# chapter. If it is left blank doxygen will generate a standard footer.=
+ See
+>> +# LATEX_HEADER for more information on how to generate a default footer=
+ and what
+>> +# special commands can be used inside the footer.
+>> +#
+>> +# Note: Only use a user-defined footer if you know what you are doing!
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_FOOTER           =3D
+>> +
+>> +# The LATEX_EXTRA_FILES tag can be used to specify one or more extra im=
+ages or
+>> +# other source files which should be copied to the LATEX_OUTPUT output
+>> +# directory. Note that the files will be copied as-is; there are no com=
+mands or
+>> +# markers available.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_EXTRA_FILES      =3D
+>> +
+>> +# If the PDF_HYPERLINKS tag is set to YES, the LaTeX that is generated =
+is
+>> +# prepared for conversion to PDF (using ps2pdf or pdflatex). The PDF fi=
+le will
+>> +# contain links (just like the HTML output) instead of page references.=
+ This
+>> +# makes the output suitable for online browsing using a PDF viewer.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +PDF_HYPERLINKS         =3D YES
+>> +
+>> +# If the USE_PDFLATEX tag is set to YES, doxygen will use pdflatex to g=
+enerate
+>> +# the PDF file directly from the LaTeX files. Set this option to YES, t=
+o get a
+>> +# higher quality PDF documentation.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +USE_PDFLATEX           =3D YES
+>> +
+>> +# If the LATEX_BATCHMODE tag is set to YES, doxygen will add the \batch=
+mode
+>> +# command to the generated LaTeX files. This will instruct LaTeX to kee=
+p running
+>> +# if errors occur, instead of asking the user for help. This option is =
+also used
+>> +# when generating formulas in HTML.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_BATCHMODE        =3D NO
+>> +
+>> +# If the LATEX_HIDE_INDICES tag is set to YES then doxygen will not inc=
+lude the
+>> +# index chapters (such as File Index, Compound Index, etc.) in the outp=
+ut.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_HIDE_INDICES     =3D NO
+>> +
+>> +# If the LATEX_SOURCE_CODE tag is set to YES then doxygen will include =
+source
+>> +# code with syntax highlighting in the LaTeX output.
+>> +#
+>> +# Note that which sources are shown also depends on other settings such=
+ as
+>> +# SOURCE_BROWSER.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_SOURCE_CODE      =3D NO
+>> +
+>> +# The LATEX_BIB_STYLE tag can be used to specify the style to use for t=
+he
+>> +# bibliography, e.g. plainnat, or ieeetr. See
+>> +# https://en.wikipedia.org/wiki/BibTeX and \cite for more info.
+>> +# The default value is: plain.
+>> +# This tag requires that the tag GENERATE_LATEX is set to YES.
+>> +
+>> +LATEX_BIB_STYLE        =3D plain
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the RTF output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_RTF tag is set to YES, doxygen will generate RTF outp=
+ut. The
+>> +# RTF output is optimized for Word 97 and may not look too pretty with =
+other RTF
+>> +# readers/editors.
+>> +# The default value is: NO.
+>> +
+>> +GENERATE_RTF           =3D NO
+>> +
+>> +# The RTF_OUTPUT tag is used to specify where the RTF docs will be put.=
+ If a
+>> +# relative path is entered the value of OUTPUT_DIRECTORY will be put in=
+ front of
+>> +# it.
+>> +# The default directory is: rtf.
+>> +# This tag requires that the tag GENERATE_RTF is set to YES.
+>> +
+>> +RTF_OUTPUT             =3D rtf
+>> +
+>> +# If the COMPACT_RTF tag is set to YES, doxygen generates more compact =
+RTF
+>> +# documents. This may be useful for small projects and may help to save=
+ some
+>> +# trees in general.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_RTF is set to YES.
+>> +
+>> +COMPACT_RTF            =3D NO
+>> +
+>> +# If the RTF_HYPERLINKS tag is set to YES, the RTF that is generated wi=
+ll
+>> +# contain hyperlink fields. The RTF file will contain links (just like =
+the HTML
+>> +# output) instead of page references. This makes the output suitable fo=
+r online
+>> +# browsing using Word or some other Word compatible readers that suppor=
+t those
+>> +# fields.
+>> +#
+>> +# Note: WordPad (write) and others do not support links.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_RTF is set to YES.
+>> +
+>> +RTF_HYPERLINKS         =3D YES
+>> +
+>> +# Load stylesheet definitions from file. Syntax is similar to doxygen's=
+ config
+>> +# file, i.e. a series of assignments. You only have to provide replacem=
+ents,
+>> +# missing definitions are set to their default value.
+>> +#
+>> +# See also section "Doxygen usage" for information on how to generate t=
+he
+>> +# default style sheet that doxygen normally uses.
+>> +# This tag requires that the tag GENERATE_RTF is set to YES.
+>> +
+>> +RTF_STYLESHEET_FILE    =3D
+>> +
+>> +# Set optional variables used in the generation of an RTF document. Syn=
+tax is
+>> +# similar to doxygen's config file. A template extensions file can be g=
+enerated
+>> +# using doxygen -e rtf extensionFile.
+>> +# This tag requires that the tag GENERATE_RTF is set to YES.
+>> +
+>> +RTF_EXTENSIONS_FILE    =3D
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the man page output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_MAN tag is set to YES, doxygen will generate man page=
+s for
+>> +# classes and files.
+>> +# The default value is: NO.
+>> +
+>> +GENERATE_MAN           =3D NO
+>> +
+>> +# The MAN_OUTPUT tag is used to specify where the man pages will be put=
+. If a
+>> +# relative path is entered the value of OUTPUT_DIRECTORY will be put in=
+ front of
+>> +# it. A directory man3 will be created inside the directory specified b=
+y
+>> +# MAN_OUTPUT.
+>> +# The default directory is: man.
+>> +# This tag requires that the tag GENERATE_MAN is set to YES.
+>> +
+>> +MAN_OUTPUT             =3D man
+>> +
+>> +# The MAN_EXTENSION tag determines the extension that is added to the g=
+enerated
+>> +# man pages. In case the manual section does not start with a number, t=
+he number
+>> +# 3 is prepended. The dot (.) at the beginning of the MAN_EXTENSION tag=
+ is
+>> +# optional.
+>> +# The default value is: .3.
+>> +# This tag requires that the tag GENERATE_MAN is set to YES.
+>> +
+>> +MAN_EXTENSION          =3D .3
+>> +
+>> +# If the MAN_LINKS tag is set to YES and doxygen generates man output, =
+then it
+>> +# will generate one additional man file for each entity documented in t=
+he real
+>> +# man page(s). These additional files only source the real man page, bu=
+t without
+>> +# them the man command would be unable to find the correct page.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_MAN is set to YES.
+>> +
+>> +MAN_LINKS              =3D NO
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the XML output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_XML tag is set to YES, doxygen will generate an XML f=
+ile that
+>> +# captures the structure of the code including all documentation.
+>> +# The default value is: NO.
+>> +
+>> +GENERATE_XML           =3D YES
+>> +
+>> +# The XML_OUTPUT tag is used to specify where the XML pages will be put=
+. If a
+>> +# relative path is entered the value of OUTPUT_DIRECTORY will be put in=
+ front of
+>> +# it.
+>> +# The default directory is: xml.
+>> +# This tag requires that the tag GENERATE_XML is set to YES.
+>> +
+>> +XML_OUTPUT             =3D xml
+>> +
+>> +# If the XML_PROGRAMLISTING tag is set to YES, doxygen will dump the pr=
+ogram
+>> +# listings (including syntax highlighting and cross-referencing informa=
+tion) to
+>> +# the XML output. Note that enabling this will significantly increase t=
+he size
+>> +# of the XML output.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag GENERATE_XML is set to YES.
+>> +
+>> +XML_PROGRAMLISTING     =3D YES
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the DOCBOOK output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_DOCBOOK tag is set to YES, doxygen will generate Docb=
+ook files
+>> +# that can be used to generate PDF.
+>> +# The default value is: NO.
+>> +
+>> +GENERATE_DOCBOOK       =3D NO
+>> +
+>> +# The DOCBOOK_OUTPUT tag is used to specify where the Docbook pages wil=
+l be put.
+>> +# If a relative path is entered the value of OUTPUT_DIRECTORY will be p=
+ut in
+>> +# front of it.
+>> +# The default directory is: docbook.
+>> +# This tag requires that the tag GENERATE_DOCBOOK is set to YES.
+>> +
+>> +DOCBOOK_OUTPUT         =3D docbook
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options for the AutoGen Definitions output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_AUTOGEN_DEF tag is set to YES, doxygen will generate =
+an
+>> +# AutoGen Definitions (see http://autogen.sourceforge.net/) file that c=
+aptures
+>> +# the structure of the code including all documentation. Note that this=
+ feature
+>> +# is still experimental and incomplete at the moment.
+>> +# The default value is: NO.
+>> +
+>> +GENERATE_AUTOGEN_DEF   =3D NO
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the Perl module output
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the GENERATE_PERLMOD tag is set to YES, doxygen will generate a Pe=
+rl module
+>> +# file that captures the structure of the code including all documentat=
+ion.
+>> +#
+>> +# Note that this feature is still experimental and incomplete at the mo=
+ment.
+>> +# The default value is: NO.
+>> +
+>> +GENERATE_PERLMOD       =3D NO
+>> +
+>> +# If the PERLMOD_LATEX tag is set to YES, doxygen will generate the nec=
+essary
+>> +# Makefile rules, Perl scripts and LaTeX code to be able to generate PD=
+F and DVI
+>> +# output from the Perl module output.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag GENERATE_PERLMOD is set to YES.
+>> +
+>> +PERLMOD_LATEX          =3D NO
+>> +
+>> +# If the PERLMOD_PRETTY tag is set to YES, the Perl module output will =
+be nicely
+>> +# formatted so it can be parsed by a human reader. This is useful if yo=
+u want to
+>> +# understand what is going on. On the other hand, if this tag is set to=
+ NO, the
+>> +# size of the Perl module output will be much smaller and Perl will par=
+se it
+>> +# just the same.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag GENERATE_PERLMOD is set to YES.
+>> +
+>> +PERLMOD_PRETTY         =3D YES
+>> +
+>> +# The names of the make variables in the generated doxyrules.make file =
+are
+>> +# prefixed with the string contained in PERLMOD_MAKEVAR_PREFIX. This is=
+ useful
+>> +# so different doxyrules.make files included by the same Makefile don't
+>> +# overwrite each other's variables.
+>> +# This tag requires that the tag GENERATE_PERLMOD is set to YES.
+>> +
+>> +PERLMOD_MAKEVAR_PREFIX =3D
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the preprocessor
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the ENABLE_PREPROCESSING tag is set to YES, doxygen will evaluate =
+all
+>> +# C-preprocessor directives found in the sources and include files.
+>> +# The default value is: YES.
+>> +
+>> +ENABLE_PREPROCESSING   =3D YES
+>> +
+>> +# If the MACRO_EXPANSION tag is set to YES, doxygen will expand all mac=
+ro names
+>> +# in the source code. If set to NO, only conditional compilation will b=
+e
+>> +# performed. Macro expansion can be done in a controlled way by setting
+>> +# EXPAND_ONLY_PREDEF to YES.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +MACRO_EXPANSION        =3D YES
+>> +
+>> +# If the EXPAND_ONLY_PREDEF and MACRO_EXPANSION tags are both set to YE=
+S then
+>> +# the macro expansion is limited to the macros specified with the PREDE=
+FINED and
+>> +# EXPAND_AS_DEFINED tags.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +EXPAND_ONLY_PREDEF     =3D NO
+>> +
+>> +# If the SEARCH_INCLUDES tag is set to YES, the include files in the
+>> +# INCLUDE_PATH will be searched if a #include is found.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +SEARCH_INCLUDES        =3D YES
+>> +
+>> +# The INCLUDE_PATH tag can be used to specify one or more directories t=
+hat
+>> +# contain include files that are not input files but should be processe=
+d by the
+>> +# preprocessor.
+>> +# This tag requires that the tag SEARCH_INCLUDES is set to YES.
+>> +
+>> +INCLUDE_PATH           =3D "@XEN_BASE@/xen/include/generated" \
+>> +                         "@XEN_BASE@/xen/include/"
+>> +
+>> +# You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wild=
+card
+>> +# patterns (like *.h and *.hpp) to filter out the header-files in the
+>> +# directories. If left blank, the patterns specified with FILE_PATTERNS=
+ will be
+>> +# used.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +INCLUDE_FILE_PATTERNS  =3D
+>> +
+>> +# The PREDEFINED tag can be used to specify one or more macro names tha=
+t are
+>> +# defined before the preprocessor is started (similar to the -D option =
+of e.g.
+>> +# gcc). The argument of the tag is a list of macros of the form: name o=
+r
+>> +# name=3Ddefinition (no spaces). If the definition and the "=3D" are om=
+itted, "=3D1"
+>> +# is assumed. To prevent a macro definition from being undefined via #u=
+ndef or
+>> +# recursively expanded use the :=3D operator instead of the =3D operato=
+r.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +PREDEFINED             =3D __attribute__(x)=3D \
+>> +                         DOXYGEN \
+>> +                         __XEN__
+>> +
+>> +# If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES the=
+n this
+>> +# tag can be used to specify a list of macro names that should be expan=
+ded. The
+>> +# macro definition that is found in the sources will be used. Use the P=
+REDEFINED
+>> +# tag if you want to use a different macro definition that overrules th=
+e
+>> +# definition found in the source code.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +EXPAND_AS_DEFINED      =3D
+>> +
+>> +# If the SKIP_FUNCTION_MACROS tag is set to YES then doxygen's preproce=
+ssor will
+>> +# remove all references to function-like macros that are alone on a lin=
+e, have
+>> +# an all uppercase name, and do not end with a semicolon. Such function=
+ macros
+>> +# are typically used for boiler-plate code, and will confuse the parser=
+ if not
+>> +# removed.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+>> +
+>> +SKIP_FUNCTION_MACROS   =3D NO
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to external references
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# The TAGFILES tag can be used to specify one or more tag files. For ea=
+ch tag
+>> +# file the location of the external documentation should be added. The =
+format of
+>> +# a tag file without this location is as follows:
+>> +# TAGFILES =3D file1 file2 ...
+>> +# Adding location for the tag files is done as follows:
+>> +# TAGFILES =3D file1=3Dloc1 "file2 =3D loc2" ...
+>> +# where loc1 and loc2 can be relative or absolute paths or URLs. See th=
+e
+>> +# section "Linking to external documentation" for more information abou=
+t the use
+>> +# of tag files.
+>> +# Note: Each tag file must have a unique name (where the name does NOT =
+include
+>> +# the path). If a tag file is not located in the directory in which dox=
+ygen is
+>> +# run, you must also specify the path to the tagfile here.
+>> +
+>> +TAGFILES               =3D
+>> +
+>> +# When a file name is specified after GENERATE_TAGFILE, doxygen will cr=
+eate a
+>> +# tag file that is based on the input files it reads. See section "Link=
+ing to
+>> +# external documentation" for more information about the usage of tag f=
+iles.
+>> +
+>> +GENERATE_TAGFILE       =3D
+>> +
+>> +# If the ALLEXTERNALS tag is set to YES, all external class will be lis=
+ted in
+>> +# the class index. If set to NO, only the inherited external classes wi=
+ll be
+>> +# listed.
+>> +# The default value is: NO.
+>> +
+>> +ALLEXTERNALS           =3D NO
+>> +
+>> +# If the EXTERNAL_GROUPS tag is set to YES, all external groups will be=
+ listed
+>> +# in the modules index. If set to NO, only the current project's groups=
+ will be
+>> +# listed.
+>> +# The default value is: YES.
+>> +
+>> +EXTERNAL_GROUPS        =3D YES
+>> +
+>> +# If the EXTERNAL_PAGES tag is set to YES, all external pages will be l=
+isted in
+>> +# the related pages index. If set to NO, only the current project's pag=
+es will
+>> +# be listed.
+>> +# The default value is: YES.
+>> +
+>> +EXTERNAL_PAGES         =3D YES
+>> +
+>> +#----------------------------------------------------------------------=
+-----
+>> +# Configuration options related to the dot tool
+>> +#----------------------------------------------------------------------=
+-----
+>> +
+>> +# If the CLASS_DIAGRAMS tag is set to YES, doxygen will generate a clas=
+s diagram
+>> +# (in HTML and LaTeX) for classes with base or super classes. Setting t=
+he tag to
+>> +# NO turns the diagrams off. Note that this option also works with HAVE=
+_DOT
+>> +# disabled, but it is recommended to install and use dot, since it yiel=
+ds more
+>> +# powerful graphs.
+>> +# The default value is: YES.
+>> +
+>> +CLASS_DIAGRAMS         =3D NO
+>> +
+>> +# You can include diagrams made with dia in doxygen documentation. Doxy=
+gen will
+>> +# then run dia to produce the diagram and insert it in the documentatio=
+n. The
+>> +# DIA_PATH tag allows you to specify the directory where the dia binary=
+ resides.
+>> +# If left empty dia is assumed to be found in the default search path.
+>> +
+>> +DIA_PATH               =3D
+>> +
+>> +# If set to YES the inheritance and collaboration graphs will hide inhe=
+ritance
+>> +# and usage relations if the target is undocumented or is not a class.
+>> +# The default value is: YES.
+>> +
+>> +HIDE_UNDOC_RELATIONS   =3D YES
+>> +
+>> +# If you set the HAVE_DOT tag to YES then doxygen will assume the dot t=
+ool is
+>> +# available from the path. This tool is part of Graphviz (see:
+>> +# http://www.graphviz.org/), a graph visualization toolkit from AT&T an=
+d Lucent
+>> +# Bell Labs. The other options in this section have no effect if this o=
+ption is
+>> +# set to NO
+>> +# The default value is: NO.
+>> +
+>> +HAVE_DOT               =3D NO
+>> +
+>> +# The DOT_NUM_THREADS specifies the number of dot invocations doxygen i=
+s allowed
+>> +# to run in parallel. When set to 0 doxygen will base this on the numbe=
+r of
+>> +# processors available in the system. You can set it explicitly to a va=
+lue
+>> +# larger than 0 to get control over the balance between CPU load and pr=
+ocessing
+>> +# speed.
+>> +# Minimum value: 0, maximum value: 32, default value: 0.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_NUM_THREADS        =3D 0
+>> +
+>> +# When you want a differently looking font in the dot files that doxyge=
+n
+>> +# generates you can specify the font name using DOT_FONTNAME. You need =
+to make
+>> +# sure dot is able to find the font, which can be done by putting it in=
+ a
+>> +# standard location or by setting the DOTFONTPATH environment variable =
+or by
+>> +# setting DOT_FONTPATH to the directory containing the font.
+>> +# The default value is: Helvetica.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_FONTNAME           =3D Helvetica
+>> +
+>> +# The DOT_FONTSIZE tag can be used to set the size (in points) of the f=
+ont of
+>> +# dot graphs.
+>> +# Minimum value: 4, maximum value: 24, default value: 10.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_FONTSIZE           =3D 10
+>> +
+>> +# By default doxygen will tell dot to use the default font as specified=
+ with
+>> +# DOT_FONTNAME. If you specify a different font using DOT_FONTNAME you =
+can set
+>> +# the path where dot can find it using this tag.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_FONTPATH           =3D
+>> +
+>> +# If the CLASS_GRAPH tag is set to YES then doxygen will generate a gra=
+ph for
+>> +# each documented class showing the direct and indirect inheritance rel=
+ations.
+>> +# Setting this tag to YES will force the CLASS_DIAGRAMS tag to NO.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +CLASS_GRAPH            =3D YES
+>> +
+>> +# If the COLLABORATION_GRAPH tag is set to YES then doxygen will genera=
+te a
+>> +# graph for each documented class showing the direct and indirect imple=
+mentation
+>> +# dependencies (inheritance, containment, and class references variable=
+s) of the
+>> +# class with other documented classes.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +COLLABORATION_GRAPH    =3D YES
+>> +
+>> +# If the GROUP_GRAPHS tag is set to YES then doxygen will generate a gr=
+aph for
+>> +# groups, showing the direct groups dependencies.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +GROUP_GRAPHS           =3D YES
+>> +
+>> +# If the UML_LOOK tag is set to YES, doxygen will generate inheritance =
+and
+>> +# collaboration diagrams in a style similar to the OMG's Unified Modeli=
+ng
+>> +# Language.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +UML_LOOK               =3D NO
+>> +
+>> +# If the UML_LOOK tag is enabled, the fields and methods are shown insi=
+de the
+>> +# class node. If there are many fields or methods and many nodes the gr=
+aph may
+>> +# become too big to be useful. The UML_LIMIT_NUM_FIELDS threshold limit=
+s the
+>> +# number of items for each type to make the size more manageable. Set t=
+his to 0
+>> +# for no limit. Note that the threshold may be exceeded by 50% before t=
+he limit
+>> +# is enforced. So when you set the threshold to 10, up to 15 fields may=
+ appear,
+>> +# but if the number exceeds 15, the total amount of fields shown is lim=
+ited to
+>> +# 10.
+>> +# Minimum value: 0, maximum value: 100, default value: 10.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +UML_LIMIT_NUM_FIELDS   =3D 10
+>> +
+>> +# If the TEMPLATE_RELATIONS tag is set to YES then the inheritance and
+>> +# collaboration graphs will show the relations between templates and th=
+eir
+>> +# instances.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +TEMPLATE_RELATIONS     =3D NO
+>> +
+>> +# If the INCLUDE_GRAPH, ENABLE_PREPROCESSING and SEARCH_INCLUDES tags a=
+re set to
+>> +# YES then doxygen will generate a graph for each documented file showi=
+ng the
+>> +# direct and indirect include dependencies of the file with other docum=
+ented
+>> +# files.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +INCLUDE_GRAPH          =3D YES
+>> +
+>> +# If the INCLUDED_BY_GRAPH, ENABLE_PREPROCESSING and SEARCH_INCLUDES ta=
+gs are
+>> +# set to YES then doxygen will generate a graph for each documented fil=
+e showing
+>> +# the direct and indirect include dependencies of the file with other d=
+ocumented
+>> +# files.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +INCLUDED_BY_GRAPH      =3D YES
+>> +
+>> +# If the CALL_GRAPH tag is set to YES then doxygen will generate a call
+>> +# dependency graph for every global function or class method.
+>> +#
+>> +# Note that enabling this option will significantly increase the time o=
+f a run.
+>> +# So in most cases it will be better to enable call graphs for selected
+>> +# functions only using the \callgraph command. Disabling a call graph c=
+an be
+>> +# accomplished by means of the command \hidecallgraph.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +CALL_GRAPH             =3D NO
+>> +
+>> +# If the CALLER_GRAPH tag is set to YES then doxygen will generate a ca=
+ller
+>> +# dependency graph for every global function or class method.
+>> +#
+>> +# Note that enabling this option will significantly increase the time o=
+f a run.
+>> +# So in most cases it will be better to enable caller graphs for select=
+ed
+>> +# functions only using the \callergraph command. Disabling a caller gra=
+ph can be
+>> +# accomplished by means of the command \hidecallergraph.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +CALLER_GRAPH           =3D NO
+>> +
+>> +# If the GRAPHICAL_HIERARCHY tag is set to YES then doxygen will graphi=
+cal
+>> +# hierarchy of all classes instead of a textual one.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +GRAPHICAL_HIERARCHY    =3D YES
+>> +
+>> +# If the DIRECTORY_GRAPH tag is set to YES then doxygen will show the
+>> +# dependencies a directory has on other directories in a graphical way.=
+ The
+>> +# dependency relations are determined by the #include relations between=
+ the
+>> +# files in the directories.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DIRECTORY_GRAPH        =3D YES
+>> +
+>> +# The DOT_IMAGE_FORMAT tag can be used to set the image format of the i=
+mages
+>> +# generated by dot. For an explanation of the image formats see the sec=
+tion
+>> +# output formats in the documentation of the dot tool (Graphviz (see:
+>> +# http://www.graphviz.org/)).
+>> +# Note: If you choose svg you need to set HTML_FILE_EXTENSION to xhtml =
+in order
+>> +# to make the SVG files visible in IE 9+ (other browsers do not have th=
+is
+>> +# requirement).
+>> +# Possible values are: png, jpg, gif, svg, png:gd, png:gd:gd, png:cairo=
+,
+>> +# png:cairo:gd, png:cairo:cairo, png:cairo:gdiplus, png:gdiplus and
+>> +# png:gdiplus:gdiplus.
+>> +# The default value is: png.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_IMAGE_FORMAT       =3D png
+>> +
+>> +# If DOT_IMAGE_FORMAT is set to svg, then this option can be set to YES=
+ to
+>> +# enable generation of interactive SVG images that allow zooming and pa=
+nning.
+>> +#
+>> +# Note that this requires a modern browser other than Internet Explorer=
+. Tested
+>> +# and working are Firefox, Chrome, Safari, and Opera.
+>> +# Note: For IE 9+ you need to set HTML_FILE_EXTENSION to xhtml in order=
+ to make
+>> +# the SVG files visible. Older versions of IE do not have SVG support.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +INTERACTIVE_SVG        =3D NO
+>> +
+>> +# The DOT_PATH tag can be used to specify the path where the dot tool c=
+an be
+>> +# found. If left blank, it is assumed the dot tool can be found in the =
+path.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_PATH               =3D
+>> +
+>> +# The DOTFILE_DIRS tag can be used to specify one or more directories t=
+hat
+>> +# contain dot files that are included in the documentation (see the \do=
+tfile
+>> +# command).
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOTFILE_DIRS           =3D
+>> +
+>> +# The MSCFILE_DIRS tag can be used to specify one or more directories t=
+hat
+>> +# contain msc files that are included in the documentation (see the \ms=
+cfile
+>> +# command).
+>> +
+>> +MSCFILE_DIRS           =3D
+>> +
+>> +# The DIAFILE_DIRS tag can be used to specify one or more directories t=
+hat
+>> +# contain dia files that are included in the documentation (see the \di=
+afile
+>> +# command).
+>> +
+>> +DIAFILE_DIRS           =3D
+>> +
+>> +# The DOT_GRAPH_MAX_NODES tag can be used to set the maximum number of =
+nodes
+>> +# that will be shown in the graph. If the number of nodes in a graph be=
+comes
+>> +# larger than this value, doxygen will truncate the graph, which is vis=
+ualized
+>> +# by representing a node as a red box. Note that doxygen if the number =
+of direct
+>> +# children of the root node in a graph is already larger than
+>> +# DOT_GRAPH_MAX_NODES then the graph will not be shown at all. Also not=
+e that
+>> +# the size of a graph can be further restricted by MAX_DOT_GRAPH_DEPTH.
+>> +# Minimum value: 0, maximum value: 10000, default value: 50.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_GRAPH_MAX_NODES    =3D 50
+>> +
+>> +# The MAX_DOT_GRAPH_DEPTH tag can be used to set the maximum depth of t=
+he graphs
+>> +# generated by dot. A depth value of 3 means that only nodes reachable =
+from the
+>> +# root by following a path via at most 3 edges will be shown. Nodes tha=
+t lay
+>> +# further from the root node will be omitted. Note that setting this op=
+tion to 1
+>> +# or 2 may greatly reduce the computation time needed for large code ba=
+ses. Also
+>> +# note that the size of a graph can be further restricted by
+>> +# DOT_GRAPH_MAX_NODES. Using a depth of 0 means no depth restriction.
+>> +# Minimum value: 0, maximum value: 1000, default value: 0.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +MAX_DOT_GRAPH_DEPTH    =3D 0
+>> +
+>> +# Set the DOT_TRANSPARENT tag to YES to generate images with a transpar=
+ent
+>> +# background. This is disabled by default, because dot on Windows does =
+not seem
+>> +# to support this out of the box.
+>> +#
+>> +# Warning: Depending on the platform used, enabling this option may lea=
+d to
+>> +# badly anti-aliased labels on the edges of a graph (i.e. they become h=
+ard to
+>> +# read).
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_TRANSPARENT        =3D NO
+>> +
+>> +# Set the DOT_MULTI_TARGETS tag to YES to allow dot to generate multipl=
+e output
+>> +# files in one run (i.e. multiple -o and -T options on the command line=
+). This
+>> +# makes dot run faster, but since only newer versions of dot (>1.8.10) =
+support
+>> +# this, this feature is disabled by default.
+>> +# The default value is: NO.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_MULTI_TARGETS      =3D NO
+>> +
+>> +# If the GENERATE_LEGEND tag is set to YES doxygen will generate a lege=
+nd page
+>> +# explaining the meaning of the various boxes and arrows in the dot gen=
+erated
+>> +# graphs.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +GENERATE_LEGEND        =3D YES
+>> +
+>> +# If the DOT_CLEANUP tag is set to YES, doxygen will remove the interme=
+diate dot
+>> +# files that are used to generate the various graphs.
+>> +# The default value is: YES.
+>> +# This tag requires that the tag HAVE_DOT is set to YES.
+>> +
+>> +DOT_CLEANUP            =3D YES
+>> diff --git a/m4/ax_python_module.m4 b/m4/ax_python_module.m4
+>> new file mode 100644
+>> index 0000000000..107d88264a
+>> --- /dev/null
+>> +++ b/m4/ax_python_module.m4
+>> @@ -0,0 +1,56 @@
+>> +# =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>> +#     https://www.gnu.org/software/autoconf-archive/ax_python_module.ht=
+ml
+>> +# =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>> +#
+>> +# SYNOPSIS
+>> +#
+>> +#   AX_PYTHON_MODULE(modname[, fatal, python])
+>> +#
+>> +# DESCRIPTION
+>> +#
+>> +#   Checks for Python module.
+>> +#
+>> +#   If fatal is non-empty then absence of a module will trigger an erro=
+r.
+>> +#   The third parameter can either be "python" for Python 2 or "python3=
+" for
+>> +#   Python 3; defaults to Python 3.
+>> +#
+>> +# LICENSE
+>> +#
+>> +#   Copyright (c) 2008 Andrew Collier
+>> +#
+>> +#   Copying and distribution of this file, with or without modification=
+, are
+>> +#   permitted in any medium without royalty provided the copyright noti=
+ce
+>> +#   and this notice are preserved. This file is offered as-is, without =
+any
+>> +#   warranty.
+>> +
+>> +#serial 9
+>> +
+>> +AU_ALIAS([AC_PYTHON_MODULE], [AX_PYTHON_MODULE])
+>> +AC_DEFUN([AX_PYTHON_MODULE],[
+>> +    if test -z $PYTHON;
+>> +    then
+>> +        if test -z "$3";
+>> +        then
+>> +            PYTHON=3D"python3"
+>> +        else
+>> +            PYTHON=3D"$3"
+>> +        fi
+>> +    fi
+>> +    PYTHON_NAME=3D`basename $PYTHON`
+>> +    AC_MSG_CHECKING($PYTHON_NAME module: $1)
+>> +    $PYTHON -c "import $1" 2>/dev/null
+>> +    if test $? -eq 0;
+>> +    then
+>> +        AC_MSG_RESULT(yes)
+>> +        eval AS_TR_CPP(HAVE_PYMOD_$1)=3Dyes
+>> +    else
+>> +        AC_MSG_RESULT(no)
+>> +        eval AS_TR_CPP(HAVE_PYMOD_$1)=3Dno
+>> +        #
+>> +        if test -n "$2"
+>> +        then
+>> +            AC_MSG_ERROR(failed to find required module $1)
+>> +            exit 1
+>> +        fi
+>> +    fi
+>> +])
+>> \ No newline at end of file
+>> diff --git a/m4/docs_tool.m4 b/m4/docs_tool.m4
+>> index 3e8814ac8d..39aa348026 100644
+>> --- a/m4/docs_tool.m4
+>> +++ b/m4/docs_tool.m4
+>> @@ -15,3 +15,12 @@ dnl
+>>         AC_MSG_WARN([$2 is not available so some documentation won't be =
+built])
+>>     ])
+>> ])
+>> +
+>> +AC_DEFUN([AX_DOCS_TOOL_REQ_PROG], [
+>> +dnl
+>> +    AC_ARG_VAR([$1], [Path to $2 tool])
+>> +    AC_PATH_PROG([$1], [$2])
+>> +    AS_IF([! test -x "$ac_cv_path_$1"], [
+>> +        AC_MSG_ERROR([$2 is needed])
+>> +    ])
+>> +])
+>> \ No newline at end of file
+>> --=20
+>> 2.17.1
 
 
