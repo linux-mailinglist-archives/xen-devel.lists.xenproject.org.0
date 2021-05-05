@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A083739AA
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 13:47:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123034.232112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD2DA3739AD
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 13:50:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123043.232124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leFzZ-0003ki-F3; Wed, 05 May 2021 11:47:01 +0000
+	id 1leG2H-0004Qk-Tj; Wed, 05 May 2021 11:49:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123034.232112; Wed, 05 May 2021 11:47:01 +0000
+Received: by outflank-mailman (output) from mailman id 123043.232124; Wed, 05 May 2021 11:49:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leFzZ-0003i4-BI; Wed, 05 May 2021 11:47:01 +0000
-Received: by outflank-mailman (input) for mailman id 123034;
- Wed, 05 May 2021 11:46:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1leG2H-0004Nj-Q9; Wed, 05 May 2021 11:49:49 +0000
+Received: by outflank-mailman (input) for mailman id 123043;
+ Wed, 05 May 2021 11:49:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Xmi=KA=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1leFzX-0003hy-Db
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 11:46:59 +0000
-Received: from mail-wm1-f49.google.com (unknown [209.85.128.49])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4fa12e28-e515-4361-91f8-a1cc8d2861e8;
- Wed, 05 May 2021 11:46:58 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- l18-20020a1ced120000b029014c1adff1edso3236712wmh.4
- for <xen-devel@lists.xenproject.org>; Wed, 05 May 2021 04:46:58 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id a15sm18874106wrr.53.2021.05.05.04.46.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 May 2021 04:46:57 -0700 (PDT)
+ <SRS0=rAkL=KA=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1leG2G-0004NU-6h
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 11:49:48 +0000
+Received: from MTA-06-3.privateemail.com (unknown [198.54.127.59])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 264fca86-719b-4a67-b3b5-5a57718f1982;
+ Wed, 05 May 2021 11:49:47 +0000 (UTC)
+Received: from MTA-06.privateemail.com (localhost [127.0.0.1])
+ by MTA-06.privateemail.com (Postfix) with ESMTP id 97FF260172
+ for <xen-devel@lists.xenproject.org>; Wed,  5 May 2021 07:49:46 -0400 (EDT)
+Received: from mail-wm1-f44.google.com (unknown [10.20.151.226])
+ by MTA-06.privateemail.com (Postfix) with ESMTPA id 5F5596014C
+ for <xen-devel@lists.xenproject.org>; Wed,  5 May 2021 07:49:46 -0400 (EDT)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 82-20020a1c01550000b0290142562ff7c9so950829wmb.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 May 2021 04:49:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,44 +44,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fa12e28-e515-4361-91f8-a1cc8d2861e8
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=PBdsPUy4DRPAzZuVsLYDfVk9sY5Ky4uTdfEw+XMXhSI=;
-        b=Fw+j79j6XeLkAHNw+dx8WUtyrxa56hzqE29lK9gLqt75qgcePabqNIj7sEIi3+7gZ0
-         MOoT1GsSjvyPzLlHTo825JAAXCzG1/nd86asep+Ry3IbuD2ObIVn5T9arWHqQWuBT1hz
-         tK0tgRMsyLAxmKruIccNp7i+0obuMQJpD5DXsCbXWSS1k4o6O3CqiUByMakiSBEXOLK1
-         qf3hApv55rb2lHxNUyfrbeGcI5Lm2rCTwqpA2wlIH622W35cP3Ez3+lu2tfF4bPY8NFT
-         EVl/UzP/GJ4GM/P9Mn82sGtgp5qMZYkgH3dtjlLbp98jpVcWkVa0QVp2ocrzdsA16L+y
-         hbcg==
-X-Gm-Message-State: AOAM5338zINrAmeoaBfzT7FCdYJQReaImn8OsssqRXC8gLmbvmZ+GW3j
-	JC3g+p0MmgEZOoXE4+UMUz8=
-X-Google-Smtp-Source: ABdhPJyU8OIY52MWZyxOw6ncxPZ0GYVaG8zTkh7cJh2GJqP/+sFlTELVApgmfey2wOdrH5aJLQfYSw==
-X-Received: by 2002:a1c:b342:: with SMTP id c63mr9499069wmf.179.1620215217661;
-        Wed, 05 May 2021 04:46:57 -0700 (PDT)
-Date: Wed, 5 May 2021 11:46:55 +0000
-From: Wei Liu <wl@xen.org>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH v2] xl: constify cmd_table entries
-Message-ID: <20210505114655.ejblmjv3u4aq65ia@liuwe-devbox-debian-v2>
-References: <20210504161436.613782-1-anthony.perard@citrix.com>
+X-Inumbo-ID: 264fca86-719b-4a67-b3b5-5a57718f1982
+X-Gm-Message-State: AOAM5314EE1e3qXLTsmjfJx6qmvvgy84hmH8pg3AiUv1pj83V+EVHP+/
+	1UByUwsMfQbA9VNEXk6bt5V2uSSes8huz0crHEQ=
+X-Google-Smtp-Source: ABdhPJx/OoMFcquB0xNcq8c6oE0Ypy0RqvVuc1wxqa2rbuffTuNMZX0NE0op8aI5NzZwekZIIxIeqztKrSWcXMd/+Hc=
+X-Received: by 2002:a05:600c:4fc4:: with SMTP id o4mr33030729wmq.51.1620215384957;
+ Wed, 05 May 2021 04:49:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210504161436.613782-1-anthony.perard@citrix.com>
+References: <20210505074308.11016-1-michal.orzel@arm.com> <20210505074308.11016-11-michal.orzel@arm.com>
+ <c5676e69-a474-d1ad-c7e9-49c03be3ab66@suse.com>
+In-Reply-To: <c5676e69-a474-d1ad-c7e9-49c03be3ab66@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Wed, 5 May 2021 07:49:05 -0400
+X-Gmail-Original-Message-ID: <CABfawhneqLE4uFkQW6rDR3Yc04SsohpUcAzqz9XkY-x5KfZ3vw@mail.gmail.com>
+Message-ID: <CABfawhneqLE4uFkQW6rDR3Yc04SsohpUcAzqz9XkY-x5KfZ3vw@mail.gmail.com>
+Subject: Re: [PATCH v3 10/10] arm64: Change type of hsr, cpsr, spsr_el1 to uint64_t
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Michal Orzel <michal.orzel@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	bertrand.marquis@arm.com, wei.chen@arm.com, 
+	Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Tue, May 04, 2021 at 05:14:36PM +0100, Anthony PERARD wrote:
-> Also constify cmdtable_len and make use of ARRAY_SIZE, which is
-> available in "xen-tools/libs.h".
-> 
-> The entries in cmd_table don't need to be modified once xl is running.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+On Wed, May 5, 2021 at 4:00 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 05.05.2021 09:43, Michal Orzel wrote:
+> > --- a/xen/include/public/arch-arm.h
+> > +++ b/xen/include/public/arch-arm.h
+> > @@ -267,10 +267,10 @@ struct vcpu_guest_core_regs
+> >
+> >      /* Return address and mode */
+> >      __DECL_REG(pc64,         pc32);             /* ELR_EL2 */
+> > -    uint32_t cpsr;                              /* SPSR_EL2 */
+> > +    uint64_t cpsr;                              /* SPSR_EL2 */
+> >
+> >      union {
+> > -        uint32_t spsr_el1;       /* AArch64 */
+> > +        uint64_t spsr_el1;       /* AArch64 */
+> >          uint32_t spsr_svc;       /* AArch32 */
+> >      };
+>
+> This change affects, besides domctl, also default_initialise_vcpu(),
+> which Arm's arch_initialise_vcpu() calls. I realize do_arm_vcpu_op()
+> only allows two unrelated VCPUOP_* to pass, but then I don't
+> understand why arch_initialise_vcpu() doesn't simply return e.g.
+> -EOPNOTSUPP. Hence I suspect I'm missing something.
+>
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -38,7 +38,7 @@
+> >  #include "hvm/save.h"
+> >  #include "memory.h"
+> >
+> > -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000013
+> > +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
+>
+> So this is to cover for the struct vcpu_guest_core_regs change.
+>
+> > --- a/xen/include/public/vm_event.h
+> > +++ b/xen/include/public/vm_event.h
+> > @@ -266,8 +266,7 @@ struct vm_event_regs_arm {
+> >      uint64_t ttbr1;
+> >      uint64_t ttbcr;
+> >      uint64_t pc;
+> > -    uint32_t cpsr;
+> > -    uint32_t _pad;
+> > +    uint64_t cpsr;
+> >  };
+>
+> Then I wonder why this isn't accompanied by a similar bump of
+> VM_EVENT_INTERFACE_VERSION. I don't see you drop any checking /
+> filling of the _pad field, so existing callers may pass garbage
+> there, and new callers need to be prevented from looking at the
+> upper half when running on an older hypervisor.
 
-Acked-by: Wei Liu <wl@xen.org>
+No, there is no need to bump the vm event interface version here. They
+are folding the _pad into the cpsr and the structure is always zero
+initialized. There is never "garbage" in the _pad field. As such there
+is no change to the structure layout or anyone using it with a header
+compiled on an older version. I asked them not to bump the version for
+this change.
+
+Thanks,
+Tamas
 
