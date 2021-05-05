@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2752374392
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 19:42:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123250.232459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F817374395
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 19:44:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123253.232471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leLXL-0000Ue-B4; Wed, 05 May 2021 17:42:15 +0000
+	id 1leLZY-00018k-Ot; Wed, 05 May 2021 17:44:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123250.232459; Wed, 05 May 2021 17:42:15 +0000
+Received: by outflank-mailman (output) from mailman id 123253.232471; Wed, 05 May 2021 17:44:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leLXL-0000Ry-70; Wed, 05 May 2021 17:42:15 +0000
-Received: by outflank-mailman (input) for mailman id 123250;
- Wed, 05 May 2021 17:42:13 +0000
+	id 1leLZY-00015V-Lh; Wed, 05 May 2021 17:44:32 +0000
+Received: by outflank-mailman (input) for mailman id 123253;
+ Wed, 05 May 2021 17:44:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zu7P=KA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1leLXJ-0000Rs-I0
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 17:42:13 +0000
-Received: from mail-wr1-x42c.google.com (unknown [2a00:1450:4864:20::42c])
+ id 1leLZX-00015P-CA
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 17:44:31 +0000
+Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 030085a5-d1c5-4ed7-8586-a6807b44342a;
- Wed, 05 May 2021 17:42:12 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id l2so2738284wrm.9
- for <xen-devel@lists.xenproject.org>; Wed, 05 May 2021 10:42:12 -0700 (PDT)
+ id 1e7ec46c-3aae-4770-a7b3-43cbc90c91ee;
+ Wed, 05 May 2021 17:44:30 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ a10-20020a05600c068ab029014dcda1971aso1794126wmn.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 May 2021 10:44:30 -0700 (PDT)
 Received: from [192.168.1.186]
  (host86-180-176-157.range86-180.btcentralplus.com. [86.180.176.157])
- by smtp.gmail.com with ESMTPSA id q12sm5465702wmj.7.2021.05.05.10.42.11
+ by smtp.gmail.com with ESMTPSA id f6sm24181718wru.72.2021.05.05.10.44.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 May 2021 10:42:11 -0700 (PDT)
+ Wed, 05 May 2021 10:44:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,130 +43,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 030085a5-d1c5-4ed7-8586-a6807b44342a
+X-Inumbo-ID: 1e7ec46c-3aae-4770-a7b3-43cbc90c91ee
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5ck4hA6Xxm2yKJj3VL+ZRwH+wBOpSKpRNDlAP7W/xkY=;
-        b=sqQ1P5bx1mEgzNpROO/fxDPLD91nT9gDAoarQLa7BmVjX+WVZbS3rBTTNHLYFjIFDH
-         5zj2pxzaeX4XMXJCmuJ6jzw0XeQOFEt2APMz30Aom4+taAvFdx5rM2KAHCYZhx/hu95P
-         TrvajzfUn6kYigiFSjofr5NVPr/kEHrz2NAfon1+zIAojtRgbhDWmBW3hWhXus1zpYbi
-         0OqHDmOwMs97yExn2XSUhf6RKK2G3i7E0Ji0i/uUwDcXEcqLiywbnNAbo21yz/g1kPW6
-         hakyTnxKg2W8Do32DUD9qoCuw6A4LfozyWo2O6VPiBK27Rqpzme96FXVe1X9FavAI7/T
-         phCQ==
+        bh=ojVaaEUcq5yFWfKGP37S9IFum4ExwHTnU4DANKZUVC0=;
+        b=F09lbqS2Jp9Mk94IzrycRvHhuUtDpQvmXn4KhrImDMIDNiSHov9ij6EwzeRyN1lgcn
+         jAq5QqmOOuAc62s6ORKq9D/oujZaaYIwEVzedas63clK3twA1mhcLhzWuEFCmWAQUo5U
+         Q7QyzJZVLxL7DcDbxREEeHRGz0V5FxBJOrO/MWWUv78ipZheqCE8qzmuaBBx9K0zPpyZ
+         fQaZ4o1cGL9ivwi2/oFqGFsnYIWFy2Oyw946ZjLm0x0QA2Z21FkjpcMDtIwCoVVkR8Os
+         J6fI7XREPbQe4GnIb9MeK0VeYGNoXwK5itvvTdPV9MfXF2/19mOEJkbTtbxS+VEbioXt
+         sUEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:reply-to:subject:to:cc:references
          :message-id:date:user-agent:mime-version:in-reply-to
          :content-language:content-transfer-encoding;
-        bh=5ck4hA6Xxm2yKJj3VL+ZRwH+wBOpSKpRNDlAP7W/xkY=;
-        b=Y2ymKZtJX6t6Vrb9e4tNXE6lFj1LKx8dItQM8b6IjdFkbZTFwUNl4odrIf+sZTg8SD
-         RwvGJvMiAOOeXYyOZQXpihRvj+AI5X7/lUR5ciuX4nDZUTBroRJ5kTsKSf8UDoYRf9gj
-         gplOJaifwfdVBR3YObuCPclGRz9b0iU18Jhg3uhi8jZRlu5o/SLbGQAJgQDALFInApRr
-         od9QknUryiYn2r1ih3t4Yzc2XPTzYhgxR/efoOgKtMdez0EkdehlIYDSjcaT8cpbS2TY
-         SVGmQrGfOrozo5aIOupzwb2B2YyJHHJu9xxiSA0BlwMXlvpJNWOp04fm6OiN2jSeLXJq
-         48MQ==
-X-Gm-Message-State: AOAM531dMD2LbiVhGtyZDL8xyohVQhkPvtZy25283vubLXG2kgPWyT63
-	Hb6Gtj8MNeCe4pAFv/k6VNuDgym6zRs=
-X-Google-Smtp-Source: ABdhPJyKeePxveTaMDHr01H0ue6iC6KDu7zCB1oEN0SxiOtXKt6kgydav7ZtpWMIR5bgS3/BkLoc6w==
-X-Received: by 2002:adf:a316:: with SMTP id c22mr229727wrb.202.1620236531877;
-        Wed, 05 May 2021 10:42:11 -0700 (PDT)
+        bh=ojVaaEUcq5yFWfKGP37S9IFum4ExwHTnU4DANKZUVC0=;
+        b=MP+0KswdHhm9eeRsWuxMQlAKUMLrh8mhAbwGCjs9vtHnX1wwb3E6IZMYteRlcO6F+B
+         scJT+f6HEqpuRCsCQfisc2SuSwYQUAfscLGtD352F05wl0H5N6DYdQb3kf/KNu65FqS2
+         TJP+jyHY/igDT9Twed13zymm4RPQbuPRxBae0Uc7UQvGhrEU1POQE2ddhb9kUO6Aher6
+         ZreMQf1HVN4H5d2Wm7y76Pspj8f5B5duGg/ULI7VmQDgOFH4SYEI6+EyRqfC76343aXM
+         gHFks7YFyWDTx+Z+2MDjt/kXPvzvGTuy1xokw+7/YQ8ZvCfgIAzwZtVPxLHqtNBWg+/3
+         VOLg==
+X-Gm-Message-State: AOAM5304Fc+qPLlCC/YWvyN0l2GG+mg/JVicZW+kaW6Ss/EbP1Z8u5F9
+	qX/6tlXgAuL6/8iJOFGNIYU=
+X-Google-Smtp-Source: ABdhPJyD4Xmy2bYWbn2ga0q7SPczJa65W03cnti5XHp4QguJjivbml8Wn45eEAn/1KgXS4ug/r7a9Q==
+X-Received: by 2002:a1c:6606:: with SMTP id a6mr10938884wmc.160.1620236669808;
+        Wed, 05 May 2021 10:44:29 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: Paul Durrant <paul@xen.org>
 Reply-To: paul@xen.org
-Subject: Re: [PATCH] xen: Free xenforeignmemory_resource at exit
+Subject: Re: [PATCH] xen-block: Use specific blockdev driver
 To: Anthony PERARD <anthony.perard@citrix.com>, qemu-devel@nongnu.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20210430163742.469739-1-anthony.perard@citrix.com>
-Message-ID: <32263046-97a5-b163-ff23-746effb5c7e4@xen.org>
-Date: Wed, 5 May 2021 18:42:10 +0100
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Kevin Wolf
+ <kwolf@redhat.com>, Max Reitz <mreitz@redhat.com>,
+ xen-devel@lists.xenproject.org, qemu-block@nongnu.org
+References: <20210430163432.468894-1-anthony.perard@citrix.com>
+Message-ID: <05554fc3-e900-e5b2-eef7-3155f8c9b4b4@xen.org>
+Date: Wed, 5 May 2021 18:44:28 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210430163742.469739-1-anthony.perard@citrix.com>
+In-Reply-To: <20210430163432.468894-1-anthony.perard@citrix.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 30/04/2021 17:37, Anthony PERARD wrote:
+On 30/04/2021 17:34, Anthony PERARD wrote:
 > From: Anthony PERARD <anthony.perard@citrix.com>
 > 
-> Because Coverity complains about it and this is one leak that Valgrind
-> reports.
+> ... when a xen-block backend instance is created via xenstore.
+> 
+> Following 8d17adf34f50 ("block: remove support for using "file" driver
+> with block/char devices"), using the "file" blockdev driver for
+> everything doesn't work anymore, we need to use the "host_device"
+> driver when the disk image is a block device and "file" driver when it
+> is a regular file.
 > 
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Acked-by: Paul Durrant <paul@xen.org>
 
 > ---
->   hw/i386/xen/xen-hvm.c       | 9 ++++++---
->   include/hw/xen/xen_common.h | 6 ++++++
->   2 files changed, 12 insertions(+), 3 deletions(-)
+>   hw/block/xen-block.c | 14 +++++++++++++-
+>   1 file changed, 13 insertions(+), 1 deletion(-)
 > 
-> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-> index 7ce672e5a5c3..47ed7772fa39 100644
-> --- a/hw/i386/xen/xen-hvm.c
-> +++ b/hw/i386/xen/xen-hvm.c
-> @@ -109,6 +109,7 @@ typedef struct XenIOState {
->       shared_iopage_t *shared_page;
->       shared_vmport_iopage_t *shared_vmport_page;
->       buffered_iopage_t *buffered_io_page;
-> +    xenforeignmemory_resource_handle *fres;
->       QEMUTimer *buffered_io_timer;
->       CPUState **cpu_by_vcpu_id;
->       /* the evtchn port for polling the notification, */
-> @@ -1254,6 +1255,9 @@ static void xen_exit_notifier(Notifier *n, void *data)
->       XenIOState *state = container_of(n, XenIOState, exit);
+> diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+> index 83754a434481..674953f1adee 100644
+> --- a/hw/block/xen-block.c
+> +++ b/hw/block/xen-block.c
+> @@ -728,6 +728,8 @@ static XenBlockDrive *xen_block_drive_create(const char *id,
+>       XenBlockDrive *drive = NULL;
+>       QDict *file_layer;
+>       QDict *driver_layer;
+> +    struct stat st;
+> +    int rc;
 >   
->       xen_destroy_ioreq_server(xen_domid, state->ioservid);
-> +    if (state->fres != NULL) {
-> +        xenforeignmemory_unmap_resource(xen_fmem, state->fres);
+>       if (params) {
+>           char **v = g_strsplit(params, ":", 2);
+> @@ -761,7 +763,17 @@ static XenBlockDrive *xen_block_drive_create(const char *id,
+>       file_layer = qdict_new();
+>       driver_layer = qdict_new();
+>   
+> -    qdict_put_str(file_layer, "driver", "file");
+> +    rc = stat(filename, &st);
+> +    if (rc) {
+> +        error_setg_errno(errp, errno, "Could not stat file '%s'", filename);
+> +        goto done;
 > +    }
->   
->       xenevtchn_close(state->xce_handle);
->       xs_daemon_close(state->xenstore);
-> @@ -1321,7 +1325,6 @@ static void xen_wakeup_notifier(Notifier *notifier, void *data)
->   static int xen_map_ioreq_server(XenIOState *state)
->   {
->       void *addr = NULL;
-> -    xenforeignmemory_resource_handle *fres;
->       xen_pfn_t ioreq_pfn;
->       xen_pfn_t bufioreq_pfn;
->       evtchn_port_t bufioreq_evtchn;
-> @@ -1333,12 +1336,12 @@ static int xen_map_ioreq_server(XenIOState *state)
->        */
->       QEMU_BUILD_BUG_ON(XENMEM_resource_ioreq_server_frame_bufioreq != 0);
->       QEMU_BUILD_BUG_ON(XENMEM_resource_ioreq_server_frame_ioreq(0) != 1);
-> -    fres = xenforeignmemory_map_resource(xen_fmem, xen_domid,
-> +    state->fres = xenforeignmemory_map_resource(xen_fmem, xen_domid,
->                                            XENMEM_resource_ioreq_server,
->                                            state->ioservid, 0, 2,
->                                            &addr,
->                                            PROT_READ | PROT_WRITE, 0);
-> -    if (fres != NULL) {
-> +    if (state->fres != NULL) {
->           trace_xen_map_resource_ioreq(state->ioservid, addr);
->           state->buffered_io_page = addr;
->           state->shared_page = addr + TARGET_PAGE_SIZE;
-> diff --git a/include/hw/xen/xen_common.h b/include/hw/xen/xen_common.h
-> index 82e56339dd7e..a8118b41acfb 100644
-> --- a/include/hw/xen/xen_common.h
-> +++ b/include/hw/xen/xen_common.h
-> @@ -134,6 +134,12 @@ static inline xenforeignmemory_resource_handle *xenforeignmemory_map_resource(
->       return NULL;
->   }
->   
-> +static inline int xenforeignmemory_unmap_resource(
-> +    xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres)
-> +{
-> +    return 0;
-> +}
+> +    if (S_ISBLK(st.st_mode)) {
+> +        qdict_put_str(file_layer, "driver", "host_device");
+> +    } else {
+> +        qdict_put_str(file_layer, "driver", "file");
+> +    }
 > +
->   #endif /* CONFIG_XEN_CTRL_INTERFACE_VERSION < 41100 */
+>       qdict_put_str(file_layer, "filename", filename);
+>       g_free(filename);
 >   
->   #if CONFIG_XEN_CTRL_INTERFACE_VERSION < 41000
 > 
 
 
