@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE34137363A
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 10:24:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122911.231886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D4737363D
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 10:26:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122916.231899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leCpj-0001hF-Li; Wed, 05 May 2021 08:24:39 +0000
+	id 1leCri-0002SA-27; Wed, 05 May 2021 08:26:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122911.231886; Wed, 05 May 2021 08:24:39 +0000
+Received: by outflank-mailman (output) from mailman id 122916.231899; Wed, 05 May 2021 08:26:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leCpj-0001fM-HR; Wed, 05 May 2021 08:24:39 +0000
-Received: by outflank-mailman (input) for mailman id 122911;
- Wed, 05 May 2021 08:24:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1leCrh-0002Or-UU; Wed, 05 May 2021 08:26:41 +0000
+Received: by outflank-mailman (input) for mailman id 122916;
+ Wed, 05 May 2021 08:26:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6083=KA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1leCpi-0001f2-8h
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 08:24:38 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 293a5942-290a-4657-aed7-7e8127dd1f97;
- Wed, 05 May 2021 08:24:37 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 77758AFE5;
- Wed,  5 May 2021 08:24:36 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1leCrg-0002Of-3H
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 08:26:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1leCre-0005Mm-2a; Wed, 05 May 2021 08:26:38 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1leCrd-0005nh-Qk; Wed, 05 May 2021 08:26:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 293a5942-290a-4657-aed7-7e8127dd1f97
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620203076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qicOdkTTJPaozAM3rqiyMeblEujBuIYyS6yjkix4UEs=;
-	b=lVdT2ySjtWxou3MzRuufORMTIrZ1IcoKyRWmeDhhijWVEODDZUcPIkWirM7B6xuJk2zw6x
-	iM/8PkfqJQTX4Jjt12F6XU5xHiH+ddJxJ95T4iqEDfsADVyTQsI619N/0GjY9pOIqFcbbA
-	X3qa9P3yU3FGCKnrrpfoz2VaP2uzGxM=
-Subject: Re: [PATCH] public/gnttab: relax v2 recommendation
-To: Julien Grall <julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Bnc620D7Y/A1AOJp/WBBp5QvW31nlw914HMMj82VQwg=; b=GLw8t3n5trBIbyiw99uUKu3Xty
+	3/odtFKuDxD1hDGa2Dh41Nvh0MpVPtIcVbcIjOrZOk6nYvUseHu5m26t3KqTCiL3NFaOtJYK8t+5R
+	Cg54MyNo2t/IoCOeiVs+elQ4QJSjuDQTA1dfX3celdx5kAUn0rpcIIhSTjUu9zJcm6Mo=;
+Subject: Re: [PATCH v4] gnttab: defer allocation of status frame tracking
+ array
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Luca Fancellu <luca.fancellu@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <dcd9ede1-9471-6866-4ba7-b6a7664b5e35@suse.com>
- <8eac6f09-4d1d-6fcc-4218-8c9a0760a6bb@xen.org>
- <71e61d09-5d92-94dc-ae0c-ce09cb49b4ce@suse.com>
- <c468856b-8ac6-2ab1-0f5f-eabc26d47293@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <51c29a91-8659-7525-a565-5b9fcfc935f3@suse.com>
-Date: Wed, 5 May 2021 10:24:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <74048f89-fee7-06c2-ffd5-6e5a14bdf440@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <f23ed85d-a906-a8b3-edba-48eb376c0633@xen.org>
+Date: Wed, 5 May 2021 09:26:35 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <c468856b-8ac6-2ab1-0f5f-eabc26d47293@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <74048f89-fee7-06c2-ffd5-6e5a14bdf440@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 05.05.2021 10:12, Julien Grall wrote:
-> Hi Jan,
+Hi Jan,
+
+On 04/05/2021 09:42, Jan Beulich wrote:
+> This array can be large when many grant frames are permitted; avoid
+> allocating it when it's not going to be used anyway, by doing this only
+> in gnttab_populate_status_frames(). While the delaying of the respective
+> memory allocation adds possible reasons for failure of the respective
+> enclosing operations, there are other memory allocations there already,
+> so callers can't expect these operations to always succeed anyway.
 > 
-> On 30/04/2021 09:36, Jan Beulich wrote:
->> On 30.04.2021 10:19, Julien Grall wrote:
->>> On 29/04/2021 14:10, Jan Beulich wrote:
->>>> With there being a way to disable v2 support, telling new guests to use
->>>> v2 exclusively is not a good suggestion.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> --- a/xen/include/public/grant_table.h
->>>> +++ b/xen/include/public/grant_table.h
->>>> @@ -121,8 +121,10 @@ typedef uint32_t grant_ref_t;
->>>>     */
->>>>    
->>>>    /*
->>>> - * Version 1 of the grant table entry structure is maintained purely
->>>> - * for backwards compatibility.  New guests should use version 2.
->>>> + * Version 1 of the grant table entry structure is maintained largely for
->>>> + * backwards compatibility.  New guests are recommended to support using
->>>> + * version 2 to overcome version 1 limitations, but to be able to fall back
->>>> + * to version 1.
->>>
->>> v2 is not supported on Arm and I don't see it coming anytime soon.
->>> AFAIK, Linux will also not use grant table v2 unless the guest has a
->>> address space larger than 44 (?) bits.
->>
->> Yes, as soon as there are frame numbers not representable in 32 bits.
->>
->>> I can't remember why Linux decided to not use it everywhere, but this is
->>> a sign that v2 is not always desired.
->>>
->>> So I think it would be better to recommend new guest to use v1 unless
->>> they hit the limitations (to be details).
->>
->> IOW you'd prefer s/be able to fall back/default/? I'd be fine that way
-> 
-> Yes.
+> As to the re-ordering at the end of gnttab_unpopulate_status_frames(),
+> this is merely to represent intended order of actions (shrink array
+> bound, then free higher array entries). If there were racing accesses,
+> suitable barriers would need adding in addition.
 
-Okay, I've changed that part, but ...
+Please drop the last sentence, this is at best misleading because you 
+can't just add barriers to make it race free (see the discussion on v2 
+for more details).
 
-> We would also need to document the limitations as they don't seem 
-> to be (clearly?) written down in the headers.
+With the sentence dropped:
 
-... I'm struggling to see where (and perhaps even why) this would be
-needed. The v1 and v2 grant table entry formats are all there. I'm
-inclined to consider this an orthogonal addition to make by whoever
-thinks such an addition is needed in the first place.
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Jan
+Cheers,
+
+
+[1] <f82ddfe7-853d-ca15-2373-a38068f65ef7@xen.org>
+
+
+-- 
+Julien Grall
 
