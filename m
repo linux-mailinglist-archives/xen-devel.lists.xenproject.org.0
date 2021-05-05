@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4AEA37364F
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 10:33:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.122922.231911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4A0A3736A4
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 10:52:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.122932.231923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leCxs-0003sM-Qb; Wed, 05 May 2021 08:33:04 +0000
+	id 1leDFg-0006A2-HF; Wed, 05 May 2021 08:51:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 122922.231911; Wed, 05 May 2021 08:33:04 +0000
+Received: by outflank-mailman (output) from mailman id 122932.231923; Wed, 05 May 2021 08:51:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leCxs-0003pU-M9; Wed, 05 May 2021 08:33:04 +0000
-Received: by outflank-mailman (input) for mailman id 122922;
- Wed, 05 May 2021 08:33:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1leDFg-00067f-DX; Wed, 05 May 2021 08:51:28 +0000
+Received: by outflank-mailman (input) for mailman id 122932;
+ Wed, 05 May 2021 08:51:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6083=KA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1leCxr-0003pM-8W
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 08:33:03 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e8c7a540-229e-4ab4-9cd8-039ab2f05fb9;
- Wed, 05 May 2021 08:33:02 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 49963AEAA;
- Wed,  5 May 2021 08:33:01 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1leDFe-00067Z-Qn
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 08:51:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1leDFd-0005nC-OI; Wed, 05 May 2021 08:51:25 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1leDFd-0007gh-Hl; Wed, 05 May 2021 08:51:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,95 +39,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8c7a540-229e-4ab4-9cd8-039ab2f05fb9
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620203581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9fIrYYZIsuD5cDHv/EswPEc6D4K2Envn/oR6SbwpRTs=;
-	b=Gke1c/b3xJY5JU1zy933eVVCgT4FPF6ociC1hEr6SvHur2OXRqRRAsW2j96xDYKZiIQY92
-	4M7N5wz7KYZR2Maxo/8F82agfDp59Qjc8RBzhMqEqAiGito9bTLZhW3RFi5K7f73csYIKR
-	VAd2QDGeh3W+qD9yzqGRnbypUV2KvSg=
-Subject: Re: [PATCH 5/5] x86/cpuid: Fix handling of xsave dynamic leaves
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210503153938.14109-1-andrew.cooper3@citrix.com>
- <20210503153938.14109-6-andrew.cooper3@citrix.com>
- <5e6511ca-83bd-8a43-202e-949b4d19b1ab@suse.com>
- <1279476a-f99d-59a4-7fed-1aee37dbe204@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d951dc24-e613-8a1d-13ea-b1e439048165@suse.com>
-Date: Wed, 5 May 2021 10:33:01 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=SgylSejJpaI/1BO/qxOCs4qT3nc5sKVp4tOQs1g1Xu0=; b=EHcROL44DHbBP5BYMVwjTQEqYp
+	2artOGHQcqBy0WnocWi+7pJ4qPwn4VFRxFRTuqCki47+n5egomjl2vCejWRsvvNJtldPtu4hY/NwM
+	czc266VmBt5OVjlxOLZKSJ8fPQJQyPVhFaEOSv6AQJUZEnPZR7dG+JIDGkhfJ+mAqrAU=;
+Subject: Re: [PATCH] public/gnttab: relax v2 recommendation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Luca Fancellu <luca.fancellu@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <dcd9ede1-9471-6866-4ba7-b6a7664b5e35@suse.com>
+ <8eac6f09-4d1d-6fcc-4218-8c9a0760a6bb@xen.org>
+ <71e61d09-5d92-94dc-ae0c-ce09cb49b4ce@suse.com>
+ <c468856b-8ac6-2ab1-0f5f-eabc26d47293@xen.org>
+ <51c29a91-8659-7525-a565-5b9fcfc935f3@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <9b8fb87c-a2fb-f371-5914-f0d175c18b02@xen.org>
+Date: Wed, 5 May 2021 09:51:23 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <1279476a-f99d-59a4-7fed-1aee37dbe204@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <51c29a91-8659-7525-a565-5b9fcfc935f3@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 04.05.2021 16:17, Andrew Cooper wrote:
-> On 04/05/2021 13:56, Jan Beulich wrote:
->> On 03.05.2021 17:39, Andrew Cooper wrote:
->>> +unsigned int xstate_compressed_size(uint64_t xstates)
->>> +{
->>> +    unsigned int i, size = XSTATE_AREA_MIN_SIZE;
->>> +
->>> +    xstates &= ~XSTATE_FP_SSE;
->>> +    for_each_set_bit ( i, &xstates, 63 )
->>> +    {
->>> +        if ( test_bit(i, &xstate_align) )
->>> +            size = ROUNDUP(size, 64);
->>> +
->>> +        size += xstate_sizes[i];
->>> +    }
->>> +
->>> +    /* In debug builds, cross-check our calculation with hardware. */
->>> +    if ( IS_ENABLED(CONFIG_DEBUG) )
->>> +    {
->>> +        unsigned int hwsize;
->>> +
->>> +        xstates |= XSTATE_FP_SSE;
->>> +        hwsize = hw_compressed_size(xstates);
->>> +
->>> +        if ( size != hwsize )
->>> +            printk_once(XENLOG_ERR "%s(%#"PRIx64") size %#x != hwsize %#x\n",
->>> +                        __func__, xstates, size, hwsize);
->>> +        size = hwsize;
->> To be honest, already on the earlier patch I was wondering whether
->> it does any good to override size here: That'll lead to different
->> behavior on debug vs release builds. If the log message is not
->> paid attention to, we'd then end up with longer term breakage.
+Hi Jan,
+
+On 05/05/2021 09:24, Jan Beulich wrote:
+> On 05.05.2021 10:12, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> On 30/04/2021 09:36, Jan Beulich wrote:
+>>> On 30.04.2021 10:19, Julien Grall wrote:
+>>>> On 29/04/2021 14:10, Jan Beulich wrote:
+>>>>> With there being a way to disable v2 support, telling new guests to use
+>>>>> v2 exclusively is not a good suggestion.
+>>>>>
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>>
+>>>>> --- a/xen/include/public/grant_table.h
+>>>>> +++ b/xen/include/public/grant_table.h
+>>>>> @@ -121,8 +121,10 @@ typedef uint32_t grant_ref_t;
+>>>>>      */
+>>>>>     
+>>>>>     /*
+>>>>> - * Version 1 of the grant table entry structure is maintained purely
+>>>>> - * for backwards compatibility.  New guests should use version 2.
+>>>>> + * Version 1 of the grant table entry structure is maintained largely for
+>>>>> + * backwards compatibility.  New guests are recommended to support using
+>>>>> + * version 2 to overcome version 1 limitations, but to be able to fall back
+>>>>> + * to version 1.
+>>>>
+>>>> v2 is not supported on Arm and I don't see it coming anytime soon.
+>>>> AFAIK, Linux will also not use grant table v2 unless the guest has a
+>>>> address space larger than 44 (?) bits.
+>>>
+>>> Yes, as soon as there are frame numbers not representable in 32 bits.
+>>>
+>>>> I can't remember why Linux decided to not use it everywhere, but this is
+>>>> a sign that v2 is not always desired.
+>>>>
+>>>> So I think it would be better to recommend new guest to use v1 unless
+>>>> they hit the limitations (to be details).
+>>>
+>>> IOW you'd prefer s/be able to fall back/default/? I'd be fine that way
+>>
+>> Yes.
 > 
-> Well - our options are pass hardware size, or BUG(), because getting
-> this wrong will cause memory corruption.
+> Okay, I've changed that part, but ...
+> 
+>> We would also need to document the limitations as they don't seem
+>> to be (clearly?) written down in the headers.
+> 
+> ... I'm struggling to see where (and perhaps even why) this would be
+> needed. The v1 and v2 grant table entry formats are all there. I'm
+> inclined to consider this an orthogonal addition to make by whoever
+> thinks such an addition is needed in the first place.
 
-I'm afraid I'm lost: Neither passing hardware size nor BUG() would
-happen in a release build, so getting this wrong does mean memory
-corruption there. And I'm of the clear opinion that debug builds
-shouldn't differ in behavior in such regards.
+The current comment is not mentionning about limitations but instead say 
+"new OS should use v2". Your proposal is to say "default to v1 but use 
+v2 if you hit limitations".
 
-If there wasn't an increasing number of possible combinations I
-would be inclined to suggest that in all builds we check during
-boot that calculation and hardware provided values match for all
-possible (valid) combinations.
+As Xen developper, I am aware of a single limitation (the 44 bits). But 
+here you suggest there are multiple ones. I could probably figure out 
+the others if I dig into the code...
 
-> The BUG() option is a total pain when developing new support - the first
-> version of this patch did use BUG(), but after hitting it 4 times in a
-> row (caused by issues with constants elsewhere), I decided against it.
+Now imagine, you are an OS developper new to Xen. I don't think this is 
+fair to say "there are limitations but I will not tell you directly. 
+Instead you should try to infer them from the definitions". There is a 
+chance, he/she may have missed some of the limitations and therefore the 
+decision to switch between v1 and v2 would be done incorrectly.
 
-I can fully understand this aspect. I'm not opposed to printk_once()
-at all. My comment was purely towards the override.
+In addition to that, it also means she/he may end up to implement the 
+two versions when implementing v1 may just be sufficient (custom OSes 
+may never need 44 bits worth of address space).
 
-> If we had something which was a mix between WARN_ONCE() and a proper
-> printk() explaining what was going on, then I would have used that. 
-> Maybe it's time to introduce one...
+This is not a very friendly way to work on Xen. FAOD, I am not saying 
+that the other headers are perfect... Instead, I am saying we ought to 
+improve new wording to make the project a bit more welcoming.
 
-I don't think there's a need here - what you have in terms of info
-put into the log is imo sufficient.
+Cheers,
 
-Jan
+-- 
+Julien Grall
 
