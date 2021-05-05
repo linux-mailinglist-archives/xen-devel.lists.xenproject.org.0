@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08BD33739AE
-	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 13:50:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123047.232136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80800373AC3
+	for <lists+xen-devel@lfdr.de>; Wed,  5 May 2021 14:14:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123074.232150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leG2c-0005dd-Bh; Wed, 05 May 2021 11:50:10 +0000
+	id 1leGOu-0008WN-Nw; Wed, 05 May 2021 12:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123047.232136; Wed, 05 May 2021 11:50:10 +0000
+Received: by outflank-mailman (output) from mailman id 123074.232150; Wed, 05 May 2021 12:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leG2c-0005al-7J; Wed, 05 May 2021 11:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 123047;
- Wed, 05 May 2021 11:50:09 +0000
+	id 1leGOu-0008UH-Kk; Wed, 05 May 2021 12:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 123074;
+ Wed, 05 May 2021 12:13:10 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1leG2b-0005aS-8X
- for xen-devel@lists.xenproject.org; Wed, 05 May 2021 11:50:09 +0000
+ (envelope-from <julien@xen.org>) id 1leGOs-0008UB-Eg
+ for xen-devel@lists.xenproject.org; Wed, 05 May 2021 12:13:10 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1leG2a-0000Uc-7h; Wed, 05 May 2021 11:50:08 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ id 1leGOr-0000to-0A; Wed, 05 May 2021 12:13:09 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1leG2a-0005AN-15; Wed, 05 May 2021 11:50:08 +0000
+ id 1leGOq-0006sx-PX; Wed, 05 May 2021 12:13:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,128 +42,99 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=leW/vPVQUAgcKVCqD2t9+AhymmGmdPEmE7kqUXRoE9Q=; b=aSrtavGjwcKcYYmPy2+5E5XvBQ
-	wxMpw4Q9gDPcMT1+kWyctk/OLz/HX11LV0n2fzwlS3qjQXVGGHEvtAq71yps1e0dMQ3KinpEdEi6J
-	jh+fL0MKqzUhShfG5ARuiODgRq4Yrd+I8lUDMpkivqf3SOcKuDUZGKnQCVqdE2XZ2Ln0=;
-Subject: Re: [PATCH] public/gnttab: relax v2 recommendation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Luca Fancellu <luca.fancellu@arm.com>,
+	bh=tqhIAv4pX6PBB5WS4GGoRGak1M8/u1BgecNF+D+R/Kg=; b=c3ymz6Z/UD6sR3brUXBjmGWpbI
+	/fxQaSO0NN+l/Lgsp0APPPRg1c0fVlkHbS3qg8UlOcFzX6cgunZYE9UvMM8edN09ETRb910HmCQrs
+	aBFHS7izP4cHC1jE6K7vIXLwKeOcHNI4jqo0mAONgNluhq1W6wxZJw4T/MOkNwGuAuT0=;
+Subject: Re: [PATCH v4] gnttab: defer allocation of status frame tracking
+ array
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <dcd9ede1-9471-6866-4ba7-b6a7664b5e35@suse.com>
- <8eac6f09-4d1d-6fcc-4218-8c9a0760a6bb@xen.org>
- <71e61d09-5d92-94dc-ae0c-ce09cb49b4ce@suse.com>
- <c468856b-8ac6-2ab1-0f5f-eabc26d47293@xen.org>
- <51c29a91-8659-7525-a565-5b9fcfc935f3@suse.com>
- <9b8fb87c-a2fb-f371-5914-f0d175c18b02@xen.org>
- <7d55a2c1-f630-3e43-fb6a-39f28f716bca@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <74048f89-fee7-06c2-ffd5-6e5a14bdf440@suse.com>
+ <4450085e-be97-a1ba-dbd8-c72468406fd5@citrix.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <00fa7de9-9f0c-1453-af7e-156d99bbd1f3@xen.org>
-Date: Wed, 5 May 2021 12:50:05 +0100
+Message-ID: <af447491-c0bd-6fce-3c21-df4af95a1273@xen.org>
+Date: Wed, 5 May 2021 13:13:06 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <7d55a2c1-f630-3e43-fb6a-39f28f716bca@suse.com>
+In-Reply-To: <4450085e-be97-a1ba-dbd8-c72468406fd5@citrix.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Hi Andrew,
 
-On 05/05/2021 11:57, Jan Beulich wrote:
-> On 05.05.2021 10:51, Julien Grall wrote:
->> On 05/05/2021 09:24, Jan Beulich wrote:
->>> On 05.05.2021 10:12, Julien Grall wrote:
->>>> Hi Jan,
->>>>
->>>> On 30/04/2021 09:36, Jan Beulich wrote:
->>>>> On 30.04.2021 10:19, Julien Grall wrote:
->>>>>> On 29/04/2021 14:10, Jan Beulich wrote:
->>>>>>> With there being a way to disable v2 support, telling new guests to use
->>>>>>> v2 exclusively is not a good suggestion.
->>>>>>>
->>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>>
->>>>>>> --- a/xen/include/public/grant_table.h
->>>>>>> +++ b/xen/include/public/grant_table.h
->>>>>>> @@ -121,8 +121,10 @@ typedef uint32_t grant_ref_t;
->>>>>>>       */
->>>>>>>      
->>>>>>>      /*
->>>>>>> - * Version 1 of the grant table entry structure is maintained purely
->>>>>>> - * for backwards compatibility.  New guests should use version 2.
->>>>>>> + * Version 1 of the grant table entry structure is maintained largely for
->>>>>>> + * backwards compatibility.  New guests are recommended to support using
->>>>>>> + * version 2 to overcome version 1 limitations, but to be able to fall back
->>>>>>> + * to version 1.
->>>>>>
->>>>>> v2 is not supported on Arm and I don't see it coming anytime soon.
->>>>>> AFAIK, Linux will also not use grant table v2 unless the guest has a
->>>>>> address space larger than 44 (?) bits.
->>>>>
->>>>> Yes, as soon as there are frame numbers not representable in 32 bits.
->>>>>
->>>>>> I can't remember why Linux decided to not use it everywhere, but this is
->>>>>> a sign that v2 is not always desired.
->>>>>>
->>>>>> So I think it would be better to recommend new guest to use v1 unless
->>>>>> they hit the limitations (to be details).
->>>>>
->>>>> IOW you'd prefer s/be able to fall back/default/? I'd be fine that way
->>>>
->>>> Yes.
->>>
->>> Okay, I've changed that part, but ...
->>>
->>>> We would also need to document the limitations as they don't seem
->>>> to be (clearly?) written down in the headers.
->>>
->>> ... I'm struggling to see where (and perhaps even why) this would be
->>> needed. The v1 and v2 grant table entry formats are all there. I'm
->>> inclined to consider this an orthogonal addition to make by whoever
->>> thinks such an addition is needed in the first place.
+On 05/05/2021 11:49, Andrew Cooper wrote:
+> On 04/05/2021 09:42, Jan Beulich wrote:
+>> This array can be large when many grant frames are permitted; avoid
+>> allocating it when it's not going to be used anyway, by doing this only
+>> in gnttab_populate_status_frames(). While the delaying of the respective
+>> memory allocation adds possible reasons for failure of the respective
+>> enclosing operations, there are other memory allocations there already,
+>> so callers can't expect these operations to always succeed anyway.
 >>
->> The current comment is not mentionning about limitations but instead say
->> "new OS should use v2". Your proposal is to say "default to v1 but use
->> v2 if you hit limitations".
+>> As to the re-ordering at the end of gnttab_unpopulate_status_frames(),
+>> this is merely to represent intended order of actions (shrink array
+>> bound, then free higher array entries). If there were racing accesses,
+>> suitable barriers would need adding in addition.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I've intentionally not said "if you hit limitations".
-
-This doesn't really change the point I made. :)
-
->> This is not a very friendly way to work on Xen. FAOD, I am not saying
->> that the other headers are perfect... Instead, I am saying we ought to
->> improve new wording to make the project a bit more welcoming.
+> Nack.
 > 
-> I don't think the public header is the place to go into such lengths,
-> especially when all the information is already there. Textually
-> describing the same aspects should be done elsewhere imo.
-
-The goal of comments is to document anything that cannot be easily 
-inferred. This is the case of the limitations you mention but don't 
-describe.
-
-  I'm of the
-> firm opinion that the patch as is represents an improvement. 
-
-I haven't suggested that patch wasn't improvement. However, I think it 
-can easily be improved further.
-
-> There's
-> no suggestion anywhere that things couldn't be further improved, as
-> is the case about always.
+> The argument you make says that the grant status frames is "large
+> enough" to care about not allocating.  (I frankly disagree, but that
+> isn't relevant to my to my nack).
 > 
-> Since I created this patch only because my request to correct the
-> statement led to me being asked to provide the suggested new text,
-> may I suggest that you pick up this patch or create one from scratch
-> to accommodate all your wishes, if you believe this extra information
-> really belongs there? All I'm after is to correct a statement that's
-> actively misleading.
+> The change in logic here moves a failure in DOMCTL_createdomain, to
+> GNTTABOP_setversion.  We know, from the last minute screwups in XSA-226,
+> that there are versions of Windows and Linux in the field, used by
+> customers, which will BUG()/BSOD when GNTTABOP_setversion doesn't succeed.
 
-I am a bit confused with this answer. Are you saying you are not willing 
-to write it but if someone else does you will accept it?
+Unfortunately, my reply to this on the v2 was left unanswered by you. So 
+I will rewrite it here with more details in the hope this can lead to a 
+consensus now.
+
+ From a discussion during January's community call, the behavior was 
+related to an old version version of Windows PV drivers. Newer version 
+will not use Grant Table v2.
+
+However, your comment seems to suggest that GNTTABOP_setversion will 
+never fail today. AFAICT, this is not true today because Xen will return 
+-ENOMEM when trying to populate the status frame (see the call to 
+gnttab_populate_status_frame()).
+
+Therefore...
+
+> 
+> You're literally adding even more complexity to the grant table, to also
+> increase the chance of regressing VMs in the wild.  This is not ok.
+
+... I am not sure why you are saying this is a regression.
+
+> The only form of this patch which is in any way acceptable, is to avoid
+> the allocation when you know *in DOMCTL_createdomain* that it will never
+> be needed by the VM.  So far, that is from Kconfig and/or the command
+> line options.
+
+I can see how allocating memory upfront is easier for accounting 
+purpose. However, it also means we may not be able to reduce the 
+footprint if we don't know what the guest OS will use it.
+
+This can happen for instance, if you let your customers to run random 
+OSes and never restrict them to v1.
+
+I believe that in most of the cases v1 will be used by the guest. But we 
+technically can't restrict it after the fact (e.g. on reboot) as this 
+may regress customers workload.
+
+That's where the current approach is quite appealing because the 
+allocation is done a runtime. So it does cater a lot more uses cases 
+than your suggestion.
 
 Cheers,
 
