@@ -2,51 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B6B377181
-	for <lists+xen-devel@lfdr.de>; Sat,  8 May 2021 13:50:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124261.234520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2192037718F
+	for <lists+xen-devel@lfdr.de>; Sat,  8 May 2021 13:54:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124267.234545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lfLS6-0001TD-UD; Sat, 08 May 2021 11:48:58 +0000
+	id 1lfLWw-0002yc-UR; Sat, 08 May 2021 11:53:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124261.234520; Sat, 08 May 2021 11:48:58 +0000
+Received: by outflank-mailman (output) from mailman id 124267.234545; Sat, 08 May 2021 11:53:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lfLS6-0001QU-R8; Sat, 08 May 2021 11:48:58 +0000
-Received: by outflank-mailman (input) for mailman id 124261;
- Sat, 08 May 2021 11:48:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lfLWw-0002qu-PG; Sat, 08 May 2021 11:53:58 +0000
+Received: by outflank-mailman (input) for mailman id 124267;
+ Sat, 08 May 2021 11:53:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0wEz=KD=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1lfLS5-0001QO-Bo
- for xen-devel@lists.xenproject.org; Sat, 08 May 2021 11:48:57 +0000
+ id 1lfLWv-0002oB-7G
+ for xen-devel@lists.xenproject.org; Sat, 08 May 2021 11:53:57 +0000
 Received: from sonata.ens-lyon.org (unknown [140.77.166.138])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6478de38-f967-4034-b392-90cd9e22357a;
- Sat, 08 May 2021 11:48:56 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8052b0f8-0e70-4258-873d-b6e9dd96d311;
+ Sat, 08 May 2021 11:53:56 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id C5513201C3;
- Sat,  8 May 2021 13:43:04 +0200 (CEST)
+ by sonata.ens-lyon.org (Postfix) with ESMTP id BF953201CA;
+ Sat,  8 May 2021 13:43:45 +0200 (CEST)
 Received: from sonata.ens-lyon.org ([127.0.0.1])
  by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id dpMAKn6puGgo; Sat,  8 May 2021 13:43:04 +0200 (CEST)
+ with ESMTP id a-eHrPlRN5Dd; Sat,  8 May 2021 13:43:45 +0200 (CEST)
 Received: from begin (lfbn-bor-1-56-204.w90-50.abo.wanadoo.fr [90.50.148.204])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id A5586201AD;
- Sat,  8 May 2021 13:43:04 +0200 (CEST)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 9F804201C9;
+ Sat,  8 May 2021 13:43:45 +0200 (CEST)
 Received: from samy by begin with local (Exim 4.94)
  (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1lfLMN-00BMTv-V3; Sat, 08 May 2021 13:43:03 +0200
+ id 1lfLN3-00BMUQ-3U; Sat, 08 May 2021 13:43:45 +0200
 Resent-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Resent-Date: Sat, 8 May 2021 13:43:03 +0200
-Resent-Message-ID: <20210508114303.kg3ljchsoia67iot@begin>
+Resent-Date: Sat, 8 May 2021 13:43:45 +0200
+Resent-Message-ID: <20210508114345.gattpm6g7zulm7hx@begin>
 Resent-To: jandryuk@gmail.com, xen-devel@lists.xenproject.org,
  dgdegra@tycho.nsa.gov, quan.xu0@gmail.com
 Received: from samy by begin with local (Exim 4.94.2)
  (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1lelk9-006BGX-U9; Thu, 06 May 2021 23:41:13 +0200
+ id 1lelko-006BIO-MM; Thu, 06 May 2021 23:41:54 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,80 +57,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6478de38-f967-4034-b392-90cd9e22357a
-Date: Thu, 6 May 2021 23:41:13 +0200
+X-Inumbo-ID: 8052b0f8-0e70-4258-873d-b6e9dd96d311
+Date: Thu, 6 May 2021 23:41:54 +0200
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Jason Andryuk <jandryuk@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
-Subject: Re: [PATCH v2 10/13] vtpmmgr: Remove bogus cast from TPM2_GetRandom
-Message-ID: <20210506214113.bhkhiif4utufxxwp@begin>
+Subject: Re: [PATCH v2 11/13] vtpmmgr: Fix owner_auth & srk_auth parsing
+Message-ID: <20210506214154.ssot4jwf64k22wth@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org,
 	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
 References: <20210506135923.161427-1-jandryuk@gmail.com>
- <20210506135923.161427-11-jandryuk@gmail.com>
+ <20210506135923.161427-12-jandryuk@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210506135923.161427-11-jandryuk@gmail.com>
+In-Reply-To: <20210506135923.161427-12-jandryuk@gmail.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 
-Jason Andryuk, le jeu. 06 mai 2021 09:59:20 -0400, a ecrit:
-> The UINT32 <-> UINT16 casting in TPM2_GetRandom is incorrect.  Use a
-> local UINT16 as needed for the TPM hardware command and assign the
-> result.
+Jason Andryuk, le jeu. 06 mai 2021 09:59:21 -0400, a ecrit:
+> Argument parsing only matches to before ':' and then the string with
+> leading ':' is passed to parse_auth_string which fails to parse.  Extend
+> the length to include the seperator in the match.
 > 
-> Suggested-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+> While here, switch the seperator to "=".  The man page documented "="
+> and the other tpm.* arguments already use "=".  Since it didn't work
+> before, we don't need to worry about backwards compatibility.
+> 
 > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
 > ---
->  stubdom/vtpmmgr/tpm2.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>  stubdom/vtpmmgr/init.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/stubdom/vtpmmgr/tpm2.c b/stubdom/vtpmmgr/tpm2.c
-> index 655e6d164c..ebd06eac74 100644
-> --- a/stubdom/vtpmmgr/tpm2.c
-> +++ b/stubdom/vtpmmgr/tpm2.c
-> @@ -427,15 +427,22 @@ abort_egress:
+> diff --git a/stubdom/vtpmmgr/init.c b/stubdom/vtpmmgr/init.c
+> index 4ae34a4fcb..62dc5994de 100644
+> --- a/stubdom/vtpmmgr/init.c
+> +++ b/stubdom/vtpmmgr/init.c
+> @@ -289,16 +289,16 @@ int parse_cmdline_opts(int argc, char** argv, struct Opts* opts)
+>     memcpy(vtpm_globals.srk_auth, WELLKNOWN_AUTH, sizeof(TPM_AUTHDATA));
 >  
->  TPM_RC TPM2_GetRandom(UINT32 * bytesRequested, BYTE * randomBytes)
->  {
-> +    UINT16 bytesReq;
->      TPM_BEGIN(TPM_ST_NO_SESSIONS, TPM_CC_GetRandom);
->  
-> -    ptr = pack_UINT16(ptr, (UINT16)*bytesRequested);
-> +    if (*bytesRequested > UINT16_MAX)
-> +        bytesReq = UINT16_MAX;
-> +    else
-> +        bytesReq = *bytesRequested;
-> +
-> +    ptr = pack_UINT16(ptr, bytesReq);
->  
->      TPM_TRANSMIT();
->      TPM_UNPACK_VERIFY();
->  
-> -    ptr = unpack_UINT16(ptr, (UINT16 *)bytesRequested);
-> -    ptr = unpack_TPM_BUFFER(ptr, randomBytes, *bytesRequested);
-> +    ptr = unpack_UINT16(ptr, &bytesReq);
-> +    *bytesRequested = bytesReq;
-> +    ptr = unpack_TPM_BUFFER(ptr, randomBytes, bytesReq);
->  
->  abort_egress:
->      return status;
+>     for(i = 1; i < argc; ++i) {
+> -      if(!strncmp(argv[i], "owner_auth:", 10)) {
+> -         if((rc = parse_auth_string(argv[i] + 10, vtpm_globals.owner_auth)) < 0) {
+> +      if(!strncmp(argv[i], "owner_auth=", 11)) {
+> +         if((rc = parse_auth_string(argv[i] + 11, vtpm_globals.owner_auth)) < 0) {
+>              goto err_invalid;
+>           }
+>           if(rc == 1) {
+>              opts->gen_owner_auth = 1;
+>           }
+>        }
+> -      else if(!strncmp(argv[i], "srk_auth:", 8)) {
+> -         if((rc = parse_auth_string(argv[i] + 8, vtpm_globals.srk_auth)) != 0) {
+> +      else if(!strncmp(argv[i], "srk_auth=", 9)) {
+> +         if((rc = parse_auth_string(argv[i] + 9, vtpm_globals.srk_auth)) != 0) {
+>              goto err_invalid;
+>           }
+>        }
 > -- 
 > 2.30.2
 > 
 
 -- 
 Samuel
-<N> (* If you have a precise idea of the intended use of the following code, please
-<N>    write to Eduardo.Gimenez@inria.fr and ask for the prize :-)
-<N>    -- Eduardo (11/8/97) *)
- -+- N sur #ens-mim - et c'était un des développeurs -+-
+c> ah (on trouve fluide glacial sur le net, ou il faut aller dans le monde reel ?)
+s> dans le monde reel
+c> zut
 
