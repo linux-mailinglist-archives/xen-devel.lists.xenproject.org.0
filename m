@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB073755EA
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:50:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123629.233219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2734037565F
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 17:17:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123635.233236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lefJn-0003lO-Tq; Thu, 06 May 2021 14:49:35 +0000
+	id 1lefk6-000700-5s; Thu, 06 May 2021 15:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123629.233219; Thu, 06 May 2021 14:49:35 +0000
+Received: by outflank-mailman (output) from mailman id 123635.233236; Thu, 06 May 2021 15:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lefJn-0003im-Qb; Thu, 06 May 2021 14:49:35 +0000
-Received: by outflank-mailman (input) for mailman id 123629;
- Thu, 06 May 2021 14:49:34 +0000
+	id 1lefk6-0006xp-2V; Thu, 06 May 2021 15:16:46 +0000
+Received: by outflank-mailman (input) for mailman id 123635;
+ Thu, 06 May 2021 15:16:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EnkQ=KB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lefJm-0003ig-A0
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:49:34 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=PObI=KB=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1lefk3-0006xi-UD
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 15:16:44 +0000
+Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:400:200::4])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bcaeb701-3a31-4c01-b779-095b100a0db7;
- Thu, 06 May 2021 14:49:33 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 34087B201;
- Thu,  6 May 2021 14:49:32 +0000 (UTC)
+ id ba675642-be28-4a39-b110-4539c4f17dc5;
+ Thu, 06 May 2021 15:16:42 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.25.6 AUTH)
+ with ESMTPSA id V0bf6dx46FGa0Kh
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 6 May 2021 17:16:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,190 +40,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcaeb701-3a31-4c01-b779-095b100a0db7
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620312572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pAtdHnFg6XXrZdcey6Qvh/5tLAWYrPESQ9+K1HaRcSs=;
-	b=dpzYtN+uLlWM9+tEoxzqMi0UN/XwwIZaXZHSLHNhW3T+7PgCr3kJa4ThNi8LfSrtt+9drM
-	DRmuhqzgnjOu0ll99T/vhTW5JpWSCW4O31J6Fq3nszcfy0/JysY4UE1Q+nFReDLQPepKEM
-	UNTk1iLxuV9eKT9DhIARPxKZJcGUjHw=
-Subject: Re: [PATCH v5 3/3] docs/doxygen: doxygen documentation for
- grant_table.h
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20210504133145.767-1-luca.fancellu@arm.com>
- <20210504133145.767-4-luca.fancellu@arm.com>
- <alpine.DEB.2.21.2105041514260.5018@sstabellini-ThinkPad-T480s>
- <9E7D7B58-0ABA-4800-B2D3-9EE3E29CF599@arm.com>
- <8fada713-9ae5-ddd3-585b-0f090748fc49@suse.com>
- <BFE99431-6929-4A14-BE57-BFD6D6AA2997@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b66c7973-385d-2380-21f6-8948cca7f5c7@suse.com>
-Date: Thu, 6 May 2021 16:49:31 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+X-Inumbo-ID: ba675642-be28-4a39-b110-4539c4f17dc5
+ARC-Seal: i=1; a=rsa-sha256; t=1620314197; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=cwKZhQe81ABzXHDSo3WT0bBFW2XsHz5yXsXeP8QDj9cRsmjmZ5RhhXyOgFVZaJkcM9
+    DeU7B6NiAA9TbqzHJ1P6KzM2EVywGVJ7LvFsG/VK75JoDsfMilWlHEZCFMCLrdY/72Rg
+    ORTqUeCEEQksFLoMoztPMCB2ZLpLOCGyvNAuw8XFCZXn+1Xwr9C1qHe6jQwLlS3F0qkI
+    LS8sj4/GUx0TCaiO74MZ3Foe3lVGC88Bsv9qfAtc5tBU9A+MN+7j0whB90Whof1v33dZ
+    R1x47CThm/y9GXwN+tagAlCygvL6Qkse801ulx35c5y4tRE0KtClRvyVdOl9W2meI36Y
+    W2UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1620314196;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=OjUaEOhqsOGb5iSgnvuCDfwpquZXnkPZgrA9fzjy+zA=;
+    b=KXGau3NmXbB5ZhF7SzyXIlnnYN7JbusUeI2X6LJ/Pw+ZjamxnXtNRMXdNiW1UKIG1r
+    IhBMuajtlRPLhRvt+col75jNlWCFsP+kicJSD/4wzY68oaZKprqdfFgzonXdPhZU/SiZ
+    zjvXdQtqj0CoXChj9EjqN6bk7qrQoPRltLTUIyAupjW5a4yUcohQP4t6BsUOo75hTvK4
+    7Z70vhUi1W0pE2q3hwpOVxvmYuW0wSMBBLVEmJpYLieMw1gKUDLQSSWNAFafOhqxzbt0
+    F3UH3jK9E42/r2GBBlAscKOf5dXyFh/QJzAgRNUEGoeaQ4YigVkbZrlWU7zK2wMo6Xw+
+    0OaQ==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1620314196;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=OjUaEOhqsOGb5iSgnvuCDfwpquZXnkPZgrA9fzjy+zA=;
+    b=S1pl+8AvzVp5eOPNWzl5Yl6hYN6WoWJG2nItKM/NW9RU0gfDt22Sv6idI8cHAbEDkp
+    r4VeBWVLnQtPKsIXfGY4uuUZ/A7+cfqBUW3DWxUTqejik6PWQxTKA8FAz02kxiNWnR7U
+    6n5fNhUqzH2692BtyYvLyG1igD7F62mWMqAJaNse638zLQYwo4/ZA6zlvSe3CrC6wd2T
+    5NLZ+j291SbG8Nrk54qjBmdr3PRQ2QfOFoGxLpgRCih0XviLoG4532pl/QWrUt+IiCJB
+    vXlsBYqpdooUzgnNFsV+zyx9yR27ZQAM7eMjwnxUuAIRz7Ff+M1tvcioV6CGN5GowsjG
+    boLg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgtl+1b1FMstFZvCqIQN5N7TvWFg4vzhFVdoKAuQ"
+X-RZG-CLASS-ID: mo00
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] tools: remove unused sysconfig variable XENSTORED_ROOTDIR
+Date: Thu,  6 May 2021 17:16:31 +0200
+Message-Id: <20210506151631.1227-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <BFE99431-6929-4A14-BE57-BFD6D6AA2997@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 06.05.2021 16:43, Luca Fancellu wrote:
->> On 6 May 2021, at 10:58, Jan Beulich <jbeulich@suse.com> wrote:
->> On 06.05.2021 10:48, Luca Fancellu wrote:
->>>> On 4 May 2021, at 23:27, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>> On Tue, 4 May 2021, Luca Fancellu wrote:
->>>>> @@ -51,13 +55,10 @@
->>>>> * know the real machine address of a page it is sharing. This makes
->>>>> * it possible to share memory correctly with domains running in
->>>>> * fully virtualised memory.
->>>>> - */
->>>>> -
->>>>> -/***********************************
->>>>> + *
->>>>> * GRANT TABLE REPRESENTATION
->>>>> - */
->>>>> -
->>>>> -/* Some rough guidelines on accessing and updating grant-table entries
->>>>> + *
->>>>> + * Some rough guidelines on accessing and updating grant-table entries
->>>>> * in a concurrency-safe manner. For more information, Linux contains a
->>>>> * reference implementation for guest OSes (drivers/xen/grant_table.c, see
->>>>> * http://git.kernel.org/?p=linux/kernel/git/torvalds/linux.git;a=blob;f=drivers/xen/grant-table.c;hb=HEAD
->>>>> @@ -66,6 +67,7 @@
->>>>> *     compiler barrier will still be required.
->>>>> *
->>>>> * Introducing a valid entry into the grant table:
->>>>> + * @keepindent
->>>>> *  1. Write ent->domid.
->>>>> *  2. Write ent->frame:
->>>>> *      GTF_permit_access:   Frame to which access is permitted.
->>>>> @@ -73,20 +75,25 @@
->>>>> *                           frame, or zero if none.
->>>>> *  3. Write memory barrier (WMB).
->>>>> *  4. Write ent->flags, inc. valid type.
->>>>> + * @endkeepindent
->>>>> *
->>>>> * Invalidating an unused GTF_permit_access entry:
->>>>> + * @keepindent
->>>>> *  1. flags = ent->flags.
->>>>> *  2. Observe that !(flags & (GTF_reading|GTF_writing)).
->>>>> *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
->>>>> *  NB. No need for WMB as reuse of entry is control-dependent on success of
->>>>> *      step 3, and all architectures guarantee ordering of ctrl-dep writes.
->>>>> + * @endkeepindent
->>>>> *
->>>>> * Invalidating an in-use GTF_permit_access entry:
->>>>> + *
->>>>> *  This cannot be done directly. Request assistance from the domain controller
->>>>> *  which can set a timeout on the use of a grant entry and take necessary
->>>>> *  action. (NB. This is not yet implemented!).
->>>>> *
->>>>> * Invalidating an unused GTF_accept_transfer entry:
->>>>> + * @keepindent
->>>>> *  1. flags = ent->flags.
->>>>> *  2. Observe that !(flags & GTF_transfer_committed). [*]
->>>>> *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
->>>>> @@ -97,18 +104,24 @@
->>>>> *      transferred frame is written. It is safe for the guest to spin waiting
->>>>> *      for this to occur (detect by observing GTF_transfer_completed in
->>>>> *      ent->flags).
->>>>> + * @endkeepindent
->>>>> *
->>>>> * Invalidating a committed GTF_accept_transfer entry:
->>>>> *  1. Wait for (ent->flags & GTF_transfer_completed).
->>>>> *
->>>>> * Changing a GTF_permit_access from writable to read-only:
->>>>> + *
->>>>> *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writing.
->>>>> *
->>>>> * Changing a GTF_permit_access from read-only to writable:
->>>>> + *
->>>>> *  Use SMP-safe bit-setting instruction.
->>>>> + *
->>>>> + * @addtogroup grant_table Grant Tables
->>>>> + * @{
->>>>> */
->>>>>
->>>>> -/*
->>>>> +/**
->>>>> * Reference to a grant entry in a specified domain's grant table.
->>>>> */
->>>>> typedef uint32_t grant_ref_t;
->>>>
->>>> Just below this typedef there is the following comment:
->>>>
->>>> /*
->>>> * A grant table comprises a packed array of grant entries in one or more
->>>> * page frames shared between Xen and a guest.
->>>> * [XEN]: This field is written by Xen and read by the sharing guest.
->>>> * [GST]: This field is written by the guest and read by Xen.
->>>> */
->>>>
->>>> I noticed it doesn't appear in the output html. Any way we can retain it
->>>> somewhere? Maybe we have to move it together with the larger comment
->>>> above?
->>>
->>> I agree with you, this comment should appear in the html docs, but to do so
->>> It has to be moved together with the larger comment above.
->>>
->>> In the original patch it was like that but I had to revert it back due to objection, my proposal is
->>> to put it together with the larger comment and write something like this to
->>> maintain a good readability:
->>>
->>>   *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writing.
->>>   *
->>>   * Changing a GTF_permit_access from read-only to writable:
->>>   *
->>>   *  Use SMP-safe bit-setting instruction.
->>> + *
->>> + * A grant table comprises a packed array of grant entries in one or more
->>> + * page frames shared between Xen and a guest.
->>
->> I think if this part was moved to the top of this big comment while ...
->>
->>> + * Data structure fields or defines described below have the following tags:
->>> + * * [XEN]: This field is written by Xen and read by the sharing guest.
->>> + * * [GST]: This field is written by the guest and read by Xen.
->>
->> ... this part was, as suggested by you, left near its bottom, I could
->> agree.
-> 
-> Hi Jan,
-> 
-> Just to be sure that we are on the same page, something like this could be ok?
-> 
->  * fully virtualised memory.
->  *
->  * GRANT TABLE REPRESENTATION
->  *
-> + * A grant table comprises a packed array of grant entries in one or more
-> + * page frames shared between Xen and a guest.
-> + *
->  * Some rough guidelines on accessing and updating grant-table entries
->  * in a concurrency-safe manner. For more information, Linux contains a
-> […]
->  * Changing a GTF_permit_access from read-only to writable:
->  *
->  *  Use SMP-safe bit-setting instruction.
->  *
-> + * Data structure fields or defines described below have the following tags:
-> + * * [XEN]: This field is written by Xen and read by the sharing guest.
-> + * * [GST]: This field is written by the guest and read by Xen.
->  *
->  * @addtogroup grant_table Grant Tables
->  * @{
+The sysconfig variable XENSTORED_ROOTDIR is not used anymore.
+It used to point to a directory with tdb files, which is now a tmpfs.
 
-I think so, yes. Thanks.
+In case the database is not in tmpfs, like on sysv and BSD systems,
+xenstored will truncate existing database files during start.
 
-Jan
+Fixes commit 2ef6ace428dec4795b8b0a67fff6949e817013de
+
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/hotplug/FreeBSD/rc.d/xencommons.in           | 5 -----
+ tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 7 -------
+ tools/hotplug/Linux/launch-xenstore.in             | 1 -
+ tools/hotplug/NetBSD/rc.d/xencommons.in            | 5 -----
+ 4 files changed, 18 deletions(-)
+
+diff --git a/tools/hotplug/FreeBSD/rc.d/xencommons.in b/tools/hotplug/FreeBSD/rc.d/xencommons.in
+index 4c61d8c94e..fddcce314c 100644
+--- a/tools/hotplug/FreeBSD/rc.d/xencommons.in
++++ b/tools/hotplug/FreeBSD/rc.d/xencommons.in
+@@ -42,11 +42,6 @@ xen_startcmd()
+ 
+ 	xenstored_pid=$(check_pidfile ${XENSTORED_PIDFILE} ${XENSTORED})
+ 	if test -z "$xenstored_pid"; then
+-		printf "Cleaning xenstore database.\n"
+-		if [ -z "${XENSTORED_ROOTDIR}" ]; then
+-			XENSTORED_ROOTDIR="@XEN_LIB_STORED@"
+-		fi
+-		rm -f ${XENSTORED_ROOTDIR}/tdb* >/dev/null 2>&1
+ 		printf "Starting xenservices: xenstored, xenconsoled."
+ 		XENSTORED_ARGS=" --pid-file ${XENSTORED_PIDFILE}"
+ 		if [ -n "${XENSTORED_TRACE}" ]; then
+diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
+index b059a2910d..00cf7f91d4 100644
+--- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
++++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
+@@ -48,13 +48,6 @@ XENSTORED_ARGS=
+ # Only evaluated if XENSTORETYPE is "daemon".
+ #XENSTORED_TRACE=[yes|on|1]
+ 
+-## Type: string
+-## Default: "@XEN_LIB_STORED@"
+-#
+-# Running xenstored on XENSTORED_ROOTDIR
+-# Only evaluated if XENSTORETYPE is "daemon".
+-#XENSTORED_ROOTDIR=@XEN_LIB_STORED@
+-
+ ## Type: string
+ ## Default: @LIBEXEC@/boot/xenstore-stubdom.gz
+ #
+diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
+index fa4ea4af49..d40c66482a 100644
+--- a/tools/hotplug/Linux/launch-xenstore.in
++++ b/tools/hotplug/Linux/launch-xenstore.in
+@@ -66,7 +66,6 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ [ "$XENSTORETYPE" = "" ] && XENSTORETYPE=daemon
+ 
+ [ "$XENSTORETYPE" = "daemon" ] && {
+-	[ -z "$XENSTORED_ROOTDIR" ] && XENSTORED_ROOTDIR="@XEN_LIB_STORED@"
+ 	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS="$XENSTORED_ARGS -T @XEN_LOG_DIR@/xenstored-trace.log"
+ 	[ -z "$XENSTORED" ] && XENSTORED=@XENSTORED@
+ 	[ -x "$XENSTORED" ] || {
+diff --git a/tools/hotplug/NetBSD/rc.d/xencommons.in b/tools/hotplug/NetBSD/rc.d/xencommons.in
+index 80e518f5de..cf2af06596 100644
+--- a/tools/hotplug/NetBSD/rc.d/xencommons.in
++++ b/tools/hotplug/NetBSD/rc.d/xencommons.in
+@@ -38,11 +38,6 @@ xen_startcmd()
+ 
+ 	xenstored_pid=$(check_pidfile ${XENSTORED_PIDFILE} ${sbindir}/xenstored)
+ 	if test -z "$xenstored_pid"; then
+-		printf "Cleaning xenstore database.\n"
+-		if [ -z "${XENSTORED_ROOTDIR}" ]; then
+-			XENSTORED_ROOTDIR="@XEN_LIB_STORED@"
+-		fi
+-		rm -f ${XENSTORED_ROOTDIR}/tdb* >/dev/null 2>&1
+ 		printf "Starting xenservices: xenstored, xenconsoled."
+ 		XENSTORED_ARGS=" --pid-file ${XENSTORED_PIDFILE}"
+ 		if [ -n "${XENSTORED_TRACE}" ]; then
 
