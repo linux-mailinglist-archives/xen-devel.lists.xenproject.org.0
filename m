@@ -2,33 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 548B2375289
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 12:43:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123419.232782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8687A37529E
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 12:52:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123433.232795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lebTO-0004wM-PX; Thu, 06 May 2021 10:43:14 +0000
+	id 1lebby-00076C-LE; Thu, 06 May 2021 10:52:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123419.232782; Thu, 06 May 2021 10:43:14 +0000
+Received: by outflank-mailman (output) from mailman id 123433.232795; Thu, 06 May 2021 10:52:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lebTO-0004tr-Lj; Thu, 06 May 2021 10:43:14 +0000
-Received: by outflank-mailman (input) for mailman id 123419;
- Thu, 06 May 2021 10:43:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lebby-00073k-Hk; Thu, 06 May 2021 10:52:06 +0000
+Received: by outflank-mailman (input) for mailman id 123433;
+ Thu, 06 May 2021 10:52:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lebTN-0004cw-4B
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 10:43:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lebTJ-000652-Nr; Thu, 06 May 2021 10:43:09 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lebTJ-0002l1-FD; Thu, 06 May 2021 10:43:09 +0000
+ (envelope-from <SRS0=EnkQ=KB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lebbx-00073e-ET
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 10:52:05 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 66e85463-ec22-4a1b-a030-17644b6631dc;
+ Thu, 06 May 2021 10:52:04 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A555AB1B9;
+ Thu,  6 May 2021 10:52:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,89 +38,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=hsYrq9gCUN9/sBh5lySpQIJ5bBTu7DfTjVtwFhrf7bg=; b=Er2XOMbbw53B75nvXe24LJmNA
-	4oPwroYgwxIuo3/s0++bOaDipB64gygv+vcIWw4ejGrRJF3qMHXEFmYy4fnMzPiUTwVVE5cCMtLZJ
-	iQv5SqfTjvWgp4bE0KpgSLU27aPW8olHvhEyOi4zGl4xQV8My3B4g1mIuw+cssUw7DSKU=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: dwmw2@infradead.org,
-	paul@xen.org,
-	hongyxia@amazon.com,
-	raphning@amazon.com,
-	maghul@amazon.com,
-	Julien Grall <jgrall@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH RFC 2/2] xen/kexec: Reserve KEXEC_TYPE_LIVEUPDATE and KEXEC_RANGE_MA_LIVEUPDATE
-Date: Thu,  6 May 2021 11:42:59 +0100
-Message-Id: <20210506104259.16928-3-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210506104259.16928-1-julien@xen.org>
-References: <20210506104259.16928-1-julien@xen.org>
+X-Inumbo-ID: 66e85463-ec22-4a1b-a030-17644b6631dc
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620298323; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zk3yGUXMbAjoQwDbgENX+9tDnv1jIXSwj9GofSbqNjI=;
+	b=rDsAM5lu29X0684YZjmZloEu9cQfb8oYPa/3el440JjAzvTHJKzTmW++tS9dq3VSzGsS1I
+	vcfHKk8/+6FXzHiLchxn+oaxkZpkBPzctOjDuoRH8CIzQPI6PF5vdVCapqBp2DcAWl/889
+	uS5XW7zPiJUiW1m7OSNwwNoJGlc/HkU=
+Subject: Re: [PATCH v3 08/13] libs/guest: make a cpu policy compatible with
+ older Xen versions
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210430155211.3709-1-roger.pau@citrix.com>
+ <20210430155211.3709-9-roger.pau@citrix.com>
+ <51ee228a-2d53-2dd4-55cf-233d81ba4958@suse.com>
+ <YJFpdA8qmYca9bUO@Air-de-Roger>
+ <6a3bc5cd-10a2-1d13-0033-c22d16da25b7@suse.com>
+ <YJPDigyn0TFxDLT/@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bb9d62f1-eaf2-7fb0-2c2b-794317099e71@suse.com>
+Date: Thu, 6 May 2021 12:52:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
+MIME-Version: 1.0
+In-Reply-To: <YJPDigyn0TFxDLT/@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-From: Julien Grall <jgrall@amazon.com>
+On 06.05.2021 12:23, Roger Pau Monné wrote:
+> On Wed, May 05, 2021 at 09:42:09AM +0200, Jan Beulich wrote:
+>> On 04.05.2021 17:34, Roger Pau Monné wrote:
+>>> On Mon, May 03, 2021 at 01:09:41PM +0200, Jan Beulich wrote:
+>>>> On 30.04.2021 17:52, Roger Pau Monne wrote:
+>>>>> @@ -1086,3 +1075,42 @@ int xc_cpu_policy_calc_compatible(xc_interface *xch,
+>>>>>  
+>>>>>      return rc;
+>>>>>  }
+>>>>> +
+>>>>> +int xc_cpu_policy_make_compatible(xc_interface *xch, xc_cpu_policy_t policy,
+>>>>> +                                  bool hvm)
+>>>>
+>>>> I'm concerned of the naming, and in particular the two very different
+>>>> meanings of "compatible" for xc_cpu_policy_calc_compatible() and this
+>>>> new one. I'm afraid I don't have a good suggestion though, short of
+>>>> making the name even longer and inserting "backwards".
+>>>
+>>> Would xc_cpu_policy_make_compat_412 be acceptable?
+>>>
+>>> That's the more concise one I can think of.
+>>
+>> Hmm, maybe (perhaps with an underscore inserted between 4 and 12). Yet
+>> (sorry) a comment in the function says "since Xen 4.13", which includes
+>> changes that have happened later. Therefore it's not really clear to me
+>> whether the function really _only_ deals with the 4.12 / 4.13 boundary.
+> 
+> It should deal with any changes in the default cpuid policy that
+> happened after (and not including) Xen 4.12. So resulting policy is
+> compatible with the behaviour that Xen 4.12 had. Any changes made in
+> Xen 4.13 and further versions should be accounted for here.
 
-Unfortunately, the code to support Live Update has already been merged in
-Kexec and shipped since 2.0.21. Reserve the IDs used by Kexec before they
-end up to be re-used for a different purpose.
+I see.
 
-This patch reserves two IDs:
-    * KEXEC_TYPE_LIVEUPDATE: New operation to request Live Update
-    * KEXEC_MA_RANGE_LIVEUPDATE: New range to query the Live Update
-      area below Xen
-
-Signed-off-by: Julien Grall <jgrall@amazon.com>
----
- xen/include/public/kexec.h | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/xen/include/public/kexec.h b/xen/include/public/kexec.h
-index 3f2a118381ba..650d2feb036f 100644
---- a/xen/include/public/kexec.h
-+++ b/xen/include/public/kexec.h
-@@ -71,17 +71,22 @@
-  */
- 
- /*
-- * Kexec supports two types of operation:
-+ * Kexec supports three types of operation:
-  * - kexec into a regular kernel, very similar to a standard reboot
-  *   - KEXEC_TYPE_DEFAULT is used to specify this type
-  * - kexec into a special "crash kernel", aka kexec-on-panic
-  *   - KEXEC_TYPE_CRASH is used to specify this type
-  *   - parts of our system may be broken at kexec-on-panic time
-  *     - the code should be kept as simple and self-contained as possible
-+ * - Live update into a new Xen, preserving all running domains
-+ *   - KEXEC_TYPE_LIVE_UPDATE is used to specify this type
-+ *   - Xen performs non-cooperative live migration and stores live
-+ *     update state in memory, passing it to the new Xen.
-  */
- 
--#define KEXEC_TYPE_DEFAULT 0
--#define KEXEC_TYPE_CRASH   1
-+#define KEXEC_TYPE_DEFAULT      0
-+#define KEXEC_TYPE_CRASH        1
-+#define KEXEC_TYPE_LIVEUPDATE   2
- 
- 
- /* The kexec implementation for Xen allows the user to load two
-@@ -150,6 +155,8 @@ typedef struct xen_kexec_load_v1 {
- #define KEXEC_RANGE_MA_EFI_MEMMAP 5 /* machine address and size of
-                                      * of the EFI Memory Map */
- #define KEXEC_RANGE_MA_VMCOREINFO 6 /* machine address and size of vmcoreinfo */
-+/* machine address and size of the Live Update area below Xen */
-+#define KEXEC_RANGE_MA_LIVEUPDATE 7
- 
- /*
-  * Find the address and size of certain memory areas
--- 
-2.17.1
-
+Jan
 
