@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F4F4375545
+	by mail.lfdr.de (Postfix) with ESMTPS id DFA45375548
 	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:00:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123534.233003 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.123536.233014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeXq-0004am-4S; Thu, 06 May 2021 14:00:02 +0000
+	id 1leeXv-0005Yl-F6; Thu, 06 May 2021 14:00:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123534.233003; Thu, 06 May 2021 14:00:02 +0000
+Received: by outflank-mailman (output) from mailman id 123536.233014; Thu, 06 May 2021 14:00:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeXq-0004WY-0I; Thu, 06 May 2021 14:00:02 +0000
-Received: by outflank-mailman (input) for mailman id 123534;
- Thu, 06 May 2021 14:00:00 +0000
+	id 1leeXv-0005Vk-Aj; Thu, 06 May 2021 14:00:07 +0000
+Received: by outflank-mailman (input) for mailman id 123536;
+ Thu, 06 May 2021 14:00:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NmKg=KB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1leeXo-0003iB-NM
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:00:00 +0000
-Received: from mail-qk1-x72b.google.com (unknown [2607:f8b0:4864:20::72b])
+ id 1leeXt-0003iB-NZ
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:00:05 +0000
+Received: from mail-qt1-x831.google.com (unknown [2607:f8b0:4864:20::831])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35cf9597-2d37-4779-b7e5-b5274f56732d;
- Thu, 06 May 2021 13:59:56 +0000 (UTC)
-Received: by mail-qk1-x72b.google.com with SMTP id a22so4385472qkl.10
- for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:56 -0700 (PDT)
+ id 5510c360-3273-4078-818c-feb0b1c5fd49;
+ Thu, 06 May 2021 13:59:57 +0000 (UTC)
+Received: by mail-qt1-x831.google.com with SMTP id g13so4036987qts.4
+ for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:57 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:6095:81da:832e:3929])
  by smtp.gmail.com with ESMTPSA id
- 189sm2069992qkh.99.2021.05.06.06.59.54
+ 189sm2069992qkh.99.2021.05.06.06.59.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 May 2021 06:59:55 -0700 (PDT)
+ Thu, 06 May 2021 06:59:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +42,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35cf9597-2d37-4779-b7e5-b5274f56732d
+X-Inumbo-ID: 5510c360-3273-4078-818c-feb0b1c5fd49
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=SCid/Fz7LIrkhT623U47nCiexIJBPSb/z7U4jQky+9M=;
-        b=o74AxszkG4ApqEkoZ8gmh9ZcWJHzVmj9wYURxh2AI+TkrexELduphfW+qEXIX+gkuo
-         adrRZWaGh77TNrzEn+VCKwwlm68QOuah312/X/FjOIjE759FbPWIxCBDUySfHoG1gRv2
-         LYskFUGFsNJZGi1at+wWQh4EfpnYfZ54tSd/qtnoG9ZMBDdnE6a3lQjTECSeyi3WmG0S
-         ee1YQnzPQ13t2/ho7lrg/VvZoUTLqsLPYUuX9qczGd1GdFjd31BBUcd2TAfkHNrSyals
-         rt+cV2ODjk+1uKVvjs1Xkus0cF3gfNr+NtP7cBXK6GU2f0gKX8nsgF5zqVKu/RPXfoaB
-         4zAw==
+        bh=K2IS4DIH6mLVlW67hNLVvhjqoD6ItQVTxI1gVdmna5w=;
+        b=O+YCoBZo1K0G1sBZPrSk8KEPWO7UHlD2AFTiezkwB7XInHsh+bWguOGAMV4/rQBY0R
+         Ls0TzFg8BhB0XLkw61Aa5YGgPo/TuX+rp+pSiBXH76F8ssEmyyifotDaKAcdFDsOpfMH
+         T+//z3/qW3h5W1wduRU1Q4UeJd4COqUgdCLbrbPuA1Py2ml7u5v9o10stk2J92NznM6j
+         cP0i+b2aCn/OP+wc9lGfBtGlnJB4FaqM0WaQoLl9uV2b5EFzCH/iuXbKjll6IEhuOXOA
+         kP9IJTbpuk6GkRmQXDo//H5jzwry6bCwECTt7ATv1G9ecxq+3fEOafagQWArZTfTYZXX
+         Y/zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=SCid/Fz7LIrkhT623U47nCiexIJBPSb/z7U4jQky+9M=;
-        b=TrNukfYeITWXslD2Sf4E5xCfTC6jGiSPdOn9X0EQF6D94BS6Fb4KqS98dWkWrzsWqa
-         mwLvLd0D7xns4JMUi6LxaVs9mgyTrFIe19/RfU8ZtjJaNxij8iZuiIexdY+A0RAN5T/1
-         mvKFk5zqEg0LCt8KlCX/5U3tTgNsn+6TYIpK4ishGDEVVaGeDt7TyGIlgPOE3fgM+914
-         xFxmWkr4UPkqMEuwvoMb0185NwDgoGB+8zeDhkL37ZopOhlEarFt9ANWu2VS5m/3xOJk
-         5Fo2+cxHXmrdpHdhPNnCw7QSXhhzWFjkgkxQdK9DYj/mNBcj8q0/5dvFAfI4XB8UMV+T
-         Xzfw==
-X-Gm-Message-State: AOAM53016wWfpxgHw88D9MdkQPpuNZH2v0J+JIG7Xd1gMM1pJFNfdnAq
-	4Uhy/SF/phg2xYy22R3oSsEBEvG67n8=
-X-Google-Smtp-Source: ABdhPJznW38Pts006EYI4l39hd8n1Uo8kITRc1YT80eVCcvk6D4zMIvvHlnpALjfDJcYZCDkjDXYlw==
-X-Received: by 2002:a05:620a:e05:: with SMTP id y5mr4149112qkm.250.1620309595574;
-        Thu, 06 May 2021 06:59:55 -0700 (PDT)
+        bh=K2IS4DIH6mLVlW67hNLVvhjqoD6ItQVTxI1gVdmna5w=;
+        b=NQzSQeLUkNwSJ+mhfzeDs5LbalCOmE6NgoVFQXPQ6nsxaUfNuQkxf6Np8lYvo2DgML
+         ETZgHKAhyjFtlI5U3/qaYake8hxen8ieW9U48/w8p1YC3bdks4k9wC2fAS86HytcpJgK
+         0YzXbtxKKFt/HSDEigpKnA05x/S5/Qf7HtoYOAGw86iegEw/C9smcEfY01kx7tmPREpm
+         t8iQ7YJLiLFGaxRcO73F0nL3sWCbYbc3K4vNiBFipiyHMQyn7kM/4NyPd0eRz2PotvvF
+         pP2WB2gYj3H1fVgr7mZKlVP4DbpY6jNM0GoRTE62LpbTWE6PgT6egkReaM+vtejJIF32
+         W2vQ==
+X-Gm-Message-State: AOAM533Te1rqf7JP9x933/QX+EIh3Pbh9FXyEakBAkuYkixNRUAgdCF8
+	vfXgT3QzMo+3jjwwDjGwzphcSF3Ltqs=
+X-Google-Smtp-Source: ABdhPJzKmDpKlFkDdTij8Y3/yo50zJDY90tSPO+GddOvwyita+2uSsv2W35Iln1+DCgigN2dW8CdvQ==
+X-Received: by 2002:ac8:6f4c:: with SMTP id n12mr4580168qtv.22.1620309596651;
+        Thu, 06 May 2021 06:59:56 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
 	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v2 02/13] vtpmmgr: Print error code to aid debugging
-Date: Thu,  6 May 2021 09:59:12 -0400
-Message-Id: <20210506135923.161427-3-jandryuk@gmail.com>
+Subject: [PATCH v2 03/13] stubom: newlib: Enable C99 formats for %z
+Date: Thu,  6 May 2021 09:59:13 -0400
+Message-Id: <20210506135923.161427-4-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210506135923.161427-1-jandryuk@gmail.com>
 References: <20210506135923.161427-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tpm_get_error_name returns "Unknown Error Code" when an error string
-is not defined.  In that case, we should print the Error Code so it can
-be looked up offline.  tpm_get_error_name returns a const string, so
-just have the two callers always print the error code so it is always
-available.
+vtpmmgr was changed to print size_t with the %z modifier, but newlib
+isn't compiled with %z support.  So you get output like:
+
+root seal: zu; sector of 13: zu
+root: zu v=zu
+itree: 36; sector of 112: zu
+group: zu v=zu id=zu md=zu
+group seal: zu; 5 in parent: zu; sector of 13: zu
+vtpm: zu+zu; sector of 48: zu
+
+Enable the C99 formats in newlib so vtpmmgr prints the numeric values.
+
+Fixes 9379af08ccc0 "stubdom: vtpmmgr: Correctly format size_t with %z
+when printing."
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 ---
- stubdom/vtpmmgr/tpm.c  | 2 +-
- stubdom/vtpmmgr/tpm2.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ stubdom/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/stubdom/vtpmmgr/tpm.c b/stubdom/vtpmmgr/tpm.c
-index 779cddd64e..83b2bc16b2 100644
---- a/stubdom/vtpmmgr/tpm.c
-+++ b/stubdom/vtpmmgr/tpm.c
-@@ -109,7 +109,7 @@
- 			UINT32 rsp_status; \
- 			UNPACK_OUT(TPM_RSP_HEADER, &rsp_tag, &rsp_len, &rsp_status); \
- 			if (rsp_status != TPM_SUCCESS) { \
--				vtpmlogerror(VTPM_LOG_TPM, "Failed with return code %s\n", tpm_get_error_name(rsp_status)); \
-+				vtpmlogerror(VTPM_LOG_TPM, "Failed with return code %s (%x)\n", tpm_get_error_name(rsp_status), rsp_status); \
- 				status = rsp_status; \
- 				goto abort_egress; \
- 			} \
-diff --git a/stubdom/vtpmmgr/tpm2.c b/stubdom/vtpmmgr/tpm2.c
-index c9f1016ab5..655e6d164c 100644
---- a/stubdom/vtpmmgr/tpm2.c
-+++ b/stubdom/vtpmmgr/tpm2.c
-@@ -126,7 +126,7 @@
-     ptr = unpack_TPM_RSP_HEADER(ptr, \
-           &(tag), &(paramSize), &(status));\
-     if ((status) != TPM_SUCCESS){ \
--        vtpmlogerror(VTPM_LOG_TPM, "Failed with return code %s\n", tpm_get_error_name(status));\
-+        vtpmlogerror(VTPM_LOG_TPM, "Failed with return code %s (%x)\n", tpm_get_error_name(status), (status));\
-         goto abort_egress;\
-     }\
- } while(0)
+diff --git a/stubdom/Makefile b/stubdom/Makefile
+index 90d9ffcd9f..c6de5f68ae 100644
+--- a/stubdom/Makefile
++++ b/stubdom/Makefile
+@@ -105,7 +105,7 @@ cross-newlib: $(NEWLIB_STAMPFILE)
+ $(NEWLIB_STAMPFILE): mk-headers-$(XEN_TARGET_ARCH) newlib-$(NEWLIB_VERSION)
+ 	mkdir -p newlib-$(XEN_TARGET_ARCH)
+ 	( cd newlib-$(XEN_TARGET_ARCH) && \
+-	  CC_FOR_TARGET="$(CC) $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) $(NEWLIB_CFLAGS)" AR_FOR_TARGET=$(AR) LD_FOR_TARGET=$(LD) RANLIB_FOR_TARGET=$(RANLIB) ../newlib-$(NEWLIB_VERSION)/configure --prefix=$(CROSS_PREFIX) --verbose --target=$(GNU_TARGET_ARCH)-xen-elf --enable-newlib-io-long-long --disable-multilib && \
++	  CC_FOR_TARGET="$(CC) $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) $(NEWLIB_CFLAGS)" AR_FOR_TARGET=$(AR) LD_FOR_TARGET=$(LD) RANLIB_FOR_TARGET=$(RANLIB) ../newlib-$(NEWLIB_VERSION)/configure --prefix=$(CROSS_PREFIX) --verbose --target=$(GNU_TARGET_ARCH)-xen-elf --enable-newlib-io-long-long --enable-newlib-io-c99-formats --disable-multilib && \
+ 	  $(MAKE) DESTDIR= && \
+ 	  $(MAKE) DESTDIR= install )
+ 
 -- 
 2.30.2
 
