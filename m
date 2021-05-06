@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690A6375543
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:00:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123532.232980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D166375541
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:00:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123533.232992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeXg-0003ls-EU; Thu, 06 May 2021 13:59:52 +0000
+	id 1leeXl-00043V-Qj; Thu, 06 May 2021 13:59:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123532.232980; Thu, 06 May 2021 13:59:52 +0000
+Received: by outflank-mailman (output) from mailman id 123533.232992; Thu, 06 May 2021 13:59:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeXg-0003iH-9U; Thu, 06 May 2021 13:59:52 +0000
-Received: by outflank-mailman (input) for mailman id 123532;
- Thu, 06 May 2021 13:59:50 +0000
+	id 1leeXl-0003zp-NA; Thu, 06 May 2021 13:59:57 +0000
+Received: by outflank-mailman (input) for mailman id 123533;
+ Thu, 06 May 2021 13:59:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NmKg=KB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1leeXe-0003iB-Qx
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 13:59:50 +0000
-Received: from mail-qk1-x734.google.com (unknown [2607:f8b0:4864:20::734])
+ id 1leeXj-0003iB-N7
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 13:59:55 +0000
+Received: from mail-qt1-x82b.google.com (unknown [2607:f8b0:4864:20::82b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dc84a090-afb3-4664-8baf-d61aabdbd6c8;
- Thu, 06 May 2021 13:59:49 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id a22so4385115qkl.10
- for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:49 -0700 (PDT)
+ id 5d060e54-3546-4113-998d-8797937aaeb2;
+ Thu, 06 May 2021 13:59:55 +0000 (UTC)
+Received: by mail-qt1-x82b.google.com with SMTP id o1so4050262qta.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:55 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:6095:81da:832e:3929])
  by smtp.gmail.com with ESMTPSA id
- 189sm2069992qkh.99.2021.05.06.06.59.47
+ 189sm2069992qkh.99.2021.05.06.06.59.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 May 2021 06:59:48 -0700 (PDT)
+ Thu, 06 May 2021 06:59:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,131 +42,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc84a090-afb3-4664-8baf-d61aabdbd6c8
+X-Inumbo-ID: 5d060e54-3546-4113-998d-8797937aaeb2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=wJPHvd3uXZn/zFCWAhnJJxqwOJkY4HFy/cNCIYr5uhI=;
-        b=TlS7P/oafqjoWmOEY6hdfn/Uy3yJzrqiWQdzUwImeaNjKtMPkozlOWP3lHcxj8SQeU
-         28ZltUWOrkvt9T59eY4RL1boZ4MwYUKA9OhAxtuBuo24uskLb9Ff50bZ285bG79sHRtE
-         gljAXM9tXHGKkGNAJ8l5ksZYIEBXTQtOqORUKhVTTTa/LuxJTgwUjEIAb9j+tpbfYSGJ
-         2URLkoOB6VSN0kn5FQ08wDXWEOsU4TAf8TEtyUw/CtCSkqM8y1tAtrUuHUvkbZBqRiGo
-         w3vfSvButAqBKbM7+pmEa58vtDClbk02TF/aefOaR60wpAKr2+okl1TtF2OeIIPFGKkR
-         qylQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=poW51U2VVY5gXkXvZ25b1vYYpwTn8lqPWe1EiAs4Tbg=;
+        b=HD7SXwT1NtfGxVWBp6YBENsTVJbzVh4hYQ7yBUVP/I57IT5WiRkPD0qxJ9Z9Odak6e
+         z4kGtG4S2UPVug+BzfZGv1fEQWFV3enWUR4GuK9XqXF7VZPYJuSrjfXltS54iyhVBI73
+         PsUgwc01UpMbTgfI8Mj0Kq6FQ64bEw345mssQe2pvL0ptGC322h0SzK1iEaKHB9N+NFm
+         z55TXBqM5jGrZcPdoQ6ywyn33/L8aEyYL+q0nrmBBpuNSdpc7tsrc9MVJKJZginFtWNS
+         sH+U+ZqOChZWLlHSD2YHv/nh3InxnkDdr+7ORPZg8BhVbnMMhv3kLf/xk+D1FGIIcN4g
+         v4CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=wJPHvd3uXZn/zFCWAhnJJxqwOJkY4HFy/cNCIYr5uhI=;
-        b=UqHxgBXt3cI22FZHj+qnITwxbYNN+lEz096xex34Ix49vS0o8HoBU75arZVr69eEMY
-         pqeroAgAGRrd7o4xqWX87lCL+3CWkYCvcHuQu5Za0iictpub4gSZiy720dhQH+za8Xzx
-         hjFdITW7e1u/SXhNAwtFHbKyY9ZA0GYMbFYehwQck2GrNT7alvW8FOjNtJnuJuI43GYh
-         q1lPlRRcoepSxOvVG2ZEhpDNRHpOSt974CK+KU56lyvrzY/odZ+O98NoEQaYEwoSuMIu
-         3mKvanVvLaXTVII7Z41zgW8T1zUXsg/rWO9uoS/EBOR9BGWYCOf2/WGK+dn1NSrIVlMe
-         pBgg==
-X-Gm-Message-State: AOAM532iJ9ld+dtQuqoU1dw8cssL5dKbJK4/xFovGxwzDokLLBwVktYM
-	GyqJVhir19wwEuUxq+vCt1FesHHKmbA=
-X-Google-Smtp-Source: ABdhPJwPMblysiMTeE3oIEWgXNGAOX9GprQ24myuK+G2/9r4u2lzsfoDGkI5VWuUa7pAbLDqW0oa1Q==
-X-Received: by 2002:a37:8ec4:: with SMTP id q187mr4081232qkd.381.1620309589082;
-        Thu, 06 May 2021 06:59:49 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=poW51U2VVY5gXkXvZ25b1vYYpwTn8lqPWe1EiAs4Tbg=;
+        b=kaXmgcg1hYdqIIqeb9OBT7iHqkxBFyl5YP8GfBXRvoS9b8tUz7QjZylbcC0j54H6uf
+         +vKSYkqIfbbP3lKWkPkofZ/O43BsD1azJau8ZGAJ22o7e1p4FhZHIrgWivq0W4urCxWy
+         wd/zfGa4xYrp9Ge6qSzXSIi2BhcUP8VOvQ/W6tfNAU59w665G5p+n7TOopehgvA1wiDc
+         dwozjxRzArr+gyKYF03aIYiEP/nn9SnolUgTXRW839JRFkXLop5oCrPVijl0wx0bD1NC
+         7ObOzVH5G2ssjXq9fgbT274Q3A6ybijUV1Wf3FSAjgK2am7SrFYylBZRbsQE6IyexjWX
+         YN5Q==
+X-Gm-Message-State: AOAM532cX/DS+vsp73ODkBU7TF2uRkp2FY+qRPqtgsY4KbcvCUQ9rbfQ
+	wJzypJNXFKp9zFWC23p1iAi5yHCN77c=
+X-Google-Smtp-Source: ABdhPJx0LAeDDpflzjiEYTOwZOIRcLGZhioDrPhNBATKFN1RUoXo5q/WK1BQeG6fvr4KxQdFiBnfrg==
+X-Received: by 2002:aed:2128:: with SMTP id 37mr4311335qtc.163.1620309594470;
+        Thu, 06 May 2021 06:59:54 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v2 00/13] vtpmmgr: Some fixes - still incomplete
-Date: Thu,  6 May 2021 09:59:10 -0400
-Message-Id: <20210506135923.161427-1-jandryuk@gmail.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2 01/13] docs: Warn about incomplete vtpmmgr TPM 2.0 support
+Date: Thu,  6 May 2021 09:59:11 -0400
+Message-Id: <20210506135923.161427-2-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210506135923.161427-1-jandryuk@gmail.com>
+References: <20210506135923.161427-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vtpmmgr TPM 2.0 support is incomplete.  There is no code to save the
-tpm2 keys generated by the vtpmmgr, so it's impossible to restore vtpm
-state with tpm2.  The vtpmmgr also issues TPM 1.2 commands to the TPM
-2.0 hardware which naturally fails.  Dag reported this [1][2], and I
-independently re-discovered it.
+The vtpmmgr TPM 2.0 support is incomplete.  Add a warning about that to
+the documentation so others don't have to work through discovering it is
+broken.
 
-I have not fixed the above issues.  These are some fixes I made while
-investigating tpm2 support.  At a minimum, "docs: Warn about incomplete
-vtpmmgr TPM 2.0 support" should be applied to warn others.
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ docs/man/xen-vtpmmgr.7.pod | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-This is useful for debugging:
-vtpmmgr: Print error code to aid debugging
-
-This fixes vtpmmgr output (also noted by Dag [3]):
-stubom: newlib: Enable C99 formats for %z
-
-This gives more flexibility if you are already using the TPM2 hardware:
-vtpmmgr: Allow specifying srk_handle for TPM2
-
-These are some changes to unload keys from the TPM hardware (so they
-are not still loaded for anything that runs afterwards):
-vtpmmgr: Move vtpmmgr_shutdown
-vtpmmgr: Flush transient keys on shutdown
-vtpmmgr: Flush all transient keys
-vtpmmgr: Shutdown more gracefully
-
-This lets vtpms initialize their random pools:
-vtpmmgr: Support GetRandom passthrough on TPM 2.0
-
-New in v2:
-TPM2_GetRandom fix per Samuel:
-vtpmmgr: Remove bogus cast from TPM2_GetRandom
-
-Change ":" to "=":
-vtpmmgr: Fix owner_auth & srk_auth parsing
-
-Follow on from comments from Samuel
-vtpmmgr: Check req_len before unpacking command
-
-Fix for vtpm emulator to work with Linux 5.4
-vtpm: Correct timeout units and command duration
-
-Changes in v2:
-Added R-by & Ack-by to 1-3,5-8
-Updated #4 to use srk_handle=
-Updated #7 commit message
-Updated #9 per Samuel
-Added #10-13
-
-[1] https://lore.kernel.org/xen-devel/8285393.eUs1EhXEQl@eseries.newtech.fi/
-[2] https://lore.kernel.org/xen-devel/1615731.eyaQ0j4tC5@eseries.newtech.fi/
-[3] https://lore.kernel.org/xen-devel/3151252.0ZAaMuH7Fy@dag.newtech.fi/
-
-Jason Andryuk (13):
-  docs: Warn about incomplete vtpmmgr TPM 2.0 support
-  vtpmmgr: Print error code to aid debugging
-  stubom: newlib: Enable C99 formats for %z
-  vtpmmgr: Allow specifying srk_handle for TPM2
-  vtpmmgr: Move vtpmmgr_shutdown
-  vtpmmgr: Flush transient keys on shutdown
-  vtpmmgr: Flush all transient keys
-  vtpmmgr: Shutdown more gracefully
-  vtpmmgr: Support GetRandom passthrough on TPM 2.0
-  vtpmmgr: Remove bogus cast from TPM2_GetRandom
-  vtpmmgr: Fix owner_auth & srk_auth parsing
-  vtpmmgr: Check req_len before unpacking command
-  vtpm: Correct timeout units and command duration
-
- docs/man/xen-vtpmmgr.7.pod              | 18 +++++++
- stubdom/Makefile                        |  4 +-
- stubdom/vtpm-command-duration.patch     | 52 +++++++++++++++++++
- stubdom/vtpm-microsecond-duration.patch | 52 +++++++++++++++++++
- stubdom/vtpmmgr/init.c                  | 57 +++++++++++++--------
- stubdom/vtpmmgr/marshal.h               | 15 ++++++
- stubdom/vtpmmgr/tpm.c                   |  2 +-
- stubdom/vtpmmgr/tpm2.c                  | 15 ++++--
- stubdom/vtpmmgr/vtpm_cmd_handler.c      | 67 ++++++++++++++++++++++++-
- stubdom/vtpmmgr/vtpmmgr.c               | 12 ++++-
- 10 files changed, 266 insertions(+), 28 deletions(-)
- create mode 100644 stubdom/vtpm-command-duration.patch
- create mode 100644 stubdom/vtpm-microsecond-duration.patch
-
+diff --git a/docs/man/xen-vtpmmgr.7.pod b/docs/man/xen-vtpmmgr.7.pod
+index af825a7ffe..875dcce508 100644
+--- a/docs/man/xen-vtpmmgr.7.pod
++++ b/docs/man/xen-vtpmmgr.7.pod
+@@ -222,6 +222,17 @@ XSM label, not the kernel.
+ 
+ =head1 Appendix B: vtpmmgr on TPM 2.0
+ 
++=head2 WARNING: Incomplete - cannot persist data
++
++TPM 2.0 support for vTPM manager is incomplete.  There is no support for
++persisting an encryption key, so vTPM manager regenerates primary and secondary
++key handles each boot.
++
++Also, the vTPM manger group command implementation hardcodes TPM 1.2 commands.
++This means running manage-vtpmmgr.pl fails when the TPM 2.0 hardware rejects
++the TPM 1.2 commands.  vTPM manager with TPM 2.0 cannot create groups and
++therefore cannot persist vTPM contents.
++
+ =head2 Manager disk image setup:
+ 
+ The vTPM Manager requires a disk image to store its encrypted data. The image
 -- 
 2.30.2
 
