@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFA45375548
+	by mail.lfdr.de (Postfix) with ESMTPS id D7293375546
 	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:00:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123536.233014 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.123537.233027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeXv-0005Yl-F6; Thu, 06 May 2021 14:00:07 +0000
+	id 1leeY0-00061s-Rl; Thu, 06 May 2021 14:00:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123536.233014; Thu, 06 May 2021 14:00:07 +0000
+Received: by outflank-mailman (output) from mailman id 123537.233027; Thu, 06 May 2021 14:00:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeXv-0005Vk-Aj; Thu, 06 May 2021 14:00:07 +0000
-Received: by outflank-mailman (input) for mailman id 123536;
- Thu, 06 May 2021 14:00:05 +0000
+	id 1leeY0-0005w6-NA; Thu, 06 May 2021 14:00:12 +0000
+Received: by outflank-mailman (input) for mailman id 123537;
+ Thu, 06 May 2021 14:00:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NmKg=KB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1leeXt-0003iB-NZ
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:00:05 +0000
-Received: from mail-qt1-x831.google.com (unknown [2607:f8b0:4864:20::831])
+ id 1leeXy-0003iB-Nv
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:00:10 +0000
+Received: from mail-qk1-x72a.google.com (unknown [2607:f8b0:4864:20::72a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5510c360-3273-4078-818c-feb0b1c5fd49;
- Thu, 06 May 2021 13:59:57 +0000 (UTC)
-Received: by mail-qt1-x831.google.com with SMTP id g13so4036987qts.4
- for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:57 -0700 (PDT)
+ id ffb43a8e-7703-447f-b2a4-bb32925fd77c;
+ Thu, 06 May 2021 13:59:58 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id q136so4938929qka.7
+ for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:58 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:6095:81da:832e:3929])
  by smtp.gmail.com with ESMTPSA id
- 189sm2069992qkh.99.2021.05.06.06.59.55
+ 189sm2069992qkh.99.2021.05.06.06.59.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 May 2021 06:59:56 -0700 (PDT)
+ Thu, 06 May 2021 06:59:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,83 +42,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5510c360-3273-4078-818c-feb0b1c5fd49
+X-Inumbo-ID: ffb43a8e-7703-447f-b2a4-bb32925fd77c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=K2IS4DIH6mLVlW67hNLVvhjqoD6ItQVTxI1gVdmna5w=;
-        b=O+YCoBZo1K0G1sBZPrSk8KEPWO7UHlD2AFTiezkwB7XInHsh+bWguOGAMV4/rQBY0R
-         Ls0TzFg8BhB0XLkw61Aa5YGgPo/TuX+rp+pSiBXH76F8ssEmyyifotDaKAcdFDsOpfMH
-         T+//z3/qW3h5W1wduRU1Q4UeJd4COqUgdCLbrbPuA1Py2ml7u5v9o10stk2J92NznM6j
-         cP0i+b2aCn/OP+wc9lGfBtGlnJB4FaqM0WaQoLl9uV2b5EFzCH/iuXbKjll6IEhuOXOA
-         kP9IJTbpuk6GkRmQXDo//H5jzwry6bCwECTt7ATv1G9ecxq+3fEOafagQWArZTfTYZXX
-         Y/zQ==
+        bh=tdayrghQPCz70YHcLBlydERZJ3sNcRxWDd88jzJUALc=;
+        b=Xl/6BPBiUg0uCStcneFXNCblFkA8fBAAtMd99bvBPHjbgibrYEP1QXTqKXo9sFK2Z5
+         gBXVLKXVqBdSWl02EOWV4NOjwuUZlL1zDlb4luMTk5auVsFRYYvfR54w9Ouss6yRGKXe
+         gLxa1QleBm2hdwpQhzM21wn6jgKwxK/wI3FL9rd8ZY1a9qyPfB5p78CHL3H6IazL6DaJ
+         +Twf8D/zUSS12p6Iv6KpGpI59jm+qNGigZ7ni1m7wDlw2b0tVfXo5ETW7391UCIuuHiq
+         fwb8P3vbExxHQ5LERzLIOzdspbb6V+PxP4HksLyRBhPIEJmthbRcL8RlN6anKQl9HJzQ
+         GLLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=K2IS4DIH6mLVlW67hNLVvhjqoD6ItQVTxI1gVdmna5w=;
-        b=NQzSQeLUkNwSJ+mhfzeDs5LbalCOmE6NgoVFQXPQ6nsxaUfNuQkxf6Np8lYvo2DgML
-         ETZgHKAhyjFtlI5U3/qaYake8hxen8ieW9U48/w8p1YC3bdks4k9wC2fAS86HytcpJgK
-         0YzXbtxKKFt/HSDEigpKnA05x/S5/Qf7HtoYOAGw86iegEw/C9smcEfY01kx7tmPREpm
-         t8iQ7YJLiLFGaxRcO73F0nL3sWCbYbc3K4vNiBFipiyHMQyn7kM/4NyPd0eRz2PotvvF
-         pP2WB2gYj3H1fVgr7mZKlVP4DbpY6jNM0GoRTE62LpbTWE6PgT6egkReaM+vtejJIF32
-         W2vQ==
-X-Gm-Message-State: AOAM533Te1rqf7JP9x933/QX+EIh3Pbh9FXyEakBAkuYkixNRUAgdCF8
-	vfXgT3QzMo+3jjwwDjGwzphcSF3Ltqs=
-X-Google-Smtp-Source: ABdhPJzKmDpKlFkDdTij8Y3/yo50zJDY90tSPO+GddOvwyita+2uSsv2W35Iln1+DCgigN2dW8CdvQ==
-X-Received: by 2002:ac8:6f4c:: with SMTP id n12mr4580168qtv.22.1620309596651;
-        Thu, 06 May 2021 06:59:56 -0700 (PDT)
+        bh=tdayrghQPCz70YHcLBlydERZJ3sNcRxWDd88jzJUALc=;
+        b=StLLP4vrM1Wj2H1RksxUkl/v5DHqkdkWpN1dmCrIWnKsirisxU9SK1ejfr8nmslAKW
+         bup5jblHYQYQ4xIrCtRZGB1P1oh84opsSgluTyU6Z0P5yzx+x0eOQ5Hnjeeo86zexFlm
+         B4jkWVl3yxyChze8qdai4C8zOgFg2Yg8/0nnTHPdh2EzF7amWJ6gJ/iKyYpFg69uM/rT
+         sjjFbd2/dTsIYsW8vFUrytYxiT1aeFT040oJxfmCzWMtHVvFq4i2NZsg3UETh8TDvAMD
+         Zc1QaKvbcM0NCnFiF4marSDdCloZl1bLa3853GhjsXOA9SOFIXrVsHYgCgvPKEdRqYNI
+         k4lw==
+X-Gm-Message-State: AOAM531S2OZpzbJxAFx0632UgCgqMrZPdMRC0eDBAp4yzdhWq61kNbqA
+	3do/VdikcKv4CCWXnbjXBi6XJ/G0UKs=
+X-Google-Smtp-Source: ABdhPJyk/YfrpM7kXpRPeGB7iQ5jVt6CcqzOeDiOnzgAYg+rwg1wDpdcBKYx0JbzqpuI+EhhMyuCqA==
+X-Received: by 2002:a05:620a:13e2:: with SMTP id h2mr3875260qkl.235.1620309597850;
+        Thu, 06 May 2021 06:59:57 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	Quan Xu <quan.xu0@gmail.com>,
 	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v2 03/13] stubom: newlib: Enable C99 formats for %z
-Date: Thu,  6 May 2021 09:59:13 -0400
-Message-Id: <20210506135923.161427-4-jandryuk@gmail.com>
+Subject: [PATCH v2 04/13] vtpmmgr: Allow specifying srk_handle for TPM2
+Date: Thu,  6 May 2021 09:59:14 -0400
+Message-Id: <20210506135923.161427-5-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210506135923.161427-1-jandryuk@gmail.com>
 References: <20210506135923.161427-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vtpmmgr was changed to print size_t with the %z modifier, but newlib
-isn't compiled with %z support.  So you get output like:
+Bypass taking ownership of the TPM2 if an srk_handle is specified.
 
-root seal: zu; sector of 13: zu
-root: zu v=zu
-itree: 36; sector of 112: zu
-group: zu v=zu id=zu md=zu
-group seal: zu; 5 in parent: zu; sector of 13: zu
-vtpm: zu+zu; sector of 48: zu
-
-Enable the C99 formats in newlib so vtpmmgr prints the numeric values.
-
-Fixes 9379af08ccc0 "stubdom: vtpmmgr: Correctly format size_t with %z
-when printing."
+This srk_handle must be usable with Null auth for the time being.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 ---
- stubdom/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2: Use "=" seperator
+---
+ docs/man/xen-vtpmmgr.7.pod |  7 +++++++
+ stubdom/vtpmmgr/init.c     | 11 ++++++++++-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 90d9ffcd9f..c6de5f68ae 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -105,7 +105,7 @@ cross-newlib: $(NEWLIB_STAMPFILE)
- $(NEWLIB_STAMPFILE): mk-headers-$(XEN_TARGET_ARCH) newlib-$(NEWLIB_VERSION)
- 	mkdir -p newlib-$(XEN_TARGET_ARCH)
- 	( cd newlib-$(XEN_TARGET_ARCH) && \
--	  CC_FOR_TARGET="$(CC) $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) $(NEWLIB_CFLAGS)" AR_FOR_TARGET=$(AR) LD_FOR_TARGET=$(LD) RANLIB_FOR_TARGET=$(RANLIB) ../newlib-$(NEWLIB_VERSION)/configure --prefix=$(CROSS_PREFIX) --verbose --target=$(GNU_TARGET_ARCH)-xen-elf --enable-newlib-io-long-long --disable-multilib && \
-+	  CC_FOR_TARGET="$(CC) $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) $(NEWLIB_CFLAGS)" AR_FOR_TARGET=$(AR) LD_FOR_TARGET=$(LD) RANLIB_FOR_TARGET=$(RANLIB) ../newlib-$(NEWLIB_VERSION)/configure --prefix=$(CROSS_PREFIX) --verbose --target=$(GNU_TARGET_ARCH)-xen-elf --enable-newlib-io-long-long --enable-newlib-io-c99-formats --disable-multilib && \
- 	  $(MAKE) DESTDIR= && \
- 	  $(MAKE) DESTDIR= install )
+diff --git a/docs/man/xen-vtpmmgr.7.pod b/docs/man/xen-vtpmmgr.7.pod
+index 875dcce508..3286954568 100644
+--- a/docs/man/xen-vtpmmgr.7.pod
++++ b/docs/man/xen-vtpmmgr.7.pod
+@@ -92,6 +92,13 @@ Valid arguments:
  
+ =over 4
+ 
++=item srk_handle=<HANDLE>
++
++Specify a srk_handle for TPM 2.0.  TPM 2.0 uses a key hierarchy, and
++this allow specifying the parent handle for vtpmmgr to create its own
++key under.  Using this option bypasses vtpmmgr trying to take ownership
++of the TPM.
++
+ =item owner_auth=<AUTHSPEC>
+ 
+ =item srk_auth=<AUTHSPEC>
+diff --git a/stubdom/vtpmmgr/init.c b/stubdom/vtpmmgr/init.c
+index 1506735051..130e4f4bf6 100644
+--- a/stubdom/vtpmmgr/init.c
++++ b/stubdom/vtpmmgr/init.c
+@@ -302,6 +302,11 @@ int parse_cmdline_opts(int argc, char** argv, struct Opts* opts)
+             goto err_invalid;
+          }
+       }
++      else if(!strncmp(argv[i], "srk_handle=", 11)) {
++         if(sscanf(argv[i] + 11, "%x", &vtpm_globals.srk_handle) != 1) {
++            goto err_invalid;
++         }
++      }
+       else if(!strncmp(argv[i], "tpmdriver=", 10)) {
+          if(!strcmp(argv[i] + 10, "tpm_tis")) {
+             opts->tpmdriver = TPMDRV_TPM_TIS;
+@@ -586,7 +591,11 @@ TPM_RESULT vtpmmgr2_create(void)
+ {
+     TPM_RESULT status = TPM_SUCCESS;
+ 
+-    TPMTRYRETURN(tpm2_take_ownership());
++    if ( vtpm_globals.srk_handle == 0 ) {
++        TPMTRYRETURN(tpm2_take_ownership());
++    } else {
++        tpm2_AuthArea_ctor(NULL, 0, &vtpm_globals.srk_auth_area);
++    }
+ 
+    /* create SK */
+     TPM2_Create_Params_out out;
 -- 
 2.30.2
 
