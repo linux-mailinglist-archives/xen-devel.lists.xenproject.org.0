@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C08A375660
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 17:17:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123636.233249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFE0D375845
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 18:13:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123645.233261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lefkV-0007Sj-F8; Thu, 06 May 2021 15:17:11 +0000
+	id 1legc3-0005Q8-Nb; Thu, 06 May 2021 16:12:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123636.233249; Thu, 06 May 2021 15:17:11 +0000
+Received: by outflank-mailman (output) from mailman id 123645.233261; Thu, 06 May 2021 16:12:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lefkV-0007QB-Aj; Thu, 06 May 2021 15:17:11 +0000
-Received: by outflank-mailman (input) for mailman id 123636;
- Thu, 06 May 2021 15:17:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1legc3-0005OH-Jh; Thu, 06 May 2021 16:12:31 +0000
+Received: by outflank-mailman (input) for mailman id 123645;
+ Thu, 06 May 2021 16:12:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PObI=KB=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lefkT-0007NO-BU
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 15:17:09 +0000
-Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:400:200::b])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1fcd6c39-16e5-4867-b9f5-96a4ad40523b;
- Thu, 06 May 2021 15:17:08 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.25.6 AUTH)
- with ESMTPSA id V0bf6dx46FH30Kr
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 6 May 2021 17:17:03 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1legc2-0005OB-0i
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 16:12:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1legc0-00047q-M1; Thu, 06 May 2021 16:12:28 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1legc0-0003uf-CI; Thu, 06 May 2021 16:12:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,95 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fcd6c39-16e5-4867-b9f5-96a4ad40523b
-ARC-Seal: i=1; a=rsa-sha256; t=1620314224; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=jzBcN2Rmupd0W1QlGCEEpZOie/G31WOdExFfoQkC6A76xEpCKg0NsM0Pweb3BoLzfR
-    eeQVeYDOffC4ES1tGNOVo5hqZm8W61qforXkhiNas4YiHvKlB7PLnn3NhLNiiwWsLPIp
-    ORGeW/jUT4AkVesZ4oBWoapAEYg59L2s6j9dRMKadDtnZQOjWb5BLGMXmbKmEalDdPDk
-    z3F76UX2QWmMo3w1QXi0exAI0w6MBT89nfRprs7vQRCZ+geVup5kam/iaRUZyUx2vp4R
-    N2ahidKBKorLJc0PdQxEsUuyzuxG8covtAUuOCVipqLl6ApRyPShJAGVMUe9RDF/yEDu
-    hutg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1620314224;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=FxbKl46WH8hAOJ0YzhvXx5JTFJunhpUurX0R/y8sMCM=;
-    b=n4RcCjDeJT4MUegPYhnoe33gScGt1iZ7ZgT1IV+d0WUJ6VRwUAFH4pUXEI6+J7nP1D
-    k0UU6HprK5QfzUM2fSMqzsmWIvxE0WPpsKmfvuqeqI1Ey0vwktAS1+gkkMLNRi5P93N6
-    bA4xdQxwHwCPDIFQmn/SLvCe0GJPNzlSBPn3JQBI+Y9+LY5Xzkm+KMijuD7K/XhOog6l
-    YHN3HeU4NnbYrqcVf/XMGoO/WlhXSaXnvuiwgBdfsfPbnMVrdwbDmBNX7hwi70wxUqGX
-    MumLi5423GUqRisI7b4mVFl2ib+DfCN+I+xFs/jBgsbG0HYkuvUU+yTHWqOE/NwKWZmu
-    6r/w==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1620314224;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=FxbKl46WH8hAOJ0YzhvXx5JTFJunhpUurX0R/y8sMCM=;
-    b=bUBTYqB+f8GpAS9Ba42kS4RGYviIWVHbX54uvoTHQSi9VHVsD/Mrfz25iFH0FYAfoO
-    HrXlvdVKDsKeC9kKSzsR8gQKJWq/ONgkuz6/ynd+egzGwaewUWLtxhkWeFvGQEAq+5BY
-    BB5FpsTAR57K3RMNhQVThurTXuKJKOUfVZRBNDbzwJSLFEAxmSLQPglIFjgdGo0GYwE2
-    DzrVSpeao0Znysnlr2UehuCtu7K7FhKrF52m10lG+tBuwEwSD3S12kR2ktH7W6xE2XNo
-    jKVoryswEy6g81zzNQW54mdxkS7WvLpQGCJzvKTbTU86FrS7tbqvCupKaD7I6YN7fIlx
-    Axlg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgtl+1b1FMstFZvCqIQN5N7TvWFg4vzhFVdoKAuQ"
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=taAzfylmniFMr/i/NXbHSTg9722Z1jzHz8t2M1whrOw=; b=oCuBi89tY6Ij+vI5tcKSZ8QzwJ
+	1UnmlL6irFx2hokVbNHwE2Zk90srkcMDTeU+psg8ahVFfoPe9HhAAS8upaC7pycbdZy2SE+FFudPj
+	vh1nvce0sNobV9xpb7SsTICO6UN0e2Yg+BFrTIygsZmQ8dB4mgNBGp4aaGHw28Jrj644=;
+From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
 	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2] tools: fix incorrect suggestions for XENCONSOLED_TRACE on BSD
-Date: Thu,  6 May 2021 17:17:01 +0200
-Message-Id: <20210506151701.1343-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/xenstored: Prevent a buffer overflow in dump_state_node_perms()
+Date: Thu,  6 May 2021 17:12:23 +0100
+Message-Id: <20210506161223.15984-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
---log does not take a file, it specifies what is supposed to be logged.
+From: Julien Grall <jgrall@amazon.com>
 
-Also separate the XENSTORED and XENCONSOLED variables by a newline.
+ASAN reported one issue when Live Updating Xenstored:
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
+=================================================================
+==873==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffc194f53e0 at pc 0x555c6b323292 bp 0x7ffc194f5340 sp 0x7ffc194f5338
+WRITE of size 1 at 0x7ffc194f53e0 thread T0
+    #0 0x555c6b323291 in dump_state_node_perms xen/tools/xenstore/xenstored_core.c:2468
+    #1 0x555c6b32746e in dump_state_special_node xen/tools/xenstore/xenstored_domain.c:1257
+    #2 0x555c6b32a702 in dump_state_special_nodes xen/tools/xenstore/xenstored_domain.c:1273
+    #3 0x555c6b32ddb3 in lu_dump_state xen/tools/xenstore/xenstored_control.c:521
+    #4 0x555c6b32e380 in do_lu_start xen/tools/xenstore/xenstored_control.c:660
+    #5 0x555c6b31b461 in call_delayed xen/tools/xenstore/xenstored_core.c:278
+    #6 0x555c6b32275e in main xen/tools/xenstore/xenstored_core.c:2357
+    #7 0x7f95eecf3d09 in __libc_start_main ../csu/libc-start.c:308
+    #8 0x555c6b3197e9 in _start (/usr/local/sbin/xenstored+0xc7e9)
+
+Address 0x7ffc194f53e0 is located in stack of thread T0 at offset 80 in frame
+    #0 0x555c6b32713e in dump_state_special_node xen/tools/xenstore/xenstored_domain.c:1232
+
+  This frame has 2 object(s):
+    [32, 40) 'head' (line 1233)
+    [64, 80) 'sn' (line 1234) <== Memory access at offset 80 overflows this variable
+
+This is happening because the callers are passing a pointer to a variable
+allocated on the stack. However, the field perms is a dynamic array, so
+Xenstored will end up to read outside of the variable.
+
+Rework the code so the permissions are written one by one in the fd.
+
+Fixes: ed6eebf17d2c ("tools/xenstore: dump the xenstore state for live update")
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 ---
- tools/hotplug/FreeBSD/rc.d/xencommons.in | 5 +++--
- tools/hotplug/NetBSD/rc.d/xencommons.in  | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ tools/xenstore/xenstored_core.c   | 26 ++++++++++++++------------
+ tools/xenstore/xenstored_core.h   |  3 +--
+ tools/xenstore/xenstored_domain.c |  2 +-
+ 3 files changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/tools/hotplug/FreeBSD/rc.d/xencommons.in b/tools/hotplug/FreeBSD/rc.d/xencommons.in
-index ccd5a9b055..4c61d8c94e 100644
---- a/tools/hotplug/FreeBSD/rc.d/xencommons.in
-+++ b/tools/hotplug/FreeBSD/rc.d/xencommons.in
-@@ -21,9 +21,10 @@ status_cmd="xen_status"
- extra_commands="status"
- required_files="/dev/xen/xenstored"
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index d54a6042a9f7..f68da12b5b23 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -2447,34 +2447,36 @@ const char *dump_state_buffered_data(FILE *fp, const struct connection *c,
+ 	return NULL;
+ }
  
--XENSTORED_PIDFILE="@XEN_RUN_DIR@/xenstored.pid"
- XENCONSOLED_PIDFILE="@XEN_RUN_DIR@/xenconsoled.pid"
--#XENCONSOLED_TRACE="@XEN_LOG_DIR@/xenconsole-trace.log"
-+#XENCONSOLED_TRACE="none|guest|hv|all"
+-const char *dump_state_node_perms(FILE *fp, struct xs_state_node *sn,
+-				  const struct xs_permissions *perms,
++const char *dump_state_node_perms(FILE *fp, const struct xs_permissions *perms,
+ 				  unsigned int n_perms)
+ {
+ 	unsigned int p;
+ 
+ 	for (p = 0; p < n_perms; p++) {
++		struct xs_state_node_perm sp;
 +
-+XENSTORED_PIDFILE="@XEN_RUN_DIR@/xenstored.pid"
- #XENSTORED_TRACE="@XEN_LOG_DIR@/xen/xenstore-trace.log"
+ 		switch ((int)perms[p].perms & ~XS_PERM_IGNORE) {
+ 		case XS_PERM_READ:
+-			sn->perms[p].access = XS_STATE_NODE_PERM_READ;
++			sp.access = XS_STATE_NODE_PERM_READ;
+ 			break;
+ 		case XS_PERM_WRITE:
+-			sn->perms[p].access = XS_STATE_NODE_PERM_WRITE;
++			sp.access = XS_STATE_NODE_PERM_WRITE;
+ 			break;
+ 		case XS_PERM_READ | XS_PERM_WRITE:
+-			sn->perms[p].access = XS_STATE_NODE_PERM_BOTH;
++			sp.access = XS_STATE_NODE_PERM_BOTH;
+ 			break;
+ 		default:
+-			sn->perms[p].access = XS_STATE_NODE_PERM_NONE;
++			sp.access = XS_STATE_NODE_PERM_NONE;
+ 			break;
+ 		}
+-		sn->perms[p].flags = (perms[p].perms & XS_PERM_IGNORE)
++		sp.flags = (perms[p].perms & XS_PERM_IGNORE)
+ 				     ? XS_STATE_NODE_PERM_IGNORE : 0;
+-		sn->perms[p].domid = perms[p].id;
+-	}
++		sp.domid = perms[p].id;
  
- load_rc_config $name
-diff --git a/tools/hotplug/NetBSD/rc.d/xencommons.in b/tools/hotplug/NetBSD/rc.d/xencommons.in
-index 3981787eac..80e518f5de 100644
---- a/tools/hotplug/NetBSD/rc.d/xencommons.in
-+++ b/tools/hotplug/NetBSD/rc.d/xencommons.in
-@@ -20,9 +20,10 @@ status_cmd="xen_status"
- extra_commands="status"
- required_files="/kern/xen/privcmd"
- 
--XENSTORED_PIDFILE="@XEN_RUN_DIR@/xenstored.pid"
- XENCONSOLED_PIDFILE="@XEN_RUN_DIR@/xenconsoled.pid"
--#XENCONSOLED_TRACE="@XEN_LOG_DIR@/xenconsole-trace.log"
-+#XENCONSOLED_TRACE="none|guest|hv|all"
+-	if (fwrite(sn->perms, sizeof(*sn->perms), n_perms, fp) != n_perms)
+-		return "Dump node permissions error";
++		if (fwrite(&sp, sizeof(sp), 1, fp) != 1)
++			return "Dump node permission error";
 +
-+XENSTORED_PIDFILE="@XEN_RUN_DIR@/xenstored.pid"
- #XENSTORED_TRACE="@XEN_LOG_DIR@/xenstore-trace.log"
++	}
  
- xen_precmd()
+ 	return NULL;
+ }
+@@ -2519,7 +2521,7 @@ static const char *dump_state_node_tree(FILE *fp, char *path)
+ 	if (fwrite(&sn, sizeof(sn), 1, fp) != 1)
+ 		return "Dump node state error";
+ 
+-	ret = dump_state_node_perms(fp, &sn, hdr->perms, hdr->num_perms);
++	ret = dump_state_node_perms(fp, hdr->perms, hdr->num_perms);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 1cdbc3dcb5f7..b50ea3f57d5a 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -271,8 +271,7 @@ const char *dump_state_buffered_data(FILE *fp, const struct connection *c,
+ 				     const struct connection *conn,
+ 				     struct xs_state_connection *sc);
+ const char *dump_state_nodes(FILE *fp, const void *ctx);
+-const char *dump_state_node_perms(FILE *fp, struct xs_state_node *sn,
+-				  const struct xs_permissions *perms,
++const char *dump_state_node_perms(FILE *fp, const struct xs_permissions *perms,
+ 				  unsigned int n_perms);
+ 
+ void read_state_global(const void *ctx, const void *state);
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 3d4d0649a243..580ed454a3f5 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -1254,7 +1254,7 @@ static const char *dump_state_special_node(FILE *fp, const char *name,
+ 	if (fwrite(&sn, sizeof(sn), 1, fp) != 1)
+ 		return "Dump special node error";
+ 
+-	ret = dump_state_node_perms(fp, &sn, perms->p, perms->num);
++	ret = dump_state_node_perms(fp, perms->p, perms->num);
+ 	if (ret)
+ 		return ret;
+ 
+-- 
+2.17.1
+
 
