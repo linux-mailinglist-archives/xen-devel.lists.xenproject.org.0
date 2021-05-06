@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82FBC375569
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:11:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123583.233122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45B9B375560
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:04:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123573.233099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeiN-0004CJ-3i; Thu, 06 May 2021 14:10:55 +0000
+	id 1leecL-0002R3-2m; Thu, 06 May 2021 14:04:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123583.233122; Thu, 06 May 2021 14:10:55 +0000
+Received: by outflank-mailman (output) from mailman id 123573.233099; Thu, 06 May 2021 14:04:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1leeiM-00048n-Vc; Thu, 06 May 2021 14:10:54 +0000
-Received: by outflank-mailman (input) for mailman id 123583;
- Thu, 06 May 2021 14:10:53 +0000
+	id 1leecK-0002OC-VL; Thu, 06 May 2021 14:04:40 +0000
+Received: by outflank-mailman (input) for mailman id 123573;
+ Thu, 06 May 2021 14:04:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NmKg=KB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1leeYh-0003iB-OU
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:00:55 +0000
-Received: from mail-qv1-xf32.google.com (unknown [2607:f8b0:4864:20::f32])
+ id 1leecJ-0002O0-6z
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:04:39 +0000
+Received: from mail-lj1-x22e.google.com (unknown [2a00:1450:4864:20::22e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c3021232-c65c-49fc-ae5a-973073c5306d;
- Thu, 06 May 2021 14:00:09 +0000 (UTC)
-Received: by mail-qv1-xf32.google.com with SMTP id u1so3042441qvg.11
- for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 07:00:09 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:6095:81da:832e:3929])
- by smtp.gmail.com with ESMTPSA id
- 189sm2069992qkh.99.2021.05.06.07.00.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 May 2021 07:00:07 -0700 (PDT)
+ id 3eb1cdc7-de8c-4eb5-9a96-bda0214f6a85;
+ Thu, 06 May 2021 14:04:38 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id o16so7219105ljp.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 07:04:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,198 +37,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3021232-c65c-49fc-ae5a-973073c5306d
+X-Inumbo-ID: 3eb1cdc7-de8c-4eb5-9a96-bda0214f6a85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=INJlvdLEiMRlxDVXoqvU7bWzaHIWnzxg1XcmDrQV7tE=;
-        b=hzDTz2nGVFQefH2LMpgFDEFvOb/lGoQmVVe3Meg2/PusuSTC0hqWI2vO7FnpbedbVa
-         VMqXxtJAdCD9yvOW8NBc4fY/pQrae9CWlfVudRO6TdwQKm0UQvcvAIueXYZ6I3zUIknf
-         dFonW8qa3bo/iXTtt7etwOBahlooJw+SEZ2Q9MuowQulRfgIgqBFdZDSEDMvY0LP7Pzo
-         rKr1U5U9X/q2glIKloDNJwFB5X1gMKPOqVWi126Dv3ULLodTeWVn9MMqPvPR/8CMV/sY
-         CsXSBmPDxtEMvoKD8iEGoW2JiOaAHyFKt7sZkdT/AuVc08KxtQv32TmJOv5vnoAFnmA6
-         7+5g==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=Iv4rh0azE3wyuDutQfPSy04R7NYdGndNnYAgr/OMFeg=;
+        b=pj/5fOnn8TnE5gNgEuCZCSMg1KRasWlUjpOJl0y8JA1f8XFXtQ7kqC7Crtj0LksDLL
+         Ew8ZwVieI+gM/sb7Tu2gakIdZF3lJwhXYGLhIQA2t6GLMSziftIIQcLLifOjyt/3xIpH
+         83olv1LMwNTR2sF5mVtk3nvSuDEiWWIAe+3IAMj//SAZ61horCH3yjxoKHo9+bCG7Qr/
+         ixwZNucZN97DQ3EDiKorxUYsGR4tSL0httvnVXdB6Nf+MFIIJJlKBZwP9fM8+8Zp296X
+         SI6BT4snB5kgW9a+PsOL9HxYWkvenxRsfI4SYMHVNJHp9axKpDuwt5oBmkU9VWy1Ta2G
+         jCqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=INJlvdLEiMRlxDVXoqvU7bWzaHIWnzxg1XcmDrQV7tE=;
-        b=NAnIojiTEZnVAcF+oZhaGiu2uDSubddlZ5R5DV5KcBNO/PHhsPGqOhIexIuHzqLPZR
-         Y8RDhhxE1jCnEt/oaGJfw1d7TGRglegL1BA9Tzp447h8SHKoD9Ky/A8JEfd0uKRE8LEV
-         NgJyvs0Y1UVQe/PpQU2kViXyYSth2LWUdpgrKHHqoOmO4qYN6WYH9KPmgADAwzx37ed1
-         oByagZV6HdBskpaT9z0nhU5AVbJQZVDs2jDRL5J6JHxbINZNkLb5aGuUd8PDTXZzl/q7
-         35Dwp+IYDSe6m+xVS0HBnu/Sa1EPBmjUfcmICPnCPY8X/ncvGE93xjz80U6CEVFzDqxo
-         ISxg==
-X-Gm-Message-State: AOAM5305N1E///mqXpDYle95QaTTb8VeLBRYuAk6RkSiKWyWkcCFrd9i
-	ayHxt/+p/ZxB8RhnbsUsvGfkTONoRcI=
-X-Google-Smtp-Source: ABdhPJxTqMFHefgYQlpQl9V3rpHD48J1Hf1gvVoQC47X7dXoL2/OtjrZzrC0QRpN22L5c1VOFkd7Kw==
-X-Received: by 2002:a0c:f0c4:: with SMTP id d4mr4347832qvl.54.1620309608256;
-        Thu, 06 May 2021 07:00:08 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v2 13/13] vtpm: Correct timeout units and command duration
-Date: Thu,  6 May 2021 09:59:23 -0400
-Message-Id: <20210506135923.161427-14-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210506135923.161427-1-jandryuk@gmail.com>
-References: <20210506135923.161427-1-jandryuk@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=Iv4rh0azE3wyuDutQfPSy04R7NYdGndNnYAgr/OMFeg=;
+        b=lV27YFsdUlnwEHyMIuTA9cCbn/GPC9Xm1HNsuP1VqsD7KgV/HawuP3pkZiNMWrOXMG
+         YOg55TtddOv6HYx4c9QITTnVKrW2r905Ciml+m4vXQpQ5xsclJ+udxOUa4ePGMYrCG30
+         kC6VrikaAlJTMlV+m8UR+xrT7n0YDSBFXUkVTRTKw11PQghWnuwzZmisKwyWm08985Hd
+         iaQ0rWzLNZTBN+iX45MnamCK6+liWw3YREO+mT+YtjjlzOZ+16H6TfnT1GMWsHyf/kcE
+         iCKEgMT1KfICeGoeIvs5Gi7M87ycUYQcOSrPlY02cHlciYOe3mnnQZ6ntK1OiTz2X206
+         ZalQ==
+X-Gm-Message-State: AOAM531HkBL0fzg7YRt6lslQUdpknukfPM0aQXA0onI7VD1TB2TazYXA
+	docLU+hI0jQK0Z+GE0khekOD0BlwWB7iJcysqAwZUM4C
+X-Google-Smtp-Source: ABdhPJzueLl1gPUv2yD0a3QJtKHmPXTsCEIt/UCkovPWKoufUqHtzsUNPQaFrGy48U5rcsnW97xK8bJbcfReHsEbEGM=
+X-Received: by 2002:a2e:8356:: with SMTP id l22mr3558079ljh.204.1620309876985;
+ Thu, 06 May 2021 07:04:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210506135923.161427-1-jandryuk@gmail.com> <20210506135923.161427-9-jandryuk@gmail.com>
+In-Reply-To: <20210506135923.161427-9-jandryuk@gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 6 May 2021 10:04:25 -0400
+Message-ID: <CAKf6xptH+p3KmNsaok_5dy+1WHZ5RHJfqKfmQVmsiauAo8FakA@mail.gmail.com>
+Subject: Re: [PATCH v2 08/13] vtpmmgr: Shutdown more gracefully
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>, 
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Add two patches:
-vtpm-microsecond-duration.patch fixes the units for timeouts and command
-durations.
-vtpm-command-duration.patch increases the timeout linux uses to allow
-commands to succeed.
+On Thu, May 6, 2021 at 10:00 AM Jason Andryuk <jandryuk@gmail.com> wrote:
+>
+> vtpmmgr uses the default, weak app_shutdown, which immediately calls the
+> shutdown hypercall.  This short circuits the vtpmmgr clean up logic.  We
+> need to perform the clean up to actually Flush our key out of the tpm.
+>
+> Setting do_shutdown is one step in that direction, but vtpmmgr will most
+> likely be waiting in tpmback_req_any.  We need to call shutdown_tpmback
+> to cancel the wait inside tpmback and perform the shutdown.
+>
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> Reviewed-by: Samuel Thibault <samuel.thibaut@ens-lyon.org>
 
-Linux works around low timeouts, but not low durations.  The second
-patch allows commands to complete that often timeout with the lower
-command durations.
+Whoops, this should be "Reviewed-by: Samuel Thibault
+<samuel.thibault@ens-lyon.org>".  The above is missing an "l" in the
+last name.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- stubdom/Makefile                        |  2 +
- stubdom/vtpm-command-duration.patch     | 52 +++++++++++++++++++++++++
- stubdom/vtpm-microsecond-duration.patch | 52 +++++++++++++++++++++++++
- 3 files changed, 106 insertions(+)
- create mode 100644 stubdom/vtpm-command-duration.patch
- create mode 100644 stubdom/vtpm-microsecond-duration.patch
-
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index c6de5f68ae..06aa69d8bc 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -239,6 +239,8 @@ tpm_emulator-$(XEN_TARGET_ARCH): tpm_emulator-$(TPMEMU_VERSION).tar.gz
- 	patch -d $@ -p1 < vtpm-implicit-fallthrough.patch
- 	patch -d $@ -p1 < vtpm_TPM_ChangeAuthAsymFinish.patch
- 	patch -d $@ -p1 < vtpm_extern.patch
-+	patch -d $@ -p1 < vtpm-microsecond-duration.patch
-+	patch -d $@ -p1 < vtpm-command-duration.patch
- 	mkdir $@/build
- 	cd $@/build; CC=${CC} $(CMAKE) .. -DCMAKE_C_FLAGS:STRING="-std=c99 -DTPM_NO_EXTERN $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) -Wno-declaration-after-statement"
- 	touch $@
-diff --git a/stubdom/vtpm-command-duration.patch b/stubdom/vtpm-command-duration.patch
-new file mode 100644
-index 0000000000..6fdf2fc9be
---- /dev/null
-+++ b/stubdom/vtpm-command-duration.patch
-@@ -0,0 +1,52 @@
-+From e7c976b5864e7d2649292d90ea60d5aea091a990 Mon Sep 17 00:00:00 2001
-+From: Jason Andryuk <jandryuk@gmail.com>
-+Date: Sun, 14 Mar 2021 12:46:34 -0400
-+Subject: [PATCH 2/2] Increase command durations
-+
-+Wth Linux 5.4 xen-tpmfront and a Xen vtpm-stubdom, xen-tpmfront was
-+failing commands with -ETIME:
-+tpm tpm0: tpm_try_transmit: send(): error-62
-+
-+The vtpm was returning the data, but it was after the duration timeout
-+in vtpm_send.  Linux may have started being more stringent about timing?
-+
-+The vtpm-stubdom has a little delay since it writes its disk before
-+returning the response.
-+
-+Anyway, the durations are rather low.  When they were 1/10/1000 before
-+converting to microseconds, Linux showed all three durations rounded to
-+10000.  Update them with values from a physical TPM1.2.  These were
-+taken from a WEC which was software downgraded from a TPM2 to a TPM1.2.
-+They might be excessive, but I'd rather have a command succeed than
-+return -ETIME.
-+
-+An IFX physical TPM1.2 uses:
-+1000000
-+1500000
-+150000000
-+
-+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-+---
-+ tpm/tpm_data.c | 6 +++---
-+ 1 file changed, 3 insertions(+), 3 deletions(-)
-+
-+diff --git a/tpm/tpm_data.c b/tpm/tpm_data.c
-+index bebaf10..844afca 100644
-+--- a/tpm/tpm_data.c
-++++ b/tpm/tpm_data.c
-+@@ -71,9 +71,9 @@ static void init_timeouts(void)
-+   tpmData.permanent.data.tis_timeouts[1] = 2000000;
-+   tpmData.permanent.data.tis_timeouts[2] = 750000;
-+   tpmData.permanent.data.tis_timeouts[3] = 750000;
-+-  tpmData.permanent.data.cmd_durations[0] = 1000;
-+-  tpmData.permanent.data.cmd_durations[1] = 10000;
-+-  tpmData.permanent.data.cmd_durations[2] = 1000000;
-++  tpmData.permanent.data.cmd_durations[0] = 3000000;
-++  tpmData.permanent.data.cmd_durations[1] = 3000000;
-++  tpmData.permanent.data.cmd_durations[2] = 600000000;
-+ }
-+ 
-+ void tpm_init_data(void)
-+-- 
-+2.30.2
-+
-diff --git a/stubdom/vtpm-microsecond-duration.patch b/stubdom/vtpm-microsecond-duration.patch
-new file mode 100644
-index 0000000000..7a906e72c5
---- /dev/null
-+++ b/stubdom/vtpm-microsecond-duration.patch
-@@ -0,0 +1,52 @@
-+From 5a510e0afd7c288e3f0fb3523ec749ba1366ad61 Mon Sep 17 00:00:00 2001
-+From: Jason Andryuk <jandryuk@gmail.com>
-+Date: Sun, 14 Mar 2021 12:42:10 -0400
-+Subject: [PATCH 1/2] Use microseconds for timeouts and durations
-+
-+The timeout and duration fields should be in microseconds according to
-+the spec.
-+
-+TPM_CAP_PROP_TIS_TIMEOUT:
-+A 4 element array of UINT32 values each denoting the timeout value in
-+microseconds for the following in this order:
-+
-+TPM_CAP_PROP_DURATION:
-+A 3 element array of UINT32 values each denoting the duration value in
-+microseconds of the duration of the three classes of commands:
-+
-+Linux will scale the timeouts up by 1000, but not the durations.  Change
-+the units for both sets as appropriate.
-+
-+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-+---
-+ tpm/tpm_data.c | 14 +++++++-------
-+ 1 file changed, 7 insertions(+), 7 deletions(-)
-+
-+diff --git a/tpm/tpm_data.c b/tpm/tpm_data.c
-+index a3a79ef..bebaf10 100644
-+--- a/tpm/tpm_data.c
-++++ b/tpm/tpm_data.c
-+@@ -67,13 +67,13 @@ static void init_nv_storage(void)
-+ static void init_timeouts(void)
-+ {
-+   /* for the timeouts we use the PC platform defaults */
-+-  tpmData.permanent.data.tis_timeouts[0] = 750;
-+-  tpmData.permanent.data.tis_timeouts[1] = 2000;
-+-  tpmData.permanent.data.tis_timeouts[2] = 750;
-+-  tpmData.permanent.data.tis_timeouts[3] = 750;
-+-  tpmData.permanent.data.cmd_durations[0] = 1;
-+-  tpmData.permanent.data.cmd_durations[1] = 10;
-+-  tpmData.permanent.data.cmd_durations[2] = 1000;
-++  tpmData.permanent.data.tis_timeouts[0] = 750000;
-++  tpmData.permanent.data.tis_timeouts[1] = 2000000;
-++  tpmData.permanent.data.tis_timeouts[2] = 750000;
-++  tpmData.permanent.data.tis_timeouts[3] = 750000;
-++  tpmData.permanent.data.cmd_durations[0] = 1000;
-++  tpmData.permanent.data.cmd_durations[1] = 10000;
-++  tpmData.permanent.data.cmd_durations[2] = 1000000;
-+ }
-+ 
-+ void tpm_init_data(void)
-+-- 
-+2.30.2
-+
--- 
-2.30.2
-
+-Jason
 
