@@ -2,67 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 845083755D2
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:44:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123619.233207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA3D03755D1
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:44:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123618.233194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lefEQ-0002f2-6W; Thu, 06 May 2021 14:44:02 +0000
+	id 1lefEK-0002NH-QZ; Thu, 06 May 2021 14:43:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123619.233207; Thu, 06 May 2021 14:44:02 +0000
+Received: by outflank-mailman (output) from mailman id 123618.233194; Thu, 06 May 2021 14:43:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lefEQ-0002cs-1R; Thu, 06 May 2021 14:44:02 +0000
-Received: by outflank-mailman (input) for mailman id 123619;
- Thu, 06 May 2021 14:44:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lefEK-0002Ky-NS; Thu, 06 May 2021 14:43:56 +0000
+Received: by outflank-mailman (input) for mailman id 123618;
+ Thu, 06 May 2021 14:43:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HxhD=KB=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lefEO-0002cI-QK
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:44:00 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [40.107.6.66]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eaa7c4fd-7dff-4d53-bf86-09fed8913b8f;
- Thu, 06 May 2021 14:43:59 +0000 (UTC)
-Received: from DU2PR04CA0261.eurprd04.prod.outlook.com (2603:10a6:10:28e::26)
- by DB7PR08MB3404.eurprd08.prod.outlook.com (2603:10a6:10:4c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.35; Thu, 6 May
- 2021 14:43:50 +0000
-Received: from DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:28e:cafe::5a) by DU2PR04CA0261.outlook.office365.com
- (2603:10a6:10:28e::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.24 via Frontend
- Transport; Thu, 6 May 2021 14:43:50 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT035.mail.protection.outlook.com (10.152.20.65) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Thu, 6 May 2021 14:43:50 +0000
-Received: ("Tessian outbound 13cdc29c30b8:v91");
- Thu, 06 May 2021 14:43:50 +0000
-Received: from 836d516b62f3.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 84EEA4D9-07A8-4D8F-9868-DE76C025A24B.1; 
- Thu, 06 May 2021 14:43:31 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 836d516b62f3.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 06 May 2021 14:43:31 +0000
-Received: from VI1PR08MB3629.eurprd08.prod.outlook.com (2603:10a6:803:7f::25)
- by VI1PR08MB5375.eurprd08.prod.outlook.com (2603:10a6:803:130::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.26; Thu, 6 May
- 2021 14:43:29 +0000
-Received: from VI1PR08MB3629.eurprd08.prod.outlook.com
- ([fe80::4502:9762:8b3b:63d9]) by VI1PR08MB3629.eurprd08.prod.outlook.com
- ([fe80::4502:9762:8b3b:63d9%4]) with mapi id 15.20.4087.044; Thu, 6 May 2021
- 14:43:29 +0000
-Received: from smtpclient.apple (82.8.129.65) by
- LNXP265CA0051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:5d::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Thu, 6 May 2021 14:43:28 +0000
+ <SRS0=sEA5=KB=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1lefEJ-0002Ks-NY
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 14:43:55 +0000
+Received: from mail-wm1-x32a.google.com (unknown [2a00:1450:4864:20::32a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4d0b5e78-daf3-42c9-84ba-2aa4180077dd;
+ Thu, 06 May 2021 14:43:52 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ b11-20020a7bc24b0000b0290148da0694ffso5450533wmj.2
+ for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 07:43:52 -0700 (PDT)
+Received: from [192.168.1.186]
+ (host86-180-176-157.range86-180.btcentralplus.com. [86.180.176.157])
+ by smtp.gmail.com with ESMTPSA id o15sm4540204wru.42.2021.05.06.07.43.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 May 2021 07:43:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,349 +43,377 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eaa7c4fd-7dff-4d53-bf86-09fed8913b8f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ElkAIVTIBIywb4RaTMWfi7okWmexFlLgEKKbWzchDuQ=;
- b=+OslYPquYaTPOYQ5b4Kw3p0B7mSEIYFJRdxWbs12rzXIObRsyEcAFM/us5kmCedENXasKK1mkbZ3r55PJ9//gD0ErQiQZE5C4+StJvCXsf+9yqavbKRcgzfCqfn6CTiY+k4u0g2wPB8x5EvNIduQLa5+CFVk/PFyHFAnf5XzpNs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: cd67c82459f39719
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QoB7cJkL3DpPpjnSIqAnC1RNGTwzacHYN+Hs0U7lCEQdm2iISXEw/Ewioh0lRIpG9LvWLskLI3RK536Q2Icc0zPtNcr8guKSN21ITSq/LLPagH3wAtK8o2Qi4AixDRTfSIOI4VHhZ4crz4INvXAjj0iMrJ4ZF7pOnMQ5pe/2ciV5mCVu3YFYTxUTgKyors8tNCEDSFlELl5CdPqjOfq9GO1yJ5r+sOb8ZhjTiHKSHKv9vjoetaapUR/fzSqbFopWcvNuSt+jOMvdgd+3qhG9u/j4lrxktQhbUo9pPCeG91AHlh4v1OeorKMkONe7CzrUlTAN04wwldMM+/MrZl+a1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ElkAIVTIBIywb4RaTMWfi7okWmexFlLgEKKbWzchDuQ=;
- b=kLCnDkkeau0Sq4dEeL2twyEYE9UppHZY4LtmPPwsrkgcAUvpe3b6oOMJpFSI9xmAju0UwUasLMX0waq/+cXoYjYxdZKCi9t3S9ULGJ0OnS7bzdvA5BvpnHf/z+lXs2qSsb+SoYNTnSly50tfOtQj13jctRFihj8MSqvxczLnOF0P6yuSq48VAxNlxkKoPp1hjWvEtpbQfZ0ro+DStJZF+UdMsk6J7V2v2Mo9S+yeWuqPuzxjMrQt5Fe+NPu2S/Z5wsGxbV7trJTCbYsgAdFgpBUxcSeD0ANMX5ISYu63FUXzb82W6Dr3PpPP5maD3c2bIGWbuLlHR00Ofz/Ve7TBCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ElkAIVTIBIywb4RaTMWfi7okWmexFlLgEKKbWzchDuQ=;
- b=+OslYPquYaTPOYQ5b4Kw3p0B7mSEIYFJRdxWbs12rzXIObRsyEcAFM/us5kmCedENXasKK1mkbZ3r55PJ9//gD0ErQiQZE5C4+StJvCXsf+9yqavbKRcgzfCqfn6CTiY+k4u0g2wPB8x5EvNIduQLa5+CFVk/PFyHFAnf5XzpNs=
-Authentication-Results-Original: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH v5 3/3] docs/doxygen: doxygen documentation for
- grant_table.h
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <8fada713-9ae5-ddd3-585b-0f090748fc49@suse.com>
-Date: Thu, 6 May 2021 15:43:21 +0100
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- wei.chen@arm.com,
+X-Inumbo-ID: 4d0b5e78-daf3-42c9-84ba-2aa4180077dd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Ml5++Jmo/jaNHi4JfexBhOqrQdGVQl2n4qPdFHUxiT0=;
+        b=mLkgDE2yM4VpG0cUsA79H+eBo4OGaodagcUEj2lwfpkYwkhF1ruZA9gMUEDeqBoX3n
+         HrBRt2aF5buUvEhSFzW3mN/KCtDcdsyCO7/B1XhB2Dqx4VM+hLG2/vdvIa9ju9P7wWnU
+         wuhFM0j2TPBsVWKoGzPN4nB4Kzt0/PXAzdmGC0k1AN1uebtN4nYkGyQS3qmQ4klHE59b
+         4FR5Na6u7T1qm8i9RZvovwRjCq1e+gBD2ztoEKGFL96KnWQMFlEYzhkvZ0FNfuAK+FLr
+         K/S87goOrw/x/omhETe7bpMEzSJlIuc3uEBKZ1IMmKggQ50gI6585GN9yql21Fq2DNRP
+         30vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:subject:to:cc:references
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=Ml5++Jmo/jaNHi4JfexBhOqrQdGVQl2n4qPdFHUxiT0=;
+        b=MtZPdzELho2E43ZGYBqIMvCk6FSN/dEcDKK4Newn7OIgvnu5/quFwfsGgqzr3HRT9i
+         wZp4n6b0akooZv3W39sG5ZIrn/wz5hM0/VU1UWFaPEOR7WbRUYh+DBZJiKyrmVa45g2U
+         Pit2Y3csti/R8onarpU7yxgQ9sDkHvQaPjozLwVcKWmHbE4Llx3vdEbRWNzedLYDCcz9
+         XZc2TxJ7yvB6RQwwvmCvhdSh2PNJ7y20s1Cv1hRVM++FlBxmPyIVoOM7YTSFroC1qIJN
+         iJz4rjqgF9pOxMStjZVv6M1lNGEW5gFAqnHxZan9NSgrG6NZEpsxzFn9gKcf2ps/8KNk
+         oTLA==
+X-Gm-Message-State: AOAM53181+vcwOMKxwYTsi0Wx12N3PE3sUxwR1+GTxeN8mi63ofIbcoS
+	3hnNWp6IL5wmNJiS+5H2SbM=
+X-Google-Smtp-Source: ABdhPJyYb7fEMw/HUg92rZQsqfqaGjOwXILUu1v+CGWYvH/G5bQt6f30ARgUe6lI11rjKnLYzFdxFw==
+X-Received: by 2002:a1c:c28a:: with SMTP id s132mr15400176wmf.145.1620312231584;
+        Thu, 06 May 2021 07:43:51 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Reply-To: paul@xen.org
+Subject: Re: [PATCH RFC 1/2] docs/design: Add a design document for Live
+ Update
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: dwmw2@infradead.org, hongyxia@amazon.com, raphning@amazon.com,
+ maghul@amazon.com, Julien Grall <jgrall@amazon.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <BFE99431-6929-4A14-BE57-BFD6D6AA2997@arm.com>
-References: <20210504133145.767-1-luca.fancellu@arm.com>
- <20210504133145.767-4-luca.fancellu@arm.com>
- <alpine.DEB.2.21.2105041514260.5018@sstabellini-ThinkPad-T480s>
- <9E7D7B58-0ABA-4800-B2D3-9EE3E29CF599@arm.com>
- <8fada713-9ae5-ddd3-585b-0f090748fc49@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: Apple Mail (2.3654.80.0.2.43)
-X-Originating-IP: [82.8.129.65]
-X-ClientProxiedBy: LNXP265CA0051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:5d::15) To VI1PR08MB3629.eurprd08.prod.outlook.com
- (2603:10a6:803:7f::25)
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20210506104259.16928-1-julien@xen.org>
+ <20210506104259.16928-2-julien@xen.org>
+Message-ID: <00db0c29-337f-4afd-d3a9-ee44b5b74146@xen.org>
+Date: Thu, 6 May 2021 15:43:50 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 360639a5-2629-469d-d163-08d9109d5cdf
-X-MS-TrafficTypeDiagnostic: VI1PR08MB5375:|DB7PR08MB3404:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<DB7PR08MB340432CA6C41D620EE25224AE4589@DB7PR08MB3404.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- uo6crh6GWUsgKZHaHtu3ceBsN1t4TdhE8cpL17nrXtogs7IAlMkMHed/eHRPjqYJud6ZhBsP9IlDbB2gBXiBFyHT2M9oj9FUq03Ditl4PMnVO2phQ5xwHAULYf7btzq7DTc9P5bWcw9QddRE9r8IU6HlDbSizI+MEP7Btitm7oLYOebE+GWz8f5I8dYPCEtKEexLoe5Hm2wqhKYmftfV65jo+ACl774zTtSL6bre0whoIncgYyM2nRhn1bT4DJJgGJTM86BEYr89a/Qy/AlRhE8Yl2wxm78M6dJkqpuReMlEXlygfPtWNYb0eXbJiyKijyiPyHWPi3eeOX7SgXXDcVa/ZNwetifZvMoC7lYmSlUFa/IIvXFHJ8uhpIIYooJ7aLwgGa9QeBLIrHU/z2fjSqQlm/27UyiR04ibYeiSyMM2du9leQnkWmxS01T5CIXBTL+LcqY4DbNNGD655rNVo/Fl551JGyh6zKOH5vOC8US6psrHZ+HGGkQ4hQKt0d0WZGXPcK5200+Sx5wZwi+VOHEoQyrtqzxB7ZvlOUN5uVR1MnHO4lsXHOHSR6y5YDDcYPIxW/VMeTPB0kOOdYM8WXV3Mi+qUpVEQh8pqZRidKgpZJ7sKL/I5gSuhKPIsvkyrvd2mXvZ5VwMl0aBL6p4tH6/wsKGMaeXZjNth1K2vYylT8laTpj0lJj7KSvJPRL4trao8wsL4CG0+Bq+f4NUdn80JU6VJ7MWUUXjRZ8kTyzi1etPUr9bxKX6iTJLKEGcb/kOPgktc20nqKy76LIoJQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3629.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39850400004)(346002)(136003)(376002)(366004)(396003)(186003)(4326008)(44832011)(2906002)(6506007)(53546011)(16526019)(33656002)(36756003)(52116002)(6512007)(6916009)(66476007)(66556008)(8936002)(8676002)(5660300002)(54906003)(316002)(2616005)(26005)(83380400001)(66946007)(956004)(86362001)(38100700002)(966005)(6486002)(38350700002)(6666004)(478600001)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
- =?utf-8?B?ekVNVS9IYWNlMkZpMVY0dTAvQUd6dnYxTDZhUlNBV25sUy8vRmdsT0pxVDBH?=
- =?utf-8?B?M2VrWVFiYkQ2KzFSWDJmUGFYZ1ZhZWZTU2ZmZ21JQ1A4WW1hQTdpYU5UaDRq?=
- =?utf-8?B?cW9kNVBCMU5KV0N3NE9UZnZ5RnI4aDlOVGlNd0k5b3BwbXFOdmpQaHQ5bUFo?=
- =?utf-8?B?Q2dqdHorQW1POE5keHFxbmJpZ1BPYmVmTnZQQTFwSDlxZEI5OThNV2FaZklW?=
- =?utf-8?B?MloyUUhiVjhEaHFZTzlaOURrZjBNM09EaXlkR041dnJoZURqMkJEcWM3b2N4?=
- =?utf-8?B?QWNpUllqUnNkUXdnMDMwWjkyM3FYaXRLUGc4U2N4RXR6TUZXWFlLMllKK1Nw?=
- =?utf-8?B?SVpXYWI3NElrNkdzeGdXZmdrZTBTdGZMZW15QW5YRjZOTXMzMzJtN21waTZp?=
- =?utf-8?B?aytELzYzNHo3bk9CMk5lVDllcXk3RzFDQyttbnM0VUlqczZmVWJaQ3ZqQmZp?=
- =?utf-8?B?MFJIOVd4YWYyd0lrNHg1VkFYVVlBdURSTnBDOFBIdmwxeGxycFYxaml5ckVz?=
- =?utf-8?B?eTc4TGk1MHRCZjVxUFIxcVJFNkFnNVBYU25Gall4L0JIMktRYm84eEhrbmpL?=
- =?utf-8?B?dTloWHI3U1pERmZPRjNteUhwWDFFMjh4WElWcnM2dm1tK1ltNHFDdUNXRFk0?=
- =?utf-8?B?eFhRTXlSSUlncXArNTYyRGRaYXhLRUpvRlRzelhTVGhQQ1NFQlBxNGlxRVRZ?=
- =?utf-8?B?VzlzK3BDRFlUclpOdWJSR3RGZFZPSU00REpMSVgxK0o1c3VnTThjZWJodnBF?=
- =?utf-8?B?Mm1pUis5NjdzVDh6ZEZTUStOOEpHdlY5R3NQWVFCdzE1aHNjTnEzeUp1Rndq?=
- =?utf-8?B?aHlSbGs2OE82SHQ3S24wNHM2K2JnMld3NzNKUmprRk5rVWxlbm5RNVcrYnRa?=
- =?utf-8?B?L2psdFhMRlNnQi9KcGdBTjA2cjJkT1pPZ1o5a0dqb1VMT3g4b3o1eHdzMFo0?=
- =?utf-8?B?L1d4WXBFdnQyOEV1WFM2VVhiZlhJWDg1NnZ0VTkybVFvVDdFQUU4MHhKWFYy?=
- =?utf-8?B?ZDh3dHZrQ0pUOEJmN2EwWjh6N1dHN3M0QXVwMEREZHRrL292ODRVMFlxSzMv?=
- =?utf-8?B?c1g0K0M5b3ZDN052SmEyZEdWU1RBc29Rekwwc1dkUm10VVFzMjJGcFVqdTd1?=
- =?utf-8?B?OC9Da2h5VGMrQldDbFlJSWRyd2FRZEEvM29SQVMySGFBa0NkNWxNNEVpaDVv?=
- =?utf-8?B?RzdDNHRrbGNncGZ6WXVCcWlLcDZzeDBCcXJiWWpyWmN1Z0FaOXB1dERaa0NU?=
- =?utf-8?B?L2NSdUU0UVpJaVlkSEEwRjJsdnR3Mmd2czB5MGtqc2ZXU3U3R3JKR2pBRER4?=
- =?utf-8?B?Tmp5SVFtZUNDTHJIcGs1M2dVT0RMSXJVbFRvSHlYWmxHSlhsYmx0UkVPM290?=
- =?utf-8?B?N0ZCbU1RaCtSQnFUekxBQmtYcUpUaERaWXNzQUlLeXhDOFMxa0FoamxKWkFH?=
- =?utf-8?B?M01pcGtabHBEUm1wdlhzOGVCU0FvcnFJMHJCaUtEY0pZUU5GUlk5WWJvMWp2?=
- =?utf-8?B?L01mWURLdTNBS2NZRDRxL0pQVzdyTFNhdjBEaWN3dDdEZmVlQ0tnaktmRGtI?=
- =?utf-8?B?NytjaHRmNEg3OUtTYUxMQWdMR0xBTm42ZTlyL05YT0RmR1c3WVUxc2k4amll?=
- =?utf-8?B?K0pFNktmK2pZdTJkS2lVNGhaZTlPcWJCNmhic3dMSldtSlFXVll1bXlkK2hr?=
- =?utf-8?B?QXgvL3dOLzVUU3VONFd6WjZ4Q2FTVVFVRjhRU3RCYm1VUmIrUzVyWHVWb250?=
- =?utf-8?Q?4J3lxYPZDqcLeKsPBZjTKOIB3I670oZke+r9fsE?=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5375
-Original-Authentication-Results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	5e0ebae0-41de-43e7-4f9d-08d9109d5003
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	2nbGOO2ZJ+MZWB4qKykFCdGtfTCLR8uWyu9cpWRWco9FZ7hfAV3SuM9FFYZ1fSyNg56wG7zhr3BLqElBfPc3AdkV+/wZS2y7B+3eMCCl7Re5JUIh+QOCMLVfwHwQ1zvfma1+X/ug2dp38aoqxaJRBHzqLSuVt2J2USpd5BXOewgCeOt3AuUNrgZJL9YX7CYUjsUNZU03/SbCMhGdk/mufPI1Zrx/fT60JiSLPvk0VSzxmyclh5K8/Pvf7QOo6eYMTzZ9nVlU3f3IxdUd1wxN0EJOXw+5M6T1U9jYA8MKYVub0zFTXjOn4GZKGmT3sU5sF67G1saYzd1VhEiHix5Spxahbz4CWHD3YqWc4O2yW0KHMdeTpG8rEbbMG2ZGpOjseV2z6S8SSh3VS4ccfg5UDlofRXQG0gpezmo7rOx/XUUFpKxgAI2qbJst4VMp0+64C2SKxW3SmsN7zb7OwQ+zTPsPJDK9qIPwxNbuNjoLNc419Jd1qgp0BDrX00n6j1Pe9lMC+2Y8BVIsXFfGuomiENoxtJJWpD5Myp/BLH0ZG/rsxEVhz0Z41um38zpPtYo9Z3tbSWhDOExWanitdR0CYXJC9CFz/zbFiK5Lde/uxcii2/sNuUjtjF6UpKRmf6XQ4lTnH4FdvtJyxgjwC6Fa6XfC3tWlFtsWHs6ewkzENBBouN4rgZ06+ubowb4i+i7SNBu2WK8H5MjI7/bDEKVZ8F1yBM0sEMM+cruRhmD9F7s=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(376002)(396003)(39850400004)(136003)(36840700001)(46966006)(356005)(478600001)(26005)(956004)(54906003)(8676002)(33656002)(44832011)(316002)(82740400003)(81166007)(966005)(8936002)(47076005)(6506007)(70206006)(2616005)(6512007)(70586007)(107886003)(83380400001)(6862004)(4326008)(186003)(336012)(86362001)(5660300002)(6666004)(2906002)(36860700001)(53546011)(16526019)(36756003)(6486002)(82310400003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2021 14:43:50.3637
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 360639a5-2629-469d-d163-08d9109d5cdf
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3404
+In-Reply-To: <20210506104259.16928-2-julien@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
+On 06/05/2021 11:42, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
 
+Looks good in general... just a few comments below...
 
-> On 6 May 2021, at 10:58, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 06.05.2021 10:48, Luca Fancellu wrote:
->>> On 4 May 2021, at 23:27, Stefano Stabellini <sstabellini@kernel.org> wr=
-ote:
->>> On Tue, 4 May 2021, Luca Fancellu wrote:
->>>> @@ -51,13 +55,10 @@
->>>> * know the real machine address of a page it is sharing. This makes
->>>> * it possible to share memory correctly with domains running in
->>>> * fully virtualised memory.
->>>> - */
->>>> -
->>>> -/***********************************
->>>> + *
->>>> * GRANT TABLE REPRESENTATION
->>>> - */
->>>> -
->>>> -/* Some rough guidelines on accessing and updating grant-table entrie=
-s
->>>> + *
->>>> + * Some rough guidelines on accessing and updating grant-table entrie=
-s
->>>> * in a concurrency-safe manner. For more information, Linux contains a
->>>> * reference implementation for guest OSes (drivers/xen/grant_table.c, =
-see
->>>> * http://git.kernel.org/?p=3Dlinux/kernel/git/torvalds/linux.git;a=3Db=
-lob;f=3Ddrivers/xen/grant-table.c;hb=3DHEAD
->>>> @@ -66,6 +67,7 @@
->>>> *     compiler barrier will still be required.
->>>> *
->>>> * Introducing a valid entry into the grant table:
->>>> + * @keepindent
->>>> *  1. Write ent->domid.
->>>> *  2. Write ent->frame:
->>>> *      GTF_permit_access:   Frame to which access is permitted.
->>>> @@ -73,20 +75,25 @@
->>>> *                           frame, or zero if none.
->>>> *  3. Write memory barrier (WMB).
->>>> *  4. Write ent->flags, inc. valid type.
->>>> + * @endkeepindent
->>>> *
->>>> * Invalidating an unused GTF_permit_access entry:
->>>> + * @keepindent
->>>> *  1. flags =3D ent->flags.
->>>> *  2. Observe that !(flags & (GTF_reading|GTF_writing)).
->>>> *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
->>>> *  NB. No need for WMB as reuse of entry is control-dependent on succe=
-ss of
->>>> *      step 3, and all architectures guarantee ordering of ctrl-dep wr=
-ites.
->>>> + * @endkeepindent
->>>> *
->>>> * Invalidating an in-use GTF_permit_access entry:
->>>> + *
->>>> *  This cannot be done directly. Request assistance from the domain co=
-ntroller
->>>> *  which can set a timeout on the use of a grant entry and take necess=
-ary
->>>> *  action. (NB. This is not yet implemented!).
->>>> *
->>>> * Invalidating an unused GTF_accept_transfer entry:
->>>> + * @keepindent
->>>> *  1. flags =3D ent->flags.
->>>> *  2. Observe that !(flags & GTF_transfer_committed). [*]
->>>> *  3. Check result of SMP-safe CMPXCHG(&ent->flags, flags, 0).
->>>> @@ -97,18 +104,24 @@
->>>> *      transferred frame is written. It is safe for the guest to spin =
-waiting
->>>> *      for this to occur (detect by observing GTF_transfer_completed i=
-n
->>>> *      ent->flags).
->>>> + * @endkeepindent
->>>> *
->>>> * Invalidating a committed GTF_accept_transfer entry:
->>>> *  1. Wait for (ent->flags & GTF_transfer_completed).
->>>> *
->>>> * Changing a GTF_permit_access from writable to read-only:
->>>> + *
->>>> *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writi=
-ng.
->>>> *
->>>> * Changing a GTF_permit_access from read-only to writable:
->>>> + *
->>>> *  Use SMP-safe bit-setting instruction.
->>>> + *
->>>> + * @addtogroup grant_table Grant Tables
->>>> + * @{
->>>> */
->>>>=20
->>>> -/*
->>>> +/**
->>>> * Reference to a grant entry in a specified domain's grant table.
->>>> */
->>>> typedef uint32_t grant_ref_t;
->>>=20
->>> Just below this typedef there is the following comment:
->>>=20
->>> /*
->>> * A grant table comprises a packed array of grant entries in one or mor=
-e
->>> * page frames shared between Xen and a guest.
->>> * [XEN]: This field is written by Xen and read by the sharing guest.
->>> * [GST]: This field is written by the guest and read by Xen.
->>> */
->>>=20
->>> I noticed it doesn't appear in the output html. Any way we can retain i=
-t
->>> somewhere? Maybe we have to move it together with the larger comment
->>> above?
->>=20
->> I agree with you, this comment should appear in the html docs, but to do=
- so
->> It has to be moved together with the larger comment above.
->>=20
->> In the original patch it was like that but I had to revert it back due t=
-o objection, my proposal is
->> to put it together with the larger comment and write something like this=
- to
->> maintain a good readability:
->>=20
->>   *  Use SMP-safe CMPXCHG to set GTF_readonly, while checking !GTF_writi=
-ng.
->>   *
->>   * Changing a GTF_permit_access from read-only to writable:
->>   *
->>   *  Use SMP-safe bit-setting instruction.
->> + *
->> + * A grant table comprises a packed array of grant entries in one or mo=
-re
->> + * page frames shared between Xen and a guest.
->=20
-> I think if this part was moved to the top of this big comment while ...
->=20
->> + * Data structure fields or defines described below have the following =
-tags:
->> + * * [XEN]: This field is written by Xen and read by the sharing guest.
->> + * * [GST]: This field is written by the guest and read by Xen.
->=20
-> ... this part was, as suggested by you, left near its bottom, I could
-> agree.
+> Administrators often require updating the Xen hypervisor to address
+> security vulnerabilities, introduce new features, or fix software defects.
+> Currently, we offer the following methods to perform the update:
+> 
+>      * Rebooting the guests and the host: this is highly disrupting to running
+>        guests.
+>      * Migrating off the guests, rebooting the host: this currently requires
+>        the guest to cooperate (see [1] for a non-cooperative solution) and it
+>        may not always be possible to migrate it off (i.e lack of capacity, use
+>        of local storage...).
+>      * Live patching: This is the less disruptive of the existing methods.
+>        However, it can be difficult to prepare the livepatch if the change is
+>        large or there are data structures to update.
+> 
+> This patch will introduce a new proposal called "Live Update" which will
+> activate new software without noticeable downtime (i.e no - or minimal -
+> customer).
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> ---
+>   docs/designs/liveupdate.md | 254 +++++++++++++++++++++++++++++++++++++
+>   1 file changed, 254 insertions(+)
+>   create mode 100644 docs/designs/liveupdate.md
+> 
+> diff --git a/docs/designs/liveupdate.md b/docs/designs/liveupdate.md
+> new file mode 100644
+> index 000000000000..32993934f4fe
+> --- /dev/null
+> +++ b/docs/designs/liveupdate.md
+> @@ -0,0 +1,254 @@
+> +# Live Updating Xen
+> +
+> +## Background
+> +
+> +Administrators often require updating the Xen hypervisor to address security
+> +vulnerabilities, introduce new features, or fix software defects.  Currently,
+> +we offer the following methods to perform the update:
+> +
+> +    * Rebooting the guests and the host: this is highly disrupting to running
+> +      guests.
+> +    * Migrating off the guests, rebooting the host: this currently requires
+> +      the guest to cooperate (see [1] for a non-cooperative solution) and it
+> +      may not always be possible to migrate it off (i.e lack of capacity, use
+> +      of local storage...).
+> +    * Live patching: This is the less disruptive of the existing methods.
+> +      However, it can be difficult to prepare the livepatch if the change is
+> +      large or there are data structures to update.
+> +
+> +This document will present a new approach called "Live Update" which will
+> +activate new software without noticeable downtime (i.e no - or minimal -
+> +customer pain).
+> +
+> +## Terminology
+> +
+> +xen#1: Xen version currently active and running on a droplet.  This is the
+> +“source” for the Live Update operation.  This version can actually be newer
+> +than xen#2 in case of a rollback operation.
+> +
+> +xen#2: Xen version that's the “target” of the Live Update operation. This
+> +version will become the active version after successful Live Update.  This
+> +version of Xen can actually be older than xen#1 in case of a rollback
+> +operation.
+> +
+> +## High-level overview
+> +
+> +Xen has a framework to bring a new image of the Xen hypervisor in memory using
+> +kexec.  The existing framework does not meet the baseline functionality for
+> +Live Update, since kexec results in a restart for the hypervisor, host, Dom0,
+> +and all the guests.
 
-Hi Jan,
+Feels like there's a sentence or two missing here. The subject has 
+jumped from a framework that is not fit for purpose to 'the operation'.
 
-Just to be sure that we are on the same page, something like this could be =
-ok?
+> +
+> +The operation can be divided in roughly 4 parts:
+> +
+> +    1. Trigger: The operation will by triggered from outside the hypervisor
+> +       (e.g. dom0 userspace).
+> +    2. Save: The state will be stabilized by pausing the domains and
+> +       serialized by xen#1.
+> +    3. Hand-over: xen#1 will pass the serialized state and transfer control to
+> +       xen#2.
+> +    4. Restore: The state will be deserialized by xen#2.
+> +
+> +All the domains will be paused before xen#1 is starting to save the states,
 
- * fully virtualised memory.
- *
- * GRANT TABLE REPRESENTATION
- *
-+ * A grant table comprises a packed array of grant entries in one or more
-+ * page frames shared between Xen and a guest.
-+ *
- * Some rough guidelines on accessing and updating grant-table entries
- * in a concurrency-safe manner. For more information, Linux contains a
-[=E2=80=A6]
- * Changing a GTF_permit_access from read-only to writable:
- *
- *  Use SMP-safe bit-setting instruction.
- *
-+ * Data structure fields or defines described below have the following tag=
-s:
-+ * * [XEN]: This field is written by Xen and read by the sharing guest.
-+ * * [GST]: This field is written by the guest and read by Xen.
- *
- * @addtogroup grant_table Grant Tables
- * @{
+s/is starting/starts
 
+> +and any domain that was running before Live Update will be unpaused after
+> +xen#2 has finished to restore the states.  This is to prevent a domain to try
 
->=20
-> However, you making this suggestion caused me to look more closely at
-> what the comments actually describe. If there's effort to make the
-> documentation easier accessible by extracting it from the header, I
-> wonder whether - like with the v1 vs v2 comment pointed out previously
-> as misleading - we shouldn't, as a prereq step, make an attempt to
-> actually have the documentation be correct. For example I found this:
->=20
-> /*
-> * Version 1 and version 2 grant entries share a common prefix.  The
-> * fields of the prefix are documented as part of struct
-> * grant_entry_v1.
-> */
-> struct grant_entry_header {
->    uint16_t flags;
->    domid_t  domid;
-> };
->=20
-> The comment is wrong. "flags" here is only holding what's tagged
-> [GST] for v1. The [XEN] tagged bits actually live in grant_status_t.
-> This can perhaps best be seen in gnttab_set_version()'s code
-> dealing with the first 8 entries. However, contrary to v2's
-> intentions, GTF_transfer_committed and GTF_transfer_completed (which
-> aren't properly tagged either way) get set by Xen in shared entries,
-> not status ones. Maybe this was considered "okay" because the frame
-> field also gets written in this case (i.e. the cache line will get
-> dirtied in any event).
->=20
-> Similarly I'd like to refer to my still pending "gnttab: GTF_sub_page
-> is a v2-only flag", which also corrects documentation in this regard.
-> And perhaps there's more.
->=20
-> An alternative to correcting the (as it seems) v2 related issues, it
-> may be worth considering to extract only v1 documentation in this
-> initial phase.
->=20
-> Jan
->=20
+s/finished to restore/finished restoring
+
+and
+
+s/domain to try/domain trying
+
+> +to modify the state of another domain while it is being saved/restored.
+> +
+> +The current approach could be seen as non-cooperative migration with a twist:
+> +all the domains (including dom0) are not expected be involved in the Live
+> +Update process.
+> +
+> +The major differences compare to live migration are:
+
+s/compare/compared
+
+> +
+> +    * The state is not transferred to another host, but instead locally to
+> +      xen#2.
+> +    * The memory content or device state (for passthrough) does not need to
+> +      be part of the stream. Instead we need to preserve it.
+> +    * PV backends, device emulators, xenstored are not recreated but preserved
+> +      (as these are part of dom0).
+> +
+> +
+> +Domains in process of being destroyed (*XEN\_DOMCTL\_destroydomain*) will need
+> +to be preserved because another entity may have mappings (e.g foreign, grant)
+> +on them.
+> +
+> +## Trigger
+> +
+> +Live update is built on top of the kexec interface to prepare the command line,
+> +load xen#2 and trigger the operation.  A new kexec type has been introduced
+> +(*KEXEC\_TYPE\_LIVE\_UPDATE*) to notify Xen to Live Update.
+> +
+> +The Live Update will be triggered from outside the hypervisor (e.g. dom0
+> +userspace).  Support for the operation has been added in kexec-tools 2.0.21.
+> +
+> +All the domains will be paused before xen#1 is starting to save the states.
+
+You already said this in the previous section.
+
+> +In Xen, *domain\_pause()* will pause the vCPUs as soon as they can be re-
+> +scheduled.  In other words, a pause request will not wait for asynchronous
+> +requests (e.g. I/O) to finish.  For Live Update, this is not an ideal time to
+> +pause because it will require more xen#1 internal state to be transferred.
+> +Therefore, all the domains will be paused at an architectural restartable
+> +boundary.
+> +
+> +Live update will not happen synchronously to the request but when all the
+> +domains are quiescent.  As domains running device emulators (e.g Dom0) will > +be part of the process to quiesce HVM domains, we will need to let 
+them run
+> +until xen#1 is actually starting to save the state.  HVM vCPUs will be paused
+> +as soon as any pending asynchronous request has finished.
+> +
+> +In the current implementation, all PV domains will continue to run while the
+> +rest will be paused as soon as possible.  Note this approach is assuming that
+> +device emulators are only running in PV domains.
+> +
+> +It should be easy to extend to PVH domains not requiring device emulations.
+> +It will require more thought if we need to run device models in HVM domains as
+> +there might be inter-dependency.
+> +
+> +## Save
+> +
+> +xen#1 will be responsible to preserve and serialize the state of each existing
+> +domain and any system-wide state (e.g M2P).
+
+s/to preserve and serialize/for preserving and serializing
+
+> +
+> +Each domain will be serialized independently using a modified migration stream,
+> +if there is any dependency between domains (such as for IOREQ server) they will
+> +be recorded using a domid. All the complexity of resolving the dependencies are
+> +left to the restore path in xen#2 (more in the *Restore* section).
+> +
+> +At the moment, the domains are saved one by one in a single thread, but it
+> +would be possible to consider multi-threading if it takes too long. Although
+> +this may require some adjustment in the stream format.
+> +
+> +As we want to be able to Live Update between major versions of Xen (e.g Xen
+> +4.11 -> Xen 4.15), the states preserved should not be a dump of Xen internal
+> +structure but instead the minimal information that allow us to recreate the
+> +domains.
+> +
+> +For instance, we don't want to preserve the frametable (and therefore
+> +*struct page\_info*) as-is because the refcounting may be different across
+> +between xen#1 and xen#2 (see XSA-299). Instead, we want to be able to recreate
+> +*struct page\_info* based on minimal information that are considered stable
+> +(such as the page type).
+> +
+> +Note that upgrading between version of Xen will also require all the hypercalls
+> +to be stable. This will not be covered by this document.
+> +
+> +## Hand over
+> +
+> +### Memory usage restrictions
+> +
+> +xen#2 must take care not to use any memory pages which already belong to
+> +guests.  To facilitate this, a number of contiguous region of memory are
+> +reserved for the boot allocator, known as *live update bootmem*.
+> +
+> +xen#1 will always reserve a region just below Xen (the size is controlled by
+> +the Xen command line parameter liveupdate) to allow Xen growing and provide
+> +information about LiveUpdate (see the section *Breadcrumb*).  The region will be
+> +passed to xen#2 using the same command line option but with the base address
+> +specified.
+> +
+> +For simplicity, additional regions will be provided in the stream.  They will
+> +consist of region that could be re-used by xen#2 during boot (such as the
+
+s/region/a region
+
+   Paul
+
+> +xen#1's frametable memory).
+> +
+> +xen#2 must not use any pages outside those regions until it has consumed the
+> +Live Update data stream and determined which pages are already in use by
+> +running domains or need to be re-used as-is by Xen (e.g M2P).
+> +
+> +At run time, Xen may use memory from the reserved region for any purpose that
+> +does not require preservation over a Live Update; in particular it __must__ not be
+> +mapped to a domain or used by any Xen state requiring to be preserved (e.g
+> +M2P).  In other word, the xenheap pages could be allocated from the reserved
+> +regions if we remove the concept of shared xenheap pages.
+> +
+> +The xen#2's binary may be bigger (or smaller) compare to xen#1's binary.  So
+> +for the purpose of loading xen#2 binary, kexec should treat the reserved memory
+> +right below xen#1 and its region as a single contiguous space. xen#2 will be
+> +loaded right at the top of the contiguous space and the rest of the memory will
+> +be the new reserved memory (this may shrink or grow).  For that reason, freed
+> +init memory from xen#1 image is also treated as reserved liveupdate update
+> +bootmem.
+> +
+> +### Live Update data stream
+> +
+> +During handover, xen#1 creates a Live Update data stream containing all the
+> +information required by the new Xen#2 to restore all the domains.
+> +
+> +Data pages for this stream may be allocated anywhere in physical memory outside
+> +the *live update bootmem* regions.
+> +
+> +As calling __vmap()__/__vunmap()__ has a cost on the downtime.  We want to reduce the
+> +number of call to __vmap()__ when restoring the stream.  Therefore the stream
+> +will be contiguously virtually mapped in xen#2.  xen#1 will create an array of
+> +MFNs of the allocated data pages, suitable for passing to __vmap()__.  The
+> +array will be physically contiguous but the MFNs don't need to be physically
+> +contiguous.
+> +
+> +### Breadcrumb
+> +
+> +Since the Live Update data stream is created during the final **kexec\_exec**
+> +hypercall, its address cannot be passed on the command line to the new Xen
+> +since the command line needs to have been set up by **kexec(8)** in userspace
+> +long beforehand.
+> +
+> +Thus, to allow the new Xen to find the data stream, xen#1 places a breadcrumb
+> +in the first words of the Live Update bootmem, containing the number of data
+> +pages, and the physical address of the contiguous MFN array.
+> +
+> +### IOMMU
+> +
+> +Where devices are passed through to domains, it may not be possible to quiesce
+> +those devices for the purpose of performing the update.
+> +
+> +If performing Live Update with assigned devices, xen#1 will leave the IOMMU
+> +mappings active during the handover (thus implying that IOMMU page tables may
+> +not be allocated in the *live update bootmem* region either).
+> +
+> +xen#2 must take control of the IOMMU without causing those mappings to become
+> +invalid even for a short period of time.  In other words, xen#2 should not
+> +re-setup the IOMMUs.  On hardware which does not support Posted Interrupts,
+> +interrupts may need to be generated on resume.
+> +
+> +## Restore
+> +
+> +After xen#2 initialized itself and map the stream, it will be responsible to
+> +restore the state of the system and each domain.
+> +
+> +Unlike the save part, it is not possible to restore a domain in a single pass.
+> +There are dependencies between:
+> +
+> +    1. different states of a domain.  For instance, the event channels ABI
+> +       used (2l vs fifo) requires to be restored before restoring the event
+> +       channels.
+> +    2. the same "state" within a domain.  For instance, in case of PV domain,
+> +       the pages' ownership requires to be restored before restoring the type
+> +       of the page (e.g is it an L4, L1... table?).
+> +
+> +    3. domains.  For instance when restoring the grant mapping, it will be
+> +       necessary to have the page's owner in hand to do proper refcounting.
+> +       Therefore the pages' ownership have to be restored first.
+> +
+> +Dependencies will be resolved using either multiple passes (for dependency
+> +type 2 and 3) or using a specific ordering between records (for dependency
+> +type 1).
+> +
+> +Each domain will be restored in 3 passes:
+> +
+> +    * Pass 0: Create the domain and restore the P2M for HVM. This can be broken
+> +      down in 3 parts:
+> +      * Allocate a domain via _domain\_create()_ but skip part that requires
+> +        extra records (e.g HAP, P2M).
+> +      * Restore any parts which needs to be done before create the vCPUs. This
+> +        including restoring the P2M and whether HAP is used.
+> +      * Create the vCPUs. Note this doesn't restore the state of the vCPUs.
+> +    * Pass 1: It will restore the pages' ownership and the grant-table frames
+> +    * Pass 2: This steps will restore any domain states (e.g vCPU state, event
+> +      channels) that wasn't
+> +
+> +A domain should not have a dependency on another domain within the same pass.
+> +Therefore it would be possible to take advantage of all the CPUs to restore
+> +domains in parallel and reduce the overall downtime.
+> +
+> +Once all the domains have been restored, they will be unpaused if they were
+> +running before Live Update.
+> +
+> +* * *
+> +[1] https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-migration.md;h=4b876d809fb5b8aac02d29fd7760a5c0d5b86d87;hb=HEAD
+> +
+> 
 
 
