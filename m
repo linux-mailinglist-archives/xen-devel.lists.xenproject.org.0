@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9278375473
-	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 15:10:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123517.232960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 690A6375543
+	for <lists+xen-devel@lfdr.de>; Thu,  6 May 2021 16:00:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123532.232980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ledl5-0007OW-Bd; Thu, 06 May 2021 13:09:39 +0000
+	id 1leeXg-0003ls-EU; Thu, 06 May 2021 13:59:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123517.232960; Thu, 06 May 2021 13:09:39 +0000
+Received: by outflank-mailman (output) from mailman id 123532.232980; Thu, 06 May 2021 13:59:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ledl5-0007Ly-8O; Thu, 06 May 2021 13:09:39 +0000
-Received: by outflank-mailman (input) for mailman id 123517;
- Thu, 06 May 2021 13:09:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EnkQ=KB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ledl3-0007Ls-Io
- for xen-devel@lists.xenproject.org; Thu, 06 May 2021 13:09:37 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ab39dffb-6bf9-4a90-9513-ba8c7dd6bb01;
- Thu, 06 May 2021 13:09:36 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9CC25AE39;
- Thu,  6 May 2021 13:09:35 +0000 (UTC)
+	id 1leeXg-0003iH-9U; Thu, 06 May 2021 13:59:52 +0000
+Received: by outflank-mailman (input) for mailman id 123532;
+ Thu, 06 May 2021 13:59:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NmKg=KB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1leeXe-0003iB-Qx
+ for xen-devel@lists.xenproject.org; Thu, 06 May 2021 13:59:50 +0000
+Received: from mail-qk1-x734.google.com (unknown [2607:f8b0:4864:20::734])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dc84a090-afb3-4664-8baf-d61aabdbd6c8;
+ Thu, 06 May 2021 13:59:49 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id a22so4385115qkl.10
+ for <xen-devel@lists.xenproject.org>; Thu, 06 May 2021 06:59:49 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:6095:81da:832e:3929])
+ by smtp.gmail.com with ESMTPSA id
+ 189sm2069992qkh.99.2021.05.06.06.59.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 May 2021 06:59:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +42,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab39dffb-6bf9-4a90-9513-ba8c7dd6bb01
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620306575; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HY+Dmj9Nv1eHRXrLW69Mj3Wx9sD2RlBHWbfeyc7i/wY=;
-	b=TeWCR5omn409NuJ3KxhPf9MgweeMukJ49BbF8dFQG/oTF6eKItFGh7gQg+vuoFp2xIE/+v
-	Hl+xYtLBve933/Tu8Rzaqo8JUMkP1QcBateBqot6h1qOsdQLejapvBHTnmtW9WF3II9vI8
-	Gx9TmbR9yI4y5pFzfAIj4mTiJA/P3VU=
-Subject: Re: [PATCH v2] SUPPORT.md: Un-shimmed 32-bit PV guests are no longer
- supported
-To: George Dunlap <george.dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jann Horn <jannh@google.com>
-References: <20210506124752.65844-1-george.dunlap@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <acd695c1-dc04-4606-5212-5fd993e355b1@suse.com>
-Date: Thu, 6 May 2021 15:09:35 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+X-Inumbo-ID: dc84a090-afb3-4664-8baf-d61aabdbd6c8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=wJPHvd3uXZn/zFCWAhnJJxqwOJkY4HFy/cNCIYr5uhI=;
+        b=TlS7P/oafqjoWmOEY6hdfn/Uy3yJzrqiWQdzUwImeaNjKtMPkozlOWP3lHcxj8SQeU
+         28ZltUWOrkvt9T59eY4RL1boZ4MwYUKA9OhAxtuBuo24uskLb9Ff50bZ285bG79sHRtE
+         gljAXM9tXHGKkGNAJ8l5ksZYIEBXTQtOqORUKhVTTTa/LuxJTgwUjEIAb9j+tpbfYSGJ
+         2URLkoOB6VSN0kn5FQ08wDXWEOsU4TAf8TEtyUw/CtCSkqM8y1tAtrUuHUvkbZBqRiGo
+         w3vfSvButAqBKbM7+pmEa58vtDClbk02TF/aefOaR60wpAKr2+okl1TtF2OeIIPFGKkR
+         qylQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=wJPHvd3uXZn/zFCWAhnJJxqwOJkY4HFy/cNCIYr5uhI=;
+        b=UqHxgBXt3cI22FZHj+qnITwxbYNN+lEz096xex34Ix49vS0o8HoBU75arZVr69eEMY
+         pqeroAgAGRrd7o4xqWX87lCL+3CWkYCvcHuQu5Za0iictpub4gSZiy720dhQH+za8Xzx
+         hjFdITW7e1u/SXhNAwtFHbKyY9ZA0GYMbFYehwQck2GrNT7alvW8FOjNtJnuJuI43GYh
+         q1lPlRRcoepSxOvVG2ZEhpDNRHpOSt974CK+KU56lyvrzY/odZ+O98NoEQaYEwoSuMIu
+         3mKvanVvLaXTVII7Z41zgW8T1zUXsg/rWO9uoS/EBOR9BGWYCOf2/WGK+dn1NSrIVlMe
+         pBgg==
+X-Gm-Message-State: AOAM532iJ9ld+dtQuqoU1dw8cssL5dKbJK4/xFovGxwzDokLLBwVktYM
+	GyqJVhir19wwEuUxq+vCt1FesHHKmbA=
+X-Google-Smtp-Source: ABdhPJwPMblysiMTeE3oIEWgXNGAOX9GprQ24myuK+G2/9r4u2lzsfoDGkI5VWuUa7pAbLDqW0oa1Q==
+X-Received: by 2002:a37:8ec4:: with SMTP id q187mr4081232qkd.381.1620309589082;
+        Thu, 06 May 2021 06:59:49 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	Quan Xu <quan.xu0@gmail.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Subject: [PATCH v2 00/13] vtpmmgr: Some fixes - still incomplete
+Date: Thu,  6 May 2021 09:59:10 -0400
+Message-Id: <20210506135923.161427-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <20210506124752.65844-1-george.dunlap@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.05.2021 14:47, George Dunlap wrote:
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -55,7 +55,7 @@ config PV
->  config PV32
->  	bool "Support for 32bit PV guests"
->  	depends on PV
-> -	default y
-> +	default PV_SHIM
->  	select COMPAT
->  	---help---
->  	  The 32bit PV ABI uses Ring1, an area of the x86 architecture which
-> @@ -67,7 +67,10 @@ config PV32
->  	  reduction, or performance reasons.  Backwards compatibility can be
->  	  provided via the PV Shim mechanism.
->  
-> -	  If unsure, say Y.
-> +	  Note that outside of PV Shim, 32-bit PV guests are not security
-> +	  supported anymore.
-> +
-> +	  If unsure, use the default setting.
+vtpmmgr TPM 2.0 support is incomplete.  There is no code to save the
+tpm2 keys generated by the vtpmmgr, so it's impossible to restore vtpm
+state with tpm2.  The vtpmmgr also issues TPM 1.2 commands to the TPM
+2.0 hardware which naturally fails.  Dag reported this [1][2], and I
+independently re-discovered it.
 
-Alongside this I wonder whether we should also default opt_pv32 to false
-then, unless running in shim mode.
+I have not fixed the above issues.  These are some fixes I made while
+investigating tpm2 support.  At a minimum, "docs: Warn about incomplete
+vtpmmgr TPM 2.0 support" should be applied to warn others.
 
-Jan
+This is useful for debugging:
+vtpmmgr: Print error code to aid debugging
+
+This fixes vtpmmgr output (also noted by Dag [3]):
+stubom: newlib: Enable C99 formats for %z
+
+This gives more flexibility if you are already using the TPM2 hardware:
+vtpmmgr: Allow specifying srk_handle for TPM2
+
+These are some changes to unload keys from the TPM hardware (so they
+are not still loaded for anything that runs afterwards):
+vtpmmgr: Move vtpmmgr_shutdown
+vtpmmgr: Flush transient keys on shutdown
+vtpmmgr: Flush all transient keys
+vtpmmgr: Shutdown more gracefully
+
+This lets vtpms initialize their random pools:
+vtpmmgr: Support GetRandom passthrough on TPM 2.0
+
+New in v2:
+TPM2_GetRandom fix per Samuel:
+vtpmmgr: Remove bogus cast from TPM2_GetRandom
+
+Change ":" to "=":
+vtpmmgr: Fix owner_auth & srk_auth parsing
+
+Follow on from comments from Samuel
+vtpmmgr: Check req_len before unpacking command
+
+Fix for vtpm emulator to work with Linux 5.4
+vtpm: Correct timeout units and command duration
+
+Changes in v2:
+Added R-by & Ack-by to 1-3,5-8
+Updated #4 to use srk_handle=
+Updated #7 commit message
+Updated #9 per Samuel
+Added #10-13
+
+[1] https://lore.kernel.org/xen-devel/8285393.eUs1EhXEQl@eseries.newtech.fi/
+[2] https://lore.kernel.org/xen-devel/1615731.eyaQ0j4tC5@eseries.newtech.fi/
+[3] https://lore.kernel.org/xen-devel/3151252.0ZAaMuH7Fy@dag.newtech.fi/
+
+Jason Andryuk (13):
+  docs: Warn about incomplete vtpmmgr TPM 2.0 support
+  vtpmmgr: Print error code to aid debugging
+  stubom: newlib: Enable C99 formats for %z
+  vtpmmgr: Allow specifying srk_handle for TPM2
+  vtpmmgr: Move vtpmmgr_shutdown
+  vtpmmgr: Flush transient keys on shutdown
+  vtpmmgr: Flush all transient keys
+  vtpmmgr: Shutdown more gracefully
+  vtpmmgr: Support GetRandom passthrough on TPM 2.0
+  vtpmmgr: Remove bogus cast from TPM2_GetRandom
+  vtpmmgr: Fix owner_auth & srk_auth parsing
+  vtpmmgr: Check req_len before unpacking command
+  vtpm: Correct timeout units and command duration
+
+ docs/man/xen-vtpmmgr.7.pod              | 18 +++++++
+ stubdom/Makefile                        |  4 +-
+ stubdom/vtpm-command-duration.patch     | 52 +++++++++++++++++++
+ stubdom/vtpm-microsecond-duration.patch | 52 +++++++++++++++++++
+ stubdom/vtpmmgr/init.c                  | 57 +++++++++++++--------
+ stubdom/vtpmmgr/marshal.h               | 15 ++++++
+ stubdom/vtpmmgr/tpm.c                   |  2 +-
+ stubdom/vtpmmgr/tpm2.c                  | 15 ++++--
+ stubdom/vtpmmgr/vtpm_cmd_handler.c      | 67 ++++++++++++++++++++++++-
+ stubdom/vtpmmgr/vtpmmgr.c               | 12 ++++-
+ 10 files changed, 266 insertions(+), 28 deletions(-)
+ create mode 100644 stubdom/vtpm-command-duration.patch
+ create mode 100644 stubdom/vtpm-microsecond-duration.patch
+
+-- 
+2.30.2
+
 
