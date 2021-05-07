@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA8953761D2
-	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 10:24:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123816.233621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9135D3761D5
+	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 10:25:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123821.233633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1levmg-0001vW-UB; Fri, 07 May 2021 08:24:30 +0000
+	id 1levnu-0002Y8-8M; Fri, 07 May 2021 08:25:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123816.233621; Fri, 07 May 2021 08:24:30 +0000
+Received: by outflank-mailman (output) from mailman id 123821.233633; Fri, 07 May 2021 08:25:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1levmg-0001ta-Qs; Fri, 07 May 2021 08:24:30 +0000
-Received: by outflank-mailman (input) for mailman id 123816;
- Fri, 07 May 2021 08:24:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1levnu-0002Vj-5N; Fri, 07 May 2021 08:25:46 +0000
+Received: by outflank-mailman (input) for mailman id 123821;
+ Fri, 07 May 2021 08:25:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>) id 1levmf-0001tL-Cn
- for xen-devel@lists.xenproject.org; Fri, 07 May 2021 08:24:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1levmc-0002qE-HZ; Fri, 07 May 2021 08:24:26 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=ua82172827c7b5a.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1levmc-0003L4-6T; Fri, 07 May 2021 08:24:26 +0000
+ (envelope-from <SRS0=rJTn=KC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1levns-0002Vb-8V
+ for xen-devel@lists.xenproject.org; Fri, 07 May 2021 08:25:44 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2951210f-fd18-43b1-bf02-dd7eab40f013;
+ Fri, 07 May 2021 08:25:43 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 99048AD21;
+ Fri,  7 May 2021 08:25:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,95 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
-	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
-	bh=kzodNZzZ/s/DeUd/c79H/lZ0jYya5iYeJAjr4P6l0pQ=; b=ixcY31IfrTf1rQyljTpWUEvTgs
-	UkESnTRvy1QK0OYRCwNsT2SiyyfGvNdU8l7w1Yxcy3Zso99FrkfAxLGni/WzTZqR+bItcgRk3bU4c
-	FhiYlrPesMU9ZhHO+MLBQLpBF8hjuuZ24gcz7MxM7nGKRCg8GKwYXW4Ha573OxfKCBKU=;
-Message-ID: <8773723448ea05a6ea0c843e408f6f05a04c2fd6.camel@xen.org>
-Subject: Re: [PATCH RFC 2/2] xen/kexec: Reserve KEXEC_TYPE_LIVEUPDATE and
- KEXEC_RANGE_MA_LIVEUPDATE
-From: Hongyan Xia <hx242@xen.org>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: dwmw2@infradead.org, paul@xen.org, raphning@amazon.com,
- maghul@amazon.com,  Julien Grall <jgrall@amazon.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Date: Fri, 07 May 2021 09:24:22 +0100
-In-Reply-To: <20210506104259.16928-3-julien@xen.org>
-References: <20210506104259.16928-1-julien@xen.org>
-	 <20210506104259.16928-3-julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 2951210f-fd18-43b1-bf02-dd7eab40f013
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620375942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4g32LixRQqC5xw6jvIWDLSjRncG5ffzm2Z8swxeyQ6M=;
+	b=Ygk7G/moxEZmEDujNkiQQUg+H4qYqaBD4bV8U1WVDsaDfT9eO3GJlNX3OWrlQKfpOnLehG
+	vTmD8ZM3jeS1YEijIc4GFSKqWowgcBr2HPHoUNOrxnI4nnMaJm0bA7/ZN+CnHLM6TInwTW
+	XosqXoOCz4wNJM4sx728+xRwhveGcmM=
+Subject: Ping: [PATCH] x86/AMD: also determine L3 cache size
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <7ffeec9f-2ce4-9122-4699-32c3ffb06a5d@suse.com>
+ <3ff79e34-da70-85c3-0324-efa50313d5b4@citrix.com>
+ <487bed52-bd1d-ceee-a85a-9bed9aad4712@suse.com>
+Message-ID: <ebfb246f-ace8-f0eb-1860-70f74d894b4c@suse.com>
+Date: Fri, 7 May 2021 10:25:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
+MIME-Version: 1.0
+In-Reply-To: <487bed52-bd1d-ceee-a85a-9bed9aad4712@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2021-05-06 at 11:42 +0100, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On 29.04.2021 11:21, Jan Beulich wrote:
+> On 16.04.2021 16:21, Andrew Cooper wrote:
+>> On 16/04/2021 14:20, Jan Beulich wrote:
+>>> For Intel CPUs we record L3 cache size, hence we should also do so for
+>>> AMD and alike.
+>>>
+>>> While making these additions, also make sure (throughout the function)
+>>> that we don't needlessly overwrite prior values when the new value to be
+>>> stored is zero.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> I have to admit though that I'm not convinced the sole real use of the
+>>> field (in flush_area_local()) is a good one - flushing an entire L3's
+>>> worth of lines via CLFLUSH may not be more efficient than using WBINVD.
+>>> But I didn't measure it (yet).
+>>
+>> WBINVD always needs a broadcast IPI to work correctly.
+>>
+>> CLFLUSH and friends let you do this from a single CPU, using cache
+>> coherency to DTRT with the line, wherever it is.
+>>
+>>
+>> Looking at that logic in flush_area_local(), I don't see how it can be
+>> correct.  The WBINVD path is a decomposition inside the IPI, but in the
+>> higher level helpers, I don't see how the "area too big, convert to
+>> WBINVD" can be safe.
+>>
+>> All users of FLUSH_CACHE are flush_all(), except two PCI
+>> Passthrough-restricted cases. MMUEXT_FLUSH_CACHE_GLOBAL looks to be
+>> safe, while vmx_do_resume() has very dubious reasoning, and is dead code
+>> I think, because I'm not aware of a VT-x capable CPU without WBINVD-exiting.
 > 
-> Unfortunately, the code to support Live Update has already been
-> merged in
-> Kexec and shipped since 2.0.21. Reserve the IDs used by Kexec before
-> they
-> end up to be re-used for a different purpose.
-> 
-> This patch reserves two IDs:
->     * KEXEC_TYPE_LIVEUPDATE: New operation to request Live Update
->     * KEXEC_MA_RANGE_LIVEUPDATE: New range to query the Live Update
->       area below Xen
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Besides my prior question on your reply, may I also ask what all of
+> this means for the patch itself? After all you've been replying to
+> the post-commit-message remark only so far.
 
-Reviewed-by: Hongyan Xia <hongyxia@amazon.com>
+As for the other patch just pinged again, unless I hear back on the
+patch itself by then, I'm intending to commit this the week after the
+next one, if need be without any acks.
 
-> ---
->  xen/include/public/kexec.h | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/include/public/kexec.h b/xen/include/public/kexec.h
-> index 3f2a118381ba..650d2feb036f 100644
-> --- a/xen/include/public/kexec.h
-> +++ b/xen/include/public/kexec.h
-> @@ -71,17 +71,22 @@
->   */
->  
->  /*
-> - * Kexec supports two types of operation:
-> + * Kexec supports three types of operation:
->   * - kexec into a regular kernel, very similar to a standard reboot
->   *   - KEXEC_TYPE_DEFAULT is used to specify this type
->   * - kexec into a special "crash kernel", aka kexec-on-panic
->   *   - KEXEC_TYPE_CRASH is used to specify this type
->   *   - parts of our system may be broken at kexec-on-panic time
->   *     - the code should be kept as simple and self-contained as
-> possible
-> + * - Live update into a new Xen, preserving all running domains
-> + *   - KEXEC_TYPE_LIVE_UPDATE is used to specify this type
-> + *   - Xen performs non-cooperative live migration and stores live
-> + *     update state in memory, passing it to the new Xen.
->   */
->  
-> -#define KEXEC_TYPE_DEFAULT 0
-> -#define KEXEC_TYPE_CRASH   1
-> +#define KEXEC_TYPE_DEFAULT      0
-> +#define KEXEC_TYPE_CRASH        1
-> +#define KEXEC_TYPE_LIVEUPDATE   2
->  
->  
->  /* The kexec implementation for Xen allows the user to load two
-> @@ -150,6 +155,8 @@ typedef struct xen_kexec_load_v1 {
->  #define KEXEC_RANGE_MA_EFI_MEMMAP 5 /* machine address and size of
->                                       * of the EFI Memory Map */
->  #define KEXEC_RANGE_MA_VMCOREINFO 6 /* machine address and size of
-> vmcoreinfo */
-> +/* machine address and size of the Live Update area below Xen */
-> +#define KEXEC_RANGE_MA_LIVEUPDATE 7
-
-Very nit: I tend to say "right below" Xen, since below sounds like it
-could be anywhere. In the design doc we also said "just below".
-
-Hongyan
-
+Jan
 
