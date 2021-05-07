@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B543761CF
-	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 10:22:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123810.233609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8953761D2
+	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 10:24:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123816.233621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1levkN-00019i-DG; Fri, 07 May 2021 08:22:07 +0000
+	id 1levmg-0001vW-UB; Fri, 07 May 2021 08:24:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123810.233609; Fri, 07 May 2021 08:22:07 +0000
+Received: by outflank-mailman (output) from mailman id 123816.233621; Fri, 07 May 2021 08:24:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1levkN-000172-9E; Fri, 07 May 2021 08:22:07 +0000
-Received: by outflank-mailman (input) for mailman id 123810;
- Fri, 07 May 2021 08:22:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1levmg-0001ta-Qs; Fri, 07 May 2021 08:24:30 +0000
+Received: by outflank-mailman (input) for mailman id 123816;
+ Fri, 07 May 2021 08:24:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rJTn=KC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1levkM-00016s-3c
- for xen-devel@lists.xenproject.org; Fri, 07 May 2021 08:22:06 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b8d3eea5-1665-4286-96b8-ebdc39f12fc9;
- Fri, 07 May 2021 08:22:05 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 38AFEADDB;
- Fri,  7 May 2021 08:22:04 +0000 (UTC)
+ (envelope-from <hx242@xen.org>) id 1levmf-0001tL-Cn
+ for xen-devel@lists.xenproject.org; Fri, 07 May 2021 08:24:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1levmc-0002qE-HZ; Fri, 07 May 2021 08:24:26 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=ua82172827c7b5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1levmc-0003L4-6T; Fri, 07 May 2021 08:24:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,106 +40,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8d3eea5-1665-4286-96b8-ebdc39f12fc9
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620375724; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sBoTpu1zfrXvyb4qD3J33Qgogu1ipNE/9lt6HW+iiEY=;
-	b=bm76mobYxMYfpLulcyFelQSjoexDcdNvZsbTWQidLK0UCqras6sg1iCwBKhFsRym0DnKt3
-	peSDCEnqeQIMSxT57UYUd1NIyXBf40T71V/0hxL/P5Dm+ezAAuQ70cnRolGK1XeI4SOCBd
-	cc4K0FquhUvLleE+Vpdi7srGn2TlBGk=
-Subject: Re: Ping: [PATCH] x86emul: fix test harness build for gas 2.36
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <723af87e-329d-6f52-ece4-fc3314796960@suse.com>
- <5e6f7769-ba07-bccb-9d73-4c7c0db67f89@citrix.com>
- <62d6134b-cf49-275e-d1a8-1b47d9152888@suse.com>
- <c6bff966-4341-8648-49d6-b243a2d821ac@suse.com>
-Message-ID: <749efbb9-5b8a-abdd-5531-f4f24315e6ff@suse.com>
-Date: Fri, 7 May 2021 10:22:05 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <c6bff966-4341-8648-49d6-b243a2d821ac@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+	bh=kzodNZzZ/s/DeUd/c79H/lZ0jYya5iYeJAjr4P6l0pQ=; b=ixcY31IfrTf1rQyljTpWUEvTgs
+	UkESnTRvy1QK0OYRCwNsT2SiyyfGvNdU8l7w1Yxcy3Zso99FrkfAxLGni/WzTZqR+bItcgRk3bU4c
+	FhiYlrPesMU9ZhHO+MLBQLpBF8hjuuZ24gcz7MxM7nGKRCg8GKwYXW4Ha573OxfKCBKU=;
+Message-ID: <8773723448ea05a6ea0c843e408f6f05a04c2fd6.camel@xen.org>
+Subject: Re: [PATCH RFC 2/2] xen/kexec: Reserve KEXEC_TYPE_LIVEUPDATE and
+ KEXEC_RANGE_MA_LIVEUPDATE
+From: Hongyan Xia <hx242@xen.org>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: dwmw2@infradead.org, paul@xen.org, raphning@amazon.com,
+ maghul@amazon.com,  Julien Grall <jgrall@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Date: Fri, 07 May 2021 09:24:22 +0100
+In-Reply-To: <20210506104259.16928-3-julien@xen.org>
+References: <20210506104259.16928-1-julien@xen.org>
+	 <20210506104259.16928-3-julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On 29.04.2021 11:24, Jan Beulich wrote:
-> On 19.04.2021 17:51, Jan Beulich wrote:
->> On 19.04.2021 17:41, Andrew Cooper wrote:
->>> On 19/04/2021 16:30, Jan Beulich wrote:
->>>> All of the sudden, besides .text and .rodata and alike, an always
->>>> present .note.gnu.property section has appeared. This section, when
->>>> converting to binary format output, gets placed according to its
->>>> linked address, causing the resulting blobs to be about 128Mb in size.
->>>> The resulting headers with a C representation of the binary blobs then
->>>> are, of course all a multiple of that size (and take accordingly long
->>>> to create). I didn't bother waiting to see what size the final
->>>> test_x86_emulator binary then would have had.
->>>>
->>>> See also https://sourceware.org/bugzilla/show_bug.cgi?id=27753.
->>>>
->>>> Rather than figuring out whether gas supports -mx86-used-note=, simply
->>>> remove the section while creating *.bin.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> --- a/tools/tests/x86_emulator/testcase.mk
->>>> +++ b/tools/tests/x86_emulator/testcase.mk
->>>> @@ -12,11 +12,11 @@ all: $(TESTCASE).bin
->>>>  %.bin: %.c
->>>>  	$(CC) $(filter-out -M% .%,$(CFLAGS)) -c $<
->>>>  	$(LD) $(LDFLAGS_DIRECT) -N -Ttext 0x100000 -o $*.tmp $*.o
->>>> -	$(OBJCOPY) -O binary $*.tmp $@
->>>> +	$(OBJCOPY) -O binary -R .note.gnu.property $*.tmp $@
->>>>  	rm -f $*.tmp
->>>>  
->>>>  %-opmask.bin: opmask.S
->>>>  	$(CC) $(filter-out -M% .%,$(CFLAGS)) -c $< -o $(basename $@).o
->>>>  	$(LD) $(LDFLAGS_DIRECT) -N -Ttext 0x100000 -o $(basename $@).tmp $(basename $@).o
->>>> -	$(OBJCOPY) -O binary $(basename $@).tmp $@
->>>> +	$(OBJCOPY) -O binary -R .note.gnu.property $(basename $@).tmp $@
->>>>  	rm -f $(basename $@).tmp
->>>
->>> Hmm - this is very ugly.  We don't really want to be stripping this
->>> information, because it covers various properties of the binary which
->>> need not to be lost, including stack-clash mitigations, and CET status.
->>
->> Could you clarify who you think wants to consume this information from
->> these format-less binary blobs? They're strictly internal to the test
->> harness.
->>
->>> We might be able to get away with saying that we're operating strictly
->>> with defaults, and folding these *.bin's back into a program which is
->>> also linked with defaults, at which point the resulting binary ought to
->>> end up with a compatible .note.gnu.property section, but I'm not sure
->>> how convinced I am by this argument.
->>
->> Well, if we want to make it complicated, we could of course extract
->> the notes into a separate ELF object, and include that object in the
->> linking process. But these notes are wrong anyway: Whichever insns the
->> blobs use, test_x86_emulator does _not_ need CPU support for them, as
->> it'll suitably avoid executing any of the blobs. Similarly stack and
->> CET related information is not of interest for the blobs, only for the
->> "normal" object files.
+On Thu, 2021-05-06 at 11:42 +0100, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Besides there not having been any response from you so far, I'd like to
-> point out that stripping the section is also what H.J. suggests in the
-> referenced bugzilla entry. (As said there, I don't view this as an
-> excuse to break use cases like ours by default, but that's orthogonal.)
+> Unfortunately, the code to support Live Update has already been
+> merged in
+> Kexec and shipped since 2.0.21. Reserve the IDs used by Kexec before
+> they
+> end up to be re-used for a different purpose.
+> 
+> This patch reserves two IDs:
+>     * KEXEC_TYPE_LIVEUPDATE: New operation to request Live Update
+>     * KEXEC_MA_RANGE_LIVEUPDATE: New range to query the Live Update
+>       area below Xen
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Unless I hear back constructive feedback over the next week (while I'll
-be on PTO), I'm going to commit this as is, if need be without any acks,
-the week after. We shouldn't leave this broken; if you think you see
-better ways to address the original issue, you can always submit an
-incremental change later on.
+Reviewed-by: Hongyan Xia <hongyxia@amazon.com>
 
-Jan
+> ---
+>  xen/include/public/kexec.h | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/include/public/kexec.h b/xen/include/public/kexec.h
+> index 3f2a118381ba..650d2feb036f 100644
+> --- a/xen/include/public/kexec.h
+> +++ b/xen/include/public/kexec.h
+> @@ -71,17 +71,22 @@
+>   */
+>  
+>  /*
+> - * Kexec supports two types of operation:
+> + * Kexec supports three types of operation:
+>   * - kexec into a regular kernel, very similar to a standard reboot
+>   *   - KEXEC_TYPE_DEFAULT is used to specify this type
+>   * - kexec into a special "crash kernel", aka kexec-on-panic
+>   *   - KEXEC_TYPE_CRASH is used to specify this type
+>   *   - parts of our system may be broken at kexec-on-panic time
+>   *     - the code should be kept as simple and self-contained as
+> possible
+> + * - Live update into a new Xen, preserving all running domains
+> + *   - KEXEC_TYPE_LIVE_UPDATE is used to specify this type
+> + *   - Xen performs non-cooperative live migration and stores live
+> + *     update state in memory, passing it to the new Xen.
+>   */
+>  
+> -#define KEXEC_TYPE_DEFAULT 0
+> -#define KEXEC_TYPE_CRASH   1
+> +#define KEXEC_TYPE_DEFAULT      0
+> +#define KEXEC_TYPE_CRASH        1
+> +#define KEXEC_TYPE_LIVEUPDATE   2
+>  
+>  
+>  /* The kexec implementation for Xen allows the user to load two
+> @@ -150,6 +155,8 @@ typedef struct xen_kexec_load_v1 {
+>  #define KEXEC_RANGE_MA_EFI_MEMMAP 5 /* machine address and size of
+>                                       * of the EFI Memory Map */
+>  #define KEXEC_RANGE_MA_VMCOREINFO 6 /* machine address and size of
+> vmcoreinfo */
+> +/* machine address and size of the Live Update area below Xen */
+> +#define KEXEC_RANGE_MA_LIVEUPDATE 7
+
+Very nit: I tend to say "right below" Xen, since below sounds like it
+could be anywhere. In the design doc we also said "just below".
+
+Hongyan
+
 
