@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF17376324
-	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 11:53:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.123905.233786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40A89376325
+	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 11:54:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.123911.233798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lexAF-0000XU-ME; Fri, 07 May 2021 09:52:55 +0000
+	id 1lexBM-0001Dn-4Y; Fri, 07 May 2021 09:54:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 123905.233786; Fri, 07 May 2021 09:52:55 +0000
+Received: by outflank-mailman (output) from mailman id 123911.233798; Fri, 07 May 2021 09:54:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lexAF-0000VE-H9; Fri, 07 May 2021 09:52:55 +0000
-Received: by outflank-mailman (input) for mailman id 123905;
- Fri, 07 May 2021 09:52:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lexBM-0001Bv-0H; Fri, 07 May 2021 09:54:04 +0000
+Received: by outflank-mailman (input) for mailman id 123911;
+ Fri, 07 May 2021 09:54:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rJTn=KC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lexAE-0000V6-9P
- for xen-devel@lists.xenproject.org; Fri, 07 May 2021 09:52:54 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0db9f69d-22b7-4b5e-a4d7-e2226770eeb7;
- Fri, 07 May 2021 09:52:52 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5285CB11A;
- Fri,  7 May 2021 09:52:51 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lexBL-0001Bm-Fd; Fri, 07 May 2021 09:54:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lexBL-0004Wu-CM; Fri, 07 May 2021 09:54:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lexBL-0007LV-0H; Fri, 07 May 2021 09:54:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lexBK-0000wR-W2; Fri, 07 May 2021 09:54:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,214 +42,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0db9f69d-22b7-4b5e-a4d7-e2226770eeb7
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620381171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FioxbNzS+5ZvnGrJ3hcyi3r9bxQktgZckmy+alRpHMk=;
-	b=ilyAKBJxbNp6zFANHnWHgR7xAbsrSzkTxGQebDM+HFQnWAVZXsN3DAKB6QhZ9EeBow2pHr
-	5JrTk7Wy0fZ9e6+muYHGR9pMlPPVkzYhN3yNmlk8B/X55H5U6T0Of2xnEix7ZCPigMp1bF
-	dSgcYiF9bCD4oKJ+XAT11fcA2tZt3Ag=
-Subject: Re: [PATCH RFC 1/2] docs/design: Add a design document for Live
- Update
-To: Julien Grall <julien@xen.org>
-Cc: dwmw2@infradead.org, paul@xen.org, hongyxia@amazon.com,
- raphning@amazon.com, maghul@amazon.com, Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210506104259.16928-1-julien@xen.org>
- <20210506104259.16928-2-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f51b2ef6-3998-7371-cea9-502c5c9f8afa@suse.com>
-Date: Fri, 7 May 2021 11:52:52 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LWFeMZE+4iDGGxXOF2BSKl31fNzT8hcmNzJZIEHu3H0=; b=Q7FuT1abFDNr55eyUgvZo9fag9
+	mOzR2W0oSypszugEKEOnnltCXm5W4/VZRiKZnuQZc0RnfJbZKaWhfhYNEKhTDnmqusE8WBxXSNEmW
+	jzURW1QgQhBQbGqd8dbDgAaLxbl27nK2sSjosyX9xZ7B2zCmK6kF3V/ngV4/n9H1DcFk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161821-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20210506104259.16928-2-julien@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-4.12-testing test] 161821: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.12-testing:test-amd64-amd64-xl-qcow2:guest-localmigrate/x10:fail:regression
+    xen-4.12-testing:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:guest-start/debianhvm.repeat:fail:heisenbug
+    xen-4.12-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.12-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=5984905b2638df87a0262d1ee91f0a6e14a86df6
+X-Osstest-Versions-That:
+    xen=4cf5929606adc2fb1ab4e2921c14ba4b8046ecd1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 07 May 2021 09:54:02 +0000
 
-On 06.05.2021 12:42, Julien Grall wrote:
-> +## High-level overview
-> +
-> +Xen has a framework to bring a new image of the Xen hypervisor in memory using
-> +kexec.  The existing framework does not meet the baseline functionality for
-> +Live Update, since kexec results in a restart for the hypervisor, host, Dom0,
-> +and all the guests.
-> +
-> +The operation can be divided in roughly 4 parts:
-> +
-> +    1. Trigger: The operation will by triggered from outside the hypervisor
-> +       (e.g. dom0 userspace).
-> +    2. Save: The state will be stabilized by pausing the domains and
-> +       serialized by xen#1.
-> +    3. Hand-over: xen#1 will pass the serialized state and transfer control to
-> +       xen#2.
-> +    4. Restore: The state will be deserialized by xen#2.
-> +
-> +All the domains will be paused before xen#1 is starting to save the states,
-> +and any domain that was running before Live Update will be unpaused after
-> +xen#2 has finished to restore the states.  This is to prevent a domain to try
-> +to modify the state of another domain while it is being saved/restored.
-> +
-> +The current approach could be seen as non-cooperative migration with a twist:
-> +all the domains (including dom0) are not expected be involved in the Live
-> +Update process.
-> +
-> +The major differences compare to live migration are:
-> +
-> +    * The state is not transferred to another host, but instead locally to
-> +      xen#2.
-> +    * The memory content or device state (for passthrough) does not need to
-> +      be part of the stream. Instead we need to preserve it.
-> +    * PV backends, device emulators, xenstored are not recreated but preserved
-> +      (as these are part of dom0).
+flight 161821 xen-4.12-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161821/
 
-Isn't dom0 too limiting here?
+Regressions :-(
 
-> +## Trigger
-> +
-> +Live update is built on top of the kexec interface to prepare the command line,
-> +load xen#2 and trigger the operation.  A new kexec type has been introduced
-> +(*KEXEC\_TYPE\_LIVE\_UPDATE*) to notify Xen to Live Update.
-> +
-> +The Live Update will be triggered from outside the hypervisor (e.g. dom0
-> +userspace).  Support for the operation has been added in kexec-tools 2.0.21.
-> +
-> +All the domains will be paused before xen#1 is starting to save the states.
-> +In Xen, *domain\_pause()* will pause the vCPUs as soon as they can be re-
-> +scheduled.  In other words, a pause request will not wait for asynchronous
-> +requests (e.g. I/O) to finish.  For Live Update, this is not an ideal time to
-> +pause because it will require more xen#1 internal state to be transferred.
-> +Therefore, all the domains will be paused at an architectural restartable
-> +boundary.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qcow2    19 guest-localmigrate/x10   fail REGR. vs. 159418
 
-To me this leaves entirely unclear what this then means. domain_pause()
-not being suitable is one thing, but what _is_ suitable seems worth
-mentioning. Among other things I'd be curious to know what this would
-mean for pending hypercall continuations.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 20 guest-start/debianhvm.repeat fail pass in 161807
 
-> +## Save
-> +
-> +xen#1 will be responsible to preserve and serialize the state of each existing
-> +domain and any system-wide state (e.g M2P).
-> +
-> +Each domain will be serialized independently using a modified migration stream,
-> +if there is any dependency between domains (such as for IOREQ server) they will
-> +be recorded using a domid. All the complexity of resolving the dependencies are
-> +left to the restore path in xen#2 (more in the *Restore* section).
-> +
-> +At the moment, the domains are saved one by one in a single thread, but it
-> +would be possible to consider multi-threading if it takes too long. Although
-> +this may require some adjustment in the stream format.
-> +
-> +As we want to be able to Live Update between major versions of Xen (e.g Xen
-> +4.11 -> Xen 4.15), the states preserved should not be a dump of Xen internal
-> +structure but instead the minimal information that allow us to recreate the
-> +domains.
-> +
-> +For instance, we don't want to preserve the frametable (and therefore
-> +*struct page\_info*) as-is because the refcounting may be different across
-> +between xen#1 and xen#2 (see XSA-299). Instead, we want to be able to recreate
-> +*struct page\_info* based on minimal information that are considered stable
-> +(such as the page type).
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 159418
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 159418
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 159418
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 159418
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 159418
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 159418
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 159418
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 159418
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 159418
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 159418
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 159418
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Perhaps leaving it at this very generic description is fine, but I can
-easily see cases (which may not even be corner ones) where this quickly
-gets problematic: What if xen#2 has state xen#1 didn't (properly) record?
-Such information may not be possible to take out of thin air. Is the
-consequence then that in such a case LU won't work? If so, is it perhaps
-worthwhile having a Limitations section somewhere?
+version targeted for testing:
+ xen                  5984905b2638df87a0262d1ee91f0a6e14a86df6
+baseline version:
+ xen                  4cf5929606adc2fb1ab4e2921c14ba4b8046ecd1
 
-> +## Hand over
-> +
-> +### Memory usage restrictions
-> +
-> +xen#2 must take care not to use any memory pages which already belong to
-> +guests.  To facilitate this, a number of contiguous region of memory are
-> +reserved for the boot allocator, known as *live update bootmem*.
-> +
-> +xen#1 will always reserve a region just below Xen (the size is controlled by
-> +the Xen command line parameter liveupdate) to allow Xen growing and provide
-> +information about LiveUpdate (see the section *Breadcrumb*).  The region will be
-> +passed to xen#2 using the same command line option but with the base address
-> +specified.
+Last test of basis   159418  2021-02-16 15:06:11 Z   79 days
+Failing since        160128  2021-03-18 14:36:18 Z   49 days   68 attempts
+Testing same since   161776  2021-05-04 19:06:01 Z    2 days    3 attempts
 
-I particularly don't understand the "to allow Xen growing" aspect here:
-xen#2 needs to be placed in a different memory range anyway until xen#1
-has handed over control. Are you suggesting it gets moved over to xen#1's
-original physical range (not necessarily an exact match), and then
-perhaps to start below where xen#1 started? Why would you do this? Xen
-intentionally lives at a 2Mb boundary, such that in principle (for EFI:
-in fact) large page mappings are possible. I also see no reason to reuse
-the same physical area of memory for Xen itself - all you need is for
-Xen's virtual addresses to be properly mapped to the new physical range.
-I wonder what I'm missing here.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Edwin Török <edvin.torok@citrix.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Olaf Hering <olaf@aepfle.de>
+  Stefano Stabellini <sstabellini@kernel.org>
 
-> +For simplicity, additional regions will be provided in the stream.  They will
-> +consist of region that could be re-used by xen#2 during boot (such as the
-> +xen#1's frametable memory).
-> +
-> +xen#2 must not use any pages outside those regions until it has consumed the
-> +Live Update data stream and determined which pages are already in use by
-> +running domains or need to be re-used as-is by Xen (e.g M2P).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-Is the M2P really in the "need to be re-used" group, not just "can
-be re-used for simplicity and efficiency reasons"?
 
-> +## Restore
-> +
-> +After xen#2 initialized itself and map the stream, it will be responsible to
-> +restore the state of the system and each domain.
-> +
-> +Unlike the save part, it is not possible to restore a domain in a single pass.
-> +There are dependencies between:
-> +
-> +    1. different states of a domain.  For instance, the event channels ABI
-> +       used (2l vs fifo) requires to be restored before restoring the event
-> +       channels.
-> +    2. the same "state" within a domain.  For instance, in case of PV domain,
-> +       the pages' ownership requires to be restored before restoring the type
-> +       of the page (e.g is it an L4, L1... table?).
-> +
-> +    3. domains.  For instance when restoring the grant mapping, it will be
-> +       necessary to have the page's owner in hand to do proper refcounting.
-> +       Therefore the pages' ownership have to be restored first.
-> +
-> +Dependencies will be resolved using either multiple passes (for dependency
-> +type 2 and 3) or using a specific ordering between records (for dependency
-> +type 1).
-> +
-> +Each domain will be restored in 3 passes:
-> +
-> +    * Pass 0: Create the domain and restore the P2M for HVM. This can be broken
-> +      down in 3 parts:
-> +      * Allocate a domain via _domain\_create()_ but skip part that requires
-> +        extra records (e.g HAP, P2M).
-> +      * Restore any parts which needs to be done before create the vCPUs. This
-> +        including restoring the P2M and whether HAP is used.
-> +      * Create the vCPUs. Note this doesn't restore the state of the vCPUs.
-> +    * Pass 1: It will restore the pages' ownership and the grant-table frames
-> +    * Pass 2: This steps will restore any domain states (e.g vCPU state, event
-> +      channels) that wasn't
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-What about foreign mappings (which are part of the P2M)? Can they be
-validly restored prior to restoring page ownership? In how far do you
-fully trust xen#1's state to be fully consistent anyway, rather than
-perhaps checking it?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> +A domain should not have a dependency on another domain within the same pass.
-> +Therefore it would be possible to take advantage of all the CPUs to restore
-> +domains in parallel and reduce the overall downtime.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-"Dependency" may be ambiguous here. For example, an interdomain event
-channel to me necessarily expresses a dependency between two domains.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Jan
+
+Not pushing.
+
+(No revision log; it would be 324 lines long.)
 
