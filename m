@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0CA3767F2
-	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 17:29:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124068.234151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFED937680B
+	for <lists+xen-devel@lfdr.de>; Fri,  7 May 2021 17:31:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124073.234162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lf2PN-0002D8-1r; Fri, 07 May 2021 15:28:53 +0000
+	id 1lf2Rp-0003sG-CX; Fri, 07 May 2021 15:31:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124068.234151; Fri, 07 May 2021 15:28:52 +0000
+Received: by outflank-mailman (output) from mailman id 124073.234162; Fri, 07 May 2021 15:31:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lf2PM-0002Av-Sq; Fri, 07 May 2021 15:28:52 +0000
-Received: by outflank-mailman (input) for mailman id 124068;
- Fri, 07 May 2021 15:28:51 +0000
+	id 1lf2Rp-0003pd-9Q; Fri, 07 May 2021 15:31:25 +0000
+Received: by outflank-mailman (input) for mailman id 124073;
+ Fri, 07 May 2021 15:31:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rJTn=KC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lf2PL-0002AF-A7
- for xen-devel@lists.xenproject.org; Fri, 07 May 2021 15:28:51 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qbhn=KC=gmail.com=dpsmith.dev@srs-us1.protection.inumbo.net>)
+ id 1lf2Rm-0003pV-SO
+ for xen-devel@lists.xenproject.org; Fri, 07 May 2021 15:31:22 +0000
+Received: from mail-qt1-x833.google.com (unknown [2607:f8b0:4864:20::833])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b1f40b92-7b39-49c7-b6dc-b29de329a397;
- Fri, 07 May 2021 15:28:50 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 80C62AC6A;
- Fri,  7 May 2021 15:28:49 +0000 (UTC)
+ id c8cc72b0-c544-459d-9c2e-998fb391e780;
+ Fri, 07 May 2021 15:31:22 +0000 (UTC)
+Received: by mail-qt1-x833.google.com with SMTP id c11so6771278qth.2
+ for <xen-devel@lists.xenproject.org>; Fri, 07 May 2021 08:31:22 -0700 (PDT)
+Received: from [10.10.1.24] (static-72-81-132-2.bltmmd.fios.verizon.net.
+ [72.81.132.2])
+ by smtp.gmail.com with ESMTPSA id q13sm5140503qkj.43.2021.05.07.08.31.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 07 May 2021 08:31:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,92 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1f40b92-7b39-49c7-b6dc-b29de329a397
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620401329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qpu+bOi5Xpc3dDo4ngOHPAFA8yoMvUdr5hcWr7/Zdbw=;
-	b=BnUC0RNoZLylqQEfVX9C+DYGNrejBMcsJX0TezJZiotIls856hfdaf0OKy0ajKQU1hST5Z
-	J3in7jn15vuUUUe492U55Ows1a/ndgMaU9fSCv/yeRQPRDnhn49wX2npGInzXw2Ukj1Eeh
-	fq8m3XeQ7WPl8gZODQ1KlRe/yqZbGGA=
-Subject: Re: [PATCH RFC 1/2] docs/design: Add a design document for Live
- Update
-To: "Xia, Hongyan" <hongyxia@amazon.com>
-Cc: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "Gul, Mahircan" <mahgul@amazon.co.uk>, "paul@xen.org" <paul@xen.org>,
- "Ning, Raphael" <raphning@amazon.com>, "wl@xen.org" <wl@xen.org>,
- "iwj@xenproject.org" <iwj@xenproject.org>,
- "Grall, Julien" <jgrall@amazon.co.uk>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "dwmw2@infradead.org" <dwmw2@infradead.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "julien@xen.org" <julien@xen.org>
-References: <20210506104259.16928-1-julien@xen.org>
- <20210506104259.16928-2-julien@xen.org>
- <f51b2ef6-3998-7371-cea9-502c5c9f8afa@suse.com>
- <2a497e4c-d5a3-1da2-699e-1e31740a81f0@xen.org>
- <324f10b9-2b1f-ec61-1816-44c960c285f8@suse.com>
- <28b31476e2044161f94bfd85d1d3c8b2f6dfb806.camel@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4e161632-e558-039c-2a2a-398fe492a7fc@suse.com>
-Date: Fri, 7 May 2021 17:28:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+X-Inumbo-ID: c8cc72b0-c544-459d-9c2e-998fb391e780
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=71cCRQn+HQWCN9MH5Z6ZnIp2rjcsD2U6fT/zul98+C4=;
+        b=qhBjN9gW2haeADbEBgmmibhvdS6XPIbpvsOWGy+XbdvWCkqkBCA58O6F2t2zW5KPxh
+         qCN40LL0HdjO8yCitVoc1TIXfwVD2lLrlS3/mKOqv2A2FWB2/rkYdW7gsVvTNeQapVfW
+         uK9/mytUMbGhRyGSa/vncCzsvEIw1F+1C15kEehLKbG1iaFcyUI/9f9P170pCXinIOpF
+         xjUqVxPbJc0+bCJj2htURf17ozO+/bWB/Fps34ghe0usJvftv91D+n4+fsRTq4SXpSW/
+         Ci22yNH9U9iv6J5j5508GjMa4utqMN94h3UY7T88p0RXVy1F+g7dD6pUmC+anR4oVV1R
+         wpKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=71cCRQn+HQWCN9MH5Z6ZnIp2rjcsD2U6fT/zul98+C4=;
+        b=WE/THk9QFIw73P/S/4zAWKt6TJb/NonGGhlq7LO+QS7OSLtE/TvIKH5LnxCe8AJcYk
+         IgZ+Oy9EioDLCIboYE+B89O1gwCyB+v03vC7PxdWOQqYvhJwzGlkAUDfh/vTD/GAU9u6
+         oGZOXCKYNIUDWISx3KYlwQrbqvP8WOvuQrlQq/vhcMKcMLkqq9E+mOoIZRBBJogwXZ4F
+         mAw0LjNBuJ5sk69Rs2W+MgvUHe5r8g/lwvQYgpdbDsw/jObWNhX8izlJe2TqkMbioz3D
+         cQ2oWjrIDxLqSjmixINHr9sYGlQUMS9UG+Py8qu+eAnr6y9p3Wh5naUlzvkO4XAemk01
+         g7Xg==
+X-Gm-Message-State: AOAM532ZATplPk28BTK84F/Xn+Mb6Udc16M6nje+K+QYP7n6HS6hZvBm
+	ylXQrFdPY7Wh56xJlMMQ6xc=
+X-Google-Smtp-Source: ABdhPJzgKy0K3vlah+CPHtMoJFL4kY+jX19KDcna3mc9Tk983PzGYi5tWMzvo1v4fxnzJhZgdz6wsw==
+X-Received: by 2002:a05:622a:13c6:: with SMTP id p6mr10113062qtk.288.1620401481957;
+        Fri, 07 May 2021 08:31:21 -0700 (PDT)
+Subject: Re: [PATCH 1/9] docs: Warn about incomplete vtpmmgr TPM 2.0 support
+To: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210504124842.220445-1-jandryuk@gmail.com>
+ <20210504124842.220445-2-jandryuk@gmail.com>
+From: "Daniel P. Smith" <dpsmith.dev@gmail.com>
+Message-ID: <cea36fb6-9464-5e20-fbd7-fba367fd9ced@gmail.com>
+Date: Fri, 7 May 2021 11:31:19 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <28b31476e2044161f94bfd85d1d3c8b2f6dfb806.camel@amazon.com>
+In-Reply-To: <20210504124842.220445-2-jandryuk@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 07.05.2021 16:59, Xia, Hongyan wrote:
-> On Fri, 2021-05-07 at 14:15 +0200, Jan Beulich wrote:
->> On 07.05.2021 13:44, Julien Grall wrote:
-> [...]
->>>
->>> It is a known convenient place. It may be difficult to find a
->>> similar 
->>> spot on host that have been long-running.
->>
->> I'm not convinced: If it was placed in the kexec area at a 2Mb
->> boundary, it could just run from there. If the kexec area is
->> large enough, this would work any number of times (as occupied
->> ranges become available again when the next LU cycle ends).
+On 5/4/21 8:48 AM, Jason Andryuk wrote:
+> The vtpmmgr TPM 2.0 support is incomplete.  Add a warning about that to
+> the documentation so others don't have to work through discovering it is
+> broken.
 > 
-> To make sure the next Xen can be loaded and run anywhere in case kexec
-> cannot find large enough memory under 4G, we need to:
-> 
-> 1. teach kexec to load the whole image contiguously. At the moment
-> kexec prepares scattered 4K pages which are not runnable until they are
-> copied to a contiguous destination. (What if it can't find a contiguous
-> range?)
-> 
-> 2. teach Xen that it can be jumped into with some existing page tables
-> which point to itself above 4G. We can't do real/protected mode entry
-> because it needs to start below 4G physically. Maybe a modified version
-> of the EFI entry path (my familiarity with Xen EFI entry is limited)?
-> 
-> 3. rewrite all the early boot bits that assume Xen is under 4G and its
-> bundled page tables for below 4G.
-> 
-> These are the obstacles off the top of my head. So I think there is no
-> fundamental reason why we have to place Xen #2 where Xen #1 was, but
-> doing so is a massive reduction of pain which allows us to reuse much
-> of the existing Xen code.
-> 
-> Maybe, this part does not have to be part of the ABI and we just
-> suggest this as one way of loading the next Xen to cope with growth?
-> This is the best way I can think of (loading Xen where it was and
-> expand into the reserved bootmem if needed) that does not need to
-> rewrite a lot of early boot code and can pretty much guarantee success
-> even if memory is tight and fragmented.
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
 
-Yeah, all of this as an initial implementation plan sounds fine to
-me. But it should then be called out as such (rather than as part of
-how things ought to [remain to] be).
+Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-Jan
+>  docs/man/xen-vtpmmgr.7.pod | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/docs/man/xen-vtpmmgr.7.pod b/docs/man/xen-vtpmmgr.7.pod
+> index af825a7ffe..875dcce508 100644
+> --- a/docs/man/xen-vtpmmgr.7.pod
+> +++ b/docs/man/xen-vtpmmgr.7.pod
+> @@ -222,6 +222,17 @@ XSM label, not the kernel.
+>  
+>  =head1 Appendix B: vtpmmgr on TPM 2.0
+>  
+> +=head2 WARNING: Incomplete - cannot persist data
+> +
+> +TPM 2.0 support for vTPM manager is incomplete.  There is no support for
+> +persisting an encryption key, so vTPM manager regenerates primary and secondary
+> +key handles each boot.
+> +
+> +Also, the vTPM manger group command implementation hardcodes TPM 1.2 commands.
+> +This means running manage-vtpmmgr.pl fails when the TPM 2.0 hardware rejects
+> +the TPM 1.2 commands.  vTPM manager with TPM 2.0 cannot create groups and
+> +therefore cannot persist vTPM contents.
+> +
+>  =head2 Manager disk image setup:
+>  
+>  The vTPM Manager requires a disk image to store its encrypted data. The image
+> 
+
 
