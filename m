@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F993773AB
-	for <lists+xen-devel@lfdr.de>; Sat,  8 May 2021 20:38:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124415.234722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637AE377426
+	for <lists+xen-devel@lfdr.de>; Sat,  8 May 2021 23:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124447.234737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lfRpv-0004YP-Qk; Sat, 08 May 2021 18:37:59 +0000
+	id 1lfUOz-0002NR-Uj; Sat, 08 May 2021 21:22:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124415.234722; Sat, 08 May 2021 18:37:59 +0000
+Received: by outflank-mailman (output) from mailman id 124447.234737; Sat, 08 May 2021 21:22:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lfRpv-0004Vg-Nl; Sat, 08 May 2021 18:37:59 +0000
-Received: by outflank-mailman (input) for mailman id 124415;
- Sat, 08 May 2021 18:37:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lfUOz-0002Ks-Qj; Sat, 08 May 2021 21:22:21 +0000
+Received: by outflank-mailman (input) for mailman id 124447;
+ Sat, 08 May 2021 21:22:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sqKf=KD=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1lfRpt-0004VZ-Tu
- for xen-devel@lists.xenproject.org; Sat, 08 May 2021 18:37:57 +0000
-Received: from mail-qk1-x72a.google.com (unknown [2607:f8b0:4864:20::72a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 79f3ee9b-e0eb-4831-a470-1a29debc4a2f;
- Sat, 08 May 2021 18:37:56 +0000 (UTC)
-Received: by mail-qk1-x72a.google.com with SMTP id k127so11803211qkc.6
- for <xen-devel@lists.xenproject.org>; Sat, 08 May 2021 11:37:56 -0700 (PDT)
-Received: from smtpclient.apple ([199.33.71.18])
- by smtp.gmail.com with ESMTPSA id 28sm2619888qkr.36.2021.05.08.11.37.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 08 May 2021 11:37:56 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lfUOx-0002Ki-Q9; Sat, 08 May 2021 21:22:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lfUOx-0006JX-Kv; Sat, 08 May 2021 21:22:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lfUOx-0007Wo-8H; Sat, 08 May 2021 21:22:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lfUOx-0002WN-7l; Sat, 08 May 2021 21:22:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,139 +42,278 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79f3ee9b-e0eb-4831-a470-1a29debc4a2f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=content-transfer-encoding:from:mime-version:subject:message-id:date
-         :cc:to;
-        bh=GYEZwNqgXbl+DgKBwxyaj9ItIrgeS+e3z48vLMFgvdU=;
-        b=kHjRvNPn61k8yLJgxnkBOjZenTSr7RToDiCO3CJssOxRZMXG5Eec0W0oZFCoWiZrLW
-         Il6M3rf3JlPs7sVlPvQ3SdtMs4nCGS7sXjvvPu8B8gmi+9NjI/HMz0c/up0p7vUHxuMF
-         iY1p08hEPHJ3z2J07WM11ayvNBB1xTKX8KrvpW5WLLh+3py6f+O9NLjKurBsvdApzlm5
-         m9ikqSksGRdhCnkFfH5TfWuQ5tejSQmTr4e0sOr5LxbI/a70vsGwrucL7cr0rN3YpwVQ
-         mvn5fJ7Naa/NrGvLibvurqEIfKHNvoGfbYlDZHWksj5xvQkTaxBzJF8HyiTWRhxFrnnu
-         ko9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:content-transfer-encoding:from:mime-version
-         :subject:message-id:date:cc:to;
-        bh=GYEZwNqgXbl+DgKBwxyaj9ItIrgeS+e3z48vLMFgvdU=;
-        b=UWk0+U7sOrxEDJkUtLhrskHg+lYetH22KKVEVsx/O+nZGLNnCgVVtSKzbYcxa7cSrx
-         +c2x2S28qT+o88AM8f0EhcptVFN4tsFW1wRaR0URk+jZLmiW28LWF11i0Yr6WnQ1vPLw
-         Yj6l6Bw+RHOVwXOqmd5/pFxUmOQTcnxyjbspu/cK5jwRf5qZsmqPGCbJx5I3By3uDdb5
-         DtDrv5SplnI6UqHxLYM++5rrQndKZmmCal+zHSLITKvDsrH4rwPDkFOx7gNmDvF8dIG+
-         JmiECQDwyoKAtO5hrzQjS+FNSM5ju6CcT6nZDHXWDsugm2W5PeNE7srCLUI6XWPRknYg
-         fXcg==
-X-Gm-Message-State: AOAM5311NflEkhC3UfP8C18UwDUDMUCWhwXa357WNSi3+FKC4CNzl25O
-	mJx9UEaEtt7NDaklpWMSKXw=
-X-Google-Smtp-Source: ABdhPJz70fBlJjDntjBTpu84IHM0i0r1Y47aQcVYf+xCRIVz8sH18nVZq8KdEajkgtGAuNOjZqffFw==
-X-Received: by 2002:a37:5dc5:: with SMTP id r188mr16107436qkb.303.1620499076613;
-        Sat, 08 May 2021 11:37:56 -0700 (PDT)
-Content-Type: multipart/alternative; boundary=Apple-Mail-5BB23005-C8D5-4CD0-A64D-8522016ADBF6
-Content-Transfer-Encoding: 7bit
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v2 01/13] docs: Warn about incomplete vtpmmgr TPM 2.0 support
-Message-Id: <D66E1606-7354-4B1E-9F20-DA9BB830FAFA@gmail.com>
-Date: Sat, 8 May 2021 14:37:55 -0400
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-X-Mailer: iPad Mail (18E212)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/HMNYRZqhu5EHU33lPrwN2FATWYd0sOf3xcTYPjHcCU=; b=dsmTfDWoeK0F4rQ6GF6S5wNHoa
+	9F5S7Mp27TrGUUJ2Pklbq9jVIW1aHhAqVNXm6jxrTMYBQiGZ4z/OKZhsU7ZLyMqYzcUBJPiLbAx8+
+	+Tck/DsPjdMYwWlDFOLa5OVmDQOVpZkpm1oiz9AXHksrSyHeJjW9b/Ir6kv/f2SzoLdw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161856-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 161856: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-freebsd10-i386:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-saverestore:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=d90f154867ec0ec22fd719164b88716e8fd48672
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 08 May 2021 21:22:19 +0000
+
+flight 161856 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161856/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-qemuu-freebsd11-amd64 16 guest-saverestore fail REGR. vs. 152631
+ test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 152631
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 152631
+ test-amd64-amd64-qemuu-freebsd12-amd64 16 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-freebsd10-i386 16 guest-saverestore      fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 152631
+ test-amd64-i386-freebsd10-amd64 16 guest-saverestore     fail REGR. vs. 152631
+ test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-ovmf-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-win7-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-qemuu-nested-intel 20 debian-hvm-install/l1/l2 fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 15 guest-saverestore fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 15 guest-saverestore fail REGR. vs. 152631
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                d90f154867ec0ec22fd719164b88716e8fd48672
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z  261 days
+Failing since        152659  2020-08-21 14:07:39 Z  260 days  475 attempts
+Testing same since   161826  2021-05-07 02:33:20 Z    1 days    4 attempts
+
+------------------------------------------------------------
+487 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
---Apple-Mail-5BB23005-C8D5-4CD0-A64D-8522016ADBF6
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On May 6, 2021, at 10:00, Jason Andryuk <jandryuk@gmail.com> wrote:
-> =EF=BB=BFThe vtpmmgr TPM 2.0 support is incomplete.  Add a warning about t=
-hat to
-> the documentation so others don't have to work through discovering it is
-> broken.
->=20
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> docs/man/xen-vtpmmgr.7.pod | 11 +++++++++++
-> 1 file changed, 11 insertions(+)
->=20
-> diff --git a/docs/man/xen-vtpmmgr.7.pod b/docs/man/xen-vtpmmgr.7.pod
-> index af825a7ffe..875dcce508 100644
-> --- a/docs/man/xen-vtpmmgr.7.pod
-> +++ b/docs/man/xen-vtpmmgr.7.pod
-> @@ -222,6 +222,17 @@ XSM label, not the kernel.
->=20
-> =3Dhead1 Appendix B: vtpmmgr on TPM 2.0
->=20
-> +=3Dhead2 WARNING: Incomplete - cannot persist data
-> +
-> +TPM 2.0 support for vTPM manager is incomplete.  There is no support for
-> +persisting an encryption key, so vTPM manager regenerates primary and sec=
-ondary
-> +key handles each boot.
-> +
-> +Also, the vTPM manger group command implementation hardcodes TPM 1.2 comm=
-ands.
-> +This means running manage-vtpmmgr.pl fails when the TPM 2.0 hardware reje=
-cts
-> +the TPM 1.2 commands.  vTPM manager with TPM 2.0 cannot create groups and=
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> +therefore cannot persist vTPM contents.
-> +
-> =3Dhead2 Manager disk image setup:
->=20
-> The vTPM Manager requires a disk image to store its encrypted data. The im=
-age
-> --=20
-> 2.30.2
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Should SUPPORT.md also be updated?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3DSUPPORT.md;hb=3Dref=
-s/heads/master
 
-Rich=
+Not pushing.
 
---Apple-Mail-5BB23005-C8D5-4CD0-A64D-8522016ADBF6
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">On May 6, 2021, at 10:00, J=
-ason Andryuk &lt;jandryuk@gmail.com&gt; wrote:<div dir=3D"ltr"><blockquote t=
-ype=3D"cite"><br></blockquote></div><blockquote type=3D"cite"><div dir=3D"lt=
-r">=EF=BB=BF<span>The vtpmmgr TPM 2.0 support is incomplete. &nbsp;Add a war=
-ning about that to</span><br><span>the documentation so others don't have to=
- work through discovering it is</span><br><span>broken.</span><br><span></sp=
-an><br><span>Signed-off-by: Jason Andryuk &lt;jandryuk@gmail.com&gt;</span><=
-br><span>Acked-by: Andrew Cooper &lt;andrew.cooper3@citrix.com&gt;</span><br=
-><span>---</span><br><span> docs/man/xen-vtpmmgr.7.pod | 11 +++++++++++</spa=
-n><br><span> 1 file changed, 11 insertions(+)</span><br><span></span><br><sp=
-an>diff --git a/docs/man/xen-vtpmmgr.7.pod b/docs/man/xen-vtpmmgr.7.pod</spa=
-n><br><span>index af825a7ffe..875dcce508 100644</span><br><span>--- a/docs/m=
-an/xen-vtpmmgr.7.pod</span><br><span>+++ b/docs/man/xen-vtpmmgr.7.pod</span>=
-<br><span>@@ -222,6 +222,17 @@ XSM label, not the kernel.</span><br><span></=
-span><br><span> =3Dhead1 Appendix B: vtpmmgr on TPM 2.0</span><br><span></sp=
-an><br><span>+=3Dhead2 WARNING: Incomplete - cannot persist data</span><br><=
-span>+</span><br><span>+TPM 2.0 support for vTPM manager is incomplete. &nbs=
-p;There is no support for</span><br><span>+persisting an encryption key, so v=
-TPM manager regenerates primary and secondary</span><br><span>+key handles e=
-ach boot.</span><br><span>+</span><br><span>+Also, the vTPM manger group com=
-mand implementation hardcodes TPM 1.2 commands.</span><br><span>+This means r=
-unning manage-vtpmmgr.pl fails when the TPM 2.0 hardware rejects</span><br><=
-span>+the TPM 1.2 commands. &nbsp;vTPM manager with TPM 2.0 cannot create gr=
-oups and</span><br><span>+therefore cannot persist vTPM contents.</span><br>=
-<span>+</span><br><span> =3Dhead2 Manager disk image setup:</span><br><span>=
-</span><br><span> The vTPM Manager requires a disk image to store its encryp=
-ted data. The image</span><br><span>-- </span><br><span>2.30.2</span><br></d=
-iv></blockquote><br><div>Should SUPPORT.md also be updated?</div><div><br></=
-div><div><a href=3D"https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3D=
-SUPPORT.md;hb=3Drefs/heads/master">https://xenbits.xen.org/gitweb/?p=3Dxen.g=
-it;a=3Dblob;f=3DSUPPORT.md;hb=3Drefs/heads/master</a></div><div><br></div><d=
-iv>Rich</div></div></body></html>=
-
---Apple-Mail-5BB23005-C8D5-4CD0-A64D-8522016ADBF6--
+(No revision log; it would be 148130 lines long.)
 
