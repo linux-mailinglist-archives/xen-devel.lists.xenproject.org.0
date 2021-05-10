@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60FC8377F4E
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 11:26:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125038.235392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC71377FF7
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 11:51:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125048.235405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg2BP-0003CI-14; Mon, 10 May 2021 09:26:35 +0000
+	id 1lg2Yl-0006Lc-2F; Mon, 10 May 2021 09:50:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125038.235392; Mon, 10 May 2021 09:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 125048.235405; Mon, 10 May 2021 09:50:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg2BO-00038w-U8; Mon, 10 May 2021 09:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 125038;
- Mon, 10 May 2021 09:26:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lg2BN-00038e-Nf
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 09:26:33 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3db41407-7a81-4d41-9890-9f14bb1dcb99;
- Mon, 10 May 2021 09:26:32 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 11A6FB034;
- Mon, 10 May 2021 09:26:32 +0000 (UTC)
+	id 1lg2Yk-0006IV-V8; Mon, 10 May 2021 09:50:42 +0000
+Received: by outflank-mailman (input) for mailman id 125048;
+ Mon, 10 May 2021 09:50:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NcLl=KF=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
+ id 1lg2Yj-0006IP-MJ
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 09:50:41 +0000
+Received: from mail-pf1-x431.google.com (unknown [2607:f8b0:4864:20::431])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5de35131-f720-45a4-beac-c0f62c6ab20c;
+ Mon, 10 May 2021 09:50:40 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id k19so13248835pfu.5
+ for <xen-devel@lists.xenproject.org>; Mon, 10 May 2021 02:50:40 -0700 (PDT)
+Received: from localhost ([2401:fa00:95:205:a524:abe8:94e3:5601])
+ by smtp.gmail.com with UTF8SMTPSA id 3sm10134744pff.132.2021.05.10.02.50.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 May 2021 02:50:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,192 +41,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3db41407-7a81-4d41-9890-9f14bb1dcb99
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620638792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2+8TTrA68oj4V/scIVGFMFkKbN2KDcunqkf8eElhtxc=;
-	b=ZtfgP8XhujztQdB70jt0YpRc+su9NvKQYJJq/36S1F6Z/+7jfpPkG+E4FrpSvULTyMMotG
-	l7zJOD1b36mG9tL0FMWinzao70ji+M/VjvK9V92jz4MQR7IZLsy4T0NVNwiSMUvoX9CceP
-	Fe+k+gGNadESL2ycF6UjYq6PllRhAL4=
-Subject: Re: [PATCH] xen/gntdev: fix gntdev_mmap() error exit path
-To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <20210423054038.26696-1-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <4b034ebb-4b41-ab00-3cf7-d8943e62474a@suse.com>
-Date: Mon, 10 May 2021 11:26:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+X-Inumbo-ID: 5de35131-f720-45a4-beac-c0f62c6ab20c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=suql6mxhF7VWacBQX+vVI90y4jo7pK7o7lRK42P1ziE=;
+        b=lOHb/wGLPI35HYDpC1OybPS0wSHtEceWE9NWy4yGK8ilXXldfGkKtOa8K66bNr4LEO
+         Pr9azSla0OuJEaDOigJpQisql/QT6Rzgq/OL94Z5dEW4Jo9qDvVnUfwuUeDl/NGvpzhn
+         KxdIcdeNTo8YF1ZknPwF9akS+XlqzfXmq6cBU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=suql6mxhF7VWacBQX+vVI90y4jo7pK7o7lRK42P1ziE=;
+        b=QmnjJ+Ku233DQNV7DGQGAIoM8c4t0gAkwqIqRKMFzzOaNAsCL73bpgSEN9j/1RSOOS
+         6BCY+kixfn7K6ghMnh+P3WtL7JrYmcVqvo2ZuD0fGXAHE4KdyhNPui2G2dP244sRjYDz
+         d/LhbnylOV6AUTu+94BOwG9lh6g81KSrb4CVxIHg/EA+fCMnxfn2fGvtU0T8G8So2+Wg
+         j39BeTL9luOG5YwMZrYyXuKDbOonrSLakNNbnqiWQ6gYl7PJGU/TmkzckLVYE8rlR6S7
+         sMEUrwqIQC/zw9jeui0PL1L3BRlSXHN/WlzYarvR5i/uTkdKODcS13DQNlRdDvMbfjbf
+         Ol4g==
+X-Gm-Message-State: AOAM532gpeB4DVvnDUeB3lmIXKAZMh8CJLUyJLTSzRlBZbDmx91F5W3u
+	ukdxc3x+wSUKQW6uX2C8a5lgrA==
+X-Google-Smtp-Source: ABdhPJxaRNqwofbH1Q1gT6hjDo7UCjX7KCvjB0rJLaDOY22mJQZwGH/owOzO7oGoIZrGlaECEV1xwQ==
+X-Received: by 2002:a62:2a14:0:b029:263:20c5:6d8c with SMTP id q20-20020a622a140000b029026320c56d8cmr24491637pfq.23.1620640239613;
+        Mon, 10 May 2021 02:50:39 -0700 (PDT)
+From: Claire Chang <tientzu@chromium.org>
+To: Rob Herring <robh+dt@kernel.org>,
+	mpe@ellerman.id.au,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	Christoph Hellwig <hch@lst.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: benh@kernel.crashing.org,
+	paulus@samba.org,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	sstabellini@kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	grant.likely@arm.com,
+	xypron.glpk@gmx.de,
+	Thierry Reding <treding@nvidia.com>,
+	mingo@kernel.org,
+	bauerman@linux.ibm.com,
+	peterz@infradead.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Saravana Kannan <saravanak@google.com>,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	heikki.krogerus@linux.intel.com,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	lkml <linux-kernel@vger.kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	xen-devel@lists.xenproject.org,
+	Nicolas Boichat <drinkcat@chromium.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>,
+	tfiga@chromium.org,
+	bskeggs@redhat.com,
+	bhelgaas@google.com,
+	chris@chris-wilson.co.uk,
+	tientzu@chromium.org,
+	daniel@ffwll.ch,
+	airlied@linux.ie,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	jxgao@google.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-pci@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	matthew.auld@intel.com,
+	nouveau@lists.freedesktop.org,
+	rodrigo.vivi@intel.com,
+	thomas.hellstrom@linux.intel.com,
+	Claire Chang <tientzu@google.com>
+Subject: [PATCH v6 00/15] Restricted DMA
+Date: Mon, 10 May 2021 17:50:11 +0800
+Message-Id: <20210510095026.3477496-1-tientzu@chromium.org>
+X-Mailer: git-send-email 2.31.1.607.g51e8a6a459-goog
 MIME-Version: 1.0
-In-Reply-To: <20210423054038.26696-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="wVYMBkZzxegc9HeHGTpuRIibzEXEISYF4"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---wVYMBkZzxegc9HeHGTpuRIibzEXEISYF4
-Content-Type: multipart/mixed; boundary="gakxpOIby6mSXEggqm5llSC2S6sNcng8J";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-Message-ID: <4b034ebb-4b41-ab00-3cf7-d8943e62474a@suse.com>
-Subject: Re: [PATCH] xen/gntdev: fix gntdev_mmap() error exit path
-References: <20210423054038.26696-1-jgross@suse.com>
-In-Reply-To: <20210423054038.26696-1-jgross@suse.com>
+From: Claire Chang <tientzu@google.com>
 
---gakxpOIby6mSXEggqm5llSC2S6sNcng8J
-Content-Type: multipart/mixed;
- boundary="------------CCD07EF3ED352F535AE0D5EB"
-Content-Language: en-US
+This series implements mitigations for lack of DMA access control on
+systems without an IOMMU, which could result in the DMA accessing the
+system memory at unexpected times and/or unexpected addresses, possibly
+leading to data leakage or corruption.
 
-This is a multi-part message in MIME format.
---------------CCD07EF3ED352F535AE0D5EB
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+For example, we plan to use the PCI-e bus for Wi-Fi and that PCI-e bus is
+not behind an IOMMU. As PCI-e, by design, gives the device full access to
+system memory, a vulnerability in the Wi-Fi firmware could easily escalate
+to a full system exploit (remote wifi exploits: [1a], [1b] that shows a
+full chain of exploits; [2], [3]).
 
-On 23.04.21 07:40, Juergen Gross wrote:
-> Commit d3eeb1d77c5d0af ("xen/gntdev: use mmu_interval_notifier_insert")=
+To mitigate the security concerns, we introduce restricted DMA. Restricted
+DMA utilizes the existing swiotlb to bounce streaming DMA in and out of a
+specially allocated region and does memory allocation from the same region.
+The feature on its own provides a basic level of protection against the DMA
+overwriting buffer contents at unexpected times. However, to protect
+against general data leakage and system memory corruption, the system needs
+to provide a way to restrict the DMA to a predefined memory region (this is
+usually done at firmware level, e.g. MPU in ATF on some ARM platforms [4]).
 
-> introduced an error in gntdev_mmap(): in case the call of
-> mmu_interval_notifier_insert_locked() fails the exit path should not
-> call mmu_interval_notifier_remove(), as this might result in NULL
-> dereferences.
->=20
-> One reason for failure is e.g. a signal pending for the running
-> process.
->=20
-> Fixes: d3eeb1d77c5d0af ("xen/gntdev: use mmu_interval_notifier_insert")=
+[1a] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_4.html
+[1b] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_11.html
+[2] https://blade.tencent.com/en/advisories/qualpwn/
+[3] https://www.bleepingcomputer.com/news/security/vulnerabilities-found-in-highly-popular-firmware-for-wifi-chips/
+[4] https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
 
-> Cc: stable@vger.kernel.org
-> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
-ab.com>
-> Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+v6:
+Address the comments in v5
 
-Pushed to xen/tip.git for-linus-5.13b
+v5:
+Rebase on latest linux-next
+https://lore.kernel.org/patchwork/cover/1416899/
 
+v4:
+- Fix spinlock bad magic
+- Use rmem->name for debugfs entry
+- Address the comments in v3
+https://lore.kernel.org/patchwork/cover/1378113/
 
-Juergen
+v3:
+Using only one reserved memory region for both streaming DMA and memory
+allocation.
+https://lore.kernel.org/patchwork/cover/1360992/
 
---------------CCD07EF3ED352F535AE0D5EB
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+v2:
+Building on top of swiotlb.
+https://lore.kernel.org/patchwork/cover/1280705/
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+v1:
+Using dma_map_ops.
+https://lore.kernel.org/patchwork/cover/1271660/
+*** BLURB HERE ***
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Claire Chang (15):
+  swiotlb: Refactor swiotlb init functions
+  swiotlb: Refactor swiotlb_create_debugfs
+  swiotlb: Add DMA_RESTRICTED_POOL
+  swiotlb: Add restricted DMA pool initialization
+  swiotlb: Add a new get_io_tlb_mem getter
+  swiotlb: Update is_swiotlb_buffer to add a struct device argument
+  swiotlb: Update is_swiotlb_active to add a struct device argument
+  swiotlb: Bounce data from/to restricted DMA pool if available
+  swiotlb: Move alloc_size to find_slots
+  swiotlb: Refactor swiotlb_tbl_unmap_single
+  dma-direct: Add a new wrapper __dma_direct_free_pages()
+  swiotlb: Add restricted DMA alloc/free support.
+  dma-direct: Allocate memory from restricted DMA pool if available
+  dt-bindings: of: Add restricted DMA pool
+  of: Add plumbing for restricted DMA pool
 
---------------CCD07EF3ED352F535AE0D5EB--
+ .../reserved-memory/reserved-memory.txt       |  27 ++
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c  |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_ttm.c         |   2 +-
+ drivers/iommu/dma-iommu.c                     |  12 +-
+ drivers/of/address.c                          |  25 ++
+ drivers/of/device.c                           |   3 +
+ drivers/of/of_private.h                       |   5 +
+ drivers/pci/xen-pcifront.c                    |   2 +-
+ drivers/xen/swiotlb-xen.c                     |   2 +-
+ include/linux/device.h                        |   4 +
+ include/linux/swiotlb.h                       |  41 ++-
+ kernel/dma/Kconfig                            |  14 +
+ kernel/dma/direct.c                           |  63 +++--
+ kernel/dma/direct.h                           |   9 +-
+ kernel/dma/swiotlb.c                          | 242 +++++++++++++-----
+ 15 files changed, 356 insertions(+), 97 deletions(-)
 
---gakxpOIby6mSXEggqm5llSC2S6sNcng8J--
+-- 
+2.31.1.607.g51e8a6a459-goog
 
---wVYMBkZzxegc9HeHGTpuRIibzEXEISYF4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY/EcFAwAAAAAACgkQsN6d1ii/Ey9G
-MwgAndiVu5uJVs3ZsCPTnVemia6fLTVaaS19A0bAxmfh7ROoSvPZ1Uec+VNlGdGfCwjXh1n/Sc55
-euPrMIFY4jNZy4ZW1pXog40GeQu9TDWpyOXfKn7c9WE6MCkR30fOGbIiYkRz9LFwETckdmNgkiOm
-xXLjCeF5Vryi8MC+RF+i270HRt5lxZqU0aWb8wrMKAHZmXJ8wnUv3V/ksLGuLPldzG+XdMzpj61X
-sYekZAJ4JaEwqHRHJgbYeU5wupAyt8l96mT/P/7dEzNMQqRHrwy3SiyRfXZME/Qqv2yctxdqy2Rt
-OUmJeihkiVfMOW505OkbkwerlLTrrqNei1NsjEHQbA==
-=Ptr7
------END PGP SIGNATURE-----
-
---wVYMBkZzxegc9HeHGTpuRIibzEXEISYF4--
 
