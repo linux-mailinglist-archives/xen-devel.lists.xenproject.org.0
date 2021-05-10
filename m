@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EBE33791E4
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 17:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125314.235897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E1D37921B
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 17:07:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125321.235910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg7TF-0007Xs-PP; Mon, 10 May 2021 15:05:21 +0000
+	id 1lg7VQ-0008Ba-6H; Mon, 10 May 2021 15:07:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125314.235897; Mon, 10 May 2021 15:05:21 +0000
+Received: by outflank-mailman (output) from mailman id 125321.235910; Mon, 10 May 2021 15:07:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg7TF-0007Vb-MR; Mon, 10 May 2021 15:05:21 +0000
-Received: by outflank-mailman (input) for mailman id 125314;
- Mon, 10 May 2021 15:05:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lg7VQ-000893-2i; Mon, 10 May 2021 15:07:36 +0000
+Received: by outflank-mailman (input) for mailman id 125321;
+ Mon, 10 May 2021 15:07:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5bM6=KF=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lg7TD-0007VS-Tx
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 15:05:19 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9964c90b-7e54-44ce-b96f-8a492216a985;
- Mon, 10 May 2021 15:05:19 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 2DAB567373; Mon, 10 May 2021 17:05:17 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1lg7VO-00088x-DG
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 15:07:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lg7VN-0007Zf-59; Mon, 10 May 2021 15:07:33 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lg7VM-0000KU-S6; Mon, 10 May 2021 15:07:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,72 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9964c90b-7e54-44ce-b96f-8a492216a985
-Date: Mon, 10 May 2021 17:05:16 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Claire Chang <tientzu@chromium.org>
-Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	boris.ostrovsky@oracle.com, jgross@suse.com,
-	Christoph Hellwig <hch@lst.de>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	benh@kernel.crashing.org, paulus@samba.org,
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
-	sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>,
-	grant.likely@arm.com, xypron.glpk@gmx.de,
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org,
-	bauerman@linux.ibm.com, peterz@infradead.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Saravana Kannan <saravanak@google.com>,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	heikki.krogerus@linux.intel.com,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
-	linux-devicetree <devicetree@vger.kernel.org>,
-	lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	xen-devel@lists.xenproject.org,
-	Nicolas Boichat <drinkcat@chromium.org>,
-	Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org,
-	bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk,
-	daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
-	jxgao@google.com, joonas.lahtinen@linux.intel.com,
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
-	matthew.auld@intel.com, nouveau@lists.freedesktop.org,
-	rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v6 08/15] swiotlb: Bounce data from/to restricted DMA
- pool if available
-Message-ID: <20210510150516.GE28066@lst.de>
-References: <20210510095026.3477496-1-tientzu@chromium.org> <20210510095026.3477496-9-tientzu@chromium.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210510095026.3477496-9-tientzu@chromium.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=GjXwukIvD8kbHiXk9G8DBtnyyL6OQFNZ/+Pgap0hRLY=; b=R8whYJgva8vwlgzUNJSnA09g6P
+	+wvvrNmPM8K3Ns7z6V8iYypJclaFPIhJd241kxe4kQ/rwOnWB1PNFkgFsoYnzvX5Zx+vCybBlSt+f
+	S6qjyV0dzVw4fSv+s1Hm9twIsR5trnI9y5eAA60urvtlPlpQtjEyQEAt38QGI7Fg8t8Y=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/xenstore: Fix indentation in the header of xenstored_control.c
+Date: Mon, 10 May 2021 16:07:28 +0100
+Message-Id: <20210510150728.6263-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-> +static inline bool is_dev_swiotlb_force(struct device *dev)
-> +{
-> +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> +	if (dev->dma_io_tlb_mem)
-> +		return true;
-> +#endif /* CONFIG_DMA_RESTRICTED_POOL */
-> +	return false;
-> +}
-> +
+From: Julien Grall <jgrall@amazon.com>
 
->  	/* If SWIOTLB is active, use its maximum mapping size */
->  	if (is_swiotlb_active(dev) &&
-> -	    (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
-> +	    (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE ||
-> +	     is_dev_swiotlb_force(dev)))
+Commit e867af081d94 "tools/xenstore: save new binary for live update"
+seemed to have spuriously changed the indentation of the first line of
+the copyright header.
 
-This is a mess.  I think the right way is to have an always_bounce flag
-in the io_tlb_mem structure instead.  Then the global swiotlb_force can
-go away and be replace with this and the fact that having no
-io_tlb_mem structure at all means forced no buffering (after a little
-refactoring).
+The previous indentation is re-instated so all the lines are indented
+the same.
+
+Reported-by: Bjoern Doebel <doebel@amazon.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ tools/xenstore/xenstored_control.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index 8e470f2b2056..52d4817679fe 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -1,5 +1,5 @@
+ /*
+-Interactive commands for Xen Store Daemon.
++    Interactive commands for Xen Store Daemon.
+     Copyright (C) 2017 Juergen Gross, SUSE Linux GmbH
+ 
+     This program is free software; you can redistribute it and/or modify
+-- 
+2.17.1
+
 
