@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C296C3791D2
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 17:03:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125306.235873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DB63791DA
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 17:03:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125308.235886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg7R2-0006E2-5Q; Mon, 10 May 2021 15:03:04 +0000
+	id 1lg7Rk-0006sf-EX; Mon, 10 May 2021 15:03:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125306.235873; Mon, 10 May 2021 15:03:04 +0000
+Received: by outflank-mailman (output) from mailman id 125308.235886; Mon, 10 May 2021 15:03:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg7R2-0006Bd-2N; Mon, 10 May 2021 15:03:04 +0000
-Received: by outflank-mailman (input) for mailman id 125306;
- Mon, 10 May 2021 15:03:02 +0000
+	id 1lg7Rk-0006po-BW; Mon, 10 May 2021 15:03:48 +0000
+Received: by outflank-mailman (input) for mailman id 125308;
+ Mon, 10 May 2021 15:03:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5bM6=KF=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lg7R0-0006BW-Mi
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 15:03:02 +0000
+ id 1lg7Ri-0006pg-Ip
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 15:03:46 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95d4930a-c556-44b4-a444-2f3188e178d8;
- Mon, 10 May 2021 15:03:01 +0000 (UTC)
+ id c8e56175-fbb3-4313-8721-e1b152f6682e;
+ Mon, 10 May 2021 15:03:45 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 2B33867373; Mon, 10 May 2021 17:02:57 +0200 (CEST)
+ id 3764D68AFE; Mon, 10 May 2021 17:03:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,8 +37,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95d4930a-c556-44b4-a444-2f3188e178d8
-Date: Mon, 10 May 2021 17:02:56 +0200
+X-Inumbo-ID: c8e56175-fbb3-4313-8721-e1b152f6682e
+Date: Mon, 10 May 2021 17:03:42 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
 Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
@@ -74,65 +74,25 @@ Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
 	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
 	matthew.auld@intel.com, nouveau@lists.freedesktop.org,
 	rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v6 04/15] swiotlb: Add restricted DMA pool
- initialization
-Message-ID: <20210510150256.GC28066@lst.de>
-References: <20210510095026.3477496-1-tientzu@chromium.org> <20210510095026.3477496-5-tientzu@chromium.org>
+Subject: Re: [PATCH v6 05/15] swiotlb: Add a new get_io_tlb_mem getter
+Message-ID: <20210510150342.GD28066@lst.de>
+References: <20210510095026.3477496-1-tientzu@chromium.org> <20210510095026.3477496-6-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210510095026.3477496-5-tientzu@chromium.org>
+In-Reply-To: <20210510095026.3477496-6-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-> +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/of_fdt.h>
-> +#include <linux/of_reserved_mem.h>
-> +#include <linux/slab.h>
-> +#endif
-
-I don't think any of this belongs into swiotlb.c.  Marking
-swiotlb_init_io_tlb_mem non-static and having all this code in a separate
-file is probably a better idea.
-
-> +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> +static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
-> +				    struct device *dev)
+> +static inline struct io_tlb_mem *get_io_tlb_mem(struct device *dev)
 > +{
-> +	struct io_tlb_mem *mem = rmem->priv;
-> +	unsigned long nslabs = rmem->size >> IO_TLB_SHIFT;
+> +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> +	if (dev && dev->dma_io_tlb_mem)
+> +		return dev->dma_io_tlb_mem;
+> +#endif /* CONFIG_DMA_RESTRICTED_POOL */
 > +
-> +	if (dev->dma_io_tlb_mem)
-> +		return 0;
-> +
-> +	/* Since multiple devices can share the same pool, the private data,
-> +	 * io_tlb_mem struct, will be initialized by the first device attached
-> +	 * to it.
-> +	 */
+> +	return io_tlb_default_mem;
 
-This is not the normal kernel comment style.
-
-> +#ifdef CONFIG_ARM
-> +		if (!PageHighMem(pfn_to_page(PHYS_PFN(rmem->base)))) {
-> +			kfree(mem);
-> +			return -EINVAL;
-> +		}
-> +#endif /* CONFIG_ARM */
-
-And this is weird.  Why would ARM have such a restriction?  And if we have
-such rstrictions it absolutely belongs into an arch helper.
-
-> +		swiotlb_init_io_tlb_mem(mem, rmem->base, nslabs, false);
-> +
-> +		rmem->priv = mem;
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +		if (!debugfs_dir)
-> +			debugfs_dir = debugfs_create_dir("swiotlb", NULL);
-> +
-> +		swiotlb_create_debugfs(mem, rmem->name, debugfs_dir);
-
-Doesn't the debugfs_create_dir belong into swiotlb_create_debugfs?  Also
-please use IS_ENABLEd or a stub to avoid ifdefs like this.
+Given that we're also looking into a not addressing restricted pool
+I'd rather always assign the active pool to dev->dma_io_tlb_mem and
+do away with this helper.
 
