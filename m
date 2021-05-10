@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1484A377E52
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 10:36:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124913.235207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485DB377E5A
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 10:39:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124931.235219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg1OF-0004Rm-UZ; Mon, 10 May 2021 08:35:47 +0000
+	id 1lg1RK-0006SG-Dh; Mon, 10 May 2021 08:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124913.235207; Mon, 10 May 2021 08:35:47 +0000
+Received: by outflank-mailman (output) from mailman id 124931.235219; Mon, 10 May 2021 08:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg1OF-0004Oe-Qa; Mon, 10 May 2021 08:35:47 +0000
-Received: by outflank-mailman (input) for mailman id 124913;
- Mon, 10 May 2021 08:35:45 +0000
+	id 1lg1RK-0006Po-9j; Mon, 10 May 2021 08:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 124931;
+ Mon, 10 May 2021 08:38:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HTYQ=KF=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1lg1OD-0002eE-N4
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 08:35:45 +0000
-Received: from mx.upb.ro (unknown [141.85.13.230])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lg1RI-0006PM-J8
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 08:38:56 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f16acf60-e581-4f6d-ba49-8a6aa8bc49ef;
- Mon, 10 May 2021 08:35:31 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 81A88B560127;
- Mon, 10 May 2021 11:35:30 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id QOR1lcOwAZK7; Mon, 10 May 2021 11:35:26 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 9C781B56012E;
- Mon, 10 May 2021 11:35:26 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id qMgwYnPDJBH2; Mon, 10 May 2021 11:35:26 +0300 (EEST)
-Received: from localhost.localdomain (unknown [188.25.174.245])
- by mx.upb.ro (Postfix) with ESMTPSA id 02A1BB560113;
- Mon, 10 May 2021 11:35:25 +0300 (EEST)
+ id 1f8303eb-9b27-4dd6-acd1-454b95a6c6b8;
+ Mon, 10 May 2021 08:38:54 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C97C1AC87;
+ Mon, 10 May 2021 08:38:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,129 +39,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f16acf60-e581-4f6d-ba49-8a6aa8bc49ef
-X-Virus-Scanned: amavisd-new at upb.ro
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-To: xen-devel@lists.xenproject.org
-Cc: Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 5/5] tools/ocaml: Fix redefinition errors
-Date: Mon, 10 May 2021 11:35:19 +0300
-Message-Id: <50763a92df0c58ed0d7749717b7ff5e2a039a4dd.1620633386.git.costin.lupu@cs.pub.ro>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <cover.1620633386.git.costin.lupu@cs.pub.ro>
-References: <cover.1620633386.git.costin.lupu@cs.pub.ro>
+X-Inumbo-ID: 1f8303eb-9b27-4dd6-acd1-454b95a6c6b8
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620635933; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=74B7PBay7PHaB+G8v8dq+cjrRYRC3la1e1/ZQIvNvdo=;
+	b=mMI+y3EQgDGyy8zFz8U0IC9aQysdKKrBDzq8C42h3o7xQUq5svUxAXRbU+5ZMVduuUhTh7
+	hX2ik3dxsYf1aTurAN7GZXradRoriH7iYr3eRn0oZZ8n/KMMO1dlQgWSdjflpABiU1oskr
+	49CGXshjpzswQWN17455OpUxfAXi4AE=
+Subject: Re: [PATCH v1] tools: add newlines to xenstored WRL_LOG
+To: Olaf Hering <olaf@aepfle.de>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <20210503154712.508-1-olaf@aepfle.de>
+ <17f8a84f-13c3-2d55-13b0-79abc7f83855@suse.com>
+ <20210510103400.2df2cc9b.olaf@aepfle.de>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <c4ed9ebb-4b1a-c215-186b-cb6db3f80d41@suse.com>
+Date: Mon, 10 May 2021 10:38:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
+In-Reply-To: <20210510103400.2df2cc9b.olaf@aepfle.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="pNjvJR5D2kuU3bKHmlEUBOIZcf0Q8nkvZ"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--pNjvJR5D2kuU3bKHmlEUBOIZcf0Q8nkvZ
+Content-Type: multipart/mixed; boundary="zGORfapA80Lnnh4wDrGjC6aJo8Q2UiIAt";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Olaf Hering <olaf@aepfle.de>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+Message-ID: <c4ed9ebb-4b1a-c215-186b-cb6db3f80d41@suse.com>
+Subject: Re: [PATCH v1] tools: add newlines to xenstored WRL_LOG
+References: <20210503154712.508-1-olaf@aepfle.de>
+ <17f8a84f-13c3-2d55-13b0-79abc7f83855@suse.com>
+ <20210510103400.2df2cc9b.olaf@aepfle.de>
+In-Reply-To: <20210510103400.2df2cc9b.olaf@aepfle.de>
+
+--zGORfapA80Lnnh4wDrGjC6aJo8Q2UiIAt
+Content-Type: multipart/mixed;
+ boundary="------------EA0839D235DD51A03CEE1938"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------EA0839D235DD51A03CEE1938
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limit=
-s.h
-header) then gcc will trigger a redefinition error because of -Werror. Th=
-is
-patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to a=
-void
-confusion between control domain page granularity (PAGE_* definitions) an=
-d
-guest domain page granularity (which is what we are dealing with here).
+On 10.05.21 10:34, Olaf Hering wrote:
+> Am Mon, 10 May 2021 09:31:41 +0200
+> schrieb Juergen Gross <jgross@suse.com>:
+>=20
+>> Mind doing the same for the two syslog() calls in xenstored_core.c
+>> lacking the newline?
+>=20
+> I will send a separate patch for them.
 
-Same issue applies for redefinitions of Val_none and Some_val macros whic=
-h
-can be already define in the OCaml system headers (e.g.
-/usr/lib/ocaml/caml/mlvalues.h).
+Okay, in this case you can add my
 
-Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
----
- tools/ocaml/libs/xc/xenctrl_stubs.c            | 10 ++++------
- tools/ocaml/libs/xentoollog/xentoollog_stubs.c |  4 ++++
- tools/ocaml/libs/xl/xenlight_stubs.c           |  4 ++++
- 3 files changed, 12 insertions(+), 6 deletions(-)
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xe=
-nctrl_stubs.c
-index d05d7bb30e..f9e33e599a 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -36,14 +36,12 @@
-=20
- #include "mmap_stubs.h"
-=20
--#define PAGE_SHIFT		12
--#define PAGE_SIZE               (1UL << PAGE_SHIFT)
--#define PAGE_MASK               (~(PAGE_SIZE-1))
--
- #define _H(__h) ((xc_interface *)(__h))
- #define _D(__d) ((uint32_t)Int_val(__d))
-=20
-+#ifndef Val_none
- #define Val_none (Val_int(0))
-+#endif
-=20
- #define string_of_option_array(array, index) \
- 	((Field(array, index) =3D=3D Val_none) ? NULL : String_val(Field(Field(=
-array, index), 0)))
-@@ -818,7 +816,7 @@ CAMLprim value stub_xc_domain_memory_increase_reserva=
-tion(value xch,
- 	CAMLparam3(xch, domid, mem_kb);
- 	int retval;
-=20
--	unsigned long nr_extents =3D ((unsigned long)(Int64_val(mem_kb))) >> (P=
-AGE_SHIFT - 10);
-+	unsigned long nr_extents =3D ((unsigned long)(Int64_val(mem_kb))) >> (X=
-C_PAGE_SHIFT - 10);
-=20
- 	uint32_t c_domid =3D _D(domid);
- 	caml_enter_blocking_section();
-@@ -924,7 +922,7 @@ CAMLprim value stub_pages_to_kib(value pages)
- {
- 	CAMLparam1(pages);
-=20
--	CAMLreturn(caml_copy_int64(Int64_val(pages) << (PAGE_SHIFT - 10)));
-+	CAMLreturn(caml_copy_int64(Int64_val(pages) << (XC_PAGE_SHIFT - 10)));
- }
-=20
-=20
-diff --git a/tools/ocaml/libs/xentoollog/xentoollog_stubs.c b/tools/ocaml=
-/libs/xentoollog/xentoollog_stubs.c
-index bf64b211c2..e4306a0c2f 100644
---- a/tools/ocaml/libs/xentoollog/xentoollog_stubs.c
-+++ b/tools/ocaml/libs/xentoollog/xentoollog_stubs.c
-@@ -53,8 +53,12 @@ static char * dup_String_val(value s)
- #include "_xtl_levels.inc"
-=20
- /* Option type support as per http://www.linux-nantes.org/~fmonnier/ocam=
-l/ocaml-wrapping-c.php */
-+#ifndef Val_none
- #define Val_none Val_int(0)
-+#endif
-+#ifndef Some_val
- #define Some_val(v) Field(v,0)
-+#endif
-=20
- static value Val_some(value v)
- {
-diff --git a/tools/ocaml/libs/xl/xenlight_stubs.c b/tools/ocaml/libs/xl/x=
-enlight_stubs.c
-index 352a00134d..45b8af61c7 100644
---- a/tools/ocaml/libs/xl/xenlight_stubs.c
-+++ b/tools/ocaml/libs/xl/xenlight_stubs.c
-@@ -227,8 +227,12 @@ static value Val_string_list(libxl_string_list *c_va=
-l)
- }
-=20
- /* Option type support as per http://www.linux-nantes.org/~fmonnier/ocam=
-l/ocaml-wrapping-c.php */
-+#ifndef Val_none
- #define Val_none Val_int(0)
-+#endif
-+#ifndef Some_val
- #define Some_val(v) Field(v,0)
-+#endif
-=20
- static value Val_some(value v)
- {
---=20
-2.20.1
+to the WRL_LOG patch.
 
+
+Juergen
+
+
+--------------EA0839D235DD51A03CEE1938
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------EA0839D235DD51A03CEE1938--
+
+--zGORfapA80Lnnh4wDrGjC6aJo8Q2UiIAt--
+
+--pNjvJR5D2kuU3bKHmlEUBOIZcf0Q8nkvZ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY8R0FAwAAAAAACgkQsN6d1ii/Ey9L
++wf/eVMhhwiKolD4nJ51lWvBCcURLf45IcJO6hgn5qloSlipgUvud0eGuCY81+iCIQx+igQ8iWA0
+wZ7LKHKHlZ3WLZpCBwsDrdpLhHB0MfCEqQbbMtegiFS5tSlK4zGA9jig+L3Rs5Ud3BfCOedl/GUM
+tppSbMgdEUHYryry0gsclkLOZQ+3+sawL7yftat5vu4/4oX5p4WVjf7w3E0CwteOLr2M3PXVCugW
+E4nSoqKjU9hhiwdjdnwPfsCCR5MvZKasfa8Y4n5DngA2R5bmR3x6rbtbq14BLcFBhc8BdleCIVrt
+l8z3cvk0NslTiuNvkAFqafU0iZqqXUU01VUsWH3hJg==
+=7eMk
+-----END PGP SIGNATURE-----
+
+--pNjvJR5D2kuU3bKHmlEUBOIZcf0Q8nkvZ--
 
