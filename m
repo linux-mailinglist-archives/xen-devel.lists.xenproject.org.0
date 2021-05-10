@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3A7377FF5
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 11:51:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125051.235429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C920377FF6
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 11:51:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125054.235441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg2Z1-00074r-QA; Mon, 10 May 2021 09:50:59 +0000
+	id 1lg2ZA-0007hN-3f; Mon, 10 May 2021 09:51:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125051.235429; Mon, 10 May 2021 09:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 125054.235441; Mon, 10 May 2021 09:51:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg2Z1-000711-MA; Mon, 10 May 2021 09:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 125051;
- Mon, 10 May 2021 09:50:58 +0000
+	id 1lg2Z9-0007e7-Vh; Mon, 10 May 2021 09:51:07 +0000
+Received: by outflank-mailman (input) for mailman id 125054;
+ Mon, 10 May 2021 09:51:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NcLl=KF=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lg2Z0-0006yg-86
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 09:50:58 +0000
-Received: from mail-pj1-x102f.google.com (unknown [2607:f8b0:4864:20::102f])
+ id 1lg2Z8-0006yg-Qp
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 09:51:06 +0000
+Received: from mail-pl1-x62a.google.com (unknown [2607:f8b0:4864:20::62a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c12bb93c-f2ba-419c-84de-ec0eb41aa6f3;
- Mon, 10 May 2021 09:50:57 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- lj11-20020a17090b344bb029015bc3073608so9988256pjb.3
- for <xen-devel@lists.xenproject.org>; Mon, 10 May 2021 02:50:57 -0700 (PDT)
+ id a732de66-c3c4-4664-ab4f-d6938473f051;
+ Mon, 10 May 2021 09:51:06 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id b15so2684452plh.10
+ for <xen-devel@lists.xenproject.org>; Mon, 10 May 2021 02:51:06 -0700 (PDT)
 Received: from localhost ([2401:fa00:95:205:a524:abe8:94e3:5601])
- by smtp.gmail.com with UTF8SMTPSA id 14sm10615255pfv.33.2021.05.10.02.50.49
+ by smtp.gmail.com with UTF8SMTPSA id ga1sm11342699pjb.5.2021.05.10.02.50.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 May 2021 02:50:56 -0700 (PDT)
+ Mon, 10 May 2021 02:51:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,31 +41,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c12bb93c-f2ba-419c-84de-ec0eb41aa6f3
+X-Inumbo-ID: a732de66-c3c4-4664-ab4f-d6938473f051
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=xzceaTJbUUoQMRiby9lwQqwtKo4y5qZbVn1w31ybRrg=;
-        b=bOYHl1lk+9c5fpkjvJLlW2V+ZW1HWQZ8+GqQWpRXOyRwXl5gJ0b79YDClCoBfBBm4i
-         Lg3ZY42RA3b3XCB5qgKa30diM6DGWie5c/Bp8lBvVatzuKYQ+cRSVyrR3Vn43XQ38Fby
-         6vdAkHilxAu/KAE1HFPNhr6sG764ExUW8d2uc=
+        bh=UxwjATyfUtX3knbkz7Ng4a91AyuLGtHH/dkvosOSCGg=;
+        b=KOr6914IYxgjLwHfgEdtt7yY0GH36g2NGsJo3fGwbbJaZNcrllky3/6cWFIPbrcxnF
+         J6WIRuHd84U2i5BBiDKA/bsQe9y2Z9UkJ/RbWHnAxAdDWQ5FGpvFFVOBGDi0XQRFybWw
+         dDc+W6hlTJe2OtGlIaJLuh2fe89FW6RCivPnU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xzceaTJbUUoQMRiby9lwQqwtKo4y5qZbVn1w31ybRrg=;
-        b=Fk2TUqJxqirNlYbd3NLfg8yIFYOdTCgVsVgoqiSbaAB2/sKGA+1/EK+boKq5kU46J4
-         qLtoAmwMAkKG+2h5UuD+YirSS3StLbsQ+R1z6kaRC4gk4F+QY6yuhhbgP6URhVNOxZ9m
-         qxuJ15dFgmvHXjGbOpXukC4IG++bQ3WNsdTKnT+YXwftrO7epCUs+PZwxwmUA0A9q+PO
-         zlKa+HBTXjIXnXUN/BnESig2AhJRb/P5V8lw9oJF9gJF1xoFKsGqWXcgnGN/iwwQk95B
-         /1ChRyl8aSruuC2UC1W/T9fhbhg4gRPzFnEPwsxoLXMmKH38JEBCYVI6vlq0Mx79ihjL
-         qIgA==
-X-Gm-Message-State: AOAM533P8N+Y96HwxyKdWwpSVtzUG+TE5cf3P4R1Zgsc8qMFvAhcPiA0
-	6LcWKReWZrg+STYFseUO3BJWXA==
-X-Google-Smtp-Source: ABdhPJxwy0teVP8y0d4KrEbfmPne0jX/g2pgdK0Y1sxb/62SuqcTyQ5c51wqp1akhS8ac/pL7Mr0nw==
-X-Received: by 2002:a17:90a:bf0c:: with SMTP id c12mr25754828pjs.206.1620640256876;
-        Mon, 10 May 2021 02:50:56 -0700 (PDT)
+        bh=UxwjATyfUtX3knbkz7Ng4a91AyuLGtHH/dkvosOSCGg=;
+        b=UaKwY+D+WqJ5npUvvk8D9suzezUX1dhxpILFAOY6gPP8ZxVkvamrKgnoonXRMTVTN4
+         4BbQALl49A9rTf3yh8+qEnojDVZt6KzKD3yvB1OaWXkD1aCAy5RmTfTDDbT//8mvubak
+         CZTLZhYp7BCuqe+j7fwTsi38pVyD32GTCGA3EY4WF5w5SeQPJb1s/0hdJ4bnwkuX/Dzz
+         R1zhR6kDGpGVrg0pn61w140JwxzVmRC+D3zewQqIsltRlQeqhiZ5kmopwPkqy5JCXeBn
+         iGqa/FGSH1N+0dQqHsM7Xj6S/WSzEFc6ctvLImtZu0Y5alCQJRZv9uwQnkFXbYliMc5t
+         thwg==
+X-Gm-Message-State: AOAM531WkKk3WVm/4575AFw7Ndp7jZ/qseIL3edlb0dXsEzSWXxnOYGX
+	dmXMv4cKrPUXwXCZNWmmVhpCPg==
+X-Google-Smtp-Source: ABdhPJxTaq6vhy1R6G0CsSRkldwCBABZULYIDbfdaYlGZp1FgQhncVgdgDLR34kcwkcv6yJulF+tnA==
+X-Received: by 2002:a17:90a:cf10:: with SMTP id h16mr26442566pju.49.1620640265461;
+        Mon, 10 May 2021 02:51:05 -0700 (PDT)
 From: Claire Chang <tientzu@chromium.org>
 To: Rob Herring <robh+dt@kernel.org>,
 	mpe@ellerman.id.au,
@@ -121,69 +120,47 @@ Cc: benh@kernel.crashing.org,
 	nouveau@lists.freedesktop.org,
 	rodrigo.vivi@intel.com,
 	thomas.hellstrom@linux.intel.com
-Subject: [PATCH v6 02/15] swiotlb: Refactor swiotlb_create_debugfs
-Date: Mon, 10 May 2021 17:50:13 +0800
-Message-Id: <20210510095026.3477496-3-tientzu@chromium.org>
+Subject: [PATCH v6 03/15] swiotlb: Add DMA_RESTRICTED_POOL
+Date: Mon, 10 May 2021 17:50:14 +0800
+Message-Id: <20210510095026.3477496-4-tientzu@chromium.org>
 X-Mailer: git-send-email 2.31.1.607.g51e8a6a459-goog
 In-Reply-To: <20210510095026.3477496-1-tientzu@chromium.org>
 References: <20210510095026.3477496-1-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Split the debugfs creation to make the code reusable for supporting
-different bounce buffer pools, e.g. restricted DMA pool.
+Add a new kconfig symbol, DMA_RESTRICTED_POOL, for restricted DMA pool.
 
 Signed-off-by: Claire Chang <tientzu@chromium.org>
 ---
- kernel/dma/swiotlb.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ kernel/dma/Kconfig | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index d3232fc19385..858475bd6923 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -64,6 +64,7 @@
- enum swiotlb_force swiotlb_force;
+diff --git a/kernel/dma/Kconfig b/kernel/dma/Kconfig
+index 77b405508743..3e961dc39634 100644
+--- a/kernel/dma/Kconfig
++++ b/kernel/dma/Kconfig
+@@ -80,6 +80,20 @@ config SWIOTLB
+ 	bool
+ 	select NEED_DMA_MAP_STATE
  
- struct io_tlb_mem *io_tlb_default_mem;
-+static struct dentry *debugfs_dir;
- 
- /*
-  * Max segment that we can provide which (if pages are contingous) will
-@@ -662,18 +663,27 @@ EXPORT_SYMBOL_GPL(is_swiotlb_active);
- 
- #ifdef CONFIG_DEBUG_FS
- 
--static int __init swiotlb_create_debugfs(void)
-+static void swiotlb_create_debugfs(struct io_tlb_mem *mem, const char *name,
-+				   struct dentry *node)
- {
--	struct io_tlb_mem *mem = io_tlb_default_mem;
--
- 	if (!mem)
--		return 0;
--	mem->debugfs = debugfs_create_dir("swiotlb", NULL);
-+		return;
++config DMA_RESTRICTED_POOL
++	bool "DMA Restricted Pool"
++	depends on OF && OF_RESERVED_MEM
++	select SWIOTLB
++	help
++	  This enables support for restricted DMA pools which provide a level of
++	  DMA memory protection on systems with limited hardware protection
++	  capabilities, such as those lacking an IOMMU.
 +
-+	mem->debugfs = debugfs_create_dir(name, node);
- 	debugfs_create_ulong("io_tlb_nslabs", 0400, mem->debugfs, &mem->nslabs);
- 	debugfs_create_ulong("io_tlb_used", 0400, mem->debugfs, &mem->used);
-+}
++	  For more information see
++	  <Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt>
++	  and <kernel/dma/swiotlb.c>.
++	  If unsure, say "n".
 +
-+static int __init swiotlb_create_default_debugfs(void)
-+{
-+	struct io_tlb_mem *mem = io_tlb_default_mem;
-+
-+	swiotlb_create_debugfs(mem, "swiotlb", NULL);
-+	debugfs_dir = mem->debugfs;
-+
- 	return 0;
- }
- 
--late_initcall(swiotlb_create_debugfs);
-+late_initcall(swiotlb_create_default_debugfs);
- 
- #endif
+ #
+ # Should be selected if we can mmap non-coherent mappings to userspace.
+ # The only thing that is really required is a way to set an uncached bit
 -- 
 2.31.1.607.g51e8a6a459-goog
 
