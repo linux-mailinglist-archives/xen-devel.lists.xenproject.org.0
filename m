@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 113DA377D33
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 09:34:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124856.235084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 335AE377D6E
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 09:50:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124863.235096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg0Qo-0007kn-BR; Mon, 10 May 2021 07:34:22 +0000
+	id 1lg0fh-0000qp-Mx; Mon, 10 May 2021 07:49:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124856.235084; Mon, 10 May 2021 07:34:22 +0000
+Received: by outflank-mailman (output) from mailman id 124863.235096; Mon, 10 May 2021 07:49:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg0Qo-0007hy-7p; Mon, 10 May 2021 07:34:22 +0000
-Received: by outflank-mailman (input) for mailman id 124856;
- Mon, 10 May 2021 07:34:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lg0fh-0000op-JZ; Mon, 10 May 2021 07:49:45 +0000
+Received: by outflank-mailman (input) for mailman id 124863;
+ Mon, 10 May 2021 07:49:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lg0Qn-0007hs-20
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 07:34:21 +0000
+ id 1lg0fg-0000oj-0d
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 07:49:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0d6b3502-3b76-4e0f-9f03-26c4a0e24152;
- Mon, 10 May 2021 07:34:20 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2fa04fdc-fffd-4123-8dbc-b69a3546c66e;
+ Mon, 10 May 2021 07:49:42 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5922DABF6;
- Mon, 10 May 2021 07:34:19 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id DF517AD2D;
+ Mon, 10 May 2021 07:49:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +38,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d6b3502-3b76-4e0f-9f03-26c4a0e24152
+X-Inumbo-ID: 2fa04fdc-fffd-4123-8dbc-b69a3546c66e
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620632059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1620632982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CkWB4DKMUPkS+E9mhycqBYJmL9heLB96Gn1awJMWClI=;
-	b=ouI/x/H28CnyxQI11Mw/Yi9SkVORhheihn9uObD18i3vZv3lpOUkr3dupmFD5PxPk+vON/
-	dug7BFR16iVkKG1FUjnYrpakCp+7U2UnECD0AjgrnHwdqLs3+QR2plTPmRUVRWiBzaHR5e
-	DZuynZeCSUhTeQZzWze3MzItpOyJtls=
-Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
- features
-To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- x86@kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>
-References: <20210422151007.2205-1-jgross@suse.com>
+	bh=0j83j8RRCJnZ3MKwwsBj8yqBRz3BqNt5M6mxu5X8Wwo=;
+	b=FotK3A+6GfJnf1/8xTrFFiptRKCEEIkHX7F8oZHIVuVpIDeFPFWTGy7Ee5zQIUJ8GOXOSU
+	HNVKAU/9d0+0/k6TnykU3yAMxkAqVrzsSi7+wcKH9Ns+VjRydOCzCibs7iFAYj/MMtAEAq
+	g+oRrvozg205lPiuUJQld4n8VbKOuUo=
+Subject: Re: [PATCH] tools/xenstored: Prevent a buffer overflow in
+ dump_state_node_perms()
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <20210506161223.15984-1-julien@xen.org>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <3c89ca14-8790-2d0e-a115-16a0976f68e3@suse.com>
-Date: Mon, 10 May 2021 09:34:18 +0200
+Message-ID: <f9542104-b645-4d94-5aab-0854e4b54ff0@suse.com>
+Date: Mon, 10 May 2021 09:49:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210422151007.2205-1-jgross@suse.com>
+In-Reply-To: <20210506161223.15984-1-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY"
+ boundary="M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY
-Content-Type: multipart/mixed; boundary="LJlwZftPSouPtiSeWToky9Zro5Kz88bVZ";
+--M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8
+Content-Type: multipart/mixed; boundary="P0dmCRNO8HREAsoC0YH5fxeDjhKJOgapR";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- x86@kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>
-Message-ID: <3c89ca14-8790-2d0e-a115-16a0976f68e3@suse.com>
-Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
- features
-References: <20210422151007.2205-1-jgross@suse.com>
-In-Reply-To: <20210422151007.2205-1-jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+Message-ID: <f9542104-b645-4d94-5aab-0854e4b54ff0@suse.com>
+Subject: Re: [PATCH] tools/xenstored: Prevent a buffer overflow in
+ dump_state_node_perms()
+References: <20210506161223.15984-1-julien@xen.org>
+In-Reply-To: <20210506161223.15984-1-julien@xen.org>
 
---LJlwZftPSouPtiSeWToky9Zro5Kz88bVZ
+--P0dmCRNO8HREAsoC0YH5fxeDjhKJOgapR
 Content-Type: multipart/mixed;
- boundary="------------3BCDB79306790CD4BF29FE09"
+ boundary="------------91173C0EA6CDDADA40C5A858"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------3BCDB79306790CD4BF29FE09
+--------------91173C0EA6CDDADA40C5A858
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 22.04.21 17:10, Juergen Gross wrote:
-> Some features of Xen can be assumed to be always present, so add a
-> central check to verify this being true and remove the other checks.
+On 06.05.21 18:12, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 >=20
-> Juergen Gross (3):
->    xen: check required Xen features
->    xen: assume XENFEAT_mmu_pt_update_preserve_ad being set for pv guest=
-s
->    xen: assume XENFEAT_gnttab_map_avail_bits being set for pv guests
+> ASAN reported one issue when Live Updating Xenstored:
 >=20
->   arch/x86/xen/enlighten_pv.c | 12 ++----------
->   arch/x86/xen/mmu_pv.c       |  4 ++--
->   drivers/xen/features.c      | 18 ++++++++++++++++++
->   drivers/xen/gntdev.c        | 36 ++----------------------------------=
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> =3D=3D873=3D=3DERROR: AddressSanitizer: stack-buffer-overflow on addres=
+s 0x7ffc194f53e0 at pc 0x555c6b323292 bp 0x7ffc194f5340 sp 0x7ffc194f5338=
 
->   4 files changed, 24 insertions(+), 46 deletions(-)
->=20
+> WRITE of size 1 at 0x7ffc194f53e0 thread T0
+>      #0 0x555c6b323291 in dump_state_node_perms xen/tools/xenstore/xens=
+tored_core.c:2468
+>      #1 0x555c6b32746e in dump_state_special_node xen/tools/xenstore/xe=
+nstored_domain.c:1257
+>      #2 0x555c6b32a702 in dump_state_special_nodes xen/tools/xenstore/x=
+enstored_domain.c:1273
+>      #3 0x555c6b32ddb3 in lu_dump_state xen/tools/xenstore/xenstored_co=
+ntrol.c:521
+>      #4 0x555c6b32e380 in do_lu_start xen/tools/xenstore/xenstored_cont=
+rol.c:660
+>      #5 0x555c6b31b461 in call_delayed xen/tools/xenstore/xenstored_cor=
+e.c:278
+>      #6 0x555c6b32275e in main xen/tools/xenstore/xenstored_core.c:2357=
 
-Could I please get some feedback on this series?
+>      #7 0x7f95eecf3d09 in __libc_start_main ../csu/libc-start.c:308
+>      #8 0x555c6b3197e9 in _start (/usr/local/sbin/xenstored+0xc7e9)
+>=20
+> Address 0x7ffc194f53e0 is located in stack of thread T0 at offset 80 in=
+ frame
+>      #0 0x555c6b32713e in dump_state_special_node xen/tools/xenstore/xe=
+nstored_domain.c:1232
+>=20
+>    This frame has 2 object(s):
+>      [32, 40) 'head' (line 1233)
+>      [64, 80) 'sn' (line 1234) <=3D=3D Memory access at offset 80 overf=
+lows this variable
+>=20
+> This is happening because the callers are passing a pointer to a variab=
+le
+> allocated on the stack. However, the field perms is a dynamic array, so=
+
+> Xenstored will end up to read outside of the variable.
+>=20
+> Rework the code so the permissions are written one by one in the fd.
+>=20
+> Fixes: ed6eebf17d2c ("tools/xenstore: dump the xenstore state for live =
+update")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------3BCDB79306790CD4BF29FE09
+--------------91173C0EA6CDDADA40C5A858
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -212,25 +236,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------3BCDB79306790CD4BF29FE09--
+--------------91173C0EA6CDDADA40C5A858--
 
---LJlwZftPSouPtiSeWToky9Zro5Kz88bVZ--
+--P0dmCRNO8HREAsoC0YH5fxeDjhKJOgapR--
 
---WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY
+--M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY4foFAwAAAAAACgkQsN6d1ii/Ey/X
-/Af/fMLLG/2nuiRCzRd0ht+vpkyyLE7M2ymDuJy3b3lWQ0v2TpBNH7xaqqeqH+xP+FPh6dnnsEEU
-cBoYHqdg01WjtSdRNtTmkESKeA8Gz8/bPBGxZkqKKOxF+V5k2WH9kKsDLBReDq24dpPDVac4j/1J
-JWnsGbgzdCJxkAzK5HA8NfVRZqmOopGGe1INipdGTRMjWbYGlU8GuALxOXcjXVb6GJQaQAFVFZro
-RN2t6jaMIlA9rZZGikFi30pX9Z8qvuwb5ACXPO59LI2LysFOUy6jzr1IZVvEjc+B3SfmGU03PXx2
-xTUiuhKlyD07tHIAV9i9XTnZuWUqqWed/4Y9gGjwQQ==
-=3olk
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY5ZUFAwAAAAAACgkQsN6d1ii/Ey9t
+6gf+PcEXkHUG1/XhitF2xSy++vtjjRFB/eCoD8oh5TdX8QP+XzjD+GqAO/DFS+ycifg0KI7iy3ck
+PjfNqAKlmUkjXI3TP3KiV/3vBli12QKMynXdr+LYEmigDuPx2miecA0K217RxWBvND6OzioFPJOZ
+BB2y2CAmDivirAuOK6adMF77429yfRaXsUSCnslAOdQUCcm6bWaoIwUOZLm6Q6klCwlI9P9mnNMO
+2qY2Ey7nkAxpbDn8Kbt5pTf6qZFT3swI0hd0vssUhg5nKMLy6E0HmP/WF/dMcHNNqzDN1d4ALGKF
+Go4JVvtxq4im2W18bsJ/hyNWZ/YNvPovhVxkUtc6BA==
+=sxDG
 -----END PGP SIGNATURE-----
 
---WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY--
+--M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8--
 
