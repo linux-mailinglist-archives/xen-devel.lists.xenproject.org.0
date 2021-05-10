@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A06379728
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 20:47:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125480.236198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4132637972B
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 20:50:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125483.236210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgAvr-00081L-HT; Mon, 10 May 2021 18:47:07 +0000
+	id 1lgAz8-0000xD-0m; Mon, 10 May 2021 18:50:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125480.236198; Mon, 10 May 2021 18:47:07 +0000
+Received: by outflank-mailman (output) from mailman id 125483.236210; Mon, 10 May 2021 18:50:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgAvr-0007yY-Di; Mon, 10 May 2021 18:47:07 +0000
-Received: by outflank-mailman (input) for mailman id 125480;
- Mon, 10 May 2021 18:47:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fIyG=KF=fensystems.co.uk=mbrown@srs-us1.protection.inumbo.net>)
- id 1lgAvq-0007yS-4R
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 18:47:06 +0000
-Received: from blyat.fensystems.co.uk (unknown [54.246.183.96])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d65bd89e-cb0d-4530-afa7-2193a1ccdd30;
- Mon, 10 May 2021 18:47:04 +0000 (UTC)
-Received: from dolphin.home (unknown
- [IPv6:2a00:23c6:5495:5e00:72b3:d5ff:feb1:e101])
- by blyat.fensystems.co.uk (Postfix) with ESMTPSA id 28319442C3;
- Mon, 10 May 2021 18:47:02 +0000 (UTC)
+	id 1lgAz7-0000uI-Ts; Mon, 10 May 2021 18:50:29 +0000
+Received: by outflank-mailman (input) for mailman id 125483;
+ Mon, 10 May 2021 18:50:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lgAz6-0000u8-Mn; Mon, 10 May 2021 18:50:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lgAz6-0003d0-JP; Mon, 10 May 2021 18:50:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lgAz6-0000AP-AR; Mon, 10 May 2021 18:50:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lgAz6-0006m3-9x; Mon, 10 May 2021 18:50:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,64 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d65bd89e-cb0d-4530-afa7-2193a1ccdd30
-Subject: Re: [PATCH] xen-netback: Check for hotplug-status existence before
- watching
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: paul@xen.org, xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- wei.liu@kernel.org, pdurrant@amazon.com
-References: <54659eec-e315-5dc5-1578-d91633a80077@xen.org>
- <20210413152512.903750-1-mbrown@fensystems.co.uk> <YJl8IC7EbXKpARWL@mail-itl>
-From: Michael Brown <mbrown@fensystems.co.uk>
-Message-ID: <404130e4-210d-2214-47a8-833c0463d997@fensystems.co.uk>
-Date: Mon, 10 May 2021 19:47:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <YJl8IC7EbXKpARWL@mail-itl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BoVZeAziLdk3Aa37C4721Xla2E0CTCrcpSob7o9UWqA=; b=asUl0a1WRxNZSZhpI4MjgAU+n3
+	PfmzxgbeY9F5RtMt9Nq6mV35yeEtj8B3+iCbVkQsV+LvtJ/rsmZJwgR4ETpIM+TwEm9EL7jiaKCVr
+	AUPlfcz6UAQ6Pc2nJxPLrBedZUOXEy6eBN/URkWzqRg63rxi5E7Px7dFsYqBqAVLA+QY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-161893-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham autolearn_force=no version=3.4.2
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
-	blyat.fensystems.co.uk
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 161893: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=982c89ed527bc5b0ffae5da9fd33f9d2d1528f06
+X-Osstest-Versions-That:
+    xen=a7da84c457b05479ab423a2e589c5f46c7da0ed7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 10 May 2021 18:50:28 +0000
 
-On 10/05/2021 19:32, Marek Marczykowski-Górecki wrote:
-> On Tue, Apr 13, 2021 at 04:25:12PM +0100, Michael Brown wrote:
->> The logic in connect() is currently written with the assumption that
->> xenbus_watch_pathfmt() will return an error for a node that does not
->> exist.  This assumption is incorrect: xenstore does allow a watch to
->> be registered for a nonexistent node (and will send notifications
->> should the node be subsequently created).
->>
->> As of commit 1f2565780 ("xen-netback: remove 'hotplug-status' once it
->> has served its purpose"), this leads to a failure when a domU
->> transitions into XenbusStateConnected more than once.  On the first
->> domU transition into Connected state, the "hotplug-status" node will
->> be deleted by the hotplug_status_changed() callback in dom0.  On the
->> second or subsequent domU transition into Connected state, the
->> hotplug_status_changed() callback will therefore never be invoked, and
->> so the backend will remain stuck in InitWait.
->>
->> This failure prevents scenarios such as reloading the xen-netfront
->> module within a domU, or booting a domU via iPXE.  There is
->> unfortunately no way for the domU to work around this dom0 bug.
->>
->> Fix by explicitly checking for existence of the "hotplug-status" node,
->> thereby creating the behaviour that was previously assumed to exist.
-> 
-> This change is wrong. The 'hotplug-status' node is created _only_ by a
-> hotplug script and done so when it's executed. When kernel waits for
-> hotplug script to be executed it waits for the node to _appear_, not
-> _change_. So, this change basically made the kernel not waiting for the
-> hotplug script at all.
+flight 161893 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/161893/
 
-That doesn't sound plausible to me.  In the setup as you describe, how 
-is the kernel expected to differentiate between "hotplug script has not 
-yet created the node" and "hotplug script does not exist and will 
-therefore never create any node"?
+Failures :-/ but no regressions.
 
-Michael
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  982c89ed527bc5b0ffae5da9fd33f9d2d1528f06
+baseline version:
+ xen                  a7da84c457b05479ab423a2e589c5f46c7da0ed7
+
+Last test of basis   161841  2021-05-07 19:04:15 Z    2 days
+Testing same since   161893  2021-05-10 15:02:47 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jason Andryuk <jandryuk@gmail.com>
+  Olaf Hering <olaf@aepfle.de>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   a7da84c457..982c89ed52  982c89ed527bc5b0ffae5da9fd33f9d2d1528f06 -> smoke
 
