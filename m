@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 335AE377D6E
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 09:50:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124863.235096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D75377D8D
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 09:59:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124878.235108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg0fh-0000qp-Mx; Mon, 10 May 2021 07:49:45 +0000
+	id 1lg0oq-0002PU-Mz; Mon, 10 May 2021 07:59:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124863.235096; Mon, 10 May 2021 07:49:45 +0000
+Received: by outflank-mailman (output) from mailman id 124878.235108; Mon, 10 May 2021 07:59:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg0fh-0000op-JZ; Mon, 10 May 2021 07:49:45 +0000
-Received: by outflank-mailman (input) for mailman id 124863;
- Mon, 10 May 2021 07:49:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lg0oq-0002Mu-JV; Mon, 10 May 2021 07:59:12 +0000
+Received: by outflank-mailman (input) for mailman id 124878;
+ Mon, 10 May 2021 07:59:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lg0fg-0000oj-0d
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 07:49:44 +0000
+ id 1lg0op-0002Ml-1O
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 07:59:11 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2fa04fdc-fffd-4123-8dbc-b69a3546c66e;
- Mon, 10 May 2021 07:49:42 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 64d36221-775c-407c-a821-49d2b9e068bc;
+ Mon, 10 May 2021 07:59:06 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DF517AD2D;
- Mon, 10 May 2021 07:49:41 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id DF29DAE57;
+ Mon, 10 May 2021 07:59:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,114 +39,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fa04fdc-fffd-4123-8dbc-b69a3546c66e
+X-Inumbo-ID: 64d36221-775c-407c-a821-49d2b9e068bc
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620632982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1620633546; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0j83j8RRCJnZ3MKwwsBj8yqBRz3BqNt5M6mxu5X8Wwo=;
-	b=FotK3A+6GfJnf1/8xTrFFiptRKCEEIkHX7F8oZHIVuVpIDeFPFWTGy7Ee5zQIUJ8GOXOSU
-	HNVKAU/9d0+0/k6TnykU3yAMxkAqVrzsSi7+wcKH9Ns+VjRydOCzCibs7iFAYj/MMtAEAq
-	g+oRrvozg205lPiuUJQld4n8VbKOuUo=
-Subject: Re: [PATCH] tools/xenstored: Prevent a buffer overflow in
- dump_state_node_perms()
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <20210506161223.15984-1-julien@xen.org>
+	bh=TuZVZ/TZC+amwC+uSPzlrvCbYklxbsfl2Zo4uow0QtM=;
+	b=MZBcmLBBHrZ1wfDmTie51ynVN+p9kalGIgPfxsMqHhSJmp4MYuDWgAgnR9/CHGq5YbBeOc
+	XT7/1TA7xKwDsQpPQbTmP4jQzLcNh7/CMpnUY3deZWvw6rUNHWt74ljco5yKZ8copvcdd1
+	aVCuEaZGmHXdJS5RbaR37aXxP5YEVY0=
+Subject: Re: [PATCH 1/4] x86/xen/entry: Rename xenpv_exc_nmi to noist_exc_nmi
+To: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Lai Jiangshan <laijs@linux.alibaba.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Andi Kleen <ak@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+ Joerg Roedel <joro@8bytes.org>, kvm@vger.kernel.org,
+ Josh Poimboeuf <jpoimboe@redhat.com>, Uros Bizjak <ubizjak@gmail.com>,
+ Maxim Levitsky <mlevitsk@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Alexandre Chartre <alexandre.chartre@oracle.com>,
+ Joerg Roedel <jroedel@suse.de>, Jian Cai <caij2003@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <20210426230949.3561-1-jiangshanlai@gmail.com>
+ <20210426230949.3561-2-jiangshanlai@gmail.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <f9542104-b645-4d94-5aab-0854e4b54ff0@suse.com>
-Date: Mon, 10 May 2021 09:49:41 +0200
+Message-ID: <76c9d530-6a55-927b-9727-7875bc8101bb@suse.com>
+Date: Mon, 10 May 2021 09:59:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210506161223.15984-1-julien@xen.org>
+In-Reply-To: <20210426230949.3561-2-jiangshanlai@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8"
+ boundary="mQbbA6hZIMq2ZCFvc5HSGnGiqncPrGTud"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8
-Content-Type: multipart/mixed; boundary="P0dmCRNO8HREAsoC0YH5fxeDjhKJOgapR";
+--mQbbA6hZIMq2ZCFvc5HSGnGiqncPrGTud
+Content-Type: multipart/mixed; boundary="IGLvBXepGr91Ct8EfRs0yAnZoEVaWAbXG";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-Message-ID: <f9542104-b645-4d94-5aab-0854e4b54ff0@suse.com>
-Subject: Re: [PATCH] tools/xenstored: Prevent a buffer overflow in
- dump_state_node_perms()
-References: <20210506161223.15984-1-julien@xen.org>
-In-Reply-To: <20210506161223.15984-1-julien@xen.org>
+To: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Lai Jiangshan <laijs@linux.alibaba.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Andi Kleen <ak@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+ Joerg Roedel <joro@8bytes.org>, kvm@vger.kernel.org,
+ Josh Poimboeuf <jpoimboe@redhat.com>, Uros Bizjak <ubizjak@gmail.com>,
+ Maxim Levitsky <mlevitsk@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Alexandre Chartre <alexandre.chartre@oracle.com>,
+ Joerg Roedel <jroedel@suse.de>, Jian Cai <caij2003@gmail.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <76c9d530-6a55-927b-9727-7875bc8101bb@suse.com>
+Subject: Re: [PATCH 1/4] x86/xen/entry: Rename xenpv_exc_nmi to noist_exc_nmi
+References: <20210426230949.3561-1-jiangshanlai@gmail.com>
+ <20210426230949.3561-2-jiangshanlai@gmail.com>
+In-Reply-To: <20210426230949.3561-2-jiangshanlai@gmail.com>
 
---P0dmCRNO8HREAsoC0YH5fxeDjhKJOgapR
+--IGLvBXepGr91Ct8EfRs0yAnZoEVaWAbXG
 Content-Type: multipart/mixed;
- boundary="------------91173C0EA6CDDADA40C5A858"
+ boundary="------------B3541311547641A2A2D99FD5"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------91173C0EA6CDDADA40C5A858
+--------------B3541311547641A2A2D99FD5
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 06.05.21 18:12, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On 27.04.21 01:09, Lai Jiangshan wrote:
+> From: Lai Jiangshan <laijs@linux.alibaba.com>
 >=20
-> ASAN reported one issue when Live Updating Xenstored:
+> There is no any functionality change intended.  Just rename it and
+> move it to arch/x86/kernel/nmi.c so that we can resue it later in
+> next patch for early NMI and kvm.
 >=20
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> =3D=3D873=3D=3DERROR: AddressSanitizer: stack-buffer-overflow on addres=
-s 0x7ffc194f53e0 at pc 0x555c6b323292 bp 0x7ffc194f5340 sp 0x7ffc194f5338=
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Paolo Bonzini <pbonzini@redhat.com>
+> Cc: Sean Christopherson <seanjc@google.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Andi Kleen <ak@linux.intel.com>
+> Cc: Andy Lutomirski <luto@kernel.org>
+> Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
+> Cc: Wanpeng Li <wanpengli@tencent.com>
+> Cc: Jim Mattson <jmattson@google.com>
+> Cc: Joerg Roedel <joro@8bytes.org>
+> Cc: kvm@vger.kernel.org
+> Cc: Josh Poimboeuf <jpoimboe@redhat.com>
+> Cc: Uros Bizjak <ubizjak@gmail.com>
+> Cc: Maxim Levitsky <mlevitsk@redhat.com>
+> Signed-off-by: Lai Jiangshan <laijs@linux.alibaba.com>
 
-> WRITE of size 1 at 0x7ffc194f53e0 thread T0
->      #0 0x555c6b323291 in dump_state_node_perms xen/tools/xenstore/xens=
-tored_core.c:2468
->      #1 0x555c6b32746e in dump_state_special_node xen/tools/xenstore/xe=
-nstored_domain.c:1257
->      #2 0x555c6b32a702 in dump_state_special_nodes xen/tools/xenstore/x=
-enstored_domain.c:1273
->      #3 0x555c6b32ddb3 in lu_dump_state xen/tools/xenstore/xenstored_co=
-ntrol.c:521
->      #4 0x555c6b32e380 in do_lu_start xen/tools/xenstore/xenstored_cont=
-rol.c:660
->      #5 0x555c6b31b461 in call_delayed xen/tools/xenstore/xenstored_cor=
-e.c:278
->      #6 0x555c6b32275e in main xen/tools/xenstore/xenstored_core.c:2357=
-
->      #7 0x7f95eecf3d09 in __libc_start_main ../csu/libc-start.c:308
->      #8 0x555c6b3197e9 in _start (/usr/local/sbin/xenstored+0xc7e9)
->=20
-> Address 0x7ffc194f53e0 is located in stack of thread T0 at offset 80 in=
- frame
->      #0 0x555c6b32713e in dump_state_special_node xen/tools/xenstore/xe=
-nstored_domain.c:1232
->=20
->    This frame has 2 object(s):
->      [32, 40) 'head' (line 1233)
->      [64, 80) 'sn' (line 1234) <=3D=3D Memory access at offset 80 overf=
-lows this variable
->=20
-> This is happening because the callers are passing a pointer to a variab=
-le
-> allocated on the stack. However, the field perms is a dynamic array, so=
-
-> Xenstored will end up to read outside of the variable.
->=20
-> Rework the code so the permissions are written one by one in the fd.
->=20
-> Fixes: ed6eebf17d2c ("tools/xenstore: dump the xenstore state for live =
-update")
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Acked-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------91173C0EA6CDDADA40C5A858
+--------------B3541311547641A2A2D99FD5
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -236,25 +239,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------91173C0EA6CDDADA40C5A858--
+--------------B3541311547641A2A2D99FD5--
 
---P0dmCRNO8HREAsoC0YH5fxeDjhKJOgapR--
+--IGLvBXepGr91Ct8EfRs0yAnZoEVaWAbXG--
 
---M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8
+--mQbbA6hZIMq2ZCFvc5HSGnGiqncPrGTud
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY5ZUFAwAAAAAACgkQsN6d1ii/Ey9t
-6gf+PcEXkHUG1/XhitF2xSy++vtjjRFB/eCoD8oh5TdX8QP+XzjD+GqAO/DFS+ycifg0KI7iy3ck
-PjfNqAKlmUkjXI3TP3KiV/3vBli12QKMynXdr+LYEmigDuPx2miecA0K217RxWBvND6OzioFPJOZ
-BB2y2CAmDivirAuOK6adMF77429yfRaXsUSCnslAOdQUCcm6bWaoIwUOZLm6Q6klCwlI9P9mnNMO
-2qY2Ey7nkAxpbDn8Kbt5pTf6qZFT3swI0hd0vssUhg5nKMLy6E0HmP/WF/dMcHNNqzDN1d4ALGKF
-Go4JVvtxq4im2W18bsJ/hyNWZ/YNvPovhVxkUtc6BA==
-=sxDG
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY58cFAwAAAAAACgkQsN6d1ii/Ey9t
+LwgAhGh3kiEytpFwdlrXX4nrGqwyp+dgw7V8JtwPEAbGMsJoY/p8Ii1SYqsirhnhbqZBhTJthDoK
+X9fhFPxUejj1QZf+/1V0D9xMUGRyqCGE/m8eVj4BZiJLf0Rf6zVe1u7dVSnhiZpwRTOC4xCgIVVy
+xsc+Xshq4VfG4L+4kfPuPcDOLhbNUCXFijLYIDUpfBInsFNS5iInJ9IjiNJSb2iIdb3ggIWtOdqI
+D3ua2HDxita+PD39wzrKeBzLOqM9KRgkB6X4eUvKDSw1nx8+g7S0sUgdEoZmUlYTupLDvH9fL+fl
+zliVI0HYzTAhhxS6J1uTP91IMat6HFhV4i79cxHIfQ==
+=RO4B
 -----END PGP SIGNATURE-----
 
---M7Dqxg3PbDERPyj4OsEb9flCpBK13PLa8--
+--mQbbA6hZIMq2ZCFvc5HSGnGiqncPrGTud--
 
