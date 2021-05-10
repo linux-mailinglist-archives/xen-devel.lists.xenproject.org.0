@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33DB2377D26
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 09:32:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.124853.235072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 113DA377D33
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 09:34:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.124856.235084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg0OH-00078B-UE; Mon, 10 May 2021 07:31:45 +0000
+	id 1lg0Qo-0007kn-BR; Mon, 10 May 2021 07:34:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 124853.235072; Mon, 10 May 2021 07:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 124856.235084; Mon, 10 May 2021 07:34:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg0OH-00075v-Qr; Mon, 10 May 2021 07:31:45 +0000
-Received: by outflank-mailman (input) for mailman id 124853;
- Mon, 10 May 2021 07:31:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lg0Qo-0007hy-7p; Mon, 10 May 2021 07:34:22 +0000
+Received: by outflank-mailman (input) for mailman id 124856;
+ Mon, 10 May 2021 07:34:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EdaL=KF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lg0OG-00075p-9N
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 07:31:44 +0000
+ id 1lg0Qn-0007hs-20
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 07:34:21 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57493dd4-8167-4a74-9f7b-427baaf8dfed;
- Mon, 10 May 2021 07:31:43 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0d6b3502-3b76-4e0f-9f03-26c4a0e24152;
+ Mon, 10 May 2021 07:34:20 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 73019AF83;
- Mon, 10 May 2021 07:31:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5922DABF6;
+ Mon, 10 May 2021 07:34:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,66 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57493dd4-8167-4a74-9f7b-427baaf8dfed
+X-Inumbo-ID: 0d6b3502-3b76-4e0f-9f03-26c4a0e24152
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620631902; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1620632059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mY8k8SGs4hAq+6S/2g0vm+oUPS6TGS15HZ1yjDtmoFc=;
-	b=kmfYBizb6VsJB0VvZtAaVlL9RqiHo3X9Ml1VKGe/TO+T7mNw0JKYgTBi3nJr2cjvoyHrtt
-	8GNxjma96YwB++4NAs4moVnngfos3lwiPZkZryBOvDzM/Iq6MP1WpE4wCulIG6rdadm0m/
-	WLgwceJVglALW8PZwv4jizU0Z5nWkYc=
-Subject: Re: [PATCH v1] tools: add newlines to xenstored WRL_LOG
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210503154712.508-1-olaf@aepfle.de>
+	bh=CkWB4DKMUPkS+E9mhycqBYJmL9heLB96Gn1awJMWClI=;
+	b=ouI/x/H28CnyxQI11Mw/Yi9SkVORhheihn9uObD18i3vZv3lpOUkr3dupmFD5PxPk+vON/
+	dug7BFR16iVkKG1FUjnYrpakCp+7U2UnECD0AjgrnHwdqLs3+QR2plTPmRUVRWiBzaHR5e
+	DZuynZeCSUhTeQZzWze3MzItpOyJtls=
+Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
+ features
+To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>
+References: <20210422151007.2205-1-jgross@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <17f8a84f-13c3-2d55-13b0-79abc7f83855@suse.com>
-Date: Mon, 10 May 2021 09:31:41 +0200
+Message-ID: <3c89ca14-8790-2d0e-a115-16a0976f68e3@suse.com>
+Date: Mon, 10 May 2021 09:34:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210503154712.508-1-olaf@aepfle.de>
+In-Reply-To: <20210422151007.2205-1-jgross@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="4SvcMA7KxV495cmCYUWLU0jSU3JcI1eR6"
+ boundary="WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---4SvcMA7KxV495cmCYUWLU0jSU3JcI1eR6
-Content-Type: multipart/mixed; boundary="d6Lcf5BBCdxVrBTmRc1Ik5B2f2RUg2Vby";
+--WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY
+Content-Type: multipart/mixed; boundary="LJlwZftPSouPtiSeWToky9Zro5Kz88bVZ";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <17f8a84f-13c3-2d55-13b0-79abc7f83855@suse.com>
-Subject: Re: [PATCH v1] tools: add newlines to xenstored WRL_LOG
-References: <20210503154712.508-1-olaf@aepfle.de>
-In-Reply-To: <20210503154712.508-1-olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>
+Message-ID: <3c89ca14-8790-2d0e-a115-16a0976f68e3@suse.com>
+Subject: Re: [PATCH 0/3] xen: remove some checks for always present Xen
+ features
+References: <20210422151007.2205-1-jgross@suse.com>
+In-Reply-To: <20210422151007.2205-1-jgross@suse.com>
 
---d6Lcf5BBCdxVrBTmRc1Ik5B2f2RUg2Vby
+--LJlwZftPSouPtiSeWToky9Zro5Kz88bVZ
 Content-Type: multipart/mixed;
- boundary="------------5FA622E058BD5D971C1324D3"
+ boundary="------------3BCDB79306790CD4BF29FE09"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------5FA622E058BD5D971C1324D3
+--------------3BCDB79306790CD4BF29FE09
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 03.05.21 17:47, Olaf Hering wrote:
-> According to syslog(3) the fmt string does not need a newline.
-> The mini-os implementation of syslog requires the trailing newline.
-> Other calls to syslog do include the newline already, add it also to WR=
-L_LOG.
+On 22.04.21 17:10, Juergen Gross wrote:
+> Some features of Xen can be assumed to be always present, so add a
+> central check to verify this being true and remove the other checks.
+>=20
+> Juergen Gross (3):
+>    xen: check required Xen features
+>    xen: assume XENFEAT_mmu_pt_update_preserve_ad being set for pv guest=
+s
+>    xen: assume XENFEAT_gnttab_map_avail_bits being set for pv guests
+>=20
+>   arch/x86/xen/enlighten_pv.c | 12 ++----------
+>   arch/x86/xen/mmu_pv.c       |  4 ++--
+>   drivers/xen/features.c      | 18 ++++++++++++++++++
+>   drivers/xen/gntdev.c        | 36 ++----------------------------------=
 
-Mind doing the same for the two syslog() calls in xenstored_core.c
-lacking the newline?
+>   4 files changed, 24 insertions(+), 46 deletions(-)
+>=20
+
+Could I please get some feedback on this series?
 
 
 Juergen
 
---------------5FA622E058BD5D971C1324D3
+--------------3BCDB79306790CD4BF29FE09
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -188,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------5FA622E058BD5D971C1324D3--
+--------------3BCDB79306790CD4BF29FE09--
 
---d6Lcf5BBCdxVrBTmRc1Ik5B2f2RUg2Vby--
+--LJlwZftPSouPtiSeWToky9Zro5Kz88bVZ--
 
---4SvcMA7KxV495cmCYUWLU0jSU3JcI1eR6
+--WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY4V0FAwAAAAAACgkQsN6d1ii/Ey/3
-HQf7B3mns0RKRfrgNgkab3iTg9LMHLCu7yFmJKKgohqfDn0rdUUeb7haC2K2hR276Bbny8J/SWPW
-wQdSbhcWYfL4z6yCsBZOwV5ImAjGbA6GAfSK0Dwn3+kJuLB2RK9sjCgINLKOsMGwyHYcdeROSZFI
-G3smgrMbpbt+fk4Sm21YThLd8czpqIuEs+r0MaC0OeJfoDqMXxLKlX8nDnNUFHYE/vtMmC9d7eks
-+hrbAaImpyZpI5PahjqGj/zXI/s/PM5s7/iekNwxJOpxcogBFNseuksMqqTJKKyVYUnjbbvS8lG5
-2bDUN2nL/D+erCJu42R5r1pVdY4uiShOk10XiudPZA==
-=qt5k
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCY4foFAwAAAAAACgkQsN6d1ii/Ey/X
+/Af/fMLLG/2nuiRCzRd0ht+vpkyyLE7M2ymDuJy3b3lWQ0v2TpBNH7xaqqeqH+xP+FPh6dnnsEEU
+cBoYHqdg01WjtSdRNtTmkESKeA8Gz8/bPBGxZkqKKOxF+V5k2WH9kKsDLBReDq24dpPDVac4j/1J
+JWnsGbgzdCJxkAzK5HA8NfVRZqmOopGGe1INipdGTRMjWbYGlU8GuALxOXcjXVb6GJQaQAFVFZro
+RN2t6jaMIlA9rZZGikFi30pX9Z8qvuwb5ACXPO59LI2LysFOUy6jzr1IZVvEjc+B3SfmGU03PXx2
+xTUiuhKlyD07tHIAV9i9XTnZuWUqqWed/4Y9gGjwQQ==
+=3olk
 -----END PGP SIGNATURE-----
 
---4SvcMA7KxV495cmCYUWLU0jSU3JcI1eR6--
+--WlPnCKIBs2J0wdgbz8pEkHKm6b5mInLeY--
 
