@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6EF9379071
-	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 16:17:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125277.235798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23D763791B2
+	for <lists+xen-devel@lfdr.de>; Mon, 10 May 2021 16:59:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125298.235850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg6ip-0007pP-Ra; Mon, 10 May 2021 14:17:23 +0000
+	id 1lg7Md-0004CQ-CL; Mon, 10 May 2021 14:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125277.235798; Mon, 10 May 2021 14:17:23 +0000
+Received: by outflank-mailman (output) from mailman id 125298.235850; Mon, 10 May 2021 14:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lg6ip-0007my-OJ; Mon, 10 May 2021 14:17:23 +0000
-Received: by outflank-mailman (input) for mailman id 125277;
- Mon, 10 May 2021 14:17:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3wdO=KF=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lg6in-0007ms-SM
- for xen-devel@lists.xenproject.org; Mon, 10 May 2021 14:17:21 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7ec6c5cd-b360-42e8-a366-1bf6a5877537;
- Mon, 10 May 2021 14:17:20 +0000 (UTC)
+	id 1lg7Md-0004AY-9E; Mon, 10 May 2021 14:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 125298;
+ Mon, 10 May 2021 14:58:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5bM6=KF=lst.de=hch@srs-us1.protection.inumbo.net>)
+ id 1lg7Mb-0004AQ-An
+ for xen-devel@lists.xenproject.org; Mon, 10 May 2021 14:58:29 +0000
+Received: from verein.lst.de (unknown [213.95.11.211])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9ed29534-d824-44e2-9d55-8d77ae5a880b;
+ Mon, 10 May 2021 14:58:27 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 7F6AC67373; Mon, 10 May 2021 16:58:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,92 +38,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ec6c5cd-b360-42e8-a366-1bf6a5877537
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620656240;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ednk2M4FSrg/qGy5mYV394twVU1RJ0QEIra0t+rkiRU=;
-  b=VKBUrmgnDeOFhk4M0LIy1f09S2HLoHLlc2KVpBbVNo4xBFbFWDgOO0Su
-   1LK5kVds3bURUIRdOnzAbuFfzQw/5NpVwA/T/KD7upg/zu9cE6jrh/Tl2
-   EK+HTTaA9y3RU4o6OQkZp/pcbVG2l1pRkBzLHOy9trLo3uXtLf/hdkKvb
-   A=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: A4+iveKZzaJ72gpg1MlWPiImrRg2Lb3PCPu8XSJtrSbxrr9AKZof439yPd9+PSuMtF0RAeGPuI
- UjMFi6rZCN+7aXlMJ9M4veSPrNKojYb2d5E+lV13yqw26eYdFFxMbJkHenrzk+z+VtswDkQ695
- Z7yR5YCd14mzeXXn1UmUuRNPaBhFDKTMrFr+Ht9vgzIEPUx2lfLq8nM7gxRzKs/scj6IykDVRR
- Zt95wQMkvyjuDpAzzDOZra6ojEI61uSMCsn2IvRtsbHiICOYC7AcX/SNn4kpVap/SGFDul9LEV
- vC8=
-X-SBRS: 5.1
-X-MesageID: 43555661
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:fVos+KtseloimCN3Xpez0VG07skCl4Mji2hC6mlwRA09TyXGra
- 2TdaUgvyMc1gx7ZJh5o6H4BEGBKUm8yXcH2/hoAV7CZniuhILMFu0StLcKrAeQfhEWmtQz6U
- 4kSdkZNDSSNykzsS+Z2njdLz9I+rDuzEnrv5a4854Hd2FXgtRbnmVE43GgYy5LrWd9a6bQTf
- Gnl496jgvlXU5SQtWwB3EDUeSGjcbMjojabRkPAANiwBWSjBuzgYSKWCSw71M7aXdi0L0i+W
- /Kn0jS/aO4qcy2zRfayiv684lWot380dFObfb8wPT9aw+cxzpAVr4RFIFqjwpF7t1HL2xa0e
- Ukli1Qc/ibLUmhPl1d7yGdmDUImwxekEMKgWXo+0cL5/aJBg7SQvAx+L5xY1/X7VEts8p717
- 8O12WFt4BPBReFhyjl4cPUPisa4nZcjEBS49L7tUYvJLf2qYUh3LD393klZ6vo3BiKm7zPNd
- Meev00yMwmDm9yXkqpzlWHmubcIkjbNi32PHQqq4iQySYTn3x8wg8dzMkAlmwNnahND6Vs9q
- DBKLotl71LQ4sQYbxmAesdXMetY1a9Bi7kISaXO0qiF60CNjbXp5H27dwOlaeXRKA=
-X-IronPort-AV: E=Sophos;i="5.82,287,1613451600"; 
-   d="scan'208";a="43555661"
-Date: Mon, 10 May 2021 15:17:15 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 0/8] Fix libxl with QEMU 6.0 + remove some more
- deprecated usages.
-Message-ID: <YJlAa4fqcUCotlhM@perard>
-References: <20210423161558.224367-1-anthony.perard@citrix.com>
- <CAKf6xpt_xkpnNwcq2-WS3SN+Qj8gcz33MaGdfCW=30HzfqrWng@mail.gmail.com>
+X-Inumbo-ID: 9ed29534-d824-44e2-9d55-8d77ae5a880b
+Date: Mon, 10 May 2021 16:58:23 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Claire Chang <tientzu@chromium.org>
+Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com, jgross@suse.com,
+	Christoph Hellwig <hch@lst.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	benh@kernel.crashing.org, paulus@samba.org,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>,
+	grant.likely@arm.com, xypron.glpk@gmx.de,
+	Thierry Reding <treding@nvidia.com>, mingo@kernel.org,
+	bauerman@linux.ibm.com, peterz@infradead.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Saravana Kannan <saravanak@google.com>,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	heikki.krogerus@linux.intel.com,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+	xen-devel@lists.xenproject.org,
+	Nicolas Boichat <drinkcat@chromium.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org,
+	bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk,
+	daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+	jxgao@google.com, joonas.lahtinen@linux.intel.com,
+	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+	matthew.auld@intel.com, nouveau@lists.freedesktop.org,
+	rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com
+Subject: Re: [PATCH v6 01/15] swiotlb: Refactor swiotlb init functions
+Message-ID: <20210510145823.GA28066@lst.de>
+References: <20210510095026.3477496-1-tientzu@chromium.org> <20210510095026.3477496-2-tientzu@chromium.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAKf6xpt_xkpnNwcq2-WS3SN+Qj8gcz33MaGdfCW=30HzfqrWng@mail.gmail.com>
+In-Reply-To: <20210510095026.3477496-2-tientzu@chromium.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Mon, May 03, 2021 at 10:13:57AM -0400, Jason Andryuk wrote:
-> On Fri, Apr 23, 2021 at 12:16 PM Anthony PERARD
-> <anthony.perard@citrix.com> wrote:
-> >
-> > Patch series available in this git branch:
-> > https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.deprecated-qemu-qmp-and-cmd-v1
-> >
-> > The Xen 4.15 release that went out just before QEMU 6.0 won't be compaptible
-> > with the latter. This patch series fixes libxl to replace use of QMP commands
-> > that have been removed from QEMU and to fix usage of deprecated command and
-> > parameters that well be remove from QEMU in the future.
-> >
-> > All of the series should be backported to at least Xen 4.15 or it won't be
-> > possible to migrate, hotplug cpu or change cdrom on HVM guest when QEMU 6.0 and
-> > newer is used. QEMU 6.0 is about to be release, within a week.
-> >
-> > Backport: 4.15
-> >
-> > Anthony PERARD (8):
-> >   libxl: Replace deprecated QMP command by "query-cpus-fast"
-> >   libxl: Replace QEMU's command line short-form boolean option
-> >   libxl: Replace deprecated "cpu-add" QMP command by "device_add"
-> >   libxl: Use -device for cd-rom drives
-> >   libxl: Assert qmp_ev's state in qmp_ev_qemu_compare_version
-> >   libxl: Export libxl__qmp_ev_qemu_compare_version
-> >   libxl: Use `id` with the "eject" QMP command
-> >   libxl: Replace QMP command "change" by "blockdev-change-media"
-> 
-> For the rest of the series besides
-> libxl: Replace deprecated QMP command by "query-cpus-fast"
-> and
-> libxl: Replace deprecated "cpu-add" QMP command by "device_add"
-> 
-> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+Looks good,
 
-Thanks for the review!
-
-Cheers,
-
--- 
-Anthony PERARD
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
