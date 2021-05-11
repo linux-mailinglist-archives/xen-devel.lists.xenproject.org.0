@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BC8337AC38
-	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 18:43:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125821.236855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F6F837AC4E
+	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 18:47:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125835.236865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgVTD-00025o-4e; Tue, 11 May 2021 16:42:55 +0000
+	id 1lgVXl-0003Jw-QK; Tue, 11 May 2021 16:47:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125821.236855; Tue, 11 May 2021 16:42:55 +0000
+Received: by outflank-mailman (output) from mailman id 125835.236865; Tue, 11 May 2021 16:47:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgVTD-000225-0J; Tue, 11 May 2021 16:42:55 +0000
-Received: by outflank-mailman (input) for mailman id 125821;
- Tue, 11 May 2021 16:42:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lgVXl-0003HJ-NI; Tue, 11 May 2021 16:47:37 +0000
+Received: by outflank-mailman (input) for mailman id 125835;
+ Tue, 11 May 2021 16:47:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zMp2=KG=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lgVTB-0001hY-GC
- for xen-devel@lists.xenproject.org; Tue, 11 May 2021 16:42:53 +0000
-Received: from mail-il1-x12e.google.com (unknown [2607:f8b0:4864:20::12e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 050f473c-5752-4b4d-a2bb-9a2dbe2cde7b;
- Tue, 11 May 2021 16:42:52 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id w13so5561926ilv.11
- for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 09:42:52 -0700 (PDT)
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com.
- [209.85.166.44])
- by smtp.gmail.com with ESMTPSA id h14sm9744499ils.13.2021.05.11.09.42.50
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 May 2021 09:42:51 -0700 (PDT)
-Received: by mail-io1-f44.google.com with SMTP id z24so18806291ioj.7
- for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 09:42:50 -0700 (PDT)
+ <SRS0=nI6L=KG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lgVXk-0003HA-DJ
+ for xen-devel@lists.xenproject.org; Tue, 11 May 2021 16:47:36 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c18b3f20-4cf1-4a9e-b466-2ae63ea33481;
+ Tue, 11 May 2021 16:47:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2D8BB613CF;
+ Tue, 11 May 2021 16:47:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +38,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 050f473c-5752-4b4d-a2bb-9a2dbe2cde7b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Ll12iwWOH+g7rF+Qcvmc/ZPVWK50RY5A+TnwOnViek8=;
-        b=jF9yywweDau5byF0sr7SVkFA9hoYDaWzF8iy+wyA9wHf9oOaCvA+67rLL4jVjSY9gn
-         QoY25mdgO7IV1eEXpAEk5s63+vTygeFS39HRXfLrmhNXD74fIDm9qeLodCWWHbiJG3ic
-         G2KrYNbeLupAhGANRLweLDvdOuGV9VrSQUJi8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Ll12iwWOH+g7rF+Qcvmc/ZPVWK50RY5A+TnwOnViek8=;
-        b=sKPwvuxVX4eKie7Ocggs0RJvxLIz2PXwrJWaMU5KGxJS4Y45Flh4gqgAEX8wahj+u4
-         Bi9JCxVOWHBynAbLtCGRhnoERXSjhzzr5kDsygcltGoj0j1BXGExCA14HkesIr2WK4A0
-         Kkbknk7IuoYrlBG3Bm7olKRiG0JpVEuGoQx2KV2gxsCgVjgBOzQ0DgrHoKcVUklsgi/B
-         APxy4MxD1H3dyfv4k0d3GYxRlsDRnxITvwBTcORZa43ktOVpZbkFZ6TrQNZsyWkjQUK8
-         ul0VUTQSdXDozz4kUfP8zyHWvZ/wkfyHQ+jZNhkNdgayLcmrGO2/mGKI1B+MlT/ri3Us
-         Jsjw==
-X-Gm-Message-State: AOAM533LZHjmtfxtaHSz/NN8KVatpRqfaRC8/dDiP2bMJWAjQPONikfj
-	s2K5iRYg3x5ZRFAO+BKRU2PnCHxRhK6klQ==
-X-Google-Smtp-Source: ABdhPJyX5PM2ls3gC0Yqw37UDScBGrMqLOzONvLWeu4F5s1UFJw36+Tem/TNHfJ5s/PH6W2P0pfRAA==
-X-Received: by 2002:a92:650d:: with SMTP id z13mr12888687ilb.193.1620751371621;
-        Tue, 11 May 2021 09:42:51 -0700 (PDT)
-X-Received: by 2002:a05:6e02:e82:: with SMTP id t2mr17831684ilj.18.1620751359226;
- Tue, 11 May 2021 09:42:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210510095026.3477496-1-tientzu@chromium.org>
- <20210510095026.3477496-5-tientzu@chromium.org> <20210510150256.GC28066@lst.de>
-In-Reply-To: <20210510150256.GC28066@lst.de>
-From: Claire Chang <tientzu@chromium.org>
-Date: Wed, 12 May 2021 00:42:28 +0800
-X-Gmail-Original-Message-ID: <CALiNf28jgAU7zN4pwgPKgaecM-KXRHHqwHj4sPXVf_3M0-goMQ@mail.gmail.com>
-Message-ID: <CALiNf28jgAU7zN4pwgPKgaecM-KXRHHqwHj4sPXVf_3M0-goMQ@mail.gmail.com>
-Subject: Re: [PATCH v6 04/15] swiotlb: Add restricted DMA pool initialization
+X-Inumbo-ID: c18b3f20-4cf1-4a9e-b466-2ae63ea33481
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1620751654;
+	bh=hU+yLFeBxlaW2RjWGMkuL1C1oCUtCvrztFZPdNLLPBs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dQ7Nr6QvpTPOXyPELC3zxv3QGr57GJrhhYd3bGSTX0Iei81QLLsBw4ch3MIBZsVMj
+	 5dhtEb+zrDfe8NTwEI0pwv6ZPuUNSRued0gn56rDquIg1cLKdu+jfBwsBL1m3PKI9j
+	 vD28w5PlnJi1O7OV7Tnu+QUBbbV3bVW5u8CTn2jFK8rNp8Yfpb6m5H8S//XvS9hM9Z
+	 wmUYWjtqadwsU6qbSoUcenWgfVa5CQncuRi5yNGPkOVpnwGDweg5OoEwI6DPhdI/QD
+	 VLF64GgmnZfE/ldwBKK4pEPd+pf2uH2oaott7rrYZ2/WxAxxhp7MThGl3/yOAfvqXu
+	 liiCAYj1dXyvA==
+Date: Tue, 11 May 2021 09:47:33 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Christoph Hellwig <hch@lst.de>
-Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	matthew.auld@intel.com, nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    f.fainelli@gmail.com, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    linux-kernel@vger.kernel.org, 
+    osstest service owner <osstest-admin@xenproject.org>, 
+    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    iommu@lists.linux-foundation.org
+Subject: Re: Regression when booting 5.15 as dom0 on arm64 (WAS: Re: [linux-linus
+ test] 161829: regressions - FAIL)]
+In-Reply-To: <20210511063558.GA7605@lst.de>
+Message-ID: <alpine.DEB.2.21.2105110925430.5018@sstabellini-ThinkPad-T480s>
+References: <osstest-161829-mainreport@xen.org> <4ea1e89f-a7a0-7664-470c-b3cf773a1031@xen.org> <20210510084057.GA933@lst.de> <alpine.DEB.2.21.2105101818260.5018@sstabellini-ThinkPad-T480s> <20210511063558.GA7605@lst.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, May 10, 2021 at 11:03 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +#include <linux/io.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_fdt.h>
-> > +#include <linux/of_reserved_mem.h>
-> > +#include <linux/slab.h>
-> > +#endif
->
-> I don't think any of this belongs into swiotlb.c.  Marking
-> swiotlb_init_io_tlb_mem non-static and having all this code in a separate
-> file is probably a better idea.
+On Tue, 11 May 2021, Christoph Hellwig wrote:
+> On Mon, May 10, 2021 at 06:46:34PM -0700, Stefano Stabellini wrote:
+> > On Mon, 10 May 2021, Christoph Hellwig wrote:
+> > > On Sat, May 08, 2021 at 12:32:37AM +0100, Julien Grall wrote:
+> > > > The pointer dereferenced seems to suggest that the swiotlb hasn't been 
+> > > > allocated. From what I can tell, this may be because swiotlb_force is set 
+> > > > to SWIOTLB_NO_FORCE, we will still enable the swiotlb when running on top 
+> > > > of Xen.
+> > > >
+> > > > I am not entirely sure what would be the correct fix. Any opinions?
+> > > 
+> > > Can you try something like the patch below (not even compile tested, but
+> > > the intent should be obvious?
+> > > 
+> > > 
+> > > diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
+> > > index 16a2b2b1c54d..7671bc153fb1 100644
+> > > --- a/arch/arm64/mm/init.c
+> > > +++ b/arch/arm64/mm/init.c
+> > > @@ -44,6 +44,8 @@
+> > >  #include <asm/tlb.h>
+> > >  #include <asm/alternative.h>
+> > >  
+> > > +#include <xen/arm/swiotlb-xen.h>
+> > > +
+> > >  /*
+> > >   * We need to be able to catch inadvertent references to memstart_addr
+> > >   * that occur (potentially in generic code) before arm64_memblock_init()
+> > > @@ -482,7 +484,7 @@ void __init mem_init(void)
+> > >  	if (swiotlb_force == SWIOTLB_FORCE ||
+> > >  	    max_pfn > PFN_DOWN(arm64_dma_phys_limit))
+> > >  		swiotlb_init(1);
+> > > -	else
+> > > +	else if (!IS_ENABLED(CONFIG_XEN) || !xen_swiotlb_detect())
+> > >  		swiotlb_force = SWIOTLB_NO_FORCE;
+> > >  
+> > >  	set_max_mapnr(max_pfn - PHYS_PFN_OFFSET);
+> > 
+> > The "IS_ENABLED(CONFIG_XEN)" is not needed as the check is already part
+> > of xen_swiotlb_detect().
+> 
+> As far as I can tell the x86 version of xen_swiotlb_detect has a
+> !CONFIG_XEN stub.  The arm/arm64 version in uncoditionally declared, but
+> the implementation only compiled when Xen support is enabled.
 
-Will do in the next version.
+The implementation of xen_swiotlb_detect should work fine if
+!CONFIG_XEN, but the issue is that it is implemented in
+arch/arm/xen/mm.c, so it is not going to be available.
 
->
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
-> > +                                 struct device *dev)
-> > +{
-> > +     struct io_tlb_mem *mem = rmem->priv;
-> > +     unsigned long nslabs = rmem->size >> IO_TLB_SHIFT;
-> > +
-> > +     if (dev->dma_io_tlb_mem)
-> > +             return 0;
-> > +
-> > +     /* Since multiple devices can share the same pool, the private data,
-> > +      * io_tlb_mem struct, will be initialized by the first device attached
-> > +      * to it.
-> > +      */
->
-> This is not the normal kernel comment style.
+I think it would be good to turn it into a static inline so that we can
+call it from arch/arm64/mm/init.c and other similar places with or
+without CONFIG_XEN, see appended patch below. It compiles without
+CONFIG_XEN.
 
-Will fix this in the next version.
 
->
-> > +#ifdef CONFIG_ARM
-> > +             if (!PageHighMem(pfn_to_page(PHYS_PFN(rmem->base)))) {
-> > +                     kfree(mem);
-> > +                     return -EINVAL;
-> > +             }
-> > +#endif /* CONFIG_ARM */
->
-> And this is weird.  Why would ARM have such a restriction?  And if we have
-> such rstrictions it absolutely belongs into an arch helper.
+> > But let me ask another question first. Do you think it makes sense to have:
+> > 
+> > 	if (swiotlb_force == SWIOTLB_NO_FORCE)
+> > 		return 0;
+> > 
+> > at the beginning of swiotlb_late_init_with_tbl? I am asking because
+> > swiotlb_late_init_with_tbl is meant for special late initializations,
+> > right? It shouldn't really matter the presence or absence of
+> > SWIOTLB_NO_FORCE in regards to swiotlb_late_init_with_tbl. Also the
+> > commit message for "swiotlb: Make SWIOTLB_NO_FORCE perform no
+> > allocation" says that "If a platform was somehow setting
+> > swiotlb_no_force and a later call to swiotlb_init() was to be made we
+> > would still be proceeding with allocating the default SWIOTLB size
+> > (64MB)." Our case here is very similar, right? So the allocation should
+> > proceed?
+> 
+> Well, right now SWIOTLB_NO_FORCE is checked in dma_direct_map_page.
+> We need to clean all this up a bit, especially with the work to support
+> multiple swiotlb buffers, but I think for now this is the best we can
+> do.
 
-Now I think the CONFIG_ARM can just be removed?
-The goal here is to make sure we're using linear map and can safely
-use phys_to_dma/dma_to_phys.
+OK
 
->
-> > +             swiotlb_init_io_tlb_mem(mem, rmem->base, nslabs, false);
-> > +
-> > +             rmem->priv = mem;
-> > +
-> > +#ifdef CONFIG_DEBUG_FS
-> > +             if (!debugfs_dir)
-> > +                     debugfs_dir = debugfs_create_dir("swiotlb", NULL);
-> > +
-> > +             swiotlb_create_debugfs(mem, rmem->name, debugfs_dir);
->
-> Doesn't the debugfs_create_dir belong into swiotlb_create_debugfs?  Also
-> please use IS_ENABLEd or a stub to avoid ifdefs like this.
 
-Will move it into swiotlb_create_debugfs and use IS_ENABLED in the next version.
+> > Which brings me to a separate unrelated issue, still affecting the path
+> > xen_swiotlb_init -> swiotlb_late_init_with_tbl. If swiotlb_init(1) is
+> > called by mem_init then swiotlb_late_init_with_tbl will fail due to the
+> > check:
+> > 
+> >     /* protect against double initialization */
+> >     if (WARN_ON_ONCE(io_tlb_default_mem))
+> >         return -ENOMEM;
+> > 
+> > xen_swiotlb_init is meant to ask Xen to make a bunch of pages physically
+> > contiguous. Then, it initializes the swiotlb buffer based on those
+> > pages. So it is a problem that swiotlb_late_init_with_tbl refuses to
+> > continue. However, in practice it is not a problem today because on ARM
+> > we don't actually make any special requests to Xen to make the pages
+> > physically contiguous (yet). See the empty implementation of
+> > arch/arm/xen/mm.c:xen_create_contiguous_region. I don't know about x86.
+> > 
+> > So maybe we should instead do something like the appended?
+> 
+> So I'd like to change the core swiotlb initialization to just use
+> a callback into the arch/xen code to make the pages contigous and
+> kill all that code duplication.  Together with the multiple swiotlb
+> buffer work I'd rather avoid churn that goes into a different direction
+> if possible.
+
+That's a much better plan. It is also not super urgent, so maybe for now
+we could add an explicit check for io_tlb_default_mem != NULL at the
+beginning of xen_swiotlb_init? So that at least we can fail explicitly
+or ignore it explicitly rather than by accident.
+
+
+---
+
+
+diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+index f8f07469d259..223b1151fd7d 100644
+--- a/arch/arm/xen/mm.c
++++ b/arch/arm/xen/mm.c
+@@ -135,18 +135,6 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
+ 	return;
+ }
+ 
+-int xen_swiotlb_detect(void)
+-{
+-	if (!xen_domain())
+-		return 0;
+-	if (xen_feature(XENFEAT_direct_mapped))
+-		return 1;
+-	/* legacy case */
+-	if (!xen_feature(XENFEAT_not_direct_mapped) && xen_initial_domain())
+-		return 1;
+-	return 0;
+-}
+-
+ static int __init xen_mm_init(void)
+ {
+ 	struct gnttab_cache_flush cflush;
+diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
+index 16a2b2b1c54d..e55409caaee3 100644
+--- a/arch/arm64/mm/init.c
++++ b/arch/arm64/mm/init.c
+@@ -43,6 +43,7 @@
+ #include <linux/sizes.h>
+ #include <asm/tlb.h>
+ #include <asm/alternative.h>
++#include <asm/xen/swiotlb-xen.h>
+ 
+ /*
+  * We need to be able to catch inadvertent references to memstart_addr
+@@ -482,7 +483,7 @@ void __init mem_init(void)
+ 	if (swiotlb_force == SWIOTLB_FORCE ||
+ 	    max_pfn > PFN_DOWN(arm64_dma_phys_limit))
+ 		swiotlb_init(1);
+-	else
++	else if (!xen_swiotlb_detect())
+ 		swiotlb_force = SWIOTLB_NO_FORCE;
+ 
+ 	set_max_mapnr(max_pfn - PHYS_PFN_OFFSET);
+diff --git a/include/xen/arm/swiotlb-xen.h b/include/xen/arm/swiotlb-xen.h
+index 2994fe6031a0..33336ab58afc 100644
+--- a/include/xen/arm/swiotlb-xen.h
++++ b/include/xen/arm/swiotlb-xen.h
+@@ -2,6 +2,19 @@
+ #ifndef _ASM_ARM_SWIOTLB_XEN_H
+ #define _ASM_ARM_SWIOTLB_XEN_H
+ 
+-extern int xen_swiotlb_detect(void);
++#include <xen/features.h>
++#include <xen/xen.h>
++
++static inline int xen_swiotlb_detect(void)
++{
++	if (!xen_domain())
++		return 0;
++	if (xen_feature(XENFEAT_direct_mapped))
++		return 1;
++	/* legacy case */
++	if (!xen_feature(XENFEAT_not_direct_mapped) && xen_initial_domain())
++		return 1;
++	return 0;
++}
+ 
+ #endif /* _ASM_ARM_SWIOTLB_XEN_H */
 
