@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390CD37AC5D
-	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 18:49:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125838.236877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 431BE37AC39
+	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 18:43:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125820.236842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgVZf-0003wC-69; Tue, 11 May 2021 16:49:35 +0000
+	id 1lgVT7-0001li-RU; Tue, 11 May 2021 16:42:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125838.236877; Tue, 11 May 2021 16:49:35 +0000
+Received: by outflank-mailman (output) from mailman id 125820.236842; Tue, 11 May 2021 16:42:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgVZf-0003uM-32; Tue, 11 May 2021 16:49:35 +0000
-Received: by outflank-mailman (input) for mailman id 125838;
- Tue, 11 May 2021 16:49:32 +0000
+	id 1lgVT7-0001jH-N9; Tue, 11 May 2021 16:42:49 +0000
+Received: by outflank-mailman (input) for mailman id 125820;
+ Tue, 11 May 2021 16:42:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zMp2=KG=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lgVZc-0003uC-Pz
- for xen-devel@lists.xenproject.org; Tue, 11 May 2021 16:49:32 +0000
-Received: from mail-pl1-x629.google.com (unknown [2607:f8b0:4864:20::629])
+ id 1lgVT6-0001hY-G9
+ for xen-devel@lists.xenproject.org; Tue, 11 May 2021 16:42:48 +0000
+Received: from mail-il1-x132.google.com (unknown [2607:f8b0:4864:20::132])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0ad1915d-8cff-49f4-a766-d6be041b6bad;
- Tue, 11 May 2021 16:49:32 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id t4so11116120plc.6
- for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 09:49:32 -0700 (PDT)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com.
- [209.85.210.178])
- by smtp.gmail.com with ESMTPSA id x79sm14157839pfc.57.2021.05.11.09.49.30
+ id 3d915ebd-c94f-43c5-ac1c-c15f2298bbad;
+ Tue, 11 May 2021 16:42:44 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id e14so17682783ils.12
+ for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 09:42:44 -0700 (PDT)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com.
+ [209.85.166.175])
+ by smtp.gmail.com with ESMTPSA id e12sm9510029ilu.75.2021.05.11.09.42.43
  for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 May 2021 09:49:30 -0700 (PDT)
-Received: by mail-pf1-f178.google.com with SMTP id h127so16492772pfe.9
- for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 09:49:30 -0700 (PDT)
+ Tue, 11 May 2021 09:42:43 -0700 (PDT)
+Received: by mail-il1-f175.google.com with SMTP id e14so17682746ils.12
+ for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 09:42:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ad1915d-8cff-49f4-a766-d6be041b6bad
+X-Inumbo-ID: 3d915ebd-c94f-43c5-ac1c-c15f2298bbad
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=I574vs+oxpmw2RaQkdeqT3TmVa8C0vE6HCQzgLmVaEk=;
-        b=EO4zcKQD13cnMpJi5k5sqZg36m/uhjFrv+x7tUEK/JnHkDgZTOULzljGCah93D1FN5
-         SwmaT+lt9As201TL9V65C0BiJShCnGyDe8UgjgY5Jm1YBpkuQxrN8+e9OJjS8RpeP4ih
-         4tasAkIoShr42ndvrMVih2QtviIwqYbb0WQHQ=
+        bh=k6jrKLJf+SUK032/zz9tWYcN5Rhay3mFZvhqIWgxNBs=;
+        b=L/Y31OZjVAvXas4gAOFGDpY1O+WckxTleHtLR2a6rScOLannRZ4axVg75JGljNN3EA
+         40xB287W01zuvyDHYZFS2WLSs1CG9A82KNV8OVT7o92X2FrRRw8J292qbL27/DexCkE7
+         qg4XvM9gaQyzYYNGyObKTqbnr0WqygwnwiYxc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=I574vs+oxpmw2RaQkdeqT3TmVa8C0vE6HCQzgLmVaEk=;
-        b=iii7wuCT3ZKQpkHdp4/6kEwB/wtf6+jyIune2L3kUAzHi3VwGE+H/z6eIs9KG63JyI
-         nQGKwUKfWWH0E21nOUEbYu/76X59hUhP9zTo8B/sgbN3xEjm4ZePz3EUdqaH+yGKjDc4
-         +hEror5q+ZC8gKI2cpMr9uv43cjJKOE8OOpYumhAoKbOn8J46QSVzlhknpiFIIviHHs0
-         1Qaoaz8hS7GlMgRe6HjWJmM+qLpegmgDKA7hsqxuwAfnQfZjrBQoKiSfsSBtyug+mfSQ
-         n+VykFN+oS81iackGuQfELn4w3S41EPPDpivWoDDYM/wxiy1jUb7ex02X6GZmywQvxE9
-         GjIw==
-X-Gm-Message-State: AOAM532wXhY9uSMFSeIcFr2Zb7e+D436d4SNilKbZ6xNV8ct1uEhRKMR
-	LKVZLCUZWjlWDHCrzWT5z3NQIvQxwiVhZg==
-X-Google-Smtp-Source: ABdhPJxrq5k00V/RrBKmsXNm082mXlCv+Nhe0rWGHJ6nPslNifdFpP8hZewMIx2MUkFHrWSPY5KPdQ==
-X-Received: by 2002:a17:902:9f88:b029:ee:b4e5:64d4 with SMTP id g8-20020a1709029f88b02900eeb4e564d4mr30389356plq.41.1620751771058;
-        Tue, 11 May 2021 09:49:31 -0700 (PDT)
-X-Received: by 2002:a92:6804:: with SMTP id d4mr27241366ilc.5.1620751346868;
- Tue, 11 May 2021 09:42:26 -0700 (PDT)
+        bh=k6jrKLJf+SUK032/zz9tWYcN5Rhay3mFZvhqIWgxNBs=;
+        b=qi9HAk2mZKOK7azzeL1ApiPC6ZUiyLlDxDxHB2Z4yfVxR/d5iza+XLLkuAfxkl+vMA
+         oYG7geV1Kwe8/cHIDGb3sp6HGI/gOEAftBj0E0Ebb/zBg8wKx60eNSRufSdDoGBYOig1
+         9QXnUYrRTeOAuYuAcUzDDIidGmC7f5Kx72RIz+bEue8XaZ/nzZUaKRICAhpdgbd8eOSf
+         Bo2YkolWYF8ziW35VJqdzrFaNUD6RES+RggMMWuSAk+bYWL2xxzfTsh5A3RTEEgDMUAC
+         Hu51CdwirMqiMBq6exBGa2vvrnLeXO6iTvzFjue++6cVainroyWKH95cJjTGNe7Rs2ze
+         yfbw==
+X-Gm-Message-State: AOAM532U6YZp36/6zcvIQ43dDm5uO4duXt6yGFKVZnIkkZ9ld83qgBch
+	IeGuUbxur0ySE+Q+xKM6X/7V9ES3cqdVpg==
+X-Google-Smtp-Source: ABdhPJyA7xOvwHKtF7Olq5cAg7RoArKuUB7s4jupLnPyLDy7B8jFQJMzAuWn8oWUqWKGVlxHH5+q0A==
+X-Received: by 2002:a05:6e02:10c5:: with SMTP id s5mr28665397ilj.88.1620751363980;
+        Tue, 11 May 2021 09:42:43 -0700 (PDT)
+X-Received: by 2002:a6b:7b08:: with SMTP id l8mr22174004iop.50.1620751352978;
+ Tue, 11 May 2021 09:42:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210510095026.3477496-1-tientzu@chromium.org>
- <20210510095026.3477496-9-tientzu@chromium.org> <20210510150516.GE28066@lst.de>
-In-Reply-To: <20210510150516.GE28066@lst.de>
+ <20210510095026.3477496-6-tientzu@chromium.org> <20210510150342.GD28066@lst.de>
+In-Reply-To: <20210510150342.GD28066@lst.de>
 From: Claire Chang <tientzu@chromium.org>
-Date: Wed, 12 May 2021 00:42:15 +0800
-X-Gmail-Original-Message-ID: <CALiNf2-x8Gw0TPLdeRnfPmUTeuK9dsLbDXN4hPnc08y21uuUXQ@mail.gmail.com>
-Message-ID: <CALiNf2-x8Gw0TPLdeRnfPmUTeuK9dsLbDXN4hPnc08y21uuUXQ@mail.gmail.com>
-Subject: Re: [PATCH v6 08/15] swiotlb: Bounce data from/to restricted DMA pool
- if available
+Date: Wed, 12 May 2021 00:42:22 +0800
+X-Gmail-Original-Message-ID: <CALiNf2_7mHuMG5DTQD0GsriN=vuX0ytyUn4rxEmsK2iP3PKV+w@mail.gmail.com>
+Message-ID: <CALiNf2_7mHuMG5DTQD0GsriN=vuX0ytyUn4rxEmsK2iP3PKV+w@mail.gmail.com>
+Subject: Re: [PATCH v6 05/15] swiotlb: Add a new get_io_tlb_mem getter
 To: Christoph Hellwig <hch@lst.de>
 Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
 	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
@@ -108,29 +107,21 @@ Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8by
 	thomas.hellstrom@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, May 10, 2021 at 11:05 PM Christoph Hellwig <hch@lst.de> wrote:
+On Mon, May 10, 2021 at 11:03 PM Christoph Hellwig <hch@lst.de> wrote:
 >
-> > +static inline bool is_dev_swiotlb_force(struct device *dev)
+> > +static inline struct io_tlb_mem *get_io_tlb_mem(struct device *dev)
 > > +{
 > > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +     if (dev->dma_io_tlb_mem)
-> > +             return true;
+> > +     if (dev && dev->dma_io_tlb_mem)
+> > +             return dev->dma_io_tlb_mem;
 > > +#endif /* CONFIG_DMA_RESTRICTED_POOL */
-> > +     return false;
-> > +}
 > > +
+> > +     return io_tlb_default_mem;
 >
-> >       /* If SWIOTLB is active, use its maximum mapping size */
-> >       if (is_swiotlb_active(dev) &&
-> > -         (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
-> > +         (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE ||
-> > +          is_dev_swiotlb_force(dev)))
->
-> This is a mess.  I think the right way is to have an always_bounce flag
-> in the io_tlb_mem structure instead.  Then the global swiotlb_force can
-> go away and be replace with this and the fact that having no
-> io_tlb_mem structure at all means forced no buffering (after a little
-> refactoring).
+> Given that we're also looking into a not addressing restricted pool
+> I'd rather always assign the active pool to dev->dma_io_tlb_mem and
+> do away with this helper.
 
-Will do in the next version.
+Where do you think is the proper place to do the assignment? First
+time calling swiotlb_map? or in of_dma_configure_id?
 
