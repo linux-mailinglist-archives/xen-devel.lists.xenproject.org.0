@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 410BB379F72
-	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 08:00:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125613.236412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47A0D379FB9
+	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 08:36:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125619.236425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgLPe-0003qt-Mh; Tue, 11 May 2021 05:58:34 +0000
+	id 1lgLzs-0008EV-BW; Tue, 11 May 2021 06:36:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125613.236412; Tue, 11 May 2021 05:58:34 +0000
+Received: by outflank-mailman (output) from mailman id 125619.236425; Tue, 11 May 2021 06:36:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgLPe-0003oq-It; Tue, 11 May 2021 05:58:34 +0000
-Received: by outflank-mailman (input) for mailman id 125613;
- Tue, 11 May 2021 05:58:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lgLzs-0008Ce-8P; Tue, 11 May 2021 06:36:00 +0000
+Received: by outflank-mailman (input) for mailman id 125619;
+ Tue, 11 May 2021 06:35:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lgLPc-0003og-Q4; Tue, 11 May 2021 05:58:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lgLPc-0004of-JE; Tue, 11 May 2021 05:58:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lgLPc-0007sL-AI; Tue, 11 May 2021 05:58:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lgLPc-000404-9r; Tue, 11 May 2021 05:58:32 +0000
+ (envelope-from <SRS0=nFSD=KG=xen.org=tim@srs-us1.protection.inumbo.net>)
+ id 1lgLzp-0008CY-Si
+ for xen-devel@lists.xenproject.org; Tue, 11 May 2021 06:35:57 +0000
+Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 315daa80-185c-4cb4-9f77-b69b0745ace1;
+ Tue, 11 May 2021 06:35:56 +0000 (UTC)
+Received: from tjd by deinos.phlegethon.org with local (Exim 4.94.2 (FreeBSD))
+ (envelope-from <tim@xen.org>)
+ id 1lgLzk-0007pF-Gz; Tue, 11 May 2021 06:35:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +38,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=B0QX823C7GPisWShQB7JhFUmmZ9NsuSnTEtT1IBA+Jw=; b=pGOUdLeMpXu4+fKT2zBCiCn7Ai
-	aTgfX6ez40jJl08kitLOoEuiw4CZXkOcGWstSRYYgnwdt0xWm1F0/w8fvdbgYRZ8MQ6LriMe6++Wf
-	wcm517mlbTfvuegYDvSipqQeJbX6oWk4rP7HMvUz8knzFz4qIhgQyeZzqYVV7AFMOfrE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161899-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 315daa80-185c-4cb4-9f77-b69b0745ace1
+Date: Tue, 11 May 2021 07:35:52 +0100
+From: Tim Deegan <tim@xen.org>
+To: Costin Lupu <costin.lupu@cs.pub.ro>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 1/5] tools/debugger: Fix PAGE_SIZE redefinition error
+Message-ID: <YJolyMVdxPIXVCQo@deinos.phlegethon.org>
+References: <cover.1620633386.git.costin.lupu@cs.pub.ro>
+ <88d4d2deeca3259450dc9af2b97f2fc1453a5d7d.1620633386.git.costin.lupu@cs.pub.ro>
 MIME-Version: 1.0
-Subject: [ovmf test] 161899: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=ef3840c1ff320698523dd6b94ba7c86354392784
-X-Osstest-Versions-That:
-    ovmf=375f2d8e684dce2ab6f375382f35e546c7ab62ee
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 11 May 2021 05:58:32 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+In-Reply-To: <88d4d2deeca3259450dc9af2b97f2fc1453a5d7d.1620633386.git.costin.lupu@cs.pub.ro>
+X-SA-Known-Good: Yes
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: tim@xen.org
+X-SA-Exim-Scanned: No (on deinos.phlegethon.org); SAEximRunCond expanded to false
 
-flight 161899 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161899/
+At 11:35 +0300 on 10 May (1620646515), Costin Lupu wrote:
+> If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+> header) then gcc will trigger a redefinition error because of -Werror. This
+> patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
+> confusion between control domain page granularity (PAGE_* definitions) and
+> guest domain page granularity (which is what we are dealing with here).
+> 
+> We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
+> because (1) the code in kdd.c should not include any Xen headers and (2) to add
+> consistency for code in both kdd.c and kdd-xen.c.
+> 
+> Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 ef3840c1ff320698523dd6b94ba7c86354392784
-baseline version:
- ovmf                 375f2d8e684dce2ab6f375382f35e546c7ab62ee
+Reviewed-by: Tim Deegan <tim@xen.org>
 
-Last test of basis   161895  2021-05-10 16:10:12 Z    0 days
-Testing same since   161899  2021-05-10 23:42:19 Z    0 days    1 attempts
+Thanks!
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michael D Kinney <michael.d.kinney@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   375f2d8e68..ef3840c1ff  ef3840c1ff320698523dd6b94ba7c86354392784 -> xen-tested-master
+Tim.
 
