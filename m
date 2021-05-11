@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC97937B19C
-	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 00:27:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126046.237262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CA4937B1A1
+	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 00:33:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.126051.237274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgapx-00019b-8B; Tue, 11 May 2021 22:26:45 +0000
+	id 1lgaw7-0002gY-Sg; Tue, 11 May 2021 22:33:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126046.237262; Tue, 11 May 2021 22:26:45 +0000
+Received: by outflank-mailman (output) from mailman id 126051.237274; Tue, 11 May 2021 22:33:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgapx-00017c-4b; Tue, 11 May 2021 22:26:45 +0000
-Received: by outflank-mailman (input) for mailman id 126046;
- Tue, 11 May 2021 22:26:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lgaw7-0002dH-PX; Tue, 11 May 2021 22:33:07 +0000
+Received: by outflank-mailman (input) for mailman id 126051;
+ Tue, 11 May 2021 22:33:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nI6L=KG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lgapv-00017W-CT
- for xen-devel@lists.xenproject.org; Tue, 11 May 2021 22:26:43 +0000
+ id 1lgaw6-0002YY-Cr
+ for xen-devel@lists.xenproject.org; Tue, 11 May 2021 22:33:06 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6f46aece-6035-43f0-b3ea-2f6b25d617e1;
- Tue, 11 May 2021 22:26:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 74F97611AB;
- Tue, 11 May 2021 22:26:41 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fe7239c4-5821-42fb-9f9d-8b608b8fd5a8;
+ Tue, 11 May 2021 22:33:05 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 72AD16191C;
+ Tue, 11 May 2021 22:33:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,18 +38,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f46aece-6035-43f0-b3ea-2f6b25d617e1
+X-Inumbo-ID: fe7239c4-5821-42fb-9f9d-8b608b8fd5a8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1620772001;
-	bh=7gCKkvLecHub5W2cbC7m6UCDs4wvrXXyHNbfAMDR5W4=;
+	s=k20201202; t=1620772384;
+	bh=3DpZvIgBp1ulrbcu0FkPePDrABNMuMRAR+2mI6RbEpY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=N58uzrNcfr84ay4VOLhXs93eMnvQ+cCPcgJ3A/r3pGTXWyDyoH2xc7AUCMbNf5w3K
-	 bHehMKcCsxJhsSxCj3O0gEBpaTRp//puFBg7f/XDbuFqCh9BgJbnfZju+laqwvguHY
-	 BNJBpn/t9ofp7rgJ1Uqm+cC9eXZTmvs6C/hGqSIr1nfdfmCgGkAZJF+vpbytmx5nxB
-	 7NBJmLsUVRSfU/epMvVMw2VZlfT+uzsdiDsLyhgzg8rIwRSaAAI+7tLZ7Ba4bn6Uh5
-	 SWyomHe8gsNJWtvaKOGJTfgBm5a4SVG8vvRQSuVTY/xeBJrmWN/SgvtElSYWBYj4WW
-	 YiUyLTAGeR1bw==
-Date: Tue, 11 May 2021 15:26:40 -0700 (PDT)
+	b=dcThtVxaE12GIaRfqzBi1QUhgrsFjSQMpbNiGQz9wURSgtURoW1m9K0ITCAFoHEnS
+	 hXj5UH0xp4R59o0R3kVp9HWfwLzKEauNf8roE9z2RRm5C1VvEz5c+nmYgNkrpHPBT7
+	 cxpYGGNWcWL/05a7+M8MZ2BR7SkJc/Cu33QzIEDQ7xyHj9HlOZvM32SL0OetTVs5Ui
+	 OEO+4AcM8QorZByhlEFeVvvNgxAr+tx/ezGbd8ExOVNSP+dUky/Hul9bX9ZMvANCNm
+	 ThuoDFmbLxe6gg7uTpmtaD80DKd7hFbB91LXkCAGKzKP9SLkTzQDvnCD0pLtYzYIK0
+	 nAC1goDWFoI+A==
+Date: Tue, 11 May 2021 15:33:03 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
@@ -57,11 +58,11 @@ cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com,
     Julien Grall <jgrall@amazon.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH RFCv2 02/15] xen/arm: lpae: Use the generic helpers to
- defined the Xen PT helpers
-In-Reply-To: <20210425201318.15447-3-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2105111515470.5018@sstabellini-ThinkPad-T480s>
-References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-3-julien@xen.org>
+Subject: Re: [PATCH RFCv2 03/15] xen/arm: p2m: Replace level_{orders, masks}
+ arrays with LEVEL_{ORDER, MASK}
+In-Reply-To: <20210425201318.15447-4-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2105111528180.5018@sstabellini-ThinkPad-T480s>
+References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-4-julien@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -69,142 +70,93 @@ Content-Type: text/plain; charset=US-ASCII
 On Sun, 25 Apr 2021, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 > 
-> Currently, Xen PT helpers are only working with 4KB page granularity
-> and open-code the generic helpers. To allow more flexibility, we can
-> re-use the generic helpers and pass Xen's page granularity
-> (PAGE_SHIFT).
-> 
-> As Xen PT helpers are used in both C and assembly, we need to move
-> the generic helpers definition outside of the !__ASSEMBLY__ section.
-> 
-> Note the aliases for each level are still kept for the time being so we
-> can avoid a massive patch to change all the callers.
+> The array level_orders and level_masks can be replaced with the
+> recently introduced macros LEVEL_ORDER and LEVEL_MASK.
 > 
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-The patch is OK as is. I have a couple of suggestions for improvement
-below. If you feel like making them, good, otherwise I am also OK if you
-don't want to change anything.
+So you actually planned to use LEVEL_ORDER and LEVEL_MASK in the xen/
+code. I take back the previous comment :-)
+
+Is the 4KB size "hiding" (for the lack of a better word) done on purpose?
+
+Let me rephrase. Are you trying to consolidate info about pages being
+4KB in xen/include/asm-arm/lpae.h ?
+
+In any case:
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
 >     Changes in v2:
 >         - New patch
 > ---
->  xen/include/asm-arm/lpae.h | 71 +++++++++++++++++++++-----------------
->  1 file changed, 40 insertions(+), 31 deletions(-)
+>  xen/arch/arm/p2m.c | 16 +++++-----------
+>  1 file changed, 5 insertions(+), 11 deletions(-)
 > 
-> diff --git a/xen/include/asm-arm/lpae.h b/xen/include/asm-arm/lpae.h
-> index 4fb9a40a4ca9..310f5225e056 100644
-> --- a/xen/include/asm-arm/lpae.h
-> +++ b/xen/include/asm-arm/lpae.h
-> @@ -159,6 +159,17 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
->  #define lpae_get_mfn(pte)    (_mfn((pte).walk.base))
->  #define lpae_set_mfn(pte, mfn)  ((pte).walk.base = mfn_x(mfn))
->  
-> +/* Generate an array @var containing the offset for each level from @addr */
-> +#define DECLARE_OFFSETS(var, addr)          \
-> +    const unsigned int var[4] = {           \
-> +        zeroeth_table_offset(addr),         \
-> +        first_table_offset(addr),           \
-> +        second_table_offset(addr),          \
-> +        third_table_offset(addr)            \
-> +    }
-> +
-> +#endif /* __ASSEMBLY__ */
-> +
->  /*
->   * AArch64 supports pages with different sizes (4K, 16K, and 64K).
->   * Provide a set of generic helpers that will compute various
-> @@ -190,17 +201,6 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
->  #define LPAE_TABLE_INDEX_GS(gs, lvl, addr)   \
->      (((addr) >> LEVEL_SHIFT_GS(gs, lvl)) & LPAE_ENTRY_MASK_GS(gs))
->  
-> -/* Generate an array @var containing the offset for each level from @addr */
-> -#define DECLARE_OFFSETS(var, addr)          \
-> -    const unsigned int var[4] = {           \
-> -        zeroeth_table_offset(addr),         \
-> -        first_table_offset(addr),           \
-> -        second_table_offset(addr),          \
-> -        third_table_offset(addr)            \
-> -    }
-> -
-> -#endif /* __ASSEMBLY__ */
-> -
->  /*
->   * These numbers add up to a 48-bit input address space.
->   *
-> @@ -211,26 +211,35 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
->   * therefore 39-bits are sufficient.
+> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> index ac5031262061..1b04c3534439 100644
+> --- a/xen/arch/arm/p2m.c
+> +++ b/xen/arch/arm/p2m.c
+> @@ -36,12 +36,6 @@ static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
 >   */
+>  unsigned int __read_mostly p2m_ipa_bits = 64;
 >  
-> -#define LPAE_SHIFT      9
-> -#define LPAE_ENTRIES    (_AC(1,U) << LPAE_SHIFT)
-> -#define LPAE_ENTRY_MASK (LPAE_ENTRIES - 1)
+> -/* Helpers to lookup the properties of each level */
+> -static const paddr_t level_masks[] =
+> -    { ZEROETH_MASK, FIRST_MASK, SECOND_MASK, THIRD_MASK };
+> -static const uint8_t level_orders[] =
+> -    { ZEROETH_ORDER, FIRST_ORDER, SECOND_ORDER, THIRD_ORDER };
 > -
-> -#define THIRD_SHIFT    (PAGE_SHIFT)
-> -#define THIRD_ORDER    (THIRD_SHIFT - PAGE_SHIFT)
-> -#define THIRD_SIZE     (_AT(paddr_t, 1) << THIRD_SHIFT)
-> -#define THIRD_MASK     (~(THIRD_SIZE - 1))
-> -#define SECOND_SHIFT   (THIRD_SHIFT + LPAE_SHIFT)
-> -#define SECOND_ORDER   (SECOND_SHIFT - PAGE_SHIFT)
-> -#define SECOND_SIZE    (_AT(paddr_t, 1) << SECOND_SHIFT)
-> -#define SECOND_MASK    (~(SECOND_SIZE - 1))
-> -#define FIRST_SHIFT    (SECOND_SHIFT + LPAE_SHIFT)
-> -#define FIRST_ORDER    (FIRST_SHIFT - PAGE_SHIFT)
-> -#define FIRST_SIZE     (_AT(paddr_t, 1) << FIRST_SHIFT)
-> -#define FIRST_MASK     (~(FIRST_SIZE - 1))
-> -#define ZEROETH_SHIFT  (FIRST_SHIFT + LPAE_SHIFT)
-> -#define ZEROETH_ORDER  (ZEROETH_SHIFT - PAGE_SHIFT)
-> -#define ZEROETH_SIZE   (_AT(paddr_t, 1) << ZEROETH_SHIFT)
-> -#define ZEROETH_MASK   (~(ZEROETH_SIZE - 1))
-
-Should we add a one-line in-code comment saying that the definitions
-below are for 4KB pages? It is not immediately obvious any longer.
-
-
-> +#define LPAE_SHIFT          LPAE_SHIFT_GS(PAGE_SHIFT)
-> +#define LPAE_ENTRIES        LPAE_ENTRIES_GS(PAGE_SHIFT)
-> +#define LPAE_ENTRY_MASK     LPAE_ENTRY_MASK_GS(PAGE_SHIFT)
->
-> +#define LEVEL_SHIFT(lvl)    LEVEL_SHIFT_GS(PAGE_SHIFT, lvl)
-> +#define LEVEL_ORDER(lvl)    LEVEL_ORDER_GS(PAGE_SHIFT, lvl)
-> +#define LEVEL_SIZE(lvl)     LEVEL_SIZE_GS(PAGE_SHIFT, lvl)
-> +#define LEVEL_MASK(lvl)     (~(LEVEL_SIZE(lvl) - 1))
-
-I would avoid adding these 4 macros. It would be OK if they were just
-used within this file but lpae.h is a header: they could end up be used
-anywhere in the xen/ code and they have a very generic name. My
-suggestion would be to skip them and just do:
-
-#define THIRD_SHIFT         LEVEL_SHIFT_GS(PAGE_SHIFT, 3)
-
-etc.
-
-
-> +/* Convenience aliases */
-> +#define THIRD_SHIFT         LEVEL_SHIFT(3)
-> +#define THIRD_ORDER         LEVEL_ORDER(3)
-> +#define THIRD_SIZE          LEVEL_SIZE(3)
-> +#define THIRD_MASK          LEVEL_MASK(3)
-> +
-> +#define SECOND_SHIFT        LEVEL_SHIFT(2)
-> +#define SECOND_ORDER        LEVEL_ORDER(2)
-> +#define SECOND_SIZE         LEVEL_SIZE(2)
-> +#define SECOND_MASK         LEVEL_MASK(2)
-> +
-> +#define FIRST_SHIFT         LEVEL_SHIFT(1)
-> +#define FIRST_ORDER         LEVEL_ORDER(1)
-> +#define FIRST_SIZE          LEVEL_SIZE(1)
-> +#define FIRST_MASK          LEVEL_MASK(1)
-> +
-> +#define ZEROETH_SHIFT       LEVEL_SHIFT(0)
-> +#define ZEROETH_ORDER       LEVEL_ORDER(0)
-> +#define ZEROETH_SIZE        LEVEL_SIZE(0)
-> +#define ZEROETH_MASK        LEVEL_MASK(0)
+>  static mfn_t __read_mostly empty_root_mfn;
 >  
->  /* Calculate the offsets into the pagetables for a given VA */
->  #define zeroeth_linear_offset(va) ((va) >> ZEROETH_SHIFT)
+>  static uint64_t generate_vttbr(uint16_t vmid, mfn_t root_mfn)
+> @@ -232,7 +226,7 @@ static lpae_t *p2m_get_root_pointer(struct p2m_domain *p2m,
+>       * we can't use (P2M_ROOT_LEVEL - 1) because the root level might be
+>       * 0. Yet we still want to check if all the unused bits are zeroed.
+>       */
+> -    root_table = gfn_x(gfn) >> (level_orders[P2M_ROOT_LEVEL] + LPAE_SHIFT);
+> +    root_table = gfn_x(gfn) >> (LEVEL_ORDER(P2M_ROOT_LEVEL) + LPAE_SHIFT);
+>      if ( root_table >= P2M_ROOT_PAGES )
+>          return NULL;
+>  
+> @@ -378,7 +372,7 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+>      if ( gfn_x(gfn) > gfn_x(p2m->max_mapped_gfn) )
+>      {
+>          for ( level = P2M_ROOT_LEVEL; level < 3; level++ )
+> -            if ( (gfn_x(gfn) & (level_masks[level] >> PAGE_SHIFT)) >
+> +            if ( (gfn_x(gfn) & (LEVEL_MASK(level) >> PAGE_SHIFT)) >
+>                   gfn_x(p2m->max_mapped_gfn) )
+>                  break;
+>  
+> @@ -421,7 +415,7 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+>           * The entry may point to a superpage. Find the MFN associated
+>           * to the GFN.
+>           */
+> -        mfn = mfn_add(mfn, gfn_x(gfn) & ((1UL << level_orders[level]) - 1));
+> +        mfn = mfn_add(mfn, gfn_x(gfn) & ((1UL << LEVEL_ORDER(level)) - 1));
+>  
+>          if ( valid )
+>              *valid = lpae_is_valid(entry);
+> @@ -432,7 +426,7 @@ out_unmap:
+>  
+>  out:
+>      if ( page_order )
+> -        *page_order = level_orders[level];
+> +        *page_order = LEVEL_ORDER(level);
+>  
+>      return mfn;
+>  }
+> @@ -806,7 +800,7 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, lpae_t *entry,
+>      /* Convenience aliases */
+>      mfn_t mfn = lpae_get_mfn(*entry);
+>      unsigned int next_level = level + 1;
+> -    unsigned int level_order = level_orders[next_level];
+> +    unsigned int level_order = LEVEL_ORDER(next_level);
+>  
+>      /*
+>       * This should only be called with target != level and the entry is
 > -- 
 > 2.17.1
 > 
