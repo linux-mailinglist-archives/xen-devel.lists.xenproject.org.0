@@ -2,27 +2,27 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A90C837A3A0
-	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 11:28:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.125665.236560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E65C37A3A4
+	for <lists+xen-devel@lfdr.de>; Tue, 11 May 2021 11:28:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.125666.236572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgOgs-00051X-D2; Tue, 11 May 2021 09:28:34 +0000
+	id 1lgOgw-0005fc-MM; Tue, 11 May 2021 09:28:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 125665.236560; Tue, 11 May 2021 09:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 125666.236572; Tue, 11 May 2021 09:28:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgOgs-0004wM-6f; Tue, 11 May 2021 09:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 125665;
- Tue, 11 May 2021 09:28:31 +0000
+	id 1lgOgw-0005cJ-II; Tue, 11 May 2021 09:28:38 +0000
+Received: by outflank-mailman (input) for mailman id 125666;
+ Tue, 11 May 2021 09:28:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tiF3=KG=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lgOgp-0003CS-QC
- for xen-devel@lists.xenproject.org; Tue, 11 May 2021 09:28:31 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1lgOgu-0003CS-QI
+ for xen-devel@lists.xenproject.org; Tue, 11 May 2021 09:28:36 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 627edbc2-2b6a-4689-8328-0edac7c00d06;
+ id 4fd96fab-119e-4fd6-83c6-13902c1a4a75;
  Tue, 11 May 2021 09:28:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -35,40 +35,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 627edbc2-2b6a-4689-8328-0edac7c00d06
+X-Inumbo-ID: 4fd96fab-119e-4fd6-83c6-13902c1a4a75
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1620725300;
+  d=citrix.com; s=securemail; t=1620725301;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ZLCUuRpfeTD/8ZQ8pXbTB6NvDUzollCddxfo249yUko=;
-  b=er9QO5AdnoO5JqY3T+AUdZZmw1WQjaFle+Y10oMeVuS/8Sj8h0Hnc2zR
-   HylGI8MDUhZZXJwgrsISEDqIVwjxjyG3YOz/vtovZ7hSw/QNF3SkR4e9U
-   0GjfU4yX4ZlzfV67Elu5tk//IZs2/qbhWeQ2HNH+ImKQuyMzzeTmPiged
-   s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: sUJkmyKG96ytKhXu42Cn4ZJVXWTJ2rqAnIg9NjRaqokqlG/UoqralpEXCl3kFSUi0tVPvdLmtI
- Ro1NeCtspzBCEj73eOzoJ+eWn3zknUDRIdYtt/+AiQCcKM+DMeSjz8eH6BhNezTEFo4IXEUZhX
- dCfJ5QILn8yq4BjfrQu5SkaAPtiVC5e9hpsMyT+JX+c6DAkuPj/GWk33SmrSvxrYUYOEe0GOOm
- FxK6mZSAHBtTBZmaxSi05zVqJL3fT/NEnOL9SR70yGoOKXblfvIA0sY+9m42SCArtEhB6cQXt1
- Xo8=
+  bh=5TXGPQaxHF3c+AxwdM2mzDWq6ZbvGPMF7pL7COPhMao=;
+  b=F32S+JuxxduiyLWGxIjSgs3qZSInsnhqdubCEFjQMSLvzqzxQTtE/VsN
+   +Qr7ZiK6h0g4PcPhudIBPtLBSm8WFiLo4RLn0pNp6LZ24e1EN5x0nvxlM
+   yYhFFPqfcZLTCb42Vf4oiS+KGBgBFEfbTPnQzJiOhRbqnyRVfxxCFphnu
+   g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: HBhO1fWqAGziFPHWeyyUFF6jO7hf3HQe7A7T3q1IOe5SWxgUYYsyfYQx8zTSe7sywaO2gPQLDe
+ YbU1yPtxsAaSA6T1D8AQKQE0jors2PYumZf4MrgWGppL+DKe6h1TdEquiqKuuKAwqwqMyHCjcn
+ 8ng/0YIQsU7gXOkY6y+YmfTFKkj3TYbZmyPubVGEQUQxWKZPvyJLKp9WDIWAWri09uxlswYpIp
+ UiNneZeJ/9tFCLeFiL0AKR6FGEaaNW137sR7GnnX3ZR+wNVnUAnhjTMBEv5kwL/u3wR41KuMf7
+ tfI=
 X-SBRS: 5.1
-X-MesageID: 43624001
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 43313593
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:VToBzqzH7LkEfRr1sUt0KrPw6L1zdoMgy1knxilNoHxuH/Bw9v
- re+cjzsCWftN9/Yh4dcLy7VpVoIkmsl6Kdg7NwAV7KZmCP1FdARLsI0WKI+UyCJ8SRzI9gPa
- cLSdkFNDXzZ2IK8PoTNmODYqodKNrsytHWuQ/HpU0dKT2D88tbnn9E4gDwKDwQeCB2QaAXOb
- C7/cR9qz+paR0sH7+G7ilsZZmkmzXT/qiWGCI7Ow==
+IronPort-HdrOrdr: A9a23:Jknn4q8tSUR0/Rfqx8duk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re+sjztCWE8Ar5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAtFD4bbLbGSS4/yU3ODBKadD/OW6
 X-IronPort-AV: E=Sophos;i="5.82,290,1613451600"; 
-   d="scan'208";a="43624001"
+   d="scan'208";a="43313593"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Jason Andryuk
 	<jandryuk@gmail.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 5/8] libxl: Assert qmp_ev's state in qmp_ev_qemu_compare_version
-Date: Tue, 11 May 2021 10:28:07 +0100
-Message-ID: <20210511092810.13759-6-anthony.perard@citrix.com>
+Subject: [XEN PATCH v2 6/8] libxl: Export libxl__qmp_ev_qemu_compare_version
+Date: Tue, 11 May 2021 10:28:08 +0100
+Message-ID: <20210511092810.13759-7-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210511092810.13759-1-anthony.perard@citrix.com>
 References: <20210511092810.13759-1-anthony.perard@citrix.com>
@@ -76,29 +75,57 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-We are supposed to read the version information only when qmp_ev is in
-state "Connected" (that correspond to state==qmp_state_connected),
-assert it so that the function isn't used too early.
+We are going to want to check QEMU's version in other places where we
+can use libxl__ev_qmp_send.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- tools/libs/light/libxl_qmp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ tools/libs/light/libxl_internal.h | 8 ++++++++
+ tools/libs/light/libxl_qmp.c      | 4 ++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index 44a2f3c8fe3b..0b4671318c82 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -492,6 +492,14 @@ _hidden int libxl__ev_qmp_send(libxl__egc *egc, libxl__ev_qmp *ev,
+                                const char *cmd, libxl__json_object *args);
+ _hidden void libxl__ev_qmp_dispose(libxl__gc *gc, libxl__ev_qmp *ev);
+ 
++/* return values:
++ *   < 0  if qemu's version <  asked version
++ *   = 0  if qemu's version == asked version
++ *   > 0  if qemu's version >  asked version
++ */
++_hidden int libxl__qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
++                                               int minor, int micro);
++
+ typedef enum {
+     /* initial state */
+     qmp_state_disconnected = 1,
 diff --git a/tools/libs/light/libxl_qmp.c b/tools/libs/light/libxl_qmp.c
-index 9b638e6f5442..d0967c9f029f 100644
+index d0967c9f029f..fb146a54cb9c 100644
 --- a/tools/libs/light/libxl_qmp.c
 +++ b/tools/libs/light/libxl_qmp.c
-@@ -292,6 +292,8 @@ static int qmp_handle_response(libxl__gc *gc, libxl__qmp_handler *qmp,
- static int qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
+@@ -289,7 +289,7 @@ static int qmp_handle_response(libxl__gc *gc, libxl__qmp_handler *qmp,
+  *   = 0  if qemu's version == asked version
+  *   > 0  if qemu's version >  asked version
+  */
+-static int qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
++int libxl__qmp_ev_qemu_compare_version(libxl__ev_qmp *ev, int major,
                                         int minor, int micro)
  {
-+    assert(ev->state == qmp_state_connected);
-+
- #define CHECK_VERSION(level) do { \
-     if (ev->qemu_version.level > (level)) return +1; \
-     if (ev->qemu_version.level < (level)) return -1; \
+     assert(ev->state == qmp_state_connected);
+@@ -1073,7 +1073,7 @@ static void dm_state_save_to_fdset(libxl__egc *egc, libxl__ev_qmp *ev, int fdset
+     /* The `live` parameter was added to QEMU 2.11. It signals QEMU that
+      * the save operation is for a live migration rather than for taking a
+      * snapshot. */
+-    if (qmp_ev_qemu_compare_version(ev, 2, 11, 0) >= 0)
++    if (libxl__qmp_ev_qemu_compare_version(ev, 2, 11, 0) >= 0)
+         libxl__qmp_param_add_bool(gc, &args, "live", dsps->live);
+     QMP_PARAMETERS_SPRINTF(&args, "filename", "/dev/fdset/%d", fdset);
+     rc = libxl__ev_qmp_send(egc, ev, "xen-save-devices-state", args);
 -- 
 Anthony PERARD
 
