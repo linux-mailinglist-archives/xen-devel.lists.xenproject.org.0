@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0F7237D477
-	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 23:42:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126406.237974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A9B637EA6E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 May 2021 00:01:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.126430.238004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgwbw-0000Zd-Fh; Wed, 12 May 2021 21:41:44 +0000
+	id 1lgwuE-0004ON-G6; Wed, 12 May 2021 22:00:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126406.237974; Wed, 12 May 2021 21:41:44 +0000
+Received: by outflank-mailman (output) from mailman id 126430.238004; Wed, 12 May 2021 22:00:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgwbw-0000XI-CS; Wed, 12 May 2021 21:41:44 +0000
-Received: by outflank-mailman (input) for mailman id 126406;
- Wed, 12 May 2021 21:41:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lgwuE-0004LF-CM; Wed, 12 May 2021 22:00:38 +0000
+Received: by outflank-mailman (input) for mailman id 126430;
+ Wed, 12 May 2021 22:00:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=codm=KH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lgwbv-0000XC-B6
- for xen-devel@lists.xenproject.org; Wed, 12 May 2021 21:41:43 +0000
+ id 1lgwuC-0004L9-Ro
+ for xen-devel@lists.xenproject.org; Wed, 12 May 2021 22:00:36 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6c411ff8-8018-4bdb-8405-01f5c808961d;
- Wed, 12 May 2021 21:41:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 30AA161352;
- Wed, 12 May 2021 21:41:41 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0dcb13c4-d187-4310-af71-02e1ea9606a3;
+ Wed, 12 May 2021 22:00:36 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AA374613BD;
+ Wed, 12 May 2021 22:00:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,106 +38,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c411ff8-8018-4bdb-8405-01f5c808961d
+X-Inumbo-ID: 0dcb13c4-d187-4310-af71-02e1ea9606a3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1620855701;
-	bh=Asqt57QtsFlKxqfIvSBVd659UPg481sw4PcabZfvJkM=;
+	s=k20201202; t=1620856835;
+	bh=uZq6wy4yE4KAlGFRiyHroM4bLsXCaJgs6J2sO/Z2u7I=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ECDd2Z3/uSrQ9clQvdlHt+tDsl2I0A3ri60a40SAhzOZTMRfOxJZuRUBnu0UyomTg
-	 btBhFibLAFeleOtREuS16+0E3DfG0uwfvO4hGfqFfww8DDll8CS6RYcFx9r7LouaMl
-	 611Oj85HYyFz2ykZxT+h9GbwX6YtTtFp4qeqC0W8aVyUt3fvmematGFljXyioxY3m1
-	 qZRVgXKcPrBHWeh5GPCddKeayRrVL6rXEf1XAQbqx4WGiwF/DUmuQ9KLKiD/CiQsZx
-	 d061mGZN4FBnkE6ct3Ym9ICXnv4+3wXm9h/wDJK0eEaSPfjQrtuHFXk9LAFDxCQKdm
-	 ZJ+FYZV2smtCQ==
-Date: Wed, 12 May 2021 14:41:40 -0700 (PDT)
+	b=KxcS5TBxEfCtc2xNmT7JxQF3oDdwUigV4axoiZpuy1phOYJpnG09y7His5vGGCFWb
+	 IxMSlbLNyQyzT1Zj3w0CAAup08JsI8anU+ec3zkaCN0JGHzPeGeORFHoMQ7zLLiJO7
+	 JzRu5+UDDolVPM21JexGYC/PgOU57SgXM818rGXPpgsy55clelRzbYAZz1kkpXQoKR
+	 tb9anNKNZF3t5ig4tfN3G5gvT5pK/GQNfev4t5QKq7yN0KxjjyePrwKrIFpYV/OmHh
+	 wtBuWXsXGjaMvgXvtbJ05UXOBsOnGRsY2PvmtmHOH7oxahnKJ1gJzdENVgmjE6t/aw
+	 D+HLb5Rp3Ka/Q==
+Date: Wed, 12 May 2021 15:00:33 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
 cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com, 
     Penny.Zheng@arm.com, Bertrand.Marquis@arm.com, 
-    Julien Grall <julien.grall@arm.com>, 
+    Julien Grall <jgrall@amazon.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH RFCv2 07/15] xen/arm: mm: Re-implement early_fdt_map()
- using map_pages_to_xen()
-In-Reply-To: <20210425201318.15447-8-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2105121437501.5018@sstabellini-ThinkPad-T480s>
-References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-8-julien@xen.org>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH RFCv2 08/15] xen/arm32: mm: Check if the virtual address
+ is shared before updating it
+In-Reply-To: <20210425201318.15447-9-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2105121448090.5018@sstabellini-ThinkPad-T480s>
+References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-9-julien@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Sun, 25 Apr 2021, Julien Grall wrote:
-> From: Julien Grall <julien.grall@arm.com>
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Now that map_pages_to_xen() has been extended to support 2MB mappings,
-> we can replace the create_mappings() calls by map_pages_to_xen() calls.
+> Only the first 2GB of the virtual address space is shared between all
+> the page-tables on Arm32.
 > 
-> The mapping can also be marked read-only has Xen as no business to
-> modify the host Device Tree.
+> There is a long outstanding TODO in xen_pt_update() stating that the
+> function is can only work with shared mapping. Nobody has ever called
+           ^ remove
 
-I think that's good. Just FYI there is some work at Xilinx to make
-changes to the device tree at runtime but we'll cross that bridge when
-we come to it.
+> the function with private mapping, however as we add more callers
+> there is a risk to mess things up.
+> 
+> Introduce a new define to mark the ened of the shared mappings and use
+                                     ^end
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> it in xen_pt_update() to verify if the address is correct.
+> 
+> Note that on Arm64, all the mappings are shared. Some compiler may
+> complain about an always true check, so the new define is not introduced
+> for arm64 and the code is protected with an #ifdef.
+ 
+On arm64 we could maybe define SHARED_VIRT_END to an arbitrarely large
+value, such as:
+
+#define SHARED_VIRT_END (1UL<<48)
+
+or:
+
+#define SHARED_VIRT_END DIRECTMAP_VIRT_END
+
+?
 
 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
 > ---
 >     Changes in v2:
->         - Add my AWS signed-off-by
->         - Fix typo in the commit message
+>         - New patch
 > ---
->  xen/arch/arm/mm.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
+>  xen/arch/arm/mm.c            | 11 +++++++++--
+>  xen/include/asm-arm/config.h |  4 ++++
+>  2 files changed, 13 insertions(+), 2 deletions(-)
 > 
 > diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 2cbfbe25240e..8fac24d80086 100644
+> index 8fac24d80086..5c17cafff847 100644
 > --- a/xen/arch/arm/mm.c
 > +++ b/xen/arch/arm/mm.c
-> @@ -558,6 +558,7 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
->      paddr_t offset;
->      void *fdt_virt;
->      uint32_t size;
-> +    int rc;
+> @@ -1275,11 +1275,18 @@ static int xen_pt_update(unsigned long virt,
+>       * For arm32, page-tables are different on each CPUs. Yet, they share
+>       * some common mappings. It is assumed that only common mappings
+>       * will be modified with this function.
+> -     *
+> -     * XXX: Add a check.
+>       */
+>      const mfn_t root = virt_to_mfn(THIS_CPU_PGTABLE);
 >  
->      /*
->       * Check whether the physical FDT address is set and meets the minimum
-> @@ -573,8 +574,12 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
->      /* The FDT is mapped using 2MB superpage */
->      BUILD_BUG_ON(BOOT_FDT_VIRT_START % SZ_2M);
->  
-> -    create_mappings(xen_second, BOOT_FDT_VIRT_START, paddr_to_pfn(base_paddr),
-> -                    SZ_2M >> PAGE_SHIFT, SZ_2M);
-> +    rc = map_pages_to_xen(BOOT_FDT_VIRT_START, maddr_to_mfn(base_paddr),
-> +                          SZ_2M >> PAGE_SHIFT,
-> +                          PAGE_HYPERVISOR_RO | _PAGE_BLOCK);
-> +    if ( rc )
-> +        panic("Unable to map the device-tree.\n");
+> +#ifdef SHARED_VIRT_END
+> +    if ( virt > SHARED_VIRT_END ||
+> +         (SHARED_VIRT_END - virt) < nr_mfns )
+
+The following would be sufficient, right?
+
+    if ( virt + nr_mfns > SHARED_VIRT_END )
+
+
+> +    {
+> +        mm_printk("Trying to map outside of the shared area.\n");
+> +        return -EINVAL;
+> +    }
+> +#endif
 > +
+>      /*
+>       * The hardware was configured to forbid mapping both writeable and
+>       * executable.
+> diff --git a/xen/include/asm-arm/config.h b/xen/include/asm-arm/config.h
+> index c7b77912013e..85d4a510ce8a 100644
+> --- a/xen/include/asm-arm/config.h
+> +++ b/xen/include/asm-arm/config.h
+> @@ -137,6 +137,10 @@
 >  
->      offset = fdt_paddr % SECOND_SIZE;
->      fdt_virt = (void *)BOOT_FDT_VIRT_START + offset;
-> @@ -588,9 +593,12 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>  #define XENHEAP_VIRT_START     _AT(vaddr_t,0x40000000)
+>  #define XENHEAP_VIRT_END       _AT(vaddr_t,0x7fffffff)
+> +
+> +/* The first 2GB is always shared between all the page-tables. */
+> +#define SHARED_VIRT_END        _AT(vaddr_t, 0x7fffffff)
+> +
+>  #define DOMHEAP_VIRT_START     _AT(vaddr_t,0x80000000)
+>  #define DOMHEAP_VIRT_END       _AT(vaddr_t,0xffffffff)
 >  
->      if ( (offset + size) > SZ_2M )
->      {
-> -        create_mappings(xen_second, BOOT_FDT_VIRT_START + SZ_2M,
-> -                        paddr_to_pfn(base_paddr + SZ_2M),
-> -                        SZ_2M >> PAGE_SHIFT, SZ_2M);
-> +        rc = map_pages_to_xen(BOOT_FDT_VIRT_START + SZ_2M,
-> +                              maddr_to_mfn(base_paddr + SZ_2M),
-> +                              SZ_2M >> PAGE_SHIFT,
-> +                              PAGE_HYPERVISOR_RO | _PAGE_BLOCK);
-> +        if ( rc )
-> +            panic("Unable to map the device-tree\n");
->      }
->  
->      return fdt_virt;
 > -- 
 > 2.17.1
 > 
