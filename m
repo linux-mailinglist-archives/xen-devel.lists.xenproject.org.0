@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF7437B58E
-	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 07:42:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126130.237428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725E037B669
+	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 08:59:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.126136.237443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lghcb-0001hF-AX; Wed, 12 May 2021 05:41:25 +0000
+	id 1lgipB-0001AC-5U; Wed, 12 May 2021 06:58:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126130.237428; Wed, 12 May 2021 05:41:25 +0000
+Received: by outflank-mailman (output) from mailman id 126136.237443; Wed, 12 May 2021 06:58:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lghcb-0001ee-6z; Wed, 12 May 2021 05:41:25 +0000
-Received: by outflank-mailman (input) for mailman id 126130;
- Wed, 12 May 2021 05:41:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lgipB-00017G-2J; Wed, 12 May 2021 06:58:29 +0000
+Received: by outflank-mailman (input) for mailman id 126136;
+ Wed, 12 May 2021 06:58:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=F0FV=KH=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lghcZ-0001eY-Qb
- for xen-devel@lists.xenproject.org; Wed, 12 May 2021 05:41:23 +0000
+ id 1lgipA-00017A-9c
+ for xen-devel@lists.xenproject.org; Wed, 12 May 2021 06:58:28 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f24d065d-903f-44dd-b46c-3cfd25c02633;
- Wed, 12 May 2021 05:41:22 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cb3971da-7174-4eba-97b6-d5ec8996eaad;
+ Wed, 12 May 2021 06:58:27 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DFA36B040;
- Wed, 12 May 2021 05:41:21 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 63251AEEF;
+ Wed, 12 May 2021 06:58:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,75 +39,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f24d065d-903f-44dd-b46c-3cfd25c02633
+X-Inumbo-ID: cb3971da-7174-4eba-97b6-d5ec8996eaad
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620798082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1620802706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nunIAK1qZldxW8KQN4CHUeIzykGc9fLufiGoZtzSH5g=;
-	b=e9X/zmCCcoqcARCIiWb0QkmDpYeFAJY3rAYrp0MmJX31GiRO2MeHAsFZrzgM9WRqUNtHLp
-	Lw4PKiCXUrLznaSbCAm5T1ou7QDjtn+gt/VFxzJ9xNgAnZRt5XGqZ5RUjFNG0VGV4uuwDS
-	fCWxUz5HKrtW6dT/qD7OQpesVdrX7cE=
-Subject: Re: [PATCH 2/3] xen: Export dbgp functions when CONFIG_XEN_DOM0 is
- enabled
-To: Connor Davis <connojdavis@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <cover.1620776161.git.connojdavis@gmail.com>
- <291659390aff63df7c071367ad4932bf41e11aef.1620776161.git.connojdavis@gmail.com>
+	bh=Qr1pBb5ME1m/hDGzrHCzb7zbDgOx3pj3UFLX3yboP0M=;
+	b=s3KPU2cvc5BHhbsIYMGIKhzA0Tstkm6DNoNNPsJLWrHuNRJi9Zb2YFmMX+pRdPH5mj2JiD
+	Wh1l79PgsRO47o9L+1wd+7BH6LIuNGoWv8D1ghzAL9nQcGDdFgQSuXRfvu7JyRJflO5RCm
+	L/2127BDOHtlWmc9f4oh9YiOXgzdDI8=
+Subject: Re: [PATCH v2 0/6] tools/libs: add missing support of linear
+ p2m_list, cleanup
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+References: <20210412152236.1975-1-jgross@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <0ef85b32-4069-4e94-0a2f-2325cd21510f@suse.com>
-Date: Wed, 12 May 2021 07:41:20 +0200
+Message-ID: <b79c60e4-7c41-be9a-b0df-e9f9cf71eafa@suse.com>
+Date: Wed, 12 May 2021 08:58:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <291659390aff63df7c071367ad4932bf41e11aef.1620776161.git.connojdavis@gmail.com>
+In-Reply-To: <20210412152236.1975-1-jgross@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="yjnCyS82arY4JTCKc7LpsFQxUTMmVfZxm"
+ boundary="78G7TuzXokz2mlyJCRm3gsmTvqRpPQr6R"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---yjnCyS82arY4JTCKc7LpsFQxUTMmVfZxm
-Content-Type: multipart/mixed; boundary="as2zie4q5kw0uL7UrINfpGoZuvAPrDvfb";
+--78G7TuzXokz2mlyJCRm3gsmTvqRpPQr6R
+Content-Type: multipart/mixed; boundary="LO8pSzdI3l6E16X0Dnt1yfck8mjpNMchy";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Connor Davis <connojdavis@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <0ef85b32-4069-4e94-0a2f-2325cd21510f@suse.com>
-Subject: Re: [PATCH 2/3] xen: Export dbgp functions when CONFIG_XEN_DOM0 is
- enabled
-References: <cover.1620776161.git.connojdavis@gmail.com>
- <291659390aff63df7c071367ad4932bf41e11aef.1620776161.git.connojdavis@gmail.com>
-In-Reply-To: <291659390aff63df7c071367ad4932bf41e11aef.1620776161.git.connojdavis@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+Message-ID: <b79c60e4-7c41-be9a-b0df-e9f9cf71eafa@suse.com>
+Subject: Re: [PATCH v2 0/6] tools/libs: add missing support of linear
+ p2m_list, cleanup
+References: <20210412152236.1975-1-jgross@suse.com>
+In-Reply-To: <20210412152236.1975-1-jgross@suse.com>
 
---as2zie4q5kw0uL7UrINfpGoZuvAPrDvfb
+--LO8pSzdI3l6E16X0Dnt1yfck8mjpNMchy
 Content-Type: multipart/mixed;
- boundary="------------627AC06D42A69DCAD0D9CAD7"
+ boundary="------------1F206A47E54C17FAC7DB509B"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------627AC06D42A69DCAD0D9CAD7
+--------------1F206A47E54C17FAC7DB509B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 12.05.21 02:18, Connor Davis wrote:
-> Export xen_dbgp_reset_prep and xen_dbgp_external_startup
-> when CONFIG_XEN_DOM0 is defined. This allows use of these symbols
-> even if CONFIG_EARLY_PRINK_DBGP is defined.
+Ping?
+
+On 12.04.21 17:22, Juergen Gross wrote:
+> There are some corners left which don't support the not so very new
+> linear p2m list of pv guests, which has been introduced in Linux kernel=
+
+> 3.19 and which is mandatory for non-legacy versions of Xen since kernel=
+
+> 4.14.
 >=20
-> Signed-off-by: Connor Davis <connojdavis@gmail.com>
+> This series adds support for the linear p2m list where it is missing
+> (colo support and "xl dump-core").
+>=20
+> In theory it should be possible to merge the p2m list mapping code
+> from migration handling and core dump handling, but this needs quite
+> some cleanup before this is possible.
+>=20
+> The first three patches of this series are fixing real problems, so
+> I've put them at the start of this series, especially in order to make
+> backports easier.
+>=20
+> The other three patches are only the first steps of cleanup. The main
+> work done here is to concentrate all p2m mapping in libxenguest instead=
 
-Acked-by: Juergen Gross <jgross@suse.com>
+> of having one implementation in each of libxenguest and libxenctrl.
+>=20
+> Merging the two implementations should be rather easy, but this will
+> require to touch many lines of code, as the migration handling variant
+> seems to be more mature, but it is using the migration stream specific
+> structures heavily. So I'd like to have some confirmation that my way
+> to clean this up is the right one.
+>=20
+> My idea would be to add the data needed for p2m mapping to struct
+> domain_info_context and replace the related fields in struct
+> xc_sr_context with a struct domain_info_context. Modifying the
+> interface of xc_core_arch_map_p2m() to take most current parameters
+> via struct domain_info_context would then enable migration coding to
+> use xc_core_arch_map_p2m() for mapping the p2m. xc_core_arch_map_p2m()
+> should look basically like the current migration p2m mapping code
+> afterwards.
+>=20
+> Any comments to that plan?
+>=20
+> Changes in V2:
+> - added missing #include in ocaml stub
+>=20
+> Juergen Gross (6):
+>    tools/libs/guest: fix max_pfn setting in map_p2m()
+>    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m
+>      table
+>    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any=
+()
+>    tools/libs: move xc_resume.c to libxenguest
+>    tools/libs: move xc_core* from libxenctrl to libxenguest
+>    tools/libs/guest: make some definitions private to libxenguest
+>=20
+>   tools/include/xenctrl.h                       |  63 ---
+>   tools/include/xenguest.h                      |  63 +++
+>   tools/libs/ctrl/Makefile                      |   4 -
+>   tools/libs/ctrl/xc_core_x86.c                 | 223 ----------
+>   tools/libs/ctrl/xc_domain.c                   |   2 -
+>   tools/libs/ctrl/xc_private.h                  |  43 +-
+>   tools/libs/guest/Makefile                     |   4 +
+>   .../libs/{ctrl/xc_core.c =3D> guest/xg_core.c}  |   7 +-
+>   .../libs/{ctrl/xc_core.h =3D> guest/xg_core.h}  |  15 +-
+>   .../xc_core_arm.c =3D> guest/xg_core_arm.c}     |  31 +-
+>   .../xc_core_arm.h =3D> guest/xg_core_arm.h}     |   0
+>   tools/libs/guest/xg_core_x86.c                | 399 +++++++++++++++++=
++
+>   .../xc_core_x86.h =3D> guest/xg_core_x86.h}     |   0
+>   tools/libs/guest/xg_dom_boot.c                |   2 +-
+>   tools/libs/guest/xg_domain.c                  |  19 +-
+>   tools/libs/guest/xg_offline_page.c            |   2 +-
+>   tools/libs/guest/xg_private.h                 |  16 +-
+>   .../{ctrl/xc_resume.c =3D> guest/xg_resume.c}   |  69 +--
+>   tools/libs/guest/xg_sr_save_x86_pv.c          |   2 +-
+>   tools/ocaml/libs/xc/xenctrl_stubs.c           |   1 +
+>   20 files changed, 545 insertions(+), 420 deletions(-)
+>   delete mode 100644 tools/libs/ctrl/xc_core_x86.c
+>   rename tools/libs/{ctrl/xc_core.c =3D> guest/xg_core.c} (99%)
+>   rename tools/libs/{ctrl/xc_core.h =3D> guest/xg_core.h} (92%)
+>   rename tools/libs/{ctrl/xc_core_arm.c =3D> guest/xg_core_arm.c} (72%)=
+
+>   rename tools/libs/{ctrl/xc_core_arm.h =3D> guest/xg_core_arm.h} (100%=
+)
+>   create mode 100644 tools/libs/guest/xg_core_x86.c
+>   rename tools/libs/{ctrl/xc_core_x86.h =3D> guest/xg_core_x86.h} (100%=
+)
+>   rename tools/libs/{ctrl/xc_resume.c =3D> guest/xg_resume.c} (80%)
+>=20
 
 
-Juergen
-
-
---------------627AC06D42A69DCAD0D9CAD7
+--------------1F206A47E54C17FAC7DB509B
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -197,25 +273,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------627AC06D42A69DCAD0D9CAD7--
+--------------1F206A47E54C17FAC7DB509B--
 
---as2zie4q5kw0uL7UrINfpGoZuvAPrDvfb--
+--LO8pSzdI3l6E16X0Dnt1yfck8mjpNMchy--
 
---yjnCyS82arY4JTCKc7LpsFQxUTMmVfZxm
+--78G7TuzXokz2mlyJCRm3gsmTvqRpPQr6R
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCbaoAFAwAAAAAACgkQsN6d1ii/Ey/z
-Fgf/fxgMNrRbC1Tf45689nwZZ+GL38mM9J2LFDCQUOVvwiyTXgp07JwRkwIO6CvjeZy7ET5dbqGD
-sH7ULMtz5vk2yCc6xIZwAfomyDKEBztfdlBLoVBZRn4vFhy1FOK4jUJfroo8MtTWoTFh0REWHYv6
-01cz2imUfD9ux1g64wxbZQLHJMJ8Rav7ozNttA3Pm46jIEawfvB4XR6fIjDiMnQo4jxZneyTxSjK
-yCuexvUzs7dMdcHE3cjzeZRkQAHwltPOGuRSO2v3TKlIBsYK3uUJXoPSJTUGFCI3/tYZXLdl4bC4
-2ep8bFxMFlNFi5ryByOWJqHmjchWxruUppwm3zN4Mw==
-=y7Na
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCbfJAFAwAAAAAACgkQsN6d1ii/Ey+L
+7Af+MngKfuLlpfBSjsHl7qCpAKGLPNn1mJj9OdMRrlzOLghk3LlS70brs36S+3z63g/MRo7grWuq
+RCgit9/W20mAqggN+yE8TT2dFCnM6Qx6r1wgClRNG0XHnwy4ycW0zhhKY6LJnoKPbxKpvCEDj79h
+eLF+5bGYjIU42iyXDP03w1R/Mh7YAN4uhDxP5mky981Pa2zMoGyO0WHvSwV0YUJfyUFd1B2FuAGS
+ci+JcSDB30y0ia16mzYiH8/XN831jmFzOTnYgC1jMAIkJd2jMYsm9T2zUg7IO4A6JSLjsvJHc2Ar
+O081OqPddJoUuOLgljn1KEM7vrG1y5phISpFkUgdjw==
+=cAlH
 -----END PGP SIGNATURE-----
 
---yjnCyS82arY4JTCKc7LpsFQxUTMmVfZxm--
+--78G7TuzXokz2mlyJCRm3gsmTvqRpPQr6R--
 
