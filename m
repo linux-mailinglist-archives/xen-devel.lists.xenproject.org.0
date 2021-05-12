@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E73FC37D46D
-	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 23:31:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126399.237962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F7237D477
+	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 23:42:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.126406.237974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgwQt-0007JE-CI; Wed, 12 May 2021 21:30:19 +0000
+	id 1lgwbw-0000Zd-Fh; Wed, 12 May 2021 21:41:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126399.237962; Wed, 12 May 2021 21:30:19 +0000
+Received: by outflank-mailman (output) from mailman id 126406.237974; Wed, 12 May 2021 21:41:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgwQt-0007GZ-8J; Wed, 12 May 2021 21:30:19 +0000
-Received: by outflank-mailman (input) for mailman id 126399;
- Wed, 12 May 2021 21:30:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lgwbw-0000XI-CS; Wed, 12 May 2021 21:41:44 +0000
+Received: by outflank-mailman (input) for mailman id 126406;
+ Wed, 12 May 2021 21:41:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=codm=KH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lgwQr-0007GT-7i
- for xen-devel@lists.xenproject.org; Wed, 12 May 2021 21:30:17 +0000
+ id 1lgwbv-0000XC-B6
+ for xen-devel@lists.xenproject.org; Wed, 12 May 2021 21:41:43 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a6518a3d-b686-4252-a12a-5d89cf54ddfa;
- Wed, 12 May 2021 21:30:16 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0EAB1613E6;
- Wed, 12 May 2021 21:30:15 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6c411ff8-8018-4bdb-8405-01f5c808961d;
+ Wed, 12 May 2021 21:41:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 30AA161352;
+ Wed, 12 May 2021 21:41:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,213 +37,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6518a3d-b686-4252-a12a-5d89cf54ddfa
+X-Inumbo-ID: 6c411ff8-8018-4bdb-8405-01f5c808961d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1620855015;
-	bh=4GO29E4P5CadwLaZmmzGQrRInrNcFgNOKyQmX0Qeh6M=;
+	s=k20201202; t=1620855701;
+	bh=Asqt57QtsFlKxqfIvSBVd659UPg481sw4PcabZfvJkM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=H7kB4nMlt4dT5hTPNVurw8KhB9GFLNAnp08qTFUxB60QGtv7ioFSlocbE9UWB1+rg
-	 wP4MixwiGLQlwkZyWNTQYY8pl5tb1WbMMdhF72YwtQIms2G5w5hnYG3SkJMcXnZOLY
-	 sO/EJxCUjgpbmB1k6KfpL3Ro0Hbx082+c8VvVfARJfpXf0p1f5oTyQFohT1WhfDHtp
-	 KO3m5A5gSRaDbpEyltrfw/9a0oCBnHmyaxfEbjpadBdZGhlZy5wVdPUZNKfd6eqSqU
-	 QUk9l1Dj+tNPshaw4cy7hr6R62cj9y9Msfatlbn5Ul9NDkT2gkIdGDDV64sCBOUdw4
-	 dcJHArdEt2PRA==
-Date: Wed, 12 May 2021 14:30:14 -0700 (PDT)
+	b=ECDd2Z3/uSrQ9clQvdlHt+tDsl2I0A3ri60a40SAhzOZTMRfOxJZuRUBnu0UyomTg
+	 btBhFibLAFeleOtREuS16+0E3DfG0uwfvO4hGfqFfww8DDll8CS6RYcFx9r7LouaMl
+	 611Oj85HYyFz2ykZxT+h9GbwX6YtTtFp4qeqC0W8aVyUt3fvmematGFljXyioxY3m1
+	 qZRVgXKcPrBHWeh5GPCddKeayRrVL6rXEf1XAQbqx4WGiwF/DUmuQ9KLKiD/CiQsZx
+	 d061mGZN4FBnkE6ct3Ym9ICXnv4+3wXm9h/wDJK0eEaSPfjQrtuHFXk9LAFDxCQKdm
+	 ZJ+FYZV2smtCQ==
+Date: Wed, 12 May 2021 14:41:40 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com, 
+cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com, 
     Penny.Zheng@arm.com, Bertrand.Marquis@arm.com, 
-    Julien Grall <jgrall@amazon.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH RFCv2 02/15] xen/arm: lpae: Use the generic helpers to
- defined the Xen PT helpers
-In-Reply-To: <94e364a7-de40-93ab-6cde-a2f493540439@xen.org>
-Message-ID: <alpine.DEB.2.21.2105121425500.5018@sstabellini-ThinkPad-T480s>
-References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-3-julien@xen.org> <alpine.DEB.2.21.2105111515470.5018@sstabellini-ThinkPad-T480s> <94e364a7-de40-93ab-6cde-a2f493540439@xen.org>
+    Julien Grall <julien.grall@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH RFCv2 07/15] xen/arm: mm: Re-implement early_fdt_map()
+ using map_pages_to_xen()
+In-Reply-To: <20210425201318.15447-8-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2105121437501.5018@sstabellini-ThinkPad-T480s>
+References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-8-julien@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 12 May 2021, Julien Grall wrote:
-> Hi Stefano,
+On Sun, 25 Apr 2021, Julien Grall wrote:
+> From: Julien Grall <julien.grall@arm.com>
 > 
-> On 11/05/2021 23:26, Stefano Stabellini wrote:
-> > On Sun, 25 Apr 2021, Julien Grall wrote:
-> > > From: Julien Grall <jgrall@amazon.com>
-> > > 
-> > > Currently, Xen PT helpers are only working with 4KB page granularity
-> > > and open-code the generic helpers. To allow more flexibility, we can
-> > > re-use the generic helpers and pass Xen's page granularity
-> > > (PAGE_SHIFT).
-> > > 
-> > > As Xen PT helpers are used in both C and assembly, we need to move
-> > > the generic helpers definition outside of the !__ASSEMBLY__ section.
-> > > 
-> > > Note the aliases for each level are still kept for the time being so we
-> > > can avoid a massive patch to change all the callers.
-> > > 
-> > > Signed-off-by: Julien Grall <jgrall@amazon.com>
-> > 
-> > The patch is OK as is. I have a couple of suggestions for improvement
-> > below. If you feel like making them, good, otherwise I am also OK if you
-> > don't want to change anything.
-> > 
-> > 
-> > > ---
-> > >      Changes in v2:
-> > >          - New patch
-> > > ---
-> > >   xen/include/asm-arm/lpae.h | 71 +++++++++++++++++++++-----------------
-> > >   1 file changed, 40 insertions(+), 31 deletions(-)
-> > > 
-> > > diff --git a/xen/include/asm-arm/lpae.h b/xen/include/asm-arm/lpae.h
-> > > index 4fb9a40a4ca9..310f5225e056 100644
-> > > --- a/xen/include/asm-arm/lpae.h
-> > > +++ b/xen/include/asm-arm/lpae.h
-> > > @@ -159,6 +159,17 @@ static inline bool lpae_is_superpage(lpae_t pte,
-> > > unsigned int level)
-> > >   #define lpae_get_mfn(pte)    (_mfn((pte).walk.base))
-> > >   #define lpae_set_mfn(pte, mfn)  ((pte).walk.base = mfn_x(mfn))
-> > >   +/* Generate an array @var containing the offset for each level from
-> > > @addr */
-> > > +#define DECLARE_OFFSETS(var, addr)          \
-> > > +    const unsigned int var[4] = {           \
-> > > +        zeroeth_table_offset(addr),         \
-> > > +        first_table_offset(addr),           \
-> > > +        second_table_offset(addr),          \
-> > > +        third_table_offset(addr)            \
-> > > +    }
-> > > +
-> > > +#endif /* __ASSEMBLY__ */
-> > > +
-> > >   /*
-> > >    * AArch64 supports pages with different sizes (4K, 16K, and 64K).
-> > >    * Provide a set of generic helpers that will compute various
-> > > @@ -190,17 +201,6 @@ static inline bool lpae_is_superpage(lpae_t pte,
-> > > unsigned int level)
-> > >   #define LPAE_TABLE_INDEX_GS(gs, lvl, addr)   \
-> > >       (((addr) >> LEVEL_SHIFT_GS(gs, lvl)) & LPAE_ENTRY_MASK_GS(gs))
-> > >   -/* Generate an array @var containing the offset for each level from
-> > > @addr */
-> > > -#define DECLARE_OFFSETS(var, addr)          \
-> > > -    const unsigned int var[4] = {           \
-> > > -        zeroeth_table_offset(addr),         \
-> > > -        first_table_offset(addr),           \
-> > > -        second_table_offset(addr),          \
-> > > -        third_table_offset(addr)            \
-> > > -    }
-> > > -
-> > > -#endif /* __ASSEMBLY__ */
-> > > -
-> > >   /*
-> > >    * These numbers add up to a 48-bit input address space.
-> > >    *
-> > > @@ -211,26 +211,35 @@ static inline bool lpae_is_superpage(lpae_t pte,
-> > > unsigned int level)
-> > >    * therefore 39-bits are sufficient.
-> > >    */
-> > >   -#define LPAE_SHIFT      9
-> > > -#define LPAE_ENTRIES    (_AC(1,U) << LPAE_SHIFT)
-> > > -#define LPAE_ENTRY_MASK (LPAE_ENTRIES - 1)
-> > > -
-> > > -#define THIRD_SHIFT    (PAGE_SHIFT)
-> > > -#define THIRD_ORDER    (THIRD_SHIFT - PAGE_SHIFT)
-> > > -#define THIRD_SIZE     (_AT(paddr_t, 1) << THIRD_SHIFT)
-> > > -#define THIRD_MASK     (~(THIRD_SIZE - 1))
-> > > -#define SECOND_SHIFT   (THIRD_SHIFT + LPAE_SHIFT)
-> > > -#define SECOND_ORDER   (SECOND_SHIFT - PAGE_SHIFT)
-> > > -#define SECOND_SIZE    (_AT(paddr_t, 1) << SECOND_SHIFT)
-> > > -#define SECOND_MASK    (~(SECOND_SIZE - 1))
-> > > -#define FIRST_SHIFT    (SECOND_SHIFT + LPAE_SHIFT)
-> > > -#define FIRST_ORDER    (FIRST_SHIFT - PAGE_SHIFT)
-> > > -#define FIRST_SIZE     (_AT(paddr_t, 1) << FIRST_SHIFT)
-> > > -#define FIRST_MASK     (~(FIRST_SIZE - 1))
-> > > -#define ZEROETH_SHIFT  (FIRST_SHIFT + LPAE_SHIFT)
-> > > -#define ZEROETH_ORDER  (ZEROETH_SHIFT - PAGE_SHIFT)
-> > > -#define ZEROETH_SIZE   (_AT(paddr_t, 1) << ZEROETH_SHIFT)
-> > > -#define ZEROETH_MASK   (~(ZEROETH_SIZE - 1))
-> > 
-> > Should we add a one-line in-code comment saying that the definitions
-> > below are for 4KB pages? It is not immediately obvious any longer.
+> Now that map_pages_to_xen() has been extended to support 2MB mappings,
+> we can replace the create_mappings() calls by map_pages_to_xen() calls.
 > 
-> Because they are not meant to be for 4KB pages. They are meant to be for Xen
-> page size.
-> 
-> Today, it is always 4KB but I would like the Xen code to not rely on that.
-> 
-> I can clarify it in an in-code comment.
+> The mapping can also be marked read-only has Xen as no business to
+> modify the host Device Tree.
 
-That would help I think
+I think that's good. Just FYI there is some work at Xilinx to make
+changes to the device tree at runtime but we'll cross that bridge when
+we come to it.
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-> > > +#define LPAE_SHIFT          LPAE_SHIFT_GS(PAGE_SHIFT)
-> > > +#define LPAE_ENTRIES        LPAE_ENTRIES_GS(PAGE_SHIFT)
-> > > +#define LPAE_ENTRY_MASK     LPAE_ENTRY_MASK_GS(PAGE_SHIFT)
-> > > 
-> > > +#define LEVEL_SHIFT(lvl)    LEVEL_SHIFT_GS(PAGE_SHIFT, lvl)
-> > > +#define LEVEL_ORDER(lvl)    LEVEL_ORDER_GS(PAGE_SHIFT, lvl)
-> > > +#define LEVEL_SIZE(lvl)     LEVEL_SIZE_GS(PAGE_SHIFT, lvl)
-> > > +#define LEVEL_MASK(lvl)     (~(LEVEL_SIZE(lvl) - 1))
-> > 
-> > I would avoid adding these 4 macros. It would be OK if they were just
-> > used within this file but lpae.h is a header: they could end up be used
-> > anywhere in the xen/ code and they have a very generic name. My
-> > suggestion would be to skip them and just do:
+> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> Those macros will be used in follow-up patches. They are pretty useful to
-> avoid introduce static array with the different information for each level.
+> ---
+>     Changes in v2:
+>         - Add my AWS signed-off-by
+>         - Fix typo in the commit message
+> ---
+>  xen/arch/arm/mm.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
 > 
-> Would prefix them with XEN_ be better?
-
-Maybe. The concern I have is that there are multiple page granularities
-(4kb, 16kb, etc) and multiple page sizes (4kb, 2mb, etc). If I just see
-LEVEL_ORDER it is not immediately obvious what granularity and what size
-we are talking about.
-
-I think using a name that makes it clear that they are referring to Xen
-pages, currently 4kb, it would make sense. Or maybe a in-code comment
-would be sufficient.
-
-I don't have a great suggestion here so I'll leave it to you. I am also
-OK to keep them as is.
-
-
-> > #define THIRD_SHIFT         LEVEL_SHIFT_GS(PAGE_SHIFT, 3)
-> > 
-> > etc.
-> > 
-> > 
-> > > +/* Convenience aliases */
-> > > +#define THIRD_SHIFT         LEVEL_SHIFT(3)
-> > > +#define THIRD_ORDER         LEVEL_ORDER(3)
-> > > +#define THIRD_SIZE          LEVEL_SIZE(3)
-> > > +#define THIRD_MASK          LEVEL_MASK(3)
-> > > +
-> > > +#define SECOND_SHIFT        LEVEL_SHIFT(2)
-> > > +#define SECOND_ORDER        LEVEL_ORDER(2)
-> > > +#define SECOND_SIZE         LEVEL_SIZE(2)
-> > > +#define SECOND_MASK         LEVEL_MASK(2)
-> > > +
-> > > +#define FIRST_SHIFT         LEVEL_SHIFT(1)
-> > > +#define FIRST_ORDER         LEVEL_ORDER(1)
-> > > +#define FIRST_SIZE          LEVEL_SIZE(1)
-> > > +#define FIRST_MASK          LEVEL_MASK(1)
-> > > +
-> > > +#define ZEROETH_SHIFT       LEVEL_SHIFT(0)
-> > > +#define ZEROETH_ORDER       LEVEL_ORDER(0)
-> > > +#define ZEROETH_SIZE        LEVEL_SIZE(0)
-> > > +#define ZEROETH_MASK        LEVEL_MASK(0)
-> > >     /* Calculate the offsets into the pagetables for a given VA */
-> > >   #define zeroeth_linear_offset(va) ((va) >> ZEROETH_SHIFT)
-> > > -- 
-> > > 2.17.1
-> > > 
-> 
-> Cheers,
-> 
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 2cbfbe25240e..8fac24d80086 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -558,6 +558,7 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>      paddr_t offset;
+>      void *fdt_virt;
+>      uint32_t size;
+> +    int rc;
+>  
+>      /*
+>       * Check whether the physical FDT address is set and meets the minimum
+> @@ -573,8 +574,12 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>      /* The FDT is mapped using 2MB superpage */
+>      BUILD_BUG_ON(BOOT_FDT_VIRT_START % SZ_2M);
+>  
+> -    create_mappings(xen_second, BOOT_FDT_VIRT_START, paddr_to_pfn(base_paddr),
+> -                    SZ_2M >> PAGE_SHIFT, SZ_2M);
+> +    rc = map_pages_to_xen(BOOT_FDT_VIRT_START, maddr_to_mfn(base_paddr),
+> +                          SZ_2M >> PAGE_SHIFT,
+> +                          PAGE_HYPERVISOR_RO | _PAGE_BLOCK);
+> +    if ( rc )
+> +        panic("Unable to map the device-tree.\n");
+> +
+>  
+>      offset = fdt_paddr % SECOND_SIZE;
+>      fdt_virt = (void *)BOOT_FDT_VIRT_START + offset;
+> @@ -588,9 +593,12 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>  
+>      if ( (offset + size) > SZ_2M )
+>      {
+> -        create_mappings(xen_second, BOOT_FDT_VIRT_START + SZ_2M,
+> -                        paddr_to_pfn(base_paddr + SZ_2M),
+> -                        SZ_2M >> PAGE_SHIFT, SZ_2M);
+> +        rc = map_pages_to_xen(BOOT_FDT_VIRT_START + SZ_2M,
+> +                              maddr_to_mfn(base_paddr + SZ_2M),
+> +                              SZ_2M >> PAGE_SHIFT,
+> +                              PAGE_HYPERVISOR_RO | _PAGE_BLOCK);
+> +        if ( rc )
+> +            panic("Unable to map the device-tree\n");
+>      }
+>  
+>      return fdt_virt;
 > -- 
-> Julien Grall
+> 2.17.1
 > 
 
