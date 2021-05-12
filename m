@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D997837EB55
-	for <lists+xen-devel@lfdr.de>; Thu, 13 May 2021 00:16:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126439.238027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1DD437EB57
+	for <lists+xen-devel@lfdr.de>; Thu, 13 May 2021 00:18:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.126445.238040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgx9I-0006wV-1G; Wed, 12 May 2021 22:16:12 +0000
+	id 1lgxBj-0007YZ-Eu; Wed, 12 May 2021 22:18:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126439.238027; Wed, 12 May 2021 22:16:12 +0000
+Received: by outflank-mailman (output) from mailman id 126445.238040; Wed, 12 May 2021 22:18:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgx9H-0006ts-UQ; Wed, 12 May 2021 22:16:11 +0000
-Received: by outflank-mailman (input) for mailman id 126439;
- Wed, 12 May 2021 22:16:09 +0000
+	id 1lgxBj-0007W2-BO; Wed, 12 May 2021 22:18:43 +0000
+Received: by outflank-mailman (input) for mailman id 126445;
+ Wed, 12 May 2021 22:18:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lgx9F-0006tm-JH
- for xen-devel@lists.xenproject.org; Wed, 12 May 2021 22:16:09 +0000
+ (envelope-from <julien@xen.org>) id 1lgxBi-0007Vw-LU
+ for xen-devel@lists.xenproject.org; Wed, 12 May 2021 22:18:42 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lgx9D-0004dq-KC; Wed, 12 May 2021 22:16:07 +0000
+ id 1lgxBg-0004fq-Ui; Wed, 12 May 2021 22:18:40 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lgx9D-0006E2-E6; Wed, 12 May 2021 22:16:07 +0000
+ id 1lgxBg-0006K6-Ov; Wed, 12 May 2021 22:18:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +42,57 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=/Rnz7krNnHyU5Ry0uAiKBQ2Yb01yUAQ3dItD4+uNPXQ=; b=2EinrVlU+CvbOMnyLYV04tc4WX
-	ziGDwPXsGYIvCcTf9oAOwM0gFJeJ4luuk3lARk2HJLf7rYy9aCUaX5+5vOCpeMc/KK7jHRkWVzdPo
-	TkJfljBp4YrGC4DO6Wr2IZkre4/IcsuynzQ7zC6HYqq4uLjooOJWyPE7rNgqf5nCy0wA=;
-Subject: Re: [PATCH RFCv2 02/15] xen/arm: lpae: Use the generic helpers to
- defined the Xen PT helpers
+	bh=fG92JyapnWWZhAVzqQe7939190PRNkzzWbXxx+gTR/c=; b=kACCT2zp03nvUVWCVdEz+IKPLN
+	IcKbuU8q9wdkLevAtctsIHedQVXNYlMNw2NUh9VJiuo9F2EEjJ66YTi3s2Swww+PLiVcuTMa9nmRa
+	kKQcZ/Ts7sOz5ttSVaLaGttbDVxUcg4dvmJvc1CoPJ46JJICUb2vuMODVCJHYUZ7CFHk=;
+Subject: Re: [PATCH RFCv2 07/15] xen/arm: mm: Re-implement early_fdt_map()
+ using map_pages_to_xen()
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com,
  Penny.Zheng@arm.com, Bertrand.Marquis@arm.com,
- Julien Grall <jgrall@amazon.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ Julien Grall <julien.grall@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <jgrall@amazon.com>
 References: <20210425201318.15447-1-julien@xen.org>
- <20210425201318.15447-3-julien@xen.org>
- <alpine.DEB.2.21.2105111515470.5018@sstabellini-ThinkPad-T480s>
- <94e364a7-de40-93ab-6cde-a2f493540439@xen.org>
- <alpine.DEB.2.21.2105121425500.5018@sstabellini-ThinkPad-T480s>
+ <20210425201318.15447-8-julien@xen.org>
+ <alpine.DEB.2.21.2105121437501.5018@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien@xen.org>
-Message-ID: <e834b447-46c2-14fe-a39c-209d4d6ca5fe@xen.org>
-Date: Wed, 12 May 2021 23:16:05 +0100
+Message-ID: <68422df9-014e-7acb-f10f-f605a7233f40@xen.org>
+Date: Wed, 12 May 2021 23:18:38 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2105121425500.5018@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2105121437501.5018@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 Hi Stefano,
 
-On 12/05/2021 22:30, Stefano Stabellini wrote:
-> On Wed, 12 May 2021, Julien Grall wrote:
->>>> +#define LPAE_SHIFT          LPAE_SHIFT_GS(PAGE_SHIFT)
->>>> +#define LPAE_ENTRIES        LPAE_ENTRIES_GS(PAGE_SHIFT)
->>>> +#define LPAE_ENTRY_MASK     LPAE_ENTRY_MASK_GS(PAGE_SHIFT)
->>>>
->>>> +#define LEVEL_SHIFT(lvl)    LEVEL_SHIFT_GS(PAGE_SHIFT, lvl)
->>>> +#define LEVEL_ORDER(lvl)    LEVEL_ORDER_GS(PAGE_SHIFT, lvl)
->>>> +#define LEVEL_SIZE(lvl)     LEVEL_SIZE_GS(PAGE_SHIFT, lvl)
->>>> +#define LEVEL_MASK(lvl)     (~(LEVEL_SIZE(lvl) - 1))
->>>
->>> I would avoid adding these 4 macros. It would be OK if they were just
->>> used within this file but lpae.h is a header: they could end up be used
->>> anywhere in the xen/ code and they have a very generic name. My
->>> suggestion would be to skip them and just do:
+On 12/05/2021 22:41, Stefano Stabellini wrote:
+> On Sun, 25 Apr 2021, Julien Grall wrote:
+>> From: Julien Grall <julien.grall@arm.com>
 >>
->> Those macros will be used in follow-up patches. They are pretty useful to
->> avoid introduce static array with the different information for each level.
+>> Now that map_pages_to_xen() has been extended to support 2MB mappings,
+>> we can replace the create_mappings() calls by map_pages_to_xen() calls.
 >>
->> Would prefix them with XEN_ be better?
+>> The mapping can also be marked read-only has Xen as no business to
+>> modify the host Device Tree.
 > 
-> Maybe. The concern I have is that there are multiple page granularities
-> (4kb, 16kb, etc) and multiple page sizes (4kb, 2mb, etc). If I just see
-> LEVEL_ORDER it is not immediately obvious what granularity and what size
-> we are talking about.
+> I think that's good. Just FYI there is some work at Xilinx to make
+> changes to the device tree at runtime but we'll cross that bridge when
+> we come to it.
 
-I am a bit puzzled with your answer. AFAIU, you are happy with the 
-existing macros (THIRD_*, SECOND_*) but not with the new macros.
+This particular mapping is only used during early boot. After the DT has 
+been unflatten, this region is unmapped and the physical memory released.
 
-In reality, there is no difference because THIRD_* doesn't tell you the 
-exact size but only "this is a level 3 mapping".
+So if the DT needs to be modified at runtime, then you would most likely 
+want to modify the unflatten version.
 
-So can you clarify what you are after? IOW is it reworking the current 
-naming scheme?
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+Thank you!
 
 Cheers,
 
