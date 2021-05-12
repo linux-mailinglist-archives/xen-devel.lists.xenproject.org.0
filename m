@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3801637B2EE
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CFA837B2EF
 	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 02:18:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126087.237346 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.126088.237358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgca1-0000ma-5W; Wed, 12 May 2021 00:18:25 +0000
+	id 1lgca6-00015o-FV; Wed, 12 May 2021 00:18:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126087.237346; Wed, 12 May 2021 00:18:25 +0000
+Received: by outflank-mailman (output) from mailman id 126088.237358; Wed, 12 May 2021 00:18:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgca1-0000kj-2M; Wed, 12 May 2021 00:18:25 +0000
-Received: by outflank-mailman (input) for mailman id 126087;
- Wed, 12 May 2021 00:18:23 +0000
+	id 1lgca6-000139-Br; Wed, 12 May 2021 00:18:30 +0000
+Received: by outflank-mailman (input) for mailman id 126088;
+ Wed, 12 May 2021 00:18:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+k7y=KH=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1lgcZz-0000kd-6p
- for xen-devel@lists.xenproject.org; Wed, 12 May 2021 00:18:23 +0000
-Received: from mail-io1-xd35.google.com (unknown [2607:f8b0:4864:20::d35])
+ id 1lgca4-0000kd-C8
+ for xen-devel@lists.xenproject.org; Wed, 12 May 2021 00:18:28 +0000
+Received: from mail-il1-x133.google.com (unknown [2607:f8b0:4864:20::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 028b1b94-275e-4a28-bc0b-a451201d550c;
- Wed, 12 May 2021 00:18:22 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id o21so19562862iow.13
- for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 17:18:22 -0700 (PDT)
+ id 5e7ffde7-960e-4ccf-ba48-8aeda0aaa6ca;
+ Wed, 12 May 2021 00:18:27 +0000 (UTC)
+Received: by mail-il1-x133.google.com with SMTP id z1so10881633ils.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 May 2021 17:18:27 -0700 (PDT)
 Received: from localhost.localdomain (142-79-211-230.starry-inc.net.
  [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id v4sm8241490iol.3.2021.05.11.17.18.21
+ by smtp.gmail.com with ESMTPSA id v4sm8241490iol.3.2021.05.11.17.18.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 May 2021 17:18:21 -0700 (PDT)
+ Tue, 11 May 2021 17:18:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,82 +42,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 028b1b94-275e-4a28-bc0b-a451201d550c
+X-Inumbo-ID: 5e7ffde7-960e-4ccf-ba48-8aeda0aaa6ca
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=mXSeR9jPw54X42/hzVCKnW9V7a7Fp/RB7jF7rnjCJUw=;
-        b=cPTkppKtPOrkAZ6nQARylT++pk44Lspab5bF4Y1dwmuQBYjN0Y3UuyDtFNRJx0iBpg
-         9EHv6UTLsMbWxIJN3z9MPof9z9kmZE5mn3oRoU7l/paKObQqQY0DTK3GBr8Ys1CwM52V
-         Ee1MxtvuDQLEH9HCoGgOCOueH024l3lX693zvuJtJeynCSOleAkV6uSYs/nnzUjCTvvU
-         UVxynsT469vDP4YHIsKNmIOYKFSX2A4ZjZDC6OLL49vg2Tz+mQ7gH9GUfIuT5tM+7HqS
-         4FN/Ba9X3JFWYRvBn6fdHSsH/GGtZjvqJcp/2tekEeP2dLEU4N1oubuqc+iLj+f8Huu6
-         TCyQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=puac9P/1pH2gTjwWoFDjpCGPhH1RSMCtsgJsRORZsps=;
+        b=KVnhpxSKSgjxFKZXFSiHszto+jk1TG6dHF6KfPOJDxdnW5ABx+HpY3LPhsV0oNEYdU
+         oOY2KZnnEdfwyeoTn19rO/DWpWf0O3blIvpZ0JPdzTmItMYHWDFp4hP9TX8JFPXxs8t6
+         OEOQhUyyUCvwrEwL+kXIgkSEVJBz+mIgiLVe1X9ca0uYQWF5H9EbzFZ77PHOPnKfdS2Z
+         V76FL/tX9xIwhDf+ym/LTIwmGVj2VeuWwJyy+uEOBU9ZlksbvAQo4MmOawNclyzLEnpa
+         IjYwCl2dc5uthpQGF5HR1mj1jfG5xvg1/BdoGsFLLYXQzg9LYFdfSxy7fb2uZpVBkOG4
+         jyRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=mXSeR9jPw54X42/hzVCKnW9V7a7Fp/RB7jF7rnjCJUw=;
-        b=B0Yppvy1ltekFEI+taFdWImDiHBDkzk76+Cxvk+QqB3uyGGnn1dxynCt+pwTffeXzn
-         S7xGRr0mrqFmzJNoYodCazlCx7VzHjpjsrB2ZuMpxU2CmQTUoWpHAWj9PbveTFq7mEvy
-         MknbFJlrEWekbmt1lgOaPEyzBsJCkcwL+29E19KaQwqOaJlbADeNnpQj/pghp/oTK+bL
-         eDxyu8/mb/yIvK2kWsGhWMk3fge7FLfi56IAn92lVsDDSJ/C/WPgaG/ZxvRq3py5F+G7
-         F/e+IzxOylac6wPnqap6XWIPDMUZCvlcb8ibwJ9leMjARzSZxReTzKND4g1FDpKtNJ3A
-         mTWg==
-X-Gm-Message-State: AOAM532j2pKh+Oa2kcMpVTiC01dIG5wNf4LaGxXB02/8RwrcvPa1mNRH
-	OhfXFQ/mdhLpzM1hdlTcNGA=
-X-Google-Smtp-Source: ABdhPJyGzEtP2429F0wetqYLv9fqk0nL/tFbD9fe/i3vDjKMOECPsuDdTpSelI1bEV3hT45X4JMc9A==
-X-Received: by 2002:a02:1c81:: with SMTP id c123mr30707808jac.42.1620778702074;
-        Tue, 11 May 2021 17:18:22 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=puac9P/1pH2gTjwWoFDjpCGPhH1RSMCtsgJsRORZsps=;
+        b=CTxA60GRD+3ZVIgO6cAc809/V0mnUqiqUfacE1BYLVqxD36DeKF3tSAZQ2A0aRSfks
+         j60H0A69IkC6k2Zyeo1jM7rmyHpB//spmOfV9moIiTYc8KHQdMYRYShX/6rMJZncr6rN
+         bW7csdExThQ7UzBsD0XtnUrfkLbnmZHOR7p7P0VJCVHtM7Ur/su1jyPAb06N5/9CulTf
+         /osvFTQBWH+hlBDGfR3CW3v82+URdc2Iihuq8J4wz7LlNhTP/vokqH9G0ee7I6Ixp9VQ
+         QJby1vd6iJK9V9XzNT0sJ5KNjmMknYAhHqy3LMxZaYrouqCFHAa8decDJ8S4WttIuMcG
+         IhnA==
+X-Gm-Message-State: AOAM532XxP7sFdpLyDyop+YvgYSXZ0qydbNWFi0fN1qtARW4KR2qPE5T
+	DA8NkrU9SWu4zh9z6AehSmM=
+X-Google-Smtp-Source: ABdhPJxwBLia0GULiakrQ/ChbOUlE5Y7VdEixYIKRKbmd5BUsUIAgrVrusZYIWrKZfjHhsy2cqSD6Q==
+X-Received: by 2002:a05:6e02:20c5:: with SMTP id 5mr28877967ilq.14.1620778707477;
+        Tue, 11 May 2021 17:18:27 -0700 (PDT)
 From: Connor Davis <connojdavis@gmail.com>
-To: linux-kernel@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Connor Davis <connojdavis@gmail.com>,
-	linux-usb@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Lee Jones <lee.jones@linaro.org>,
 	Jann Horn <jannh@google.com>,
 	Chunfeng Yun <chunfeng.yun@mediatek.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Mathias Nyman <mathias.nyman@intel.com>
-Subject: [PATCH 0/3] Support xen-driven USB3 debug capability
-Date: Tue, 11 May 2021 18:18:18 -0600
-Message-Id: <cover.1620776161.git.connojdavis@gmail.com>
+	xen-devel@lists.xenproject.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] usb: early: Avoid using DbC if already enabled
+Date: Tue, 11 May 2021 18:18:19 -0600
+Message-Id: <d160cee9b61c0ec41c2cd5ff9b4e107011d39d8c.1620776161.git.connojdavis@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <cover.1620776161.git.connojdavis@gmail.com>
+References: <cover.1620776161.git.connojdavis@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Check if the debug capability is enabled in early_xdbc_parse_parameter,
+and if it is, return with an error. This avoids collisions with whatever
+enabled the DbC prior to linux starting.
 
-This goal of this series is to allow the USB3 debug capability (DbC) to be
-safely used by xen while linux runs as dom0. The first patch prevents
-the early DbC driver from using an already-running DbC. The second
-exports xen_dbgp_reset_prep and xen_dbgp_external_startup functions when
-CONFIG_XEN_DOM0 is enabled so they may be used by the xHCI driver.
-The last uses those functions to notify xen of unsafe periods (e.g. reset
-and D3hot transition).
+Signed-off-by: Connor Davis <connojdavis@gmail.com>
+---
+ drivers/usb/early/xhci-dbc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Thanks,
-Connor
+diff --git a/drivers/usb/early/xhci-dbc.c b/drivers/usb/early/xhci-dbc.c
+index be4ecbabdd58..ca67fddc2d36 100644
+--- a/drivers/usb/early/xhci-dbc.c
++++ b/drivers/usb/early/xhci-dbc.c
+@@ -642,6 +642,16 @@ int __init early_xdbc_parse_parameter(char *s)
+ 	}
+ 	xdbc.xdbc_reg = (struct xdbc_regs __iomem *)(xdbc.xhci_base + offset);
 
---
-Connor Davis (3):
-  usb: early: Avoid using DbC if already enabled
-  xen: Export dbgp functions when CONFIG_XEN_DOM0 is enabled
-  usb: xhci: Notify xen when DbC is unsafe to use
++	if (readl(&xdbc.xdbc_reg->control) & CTRL_DBC_ENABLE) {
++		pr_notice("xhci debug capability already in use\n");
++		early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
++		xdbc.xdbc_reg = NULL;
++		xdbc.xhci_base = NULL;
++		xdbc.xhci_length = 0;
++
++		return -ENODEV;
++	}
++
+ 	return 0;
+ }
 
- drivers/usb/early/xhci-dbc.c   | 10 ++++++
- drivers/usb/host/xhci-dbgcap.h |  6 ++++
- drivers/usb/host/xhci.c        | 57 ++++++++++++++++++++++++++++++++++
- drivers/usb/host/xhci.h        |  1 +
- drivers/xen/dbgp.c             |  2 +-
- 5 files changed, 75 insertions(+), 1 deletion(-)
-
-
-base-commit: 88b06399c9c766c283e070b022b5ceafa4f63f19
 --
 2.31.1
 
