@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA70637C185
-	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 17:00:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.126281.237717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B6C537C1A6
+	for <lists+xen-devel@lfdr.de>; Wed, 12 May 2021 17:02:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.126283.237729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgqLF-0005LZ-89; Wed, 12 May 2021 15:00:05 +0000
+	id 1lgqMz-00065B-LO; Wed, 12 May 2021 15:01:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 126281.237717; Wed, 12 May 2021 15:00:05 +0000
+Received: by outflank-mailman (output) from mailman id 126283.237729; Wed, 12 May 2021 15:01:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lgqLF-0005GP-55; Wed, 12 May 2021 15:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 126281;
- Wed, 12 May 2021 15:00:03 +0000
+	id 1lgqMz-00063G-HQ; Wed, 12 May 2021 15:01:53 +0000
+Received: by outflank-mailman (input) for mailman id 126283;
+ Wed, 12 May 2021 15:01:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+k7y=KH=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1lgqLD-0004yO-6w
- for xen-devel@lists.xenproject.org; Wed, 12 May 2021 15:00:03 +0000
-Received: from mail-oi1-x229.google.com (unknown [2607:f8b0:4864:20::229])
+ id 1lgqMy-000638-Qe
+ for xen-devel@lists.xenproject.org; Wed, 12 May 2021 15:01:52 +0000
+Received: from mail-oo1-xc2d.google.com (unknown [2607:f8b0:4864:20::c2d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7a65c375-0828-4721-9293-a2fc480fd12a;
- Wed, 12 May 2021 15:00:02 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id x15so8749837oic.13
- for <xen-devel@lists.xenproject.org>; Wed, 12 May 2021 08:00:02 -0700 (PDT)
+ id 8c53055f-25e7-47e2-99be-8a84119394f6;
+ Wed, 12 May 2021 15:01:52 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ e7-20020a4ad2470000b02902088d0512ceso2175781oos.8
+ for <xen-devel@lists.xenproject.org>; Wed, 12 May 2021 08:01:52 -0700 (PDT)
 Received: from ceres ([2603:300b:7b5:c800:1cf6:4c9f:4e7:d116])
- by smtp.gmail.com with ESMTPSA id j16sm1975523otn.55.2021.05.12.08.00.01
+ by smtp.gmail.com with ESMTPSA id h184sm34435oia.1.2021.05.12.08.01.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 May 2021 08:00:01 -0700 (PDT)
+ Wed, 12 May 2021 08:01:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,104 +42,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a65c375-0828-4721-9293-a2fc480fd12a
+X-Inumbo-ID: 8c53055f-25e7-47e2-99be-8a84119394f6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=wAw2wQB4eQHn6TDwpGJK9D3eOJ6qhU0f1KoS9QvzkWM=;
-        b=loF0pyMBQRqwDEvT7rYJtv4geglNOLVoskIvxa2FNrVpO6yh141PcdytI9szrSfwey
-         NCPI0JXldCm1xdKJkvs+EMOqPOkxAKkkDLid9HXujR3z/uZXl+ytWem68OKayxMK44Wj
-         r49klWLflnYXQbGE9YTknEBgQ8tGmEnmG4nu8p+onCvSzORtAu9xuX0vGBEDR4XV+J6V
-         ycseUzZzYh4E4rFs59HMcd6G0Q4HVWH65WeFT1aN0bG4y1qoEFRwAhAE0H3EWmQxPLp7
-         ANgiAje+NgLqt74hFxWMNSSR2jkx8nmW99vIxAYuPad+vUSTuGfLfNNXC7HWyjj4n/W4
-         FV6w==
+        bh=UDD7PJOLLYReV+ki1w4vWVhaqVdnK70fMH/aRuBsi+U=;
+        b=j3EdvE/qBJ2JgHC4pSAw8ptUM/hHYSlfqrJ2bFDGn2AgF1DuvwJnsQErvNFeapmoOd
+         WjwGhq3dj825FTLXsKh1Y9BvNJuxB88Y9b89ERwOhntkFG2VFxwix0XuqvpuMkAUFqt4
+         ZeskQ1YsAtuToGOXwdrcTTAJe1mpr9sVsXp+emzb8tXoNI2EDxzP9yTiqce+6RneGFO0
+         VNRovDzDjhR4MOq45H8TRVrwsITF4/08VWL3lnmNzeXHLCoB6GGezkgw52AAnEi7iMYU
+         OVhqRAqlOA2T2q78oVkxMizPE6DhFLwRDwU8C3pgADouxAKG/fP07vGY3pmNGJBNJEM+
+         cDPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=wAw2wQB4eQHn6TDwpGJK9D3eOJ6qhU0f1KoS9QvzkWM=;
-        b=Lm0BkTfaYMvbF9FAclRtpviYRa1C87pLqDNE1/gbTB4ihgkGaHgfMnGSC0lXmnivAK
-         cyekaUFnnPS1aBxrmXi5uKj7+FSBgk/EQ3+rY9WpESF+EbtixUp6B08bljsltQSAV+Lq
-         Ws6A+UofVkBfbdsyJRkoNkZnXMVJN2mf//QNr1j/GKo2+Xr8OzbFW8OGNrl0FbokPD04
-         yrSqyjrNrk1aWEYpQN1urEkNpqxilObWLHU220t8sEp3NDof1xcEnSlreHsplMa6Jdb/
-         roF7GqGWyB2JHf8CRY/QUc/taQq4nyxM05NZqUqXY3dQS8M5wqqHNBijsBWVrA0L6PE9
-         KF7A==
-X-Gm-Message-State: AOAM530ptUo9JP8Zyi6lPAKJCRSp3x32csFuFGj1V/KHfHSo7zh2dVYy
-	l2U2Iqcx+pHJpfr5J5846n8=
-X-Google-Smtp-Source: ABdhPJz2ZIDSm8cD7EYMyfJiRk9PCaJLERgRQLj7veh6dDLN/mEn8xKYLB8FEo5gpWsqLM+ZGuN6Mw==
-X-Received: by 2002:aca:db41:: with SMTP id s62mr7719836oig.167.1620831601894;
-        Wed, 12 May 2021 08:00:01 -0700 (PDT)
-Date: Wed, 12 May 2021 08:59:59 -0600
+        bh=UDD7PJOLLYReV+ki1w4vWVhaqVdnK70fMH/aRuBsi+U=;
+        b=kvsqIbQJ9GlJL9bZZ9st8nWczskjXvUQGNFlYpFYRBkHcmYlMyuQrZa8Igy1fmDvpT
+         h+Y46LWl/O+8bqop0uH5ezZYvAV1KkdbOYvC9y84Q4eG1wSGq0NfkdsiAQm0+CR/KNx1
+         0n5+20jjA2hbQ6DEdVfaVPndcTbfkZXKyv9Qse9IxeugSCpiQPrw4eLVlkFZMM0QWzVj
+         y4DK5wFuf9YcU8H/t1dYbZwkPgCba5XmmozVblRCy5uODM2/w8I7uHkJL3y0fmyPzsb6
+         k4h/DGAkz3CIf5b3ilALm9FYJpOFcgdCvYgYDmRoBs1QBugLRGDGRgvXn48Qr3dQ8UMk
+         IZkQ==
+X-Gm-Message-State: AOAM532UQBxodRYBkiX7r+Ydo+JzicDJZVn+W2RWsMfH9JNEnAyQtcif
+	brf/1EXVbOIPFWcHTEqVkak=
+X-Google-Smtp-Source: ABdhPJwIUfudclyVSUS4OIM+Wq5qc8wnqq6eG4UzeB9J9g6dbK3zWJSX32nnnjigVzYpJ7b4h3l69A==
+X-Received: by 2002:a4a:98a4:: with SMTP id a33mr28096899ooj.21.1620831711875;
+        Wed, 12 May 2021 08:01:51 -0700 (PDT)
+Date: Wed, 12 May 2021 09:01:49 -0600
 From: Connor Davis <connojdavis@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, xen-devel@lists.xenproject.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] usb: xhci: Notify xen when DbC is unsafe to use
-Message-ID: <20210512145959.h6boyhrh2bvgx5iz@ceres>
+To: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] xen: Export dbgp functions when CONFIG_XEN_DOM0 is
+ enabled
+Message-ID: <20210512150149.nfzsgh3hnx7o7caf@ceres>
 References: <cover.1620776161.git.connojdavis@gmail.com>
- <2af7e7b8d569e94ab9c48039040ca69a8d52c89d.1620776161.git.connojdavis@gmail.com>
- <YJt9su1k67KEFh6K@kroah.com>
+ <291659390aff63df7c071367ad4932bf41e11aef.1620776161.git.connojdavis@gmail.com>
+ <0ef85b32-4069-4e94-0a2f-2325cd21510f@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YJt9su1k67KEFh6K@kroah.com>
+In-Reply-To: <0ef85b32-4069-4e94-0a2f-2325cd21510f@suse.com>
 
-On May 12, 21, Greg Kroah-Hartman wrote:
-> On Tue, May 11, 2021 at 06:18:21PM -0600, Connor Davis wrote:
-> > When running as a dom0 guest on Xen, check if the USB3 debug
-> > capability is enabled before xHCI reset, suspend, and resume. If it
-> > is, call xen_dbgp_reset_prep() to notify Xen that it is unsafe to touch
-> > MMIO registers until the next xen_dbgp_external_startup().
-> >
-> > This notification allows Xen to avoid undefined behavior resulting
-> > from MMIO access when the host controller's CNR bit is set or when
-> > the device transitions to D3hot.
+On May 12, 21, Juergen Gross wrote:
+> On 12.05.21 02:18, Connor Davis wrote:
+> > Export xen_dbgp_reset_prep and xen_dbgp_external_startup
+> > when CONFIG_XEN_DOM0 is defined. This allows use of these symbols
+> > even if CONFIG_EARLY_PRINK_DBGP is defined.
 > >
 > > Signed-off-by: Connor Davis <connojdavis@gmail.com>
-> > ---
-> >  drivers/usb/host/xhci-dbgcap.h |  6 ++++
-> >  drivers/usb/host/xhci.c        | 57 ++++++++++++++++++++++++++++++++++
-> >  drivers/usb/host/xhci.h        |  1 +
-> >  3 files changed, 64 insertions(+)
-> >
-> > diff --git a/drivers/usb/host/xhci-dbgcap.h b/drivers/usb/host/xhci-dbgcap.h
-> > index c70b78d504eb..24784b82a840 100644
-> > --- a/drivers/usb/host/xhci-dbgcap.h
-> > +++ b/drivers/usb/host/xhci-dbgcap.h
-> > @@ -227,4 +227,10 @@ static inline int xhci_dbc_resume(struct xhci_hcd *xhci)
-> >  	return 0;
-> >  }
-> >  #endif /* CONFIG_USB_XHCI_DBGCAP */
-> > +
-> > +#ifdef CONFIG_XEN_DOM0
-> > +int xen_dbgp_reset_prep(struct usb_hcd *hcd);
-> > +int xen_dbgp_external_startup(struct usb_hcd *hcd);
-> > +#endif /* CONFIG_XEN_DOM0 */
-> > +
-> >  #endif /* __LINUX_XHCI_DBGCAP_H */
-> > diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> > index ca9385d22f68..afe44169183f 100644
-> > --- a/drivers/usb/host/xhci.c
-> > +++ b/drivers/usb/host/xhci.c
-> > @@ -37,6 +37,57 @@ static unsigned long long quirks;
-> >  module_param(quirks, ullong, S_IRUGO);
-> >  MODULE_PARM_DESC(quirks, "Bit flags for quirks to be enabled as default");
-> >
-> > +#ifdef CONFIG_XEN_DOM0
-> > +#include <xen/xen.h>
 >
-> <snip>
->
-> Can't this #ifdef stuff go into a .h file?
->
+> Acked-by: Juergen Gross <jgross@suse.com>
 
-Yep, will clean that up in v2.
+Thank you.
 
-> thanks,
->
-> greg k-h
+- Connor
 
-Thanks,
-Connor
 
