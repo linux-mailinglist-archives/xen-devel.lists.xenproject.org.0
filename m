@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F11EB380735
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 12:30:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127326.239285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60FF038090D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 13:57:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127332.239296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhV4y-00008k-Pj; Fri, 14 May 2021 10:30:00 +0000
+	id 1lhWQb-0008J4-Vj; Fri, 14 May 2021 11:56:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127326.239285; Fri, 14 May 2021 10:30:00 +0000
+Received: by outflank-mailman (output) from mailman id 127332.239296; Fri, 14 May 2021 11:56:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhV4y-00006j-Mc; Fri, 14 May 2021 10:30:00 +0000
-Received: by outflank-mailman (input) for mailman id 127326;
- Fri, 14 May 2021 10:29:59 +0000
+	id 1lhWQb-0008GR-Rp; Fri, 14 May 2021 11:56:25 +0000
+Received: by outflank-mailman (input) for mailman id 127332;
+ Fri, 14 May 2021 11:56:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Bqrj=KJ=kernel.org=cmarinas@srs-us1.protection.inumbo.net>)
- id 1lhV4x-00006d-9s
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 10:29:59 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sDpF=KJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lhWQa-0008GF-B8
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 11:56:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c42e3c97-8764-40f5-a4ec-2e6367d52c77;
- Fri, 14 May 2021 10:29:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 918BC61396;
- Fri, 14 May 2021 10:29:56 +0000 (UTC)
+ id d8146b39-3b69-41b9-96e2-c2199d651479;
+ Fri, 14 May 2021 11:56:23 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6DE6EAEA6;
+ Fri, 14 May 2021 11:56:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,43 +38,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c42e3c97-8764-40f5-a4ec-2e6367d52c77
-Date: Fri, 14 May 2021 11:29:54 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
-	jgross@suse.com, hch@lst.de, will@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH v2 2/3] arm64: do not set SWIOTLB_NO_FORCE when swiotlb
- is required
-Message-ID: <20210514102953.GA855@arm.com>
-References: <alpine.DEB.2.21.2105121313060.5018@sstabellini-ThinkPad-T480s>
- <20210512201823.1963-2-sstabellini@kernel.org>
+X-Inumbo-ID: d8146b39-3b69-41b9-96e2-c2199d651479
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620993382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=tdOBs2NkLw0YS/tdRPalc0PWkKYkTcp857mDLm1t7FE=;
+	b=QOSmSUIrvYIulLhS0Lryzj2QP8HHxprHuMCYhwNjkOA6l8/T//HIO+4mKNZLtaNSNKtb3g
+	vEUvhSp1c0cXCD5iwnWM/U7k799cnr3ERaocUVsqg16KasqQYEkNCEh0CxsdBVfQyKaHz3
+	I/kvbjS5ThBezmzAlGu2HNJePfeDnqw=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 0/2] tools/xenstore: simplify xenstored main loop
+Date: Fri, 14 May 2021 13:56:18 +0200
+Message-Id: <20210514115620.32731-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210512201823.1963-2-sstabellini@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 8bit
 
-On Wed, May 12, 2021 at 01:18:22PM -0700, Stefano Stabellini wrote:
-> From: Christoph Hellwig <hch@lst.de>
-> 
-> Although SWIOTLB_NO_FORCE is meant to allow later calls to swiotlb_init,
-> today dma_direct_map_page returns error if SWIOTLB_NO_FORCE.
-> 
-> For now, without a larger overhaul of SWIOTLB_NO_FORCE, the best we can
-> do is to avoid setting SWIOTLB_NO_FORCE in mem_init when we know that it
-> is going to be required later (e.g. Xen requires it).
-> 
-> CC: boris.ostrovsky@oracle.com
-> CC: jgross@suse.com
-> CC: catalin.marinas@arm.com
-> CC: will@kernel.org
-> CC: linux-arm-kernel@lists.infradead.org
-> Fixes: 2726bf3ff252 ("swiotlb: Make SWIOTLB_NO_FORCE perform no allocation")
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Small series to make the main loop of xenstored more readable.
 
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Changes in V2:
+- split into two patches
+- use const
+- NO_SOCKETS handling
+
+Juergen Gross (2):
+  tools/xenstore: move per connection read and write func hooks into a
+    struct
+  tools/xenstore: simplify xenstored main loop
+
+ tools/xenstore/xenstored_core.c   | 121 ++++++++++++++----------------
+ tools/xenstore/xenstored_core.h   |  21 +++---
+ tools/xenstore/xenstored_domain.c |  15 +++-
+ 3 files changed, 79 insertions(+), 78 deletions(-)
+
+-- 
+2.26.2
+
 
