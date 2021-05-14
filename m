@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BBC7380215
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 04:43:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127155.238903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F2538027C
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 05:26:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127160.238917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhNmi-0007BC-Nk; Fri, 14 May 2021 02:42:40 +0000
+	id 1lhORZ-0002wj-0n; Fri, 14 May 2021 03:24:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127155.238903; Fri, 14 May 2021 02:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 127160.238917; Fri, 14 May 2021 03:24:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhNmi-000784-KX; Fri, 14 May 2021 02:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 127155;
- Fri, 14 May 2021 02:42:39 +0000
+	id 1lhORY-0002tv-Td; Fri, 14 May 2021 03:24:52 +0000
+Received: by outflank-mailman (input) for mailman id 127160;
+ Fri, 14 May 2021 03:24:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rjOs=KJ=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1lhNmh-00077y-4S
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 02:42:39 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CSkR=KJ=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
+ id 1lhORX-0002tn-Ad
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 03:24:51 +0000
+Received: from mail-il1-x131.google.com (unknown [2607:f8b0:4864:20::131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3cd4390e-c50a-4cd4-835b-171f2d4b7675;
- Fri, 14 May 2021 02:42:37 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 14E2gSm8073818
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 13 May 2021 22:42:34 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 14E2gSQW073817;
- Thu, 13 May 2021 19:42:28 -0700 (PDT) (envelope-from ehem)
+ id d585e6ba-f43b-487b-b9e5-c51e5fa812d1;
+ Fri, 14 May 2021 03:24:50 +0000 (UTC)
+Received: by mail-il1-x131.google.com with SMTP id j12so24759098ils.4
+ for <xen-devel@lists.xenproject.org>; Thu, 13 May 2021 20:24:50 -0700 (PDT)
+Received: from [192.168.99.80] (142-79-211-230.starry-inc.net.
+ [142.79.211.230])
+ by smtp.gmail.com with ESMTPSA id d2sm2412666ile.18.2021.05.13.20.24.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 May 2021 20:24:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cd4390e-c50a-4cd4-835b-171f2d4b7675
-Date: Thu, 13 May 2021 19:42:28 -0700
-From: Elliott Mitchell <ehem+undef@m5p.com>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Roger Pau Monn?? <royger@freebsd.org>,
-        Mitchell Horne <mhorne@freebsd.org>
-Subject: Uses of /hypervisor memory range (was: FreeBSD/Xen/ARM issues)
-Message-ID: <YJ3jlGSxs60Io+dp@mattapan.m5p.com>
-References: <YIhSbkfShjN/gMCe@Air-de-Roger>
- <YIndyh0sRqcmcMim@mattapan.m5p.com>
- <YIptpndhk6MOJFod@Air-de-Roger>
- <YItwHirnih6iUtRS@mattapan.m5p.com>
- <YIu80FNQHKS3+jVN@Air-de-Roger>
- <YJDcDjjgCsQUdsZ7@mattapan.m5p.com>
- <YJURGaqAVBSYnMRf@Air-de-Roger>
- <YJYem5CW/97k/e5A@mattapan.m5p.com>
- <YJs/YAgB8molh7e5@mattapan.m5p.com>
- <54427968-9b13-36e6-0001-27fb49f85635@xen.org>
+X-Inumbo-ID: d585e6ba-f43b-487b-b9e5-c51e5fa812d1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=rjEVrWO3moq8rpuZa0b0GYhpCLgyhm8VlqMw+Ea4qUc=;
+        b=vgTI8EkZ7AKRgt7SnHw1F4ELlQWM/xswnMWiCyu5J1CHZNdhbNAQPUNjIVx42VHXpJ
+         FrUrV0LAcDEL3QfZaUxezVPEU+2y/eTLThxTcICb4JZFBSvw6Jg+pNFybLi57CFRoiwf
+         1+XGBR0qqfNz025ZE5TwpTPPAglGbRgZshdoTkOyM6ilMYhoFCbINBoRboDZaiCDAyV/
+         pmuFXGYUt50VhlOauUXKoM7179ZJ8LVHXPMnWAILSvsqPXdIEg2XbEl40X/nWLsPGYRY
+         SFZXUjih3/WWNi0mASJUZOjYN2J8JJxwhP3lWXqlksynNng74sX1OylVg6Obdwfu6ZEi
+         5UYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=rjEVrWO3moq8rpuZa0b0GYhpCLgyhm8VlqMw+Ea4qUc=;
+        b=hAOm+jlYCMLWVsV2O4wuz51DIB8yuPD5cfG27vuRndZWdFJPdA9apgQEjtWE9lpZYp
+         CHC7bcHK4CI1okJPeVPJmpw9Vlb48lC731RQpxRl28Iq+y1coQS7MvK2oO6uVwxNbhRJ
+         t2nmclqFYN1KvqYDWhK0NkHH3HN6F3klIL85VHZeKQ0c5c19dAwGvTl2wkZI2v7e7WHI
+         SR1D/TcOl/1e0+FtOQ71pIXv0gsILwtJEcNCKWs3av4dbOx3v9tZKSUbL180UnnkIyrL
+         ubl8UuzpFw79iZbjaLXg4vWtxOAJa6dUpK0TC/MTWk6HzxiE2HgbpIbIU89XKTsg8+BT
+         7CMA==
+X-Gm-Message-State: AOAM530NvaNaC0tewZXmqsiw1Izkc4XQr+7FchsQwsweON8Ng7C1kR7R
+	+oYinTB1d4do7Hn+Q04Iovx6pHMxMtZxsg==
+X-Google-Smtp-Source: ABdhPJxy11y1+SFBML7QznyUV8e/TjAncibvLacUI8v4Jbu5NWkYW0SX5D0aPeABVndeJXmhg3rfow==
+X-Received: by 2002:a92:6804:: with SMTP id d4mr38570373ilc.5.1620962689992;
+        Thu, 13 May 2021 20:24:49 -0700 (PDT)
+Subject: Re: [PATCH for-next 5/6] xen: Add files needed for minimal riscv
+ build
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+References: <cover.1614265718.git.connojdavis@gmail.com>
+ <7652ce3486c026a3a9f7d850170ea81ba8a18bdb.1614265718.git.connojdavis@gmail.com>
+ <84f490e8-7035-565d-4b20-6e46ccc800f2@suse.com>
+From: Connor Davis <connojdavis@gmail.com>
+Message-ID: <58454a32-12d4-3bf3-f962-887be7bda381@gmail.com>
+Date: Thu, 13 May 2021 21:25:01 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <54427968-9b13-36e6-0001-27fb49f85635@xen.org>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
-
-Upon thinking about it, this seems appropriate to bring to the attention
-of the Xen development list since it seems to have wider implications.
+In-Reply-To: <84f490e8-7035-565d-4b20-6e46ccc800f2@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
 
-On Wed, May 12, 2021 at 11:08:39AM +0100, Julien Grall wrote:
-> On 12/05/2021 03:37, Elliott Mitchell wrote:
-> > 
-> > What about the approach to the grant-table/xenpv memory situation?
-> > 
-> > As stated for a 768MB VM, Xen suggested a 16MB range.  I'm unsure whether
-> > that is strictly meant for grant-table use or is meant for any foreign
-> > memory mappings (Julien?).
-> 
-> An OS is free to use it as it wants. However, there is no promise that:
->    1) The region will not shrink
->    2) The region will stay where it is
-
-Issue is what is the intended use of the memory range allocated to
-/hypervisor in the device-tree on ARM?  What do the Xen developers plan
-for?  What is expected?
+On 3/12/21 10:09 AM, Jan Beulich wrote:
+> On 25.02.2021 16:24, Connor Davis wrote:
+>> --- a/xen/include/public/hvm/save.h
+>> +++ b/xen/include/public/hvm/save.h
+>> @@ -106,6 +106,8 @@ DECLARE_HVM_SAVE_TYPE(END, 0, struct hvm_save_end);
+>>   #include "../arch-x86/hvm/save.h"
+>>   #elif defined(__arm__) || defined(__aarch64__)
+>>   #include "../arch-arm/hvm/save.h"
+>> +#elif defined(__riscv)
+>> +#include "../arch-riscv/hvm/save.h"
+> Does the compiler not also provide __riscv__? If it does, using it
+> here (and elsewhere) would fit better with the existing logic.
+>
+No only __riscv is defined
 
 
-With FreeBSD, Julien Grall's attempt 5 years ago at getting Xen/ARM
-support treated the grant table as distinct from other foreign memory
-mappings.  Yet for the current code (which is oriented towards x86) it is
-rather easier to treat all foreign mappings the same.
+Thanks,
 
-Limiting foreign mappings to a total of 16MB for a 768MB domain is tight.
-Was the /hypervisor range intended *strictly* for mapping grant-tables?
-Was it intended for the /hypervisor range to dynamically scale with the
-size of the domain?  Was it intended for /hypervisor to grow over the
-years as hardware got cheaper?
-
-Might it be better to deprecate the /hypervisor range and have domains
-allocate any available address space for foreign mappings?
-
-Should the FreeBSD implementation be treating grant tables as distinct
-from other foreign mappings?  (is treating them the same likely to
-induce buggy behavior on x86?)
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
+Connor
 
 
