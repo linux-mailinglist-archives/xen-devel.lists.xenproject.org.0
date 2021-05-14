@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F324381222
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 22:54:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127567.239785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DA3838126A
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 23:02:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127577.239796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhepR-0005Ob-KE; Fri, 14 May 2021 20:54:37 +0000
+	id 1lhewZ-0006vC-FW; Fri, 14 May 2021 21:01:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127567.239785; Fri, 14 May 2021 20:54:37 +0000
+Received: by outflank-mailman (output) from mailman id 127577.239796; Fri, 14 May 2021 21:01:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhepR-0005Lx-FK; Fri, 14 May 2021 20:54:37 +0000
-Received: by outflank-mailman (input) for mailman id 127567;
- Fri, 14 May 2021 20:54:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lhewZ-0006tL-BI; Fri, 14 May 2021 21:01:59 +0000
+Received: by outflank-mailman (input) for mailman id 127577;
+ Fri, 14 May 2021 21:01:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l2R2=KJ=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
- id 1lhepP-0005Lh-Ot
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 20:54:35 +0000
-Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a3e8d256-e19f-460e-ba88-322a74a98629;
- Fri, 14 May 2021 20:54:35 +0000 (UTC)
-Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1621025182737819.1959056472596;
- Fri, 14 May 2021 13:46:22 -0700 (PDT)
+ <SRS0=ZhtO=KJ=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1lhewX-0006tF-Rs
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 21:01:57 +0000
+Received: from mail-pj1-x1030.google.com (unknown [2607:f8b0:4864:20::1030])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8370a17f-116b-4cff-990f-3a063f56c7d2;
+ Fri, 14 May 2021 21:01:57 +0000 (UTC)
+Received: by mail-pj1-x1030.google.com with SMTP id
+ gb21-20020a17090b0615b029015d1a863a91so2279522pjb.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 May 2021 14:01:57 -0700 (PDT)
+Received: from ?IPv6:2601:1c2:4f80:d230::1? ([2601:1c2:4f80:d230::1])
+ by smtp.gmail.com with ESMTPSA id m6sm1756204pfc.133.2021.05.14.14.01.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 May 2021 14:01:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,113 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3e8d256-e19f-460e-ba88-322a74a98629
-ARC-Seal: i=1; a=rsa-sha256; t=1621025184; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=am66yHbMEbvVXda4yV02AM7B3UfoQs94eod4/+Nbhecxu6jNtYb7wp3iFrALk6oLmjok8zUUdwmVqjy10Or7Ylca18JhynRYiUM+/mixQOEV4N3zBx0+eFMd3X3svlowZ7XuHY6KunsthH88cYM74UR4ngHpnd0a2o8YMDDgnCA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1621025184; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=wGvCSSkU+bbasgBbtH8pFrI6xBZiDUPG25gTuiiEgZg=; 
-	b=fzl33zqwkpAb35n+OFVABlbb2MnwJNaXTVp/HFeQw3T1k3Lf8Od9844KtkyVf4PCurUW0g+BuOuYBlyj5cGaC/LAYr4VAoF0U7HzwK315Yhdx2dIjaQNOCJY7qGGy7kbicnZ13b33jMQm2g7gTIGxlBF2riRHTWOnDm4p9o4ZJs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com> header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1621025184;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wGvCSSkU+bbasgBbtH8pFrI6xBZiDUPG25gTuiiEgZg=;
-	b=B/FKSizqkYATTS3vrvUFnslLv3AB7UwEBf9dn/VFIO7eq3IKX4otTAAUYoj28D3y
-	yOfTUs2ikHw5Wvq5YKC+YNUxPZ4VfFoIpx9/SDTy9+Ssr+yT/cJZjqbXKJ3gYSVgF98
-	bK8MDMxF8mM2BjeMT/fbClzZ3obnHj4MtLRFH43A=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	julien@xen.org,
-	Volodymyr_Babchuk@epam.com,
-	andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	iwj@xenproject.org,
-	jbeulich@suse.com,
-	wl@xen.org,
-	roger.pau@citrix.com,
-	tamas@tklengyel.com,
-	tim@xen.org,
-	jgross@suse.com,
-	aisaila@bitdefender.com,
-	ppircalabu@bitdefender.com,
-	dfaggioli@suse.com,
-	paul@xen.org,
-	kevin.tian@intel.com,
-	dgdegra@tycho.nsa.gov,
-	adam.schwalm@starlab.io,
-	scott.davis@starlab.io
-Subject: [RFC PATCH 10/10] common/Kconfig: updating Kconfig for domain roles
-Date: Fri, 14 May 2021 16:54:37 -0400
-Message-Id: <20210514205437.13661-11-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210514205437.13661-1-dpsmith@apertussolutions.com>
-References: <20210514205437.13661-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: 8370a17f-116b-4cff-990f-3a063f56c7d2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:organization:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=guhBn2/qVoLPjSGAw62plNUlRR+xAO3c6yC3ikgOGR4=;
+        b=py0NTGeU8RfAmLSjOaEaSNeFMX0CPSIpN+e3/gLMOdsGpiC5PItDhnoR5r/ozPQG8E
+         z2E5BEIDf00q2GBewtAOwVVcYT7fo+Km7eig/FhGhh53eO11A+rRCNDU4B8G5apBM58w
+         LHz0lhI3KZMXeTemVGt4JIKojv09u9PcK1s3rM17oKXbYImchEdkqYIlrfzOxL6ZfxUY
+         3cuAZRgsOrsJ91vMi2zhgSFwUPwP7fov7MvhIqFha/1+ZtvlYat9sSXpxVoTLkrEvLhT
+         wT3useWR/tKkpV+IvMrXW1Cfo/hkr7Gumkfel0vKWFTzZnS9BlKb6ssM5EvzuYzdfiZC
+         LuPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=guhBn2/qVoLPjSGAw62plNUlRR+xAO3c6yC3ikgOGR4=;
+        b=XUPsCjeQiko/BapUu4P22Ep2lKhEt78KzNJGHp4VV3iBtMqOA32+HlDvZNq+R2lQ7Q
+         JEmn+JJncK/7yzG4/YK8FWWPUvMhxOi3uPE3Ogn5eo42978V5CWJCPSxcVMq5C+NRH1R
+         SJU4YGQ54Ef0clAOK5AgFOvCu0xksinxYv4jibOMue5n2Y3V7Ya3hpGBXQTboC/tlfXu
+         rRt6N6pPtGbZuF5x6IuBZ8rKs1XNrSLj7FzPaOo2g+jzIv989DrXACgPcOoDro0+5xDt
+         Qn2A1NXNrnxWRcSkeYkQ1FfSqD5zEYqMStNVTFG8tpgEBxkw3ZvbqE+mPTROXcLvw5R7
+         N7bA==
+X-Gm-Message-State: AOAM531TPRnsEVCzw1C6bB63RUfnB7epbtAflSo8BoB6Roa9oTLlF4TN
+	UWdmeOnh6ZKdwtyxBxBPvxQ=
+X-Google-Smtp-Source: ABdhPJzbCjhnbZSLvb8Dp9TsmWzt/xNcrSfLZDD3tozX3wzncMpjyO8hmlzKv2u9cDhy3yCb5Ri/gA==
+X-Received: by 2002:a17:90a:4493:: with SMTP id t19mr7188635pjg.217.1621026116323;
+        Fri, 14 May 2021 14:01:56 -0700 (PDT)
+Subject: Re: [PATCH v3 5/5] automation: Add container for riscv64 builds
+To: Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair23@gmail.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <cover.1621017334.git.connojdavis@gmail.com>
+ <5a78ff425e45588da5c97c68e94275b649346012.1621017334.git.connojdavis@gmail.com>
+From: Bob Eshleman <bobbyeshleman@gmail.com>
+Organization: Vates SAS
+Message-ID: <7efa3461-b8f0-c93b-95a2-c596a6dc2c1e@gmail.com>
+Date: Fri, 14 May 2021 14:01:53 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+In-Reply-To: <5a78ff425e45588da5c97c68e94275b649346012.1621017334.git.connojdavis@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This adjusts the Kconfig system for the reorganizing of XSM by the introduction
-of domain roles.
+On 5/14/21 11:53 AM, Connor Davis wrote:
+> +
+> +# There is a regression in GDB that causes an assertion error
+> +# when setting breakpoints, use this commit until it is fixed!
+> +RUN git clone --recursive -j$(nproc) --progress https://github.com/riscv/riscv-gnu-toolchain && \
+> +    cd riscv-gnu-toolchain/riscv-gdb && \
+> +    git checkout 1dd588507782591478882a891f64945af9e2b86c && \
+> +    cd  .. && \
+> +    ./configure --prefix=/opt/riscv && \
+> +    make linux -j$(nproc) && \
+> +    rm -R /riscv-gnu-toolchai
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
----
- xen/common/Kconfig | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+What do you think about using the RISCV tool chain from the Arch
+repos now?
 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 3064bf6b89..560ad274c4 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -199,11 +199,12 @@ config XENOPROF
- 
- 	  If unsure, say Y.
- 
--config XSM
--	bool "Xen Security Modules support"
--	default ARM
-+menu "Xen Security Modules"
-+
-+config XSM_POLICY
-+	bool "XSM policy support"
- 	---help---
--	  Enables the security framework known as Xen Security Modules which
-+	  Enables loadable policy support for Xen Security Modules which
- 	  allows administrators fine-grained control over a Xen domain and
- 	  its capabilities by defining permissible interactions between domains,
- 	  the hypervisor itself, and related resources such as memory and
-@@ -214,7 +215,7 @@ config XSM
- config XSM_FLASK
- 	def_bool y
- 	prompt "FLux Advanced Security Kernel support"
--	depends on XSM
-+	depends on XSM_POLICY
- 	---help---
- 	  Enables FLASK (FLux Advanced Security Kernel) as the access control
- 	  mechanism used by the XSM framework.  This provides a mandatory access
-@@ -254,7 +255,6 @@ config XSM_FLASK_POLICY
- config XSM_SILO
- 	def_bool y
- 	prompt "SILO support"
--	depends on XSM
- 	---help---
- 	  Enables SILO as the access control mechanism used by the XSM framework.
- 	  This is not the default module, add boot parameter xsm=silo to choose
-@@ -278,6 +278,8 @@ choice
- 		bool "SILO" if XSM_SILO
- endchoice
- 
-+endmenu
-+
- config LATE_HWDOM
- 	bool "Dedicated hardware domain"
- 	default n
+I've also discovered that the sym table error avoided by the commit
+pin can be worked around by removing already loaded symbols with
+`file` (no args) prior to calling `file path/to/file` to load new
+ones.  So if people did still want to use the container for
+development, they could still use the gdb installed by pacman
+(with the symbols caveat).
+
 -- 
-2.20.1
-
+Bobby Eshleman
+SE at Vates SAS
 
