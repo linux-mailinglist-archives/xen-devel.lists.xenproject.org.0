@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F2538027C
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 05:26:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127160.238917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AB3D380295
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 05:42:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127164.238929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhORZ-0002wj-0n; Fri, 14 May 2021 03:24:53 +0000
+	id 1lhOhl-0005Aa-E0; Fri, 14 May 2021 03:41:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127160.238917; Fri, 14 May 2021 03:24:52 +0000
+Received: by outflank-mailman (output) from mailman id 127164.238929; Fri, 14 May 2021 03:41:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhORY-0002tv-Td; Fri, 14 May 2021 03:24:52 +0000
-Received: by outflank-mailman (input) for mailman id 127160;
- Fri, 14 May 2021 03:24:51 +0000
+	id 1lhOhl-00057O-9q; Fri, 14 May 2021 03:41:37 +0000
+Received: by outflank-mailman (input) for mailman id 127164;
+ Fri, 14 May 2021 03:41:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CSkR=KJ=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1lhORX-0002tn-Ad
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 03:24:51 +0000
-Received: from mail-il1-x131.google.com (unknown [2607:f8b0:4864:20::131])
+ <SRS0=QDWZ=KJ=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
+ id 1lhOhj-00057G-Qe
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 03:41:35 +0000
+Received: from mail-qt1-x829.google.com (unknown [2607:f8b0:4864:20::829])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d585e6ba-f43b-487b-b9e5-c51e5fa812d1;
- Fri, 14 May 2021 03:24:50 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id j12so24759098ils.4
- for <xen-devel@lists.xenproject.org>; Thu, 13 May 2021 20:24:50 -0700 (PDT)
-Received: from [192.168.99.80] (142-79-211-230.starry-inc.net.
- [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id d2sm2412666ile.18.2021.05.13.20.24.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 May 2021 20:24:49 -0700 (PDT)
+ id f7900ed3-785a-45cb-8455-275a0609307d;
+ Fri, 14 May 2021 03:41:35 +0000 (UTC)
+Received: by mail-qt1-x829.google.com with SMTP id c10so11586905qtx.10
+ for <xen-devel@lists.xenproject.org>; Thu, 13 May 2021 20:41:35 -0700 (PDT)
+Received: from walnut.ice.pyrology.org (mobile-166-176-184-32.mycingular.net.
+ [166.176.184.32])
+ by smtp.gmail.com with ESMTPSA id g15sm3873432qka.49.2021.05.13.20.41.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 May 2021 20:41:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d585e6ba-f43b-487b-b9e5-c51e5fa812d1
+X-Inumbo-ID: f7900ed3-785a-45cb-8455-275a0609307d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=rjEVrWO3moq8rpuZa0b0GYhpCLgyhm8VlqMw+Ea4qUc=;
-        b=vgTI8EkZ7AKRgt7SnHw1F4ELlQWM/xswnMWiCyu5J1CHZNdhbNAQPUNjIVx42VHXpJ
-         FrUrV0LAcDEL3QfZaUxezVPEU+2y/eTLThxTcICb4JZFBSvw6Jg+pNFybLi57CFRoiwf
-         1+XGBR0qqfNz025ZE5TwpTPPAglGbRgZshdoTkOyM6ilMYhoFCbINBoRboDZaiCDAyV/
-         pmuFXGYUt50VhlOauUXKoM7179ZJ8LVHXPMnWAILSvsqPXdIEg2XbEl40X/nWLsPGYRY
-         SFZXUjih3/WWNi0mASJUZOjYN2J8JJxwhP3lWXqlksynNng74sX1OylVg6Obdwfu6ZEi
-         5UYA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=A/v1QITXYqG1suB6tX0Jl2pKcl1d0G85XYf1su05dpo=;
+        b=Lyuv6a0BPDqNJ/edx+Zud4iNbYYNiU1CMAJ6cmpcG2PHWt476Gjb7a1ASQXO42e2J/
+         DGSjcGXeje45z+Yu3YzbZajs8nNiE7VT8xHi0fRz5KpVH0nu5K27Q60cmXxASPcOKFJu
+         QsngTOvH2uQuqOcMXFZk+rVVaXz91VwvkxUSxAJmUR9i94pcNTWFT43pXRR3VBnQQyx0
+         SCSERhCVNEtc3VGV/NL34VqZPJNWxj5DDUNxI4x120HYH2KEMkYt73wZ/NEdhEd8falV
+         HlxPxpQYd6f7Eaj9hZ3J1WfhOjXGGxbMvdnvx077kJ5uBbELpZ/gKsi8BAVv5WNdPQH0
+         kEKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=rjEVrWO3moq8rpuZa0b0GYhpCLgyhm8VlqMw+Ea4qUc=;
-        b=hAOm+jlYCMLWVsV2O4wuz51DIB8yuPD5cfG27vuRndZWdFJPdA9apgQEjtWE9lpZYp
-         CHC7bcHK4CI1okJPeVPJmpw9Vlb48lC731RQpxRl28Iq+y1coQS7MvK2oO6uVwxNbhRJ
-         t2nmclqFYN1KvqYDWhK0NkHH3HN6F3klIL85VHZeKQ0c5c19dAwGvTl2wkZI2v7e7WHI
-         SR1D/TcOl/1e0+FtOQ71pIXv0gsILwtJEcNCKWs3av4dbOx3v9tZKSUbL180UnnkIyrL
-         ubl8UuzpFw79iZbjaLXg4vWtxOAJa6dUpK0TC/MTWk6HzxiE2HgbpIbIU89XKTsg8+BT
-         7CMA==
-X-Gm-Message-State: AOAM530NvaNaC0tewZXmqsiw1Izkc4XQr+7FchsQwsweON8Ng7C1kR7R
-	+oYinTB1d4do7Hn+Q04Iovx6pHMxMtZxsg==
-X-Google-Smtp-Source: ABdhPJxy11y1+SFBML7QznyUV8e/TjAncibvLacUI8v4Jbu5NWkYW0SX5D0aPeABVndeJXmhg3rfow==
-X-Received: by 2002:a92:6804:: with SMTP id d4mr38570373ilc.5.1620962689992;
-        Thu, 13 May 2021 20:24:49 -0700 (PDT)
-Subject: Re: [PATCH for-next 5/6] xen: Add files needed for minimal riscv
- build
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
-References: <cover.1614265718.git.connojdavis@gmail.com>
- <7652ce3486c026a3a9f7d850170ea81ba8a18bdb.1614265718.git.connojdavis@gmail.com>
- <84f490e8-7035-565d-4b20-6e46ccc800f2@suse.com>
-From: Connor Davis <connojdavis@gmail.com>
-Message-ID: <58454a32-12d4-3bf3-f962-887be7bda381@gmail.com>
-Date: Thu, 13 May 2021 21:25:01 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=A/v1QITXYqG1suB6tX0Jl2pKcl1d0G85XYf1su05dpo=;
+        b=Q3zx9CEMz0ZTjpmIoqSxFOOezFY8ZO9mfqzVspS7OULIJCeZ2YDm5OR0ckZIMgZ7eK
+         WzthWm+68AXk/2/nIay2ku8yzUsFGcxnR8iRHCCobI+X38SjR7IXQ6F5GGJh8VFpcEZV
+         F6RaJzWzAjUiMhTCu18UT9VTTUXk+3jrJMfvy8I8XGKrLeANlPLV+6/3Mo/4Ep3TSrf6
+         3QCIVtNsxJMCEMEQ4hyFoOVO0DfkmtvkDv2mB5axe8PCAg6EVsFL9+sTpqqIYFwVWmBE
+         VtKjW5etHr4TzwPAXBJkrRrpReqFZToJjEKGQmt7aupox9XWYo0SYdtlXn9qodNiannQ
+         DVTQ==
+X-Gm-Message-State: AOAM532WtKQLuVJh5aEFVXf9L0GN5oVLYK1OiCnVy2Kao05bAc2iQT1T
+	gNnUTp5DDHt+S7Y+wKiFYaJu0MD2YvTp4w==
+X-Google-Smtp-Source: ABdhPJwX5AYTyjg6nGHF/DXpwwDwO9nYNQY2nIOn5uj0jbRKXhGNHG9fGOpLTKEyYv1Xya7FizR8TQ==
+X-Received: by 2002:a05:622a:15c9:: with SMTP id d9mr24643186qty.103.1620963694737;
+        Thu, 13 May 2021 20:41:34 -0700 (PDT)
+From: Christopher Clark <christopher.w.clark@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: dpsmith@apertussolutions.com,
+	andrew.cooper3@citrix.com,
+	stefano.stabellini@xilinx.com,
+	jgrall@amazon.com,
+	Julien.grall.oss@gmail.com,
+	iwj@xenproject.org,
+	wl@xen.org,
+	george.dunlap@citrix.com,
+	jbeulich@suse.com,
+	persaur@gmail.com,
+	Bertrand.Marquis@arm.com,
+	roger.pau@citrix.com,
+	luca.fancellu@arm.com,
+	paul@xen.org,
+	adam.schwalm@starlab.io,
+	scott.davis@starlab.io,
+	Christopher Clark <christopher.clark@starlab.io>
+Subject: [PATCH v4 0/2] Introducing Hyperlaunch capability design (formerly: DomB mode of dom0less)
+Date: Thu, 13 May 2021 20:40:59 -0700
+Message-Id: <20210514034101.3683-1-christopher.w.clark@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <84f490e8-7035-565d-4b20-6e46ccc800f2@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+We are submitting for inclusion in the Xen documentation:
+
+- the Hyperlaunch design document, and
+- the Hyperlaunch device tree design document
+
+to describe a new method for launching the Xen hypervisor.
+
+The Hyperlaunch feature builds upon prior dom0less work,
+to bring a flexible and security-minded means to launch a
+variety of VM configurations as part of the startup of Xen.
+
+Signed-off-by: Christopher Clark <christopher.clark@starlab.io>
+Signed-off by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
 
-On 3/12/21 10:09 AM, Jan Beulich wrote:
-> On 25.02.2021 16:24, Connor Davis wrote:
->> --- a/xen/include/public/hvm/save.h
->> +++ b/xen/include/public/hvm/save.h
->> @@ -106,6 +106,8 @@ DECLARE_HVM_SAVE_TYPE(END, 0, struct hvm_save_end);
->>   #include "../arch-x86/hvm/save.h"
->>   #elif defined(__arm__) || defined(__aarch64__)
->>   #include "../arch-arm/hvm/save.h"
->> +#elif defined(__riscv)
->> +#include "../arch-riscv/hvm/save.h"
-> Does the compiler not also provide __riscv__? If it does, using it
-> here (and elsewhere) would fit better with the existing logic.
->
-No only __riscv is defined
+Daniel P. Smith (2):
+  docs/designs/launch: hyperlaunch design document
+  docs/designs/launch: hyperlaunch device tree
 
+ .../designs/launch/hyperlaunch-devicetree.rst |  343 ++++++
+ docs/designs/launch/hyperlaunch.rst           | 1004 +++++++++++++++++
+ 2 files changed, 1347 insertions(+)
+ create mode 100644 docs/designs/launch/hyperlaunch-devicetree.rst
+ create mode 100644 docs/designs/launch/hyperlaunch.rst
 
-Thanks,
-
-Connor
+-- 
+2.25.1
 
 
