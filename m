@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F5538145D
-	for <lists+xen-devel@lfdr.de>; Sat, 15 May 2021 01:51:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127629.239893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276ED38145E
+	for <lists+xen-devel@lfdr.de>; Sat, 15 May 2021 01:54:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127633.239904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhhaN-00013i-C6; Fri, 14 May 2021 23:51:15 +0000
+	id 1lhhdF-0001jm-Qu; Fri, 14 May 2021 23:54:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127629.239893; Fri, 14 May 2021 23:51:15 +0000
+Received: by outflank-mailman (output) from mailman id 127633.239904; Fri, 14 May 2021 23:54:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhhaN-00011q-8l; Fri, 14 May 2021 23:51:15 +0000
-Received: by outflank-mailman (input) for mailman id 127629;
- Fri, 14 May 2021 23:51:13 +0000
+	id 1lhhdF-0001hQ-NW; Fri, 14 May 2021 23:54:13 +0000
+Received: by outflank-mailman (input) for mailman id 127633;
+ Fri, 14 May 2021 23:54:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=saLk=KJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lhhaL-00011k-Rt
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 23:51:13 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=CSkR=KJ=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
+ id 1lhhdE-0001hK-Tl
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 23:54:13 +0000
+Received: from mail-io1-xd2a.google.com (unknown [2607:f8b0:4864:20::d2a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 38076f80-e871-4904-b875-bfd62736c1a3;
- Fri, 14 May 2021 23:51:13 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 033A261440;
- Fri, 14 May 2021 23:51:11 +0000 (UTC)
+ id b9e5c1de-74d9-4c6f-bc3a-0c9d96b39fd1;
+ Fri, 14 May 2021 23:54:12 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id k25so437573iob.6
+ for <xen-devel@lists.xenproject.org>; Fri, 14 May 2021 16:54:12 -0700 (PDT)
+Received: from [192.168.99.80] (142-79-211-230.starry-inc.net.
+ [142.79.211.230])
+ by smtp.gmail.com with ESMTPSA id o8sm3782827ils.46.2021.05.14.16.54.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 May 2021 16:54:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,211 +42,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38076f80-e871-4904-b875-bfd62736c1a3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1621036272;
-	bh=RkuxY7UFyW2YAXExWN195eVZmIgYm5uFRGdSYrW1fKc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=l4jnYRa+mphpanBZnHu/qHfk0lts6053+TAWO9YtwOLj25UPd75UdaZWj5nEym/tY
-	 t6UmNpQ1/gB0Z4dFFzWQHxmSYCmQsAUne+hHwKeD+hIsoxazZ9W8L9p85XtH36BZ1I
-	 aF/bhAXKE4W0kXsTDY1wbYOenAL84+qq54DKKrtNu39vZVOYthi7TH7AyvVsWJjyWS
-	 GsPDi+Kkmc4bOpbRL7f7Le5Q92wx6JROL27/zx+TECiQf5vHOgh3YWr0At/GCT0ZXu
-	 ebpMmZc0giGGk0yhwOtpDAsro523n68KZEvAxwqtCFNmcxXtNUDkd5pZu5bnBAkNQf
-	 4K/8kb/5yPKSQ==
-Date: Fri, 14 May 2021 16:51:11 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com, 
-    Penny.Zheng@arm.com, Bertrand.Marquis@arm.com, 
-    Julien Grall <julien.grall@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH RFCv2 14/15] xen/arm: mm: Rework
- setup_xenheap_mappings()
-In-Reply-To: <20210425201318.15447-15-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2105141646340.14426@sstabellini-ThinkPad-T480s>
-References: <20210425201318.15447-1-julien@xen.org> <20210425201318.15447-15-julien@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: b9e5c1de-74d9-4c6f-bc3a-0c9d96b39fd1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=rqRMzyXq2dA6+ggS4z9IyFlWf00u8oA3SiuA2M/aiek=;
+        b=Dcxle/7EJHO5rgaZ1WILwbV1l3hnRk7Qt6RSLlgjjcjjz7zW384yB3KIbmy9oUQOx6
+         p6UBNHsKcR05q8DRbGTl1PwCUocXL6rDDQzU9ZnUziEE7oYhMXwVTZQwuCPtafSz0BDx
+         WXdHzYmNbN0ONgPFQJgQOqTnCRzOMaVVXcWkMWyg3zCgE4PsWww5HpySyXAt2GQYPUhU
+         jHrdY4oErzqIkoc/LssGn3C3fNEJALwPAwf5ddFBv1TN4vDtnmMt8ZuKBvJ3KTVsSaQy
+         vgCEH8G7z6unQg8/Zq3z11a6Vyeti0n77IsjR491Ifx5ymLT7ixZ2r2bvLnbDj+Mdjhj
+         zhTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=rqRMzyXq2dA6+ggS4z9IyFlWf00u8oA3SiuA2M/aiek=;
+        b=ZWRyvu3iuBRcihwUEsPC3v+nQcqWGDaPJ0+6s45pqFX+U0GgEK7pYP7usgbKCj9GPZ
+         EOYyUqMFfR6uOGj1tncY7M6sApcjbPcJ0yZadgkPfeoYf4d2oxbNk1fahgUIldjaPB71
+         emF65Z4UeAa/oqDR9tVUOPPcktTPUI9v8/SlwPWmrOBlaU3F2FsTFaV/MPqkRwEKSVTV
+         sHt6KwsJx7nnNH2TY5UciD1gB1ytmT5RNgxfKg3fyho7sizW0mSYmHzJIsS7u9pfGAFt
+         FG8jqU4GIWPHSHDlHu49VyWiSuxsA9UZ5gr/2ZN6ItW/f80t6WicrVR96jp683+/uYfC
+         vIaA==
+X-Gm-Message-State: AOAM531grGPb8OVvBrVWLHirx9RJaetI8aNWVHfPnn7ZvZz79OrwrwkH
+	3igI8Nu8if1R38I3uzq60dI=
+X-Google-Smtp-Source: ABdhPJxxu2K7aB9D2JD+utYCDQ3BL7M7OpXoF/Ojp7gSYTdp+KQyPkjnqUYFzMr33Ctt7iZ0y1iRww==
+X-Received: by 2002:a02:5142:: with SMTP id s63mr44752697jaa.82.1621036451854;
+        Fri, 14 May 2021 16:54:11 -0700 (PDT)
+Subject: Re: [PATCH v3 5/5] automation: Add container for riscv64 builds
+To: Bob Eshleman <bobbyeshleman@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair23@gmail.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <cover.1621017334.git.connojdavis@gmail.com>
+ <5a78ff425e45588da5c97c68e94275b649346012.1621017334.git.connojdavis@gmail.com>
+ <7efa3461-b8f0-c93b-95a2-c596a6dc2c1e@gmail.com>
+From: Connor Davis <connojdavis@gmail.com>
+Message-ID: <eed7d4e6-6efb-c166-b947-0163df864f8b@gmail.com>
+Date: Fri, 14 May 2021 17:54:25 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Sun, 25 Apr 2021, Julien Grall wrote:
-> From: Julien Grall <julien.grall@arm.com>
-> 
-> A few issues have been reported with setup_xenheap_mappings() over the
-> last couple of years. The main ones are:
->     - It will break on platform supporting more than 512GB of RAM
->       because the memory allocated by the boot allocator is not yet
->       mapped.
->     - Aligning all the regions to 1GB may lead to unexpected result
->       because we may alias non-cacheable region (such as device or reserved
->       regions).
-> 
-> map_pages_to_xen() was recently reworked to allow superpage mappings and
-> deal with the use of page-tables before they are mapped.
-> 
-> Most of the code in setup_xenheap_mappings() is now replaced with a
-> single call to map_pages_to_xen().
-> 
-> This also require to re-order the steps setup_mm() so the regions are
-> given to the boot allocator first and then we setup the xenheap
-> mappings.
-
-I know this is paranoia but doesn't this introduce a requirement on the
-size of the first bank in bootinfo.mem.bank[] ?
-
-It should be at least 8KB?
-
-I know it is unlikely but it is theoretically possible to have a first
-bank of just 1KB.
-
-I think we should write the requirement down with an in-code comment?
-Or better maybe we should write a message about it in the panic below?
+In-Reply-To: <7efa3461-b8f0-c93b-95a2-c596a6dc2c1e@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
 
-> Note that the 1GB alignment is not yet removed.
-> 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> ---
->     Changes in v2:
->         - New patch
-> 
->     TODO:
->         - Remove the 1GB alignment
->         - Add support for setting the contiguous bit
-> ---
->  xen/arch/arm/mm.c    | 60 ++++----------------------------------------
->  xen/arch/arm/setup.c | 10 ++++++--
+On 5/14/21 3:01 PM, Bob Eshleman wrote:
+> On 5/14/21 11:53 AM, Connor Davis wrote:
+>> +
+>> +# There is a regression in GDB that causes an assertion error
+>> +# when setting breakpoints, use this commit until it is fixed!
+>> +RUN git clone --recursive -j$(nproc) --progress https://github.com/riscv/riscv-gnu-toolchain && \
+>> +    cd riscv-gnu-toolchain/riscv-gdb && \
+>> +    git checkout 1dd588507782591478882a891f64945af9e2b86c && \
+>> +    cd  .. && \
+>> +    ./configure --prefix=/opt/riscv && \
+>> +    make linux -j$(nproc) && \
+>> +    rm -R /riscv-gnu-toolchai
+> What do you think about using the RISCV tool chain from the Arch
+> repos now?
+That sounds much better, will update
+>
+> I've also discovered that the sym table error avoided by the commit
+> pin can be worked around by removing already loaded symbols with
+> `file` (no args) prior to calling `file path/to/file` to load new
+> ones.  So if people did still want to use the container for
+> development, they could still use the gdb installed by pacman
+> (with the symbols caveat).
+>
+Thanks,
 
-I love it!
+Connor
 
-
->  2 files changed, 13 insertions(+), 57 deletions(-)
-> 
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index f5768f2d4a81..c49403b687f5 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -143,17 +143,6 @@ static DEFINE_PAGE_TABLE(cpu0_pgtable);
->  static DEFINE_PAGE_TABLES(cpu0_dommap, DOMHEAP_SECOND_PAGES);
->  #endif
->  
-> -#ifdef CONFIG_ARM_64
-> -/* The first page of the first level mapping of the xenheap. The
-> - * subsequent xenheap first level pages are dynamically allocated, but
-> - * we need this one to bootstrap ourselves. */
-> -static DEFINE_PAGE_TABLE(xenheap_first_first);
-> -/* The zeroeth level slot which uses xenheap_first_first. Used because
-> - * setup_xenheap_mappings otherwise relies on mfn_to_virt which isn't
-> - * valid for a non-xenheap mapping. */
-> -static __initdata int xenheap_first_first_slot = -1;
-> -#endif
-> -
->  /* Common pagetable leaves */
->  /* Second level page tables.
->   *
-> @@ -818,9 +807,9 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
->  void __init setup_xenheap_mappings(unsigned long base_mfn,
->                                     unsigned long nr_mfns)
->  {
-> -    lpae_t *first, pte;
->      unsigned long mfn, end_mfn;
->      vaddr_t vaddr;
-> +    int rc;
->  
->      /* Align to previous 1GB boundary */
->      mfn = base_mfn & ~((FIRST_SIZE>>PAGE_SHIFT)-1);
-> @@ -846,49 +835,10 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
->       */
->      vaddr = (vaddr_t)__mfn_to_virt(base_mfn) & FIRST_MASK;
->  
-> -    while ( mfn < end_mfn )
-> -    {
-> -        int slot = zeroeth_table_offset(vaddr);
-> -        lpae_t *p = &xen_pgtable[slot];
-> -
-> -        if ( p->pt.valid )
-> -        {
-> -            /* mfn_to_virt is not valid on the 1st 1st mfn, since it
-> -             * is not within the xenheap. */
-> -            first = slot == xenheap_first_first_slot ?
-> -                xenheap_first_first : mfn_to_virt(lpae_get_mfn(*p));
-> -        }
-> -        else if ( xenheap_first_first_slot == -1)
-> -        {
-> -            /* Use xenheap_first_first to bootstrap the mappings */
-> -            first = xenheap_first_first;
-> -
-> -            pte = pte_of_xenaddr((vaddr_t)xenheap_first_first);
-> -            pte.pt.table = 1;
-> -            write_pte(p, pte);
-> -
-> -            xenheap_first_first_slot = slot;
-> -        }
-> -        else
-> -        {
-> -            mfn_t first_mfn = alloc_boot_pages(1, 1);
-> -
-> -            clear_page(mfn_to_virt(first_mfn));
-> -            pte = mfn_to_xen_entry(first_mfn, MT_NORMAL);
-> -            pte.pt.table = 1;
-> -            write_pte(p, pte);
-> -            first = mfn_to_virt(first_mfn);
-> -        }
-> -
-> -        pte = mfn_to_xen_entry(_mfn(mfn), MT_NORMAL);
-> -        /* TODO: Set pte.pt.contig when appropriate. */
-> -        write_pte(&first[first_table_offset(vaddr)], pte);
-> -
-> -        mfn += FIRST_SIZE>>PAGE_SHIFT;
-> -        vaddr += FIRST_SIZE;
-> -    }
-> -
-> -    flush_xen_tlb_local();
-> +    rc = map_pages_to_xen(vaddr, _mfn(mfn), end_mfn - mfn,
-> +                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
-> +    if ( rc )
-> +        panic("Unable to setup the xenheap mappings.\n");
-
-This is the panic I was talking about
-
-
->  }
->  #endif
->  
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 00aad1c194b9..0993a4bb52d4 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -761,8 +761,11 @@ static void __init setup_mm(void)
->          ram_start = min(ram_start,bank_start);
->          ram_end = max(ram_end,bank_end);
->  
-> -        setup_xenheap_mappings(bank_start>>PAGE_SHIFT, bank_size>>PAGE_SHIFT);
-> -
-> +        /*
-> +         * Add the region to the boot allocator first, so we can use
-> +         * some to allocate page-tables for setting up the xenheap
-> +         * mappings.
-> +         */
->          s = bank_start;
->          while ( s < bank_end )
->          {
-> @@ -781,6 +784,9 @@ static void __init setup_mm(void)
->              fw_unreserved_regions(s, e, init_boot_pages, 0);
->              s = n;
->          }
-> +
-> +        setup_xenheap_mappings(bank_start >> PAGE_SHIFT,
-> +                               bank_size >> PAGE_SHIFT);
->      }
->  
->      total_pages += ram_size >> PAGE_SHIFT;
-> -- 
-> 2.17.1
-> 
 
