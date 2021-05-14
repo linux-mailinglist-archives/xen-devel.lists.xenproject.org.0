@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 281A838054D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 10:32:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127256.239125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E76D38055C
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 10:39:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127260.239136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhTEz-00073s-IG; Fri, 14 May 2021 08:32:13 +0000
+	id 1lhTLj-0007mM-9h; Fri, 14 May 2021 08:39:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127256.239125; Fri, 14 May 2021 08:32:13 +0000
+Received: by outflank-mailman (output) from mailman id 127260.239136; Fri, 14 May 2021 08:39:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhTEz-00071G-ES; Fri, 14 May 2021 08:32:13 +0000
-Received: by outflank-mailman (input) for mailman id 127256;
- Fri, 14 May 2021 08:32:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lhTLj-0007k0-5Y; Fri, 14 May 2021 08:39:11 +0000
+Received: by outflank-mailman (input) for mailman id 127260;
+ Fri, 14 May 2021 08:39:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lhTEy-00071A-H4
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 08:32:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lhTEy-0004Uj-3l; Fri, 14 May 2021 08:32:12 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lhTEx-0004tW-UT; Fri, 14 May 2021 08:32:12 +0000
+ (envelope-from <SRS0=sDpF=KJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lhTLh-0007ju-MV
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 08:39:09 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2b8b0916-4a3a-44fb-a9e7-cbcfd3e61c7a;
+ Fri, 14 May 2021 08:39:08 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 578DCB16C;
+ Fri, 14 May 2021 08:39:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,138 +38,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=0sbUH7G16PopEH/rjYcHFkkcZyBjinXGx914CCtJe/I=; b=FEJe7Wk0st9R/2eEYMXvTOElfs
-	27DZs4Cm/qiMODrLEZ5hjoqcS38a3sMN5CenFLoQBoeMhw436FGyqjv9wT7r39FdL/wi0DasPN0ol
-	UFWuyr8QGh0XgFf2iWIDv6CdVaMz5uGtqw3o4qBQ1iynj9eqyqO3RTnUuMJoInqX0KnM=;
-Subject: Re: Uses of /hypervisor memory range (was: FreeBSD/Xen/ARM issues)
-To: Elliott Mitchell <ehem+undef@m5p.com>
-Cc: xen-devel@lists.xenproject.org, Roger Pau Monn?? <royger@freebsd.org>,
- Mitchell Horne <mhorne@freebsd.org>
-References: <YIhSbkfShjN/gMCe@Air-de-Roger>
- <YIndyh0sRqcmcMim@mattapan.m5p.com> <YIptpndhk6MOJFod@Air-de-Roger>
- <YItwHirnih6iUtRS@mattapan.m5p.com> <YIu80FNQHKS3+jVN@Air-de-Roger>
- <YJDcDjjgCsQUdsZ7@mattapan.m5p.com> <YJURGaqAVBSYnMRf@Air-de-Roger>
- <YJYem5CW/97k/e5A@mattapan.m5p.com> <YJs/YAgB8molh7e5@mattapan.m5p.com>
- <54427968-9b13-36e6-0001-27fb49f85635@xen.org>
- <YJ3jlGSxs60Io+dp@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <93936406-574f-7fd0-53bf-3bafaa4b1947@xen.org>
-Date: Fri, 14 May 2021 09:32:10 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.1
+X-Inumbo-ID: 2b8b0916-4a3a-44fb-a9e7-cbcfd3e61c7a
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1620981547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ob63ffXUj7jX5HQcQ9WrfD7PQ0n7r+vG/seNM0m+Z/w=;
+	b=r2GdA0+j5+7TI8JKzqA13YEoIpnc3Sy+TMU0nWwZYVDm0ykPyGad4Vhrvxu8fxrIa8mNGR
+	GfGvA6pGa3iJK90fQ11aT7yDfaIAWbZipmvBmOE981+SVYInIx66Y/8ZFhy+IH3FeFpT1F
+	kxWS0c4NTSUiSSbqto96yIk1IFOOkNw=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] tools/xenstore: simplify xenstored main loop
+Date: Fri, 14 May 2021 10:39:05 +0200
+Message-Id: <20210514083905.18212-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <YJ3jlGSxs60Io+dp@mattapan.m5p.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Elliott,
+The main loop of xenstored is rather complicated due to different
+handling of socket and ring-page interfaces. Unify that handling by
+introducing interface type specific functions can_read() and
+can_write().
 
-On 14/05/2021 03:42, Elliott Mitchell wrote:
-> Upon thinking about it, this seems appropriate to bring to the attention
-> of the Xen development list since it seems to have wider implications.
-> 
-> 
-> On Wed, May 12, 2021 at 11:08:39AM +0100, Julien Grall wrote:
->> On 12/05/2021 03:37, Elliott Mitchell wrote:
->>>
->>> What about the approach to the grant-table/xenpv memory situation?
->>>
->>> As stated for a 768MB VM, Xen suggested a 16MB range.  I'm unsure whether
->>> that is strictly meant for grant-table use or is meant for any foreign
->>> memory mappings (Julien?).
->>
->> An OS is free to use it as it wants. However, there is no promise that:
->>     1) The region will not shrink
->>     2) The region will stay where it is
-> 
-> Issue is what is the intended use of the memory range allocated to
-> /hypervisor in the device-tree on ARM?  What do the Xen developers plan
-> for?  What is expected?
+Put the interface type specific functions in an own structure and let
+struct connection contain only a pointer to that new function vector.
 
- From docs/misc/arm/device-tree/guest.txt:
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ tools/xenstore/xenstored_core.c   | 117 ++++++++++++++----------------
+ tools/xenstore/xenstored_core.h   |  19 ++---
+ tools/xenstore/xenstored_domain.c |  11 ++-
+ 3 files changed, 73 insertions(+), 74 deletions(-)
 
-"
-- reg: specifies the base physical address and size of a region in
-   memory where the grant table should be mapped to, using an
-   HYPERVISOR_memory_op hypercall. The memory region is large enough to map
-   the whole grant table (it is larger or equal to 
-gnttab_max_grant_frames()).
-   This property is unnecessary when booting Dom0 using ACPI.
-"
-
-Effectively, this is a known space in memory that is unallocated. Not 
-all the guests will use it if they have a better way to find unallocated 
-space.
-
-> 
-> 
-> With FreeBSD, Julien Grall's attempt 5 years ago at getting Xen/ARM
-> support treated the grant table as distinct from other foreign memory
-> mappings.  Yet for the current code (which is oriented towards x86) it is
-> rather easier to treat all foreign mappings the same.
-> 
-> Limiting foreign mappings to a total of 16MB for a 768MB domain is tight.
-
-It is not clear to me whether you are referring to frontend or backend 
-domain.
-
-However, there is no relation between the size of a domain and how many 
-foreign pages it will map. You can have a tiny backend (let say 128MB of 
-RAM) that will handle a large domain (e.g. 2GB).
-
-Instead, it depends on the maximum number of pages that will be mapped 
-at a given point. If you are running a device emulator, then it is more 
-convenient to try to keep as many foreign pages as possible mapped.
-
-For PV backend (e.g. block, net), they tend to use grant mapping. Most 
-of the time they are ephemeral (they last for the duration of the 
-requests) but in some cases they will be kept mapped for the longer (for 
-instance the block backend may support persistent grant).
-
-> Was the /hypervisor range intended *strictly* for mapping grant-tables?
-
-It was introduced to tell the OS a place where the grant-table could be 
-conveniently mapped.
-
-> Was it intended for the /hypervisor range to dynamically scale with the
-> size of the domain? 
-As per above, this doesn't depend on the size of the domain. Instead, 
-this depends on what sort of the backend will be present in the domain.
-
-> Was it intended for /hypervisor to grow over the
-> years as hardware got cheaper?
-I don't understand this question.
-
-> Might it be better to deprecate the /hypervisor range and have domains
-> allocate any available address space for foreign mappings?
-
-It may be easy for FreeBSD to find available address space but so far 
-this has not been the case in Linux (I haven't checked the latest 
-version though).
-
-To be clear, an OS is free to not use the range provided in /hypervisor 
-(maybe this is not clear enough in the spec?). This was mostly 
-introduced to overcome some issues we saw in Linux when Xen on Arm was 
-introduced.
-
-> 
-> Should the FreeBSD implementation be treating grant tables as distinct
-> from other foreign mappings?
-
-Both require unallocated addres space to work. IIRC FreeBSD is able to 
-find unallocated space easily, so I would recommend to use it.
-
-> (is treating them the same likely to
-> induce buggy behavior on x86?)
-
-I will leave this answer to Roger.
-
-Cheers,
-
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 4b7b71cfb3..b66d119a98 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -226,8 +226,8 @@ static bool write_messages(struct connection *conn)
+ 				sockmsg_string(out->hdr.msg.type),
+ 				out->hdr.msg.len,
+ 				out->buffer, conn);
+-		ret = conn->write(conn, out->hdr.raw + out->used,
+-				  sizeof(out->hdr) - out->used);
++		ret = conn->funcs->write(conn, out->hdr.raw + out->used,
++					 sizeof(out->hdr) - out->used);
+ 		if (ret < 0)
+ 			return false;
+ 
+@@ -243,8 +243,8 @@ static bool write_messages(struct connection *conn)
+ 			return true;
+ 	}
+ 
+-	ret = conn->write(conn, out->buffer + out->used,
+-			  out->hdr.msg.len - out->used);
++	ret = conn->funcs->write(conn, out->buffer + out->used,
++				 out->hdr.msg.len - out->used);
+ 	if (ret < 0)
+ 		return false;
+ 
+@@ -1531,8 +1531,8 @@ static void handle_input(struct connection *conn)
+ 	/* Not finished header yet? */
+ 	if (in->inhdr) {
+ 		if (in->used != sizeof(in->hdr)) {
+-			bytes = conn->read(conn, in->hdr.raw + in->used,
+-					   sizeof(in->hdr) - in->used);
++			bytes = conn->funcs->read(conn, in->hdr.raw + in->used,
++						  sizeof(in->hdr) - in->used);
+ 			if (bytes < 0)
+ 				goto bad_client;
+ 			in->used += bytes;
+@@ -1557,8 +1557,8 @@ static void handle_input(struct connection *conn)
+ 		in->inhdr = false;
+ 	}
+ 
+-	bytes = conn->read(conn, in->buffer + in->used,
+-			   in->hdr.msg.len - in->used);
++	bytes = conn->funcs->read(conn, in->buffer + in->used,
++				  in->hdr.msg.len - in->used);
+ 	if (bytes < 0)
+ 		goto bad_client;
+ 
+@@ -1581,7 +1581,7 @@ static void handle_output(struct connection *conn)
+ 		ignore_connection(conn);
+ }
+ 
+-struct connection *new_connection(connwritefn_t *write, connreadfn_t *read)
++struct connection *new_connection(struct interface_funcs *funcs)
+ {
+ 	struct connection *new;
+ 
+@@ -1591,8 +1591,7 @@ struct connection *new_connection(connwritefn_t *write, connreadfn_t *read)
+ 
+ 	new->fd = -1;
+ 	new->pollfd_idx = -1;
+-	new->write = write;
+-	new->read = read;
++	new->funcs = funcs;
+ 	new->is_ignored = false;
+ 	new->transaction_started = 0;
+ 	INIT_LIST_HEAD(&new->out_list);
+@@ -1622,17 +1621,7 @@ static void accept_connection(int sock)
+ {
+ }
+ 
+-int writefd(struct connection *conn, const void *data, unsigned int len)
+-{
+-	errno = EBADF;
+-	return -1;
+-}
+-
+-int readfd(struct connection *conn, void *data, unsigned int len)
+-{
+-	errno = EBADF;
+-	return -1;
+-}
++struct interface_funcs socket_funcs;
+ #else
+ int writefd(struct connection *conn, const void *data, unsigned int len)
+ {
+@@ -1672,6 +1661,29 @@ int readfd(struct connection *conn, void *data, unsigned int len)
+ 	return rc;
+ }
+ 
++static bool socket_can_process(struct connection *conn, int mask)
++{
++	if (conn->pollfd_idx == -1)
++		return false;
++
++	if (fds[conn->pollfd_idx].revents & ~(POLLIN | POLLOUT)) {
++		talloc_free(conn);
++		return false;
++	}
++
++	return (fds[conn->pollfd_idx].revents & mask) && !conn->is_ignored;
++}
++
++static bool socket_can_write(struct connection *conn)
++{
++	return socket_can_process(conn, POLLOUT);
++}
++
++static bool socket_can_read(struct connection *conn)
++{
++	return socket_can_process(conn, POLLIN);
++}
++
+ static void accept_connection(int sock)
+ {
+ 	int fd;
+@@ -1681,12 +1693,19 @@ static void accept_connection(int sock)
+ 	if (fd < 0)
+ 		return;
+ 
+-	conn = new_connection(writefd, readfd);
++	conn = new_connection(&socket_funcs);
+ 	if (conn)
+ 		conn->fd = fd;
+ 	else
+ 		close(fd);
+ }
++
++struct interface_funcs socket_funcs = {
++	.write = writefd,
++	.read = readfd,
++	.can_write = socket_can_write,
++	.can_read = socket_can_read,
++};
+ #endif
+ 
+ static int tdb_flags;
+@@ -2304,47 +2323,19 @@ int main(int argc, char *argv[])
+ 			if (&next->list != &connections)
+ 				talloc_increase_ref_count(next);
+ 
+-			if (conn->domain) {
+-				if (domain_can_read(conn))
+-					handle_input(conn);
+-				if (talloc_free(conn) == 0)
+-					continue;
+-
+-				talloc_increase_ref_count(conn);
+-				if (domain_can_write(conn) &&
+-				    !list_empty(&conn->out_list))
+-					handle_output(conn);
+-				if (talloc_free(conn) == 0)
+-					continue;
+-			} else {
+-				if (conn->pollfd_idx != -1) {
+-					if (fds[conn->pollfd_idx].revents
+-					    & ~(POLLIN|POLLOUT))
+-						talloc_free(conn);
+-					else if ((fds[conn->pollfd_idx].revents
+-						  & POLLIN) &&
+-						 !conn->is_ignored)
+-						handle_input(conn);
+-				}
+-				if (talloc_free(conn) == 0)
+-					continue;
+-
+-				talloc_increase_ref_count(conn);
+-
+-				if (conn->pollfd_idx != -1) {
+-					if (fds[conn->pollfd_idx].revents
+-					    & ~(POLLIN|POLLOUT))
+-						talloc_free(conn);
+-					else if ((fds[conn->pollfd_idx].revents
+-						  & POLLOUT) &&
+-						 !conn->is_ignored)
+-						handle_output(conn);
+-				}
+-				if (talloc_free(conn) == 0)
+-					continue;
++			if (conn->funcs->can_read(conn))
++				handle_input(conn);
++			if (talloc_free(conn) == 0)
++				continue;
+ 
+-				conn->pollfd_idx = -1;
+-			}
++			talloc_increase_ref_count(conn);
++
++			if (conn->funcs->can_write(conn))
++				handle_output(conn);
++			if (talloc_free(conn) == 0)
++				continue;
++
++			conn->pollfd_idx = -1;
+ 		}
+ 
+ 		if (delayed_requests) {
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 6a6d0448e8..1467270476 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -86,8 +86,13 @@ struct delayed_request {
+ };
+ 
+ struct connection;
+-typedef int connwritefn_t(struct connection *, const void *, unsigned int);
+-typedef int connreadfn_t(struct connection *, void *, unsigned int);
++
++struct interface_funcs {
++	int (*write)(struct connection *, const void *, unsigned int);
++	int (*read)(struct connection *, void *, unsigned int);
++	bool (*can_write)(struct connection *);
++	bool (*can_read)(struct connection *);
++};
+ 
+ struct connection
+ {
+@@ -131,9 +136,8 @@ struct connection
+ 	/* My watches. */
+ 	struct list_head watches;
+ 
+-	/* Methods for communicating over this connection: write can be NULL */
+-	connwritefn_t *write;
+-	connreadfn_t *read;
++	/* Methods for communicating over this connection. */
++	struct interface_funcs *funcs;
+ 
+ 	/* Support for live update: connection id. */
+ 	unsigned int conn_id;
+@@ -196,7 +200,7 @@ int write_node_raw(struct connection *conn, TDB_DATA *key, struct node *node,
+ struct node *read_node(struct connection *conn, const void *ctx,
+ 		       const char *name);
+ 
+-struct connection *new_connection(connwritefn_t *write, connreadfn_t *read);
++struct connection *new_connection(struct interface_funcs *funcs);
+ struct connection *get_connection_by_id(unsigned int conn_id);
+ void check_store(void);
+ void corrupt(struct connection *conn, const char *fmt, ...);
+@@ -254,9 +258,6 @@ void finish_daemonize(void);
+ /* Open a pipe for signal handling */
+ void init_pipe(int reopen_log_pipe[2]);
+ 
+-int writefd(struct connection *conn, const void *data, unsigned int len);
+-int readfd(struct connection *conn, void *data, unsigned int len);
+-
+ extern struct interface_funcs socket_funcs;
+ extern xengnttab_handle **xgt_handle;
+ 
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 0c17937c0f..6e0fa6e861 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -172,6 +172,13 @@ static int readchn(struct connection *conn, void *data, unsigned int len)
+ 	return len;
+ }
+ 
++static struct interface_funcs domain_funcs = {
++	.write = writechn,
++	.read = readchn,
++	.can_write = domain_can_write,
++	.can_read = domain_can_read,
++};
++
+ static void *map_interface(domid_t domid)
+ {
+ 	return xengnttab_map_grant_ref(*xgt_handle, domid,
+@@ -389,7 +396,7 @@ static int new_domain(struct domain *domain, int port, bool restore)
+ 
+ 	domain->introduced = true;
+ 
+-	domain->conn = new_connection(writechn, readchn);
++	domain->conn = new_connection(&domain_funcs);
+ 	if (!domain->conn)  {
+ 		errno = ENOMEM;
+ 		return errno;
+@@ -1288,7 +1295,7 @@ void read_state_connection(const void *ctx, const void *state)
+ 	struct domain *domain, *tdomain;
+ 
+ 	if (sc->conn_type == XS_STATE_CONN_TYPE_SOCKET) {
+-		conn = new_connection(writefd, readfd);
++		conn = new_connection(&socket_funcs);
+ 		if (!conn)
+ 			barf("error restoring connection");
+ 		conn->fd = sc->spec.socket_fd;
 -- 
-Julien Grall
+2.26.2
+
 
