@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D79038052C
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 10:27:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127248.239110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 281A838054D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 10:32:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127256.239125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhT93-0005c7-MG; Fri, 14 May 2021 08:26:05 +0000
+	id 1lhTEz-00073s-IG; Fri, 14 May 2021 08:32:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127248.239110; Fri, 14 May 2021 08:26:05 +0000
+Received: by outflank-mailman (output) from mailman id 127256.239125; Fri, 14 May 2021 08:32:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhT93-0005ZY-IX; Fri, 14 May 2021 08:26:05 +0000
-Received: by outflank-mailman (input) for mailman id 127248;
- Fri, 14 May 2021 08:26:03 +0000
+	id 1lhTEz-00071G-ES; Fri, 14 May 2021 08:32:13 +0000
+Received: by outflank-mailman (input) for mailman id 127256;
+ Fri, 14 May 2021 08:32:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lhT91-0005ZO-SP; Fri, 14 May 2021 08:26:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lhTEy-00071A-H4
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 08:32:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lhT91-0004NI-2w; Fri, 14 May 2021 08:26:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lhT90-00066u-M1; Fri, 14 May 2021 08:26:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lhT90-0007gI-LV; Fri, 14 May 2021 08:26:02 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lhTEy-0004Uj-3l; Fri, 14 May 2021 08:32:12 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lhTEx-0004tW-UT; Fri, 14 May 2021 08:32:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,275 +39,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Pt+5xqEEcWJnMfUOfVbhTNaYyUXkAMs/wqTMR4VCHjY=; b=vQKFsvgVeuZbMCgV2YXmjthU3p
-	tLuWrt0FKf0Wzo+wAg4J7+Wp25szAwHAC9F7fpw5nkk4I/KY5CnIsIPyiiltsyBj8D/HoSZ9gFlTq
-	G8uaQVJ2VVopptfrWVtO9dMoZ1gilS3pWCdmnR70h8gECw0rxakJGLSXHZiRlUghidIg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161944-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=0sbUH7G16PopEH/rjYcHFkkcZyBjinXGx914CCtJe/I=; b=FEJe7Wk0st9R/2eEYMXvTOElfs
+	27DZs4Cm/qiMODrLEZ5hjoqcS38a3sMN5CenFLoQBoeMhw436FGyqjv9wT7r39FdL/wi0DasPN0ol
+	UFWuyr8QGh0XgFf2iWIDv6CdVaMz5uGtqw3o4qBQ1iynj9eqyqO3RTnUuMJoInqX0KnM=;
+Subject: Re: Uses of /hypervisor memory range (was: FreeBSD/Xen/ARM issues)
+To: Elliott Mitchell <ehem+undef@m5p.com>
+Cc: xen-devel@lists.xenproject.org, Roger Pau Monn?? <royger@freebsd.org>,
+ Mitchell Horne <mhorne@freebsd.org>
+References: <YIhSbkfShjN/gMCe@Air-de-Roger>
+ <YIndyh0sRqcmcMim@mattapan.m5p.com> <YIptpndhk6MOJFod@Air-de-Roger>
+ <YItwHirnih6iUtRS@mattapan.m5p.com> <YIu80FNQHKS3+jVN@Air-de-Roger>
+ <YJDcDjjgCsQUdsZ7@mattapan.m5p.com> <YJURGaqAVBSYnMRf@Air-de-Roger>
+ <YJYem5CW/97k/e5A@mattapan.m5p.com> <YJs/YAgB8molh7e5@mattapan.m5p.com>
+ <54427968-9b13-36e6-0001-27fb49f85635@xen.org>
+ <YJ3jlGSxs60Io+dp@mattapan.m5p.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <93936406-574f-7fd0-53bf-3bafaa4b1947@xen.org>
+Date: Fri, 14 May 2021 09:32:10 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-Subject: [libvirt test] 161944: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=8f390ae310021a2e392d089ab7d4ac0a250551c7
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 14 May 2021 08:26:02 +0000
+In-Reply-To: <YJ3jlGSxs60Io+dp@mattapan.m5p.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 161944 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161944/
+Hi Elliott,
 
-Regressions :-(
+On 14/05/2021 03:42, Elliott Mitchell wrote:
+> Upon thinking about it, this seems appropriate to bring to the attention
+> of the Xen development list since it seems to have wider implications.
+> 
+> 
+> On Wed, May 12, 2021 at 11:08:39AM +0100, Julien Grall wrote:
+>> On 12/05/2021 03:37, Elliott Mitchell wrote:
+>>>
+>>> What about the approach to the grant-table/xenpv memory situation?
+>>>
+>>> As stated for a 768MB VM, Xen suggested a 16MB range.  I'm unsure whether
+>>> that is strictly meant for grant-table use or is meant for any foreign
+>>> memory mappings (Julien?).
+>>
+>> An OS is free to use it as it wants. However, there is no promise that:
+>>     1) The region will not shrink
+>>     2) The region will stay where it is
+> 
+> Issue is what is the intended use of the memory range allocated to
+> /hypervisor in the device-tree on ARM?  What do the Xen developers plan
+> for?  What is expected?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ From docs/misc/arm/device-tree/guest.txt:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+"
+- reg: specifies the base physical address and size of a region in
+   memory where the grant table should be mapped to, using an
+   HYPERVISOR_memory_op hypercall. The memory region is large enough to map
+   the whole grant table (it is larger or equal to 
+gnttab_max_grant_frames()).
+   This property is unnecessary when booting Dom0 using ACPI.
+"
 
-version targeted for testing:
- libvirt              8f390ae310021a2e392d089ab7d4ac0a250551c7
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+Effectively, this is a known space in memory that is unallocated. Not 
+all the guests will use it if they have a better way to find unallocated 
+space.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  308 days
-Failing since        151818  2020-07-11 04:18:52 Z  307 days  300 attempts
-Testing same since   161944  2021-05-14 04:18:58 Z    0 days    1 attempts
+> 
+> 
+> With FreeBSD, Julien Grall's attempt 5 years ago at getting Xen/ARM
+> support treated the grant table as distinct from other foreign memory
+> mappings.  Yet for the current code (which is oriented towards x86) it is
+> rather easier to treat all foreign mappings the same.
+> 
+> Limiting foreign mappings to a total of 16MB for a 768MB domain is tight.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+It is not clear to me whether you are referring to frontend or backend 
+domain.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+However, there is no relation between the size of a domain and how many 
+foreign pages it will map. You can have a tiny backend (let say 128MB of 
+RAM) that will handle a large domain (e.g. 2GB).
 
+Instead, it depends on the maximum number of pages that will be mapped 
+at a given point. If you are running a device emulator, then it is more 
+convenient to try to keep as many foreign pages as possible mapped.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+For PV backend (e.g. block, net), they tend to use grant mapping. Most 
+of the time they are ephemeral (they last for the duration of the 
+requests) but in some cases they will be kept mapped for the longer (for 
+instance the block backend may support persistent grant).
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> Was the /hypervisor range intended *strictly* for mapping grant-tables?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+It was introduced to tell the OS a place where the grant-table could be 
+conveniently mapped.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> Was it intended for the /hypervisor range to dynamically scale with the
+> size of the domain? 
+As per above, this doesn't depend on the size of the domain. Instead, 
+this depends on what sort of the backend will be present in the domain.
 
+> Was it intended for /hypervisor to grow over the
+> years as hardware got cheaper?
+I don't understand this question.
 
-Not pushing.
+> Might it be better to deprecate the /hypervisor range and have domains
+> allocate any available address space for foreign mappings?
 
-(No revision log; it would be 57546 lines long.)
+It may be easy for FreeBSD to find available address space but so far 
+this has not been the case in Linux (I haven't checked the latest 
+version though).
+
+To be clear, an OS is free to not use the range provided in /hypervisor 
+(maybe this is not clear enough in the spec?). This was mostly 
+introduced to overcome some issues we saw in Linux when Xen on Arm was 
+introduced.
+
+> 
+> Should the FreeBSD implementation be treating grant tables as distinct
+> from other foreign mappings?
+
+Both require unallocated addres space to work. IIRC FreeBSD is able to 
+find unallocated space easily, so I would recommend to use it.
+
+> (is treating them the same likely to
+> induce buggy behavior on x86?)
+
+I will leave this answer to Roger.
+
+Cheers,
+
+-- 
+Julien Grall
 
