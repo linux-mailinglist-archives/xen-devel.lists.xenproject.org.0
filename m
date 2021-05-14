@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87516381018
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 20:54:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127494.239653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98CFA3811A4
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 22:20:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127517.239663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhcxD-0003a4-SW; Fri, 14 May 2021 18:54:31 +0000
+	id 1lheHU-0003ix-1T; Fri, 14 May 2021 20:19:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127494.239653; Fri, 14 May 2021 18:54:31 +0000
+Received: by outflank-mailman (output) from mailman id 127517.239663; Fri, 14 May 2021 20:19:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhcxD-0003X7-L8; Fri, 14 May 2021 18:54:31 +0000
-Received: by outflank-mailman (input) for mailman id 127494;
- Fri, 14 May 2021 18:54:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CSkR=KJ=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1lhcxB-0001R5-IY
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 18:54:29 +0000
-Received: from mail-il1-x132.google.com (unknown [2607:f8b0:4864:20::132])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d41a3445-4e51-4fca-b306-9e1ab418212c;
- Fri, 14 May 2021 18:54:10 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id j20so581131ilo.10
- for <xen-devel@lists.xenproject.org>; Fri, 14 May 2021 11:54:10 -0700 (PDT)
-Received: from localhost.localdomain (142-79-211-230.starry-inc.net.
- [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id d81sm2815190iof.26.2021.05.14.11.54.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 May 2021 11:54:09 -0700 (PDT)
+	id 1lheHT-0003h5-UZ; Fri, 14 May 2021 20:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 127517;
+ Fri, 14 May 2021 20:19:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lheHS-0003gz-Hw
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 20:19:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lheHQ-0000OK-Sv; Fri, 14 May 2021 20:19:28 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lheHQ-0006fG-N6; Fri, 14 May 2021 20:19:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,113 +39,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d41a3445-4e51-4fca-b306-9e1ab418212c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=dKx3kHJenx3C/CwPtUUrPl3dcyda2vxTcbUQPlrKK/I=;
-        b=u+78FH0Vr3aWOovk/6ndFCwcIoD4RYH9MU6CT9zrTY7IgYS7bRgUP/VgaR98+UBOvF
-         8SlAnc9z2PHpbvanxUea/ViSfW8w04eQ2laQdvzDIQBGah0W57NX9WwzJUzjD8HGJPzm
-         b3POupSVCma7wnpV/aIQdm7dlFq1NF1y98qwbs1Q4NYo/iQx2TNYHh0GBDmiplI6Tcjr
-         vVBVAsxMF/sXfn/dThp/VV+7SnaTKVVIXmJltiGQGZpr2nXQuh2MLqQbBd1T6OO9dUmn
-         97ybZZHlQVXK4XyRjxmRkAnJ1qQt+jF0V/7NlX4p6J/XghYfACuA6bAk1+Z8BhbvZckQ
-         0ZaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=dKx3kHJenx3C/CwPtUUrPl3dcyda2vxTcbUQPlrKK/I=;
-        b=ZGeMNVXgCpqAV4Qs1BFS+OPSL3FDnS2seeLuIyYQVpHnY+U4ap7W9AWJoburwlZ+EN
-         opFc+HZTyJUc7z7hbz+w92DTobueCVhWjSdU+eNZ9ZgDBHtTDAZ2XWsXXPeFEbjlC2nC
-         2KnE9x5gA1u9q2fJcoNHJ49OCQsDccJuupwDi61qVeZq8ovYa9nLWxgwIYX3k5+EoLbw
-         RJ+ftCms3fVfhn4+/SD5zxtl3oiz93r7o8K1yCh0psos9mtza2j4Kpuu4YJVJENp7Jx8
-         LFuCQT0ClL1vK/AlPn4IIkXyMu7LcVUt49VyVvwz4iRx7ipVDnYPKxHPgX8HS8RxtZbD
-         pi9g==
-X-Gm-Message-State: AOAM533f/6rhaFmbycdbmyfcZAGybdgnB7uhG4PJWFMDsX2g1haAQ5a/
-	bWtIngVCTuqycr2j/wivDZzidCRSOmavmA==
-X-Google-Smtp-Source: ABdhPJxtvP4iLSoWwduNkKcEriM6cSfd2KJ6iN8SoZ/MqzVNFqk2QN6vVu89CSHckxRX7gIVfd6Baw==
-X-Received: by 2002:a92:c569:: with SMTP id b9mr28228572ilj.117.1621018449545;
-        Fri, 14 May 2021 11:54:09 -0700 (PDT)
-From: Connor Davis <connojdavis@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair23@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH v3 5/5] automation: Add container for riscv64 builds
-Date: Fri, 14 May 2021 12:53:25 -0600
-Message-Id: <5a78ff425e45588da5c97c68e94275b649346012.1621017334.git.connojdavis@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <cover.1621017334.git.connojdavis@gmail.com>
-References: <cover.1621017334.git.connojdavis@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=RLS6JldehuGTIIhFGQNiOJtm+l36RFnIbCf+o7A02JQ=; b=2WVV2WnVrMJ4RsnrbjqHHyEaUl
+	K9iUN/5ICFw0lFpMTnwY0p0kXteMUmF1ddhAnehcX90vncOG1Lo4I26DXKC05SbdbfKuJjrRJdQuM
+	MJ1GgQN9hcxJxzuyurot8sXYSqg6gsj3418QRCCrXjQ/kYCSDBFWoqk17w+dGkTBR/vs=;
+Subject: Re: [PATCH] tools/xenstore: claim resources when running as daemon
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210514084133.18658-1-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1e38cce0-6960-ac21-b349-dac8551e23ed@xen.org>
+Date: Fri, 14 May 2021 21:19:27 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210514084133.18658-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Add a container for cross-compiling xen to riscv64.
-This just includes the cross-compiler and necessary packages for
-building xen itself (packages for tools, stubdoms, etc., can be
-added later).
+Hi Juergen,
 
-Signed-off-by: Connor Davis <connojdavis@gmail.com>
----
- automation/build/archlinux/riscv64.dockerfile | 33 +++++++++++++++++++
- automation/scripts/containerize               |  1 +
- 2 files changed, 34 insertions(+)
- create mode 100644 automation/build/archlinux/riscv64.dockerfile
+On 14/05/2021 09:41, Juergen Gross wrote:
+> Xenstored is absolutely mandatory for a Xen host and it can't be
+> restarted, so being killed by OOM-killer in case of memory shortage is
+> to be avoided.
+> 
+> Set /proc/$pid/oom_score_adj (if available) to -500 in order to allow
+> xenstored to use large amounts of memory without being killed.
+> 
+> In order to support large numbers of domains the limit for open file
+> descriptors might need to be raised. Each domain needs 2 file
+> descriptors (one for the event channel and one for the xl per-domain
+> daemon to connect to xenstored).
 
-diff --git a/automation/build/archlinux/riscv64.dockerfile b/automation/build/archlinux/riscv64.dockerfile
-new file mode 100644
-index 0000000000..505b623c01
---- /dev/null
-+++ b/automation/build/archlinux/riscv64.dockerfile
-@@ -0,0 +1,33 @@
-+FROM archlinux
-+LABEL maintainer.name="The Xen Project" \
-+      maintainer.email="xen-devel@lists.xenproject.org"
-+
-+# Packages needed for the build
-+RUN pacman --noconfirm --needed -Syu \
-+    base-devel \
-+    gcc \
-+    git
-+
-+# Packages needed for QEMU
-+RUN pacman --noconfirm --needed -Syu \
-+    pixman \
-+    python \
-+    sh
-+
-+# There is a regression in GDB that causes an assertion error
-+# when setting breakpoints, use this commit until it is fixed!
-+RUN git clone --recursive -j$(nproc) --progress https://github.com/riscv/riscv-gnu-toolchain && \
-+    cd riscv-gnu-toolchain/riscv-gdb && \
-+    git checkout 1dd588507782591478882a891f64945af9e2b86c && \
-+    cd  .. && \
-+    ./configure --prefix=/opt/riscv && \
-+    make linux -j$(nproc) && \
-+    rm -R /riscv-gnu-toolchain
-+
-+# Add compiler path
-+ENV PATH=/opt/riscv/bin/:${PATH}
-+ENV CROSS_COMPILE=riscv64-unknown-linux-gnu-
-+
-+RUN useradd --create-home user
-+USER user
-+WORKDIR /build
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index b7c81559fb..59edf0ba40 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -26,6 +26,7 @@ BASE="registry.gitlab.com/xen-project/xen"
- case "_${CONTAINER}" in
-     _alpine) CONTAINER="${BASE}/alpine:3.12" ;;
-     _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
-+    _riscv64) CONTAINER="${BASE}/archlinux:riscv64" ;;
-     _centos7) CONTAINER="${BASE}/centos:7" ;;
-     _centos72) CONTAINER="${BASE}/centos:7.2" ;;
-     _fedora) CONTAINER="${BASE}/fedora:29";;
+Hmmm... AFAICT there is only one file descriptor to handle all the event 
+channels. Could you point out the code showing one event FD per domain?
+
+> 
+> Try to raise ulimit for open files to 65536. First the hard limit if
+> needed, and then the soft limit.
+
+I am not sure this is right to impose this limit to everyone. For 
+instance, one admin may know that there will be no more than 100 domains 
+on its system.
+
+So the admin should be able to configure them. At this point, I think 
+the two limit should be set my the initscript rather than xenstored itself.
+
+This would also avoid the problem where Xenstored is not allowed to 
+modify its limit (see more below).
+
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>   tools/xenstore/xenstored_core.c   |  2 ++
+>   tools/xenstore/xenstored_core.h   |  3 ++
+>   tools/xenstore/xenstored_minios.c |  4 +++
+>   tools/xenstore/xenstored_posix.c  | 46 +++++++++++++++++++++++++++++++
+>   4 files changed, 55 insertions(+)
+> 
+> diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+> index b66d119a98..964e693450 100644
+> --- a/tools/xenstore/xenstored_core.c
+> +++ b/tools/xenstore/xenstored_core.c
+> @@ -2243,6 +2243,8 @@ int main(int argc, char *argv[])
+>   		xprintf = trace;
+>   #endif
+>   
+> +	claim_resources();
+> +
+>   	signal(SIGHUP, trigger_reopen_log);
+>   	if (tracefile)
+>   		tracefile = talloc_strdup(NULL, tracefile);
+> diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+> index 1467270476..ac26973648 100644
+> --- a/tools/xenstore/xenstored_core.h
+> +++ b/tools/xenstore/xenstored_core.h
+> @@ -255,6 +255,9 @@ void daemonize(void);
+>   /* Close stdin/stdout/stderr to complete daemonize */
+>   void finish_daemonize(void);
+>   
+> +/* Set OOM-killer score and raise ulimit. */
+> +void claim_resources(void);
+> +
+>   /* Open a pipe for signal handling */
+>   void init_pipe(int reopen_log_pipe[2]);
+>   
+> diff --git a/tools/xenstore/xenstored_minios.c b/tools/xenstore/xenstored_minios.c
+> index c94493e52a..df8ff580b0 100644
+> --- a/tools/xenstore/xenstored_minios.c
+> +++ b/tools/xenstore/xenstored_minios.c
+> @@ -32,6 +32,10 @@ void finish_daemonize(void)
+>   {
+>   }
+>   
+> +void claim_resources(void)
+> +{
+> +}
+> +
+>   void init_pipe(int reopen_log_pipe[2])
+>   {
+>   	reopen_log_pipe[0] = -1;
+> diff --git a/tools/xenstore/xenstored_posix.c b/tools/xenstore/xenstored_posix.c
+> index 48c37ffe3e..0074fbd8b2 100644
+> --- a/tools/xenstore/xenstored_posix.c
+> +++ b/tools/xenstore/xenstored_posix.c
+> @@ -22,6 +22,7 @@
+>   #include <fcntl.h>
+>   #include <stdlib.h>
+>   #include <sys/mman.h>
+> +#include <sys/resource.h>
+>   
+>   #include "utils.h"
+>   #include "xenstored_core.h"
+> @@ -87,6 +88,51 @@ void finish_daemonize(void)
+>   	close(devnull);
+>   }
+>   
+> +static void avoid_oom_killer(void)
+> +{
+> +	char path[32];
+> +	char val[] = "-500";
+> +	int fd;
+> +
+> +	snprintf(path, sizeof(path), "/proc/%d/oom_score_adj", (int)getpid());
+
+This looks Linux specific. How about other OSes?
+
+> +
+> +	fd = open(path, O_WRONLY);
+> +	/* Do nothing if file doesn't exist. */
+
+Your commit message leads to think that we *must* configure the OOM. If 
+not, then we should not continue. But here, this suggest this is 
+optional. In fact...
+
+> +	if (fd < 0)
+> +		return;
+> +	/* Ignore errors. */
+> +	write(fd, val, sizeof(val));
+
+... xenstored may not be allowed to modify its own parameters. So this 
+would continue silently without the admin necessarily knowning the limit 
+wasn't applied.
+
+> +	close(fd);
+> +}
+> +
+> +/* Max. 32752 domains with 2 open files per domain, plus some spare. */
+> +#define MAX_FILES 65536
+> +static void raise_ulimit(void)
+> +{
+> +	struct rlimit rlim;
+> +
+> +	if (getrlimit(RLIMIT_NOFILE, &rlim))
+> +		return;
+> +	if (rlim.rlim_max != RLIM_INFINITY && rlim.rlim_max < MAX_FILES)
+> +	{
+> +		rlim.rlim_max = MAX_FILES;
+> +		setrlimit(RLIMIT_NOFILE, &rlim);
+> +	}
+> +	if (getrlimit(RLIMIT_NOFILE, &rlim))
+> +		return;
+> +	if (rlim.rlim_max == RLIM_INFINITY || rlim.rlim_max > MAX_FILES)
+> +		rlim.rlim_cur = MAX_FILES;
+> +	else
+> +		rlim.rlim_cur = rlim.rlim_max;
+> +	setrlimit(RLIMIT_NOFILE, &rlim);
+> +}
+> +
+> +void claim_resources(void)
+> +{
+> +	avoid_oom_killer();
+> +	raise_ulimit();
+> +}
+> +
+>   void init_pipe(int reopen_log_pipe[2])
+>   {
+>   	int flags;
+> 
+
+Cheers,
+
 -- 
-2.31.1
-
+Julien Grall
 
