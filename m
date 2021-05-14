@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC35380B0F
-	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 16:06:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127375.239386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1971380B15
+	for <lists+xen-devel@lfdr.de>; Fri, 14 May 2021 16:07:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127377.239398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhYSP-0007q3-T1; Fri, 14 May 2021 14:06:25 +0000
+	id 1lhYSv-0008O0-8T; Fri, 14 May 2021 14:06:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127375.239386; Fri, 14 May 2021 14:06:25 +0000
+Received: by outflank-mailman (output) from mailman id 127377.239398; Fri, 14 May 2021 14:06:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhYSP-0007nT-Pz; Fri, 14 May 2021 14:06:25 +0000
-Received: by outflank-mailman (input) for mailman id 127375;
- Fri, 14 May 2021 14:06:24 +0000
+	id 1lhYSv-0008Ku-3g; Fri, 14 May 2021 14:06:57 +0000
+Received: by outflank-mailman (input) for mailman id 127377;
+ Fri, 14 May 2021 14:06:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CSkR=KJ=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1lhYSO-0007nN-MW
- for xen-devel@lists.xenproject.org; Fri, 14 May 2021 14:06:24 +0000
-Received: from mail-il1-x135.google.com (unknown [2607:f8b0:4864:20::135])
+ id 1lhYSu-0008Kk-14
+ for xen-devel@lists.xenproject.org; Fri, 14 May 2021 14:06:56 +0000
+Received: from mail-il1-x136.google.com (unknown [2607:f8b0:4864:20::136])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bc75dba8-8282-4ae5-b591-f51a0c9a032b;
- Fri, 14 May 2021 14:06:23 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id w7so9182911ilg.13
- for <xen-devel@lists.xenproject.org>; Fri, 14 May 2021 07:06:23 -0700 (PDT)
+ id 3614fd90-b3f6-4415-8d89-29236d4a0ad5;
+ Fri, 14 May 2021 14:06:55 +0000 (UTC)
+Received: by mail-il1-x136.google.com with SMTP id v13so25879222ilj.8
+ for <xen-devel@lists.xenproject.org>; Fri, 14 May 2021 07:06:55 -0700 (PDT)
 Received: from [192.168.99.80] (142-79-211-230.starry-inc.net.
  [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id q18sm3094808ile.33.2021.05.14.07.06.23
+ by smtp.gmail.com with ESMTPSA id t7sm3068586ilq.34.2021.05.14.07.06.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 May 2021 07:06:23 -0700 (PDT)
+ Fri, 14 May 2021 07:06:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,79 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc75dba8-8282-4ae5-b591-f51a0c9a032b
+X-Inumbo-ID: 3614fd90-b3f6-4415-8d89-29236d4a0ad5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=p778h4mDEFACoY3jLIwbbMe6YCGbmf3vLibN4Bx2pk4=;
-        b=nC8L4dQI89t4hzo3h+eXBqlhwLeHOghclMnHjZf+MAel5fuBM81cHhC1O25S5hW/il
-         y96X3yCwwkPOdCOdVOy2asoa6gkK69mX1zff9NAlBLl6K+ClrrnSIn1pVwCH6EoKLNMJ
-         kMe5RzAkqe7zgOFW/n9XniT6aIBB+GbQDxNcqMhouZEzOJyZo7/0X44tVsriScZCPh3D
-         eZXSjREmV6hTeRWC6KuC+K3z85BfiZDhfLKc5qkOCbPNf65/8M4wf4Bcl1r7d+8VypAA
-         0B6vBnLdxAC1qVfWxaecdHwSerGPqiAm9NE0QV+Oj6VJuXDBQL3C90Bk3+BJ5otjkZgr
-         6r1A==
+        bh=R4gCuqdbZR815nXx2XVEAAsDO0qJ8mZy8Tzf13PeXRw=;
+        b=IETsefp/ddaBv67PB9DwzcBjShhaX873XycpoRKkMCKFRHECqeDTtDzXPsmph0KL/0
+         0EW7sCQ5V7cAmGYnLtPzplJ+8EhLBdwC2joA93USf76Bxa/HyWuVhzRtjCXUyx7wvWcj
+         B2weCbs7gGz0br63woBP633R7m2JHQ2VUnq9+nrdA96L7KVmuT1U9iuzxI/1mfEc+ri+
+         WgPxdLhDpQwuubRZ6I1SUEdnlbt394yfkm3EF3KwjEB9A0CW8JKyUIhVjlsQMZkQtWQb
+         QBliIPfHpcgfUkeFkcO43fbqNllnV6uBY3BFGpj+DcDdaUlDpQMWV2PCTRqNruPwZRH1
+         sFyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=p778h4mDEFACoY3jLIwbbMe6YCGbmf3vLibN4Bx2pk4=;
-        b=tA/CQcjD3k9xDCK6Kq8J21Z+d6NOnpyraC9IA/bsor6YbCLbW9EPZVABC75khTZ22c
-         9HC1Cn3taki1Eu1K9YBbefQrdcD+eAqQmUWRcq3rwSSTbnYKb3FCt91L+29CnffUKZlT
-         yksBppX+ihZWc8HYPSk8V+4vlKQETB8mTIZy0XHqJoZzzUMi0i8kx3gAmTy77otJqSio
-         cE5S9/wdLy+c6JKFb1Z66B8OtAZQu51ESvp8BTh8xjdTgYp8Pg+AsQ1pW+z4o7041rpB
-         WyEGMBn4dGnB0g6gV5KRJU+6A7yMofXNpfDd8oDefFn0lg9Hof5ro1zFjPmAWbx8NLqQ
-         PJog==
-X-Gm-Message-State: AOAM531XYhyScIKGSqBCP/8RX/+UUV4fsnf2J11IXHOUV68gJBfoZdDZ
-	4jpAf5eR8ew4lMKiZIoQQdY=
-X-Google-Smtp-Source: ABdhPJzjePt6YwBAYgds4Vy4ai2dQpEtXYwz25hrD40aPq72dVFwZx8fW0JmXwVyeb7KNXlrQUn6AQ==
-X-Received: by 2002:a92:ce90:: with SMTP id r16mr41615408ilo.220.1621001183633;
-        Fri, 14 May 2021 07:06:23 -0700 (PDT)
-Subject: Re: [PATCH v2 2/4] xen: Export dbgp functions when CONFIG_XEN_DOM0 is
- enabled
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org
-References: <d160cee9b61c0ec41c2cd5ff9b4e107011d39d8c.1620952511.git.connojdavis@gmail.com>
- <291659390aff63df7c071367ad4932bf41e11aef.1620952511.git.connojdavis@gmail.com>
+        bh=R4gCuqdbZR815nXx2XVEAAsDO0qJ8mZy8Tzf13PeXRw=;
+        b=s/dc0KqXUo/0NppOQaRbzn1oK1vr7LHlYK3thJOTk7Bi0vRMHNjS7nqq0XdB35HqBn
+         z8TWrQmDaRZJHvMf1XJiBkUxA1iPrBCMs2Ynxpe628wor48I+Xf80wdlturOyl5OLMDD
+         2TiWsc1z4lBPXkV1qeuMWhnByAdBWypOobZqaOdRWI301eC/IwF/1Qr5+JsxAAIYWBxG
+         i4iXqv79cLi+AxQaNCK1K5JH9+n5f4DEQ/df+Xq/JQkM1Q+UzxL/Bzi5hq28w0IDSH1W
+         SgNttY5pHbJjYjWTkUAlYMAsuDX5afebhQQX4KWsAO4o/YKfwfwc29Yv4+8ldCABhDdd
+         AFRw==
+X-Gm-Message-State: AOAM5330E+H8Ecz4gLy11mr2rrj6guZHPO8u3WxNqeDU7fTCNMInMDCo
+	QxvwcXBatNotvuTWT1pmW5E=
+X-Google-Smtp-Source: ABdhPJylsAg5N0IK+T5+EJrrTV3WwEBwg+lAI3XbJ38wuYsMOY+RKBJs4s+/eBw/u02YpGo+A49tZA==
+X-Received: by 2002:a05:6e02:f42:: with SMTP id y2mr29468885ilj.216.1621001215109;
+        Fri, 14 May 2021 07:06:55 -0700 (PDT)
+Subject: Re: [PATCH v2 0/4] Support xen-driven USB3 debug capability
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Lee Jones <lee.jones@linaro.org>,
+ Jann Horn <jannh@google.com>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Eric W. Biederman" <ebiederm@xmission.com>, Petr Mladek <pmladek@suse.com>,
+ Sumit Garg <sumit.garg@linaro.org>
+References: <cover.1620950220.git.connojdavis@gmail.com>
+ <YJ4cqntf7YdZCOPk@kroah.com>
 From: Connor Davis <connojdavis@gmail.com>
-Message-ID: <236c31fe-2373-be23-bed4-48012a6a9765@gmail.com>
-Date: Fri, 14 May 2021 08:06:36 -0600
+Message-ID: <e2d96a91-3f0f-d2b3-9a1a-16caaf82c24a@gmail.com>
+Date: Fri, 14 May 2021 08:07:07 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <291659390aff63df7c071367ad4932bf41e11aef.1620952511.git.connojdavis@gmail.com>
+In-Reply-To: <YJ4cqntf7YdZCOPk@kroah.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
-Adding Greg and linux-usb
 
-On 5/13/21 6:56 PM, Connor Davis wrote:
-> Export xen_dbgp_reset_prep and xen_dbgp_external_startup
-> when CONFIG_XEN_DOM0 is defined. This allows use of these symbols
-> even if CONFIG_EARLY_PRINK_DBGP is defined.
+On 5/14/21 12:46 AM, Greg Kroah-Hartman wrote:
+> On Thu, May 13, 2021 at 06:56:47PM -0600, Connor Davis wrote:
+>> Hi all,
+>>
+>> This goal of this series is to allow the USB3 debug capability (DbC) to be
+>> safely used by xen while linux runs as dom0.
+> Patch 2/4 does not seem to be showing up anywhere, did it get lost?
+
+Yep, just added you, sorry about that
+
+
+Thanks,
+
+Connor
+
+> thanks,
 >
-> Signed-off-by: Connor Davis <connojdavis@gmail.com>
-> Acked-by: Juergen Gross <jgross@suse.com>
-> ---
->   drivers/xen/dbgp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/xen/dbgp.c b/drivers/xen/dbgp.c
-> index cfb5de31d860..fef32dd1a5dc 100644
-> --- a/drivers/xen/dbgp.c
-> +++ b/drivers/xen/dbgp.c
-> @@ -44,7 +44,7 @@ int xen_dbgp_external_startup(struct usb_hcd *hcd)
->   	return xen_dbgp_op(hcd, PHYSDEVOP_DBGP_RESET_DONE);
->   }
->   
-> -#ifndef CONFIG_EARLY_PRINTK_DBGP
-> +#if defined(CONFIG_XEN_DOM0) || !defined(CONFIG_EARLY_PRINTK_DBGP)
->   #include <linux/export.h>
->   EXPORT_SYMBOL_GPL(xen_dbgp_reset_prep);
->   EXPORT_SYMBOL_GPL(xen_dbgp_external_startup);
+> greg k-h
 
