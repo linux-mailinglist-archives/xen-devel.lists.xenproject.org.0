@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C460381737
-	for <lists+xen-devel@lfdr.de>; Sat, 15 May 2021 11:26:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127712.240042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826EA381779
+	for <lists+xen-devel@lfdr.de>; Sat, 15 May 2021 12:09:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127720.240054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhqYY-0005jB-Np; Sat, 15 May 2021 09:25:58 +0000
+	id 1lhrDp-0001NY-1u; Sat, 15 May 2021 10:08:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127712.240042; Sat, 15 May 2021 09:25:58 +0000
+Received: by outflank-mailman (output) from mailman id 127720.240054; Sat, 15 May 2021 10:08:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhqYY-0005hJ-KC; Sat, 15 May 2021 09:25:58 +0000
-Received: by outflank-mailman (input) for mailman id 127712;
- Sat, 15 May 2021 09:25:56 +0000
+	id 1lhrDo-0001Kd-Un; Sat, 15 May 2021 10:08:36 +0000
+Received: by outflank-mailman (input) for mailman id 127720;
+ Sat, 15 May 2021 10:08:34 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lhqYW-0005hD-SK
- for xen-devel@lists.xenproject.org; Sat, 15 May 2021 09:25:56 +0000
+ (envelope-from <julien@xen.org>) id 1lhrDm-0001KX-Oa
+ for xen-devel@lists.xenproject.org; Sat, 15 May 2021 10:08:34 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lhqYV-0003vk-86; Sat, 15 May 2021 09:25:55 +0000
+ id 1lhrDk-0004hy-LZ; Sat, 15 May 2021 10:08:32 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lhqYV-0007XR-1x; Sat, 15 May 2021 09:25:55 +0000
+ id 1lhrDk-0002Fx-Eu; Sat, 15 May 2021 10:08:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,160 +42,185 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=XHtW0I3Psmjv7cxq+rSSr3L70g0qHUVT7vSAfNDsmHU=; b=5QLwqQ7TQs3urAFnAoIqzSfLlH
-	Ql06Hsq/YFp0CtnIHRoayP0wLJbNKzu2i08/ZmpvcL13RX/3spqXSd8owDtSdD13n2UK2ZhWh0Y4Y
-	6Fv9Ke0GXZXctV5edHoCxlPnI4d9Z5XGjXpUDWwjuPkZNy/+CcdaQY7eQoeZTykMuYT8=;
-Subject: Re: [PATCH RFCv2 15/15] xen/arm: mm: Re-implement
- setup_frame_table_mappings() with map_pages_to_xen()
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com,
- Penny.Zheng@arm.com, Bertrand.Marquis@arm.com,
- Julien Grall <julien.grall@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <jgrall@amazon.com>
-References: <20210425201318.15447-1-julien@xen.org>
- <20210425201318.15447-16-julien@xen.org>
- <alpine.DEB.2.21.2105141658510.14426@sstabellini-ThinkPad-T480s>
+	bh=TKlSwp9ZcMh7TrtmWc5j+Vq3PuYmS2slhfCEEiinvNA=; b=f0ybz9kcEGSQUoI3iS5cEFEmjd
+	2h/BuqsrTHea0ESzJ3SvrcQtIQfVq3XfScA0vz/bW4FmpUqr9DVSDbvcwjbZhYyUnPLzXjpi3UnmT
+	68zMyLgrM0rd5yGSGVndgn9K4pofvyMmv/ifvgQVZXMDqpLoaGOwPTdigtk0OoiIF2mY=;
+Subject: Re: Uses of /hypervisor memory range (was: FreeBSD/Xen/ARM issues)
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org, Roger Pau Monn?? <royger@freebsd.org>,
+ Mitchell Horne <mhorne@freebsd.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <YIptpndhk6MOJFod@Air-de-Roger>
+ <YItwHirnih6iUtRS@mattapan.m5p.com> <YIu80FNQHKS3+jVN@Air-de-Roger>
+ <YJDcDjjgCsQUdsZ7@mattapan.m5p.com> <YJURGaqAVBSYnMRf@Air-de-Roger>
+ <YJYem5CW/97k/e5A@mattapan.m5p.com> <YJs/YAgB8molh7e5@mattapan.m5p.com>
+ <54427968-9b13-36e6-0001-27fb49f85635@xen.org>
+ <YJ3jlGSxs60Io+dp@mattapan.m5p.com>
+ <93936406-574f-7fd0-53bf-3bafaa4b1947@xen.org>
+ <YJ8hTE/JbJygtVAL@mattapan.m5p.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <2308478e-527b-a54a-206a-785f80515835@xen.org>
-Date: Sat, 15 May 2021 10:25:52 +0100
+Message-ID: <f7360dac-5d83-733b-7ec5-c73d4dc0350d@xen.org>
+Date: Sat, 15 May 2021 11:08:30 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2105141658510.14426@sstabellini-ThinkPad-T480s>
+In-Reply-To: <YJ8hTE/JbJygtVAL@mattapan.m5p.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+(+ Andrew, + Stefano)
 
-On 15/05/2021 01:02, Stefano Stabellini wrote:
-> On Sun, 25 Apr 2021, Julien Grall wrote:
->> From: Julien Grall <julien.grall@arm.com>
+On 15/05/2021 02:18, Elliott Mitchell wrote:
+> On Fri, May 14, 2021 at 09:32:10AM +0100, Julien Grall wrote:
+>> On 14/05/2021 03:42, Elliott Mitchell wrote:
+>>>
+>>> Issue is what is the intended use of the memory range allocated to
+>>> /hypervisor in the device-tree on ARM?  What do the Xen developers plan
+>>> for?  What is expected?
 >>
->> Now that map_pages_to_xen() has been extended to support 2MB mappings,
->> we can replace the create_mappings() call by map_pages_to_xen() call.
+>>   From docs/misc/arm/device-tree/guest.txt:
 >>
->> This has the advantage to remove the different between 32-bit and 64-bit
->> code.
+>> "
+>> - reg: specifies the base physical address and size of a region in
+>>     memory where the grant table should be mapped to, using an
+>>     HYPERVISOR_memory_op hypercall. The memory region is large enough to map
+>>     the whole grant table (it is larger or equal to
+>> gnttab_max_grant_frames()).
+>>     This property is unnecessary when booting Dom0 using ACPI.
+>> "
 >>
->> Lastly remove create_mappings() as there is no more callers.
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>
->> ---
->>      Changes in v2:
->>          - New patch
->>
->>      TODO:
->>          - Add support for setting the contiguous bit
->> ---
->>   xen/arch/arm/mm.c | 64 +++++------------------------------------------
->>   1 file changed, 6 insertions(+), 58 deletions(-)
->>
->> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
->> index c49403b687f5..5f8ae029dd6d 100644
->> --- a/xen/arch/arm/mm.c
->> +++ b/xen/arch/arm/mm.c
->> @@ -359,40 +359,6 @@ void clear_fixmap(unsigned map)
->>       BUG_ON(res != 0);
->>   }
->>   
->> -/* Create Xen's mappings of memory.
->> - * Mapping_size must be either 2MB or 32MB.
->> - * Base and virt must be mapping_size aligned.
->> - * Size must be a multiple of mapping_size.
->> - * second must be a contiguous set of second level page tables
->> - * covering the region starting at virt_offset. */
->> -static void __init create_mappings(lpae_t *second,
->> -                                   unsigned long virt_offset,
->> -                                   unsigned long base_mfn,
->> -                                   unsigned long nr_mfns,
->> -                                   unsigned int mapping_size)
->> -{
->> -    unsigned long i, count;
->> -    const unsigned long granularity = mapping_size >> PAGE_SHIFT;
->> -    lpae_t pte, *p;
->> -
->> -    ASSERT((mapping_size == MB(2)) || (mapping_size == MB(32)));
->> -    ASSERT(!((virt_offset >> PAGE_SHIFT) % granularity));
->> -    ASSERT(!(base_mfn % granularity));
->> -    ASSERT(!(nr_mfns % granularity));
->> -
->> -    count = nr_mfns / LPAE_ENTRIES;
->> -    p = second + second_linear_offset(virt_offset);
->> -    pte = mfn_to_xen_entry(_mfn(base_mfn), MT_NORMAL);
->> -    if ( granularity == 16 * LPAE_ENTRIES )
->> -        pte.pt.contig = 1;  /* These maps are in 16-entry contiguous chunks. */
->> -    for ( i = 0; i < count; i++ )
->> -    {
->> -        write_pte(p + i, pte);
->> -        pte.pt.base += 1 << LPAE_SHIFT;
->> -    }
->> -    flush_xen_tlb_local();
->> -}
->> -
->>   #ifdef CONFIG_DOMAIN_PAGE
->>   void *map_domain_page_global(mfn_t mfn)
->>   {
->> @@ -850,36 +816,18 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->>       unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
->>       mfn_t base_mfn;
->>       const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
->> -#ifdef CONFIG_ARM_64
->> -    lpae_t *second, pte;
->> -    unsigned long nr_second;
->> -    mfn_t second_base;
->> -    int i;
->> -#endif
->> +    int rc;
->>   
->>       frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
->>       /* Round up to 2M or 32M boundary, as appropriate. */
->>       frametable_size = ROUNDUP(frametable_size, mapping_size);
->>       base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
->>   
->> -#ifdef CONFIG_ARM_64
->> -    /* Compute the number of second level pages. */
->> -    nr_second = ROUNDUP(frametable_size, FIRST_SIZE) >> FIRST_SHIFT;
->> -    second_base = alloc_boot_pages(nr_second, 1);
->> -    second = mfn_to_virt(second_base);
->> -    for ( i = 0; i < nr_second; i++ )
->> -    {
->> -        clear_page(mfn_to_virt(mfn_add(second_base, i)));
->> -        pte = mfn_to_xen_entry(mfn_add(second_base, i), MT_NORMAL);
->> -        pte.pt.table = 1;
->> -        write_pte(&xen_first[first_table_offset(FRAMETABLE_VIRT_START)+i], pte);
->> -    }
->> -    create_mappings(second, 0, mfn_x(base_mfn), frametable_size >> PAGE_SHIFT,
->> -                    mapping_size);
->> -#else
->> -    create_mappings(xen_second, FRAMETABLE_VIRT_START, mfn_x(base_mfn),
->> -                    frametable_size >> PAGE_SHIFT, mapping_size);
->> -#endif
->> +    /* XXX: Handle contiguous bit */
->> +    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
->> +                          frametable_size >> PAGE_SHIFT, PAGE_HYPERVISOR_RW);
->> +    if ( rc )
->> +        panic("Unable to setup the frametable mappings.\n");
+>> Effectively, this is a known space in memory that is unallocated. Not
+>> all the guests will use it if they have a better way to find unallocated
+>> space.
 > 
-> This is a lot better.
+> The use of "should" is generally considered strong encouragement to do
+> so.  A warning $something is lurking here and you may regret it if you
+> recklessly disobey this without knowning what is going on behind the
+> scenes.
+
+I thought a bit more over night. The potential trouble I can think of 
+for a domU is the magic pages are not described in the DT.
+
+I think every other regions should be discoverable from the DT (at least 
+for a domU).
+
 > 
-> I take that "XXX: Handle contiguous bit" refers to the lack of
-> _PAGE_BLOCK. Why can't we just | _PAGE_BLOCK like in other places?
+> Whereas your language here suggests "can" is a better word since it is
+> simply a random unused address range.
+> 
+> 
+>>> Was the /hypervisor range intended *strictly* for mapping grant-tables?
+>>
+>> It was introduced to tell the OS a place where the grant-table could be
+>> conveniently mapped.
+> 
+> Yet this is strange.  If any $random unused address range is acceptable,
+> why bother suggesting a particular one?  If this is really purely the
+> OS's choice, why is Xen bothering to suggest a range at all?
 
-I forgot to add _PAGE_BLOCK, however this is unrelated to my comment.
+I have added Stefano who may have more historical context than what I 
+wrote in my previous e-mail.
 
-Currently, the frametable is mapped using 2MB mapping and setting the 
-contiguous bit for each entry if the mapping is 32MB aligned.
+> 
+> 
+>>> Was it intended for /hypervisor to grow over the
+>>> years as hardware got cheaper?
+>> I don't understand this question.
+> 
+> Going to the trouble of suggesting a range points to something going on.
+> I'm looking for an explanation since strange choices might hint at
+> something unpleasant lurking below and I should watch where I step.
+> 
+> 
+>>> Might it be better to deprecate the /hypervisor range and have domains
+>>> allocate any available address space for foreign mappings?
+>>
+>> It may be easy for FreeBSD to find available address space but so far
+>> this has not been the case in Linux (I haven't checked the latest
+>> version though).
+>>
+>> To be clear, an OS is free to not use the range provided in /hypervisor
+>> (maybe this is not clear enough in the spec?). This was mostly
+>> introduced to overcome some issues we saw in Linux when Xen on Arm was
+>> introduced.
+> 
+> Mind if I paraphrase this?
+> 
+> "this is a bring-up hack for Linux which hangs around since we haven't
+> felt any pressure to fix the underlying Linux issue"
+> 
+> Is that reasonable?
 
-_PAGE_BLOCK will only create 2MB mapping but will not set the contiguous 
-bit. This will increase the pressure on the TLBs (we would get 16 entry 
-rather than 1) if on system where the TLBs can take advantange of it.
+Yes. I have revisited the problem a few times and every time I got stuck 
+because not all the I/O regions where reported to Linux. So Linux would 
+not be able to find a safe unallocated space.
 
-So map_pages_to_xen() needs to gain support for contiguous bit. I 
-haven't yet looked at it (hence the RFC state).
+> 
+> 
+>>> Should the FreeBSD implementation be treating grant tables as distinct
+>>> from other foreign mappings?
+>>
+>> Both require unallocated addres space to work. IIRC FreeBSD is able to
+>> find unallocated space easily, so I would recommend to use it.
+> 
+> That is supposed to be, but it appears there is presently a bug which has
+> broken the functionality on ARM.  
+
+Do you mind share some details?
+
+> As such, as a proper lazy developer if
+> I can abuse the /hypervisor address range for all foreign mappings, I
+> will.
+
+Are you aiming to support dom0 now?
+
+> 
+> My feeling is one of two things should happen with the /hypervisor
+> address range:
+> 
+> 1>  OSes could be encouraged to use it for all foreign mappings.  The
+> range should be dynamic in some fashion.  There could be a handy way to
+> allow configuring the amount of address space thus reserved.
+
+In the context of XSA-300 and virtio on Xen on Arm, we discussed about 
+providing a revion for foreign mapping. The main trouble here is 
+figuring out of the size, if you mess it up then you may break all the 
+PV drivers.
+
+If the problem is finding space, then I would like to suggest a 
+different approach (I think I may have discussed it with Andrew). Xen is 
+in maintaining the P2M for the guest and therefore now where are the 
+unallocated space. How about introducing a new hypercall to ask for 
+"unallocated space"?
+
+This would not work for older hypervisor but you could use the RAM 
+instead (as Linux does). This is has drawbacks (e.g. shattering 
+superpage, reducing the amount of memory usuable...), but for 1> you 
+would also need a hack for older Xen.
+
+> 
+> 2>  The range should be declared deprecated.  Everyone should be put on
+> the same page that this was a quick hack for bringing up Xen/ARM/Linux,
+> and really it shouldn't have escaped.
+
+How about relaxing the wording instead?
+
+> 
+> 
+>>> (is treating them the same likely to
+>>> induce buggy behavior on x86?)
+>>
+>> I will leave this answer to Roger.
+> 
+> This was directed towards *you*.  There is this thing here which looks
+> kind of odd in a vaguely unpleasant way.  I'm trying to figure out
+> whether I should embrace it, versus running away.
+
+I am not aware of any potential buggy behavior here. In both arm and 
+x86, the requirement is to find unallocated address space (unless you 
+want to waste RAM as Linux does).
 
 Cheers,
 
