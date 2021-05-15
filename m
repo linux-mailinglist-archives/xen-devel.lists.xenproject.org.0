@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C015381A28
-	for <lists+xen-devel@lfdr.de>; Sat, 15 May 2021 19:28:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.127850.240186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7E1F381ABC
+	for <lists+xen-devel@lfdr.de>; Sat, 15 May 2021 21:12:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.127861.240200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhy4U-0004cQ-81; Sat, 15 May 2021 17:27:26 +0000
+	id 1lhzhD-0006D4-To; Sat, 15 May 2021 19:11:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 127850.240186; Sat, 15 May 2021 17:27:26 +0000
+Received: by outflank-mailman (output) from mailman id 127861.240200; Sat, 15 May 2021 19:11:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lhy4U-0004Zs-4K; Sat, 15 May 2021 17:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 127850;
- Sat, 15 May 2021 17:27:24 +0000
+	id 1lhzhD-0006BE-Pu; Sat, 15 May 2021 19:11:31 +0000
+Received: by outflank-mailman (input) for mailman id 127861;
+ Sat, 15 May 2021 19:11:30 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lhy4S-0004Zi-8O; Sat, 15 May 2021 17:27:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lhzhB-0006B4-VC
+ for xen-devel@lists.xenproject.org; Sat, 15 May 2021 19:11:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lhy4S-0003sk-2K; Sat, 15 May 2021 17:27:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lhy4R-0001Jm-Ju; Sat, 15 May 2021 17:27:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lhy4R-0000MU-JP; Sat, 15 May 2021 17:27:23 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lhzhB-0005gE-PR; Sat, 15 May 2021 19:11:29 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lhzhB-0003qR-JZ; Sat, 15 May 2021 19:11:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,282 +39,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=YpbaMt3unx3IayLRakl7UxO/rSDebb+khlXss5Q1ZAE=; b=b1i3Hx1Gz6Ik83eiOlHZWDQTjW
-	eBs/CU9N5gvboPdv4mZ9jJudet8QgMbqekIRRQBwqHt30wce6mTGC8YJ2DvygrjtXTXtWeE1gTylS
-	gHGauUBOR+vLqgzyUIVGsILXpqvpEbtZ+Rh+FMY0Epp1mlI8fJ5laOtdLmwu9YIbdyPA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161955-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=8i4vi/4f3EfQcOXxuDrH+O6VCvyUFJjoTdfDRUWQMuk=; b=wYRzgMHAHg/4ziyltnKC8WNNgS
+	55CMEILoHwhZbzIH0Qa2zUuTLMl4ENo5yankA8ScckD+YnwnN35hDMkFRuWsxxzLP+TpYeOf6cM3a
+	XN/cChEAMcNkZSuxtd+rQHsIwqQNrEEDU1YYQ5Jy0Kf/mICN/Qt7WNWJiwtKlVdU2Bk8=;
+Subject: Re: Discussion of Xenheap problems on AArch64
+To: Henry Wang <Henry.Wang@arm.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Penny Zheng <Penny.Zheng@arm.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <PA4PR08MB6253F49C13ED56811BA5B64E92479@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <cdde98ca-4183-c92b-adca-801330992fc5@xen.org>
+ <PA4PR08MB62538BBA256E66A0415F0C7192479@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <f14aa1d6-35d2-a9a3-0672-7f0d3ae3ec89@xen.org>
+ <PA4PR08MB62534C4130B59CAA9A8A8BF792419@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <PA4PR08MB6253FBC7F5E690DB74F2E11F92409@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <2a65b8c0-fccc-2ccc-f736-7f3f666e84d1@xen.org>
+ <PA4PR08MB62537A958107CD234831E0B892579@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <ba649865-410b-e1be-39a3-c4cac802f464@xen.org>
+ <PA4PR08MB6253F85E184CA51BDB99786992539@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <ba1bc084-5a5b-1410-acba-33bfca7c4f6a@xen.org>
+ <PA4PR08MB6253E95579D8277D7FD1BE9A92509@PA4PR08MB6253.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7247122c-127d-705c-78a5-7f9460f5821a@xen.org>
+Date: Sat, 15 May 2021 20:11:27 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 161955: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-freebsd10-i386:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-saverestore:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:allowable
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=6d34aa9969ff85ca6eaeb4dc1988a4d4e13e7d79
-X-Osstest-Versions-That:
-    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 15 May 2021 17:27:23 +0000
+In-Reply-To: <PA4PR08MB6253E95579D8277D7FD1BE9A92509@PA4PR08MB6253.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 161955 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161955/
+Hi Henry,
 
-Regressions :-(
+On 14/05/2021 05:35, Henry Wang wrote:
+>> From: Julien Grall <julien@xen.org>
+> Hi Julien,
+> 
+>>
+>> On 11/05/2021 02:11, Henry Wang wrote:
+>>> Hi Julien,
+>> Hi Henry,
+>>>
+>>>> From: Julien Grall <julien@xen.org>
+>>>> Hi Henry,
+>>>>
+>>>> On 07/05/2021 05:06, Henry Wang wrote:
+>>>>>> From: Julien Grall <julien@xen.org>
+>>>>>> On 28/04/2021 10:28, Henry Wang wrote:
+>>>> [...]
+>>>>
+>>>>> when I continue booting Xen, I got following error log:
+>>>>>
+>>>>> (XEN) Xen call trace:
+>>>>> (XEN)    [<00000000002b5a5c>] alloc_boot_pages+0x94/0x98 (PC)
+>>>>> (XEN)    [<00000000002ca3bc>] setup_frametable_mappings+0xa4/0x108
+>>>> (LR)
+>>>>> (XEN)    [<00000000002ca3bc>] setup_frametable_mappings+0xa4/0x108
+>>>>> (XEN)    [<00000000002cb988>] start_xen+0x344/0xbcc
+>>>>> (XEN)    [<00000000002001c0>]
+>>>> arm64/head.o#primary_switched+0x10/0x30
+>>>>> (XEN)
+>>>>> (XEN) ****************************************
+>>>>> (XEN) Panic on CPU 0:
+>>>>> (XEN) Xen BUG at page_alloc.c:432
+>>>>> (XEN) ****************************************
+>>>>
+>>>> This is happening without my patch series applied, right? If so, what
+>>>> happen if you apply it?
+>>>
+>>> No, I am afraid this is with your patch series applied, and that is why I
+>>> am a little bit confused about the error log...
+>>
+>> You are hitting the BUG() at the end of alloc_boot_pages(). This is hit
+>> because the boot allocator couldn't allocate memory for your request.
+>>
+>> Would you be able to apply the following diff and paste the output here?
+> 
+> Thank you, of course yes, please see below output attached :)
+> 
+>>
+>> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+>> index ace6333c18ea..dbb736fdb275 100644
+>> --- a/xen/common/page_alloc.c
+>> +++ b/xen/common/page_alloc.c
+>> @@ -329,6 +329,8 @@ void __init init_boot_pages(paddr_t ps, paddr_t pe)
+>>        if ( pe <= ps )
+>>            return;
+>>
+>> +    printk("%s: ps %"PRI_paddr" pe %"PRI_paddr"\n", __func__, ps, pe);
+>                                                ^ FYI: I have to change this PRI_paddr to PRIpaddr
+>                                                   to make compiler happy
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-qemuu-freebsd11-amd64 16 guest-saverestore fail REGR. vs. 152631
- test-amd64-i386-freebsd10-i386 16 guest-saverestore      fail REGR. vs. 152631
- test-amd64-i386-freebsd10-amd64 16 guest-saverestore     fail REGR. vs. 152631
- test-amd64-amd64-qemuu-freebsd12-amd64 16 guest-saverestore fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-debianhvm-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-ovmf-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-win7-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-ovmf-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-qemuu-nested-intel 20 debian-hvm-install/l1/l2 fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-win7-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-ws16-amd64 15 guest-saverestore fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-ws16-amd64 15 guest-saverestore fail REGR. vs. 152631
+Ah yes, we don't have a variant with _. I thought compiled test before 
+sending it :(.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     18 guest-localmigrate       fail REGR. vs. 152631
+> 
+>> +
+>>        first_valid_mfn = mfn_min(maddr_to_mfn(ps), first_valid_mfn);
+>>
+>>        bootmem_region_add(ps >> PAGE_SHIFT, pe >> PAGE_SHIFT);
+>> @@ -395,6 +397,8 @@ mfn_t __init alloc_boot_pages(unsigned long nr_pfns,
+>> unsigned long pfn_align)
+>>        unsigned long pg, _e;
+>>        unsigned int i = nr_bootmem_regions;
+>>
+>> +    printk("%s: nr_pfns %lu pfn_align %lu\n", __func__, nr_pfns,
+>> pfn_align);
+>> +
+>>        BUG_ON(!nr_bootmem_regions);
+>>
+>>        while ( i-- )
+>>
+> 
+> I also added some printk to make sure the dtb is parsed correctly, and for the
+> Error case, I get following log:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+Thank you for the log.
 
-version targeted for testing:
- qemuu                6d34aa9969ff85ca6eaeb4dc1988a4d4e13e7d79
-baseline version:
- qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+> 
+> (XEN) ----------banks=2--------
+> (XEN) ----------start=80000000--------
+> (XEN) ----------size=7F000000--------
+> (XEN) ----------start=F900000000--------
+> (XEN) ----------size=80000000--------
+> (XEN) Checking for initrd in /chosen
+> (XEN) RAM: 0000000080000000 - 00000000feffffff
+> (XEN) RAM: 000000f900000000 - 000000f97fffffff
+> (XEN)
+> (XEN) MODULE[0]: 0000000084000000 - 00000000841464c8 Xen
+> (XEN) MODULE[1]: 00000000841464c8 - 0000000084148c9b Device Tree
+> (XEN) MODULE[2]: 0000000080080000 - 0000000081080000 Kernel
+> (XEN)  RESVD[0]: 0000000080000000 - 0000000080010000
+> (XEN)
+> (XEN) Command line: noreboot dom0_mem=1024M console=dtuart
+> dtuart=serial0 bootscrub=0
+> (XEN) PFN compression on bits 21...22
+> (XEN) init_boot_pages: ps 0000000080010000 pe 0000000080080000
 
-Last test of basis   152631  2020-08-20 09:07:46 Z  268 days
-Failing since        152659  2020-08-21 14:07:39 Z  267 days  488 attempts
-Testing same since   161955  2021-05-15 02:41:48 Z    0 days    1 attempts
+The size of this region is 448MB.
 
-------------------------------------------------------------
-499 people touched revisions under test,
-not listing them all
+> (XEN) init_boot_pages: ps 0000000081080000 pe 0000000084000000
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+The size of this region is 47MB.
+
+> (XEN) init_boot_pages: ps 0000000084149000 pe 00000000ff000000
+
+The size of this region is 1966MB.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> (XEN) alloc_boot_pages: nr_pfns 1 pfn_align 1
+> (XEN) alloc_boot_pages: nr_pfns 1 pfn_align 1
+> (XEN) alloc_boot_pages: nr_pfns 1 pfn_align 1
+> (XEN) init_boot_pages: ps 000000f900000000 pe 000000f980000000
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+The size of this region is 2048MB.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> (XEN) alloc_boot_pages: nr_pfns 909312 pfn_align 8192
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+This is asking for 3552MB of contiguous memory which cannot be 
+accommodated. In any case, this is quite a large region to ask.
 
+Same...
 
-Not pushing.
+> (XEN) Xen BUG at page_alloc.c:436
+> 
+> To compare with the maximum start address (f800000000) of second part mem
+> where xen boots correctly, I also attached the log for your information:
+> 
+> (XEN) ----------banks=2--------
+> (XEN) ----------start=80000000--------
+> (XEN) ----------size=7F000000--------
+> (XEN) ----------start=F800000000--------
+> (XEN) ----------size=80000000--------
+> (XEN) Checking for initrd in /chosen
+> (XEN) RAM: 0000000080000000 - 00000000feffffff
+> (XEN) RAM: 000000f800000000 - 000000f87fffffff
+> (XEN)
+> (XEN) MODULE[0]: 0000000084000000 - 00000000841464c8 Xen
+> (XEN) MODULE[1]: 00000000841464c8 - 0000000084148c9b Device Tree
+> (XEN) MODULE[2]: 0000000080080000 - 0000000081080000 Kernel
+> (XEN)  RESVD[0]: 0000000080000000 - 0000000080010000
+> (XEN)
+> (XEN) Command line: noreboot dom0_mem=1024M console=dtuart
+> dtuart=serial0 bootscrub=0
+> (XEN) PFN compression on bits 20...22
+> (XEN) init_boot_pages: ps 0000000080010000 pe 0000000080080000
+> (XEN) init_boot_pages: ps 0000000081080000 pe 0000000084000000
+> (XEN) init_boot_pages: ps 0000000084149000 pe 00000000ff000000
+> (XEN) alloc_boot_pages: nr_pfns 1 pfn_align 1
+> (XEN) alloc_boot_pages: nr_pfns 1 pfn_align 1
+> (XEN) alloc_boot_pages: nr_pfns 1 pfn_align 1
+> (XEN) init_boot_pages: ps 000000f800000000 pe 000000f880000000
+> (XEN) alloc_boot_pages: nr_pfns 450560 pfn_align 8192
 
-(No revision log; it would be 152107 lines long.)
+... here. We are trying to allocate a 1.5GB frametable. You have only 
+4GB of memory so the frametable should be a lot smaller (few tens of MB).
+
+This is happening because PDX is not able to find many bits to compress.
+I am not sure we can compress more with the current PDX algorithm. This 
+may require some extensive improvement to reduce the footprint.
+
+On a previous e-mail, you said you tweaked the FVP model to set those 
+regions. Were you trying to mimick the memory layout of a real HW 
+(either current or future)?
+
+Cheers,
+
+-- 
+Julien Grall
 
