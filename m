@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69B28383B62
-	for <lists+xen-devel@lfdr.de>; Mon, 17 May 2021 19:37:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128434.241123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE74A383BBF
+	for <lists+xen-devel@lfdr.de>; Mon, 17 May 2021 19:55:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128441.241134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lihAE-0000zR-Fe; Mon, 17 May 2021 17:36:22 +0000
+	id 1lihRy-0003L3-WB; Mon, 17 May 2021 17:54:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128434.241123; Mon, 17 May 2021 17:36:22 +0000
+Received: by outflank-mailman (output) from mailman id 128441.241134; Mon, 17 May 2021 17:54:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lihAE-0000xJ-A4; Mon, 17 May 2021 17:36:22 +0000
-Received: by outflank-mailman (input) for mailman id 128434;
- Mon, 17 May 2021 17:36:20 +0000
+	id 1lihRy-0003Ii-TC; Mon, 17 May 2021 17:54:42 +0000
+Received: by outflank-mailman (input) for mailman id 128441;
+ Mon, 17 May 2021 17:54:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lihAC-0000x8-RF; Mon, 17 May 2021 17:36:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lihRx-0003Ic-AN
+ for xen-devel@lists.xenproject.org; Mon, 17 May 2021 17:54:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lihAC-0000av-Ke; Mon, 17 May 2021 17:36:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lihAC-000586-Ca; Mon, 17 May 2021 17:36:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lihAC-0004nR-C7; Mon, 17 May 2021 17:36:20 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lihRw-0000sq-AC; Mon, 17 May 2021 17:54:40 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lihRw-0007Po-43; Mon, 17 May 2021 17:54:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +39,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=SJSSs1DxLASH8X3r16XZ5xp/emnhb4l75L9+ruwEx4o=; b=COR1BeNRimN6hqn2/ZVtZAqzCP
-	8fIZDVwttsd7mZ9Mv518N9o8FF54hCa+qoh9jz9ajJhBC2Jk2wcetbjCun3uESTlUqyDeiNgDxPn3
-	vYPRwWMed0Uk06YseVRqYtJ8eGmMgt796ZY8W2qaUTWGatStuRYUVsCjZ3HOPliYjwHY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161979-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=dUUzb2Zr6mZEpVhQ+uzkc3u1SAW4enauwTXK1MYXImg=; b=NfAu8w99hMTWjfQvc0fjptwze0
+	Yggjya6Ol97XcL9Sy21MzJE1D1NGKuQK7jgZXrbeu6p6vsHvkVrvCcuyiRpfYQJXrIGSNXdcc5Ak4
+	0ie8oYzKv+sfmnv88gBTW2oaQJk4+Ool2yXuECglpM1CK66L/498QxBHCil8hWpvldzY=;
+Subject: Re: [PATCH v2 2/2] tools/xenstore: simplify xenstored main loop
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210514115620.32731-1-jgross@suse.com>
+ <20210514115620.32731-3-jgross@suse.com>
+ <24e89076-4440-a32e-f701-71957cc2a9e4@xen.org>
+ <12b13143-717b-c288-b96b-50613dafc6d3@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <3cf89fa9-9b04-5f5e-7190-8ca2a2b01c92@xen.org>
+Date: Mon, 17 May 2021 18:54:38 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-Subject: [ovmf test] 161979: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d2e0c473e6f0d518e8acb187f99bb7e61f7df862
-X-Osstest-Versions-That:
-    ovmf=e0cb5e1814a67bb12dd476a72d1698350633bcbb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 17 May 2021 17:36:20 +0000
+In-Reply-To: <12b13143-717b-c288-b96b-50613dafc6d3@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-flight 161979 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161979/
+Hi Juergen,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d2e0c473e6f0d518e8acb187f99bb7e61f7df862
-baseline version:
- ovmf                 e0cb5e1814a67bb12dd476a72d1698350633bcbb
+On 17/05/2021 07:10, Juergen Gross wrote:
+> On 14.05.21 19:05, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> On 14/05/2021 12:56, Juergen Gross wrote:
+>>> The main loop of xenstored is rather complicated due to different
+>>> handling of socket and ring-page interfaces. Unify that handling by
+>>> introducing interface type specific functions can_read() and
+>>> can_write().
+>>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>> V2:
+>>> - split off function vector introduction (Julien Grall)
+>>> ---
+>>>   tools/xenstore/xenstored_core.c   | 77 +++++++++++++++----------------
+>>>   tools/xenstore/xenstored_core.h   |  2 +
+>>>   tools/xenstore/xenstored_domain.c |  2 +
+>>>   3 files changed, 41 insertions(+), 40 deletions(-)
+>>>
+>>> diff --git a/tools/xenstore/xenstored_core.c 
+>>> b/tools/xenstore/xenstored_core.c
+>>> index 856f518075..883a1a582a 100644
+>>> --- a/tools/xenstore/xenstored_core.c
+>>> +++ b/tools/xenstore/xenstored_core.c
+>>> @@ -1659,9 +1659,34 @@ static int readfd(struct connection *conn, 
+>>> void *data, unsigned int len)
+>>>       return rc;
+>>>   }
+>>> +static bool socket_can_process(struct connection *conn, int mask)
+>>> +{
+>>> +    if (conn->pollfd_idx == -1)
+>>> +        return false;
+>>> +
+>>> +    if (fds[conn->pollfd_idx].revents & ~(POLLIN | POLLOUT)) {
+>>> +        talloc_free(conn);
+>>> +        return false;
+>>> +    }
+>>> +
+>>> +    return (fds[conn->pollfd_idx].revents & mask) && !conn->is_ignored;
+>>> +}
+>>> +
+>>> +static bool socket_can_write(struct connection *conn)
+>>> +{
+>>> +    return socket_can_process(conn, POLLOUT);
+>>> +}
+>>> +
+>>> +static bool socket_can_read(struct connection *conn)
+>>> +{
+>>> +    return socket_can_process(conn, POLLIN);
+>>> +}
+>>> +
+>>>   const struct interface_funcs socket_funcs = {
+>>>       .write = writefd,
+>>>       .read = readfd,
+>>> +    .can_write = socket_can_write,
+>>> +    .can_read = socket_can_read,
+>>>   };
+>>>   static void accept_connection(int sock)
+>>> @@ -2296,47 +2321,19 @@ int main(int argc, char *argv[])
+>>>               if (&next->list != &connections)
+>>>                   talloc_increase_ref_count(next);
+>>> -            if (conn->domain) {
+>>> -                if (domain_can_read(conn))
+>>> -                    handle_input(conn);
+>>> -                if (talloc_free(conn) == 0)
+>>> -                    continue;
+>>> -
+>>> -                talloc_increase_ref_count(conn);
+>>> -                if (domain_can_write(conn) &&
+>>> -                    !list_empty(&conn->out_list))
+>>
+>> AFAICT, the check "!list_empty(&conn->out_list)" can be safely removed 
+>> because write_messages() will check if the list is empty (list_top() 
+>> returns NULL in this case). Is that correct?
+> 
+> Yes.
 
-Last test of basis   161974  2021-05-17 02:40:16 Z    0 days
-Testing same since   161979  2021-05-17 11:10:07 Z    0 days    1 attempts
+Thanks, how about adding in the commit message:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Daniel Schaefer <daniel.schaefer@hpe.com>
-  Yuwei Chen <yuwei.chen@intel.com>
+"Take the opportunity to remove the empty list check before calling 
+write_messages() because the function is already able to cope with an 
+empty list."
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+I can update the commit message while committing it.
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e0cb5e1814..d2e0c473e6  d2e0c473e6f0d518e8acb187f99bb7e61f7df862 -> xen-tested-master
+-- 
+Julien Grall
 
