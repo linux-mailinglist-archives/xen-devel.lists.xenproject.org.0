@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D58382A4F
-	for <lists+xen-devel@lfdr.de>; Mon, 17 May 2021 12:54:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128149.240642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43FE5382A6D
+	for <lists+xen-devel@lfdr.de>; Mon, 17 May 2021 12:59:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128162.240655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1liatE-0007Lc-Fu; Mon, 17 May 2021 10:54:24 +0000
+	id 1liaxj-0008BU-1U; Mon, 17 May 2021 10:59:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128149.240642; Mon, 17 May 2021 10:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 128162.240655; Mon, 17 May 2021 10:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1liatE-0007JZ-BH; Mon, 17 May 2021 10:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 128149;
- Mon, 17 May 2021 10:54:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1liaxi-00089b-Ua; Mon, 17 May 2021 10:59:02 +0000
+Received: by outflank-mailman (input) for mailman id 128162;
+ Mon, 17 May 2021 10:59:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1liatD-0007JI-Eo; Mon, 17 May 2021 10:54:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1liatD-0001Rn-8o; Mon, 17 May 2021 10:54:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1liatC-0004dX-TZ; Mon, 17 May 2021 10:54:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1liatC-0003i1-T1; Mon, 17 May 2021 10:54:22 +0000
+ (envelope-from <SRS0=FIJu=KM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1liaxh-000892-9G
+ for xen-devel@lists.xenproject.org; Mon, 17 May 2021 10:59:01 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0ed95dc4-2799-4b56-b405-4659370b0ae7;
+ Mon, 17 May 2021 10:58:55 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 31039AE89;
+ Mon, 17 May 2021 10:58:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +39,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sSHo1MjU5JoYrH1njg82cGZwNBR+yyvlLwc6se+H7AM=; b=Ff5HJKleEiGdyjwuw0hBWGzU75
-	7CMChR7Fe7XU2VDzyD2zT7jsj+ZnjNls1rLy+FFWSKmSlXYRsJgoCLlG2rK9e9VSQ5zF/sqQEhWW2
-	UJWz+YpJwlwXro+eg6grlb4WDFRXMzvbaqihbeKhuWW7lc3N3KRemMd2dSzf0fj8Pgtk=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161974-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0ed95dc4-2799-4b56-b405-4659370b0ae7
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1621249134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PRce/xL7hdszTFBxalqPXo3Pbt1l/3oKPkY+6zNLqOY=;
+	b=CRkUpWSgK0JhPft+XYOuXWj+QkwoTvfTXDQvOII5GP5o8wKdRfcwgnVLgRejhbv4ZfMIyX
+	/d5kcB+NynVdP2Xo3uCvk6BGZqOmojj7/Zor+YzSQDeZZO9f6T0DzlrBR+VJyYJhYSWOxk
+	LTUamU+dIEs5juTtRJNpC48j+bjmmnk=
+Subject: Re: Regressed XSA-286, was [xen-unstable test] 161917: regressions -
+ FAIL
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+References: <osstest-161917-mainreport@xen.org>
+ <7cfa28ae-2fbe-0945-8a6c-a965ec52155f@citrix.com>
+ <e8fae962-1a5b-cc91-d429-a716b009f062@suse.com>
+Message-ID: <f365c8f9-362c-f7f5-6ed4-34131a1dce63@suse.com>
+Date: Mon, 17 May 2021 12:59:01 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Subject: [ovmf test] 161974: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e0cb5e1814a67bb12dd476a72d1698350633bcbb
-X-Osstest-Versions-That:
-    ovmf=32928415e36b3e234efb5c24143e06060a68fba3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 17 May 2021 10:54:22 +0000
+In-Reply-To: <e8fae962-1a5b-cc91-d429-a716b009f062@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 161974 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161974/
+On 17.05.2021 10:43, Jan Beulich wrote:
+> On 13.05.2021 22:15, Andrew Cooper wrote:
+>> Second, the unexplained OSSTest behaviour.
+>>
+>> When I repro'd this on pinot1, test-pv32pae-xsa-286 failing was totally
+>> deterministic and repeatable (I tried 100 times because the test is a
+>> fraction of a second).
+>>
+>> From the log trawling which Ian already did, the first recorded failure
+>> was flight 160912 on April 11th.  All failures (12, but this number is a
+>> few flights old now) were on pinot*.
+>>
+>> What would be interesting to see is whether there have been any passes
+>> on pinot since 160912.
+>>
+>> I can't see any reason why the test would be reliable for me, but
+>> unreliable for OSSTest, so I'm wondering whether it is actually
+>> reliable, and something is wrong with the stickiness heuristic.
+> 
+> Isn't (un)reliability of this test, besides the sensitivity to IRQs
+> and context switches, tied to hardware behavior, in particular TLB
+> capacity and replacement policy? Aiui the test has
+> 
+>     xtf_success("Success: Probably not vulnerable to XSA-286\n");
+> 
+> for the combination of all of these reasons.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e0cb5e1814a67bb12dd476a72d1698350633bcbb
-baseline version:
- ovmf                 32928415e36b3e234efb5c24143e06060a68fba3
+I've just done a dozen runs on my Skylake - all reported SUCCESS.
 
-Last test of basis   161952  2021-05-14 21:40:05 Z    2 days
-Testing same since   161974  2021-05-17 02:40:16 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Rebecca Cran <rebecca@nuviainc.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   32928415e3..e0cb5e1814  e0cb5e1814a67bb12dd476a72d1698350633bcbb -> xen-tested-master
+Jan
 
