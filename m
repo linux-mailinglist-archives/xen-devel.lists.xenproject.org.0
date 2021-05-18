@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A130387171
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 07:51:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128698.241564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D83D73871B8
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 08:20:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128707.241580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lisdR-0002MI-3D; Tue, 18 May 2021 05:51:17 +0000
+	id 1lit4f-0004tU-Dv; Tue, 18 May 2021 06:19:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128698.241564; Tue, 18 May 2021 05:51:17 +0000
+Received: by outflank-mailman (output) from mailman id 128707.241580; Tue, 18 May 2021 06:19:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lisdQ-0002Jj-Uc; Tue, 18 May 2021 05:51:16 +0000
-Received: by outflank-mailman (input) for mailman id 128698;
- Tue, 18 May 2021 05:51:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lit4f-0004rJ-67; Tue, 18 May 2021 06:19:25 +0000
+Received: by outflank-mailman (input) for mailman id 128707;
+ Tue, 18 May 2021 06:19:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lisdP-0002JZ-Mj; Tue, 18 May 2021 05:51:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lisdP-0003Cc-Ja; Tue, 18 May 2021 05:51:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lisdP-0007jn-4C; Tue, 18 May 2021 05:51:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lisdP-0005qK-3k; Tue, 18 May 2021 05:51:15 +0000
+ (envelope-from <SRS0=+8gn=KN=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lit4d-0004r5-Gb
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 06:19:23 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b2ff66ce-25e5-4b24-a9d4-6c2f2447f62d;
+ Tue, 18 May 2021 06:19:21 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D0D42AEFF;
+ Tue, 18 May 2021 06:19:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +39,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=jfetwrJU6bfxQEej+U/c8REmJzV+OC1Yo7USGadVO28=; b=yQuQtQdOVgKXsiydSIUM4EuAPL
-	d6YCfqR2YYTcz6mvElxchc5w95ebx1z9byuQBgBuj2EDGUfhuiBzpXQhcLWDuWM9JLcJAA15tfJJS
-	CCV3+F+nufTXjaem5i4ZUFZOpAtB3+LPszfjroCfFfIkhXyHsL9sY6vxlSngpWQIDhRA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-161987-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b2ff66ce-25e5-4b24-a9d4-6c2f2447f62d
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1621318760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=z6KF+YTRzP6/Lbt7W9Y/V0Lrtmt/kNDWUTq2Wg8gNHU=;
+	b=kErWyrRD9ASwp2ZUgI2yDeV0aaMzRntC9NDH1/HVtgwTOinfw0Lmr3EjnK6QBG1mvVBVV7
+	iHDszG6XSdBN+yezJY1idn/B+Ty53BENNnYM/9DqXBujf91Hn5ZS+ct6zyomMBnrWOdfKK
+	zDq52J25hHLMcMZUYGeokLNlij2I6Pw=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 0/2] tools/xenstore: simplify xenstored main loop
+Date: Tue, 18 May 2021 08:19:05 +0200
+Message-Id: <20210518061907.16374-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [ovmf test] 161987: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=1fbf5e30ae8eb725f4e10984f7b0a208f78abbd0
-X-Osstest-Versions-That:
-    ovmf=d2e0c473e6f0d518e8acb187f99bb7e61f7df862
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 18 May 2021 05:51:15 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 161987 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/161987/
+Small series to make the main loop of xenstored more readable.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 1fbf5e30ae8eb725f4e10984f7b0a208f78abbd0
-baseline version:
- ovmf                 d2e0c473e6f0d518e8acb187f99bb7e61f7df862
+Changes in V2:
+- split into two patches
+- use const
+- NO_SOCKETS handling
 
-Last test of basis   161979  2021-05-17 11:10:07 Z    0 days
-Testing same since   161987  2021-05-18 01:10:06 Z    0 days    1 attempts
+Changes in V3:
+- guard extern declaration with NO_SOCKETS
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
+Juergen Gross (2):
+  tools/xenstore: move per connection read and write func hooks into a
+    struct
+  tools/xenstore: simplify xenstored main loop
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ tools/xenstore/xenstored_core.c   | 121 ++++++++++++++----------------
+ tools/xenstore/xenstored_core.h   |  23 +++---
+ tools/xenstore/xenstored_domain.c |  15 +++-
+ 3 files changed, 81 insertions(+), 78 deletions(-)
 
+-- 
+2.26.2
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d2e0c473e6..1fbf5e30ae  1fbf5e30ae8eb725f4e10984f7b0a208f78abbd0 -> xen-tested-master
 
