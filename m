@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3921E38735A
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 09:35:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128905.241957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26AAE387364
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 09:39:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128911.241971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1liuFY-0006bN-U9; Tue, 18 May 2021 07:34:44 +0000
+	id 1liuK5-0007HU-Kw; Tue, 18 May 2021 07:39:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128905.241957; Tue, 18 May 2021 07:34:44 +0000
+Received: by outflank-mailman (output) from mailman id 128911.241971; Tue, 18 May 2021 07:39:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1liuFY-0006Yj-QO; Tue, 18 May 2021 07:34:44 +0000
-Received: by outflank-mailman (input) for mailman id 128905;
- Tue, 18 May 2021 07:34:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1liuK5-0007EZ-GS; Tue, 18 May 2021 07:39:25 +0000
+Received: by outflank-mailman (input) for mailman id 128911;
+ Tue, 18 May 2021 07:39:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1liuFX-0006Yd-2M
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 07:34:43 +0000
+ id 1liuK3-0007ER-7U
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 07:39:23 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f7e0ecfa-3ae4-4128-b52a-82cbc2c9d463;
- Tue, 18 May 2021 07:34:41 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ac6be63f-c116-4368-a548-a59cbce9c77a;
+ Tue, 18 May 2021 07:39:22 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 09C0EAD12;
- Tue, 18 May 2021 07:34:41 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5ED9AB14B;
+ Tue, 18 May 2021 07:39:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +38,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7e0ecfa-3ae4-4128-b52a-82cbc2c9d463
+X-Inumbo-ID: ac6be63f-c116-4368-a548-a59cbce9c77a
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621323281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1621323561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kShlrabaw4ls32FAThQfFmZqAFnLYEfnF1x1a3abZqg=;
-	b=l/jEKPLyua2VMl/MeXHdPP2JyqQ0iWgGJAt5cP97LF4Z8pMNacc/LXgKt0Gp5ACLW5XsWq
-	DY1tXQHkgN0gYO8pavKMKTqNxvOesXl3DGw/oC+f8iBMOoXVlZSqsWuvvQinFIy337K9di
-	aKb9u3PxO0Jed17KB4e6MkfvRGCmpdg=
-Subject: Re: [PATCH 07/10] xen/arm: intruduce alloc_domstatic_pages
+	bh=ztMMXNnmS1AqoJfVHmRGuV/LMebAV7sEvMIAdb5V5GU=;
+	b=sNFmCrAiJxZU6hFWJApe/NTkz8x0LMLJPxhKkr0s9BTtQMd/A4R5yRoDXJm4pEQ5dBXOqB
+	YKh+Zez0O/JOnaRAo4MkxrkIu2EKRAzfZ1dp80ShDSYzeyVaAItScqyDtrWllBM1kY4jpS
+	S9Yrku/1Y8q68wu1jvk1aLf0oQPPbs8=
+Subject: Re: [PATCH 08/10] xen/arm: introduce reserved_page_list
 To: Penny Zheng <penny.zheng@arm.com>
 Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com,
  xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
 References: <20210518052113.725808-1-penny.zheng@arm.com>
- <20210518052113.725808-8-penny.zheng@arm.com>
+ <20210518052113.725808-9-penny.zheng@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7e4706dc-70ea-4dc9-3d70-f07396b462d8@suse.com>
-Date: Tue, 18 May 2021 09:34:40 +0200
+Message-ID: <97bc6ca6-206b-197f-de08-20691578b9db@suse.com>
+Date: Tue, 18 May 2021 09:39:20 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20210518052113.725808-8-penny.zheng@arm.com>
+In-Reply-To: <20210518052113.725808-9-penny.zheng@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 On 18.05.2021 07:21, Penny Zheng wrote:
+> Since page_list under struct domain refers to linked pages as gueast RAM
+> allocated from heap, it should not include reserved pages of static memory.
+> 
+> The number of PGC_reserved pages assigned to a domain is tracked in
+> a new 'reserved_pages' counter. Also introduce a new reserved_page_list
+> to link pages of static memory. Let page_to_list return reserved_page_list,
+> when flag is PGC_reserved.
+> 
+> Later, when domain get destroyed or restarted, those new values will help
+> relinquish memory to proper place, not been given back to heap.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> ---
+>  xen/common/domain.c     | 1 +
+>  xen/common/page_alloc.c | 7 +++++--
+>  xen/include/xen/sched.h | 5 +++++
+>  3 files changed, 11 insertions(+), 2 deletions(-)
+
+This contradicts the title's prefix: There's no Arm-specific change
+here at all. But imo the title is correct, and the changes should
+be Arm-specific. There's no point having struct domain fields on
+e.g. x86 which aren't used there at all.
+
 > --- a/xen/common/page_alloc.c
 > +++ b/xen/common/page_alloc.c
-> @@ -2447,6 +2447,9 @@ int assign_pages(
->      {
->          ASSERT(page_get_owner(&pg[i]) == NULL);
->          page_set_owner(&pg[i], d);
-> +        /* use page_set_reserved_owner to set its reserved domain owner. */
-> +        if ( (pg[i].count_info & PGC_reserved) )
-> +            page_set_reserved_owner(&pg[i], d);
-
-Now this is puzzling: What's the point of setting two owner fields
-to the same value? I also don't recall you having introduced
-page_set_reserved_owner() for x86, so how is this going to build
-there?
-
-> @@ -2509,6 +2512,56 @@ struct page_info *alloc_domheap_pages(
->      return pg;
->  }
+> @@ -2410,7 +2410,7 @@ int assign_pages(
 >  
-> +/*
-> + * Allocate nr_pfns contiguous pages, starting at #start, of static memory,
-> + * then assign them to one specific domain #d.
-> + * It is the equivalent of alloc_domheap_pages for static memory.
-> + */
-> +struct page_info *alloc_domstatic_pages(
-> +        struct domain *d, unsigned long nr_pfns, paddr_t start,
-> +        unsigned int memflags)
-> +{
-> +    struct page_info *pg = NULL;
-> +    unsigned long dma_size;
-> +
-> +    ASSERT(!in_irq());
-> +
-> +    if ( memflags & MEMF_no_owner )
-> +        memflags |= MEMF_no_refcount;
-> +
-> +    if ( !dma_bitsize )
-> +        memflags &= ~MEMF_no_dma;
-> +    else
-> +    {
-> +        dma_size = 1ul << bits_to_zone(dma_bitsize);
-> +        /* Starting address shall meet the DMA limitation. */
-> +        if ( dma_size && start < dma_size )
-> +            return NULL;
+>          for ( i = 0; i < nr_pfns; i++ )
+>          {
+> -            ASSERT(!(pg[i].count_info & ~PGC_extra));
+> +            ASSERT(!(pg[i].count_info & ~(PGC_extra | PGC_reserved)));
+>              if ( pg[i].count_info & PGC_extra )
+>                  extra_pages++;
+>          }
+> @@ -2439,6 +2439,9 @@ int assign_pages(
+>          }
+>      }
+>  
+> +    if ( pg[0].count_info & PGC_reserved )
+> +        d->reserved_pages += nr_pfns;
 
-It is the entire range (i.e. in particular the last byte) which needs
-to meet such a restriction. I'm not convinced though that DMA width
-restrictions and static allocation are sensible to coexist.
+I guess this again will fail to build on x86.
 
-> +    }
-> +
-> +    pg = alloc_staticmem_pages(nr_pfns, start, memflags);
-> +    if ( !pg )
-> +        return NULL;
-> +
-> +    if ( d && !(memflags & MEMF_no_owner) )
-> +    {
-> +        if ( memflags & MEMF_no_refcount )
-> +        {
-> +            unsigned long i;
-> +
-> +            for ( i = 0; i < nr_pfns; i++ )
-> +                pg[i].count_info = PGC_extra;
-> +        }
+> @@ -588,6 +590,9 @@ static inline struct page_list_head *page_to_list(
+>      if ( pg->count_info & PGC_extra )
+>          return &d->extra_page_list;
+>  
+> +    if ( pg->count_info & PGC_reserved )
+> +        return &d->reserved_page_list;
 
-Is this as well as the MEMF_no_owner case actually meaningful for
-statically allocated pages?
+Same here.
 
 Jan
 
