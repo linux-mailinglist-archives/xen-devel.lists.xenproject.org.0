@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E85EE3872BB
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 08:57:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128855.241873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AB093872CC
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 09:04:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128869.241887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1litfO-0007fD-55; Tue, 18 May 2021 06:57:22 +0000
+	id 1litlw-0000pw-3j; Tue, 18 May 2021 07:04:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128855.241873; Tue, 18 May 2021 06:57:22 +0000
+Received: by outflank-mailman (output) from mailman id 128869.241887; Tue, 18 May 2021 07:04:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1litfO-0007dJ-13; Tue, 18 May 2021 06:57:22 +0000
-Received: by outflank-mailman (input) for mailman id 128855;
- Tue, 18 May 2021 06:57:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7W/=KN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1litfM-0007dD-11
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 06:57:20 +0000
-Received: from mail-wr1-x42e.google.com (unknown [2a00:1450:4864:20::42e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e6344acd-213b-43f1-b256-a5e7bb24c968;
- Tue, 18 May 2021 06:57:18 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id z17so8871298wrq.7
- for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:57:18 -0700 (PDT)
-Received: from ?IPv6:2a00:23c5:5785:9a01:8896:b860:e287:45cb?
- ([2a00:23c5:5785:9a01:8896:b860:e287:45cb])
- by smtp.gmail.com with ESMTPSA id h14sm24965388wrq.45.2021.05.17.23.57.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 May 2021 23:57:17 -0700 (PDT)
+	id 1litlv-0000o4-VT; Tue, 18 May 2021 07:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 128869;
+ Tue, 18 May 2021 07:04:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tO0P=KN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1litlu-0000nC-Bf
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 07:04:06 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 854eedd6-6e71-4544-b6b1-298f24d9f509;
+ Tue, 18 May 2021 07:04:04 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0E6E3B0B7;
+ Tue, 18 May 2021 07:04:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +39,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6344acd-213b-43f1-b256-a5e7bb24c968
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Lkyx21VRSMiMSZnYaucpBR50CYphKVffI2Qp7NzZRYw=;
-        b=PSl/UlgL7D6yaaiILnEj/A5skHrYwipO3Kz22ZdjvhRz5X9lBJ4MM9lknTX1LlFl5j
-         +rtJmfqynOf9gQmCUOr7oeW2vEFTJkxIFhCx50xwfgWEx9tFWDz7H3nNcqP97YLggEwi
-         ocynSirHMYPwfrGlVvUczmfM8wxP8WzVbaEt6IDo7J+RODKhCfjMlAeovyS1+FKaHfqv
-         bKLqsZknqlKQQQdTPvGp0NjXYH5MDwgVpEb6eHLP9NzSZWGAvkpDu0nhHnivA/IkKvaY
-         falX0+pxA4kx2wH0cvt8aIh65WgndxlrDrjj72e/YIAw/LYBvUqXZlVGFBlyB49JiEes
-         loiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:subject:to:cc:references
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=Lkyx21VRSMiMSZnYaucpBR50CYphKVffI2Qp7NzZRYw=;
-        b=QNAa9ef58cYNAoQCsocGQyBK8iXrdFqAPqAGc13o0IEitFH95cQGjLBWJDLpF3vV8k
-         cXtARnLircAYvaB8A4lyuDhI7VEhHmt9KZsf6Wcq4nQ4MeLDM7g5MNqzMXmXmP+AqzCe
-         x2B4bA/YLRG/Wm+LbltRInIUnFnwSIrSyIPEgEUXVnsn6OYGS06FzGdx6WUtKjnBm3AO
-         6B3BbwH3CanxzQfZFrWFw6RGc3pbtE95XwP0qFUu6tM/lzwh7LYtLHx8TJfIf4jIaOH8
-         93TMhiPzPvt72MBo7xcZ0vtfikWN9oPmK4YS3jjFGQBbzv78fRtRHN7gGU8jqvSXGzka
-         /Hew==
-X-Gm-Message-State: AOAM532MxG2NZQX+8wTOPUV64eLaH9tuAG07pmzXb4UAl9HJx7Y4hC2a
-	XUTW3sdeEor83m/wzRo45AQ=
-X-Google-Smtp-Source: ABdhPJz0eCctjJyTTpyrO6jmCxzTLMb2Z0aPswDW0oB9UdnlaDFQrRGGu3gSl9DpvIMVS8+YhxPgmg==
-X-Received: by 2002:adf:e6c2:: with SMTP id y2mr4742719wrm.384.1621321037892;
-        Mon, 17 May 2021 23:57:17 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Reply-To: paul@xen.org
-Subject: Re: [PATCH] xen-netback: Check for hotplug-status existence before
- watching
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, "Durrant, Paul" <pdurrant@amazon.co.uk>
-Cc: Michael Brown <mbrown@fensystems.co.uk>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "wei.liu@kernel.org" <wei.liu@kernel.org>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20210413152512.903750-1-mbrown@fensystems.co.uk>
- <YJl8IC7EbXKpARWL@mail-itl>
- <404130e4-210d-2214-47a8-833c0463d997@fensystems.co.uk>
- <YJmBDpqQ12ZBGf58@mail-itl>
- <21f38a92-c8ae-12a7-f1d8-50810c5eb088@fensystems.co.uk>
- <YJmMvTkp2Y1hlLLm@mail-itl>
- <df9e9a32b0294aee814eeb58d2d71edd@EX13D32EUC003.ant.amazon.com>
- <YJpfORXIgEaWlQ7E@mail-itl> <YJpgNvOmDL9SuRye@mail-itl>
- <9edd6873034f474baafd70b1df693001@EX13D32EUC003.ant.amazon.com>
- <YKLjoALdw4oKSZ04@mail-itl>
-Message-ID: <8b7a9cd5-3696-65c2-5656-a1c8eb174344@xen.org>
-Date: Tue, 18 May 2021 07:57:16 +0100
+X-Inumbo-ID: 854eedd6-6e71-4544-b6b1-298f24d9f509
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1621321444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/Eu+F6rHuFh5vngwMexR1YiB/bks/cxL5wk3e4UM5iw=;
+	b=mOl9PR8cW22dB/qZUM8NAVsF7alJl7Cq+XCE9HlC2tfq6vWSqJWOGu4LM6ERln3Xyn1wE3
+	yCAa2MAYkBFmjkHQqKSh4QxPKQtItBQZd2KPa+3ceeUnrlPoT37V9sSscNkqHxJ4NPKh9R
+	QwD2+i3pJqbXDIw6c4RHr27Gk3hCmSs=
+Subject: Re: [PATCH] Xen: Design doc for 1:1 direct-map and static allocation
+To: Penny Zheng <penny.zheng@arm.com>
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com,
+ xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
+References: <20210518050738.163156-1-penny.zheng@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <afce8ae7-8079-c73c-3eab-bc67a37fdf8e@suse.com>
+Date: Tue, 18 May 2021 09:04:03 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <YKLjoALdw4oKSZ04@mail-itl>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20210518050738.163156-1-penny.zheng@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17/05/2021 22:43, Marek Marczykowski-Górecki wrote:
-> On Tue, May 11, 2021 at 12:46:38PM +0000, Durrant, Paul wrote:
->>> -----Original Message-----
->>> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->>> Sent: 11 May 2021 11:45
->>> To: Durrant, Paul <pdurrant@amazon.co.uk>
->>> Cc: Michael Brown <mbrown@fensystems.co.uk>; paul@xen.org; xen-devel@lists.xenproject.org;
->>> netdev@vger.kernel.org; wei.liu@kernel.org
->>> Subject: RE: [EXTERNAL] [PATCH] xen-netback: Check for hotplug-status existence before watching
->>>
->>> On Tue, May 11, 2021 at 12:40:54PM +0200, Marek Marczykowski-Górecki wrote:
->>>> On Tue, May 11, 2021 at 07:06:55AM +0000, Durrant, Paul wrote:
->>>>>> -----Original Message-----
->>>>>> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->>>>>> Sent: 10 May 2021 20:43
->>>>>> To: Michael Brown <mbrown@fensystems.co.uk>; paul@xen.org
->>>>>> Cc: paul@xen.org; xen-devel@lists.xenproject.org; netdev@vger.kernel.org; wei.liu@kernel.org;
->>> Durrant,
->>>>>> Paul <pdurrant@amazon.co.uk>
->>>>>> Subject: RE: [EXTERNAL] [PATCH] xen-netback: Check for hotplug-status existence before watching
->>>>>>
->>>>>> On Mon, May 10, 2021 at 08:06:55PM +0100, Michael Brown wrote:
->>>>>>> If you have a suggested patch, I'm happy to test that it doesn't reintroduce
->>>>>>> the regression bug that was fixed by this commit.
->>>>>>
->>>>>> Actually, I've just tested with a simple reloading xen-netfront module. It
->>>>>> seems in this case, the hotplug script is not re-executed. In fact, I
->>>>>> think it should not be re-executed at all, since the vif interface
->>>>>> remains in place (it just gets NO-CARRIER flag).
->>>>>>
->>>>>> This brings a question, why removing hotplug-status in the first place?
->>>>>> The interface remains correctly configured by the hotplug script after
->>>>>> all. From the commit message:
->>>>>>
->>>>>>      xen-netback: remove 'hotplug-status' once it has served its purpose
->>>>>>
->>>>>>      Removing the 'hotplug-status' node in netback_remove() is wrong; the script
->>>>>>      may not have completed. Only remove the node once the watch has fired and
->>>>>>      has been unregistered.
->>>>>>
->>>>>> I think the intention was to remove 'hotplug-status' node _later_ in
->>>>>> case of quickly adding and removing the interface. Is that right, Paul?
->>>>>
->>>>> The removal was done to allow unbind/bind to function correctly. IIRC before the original patch
->>> doing a bind would stall forever waiting for the hotplug status to change, which would never happen.
->>>>
->>>> Hmm, in that case maybe don't remove it at all in the backend, and let
->>>> it be cleaned up by the toolstack, when it removes other backend-related
->>>> nodes?
->>>
->>> No, unbind/bind _does_ require hotplug script to be called again.
->>>
->>
->> Yes, sorry I was misremembering. My memory is hazy but there was definitely a problem at the time with leaving the node in place.
->>
->>> When exactly vif interface appears in the system (starts to be available
->>> for the hotplug script)? Maybe remove 'hotplug-status' just before that
->>> point?
->>>
->>
->> I really can't remember any detail. Perhaps try reverting both patches then and check that the unbind/rmmod/modprobe/bind sequence still works (and the backend actually makes it into connected state).
-> 
-> Ok, I've tried this. I've reverted both commits, then used your test
-> script from the 9476654bd5e8ad42abe8ee9f9e90069ff8e60c17:
->      
->      This has been tested by running iperf as a server in the test VM and
->      then running a client against it in a continuous loop, whilst also
->      running:
->      
->      while true;
->        do echo vif-$DOMID-$VIF >unbind;
->        echo down;
->        rmmod xen-netback;
->        echo unloaded;
->        modprobe xen-netback;
->        cd $(pwd);
->        brctl addif xenbr0 vif$DOMID.$VIF;
->        ip link set vif$DOMID.$VIF up;
->        echo up;
->        sleep 5;
->        done
->      
->      in dom0 from /sys/bus/xen-backend/drivers/vif to continuously unbind,
->      unload, re-load, re-bind and re-plumb the backend.
->      
-> In fact, the need to call `brctl` and `ip link` manually is exactly
-> because the hotplug script isn't executed. When I execute it manually,
-> the backend properly gets back to working. So, removing 'hotplug-status'
-> was in the correct place (netback_remove). The missing part is the toolstack
-> calling the hotplug script on xen-netback re-bind.
-> 
+On 18.05.2021 07:07, Penny Zheng wrote:
+> +## Background
+> +
+> +Cases where needs static allocation:
+> +
+> +  * Static allocation needed whenever a system has a pre-defined non-changing
+> +behaviour. This is usually the case in safety world where system must behave
+> +the same upon reboot, so memory resource for both XEN and domains should be
+> +static and pre-defined.
+> +
+> +  * Static allocation needed whenever a guest wants to allocate memory
+> +from refined memory ranges. For example, a system has one high-speed RAM
+> +region, and would like to assign it to one specific domain.
+> +
+> +  * Static allocation needed whenever a system needs a guest restricted to some
+> +known memory area due to hardware limitations reason. For example, some device
+> +can only do DMA to a specific part of the memory.
 
-Why is that missing? We're going behind the back of the toolstack to do 
-the unbind and bind so why should we expect it to re-execute a hotplug 
-script?
+This isn't a reason for fully static partitioning. Such devices also exist
+in the x86 world, without there having been a need to statically partition
+systems. All you want to guarantee is that for I/O purposes a domain has
+_some_ memory in the accessible range.
 
-> In this case, I'm not sure what is the proper way. If I restart
-> xendriverdomain service (I do run the backend in domU), it properly
-> executes hotplug script and the backend interface gets properly
-> configured. But it doesn't do it on its own. It seems to be related to
-> device "state" in xenstore. The specific part of the libxl is
-> backend_watch_callback():
-> https://github.com/xen-project/xen/blob/master/tools/libs/light/libxl_device.c#L1664
-> 
->      ddev = search_for_device(dguest, dev);
->      if (ddev == NULL && state == XenbusStateClosed) {
->          /*
->           * Spurious state change, device has already been disconnected
->           * or never attached.
->           */
->          goto skip;
->      } else if (ddev == NULL) {
->          rc = add_device(egc, nested_ao, dguest, dev);
->          if (rc > 0)
->              free_ao = true;
->      } else if (state == XenbusStateClosed && online == 0) {
->          rc = remove_device(egc, nested_ao, dguest, ddev);
->          if (rc > 0)
->              free_ao = true;
->          check_and_maybe_remove_guest(gc, ddomain, dguest);
->      }
-> 
-> In short: if device gets XenbusStateInitWait for the first time (ddev ==
-> NULL case), it goes to add_device() which executes the hotplug script
-> and stores the device.
-> Then, if device goes to XenbusStateClosed + online==0 state, then it
-> executes hotplug script again (with "offline" parameter) and forgets the
-> device. If you unbind the driver, the device stays in
-> XenbusStateConnected state (in xenstore), and after you bind it again,
-> it goes to XenbusStateInitWait. It don't think it goes through
-> XenbusStateClosed, and online stays at 1 too, so libxl doesn't execute
-> the hotplug script again.
+> +Limitations:
+> +  * There is no consideration for PV devices at the moment.
 
-This is pretty key. The frontend should not notice an unbind/bind i.e. 
-there should be no evidence of it happening by examining states in 
-xenstore (from the guest side).
+How would PV devices be affected? Drivers better would use grant
+transfers, but that's about it afaics.
 
-   Paul
+> +## Design on Static Allocation
+> +
+> +Static allocation refers to system or sub-system(domains) for which memory
+> +areas are pre-defined by configuration using physical address ranges.
+> +
+> +These pre-defined memory, -- Static Momery, as parts of RAM reserved in the
+> +beginning, shall never go to heap allocator or boot allocator for any use.
+> +
+> +### Static Allocation for Domains
+> +
+> +### New Deivce Tree Node: `xen,static_mem`
+> +
+> +Here introduces new `xen,static_mem` node to define static memory nodes for
+> +one specific domain.
+> +
+> +For domains on static allocation, users need to pre-define guest RAM regions in
+> +configuration, through `xen,static_mem` node under approriate `domUx` node.
+> +
+> +Here is one example:
+> +
+> +
+> +        domU1 {
+> +            compatible = "xen,domain";
+> +            #address-cells = <0x2>;
+> +            #size-cells = <0x2>;
+> +            cpus = <2>;
+> +            xen,static-mem = <0x0 0xa0000000 0x0 0x20000000>;
+> +            ...
+> +        };
+> +
+> +RAM at 0xa0000000 of 512 MB are static memory reserved for domU1 as its RAM.
+> +
+> +### New Page Flag: `PGC_reserved`
+> +
+> +In order to differentiate and manage pages reserved as static memory with
+> +those which are allocated from heap allocator for normal domains, we shall
+> +introduce a new page flag `PGC_reserved` to tell.
 
-> 
-> Some solution could be to add an extra case at the end, like "ddev !=
-> NULL && state == XenbusStateInitWait && hotplug-status != connected".
-> And make sure xl devd won't call the same hotplug script multiple times
-> for the same device _at the same time_ (I'm not sure about the async
-> machinery here).
-> 
-> But even if xl devd (aka xendriverdomain service) gets "fixes" to
-> execute hotplug script in that case, I don't think it would work in
-> backend in dom0 case - there, I think nothing watches already configured
-> vif interfaces (there is no xl devd daemon in dom0, and xl background
-> process watches only domain death and cdrom eject events).
-> 
-> I'm adding toolstack maintainers, maybe they'll have some idea...
-> 
-> In any case, the issue is not calling the hotplug script, responsible
-> for configuring newly created vif interface. Not kernel waiting for it.
-> So, I think both commits should still be reverted.
-> 
+This contradicts you saying higher up "shall never go to heap allocator
+or boot allocator for any use" - no such flag ought to be needed of the
+allocators never get to see these pages. And even if such a flag was
+needed, I can't see how it would be sufficient to express the page ->
+domain relationship.
 
+> +Grant pages `PGC_reserved` when initializing static memory.
+
+I'm afraid I don't understand this sentence at all.
+
+> +### New linked page list: `reserved_page_list` in  `struct domain`
+> +
+> +Right now, for normal domains, on assigning pages to domain, pages allocated
+> +from heap allocator as guest RAM shall be inserted to one linked page
+> +list `page_list` for later managing and storing.
+> +
+> +So in order to tell, pages allocated from static memory, shall be inserted
+> +to a different linked page list `reserved_page_list`.
+> +
+> +Later, when domain get destroyed and memory relinquished, only pages in
+> +`page_list` go back to heap, and pages in `reserved_page_list` shall not.
+
+If such a domain can be destroyed (and re-created), how would the
+association between memory and intended owner be retained / propagated?
+Where else would the pages from reserved_page_list go (they need to go
+somewhere, as the struct domain instance will go away)?
+
+> +### Memory Allocation for Domains on Static Allocation
+> +
+> +RAM regions pre-defined as static memory for one specifc domain shall be parsed
+> +and reserved from the beginning. And they shall never go to any memory
+> +allocator for any use.
+> +
+> +Later when allocating static memory for this specific domain, after acquiring
+> +those reserved regions, users need to a do set of verification before
+> +assigning.
+> +For each page there, it at least includes the following steps:
+> +1. Check if it is in free state and has zero reference count.
+> +2. Check if the page is reserved(`PGC_reserved`).
+
+If this memory is reserved for a specific domain, why is such verification
+necessary?
+
+> +Then, assigning these pages to this specific domain, and all pages go to one
+> +new linked page list `reserved_page_list`.
+> +
+> +At last, set up guest P2M mapping. By default, it shall be mapped to the fixed
+> +guest RAM address `GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`, just like normal
+> +domains. But later in 1:1 direct-map design, if `direct-map` is set, the guest
+> +physical address will equal to physical address.
+
+I think you're missing "host" ahead of the 2nd "physical address"?
+
+> +### Static Allocation for Xen itself
+> +
+> +### New Deivce Tree Node: `xen,reserved_heap`
+> +
+> +Static memory for Xen heap refers to parts of RAM reserved in the beginning
+> +for Xen heap only. The memory is pre-defined through XEN configuration
+> +using physical address ranges.
+> +
+> +The reserved memory for Xen heap is an optional feature and can be enabled
+> +by adding a device tree property in the `chosen` node. Currently, this feature
+> +is only supported on AArch64.
+
+The earlier "Cases where needs static allocation" doesn't really seem to
+cover any case where this would be needed for Xen itself. Without a need,
+I don't see the point of having the feature.
+
+> +## Background
+> +
+> +Cases where domU needs 1:1 direct-map memory map:
+> +
+> +  * IOMMU not present in the system.
+> +  * IOMMU disabled if it doesn't cover a specific device and all the guests
+> +are trusted. Thinking a mixed scenario, where a few devices with IOMMU and
+> +a few without, then guest DMA security still could not be totally guaranteed.
+> +So users may want to disable the IOMMU, to at least gain some performance
+> +improvement from IOMMU disabled.
+> +  * IOMMU disabled as a workaround when it doesn't have enough bandwidth.
+> +To be specific, in a few extreme situation, when multiple devices do DMA
+> +concurrently, these requests may exceed IOMMU's transmission capacity.
+> +  * IOMMU disabled when it adds too much latency on DMA. For example,
+> +TLB may be missing in some IOMMU hardware, which may bring latency in DMA
+> +progress, so users may want to disable it in some realtime scenario.
+> +
+> +*WARNING:
+> +Users should be aware that it is not always secure to assign a device without
+> +IOMMU/SMMU protection.
+> +When the device is not protected by the IOMMU/SMMU, the administrator should
+> +make sure that:
+> + 1. The device is assigned to a trusted guest.
+> + 2. Users have additional security mechanism on the platform.
+> +
+> +Limitations:
+> +  * There is no consideration for PV devices at the moment.
+
+Again I'm struggling to see how PV devices might be impacted.
+
+Jan
 
