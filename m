@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD40338729E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 08:49:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128824.241804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 000E03872A8
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 08:52:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128829.241815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1litXJ-00036q-NC; Tue, 18 May 2021 06:49:01 +0000
+	id 1litaV-0004Tb-6c; Tue, 18 May 2021 06:52:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128824.241804; Tue, 18 May 2021 06:49:01 +0000
+Received: by outflank-mailman (output) from mailman id 128829.241815; Tue, 18 May 2021 06:52:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1litXJ-00034C-JR; Tue, 18 May 2021 06:49:01 +0000
-Received: by outflank-mailman (input) for mailman id 128824;
- Tue, 18 May 2021 06:49:00 +0000
+	id 1litaV-0004Qj-3Z; Tue, 18 May 2021 06:52:19 +0000
+Received: by outflank-mailman (input) for mailman id 128829;
+ Tue, 18 May 2021 06:52:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RJ/V=KN=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1litXI-000344-5l
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 06:49:00 +0000
-Received: from mail-il1-x136.google.com (unknown [2607:f8b0:4864:20::136])
+ id 1litaT-0004Qd-UT
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 06:52:17 +0000
+Received: from mail-pg1-x529.google.com (unknown [2607:f8b0:4864:20::529])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6374ad9-b12a-43f1-8c36-1fd7a2b53ba1;
- Tue, 18 May 2021 06:48:59 +0000 (UTC)
-Received: by mail-il1-x136.google.com with SMTP id z1so8275420ils.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:48:59 -0700 (PDT)
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com.
- [209.85.166.49])
- by smtp.gmail.com with ESMTPSA id d5sm10097421ilf.55.2021.05.17.23.48.57
+ id 393078a2-017e-4e09-a9e6-96eb30d28542;
+ Tue, 18 May 2021 06:52:17 +0000 (UTC)
+Received: by mail-pg1-x529.google.com with SMTP id y32so6311420pga.11
+ for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:52:17 -0700 (PDT)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com.
+ [209.85.215.170])
+ by smtp.gmail.com with ESMTPSA id w127sm11382900pfw.4.2021.05.17.23.52.14
  for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 May 2021 23:48:58 -0700 (PDT)
-Received: by mail-io1-f49.google.com with SMTP id k16so8345400ios.10
- for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:48:57 -0700 (PDT)
+ Mon, 17 May 2021 23:52:15 -0700 (PDT)
+Received: by mail-pg1-f170.google.com with SMTP id l70so6341648pga.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:52:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6374ad9-b12a-43f1-8c36-1fd7a2b53ba1
+X-Inumbo-ID: 393078a2-017e-4e09-a9e6-96eb30d28542
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=3HopsH6N9F8FpkG4FSoTMtRMwuiSWSuF3ZB9X+VJCjU=;
-        b=LETfA+HNnfbbscLemZLHMHTU1ucDVUTbar59Z+Ip1n1aOSxU2vCiyi6AnzZ7ISe1Ci
-         d5+6nDZp7u09C4wccj2HMQoLbhxVgGmyilxSsMMqy6XnJ9Gh0XN/+XAYDZzV88am1gOT
-         FB7ehF0SoAEZFAQ80iPByl3CmJPeIGWiXIdbM=
+        bh=okFGSzwxy3Xl1EDwrbsZ6bJWGdPaUEKxSezi4/SE71A=;
+        b=KvboTWH6SCfdQ7LLxm6vH9xhTNNbPkylAhr3iqPQWH1QNODKOLIbMt/OYjboWMwVvr
+         +KD/UQeQoUETk6OK7TCWS0Utmt5EvBfWbA4IzzRRuwJkDy5Qi3ICeWOTChp1Py6zaNQt
+         fa1WHS9ymuIo1ivMcIga1N5vVpkmfX46UnGI0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=3HopsH6N9F8FpkG4FSoTMtRMwuiSWSuF3ZB9X+VJCjU=;
-        b=NBYGZBhezN0Lk/PmwG7rkzQ/1AzKylacmKphA1ml8ElZxez/LDgT68HagyLcQjw/qR
-         177yY1ngHzS+WIscYgbH+1a0LgRrQMplc1yZx+fSfsCwb3kOQVyFly6QiweRRuLI23pg
-         SQXLgVTsrKo9a5hM9UsLxAjI6bqcCZjVfAJ5e2pPbmteIAcwyU9FQep4rRfGmlAHcymo
-         KfJ3RQj23/XMHD5bFxtKGeT+kXpvtK6fbymBffY9EjfIobjEN6iTbvmp8EBhgFI+TbE9
-         Xa1Jxmlh9GYYjfnI+4ntrZRWAw9bbYy9qUDD10GWuXmPtyYEPX7mzsIe+AEzNJn43qSA
-         7HCQ==
-X-Gm-Message-State: AOAM532TEMGJ3gXsWLp66c6bHwWsG8U+HVwdMZUZb7jUV7g+XIFFbTJJ
-	lCGB+iGs1gAmI92UZktXgXojSacJlype2w==
-X-Google-Smtp-Source: ABdhPJwhBO3KSW0EFRoDWRJTzhgsHA7JeKRlSuNNrCD9NbBU8x11PvPhCDM4mOvgurfC0J/tHIMe9A==
-X-Received: by 2002:a05:6e02:1d15:: with SMTP id i21mr3072489ila.2.1621320538962;
-        Mon, 17 May 2021 23:48:58 -0700 (PDT)
-X-Received: by 2002:a05:6638:32a8:: with SMTP id f40mr3969029jav.84.1621320526895;
- Mon, 17 May 2021 23:48:46 -0700 (PDT)
+        bh=okFGSzwxy3Xl1EDwrbsZ6bJWGdPaUEKxSezi4/SE71A=;
+        b=tEFE/OdqgR+nGsev2IChzSNHDgW3/hM5aFm5QueXwVndSwSKsWY6NsEfImjYKoGt/p
+         3y+z+OkG4cLnGoV3eaa/Mj3VT6ejQaJmYYAGe1lmet5IlFOBSZ2mWipqN0bxG5Zksv4Z
+         Q/nEHA8zhXxp9hO6+Rd1+9qEPfKWEjtaZxf0pEykP4P2N8525gcaEfwTXs8c52o+Rqe5
+         UYdmrhA7c0zCgis6jaRc20vTEg0fJm6vvhpDg65uERgQsfmEMg8d0ZD1zqanXI4btt/d
+         bekCyXswWjHEEdG77mRw0Dufpo9Ohj1O/zRHxkpesr6i2Ob8JwMaBr2oSU6dHlqdhud5
+         wzzw==
+X-Gm-Message-State: AOAM530wtXi+/1Wfl/Z/KKT6C168D3Xg3XoGoCMDsBSYfE/KhZilJqrU
+	+vPgGwSDYImVogIDtxB7u+TYPgNzziutcQ==
+X-Google-Smtp-Source: ABdhPJybF9TFd7lA+MuSYK+zBgx2S+SGjMxTUOapTnfl+2UGju/4PVYr3NXyV1OZDZk5YxDsUd4lAQ==
+X-Received: by 2002:a62:6101:0:b029:215:3a48:4e6e with SMTP id v1-20020a6261010000b02902153a484e6emr3717961pfb.2.1621320736314;
+        Mon, 17 May 2021 23:52:16 -0700 (PDT)
+X-Received: by 2002:a05:6e02:1a4d:: with SMTP id u13mr3011800ilv.64.1621320723564;
+ Mon, 17 May 2021 23:52:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210518064215.2856977-1-tientzu@chromium.org> <20210518064215.2856977-5-tientzu@chromium.org>
-In-Reply-To: <20210518064215.2856977-5-tientzu@chromium.org>
+References: <20210518064215.2856977-1-tientzu@chromium.org> <20210518064215.2856977-6-tientzu@chromium.org>
+In-Reply-To: <20210518064215.2856977-6-tientzu@chromium.org>
 From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 18 May 2021 14:48:35 +0800
-X-Gmail-Original-Message-ID: <CALiNf2_AWsnGqCnh02ZAGt+B-Ypzs1=-iOG2owm4GZHz2JAc4A@mail.gmail.com>
-Message-ID: <CALiNf2_AWsnGqCnh02ZAGt+B-Ypzs1=-iOG2owm4GZHz2JAc4A@mail.gmail.com>
-Subject: Re: [PATCH v7 04/15] swiotlb: Add restricted DMA pool initialization
+Date: Tue, 18 May 2021 14:51:52 +0800
+X-Gmail-Original-Message-ID: <CALiNf28ke3c91Y7xaHUgvJePKXqYA7UmsYJV9yaeZc3-4Lzs8Q@mail.gmail.com>
+Message-ID: <CALiNf28ke3c91Y7xaHUgvJePKXqYA7UmsYJV9yaeZc3-4Lzs8Q@mail.gmail.com>
+Subject: Re: [PATCH v7 05/15] swiotlb: Add a new get_io_tlb_mem getter
 To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
 	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
@@ -106,9 +106,8 @@ Cc: benh@kernel.crashing.org, paulus@samba.org,
 	thomas.hellstrom@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-I didn't move this to a separate file because I feel it might be
-confusing for swiotlb_alloc/free (and need more functions to be
-non-static).
-Maybe instead of moving to a separate file, we can try to come up with
-a better naming?
+Still keep this function because directly using dev->dma_io_tlb_mem
+will cause issues for memory allocation for existing devices. The pool
+can't support atomic coherent allocation so we need to distinguish the
+per device pool and the default pool in swiotlb_alloc.
 
