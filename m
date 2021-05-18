@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31A99387C63
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 17:24:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129363.242839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21752387C7B
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 17:31:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129375.242852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj1aF-0008QY-TC; Tue, 18 May 2021 15:24:35 +0000
+	id 1lj1fz-0001UD-Qq; Tue, 18 May 2021 15:30:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129363.242839; Tue, 18 May 2021 15:24:35 +0000
+Received: by outflank-mailman (output) from mailman id 129375.242852; Tue, 18 May 2021 15:30:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj1aF-0008OJ-Pr; Tue, 18 May 2021 15:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 129363;
- Tue, 18 May 2021 15:24:33 +0000
+	id 1lj1fz-0001S4-Nm; Tue, 18 May 2021 15:30:31 +0000
+Received: by outflank-mailman (input) for mailman id 129375;
+ Tue, 18 May 2021 15:30:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=h4/q=KN=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1lj1aD-0008O6-Ik
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 15:24:33 +0000
+ id 1lj1fy-0001Ru-6D
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 15:30:30 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b4e4d50-4400-48c9-9929-0e59982739f1;
- Tue, 18 May 2021 15:24:32 +0000 (UTC)
+ id 70013234-f156-4ab8-8bb4-bfef67ccb8c4;
+ Tue, 18 May 2021 15:30:29 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 08976AF21;
- Tue, 18 May 2021 15:24:32 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2A86BAFBF;
+ Tue, 18 May 2021 15:30:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,68 +38,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b4e4d50-4400-48c9-9929-0e59982739f1
+X-Inumbo-ID: 70013234-f156-4ab8-8bb4-bfef67ccb8c4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621351472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=LdchXg5sD+yim6rkWrmO58TKx/j7GGKezGaYKhI977k=;
-	b=IztIi2iySIHDdcvp3+HaMVEEYj/xFEyqaVuIrrBSLLhj5BAr014qIT3w9OarOoxPRx7QHe
-	s2eN1hrCyagxplH7QGRToiXDFFgIWtK4xh/bgXOlJBzG+eBOUzllBR1LNgbG12slYCSTc5
-	LImoDYfPV910nkwp6blzp6Jp2wlTgKw=
-Message-ID: <f7738499f24f6682f4ae1c1c750e30f322dfdbf3.camel@suse.com>
-Subject: QEMU backport necessary for building with "recent" toolchain (on
- openSUSE Tumbleweed)
+	t=1621351828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X+czU1VmpyowP7r/f8lRmHd6JBxgqdQOEcws0oO8zlQ=;
+	b=dWNAVAi3MOETbiOZOYzsONhAJzwQ9u0CeJ2p+ri2YkT2+U1l76eSR7/Yhig+qY53JgNmCl
+	9PMbYx5+xvQzdCoLEO+zV6JC8sn6TPhocwzQboIDtUGBUwNXyqkNMx80wBta3UjH078Xno
+	2k0G5bdXl4KneGOEApCM0jj5K7fZWzE=
+Message-ID: <a393f47c5450195cf8be88e7ea5e9d3977576563.camel@suse.com>
+Subject: Re: [PATCH 2/2] automation: fix dependencies on openSUSE Tumbleweed
+ containers
 From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Ian Jackson
- <iwj@xenproject.org>,  Wei Liu <wl@xen.org>, Roger Pau Monne
- <roger.pau@citrix.com>
-Date: Tue, 18 May 2021 17:24:30 +0200
+To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Date: Tue, 18 May 2021 17:30:26 +0200
+In-Reply-To: <9160502180e3c36a52cb841520615bc7fe91b42b.camel@suse.com>
+References: <162133919718.25010.4197057069904956422.stgit@Wayrath>
+	 <162133945335.25010.4601866854997664898.stgit@Wayrath>
+	 <YKO/BcUAtjSgc2pV@Air-de-Roger>
+	 <9160502180e3c36a52cb841520615bc7fe91b42b.camel@suse.com>
 Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-dWM7hf+zHIeucaFvLuqN"
+	protocol="application/pgp-signature"; boundary="=-ZXqkCeZwfnw85QfOh/fH"
 User-Agent: Evolution 3.40.1 (by Flathub.org) 
 MIME-Version: 1.0
 
 
---=-dWM7hf+zHIeucaFvLuqN
+--=-ZXqkCeZwfnw85QfOh/fH
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Tue, 2021-05-18 at 16:33 +0200, Dario Faggioli wrote:
+> On Tue, 2021-05-18 at 15:20 +0200, Roger Pau Monn=C3=A9 wrote:
+> > On Tue, May 18, 2021 at 02:04:13PM +0200, Dario Faggioli wrote:
+> > > From: Dario Faggioli <dario@Solace.fritz.box>
+> > >=20
+> Mmm... this email address does not really exist, and it's a mistake
+> that it ended up here. :-/
+>=20
+> > > Fix the build inside our openSUSE Tumbleweed container by using
+> > > the proper python development packages (and adding zstd headers).
+> > >=20
+> > > Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+> > > ---
+> > > Cc: Doug Goldstein <cardoe@cardoe.com>
+> > > Cc: Roger Pau Monne <roger.pau@citrix.com>
+> > > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> > > ---
+> > > =C2=A0.../build/suse/opensuse-tumbleweed.dockerfile=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 5 ++---
+> > > =C2=A01 file changed, 2 insertions(+), 3 deletions(-)
+> > >=20
+> > > diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile
+> > > b/automation/build/suse/opensuse-tumbleweed.dockerfile
+> > > index 8ff7b9b5ce..5b99cb8a53 100644
+> > > --- a/automation/build/suse/opensuse-tumbleweed.dockerfile
+> > > +++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
+> > >=20
+> > > @@ -56,10 +57,8 @@ RUN zypper install -y --no-recommends \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pandoc \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 patch \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pkg-config \
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 python \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 python-devel \
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 python3 \
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 python3-devel \
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 python38-devel \
+> >=20
+> > When I tested python3-devel was translated into python38-devel,=C2=A0
+> >=20
+> Oh, really? And when was it that you tested it, if I can ask?
+>=20
+> > which
+> > I think is better as we don't need to modify the docker file for
+> > every
+> > new Python version?
+> >=20
+> That would definitely be better. Right now, I don't see any
+> python3-devel package. If python3-devel can still be used (and it
+> somehow translates to the proper -devel package), then sure we should
+> use it. I'm not sure how that would happen, but maybe it's just me
+> being unaware of some packaging magic.
+>=20
+> Let me put "python3-devel" there and test locally again, so we know
+> if
+> it actually works.
+>=20
+Ok, indeed it works. And, on a second though, it's not obscure at all
+that it does.
 
-While trying to build Xen on openSUSE Tumbleweed, I run into this
-error, when qemu-xen is being built:
+It's just that python38-devel _provides_ python3-devel, which makes a
+lot of sense, and it was silly of me to not think it does that and use
+just python3-devel in the first place:
 
-ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
-make[1]: *** [Makefile:53: multiboot.img] Error 1
-make: *** [Makefile:576: pc-bios/optionrom/all] Error 2
-make: Leaving directory '/build/tools/qemu-xen-build'
-make[3]: *** [Makefile:212: subdir-all-qemu-xen-dir] Error 2
-make[3]: Leaving directory '/build/tools'
-make[2]: *** [/build/tools/../tools/Rules.mk:156: subdirs-install] Error 2
-make[2]: Leaving directory '/build/tools'
-make[1]: *** [Makefile:66: install] Error 2
-make[1]: Leaving directory '/build/tools'
-make: *** [Makefile:140: install-tools] Error 2
+dario@4b10a592ca98:~> zypper if --provides python38-devel
+Information for package python38-devel:                                    =
+                                                                           =
+                                                                           =
+            =20
+---------------------------------------                                    =
+                                                                           =
+                                                                           =
+            =20
+Repository     : @System                                                   =
+                                                                           =
+                                                                           =
+            =20
+Name           : python38-devel                                            =
+                                                                           =
+                                                                           =
+            =20
+Version        : 3.8.10-1.2
+Arch           : x86_64
+Vendor         : openSUSE
+Installed Size : 882.7 KiB
+Installed      : Yes
+Status         : up-to-date
+Source package : python38-core-3.8.10-1.2.src
+Summary        : Include Files and Libraries Mandatory for Building Python =
+Modules
+[...]
+Provides       : [8]
+    libpython3.so()(64bit)
+    pkgconfig(python-3.8) =3D 3.8
+    pkgconfig(python-3.8-embed) =3D 3.8
+    pkgconfig(python3) =3D 3.8
+    pkgconfig(python3-embed) =3D 3.8
+    python3-devel =3D 3.8.10
+    python38-devel =3D 3.8.10-1.2
+    python38-devel(x86-64) =3D 3.8.10-1.2
 
-Build tools versions are as follows:
+What now puzzles me a little, though, is why the build was failing, as
+python3-devel was already there in the docker file. Maybe we "just"
+forgot to push the image?
 
-dario@885e566747e1:~> gcc -v
-gcc version 10.3.0 (SUSE Linux)=20
-
-dario@885e566747e1:~> ld -v
-GNU ld (GNU Binutils; openSUSE Tumbleweed) 2.36.1.20210326-3
-
-I think we need the following commit in our QEMU: bbd2d5a812077
-("build: -no-pie is no functional linker flag").
-
-I have attempted a quick-&-dirty backport of it here:
-https://xenbits.xen.org/gitweb/?p=3Dpeople/dariof/qemu-xen.git;a=3Dcommit;h=
-=3D85575b7b661cedb8e6f6e192d36199ca9fde5841
-
-Feel free to use it as a base, or tell me if I can help more with it in
-any other way with it.
+Well, there's a different issue (missing libzstd-devel), so I'll send a
+v2 of this series anyway.
 
 Regards
 --=20
@@ -110,28 +187,28 @@ SUSE Labs, SUSE https://www.suse.com/
 -------------------------------------------------------------------
 <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
---=-dWM7hf+zHIeucaFvLuqN
+--=-ZXqkCeZwfnw85QfOh/fH
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmCj3C4ACgkQFkJ4iaW4
-c+7Vbw/9ETlckt36nVjn7zX5I12Od0zSnz9TLDFg/9Bpg3dG4Q+zjMMaK+h6DoOI
-Iz7lVsgdqq+B5FPP26ITOqvL2ary7ULAQliaT9GquN4i3r9p8qvWRXo6NkYfDNcH
-3BxGZuBrm0OkLiP4gixw+VlrCRN3LGct+dUcTXAcJ//9U0LSZyZJm5ryEMm2BJxn
-8JRK8FNeisRIrnqpTfD39fVPB5Qn5ddgPyAEwVPd1koWK4RiEGbRaA0Et3ZJrNtl
-2sID/1nkjScMGMpfYDQ6txnp3Izmta2ZskO1l9GdGnFN95CLaCSiA8dVHKSgjpO+
-BGAtJ4RxTjr1tT+AF64sGV4pJ08SY6e+WSudmeKptH0vAoLKWjJLMlyYzpEjg8ic
-lqhyqYtsE+iHWrrEwQZeufSCL3T6IH1AoyPqnxF8H5MvMYtJVCDovq2qOTpuQ6cx
-Pvv9Gw0CfZYiIKhoYzOX7XDvoQHJEoPG8n4xsMr5XTUkZtYMqJAzSESURD5Fk0e4
-eVCrXX27RvkKR+g4BbuVAHqDdeL+sBpFT6UBbHFMbb69h5ZxOt/5a1AIQ+2Ncbtz
-D5cDpi8VWnt+nDMyXwJFjoUKnxd1MAekTzcYXE1ouQcRfFFewfKfyV+mYs0C7Vjy
-4RJ0MtF7jm/jY0LZIaSshim9T/0PgPZkZj9U1sDY1cqBf+M/fGI=
-=Sdo0
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmCj3ZIACgkQFkJ4iaW4
+c+4sbRAAjkTFmVhbLi+vYpgAPIgX+YyN41Y8x9Ejb8UqCFyB1HKWoeOaQdodOp1z
+zIkdKS+8F1GaA0vxlD+rzD0s8DWtH1O30K/6DJDeSY/qpKnNB23Pp3M7lcgluwlO
+Se0wOq1aYT88KaOg013inf2t21U/uN2frrYkM2UAD0Ha5o1qh7iy86qDhLBrpBjV
+zkhY0VPQtFLn68m/1COqIB+G6DbZ8ccDo1tu/xk3tdV+9R/2Ll/o6V6+BaefvTUB
+dwch/KYAqXRM8hvaYvGnXpKs9mAOlijqJNvYZQxP/clH7jTadVQQF3IIB1fXRwxX
+ytVV8bBuX1Nxorb/hSqVI8xiwdoGOsZKuILK2Uh8Vjn/5KfvHPVyiNUEIOVD1TeY
+tQzNZ2f4shqYkmvS+Rz/26g78RcN6UMcDEPHQV0/Pc0NpjQVzRfpnUC3WQLegKTN
+92r9PqWjIxXPKd05pfQChtSTs8kJVwr3DqHiYiABJfVj5y0BsBZJOX9IJreoFffW
+/50v8WlBmy+aADq8Kfv1DvM0mBne1l4XI7rwBUSEdB/SGyuzSuWgsFizBnG0WKyv
+/Z7sVBBNedmGiMxOkDyDUJ7uEFd4KjuIgktAWEo8w0Ye2Gwqzv4sExibFJf7F1zs
+0Sb4/Xh29JoGn/w8+oEU93R9EgeZOXdALYCnRRiBdXkQVt2APd0=
+=80KJ
 -----END PGP SIGNATURE-----
 
---=-dWM7hf+zHIeucaFvLuqN--
+--=-ZXqkCeZwfnw85QfOh/fH--
 
 
