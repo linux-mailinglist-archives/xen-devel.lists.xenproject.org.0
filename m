@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A510F3872B4
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 08:55:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128848.241862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E85EE3872BB
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 08:57:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128855.241873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1litcz-000705-Nt; Tue, 18 May 2021 06:54:53 +0000
+	id 1litfO-0007fD-55; Tue, 18 May 2021 06:57:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128848.241862; Tue, 18 May 2021 06:54:53 +0000
+Received: by outflank-mailman (output) from mailman id 128855.241873; Tue, 18 May 2021 06:57:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1litcz-0006wu-Jf; Tue, 18 May 2021 06:54:53 +0000
-Received: by outflank-mailman (input) for mailman id 128848;
- Tue, 18 May 2021 06:54:51 +0000
+	id 1litfO-0007dJ-13; Tue, 18 May 2021 06:57:22 +0000
+Received: by outflank-mailman (input) for mailman id 128855;
+ Tue, 18 May 2021 06:57:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RJ/V=KN=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1litcx-0006wi-Gi
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 06:54:51 +0000
-Received: from mail-qt1-x82b.google.com (unknown [2607:f8b0:4864:20::82b])
+ <SRS0=p7W/=KN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1litfM-0007dD-11
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 06:57:20 +0000
+Received: from mail-wr1-x42e.google.com (unknown [2a00:1450:4864:20::42e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 711b1f9f-e76a-498f-bbd6-6fe98088155a;
- Tue, 18 May 2021 06:54:50 +0000 (UTC)
-Received: by mail-qt1-x82b.google.com with SMTP id y12so6700636qtx.11
- for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:54:50 -0700 (PDT)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com.
- [209.85.222.173])
- by smtp.gmail.com with ESMTPSA id v22sm11996883qtq.77.2021.05.17.23.54.48
- for <xen-devel@lists.xenproject.org>
+ id e6344acd-213b-43f1-b256-a5e7bb24c968;
+ Tue, 18 May 2021 06:57:18 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id z17so8871298wrq.7
+ for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:57:18 -0700 (PDT)
+Received: from ?IPv6:2a00:23c5:5785:9a01:8896:b860:e287:45cb?
+ ([2a00:23c5:5785:9a01:8896:b860:e287:45cb])
+ by smtp.gmail.com with ESMTPSA id h14sm24965388wrq.45.2021.05.17.23.57.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 May 2021 23:54:49 -0700 (PDT)
-Received: by mail-qk1-f173.google.com with SMTP id x8so8358558qkl.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 May 2021 23:54:48 -0700 (PDT)
+ Mon, 17 May 2021 23:57:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +42,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 711b1f9f-e76a-498f-bbd6-6fe98088155a
+X-Inumbo-ID: e6344acd-213b-43f1-b256-a5e7bb24c968
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=XgyF0OvHzw8KTyadFBcEzsCamkUD+/ukWzei3hnGvkc=;
-        b=VO0BvOlWIIiGkUdtOb1VSOWiBrk2KLMr0fiDCPwaBrvrf/j2/7hCX1JlEDcxzMqFmv
-         42I6m34flwgfsu+jKFLERtm6bjzporQ7M0BTCF240tpdoJChz4PcESq3XpYvN81Vfxez
-         ZW4CMor3EwZRISv4nvwP/XJ/8ZZ+MrGyZniYE=
+        d=gmail.com; s=20161025;
+        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Lkyx21VRSMiMSZnYaucpBR50CYphKVffI2Qp7NzZRYw=;
+        b=PSl/UlgL7D6yaaiILnEj/A5skHrYwipO3Kz22ZdjvhRz5X9lBJ4MM9lknTX1LlFl5j
+         +rtJmfqynOf9gQmCUOr7oeW2vEFTJkxIFhCx50xwfgWEx9tFWDz7H3nNcqP97YLggEwi
+         ocynSirHMYPwfrGlVvUczmfM8wxP8WzVbaEt6IDo7J+RODKhCfjMlAeovyS1+FKaHfqv
+         bKLqsZknqlKQQQdTPvGp0NjXYH5MDwgVpEb6eHLP9NzSZWGAvkpDu0nhHnivA/IkKvaY
+         falX0+pxA4kx2wH0cvt8aIh65WgndxlrDrjj72e/YIAw/LYBvUqXZlVGFBlyB49JiEes
+         loiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=XgyF0OvHzw8KTyadFBcEzsCamkUD+/ukWzei3hnGvkc=;
-        b=OeaJxwYyQns4Zhjwxp8TVMZayRFVGWrVck4Hvu7PJml8Rj08vCWoaCgrittBvJqiqX
-         plUh2NwkZNR/TKlAf87ii89jexZPNF95jQuPHl6+w8NipzncMCDtpwA1gGNZgubHxlbx
-         q8vNJKML3SBUpwMzOk4HHdlGrH0XL5Nc32GOYRkx4ZkJUsrGBR/Hwv/00ZIOxrchs4Um
-         an2GuoEOSA9I9gHFPpbh6JeXqiq8FAsAQFAMV1FKAlsW1XcUCWNhQ9GZ0gpQn3TkUaZK
-         z4d1CH9PQXA7T8udYOJ2zEpXUAdIxc4qr7iE23MXGLo+xxvvs+Wx/JayV6rwk6MxHW2o
-         dTvA==
-X-Gm-Message-State: AOAM532rN3rjdEWe7l6kZ9s7HXYbNfCSLT10Kb3YcK51NgXUaNzUrcTc
-	vG17K8KYcEWoXRYKvX9Dx9RRPpRtjJ1Rag==
-X-Google-Smtp-Source: ABdhPJwfzdK4+8KJVWbMKgj8mChKiWXU/yNI9BVpl9D/qPH/IpeBkY+4edgJVwY3S2okDMprAFaBBA==
-X-Received: by 2002:ac8:6e8b:: with SMTP id c11mr3310132qtv.133.1621320889963;
-        Mon, 17 May 2021 23:54:49 -0700 (PDT)
-X-Received: by 2002:a05:6638:10e4:: with SMTP id g4mr3960623jae.90.1621320877050;
- Mon, 17 May 2021 23:54:37 -0700 (PDT)
+        h=x-gm-message-state:from:reply-to:subject:to:cc:references
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=Lkyx21VRSMiMSZnYaucpBR50CYphKVffI2Qp7NzZRYw=;
+        b=QNAa9ef58cYNAoQCsocGQyBK8iXrdFqAPqAGc13o0IEitFH95cQGjLBWJDLpF3vV8k
+         cXtARnLircAYvaB8A4lyuDhI7VEhHmt9KZsf6Wcq4nQ4MeLDM7g5MNqzMXmXmP+AqzCe
+         x2B4bA/YLRG/Wm+LbltRInIUnFnwSIrSyIPEgEUXVnsn6OYGS06FzGdx6WUtKjnBm3AO
+         6B3BbwH3CanxzQfZFrWFw6RGc3pbtE95XwP0qFUu6tM/lzwh7LYtLHx8TJfIf4jIaOH8
+         93TMhiPzPvt72MBo7xcZ0vtfikWN9oPmK4YS3jjFGQBbzv78fRtRHN7gGU8jqvSXGzka
+         /Hew==
+X-Gm-Message-State: AOAM532MxG2NZQX+8wTOPUV64eLaH9tuAG07pmzXb4UAl9HJx7Y4hC2a
+	XUTW3sdeEor83m/wzRo45AQ=
+X-Google-Smtp-Source: ABdhPJz0eCctjJyTTpyrO6jmCxzTLMb2Z0aPswDW0oB9UdnlaDFQrRGGu3gSl9DpvIMVS8+YhxPgmg==
+X-Received: by 2002:adf:e6c2:: with SMTP id y2mr4742719wrm.384.1621321037892;
+        Mon, 17 May 2021 23:57:17 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Reply-To: paul@xen.org
+Subject: Re: [PATCH] xen-netback: Check for hotplug-status existence before
+ watching
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, "Durrant, Paul" <pdurrant@amazon.co.uk>
+Cc: Michael Brown <mbrown@fensystems.co.uk>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20210413152512.903750-1-mbrown@fensystems.co.uk>
+ <YJl8IC7EbXKpARWL@mail-itl>
+ <404130e4-210d-2214-47a8-833c0463d997@fensystems.co.uk>
+ <YJmBDpqQ12ZBGf58@mail-itl>
+ <21f38a92-c8ae-12a7-f1d8-50810c5eb088@fensystems.co.uk>
+ <YJmMvTkp2Y1hlLLm@mail-itl>
+ <df9e9a32b0294aee814eeb58d2d71edd@EX13D32EUC003.ant.amazon.com>
+ <YJpfORXIgEaWlQ7E@mail-itl> <YJpgNvOmDL9SuRye@mail-itl>
+ <9edd6873034f474baafd70b1df693001@EX13D32EUC003.ant.amazon.com>
+ <YKLjoALdw4oKSZ04@mail-itl>
+Message-ID: <8b7a9cd5-3696-65c2-5656-a1c8eb174344@xen.org>
+Date: Tue, 18 May 2021 07:57:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-References: <20210510095026.3477496-1-tientzu@chromium.org>
-In-Reply-To: <20210510095026.3477496-1-tientzu@chromium.org>
-From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 18 May 2021 14:54:26 +0800
-X-Gmail-Original-Message-ID: <CALiNf2-LhQqAX3kJSETOxG4ipu9Nhs97yYiGm0XZKG7vBQ_hNQ@mail.gmail.com>
-Message-ID: <CALiNf2-LhQqAX3kJSETOxG4ipu9Nhs97yYiGm0XZKG7vBQ_hNQ@mail.gmail.com>
-Subject: Re: [PATCH v6 00/15] Restricted DMA
-To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	matthew.auld@intel.com, nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <YKLjoALdw4oKSZ04@mail-itl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-v7: https://lore.kernel.org/patchwork/cover/1431031/
+On 17/05/2021 22:43, Marek Marczykowski-Górecki wrote:
+> On Tue, May 11, 2021 at 12:46:38PM +0000, Durrant, Paul wrote:
+>>> -----Original Message-----
+>>> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>> Sent: 11 May 2021 11:45
+>>> To: Durrant, Paul <pdurrant@amazon.co.uk>
+>>> Cc: Michael Brown <mbrown@fensystems.co.uk>; paul@xen.org; xen-devel@lists.xenproject.org;
+>>> netdev@vger.kernel.org; wei.liu@kernel.org
+>>> Subject: RE: [EXTERNAL] [PATCH] xen-netback: Check for hotplug-status existence before watching
+>>>
+>>> On Tue, May 11, 2021 at 12:40:54PM +0200, Marek Marczykowski-Górecki wrote:
+>>>> On Tue, May 11, 2021 at 07:06:55AM +0000, Durrant, Paul wrote:
+>>>>>> -----Original Message-----
+>>>>>> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>>>>> Sent: 10 May 2021 20:43
+>>>>>> To: Michael Brown <mbrown@fensystems.co.uk>; paul@xen.org
+>>>>>> Cc: paul@xen.org; xen-devel@lists.xenproject.org; netdev@vger.kernel.org; wei.liu@kernel.org;
+>>> Durrant,
+>>>>>> Paul <pdurrant@amazon.co.uk>
+>>>>>> Subject: RE: [EXTERNAL] [PATCH] xen-netback: Check for hotplug-status existence before watching
+>>>>>>
+>>>>>> On Mon, May 10, 2021 at 08:06:55PM +0100, Michael Brown wrote:
+>>>>>>> If you have a suggested patch, I'm happy to test that it doesn't reintroduce
+>>>>>>> the regression bug that was fixed by this commit.
+>>>>>>
+>>>>>> Actually, I've just tested with a simple reloading xen-netfront module. It
+>>>>>> seems in this case, the hotplug script is not re-executed. In fact, I
+>>>>>> think it should not be re-executed at all, since the vif interface
+>>>>>> remains in place (it just gets NO-CARRIER flag).
+>>>>>>
+>>>>>> This brings a question, why removing hotplug-status in the first place?
+>>>>>> The interface remains correctly configured by the hotplug script after
+>>>>>> all. From the commit message:
+>>>>>>
+>>>>>>      xen-netback: remove 'hotplug-status' once it has served its purpose
+>>>>>>
+>>>>>>      Removing the 'hotplug-status' node in netback_remove() is wrong; the script
+>>>>>>      may not have completed. Only remove the node once the watch has fired and
+>>>>>>      has been unregistered.
+>>>>>>
+>>>>>> I think the intention was to remove 'hotplug-status' node _later_ in
+>>>>>> case of quickly adding and removing the interface. Is that right, Paul?
+>>>>>
+>>>>> The removal was done to allow unbind/bind to function correctly. IIRC before the original patch
+>>> doing a bind would stall forever waiting for the hotplug status to change, which would never happen.
+>>>>
+>>>> Hmm, in that case maybe don't remove it at all in the backend, and let
+>>>> it be cleaned up by the toolstack, when it removes other backend-related
+>>>> nodes?
+>>>
+>>> No, unbind/bind _does_ require hotplug script to be called again.
+>>>
+>>
+>> Yes, sorry I was misremembering. My memory is hazy but there was definitely a problem at the time with leaving the node in place.
+>>
+>>> When exactly vif interface appears in the system (starts to be available
+>>> for the hotplug script)? Maybe remove 'hotplug-status' just before that
+>>> point?
+>>>
+>>
+>> I really can't remember any detail. Perhaps try reverting both patches then and check that the unbind/rmmod/modprobe/bind sequence still works (and the backend actually makes it into connected state).
+> 
+> Ok, I've tried this. I've reverted both commits, then used your test
+> script from the 9476654bd5e8ad42abe8ee9f9e90069ff8e60c17:
+>      
+>      This has been tested by running iperf as a server in the test VM and
+>      then running a client against it in a continuous loop, whilst also
+>      running:
+>      
+>      while true;
+>        do echo vif-$DOMID-$VIF >unbind;
+>        echo down;
+>        rmmod xen-netback;
+>        echo unloaded;
+>        modprobe xen-netback;
+>        cd $(pwd);
+>        brctl addif xenbr0 vif$DOMID.$VIF;
+>        ip link set vif$DOMID.$VIF up;
+>        echo up;
+>        sleep 5;
+>        done
+>      
+>      in dom0 from /sys/bus/xen-backend/drivers/vif to continuously unbind,
+>      unload, re-load, re-bind and re-plumb the backend.
+>      
+> In fact, the need to call `brctl` and `ip link` manually is exactly
+> because the hotplug script isn't executed. When I execute it manually,
+> the backend properly gets back to working. So, removing 'hotplug-status'
+> was in the correct place (netback_remove). The missing part is the toolstack
+> calling the hotplug script on xen-netback re-bind.
+> 
 
-On Mon, May 10, 2021 at 5:50 PM Claire Chang <tientzu@chromium.org> wrote:
->
-> From: Claire Chang <tientzu@google.com>
->
-> This series implements mitigations for lack of DMA access control on
-> systems without an IOMMU, which could result in the DMA accessing the
-> system memory at unexpected times and/or unexpected addresses, possibly
-> leading to data leakage or corruption.
->
-> For example, we plan to use the PCI-e bus for Wi-Fi and that PCI-e bus is
-> not behind an IOMMU. As PCI-e, by design, gives the device full access to
-> system memory, a vulnerability in the Wi-Fi firmware could easily escalate
-> to a full system exploit (remote wifi exploits: [1a], [1b] that shows a
-> full chain of exploits; [2], [3]).
->
-> To mitigate the security concerns, we introduce restricted DMA. Restricted
-> DMA utilizes the existing swiotlb to bounce streaming DMA in and out of a
-> specially allocated region and does memory allocation from the same region.
-> The feature on its own provides a basic level of protection against the DMA
-> overwriting buffer contents at unexpected times. However, to protect
-> against general data leakage and system memory corruption, the system needs
-> to provide a way to restrict the DMA to a predefined memory region (this is
-> usually done at firmware level, e.g. MPU in ATF on some ARM platforms [4]).
->
-> [1a] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_4.html
-> [1b] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_11.html
-> [2] https://blade.tencent.com/en/advisories/qualpwn/
-> [3] https://www.bleepingcomputer.com/news/security/vulnerabilities-found-in-highly-popular-firmware-for-wifi-chips/
-> [4] https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
->
-> v6:
-> Address the comments in v5
->
-> v5:
-> Rebase on latest linux-next
-> https://lore.kernel.org/patchwork/cover/1416899/
->
-> v4:
-> - Fix spinlock bad magic
-> - Use rmem->name for debugfs entry
-> - Address the comments in v3
-> https://lore.kernel.org/patchwork/cover/1378113/
->
-> v3:
-> Using only one reserved memory region for both streaming DMA and memory
-> allocation.
-> https://lore.kernel.org/patchwork/cover/1360992/
->
-> v2:
-> Building on top of swiotlb.
-> https://lore.kernel.org/patchwork/cover/1280705/
->
-> v1:
-> Using dma_map_ops.
-> https://lore.kernel.org/patchwork/cover/1271660/
-> *** BLURB HERE ***
->
-> Claire Chang (15):
->   swiotlb: Refactor swiotlb init functions
->   swiotlb: Refactor swiotlb_create_debugfs
->   swiotlb: Add DMA_RESTRICTED_POOL
->   swiotlb: Add restricted DMA pool initialization
->   swiotlb: Add a new get_io_tlb_mem getter
->   swiotlb: Update is_swiotlb_buffer to add a struct device argument
->   swiotlb: Update is_swiotlb_active to add a struct device argument
->   swiotlb: Bounce data from/to restricted DMA pool if available
->   swiotlb: Move alloc_size to find_slots
->   swiotlb: Refactor swiotlb_tbl_unmap_single
->   dma-direct: Add a new wrapper __dma_direct_free_pages()
->   swiotlb: Add restricted DMA alloc/free support.
->   dma-direct: Allocate memory from restricted DMA pool if available
->   dt-bindings: of: Add restricted DMA pool
->   of: Add plumbing for restricted DMA pool
->
->  .../reserved-memory/reserved-memory.txt       |  27 ++
->  drivers/gpu/drm/i915/gem/i915_gem_internal.c  |   2 +-
->  drivers/gpu/drm/nouveau/nouveau_ttm.c         |   2 +-
->  drivers/iommu/dma-iommu.c                     |  12 +-
->  drivers/of/address.c                          |  25 ++
->  drivers/of/device.c                           |   3 +
->  drivers/of/of_private.h                       |   5 +
->  drivers/pci/xen-pcifront.c                    |   2 +-
->  drivers/xen/swiotlb-xen.c                     |   2 +-
->  include/linux/device.h                        |   4 +
->  include/linux/swiotlb.h                       |  41 ++-
->  kernel/dma/Kconfig                            |  14 +
->  kernel/dma/direct.c                           |  63 +++--
->  kernel/dma/direct.h                           |   9 +-
->  kernel/dma/swiotlb.c                          | 242 +++++++++++++-----
->  15 files changed, 356 insertions(+), 97 deletions(-)
->
-> --
-> 2.31.1.607.g51e8a6a459-goog
->
+Why is that missing? We're going behind the back of the toolstack to do 
+the unbind and bind so why should we expect it to re-execute a hotplug 
+script?
+
+> In this case, I'm not sure what is the proper way. If I restart
+> xendriverdomain service (I do run the backend in domU), it properly
+> executes hotplug script and the backend interface gets properly
+> configured. But it doesn't do it on its own. It seems to be related to
+> device "state" in xenstore. The specific part of the libxl is
+> backend_watch_callback():
+> https://github.com/xen-project/xen/blob/master/tools/libs/light/libxl_device.c#L1664
+> 
+>      ddev = search_for_device(dguest, dev);
+>      if (ddev == NULL && state == XenbusStateClosed) {
+>          /*
+>           * Spurious state change, device has already been disconnected
+>           * or never attached.
+>           */
+>          goto skip;
+>      } else if (ddev == NULL) {
+>          rc = add_device(egc, nested_ao, dguest, dev);
+>          if (rc > 0)
+>              free_ao = true;
+>      } else if (state == XenbusStateClosed && online == 0) {
+>          rc = remove_device(egc, nested_ao, dguest, ddev);
+>          if (rc > 0)
+>              free_ao = true;
+>          check_and_maybe_remove_guest(gc, ddomain, dguest);
+>      }
+> 
+> In short: if device gets XenbusStateInitWait for the first time (ddev ==
+> NULL case), it goes to add_device() which executes the hotplug script
+> and stores the device.
+> Then, if device goes to XenbusStateClosed + online==0 state, then it
+> executes hotplug script again (with "offline" parameter) and forgets the
+> device. If you unbind the driver, the device stays in
+> XenbusStateConnected state (in xenstore), and after you bind it again,
+> it goes to XenbusStateInitWait. It don't think it goes through
+> XenbusStateClosed, and online stays at 1 too, so libxl doesn't execute
+> the hotplug script again.
+
+This is pretty key. The frontend should not notice an unbind/bind i.e. 
+there should be no evidence of it happening by examining states in 
+xenstore (from the guest side).
+
+   Paul
+
+> 
+> Some solution could be to add an extra case at the end, like "ddev !=
+> NULL && state == XenbusStateInitWait && hotplug-status != connected".
+> And make sure xl devd won't call the same hotplug script multiple times
+> for the same device _at the same time_ (I'm not sure about the async
+> machinery here).
+> 
+> But even if xl devd (aka xendriverdomain service) gets "fixes" to
+> execute hotplug script in that case, I don't think it would work in
+> backend in dom0 case - there, I think nothing watches already configured
+> vif interfaces (there is no xl devd daemon in dom0, and xl background
+> process watches only domain death and cdrom eject events).
+> 
+> I'm adding toolstack maintainers, maybe they'll have some idea...
+> 
+> In any case, the issue is not calling the hotplug script, responsible
+> for configuring newly created vif interface. Not kernel waiting for it.
+> So, I think both commits should still be reverted.
+> 
+
 
