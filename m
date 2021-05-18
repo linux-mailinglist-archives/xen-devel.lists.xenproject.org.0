@@ -2,79 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4ECE387133
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 07:22:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.128615.241448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B87387136
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 07:22:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.128613.241426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lisB8-0001Cm-GH; Tue, 18 May 2021 05:22:02 +0000
+	id 1lisAx-0000aD-Pr; Tue, 18 May 2021 05:21:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 128615.241448; Tue, 18 May 2021 05:22:02 +0000
+Received: by outflank-mailman (output) from mailman id 128613.241426; Tue, 18 May 2021 05:21:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lisB8-0001AC-Bs; Tue, 18 May 2021 05:22:02 +0000
-Received: by outflank-mailman (input) for mailman id 128615;
- Tue, 18 May 2021 05:22:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lisAx-0000XY-MA; Tue, 18 May 2021 05:21:51 +0000
+Received: by outflank-mailman (input) for mailman id 128613;
+ Tue, 18 May 2021 05:21:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2je3=KN=arm.com=penny.zheng@srs-us1.protection.inumbo.net>)
- id 1lisB7-0000oV-2K
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 05:22:01 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.82]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7dd5b481-45ae-4d0b-843f-89b10c884e13;
- Tue, 18 May 2021 05:21:55 +0000 (UTC)
-Received: from AM6P191CA0091.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:8a::32)
- by AS8PR08MB6469.eurprd08.prod.outlook.com (2603:10a6:20b:33c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Tue, 18 May
- 2021 05:21:46 +0000
-Received: from AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:8a:cafe::8a) by AM6P191CA0091.outlook.office365.com
- (2603:10a6:209:8a::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
- Transport; Tue, 18 May 2021 05:21:46 +0000
+ id 1lisAv-0000XS-FI
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 05:21:49 +0000
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.3.64]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 78af3743-edf4-4978-a783-2edaca25601b;
+ Tue, 18 May 2021 05:21:46 +0000 (UTC)
+Received: from AM6PR08CA0007.eurprd08.prod.outlook.com (2603:10a6:20b:b2::19)
+ by AM0PR08MB3330.eurprd08.prod.outlook.com (2603:10a6:208:5c::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Tue, 18 May
+ 2021 05:21:43 +0000
+Received: from AM5EUR03FT024.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:b2:cafe::e2) by AM6PR08CA0007.outlook.office365.com
+ (2603:10a6:20b:b2::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25 via Frontend
+ Transport; Tue, 18 May 2021 05:21:43 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT046.mail.protection.outlook.com (10.152.16.164) with
+ AM5EUR03FT024.mail.protection.outlook.com (10.152.16.175) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4129.25 via Frontend Transport; Tue, 18 May 2021 05:21:45 +0000
-Received: ("Tessian outbound 3c5232d12880:v92");
- Tue, 18 May 2021 05:21:45 +0000
-Received: from 8e78856243c1.1
+ 15.20.4129.25 via Frontend Transport; Tue, 18 May 2021 05:21:43 +0000
+Received: ("Tessian outbound 0f1e4509c199:v92");
+ Tue, 18 May 2021 05:21:43 +0000
+Received: from c6bec359284a.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 28167E2F-E4E9-4F96-A7DC-125E3053516C.1; 
- Tue, 18 May 2021 05:21:38 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8e78856243c1.1
+ 72016849-DD8E-447A-AF69-C5D4479BD6E6.1; 
+ Tue, 18 May 2021 05:21:36 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id c6bec359284a.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 18 May 2021 05:21:38 +0000
-Received: from AM6PR08CA0010.eurprd08.prod.outlook.com (2603:10a6:20b:b2::22)
- by VE1PR08MB5598.eurprd08.prod.outlook.com (2603:10a6:800:1a2::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.27; Tue, 18 May
- 2021 05:21:33 +0000
-Received: from VE1EUR03FT046.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:b2:cafe::c) by AM6PR08CA0010.outlook.office365.com
- (2603:10a6:20b:b2::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.24 via Frontend
- Transport; Tue, 18 May 2021 05:21:33 +0000
+ Tue, 18 May 2021 05:21:36 +0000
+Received: from AM6P192CA0065.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:82::42)
+ by DB8PR08MB5404.eurprd08.prod.outlook.com (2603:10a6:10:117::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Tue, 18 May
+ 2021 05:21:34 +0000
+Received: from VE1EUR03FT018.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:82:cafe::bb) by AM6P192CA0065.outlook.office365.com
+ (2603:10a6:209:82::42) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
+ Transport; Tue, 18 May 2021 05:21:34 +0000
 Received: from nebula.arm.com (40.67.248.234) by
- VE1EUR03FT046.mail.protection.outlook.com (10.152.19.226) with Microsoft SMTP
+ VE1EUR03FT018.mail.protection.outlook.com (10.152.18.135) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Tue, 18 May 2021 05:21:33 +0000
+ 15.20.4129.25 via Frontend Transport; Tue, 18 May 2021 05:21:34 +0000
 Received: from AZ-NEU-EX01.Emea.Arm.com (10.251.26.4) by AZ-NEU-EX03.Arm.com
  (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Tue, 18 May
- 2021 05:21:32 +0000
+ 2021 05:21:33 +0000
 Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX01.Emea.Arm.com
  (10.251.26.4) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Tue, 18
- May 2021 05:21:30 +0000
+ May 2021 05:21:33 +0000
 Received: from penny.shanghai.arm.com (10.169.190.66) by mail.arm.com
  (10.251.24.32) with Microsoft SMTP Server id 15.1.2176.14 via Frontend
- Transport; Tue, 18 May 2021 05:21:28 +0000
+ Transport; Tue, 18 May 2021 05:21:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -86,12 +85,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dd5b481-45ae-4d0b-843f-89b10c884e13
+X-Inumbo-ID: 78af3743-edf4-4978-a783-2edaca25601b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=04Kt5IDhcODuyzlAcnmdKfPcs/5dhHEBgwMoFTW8ze0=;
- b=ro/GdX5ypMYTeaywINLsfHtCrfO2vThTnqs4eVzDiz307WdxBZFYje8dhg1d4XuN3HNPUAXCt+y7OAxURSvGnp8PDztZA8XxFSpOnEW9TlimyMjOs+7Dp5TytyCLAw8Ym3LrQTghc7j4LuT5DX8N72krrRV+h0b1/kSG2uTk/mY=
+ bh=du5OP3mWpKQtM/QoyT2ZsDEjLUVsC0mPKC4RWPNn37o=;
+ b=tZjWizBbTesSpribmwEqGTbBsIOJMbGGEhrrtIeC+9Npwub6mARxvcjvgcDjkzas9iOo6fZc3Sv6RCOYmU2VBVAlyJBNw8nmKBd6TFCikBTf+ysRvgw3YMMa38Z14RaWAKrOcjkPO+xWbVp70+CNiWBjepgPPR7bWBjb7eurGI0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -100,15 +99,15 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: c1f9d5eb67de605c
+X-CR-MTA-CID: 82aa9357170c4fdc
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jy5VgMKCfjKFIBwgc53M7xtCEIqrqYt4MEfH6a4sWVwj5LfcFlFQ2guWLIs6AuDDFe55ko4bBO1lUUtOo5ax3lKicEswz/nsKmxZLLmYkzWJtxNjzKxjS3i8xHyjr8hoVO9DIvtSXYDDAyVUiD9zhcZZsEQcbHu4ynPIAeDNt7r5OZP/HCEBor85u7OHL92uT1HNGZIqAMwcitopUnHWy3gErrpaMtlBOdkZmq6pGePVAoaEgpmlrSfE/xVTvTNSRjCcPr5jTnaoGRf9Pa8G/aq5tCax1H7UTP1Y1tWvR+sO3drYGn8Dpap4TEKZmPabc2vS2ZYVarHTMbvZoBO1Mw==
+ b=UpES8RNL1KPyWVL8RKVqVOzPurftiNp94elIgFVM0AUvLBH7cJfnQPrPaGlVWPlRxz0B7dBCq7kBKKZmvTYGtofk3PeKff9WIg9FxpFyB9X50c3Ukd6VtofuEVVGn4QyjLTwEhSCLoivv1vu+YnpX87o1eM5A8b+sFA1K7J6hClrsUJbVjIguCdz/oo5/ZK53NQiUH6rleclBpq6BJL94tFd69p6n8O3f2KIIi3BTrQB4HAnREHOEu/lHLdrxZS6OCPS1rdDd8MwblZZCg2LMOx0N6bh7n6UXCt6hqUPe4iOGprFVBk47IWpdc7K1oIzc1R5Ec5zFDYh/rxsYjDuWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=04Kt5IDhcODuyzlAcnmdKfPcs/5dhHEBgwMoFTW8ze0=;
- b=dAYEAuT9SeZOVqs0lh2UUP3MG5dlL8+cxQ2s/PJyZ7q2srEMabsn91JY8YpOFxpsmU01AzcPwcvaRX17zvh7go/Pd38THz9M1aRHkAl78Y2EOBcGY5cvtrAi5tUXys9IIDTLlVlHC4h4jh1EUF6SF3OvqLBy2FvnQ3KU7e5H7giVoRxRWn5A2OqkKcxk5mm9hcUKQs+NhFDN9qVPOnkn3rCJ4srWerSRm3M5lSistpCNy/6lqAQviFdi1oHYRs6aPm/fTvXJWjQR7M6xyIW0FW3A+S/uLzJ+Q/ys/pH+KS+Fz2M/tT5deZpQYvtDyQV+m3vD2bV/TVp3DuYYby9x7A==
+ bh=du5OP3mWpKQtM/QoyT2ZsDEjLUVsC0mPKC4RWPNn37o=;
+ b=bv3vj4HuFRpRMePJBoMkzjXnOwjSMojsln3VQWQQKx0eSblTk0RbXNF3wKJeDRxPY3Sf3BoT5rByPQCgCcg/sXomjPIMEgM087TOqd5ku3RexINOaZgQyrz/7GSmHVmxqYfETKOv2kvf7PZ+ZI38CH1j38jJ7dBK8364wc+yJdWfYw68N4TUwFqJeQmupMp8hy44o27lTG+aH9u8q8qEXxR9XGWFlmUN6d/ziWniNYWXa1laVPLpihUiYGdjHofg162yaX+Vo8yuPFNuP+gZ13p8d+kQnRLC4mNzUOuTRb8zc4jgw1k1V/+C8xLysU7Je72EtuqwffZec3NWynFAOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -116,8 +115,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=04Kt5IDhcODuyzlAcnmdKfPcs/5dhHEBgwMoFTW8ze0=;
- b=ro/GdX5ypMYTeaywINLsfHtCrfO2vThTnqs4eVzDiz307WdxBZFYje8dhg1d4XuN3HNPUAXCt+y7OAxURSvGnp8PDztZA8XxFSpOnEW9TlimyMjOs+7Dp5TytyCLAw8Ym3LrQTghc7j4LuT5DX8N72krrRV+h0b1/kSG2uTk/mY=
+ bh=du5OP3mWpKQtM/QoyT2ZsDEjLUVsC0mPKC4RWPNn37o=;
+ b=tZjWizBbTesSpribmwEqGTbBsIOJMbGGEhrrtIeC+9Npwub6mARxvcjvgcDjkzas9iOo6fZc3Sv6RCOYmU2VBVAlyJBNw8nmKBd6TFCikBTf+ysRvgw3YMMa38Z14RaWAKrOcjkPO+xWbVp70+CNiWBjepgPPR7bWBjb7eurGI0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=pass action=none
@@ -130,99 +129,198 @@ To: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
 	<julien@xen.org>
 CC: <Bertrand.Marquis@arm.com>, <Penny.Zheng@arm.com>, <Wei.Chen@arm.com>,
 	<nd@arm.com>
-Subject: [PATCH 00/10] Domain on Static Allocation
-Date: Tue, 18 May 2021 05:21:03 +0000
-Message-ID: <20210518052113.725808-1-penny.zheng@arm.com>
+Subject: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
+Date: Tue, 18 May 2021 05:21:04 +0000
+Message-ID: <20210518052113.725808-2-penny.zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210518052113.725808-1-penny.zheng@arm.com>
+References: <20210518052113.725808-1-penny.zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a6f758ff-6e8d-426c-f007-08d919bcd453
-X-MS-TrafficTypeDiagnostic: VE1PR08MB5598:|AS8PR08MB6469:
+X-MS-Office365-Filtering-Correlation-Id: 76e46bd6-cf87-43e2-95dd-08d919bcd2ed
+X-MS-TrafficTypeDiagnostic: DB8PR08MB5404:|AM0PR08MB3330:
 X-Microsoft-Antispam-PRVS:
-	<AS8PR08MB64698A8EC5C754999ADDD82FF72C9@AS8PR08MB6469.eurprd08.prod.outlook.com>
+	<AM0PR08MB3330A50662E33B29DD11887DF72C9@AM0PR08MB3330.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;OLM:8882;
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- yvs3tBFIuhlrRwcHAwF0ABEO7Au7dgo9w824Gsb//vp1rvnUowKAcBI6ODxZ5eXEzrAzmU/SqyPkBPdFKUKui6HQL9S7jzJH6pB5VrO4phB8EAqdFTahw6RtzhjtkqIombm4xxj0sPzm5lCd1XzM+woO8e53q0ACmTP/uNe1+La3nIMb/3d3QH/2yJBioV0bPxyewr81Ipt9kUyr7kI9VdME9B6wPlL0s4ATPd0NRDTTlgOxERM3LJo0o7tkLS9lQ57omGZ3ZtgUpzoMQeCYmP2EUFKchGLYyoSbh3WCVVFg7/L5EyjbEjX+KeTJtn7oxvij9ShN+8OXr3QC/t3Jxl41nHPfREF8XBwTrArjqepC+8P9ol/yoI3voJU2O3l37iGnO25wXbbcN1Rh3FypqNFzImzAtIm1Z3lw7J5IDDKVOqtLlWvShrwdkepra8Eomm/kdl3TR7ay3bzQp9G5tySgwZ5AaBAtxzLIq1lOoc5lfupGH9Lk0jjgudSv6X7UzddMWgT6Ie08KQBkS+AoDDSpwrXeTevH7xAjaqx+LwSy+r7Pnp5iSx2/+xpl+gg15ppvIkkBR+lC/xXuyunmE/rqzqyRnEfXDXEi91QuX/1kkTDQAGnnPgKZ9Dto6CvRrxJVF6SPheV3yhD2gMVfQzYx1hvE8oxY40LevRX1r6pq5WOzEN3mG/mMdIyqYFmxhu1wF3NBE2k3WX8pW+xDKqCz8rPtntpsuIZX/ahD/i7xRu8R/9yhRNQQ3MHZCre87QiV5v9muLSgdsPP8cJ5kQ==
+ F9SiYjmWZKYsM3s96cl/mX/fsp1oReI9T7a5wXs2Ny/cCmjDOr23X5otT6BGv7KVjnR+b2qBh0ibXgrPOd+eEijoazT5upDgCA+8LN6z0NqMn+YwiIRHMfcw6svNOBsksOC+Kyw04gqgQR2jhcL7sJXWWg9k6M3A9mJtXYgmHD8LD3VL3LZ60VH/9IjOHI3bzCfAbLpERbkx5/bW64m2ylBI4LKtdlnh5gbMYGt11RH12PmP+WypwtLGfjVqKfKI7jRJERexwzOhr3ArEkKVlOS5wDbPAR5GTwW53zuZF3idQWRquVQUCtM0VUvRxrXTcnKsrxaNddh2SK6Cnh8ZG0sfu1l09eRgdym8Q+bA4fl/+BIXstAqpVATJYHxhYU0BTHmmJ7X5cZoMlGwNTJgedVqzZ7OqkFETPUDrdQ6azArK//RtUFMMRcC55BDeKl/bhGa5E5BQCiF4/rzmv0SQWjTmpijDCCDZZDfAOtoVe0jTfRub1/b+bS7tOkGxPssHj+HGedLhZJPKHn8Yv5LpuoZQRHCS0hX6+sT3ovhLaUByrsh8/KcogvanxwzexjAFwEnn4b1EmZG/iWymD9UmpYno9CZrP4pTzWOR6iPQ4J5vp3WAasmRLInTpqZ+5QMbmsmm4sSPhdEGDleUjQtBYcoOlEtCrqc0Td4/dya//W3FNYd6sW1VbMWhynKiW70
 X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(39850400004)(396003)(346002)(376002)(136003)(46966006)(36840700001)(70586007)(47076005)(82740400003)(83380400001)(5660300002)(2616005)(70206006)(86362001)(1076003)(36860700001)(36756003)(4326008)(186003)(7696005)(82310400003)(8936002)(54906003)(26005)(478600001)(8676002)(6666004)(966005)(44832011)(316002)(2906002)(426003)(336012)(81166007)(110136005)(356005)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5598
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(376002)(136003)(346002)(396003)(39850400004)(36840700001)(46966006)(47076005)(36860700001)(5660300002)(186003)(26005)(2616005)(336012)(478600001)(81166007)(2906002)(82740400003)(70586007)(4326008)(54906003)(82310400003)(356005)(426003)(8676002)(1076003)(70206006)(36756003)(86362001)(44832011)(110136005)(83380400001)(316002)(8936002)(6666004)(7696005)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5404
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT024.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	c89c5324-3c5f-45f6-718e-08d919bccd08
+	b82fa1be-3500-4c41-9175-08d919bccda9
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5o6ZNudDoaUD6ehT1aZMyLLlyi2EJRhVjrh9BgZ6uPBccKneJIZe11uLISSoo1X538ZyCxH9pfi2JT0hbeeEo6wLIuT6hXGH+a7/tPlj6x7ljrcO8Fqaqu6+ksiqRKB0dYciGHByiJ71ewKITR7ujjNSHQl47t1Q1X9P6ZPtKi1RAyJNYd3FPRXn/JvmE3jXYyoPAOy15nUGoI1m7e76fRHkmHlMxAObBohWN1cm89LjfQCMNb5Sw08ndWtjpZw8sg6oWavzTEnd1LK0A+zScfB7vp2n7RWF1bz1WCSSYgCsPfat+04CQDgE3fAolobfqWP85Oqe55DzHopn9ALGYIWDVY3UkgBF9AmEjQHQG7tnrgfD+jeBhu9R90PrR2fIRkFBUCXv7EQyE4PKUjiBCLiaubkmRdS0JmVfy0pOIZmLOy7i1yn+BEoGsVDz7VytRH4/3w441K4OF+CIoWeXx+RVTbpG40D4Z+VKhieIS3U7ZcujnnLZgykBlOo8SllORVQHxfccD5t5vO2jweiQ4rsRMCyypEaLGSDS1ZSqV1mRBjV5z/5QmbJTbeSpSwS4edcIhITFeyTl6pMP9Q5NWLmBQaiBPnSb0ShgHxfr3MTQ0aeUoo0H3S2aNqOJGpnWCABnVQQlMiU+2sHy2i50/n+3IUcNFeYL8nOszSOMqTUd8nYxJ9kuygLFyws+ZsiYFyIM+RQB/a892Qas6eqtOSkjTfpx0iynmuXhhSbXI50=
+	PT/koVu75C1Fj/Dhw+UvdhPExqGstVbqnbDKZMTIY1SzGtRAbzmJQygrIAdVuLdukcREXfbwmeE5Rj92KB2Sy23/MoHjXl2SDTUP5HnvwQN8hB8NL5LM11BAf8lgduZp6Hkdu/DRt+90jTWoMxFJ7G9VJxV+qCGoowxaSJ7pxSAHK0e9/Pkz5cQspv3S37H/+s4dl82YPn8LsMFt7c3entl9LEa8s2dLhDSDPjj9DAYkyDm9HnBFxd5hUNl5BQWM37BlMppg3fCmhkk8SBTc8I1C01fYvaVFdupXXbYvPfQxq4+UBtUlMDlH4hFB8QE3FgCJVF4Uv1+Xq0e0nWlxwNbLFYcbEkB6MdHPOjIikeaQzo/87Qje84y8JO41UejYTA/MwWRfTduKZQVDzUyHxibyqmippv6cS5Z7qGxzK8Yboy1BsrDI8Zv8lfknQPKCb+6YxTuch02G7FzjXRj615lWENmPNvMdusM3THqkWxklL+SRZDZx9m0AbyAeWCZy52ZS2ctDOfHZ+re5941su2RT1immrX39genrj6gPE4rEfob3HtD/6xiWhrx0kaiYiJcnmV/RjY7LwLPnGBdWRlJ8ll6adQp6PscI8EgJcxDAU2hGhY+y8hma72EBpRqmAuuWDySEpH1rec8RxKOQ1lF3j2pEpSZ7u8zd7T4/7+Q=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(39850400004)(136003)(376002)(346002)(36840700001)(46966006)(86362001)(54906003)(186003)(82310400003)(2616005)(316002)(36860700001)(2906002)(7696005)(336012)(26005)(110136005)(6666004)(82740400003)(44832011)(47076005)(81166007)(8676002)(5660300002)(83380400001)(478600001)(70206006)(966005)(1076003)(8936002)(426003)(36756003)(70586007)(4326008);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(376002)(136003)(396003)(39850400004)(36840700001)(46966006)(7696005)(83380400001)(81166007)(54906003)(5660300002)(110136005)(36860700001)(47076005)(82740400003)(316002)(8676002)(8936002)(478600001)(44832011)(2616005)(36756003)(82310400003)(336012)(186003)(1076003)(2906002)(4326008)(70586007)(426003)(6666004)(26005)(86362001)(70206006);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 05:21:45.5922
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 05:21:43.2208
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6f758ff-6e8d-426c-f007-08d919bcd453
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76e46bd6-cf87-43e2-95dd-08d919bcd2ed
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT024.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6469
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB3330
 
-Static allocation refers to system or sub-system(domains) for which memory
+Static Allocation refers to system or sub-system(domains) for which memory
 areas are pre-defined by configuration using physical address ranges.
 Those pre-defined memory, -- Static Momery, as parts of RAM reserved in the
 beginning, shall never go to heap allocator or boot allocator for any use.
 
-This Patch Serie only talks about Domain on Static Allocation.
-
-Domain on Static Allocation is supported through device tree property
+Domains on Static Allocation is supported through device tree property
 `xen,static-mem` specifying reserved RAM banks as this domain's guest RAM.
 By default, they shall be mapped to the fixed guest RAM address
 `GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`.
 
-Looking into related [design link](
-https://lists.xenproject.org/archives/html/xen-devel/2021-05/msg00882.html)
-for more details.
+This patch introduces this new `xen,static-mem` property to define static
+memory nodes in device tree file.
+This patch also documents and parses this new attribute at boot time and
+stores related info in static_mem for later initialization.
 
-The whole design is about Static Allocation and 1:1 direct-map, and this
-Patch Serie only covers parts of it, which are Domain on Static Allocation.
-Other features will be delievered through different patch series.
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+---
+ docs/misc/arm/device-tree/booting.txt | 33 +++++++++++++++++
+ xen/arch/arm/bootfdt.c                | 52 +++++++++++++++++++++++++++
+ xen/include/asm-arm/setup.h           |  2 ++
+ 3 files changed, 87 insertions(+)
 
-Penny Zheng (10):
-  xen/arm: introduce domain on Static Allocation
-  xen/arm: handle static memory in dt_unreserved_regions
-  xen/arm: introduce PGC_reserved
-  xen/arm: static memory initialization
-  xen/arm: introduce alloc_staticmem_pages
-  xen: replace order with nr_pfns in assign_pages for better
-    compatibility
-  xen/arm: intruduce alloc_domstatic_pages
-  xen/arm: introduce reserved_page_list
-  xen/arm: parse `xen,static-mem` info during domain construction
-  xen/arm: introduce allocate_static_memory
-
- docs/misc/arm/device-tree/booting.txt |  33 ++++
- xen/arch/arm/bootfdt.c                |  52 +++++++
- xen/arch/arm/domain_build.c           | 211 +++++++++++++++++++++++++-
- xen/arch/arm/setup.c                  |  41 ++++-
- xen/arch/x86/pv/dom0_build.c          |   2 +-
- xen/common/domain.c                   |   1 +
- xen/common/grant_table.c              |   2 +-
- xen/common/memory.c                   |   4 +-
- xen/common/page_alloc.c               | 210 +++++++++++++++++++++++--
- xen/include/asm-arm/domain.h          |   3 +
- xen/include/asm-arm/mm.h              |  16 +-
- xen/include/asm-arm/setup.h           |   2 +
- xen/include/xen/mm.h                  |   9 +-
- xen/include/xen/sched.h               |   5 +
- 14 files changed, 564 insertions(+), 27 deletions(-)
-
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 5243bc7fd3..d209149d71 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -268,3 +268,36 @@ The DTB fragment is loaded at 0xc000000 in the example above. It should
+ follow the convention explained in docs/misc/arm/passthrough.txt. The
+ DTB fragment will be added to the guest device tree, so that the guest
+ kernel will be able to discover the device.
++
++
++Static Allocation
++=============
++
++Static Allocation refers to system or sub-system(domains) for which memory
++areas are pre-defined by configuration using physical address ranges.
++Those pre-defined memory, -- Static Momery, as parts of RAM reserved in the
++beginning, shall never go to heap allocator or boot allocator for any use.
++
++Domains on Static Allocation is supported through device tree property
++`xen,static-mem` specifying reserved RAM banks as this domain's guest RAM.
++By default, they shall be mapped to the fixed guest RAM address
++`GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`.
++
++Static Allocation is only supported on AArch64 for now.
++
++The dtb property should look like as follows:
++
++        chosen {
++            domU1 {
++                compatible = "xen,domain";
++                #address-cells = <0x2>;
++                #size-cells = <0x2>;
++                cpus = <2>;
++                xen,static-mem = <0x0 0x30000000 0x0 0x20000000>;
++
++                ...
++            };
++        };
++
++DOMU1 on Static Allocation has reserved RAM bank at 0x30000000 of 512MB size
++as guest RAM.
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index dcff512648..e9f14e6a44 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -327,6 +327,55 @@ static void __init process_chosen_node(const void *fdt, int node,
+     add_boot_module(BOOTMOD_RAMDISK, start, end-start, false);
+ }
+ 
++static int __init process_static_memory(const void *fdt, int node,
++                                        const char *name,
++                                        u32 address_cells, u32 size_cells,
++                                        void *data)
++{
++    int i;
++    int banks;
++    const __be32 *cell;
++    paddr_t start, size;
++    u32 reg_cells = address_cells + size_cells;
++    struct meminfo *mem = data;
++    const struct fdt_property *prop;
++
++    if ( address_cells < 1 || size_cells < 1 )
++    {
++        printk("fdt: invalid #address-cells or #size-cells for static memory");
++        return -EINVAL;
++    }
++
++    /*
++     * Check if static memory property belongs to a specific domain, that is,
++     * its node `domUx` has compatible string "xen,domain".
++     */
++    if ( fdt_node_check_compatible(fdt, node, "xen,domain") != 0 )
++        printk("xen,static-mem property can only locate under /domUx node.\n");
++
++    prop = fdt_get_property(fdt, node, name, NULL);
++    if ( !prop )
++        return -ENOENT;
++
++    cell = (const __be32 *)prop->data;
++    banks = fdt32_to_cpu(prop->len) / (reg_cells * sizeof (u32));
++
++    for ( i = 0; i < banks && mem->nr_banks < NR_MEM_BANKS; i++ )
++    {
++        device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
++        /* Some DT may describe empty bank, ignore them */
++        if ( !size )
++            continue;
++        mem->bank[mem->nr_banks].start = start;
++        mem->bank[mem->nr_banks].size = size;
++        mem->nr_banks++;
++    }
++
++    if ( i < banks )
++        return -ENOSPC;
++    return 0;
++}
++
+ static int __init early_scan_node(const void *fdt,
+                                   int node, const char *name, int depth,
+                                   u32 address_cells, u32 size_cells,
+@@ -345,6 +394,9 @@ static int __init early_scan_node(const void *fdt,
+         process_multiboot_node(fdt, node, name, address_cells, size_cells);
+     else if ( depth == 1 && device_tree_node_matches(fdt, node, "chosen") )
+         process_chosen_node(fdt, node, name, address_cells, size_cells);
++    else if ( depth == 2 && fdt_get_property(fdt, node, "xen,static-mem", NULL) )
++        process_static_memory(fdt, node, "xen,static-mem", address_cells,
++                              size_cells, &bootinfo.static_mem);
+ 
+     if ( rc < 0 )
+         printk("fdt: node `%s': parsing failed\n", name);
+diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+index 5283244015..5e9f296760 100644
+--- a/xen/include/asm-arm/setup.h
++++ b/xen/include/asm-arm/setup.h
+@@ -74,6 +74,8 @@ struct bootinfo {
+ #ifdef CONFIG_ACPI
+     struct meminfo acpi;
+ #endif
++    /* Static Memory */
++    struct meminfo static_mem;
+ };
+ 
+ extern struct bootinfo bootinfo;
 -- 
 2.25.1
 
