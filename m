@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A230387C3C
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 17:17:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129340.242792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AAB8387C5A
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 17:22:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129349.242803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj1T3-0005DY-99; Tue, 18 May 2021 15:17:09 +0000
+	id 1lj1XW-0006aU-S1; Tue, 18 May 2021 15:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129340.242792; Tue, 18 May 2021 15:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 129349.242803; Tue, 18 May 2021 15:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj1T3-0005BC-56; Tue, 18 May 2021 15:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 129340;
- Tue, 18 May 2021 15:17:07 +0000
+	id 1lj1XW-0006Xd-OK; Tue, 18 May 2021 15:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 129349;
+ Tue, 18 May 2021 15:21:45 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lj1T1-0005B6-5C
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 15:17:07 +0000
+ (envelope-from <julien@xen.org>) id 1lj1XV-0006XX-Ko
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 15:21:45 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lj1T0-0005Rb-2A; Tue, 18 May 2021 15:17:06 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ id 1lj1XV-0005Wi-GD; Tue, 18 May 2021 15:21:45 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lj1Sz-0008Kf-Ro; Tue, 18 May 2021 15:17:05 +0000
+ id 1lj1XV-0000Gt-7e; Tue, 18 May 2021 15:21:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,143 +41,83 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Jb/nZpPfWCK59tKvpib0PXBBg+ntRrhpI15dC4MYvr8=; b=a/2T2mhtsV++KtKHRMnr0ZIel3
-	VC587ykPBswkELrePHDn64klODKnwAOZ/fa0TzhgoBFxDUAF1fj8uYV0Z3gnP++U9TROWW0bKelaS
-	QMrNuQXG9lid24qHACZEYRH8R/zUeTsRqXgvqaeDZNMiOkLQ9Lz9/IUQ3uZcRZm137g4=;
-Subject: Re: [PATCH v3 2/5] xen/common: Guard iommu symbols with
- CONFIG_HAS_PASSTHROUGH
-To: Jan Beulich <jbeulich@suse.com>, Connor Davis <connojdavis@gmail.com>
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair23@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1621017334.git.connojdavis@gmail.com>
- <1156cb116da19ef64323e472bb6b6e87c6c73d77.1621017334.git.connojdavis@gmail.com>
- <556d1933-3b11-0780-edec-b6dc1729bc56@suse.com>
- <98b429d0-2673-624e-1690-9c0e8373ed5b@xen.org>
- <7cf966f6-7ccf-ba63-2b67-129577a7ca53@gmail.com>
- <8e415cac-a8b3-67a6-2f7b-489b964ceb50@suse.com>
- <fc967847-4a08-050c-aaac-5cfb42742f0e@xen.org>
- <922c6304-9299-a697-2405-1b7f6d069842@suse.com>
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=bihKm/0I5e2904VEtD9FhHuR9ZFEzgsDrIr7s+Qg+Yk=; b=jwjiEbVEp6SoBekt84khga6jzN
+	TowDPHVP/SKdmNJhrs0KH57rsRRzbkhvmMtAFEioVQnfpXspgWK1J5+QLpXBAJuJGq5oKQVbB5Nbw
+	ZeZ4mxpz8RsaRVdfoQkiT+X0qp7KOPmvCoi6czFW7R0Sm1nnuU7R61EhwGGsKNslRxHo=;
 From: Julien Grall <julien@xen.org>
-Message-ID: <d486c0f9-b615-0706-e1f2-3fd15bd7ec6a@xen.org>
-Date: Tue, 18 May 2021 16:17:03 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <922c6304-9299-a697-2405-1b7f6d069842@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+To: xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH] tools/xenstored: Remove unused parameter in check_domains()
+Date: Tue, 18 May 2021 16:21:40 +0100
+Message-Id: <20210518152140.6333-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-Hi Jan,
+From: Julien Grall <jgrall@amazon.com>
 
-On 18/05/2021 16:13, Jan Beulich wrote:
-> On 18.05.2021 16:06, Julien Grall wrote:
->>
->>
->> On 18/05/2021 07:27, Jan Beulich wrote:
->>> On 18.05.2021 06:11, Connor Davis wrote:
->>>>
->>>> On 5/17/21 9:42 AM, Julien Grall wrote:
->>>>> Hi Jan,
->>>>>
->>>>> On 17/05/2021 12:16, Jan Beulich wrote:
->>>>>> On 14.05.2021 20:53, Connor Davis wrote:
->>>>>>> --- a/xen/common/memory.c
->>>>>>> +++ b/xen/common/memory.c
->>>>>>> @@ -294,7 +294,9 @@ int guest_remove_page(struct domain *d, unsigned
->>>>>>> long gmfn)
->>>>>>>         p2m_type_t p2mt;
->>>>>>>     #endif
->>>>>>>         mfn_t mfn;
->>>>>>> +#ifdef CONFIG_HAS_PASSTHROUGH
->>>>>>>         bool *dont_flush_p, dont_flush;
->>>>>>> +#endif
->>>>>>>         int rc;
->>>>>>>       #ifdef CONFIG_X86
->>>>>>> @@ -385,13 +387,17 @@ int guest_remove_page(struct domain *d,
->>>>>>> unsigned long gmfn)
->>>>>>>          * Since we're likely to free the page below, we need to suspend
->>>>>>>          * xenmem_add_to_physmap()'s suppressing of IOMMU TLB flushes.
->>>>>>>          */
->>>>>>> +#ifdef CONFIG_HAS_PASSTHROUGH
->>>>>>>         dont_flush_p = &this_cpu(iommu_dont_flush_iotlb);
->>>>>>>         dont_flush = *dont_flush_p;
->>>>>>>         *dont_flush_p = false;
->>>>>>> +#endif
->>>>>>>           rc = guest_physmap_remove_page(d, _gfn(gmfn), mfn, 0);
->>>>>>>     +#ifdef CONFIG_HAS_PASSTHROUGH
->>>>>>>         *dont_flush_p = dont_flush;
->>>>>>> +#endif
->>>>>>>           /*
->>>>>>>          * With the lack of an IOMMU on some platforms, domains with
->>>>>>> DMA-capable
->>>>>>> @@ -839,11 +845,13 @@ int xenmem_add_to_physmap(struct domain *d,
->>>>>>> struct xen_add_to_physmap *xatp,
->>>>>>>         xatp->gpfn += start;
->>>>>>>         xatp->size -= start;
->>>>>>>     +#ifdef CONFIG_HAS_PASSTHROUGH
->>>>>>>         if ( is_iommu_enabled(d) )
->>>>>>>         {
->>>>>>>            this_cpu(iommu_dont_flush_iotlb) = 1;
->>>>>>>            extra.ppage = &pages[0];
->>>>>>>         }
->>>>>>> +#endif
->>>>>>>           while ( xatp->size > done )
->>>>>>>         {
->>>>>>> @@ -868,6 +876,7 @@ int xenmem_add_to_physmap(struct domain *d,
->>>>>>> struct xen_add_to_physmap *xatp,
->>>>>>>             }
->>>>>>>         }
->>>>>>>     +#ifdef CONFIG_HAS_PASSTHROUGH
->>>>>>>         if ( is_iommu_enabled(d) )
->>>>>>>         {
->>>>>>>             int ret;
->>>>>>> @@ -894,6 +903,7 @@ int xenmem_add_to_physmap(struct domain *d,
->>>>>>> struct xen_add_to_physmap *xatp,
->>>>>>>             if ( unlikely(ret) && rc >= 0 )
->>>>>>>                 rc = ret;
->>>>>>>         }
->>>>>>> +#endif
->>>>>>>           return rc;
->>>>>>>     }
->>>>>>
->>>>>> I wonder whether all of these wouldn't better become CONFIG_X86:
->>>>>> ISTR Julien indicating that he doesn't see the override getting used
->>>>>> on Arm. (Julien, please correct me if I'm misremembering.)
->>>>>
->>>>> Right, so far, I haven't been in favor to introduce it because:
->>>>>      1) The P2M code may free some memory. So you can't always ignore
->>>>> the flush (I think this is wrong for the upper layer to know when this
->>>>> can happen).
->>>>>      2) It is unclear what happen if the IOMMU TLBs and the PT contains
->>>>> different mappings (I received conflicted advice).
->>>>>
->>>>> So it is better to always flush and as early as possible.
->>>>
->>>> So keep it as is or switch to CONFIG_X86?
->>>
->>> Please switch, unless anyone else voices a strong opinion towards
->>> keeping as is.
->>
->> I would like to avoid adding more #ifdef CONFIG_X86 in the common code.
->> Can we instead provide a wrapper for them?
-> 
-> Doable, sure, but I don't know whether Connor is up to going this
-> more extensive route.
+The parameter of check_domains() is not used within the function. In fact,
+this was a left over of the original implementation as the version merged
+doesn't need to know whether we are restoring.
 
-That's a fair point. If that the case, then I prefer the #ifdef 
-CONFIG_HAS_PASSTHROUGH version.
+So remove it.
 
-I can add an item in my todo list to introduce some helpers.
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ tools/xenstore/xenstored_control.c | 2 +-
+ tools/xenstore/xenstored_domain.c  | 4 ++--
+ tools/xenstore/xenstored_domain.h  | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-Cheers,
-
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index 8e470f2b2056..07458d7b48d0 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -589,7 +589,7 @@ void lu_read_state(void)
+ 	 * have died while we were live-updating. So check all the domains are
+ 	 * still alive.
+ 	 */
+-	check_domains(true);
++	check_domains();
+ }
+ 
+ static const char *lu_activate_binary(const void *ctx)
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 3d4d0649a243..0e4bae9a9dd6 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -220,7 +220,7 @@ static bool get_domain_info(unsigned int domid, xc_dominfo_t *dominfo)
+ 	       dominfo->domid == domid;
+ }
+ 
+-void check_domains(bool restore)
++void check_domains(void)
+ {
+ 	xc_dominfo_t dominfo;
+ 	struct domain *domain;
+@@ -277,7 +277,7 @@ void handle_event(void)
+ 		barf_perror("Failed to read from event fd");
+ 
+ 	if (port == virq_port)
+-		check_domains(false);
++		check_domains();
+ 
+ 	if (xenevtchn_unmask(xce_handle, port) == -1)
+ 		barf_perror("Failed to write to event fd");
+diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
+index dc9759171317..cc5147d7e747 100644
+--- a/tools/xenstore/xenstored_domain.h
++++ b/tools/xenstore/xenstored_domain.h
+@@ -21,7 +21,7 @@
+ 
+ void handle_event(void);
+ 
+-void check_domains(bool restore);
++void check_domains(void);
+ 
+ /* domid, mfn, eventchn, path */
+ int do_introduce(struct connection *conn, struct buffered_data *in);
 -- 
-Julien Grall
+2.17.1
+
 
