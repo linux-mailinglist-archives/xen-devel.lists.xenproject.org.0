@@ -2,67 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4A9387B69
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 16:40:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129299.242723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BF21387BA5
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 16:48:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129308.242736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj0t5-0007AP-ML; Tue, 18 May 2021 14:39:59 +0000
+	id 1lj11A-0000DA-Oq; Tue, 18 May 2021 14:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129299.242723; Tue, 18 May 2021 14:39:59 +0000
+Received: by outflank-mailman (output) from mailman id 129308.242736; Tue, 18 May 2021 14:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj0t5-00077D-Hc; Tue, 18 May 2021 14:39:59 +0000
-Received: by outflank-mailman (input) for mailman id 129299;
- Tue, 18 May 2021 14:39:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lj11A-00009z-Kz; Tue, 18 May 2021 14:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 129308;
+ Tue, 18 May 2021 14:48:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/tj/=KN=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lj0t4-000777-LN
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 14:39:58 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.68]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bac80553-c498-4bb2-b4c7-3b16a24ca9cf;
- Tue, 18 May 2021 14:39:56 +0000 (UTC)
-Received: from DB8PR03CA0032.eurprd03.prod.outlook.com (2603:10a6:10:be::45)
- by DBBPR08MB4904.eurprd08.prod.outlook.com (2603:10a6:10:f2::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Tue, 18 May
- 2021 14:39:55 +0000
-Received: from DB5EUR03FT039.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:be:cafe::3c) by DB8PR03CA0032.outlook.office365.com
- (2603:10a6:10:be::45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
- Transport; Tue, 18 May 2021 14:39:55 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT039.mail.protection.outlook.com (10.152.21.120) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4129.25 via Frontend Transport; Tue, 18 May 2021 14:39:54 +0000
-Received: ("Tessian outbound 3c5232d12880:v92");
- Tue, 18 May 2021 14:39:54 +0000
-Received: from a31ab92ba805.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 041A91DC-A10D-4AF6-B7CD-9ED5ABA26EA1.1; 
- Tue, 18 May 2021 14:39:47 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a31ab92ba805.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 18 May 2021 14:39:47 +0000
-Received: from VI1PR08MB3629.eurprd08.prod.outlook.com (2603:10a6:803:7f::25)
- by VE1PR08MB5600.eurprd08.prod.outlook.com (2603:10a6:800:1b0::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Tue, 18 May
- 2021 14:39:45 +0000
-Received: from VI1PR08MB3629.eurprd08.prod.outlook.com
- ([fe80::5ca9:87ed:e959:758a]) by VI1PR08MB3629.eurprd08.prod.outlook.com
- ([fe80::5ca9:87ed:e959:758a%5]) with mapi id 15.20.4129.031; Tue, 18 May 2021
- 14:39:44 +0000
-Received: from smtpclient.apple (82.8.129.65) by
- LO4P123CA0120.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:192::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Tue, 18 May 2021 14:39:43 +0000
+ <SRS0=9UfV=KN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lj119-00009q-0A
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 14:48:19 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bda15b62-f9ce-482e-a680-432ff0bc542a;
+ Tue, 18 May 2021 14:48:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,190 +35,334 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bac80553-c498-4bb2-b4c7-3b16a24ca9cf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SWeXAeQUtjtyw9RVs8UQWsQ4Zvnw+i9+BKnCk0yF7s0=;
- b=unEBeyqzuB7AkDVKIGm8oy8fw7o0FNkVs6fqXFT4SNt9kB20QSWOiATOGN7OByj/6zW6GJl0GcbU+xZqTBsF8ZDljJmYkMS63eAVpQhj+Q9XuBBQHIz4MzkTZCYNJDtnxJVZbEgN+2edEcypeu6lD5P+5e2EBnmNpKUyvZE0ivM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 3d95174608c72e4d
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: bda15b62-f9ce-482e-a680-432ff0bc542a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1621349297;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=icYH55/ktMuKqJXIYQX+IxbyRvKiSotvh1pWmXo1AUE=;
+  b=BA0uU+r6oyKBw0C/3P18v05UDHWurPp6HJ9EKpxYmPe5FXr03RB/j9Ib
+   bRYmO+bU8CbRaSe2hbzbgQZZ7hJw6lW41iGUxjVN7FSThDZm57kti5tSL
+   r3/utMOAiOrZXd4OOyFPF3rL9ASOOZhzqSsyJQwLKNjY1L4vdYdoxIrNM
+   w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: fCq3tYZm7UNpOJAzp37WcBhS62B6i3H9b6R35egD5k7fyg8ZTdz1VDp8O8vztBkVqcNj/vUbFu
+ J+RHHSgaaPWXHiwPiArtDFCutdJ8GmG39SQ6dR1RYoOYUzq+ZC3Xg3q2Wae2HExdj2BBnRU4DS
+ KPRFTfWkIrnoRNj20HDySkAgBvWU7gxC3apVQL45ucO/Yk0hOby9DfGI1EmHLvDd1BV4UtqFjY
+ kob+ZiHxmfrI5Ea8v5fzSYoD0C7xBhrWu1hmnktq2nfwtJ2l3AMG6GCE5j7CslfKFcmycZ0Gr8
+ xP8=
+X-SBRS: 5.1
+X-MesageID: 44432571
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:xQd3qKDwxxYYoQrlHeigsceALOsnbusQ8zAXPh9KJyC9I/b2qy
+ nxppgmPH/P6Ar4WBkb6Le90c67MA7hHP9OkPMs1NKZPTUO11HYVb2KgbGSpgEIeBeOh9K1t5
+ 0QC5SWYeeYZTMR4LeYkWvIYOrIqOP3jpxA7t2uqUuFIzsaD52JuGxCe3mm+wBNNUR77fVTLu
+ vR2uN34x6bPVgHZMWyAXcIG8LZocfQqZ7gaRkaQzY69Qinl1qTmf/HOind+i1bfyJEwL8k/2
+ SAuRf+/L+fv/ayzQKZ/3PP7q5RhMDqxrJ4dYKxY/AuW3bRYzuTFcZcs+XohkFxnAjv0idkrD
+ D0mWZhAywpgEmhOl1cyHDWqnndODVH0Q6r9bbXuwqlnSRVLAhKfPapvrgpBycx3XBQ9e2U4J
+ g7rV5xiKAneS8o5B6NnOQgdysa3XZc8kBS29L6sRRkIP0jgehq3PAiFQVuYdE9IB4=
+X-IronPort-AV: E=Sophos;i="5.82,310,1613451600"; 
+   d="scan'208";a="44432571"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EVG5oXjQz/4EXyy0BYTXzqwHvJhkza9QqwmD7Qc+S+49W6H8vofLJnu9PjKoZYilqEMp9BmdKQxF2yyCRo9ZY5yjSkRnkGv5lgOBTWZO+EVAw7o8zrQxUC2g+9TCqtfbN3IuTlWTVCGJJME72j+oNZAflYyzVPoYP+5gbgo4mLWpu5pJYzFIlw0pIhO3I57KDT6u7m73HveLGU8CrQpP1icj99JQH5dXyhEJo7/5lh1tq4UlN5qOtN9SvX3kizvdNycMNy4b8zNfzeksQ6wvvBN3KqKaVHXoJA8pdEYyZVDjSxI8xSOy8jCVbgxbKas2yLxmKGmh1xm8NwZ2IGIkgw==
+ b=fCBlc9rfjcmrun4jHuwGChf/deEMKkG6Wvqel6n9q8JBM/rBCLJ+23c8lQnD+jo6bPhiY2a316oa7qsEi6G6AMdLI2O6wRqrEBc7lcTYH7GYVw7Q1mUxiUBpUcgHMumU8ay3Bwr2KS0nGmuvUMvU5LxDKI9bOJZRzDTXUxzFZwOnvuRao9oYmddDKiI7pgwOY7JBtaEbQOkij79x47L8+KznuRZscbLKQiDw+MYi+PA6V0kwBcNRt8MUjXcUehFeK22rpL5/yompF+PW8MBtsrh6UfIhz8uGzEgnJxjMhPinXGzxaDVgk2NKRwiVGTwjo+IEueA+dJkKJklGiBBX6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SWeXAeQUtjtyw9RVs8UQWsQ4Zvnw+i9+BKnCk0yF7s0=;
- b=RQ8Qhnc5/7722vSeIHq1/V/KCCT5P/LXb8iMGGPflhQV/rOF/9bPLMkjHfwduVwIZJzKHhT991qtN6VlvQV3SqULMPwcTiUvCrsf4YpvorBpd/JU7wxveLFfQv6NBuVck2oLWlkHOXw8Jr5dZDmHC6UfgKA4g168I2uK8XPQuLgvbKjE5DDEpqnHVkl++af21RFJnqsLLnzpdw6AE9wpkZosExGE6dant2SzVvYW1yuQ6UMknhIEJQG1TRErYOqBkxeIUA6WwAShRtJCtQvOcGqHFc/AIkC+VEBemPvBo3zkpU+ufJ126mQJHCacKK9TGPt2cYXhITbCuUdbD9wBjA==
+ bh=8jNCC6vvRDBjjCCC/T2rCWhHpwqAyBSyU3L/nHcUPaM=;
+ b=SIogAl207IfGUISjFqT/fe3wGx/mpiKIgs4eshiyfMOQJBkDHFToFUbvSPkKjIWT1/agyalVrMaGopGngvb/nVzmYnrnFdcSntRAmjxuCNKtwACiNbZyH2RdsuJ+1Jh9RekxtEhJ/DFcjJmP4YzIlYfnfMfd0aAVjAT1W3mvn+qnVJO3kmHBW64bH5AV+sUjdZuUBqc2b/XOX4Qmp4Cpz+8wlfjk/WSego3M4zBkesGkJjMq2vty6gNQV8Uh/H7AwtfoGFhAIJ1x9hNpSDGJkGdU1URD+hdGTVlJRxl8iVOM1RDUOnzttnTH/J4kkZFj1KQGPacInsepDxP4kUfABA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SWeXAeQUtjtyw9RVs8UQWsQ4Zvnw+i9+BKnCk0yF7s0=;
- b=unEBeyqzuB7AkDVKIGm8oy8fw7o0FNkVs6fqXFT4SNt9kB20QSWOiATOGN7OByj/6zW6GJl0GcbU+xZqTBsF8ZDljJmYkMS63eAVpQhj+Q9XuBBQHIz4MzkTZCYNJDtnxJVZbEgN+2edEcypeu6lD5P+5e2EBnmNpKUyvZE0ivM=
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=us-ascii
-Subject: Re: [PATCH v2 1/2] xen/char: console: Use const whenever we point to
- literal strings
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <20210518140134.31541-2-julien@xen.org>
-Date: Tue, 18 May 2021 15:39:36 +0100
-Cc: xen-devel@lists.xenproject.org,
- Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-Content-Transfer-Encoding: 7bit
-Message-Id: <46179889-061C-43C2-843C-F8E7A687BA5D@arm.com>
-References: <20210518140134.31541-1-julien@xen.org>
- <20210518140134.31541-2-julien@xen.org>
-To: Julien Grall <julien@xen.org>
-X-Mailer: Apple Mail (2.3654.80.0.2.43)
-X-Originating-IP: [82.8.129.65]
-X-ClientProxiedBy: LO4P123CA0120.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::17) To VI1PR08MB3629.eurprd08.prod.outlook.com
- (2603:10a6:803:7f::25)
+ bh=8jNCC6vvRDBjjCCC/T2rCWhHpwqAyBSyU3L/nHcUPaM=;
+ b=iE2jLzJPNFs8OM0VzVjePA0u7V2jaETCsxxnIZ6xWEkFjBOvM1T9VlnSxwQSh7CeHxMyCau9rTwKBEV8lXVGdd8konnrP8fc7YOdGxf6+GFMLwUYg+aDHYbF9ucUo/ic35d4AyNcryHGBuF5fEkFGdgloEVJrzV6B1J1hRLxlBQ=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
+ Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] libelf: improve PVH elfnote parsing
+Date: Tue, 18 May 2021 16:47:41 +0200
+Message-ID: <20210518144741.44395-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.31.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR2P264CA0060.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:31::24) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fc35bd78-b203-4da0-0fa7-08d91a0acd6f
-X-MS-TrafficTypeDiagnostic: VE1PR08MB5600:|DBBPR08MB4904:
-X-Microsoft-Antispam-PRVS:
-	<DBBPR08MB4904FFCE63516CA62D768AB2E42C9@DBBPR08MB4904.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;OLM:1227;
+X-MS-Office365-Filtering-Correlation-Id: cda54c9d-fcdf-49ed-f144-08d91a0be7e9
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5575:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DS7PR03MB5575A6E95E19E2263D432B3B8F2C9@DS7PR03MB5575.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- k3i1SRzFurFamEel4iGqgejDA5jbcoIPMgF79Y9gcoe71ff6R4HwYLs80to6/TWgE/TRm0g6cW7AI2uNTVteJhFmYjYoCWC9VMH0WFdB0QiZn8yOfImttaeOBElKFSouZ9br4UuwLFK4sMv2JeMJooi5qILkyjNvBR8XmjZQfaeOu9Ib83Te+mx5L9D5tSUN99em9bQDpUX4+FKIGHJTkkqj10n3B84uqTSietaCJB5fPuWJziQXud+eaWQNYYUCk+XQ/w5lAqEMB6AyjbxWsKltqi0Agigm4vVxaSlGI5hxe2Tafo+ULEytMco2Ej8OdsdycZ9PYAVvVqhwferY+8IcGIaoJje+4YJAcpLpe9XeRMMVB9MN6/9NlrLfN12ZMi+ICrAvKuP1ASUbeTWs89JFI4a6ctVATxtZbY7szLVNsmFvsQnUKRagfJF0xaRfkVRHHGDcpklQf7E4fPKnxp0mhtwKMa228hz7BldpzgRqlQawZvoDOyqWGbDmYucozS68EJNyUK9EodrA22GhM7kSawqbu//qszy6pg22bdTye/5lA1mUN2SRufSr6moH/BsX1Ya53cyv1GROW51c8BvOeGlhh0W6MBBCS4VVJsEmwrDqp2QLH78lm6ZYQwApYloqYlIQKflySdTPFJzSOngD20WHED7vycPbvSfW0l73dN9XAGrtfYgNH9INnvKW
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3629.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(376002)(346002)(396003)(136003)(39850400004)(52116002)(2616005)(6506007)(478600001)(53546011)(8676002)(33656002)(956004)(4326008)(186003)(6916009)(83380400001)(8936002)(16526019)(66946007)(86362001)(5660300002)(44832011)(66556008)(2906002)(38100700002)(38350700002)(6512007)(6486002)(26005)(66476007)(316002)(36756003)(54906003)(6666004)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
- =?us-ascii?Q?yl3+OHLAnPkKfDbVeI6NbdBYGJR70zyOy004UoeanViKXbdNr4JTqTKHfM2W?=
- =?us-ascii?Q?c8jd13PsbQNrJpyA5O/hEYqYFnQx+kpBvBJRDO7WIu9i8c5Ikh04NzUawApF?=
- =?us-ascii?Q?AWXwdj0fhP7ZD5FYwXW6D4O896epSrfwCLgLZb+ufHhZsY8fxF/POL9pR27x?=
- =?us-ascii?Q?cH8zCXcTRzwwpyJLJYnVdIZgjRUxLyLdwLFf9yIBLftr0Z8N2x3ZsqMt5qYi?=
- =?us-ascii?Q?9i42HwRTiv90aElxn6zpW7wPDeZVeqJmTrq7eCRtQjGHxm3y6oDAug4/dD2r?=
- =?us-ascii?Q?m1oAzGG7CUXd5QCbPNmLi/BRTqVuquqtpNNbATXOX5ZVMhlbfXlb8cZuDt3S?=
- =?us-ascii?Q?L08+kiL1apJXd9M66ncIZX/hCogh3ViTxY8u62MI8pUR56f5zL5hkvqLQ4y9?=
- =?us-ascii?Q?Z233cvCsH/uuUrXx5f2xhVMonQ+fv2jnvGdUG5D2JvHY5C3NZNmP1Mazn+nJ?=
- =?us-ascii?Q?2c/UD4ritu8g4WfmxJwcig9pdXUuU8JxzrlCs5BMUafUItDZsdmhLWDZG5fk?=
- =?us-ascii?Q?34AsHdk8l6YMQnjcuQXtQiQNT1Tnaf6p29ANHtHlFxyeKedmv4Ro5P4QdeXg?=
- =?us-ascii?Q?XWTDtR+jr8yG9zOfoyfsREp66Nt/1mTFbYp6iIa/X12r1MhqvONoKhby9kJ9?=
- =?us-ascii?Q?E6v/xHIfpcMQh7Z+Ap+v+hIIEIqYdOys8g/ZScDPgITkg94f+waBKZxXtMgP?=
- =?us-ascii?Q?1vLVMBShpZt2RVbeYR7K87+ZPTWOYu0h0x0kPRvO2WoPkRf4mYzNgZDQl1Uf?=
- =?us-ascii?Q?xltT24K9KMCboNKrYO+MB+3PnS88xeBzQHwCHELvcsoznlcvH6+Zn7Mxwl41?=
- =?us-ascii?Q?GyCxqY2M4YC5m17u7grA7D1M3qQAAs/hV0tL+YsPrP3LSz5ZANCsvEJpbEwm?=
- =?us-ascii?Q?TC+zjCzotr+DOH/Q0JgR1Ecm057gfbu67fHdYyC5MftA2IZwiEQXMXleorWO?=
- =?us-ascii?Q?pHFXnHzgIB3eU6xkueSc86iPW+uylaC3dr/T56W6pE/l1iGMvfp0O9ycu/Wc?=
- =?us-ascii?Q?HHCNUy3jREGMjhRvcf9y6Jf3Wn2jhUyMoUHJ/X99NqbcQpF3vH57Os9tZ5/T?=
- =?us-ascii?Q?SpQq8/XanAYd+TNdEGciKdlm3wsFTdcE3ba1Oiikxs7ViYhkzC7qKMi/gXu3?=
- =?us-ascii?Q?2KWCu1ooOcYZnInjRdwKnl1nCih2rh35j0+kiS4cFozOuFlBcgw+Dnkkjiib?=
- =?us-ascii?Q?Gg9lu5/Cswt1QHUy80doi0boAVciDAUp8J9NgzeueRRLRBjcjtHI7RrUeU4L?=
- =?us-ascii?Q?aDK9gXOoNrQ0RX+4zj2T3Oj+W1KA2V93wzyzd6LVqmGC/qTVNJhen36sfF4h?=
- =?us-ascii?Q?leAVz9Ob5GLb9mqQ+1f58IQj?=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5600
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT039.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	410e5e25-ab5a-4554-dc41-08d91a0ac6db
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+Pdofux9yY5lOJE0g+kX9ecaaDrpAnfoaGbHuLxBNIofp+rQDWHggcHW/lRsQomnF6tRUVGvIPVkSj/ROTslbz0rU+3Yb7Od4zQ1AMjK2gGF+18LxDQ4AE6KKgqzhkSFi4LfsWd6MSXZam3FrxLTbILxKhwg4JRD0f6N/fEWxEDx3Oahgq39n0ZML23BFkb2fU+vwklSqywj0liM4Zg+eLAULMfQdwAIv08o1NF6olmQAKHEgapA59sEg4/sqhQEL+FmHLEf5Q5FAnVtgViJeZEYm+EfRC1te8emj/bjhc3A/Ahb/gzBqJANTsOplLuCbvtne+nkAJ9Ldfr5p6KpMSkE75PiBalKMxZFa02MiYILNOILYnuSjAMZtK6a6xle6VHFe2h337tDUrX4MSql4as6edxcEhaY+UogDRY10RcdDQRdQsCm64CCce2qTwnOPetkGmkdX2kjEDgEUH4knyCoJEQJMC6KjlvyMQ9vFqbq8zFFJDmlFC+mJEyNO8NCURCDbBUwXt2uJhoBGbbcNmgZeQY38zi9KF/ayMLHkM8CjA2sw0yj6K5PpLkPRJn0E3YeyYKVwMx3N5fuj8TMtumr0MfM7Z0zhd2uvi0173uD7j4CnTzSQJY9eW9Q9yH3+hbRjOYIvnioWpx4f5RtXP2Jw4Xd6nc62yIG9zEK0Dk=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(39850400004)(346002)(376002)(136003)(46966006)(36840700001)(83380400001)(6486002)(82310400003)(6506007)(2906002)(4326008)(47076005)(70206006)(70586007)(54906003)(53546011)(6666004)(33656002)(36756003)(956004)(2616005)(478600001)(86362001)(8676002)(6862004)(356005)(36860700001)(81166007)(82740400003)(5660300002)(336012)(26005)(8936002)(16526019)(316002)(186003)(44832011)(6512007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 14:39:54.8118
+X-Microsoft-Antispam-Message-Info: IXNuqSy4dUb++9ndfkAjOHd10Od3CGvjIf83NGC6I00jEGVYbaVkiBDZUZ3Z74XKXURupW5sI0/CUrltlFI+GUP9fXWFe+M0QgR1MN9Dp7TWc85Vc/6zpKZ5f9QLJSDFJCfJ9G4VLEKqtru3Nt1F74rbWQB/RfpWUTYr7/LM2v6b6pSaskfnTYzhQ6l09QN/CC3AD++/7j6VoTvOxKdaM5v2+yzOQojLycJw5o5bm7dBPEbjut/V+/k0/XfQK2IfeLmYEfFtpoImxrMg6llXmfvK0x+cAfh12E0IFsdav1P/OrYxenrjVh15qF5+RYJbCk/gREfDKnyR8lALiPiPz17vQMtTIoNqX+jWo5q42Xzwnj0LWUB9lsvsRjAQPEfJw2rx1BZK+tu9R5BU3JP3KFDU4LSCz03uwDLgX47HDD2aGcdRY+E/TzEb0AfZ+eVaUjK7+GLo7bRfr5/RVpfRWlX1rGEcFOBo0iCcvj9AbGF++64gKZwyHFOzQ4QGiN0RxD+wmdVlhrz1nZKyNuopOKXAXRyH4qd5HpQ10b7qVlbJ+MXNiLwZRzBfErSqOIcT3EvSDE0Ghbw6Y0m0VD+lmMwFUxnlFlWSNxWYnbQP5iI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(39860400002)(346002)(396003)(366004)(2616005)(956004)(6496006)(8936002)(316002)(5660300002)(6916009)(66556008)(26005)(8676002)(36756003)(2906002)(54906003)(66476007)(186003)(4326008)(16526019)(6666004)(66946007)(86362001)(6486002)(1076003)(38100700002)(478600001)(83380400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dWFJV0NDeVAxUGgzS3ZoeE55Yi9QbUE5TnNVNmVxaWI3VkR2eXRSN3M4OUQr?=
+ =?utf-8?B?b3QvK2VpL092Yyt0N2JCZHpCQnRVOXl1Mmo2dm5VL2tlQVYybHlmOUxyM21o?=
+ =?utf-8?B?cHpvK0hWMWJuQ1Iyc1pITE15ZWdSYlJZV0c0ck5Jdk94N3hleU9yWjNLVTFW?=
+ =?utf-8?B?ZDBKc3A4dE1IbmR1RE1keWh3citpcjlXK2M0T1UwYncwTTNoZHZYWTQxYUNK?=
+ =?utf-8?B?N0ZTRjlaZDJwb1NZemRIOE1ESzFlQjlHQTE5WERuczRWc1hCalNuWlZVK0R1?=
+ =?utf-8?B?U1AxaFFsZXE1dVZCUlV5djZHQjJuY2g2Q2tGN0Z3RC9RSU1BSG80alEyaVU1?=
+ =?utf-8?B?V3VKRXdwZmQ4dFFWc3ZCODZqZVdEbnprdGd2RzJnaGgzVkRaZTd3blRmaTcz?=
+ =?utf-8?B?ZHVMbGo2S3hodk1jTjhzcjJnMldLazIyUmQ2cWFhN0NQRkhtaW85YUVEWjY1?=
+ =?utf-8?B?TXh5WXJQWE51SUkrUGVaRXFBQ3NyWnJ3aWh3d3FpV3dKUlc3N2R6WDdzMGNL?=
+ =?utf-8?B?U0NEaVhxeHM5WFNPb0RITkxGUWJERUIxSEpoU1d1MEJWVXF6RmFNWis0a2tq?=
+ =?utf-8?B?UGZ6MjZ5U3JVby9JL0ZzVnVESHdvTExQOGFtSzg1OGYxOWdSc3FmUjMvNm9s?=
+ =?utf-8?B?bjN3K0REeHJSRStSSWlzKzFHQk5GVUExOWpjRm1mb2JzWG1oTzcyWlAxWm02?=
+ =?utf-8?B?MFYvL0wyaHpERkk0WXBmK1EwL0VXRVU0anZkd09SN2FGcElrakZkRUpQQ3BS?=
+ =?utf-8?B?UUhYSEtPakVLa1ZQZkE2TnNYQUpraG05L2QrajFKNmp5QmpNamtZNmo0ZVJG?=
+ =?utf-8?B?QUJCY0F2Q3ZrOVFzZ0lSSG1Pemt5eFRSdnllN2xiYVlDejltU3doRVAvZWhP?=
+ =?utf-8?B?elVoZVVpNG1GMHdXa3VrZ0pWOTlWV2NLeUFaSzVSTUxjVTJ4UldDWHFJdGUy?=
+ =?utf-8?B?TmdYK1I0LzRTazlEcHFQRk12b2FLZGZBZVhhbEcvNFh2d25uUkVwUlI4dVI1?=
+ =?utf-8?B?UnQ1Wjh2K0tFeEE2aW51T096SWJrOXREOStoYTcwVnpmU3J2NEM3MmthZi9P?=
+ =?utf-8?B?cDlWRzB6TFRyUC9hZkZlNmV2VG9LUnpoeFIrMlVySnRJcmloVlZjaTZsZjF5?=
+ =?utf-8?B?cXBuZFAyVG01Y21FcGZwQkxtYjFqSVFucktEWjViZjV5NE5yRVlvY1JyOGlJ?=
+ =?utf-8?B?RlFkQk5wWjVsWnp0aVRKdXNSZEpaelBML3BBTzZnY2RFOUo1TEs1YmtZZFdQ?=
+ =?utf-8?B?NTQrcFMrbVZOV05Xd2tyMzFNV0s1WmJqRjZrTWFFL2ZRU2JZcDdBQTdNbEtC?=
+ =?utf-8?B?YjNCdFhzb2NhYnNIbHdVRTVCd2JjeTNlWlVTOHFrYThxbEhpYXEvYmNLMmZV?=
+ =?utf-8?B?WmJsUXZJNGhEYTYvN01iS3lNYnVaQkw1WHg1bHJxODVPYzJ5REtxbFo4TXlE?=
+ =?utf-8?B?cENibTNLUzNubXFhREZBWFpwR1p2aE40Skw3SmtnNXhyWXJaSXo3RTBBVm5m?=
+ =?utf-8?B?L3dKK0tDSkUxTDIwb2ROZGlOQmFaZEs1bW9weEpBWE1TTHZ4b3lvbTNTakkx?=
+ =?utf-8?B?Lzg3SHJrZ0dISjJSUTErZlNCcWJycktqcXpFNGVXbXIwdEZFb0V6TUhxOW5S?=
+ =?utf-8?B?Q3l0eHRHNDF3OUgzczFWK29nVTNpNzlxK0krTXhnaWdKMU9kYUdPYkFQVDJG?=
+ =?utf-8?B?aHZzZkFwYTBReTkwVHI1ZVFmcmpiZys3dzlicVhKd2d1N2gwRGhlbmcrTkdS?=
+ =?utf-8?Q?80d9XoKYN5SMFoUPLN782KAP2HJDX8kRMj24vzw?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: cda54c9d-fcdf-49ed-f144-08d91a0be7e9
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 14:47:48.8880
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc35bd78-b203-4da0-0fa7-08d91a0acd6f
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT039.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4904
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bHnvk1bBf8x5Gg9zSrHvSIehzYyjR4pXo/yLJ/HKo6/lbB9ep6HsVpByhm/l1ZHEOTrddBeiVNzRl//Mll79Kg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5575
+X-OriginatorOrg: citrix.com
 
+Pass an hvm boolean parameter to the elf note parsing and checking
+routines, so that better checking can be done in case libelf is
+dealing with an hvm container.
 
+elf_xen_note_check shouldn't return early unless PHYS32_ENTRY is set
+and the container is of type HVM, or else the loader and version
+checks would be avoided for kernels intended to be booted as PV but
+that also have PHYS32_ENTRY set.
 
-> On 18 May 2021, at 15:01, Julien Grall <julien@xen.org> wrote:
-> 
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> Literal strings are not meant to be modified. So we should use const
-> char * rather than char * when we want to store a pointer to them.
-> 
-> The array should also not be modified at all and is only used by
-> xenlog_update_val(). So take the opportunity to add an extra const and
-> move the definition in the function.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> ---
->    Changes in v2:
->        - The array content should never be modified
->        - Move lvl2opt in xenlog_update_val()
-> ---
-> xen/drivers/char/console.c | 7 ++++---
-> 1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 23583751709c..7d0a603d0311 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -168,10 +168,11 @@ static int parse_guest_loglvl(const char *s);
-> static char xenlog_val[LOGLVL_VAL_SZ];
-> static char xenlog_guest_val[LOGLVL_VAL_SZ];
-> 
-> -static char *lvl2opt[] = { "none", "error", "warning", "info", "all" };
-> -
-> static void xenlog_update_val(int lower, int upper, char *val)
-> {
-> +    static const char * const lvl2opt[] =
-> +        { "none", "error", "warning", "info", "all" };
-> +
->     snprintf(val, LOGLVL_VAL_SZ, "%s/%s", lvl2opt[lower], lvl2opt[upper]);
-> }
-> 
-> @@ -262,7 +263,7 @@ static int parse_guest_loglvl(const char *s)
->     return ret;
-> }
-> 
-> -static char *loglvl_str(int lvl)
-> +static const char *loglvl_str(int lvl)
-> {
->     switch ( lvl )
->     {
-> -- 
-> 2.17.1
-> 
+Adjust elf_xen_addr_calc_check so that the virtual addresses are
+actually physical ones (by setting virt_base and elf_paddr_offset to
+zero) when the container is of type HVM, as that container is always
+started with paging disabled.
 
-Hi Julien,
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v1:
+ - Expand comments.
+ - Do not set virt_entry to phys_entry unless it's an HVM container.
+---
+ tools/fuzz/libelf/libelf-fuzzer.c   |  3 ++-
+ tools/libs/guest/xg_dom_elfloader.c |  6 ++++--
+ tools/libs/guest/xg_dom_hvmloader.c |  2 +-
+ xen/arch/x86/hvm/dom0_build.c       |  2 +-
+ xen/arch/x86/pv/dom0_build.c        |  2 +-
+ xen/common/libelf/libelf-dominfo.c  | 32 +++++++++++++++++++----------
+ xen/include/xen/libelf.h            |  2 +-
+ 7 files changed, 31 insertions(+), 18 deletions(-)
 
-Seems good to me and very sensible.
-
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-
-Cheers,
-Luca
+diff --git a/tools/fuzz/libelf/libelf-fuzzer.c b/tools/fuzz/libelf/libelf-fuzzer.c
+index 1ba85717114..84fb84720fa 100644
+--- a/tools/fuzz/libelf/libelf-fuzzer.c
++++ b/tools/fuzz/libelf/libelf-fuzzer.c
+@@ -17,7 +17,8 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+         return -1;
+ 
+     elf_parse_binary(elf);
+-    elf_xen_parse(elf, &parms);
++    elf_xen_parse(elf, &parms, false);
++    elf_xen_parse(elf, &parms, true);
+ 
+     return 0;
+ }
+diff --git a/tools/libs/guest/xg_dom_elfloader.c b/tools/libs/guest/xg_dom_elfloader.c
+index 06e713fe111..ad71163dd92 100644
+--- a/tools/libs/guest/xg_dom_elfloader.c
++++ b/tools/libs/guest/xg_dom_elfloader.c
+@@ -135,7 +135,8 @@ static elf_negerrnoval xc_dom_probe_elf_kernel(struct xc_dom_image *dom)
+      * or else we might be trying to load a plain ELF.
+      */
+     elf_parse_binary(&elf);
+-    rc = elf_xen_parse(&elf, dom->parms);
++    rc = elf_xen_parse(&elf, dom->parms,
++                       dom->container_type == XC_DOM_HVM_CONTAINER);
+     if ( rc != 0 )
+         return rc;
+ 
+@@ -166,7 +167,8 @@ static elf_negerrnoval xc_dom_parse_elf_kernel(struct xc_dom_image *dom)
+ 
+     /* parse binary and get xen meta info */
+     elf_parse_binary(elf);
+-    if ( elf_xen_parse(elf, dom->parms) != 0 )
++    if ( elf_xen_parse(elf, dom->parms,
++                       dom->container_type == XC_DOM_HVM_CONTAINER) != 0 )
+     {
+         rc = -EINVAL;
+         goto out;
+diff --git a/tools/libs/guest/xg_dom_hvmloader.c b/tools/libs/guest/xg_dom_hvmloader.c
+index ec6ebad7fd5..3a63b23ba39 100644
+--- a/tools/libs/guest/xg_dom_hvmloader.c
++++ b/tools/libs/guest/xg_dom_hvmloader.c
+@@ -73,7 +73,7 @@ static elf_negerrnoval xc_dom_probe_hvm_kernel(struct xc_dom_image *dom)
+      * else we might be trying to load a PV kernel.
+      */
+     elf_parse_binary(&elf);
+-    rc = elf_xen_parse(&elf, dom->parms);
++    rc = elf_xen_parse(&elf, dom->parms, true);
+     if ( rc == 0 )
+         return -EINVAL;
+ 
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index 878dc1d808e..c24b9efdb0a 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -561,7 +561,7 @@ static int __init pvh_load_kernel(struct domain *d, const module_t *image,
+     elf_set_verbose(&elf);
+ #endif
+     elf_parse_binary(&elf);
+-    if ( (rc = elf_xen_parse(&elf, &parms)) != 0 )
++    if ( (rc = elf_xen_parse(&elf, &parms, true)) != 0 )
+     {
+         printk("Unable to parse kernel for ELFNOTES\n");
+         return rc;
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index e0801a9e6d1..af47615b226 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -353,7 +353,7 @@ int __init dom0_construct_pv(struct domain *d,
+         elf_set_verbose(&elf);
+ 
+     elf_parse_binary(&elf);
+-    if ( (rc = elf_xen_parse(&elf, &parms)) != 0 )
++    if ( (rc = elf_xen_parse(&elf, &parms, false)) != 0 )
+         goto out;
+ 
+     /* compatibility check */
+diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
+index 69c94b6f3bb..5ad2832aa75 100644
+--- a/xen/common/libelf/libelf-dominfo.c
++++ b/xen/common/libelf/libelf-dominfo.c
+@@ -360,7 +360,7 @@ elf_errorstatus elf_xen_parse_guest_info(struct elf_binary *elf,
+ /* sanity checks                                                            */
+ 
+ static elf_errorstatus elf_xen_note_check(struct elf_binary *elf,
+-                              struct elf_dom_parms *parms)
++                              struct elf_dom_parms *parms, bool hvm)
+ {
+     if ( (ELF_PTRVAL_INVALID(parms->elf_note_start)) &&
+          (ELF_PTRVAL_INVALID(parms->guest_info)) )
+@@ -382,7 +382,7 @@ static elf_errorstatus elf_xen_note_check(struct elf_binary *elf,
+     }
+ 
+     /* PVH only requires one ELF note to be set */
+-    if ( parms->phys_entry != UNSET_ADDR32 )
++    if ( parms->phys_entry != UNSET_ADDR32 && hvm )
+     {
+         elf_msg(elf, "ELF: Found PVH image\n");
+         return 0;
+@@ -414,7 +414,7 @@ static elf_errorstatus elf_xen_note_check(struct elf_binary *elf,
+ }
+ 
+ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+-                                   struct elf_dom_parms *parms)
++                                   struct elf_dom_parms *parms, bool hvm)
+ {
+     uint64_t virt_offset;
+ 
+@@ -425,8 +425,11 @@ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+         return -1;
+     }
+ 
+-    /* Initial guess for virt_base is 0 if it is not explicitly defined. */
+-    if ( parms->virt_base == UNSET_ADDR )
++    /*
++     * Initial guess for virt_base is 0 if it is not explicitly defined in the
++     * PV case. For PVH virt_base is forced to 0 because paging is disabled.
++     */
++    if ( parms->virt_base == UNSET_ADDR || hvm )
+     {
+         parms->virt_base = 0;
+         elf_msg(elf, "ELF: VIRT_BASE unset, using %#" PRIx64 "\n",
+@@ -441,8 +444,10 @@ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+      *
+      * If we are using the modern ELF notes interface then the default
+      * is 0.
++     *
++     * For PVH this is forced to 0, as it's already a legacy option for PV.
+      */
+-    if ( parms->elf_paddr_offset == UNSET_ADDR )
++    if ( parms->elf_paddr_offset == UNSET_ADDR || hvm )
+     {
+         if ( parms->elf_note_start )
+             parms->elf_paddr_offset = 0;
+@@ -456,8 +461,13 @@ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+     parms->virt_kstart = elf->pstart + virt_offset;
+     parms->virt_kend   = elf->pend   + virt_offset;
+ 
+-    if ( parms->virt_entry == UNSET_ADDR )
+-        parms->virt_entry = elf_uval(elf, elf->ehdr, e_entry);
++    if ( parms->virt_entry == UNSET_ADDR || hvm )
++    {
++        if ( parms->phys_entry != UNSET_ADDR32 && hvm )
++            parms->virt_entry = parms->phys_entry;
++        else
++            parms->virt_entry = elf_uval(elf, elf->ehdr, e_entry);
++    }
+ 
+     if ( parms->bsd_symtab )
+     {
+@@ -499,7 +509,7 @@ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+ /* glue it all together ...                                                 */
+ 
+ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
+-                  struct elf_dom_parms *parms)
++                  struct elf_dom_parms *parms, bool hvm)
+ {
+     ELF_HANDLE_DECL(elf_shdr) shdr;
+     ELF_HANDLE_DECL(elf_phdr) phdr;
+@@ -594,9 +604,9 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
+         }
+     }
+ 
+-    if ( elf_xen_note_check(elf, parms) != 0 )
++    if ( elf_xen_note_check(elf, parms, hvm) != 0 )
+         return -1;
+-    if ( elf_xen_addr_calc_check(elf, parms) != 0 )
++    if ( elf_xen_addr_calc_check(elf, parms, hvm) != 0 )
+         return -1;
+     return 0;
+ }
+diff --git a/xen/include/xen/libelf.h b/xen/include/xen/libelf.h
+index b73998150fc..be47b0cc366 100644
+--- a/xen/include/xen/libelf.h
++++ b/xen/include/xen/libelf.h
+@@ -454,7 +454,7 @@ int elf_xen_parse_note(struct elf_binary *elf,
+ int elf_xen_parse_guest_info(struct elf_binary *elf,
+                              struct elf_dom_parms *parms);
+ int elf_xen_parse(struct elf_binary *elf,
+-                  struct elf_dom_parms *parms);
++                  struct elf_dom_parms *parms, bool hvm);
+ 
+ static inline void *elf_memcpy_unchecked(void *dest, const void *src, size_t n)
+     { return memcpy(dest, src, n); }
+-- 
+2.31.1
 
 
