@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C192387F4E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 20:11:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129574.243213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25CF7388055
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 21:11:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129634.243258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj4C1-0004YD-6h; Tue, 18 May 2021 18:11:45 +0000
+	id 1lj57H-0002JD-UI; Tue, 18 May 2021 19:10:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129574.243213; Tue, 18 May 2021 18:11:45 +0000
+Received: by outflank-mailman (output) from mailman id 129634.243258; Tue, 18 May 2021 19:10:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lj4C1-0004Ve-30; Tue, 18 May 2021 18:11:45 +0000
-Received: by outflank-mailman (input) for mailman id 129574;
- Tue, 18 May 2021 18:11:43 +0000
+	id 1lj57H-0002HP-Mk; Tue, 18 May 2021 19:10:55 +0000
+Received: by outflank-mailman (input) for mailman id 129634;
+ Tue, 18 May 2021 19:10:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lj4Bz-0004Uv-HZ
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 18:11:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lj57G-0002HF-Ue; Tue, 18 May 2021 19:10:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lj4By-0000e1-8Q; Tue, 18 May 2021 18:11:42 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lj4By-0004Mq-2p; Tue, 18 May 2021 18:11:42 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lj57G-0001cu-Pt; Tue, 18 May 2021 19:10:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lj57G-00055D-GI; Tue, 18 May 2021 19:10:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lj57G-00037n-Fn; Tue, 18 May 2021 19:10:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +42,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
-	Message-ID:Subject:From:Cc:To;
-	bh=ofuvlVgP5VBf3Y1E5xtHZWsKDGDSQQPy3HRZEKYa4oE=; b=t+kYy/V3ucTlpUE/VwzINcxFuN
-	6+sTYw+mMRM8LKa9iaxbJTCzI2e6gk2hqQ3m8U610fRt7cEYuZ3WYJHny0q3bc7pk39z7Bj8x3dr/
-	6XVdLJbqVy3oX9qRRWWijiWDeuLICgWJHYa/YpnU7pDd7H1sOylNDsjXN3ojAYmmk4wI=;
-To: Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Edwin Torok <edvin.torok@citrix.com>, "Doebel, Bjoern" <doebel@amazon.de>,
- raphning@amazon.co.uk, "Durrant, Paul" <pdurrant@amazon.co.uk>
-From: Julien Grall <julien@xen.org>
-Subject: Preserving transactions accross Xenstored Live-Update
-Message-ID: <13bbb51e-f63d-a886-272f-e6a6252fb468@xen.org>
-Date: Tue, 18 May 2021 19:11:40 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DLTNGSR4hE6YXfDGm6mYuoZFfOqNw0izv5qlGx2jDKI=; b=54lqJxSHEMIdmg7FkJzo3NjCEs
+	9vbBP3ygMfD61OjBd2xhsx8AzFtrB9spjf9Q/3e7Joo2w5l85mwadFeduZthGLef8Tn+dUY0+bITE
+	AgRXVGX9wVKFqwTTVvIGuV2QiBPpDqfqqE6WcfF8mN4LmLBjlmVNaGtMP/rNEFAvMt5s=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162055-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 162055: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=01d84420fb4a9be2ec474a7c1910bb22c28b53c8
+X-Osstest-Versions-That:
+    xen=caa9c4471d1d74b2d236467aaf7e63a806ac11a4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 18 May 2021 19:10:54 +0000
 
-Hi Juergen,
+flight 162055 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162055/
 
-I have started to look at preserving transaction accross Live-update in 
-C Xenstored. So far, I managed to transfer transaction that read/write 
-existing nodes.
+Regressions :-(
 
-Now, I am running into trouble to transfer new/deleted node within a 
-transaction with the existing migration format.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 162023
+ build-armhf                   6 xen-build                fail REGR. vs. 162023
 
-C Xenstored will keep track of nodes accessed during the transaction but 
-not the children (AFAICT for performance reason).
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
 
-Therefore we have the name of the children but not the content (i.e. 
-permission, data...).
+version targeted for testing:
+ xen                  01d84420fb4a9be2ec474a7c1910bb22c28b53c8
+baseline version:
+ xen                  caa9c4471d1d74b2d236467aaf7e63a806ac11a4
 
-I have been exploring a couple of approaches:
-    1) Introducing a flag to indicate there is a child but no content.
+Last test of basis   162023  2021-05-18 13:00:27 Z    0 days
+Testing same since   162036  2021-05-18 16:00:26 Z    0 days    2 attempts
 
-Pros:
-   * Close to the existing stream.
-   * Fairly implementation agnostic.
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Wei Liu <wl@xen.org>
 
-Cons:
-   * Memory overhead as we need to transfer the full path (rather than 
-the child name)
-   * Checking for duplication (if the node was actually accessed) will 
-introduce runtime overhead.
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-     2) Extend XS_STATE_TYPE_NODE (or introduce a new record) to allow 
-transferring the children name for transaction
 
-Pros:
-   * The implementation is more straight forward
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Cons:
-    * The stream becomes implementation specific
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Neither approach looks very appealing to me. So I would like to request 
-some feedback for other proposals or preference between the two options.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Note that I haven't looked into much detail how transactions works on 
-OCaml Xenstored.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Cheers,
 
--- 
-Julien Grall
+Not pushing.
+
+------------------------------------------------------------
+commit 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:51:48 2021 +0100
+
+    tools/xenmon: xenbaked: Mark const the field text in stat_map_t
+    
+    The field text in stat_map_t will point to string literals. So mark it
+    as const to allow the compiler to catch any modified of the string.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 4b7702727a8d89fea0a239adcbeb18aa2c85ede0
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:51:28 2021 +0100
+
+    tools/top: The string parameter in set_prompt() and set_delay() should be const
+    
+    Neither string parameter in set_prompt() and set_delay() are meant to
+    be modified. In particular, new_prompt can point to a literal string.
+    
+    So mark the two parameters as const and propagate it.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 5605cfd49a18df41a21fb50cd81528312a39d7c9
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:50:32 2021 +0100
+
+    tools/misc: Use const whenever we point to literal strings
+    
+    literal strings are not meant to be modified. So we should use const
+    char * rather than char * when we we to store a pointer to them.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 89aae4ad8f495b647de33f2df5046b3ce68225f8
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:35:07 2021 +0100
+
+    tools/libs: stat: Use const whenever we point to literal strings
+    
+    literal strings are not meant to be modified. So we should use const
+    char * rather than char * when we want to store a pointer to them.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:34:22 2021 +0100
+
+    tools/libs: guest: Use const whenever we point to literal strings
+    
+    literal strings are not meant to be modified. So we should use const
+    *char rather than char * when we want to store a pointer to them.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+(qemu changes not included)
 
