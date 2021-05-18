@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8EE9387871
-	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 14:06:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129136.242427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DECC38787E
+	for <lists+xen-devel@lfdr.de>; Tue, 18 May 2021 14:09:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129143.242438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1liyU2-0007rl-H3; Tue, 18 May 2021 12:05:58 +0000
+	id 1liyXR-00008H-15; Tue, 18 May 2021 12:09:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129136.242427; Tue, 18 May 2021 12:05:58 +0000
+Received: by outflank-mailman (output) from mailman id 129143.242438; Tue, 18 May 2021 12:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1liyU2-0007p0-DQ; Tue, 18 May 2021 12:05:58 +0000
-Received: by outflank-mailman (input) for mailman id 129136;
- Tue, 18 May 2021 12:05:56 +0000
+	id 1liyXQ-00005i-TH; Tue, 18 May 2021 12:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 129143;
+ Tue, 18 May 2021 12:09:27 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1liyU0-0007or-QD
- for xen-devel@lists.xenproject.org; Tue, 18 May 2021 12:05:56 +0000
+ (envelope-from <julien@xen.org>) id 1liyXP-00005V-FW
+ for xen-devel@lists.xenproject.org; Tue, 18 May 2021 12:09:27 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1liyU0-000259-L4; Tue, 18 May 2021 12:05:56 +0000
+ id 1liyXP-00028H-8c; Tue, 18 May 2021 12:09:27 +0000
 Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1liyU0-0000rv-FH; Tue, 18 May 2021 12:05:56 +0000
+ id 1liyXP-00017N-2r; Tue, 18 May 2021 12:09:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,22 +42,23 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=s527q3jSUoyvqtJKS+4JbLgnjGNc4W4dYEbupvnnUeU=; b=0necZ8mO6HtDLKmYlRqpP4gpia
-	pOYS9rmlo7OuCJuo69vF7VfUfYveMy6jc83FFZn+Tfv8ORP+oQzzCdqy95UgmBq/QIKeYSOptf3CQ
-	b1suK+8HJOI7fal4+43tPH3XGNPlM9jH3xj7sLhfHv+Aox57mEjzo9y+xJRYRPtisFSg=;
-Subject: Re: [PATCH 10/10] xen/arm: introduce allocate_static_memory
+	bh=B75SvbFvvSGSgBV6m719z90SnL+abssGo0p4Kj3jQmk=; b=BzkxiSKuut5z200zepDDLDmlTk
+	etBxQoar823Om8n5W4OAlnIRIQEr8+iYW8dqegilYaLVVpLD+kL8rN6Y0UmiO1uDZx61+SIpKCmBP
+	SfwPztRivE9HMRDpEDovr2XUub1yDB/Eexb1rSJwLOwm5ddUaKBnPYY82V4KZqVJmR7E=;
+Subject: Re: [PATCH 09/10] xen/arm: parse `xen,static-mem` info during domain
+ construction
 To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
  sstabellini@kernel.org
 Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com
 References: <20210518052113.725808-1-penny.zheng@arm.com>
- <20210518052113.725808-11-penny.zheng@arm.com>
+ <20210518052113.725808-10-penny.zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <7e9bacde-8a1c-c9f8-a06d-2f39f2192315@xen.org>
-Date: Tue, 18 May 2021 13:05:54 +0100
+Message-ID: <61b41d12-c69e-fe41-0b5e-d35a485b4a51@xen.org>
+Date: Tue, 18 May 2021 13:09:25 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20210518052113.725808-11-penny.zheng@arm.com>
+In-Reply-To: <20210518052113.725808-10-penny.zheng@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -65,145 +66,134 @@ Content-Transfer-Encoding: 7bit
 Hi Penny,
 
 On 18/05/2021 06:21, Penny Zheng wrote:
-> This commit introduces allocate_static_memory to allocate static memory as
-> guest RAM for domain on Static Allocation.
+> This commit parses `xen,static-mem` device tree property, to acquire
+> static memory info reserved for this domain, when constructing domain
+> during boot-up.
 > 
-> It uses alloc_domstatic_pages to allocate pre-defined static memory banks
-> for this domain, and uses guest_physmap_add_page to set up P2M table,
-> guest starting at fixed GUEST_RAM0_BASE, GUEST_RAM1_BASE.
+> Related info shall be stored in new static_mem value under per domain
+> struct arch_domain.
+
+So far, this seems to only be used during boot. So can't this be kept in 
+the kinfo structure?
+
+> 
+> Right now, the implementation of allocate_static_memory is missing, and
+> will be introduced later. It just BUG() out at the moment.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 > ---
->   xen/arch/arm/domain_build.c | 157 +++++++++++++++++++++++++++++++++++-
->   1 file changed, 155 insertions(+), 2 deletions(-)
+>   xen/arch/arm/domain_build.c  | 58 ++++++++++++++++++++++++++++++++----
+>   xen/include/asm-arm/domain.h |  3 ++
+>   2 files changed, 56 insertions(+), 5 deletions(-)
 > 
 > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 30b55588b7..9f662313ad 100644
+> index 282416e74d..30b55588b7 100644
 > --- a/xen/arch/arm/domain_build.c
 > +++ b/xen/arch/arm/domain_build.c
-> @@ -437,6 +437,50 @@ static bool __init allocate_bank_memory(struct domain *d,
->       return true;
->   }
->   
-> +/*
-> + * #ram_index and #ram_index refer to the index and starting address of guest
-> + * memory kank stored in kinfo->mem.
-> + * Static memory at #smfn of #tot_size shall be mapped #sgfn, and
-> + * #sgfn will be next guest address to map when returning.
-> + */
-> +static bool __init allocate_static_bank_memory(struct domain *d,
-> +                                               struct kernel_info *kinfo,
-> +                                               int ram_index,
-
-Please use unsigned.
-
-> +                                               paddr_t ram_addr,
-> +                                               gfn_t* sgfn,
-
-I am confused, what is the difference between ram_addr and sgfn?
-
-> +                                               mfn_t smfn,
-> +                                               paddr_t tot_size)
-> +{
-> +    int res;
-> +    struct membank *bank;
-> +    paddr_t _size = tot_size;
-> +
-> +    bank = &kinfo->mem.bank[ram_index];
-> +    bank->start = ram_addr;
-> +    bank->size = bank->size + tot_size;
-> +
-> +    while ( tot_size > 0 )
-> +    {
-> +        unsigned int order = get_allocation_size(tot_size);
-> +
-> +        res = guest_physmap_add_page(d, *sgfn, smfn, order);
-> +        if ( res )
-> +        {
-> +            dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
-> +            return false;
-> +        }
-> +
-> +        *sgfn = gfn_add(*sgfn, 1UL << order);
-> +        smfn = mfn_add(smfn, 1UL << order);
-> +        tot_size -= (1ULL << (PAGE_SHIFT + order));
-> +    }
-> +
-> +    kinfo->mem.nr_banks = ram_index + 1;
-> +    kinfo->unassigned_mem -= _size;
-> +
-> +    return true;
-> +}
-> +
->   static void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+> @@ -2424,17 +2424,61 @@ static int __init construct_domU(struct domain *d,
 >   {
->       unsigned int i;
-> @@ -480,6 +524,116 @@ fail:
->             (unsigned long)kinfo->unassigned_mem >> 10);
->   }
->   
-> +/* Allocate memory from static memory as RAM for one specific domain d. */
-> +static void __init allocate_static_memory(struct domain *d,
-> +                                            struct kernel_info *kinfo)
-> +{
-> +    int nr_banks, _banks = 0;
-
-AFAICT, _banks is the index in the array. I think it would be clearer if 
-it is caller 'bank' or 'idx'.
-
-> +    size_t ram0_size = GUEST_RAM0_SIZE, ram1_size = GUEST_RAM1_SIZE;
-> +    paddr_t bank_start, bank_size;
-> +    gfn_t sgfn;
-> +    mfn_t smfn;
+>       struct kernel_info kinfo = {};
+>       int rc;
+> -    u64 mem;
+> +    u64 mem, static_mem_size = 0;
+> +    const struct dt_property *prop;
+> +    u32 static_mem_len;
+> +    bool static_mem = false;
 > +
-> +    kinfo->mem.nr_banks = 0;
-> +    sgfn = gaddr_to_gfn(GUEST_RAM0_BASE);
-> +    nr_banks = d->arch.static_mem.nr_banks;
-> +    ASSERT(nr_banks >= 0);
-> +
-> +    if ( kinfo->unassigned_mem <= 0 )
-> +        goto fail;
-> +
-> +    while ( _banks < nr_banks )
+> +    /*
+> +     * Guest RAM could be of static memory from static allocation,
+> +     * which will be specified through "xen,static-mem" property.
+> +     */
+> +    prop = dt_find_property(node, "xen,static-mem", &static_mem_len);
+> +    if ( prop )
 > +    {
-> +        bank_start = d->arch.static_mem.bank[_banks].start;
-> +        smfn = maddr_to_mfn(bank_start);
-> +        bank_size = d->arch.static_mem.bank[_banks].size;
-
-The variable name are slightly confusing because it doesn't tell whether 
-this is physical are guest RAM. You might want to consider to prefix 
-them with p (resp. g) for physical (resp. guest) RAM.
-
+> +        const __be32 *cell;
+> +        u32 addr_cells = 2, size_cells = 2, reg_cells;
+> +        u64 start, size;
+> +        int i, banks;
+> +        static_mem = true;
 > +
-> +        if ( !alloc_domstatic_pages(d, bank_size >> PAGE_SHIFT, bank_start, 0) )
+> +        dt_property_read_u32(node, "#address-cells", &addr_cells);
+> +        dt_property_read_u32(node, "#size-cells", &size_cells);
+> +        BUG_ON(size_cells > 2 || addr_cells > 2);
+> +        reg_cells = addr_cells + size_cells;
+> +
+> +        cell = (const __be32 *)prop->value;
+> +        banks = static_mem_len / (reg_cells * sizeof (u32));
+> +        BUG_ON(banks > NR_MEM_BANKS);
+> +
+> +        for ( i = 0; i < banks; i++ )
 > +        {
-> +            printk(XENLOG_ERR
-> +                    "%pd: cannot allocate static memory"
-> +                    "(0x%"PRIx64" - 0x%"PRIx64")",
-
-bank_start and bank_size are both paddr_t. So this should be PRIpaddr.
-
-> +                    d, bank_start, bank_start + bank_size);
-> +            goto fail;
-> +        }
+> +            device_tree_get_reg(&cell, addr_cells, size_cells, &start, &size);
+> +            d->arch.static_mem.bank[i].start = start;
+> +            d->arch.static_mem.bank[i].size = size;
+> +            static_mem_size += size;
 > +
-> +        /*
-> +         * By default, it shall be mapped to the fixed guest RAM address
-> +         * `GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`.
-> +         * Starting from RAM0(GUEST_RAM0_BASE).
-> +         */
+> +            printk(XENLOG_INFO
+> +                    "Static Memory Bank[%d] for Domain %pd:"
+> +                    "0x%"PRIx64"-0x%"PRIx64"\n",
+> +                    i, d,
+> +                    d->arch.static_mem.bank[i].start,
+> +                    d->arch.static_mem.bank[i].start +
+> +                    d->arch.static_mem.bank[i].size);
+> +        }
+> +        d->arch.static_mem.nr_banks = banks;
+> +    }
 
-Ok. So you are first trying to exhaust the guest bank 0 and then moved 
-to bank 1. This wasn't entirely clear from the design document.
+Could we allocate the memory as we parse?
 
-I am fine with that, but in this case, the developper should not need to 
-know that (in fact this is not part of the ABI).
-
-Regarding this code, I am a bit concerned about the scalability if we 
-introduce a second bank.
-
-Can we have an array of the possible guest banks and increment the index 
-when exhausting the current bank?
+>   
+>       rc = dt_property_read_u64(node, "memory", &mem);
+> -    if ( !rc )
+> +    if ( !static_mem && !rc )
+>       {
+>           printk("Error building DomU: cannot read \"memory\" property\n");
+>           return -EINVAL;
+>       }
+> -    kinfo.unassigned_mem = (paddr_t)mem * SZ_1K;
+> +    kinfo.unassigned_mem = static_mem ? static_mem_size : (paddr_t)mem * SZ_1K;
+>   
+> -    printk("*** LOADING DOMU cpus=%u memory=%"PRIx64"KB ***\n", d->max_vcpus, mem);
+> +    printk("*** LOADING DOMU cpus=%u memory=%"PRIx64"KB ***\n",
+> +            d->max_vcpus, (kinfo.unassigned_mem) >> 10);
+>   
+>       kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+>   
+> @@ -2452,7 +2496,11 @@ static int __init construct_domU(struct domain *d,
+>       /* type must be set before allocate memory */
+>       d->arch.type = kinfo.type;
+>   #endif
+> -    allocate_memory(d, &kinfo);
+> +    if ( static_mem )
+> +        /* allocate_static_memory(d, &kinfo); */
+> +        BUG();
+> +    else
+> +        allocate_memory(d, &kinfo);
+>   
+>       rc = prepare_dtb_domU(d, &kinfo);
+>       if ( rc < 0 )
+> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+> index c9277b5c6d..81b8eb453c 100644
+> --- a/xen/include/asm-arm/domain.h
+> +++ b/xen/include/asm-arm/domain.h
+> @@ -10,6 +10,7 @@
+>   #include <asm/gic.h>
+>   #include <asm/vgic.h>
+>   #include <asm/vpl011.h>
+> +#include <asm/setup.h>
+>   #include <public/hvm/params.h>
+>   
+>   struct hvm_domain
+> @@ -89,6 +90,8 @@ struct arch_domain
+>   #ifdef CONFIG_TEE
+>       void *tee;
+>   #endif
+> +
+> +    struct meminfo static_mem;
+>   }  __cacheline_aligned;
+>   
+>   struct arch_vcpu
+> 
 
 Cheers,
 
