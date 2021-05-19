@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26939389153
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 16:38:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130192.244010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24143892CE
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 17:40:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130200.244024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljNLE-0001x7-KE; Wed, 19 May 2021 14:38:32 +0000
+	id 1ljOHp-0007ea-TC; Wed, 19 May 2021 15:39:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130192.244010; Wed, 19 May 2021 14:38:32 +0000
+Received: by outflank-mailman (output) from mailman id 130200.244024; Wed, 19 May 2021 15:39:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljNLE-0001uQ-H7; Wed, 19 May 2021 14:38:32 +0000
-Received: by outflank-mailman (input) for mailman id 130192;
- Wed, 19 May 2021 14:38:30 +0000
+	id 1ljOHp-0007dJ-Pk; Wed, 19 May 2021 15:39:05 +0000
+Received: by outflank-mailman (input) for mailman id 130200;
+ Wed, 19 May 2021 15:39:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ljNLC-0001uG-Qi; Wed, 19 May 2021 14:38:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1ljOHo-0007cS-Oi
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 15:39:04 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ljNLC-0003b2-LA; Wed, 19 May 2021 14:38:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ljNLC-0004Lx-D9; Wed, 19 May 2021 14:38:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ljNLC-0003cn-Cf; Wed, 19 May 2021 14:38:30 +0000
+ (envelope-from <iwj@xenproject.org>) id 1ljOHo-0004bL-Mw
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 15:39:04 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1ljOHo-000111-Lp
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 15:39:04 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1ljOHm-0004F8-Un; Wed, 19 May 2021 16:39:02 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,160 +42,152 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=T2bMwUmZadyeNjJtbEqjxXGYk8WZgCUaDPjzy8e8lDs=; b=SJWnsPmvToIfVogrTpha3n/AZl
-	QxECfpa/AaDWGufQYWgMVChBjd9B/099ObAWSjjQVNpZbv18oujIcSeaJcukOSSL0NuDAoE/1dRM7
-	rE+Ebp6WwT0XkDapz4G45b71Wd32PuSXT/yCRn5eB8HiyWaSrUpzGfkkf+7abXzz969Y=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable-smoke bisection] complete build-armhf
-Message-Id: <E1ljNLC-0003cn-Cf@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 19 May 2021 14:38:30 +0000
+	d=xenproject.org; s=20200302mail; h=Subject:CC:To:Date:Message-ID:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=KDO5B+1IHs/ZjRDt6ZAGhi+fYL+oqJkh2SN66X1QhiQ=; b=etEbEcRnoa7qAxhJ7GKwXqHmoY
+	FAxcsLP4r9+nOmEdFvk6B11OFc0URGwZHoDQB3qh6T7Qr4Y1x8YYR5GY08fJNFBm0F/0Txab4+rD0
+	7QyInrfXwsDvFKKariFs8B4MQfhUYgPIHPQL6XGoC2BXAmXQthWrjKsthXuapHthV4xU=;
+From: Ian Jackson <iwj@xenproject.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24741.12566.639691.461134@mariner.uk.xensource.com>
+Date: Wed, 19 May 2021 16:39:02 +0100
+To: xen-devel@lists.xenproject.org
+CC: community.manager@xenproject.org
+Subject: IRC networks
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job build-armhf
-testid xen-build
+Summary:
 
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+We have for many years used the Freenode IRC network for real-time
+chat about Xen.  Unfortunately, Freenode is undergoing a crisis.
 
-*** Found and reproduced problem changeset ***
+There is a dispute between, on the one hand, Andrew Lee, and on the
+other hand, all (or almost all) Freenode volunteer staff.  We must
+make a decision.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
-  Bug not present: caa9c4471d1d74b2d236467aaf7e63a806ac11a4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162094/
+I have read all the publicly available materials and asked around with
+my contacts.  My conclusions:
 
-
-  commit 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
-  Author: Julien Grall <jgrall@amazon.com>
-  Date:   Tue May 18 14:34:22 2021 +0100
-  
-      tools/libs: guest: Use const whenever we point to literal strings
-      
-      literal strings are not meant to be modified. So we should use const
-      *char rather than char * when we want to store a pointer to them.
-      
-      Signed-off-by: Julien Grall <jgrall@amazon.com>
-      Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-      Acked-by: Wei Liu <wl@xen.org>
+ * We do not want to continue to use irc.freenode.*.
+ * We might want to use libera.chat, but:
+ * Our best option is probably to move to OFTC https://www.oftc.net/
 
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-armhf.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+Discussion:
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-armhf.xen-build --summary-out=tmp/162094.bisection-summary --basis-template=162023 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-armhf xen-build
-Searching for failure / basis pass:
- 162089 fail [host=cubietruck-picasso] / 162023 [host=cubietruck-gleizes] 161985 [host=cubietruck-braque] 161982 [host=cubietruck-braque] 161980 [host=cubietruck-braque] 161937 ok.
-Failure / basis pass flights: 162089 / 161937
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
-Basis pass 7ea428895af2840d85c524f0bd11a38aac308308 cb199cc7de987cfda4659fccf51059f210f6ad34
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#cb199cc7de987cfda4659fccf51059f210f6ad34-01d84420fb4a9be2ec474a7c1910bb22c28b53c8
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 161937 pass 7ea428895af2840d85c524f0bd11a38aac308308 cb199cc7de987cfda4659fccf51059f210f6ad34
- 161980 [host=cubietruck-braque]
- 161982 [host=cubietruck-braque]
- 161985 [host=cubietruck-braque]
- 162023 [host=cubietruck-gleizes]
- 162036 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162055 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162061 pass 7ea428895af2840d85c524f0bd11a38aac308308 cb199cc7de987cfda4659fccf51059f210f6ad34
- 162062 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162064 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162065 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162066 pass 7ea428895af2840d85c524f0bd11a38aac308308 27eb6833134d0f3ddfb02d09055776e837e9a747
- 162068 fail 7ea428895af2840d85c524f0bd11a38aac308308 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
- 162067 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162069 pass 7ea428895af2840d85c524f0bd11a38aac308308 8b9890e1c0f5b35c199f40eb4e6cd0ce6c34829b
- 162072 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162073 pass 7ea428895af2840d85c524f0bd11a38aac308308 caa9c4471d1d74b2d236467aaf7e63a806ac11a4
- 162074 fail 7ea428895af2840d85c524f0bd11a38aac308308 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
- 162075 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162077 pass 7ea428895af2840d85c524f0bd11a38aac308308 caa9c4471d1d74b2d236467aaf7e63a806ac11a4
- 162079 [host=cubietruck-braque]
- 162080 fail 7ea428895af2840d85c524f0bd11a38aac308308 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
- 162081 [host=cubietruck-braque]
- 162083 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162085 [host=cubietruck-braque]
- 162087 [host=cubietruck-braque]
- 162088 pass 7ea428895af2840d85c524f0bd11a38aac308308 caa9c4471d1d74b2d236467aaf7e63a806ac11a4
- 162089 fail 7ea428895af2840d85c524f0bd11a38aac308308 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
- 162092 [host=cubietruck-braque]
- 162094 fail 7ea428895af2840d85c524f0bd11a38aac308308 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
-Searching for interesting versions
- Result found: flight 161937 (pass), for basis pass
- For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 caa9c4471d1d74b2d236467aaf7e63a806ac11a4, results HASH(0x5619d90a5008) HASH(0x5619d90bc8d8) HASH(0x5619d90a26d8) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 8b9890e1c0f5b35c199f40eb4e6cd0ce6c34829b, results HASH(0x5619d90b11e0) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 27eb6833134d0f3ddfb02d09055776e837e9a747, results HASH(0x\
- 5619d90a6590) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 cb199cc7de987cfda4659fccf51059f210f6ad34, results HASH(0x5619d909a628) HASH(0x5619d90a4888) Result found: flight 162036 (fail), for basis failure (at ancestor ~449)
- Repro found: flight 162061 (pass), for basis pass
- Repro found: flight 162062 (fail), for basis failure
- 0 revisions at 7ea428895af2840d85c524f0bd11a38aac308308 caa9c4471d1d74b2d236467aaf7e63a806ac11a4
-No revisions left to test, checking graph state.
- Result found: flight 162073 (pass), for last pass
- Result found: flight 162074 (fail), for first failure
- Repro found: flight 162077 (pass), for last pass
- Repro found: flight 162080 (fail), for first failure
- Repro found: flight 162088 (pass), for last pass
- Repro found: flight 162094 (fail), for first failure
+Firstly, my starting point.
 
-*** Found and reproduced problem changeset ***
+I have been on IRC since at least 1993.  Currently my main public
+networks are OFTC and Freenode.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
-  Bug not present: caa9c4471d1d74b2d236467aaf7e63a806ac11a4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162094/
+I do not have any personal involvement with public IRC networks.  Of
+the principals in the current Freenode dispute, I have only heard of
+one, who is a person I have experience of in a Debian context but have
+not worked closely with.
+
+George asked me informally to use my knowledge and contacts to shed
+light on the situation.  I decided that, having done my research, I
+would report more formally and publicly here rather than just
+informally to George.
 
 
-  commit 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
-  Author: Julien Grall <jgrall@amazon.com>
-  Date:   Tue May 18 14:34:22 2021 +0100
-  
-      tools/libs: guest: Use const whenever we point to literal strings
-      
-      literal strings are not meant to be modified. So we should use const
-      *char rather than char * when we want to store a pointer to them.
-      
-      Signed-off-by: Julien Grall <jgrall@amazon.com>
-      Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-      Acked-by: Wei Liu <wl@xen.org>
+Historical background:
 
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-armhf.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-162094: tolerable ALL FAIL
+ * Freenode has had drama before.  In about 2001 OFTC split off from
+   Freenode after an argument over governance.  IIRC there was drama
+   again in 2006.  Significant proportion of the Free Software world,
+   including Debian, now use OFTC.  Debian switched in 2006.
 
-flight 162094 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162094/
+Facts that I'm (now) pretty sure of:
 
-Failures :-/ but no regressions.
+ * Freenode's actual servers run on donated services; that is,
+   the hardware is owned by those donating the services, and the
+   systems are managed by Freenode volunteers, known as "staff".
 
-Tests which did not succeed,
-including tests which could not be run:
- build-armhf                   6 xen-build               fail baseline untested
+ * The freenode domain names are currently registered to a limited
+   liability company owned by Andrew Lee (rasengan).
+
+ * At least 10 Freenode staff have quit in protest, writing similar
+   resignation letters protesting about Andrew Lee's actions [1].  It
+   does not appear that any Andrew Lee has the public support of any
+   Freenode staff.
+
+ * Andrew Lee claims that he "owns" Freenode.[2]
+
+ * A large number of channel owners for particular Free Software
+   projects who previously used Freenode have said they will switch
+   away from Freenode.
+
+Discussion and findings on Freenode:
+
+There is, as might be expected, some murk about who said what to whom
+when, what promises were made and/or broken, and so on.  The matter
+was also complicated by the leaking earlier this week of draft(s) of
+(at least one of) the Freenode staffers' resignation letters.
+
+Andrew Lee has put forward a position statement [2].  A large part of
+the thrust of that statement is allegations that the current head of
+Freenode staff, tomaw, "forced out" the previous head, christel.  This
+allegation is strongly disputed by by all those current (resigning)
+Freenode staff I have seen comment.  In any case it does not seem to
+be particularly germane; in none of my reading did tomaw seem to be
+playing any kind of leading role.  tomaw is not mentioned in the
+resignation letters.
+
+Some of the links led to me to logs of discussions on #freenode.  I
+read some of these in particular[3].  MB I haven't been able to verify
+that these logs have not been tampered with.  Having said that and
+taking the logs at face value, I found the rasengan writing there to
+be disingenuous and obtuse.
+
+Andrew Lee has been heavily involved in Bitcoin.  Bitcoin is a hive of
+scum and villainy, a pyramid scheme, and an environmental disaster,
+all rolled into one.  This does not make me think well of Lee.
+
+Additionally, it seems that Andrew Lee has been involved in previous
+governance drama involving a different IRC network, Snoonet.
+
+I have come to the very firm conclusion that we should have nothing to
+do with Andrew Lee, and avoid using services that he has some
+effective control over.
+
+Alternatives:
+
+The departing Freenode staff are setting up a replacement,
+"libera.chat".  This is operational but still suffering from teething
+problems and of course has a significant load as it deals with an
+influx of users on a new setup.
+
+On the staff and trust question: As I say, I haven't heard of any of
+the Freenode staff, with one exception.  Unfortunately the one
+exception does not inspire confidence in me[4] - although NB that is
+only one data point.
+
+On the other hand, Debian has had many many years of drama-free
+involvement with OFTC.  OFTC has a formal governance arrangement and
+it is associated with Software in the Public Interest.  I notice that
+the last few OFTC'[s annual officer elections have been run partly by
+Steve McIntyre.  Steve is a friend of mine (and he is a former Debian
+Project Leader) and I take his involvement as a good sign.
+
+I recommend that we switch to using OFTC as soon as possible.
 
 
-jobs:
- build-armhf                                                  fail    
+Ian.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+References:
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Starting point for the resigning Freenode staff's side [1]:
+  https://gist.github.com/joepie91/df80d8d36cd9d1bde46ba018af497409
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Andrew Lee's side [2]:
+  https://gist.github.com/realrasengan/88549ec34ee32d01629354e4075d2d48
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+[3]
+https://paste.sr.ht/~ircwright/7e751d2162e4eb27cba25f6f8893c1f38930f7c4
 
+[4] I won't give the name since I don't want to be shitposting.
 
