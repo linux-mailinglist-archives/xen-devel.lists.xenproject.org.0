@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEF46389607
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 21:00:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130327.244200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3927A389608
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 21:00:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130328.244210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljRQH-0000wh-7b; Wed, 19 May 2021 19:00:01 +0000
+	id 1ljRQT-00020X-HR; Wed, 19 May 2021 19:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130327.244200; Wed, 19 May 2021 19:00:01 +0000
+Received: by outflank-mailman (output) from mailman id 130328.244210; Wed, 19 May 2021 19:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljRQH-0000uS-4O; Wed, 19 May 2021 19:00:01 +0000
-Received: by outflank-mailman (input) for mailman id 130327;
- Wed, 19 May 2021 18:59:59 +0000
+	id 1ljRQT-0001wv-E5; Wed, 19 May 2021 19:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 130328;
+ Wed, 19 May 2021 19:00:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=94wl=KO=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
- id 1ljRQF-0000uM-6E
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 18:59:59 +0000
-Received: from mail-pf1-x42e.google.com (unknown [2607:f8b0:4864:20::42e])
+ id 1ljRQR-0001wR-TO
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 19:00:11 +0000
+Received: from mail-pj1-x102c.google.com (unknown [2607:f8b0:4864:20::102c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id efdee6e5-0491-4271-ad82-2ec470acd004;
- Wed, 19 May 2021 18:59:58 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id c17so10557313pfn.6
- for <xen-devel@lists.xenproject.org>; Wed, 19 May 2021 11:59:58 -0700 (PDT)
+ id 66643df8-d6fa-44e2-aa66-eae52c3b25ed;
+ Wed, 19 May 2021 19:00:11 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ h20-20020a17090aa894b029015db8f3969eso3302189pjq.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 May 2021 12:00:11 -0700 (PDT)
 Received: from [10.230.29.202] ([192.19.223.252])
- by smtp.gmail.com with ESMTPSA id 63sm140020pfz.26.2021.05.19.11.59.51
+ by smtp.gmail.com with ESMTPSA id y26sm89076pge.94.2021.05.19.12.00.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 May 2021 11:59:57 -0700 (PDT)
+ Wed, 19 May 2021 12:00:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,37 +42,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efdee6e5-0491-4271-ad82-2ec470acd004
+X-Inumbo-ID: 66643df8-d6fa-44e2-aa66-eae52c3b25ed
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=M073CmbM6OvFOLG+SWp0SNpXEbUxhFfHxxoda72NgXE=;
-        b=Ekc2ScXY1SHvF4H29yTRhgjiTSWV6Cyne34MQrajkIT3p2pu6mu773Qlyr0kpC2NNU
-         P+GJiyNV1K2vRtkjtAhIgI9VHVYmFkAxziAc3YITYD5dCFwhGNrQytvT7wWGVjrLLVt/
-         Z+eGZOsPbQoTabmseviirRgNiL7jb93KoBbw+F8LkLIJVv78TKzBCCrYFTn6M7Wbv/bo
-         0UQmBpP3G5FMrLaiP4lB4mvY0KeluMFddI6VD1W8D7dp8q/8Zp42g/wrvlGw3mxI6q03
-         5p/katWWYvUn05FJWNltsTeqIMenps29TVH4Onz8E4y1A5fSnj1TT7Ka2b9bvOBYDjcG
-         zYkg==
+        bh=bliAyPcCTKuHaZYRIw5XXZxaaB4NHvg1JF88TNVLe3Q=;
+        b=TKwRdnu4+Sp1YkQdeC//ZaZe5gFK1OBbc6fiWqiSSxtaemxo8tsS6cyyKonvkggi45
+         AkmXBkDwPjivTxMkW/6u87n74jtYP0vz5yoiKDWAMEYfh+QJdqbXNMoLboJ95qsaB+Sz
+         evhXDQC1zkb888kY45tuzx3cOkf8aRLE0tysepxM3+bqwCkk54R2Q027+/7CcS0ORj65
+         6mx2ltgEPNZ+I2TPARzQB2NU/eRypDG4kJedWyyBabBiqBkk+XEYxHjO+wV8NZqkj5Xb
+         Wiz3FWUYSWAt8nsw3SelNmNlkX4sXNF7RuifyB1BY+CyHdw4EnNC9bgPveVhRQQuluiO
+         dhqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=M073CmbM6OvFOLG+SWp0SNpXEbUxhFfHxxoda72NgXE=;
-        b=GGGYWZkPipCdRAsa8T1ey0mfx3dRK8pzTRtRGbDmFrGSPfa4+o4YR1Vf31LsUVexO2
-         CAWMLwbFbj4D6atO51T+oEhsIfa+U/2dg2slJfYdDEo3wl/5KXKc6UJIX+qRIXPXJL1z
-         zKf+wNnny3/tzEZ84O7ueL5SdZi6Ari5B7+iEbZK6GkHCi9Zd6j91X1gdOJDGZYL7aiD
-         MNC20uHuT5QnZL/ZIdtvpbp0E60IqhIFKobOkv4H5JwHta02eHJ0dHFkZccEm31idOuV
-         3oPNgmGdZ/4vygcTD4KzCiER+CCeBjeU+VnvnYBcWFQOYwGJvC3WNvDIvDLHRAPNbK2k
-         0FFQ==
-X-Gm-Message-State: AOAM533MHL++7NRjGd4pGbuxF/BFUWho4or2HJWy2arH82acH7CEEl3G
-	eREvdIB4CPn/DOvP4RK2yFs=
-X-Google-Smtp-Source: ABdhPJyp0yRJO2tDNgGd4CfLo9HXihdjW7DvkJwzlUWA3fY93WK5PBHIJbH2WL1TmMBXCaStbeZwNQ==
-X-Received: by 2002:a65:48c2:: with SMTP id o2mr575344pgs.376.1621450797716;
-        Wed, 19 May 2021 11:59:57 -0700 (PDT)
-Subject: Re: [PATCH v7 11/15] dma-direct: Add a new wrapper
- __dma_direct_free_pages()
+        bh=bliAyPcCTKuHaZYRIw5XXZxaaB4NHvg1JF88TNVLe3Q=;
+        b=GQKkGZvEBXbvdgSMooAX2Hwp42W3pYrsRIOLoe8UjkVDp0kHkCjSkVRnm9Q4ea9BVc
+         v+Wa0wrPpAJNZstYHLHtzEcOznYkB1rLqUCDG3Zn2LRkdvsTFH78u1O/4LXGBVW5Z3VY
+         fvAA3JC+xXWQrFOkjWnlQNANZtDCKWtL3tyEOCw0FHp2/rUeVhtLNwI+9JDSf7/GqOsd
+         oxSMHButnsUd7waDL6ecaUY/+uz+QE4GkRAoQpsQpU2jcD056PpkgxjdZybaWSWK4fwh
+         BfxeQyY0ZvpVF3ip21YaWj3nLrxH8SwUk9RubeHRS4nMPs8HN1zbhelnm6hX4iphZ9bf
+         F11g==
+X-Gm-Message-State: AOAM5338/HVJuxurh2QvA8CdU1PHeixDHnmPMnD1UMj5opioiOI+otD9
+	4C58o/I81bqWKJv86OBn3WM=
+X-Google-Smtp-Source: ABdhPJzSFi5vywroBZ7tSNHRQs1V9GPTz+dOSZzWMkXvwkz7CoWyRh73gQHWXYp/m+DT8rff9721jw==
+X-Received: by 2002:a17:903:10a:b029:f4:109c:dc08 with SMTP id y10-20020a170903010ab02900f4109cdc08mr1027246plc.10.1621450810600;
+        Wed, 19 May 2021 12:00:10 -0700 (PDT)
+Subject: Re: [PATCH v7 03/15] swiotlb: Add DMA_RESTRICTED_POOL
 To: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
  mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
  Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
@@ -102,23 +102,22 @@ Cc: benh@kernel.crashing.org, paulus@samba.org,
  matthew.auld@intel.com, rodrigo.vivi@intel.com,
  thomas.hellstrom@linux.intel.com
 References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-12-tientzu@chromium.org>
+ <20210518064215.2856977-4-tientzu@chromium.org>
 From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <8c274da9-db90-cb42-c9b2-815ee0c6fca3@gmail.com>
-Date: Wed, 19 May 2021 11:59:50 -0700
+Message-ID: <d9975ce8-7ae9-2ece-a1c5-a16d0aed8143@gmail.com>
+Date: Wed, 19 May 2021 12:00:03 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Firefox/78.0 Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <20210518064215.2856977-12-tientzu@chromium.org>
+In-Reply-To: <20210518064215.2856977-4-tientzu@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
 
 On 5/17/2021 11:42 PM, Claire Chang wrote:
-> Add a new wrapper __dma_direct_free_pages() that will be useful later
-> for swiotlb_free().
+> Add a new kconfig symbol, DMA_RESTRICTED_POOL, for restricted DMA pool.
 > 
 > Signed-off-by: Claire Chang <tientzu@chromium.org>
 
