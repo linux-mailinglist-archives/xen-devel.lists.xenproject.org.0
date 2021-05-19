@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CBA3388AA4
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 11:30:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129957.243694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D560B388ACF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 11:38:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129963.243705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljIWW-0001Pt-4Y; Wed, 19 May 2021 09:29:52 +0000
+	id 1ljIeI-0002rl-VZ; Wed, 19 May 2021 09:37:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129957.243694; Wed, 19 May 2021 09:29:52 +0000
+Received: by outflank-mailman (output) from mailman id 129963.243705; Wed, 19 May 2021 09:37:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljIWW-0001Nr-1M; Wed, 19 May 2021 09:29:52 +0000
-Received: by outflank-mailman (input) for mailman id 129957;
- Wed, 19 May 2021 09:29:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ljIeI-0002pY-RX; Wed, 19 May 2021 09:37:54 +0000
+Received: by outflank-mailman (input) for mailman id 129963;
+ Wed, 19 May 2021 09:37:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fOiY=KO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ljIWU-0001Nj-IJ
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 09:29:50 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d5c28893-fc35-4c89-8241-fac1070c28d8;
- Wed, 19 May 2021 09:29:49 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 84F3BAE39;
- Wed, 19 May 2021 09:29:48 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ljIeH-0002pO-Pt; Wed, 19 May 2021 09:37:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ljIeH-0006kA-JS; Wed, 19 May 2021 09:37:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ljIeH-0004DZ-5q; Wed, 19 May 2021 09:37:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ljIeH-00010c-5L; Wed, 19 May 2021 09:37:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,107 +42,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5c28893-fc35-4c89-8241-fac1070c28d8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621416588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=70fZJvNZqwFm//PLmJ2D6mSvvED+4URflxvX5wyUEiw=;
-	b=UcrhyrzPWpUdVWTzvspsKzKq7tHfVXSF3pQQieM4GqdTK/6zK97L9U8oqfEUAtyQ/3JCtd
-	/x8bQmv9YGusAr5cNsprTkCBWAM0LLPFZ3TARRzMo6w2F9qbVFA9uvbyZeicCR8zCaz73b
-	gkWOBVM/In89PBmVi2WskOt3TLHe9jw=
-Subject: Re: [PATCH v3 2/5] xen/x86: manually build xen.mb.efi binary
-To: Daniel Kiper <daniel.kiper@oracle.com>
-Cc: Bob Eshleman <bobbyeshleman@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <cover.1611273359.git.bobbyeshleman@gmail.com>
- <28d5536a2f7691e8f79d55f1470fa89ce4fae93d.1611273359.git.bobbyeshleman@gmail.com>
- <3c621726-31c4-6a79-a020-88c59644111b@suse.com>
- <74ea104d-3826-d80d-3af5-f444d065c73f@gmail.com>
- <a183a5f9-0f36-187d-fd06-8d6db99cbe43@suse.com>
- <20210517132039.6czppjfge27x4mwg@tomti.i.net-space.pl>
- <ee89a22d-5f46-51ed-4c46-63cfc60cbafc@suse.com>
- <20210518174633.spo5kmgcbuo6dg5k@tomti.i.net-space.pl>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <51333867-d693-38e2-bd1c-fce28241a604@suse.com>
-Date: Wed, 19 May 2021 11:29:43 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=q3XXJ9nVptDPYEuZbRBBmkN4GRYPG4qP+kvFKD+BjHQ=; b=Ct83SWISVI9XEwixbUoN7JEMLX
+	E6JIBwyQ9LZXhx1Qesu4iT4TJkb5BMNqSWa4u0AiboS9nr7DwdfmEvgpx+j7TvesvpMFqTb/cnGkv
+	VnjSpWRTLs4/TF7Wh/LwN9udH1hwsfzn8FawLBh4fZ4wv6imfK5JDdjIaR9SBbayH6dY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162083-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20210518174633.spo5kmgcbuo6dg5k@tomti.i.net-space.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 162083: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=01d84420fb4a9be2ec474a7c1910bb22c28b53c8
+X-Osstest-Versions-That:
+    xen=caa9c4471d1d74b2d236467aaf7e63a806ac11a4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 19 May 2021 09:37:53 +0000
 
-On 18.05.2021 19:46, Daniel Kiper wrote:
-> On Mon, May 17, 2021 at 03:24:28PM +0200, Jan Beulich wrote:
->> On 17.05.2021 15:20, Daniel Kiper wrote:
->>> On Mon, May 17, 2021 at 08:48:32AM +0200, Jan Beulich wrote:
->>>> On 07.05.2021 22:26, Bob Eshleman wrote:
->>>>> What is your intuition WRT the idea that instead of trying add a PE/COFF hdr
->>>>> in front of Xen's mb2 bin, we instead go the route of introducing valid mb2
->>>>> entry points into xen.efi?
->>>>
->>>> At the first glance I think this is going to be less intrusive, and hence
->>>> to be preferred. But of course I haven't experimented in any way ...
->>>
->>> When I worked on this a few years ago I tried that way. Sadly I failed
->>> because I was not able to produce "linear" PE image using binutils
->>> exiting that days.
->>
->> What is a "linear" PE image?
-> 
-> The problem with Multiboot family protocols is that all code and data
-> sections have to be glued together in the image and as such loaded into
-> the memory (IIRC BSS is an exception but it has to live behind the
-> image). So, you cannot use PE image which has different representation
-> in file and memory. IIRC by default at least code and data sections in
-> xen.efi have different sizes in PE file and in memory. I tried to fix
-> that using linker script and objcopy but it did not work. Sadly I do
-> not remember the details but there is pretty good chance you can find
-> relevant emails in Xen-devel archive with me explaining what kind of
-> problems I met.
+flight 162083 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162083/
 
-Ah, this rings a bell. Even the .bss-is-last assumption doesn't hold,
-because .reloc (for us as well as in general) comes later, but needs
-loading (in the right place). Since even xen.gz isn't simply the
-compressed linker output, but a post-processed (by mkelf32) image,
-maybe what we need is a build tool doing similar post-processing on
-xen.efi? Otoh getting disk image and in-memory image aligned ought
-to be possible by setting --section-alignment= and --file-alignment=
-to the same value (resulting in a much larger file) - adjusting file
-positions would effectively be what a post-processing tool would need
-to do (like with mkelf32 perhaps we could then at least save the
-first ~2Mb of space). Which would still leave .reloc to be dealt with
-- maybe we could place this after .init, but still ahead of
-__init_end (such that the memory would get freed late in the boot
-process). Not sure whether EFI loaders would "like" such an unusual
-placement.
+Regressions :-(
 
-Also not sure what to do with Dwarf debug info, which just recently
-we managed to avoid needing to strip unconditionally.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 162023
+ build-armhf                   6 xen-build                fail REGR. vs. 162023
 
->>> Maybe
->>> newer binutils are more flexible and will be able to produce a PE image
->>> with properties required by Multiboot2 protocol.
->>
->> Isn't all you need the MB2 header within the first so many bytes of the
->> (disk) image? Or was it the image as loaded into memory? Both should be
->> possible to arrange for.
-> 
-> IIRC Multiboot2 protocol requires the header in first 32 kiB of an image.
-> So, this is not a problem.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
 
-I was about to ask "Disk image or in-memory image?" But this won't
-matter if the image as a whole got linearized, as long as the first
-section doesn't start to high up. I notice that xen-syms doesn't fit
-this requirement either, only the output of mkelf32 does. Which
-suggests that there may not be a way around a post-processing tool.
+version targeted for testing:
+ xen                  01d84420fb4a9be2ec474a7c1910bb22c28b53c8
+baseline version:
+ xen                  caa9c4471d1d74b2d236467aaf7e63a806ac11a4
 
-Jan
+Last test of basis   162023  2021-05-18 13:00:27 Z    0 days
+Testing same since   162036  2021-05-18 16:00:26 Z    0 days    9 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 01d84420fb4a9be2ec474a7c1910bb22c28b53c8
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:51:48 2021 +0100
+
+    tools/xenmon: xenbaked: Mark const the field text in stat_map_t
+    
+    The field text in stat_map_t will point to string literals. So mark it
+    as const to allow the compiler to catch any modified of the string.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 4b7702727a8d89fea0a239adcbeb18aa2c85ede0
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:51:28 2021 +0100
+
+    tools/top: The string parameter in set_prompt() and set_delay() should be const
+    
+    Neither string parameter in set_prompt() and set_delay() are meant to
+    be modified. In particular, new_prompt can point to a literal string.
+    
+    So mark the two parameters as const and propagate it.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 5605cfd49a18df41a21fb50cd81528312a39d7c9
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:50:32 2021 +0100
+
+    tools/misc: Use const whenever we point to literal strings
+    
+    literal strings are not meant to be modified. So we should use const
+    char * rather than char * when we we to store a pointer to them.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 89aae4ad8f495b647de33f2df5046b3ce68225f8
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:35:07 2021 +0100
+
+    tools/libs: stat: Use const whenever we point to literal strings
+    
+    literal strings are not meant to be modified. So we should use const
+    char * rather than char * when we want to store a pointer to them.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 8fc4916daf2aac34088ebd5ec3d6fd707ac4221d
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue May 18 14:34:22 2021 +0100
+
+    tools/libs: guest: Use const whenever we point to literal strings
+    
+    literal strings are not meant to be modified. So we should use const
+    *char rather than char * when we want to store a pointer to them.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+(qemu changes not included)
 
