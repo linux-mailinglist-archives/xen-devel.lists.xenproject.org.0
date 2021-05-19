@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABDDD3895AE
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 20:42:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130302.244159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19D43895D1
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 20:50:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130313.244178 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljR9G-0006Qo-42; Wed, 19 May 2021 18:42:26 +0000
+	id 1ljRGr-000813-1W; Wed, 19 May 2021 18:50:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130302.244159; Wed, 19 May 2021 18:42:26 +0000
+Received: by outflank-mailman (output) from mailman id 130313.244178; Wed, 19 May 2021 18:50:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljR9F-0006NQ-VU; Wed, 19 May 2021 18:42:25 +0000
-Received: by outflank-mailman (input) for mailman id 130302;
- Wed, 19 May 2021 18:42:24 +0000
+	id 1ljRGq-0007zC-Um; Wed, 19 May 2021 18:50:16 +0000
+Received: by outflank-mailman (input) for mailman id 130313;
+ Wed, 19 May 2021 18:50:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dLqQ=KO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ljR9D-0006NI-Qe
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 18:42:24 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=94wl=KO=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
+ id 1ljRGp-0007z6-Qu
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 18:50:15 +0000
+Received: from mail-pj1-x102b.google.com (unknown [2607:f8b0:4864:20::102b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35da6c87-dd7d-49df-ad4c-7f24c308a1bb;
- Wed, 19 May 2021 18:42:21 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.26.1 AUTH)
- with ESMTPSA id z0b24bx4JIgK004
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 19 May 2021 20:42:20 +0200 (CEST)
+ id 5747aefe-4f4d-4ef9-93a5-09a2d3349c2d;
+ Wed, 19 May 2021 18:50:14 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id k5so7803618pjj.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 May 2021 11:50:14 -0700 (PDT)
+Received: from [10.230.29.202] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id 204sm126125pfy.56.2021.05.19.11.50.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 May 2021 11:50:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,98 +41,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35da6c87-dd7d-49df-ad4c-7f24c308a1bb
-ARC-Seal: i=1; a=rsa-sha256; t=1621449740; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=lcSWtzXaOvxj7MsIKsdfDKez0Fy0ECtz6xe+e4GJ09zaUx8O118pSoixtArzkMMSy2
-    FX858hzjj7cvNJ9aoMJlhZKtvel8NIXjzHQondWTHA8qQbdYvVScfzovttlOnB2vhhwy
-    /iGbZkX5r2/HfE/SrhYqoPMLUb+k/cl5hLq+h+wj/F6XAzq9gI2R1SRlqGjOloUsmbXa
-    n7WYsR57+Wg2WjVi8dh8PPHmD1FjDpnVNpsa/nG0/oRD4UqnGDkFAfRivM7aMryU6/Ra
-    RsTOwUG3e4lzSMSttZJvdGvrhJrXENmQBtOW3v+Ykv41gyzQsb+g1fOnyPUZJgxcBjIH
-    yr/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1621449740;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=mCJ9nZZdYMufSz5UqlzFY4JHtrSF7XvaEMFLbphEo6o=;
-    b=U+PuczWDnfE4bSGv9ZMZFGHXg0bTyJWsS3wFPV+Fb65eVHlLheyAWJ5H9sjGEXiXao
-    TMDRYyIE9E3FLf2OLswbk/qkaFu5Nqu+MmxFiVnMrfkyN78XcdsPTyDBlBzBbHqDs3uu
-    d0SKoPezzU0MTGwS4RGNacfYJ9lrjHPyhqAtZktBoJUJNBf6qaCJHwK+9DyuQbj8RFqL
-    kCB/JtBW0nyYVR5p+EjVJXWzEXsQ3Isc9GtWg9QF3A36z1GjSgAPQRtTO24Gn9fGeaLW
-    H2gybu5xfGexipzDeC811xZPPczzGHa0d5fQy46y99wHPis6/LCs6y2dM2ijLW6/bGZ3
-    n9iA==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1621449740;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=mCJ9nZZdYMufSz5UqlzFY4JHtrSF7XvaEMFLbphEo6o=;
-    b=b58mEcqHFuEe11s5RfkBkFxilYmI8YELhztA9HewVD+rBm8QG/HYQ9SL2rWtK5QOTp
-    4DwBi6Rd8bIZvhRsbuW2/FuHatVqUnsg/+J1WfRQ0NtiQe2HN9Nr07fHqJ5tUehxK7Qn
-    N/ZuTMQotDrsW27f1e1Tk2YuuUqakXCIecnmXJU0nUEdtx/xXceFQWxXDfoOK4qQxvYP
-    DV+wGDqZRSVUOH90ZVc0ZCdsBY3cG27WPxdfZOr5/bF3ZMdXtCC1GFlh1SfppcVSFb4U
-    AU7YKNNA1Rt3VdlibNkXM0yDRgbBKhqzDcmmIyJxoU+Pi72s2nSkdAZtCgY+8ft11s79
-    gTiw==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF9Wx7WbE3s+BU2kLCYUBd7t4vRd/ulzKn4R+Wk"
-X-RZG-CLASS-ID: mo00
-Date: Wed, 19 May 2021 20:42:05 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: regression in recent pvops kernels, dom0 crashes early
-Message-ID: <20210519204205.5bf59d51.olaf@aepfle.de>
-In-Reply-To: <7abb3c8f-4a9b-700b-5c0c-dc6f42336eab@suse.com>
-References: <20210513122457.4182eb7f.olaf@aepfle.de>
-	<7abb3c8f-4a9b-700b-5c0c-dc6f42336eab@suse.com>
-X-Mailer: Claws Mail 2021.04.23 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 5747aefe-4f4d-4ef9-93a5-09a2d3349c2d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=dYfUs37GH26f9qor1VLh+dBs069CWpkdAXD/ElhmJms=;
+        b=TrWBAUFZb5IOcZqvzjceFmBdD//LhG3J/GS/NNJVT3gU+F4jePK2De3KUi6WMq1NHA
+         zndANjSseMb1Pp2JRwuG0SKzESIJZgHwjEgadrwQvWeoPO53UCfAxaiTf1Zb6HKEWFg+
+         KxvquRqXRHR2JXs6tVsspVphZHfh6QRuiwDBKvnzs/KhFOZgDEomwsEaIwbkEmyXnii1
+         Zfxo7hizbKJjteQW7iRhmVRGFo9GFw0B11Cxe44wbA/ziDpsrbDsCg/BzVUrrcWoLnZb
+         /YnwocBrRVTzDPZIHZwS44CV6X61m/f/ggI85MB9OD/nN5l0XNYHfp13C3qnJ0yxFZH1
+         QMng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=dYfUs37GH26f9qor1VLh+dBs069CWpkdAXD/ElhmJms=;
+        b=QOekDqQawqSpHa1Pb1HsBndJx41oOWWcI0ORd6vndiKwbskwyhocv64VlP5g4mKiqv
+         SvfrsJaO4P6bxT+K3GjO+N2CJqaRVvWEvacKtZObxWAegvINnL4d/X2Dh1Z7pxtQYXLX
+         5zfFPzOQr99EL+ipqbwDz2N4kJW7KLx8AHm9B6xq1irTfNPAqNkt+m2E8wOqXe4TY/7e
+         FXimYZfNorEkWlVMFSFIqBOqtCkltG7k6izFsaXfwiXGpauEkoqqNYtFwuAst05rDwdR
+         NEvyY6mnvwO0I2hsw9x/BlNckyjykbm9a8zGUT45hvPmQPt9WayA9F+xnoAMwQsF2R69
+         68Ww==
+X-Gm-Message-State: AOAM533SQ9fCKCKky15eIxPj2oJS+Rk8zivlmEm3ClYHNmNdYxe4535P
+	vUi2kuO9OCa0PK4hSqfQTdY=
+X-Google-Smtp-Source: ABdhPJxg56VOtjzCy0nTcRzR5TrWV2NzF6pi2y8FSlVZjGvfF9DZQZKizJXSGDAHfIg8aWG5cZking==
+X-Received: by 2002:a17:90b:1949:: with SMTP id nk9mr742999pjb.220.1621450213929;
+        Wed, 19 May 2021 11:50:13 -0700 (PDT)
+Subject: Re: [PATCH v7 01/15] swiotlb: Refactor swiotlb init functions
+To: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: benh@kernel.crashing.org, paulus@samba.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ grant.likely@arm.com, xypron.glpk@gmx.de, Thierry Reding
+ <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com,
+ peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>,
+ Saravana Kannan <saravanak@google.com>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ heikki.krogerus@linux.intel.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Dan Williams
+ <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-devicetree <devicetree@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org,
+ bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk,
+ daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ jxgao@google.com, joonas.lahtinen@linux.intel.com,
+ linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ matthew.auld@intel.com, rodrigo.vivi@intel.com,
+ thomas.hellstrom@linux.intel.com
+References: <20210518064215.2856977-1-tientzu@chromium.org>
+ <20210518064215.2856977-2-tientzu@chromium.org>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Message-ID: <170a54f2-be20-ec29-1d7f-3388e5f928c6@gmail.com>
+Date: Wed, 19 May 2021 11:50:07 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.10.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/KDp9mBry2JYq=FciRNN_/Dj";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/KDp9mBry2JYq=FciRNN_/Dj
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Am Mon, 17 May 2021 12:54:02 +0200
-schrieb Jan Beulich <jbeulich@suse.com>:
-
-> x86/Xen: swap NX determination and GDT setup on BSP
->=20
-> xen_setup_gdt(), via xen_load_gdt_boot(), wants to adjust page tables.
-> For this to work when NX is not available, x86_configure_nx() needs to
-> be called first.
+In-Reply-To: <20210518064215.2856977-2-tientzu@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
 
-Thanks. I tried this patch on-top of the SLE15-SP3 kernel branch.
-Without the patch booting fails as reported.
-With the patch the dom0 starts as expected.
 
+On 5/17/2021 11:42 PM, Claire Chang wrote:
+> Add a new function, swiotlb_init_io_tlb_mem, for the io_tlb_mem struct
+> initialization to make the code reusable.
+> 
+> Note that we now also call set_memory_decrypted in swiotlb_init_with_tbl.
+> 
+> Signed-off-by: Claire Chang <tientzu@chromium.org>
+> ---
+>  kernel/dma/swiotlb.c | 51 ++++++++++++++++++++++----------------------
+>  1 file changed, 25 insertions(+), 26 deletions(-)
+> 
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 8ca7d505d61c..d3232fc19385 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -168,9 +168,30 @@ void __init swiotlb_update_mem_attributes(void)
+>  	memset(vaddr, 0, bytes);
+>  }
+>  
+> -int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+> +static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+> +				    unsigned long nslabs, bool late_alloc)
+>  {
+> +	void *vaddr = phys_to_virt(start);
+>  	unsigned long bytes = nslabs << IO_TLB_SHIFT, i;
+> +
+> +	mem->nslabs = nslabs;
+> +	mem->start = start;
+> +	mem->end = mem->start + bytes;
+> +	mem->index = 0;
+> +	mem->late_alloc = late_alloc;
+> +	spin_lock_init(&mem->lock);
+> +	for (i = 0; i < mem->nslabs; i++) {
+> +		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
+> +		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
+> +		mem->slots[i].alloc_size = 0;
+> +	}
+> +
+> +	set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT);
+> +	memset(vaddr, 0, bytes);
 
-Olaf
+You are doing an unconditional set_memory_decrypted() followed by a
+memset here, and then:
 
---Sig_/KDp9mBry2JYq=FciRNN_/Dj
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+> +}
+> +
+> +int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+> +{
+>  	struct io_tlb_mem *mem;
+>  	size_t alloc_size;
+>  
+> @@ -186,16 +207,8 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+>  	if (!mem)
+>  		panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
+>  		      __func__, alloc_size, PAGE_SIZE);
+> -	mem->nslabs = nslabs;
+> -	mem->start = __pa(tlb);
+> -	mem->end = mem->start + bytes;
+> -	mem->index = 0;
+> -	spin_lock_init(&mem->lock);
+> -	for (i = 0; i < mem->nslabs; i++) {
+> -		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
+> -		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
+> -		mem->slots[i].alloc_size = 0;
+> -	}
+> +
+> +	swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmClW/0ACgkQ86SN7mm1
-DoCtrA//Yvc7TtGgzGuqFFkLaj4rD3zvgNWDhLF44/oFU23Ksxh7YoT5oaQSxiVy
-JliWgplE11NiRv5RGZQ91T+s52Vaglk0DFhqKrBo35XPAauAuKraLlQ25W8VjSrr
-80mehnsAuRzFexd9e7O1+gmUKz5TdW7Ys6MTn/L7zSVTQQaDdEOQtOdQfGHzkdfv
-+L4EUA7x1XAvxIsd5VViATIZ2ieYAxLQE2ApgzppwowKSJki+V31QINMoPHPd3+P
-A8OldTeygCfecWZNjELkuxULRPjTxCrbS9NIEZ6ubBEiRSMICnmafX73d9AcIrDh
-XlSq6Wse7hH9R/+ZxlYeMZPQZI0kDEYyRrFE+5OK7WpWllDpm92XlbqvbtLBcbus
-9h8qoYgDjJAgRhxWhhtBxyWuq6bfEQu+7GLA1YZeULSS29nKnCaasA9eMUdq3eA2
-9ZQ3Ie+5jlAb2i2KQSIgr6XiD3gMALt6oDjX/bKrDkYFZZAjvbfFvDvkxvKYvmaM
-6IhMGJBwIhRAlEQ2yS4B/VihvAoRxOJLzlnGrlvafvCbUD4bjYffstnXKhmQsc/L
-TTthNL4j3l2sSdtG3sWqetQ16WMGva56Oq3LX746BQkiN3N6uy9k9/RT6JXAGXNm
-G47AL5w/5kp6OWqnDJif+17b4QC1na6dMg1p0r+qqZ+EmC9DYao=
-=oroi
------END PGP SIGNATURE-----
-
---Sig_/KDp9mBry2JYq=FciRNN_/Dj--
+You convert this call site with swiotlb_init_io_tlb_mem() which did not
+do the set_memory_decrypted()+memset(). Is this okay or should
+swiotlb_init_io_tlb_mem() add an additional argument to do this
+conditionally?
+-- 
+Florian
 
