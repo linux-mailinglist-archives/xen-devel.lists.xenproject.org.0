@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50489389750
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 22:02:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130400.244316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8A038978D
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 22:10:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130407.244329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljSOG-0004ab-Kx; Wed, 19 May 2021 20:02:00 +0000
+	id 1ljSW5-0005p7-FX; Wed, 19 May 2021 20:10:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130400.244316; Wed, 19 May 2021 20:02:00 +0000
+Received: by outflank-mailman (output) from mailman id 130407.244329; Wed, 19 May 2021 20:10:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljSOG-0004YO-H2; Wed, 19 May 2021 20:02:00 +0000
-Received: by outflank-mailman (input) for mailman id 130400;
- Wed, 19 May 2021 20:01:58 +0000
+	id 1ljSW5-0005kB-CT; Wed, 19 May 2021 20:10:05 +0000
+Received: by outflank-mailman (input) for mailman id 130407;
+ Wed, 19 May 2021 20:10:03 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ljSOE-0004YI-Tm
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 20:01:58 +0000
+ (envelope-from <julien@xen.org>) id 1ljSW3-0005Wk-TX
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 20:10:03 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ljSOD-0001Kk-Ra; Wed, 19 May 2021 20:01:57 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ id 1ljSW3-0001Sr-Nh; Wed, 19 May 2021 20:10:03 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ljSOD-00035k-LQ; Wed, 19 May 2021 20:01:57 +0000
+ id 1ljSW3-0003bs-HQ; Wed, 19 May 2021 20:10:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,116 +42,228 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Y3j6reANSiIScwr3eRjvR6Yhf3VR7aqJqtMfKYZyhKQ=; b=DFTngzctTIdvSuJvPCPRoBMMsn
-	KSZztBhRaNZD/mJV9ocSLIUMKXT7cijxNYf1Re1UIl7p4PbyjBZa/ZhY03T0tIMYpdZL+7G21eINO
-	y15c/GbE5nLmQ4i+kYCH3+TL2fPZY09dOfYrBJz7L2rFJwVy+PMC5ITF1WkAbt+1+dYA=;
-Subject: Re: [PATCH 07/10] xen/arm: intruduce alloc_domstatic_pages
-To: Penny Zheng <Penny.Zheng@arm.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- nd <nd@arm.com>,
+	bh=jeeplVUrpI5vSqsEwgVxlFss+v6TihWakEDQEIh+8so=; b=t+XVoox0cV8fBC6k8eXBh9F5m1
+	MkpzQVV/0yO1sUNA5YZdibjwucInneCAa6SRWGRPZDV2m/yCcGreM+8q1jKjLq8bWiiISpzOjbACM
+	vkAGL4QMHGYwFJmw9+TxJjTkDlOgl/zuJIDlbR3TINHqntezX4zxYWNLErmvg1ZvL/OI=;
+Subject: Re: [PATCH 10/10] xen/arm: introduce allocate_static_memory
+To: Penny Zheng <Penny.Zheng@arm.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  "sstabellini@kernel.org" <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ nd <nd@arm.com>
 References: <20210518052113.725808-1-penny.zheng@arm.com>
- <20210518052113.725808-8-penny.zheng@arm.com>
- <7e4706dc-70ea-4dc9-3d70-f07396b462d8@suse.com>
- <VE1PR08MB521528492991FDFC87AC361BF72C9@VE1PR08MB5215.eurprd08.prod.outlook.com>
- <75275b2f-9de3-944a-d55c-a62bbbf1bb8c@xen.org>
- <VE1PR08MB5215CB5102529F32DC695CFDF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+ <20210518052113.725808-11-penny.zheng@arm.com>
+ <7e9bacde-8a1c-c9f8-a06d-2f39f2192315@xen.org>
+ <VE1PR08MB5215B4D187DFE8AE20DF2B95F72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <953418db-5484-bb1e-e0dc-96798a284479@xen.org>
-Date: Wed, 19 May 2021 21:01:55 +0100
+Message-ID: <72a374ca-4d75-70b4-3ee9-ad1dbdefa2d6@xen.org>
+Date: Wed, 19 May 2021 21:10:01 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <VE1PR08MB5215CB5102529F32DC695CFDF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+In-Reply-To: <VE1PR08MB5215B4D187DFE8AE20DF2B95F72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
 
-On 19/05/2021 08:52, Penny Zheng wrote:
+On 19/05/2021 08:27, Penny Zheng wrote:
 > Hi Julien
-
-Hi Penny,
-
 > 
 >> -----Original Message-----
 >> From: Julien Grall <julien@xen.org>
->> Sent: Tuesday, May 18, 2021 8:13 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>; Jan Beulich <jbeulich@suse.com>
->> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->> <Wei.Chen@arm.com>; nd <nd@arm.com>; xen-devel@lists.xenproject.org;
+>> Sent: Tuesday, May 18, 2021 8:06 PM
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
 >> sstabellini@kernel.org
->> Subject: Re: [PATCH 07/10] xen/arm: intruduce alloc_domstatic_pages
+>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>> <Wei.Chen@arm.com>; nd <nd@arm.com>
+>> Subject: Re: [PATCH 10/10] xen/arm: introduce allocate_static_memory
 >>
 >> Hi Penny,
 >>
->> On 18/05/2021 09:57, Penny Zheng wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Tuesday, May 18, 2021 3:35 PM
->>>> To: Penny Zheng <Penny.Zheng@arm.com>
->>>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->>>> <Wei.Chen@arm.com>; nd <nd@arm.com>; xen-
->> devel@lists.xenproject.org;
->>>> sstabellini@kernel.org; julien@xen.org
->>>> Subject: Re: [PATCH 07/10] xen/arm: intruduce alloc_domstatic_pages
->>>>
->>>> On 18.05.2021 07:21, Penny Zheng wrote:
->>>>> --- a/xen/common/page_alloc.c
->>>>> +++ b/xen/common/page_alloc.c
->>>>> @@ -2447,6 +2447,9 @@ int assign_pages(
->>>>>        {
->>>>>            ASSERT(page_get_owner(&pg[i]) == NULL);
->>>>>            page_set_owner(&pg[i], d);
->>>>> +        /* use page_set_reserved_owner to set its reserved domain owner.
->>>> */
->>>>> +        if ( (pg[i].count_info & PGC_reserved) )
->>>>> +            page_set_reserved_owner(&pg[i], d);
->>>>
->>>> Now this is puzzling: What's the point of setting two owner fields to
->>>> the same value? I also don't recall you having introduced
->>>> page_set_reserved_owner() for x86, so how is this going to build there?
->>>>
+>> On 18/05/2021 06:21, Penny Zheng wrote:
+>>> This commit introduces allocate_static_memory to allocate static
+>>> memory as guest RAM for domain on Static Allocation.
 >>>
->>> Thanks for pointing out that it will fail on x86.
->>> As for the same value, sure, I shall change it to domid_t domid to record its
->> reserved owner.
->>> Only domid is enough for differentiate.
->>> And even when domain get rebooted, struct domain may be destroyed, but
->>> domid will stays The same.
->>> Major user cases for domain on static allocation are referring to the
->>> whole system are static, No runtime creation.
+>>> It uses alloc_domstatic_pages to allocate pre-defined static memory
+>>> banks for this domain, and uses guest_physmap_add_page to set up P2M
+>>> table, guest starting at fixed GUEST_RAM0_BASE, GUEST_RAM1_BASE.
+>>>
+>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>> ---
+>>>    xen/arch/arm/domain_build.c | 157
+>> +++++++++++++++++++++++++++++++++++-
+>>>    1 file changed, 155 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>> index 30b55588b7..9f662313ad 100644
+>>> --- a/xen/arch/arm/domain_build.c
+>>> +++ b/xen/arch/arm/domain_build.c
+>>> @@ -437,6 +437,50 @@ static bool __init allocate_bank_memory(struct
+>> domain *d,
+>>>        return true;
+>>>    }
+>>>
+>>> +/*
+>>> + * #ram_index and #ram_index refer to the index and starting address
+>>> +of guest
+>>> + * memory kank stored in kinfo->mem.
+>>> + * Static memory at #smfn of #tot_size shall be mapped #sgfn, and
+>>> + * #sgfn will be next guest address to map when returning.
+>>> + */
+>>> +static bool __init allocate_static_bank_memory(struct domain *d,
+>>> +                                               struct kernel_info *kinfo,
+>>> +                                               int ram_index,
 >>
->> One may want to have static memory yet doesn't care about the domid. So I
->> am not in favor to restrict about the domid unless there is no other way.
+>> Please use unsigned.
+>>
+>>> +                                               paddr_t ram_addr,
+>>> +                                               gfn_t* sgfn,
+>>
+>> I am confused, what is the difference between ram_addr and sgfn?
 >>
 > 
-> The user case you bring up here is that static memory pool?
-
-No. The use case I am talking about is an user who wants to give a 
-specific memory region to the guest but doesn't care about which domid 
-was allocated to the guest.
-
+> We need to constructing kinfo->mem(guest RAM banks) here, and
+> we are indexing in static_mem(physical ram banks). Multiple physical ram
+> banks consist of one guest ram bank(like, GUEST_RAM0).
 > 
-> Right now, the user cases are mostly restricted to static system.
-> If we bring runtime allocation, `xl` here, it will add a lot more complexity.
-> But if the system has static behavior, the domid is also static.
-I read this as the admin would have to specify the domain ID in the 
-Device-Tree. Is that what you meant?
-
-If so, then I don't see why we should mandate that. I would mind less if 
-by static you mean the domid will be allocated by Xen and then not 
-changed accross reboot.
-
+> ram_addr  here will either be GUEST_RAM0_BASE, or GUEST_RAM1_BASE,
+> for now. I kinds struggled in how to name it. And maybe it shall not be a
+> parameter here.
 > 
-> On rebooting domain from static memory pool, it brings up more discussion, like
-> do we intend to give the memory back to static memory pool when rebooting,
-> if so, ram could be allocated from different place compared with the previous one.
+> Maybe I should switch.. case.. on the ram_index, if its 0, its GUEST_RAM0_BASE,
+> And if its 1, its GUEST_RAM1_BASE.
 
-You should have all the information in the Device-Tree to re-assign the 
-correct regions. So why would it be allocated from a different place?
+You only need to set kinfo->mem.bank[ram_index].start once. This is when 
+you know the bank is first used.
+
+AFAICT, this function will map the memory for a range start at ``sgfn``. 
+It doesn't feel this belongs to the function.
+
+The same remark is valid for kinfo->mem.nr_banks.
+
+>>> +                                               mfn_t smfn,
+>>> +                                               paddr_t tot_size) {
+>>> +    int res;
+>>> +    struct membank *bank;
+>>> +    paddr_t _size = tot_size;
+>>> +
+>>> +    bank = &kinfo->mem.bank[ram_index];
+>>> +    bank->start = ram_addr;
+>>> +    bank->size = bank->size + tot_size;
+>>> +
+>>> +    while ( tot_size > 0 )
+>>> +    {
+>>> +        unsigned int order = get_allocation_size(tot_size);
+>>> +
+>>> +        res = guest_physmap_add_page(d, *sgfn, smfn, order);
+>>> +        if ( res )
+>>> +        {
+>>> +            dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
+>>> +            return false;
+>>> +        }
+>>> +
+>>> +        *sgfn = gfn_add(*sgfn, 1UL << order);
+>>> +        smfn = mfn_add(smfn, 1UL << order);
+>>> +        tot_size -= (1ULL << (PAGE_SHIFT + order));
+>>> +    }
+>>> +
+>>> +    kinfo->mem.nr_banks = ram_index + 1;
+>>> +    kinfo->unassigned_mem -= _size;
+>>> +
+>>> +    return true;
+>>> +}
+>>> +
+>>>    static void __init allocate_memory(struct domain *d, struct kernel_info
+>> *kinfo)
+>>>    {
+>>>        unsigned int i;
+>>> @@ -480,6 +524,116 @@ fail:
+>>>              (unsigned long)kinfo->unassigned_mem >> 10);
+>>>    }
+>>>
+>>> +/* Allocate memory from static memory as RAM for one specific domain
+>>> +d. */ static void __init allocate_static_memory(struct domain *d,
+>>> +                                            struct kernel_info
+>>> +*kinfo) {
+>>> +    int nr_banks, _banks = 0;
+>>
+>> AFAICT, _banks is the index in the array. I think it would be clearer if it is
+>> caller 'bank' or 'idx'.
+>>
+> 
+> Sure, I’ll use the 'bank' here.
+> 
+>>> +    size_t ram0_size = GUEST_RAM0_SIZE, ram1_size = GUEST_RAM1_SIZE;
+>>> +    paddr_t bank_start, bank_size;
+>>> +    gfn_t sgfn;
+>>> +    mfn_t smfn;
+>>> +
+>>> +    kinfo->mem.nr_banks = 0;
+>>> +    sgfn = gaddr_to_gfn(GUEST_RAM0_BASE);
+>>> +    nr_banks = d->arch.static_mem.nr_banks;
+>>> +    ASSERT(nr_banks >= 0);
+>>> +
+>>> +    if ( kinfo->unassigned_mem <= 0 )
+>>> +        goto fail;
+>>> +
+>>> +    while ( _banks < nr_banks )
+>>> +    {
+>>> +        bank_start = d->arch.static_mem.bank[_banks].start;
+>>> +        smfn = maddr_to_mfn(bank_start);
+>>> +        bank_size = d->arch.static_mem.bank[_banks].size;
+>>
+>> The variable name are slightly confusing because it doesn't tell whether this
+>> is physical are guest RAM. You might want to consider to prefix them with p
+>> (resp. g) for physical (resp. guest) RAM.
+> 
+> Sure, I'll rename to make it more clearly.
+> 
+>>
+>>> +
+>>> +        if ( !alloc_domstatic_pages(d, bank_size >> PAGE_SHIFT, bank_start,
+>> 0) )
+>>> +        {
+>>> +            printk(XENLOG_ERR
+>>> +                    "%pd: cannot allocate static memory"
+>>> +                    "(0x%"PRIx64" - 0x%"PRIx64")",
+>>
+>> bank_start and bank_size are both paddr_t. So this should be PRIpaddr.
+> 
+> Sure, I'll change
+> 
+>>
+>>> +                    d, bank_start, bank_start + bank_size);
+>>> +            goto fail;
+>>> +        }
+>>> +
+>>> +        /*
+>>> +         * By default, it shall be mapped to the fixed guest RAM address
+>>> +         * `GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`.
+>>> +         * Starting from RAM0(GUEST_RAM0_BASE).
+>>> +         */
+>>
+>> Ok. So you are first trying to exhaust the guest bank 0 and then moved to
+>> bank 1. This wasn't entirely clear from the design document.
+>>
+>> I am fine with that, but in this case, the developper should not need to know
+>> that (in fact this is not part of the ABI).
+>>
+>> Regarding this code, I am a bit concerned about the scalability if we introduce
+>> a second bank.
+>>
+>> Can we have an array of the possible guest banks and increment the index
+>> when exhausting the current bank?
+>>
+> 
+> Correct me if I understand wrongly,
+> 
+> What you suggest here is that we make an array of guest banks, right now, including
+> GUEST_RAM0 and GUEST_RAM1. And if later, adding more guest banks, it will not
+> bring scalability problem here, right?
+
+Yes. This should also reduce the current complexity of the code.
 
 Cheers,
 
