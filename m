@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391B0389477
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 19:12:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130261.244108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF573894CF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 19:52:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130286.244136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljPip-00042L-Bq; Wed, 19 May 2021 17:11:03 +0000
+	id 1ljQN2-0000j2-0j; Wed, 19 May 2021 17:52:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130261.244108; Wed, 19 May 2021 17:11:03 +0000
+Received: by outflank-mailman (output) from mailman id 130286.244136; Wed, 19 May 2021 17:52:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljPip-00040S-8j; Wed, 19 May 2021 17:11:03 +0000
-Received: by outflank-mailman (input) for mailman id 130261;
- Wed, 19 May 2021 17:11:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ljPin-00040K-Do
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 17:11:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ljPil-0006hk-UB; Wed, 19 May 2021 17:10:59 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ljPil-0005DR-Ne; Wed, 19 May 2021 17:10:59 +0000
+	id 1ljQN1-0000gf-TQ; Wed, 19 May 2021 17:52:35 +0000
+Received: by outflank-mailman (input) for mailman id 130286;
+ Wed, 19 May 2021 17:52:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ufKr=KO=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1ljQMz-0000gS-TA
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 17:52:33 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 49dd08ff-c781-420d-9e3c-3da7321213a6;
+ Wed, 19 May 2021 17:52:33 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1F6D0AC47;
+ Wed, 19 May 2021 17:52:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,120 +38,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Hu9lQT0GuHInhC9q3DZD/hR540w21XkpC1TWm+UbIBU=; b=F12mz48ozWo1Qr6nvObc0JtnOE
-	N9TsHRHcDppPa/oflIF557CdVNPEwDZLdZFNaAVeWR1PACRmZdpU5Ml3W4H3D7AviPgbhLkphGrwu
-	+vEoxp0ARJtRtne05phgGDtcIXJVAD6Szi46gSz2HggsQPp2rqRWqulBwm3noEBolqXg=;
-Subject: Re: Preserving transactions accross Xenstored Live-Update
-To: Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Edwin Torok <edvin.torok@citrix.com>, "Doebel, Bjoern" <doebel@amazon.de>,
- raphning@amazon.co.uk, "Durrant, Paul" <pdurrant@amazon.co.uk>
-References: <13bbb51e-f63d-a886-272f-e6a6252fb468@xen.org>
- <377d042d-40ec-dafc-3d03-370c4f5dbb4c@suse.com>
- <c14d7a27-b486-01c1-1a24-70f286c34431@xen.org>
- <b8413748-a889-8b0c-df93-2c93ed832369@xen.org>
- <95144b63-292b-3d60-b7d2-1847a1611fd6@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <911b7981-5c92-b224-1ce3-c312ebd423f7@xen.org>
-Date: Wed, 19 May 2021 18:10:57 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.2
+X-Inumbo-ID: 49dd08ff-c781-420d-9e3c-3da7321213a6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1621446752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zedULLW8DGxX1TLqyo9Mi46k+PxRWRbfziyEmVYvztA=;
+	b=adc3KTvdkttFurZbadKEWBWose4cSZpPL4W5vQOLgSfYzK2VuHDRpqNcgX+10R+8ar6l8N
+	Ezd/GBvSx1ya6YGNy3p2V7OasvdsnPjlbbnHUZdWJzwFp1ex2oDyNJCXSQbAZKDNOQdFZo
+	8ScfT2YkOgS1Y0EDwt8L8OP68DDHdGo=
+Message-ID: <b596d5ea2e96be5c6d627e14b87beb51ba4a094e.camel@suse.com>
+Subject: Re: [PATCH v2 2/2] automation: fix dependencies on openSUSE
+ Tumbleweed containers
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Date: Wed, 19 May 2021 19:52:30 +0200
+In-Reply-To: <YKSv/BGxuy+OCn3t@Air-de-Roger>
+References: <162135593827.20014.14959979363028895972.stgit@Wayrath>
+	 <162135616513.20014.6303562342690753615.stgit@Wayrath>
+	 <YKSv/BGxuy+OCn3t@Air-de-Roger>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-Z8btzhCDS64c9HjaHiXd"
+User-Agent: Evolution 3.40.1 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <95144b63-292b-3d60-b7d2-1847a1611fd6@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
 
-On 19/05/2021 13:50, Juergen Gross wrote:
-> On 19.05.21 14:33, Julien Grall wrote:
->>
->>
->> On 19/05/2021 13:32, Julien Grall wrote:
->>> Hi Juergen,
->>>
->>> On 19/05/2021 10:09, Juergen Gross wrote:
->>>> On 18.05.21 20:11, Julien Grall wrote:
->>>>>
->>>>> I have started to look at preserving transaction accross Live-update 
-> in
->>>>
->>>>> C Xenstored. So far, I managed to transfer transaction that 
->>>>> read/write existing nodes.
->>>>>
->>>>> Now, I am running into trouble to transfer new/deleted node within a 
-> 
->>>>> transaction with the existing migration format.
->>>>>
->>>>> C Xenstored will keep track of nodes accessed during the transaction 
-> 
->>>>> but not the children (AFAICT for performance reason).
->>>>
->>>> Not performance reasons, but because there isn't any need for that:
->>>>
->>>> The children are either unchanged (so the non-transaction node records
->>>> apply), or they will be among the tracked nodes (transaction node
->>>> records apply). So in both cases all children should be known.
->>> In theory, opening a new transaction means you will not see any 
->>> modification in the global database until the transaction has been 
->>> committed. What you describe would break that because a client would 
->>> be able to see new nodes added outside of the transaction.
->>>
->>> However, C Xenstored implements neither of the two. Currently, when a 
->>> node is accessed within the transaction, we will also store the names 
->>> of the current children.
->>>
->>> To give an example with access to the global DB (prefixed with TID0) 
->>> and within a transaction (TID1)
->>>
->>>      1) TID0: MKDIR "data/bar"
->>>          2) Start transaction TID1
->>>      3) TID1: DIRECTORY "data"
->>>          -> This will cache the node data
->>>      4) TID0: MKDIR "data/foo"
->>>          -> This will create "foo" in the global database
->>>      5) TID1: MKDIR "data/fish"
->>>          -> This will create "fish" inthe transaction
->>>      5) TID1: DIRECTORY "data"
->>>          -> This will only return "bar" and "fish"
->>>
->>> If we Live-Update between 4) and 5). Then we should make sure that 
->>> "bar" cannot be seen in the listing by TID1.
->>
->> I meant "foo" here. Sorry for the confusion.
->>
->>>
->>> Therefore, I don't think we can restore the children using the global 
->>> node here. Instead we need to find a way to transfer the list of known 
-> 
->>> children within the transaction.
->>>
->>> As a fun fact, C Xenstored implements weirdly the transaction, so TID1 
-> 
->>> will be able to access "bar" if it knows the name but not list it.
-> 
-> And this is the basic problem, I think.
-> 
-> C Xenstored should be repaired by adding all (remaining) children of a
-> node into the TID's database when the list of children is modified
-> either globally or in a transaction. A child having been added globally
-> needs to be added as "deleted" into the TID's database.
+--=-Z8btzhCDS64c9HjaHiXd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-IIUC, for every modifications in the global database, we would need to 
-walk every single transactions and check whether a parent was accessed. 
-Am I correct?
+On Wed, 2021-05-19 at 08:28 +0200, Roger Pau Monn=C3=A9 wrote:
+> On Tue, May 18, 2021 at 06:42:45PM +0200, Dario Faggioli wrote:
+> > Fix the build inside our openSUSE Tumbleweed container by using
+> > adding libzstd headers. While there, remove the explicit dependency
+> > for python and python3 as the respective -devel packages will pull
+> > them in anyway.
+> >=20
+> > Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+>=20
+> Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>=20
+Thanks!
 
-If so, I don't think this is a workable solution because of the cost to 
-execute a single command.
+> Can you try to push an updated container to the registry?
+>=20
+Yeah, I tried, but I'm getting this:
 
-Is it something you plan to address differently with your rework of the DB?
+STEP 8: COMMIT registry.gitlab.com/xen-project/xen/suse:opensuse-tumbleweed
+--> 940c6edbff9
+940c6edbff965135a25bc20f0e2a59cf6062b9e8bc3516858828cbb7bba92d8f
+Getting image source signatures
+Copying blob acc28ee93e9b [--------------------------------------] 8.0b / 3=
+.5KiB
+Copying blob 89c6eef91991 [--------------------------------------] 8.0b / 5=
+7.0MiB
+Copying blob 20dabc80d591 [--------------------------------------] 8.0b / 9=
+0.6MiB
+Copying blob 5ea007576ed8 [--------------------------------------] 8.0b / 2=
+.0GiB
+Error: error copying image to the remote destination: Error writing blob: E=
+rror initiating layer upload to /v2/xen-project/xen/suse/blobs/uploads/ in =
+registry.gitlab.com: errors:
+denied: requested access to the resource is denied
+unauthorized: authentication required
 
-Cheers,
+make: *** [Makefile:15: suse/opensuse-tumbleweed] Error 125
 
--- 
-Julien Grall
+So, either I'm doing something wrong, or I was just misremembering and
+I don't have the permission to do that... Can we check if I do?
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-Z8btzhCDS64c9HjaHiXd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmClUF4ACgkQFkJ4iaW4
+c+4O/xAAwSdCZwqauw3kclkn03W5pkzgTdUyxwEJtENqywjoyNRauXX8rWE68DIe
+rReTh2YWZfTWURxnk1XmhMN78TIBa/BsCmMe39hbEU6iesk9pUGTV9vamX+9+KMB
+LlFbzT1wCxNNKVUxxeo49K7F3ZUL1wQTAO6nHlfDBEHTdRUF5x/Y1ncJ4YYrJ6vL
+D/Qsq6tem2XoxffgX8pUwqCvQXRRecfp8GnA3l6G1GiZAImryPkGAtAufQXVQb3F
+/EdjD7InES/zMK6HrftPyFWYw+DEctHiVaNTq+a1UQ1xlwABTtu+YOb12DF2Pml5
+VgXi4IrkRQrx2W5iiWmXvzWd3s2ERs2xsOE6r7pcUp+bpmP1qsEn8ckjHgB4q7eh
+M08Zf0OABGrXf8CU6H5TxPF1I07LGNK3QzN6COv/ZNj5U0/H/E35r/viagm4TsdN
+5uhtPY9Ai9tAInB74B4RDYIzi8P6OiDAMw4p8skeHrKRILBVCUuL0PbtqsCQAexM
+LxjJNRQaXTrtmODxDWwTkGXf1UC8Ww/h20eDHrXyMmX2fMXrx7RqwZShOOSOAS1H
+YdCPpSlDLYa+Rs1oWBe2a/MzwkrMilNG6tleqya+j8yojLqPgD3/9T7j5uwOlKsw
+Hjv0UKIS3fhuHo1bbuG0Ekw3pQerlr1kZXUr+0ptJwqYW3U+a/Q=
+=Ji1a
+-----END PGP SIGNATURE-----
+
+--=-Z8btzhCDS64c9HjaHiXd--
+
 
