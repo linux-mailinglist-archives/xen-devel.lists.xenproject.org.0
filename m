@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF573894CF
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 19:52:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130286.244136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E12B389548
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 20:28:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130296.244148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljQN2-0000j2-0j; Wed, 19 May 2021 17:52:36 +0000
+	id 1ljQum-0004CS-OC; Wed, 19 May 2021 18:27:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130286.244136; Wed, 19 May 2021 17:52:35 +0000
+Received: by outflank-mailman (output) from mailman id 130296.244148; Wed, 19 May 2021 18:27:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljQN1-0000gf-TQ; Wed, 19 May 2021 17:52:35 +0000
-Received: by outflank-mailman (input) for mailman id 130286;
- Wed, 19 May 2021 17:52:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ufKr=KO=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1ljQMz-0000gS-TA
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 17:52:33 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49dd08ff-c781-420d-9e3c-3da7321213a6;
- Wed, 19 May 2021 17:52:33 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1F6D0AC47;
- Wed, 19 May 2021 17:52:32 +0000 (UTC)
+	id 1ljQum-0004Ab-Kk; Wed, 19 May 2021 18:27:28 +0000
+Received: by outflank-mailman (input) for mailman id 130296;
+ Wed, 19 May 2021 18:27:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ljQul-0004AV-4X
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 18:27:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ljQuk-00083q-TW; Wed, 19 May 2021 18:27:26 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ljQuk-0003jx-No; Wed, 19 May 2021 18:27:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,109 +39,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49dd08ff-c781-420d-9e3c-3da7321213a6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621446752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zedULLW8DGxX1TLqyo9Mi46k+PxRWRbfziyEmVYvztA=;
-	b=adc3KTvdkttFurZbadKEWBWose4cSZpPL4W5vQOLgSfYzK2VuHDRpqNcgX+10R+8ar6l8N
-	Ezd/GBvSx1ya6YGNy3p2V7OasvdsnPjlbbnHUZdWJzwFp1ex2oDyNJCXSQbAZKDNOQdFZo
-	8ScfT2YkOgS1Y0EDwt8L8OP68DDHdGo=
-Message-ID: <b596d5ea2e96be5c6d627e14b87beb51ba4a094e.camel@suse.com>
-Subject: Re: [PATCH v2 2/2] automation: fix dependencies on openSUSE
- Tumbleweed containers
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Wed, 19 May 2021 19:52:30 +0200
-In-Reply-To: <YKSv/BGxuy+OCn3t@Air-de-Roger>
-References: <162135593827.20014.14959979363028895972.stgit@Wayrath>
-	 <162135616513.20014.6303562342690753615.stgit@Wayrath>
-	 <YKSv/BGxuy+OCn3t@Air-de-Roger>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Z8btzhCDS64c9HjaHiXd"
-User-Agent: Evolution 3.40.1 (by Flathub.org) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=KER7IdtF5PMSqwmGU0+kGoiqT5QVxY45ekVVsbNdjFg=; b=hVF9SPrGXSwlG94RVrR0JYMuIx
+	HkOO7Ukl+hqMol4V8AwZVITnsmCAL2Il1TTc+92+kvm+J1+YTE75/mw4de/gLmLERao3py5h1JRWx
+	f15p1jLlL0l7ul/12dLb6l8NHzxr+TkAEhaBA1tiyDqQQk4sSn4EgIuMt9f5aSd3okVY=;
+Subject: Re: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ nd <nd@arm.com>
+References: <20210518052113.725808-1-penny.zheng@arm.com>
+ <20210518052113.725808-2-penny.zheng@arm.com>
+ <e1b90f06-92d2-11da-c556-4081907124b8@xen.org>
+ <VE1PR08MB521519C6F09E92EDB9C9A1AEF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <66e32065-ea2d-d000-1a70-e5598a182b6a@xen.org>
+Date: Wed, 19 May 2021 19:27:24 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-
-
---=-Z8btzhCDS64c9HjaHiXd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2021-05-19 at 08:28 +0200, Roger Pau Monn=C3=A9 wrote:
-> On Tue, May 18, 2021 at 06:42:45PM +0200, Dario Faggioli wrote:
-> > Fix the build inside our openSUSE Tumbleweed container by using
-> > adding libzstd headers. While there, remove the explicit dependency
-> > for python and python3 as the respective -devel packages will pull
-> > them in anyway.
-> >=20
-> > Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
->=20
-> Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->=20
-Thanks!
-
-> Can you try to push an updated container to the registry?
->=20
-Yeah, I tried, but I'm getting this:
-
-STEP 8: COMMIT registry.gitlab.com/xen-project/xen/suse:opensuse-tumbleweed
---> 940c6edbff9
-940c6edbff965135a25bc20f0e2a59cf6062b9e8bc3516858828cbb7bba92d8f
-Getting image source signatures
-Copying blob acc28ee93e9b [--------------------------------------] 8.0b / 3=
-.5KiB
-Copying blob 89c6eef91991 [--------------------------------------] 8.0b / 5=
-7.0MiB
-Copying blob 20dabc80d591 [--------------------------------------] 8.0b / 9=
-0.6MiB
-Copying blob 5ea007576ed8 [--------------------------------------] 8.0b / 2=
-.0GiB
-Error: error copying image to the remote destination: Error writing blob: E=
-rror initiating layer upload to /v2/xen-project/xen/suse/blobs/uploads/ in =
-registry.gitlab.com: errors:
-denied: requested access to the resource is denied
-unauthorized: authentication required
-
-make: *** [Makefile:15: suse/opensuse-tumbleweed] Error 125
-
-So, either I'm doing something wrong, or I was just misremembering and
-I don't have the permission to do that... Can we check if I do?
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-Z8btzhCDS64c9HjaHiXd
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+In-Reply-To: <VE1PR08MB521519C6F09E92EDB9C9A1AEF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+On 19/05/2021 03:22, Penny Zheng wrote:
+> Hi Julien
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmClUF4ACgkQFkJ4iaW4
-c+4O/xAAwSdCZwqauw3kclkn03W5pkzgTdUyxwEJtENqywjoyNRauXX8rWE68DIe
-rReTh2YWZfTWURxnk1XmhMN78TIBa/BsCmMe39hbEU6iesk9pUGTV9vamX+9+KMB
-LlFbzT1wCxNNKVUxxeo49K7F3ZUL1wQTAO6nHlfDBEHTdRUF5x/Y1ncJ4YYrJ6vL
-D/Qsq6tem2XoxffgX8pUwqCvQXRRecfp8GnA3l6G1GiZAImryPkGAtAufQXVQb3F
-/EdjD7InES/zMK6HrftPyFWYw+DEctHiVaNTq+a1UQ1xlwABTtu+YOb12DF2Pml5
-VgXi4IrkRQrx2W5iiWmXvzWd3s2ERs2xsOE6r7pcUp+bpmP1qsEn8ckjHgB4q7eh
-M08Zf0OABGrXf8CU6H5TxPF1I07LGNK3QzN6COv/ZNj5U0/H/E35r/viagm4TsdN
-5uhtPY9Ai9tAInB74B4RDYIzi8P6OiDAMw4p8skeHrKRILBVCUuL0PbtqsCQAexM
-LxjJNRQaXTrtmODxDWwTkGXf1UC8Ww/h20eDHrXyMmX2fMXrx7RqwZShOOSOAS1H
-YdCPpSlDLYa+Rs1oWBe2a/MzwkrMilNG6tleqya+j8yojLqPgD3/9T7j5uwOlKsw
-Hjv0UKIS3fhuHo1bbuG0Ekw3pQerlr1kZXUr+0ptJwqYW3U+a/Q=
-=Ji1a
------END PGP SIGNATURE-----
+Hi Penny,
 
---=-Z8btzhCDS64c9HjaHiXd--
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Tuesday, May 18, 2021 4:58 PM
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+>> sstabellini@kernel.org
+>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>> <Wei.Chen@arm.com>; nd <nd@arm.com>
+>> Subject: Re: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
+>>> +beginning, shall never go to heap allocator or boot allocator for any use.
+>>> +
+>>> +Domains on Static Allocation is supported through device tree
+>>> +property `xen,static-mem` specifying reserved RAM banks as this domain's
+>> guest RAM.
+>>
+>> I would suggest to use "physical RAM" when you refer to the host memory.
+>>
+>>> +By default, they shall be mapped to the fixed guest RAM address
+>>> +`GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`.
+>>
+>> There are a few bits that needs to clarified or part of the description:
+>>     1) "By default" suggests there is an alternative possibility.
+>> However, I don't see any.
+>>     2) Will the first region of xen,static-mem be mapped to GUEST_RAM0_BASE
+>> and the second to GUEST_RAM1_BASE? What if a third region is specificed?
+>>     3) We don't guarantee the base address and the size of the banks.
+>> Wouldn't it be better to let the admin select the region he/she wants?
+>>     4) How do you determine the number of cells for the address and the size?
+>>
+> 
+> The specific implementation on this part could be traced to the last commit
+> https://patchew.org/Xen/20210518052113.725808-1-penny.zheng@arm.com/20210518052113.725808-11-penny.zheng@arm.com/
 
+Right. My point is an admin should not have to read the code in order to 
+figure out how the allocation works.
+
+> 
+> It will exhaust the GUEST_RAM0_SIZE, then seek to the GUEST_RAM1_BASE.
+> GUEST_RAM0 may take up several regions.
+
+Can this be clarified in the commit message.
+
+> Yes, I may add the 1:1 direct-map scenario here to explain the alternative possibility
+
+Ok. So I would suggest to remove "by default" until the implementation 
+for direct-map is added.
+
+> For the third point, are you suggesting that we could provide an option that let user
+> also define guest memory base address/size?
+
+When reading the document, I originally thought that the first region 
+would be mapped to bank1, and then the second region mapped to bank2...
+
+But from your reply, this is not the expected behavior. Therefore, 
+please ignore my suggestion here.
+
+> I'm confused on the fourth point, you mean the address cell and size cell for xen,static-mem = <...>?
+
+Yes. This should be clarified in the document. See more below why?
+
+> It will be consistent with the ones defined in the parent node, domUx.
+Hmmm... To take the example you provided, the parent would be chosen. 
+However, from the example, I would expect the property #{address, 
+size}-cells in domU1 to be used. What did I miss?
+
+>>> +Static Allocation is only supported on AArch64 for now.
+>>
+>> The code doesn't seem to be AArch64 specific. So why can't this be used for
+>> 32-bit Arm?
+>>
+> 
+> True, we have plans to make it also workable in AArch32 in the future.
+> Because we considered XEN on cortex-R52.
+
+All the code seems to be implemented in arm generic code. So isn't it 
+already working?
+
+>>>    static int __init early_scan_node(const void *fdt,
+>>>                                      int node, const char *name, int depth,
+>>>                                      u32 address_cells, u32 size_cells,
+>>> @@ -345,6 +394,9 @@ static int __init early_scan_node(const void *fdt,
+>>>            process_multiboot_node(fdt, node, name, address_cells, size_cells);
+>>>        else if ( depth == 1 && device_tree_node_matches(fdt, node, "chosen") )
+>>>            process_chosen_node(fdt, node, name, address_cells,
+>>> size_cells);
+>>> +    else if ( depth == 2 && fdt_get_property(fdt, node, "xen,static-mem",
+>> NULL) )
+>>> +        process_static_memory(fdt, node, "xen,static-mem", address_cells,
+>>> +                              size_cells, &bootinfo.static_mem);
+>>
+>> I am a bit concerned to add yet another method to parse the DT and all the
+>> extra code it will add like in patch #2.
+>>
+>>   From the host PoV, they are memory reserved for a specific purpose.
+>> Would it be possible to consider the reserve-memory binding for that
+>> purpose? This will happen outside of chosen, but we could use a phandle to
+>> refer the region.
+>>
+> 
+> Correct me if I understand wrongly, do you mean what this device tree snippet looks like:
+
+Yes, this is what I had in mind. Although I have one small remark below.
+
+
+> reserved-memory {
+>     #address-cells = <2>;
+>     #size-cells = <2>;
+>     ranges;
+>   
+>     static-mem-domU1: static-mem@0x30000000{
+
+I think the node would need to contain a compatible (name to be defined).
+
+>        reg = <0x0 0x30000000 0x0 0x20000000>;
+>     };
+> };
+> 
+> Chosen {
+>   ...
+> domU1 {
+>     xen,static-mem = <&static-mem-domU1>;
+> };
+> ...
+> };
+> 
+>>>
+>>>        if ( rc < 0 )
+>>>            printk("fdt: node `%s': parsing failed\n", name); diff --git
+>>> a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h index
+>>> 5283244015..5e9f296760 100644
+>>> --- a/xen/include/asm-arm/setup.h
+>>> +++ b/xen/include/asm-arm/setup.h
+>>> @@ -74,6 +74,8 @@ struct bootinfo {
+>>>    #ifdef CONFIG_ACPI
+>>>        struct meminfo acpi;
+>>>    #endif
+>>> +    /* Static Memory */
+>>> +    struct meminfo static_mem;
+>>>    };
+>>>
+>>>    extern struct bootinfo bootinfo;
+>>>
+>>
+>> Cheers,
+>>
+>> --
+>> Julien Grall
+
+Cheers,
+
+-- 
+Julien Grall
 
