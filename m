@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6C96388A39
-	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 11:10:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.129952.243683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CBA3388AA4
+	for <lists+xen-devel@lfdr.de>; Wed, 19 May 2021 11:30:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.129957.243694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljICQ-0007Lb-EG; Wed, 19 May 2021 09:09:06 +0000
+	id 1ljIWW-0001Pt-4Y; Wed, 19 May 2021 09:29:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 129952.243683; Wed, 19 May 2021 09:09:06 +0000
+Received: by outflank-mailman (output) from mailman id 129957.243694; Wed, 19 May 2021 09:29:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljICQ-0007J7-AC; Wed, 19 May 2021 09:09:06 +0000
-Received: by outflank-mailman (input) for mailman id 129952;
- Wed, 19 May 2021 09:09:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ljIWW-0001Nr-1M; Wed, 19 May 2021 09:29:52 +0000
+Received: by outflank-mailman (input) for mailman id 129957;
+ Wed, 19 May 2021 09:29:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iEmX=KO=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1ljICP-0007IG-3L
- for xen-devel@lists.xenproject.org; Wed, 19 May 2021 09:09:05 +0000
+ (envelope-from <SRS0=fOiY=KO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ljIWU-0001Nj-IJ
+ for xen-devel@lists.xenproject.org; Wed, 19 May 2021 09:29:50 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 229aa98e-3b1f-41b2-a926-e0084948aa17;
- Wed, 19 May 2021 09:09:03 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d5c28893-fc35-4c89-8241-fac1070c28d8;
+ Wed, 19 May 2021 09:29:49 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D314AAD4D;
- Wed, 19 May 2021 09:09:02 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 84F3BAE39;
+ Wed, 19 May 2021 09:29:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,197 +38,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 229aa98e-3b1f-41b2-a926-e0084948aa17
+X-Inumbo-ID: d5c28893-fc35-4c89-8241-fac1070c28d8
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621415343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1621416588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=d38op44yArEklt9nY3Pxlhuel+QoKnf9ixOflUR1UkY=;
-	b=qG5/udPchljOP4Yi6/qxS0o2tJU9apI7L1aHThSr1iE6VIXOEisUy5QdVxzjkMBw4PmJCn
-	5VYt25PcDcKDnlPatV75VOZpLbqVWQPPdVyuyG+/XWZ5vgJMmh7Tn0Ux1VAVYJJ9+tWHNB
-	dXlPJlu6zE6dRmvM/lVc1hCKVoTCL3U=
-To: Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Edwin Torok <edvin.torok@citrix.com>, "Doebel, Bjoern" <doebel@amazon.de>,
- raphning@amazon.co.uk, "Durrant, Paul" <pdurrant@amazon.co.uk>
-References: <13bbb51e-f63d-a886-272f-e6a6252fb468@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: Preserving transactions accross Xenstored Live-Update
-Message-ID: <377d042d-40ec-dafc-3d03-370c4f5dbb4c@suse.com>
-Date: Wed, 19 May 2021 11:09:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+	bh=70fZJvNZqwFm//PLmJ2D6mSvvED+4URflxvX5wyUEiw=;
+	b=UcrhyrzPWpUdVWTzvspsKzKq7tHfVXSF3pQQieM4GqdTK/6zK97L9U8oqfEUAtyQ/3JCtd
+	/x8bQmv9YGusAr5cNsprTkCBWAM0LLPFZ3TARRzMo6w2F9qbVFA9uvbyZeicCR8zCaz73b
+	gkWOBVM/In89PBmVi2WskOt3TLHe9jw=
+Subject: Re: [PATCH v3 2/5] xen/x86: manually build xen.mb.efi binary
+To: Daniel Kiper <daniel.kiper@oracle.com>
+Cc: Bob Eshleman <bobbyeshleman@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <cover.1611273359.git.bobbyeshleman@gmail.com>
+ <28d5536a2f7691e8f79d55f1470fa89ce4fae93d.1611273359.git.bobbyeshleman@gmail.com>
+ <3c621726-31c4-6a79-a020-88c59644111b@suse.com>
+ <74ea104d-3826-d80d-3af5-f444d065c73f@gmail.com>
+ <a183a5f9-0f36-187d-fd06-8d6db99cbe43@suse.com>
+ <20210517132039.6czppjfge27x4mwg@tomti.i.net-space.pl>
+ <ee89a22d-5f46-51ed-4c46-63cfc60cbafc@suse.com>
+ <20210518174633.spo5kmgcbuo6dg5k@tomti.i.net-space.pl>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <51333867-d693-38e2-bd1c-fce28241a604@suse.com>
+Date: Wed, 19 May 2021 11:29:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <13bbb51e-f63d-a886-272f-e6a6252fb468@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Q0ERxfPhXqLWuomJi5eJsqfKJ0KpRzZPy"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Q0ERxfPhXqLWuomJi5eJsqfKJ0KpRzZPy
-Content-Type: multipart/mixed; boundary="VEav0ghbVwDkAjldmXSNEOQ1smduzBaJd";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Edwin Torok <edvin.torok@citrix.com>, "Doebel, Bjoern" <doebel@amazon.de>,
- raphning@amazon.co.uk, "Durrant, Paul" <pdurrant@amazon.co.uk>
-Message-ID: <377d042d-40ec-dafc-3d03-370c4f5dbb4c@suse.com>
-Subject: Re: Preserving transactions accross Xenstored Live-Update
-References: <13bbb51e-f63d-a886-272f-e6a6252fb468@xen.org>
-In-Reply-To: <13bbb51e-f63d-a886-272f-e6a6252fb468@xen.org>
-
---VEav0ghbVwDkAjldmXSNEOQ1smduzBaJd
-Content-Type: multipart/mixed;
- boundary="------------C69D794A7A1B5E58D3B75BCB"
+In-Reply-To: <20210518174633.spo5kmgcbuo6dg5k@tomti.i.net-space.pl>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------C69D794A7A1B5E58D3B75BCB
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 18.05.2021 19:46, Daniel Kiper wrote:
+> On Mon, May 17, 2021 at 03:24:28PM +0200, Jan Beulich wrote:
+>> On 17.05.2021 15:20, Daniel Kiper wrote:
+>>> On Mon, May 17, 2021 at 08:48:32AM +0200, Jan Beulich wrote:
+>>>> On 07.05.2021 22:26, Bob Eshleman wrote:
+>>>>> What is your intuition WRT the idea that instead of trying add a PE/COFF hdr
+>>>>> in front of Xen's mb2 bin, we instead go the route of introducing valid mb2
+>>>>> entry points into xen.efi?
+>>>>
+>>>> At the first glance I think this is going to be less intrusive, and hence
+>>>> to be preferred. But of course I haven't experimented in any way ...
+>>>
+>>> When I worked on this a few years ago I tried that way. Sadly I failed
+>>> because I was not able to produce "linear" PE image using binutils
+>>> exiting that days.
+>>
+>> What is a "linear" PE image?
+> 
+> The problem with Multiboot family protocols is that all code and data
+> sections have to be glued together in the image and as such loaded into
+> the memory (IIRC BSS is an exception but it has to live behind the
+> image). So, you cannot use PE image which has different representation
+> in file and memory. IIRC by default at least code and data sections in
+> xen.efi have different sizes in PE file and in memory. I tried to fix
+> that using linker script and objcopy but it did not work. Sadly I do
+> not remember the details but there is pretty good chance you can find
+> relevant emails in Xen-devel archive with me explaining what kind of
+> problems I met.
 
-On 18.05.21 20:11, Julien Grall wrote:
-> Hi Juergen,
->=20
-> I have started to look at preserving transaction accross Live-update in=20
+Ah, this rings a bell. Even the .bss-is-last assumption doesn't hold,
+because .reloc (for us as well as in general) comes later, but needs
+loading (in the right place). Since even xen.gz isn't simply the
+compressed linker output, but a post-processed (by mkelf32) image,
+maybe what we need is a build tool doing similar post-processing on
+xen.efi? Otoh getting disk image and in-memory image aligned ought
+to be possible by setting --section-alignment= and --file-alignment=
+to the same value (resulting in a much larger file) - adjusting file
+positions would effectively be what a post-processing tool would need
+to do (like with mkelf32 perhaps we could then at least save the
+first ~2Mb of space). Which would still leave .reloc to be dealt with
+- maybe we could place this after .init, but still ahead of
+__init_end (such that the memory would get freed late in the boot
+process). Not sure whether EFI loaders would "like" such an unusual
+placement.
 
-> C Xenstored. So far, I managed to transfer transaction that read/write =
+Also not sure what to do with Dwarf debug info, which just recently
+we managed to avoid needing to strip unconditionally.
 
-> existing nodes.
->=20
-> Now, I am running into trouble to transfer new/deleted node within a=20
-> transaction with the existing migration format.
->=20
-> C Xenstored will keep track of nodes accessed during the transaction bu=
-t=20
-> not the children (AFAICT for performance reason).
+>>> Maybe
+>>> newer binutils are more flexible and will be able to produce a PE image
+>>> with properties required by Multiboot2 protocol.
+>>
+>> Isn't all you need the MB2 header within the first so many bytes of the
+>> (disk) image? Or was it the image as loaded into memory? Both should be
+>> possible to arrange for.
+> 
+> IIRC Multiboot2 protocol requires the header in first 32 kiB of an image.
+> So, this is not a problem.
 
-Not performance reasons, but because there isn't any need for that:
+I was about to ask "Disk image or in-memory image?" But this won't
+matter if the image as a whole got linearized, as long as the first
+section doesn't start to high up. I notice that xen-syms doesn't fit
+this requirement either, only the output of mkelf32 does. Which
+suggests that there may not be a way around a post-processing tool.
 
-The children are either unchanged (so the non-transaction node records
-apply), or they will be among the tracked nodes (transaction node
-records apply). So in both cases all children should be known.
-
-In case a child has been deleted in the transaction, the stream should
-contain a node record for that child with the transaction-id and the
-number of permissions being zero: see docs/designs/xenstore-migration.md
-
-
-Juergen
-
---------------C69D794A7A1B5E58D3B75BCB
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------C69D794A7A1B5E58D3B75BCB--
-
---VEav0ghbVwDkAjldmXSNEOQ1smduzBaJd--
-
---Q0ERxfPhXqLWuomJi5eJsqfKJ0KpRzZPy
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCk1a0FAwAAAAAACgkQsN6d1ii/Ey8l
-CQf/a9CHgVa36Y2Gvo8BsHSRnGL5wiAZ5CXE7SH2HwBpu7jED9cEptfUVgeekB7szsNHg1coDfgA
-wCoSheXuD8ZOV86dRRtwwr1e/Fnw7TAJjSYxoJq6i0bjtvTXlg7fvC71+CWVlpwRqvWnEepZqFeA
-pQb9HSJpkrcrA8f0QuImWsEAwtT7vTC57oua34cLf31OMcOktYM4fl2g28btRRqkGDvtlmo5GBAV
-s4Cjh9eQ6FkMiCw/uUxjU9E85cWuN7glCebjtjpeNizhKz0YF6mw/8S1B3T4cJMWoD6aaHhrBRPU
-ubadA4/2sPjzuutm8eYjSvdYy5RkIn3AZmt+JDYbKA==
-=pGk5
------END PGP SIGNATURE-----
-
---Q0ERxfPhXqLWuomJi5eJsqfKJ0KpRzZPy--
+Jan
 
