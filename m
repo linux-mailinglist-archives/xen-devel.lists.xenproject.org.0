@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB6538A188
-	for <lists+xen-devel@lfdr.de>; Thu, 20 May 2021 11:32:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130841.244863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3A838A299
+	for <lists+xen-devel@lfdr.de>; Thu, 20 May 2021 11:43:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130848.244875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljf2O-0001Ri-6u; Thu, 20 May 2021 09:32:16 +0000
+	id 1ljfCB-0002wA-6W; Thu, 20 May 2021 09:42:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130841.244863; Thu, 20 May 2021 09:32:16 +0000
+Received: by outflank-mailman (output) from mailman id 130848.244875; Thu, 20 May 2021 09:42:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljf2O-0001Ox-3q; Thu, 20 May 2021 09:32:16 +0000
-Received: by outflank-mailman (input) for mailman id 130841;
- Thu, 20 May 2021 09:32:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ljfCB-0002tu-2s; Thu, 20 May 2021 09:42:23 +0000
+Received: by outflank-mailman (input) for mailman id 130848;
+ Thu, 20 May 2021 09:42:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3HBq=KP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ljf2M-0001Or-K2
- for xen-devel@lists.xenproject.org; Thu, 20 May 2021 09:32:14 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 330c381a-872c-4e12-a4fd-8b77eee0aacd;
- Thu, 20 May 2021 09:32:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DEC22AD05;
- Thu, 20 May 2021 09:32:12 +0000 (UTC)
+ (envelope-from <SRS0=dJWQ=KP=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1ljfC9-0002to-2z
+ for xen-devel@lists.xenproject.org; Thu, 20 May 2021 09:42:21 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.162])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 38677db3-371f-4424-877f-42badcb9b1e6;
+ Thu, 20 May 2021 09:42:20 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.26.1 AUTH)
+ with ESMTPSA id y090b8x4K9gI1WD
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 20 May 2021 11:42:18 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,102 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 330c381a-872c-4e12-a4fd-8b77eee0aacd
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621503133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hwuztHQr2Kb8ZQYj6qaMQveg8GSd7xgfZc3Cy1tcmsw=;
-	b=dw0VRgAqBUHLJCEJXV0544dTD0M/JWe7DZo2yLbkcZjpKg6Pp/s7ady1Pnlv9TUhdHMKJQ
-	0Fy0YmqUWJ0KlhuwXVpgMjqb+IRzyIex4TcNIm2IdjSpEe+tNjuhpP8cVf0CVbDzlgbb80
-	1Gu+d1CbxLRToVMIDcgGnu9Z5uv+LxI=
-Subject: Re: [PATCH 04/10] xen/arm: static memory initialization
-To: Penny Zheng <Penny.Zheng@arm.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- nd <nd@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "julien@xen.org" <julien@xen.org>
-References: <20210518052113.725808-1-penny.zheng@arm.com>
- <20210518052113.725808-5-penny.zheng@arm.com>
- <dbffa647-37e2-93b6-4041-a1344aeb1837@suse.com>
- <VE1PR08MB5215E7203960F535BC857F5CF72C9@VE1PR08MB5215.eurprd08.prod.outlook.com>
- <f9776245-0a33-4cb8-fd5a-f7be8ab38b78@suse.com>
- <VE1PR08MB52152D4CD1542D0B35CF95CDF72A9@VE1PR08MB5215.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1a3b3024-5955-3c94-3af3-fd20e0d37a73@suse.com>
-Date: Thu, 20 May 2021 11:32:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+X-Inumbo-ID: 38677db3-371f-4424-877f-42badcb9b1e6
+ARC-Seal: i=1; a=rsa-sha256; t=1621503738; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=mdUu44O058xdiGLZuflX23sF4F48yLP7lNYwxyAwPOqAUNK+GONo9p/SvYdHPjXwnt
+    nUschUnqUeuaDWRZCQkW0UdCfVEgLVROPHwsu+mnd4eWBuqE4oXIvNoMF1drNiUM7BGm
+    BzFONro4QvIOH+CEOmn0IRNM+b/E6wDbE7UeRps8UCgpDcs+DLsJkYQYxGZh/pFcYA25
+    Zcs2gBYGLO1dJCSHdri/zDAmLMfmCxhd43OGv2iJ1iEQ7AuCSoiLglA0J6svd5Xxf5S1
+    L0RQhMwvneaEol6iOXlvjY0kc/5ifRDgVsBchFBPg/8qy20eSeCtF9wcDt0aGnfiG9uY
+    jxng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1621503738;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=iO/vJOdJVgZVet5cNxZHIeNDk8t9dkkX/g1Ln/bCvZI=;
+    b=XAmGeQiiyWcwVscVqJwUbNAox0IhbQ710tlVR/YH/dssaChDRR2GeWi8AoX49RVM7d
+    uJBi5Pk87Hzna/Gq9inBiAAQGT0DHYvsgGmt98WYuKHdp4z2Eey8zSpolEkOXZSES3M1
+    7c2rAGXZmJwpXlPIXPR5uozLZEuA9qnk4UPaeHKSo/gNHROGiZrK46lIegYCjahY/bRs
+    V0uY6lcwtV+KSuOOXtutkuUjpK5Iv/h53wugKccYCBiVmMfaVxeyiyTLLZ9ChHFDTMOR
+    1YAaetv7UYYrinEdgSEFfc4FbGG2SvY8yLOdYSMORW1X5XtAw9KDCnjOcVV5ZWn/PNTy
+    ZmRA==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1621503738;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=iO/vJOdJVgZVet5cNxZHIeNDk8t9dkkX/g1Ln/bCvZI=;
+    b=qhUME75t2zbBmW5Wvkt/1FflvGYTDlhlBr2OJq8/qi85Rk2DWYRrEln3BtIDY6n3C1
+    83W3InFHa7bFK6LYYPMJAvmqX6A5X7j22ofF/rrSYpUZg4M0iNJZdj+XniyUn58QyRlN
+    NM8g6jVzvDqR9/NplNTQVxCt7n8nVBvaL0YDXOv9U0d2vd67RNPBc7UPDXup3ZZjN46b
+    nxvuCswm9MEEfP3xuC59Sb9psDX03LDdnPwkL/te/iCTYWE3s+j2hQprHGb0YLS44cBR
+    kwUJtYa2z5dTUPA72Ke4damFX2vtSIemVAGNvU0h1pvlvlm4iTv1Gq+MZHsBa9G4PA41
+    ox1w==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF9Wx7WbE3s+BU2kLCYUBd7t4vRd/ulzKn4R+Wk"
+X-RZG-CLASS-ID: mo00
+Date: Thu, 20 May 2021 11:42:10 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: regression in recent pvops kernels, dom0 crashes early
+Message-ID: <20210520114210.2d87f752.olaf@aepfle.de>
+In-Reply-To: <20210520094503.606a1761.olaf@aepfle.de>
+References: <20210513122457.4182eb7f.olaf@aepfle.de>
+	<7abb3c8f-4a9b-700b-5c0c-dc6f42336eab@suse.com>
+	<20210519204205.5bf59d51.olaf@aepfle.de>
+	<bb51ff7d-bd02-f039-dace-1c7f31fd2e1e@suse.com>
+	<20210520094503.606a1761.olaf@aepfle.de>
+X-Mailer: Claws Mail 2021.04.23 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <VE1PR08MB52152D4CD1542D0B35CF95CDF72A9@VE1PR08MB5215.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/SOeGg0J1gBRJ3.7tORmW9aU";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On 20.05.2021 11:04, Penny Zheng wrote:
-> Hi Jan
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, May 18, 2021 6:43 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>
->> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->> <Wei.Chen@arm.com>; nd <nd@arm.com>; xen-devel@lists.xenproject.org;
->> sstabellini@kernel.org; julien@xen.org
->> Subject: Re: [PATCH 04/10] xen/arm: static memory initialization
->>
->> On 18.05.2021 11:51, Penny Zheng wrote:
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Tuesday, May 18, 2021 3:16 PM
->>>>
->>>> On 18.05.2021 07:21, Penny Zheng wrote:
->>>>> This patch introduces static memory initialization, during system
->>>>> RAM boot
->>>> up.
->>>>>
->>>>> New func init_staticmem_pages is the equivalent of init_heap_pages,
->>>>> responsible for static memory initialization.
->>>>>
->>>>> Helper func free_staticmem_pages is the equivalent of
->>>>> free_heap_pages, to free nr_pfns pages of static memory.
->>>>> For each page, it includes the following steps:
->>>>> 1. change page state from in-use(also initialization state) to free
->>>>> state and grant PGC_reserved.
->>>>> 2. set its owner NULL and make sure this page is not a guest frame
->>>>> any more
->>>>
->>>> But isn't the goal (as per the previous patch) to associate such
->>>> pages with a _specific_ domain?
->>>>
->>>
->>> Free_staticmem_pages are alike free_heap_pages, are not used only for
->> initialization.
->>> Freeing used pages to unused are also included.
->>> Here, setting its owner NULL is to set owner in used field NULL.
->>
->> I'm afraid I still don't understand.
->>
-> 
-> When initializing heap, xen is using free_heap_pages to do the initialization.
-> And also when normal domain get destroyed/rebooted, xen is using free_domheap_pages,
-> which calls free_heap_pages to free the pages.
-> 
-> So here, since free_staticmem_pages is the equivalent of the free_heap_pages for static
-> memory, I'm also considering both two scenarios here. And if it is domain get destroyed/rebooted,
-> Page state is in inuse state(PGC_inuse), and the page_info.v.inuse.domain is holding the
-> domain owner.
-> When freeing then, we need to switch the page state to free state(PGC_free) and set its inuse owner to NULL.
+--Sig_/SOeGg0J1gBRJ3.7tORmW9aU
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Perhaps my confusion comes from your earlier outline missing
+Am Thu, 20 May 2021 09:45:03 +0200
+schrieb Olaf Hering <olaf@aepfle.de>:
 
-3. re-associate the page with the domain (as represented in free
-   pages)
+> Am Thu, 20 May 2021 09:03:34 +0200
+> schrieb Jan Beulich <jbeulich@suse.com>:
+>=20
+> > Just to be sure - you did not need the other patch that I said I suspect
+> > is needed as a prereq? =20
+> Yes, I needed just this single patch which moves x86_configure_nx up.
 
-The property of "designated for Dom<N>" should never go away, if I
-understand the overall proposal correctly.
+I tried the very same approach with the SLE12-SP4-LTSS branch, which also f=
+ixed dom0 boot.
 
-Jan
+
+Olaf
+
+--Sig_/SOeGg0J1gBRJ3.7tORmW9aU
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmCmLvMACgkQ86SN7mm1
+DoB/dRAAg8cAb9VTR8/tOMsK0+98rE1v/e5Iap3fVRKf4kOzlqa/QGyRxCIZvrrW
+UQ1O7Nol/ldfWvHHC47MukXpgfpbJfZmgg9tXuRZNftez8mUXYBSe9IApx6yzZTO
+DVemLrZqd6g6TAOTC5CnQH9N/3nz/oSUDfSjnS8Kay3vAOcByZQ4ySJ4POTZOxPt
+eAskXnj7uF+JBvHkHzctg5jkEJnEqd8KfX20qKktyaRcB6PbgCihBwDKm153zPf8
+nf9acIccabfGmT+gMRQPzqkX5U6ixXG2KXrhR1O7/QmIsAjClAWc8QIVA6a9/1gM
+gskgVpWhAgk0aIzl2QUaLuxHhHXA/xVL/6ivMMTtjmTGUMeU5g/qo5wFjBI2xwHm
+AXj9MZW9fw4XJNiwYqTgrMvK5vMbBZqXPmawJ9quIrcVb0XUtrtDpedSdTmbKsVP
+t7AmQ3zpAYa8prpi5nB2ecyWtA6hFDaNewcQP/xP17HuzhYLevFVgmeBZuoM94sy
+Nx2VloaCbBhUOU6OJag5HubWabUKHyiGI09VnXTnGznwExoJ9jFDgZFmlRCrdzsG
+JSONrh+TtG2cS6wdPhW98pKQs9djsFjAM/7EoOsLBeal3Gvv7eb3AENYlR33ebac
+nFWxM6XdtMU8qoRuTKKQMVZG/JwkALg8ClbRES1J8cSrZRy15VM=
+=qIDr
+-----END PGP SIGNATURE-----
+
+--Sig_/SOeGg0J1gBRJ3.7tORmW9aU--
 
