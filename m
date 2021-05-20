@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4ECF38ACB9
-	for <lists+xen-devel@lfdr.de>; Thu, 20 May 2021 13:46:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130887.244930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60EBA38AD33
+	for <lists+xen-devel@lfdr.de>; Thu, 20 May 2021 13:58:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130895.244941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljh82-00008k-Eb; Thu, 20 May 2021 11:46:14 +0000
+	id 1ljhJ8-0001f7-GO; Thu, 20 May 2021 11:57:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130887.244930; Thu, 20 May 2021 11:46:14 +0000
+Received: by outflank-mailman (output) from mailman id 130895.244941; Thu, 20 May 2021 11:57:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljh82-00005J-AW; Thu, 20 May 2021 11:46:14 +0000
-Received: by outflank-mailman (input) for mailman id 130887;
- Thu, 20 May 2021 11:46:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ljhJ8-0001c5-Ct; Thu, 20 May 2021 11:57:42 +0000
+Received: by outflank-mailman (input) for mailman id 130895;
+ Thu, 20 May 2021 11:57:40 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3HBq=KP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ljh80-00005A-BX
- for xen-devel@lists.xenproject.org; Thu, 20 May 2021 11:46:12 +0000
+ (envelope-from <SRS0=RJtO=KP=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1ljhJ6-0001bz-50
+ for xen-devel@lists.xenproject.org; Thu, 20 May 2021 11:57:40 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 452d03e5-8045-492b-bb8b-5b139634e41a;
- Thu, 20 May 2021 11:46:11 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 72b26c6a-6ba7-4a2d-95b4-265fba9f409c;
+ Thu, 20 May 2021 11:57:39 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4EBBAAC4B;
- Thu, 20 May 2021 11:46:10 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5A378ABCD;
+ Thu, 20 May 2021 11:57:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,123 +38,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 452d03e5-8045-492b-bb8b-5b139634e41a
+X-Inumbo-ID: 72b26c6a-6ba7-4a2d-95b4-265fba9f409c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621511170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1621511858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=A8q+fkSuWfl4pXkgwyhK6ygE0KXVq43LbF4JProMcWQ=;
-	b=b6B1/lM0z/Cw4r6XtealbDwhnP3XuTEp9BtAR5mohAmbvgiAu2g9Fx7XGa0bz/96uIi+WY
-	PMkIrGhM7UWTYnhbeZkoKSlgu+ZvsDKQO5HeH0pe4umPHJ35PY9UTbe4sD3ZUel46PCNe7
-	GGA+FXlZiYnLJ+VkJvTAMzcVWeHALXo=
-Subject: Re: [PATCH] xen-netback: correct success/error reporting for the
- SKB-with-fraglist case
-To: paul@xen.org, Wei Liu <wl@xen.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+	bh=90ynb7W4IbZViJolLygoEiEPp05KyvS2LpYo57sxRNM=;
+	b=a17E57/IumMYM1MnncqoNtbYv1cpYWvynwtC5JSYx+yb1RcgA3SLoKL7Tw0qpUJHc0G649
+	VeqlYGEQkO2m/3TgYqhK+WIGafl5YwY6AK7iajT3ThX/LHX0+SQEa/u3ApwCJWzwSk7shp
+	19pQ8rcPdqFsTkK3DgkZKPTAnTIWOlE=
+Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <4dd5b8ec-a255-7ab1-6dbf-52705acd6d62@suse.com>
- <67bc0728-761b-c3dd-bdd5-1a850ff79fbb@xen.org>
- <76c94541-21a8-7ae5-c4c4-48552f16c3fd@suse.com>
- <17e50fb5-31f7-60a5-1eec-10d18a40ad9a@xen.org>
- <57580966-3880-9e59-5d82-e1de9006aa0c@suse.com>
- <a26c1ecd-e303-3138-eb7e-96f0203ca888@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1a522244-4be8-5e33-77c7-4ea5cf130335@suse.com>
-Date: Thu, 20 May 2021 13:46:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <65bbc317-893e-da41-97e0-c8f2e1feb3e2@suse.com>
+Date: Thu, 20 May 2021 13:57:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <a26c1ecd-e303-3138-eb7e-96f0203ca888@xen.org>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="0AEBa4MpbCXOV1cmQIET3rclFpHMIvf5n"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--0AEBa4MpbCXOV1cmQIET3rclFpHMIvf5n
+Content-Type: multipart/mixed; boundary="GnAMB2g1ctDazWWWSslv2JHGDeH49994E";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <65bbc317-893e-da41-97e0-c8f2e1feb3e2@suse.com>
+Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
+References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
+In-Reply-To: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
+
+--GnAMB2g1ctDazWWWSslv2JHGDeH49994E
+Content-Type: multipart/mixed;
+ boundary="------------9BB6C5810E23B1B91CE8BB5F"
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 
-On 25.02.2021 17:23, Paul Durrant wrote:
-> On 25/02/2021 14:00, Jan Beulich wrote:
->> On 25.02.2021 13:11, Paul Durrant wrote:
->>> On 25/02/2021 07:33, Jan Beulich wrote:
->>>> On 24.02.2021 17:39, Paul Durrant wrote:
->>>>> On 23/02/2021 16:29, Jan Beulich wrote:
->>>>>> When re-entering the main loop of xenvif_tx_check_gop() a 2nd time, the
->>>>>> special considerations for the head of the SKB no longer apply. Don't
->>>>>> mistakenly report ERROR to the frontend for the first entry in the list,
->>>>>> even if - from all I can tell - this shouldn't matter much as the overall
->>>>>> transmit will need to be considered failed anyway.
->>>>>>
->>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> --- a/drivers/net/xen-netback/netback.c
->>>>>> +++ b/drivers/net/xen-netback/netback.c
->>>>>> @@ -499,7 +499,7 @@ check_frags:
->>>>>>     				 * the header's copy failed, and they are
->>>>>>     				 * sharing a slot, send an error
->>>>>>     				 */
->>>>>> -				if (i == 0 && sharedslot)
->>>>>> +				if (i == 0 && !first_shinfo && sharedslot)
->>>>>>     					xenvif_idx_release(queue, pending_idx,
->>>>>>     							   XEN_NETIF_RSP_ERROR);
->>>>>>     				else
->>>>>>
->>>>>
->>>>> I think this will DTRT, but to my mind it would make more sense to clear
->>>>> 'sharedslot' before the 'goto check_frags' at the bottom of the function.
->>>>
->>>> That was my initial idea as well, but
->>>> - I think it is for a reason that the variable is "const".
->>>> - There is another use of it which would then instead need further
->>>>     amending (and which I believe is at least part of the reason for
->>>>     the variable to be "const").
->>>>
->>>
->>> Oh, yes. But now that I look again, don't you want:
->>>
->>> if (i == 0 && first_shinfo && sharedslot)
->>>
->>> ? (i.e no '!')
->>>
->>> The comment states that the error should be indicated when the first
->>> frag contains the header in the case that the map succeeded but the
->>> prior copy from the same ref failed. This can only possibly be the case
->>> if this is the 'first_shinfo'
->>
->> I don't think so, no - there's a difference between "first frag"
->> (at which point first_shinfo is NULL) and first frag list entry
->> (at which point first_shinfo is non-NULL).
-> 
-> Yes, I realise I got it backwards. Confusing name but the comment above 
-> its declaration does explain.
-> 
->>
->>> (which is why I still think it is safe to unconst 'sharedslot' and
->>> clear it).
->>
->> And "no" here as well - this piece of code
->>
->> 		/* First error: if the header haven't shared a slot with the
->> 		 * first frag, release it as well.
->> 		 */
->> 		if (!sharedslot)
->> 			xenvif_idx_release(queue,
->> 					   XENVIF_TX_CB(skb)->pending_idx,
->> 					   XEN_NETIF_RSP_OKAY);
->>
->> specifically requires sharedslot to have the value that was
->> assigned to it at the start of the function (this property
->> doesn't go away when switching from fragments to frag list).
->> Note also how it uses XENVIF_TX_CB(skb)->pending_idx, i.e. the
->> value the local variable pending_idx was set from at the start
->> of the function.
->>
-> 
-> True, we do have to deal with freeing up the header if the first map 
-> error comes on the frag list.
-> 
-> Reviewed-by: Paul Durrant <paul@xen.org>
+This is a multi-part message in MIME format.
+--------------9BB6C5810E23B1B91CE8BB5F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Since I've not seen this go into 5.13-rc, may I ask what the disposition
-of this is?
+On 20.05.21 13:42, Jan Beulich wrote:
+> xen_setup_gdt(), via xen_load_gdt_boot(), wants to adjust page tables.
+> For this to work when NX is not available, x86_configure_nx() needs to
+> be called first.
+>=20
+> Reported-by: Olaf Hering <olaf@aepfle.de>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+Reviewed-by: Juergen Gross <jgross@suse.com>
+
+
+Juergen
+
+--------------9BB6C5810E23B1B91CE8BB5F
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------9BB6C5810E23B1B91CE8BB5F--
+
+--GnAMB2g1ctDazWWWSslv2JHGDeH49994E--
+
+--0AEBa4MpbCXOV1cmQIET3rclFpHMIvf5n
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCmTrEFAwAAAAAACgkQsN6d1ii/Ey/H
+swf7Bw4KRPCBXOLQRxHXECjX1GuU01V6QWanXxNdqUdrpP01B6GsRqJHbHXaxexcT9EaOielTULm
+KzbQVpdlJW1JxRfwREzEsfomNPQXh9kSCC+JtPivHV1FyDvFfoFlQkDbVwus4GFRKzLoV+O4GwNM
+OGwLcsa98MfOSemhCjDRhhpqqa10HhOrSbpekaC9KJJdDQa5wfMkdJm2nxbIIOeggtSzm1lWqkxX
+jdNZBaODKj4smJBP6Hqh/3pdNSmbJUBVpnVsFS46OWhTTQbwBMLxX7PVObf75nSgRevKoQltZkxP
+NSwyldrTbMa2KstBmc7GzL5o9qTnH7hufxJi0EmEdQ==
+=p+vZ
+-----END PGP SIGNATURE-----
+
+--0AEBa4MpbCXOV1cmQIET3rclFpHMIvf5n--
 
