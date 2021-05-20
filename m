@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2651138A0B0
-	for <lists+xen-devel@lfdr.de>; Thu, 20 May 2021 11:18:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.130802.244808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2EAF38A0B3
+	for <lists+xen-devel@lfdr.de>; Thu, 20 May 2021 11:19:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.130808.244819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljep4-00054F-PW; Thu, 20 May 2021 09:18:30 +0000
+	id 1ljepu-0005gt-3F; Thu, 20 May 2021 09:19:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 130802.244808; Thu, 20 May 2021 09:18:30 +0000
+Received: by outflank-mailman (output) from mailman id 130808.244819; Thu, 20 May 2021 09:19:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljep4-00051r-MO; Thu, 20 May 2021 09:18:30 +0000
-Received: by outflank-mailman (input) for mailman id 130802;
- Thu, 20 May 2021 09:18:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0lSn=KP=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1ljep3-00051d-Jn
- for xen-devel@lists.xenproject.org; Thu, 20 May 2021 09:18:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f433512e-2848-471b-ab6e-4315d5e52256;
- Thu, 20 May 2021 09:18:28 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AEB14AD4B;
- Thu, 20 May 2021 09:18:27 +0000 (UTC)
+	id 1ljepu-0005dr-04; Thu, 20 May 2021 09:19:22 +0000
+Received: by outflank-mailman (input) for mailman id 130808;
+ Thu, 20 May 2021 09:19:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ljeps-0005db-IC
+ for xen-devel@lists.xenproject.org; Thu, 20 May 2021 09:19:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ljeps-0004wh-AD; Thu, 20 May 2021 09:19:20 +0000
+Received: from [54.239.6.190] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ljeps-00025V-42; Thu, 20 May 2021 09:19:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,125 +39,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f433512e-2848-471b-ab6e-4315d5e52256
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621502307; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R+rniqkUCnnA1A3M+xbkedH13kaeiqxG/AcGLxGQMCw=;
-	b=M5BBFuxNoOChyXX8GREoLkeadL+zcCne5dinAEDt20P7+Q2vFfCGGw6NReRk8tzn90Tod3
-	wyKEGVJNRydyMmWTnqGb6N8nLyyj34zwbTkdv4uOoTUUrGTYe1k9ATjadJjVrLDwPHAsh3
-	kawh0UDZ1LjGw2C8ZHY03TBxAtEIjA0=
-Message-ID: <c905e6872399dacf960d9890432ac0d53081e05c.camel@suse.com>
-Subject: Re: [PATCH v2 2/2] automation: fix dependencies on openSUSE
- Tumbleweed containers
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
-	=?ISO-8859-1?Q?Monn=E9?=
-	 <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Date: Thu, 20 May 2021 11:18:21 +0200
-In-Reply-To: <26642b6b-c988-406e-040e-905bdeae1b2f@citrix.com>
-References: <162135593827.20014.14959979363028895972.stgit@Wayrath>
-	 <162135616513.20014.6303562342690753615.stgit@Wayrath>
-	 <YKSv/BGxuy+OCn3t@Air-de-Roger>
-	 <b596d5ea2e96be5c6d627e14b87beb51ba4a094e.camel@suse.com>
-	 <26642b6b-c988-406e-040e-905bdeae1b2f@citrix.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ubIOhFvU1+SjXDW2c3Wo"
-User-Agent: Evolution 3.40.1 (by Flathub.org) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=firLHKP4Voz3HrLDZC1dRE0JFIHHVE23ghAiJeGPvpk=; b=NL8SBtDqghWMVB6WoY/NdOEDVn
+	nYTi/pw+/+5M5IsQa6WaxMwsZ/Tk+/03o7PnmgujZk6GBA+MseukGQAfFIRzZIUttwTJNlioIH2CJ
+	Z675fhbVhpvQRWRLk7CEp05FToWld3jUuKO0rii8bsVIJBI4TANvViAKFEwL2Q+KLjAw=;
+Subject: Re: [PATCH] Xen: Design doc for 1:1 direct-map and static allocation
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ nd <nd@arm.com>
+References: <20210518050738.163156-1-penny.zheng@arm.com>
+ <7ab73cb0-39d5-f8bf-660f-b3d77f3247bd@xen.org>
+ <VE1PR08MB52152E43D11EB446000F4563F72A9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <f0b798f4-8fa6-9906-9971-36fd5205ae74@xen.org>
+Date: Thu, 20 May 2021 10:19:17 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-
-
---=-ubIOhFvU1+SjXDW2c3Wo
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2021-05-19 at 20:25 +0100, Andrew Cooper wrote:
->=20
-> I built the container locally, which reused some of the layers you
-> pushed, and it all pushed successfully for me.
->=20
-> I've committed this series so xen.git matches reality.=C2=A0 Lets see how
-> the
-> updated container fairs...
->=20
-Well, something still looks off, although I don't know what.
-
-In fact, we still see:=20
-https://gitlab.com/xen-project/xen/-/jobs/1277448985
-
-checking for deflateCopy in -lz... no
-2608configure: error: Could not find zlib
-2609configure: error: ./configure failed for tools
-
-Which means we're missing libz.
-
-In fact, if I pull the container that's currently in the registry, I
-can see that:
-
-dario@b17aaa86cacf:~> rpm -qa|grep zlib                              =20
-zlib-devel-1.2.11-18.3.x86_64=20
-
-However, if I build it locally, with:
-
-dario@Solace:~/src/xen/xen.git/automation/build> make suse/opensuse-tumblew=
-eed
-
-And then enter and use it for building, the package is there and
-configure works.
-
-dario@51e463d1d47e:~> rpm -qa|grep libz
-libzstd1-1.4.9-1.2.x86_64
-libz1-1.2.11-18.3.x86_64
-libzck1-1.1.11-1.1.x86_64
-libzypp-17.25.10-1.1.x86_64
-libzio1-1.06-4.26.x86_64
-libzzip-0-13-0.13.72-1.2.x86_64
-libzstd-devel-1.4.9-1.2.x86_64
-
-dario@51e463d1d47e:~> ./configure
-checking build system type... x86_64-pc-linux-gnu                    =20
-checking host system type... x86_64-pc-linux-gnu
-... ... ...
-checking for pandoc... /usr/bin/pandoc
-checking for perl... /usr/bin/perl
-configure: creating ./config.status
-
-So, what am I missing or doing wrong?
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-ubIOhFvU1+SjXDW2c3Wo
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+In-Reply-To: <VE1PR08MB52152E43D11EB446000F4563F72A9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmCmKV0ACgkQFkJ4iaW4
-c+5J2g/+PENuILMIz/xyJxNWvIqc7Gn95SrjeH/ay6M8EqVYUtuwBN2dCHr+/Hiq
-McjvhDSYGPgLu9FpxsYQLSkcaLiBSl8Fwhh+2Z+TZFWMBfoiY7bmpW/c4oJss/Nb
-BJ5msa7sh08wTr2X8mI9YEPbr0DrgnvDv2E7JKSL6ASZfD4SwJO89hJM03I0vY2B
-OxbeiYoBtsDBJ0tS3hUcxcX8t7Dn65BFGx1a1iEx82OFE7t89XS02yPDhy+qOgIv
-HFk+QX4wsUZ38Z+qFU/DgFDSyYY03dhs8LlMKFk69J0hdm7bWTkEE68o8chAbSlK
-QQyargBFBk6/yHLz/nolINrqG+KP0YEXOeXAYgPxO4XV5OkoIip+4djJrJwb6YXZ
-Sn5A6F00AkgF4ThoiYOjV87X9ZbGuAk2D1/JikEKuH6X2d0otQNP/5lq7grjgwaJ
-kreSFYXNxrxKShyCogCqBDlIuJi7zfTQrWziv4Ce/lsI2BukBfwRV26tq7E8sLOf
-Mym58NqTP+fC7wwx/p2/uneJZtk4RITBFgyLmagktv/9WnyvXgph4qvu0y0XxDA4
-CfG+CGL8ZrQbc+9UhsWCKaXSYRsOk5xtI3Brczn2quf3U5cGxnDyKFDBfrUFCdYg
-CyrO2eyipJIKYrjVMavVQxRXv8VUWWzSYZlhKp39UC19of5+oPA=
-=ErIj
------END PGP SIGNATURE-----
 
---=-ubIOhFvU1+SjXDW2c3Wo--
+On 20/05/2021 06:36, Penny Zheng wrote:
+> Hi Julien
 
+Hi Penny,
+
+>>> +
+>>> +Later, when domain get destroyed and memory relinquished, only pages
+>>> +in `page_list` go back to heap, and pages in `reserved_page_list` shall not.
+>>
+>> While going through the series, I could not find any code implementing this.
+>> However, this is not enough to prevent a page to go to the heap allocator
+>> because a domain can release memory at runtime using hypercalls like
+>> XENMEM_remove_from_physmap.
+>>
+>> One of the use case is when the guest decides to balloon out some memory.
+>> This will call free_domheap_pages().
+>>
+>> Effectively, you are treating static memory as domheap pages. So I think it
+>> would be better if you hook in free_domheap_pages() to decide which
+>> allocator is used.
+>>
+>> Now, if a guest can balloon out memory, it can also balloon in memory.
+>> There are two cases:
+>>      1) The region used to be RAM region statically allocated
+>>      2) The region used to be unallocated.
+>>
+>> I think for 1), we need to be able to re-use the page previously. For 2), it is
+>> not clear to me whether a guest with memory statically allocated should be
+>> allowed to allocate "dynamic" pages.
+>>
+> 
+> Yeah, I share the same with you of hooking in free_domheap_pages(). I'm thinking
+> that if pages of PGC_reserved, we may create a new func free_staticmem_pages to
+> free them.
+> 
+> For issues on ballooning out or in, it is not supported here.
+
+It is fine that the implementation doesn't yet implement it. However, I 
+think the design document should take into account ballooning. This is 
+because even if...
+
+> Domain on Static Allocation and 1:1 direct-map are all based on dom0-less right
+> now, so no PV, grant table, event channel, etc, considered.
+
+... there is no PV support & co, a guest is still able to issue 
+hypercalls (they are not hidden). Therefore your guest will be able to 
+disturb your static allocation.
+
+> 
+> Right now, it only supports device got passthrough into the guest.
+> 
+>>> +### Memory Allocation for Domains on Static Allocation
+>>> +
+>>> +RAM regions pre-defined as static memory for one specifc domain shall
+>>> +be parsed and reserved from the beginning. And they shall never go to
+>>> +any memory allocator for any use.
+>>
+>> Technically, you are introducing a new allocator. So do you mean they should
+>> not be given to neither the buddy allocator nor the bot allocator?
+>>
+> 
+> Yes. These pre-defined RAM regions will not be given to any current
+> memory allocator. If be given there, there is no guarantee that it will
+> not be allocated for other use.
+> 
+> And right now, in my current design, these pre-defined RAM regions are either for
+> one specific domain as guest RAM or as XEN heap.
+>    
+>>> +
+>>> +Later when allocating static memory for this specific domain, after
+>>> +acquiring those reserved regions, users need to a do set of
+>>> +verification before assigning.
+>>> +For each page there, it at least includes the following steps:
+>>> +1. Check if it is in free state and has zero reference count.
+>>> +2. Check if the page is reserved(`PGC_reserved`).
+>>> +
+>>> +Then, assigning these pages to this specific domain, and all pages go
+>>> +to one new linked page list `reserved_page_list`.
+>>> +
+>>> +At last, set up guest P2M mapping. By default, it shall be mapped to
+>>> +the fixed guest RAM address `GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`,
+>>> +just like normal domains. But later in 1:1 direct-map design, if
+>>> +`direct-map` is set, the guest physical address will equal to physical
+>> address.
+>>> +
+>>> +### Static Allocation for Xen itself
+>>> +
+>>> +### New Deivce Tree Node: `xen,reserved_heap`
+>>
+>> s/Deivce/Device/
+>>
+> 
+> Thx.
+> 
+>>> +
+>>> +Static memory for Xen heap refers to parts of RAM reserved in the
+>>> +beginning for Xen heap only. The memory is pre-defined through XEN
+>>> +configuration using physical address ranges.
+>>> +
+>>> +The reserved memory for Xen heap is an optional feature and can be
+>>> +enabled by adding a device tree property in the `chosen` node.
+>>> +Currently, this feature is only supported on AArch64.
+>>> +
+>>> +Here is one example:
+>>> +
+>>> +
+>>> +        chosen {
+>>> +            xen,reserved-heap = <0x0 0x30000000 0x0 0x40000000>;
+>>> +            ...
+>>> +        };
+>>> +
+>>> +RAM at 0x30000000 of 1G size will be reserved as heap memory. Later,
+>>> +heap allocator will allocate memory only from this specific region.
+>>
+>> This section is quite confusing. I think we need to clearly differentiate heap vs
+>> allocator.
+>>
+>> In Xen we have two heaps:
+>>      1) Xen heap: It is always mapped in Xen virtual address space. This is
+>> mainly used for xen internal allocation.
+>>      2) Domain heap: It may not always be mapped in Xen virtual address space.
+>> This is mainly used for domain memory and mapped on-demand.
+>>
+>> For Arm64 (and x86), two heaps are allocated from the same region. But on
+>> Arm32, they are different.
+>>
+>> We also have two allocator:
+>>      1) Boot allocator: This is used during boot only. There is no concept of
+>> heap at this time.
+>>      2) Buddy allocator: This is the current runtime allocator. This can either
+>> allocator from either heap.
+>>
+>> AFAICT, this design is introducing a 3rd allocator that will return domain heap
+>> pages.
+>>
+>> Now, back to this section, are you saying you will separate the two heaps and
+>> force the buddy allocator to allocate xen heap pages from a specific region?
+>>
+>> [...]
+> 
+> I will try to explain clearly here.
+> The intention behind this reserved heap is that for supporting total static system, we
+> not only want to pre-define memory resource for guests, but also for xen runtime
+> allocation. Any runtime behavior are more predictable.
+> 
+> Right now, on AArch64, all RAM, except reserved memory, will be given to buddy
+> allocator as heap,  like you said, guest RAM for normal domain will be allocated
+> from there, xmalloc eventually is get memory from there, etc. So we want to refine
+> the heap here, not iterating through bootinfo.mem to set up XEN heap, but like
+> iterating bootinfo. reserved_heap to set up XEN heap.
+
+So effectively, you want to move to a split heap like on Arm32. Is that 
+correct?
+
+But let's take a step back from the actual code (this is implementation 
+details). If the Device-Tree describes all the regions statically 
+allocated to domains, why can't the memory used by Xen heap be the left 
+over?
+
+> 
+> True, on ARM32, xen heap and domain heap are separately mapped, which is more
+> complicated here. That's why I only talking about implementing these features on
+> AArch64 as first step.
+
+Cheers,
+
+-- 
+Julien Grall
 
