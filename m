@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E989438C1D1
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 10:30:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131192.245329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4473B38C1D2
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 10:30:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131197.245340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk0XX-0000gG-J7; Fri, 21 May 2021 08:29:51 +0000
+	id 1lk0Y5-0001us-Sh; Fri, 21 May 2021 08:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131192.245329; Fri, 21 May 2021 08:29:51 +0000
+Received: by outflank-mailman (output) from mailman id 131197.245340; Fri, 21 May 2021 08:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk0XX-0000cz-Ft; Fri, 21 May 2021 08:29:51 +0000
-Received: by outflank-mailman (input) for mailman id 131192;
- Fri, 21 May 2021 08:29:50 +0000
+	id 1lk0Y5-0001sY-P2; Fri, 21 May 2021 08:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 131197;
+ Fri, 21 May 2021 08:30:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7IOp=KQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lk0XW-0000ct-2I
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 08:29:50 +0000
+ id 1lk0Y3-0001sO-Na
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 08:30:23 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0aa4128f-ea1e-4da7-9758-2edb9e19e37d;
- Fri, 21 May 2021 08:29:49 +0000 (UTC)
+ id 7bf1221a-c816-4600-ad0c-fe3cc5400e8e;
+ Fri, 21 May 2021 08:30:22 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2EAC8AAA6;
- Fri, 21 May 2021 08:29:48 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C6099AACA;
+ Fri, 21 May 2021 08:30:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +39,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aa4128f-ea1e-4da7-9758-2edb9e19e37d
+X-Inumbo-ID: 7bf1221a-c816-4600-ad0c-fe3cc5400e8e
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621585788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1621585821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DecKl4PtsMcOavJpQVs9JFoCwl4A/96tMO59OYiuSgI=;
-	b=X0hW84LtZblqMjvCQKJkV/+JAPnaBRQhqH6f8wHJ/21esXnn+fjIWMd3KQqbjZul5umtXY
-	0K4CEdEZh6YI8Jy5eB2Tzs1x/f1aokG0Rs/9K+3RV7dRzeCl+395kLlqjImplthjy+C8L2
-	Ccv58Ky3B9EInGy0Shy8X00+tzxaC3M=
-Subject: Re: [PATCH v2 0/2] xen-pciback: a fix and a workaround
+	bh=MWM8l6mAKrJ8U74Lc+HaaPPYjP+PYe/VBRl7eg9Z1WA=;
+	b=YkHmCmZ49Nr4aYdWHWUitm1wad57DlozRydjD7S1MkI/NV/yRLp5O9qnntD8Ec9x6IIGH6
+	SxxC/SKZP73B0zJjnxw08EBhMjcPmUePTsoEVOIATLX64XfGgW5lM4+D0D3VZV/FR2MIqW
+	Gyrk5fmhfGlyjedlDMMU4Pyl4cao7EI=
+Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
 To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Konrad Wilk <konrad.wilk@oracle.com>
-References: <38774140-871d-59a4-cf49-9cb1cc78c381@suse.com>
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <1b2e0512-ae80-3b15-0c0a-3578bb2f762f@suse.com>
-Date: Fri, 21 May 2021 10:29:47 +0200
+Message-ID: <89335e44-64ae-be79-afc5-876d57b2ff5d@suse.com>
+Date: Fri, 21 May 2021 10:30:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <38774140-871d-59a4-cf49-9cb1cc78c381@suse.com>
+In-Reply-To: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="f0Pe6FeVN3AmBT0U8zIUfi1ts5alt0KdL"
+ boundary="bwjv468KiQEgKbbtHpv4qf4yT74eoMjHI"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---f0Pe6FeVN3AmBT0U8zIUfi1ts5alt0KdL
-Content-Type: multipart/mixed; boundary="zGJ1Ntz7S26aEz8LQrjpkAvgjQRszdFCn";
+--bwjv468KiQEgKbbtHpv4qf4yT74eoMjHI
+Content-Type: multipart/mixed; boundary="9AEnW2FVjjtl94digKiu8gtdywboVhOue";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Konrad Wilk <konrad.wilk@oracle.com>
-Message-ID: <1b2e0512-ae80-3b15-0c0a-3578bb2f762f@suse.com>
-Subject: Re: [PATCH v2 0/2] xen-pciback: a fix and a workaround
-References: <38774140-871d-59a4-cf49-9cb1cc78c381@suse.com>
-In-Reply-To: <38774140-871d-59a4-cf49-9cb1cc78c381@suse.com>
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <89335e44-64ae-be79-afc5-876d57b2ff5d@suse.com>
+Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
+References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
+In-Reply-To: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
 
---zGJ1Ntz7S26aEz8LQrjpkAvgjQRszdFCn
+--9AEnW2FVjjtl94digKiu8gtdywboVhOue
 Content-Type: multipart/mixed;
- boundary="------------1316A6A41B3A0631BD406A7E"
+ boundary="------------BFE3439117E7BA4DAC744DC9"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------1316A6A41B3A0631BD406A7E
+--------------BFE3439117E7BA4DAC744DC9
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 18.05.21 18:12, Jan Beulich wrote:
-> The first change completes a several years old but still incomplete
-> change. As mentioned there, reverting the original change may also
-> be an option. The second change works around some odd libxl behavior,
-> as described in [1]. As per a response to that mail addressing the
-> issue in libxl may also be possible, but it's not clear to me who
-> would get to doing so at which point in time. Hence the kernel side
-> alternative is being proposed here.
+On 20.05.21 13:42, Jan Beulich wrote:
+> xen_setup_gdt(), via xen_load_gdt_boot(), wants to adjust page tables.
+> For this to work when NX is not available, x86_configure_nx() needs to
+> be called first.
 >=20
-> As to Konrad being on the Cc list: I find it puzzling that he's
-> listed under "XEN PCI SUBSYSTEM", but pciback isn't considered part
-> of this.
->=20
-> 1: redo VF placement in the virtual topology
-> 2: reconfigure also from backend watch handler
+> Reported-by: Olaf Hering <olaf@aepfle.de>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Series pushed to xen/tip.git for-linus-5.13b
+Pushed to xen/tip.git for-linus-5.13b
 
 
 Juergen
 
---------------1316A6A41B3A0631BD406A7E
+
+--------------BFE3439117E7BA4DAC744DC9
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -203,25 +194,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------1316A6A41B3A0631BD406A7E--
+--------------BFE3439117E7BA4DAC744DC9--
 
---zGJ1Ntz7S26aEz8LQrjpkAvgjQRszdFCn--
+--9AEnW2FVjjtl94digKiu8gtdywboVhOue--
 
---f0Pe6FeVN3AmBT0U8zIUfi1ts5alt0KdL
+--bwjv468KiQEgKbbtHpv4qf4yT74eoMjHI
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCnb3sFAwAAAAAACgkQsN6d1ii/Ey80
-pwf+I5DmZN5BRKi/hdVW8Czx6uAbjjMXvjRtaEy3mgQo8qHkG+ZfTZwrsN/ofOyD+4q1HQJAnhEc
-HPZnnuSPUTWud352p1d7hbHL5aGaHXCf5xLU67bmj8SOXcsB+LrQH4gZBrGmFNgG4fqsQgfpQWsd
-HD1hWqpvr3pWRgl0hlgRAM3Bz6D/OgtUl9Yj2LvxEXw9wiW1D5IA/mUGjNE5P16104TTy0ke9Ffr
-no1Uh7yVjRdwNgUmdJuvXZ99sNRkXZOuVnY2XtIlDWNnZyQBd+5wiuUT+CyHIYfCtl/aLiORtxfd
-ARNzUl2+riIkNXJ+BTevfCVj2I5q7a7NmXQgaaqM7A==
-=JQ/T
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCnb50FAwAAAAAACgkQsN6d1ii/Ey/M
+Rgf9FU/1lDosBznSOVQSsyutBCFPlyCPWdYArEyd4BB79HjuOemRh/id+MEVZUu/O3cUKZGQTqOC
+dqXdLbetu3WdkN0KMVYTydHuHetAgB/XBDUwrZ50vW1XQwFp09q9KVitR2daCGuQHru7OyeVSxmT
+trI+mWNl5NVGPCHbiy+KbMkS50K2Ut0niSwNDeZDa0Qz+XjdJBp8QtfvYr0mjjiO9PN+bvIt+zOi
+TR7/KIcznQnSktOyrhaZ6htjcs2PTUKJA64qVCx4FayWc2NfA+b1jMUYxq2j36oiPXUal4SsVl7p
+59DG00Guvo3M1VSYxCuqAFKA4ju1sHit2shbrkFqLQ==
+=54ey
 -----END PGP SIGNATURE-----
 
---f0Pe6FeVN3AmBT0U8zIUfi1ts5alt0KdL--
+--bwjv468KiQEgKbbtHpv4qf4yT74eoMjHI--
 
