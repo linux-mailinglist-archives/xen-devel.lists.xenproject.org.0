@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4545A38C79B
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 15:15:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131256.245410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA7E138C7A2
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 15:17:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131262.245421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk50C-0004W5-Ae; Fri, 21 May 2021 13:15:44 +0000
+	id 1lk51m-00057D-Mx; Fri, 21 May 2021 13:17:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131256.245410; Fri, 21 May 2021 13:15:44 +0000
+Received: by outflank-mailman (output) from mailman id 131262.245421; Fri, 21 May 2021 13:17:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk50C-0004TD-7N; Fri, 21 May 2021 13:15:44 +0000
-Received: by outflank-mailman (input) for mailman id 131256;
- Fri, 21 May 2021 13:15:42 +0000
+	id 1lk51m-00055K-IR; Fri, 21 May 2021 13:17:22 +0000
+Received: by outflank-mailman (input) for mailman id 131262;
+ Fri, 21 May 2021 13:17:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qZ6I=KQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lk50A-0004T7-LW
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 13:15:42 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=08+4=KQ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1lk51l-00055E-Iw
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 13:17:21 +0000
+Received: from mail-lf1-x135.google.com (unknown [2a00:1450:4864:20::135])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a2a318c-baf8-4cc2-882c-334c911da0da;
- Fri, 21 May 2021 13:15:41 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1657DACB1;
- Fri, 21 May 2021 13:15:41 +0000 (UTC)
+ id 3c679fe6-ac74-406e-96d4-05b03dc4e3dd;
+ Fri, 21 May 2021 13:17:20 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id c10so8638647lfm.0
+ for <xen-devel@lists.xenproject.org>; Fri, 21 May 2021 06:17:20 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id m23sm619959lfb.279.2021.05.21.06.17.18
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 21 May 2021 06:17:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,87 +41,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a2a318c-baf8-4cc2-882c-334c911da0da
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621602941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MWFhObEmM365zZvigirQaG6yDJLonTUk6shsrryPPLo=;
-	b=MdCAKm9KwqBxjvolZ/p8gvCZ2dV+mIVqJjgO0udEYEWk1hlrMJ8D/x8XnzsDxE84p/NLjJ
-	JwwohHKBH52lSNr4Afh/5TEBLr3Z4t/TwueLKL1eTGZ1ykPxpI5xUzZs3L7jDsdDTvoZAl
-	7Z15CtM9EwnU3BfI1cicDbbDdrhp3J8=
-Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>
-References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
- <65bbc317-893e-da41-97e0-c8f2e1feb3e2@suse.com>
- <f594a439-ec1d-34fa-3ccf-b162441fa0af@suse.com>
- <3953076f-c2fa-2e2a-4b07-fb610046a27d@suse.com>
- <89c46d1a-9474-0f17-3fda-4809a14adb45@suse.com>
- <2d019c04-415b-293b-052b-26b1ea3be189@suse.com>
- <0103d46f-4feb-e49d-f738-a2bf3d38c216@oracle.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c2733c58-4514-6df0-3f0b-0f8b65132017@suse.com>
-Date: Fri, 21 May 2021 15:15:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
-MIME-Version: 1.0
-In-Reply-To: <0103d46f-4feb-e49d-f738-a2bf3d38c216@oracle.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 3c679fe6-ac74-406e-96d4-05b03dc4e3dd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=OpIENZDAD+5nPWeUwsHpP2y2zUT9yqD/5d+tccVsuWo=;
+        b=Jq2YzdDXvlWKafByJOrgVmcms5x7W3A/Lky66lo/aGaggjeVs+bPiDuo2rFunCgQK8
+         V5QjAo+nyy5nHKMp6NjEl0tmcNN8HKeMhkOLjdDz6/hxhIu2kmjY/Z0TV4BoXEcD4JtZ
+         S8DquBGUUtMF0eoKEmwRgY344iirpWe1Db5/m7caicrxuXy1Os0iPQuO32InxWXICCnV
+         uTB8AQtcWUIS674FCMKXtvL5rfkgP2S2OIJRsejJVM1Tjgo/BsB1Y1FhI4QUIT+2AnL+
+         VDyh48d9aDqxnDAbkRj0X2Jkd6mAZCZVNz41CVzT2Koqin6fHoCDqMKm/iqVZMFJfi+/
+         xNHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=OpIENZDAD+5nPWeUwsHpP2y2zUT9yqD/5d+tccVsuWo=;
+        b=lnkXaU+N25XYyjG0QHQl3tNJ2KqW1XLjZuj0b7knCYOBSr67Y9N0L0683a77emKFpd
+         fMY2OBm5YJljqQcV1eiMbwrkrxPuSRl6/0Wy4AV113r4AnSBXik9gmfwjuLf64NVzXyR
+         OWU/oKJYySJu+y4PdqvO7Cmp0aHcw+n0gRWgJYSOdLUFYSmGBmwY+Rik3SnkS7hJaiph
+         CjFIFpYjqGEiWlbN+u4FZEvqYfJgGe9vg5AR9U2dTnfpHeNL/3IqyO5vC8+7jyg38++y
+         bQQoU7imIUnu2kfAinfsrqxYM8S4YI2sgqzm+OncQuTdOBPa6Z/YbrVaWcQb8tJ2gUXh
+         OqCA==
+X-Gm-Message-State: AOAM530yWqoTpaZtktb89W4V6CQR8g6wH054VznN2SQEE+GNv9bngeU4
+	M/ELEGdgWm7K5zGYG5kTYgg=
+X-Google-Smtp-Source: ABdhPJzpuQVGrOG940ZbE1w+sWsIHAfo7A+EDv70Yfvv2O4LPdtO0BgISlK5LJ9Fr4c2yt9bAG/n0w==
+X-Received: by 2002:a05:6512:3b10:: with SMTP id f16mr2182383lfv.393.1621603039478;
+        Fri, 21 May 2021 06:17:19 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: olekstysh@gmail.com,
+	xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <Wei.Chen@arm.com>,
+	Kaly Xin <Kaly.Xin@arm.com>,
+	Artem Mygaiev <joculator@gmail.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH V5 0/2] Virtio support for toolstack on Arm (Was "IOREQ feature (+ virtio-mmio) on Arm")
+Date: Fri, 21 May 2021 16:16:43 +0300
+Message-Id: <1621603005-5799-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-On 21.05.2021 15:12, Boris Ostrovsky wrote:
-> 
-> On 5/21/21 3:45 AM, Juergen Gross wrote:
->> On 21.05.21 09:26, Jan Beulich wrote:
->>> On 21.05.2021 09:18, Juergen Gross wrote:
->>>> On 20.05.21 14:08, Jan Beulich wrote:
->>>>> On 20.05.2021 13:57, Juergen Gross wrote:
->>>>>> On 20.05.21 13:42, Jan Beulich wrote:
->>>>>>> xen_setup_gdt(), via xen_load_gdt_boot(), wants to adjust page tables.
->>>>>>> For this to work when NX is not available, x86_configure_nx() needs 
->> to
->>>>>>> be called first.
->>>>>>>
->>>>>>> Reported-by: Olaf Hering <olaf@aepfle.de>
->>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> Reviewed-by: Juergen Gross <jgross@suse.com>
->>>>>
->>>>> Thanks. I guess I forgot
->>>>>
->>>>> Cc: stable@vger.kernel.org
->>>>>
->>>>> If you agree, can you please add this before pushing to Linus?
->>>>
->>>> Uh, just had a look why x86_configure_nx() was called after
->>>> xen_setup_gdt().
->>>>
->>>> Upstream your patch will be fine, but before kernel 5.9 it will
->>>> break running as 32-bit PV guest (see commit 36104cb9012a82e7).
->>>
->>> Oh, indeed. That commit then actually introduced the issue here,
->>> and hence a Fixes: tag may be warranted.
->>
->> Added it already. :-)
->>
->> And I've limited the backport to happen not for 5.8 and older, of
->> course.
-> 
-> 
-> Did something changed recently that this became a problem? That commit has been there for 3 years.
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-He happened to try on a system where NX was turned off in the BIOS. That's
-not a setting you would usually find in use.
+Hello all.
+
+The purpose of this patch series is to add missing virtio-mmio bits to Xen toolstack on Arm.
+The Virtio support for toolstack [1] was postponed as the main target was to upstream IOREQ/DM
+support on Arm in the first place. Now, we already have IOREQ support in, so we can resume Virtio
+enabling work. You can find previous discussion at [2].
+
+Patch series [3] was reworked and rebased on recent "staging branch"
+(972ba1d x86/shadow: streamline shadow_get_page_from_l1e()) and tested on
+Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with "updated" virtio-mmio disk backend [4]
+running in Driver domain and unmodified Linux Guest running on existing
+virtio-blk driver (frontend). No issues were observed. Guest domain 'reboot/destroy'
+use-cases work properly.
+
+Any feedback/help would be highly appreciated.
+
+[1] 
+https://lore.kernel.org/xen-devel/1610488352-18494-24-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/xen-devel/1610488352-18494-25-git-send-email-olekstysh@gmail.com/
+[2]
+https://lists.xenproject.org/archives/html/xen-devel/2021-01/msg02403.html
+https://lists.xenproject.org/archives/html/xen-devel/2021-01/msg02536.html
+[3] https://github.com/otyshchenko1/xen/commits/libxl_virtio
+[4] https://github.com/xen-troops/virtio-disk/commits/ioreq_ml3
 
 
-> Didn't Olaf report this to be a problem only on SLES kernels?
+Julien Grall (1):
+  libxl: Introduce basic virtio-mmio support on Arm
 
-Which I assume have backports of the problematic change.
+Oleksandr Tyshchenko (1):
+  libxl: Add support for Virtio disk configuration
 
-Jan
+ docs/man/xl-disk-configuration.5.pod.in   |  27 +
+ tools/include/libxl.h                     |   6 +
+ tools/libs/light/libxl_arm.c              | 133 ++++-
+ tools/libs/light/libxl_device.c           |  38 +-
+ tools/libs/light/libxl_disk.c             |  99 +++-
+ tools/libs/light/libxl_types.idl          |   4 +
+ tools/libs/light/libxl_types_internal.idl |   1 +
+ tools/libs/light/libxl_utils.c            |   2 +
+ tools/libs/util/libxlu_disk_l.c           | 881 +++++++++++++++---------------
+ tools/libs/util/libxlu_disk_l.h           |   2 +-
+ tools/libs/util/libxlu_disk_l.l           |   1 +
+ tools/xl/xl_block.c                       |  11 +
+ xen/include/public/arch-arm.h             |   7 +
+ 13 files changed, 764 insertions(+), 448 deletions(-)
+
+-- 
+2.7.4
+
 
