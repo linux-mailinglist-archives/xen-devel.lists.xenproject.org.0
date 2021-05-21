@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB68438C82B
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 15:32:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131298.245465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CBC938C831
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 15:33:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131304.245475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk5Fb-0000tC-6C; Fri, 21 May 2021 13:31:39 +0000
+	id 1lk5H9-0001VX-Ha; Fri, 21 May 2021 13:33:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131298.245465; Fri, 21 May 2021 13:31:39 +0000
+Received: by outflank-mailman (output) from mailman id 131304.245475; Fri, 21 May 2021 13:33:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk5Fb-0000r3-2N; Fri, 21 May 2021 13:31:39 +0000
-Received: by outflank-mailman (input) for mailman id 131298;
- Fri, 21 May 2021 13:31:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lk5H9-0001Tc-E2; Fri, 21 May 2021 13:33:15 +0000
+Received: by outflank-mailman (input) for mailman id 131304;
+ Fri, 21 May 2021 13:33:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qZ6I=KQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lk5FY-0000qx-Or
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 13:31:36 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 973b7e06-c570-49aa-8e04-11fa01becfca;
- Fri, 21 May 2021 13:31:35 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7D4DEAC7A;
- Fri, 21 May 2021 13:31:34 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lk5H8-0001TS-7u; Fri, 21 May 2021 13:33:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lk5H8-0007z0-3a; Fri, 21 May 2021 13:33:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lk5H7-00050x-Qr; Fri, 21 May 2021 13:33:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lk5H7-0006wt-Q0; Fri, 21 May 2021 13:33:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 973b7e06-c570-49aa-8e04-11fa01becfca
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621603894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cqYoKHr/OUSjW/0A9yXkvaNEkKfdi2ibW6kI/dsMNb8=;
-	b=cvrGykJ7GBRIFe2WqEHRv6zGcU699awRp6T1im/y9c/GIu6naITbpZY8YMG4VsaEf2XRHt
-	NwDaodBCGX2fv2jET8tdm4YJaRalVqM7h8sNaCpFD8npMirpr9rasly6g1ZSJgOHsk9hsu
-	h7FVujJp3f2113Vm7t3v4iHQYlttCKw=
-Subject: Re: [PATCH v3 1/2] libelf: don't attempt to parse __xen_guest for PVH
-From: Jan Beulich <jbeulich@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20210520123012.89855-1-roger.pau@citrix.com>
- <20210520123012.89855-2-roger.pau@citrix.com>
- <29ecaaaf-d096-e8af-fc6f-292ff2b3d5ae@suse.com>
-Message-ID: <6dd3d6fe-04cc-4b9d-e92f-6d4c81785300@suse.com>
-Date: Fri, 21 May 2021 15:31:33 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
-MIME-Version: 1.0
-In-Reply-To: <29ecaaaf-d096-e8af-fc6f-292ff2b3d5ae@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=jmCZLawip62gSHYDFPUugO2WQZV8cjrk1jI6cR0REKo=; b=unpb1dpbQyid0Wyye8/SBbU/BI
+	FTbbXRGdvgW0q2CDm6v3i/NYkcqLLsCWn36eT/lsvDpA+rT2AbzY+Gm1UOLkFtJLZwnYoZTSNyF7P
+	FuA8jV1N+BsliVyDPBGHttzx9ymMiBAXrrY29Ftekx2md9fOZr87R57BG+nNHYzsN4V0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162111-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 162111: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=04ae17218deec25c6f488609c5e2ca9c419d2c4b
+X-Osstest-Versions-That:
+    ovmf=15ee7b76891a78141e6e30ef3f8572e8d6b326d2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 21 May 2021 13:33:13 +0000
 
-On 20.05.2021 14:35, Jan Beulich wrote:
-> On 20.05.2021 14:30, Roger Pau Monne wrote:
->> The legacy __xen_guest section doesn't support the PHYS32_ENTRY
->> elfnote, so it's pointless to attempt to parse the elfnotes from that
->> section when called from an hvm container.
->>
->> Suggested-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->> Changes since v2:
->>  - New in this version.
->> ---
->>  xen/common/libelf/libelf-dominfo.c | 6 ++----
->>  1 file changed, 2 insertions(+), 4 deletions(-)
->>
->> diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
->> index 69c94b6f3bb..abea1011c18 100644
->> --- a/xen/common/libelf/libelf-dominfo.c
->> +++ b/xen/common/libelf/libelf-dominfo.c
->> @@ -577,10 +577,8 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
->>  
->>      }
->>  
->> -    /*
->> -     * Finally fall back to the __xen_guest section.
->> -     */
->> -    if ( xen_elfnotes == 0 )
->> +    /* Finally fall back to the __xen_guest section for PV guests only. */
->> +    if ( xen_elfnotes == 0 && !hvm )
-> 
-> Isn't this depending on the 2nd patch adding the function parameter?
-> IOW doesn't this break the build, even if just transiently? With the
-> respective hunk from patch 2 moved here
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+flight 162111 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162111/
 
-With the intention of committing I did this hunk movement, noticing
-that
-- it's more than just one hunk,
-- a tool stack maintainer ack is actually going to be needed (all
-  respective hunks are now in the first patch).
-I'll keep the massaged patches locally, until the missing ack arrives.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 04ae17218deec25c6f488609c5e2ca9c419d2c4b
+baseline version:
+ ovmf                 15ee7b76891a78141e6e30ef3f8572e8d6b326d2
 
-Jan
+Last test of basis   162071  2021-05-19 01:40:34 Z    2 days
+Testing same since   162111  2021-05-21 07:11:13 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Garrett Kirkendall <garrett.kirkendall@amd.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   15ee7b7689..04ae17218d  04ae17218deec25c6f488609c5e2ca9c419d2c4b -> xen-tested-master
 
