@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390C338C08F
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 09:18:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131158.245283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC8238C0B1
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 09:26:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131165.245293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljzQJ-00007R-6F; Fri, 21 May 2021 07:18:19 +0000
+	id 1ljzXw-0001b4-0D; Fri, 21 May 2021 07:26:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131158.245283; Fri, 21 May 2021 07:18:19 +0000
+Received: by outflank-mailman (output) from mailman id 131165.245293; Fri, 21 May 2021 07:26:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljzQJ-00005T-2R; Fri, 21 May 2021 07:18:19 +0000
-Received: by outflank-mailman (input) for mailman id 131158;
- Fri, 21 May 2021 07:18:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ljzXv-0001Y1-TQ; Fri, 21 May 2021 07:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 131165;
+ Fri, 21 May 2021 07:26:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7IOp=KQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1ljzQH-00005N-Fs
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 07:18:17 +0000
+ (envelope-from <SRS0=qZ6I=KQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ljzXu-0001Xv-Fq
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 07:26:10 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2da2144f-c705-4dcb-95c2-846bdc2e2aac;
- Fri, 21 May 2021 07:18:16 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f31b127d-d8d8-43de-bf31-c4e7d1435439;
+ Fri, 21 May 2021 07:26:09 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7CC82AB64;
- Fri, 21 May 2021 07:18:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id D1B53AB64;
+ Fri, 21 May 2021 07:26:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,204 +38,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2da2144f-c705-4dcb-95c2-846bdc2e2aac
+X-Inumbo-ID: f31b127d-d8d8-43de-bf31-c4e7d1435439
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621581495; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1621581968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Q07r8cRs2qhSdSj5Uz/0nUX9useYysZDIgasLmFapNc=;
-	b=HsLgQscw8bOBuxRsIq+a/NPY7sref+rQar3SvkYqPpLOGivQ/cAqxQYSr8qVN+1zRsrEm1
-	YCJP9ewGJTKd3kLtp02aPto6etKRxh69MfCpyzNUVrSBucaDfRrh8jPzrjHcKLyxp7gWuY
-	/xueaivcU4p239Bxl28n3n8vCMPkUP4=
-To: Jan Beulich <jbeulich@suse.com>,
+	bh=QgWvsxiemLxZi6Uo1RdnfIDagmZQ6WxkASMEMiRYIuw=;
+	b=ApjhcA9Onsc9oxlCzlv1VwnpqrBBAlRvnZAy4KReIEJDcHvIuwESNFDFJRelvJaQpoin/f
+	lBUmfBRQ4nqTEmqzBPd2mcrIfhfnTIIkrqqBffYNhkB7XzxywFBKOWKscjsUuF7Y0ZViHO
+	xmwqgFAU9P1ZKwQ40yVFoshHwtMTF8A=
+Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
+To: Juergen Gross <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
  <65bbc317-893e-da41-97e0-c8f2e1feb3e2@suse.com>
  <f594a439-ec1d-34fa-3ccf-b162441fa0af@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
-Message-ID: <3953076f-c2fa-2e2a-4b07-fb610046a27d@suse.com>
-Date: Fri, 21 May 2021 09:18:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ <3953076f-c2fa-2e2a-4b07-fb610046a27d@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <89c46d1a-9474-0f17-3fda-4809a14adb45@suse.com>
+Date: Fri, 21 May 2021 09:26:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <f594a439-ec1d-34fa-3ccf-b162441fa0af@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="jEqfWVILnjSRw4bhSA6PXBDXCw2lGHtM7"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---jEqfWVILnjSRw4bhSA6PXBDXCw2lGHtM7
-Content-Type: multipart/mixed; boundary="wHXg1WDbQiEyhbh9OjEzRkdcpanyy5Jia";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <3953076f-c2fa-2e2a-4b07-fb610046a27d@suse.com>
-Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
-References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
- <65bbc317-893e-da41-97e0-c8f2e1feb3e2@suse.com>
- <f594a439-ec1d-34fa-3ccf-b162441fa0af@suse.com>
-In-Reply-To: <f594a439-ec1d-34fa-3ccf-b162441fa0af@suse.com>
-
---wHXg1WDbQiEyhbh9OjEzRkdcpanyy5Jia
-Content-Type: multipart/mixed;
- boundary="------------D97EB68808ED1E935BC05A77"
+In-Reply-To: <3953076f-c2fa-2e2a-4b07-fb610046a27d@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------D97EB68808ED1E935BC05A77
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 20.05.21 14:08, Jan Beulich wrote:
-> On 20.05.2021 13:57, Juergen Gross wrote:
->> On 20.05.21 13:42, Jan Beulich wrote:
->>> xen_setup_gdt(), via xen_load_gdt_boot(), wants to adjust page tables=
-=2E
->>> For this to work when NX is not available, x86_configure_nx() needs t=
-o
->>> be called first.
+On 21.05.2021 09:18, Juergen Gross wrote:
+> On 20.05.21 14:08, Jan Beulich wrote:
+>> On 20.05.2021 13:57, Juergen Gross wrote:
+>>> On 20.05.21 13:42, Jan Beulich wrote:
+>>>> xen_setup_gdt(), via xen_load_gdt_boot(), wants to adjust page tables.
+>>>> For this to work when NX is not available, x86_configure_nx() needs to
+>>>> be called first.
+>>>>
+>>>> Reported-by: Olaf Hering <olaf@aepfle.de>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>>
->>> Reported-by: Olaf Hering <olaf@aepfle.de>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> Reviewed-by: Juergen Gross <jgross@suse.com>
 >>
->> Reviewed-by: Juergen Gross <jgross@suse.com>
->=20
-> Thanks. I guess I forgot
->=20
-> Cc: stable@vger.kernel.org
->=20
-> If you agree, can you please add this before pushing to Linus?
+>> Thanks. I guess I forgot
+>>
+>> Cc: stable@vger.kernel.org
+>>
+>> If you agree, can you please add this before pushing to Linus?
+> 
+> Uh, just had a look why x86_configure_nx() was called after
+> xen_setup_gdt().
+> 
+> Upstream your patch will be fine, but before kernel 5.9 it will
+> break running as 32-bit PV guest (see commit 36104cb9012a82e7).
 
-Uh, just had a look why x86_configure_nx() was called after
-xen_setup_gdt().
+Oh, indeed. That commit then actually introduced the issue here,
+and hence a Fixes: tag may be warranted.
 
-Upstream your patch will be fine, but before kernel 5.9 it will
-break running as 32-bit PV guest (see commit 36104cb9012a82e7).
+> So I will take your patch as is, but for kernels 5.8 and older I
+> recommend a different approach by directly setting the NX
+> capability after checking the cpuid bit instead of letting that
+> do get_cpu_cap().
 
-So I will take your patch as is, but for kernels 5.8 and older I
-recommend a different approach by directly setting the NX
-capability after checking the cpuid bit instead of letting that
-do get_cpu_cap().
+Right - perhaps the only halfway viable option.
 
+64-bit kernels predating 4f277295e54c may then also need that one,
+but perhaps all stable ones already have it because it was tagged
+for stable.
 
-Juergen
-
---------------D97EB68808ED1E935BC05A77
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------D97EB68808ED1E935BC05A77--
-
---wHXg1WDbQiEyhbh9OjEzRkdcpanyy5Jia--
-
---jEqfWVILnjSRw4bhSA6PXBDXCw2lGHtM7
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCnXrYFAwAAAAAACgkQsN6d1ii/Ey/O
-DAf+N/VeKapYQchrAzUXKI5KOGlgWcfknU3s0OLQE5up82lAx9ahDHEKH8JMZJZpfSQXuH7ry5df
-VvpiRa5FTODVsLcrVgbHzyEXVrR+xcbRiYI5Zvd+VZP6Q8sZaprA2acu9wttafYKPEuI8wF5lcHi
-XWFqcfTQjoetk3urB7+5t0n2wd+Uttz1yAZGOZYQ2q62HS1rXgwkMfNAa1jVTYE4rxnXdyzy2gnA
-8BhmcNmAq8msY+RMnCDzEGGPOJDeMeIvIBQzq7ReTyLiE8+zEZ3og4Vx1uv0HrdSvZBe8jFJObj+
-yAoEEeAdvTtHJmeTktYCO7pik2+HQM6aV1n2di25bg==
-=Ehxt
------END PGP SIGNATURE-----
-
---jEqfWVILnjSRw4bhSA6PXBDXCw2lGHtM7--
+Jan
 
