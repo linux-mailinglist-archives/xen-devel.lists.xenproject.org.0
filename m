@@ -2,49 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F4C38BDE3
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C97D38BDE2
 	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 07:27:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131113.245228 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.131108.245216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljxgs-0003vC-Vu; Fri, 21 May 2021 05:27:18 +0000
+	id 1ljxgV-0003Mo-KP; Fri, 21 May 2021 05:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131113.245228; Fri, 21 May 2021 05:27:18 +0000
+Received: by outflank-mailman (output) from mailman id 131108.245216; Fri, 21 May 2021 05:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljxgs-0003ry-RK; Fri, 21 May 2021 05:27:18 +0000
-Received: by outflank-mailman (input) for mailman id 131113;
- Fri, 21 May 2021 05:27:17 +0000
+	id 1ljxgV-0003Jz-Gw; Fri, 21 May 2021 05:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 131108;
+ Fri, 21 May 2021 05:26:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y0JZ=KQ=amazon.com=prvs=768a5fbb6=anchalag@srs-us1.protection.inumbo.net>)
- id 1ljxgr-0003lt-E8
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 05:27:17 +0000
-Received: from smtp-fw-80006.amazon.com (unknown [99.78.197.217])
+ <SRS0=jA7z=KQ=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1ljxgU-0003Ds-Kb
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 05:26:54 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e96726c-88cc-436d-81cf-aa9999cb611b;
- Fri, 21 May 2021 05:27:16 +0000 (UTC)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com) ([10.25.36.210])
- by smtp-border-fw-80006.pdx80.corp.amazon.com with ESMTP;
- 21 May 2021 05:27:14 +0000
-Received: from EX13MTAUWA001.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com (Postfix) with ESMTPS
- id 84D9AA1E62; Fri, 21 May 2021 05:27:07 +0000 (UTC)
-Received: from EX13D07UWA004.ant.amazon.com (10.43.160.32) by
- EX13MTAUWA001.ant.amazon.com (10.43.160.58) with Microsoft SMTP Server (TLS)
- id 15.0.1497.18; Fri, 21 May 2021 05:26:51 +0000
-Received: from EX13MTAUWA001.ant.amazon.com (10.43.160.58) by
- EX13D07UWA004.ant.amazon.com (10.43.160.32) with Microsoft SMTP Server (TLS)
- id 15.0.1497.18; Fri, 21 May 2021 05:26:51 +0000
-Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
- (172.22.96.68) by mail-relay.amazon.com (10.43.160.118) with Microsoft SMTP
- Server id 15.0.1497.18 via Frontend Transport; Fri, 21 May 2021 05:26:51
- +0000
-Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
- from userid 4335130)
- id F1AC340124; Fri, 21 May 2021 05:26:50 +0000 (UTC)
+ id cbdedb3e-8093-43c0-ac34-6ad09071a3c3;
+ Fri, 21 May 2021 05:26:53 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3344AAC1A;
+ Fri, 21 May 2021 05:26:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,145 +36,97 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e96726c-88cc-436d-81cf-aa9999cb611b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1621574837; x=1653110837;
-  h=date:from:to:cc:message-id:references:mime-version:
-   in-reply-to:subject;
-  bh=kDiMVanU/J46MBpWtTAkHD58jSy5mLoyYAH1XvH7tTU=;
-  b=KaGi33Vipk1k55lu9qtcYFN200iDKBsinU+IO1Z1mRFTJec89utsK9Rd
-   kOKY/Glg//qialmMWX3yL/tFGtCfbg8Ilfdqh2IrYQ9D7FnXPPmlPkm0U
-   BjNt+tLTKKFRF0glSBapVEc01exvMisB3JywJ/xgdMWm3BGMwaZ+ojyzG
-   Y=;
-X-IronPort-AV: E=Sophos;i="5.82,313,1613433600"; 
-   d="scan'208";a="2533323"
-Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend mode
-Date: Fri, 21 May 2021 05:26:50 +0000
-From: Anchal Agarwal <anchalag@amazon.com>
-To: <boris.ostrovsky@oracle.com>
-CC: "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
-	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com"
-	<hpa@zytor.com>, "jgross@suse.com" <jgross@suse.com>,
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "linux-mm@kvack.org"
-	<linux-mm@kvack.org>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"konrad.wilk@oracle.com" <konrad.wilk@oracle.com>, "roger.pau@citrix.com"
-	<roger.pau@citrix.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
-	"davem@davemloft.net" <davem@davemloft.net>, "rjw@rjwysocki.net"
-	<rjw@rjwysocki.net>, "len.brown@intel.com" <len.brown@intel.com>,
-	"pavel@ucw.cz" <pavel@ucw.cz>, "peterz@infradead.org" <peterz@infradead.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"vkuznets@redhat.com" <vkuznets@redhat.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-	<Woodhouse@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>, David
-	<dwmw@amazon.co.uk>, "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
-	<anchalag@amazon.com>, <aams@amazon.com>
-Message-ID: <20210521052650.GA19056@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-References: <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
- <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <e3e447e5-2f7a-82a2-31c8-10c2ffcbfb2c@oracle.com>
- <20200922231736.GA24215@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200925190423.GA31885@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <274ddc57-5c98-5003-c850-411eed1aea4c@oracle.com>
- <20200925222826.GA11755@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
- <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
+X-Inumbo-ID: cbdedb3e-8093-43c0-ac34-6ad09071a3c3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1621574812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h0Y29QIaGDhTJ8srlXj+KggabqhvgpqM7Cl5qz6AGjA=;
+	b=YcXfUaKk8kBA6KxMspjLXpy2fLIGFObR5qdRGx9sgNd9rvOex4sW50kAoh02aXH+FK39XP
+	FfX5LPkLPK2xB5ETinEmK24QBog80PwgCFbalyd7ZcNjLV6b+CNGJ3HQb25lF0EKX75dda
+	DYqnl5sZCcHYcno5gydqNHh7jhzUQdI=
+Message-ID: <8f780c50f5f672c65bc6a917460a5743e157707a.camel@suse.com>
+Subject: Re: QEMU backport necessary for building with "recent" toolchain
+ (on openSUSE Tumbleweed)
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
+ <iwj@xenproject.org>,  Wei Liu <wl@xen.org>, Roger Pau Monne
+ <roger.pau@citrix.com>
+Date: Fri, 21 May 2021 07:26:51 +0200
+In-Reply-To: <YKZqPMNawZUbR4eu@perard>
+References: <f7738499f24f6682f4ae1c1c750e30f322dfdbf3.camel@suse.com>
+	 <YKZqPMNawZUbR4eu@perard>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-tuUp2rABFTmBvrlO40XX"
+User-Agent: Evolution 3.40.1 (by Flathub.org) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Precedence: Bulk
 
-On Thu, Oct 01, 2020 at 08:43:58AM -0400, boris.ostrovsky@oracle.com wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> 
-> 
-> 
-> >>>>>>> Also, wrt KASLR stuff, that issue is still seen sometimes but I haven't had
-> >>>>>>> bandwidth to dive deep into the issue and fix it.
-> >>>> So what's the plan there? You first mentioned this issue early this year and judged by your response it is not clear whether you will ever spend time looking at it.
-> >>>>
-> >>> I do want to fix it and did do some debugging earlier this year just haven't
-> >>> gotten back to it. Also, wanted to understand if the issue is a blocker to this
-> >>> series?
-> >>
-> >> Integrating code with known bugs is less than ideal.
-> >>
-> > So for this series to be accepted, KASLR needs to be fixed along with other
-> > comments of course?
-> 
-> 
-> Yes, please.
-> 
-> 
-> 
-> >>> I had some theories when debugging around this like if the random base address picked by kaslr for the
-> >>> resuming kernel mismatches the suspended kernel and just jogging my memory, I didn't find that as the case.
-> >>> Another hunch was if physical address of registered vcpu info at boot is different from what suspended kernel
-> >>> has and that can cause CPU's to get stuck when coming online.
-> >>
-> >> I'd think if this were the case you'd have 100% failure rate. And we are also re-registering vcpu info on xen restore and I am not aware of any failures due to KASLR.
-> >>
-> > What I meant there wrt VCPU info was that VCPU info is not unregistered during hibernation,
-> > so Xen still remembers the old physical addresses for the VCPU information, created by the
-> > booting kernel. But since the hibernation kernel may have different physical
-> > addresses for VCPU info and if mismatch happens, it may cause issues with resume.
-> > During hibernation, the VCPU info register hypercall is not invoked again.
-> 
-> 
-> I still don't think that's the cause but it's certainly worth having a look.
-> 
-Hi Boris,
-Apologies for picking this up after last year. 
-I did some dive deep on the above statement and that is indeed the case that's happening. 
-I did some debugging around KASLR and hibernation using reboot mode.
-I observed in my debug prints that whenever vcpu_info* address for secondary vcpu assigned 
-in xen_vcpu_setup at boot is different than what is in the image, resume gets stuck for that vcpu
-in bringup_cpu(). That means we have different addresses for &per_cpu(xen_vcpu_info, cpu) at boot and after
-control jumps into the image. 
 
-I failed to get any prints after it got stuck in bringup_cpu() and
-I do not have an option to send a sysrq signal to the guest or rather get a kdump.
-This change is not observed in every hibernate-resume cycle. I am not sure if this is a bug or an 
-expected behavior. 
-Also, I am contemplating the idea that it may be a bug in xen code getting triggered only when
-KASLR is enabled but I do not have substantial data to prove that.
-Is this a coincidence that this always happens for 1st vcpu?
-Moreover, since hypervisor is not aware that guest is hibernated and it looks like a regular shutdown to dom0 during reboot mode,
-will re-registering vcpu_info for secondary vcpu's even plausible? I could definitely use some advice to debug this further.
+--=-tuUp2rABFTmBvrlO40XX
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
- 
-Some printk's from my debugging:
+On Thu, 2021-05-20 at 14:55 +0100, Anthony PERARD wrote:
+> On Tue, May 18, 2021 at 05:24:30PM +0200, Dario Faggioli wrote:
+> >=20
+> > I think we need the following commit in our QEMU: bbd2d5a812077
+> > ("build: -no-pie is no functional linker flag").
+>=20
+> Hi Dario,
+>=20
+Hi,
 
-At Boot:
+> I'm hoping to update qemu-xen to a newer version of QEMU (6.0) which
+> would have the fix, but that's need a fix of libxl,
+> =C2=A0=C2=A0=C2=A0 "Fix libxl with QEMU 6.0 + remove some more deprecated=
+ usages."
+> So I would prefer to avoid adding more to the current branch.
+>=20
+Sure, makes sense.
 
-xen_vcpu_setup: xen_have_vcpu_info_placement=1 cpu=1, vcpup=0xffff9e548fa560e0, info.mfn=3996246 info.offset=224,
+I wanted to bring it up, in case it hadn't been noticed yet. If it has
+been noticed and there's a plan then we're good, I guess.
 
-Image Loads:
-It ends up in the condition:
- xen_vcpu_setup()
- {
- ...
- if (xen_hvm_domain()) {
-        if (per_cpu(xen_vcpu, cpu) == &per_cpu(xen_vcpu_info, cpu))
-                return 0; 
- }
- ...
- }
+> The branch stable-4.15 already have the fix if you need, in the mean
+> time.
+>=20
+Ok, thanks!
 
-xen_vcpu_setup: checking mfn on resume cpu=1, info.mfn=3934806 info.offset=224, &per_cpu(xen_vcpu_info, cpu)=0xffff9d7240a560e0
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
-This is tested on c4.2xlarge [8vcpu 15GB mem] instance with 5.10 kernel running
-in the guest.
+--=-tuUp2rABFTmBvrlO40XX
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Thanks,
-Anchal.
-> 
-> -boris
-> 
-> 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmCnRJsACgkQFkJ4iaW4
+c+4qxxAAi6BstseQQgqCp4YIV/kBDLfTXzojzwMZpcj+12Egx8VbB+QrLd6sz4LI
+TDzYuOvVWs0psZZApFsOqfQCUxM9iFxbxG9ZRltxIHMvwszV2ZMN+4KSTqLQHHw1
+m6yy05EBO/t73eOIjv45UUhRsQkZ+O05ne6YVl/fgO0/0FVwtfbSXht6oqmgNEsS
+TkWLeUC+S1VJP2hdc6+QlJfzs0lsKIG/pW8tjjFIyCH28ZFytdYUVCW1ydgoTHJE
+NTar6Tiw7vBxlU/RSO/b+4iM7U47lSD5rlVAz35SpbkOHBeRWgD49xNSoeRluAUQ
+3ETn1XdF2WdGZLTqosUMybFEECl5NYUvanvilEgYls7m9vvOwGTxY4CFzXjdf7Bh
+F/EK4DzIk6SSIhwxb3VO9kTf36Vp6XlLtseLKMpxnxKA7wf+nfsOb2W+ld2JePp+
+OhAP34of5HiiWn/LzQNzJ/pdPMHyFTMLY24NOX/kl19XdQntyVVf15i1bQCRU/F+
+q+ofdjOiSBak7Jff43vIeaJssYYMfzjbmt1LcTuRLDywAl83ZLxqE3+IgQYrWe54
+YqbvyXMb+jGiD6NVVe37ydPZqSPU+c5XYGMpNj9Z5seguaKKk8dkWCh8v6d/gi7Z
+fapykUNZN96QigOaMWIFA/dF10DwUkxaX7+6Y2hzONHdMnURUXU=
+=j0N/
+-----END PGP SIGNATURE-----
+
+--=-tuUp2rABFTmBvrlO40XX--
+
 
