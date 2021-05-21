@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBC4B38C2CC
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 11:11:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131209.245352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9523538C359
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 11:38:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131216.245362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk1Ai-00063n-Vi; Fri, 21 May 2021 09:10:20 +0000
+	id 1lk1bW-0008Vg-7K; Fri, 21 May 2021 09:38:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131209.245352; Fri, 21 May 2021 09:10:20 +0000
+Received: by outflank-mailman (output) from mailman id 131216.245362; Fri, 21 May 2021 09:38:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk1Ai-00060o-S7; Fri, 21 May 2021 09:10:20 +0000
-Received: by outflank-mailman (input) for mailman id 131209;
- Fri, 21 May 2021 09:10:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lk1bW-0008TM-4H; Fri, 21 May 2021 09:38:02 +0000
+Received: by outflank-mailman (input) for mailman id 131216;
+ Fri, 21 May 2021 09:38:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GxT2=KQ=ffwll.ch=daniel.vetter@srs-us1.protection.inumbo.net>)
- id 1lk1Ag-00060g-HI
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 09:10:18 +0000
-Received: from mail-wm1-x32f.google.com (unknown [2a00:1450:4864:20::32f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2f1b1392-567d-4988-892b-7164b613c034;
- Fri, 21 May 2021 09:10:16 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- n17-20020a7bc5d10000b0290169edfadac9so6976584wmk.1
- for <xen-devel@lists.xenproject.org>; Fri, 21 May 2021 02:10:16 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y2sm13589457wmq.45.2021.05.21.02.10.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 02:10:14 -0700 (PDT)
+ <SRS0=6S5r=KQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1lk1bU-0008TE-2S
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 09:38:00 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 89c57c51-75d7-4d28-9551-cfc64209afba;
+ Fri, 21 May 2021 09:37:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,269 +36,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f1b1392-567d-4988-892b-7164b613c034
+X-Inumbo-ID: 89c57c51-75d7-4d28-9551-cfc64209afba
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1621589878;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=V5EFvMg3jfMFvzguFgH186OthJYDl3cIR8GbLLffcHQ=;
+  b=CF/MBeTeoUvpeXnzjfLDaYBpSYik4Xz5mtgKcWlDcUx8vXKyb4+eybC9
+   ZQwcW2OPVTFJuSH1TeR+MHLKRH/mn64oKa0KmsC/Qf8cBwIvPGx2WVHDr
+   qUwJCagllb3yoLAj8p6YuyVeJbV/Vhh9NaU4VtvWq/4N0ZLfwMHvQeA+s
+   4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 0HkmY+Nz04qwXX8lzYq/3zOOEBcE4n8YQzDnK3bJo5tPjnKu0Kn3p5/x+z2TPO+nG4+vXA/i9O
+ VPQisO5PibBX7YnlBwslovsxg268IkF2tjqTDyAtEbc5KM/mR/fS/j8+owBziwfYg0aR8N4SAK
+ isKrdLJHa8z8Kew0DFBADv5DkSVyipuBiWvY5dqMagNZqEKGbBwKXjUe/UlfbQ51lGbANE0Hgf
+ xOk9kXn9t5WXB2O958CwcfIVWK8mOK9piyBclL4opPcbWhpG5X9etbS4LjlemmJMfwfu0c67LG
+ PWQ=
+X-SBRS: 5.1
+X-MesageID: 44329957
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-Data: A9a23:+fRLRqAZKNJwVRVW/wPjw5YqxClBgxIJ4kV8jS/XYbTApG8ihjQCm
+ 2IeCzvQM/+CN2X2LYsiO9m29xgH65aGzYU1QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaH4EjratANlFEkvU2ybuOU5NXsZ2YhH2eIdA970Ug6w7Ng09Y26TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhzz
+ vZ0hcCtTT0rHfLvhL4GUhdkCS5xaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM0DF3bveLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcEgGxq15ETQp4yY
+ eJIVD5kdSjKWSRGP1kRC5gzxvX4nyLwJmgwRFW9+vNsvjm7IBZK+LriKt3OYfSRWN5Y2E2fo
+ wru/W70HxUbP9y30iee/zSngeqntTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLp3K
+ lMW0jojq7Ao806mRcW7WAe3yFabujYMVtwWFPc1gCmP167V7gCxFmUCCDlbZ7QOr9QqTDYn0
+ luImdLBBjF1trCRD3WH+d+pQSiaYHZPazVYPGldEFtDuYCLTJwPYgznTNBAKZ7pk9nPGxKv4
+ CzQtykwu68cgptev0mkxmwrkw5At7CQEFRsvFSGDzr4hu9qTNT7PtT1sDA3+d4FfN7AFAjZ1
+ JQRs5XGtIgz4YexeDthqQnnNJ+u/erNFDTBjVN1E5Al+lxBEFb4JtsJvlmSyKpzW/vomAMFg
+ meI42u9B7cJZhNGiJObhKrrVqwXIVDIT4iNaxwtRoMmjmJNmOq7EMdGPhX4M4fFyxlErE3CE
+ c7EIJzE4YgyUPs4pNZJewvt+eBynX1vrY8ibbv60w6mwdKjiI29Eu9eWGZimtsRsfPVyC2Io
+ o03H5bblH1ivBjWP3C/HXg7dgtRcxDWxPne9qRqSwJ0Clo3QD1+U6eJn9vMueVNxsxoqwsBx
+ VnkMmdww1vjn3zXbwKMb3FocrT0Wphj63k8OEQR0ZyAghDPva7HAH8jSqYK
+IronPort-HdrOrdr: A9a23:apZfz6tG8gMNELDTEwKAWuMy7skCToMji2hC6mlwRA09TyXGra
+ 6TdaUguiMc1gx8ZJhBo7C90KnpewK7yXdQ2/htAV7EZnibhILIFvAZ0WKG+Vzd8kLFh4tgPM
+ tbAsxD4ZjLfCdHZKXBkXqF+rQbsaG6GcmT7I+0pRodLnAJGtRdBkVCe32m+yVNNXl77PECZe
+ OhD6R81l2dkSN9VLXLOpBJZZmNmzWl/6iWLyIuNloC0k2jnDmo4Ln1H1yzxREFSQ5Cxr8k7C
+ zsjxH5zr/LiYD59jbsk0voq7hGktrozdVOQOaWjNIOFznqggG0IKx8Rry5uiwvqu3H0idrrD
+ D1mWZkAy1P0QKUQonsyiGdnDUIkQxeqkMK8GXow0cK+qfCNXQH46Mrv/MqTvPbg3BQ9u2Unp
+ g7hl5wGvJsfFr9dR/Glq/1vidR5wGJSEoZ4JouZkNkIP0jgZ9q3MEiFRBuYds99ByT0vFuLA
+ A4NrCj2B8RSyLDU0zk
+X-IronPort-AV: E=Sophos;i="5.82,313,1613451600"; 
+   d="scan'208";a="44329957"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=doF0lzzlCpRNUGpy/rYm02zwxcb7rY2AVACd5Say7edAwbRoxVlTNiykRpI1ILal2T/tzcVmU6K6UFPpGBrh7ohrnNM9y5wKIerlzDhLLQwhw0H6r9tYqKW8fllWh+AMhPLTdsBAk/ZbWtieotdHwpQhjINBg7wCDPGUOOwgNVOjI+rx1mFwvts8vfVYceP367T+5g8vrrj0fkClxf9zgq1dS6Xo9T+NvjQVssJ+5VnpyXnVfyQwGRS27+U2nXxz7hDqKlN7nZ+5zueEMDavugoDozm9TLXASUHe3wqsUFoftUxFyHGyarceyPG0+YI9hQPgdqaNi01Es37Nknc07g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wWwnRSBxKZqHRNCT6g9seyV9Rg0Xk/a5GNpEqkZ4XLk=;
+ b=T9i184bPVQMWKv10sbA7anmfDEbEzACmq/NCPF9jIwcrm8rNSrCE5RxRcDtvK2PB22+pdMYKQ1DO+BmLf68hHgT5yweV+iY/l9N5ff9XHVASKoaFFaHdTMhSNM2tcvjFSg04soAYPyGUK10jsQr4/8rgD4Tjec9+0aQtriF96JWNmcf5hzfeNtz9QlgybRXvhVvnYz+P2rT4ptnQhKHietZxS05R1PuqVy4Hm6pWUiTRrm6ni1+NUzPyR5Jq/mY0oV3b1VHC0mGcqL/Bw24sMG2pSTlPZ5wQo/Cip+Xyzv+BMujFcYojj3U4K/RwEZE/nr/DCechDoURs2xojahTzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffwll.ch; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=1cn49LnC9MKqFexYQ7Z0jLWqvfPvwRgzNVyBE6xCMzo=;
-        b=is09Q9qxPVyW0NgJaiKqPOqAgDwUvOEAav7i+ZL2/Ccp4gvX0OeKSQfBkc348utKqf
-         cC2qOlnY1+LC6R0B9IR0gNU/DFLJLLH4+dwh9lrZyfQQJQotuzewpZvfyI8GYOI7PGhl
-         czy0z5y5GEqCFxZ4qScRCiwGNYe2HLNIwMtdQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=1cn49LnC9MKqFexYQ7Z0jLWqvfPvwRgzNVyBE6xCMzo=;
-        b=pzdBTndyMo+cd7EvuIvBW2gXvg2T+HkiF23N7qAaV9DIXk3gxDg22G0Re7XFzoWzDB
-         BukpfIcAo2b3xPnAjwtRanQnt6RtwrQo9AimXEIlNKPHFsp6RzNQEAGNP8d+/5itFvcC
-         QZSdwFRyrwI0eUdFrNc5lKLOKFSuf2xHeAzDuv7t6qsqcCP/wRZpwbZV2lhPwRojlzOD
-         3S/fISiLboQcxohuqfaSvbk0eFhw0iUBvHP+mVWGt51ZqoZ8PZwg+G+6GwWicC8FDYv3
-         YrKYjIJMIjNOao3FwgkS6h2b+uncGYMNcrtMrypCaFVLX2PWT3ncbRauLdqh9TIIYQNx
-         Qt/Q==
-X-Gm-Message-State: AOAM533PFRTROvJnmrlPFCBwHPB+jQUerUysLn1Ia48IU/4d39LBPjJN
-	0aPJQNQ8XPBRyxrEaEse+mXl/A==
-X-Google-Smtp-Source: ABdhPJyT+6ranHRVQTb55siylh+EXYDlHb4SOwMXRTurfI70FKwfrCVWQUisCBlN9GVJKBZtwLJJ0A==
-X-Received: by 2002:a05:600c:3510:: with SMTP id h16mr7502448wmq.38.1621588215236;
-        Fri, 21 May 2021 02:10:15 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>,
-	Daniel Vetter <daniel.vetter@intel.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@aj.id.au>,
-	=?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Emma Anholt <emma@anholt.net>,
-	David Lechner <david@lechnology.com>,
-	Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 11/11] drm/tiny: drm_gem_simple_display_pipe_prepare_fb is the default
-Date: Fri, 21 May 2021 11:09:59 +0200
-Message-Id: <20210521090959.1663703-11-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
-References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wWwnRSBxKZqHRNCT6g9seyV9Rg0Xk/a5GNpEqkZ4XLk=;
+ b=Iv/OSN2u4qBaSq+FHuDkAQ9URON+0aXsmUUxigXJiwCBXEg5KpLSRbYMwIC+dCdKb/3YzGL5rz7VA5RfVJ1gxx3tcfR1pUe5/N7MLwh1CGOpyyS8Tz1DkvxSwjAL8uOwtXCa8dMY24eY3PqdJKYsycPtZmfdxR04+CQQZilheN8=
+Date: Fri, 21 May 2021 11:37:47 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+CC: Jan Beulich <jbeulich@suse.com>, <xen-devel@lists.xenproject.org>, "Ian
+ Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] libelf: improve PVH elfnote parsing
+Message-ID: <YKd/awAn3UkZuszh@Air-de-Roger>
+References: <20210518144741.44395-1-roger.pau@citrix.com>
+ <c645b764-00fe-2b90-3b31-7f2bb6f07c02@suse.com>
+ <YKYreLP8N16vcIVB@Air-de-Roger>
+ <162f76e1-9da5-c750-2591-ea011b4b2842@suse.com>
+ <d4250baa-9680-cd48-3684-2b61b955713d@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <d4250baa-9680-cd48-3684-2b61b955713d@suse.com>
+X-ClientProxiedBy: MR2P264CA0038.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::26)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 692a0959-3367-4ab3-3cbb-08d91c3c1b5b
+X-MS-TrafficTypeDiagnostic: DM5PR03MB2777:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB27779268066D624124CB35518F299@DM5PR03MB2777.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +m6yz/Z5/0w7G/s/muRTo2fUpfFu+wsk9bcEgAzYKIHnkQ5XoHvH/McgcXAzdHSKo7KzJp5CoOv1mcPfTkEgq18XPxShKFhwLZCuJ5Ra0mXHvz3WSP+itFjO4ex9O9Fiv38Z3amQDO1iTCAG/zWVVzQ7wqdHfb9TkUC8SBNokesyt6xvIjE9JWZ2BncMqay5nMe2aI0LnKqhyWZRDIwzuqjwHiOGnPSleXb0vaJ3Se1V9yQOG5PfK2bJkOReNw1f2WTkYNKcC0TIhbsuSLoKOTFo7dG4TDN3ISvYkKAoiioiPbPx4w6mmqh/Ef+CxK4Q+u5ffrArzXyFW9Qgy26o0wpTR21Xuqb+NcYgPs86uycuD59O525J9Qs/xt0gGJirWgbHy5OYN8yYUuIoV9N7wA1P+A20RW3ALPED1C9uIydDNOjrVPsJu/pNPQ+IAkTJTnh4/0xUkHqTUPV9mQaBfXNdQksNmO3D0pdDtIxJ0KC72n+k92skBqBHMQTYykQKNacAujUlTvke+N/8fqAEy8eRrcOMNAAchexDMq5TzslxpoTQjFZFbdE9UY6PBp0uf037TVzgwGmABwADgBD8TVnOT9R1maKd/mOqS6uA7U8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(376002)(346002)(136003)(366004)(39860400002)(16526019)(8676002)(8936002)(54906003)(186003)(478600001)(86362001)(6496006)(33716001)(6916009)(26005)(6666004)(53546011)(9686003)(316002)(4326008)(956004)(2906002)(6486002)(83380400001)(85182001)(5660300002)(66476007)(66946007)(38100700002)(66556008);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eEo5ZThWNm92WEJ3SGNZY0tWL0VQS0dRMEVXTmJ3Q001SUdabUZmMGttQVhj?=
+ =?utf-8?B?TTF1b3BSNnI2NEhMd3BaTkZjZHRUZTNza3JjY0tCTDFlZDl3Sk9KekpMTzNP?=
+ =?utf-8?B?cVdXZVRxOXcvVzByM0dEeWV5LytjUllGc09mWE5mQ0xCclF6RUwzdFY3bVE5?=
+ =?utf-8?B?Q3p6aHN3VmphUEZwelgxMHE5YUdDSnJVMzF5Mlpubk5PaldzbmNpcjV6NWsy?=
+ =?utf-8?B?UGRoNzBtcXFTVk5OYVJzUnNkNGMwOXQ0Y3JCTWZzbGE3TE5hTUIrWGNGSVZo?=
+ =?utf-8?B?WmRXL05DWjR1QjRyNDNKVVhYRlNUaDVnMTVYVXdwb0tRaHVkMUFlcU1leW9O?=
+ =?utf-8?B?TUtzR1N3bXIxRlg0Z3pNQVNyQWYvRmI3Sm43K1owazZTbVBXTjNtTDlXQjZy?=
+ =?utf-8?B?Y0pIK2FSUzFnekJHY0lDcTZMNUhxd0J2VnU3RFVubVhBekgvWVBXQVUzNUJ3?=
+ =?utf-8?B?RUxyM1MzS0ZDeWlTMGZ2YThFalh5UU5nY2xVK3R4RUF6TFQ1ak1pM0tKL3Fk?=
+ =?utf-8?B?bFRIV0tCVUxQb01abUlyZnFqRU1BTkVQblgxYVpmSlRqQndkMGxLNW1ST093?=
+ =?utf-8?B?RGdaazFJWVVYbnEyWjF3eDExYnVERnozd3JiT2tLa2pvbTVPQzVheUE0T1NT?=
+ =?utf-8?B?aVV3MlExOWZaVVJFRmMrOFNqRU1vanpKM0tnZktaS0NnYlVUeXViUDFacTFF?=
+ =?utf-8?B?Qk5VbEExYjNzSE5UaFRObU9KbUpTTi9zVTdVM1M2S1NJanI3ZmdhKzhxL1la?=
+ =?utf-8?B?L2hUWVB3ZytjbHJodU5zUkl6cldhYjB5b3VnNU01d0ZCOEpHOVhHMm8rdkEx?=
+ =?utf-8?B?Wmo0RG9sUnJXakNNQmxjcDlyR2t4Z3Erc3JEb2Z5bHIyRjFTUnpENXc1bUxu?=
+ =?utf-8?B?dUJkM3lWY3JiZmVQaTd3dHFzd0JyNEh5SWpCSW5vY29Lb1FjQlRybTcyQm41?=
+ =?utf-8?B?cFU0TzJ2NWx5RFpmNWtXYjNEbmRtbEVrYWYxdVJMaXFPdUpuOFBEeitWZCtW?=
+ =?utf-8?B?ZTg4cXJ5WHQyWkI4Qmt5Q05zTEJDd2NGbEV2cmRoODh0dmxqYkZRdlFhUXZ2?=
+ =?utf-8?B?VnA0RjlwUHBRVTA0d2NjZDI2SXlHMXBrRWVCVjVzUExZU3BGTEs5a256WjBp?=
+ =?utf-8?B?d3A3Rk4zSHRNd3l0VDQ0ZVFCV1ZiSEhsbFdCdGliU2tXVGluZlBWalJHS1ZX?=
+ =?utf-8?B?UVk2QWc5WVdjTXJHam0zQWVWK0JvQVhwOHcvQy90SFA5aDkrLzJrSWNkNy9j?=
+ =?utf-8?B?K0oyOG96S2FCSGJuQlFicENLZmV1d3hFNVpYN1MyVmRlR0UvdHk1T3ZCV2sy?=
+ =?utf-8?B?V0VnNzQ3TlFqMUZKNUl4MUtwQ0hLZUhVTVJucGpYT1Zma2FSVnVGRzNubG5x?=
+ =?utf-8?B?dmlSb2xhUWV1Q3Rxbm1qTXNLaVdrNGc1Yi9QVEFIeHdVV3FyaS9zNkd1Uk9q?=
+ =?utf-8?B?RjN1b3JnaE5PcTMxdm0yM2JSemRWMk15eEM4OVB0cjhKM2ZWN0hJY3R4Z0w0?=
+ =?utf-8?B?Y3ZrL1dXZHpHL2l1dU5xd1VROG9oOEgvM0I0UnZkRXUrTXFSV2RUb2xPYkQw?=
+ =?utf-8?B?d1ZSVUtia0lQeTJyaUt4OG8vc0tnWkJzTDhHaEI5bUJUQVBqMllxclhoUFF1?=
+ =?utf-8?B?ODBROWVOelNESGltZ2ZxbjFKbHVidWRoQ2xhTE9lZ2JrTVNFOTc0LzNWa1RI?=
+ =?utf-8?B?cXYrQXJ6WmFINExEak9pZHBCSDJ2ZjFkWW9SNWFaS0dRSUJlZVU4dWh0WW93?=
+ =?utf-8?Q?ejVZ/8IOZaHj3i1VeUNZY1o3aM3LXW+t+p6BVPi?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 692a0959-3367-4ab3-3cbb-08d91c3c1b5b
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2021 09:37:53.4097
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gWNlvl3Muv/bCENJQjt45DCvHN2KvTq/GkcZC9hVosoSSs5PjwcqbC0CT5qQlH7Vifb0pQUb2M6bYFVsv2WdZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2777
+X-OriginatorOrg: citrix.com
 
-Goes through all the drivers and deletes the default hook since it's
-the default now.
+On Fri, May 21, 2021 at 07:26:21AM +0200, Juergen Gross wrote:
+> On 20.05.21 11:28, Jan Beulich wrote:
+> > On 20.05.2021 11:27, Roger Pau Monné wrote:
+> > > On Wed, May 19, 2021 at 12:34:19PM +0200, Jan Beulich wrote:
+> > > > On 18.05.2021 16:47, Roger Pau Monne wrote:
+> > > > > @@ -425,8 +425,11 @@ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+> > > > >           return -1;
+> > > > >       }
+> > > > > -    /* Initial guess for virt_base is 0 if it is not explicitly defined. */
+> > > > > -    if ( parms->virt_base == UNSET_ADDR )
+> > > > > +    /*
+> > > > > +     * Initial guess for virt_base is 0 if it is not explicitly defined in the
+> > > > > +     * PV case. For PVH virt_base is forced to 0 because paging is disabled.
+> > > > > +     */
+> > > > > +    if ( parms->virt_base == UNSET_ADDR || hvm )
+> > > > >       {
+> > > > >           parms->virt_base = 0;
+> > > > >           elf_msg(elf, "ELF: VIRT_BASE unset, using %#" PRIx64 "\n",
+> > > > 
+> > > > This message is wrong now if hvm is true but parms->virt_base != UNSET_ADDR.
+> > > > Best perhaps is to avoid emitting the message altogether when hvm is true.
+> > > > (Since you'll be touching it anyway, perhaps a good opportunity
+> > > > to do
+> away
+> > > > with passing parms->virt_base to elf_msg(), and instead simply use a literal
+> > > > zero.)
+> > > > 
+> > > > > @@ -441,8 +444,10 @@ static elf_errorstatus elf_xen_addr_calc_check(struct elf_binary *elf,
+> > > > >        *
+> > > > >        * If we are using the modern ELF notes interface then the default
+> > > > >        * is 0.
+> > > > > +     *
+> > > > > +     * For PVH this is forced to 0, as it's already a
+> > > > > legacy option
+> for PV.
+> > > > >        */
+> > > > > -    if ( parms->elf_paddr_offset == UNSET_ADDR )
+> > > > > +    if ( parms->elf_paddr_offset == UNSET_ADDR || hvm )
+> > > > >       {
+> > > > >           if ( parms->elf_note_start )
+> > > > 
+> > > > Don't you want "|| hvm" here as well, or alternatively suppress the
+> > > > fallback to the __xen_guest section in the PVH case (near the end of
+> > > > elf_xen_parse())?
+> > > 
+> > > The legacy __xen_guest section doesn't support PHYS32_ENTRY, so yes,
+> > > that part could be completely skipped when called from an HVM
+> > > container.
+> > > 
+> > > I think I will fix that in another patch though if you are OK, as
+> > > it's not strictly related to the calculation fixes done here.
+> > 
+> > That's fine; it wants to be a prereq to the one here then, though,
+> > I think.
+> 
+> Would it be possible to add some comment to xen/include/public/elfnote.h
+> Indicating which elfnotes are evaluated for which guest types,
 
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Cc: "Noralf Trønnes" <noralf@tronnes.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Emma Anholt <emma@anholt.net>
-Cc: David Lechner <david@lechnology.com>
-Cc: Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-aspeed@lists.ozlabs.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: xen-devel@lists.xenproject.org
----
- drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c | 1 -
- drivers/gpu/drm/gud/gud_drv.c            | 1 -
- drivers/gpu/drm/mcde/mcde_display.c      | 1 -
- drivers/gpu/drm/pl111/pl111_display.c    | 1 -
- drivers/gpu/drm/tiny/hx8357d.c           | 1 -
- drivers/gpu/drm/tiny/ili9225.c           | 1 -
- drivers/gpu/drm/tiny/ili9341.c           | 1 -
- drivers/gpu/drm/tiny/ili9486.c           | 1 -
- drivers/gpu/drm/tiny/mi0283qt.c          | 1 -
- drivers/gpu/drm/tiny/repaper.c           | 1 -
- drivers/gpu/drm/tiny/st7586.c            | 1 -
- drivers/gpu/drm/tiny/st7735r.c           | 1 -
- drivers/gpu/drm/tve200/tve200_display.c  | 1 -
- drivers/gpu/drm/xen/xen_drm_front_kms.c  | 1 -
- 14 files changed, 14 deletions(-)
+For PVH after this patch the only mandatory note should be
+PHYS32_ENTRY. BSD_SYMTAB is also parsed if found on that case.
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-index 098f96d4d50d..827e62c1daba 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-@@ -220,7 +220,6 @@ static const struct drm_simple_display_pipe_funcs aspeed_gfx_funcs = {
- 	.enable		= aspeed_gfx_pipe_enable,
- 	.disable	= aspeed_gfx_pipe_disable,
- 	.update		= aspeed_gfx_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- 	.enable_vblank	= aspeed_gfx_enable_vblank,
- 	.disable_vblank	= aspeed_gfx_disable_vblank,
- };
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index e8b672dc9832..1925df9c0fb7 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -364,7 +364,6 @@ static void gud_debugfs_init(struct drm_minor *minor)
- static const struct drm_simple_display_pipe_funcs gud_pipe_funcs = {
- 	.check      = gud_pipe_check,
- 	.update	    = gud_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_mode_config_funcs gud_mode_config_funcs = {
-diff --git a/drivers/gpu/drm/mcde/mcde_display.c b/drivers/gpu/drm/mcde/mcde_display.c
-index 4ddc55d58f38..ce12a36e2db4 100644
---- a/drivers/gpu/drm/mcde/mcde_display.c
-+++ b/drivers/gpu/drm/mcde/mcde_display.c
-@@ -1479,7 +1479,6 @@ static struct drm_simple_display_pipe_funcs mcde_display_funcs = {
- 	.update = mcde_display_update,
- 	.enable_vblank = mcde_display_enable_vblank,
- 	.disable_vblank = mcde_display_disable_vblank,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- int mcde_display_init(struct drm_device *drm)
-diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl111/pl111_display.c
-index 6fd7f13f1aca..b5a8859739a2 100644
---- a/drivers/gpu/drm/pl111/pl111_display.c
-+++ b/drivers/gpu/drm/pl111/pl111_display.c
-@@ -440,7 +440,6 @@ static struct drm_simple_display_pipe_funcs pl111_display_funcs = {
- 	.enable = pl111_display_enable,
- 	.disable = pl111_display_disable,
- 	.update = pl111_display_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static int pl111_clk_div_choose_div(struct clk_hw *hw, unsigned long rate,
-diff --git a/drivers/gpu/drm/tiny/hx8357d.c b/drivers/gpu/drm/tiny/hx8357d.c
-index da5df93450de..9b33c05732aa 100644
---- a/drivers/gpu/drm/tiny/hx8357d.c
-+++ b/drivers/gpu/drm/tiny/hx8357d.c
-@@ -184,7 +184,6 @@ static const struct drm_simple_display_pipe_funcs hx8357d_pipe_funcs = {
- 	.enable = yx240qv29_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode yx350hv15_mode = {
-diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
-index 69265d8a3beb..976d3209f164 100644
---- a/drivers/gpu/drm/tiny/ili9225.c
-+++ b/drivers/gpu/drm/tiny/ili9225.c
-@@ -328,7 +328,6 @@ static const struct drm_simple_display_pipe_funcs ili9225_pipe_funcs = {
- 	.enable		= ili9225_pipe_enable,
- 	.disable	= ili9225_pipe_disable,
- 	.update		= ili9225_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode ili9225_mode = {
-diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
-index ad9ce7b4f76f..37e0c33399c8 100644
---- a/drivers/gpu/drm/tiny/ili9341.c
-+++ b/drivers/gpu/drm/tiny/ili9341.c
-@@ -140,7 +140,6 @@ static const struct drm_simple_display_pipe_funcs ili9341_pipe_funcs = {
- 	.enable = yx240qv29_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode yx240qv29_mode = {
-diff --git a/drivers/gpu/drm/tiny/ili9486.c b/drivers/gpu/drm/tiny/ili9486.c
-index 75aa1476c66c..e9a63f4b2993 100644
---- a/drivers/gpu/drm/tiny/ili9486.c
-+++ b/drivers/gpu/drm/tiny/ili9486.c
-@@ -153,7 +153,6 @@ static const struct drm_simple_display_pipe_funcs waveshare_pipe_funcs = {
- 	.enable = waveshare_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode waveshare_mode = {
-diff --git a/drivers/gpu/drm/tiny/mi0283qt.c b/drivers/gpu/drm/tiny/mi0283qt.c
-index 82fd1ad3413f..023de49e7a8e 100644
---- a/drivers/gpu/drm/tiny/mi0283qt.c
-+++ b/drivers/gpu/drm/tiny/mi0283qt.c
-@@ -144,7 +144,6 @@ static const struct drm_simple_display_pipe_funcs mi0283qt_pipe_funcs = {
- 	.enable = mi0283qt_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode mi0283qt_mode = {
-diff --git a/drivers/gpu/drm/tiny/repaper.c b/drivers/gpu/drm/tiny/repaper.c
-index 2cee07a2e00b..007d9d59f01c 100644
---- a/drivers/gpu/drm/tiny/repaper.c
-+++ b/drivers/gpu/drm/tiny/repaper.c
-@@ -861,7 +861,6 @@ static const struct drm_simple_display_pipe_funcs repaper_pipe_funcs = {
- 	.enable = repaper_pipe_enable,
- 	.disable = repaper_pipe_disable,
- 	.update = repaper_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static int repaper_connector_get_modes(struct drm_connector *connector)
-diff --git a/drivers/gpu/drm/tiny/st7586.c b/drivers/gpu/drm/tiny/st7586.c
-index 05db980cc047..1be55bed609a 100644
---- a/drivers/gpu/drm/tiny/st7586.c
-+++ b/drivers/gpu/drm/tiny/st7586.c
-@@ -268,7 +268,6 @@ static const struct drm_simple_display_pipe_funcs st7586_pipe_funcs = {
- 	.enable		= st7586_pipe_enable,
- 	.disable	= st7586_pipe_disable,
- 	.update		= st7586_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode st7586_mode = {
-diff --git a/drivers/gpu/drm/tiny/st7735r.c b/drivers/gpu/drm/tiny/st7735r.c
-index ec9dc817a2cc..122320db5d38 100644
---- a/drivers/gpu/drm/tiny/st7735r.c
-+++ b/drivers/gpu/drm/tiny/st7735r.c
-@@ -136,7 +136,6 @@ static const struct drm_simple_display_pipe_funcs st7735r_pipe_funcs = {
- 	.enable		= st7735r_pipe_enable,
- 	.disable	= mipi_dbi_pipe_disable,
- 	.update		= mipi_dbi_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct st7735r_cfg jd_t18003_t01_cfg = {
-diff --git a/drivers/gpu/drm/tve200/tve200_display.c b/drivers/gpu/drm/tve200/tve200_display.c
-index 50e1fb71869f..17b8c8dd169d 100644
---- a/drivers/gpu/drm/tve200/tve200_display.c
-+++ b/drivers/gpu/drm/tve200/tve200_display.c
-@@ -316,7 +316,6 @@ static const struct drm_simple_display_pipe_funcs tve200_display_funcs = {
- 	.enable = tve200_display_enable,
- 	.disable = tve200_display_disable,
- 	.update = tve200_display_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- 	.enable_vblank = tve200_display_enable_vblank,
- 	.disable_vblank = tve200_display_disable_vblank,
- };
-diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm/xen/xen_drm_front_kms.c
-index 371202ebe900..cfda74490765 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
-@@ -302,7 +302,6 @@ static const struct drm_simple_display_pipe_funcs display_funcs = {
- 	.mode_valid = display_mode_valid,
- 	.enable = display_enable,
- 	.disable = display_disable,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- 	.check = display_check,
- 	.update = display_update,
- };
--- 
-2.31.0
+> including
+> a hint which elfnotes _have_ been evaluated before this series?
 
+Before this patch mostly all PV notes are parsed, and you have to
+manage to get suitable values set so that:
+
+    if ( (parms->virt_kstart > parms->virt_kend) ||
+         (parms->virt_entry < parms->virt_kstart) ||
+         (parms->virt_entry > parms->virt_kend) ||
+         (parms->virt_base > parms->virt_kstart) )
+    {
+        elf_err(elf, "ERROR: ELF start or entries are out of bounds\n");
+        return -1;
+    }
+
+Doesn't trigger. That can be done by setting virt_entry or the native
+elf entry point to a value that satisfies the condition. Or by setting
+a suitable offset in VIRT_BASE to a value that matches the offset
+added to the native entry point in the ELF header.
+
+I can try to write this up, albeit I think it can get messy. Not sure
+what's the best approach here regarding recommended settings to
+satisfy old Xen versions.
+
+Roger.
 
