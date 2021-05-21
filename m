@@ -2,32 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E51B38BDE4
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 07:27:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131103.245206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F4C38BDE3
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 07:27:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131113.245228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljxg4-0002uo-6f; Fri, 21 May 2021 05:26:28 +0000
+	id 1ljxgs-0003vC-Vu; Fri, 21 May 2021 05:27:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131103.245206; Fri, 21 May 2021 05:26:28 +0000
+Received: by outflank-mailman (output) from mailman id 131113.245228; Fri, 21 May 2021 05:27:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ljxg4-0002ss-34; Fri, 21 May 2021 05:26:28 +0000
-Received: by outflank-mailman (input) for mailman id 131103;
- Fri, 21 May 2021 05:26:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7IOp=KQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1ljxg1-0002sm-U5
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 05:26:26 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c286a887-0914-4eae-8ffc-13b5c554babb;
- Fri, 21 May 2021 05:26:23 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E133AAC1A;
- Fri, 21 May 2021 05:26:22 +0000 (UTC)
+	id 1ljxgs-0003ry-RK; Fri, 21 May 2021 05:27:18 +0000
+Received: by outflank-mailman (input) for mailman id 131113;
+ Fri, 21 May 2021 05:27:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Y0JZ=KQ=amazon.com=prvs=768a5fbb6=anchalag@srs-us1.protection.inumbo.net>)
+ id 1ljxgr-0003lt-E8
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 05:27:17 +0000
+Received: from smtp-fw-80006.amazon.com (unknown [99.78.197.217])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6e96726c-88cc-436d-81cf-aa9999cb611b;
+ Fri, 21 May 2021 05:27:16 +0000 (UTC)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com) ([10.25.36.210])
+ by smtp-border-fw-80006.pdx80.corp.amazon.com with ESMTP;
+ 21 May 2021 05:27:14 +0000
+Received: from EX13MTAUWA001.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 84D9AA1E62; Fri, 21 May 2021 05:27:07 +0000 (UTC)
+Received: from EX13D07UWA004.ant.amazon.com (10.43.160.32) by
+ EX13MTAUWA001.ant.amazon.com (10.43.160.58) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.18; Fri, 21 May 2021 05:26:51 +0000
+Received: from EX13MTAUWA001.ant.amazon.com (10.43.160.58) by
+ EX13D07UWA004.ant.amazon.com (10.43.160.32) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.18; Fri, 21 May 2021 05:26:51 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.160.118) with Microsoft SMTP
+ Server id 15.0.1497.18 via Frontend Transport; Fri, 21 May 2021 05:26:51
+ +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id F1AC340124; Fri, 21 May 2021 05:26:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,252 +54,145 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c286a887-0914-4eae-8ffc-13b5c554babb
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1621574783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zJLMNq1dYimxxdw70v+420DgM7LUa17lAK04OQM3TM8=;
-	b=L2J2OI1AxpIpk+icFhpPJS4GmkdXfuyTYSZZ93VWWDem5XPXzJ4TZ9S10d1rKlsKJ7zxQc
-	mf/ho2pAOg10chaNQyNUWNoWi8XGNt0MGBbqWzutrEZ+SPlnMtCsfkyTsmVgO204WxDCFB
-	weNFV7wMMJtnFH4/4JukEBy1rvcXurM=
-Subject: Re: [PATCH v2] libelf: improve PVH elfnote parsing
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20210518144741.44395-1-roger.pau@citrix.com>
- <c645b764-00fe-2b90-3b31-7f2bb6f07c02@suse.com>
- <YKYreLP8N16vcIVB@Air-de-Roger>
- <162f76e1-9da5-c750-2591-ea011b4b2842@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <d4250baa-9680-cd48-3684-2b61b955713d@suse.com>
-Date: Fri, 21 May 2021 07:26:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 6e96726c-88cc-436d-81cf-aa9999cb611b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1621574837; x=1653110837;
+  h=date:from:to:cc:message-id:references:mime-version:
+   in-reply-to:subject;
+  bh=kDiMVanU/J46MBpWtTAkHD58jSy5mLoyYAH1XvH7tTU=;
+  b=KaGi33Vipk1k55lu9qtcYFN200iDKBsinU+IO1Z1mRFTJec89utsK9Rd
+   kOKY/Glg//qialmMWX3yL/tFGtCfbg8Ilfdqh2IrYQ9D7FnXPPmlPkm0U
+   BjNt+tLTKKFRF0glSBapVEc01exvMisB3JywJ/xgdMWm3BGMwaZ+ojyzG
+   Y=;
+X-IronPort-AV: E=Sophos;i="5.82,313,1613433600"; 
+   d="scan'208";a="2533323"
+Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend mode
+Date: Fri, 21 May 2021 05:26:50 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: <boris.ostrovsky@oracle.com>
+CC: "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
+	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com"
+	<hpa@zytor.com>, "jgross@suse.com" <jgross@suse.com>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "linux-mm@kvack.org"
+	<linux-mm@kvack.org>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"konrad.wilk@oracle.com" <konrad.wilk@oracle.com>, "roger.pau@citrix.com"
+	<roger.pau@citrix.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+	"davem@davemloft.net" <davem@davemloft.net>, "rjw@rjwysocki.net"
+	<rjw@rjwysocki.net>, "len.brown@intel.com" <len.brown@intel.com>,
+	"pavel@ucw.cz" <pavel@ucw.cz>, "peterz@infradead.org" <peterz@infradead.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"vkuznets@redhat.com" <vkuznets@redhat.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+	<Woodhouse@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>, David
+	<dwmw@amazon.co.uk>, "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+	<anchalag@amazon.com>, <aams@amazon.com>
+Message-ID: <20210521052650.GA19056@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
+ <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <e3e447e5-2f7a-82a2-31c8-10c2ffcbfb2c@oracle.com>
+ <20200922231736.GA24215@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200925190423.GA31885@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <274ddc57-5c98-5003-c850-411eed1aea4c@oracle.com>
+ <20200925222826.GA11755@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
+ <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <162f76e1-9da5-c750-2591-ea011b4b2842@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="HdSGxOgLC3lGjgTwDp6KHEeuIMFHJI8dY"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---HdSGxOgLC3lGjgTwDp6KHEeuIMFHJI8dY
-Content-Type: multipart/mixed; boundary="RLmkayiUrPnLMbGmBDWzKaZGYPWdByjPN";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <d4250baa-9680-cd48-3684-2b61b955713d@suse.com>
-Subject: Re: [PATCH v2] libelf: improve PVH elfnote parsing
-References: <20210518144741.44395-1-roger.pau@citrix.com>
- <c645b764-00fe-2b90-3b31-7f2bb6f07c02@suse.com>
- <YKYreLP8N16vcIVB@Air-de-Roger>
- <162f76e1-9da5-c750-2591-ea011b4b2842@suse.com>
-In-Reply-To: <162f76e1-9da5-c750-2591-ea011b4b2842@suse.com>
+On Thu, Oct 01, 2020 at 08:43:58AM -0400, boris.ostrovsky@oracle.com wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> 
+> 
+> 
+> >>>>>>> Also, wrt KASLR stuff, that issue is still seen sometimes but I haven't had
+> >>>>>>> bandwidth to dive deep into the issue and fix it.
+> >>>> So what's the plan there? You first mentioned this issue early this year and judged by your response it is not clear whether you will ever spend time looking at it.
+> >>>>
+> >>> I do want to fix it and did do some debugging earlier this year just haven't
+> >>> gotten back to it. Also, wanted to understand if the issue is a blocker to this
+> >>> series?
+> >>
+> >> Integrating code with known bugs is less than ideal.
+> >>
+> > So for this series to be accepted, KASLR needs to be fixed along with other
+> > comments of course?
+> 
+> 
+> Yes, please.
+> 
+> 
+> 
+> >>> I had some theories when debugging around this like if the random base address picked by kaslr for the
+> >>> resuming kernel mismatches the suspended kernel and just jogging my memory, I didn't find that as the case.
+> >>> Another hunch was if physical address of registered vcpu info at boot is different from what suspended kernel
+> >>> has and that can cause CPU's to get stuck when coming online.
+> >>
+> >> I'd think if this were the case you'd have 100% failure rate. And we are also re-registering vcpu info on xen restore and I am not aware of any failures due to KASLR.
+> >>
+> > What I meant there wrt VCPU info was that VCPU info is not unregistered during hibernation,
+> > so Xen still remembers the old physical addresses for the VCPU information, created by the
+> > booting kernel. But since the hibernation kernel may have different physical
+> > addresses for VCPU info and if mismatch happens, it may cause issues with resume.
+> > During hibernation, the VCPU info register hypercall is not invoked again.
+> 
+> 
+> I still don't think that's the cause but it's certainly worth having a look.
+> 
+Hi Boris,
+Apologies for picking this up after last year. 
+I did some dive deep on the above statement and that is indeed the case that's happening. 
+I did some debugging around KASLR and hibernation using reboot mode.
+I observed in my debug prints that whenever vcpu_info* address for secondary vcpu assigned 
+in xen_vcpu_setup at boot is different than what is in the image, resume gets stuck for that vcpu
+in bringup_cpu(). That means we have different addresses for &per_cpu(xen_vcpu_info, cpu) at boot and after
+control jumps into the image. 
 
---RLmkayiUrPnLMbGmBDWzKaZGYPWdByjPN
-Content-Type: multipart/mixed;
- boundary="------------2ADF1466956EDA7E1D5545BB"
-Content-Language: en-US
+I failed to get any prints after it got stuck in bringup_cpu() and
+I do not have an option to send a sysrq signal to the guest or rather get a kdump.
+This change is not observed in every hibernate-resume cycle. I am not sure if this is a bug or an 
+expected behavior. 
+Also, I am contemplating the idea that it may be a bug in xen code getting triggered only when
+KASLR is enabled but I do not have substantial data to prove that.
+Is this a coincidence that this always happens for 1st vcpu?
+Moreover, since hypervisor is not aware that guest is hibernated and it looks like a regular shutdown to dom0 during reboot mode,
+will re-registering vcpu_info for secondary vcpu's even plausible? I could definitely use some advice to debug this further.
 
-This is a multi-part message in MIME format.
---------------2ADF1466956EDA7E1D5545BB
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+ 
+Some printk's from my debugging:
 
-On 20.05.21 11:28, Jan Beulich wrote:
-> On 20.05.2021 11:27, Roger Pau Monn=C3=A9 wrote:
->> On Wed, May 19, 2021 at 12:34:19PM +0200, Jan Beulich wrote:
->>> On 18.05.2021 16:47, Roger Pau Monne wrote:
->>>> @@ -425,8 +425,11 @@ static elf_errorstatus elf_xen_addr_calc_check(=
-struct elf_binary *elf,
->>>>           return -1;
->>>>       }
->>>>  =20
->>>> -    /* Initial guess for virt_base is 0 if it is not explicitly def=
-ined. */
->>>> -    if ( parms->virt_base =3D=3D UNSET_ADDR )
->>>> +    /*
->>>> +     * Initial guess for virt_base is 0 if it is not explicitly def=
-ined in the
->>>> +     * PV case. For PVH virt_base is forced to 0 because paging is =
-disabled.
->>>> +     */
->>>> +    if ( parms->virt_base =3D=3D UNSET_ADDR || hvm )
->>>>       {
->>>>           parms->virt_base =3D 0;
->>>>           elf_msg(elf, "ELF: VIRT_BASE unset, using %#" PRIx64 "\n",=
+At Boot:
 
->>>
->>> This message is wrong now if hvm is true but parms->virt_base !=3D UN=
-SET_ADDR.
->>> Best perhaps is to avoid emitting the message altogether when hvm is =
-true.
->>> (Since you'll be touching it anyway, perhaps a good opportunity to do=20
-away
->>> with passing parms->virt_base to elf_msg(), and instead simply use a =
-literal
->>> zero.)
->>>
->>>> @@ -441,8 +444,10 @@ static elf_errorstatus elf_xen_addr_calc_check(=
-struct elf_binary *elf,
->>>>        *
->>>>        * If we are using the modern ELF notes interface then the def=
-ault
->>>>        * is 0.
->>>> +     *
->>>> +     * For PVH this is forced to 0, as it's already a legacy option=20
-for PV.
->>>>        */
->>>> -    if ( parms->elf_paddr_offset =3D=3D UNSET_ADDR )
->>>> +    if ( parms->elf_paddr_offset =3D=3D UNSET_ADDR || hvm )
->>>>       {
->>>>           if ( parms->elf_note_start )
->>>
->>> Don't you want "|| hvm" here as well, or alternatively suppress the
->>> fallback to the __xen_guest section in the PVH case (near the end of
->>> elf_xen_parse())?
->>
->> The legacy __xen_guest section doesn't support PHYS32_ENTRY, so yes,
->> that part could be completely skipped when called from an HVM
->> container.
->>
->> I think I will fix that in another patch though if you are OK, as
->> it's not strictly related to the calculation fixes done here.
->=20
-> That's fine; it wants to be a prereq to the one here then, though,
-> I think.
+xen_vcpu_setup: xen_have_vcpu_info_placement=1 cpu=1, vcpup=0xffff9e548fa560e0, info.mfn=3996246 info.offset=224,
 
-Would it be possible to add some comment to xen/include/public/elfnote.h
-Indicating which elfnotes are evaluated for which guest types, including
-a hint which elfnotes _have_ been evaluated before this series? This
-will help cleaning up guests regarding advertisement of elfnotes
-(something I've been planning to do for the Linux kernel).
+Image Loads:
+It ends up in the condition:
+ xen_vcpu_setup()
+ {
+ ...
+ if (xen_hvm_domain()) {
+        if (per_cpu(xen_vcpu, cpu) == &per_cpu(xen_vcpu_info, cpu))
+                return 0; 
+ }
+ ...
+ }
 
+xen_vcpu_setup: checking mfn on resume cpu=1, info.mfn=3934806 info.offset=224, &per_cpu(xen_vcpu_info, cpu)=0xffff9d7240a560e0
 
-Juergen
+This is tested on c4.2xlarge [8vcpu 15GB mem] instance with 5.10 kernel running
+in the guest.
 
---------------2ADF1466956EDA7E1D5545BB
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------2ADF1466956EDA7E1D5545BB--
-
---RLmkayiUrPnLMbGmBDWzKaZGYPWdByjPN--
-
---HdSGxOgLC3lGjgTwDp6KHEeuIMFHJI8dY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmCnRH0FAwAAAAAACgkQsN6d1ii/Ey/c
-jQf+NsE4DA1mFjXMBEUP+0SDGa1ytt1ksFbkh0Ty0clnvqVy9JogkAEccOyPHro9gS2J1nRq2EAp
-BvITKHNB1ycQUOeWPldBXD8ATjk2XT7QW5Na724jAf5FO9EC213Q76hPYVqIJBWH7feH5DfYzDZg
-+Bv7FASi5hTLmyTt36K6LPkcUaRoGZ/auMQBRQwk2hEgFRiQtoP2z62FTFBQmReLX9XdgUXJQelZ
-jAU3iJoOeGqknfaU281lSdErWnlyb5DEsl9NYi0GCKuG3iIW/y9GO03U4E12VvP5UYAwAFVhWpkm
-rCi0IufNqQTVTnUeLH4ncwdhb05CkYGmXf8gzLHb1w==
-=Kjpd
------END PGP SIGNATURE-----
-
---HdSGxOgLC3lGjgTwDp6KHEeuIMFHJI8dY--
+Thanks,
+Anchal.
+> 
+> -boris
+> 
+> 
 
