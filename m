@@ -2,34 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FB0338C7A5
-	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 15:17:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131263.245432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97CB38C7A9
+	for <lists+xen-devel@lfdr.de>; Fri, 21 May 2021 15:18:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131279.245454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk51u-0005SZ-0u; Fri, 21 May 2021 13:17:30 +0000
+	id 1lk52V-0006uH-VE; Fri, 21 May 2021 13:18:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131263.245432; Fri, 21 May 2021 13:17:29 +0000
+Received: by outflank-mailman (output) from mailman id 131279.245454; Fri, 21 May 2021 13:18:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lk51t-0005Oi-Sg; Fri, 21 May 2021 13:17:29 +0000
-Received: by outflank-mailman (input) for mailman id 131263;
- Fri, 21 May 2021 13:17:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lk52V-0006sJ-RD; Fri, 21 May 2021 13:18:07 +0000
+Received: by outflank-mailman (input) for mailman id 131279;
+ Fri, 21 May 2021 13:18:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=08+4=KQ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1lk51s-0005O2-8z
- for xen-devel@lists.xenproject.org; Fri, 21 May 2021 13:17:28 +0000
-Received: from mail-lj1-x236.google.com (unknown [2a00:1450:4864:20::236])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e9a4774-88ca-4482-b3ad-aef95db03645;
- Fri, 21 May 2021 13:17:22 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id s25so23890990ljo.11
- for <xen-devel@lists.xenproject.org>; Fri, 21 May 2021 06:17:22 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id m23sm619959lfb.279.2021.05.21.06.17.20
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 21 May 2021 06:17:21 -0700 (PDT)
+ <SRS0=IAnY=KQ=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1lk52U-0006rf-9d
+ for xen-devel@lists.xenproject.org; Fri, 21 May 2021 13:18:06 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id db770803-1591-44d4-b2de-85a5676ef5f9;
+ Fri, 21 May 2021 13:18:05 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 14LCxAQs101282;
+ Fri, 21 May 2021 13:18:04 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2130.oracle.com with ESMTP id 38j5qrfnku-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 21 May 2021 13:18:04 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 14LD1eZp145917;
+ Fri, 21 May 2021 13:18:04 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2175.outbound.protection.outlook.com [104.47.56.175])
+ by userp3020.oracle.com with ESMTP id 38n492rge0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 21 May 2021 13:18:03 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by MN2PR10MB4397.namprd10.prod.outlook.com (2603:10b6:208:1d4::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Fri, 21 May
+ 2021 13:18:01 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::78a3:67d:a8ca:93cf]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::78a3:67d:a8ca:93cf%7]) with mapi id 15.20.4150.023; Fri, 21 May 2021
+ 13:18:01 +0000
+Received: from [10.74.102.99] (160.34.88.99) by
+ SA0PR13CA0017.namprd13.prod.outlook.com (2603:10b6:806:130::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.11 via Frontend
+ Transport; Fri, 21 May 2021 13:18:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,336 +65,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e9a4774-88ca-4482-b3ad-aef95db03645
+X-Inumbo-ID: db770803-1591-44d4-b2de-85a5676ef5f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=Y6OC6xhyoeNTCpVsAz3Ulm367dNvqrBA+Vw+GWRiLuI=;
+ b=vhb6i9GVMP3ZniqBV50rnqh2sYc9rgZGASO4ZvWZJ1VCTyXCuP1pfgU2jkpiY+7ExH+1
+ 57zz1M+RDtStFuS0Oh4k49cc/8N4no3jxOnTogA4xQcui7VJV/YLJdQypfyEhsFmdkKq
+ Nrh2CBBs9ehSipwjTf8mgWtFwXKgzLDP2V+kr3crTBcHklK/bIUJYsAU3z17z9JCkda7
+ pHWIJ19ML1qvOwHONTVT6A88SE3GhyrWiqtHZA/gdZ6gIZDNdm0cL+6/DNXxrKXNpDbJ
+ 2ScUvsxw4ZHlrddQ/phx4oohJAz0IRbuwZ4TSQz6NwTCFHuS/MUs594C02AP6B2LBOZW dg== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SoUKal8rRCk+yceFhlQ2WhsZeFVGQk/y1Uj+w8YHyFxw6KEHyn3K25bWpT2dS22gZ2yqc+moqR8RZrcJ3Tq2ipPtk2PeKNDr/TlWqIspCSr9crNMTHlMHLlCPrefQ0LqP0uRMceqV1t07bzPM3dOaCeQuXzIOLVITB52zeBpCMr1iDLGfKU1o+LKi78ssGOi7zCFlbXfiHDvlyEAYoikf2nC5Y9YzGikZ9YgYk4VNxlg791ZyzMfbuVdztxztpeHLOaJbsd8PxYXUQibOjCpIERdr3EAXMQ3lXXbRR0ayT33r0m9R0ZcVl5SSzq5Sm45z79eT3xCcxX3tQMnaaPpJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y6OC6xhyoeNTCpVsAz3Ulm367dNvqrBA+Vw+GWRiLuI=;
+ b=ki0M/eYJ593AGwtQHWpYv8zt4sOtovK8GCO30SlQfdbHnDha5nfnM2Cp1vWA+1Gf8PaQZNL1QNgInq1lh0hCQtkGUk2UdkYHe4iUMA24rLCQmjQFpizfRE1oMnfiIYHYJEOnUNDop9pd+94rI4LATaDDTmnJDLWRffPZ+BzRt0r6ntWq7t1DSootpurbSQYJvIYFlKH71BJzP5SaWq5o0NBfi/awA9JDKet2KI1NbZ1+NbNC9wwZxwwHXmzWkxbpSHk8PLpKDJyiDePDNjlGRJF2Me7ofV1nsg8ZbEvgIa4dZtnEYr5nj0cNKsC1YQJl9plbYx6vUQz2EXPbOwBgcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=4iz/FmyIftUl2ke8uiiDoohKHMKvZQ8NbKwXpiUQBho=;
-        b=pbhiTrMOt4/xZ/XcrePve1J1yZWCJPAQ2fJg+gfNra4Er/JwQDMAhZgUTm00ULn909
-         TZUGpL7qkhrzho5UUgf9M3ywR/qDSpvuKrh1Tjjw3ISZv+Jx//skB8ebHoWtupQ8Gq8A
-         bLU+hy/dwH7A32NtraiGsPbdTqLGL5LAJm8YuYj0JEk3f/47ZJ4rry8TSh1mk4RYbQ51
-         URmpfqQF8Cw2O6uzSYVMAl5fy3ipTlecqKcieNdOwrVuaV6xn+yT1zcMUeuJSxCTPF06
-         +mL4H4UMA7pd0yhVWACN+gcmJh4nWnY3gE6OTzkzTZ6mg2wSRTsK1DYqqARKeT61zmQe
-         6/DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=4iz/FmyIftUl2ke8uiiDoohKHMKvZQ8NbKwXpiUQBho=;
-        b=KncCPdTQDxPJ7RlAiTj4J9Zny99YYxEeF8c6hPbZvgP05fzOJb/PRQ7yzfOiNoaWA8
-         QwCNFnnI1lXAwsQb0gm3ttYy7v4W8K918VnnWB+SUAEDCR8n7Q0bYlxP+GY6tucjaGFv
-         tAQIAjSed9gqiKpG080kqeC/c2nv2BogO9z2b7NH5lKf6xM7mWEihmxnsq9O0c2MxxVo
-         Un5nSFg+hylve/9j5nyOxzP9TSNwrrhU8vQb112jQ1/OIajIAf3Od6vCJ1UxQmSC4HL4
-         aQLyK0iETlFExD9nufSYdcI6GxKFxoKUrAbLzj8+1p4otKScoEu2sGsiVbfYqEiiqHZg
-         fg3A==
-X-Gm-Message-State: AOAM53385iRtCQCkI+aRygqMjJMUVfpvsisK382HrLwZ201Obg2inrYa
-	J53/TZ7REXr1K4OJD5oDZeo=
-X-Google-Smtp-Source: ABdhPJwtNylLq5U68Qw/hh55wsJ8Y6UrnivtEgKkiULVeAk3HIfajEOeVDYmDl2S4XiFUljtRNDmwA==
-X-Received: by 2002:a05:651c:1258:: with SMTP id h24mr6786794ljh.340.1621603041657;
-        Fri, 21 May 2021 06:17:21 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: olekstysh@gmail.com,
-	xen-devel@lists.xenproject.org
-Cc: Julien Grall <julien.grall@arm.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Wei Chen <Wei.Chen@arm.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Kaly Xin <Kaly.Xin@arm.com>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH V5 0/2] Virtio support for toolstack on Arm (Was "IOREQ feature (+ virtio-mmio) on Arm")
-Date: Fri, 21 May 2021 16:16:45 +0300
-Message-Id: <1621603005-5799-3-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1621603005-5799-1-git-send-email-olekstysh@gmail.com>
-References: <1621603005-5799-1-git-send-email-olekstysh@gmail.com>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y6OC6xhyoeNTCpVsAz3Ulm367dNvqrBA+Vw+GWRiLuI=;
+ b=ldRk/rn3swyhaNel0naYINVpcrFmukcF7KOLWklKZKhK61IH9guOaqPPyGl4rdjFrpxE0Ift7sXra9BuSv1ZYA1hqqmUYXUBNI8ET6JcdBCLDeE/XZ3cpfTmjYIdtWLVqBOVzmbow82Vxv+yltDuEc9ocfygq/ZViaODvgDCXRU=
+Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=oracle.com;
+Subject: Re: [PATCH] x86/Xen: swap NX determination and GDT setup on BSP
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Juergen Gross <jgross@suse.com>
+References: <12a866b0-9e89-59f7-ebeb-a2a6cec0987a@suse.com>
+ <65bbc317-893e-da41-97e0-c8f2e1feb3e2@suse.com>
+ <f594a439-ec1d-34fa-3ccf-b162441fa0af@suse.com>
+ <3953076f-c2fa-2e2a-4b07-fb610046a27d@suse.com>
+ <89c46d1a-9474-0f17-3fda-4809a14adb45@suse.com>
+ <2d019c04-415b-293b-052b-26b1ea3be189@suse.com>
+ <0103d46f-4feb-e49d-f738-a2bf3d38c216@oracle.com>
+ <c2733c58-4514-6df0-3f0b-0f8b65132017@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <9a65639a-1407-02b6-737e-141dd427de3a@oracle.com>
+Date: Fri, 21 May 2021 09:17:58 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.1
+In-Reply-To: <c2733c58-4514-6df0-3f0b-0f8b65132017@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [160.34.88.99]
+X-ClientProxiedBy: SA0PR13CA0017.namprd13.prod.outlook.com
+ (2603:10b6:806:130::22) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8f65d078-588c-40c1-b529-08d91c5adc25
+X-MS-TrafficTypeDiagnostic: MN2PR10MB4397:
+X-Microsoft-Antispam-PRVS: 
+	<MN2PR10MB4397BF5C5730775E710613B68A299@MN2PR10MB4397.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:274;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	ys6VujfkoMfGfuKJnRlYEGtdqsAUKQCgoTlIinzk74z+ebxpq71nZS2ir7GHRpMhMnR/uuSkYq3q5Lxlqq5RyKxzwEKTeB2hpzpT6/0kENwWNWWBwUjvn+//EJOIiJvI/3FQUTIQTQYm6lNCRY4ftsvM1MRyM4xAyCVkyd/FcP/jZhV9st2mW22sUKS3WpQ1KO6vqqg+VJ5GSZJR03Z1afpRkAB+sJM6RfRp6MOi0SNzV7fGtM3hAHSnUXs42+CSv2uPUreQSZQYKkP6xdHu5iQAMsqa7+14WW334Z+TsV5+0di5INa/NfG4zB1YYS96kJHJy59QZ0duEvVAduzL4JWC9QVjw90NUT7v2RAg08OdRIP2ZC8c1lE4oz0cNtfZMwM9QXnIuLvFhzf9ceoT+WxkdZyjNM4YbOH6/4D9eHuhwx0Mqd3F35ORv6Uyivsqu/AdPiRLamWtQcNdYVqsh7ZWqhRUb8hiOSMgsGUQmnC8exnlN/jIJyTlmle+IGEMoICqi3ATO05TbRRfOLUdET7T5NZ7i6xnQgm+4jmjUNQfy6QzJVfv1js4yJEv4F4Zht0xWHtOGRTsWfMIIjfaC4NE2Da/eeqN8bUUdS3zZZHIfbX4vwCMWPh+Xe9wPuZUmKqGNEtYnNkswbfiTHOVR9hmEiRX4Ex1SUTeCw+4OllvsBhu7qUCL3Moaj5cjfQN
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(366004)(376002)(396003)(39860400002)(346002)(8936002)(83380400001)(6486002)(16576012)(478600001)(26005)(54906003)(956004)(316002)(2616005)(44832011)(6666004)(5660300002)(558084003)(2906002)(36756003)(16526019)(66946007)(66556008)(66476007)(38100700002)(186003)(8676002)(4326008)(53546011)(31686004)(31696002)(86362001)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?utf-8?B?d2VhR2U1ODUxcEJuUnlkTjBENHdJc2JOaDZtZ0YvK3F2clZ0U1ZqS05kOTUz?=
+ =?utf-8?B?ZmtuZ2xoclJHMXB5bHNjU2NoTVcxY0RmYjljbkNKdG5FWnRyMUY5aldHcjBQ?=
+ =?utf-8?B?VHN3Mk1BY0dDWC8yVkR4dEZDZlFtQmkyL2hWak9aMjdsRUduZ2ZrOGdvNTla?=
+ =?utf-8?B?YnpKZzIrU0Z6TGpiZ0U0ZHZwZkZpRSs1N0Jkb1hMV2hUczdLZlozQmloekZS?=
+ =?utf-8?B?b0VrVThKc1ZFTFd6YWh4aVpxUjJ5cGxZdHJlenBseU9HRHdvVmdZOUpMNUJB?=
+ =?utf-8?B?K2lSUmx4Mi81eCtUREh2Z3lGY0N3RFR0Q1l4dytDSWJrQU9aa2hIcGJEa0NI?=
+ =?utf-8?B?N0htOW8zazl5ckpMZllxSmU3eHRjRFUwMXdIS0ROUXRCeEJQT0ZVcjFlMzJi?=
+ =?utf-8?B?NjhjWTZsMDFTQlVERHk3N0ZmQUtEcS81SHhxM2d6QVVXeGo0aDhQQWkzMEN0?=
+ =?utf-8?B?QkNGcHRWbnNMWDZwc1BnQkF3U2loY0Z6SFRYWUFKbzZLcTdmTzRFaEFoSnlk?=
+ =?utf-8?B?SU1YbzAxTEJNTkF2ZVJLZzRoRzR3eHhKU1NZajZ5YmlOY2J4NGlyTlR6N0lI?=
+ =?utf-8?B?NkJ5YlFqbFN1endwTUQ0ZVRPdFRwVkZGeExFdFBYZ3Q4SCtBUitkM2x3Tkdy?=
+ =?utf-8?B?NHh6c0cxTzl6djlIZGFSdUNyRGh4bWIyWUFHaFFvR0xkUmFyN2R3bWZsTVBo?=
+ =?utf-8?B?NUJ2YkljL2RhSUczcjRyUUhpK3lkeXZKUnllTkFZN1BvS2IwK1hMTmdvUWt0?=
+ =?utf-8?B?OTdzdXVUcTdVTnBqZE9SZVo0Lzc3V3FsQXdxRmI0QzU4cURGUGtreG10Y3Nk?=
+ =?utf-8?B?MVg3eVVWS0l2SDk1bzVOQnczMW1hcmNDdnlzRndsRzdVWlpxQ3Nud2JJOTM2?=
+ =?utf-8?B?WUl5OVNUU1RrUlFlYWJrcDRGU0V3RnN4K2dvQU03NlBqcDFnZE1zcUdkRjdm?=
+ =?utf-8?B?MThEU2UzcURvUms1SXl2YkxEekdtTFBmNkZRSVBKQ2VCa25iTjdoQXBJRGlL?=
+ =?utf-8?B?b2JjdUdSMUN5ZUEvbzJYYzhMc01tSXZ4R21DRmJEL1NjR09HNzFTaERnRXBK?=
+ =?utf-8?B?TmJ3MjhUTlhGb1RjZVdhZXB5b2g4bG9zNlBObFhhbmpLTWIwODVGTTVoOTN6?=
+ =?utf-8?B?L3B2dkxMS3I2WHJOWUhDbGJkRWU2RkNwdC9OYktvRU1mQityZHFLbGV3cGt6?=
+ =?utf-8?B?YU5ZTjlKSHBRT0NHbU9TME0yWmIxYVNhK0hGSThnSXRJc25OcFZlSUlGSnE3?=
+ =?utf-8?B?b2wyNkJDcERhRlpxT1hMcHUybVloRTd0MWt6VzFpSHdjWitNcXJQTmY0aVFT?=
+ =?utf-8?B?emROZDZwRGg1R3diaFZIbGJkcTBndnZycTJ1Z2JUMENla3dBeUxRekgrMElv?=
+ =?utf-8?B?dG13SVFYSk1JSTNiQlE1ZTR4TmFQTDhLeERwSitVU1hBbGlyQURlMkFzNndz?=
+ =?utf-8?B?ZEJ5WlIwa3dPQVNid2draWdFeTVKNmYxVkVES2hqVk1RUGx2WVRNOElCOTJQ?=
+ =?utf-8?B?dUVlcXZudVBwSm1OTG02emxsSk8xY210ajV0dm9ybHdaWEFFMmQ3RHhIZmRQ?=
+ =?utf-8?B?UHJvb1l5U2tJaGljQ1A3alVkc3dZSVc2Z1BTZ0N1UjJjRHhLMlh1UmJBNGxl?=
+ =?utf-8?B?bUxHVk41SmxaNlVMbkxTS291UG5qeEZYend6dzUzSWplUUdTNTY0VU5rNkNH?=
+ =?utf-8?B?eERKc0tia2x6dVFTZ1Y4Y1ZXWisyeU5CSDZVZ043VXpyTGovSjd1UWN3RXZ0?=
+ =?utf-8?Q?CDFXyXs63gN+kxhtbbKz9Vnu3Pdh4+SKlpALxXe?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f65d078-588c-40c1-b529-08d91c5adc25
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2021 13:18:01.6963
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2W8ydE1nNOHuM968WAa9bbx7onStnt6WEEuX8DuWsYDzumsNdiSeDgsUELMQDeupbsiOT4wAgfa/vKKqqk7wIwgd7SLK3jL17hBHlmSoSLY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4397
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9990 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 mlxlogscore=999 adultscore=0 malwarescore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
+ definitions=main-2105210077
+X-Proofpoint-GUID: -EKwBMJFOzi0QohzCyDr6C06h5CoYSdQ
+X-Proofpoint-ORIG-GUID: -EKwBMJFOzi0QohzCyDr6C06h5CoYSdQ
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9990 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015 impostorscore=0
+ mlxscore=0 lowpriorityscore=0 malwarescore=0 mlxlogscore=999
+ suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0 phishscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2105210077
 
-From: Julien Grall <julien.grall@arm.com>
 
-Date: Wed, 29 Jul 2020 17:36:53 +0300
-Subject: [PATCH V5 2/2] libxl: Introduce basic virtio-mmio support on Arm
+On 5/21/21 9:15 AM, Jan Beulich wrote:
+> On 21.05.2021 15:12, Boris Ostrovsky wrote:
+>>
+>> Did something changed recently that this became a problem? That commit has been there for 3 years.
+> He happened to try on a system where NX was turned off in the BIOS.
 
-This patch introduces helpers to allocate Virtio MMIO params
-(IRQ and memory region) and create specific device node in
-the Guest device-tree with allocated params. In order to deal
-with multiple Virtio devices, reserve corresponding ranges.
-For now, we reserve 1MB for memory regions and 10 SPIs.
 
-As these helpers should be used for every Virtio device attached
-to the Guest, call them for Virtio disk(s).
+Yes, I missed that part.
 
-Please note, with statically allocated Virtio IRQs there is
-a risk of a clash with a physical IRQs of passthrough devices.
-For the first version, it's fine, but we should consider allocating
-the Virtio IRQs automatically. Thankfully, we know in advance which
-IRQs will be used for passthrough to be able to choose non-clashed
-ones.
 
-Signed-off-by: Julien Grall <julien.grall@arm.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+-boris
 
----
-Please note, this is a split/cleanup/hardening of Julien's PoC:
-"Add support for Guest IO forwarding to a device emulator"
-
-Changes RFC -> V1:
-   - was squashed with:
-     "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more correct way"
-     "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property into virtio-mmio device node"
-     "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
-   - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
-
-Changes V1 -> V2:
-   - update the author of a patch
-
-Changes V2 -> V3:
-   - no changes
-
-Changes V3 -> V4:
-   - no changes
-
-Changes V4 -> V5:
-   - split the changes, change the order of the patches
-   - drop an extra "virtio" configuration option
-   - update patch description
-   - use CONTAINER_OF instead of own implementation
-   - reserve ranges for Virtio MMIO params and put them
-     in correct location
-   - create helpers to allocate Virtio MMIO params, add
-     corresponding sanity-сhecks
-   - add comment why MMIO size 0x200 is chosen
-   - update debug print
-   - drop Wei's T-b
----
- tools/libs/light/libxl_arm.c  | 133 +++++++++++++++++++++++++++++++++++++++++-
- xen/include/public/arch-arm.h |   7 +++
- 2 files changed, 138 insertions(+), 2 deletions(-)
-
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index e2901f1..a9f15ce 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -8,6 +8,56 @@
- #include <assert.h>
- #include <xen/device_tree_defs.h>
- 
-+/*
-+ * There is no clear requirements for the total size of Virtio MMIO region.
-+ * The size of control registers is 0x100 and device-specific configuration
-+ * registers starts at the offset 0x100, however it's size depends on the device
-+ * and the driver. Pick the biggest known size at the moment to cover most
-+ * of the devices (also consider allowing the user to configure the size via
-+ * config file for the one not conforming with the proposed value).
-+ */
-+#define VIRTIO_MMIO_DEV_SIZE   xen_mk_ullong(0x200)
-+
-+static uint64_t virtio_mmio_base;
-+static uint32_t virtio_mmio_irq;
-+
-+static void init_virtio_mmio_params(void)
-+{
-+    virtio_mmio_base = GUEST_VIRTIO_MMIO_BASE;
-+    virtio_mmio_irq = GUEST_VIRTIO_MMIO_SPI_FIRST;
-+}
-+
-+static uint64_t alloc_virtio_mmio_base(libxl__gc *gc)
-+{
-+    uint64_t base = virtio_mmio_base;
-+
-+    /* Make sure we have enough reserved resources */
-+    if ((virtio_mmio_base + VIRTIO_MMIO_DEV_SIZE >
-+        GUEST_VIRTIO_MMIO_BASE + GUEST_VIRTIO_MMIO_SIZE)) {
-+        LOG(ERROR, "Ran out of reserved range for Virtio MMIO BASE 0x%"PRIx64"\n",
-+            virtio_mmio_base);
-+        return 0;
-+    }
-+    virtio_mmio_base += VIRTIO_MMIO_DEV_SIZE;
-+
-+    return base;
-+}
-+
-+static uint32_t alloc_virtio_mmio_irq(libxl__gc *gc)
-+{
-+    uint32_t irq = virtio_mmio_irq;
-+
-+    /* Make sure we have enough reserved resources */
-+    if (virtio_mmio_irq > GUEST_VIRTIO_MMIO_SPI_LAST) {
-+        LOG(ERROR, "Ran out of reserved range for Virtio MMIO IRQ %u\n",
-+            virtio_mmio_irq);
-+        return 0;
-+    }
-+    virtio_mmio_irq++;
-+
-+    return irq;
-+}
-+
- static const char *gicv_to_string(libxl_gic_version gic_version)
- {
-     switch (gic_version) {
-@@ -26,8 +76,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
- {
-     uint32_t nr_spis = 0;
-     unsigned int i;
--    uint32_t vuart_irq;
--    bool vuart_enabled = false;
-+    uint32_t vuart_irq, virtio_irq = 0;
-+    bool vuart_enabled = false, virtio_enabled = false;
- 
-     /*
-      * If pl011 vuart is enabled then increment the nr_spis to allow allocation
-@@ -39,6 +89,35 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-         vuart_enabled = true;
-     }
- 
-+    /*
-+     * Virtio MMIO params are non-unique across the whole system and must be
-+     * initialized for every new guest.
-+     */
-+    init_virtio_mmio_params();
-+    for (i = 0; i < d_config->num_disks; i++) {
-+        libxl_device_disk *disk = &d_config->disks[i];
-+
-+        if (disk->virtio) {
-+            disk->base = alloc_virtio_mmio_base(gc);
-+            if (!disk->base)
-+                return ERROR_FAIL;
-+
-+            disk->irq = alloc_virtio_mmio_irq(gc);
-+            if (!disk->irq)
-+                return ERROR_FAIL;
-+
-+            if (virtio_irq < disk->irq)
-+                virtio_irq = disk->irq;
-+            virtio_enabled = true;
-+
-+            LOG(DEBUG, "Allocate Virtio MMIO params for Vdev %s: IRQ %u BASE 0x%"PRIx64,
-+                disk->vdev, disk->irq, disk->base);
-+        }
-+    }
-+
-+    if (virtio_enabled)
-+        nr_spis += (virtio_irq - 32) + 1;
-+
-     for (i = 0; i < d_config->b_info.num_irqs; i++) {
-         uint32_t irq = d_config->b_info.irqs[i];
-         uint32_t spi;
-@@ -58,6 +137,13 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-             return ERROR_FAIL;
-         }
- 
-+        /* The same check as for vpl011 */
-+        if (virtio_enabled &&
-+           (irq >= GUEST_VIRTIO_MMIO_SPI_FIRST && irq <= virtio_irq)) {
-+            LOG(ERROR, "Physical IRQ %u conflicting with Virtio MMIO IRQ range\n", irq);
-+            return ERROR_FAIL;
-+        }
-+
-         if (irq < 32)
-             continue;
- 
-@@ -660,6 +746,38 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
-+                                 uint64_t base, uint32_t irq)
-+{
-+    int res;
-+    gic_interrupt intr;
-+    /* Placeholder for virtio@ + a 64-bit number + \0 */
-+    char buf[24];
-+
-+    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
-+    res = fdt_begin_node(fdt, buf);
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
-+    if (res) return res;
-+
-+    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                            1, base, VIRTIO_MMIO_DEV_SIZE);
-+    if (res) return res;
-+
-+    set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);
-+    res = fdt_property_interrupts(gc, fdt, &intr, 1);
-+    if (res) return res;
-+
-+    res = fdt_property(fdt, "dma-coherent", NULL, 0);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+}
-+
- static const struct arch_info *get_arch_info(libxl__gc *gc,
-                                              const struct xc_dom_image *dom)
- {
-@@ -860,10 +978,14 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_build_info *info,
-     int rc, res;
-     size_t fdt_size = 0;
-     int pfdt_size = 0;
-+    unsigned int i;
- 
-     const libxl_version_info *vers;
-     const struct arch_info *ainfo;
- 
-+    libxl_domain_config *d_config =
-+        CONTAINER_OF(info, libxl_domain_config, b_info);
-+
-     vers = libxl_get_version_info(CTX);
-     if (vers == NULL) return ERROR_FAIL;
- 
-@@ -963,6 +1085,13 @@ next_resize:
-         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
-             FDT( make_optee_node(gc, fdt) );
- 
-+        for (i = 0; i < d_config->num_disks; i++) {
-+            libxl_device_disk *disk = &d_config->disks[i];
-+
-+            if (disk->virtio)
-+                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
-+        }
-+
-         if (pfdt)
-             FDT( copy_partial_fdt(gc, fdt, pfdt) );
- 
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 713fd65..1c02248 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -394,6 +394,10 @@ typedef uint64_t xen_callback_t;
- 
- /* Physical Address Space */
- 
-+/* Virtio MMIO mappings */
-+#define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000)
-+#define GUEST_VIRTIO_MMIO_SIZE   xen_mk_ullong(0x00100000)
-+
- /*
-  * vGIC mappings: Only one set of mapping is used by the guest.
-  * Therefore they can overlap.
-@@ -458,6 +462,9 @@ typedef uint64_t xen_callback_t;
- 
- #define GUEST_VPL011_SPI        32
- 
-+#define GUEST_VIRTIO_MMIO_SPI_FIRST   33
-+#define GUEST_VIRTIO_MMIO_SPI_LAST    43
-+
- /* PSCI functions */
- #define PSCI_cpu_suspend 0
- #define PSCI_cpu_off     1
--- 
-2.7.4
 
 
