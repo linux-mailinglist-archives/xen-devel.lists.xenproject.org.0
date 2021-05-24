@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 162E238F47B
-	for <lists+xen-devel@lfdr.de>; Mon, 24 May 2021 22:38:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131885.246318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D24938F47E
+	for <lists+xen-devel@lfdr.de>; Mon, 24 May 2021 22:38:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131889.246329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llHKx-0003hv-TC; Mon, 24 May 2021 20:38:07 +0000
+	id 1llHL2-0004HJ-93; Mon, 24 May 2021 20:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131885.246318; Mon, 24 May 2021 20:38:07 +0000
+Received: by outflank-mailman (output) from mailman id 131889.246329; Mon, 24 May 2021 20:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llHKx-0003cg-ON; Mon, 24 May 2021 20:38:07 +0000
-Received: by outflank-mailman (input) for mailman id 131885;
- Mon, 24 May 2021 20:38:05 +0000
+	id 1llHL2-0004DI-41; Mon, 24 May 2021 20:38:12 +0000
+Received: by outflank-mailman (input) for mailman id 131889;
+ Mon, 24 May 2021 20:38:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5+P1=KT=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1llHKv-0001ey-S7
- for xen-devel@lists.xenproject.org; Mon, 24 May 2021 20:38:05 +0000
-Received: from mail-qt1-x835.google.com (unknown [2607:f8b0:4864:20::835])
+ id 1llHL0-0001ey-SK
+ for xen-devel@lists.xenproject.org; Mon, 24 May 2021 20:38:10 +0000
+Received: from mail-qt1-x836.google.com (unknown [2607:f8b0:4864:20::836])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 371a11a3-daef-4f03-870a-063378a3ebe8;
- Mon, 24 May 2021 20:37:45 +0000 (UTC)
-Received: by mail-qt1-x835.google.com with SMTP id f8so21602691qth.6
- for <xen-devel@lists.xenproject.org>; Mon, 24 May 2021 13:37:45 -0700 (PDT)
+ id 5820f8d2-f153-4cae-a01a-6ee81b2b2caa;
+ Mon, 24 May 2021 20:37:46 +0000 (UTC)
+Received: by mail-qt1-x836.google.com with SMTP id i19so15076025qtw.9
+ for <xen-devel@lists.xenproject.org>; Mon, 24 May 2021 13:37:46 -0700 (PDT)
 Received: from localhost.localdomain (c-73-89-138-5.hsd1.vt.comcast.net.
  [73.89.138.5])
- by smtp.gmail.com with ESMTPSA id t25sm5142847qkt.62.2021.05.24.13.37.43
+ by smtp.gmail.com with ESMTPSA id t25sm5142847qkt.62.2021.05.24.13.37.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 13:37:44 -0700 (PDT)
+ Mon, 24 May 2021 13:37:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 371a11a3-daef-4f03-870a-063378a3ebe8
+X-Inumbo-ID: 5820f8d2-f153-4cae-a01a-6ee81b2b2caa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :in-reply-to:references;
-        bh=gmgGK17wIRa1DlqHFSQ1z3Zv/54AdOc2b0ySCVRt0yU=;
-        b=B05k9j4uMyR1hRjIwmDxThYoVmBYL2zqqZjqz943qVU+pE1JKzh6R+y+4aYxEetmDn
-         ZRUXr9S93x/qWIe/8BXNDwjEXv0h1jYA2DnIGWFaAVSaIHd2keq3W96tCUdrscC2rAIK
-         fvXYT84dAnD2sf6fe4Zd+toxcowKimjLuC4uFK+pQMKthzKPnYuzmopkzRUI6X4F1bGj
-         m4uLFrRufBfGPmnI2efNm6UNsQIFVgCXL+sADX2VYz4fBkRldOXlXIVJQvRaGFKI8iaE
-         A+LKWKSFVyXYwPVRsPN90Pw5kVe52qIiFh1kuOEiieRyjw6OypJ+f5L0f4bvwucRB7EY
-         +JIg==
+        bh=x72Z2VWLOz6ahDBGysPBZw8qVE2KpRZgT2UaiLPYGoc=;
+        b=Cw0ZSYaofRCWAfHDy+CfgskUQqQQ06W+8/xlsBgcRaS97XlztjW7YWKa1MHP8gpWoe
+         s59XcFI0Wf7/Bd3r5dI5F9M4vXsX+3AIAZBnJ3tX9TCaEkBe5jVlCTnwvoSovbAwgh8+
+         DgRUhTLxtgMDzHqmydBsweA1/1sAKzDxzblK8AUg1ikkmcxArOzva2irjDvDYtmb7hks
+         8J4FZ8IAtooU8ooW1DBRlAnTBabW8MdwmxJfihKNQsn9F7065O+bNgiokjcKeFwYWRt+
+         nHTE70wZN+gdWcUmFgRsa+vScoPQUCl3y56tL4de3Nvz6ej+h/AeMzuHI2ujREYbFfxC
+         Dwfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:in-reply-to:references;
-        bh=gmgGK17wIRa1DlqHFSQ1z3Zv/54AdOc2b0ySCVRt0yU=;
-        b=paC669tCplGCgMzXHNTvj+mTnp+WK272/AVudAfAd0yRyXuji+wtTeV6R60HEFRkvw
-         YWa0IzOeGP3HUijzVw8PqOhuOTwhCtWs/obNbJmvqu5WdlTIvRcQlLe7EUAX6muNWrnQ
-         ArlpaZSPtgSf1NShXGWDkP0Cx37U/wPpVke4shfyz1iv5+KbwuM3oDhqJYCXnk6ccvb5
-         WLh9OPMzxAwMhj6FnMZMnnOtksr1L+roCuVH8e7rBD40Ae1IZUNcKBDuBVXMQqIaSSlD
-         huuArC4vNTOpsTeYAbqqbP5CBLUhfOJ/B+sJrbucB257FmTirMP40TGKDmRQXWQV4MQo
-         CPHg==
-X-Gm-Message-State: AOAM5301rGOuLqW7EKwS2oYiWlvZh+lhO2lFw5g8Ov/kzFXViuwR/+uS
-	7GpZQ9kN98nankTepQqNv7s=
-X-Google-Smtp-Source: ABdhPJydQniZGUyZMjJR+HeCNDL6lVO7LbJWXrKQPMkjEMzzgQBlIsoCwdB54Q4X4AyvnLF9qbJ/Uw==
-X-Received: by 2002:a05:622a:144d:: with SMTP id v13mr735850qtx.4.1621888664835;
-        Mon, 24 May 2021 13:37:44 -0700 (PDT)
+        bh=x72Z2VWLOz6ahDBGysPBZw8qVE2KpRZgT2UaiLPYGoc=;
+        b=gE9J4upgLHMMwgQQkZ2kffnuSzlAzJd2NqNOV+tilgM6HQYeOlQ7pflws3R7YSBNIG
+         XGfLMrS00rZVyF96uUKv4hXMIrOX6jE7F4I4/HKFj8KjdiutXJmcCFiVUbSVsDr7mutB
+         OxtN6WA7sVWuLnpu4YYwCmTzqp9HFA9h29q+6yPT8nT+sH2yps85qEGExLWk+yjknsUM
+         X6Wne66GIDbEFUegNzuPUyUop3HFzWPxFb2cUNzhMrihRCsoCnRjVvJIKDT25upm3osa
+         oteFNSWCQVuVbl9R5tqicWTwNmtZpbg/B9kV1pAPX4INS7ZgAq+4I6h0KQK3H0y1Hr6g
+         cNcw==
+X-Gm-Message-State: AOAM531J55qJS349PPYtw7qjCgZWzSRC9VMboJWZFTeQ1obDaykiQxED
+	2CTj8fscKjZvnmRNsXF6mEQ=
+X-Google-Smtp-Source: ABdhPJx6M1UNe75t87tnAzF5iaZq7xIMYUp7nUh2k24anPFVVcKb5qYcyaVrUQLtzGw5fXOK655yFA==
+X-Received: by 2002:a05:622a:b:: with SMTP id x11mr28993947qtw.272.1621888665927;
+        Mon, 24 May 2021 13:37:45 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.prg,
@@ -78,263 +78,558 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [RESEND PATCH 05/12] golang/xenlight: use struct pointers in keyed union fields
-Date: Mon, 24 May 2021 16:36:46 -0400
-Message-Id: <ebeb085b9b4b5d3dddd66607b409590f5e7cdfc6.1621887506.git.rosbrookn@ainfosec.com>
+Subject: [RESEND PATCH 06/12] golang/xenlight: rename Ctx receivers to ctx
+Date: Mon, 24 May 2021 16:36:47 -0400
+Message-Id: <c1f7b48068d3855f48f818d93ddd23638a0f9f70.1621887506.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1621887506.git.rosbrookn@ainfosec.com>
 References: <cover.1621887506.git.rosbrookn@ainfosec.com>
 In-Reply-To: <cover.1621887506.git.rosbrookn@ainfosec.com>
 References: <cover.1621887506.git.rosbrookn@ainfosec.com>
 
-Currently, when marshalig Go types with keyed union fields, we assign the
-value of the struct (e.g. DomainBuildInfoTypeUnionHvm) which implements the
-interface of the keyed union field (e.g. DomainBuildInfoTypeUnion).
-As-is, this means that if a populated DomainBuildInfo is marshaled to
-e.g. JSON, unmarshaling back to DomainBuildInfo will fail.
+As a matter of style, it is strange to see capitalized receiver names,
+due to the significance of capitalized symbols in Go (although there is
+in fact nothing special about a capitalized receiver name). Fix this in
+xenlight.go by running:
 
-When the encoding/json is unmarshaling data into a Go type, and
-encounters a JSON object, it basically can either marshal the data into
-an empty interface, a map, or a struct. It cannot, however, marshal data
-into an interface with at least one method defined on it (e.g.
-DomainBuildInfoTypeUnion). Before this check is done, however, the
-decoder will check if the Go type is a pointer, and dereference it if
-so. It will then use the type of this value as the "target" type.
+  gofmt -w -r 'Ctx -> ctx' xenlight.go
 
-This means that if the TypeUnion field is populated with a
-DomainBuildInfoTypeUnion, the decoder will see a non-empty interface and
-fail. If the TypeUnion field is populated with a
-*DomainBuildInfoTypeUnionHvm, it dereferences the pointer and sees a
-struct instead, allowing decoding to continue normally.
-
-Since there does not appear to be a strict need for NOT using pointers
-in these fields, update code generation to set keyed union fields to
-pointers of their implementing structs.
+from tools/golang/xenlight. There is no functional change.
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 ---
- tools/golang/xenlight/gengotypes.py  |  4 +--
- tools/golang/xenlight/helpers.gen.go | 44 ++++++++++++++--------------
- 2 files changed, 24 insertions(+), 24 deletions(-)
+ tools/golang/xenlight/xenlight.go | 154 +++++++++++++++---------------
+ 1 file changed, 77 insertions(+), 77 deletions(-)
 
-diff --git a/tools/golang/xenlight/gengotypes.py b/tools/golang/xenlight/gengotypes.py
-index 3796632f7d..57f2576468 100644
---- a/tools/golang/xenlight/gengotypes.py
-+++ b/tools/golang/xenlight/gengotypes.py
-@@ -404,7 +404,7 @@ def xenlight_golang_union_from_C(ty = None, union_name = '', struct_name = ''):
-         s += 'if err := {0}.fromC(xc);'.format(goname)
-         s += 'err != nil {{\n return fmt.Errorf("converting field {0}: %v", err)\n}}\n'.format(goname)
+diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
+index 13171d0ad1..fc3eb0bf3f 100644
+--- a/tools/golang/xenlight/xenlight.go
++++ b/tools/golang/xenlight/xenlight.go
+@@ -203,13 +203,13 @@ type Domid uint32
+ // NameToDomid does not guarantee that the domid associated with name at
+ // the time NameToDomid is called is the same as the domid associated with
+ // name at the time NameToDomid returns.
+-func (Ctx *Context) NameToDomid(name string) (Domid, error) {
++func (ctx *Context) NameToDomid(name string) (Domid, error) {
+ 	var domid C.uint32_t
  
--        s += 'x.{0} = {1}\n'.format(field_name, goname)
-+        s += 'x.{0} = &{1}\n'.format(field_name, goname)
+ 	cname := C.CString(name)
+ 	defer C.free(unsafe.Pointer(cname))
  
-     # End switch statement
-     s += 'default:\n'
-@@ -571,7 +571,7 @@ def xenlight_golang_union_to_C(ty = None, union_name = '',
-         gotype  = xenlight_golang_fmt_name(cgotype)
+-	if ret := C.libxl_name_to_domid(Ctx.ctx, cname, &domid); ret != 0 {
++	if ret := C.libxl_name_to_domid(ctx.ctx, cname, &domid); ret != 0 {
+ 		return DomidInvalid, Error(ret)
+ 	}
  
-         field_name = xenlight_golang_fmt_name('{0}_union'.format(keyname))
--        s += 'tmp, ok := x.{0}.({1})\n'.format(field_name,gotype)
-+        s += 'tmp, ok := x.{0}.(*{1})\n'.format(field_name,gotype)
-         s += 'if !ok {\n'
-         s += 'return errors.New("wrong type for union key {0}")\n'.format(keyname)
-         s += '}\n'
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index 5222898fb8..8fc5ec1649 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -443,7 +443,7 @@ var connectionPty ChannelinfoConnectionUnionPty
- if err := connectionPty.fromC(xc);err != nil {
-  return fmt.Errorf("converting field connectionPty: %v", err)
- }
--x.ConnectionUnion = connectionPty
-+x.ConnectionUnion = &connectionPty
- case ChannelConnectionSocket:
- x.ConnectionUnion = nil
- case ChannelConnectionUnknown:
-@@ -485,7 +485,7 @@ switch x.Connection{
- case ChannelConnectionUnknown:
- break
- case ChannelConnectionPty:
--tmp, ok := x.ConnectionUnion.(ChannelinfoConnectionUnionPty)
-+tmp, ok := x.ConnectionUnion.(*ChannelinfoConnectionUnionPty)
- if !ok {
- return errors.New("wrong type for union key connection")
- }
-@@ -1120,7 +1120,7 @@ var typeHvm DomainBuildInfoTypeUnionHvm
- if err := typeHvm.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeHvm: %v", err)
- }
--x.TypeUnion = typeHvm
-+x.TypeUnion = &typeHvm
- case DomainTypeInvalid:
- x.TypeUnion = nil
- case DomainTypePv:
-@@ -1128,13 +1128,13 @@ var typePv DomainBuildInfoTypeUnionPv
- if err := typePv.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typePv: %v", err)
- }
--x.TypeUnion = typePv
-+x.TypeUnion = &typePv
- case DomainTypePvh:
- var typePvh DomainBuildInfoTypeUnionPvh
- if err := typePvh.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typePvh: %v", err)
- }
--x.TypeUnion = typePvh
-+x.TypeUnion = &typePvh
- default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
- x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
-@@ -1465,7 +1465,7 @@ xc.tee = C.libxl_tee_type(x.Tee)
- xc._type = C.libxl_domain_type(x.Type)
- switch x.Type{
- case DomainTypeHvm:
--tmp, ok := x.TypeUnion.(DomainBuildInfoTypeUnionHvm)
-+tmp, ok := x.TypeUnion.(*DomainBuildInfoTypeUnionHvm)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -1593,7 +1593,7 @@ hvm.mca_caps = C.uint64_t(tmp.McaCaps)
- hvmBytes := C.GoBytes(unsafe.Pointer(&hvm),C.sizeof_libxl_domain_build_info_type_union_hvm)
- copy(xc.u[:],hvmBytes)
- case DomainTypePv:
--tmp, ok := x.TypeUnion.(DomainBuildInfoTypeUnionPv)
-+tmp, ok := x.TypeUnion.(*DomainBuildInfoTypeUnionPv)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -1623,7 +1623,7 @@ return fmt.Errorf("converting field E820Host: %v", err)
- pvBytes := C.GoBytes(unsafe.Pointer(&pv),C.sizeof_libxl_domain_build_info_type_union_pv)
- copy(xc.u[:],pvBytes)
- case DomainTypePvh:
--tmp, ok := x.TypeUnion.(DomainBuildInfoTypeUnionPvh)
-+tmp, ok := x.TypeUnion.(*DomainBuildInfoTypeUnionPvh)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -2283,7 +2283,7 @@ var typeHostdev DeviceUsbdevTypeUnionHostdev
- if err := typeHostdev.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeHostdev: %v", err)
- }
--x.TypeUnion = typeHostdev
-+x.TypeUnion = &typeHostdev
- default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
+@@ -223,8 +223,8 @@ func (Ctx *Context) NameToDomid(name string) (Domid, error) {
+ // DomidToName does not guarantee that the name (if any) associated with domid
+ // at the time DomidToName is called is the same as the name (if any) associated
+ // with domid at the time DomidToName returns.
+-func (Ctx *Context) DomidToName(domid Domid) string {
+-	cname := C.libxl_domid_to_name(Ctx.ctx, C.uint32_t(domid))
++func (ctx *Context) DomidToName(domid Domid) string {
++	cname := C.libxl_domid_to_name(ctx.ctx, C.uint32_t(domid))
+ 	defer C.free(unsafe.Pointer(cname))
  
-@@ -2310,7 +2310,7 @@ xc.port = C.int(x.Port)
- xc._type = C.libxl_usbdev_type(x.Type)
- switch x.Type{
- case UsbdevTypeHostdev:
--tmp, ok := x.TypeUnion.(DeviceUsbdevTypeUnionHostdev)
-+tmp, ok := x.TypeUnion.(*DeviceUsbdevTypeUnionHostdev)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -2508,7 +2508,7 @@ var connectionSocket DeviceChannelConnectionUnionSocket
- if err := connectionSocket.fromC(xc);err != nil {
-  return fmt.Errorf("converting field connectionSocket: %v", err)
- }
--x.ConnectionUnion = connectionSocket
-+x.ConnectionUnion = &connectionSocket
- case ChannelConnectionUnknown:
- x.ConnectionUnion = nil
- default:
-@@ -2546,7 +2546,7 @@ break
- case ChannelConnectionPty:
- break
- case ChannelConnectionSocket:
--tmp, ok := x.ConnectionUnion.(DeviceChannelConnectionUnionSocket)
-+tmp, ok := x.ConnectionUnion.(*DeviceChannelConnectionUnionSocket)
- if !ok {
- return errors.New("wrong type for union key connection")
- }
-@@ -4107,7 +4107,7 @@ var typeDiskEject EventTypeUnionDiskEject
- if err := typeDiskEject.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeDiskEject: %v", err)
- }
--x.TypeUnion = typeDiskEject
-+x.TypeUnion = &typeDiskEject
- case EventTypeDomainCreateConsoleAvailable:
- x.TypeUnion = nil
- case EventTypeDomainDeath:
-@@ -4117,13 +4117,13 @@ var typeDomainShutdown EventTypeUnionDomainShutdown
- if err := typeDomainShutdown.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeDomainShutdown: %v", err)
- }
--x.TypeUnion = typeDomainShutdown
-+x.TypeUnion = &typeDomainShutdown
- case EventTypeOperationComplete:
- var typeOperationComplete EventTypeUnionOperationComplete
- if err := typeOperationComplete.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeOperationComplete: %v", err)
- }
--x.TypeUnion = typeOperationComplete
-+x.TypeUnion = &typeOperationComplete
- default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
+ 	return C.GoString(cname)
+@@ -594,10 +594,10 @@ func SchedulerFromString(name string) (s Scheduler, err error) {
  
-@@ -4178,7 +4178,7 @@ xc.for_user = C.uint64_t(x.ForUser)
- xc._type = C.libxl_event_type(x.Type)
- switch x.Type{
- case EventTypeDomainShutdown:
--tmp, ok := x.TypeUnion.(EventTypeUnionDomainShutdown)
-+tmp, ok := x.TypeUnion.(*EventTypeUnionDomainShutdown)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -4189,7 +4189,7 @@ copy(xc.u[:],domain_shutdownBytes)
- case EventTypeDomainDeath:
- break
- case EventTypeDiskEject:
--tmp, ok := x.TypeUnion.(EventTypeUnionDiskEject)
-+tmp, ok := x.TypeUnion.(*EventTypeUnionDiskEject)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -4203,7 +4203,7 @@ return fmt.Errorf("converting field Disk: %v", err)
- disk_ejectBytes := C.GoBytes(unsafe.Pointer(&disk_eject),C.sizeof_libxl_event_type_union_disk_eject)
- copy(xc.u[:],disk_ejectBytes)
- case EventTypeOperationComplete:
--tmp, ok := x.TypeUnion.(EventTypeUnionOperationComplete)
-+tmp, ok := x.TypeUnion.(*EventTypeUnionOperationComplete)
- if !ok {
- return errors.New("wrong type for union key type")
- }
-@@ -4278,13 +4278,13 @@ var typeCat PsrHwInfoTypeUnionCat
- if err := typeCat.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeCat: %v", err)
- }
--x.TypeUnion = typeCat
-+x.TypeUnion = &typeCat
- case PsrFeatTypeMba:
- var typeMba PsrHwInfoTypeUnionMba
- if err := typeMba.fromC(xc);err != nil {
-  return fmt.Errorf("converting field typeMba: %v", err)
- }
--x.TypeUnion = typeMba
-+x.TypeUnion = &typeMba
- default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
+ // libxl_cpupoolinfo * libxl_list_cpupool(libxl_ctx*, int *nb_pool_out);
+ // void libxl_cpupoolinfo_list_free(libxl_cpupoolinfo *list, int nb_pool);
+-func (Ctx *Context) ListCpupool() (list []Cpupoolinfo) {
++func (ctx *Context) ListCpupool() (list []Cpupoolinfo) {
+ 	var nbPool C.int
  
-@@ -4323,7 +4323,7 @@ xc.id = C.uint32_t(x.Id)
- xc._type = C.libxl_psr_feat_type(x.Type)
- switch x.Type{
- case PsrFeatTypeCat:
--tmp, ok := x.TypeUnion.(PsrHwInfoTypeUnionCat)
-+tmp, ok := x.TypeUnion.(*PsrHwInfoTypeUnionCat)
- if !ok {
- return errors.New("wrong type for union key type")
+-	c_cpupool_list := C.libxl_list_cpupool(Ctx.ctx, &nbPool)
++	c_cpupool_list := C.libxl_list_cpupool(ctx.ctx, &nbPool)
+ 
+ 	defer C.libxl_cpupoolinfo_list_free(c_cpupool_list, nbPool)
+ 
+@@ -617,10 +617,10 @@ func (Ctx *Context) ListCpupool() (list []Cpupoolinfo) {
  }
-@@ -4334,7 +4334,7 @@ cat.cdp_enabled = C.bool(tmp.CdpEnabled)
- catBytes := C.GoBytes(unsafe.Pointer(&cat),C.sizeof_libxl_psr_hw_info_type_union_cat)
- copy(xc.u[:],catBytes)
- case PsrFeatTypeMba:
--tmp, ok := x.TypeUnion.(PsrHwInfoTypeUnionMba)
-+tmp, ok := x.TypeUnion.(*PsrHwInfoTypeUnionMba)
- if !ok {
- return errors.New("wrong type for union key type")
+ 
+ // int libxl_cpupool_info(libxl_ctx *ctx, libxl_cpupoolinfo *info, uint32_t poolid);
+-func (Ctx *Context) CpupoolInfo(Poolid uint32) (pool Cpupoolinfo, err error) {
++func (ctx *Context) CpupoolInfo(Poolid uint32) (pool Cpupoolinfo, err error) {
+ 	var c_cpupool C.libxl_cpupoolinfo
+ 
+-	ret := C.libxl_cpupool_info(Ctx.ctx, &c_cpupool, C.uint32_t(Poolid))
++	ret := C.libxl_cpupool_info(ctx.ctx, &c_cpupool, C.uint32_t(Poolid))
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -638,7 +638,7 @@ func (Ctx *Context) CpupoolInfo(Poolid uint32) (pool Cpupoolinfo, err error) {
+ //                          uint32_t *poolid);
+ // FIXME: uuid
+ // FIXME: Setting poolid
+-func (Ctx *Context) CpupoolCreate(Name string, Scheduler Scheduler, Cpumap Bitmap) (err error, Poolid uint32) {
++func (ctx *Context) CpupoolCreate(Name string, Scheduler Scheduler, Cpumap Bitmap) (err error, Poolid uint32) {
+ 	poolid := C.uint32_t(C.LIBXL_CPUPOOL_POOLID_ANY)
+ 	name := C.CString(Name)
+ 	defer C.free(unsafe.Pointer(name))
+@@ -653,7 +653,7 @@ func (Ctx *Context) CpupoolCreate(Name string, Scheduler Scheduler, Cpumap Bitma
+ 	}
+ 	defer C.libxl_bitmap_dispose(&cbm)
+ 
+-	ret := C.libxl_cpupool_create(Ctx.ctx, name, C.libxl_scheduler(Scheduler),
++	ret := C.libxl_cpupool_create(ctx.ctx, name, C.libxl_scheduler(Scheduler),
+ 		cbm, &uuid, &poolid)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+@@ -666,8 +666,8 @@ func (Ctx *Context) CpupoolCreate(Name string, Scheduler Scheduler, Cpumap Bitma
  }
+ 
+ // int libxl_cpupool_destroy(libxl_ctx *ctx, uint32_t poolid);
+-func (Ctx *Context) CpupoolDestroy(Poolid uint32) (err error) {
+-	ret := C.libxl_cpupool_destroy(Ctx.ctx, C.uint32_t(Poolid))
++func (ctx *Context) CpupoolDestroy(Poolid uint32) (err error) {
++	ret := C.libxl_cpupool_destroy(ctx.ctx, C.uint32_t(Poolid))
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -677,8 +677,8 @@ func (Ctx *Context) CpupoolDestroy(Poolid uint32) (err error) {
+ }
+ 
+ // int libxl_cpupool_cpuadd(libxl_ctx *ctx, uint32_t poolid, int cpu);
+-func (Ctx *Context) CpupoolCpuadd(Poolid uint32, Cpu int) (err error) {
+-	ret := C.libxl_cpupool_cpuadd(Ctx.ctx, C.uint32_t(Poolid), C.int(Cpu))
++func (ctx *Context) CpupoolCpuadd(Poolid uint32, Cpu int) (err error) {
++	ret := C.libxl_cpupool_cpuadd(ctx.ctx, C.uint32_t(Poolid), C.int(Cpu))
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -689,14 +689,14 @@ func (Ctx *Context) CpupoolCpuadd(Poolid uint32, Cpu int) (err error) {
+ 
+ // int libxl_cpupool_cpuadd_cpumap(libxl_ctx *ctx, uint32_t poolid,
+ //                                 const libxl_bitmap *cpumap);
+-func (Ctx *Context) CpupoolCpuaddCpumap(Poolid uint32, Cpumap Bitmap) (err error) {
++func (ctx *Context) CpupoolCpuaddCpumap(Poolid uint32, Cpumap Bitmap) (err error) {
+ 	var cbm C.libxl_bitmap
+ 	if err = Cpumap.toC(&cbm); err != nil {
+ 		return
+ 	}
+ 	defer C.libxl_bitmap_dispose(&cbm)
+ 
+-	ret := C.libxl_cpupool_cpuadd_cpumap(Ctx.ctx, C.uint32_t(Poolid), &cbm)
++	ret := C.libxl_cpupool_cpuadd_cpumap(ctx.ctx, C.uint32_t(Poolid), &cbm)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -706,8 +706,8 @@ func (Ctx *Context) CpupoolCpuaddCpumap(Poolid uint32, Cpumap Bitmap) (err error
+ }
+ 
+ // int libxl_cpupool_cpuremove(libxl_ctx *ctx, uint32_t poolid, int cpu);
+-func (Ctx *Context) CpupoolCpuremove(Poolid uint32, Cpu int) (err error) {
+-	ret := C.libxl_cpupool_cpuremove(Ctx.ctx, C.uint32_t(Poolid), C.int(Cpu))
++func (ctx *Context) CpupoolCpuremove(Poolid uint32, Cpu int) (err error) {
++	ret := C.libxl_cpupool_cpuremove(ctx.ctx, C.uint32_t(Poolid), C.int(Cpu))
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -718,14 +718,14 @@ func (Ctx *Context) CpupoolCpuremove(Poolid uint32, Cpu int) (err error) {
+ 
+ // int libxl_cpupool_cpuremove_cpumap(libxl_ctx *ctx, uint32_t poolid,
+ //                                    const libxl_bitmap *cpumap);
+-func (Ctx *Context) CpupoolCpuremoveCpumap(Poolid uint32, Cpumap Bitmap) (err error) {
++func (ctx *Context) CpupoolCpuremoveCpumap(Poolid uint32, Cpumap Bitmap) (err error) {
+ 	var cbm C.libxl_bitmap
+ 	if err = Cpumap.toC(&cbm); err != nil {
+ 		return
+ 	}
+ 	defer C.libxl_bitmap_dispose(&cbm)
+ 
+-	ret := C.libxl_cpupool_cpuremove_cpumap(Ctx.ctx, C.uint32_t(Poolid), &cbm)
++	ret := C.libxl_cpupool_cpuremove_cpumap(ctx.ctx, C.uint32_t(Poolid), &cbm)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -735,11 +735,11 @@ func (Ctx *Context) CpupoolCpuremoveCpumap(Poolid uint32, Cpumap Bitmap) (err er
+ }
+ 
+ // int libxl_cpupool_rename(libxl_ctx *ctx, const char *name, uint32_t poolid);
+-func (Ctx *Context) CpupoolRename(Name string, Poolid uint32) (err error) {
++func (ctx *Context) CpupoolRename(Name string, Poolid uint32) (err error) {
+ 	name := C.CString(Name)
+ 	defer C.free(unsafe.Pointer(name))
+ 
+-	ret := C.libxl_cpupool_rename(Ctx.ctx, name, C.uint32_t(Poolid))
++	ret := C.libxl_cpupool_rename(ctx.ctx, name, C.uint32_t(Poolid))
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -749,10 +749,10 @@ func (Ctx *Context) CpupoolRename(Name string, Poolid uint32) (err error) {
+ }
+ 
+ // int libxl_cpupool_cpuadd_node(libxl_ctx *ctx, uint32_t poolid, int node, int *cpus);
+-func (Ctx *Context) CpupoolCpuaddNode(Poolid uint32, Node int) (Cpus int, err error) {
++func (ctx *Context) CpupoolCpuaddNode(Poolid uint32, Node int) (Cpus int, err error) {
+ 	ccpus := C.int(0)
+ 
+-	ret := C.libxl_cpupool_cpuadd_node(Ctx.ctx, C.uint32_t(Poolid), C.int(Node), &ccpus)
++	ret := C.libxl_cpupool_cpuadd_node(ctx.ctx, C.uint32_t(Poolid), C.int(Node), &ccpus)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -764,10 +764,10 @@ func (Ctx *Context) CpupoolCpuaddNode(Poolid uint32, Node int) (Cpus int, err er
+ }
+ 
+ // int libxl_cpupool_cpuremove_node(libxl_ctx *ctx, uint32_t poolid, int node, int *cpus);
+-func (Ctx *Context) CpupoolCpuremoveNode(Poolid uint32, Node int) (Cpus int, err error) {
++func (ctx *Context) CpupoolCpuremoveNode(Poolid uint32, Node int) (Cpus int, err error) {
+ 	ccpus := C.int(0)
+ 
+-	ret := C.libxl_cpupool_cpuremove_node(Ctx.ctx, C.uint32_t(Poolid), C.int(Node), &ccpus)
++	ret := C.libxl_cpupool_cpuremove_node(ctx.ctx, C.uint32_t(Poolid), C.int(Node), &ccpus)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -779,8 +779,8 @@ func (Ctx *Context) CpupoolCpuremoveNode(Poolid uint32, Node int) (Cpus int, err
+ }
+ 
+ // int libxl_cpupool_movedomain(libxl_ctx *ctx, uint32_t poolid, uint32_t domid);
+-func (Ctx *Context) CpupoolMovedomain(Poolid uint32, Id Domid) (err error) {
+-	ret := C.libxl_cpupool_movedomain(Ctx.ctx, C.uint32_t(Poolid), C.uint32_t(Id))
++func (ctx *Context) CpupoolMovedomain(Poolid uint32, Id Domid) (err error) {
++	ret := C.libxl_cpupool_movedomain(ctx.ctx, C.uint32_t(Poolid), C.uint32_t(Id))
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -792,8 +792,8 @@ func (Ctx *Context) CpupoolMovedomain(Poolid uint32, Id Domid) (err error) {
+ //
+ // Utility functions
+ //
+-func (Ctx *Context) CpupoolFindByName(name string) (info Cpupoolinfo, found bool) {
+-	plist := Ctx.ListCpupool()
++func (ctx *Context) CpupoolFindByName(name string) (info Cpupoolinfo, found bool) {
++	plist := ctx.ListCpupool()
+ 
+ 	for i := range plist {
+ 		if plist[i].PoolName == name {
+@@ -805,14 +805,14 @@ func (Ctx *Context) CpupoolFindByName(name string) (info Cpupoolinfo, found bool
+ 	return
+ }
+ 
+-func (Ctx *Context) CpupoolMakeFree(Cpumap Bitmap) (err error) {
+-	plist := Ctx.ListCpupool()
++func (ctx *Context) CpupoolMakeFree(Cpumap Bitmap) (err error) {
++	plist := ctx.ListCpupool()
+ 
+ 	for i := range plist {
+ 		var Intersection Bitmap
+ 		Intersection = Cpumap.And(plist[i].Cpumap)
+ 		if !Intersection.IsEmpty() {
+-			err = Ctx.CpupoolCpuremoveCpumap(plist[i].Poolid, Intersection)
++			err = ctx.CpupoolCpuremoveCpumap(plist[i].Poolid, Intersection)
+ 			if err != nil {
+ 				return
+ 			}
+@@ -940,8 +940,8 @@ func (bm Bitmap) String() (s string) {
+ }
+ 
+ //int libxl_get_max_cpus(libxl_ctx *ctx);
+-func (Ctx *Context) GetMaxCpus() (maxCpus int, err error) {
+-	ret := C.libxl_get_max_cpus(Ctx.ctx)
++func (ctx *Context) GetMaxCpus() (maxCpus int, err error) {
++	ret := C.libxl_get_max_cpus(ctx.ctx)
+ 	if ret < 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -951,8 +951,8 @@ func (Ctx *Context) GetMaxCpus() (maxCpus int, err error) {
+ }
+ 
+ //int libxl_get_online_cpus(libxl_ctx *ctx);
+-func (Ctx *Context) GetOnlineCpus() (onCpus int, err error) {
+-	ret := C.libxl_get_online_cpus(Ctx.ctx)
++func (ctx *Context) GetOnlineCpus() (onCpus int, err error) {
++	ret := C.libxl_get_online_cpus(ctx.ctx)
+ 	if ret < 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -962,8 +962,8 @@ func (Ctx *Context) GetOnlineCpus() (onCpus int, err error) {
+ }
+ 
+ //int libxl_get_max_nodes(libxl_ctx *ctx);
+-func (Ctx *Context) GetMaxNodes() (maxNodes int, err error) {
+-	ret := C.libxl_get_max_nodes(Ctx.ctx)
++func (ctx *Context) GetMaxNodes() (maxNodes int, err error) {
++	ret := C.libxl_get_max_nodes(ctx.ctx)
+ 	if ret < 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -973,9 +973,9 @@ func (Ctx *Context) GetMaxNodes() (maxNodes int, err error) {
+ }
+ 
+ //int libxl_get_free_memory(libxl_ctx *ctx, uint64_t *memkb);
+-func (Ctx *Context) GetFreeMemory() (memkb uint64, err error) {
++func (ctx *Context) GetFreeMemory() (memkb uint64, err error) {
+ 	var cmem C.uint64_t
+-	ret := C.libxl_get_free_memory(Ctx.ctx, &cmem)
++	ret := C.libxl_get_free_memory(ctx.ctx, &cmem)
+ 
+ 	if ret < 0 {
+ 		err = Error(-ret)
+@@ -988,12 +988,12 @@ func (Ctx *Context) GetFreeMemory() (memkb uint64, err error) {
+ }
+ 
+ //int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
+-func (Ctx *Context) GetPhysinfo() (physinfo *Physinfo, err error) {
++func (ctx *Context) GetPhysinfo() (physinfo *Physinfo, err error) {
+ 	var cphys C.libxl_physinfo
+ 	C.libxl_physinfo_init(&cphys)
+ 	defer C.libxl_physinfo_dispose(&cphys)
+ 
+-	ret := C.libxl_get_physinfo(Ctx.ctx, &cphys)
++	ret := C.libxl_get_physinfo(ctx.ctx, &cphys)
+ 
+ 	if ret < 0 {
+ 		err = Error(ret)
+@@ -1005,22 +1005,22 @@ func (Ctx *Context) GetPhysinfo() (physinfo *Physinfo, err error) {
+ }
+ 
+ //const libxl_version_info* libxl_get_version_info(libxl_ctx *ctx);
+-func (Ctx *Context) GetVersionInfo() (info *VersionInfo, err error) {
++func (ctx *Context) GetVersionInfo() (info *VersionInfo, err error) {
+ 	var cinfo *C.libxl_version_info
+ 
+-	cinfo = C.libxl_get_version_info(Ctx.ctx)
++	cinfo = C.libxl_get_version_info(ctx.ctx)
+ 
+ 	err = info.fromC(cinfo)
+ 
+ 	return
+ }
+ 
+-func (Ctx *Context) DomainInfo(Id Domid) (di *Dominfo, err error) {
++func (ctx *Context) DomainInfo(Id Domid) (di *Dominfo, err error) {
+ 	var cdi C.libxl_dominfo
+ 	C.libxl_dominfo_init(&cdi)
+ 	defer C.libxl_dominfo_dispose(&cdi)
+ 
+-	ret := C.libxl_domain_info(Ctx.ctx, &cdi, C.uint32_t(Id))
++	ret := C.libxl_domain_info(ctx.ctx, &cdi, C.uint32_t(Id))
+ 
+ 	if ret != 0 {
+ 		err = Error(-ret)
+@@ -1032,8 +1032,8 @@ func (Ctx *Context) DomainInfo(Id Domid) (di *Dominfo, err error) {
+ 	return
+ }
+ 
+-func (Ctx *Context) DomainUnpause(Id Domid) (err error) {
+-	ret := C.libxl_domain_unpause(Ctx.ctx, C.uint32_t(Id), nil)
++func (ctx *Context) DomainUnpause(Id Domid) (err error) {
++	ret := C.libxl_domain_unpause(ctx.ctx, C.uint32_t(Id), nil)
+ 
+ 	if ret != 0 {
+ 		err = Error(-ret)
+@@ -1042,8 +1042,8 @@ func (Ctx *Context) DomainUnpause(Id Domid) (err error) {
+ }
+ 
+ //int libxl_domain_pause(libxl_ctx *ctx, uint32_t domain);
+-func (Ctx *Context) DomainPause(id Domid) (err error) {
+-	ret := C.libxl_domain_pause(Ctx.ctx, C.uint32_t(id), nil)
++func (ctx *Context) DomainPause(id Domid) (err error) {
++	ret := C.libxl_domain_pause(ctx.ctx, C.uint32_t(id), nil)
+ 
+ 	if ret != 0 {
+ 		err = Error(-ret)
+@@ -1052,8 +1052,8 @@ func (Ctx *Context) DomainPause(id Domid) (err error) {
+ }
+ 
+ //int libxl_domain_shutdown(libxl_ctx *ctx, uint32_t domid);
+-func (Ctx *Context) DomainShutdown(id Domid) (err error) {
+-	ret := C.libxl_domain_shutdown(Ctx.ctx, C.uint32_t(id), nil)
++func (ctx *Context) DomainShutdown(id Domid) (err error) {
++	ret := C.libxl_domain_shutdown(ctx.ctx, C.uint32_t(id), nil)
+ 
+ 	if ret != 0 {
+ 		err = Error(-ret)
+@@ -1062,8 +1062,8 @@ func (Ctx *Context) DomainShutdown(id Domid) (err error) {
+ }
+ 
+ //int libxl_domain_reboot(libxl_ctx *ctx, uint32_t domid);
+-func (Ctx *Context) DomainReboot(id Domid) (err error) {
+-	ret := C.libxl_domain_reboot(Ctx.ctx, C.uint32_t(id), nil)
++func (ctx *Context) DomainReboot(id Domid) (err error) {
++	ret := C.libxl_domain_reboot(ctx.ctx, C.uint32_t(id), nil)
+ 
+ 	if ret != 0 {
+ 		err = Error(-ret)
+@@ -1073,9 +1073,9 @@ func (Ctx *Context) DomainReboot(id Domid) (err error) {
+ 
+ //libxl_dominfo * libxl_list_domain(libxl_ctx*, int *nb_domain_out);
+ //void libxl_dominfo_list_free(libxl_dominfo *list, int nb_domain);
+-func (Ctx *Context) ListDomain() (glist []Dominfo) {
++func (ctx *Context) ListDomain() (glist []Dominfo) {
+ 	var nbDomain C.int
+-	clist := C.libxl_list_domain(Ctx.ctx, &nbDomain)
++	clist := C.libxl_list_domain(ctx.ctx, &nbDomain)
+ 	defer C.libxl_dominfo_list_free(clist, nbDomain)
+ 
+ 	if int(nbDomain) == 0 {
+@@ -1095,11 +1095,11 @@ func (Ctx *Context) ListDomain() (glist []Dominfo) {
+ //libxl_vcpuinfo *libxl_list_vcpu(libxl_ctx *ctx, uint32_t domid,
+ //				int *nb_vcpu, int *nr_cpus_out);
+ //void libxl_vcpuinfo_list_free(libxl_vcpuinfo *, int nr_vcpus);
+-func (Ctx *Context) ListVcpu(id Domid) (glist []Vcpuinfo) {
++func (ctx *Context) ListVcpu(id Domid) (glist []Vcpuinfo) {
+ 	var nbVcpu C.int
+ 	var nrCpu C.int
+ 
+-	clist := C.libxl_list_vcpu(Ctx.ctx, C.uint32_t(id), &nbVcpu, &nrCpu)
++	clist := C.libxl_list_vcpu(ctx.ctx, C.uint32_t(id), &nbVcpu, &nrCpu)
+ 	defer C.libxl_vcpuinfo_list_free(clist, nbVcpu)
+ 
+ 	if int(nbVcpu) == 0 {
+@@ -1125,9 +1125,9 @@ func (ct ConsoleType) String() (str string) {
+ 
+ //int libxl_console_get_tty(libxl_ctx *ctx, uint32_t domid, int cons_num,
+ //libxl_console_type type, char **path);
+-func (Ctx *Context) ConsoleGetTty(id Domid, consNum int, conType ConsoleType) (path string, err error) {
++func (ctx *Context) ConsoleGetTty(id Domid, consNum int, conType ConsoleType) (path string, err error) {
+ 	var cpath *C.char
+-	ret := C.libxl_console_get_tty(Ctx.ctx, C.uint32_t(id), C.int(consNum), C.libxl_console_type(conType), &cpath)
++	ret := C.libxl_console_get_tty(ctx.ctx, C.uint32_t(id), C.int(consNum), C.libxl_console_type(conType), &cpath)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -1140,9 +1140,9 @@ func (Ctx *Context) ConsoleGetTty(id Domid, consNum int, conType ConsoleType) (p
+ 
+ //int libxl_primary_console_get_tty(libxl_ctx *ctx, uint32_t domid_vm,
+ //					char **path);
+-func (Ctx *Context) PrimaryConsoleGetTty(domid uint32) (path string, err error) {
++func (ctx *Context) PrimaryConsoleGetTty(domid uint32) (path string, err error) {
+ 	var cpath *C.char
+-	ret := C.libxl_primary_console_get_tty(Ctx.ctx, C.uint32_t(domid), &cpath)
++	ret := C.libxl_primary_console_get_tty(ctx.ctx, C.uint32_t(domid), &cpath)
+ 	if ret != 0 {
+ 		err = Error(-ret)
+ 		return
+@@ -1154,7 +1154,7 @@ func (Ctx *Context) PrimaryConsoleGetTty(domid uint32) (path string, err error)
+ }
+ 
+ // DeviceNicAdd adds a nic to a domain.
+-func (Ctx *Context) DeviceNicAdd(domid Domid, nic *DeviceNic) error {
++func (ctx *Context) DeviceNicAdd(domid Domid, nic *DeviceNic) error {
+ 	var cnic C.libxl_device_nic
+ 
+ 	if err := nic.toC(&cnic); err != nil {
+@@ -1162,7 +1162,7 @@ func (Ctx *Context) DeviceNicAdd(domid Domid, nic *DeviceNic) error {
+ 	}
+ 	defer C.libxl_device_nic_dispose(&cnic)
+ 
+-	ret := C.libxl_device_nic_add(Ctx.ctx, C.uint32_t(domid), &cnic, nil)
++	ret := C.libxl_device_nic_add(ctx.ctx, C.uint32_t(domid), &cnic, nil)
+ 	if ret != 0 {
+ 		return Error(ret)
+ 	}
+@@ -1171,7 +1171,7 @@ func (Ctx *Context) DeviceNicAdd(domid Domid, nic *DeviceNic) error {
+ }
+ 
+ // DeviceNicRemove removes a nic from a domain.
+-func (Ctx *Context) DeviceNicRemove(domid Domid, nic *DeviceNic) error {
++func (ctx *Context) DeviceNicRemove(domid Domid, nic *DeviceNic) error {
+ 	var cnic C.libxl_device_nic
+ 
+ 	if err := nic.toC(&cnic); err != nil {
+@@ -1179,7 +1179,7 @@ func (Ctx *Context) DeviceNicRemove(domid Domid, nic *DeviceNic) error {
+ 	}
+ 	defer C.libxl_device_nic_dispose(&cnic)
+ 
+-	ret := C.libxl_device_nic_remove(Ctx.ctx, C.uint32_t(domid), &cnic, nil)
++	ret := C.libxl_device_nic_remove(ctx.ctx, C.uint32_t(domid), &cnic, nil)
+ 	if ret != 0 {
+ 		return Error(ret)
+ 	}
+@@ -1188,7 +1188,7 @@ func (Ctx *Context) DeviceNicRemove(domid Domid, nic *DeviceNic) error {
+ }
+ 
+ // DevicePciAdd is used to passthrough a PCI device to a domain.
+-func (Ctx *Context) DevicePciAdd(domid Domid, pci *DevicePci) error {
++func (ctx *Context) DevicePciAdd(domid Domid, pci *DevicePci) error {
+ 	var cpci C.libxl_device_pci
+ 
+ 	if err := pci.toC(&cpci); err != nil {
+@@ -1196,7 +1196,7 @@ func (Ctx *Context) DevicePciAdd(domid Domid, pci *DevicePci) error {
+ 	}
+ 	defer C.libxl_device_pci_dispose(&cpci)
+ 
+-	ret := C.libxl_device_pci_add(Ctx.ctx, C.uint32_t(domid), &cpci, nil)
++	ret := C.libxl_device_pci_add(ctx.ctx, C.uint32_t(domid), &cpci, nil)
+ 	if ret != 0 {
+ 		return Error(ret)
+ 	}
+@@ -1205,7 +1205,7 @@ func (Ctx *Context) DevicePciAdd(domid Domid, pci *DevicePci) error {
+ }
+ 
+ // DevicePciRemove removes a PCI device from a domain.
+-func (Ctx *Context) DevicePciRemove(domid Domid, pci *DevicePci) error {
++func (ctx *Context) DevicePciRemove(domid Domid, pci *DevicePci) error {
+ 	var cpci C.libxl_device_pci
+ 
+ 	if err := pci.toC(&cpci); err != nil {
+@@ -1213,7 +1213,7 @@ func (Ctx *Context) DevicePciRemove(domid Domid, pci *DevicePci) error {
+ 	}
+ 	defer C.libxl_device_pci_dispose(&cpci)
+ 
+-	ret := C.libxl_device_pci_remove(Ctx.ctx, C.uint32_t(domid), &cpci, nil)
++	ret := C.libxl_device_pci_remove(ctx.ctx, C.uint32_t(domid), &cpci, nil)
+ 	if ret != 0 {
+ 		return Error(ret)
+ 	}
+@@ -1222,7 +1222,7 @@ func (Ctx *Context) DevicePciRemove(domid Domid, pci *DevicePci) error {
+ }
+ 
+ // DeviceUsbdevAdd adds a USB device to a domain.
+-func (Ctx *Context) DeviceUsbdevAdd(domid Domid, usbdev *DeviceUsbdev) error {
++func (ctx *Context) DeviceUsbdevAdd(domid Domid, usbdev *DeviceUsbdev) error {
+ 	var cusbdev C.libxl_device_usbdev
+ 
+ 	if err := usbdev.toC(&cusbdev); err != nil {
+@@ -1230,7 +1230,7 @@ func (Ctx *Context) DeviceUsbdevAdd(domid Domid, usbdev *DeviceUsbdev) error {
+ 	}
+ 	defer C.libxl_device_usbdev_dispose(&cusbdev)
+ 
+-	ret := C.libxl_device_usbdev_add(Ctx.ctx, C.uint32_t(domid), &cusbdev, nil)
++	ret := C.libxl_device_usbdev_add(ctx.ctx, C.uint32_t(domid), &cusbdev, nil)
+ 	if ret != 0 {
+ 		return Error(ret)
+ 	}
+@@ -1239,7 +1239,7 @@ func (Ctx *Context) DeviceUsbdevAdd(domid Domid, usbdev *DeviceUsbdev) error {
+ }
+ 
+ // DeviceUsbdevRemove removes a USB device from a domain.
+-func (Ctx *Context) DeviceUsbdevRemove(domid Domid, usbdev *DeviceUsbdev) error {
++func (ctx *Context) DeviceUsbdevRemove(domid Domid, usbdev *DeviceUsbdev) error {
+ 	var cusbdev C.libxl_device_usbdev
+ 
+ 	if err := usbdev.toC(&cusbdev); err != nil {
+@@ -1247,7 +1247,7 @@ func (Ctx *Context) DeviceUsbdevRemove(domid Domid, usbdev *DeviceUsbdev) error
+ 	}
+ 	defer C.libxl_device_usbdev_dispose(&cusbdev)
+ 
+-	ret := C.libxl_device_usbdev_remove(Ctx.ctx, C.uint32_t(domid), &cusbdev, nil)
++	ret := C.libxl_device_usbdev_remove(ctx.ctx, C.uint32_t(domid), &cusbdev, nil)
+ 	if ret != 0 {
+ 		return Error(ret)
+ 	}
+@@ -1256,7 +1256,7 @@ func (Ctx *Context) DeviceUsbdevRemove(domid Domid, usbdev *DeviceUsbdev) error
+ }
+ 
+ // DomainCreateNew creates a new domain.
+-func (Ctx *Context) DomainCreateNew(config *DomainConfig) (Domid, error) {
++func (ctx *Context) DomainCreateNew(config *DomainConfig) (Domid, error) {
+ 	var cdomid C.uint32_t
+ 	var cconfig C.libxl_domain_config
+ 	err := config.toC(&cconfig)
+@@ -1265,7 +1265,7 @@ func (Ctx *Context) DomainCreateNew(config *DomainConfig) (Domid, error) {
+ 	}
+ 	defer C.libxl_domain_config_dispose(&cconfig)
+ 
+-	ret := C.libxl_domain_create_new(Ctx.ctx, &cconfig, &cdomid, nil, nil)
++	ret := C.libxl_domain_create_new(ctx.ctx, &cconfig, &cdomid, nil, nil)
+ 	if ret != 0 {
+ 		return Domid(0), Error(ret)
+ 	}
 -- 
 2.17.1
 
