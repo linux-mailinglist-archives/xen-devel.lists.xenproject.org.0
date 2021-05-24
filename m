@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F33BE38E8CF
-	for <lists+xen-devel@lfdr.de>; Mon, 24 May 2021 16:34:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131791.246147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6456A38E8D1
+	for <lists+xen-devel@lfdr.de>; Mon, 24 May 2021 16:34:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.131792.246157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llBem-0006JH-MY; Mon, 24 May 2021 14:34:12 +0000
+	id 1llBer-0006cc-VF; Mon, 24 May 2021 14:34:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131791.246147; Mon, 24 May 2021 14:34:12 +0000
+Received: by outflank-mailman (output) from mailman id 131792.246157; Mon, 24 May 2021 14:34:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llBem-0006Gt-JR; Mon, 24 May 2021 14:34:12 +0000
-Received: by outflank-mailman (input) for mailman id 131791;
- Mon, 24 May 2021 14:34:11 +0000
+	id 1llBer-0006aZ-Rd; Mon, 24 May 2021 14:34:17 +0000
+Received: by outflank-mailman (input) for mailman id 131792;
+ Mon, 24 May 2021 14:34:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SOm5=KT=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1llBel-0005zC-5X
- for xen-devel@lists.xenproject.org; Mon, 24 May 2021 14:34:11 +0000
-Received: from mail-oi1-x22e.google.com (unknown [2607:f8b0:4864:20::22e])
+ id 1llBeq-0005zC-5d
+ for xen-devel@lists.xenproject.org; Mon, 24 May 2021 14:34:16 +0000
+Received: from mail-ot1-x334.google.com (unknown [2607:f8b0:4864:20::334])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c99d4de-3ba0-40f8-a9dd-0629675e6e51;
- Mon, 24 May 2021 14:34:07 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id c3so27217128oic.8
- for <xen-devel@lists.xenproject.org>; Mon, 24 May 2021 07:34:07 -0700 (PDT)
+ id 74edadd2-c31c-444e-bd36-81b0bd7c7b2f;
+ Mon, 24 May 2021 14:34:09 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ u25-20020a0568302319b02902ac3d54c25eso25430402ote.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 May 2021 07:34:09 -0700 (PDT)
 Received: from localhost.localdomain (142-79-211-230.starry-inc.net.
  [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id p22sm2840564oop.7.2021.05.24.07.34.06
+ by smtp.gmail.com with ESMTPSA id p22sm2840564oop.7.2021.05.24.07.34.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 07:34:07 -0700 (PDT)
+ Mon, 24 May 2021 07:34:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c99d4de-3ba0-40f8-a9dd-0629675e6e51
+X-Inumbo-ID: 74edadd2-c31c-444e-bd36-81b0bd7c7b2f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=2sOrZe5bNOUYq7hgK+U1znFwa5rrkIKkNIboxtn+L9M=;
-        b=liBlJJdT9IQFayphoQ9LiGylFPUQJJ9Hg3ZjBg+o3ODXfwDihgspY00McxaVXSPuHL
-         9elBHtA8L/MPH7er9ChFvpGR7BIhImU/ltwyABaqJEmd9XFLDg/ZJQn0xpXF8aCa8L6M
-         XNVj6SakXgxORS+T/Aw+xjtgle4zfwagVa8ikuJZGXMycauN2HD1+xDip6G8jerGlBrw
-         oXWQ26wCtcmCCC3Uj7x9BCTC8pCZae6s0WhDXpAYEA+WHhVrWzJSQCAmFv0JNrQeZ7xI
-         vJmTSyVLwnxup5vamxxQ3RlbXeHmt4Mvbn9CDx2g48M/e112BRaqwHu2PPAqH3pA7QFy
-         Edsg==
+        bh=KDIsJWwedO49iEv9YVCuj+jt8d4VmFrWYbJWRHeDs+U=;
+        b=Yh7vBBBU5OVB5ZSt8Zkl1ivh9VVDN84H7CvJXSSqYXgBNb9/qi/NFOcimfilfGx5DN
+         rj2k1kDAP80gbtLGAQqltBvMeKD2610eSGLAShM4NbC5AgXNRyTbP0w29celQ65HIDkC
+         c4UXNnOij/i9ZOl9GrwmP2yoqhYyShlP2+YzMkjpMkjVlC3/oE+VWj+aDIVEP9F+jE0A
+         /DtKviQhW+WALICKHanjH6fwb/Ot6YA5980VlQNQmMzrqE0Q3JpovLBzYK0RYR65R5Zh
+         uqvImHq0RQjgFG3kjeM1om8zzvdKzUkQXSBFi7EalKUZ/zX5rearK+386mplelwabxLX
+         OQ2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=2sOrZe5bNOUYq7hgK+U1znFwa5rrkIKkNIboxtn+L9M=;
-        b=UAlI5l66mD2phq/rD6bw2M38DXB/pRfYo+GCX0haClg9nBr6oX+Pmz/Fg9jteZNSyg
-         GI7NVhN+OSHhKk5CmeM2xux2NwIskmgjbrTc6zfxl2VYLidIUTbLH4Pf4gI5eTuZmSfV
-         WQbaAUXLgz1oKQx0z1zWc6jYyJyT9C4zp4TpzZMum4WR7eJL3DTGKZV+qY5vQKt2pVO2
-         VNeQeAQEzsfG8aix9Dx3fGx8gqW57/nZUYQOEPkEzWdO7DfnwO8pT+wbIAWlTXGmiElS
-         OpEODE6zAiEw7zyeEOD/ylolDytD/kRp6mlaX06NNhXW/pQgZRpSX+H73pl4EnFCUQiK
-         txYQ==
-X-Gm-Message-State: AOAM5327NEUuUxLokXuxFI04Yk9Uj8RuQGiHyi3uhSRylMEALgpLvcOE
-	jsvj2zf9YRDTDFEZegxFrhkquysxgQ14Iw==
-X-Google-Smtp-Source: ABdhPJyhmWVfRrGIBU252wYHKyGOHu0QebZeNgiFtFSkhzEwr7qNY5bc4lnG0fnebbcYFIo7gPTrSw==
-X-Received: by 2002:aca:494d:: with SMTP id w74mr11026457oia.47.1621866847260;
-        Mon, 24 May 2021 07:34:07 -0700 (PDT)
+        bh=KDIsJWwedO49iEv9YVCuj+jt8d4VmFrWYbJWRHeDs+U=;
+        b=YO0oqy2LePJvoJ9jMV0m/4nooW/9hKs+PkJj6grie3JlfHcEUp5r2u5ZY09RYAzPoT
+         cu6Li4Oyz6hqSUpM/v2zWq6QitFqqySlPZO6x/Lrc3Wo6TVcxN9vC6FZXBwpF/Y1EMlr
+         Jdhvm2my/RIWX1DfZn2x/jr+re064+UpPGH4d7d0s8TLuQvZvbQ37iL1E3T4yzqozFgy
+         D0iHVM9ulQZ/S30Lv+slne+DZqC9SN4eb5YlENfSye5o0AbIZURrQKaDuLbi5pPkvp1O
+         GioRrKOmfLdMXrzMM06QtiOv/Wn77fH8DW+ZBdbsNREI626ftRxj+AfC7AHCgWD8H88j
+         CC0w==
+X-Gm-Message-State: AOAM532pbcgB42VVzZFTCSTqbUlJlYc4rAdlLiU+3jTUqV3agTyFpdjK
+	F1E0bdqQYe3rsglZz0wfmcsPVE7cfJvjpw==
+X-Google-Smtp-Source: ABdhPJx1K+5syu74ayMih8RaFCc1VU+YarG3lhylzhElWyrmdpxlimkDUFSXTgl1VRbzNh28REIuiA==
+X-Received: by 2002:a9d:7cd8:: with SMTP id r24mr19213213otn.90.1621866848860;
+        Mon, 24 May 2021 07:34:08 -0700 (PDT)
 From: Connor Davis <connojdavis@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
@@ -82,36 +83,112 @@ Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v4 1/4] xen/char: Default HAS_NS16550 to y only for X86 and ARM
-Date: Mon, 24 May 2021 08:34:25 -0600
-Message-Id: <2a8329da33d2af0eab8581a01e3098e8360bda87.1621712830.git.connojdavis@gmail.com>
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH v4 2/4] xen/common: Guard iommu symbols with CONFIG_HAS_PASSTHROUGH
+Date: Mon, 24 May 2021 08:34:26 -0600
+Message-Id: <f76852db6601b1bf243781b0b8b16c7a6fdc8a01.1621712830.git.connojdavis@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <cover.1621712830.git.connojdavis@gmail.com>
 References: <cover.1621712830.git.connojdavis@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Defaulting to yes only for X86 and ARM reduces the requirements
-for a minimal build when porting new architectures.
+The variables iommu_enabled and iommu_dont_flush_iotlb are defined in
+drivers/passthrough/iommu.c and are referenced in common code, which
+causes the link to fail when !CONFIG_HAS_PASSTHROUGH.
+
+Guard references to these variables in common code so that xen
+builds when !CONFIG_HAS_PASSTHROUGH.
 
 Signed-off-by: Connor Davis <connojdavis@gmail.com>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 ---
- xen/drivers/char/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ xen/common/memory.c     | 10 ++++++++++
+ xen/include/xen/iommu.h |  8 +++++++-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index b572305657..2ff5b288e2 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -1,5 +1,6 @@
- config HAS_NS16550
- 	bool "NS16550 UART driver" if ARM
-+	default n if RISCV
- 	default y
- 	help
- 	  This selects the 16550-series UART support. For most systems, say Y.
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index b5c70c4b85..72a6b70cb5 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -294,7 +294,9 @@ int guest_remove_page(struct domain *d, unsigned long gmfn)
+     p2m_type_t p2mt;
+ #endif
+     mfn_t mfn;
++#ifdef CONFIG_HAS_PASSTHROUGH
+     bool *dont_flush_p, dont_flush;
++#endif
+     int rc;
+ 
+ #ifdef CONFIG_X86
+@@ -385,13 +387,17 @@ int guest_remove_page(struct domain *d, unsigned long gmfn)
+      * Since we're likely to free the page below, we need to suspend
+      * xenmem_add_to_physmap()'s suppressing of IOMMU TLB flushes.
+      */
++#ifdef CONFIG_HAS_PASSTHROUGH
+     dont_flush_p = &this_cpu(iommu_dont_flush_iotlb);
+     dont_flush = *dont_flush_p;
+     *dont_flush_p = false;
++#endif
+ 
+     rc = guest_physmap_remove_page(d, _gfn(gmfn), mfn, 0);
+ 
++#ifdef CONFIG_HAS_PASSTHROUGH
+     *dont_flush_p = dont_flush;
++#endif
+ 
+     /*
+      * With the lack of an IOMMU on some platforms, domains with DMA-capable
+@@ -839,11 +845,13 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
+     xatp->gpfn += start;
+     xatp->size -= start;
+ 
++#ifdef CONFIG_HAS_PASSTHROUGH
+     if ( is_iommu_enabled(d) )
+     {
+        this_cpu(iommu_dont_flush_iotlb) = 1;
+        extra.ppage = &pages[0];
+     }
++#endif
+ 
+     while ( xatp->size > done )
+     {
+@@ -868,6 +876,7 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
+         }
+     }
+ 
++#ifdef CONFIG_HAS_PASSTHROUGH
+     if ( is_iommu_enabled(d) )
+     {
+         int ret;
+@@ -894,6 +903,7 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
+         if ( unlikely(ret) && rc >= 0 )
+             rc = ret;
+     }
++#endif
+ 
+     return rc;
+ }
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index 460755df29..904cdf725d 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -51,9 +51,15 @@ static inline bool_t dfn_eq(dfn_t x, dfn_t y)
+     return dfn_x(x) == dfn_x(y);
+ }
+ 
+-extern bool_t iommu_enable, iommu_enabled;
++extern bool_t iommu_enable;
+ extern bool force_iommu, iommu_quarantine, iommu_verbose;
+ 
++#ifdef CONFIG_HAS_PASSTHROUGH
++extern bool iommu_enabled;
++#else
++#define iommu_enabled false
++#endif
++
+ #ifdef CONFIG_X86
+ extern enum __packed iommu_intremap {
+    /*
 -- 
 2.31.1
 
