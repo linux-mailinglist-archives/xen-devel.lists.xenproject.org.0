@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C1C38F47D
+	by mail.lfdr.de (Postfix) with ESMTPS id 162E238F47B
 	for <lists+xen-devel@lfdr.de>; Mon, 24 May 2021 22:38:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.131883.246306 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.131885.246318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llHKs-0003DT-FW; Mon, 24 May 2021 20:38:02 +0000
+	id 1llHKx-0003hv-TC; Mon, 24 May 2021 20:38:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 131883.246306; Mon, 24 May 2021 20:38:02 +0000
+Received: by outflank-mailman (output) from mailman id 131885.246318; Mon, 24 May 2021 20:38:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llHKs-0003AY-At; Mon, 24 May 2021 20:38:02 +0000
-Received: by outflank-mailman (input) for mailman id 131883;
- Mon, 24 May 2021 20:38:00 +0000
+	id 1llHKx-0003cg-ON; Mon, 24 May 2021 20:38:07 +0000
+Received: by outflank-mailman (input) for mailman id 131885;
+ Mon, 24 May 2021 20:38:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5+P1=KT=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1llHKq-0001ey-S5
- for xen-devel@lists.xenproject.org; Mon, 24 May 2021 20:38:00 +0000
-Received: from mail-qt1-x829.google.com (unknown [2607:f8b0:4864:20::829])
+ id 1llHKv-0001ey-S7
+ for xen-devel@lists.xenproject.org; Mon, 24 May 2021 20:38:05 +0000
+Received: from mail-qt1-x835.google.com (unknown [2607:f8b0:4864:20::835])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e19ada3-e1b5-41ea-b64a-fbe3971da842;
- Mon, 24 May 2021 20:37:43 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id s12so12402206qta.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 May 2021 13:37:43 -0700 (PDT)
+ id 371a11a3-daef-4f03-870a-063378a3ebe8;
+ Mon, 24 May 2021 20:37:45 +0000 (UTC)
+Received: by mail-qt1-x835.google.com with SMTP id f8so21602691qth.6
+ for <xen-devel@lists.xenproject.org>; Mon, 24 May 2021 13:37:45 -0700 (PDT)
 Received: from localhost.localdomain (c-73-89-138-5.hsd1.vt.comcast.net.
  [73.89.138.5])
- by smtp.gmail.com with ESMTPSA id t25sm5142847qkt.62.2021.05.24.13.37.42
+ by smtp.gmail.com with ESMTPSA id t25sm5142847qkt.62.2021.05.24.13.37.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 13:37:43 -0700 (PDT)
+ Mon, 24 May 2021 13:37:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e19ada3-e1b5-41ea-b64a-fbe3971da842
+X-Inumbo-ID: 371a11a3-daef-4f03-870a-063378a3ebe8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :in-reply-to:references;
-        bh=hfBP94KizJpDruLBLBLMUfOcD8AldREODeB/q9SIq2M=;
-        b=EQMocBqOydCDD/W8SK/dRmkPliwTZBPDqqBue37vjCJUpXE7Kazzvg3C0+yP6P18Ii
-         SfhM0N145Miw5QwY7hJq+dRJc/v1S4Rie7TO5ZA3rT1Jlni76D5sx9SwsCJSVlHQxnsX
-         WY34MhAbv/qGh332hnI+zir9IDLTnNlCkAxVd1IrVcG4yzAM4iGiSVT+fbdEXMa9RiyC
-         ubjhuVK2GJrSvhjNjRF/U52xlmzAo5eF1a5BYLminyYi9qBDYbFkk6Vh19o3PsZJOmik
-         1WFJqU/5Gz6RT1ZCY2N3QK+lVZ+7ejaaLFjq/J5s30t2uQIilmL0Aiuwn7hd3GUNVowB
-         C4Tg==
+        bh=gmgGK17wIRa1DlqHFSQ1z3Zv/54AdOc2b0ySCVRt0yU=;
+        b=B05k9j4uMyR1hRjIwmDxThYoVmBYL2zqqZjqz943qVU+pE1JKzh6R+y+4aYxEetmDn
+         ZRUXr9S93x/qWIe/8BXNDwjEXv0h1jYA2DnIGWFaAVSaIHd2keq3W96tCUdrscC2rAIK
+         fvXYT84dAnD2sf6fe4Zd+toxcowKimjLuC4uFK+pQMKthzKPnYuzmopkzRUI6X4F1bGj
+         m4uLFrRufBfGPmnI2efNm6UNsQIFVgCXL+sADX2VYz4fBkRldOXlXIVJQvRaGFKI8iaE
+         A+LKWKSFVyXYwPVRsPN90Pw5kVe52qIiFh1kuOEiieRyjw6OypJ+f5L0f4bvwucRB7EY
+         +JIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:in-reply-to:references;
-        bh=hfBP94KizJpDruLBLBLMUfOcD8AldREODeB/q9SIq2M=;
-        b=CoJyKzt1vSaoFrfQX3iggknKs0kp+u0HCWACOL/xPQU+Zsikb1RjWXLr+4vUAKkvOT
-         1P2Mr5b1b4JrABLAFvqXXTHf7hB7bz6RK3zRzkxu5IdVvT6IWd9Y7PD60CPpnTo5AQq7
-         nHTs22ZtKkKzm752sAD665nVQp24xuhyobJ7q3sEriUgDvrPkz6DYzDg4u6Iw0PGQdls
-         3ZRGkN2yL4g2sO0uEPGUIfSDHF/rGUvCKG+WtqRCX8mef9Jwa//LEbWg5IXa8LKdJh6G
-         3+1PerPMtIyNiwL9IqAiAfeHgF+HBrcYiyiaoeZ3U7L/j2rx9q2Jo9Lu/BwgpD1U9A8O
-         v8og==
-X-Gm-Message-State: AOAM532xqX1Mmai9CZHk2mVSwRd8GKVFLI/Ayw3KKFR7GZOXbu4zKZVL
-	y57B325N0wr6ZPq5GZy8LIA=
-X-Google-Smtp-Source: ABdhPJyKe6Or6ryElDeBwz+s/qA1wfWs/ZYdvbgEtPXmQ70fTLPF1ZXiKPco+HZJ8+TI5BqNoB/45A==
-X-Received: by 2002:ac8:66da:: with SMTP id m26mr28281280qtp.102.1621888663707;
-        Mon, 24 May 2021 13:37:43 -0700 (PDT)
+        bh=gmgGK17wIRa1DlqHFSQ1z3Zv/54AdOc2b0ySCVRt0yU=;
+        b=paC669tCplGCgMzXHNTvj+mTnp+WK272/AVudAfAd0yRyXuji+wtTeV6R60HEFRkvw
+         YWa0IzOeGP3HUijzVw8PqOhuOTwhCtWs/obNbJmvqu5WdlTIvRcQlLe7EUAX6muNWrnQ
+         ArlpaZSPtgSf1NShXGWDkP0Cx37U/wPpVke4shfyz1iv5+KbwuM3oDhqJYCXnk6ccvb5
+         WLh9OPMzxAwMhj6FnMZMnnOtksr1L+roCuVH8e7rBD40Ae1IZUNcKBDuBVXMQqIaSSlD
+         huuArC4vNTOpsTeYAbqqbP5CBLUhfOJ/B+sJrbucB257FmTirMP40TGKDmRQXWQV4MQo
+         CPHg==
+X-Gm-Message-State: AOAM5301rGOuLqW7EKwS2oYiWlvZh+lhO2lFw5g8Ov/kzFXViuwR/+uS
+	7GpZQ9kN98nankTepQqNv7s=
+X-Google-Smtp-Source: ABdhPJydQniZGUyZMjJR+HeCNDL6lVO7LbJWXrKQPMkjEMzzgQBlIsoCwdB54Q4X4AyvnLF9qbJ/Uw==
+X-Received: by 2002:a05:622a:144d:: with SMTP id v13mr735850qtx.4.1621888664835;
+        Mon, 24 May 2021 13:37:44 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.prg,
@@ -78,255 +78,263 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [RESEND PATCH 04/12] golang/xenlight: export keyed union interface types
-Date: Mon, 24 May 2021 16:36:45 -0400
-Message-Id: <29a3fbc93262cb9b31f02d6c94c018b200dfa43e.1621887506.git.rosbrookn@ainfosec.com>
+Subject: [RESEND PATCH 05/12] golang/xenlight: use struct pointers in keyed union fields
+Date: Mon, 24 May 2021 16:36:46 -0400
+Message-Id: <ebeb085b9b4b5d3dddd66607b409590f5e7cdfc6.1621887506.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1621887506.git.rosbrookn@ainfosec.com>
 References: <cover.1621887506.git.rosbrookn@ainfosec.com>
 In-Reply-To: <cover.1621887506.git.rosbrookn@ainfosec.com>
 References: <cover.1621887506.git.rosbrookn@ainfosec.com>
 
-For structs that have a keyed union, e.g. DomainBuildInfo, the TypeUnion
-field must be exported so that package users can get/set the fields
-within. This means that users are aware of the existence of the
-interface type used in those fields (see [1]), so it is awkward that the
-interface itself is not exported. However, the single method within the
-interface must remain unexported so that users cannot mistakenly "implement"
-those interfaces.
+Currently, when marshalig Go types with keyed union fields, we assign the
+value of the struct (e.g. DomainBuildInfoTypeUnionHvm) which implements the
+interface of the keyed union field (e.g. DomainBuildInfoTypeUnion).
+As-is, this means that if a populated DomainBuildInfo is marshaled to
+e.g. JSON, unmarshaling back to DomainBuildInfo will fail.
 
-Since there seems to be no reason to do otherwise, export the keyed
-union interface types.
+When the encoding/json is unmarshaling data into a Go type, and
+encounters a JSON object, it basically can either marshal the data into
+an empty interface, a map, or a struct. It cannot, however, marshal data
+into an interface with at least one method defined on it (e.g.
+DomainBuildInfoTypeUnion). Before this check is done, however, the
+decoder will check if the Go type is a pointer, and dereference it if
+so. It will then use the type of this value as the "target" type.
 
-[1] https://pkg.go.dev/xenbits.xenproject.org/git-http/xen.git/tools/golang/xenlight?tab=doc#DeviceUsbdev
+This means that if the TypeUnion field is populated with a
+DomainBuildInfoTypeUnion, the decoder will see a non-empty interface and
+fail. If the TypeUnion field is populated with a
+*DomainBuildInfoTypeUnionHvm, it dereferences the pointer and sees a
+struct instead, allowing decoding to continue normally.
+
+Since there does not appear to be a strict need for NOT using pointers
+in these fields, update code generation to set keyed union fields to
+pointers of their implementing structs.
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 ---
- tools/golang/xenlight/gengotypes.py |  6 +--
- tools/golang/xenlight/types.gen.go  | 58 ++++++++++++++---------------
- 2 files changed, 32 insertions(+), 32 deletions(-)
+ tools/golang/xenlight/gengotypes.py  |  4 +--
+ tools/golang/xenlight/helpers.gen.go | 44 ++++++++++++++--------------
+ 2 files changed, 24 insertions(+), 24 deletions(-)
 
 diff --git a/tools/golang/xenlight/gengotypes.py b/tools/golang/xenlight/gengotypes.py
-index e6daa9b92f..3796632f7d 100644
+index 3796632f7d..57f2576468 100644
 --- a/tools/golang/xenlight/gengotypes.py
 +++ b/tools/golang/xenlight/gengotypes.py
-@@ -159,7 +159,7 @@ def xenlight_golang_define_union(ty = None, struct_name = '', union_name = ''):
-     extras = []
+@@ -404,7 +404,7 @@ def xenlight_golang_union_from_C(ty = None, union_name = '', struct_name = ''):
+         s += 'if err := {0}.fromC(xc);'.format(goname)
+         s += 'err != nil {{\n return fmt.Errorf("converting field {0}: %v", err)\n}}\n'.format(goname)
  
-     interface_name = '{0}_{1}_union'.format(struct_name, ty.keyvar.name)
--    interface_name = xenlight_golang_fmt_name(interface_name, exported=False)
-+    interface_name = xenlight_golang_fmt_name(interface_name)
+-        s += 'x.{0} = {1}\n'.format(field_name, goname)
++        s += 'x.{0} = &{1}\n'.format(field_name, goname)
  
-     s += 'type {0} interface {{\n'.format(interface_name)
-     s += 'is{0}()\n'.format(interface_name)
-@@ -341,7 +341,7 @@ def xenlight_golang_union_from_C(ty = None, union_name = '', struct_name = ''):
-     field_name = xenlight_golang_fmt_name('{0}_union'.format(keyname))
+     # End switch statement
+     s += 'default:\n'
+@@ -571,7 +571,7 @@ def xenlight_golang_union_to_C(ty = None, union_name = '',
+         gotype  = xenlight_golang_fmt_name(cgotype)
  
-     interface_name = '{0}_{1}_union'.format(struct_name, keyname)
--    interface_name = xenlight_golang_fmt_name(interface_name, exported=False)
-+    interface_name = xenlight_golang_fmt_name(interface_name)
- 
-     cgo_keyname = keyname
-     if cgo_keyname in go_keywords:
-@@ -546,7 +546,7 @@ def xenlight_golang_union_to_C(ty = None, union_name = '',
-     gokeytype = xenlight_golang_fmt_name(keytype)
- 
-     interface_name = '{0}_{1}_union'.format(struct_name, keyname)
--    interface_name = xenlight_golang_fmt_name(interface_name, exported=False)
-+    interface_name = xenlight_golang_fmt_name(interface_name)
- 
-     cgo_keyname = keyname
-     if cgo_keyname in go_keywords:
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index f2ceceb61c..a214dd9df6 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -337,18 +337,18 @@ State int
- Evtch int
- Rref int
- Connection ChannelConnection
--ConnectionUnion channelinfoConnectionUnion
-+ConnectionUnion ChannelinfoConnectionUnion
+         field_name = xenlight_golang_fmt_name('{0}_union'.format(keyname))
+-        s += 'tmp, ok := x.{0}.({1})\n'.format(field_name,gotype)
++        s += 'tmp, ok := x.{0}.(*{1})\n'.format(field_name,gotype)
+         s += 'if !ok {\n'
+         s += 'return errors.New("wrong type for union key {0}")\n'.format(keyname)
+         s += '}\n'
+diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+index 5222898fb8..8fc5ec1649 100644
+--- a/tools/golang/xenlight/helpers.gen.go
++++ b/tools/golang/xenlight/helpers.gen.go
+@@ -443,7 +443,7 @@ var connectionPty ChannelinfoConnectionUnionPty
+ if err := connectionPty.fromC(xc);err != nil {
+  return fmt.Errorf("converting field connectionPty: %v", err)
  }
- 
--type channelinfoConnectionUnion interface {
--ischannelinfoConnectionUnion()
-+type ChannelinfoConnectionUnion interface {
-+isChannelinfoConnectionUnion()
+-x.ConnectionUnion = connectionPty
++x.ConnectionUnion = &connectionPty
+ case ChannelConnectionSocket:
+ x.ConnectionUnion = nil
+ case ChannelConnectionUnknown:
+@@ -485,7 +485,7 @@ switch x.Connection{
+ case ChannelConnectionUnknown:
+ break
+ case ChannelConnectionPty:
+-tmp, ok := x.ConnectionUnion.(ChannelinfoConnectionUnionPty)
++tmp, ok := x.ConnectionUnion.(*ChannelinfoConnectionUnionPty)
+ if !ok {
+ return errors.New("wrong type for union key connection")
  }
- 
- type ChannelinfoConnectionUnionPty struct {
- Path string
+@@ -1120,7 +1120,7 @@ var typeHvm DomainBuildInfoTypeUnionHvm
+ if err := typeHvm.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeHvm: %v", err)
  }
- 
--func (x ChannelinfoConnectionUnionPty) ischannelinfoConnectionUnion(){}
-+func (x ChannelinfoConnectionUnionPty) isChannelinfoConnectionUnion(){}
- 
- type Vminfo struct {
- Uuid Uuid
-@@ -510,7 +510,7 @@ Apic Defbool
- DmRestrict Defbool
- Tee TeeType
- Type DomainType
--TypeUnion domainBuildInfoTypeUnion
-+TypeUnion DomainBuildInfoTypeUnion
- ArchArm struct {
- GicVersion GicVersion
- Vuart VuartType
-@@ -522,8 +522,8 @@ Altp2M Altp2MMode
- VmtraceBufKb int
+-x.TypeUnion = typeHvm
++x.TypeUnion = &typeHvm
+ case DomainTypeInvalid:
+ x.TypeUnion = nil
+ case DomainTypePv:
+@@ -1128,13 +1128,13 @@ var typePv DomainBuildInfoTypeUnionPv
+ if err := typePv.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typePv: %v", err)
  }
- 
--type domainBuildInfoTypeUnion interface {
--isdomainBuildInfoTypeUnion()
-+type DomainBuildInfoTypeUnion interface {
-+isDomainBuildInfoTypeUnion()
+-x.TypeUnion = typePv
++x.TypeUnion = &typePv
+ case DomainTypePvh:
+ var typePvh DomainBuildInfoTypeUnionPvh
+ if err := typePvh.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typePvh: %v", err)
  }
- 
- type DomainBuildInfoTypeUnionHvm struct {
-@@ -575,7 +575,7 @@ RdmMemBoundaryMemkb uint64
- McaCaps uint64
+-x.TypeUnion = typePvh
++x.TypeUnion = &typePvh
+ default:
+ return fmt.Errorf("invalid union key '%v'", x.Type)}
+ x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
+@@ -1465,7 +1465,7 @@ xc.tee = C.libxl_tee_type(x.Tee)
+ xc._type = C.libxl_domain_type(x.Type)
+ switch x.Type{
+ case DomainTypeHvm:
+-tmp, ok := x.TypeUnion.(DomainBuildInfoTypeUnionHvm)
++tmp, ok := x.TypeUnion.(*DomainBuildInfoTypeUnionHvm)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
--func (x DomainBuildInfoTypeUnionHvm) isdomainBuildInfoTypeUnion(){}
-+func (x DomainBuildInfoTypeUnionHvm) isDomainBuildInfoTypeUnion(){}
- 
- type DomainBuildInfoTypeUnionPv struct {
- Kernel string
-@@ -588,7 +588,7 @@ Features string
- E820Host Defbool
+@@ -1593,7 +1593,7 @@ hvm.mca_caps = C.uint64_t(tmp.McaCaps)
+ hvmBytes := C.GoBytes(unsafe.Pointer(&hvm),C.sizeof_libxl_domain_build_info_type_union_hvm)
+ copy(xc.u[:],hvmBytes)
+ case DomainTypePv:
+-tmp, ok := x.TypeUnion.(DomainBuildInfoTypeUnionPv)
++tmp, ok := x.TypeUnion.(*DomainBuildInfoTypeUnionPv)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
--func (x DomainBuildInfoTypeUnionPv) isdomainBuildInfoTypeUnion(){}
-+func (x DomainBuildInfoTypeUnionPv) isDomainBuildInfoTypeUnion(){}
- 
- type DomainBuildInfoTypeUnionPvh struct {
- Pvshim Defbool
-@@ -597,7 +597,7 @@ PvshimCmdline string
- PvshimExtra string
+@@ -1623,7 +1623,7 @@ return fmt.Errorf("converting field E820Host: %v", err)
+ pvBytes := C.GoBytes(unsafe.Pointer(&pv),C.sizeof_libxl_domain_build_info_type_union_pv)
+ copy(xc.u[:],pvBytes)
+ case DomainTypePvh:
+-tmp, ok := x.TypeUnion.(DomainBuildInfoTypeUnionPvh)
++tmp, ok := x.TypeUnion.(*DomainBuildInfoTypeUnionPvh)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
--func (x DomainBuildInfoTypeUnionPvh) isdomainBuildInfoTypeUnion(){}
-+func (x DomainBuildInfoTypeUnionPvh) isDomainBuildInfoTypeUnion(){}
- 
- type DeviceVfb struct {
- BackendDomid Domid
-@@ -761,11 +761,11 @@ type DeviceUsbdev struct {
- Ctrl Devid
- Port int
- Type UsbdevType
--TypeUnion deviceUsbdevTypeUnion
-+TypeUnion DeviceUsbdevTypeUnion
+@@ -2283,7 +2283,7 @@ var typeHostdev DeviceUsbdevTypeUnionHostdev
+ if err := typeHostdev.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeHostdev: %v", err)
  }
+-x.TypeUnion = typeHostdev
++x.TypeUnion = &typeHostdev
+ default:
+ return fmt.Errorf("invalid union key '%v'", x.Type)}
  
--type deviceUsbdevTypeUnion interface {
--isdeviceUsbdevTypeUnion()
-+type DeviceUsbdevTypeUnion interface {
-+isDeviceUsbdevTypeUnion()
+@@ -2310,7 +2310,7 @@ xc.port = C.int(x.Port)
+ xc._type = C.libxl_usbdev_type(x.Type)
+ switch x.Type{
+ case UsbdevTypeHostdev:
+-tmp, ok := x.TypeUnion.(DeviceUsbdevTypeUnionHostdev)
++tmp, ok := x.TypeUnion.(*DeviceUsbdevTypeUnionHostdev)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
- type DeviceUsbdevTypeUnionHostdev struct {
-@@ -773,7 +773,7 @@ Hostbus byte
- Hostaddr byte
+@@ -2508,7 +2508,7 @@ var connectionSocket DeviceChannelConnectionUnionSocket
+ if err := connectionSocket.fromC(xc);err != nil {
+  return fmt.Errorf("converting field connectionSocket: %v", err)
  }
- 
--func (x DeviceUsbdevTypeUnionHostdev) isdeviceUsbdevTypeUnion(){}
-+func (x DeviceUsbdevTypeUnionHostdev) isDeviceUsbdevTypeUnion(){}
- 
- type DeviceDtdev struct {
- Path string
-@@ -807,18 +807,18 @@ BackendDomname string
- Devid Devid
- Name string
- Connection ChannelConnection
--ConnectionUnion deviceChannelConnectionUnion
-+ConnectionUnion DeviceChannelConnectionUnion
+-x.ConnectionUnion = connectionSocket
++x.ConnectionUnion = &connectionSocket
+ case ChannelConnectionUnknown:
+ x.ConnectionUnion = nil
+ default:
+@@ -2546,7 +2546,7 @@ break
+ case ChannelConnectionPty:
+ break
+ case ChannelConnectionSocket:
+-tmp, ok := x.ConnectionUnion.(DeviceChannelConnectionUnionSocket)
++tmp, ok := x.ConnectionUnion.(*DeviceChannelConnectionUnionSocket)
+ if !ok {
+ return errors.New("wrong type for union key connection")
  }
- 
--type deviceChannelConnectionUnion interface {
--isdeviceChannelConnectionUnion()
-+type DeviceChannelConnectionUnion interface {
-+isDeviceChannelConnectionUnion()
+@@ -4107,7 +4107,7 @@ var typeDiskEject EventTypeUnionDiskEject
+ if err := typeDiskEject.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeDiskEject: %v", err)
  }
- 
- type DeviceChannelConnectionUnionSocket struct {
- Path string
+-x.TypeUnion = typeDiskEject
++x.TypeUnion = &typeDiskEject
+ case EventTypeDomainCreateConsoleAvailable:
+ x.TypeUnion = nil
+ case EventTypeDomainDeath:
+@@ -4117,13 +4117,13 @@ var typeDomainShutdown EventTypeUnionDomainShutdown
+ if err := typeDomainShutdown.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeDomainShutdown: %v", err)
  }
- 
--func (x DeviceChannelConnectionUnionSocket) isdeviceChannelConnectionUnion(){}
-+func (x DeviceChannelConnectionUnionSocket) isDeviceChannelConnectionUnion(){}
- 
- type ConnectorParam struct {
- UniqueId string
-@@ -1116,31 +1116,31 @@ Domid Domid
- Domuuid Uuid
- ForUser uint64
- Type EventType
--TypeUnion eventTypeUnion
-+TypeUnion EventTypeUnion
+-x.TypeUnion = typeDomainShutdown
++x.TypeUnion = &typeDomainShutdown
+ case EventTypeOperationComplete:
+ var typeOperationComplete EventTypeUnionOperationComplete
+ if err := typeOperationComplete.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeOperationComplete: %v", err)
  }
+-x.TypeUnion = typeOperationComplete
++x.TypeUnion = &typeOperationComplete
+ default:
+ return fmt.Errorf("invalid union key '%v'", x.Type)}
  
--type eventTypeUnion interface {
--iseventTypeUnion()
-+type EventTypeUnion interface {
-+isEventTypeUnion()
+@@ -4178,7 +4178,7 @@ xc.for_user = C.uint64_t(x.ForUser)
+ xc._type = C.libxl_event_type(x.Type)
+ switch x.Type{
+ case EventTypeDomainShutdown:
+-tmp, ok := x.TypeUnion.(EventTypeUnionDomainShutdown)
++tmp, ok := x.TypeUnion.(*EventTypeUnionDomainShutdown)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
- type EventTypeUnionDomainShutdown struct {
- ShutdownReason byte
+@@ -4189,7 +4189,7 @@ copy(xc.u[:],domain_shutdownBytes)
+ case EventTypeDomainDeath:
+ break
+ case EventTypeDiskEject:
+-tmp, ok := x.TypeUnion.(EventTypeUnionDiskEject)
++tmp, ok := x.TypeUnion.(*EventTypeUnionDiskEject)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
--func (x EventTypeUnionDomainShutdown) iseventTypeUnion(){}
-+func (x EventTypeUnionDomainShutdown) isEventTypeUnion(){}
- 
- type EventTypeUnionDiskEject struct {
- Vdev string
- Disk DeviceDisk
+@@ -4203,7 +4203,7 @@ return fmt.Errorf("converting field Disk: %v", err)
+ disk_ejectBytes := C.GoBytes(unsafe.Pointer(&disk_eject),C.sizeof_libxl_event_type_union_disk_eject)
+ copy(xc.u[:],disk_ejectBytes)
+ case EventTypeOperationComplete:
+-tmp, ok := x.TypeUnion.(EventTypeUnionOperationComplete)
++tmp, ok := x.TypeUnion.(*EventTypeUnionOperationComplete)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
--func (x EventTypeUnionDiskEject) iseventTypeUnion(){}
-+func (x EventTypeUnionDiskEject) isEventTypeUnion(){}
- 
- type EventTypeUnionOperationComplete struct {
- Rc int
+@@ -4278,13 +4278,13 @@ var typeCat PsrHwInfoTypeUnionCat
+ if err := typeCat.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeCat: %v", err)
  }
- 
--func (x EventTypeUnionOperationComplete) iseventTypeUnion(){}
-+func (x EventTypeUnionOperationComplete) isEventTypeUnion(){}
- 
- type PsrCmtType int
- const(
-@@ -1175,11 +1175,11 @@ PsrFeatTypeMba PsrFeatType = 2
- type PsrHwInfo struct {
- Id uint32
- Type PsrFeatType
--TypeUnion psrHwInfoTypeUnion
-+TypeUnion PsrHwInfoTypeUnion
+-x.TypeUnion = typeCat
++x.TypeUnion = &typeCat
+ case PsrFeatTypeMba:
+ var typeMba PsrHwInfoTypeUnionMba
+ if err := typeMba.fromC(xc);err != nil {
+  return fmt.Errorf("converting field typeMba: %v", err)
  }
+-x.TypeUnion = typeMba
++x.TypeUnion = &typeMba
+ default:
+ return fmt.Errorf("invalid union key '%v'", x.Type)}
  
--type psrHwInfoTypeUnion interface {
--ispsrHwInfoTypeUnion()
-+type PsrHwInfoTypeUnion interface {
-+isPsrHwInfoTypeUnion()
+@@ -4323,7 +4323,7 @@ xc.id = C.uint32_t(x.Id)
+ xc._type = C.libxl_psr_feat_type(x.Type)
+ switch x.Type{
+ case PsrFeatTypeCat:
+-tmp, ok := x.TypeUnion.(PsrHwInfoTypeUnionCat)
++tmp, ok := x.TypeUnion.(*PsrHwInfoTypeUnionCat)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
- type PsrHwInfoTypeUnionCat struct {
-@@ -1188,7 +1188,7 @@ CbmLen uint32
- CdpEnabled bool
+@@ -4334,7 +4334,7 @@ cat.cdp_enabled = C.bool(tmp.CdpEnabled)
+ catBytes := C.GoBytes(unsafe.Pointer(&cat),C.sizeof_libxl_psr_hw_info_type_union_cat)
+ copy(xc.u[:],catBytes)
+ case PsrFeatTypeMba:
+-tmp, ok := x.TypeUnion.(PsrHwInfoTypeUnionMba)
++tmp, ok := x.TypeUnion.(*PsrHwInfoTypeUnionMba)
+ if !ok {
+ return errors.New("wrong type for union key type")
  }
- 
--func (x PsrHwInfoTypeUnionCat) ispsrHwInfoTypeUnion(){}
-+func (x PsrHwInfoTypeUnionCat) isPsrHwInfoTypeUnion(){}
- 
- type PsrHwInfoTypeUnionMba struct {
- CosMax uint32
-@@ -1196,5 +1196,5 @@ ThrtlMax uint32
- Linear bool
- }
- 
--func (x PsrHwInfoTypeUnionMba) ispsrHwInfoTypeUnion(){}
-+func (x PsrHwInfoTypeUnionMba) isPsrHwInfoTypeUnion(){}
- 
 -- 
 2.17.1
 
