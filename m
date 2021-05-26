@@ -2,40 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBCA391991
-	for <lists+xen-devel@lfdr.de>; Wed, 26 May 2021 16:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.132525.247161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB0439199A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 May 2021 16:12:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.132531.247172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lluEt-0003bm-H9; Wed, 26 May 2021 14:10:27 +0000
+	id 1lluH4-0004CB-TB; Wed, 26 May 2021 14:12:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 132525.247161; Wed, 26 May 2021 14:10:27 +0000
+Received: by outflank-mailman (output) from mailman id 132531.247172; Wed, 26 May 2021 14:12:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lluEt-0003Yh-Cq; Wed, 26 May 2021 14:10:27 +0000
-Received: by outflank-mailman (input) for mailman id 132525;
- Wed, 26 May 2021 14:10:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lluH4-0004AJ-Q9; Wed, 26 May 2021 14:12:42 +0000
+Received: by outflank-mailman (input) for mailman id 132531;
+ Wed, 26 May 2021 14:12:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nl8y=KV=huawei.com=yuehaibing@srs-us1.protection.inumbo.net>)
- id 1lluEs-0003Yb-9r
- for xen-devel@lists.xenproject.org; Wed, 26 May 2021 14:10:26 +0000
-Received: from szxga06-in.huawei.com (unknown [45.249.212.32])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ea4827a7-1acd-4e4c-abda-8d08324150fe;
- Wed, 26 May 2021 14:10:24 +0000 (UTC)
-Received: from dggems702-chm.china.huawei.com (unknown [172.30.72.59])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Fqt7z5r8zzmZLL;
- Wed, 26 May 2021 22:07:59 +0800 (CST)
-Received: from dggema769-chm.china.huawei.com (10.1.198.211) by
- dggems702-chm.china.huawei.com (10.3.19.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Wed, 26 May 2021 22:10:20 +0800
-Received: from localhost (10.174.179.215) by dggema769-chm.china.huawei.com
- (10.1.198.211) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Wed, 26
- May 2021 22:10:20 +0800
+ <SRS0=JqRz=KV=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1lluH3-0004AD-Du
+ for xen-devel@lists.xenproject.org; Wed, 26 May 2021 14:12:41 +0000
+Received: from mail-lf1-x12b.google.com (unknown [2a00:1450:4864:20::12b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c64919c0-62b5-4f4a-aa49-ab2e3880485d;
+ Wed, 26 May 2021 14:12:40 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id b26so2761657lfq.4
+ for <xen-devel@lists.xenproject.org>; Wed, 26 May 2021 07:12:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,196 +37,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea4827a7-1acd-4e4c-abda-8d08324150fe
-From: YueHaibing <yuehaibing@huawei.com>
-To: <boris.ostrovsky@oracle.com>, <jgross@suse.com>, <sstabellini@kernel.org>,
-	<yuehaibing@huawei.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next] xen: Use DEVICE_ATTR_*() macro
-Date: Wed, 26 May 2021 22:10:19 +0800
-Message-ID: <20210526141019.13752-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+X-Inumbo-ID: c64919c0-62b5-4f4a-aa49-ab2e3880485d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=xOdUrHgzqsp1HZ0QrFZmpPzALlbxU/wNHYDvsX5bHK8=;
+        b=Ck/c2wM600RTobbsJFz5z3CPRR4f0/DGN0TFzj1Zok6aK0WPBJv1I17+gQsiIWLiAd
+         0Sv41yHRF5xFGvoiog3vpHEy3Kd274a0auIl8BVyIKYSp+/X+2v97HiTV+XjyrpOzVMh
+         c+s4UUCILKLq/uARYHcAXCegwJcCehaunrGgzhMq3rlv/rXw3CSxYIWMAUXkmy72AnBf
+         OGndZ+/9/+5mwbqtSo5I+28EICjXncg2dkrvDy17cwdlGpsUip89RqbYzdcfZl23CjR0
+         V/TVWWHIINmlwdoKpReUoIDynOmuhUjO+iq8Bo509m8bDuCNLIVt0YMULGjcwf63G03b
+         9k5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=xOdUrHgzqsp1HZ0QrFZmpPzALlbxU/wNHYDvsX5bHK8=;
+        b=c00kylmL0Fdg/NLuHNGf5UG9zkdrg5Lt2oMn8RWuodB4i8EtarpfdoLAVYxdSXd0G+
+         X6bHx48INO1Wq3YMJEFKHDCe646KbVj68hV8GMmuarAzjopRFuei4HNwTZuazoX+n6/H
+         EoqLeYAtxc1rB5RJCzeER2gNcJltY/ihTqVwx+SHRLvm+9O2F6xDRzYjY5WFFsdFrUWa
+         cOcI6pFJoJJXqZzufMXYuUJgrUJr/C6gUbhP02yVfkYVeb34fahXisJ2Sh72Acd2rbkd
+         LJdTfcYfkMW2wgfa3X00w8uRZJ0uH1q+cRy12P8n2tM4PlqdrENMO2/ZqEqULtmcNwdz
+         hevw==
+X-Gm-Message-State: AOAM533IH+l2caAWoB5b9T5K599KC01nYXYKrwjOtEhrN3LjLiaZlV9u
+	kEBH8Tnzpyn4R0C/gwA5o28Kg2bv+sSnhKX2r0c=
+X-Google-Smtp-Source: ABdhPJxiPvHexGKtrCXzK6nJWEA/ieEaRekMbTE4/Wqsb+1pqfB6MfBxj3G8HTS5ChATQr4//46bpvF7USQjbP4rqkk=
+X-Received: by 2002:a05:6512:3c91:: with SMTP id h17mr2232729lfv.562.1622038359489;
+ Wed, 26 May 2021 07:12:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggema769-chm.china.huawei.com (10.1.198.211)
-X-CFilter-Loop: Reflected
+References: <20210503192810.36084-1-jandryuk@gmail.com> <20210503192810.36084-2-jandryuk@gmail.com>
+ <927b886a-9b0c-2162-763b-9c2147227b8c@suse.com>
+In-Reply-To: <927b886a-9b0c-2162-763b-9c2147227b8c@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 26 May 2021 10:12:27 -0400
+Message-ID: <CAKf6xptZ=tHUUX+NXMfUPz_=wJJz6_FbEG6BraXRgcRokK5bcg@mail.gmail.com>
+Subject: Re: [PATCH 01/13] cpufreq: Allow restricting to internal governors only
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Use DEVICE_ATTR_*() helper instead of plain DEVICE_ATTR(),
-which makes the code a bit shorter and easier to read.
+On Wed, May 26, 2021 at 9:18 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 03.05.2021 21:27, Jason Andryuk wrote:
+> > For hwp, the standard governors are not usable, and only the internal
+> > one is applicable.
+>
+> So you say "one" here but use plural in the subject. Which one is
+> it (going to be)?
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/xen/pcpu.c                |  6 +++---
- drivers/xen/xen-balloon.c         | 28 +++++++++++-----------------
- drivers/xen/xenbus/xenbus_probe.c | 15 +++++++--------
- 3 files changed, 21 insertions(+), 28 deletions(-)
+hwp only uses a single governor, but this is common code.  AMD or ARM
+could require their own internal governor which is why the subject say
+plural.
 
-diff --git a/drivers/xen/pcpu.c b/drivers/xen/pcpu.c
-index 1bcdd5227771..47aa3a1ccaf5 100644
---- a/drivers/xen/pcpu.c
-+++ b/drivers/xen/pcpu.c
-@@ -92,7 +92,7 @@ static int xen_pcpu_up(uint32_t cpu_id)
- 	return HYPERVISOR_platform_op(&op);
- }
- 
--static ssize_t show_online(struct device *dev,
-+static ssize_t online_show(struct device *dev,
- 			   struct device_attribute *attr,
- 			   char *buf)
- {
-@@ -101,7 +101,7 @@ static ssize_t show_online(struct device *dev,
- 	return sprintf(buf, "%u\n", !!(cpu->flags & XEN_PCPU_FLAGS_ONLINE));
- }
- 
--static ssize_t __ref store_online(struct device *dev,
-+static ssize_t __ref online_store(struct device *dev,
- 				  struct device_attribute *attr,
- 				  const char *buf, size_t count)
- {
-@@ -130,7 +130,7 @@ static ssize_t __ref store_online(struct device *dev,
- 		ret = count;
- 	return ret;
- }
--static DEVICE_ATTR(online, S_IRUGO | S_IWUSR, show_online, store_online);
-+static DEVICE_ATTR_RW(online);
- 
- static struct attribute *pcpu_dev_attrs[] = {
- 	&dev_attr_online.attr,
-diff --git a/drivers/xen/xen-balloon.c b/drivers/xen/xen-balloon.c
-index a8d24433c8e9..8cd583db20b1 100644
---- a/drivers/xen/xen-balloon.c
-+++ b/drivers/xen/xen-balloon.c
-@@ -134,13 +134,13 @@ void xen_balloon_init(void)
- EXPORT_SYMBOL_GPL(xen_balloon_init);
- 
- #define BALLOON_SHOW(name, format, args...)				\
--	static ssize_t show_##name(struct device *dev,			\
-+	static ssize_t name##_show(struct device *dev,			\
- 				   struct device_attribute *attr,	\
- 				   char *buf)				\
- 	{								\
- 		return sprintf(buf, format, ##args);			\
- 	}								\
--	static DEVICE_ATTR(name, S_IRUGO, show_##name, NULL)
-+	static DEVICE_ATTR_RO(name)
- 
- BALLOON_SHOW(current_kb, "%lu\n", PAGES2KB(balloon_stats.current_pages));
- BALLOON_SHOW(low_kb, "%lu\n", PAGES2KB(balloon_stats.balloon_low));
-@@ -152,16 +152,15 @@ static DEVICE_ULONG_ATTR(retry_count, 0444, balloon_stats.retry_count);
- static DEVICE_ULONG_ATTR(max_retry_count, 0644, balloon_stats.max_retry_count);
- static DEVICE_BOOL_ATTR(scrub_pages, 0644, xen_scrub_pages);
- 
--static ssize_t show_target_kb(struct device *dev, struct device_attribute *attr,
-+static ssize_t target_kb_show(struct device *dev, struct device_attribute *attr,
- 			      char *buf)
- {
- 	return sprintf(buf, "%lu\n", PAGES2KB(balloon_stats.target_pages));
- }
- 
--static ssize_t store_target_kb(struct device *dev,
-+static ssize_t target_kb_store(struct device *dev,
- 			       struct device_attribute *attr,
--			       const char *buf,
--			       size_t count)
-+			       const char *buf, size_t count)
- {
- 	char *endchar;
- 	unsigned long long target_bytes;
-@@ -176,22 +175,19 @@ static ssize_t store_target_kb(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(target_kb, S_IRUGO | S_IWUSR,
--		   show_target_kb, store_target_kb);
-+static DEVICE_ATTR_RW(target_kb);
- 
--
--static ssize_t show_target(struct device *dev, struct device_attribute *attr,
--			      char *buf)
-+static ssize_t target_show(struct device *dev, struct device_attribute *attr,
-+			   char *buf)
- {
- 	return sprintf(buf, "%llu\n",
- 		       (unsigned long long)balloon_stats.target_pages
- 		       << PAGE_SHIFT);
- }
- 
--static ssize_t store_target(struct device *dev,
-+static ssize_t target_store(struct device *dev,
- 			    struct device_attribute *attr,
--			    const char *buf,
--			    size_t count)
-+			    const char *buf, size_t count)
- {
- 	char *endchar;
- 	unsigned long long target_bytes;
-@@ -206,9 +202,7 @@ static ssize_t store_target(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(target, S_IRUGO | S_IWUSR,
--		   show_target, store_target);
--
-+static DEVICE_ATTR_RW(target);
- 
- static struct attribute *balloon_attrs[] = {
- 	&dev_attr_target_kb.attr,
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 97f0d234482d..33d09b3f6211 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -207,7 +207,7 @@ void xenbus_otherend_changed(struct xenbus_watch *watch,
- EXPORT_SYMBOL_GPL(xenbus_otherend_changed);
- 
- #define XENBUS_SHOW_STAT(name)						\
--static ssize_t show_##name(struct device *_dev,				\
-+static ssize_t name##_show(struct device *_dev,				\
- 			   struct device_attribute *attr,		\
- 			   char *buf)					\
- {									\
-@@ -215,14 +215,14 @@ static ssize_t show_##name(struct device *_dev,				\
- 									\
- 	return sprintf(buf, "%d\n", atomic_read(&dev->name));		\
- }									\
--static DEVICE_ATTR(name, 0444, show_##name, NULL)
-+static DEVICE_ATTR_RO(name)
- 
- XENBUS_SHOW_STAT(event_channels);
- XENBUS_SHOW_STAT(events);
- XENBUS_SHOW_STAT(spurious_events);
- XENBUS_SHOW_STAT(jiffies_eoi_delayed);
- 
--static ssize_t show_spurious_threshold(struct device *_dev,
-+static ssize_t spurious_threshold_show(struct device *_dev,
- 				       struct device_attribute *attr,
- 				       char *buf)
- {
-@@ -231,9 +231,9 @@ static ssize_t show_spurious_threshold(struct device *_dev,
- 	return sprintf(buf, "%d\n", dev->spurious_threshold);
- }
- 
--static ssize_t set_spurious_threshold(struct device *_dev,
--				      struct device_attribute *attr,
--				      const char *buf, size_t count)
-+static ssize_t spurious_threshold_store(struct device *_dev,
-+					struct device_attribute *attr,
-+					const char *buf, size_t count)
- {
- 	struct xenbus_device *dev = to_xenbus_device(_dev);
- 	unsigned int val;
-@@ -248,8 +248,7 @@ static ssize_t set_spurious_threshold(struct device *_dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(spurious_threshold, 0644, show_spurious_threshold,
--		   set_spurious_threshold);
-+static DEVICE_ATTR_RW(spurious_threshold);
- 
- static struct attribute *xenbus_attrs[] = {
- 	&dev_attr_event_channels.attr,
--- 
-2.17.1
+> >  Add the cpufreq_governor_internal boolean to
+> > indicate when an internal governor, like hwp-internal, will be used.
+> > This is set during presmp_initcall, so that it can suppress governor
+>
+> DYM s/is/will be/? Afaict this is going to happen later in the series.
+> Which is a good indication that such "hanging in the air" changes
+> aren't necessarily the best way of splitting a set of changes, ...
 
+In terms of the patch series, yes, "will be".  The use of "is" is
+directing how to use the feature.  Yes, it is "hanging in the air",
+but I was trying to explain the "why" and "how" of using it.
+
+I was trying to split this preparatory change from the actual hwp
+introduction.  I suppose it could be ordered after hwp, and the extra,
+unusable governors would be advertised until then.
+
+> > --- a/xen/drivers/cpufreq/cpufreq.c
+> > +++ b/xen/drivers/cpufreq/cpufreq.c
+> > @@ -57,6 +57,7 @@ struct cpufreq_dom {
+> >  };
+> >  static LIST_HEAD_READ_MOSTLY(cpufreq_dom_list_head);
+> >
+> > +bool __read_mostly cpufreq_governor_internal;
+>
+> ... also supported by you introducing a non-static variable without
+> any consumer outside of this file (and without any producer at all).
+>
+> > @@ -122,6 +123,9 @@ int __init cpufreq_register_governor(struct cpufreq_governor *governor)
+> >      if (!governor)
+> >          return -EINVAL;
+> >
+> > +    if (cpufreq_governor_internal && strstr(governor->name, "internal") == NULL)
+>
+> I wonder whether designating any governors ending in "-internal"
+> wouldn't be less prone for possible future ambiguities.
+
+Yes, that would be good.
+
+> > --- a/xen/include/acpi/cpufreq/cpufreq.h
+> > +++ b/xen/include/acpi/cpufreq/cpufreq.h
+> > @@ -115,6 +115,7 @@ extern struct cpufreq_governor cpufreq_gov_dbs;
+> >  extern struct cpufreq_governor cpufreq_gov_userspace;
+> >  extern struct cpufreq_governor cpufreq_gov_performance;
+> >  extern struct cpufreq_governor cpufreq_gov_powersave;
+> > +extern bool cpufreq_governor_internal;
+>
+> Please separate from the governor declarations by a blank line.
+
+Sure.
+
+> Sorry, all quite nit-like remarks, but still ...
+
+It's fine.  Would a design session be useful to discuss hwp?
+
+Regards,
+Jason
 
