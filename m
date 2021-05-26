@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A030391260
-	for <lists+xen-devel@lfdr.de>; Wed, 26 May 2021 10:32:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.132388.246960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B1F239137A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 May 2021 11:15:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.132397.246972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lloxC-0006iy-GE; Wed, 26 May 2021 08:31:50 +0000
+	id 1llpcx-0002KE-3b; Wed, 26 May 2021 09:14:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 132388.246960; Wed, 26 May 2021 08:31:50 +0000
+Received: by outflank-mailman (output) from mailman id 132397.246972; Wed, 26 May 2021 09:14:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lloxC-0006fb-D8; Wed, 26 May 2021 08:31:50 +0000
-Received: by outflank-mailman (input) for mailman id 132388;
- Wed, 26 May 2021 08:31:49 +0000
+	id 1llpcw-0002IG-Va; Wed, 26 May 2021 09:14:58 +0000
+Received: by outflank-mailman (input) for mailman id 132397;
+ Wed, 26 May 2021 09:10:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZGBu=KV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lloxB-0006fV-Ii
- for xen-devel@lists.xenproject.org; Wed, 26 May 2021 08:31:49 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mEKv=KV=huawei.com=chenhuang5@srs-us1.protection.inumbo.net>)
+ id 1llpYZ-0002BS-Gk
+ for xen-devel@lists.xenproject.org; Wed, 26 May 2021 09:10:27 +0000
+Received: from szxga07-in.huawei.com (unknown [45.249.212.35])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7228b69c-c542-4673-93ab-84065a47279e;
- Wed, 26 May 2021 08:31:48 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 92AB7B122;
- Wed, 26 May 2021 08:31:47 +0000 (UTC)
+ id 8b3c0296-2828-49ec-a767-20958ce8cd30;
+ Wed, 26 May 2021 09:10:25 +0000 (UTC)
+Received: from dggems704-chm.china.huawei.com (unknown [172.30.72.58])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4FqlTG6lRjzCx9y;
+ Wed, 26 May 2021 17:07:30 +0800 (CST)
+Received: from dggema756-chm.china.huawei.com (10.1.198.198) by
+ dggems704-chm.china.huawei.com (10.3.19.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Wed, 26 May 2021 17:10:18 +0800
+Received: from localhost.localdomain (10.175.112.125) by
+ dggema756-chm.china.huawei.com (10.1.198.198) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Wed, 26 May 2021 17:10:17 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,40 +47,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7228b69c-c542-4673-93ab-84065a47279e
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622017907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c+k/yzqGlAGx0UctOAHow0WXoiiTdCLO+6Z7UG8i2ro=;
-	b=erRdeD3VOz6+be+GDCqCdp+jSfHsaqPflBPKbpQXDaEojRPCZS4h4rNFFh5u/DdwLFThH5
-	2gDsFPilL9ZTdjprn+6w4JAs7watJUHM2RlVZqgJAbwhiqFefsvDVnfJT++J7PDmlYWHkf
-	AxF5qJIRCXSlpt7mU7sZMY6fd1MH+lc=
-Subject: Re: [PATCH v2] firmware/shim: UNSUPPORTED=n
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
-References: <19695ffc-34d8-b682-b092-668f872d4e57@suse.com>
- <72b98382-34ba-6e9d-c90e-c913dfe66258@suse.com>
- <YK4Gbz0fat7DRY+o@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <50ca498e-a95f-f187-2fdb-70f5a1978bfe@suse.com>
-Date: Wed, 26 May 2021 10:31:43 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+X-Inumbo-ID: 8b3c0296-2828-49ec-a767-20958ce8cd30
+From: Chen Huang <chenhuang5@huawei.com>
+To: Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt
+	<benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, "Boris
+ Ostrovsky" <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Nathan Lynch <nathanl@linux.ibm.com>, Andrew Donnellan <ajd@linux.ibm.com>,
+	Alexey Kardashevskiy <aik@ozlabs.ru>, Andrew Morton
+	<akpm@linux-foundation.org>, Stephen Rothwell <sfr@canb.auug.org.au>, "Jens
+ Axboe" <axboe@kernel.dk>, Yang Yingliang <yangyingliang@huawei.com>,
+	"Masahiro Yamada" <masahiroy@kernel.org>, Dan Carpenter
+	<dan.carpenter@oracle.com>
+CC: <linuxppc-dev@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<xen-devel@lists.xenproject.org>, <ocfs2-devel@oss.oracle.com>, Chen Huang
+	<chenhuang5@huawei.com>
+Subject: [PATCH -next 1/3] powerpc/rtas: Replaced simple_strtoull() with kstrtoull()
+Date: Wed, 26 May 2021 09:20:18 +0000
+Message-ID: <20210526092020.554341-1-chenhuang5@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <YK4Gbz0fat7DRY+o@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.112.125]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggema756-chm.china.huawei.com (10.1.198.198)
+X-CFilter-Loop: Reflected
 
-On 26.05.2021 10:27, Roger Pau Monné wrote:> It's also confusing that the scheduler that gets set as the default> when shim exclusive is selected is not available to enable/disable:> > [*] Credit scheduler support (NEW)> [*] Credit2 scheduler support (NEW)>     Default Scheduler? (Null Scheduler)  --->
-I don't view this as confusing - we want the null scheduler there in
-this case, unconditionally. But yes, the prompt's condition could of
-course also have "PV_SHIM || " added.
+The simple_strtoull() function is deprecated in some situation, since
+it does not check for the range overflow, use kstrtoull() instead.
 
-Jan
+Signed-off-by: Chen Huang <chenhuang5@huawei.com>
+---
+ arch/powerpc/kernel/rtas-proc.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/arch/powerpc/kernel/rtas-proc.c b/arch/powerpc/kernel/rtas-proc.c
+index 6857a5b0a1c3..117886782ebd 100644
+--- a/arch/powerpc/kernel/rtas-proc.c
++++ b/arch/powerpc/kernel/rtas-proc.c
+@@ -259,7 +259,6 @@ __initcall(proc_rtas_init);
+ static int parse_number(const char __user *p, size_t count, u64 *val)
+ {
+ 	char buf[40];
+-	char *end;
+ 
+ 	if (count > 39)
+ 		return -EINVAL;
+@@ -269,11 +268,7 @@ static int parse_number(const char __user *p, size_t count, u64 *val)
+ 
+ 	buf[count] = 0;
+ 
+-	*val = simple_strtoull(buf, &end, 10);
+-	if (*end && *end != '\n')
+-		return -EINVAL;
+-
+-	return 0;
++	return kstrtoull(buf, 10, val);
+ }
+ 
+ /* ****************************************************************** */
+-- 
+2.25.1
+
 
