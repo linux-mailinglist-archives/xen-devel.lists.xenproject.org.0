@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6319B3915B5
+	by mail.lfdr.de (Postfix) with ESMTPS id 6886F3915B6
 	for <lists+xen-devel@lfdr.de>; Wed, 26 May 2021 13:06:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.132447.247044 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.132452.247055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llrL9-00071a-Lf; Wed, 26 May 2021 11:04:43 +0000
+	id 1llrLz-0007Zk-Vt; Wed, 26 May 2021 11:05:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 132447.247044; Wed, 26 May 2021 11:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 132452.247055; Wed, 26 May 2021 11:05:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1llrL9-0006zg-IL; Wed, 26 May 2021 11:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 132447;
- Wed, 26 May 2021 11:04:42 +0000
+	id 1llrLz-0007Xp-Rf; Wed, 26 May 2021 11:05:35 +0000
+Received: by outflank-mailman (input) for mailman id 132452;
+ Wed, 26 May 2021 11:05:34 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1llrL8-0006za-60
- for xen-devel@lists.xenproject.org; Wed, 26 May 2021 11:04:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1llrLy-0007Xf-E1; Wed, 26 May 2021 11:05:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1llrL8-0007A8-4K
- for xen-devel@lists.xenproject.org; Wed, 26 May 2021 11:04:42 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1llrL8-0003nq-3I
- for xen-devel@lists.xenproject.org; Wed, 26 May 2021 11:04:42 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1llrL4-0007Wl-Os; Wed, 26 May 2021 12:04:38 +0100
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1llrLy-0007Ar-Aa; Wed, 26 May 2021 11:05:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1llrLy-0007KR-0W; Wed, 26 May 2021 11:05:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1llrLx-0005Um-WC; Wed, 26 May 2021 11:05:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,53 +43,86 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=gq2I9hbRkeKKDL7TqQ0Q2XZpi3HNA0AmgyGee+LQdB4=; b=1GpJn2aRuLTF1kP+QY5W68MzWJ
-	BbgpmItZYeyE6mO14bCc5+eq+7o61iRDj2XFqiZN9L01phgc7Yp2VP9wES536qH3o6IWGP9zWhUdV
-	rprML24N5ZVn7YU9SOwl0YYKHVZyu6ijRpZ1/g9NOEhwSuYFs/Ls0Ny5C8az2LSuyrLU=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FxzUYIH4pqWqq+EX5VlKtlI2xRsvqO4+PticrhQuu34=; b=Oyv9AwablJTs1lM4EAPV4Qzb+v
+	qgU+r10Qn/8uwPzYQlDz4mRXNo8ml6XQ1NRawLGVMZBMV753bHOm9VWcve7yMJtsXpg6/zWtCyQZP
+	Tu0MD096oFbslV2iuNdDxXjqvODdvVvAs27pfWyHXGI5lNRlqBWXnMDZznS6sBv59UN8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162161-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Message-ID: <24750.11078.528225.772285@mariner.uk.xensource.com>
-Date: Wed, 26 May 2021 12:04:38 +0100
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    "community.manager\@xenproject.org" <community.manager@xenproject.org>
-Subject: Re: IRC networks
-In-Reply-To: <10B84448-21E3-41F2-AAD2-B9F6E9EB5DE8@citrix.com>
-References: <24741.12566.639691.461134@mariner.uk.xensource.com>
-	<10B84448-21E3-41F2-AAD2-B9F6E9EB5DE8@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 162161: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=7793d19bac84cb84d919035faa9aa638f0a33370
+X-Osstest-Versions-That:
+    xen=3092006fc4e096a7eebb8042cb76d82b09ccece4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 26 May 2021 11:05:33 +0000
 
-George Dunlap writes ("Re: IRC networks"):
-> Thanks, Ian.  I tend to agree with the recommendation.  I think unless someone wants to argue that we go to libera (or stick with freenode), we should go with that option.  
-> 
-> Normally for a decision like this we’d wait 2 weeks for counter-arguments before making it official.  Does anyone want to argue that we should move up the timetable for some reason?
-> 
-> I’ve registered #xendevel on oftc; I’d encourage early adopters to give it a try.
+flight 162161 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162161/
 
-Recent behaviour by the new de facto operators of Freenode has been
-quite egregious.  In particular, it is now against the rules to set
-your topic to direct your users to libera.chat, the replacement set up
-by the resigning Freenode staff.  The server operators have been
-taking opver channels where the project are trying to migrate.  (I
-think that probably applies to OFTC too.)
+Failures :-/ but no regressions.
 
-Also, the new de facto operators of Freeonode are using user count to
-justify their behaviour.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-I am not prepared to be counted as a user of these terrible people,
-and used by them to justify their awful actions.  I will be
-disconnecting from Freenode as soon as I have sent a message to this
-effect to all the Xen-related channels.
+version targeted for testing:
+ xen                  7793d19bac84cb84d919035faa9aa638f0a33370
+baseline version:
+ xen                  3092006fc4e096a7eebb8042cb76d82b09ccece4
 
-I appreciately that making this decision unilaterally for myself in
-this wa might be seen as jumping the gun on the commkunity decision
-process.
+Last test of basis   162151  2021-05-25 11:00:26 Z    1 days
+Testing same since   162161  2021-05-26 08:01:40 Z    0 days    1 attempts
 
-But I am not prepared to wait any longer.  Sorry.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Roger Pau Monné <rogerpau@citrix.com>
 
-Ian.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   3092006fc4..7793d19bac  7793d19bac84cb84d919035faa9aa638f0a33370 -> smoke
 
