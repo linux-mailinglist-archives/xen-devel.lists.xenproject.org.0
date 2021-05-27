@@ -2,61 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA92393114
-	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 16:40:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133515.248832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F078393120
+	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 16:41:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133521.248843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmHAM-0005Kj-0Z; Thu, 27 May 2021 14:39:18 +0000
+	id 1lmHCE-0006cP-C3; Thu, 27 May 2021 14:41:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133515.248832; Thu, 27 May 2021 14:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 133521.248843; Thu, 27 May 2021 14:41:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmHAL-0005HX-Sx; Thu, 27 May 2021 14:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 133515;
- Thu, 27 May 2021 14:39:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lmHCE-0006a8-8T; Thu, 27 May 2021 14:41:14 +0000
+Received: by outflank-mailman (input) for mailman id 133521;
+ Thu, 27 May 2021 14:41:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pgLj=KW=oracle.com=dan.carpenter@srs-us1.protection.inumbo.net>)
- id 1lmHAK-0005HR-NC
- for xen-devel@lists.xenproject.org; Thu, 27 May 2021 14:39:16 +0000
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc27f675-8eed-4b78-a79d-85df67cc8ca1;
- Thu, 27 May 2021 14:39:15 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 14REZINU091897;
- Thu, 27 May 2021 14:37:54 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2130.oracle.com with ESMTP id 38pqfcmea7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 27 May 2021 14:37:54 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 14REaAXE101211;
- Thu, 27 May 2021 14:37:54 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by aserp3030.oracle.com with ESMTP id 38pr0dn4mk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 27 May 2021 14:37:54 +0000
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 14REbrPF103775;
- Thu, 27 May 2021 14:37:53 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by aserp3030.oracle.com with ESMTP id 38pr0dn4mb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 27 May 2021 14:37:53 +0000
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 14REbqlO103757;
- Thu, 27 May 2021 14:37:52 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 38pr0dn4m2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 27 May 2021 14:37:52 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 14REbffR028351;
- Thu, 27 May 2021 14:37:41 GMT
-Received: from kadam (/41.212.42.34) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 27 May 2021 14:37:40 +0000
+ <SRS0=A0TX=KW=amd.com=thomas.lendacky@srs-us1.protection.inumbo.net>)
+ id 1lmHCC-0006a2-30
+ for xen-devel@lists.xenproject.org; Thu, 27 May 2021 14:41:12 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (unknown
+ [40.107.212.56]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 83f73ff8-38c1-4a3b-890c-461675fd55d8;
+ Thu, 27 May 2021 14:41:10 +0000 (UTC)
+Received: from DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) by
+ DM6PR12MB4218.namprd12.prod.outlook.com (2603:10b6:5:21b::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4173.24; Thu, 27 May 2021 14:41:08 +0000
+Received: from DM5PR12MB1355.namprd12.prod.outlook.com
+ ([fe80::b914:4704:ad6f:aba9]) by DM5PR12MB1355.namprd12.prod.outlook.com
+ ([fe80::b914:4704:ad6f:aba9%12]) with mapi id 15.20.4173.022; Thu, 27 May
+ 2021 14:41:08 +0000
+Received: from office-linux.texastahm.com (67.79.209.213) by
+ SN2PR01CA0050.prod.exchangelabs.com (2603:10b6:800::18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4173.22 via Frontend Transport; Thu, 27 May 2021 14:41:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,88 +49,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc27f675-8eed-4b78-a79d-85df67cc8ca1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=2cWNSzPHxT4+TtO20cktydNM136a4XNJfF9qm2ldDgc=;
- b=COG/l0eFrIGy2v8yfYCjPo096ZmT871QOihIxtXKWxdX/gRd2i64dkO9nJR9mFsFcg8s
- 3d+wIDdy60rKaLYivKQpZPfVzToBYwUnV9vAVW/pcIyHdLiAaVgsi9Tu2onm4ZFfp54w
- joeJwhrG6Fwb/1rf4pDvTdhkcGQ9RsDP692VcxB62fISCWEaAg3BMGUSqkN0ZnTHNiec
- UnOo8ZapdzcIPJFw5rBK/0kdw1QF/1LSdXdflbdWDpDM28s/pv52J23rsgzrFEPPFqHD
- 7QxtJIdiBoTY9vGbkbOzZGabxFxQ4Yl2Kd0Oh+0S40V99J/6uxTA0OyyOm+am9CAIJcD Fg== 
-Date: Thu, 27 May 2021 17:37:30 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: David Laight <David.Laight@ACULAB.COM>
-Cc: "'Chen Huang'" <chenhuang5@huawei.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-        Paul Mackerras <paulus@samba.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
-        Joseph Qi <joseph.qi@linux.alibaba.com>,
-        Nathan Lynch <nathanl@linux.ibm.com>,
-        Andrew Donnellan <ajd@linux.ibm.com>,
-        Alexey Kardashevskiy <aik@ozlabs.ru>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Jens Axboe <axboe@kernel.dk>,
-        Yang Yingliang <yangyingliang@huawei.com>,
-        Masahiro Yamada <masahiroy@kernel.org>,
-        "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        "ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>
-Subject: Re: [PATCH -next 2/3] xen: balloon: Replaced simple_strtoull() with
- kstrtoull()
-Message-ID: <20210527143729.GL24442@kadam>
-References: <20210526092020.554341-1-chenhuang5@huawei.com>
- <20210526092020.554341-2-chenhuang5@huawei.com>
- <0f03f9b9ff41460db2935e077f7f80c7@AcuMS.aculab.com>
+X-Inumbo-ID: 83f73ff8-38c1-4a3b-890c-461675fd55d8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a5Qkid7FttMYKKHYpUGdBU+35V4v+SsRNsnuT4KRcIxWmjURLSiJhV9KUNRs240BnwURE1lRi47gpOsPbOsoebE3T56cqXAdgiCT+fx2KymwxFZ1LE8I2UAxnkpKa9HX28sax9Jrcm0xSx+cTkLWlhp+Ey3Jpz307gLGa8bcZWe5URxMT9w/bjuRk4FESXGP7OD/2wkbRrr2moxKTcs3m65CU22s6uqLDe5Y/qZmePTDvPIDjkxBK827NFqAr6IxyM4UA4OLyIjfrit49TrRfTuj+JdDzNcOM54wWoxH6j3PRg7/nWJjOe6bXRUuQBqQHWFOaVV7VMjaK2oTNg5KpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xov16ex2LLNz59XcqP8ZntDrIieWMcGionlMx8pusEY=;
+ b=NVhmAjt1LefX6M7BHKuU+NBv/+rPRp7mehKbMgD7Vo8QiapJo1wU7pzItmAroymAmuWmZbLIoGo1v9v/yID6cJLuLRuE66bRyBLGcxVOMj0ICLwQNArdnn+tIuzXTEtrUJna5q5b40Gg1hilSowkndsei0MOMkPuAGswBCooBY9ehcs0iv+OJlFr3pYyoKhAwMd02EqgWiboCbwzwQgPWLYD4xWTKYGERouAwJJTVuKyE974PJpyBZVK5EPYcUTFUkwkEeFamtw9SswgAzezsWe1vCD9I6Uu8+IqHGaZLn8Qa/w0dfGR3MunzK5Zi6z5vbhKmN+k+3Yawg5ugCB4ZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xov16ex2LLNz59XcqP8ZntDrIieWMcGionlMx8pusEY=;
+ b=WMnXzm73hbEdQkv9+AAe+P/IpiJ2/2NFybvRfzC8WnYGVfU2s+kuP5a6/0LfGLvH7MnrUc3CO+ODX3GNtyrpvclzfwJALOnWGHsg31xfygktZ4wxstidddi+ggkxlgzKI/MsdTkzJZGdOIn6AisWXY3LVl4ToaYPSvjcMELD0mw=
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
+Subject: Re: [PATCH v7 01/15] swiotlb: Refactor swiotlb init functions
+To: Christoph Hellwig <hch@lst.de>, Florian Fainelli <f.fainelli@gmail.com>
+Cc: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, Marek Szyprowski <m.szyprowski@samsung.com>,
+ benh@kernel.crashing.org, paulus@samba.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ grant.likely@arm.com, xypron.glpk@gmx.de, Thierry Reding
+ <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com,
+ peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>,
+ Saravana Kannan <saravanak@google.com>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ heikki.krogerus@linux.intel.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Dan Williams
+ <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-devicetree <devicetree@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org,
+ bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk,
+ daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ jxgao@google.com, joonas.lahtinen@linux.intel.com,
+ linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ matthew.auld@intel.com, rodrigo.vivi@intel.com,
+ thomas.hellstrom@linux.intel.com
+References: <20210518064215.2856977-1-tientzu@chromium.org>
+ <20210518064215.2856977-2-tientzu@chromium.org>
+ <170a54f2-be20-ec29-1d7f-3388e5f928c6@gmail.com>
+ <20210527130211.GA24344@lst.de>
+From: Tom Lendacky <thomas.lendacky@amd.com>
+Message-ID: <bab261b4-f801-05af-8fd9-c440ed219591@amd.com>
+Date: Thu, 27 May 2021 09:41:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210527130211.GA24344@lst.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [67.79.209.213]
+X-ClientProxiedBy: SN2PR01CA0050.prod.exchangelabs.com (2603:10b6:800::18) To
+ DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0f03f9b9ff41460db2935e077f7f80c7@AcuMS.aculab.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-ORIG-GUID: xI1PN-Oc27c8aWvBSQ4m3wXmnwlPjzpN
-X-Proofpoint-GUID: xI1PN-Oc27c8aWvBSQ4m3wXmnwlPjzpN
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9996 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 spamscore=0 mlxscore=0
- malwarescore=0 mlxlogscore=999 lowpriorityscore=0 impostorscore=0
- adultscore=0 phishscore=0 priorityscore=1501 clxscore=1011 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2105270095
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 59e14bbc-1eea-4b9f-e0b6-08d9211d768f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4218:
+X-Microsoft-Antispam-PRVS:
+	<DM6PR12MB4218889520CE03D8A0062CAAEC239@DM6PR12MB4218.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	nZNB84YC4kztOdLzWwMIlAuRl+h2KTNM+1A6fbzJA0nn9U3XrzLsdsg5fPGYLYXKx6BpkcxDV/PnT5Ym8OKRkAC0PkUfImgHMBoqNsExvyly+UmVkcW5UhrZRh4m7mC4TM/H784Uu41+EJZBAymgGY0SOBhF2a5m7wjXykLewN7O5UhL5Eokq6HcCehl9IOXO2rn8wkquQmMPSfJgFdghwToh8urF5O/q1hLoIeEzsPLt7qPDr4QG+mzBrMlQ5Faf15YqTi0Ajn1URT4xnVabof/ysvP4a73X2R5RsAJXocyU2CyWZOT2IO02O0KIiQ8bOKNl5OmHjK9PQZCucn4x4Y83ibfder6hoJx3+C6s4L8KJZk5gErfn1bslS9AgrJ+uiMLoLqgcyTGqfBhIc0I6jsmlYifXpA46e+mOWbtMEhNRIw9wJRjOxtH7lF+7fncpH/EjenpZKDSdyqdJjUtZmdOAX9q7ImvJWx6n7KzNtn+CaObMHxcwUdXOBgp+HfTVKk2SbGKKA2I6tMZQGqOaakYmNfT3HSAE0CNVGJ0Nxaav1m7zoG6+P7X40RPeQ2rhCnYWb7HBy+mbEMFp6PPKg+iCoJ5PRwz+8ZQYOEtSvHCypshtkyhG97zbLj+68F/InSYrrqudvTKYNYYNvpubjb0kmyV/Say81zdfegQYU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR12MB1355.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(38100700002)(4744005)(7406005)(7366002)(7416002)(6512007)(2906002)(53546011)(86362001)(8936002)(478600001)(2616005)(16526019)(956004)(316002)(5660300002)(36756003)(83380400001)(31686004)(186003)(6506007)(6486002)(54906003)(66476007)(110136005)(26005)(31696002)(4326008)(66556008)(66946007)(8676002)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData:
+	=?utf-8?B?OGgyZW1PNU5qT3ZSeisxckZFc0tldW91cTExWEx4RVFXbjBLS2JVTitudGd5?=
+ =?utf-8?B?ZXB0bDY0SVM3cTZrd1JGeFo0SDRjMTlEVkJmcnZ0MzI0UnZSWVZRQlZEY0dV?=
+ =?utf-8?B?VjRaSlkyNm1KMEsxcFg4VGZEWVA2T25tYW4wajdHR0YxNGJBRjV4eXZYRUpT?=
+ =?utf-8?B?QWkybUc3UVlnNTBHS3M0NUlhU0MvWDRsRldpck1iSmh2aHFNalM2MXBqcmpa?=
+ =?utf-8?B?QUU1YnZvWjJlR0lYRVpvbjhlSmVTS1RqVERibnl4M1Y4eDR5QUlJWlpLMUor?=
+ =?utf-8?B?ak5NYldoR0dxczZZNmFwSEtOMHFKcHlmZTVmTEl0TVNmQkl4ZjRncXFRN0tB?=
+ =?utf-8?B?TWltUFlTcjVRYUU4d1pUMXBSakkzc2IrMkR2eHBEL2J1N1NtMzFJTytsWTMw?=
+ =?utf-8?B?NVVOdFp4TitQVlhDZit2ZEIvM294SHZjeVZCOVZqbTk2SmNYeXV5bCtKa2pD?=
+ =?utf-8?B?UEFqSW50ck5BdDRuQUNwUFF3aGVZUDRFUUxEeFlET1FYaC9GU2dSNVUyZzVW?=
+ =?utf-8?B?a3NmY3duR2tRYko0NGd4Rzc2NzVGSkJMSWJGMnFFSk41Y1NYb2llSUszdUMv?=
+ =?utf-8?B?anZZZjJWSGNoeXJXajZjQlJNcXQ5VzBPVmZ4clc4eEJBT0dGblRZLytia0NP?=
+ =?utf-8?B?MURQUEZwVDJSalBsRlFuYUJabC9MakVubG9tVjVJOVdkMnl5ZWtNSU5TOGdM?=
+ =?utf-8?B?Z0ducUxiM1daNStlM0tFZzU0emh2YnQxSjkxZmd1cy9LV1R4WmxGUlA0NlhO?=
+ =?utf-8?B?SnoyOElpaDhzUHFZdDE4UVpMSmtmdkFpY2pvTksrTUxWejJqV0Vob2NjMUVq?=
+ =?utf-8?B?ZUxxdlQraGd0YTZPekNOQ3N4UTNwV0huUG9Mam9rM1hnajc4VE5qT2xnWUNn?=
+ =?utf-8?B?VWNBTkxULzlJN3BHNWVnTUc5cDV4S3dmdU9YR3VveWZURnQ1TmJxZjE1aDhy?=
+ =?utf-8?B?UXFtNnRPOFladWZab1JwWmloN2plYTdUc2NqaWlFTFZMTEdKTERkZnZSTy8z?=
+ =?utf-8?B?blcrbWU1RTVsWFlHNXhFRlUwZFFpdDduWTJNcDRPMGVtVTJ6dVdHQjFYNFVP?=
+ =?utf-8?B?djc4NjdKeVc3czFvanFROFFqdU9VOWE5Wmc0d01QTE9GeHAvVFY3SnMvdW5z?=
+ =?utf-8?B?Qi9VN2lVUnNsb2pxOWliOXlmcDh6eG9iZUtRZzNXZmFXRFlvUlpNM1FHaGVx?=
+ =?utf-8?B?V2hCbUhpWkQwRmdyelozSzFyMDlRNnJveXBCU1c3MlgxYTlTMWIybzc2UjAy?=
+ =?utf-8?B?dW9RSnlOakVsblZDN0F6dzdMOW9lNDQxbngrMGpvT3NVTDZpTDVEeXV0T01L?=
+ =?utf-8?B?ODM3azY4TU93UE1CMHZ3V3pnUTZycmF6YmliVTZORXBiZ3hJeXJLcnpiTmtM?=
+ =?utf-8?B?RHEwalZtaU8rTTY3ajlaaHpmSjJTZEREdGFPcHlBMzJrS2tQZWtDajY0WmVB?=
+ =?utf-8?B?K2EzbFZtQUtJWk9rRytLVG12Z2x3WVowRk8vRUdjYzZKUjJIK0tEVWNhcXJG?=
+ =?utf-8?B?MndLQlk0cVljRW9NTkU5SWlScTFld3Fld3MrR1VmQXkvTmI2ZTNvZzhqYlhj?=
+ =?utf-8?B?ZjNFZzdOV093akNmUlcvcklnYURkQUdWbHZBeXhibnpRSWhGVHJ0TTJmbk42?=
+ =?utf-8?B?WTRTUWhzc3YvMFJmbnhTS3RIZDgwajhiVkk5OEx5V3hGRXpySmNCZDdVcGJU?=
+ =?utf-8?B?WU9HbGRQN3E5dkFET0kzUUtEZVZDazdIaVl5TkVDMGlzSkZpZEdjb2NEQ2hz?=
+ =?utf-8?Q?FkiPGixk4soS+HSivd/GXKKe6qNXTD5QcRXLY01?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59e14bbc-1eea-4b9f-e0b6-08d9211d768f
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1355.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2021 14:41:08.0642
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5CsF8+AyOlbzvidWQoLfPambEK4AEjMpHIQTAAL4vJ0v4GhJJhQZeJ2+YilHLtstBzE3OoZMtjG1uZ8CgLZkHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4218
 
-On Thu, May 27, 2021 at 02:10:21PM +0000, David Laight wrote:
-> From: Chen Huang
-> > Sent: 26 May 2021 10:20
-> > 
-> > The simple_strtoull() function is deprecated in some situation, since
-> > it does not check for the range overflow, use kstrtoull() instead.
-> > 
-> ...
-> > -	target_bytes = simple_strtoull(buf, &endchar, 0) * 1024;
-> > +	ret = kstrtoull(buf, 0, &target_bytes);
-> > +	if (ret)
-> > +		return ret;
-> > +	target_bytes *= 1024;
+On 5/27/21 8:02 AM, Christoph Hellwig wrote:
+> On Wed, May 19, 2021 at 11:50:07AM -0700, Florian Fainelli wrote:
+>> You convert this call site with swiotlb_init_io_tlb_mem() which did not
+>> do the set_memory_decrypted()+memset(). Is this okay or should
+>> swiotlb_init_io_tlb_mem() add an additional argument to do this
+>> conditionally?
 > 
-> I'd have thought it was more important to check *endchar
-> than overflow.
+> The zeroing is useful and was missing before.  I think having a clean
+> state here is the right thing.
+> 
+> Not sure about the set_memory_decrypted, swiotlb_update_mem_attributes
+> kinda suggests it is too early to set the memory decrupted.
+> 
+> Adding Tom who should now about all this.
 
-That's one of the differences between simple_strtoull() and kstrtoull().
-The simple_strtoull() will accept a string like "123ABC", but kstrtoull()
-will only accept NUL terminated numbers or a newline followed by a NUL
-terminator.  Which is fine in this context because users will be doing
-"echo 1234 > /sys/foo".
+The reason for adding swiotlb_update_mem_attributes() was because having
+the call to set_memory_decrypted() in swiotlb_init_with_tbl() triggered a
+BUG_ON() related to interrupts not being enabled yet during boot. So that
+call had to be delayed until interrupts were enabled.
 
-> If you are worried about overflow you need a range check
-> before the multiply.
+Thanks,
+Tom
 
-This is probably a case where if the users cause an integer overflow
-then they get what they deserve.
-
-regards,
-dan carpenter
+> 
 
