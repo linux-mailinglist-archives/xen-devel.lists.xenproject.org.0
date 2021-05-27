@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42653392E41
-	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 14:49:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133176.248289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 319DF392E42
+	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 14:49:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133178.248300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmFRe-0002Hr-PU; Thu, 27 May 2021 12:49:02 +0000
+	id 1lmFS1-0002ju-3H; Thu, 27 May 2021 12:49:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133176.248289; Thu, 27 May 2021 12:49:02 +0000
+Received: by outflank-mailman (output) from mailman id 133178.248300; Thu, 27 May 2021 12:49:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmFRe-0002F5-MP; Thu, 27 May 2021 12:49:02 +0000
-Received: by outflank-mailman (input) for mailman id 133176;
- Thu, 27 May 2021 12:49:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lmFRd-0002Ez-3t
- for xen-devel@lists.xenproject.org; Thu, 27 May 2021 12:49:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lmFRc-0007nA-DB; Thu, 27 May 2021 12:49:00 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lmFRc-00085G-6u; Thu, 27 May 2021 12:49:00 +0000
+	id 1lmFS0-0002h2-VU; Thu, 27 May 2021 12:49:24 +0000
+Received: by outflank-mailman (input) for mailman id 133178;
+ Thu, 27 May 2021 12:49:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=spZp=KW=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
+ id 1lmFS0-0002ge-2a
+ for xen-devel@lists.xenproject.org; Thu, 27 May 2021 12:49:24 +0000
+Received: from mail-pf1-x42d.google.com (unknown [2607:f8b0:4864:20::42d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2cb6396f-143e-4d30-9ff0-52ed772ddf1a;
+ Thu, 27 May 2021 12:49:23 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id f22so537372pfn.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 May 2021 05:49:23 -0700 (PDT)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com.
+ [209.85.210.173])
+ by smtp.gmail.com with ESMTPSA id x19sm1765169pgj.66.2021.05.27.05.49.21
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 May 2021 05:49:21 -0700 (PDT)
+Received: by mail-pf1-f173.google.com with SMTP id p39so490407pfw.8
+ for <xen-devel@lists.xenproject.org>; Thu, 27 May 2021 05:49:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=X4Zh/dC30NMhdSNeODepjxj3SVeV7Cnxn6uvTd/yxow=; b=gIrhj1CIYxMfzdVwi/f9hevkb+
-	KJw1GBezu4xU+UIIeDWDhJebrB2v9M6gKaUd1AWaxHboj9IczSnvEcuMxjZo9FtKRcwj0L8X4/9+P
-	7D/+YCtU5DkNTRRjDtVmyN8UZ9ukugNt1SbgmPJYsp63GWWgGNwUxl5dBz+5E6zirofs=;
-Subject: Re: [PATCH v2 01/12] x86: introduce ioremap_wc()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <8f56a8f4-0482-932f-96a9-c791bebb4610@suse.com>
- <20abac99-609c-f4f6-1242-c79919f4c317@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b8035805-4f44-18ce-f4cb-4ce1d3c594fc@xen.org>
-Date: Thu, 27 May 2021 13:48:58 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.2
+X-Inumbo-ID: 2cb6396f-143e-4d30-9ff0-52ed772ddf1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=t9nQbEpq5kzp2vshpX/2KDY0MEdzNS47SlLJX4RAhzA=;
+        b=XnDncQEfy0WK93TP5b5iaOvQy6p3tli5hK7U2lnqkRYfpimdp+9WScU0B/bVffV6lu
+         KHvuv/cILlR7hwxjPwG4fSm8TLb0M0uiiQtfQGCy1lJiDeCNSlZdr9ro+4UoS7qK25VN
+         Vwx6crrIG7NXb3xhmTS0AaKdDSprMjL64yAgA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=t9nQbEpq5kzp2vshpX/2KDY0MEdzNS47SlLJX4RAhzA=;
+        b=GF+M6rtH0gCPc7HlgOvao3urIcOcRuPlUmEPPdeYP77P/QuszLc71gQs6+GSJPKV4B
+         35MaKvUjGMbl8yZsGu/j20F+k3soRfcavB1rdMdXe24xsooFzj+khqAcVWx69kJ5MMZg
+         BR7bNvLBieTEQHMB7E2J+Y6YST0cFr2DA6z700rJ2Lw2Yox6R6u3UNxYAIAP5e6l+hFJ
+         nwEM8p0ykJ7s/wnE5maoHs/kpMtBTu0Zzl7lmw1ewqbi+ntQe8pt0b7oElnLHpOdEr6k
+         EU9ksdW/v8KP4/9wLzta0vnH4gQXIlc4hAEzmP81L8d/OpJ3wE5+OMlvDsvMlTOWJxhi
+         CK+A==
+X-Gm-Message-State: AOAM530HIiHZ+wWqU5/0zC6DXhEldfp4sMZLUOcmmVZKV2BOnAHzUPQK
+	xDV2ep6n846TObO2+eOhyn68zXyeFPUE0w==
+X-Google-Smtp-Source: ABdhPJwcOoooqpJVylmkhZjQnlm1irgkO2N17Sw+W5Zt9spC+SnUo20D/T5CGiKAr1ze/jetG7EZdQ==
+X-Received: by 2002:a63:e015:: with SMTP id e21mr3574227pgh.442.1622119762184;
+        Thu, 27 May 2021 05:49:22 -0700 (PDT)
+X-Received: by 2002:a92:2907:: with SMTP id l7mr2908573ilg.64.1622119750871;
+ Thu, 27 May 2021 05:49:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20abac99-609c-f4f6-1242-c79919f4c317@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <20210518064215.2856977-1-tientzu@chromium.org>
+ <20210518064215.2856977-15-tientzu@chromium.org> <20210526121322.GA19313@willie-the-truck>
+ <20210526155321.GA19633@willie-the-truck> <CALiNf2_sVXnb97++yWusB5PWz8Pzfn9bCKZc6z3tY4bx6-nW8w@mail.gmail.com>
+ <20210527113456.GA22019@willie-the-truck>
+In-Reply-To: <20210527113456.GA22019@willie-the-truck>
+From: Claire Chang <tientzu@chromium.org>
+Date: Thu, 27 May 2021 20:48:59 +0800
+X-Gmail-Original-Message-ID: <CALiNf2_Qk5DmZSJO+jv=m5V-VFtmL9j0v66UY6qKmM-2pr3tRQ@mail.gmail.com>
+Message-ID: <CALiNf2_Qk5DmZSJO+jv=m5V-VFtmL9j0v66UY6qKmM-2pr3tRQ@mail.gmail.com>
+Subject: Re: [PATCH v7 14/15] dt-bindings: of: Add restricted DMA pool
+To: Will Deacon <will@kernel.org>
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com, 
+	peterz@infradead.org, benh@kernel.crashing.org, 
+	joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org, 
+	chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org, 
+	Frank Rowand <frowand.list@gmail.com>, mingo@kernel.org, sstabellini@kernel.org, 
+	Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au, 
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, Christoph Hellwig <hch@lst.de>, 
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com, linux-pci@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, Thierry Reding <treding@nvidia.com>, 
+	intel-gfx@lists.freedesktop.org, matthew.auld@intel.com, 
+	linux-devicetree <devicetree@vger.kernel.org>, Jianxiong Gao <jxgao@google.com>, 
+	Daniel Vetter <daniel@ffwll.ch>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	maarten.lankhorst@linux.intel.com, airlied@linux.ie, 
+	Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org, 
+	jani.nikula@linux.intel.com, Rob Herring <robh+dt@kernel.org>, rodrigo.vivi@intel.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, boris.ostrovsky@oracle.com, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com, 
+	Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>, 
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
+	xypron.glpk@gmx.de, Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Jan,
+On Thu, May 27, 2021 at 7:35 PM Will Deacon <will@kernel.org> wrote:
+>
+> On Thu, May 27, 2021 at 07:29:20PM +0800, Claire Chang wrote:
+> > On Wed, May 26, 2021 at 11:53 PM Will Deacon <will@kernel.org> wrote:
+> > >
+> > > On Wed, May 26, 2021 at 01:13:22PM +0100, Will Deacon wrote:
+> > > > On Tue, May 18, 2021 at 02:42:14PM +0800, Claire Chang wrote:
+> > > > > @@ -138,4 +160,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
+> > > > >             memory-region = <&multimedia_reserved>;
+> > > > >             /* ... */
+> > > > >     };
+> > > > > +
+> > > > > +   pcie_device: pcie_device@0,0 {
+> > > > > +           memory-region = <&restricted_dma_mem_reserved>;
+> > > > > +           /* ... */
+> > > > > +   };
+> > > >
+> > > > I still don't understand how this works for individual PCIe devices -- how
+> > > > is dev->of_node set to point at the node you have above?
+> > > >
+> > > > I tried adding the memory-region to the host controller instead, and then
+> > > > I see it crop up in dmesg:
+> > > >
+> > > >   | pci-host-generic 40000000.pci: assigned reserved memory node restricted_dma_mem_reserved
+> > > >
+> > > > but none of the actual PCI devices end up with 'dma_io_tlb_mem' set, and
+> > > > so the restricted DMA area is not used. In fact, swiotlb isn't used at all.
+> > > >
+> > > > What am I missing to make this work with PCIe devices?
+> > >
+> > > Aha, looks like we're just missing the logic to inherit the DMA
+> > > configuration. The diff below gets things working for me.
+> >
+> > I guess what was missing is the reg property in the pcie_device node.
+> > Will update the example dts.
+>
+> Thanks. I still think something like my diff makes sense, if you wouldn't mind including
+> it, as it allows restricted DMA to be used for situations where the PCIe
+> topology is not static.
+>
+> Perhaps we should prefer dev->of_node if it exists, but then use the node
+> of the host bridge's parent node otherwise?
 
-On 27/05/2021 13:30, Jan Beulich wrote:
-> In order for a to-be-introduced ERMS form of memcpy() to not regress
-> boot performance on certain systems when video output is active, we
-> first need to arrange for avoiding further dependency on firmware
-> setting up MTRRs in a way we can actually further modify. On many
-> systems, due to the continuously growing amounts of installed memory,
-> MTRRs get configured with at least one huge WB range, and with MMIO
-> ranges below 4Gb then forced to UC via overlapping MTRRs. mtrr_add(), as
-> it is today, can't deal with such a setup. Hence on such systems we
-> presently leave the frame buffer mapped UC, leading to significantly
-> reduced performance when using REP STOSB / REP MOVSB.
-> 
-> On post-PentiumII hardware (i.e. any that's capable of running 64-bit
-> code), an effective memory type of WC can be achieved without MTRRs, by
-> simply referencing the respective PAT entry from the PTEs. While this
-> will leave the switch to ERMS forms of memset() and memcpy() with
-> largely unchanged performance, the change here on its own improves
-> performance on affected systems quite significantly: Measuring just the
-> individual affected memcpy() invocations yielded a speedup by a factor
-> of over 250 on my initial (Skylake) test system. memset() isn't getting
-> improved by as much there, but still by a factor of about 20.
-> 
-> While adding {__,}PAGE_HYPERVISOR_WC, also add {__,}PAGE_HYPERVISOR_WT
-> to, at the very least, make clear what PTE flags this memory type uses.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: Mark ioremap_wc() __init.
-> ---
-> TBD: If the VGA range is WC in the fixed range MTRRs, reusing the low
->       1st Mb mapping (like ioremap() does) would be an option.
-> 
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -5881,6 +5881,20 @@ void __iomem *ioremap(paddr_t pa, size_t
->       return (void __force __iomem *)va;
->   }
->   
-> +void __iomem *__init ioremap_wc(paddr_t pa, size_t len)
-> +{
-> +    mfn_t mfn = _mfn(PFN_DOWN(pa));
-> +    unsigned int offs = pa & (PAGE_SIZE - 1);
-> +    unsigned int nr = PFN_UP(offs + len);
-> +    void *va;
-> +
-> +    WARN_ON(page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL));
-> +
-> +    va = __vmap(&mfn, nr, 1, 1, PAGE_HYPERVISOR_WC, VMAP_DEFAULT);
-> +
-> +    return (void __force __iomem *)(va + offs);
-> +}
+Sure. Let me add in the next version.
 
-Arm is already providing ioremap_wc() which is a wrapper to 
-ioremap_attr(). Can this be moved to the common code to avoid duplication?
-
-Cheers,
-
--- 
-Julien Grall
+>
+> Will
 
