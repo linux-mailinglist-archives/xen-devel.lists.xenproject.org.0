@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B431392FC2
-	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 15:31:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133425.248725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23277392FC9
+	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 15:32:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133436.248739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmG6A-0003eC-1n; Thu, 27 May 2021 13:30:54 +0000
+	id 1lmG7U-0004KU-Ev; Thu, 27 May 2021 13:32:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133425.248725; Thu, 27 May 2021 13:30:54 +0000
+Received: by outflank-mailman (output) from mailman id 133436.248739; Thu, 27 May 2021 13:32:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmG69-0003cK-Uk; Thu, 27 May 2021 13:30:53 +0000
-Received: by outflank-mailman (input) for mailman id 133425;
- Thu, 27 May 2021 13:30:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lmG7U-0004Ib-B3; Thu, 27 May 2021 13:32:16 +0000
+Received: by outflank-mailman (input) for mailman id 133436;
+ Thu, 27 May 2021 13:32:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TI9I=KW=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lmG68-0003c6-Am
- for xen-devel@lists.xenproject.org; Thu, 27 May 2021 13:30:52 +0000
+ id 1lmG7T-0004IS-Qw
+ for xen-devel@lists.xenproject.org; Thu, 27 May 2021 13:32:15 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c14ae65-8a4e-4fcb-b721-a66cf2a15239;
- Thu, 27 May 2021 13:30:51 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b9cb9524-32bd-4b41-9727-bbc7553e21c7;
+ Thu, 27 May 2021 13:32:14 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id DA26F68AFE; Thu, 27 May 2021 15:30:46 +0200 (CEST)
+ id 9130268AFE; Thu, 27 May 2021 15:32:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,8 +38,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c14ae65-8a4e-4fcb-b721-a66cf2a15239
-Date: Thu, 27 May 2021 15:30:46 +0200
+X-Inumbo-ID: b9cb9524-32bd-4b41-9727-bbc7553e21c7
+Date: Thu, 27 May 2021 15:32:12 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
 Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
@@ -74,31 +75,15 @@ Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
 	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
 	matthew.auld@intel.com, rodrigo.vivi@intel.com,
 	thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v7 13/15] dma-direct: Allocate memory from restricted
- DMA pool if available
-Message-ID: <20210527133046.GF26160@lst.de>
-References: <20210518064215.2856977-1-tientzu@chromium.org> <20210518064215.2856977-14-tientzu@chromium.org>
+Subject: Re: [PATCH v8 00/15] Restricted DMA
+Message-ID: <20210527133212.GA27432@lst.de>
+References: <20210527125845.1852284-1-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210518064215.2856977-14-tientzu@chromium.org>
+In-Reply-To: <20210527125845.1852284-1-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-> +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> +	if (swiotlb_free(dev, page, size))
-> +		return;
-> +#endif
-
-Please avoid the ifdefs by either stubbing out the function to be a no-op
-or by using IS_ENABLED.
-
-> +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> +	page = swiotlb_alloc(dev, size);
-> +	if (page && !dma_coherent_ok(dev, page_to_phys(page), size)) {
-> +		__dma_direct_free_pages(dev, page, size);
-> +		page = NULL;
-> +	}
-> +#endif
-
-Same here, for the stub it would just return NULL.
+I just finished reviewing v7, sorry.  Let me find some time to see what
+difference this version makes.
 
