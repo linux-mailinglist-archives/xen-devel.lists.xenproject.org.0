@@ -2,30 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17416392CD7
-	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 13:35:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133045.248074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42749392D10
+	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 13:48:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133061.248103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmEIB-00030n-D3; Thu, 27 May 2021 11:35:11 +0000
+	id 1lmEUT-00057d-0J; Thu, 27 May 2021 11:47:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133045.248074; Thu, 27 May 2021 11:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 133061.248103; Thu, 27 May 2021 11:47:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmEIB-0002yQ-A3; Thu, 27 May 2021 11:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 133045;
- Thu, 27 May 2021 11:35:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lmEUS-00054s-Rj; Thu, 27 May 2021 11:47:52 +0000
+Received: by outflank-mailman (input) for mailman id 133061;
+ Thu, 27 May 2021 11:47:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Nal+=KW=kernel.org=will@srs-us1.protection.inumbo.net>)
- id 1lmEI9-0002yK-Fn
- for xen-devel@lists.xenproject.org; Thu, 27 May 2021 11:35:09 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9157bd06-f5ff-422e-81b0-d12d985a0491;
- Thu, 27 May 2021 11:35:08 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2886A6113B;
- Thu, 27 May 2021 11:35:00 +0000 (UTC)
+ (envelope-from <SRS0=HjtO=KW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lmEUR-00054m-CY
+ for xen-devel@lists.xenproject.org; Thu, 27 May 2021 11:47:51 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a091b69d-fe3d-41a7-9949-31783f024f11;
+ Thu, 27 May 2021 11:47:50 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6A76C2190B;
+ Thu, 27 May 2021 11:47:49 +0000 (UTC)
+Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
+ by imap.suse.de (Postfix) with ESMTPSA id 3C70711A98;
+ Thu, 27 May 2021 11:47:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,102 +44,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9157bd06-f5ff-422e-81b0-d12d985a0491
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1622115307;
-	bh=awWFyuDtGzTSFYuKnqnAwD8I2u8LvxPLkIedgwXpacY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=p4bPfFCD5PrcmECQ/JmYfkoIQvGIdlvd3Xmt5WsLHiji5zjF5hUpY/7jV/AEVHJHW
-	 CB6f9oBS2X3aNGgQ3+WcdNwOGV1gPRmBycO/zJJUoapgziqu+7IL5STMx1dAhYz3+T
-	 0bM7UEMZILv76zqCaWO+pWXqjNmfb4VQ6CH4Qz9dn7I0OepvY2P5/VxhAaiFsn1JPd
-	 ce1hSAg7oNQpoYW+JbRsJjBqIARt3uf0TgyQ8bjr7saHdzXTBfM/jxaDHBHbhfTQ4Z
-	 nDFzJaE8tdL5MVg6406RffF7r/1Of9XzA/MNxWJkmUtb6zscbeJZBFAuG32Qt3uWbG
-	 DCkceG/OoqRLg==
-Date: Thu, 27 May 2021 12:34:57 +0100
-From: Will Deacon <will@kernel.org>
-To: Claire Chang <tientzu@chromium.org>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
-	peterz@infradead.org, benh@kernel.crashing.org,
-	joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
-	chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
-	Frank Rowand <frowand.list@gmail.com>, mingo@kernel.org,
-	sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
-	mpe@ellerman.id.au,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
-	linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Thierry Reding <treding@nvidia.com>,
-	intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
-	linux-devicetree <devicetree@vger.kernel.org>,
-	Jianxiong Gao <jxgao@google.com>, Daniel Vetter <daniel@ffwll.ch>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	maarten.lankhorst@linux.intel.com, airlied@linux.ie,
-	Dan Williams <dan.j.williams@intel.com>,
-	linuxppc-dev@lists.ozlabs.org, jani.nikula@linux.intel.com,
-	Rob Herring <robh+dt@kernel.org>, rodrigo.vivi@intel.com,
-	Bjorn Helgaas <bhelgaas@google.com>, boris.ostrovsky@oracle.com,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	jgross@suse.com, Nicolas Boichat <drinkcat@chromium.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	lkml <linux-kernel@vger.kernel.org>,
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
-	Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
-	Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
-Subject: Re: [PATCH v7 14/15] dt-bindings: of: Add restricted DMA pool
-Message-ID: <20210527113456.GA22019@willie-the-truck>
-References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-15-tientzu@chromium.org>
- <20210526121322.GA19313@willie-the-truck>
- <20210526155321.GA19633@willie-the-truck>
- <CALiNf2_sVXnb97++yWusB5PWz8Pzfn9bCKZc6z3tY4bx6-nW8w@mail.gmail.com>
+X-Inumbo-ID: a091b69d-fe3d-41a7-9949-31783f024f11
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622116069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ibvBJ8N9gYkmQfCGXm38qHnMjooDW0kvei05CtgEHck=;
+	b=PmClcs6MmtUC5Wvg8JD11blA3FjooZ9IxoJaNFUXNuWQBbOlapQw6daJX30ygtTTw5TJZG
+	e/SNKhZFJ9iE1W9Gl2BcXmBWwcrjgXT9HhYbxskpe5v/rGr9lswha+SxfJ6AQZH2Owe/Nw
+	+Pujx4muTqLLGmg20il0wBatmp5fSFs=
+Subject: Re: [PATCH 7/7] video/vesa: adjust (not just) command line option
+ handling
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6d6da76c-ccc8-afa2-bd06-5ae132c354f2@suse.com>
+ <7e3f69d7-23e8-397d-72b6-8c489d80ea45@suse.com>
+ <3e04b606-4e4f-e181-d3be-bcf99a2c8fa2@citrix.com>
+ <3aadebaa-5a0b-e21b-c86a-289c2fae5d44@suse.com>
+Message-ID: <e4230879-48b2-651a-b0fa-0e4fbedc04f1@suse.com>
+Date: Thu, 27 May 2021 13:47:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALiNf2_sVXnb97++yWusB5PWz8Pzfn9bCKZc6z3tY4bx6-nW8w@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <3aadebaa-5a0b-e21b-c86a-289c2fae5d44@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, May 27, 2021 at 07:29:20PM +0800, Claire Chang wrote:
-> On Wed, May 26, 2021 at 11:53 PM Will Deacon <will@kernel.org> wrote:
-> >
-> > On Wed, May 26, 2021 at 01:13:22PM +0100, Will Deacon wrote:
-> > > On Tue, May 18, 2021 at 02:42:14PM +0800, Claire Chang wrote:
-> > > > @@ -138,4 +160,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
-> > > >             memory-region = <&multimedia_reserved>;
-> > > >             /* ... */
-> > > >     };
-> > > > +
-> > > > +   pcie_device: pcie_device@0,0 {
-> > > > +           memory-region = <&restricted_dma_mem_reserved>;
-> > > > +           /* ... */
-> > > > +   };
-> > >
-> > > I still don't understand how this works for individual PCIe devices -- how
-> > > is dev->of_node set to point at the node you have above?
-> > >
-> > > I tried adding the memory-region to the host controller instead, and then
-> > > I see it crop up in dmesg:
-> > >
-> > >   | pci-host-generic 40000000.pci: assigned reserved memory node restricted_dma_mem_reserved
-> > >
-> > > but none of the actual PCI devices end up with 'dma_io_tlb_mem' set, and
-> > > so the restricted DMA area is not used. In fact, swiotlb isn't used at all.
-> > >
-> > > What am I missing to make this work with PCIe devices?
-> >
-> > Aha, looks like we're just missing the logic to inherit the DMA
-> > configuration. The diff below gets things working for me.
+On 27.04.2021 16:04, Jan Beulich wrote:
+> On 27.04.2021 15:49, Andrew Cooper wrote:
+>> However, is there really any value in these options?  I can't see a case
+>> where their use will result in a less broken system.
 > 
-> I guess what was missing is the reg property in the pcie_device node.
-> Will update the example dts.
+> Well, if we mis-detect VRAM size, the respective option might indeed
+> help. I'm less certain of the utility of the mapping option, the more
+> that now there's no possible (and implicit) effect on MTRRs anymore.
 
-Thanks. I still think something like my diff makes sense, if you wouldn't mind including
-it, as it allows restricted DMA to be used for situations where the PCIe
-topology is not static.
+Actually I was wrong with referring to an implied effect on MTRRs - that
+would come from "vesa-ram=". "vesa-map=" may help if we mis-detected the
+space we actually need for the mode. However, we'd then be screwed up
+elsewhere as well, so I guess I'll add a patch removing "vesa-map=" as
+well.
 
-Perhaps we should prefer dev->of_node if it exists, but then use the node
-of the host bridge's parent node otherwise?
-
-Will
+Jan
 
