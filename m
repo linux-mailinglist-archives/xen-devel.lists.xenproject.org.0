@@ -2,30 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E66393535
-	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 19:59:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133618.248992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D34A039357B
+	for <lists+xen-devel@lfdr.de>; Thu, 27 May 2021 20:34:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133630.249003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmKHE-0006pz-DV; Thu, 27 May 2021 17:58:36 +0000
+	id 1lmKos-0002be-As; Thu, 27 May 2021 18:33:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133618.248992; Thu, 27 May 2021 17:58:36 +0000
+Received: by outflank-mailman (output) from mailman id 133630.249003; Thu, 27 May 2021 18:33:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmKHE-0006nW-A2; Thu, 27 May 2021 17:58:36 +0000
-Received: by outflank-mailman (input) for mailman id 133618;
- Thu, 27 May 2021 17:55:16 +0000
+	id 1lmKos-0002ZO-77; Thu, 27 May 2021 18:33:22 +0000
+Received: by outflank-mailman (input) for mailman id 133630;
+ Thu, 27 May 2021 18:33:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5/6H=KW=linuxfoundation.org=dgiles@srs-us1.protection.inumbo.net>)
- id 1lmKE0-0006jp-O6
- for xen-devel@lists.xenproject.org; Thu, 27 May 2021 17:55:16 +0000
-Received: from mail-ed1-x52f.google.com (unknown [2a00:1450:4864:20::52f])
+ <SRS0=9d2D=KW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lmKoq-0002ZI-3F
+ for xen-devel@lists.xenproject.org; Thu, 27 May 2021 18:33:20 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57f32af1-bf08-41f4-b642-69feeb514de6;
- Thu, 27 May 2021 17:55:15 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id t3so1833590edc.7
- for <xen-devel@lists.xenproject.org>; Thu, 27 May 2021 10:55:15 -0700 (PDT)
+ id af3feb38-e744-47c6-a3bf-bc5459fa4308;
+ Thu, 27 May 2021 18:33:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,242 +35,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57f32af1-bf08-41f4-b642-69feeb514de6
+X-Inumbo-ID: af3feb38-e744-47c6-a3bf-bc5459fa4308
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1622140397;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=AkYpiD/AH03QGFAYAXF+d6oaRKX/Osg7RjDDbjC6rq4=;
+  b=G6s6PLi7VNoFu0BrbGgSiAfsOVeaPKThcdc/6lPrFiU7OHKBickr3tRQ
+   r3b5xqrE7G8/nMCshd3Qa4koz4kyZnDFRs/lDrWmwzNHQlEX+1/7E4ytC
+   fEGvH30oqJv+sFiGWF+GC6ZRXjrtHQlaXGDdut7nEeiz/lbQsLp7x/VTL
+   c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: zqe7dMuXvp04NXhAim1ACvqh9JQTXOGKuhJSoLdsP83fHClRcQM2y+E+7TO0Lj1pBNDQSAbciS
+ oHF2cHFO8MpybRxSZPCo8IdRHMI1nEtvuDBiWiHZWpmic4c9OKS6WlQWLLOvPR67Y2GokY47Vy
+ lZg5qpIELD5Rd3ccj2v96wNIx1xGiNzuoNTmOJ9kSFWZJCG1uXbnQIN4xuy/Kh4BM0NO/0OfoJ
+ SAmA5Mwkxq63PGtiB6lNArW4q1Du8QTvzdkBCxrH3wZS5fUQJDT9AE814UGJBbFxNIKlnF39kg
+ 8as=
+X-SBRS: 5.1
+X-MesageID: 44554905
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:wg7wpKxkSUIUooPQYVG+KrPw1r1zdoMgy1knxilNoHxuH/BwWf
+ rPoB17726RtN91YhsdcL+7V5VoLUmzyXcX2/h1AV7BZniEhILAFugLgbcKqweKJ8SUzJ8+6U
+ 4PSclD4N2bNykGsS75ijPIb+rJFrO8gd+VbeS19QYScelzAZsQiDuQkmygYzZLrA8tP+teKL
+ OsovBpihCHYnotYsGyFhA+LpL+T42iruOeXfYebSRXkDWzsQ==
+X-IronPort-AV: E=Sophos;i="5.83,228,1616472000"; 
+   d="scan'208";a="44554905"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BlOuFGECeNXXnodsAuPL0ck6u+yJ5A3ncLqLz49CzAtYCDhosO+8qCyfV9atjCZCyeTuLUbfB9X0gFpe3e0HjTvosIFRv5XOHEdzgSGLDdBHZ8v9D7/4HUpLN52hGsnEc/66ouJjCtxJJR1yRWoLaxIvSqTYRmpRLU3N/mjy08ryS0Swr7ETNVdD2tcCIk192T9AOTHEgxl67uYXdfpow1xAaw5QWzXsr5FYyJfwpdwyIS+3K+Y3SVYpq0+YaViEEmXNg5rkK+sOU56J/oDKZbH8VGIec+x/2H6ZFnPg5+OVZEgFM924xqhqRQ+1j+V8rr2PJkzcEInKSjBgN/fCSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w1teCrWfmmiQ8bQ1vlAiJ+AFkxAwdFFR4+rekFGhQ2E=;
+ b=A/OHQrS3QVpuWxctGMiy+IJL8JO2m0X2L++VN4gp3q4g0vakSkvZedbsRxPajwtAR6iPKP9yzwBQuLoKsO+rEMhOaf4oyxaAWR+37ejWOcpx3AX6xVoipy4JUqKfWIsnoXKcTaGF522oPn/obaMTgNjIpgPeCtAKeVhzU4wZ6sZGTBCg5/GuRdFEgukE8vCkih1wUaur7OA1CbeKwfm60sIUD0J99PMbQNVbk6+8mvAg+O5wC3KizSmV4fFaVw2Wd6/SQIyGsVKmy36i5OyaEKFKj5V8WIdVN9WYC6LUOIDS6XSaU7AY9sdj+y4mRfUPu5VI34KBA3DXlNoeM3zvSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=NAQh85zqlrqU3U8Zet/U5O161m4aLohptXwLJ00vp7M=;
-        b=LEZ5WDtaYWfo4c5/fjjSdp8o/RM39v3dXUbduKnqVKj0W4BsEaW2HGs1teXN46+DW5
-         2deKKjTLmvZDv+kpPZqbSs4+cb7pdCp73DkxAoCrgf1yj2ElHLcd4NwNyDK8qFnwNZMH
-         q0IYfR0+pnMB/zHhWVieulior6q/xK3diG0qA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=NAQh85zqlrqU3U8Zet/U5O161m4aLohptXwLJ00vp7M=;
-        b=YyRX63yb4Z1tW4NtZ2XJaJfA4nvZ86kbwGAJ18uJ9ACvGAFjMRtaplO7ivpJMEPkne
-         Ix79e7UqhQzKjrUURo9efIlViliGDQySxjDei7KuzU4qxmG2xDlKp8Pi3BEK8pWQVMYT
-         HqMlShPxUF7XjiEUm+mulr9yTao6btSlqIHXPZmI798cV7nbhVpIX6c6JALs4IVpdsy/
-         P2N/qr9lrC5G2In3KO/V9/JfiP7GEMX8XYZnPG90GjvzzkkDjumgErCubS7h/r3D5v/d
-         B/rgJ3qEunXpMjyTqrvojVUzdqil4ivcA97XFI/ymqq92FEo+H5uHoYDfYxj0US93JTC
-         TZqQ==
-X-Gm-Message-State: AOAM531LzfWx43RR9fsjDPbRbSN69gPlJ1lyDj6Z+tdwtqERzYcn/fc9
-	FJETj0GqH2K/srCDbp/2QHhesb7P++N6pA8FQuWGr5djvI9ccA==
-X-Google-Smtp-Source: ABdhPJyNe1DId2Qqz0Zt91JvVDkPgAInkZ2THy9mjnoTgqpTFEk58e5V2gz2I5olzrfEkwn7FJJucKd4gN638pg1WT4=
-X-Received: by 2002:a05:6402:1344:: with SMTP id y4mr1860287edw.285.1622138114211;
- Thu, 27 May 2021 10:55:14 -0700 (PDT)
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w1teCrWfmmiQ8bQ1vlAiJ+AFkxAwdFFR4+rekFGhQ2E=;
+ b=BpxVlg6m/Pmq0pqWeF7FssJscsCF4JEeTTwQXzOb0lpRGSrEkY0CTYPeygKfmJqM4Cj+K7wpYkoBnJ9mKZtZy+7QzzJcJM0W99bIAjbjkvzwCvZfmLDUjojhzl6DOKACR8mKup16afR5q0qNSU7Xga+Kc/3Oa9Jn1HYU/korlGY=
+Subject: Re: [PATCH 3/3] x86/tsx: Deprecate vpmu=rtm-abort and use tsx=<bool>
+ instead
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+	<JBeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20210527132519.21730-1-andrew.cooper3@citrix.com>
+ <20210527132519.21730-4-andrew.cooper3@citrix.com>
+ <YK/VtuUatxX6lQuo@Air-de-Roger>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <01c81aac-c349-1650-c147-140f77ad6f1a@citrix.com>
+Date: Thu, 27 May 2021 19:33:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <YK/VtuUatxX6lQuo@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0031.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:151::18) To BN7PR03MB3618.namprd03.prod.outlook.com
+ (2603:10b6:406:c3::27)
 MIME-Version: 1.0
-From: Deb Giles <dgiles@linuxfoundation.org>
-Date: Thu, 27 May 2021 12:54:37 -0500
-Message-ID: <CAFcyGRrEHTd-ZMsSkML67Om-uukiSfhYLyp0Ddza7pmo1Jz-2w@mail.gmail.com>
-Subject: Design Session Notes
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="000000000000133f0205c35376c8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6563b488-8b31-4de8-5dcc-08d9213de34d
+X-MS-TrafficTypeDiagnostic: BN6PR03MB2865:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN6PR03MB2865CB134EED059DC33DA166BA239@BN6PR03MB2865.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0+W1caXvKpen1+NY6MTW8pS2DO6D1+aW49Tp0q92mF3bdcYo6JpLNu4rFECm5kCK59Hu0ICZaiU9qnwfYGYSt5eTIlFqAqLcrBeo6Q4fEc45gTqDzSNwLm+c99wk7bRm83B8sbWV7Hwej61lwFfHlJcssYz69kzEmZxuHWR0DTDXZR4EvXpwjDUiLtUihM5gp+o0qJ6/DNkHlpTEzowFYgZR85395CPgAEqKPVGAaZBm53NwsQXIv59SwPYGM3a46NquMGmYFedMfS63dTTiHxTF8AJURwEy/DRy90lvI1BrO5k5kvw+Ij2+Pp/32gsZ8LqR0PCkIccWxqAhf034R7mratx2k6er0azAwMMfYr9TiSn6KmM7BJFaf0cwDEYRaDO4YhYV/lJIDW5sX4mW45KHvsCUDNfilWIDiRGjXyMLzIVbeiQVnTZBaKZ6loWFDNyni787WC7a1rZU5yJ4Ppvj8IQWE8qRm6DJSGzyuY/G3km2oCt6wLUVG+P/tbanbUKu2QQ9DQl+9GimjqIHrZQwOte7n4XIuZ6yRb7toQlZiYw7Bd1CH+n3rLuTZat/ibc6w/QO8hdlIk/bXDUzICwFPeQSKxEplWdwTFWJjfhvLZI7+SWRSUsGsZBqKJ1VrzMR0WQu6/syC8ZVueWKmXDpi7KiafHp9Wku5SmXdJURY5FNUougZOE0mesb9BLiibfsJ1GhpYbOJU1gNNms6g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(346002)(376002)(396003)(366004)(39860400002)(31696002)(2616005)(6636002)(54906003)(66476007)(478600001)(6862004)(6486002)(53546011)(6666004)(36756003)(4326008)(31686004)(16576012)(8936002)(83380400001)(2906002)(316002)(16526019)(38100700002)(66556008)(37006003)(956004)(66946007)(26005)(5660300002)(186003)(8676002)(86362001)(10944003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VlZSMVdDeHR0OTRvOTBxZUtGWFN1RTBvOTBWQXBTV1RCQTV0VGJIM3VaWEpC?=
+ =?utf-8?B?U3N0cGV4U0pXZXRWZU5jYm1uWjBQZmEwbjdIMG1HVHpkN1V5bVh1MVg4bFpN?=
+ =?utf-8?B?MGNmRUpKSHN6UXBGZWN5UllpNFlhNzdna2wxVkxjV1d3WjBpUjBaYTBzam5G?=
+ =?utf-8?B?YzNMbTNtMXhvVnVTay9mcFZxOWdVSkY0SzNQakw0bzFXME9Qazc3b1ovbWZq?=
+ =?utf-8?B?VUxqcE5EZjN5TWZSM3lZSHVxME4yQ1lPU0NZUmxtVnIvZDdXR1dwSmRBQTh4?=
+ =?utf-8?B?TlFHeTFYNTNBQ0J1TDFwNXJOKzMwODdXeWhKOWxtcEhabHVsQnJpN0dWNGdn?=
+ =?utf-8?B?MDZNb0l4bzZXQld5dlQ5V0lMaFJDazVpSFREc3N2dnBkNkRvemx5TkxDSEpD?=
+ =?utf-8?B?NVBOOGp2ck5EK2dQcFEzRjhOVmVYWlY3Uk9nVnd3U3luVzhNU2E1dW45cHk1?=
+ =?utf-8?B?aWE4Q2wzNVpwamFQMS8rMTN3N0FTTHRVajk3dFk3TUJhd3Iwa0p4b041Ni96?=
+ =?utf-8?B?c1dvSEhzZEFmWVF2UUpOMEVpQXBPY1p5cUVjOTVuNXdvZ084aUtpYVpWdklD?=
+ =?utf-8?B?NWFUay9UNDBxZzh2QVFoankzbnN5VkRsQXB1Y2hERU1EalVuYnMxNXF4SlhR?=
+ =?utf-8?B?a09tSzJKemRzdjFsSyt2WkJlZlJadldlV3BvWTdXTWFIUVB4SC9wOXVJK2Ji?=
+ =?utf-8?B?b1pkeHhYdGU5d21qVWE3aFNyT3Z0TVVEZm9hVnNOSDlqSUM4RGRMTVZNYUY4?=
+ =?utf-8?B?UUxXaGFJbzgrZVFEUE9UdWs3MS9JdkRKZ1B6a3RRcVc5d2xkdFB1c1V1L2NB?=
+ =?utf-8?B?c0k3TFRJMTNTSUNPNjYwTmRDS2Z2b2RNMmZ1UEVJQ0lXSVRWRFRKS28xWmI2?=
+ =?utf-8?B?K1VOK1Z2WWtybktZWVB6a0FKeFdDM09SNHdKamFENVNFc0N0SHZwVERyNHcx?=
+ =?utf-8?B?M2EvWEdHYis4ZFJDV0lFN0xEOVBxZDJIVGRtRHFXbXlGeHUzTWVjeTlma3py?=
+ =?utf-8?B?cmRIeWttbi9hYy9pcy90TGdoNHRsTENLUHozeHM1ZXUzcFczajd5ZnU2R0t0?=
+ =?utf-8?B?K0dQUHdsdEF3VXNWUHM1RnBLTFo1WG1nem1GTVlKYmEyT3V3ZU1oRlZERWFB?=
+ =?utf-8?B?cFc2L2xZMFRpd3N3dWx2bDliVmRwOHE3V2FrRzcwbXBland4azRDdnpUNkR0?=
+ =?utf-8?B?Wk92L21Bd3JDZk90blB3SmQvNkRsdXVKS3pnTGlQRFB3U005V1VZMHFRWDBx?=
+ =?utf-8?B?YXY0T0ZzWW4wUUpHNnd0MFBXSXQ3SWIxMFB2SDgvMFlWeE13NVI5R0NRSEU5?=
+ =?utf-8?B?SnFRdVJwNXBYRzNCeGp0dTBnSGpNbnZqa0FSOWVndVdsWkxhdnBNZWJmWWFz?=
+ =?utf-8?B?aS81TlVMcnFFaXR0VFpvQW80Vi9GNEVFZmlxOFdOQzkxVzZrRjhVcDVsb2kx?=
+ =?utf-8?B?Q0FKUWVaS1V0dHpIbDdvR240b2U3UTF1UDhIV3Y0YmVBREVaTmRMYmNUOStQ?=
+ =?utf-8?B?elUzM01VRU05M0h6RVpqNlZkWHp0blhHVGJyekZDaHF6Q3U1b2JCbzEvM3Ey?=
+ =?utf-8?B?dnNtOXMzbjJ6U1liTU5ySGM3amlEMTR6Qi9SRGc0VHUzNit3NC95dEp0N0VM?=
+ =?utf-8?B?TFc5TngxRzd0enh5dWZLMUcrdm9kdnlwM2E5YnUrNUhtNUJaSC9kTmRmUXYr?=
+ =?utf-8?B?akQ3UFZheWtPcTVIdGgxdkJvMDEwUEZQUjZ4cENacFRQdEVyMjF3dDcrTDdo?=
+ =?utf-8?Q?z7yjB/rZ7mkGQJkL9lIbu01W9c0wo+XO8QjlR/d?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6563b488-8b31-4de8-5dcc-08d9213de34d
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2021 18:33:14.2554
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7DtOABnXdZWXBBDi7MQcEr7tZGIyEI9Mulj3dQIMaWXnLAnmk+7KAysainNU1KC3gI2OWarrdZY7U7xrA5NfoeBhnwJ2/Ofpa/rLvQt7o2A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB2865
+X-OriginatorOrg: citrix.com
 
---000000000000133f0205c35376c8
-Content-Type: multipart/alternative; boundary="000000000000133f0105c35376c6"
+On 27/05/2021 18:24, Roger Pau Monné wrote:
+> On Thu, May 27, 2021 at 02:25:19PM +0100, Andrew Cooper wrote:
+>> This reuses the rtm_disable infrastructure, so CPUID derivation works properly
+>> when TSX is disabled in favour of working PCR3.
+>>
+>> vpmu= is not a supported feature, and having this functionality under tsx=
+>> centralises all TSX handling.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
---000000000000133f0105c35376c6
-Content-Type: text/plain; charset="UTF-8"
+Thanks.
 
-Hi Everyone,
+>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> ---
+>>  docs/misc/xen-command-line.pandoc | 40 +++++++++++++++---------------
+>>  xen/arch/x86/cpu/intel.c          |  3 ---
+>>  xen/arch/x86/cpu/vpmu.c           |  4 +--
+>>  xen/arch/x86/tsx.c                | 51 +++++++++++++++++++++++++++++++++++++--
+>>  xen/include/asm-x86/vpmu.h        |  1 -
+>>  5 files changed, 70 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+>> index c32a397a12..a6facc33ea 100644
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -2296,14 +2296,21 @@ pages) must also be specified via the tbuf_size parameter.
+>>  
+>>  Controls for the use of Transactional Synchronization eXtensions.
+>>  
+>> -On Intel parts released in Q3 2019 (with updated microcode), and future parts,
+>> -a control has been introduced which allows TSX to be turned off.
+>> +Several microcode updates are relevant:
+>>  
+>> -On systems with the ability to turn TSX off, this boolean offers system wide
+>> -control of whether TSX is enabled or disabled.
+>> + * March 2019, fixing the TSX memory ordering errata on all TSX-enabled CPUs
+>> +   to date.  Introduced MSR_TSX_FORCE_ABORT on SKL/SKX/KBL/WHL/CFL parts.  The
+>> +   errata workaround uses Performance Counter 3, so the user can select
+>> +   between working TSX and working perfcounters.
+>>  
+>> -On parts vulnerable to CVE-2019-11135 / TSX Asynchronous Abort, the following
+>> -logic applies:
+>> + * November 2019, fixing the TSX Async Abort speculative vulnerability.
+>> +   Introduced MSR_TSX_CTRL on all TSX-enabled MDS_NO parts to date,
+>> +   CLX/WHL-R/CFL-R, with the controls becoming architectural moving forward
+>> +   and formally retiring HLE from the architecture.  The user can disable TSX
+>> +   to mitigate TAA, and elect to hide the HLE/RTM CPUID bits.
+>> +
+>> +On systems with the ability to disable TSX off, this boolean offers system
+>> +wide control of whether TSX is enabled or disabled.
+>>  
+>>   * An explicit `tsx=` choice is honoured, even if it is `true` and would
+>>     result in a vulnerable system.
+>> @@ -2311,10 +2318,14 @@ logic applies:
+>>   * When no explicit `tsx=` choice is given, parts vulnerable to TAA will be
+>>     mitigated by disabling TSX, as this is the lowest overhead option.
+>>  
+>> - * If the use of TSX is important, the more expensive TAA mitigations can be
+>> +   If the use of TSX is important, the more expensive TAA mitigations can be
+>>     opted in to with `smt=0 spec-ctrl=md-clear`, at which point TSX will remain
+>>     active by default.
+>>  
+>> + * When no explicit `tsx=` option is given, parts susceptible to the memory
+>> +   ordering errata default to `true` to enable working TSX.  Alternatively,
+>> +   selecting `tsx=0` will disable TSX and restore PCR3 to a working state.
+>> +
+>>  ### ucode
+>>  > `= List of [ <integer> | scan=<bool>, nmi=<bool>, allow-same=<bool> ]`
+>>  
+>> @@ -2456,20 +2467,7 @@ provide access to a wealth of low level processor information.
+>>  
+>>  *   The `arch` option allows access to the pre-defined architectural events.
+>>  
+>> -*   The `rtm-abort` boolean controls a trade-off between working Restricted
+>> -    Transactional Memory, and working performance counters.
+>> -
+>> -    All processors released to date (Q1 2019) supporting Transactional Memory
+>> -    Extensions suffer an erratum which has been addressed in microcode.
+>> -
+>> -    Processors based on the Skylake microarchitecture with up-to-date
+>> -    microcode internally use performance counter 3 to work around the erratum.
+>> -    A consequence is that the counter gets reprogrammed whenever an `XBEGIN`
+>> -    instruction is executed.
+>> -
+>> -    An alternative mode exists where PCR3 behaves as before, at the cost of
+>> -    `XBEGIN` unconditionally aborting.  Enabling `rtm-abort` mode will
+>> -    activate this alternative mode.
+>> +*   The `rtm-abort` boolean has been superseded.  Use `tsx=0` instead.
+>>  
+>>  *Warning:*
+>>  As the virtualisation is not 100% safe, don't use the vpmu flag on
+>> diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+>> index 37439071d9..abf8e206d7 100644
+>> --- a/xen/arch/x86/cpu/intel.c
+>> +++ b/xen/arch/x86/cpu/intel.c
+>> @@ -356,9 +356,6 @@ static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
+>>  	    (c->x86_model == 29 || c->x86_model == 46 || c->x86_model == 47))
+>>  		__set_bit(X86_FEATURE_CLFLUSH_MONITOR, c->x86_capability);
+>>  
+>> -	if (cpu_has_tsx_force_abort && opt_rtm_abort)
+>> -		wrmsrl(MSR_TSX_FORCE_ABORT, TSX_FORCE_ABORT_RTM);
+>> -
+>>  	probe_c3_errata(c);
+>>  }
+>>  
+>> diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+>> index d8659c63f8..16e91a3694 100644
+>> --- a/xen/arch/x86/cpu/vpmu.c
+>> +++ b/xen/arch/x86/cpu/vpmu.c
+>> @@ -49,7 +49,6 @@ CHECK_pmu_params;
+>>  static unsigned int __read_mostly opt_vpmu_enabled;
+>>  unsigned int __read_mostly vpmu_mode = XENPMU_MODE_OFF;
+>>  unsigned int __read_mostly vpmu_features = 0;
+>> -bool __read_mostly opt_rtm_abort;
+>>  
+>>  static DEFINE_SPINLOCK(vpmu_lock);
+>>  static unsigned vpmu_count;
+>> @@ -79,7 +78,8 @@ static int __init parse_vpmu_params(const char *s)
+>>          else if ( !cmdline_strcmp(s, "arch") )
+>>              vpmu_features |= XENPMU_FEATURE_ARCH_ONLY;
+>>          else if ( (val = parse_boolean("rtm-abort", s, ss)) >= 0 )
+>> -            opt_rtm_abort = val;
+>> +            printk(XENLOG_WARNING
+>> +                   "'rtm-abort=<bool>' superseded.  Use 'tsx=<bool>' instead\n");
+>>          else
+>>              rc = -EINVAL;
+>>  
+>> diff --git a/xen/arch/x86/tsx.c b/xen/arch/x86/tsx.c
+>> index 98ecb71a4a..338191df7f 100644
+>> --- a/xen/arch/x86/tsx.c
+>> +++ b/xen/arch/x86/tsx.c
+>> @@ -6,7 +6,9 @@
+>>   * Valid values:
+>>   *   1 => Explicit tsx=1
+>>   *   0 => Explicit tsx=0
+>> - *  -1 => Default, implicit tsx=1, may change to 0 to mitigate TAA
+>> + *  -1 => Default, altered to 0/1 (if unspecified) by:
+>> + *                 - TAA heuristics/settings for speculative safety
+>> + *                 - "TSX vs PCR3" select for TSX memory ordering safety
+>>   *  -3 => Implicit tsx=1 (feed-through from spec-ctrl=0)
+>>   *
+>>   * This is arranged such that the bottom bit encodes whether TSX is actually
+>> @@ -50,6 +52,26 @@ void tsx_init(void)
+>>  
+>>          cpu_has_tsx_ctrl = !!(caps & ARCH_CAPS_TSX_CTRL);
+>>  
+>> +        if ( cpu_has_tsx_force_abort )
+>> +        {
+>> +            /*
+>> +             * On an early TSX-enable Skylake part subject to the memory
+>> +             * ordering erratum, with at least the March 2019 microcode.
+>> +             */
+>> +
+>> +            /*
+>> +             * If no explicit tsx= option is provided, pick a default.
+>> +             *
+>> +             * This deliberately overrides the implicit opt_tsx=-3 from
+>> +             * `spec-ctrl=0` because:
+>> +             * - parse_spec_ctrl() ran before any CPU details where know.
+>> +             * - We now know we're running on a CPU not affected by TAA (as
+>> +             *   TSX_FORCE_ABORT is enumerated).
+>> +             */
+>> +            if ( opt_tsx < 0 )
+>> +                opt_tsx = 1;
+>> +        }
+>> +
+>>          /*
+>>           * The TSX features (HLE/RTM) are handled specially.  They both
+>>           * enumerate features but, on certain parts, have mechanisms to be
+>> @@ -75,6 +97,12 @@ void tsx_init(void)
+>>          }
+>>      }
+>>  
+>> +    /*
+>> +     * Note: MSR_TSX_CTRL is enumerated on TSX-enabled MDS_NO and later parts.
+>> +     * MSR_TSX_FORCE_ABORT is enumerated on TSX-enabled pre-MDS_NO Skylake
+>> +     * parts only.  The two features are on a disjoint set of CPUs, and not
+>> +     * offered to guests by hypervisors.
+>> +     */
+>>      if ( cpu_has_tsx_ctrl )
+>>      {
+>>          uint32_t hi, lo;
+>> @@ -90,9 +118,28 @@ void tsx_init(void)
+>>  
+>>          wrmsr(MSR_TSX_CTRL, lo, hi);
+>>      }
+>> +    else if ( cpu_has_tsx_force_abort )
+>> +    {
+>> +        /*
+>> +         * On an early TSX-enable Skylake part subject to the memory ordering
+>> +         * erratum, with at least the March 2019 microcode.
+>> +         */
+>> +        uint32_t hi, lo;
+>> +
+>> +        rdmsr(MSR_TSX_FORCE_ABORT, lo, hi);
+>> +
+>> +        /* Check bottom bit only.  Higher bits are various sentinels. */
+>> +        rtm_disabled = !(opt_tsx & 1);
+> I think you also calculate rtm_disabled in the previous if case
+> (cpu_has_tsx_ctrl), maybe that could be pulled out?
 
-Attached are the notes from the Design Session on VirtuIO Cross-Project BoF
-(Birds of a Feather) for Xen and Guest OS (Linux, Windows, FreeBSD)
-developers.
+rtm_disabled needs to not become true if !cpu_has_tsx_ctrl ||
+!cpu_has_tsx_force_abort
 
-Thanks,
+Otherwise we'll default to disabling the CPUID bits even systems when we
+can't we can't actually control TSX behaviour.
 
-Deb
-
-Deb Giles
-Event Manager
-The Linux Foundation
-+1.503.807.1876 (Time Zone: Central Time)
-
-*Schedule a Meeting with Me* <https://calendly.com/debgiles>
-
---000000000000133f0105c35376c6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:tahoma,s=
-ans-serif">Hi Everyone,</div><div class=3D"gmail_default" style=3D"font-fam=
-ily:tahoma,sans-serif"><br></div><div class=3D"gmail_default" style=3D"font=
--family:tahoma,sans-serif">Attached are the notes from the Design Session o=
-n VirtuIO Cross-Project BoF (Birds of a Feather) for Xen and Guest OS (Linu=
-x, Windows, FreeBSD) developers.</div><div class=3D"gmail_default" style=3D=
-"font-family:tahoma,sans-serif"><br></div><div class=3D"gmail_default" styl=
-e=3D"font-family:tahoma,sans-serif">Thanks,</div><div class=3D"gmail_defaul=
-t" style=3D"font-family:tahoma,sans-serif"><br></div><div class=3D"gmail_de=
-fault" style=3D"font-family:tahoma,sans-serif">Deb</div><div class=3D"gmail=
-_default" style=3D"font-family:tahoma,sans-serif"><br></div><div><div dir=
-=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
-dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"lt=
-r"><div><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"=
-><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><font color=3D"#888888"=
->Deb Giles</font><br style=3D"color:rgb(136,136,136);font-size:12.8px"><spa=
-n style=3D"color:rgb(136,136,136);font-size:12.8px">Event Manager</span><br=
- style=3D"color:rgb(136,136,136);font-size:12.8px"><span style=3D"color:rgb=
-(136,136,136);font-size:12.8px">The Linux Foundation</span></div><div><a hr=
-ef=3D"tel:%2B1.503.807.1876" value=3D"+14153684840" style=3D"font-size:12.8=
-px;color:rgb(17,85,204)" target=3D"_blank">+1.503.807.1876</a>=C2=A0<span s=
-tyle=3D"color:rgb(136,136,136);font-size:12.8px">(Time Zone: Central Time)<=
-/span></div><div><span style=3D"color:rgb(136,136,136);font-size:12.8px"><b=
-r></span></div><div><span style=3D"font-size:12.8px"><a href=3D"https://cal=
-endly.com/debgiles" target=3D"_blank"><font color=3D"#000000"><b>Schedule a=
- Meeting with Me</b></font></a></span></div><div dir=3D"ltr"><div style=3D"=
-color:rgb(136,136,136);font-size:12.8px"></div></div></div></div></div></di=
-v></div></div></div></div></div></div></div></div></div></div></div></div><=
-/div>
-
---000000000000133f0105c35376c6--
---000000000000133f0205c35376c8
-Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document; 
-	name="xl interface.docx"
-Content-Disposition: attachment; filename="xl interface.docx"
-Content-Transfer-Encoding: base64
-Content-ID: <f_kp77046z0>
-X-Attachment-Id: f_kp77046z0
-
-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
---000000000000133f0205c35376c8--
+~Andrew
 
