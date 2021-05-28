@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DBB43944EB
-	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 17:18:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133999.249545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 622B4394513
+	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 17:29:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134005.249555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmeFf-0001dL-U1; Fri, 28 May 2021 15:18:19 +0000
+	id 1lmePZ-000359-TM; Fri, 28 May 2021 15:28:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133999.249545; Fri, 28 May 2021 15:18:19 +0000
+Received: by outflank-mailman (output) from mailman id 134005.249555; Fri, 28 May 2021 15:28:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmeFf-0001aa-Qj; Fri, 28 May 2021 15:18:19 +0000
-Received: by outflank-mailman (input) for mailman id 133999;
- Fri, 28 May 2021 15:18:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W+lD=KX=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1lmeFe-0001aU-Ht
- for xen-devel@lists.xenproject.org; Fri, 28 May 2021 15:18:18 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c27dea2c-51ef-4644-ba42-18836297bab1;
- Fri, 28 May 2021 15:18:17 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E03C41FD2F;
- Fri, 28 May 2021 15:18:16 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 072E811906;
- Fri, 28 May 2021 15:18:15 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id jNhaObcJsWC+DAAALh3uQQ
- (envelope-from <dfaggioli@suse.com>); Fri, 28 May 2021 15:18:15 +0000
+	id 1lmePZ-00032W-Q2; Fri, 28 May 2021 15:28:33 +0000
+Received: by outflank-mailman (input) for mailman id 134005;
+ Fri, 28 May 2021 15:28:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lmePY-00032Q-F6
+ for xen-devel@lists.xenproject.org; Fri, 28 May 2021 15:28:32 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lmePU-0000l4-6J; Fri, 28 May 2021 15:28:28 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lmePT-0002Gs-Vj; Fri, 28 May 2021 15:28:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,117 +39,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c27dea2c-51ef-4644-ba42-18836297bab1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622215096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=we9YjhvjOoTuBvT2KSjS85nvFYPt8UnNItAKK7Irsmk=;
-	b=WmDX6XUFF7mbuEykS+nioj3EfAsKpP+J+BPtSdRqI1fb02Uv5I0Pxf3BYdpP8JjL0VdtO/
-	NLBUyuatiLwfH8BMevN4RaG1VBv3yv8hhrdt4Lr8y5lqCUQaf5Qf/wbHmezmSube4OIf8J
-	wXB5JW9vDElnjCZTYK9Mf9m8O6qSyCY=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622215096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=we9YjhvjOoTuBvT2KSjS85nvFYPt8UnNItAKK7Irsmk=;
-	b=WmDX6XUFF7mbuEykS+nioj3EfAsKpP+J+BPtSdRqI1fb02Uv5I0Pxf3BYdpP8JjL0VdtO/
-	NLBUyuatiLwfH8BMevN4RaG1VBv3yv8hhrdt4Lr8y5lqCUQaf5Qf/wbHmezmSube4OIf8J
-	wXB5JW9vDElnjCZTYK9Mf9m8O6qSyCY=
-Message-ID: <ab4e6ff41a08a874bba805873c94e0d8fa1d0986.camel@suse.com>
-Subject: Re: Ping: [Bugfix PATCH for-4.15] xen: credit2: fix per-entity load
- tracking when continuing running
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Date: Fri, 28 May 2021 17:18:15 +0200
-In-Reply-To: <a3f31cde-f1e5-e643-28bc-cdb2b36f372d@suse.com>
-References: <161615605709.5036.4052641880659992679.stgit@Wayrath>
-	 <a3f31cde-f1e5-e643-28bc-cdb2b36f372d@suse.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-+F0ocCRSGkHJGFd8OTX0"
-User-Agent: Evolution 3.40.1 (by Flathub.org) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=R/moMEWBQRAgkgeccBxxZhe4pxMQezg1ErEy4FNVmVM=; b=1+LWuObCW3ZRGkbMxmFe9e6X4x
+	5ERaKvgkGNJkji2RPYd8fm+KB3Awjq8rzwh7GU9ep6vMteAtP+p/qy5fW1Xd4nBVUvHSnTj+uXwFO
+	adcZ4/geumUKmltrOF6ov/EVb+7L+6v4ksND5SCYBBbUuAdOqMF3YE2qRf53XK0hhHsQ=;
+Subject: Re: What's missing for arm64 Xen boot with FDT via Grub in Debian
+ Bullseye?
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ Debian Install System Team <debian-boot@lists.debian.org>,
+ pkg-grub-devel@alioth-lists.debian.net,
+ pkg-xen-devel@lists.alioth.debian.org, xen-devel@lists.xenproject.org
+Cc: Steve McIntyre <93sam@debian.org>,
+ Ruchika Gupta <ruchika.gupta@linaro.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ qemu-arm <qemu-arm@nongnu.org>
+References: <87mtse2ac8.fsf@linaro.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0df82c26-078a-83de-952c-cbad06b3ad2d@xen.org>
+Date: Fri, 28 May 2021 16:28:25 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-Authentication-Results: imap.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: -2.10
-X-Spamd-Result: default: False [-2.10 / 100.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 SIGNED_PGP(-2.00)[];
-	 RCVD_NO_TLS_LAST(0.10)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:~];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 MID_RHS_MATCH_FROM(0.00)[]
-X-Spam-Flag: NO
+In-Reply-To: <87mtse2ac8.fsf@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
 
---=-+F0ocCRSGkHJGFd8OTX0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2021-04-27 at 10:35 +0200, Jan Beulich wrote:
-> On 19.03.2021 13:14, Dario Faggioli wrote:
-> >=20
-> > ---
-> > Cc: George Dunlap <george.dunlap@citrix.com>
-> > Cc: Ian Jackson <iwj@xenproject.org>
-> > ---
-> > Despite the limited effect, it's a bug. So:
-> > - it should be backported;
-> > - I think it should be included in 4.15. The risk is pretty low,
-> > for
-> > =C2=A0 the same reasons already explained when describing its limited
-> > impact.
->=20
-> I'm a little puzzled to find this is still in my waiting-to-go-in
-> folder, for not having had an ack (or otherwise). George?
->=20
-Yeah, and it probably still is, so... George? :-D
+On 28/05/2021 13:49, Alex Bennée wrote:
+> 
+> Hi,
 
-BTW, I'm dropping IanJ as, quite obviously,this won't go in 4.15. :-P
-It should however (after it goes in) be backported (to 4.15 and
-probably even earlier... I can have a look myself if it helps).
+Hi Alex,
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+> I'm currently trying to pull together the threads for booting Xen on
+> Debian. I'm currently doing this within QEMU's TCG emulation and the
+> "virt" machine model:
+> 
+>    -machine type=virt,virtualization=on,gic-version=3 \
+>    -cpu max,pauth-impdef=on
+> 
+> with the firmware on my Ubuntu machine:
+> 
+>    -drive if=pflash,file=/usr/share/AAVMF/AAVMF_CODE.fd,format=raw,readonly=on -drive if=pflash,file=$HOME/images/AAVMF_VARS.fd,format=raw
+> 
+> (qemu-efi-aarch64 Version: 0~20180205.c0d9813c-2ubuntu0.3)
+> 
+> When booting this way I get the Grub menu and Xen is loaded by Grub but
+> falls over later:
+> 
+>    (XEN) MODULE[0]: 00000000f5869000 - 00000000f59b60c8 Xen
+>    (XEN) MODULE[1]: 000000013857d000 - 0000000138580000 Device Tree
+>    (XEN) MODULE[2]: 00000000f73a1000 - 00000000f8da0780 Kernel
+>    (XEN) MODULE[3]: 00000000f59b7000 - 00000000f739f99b Ramdisk
+>    (XEN)
+>    (XEN) CMDLINE[00000000f73a1000]:chosen placeholder root=UUID=435201aa-c5cf-4e7a-8107-5eef28844188 ro console=hvc0
+>    (XEN)
+>    (XEN) Command line: placeholder dom0_mem=2G loglvl=all guest_loglvl=all no-real-mode edd=off
+>    (XEN) parameter "placeholder" unknown!
+>    (XEN) parameter "no-real-mode" unknown!
+>    (XEN) parameter "edd" unknown!
+>    (XEN) Domain heap initialised
+>    (XEN) Booting using Device Tree
+>    (XEN) Platform: Generic System
+>    (XEN)
+>    (XEN) ****************************************
+>    (XEN) Panic on CPU 0:
+>    (XEN) Unable to find a compatible timer in the device tree
+>    (XEN) ****************************************
+> 
+> It seems like there are bits of the DT missing. I can however
+> successfully boot Xen with the Linux guest using the guest-loader device
+> and bypassing the firmware/boot code step. This gives:
+> 
+>    (XEN) MODULE[0]: 0000000040200000 - 000000004034d0c8 Xen
+>    (XEN) MODULE[1]: 0000000048000000 - 0000000048100000 Device Tree
+>    (XEN) MODULE[2]: 0000000046000000 - 0000000046eb2200 Kernel
+>    (XEN)
+>    (XEN) CMDLINE[0000000046000000]:chosen root=/dev/sda2 console=hvc0 earlyprintk=xen
+>    (XEN)
+>    (XEN) Command line: dom0_mem=4G dom0_max_vcpus=4
+>    (XEN) Domain heap initialised
+>    (XEN) Booting using Device Tree
+>    (XEN) Platform: Generic System
+>    (XEN) Taking dtuart configuration from /chosen/stdout-path
+>    (XEN) Looking for dtuart at "/pl011@9000000", options ""
+>     Xen 4.15.1-pre
+>    (XEN) Xen version 4.15.1-pre (alex.bennee@) (aarch64-linux-gnu-gcc (Debian 8.3.0-2) 8.3.0) debug=y Tue May 18 09:34:55 UTC 2021
+>    (XEN) Latest ChangeSet:
+>    (XEN) build-id: a50d8f03a1a15662ac7c4e5f73f2f544a6739df2
+>    (XEN) Processor: 411fd070: "ARM Limited", variant: 0x1, part 0xd07, rev 0x0
+>    (XEN) 64-bit Execution:
+>    (XEN)   Processor Features: 0000000001000222 0000000000000000
+>    (XEN)     Exception Levels: EL3:No EL2:64+32 EL1:64+32 EL0:64+32
+>    (XEN)     Extensions: FloatingPoint AdvancedSIMD GICv3-SysReg
+>    (XEN)   Debug Features: 0000000010305106 0000000000000000
+>    (XEN)   Auxiliary Features: 0000000000000000 0000000000000000
+>    (XEN)   Memory Model Features: 0000000000001124 0000000000000000
+>    (XEN)   ISA Features:  0000000000011120 0000000000000000
+>    (XEN) 32-bit Execution:
+>    (XEN)   Processor Features: 00000131:10011001
+>    (XEN)     Instruction Sets: AArch32 A32 Thumb Thumb-2 Jazelle
+>    (XEN)     Extensions: GenericTimer
+>    (XEN)   Debug Features: 03010066
+>    (XEN)   Auxiliary Features: 00000000
+>    (XEN)   Memory Model Features: 10101105 40000000 01260000 02102211
+>    (XEN)  ISA Features: 02101110 13112111 21232042 01112131 00011142 00011121
+>    (XEN) Using SMC Calling Convention v1.0
+>    (XEN) Using PSCI v0.2
+>    (XEN) SMP: Allowing 8 CPUs
+>    (XEN) enabled workaround for: ARM erratum 832075
+>    (XEN) enabled workaround for: ARM erratum 834220
+>    (XEN) enabled workaround for: ARM erratum 1319367
+>    (XEN) Generic Timer IRQ: phys=30 hyp=26 virt=27 Freq: 62500 KHz
+>    (XEN) GICv3 initialization:
+>    (XEN)       gic_dist_addr=0x00000008000000
+>    (XEN)       gic_maintenance_irq=25
+>    (XEN)       gic_rdist_stride=0
+>    (XEN)       gic_rdist_regions=1
+>    (XEN)       redistributor regions:
+>    (XEN)         - region 0: 0x000000080a0000 - 0x00000009000000
+>    (XEN) GICv3: 256 lines, (IID 0000043b).
+>    (XEN) GICv3: CPU0: Found redistributor in region 0 @000000004001c000
+> 
+> Attempting to boot with acpi=on still sees Grub attempt to use DT to
+> boot the hypervisor. However selecting the kernel directly boots with
+> ACPI (which is a shame as I'd like to see what FDT it gets presented
+> with).
 
---=-+F0ocCRSGkHJGFd8OTX0
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+ACPI is not built by default in Xen on Arm. You will need to select it 
+from Kconfig and rebuild the hypervisor.
 
------BEGIN PGP SIGNATURE-----
+> 
+> The full command line for booting via the guest-loader is:
+> 
+>    ./qemu-system-aarch64 \
+>      -machine virt,virtualization=on,gic-version=3 \
+>      -cpu max,pauth-impdef=on \
+>      -serial mon:stdio \
+>      -netdev user,id=net1,hostfwd=tcp::2222-:22 \
+>      -device virtio-net-pci,netdev=net1 \
+>      -device virtio-scsi-pci \
+>      -drive file=/dev/zvol/hackpool-0/debian-buster-arm64,id=hd0,index=0,if=none,format=raw \
+>      -device scsi-hd,drive=hd0 \
+>      -display none \
+>      -m 16384 \
+>      -kernel ~/lsrc/xen/xen.build.arm64-xen/xen/xen \
+>      -append "dom0_mem=4G dom0_max_vcpus=4" \
+>      -device guest-loader,addr=0x46000000,kernel=$HOME/lsrc/linux.git/builds/arm64/arch/arm64/boot/Image,bootargs="root=/dev/sda2 console=hvc0 earlyprintk=xen" \
+>      -smp 8
+> 
+> So some questions:
+> 
+>    - is Xen on arm64 tested on Debian Bullseye? If so what platform?
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmCxCbcACgkQFkJ4iaW4
-c+4ipA/+IEaOlOIl/41XnhBGn5YKD0iwoEZR/XNjs9wz1IUrd49+S3aOkH5kcTLE
-joI+E4TvAsRp+QBNAdRl2AKOCbv1B+mYqLzPJARzx0/pYX5+0tt1SMvvWh88kJ24
-1S8iEl5i2+KS6htytaFvs1BGXzQn5X3B8HBh8EpKwy6+Bh8gU6husf40pgpGIOMC
-8tesaRP0GDITz88rwb807Axfelt8Pca0QKWe6z4XXdsqimCJd1IgGzsKGQKdzlFa
-bxaNU9A4FAcRUmXSAcd+Mv+OPNoQU13rtqpiIkxMgEVDSBr2xuLjR7jUIZ3Ci65x
-V3cCqAonNkOvLMlbN9YNtXPXfUFkHQkFDzYholcwhzMDOPNh/G/b6dtPo7ZM0LoY
-d8Twr2UGClY6tDpOPfFTLy/5TaakorRO7uaG8FE/UYBbYdXF5xH1GOklvdYRfLe0
-+w2AOT9/lw6luA3+0IWi9EgFMwGvKoUKpUWW/ftQTwtYCKV1S3tYVmMpN/c4YVWA
-9QljNDEGNv9jswTiFA++Hdp+4QcmWcB3SF7aa0kk+ClmFdik5Y+Q+ChUVfnYAp5L
-4Iw4BJbKfb/mB9KAsUYk3EU/xT/dp+qJDH4G2ziJ+4YIM/18cnZ+QMNoJFsuYxHa
-BZSvcsfD4Vi+7l8gOYu7wK527NDmR3fe8bMh5jZgBnCGhpsGSdE=
-=JRaH
------END PGP SIGNATURE-----
+I am using Debian Bullseye on QEMU and also the FVP. We are also using 
+Debian in Osstest for all the testing (it is possible an older version 
+of Debian).
 
---=-+F0ocCRSGkHJGFd8OTX0--
+>    - how do I tell Grub to do a straight FDT boot with the DT from the firmware?
 
+Is the firmware actually providing a DT? You could try to boot Xen from 
+UEFI directly to confirm that.
+
+However, I vaguely recall that GRUB may only pass ACPI if it is provided.
+
+>    - are there any missing pieces I should be aware of?
+
+Other than re-building Xen with ACPI=y, I am not aware of any issue to 
+use Xen with Debian bullseye.
+
+Cheers,
+
+-- 
+Julien Grall
 
