@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5745A393DAB
-	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 09:22:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133817.249270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E80A2393E22
+	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 09:42:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133827.249293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmWoZ-0005k8-6a; Fri, 28 May 2021 07:21:51 +0000
+	id 1lmX7y-0008AS-Sl; Fri, 28 May 2021 07:41:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133817.249270; Fri, 28 May 2021 07:21:51 +0000
+Received: by outflank-mailman (output) from mailman id 133827.249293; Fri, 28 May 2021 07:41:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmWoZ-0005iH-2m; Fri, 28 May 2021 07:21:51 +0000
-Received: by outflank-mailman (input) for mailman id 133817;
- Fri, 28 May 2021 07:21:49 +0000
+	id 1lmX7y-00088G-PP; Fri, 28 May 2021 07:41:54 +0000
+Received: by outflank-mailman (input) for mailman id 133827;
+ Fri, 28 May 2021 07:41:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wdiM=KX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lmWoX-0005iB-KT
- for xen-devel@lists.xenproject.org; Fri, 28 May 2021 07:21:49 +0000
+ id 1lmX7x-000887-Ly
+ for xen-devel@lists.xenproject.org; Fri, 28 May 2021 07:41:53 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53687a03-1455-4353-bc47-1652cc8b435b;
- Fri, 28 May 2021 07:21:48 +0000 (UTC)
+ id c312cf2a-0f9d-4e48-a459-40f23c47ba95;
+ Fri, 28 May 2021 07:41:52 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 63B0E1FD2F;
- Fri, 28 May 2021 07:21:47 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E8FF81FD2F;
+ Fri, 28 May 2021 07:41:51 +0000 (UTC)
 Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
- by imap.suse.de (Postfix) with ESMTPSA id 2798911A98;
- Fri, 28 May 2021 07:21:47 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTPSA id A388E11A98;
+ Fri, 28 May 2021 07:41:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,82 +43,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53687a03-1455-4353-bc47-1652cc8b435b
+X-Inumbo-ID: c312cf2a-0f9d-4e48-a459-40f23c47ba95
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622186507; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622187711; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/k9p3WclJ76DHTPc78htGDW+dmcq4nCb/eORYnSOm2k=;
-	b=IpXWyfTtJEELs8BswrVnUl/yu7s+fRkk8125LHM9D0OK9pynqS8Ff76hWiMQm+lkmNk0nh
-	Qx43Nj+QNCNeSGe4IQF/7OQI6IAbTdp/JmoTW0L6oo8uemZfo2WO2KM3KTqcDSxswRn5gT
-	n4TNnCyR42cXuFBlrbBRkcKuG3LRwuU=
-Subject: Re: [PATCH v3 1/2] libelf: don't attempt to parse __xen_guest for PVH
+	bh=NPdJQ8YPDL8kMV256eAWoFl9ZI+yCo1/juFVkI6RjKM=;
+	b=KCxZmXHSvaI64T+6b4NvxQtxZk7ULPHXvkQ4W4tEzeNQYCMq7NepEec3j6LKAN4gEIQxjT
+	psEVNVAN3y64OgxG+ej0yocdAfokoZrUTTiOWXto8zIkM1p2w/Mzf4kZhu3mUwH5zrbUaN
+	aN3Q2V+61HFwlLBwBU6aY2KhCpl3xDQ=
+Subject: Re: [PATCH v4 2/4] xen/common: Guard iommu symbols with
+ CONFIG_HAS_PASSTHROUGH
 From: Jan Beulich <jbeulich@suse.com>
-To: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20210520123012.89855-1-roger.pau@citrix.com>
- <20210520123012.89855-2-roger.pau@citrix.com>
- <29ecaaaf-d096-e8af-fc6f-292ff2b3d5ae@suse.com>
- <6dd3d6fe-04cc-4b9d-e92f-6d4c81785300@suse.com>
-Message-ID: <e6145998-0736-a213-36b2-ace27c3844be@suse.com>
-Date: Fri, 28 May 2021 09:21:42 +0200
+To: Connor Davis <connojdavis@gmail.com>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair23@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1621712830.git.connojdavis@gmail.com>
+ <f76852db6601b1bf243781b0b8b16c7a6fdc8a01.1621712830.git.connojdavis@gmail.com>
+ <3b872d59-4330-68ee-c62b-230f5d6cb2cf@suse.com>
+Message-ID: <c415c691-1f59-b13d-00ec-80fee777da79@suse.com>
+Date: Fri, 28 May 2021 09:41:47 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <6dd3d6fe-04cc-4b9d-e92f-6d4c81785300@suse.com>
+In-Reply-To: <3b872d59-4330-68ee-c62b-230f5d6cb2cf@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.05.2021 15:31, Jan Beulich wrote:
-> On 20.05.2021 14:35, Jan Beulich wrote:
->> On 20.05.2021 14:30, Roger Pau Monne wrote:
->>> The legacy __xen_guest section doesn't support the PHYS32_ENTRY
->>> elfnote, so it's pointless to attempt to parse the elfnotes from that
->>> section when called from an hvm container.
->>>
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> Changes since v2:
->>>  - New in this version.
->>> ---
->>>  xen/common/libelf/libelf-dominfo.c | 6 ++----
->>>  1 file changed, 2 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
->>> index 69c94b6f3bb..abea1011c18 100644
->>> --- a/xen/common/libelf/libelf-dominfo.c
->>> +++ b/xen/common/libelf/libelf-dominfo.c
->>> @@ -577,10 +577,8 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
->>>  
->>>      }
->>>  
->>> -    /*
->>> -     * Finally fall back to the __xen_guest section.
->>> -     */
->>> -    if ( xen_elfnotes == 0 )
->>> +    /* Finally fall back to the __xen_guest section for PV guests only. */
->>> +    if ( xen_elfnotes == 0 && !hvm )
->>
->> Isn't this depending on the 2nd patch adding the function parameter?
->> IOW doesn't this break the build, even if just transiently? With the
->> respective hunk from patch 2 moved here
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 25.05.2021 10:44, Jan Beulich wrote:
+> On 24.05.2021 16:34, Connor Davis wrote:
+>> --- a/xen/include/xen/iommu.h
+>> +++ b/xen/include/xen/iommu.h
+>> @@ -51,9 +51,15 @@ static inline bool_t dfn_eq(dfn_t x, dfn_t y)
+>>      return dfn_x(x) == dfn_x(y);
+>>  }
+>>  
+>> -extern bool_t iommu_enable, iommu_enabled;
+>> +extern bool_t iommu_enable;
 > 
-> With the intention of committing I did this hunk movement, noticing
-> that
-> - it's more than just one hunk,
-> - a tool stack maintainer ack is actually going to be needed (all
->   respective hunks are now in the first patch).
-> I'll keep the massaged patches locally, until the missing ack arrives.
+> ... just "bool" used here, as I think I did say before. Can be taken
+> care of while committing, I think.
 
-I've timed out waiting for an ack and committed the patches, considering
-the tool stack parts of them are mechanical enough.
+Actually, while preparing to commit this, I realized this would
+better be
+
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -51,8 +51,12 @@ static inline bool_t dfn_eq(dfn_t x, dfn_t y)
+     return dfn_x(x) == dfn_x(y);
+ }
+ 
++#ifdef CONFIG_HAS_PASSTHROUGH
+ extern bool_t iommu_enable, iommu_enabled;
+ extern bool force_iommu, iommu_quarantine, iommu_verbose;
++#else
++#define iommu_enabled false
++#endif
+ 
+ #ifdef CONFIG_X86
+ extern enum __packed iommu_intremap {
+
+Which is what I'm about to commit.
 
 Jan
 
