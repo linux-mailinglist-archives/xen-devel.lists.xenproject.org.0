@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E490D394377
-	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 15:40:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133930.249438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2B2394379
+	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 15:42:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133936.249449 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmciB-0004Ry-4U; Fri, 28 May 2021 13:39:39 +0000
+	id 1lmckU-0005qk-M7; Fri, 28 May 2021 13:42:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133930.249438; Fri, 28 May 2021 13:39:39 +0000
+Received: by outflank-mailman (output) from mailman id 133936.249449; Fri, 28 May 2021 13:42:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmciB-0004Q4-0H; Fri, 28 May 2021 13:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 133930;
- Fri, 28 May 2021 13:39:37 +0000
+	id 1lmckU-0005nh-Hp; Fri, 28 May 2021 13:42:02 +0000
+Received: by outflank-mailman (input) for mailman id 133936;
+ Fri, 28 May 2021 13:42:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wdiM=KX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lmci9-0004Py-Qs
- for xen-devel@lists.xenproject.org; Fri, 28 May 2021 13:39:37 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ id 1lmckS-0005nI-Mp
+ for xen-devel@lists.xenproject.org; Fri, 28 May 2021 13:42:00 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a24a8389-3945-40f7-8023-7bcaac39cd9e;
- Fri, 28 May 2021 13:39:36 +0000 (UTC)
+ id b6ec4b3c-0d6f-48da-a4ef-c1438f7acfee;
+ Fri, 28 May 2021 13:41:59 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AA231218B3;
- Fri, 28 May 2021 13:39:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F3DB11FD2E;
+ Fri, 28 May 2021 13:41:58 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 6E74111A98;
- Fri, 28 May 2021 13:39:35 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id C3E6D11A98;
+ Fri, 28 May 2021 13:41:58 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id zf8BGZfysGD9TwAALh3uQQ
- (envelope-from <jbeulich@suse.com>); Fri, 28 May 2021 13:39:35 +0000
+ id nhWmLibzsGAqUQAALh3uQQ
+ (envelope-from <jbeulich@suse.com>); Fri, 28 May 2021 13:41:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,84 +47,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a24a8389-3945-40f7-8023-7bcaac39cd9e
+X-Inumbo-ID: b6ec4b3c-0d6f-48da-a4ef-c1438f7acfee
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622209175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622209319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OisGe7vQXFfJ9DLT33XiqJ9GPBCWqd7AwYgymIyC5hQ=;
-	b=qYsW0UxG8hs5yKQtAB6r5e8Toa9nj0zJwaPqH8bgJw8F8fZzP6Y+/UQnZIaKz12kBeSAe8
-	kWzLbAghzIMy+frjKkj2XZ50EMEAAGSJylATOj8orrYvZdYc4WEGLRa6kPlTwWP9dm9WEy
-	YUz8bFrPiPE5AlEiQwRhYt7PrK9foKI=
-Subject: Re: [PATCH 06/13] cpufreq: Export HWP parameters to userspace
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <20210503192810.36084-1-jandryuk@gmail.com>
- <20210503192810.36084-7-jandryuk@gmail.com>
- <e54c3aef-4c44-4302-f7f4-4f4733e33780@suse.com>
- <CAKf6xptN13CW78XajgyE0G8t2NjFVka8tzNO2oofjcw7tT7n8g@mail.gmail.com>
+	bh=dsxnym2Edb8D8ioPAlnFYNHlty7zrn/wpCqrfApi17Y=;
+	b=Qt+UkaJTUz5S8s5jqrK/QYBHB39/clK8RBPdLYyjqN/qKDBl6m4os8wcSHxgg8NTqINWIZ
+	0s50OnLWtRM3O/YQ5+XAzW2IlG39KcBYOzoZ+mnoJZza4qLMbWaYHBbkt78BW2+ZoM/ndw
+	j16wJnj0k4NVySgUri3398QJKZO47bQ=
+Subject: Re: [PATCH v6 1/3] evtchn: slightly defer lock acquire where possible
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <01bbf3d4-ca6a-e837-91fe-b34aa014564c@suse.com>
+ <5939858e-1c7c-5658-bc2d-0c9024c74040@suse.com>
+ <938eb888-ec15-feb1-19f7-b90dfee822ae@xen.org>
+ <YLCqQz9xS4HEpabG@Air-de-Roger>
+ <27d54d81-bec8-5bc7-39cd-60e9761e726b@suse.com>
+ <079f2f2a-0797-b650-ff47-7e595ab29589@xen.org>
+ <YLDwuQrJsYU9PAFT@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f267ad7b-f2e7-665c-d989-45759cf18a02@suse.com>
-Date: Fri, 28 May 2021 15:39:31 +0200
+Message-ID: <68f032b6-62a0-c472-8b10-ec26d0407c93@suse.com>
+Date: Fri, 28 May 2021 15:41:53 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xptN13CW78XajgyE0G8t2NjFVka8tzNO2oofjcw7tT7n8g@mail.gmail.com>
+In-Reply-To: <YLDwuQrJsYU9PAFT@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.05.2021 15:19, Jason Andryuk wrote:
-> On Thu, May 27, 2021 at 4:03 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 03.05.2021 21:28, Jason Andryuk wrote:
->>> --- a/xen/drivers/acpi/pmstat.c
->>> +++ b/xen/drivers/acpi/pmstat.c
->>> @@ -290,6 +290,12 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->>>              &op->u.get_para.u.ondemand.sampling_rate,
->>>              &op->u.get_para.u.ondemand.up_threshold);
->>>      }
->>> +
->>> +    if ( !strncasecmp(op->u.get_para.scaling_governor,
->>> +                      "hwp-internal", CPUFREQ_NAME_LEN) )
->>> +    {
->>> +        ret = get_hwp_para(policy, &op->u.get_para.u.hwp_para);
->>> +    }
->>>      op->u.get_para.turbo_enabled = cpufreq_get_turbo_status(op->cpuid);
->>
->> Nit: Unnecessary parentheses again, and with the leading blank line
->> you also want a trailing one. (As an aside I'm also not overly happy
->> to see the call keyed to the governor name. Is there really no other
->> indication that hwp is in use?)
+On 28.05.2021 15:31, Roger Pau Monné wrote:
+> I think I'm being extremely dull here, sorry. From your text I
+> understand that the value returned by is_port_valid could be stale by
+> the time the user reads it?
 > 
-> This is preceded by similar checks for "userspace" and "ondemand", so
-> it is following existing code.  Unlike other governors, hwp-internal
-> is static.  It could be exported if you want to switch to comparing
-> with cpufreq_driver.
+> I think there's some condition that makes this value stale, and it's
+> not the common case?
 
-Hmm, well, then feel free to keep the logic as you have it, except
-please don't take presence of unnecessary braces as excuse to add
-more.
-
->>> +    uint8_t hw_feature; /* bit flags for features */
->>> +    uint8_t hw_lowest;
->>> +    uint8_t hw_most_efficient;
->>> +    uint8_t hw_guaranteed;
->>> +    uint8_t hw_highest;
->>
->> Any particular reason for the recurring hw_ prefixes?
-> 
-> The idea was to differentiate values provided by CPU hardware from
-> user-configured values.
-
-I think that follows from their names already without the prefix.
-I'd prefer if you dropped them, but I'll try to not insist (I may
-comment on this again in later versions, in case I forgot by then).
+It's evtchn_destroy() running in parallel which can have this effect.
 
 Jan
 
