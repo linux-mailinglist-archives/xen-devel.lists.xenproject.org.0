@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AF26393D1D
-	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 08:30:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133760.249189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8583393D30
+	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 08:36:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133768.249204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmW0X-0005au-Kz; Fri, 28 May 2021 06:30:09 +0000
+	id 1lmW5x-0006HX-Bu; Fri, 28 May 2021 06:35:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133760.249189; Fri, 28 May 2021 06:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 133768.249204; Fri, 28 May 2021 06:35:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmW0X-0005YS-HY; Fri, 28 May 2021 06:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 133760;
- Fri, 28 May 2021 06:30:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lmW5x-0006Fd-7Z; Fri, 28 May 2021 06:35:45 +0000
+Received: by outflank-mailman (input) for mailman id 133768;
+ Fri, 28 May 2021 06:35:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lmW0W-0005YI-Ea; Fri, 28 May 2021 06:30:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lmW0W-0007wh-8m; Fri, 28 May 2021 06:30:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lmW0V-0006Wv-VK; Fri, 28 May 2021 06:30:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lmW0V-0004Ut-Ul; Fri, 28 May 2021 06:30:07 +0000
+ (envelope-from <SRS0=wdiM=KX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lmW5v-0006FX-VD
+ for xen-devel@lists.xenproject.org; Fri, 28 May 2021 06:35:44 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 238af3f9-f427-44db-843d-e5bf59d30e44;
+ Fri, 28 May 2021 06:35:42 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 63456218B0;
+ Fri, 28 May 2021 06:35:41 +0000 (UTC)
+Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
+ by imap.suse.de (Postfix) with ESMTPSA id 1D4BE11A98;
+ Fri, 28 May 2021 06:35:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,276 +43,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3fWqfgqHcK9o62mPKMOYGWsb4KYGMewvhbX8GoLVjO0=; b=ksv9O3hXQ6+W/CbP7MQ9YK9NvD
-	E+T5p6W3RULlvMSGRn3OMWIxfM4ORHfnfNNe+yjsag1srv0XUw0XF2M/Emx3vg8g0DtON2yVl6w0U
-	FCMquvSrZWIHn9xcN648L+mDStxf/mtCPH7DDEUK+gNUsEr00RQgTXs0gxNobRFdpd5Q=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162243-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 238af3f9-f427-44db-843d-e5bf59d30e44
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622183741; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VvIfXPA9lEsjZ+XzJdoKb/OSD7M9TWEcPYCqnEflyIM=;
+	b=BLQ+QPjJqCZ0T3mSwnohIuXUIVFDsEjas8f3MUfY33P15KDOktrruHaYHxF1ruZjG2kXFU
+	ibPktXeFLBJBHOja7yriz2uH/9KhhnVNh3uRpGmfH2RI+XlKMFcCQn8EdvSvbXYBKf7k6a
+	DKAWQJOlWA6c/xRNFIG+UIfMdNkOLqI=
+Subject: Re: [PATCH 04/13] cpufreq: Add Hardware P-State (HWP) driver
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <20210503192810.36084-1-jandryuk@gmail.com>
+ <20210503192810.36084-5-jandryuk@gmail.com>
+ <1747789a-ab6c-cdae-ed35-a6b81ac580a9@suse.com>
+ <CAKf6xps4NuBxMpgCo_duWU1ZXB8x8B8uszb3uNyb6kABxUhNHA@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <2c3400e8-8236-8558-08e4-37c8b1494de7@suse.com>
+Date: Fri, 28 May 2021 08:35:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-Subject: [libvirt test] 162243: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=70f53b1c04cfed8529c87c7be8ca4c76d1123a30
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 28 May 2021 06:30:07 +0000
+In-Reply-To: <CAKf6xps4NuBxMpgCo_duWU1ZXB8x8B8uszb3uNyb6kABxUhNHA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 162243 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162243/
+On 27.05.2021 20:50, Jason Andryuk wrote:
+> On Wed, May 26, 2021 at 11:00 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 03.05.2021 21:28, Jason Andryuk wrote:
+>>> If HWP Energy_Performance_Preference isn't supported, the code falls
+>>> back to IA32_ENERGY_PERF_BIAS.  Right now, we don't check
+>>> CPUID.06H:ECX.SETBH[bit 3] before using that MSR.
+>>
+>> May I ask what problem there is doing so?
+>>
+>>>  The SDM reads like
+>>> it'll be available, and I assume it was available by the time Skylake
+>>> introduced HWP.
+>>
+>> The SDM documents the MSR's presence back to at least Nehalem, but ties
+>> it to the CPUID bit even there.
+> 
+> Your point about inconsistent virtualized environments is something I
+> hadn't considered.  I will add a check, but I will make hwp disable in
+> that case.  While it could run just without an energy/performance
+> preference, HWP doesn't seem useful in that scenario.
 
-Regressions :-(
+Makes sense. Of course I wouldn't expect hypervisors to populate much
+of CPUID leaf 6 anyway, like is the case for Xen itself.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+>>> +    hwp_verbose("HWP: FAST_IA32_HWP_REQUEST %ssupported\n",
+>>> +                eax & CPUID6_EAX_FAST_HWP_MSR ? "" : "not ");
+>>> +    if ( eax & CPUID6_EAX_FAST_HWP_MSR )
+>>> +    {
+>>> +        if ( rdmsr_safe(MSR_FAST_UNCORE_MSRS_CAPABILITY, val) )
+>>> +            hwp_err("error rdmsr_safe(MSR_FAST_UNCORE_MSRS_CAPABILITY)\n");
+>>> +
+>>> +        hwp_verbose("HWP: MSR_FAST_UNCORE_MSRS_CAPABILITY: %016lx\n", val);
+>>
+>> Missing "else" above here?
+> 
+> Are unbalanced braces acceptable or must they be balanced?  Is this acceptable:
+> if ()
+>   one;
+> else {
+>   two;
+>   three;
+> }
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+Yes, it is. But I don't see how the question relates to my comment.
+All that needs to go in the else's body is the hwp_verbose().
 
-version targeted for testing:
- libvirt              70f53b1c04cfed8529c87c7be8ca4c76d1123a30
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+>>> +static void hdc_set_pkg_hdc_ctl(bool val)
+>>> +{
+>>> +    uint64_t msr;
+>>> +
+>>> +    if ( rdmsr_safe(MSR_IA32_PKG_HDC_CTL, msr) )
+>>> +    {
+>>> +        hwp_err("error rdmsr_safe(MSR_IA32_PKG_HDC_CTL)\n");
+>>
+>> I'm not convinced of the need of having such log messages after
+>> failed rdmsr/wrmsr, but I'm definitely against them getting logged
+>> unconditionally. In verbose mode, maybe.
+> 
+> We should not fail the rdmsr if our earlier cpuid check passed.  So in
+> that respect these messages can be removed.  The benefit here is that
+> you can see which MSR failed.  If you relied on extable_fixup, you
+> would have to cross reference manually.  How will administors know if
+> hwp isn't working properly there are no messages?
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  322 days
-Failing since        151818  2020-07-11 04:18:52 Z  321 days  314 attempts
-Testing same since   162243  2021-05-28 04:20:06 Z    0 days    1 attempts
+This same question would go for various other MSR accesses which
+might fail, but which aren't accompanied by an explicit log message.
+I wouldn't mind a single summary message reporting if e.g. HWP
+setup failed. More detailed analysis of such would be more of a
+developer's than an administrator's job then anyway.
 
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+> For HWP in general, the SDM says to check CPUID for the availability
+> of MSRs.  Therefore rdmsr/wrmsr shouldn't fail.  During development, I
+> saw wrmsr failures when with "Valid Maximum" and other "Valid" bits
+> set.  I think that was because I hadn't set up the Package Request
+> MSR.  That has been fixed by not using those bits.  Anyway,
+> rdmsr/wrmsr shouldn't fail, so how much code should be put into
+> checking for those failures which shouldn't happen?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+If there's any risk of accesses causing a fault, using *msr_safe()
+is of course the right choice. Beyond that you will need to consider
+what the consequences are. Sadly this needs doing on every single
+case individually. See "Handling unexpected conditions" section of
+./CODING_STYLE for guidelines (even if the specific constructs
+aren't in use here).
 
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    msr = val ? IA32_PKG_HDC_CTL_HDC_PKG_Enable : 0;
+>>
+>> If you don't use the prior value, why did you read it? But I
+>> think you really mean to set/clear just bot 0.
+> 
+> During development I printed the initial values .  I removed the
+> printing before submission but not the reading.
+> 
+> In the SDM, It says "Bits 63:1 are reserved and must be zero", so I
+> intended to only write 0 or 1.  Below, you remark on not discarding
+> reserved bits. So you want all of these to be read-modify-write
+> operations?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Yes, this is the only way to be forward compatible.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+>>> +static void hdc_set_pm_ctl1(bool val)
+>>> +{
+>>> +    uint64_t msr;
+>>> +
+>>> +    if ( rdmsr_safe(MSR_IA32_PM_CTL1, msr) )
+>>> +    {
+>>> +        hwp_err("error rdmsr_safe(MSR_IA32_PM_CTL1)\n");
+>>> +
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    msr = val ? IA32_PM_CTL1_HDC_Allow_Block : 0;
+>>
+>> Same here then, and ...
+>>
+>>> +static void hwp_fast_uncore_msrs_ctl(bool val)
+>>> +{
+>>> +    uint64_t msr;
+>>> +
+>>> +    if ( rdmsr_safe(MSR_FAST_UNCORE_MSRS_CTL, msr) )
+>>> +        hwp_err("error rdmsr_safe(MSR_FAST_UNCORE_MSRS_CTL)\n");
+>>> +
+>>> +    msr = val;
+>>
+>> ... here (where you imply bit 0 instead of using a proper
+>> constant).
+>>
+>> Also for all three functions I'm not convinced their names are
+>> in good sync with their parameters being boolean.
+> 
+> Would you prefer something named closer to the bit names like:
+> hdc_set_pkg_hdc_ctl -> hdc_set_pkg_enable
+> hdc_set_pm_ctl1 -> hdc_set_allow_block
+> hwp_fast_uncore_msrs_ctl -> hwp_fast_request_enable
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+My primary request is for function name, purpose, and parameter(s)
+to be in line. So e.g. if you left the parameters as boolean, then
+I think your suggested name changes make sense. Alternatively you
+could make the functions e.g. be full register updating ones, with
+suitable parameters, which could be a mask-to-set and mask-to-clear.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>>> +static void hwp_read_capabilities(void *info)
+>>> +{
+>>> +    struct cpufreq_policy *policy = info;
+>>> +    struct hwp_drv_data *data = hwp_drv_data[policy->cpu];
+>>> +
+>>> +    if ( rdmsr_safe(MSR_IA32_HWP_CAPABILITIES, data->hwp_caps) )
+>>> +    {
+>>> +        hwp_err("CPU%u: error rdmsr_safe(MSR_IA32_HWP_CAPABILITIES)\n",
+>>> +                policy->cpu);
+>>> +
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    if ( rdmsr_safe(MSR_IA32_HWP_REQUEST, data->curr_req.raw) )
+>>> +    {
+>>> +        hwp_err("CPU%u: error rdmsr_safe(MSR_IA32_HWP_REQUEST)\n", policy->cpu);
+>>> +
+>>> +        return;
+>>> +    }
+>>> +}
+>>
+>> This function doesn't indicate failure to its caller(s), so am I
+>> to understand that failure to read either ofthe MSRs is actually
+>> benign to the driver?
+> 
+> They really shouldn't fail since the CPUID check passed during
+> initialization.  If you can't read/write MSRs, something is broken and
+> the driver cannot function.  The machine would still run, but HWP
+> would be uncontrollable.  How much care should be given to
+> "impossible" situations?
 
+See above. The main point is to avoid crashing. In the specific
+case here I think you could simply drop both the log messages and
+the early return, assuming the caller can deal fine with the zero
+value(s) that rdmsr_safe() will substitute for the MSR value(s).
+Bailing early, otoh, calls for handing back an error indicator
+imo.
 
-Not pushing.
+>>> +static void hwp_write_request(void *info)
+>>> +{
+>>> +    struct cpufreq_policy *policy = info;
+>>> +    struct hwp_drv_data *data = hwp_drv_data[policy->cpu];
+>>> +    union hwp_request hwp_req = data->curr_req;
+>>> +
+>>> +    BUILD_BUG_ON(sizeof(union hwp_request) != sizeof(uint64_t));
+>>
+>> ITYM
+>>
+>>     BUILD_BUG_ON(sizeof(hwp_req) != sizeof(hwp_req.raw));
+>>
+>> here?
+> 
+> Originally, I wanted this to live next to the union definition.
+> However, BUILD_BUG_ON needs to live in a function, so I placed it here
+> where it is used.
+> 
+> I'd prefer
+>     BUILD_BUG_ON(sizeof(hwp_req) != sizeof(uint64_t))
+> 
+> to make the comparison to 64bit, the size of the MSR, explicit.
 
-(No revision log; it would be 59708 lines long.)
+Well, then "raw" could still be wrong in principle, but it is the
+whole point of having "raw" to have it match MSR size. So while I
+could live with your alternative, I continue to think my suggestion
+is the more appropriate form of the check.
+
+>>> +    policy->governor = &hwp_cpufreq_governor;
+>>> +
+>>> +    data = xzalloc(typeof(*data));
+>>
+>> Commonly we specify the type explicitly in such cases, rather than using
+>> typeof(). I will admit though that I'm not entirely certain which one's
+>> better. But consistency across the code base is perhaps preferable for
+>> the time being.
+> 
+> I thought typeof(*data) is always preferable since it will always be
+> the matching type.  I can change it, but I feel like it's a step
+> backwards.
+
+There's exactly one similar use in the entire code base. The original
+idea with xmalloc() was that one would explicitly specify the intended
+type, such that without looking elsewhere one can see what exactly is
+to be allocated. One could further rely on the compiler warning if
+there was a disagreement between declaration and assignment.
+
+If instead we were to use typeof() everywhere, there's be a fair
+amount of redundancy between the LHS of the assignment and the operand
+of typeof(), which would call for eliminating (by abstracting away).
+
+>>> +    if ( feature_hwp_energy_perf )
+>>> +        data->energy_perf = 0x80;
+>>> +    else
+>>> +        data->energy_perf = 7;
+>>
+>> Where's this 7 coming from? (You do mention the 0x80 at least in the
+>> description.)
+> 
+> When HWP energy performance preference is unavailable, it falls back
+> to IA32_ENERGY_PERF_BIAS with a 0-15 range.  Per the SDM Vol3 14.3.4,
+> "A value of 7 roughly translates into a hint to balance performance
+> with energy consumption."  I will add a comment.
+
+Actually, as per a comment on a later patch, I'm instead expecting
+you to add a #define, the name of which will serve as comment.
+
+Jan
 
