@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A436393D64
-	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 09:00:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133799.249259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5745A393DAB
+	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 09:22:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133817.249270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmWTp-0003As-HK; Fri, 28 May 2021 07:00:25 +0000
+	id 1lmWoZ-0005k8-6a; Fri, 28 May 2021 07:21:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133799.249259; Fri, 28 May 2021 07:00:25 +0000
+Received: by outflank-mailman (output) from mailman id 133817.249270; Fri, 28 May 2021 07:21:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmWTp-00038m-D4; Fri, 28 May 2021 07:00:25 +0000
-Received: by outflank-mailman (input) for mailman id 133799;
- Fri, 28 May 2021 07:00:23 +0000
+	id 1lmWoZ-0005iH-2m; Fri, 28 May 2021 07:21:51 +0000
+Received: by outflank-mailman (input) for mailman id 133817;
+ Fri, 28 May 2021 07:21:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wdiM=KX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lmWTn-00035u-Sy
- for xen-devel@lists.xenproject.org; Fri, 28 May 2021 07:00:23 +0000
+ id 1lmWoX-0005iB-KT
+ for xen-devel@lists.xenproject.org; Fri, 28 May 2021 07:21:49 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 756355e4-969b-4804-b985-65f9b19098f5;
- Fri, 28 May 2021 07:00:23 +0000 (UTC)
+ id 53687a03-1455-4353-bc47-1652cc8b435b;
+ Fri, 28 May 2021 07:21:48 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6C49B1FD2E;
- Fri, 28 May 2021 07:00:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 63B0E1FD2F;
+ Fri, 28 May 2021 07:21:47 +0000 (UTC)
 Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
- by imap.suse.de (Postfix) with ESMTPSA id 4955B11A98;
- Fri, 28 May 2021 07:00:22 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTPSA id 2798911A98;
+ Fri, 28 May 2021 07:21:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,70 +43,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 756355e4-969b-4804-b985-65f9b19098f5
+X-Inumbo-ID: 53687a03-1455-4353-bc47-1652cc8b435b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622185222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622186507; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=keg0tAiXIrXO/9uFKfQsZx/6TkaJWl/wX7wIHwGo+RE=;
-	b=jR48u4JAqP/N95Kewkw1jomm45BkJqV2bxMKFK/Oy3sckuzOw9Wa/W8PBwyBY8UBndGl+F
-	fyF+61RIFwfJ6E2JqVDCLTkIm3ZGdlMiC6ngEj5MkZ3+LAKirwlDF79NN0ZEOe4x3RshU4
-	7hzj7T42+vwVisiMXybOPKIKXEKyc+o=
-Subject: Ping: [PATCH] x86/tboot: adjust UUID check
+	bh=/k9p3WclJ76DHTPc78htGDW+dmcq4nCb/eORYnSOm2k=;
+	b=IpXWyfTtJEELs8BswrVnUl/yu7s+fRkk8125LHM9D0OK9pynqS8Ff76hWiMQm+lkmNk0nh
+	Qx43Nj+QNCNeSGe4IQF/7OQI6IAbTdp/JmoTW0L6oo8uemZfo2WO2KM3KTqcDSxswRn5gT
+	n4TNnCyR42cXuFBlrbBRkcKuG3LRwuU=
+Subject: Re: [PATCH v3 1/2] libelf: don't attempt to parse __xen_guest for PVH
 From: Jan Beulich <jbeulich@suse.com>
-To: Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <422e39c9-0cba-0944-b813-dfe2578ad719@suse.com>
-Message-ID: <1651edfd-4854-46ed-4701-6f82c2534e00@suse.com>
-Date: Fri, 28 May 2021 09:00:22 +0200
+To: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Roger Pau Monne <roger.pau@citrix.com>
+References: <20210520123012.89855-1-roger.pau@citrix.com>
+ <20210520123012.89855-2-roger.pau@citrix.com>
+ <29ecaaaf-d096-e8af-fc6f-292ff2b3d5ae@suse.com>
+ <6dd3d6fe-04cc-4b9d-e92f-6d4c81785300@suse.com>
+Message-ID: <e6145998-0736-a213-36b2-ace27c3844be@suse.com>
+Date: Fri, 28 May 2021 09:21:42 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <422e39c9-0cba-0944-b813-dfe2578ad719@suse.com>
+In-Reply-To: <6dd3d6fe-04cc-4b9d-e92f-6d4c81785300@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.05.2021 17:49, Jan Beulich wrote:
-> Replace a bogus cast, move the static variable into the only function
-> using it, and add __initconst. While there, also remove a pointless NULL
-> check.
+On 21.05.2021 15:31, Jan Beulich wrote:
+> On 20.05.2021 14:35, Jan Beulich wrote:
+>> On 20.05.2021 14:30, Roger Pau Monne wrote:
+>>> The legacy __xen_guest section doesn't support the PHYS32_ENTRY
+>>> elfnote, so it's pointless to attempt to parse the elfnotes from that
+>>> section when called from an hvm container.
+>>>
+>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>> Changes since v2:
+>>>  - New in this version.
+>>> ---
+>>>  xen/common/libelf/libelf-dominfo.c | 6 ++----
+>>>  1 file changed, 2 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
+>>> index 69c94b6f3bb..abea1011c18 100644
+>>> --- a/xen/common/libelf/libelf-dominfo.c
+>>> +++ b/xen/common/libelf/libelf-dominfo.c
+>>> @@ -577,10 +577,8 @@ elf_errorstatus elf_xen_parse(struct elf_binary *elf,
+>>>  
+>>>      }
+>>>  
+>>> -    /*
+>>> -     * Finally fall back to the __xen_guest section.
+>>> -     */
+>>> -    if ( xen_elfnotes == 0 )
+>>> +    /* Finally fall back to the __xen_guest section for PV guests only. */
+>>> +    if ( xen_elfnotes == 0 && !hvm )
+>>
+>> Isn't this depending on the 2nd patch adding the function parameter?
+>> IOW doesn't this break the build, even if just transiently? With the
+>> respective hunk from patch 2 moved here
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> --- a/xen/arch/x86/tboot.c
-> +++ b/xen/arch/x86/tboot.c
-> @@ -27,8 +27,6 @@ static vmac_t domain_mac;     /* MAC for
->  static vmac_t xenheap_mac;    /* MAC for xen heap during S3 */
->  static vmac_t frametable_mac; /* MAC for frame table during S3 */
->  
-> -static const uuid_t tboot_shared_uuid = TBOOT_SHARED_UUID;
-> -
->  /* used by tboot_protect_mem_regions() and/or tboot_parse_dmar_table() */
->  static uint64_t __initdata txt_heap_base, __initdata txt_heap_size;
->  static uint64_t __initdata sinit_base, __initdata sinit_size;
-> @@ -93,6 +91,7 @@ static void __init tboot_copy_memory(uns
->  void __init tboot_probe(void)
->  {
->      tboot_shared_t *tboot_shared;
-> +    static const uuid_t __initconst tboot_shared_uuid = TBOOT_SHARED_UUID;
->  
->      /* Look for valid page-aligned address for shared page. */
->      if ( !opt_tboot_pa || (opt_tboot_pa & ~PAGE_MASK) )
-> @@ -101,9 +100,7 @@ void __init tboot_probe(void)
->      /* Map and check for tboot UUID. */
->      set_fixmap(FIX_TBOOT_SHARED_BASE, opt_tboot_pa);
->      tboot_shared = fix_to_virt(FIX_TBOOT_SHARED_BASE);
-> -    if ( tboot_shared == NULL )
-> -        return;
-> -    if ( memcmp(&tboot_shared_uuid, (uuid_t *)tboot_shared, sizeof(uuid_t)) )
-> +    if ( memcmp(&tboot_shared_uuid, &tboot_shared->uuid, sizeof(uuid_t)) )
->          return;
->  
->      /* new tboot_shared (w/ GAS support, integrity, etc.) is not backwards
-> 
+> With the intention of committing I did this hunk movement, noticing
+> that
+> - it's more than just one hunk,
+> - a tool stack maintainer ack is actually going to be needed (all
+>   respective hunks are now in the first patch).
+> I'll keep the massaged patches locally, until the missing ack arrives.
 
+I've timed out waiting for an ack and committed the patches, considering
+the tool stack parts of them are mechanical enough.
+
+Jan
 
