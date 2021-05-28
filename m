@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7EEF394432
-	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 16:27:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.133958.249494 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BEB23944E0
+	for <lists+xen-devel@lfdr.de>; Fri, 28 May 2021 17:13:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.133993.249534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmdRK-0002Wx-Kc; Fri, 28 May 2021 14:26:18 +0000
+	id 1lmeAP-0000v8-8a; Fri, 28 May 2021 15:12:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 133958.249494; Fri, 28 May 2021 14:26:18 +0000
+Received: by outflank-mailman (output) from mailman id 133993.249534; Fri, 28 May 2021 15:12:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lmdRK-0002V0-GN; Fri, 28 May 2021 14:26:18 +0000
-Received: by outflank-mailman (input) for mailman id 133958;
- Fri, 28 May 2021 14:26:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lmdRI-0002Uu-Sx
- for xen-devel@lists.xenproject.org; Fri, 28 May 2021 14:26:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lmdRG-0008B9-T8; Fri, 28 May 2021 14:26:14 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lmdRG-00065y-LE; Fri, 28 May 2021 14:26:14 +0000
+	id 1lmeAP-0000sv-5T; Fri, 28 May 2021 15:12:53 +0000
+Received: by outflank-mailman (input) for mailman id 133993;
+ Fri, 28 May 2021 15:12:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=W+lD=KX=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1lmeAN-0000sp-UO
+ for xen-devel@lists.xenproject.org; Fri, 28 May 2021 15:12:51 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 61c4e699-1336-41c1-9105-de823348d1f9;
+ Fri, 28 May 2021 15:12:51 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F03601FD2F;
+ Fri, 28 May 2021 15:12:49 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 1D59411906;
+ Fri, 28 May 2021 15:12:49 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id uUSnBHEIsWB6CQAALh3uQQ
+ (envelope-from <dfaggioli@suse.com>); Fri, 28 May 2021 15:12:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,139 +46,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=tFXYmzd3ob8Pm3+whOyKVcgWLeJIn7L1AD0iKVPLCdo=; b=yuZo5r1NeAEw/BMzWi6fb9u28b
-	VA4/SZIL9mUBFbW2ZSSk5WQkexRevyrJmRVm3N+xRtECCfnRyrqFNRrklzrxAlcBFSEbSENj5oNcx
-	TLpzIHvuSDpD0/3vnxjgxuxL4fnYqRtZnvfsz/C8X/5EA6i9jzhJwHa1VGDIeABU37tA=;
-Subject: Re: [PATCH v6 1/3] evtchn: slightly defer lock acquire where possible
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <01bbf3d4-ca6a-e837-91fe-b34aa014564c@suse.com>
- <5939858e-1c7c-5658-bc2d-0c9024c74040@suse.com>
- <938eb888-ec15-feb1-19f7-b90dfee822ae@xen.org>
- <YLCqQz9xS4HEpabG@Air-de-Roger>
- <27d54d81-bec8-5bc7-39cd-60e9761e726b@suse.com>
- <079f2f2a-0797-b650-ff47-7e595ab29589@xen.org>
- <YLDwuQrJsYU9PAFT@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-Message-ID: <af864de5-d79d-4ed7-3778-bae6455185e4@xen.org>
-Date: Fri, 28 May 2021 15:26:12 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.2
+X-Inumbo-ID: 61c4e699-1336-41c1-9105-de823348d1f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622214769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EnDoJ8l4mQ5d/oocwttKAMYLIuqh+t7dfloUxS95UlA=;
+	b=XuRHGe1F9Xacu6JYqT0BZL4nXcd9HIGD2lpZh3DCv6dcnJw9RPLwdr9Ni9NIWKPj7JB8su
+	AZnUtC87mcs3vyCndWofRuJ9shdZnraDsxOECO9LiJdKQbHitgJ5zoQUOk4idqVGrRpVI/
+	VAj5oWDHHgVifKfzPHAXl9mubMSYt58=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622214769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EnDoJ8l4mQ5d/oocwttKAMYLIuqh+t7dfloUxS95UlA=;
+	b=XuRHGe1F9Xacu6JYqT0BZL4nXcd9HIGD2lpZh3DCv6dcnJw9RPLwdr9Ni9NIWKPj7JB8su
+	AZnUtC87mcs3vyCndWofRuJ9shdZnraDsxOECO9LiJdKQbHitgJ5zoQUOk4idqVGrRpVI/
+	VAj5oWDHHgVifKfzPHAXl9mubMSYt58=
+Subject: [PATCH] credit2: make sure we pick a runnable unit from the runq if
+ there is one
+From: Dario Faggioli <dfaggioli@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?utf-8?q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
+ Dion Kant <g.w.kant@hunenet.nl>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ =?utf-8?q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
+ Dion Kant <g.w.kant@hunenet.nl>
+Date: Fri, 28 May 2021 17:12:48 +0200
+Message-ID: <162221476843.1378.16573083798333423966.stgit@Wayrath>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-In-Reply-To: <YLDwuQrJsYU9PAFT@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Authentication-Results: imap.suse.de;
+	none
+X-Spam-Level: **
+X-Spam-Score: 2.00
+X-Spamd-Result: default: False [2.00 / 100.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 RCVD_NO_TLS_LAST(0.10)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 SUSPICIOUS_RECIPS(1.50)[]
+X-Spam-Flag: NO
 
-Hi Roger,
+A !runnable unit (temporarily) present in the runq may cause us to
+stop scanning the runq itself too early. Of course, we don't run any
+non-runnable vCPUs, but we end the scan and we fallback to picking
+the idle unit. In other word, this prevent us to find there and pick
+the actual unit that we're meant to start running (which might be
+further ahead in the runq).
 
-On 28/05/2021 14:31, Roger Pau Monné wrote:
-> On Fri, May 28, 2021 at 11:48:51AM +0100, Julien Grall wrote:
->> Hi Jan,
->>
->> On 28/05/2021 11:23, Jan Beulich wrote:
->>> On 28.05.2021 10:30, Roger Pau Monné wrote:
->>>> On Thu, May 27, 2021 at 07:48:41PM +0100, Julien Grall wrote:
->>>>> On 27/05/2021 12:28, Jan Beulich wrote:
->>>>>> port_is_valid() and evtchn_from_port() are fine to use without holding
->>>>>> any locks. Accordingly acquire the per-domain lock slightly later in
->>>>>> evtchn_close() and evtchn_bind_vcpu().
->>>>>
->>>>> So I agree that port_is_valid() and evtchn_from_port() are fine to use
->>>>> without holding any locks in evtchn_bind_vcpu(). However, this is misleading
->>>>> to say there is no problem with evtchn_close().
->>>>>
->>>>> evtchn_close() can be called with current != d and therefore, there is a
->>>>
->>>> The only instances evtchn_close is called with current != d and the
->>>> domain could be unpaused is in free_xen_event_channel AFAICT.
->>>
->>> As long as the domain is not paused, ->valid_evtchns can't ever
->>> decrease: The only point where this gets done is in evtchn_destroy().
->>> Hence ...
->>>
->>>>> risk that port_is_valid() may be valid and then invalid because
->>>>> d->valid_evtchns is decremented in evtchn_destroy().
->>>>
->>>> Hm, I guess you could indeed have parallel calls to
->>>> free_xen_event_channel and evtchn_destroy in a way that
->>>> free_xen_event_channel could race with valid_evtchns getting
->>>> decreased?
->>>
->>> ... I don't see this as relevant.
->>>
->>>>> Thankfully the memory is still there. So the current code is okayish and I
->>>>> could reluctantly accept this behavior to be spread. However, I don't think
->>>>> this should be left uncommented in both the code (maybe on top of
->>>>> port_is_valid()?) and the commit message.
->>>>
->>>> Indeed, I think we need some expansion of the comment in port_is_valid
->>>> to clarify all this. I'm not sure I understand it properly myself when
->>>> it's fine to use port_is_valid without holding the per domain event
->>>> lock.
->>>
->>> Because of the above property plus the fact that even if
->>> ->valid_evtchns decreases, the underlying struct evtchn instance
->>> will remain valid (i.e. won't get de-allocated, which happens only
->>> in evtchn_destroy_final()), it is always fine to use it without
->>> lock. With this I'm having trouble seeing what would need adding
->>> to port_is_valid()'s commentary.
->>
->> Lets take the example of free_xen_event_channel(). The function is checking
->> if the port is valid. If it is, then evtchn_close() will be called.
->>
->> At this point, it would be fair for a developper to assume that
->> port_is_valid() will also return true in event_close().
->>
->> To push to the extreme, if free_xen_event_channel() was the only caller of
->> evtchn_close(), one could argue that the check in evtchn_close() could be a
->> BUG_ON().
->>
->> However, this can't be because this would sooner or later turn to an XSA.
->>
->> Effectively, it means that is_port_valid() *cannot* be used in an
->> ASSERT()/BUG_ON() and every caller should check the return even if the port
->> was previously validated.
-> 
-> We already have cases of is_port_valid being used in ASSERTs (in the
-> shim) and a BUG_ON (with the domain event lock held in evtchn_close).
+Depending on the vCPU pinning configuration, this may lead to such
+unit to be stuck in the runq for long time, causing malfunctioning
+inside the guest.
 
-I was likely a bit too restrictive in my remark. The BUG_ON() in 
-evtchn_close() is fine because this is used on a (in theory) an open 
-port with the both domains event lock held.
+Fix this by checking runnable/non-runnable status up-front, in the runq
+scanning function.
 
-This would be more a problem if we have either:
+Reported-by: Michał Leszczyński <michal.leszczynski@cert.pl>
+Reported-by: Dion Kant <g.w.kant@hunenet.nl>
+Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+---
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Michał Leszczyński <michal.leszczynski@cert.pl>
+Cc: Dion Kant <g.w.kant@hunenet.nl>
+---
+This is a bugfix and it solves the following problems, reported in
+various ways:
+* https://lists.xen.org/archives/html/xen-devel/2020-05/msg01985.html
+* https://lists.xenproject.org/archives/html/xen-devel/2020-10/msg01561.html
+* https://bugzilla.opensuse.org/show_bug.cgi?id=1179246
 
-if ( !port_is_valid(d1, port1) )
-   return -EINVAL;
+Hence, it should be backported, I'd say as far as possible... At least
+to all the releases that have Credit2 as the default scheduler.
 
-/* .... */
+I will look further into this, and I think I can provide the backports
+myself.
 
-BUG_ON(port_is_valid(d1, port1));
+I'd like to send a *huge* thank you to Dion Kant who arranged for me to
+be able to use a box where it was particularly easy to reproduce the
+bug, and that was for all the time that it took me to finally be able to
+work on this properly and nail it! :-)
+---
+ xen/common/sched/credit2.c |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-> 
->> So I think a comment on top of is_port_valid() would be really useful before
->> someone rediscover it the hard way.
-> 
-> I think I'm being extremely dull here, sorry. From your text I
-> understand that the value returned by is_port_valid could be stale by
-> the time the user reads it?
-> 
-> I think there's some condition that makes this value stale, and it's
-> not the common case?
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index eb5e5a78c5..f5c1e5b944 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -3463,6 +3463,10 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+                         (unsigned char *)&d);
+         }
+ 
++        /* Skip non runnable units that we (temporarily) have in the runq */
++        if ( unlikely(!unit_runnable_state(svc->unit)) )
++            continue;
++
+         /* Only consider vcpus that are allowed to run on this processor. */
+         if ( !cpumask_test_cpu(cpu, svc->unit->cpu_hard_affinity) )
+             continue;
+@@ -3496,8 +3500,7 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+          * some budget, then choose it.
+          */
+         if ( (yield || svc->credit > snext->credit) &&
+-             (!has_cap(svc) || unit_grab_budget(svc)) &&
+-             unit_runnable_state(svc->unit) )
++             (!has_cap(svc) || unit_grab_budget(svc)) )
+             snext = svc;
+ 
+         /* In any case, if we got this far, break. */
 
-It is any code that race with evtchn_destroy().
 
-Cheers,
-
--- 
-Julien Grall
 
