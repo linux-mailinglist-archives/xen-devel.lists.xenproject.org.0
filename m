@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06F839525A
-	for <lists+xen-devel@lfdr.de>; Sun, 30 May 2021 19:28:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.134304.249987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9283E395254
+	for <lists+xen-devel@lfdr.de>; Sun, 30 May 2021 19:28:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134306.249996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lnPE8-0006Rs-06; Sun, 30 May 2021 17:27:52 +0000
+	id 1lnPE8-0006hE-QI; Sun, 30 May 2021 17:27:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 134304.249987; Sun, 30 May 2021 17:27:51 +0000
+Received: by outflank-mailman (output) from mailman id 134306.249996; Sun, 30 May 2021 17:27:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lnPE7-0006FV-DN; Sun, 30 May 2021 17:27:51 +0000
-Received: by outflank-mailman (input) for mailman id 134304;
- Sun, 30 May 2021 15:07:14 +0000
+	id 1lnPE8-0006R6-9H; Sun, 30 May 2021 17:27:52 +0000
+Received: by outflank-mailman (input) for mailman id 134306;
+ Sun, 30 May 2021 15:07:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GvOc=KZ=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1lnN22-0000PC-0y
- for xen-devel@lists.xenproject.org; Sun, 30 May 2021 15:07:14 +0000
-Received: from mail-pl1-x62a.google.com (unknown [2607:f8b0:4864:20::62a])
+ id 1lnN27-0000PC-18
+ for xen-devel@lists.xenproject.org; Sun, 30 May 2021 15:07:19 +0000
+Received: from mail-pj1-x1032.google.com (unknown [2607:f8b0:4864:20::1032])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 827f820c-da9e-4b91-bf18-71398a90a062;
- Sun, 30 May 2021 15:06:48 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id v12so3926075plo.10
- for <xen-devel@lists.xenproject.org>; Sun, 30 May 2021 08:06:48 -0700 (PDT)
+ id f6e39b98-5c8d-4af8-a799-88933df614f0;
+ Sun, 30 May 2021 15:06:50 +0000 (UTC)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ lx17-20020a17090b4b11b029015f3b32b8dbso7260069pjb.0
+ for <xen-devel@lists.xenproject.org>; Sun, 30 May 2021 08:06:50 -0700 (PDT)
 Received: from ubuntu-Virtual-Machine.corp.microsoft.com
  ([2001:4898:80e8:9:dc2d:80ab:c3f3:1524])
- by smtp.gmail.com with ESMTPSA id b15sm8679688pfi.100.2021.05.30.08.06.47
+ by smtp.gmail.com with ESMTPSA id b15sm8679688pfi.100.2021.05.30.08.06.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 May 2021 08:06:47 -0700 (PDT)
+ Sun, 30 May 2021 08:06:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 827f820c-da9e-4b91-bf18-71398a90a062
+X-Inumbo-ID: f6e39b98-5c8d-4af8-a799-88933df614f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=XbGhpS5yStXGWn3Ym/sECphkTnEdMSaFIpokEER49XU=;
-        b=JC3yoSpI7HeBKP3hWsg8wjl3AFxs/Vv/OxS4bnwIFqCjOJl15TuGLGknha8Pn1n/ah
-         0ZZUsS5bf4zVtnbK+OU9GfbzU8fFLPbSqbNhb187rqSV3zfZXEB6WH/++hB0KUJdUCem
-         IU226b2zVIlLikxKj/uD8rBCpSUIvBorTTx2zMaiyobmmX4TyUZq+n2YR9OK3/T1fvuy
-         FxivfaQTU/OoxpBt93x4SvNEzAgmbLv2krRO5irGI/Qt3eTDcCbT+MybWGjezFDPkS8C
-         t2tDouUeiWVJhg0oX2dmFl8aqN6cluwzNiwnY2oQHOGtPovXxeiOgpEInpePVYD0962N
-         TKIw==
+        bh=8QttpWnu2vUzDHi+PZwCcYLiEemtutjgmMI/iodwPTk=;
+        b=W8ClChNy/zGX4qaFJXG3v36CEkmNBgz6cFpUbxLY1MtMXiB3DOS0OEuklRIaJsUjfV
+         CqNiLrgh8G3MDnqTm2tqCifdbbiQ71hz1sqU7R2dyMZh7qX5GiL+3tYuOVCF6CIkTiBu
+         3WfmClEYRfWncVxeql61AC3bv02+aSKH2VTtSAeNX9rR2YLgnBdcXZAj+2VP8OnvpswI
+         6IrYrAMKWnDk1x5midWNyrQPk4MmHUTraFR4iwofk71RKNS/2odDBr6VNdmfIBv6hgpz
+         ljYhxqjLMoxzQDxzPB8RVmA3zmgl1Y0LYpfklpdG8vApkDP75Koqa6Bu6f2ftX6QddwC
+         sV/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=XbGhpS5yStXGWn3Ym/sECphkTnEdMSaFIpokEER49XU=;
-        b=lZyQNiwDALGW2eZvjXPZQq3INKIeYvKI1YN3iHojNYl/nKrd+qehe6KNij3mROYUON
-         UScpMLXpTT+ly5D2t1Io6/RMEnPGq+PIj1kdllBJSpftGa1KJSNSwiihtx3MOzN63f0Z
-         gk1HrJWSuwUws6Bt319kO/foi3ojedo0fn2QiBgfkuGRgx+M+qwFZ68S/CssgFpxAzO8
-         ZX+URTH90VsViXkbyXdKi0Fc6PPcYX9DG3arh/8qZ9G1dUK+hsgVlOBFZFQcq5fWm+bo
-         0XMiHCXkatxn9GYabxZdM3iLQY+zVGKRwqfmaegYrVJVMfrvjgi2HFUUIM7OkjdmuU2z
-         Y6bg==
-X-Gm-Message-State: AOAM532mLy39iWdvUnprM2oUFawIU3CUfEpSGkPatCsQvwes50sWGObs
-	baAHA9Sc5gT26sRW5v8S/9U=
-X-Google-Smtp-Source: ABdhPJxYzw948CYn/vrnLtLj9td0ihxzeOeJLO8aPceNZ6uTQIjukJfgPqOdArA0dsf3M/WWZk7Qdg==
-X-Received: by 2002:a17:90a:49cc:: with SMTP id l12mr14900755pjm.212.1622387208287;
-        Sun, 30 May 2021 08:06:48 -0700 (PDT)
+        bh=8QttpWnu2vUzDHi+PZwCcYLiEemtutjgmMI/iodwPTk=;
+        b=GZDC3q7X4298aDVxCCsz4O7VvtqMsAtUoZ2sTfMGwbHT2UVjNi38mvSqFhGzLS9Ymt
+         qSquu3Nc2NqqsFbpAoCAgi5wxNskhLF1b90aPRf/2v8DfffLxUSchTRq9R+FH69DbLm8
+         cihhWtXuL6l2UG+hH29Q7obmLTASmwRvF2S8TTPTDA9KEXn265e0f8BrpybHEG1IS4w8
+         HnWVE3Xp3q5XObYezXGzn3hbxXLBo/Oztv7SE8PxEcQk1wl8qVmlEJOyASx6PXpz9UAb
+         R08aXQzUpNyZMfbMZ07HtlfccrJrXAKb4uPOqWLygkoaNk7DkrhSZKyI1B4XjRvskG4e
+         dpng==
+X-Gm-Message-State: AOAM531fifVeMtENLDD6uR1wL3EUlsekQYzRddCYY8LAtdFV/GnNbckO
+	EriV2pzLetj7P9ayyNYXGxU=
+X-Google-Smtp-Source: ABdhPJwOFhoVhELuBsoR0x6Bkk9R5eQShuRJkYgZiLaNrPrGgc4hr2L1c/qfttmLx9Y24CFWGvaVqQ==
+X-Received: by 2002:a17:902:d2d1:b029:ef:8d29:3a64 with SMTP id n17-20020a170902d2d1b02900ef8d293a64mr16523183plc.38.1622387209666;
+        Sun, 30 May 2021 08:06:49 -0700 (PDT)
 From: Tianyu Lan <ltykernel@gmail.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -117,9 +118,9 @@ Cc: iommu@lists.linux-foundation.org,
 	thomas.lendacky@amd.com,
 	brijesh.singh@amd.com,
 	sunilmut@microsoft.com
-Subject: [RFC PATCH V3 07/11] HV/Vmbus: Initialize VMbus ring buffer for Isolation VM
-Date: Sun, 30 May 2021 11:06:24 -0400
-Message-Id: <20210530150628.2063957-8-ltykernel@gmail.com>
+Subject: [RFC PATCH V3 08/11] swiotlb: Add bounce buffer remap address setting function
+Date: Sun, 30 May 2021 11:06:25 -0400
+Message-Id: <20210530150628.2063957-9-ltykernel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210530150628.2063957-1-ltykernel@gmail.com>
 References: <20210530150628.2063957-1-ltykernel@gmail.com>
@@ -128,189 +129,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Tianyu Lan <Tianyu.Lan@microsoft.com>
 
-VMbus ring buffer are shared with host and it's need to
-be accessed via extra address space of Isolation VM with
-SNP support. This patch is to map the ring buffer
-address in extra address space via ioremap(). HV host
-visibility hvcall smears data in the ring buffer and
-so reset the ring buffer memory to zero after calling
-visibility hvcall.
+For Hyper-V isolation VM with AMD SEV SNP, the bounce buffer(shared memory)
+needs to be accessed via extra address space(e.g address above bit39).
+Hyper-V code may remap extra address space outside of swiotlb. swiotlb_
+bounce() needs to use remap virtual address to copy data from/to bounce
+buffer. Add new interface swiotlb_set_bounce_remap() to do that.
 
 Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
 ---
- drivers/hv/Kconfig        |  1 +
- drivers/hv/channel.c      | 10 +++++
- drivers/hv/hyperv_vmbus.h |  2 +
- drivers/hv/ring_buffer.c  | 84 ++++++++++++++++++++++++++++++---------
- 4 files changed, 79 insertions(+), 18 deletions(-)
+ include/linux/swiotlb.h |  5 +++++
+ kernel/dma/swiotlb.c    | 14 +++++++++++++-
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
-index 66c794d92391..a8386998be40 100644
---- a/drivers/hv/Kconfig
-+++ b/drivers/hv/Kconfig
-@@ -7,6 +7,7 @@ config HYPERV
- 	depends on X86 && ACPI && X86_LOCAL_APIC && HYPERVISOR_GUEST
- 	select PARAVIRT
- 	select X86_HV_CALLBACK_VECTOR
-+	select VMAP_PFN
- 	help
- 	  Select this option to run Linux as a Hyper-V client operating
- 	  system.
-diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-index 01048bb07082..7350da9dbe97 100644
---- a/drivers/hv/channel.c
-+++ b/drivers/hv/channel.c
-@@ -707,6 +707,16 @@ static int __vmbus_open(struct vmbus_channel *newchannel,
- 	if (err)
- 		goto error_clean_ring;
- 
-+	err = hv_ringbuffer_post_init(&newchannel->outbound,
-+				      page, send_pages);
-+	if (err)
-+		goto error_free_gpadl;
-+
-+	err = hv_ringbuffer_post_init(&newchannel->inbound,
-+				      &page[send_pages], recv_pages);
-+	if (err)
-+		goto error_free_gpadl;
-+
- 	/* Create and init the channel open message */
- 	open_info = kzalloc(sizeof(*open_info) +
- 			   sizeof(struct vmbus_channel_open_channel),
-diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
-index 40bc0eff6665..15cd23a561f3 100644
---- a/drivers/hv/hyperv_vmbus.h
-+++ b/drivers/hv/hyperv_vmbus.h
-@@ -172,6 +172,8 @@ extern int hv_synic_cleanup(unsigned int cpu);
- /* Interface */
- 
- void hv_ringbuffer_pre_init(struct vmbus_channel *channel);
-+int hv_ringbuffer_post_init(struct hv_ring_buffer_info *ring_info,
-+		struct page *pages, u32 page_cnt);
- 
- int hv_ringbuffer_init(struct hv_ring_buffer_info *ring_info,
- 		       struct page *pages, u32 pagecnt, u32 max_pkt_size);
-diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
-index 2aee356840a2..d4f93fca1108 100644
---- a/drivers/hv/ring_buffer.c
-+++ b/drivers/hv/ring_buffer.c
-@@ -17,6 +17,8 @@
- #include <linux/vmalloc.h>
- #include <linux/slab.h>
- #include <linux/prefetch.h>
-+#include <linux/io.h>
-+#include <asm/mshyperv.h>
- 
- #include "hyperv_vmbus.h"
- 
-@@ -179,43 +181,89 @@ void hv_ringbuffer_pre_init(struct vmbus_channel *channel)
- 	mutex_init(&channel->outbound.ring_buffer_mutex);
- }
- 
--/* Initialize the ring buffer. */
--int hv_ringbuffer_init(struct hv_ring_buffer_info *ring_info,
--		       struct page *pages, u32 page_cnt, u32 max_pkt_size)
-+int hv_ringbuffer_post_init(struct hv_ring_buffer_info *ring_info,
-+		       struct page *pages, u32 page_cnt)
- {
-+	u64 physic_addr = page_to_pfn(pages) << PAGE_SHIFT;
-+	unsigned long *pfns_wraparound;
-+	void *vaddr;
- 	int i;
--	struct page **pages_wraparound;
- 
--	BUILD_BUG_ON((sizeof(struct hv_ring_buffer) != PAGE_SIZE));
-+	if (!hv_isolation_type_snp())
-+		return 0;
-+
-+	physic_addr += ms_hyperv.shared_gpa_boundary;
- 
- 	/*
- 	 * First page holds struct hv_ring_buffer, do wraparound mapping for
- 	 * the rest.
- 	 */
--	pages_wraparound = kcalloc(page_cnt * 2 - 1, sizeof(struct page *),
-+	pfns_wraparound = kcalloc(page_cnt * 2 - 1, sizeof(unsigned long),
- 				   GFP_KERNEL);
--	if (!pages_wraparound)
-+	if (!pfns_wraparound)
- 		return -ENOMEM;
- 
--	pages_wraparound[0] = pages;
-+	pfns_wraparound[0] = physic_addr >> PAGE_SHIFT;
- 	for (i = 0; i < 2 * (page_cnt - 1); i++)
--		pages_wraparound[i + 1] = &pages[i % (page_cnt - 1) + 1];
--
--	ring_info->ring_buffer = (struct hv_ring_buffer *)
--		vmap(pages_wraparound, page_cnt * 2 - 1, VM_MAP, PAGE_KERNEL);
--
--	kfree(pages_wraparound);
-+		pfns_wraparound[i + 1] = (physic_addr >> PAGE_SHIFT) +
-+			i % (page_cnt - 1) + 1;
- 
--
--	if (!ring_info->ring_buffer)
-+	vaddr = vmap_pfn(pfns_wraparound, page_cnt * 2 - 1, PAGE_KERNEL_IO);
-+	kfree(pfns_wraparound);
-+	if (!vaddr)
- 		return -ENOMEM;
- 
--	ring_info->ring_buffer->read_index =
--		ring_info->ring_buffer->write_index = 0;
-+	/* Clean memory after setting host visibility. */
-+	memset((void *)vaddr, 0x00, page_cnt * PAGE_SIZE);
-+
-+	ring_info->ring_buffer = (struct hv_ring_buffer *)vaddr;
-+	ring_info->ring_buffer->read_index = 0;
-+	ring_info->ring_buffer->write_index = 0;
- 
- 	/* Set the feature bit for enabling flow control. */
- 	ring_info->ring_buffer->feature_bits.value = 1;
- 
-+	return 0;
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index 216854a5e513..43f53cf52f48 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -113,8 +113,13 @@ unsigned int swiotlb_max_segment(void);
+ size_t swiotlb_max_mapping_size(struct device *dev);
+ bool is_swiotlb_active(void);
+ void __init swiotlb_adjust_size(unsigned long size);
++void swiotlb_set_bounce_remap(unsigned char *vaddr);
+ #else
+ #define swiotlb_force SWIOTLB_NO_FORCE
++static inline void swiotlb_set_bounce_remap(unsigned char *vaddr)
++{
 +}
 +
-+/* Initialize the ring buffer. */
-+int hv_ringbuffer_init(struct hv_ring_buffer_info *ring_info,
-+		       struct page *pages, u32 page_cnt, u32 max_pkt_size)
+ static inline bool is_swiotlb_buffer(phys_addr_t paddr)
+ {
+ 	return false;
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 8ca7d505d61c..fbc827ab5fb4 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -70,6 +70,7 @@ struct io_tlb_mem *io_tlb_default_mem;
+  * not be bounced (unless SWIOTLB_FORCE is set).
+  */
+ static unsigned int max_segment;
++static unsigned char *swiotlb_bounce_remap_addr;
+ 
+ static unsigned long default_nslabs = IO_TLB_DEFAULT_SIZE >> IO_TLB_SHIFT;
+ 
+@@ -334,6 +335,11 @@ void __init swiotlb_exit(void)
+ 	io_tlb_default_mem = NULL;
+ }
+ 
++void swiotlb_set_bounce_remap(unsigned char *vaddr)
 +{
-+	int i;
-+	struct page **pages_wraparound;
++	swiotlb_bounce_remap_addr = vaddr;
++}
 +
-+	BUILD_BUG_ON((sizeof(struct hv_ring_buffer) != PAGE_SIZE));
+ /*
+  * Bounce: copy the swiotlb buffer from or back to the original dma location
+  */
+@@ -345,7 +351,13 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
+ 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
+ 	size_t alloc_size = mem->slots[index].alloc_size;
+ 	unsigned long pfn = PFN_DOWN(orig_addr);
+-	unsigned char *vaddr = phys_to_virt(tlb_addr);
++	unsigned char *vaddr;
 +
-+	if (!hv_isolation_type_snp()) {
-+		/*
-+		 * First page holds struct hv_ring_buffer, do wraparound mapping for
-+		 * the rest.
-+		 */
-+		pages_wraparound = kcalloc(page_cnt * 2 - 1, sizeof(struct page *),
-+					   GFP_KERNEL);
-+		if (!pages_wraparound)
-+			return -ENOMEM;
-+
-+		pages_wraparound[0] = pages;
-+		for (i = 0; i < 2 * (page_cnt - 1); i++)
-+			pages_wraparound[i + 1] = &pages[i % (page_cnt - 1) + 1];
-+
-+		ring_info->ring_buffer = (struct hv_ring_buffer *)
-+			vmap(pages_wraparound, page_cnt * 2 - 1, VM_MAP, PAGE_KERNEL);
-+
-+		kfree(pages_wraparound);
-+
-+		if (!ring_info->ring_buffer)
-+			return -ENOMEM;
-+
-+		ring_info->ring_buffer->read_index =
-+			ring_info->ring_buffer->write_index = 0;
-+
-+		/* Set the feature bit for enabling flow control. */
-+		ring_info->ring_buffer->feature_bits.value = 1;
-+	}
-+
- 	ring_info->ring_size = page_cnt << PAGE_SHIFT;
- 	ring_info->ring_size_div10_reciprocal =
- 		reciprocal_value(ring_info->ring_size / 10);
++	if (swiotlb_bounce_remap_addr)
++		vaddr = swiotlb_bounce_remap_addr + tlb_addr -
++			io_tlb_default_mem->start;
++	else
++		vaddr = phys_to_virt(tlb_addr);
+ 
+ 	if (orig_addr == INVALID_PHYS_ADDR)
+ 		return;
 -- 
 2.25.1
 
