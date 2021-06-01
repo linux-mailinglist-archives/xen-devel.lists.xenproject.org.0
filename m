@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41620397798
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:11:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.134979.250989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248A239779F
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:11:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134986.251056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo6zP-0005ZO-2T; Tue, 01 Jun 2021 16:11:35 +0000
+	id 1lo6zd-0007iz-Qo; Tue, 01 Jun 2021 16:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 134979.250989; Tue, 01 Jun 2021 16:11:35 +0000
+Received: by outflank-mailman (output) from mailman id 134986.251056; Tue, 01 Jun 2021 16:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo6zO-0005XO-Uh; Tue, 01 Jun 2021 16:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 134979;
- Tue, 01 Jun 2021 16:11:33 +0000
+	id 1lo6zd-0007eD-J3; Tue, 01 Jun 2021 16:11:49 +0000
+Received: by outflank-mailman (input) for mailman id 134986;
+ Tue, 01 Jun 2021 16:11:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HQ7/=K3=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lo6zN-0005Ec-0g
- for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:11:33 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.20])
+ id 1lo6zc-0005Ec-17
+ for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:11:48 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 13ab766b-3fdb-4683-ae05-9169682260c7;
- Tue, 01 Jun 2021 16:11:31 +0000 (UTC)
+ id 5f02d3d3-25dd-40bb-a90b-7a56cafa0d5f;
+ Tue, 01 Jun 2021 16:11:32 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx51GBP1B6
+ with ESMTPSA id j0415bx51GBP1B7
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Tue, 1 Jun 2021 18:11:25 +0200 (CEST)
@@ -40,39 +40,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13ab766b-3fdb-4683-ae05-9169682260c7
-ARC-Seal: i=1; a=rsa-sha256; t=1622563885; cv=none;
+X-Inumbo-ID: 5f02d3d3-25dd-40bb-a90b-7a56cafa0d5f
+ARC-Seal: i=1; a=rsa-sha256; t=1622563886; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=Q8tN60+RqOha/MCXIQ5n8Okf/eCE4XN4QKhcqJNEH4fZXpfnhdq1Mhn5RraxGGhURH
-    bR2V3bg8mIRVxZhQd9j1M3EBFN4HTux1HLo56QpEB/Gxbo6JOG1f0QcftuzC+MeDRv7i
-    wU77+TyThcRMJ1EdIUcxG4X3nP+Sq8mODjxlYfaeKbwmClPa7woA6uNk3tI6v1hrf4O5
-    IXwfnpqnCWi6HP6WdFWLjThkI5sNIypXP2ec7UnoBCaAc3Ifuh15qusQ4JMHU/p25Vef
-    dCUcnFHg/OdvfpwLvwXct7TJtQjpbWaoZMQEHXea/r6wj6xn/I1WCc1gmhtDhRybPImn
-    XJPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563885;
+    b=rTKxOAkKqYFJL5L7GOducmz8OOO1xHg+Am9DHOVEIThR2y71qgA8qMEqUn3HXCS82l
+    6D6ABoIHBvhSlR9CZMALQWBO+AfyINY4HR6duXnGenx9CtJEfzShCwFm6yeAQTZvQn2c
+    g+kU9Gd2Yvx4s6lt3K0Cg2PceL4O3nnXhARYRiW0JakF/zr3sGvZONAbwr4IWo9INVep
+    UBs6HD/ro0SeILfjKpBfJdGDqMLRUtJoJ0qXaQOhK4HxVL+VqROjRRzZ7lDuIB3lg6Ba
+    tidqqlXoVMIF1oBi+ICHtlm7C+mDBVv66gCBcaFLpiqMiVZYtAJ1hI22grtrmkBy/UVv
+    EVdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563886;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ti7wpap7OKPtBty/ilhF07cZXxS6hyTWcz0abirc9Nk=;
-    b=NlPTluv9dqlH2y81U97VooLLFW933ZhYmDeUIoPU04RBuEqy11hEOu/YqD9RUud8AG
-    4EmoFn+72H4J0QwM2rqMQ+EB9PxXbwBFfMbqKNQgMh4QkT4SrDhgMoyrDy2bBOTJevK9
-    8FryrKOg/HxOAfYTCtBtIu+5HzYTMf7tuak3wWU2Lqb3wQ+461DDPpdfr2IyZcllc6hf
-    oN8FNN5l7cEBd3zVMyhJ8yCoUdKYh7HsLXRpiArQbdvtPE+Jqv9M2Y5n2luWdb4VkwOn
-    Wk2S1SfZ2N3FsRTDqx0vi25FVmC6vCvuaZogANWP4q6kjCjw+Ft10E7yupTRpZizgIbb
-    5zPQ==
+    bh=q97eEfHeTtV0cDWNiuGMRdoBkuW+It3JWF9KWqcO/JA=;
+    b=SSyySTzshn8kEOHxegJbOF9NyOmyCNKBOlv8OwbvTSmrL+/cA5XWYwmuo5fGxKGULN
+    rfFzd/kXuhwqoHjpEkAEd2d1VG4g5Rhp4lZx7EtSRfe6kvzXwKmSZd4km4fv7KfaN7DD
+    sEWrakTta9mRArnZMZ1GKZHfIzwzYi9sUhfK3dQiJOUfrmlXrpkcKquTDEsuFiYvOwEl
+    muPbLDjBxJtEco8io+KVCxTni03X2HTkMCrRrZokvuuVuVskoIQiVULyxTKIsWDO/a38
+    ft7okdV922U0qqWng/27ihvkB/cIgRqrX9VZScwkYFft4FXxAKwo+COLidPZkCOesZ/w
+    lSQQ==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563885;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563886;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ti7wpap7OKPtBty/ilhF07cZXxS6hyTWcz0abirc9Nk=;
-    b=elofRk4c6+a0/b7PP9QcqvXDvSWVEb5gDa8oAMVpm4vMk6jdtWIkhVRdaQG6anPHjs
-    rze8P0ywimL3CGv4VwC2MCHyx5V03dXo6+yaNiNPsEstbtFafrFTBl8btXejoOGbNWQw
-    4QWm/GibrNHC3k0EwzwNOOl+asl/XaG+4lZkBlOmCD9izIGAth3l2WKT4/3T6k4fMsJT
-    CKDyLDJoVQccGr6oXvtIjFRouK+g7tijGkc2NSnCIOxG2T4PAyQYtjTf1PkxF+z4VDir
-    0nRHFlteuEjT/O09+DlcuzGLtnr+QcO0sEpeCQhByhMSKQk1JtMsSzqVrN14Wok3nZRq
-    eVxQ==
+    bh=q97eEfHeTtV0cDWNiuGMRdoBkuW+It3JWF9KWqcO/JA=;
+    b=lM4O7DGKUfc+l8/uC42qfSOM6h4+DtCfrOtiBAKTdo5MgUSCOy26LhszcdSjhS7kjF
+    0jCv7eJ3E4IitkJzIJWSv7EjpM29Be1TfA3BPehj8QsuqYXOWS0w+gEYRdHDpNiWQb3P
+    AUTFySO+n0cEo7ORuucXWnkfv9BUSGHmcG2RqcGdrkF2wjcZWcthPVTL5PXEQnjLq6c+
+    lvu3OXIJ3UIVXLO3Y6Jyrd/xqhW5JSFDGYHZq7xTZ+zUbZa7StjvIqbtr6rCcSWxmqB3
+    QsEzp7laZa4pu9KbOkU9YcE/ck6oVtv7MGHGf4VNQaNFIesv5b8opTH+l9wjnsCFAOfI
+    finA==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgs09ValFcstyKtnZMLOo4jr88Zf5nXI1mYJUK+h"
@@ -81,61 +81,67 @@ From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v20210601 01/38] tools: add API to work with sevaral bits at once
-Date: Tue,  1 Jun 2021 18:10:41 +0200
-Message-Id: <20210601161118.18986-2-olaf@aepfle.de>
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v20210601 02/38] xl: fix description of migrate --debug
+Date: Tue,  1 Jun 2021 18:10:42 +0200
+Message-Id: <20210601161118.18986-3-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210601161118.18986-1-olaf@aepfle.de>
 References: <20210601161118.18986-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce new API to test if a fixed number of bits is clear or set,
-and clear or set them all at once.
-
-The caller has to make sure the input bitnumber is a multiply of BITS_PER_LONG.
-
-This API avoids the loop over each bit in a known range just to see
-if all of them are either clear or set.
+xl migrate --debug used to track every pfn in every batch of pages.
+But these times are gone. Adjust the help text to tell what --debug
+is supposed to do today.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/ctrl/xc_bitops.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ docs/man/xl.1.pod.in          | 4 +++-
+ tools/libs/guest/xg_sr_save.c | 2 +-
+ tools/xl/xl_cmdtable.c        | 2 +-
+ 3 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/tools/libs/ctrl/xc_bitops.h b/tools/libs/ctrl/xc_bitops.h
-index f0bac4a071..92f38872fb 100644
---- a/tools/libs/ctrl/xc_bitops.h
-+++ b/tools/libs/ctrl/xc_bitops.h
-@@ -77,4 +77,29 @@ static inline void bitmap_or(void *_dst, const void *_other,
-         dst[i] |= other[i];
- }
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index e2176bd696..ed3f4dee1e 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -481,7 +481,9 @@ domain.
  
-+static inline int test_bit_long_set(unsigned long nr_base, const void *_addr)
-+{
-+    const unsigned long *addr = _addr;
-+    unsigned long val = addr[nr_base / BITS_PER_LONG];
-+    return val == ~0;
-+}
-+
-+static inline int test_bit_long_clear(unsigned long nr_base, const void *_addr)
-+{
-+    const unsigned long *addr = _addr;
-+    unsigned long val = addr[nr_base / BITS_PER_LONG];
-+    return val == 0;
-+}
-+
-+static inline void clear_bit_long(unsigned long nr_base, void *_addr)
-+{
-+    unsigned long *addr = _addr;
-+    addr[nr_base / BITS_PER_LONG] = 0;
-+}
-+
-+static inline void set_bit_long(unsigned long nr_base, void *_addr)
-+{
-+    unsigned long *addr = _addr;
-+    addr[nr_base / BITS_PER_LONG] = ~0;
-+}
- #endif  /* XC_BITOPS_H */
+ =item B<--debug>
+ 
+-Display huge (!) amount of debug information during the migration process.
++Verify transferred domU page data. All memory will be transferred one more
++time to the destination host while the domU is paused, and compared with
++the result of the inital transfer while the domU was still running.
+ 
+ =item B<-p>
+ 
+diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
+index 2ba7c3200c..51542a98c8 100644
+--- a/tools/libs/guest/xg_sr_save.c
++++ b/tools/libs/guest/xg_sr_save.c
+@@ -752,7 +752,7 @@ static int send_domain_memory_live(struct xc_sr_context *ctx)
+     if ( rc )
+         goto out;
+ 
+-    if ( ctx->save.debug && ctx->stream_type != XC_STREAM_PLAIN )
++    if ( ctx->save.debug )
+     {
+         rc = verify_frames(ctx);
+         if ( rc )
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index 661323d488..6fd18856c0 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -172,7 +172,7 @@ const struct cmd_spec cmd_table[] = {
+       "                migrate-receive [-d -e]\n"
+       "-e              Do not wait in the background (on <host>) for the death\n"
+       "                of the domain.\n"
+-      "--debug         Print huge (!) amount of debug during the migration process.\n"
++      "--debug         Verify transferred domU page data.\n"
+       "-p              Do not unpause domain after migrating it.\n"
+       "-D              Preserve the domain id"
+     },
 
