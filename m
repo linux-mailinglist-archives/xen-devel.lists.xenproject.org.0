@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2173B396E00
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 09:35:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.134700.250570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24CF0396E03
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 09:36:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134713.250581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lnyv7-00052r-CB; Tue, 01 Jun 2021 07:34:37 +0000
+	id 1lnywa-0005vZ-MG; Tue, 01 Jun 2021 07:36:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 134700.250570; Tue, 01 Jun 2021 07:34:37 +0000
+Received: by outflank-mailman (output) from mailman id 134713.250581; Tue, 01 Jun 2021 07:36:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lnyv7-0004zS-7n; Tue, 01 Jun 2021 07:34:37 +0000
-Received: by outflank-mailman (input) for mailman id 134700;
- Tue, 01 Jun 2021 07:34:35 +0000
+	id 1lnywa-0005sp-Ib; Tue, 01 Jun 2021 07:36:08 +0000
+Received: by outflank-mailman (input) for mailman id 134713;
+ Tue, 01 Jun 2021 07:36:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Tu9B=K3=rmail.be=alien@srs-us1.protection.inumbo.net>)
- id 1lnyv5-0004yD-Oc
- for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 07:34:35 +0000
+ id 1lnywY-0005sY-U4
+ for xen-devel@lists.xen.org; Tue, 01 Jun 2021 07:36:06 +0000
 Received: from mail.rmail.be (unknown [85.234.218.189])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id fde5eead-cb44-45fe-b7b8-7bf0977246d6;
- Tue, 01 Jun 2021 07:34:33 +0000 (UTC)
+ id 0cb89227-cc56-4064-ac7f-4ecf78fadcc8;
+ Tue, 01 Jun 2021 07:36:05 +0000 (UTC)
 Received: from mail.rmail.be (localhost [127.0.0.1])
- by mail.rmail.be (Postfix) with ESMTP id 739C5B1133A
- for <xen-devel@lists.xenproject.org>; Tue,  1 Jun 2021 09:34:33 +0200 (CEST)
+ by mail.rmail.be (Postfix) with ESMTP id 2A030B11353
+ for <xen-devel@lists.xen.org>; Tue,  1 Jun 2021 09:36:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,16 +38,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde5eead-cb44-45fe-b7b8-7bf0977246d6
+X-Inumbo-ID: 0cb89227-cc56-4064-ac7f-4ecf78fadcc8
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Tue, 01 Jun 2021 09:34:33 +0200
+Date: Tue, 01 Jun 2021 09:36:05 +0200
 From: AL13N <alien@rmail.be>
-To: xen-devel@lists.xenproject.org
+To: Xen-devel <xen-devel@lists.xen.org>
 Subject: pci passthrough issue introduced between 4.14.1 and 4.15.0
-Message-ID: <9562f5c0911567f12ed9fef8830f3018@mail.rmail.be>
+Message-ID: <6ccb04f2d93be6089b049df1f94a91dd@mail.rmail.be>
 X-Sender: alien@rmail.be
 User-Agent: Roundcube Webmail/1.0.9-1.2.mga5
 
