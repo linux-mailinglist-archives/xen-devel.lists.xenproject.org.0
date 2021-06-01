@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84ABA3977BE
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:13:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135023.251221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC2B23977B7
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:13:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135019.251199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo71H-0001J8-H5; Tue, 01 Jun 2021 16:13:31 +0000
+	id 1lo70v-0000MN-M1; Tue, 01 Jun 2021 16:13:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135023.251221; Tue, 01 Jun 2021 16:13:31 +0000
+Received: by outflank-mailman (output) from mailman id 135019.251199; Tue, 01 Jun 2021 16:13:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo71H-0001G5-A0; Tue, 01 Jun 2021 16:13:31 +0000
-Received: by outflank-mailman (input) for mailman id 135023;
- Tue, 01 Jun 2021 16:13:29 +0000
+	id 1lo70v-0000Je-I6; Tue, 01 Jun 2021 16:13:09 +0000
+Received: by outflank-mailman (input) for mailman id 135019;
+ Tue, 01 Jun 2021 16:13:08 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HQ7/=K3=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lo70W-0005X1-1K
- for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:12:44 +0000
-Received: from mo4-p03-ob.smtp.rzone.de (unknown [85.215.255.102])
+ id 1lo70R-0005X1-1E
+ for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:12:39 +0000
+Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.173])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 278042e2-4acd-4f2f-8a00-3bcb9a4b4a4d;
+ id c58b872c-705e-46c7-a4aa-94a90b0c6dcb;
  Tue, 01 Jun 2021 16:11:47 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx51GBg1Bh
+ with ESMTPSA id j0415bx51GBg1Bi
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Tue, 1 Jun 2021 18:11:42 +0200 (CEST)
@@ -41,39 +41,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 278042e2-4acd-4f2f-8a00-3bcb9a4b4a4d
+X-Inumbo-ID: c58b872c-705e-46c7-a4aa-94a90b0c6dcb
 ARC-Seal: i=1; a=rsa-sha256; t=1622563902; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=GeSymt4sBAtamqwu9Qf/zyFLkpCxODm6nO9s0ZiWqB94QdYonpmCondOY39DJhz7ab
-    2M7Qu2AfX6KGmOO5H4L26EKPFJ4xTciT6GYke96FK3x6yOTCc6jwxMBzay/YP4RB/AS+
-    nczvhI0gIHZfwKjJxHpPH2jiLTpgLSUmaRyHs3rFbK0TEKbZFb8dreXvElyKslcUoe5m
-    AfyG9O2TsHZCnwIJwpxMLJ0KaAfW3dMgw2YZhSTehyGN7IJLjYq2pu4PuPSe/oXGAtcB
-    1tcxssT/fo5jwJCEjwNY5ascx/5HesM9L3HQ0QF1n3pyDXmiej6NCkWQaVeSLY/6WUl0
-    xsFg==
+    b=K7MnlPHaXmu4fU5RlfPrsnOzwcPTcmOAWCvSh+ooAre1bwTpwi4eMMGz/5Jv1Ig1ZW
+    JloAzpPSnJnclTW4wr7Ytk8bLdATSBiQRhf3LpoxulBCdjGwn8fEikIu6++kaZ7sPHfq
+    m9GFIxxfgtPMPPVdJKFpa2B/70/RZ3tKv/8obUaj1nj6W5e7me+PNZCLyOUaoqBecAnP
+    C+C45/54baeVovaLeEH1v31apfihBaozH7X9mlU0glNcddolHxmNutWRvmEqNjiEttZy
+    Fojaz3PuVQbehB5xyP8qO3zAvTPyTuNNoFDakouqC8rrm+uP5B2S4r6HMpOWkvv7a9a9
+    Fklw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563902;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=6EezNi5nT36Er9YZKB+7tjmR7V8p17EAGCb3I0QL+5s=;
-    b=UskJ41eWQFyxIqoSJ0UbrO2OZY0O5JRSH8qP2FMg5ktabG6ppN1i4yMHUb9fw7QZ77
-    r6dV0UWdB16t2j+k94SZBhdhH7wqyWVBXcWjNSdR4kqmeWprjxyUnTYCM0/9jWUBBXTJ
-    4MQE0HgWaXpQ9VHFxHTydxG6o4SCu4tYb9TJbcss4feKjK4mQiSqfc/BkLBElPYYKP/V
-    96Fl0XaAmmqUykmd0UJjaSjitivygCRbB5GRQoIJqujhlvJ1x/SCd1+1z2Ev9K14tShO
-    dEr+2jH7f+WKL4IaEKhAfjk2lwlh5MyZ7O9FFbdgJneEVG1g38AFwJLzXLjmp6BIw77k
-    cF4g==
+    bh=fttDAmpegUqwpOBB61SFRLpHBJB9wPmVo+V4iKyUqQw=;
+    b=ZKo6xL4wFzjwUtYQMxZLthEnX/2j4XXU+ET8fslQ8JqjAiO9jlMLLDaX7tNV/rIito
+    YSjbAKL+Lgd9rhcCBSKycTE/JI+vMKvhm2LCur4Zyxg0TZeUGyGVDBoeri5jHWzi+v8m
+    5uGj4AhoMJH1/UpyRd+ABqMeblXCauuk+Qnxu4g4en0FXc8YE536ZPSMNgxEPJ7EA5vB
+    NtOn+kHn36uvexNqpQEWuZkcJfaru5vXOE5Xoup/d/KePoFZOqJoZFV2HxvZehI7SvEX
+    W6W8XvN3C4y2+CfoOWniMWikvjXytRwbvQo80fTUHzxDYBzxgh5qWXM/941Fm3bd1Yeq
+    EMfg==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563902;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=6EezNi5nT36Er9YZKB+7tjmR7V8p17EAGCb3I0QL+5s=;
-    b=VYpxfqnSD8t0H6aLBhP5dxoK9sO90LouyqSEYxfqVVwdyE4vcLV6MnyJnAqJ6CxYB2
-    iwgHF/J1IbQ7JQsfUaaMdOOs18zBBwqsFzp4e5naiSodmW9pGH8KzCZgd6Ylzf3y5Tly
-    gTY15o14NCLZruKyIEwJ57UFGnKF6NPZX2QRzfJMppSrmMfU6NoW+WgSq1Uk+7q+nSaF
-    XoNIQiQXQoiD8+OygNVgWo2teoYUGCvs2T/jfdNqftXE32ARgJGoYOn9R3d1yeYpBaUW
-    9V5sp/L587S/AAOdyAb2r4le07PGPs+gLKrlsApjmYE+s9I6pM7wGo84vWqzqQRvTzdI
-    3FEw==
+    bh=fttDAmpegUqwpOBB61SFRLpHBJB9wPmVo+V4iKyUqQw=;
+    b=ShTWQZKcQxZ1sfebsNAw3YaYcPQB1WYhFoM850GJhLl8wmQwEfctVTPf+8YlicvXTj
+    VlDW3wj8vaW/oiD6NQm1ua1hkBTsrESScVeGdK9/qnZ6IAKgoLi2QrU71IgL5R7JKqFu
+    SOZBrr9BV/XYgYN2PZBWv8VWy+NnFnwL8tTBdr2BjS8LjSr9CCPjYjQlWHTpZY/Qwz4s
+    uJ6yIZ97QLzsAjNs79CzpqBfvtk8o1P3YfO2jfbA8fkwYPLd4ggLTjuAP2/hUahRWXzu
+    6mIhBdYVJTtX9k2p+5OPkdMh21UKzH2P1Dk4KdBAkWGepZutG7i3uFqQ9drAKLmYKjln
+    lsCw==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgs09ValFcstyKtnZMLOo4jr88Zf5nXI1mYJUK+h"
@@ -83,209 +83,172 @@ To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v20210601 37/38] tools: remove migration stream verify code
-Date: Tue,  1 Jun 2021 18:11:17 +0200
-Message-Id: <20210601161118.18986-38-olaf@aepfle.de>
+Subject: [PATCH v20210601 38/38] hotplug/Linux: fix starting of xenstored with restarting systemd
+Date: Tue,  1 Jun 2021 18:11:18 +0200
+Message-Id: <20210601161118.18986-39-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210601161118.18986-1-olaf@aepfle.de>
 References: <20210601161118.18986-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The verify code tries to make sure the transferred pages from the paused
-domU were received correctly in the previous, final iteration. Every
-page is transferred once again by the sender, the receiver compares the
-content with what is already mapped into the not-yet started domU.
+A hard to trigger race with another unrelated systemd service and
+xenstored.service unveiled a bug in the way how xenstored is launched
+with systemd.
 
-This does unfortunately not work because a domU has also a number of
-pages in its grant table, so that frondend drivers can communicate with
-the backend drivers. Since the backend drivers are unaware about the
-ongoing saving of the domU, they will continue to write into the shared
-pages. As a result the verification of the domU pages will fail.
+launch-xenstore may start either a daemon or a domain. In case a domain
+is used, systemd-notify was called. If another service triggered a
+restart of systemd while xenstored.service was executed, systemd may
+temporary lose track of services with Type=notify. As a result,
+xenstored.service would be marked as failed and units that depend on it
+will not be started. This breaks the enire Xen toolstack.
 
-This is not fixable, so remove the verification code.
+The chain of events is basically: xenstored.service sends the
+notification to systemd, this is a one-way event. Then systemd may be
+restarted by the other unit. During this time, xenstored.service is done
+and exits. Once systemd is done with its restart, it collects the pending
+notifications and childs. If it does not find the unit which sent the
+notification it will declare it as failed.
 
-The sending side will never send a REC_TYPE_VERIFY record again. It will
-silently accept, and ignore the debug flag.
+A workaround for this scenario is to leave the child processes running
+for a short time after sending the "READY=1" notification. If systemd
+happens to restart it will still find the unit it launched.
 
-The receiving side will abort an almost complete migration in case it
-sees a REC_TYPE_VERIFY record from an old sender. That record is sent at
-the very end, it has no way to know in advance that verification was
-requested.
+Adjust the callers of launch-xenstore to specifiy the init system:
+Do not fork xenstored with systemd, preserve pid. This wil also avoid
+the need for a sleep because the process which sent the "READY=1" (the
+previously forked child) is still alive.
+
+Remove the --pid-file in the systemd case because the pid of the child
+is known, and the file had probably little effect anyway due to lack of
+PidFile= and Type=forking in the unit file.
+
+Be verbose about xenstored startup only with sysv to avoid interleaved
+output in systemd journal. Do the same also for domain case, even if is
+not strictly needed because init-xenstore-domain has no output.
+
+The fix for upstream systemd which is supposed to fix it:
+575b300b795b6 ("pid1: rework how we dispatch SIGCHLD and other signals")
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/libs/saverestore/common.h  |  7 ------
- tools/libs/saverestore/restore.c | 43 ++++----------------------------
- tools/libs/saverestore/save.c    | 43 --------------------------------
- 3 files changed, 5 insertions(+), 88 deletions(-)
 
-diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
-index b323c1b71a..b8ca24e667 100644
---- a/tools/libs/saverestore/common.h
-+++ b/tools/libs/saverestore/common.h
-@@ -354,9 +354,6 @@ struct xc_sr_context
-             /* Live migrate vs non live suspend. */
-             bool live;
+--
+v04:
+- do mkdir unconditionally because init-xenstore-domain writes the domid to
+  xenstored.pid
+v03:
+- remove run_xenstored function, follow style of shell built-in test function
+v02:
+- preserve Type=notify
+---
+ tools/hotplug/Linux/init.d/xencommons.in      |  2 +-
+ tools/hotplug/Linux/launch-xenstore.in        | 40 ++++++++++++++-----
+ .../Linux/systemd/xenstored.service.in        |  2 +-
+ 3 files changed, 31 insertions(+), 13 deletions(-)
+
+diff --git a/tools/hotplug/Linux/init.d/xencommons.in b/tools/hotplug/Linux/init.d/xencommons.in
+index 7fd6903b98..dcb0ce4b73 100644
+--- a/tools/hotplug/Linux/init.d/xencommons.in
++++ b/tools/hotplug/Linux/init.d/xencommons.in
+@@ -60,7 +60,7 @@ do_start () {
+ 	mkdir -m700 -p ${XEN_LOCK_DIR}
+ 	mkdir -p ${XEN_LOG_DIR}
  
--            /* Further debugging information in the stream. */
--            bool debug;
--
-             unsigned long p2m_size;
-             size_t pages_sent;
-             size_t overhead_sent;
-@@ -418,10 +415,6 @@ struct xc_sr_context
-             /* Bitmap of currently populated PFNs during restore. */
-             struct xg_sr_bitmap populated_pfns;
+-	@XEN_SCRIPT_DIR@/launch-xenstore || exit 1
++	@XEN_SCRIPT_DIR@/launch-xenstore 'sysv' || exit 1
  
--            /* Sender has invoked verify mode on the stream. */
--            bool verify;
--            void *verify_buf;
--
-             struct xc_sr_restore_arrays *m;
-             void *guest_mapping;
-             uint32_t nr_mapped_pages;
-diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/restore.c
-index d4657e8e57..9a7253a972 100644
---- a/tools/libs/saverestore/restore.c
-+++ b/tools/libs/saverestore/restore.c
-@@ -337,10 +337,7 @@ static int handle_incoming_page_data(struct xc_sr_context *ctx,
-             continue;
+ 	echo Setting domain 0 name, domid and JSON config...
+ 	${LIBEXEC_BIN}/xen-init-dom0 ${XEN_DOM0_UUID}
+diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
+index 019f9d6f4d..d40c66482a 100644
+--- a/tools/hotplug/Linux/launch-xenstore.in
++++ b/tools/hotplug/Linux/launch-xenstore.in
+@@ -15,6 +15,17 @@
+ # License along with this library; If not, see <http://www.gnu.org/licenses/>.
+ #
  
-         m->iov[iov_idx].iov_len = PAGE_SIZE;
--        if ( ctx->restore.verify )
--            m->iov[iov_idx].iov_base = ctx->restore.verify_buf + i * PAGE_SIZE;
--        else
--            m->iov[iov_idx].iov_base = m->guest_data[i];
-+        m->iov[iov_idx].iov_base = m->guest_data[i];
-         iov_idx++;
-     }
++initd=$1
++
++case "$initd" in
++	sysv) nonl='-n' ;;
++	systemd) nonl= ;;
++	*)
++	echo "first argument must be 'sysv' or 'systemd'"
++	exit 1
++	;;
++esac
++
+ XENSTORED=@XENSTORED@
  
-@@ -369,15 +366,6 @@ static int handle_incoming_page_data(struct xc_sr_context *ctx,
- 
-         }
- 
--        if ( ctx->restore.verify )
--        {
--            if ( memcmp(m->guest_data[i], m->iov[iov_idx].iov_base, PAGE_SIZE) )
--            {
--                ERROR("verify pfn %#"PRIpfn" failed (type %#"PRIx32")",
--                      m->pfns[i], m->types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
--            }
--        }
--
-         iov_idx++;
-     }
- 
-@@ -447,20 +435,7 @@ static int handle_buffered_page_data(struct xc_sr_context *ctx,
- 
-         }
- 
--        if ( ctx->restore.verify )
--        {
--            if ( memcmp(m->guest_data[i], p, PAGE_SIZE) )
--            {
--                errno = EIO;
--                ERROR("verify pfn %#"PRIpfn" failed (type %#"PRIx32")",
--                      m->pfns[i], m->types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
--                goto err;
--            }
--        }
--        else
--        {
--            memcpy(m->guest_data[i], p, PAGE_SIZE);
--        }
-+        memcpy(m->guest_data[i], p, PAGE_SIZE);
- 
-         idx++;
-     }
-@@ -737,17 +712,9 @@ static int process_buffered_record(struct xc_sr_context *ctx, struct xc_sr_recor
-         break;
- 
-     case REC_TYPE_VERIFY:
--        DPRINTF("Verify mode enabled");
--        ctx->restore.verify = true;
--        if ( !ctx->restore.verify_buf )
--        {
--            ctx->restore.verify_buf = malloc(MAX_BATCH_SIZE * PAGE_SIZE);
--            if ( !ctx->restore.verify_buf )
--            {
--                rc = -1;
--                PERROR("Unable to allocate verify_buf");
--            }
--        }
-+        errno = EINVAL;
-+        PERROR("Verify mode is obsolete");
-+        rc = -1;
-         break;
- 
-     case REC_TYPE_CHECKPOINT:
-diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/save.c
-index 523457eaba..2d34822509 100644
---- a/tools/libs/saverestore/save.c
-+++ b/tools/libs/saverestore/save.c
-@@ -707,41 +707,6 @@ static int suspend_and_send_dirty(struct xc_sr_context *ctx)
-     return rc;
+ . @XEN_SCRIPT_DIR@/hotplugpath.sh
+@@ -44,14 +55,16 @@ timeout_xenstore () {
+ 	return 0
  }
  
--static int verify_frames(struct xc_sr_context *ctx)
--{
--    xc_interface *xch = ctx->xch;
--    xc_shadow_op_stats_t stats = { 0, ctx->save.p2m_size };
--    int rc;
--    struct xc_sr_record rec = { .type = REC_TYPE_VERIFY };
--
--    DPRINTF("Enabling verify mode");
--
--    rc = write_record(ctx, &rec);
--    if ( rc )
--        goto out;
--
--    xc_set_progress_prefix(xch, "Frames verify");
--    rc = send_all_pages(ctx);
--    if ( rc )
--        goto out;
--
--    if ( xc_shadow_control(
--             xch, ctx->domid, XEN_DOMCTL_SHADOW_OP_PEEK,
--             &ctx->save.dirty_bitmap_hbuf, ctx->save.p2m_size,
--             NULL, 0, &stats) != ctx->save.p2m_size )
--    {
--        PERROR("Failed to retrieve logdirty bitmap");
--        rc = -1;
--        goto out;
--    }
--
--    DPRINTF("  Further stats: faults %u, dirty %u",
--            stats.fault_count, stats.dirty_count);
--
-- out:
--    return rc;
--}
--
- /*
-  * Send all domain memory.  This is the heart of the live migration loop.
-  */
-@@ -761,13 +726,6 @@ static int send_domain_memory_live(struct xc_sr_context *ctx)
-     if ( rc )
-         goto out;
+-test_xenstore && exit 0
++mkdir -p @XEN_RUN_DIR@
++
++if test "$initd" = 'sysv' ; then
++	test_xenstore && exit 0
++fi
  
--    if ( ctx->save.debug )
--    {
--        rc = verify_frames(ctx);
--        if ( rc )
--            goto out;
--    }
+ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
+ 
+ [ "$XENSTORETYPE" = "" ] && XENSTORETYPE=daemon
+ 
+-/bin/mkdir -p @XEN_RUN_DIR@
 -
-  out:
-     return rc;
+ [ "$XENSTORETYPE" = "daemon" ] && {
+ 	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS="$XENSTORED_ARGS -T @XEN_LOG_DIR@/xenstored-trace.log"
+ 	[ -z "$XENSTORED" ] && XENSTORED=@XENSTORED@
+@@ -59,13 +72,15 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ 		echo "No xenstored found"
+ 		exit 1
+ 	}
++	[ "$initd" = 'sysv' ] && {
++		echo $nonl Starting $XENSTORED...
++		$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
++		timeout_xenstore $XENSTORED || exit 1
++		exit 0
++	}
+ 
+-	echo -n Starting $XENSTORED...
+-	$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
+-
+-	systemd-notify --booted 2>/dev/null || timeout_xenstore $XENSTORED || exit 1
+-
+-	exit 0
++	exec $XENSTORED -N $XENSTORED_ARGS
++	exit 1
  }
-@@ -1005,7 +963,6 @@ int xc_domain_save(xc_interface *xch, int io_fd, uint32_t dom,
-     /* GCC 4.4 (of CentOS 6.x vintage) can' t initialise anonymous unions. */
-     ctx.save.callbacks = callbacks;
-     ctx.save.live  = !!(flags & XCFLAGS_LIVE);
--    ctx.save.debug = !!(flags & XCFLAGS_DEBUG);
-     ctx.save.recv_fd = recv_fd;
  
-     if ( xc_domain_getinfo(xch, dom, 1, &ctx.dominfo) != 1 )
+ [ "$XENSTORETYPE" = "domain" ] && {
+@@ -75,9 +90,12 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ 	XENSTORE_DOMAIN_ARGS="$XENSTORE_DOMAIN_ARGS --memory $XENSTORE_DOMAIN_SIZE"
+ 	[ -z "$XENSTORE_MAX_DOMAIN_SIZE" ] || XENSTORE_DOMAIN_ARGS="$XENSTORE_DOMAIN_ARGS --maxmem $XENSTORE_MAX_DOMAIN_SIZE"
+ 
+-	echo -n Starting $XENSTORE_DOMAIN_KERNEL...
++	echo $nonl Starting $XENSTORE_DOMAIN_KERNEL...
+ 	${LIBEXEC_BIN}/init-xenstore-domain $XENSTORE_DOMAIN_ARGS || exit 1
+-	systemd-notify --ready 2>/dev/null
++	[ "$initd" = 'systemd' ] && {
++		systemd-notify --ready
++		sleep 9
++	}
+ 
+ 	exit 0
+ }
+diff --git a/tools/hotplug/Linux/systemd/xenstored.service.in b/tools/hotplug/Linux/systemd/xenstored.service.in
+index 80c1d408a5..c226eb3635 100644
+--- a/tools/hotplug/Linux/systemd/xenstored.service.in
++++ b/tools/hotplug/Linux/systemd/xenstored.service.in
+@@ -11,7 +11,7 @@ Type=notify
+ NotifyAccess=all
+ RemainAfterExit=true
+ ExecStartPre=/bin/grep -q control_d /proc/xen/capabilities
+-ExecStart=@XEN_SCRIPT_DIR@/launch-xenstore
++ExecStart=@XEN_SCRIPT_DIR@/launch-xenstore 'systemd'
+ 
+ [Install]
+ WantedBy=multi-user.target
 
