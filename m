@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA0839779C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:11:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.134983.251034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86896397797
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:11:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134980.250999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo6zZ-0006xy-OU; Tue, 01 Jun 2021 16:11:45 +0000
+	id 1lo6zP-0005kp-Oa; Tue, 01 Jun 2021 16:11:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 134983.251034; Tue, 01 Jun 2021 16:11:45 +0000
+Received: by outflank-mailman (output) from mailman id 134980.250999; Tue, 01 Jun 2021 16:11:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo6zZ-0006vi-GC; Tue, 01 Jun 2021 16:11:45 +0000
-Received: by outflank-mailman (input) for mailman id 134983;
- Tue, 01 Jun 2021 16:11:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lo6zP-0005c3-H0; Tue, 01 Jun 2021 16:11:35 +0000
+Received: by outflank-mailman (input) for mailman id 134980;
+ Tue, 01 Jun 2021 16:11:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HQ7/=K3=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lo6zX-0005Ec-0s
- for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:11:43 +0000
-Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5e280699-7760-4a0f-adfb-a44356807a37;
+ id 1lo6zO-0005X1-0o
+ for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:11:34 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.83])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4413065c-d112-4774-a33b-349495fd5293;
  Tue, 01 Jun 2021 16:11:32 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx51GBR1BA
+ with ESMTPSA id j0415bx51GBR1BB
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Tue, 1 Jun 2021 18:11:27 +0200 (CEST)
@@ -40,39 +41,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e280699-7760-4a0f-adfb-a44356807a37
-ARC-Seal: i=1; a=rsa-sha256; t=1622563887; cv=none;
+X-Inumbo-ID: 4413065c-d112-4774-a33b-349495fd5293
+ARC-Seal: i=1; a=rsa-sha256; t=1622563888; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=gISW+Gu/ZVcbfMZyUxvVAXMjU8BS7D4pv8ZvtGeCsbYtzWqCA8j3ayIU4wTvSrvgP3
-    G4bitN66zGnxrgW8IA+Jwhtao7w/EJbsyGyoD7ZuCTKbKuc0SScyaLIYKI/ZJNsqasaD
-    nMg4BSvuJzosmK80Y6psVd6yRFxEIX0xio6kPTuB/Kr3+m7mhwlOCTPG1+HSKpW+3/KI
-    1yxeDyy8d9vLXeeiJU3WtpqyxVUFPTE42CefxTWO7yo3QvuiH0HpIeY3GlXqNj3dmuxs
-    aR0cmj7G2aabMfEPmyxz2HuerX+b8IBbuPOnefG3/3wnyO59Jg/1MwAuFoqgEtQz9uh6
-    GrGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563887;
+    b=DgU87WsRh140kAE9TWo8r3FrWteINAYMMfUBdn8sMf+WLhlYtnUV+9gTzJ2ZhipOFk
+    +o7WvTY1KoYyCYNg/mvF09j44xxF034sxcTh8r/Coc51YIcmmJVF8i8/CuOarsNGiPvH
+    Ux1To3IUtDs5VAXJ/zrj8S11JEiiJk7Fpe/KNRelscm/lQwXnIwDd2Plpg14qyuW8O6i
+    ewxJT4xHE287ykPD8o09R7p4oJ7IDu+okvS3lTrOXNJuBjhM/XKlPckvaf3cwSJW8a0A
+    sUvK+gQ/5AA3DgjcIJUkVDpus2wG18Uc9U0XqiK44gjdxs+V0ulLGY+EHXOtkbNOQPaf
+    0QSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563888;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=8EOjWvQk239Wp/aWNifZAKC+Sjf+9ZihUrmLiKkJAAc=;
-    b=jQtdKSlb9FH79dzWoVHsq+ujCn1n/8KRNjKaVo8a5JhPySvEmEgswqcmPRAhLxmZnN
-    rPIrQgwycooC1awY+AEii3QeQOGCQaoAgjlLPa0igEwBv9il2BiI/L0vTkxKTFiud2ed
-    Pt+l/YLilb0RC0KipK0/QP7mbBgDd6aVawfYDz7hUUZBXeA8KWdcxjwvix2IuJViwL7O
-    wvfvpHBeJUCbfvEMqAWFAEAiNUQyOikhs95pEN3ZEXOZR3fpBURQphfQy1usoZu22LeI
-    3jG9+TzBJLiP7K0phGwU8FqYuVIx/RicY4Tlp/3PU77+JXE7EpQmAILFHJd866+JSQg5
-    NKYg==
+    bh=RFOd7y+e4U6vNTZpXSTmtkhWhMZi9HHw/wrHDQUGpSw=;
+    b=KV23dBncIbEZihTRJbO4NExxqIwqU+zmmb2U04PlPeViIOHVkHmAXuPMjMetbsB+sA
+    50bEcZHMKh+JzeyPG26RPoFoYAzqfLJYCV2uTAyqBwjQ58ohOl4WXvh6gFsYiUrQvM93
+    KhDlexcoE06Osg5GCFfnKvqr+8NHWh7ufZU0/E5LvIrEWYlozQGUYu5nU5W82e/DZnum
+    tjDNzGlFdkvbrL7hM0G3YaPSWH/UMPReJQ4e+eRP8ozXqOQinhjXeYaVNjJxfpW+Lybn
+    BujRGqhEU6cxPfqql9XXrPlqPrutr/2zgdK6Uq7/g/LnhGMqMuvI8QlhIL/VCxENTSmt
+    a//w==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563887;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563888;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=8EOjWvQk239Wp/aWNifZAKC+Sjf+9ZihUrmLiKkJAAc=;
-    b=eO8dXLOMjMQzUxkYPzl55FUozhW0zM/NyzUQ5Bsb7bzJrJxU2+ycgTzHyD53pMVHkg
-    CtnaH/07//v16yl0yAZ0oDD9Mru5KiGvB8jRPtZXXbqaR97ySCpMFXIz66Agm0fPozmr
-    M6mzR8HMMWFpOexfNKUiJvVJSlgBxui1QDv56AKqJlBV5CAPG7k38+j/M4fwHt/2KfnK
-    zhMD+IKME9f9fgm1oQQYEdADxcZ5P53VoGUz/XKvv3RjIX6x80yKdU7NmJLpRRW5tCyv
-    01DhK8f0YTK7x/5V0qOBbBit+J/eUSm/TzLLpqFMaFrSg/+fp57Lu7KwzDBWRMzleVrv
-    phFQ==
+    bh=RFOd7y+e4U6vNTZpXSTmtkhWhMZi9HHw/wrHDQUGpSw=;
+    b=PFT2fniDwBrbJmUSN5yaULUvwdA1DzSIoDeSvoQP27u7KyVOPm000P/xpuaoFuNV5X
+    fVTeojkZrGthq694NBeSn6WM8g4YR6O6fsyZqkScWHepV4egq/E0Tn8gssGa/kKG9Vgv
+    UAh5lL0QbRfWScmkVv75iWzBzhJEosoINZ1CQPOVr+yAYMDfngx8RdcDpmFIIvRAMck/
+    qrQ1/6A670/1toUPB8t7xu94HbcYqHB9PDK/qCmajSP7a3NK2u4eQjIGpThdAq70OeaD
+    +eb0ZzP8nSnOk/9dIx3DztwVkpptW3jgEEiDjNtsMjhqr7Bv51xjnaEtQ1TraJuJELtf
+    WQjg==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgs09ValFcstyKtnZMLOo4jr88Zf5nXI1mYJUK+h"
@@ -82,65 +83,52 @@ To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v20210601 05/38] tools: add xc_is_known_page_type to libxenctrl
-Date: Tue,  1 Jun 2021 18:10:45 +0200
-Message-Id: <20210601161118.18986-6-olaf@aepfle.de>
+Subject: [PATCH v20210601 06/38] tools: use xc_is_known_page_type
+Date: Tue,  1 Jun 2021 18:10:46 +0200
+Message-Id: <20210601161118.18986-7-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210601161118.18986-1-olaf@aepfle.de>
 References: <20210601161118.18986-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Users of xc_get_pfn_type_batch may want to sanity check the data
-returned by Xen. Add a simple helper for this purpose.
+Verify pfn type on sending side, also verify incoming batch of pfns.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/ctrl/xc_private.h | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ tools/libs/saverestore/restore.c | 3 +--
+ tools/libs/saverestore/save.c    | 6 ++++++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-index 5d2c7274fb..afb08aafe1 100644
---- a/tools/libs/ctrl/xc_private.h
-+++ b/tools/libs/ctrl/xc_private.h
-@@ -421,6 +421,39 @@ void *xc_map_foreign_ranges(xc_interface *xch, uint32_t dom,
- int xc_get_pfn_type_batch(xc_interface *xch, uint32_t dom,
-                           unsigned int num, xen_pfn_t *);
+diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/restore.c
+index be259a1c6b..cccb0dcb71 100644
+--- a/tools/libs/saverestore/restore.c
++++ b/tools/libs/saverestore/restore.c
+@@ -406,8 +406,7 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
+         }
  
-+/* Sanitiy check for types returned by Xen */
-+static inline bool xc_is_known_page_type(xen_pfn_t type)
-+{
-+    bool ret;
-+
-+    switch (type)
-+    {
-+    case XEN_DOMCTL_PFINFO_NOTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L1TAB:
-+    case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L2TAB:
-+    case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L3TAB:
-+    case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L4TAB:
-+    case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_XTAB:
-+    case XEN_DOMCTL_PFINFO_XALLOC:
-+    case XEN_DOMCTL_PFINFO_BROKEN:
-+        ret = true;
-+        break;
-+    default:
-+        ret = false;
-+        break;
-+    }
-+    return ret;
-+}
-+
- void bitmap_64_to_byte(uint8_t *bp, const uint64_t *lp, int nbits);
- void bitmap_byte_to_64(uint64_t *lp, const uint8_t *bp, int nbits);
+         type = (pages->pfn[i] & PAGE_DATA_TYPE_MASK) >> 32;
+-        if ( ((type >> XEN_DOMCTL_PFINFO_LTAB_SHIFT) >= 5) &&
+-             ((type >> XEN_DOMCTL_PFINFO_LTAB_SHIFT) <= 8) )
++        if ( xc_is_known_page_type(type) == false )
+         {
+             ERROR("Invalid type %#"PRIx32" for pfn %#"PRIpfn" (index %u)",
+                   type, pfn, i);
+diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/save.c
+index 92d96b0533..8d449ee0ae 100644
+--- a/tools/libs/saverestore/save.c
++++ b/tools/libs/saverestore/save.c
+@@ -147,6 +147,12 @@ static int write_batch(struct xc_sr_context *ctx)
  
+     for ( i = 0; i < nr_pfns; ++i )
+     {
++        if ( xc_is_known_page_type(types[i]) == false )
++        {
++            ERROR("Wrong type %#"PRIpfn" for pfn %#"PRIpfn, types[i], mfns[i]);
++            goto err;
++        }
++
+         switch ( types[i] )
+         {
+         case XEN_DOMCTL_PFINFO_BROKEN:
 
