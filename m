@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91B5C39723C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 13:23:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.134804.250756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7A533972E1
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 13:55:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134812.250768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo2Ta-0007hj-4J; Tue, 01 Jun 2021 11:22:26 +0000
+	id 1lo2yq-0002va-MZ; Tue, 01 Jun 2021 11:54:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 134804.250756; Tue, 01 Jun 2021 11:22:26 +0000
+Received: by outflank-mailman (output) from mailman id 134812.250768; Tue, 01 Jun 2021 11:54:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo2TZ-0007fB-VY; Tue, 01 Jun 2021 11:22:25 +0000
-Received: by outflank-mailman (input) for mailman id 134804;
- Tue, 01 Jun 2021 11:22:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lo2yq-0002tj-IK; Tue, 01 Jun 2021 11:54:44 +0000
+Received: by outflank-mailman (input) for mailman id 134812;
+ Tue, 01 Jun 2021 11:54:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lo2TY-0007f0-KT; Tue, 01 Jun 2021 11:22:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lo2TY-0003Hk-EC; Tue, 01 Jun 2021 11:22:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lo2TY-0006oV-7d; Tue, 01 Jun 2021 11:22:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lo2TY-00007D-7A; Tue, 01 Jun 2021 11:22:24 +0000
+ (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lo2yo-0002tc-Ip
+ for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 11:54:42 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d55c1ba9-0e74-4586-afef-48d0351a6c85;
+ Tue, 01 Jun 2021 11:54:40 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 043AC2191F;
+ Tue,  1 Jun 2021 11:54:40 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id C1FBB118DD;
+ Tue,  1 Jun 2021 11:54:39 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id qlwZLv8ftmCxRAAALh3uQQ
+ (envelope-from <jbeulich@suse.com>); Tue, 01 Jun 2021 11:54:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +46,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0HO20aljrrvrBoSj6jxCyIFiovMWibnK24AJTZgdx1s=; b=ADO+QhFhZ5r4oQY/RGk51+4I14
-	93PuHyMuM/5x9HlP7L36na/igpcU6CD6IX9VApUgyCBzUhPXtK0TmXkkyhhEgnfocXiPizJ7BZ0Y1
-	+w3Lodxne9ZcDMVJiB2+WM0pgtsqBh3zwIIJXxw3rnrvXTeur/bBJtjPvB5u3WBQ5QZQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162288-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d55c1ba9-0e74-4586-afef-48d0351a6c85
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622548480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nB/B+v2Z9jxJ+dqPH9aL68ZYBi20yAHgPl9ohZJGzY0=;
+	b=Pu+k8SPK+3Ji93GRnjIUTOPBAoOzzJI5Oe6fheR4CNak+VknEs3ZAs36vqfaq/fQY6yQ8y
+	4co+cU+BzLJIC2pfHbYjJF8EdaZ//sNJ44IO/ong6Br9wgf1zrrztgE/a4/uzco/vB1TLm
+	4vQoA1RVscyD7yixGbpTNKpTBulp0pQ=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622548479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nB/B+v2Z9jxJ+dqPH9aL68ZYBi20yAHgPl9ohZJGzY0=;
+	b=jCiwIqgJIm08q1d/DaKxisG8UbpzfiAS7POqz8jA4Wi+gMk/RE5NVxb/aWW34ghahUVn/1
+	WvXyvBJvHo+w3NCZ0gjgCckEd/1D54/QH8vPzWXx4fBXS82/zr1VZFXwsywHWbqXM463xp
+	Gr5gMjGdEji2HPEGXUgB9C8dDh4wvao=
+Subject: Re: [PATCH v6 1/3] evtchn: slightly defer lock acquire where possible
+To: Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <01bbf3d4-ca6a-e837-91fe-b34aa014564c@suse.com>
+ <5939858e-1c7c-5658-bc2d-0c9024c74040@suse.com>
+ <938eb888-ec15-feb1-19f7-b90dfee822ae@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e5e6ab32-815c-49d8-94f3-a75d975465b3@suse.com>
+Date: Tue, 1 Jun 2021 13:54:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-Subject: [ovmf test] 162288: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d3ff5dbe1dfc3420e5254d290500c0b6f6282d17
-X-Osstest-Versions-That:
-    ovmf=fe5da0927aad98f3c005088197fa30c1b8f9d3e8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 01 Jun 2021 11:22:24 +0000
+In-Reply-To: <938eb888-ec15-feb1-19f7-b90dfee822ae@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 162288 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162288/
+On 27.05.2021 20:48, Julien Grall wrote:
+> On 27/05/2021 12:28, Jan Beulich wrote:
+>> port_is_valid() and evtchn_from_port() are fine to use without holding
+>> any locks. Accordingly acquire the per-domain lock slightly later in
+>> evtchn_close() and evtchn_bind_vcpu().
+> 
+> So I agree that port_is_valid() and evtchn_from_port() are fine to use 
+> without holding any locks in evtchn_bind_vcpu(). However, this is 
+> misleading to say there is no problem with evtchn_close().
+> 
+> evtchn_close() can be called with current != d and therefore, there is a 
+> risk that port_is_valid() may be valid and then invalid because 
+> d->valid_evtchns is decremented in evtchn_destroy().
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d3ff5dbe1dfc3420e5254d290500c0b6f6282d17
-baseline version:
- ovmf                 fe5da0927aad98f3c005088197fa30c1b8f9d3e8
+While this is the case for other functions as well (and hence a
+comment along the lines of what you ask for below should have
+been in place already), I've added
 
-Last test of basis   162271  2021-05-31 03:40:13 Z    1 days
-Testing same since   162288  2021-06-01 02:43:22 Z    0 days    1 attempts
+/*
+ * While calling the function is okay without holding a suitable lock yet
+ * (see the comment ahead of struct evtchn_port_ops for which ones those
+ * are), for a dying domain it may start returning false at any point - see
+ * evtchn_destroy(). This is not a fundamental problem though, as the
+ * struct evtchn instance won't disappear (and will continue to hold valid
+ * data) until final cleanup of the domain, at which point the domain itself
+ * cannot be looked up anymore and hence calls here can't occur anymore in
+ * the first place.
+ */
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Kun Qin <kuqin12@gmail.com>
+...
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+> Thankfully the memory is still there. So the current code is okayish and 
+> I could reluctantly accept this behavior to be spread. However, I don't 
+> think this should be left uncommented in both the code (maybe on top of 
+> port_is_valid()?) and the commit message.
 
+... ahead of port_is_valid() (and not, as I did intend originally,
+in evtchn_close()). As far as the commit message goes, I'll have it
+refer to the comment only.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I hope this satisfies the requests of both of you. I'll take the
+liberty and retain your ack, Roger.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   fe5da0927a..d3ff5dbe1d  d3ff5dbe1dfc3420e5254d290500c0b6f6282d17 -> xen-tested-master
+Jan
 
