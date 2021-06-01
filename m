@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2B23977B7
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 18:13:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135019.251199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18903397A39
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 20:51:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135333.251443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo70v-0000MN-M1; Tue, 01 Jun 2021 16:13:09 +0000
+	id 1lo9TG-00054l-6I; Tue, 01 Jun 2021 18:50:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135019.251199; Tue, 01 Jun 2021 16:13:09 +0000
+Received: by outflank-mailman (output) from mailman id 135333.251443; Tue, 01 Jun 2021 18:50:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo70v-0000Je-I6; Tue, 01 Jun 2021 16:13:09 +0000
-Received: by outflank-mailman (input) for mailman id 135019;
- Tue, 01 Jun 2021 16:13:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lo9TG-00052M-2m; Tue, 01 Jun 2021 18:50:34 +0000
+Received: by outflank-mailman (input) for mailman id 135333;
+ Tue, 01 Jun 2021 18:50:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HQ7/=K3=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lo70R-0005X1-1E
- for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 16:12:39 +0000
-Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.173])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c58b872c-705e-46c7-a4aa-94a90b0c6dcb;
- Tue, 01 Jun 2021 16:11:47 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx51GBg1Bi
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 1 Jun 2021 18:11:42 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lo9TE-00052C-Q4; Tue, 01 Jun 2021 18:50:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lo9TE-0003wb-Fr; Tue, 01 Jun 2021 18:50:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lo9TE-00043n-4j; Tue, 01 Jun 2021 18:50:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lo9TE-0005Mn-4I; Tue, 01 Jun 2021 18:50:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,214 +42,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c58b872c-705e-46c7-a4aa-94a90b0c6dcb
-ARC-Seal: i=1; a=rsa-sha256; t=1622563902; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=K7MnlPHaXmu4fU5RlfPrsnOzwcPTcmOAWCvSh+ooAre1bwTpwi4eMMGz/5Jv1Ig1ZW
-    JloAzpPSnJnclTW4wr7Ytk8bLdATSBiQRhf3LpoxulBCdjGwn8fEikIu6++kaZ7sPHfq
-    m9GFIxxfgtPMPPVdJKFpa2B/70/RZ3tKv/8obUaj1nj6W5e7me+PNZCLyOUaoqBecAnP
-    C+C45/54baeVovaLeEH1v31apfihBaozH7X9mlU0glNcddolHxmNutWRvmEqNjiEttZy
-    Fojaz3PuVQbehB5xyP8qO3zAvTPyTuNNoFDakouqC8rrm+uP5B2S4r6HMpOWkvv7a9a9
-    Fklw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563902;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=fttDAmpegUqwpOBB61SFRLpHBJB9wPmVo+V4iKyUqQw=;
-    b=ZKo6xL4wFzjwUtYQMxZLthEnX/2j4XXU+ET8fslQ8JqjAiO9jlMLLDaX7tNV/rIito
-    YSjbAKL+Lgd9rhcCBSKycTE/JI+vMKvhm2LCur4Zyxg0TZeUGyGVDBoeri5jHWzi+v8m
-    5uGj4AhoMJH1/UpyRd+ABqMeblXCauuk+Qnxu4g4en0FXc8YE536ZPSMNgxEPJ7EA5vB
-    NtOn+kHn36uvexNqpQEWuZkcJfaru5vXOE5Xoup/d/KePoFZOqJoZFV2HxvZehI7SvEX
-    W6W8XvN3C4y2+CfoOWniMWikvjXytRwbvQo80fTUHzxDYBzxgh5qWXM/941Fm3bd1Yeq
-    EMfg==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622563902;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=fttDAmpegUqwpOBB61SFRLpHBJB9wPmVo+V4iKyUqQw=;
-    b=ShTWQZKcQxZ1sfebsNAw3YaYcPQB1WYhFoM850GJhLl8wmQwEfctVTPf+8YlicvXTj
-    VlDW3wj8vaW/oiD6NQm1ua1hkBTsrESScVeGdK9/qnZ6IAKgoLi2QrU71IgL5R7JKqFu
-    SOZBrr9BV/XYgYN2PZBWv8VWy+NnFnwL8tTBdr2BjS8LjSr9CCPjYjQlWHTpZY/Qwz4s
-    uJ6yIZ97QLzsAjNs79CzpqBfvtk8o1P3YfO2jfbA8fkwYPLd4ggLTjuAP2/hUahRWXzu
-    6mIhBdYVJTtX9k2p+5OPkdMh21UKzH2P1Dk4KdBAkWGepZutG7i3uFqQ9drAKLmYKjln
-    lsCw==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgs09ValFcstyKtnZMLOo4jr88Zf5nXI1mYJUK+h"
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v20210601 38/38] hotplug/Linux: fix starting of xenstored with restarting systemd
-Date: Tue,  1 Jun 2021 18:11:18 +0200
-Message-Id: <20210601161118.18986-39-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210601161118.18986-1-olaf@aepfle.de>
-References: <20210601161118.18986-1-olaf@aepfle.de>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=F3DjSSMvwin6udt1hzMbUGPbq63C8xwvfZ7+OKpE1NE=; b=EqzyEkWBWroMDl0Je+1ABY03iH
+	7fcIIRUt4mxCRKExZXucOl8TGqh60enu9TDMS+VCTAtd5loIdjjHJm1VV2yCUVRq9FZUvDtlrv+1u
+	TyJX94e1vvqx8CdWKMfYn+JemAx6ZH7HHOd9jdXT/BDK5Ua4OcjSzEF9O7/2aOC/Z+Lk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162310-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 162310: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-vhd:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:debian-fixup:fail:regression
+    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-stop:fail:regression
+    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
+    linux-linus:test-amd64-amd64-xl-qcow2:guest-start:fail:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=c2131f7e73c9e9365613e323d65c7b9e5b910f56
+X-Osstest-Versions-That:
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 01 Jun 2021 18:50:32 +0000
 
-A hard to trigger race with another unrelated systemd service and
-xenstored.service unveiled a bug in the way how xenstored is launched
-with systemd.
+flight 162310 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162310/
 
-launch-xenstore may start either a daemon or a domain. In case a domain
-is used, systemd-notify was called. If another service triggered a
-restart of systemd while xenstored.service was executed, systemd may
-temporary lose track of services with Type=notify. As a result,
-xenstored.service would be marked as failed and units that depend on it
-will not be started. This breaks the enire Xen toolstack.
+Regressions :-(
 
-The chain of events is basically: xenstored.service sends the
-notification to systemd, this is a one-way event. Then systemd may be
-restarted by the other unit. During this time, xenstored.service is done
-and exits. Once systemd is done with its restart, it collects the pending
-notifications and childs. If it does not find the unit which sent the
-notification it will declare it as failed.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
+ test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
+ test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-amd64-libvirt-vhd 13 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-xl          13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-xsm      13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-thunderx 13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit2  13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-libvirt-xsm 13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit1  13 debian-fixup             fail REGR. vs. 152332
+ test-amd64-amd64-amd64-pvgrub 20 guest-stop              fail REGR. vs. 152332
+ test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
+ test-amd64-amd64-xl-qcow2    13 guest-start              fail REGR. vs. 152332
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-armhf-armhf-xl-vhd      13 guest-start              fail REGR. vs. 152332
 
-A workaround for this scenario is to leave the child processes running
-for a short time after sending the "READY=1" notification. If systemd
-happens to restart it will still find the unit it launched.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-libvirt-xsm 20 guest-start/debian.repeat fail in 162279 pass in 162310
+ test-amd64-amd64-dom0pvh-xl-intel 22 guest-start/debian.repeat fail in 162279 pass in 162310
+ test-amd64-amd64-xl-credit1  22 guest-start/debian.repeat  fail pass in 162279
 
-Adjust the callers of launch-xenstore to specifiy the init system:
-Do not fork xenstored with systemd, preserve pid. This wil also avoid
-the need for a sleep because the process which sent the "READY=1" (the
-previously forked child) is still alive.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-Remove the --pid-file in the systemd case because the pid of the child
-is known, and the file had probably little effect anyway due to lack of
-PidFile= and Type=forking in the unit file.
+version targeted for testing:
+ linux                c2131f7e73c9e9365613e323d65c7b9e5b910f56
+baseline version:
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
 
-Be verbose about xenstored startup only with sysv to avoid interleaved
-output in systemd journal. Do the same also for domain case, even if is
-not strictly needed because init-xenstore-domain has no output.
+Last test of basis   152332  2020-07-31 19:41:23 Z  304 days
+Failing since        152366  2020-08-01 20:49:34 Z  303 days  518 attempts
+Testing same since   162279  2021-05-31 20:42:18 Z    0 days    2 attempts
 
-The fix for upstream systemd which is supposed to fix it:
-575b300b795b6 ("pid1: rework how we dispatch SIGCHLD and other signals")
+------------------------------------------------------------
+6126 people touched revisions under test,
+not listing them all
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                fail    
+ test-amd64-amd64-i386-pvgrub                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
---
-v04:
-- do mkdir unconditionally because init-xenstore-domain writes the domid to
-  xenstored.pid
-v03:
-- remove run_xenstored function, follow style of shell built-in test function
-v02:
-- preserve Type=notify
----
- tools/hotplug/Linux/init.d/xencommons.in      |  2 +-
- tools/hotplug/Linux/launch-xenstore.in        | 40 ++++++++++++++-----
- .../Linux/systemd/xenstored.service.in        |  2 +-
- 3 files changed, 31 insertions(+), 13 deletions(-)
 
-diff --git a/tools/hotplug/Linux/init.d/xencommons.in b/tools/hotplug/Linux/init.d/xencommons.in
-index 7fd6903b98..dcb0ce4b73 100644
---- a/tools/hotplug/Linux/init.d/xencommons.in
-+++ b/tools/hotplug/Linux/init.d/xencommons.in
-@@ -60,7 +60,7 @@ do_start () {
- 	mkdir -m700 -p ${XEN_LOCK_DIR}
- 	mkdir -p ${XEN_LOG_DIR}
- 
--	@XEN_SCRIPT_DIR@/launch-xenstore || exit 1
-+	@XEN_SCRIPT_DIR@/launch-xenstore 'sysv' || exit 1
- 
- 	echo Setting domain 0 name, domid and JSON config...
- 	${LIBEXEC_BIN}/xen-init-dom0 ${XEN_DOM0_UUID}
-diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
-index 019f9d6f4d..d40c66482a 100644
---- a/tools/hotplug/Linux/launch-xenstore.in
-+++ b/tools/hotplug/Linux/launch-xenstore.in
-@@ -15,6 +15,17 @@
- # License along with this library; If not, see <http://www.gnu.org/licenses/>.
- #
- 
-+initd=$1
-+
-+case "$initd" in
-+	sysv) nonl='-n' ;;
-+	systemd) nonl= ;;
-+	*)
-+	echo "first argument must be 'sysv' or 'systemd'"
-+	exit 1
-+	;;
-+esac
-+
- XENSTORED=@XENSTORED@
- 
- . @XEN_SCRIPT_DIR@/hotplugpath.sh
-@@ -44,14 +55,16 @@ timeout_xenstore () {
- 	return 0
- }
- 
--test_xenstore && exit 0
-+mkdir -p @XEN_RUN_DIR@
-+
-+if test "$initd" = 'sysv' ; then
-+	test_xenstore && exit 0
-+fi
- 
- test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
- 
- [ "$XENSTORETYPE" = "" ] && XENSTORETYPE=daemon
- 
--/bin/mkdir -p @XEN_RUN_DIR@
--
- [ "$XENSTORETYPE" = "daemon" ] && {
- 	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS="$XENSTORED_ARGS -T @XEN_LOG_DIR@/xenstored-trace.log"
- 	[ -z "$XENSTORED" ] && XENSTORED=@XENSTORED@
-@@ -59,13 +72,15 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
- 		echo "No xenstored found"
- 		exit 1
- 	}
-+	[ "$initd" = 'sysv' ] && {
-+		echo $nonl Starting $XENSTORED...
-+		$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
-+		timeout_xenstore $XENSTORED || exit 1
-+		exit 0
-+	}
- 
--	echo -n Starting $XENSTORED...
--	$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
--
--	systemd-notify --booted 2>/dev/null || timeout_xenstore $XENSTORED || exit 1
--
--	exit 0
-+	exec $XENSTORED -N $XENSTORED_ARGS
-+	exit 1
- }
- 
- [ "$XENSTORETYPE" = "domain" ] && {
-@@ -75,9 +90,12 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
- 	XENSTORE_DOMAIN_ARGS="$XENSTORE_DOMAIN_ARGS --memory $XENSTORE_DOMAIN_SIZE"
- 	[ -z "$XENSTORE_MAX_DOMAIN_SIZE" ] || XENSTORE_DOMAIN_ARGS="$XENSTORE_DOMAIN_ARGS --maxmem $XENSTORE_MAX_DOMAIN_SIZE"
- 
--	echo -n Starting $XENSTORE_DOMAIN_KERNEL...
-+	echo $nonl Starting $XENSTORE_DOMAIN_KERNEL...
- 	${LIBEXEC_BIN}/init-xenstore-domain $XENSTORE_DOMAIN_ARGS || exit 1
--	systemd-notify --ready 2>/dev/null
-+	[ "$initd" = 'systemd' ] && {
-+		systemd-notify --ready
-+		sleep 9
-+	}
- 
- 	exit 0
- }
-diff --git a/tools/hotplug/Linux/systemd/xenstored.service.in b/tools/hotplug/Linux/systemd/xenstored.service.in
-index 80c1d408a5..c226eb3635 100644
---- a/tools/hotplug/Linux/systemd/xenstored.service.in
-+++ b/tools/hotplug/Linux/systemd/xenstored.service.in
-@@ -11,7 +11,7 @@ Type=notify
- NotifyAccess=all
- RemainAfterExit=true
- ExecStartPre=/bin/grep -q control_d /proc/xen/capabilities
--ExecStart=@XEN_SCRIPT_DIR@/launch-xenstore
-+ExecStart=@XEN_SCRIPT_DIR@/launch-xenstore 'systemd'
- 
- [Install]
- WantedBy=multi-user.target
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1665618 lines long.)
 
