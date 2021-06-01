@@ -2,39 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A143970F5
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 12:08:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.134767.250678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78326397175
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jun 2021 12:28:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.134780.250704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo1K5-0006Kf-2r; Tue, 01 Jun 2021 10:08:33 +0000
+	id 1lo1dM-0000ZG-1r; Tue, 01 Jun 2021 10:28:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 134767.250678; Tue, 01 Jun 2021 10:08:33 +0000
+Received: by outflank-mailman (output) from mailman id 134780.250704; Tue, 01 Jun 2021 10:28:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lo1K4-0006In-VX; Tue, 01 Jun 2021 10:08:32 +0000
-Received: by outflank-mailman (input) for mailman id 134767;
- Tue, 01 Jun 2021 10:08:31 +0000
+	id 1lo1dL-0000Wb-Ur; Tue, 01 Jun 2021 10:28:27 +0000
+Received: by outflank-mailman (input) for mailman id 134780;
+ Tue, 01 Jun 2021 10:28:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ILtd=K3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lo1K3-0006Ig-6B
- for xen-devel@lists.xen.org; Tue, 01 Jun 2021 10:08:31 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QqUo=K3=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1lo1dK-0000WU-Tz
+ for xen-devel@lists.xenproject.org; Tue, 01 Jun 2021 10:28:27 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e69cafdb-9885-4632-a491-1f0fc3ee296b;
- Tue, 01 Jun 2021 10:08:30 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 552611FD30;
- Tue,  1 Jun 2021 10:08:29 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 347FC118DD;
- Tue,  1 Jun 2021 10:08:29 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id GMJ/Cx0HtmBrAwAALh3uQQ
- (envelope-from <jbeulich@suse.com>); Tue, 01 Jun 2021 10:08:29 +0000
+ id c22c3517-5919-43d2-8038-3e57be83f8f4;
+ Tue, 01 Jun 2021 10:28:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,63 +35,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e69cafdb-9885-4632-a491-1f0fc3ee296b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622542109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1z4ijang45Vhplh+/3psU16FFTJ8psvdcXAbjGXAiK0=;
-	b=m+6BBpDym4XTglt7cntwLFLqOWdtqgw/W0sNMjRfBb7Z1IXfTx4Z1O6K8/vvTGwBfLqxKd
-	6dR++eXckXZsrobfF0LcwfBL/8w+QQ+iBfsL28eE/k6zDNXrhlCzu+dKMmzrBjHqzfH1n6
-	nIhOZLWgmyVN8qkNJH3tqoK4lkiK0Lc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622542109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1z4ijang45Vhplh+/3psU16FFTJ8psvdcXAbjGXAiK0=;
-	b=m+6BBpDym4XTglt7cntwLFLqOWdtqgw/W0sNMjRfBb7Z1IXfTx4Z1O6K8/vvTGwBfLqxKd
-	6dR++eXckXZsrobfF0LcwfBL/8w+QQ+iBfsL28eE/k6zDNXrhlCzu+dKMmzrBjHqzfH1n6
-	nIhOZLWgmyVN8qkNJH3tqoK4lkiK0Lc=
-Subject: Re: pci passthrough issue introduced between 4.14.1 and 4.15.0
-To: AL13N <alien@rmail.be>
-References: <6ccb04f2d93be6089b049df1f94a91dd@mail.rmail.be>
-Cc: Xen-devel <xen-devel@lists.xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e9a3f7a8-7bf2-4f0a-cc25-d8ce015df1f2@suse.com>
-Date: Tue, 1 Jun 2021 12:08:26 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+X-Inumbo-ID: c22c3517-5919-43d2-8038-3e57be83f8f4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1622543305;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=qxOxkpgf3vvxIUnsnqn7ZffiZYbW75rYqnqUF1GTIo4=;
+  b=Qv954ht0UIMpq1gsQNbcxrECl8Xn2DdaHSaG0y6+xsfpihulyJBCXR49
+   oZ3fv1YAqhl216LERkXmA+/DqJB1btt+0BjYagt8HglsFqaRiFMmujJjE
+   5m53NS1ufJpf2uYZvn8EPNdGKA93SJ1Gwa5oQBcIs+57lT1x6X8NFEgGI
+   s=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: ms+u5OLTjbZmZ2Kr81fTzr2L6em8ROUEGvvBQM2O2ZiyQnOEBPJaTIiIpKXLJ/ZJsQKpoane7p
+ 0MRSmdBo8LTlybd90QLi6CJjohqewZnWwfguKZ6tNdSVC3caXneNcM9kh4f7Mz7n96sjA/R9h5
+ Vkl9P+TofE3x5lnwtatIJEJfAQEag+nXGzejCzXMr9kx99QWVojKZHW8pTJ+ek3Z2kXStiqPxg
+ LQhlyFKgHzmNJ9Vs2umBQ9ez+psUEV+sFvC2k6d0uhyiwWJiPcczYmStVCGjUU2T7zLb1Afl4/
+ PwU=
+X-SBRS: 5.1
+X-MesageID: 44770327
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:7iypqaD5sj00z7TlHemg55DYdb4zR+YMi2TC1yhKJyC9Ffbo8/
+ xG/c5rsyMc5wxwZJhNo7y90cq7MBbhHPxOkOos1N6ZNWGM0gaVxelZnOzfKlbbehEWmNQz6U
+ 4ZSdkdNOHN
+X-IronPort-AV: E=Sophos;i="5.83,239,1616472000"; 
+   d="scan'208";a="44770327"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH] tools/firmware/ovmf: Use OvmfXen platform file is exist
+Date: Tue, 1 Jun 2021 11:28:03 +0100
+Message-ID: <20210601102804.698364-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <6ccb04f2d93be6089b049df1f94a91dd@mail.rmail.be>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 01.06.2021 09:36, AL13N wrote:
-> Not 100% it's a bug or something i did wrong, but,
-> 
-> with xl create i start a PV with 3 pci passthroughs
-> 
-> after wards, xl pci-list shows all 3 nicely
-> 
-> looking at the domU boot logs, pcifront is only creating one pci device 
-> and lspci in the guest shows only 1 pci entry
-> 
-> in at least 4.14.1 it still works.
+A platform introduced in EDK II named OvmfXen is now the one to use for
+Xen instead of OvmfX64. It comes with PVH support.
 
-This reminds me of my report at
-https://lists.xen.org/archives/html/xen-devel/2021-03/msg00956.html
+Also, the Xen support in OvmfX64 is deprecated,
+    "deprecation notice: *dynamic* multi-VMM (QEMU vs. Xen) support in OvmfPkg"
+    https://edk2.groups.io/g/devel/message/75498
 
-Meanwhile the proposed pciback change has gone in upstream:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/xen/xen-pciback?id=c81d3d24602540f65256f98831d0a25599ea6b87
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
 
-I wasn't, however, aware that this may have been an issue going
-from 4.14.1 to 4.15.0, i.e. something that was presumably (as
-George also has just said) a regression in the tools. Or else I
-probably wouldn't have suggested taking care of this in Linux.
-Nevertheless you may want to give that change a try.
+PVH support isn't working at the moment, but that's just a detail :-)
+---
+ tools/firmware/ovmf-makefile | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Jan
+diff --git a/tools/firmware/ovmf-makefile b/tools/firmware/ovmf-makefile
+index 55f999214545..637ee509c366 100644
+--- a/tools/firmware/ovmf-makefile
++++ b/tools/firmware/ovmf-makefile
+@@ -17,8 +17,14 @@ all: build
+ .PHONY: build
+ build:
+ 	if test -e .git ; then $(GIT) submodule update --init --recursive ; fi
+-	OvmfPkg/build.sh -a X64 -b $(TARGET) -n 4
+-	cp Build/OvmfX64/$(TARGET)_GCC*/FV/OVMF.fd ovmf.bin
++	set -ex; \
++	if test -e OvmfPkg/OvmfXen.dsc; then \
++	  OvmfPkg/build.sh -a X64 -b $(TARGET) -n 4 -p OvmfPkg/OvmfXen.dsc; \
++	  cp Build/OvmfXen/$(TARGET)_GCC*/FV/OVMF.fd ovmf.bin; \
++	else \
++	  OvmfPkg/build.sh -a X64 -b $(TARGET) -n 4; \
++	  cp Build/OvmfX64/$(TARGET)_GCC*/FV/OVMF.fd ovmf.bin; \
++	fi
+ 
+ .PHONY: clean
+ clean:
+-- 
+Anthony PERARD
+
 
