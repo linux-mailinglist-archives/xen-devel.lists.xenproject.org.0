@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A36398DC9
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 17:03:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136069.252470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C76CE398DF5
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 17:09:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136076.252482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loSNY-00010z-4z; Wed, 02 Jun 2021 15:01:56 +0000
+	id 1loSUQ-0001qP-Ub; Wed, 02 Jun 2021 15:09:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136069.252470; Wed, 02 Jun 2021 15:01:56 +0000
+Received: by outflank-mailman (output) from mailman id 136076.252482; Wed, 02 Jun 2021 15:09:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loSNY-0000y5-1x; Wed, 02 Jun 2021 15:01:56 +0000
-Received: by outflank-mailman (input) for mailman id 136069;
- Wed, 02 Jun 2021 15:01:53 +0000
+	id 1loSUQ-0001oN-Q0; Wed, 02 Jun 2021 15:09:02 +0000
+Received: by outflank-mailman (input) for mailman id 136076;
+ Wed, 02 Jun 2021 15:09:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YErV=K4=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1loSNV-0000xu-PQ
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 15:01:53 +0000
-Received: from mail-pf1-x42d.google.com (unknown [2607:f8b0:4864:20::42d])
+ <SRS0=GNUT=K4=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
+ id 1loSUO-0001oH-NK
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 15:09:00 +0000
+Received: from mail-ot1-x32f.google.com (unknown [2607:f8b0:4864:20::32f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ddd2621-d8e2-4a24-a7e6-b5585cf0f7e6;
- Wed, 02 Jun 2021 15:01:53 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id t28so2382960pfg.10
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jun 2021 08:01:53 -0700 (PDT)
-Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
- by smtp.gmail.com with ESMTPSA id
- y13sm97917pgp.16.2021.06.02.08.01.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jun 2021 08:01:51 -0700 (PDT)
+ id 805fb504-e35b-422f-be1e-aac25c62ca78;
+ Wed, 02 Jun 2021 15:08:59 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ i14-20020a9d624e0000b029033683c71999so2704407otk.5
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jun 2021 08:08:59 -0700 (PDT)
+Received: from localhost.localdomain (142-79-211-230.starry-inc.net.
+ [142.79.211.230])
+ by smtp.gmail.com with ESMTPSA id e29sm25287oiy.53.2021.06.02.08.08.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Jun 2021 08:08:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +43,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ddd2621-d8e2-4a24-a7e6-b5585cf0f7e6
+X-Inumbo-ID: 805fb504-e35b-422f-be1e-aac25c62ca78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=+az3hl/4w22b3I/rRlTcQ1/sSF9KD2GATy/NbYn2SjU=;
-        b=LFh9HsM5N4yAOGzJ85RpIVWyAjUPznHirCf8/j7G4yx59JLH20/Uh4u7wbdu1FOv1R
-         BMS/VcyQyPaNyIBLyV79xaZ6CaUNzIjmBxRj8Fe+1khO8KcH3zpgVSaCPqyrS/mPSxUA
-         SxH1O0RaYnJym4R1ouc54zGTJI9ko785LbI0cE/6JrbOl++1vJMUiWvQ+YxS/x02SX1A
-         GtQ9eZiWdQ81n3fEqhZUgWSVZqHZymyGyts8taigNA7xByYUg2QhaEC1Sqw034dlDQ+n
-         EaQjVI9wbITemQxMjxw+B5xkVM7JxSTIPhVvW43gJtVIEw3fB0lKjLuGjHRyUK5Iy7k4
-         pXzg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=gs+XbRVRzJKHyIBh7bExJpJrDXDyPX5HL5ZlmfaOeUU=;
+        b=R8Kb8U2IGsyeRYCVCjI4378u+B88OtvkcxLbL4UkwddYYiyiOLMsKAcpHhvHWygmYa
+         MM0W7DZ0IcHkiPjXO38TFYFYwZzzi3CKPT+Jj2H7Uop5EleK3NKNklinn40EqNo/4CxM
+         81CYvcCU76R6cy5ldimQm32x7FFd0dYejQrU4VOqrbDt5sX7MoSYNAbakbIO0dQiYx1D
+         kyXbNP9kIeY+dyAbFmykEtIqiSJwlwII3CuZKnp71fcfHPDV3X19COX7N5OunMHyRriD
+         Wgf++g0HUgjs7GnY/fhQWq40WA370Ypl7IIE+sd4ta5otSlIakfb8W9UunmKRa4s+HwN
+         pk+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=+az3hl/4w22b3I/rRlTcQ1/sSF9KD2GATy/NbYn2SjU=;
-        b=CANYxXmLwiZDJ3CvK+FL06c+P1fQ38CmAtBU++onn/lGdP2cgz95BeI+zyxXrQBOis
-         3ZGnJz7Aby8HmoNDbhDP23znSabB2qh0p4RMGfDp6Z6h8iEtTkCyxDCpxo6EUaYBvfsk
-         ZGhqv47doC3EeIdrvh4X1dunluazeZCexdaY8TbkKGb78KpjM2hDfp43f8wHZjmIDGxS
-         8TzDeSCcv+uOxY6VRaDhC8yj8Lm8+ga39VlEwXntZ0+RmxXlM9Bne64OMDKzCTNuGipz
-         aK0XJPpl3ZgCAXHo9KiUNIxjMnkzopgR0x653luPmXaFgk7GBrJNCH6eqsfoI9iXVP6e
-         gM3Q==
-X-Gm-Message-State: AOAM531hMKJuwTWw36qdvCmgqam5dKjbOHOqWzwDBRE8e4S0Hr8tz7Cn
-	dXBiDrtzsJE5Vuo5r2unNUc=
-X-Google-Smtp-Source: ABdhPJztpeXS5x/Q7Ocwttmq+13ab9HvNAwDx8hEcPtnl/lWI6mAldnzn4lX5IPnQcCsuOUMA5JO9w==
-X-Received: by 2002:a62:4e96:0:b029:2ea:2244:5e31 with SMTP id c144-20020a624e960000b02902ea22445e31mr3354423pfb.43.1622646112263;
-        Wed, 02 Jun 2021 08:01:52 -0700 (PDT)
-Subject: Re: [RFC PATCH V3 09/11] HV/IOMMU: Enable swiotlb bounce buffer for
- Isolation VM
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, kys@microsoft.com,
- haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, arnd@arndb.de, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
- kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
- cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
- Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, hch@lst.de,
- m.szyprowski@samsung.com, robin.murphy@arm.com, jgross@suse.com,
- sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
- xen-devel@lists.xenproject.org, davem@davemloft.net, kuba@kernel.org,
- jejb@linux.ibm.com, martin.petersen@oracle.com
-Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
- thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
-References: <20210530150628.2063957-1-ltykernel@gmail.com>
- <20210530150628.2063957-10-ltykernel@gmail.com>
- <9488c114-81ad-eb67-79c0-5ed319703d3e@oracle.com>
-From: Tianyu Lan <ltykernel@gmail.com>
-Message-ID: <a023ee3f-ce85-b54f-79c3-146926bf3279@gmail.com>
-Date: Wed, 2 Jun 2021 23:01:36 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+        bh=gs+XbRVRzJKHyIBh7bExJpJrDXDyPX5HL5ZlmfaOeUU=;
+        b=YzoYdwNOC66WfiQflnNbzsjm/VzqCnKrdWqUYSZEANGbz6SdxubKfpQeUj2Tzjv3zD
+         3RfIIoY5Gtl5FOEFHjsDs1PBB8XY5eEszcX7MofgI0Kvf5lHvNDj0IJ1mSb4RSVmN9Jx
+         i6/znAn0Bev8sX8HyrFrqOAgXcjxFpGxuK3aFSXt2rgVY+ITF8e5tpuTZl/4XwcGiIsd
+         CA/COC9XEfs+T64bitpy00wTTC02JkA0nWGRrQgRBlIGvzbdd4ENtXcbkNJUGzfsT3gi
+         /JvdqRXR9vrDbjAKjKYm7IFyPNCspEzNgnDC1T679RHQRu7NWWUEglZGICxjS4fvSUu3
+         ikGA==
+X-Gm-Message-State: AOAM530TXYCqREXk5RWfATfkQeTBzwVaQcY73mVWnaQRnX0k9Ey/T3FB
+	15IHXyFGoq9P8kLnXE0ptrq16+rnpk9g/Q==
+X-Google-Smtp-Source: ABdhPJzxWCZ/lvb95Q3G8tRhCwxdkn2xfo2HB1obTY/+bDmrn7K9WmIkhs/xE3pIbyc5XYvGTyMG2A==
+X-Received: by 2002:a05:6830:10b:: with SMTP id i11mr2860169otp.240.1622646539028;
+        Wed, 02 Jun 2021 08:08:59 -0700 (PDT)
+From: Connor Davis <connojdavis@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair23@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v5 0/2] Minimal build for RISCV
+Date: Wed,  2 Jun 2021 09:08:26 -0600
+Message-Id: <cover.1622645816.git.connojdavis@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <9488c114-81ad-eb67-79c0-5ed319703d3e@oracle.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Boris:
-	Thanks for your review.
+Hi all,
 
-On 6/2/2021 9:16 AM, Boris Ostrovsky wrote:
-> 
-> On 5/30/21 11:06 AM, Tianyu Lan wrote:
->> @@ -91,6 +92,6 @@ int pci_xen_swiotlb_init_late(void)
->>   EXPORT_SYMBOL_GPL(pci_xen_swiotlb_init_late);
->>   
->>   IOMMU_INIT_FINISH(2,
->> -		  NULL,
->> +		  hyperv_swiotlb_detect,
->>   		  pci_xen_swiotlb_init,
->>   		  NULL);
-> 
-> 
-> Could you explain this change?
+This series introduces a minimal build for RISCV. It is based on Bobby's
+previous work from last year[0] rebased onto current Xen.
 
-Hyper-V allocates its own swiotlb bounce buffer and the default
-swiotlb buffer should not be allocated. swiotlb_init() in 
-pci_swiotlb_init() is to allocate default swiotlb buffer.
-To achieve this, put hyperv_swiotlb_detect() as the first entry in the 
-iommu_table_entry list. The detect loop in the pci_iommu_alloc() will 
-exit once hyperv_swiotlb_detect() is called in Hyper-V VM and other 
-iommu_table_entry callback will not be called.
+This series provides the patches necessary to get a minimal build
+working. The build is "minimal" in the sense that it only supports
+building TARGET=riscv64/head.o. The arch/riscv/riscv64/head.S is just
+a simple while(1).
+
+The first patch is a mod to non-RISCV bits that enable building a
+config with !CONFIG_HAS_NS16550.
+
+The second patch adds the make/Kconfig boilerplate alongside head.S and
+asm-riscv/config.h (head.S references ENTRY that is defined in
+asm-riscv/config.h).
+
+[0] https://lore.kernel.org/xen-devel/cover.1579615303.git.bobbyeshleman@gmail.com/
+
+Thanks,
+Connor
+
+--
+Changes since v4:
+  - Dropped patches 2 and 4 as these have been applied
+  - Moved arch/riscv/head.S to arch/riscv/riscv64/head.S for consistency
+    with ARM.
+  - Added Bob and myself to MAINTAINERS
+
+Changes since v3:
+  - Dropped "xen: Fix build when !CONFIG_GRANT_TABLE" since this was
+    applied by Jan
+  - Adjusted Kconfig condition for building NS16550
+  - Use bool rather than bool_t
+  - Removed riscv memory map, as this should probably be done later once
+    the frametable size is figured out
+  - Consolidated 64-bit #defines in asm-riscv/config.h
+  - Renamed riscv64_defconfig to tiny64_defconfig, added CONFIG_DEBUG
+    and CONFIG_DEBUG_INFO
+  - Fixed logic/alignment/whitespace issues in Kconfig files
+  - Use upstream archlinux riscv64 cross-compiler packages instead of
+    custom built toolchain in docker container
+
+Changes since v2:
+  - Reduced number of riscv files added to ease review
+
+Changes since v1:
+  - Dropped "xen/sched: Fix build when NR_CPUS == 1" since this was
+    fixed for 4.15
+  - Moved #ifdef-ary around iommu_enabled to iommu.h
+  - Moved struct grant_table declaration above ifdef CONFIG_GRANT_TABLE
+    instead of defining an empty struct when !CONFIG_GRANT_TABLE
+
+--
+Connor Davis (2):
+  xen/char: Default HAS_NS16550 to y only for X86 and ARM
+  xen: Add files needed for minimal riscv build
+
+ MAINTAINERS                             |  8 +++++
+ config/riscv64.mk                       |  5 +++
+ xen/Makefile                            |  8 +++--
+ xen/arch/riscv/Kconfig                  | 47 +++++++++++++++++++++++++
+ xen/arch/riscv/Kconfig.debug            |  0
+ xen/arch/riscv/Makefile                 |  2 ++
+ xen/arch/riscv/Rules.mk                 |  0
+ xen/arch/riscv/arch.mk                  | 14 ++++++++
+ xen/arch/riscv/configs/tiny64_defconfig | 13 +++++++
+ xen/arch/riscv/riscv64/asm-offsets.c    |  0
+ xen/arch/riscv/riscv64/head.S           |  6 ++++
+ xen/drivers/char/Kconfig                |  1 +
+ xen/include/asm-riscv/config.h          | 47 +++++++++++++++++++++++++
+ 13 files changed, 149 insertions(+), 2 deletions(-)
+ create mode 100644 config/riscv64.mk
+ create mode 100644 xen/arch/riscv/Kconfig
+ create mode 100644 xen/arch/riscv/Kconfig.debug
+ create mode 100644 xen/arch/riscv/Makefile
+ create mode 100644 xen/arch/riscv/Rules.mk
+ create mode 100644 xen/arch/riscv/arch.mk
+ create mode 100644 xen/arch/riscv/configs/tiny64_defconfig
+ create mode 100644 xen/arch/riscv/riscv64/asm-offsets.c
+ create mode 100644 xen/arch/riscv/riscv64/head.S
+ create mode 100644 xen/include/asm-riscv/config.h
+
+-- 
+2.31.1
+
 
