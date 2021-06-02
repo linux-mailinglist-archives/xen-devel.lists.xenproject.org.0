@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F7483981B7
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135493.251725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806DE3981C2
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135498.251736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKmW-0002Eb-8g; Wed, 02 Jun 2021 06:55:12 +0000
+	id 1loKmg-000311-Gv; Wed, 02 Jun 2021 06:55:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135493.251725; Wed, 02 Jun 2021 06:55:12 +0000
+Received: by outflank-mailman (output) from mailman id 135498.251736; Wed, 02 Jun 2021 06:55:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKmW-0002Aa-46; Wed, 02 Jun 2021 06:55:12 +0000
-Received: by outflank-mailman (input) for mailman id 135493;
- Wed, 02 Jun 2021 06:55:11 +0000
+	id 1loKmg-0002ys-DQ; Wed, 02 Jun 2021 06:55:22 +0000
+Received: by outflank-mailman (input) for mailman id 135498;
+ Wed, 02 Jun 2021 06:55:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PwRf=K4=bombadil.srs.infradead.org=batv+e38fb55258da4e18a096+6492+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1loKmV-0007A2-3u
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:55:11 +0000
+ id 1loKmf-0007A2-4E
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:55:21 +0000
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81d54a99-7c05-4dc5-b2d0-4eabac53016e;
- Wed, 02 Jun 2021 06:54:49 +0000 (UTC)
+ id 91c486af-9bea-47be-bfe9-22043f6813e4;
+ Wed, 02 Jun 2021 06:54:58 +0000 (UTC)
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1loKln-0025P8-FW; Wed, 02 Jun 2021 06:54:28 +0000
+ id 1loKls-0025R4-W9; Wed, 02 Jun 2021 06:54:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81d54a99-7c05-4dc5-b2d0-4eabac53016e
+X-Inumbo-ID: 91c486af-9bea-47be-bfe9-22043f6813e4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=KlBRFDn8CKBuz4Jtw5oxvJwFPJCrn3leZL7f/TB5v/I=; b=JAbKOuEt/ZwlI1Cb8jU8PIVTi0
-	rWrP2Q0oyjZ1qHxdn5YfZWmZGCE1OX7t/Z5qHClzdMNkXAAV2MvEk5MtF+zy9GIwLRfySkORmJitv
-	hBUNmjxZRc5StQgvgrScxkKXoprJTIDdzdZyS8U/8FI6Ub7l742n47gp+1BOs+WlJvaHsKwHFkDWB
-	xBui56bbOzKQ99aHIVAIpMOWuKdRjPxfD/L6mOHl825ZMYqNbqTRQR2bdCKOIAofpqO2q95xIdQCk
-	qchgx4WVGIXqbErN5FqxXen4FaqChWEu053VwmNbr8IDVXg22x1cC2laSwL86K80z+bhdU0MJo1y9
-	XRk5+uaA==;
+	bh=VrhBOXpqbc1/w6Vz4TvYYyGic8czOTYvar2owBC0Nao=; b=M0oF4rS9JAR1tnscAYGs3Ny4Aw
+	R0M734kT6ibhdEiE624YEKsyPPj2YIu9zEGz0wkFfjwV4WFPnIh+1qyKDWdZ3z8EzlkVFGAb8Dcf7
+	3V8VbExj8uNId3jTIdf48776+H/+fLIW8cknoNSzbxVEsD1AHyQD0KcKh763iNg2evMPCysdTxB14
+	ax5A/5pAgqFYu/FRgKYessRM0Gxr+BcwAdKdzvnS3J8oKCUIv74U/fN2dbR6gw8G1XrC9oJZoC90l
+	B8UJw9Kz7LkEpdXWVakEj3I01Qm/fH4nuPfSRHY69/phvcTpV74SAlSbAP7u3gkCl0yYJXtqgKgJ3
+	bYIwaHtg==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -82,9 +82,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org,
 	linux-s390@vger.kernel.org
-Subject: [PATCH 07/30] ms_block: use blk_mq_alloc_disk
-Date: Wed,  2 Jun 2021 09:53:22 +0300
-Message-Id: <20210602065345.355274-8-hch@lst.de>
+Subject: [PATCH 08/30] mspro: use blk_mq_alloc_disk
+Date: Wed,  2 Jun 2021 09:53:23 +0300
+Message-Id: <20210602065345.355274-9-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
@@ -97,27 +97,27 @@ allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/memstick/core/ms_block.c | 25 ++++++++++---------------
- 1 file changed, 10 insertions(+), 15 deletions(-)
+ drivers/memstick/core/mspro_block.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index 0bacf4268f83..dac258d12aca 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -2110,21 +2110,17 @@ static int msb_init_disk(struct memstick_dev *card)
- 	if (msb->disk_id  < 0)
- 		return msb->disk_id;
+diff --git a/drivers/memstick/core/mspro_block.c b/drivers/memstick/core/mspro_block.c
+index cf7fe0d58ee7..22778d0e24f5 100644
+--- a/drivers/memstick/core/mspro_block.c
++++ b/drivers/memstick/core/mspro_block.c
+@@ -1205,21 +1205,17 @@ static int mspro_block_init_disk(struct memstick_dev *card)
+ 	if (disk_id < 0)
+ 		return disk_id;
  
--	msb->disk = alloc_disk(0);
+-	msb->disk = alloc_disk(1 << MSPRO_BLOCK_PART_SHIFT);
 -	if (!msb->disk) {
 -		rc = -ENOMEM;
-+	rc = blk_mq_alloc_sq_tag_set(&msb->tag_set, &msb_mq_ops, 2,
++	rc = blk_mq_alloc_sq_tag_set(&msb->tag_set, &mspro_mq_ops, 2,
 +				     BLK_MQ_F_SHOULD_MERGE);
 +	if (rc)
  		goto out_release_id;
 -	}
  
--	msb->queue = blk_mq_init_sq_queue(&msb->tag_set, &msb_mq_ops, 2,
+-	msb->queue = blk_mq_init_sq_queue(&msb->tag_set, &mspro_mq_ops, 2,
 -						BLK_MQ_F_SHOULD_MERGE);
 -	if (IS_ERR(msb->queue)) {
 -		rc = PTR_ERR(msb->queue);
@@ -132,18 +132,22 @@ index 0bacf4268f83..dac258d12aca 100644
 -	msb->queue->queuedata = card;
 +	msb->queue = msb->disk->queue;
  
- 	blk_queue_max_hw_sectors(msb->queue, MS_BLOCK_MAX_PAGES);
- 	blk_queue_max_segments(msb->queue, MS_BLOCK_MAX_SEGS);
-@@ -2135,7 +2131,6 @@ static int msb_init_disk(struct memstick_dev *card)
- 	sprintf(msb->disk->disk_name, "msblk%d", msb->disk_id);
- 	msb->disk->fops = &msb_bdops;
+ 	blk_queue_max_hw_sectors(msb->queue, MSPRO_BLOCK_MAX_PAGES);
+ 	blk_queue_max_segments(msb->queue, MSPRO_BLOCK_MAX_SEGS);
+@@ -1228,10 +1224,10 @@ static int mspro_block_init_disk(struct memstick_dev *card)
+ 
+ 	msb->disk->major = major;
+ 	msb->disk->first_minor = disk_id << MSPRO_BLOCK_PART_SHIFT;
++	msb->disk->minors = 1 << MSPRO_BLOCK_PART_SHIFT;
+ 	msb->disk->fops = &ms_block_bdops;
+ 	msb->usage_count = 1;
  	msb->disk->private_data = msb;
 -	msb->disk->queue = msb->queue;
  
- 	capacity = msb->pages_in_block * msb->logical_block_count;
- 	capacity *= (msb->page_size / 512);
-@@ -2155,8 +2150,8 @@ static int msb_init_disk(struct memstick_dev *card)
- 	dbg("Disk added");
+ 	sprintf(msb->disk->disk_name, "mspblk%d", disk_id);
+ 
+@@ -1247,8 +1243,8 @@ static int mspro_block_init_disk(struct memstick_dev *card)
+ 	msb->active = 1;
  	return 0;
  
 -out_put_disk:
@@ -151,8 +155,8 @@ index 0bacf4268f83..dac258d12aca 100644
 +out_free_tag_set:
 +	blk_mq_free_tag_set(&msb->tag_set);
  out_release_id:
- 	mutex_lock(&msb_disk_lock);
- 	idr_remove(&msb_disk_idr, msb->disk_id);
+ 	mutex_lock(&mspro_block_disk_lock);
+ 	idr_remove(&mspro_block_disk_idr, disk_id);
 -- 
 2.30.2
 
