@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C013987FC
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 13:21:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135976.252343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 987BB3987FD
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 13:21:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135979.252354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loOve-0005ph-0d; Wed, 02 Jun 2021 11:20:54 +0000
+	id 1loOw7-0006KF-9D; Wed, 02 Jun 2021 11:21:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135976.252343; Wed, 02 Jun 2021 11:20:53 +0000
+Received: by outflank-mailman (output) from mailman id 135979.252354; Wed, 02 Jun 2021 11:21:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loOvd-0005ne-TP; Wed, 02 Jun 2021 11:20:53 +0000
-Received: by outflank-mailman (input) for mailman id 135976;
- Wed, 02 Jun 2021 11:20:52 +0000
+	id 1loOw7-0006IO-62; Wed, 02 Jun 2021 11:21:23 +0000
+Received: by outflank-mailman (input) for mailman id 135979;
+ Wed, 02 Jun 2021 11:21:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NSCb=K4=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1loOvc-0005nY-JL
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 11:20:52 +0000
-Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.83])
+ id 1loOw5-0006Gx-U8
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 11:21:21 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.84])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ffb40af4-4180-4ef1-b201-e70d7205610f;
- Wed, 02 Jun 2021 11:20:51 +0000 (UTC)
+ id 3c5e3d0a-d4a5-488c-b578-356c9c204982;
+ Wed, 02 Jun 2021 11:21:21 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx52BKi4Tj
+ with ESMTPSA id j0415bx52BLG4Tz
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Wed, 2 Jun 2021 13:20:44 +0200 (CEST)
+ Wed, 2 Jun 2021 13:21:16 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,93 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffb40af4-4180-4ef1-b201-e70d7205610f
-ARC-Seal: i=1; a=rsa-sha256; t=1622632844; cv=none;
+X-Inumbo-ID: 3c5e3d0a-d4a5-488c-b578-356c9c204982
+ARC-Seal: i=1; a=rsa-sha256; t=1622632876; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=n0buuWcaiDcnOfO5XQDQ1bYiEV2zWbGEiwEyfMkk+9Zy3VT2H8uKE5L+4RqnC9GtQv
-    UTq8ZLtsOuqscDuel50WuERbebjUggieahXv85Hv/hUzUGq/TmONslpLgDKOqFXakEDD
-    UP2tunA/vuvHItJbKD2npAIdEGsIDA8l/G6XLfVIqxqUI9iklJSQbYCijNNswEYH5zRH
-    sX/HjrG2XCrVOYa53AeLUOAogkann7BDsyEaOtPB23AZiSHMLWMivX+kJGNdW98tUAFZ
-    VRoqhhmQRqwIQu8XXDH4j8oTmfNZ1CiTlO1jOZ2Ceb5fHymx6TG4txrh3UeFNfDe8qCe
-    Q7gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622632844;
+    b=CtQ2P4CHqlLZR/bhH+ffeYRjSnSAIQ2RRrkKtKB5FwKxr0wKjum743DuXrWWk8/A+3
+    0tPh5GnGuJrvElAlD/1Wzi7w2Tw8d8bfk2eUGxXZMDzAyALY6cJqgksp0/VWyahOqbnR
+    OMGwsx109EBDD1nG6uNr5LDb745qHugebg376wMwqtN3TkDG5XlgJMIkOzAueiVIZAvA
+    oeynLJUgW0IL1lwse8E9f9xtyviLP5BnxtJneyDfb0DVwfDkLeubpZuIJxi5xcJBNkZn
+    0Rl6gogJ8YoSec5e9Rz6084sMkT6RSUQSNKqBWEO1STer70KAPd3jyj1rjnUR+3fM1b/
+    dZSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622632876;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
     From:Subject:Sender;
-    bh=KfK4MvOZX1Mw3hMEr+laTlUUuHLc0mlK9XtSeXAWDB4=;
-    b=n1b3GPXkN3IRNg1uPiyBEMYbZJZAamJBfSVcg7Ipo4cg7W4pzOFyr0gAQTYwjp9sf4
-    J0jMN82rQOSKVvBqzAlhDIimMdXDpDfnvMxj3k3dBGk/WpgnrMdnwndkYDV3wvEsLCNA
-    QdCkAgd9HvAEKwTTugNu+dHVv5d7BTaKMWeLkVJGqeVJzFfc5HjzdqxLCTgzowzSqwiT
-    vJc74TMAMVkNgByhQjGQabUMZf8Y7F3xjUoU0DYfGENxNP17XbwZm2qBxy1gY7+U+7aL
-    B1n2CsrqQs5D/MuobRYSPo5Azc1t+mNjlmqWNePKTNiQxLDpIvLW3XnUhA1BsfcuIG/O
-    RaLA==
+    bh=9vWpdbDZWYsZRwpTxs4xYixb0KM4n1SJg9aWcgBfw6g=;
+    b=gkJQ5rl3aL9A+75Q6dRUBfkMC1GT9PA72eX1VaJ1TfXH4InhXJx50Nh1jdmsACxLfX
+    VuDFkJ54TRg0zWKTwC1y+F9U/CYmsA03dESkFZ/0jCaMtPeuJKkdtnUrZYpPK36QoXiz
+    E76ezHOY0gqX0tSmEOx8aDm90vPEEVaewAOtY7kb4DcIJVlLV2QNMDlZlqP2oZq8RYXC
+    d7pjKwU9fbztsJO4JMVlMJmVnlOTWJpG8gg3uyCOJREjOkxoZ28vfdbz8tR6xIThx62v
+    iPhJi0+3hM9Y+O1duw6IG8Q08vVeq0JdMojc2djpNdVxAV6sf3bOh873pzWYNruCeHzm
+    uPpA==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622632844;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622632876;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
     From:Subject:Sender;
-    bh=KfK4MvOZX1Mw3hMEr+laTlUUuHLc0mlK9XtSeXAWDB4=;
-    b=pw16oXufDDazmJ/GZ0vOyCzFPGqW7C8ltUh/3bvi5A/hSxuF59YREs7CE8DeKYWJen
-    /L6rTxFlPGJCiT9nmWw2O6NsfJBq2dDFouzMfE0QWD0SRCQjrFk5FonbkJ8zW81kyo0b
-    VH1x2+5rTPjkLy7lSrRaf/F+HYLx3ld6ouckkLEo40Ml0q50wvElOyX8b/iumZ49/vOy
-    yk7ilJo1zC8WHTQ0KsjNPOjHQKxM25bSTPY1LsnBbcdVUfLzKvLVvkie4B4vrmwNdcbq
-    OBR2Loo9cuZqadP7xnESe+zS07BdWbJjwfWpnLmnQ5d4Slj+OPfMTcsFdPVJ1XuVo8sf
-    dffQ==
+    bh=9vWpdbDZWYsZRwpTxs4xYixb0KM4n1SJg9aWcgBfw6g=;
+    b=DC8qV7jHcFHU4fkaBimJZJofUxurfryEUg2mda2P2rIC1WsA8CmzEAcaTB3XjKdOet
+    uwVpKKx+ehy3Xi8zykdj01GgG0unteojOBE7Eb3fGQxN53hIC3Veaks50Gf+uL61mmJD
+    vr5u18Yy1yAg0ynW6YxDmQ6h9X193cRNGUZeV5MnSyKPaVCQlXb33BSGG1nsdRlcNoEk
+    YfcvykPy8UGpYKR+jCDtUPyAapRw9kjgxhbmDbFWG+Tj3QjfLPJ2GvY55b6C6RixqGEQ
+    UR65/P6Yt5xZ74zk6C6bU3RUyPw9GAd+DWRAb+f5j01tgNxfdJ+A12+BdVb9DldLddo0
+    TnMA==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF9Wx7WbE3s+BU2kLCYUBd7t4vRd/ulzKn4R+Wk"
 X-RZG-CLASS-ID: mo00
-Date: Wed, 2 Jun 2021 13:20:36 +0200
+Date: Wed, 2 Jun 2021 13:21:14 +0200
 From: Olaf Hering <olaf@aepfle.de>
-To: Joshua Otto <joshua.t.otto@gmail.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- wei.liu2@citrix.com, Joshua Otto <jtotto@uwaterloo.ca>
-Subject: Re: [Xen-devel] [PATCH RFC v2 00/23] Design document and
- performance evaluation for post-copy live migration
-Message-ID: <20210602132036.68e60184.olaf@aepfle.de>
-In-Reply-To: <1529230714-30455-1-git-send-email-joshua.t.otto@gmail.com>
-References: <1529230714-30455-1-git-send-email-joshua.t.otto@gmail.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [PATCH v20210601 07/38] tools: unify type checking for data
+ pfns in migration stream
+Message-ID: <20210602132114.6fd9ee87.olaf@aepfle.de>
+In-Reply-To: <9045add9-0cd0-7f9d-87ef-26cea15b74cd@suse.com>
+References: <20210601161118.18986-1-olaf@aepfle.de>
+	<20210601161118.18986-8-olaf@aepfle.de>
+	<9045add9-0cd0-7f9d-87ef-26cea15b74cd@suse.com>
 X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/3V.L3j.n+kYMS2GGUuC+xFn";
+Content-Type: multipart/signed; boundary="Sig_/.0kF5D_cin=WVl+P6KXPNQi";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 
---Sig_/3V.L3j.n+kYMS2GGUuC+xFn
+--Sig_/.0kF5D_cin=WVl+P6KXPNQi
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Am Sun, 17 Jun 2018 03:18:11 -0700
-schrieb Joshua Otto <joshua.t.otto@gmail.com>:
+Am Wed, 2 Jun 2021 08:59:13 +0200
+schrieb Juergen Gross <jgross@suse.com>:
 
-> A little over a year ago, I posted a patch series implementing support for
-> post-copy live migration via xenpaging [1].
+> What about XEN_DOMCTL_PFINFO_XALLOC? Is this case impossible here, or
+> are you changing behavior?
 
-That that went anywhere, or was this a wasted effort?
+I think XEN_DOMCTL_PFINFO_XALLOC is a type that does not exist in practice.
 
+So, no change in behavior.
 
 Olaf
 
---Sig_/3V.L3j.n+kYMS2GGUuC+xFn
+--Sig_/.0kF5D_cin=WVl+P6KXPNQi
 Content-Type: application/pgp-signature
 Content-Description: Digitale Signatur von OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmC3aYQACgkQ86SN7mm1
-DoBCfg//aCC24yeBB5+IAoUFQU3V26iJrGaigxPPd92cfKfS9+tlTeFfCnVoGy6c
-8MJB2SL2pqMPh/UnhxO2Zi3TEWBeZ0Y+eUghW2+0BN56e7WbsbkoXyiyLdRW5q3B
-Ow2N9W81Dbe3eyHinDzdXO/LUpozgc+xdDbTcEACUHclUhOeXvb6GDBQKbDsT4w0
-RHYaTll2w5DxT3YqTFlH42Bd/P1AaD3g0nor1xtexbRr9dWATHH4uG2mZnGDt4tD
-nVMXqVuVXIE/dC878CtmwHsU2fyOEonA3bs4aeWZQR2qeBDz1ViU/uLfY7CYeYrQ
-jTceMkCQY+rRy+hfZ5gslsb4xCPTaGJkfxizdFAaqaL7tO0ChhmGZUz5mVfI8v0h
-0P76juHlORG1m5/YsXIyFquM2Er8WVqwHtZtclG63Y4b1Q9Grl2y9YzPpMUPal+C
-ywOKwis6daAToo1e2MnafT5+gC/QeZsY8LAvlb0r76zex17PC6cL/4ueDn5Lk7xx
-jQgh0imV96lmwX7uUTf+gLvzyoczIZiEFbcCz7AidWEpgixc+73pRHjFhVMUz0eT
-+n1yrcjD/RMaPxowAFsdi8TVZi2jare2td9o5RyZkA9j6EsqZVNilyMg8DjzRoYR
-7XbbipaAoRwqKmwmRwwq6xVV34DmKrzRpnortfZBj7duOiZ190g=
-=kfsJ
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmC3aaoACgkQ86SN7mm1
+DoAq0xAAiSG1PWwm6py2Ekb5GUxT7/RgVIFgknbPs/vMA9rQLKwIRO/lrgfK1oqQ
+CdDyBFDVEQmTMIyMqW2XndvHwGC7GpxUriziloEkFg3EzMQMJtGm1k+CxnmVJqL8
+9VLyS72gk489vOro9a2xZmDfcWqaw4mHOeCPZpQmFtLhj5LmKN696qtsljG3qLNF
+/YowswwH1DTq20xusPC2laCkbEhqVTOYKx3t3gtFYaLIqGc1B8IauSmvAJXvSw95
+ljBMLy/vVyxXMebuWQ8hCgT1PNBvx5qAoion/pM2MuxFhZKHto3w7Fw3gzIigFTa
+1bCZxgh46YuocULkeCCmzes5dGHrIdziL0tM5pUA7rSgPAnFqRLK4d+984RGAvix
+eaEzvdUIXr8Knlk84lG6gOSpA3a4gRRJaP3wP/wUQej9U+qnXMqCkt6O3yinEH6V
+QH2TH9H5kPhOMPbb2fBOP5J0CsE4UG33jX0KLdsWAPtmHNjFoo+kJtz0zd7C2W+e
+jtQLC2kkXA8xQeA7VwR7F/648MYJshNUH3q5D6EcEKuXd8ConCt/cnKuNZOGd20m
+1WfEki7/+fSbR56q9CxB1cW5xlxHau7ZU86mS4tPKR1QwVAYBiNIrUTLzEdnIipj
+/Ub0DsBouQvzgSkz7Hzpoa6qyrjJm/94DJjOgqCk7X74HGh6LgY=
+=5vXS
 -----END PGP SIGNATURE-----
 
---Sig_/3V.L3j.n+kYMS2GGUuC+xFn--
+--Sig_/.0kF5D_cin=WVl+P6KXPNQi--
 
