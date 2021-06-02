@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C99A39827E
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:03:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135547.251846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F9B339828B
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:04:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135600.251979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKuY-0000wZ-DM; Wed, 02 Jun 2021 07:03:30 +0000
+	id 1loKv2-0007rF-6P; Wed, 02 Jun 2021 07:04:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135547.251846; Wed, 02 Jun 2021 07:03:30 +0000
+Received: by outflank-mailman (output) from mailman id 135600.251979; Wed, 02 Jun 2021 07:04:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKuY-0000tx-81; Wed, 02 Jun 2021 07:03:30 +0000
-Received: by outflank-mailman (input) for mailman id 135547;
- Wed, 02 Jun 2021 07:03:29 +0000
+	id 1loKv1-0007io-Q3; Wed, 02 Jun 2021 07:03:59 +0000
+Received: by outflank-mailman (input) for mailman id 135600;
+ Wed, 02 Jun 2021 07:03:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PwRf=K4=bombadil.srs.infradead.org=batv+e38fb55258da4e18a096+6492+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1loKni-0007A2-6Y
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:56:26 +0000
+ id 1loKns-0007A2-70
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:56:36 +0000
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35fb7b1f-44c7-4b27-ad45-0306383e6a1a;
- Wed, 02 Jun 2021 06:55:16 +0000 (UTC)
+ id c9809242-a8e4-4f1a-9400-4e7f8bf7d610;
+ Wed, 02 Jun 2021 06:55:23 +0000 (UTC)
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1loKmD-0025eq-Jk; Wed, 02 Jun 2021 06:54:54 +0000
+ id 1loKmI-0025hI-AR; Wed, 02 Jun 2021 06:54:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35fb7b1f-44c7-4b27-ad45-0306383e6a1a
+X-Inumbo-ID: c9809242-a8e4-4f1a-9400-4e7f8bf7d610
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=pV41u4G0u0xaNGxoxDb/eyNeH9eLbF/Aei3AXX+HWdY=; b=xynVkbApPKJ1V6SCFnDhqzTRhk
-	HG0wUR2lljnrg8jjaBi3fB5wReJl4j8YP38RFTuxGHRPiXc3MvRjlT3pljHnX0XyyZXySOVGvD36r
-	Yn+kDsgqGIGCgFW7UzE2sDUrTXFZpZSvReujYSqg/GDnk+jMrGw/l7eQr8EmpYPtyi2dlKoDQZniQ
-	A295rgd6IcGuhT/qNWGyPQm803gvicBX9TIVBVODY+wwREKWrX67HS+VcQ/s9Gl/7xUWi6bQoGvGi
-	xaTI/gKDuismLjMiDlvwEAfqkBTMh3FXwJk3/FqJCq/s8UQ5jthfbUwng9lkO26oujqiNf9SJQcbE
-	JqveapQg==;
+	bh=uZ7id5h0Y8eTodjolim75Nh4xqN5GmxeKJFIibiB+SQ=; b=Y+ZIEpYOA2iHCs2T6tZeqlhwn4
+	2PZNnbXaohXgLYFyDB1Km2Bu2wyT0psxnFom5uMCa1WL63p08XIPFssnnwdwOWXz6S+f1NQhfrJgw
+	DT/OnKnomp1fr4hlxHzl1uRlbcM58luxBJNmSQR1ISWEmb6j+xDelW/EPSueMH5qVJqvrMzGOnsJB
+	1yLmbxBIjZuZM4gaGqkWw/56tktEZ+pXt7zHVQEX0324IpvUKx/kGJ0wdmf5QkCuJQDan3LvZi1gh
+	v7Tu3lvr/4iTt31gmsoCM89vROF9iZm4xBhs773hy5MvLL57mXmlU4k/Fy9BEGPPXaP9XwV6nM+1f
+	cFvfrZKA==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -82,9 +82,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org,
 	linux-s390@vger.kernel.org
-Subject: [PATCH 13/30] sunvdc: use blk_mq_alloc_disk
-Date: Wed,  2 Jun 2021 09:53:28 +0300
-Message-Id: <20210602065345.355274-14-hch@lst.de>
+Subject: [PATCH 14/30] gdrom: use blk_mq_alloc_disk
+Date: Wed,  2 Jun 2021 09:53:29 +0300
+Message-Id: <20210602065345.355274-15-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
@@ -97,93 +97,88 @@ allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/sunvdc.c | 47 ++++++++++++------------------------------
- 1 file changed, 13 insertions(+), 34 deletions(-)
+ drivers/cdrom/gdrom.c | 45 ++++++++++++++++++++-----------------------
+ 1 file changed, 21 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/block/sunvdc.c b/drivers/block/sunvdc.c
-index 39aeebc6837d..c53b38578bb7 100644
---- a/drivers/block/sunvdc.c
-+++ b/drivers/block/sunvdc.c
-@@ -780,27 +780,6 @@ static const struct blk_mq_ops vdc_mq_ops = {
- 	.queue_rq	= vdc_queue_rq,
- };
- 
--static void cleanup_queue(struct request_queue *q)
--{
--	struct vdc_port *port = q->queuedata;
--
--	blk_cleanup_queue(q);
--	blk_mq_free_tag_set(&port->tag_set);
--}
--
--static struct request_queue *init_queue(struct vdc_port *port)
--{
--	struct request_queue *q;
--
--	q = blk_mq_init_sq_queue(&port->tag_set, &vdc_mq_ops, VDC_TX_RING_SIZE,
--					BLK_MQ_F_SHOULD_MERGE);
--	if (IS_ERR(q))
--		return q;
--
--	q->queuedata = port;
--	return q;
--}
--
- static int probe_disk(struct vdc_port *port)
- {
- 	struct request_queue *q;
-@@ -838,21 +817,21 @@ static int probe_disk(struct vdc_port *port)
- 				    (u64)geom.num_sec);
+diff --git a/drivers/cdrom/gdrom.c b/drivers/cdrom/gdrom.c
+index c6d8c0f59722..8e1fe75af93f 100644
+--- a/drivers/cdrom/gdrom.c
++++ b/drivers/cdrom/gdrom.c
+@@ -772,53 +772,50 @@ static int probe_gdrom(struct platform_device *devptr)
+ 		goto probe_fail_no_mem;
  	}
- 
--	q = init_queue(port);
--	if (IS_ERR(q)) {
--		printk(KERN_ERR PFX "%s: Could not allocate queue.\n",
--		       port->vio.name);
--		return PTR_ERR(q);
--	}
--	g = alloc_disk(1 << PARTITION_SHIFT);
--	if (!g) {
-+	err = blk_mq_alloc_sq_tag_set(&port->tag_set, &vdc_mq_ops,
-+			VDC_TX_RING_SIZE, BLK_MQ_F_SHOULD_MERGE);
-+	if (err)
-+		return err;
+ 	probe_gdrom_setupcd();
+-	gd.disk = alloc_disk(1);
+-	if (!gd.disk) {
+-		err = -ENODEV;
+-		goto probe_fail_no_disk;
 +
-+	g = blk_mq_alloc_disk(&port->tag_set, port);
-+	if (IS_ERR(g)) {
- 		printk(KERN_ERR PFX "%s: Could not allocate gendisk.\n",
- 		       port->vio.name);
--		cleanup_queue(q);
--		return -ENOMEM;
-+		blk_mq_free_tag_set(&port->tag_set);
-+		return PTR_ERR(g);
++	err = blk_mq_alloc_sq_tag_set(&gd.tag_set, &gdrom_mq_ops, 1,
++				BLK_MQ_F_SHOULD_MERGE | BLK_MQ_F_BLOCKING);
++	if (err)
++		goto probe_fail_free_cd_info;
++
++	gd.disk = blk_mq_alloc_disk(&gd.tag_set, NULL);
++	if (IS_ERR(gd.disk)) {
++		err = PTR_ERR(gd.disk);
++		goto probe_fail_free_tag_set;
  	}
++	gd.gdrom_rq = gd.disk->queue;
+ 	probe_gdrom_setupdisk();
+ 	if (register_cdrom(gd.disk, gd.cd_info)) {
+ 		err = -ENODEV;
+-		goto probe_fail_cdrom_register;
++		goto probe_fail_cleanup_disk;
+ 	}
+ 	gd.disk->fops = &gdrom_bdops;
+ 	gd.disk->events = DISK_EVENT_MEDIA_CHANGE;
+ 	/* latch on to the interrupt */
+ 	err = gdrom_set_interrupt_handlers();
+ 	if (err)
+-		goto probe_fail_cmdirq_register;
+-
+-	gd.gdrom_rq = blk_mq_init_sq_queue(&gd.tag_set, &gdrom_mq_ops, 1,
+-				BLK_MQ_F_SHOULD_MERGE | BLK_MQ_F_BLOCKING);
+-	if (IS_ERR(gd.gdrom_rq)) {
+-		err = PTR_ERR(gd.gdrom_rq);
+-		gd.gdrom_rq = NULL;
+-		goto probe_fail_requestq;
+-	}
++		goto probe_fail_cleanup_disk;
  
- 	port->disk = g;
-+	q = g->queue;
+ 	err = probe_gdrom_setupqueue();
+ 	if (err)
+-		goto probe_fail_toc;
++		goto probe_fail_free_irqs;
  
- 	/* Each segment in a request is up to an aligned page in size. */
- 	blk_queue_segment_boundary(q, PAGE_SIZE - 1);
-@@ -862,6 +841,7 @@ static int probe_disk(struct vdc_port *port)
- 	blk_queue_max_hw_sectors(q, port->max_xfer_size);
- 	g->major = vdc_major;
- 	g->first_minor = port->vio.vdev->dev_no << PARTITION_SHIFT;
-+	g->minors = 1 << PARTITION_SHIFT;
- 	strcpy(g->disk_name, port->disk_name);
+ 	gd.toc = kzalloc(sizeof(struct gdromtoc), GFP_KERNEL);
+ 	if (!gd.toc) {
+ 		err = -ENOMEM;
+-		goto probe_fail_toc;
++		goto probe_fail_free_irqs;
+ 	}
+ 	add_disk(gd.disk);
+ 	return 0;
  
- 	g->fops = &vdc_fops;
-@@ -1083,9 +1063,8 @@ static int vdc_port_remove(struct vio_dev *vdev)
- 		del_timer_sync(&port->vio.timer);
- 
- 		del_gendisk(port->disk);
--		cleanup_queue(port->disk->queue);
--		put_disk(port->disk);
--		port->disk = NULL;
-+		blk_cleanup_disk(port->disk);
-+		blk_mq_free_tag_set(&port->tag_set);
- 
- 		vdc_free_tx_ring(port);
- 		vio_ldc_free(&port->vio);
+-probe_fail_toc:
+-	blk_cleanup_queue(gd.gdrom_rq);
+-	blk_mq_free_tag_set(&gd.tag_set);
+-probe_fail_requestq:
++probe_fail_free_irqs:
+ 	free_irq(HW_EVENT_GDROM_DMA, &gd);
+ 	free_irq(HW_EVENT_GDROM_CMD, &gd);
+-probe_fail_cmdirq_register:
+-probe_fail_cdrom_register:
+-	del_gendisk(gd.disk);
+-probe_fail_no_disk:
++probe_fail_cleanup_disk:
++	blk_cleanup_disk(gd.disk);
++probe_fail_free_tag_set:
++	blk_mq_free_tag_set(&gd.tag_set);
++probe_fail_free_cd_info:
+ 	kfree(gd.cd_info);
+ probe_fail_no_mem:
+ 	unregister_blkdev(gdrom_major, GDROM_DEV_NAME);
 -- 
 2.30.2
 
