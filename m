@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08B5E39810A
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:20:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135445.251594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35E2F398127
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:30:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135453.251605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKET-0000eW-SW; Wed, 02 Jun 2021 06:20:01 +0000
+	id 1loKOK-0002sq-Sx; Wed, 02 Jun 2021 06:30:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135445.251594; Wed, 02 Jun 2021 06:20:01 +0000
+Received: by outflank-mailman (output) from mailman id 135453.251605; Wed, 02 Jun 2021 06:30:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKET-0000ad-Os; Wed, 02 Jun 2021 06:20:01 +0000
-Received: by outflank-mailman (input) for mailman id 135445;
- Wed, 02 Jun 2021 06:20:00 +0000
+	id 1loKOK-0002pd-PW; Wed, 02 Jun 2021 06:30:12 +0000
+Received: by outflank-mailman (input) for mailman id 135453;
+ Wed, 02 Jun 2021 06:30:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loKES-0000aX-0r
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:20:00 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ id 1loKOJ-0002pX-OS
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:30:11 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a07cae91-12df-49d9-b1e1-9af4394b61ba;
- Wed, 02 Jun 2021 06:19:59 +0000 (UTC)
+ id 0dfc82b3-2b42-4850-8430-29b7bfda74b5;
+ Wed, 02 Jun 2021 06:30:10 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3B2C821919;
- Wed,  2 Jun 2021 06:19:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1E66B1FD32;
+ Wed,  2 Jun 2021 06:30:10 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 10827118DD;
- Wed,  2 Jun 2021 06:19:58 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id E6695118DD;
+ Wed,  2 Jun 2021 06:30:09 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id jprSAg4jt2BrPwAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:19:58 +0000
+ id FkpJNnElt2DIQwAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:30:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,133 +46,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a07cae91-12df-49d9-b1e1-9af4394b61ba
+X-Inumbo-ID: 0dfc82b3-2b42-4850-8430-29b7bfda74b5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622614798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622615410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UOKzZZM9iU38AIsLSlj43HUq4PROSnlYG9my9vpYe3o=;
-	b=dF8TjfRLF4prMmht92elvtsVIS/gVXocArH+2I/aKSDpZl3WAZpsewduNb0Lrq661cO3B/
-	+WDP4mS4MezxwI/co2pAZ3juoMhCP/hMvc8cYxvVcLdo7nluqRNWq1dKRsJCrkCQ8eMhlQ
-	NADqdG16C5W2LJ9iImSwuZxHOXCm1sQ=
+	bh=Zn2FBJyBSmD2wvdoETJjGC8BW04cSEbwAHqYhfPKguQ=;
+	b=iZMYPyFPQr1wGqjNOORU6JHk1UdTUL8Dp+YAEvJ8wtaWPp4rDGSJ3K22iZoGAnCoLhd2mF
+	KypJWz5QSlWy3cWE7vFh3CZ8cHV7OzZmOdvCt3a5wm5LTosq5QBCXEwHpbZ8tiwykUoPo6
+	gGobJnVIJAfAsYfyQWbxaTpnTLQ4LlY=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622614798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622615410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UOKzZZM9iU38AIsLSlj43HUq4PROSnlYG9my9vpYe3o=;
-	b=dF8TjfRLF4prMmht92elvtsVIS/gVXocArH+2I/aKSDpZl3WAZpsewduNb0Lrq661cO3B/
-	+WDP4mS4MezxwI/co2pAZ3juoMhCP/hMvc8cYxvVcLdo7nluqRNWq1dKRsJCrkCQ8eMhlQ
-	NADqdG16C5W2LJ9iImSwuZxHOXCm1sQ=
+	bh=Zn2FBJyBSmD2wvdoETJjGC8BW04cSEbwAHqYhfPKguQ=;
+	b=iZMYPyFPQr1wGqjNOORU6JHk1UdTUL8Dp+YAEvJ8wtaWPp4rDGSJ3K22iZoGAnCoLhd2mF
+	KypJWz5QSlWy3cWE7vFh3CZ8cHV7OzZmOdvCt3a5wm5LTosq5QBCXEwHpbZ8tiwykUoPo6
+	gGobJnVIJAfAsYfyQWbxaTpnTLQ4LlY=
+Subject: Re: [PATCH v20210601 04/38] tools: add readv_exact to libxenctrl
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-2-olaf@aepfle.de>
+ <20210601161118.18986-5-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v20210601 01/38] tools: add API to work with sevaral bits
- at once
-Message-ID: <33fa0a7f-360e-b5fc-ee0f-ad2ff98496a1@suse.com>
-Date: Wed, 2 Jun 2021 08:19:57 +0200
+Message-ID: <23783088-dc59-abd1-c66c-5fcd314d1f5c@suse.com>
+Date: Wed, 2 Jun 2021 08:30:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-2-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-5-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="xcmw2V1XBphYYyPiNu60stHLrOUtOC2lC"
+ boundary="bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---xcmw2V1XBphYYyPiNu60stHLrOUtOC2lC
-Content-Type: multipart/mixed; boundary="9TlvDplAWW3rMpk1DgyctGLmUyzou1tnA";
+--bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD
+Content-Type: multipart/mixed; boundary="gNGgc9DCOFQqgRTPe7WSYKnM9mYUHWE4z";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <33fa0a7f-360e-b5fc-ee0f-ad2ff98496a1@suse.com>
-Subject: Re: [PATCH v20210601 01/38] tools: add API to work with sevaral bits
- at once
+Message-ID: <23783088-dc59-abd1-c66c-5fcd314d1f5c@suse.com>
+Subject: Re: [PATCH v20210601 04/38] tools: add readv_exact to libxenctrl
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-2-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-2-olaf@aepfle.de>
+ <20210601161118.18986-5-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-5-olaf@aepfle.de>
 
---9TlvDplAWW3rMpk1DgyctGLmUyzou1tnA
+--gNGgc9DCOFQqgRTPe7WSYKnM9mYUHWE4z
 Content-Type: multipart/mixed;
- boundary="------------F254D6538E081A658275154C"
+ boundary="------------D42367AB7853177860FBC717"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------F254D6538E081A658275154C
+--------------D42367AB7853177860FBC717
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> Introduce new API to test if a fixed number of bits is clear or set,
-> and clear or set them all at once.
-
-More precise: the new functions check whether BITS_PER_LONG bits are
-set or clear.
-
-> The caller has to make sure the input bitnumber is a multiply of BITS_P=
-ER_LONG.
-
-s/multiply/multiple/
-
+> Read a batch of iovec's.
 >=20
-> This API avoids the loop over each bit in a known range just to see
-> if all of them are either clear or set.
+> In the common case of short reads, finish individual iov's with read_ex=
+act.
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
 > ---
->   tools/libs/ctrl/xc_bitops.h | 25 +++++++++++++++++++++++++
->   1 file changed, 25 insertions(+)
+>   tools/libs/ctrl/xc_private.c | 55 +++++++++++++++++++++++++++++++++++=
+-
+>   tools/libs/ctrl/xc_private.h |  1 +
+>   2 files changed, 55 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/tools/libs/ctrl/xc_bitops.h b/tools/libs/ctrl/xc_bitops.h
-> index f0bac4a071..92f38872fb 100644
-> --- a/tools/libs/ctrl/xc_bitops.h
-> +++ b/tools/libs/ctrl/xc_bitops.h
-> @@ -77,4 +77,29 @@ static inline void bitmap_or(void *_dst, const void =
-*_other,
->           dst[i] |=3D other[i];
->   }
+> diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.=
+c
+> index d94f846686..ea420b9ba8 100644
+> --- a/tools/libs/ctrl/xc_private.c
+> +++ b/tools/libs/ctrl/xc_private.c
+> @@ -659,8 +659,23 @@ int write_exact(int fd, const void *data, size_t s=
+ize)
 >  =20
-> +static inline int test_bit_long_set(unsigned long nr_base, const void =
-*_addr)
-
-Make return type bool (here and below)?
-
+>   #if defined(__MINIOS__)
+>   /*
+> - * MiniOS's libc doesn't know about writev(). Implement it as multiple=20
+write()s.
+> + * MiniOS's libc doesn't know about readv/writev().
+> + * Implement it as multiple read/write()s.
+>    */
+> +int readv_exact(int fd, const struct iovec *iov, int iovcnt)
 > +{
-> +    const unsigned long *addr =3D _addr;
-> +    unsigned long val =3D addr[nr_base / BITS_PER_LONG];
-
-Add a blank line here (same below).
-
-> +    return val =3D=3D ~0; > +}
+> +    int rc, i;
 > +
-> +static inline int test_bit_long_clear(unsigned long nr_base, const voi=
-d *_addr)
-> +{
-> +    const unsigned long *addr =3D _addr;
-> +    unsigned long val =3D addr[nr_base / BITS_PER_LONG];
-> +    return val =3D=3D 0;
+> +    for ( i =3D 0; i < iovcnt; ++i )
+> +    {
+> +        rc =3D read_exact(fd, iov[i].iov_base, iov[i].iov_len);
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    return 0;
 > +}
 > +
-> +static inline void clear_bit_long(unsigned long nr_base, void *_addr)
+>   int writev_exact(int fd, const struct iovec *iov, int iovcnt)
+>   {
+>       int rc, i;
+> @@ -675,6 +690,44 @@ int writev_exact(int fd, const struct iovec *iov, =
+int iovcnt)
+>       return 0;
+>   }
+>   #else
+> +int readv_exact(int fd, const struct iovec *iov, int iovcnt)
 > +{
-> +    unsigned long *addr =3D _addr;
-> +    addr[nr_base / BITS_PER_LONG] =3D 0;
+> +    int rc =3D 0, idx =3D 0;
+> +    ssize_t len;
+> +
+> +    while ( idx < iovcnt )
+> +    {
+> +        len =3D readv(fd, &iov[idx], min(iovcnt - idx, IOV_MAX));
+> +        if ( len =3D=3D -1 && errno =3D=3D EINTR )
+> +            continue;
+> +        if ( len <=3D 0 )
+> +        {
+> +            rc =3D -1;
+
+Is EOF really an error?
+
+> +            goto out;
+> +        }
+> +        while ( len > 0 && idx < iovcnt )
+> +        {
+> +            if ( len >=3D iov[idx].iov_len )
+> +            {
+> +                len -=3D iov[idx].iov_len;
+> +            }
+> +            else
+> +            {
+> +                void *p =3D iov[idx].iov_base + len;
+> +                size_t l =3D iov[idx].iov_len - len;
+> +
+> +                rc =3D read_exact(fd, p, l);
+> +                if ( rc )
+> +                    goto out;
+> +                len =3D 0;
+
+This will stop the loop, even if idx hasn't reached iovcnt.
+
+> +            }
+> +            idx++;
+> +        }
+> +    }
+> +out:
+> +    return rc;
 > +}
 > +
-> +static inline void set_bit_long(unsigned long nr_base, void *_addr)
-> +{
-> +    unsigned long *addr =3D _addr;
-> +    addr[nr_base / BITS_PER_LONG] =3D ~0;
-> +}
->   #endif  /* XC_BITOPS_H */
->=20
 
 
 Juergen
 
---------------F254D6538E081A658275154C
+--------------D42367AB7853177860FBC717
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -264,25 +292,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------F254D6538E081A658275154C--
+--------------D42367AB7853177860FBC717--
 
---9TlvDplAWW3rMpk1DgyctGLmUyzou1tnA--
+--gNGgc9DCOFQqgRTPe7WSYKnM9mYUHWE4z--
 
---xcmw2V1XBphYYyPiNu60stHLrOUtOC2lC
+--bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3Iw0FAwAAAAAACgkQsN6d1ii/Ey+J
-iAf+LdJFaUf852kkkPbmVwA173TnZYwiLW8646/Rtcmx0JPAUiBqCVKSu9C1D7PY6C3AZZ3JJ51V
-BlqhDj0uhqqX2pULWkwlBxaxTUJA5EOREh8my0EVJt3WN8a0vBre3BFq9ccPjz1tGxjUmQgMn9n+
-2+6ls7jkq++eM9Bl38iD3BbYvsSYHy7zdFhfgL6Bo7xgYHeQOZMgaG/EQLW8DNQVL2Z9R1zSVBkf
-Z5FdIHME1rXu2GP6DkcT7TCMm6GWwFnMWqvNRULUcKVmHRO+/xr0OVWQup2erxNQy9netLNJz8hf
-tQv+HC3PTfoMxUgU0TxXe3EvOpGZx08/BBPMHITiSg==
-=K8OR
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3JXAFAwAAAAAACgkQsN6d1ii/Ey88
+2gf/eBa3ZquvgaqWEDqBTF/z5Kuc2fwHhEX0bjtYwxDPG9jHUqqAtO+53i9A4aAN0XOg0CgtDqgz
+XwTm0IM/dKgzs31oRGGLYW0DimzJxbVpRbExrriaf/5RHrRNWZJOaDVuNLT+ruZE7kRJ1g+cCejw
++4qzbKCxnNGiFvQsKrQ5JXhxYbVsvD8D2iRao0xSMIFqgM9/LS8vUZ12zW+RWHKKlKlj3tgAJoCY
+27q8ndwLSnDQcswNDEY9x7hxBMVRFcaryuLAfkZlRvxahkxlH7M27oE3eDY+vrSMnyjgWJtr3U79
+Rv13IX4oIETPNTgL9fs0R9Lhlj0BPST6kbkLOc/oCw==
+=oHkY
 -----END PGP SIGNATURE-----
 
---xcmw2V1XBphYYyPiNu60stHLrOUtOC2lC--
+--bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD--
 
