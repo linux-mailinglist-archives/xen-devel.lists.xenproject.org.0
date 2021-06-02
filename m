@@ -2,40 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E31B398386
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:48:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135802.252111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37BD139839A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:50:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135809.252122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loLbP-0004zl-Gf; Wed, 02 Jun 2021 07:47:47 +0000
+	id 1loLe5-0006PG-3G; Wed, 02 Jun 2021 07:50:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135802.252111; Wed, 02 Jun 2021 07:47:47 +0000
+Received: by outflank-mailman (output) from mailman id 135809.252122; Wed, 02 Jun 2021 07:50:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loLbP-0004wr-CX; Wed, 02 Jun 2021 07:47:47 +0000
-Received: by outflank-mailman (input) for mailman id 135802;
- Wed, 02 Jun 2021 07:47:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loLbN-0004wj-B4
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:47:45 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id febcdaa1-d9ab-463a-852b-cca54997528e;
- Wed, 02 Jun 2021 07:47:44 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C33181FD32;
- Wed,  2 Jun 2021 07:47:43 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 880FA118DD;
- Wed,  2 Jun 2021 07:47:43 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id snPpH583t2AAagAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:47:43 +0000
+	id 1loLe5-0006NK-0C; Wed, 02 Jun 2021 07:50:33 +0000
+Received: by outflank-mailman (input) for mailman id 135809;
+ Wed, 02 Jun 2021 07:49:40 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VmpI=K4=ionos.com=jinpu.wang@srs-us1.protection.inumbo.net>)
+ id 1loLdE-0005e5-Ni
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:49:40 +0000
+Received: from mail-ed1-x52b.google.com (unknown [2a00:1450:4864:20::52b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8d7431d4-17ab-4f56-a0fa-2a96f54c793a;
+ Wed, 02 Jun 2021 07:49:38 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id b17so1849503ede.0
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jun 2021 00:49:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,189 +37,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: febcdaa1-d9ab-463a-852b-cca54997528e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622620063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W/hZveXRTQSaVIUZ+OtQzoJHKfGtem4yQGKFo/FbG+o=;
-	b=AmU8Eol/SYR9Bq6eu1WrY+mxIXngTW7ezV5L++NIbsPiJqIkDgym2DAZT1gEPkY7Ibk7ae
-	lTsjtpgEITeAhMVZwNp+tMR5Do3rI34DEepWWfyL38fVkAncYnFZEPTrbyRB+A4O1yfkse
-	SzKAfU6e+60bdhucFWHrjF4BW/3wkno=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622620063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W/hZveXRTQSaVIUZ+OtQzoJHKfGtem4yQGKFo/FbG+o=;
-	b=AmU8Eol/SYR9Bq6eu1WrY+mxIXngTW7ezV5L++NIbsPiJqIkDgym2DAZT1gEPkY7Ibk7ae
-	lTsjtpgEITeAhMVZwNp+tMR5Do3rI34DEepWWfyL38fVkAncYnFZEPTrbyRB+A4O1yfkse
-	SzKAfU6e+60bdhucFWHrjF4BW/3wkno=
-Subject: Re: [PATCH v20210601 17/38] tools/guest: save: move local_pages array
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-18-olaf@aepfle.de>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <3f3db866-3d91-093a-afad-509bc9299436@suse.com>
-Date: Wed, 2 Jun 2021 09:47:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 8d7431d4-17ab-4f56-a0fa-2a96f54c793a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=IviQGHXbohDYlY4Kaxm/cxlbY44V3tAurEYksJ8dtbE=;
+        b=jCNYXrovW1sUHaOT/+lw4PCDhP0eyRFf+ELw7YXWBCDBnLin+ptT9Qqbj9mRkWWaUg
+         wGBYm/DlmYSjFuDFdCiAFeYUhwBx3bN1zWIfEq4U/R6NzUaRvMrhsPRnKTgM5MVFJVxB
+         CmVxljvKTCN3ZyT1LwzUVWKZgE4x9cRuQaj0TjoJvUnlN68E3Mt+4zAfSoenpZB5Ofxb
+         0XLwmhqFLm1lOHsISGA/CxlwAihZibid3kenEAmMklVKKOHOy1nSq3KrSTTjFuaKWHai
+         u516kaTGPG4uhGM5WuZ/+lvOuzezIo89jko54Ak3T4r5ol1iQsDze8x0V5mTappbPtSr
+         aaWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=IviQGHXbohDYlY4Kaxm/cxlbY44V3tAurEYksJ8dtbE=;
+        b=qBuXwlGxZNwWnVUzcerQDHisE1WetQkxcHtGE0Jjlp1WGRoZbUTY+/tApYJFX/waA3
+         d2YMbwV+dwQTkfgYRm8Y8/FsnnEKOzW8CNwZaswJG+7FS+wOHsow2nRAdCpGUerf3kSm
+         E0kVEPWVBuv4CHOl3Cv4mwd/oY7Cb+i9jRnJzJEt6RNYT4MRtxAi/Sr1p2vWWwSzg/hn
+         QZIbPcPXvJM0sryKVDURvJCiX1BMt7nmsm0UHsQ89ymTmEyXpOjlQ+l3TFQgov6xXmDg
+         Aja5ZKo/Zx2WPtAuuYYZVMyC7jUmArnOoWqe6Jo99A4dCxq45S5FD25HzL9qeA4aqF05
+         OcLg==
+X-Gm-Message-State: AOAM530Hz8jzmazHt4QU1V3/O3FZj9BEQwAVVI8VTzUFJW21kIPTEVPI
+	XhZYkNxOUganVdUCsviWTc5HdyzAxiY3/dWGoZi4nA==
+X-Google-Smtp-Source: ABdhPJzRCVGimPnGT3qQlEAMsZsY3IxcZZF186UcWgTyI7ay8iWe4IlRIEG5WowCojeDoPju71hCmgBQ+xR7PgbbWL0=
+X-Received: by 2002:aa7:c693:: with SMTP id n19mr33130385edq.35.1622620178044;
+ Wed, 02 Jun 2021 00:49:38 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-18-olaf@aepfle.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F"
+References: <20210602065345.355274-1-hch@lst.de> <20210602065345.355274-24-hch@lst.de>
+In-Reply-To: <20210602065345.355274-24-hch@lst.de>
+From: Jinpu Wang <jinpu.wang@ionos.com>
+Date: Wed, 2 Jun 2021 09:49:27 +0200
+Message-ID: <CAMGffEn7aCmTOTsuzbSr=DwomFKfizkNhzsZnAONHBq1neW2Og@mail.gmail.com>
+Subject: Re: [PATCH 23/30] rnbd: use blk_mq_alloc_disk and blk_cleanup_disk
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>, 
+	Denis Efremov <efremov@linux.com>, Josef Bacik <josef@toxicpanda.com>, Tim Waugh <tim@cyberelk.net>, 
+	Geoff Levand <geoff@infradead.org>, Ilya Dryomov <idryomov@gmail.com>, 
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Mike Snitzer <snitzer@redhat.com>, Maxim Levitsky <maximlevitsky@gmail.com>, 
+	Alex Dubov <oakad@yahoo.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Christian Borntraeger <borntraeger@de.ibm.com>, 
+	device-mapper development <dm-devel@redhat.com>, linux-block <linux-block@vger.kernel.org>, nbd@other.debian.org, 
+	linuxppc-dev@lists.ozlabs.org, Ceph Development <ceph-devel@vger.kernel.org>, 
+	virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org, 
+	linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	linux-s390@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F
-Content-Type: multipart/mixed; boundary="uG5lSYoGiII1zxLQSvRMGEDNZYlZ9b1NN";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <3f3db866-3d91-093a-afad-509bc9299436@suse.com>
-Subject: Re: [PATCH v20210601 17/38] tools/guest: save: move local_pages array
-References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-18-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-18-olaf@aepfle.de>
+On Wed, Jun 2, 2021 at 8:55 AM Christoph Hellwig <hch@lst.de> wrote:
+>
+> Use blk_mq_alloc_disk and blk_cleanup_disk to simplify the gendisk and
+> request_queue allocation.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/block/rnbd/rnbd-clt.c | 35 ++++++++---------------------------
+>  1 file changed, 8 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/block/rnbd/rnbd-clt.c b/drivers/block/rnbd/rnbd-clt.c
+> index c604a402cd5c..f4fa45d24c0b 100644
+> --- a/drivers/block/rnbd/rnbd-clt.c
+> +++ b/drivers/block/rnbd/rnbd-clt.c
+> @@ -1353,18 +1353,6 @@ static void rnbd_init_mq_hw_queues(struct rnbd_clt_dev *dev)
+>         }
+>  }
+>
+> -static int setup_mq_dev(struct rnbd_clt_dev *dev)
+> -{
+> -       dev->queue = blk_mq_init_queue(&dev->sess->tag_set);
+> -       if (IS_ERR(dev->queue)) {
+> -               rnbd_clt_err(dev, "Initializing multiqueue queue failed, err: %ld\n",
+> -                             PTR_ERR(dev->queue));
+> -               return PTR_ERR(dev->queue);
+> -       }
+> -       rnbd_init_mq_hw_queues(dev);
+> -       return 0;
+> -}
+> -
+>  static void setup_request_queue(struct rnbd_clt_dev *dev)
+>  {
+>         blk_queue_logical_block_size(dev->queue, dev->logical_block_size);
+> @@ -1393,13 +1381,13 @@ static void setup_request_queue(struct rnbd_clt_dev *dev)
+>         blk_queue_io_opt(dev->queue, dev->sess->max_io_size);
+>         blk_queue_virt_boundary(dev->queue, SZ_4K - 1);
+>         blk_queue_write_cache(dev->queue, dev->wc, dev->fua);
+> -       dev->queue->queuedata = dev;
+>  }
+>
+>  static void rnbd_clt_setup_gen_disk(struct rnbd_clt_dev *dev, int idx)
+>  {
+>         dev->gd->major          = rnbd_client_major;
+>         dev->gd->first_minor    = idx << RNBD_PART_BITS;
+> +       dev->gd->minors         = 1 << RNBD_PART_BITS;
+>         dev->gd->fops           = &rnbd_client_ops;
+>         dev->gd->queue          = dev->queue;
+>         dev->gd->private_data   = dev;
+> @@ -1426,24 +1414,18 @@ static void rnbd_clt_setup_gen_disk(struct rnbd_clt_dev *dev, int idx)
+>
+>  static int rnbd_client_setup_device(struct rnbd_clt_dev *dev)
+>  {
+> -       int err, idx = dev->clt_device_id;
+> +       int idx = dev->clt_device_id;
+>
+>         dev->size = dev->nsectors * dev->logical_block_size;
+>
+> -       err = setup_mq_dev(dev);
+> -       if (err)
+> -               return err;
+> +       dev->gd = blk_mq_alloc_disk(&dev->sess->tag_set, dev);
+> +       if (IS_ERR(dev->gd))
+> +               return PTR_ERR(dev->gd);
+> +       dev->queue = dev->gd->queue;
+> +       rnbd_init_mq_hw_queues(dev);
+>
+>         setup_request_queue(dev);
+> -
+> -       dev->gd = alloc_disk_node(1 << RNBD_PART_BITS,  NUMA_NO_NODE);
+> -       if (!dev->gd) {
+> -               blk_cleanup_queue(dev->queue);
+> -               return -ENOMEM;
+> -       }
+> -
+>         rnbd_clt_setup_gen_disk(dev, idx);
+> -
+>         return 0;
+>  }
+>
+> @@ -1650,8 +1632,7 @@ struct rnbd_clt_dev *rnbd_clt_map_device(const char *sessname,
+>  static void destroy_gen_disk(struct rnbd_clt_dev *dev)
+>  {
+>         del_gendisk(dev->gd);
+> -       blk_cleanup_queue(dev->queue);
+> -       put_disk(dev->gd);
+> +       blk_cleanup_disk(dev->gd);
+>  }
+>
+>  static void destroy_sysfs(struct rnbd_clt_dev *dev,
+> --
+> 2.30.2
 
---uG5lSYoGiII1zxLQSvRMGEDNZYlZ9b1NN
-Content-Type: multipart/mixed;
- boundary="------------C509216F741D834FB445714B"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C509216F741D834FB445714B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 01.06.21 18:10, Olaf Hering wrote:
-> Remove allocation from hotpath, move local_pages array into preallocate=
-d space.
->=20
-> Adjust the code to use the src page as is in case of HVM.
-> In case of PV the page may need to be normalised, use an private memory=
-
-> area for this purpose.
->=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
-
-
-Juergen
-
---------------C509216F741D834FB445714B
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------C509216F741D834FB445714B--
-
---uG5lSYoGiII1zxLQSvRMGEDNZYlZ9b1NN--
-
---CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3N58FAwAAAAAACgkQsN6d1ii/Ey/o
-7gf/aNS8QgU8qH9L7beks2Ie6kpMKWQhoaM5mHsI0mY7Hw5BpXn2PKUuxlLgwuRyUYNF4IwoRKY7
-ryFytFgHgK2swgyuKGcHL/BCJBvf5gZXl3LUQTE61kPiKC+dEpFXH3tIe/2e2LMxBiXv6ZYtz9i3
-DkguaD2y+300ENMogzTe19kxRANAExrYPOyi4popPSgLi8qJmlg4j2hJ4hbF2nrWgGIEUPFVLj4b
-bhyEQS7QCtciM/6n2Ub9avrw2VLClUKF4XYXYO98VJ9ZD37Pxs0TIr32Gw+EU0HTwXOWYTb52Rvy
-gOYaBCSJtL80/hCLAveOhNHTSWkg/uX4gAd30rRpww==
-=38DQ
------END PGP SIGNATURE-----
-
---CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F--
+Looks good to me, thx!
+Reviewed-by: Jack Wang <jinpu.wang@ionos.com>
+>
 
