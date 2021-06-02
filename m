@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A4053980E8
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:09:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135429.251572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36FF03980E9
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:10:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135435.251583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loK3s-0006pn-Dm; Wed, 02 Jun 2021 06:09:04 +0000
+	id 1loK5B-0008CT-T8; Wed, 02 Jun 2021 06:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135429.251572; Wed, 02 Jun 2021 06:09:04 +0000
+Received: by outflank-mailman (output) from mailman id 135435.251583; Wed, 02 Jun 2021 06:10:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loK3s-0006nK-9f; Wed, 02 Jun 2021 06:09:04 +0000
-Received: by outflank-mailman (input) for mailman id 135429;
- Wed, 02 Jun 2021 06:09:03 +0000
+	id 1loK5B-0008AX-Pq; Wed, 02 Jun 2021 06:10:25 +0000
+Received: by outflank-mailman (input) for mailman id 135435;
+ Wed, 02 Jun 2021 06:10:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loK3r-0006nE-Bs
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:09:03 +0000
+ id 1loK5A-0008AI-40
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:10:24 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88582303-67da-4b78-849e-d6c881a4b1a9;
- Wed, 02 Jun 2021 06:09:02 +0000 (UTC)
+ id 39da23e5-102d-470a-a163-0189e836ba19;
+ Wed, 02 Jun 2021 06:10:23 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1A0891FD2D;
- Wed,  2 Jun 2021 06:09:01 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A5D391FD2D;
+ Wed,  2 Jun 2021 06:10:22 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id DC6F4118DD;
- Wed,  2 Jun 2021 06:09:00 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 858E8118DD;
+ Wed,  2 Jun 2021 06:10:22 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 1SkRNHwgt2CIOgAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:09:00 +0000
+ id 48X8Hs4gt2BwOwAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:10:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,117 +46,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88582303-67da-4b78-849e-d6c881a4b1a9
+X-Inumbo-ID: 39da23e5-102d-470a-a163-0189e836ba19
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622614141; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622614222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Rx8GaGfrnRnz9Xrxr+CQIosD80qzF1Kj58PFdM0v+e0=;
-	b=FRb9Bt4qjxCXSJ3QpXeredqDG3mSEYy174iu5VY8Br4sAJw4sXxgEXOlPAvmeqgtzT/S46
-	OMNGbe+YDx3LhD9hEOmU30dkachoLQ12emZN6X1W6yH1y0GL1Iggf4r37ybLs5JL3f1RI3
-	UufOotwWxkc7dEsT1/9epUX/eHL/zR0=
+	bh=NmJWzqQMnAH5+c0/R9dSsDGOgLMfVoccXuDHqR6fGOU=;
+	b=sf9yTyxcNU7CVwaqNoMzECRxjwXPX3rRxEGUvZ+7eu8WnoxHMntklp8jRawGB1P+3PeCmy
+	1BirPbOo1JgkoqBBvhFKv+qSrCXesr2khptmPuPRQZj4jepLKLiFM2j1z1V3SKhw+8OlVb
+	FLFguqpmt28mWbl1NvkuL0xVJIMGybA=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622614141; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622614222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Rx8GaGfrnRnz9Xrxr+CQIosD80qzF1Kj58PFdM0v+e0=;
-	b=FRb9Bt4qjxCXSJ3QpXeredqDG3mSEYy174iu5VY8Br4sAJw4sXxgEXOlPAvmeqgtzT/S46
-	OMNGbe+YDx3LhD9hEOmU30dkachoLQ12emZN6X1W6yH1y0GL1Iggf4r37ybLs5JL3f1RI3
-	UufOotwWxkc7dEsT1/9epUX/eHL/zR0=
-Subject: Re: [PATCH v20210601 02/38] xl: fix description of migrate --debug
+	bh=NmJWzqQMnAH5+c0/R9dSsDGOgLMfVoccXuDHqR6fGOU=;
+	b=sf9yTyxcNU7CVwaqNoMzECRxjwXPX3rRxEGUvZ+7eu8WnoxHMntklp8jRawGB1P+3PeCmy
+	1BirPbOo1JgkoqBBvhFKv+qSrCXesr2khptmPuPRQZj4jepLKLiFM2j1z1V3SKhw+8OlVb
+	FLFguqpmt28mWbl1NvkuL0xVJIMGybA=
+Subject: Re: [PATCH v20210601 00/38] leftover from 2020
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-3-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <58453bfc-d932-3b46-7ec8-cd883b4c7440@suse.com>
-Date: Wed, 2 Jun 2021 08:09:00 +0200
+Message-ID: <24670339-c080-7e47-c2a8-22c22f7a719e@suse.com>
+Date: Wed, 2 Jun 2021 08:10:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-3-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-1-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="inhqTRmAz0fy8YyVm73IPKk4lPg2Davhu"
+ boundary="z1YSA1QcpIdGcEckdImNMXIAb0Eyekwpc"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---inhqTRmAz0fy8YyVm73IPKk4lPg2Davhu
-Content-Type: multipart/mixed; boundary="h9tSNc98vmWAGLeG1r05yqVfivLDZnJpl";
+--z1YSA1QcpIdGcEckdImNMXIAb0Eyekwpc
+Content-Type: multipart/mixed; boundary="OqTZr5gVGcWUmsdpsgz7Qz9mR9esOrDWa";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <58453bfc-d932-3b46-7ec8-cd883b4c7440@suse.com>
-Subject: Re: [PATCH v20210601 02/38] xl: fix description of migrate --debug
+Message-ID: <24670339-c080-7e47-c2a8-22c22f7a719e@suse.com>
+Subject: Re: [PATCH v20210601 00/38] leftover from 2020
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-3-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-3-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-1-olaf@aepfle.de>
 
---h9tSNc98vmWAGLeG1r05yqVfivLDZnJpl
+--OqTZr5gVGcWUmsdpsgz7Qz9mR9esOrDWa
 Content-Type: multipart/mixed;
- boundary="------------723CCE4B6876ED99D20ABC80"
+ boundary="------------1CB4EEF0A830B4109F0742C9"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------723CCE4B6876ED99D20ABC80
+--------------1CB4EEF0A830B4109F0742C9
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> xl migrate --debug used to track every pfn in every batch of pages.
-> But these times are gone. Adjust the help text to tell what --debug
-> is supposed to do today.
->=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-> ---
->   docs/man/xl.1.pod.in          | 4 +++-
->   tools/libs/guest/xg_sr_save.c | 2 +-
->   tools/xl/xl_cmdtable.c        | 2 +-
->   3 files changed, 5 insertions(+), 3 deletions(-)
->=20
-> diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-> index e2176bd696..ed3f4dee1e 100644
-> --- a/docs/man/xl.1.pod.in
-> +++ b/docs/man/xl.1.pod.in
-> @@ -481,7 +481,9 @@ domain.
->  =20
->   =3Ditem B<--debug>
->  =20
-> -Display huge (!) amount of debug information during the migration proc=
-ess.
-> +Verify transferred domU page data. All memory will be transferred one =
-more
-> +time to the destination host while the domU is paused, and compared wi=
-th
-> +the result of the inital transfer while the domU was still running.
+> Various unreviewed changes, rebase to 57f68dfd2d.
 
-Shouldn't you adapt (or remove?) this paragraph with patch 37?
-
->  =20
->   =3Ditem B<-p>
->  =20
-> diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_sav=
-e.c
-> index 2ba7c3200c..51542a98c8 100644
-> --- a/tools/libs/guest/xg_sr_save.c
-> +++ b/tools/libs/guest/xg_sr_save.c
-> @@ -752,7 +752,7 @@ static int send_domain_memory_live(struct xc_sr_con=
-text *ctx)
->       if ( rc )
->           goto out;
->  =20
-> -    if ( ctx->save.debug && ctx->stream_type !=3D XC_STREAM_PLAIN )
-> +    if ( ctx->save.debug )
-
-This is no documentation change IMO. You should either mention this
-modification in the commit message, or put it into a separate patch.
+Would it be possible to split this into multiple independent
+patches/series?
 
 
 Juergen
 
---------------723CCE4B6876ED99D20ABC80
+--------------1CB4EEF0A830B4109F0742C9
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -248,25 +199,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------723CCE4B6876ED99D20ABC80--
+--------------1CB4EEF0A830B4109F0742C9--
 
---h9tSNc98vmWAGLeG1r05yqVfivLDZnJpl--
+--OqTZr5gVGcWUmsdpsgz7Qz9mR9esOrDWa--
 
---inhqTRmAz0fy8YyVm73IPKk4lPg2Davhu
+--z1YSA1QcpIdGcEckdImNMXIAb0Eyekwpc
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3IHwFAwAAAAAACgkQsN6d1ii/Ey9k
-3wf+NtKUD/x+I/jnzlxyBboO2sTl5ciy5bIdHwIrAN/q715ydtrVXVphFp2TNr8kuWgbyY++V04l
-LjNp5NvcOOR6htU9OLGJsdCcnJIlJw/BlPRGM3Tw9npLdU5MFCNktNXmXryxLlVGUlWLjccNNeku
-uZvpCpjgIDt/lpoPT6VsPlL4081Z/U81Lg9LDLipj3HB8vpCFHdyP4JvNoFlXNCdblq4pavYTQB/
-WJ25FwaCocZBxUCmtPjN9HxZt5sPJmCKB9GAVALRMBlwYKIcO3m6qQWL5/J4M+QWhQKAc4sRWKbo
-Z4992xMVRBFxTe1SeDkUTFxu24f4agmm3E1BwOIeKg==
-=kEXt
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3IM4FAwAAAAAACgkQsN6d1ii/Ey8m
+fwf9Ft+E5O8p0xJi6+p5zWqm8JRNKGCvvP+qP34r1eCbbeTDreMCWC06ttPJB6S0HA3137V/qWph
+ajk/atpQEFZON6mA41LFrooziumHf7UJ5SdDFSviNs3kh9YoBN3P+KLDGSmR1Z9t80lCXV2n3siE
+vI+9WfG5nevcNpkX5dIZDpaxX3AN82+MkBcYgpNfad3nS6HN7pNi9EebFXyf1CAHUBgSwmMiw2c3
+xYuSZcYvN9b5o4xJpUZi0hkVjfPifaCsuThXkVKoh+ajwfn7+TPS5oA9K6jASERXYbpu6nj1/hqg
+9NQVEqL2QQSA4BMRjOMeAmA9U8+exrnFt3ygSJcA0A==
+=VtS9
 -----END PGP SIGNATURE-----
 
---inhqTRmAz0fy8YyVm73IPKk4lPg2Davhu--
+--z1YSA1QcpIdGcEckdImNMXIAb0Eyekwpc--
 
