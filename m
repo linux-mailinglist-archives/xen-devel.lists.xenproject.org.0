@@ -2,36 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C783C398DF6
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 17:09:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136078.252504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8083E398E4C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 17:19:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136112.252603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loSUa-0002Wg-L2; Wed, 02 Jun 2021 15:09:12 +0000
+	id 1loSdz-0007yv-Hk; Wed, 02 Jun 2021 15:18:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136078.252504; Wed, 02 Jun 2021 15:09:12 +0000
+Received: by outflank-mailman (output) from mailman id 136112.252603; Wed, 02 Jun 2021 15:18:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loSUa-0002Sl-HU; Wed, 02 Jun 2021 15:09:12 +0000
-Received: by outflank-mailman (input) for mailman id 136078;
- Wed, 02 Jun 2021 15:09:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GNUT=K4=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
- id 1loSUY-0001oH-Mt
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 15:09:10 +0000
-Received: from mail-ot1-x32c.google.com (unknown [2607:f8b0:4864:20::32c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ebce3ce2-2b4a-473e-9997-11237b2b5212;
- Wed, 02 Jun 2021 15:09:04 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- h19-20020a9d6f930000b02903c0c4560e99so2729671otq.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jun 2021 08:09:04 -0700 (PDT)
-Received: from localhost.localdomain (142-79-211-230.starry-inc.net.
- [142.79.211.230])
- by smtp.gmail.com with ESMTPSA id e29sm25287oiy.53.2021.06.02.08.09.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Jun 2021 08:09:03 -0700 (PDT)
+	id 1loSdz-0007vK-AH; Wed, 02 Jun 2021 15:18:55 +0000
+Received: by outflank-mailman (input) for mailman id 136112;
+ Wed, 02 Jun 2021 15:18:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1loSdx-0004jV-HS
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 15:18:53 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9afb638b-a057-403f-b890-232ab2c4305f;
+ Wed, 02 Jun 2021 15:18:34 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7C60921C9F;
+ Wed,  2 Jun 2021 15:18:32 +0000 (UTC)
+Received: by imap.suse.de (Postfix, from userid 51)
+ id 7712811CC0; Wed,  2 Jun 2021 15:18:23 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 2E5C611F32;
+ Wed,  2 Jun 2021 15:10:22 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id EG3BCF6ft2DJBAAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 15:10:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,336 +49,336 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebce3ce2-2b4a-473e-9997-11237b2b5212
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=y7wXnoCWLDx7IQREahGv6BGDyqktjGf6yjBgrAWmplI=;
-        b=dFj4sTASo4fYEOIPGgyNyZzFb60dHRKTCym915IFPJc7+6zqJF8n3CWo3rb4FVdZYd
-         x7vut7ldrlhsi/e/BBlPObmdUfoI17UvEcAil+i/VqulcmPuP2LNRSZ4JFAv4Asbqp1k
-         pmfCenfqHaQduIS2MmVPytOJhTha9EmBDtFxv49gvGKQjCqRhdIlxqK6u6hw2eh5lfdd
-         zzmPd0//+oPcb6TnolQn3PZw+kBH91RojWoo2omF1XGtCEfuJ3PeZ3Fzc98ev8j9ec1T
-         I65oyujx7vmPQNSYqkyvROXL84kTdgnS0oHejFeutIJEldZyX4gDpwH71xs1UB7oEe7n
-         urGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=y7wXnoCWLDx7IQREahGv6BGDyqktjGf6yjBgrAWmplI=;
-        b=T4WuUgSnXrRdgHB3SEw2ps3xIgmtPDB9KFttrbT8aGFMXIU4N0PwStO3p50ZXXDvyZ
-         m/e1bycJbbf2b5e3ufoNUQwyubMb33O/LYzVL+PnMYvrUqRG2RkKML9QutfCeSq8rA9U
-         Xe8JHuFBV5S2iEPiEtXAiTP2GsHM0LwilQVQ0+xMyIPSSDeQVfV0ZHcp9TolXdyDMp4E
-         /1RlsUAsC9rkZkY0isamzcDQJjbC3kEwjyfUTz28DdLzCDfQFmd0/GAFYbljpJai2vuD
-         xDt/O5TLPtGT8E/cTDZfOGbfEkZUYbGIKIYXWqAB1nZCcuRfqEZgdeS2NIgGQqDBo7ST
-         gHsg==
-X-Gm-Message-State: AOAM533JQzgokL9nuSQoPc8C00lC89KCyqBIVpsOHSpQiy11i+ya8t6x
-	RkNa15ketgKsuYjOVPHQNq8cLAWX8Kovow==
-X-Google-Smtp-Source: ABdhPJyzas22Hcmg5hLVbfL0rGAEcBh7pHsLWfn/TD//YITzbDc5sZbEfOvQW1B1p12JeK4xaRHG2w==
-X-Received: by 2002:a9d:6756:: with SMTP id w22mr14209050otm.369.1622646544071;
-        Wed, 02 Jun 2021 08:09:04 -0700 (PDT)
-From: Connor Davis <connojdavis@gmail.com>
+X-Inumbo-ID: 9afb638b-a057-403f-b890-232ab2c4305f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622647112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ogV5wNk51FdvQJ93nInVRa11ugw7H3eLjSN1UBRHUMg=;
+	b=VZ/sEqCnTKdL3yQUmmuB4fZ+u/h/ufbvpY6nuZiTfUTSbuOef9eHnvN3oSB945kQxwpOMY
+	/oez4nwSDzW0xlpCKpQTK2nZjqb1YwqMRlSKKfjm+kcs/sQADpVjPdw8uZb1wsQl2bByyk
+	2vxbgFXb+Kfw+gA+MYZ3BwbHpLsiqq0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1622646622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ogV5wNk51FdvQJ93nInVRa11ugw7H3eLjSN1UBRHUMg=;
+	b=QyoJOgo3H2v0w10KYk5gk5pgnq3YUMCC531gS0c+W68PmTGGWEKsUpH2yGYpQ0rwuTPBCT
+	g+YqqQRg5IboZBfzcS6DCwHxe+X5PTfxJeAF7aiLcKAyWnrs3ErHlB+4VFXHPxPruXoLcz
+	Gt3tlA5l6mA/aH7acocE9GubSrzHyng=
+Subject: Re: [PATCH v2 0/6] tools/libs: add missing support of linear
+ p2m_list, cleanup
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair23@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v5 2/2] xen: Add files needed for minimal riscv build
-Date: Wed,  2 Jun 2021 09:08:28 -0600
-Message-Id: <97ae93649f0a4366d6957f3b56d43a522ac21685.1622645816.git.connojdavis@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <cover.1622645816.git.connojdavis@gmail.com>
-References: <cover.1622645816.git.connojdavis@gmail.com>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+References: <20210412152236.1975-1-jgross@suse.com>
+ <b79c60e4-7c41-be9a-b0df-e9f9cf71eafa@suse.com>
+ <9cbac4d9-16d8-ff52-eb8f-8375cb88af93@suse.com>
+Message-ID: <b4135462-2eba-f236-679a-c37617808656@suse.com>
+Date: Wed, 2 Jun 2021 17:10:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <9cbac4d9-16d8-ff52-eb8f-8375cb88af93@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="G73A7fA0HIQOCHlizcXAVyGpJQXGHgTwT"
 
-Add arch-specific makefiles and configs needed to build for
-riscv. Also add a minimal head.S that is a simple infinite loop.
-head.o can be built with
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--G73A7fA0HIQOCHlizcXAVyGpJQXGHgTwT
+Content-Type: multipart/mixed; boundary="4bT5Jfg0Lb5jWuFlmGD0LHlYKz9hMgUx3";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+Message-ID: <b4135462-2eba-f236-679a-c37617808656@suse.com>
+Subject: Re: [PATCH v2 0/6] tools/libs: add missing support of linear
+ p2m_list, cleanup
+References: <20210412152236.1975-1-jgross@suse.com>
+ <b79c60e4-7c41-be9a-b0df-e9f9cf71eafa@suse.com>
+ <9cbac4d9-16d8-ff52-eb8f-8375cb88af93@suse.com>
+In-Reply-To: <9cbac4d9-16d8-ff52-eb8f-8375cb88af93@suse.com>
 
-$ make XEN_TARGET_ARCH=riscv64 SUBSYSTEMS=xen -C xen tiny64_defconfig
-$ make XEN_TARGET_ARCH=riscv64 SUBSYSTEMS=xen -C xen TARGET=riscv64/head.o
+--4bT5Jfg0Lb5jWuFlmGD0LHlYKz9hMgUx3
+Content-Type: multipart/mixed;
+ boundary="------------74EC891718F504DE99235ABB"
+Content-Language: en-US
 
-No other TARGET is supported at the moment.
+This is a multi-part message in MIME format.
+--------------74EC891718F504DE99235ABB
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Connor Davis <connojdavis@gmail.com>
----
-Bob: I moved back to XEN_TARGET_ARCH=riscv64 because supplying
-just XEN_TARGET_ARCH=riscv causes TARGET_ARCH == TARGET_SUBARCH, and
-that broke the build after the recent commit b6ecd5c8bc
-"build: centralize / unify asm-offsets generation". It also deviates
-from how x86 and arm work now, so I think this change is for the best
-for now. That commit is also why the PHONY include target is added
-in the riscv/Makefile.
----
- MAINTAINERS                             |  8 +++++
- config/riscv64.mk                       |  5 +++
- xen/Makefile                            |  8 +++--
- xen/arch/riscv/Kconfig                  | 47 +++++++++++++++++++++++++
- xen/arch/riscv/Kconfig.debug            |  0
- xen/arch/riscv/Makefile                 |  2 ++
- xen/arch/riscv/Rules.mk                 |  0
- xen/arch/riscv/arch.mk                  | 14 ++++++++
- xen/arch/riscv/configs/tiny64_defconfig | 13 +++++++
- xen/arch/riscv/riscv64/asm-offsets.c    |  0
- xen/arch/riscv/riscv64/head.S           |  6 ++++
- xen/include/asm-riscv/config.h          | 47 +++++++++++++++++++++++++
- 12 files changed, 148 insertions(+), 2 deletions(-)
- create mode 100644 config/riscv64.mk
- create mode 100644 xen/arch/riscv/Kconfig
- create mode 100644 xen/arch/riscv/Kconfig.debug
- create mode 100644 xen/arch/riscv/Makefile
- create mode 100644 xen/arch/riscv/Rules.mk
- create mode 100644 xen/arch/riscv/arch.mk
- create mode 100644 xen/arch/riscv/configs/tiny64_defconfig
- create mode 100644 xen/arch/riscv/riscv64/asm-offsets.c
- create mode 100644 xen/arch/riscv/riscv64/head.S
- create mode 100644 xen/include/asm-riscv/config.h
+On 25.05.21 09:32, Juergen Gross wrote:
+> On 12.05.21 08:58, Juergen Gross wrote:
+>> Ping?
+>=20
+> Now each patch has an Ack by Wei. Could the series be either applied or=
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d46b08a0d2..956e71220d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -456,6 +456,14 @@ F:	tools/libs/light/libxl_nonetbuffer.c
- F:	tools/hotplug/Linux/remus-netbuf-setup
- F:	tools/hotplug/Linux/block-drbd-probe
- 
-+RISCV
-+M:	Bob Eshleman <bobbyeshleman@gmail.com>
-+R:	Connor Davis <connojdavis@gmail.com>
-+S:	Supported
-+F:	config/riscv64.mk
-+F:	xen/arch/riscv/
-+F:	xen/include/asm-riscv/
-+
- RTDS SCHEDULER
- M:	Dario Faggioli <dfaggioli@suse.com>
- M:	Meng Xu <mengxu@cis.upenn.edu>
-diff --git a/config/riscv64.mk b/config/riscv64.mk
-new file mode 100644
-index 0000000000..a5a21e5fa2
---- /dev/null
-+++ b/config/riscv64.mk
-@@ -0,0 +1,5 @@
-+CONFIG_RISCV := y
-+CONFIG_RISCV_64 := y
-+CONFIG_RISCV_$(XEN_OS) := y
-+
-+CONFIG_XEN_INSTALL_SUFFIX :=
-diff --git a/xen/Makefile b/xen/Makefile
-index 7ce7692354..89879fad4c 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -26,7 +26,9 @@ MAKEFLAGS += -rR
- EFI_MOUNTPOINT ?= $(BOOT_DIR)/efi
- 
- ARCH=$(XEN_TARGET_ARCH)
--SRCARCH=$(shell echo $(ARCH) | sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g')
-+SRCARCH=$(shell echo $(ARCH) | \
-+          sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g' \
-+              -e s'/riscv.*/riscv/g')
- 
- # Don't break if the build process wasn't called from the top level
- # we need XEN_TARGET_ARCH to generate the proper config
-@@ -35,7 +37,8 @@ include $(XEN_ROOT)/Config.mk
- # Set ARCH/SUBARCH appropriately.
- export TARGET_SUBARCH  := $(XEN_TARGET_ARCH)
- export TARGET_ARCH     := $(shell echo $(XEN_TARGET_ARCH) | \
--                            sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g')
-+                            sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g' \
-+                                -e s'/riscv.*/riscv/g')
- 
- # Allow someone to change their config file
- export KCONFIG_CONFIG ?= .config
-@@ -335,6 +338,7 @@ _clean: delete-unfresh-files
- 	$(MAKE) $(clean) xsm
- 	$(MAKE) $(clean) crypto
- 	$(MAKE) $(clean) arch/arm
-+	$(MAKE) $(clean) arch/riscv
- 	$(MAKE) $(clean) arch/x86
- 	$(MAKE) $(clean) test
- 	$(MAKE) -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) clean
-diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
-new file mode 100644
-index 0000000000..bd8381c5e0
---- /dev/null
-+++ b/xen/arch/riscv/Kconfig
-@@ -0,0 +1,47 @@
-+config RISCV
-+	def_bool y
-+
-+config RISCV_64
-+	def_bool y
-+	select 64BIT
-+
-+config ARCH_DEFCONFIG
-+	string
-+	default "arch/riscv/configs/tiny64_defconfig"
-+
-+menu "Architecture Features"
-+
-+source "arch/Kconfig"
-+
-+endmenu
-+
-+menu "ISA Selection"
-+
-+choice
-+	prompt "Base ISA"
-+	default RISCV_ISA_RV64IMA if RISCV_64
-+	help
-+	  This selects the base ISA extensions that Xen will target.
-+
-+config RISCV_ISA_RV64IMA
-+	bool "RV64IMA"
-+	help
-+	  Use the RV64I base ISA, plus the "M" and "A" extensions
-+	  for integer multiply/divide and atomic instructions, respectively.
-+
-+endchoice
-+
-+config RISCV_ISA_C
-+	bool "Compressed extension"
-+	help
-+	  Add "C" to the ISA subsets that the toolchain is allowed to
-+	  emit when building Xen, which results in compressed instructions
-+	  in the Xen binary.
-+
-+	  If unsure, say N.
-+
-+endmenu
-+
-+source "common/Kconfig"
-+
-+source "drivers/Kconfig"
-diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.debug
-new file mode 100644
-index 0000000000..e69de29bb2
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-new file mode 100644
-index 0000000000..942e4ffbc1
---- /dev/null
-+++ b/xen/arch/riscv/Makefile
-@@ -0,0 +1,2 @@
-+.PHONY: include
-+include:
-diff --git a/xen/arch/riscv/Rules.mk b/xen/arch/riscv/Rules.mk
-new file mode 100644
-index 0000000000..e69de29bb2
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-new file mode 100644
-index 0000000000..53dadb8975
---- /dev/null
-+++ b/xen/arch/riscv/arch.mk
-@@ -0,0 +1,14 @@
-+########################################
-+# RISCV-specific definitions
-+
-+CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
-+
-+riscv-march-$(CONFIG_RISCV_ISA_RV64IMA) := rv64ima
-+riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
-+
-+# Note that -mcmodel=medany is used so that Xen can be mapped
-+# into the upper half _or_ the lower half of the address space.
-+# -mcmodel=medlow would force Xen into the lower half.
-+
-+CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
-+CFLAGS += -I$(BASEDIR)/include
-diff --git a/xen/arch/riscv/configs/tiny64_defconfig b/xen/arch/riscv/configs/tiny64_defconfig
-new file mode 100644
-index 0000000000..3c9a2ff941
---- /dev/null
-+++ b/xen/arch/riscv/configs/tiny64_defconfig
-@@ -0,0 +1,13 @@
-+# CONFIG_SCHED_CREDIT is not set
-+# CONFIG_SCHED_RTDS is not set
-+# CONFIG_SCHED_NULL is not set
-+# CONFIG_SCHED_ARINC653 is not set
-+# CONFIG_TRACEBUFFER is not set
-+# CONFIG_HYPFS is not set
-+# CONFIG_GRANT_TABLE is not set
-+# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
-+
-+CONFIG_RISCV_64=y
-+CONFIG_DEBUG=y
-+CONFIG_DEBUG_INFO=y
-+CONFIG_EXPERT=y
-diff --git a/xen/arch/riscv/riscv64/asm-offsets.c b/xen/arch/riscv/riscv64/asm-offsets.c
-new file mode 100644
-index 0000000000..e69de29bb2
-diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
-new file mode 100644
-index 0000000000..0dbc27ba75
---- /dev/null
-+++ b/xen/arch/riscv/riscv64/head.S
-@@ -0,0 +1,6 @@
-+#include <asm/config.h>
-+
-+        .text
-+
-+ENTRY(start)
-+        j  start
-diff --git a/xen/include/asm-riscv/config.h b/xen/include/asm-riscv/config.h
-new file mode 100644
-index 0000000000..e2ae21de61
---- /dev/null
-+++ b/xen/include/asm-riscv/config.h
-@@ -0,0 +1,47 @@
-+#ifndef __RISCV_CONFIG_H__
-+#define __RISCV_CONFIG_H__
-+
-+#if defined(CONFIG_RISCV_64)
-+# define LONG_BYTEORDER 3
-+# define ELFSIZE 64
-+# define MAX_VIRT_CPUS 128u
-+#else
-+# error "Unsupported RISCV variant"
-+#endif
-+
-+#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
-+#define BITS_PER_LONG  (BYTES_PER_LONG << 3)
-+#define POINTER_ALIGN  BYTES_PER_LONG
-+
-+#define BITS_PER_LLONG 64
-+
-+/* xen_ulong_t is always 64 bits */
-+#define BITS_PER_XEN_ULONG 64
-+
-+#define CONFIG_RISCV_L1_CACHE_SHIFT 6
-+#define CONFIG_PAGEALLOC_MAX_ORDER  18
-+#define CONFIG_DOMU_MAX_ORDER       9
-+#define CONFIG_HWDOM_MAX_ORDER      10
-+
-+#define OPT_CONSOLE_STR "dtuart"
-+#define INVALID_VCPU_ID MAX_VIRT_CPUS
-+
-+/* Linkage for RISCV */
-+#ifdef __ASSEMBLY__
-+#define ALIGN .align 2
-+
-+#define ENTRY(name)                                \
-+  .globl name;                                     \
-+  ALIGN;                                           \
-+  name:
-+#endif
-+
-+#endif /* __RISCV_CONFIG_H__ */
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.31.1
+> get more comments, please?
 
+And another PING.
+
+Do I need to setup a cron job pinging each day to get a reaction?
+
+
+Juergen
+
+>=20
+>=20
+> Juergen
+>=20
+>>
+>> On 12.04.21 17:22, Juergen Gross wrote:
+>>> There are some corners left which don't support the not so very new
+>>> linear p2m list of pv guests, which has been introduced in Linux kern=
+el
+>>> 3.19 and which is mandatory for non-legacy versions of Xen since kern=
+el
+>>> 4.14.
+>>>
+>>> This series adds support for the linear p2m list where it is missing
+>>> (colo support and "xl dump-core").
+>>>
+>>> In theory it should be possible to merge the p2m list mapping code
+>>> from migration handling and core dump handling, but this needs quite
+>>> some cleanup before this is possible.
+>>>
+>>> The first three patches of this series are fixing real problems, so
+>>> I've put them at the start of this series, especially in order to mak=
+e
+>>> backports easier.
+>>>
+>>> The other three patches are only the first steps of cleanup. The main=
+
+>>> work done here is to concentrate all p2m mapping in libxenguest inste=
+ad
+>>> of having one implementation in each of libxenguest and libxenctrl.
+>>>
+>>> Merging the two implementations should be rather easy, but this will
+>>> require to touch many lines of code, as the migration handling varian=
+t
+>>> seems to be more mature, but it is using the migration stream specifi=
+c
+>>> structures heavily. So I'd like to have some confirmation that my way=
+
+>>> to clean this up is the right one.
+>>>
+>>> My idea would be to add the data needed for p2m mapping to struct
+>>> domain_info_context and replace the related fields in struct
+>>> xc_sr_context with a struct domain_info_context. Modifying the
+>>> interface of xc_core_arch_map_p2m() to take most current parameters
+>>> via struct domain_info_context would then enable migration coding to
+>>> use xc_core_arch_map_p2m() for mapping the p2m. xc_core_arch_map_p2m(=
+)
+>>> should look basically like the current migration p2m mapping code
+>>> afterwards.
+>>>
+>>> Any comments to that plan?
+>>>
+>>> Changes in V2:
+>>> - added missing #include in ocaml stub
+>>>
+>>> Juergen Gross (6):
+>>> =C2=A0=C2=A0 tools/libs/guest: fix max_pfn setting in map_p2m()
+>>> =C2=A0=C2=A0 tools/libs/ctrl: fix xc_core_arch_map_p2m() to support l=
+inear p2m
+>>> =C2=A0=C2=A0=C2=A0=C2=A0 table
+>>> =C2=A0=C2=A0 tools/libs/ctrl: use common p2m mapping code in=20
+>>> xc_domain_resume_any()
+>>> =C2=A0=C2=A0 tools/libs: move xc_resume.c to libxenguest
+>>> =C2=A0=C2=A0 tools/libs: move xc_core* from libxenctrl to libxenguest=
+
+>>> =C2=A0=C2=A0 tools/libs/guest: make some definitions private to libxe=
+nguest
+>>>
+>>> =C2=A0 tools/include/xenctrl.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 63 ---
+>>> =C2=A0 tools/include/xenguest.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 63 +++
+>>> =C2=A0 tools/libs/ctrl/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 4 -
+>>> =C2=A0 tools/libs/ctrl/xc_core_x86.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 223 ---=
+-------
+>>> =C2=A0 tools/libs/ctrl/xc_domain.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+|=C2=A0=C2=A0 2 -
+>>> =C2=A0 tools/libs/ctrl/xc_private.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=20
+> 43 +-
+>>> =C2=A0 tools/libs/guest/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0=C2=A0 4 +
+>>> =C2=A0 .../libs/{ctrl/xc_core.c =3D> guest/xg_core.c}=C2=A0 |=C2=A0=C2=
+=A0 7 +-
+>>> =C2=A0 .../libs/{ctrl/xc_core.h =3D> guest/xg_core.h}=C2=A0 |=C2=A0 1=
+5=20
+> +-
+>>> =C2=A0 .../xc_core_arm.c =3D> guest/xg_core_arm.c}=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 31 +-
+>>> =C2=A0 .../xc_core_arm.h =3D> guest/xg_core_arm.h}=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 0
+>>> =C2=A0 tools/libs/guest/xg_core_x86.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 399 +++++++++=
++++++++++
+>>> =C2=A0 .../xc_core_x86.h =3D> guest/xg_core_x86.h}=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 0
+>>> =C2=A0 tools/libs/guest/xg_dom_boot.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2=20
+
+> +-
+>>> =C2=A0 tools/libs/guest/xg_domain.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=20
+> 19 +-
+>>> =C2=A0 tools/libs/guest/xg_offline_page.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+>>> =C2=A0 tools/libs/guest/xg_private.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1=
+6 +-
+>>> =C2=A0 .../{ctrl/xc_resume.c =3D> guest/xg_resume.c}=C2=A0=C2=A0 |=20
+> 69 +--
+>>> =C2=A0 tools/libs/guest/xg_sr_save_x86_pv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+>>> =C2=A0 tools/ocaml/libs/xc/xenctrl_stubs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+>>> =C2=A0 20 files changed, 545 insertions(+), 420 deletions(-)
+>>> =C2=A0 delete mode 100644 tools/libs/ctrl/xc_core_x86.c
+>>> =C2=A0 rename tools/libs/{ctrl/xc_core.c =3D> guest/xg_core.c} (99%)
+>>> =C2=A0 rename tools/libs/{ctrl/xc_core.h =3D> guest/xg_core.h} (92%)
+>>> =C2=A0 rename tools/libs/{ctrl/xc_core_arm.c =3D> guest/xg_core_arm.c=
+}=20
+> (72%)
+>>> =C2=A0 rename tools/libs/{ctrl/xc_core_arm.h =3D> guest/xg_core_arm.h=
+}=20
+> (100%)
+>>> =C2=A0 create mode 100644 tools/libs/guest/xg_core_x86.c
+>>> =C2=A0 rename tools/libs/{ctrl/xc_core_x86.h =3D> guest/xg_core_x86.h=
+}=20
+> (100%)
+>>> =C2=A0 rename tools/libs/{ctrl/xc_resume.c =3D> guest/xg_resume.c} (8=
+0%)
+>>>
+>>
+>=20
+
+
+--------------74EC891718F504DE99235ABB
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------74EC891718F504DE99235ABB--
+
+--4bT5Jfg0Lb5jWuFlmGD0LHlYKz9hMgUx3--
+
+--G73A7fA0HIQOCHlizcXAVyGpJQXGHgTwT
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3n10FAwAAAAAACgkQsN6d1ii/Ey8G
+GAf+JKjxfRkaYjnbbDtpCOwB1g2krduWx/+wnikrCQahwtLdRvQpqgSUwpYDKYoVB41ReEihtEDC
+bW66vSgqQ8jGWr6fug97EeGBnpd771jJAenfPwk7452DWzDkEXPVuBGHbPbbopf+L1vTzdxZ3U30
+LguVhe4jk20HogUKhG+/396h9GdWTkf+we1SvgQ8AAG8YEwJcGS4RS5z3ocGowNHwuPhqoJkZ5nT
+DBcNnkqmccwUQ2uDow6GQAlFaWtG/+2u0e8F5ed2SScdyvhoFYhMRz6xXoxou9+Lmw3obyT4Uglg
+AeBWDia2igTxAUBGpac10TD3VVfF722ueefGcEMPPA==
+=P5rU
+-----END PGP SIGNATURE-----
+
+--G73A7fA0HIQOCHlizcXAVyGpJQXGHgTwT--
 
