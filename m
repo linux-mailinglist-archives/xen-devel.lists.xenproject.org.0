@@ -2,67 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E86398928
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 14:15:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136006.252398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 789DC3988C9
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 14:03:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136005.252377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loPmV-0005rZ-N7; Wed, 02 Jun 2021 12:15:31 +0000
+	id 1loPar-0003ZB-89; Wed, 02 Jun 2021 12:03:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136006.252398; Wed, 02 Jun 2021 12:15:31 +0000
+Received: by outflank-mailman (output) from mailman id 136005.252377; Wed, 02 Jun 2021 12:03:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loPmV-0005p1-K0; Wed, 02 Jun 2021 12:15:31 +0000
-Received: by outflank-mailman (input) for mailman id 136006;
- Wed, 02 Jun 2021 12:03:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gK3V=K4=linux.ibm.com=schnelle@srs-us1.protection.inumbo.net>)
- id 1loPb2-0003rE-KK
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 12:03:40 +0000
-Received: from mx0b-001b2d01.pphosted.com (unknown [148.163.158.5])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a1c8c13e-2a43-48e3-be4d-962896700a9a;
- Wed, 02 Jun 2021 12:03:39 +0000 (UTC)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 152C2cPO189409; Wed, 2 Jun 2021 08:03:00 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 38x7kr3h5n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Jun 2021 08:03:00 -0400
-Received: from m0098417.ppops.net (m0098417.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 152C2cNZ189527;
- Wed, 2 Jun 2021 08:02:59 -0400
-Received: from ppma05fra.de.ibm.com (6c.4a.5195.ip4.static.sl-reverse.com
- [149.81.74.108])
- by mx0a-001b2d01.pphosted.com with ESMTP id 38x7kr3h4k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Jun 2021 08:02:59 -0400
-Received: from pps.filterd (ppma05fra.de.ibm.com [127.0.0.1])
- by ppma05fra.de.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 152BwHfr023191;
- Wed, 2 Jun 2021 12:02:57 GMT
-Received: from b06cxnps4076.portsmouth.uk.ibm.com
- (d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
- by ppma05fra.de.ibm.com with ESMTP id 38ud87s9cx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Jun 2021 12:02:56 +0000
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 152C2r4H26280248
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 2 Jun 2021 12:02:53 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A0364A405F;
- Wed,  2 Jun 2021 12:02:53 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 479C3A4040;
- Wed,  2 Jun 2021 12:02:52 +0000 (GMT)
-Received: from sig-9-145-17-43.uk.ibm.com (unknown [9.145.17.43])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Wed,  2 Jun 2021 12:02:52 +0000 (GMT)
+	id 1loPar-0003XH-3J; Wed, 02 Jun 2021 12:03:29 +0000
+Received: by outflank-mailman (input) for mailman id 136005;
+ Wed, 02 Jun 2021 12:03:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NSCb=K4=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1loPap-0003XB-5S
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 12:03:27 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.82])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9465871b-b965-4b2d-a28d-a1f5d97931bc;
+ Wed, 02 Jun 2021 12:03:26 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
+ with ESMTPSA id j0415bx52C3K4kh
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 2 Jun 2021 14:03:20 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,145 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1c8c13e-2a43-48e3-be4d-962896700a9a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- mime-version : content-transfer-encoding; s=pp1;
- bh=7wC8Y59HiMIthB9xfz5dL+I0HD65zOwRPB4cvu5JQYY=;
- b=QRLGyPounpLaRIZgsSUK1LazhFSMWWWVFIpjfvUyvXqdSXI7p94FVQMtSFG3bMtHNL86
- rLVrJ3SvpT994x2pe7o0yL3iXXDeNBst8Q4A8KEa89vx85ZQSTDkkYsEjLQaMo+eb8VZ
- +GFr8IfErHwDLNlYl+L0v9/qNIinOxFcyNlMJhpRMjSZcskv/o9bM0Y0jNVwjZETIKG0
- IXpmjsLB5CkqOhxt84ImzKiTyn/t0QZlZGbbzTco4+M0nPgqtd7mDQbl31t9d+7DOxJc
- iYhombbX7dZq4eRMaB6F1ITduKcVH4H0X0f5lSV3QvlOH2CDPoe61GoP3QIOjHTOkYh/ DA== 
-Message-ID: <e4891689c7651611020bdf3b4db9895819da345a.camel@linux.ibm.com>
-Subject: Re: [PATCH 27/30] scm_blk: use blk_mq_alloc_disk and
- blk_cleanup_disk
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Cc: Justin Sanders <justin@coraid.com>, Denis Efremov <efremov@linux.com>,
-        Josef Bacik <josef@toxicpanda.com>, Tim Waugh <tim@cyberelk.net>,
-        Geoff
- Levand <geoff@infradead.org>, Ilya Dryomov <idryomov@gmail.com>,
-        "Md.
- Haris Iqbal" <haris.iqbal@ionos.com>,
-        Jack Wang <jinpu.wang@ionos.com>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowang@redhat.com>,
-        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-        Roger Pau
- =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Mike Snitzer
- <snitzer@redhat.com>,
-        Maxim Levitsky <maximlevitsky@gmail.com>,
-        Alex Dubov
- <oakad@yahoo.com>,
-        Miquel Raynal <miquel.raynal@bootlin.com>,
-        Richard
- Weinberger <richard@nod.at>,
-        Vignesh Raghavendra <vigneshr@ti.com>,
-        Heiko
- Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian
- Borntraeger <borntraeger@de.ibm.com>, dm-devel@redhat.com,
-        linux-block@vger.kernel.org, nbd@other.debian.org,
-        linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
-        virtualization@lists.linux-foundation.org,
-        xen-devel@lists.xenproject.org, linux-mmc@vger.kernel.org,
-        linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org
-Date: Wed, 02 Jun 2021 14:02:51 +0200
-In-Reply-To: <20210602065345.355274-28-hch@lst.de>
-References: <20210602065345.355274-1-hch@lst.de>
-	 <20210602065345.355274-28-hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-16.el8) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 9Pi9MTQ_S8CJ1ewvOnGa4xYgtn5KH1ib
-X-Proofpoint-ORIG-GUID: -LAzjZA1VGIxMM3aVX5RPubiT3GLOjUz
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391,18.0.761
- definitions=2021-06-02_06:2021-06-02,2021-06-02 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 malwarescore=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
- mlxlogscore=999 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2106020078
+X-Inumbo-ID: 9465871b-b965-4b2d-a28d-a1f5d97931bc
+ARC-Seal: i=1; a=rsa-sha256; t=1622635400; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=o/k9BmSuh566IxKB34lOOia0hX76LEF/QGxZeQItKEFMoMnyk3JpSGJEKfR8ZF/qT1
+    e3Nndi7nraZG6tiYTYd3u2BLbgyYleLYioXD2IeNcTTRK+JCkOORGsfi8bE3HBNU7RX9
+    hsLR7SG4TQzqQvREe9uLRxlF1Re0Pn8Ms8wuCuPhxGxuyQDNyyXL1Bqj9H6++oCrQE80
+    qIvbIfycH2L5Zuu5I+WJ/eaOkJ+bEbwJ9iF27mFPjycAKm9HjhTsE3fuwgS6Uy70GQk1
+    6q6cftGkCl5PR/czGRjDWwP+pFjK9viMaUmtb39CYqzVcoLOoo9t7zNeiH7EJ1w0cJAr
+    iNNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1622635400;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=FOduCrl90ZiaFx9X3ycOUkHkthPsCWuIsPfGUyiJQyk=;
+    b=j7RzIrqEF1T/QZctBrmETPwg0K3qERUB1Krng1RCINS7gGQyfH4jjMb4XhejZSbzsU
+    pLMv9S2N/ZxZb4NK09VkMFKnMoVURifmP71X6FHl7gxmn8pJC4VpiuEgwV6l3C8YwNy0
+    1c7GW2T8i9SgpsluZvQHVYwqlP9XlNJ6dHhxewVKBdPbSS/yUKGn3z/ZFUF5DZ2p3/O1
+    yjWkC9oTKmBXP9yOrY/kGYKYdCe0qP3tnVWIuylOCY/vFHZnOGAxq+ZvqJ/rjlGGov1v
+    yLLpQsM+Pxa8K3eZTWXIgQnJXjAaBtT+OXzTjlzDZiKZwsdlrLzJuTDXkbOwefvuwqAJ
+    2HTA==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1622635400;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=FOduCrl90ZiaFx9X3ycOUkHkthPsCWuIsPfGUyiJQyk=;
+    b=ftAzWh0wULzVYaEote6eofUzJNg6pg+ZKWALlsNsck5N6oZzPvMcOv9+d1SUd+jkmV
+    /oyXoMiIfhnpALA22nj3xpGSqxsQ/rABeuCe9TKDOHx3B1Wm50TR5TzFpf7n2hQ6gJdO
+    ynJEC08IgxFnSJtykzS4k3nqT5i0P/XhsN3uUtcjXH6Ns4mlt+vBXTOkhaxc9pWjmg7b
+    ++2/lC/ean9vMhTkxLo6u+X0bQEjZtiDa3miwKfWCy6UcjwrC79nJ0bb+8F1qDR/xE8L
+    U94X9FQg3A0L6JnHKNlhmbFlwpXqEHNCIKb1UFLrTikQh+XKwPv61mT9PTuTml/8TVC5
+    aCjA==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF9Wx7WbE3s+BU2kLCYUBd7t4vRd/ulzKn4R+Wk"
+X-RZG-CLASS-ID: mo00
+Date: Wed, 2 Jun 2021 14:03:05 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [PATCH v20210601 09/38] tools/guest: prepare to allocate arrays
+ once
+Message-ID: <20210602140305.39eb417a.olaf@aepfle.de>
+In-Reply-To: <531fe9c5-aa7f-be99-5d78-85d817139740@suse.com>
+References: <20210601161118.18986-1-olaf@aepfle.de>
+	<20210601161118.18986-10-olaf@aepfle.de>
+	<531fe9c5-aa7f-be99-5d78-85d817139740@suse.com>
+X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/Wdckj5UqH3WRIyOeSurKggp";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On Wed, 2021-06-02 at 09:53 +0300, Christoph Hellwig wrote:
-> Use blk_mq_alloc_disk and blk_cleanup_disk to simplify the gendisk and
-> request_queue allocation.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/s390/block/scm_blk.c | 21 ++++++---------------
->  1 file changed, 6 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/s390/block/scm_blk.c b/drivers/s390/block/scm_blk.c
-> index a4f6f2e62b1d..88cba6212ee2 100644
-> --- a/drivers/s390/block/scm_blk.c
-> +++ b/drivers/s390/block/scm_blk.c
-> @@ -462,12 +462,12 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
->  	if (ret)
->  		goto out;
->  
-> -	rq = blk_mq_init_queue(&bdev->tag_set);
-> -	if (IS_ERR(rq)) {
-> -		ret = PTR_ERR(rq);
-> +	bdev->gendisk = blk_mq_alloc_disk(&bdev->tag_set, scmdev);
-> +	if (IS_ERR(bdev->gendisk)) {
-> +		ret = PTR_ERR(bdev->gendisk);
->  		goto out_tag;
->  	}
-> -	bdev->rq = rq;
-> +	rq = bdev->rq = bdev->gendisk->queue;
->  	nr_max_blk = min(scmdev->nr_max_block,
->  			 (unsigned int) (PAGE_SIZE / sizeof(struct aidaw)));
->  
-> @@ -477,17 +477,11 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
->  	blk_queue_flag_set(QUEUE_FLAG_NONROT, rq);
->  	blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, rq);
->  
-> -	bdev->gendisk = alloc_disk(SCM_NR_PARTS);
-> -	if (!bdev->gendisk) {
-> -		ret = -ENOMEM;
-> -		goto out_queue;
-> -	}
-> -	rq->queuedata = scmdev;
->  	bdev->gendisk->private_data = scmdev;
->  	bdev->gendisk->fops = &scm_blk_devops;
-> -	bdev->gendisk->queue = rq;
->  	bdev->gendisk->major = scm_major;
->  	bdev->gendisk->first_minor = devindex * SCM_NR_PARTS;
-> +	bdev->gendisk->minors = SCM_NR_PARTS;
->  
->  	len = snprintf(bdev->gendisk->disk_name, DISK_NAME_LEN, "scm");
->  	if (devindex > 25) {
-> @@ -504,8 +498,6 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
->  	device_add_disk(&scmdev->dev, bdev->gendisk, NULL);
->  	return 0;
->  
-> -out_queue:
-> -	blk_cleanup_queue(rq);
->  out_tag:
->  	blk_mq_free_tag_set(&bdev->tag_set);
->  out:
-> @@ -516,9 +508,8 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
->  void scm_blk_dev_cleanup(struct scm_blk_dev *bdev)
->  {
->  	del_gendisk(bdev->gendisk);
-> -	blk_cleanup_queue(bdev->gendisk->queue);
-> +	blk_cleanup_disk(bdev->gendisk);
->  	blk_mq_free_tag_set(&bdev->tag_set);
-> -	put_disk(bdev->gendisk);
->  }
->  
->  void scm_blk_set_available(struct scm_blk_dev *bdev)
+--Sig_/Wdckj5UqH3WRIyOeSurKggp
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Not an expert on SCM or this code but I gave this a quick test and it
-seems to work fine.
+Am Wed, 2 Jun 2021 09:29:08 +0200
+schrieb Juergen Gross <jgross@suse.com>:
 
-Tested-by: Niklas Schnelle <schnelle@linux.ibm.com>
+> > +    ctx->restore.m =3D malloc(sizeof(*ctx->restore.m));
+> > +    if ( !ctx->restore.m ) { =20
+>=20
+> ... this case might trigger without the full series applied, due to
+> allocating zero bytes (same for the save side below).
+
+Such bisection point with a libc that returns NULL would be just bad luck.
+
+See git-bisect(1) "Avoiding testing a commit" how to deal with it, in the u=
+nlikely case it actually triggers.
 
 
+Olaf
 
+--Sig_/Wdckj5UqH3WRIyOeSurKggp
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmC3c3kACgkQ86SN7mm1
+DoC7uw//SAZCXD0/4nuEPd2BKYrUe2N+Wlb4IpKJWH1jYcMuk2LBI+Ek8SYcv9AI
+afH3rvwFispA6HWAFGzJL3h8/8dOltnPAYqFR/ee7yibQ6DoMViPKVrBcoTkGWCb
+UUj0gzD2J9ThufTuvPGVsttQY9YpZPr1BI9pqSm/PIlGCNsOoc6zgFui0MYf+IdL
+zDjvttw8fAWy726bYfaOMW7fg6H1nIFvzrGRQHNtSWSAZOJ2cyLDxKRQaLgS57uo
+HViC+PPxBpRbeqJonY/fpVQ4Vr1h/ttguv+vGsQFsA9+b//DNxfvTHS8FcCxPrGW
+sjtP43MVWAqgvSt6yJukXhw3tVPpjh/z2Ehpy833lx0BNUQEICqGDGzm0IMEGjwI
+kNigftVUE1I8PG4YMgF6oWZnwB+PGYpHXwvSiLs8ssrYeoEa+BdVfneC5iG+p6/P
+05KwdARU4P5fEPAfz6oDZuFRLvzN0ijVV7Dd7U7AX2lda0KpBLpeob2TP97AmxVd
+9jEcBhy2woNnEAkK4j7jgqXoWRQRnAwlSwCf4o29PcY2X4Vy7C18FqgLO8QYIfx0
+greM1JLgAPyOTYmMG/NSzxkdn1pRJ9rG27iVhQi4znF3KjEwdpH/oUOXG3XQNzHQ
+lRODO5AMcWNuD/pRA/blZDuUB9+/wxmNZbWhnqd0nR6RBd48bDs=
+=cSKW
+-----END PGP SIGNATURE-----
+
+--Sig_/Wdckj5UqH3WRIyOeSurKggp--
 
