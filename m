@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35E2F398127
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:30:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135453.251605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C60F839816E
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:52:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135462.251616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKOK-0002sq-Sx; Wed, 02 Jun 2021 06:30:12 +0000
+	id 1loKjF-0005OV-SE; Wed, 02 Jun 2021 06:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135453.251605; Wed, 02 Jun 2021 06:30:12 +0000
+Received: by outflank-mailman (output) from mailman id 135462.251616; Wed, 02 Jun 2021 06:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKOK-0002pd-PW; Wed, 02 Jun 2021 06:30:12 +0000
-Received: by outflank-mailman (input) for mailman id 135453;
- Wed, 02 Jun 2021 06:30:11 +0000
+	id 1loKjF-0005LE-OZ; Wed, 02 Jun 2021 06:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 135462;
+ Wed, 02 Jun 2021 06:51:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loKOJ-0002pX-OS
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:30:11 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ id 1loKjE-0005L8-1R
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:51:48 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0dfc82b3-2b42-4850-8430-29b7bfda74b5;
- Wed, 02 Jun 2021 06:30:10 +0000 (UTC)
+ id 980cd92d-25f3-4c19-87e3-c11a33c3fd31;
+ Wed, 02 Jun 2021 06:51:47 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1E66B1FD32;
- Wed,  2 Jun 2021 06:30:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2FEF821928;
+ Wed,  2 Jun 2021 06:51:46 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id E6695118DD;
- Wed,  2 Jun 2021 06:30:09 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 03119118DD;
+ Wed,  2 Jun 2021 06:51:45 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id FkpJNnElt2DIQwAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:30:09 +0000
+ id fSI7O4Eqt2DzTQAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:51:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,161 +46,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dfc82b3-2b42-4850-8430-29b7bfda74b5
+X-Inumbo-ID: 980cd92d-25f3-4c19-87e3-c11a33c3fd31
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622615410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622616706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Zn2FBJyBSmD2wvdoETJjGC8BW04cSEbwAHqYhfPKguQ=;
-	b=iZMYPyFPQr1wGqjNOORU6JHk1UdTUL8Dp+YAEvJ8wtaWPp4rDGSJ3K22iZoGAnCoLhd2mF
-	KypJWz5QSlWy3cWE7vFh3CZ8cHV7OzZmOdvCt3a5wm5LTosq5QBCXEwHpbZ8tiwykUoPo6
-	gGobJnVIJAfAsYfyQWbxaTpnTLQ4LlY=
+	bh=7h38BL584hO19wtfBX6H3SP7X8t4ul+fWeygrPyzZ2k=;
+	b=lzj+mk2/j1ICe9zy/O6OWaOWpdOJi815t60TpERBRfmnsgF8HPNO48oj6CGPs36va2AduO
+	Qh5h7uG7K9+pntzPz/53YZAQPZ/4XVAZlFLMePTcax4ZsTJsOX+ylItHkmtAPZ+jm23I8b
+	+NNh1SuYSYjNNNTSSSJY+WkdKRoUXbY=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622615410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622616706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Zn2FBJyBSmD2wvdoETJjGC8BW04cSEbwAHqYhfPKguQ=;
-	b=iZMYPyFPQr1wGqjNOORU6JHk1UdTUL8Dp+YAEvJ8wtaWPp4rDGSJ3K22iZoGAnCoLhd2mF
-	KypJWz5QSlWy3cWE7vFh3CZ8cHV7OzZmOdvCt3a5wm5LTosq5QBCXEwHpbZ8tiwykUoPo6
-	gGobJnVIJAfAsYfyQWbxaTpnTLQ4LlY=
-Subject: Re: [PATCH v20210601 04/38] tools: add readv_exact to libxenctrl
+	bh=7h38BL584hO19wtfBX6H3SP7X8t4ul+fWeygrPyzZ2k=;
+	b=lzj+mk2/j1ICe9zy/O6OWaOWpdOJi815t60TpERBRfmnsgF8HPNO48oj6CGPs36va2AduO
+	Qh5h7uG7K9+pntzPz/53YZAQPZ/4XVAZlFLMePTcax4ZsTJsOX+ylItHkmtAPZ+jm23I8b
+	+NNh1SuYSYjNNNTSSSJY+WkdKRoUXbY=
+Subject: Re: [PATCH v20210601 05/38] tools: add xc_is_known_page_type to
+ libxenctrl
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-5-olaf@aepfle.de>
+ <20210601161118.18986-6-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <23783088-dc59-abd1-c66c-5fcd314d1f5c@suse.com>
-Date: Wed, 2 Jun 2021 08:30:08 +0200
+Message-ID: <f1f00500-f74f-3515-cd46-7a12abdf18c3@suse.com>
+Date: Wed, 2 Jun 2021 08:51:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-5-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-6-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD"
+ boundary="g7SepDU1tVx8HBQBwS79hijoJmtCBxivC"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD
-Content-Type: multipart/mixed; boundary="gNGgc9DCOFQqgRTPe7WSYKnM9mYUHWE4z";
+--g7SepDU1tVx8HBQBwS79hijoJmtCBxivC
+Content-Type: multipart/mixed; boundary="V5MxSTN6LxHhXJhOPB4nJMASIm9LOR58B";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <23783088-dc59-abd1-c66c-5fcd314d1f5c@suse.com>
-Subject: Re: [PATCH v20210601 04/38] tools: add readv_exact to libxenctrl
+Message-ID: <f1f00500-f74f-3515-cd46-7a12abdf18c3@suse.com>
+Subject: Re: [PATCH v20210601 05/38] tools: add xc_is_known_page_type to
+ libxenctrl
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-5-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-5-olaf@aepfle.de>
+ <20210601161118.18986-6-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-6-olaf@aepfle.de>
 
---gNGgc9DCOFQqgRTPe7WSYKnM9mYUHWE4z
+--V5MxSTN6LxHhXJhOPB4nJMASIm9LOR58B
 Content-Type: multipart/mixed;
- boundary="------------D42367AB7853177860FBC717"
+ boundary="------------DE2FE20E396435AB51020ACE"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------D42367AB7853177860FBC717
+--------------DE2FE20E396435AB51020ACE
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> Read a batch of iovec's.
->=20
-> In the common case of short reads, finish individual iov's with read_ex=
-act.
+> Users of xc_get_pfn_type_batch may want to sanity check the data
+> returned by Xen. Add a simple helper for this purpose.
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
 > ---
->   tools/libs/ctrl/xc_private.c | 55 +++++++++++++++++++++++++++++++++++=
--
->   tools/libs/ctrl/xc_private.h |  1 +
->   2 files changed, 55 insertions(+), 1 deletion(-)
+>   tools/libs/ctrl/xc_private.h | 33 +++++++++++++++++++++++++++++++++
+>   1 file changed, 33 insertions(+)
 >=20
-> diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.=
-c
-> index d94f846686..ea420b9ba8 100644
-> --- a/tools/libs/ctrl/xc_private.c
-> +++ b/tools/libs/ctrl/xc_private.c
-> @@ -659,8 +659,23 @@ int write_exact(int fd, const void *data, size_t s=
-ize)
+> diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.=
+h
+> index 5d2c7274fb..afb08aafe1 100644
+> --- a/tools/libs/ctrl/xc_private.h
+> +++ b/tools/libs/ctrl/xc_private.h
+> @@ -421,6 +421,39 @@ void *xc_map_foreign_ranges(xc_interface *xch, uin=
+t32_t dom,
+>   int xc_get_pfn_type_batch(xc_interface *xch, uint32_t dom,
+>                             unsigned int num, xen_pfn_t *);
 >  =20
->   #if defined(__MINIOS__)
->   /*
-> - * MiniOS's libc doesn't know about writev(). Implement it as multiple=20
-write()s.
-> + * MiniOS's libc doesn't know about readv/writev().
-> + * Implement it as multiple read/write()s.
->    */
-> +int readv_exact(int fd, const struct iovec *iov, int iovcnt)
+> +/* Sanitiy check for types returned by Xen */
+> +static inline bool xc_is_known_page_type(xen_pfn_t type)
 > +{
-> +    int rc, i;
+> +    bool ret;
 > +
-> +    for ( i =3D 0; i < iovcnt; ++i )
-> +    {
-> +        rc =3D read_exact(fd, iov[i].iov_base, iov[i].iov_len);
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->   int writev_exact(int fd, const struct iovec *iov, int iovcnt)
->   {
->       int rc, i;
-> @@ -675,6 +690,44 @@ int writev_exact(int fd, const struct iovec *iov, =
-int iovcnt)
->       return 0;
->   }
->   #else
-> +int readv_exact(int fd, const struct iovec *iov, int iovcnt)
-> +{
-> +    int rc =3D 0, idx =3D 0;
-> +    ssize_t len;
-> +
-> +    while ( idx < iovcnt )
-> +    {
-> +        len =3D readv(fd, &iov[idx], min(iovcnt - idx, IOV_MAX));
-> +        if ( len =3D=3D -1 && errno =3D=3D EINTR )
-> +            continue;
-> +        if ( len <=3D 0 )
-> +        {
-> +            rc =3D -1;
+> +    switch (type)
 
-Is EOF really an error?
+I think you should not imply the planned use case here. It would be
+better to use "switch (type & XEN_DOMCTL_PFINFO_LTAB_MASK)".
 
-> +            goto out;
-> +        }
-> +        while ( len > 0 && idx < iovcnt )
-> +        {
-> +            if ( len >=3D iov[idx].iov_len )
-> +            {
-> +                len -=3D iov[idx].iov_len;
-> +            }
-> +            else
-> +            {
-> +                void *p =3D iov[idx].iov_base + len;
-> +                size_t l =3D iov[idx].iov_len - len;
-> +
-> +                rc =3D read_exact(fd, p, l);
-> +                if ( rc )
-> +                    goto out;
-> +                len =3D 0;
-
-This will stop the loop, even if idx hasn't reached iovcnt.
-
-> +            }
-> +            idx++;
-> +        }
-> +    }
-> +out:
-> +    return rc;
-> +}
-> +
+I'm on the edge regarding putting the new function into xc_private.h.
+In the end your use case is _not_ to call the new function from
+libxenctrl.
 
 
 Juergen
 
---------------D42367AB7853177860FBC717
+--------------DE2FE20E396435AB51020ACE
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -292,25 +232,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------D42367AB7853177860FBC717--
+--------------DE2FE20E396435AB51020ACE--
 
---gNGgc9DCOFQqgRTPe7WSYKnM9mYUHWE4z--
+--V5MxSTN6LxHhXJhOPB4nJMASIm9LOR58B--
 
---bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD
+--g7SepDU1tVx8HBQBwS79hijoJmtCBxivC
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3JXAFAwAAAAAACgkQsN6d1ii/Ey88
-2gf/eBa3ZquvgaqWEDqBTF/z5Kuc2fwHhEX0bjtYwxDPG9jHUqqAtO+53i9A4aAN0XOg0CgtDqgz
-XwTm0IM/dKgzs31oRGGLYW0DimzJxbVpRbExrriaf/5RHrRNWZJOaDVuNLT+ruZE7kRJ1g+cCejw
-+4qzbKCxnNGiFvQsKrQ5JXhxYbVsvD8D2iRao0xSMIFqgM9/LS8vUZ12zW+RWHKKlKlj3tgAJoCY
-27q8ndwLSnDQcswNDEY9x7hxBMVRFcaryuLAfkZlRvxahkxlH7M27oE3eDY+vrSMnyjgWJtr3U79
-Rv13IX4oIETPNTgL9fs0R9Lhlj0BPST6kbkLOc/oCw==
-=oHkY
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3KoEFAwAAAAAACgkQsN6d1ii/Ey/C
+lAf/TaysGhgMVz+LFg9v/AUW+h4263+CqOc9H+o8dO58f66W8bDAWDiW6trTviR1yrWMYXon2v93
+3fhDYikoOqwPXADxEPOJZyGpgl40o3MUAMGeAG8CHSGSWqISkeE+MaWZvf7PK3yebT6kRTGX35Jw
+EdoVxo2l5XPy6XO0Cvxxh1wtDkBbRzwzP65GNPQgiaumP7lMZz/w9h8WiHHtkl2TQKNwUORu0gZK
+BtzLNnf5HCNyIYgvG2WExsUWfmVbayFRuEw523ukJkQtMns7kpUCxeiMwEPEByfiZkPxYyhhTSio
+Ij+8MbaVjAKA48xu1OaA+Js6Ht8qgh7SlMS9WnQpDQ==
+=7GkR
 -----END PGP SIGNATURE-----
 
---bRlk6HqKhqVKkKdAurDgUasSvORqDaYRD--
+--g7SepDU1tVx8HBQBwS79hijoJmtCBxivC--
 
