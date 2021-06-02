@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4612B39830B
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:33:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135766.252067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 946A4398310
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:34:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135776.252078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loLNq-0001Jd-Dl; Wed, 02 Jun 2021 07:33:46 +0000
+	id 1loLOa-00023F-Qr; Wed, 02 Jun 2021 07:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135766.252067; Wed, 02 Jun 2021 07:33:46 +0000
+Received: by outflank-mailman (output) from mailman id 135776.252078; Wed, 02 Jun 2021 07:34:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loLNq-0001H1-93; Wed, 02 Jun 2021 07:33:46 +0000
-Received: by outflank-mailman (input) for mailman id 135766;
- Wed, 02 Jun 2021 07:33:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1loLOa-000203-MH; Wed, 02 Jun 2021 07:34:32 +0000
+Received: by outflank-mailman (input) for mailman id 135776;
+ Wed, 02 Jun 2021 07:34:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loLNo-0001GU-4J
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:33:44 +0000
+ id 1loLOZ-0001zx-V4
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:34:31 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c4f1d14c-41c2-47cb-be32-1560e31d0e9c;
- Wed, 02 Jun 2021 07:33:43 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c3949222-1d74-49ed-bed7-132ce89c81a3;
+ Wed, 02 Jun 2021 07:34:30 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9F9402193D;
- Wed,  2 Jun 2021 07:33:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 16FFE2193F;
+ Wed,  2 Jun 2021 07:34:30 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 76CF8118DD;
- Wed,  2 Jun 2021 07:33:42 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id D98A2118DD;
+ Wed,  2 Jun 2021 07:34:29 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id E7zpG1Y0t2BMYgAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:33:42 +0000
+ id /DYBNIU0t2C3YgAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:34:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,65 +47,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4f1d14c-41c2-47cb-be32-1560e31d0e9c
+X-Inumbo-ID: c3949222-1d74-49ed-bed7-132ce89c81a3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622619222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622619270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u9MygJOAW7Pkxhmg/4CwkTowQSJN/+MFYfuU3uVopAY=;
-	b=f/ZSHHfRme0gUik2sjcx3L90F34B1Y4HoetKe38BLsYy/GSjYukCrtJ12V/d7iKbQMjWmA
-	U9rEQjiavKE1hJls7DfEuUah5Ht5rv80+lEXwuS7Z2KLGGTj4UTVNwMy9ZblYJ1r6RMpTx
-	LADhRL7NhBIk0tkcrGNRwEpcSmnO4dw=
+	bh=plDgEIEyJDVJJKWVlWnlTb4/kyDO2LdSUEkr/RMnDqw=;
+	b=gGHnPGOMfDMrAgPIVeIAhHHH9TYkUhO7K1CXJ2A3+i+gdXFBa162FFyJggR7k5qD+suhQN
+	CDXxU37KHDaK1YYJLODV/pq31LmeMk9L4T2hvjFC2gPgTEo9RGVLyYU3MMsScEjY1lW1V8
+	29ollBv/VaQqHbNWKX2OcJKFtkRwRFY=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622619222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622619270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u9MygJOAW7Pkxhmg/4CwkTowQSJN/+MFYfuU3uVopAY=;
-	b=f/ZSHHfRme0gUik2sjcx3L90F34B1Y4HoetKe38BLsYy/GSjYukCrtJ12V/d7iKbQMjWmA
-	U9rEQjiavKE1hJls7DfEuUah5Ht5rv80+lEXwuS7Z2KLGGTj4UTVNwMy9ZblYJ1r6RMpTx
-	LADhRL7NhBIk0tkcrGNRwEpcSmnO4dw=
-Subject: Re: [PATCH v20210601 13/38] tools/guest: save: move errors array
+	bh=plDgEIEyJDVJJKWVlWnlTb4/kyDO2LdSUEkr/RMnDqw=;
+	b=gGHnPGOMfDMrAgPIVeIAhHHH9TYkUhO7K1CXJ2A3+i+gdXFBa162FFyJggR7k5qD+suhQN
+	CDXxU37KHDaK1YYJLODV/pq31LmeMk9L4T2hvjFC2gPgTEo9RGVLyYU3MMsScEjY1lW1V8
+	29ollBv/VaQqHbNWKX2OcJKFtkRwRFY=
+Subject: Re: [PATCH v20210601 14/38] tools/guest: save: move iov array
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-14-olaf@aepfle.de>
+ <20210601161118.18986-15-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <6e6a58d6-a31e-6291-904d-c603168c87d6@suse.com>
-Date: Wed, 2 Jun 2021 09:33:41 +0200
+Message-ID: <36cfcad2-911b-f3f2-e7a5-858a63cc811e@suse.com>
+Date: Wed, 2 Jun 2021 09:34:29 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-14-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-15-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="pZjMPdRZEfpgLUXJX5b8zLRYdv3rzN8Jk"
+ boundary="R148r7t3CpJFOcyGjWoHFpEsr1GI582c5"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---pZjMPdRZEfpgLUXJX5b8zLRYdv3rzN8Jk
-Content-Type: multipart/mixed; boundary="1Bo2tIVaudSBWN0PVzob5mQPHwryCBpO3";
+--R148r7t3CpJFOcyGjWoHFpEsr1GI582c5
+Content-Type: multipart/mixed; boundary="55QsapiVKKlj9K0nGApfRjyJrPsKmIKKr";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <6e6a58d6-a31e-6291-904d-c603168c87d6@suse.com>
-Subject: Re: [PATCH v20210601 13/38] tools/guest: save: move errors array
+Message-ID: <36cfcad2-911b-f3f2-e7a5-858a63cc811e@suse.com>
+Subject: Re: [PATCH v20210601 14/38] tools/guest: save: move iov array
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-14-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-14-olaf@aepfle.de>
+ <20210601161118.18986-15-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-15-olaf@aepfle.de>
 
---1Bo2tIVaudSBWN0PVzob5mQPHwryCBpO3
+--55QsapiVKKlj9K0nGApfRjyJrPsKmIKKr
 Content-Type: multipart/mixed;
- boundary="------------79398960E4A1610D9C5B918F"
+ boundary="------------51A96DC743D4BB826B590670"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------79398960E4A1610D9C5B918F
+--------------51A96DC743D4BB826B590670
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> Remove allocation from hotpath, move errors array into preallocated spa=
-ce.
+> Remove allocation from hotpath, move iov array into preallocated space.=
+
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
 
@@ -113,7 +114,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------79398960E4A1610D9C5B918F
+--------------51A96DC743D4BB826B590670
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -205,25 +206,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------79398960E4A1610D9C5B918F--
+--------------51A96DC743D4BB826B590670--
 
---1Bo2tIVaudSBWN0PVzob5mQPHwryCBpO3--
+--55QsapiVKKlj9K0nGApfRjyJrPsKmIKKr--
 
---pZjMPdRZEfpgLUXJX5b8zLRYdv3rzN8Jk
+--R148r7t3CpJFOcyGjWoHFpEsr1GI582c5
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3NFUFAwAAAAAACgkQsN6d1ii/Ey9P
-VwgAg6sZW53nGhg5iOcq3kzxHPcQa8tX54ckm4e/kuHl+sYQsnonfXzBxhWlrmADL4sZjIh8NUL/
-AWLXbH50HsgiyxnPGoV8vGK3s2U4SvTgms1Q77QrARUjg49clxojlsvPvxw9pJcQ2j1qDpdW837R
-9wrzbZ2WSkAXxRo/p63esBE1rXMnedMrM5gTVgyVcweKUPy1OtdcsSA1Wq/rKvgPe+q+A1qnnbIA
-7L+HsURJT7ktvMZGygPmTrPSj5pqvFXS5zdbJjOtZJp49Jlc9flFX7ahmdor+etN5jek6MSVHLMN
-5YUTN8p1vlTaHoICXoAdPRCo3DOUFpUqPwX6dh0onQ==
-=49M/
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3NIUFAwAAAAAACgkQsN6d1ii/Ey+b
+uwf+MpbBzop1drmx79BzTXt+WHAd87DlwQcK0cr5oXFaOWW0HY5RiXpeN559qvIju6SXtiqa8wEv
+t7KuCNZYJalRo0gZ1YWhjjEiutd09gIpV4Oe2+jfk9LCCwGXDN4Jjjaja1emjbcsD+lQ5yS2vB1P
+g2o378AEl7iECYUO0+Qo9RURISTrHu6D99LSf2xPYKWi3LX0/0UR+sMw3eZ0tuwMejJboaNWiZCv
+5/PRA1R8sPqpznqjGjd5K9BqV94b48J0hO4dAqFsR3EU5Ja5nPlMHzFEZzJAKnOBkM1roJiba1o5
+Jr8RbTHTIbM9bqEBMym1OUa1l8LUv11qdMUOaMY8HQ==
+=dQZ/
 -----END PGP SIGNATURE-----
 
---pZjMPdRZEfpgLUXJX5b8zLRYdv3rzN8Jk--
+--R148r7t3CpJFOcyGjWoHFpEsr1GI582c5--
 
