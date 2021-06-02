@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60F839816E
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:52:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135462.251616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B1A539816F
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:53:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135467.251626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKjF-0005OV-SE; Wed, 02 Jun 2021 06:51:49 +0000
+	id 1loKkV-0005yc-7N; Wed, 02 Jun 2021 06:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135462.251616; Wed, 02 Jun 2021 06:51:49 +0000
+Received: by outflank-mailman (output) from mailman id 135467.251626; Wed, 02 Jun 2021 06:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKjF-0005LE-OZ; Wed, 02 Jun 2021 06:51:49 +0000
-Received: by outflank-mailman (input) for mailman id 135462;
- Wed, 02 Jun 2021 06:51:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1loKkV-0005vg-4C; Wed, 02 Jun 2021 06:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 135467;
+ Wed, 02 Jun 2021 06:53:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loKjE-0005L8-1R
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:51:48 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 980cd92d-25f3-4c19-87e3-c11a33c3fd31;
- Wed, 02 Jun 2021 06:51:47 +0000 (UTC)
+ id 1loKkT-0005vY-CF
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:53:05 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4a6789a3-52df-499a-b528-90da0cb01efc;
+ Wed, 02 Jun 2021 06:53:04 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2FEF821928;
- Wed,  2 Jun 2021 06:51:46 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3DBDF1FD2D;
+ Wed,  2 Jun 2021 06:53:03 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 03119118DD;
- Wed,  2 Jun 2021 06:51:45 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 12FF5118DD;
+ Wed,  2 Jun 2021 06:53:03 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id fSI7O4Eqt2DzTQAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:51:45 +0000
+ id /ZCDA88qt2B9TgAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:53:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,101 +47,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 980cd92d-25f3-4c19-87e3-c11a33c3fd31
+X-Inumbo-ID: 4a6789a3-52df-499a-b528-90da0cb01efc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622616706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622616783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7h38BL584hO19wtfBX6H3SP7X8t4ul+fWeygrPyzZ2k=;
-	b=lzj+mk2/j1ICe9zy/O6OWaOWpdOJi815t60TpERBRfmnsgF8HPNO48oj6CGPs36va2AduO
-	Qh5h7uG7K9+pntzPz/53YZAQPZ/4XVAZlFLMePTcax4ZsTJsOX+ylItHkmtAPZ+jm23I8b
-	+NNh1SuYSYjNNNTSSSJY+WkdKRoUXbY=
+	bh=L7RObIhuSbekciFyRYt0oigFWyXeIX7fnD2buYf2AQU=;
+	b=X3M3V9oJ+ODpmwTPPyQcHbpSM3rbs1RoU8dAMwG3itfUIGLvNQ2oPMhreh1L06SQUUVcvE
+	AYbhiNprxFTH9kqp9Hu6JKvSBGN4Ux1jPzxEHsbWLxurFtIXE74giQc6hmkZjQ4Hze6i5u
+	6sHFNNOds6FX3B1WNK6oZainZ8KnS84=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622616706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622616783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7h38BL584hO19wtfBX6H3SP7X8t4ul+fWeygrPyzZ2k=;
-	b=lzj+mk2/j1ICe9zy/O6OWaOWpdOJi815t60TpERBRfmnsgF8HPNO48oj6CGPs36va2AduO
-	Qh5h7uG7K9+pntzPz/53YZAQPZ/4XVAZlFLMePTcax4ZsTJsOX+ylItHkmtAPZ+jm23I8b
-	+NNh1SuYSYjNNNTSSSJY+WkdKRoUXbY=
-Subject: Re: [PATCH v20210601 05/38] tools: add xc_is_known_page_type to
- libxenctrl
+	bh=L7RObIhuSbekciFyRYt0oigFWyXeIX7fnD2buYf2AQU=;
+	b=X3M3V9oJ+ODpmwTPPyQcHbpSM3rbs1RoU8dAMwG3itfUIGLvNQ2oPMhreh1L06SQUUVcvE
+	AYbhiNprxFTH9kqp9Hu6JKvSBGN4Ux1jPzxEHsbWLxurFtIXE74giQc6hmkZjQ4Hze6i5u
+	6sHFNNOds6FX3B1WNK6oZainZ8KnS84=
+Subject: Re: [PATCH v20210601 06/38] tools: use xc_is_known_page_type
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-6-olaf@aepfle.de>
+ <20210601161118.18986-7-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <f1f00500-f74f-3515-cd46-7a12abdf18c3@suse.com>
-Date: Wed, 2 Jun 2021 08:51:45 +0200
+Message-ID: <4df4dfd6-a270-46b4-3a6e-42ab32b14ca4@suse.com>
+Date: Wed, 2 Jun 2021 08:53:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-6-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-7-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="g7SepDU1tVx8HBQBwS79hijoJmtCBxivC"
+ boundary="TsZMO2gJE87Q78Q70T7i7RPBpGWENFnN7"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---g7SepDU1tVx8HBQBwS79hijoJmtCBxivC
-Content-Type: multipart/mixed; boundary="V5MxSTN6LxHhXJhOPB4nJMASIm9LOR58B";
+--TsZMO2gJE87Q78Q70T7i7RPBpGWENFnN7
+Content-Type: multipart/mixed; boundary="FB2xdZEmuDqRZF9ZVgw45Lk45zWNLyvnp";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <f1f00500-f74f-3515-cd46-7a12abdf18c3@suse.com>
-Subject: Re: [PATCH v20210601 05/38] tools: add xc_is_known_page_type to
- libxenctrl
+Message-ID: <4df4dfd6-a270-46b4-3a6e-42ab32b14ca4@suse.com>
+Subject: Re: [PATCH v20210601 06/38] tools: use xc_is_known_page_type
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-6-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-6-olaf@aepfle.de>
+ <20210601161118.18986-7-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-7-olaf@aepfle.de>
 
---V5MxSTN6LxHhXJhOPB4nJMASIm9LOR58B
+--FB2xdZEmuDqRZF9ZVgw45Lk45zWNLyvnp
 Content-Type: multipart/mixed;
- boundary="------------DE2FE20E396435AB51020ACE"
+ boundary="------------AFC82CC61F153E6A93288C36"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------DE2FE20E396435AB51020ACE
+--------------AFC82CC61F153E6A93288C36
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> Users of xc_get_pfn_type_batch may want to sanity check the data
-> returned by Xen. Add a simple helper for this purpose.
+> Verify pfn type on sending side, also verify incoming batch of pfns.
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
-> ---
->   tools/libs/ctrl/xc_private.h | 33 +++++++++++++++++++++++++++++++++
->   1 file changed, 33 insertions(+)
->=20
-> diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.=
-h
-> index 5d2c7274fb..afb08aafe1 100644
-> --- a/tools/libs/ctrl/xc_private.h
-> +++ b/tools/libs/ctrl/xc_private.h
-> @@ -421,6 +421,39 @@ void *xc_map_foreign_ranges(xc_interface *xch, uin=
-t32_t dom,
->   int xc_get_pfn_type_batch(xc_interface *xch, uint32_t dom,
->                             unsigned int num, xen_pfn_t *);
->  =20
-> +/* Sanitiy check for types returned by Xen */
-> +static inline bool xc_is_known_page_type(xen_pfn_t type)
-> +{
-> +    bool ret;
-> +
-> +    switch (type)
 
-I think you should not imply the planned use case here. It would be
-better to use "switch (type & XEN_DOMCTL_PFINFO_LTAB_MASK)".
-
-I'm on the edge regarding putting the new function into xc_private.h.
-In the end your use case is _not_ to call the new function from
-libxenctrl.
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------DE2FE20E396435AB51020ACE
+--------------AFC82CC61F153E6A93288C36
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -232,25 +205,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------DE2FE20E396435AB51020ACE--
+--------------AFC82CC61F153E6A93288C36--
 
---V5MxSTN6LxHhXJhOPB4nJMASIm9LOR58B--
+--FB2xdZEmuDqRZF9ZVgw45Lk45zWNLyvnp--
 
---g7SepDU1tVx8HBQBwS79hijoJmtCBxivC
+--TsZMO2gJE87Q78Q70T7i7RPBpGWENFnN7
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3KoEFAwAAAAAACgkQsN6d1ii/Ey/C
-lAf/TaysGhgMVz+LFg9v/AUW+h4263+CqOc9H+o8dO58f66W8bDAWDiW6trTviR1yrWMYXon2v93
-3fhDYikoOqwPXADxEPOJZyGpgl40o3MUAMGeAG8CHSGSWqISkeE+MaWZvf7PK3yebT6kRTGX35Jw
-EdoVxo2l5XPy6XO0Cvxxh1wtDkBbRzwzP65GNPQgiaumP7lMZz/w9h8WiHHtkl2TQKNwUORu0gZK
-BtzLNnf5HCNyIYgvG2WExsUWfmVbayFRuEw523ukJkQtMns7kpUCxeiMwEPEByfiZkPxYyhhTSio
-Ij+8MbaVjAKA48xu1OaA+Js6Ht8qgh7SlMS9WnQpDQ==
-=7GkR
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3Ks4FAwAAAAAACgkQsN6d1ii/Ey9c
+MQf/TkMLi0sFVWAMisbNnQrEMulU28YOnbqfOG56VH8NctOz7M5NuR3GULv5G6tyimhM08oJJIiY
+IJ98jmaXls0UpRuDZGkWMdbTdRb+uH6ZPFDzC5ylPoKCIoP7urWNKXyHBGxCsEOc3ncSiAEYsC7m
+DYRBjq9rzk0+INVxvVGpzY9uKjThCiPuiNgGFtooLTMICfbRjGFsoU3XAFtf6tJYwOzzZUjRCP+U
+PIpcC9GLMLpf/eG6rhV8Rbqf4egKXf8B6VMHNCOsDaMeBo+/y7zcXPQUBflEKIETZn77bnIjI2bR
+TN43ByRykH8Rg1ndto892pTahpjwZ/0zSzYiOxIosA==
+=3O91
 -----END PGP SIGNATURE-----
 
---g7SepDU1tVx8HBQBwS79hijoJmtCBxivC--
+--TsZMO2gJE87Q78Q70T7i7RPBpGWENFnN7--
 
