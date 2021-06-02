@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F74639827D
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:03:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135539.251835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67FF7398269
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:01:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135517.251748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKuS-0008QW-5K; Wed, 02 Jun 2021 07:03:24 +0000
+	id 1loKs2-0005LB-5F; Wed, 02 Jun 2021 07:00:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135539.251835; Wed, 02 Jun 2021 07:03:24 +0000
+Received: by outflank-mailman (output) from mailman id 135517.251748; Wed, 02 Jun 2021 07:00:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKuR-0008Nn-Tt; Wed, 02 Jun 2021 07:03:23 +0000
-Received: by outflank-mailman (input) for mailman id 135539;
- Wed, 02 Jun 2021 07:03:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1loKs2-0005IU-24; Wed, 02 Jun 2021 07:00:54 +0000
+Received: by outflank-mailman (input) for mailman id 135517;
+ Wed, 02 Jun 2021 07:00:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loKqX-0007A2-DI
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:59:21 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5e37098d-3c97-4c7c-a59d-1bc383dcfcf9;
- Wed, 02 Jun 2021 06:59:15 +0000 (UTC)
+ id 1loKs0-0005IM-0V
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:00:52 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 244085fd-4871-4959-9ff6-5ab815bfa2b1;
+ Wed, 02 Jun 2021 07:00:51 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 578F01FD2D;
- Wed,  2 Jun 2021 06:59:14 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 993EE21937;
+ Wed,  2 Jun 2021 07:00:50 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 2A94E118DD;
- Wed,  2 Jun 2021 06:59:14 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 7809D118DD;
+ Wed,  2 Jun 2021 07:00:50 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 4HqCCEIst2AxUQAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 06:59:14 +0000
+ id YKk1HKIst2A0UgAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:00:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,133 +47,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e37098d-3c97-4c7c-a59d-1bc383dcfcf9
+X-Inumbo-ID: 244085fd-4871-4959-9ff6-5ab815bfa2b1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622617154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622617250; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rdBvG+0FsUAmReTO/XftE6HTFmGjRf0uXjCMPsQH1nM=;
-	b=S/tQZEvbXcTqFoE3ou9CnoeJagiLipzTe9C+1VjHRVvajWC/ApbYROkH0XgIOgV+c5KtjZ
-	2MhJP/Budy1TeXOv/tbghfG8b5S9R6U00I/UtUsr9HIomY2QZdAVC6MMLiEGtjvc/Iaq1B
-	dBsrFoV3/2F6Af/wdN9U2AVMRdVRlNA=
+	bh=Fa3RUNw+SKpVsbmLK+o0PKvms/4JNeoONXmILzCMOfE=;
+	b=gTxVpRZHxGHR83iKqdcL5xgF9im7Dirgal0eAkUfbvMOIMuJz80Z2bzFLcJFObGooIJ70l
+	N0PAB1vnC5JnceOAuJtGo/54yY0h8bxiMvzTyHAFafskgUOQicHlfRVoT3qO8PBI7BQm+h
+	CXwhRybmIwzkvkkgb6+AaaWt4H/DF2A=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622617154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622617250; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rdBvG+0FsUAmReTO/XftE6HTFmGjRf0uXjCMPsQH1nM=;
-	b=S/tQZEvbXcTqFoE3ou9CnoeJagiLipzTe9C+1VjHRVvajWC/ApbYROkH0XgIOgV+c5KtjZ
-	2MhJP/Budy1TeXOv/tbghfG8b5S9R6U00I/UtUsr9HIomY2QZdAVC6MMLiEGtjvc/Iaq1B
-	dBsrFoV3/2F6Af/wdN9U2AVMRdVRlNA=
-Subject: Re: [PATCH v20210601 07/38] tools: unify type checking for data pfns
- in migration stream
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+	bh=Fa3RUNw+SKpVsbmLK+o0PKvms/4JNeoONXmILzCMOfE=;
+	b=gTxVpRZHxGHR83iKqdcL5xgF9im7Dirgal0eAkUfbvMOIMuJz80Z2bzFLcJFObGooIJ70l
+	N0PAB1vnC5JnceOAuJtGo/54yY0h8bxiMvzTyHAFafskgUOQicHlfRVoT3qO8PBI7BQm+h
+	CXwhRybmIwzkvkkgb6+AaaWt4H/DF2A=
+Subject: Re: [PATCH v20210601 00/38] leftover from 2020
+To: Olaf Hering <olaf@aepfle.de>
+Cc: xen-devel@lists.xenproject.org
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-8-olaf@aepfle.de>
+ <24670339-c080-7e47-c2a8-22c22f7a719e@suse.com>
+ <20210602085403.40064aed.olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <9045add9-0cd0-7f9d-87ef-26cea15b74cd@suse.com>
-Date: Wed, 2 Jun 2021 08:59:13 +0200
+Message-ID: <51055fa2-b57e-c66b-78d1-6f07e0164b5b@suse.com>
+Date: Wed, 2 Jun 2021 09:00:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-8-olaf@aepfle.de>
+In-Reply-To: <20210602085403.40064aed.olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Qbsz8S2ZeH31Pb7jaHGGo8aAeWhDzmbty"
+ boundary="0R5yR0kmJDthhk6p7sd2UWkPl6r3fhbtk"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Qbsz8S2ZeH31Pb7jaHGGo8aAeWhDzmbty
-Content-Type: multipart/mixed; boundary="D7PqIiafqrscaQG9vey6UULGmaCe3LuDX";
+--0R5yR0kmJDthhk6p7sd2UWkPl6r3fhbtk
+Content-Type: multipart/mixed; boundary="B8fhApnKctGNEhD5FJdK2EN2rNrsZclQK";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <9045add9-0cd0-7f9d-87ef-26cea15b74cd@suse.com>
-Subject: Re: [PATCH v20210601 07/38] tools: unify type checking for data pfns
- in migration stream
+To: Olaf Hering <olaf@aepfle.de>
+Cc: xen-devel@lists.xenproject.org
+Message-ID: <51055fa2-b57e-c66b-78d1-6f07e0164b5b@suse.com>
+Subject: Re: [PATCH v20210601 00/38] leftover from 2020
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-8-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-8-olaf@aepfle.de>
+ <24670339-c080-7e47-c2a8-22c22f7a719e@suse.com>
+ <20210602085403.40064aed.olaf@aepfle.de>
+In-Reply-To: <20210602085403.40064aed.olaf@aepfle.de>
 
---D7PqIiafqrscaQG9vey6UULGmaCe3LuDX
+--B8fhApnKctGNEhD5FJdK2EN2rNrsZclQK
 Content-Type: multipart/mixed;
- boundary="------------599F303F92C22A3F17171267"
+ boundary="------------E7EB69D824C6B123C0AD1ADA"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------599F303F92C22A3F17171267
-Content-Type: text/plain; charset=utf-8; format=flowed
+--------------E7EB69D824C6B123C0AD1ADA
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 01.06.21 18:10, Olaf Hering wrote:
-> Introduce a helper which decides if a given pfn type has data
-> for the migration stream.
+On 02.06.21 08:54, Olaf Hering wrote:
+> Am Wed, 2 Jun 2021 08:10:21 +0200
+> schrieb Juergen Gross <jgross@suse.com>:
 >=20
-> No change in behavior intended.
+>> Would it be possible to split this into multiple independent
+>> patches/series?
 >=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-> ---
->   tools/libs/saverestore/common.h  | 17 ++++++++++++++++
->   tools/libs/saverestore/restore.c | 34 +++++--------------------------=
--
->   tools/libs/saverestore/save.c    | 14 ++-----------
->   3 files changed, 24 insertions(+), 41 deletions(-)
->=20
-> diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/c=
-ommon.h
-> index 36946e5d48..50a8479d39 100644
-> --- a/tools/libs/saverestore/common.h
-> +++ b/tools/libs/saverestore/common.h
-> @@ -467,6 +467,23 @@ int populate_pfns(struct xc_sr_context *ctx, unsig=
-ned int count,
->   /* Handle a STATIC_DATA_END record. */
->   int handle_static_data_end(struct xc_sr_context *ctx);
->  =20
-> +static inline bool page_type_has_stream_data(uint32_t type)
-> +{
-> +    bool ret;
-> +
-> +    switch (type)
-> +    {
-> +    case XEN_DOMCTL_PFINFO_XTAB:
-> +    case XEN_DOMCTL_PFINFO_XALLOC:
-> +    case XEN_DOMCTL_PFINFO_BROKEN:
-> +        ret =3D false;
-> +        break;
-> +    default:
-> +        ret =3D true;
-> +        break;
-> +    }
-> +    return ret;
-> +}
->   #endif
->   /*
->    * Local variables:
-> diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/=
-restore.c
-> index cccb0dcb71..700f9e74b5 100644
-> --- a/tools/libs/saverestore/restore.c
-> +++ b/tools/libs/saverestore/restore.c
-> @@ -152,9 +152,8 @@ int populate_pfns(struct xc_sr_context *ctx, unsign=
-ed int count,
->  =20
->       for ( i =3D 0; i < count; ++i )
->       {
-> -        if ( (!types || (types &&
-> -                         (types[i] !=3D XEN_DOMCTL_PFINFO_XTAB &&
-> -                          types[i] !=3D XEN_DOMCTL_PFINFO_BROKEN))) &&=
+> Sure, I can send each individual part that was already sent over and ov=
+er again.
 
-> +        if ( (!types ||
-> +              (types && page_type_has_stream_data(types[i]) =3D=3D tru=
-e)) &&
-
-What about XEN_DOMCTL_PFINFO_XALLOC? Is this case impossible here, or
-are you changing behavior?
+IMO this will make it more probable to get at least parts committed.
 
 
 Juergen
 
---------------599F303F92C22A3F17171267
+--------------E7EB69D824C6B123C0AD1ADA
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -264,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------599F303F92C22A3F17171267--
+--------------E7EB69D824C6B123C0AD1ADA--
 
---D7PqIiafqrscaQG9vey6UULGmaCe3LuDX--
+--B8fhApnKctGNEhD5FJdK2EN2rNrsZclQK--
 
---Qbsz8S2ZeH31Pb7jaHGGo8aAeWhDzmbty
+--0R5yR0kmJDthhk6p7sd2UWkPl6r3fhbtk
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3LEEFAwAAAAAACgkQsN6d1ii/Ey+W
-Jwf+LqjCX/chM+6JQIKunF1kjtoJ6L7LXVdlYJxB4SLano3bQBvc50Hwui9b3dSKFQcR4qbv4LCr
-sYCsr0LSG7r9EplRi3sOdUkTnWDMEsMMHotysZ5i0YOM7e8UEMGkHNL9HafDUc2XRbMqTQ8ycDly
-C/06bPnZsMxLlP2NMdqmak9cVUGwDdmNhQLj0IUOxrfSiILJrcpjt8N719/+EQX/Du3wKRirhj9f
-72Dl7wJwGzqq/1bhOehvlgnd7xPmnIeATCLvYCSi/ZXlA2VKjrnBsO59xOwYKXndZbD1DEgerdEC
-S/0n8EYSVezjUBorBAyF7dnAcA5oNWhUy7vF+Z0wcA==
-=L6za
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3LKEFAwAAAAAACgkQsN6d1ii/Ey+S
+PAf9Ff/vwymgCqWXpq71uKpWOGKKwso8Mn9TJ7UTOFUSuPWg3FqQWvqj0ozl+2H+ZGXSaKZSaVOh
+WYkCzmQ+T53zTpTjZXNw1fouBu2hC0oyDQKZiwxhDiVxp8EijSVdimO9CtIjkHqIGaPbY2QEIvSR
+rgI3g64ZsYk9aYZxavm1oRGOvvEe7rqllp0Xf+jNo2WhhyS1yb1Q0H7dEQFHZdC/qizTQiDonp1D
+/O9DkOhBY+AHxJdF4285ZDNtZETa9KZPe2bLqPvfkpt5z3dQ7OtPHGb0akAL7JDrrFno2E8GpHSX
+krcAKEfitMMWFC5IC6nkwu2NGSdbwpXchRAGoCJ6fw==
+=F354
 -----END PGP SIGNATURE-----
 
---Qbsz8S2ZeH31Pb7jaHGGo8aAeWhDzmbty--
+--0R5yR0kmJDthhk6p7sd2UWkPl6r3fhbtk--
 
