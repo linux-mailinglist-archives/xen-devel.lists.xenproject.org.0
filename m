@@ -2,41 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A23398444
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 10:37:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135889.252224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99CFD398565
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 11:38:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135902.252235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loMN3-0008Fg-C4; Wed, 02 Jun 2021 08:37:01 +0000
+	id 1loNJG-0006KT-U4; Wed, 02 Jun 2021 09:37:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135889.252224; Wed, 02 Jun 2021 08:37:01 +0000
+Received: by outflank-mailman (output) from mailman id 135902.252235; Wed, 02 Jun 2021 09:37:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loMN3-0008Cm-8w; Wed, 02 Jun 2021 08:37:01 +0000
-Received: by outflank-mailman (input) for mailman id 135889;
- Wed, 02 Jun 2021 08:36:59 +0000
+	id 1loNJG-0006IO-Qe; Wed, 02 Jun 2021 09:37:10 +0000
+Received: by outflank-mailman (input) for mailman id 135902;
+ Wed, 02 Jun 2021 09:37:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Fm/u=K4=redhat.com=lersek@srs-us1.protection.inumbo.net>)
- id 1loMN1-0008Cf-Ap
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 08:36:59 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id d7f00a0a-6fb3-41bf-b986-732cc9e4e95c;
- Wed, 02 Jun 2021 08:36:57 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-568-7ydU6i1XMsy7U_gprRY6fg-1; Wed, 02 Jun 2021 04:36:54 -0400
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 07D788015F5;
- Wed,  2 Jun 2021 08:36:53 +0000 (UTC)
-Received: from lacos-laptop-7.usersys.redhat.com (ovpn-114-42.ams2.redhat.com
- [10.36.114.42])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 587016A03A;
- Wed,  2 Jun 2021 08:36:51 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O3Rk=K4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1loNJE-0006II-VO
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 09:37:09 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b7af7b89-20e5-48da-8bf1-fe6616d94a49;
+ Wed, 02 Jun 2021 09:37:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,301 +35,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7f00a0a-6fb3-41bf-b986-732cc9e4e95c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1622623017;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MONz85R9Mj+QEfj5djA2pIXnRHcnv5ZAisbRFvQPcUI=;
-	b=fTnXmDeHzf1Vg5YfZLz54N+lI8zLPoppR4E0Wg7h+CAtaCkRK3AwB4kOk73ra41jpf/UIu
-	t2wzSkWYQ8X0Ja9T1Dn5gyfJgGuj4OkUstkyI+N/gpbsqlOBGOEs3Q8mgupIP4TgTeZTB0
-	u5KOsAZMXZmt0AYoOD10fr7FAY3rocg=
-X-MC-Unique: 7ydU6i1XMsy7U_gprRY6fg-1
-Subject: Re: [edk2-devel] [PATCH 00/43] OvmfPkg: remove Xen support from
- OvmfPkg*.dsc, in favor of OvmfXen.dsc
-From: Laszlo Ersek <lersek@redhat.com>
-Cc: devel@edk2.groups.io, Ard Biesheuvel <ardb+tianocore@kernel.org>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Reply-To: devel@edk2.groups.io, lersek@redhat.com
-References: <20210526201446.12554-1-lersek@redhat.com>
-To: Anthony Perard <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>
-Message-ID: <71da2a3b-aab1-4ecf-7e01-16b537d841a2@redhat.com>
-Date: Wed, 2 Jun 2021 10:36:49 +0200
-MIME-Version: 1.0
-In-Reply-To: <20210526201446.12554-1-lersek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Inumbo-ID: b7af7b89-20e5-48da-8bf1-fe6616d94a49
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1622626627;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=jc7qec48AT40alXRPcYQF/ibNgxVXmfPDmJOq+EyVVo=;
+  b=LdJIRzGZTWtuuTKnzIu+A4vIBs10yA8zrmObehIiv6E7kkzUZ4+xvhBI
+   aZmrjb8uvbu8cYAVm6aquq+Ce1Jrme/XwUV+9Fpdo7MQYX0V133cEJS4v
+   UxOncn2g1rB5rh0npkcrjb60I/uooeOYv5HTj5ioyR8FpdjW9XsAjC+Lh
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: /2p7dl3hRiFHA+XGdnu33ak8vPNR+CCRGFgFeNgSQWGmjWS/J6jErDQPQZx5WuO32gdWhicz9e
+ MbfyubnOeMv1OX8sMV56jGaM9Q7ShHz/dWKoH3PIVBsCKltXrFnvz1uSg7B5rrH5KsfdSy8+pZ
+ fJsHBFJsNkvCdYAwOYiVHnGla0hCRG6FBdDyDyj8bnKpak0Gk9SEV4qdL2Mzfsfmy73+1L7DdA
+ 6nxBfhclmJTVTUz6S+r1rl7h2iVpTmFwtnW9gzS18nQmlY33lRQIIOHKHf+A5LktrNj4Gnzcfj
+ N6E=
+X-SBRS: 5.1
+X-MesageID: 44875348
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:hnIum6gP+F1h7uMyqxW5XlM5O3BQX+N13DAbv31ZSRFFG/FwyP
+ rBoB1L73DJYWgqNE3I+erhBEGBKUmsk6KdxbNhQItKPTOWwldASbsC0WKM+UyEJ8STzJ846U
+ 4kSdkDNDSSNykLsS+Z2njBLz9I+rDum8rE9ISurQYecegpUdAa0+4QMHfrLqQcfng+OXNWLu
+ v62iIRzADQB0j/I/7LSUXsGIP41qv2fP2MW29JOzcXrC21yR+44r/zFBaVmj0EVSlU/Lsk+W
+ /Z1yTk+6SKqZiAu1zh/l6Wy64TtMrqy9NFCsDJoNMSMC/QhgGhY5kkc6GevQoyvPqk5D8R4Z
+ nxSi8bToFOAk7qDyWISUOH4Xim7N9u0Q6i9baguwqgnSSjLwhKTfao7OliA2jkA0lJhqA37E
+ sE5RPBi3L7ZSmw1RgV3OK4Iy2CoHDE6kbKodRj+kC3brFuH4O5jbZvsX+9Q61wUB4T1ugcYa
+ FT5ZbnlYlrmBWhHijkglU=
+X-IronPort-AV: E=Sophos;i="5.83,241,1616472000"; 
+   d="scan'208";a="44875348"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Mlin6qe6porkE5UdemfXPXC5ZGBowzCafT+QUZIVEgfTBh5r/el32KBfeOYa8xFjYMsM+W+etE9N6nsEph7Yc6xHoNSU0fGiuIRDEIZRpwBeleZlmduK8NCOVrK3o4vmaGg7VJon6TFd8ohqGCYG5oIbTtjvx4ExKqzI7Wzf6FAH0PIcnRgwOYktkKIZ78E8JSy8RxKGqXBb2bn4Z5oOzXtSgnUdZv0E5yvhPGWaAvIC/Tkib9KZMNEuimEwmotDdRQ51f8vPDLmcKavmNFqHmxiXPmh03SK6PCZeT391XiA5g74cYVCE5vXMgOQpXqxPQ6LLMC3zdF3GuPXn/DWjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pIQiLOdKv57R81Ktjktc4X+j3YRvkgqyEtOGYpMpneA=;
+ b=VcREAnuKCFFVXPQneExNwmSG4USXFZv5baswR3sJsi4PqEqDhKOO7qn3YVuEbGKESsC+p/67ycfenz4OR6Ui6XC4ATWnxHC0J0FG7mVl6e46AVa/vevcZ0vPOpfJzIVuNu/i9Rt0zFVHZuDMsuJ9iYsBzxJGyNo+cxDOQmNKBdJvwlkcjI2YFBkyTW0XKSyHdlHR7QErTe6J/7jwWkaQf7UCW8oy4wd6NLDX7tXMAQt26q1b/rnlKed0LfwCU2a4gteaSA0q4vD2B22uFjpez7GYwSyy1PI55jzVD5k3jdDQ+sUxC6AUWQZLbqjLqgy8NdQ7f13P8CUKgx8w8U+ErA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pIQiLOdKv57R81Ktjktc4X+j3YRvkgqyEtOGYpMpneA=;
+ b=rrELwaBbGtp9pwaE9ikjawezSmHp+DcQGLxjbLoS1dAqEcF52lBgFIbIe+/bg9DcGBDp05EN4v6KviRmr5EDx4Z6izQemmdMGt9apv5gHJ9qyLYPMl2TdyOAd15kEXblyIpdnL97PEOY2h6BrIKrJtwJMLbmsZoNCAf9VxCsewQ=
+Date: Wed, 2 Jun 2021 11:36:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "George
+ Dunlap" <george.dunlap@citrix.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 3/3] x86/ept: force WB cache attributes for grant and
+ foreign maps
+Message-ID: <YLdROqDpiUY0eGUI@Air-de-Roger>
+References: <20210528173935.29919-1-roger.pau@citrix.com>
+ <20210528173935.29919-4-roger.pau@citrix.com>
+ <c3aeb303-760b-fe6a-d51e-6271eaf37d80@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
+In-Reply-To: <c3aeb303-760b-fe6a-d51e-6271eaf37d80@suse.com>
+X-ClientProxiedBy: AM4PR05CA0024.eurprd05.prod.outlook.com (2603:10a6:205::37)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bfeaf7a9-38b7-41e8-642b-08d925a9faa5
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6096:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR03MB6096EAADD674FF35CAC5DF5B8F3D9@DM4PR03MB6096.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KjQsLw5joIXr1LmrAYJbJqwUb0sJCKPgehDk3s2cRULnRTjoGUjwa5As3BNsAzS2zwwHbSkwyglAlmhcpS0RHI2NAAGP55dwJ+eX8m6h1pfR+z112IigRbu9mkXjkr7NYLMS2v+0tuLNDGQw3zQg6B+4RZRYxPt1je41gJCvxMathjDVv4NYbmP8zXnCS1VlGcbflxiP6x9gCbT7ss3a3co8gZsd8E4KDbEOk/HRHhCqnRPkn7tSAxxRa6KZPGOzao3vmS2SeoTQP2dzRNXj/NWH3JlLWezGCQaT04Uk7B1d8nPDp6PfTHmc0RaLf6z0Mk9Z40Q7+3TbDKH6l9k3qx86hABRh5dUnSRMPnbncHgOqTajsEj0T4ZKKIT9KNbIm+smUYXgOWURleQ1CFzm+8vCIQeWBz8pXeWOvVWK2Dmp5uDORaeUd67kF++qfbG1M1RGa1NzXvKZa6lyf/fc/Ipte/ZCETBvBrbhYUKuBIIapIlfw+PO+5T91yzYEViAbsgU7G6yERTEMzkJ9StsrgjONmaQ3q3X4aPM3XwQi2XvenG5M0qnk+8e7xUfmbpwLlxpRKlzF59pyljnSSCUwECk6VlgETL5WtNAh0ydO5k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(39850400004)(136003)(366004)(346002)(396003)(376002)(83380400001)(53546011)(316002)(38100700002)(6666004)(956004)(6496006)(6916009)(5660300002)(186003)(4326008)(85182001)(26005)(16526019)(33716001)(9686003)(6486002)(54906003)(66556008)(66946007)(8676002)(2906002)(86362001)(8936002)(66476007)(478600001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eXoxTzZrQlcyRFlJOUFCa0YrRHFMVFVkbmswRWhITk9KTk9kQ2JRUll0VmRm?=
+ =?utf-8?B?MkxKbHF3OTVtWklrVzFTMmRKdTRyMExHQTBWRUEra3ZudURIb3J0LzFENUo0?=
+ =?utf-8?B?K3Uvd1BxYlBRbmhWSGdGWGg1TXJUSk1VZ29wRXNtdVRHYWpjUC9kZjAxK1hW?=
+ =?utf-8?B?bDN2T0tsMXUzdVY0WktRTmpOd3c3MlJ1OC8xTEJQamdleFRPcEgyQ2ZZeDdH?=
+ =?utf-8?B?am56TXFnZHV5dmRTRTdEa1J1T0YrQ1RQbVZ1TTZWTGZlSXMyTnlBbURNcUdF?=
+ =?utf-8?B?YzdNNVgxdEJJWUJwdTd1cS80QnpjVXFQNjhrbldMWVRuNmIreVlxN0l0MFN4?=
+ =?utf-8?B?NUNyOG5xempCbkVHSlhaWjFDbTJvdFZ0UE9CM1AyTUg5Um5ZR0FsOCtWNmQ3?=
+ =?utf-8?B?ZzFFY0FqcnlLcFAzVFoyZTd1MjdsU0RhbTdONUFjMkNGYys5NVQ0MDlsSk5D?=
+ =?utf-8?B?dU15VnVUZ1V6RFVxQkl6ZU5rKzdJVk4xbHlIN293VjBCL0o2MnBNR0ordHpB?=
+ =?utf-8?B?YjQ5OU4vVXF2Z2tTSTRQVG8zdDliRVhPNGFWc1RzTkRqV0d5TUZTMWtqektm?=
+ =?utf-8?B?enFuMWRMYjZoVE1HVTJ2b2hqOU8ydnBsOTFlcjZwd3Z3WGxHeEE0LzQrdSsz?=
+ =?utf-8?B?Y1RUN0xvZ0YxQlRsZDlVblNUYnNtN1h0eC9DOEVaQk05Z2ZXcVAzYkJXRmI5?=
+ =?utf-8?B?THFsM2txQjNMTVVTeVBzbEl6bWRkUkZRQzFDbGlnN1NLS3p6d3lybzlWUlA5?=
+ =?utf-8?B?N2xTaUdLTDRMalpzS0FTdWxCbmo0b29nWmgrT1dJRkQ4S01YWVptZXZpL0gy?=
+ =?utf-8?B?citIaFVQSGdyaklobW55anE5Vk9NbTdUQVJxNFloaGJiYmx5TFkxUndVVnp3?=
+ =?utf-8?B?YmtOd0dxSnJJeGZFTzBBNmhJUjVKZkJvSEVXdlkyQXNaYXdsNGtjWWt1RW5i?=
+ =?utf-8?B?WlNNVEZyQi9lbWh6d1Bzc1RqWCtUdU1vVlc5TllEdW9QbU9peGxPSlBLTk5n?=
+ =?utf-8?B?V2I2eXRnR1FBMDZWVEVvTnlxaG41ZzdPek1BRXkxaWFrYlZFRTNJL1ZNYzVO?=
+ =?utf-8?B?WG01TEpyRi9vL08yZmJqRjIrbWtmRE56Mm80THNEOWJwMk5PaDlTbTVnRTJ2?=
+ =?utf-8?B?WTFSckh2U3A0SENGRUQrRU1qT2NnV3hlbC84VThRNGhMeUlUZFQzaUwvUHo3?=
+ =?utf-8?B?SGd5NTdMTGR5SE5hM2lHSEhMeHN1emFHcTFUMTFQUHloR3F6RXpuSUo3Ums5?=
+ =?utf-8?B?QllJTmZnbVhiTkhhNnIzZGM2dm9yVmR1b0tFTjlOUHN0azRZWDdPV01yOWho?=
+ =?utf-8?B?alhrSWk5ZG0zM3lMenJPZmZxekY1amRDOExwRmtVSjQzRXNHTXpWTmpLNnVx?=
+ =?utf-8?B?M1Zhdkc1OFFsVkpLTVBMSGdraElucFdkUzJVQ0Z5WksvcXJvSGNCLzF2OVIz?=
+ =?utf-8?B?NENKL09mZGVmYXpzbUlUT3g2NVhWMXMvMmlRbHI5U05XcGlxczlUS3l1QUlF?=
+ =?utf-8?B?TlBaYXo4aFpVQVA3Q3N6VGRPVFZGQXYzTzdzUG5hdjZNMVh1SHpmcUxMSGJu?=
+ =?utf-8?B?VmpnTWxDc3B4YWUrTkFOcWdWK0R2SFVmb0IxNWdwMlYzbXJ1QVJIL0pDWm0r?=
+ =?utf-8?B?K09MMWxhaU1kSmM2eVlNb3JVd0pQNnpLdVhPaFZ1L1BmYlR0WDVxazRoZ0FU?=
+ =?utf-8?B?dVhYbFR4dmJFbVdjTmZZUHowZ0VKQVlCRDRTSURIWUNRMStMU3YxMTZaeFFM?=
+ =?utf-8?Q?yTXGXyRm58YRRmO0ljswTFzt7lPkwXfi+VvXcPv?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfeaf7a9-38b7-41e8-642b-08d925a9faa5
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 09:37:03.5734
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bKeqN92JDtCrUABHM5HcCthce9rhYG0sVTa5hsjtKTzw0tlmrwEOUUK5y4koGMUUUAj7A7Gxa5FjKskK88JeEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6096
+X-OriginatorOrg: citrix.com
 
-Anthony, Julien,
+On Mon, May 31, 2021 at 09:21:25AM +0200, Jan Beulich wrote:
+> On 28.05.2021 19:39, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/mm/p2m-ept.c
+> > +++ b/xen/arch/x86/mm/p2m-ept.c
+> > @@ -487,11 +487,12 @@ static int ept_invalidate_emt_range(struct p2m_domain *p2m,
+> >  }
+> >  
+> >  int epte_get_entry_emt(struct domain *d, gfn_t gfn, mfn_t mfn,
+> > -                       unsigned int order, bool *ipat, bool direct_mmio)
+> > +                       unsigned int order, bool *ipat, p2m_type_t type)
+> >  {
+> >      int gmtrr_mtype, hmtrr_mtype;
+> >      struct vcpu *v = current;
+> >      unsigned long i;
+> > +    bool direct_mmio = type == p2m_mmio_direct;
+> 
+> I don't think this variable is worthwhile to retain/introduce:
+> 
+> > @@ -535,9 +536,33 @@ int epte_get_entry_emt(struct domain *d, gfn_t gfn, mfn_t mfn,
+> >          }
+> >      }
+> >  
+> > -    if ( direct_mmio )
+> 
+> With this gone, there's exactly one further use left. Preferably
+> with this adjustment (which I'd be fine to make while committing, as
+> long as you and/or the maintainers agree)
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-(or anyone else subscribed to xen-devel -- CC'd now),
-
-On 05/26/21 22:14, Laszlo Ersek wrote:
-> Bugzilla: https://bugzilla.tianocore.org/show_bug.cgi?id=2122
-> Repo:     https://pagure.io/lersek/edk2.git
-> Branch:   xen_split_bz_2122
-
-can you please build the OvmfXen platform on this branch, and check if
-there are any regressions?
-
-Thanks,
-Laszlo
+Thanks. That's fine, I was about to drop it but didn't want to introduce any
+more changes than necessary.
 
 > 
-> This patch set removes dynamic Xen enlightenment from the following
-> platforms:
+> > +    switch ( type )
+> > +    {
+> > +    case p2m_mmio_direct:
+> >          return MTRR_TYPE_UNCACHABLE;
 > 
->   OvmfPkg/OvmfPkgIa32.dsc
->   OvmfPkg/OvmfPkgIa32X64.dsc
->   OvmfPkg/OvmfPkgX64.dsc
+> As a largely unrelated note: We really want to find a way to return
+> WC here for e.g. the frame buffer of graphics cards, the more that
+> hvm_get_mem_pinned_cacheattr() gets invoked only below from here
+> (unlike at initial introduction of the function, where it was called
+> ahead of the direct_mmio check, but still after the mfn_valid(), so
+> the results were inconsistent anyway). Perhaps we should obtain the
+> host MTRR setting for the page (or range) in question.
 > 
-> In Xen guests, the following platform should be used:
-> 
->   OvmfPkg/OvmfXen.dsc
-> 
-> Please see more details / references in the bugzilla ticket.
-> 
-> NOOPT build savings:
-> 
-> - Ia32:    PEIFV 1536 bytes, DXEFV 130288 bytes
-> - Ia32X64: PEIFV 1536 bytes, DXEFV 140912 bytes
-> - X64:     PEIFV 1664 bytes, DXEFV 140912 bytes
-> - Xen:     PEIFV  256 bytes, DXEFV  69504 bytes
-> 
-> Functional testing:
-> 
-> - Booted a Fedora guest on OvmfPkgIa32X64 on QEMU/KVM, compared verbose
->   logs before-after. Memory allocations were satisfied at different
->   addresses, as expected, plus the Xen drivers were absent. No
->   differences otherwise.
-> 
-> - Booted a RHEL guest on ArmVirtQemu on AARCH64. Memory allocations were
->   satisfied at different addresses, as expected.
-> 
-> - Xen regression-testing was not done; I'm requesting feedback.
-> 
-> Build testing / bisectability: at every stage, the series builds with
-> the following script:
-> 
->> #!/bin/bash
->> set -e -u -C
->>
->> build -b DEBUG -t GCC5 -p ArmVirtPkg/ArmVirtKvmTool.dsc            -a AARCH64
->> build -b DEBUG -t GCC5 -p ArmVirtPkg/ArmVirtKvmTool.dsc    -a ARM
->> build -b NOOPT -t GCC5 -p ArmVirtPkg/ArmVirtQemu.dsc               -a AARCH64
->> build -b NOOPT -t GCC5 -p ArmVirtPkg/ArmVirtQemu.dsc       -a ARM
->> build -b NOOPT -t GCC5 -p ArmVirtPkg/ArmVirtQemuKernel.dsc         -a AARCH64
->> build -b NOOPT -t GCC5 -p ArmVirtPkg/ArmVirtQemuKernel.dsc -a ARM
->> build -b NOOPT -t GCC5 -p ArmVirtPkg/ArmVirtXen.dsc                -a AARCH64
->> build -b NOOPT -t GCC5 -p ArmVirtPkg/ArmVirtXen.dsc        -a ARM
->> build -b NOOPT -t GCC5 -p OvmfPkg/AmdSev/AmdSevX64.dsc             -a X64
->> build -b NOOPT -t GCC5 -p OvmfPkg/Bhyve/BhyveX64.dsc               -a X64
->> build -b NOOPT -t GCC5 -p OvmfPkg/OvmfPkgIa32.dsc          -a IA32
->> build -b NOOPT -t GCC5 -p OvmfPkg/OvmfPkgIa32X64.dsc       -a IA32 -a X64
->> build -b NOOPT -t GCC5 -p OvmfPkg/OvmfPkgX64.dsc                   -a X64
->> build -b NOOPT -t GCC5 -p OvmfPkg/OvmfXen.dsc                      -a X64
-> 
-> The patches in the series were formatted with the following options, for
-> posting:
-> 
->   --stat=1000 --stat-graph-width=20 --find-copies-harder -U6
-> 
-> (The option "--find-copies-harder" is not the best for presenting every
-> single patch in the series, in isolation, but taken globally for the
-> entire series, it is the most helpful option.)
-> 
-> Some patches advance with really small steps, in order to cut down on a
-> subsequent "meaty" patch. Personally I don't like reviewing code
-> movement patches, so I did my best to (a) keep that to a minimum, and
-> (b) present it as unintrusively as possible.
-> 
-> The CC list is a bit long; the reason is that I kept touching up
-> "Maintainers.txt", and the "OvmfPkg/Bhyve" and "OvmfPkg/AmdSev"
-> platforms as well (whenever it made sense).
-> 
-> Cc: Andrew Fish <afish@apple.com>
-> Cc: Anthony Perard <anthony.perard@citrix.com>
-> Cc: Ard Biesheuvel <ardb+tianocore@kernel.org>
-> Cc: Brijesh Singh <brijesh.singh@amd.com>
-> Cc: Erdem Aktas <erdemaktas@google.com>
-> Cc: James Bottomley <jejb@linux.ibm.com>
-> Cc: Jiewen Yao <jiewen.yao@intel.com>
-> Cc: Jordan Justen <jordan.l.justen@intel.com>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Leif Lindholm <leif@nuviainc.com>
-> Cc: Michael D Kinney <michael.d.kinney@intel.com>
-> Cc: Min Xu <min.m.xu@intel.com>
-> Cc: Peter Grehan <grehan@freebsd.org>
-> Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-> Cc: Rebecca Cran <rebecca@bsdio.com>
-> Cc: Tom Lendacky <thomas.lendacky@amd.com>
-> 
-> Thanks,
-> Laszlo
-> 
-> Laszlo Ersek (43):
->   OvmfPkg: remove the Xen drivers from the IA32, IA32X64, and X64
->     platforms
->   OvmfPkg: remove the Xen drivers from the AmdSev platform
->   OvmfPkg: switch IA32, IA32X64, X64 to the fw_cfg-only ACPI platform
->     driver
->   OvmfPkg: switch the AmdSev platform to the fw_cfg-only ACPI platform
->     driver
->   OvmfPkg/README: bump minimum QEMU version to 1.7.1, machine types to
->     1.7
->   OvmfPkg/AcpiPlatformDxe: fix header file warts
->   OvmfPkg/AcpiPlatformDxe: sort #includes and [LibraryClasses]
->   OvmfPkg/AcpiPlatformDxe/QemuLoader.h: remove QemuFwCfgLib class
->     dependency
->   OvmfPkg/AcpiPlatformDxe: move "QemuLoader.h" to IndustryStandard
->   OvmfPkg/AcpiPlatformDxe: consolidate #includes and [LibraryClasses]
->   OvmfPkg/XenAcpiPlatformDxe: create from AcpiPlatformDxe
->   OvmfPkg/AcpiPlatformDxe: remove the "AcpiPlatformDxe.inf" driver
->   OvmfPkg/XenAcpiPlatformDxe: remove the QEMU ACPI linker/loader client
->   OvmfPkg/XenAcpiPlatformDxe: remove QEMU fw_cfg dependency
->   OvmfPkg/XenAcpiPlatformDxe: remove the InstallAcpiTable() helper
->     function
->   OvmfPkg/XenAcpiPlatformDxe: remove OVMF's built-in ACPI tables
->   OvmfPkg/Bhyve/AcpiPlatformDxe: fix file path typo in comment
->   OvmfPkg/AcpiTables: remove unused module
->   OvmfPkg/OvmfXen: make "PcdPciDisableBusEnumeration" Fixed-at-Build
->   OvmfPkg/XenAcpiPlatformDxe: remove delayed ACPI table installation
->   OvmfPkg/PlatformPei: remove Xen support
->   OvmfPkg: drop PcdPciDisableBusEnumeration from the IA32, IA32X64, X64
->     DSCs
->   OvmfPkg: drop PcdPciDisableBusEnumeration from the AmdSev platform
->   OvmfPkg/Bhyve: make "PcdPciDisableBusEnumeration" Fixed-at-Build
->   OvmfPkg/OvmfXen: remove IncompatiblePciDeviceSupport DXE driver
->   OvmfPkg/Bhyve: remove IncompatiblePciDeviceSupport DXE driver
->   OvmfPkg/IncompatiblePciDeviceSupportDxe: remove
->     PcdPciDisableBusEnumeration
->   OvmfPkg/PciHostBridgeLib: consolidate #includes and INF file sections
->   OvmfPkg/PciHostBridgeLibScan: create from PciHostBridgeLib
->   OvmfPkg/Bhyve: consume PciHostBridgeLibScan
->   OvmfPkg/OvmfXen: consume PciHostBridgeLibScan
->   OvmfPkg/PciHostBridgeLib: remove Bhyve and Xen support
->   OvmfPkg/PciHostBridgeLibScan: remove QEMU (fw_cfg) support
->   OvmfPkg/PciHostBridgeLibScan: remove PcdOvmfHostBridgePciDevId
->   OvmfPkg/PciHostBridgeLibScan: clean up file names and file-top
->     comments
->   OvmfPkg/SmbiosPlatformDxe: clean up #includes and INF
->   OvmfPkg/SmbiosPlatformDxe: return EFI_NOT_FOUND if there is no SMBIOS
->     data
->   OvmfPkg/SmbiosPlatformDxe: locate SMBIOS protocol in
->     InstallAllStructures()
->   OvmfPkg/SmbiosPlatformDxe: split GetXenSmbiosTables() decl. to new
->     header
->   OvmfPkg/SmbiosPlatformDxe: declare InstallAllStructures() in header
->     file
->   OvmfPkg/SmbiosPlatformDxe: create Xen-specific module INF file
->   OvmfPkg/SmbiosPlatformDxe: split Xen entry point from QEMU entry point
->   OvmfPkg: restrict XenPlatformLib to BdsDxe in the IA32, IA32X64, X64
->     DSCs
-> 
->  Maintainers.txt                                                                                          |  10 +-
->  OvmfPkg/AcpiPlatformDxe/AcpiPlatform.c                                                                   | 262 --------
->  OvmfPkg/AcpiPlatformDxe/AcpiPlatform.h                                                                   |  50 +-
->  OvmfPkg/AcpiPlatformDxe/AcpiPlatformDxe.inf                                                              |  71 --
->  OvmfPkg/AcpiPlatformDxe/BootScript.c                                                                     |   7 +-
->  OvmfPkg/AcpiPlatformDxe/EntryPoint.c                                                                     |   7 +-
->  OvmfPkg/AcpiPlatformDxe/PciDecoding.c                                                                    |   4 +-
->  OvmfPkg/AcpiPlatformDxe/Qemu.c                                                                           | 511 ---------------
->  OvmfPkg/AcpiPlatformDxe/QemuFwCfgAcpi.c                                                                  |  21 +-
->  OvmfPkg/AcpiPlatformDxe/QemuFwCfgAcpiPlatformDxe.inf                                                     |   5 +-
->  OvmfPkg/AcpiTables/AcpiTables.inf                                                                        |  38 --
->  OvmfPkg/AcpiTables/Dsdt.asl                                                                              | 692 --------------------
->  OvmfPkg/AcpiTables/Facp.aslc                                                                             |  89 ---
->  OvmfPkg/AcpiTables/Facs.aslc                                                                             |  78 ---
->  OvmfPkg/AcpiTables/Madt.aslc                                                                             | 153 -----
->  OvmfPkg/AcpiTables/Platform.h                                                                            |  68 --
->  OvmfPkg/AcpiTables/Ssdt.asl                                                                              |  13 -
->  OvmfPkg/AmdSev/AmdSevX64.dsc                                                                             |   9 +-
->  OvmfPkg/AmdSev/AmdSevX64.fdf                                                                             |  12 +-
->  OvmfPkg/Bhyve/AcpiPlatformDxe/AcpiPlatform.c                                                             |   2 +-
->  OvmfPkg/Bhyve/BhyveX64.dsc                                                                               |   5 +-
->  OvmfPkg/Bhyve/BhyveX64.fdf                                                                               |   1 -
->  OvmfPkg/Bhyve/PlatformPei/PlatformPei.inf                                                                |   1 -
->  OvmfPkg/{AcpiPlatformDxe => Include/IndustryStandard}/QemuLoader.h                                       |   8 +-
->  OvmfPkg/IncompatiblePciDeviceSupportDxe/IncompatiblePciDeviceSupport.c                                   |  10 +-
->  OvmfPkg/IncompatiblePciDeviceSupportDxe/IncompatiblePciDeviceSupport.inf                                 |   2 -
->  OvmfPkg/Library/PciHostBridgeLib/PciHostBridgeLib.c                                                      |  28 +-
->  OvmfPkg/Library/PciHostBridgeLib/PciHostBridgeLib.inf                                                    |   8 +-
->  OvmfPkg/Library/{PciHostBridgeLib => PciHostBridgeLibScan}/PciHostBridge.h                               |   4 +-
->  OvmfPkg/Library/PciHostBridgeLibScan/PciHostBridgeLib.c                                                  |  74 +++
->  OvmfPkg/Library/{PciHostBridgeLib/PciHostBridgeLib.inf => PciHostBridgeLibScan/PciHostBridgeLibScan.inf} |  24 +-
->  OvmfPkg/Library/{PciHostBridgeLib/XenSupport.c => PciHostBridgeLibScan/ScanForRootBridges.c}             |  27 +-
->  OvmfPkg/OvmfPkgIa32.dsc                                                                                  |  10 +-
->  OvmfPkg/OvmfPkgIa32.fdf                                                                                  |  12 +-
->  OvmfPkg/OvmfPkgIa32X64.dsc                                                                               |  10 +-
->  OvmfPkg/OvmfPkgIa32X64.fdf                                                                               |  12 +-
->  OvmfPkg/OvmfPkgX64.dsc                                                                                   |  10 +-
->  OvmfPkg/OvmfPkgX64.fdf                                                                                   |  12 +-
->  OvmfPkg/OvmfXen.dsc                                                                                      |  10 +-
->  OvmfPkg/OvmfXen.fdf                                                                                      |  12 +-
->  OvmfPkg/PlatformPei/MemDetect.c                                                                          |  10 +-
->  OvmfPkg/PlatformPei/Platform.c                                                                           | 162 +++--
->  OvmfPkg/PlatformPei/Platform.h                                                                           |  17 -
->  OvmfPkg/PlatformPei/PlatformPei.inf                                                                      |   4 -
->  OvmfPkg/PlatformPei/Xen.c                                                                                | 222 -------
->  OvmfPkg/PlatformPei/Xen.h                                                                                |  39 --
->  OvmfPkg/README                                                                                           |  43 +-
->  OvmfPkg/SmbiosPlatformDxe/ArmXen.c                                                                       |   2 +-
->  OvmfPkg/SmbiosPlatformDxe/Qemu.c                                                                         |  41 +-
->  OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c                                                            |  79 +--
->  OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.h                                                            |  37 +-
->  OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.inf                                                          |  23 +-
->  OvmfPkg/SmbiosPlatformDxe/X86Xen.c                                                                       |   8 +-
->  OvmfPkg/SmbiosPlatformDxe/Xen.c                                                                          |  49 ++
->  OvmfPkg/SmbiosPlatformDxe/{ArmXen.c => XenSmbiosPlatformDxe.h}                                           |  20 +-
->  OvmfPkg/SmbiosPlatformDxe/{SmbiosPlatformDxe.inf => XenSmbiosPlatformDxe.inf}                            |  32 +-
->  OvmfPkg/XenAcpiPlatformDxe/AcpiPlatform.c                                                                |  41 ++
->  OvmfPkg/XenAcpiPlatformDxe/AcpiPlatform.h                                                                |  28 +
->  OvmfPkg/XenAcpiPlatformDxe/EntryPoint.c                                                                  |  43 ++
->  OvmfPkg/{AcpiPlatformDxe => XenAcpiPlatformDxe}/Xen.c                                                    |  66 +-
->  OvmfPkg/XenAcpiPlatformDxe/XenAcpiPlatformDxe.inf                                                        |  45 ++
->  OvmfPkg/XenPlatformPei/Platform.c                                                                        |   1 -
->  OvmfPkg/XenPlatformPei/Platform.h                                                                        |   5 -
->  OvmfPkg/XenPlatformPei/Xen.c                                                                             |  20 -
->  OvmfPkg/XenPlatformPei/XenPlatformPei.inf                                                                |   1 -
->  65 files changed, 593 insertions(+), 2827 deletions(-)
->  delete mode 100644 OvmfPkg/AcpiPlatformDxe/AcpiPlatform.c
->  delete mode 100644 OvmfPkg/AcpiPlatformDxe/AcpiPlatformDxe.inf
->  delete mode 100644 OvmfPkg/AcpiPlatformDxe/Qemu.c
->  delete mode 100644 OvmfPkg/AcpiTables/AcpiTables.inf
->  delete mode 100644 OvmfPkg/AcpiTables/Dsdt.asl
->  delete mode 100644 OvmfPkg/AcpiTables/Facp.aslc
->  delete mode 100644 OvmfPkg/AcpiTables/Facs.aslc
->  delete mode 100644 OvmfPkg/AcpiTables/Madt.aslc
->  delete mode 100644 OvmfPkg/AcpiTables/Platform.h
->  delete mode 100644 OvmfPkg/AcpiTables/Ssdt.asl
->  rename OvmfPkg/{AcpiPlatformDxe => Include/IndustryStandard}/QemuLoader.h (94%)
->  rename OvmfPkg/Library/{PciHostBridgeLib => PciHostBridgeLibScan}/PciHostBridge.h (57%)
->  create mode 100644 OvmfPkg/Library/PciHostBridgeLibScan/PciHostBridgeLib.c
->  copy OvmfPkg/Library/{PciHostBridgeLib/PciHostBridgeLib.inf => PciHostBridgeLibScan/PciHostBridgeLibScan.inf} (51%)
->  rename OvmfPkg/Library/{PciHostBridgeLib/XenSupport.c => PciHostBridgeLibScan/ScanForRootBridges.c} (91%)
->  delete mode 100644 OvmfPkg/PlatformPei/Xen.c
->  delete mode 100644 OvmfPkg/PlatformPei/Xen.h
->  create mode 100644 OvmfPkg/SmbiosPlatformDxe/Xen.c
->  copy OvmfPkg/SmbiosPlatformDxe/{ArmXen.c => XenSmbiosPlatformDxe.h} (56%)
->  copy OvmfPkg/SmbiosPlatformDxe/{SmbiosPlatformDxe.inf => XenSmbiosPlatformDxe.inf} (65%)
->  create mode 100644 OvmfPkg/XenAcpiPlatformDxe/AcpiPlatform.c
->  create mode 100644 OvmfPkg/XenAcpiPlatformDxe/AcpiPlatform.h
->  create mode 100644 OvmfPkg/XenAcpiPlatformDxe/EntryPoint.c
->  rename OvmfPkg/{AcpiPlatformDxe => XenAcpiPlatformDxe}/Xen.c (82%)
->  create mode 100644 OvmfPkg/XenAcpiPlatformDxe/XenAcpiPlatformDxe.inf
-> 
-> 
-> base-commit: cfa6ffb113f2c0d922034cc77c0d6c52eea05497
-> 
+> As to hvm_get_mem_pinned_cacheattr(), XEN_DOMCTL_pin_mem_cacheattr
+> is documented to be intended to be used on RAM only anyway ...
 
+I also think we should make epte_get_entry_emt available to all p2m
+code so it can partially replace the logic in p2m_type_to_flags to
+account for cache attributes. I don't think there's much point in
+keeping such different methods for accounting for cache attributes. I
+know AMD lacks an ignore PAT equivalent, but there's no reason why p2m
+cache attributes calculation should be done differently for AMD and
+Intel AFAICT.
+
+Roger.
 
