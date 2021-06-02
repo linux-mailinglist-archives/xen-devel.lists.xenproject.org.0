@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95ECD3981B5
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135490.251715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F7483981B7
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135493.251725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKmR-0001e9-Np; Wed, 02 Jun 2021 06:55:07 +0000
+	id 1loKmW-0002Eb-8g; Wed, 02 Jun 2021 06:55:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135490.251715; Wed, 02 Jun 2021 06:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 135493.251725; Wed, 02 Jun 2021 06:55:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKmR-0001bw-Hn; Wed, 02 Jun 2021 06:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 135490;
- Wed, 02 Jun 2021 06:55:06 +0000
+	id 1loKmW-0002Aa-46; Wed, 02 Jun 2021 06:55:12 +0000
+Received: by outflank-mailman (input) for mailman id 135493;
+ Wed, 02 Jun 2021 06:55:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PwRf=K4=bombadil.srs.infradead.org=batv+e38fb55258da4e18a096+6492+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1loKmQ-0007A2-3g
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:55:06 +0000
+ id 1loKmV-0007A2-3u
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:55:11 +0000
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 067e6fa5-e7bd-4578-b8b9-77274bf19698;
- Wed, 02 Jun 2021 06:54:43 +0000 (UTC)
+ id 81d54a99-7c05-4dc5-b2d0-4eabac53016e;
+ Wed, 02 Jun 2021 06:54:49 +0000 (UTC)
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1loKlg-0025NX-RE; Wed, 02 Jun 2021 06:54:21 +0000
+ id 1loKln-0025P8-FW; Wed, 02 Jun 2021 06:54:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 067e6fa5-e7bd-4578-b8b9-77274bf19698
+X-Inumbo-ID: 81d54a99-7c05-4dc5-b2d0-4eabac53016e
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=BVgbkrgI5w8hw6EfzYARLfGWi6Kh9lFpzsXZ419HK1w=; b=U/MbBupmxlqb75y1PHkCyebynQ
-	Rt4fL6fa+WzCejYcSifBRXJN9ka135vcRGgG8l7nbiWMw0RO1zAmvQeHG1EB4hkdZrMO1+8e6kT24
-	CCFvZVn7hwrTPmSO8fpiW0WjG8kLUcuJo4czgl1Ug2/VWcJs1QWpkGaOQJlwRiQFMiTkkEzvrxwXC
-	/fDjwhFDYriH71KkRIgFNetz9g9Hzp0uZkvRppj4VHGBAA/bVFhYgYPuSMVLVDyrW+QDFj6Zc5Hbr
-	orlbN/emDladETPZOn+hbjRC0uB/M6eGxSnx/UmBiIxbqX/2NW/f466ciE4Zata7/KUdQ0LnF4eAy
-	LoIgT7+A==;
+	bh=KlBRFDn8CKBuz4Jtw5oxvJwFPJCrn3leZL7f/TB5v/I=; b=JAbKOuEt/ZwlI1Cb8jU8PIVTi0
+	rWrP2Q0oyjZ1qHxdn5YfZWmZGCE1OX7t/Z5qHClzdMNkXAAV2MvEk5MtF+zy9GIwLRfySkORmJitv
+	hBUNmjxZRc5StQgvgrScxkKXoprJTIDdzdZyS8U/8FI6Ub7l742n47gp+1BOs+WlJvaHsKwHFkDWB
+	xBui56bbOzKQ99aHIVAIpMOWuKdRjPxfD/L6mOHl825ZMYqNbqTRQR2bdCKOIAofpqO2q95xIdQCk
+	qchgx4WVGIXqbErN5FqxXen4FaqChWEu053VwmNbr8IDVXg22x1cC2laSwL86K80z+bhdU0MJo1y9
+	XRk5+uaA==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -82,9 +82,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org,
 	linux-s390@vger.kernel.org
-Subject: [PATCH 06/30] pf: use blk_mq_alloc_disk
-Date: Wed,  2 Jun 2021 09:53:21 +0300
-Message-Id: <20210602065345.355274-7-hch@lst.de>
+Subject: [PATCH 07/30] ms_block: use blk_mq_alloc_disk
+Date: Wed,  2 Jun 2021 09:53:22 +0300
+Message-Id: <20210602065345.355274-8-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
@@ -97,59 +97,62 @@ allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/paride/pf.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+ drivers/memstick/core/ms_block.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/block/paride/pf.c b/drivers/block/paride/pf.c
-index bb09f21ce21a..d5b9c88ba76f 100644
---- a/drivers/block/paride/pf.c
-+++ b/drivers/block/paride/pf.c
-@@ -294,20 +294,17 @@ static void __init pf_init_units(void)
- 	for (unit = 0, pf = units; unit < PF_UNITS; unit++, pf++) {
- 		struct gendisk *disk;
+diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
+index 0bacf4268f83..dac258d12aca 100644
+--- a/drivers/memstick/core/ms_block.c
++++ b/drivers/memstick/core/ms_block.c
+@@ -2110,21 +2110,17 @@ static int msb_init_disk(struct memstick_dev *card)
+ 	if (msb->disk_id  < 0)
+ 		return msb->disk_id;
  
--		disk = alloc_disk(1);
--		if (!disk)
-+		if (blk_mq_alloc_sq_tag_set(&pf->tag_set, &pf_mq_ops, 1,
-+				BLK_MQ_F_SHOULD_MERGE))
- 			continue;
+-	msb->disk = alloc_disk(0);
+-	if (!msb->disk) {
+-		rc = -ENOMEM;
++	rc = blk_mq_alloc_sq_tag_set(&msb->tag_set, &msb_mq_ops, 2,
++				     BLK_MQ_F_SHOULD_MERGE);
++	if (rc)
+ 		goto out_release_id;
+-	}
  
--		disk->queue = blk_mq_init_sq_queue(&pf->tag_set, &pf_mq_ops,
--							1, BLK_MQ_F_SHOULD_MERGE);
--		if (IS_ERR(disk->queue)) {
--			disk->queue = NULL;
--			put_disk(disk);
-+		disk = blk_mq_alloc_disk(&pf->tag_set, pf);
-+		if (IS_ERR(disk)) {
-+			blk_mq_free_tag_set(&pf->tag_set);
- 			continue;
- 		}
- 
- 		INIT_LIST_HEAD(&pf->rq_list);
--		disk->queue->queuedata = pf;
- 		blk_queue_max_segments(disk->queue, cluster);
- 		blk_queue_bounce_limit(disk->queue, BLK_BOUNCE_HIGH);
- 		pf->disk = disk;
-@@ -318,6 +315,7 @@ static void __init pf_init_units(void)
- 		snprintf(pf->name, PF_NAMELEN, "%s%d", name, unit);
- 		disk->major = major;
- 		disk->first_minor = unit;
-+		disk->minors = 1;
- 		strcpy(disk->disk_name, pf->name);
- 		disk->fops = &pf_fops;
- 		disk->events = DISK_EVENT_MEDIA_CHANGE;
-@@ -766,10 +764,8 @@ static int pf_detect(void)
- 	for (pf = units, unit = 0; unit < PF_UNITS; pf++, unit++) {
- 		if (!pf->disk)
- 			continue;
--		blk_cleanup_queue(pf->disk->queue);
--		pf->disk->queue = NULL;
-+		blk_cleanup_disk(pf->disk);
- 		blk_mq_free_tag_set(&pf->tag_set);
--		put_disk(pf->disk);
+-	msb->queue = blk_mq_init_sq_queue(&msb->tag_set, &msb_mq_ops, 2,
+-						BLK_MQ_F_SHOULD_MERGE);
+-	if (IS_ERR(msb->queue)) {
+-		rc = PTR_ERR(msb->queue);
+-		msb->queue = NULL;
+-		goto out_put_disk;
++	msb->disk = blk_mq_alloc_disk(&msb->tag_set, card);
++	if (IS_ERR(msb->disk)) {
++		rc = PTR_ERR(msb->disk);
++		goto out_free_tag_set;
  	}
- 	pi_unregister_driver(par_drv);
- 	return -1;
+-
+-	msb->queue->queuedata = card;
++	msb->queue = msb->disk->queue;
+ 
+ 	blk_queue_max_hw_sectors(msb->queue, MS_BLOCK_MAX_PAGES);
+ 	blk_queue_max_segments(msb->queue, MS_BLOCK_MAX_SEGS);
+@@ -2135,7 +2131,6 @@ static int msb_init_disk(struct memstick_dev *card)
+ 	sprintf(msb->disk->disk_name, "msblk%d", msb->disk_id);
+ 	msb->disk->fops = &msb_bdops;
+ 	msb->disk->private_data = msb;
+-	msb->disk->queue = msb->queue;
+ 
+ 	capacity = msb->pages_in_block * msb->logical_block_count;
+ 	capacity *= (msb->page_size / 512);
+@@ -2155,8 +2150,8 @@ static int msb_init_disk(struct memstick_dev *card)
+ 	dbg("Disk added");
+ 	return 0;
+ 
+-out_put_disk:
+-	put_disk(msb->disk);
++out_free_tag_set:
++	blk_mq_free_tag_set(&msb->tag_set);
+ out_release_id:
+ 	mutex_lock(&msb_disk_lock);
+ 	idr_remove(&msb_disk_idr, msb->disk_id);
 -- 
 2.30.2
 
