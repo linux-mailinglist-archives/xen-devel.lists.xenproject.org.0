@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE7BD39833C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:39:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135794.252099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E31B398386
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:48:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135802.252111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loLTP-0003Qv-Ka; Wed, 02 Jun 2021 07:39:31 +0000
+	id 1loLbP-0004zl-Gf; Wed, 02 Jun 2021 07:47:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135794.252099; Wed, 02 Jun 2021 07:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 135802.252111; Wed, 02 Jun 2021 07:47:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loLTP-0003Nh-HO; Wed, 02 Jun 2021 07:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 135794;
- Wed, 02 Jun 2021 07:39:30 +0000
+	id 1loLbP-0004wr-CX; Wed, 02 Jun 2021 07:47:47 +0000
+Received: by outflank-mailman (input) for mailman id 135802;
+ Wed, 02 Jun 2021 07:47:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loLTO-0003Nb-En
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:39:30 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ id 1loLbN-0004wj-B4
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:47:45 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2bc7dbe3-03e7-4f1b-b14e-8e7a00630679;
- Wed, 02 Jun 2021 07:39:29 +0000 (UTC)
+ id febcdaa1-d9ab-463a-852b-cca54997528e;
+ Wed, 02 Jun 2021 07:47:44 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CABEF2193D;
- Wed,  2 Jun 2021 07:39:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C33181FD32;
+ Wed,  2 Jun 2021 07:47:43 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 9A239118DD;
- Wed,  2 Jun 2021 07:39:28 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 880FA118DD;
+ Wed,  2 Jun 2021 07:47:43 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id NLVuJLA1t2AsZQAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:39:28 +0000
+ id snPpH583t2AAagAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:47:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,68 +47,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bc7dbe3-03e7-4f1b-b14e-8e7a00630679
+X-Inumbo-ID: febcdaa1-d9ab-463a-852b-cca54997528e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622619568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622620063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5YyjPpECNHKWR4pMbjUJXgAsKPlFc821WEgTccPosYI=;
-	b=Fa3zdvFrDoO/QVSuWjRtpHXvsKFj7huF1e9pFkV6VcPzSljmmUHGX/TCWfe3nMu7xLjYg9
-	kFh/mTn5H2TjEGnZIf4/aE37ziPGYBSc/7r8RtVmrwG2nCLJPPBTGv6Wh6cLemUzOkIJfV
-	wvqa5AnMjsnpC//Y3GN3QMERilekJgs=
+	bh=W/hZveXRTQSaVIUZ+OtQzoJHKfGtem4yQGKFo/FbG+o=;
+	b=AmU8Eol/SYR9Bq6eu1WrY+mxIXngTW7ezV5L++NIbsPiJqIkDgym2DAZT1gEPkY7Ibk7ae
+	lTsjtpgEITeAhMVZwNp+tMR5Do3rI34DEepWWfyL38fVkAncYnFZEPTrbyRB+A4O1yfkse
+	SzKAfU6e+60bdhucFWHrjF4BW/3wkno=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622619568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622620063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5YyjPpECNHKWR4pMbjUJXgAsKPlFc821WEgTccPosYI=;
-	b=Fa3zdvFrDoO/QVSuWjRtpHXvsKFj7huF1e9pFkV6VcPzSljmmUHGX/TCWfe3nMu7xLjYg9
-	kFh/mTn5H2TjEGnZIf4/aE37ziPGYBSc/7r8RtVmrwG2nCLJPPBTGv6Wh6cLemUzOkIJfV
-	wvqa5AnMjsnpC//Y3GN3QMERilekJgs=
-Subject: Re: [PATCH v20210601 16/38] tools/guest: save: move guest_data array
+	bh=W/hZveXRTQSaVIUZ+OtQzoJHKfGtem4yQGKFo/FbG+o=;
+	b=AmU8Eol/SYR9Bq6eu1WrY+mxIXngTW7ezV5L++NIbsPiJqIkDgym2DAZT1gEPkY7Ibk7ae
+	lTsjtpgEITeAhMVZwNp+tMR5Do3rI34DEepWWfyL38fVkAncYnFZEPTrbyRB+A4O1yfkse
+	SzKAfU6e+60bdhucFWHrjF4BW/3wkno=
+Subject: Re: [PATCH v20210601 17/38] tools/guest: save: move local_pages array
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-17-olaf@aepfle.de>
+ <20210601161118.18986-18-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <81ee4f02-8b22-3ed9-55e3-7af3a6ed795c@suse.com>
-Date: Wed, 2 Jun 2021 09:39:28 +0200
+Message-ID: <3f3db866-3d91-093a-afad-509bc9299436@suse.com>
+Date: Wed, 2 Jun 2021 09:47:42 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-17-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-18-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Wphx9M9rz0GXn6OccVLJ2si4D6894xn4J"
+ boundary="CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Wphx9M9rz0GXn6OccVLJ2si4D6894xn4J
-Content-Type: multipart/mixed; boundary="Cycj0iVtsWnLMG0RxgfljiKjZKR0x4aZq";
+--CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F
+Content-Type: multipart/mixed; boundary="uG5lSYoGiII1zxLQSvRMGEDNZYlZ9b1NN";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <81ee4f02-8b22-3ed9-55e3-7af3a6ed795c@suse.com>
-Subject: Re: [PATCH v20210601 16/38] tools/guest: save: move guest_data array
+Message-ID: <3f3db866-3d91-093a-afad-509bc9299436@suse.com>
+Subject: Re: [PATCH v20210601 17/38] tools/guest: save: move local_pages array
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-17-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-17-olaf@aepfle.de>
+ <20210601161118.18986-18-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-18-olaf@aepfle.de>
 
---Cycj0iVtsWnLMG0RxgfljiKjZKR0x4aZq
+--uG5lSYoGiII1zxLQSvRMGEDNZYlZ9b1NN
 Content-Type: multipart/mixed;
- boundary="------------E583A82856C18751EFE1717B"
+ boundary="------------C509216F741D834FB445714B"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------E583A82856C18751EFE1717B
+--------------C509216F741D834FB445714B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> Remove allocation from hotpath, move guest_data array into preallocated=20
-space.
+> Remove allocation from hotpath, move local_pages array into preallocate=
+d space.
 >=20
-> Because this was allocated with calloc:
-> Adjust the loop to clear unused entries as needed.
+> Adjust the code to use the src page as is in case of HVM.
+> In case of PV the page may need to be normalised, use an private memory=
+
+> area for this purpose.
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
 
@@ -117,7 +119,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------E583A82856C18751EFE1717B
+--------------C509216F741D834FB445714B
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -209,25 +211,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------E583A82856C18751EFE1717B--
+--------------C509216F741D834FB445714B--
 
---Cycj0iVtsWnLMG0RxgfljiKjZKR0x4aZq--
+--uG5lSYoGiII1zxLQSvRMGEDNZYlZ9b1NN--
 
---Wphx9M9rz0GXn6OccVLJ2si4D6894xn4J
+--CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3NbAFAwAAAAAACgkQsN6d1ii/Ey8V
-mQf/YgKpPKnh96BRE/I2jDYrlcC82minDiNl2Oarg3D1QM7Ytiq2pDlQ3d9ANDntJhhJEisoCpgB
-7gOnQLhQEHD0wDOALNj9jYiVQrv49+leNBHWn5k+2YyFFjeeRrb+b0I1P3AIQcsMLkzHFstXJ0XG
-POlAF6KLfRgj6jSnThp+g78ABfmhrXr2W4SZz0evLUWvInUlfX8yGH3Q/wBL/oVgo0U3KTmIKsb2
-K4fxb0+ueEmr7VtfKlFxon9ncIyBzdABP+2PnBSpl6isZQs6GNczNRddBgul1AqV9r8zHJizgJ4J
-jgfBs+SiDbpmfRLiBJ2erhqDo9YosHqVrNyefxAaTQ==
-=PY+1
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3N58FAwAAAAAACgkQsN6d1ii/Ey/o
+7gf/aNS8QgU8qH9L7beks2Ie6kpMKWQhoaM5mHsI0mY7Hw5BpXn2PKUuxlLgwuRyUYNF4IwoRKY7
+ryFytFgHgK2swgyuKGcHL/BCJBvf5gZXl3LUQTE61kPiKC+dEpFXH3tIe/2e2LMxBiXv6ZYtz9i3
+DkguaD2y+300ENMogzTe19kxRANAExrYPOyi4popPSgLi8qJmlg4j2hJ4hbF2nrWgGIEUPFVLj4b
+bhyEQS7QCtciM/6n2Ub9avrw2VLClUKF4XYXYO98VJ9ZD37Pxs0TIr32Gw+EU0HTwXOWYTb52Rvy
+gOYaBCSJtL80/hCLAveOhNHTSWkg/uX4gAd30rRpww==
+=38DQ
 -----END PGP SIGNATURE-----
 
---Wphx9M9rz0GXn6OccVLJ2si4D6894xn4J--
+--CW55JAK8xu8dbaIJhIC44GiPMozkQ0u6F--
 
