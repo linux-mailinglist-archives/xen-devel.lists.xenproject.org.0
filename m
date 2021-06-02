@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43E0C398284
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:03:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135558.251897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1ED839827B
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:03:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135533.251812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKug-0002iW-3F; Wed, 02 Jun 2021 07:03:38 +0000
+	id 1loKuK-0007He-DU; Wed, 02 Jun 2021 07:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135558.251897; Wed, 02 Jun 2021 07:03:37 +0000
+Received: by outflank-mailman (output) from mailman id 135533.251812; Wed, 02 Jun 2021 07:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loKuf-0002Pv-D9; Wed, 02 Jun 2021 07:03:37 +0000
-Received: by outflank-mailman (input) for mailman id 135558;
- Wed, 02 Jun 2021 07:03:32 +0000
+	id 1loKuK-00078F-61; Wed, 02 Jun 2021 07:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 135533;
+ Wed, 02 Jun 2021 07:03:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PwRf=K4=bombadil.srs.infradead.org=batv+e38fb55258da4e18a096+6492+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1loKpj-0007A2-Az
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:58:31 +0000
+ id 1loKpo-0007A2-BA
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 06:58:36 +0000
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b141df7-66ac-474d-b20d-54e51929abcb;
- Wed, 02 Jun 2021 06:56:17 +0000 (UTC)
+ id 7bcd4f9d-4ff9-4974-b0a8-629787498a7d;
+ Wed, 02 Jun 2021 06:56:20 +0000 (UTC)
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1loKnA-0026PT-6J; Wed, 02 Jun 2021 06:55:53 +0000
+ id 1loKnE-0026TF-Pp; Wed, 02 Jun 2021 06:55:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b141df7-66ac-474d-b20d-54e51929abcb
+X-Inumbo-ID: 7bcd4f9d-4ff9-4974-b0a8-629787498a7d
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=3eCT5ADUsi1wXGQC5ROk8G/iPsdy5HF5nCZ/CzuEH9g=; b=CHpdvSdDQx2S7VBfw36yFJIOKW
-	u3raTq1dP6Gu10/PJ+IzNfdJsTGDfodiKpWnXSrAPsiiXAil4FixRR4LHQx/r2/2WajLehYqseurF
-	+SXOVenwMIEvShMpPI3TV0igiPSTDc1jus2MS134mkHJE4fSKWXJgTMpWUETOWUQR+sQvpcZNrvGr
-	ImONWbqeM3vG4waS2LyqljTVK2xihrO+4vFy94tUR5AZHm4zAb5VJXdTbeKyJ5b1ZyVapnUITJgc0
-	rAK1o1WbLZZ2lIkx0tqU86DqYL3xaSap2ZyjXquU1Hz/pJyGXKGtlKYDaGKwU57VNJwF/m1NojREe
-	Jk3wMbUQ==;
+	bh=t0ZfpA7/b1tuSB9Qdmm+6Pkt4GtuM/+pFYP7xY239G0=; b=uyZhEjeEW990KkF+Rai7xjxEUV
+	5bWN+uUzqHopzatrtAIE4foiriDdqCyVhGFR6vrU02JeY+SQh7ATWFUZXA3UpyDJcgDYSDLhQXP9V
+	RbuXa4k+DVNm7KNjqg4cbdIBM1Va/6aZbjJtQTnqImkNPJ0qKqmBir0MJFXK6gK5PvPfEwCxj1xmD
+	dJgu840EtdLj1HHThtV37MaOh3u42wXScgCL7y9GVONAhUdX9SrS6vntka8Pn6bww45YDmPKVYARg
+	M/UkenAPSpkgf5JK1kNXiSwoq6fWJ8kR9bHE+sA5X31QgA+XlZSlp6YoKzXnGG50xif3YpnMjuZQG
+	qCj5Hh3A==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -82,9 +82,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org,
 	linux-s390@vger.kernel.org
-Subject: [PATCH 26/30] ubi: use blk_mq_alloc_disk and blk_cleanup_disk
-Date: Wed,  2 Jun 2021 09:53:41 +0300
-Message-Id: <20210602065345.355274-27-hch@lst.de>
+Subject: [PATCH 27/30] scm_blk: use blk_mq_alloc_disk and blk_cleanup_disk
+Date: Wed,  2 Jun 2021 09:53:42 +0300
+Message-Id: <20210602065345.355274-28-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
@@ -97,131 +97,69 @@ request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/mtd/ubi/block.c | 68 ++++++++++++++++++-----------------------
- 1 file changed, 29 insertions(+), 39 deletions(-)
+ drivers/s390/block/scm_blk.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/mtd/ubi/block.c b/drivers/mtd/ubi/block.c
-index e1a2ae21dfd3..e003b4b44ffa 100644
---- a/drivers/mtd/ubi/block.c
-+++ b/drivers/mtd/ubi/block.c
-@@ -394,53 +394,46 @@ int ubiblock_create(struct ubi_volume_info *vi)
- 	dev->vol_id = vi->vol_id;
- 	dev->leb_size = vi->usable_leb_size;
+diff --git a/drivers/s390/block/scm_blk.c b/drivers/s390/block/scm_blk.c
+index a4f6f2e62b1d..88cba6212ee2 100644
+--- a/drivers/s390/block/scm_blk.c
++++ b/drivers/s390/block/scm_blk.c
+@@ -462,12 +462,12 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
+ 	if (ret)
+ 		goto out;
  
-+	dev->tag_set.ops = &ubiblock_mq_ops;
-+	dev->tag_set.queue_depth = 64;
-+	dev->tag_set.numa_node = NUMA_NO_NODE;
-+	dev->tag_set.flags = BLK_MQ_F_SHOULD_MERGE;
-+	dev->tag_set.cmd_size = sizeof(struct ubiblock_pdu);
-+	dev->tag_set.driver_data = dev;
-+	dev->tag_set.nr_hw_queues = 1;
-+
-+	ret = blk_mq_alloc_tag_set(&dev->tag_set);
-+	if (ret) {
-+		dev_err(disk_to_dev(dev->gd), "blk_mq_alloc_tag_set failed");
-+		goto out_free_dev;;
-+	}
-+
-+
- 	/* Initialize the gendisk of this ubiblock device */
--	gd = alloc_disk(1);
--	if (!gd) {
--		pr_err("UBI: block: alloc_disk failed\n");
--		ret = -ENODEV;
--		goto out_free_dev;
-+	gd = blk_mq_alloc_disk(&dev->tag_set, dev);
-+	if (IS_ERR(gd)) {
-+		ret = PTR_ERR(gd);
-+		goto out_free_tags;
+-	rq = blk_mq_init_queue(&bdev->tag_set);
+-	if (IS_ERR(rq)) {
+-		ret = PTR_ERR(rq);
++	bdev->gendisk = blk_mq_alloc_disk(&bdev->tag_set, scmdev);
++	if (IS_ERR(bdev->gendisk)) {
++		ret = PTR_ERR(bdev->gendisk);
+ 		goto out_tag;
  	}
+-	bdev->rq = rq;
++	rq = bdev->rq = bdev->gendisk->queue;
+ 	nr_max_blk = min(scmdev->nr_max_block,
+ 			 (unsigned int) (PAGE_SIZE / sizeof(struct aidaw)));
  
- 	gd->fops = &ubiblock_ops;
- 	gd->major = ubiblock_major;
-+	gd->minors = 1;
- 	gd->first_minor = idr_alloc(&ubiblock_minor_idr, dev, 0, 0, GFP_KERNEL);
- 	if (gd->first_minor < 0) {
- 		dev_err(disk_to_dev(gd),
- 			"block: dynamic minor allocation failed");
- 		ret = -ENODEV;
--		goto out_put_disk;
-+		goto out_cleanup_disk;
- 	}
- 	gd->private_data = dev;
- 	sprintf(gd->disk_name, "ubiblock%d_%d", dev->ubi_num, dev->vol_id);
- 	set_capacity(gd, disk_capacity);
- 	dev->gd = gd;
+@@ -477,17 +477,11 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
+ 	blk_queue_flag_set(QUEUE_FLAG_NONROT, rq);
+ 	blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, rq);
  
--	dev->tag_set.ops = &ubiblock_mq_ops;
--	dev->tag_set.queue_depth = 64;
--	dev->tag_set.numa_node = NUMA_NO_NODE;
--	dev->tag_set.flags = BLK_MQ_F_SHOULD_MERGE;
--	dev->tag_set.cmd_size = sizeof(struct ubiblock_pdu);
--	dev->tag_set.driver_data = dev;
--	dev->tag_set.nr_hw_queues = 1;
--
--	ret = blk_mq_alloc_tag_set(&dev->tag_set);
--	if (ret) {
--		dev_err(disk_to_dev(dev->gd), "blk_mq_alloc_tag_set failed");
--		goto out_remove_minor;
+-	bdev->gendisk = alloc_disk(SCM_NR_PARTS);
+-	if (!bdev->gendisk) {
+-		ret = -ENOMEM;
+-		goto out_queue;
 -	}
--
--	dev->rq = blk_mq_init_queue(&dev->tag_set);
--	if (IS_ERR(dev->rq)) {
--		dev_err(disk_to_dev(gd), "blk_mq_init_queue failed");
--		ret = PTR_ERR(dev->rq);
--		goto out_free_tags;
--	}
-+	dev->rq = gd->queue;
- 	blk_queue_max_segments(dev->rq, UBI_MAX_SG_COUNT);
+-	rq->queuedata = scmdev;
+ 	bdev->gendisk->private_data = scmdev;
+ 	bdev->gendisk->fops = &scm_blk_devops;
+-	bdev->gendisk->queue = rq;
+ 	bdev->gendisk->major = scm_major;
+ 	bdev->gendisk->first_minor = devindex * SCM_NR_PARTS;
++	bdev->gendisk->minors = SCM_NR_PARTS;
  
--	dev->rq->queuedata = dev;
--	dev->gd->queue = dev->rq;
--
- 	/*
- 	 * Create one workqueue per volume (per registered block device).
- 	 * Rembember workqueues are cheap, they're not threads.
-@@ -448,7 +441,7 @@ int ubiblock_create(struct ubi_volume_info *vi)
- 	dev->wq = alloc_workqueue("%s", 0, 0, gd->disk_name);
- 	if (!dev->wq) {
- 		ret = -ENOMEM;
--		goto out_free_queue;
-+		goto out_remove_minor;
- 	}
- 
- 	list_add_tail(&dev->list, &ubiblock_devices);
-@@ -460,14 +453,12 @@ int ubiblock_create(struct ubi_volume_info *vi)
- 	mutex_unlock(&devices_mutex);
+ 	len = snprintf(bdev->gendisk->disk_name, DISK_NAME_LEN, "scm");
+ 	if (devindex > 25) {
+@@ -504,8 +498,6 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
+ 	device_add_disk(&scmdev->dev, bdev->gendisk, NULL);
  	return 0;
  
--out_free_queue:
--	blk_cleanup_queue(dev->rq);
--out_free_tags:
--	blk_mq_free_tag_set(&dev->tag_set);
- out_remove_minor:
- 	idr_remove(&ubiblock_minor_idr, gd->first_minor);
--out_put_disk:
--	put_disk(dev->gd);
-+out_cleanup_disk:
-+	blk_cleanup_disk(dev->gd);
-+out_free_tags:
-+	blk_mq_free_tag_set(&dev->tag_set);
- out_free_dev:
- 	kfree(dev);
- out_unlock:
-@@ -483,11 +474,10 @@ static void ubiblock_cleanup(struct ubiblock *dev)
- 	/* Flush pending work */
- 	destroy_workqueue(dev->wq);
- 	/* Finally destroy the blk queue */
--	blk_cleanup_queue(dev->rq);
--	blk_mq_free_tag_set(&dev->tag_set);
- 	dev_info(disk_to_dev(dev->gd), "released");
-+	blk_cleanup_disk(dev->gd);
-+	blk_mq_free_tag_set(&dev->tag_set);
- 	idr_remove(&ubiblock_minor_idr, dev->gd->first_minor);
--	put_disk(dev->gd);
+-out_queue:
+-	blk_cleanup_queue(rq);
+ out_tag:
+ 	blk_mq_free_tag_set(&bdev->tag_set);
+ out:
+@@ -516,9 +508,8 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
+ void scm_blk_dev_cleanup(struct scm_blk_dev *bdev)
+ {
+ 	del_gendisk(bdev->gendisk);
+-	blk_cleanup_queue(bdev->gendisk->queue);
++	blk_cleanup_disk(bdev->gendisk);
+ 	blk_mq_free_tag_set(&bdev->tag_set);
+-	put_disk(bdev->gendisk);
  }
  
- int ubiblock_remove(struct ubi_volume_info *vi)
+ void scm_blk_set_available(struct scm_blk_dev *bdev)
 -- 
 2.30.2
 
