@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E0043982B8
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:11:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.135648.252012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05ACE3982F8
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 09:29:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.135741.252023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loL1c-0004Ms-Ej; Wed, 02 Jun 2021 07:10:48 +0000
+	id 1loLJQ-0006R3-1J; Wed, 02 Jun 2021 07:29:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 135648.252012; Wed, 02 Jun 2021 07:10:48 +0000
+Received: by outflank-mailman (output) from mailman id 135741.252023; Wed, 02 Jun 2021 07:29:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loL1c-0004Jj-Aa; Wed, 02 Jun 2021 07:10:48 +0000
-Received: by outflank-mailman (input) for mailman id 135648;
- Wed, 02 Jun 2021 07:10:46 +0000
+	id 1loLJP-0006P8-Sj; Wed, 02 Jun 2021 07:29:11 +0000
+Received: by outflank-mailman (input) for mailman id 135741;
+ Wed, 02 Jun 2021 07:29:10 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loL1a-0004Jb-LL
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:10:46 +0000
+ id 1loLJO-0006P2-FD
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 07:29:10 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 38b574fb-e25a-4ffc-8cc7-bb2fe9e2a211;
- Wed, 02 Jun 2021 07:10:45 +0000 (UTC)
+ id 5f531261-5557-4ba5-8ef4-ff52e3267927;
+ Wed, 02 Jun 2021 07:29:09 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1BB372193C;
- Wed,  2 Jun 2021 07:10:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CE18E2193F;
+ Wed,  2 Jun 2021 07:29:08 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id E7BCA118DD;
- Wed,  2 Jun 2021 07:10:44 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id A0EB7118DD;
+ Wed,  2 Jun 2021 07:29:08 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id ihBuN/Qut2AcVwAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:10:44 +0000
+ id oMt2JUQzt2CWXwAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 07:29:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,173 +47,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38b574fb-e25a-4ffc-8cc7-bb2fe9e2a211
+X-Inumbo-ID: 5f531261-5557-4ba5-8ef4-ff52e3267927
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622617845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622618948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TjiqP1jUYF7noSIyoNCVoo2cMfZMos2Hqwbp8cguD/A=;
-	b=ov647Dg8ErFWpOxffjDEcWpuWN/sXYRYrS+6U+Kg245m61WkwZ9AeVa6Ms1eU3aOIAPp7d
-	9wIGrMqeK7jZtNvM95i2cjlmqQDF95QDHaKy+4Hkqn/y11thKwK8mmRhH0LZpxTSQ2v6gY
-	0exXJWccNepoCdT/xqjcPltQimBQUSo=
+	bh=FRD2XSEoIRBPaIpNSoD14mHiI1NyAveNGfuhrUEYhx4=;
+	b=ug8i7Yrwy5OO1w6bBX3V2SEnJ41Lhf3Prl1Kd1opPh5UVq9XFmqvOrq1kYSjmzICEgdR+6
+	B3g6eODzk9nH1qvgdbi/5HXfCTnkkRPil+L+JXGo9LgRoet/V9B2gUEOLgSMEScTQDZqA/
+	5cQt/1bOByE9T7xyTP+ocspaWvH+lzc=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622617845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1622618948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TjiqP1jUYF7noSIyoNCVoo2cMfZMos2Hqwbp8cguD/A=;
-	b=ov647Dg8ErFWpOxffjDEcWpuWN/sXYRYrS+6U+Kg245m61WkwZ9AeVa6Ms1eU3aOIAPp7d
-	9wIGrMqeK7jZtNvM95i2cjlmqQDF95QDHaKy+4Hkqn/y11thKwK8mmRhH0LZpxTSQ2v6gY
-	0exXJWccNepoCdT/xqjcPltQimBQUSo=
+	bh=FRD2XSEoIRBPaIpNSoD14mHiI1NyAveNGfuhrUEYhx4=;
+	b=ug8i7Yrwy5OO1w6bBX3V2SEnJ41Lhf3Prl1Kd1opPh5UVq9XFmqvOrq1kYSjmzICEgdR+6
+	B3g6eODzk9nH1qvgdbi/5HXfCTnkkRPil+L+JXGo9LgRoet/V9B2gUEOLgSMEScTQDZqA/
+	5cQt/1bOByE9T7xyTP+ocspaWvH+lzc=
+Subject: Re: [PATCH v20210601 09/38] tools/guest: prepare to allocate arrays
+ once
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-9-olaf@aepfle.de>
+ <20210601161118.18986-10-olaf@aepfle.de>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v20210601 08/38] tools: show migration transfer rate in
- send_dirty_pages
-Message-ID: <42844bc5-da7e-5f6d-1ce0-1ef9e0f9dea6@suse.com>
-Date: Wed, 2 Jun 2021 09:10:44 +0200
+Message-ID: <531fe9c5-aa7f-be99-5d78-85d817139740@suse.com>
+Date: Wed, 2 Jun 2021 09:29:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210601161118.18986-9-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-10-olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="BrqMiSmemi6ydmvK1ilhFR5iHXrP0A4Bg"
+ boundary="JqP2WOeWoCsDjk8z2fkuxqrRLUO30Vxw6"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---BrqMiSmemi6ydmvK1ilhFR5iHXrP0A4Bg
-Content-Type: multipart/mixed; boundary="qCTocIMJRmox1xkeEyqFvBeyqPkP4wbVr";
+--JqP2WOeWoCsDjk8z2fkuxqrRLUO30Vxw6
+Content-Type: multipart/mixed; boundary="qLZB84n6oGtax1FIWe3B9RAaR711kfo6I";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <42844bc5-da7e-5f6d-1ce0-1ef9e0f9dea6@suse.com>
-Subject: Re: [PATCH v20210601 08/38] tools: show migration transfer rate in
- send_dirty_pages
+Message-ID: <531fe9c5-aa7f-be99-5d78-85d817139740@suse.com>
+Subject: Re: [PATCH v20210601 09/38] tools/guest: prepare to allocate arrays
+ once
 References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-9-olaf@aepfle.de>
-In-Reply-To: <20210601161118.18986-9-olaf@aepfle.de>
+ <20210601161118.18986-10-olaf@aepfle.de>
+In-Reply-To: <20210601161118.18986-10-olaf@aepfle.de>
 
---qCTocIMJRmox1xkeEyqFvBeyqPkP4wbVr
+--qLZB84n6oGtax1FIWe3B9RAaR711kfo6I
 Content-Type: multipart/mixed;
- boundary="------------C0C7F94365622C72118C79DD"
+ boundary="------------9D97CCAD5EAE646C653D930B"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C0C7F94365622C72118C79DD
+--------------9D97CCAD5EAE646C653D930B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 01.06.21 18:10, Olaf Hering wrote:
-> Show how fast domU pages are transferred in each iteration.
+> The hotpath 'send_dirty_pages' is supposed to do just one thing: sendin=
+g.
+> The other end 'handle_page_data' is supposed to do just receiving.
 >=20
-> The relevant data is how fast the pfns travel, not so much how much
-> protocol overhead exists. So the reported MiB/sec is just for pfns.
+> But instead both do other costly work like memory allocations and data =
+moving.
+> Do the allocations once, the array sizes are a compiletime constant.
+> Avoid unneeded copying of data by receiving data directly into mapped g=
+uest memory.
+>=20
+> This patch is just prepartion, subsequent changes will populate the arr=
+ays.
+>=20
+> Once all changes are applied, migration of a busy HVM domU changes like=20
+that:
+>=20
+> Without this series, from sr650 to sr950 (xen-4.15.20201027T173911.16a2=
+0963b3 xen_testing):
+> 2020-10-29 10:23:10.711+0000: xc: show_transfer_rate: 23663128 bytes + =
+2879563 pages in 55.324905335 sec, 203 MiB/sec: Internal error
+> 2020-10-29 10:23:35.115+0000: xc: show_transfer_rate: 16829632 bytes + =
+2097552 pages in 24.401179720 sec, 335 MiB/sec: Internal error
+> 2020-10-29 10:23:59.436+0000: xc: show_transfer_rate: 16829032 bytes + =
+2097478 pages in 24.319025928 sec, 336 MiB/sec: Internal error
+> 2020-10-29 10:24:23.844+0000: xc: show_transfer_rate: 16829024 bytes + =
+2097477 pages in 24.406992500 sec, 335 MiB/sec: Internal error
+> 2020-10-29 10:24:48.292+0000: xc: show_transfer_rate: 16828912 bytes + =
+2097463 pages in 24.446489027 sec, 335 MiB/sec: Internal error
+> 2020-10-29 10:25:01.816+0000: xc: show_transfer_rate: 16836080 bytes + =
+2098356 pages in 13.447091818 sec, 609 MiB/sec: Internal error
+>=20
+> With this series, from sr650 to sr950 (xen-4.15.20201027T173911.16a2096=
+3b3 xen_unstable):
+> 2020-10-28 21:26:05.074+0000: xc: show_transfer_rate: 23663128 bytes + =
+2879563 pages in 52.564054368 sec, 213 MiB/sec: Internal error
+> 2020-10-28 21:26:23.527+0000: xc: show_transfer_rate: 16830040 bytes + =
+2097603 pages in 18.450592015 sec, 444 MiB/sec: Internal error
+> 2020-10-28 21:26:41.926+0000: xc: show_transfer_rate: 16830944 bytes + =
+2097717 pages in 18.397862306 sec, 445 MiB/sec: Internal error
+> 2020-10-28 21:27:00.339+0000: xc: show_transfer_rate: 16829176 bytes + =
+2097498 pages in 18.411973339 sec, 445 MiB/sec: Internal error
+> 2020-10-28 21:27:18.643+0000: xc: show_transfer_rate: 16828592 bytes + =
+2097425 pages in 18.303326695 sec, 447 MiB/sec: Internal error
+> 2020-10-28 21:27:26.289+0000: xc: show_transfer_rate: 16835952 bytes + =
+2098342 pages in 7.579846749 sec, 1081 MiB/sec: Internal error
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
 > ---
->   tools/libs/saverestore/common.h |  2 ++
->   tools/libs/saverestore/save.c   | 47 ++++++++++++++++++++++++++++++++=
-+
->   2 files changed, 49 insertions(+)
+>   tools/libs/saverestore/common.h  | 8 ++++++++
+>   tools/libs/saverestore/restore.c | 8 ++++++++
+>   tools/libs/saverestore/save.c    | 4 +++-
+>   3 files changed, 19 insertions(+), 1 deletion(-)
 >=20
 > diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/c=
 ommon.h
-> index 50a8479d39..f5fe23caad 100644
+> index f5fe23caad..80b2e878aa 100644
 > --- a/tools/libs/saverestore/common.h
 > +++ b/tools/libs/saverestore/common.h
-> @@ -250,6 +250,8 @@ struct xc_sr_context
->               bool debug;
->  =20
->               unsigned long p2m_size;
-> +            size_t pages_sent;
-> +            size_t overhead_sent;
->  =20
->               struct precopy_stats stats;
->  =20
-> diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/sav=
-e.c
-> index bcff2d28f5..760ca04a84 100644
-> --- a/tools/libs/saverestore/save.c
-> +++ b/tools/libs/saverestore/save.c
-> @@ -1,5 +1,6 @@
->   #include <assert.h>
->   #include <arpa/inet.h>
-> +#include <time.h>
->  =20
->   #include "common.h"
->  =20
-> @@ -238,6 +239,8 @@ static int write_batch(struct xc_sr_context *ctx)
->       iov[3].iov_len =3D nr_pfns * sizeof(*rec_pfns);
->  =20
->       iovcnt =3D 4;
-> +    ctx->save.pages_sent +=3D nr_pages;
-> +    ctx->save.overhead_sent +=3D sizeof(rec) + sizeof(hdr) + nr_pfns *=20
-sizeof(*rec_pfns);
->  =20
->       if ( nr_pages )
->       {
-> @@ -357,6 +360,43 @@ static int suspend_domain(struct xc_sr_context *ct=
-x)
+> @@ -223,6 +223,12 @@ static inline int update_blob(struct xc_sr_blob *b=
+lob,
 >       return 0;
 >   }
 >  =20
-> +static void show_transfer_rate(struct xc_sr_context *ctx, struct times=
-pec *start)
-> +{
-> +    xc_interface *xch =3D ctx->xch;
-> +    struct timespec end =3D {}, diff =3D {};
-> +    size_t ms, MiB_sec =3D ctx->save.pages_sent * PAGE_SIZE;
+> +struct xc_sr_save_arrays {
+> +};
+> +
+> +struct xc_sr_restore_arrays {
+> +};
 
-I'd rather not initialize MiB_sec here ...
+Can you please add the mfns/pfns arrays to above types, as ...
 
 > +
-> +    if (!MiB_sec)
+>   struct xc_sr_context
+>   {
+>       xc_interface *xch;
+> @@ -260,6 +266,7 @@ struct xc_sr_context
+>               unsigned long *deferred_pages;
+>               unsigned long nr_deferred_pages;
+>               xc_hypercall_buffer_t dirty_bitmap_hbuf;
+> +            struct xc_sr_save_arrays *m;
+>           } save;
+>  =20
+>           struct /* Restore data. */
+> @@ -311,6 +318,7 @@ struct xc_sr_context
+>  =20
+>               /* Sender has invoked verify mode on the stream. */
+>               bool verify;
+> +            struct xc_sr_restore_arrays *m;
+>           } restore;
+>       };
+>  =20
+> diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/=
+restore.c
+> index 700f9e74b5..a6cf9ee41c 100644
+> --- a/tools/libs/saverestore/restore.c
+> +++ b/tools/libs/saverestore/restore.c
+> @@ -739,6 +739,13 @@ static int setup(struct xc_sr_context *ctx)
+>       }
+>       ctx->restore.allocated_rec_num =3D DEFAULT_BUF_RECORDS;
+>  =20
+> +    ctx->restore.m =3D malloc(sizeof(*ctx->restore.m));
+> +    if ( !ctx->restore.m ) {
 
-=2E.. and test for ctx->save.pages_sent to be non-zero here.
-
-> +        return;
-> +
-> +    if ( clock_gettime(CLOCK_MONOTONIC, &end) )
-> +        PERROR("clock_gettime");
-> +
-> +    if ( (end.tv_nsec - start->tv_nsec) < 0 )
-> +    {
-> +        diff.tv_sec =3D end.tv_sec - start->tv_sec - 1;
-> +        diff.tv_nsec =3D end.tv_nsec - start->tv_nsec + (1000U*1000U*1=
-000U);
-> +    }
-> +    else
-> +    {
-> +        diff.tv_sec =3D end.tv_sec - start->tv_sec;
-> +        diff.tv_nsec =3D end.tv_nsec - start->tv_nsec;
-> +    }
-> +
-> +    ms =3D (diff.tv_nsec / (1000U*1000U));
-> +    if (!ms)
-> +        ms =3D 1;
-
-I'd move this ...
-
-> +    ms +=3D (diff.tv_sec * 1000U);
-
-=2E.. below this.
-
-> +
-> +    MiB_sec *=3D 1000U;
-> +    MiB_sec /=3D ms;
-> +    MiB_sec /=3D 1024U*1024U;
-
-Avoid MiB_sec holding bytes per second for some time and use:
-
-MiB_sec =3D ((ctx->save.pages_sent * PAGE_SIZE * 1000) / ms) /
-           (1024U * 1024U);
+=2E.. this case might trigger without the full series applied, due to
+allocating zero bytes (same for the save side below).
 
 
 Juergen
 
---------------C0C7F94365622C72118C79DD
+--------------9D97CCAD5EAE646C653D930B
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -305,25 +307,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C0C7F94365622C72118C79DD--
+--------------9D97CCAD5EAE646C653D930B--
 
---qCTocIMJRmox1xkeEyqFvBeyqPkP4wbVr--
+--qLZB84n6oGtax1FIWe3B9RAaR711kfo6I--
 
---BrqMiSmemi6ydmvK1ilhFR5iHXrP0A4Bg
+--JqP2WOeWoCsDjk8z2fkuxqrRLUO30Vxw6
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3LvQFAwAAAAAACgkQsN6d1ii/Ey9M
-7Af/WmegSfoqj9LzE0QPJyxfObkyDUezBeB962Fub1lU8+Ra1K/mlMUhKkm5+fYJ17GhFdgvmP+R
-pzJ9bhFUZQCyzQD70vlcSJm9AuLC9cIYFTFQe9ym2Q0cn2nFX/tF3i+YugC7cJBiR65lgkPNVTQs
-IzD8tqrWZxCGKmekJdJ9bDeWzYOJJt2W5KvX1WABi+VgR+4918O08VvVugfLucRVrjv9TY0uc6ww
-3N2+V1ncSV1OeIdgicjQIsuBqRFLCU2+dRC9YGr8INfj6K+JjpqUUiOhCwt7ooeWwSJYb/KJWGLM
-qB4pVIUU6sDwGMsHBofYxTHlvevwdWFKvhPLgEesdg==
-=mb6b
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3M0QFAwAAAAAACgkQsN6d1ii/Ey+c
+FQgAiPxvE4C15MXruAvM6L9L9ZB04tKiJN5vtS7oKmVFcstcM6VE9zZsuodiwqkvTeAnTGbzhWcs
+PTryaG6cJ5eJHRBy5m0qC3/bPAfRZJK2PWpGdsdZYde7IvRnilNi2h067LuSdX5sw9KUizdS452b
+eEgNf2UiGe/muhop7kE2VEzbJAWMoGdPJ8ctTdKZ3Tm9nQZSlZ9pdlH9H+e0AtVyGZlCmEy6vvaK
+7p4W59wTq+PNSB9qQWQA1ioltRpvaRHuhmM2OfPBuqfsOBNv6N2TMRrPgMJUjQLt4xiAD0gYv9TE
+n5IGSr0D2zgqnteJOgiAwQpFbO9R1G3+yQfN0q9u+Q==
+=K0gl
 -----END PGP SIGNATURE-----
 
---BrqMiSmemi6ydmvK1ilhFR5iHXrP0A4Bg--
+--JqP2WOeWoCsDjk8z2fkuxqrRLUO30Vxw6--
 
