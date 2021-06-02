@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 894F1398E4A
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 17:19:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136109.252592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A36398DC9
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jun 2021 17:03:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136069.252470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loSdv-0007Kv-4i; Wed, 02 Jun 2021 15:18:51 +0000
+	id 1loSNY-00010z-4z; Wed, 02 Jun 2021 15:01:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136109.252592; Wed, 02 Jun 2021 15:18:51 +0000
+Received: by outflank-mailman (output) from mailman id 136069.252470; Wed, 02 Jun 2021 15:01:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1loSdu-0007Hy-SD; Wed, 02 Jun 2021 15:18:50 +0000
-Received: by outflank-mailman (input) for mailman id 136109;
- Wed, 02 Jun 2021 15:18:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q/fn=K4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1loSds-0004jV-HM
- for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 15:18:48 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c8e6fa52-9500-49dc-af38-aa66c03b5315;
- Wed, 02 Jun 2021 15:18:31 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 39C8A1FE26;
- Wed,  2 Jun 2021 15:18:30 +0000 (UTC)
-Received: by imap.suse.de (Postfix, from userid 51)
- id 3019A11CD5; Wed,  2 Jun 2021 16:06:26 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 43A3A11EA9;
- Wed,  2 Jun 2021 13:48:36 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 1948DzSMt2CHUAAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 02 Jun 2021 13:48:36 +0000
+	id 1loSNY-0000y5-1x; Wed, 02 Jun 2021 15:01:56 +0000
+Received: by outflank-mailman (input) for mailman id 136069;
+ Wed, 02 Jun 2021 15:01:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YErV=K4=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1loSNV-0000xu-PQ
+ for xen-devel@lists.xenproject.org; Wed, 02 Jun 2021 15:01:53 +0000
+Received: from mail-pf1-x42d.google.com (unknown [2607:f8b0:4864:20::42d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9ddd2621-d8e2-4a24-a7e6-b5585cf0f7e6;
+ Wed, 02 Jun 2021 15:01:53 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id t28so2382960pfg.10
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jun 2021 08:01:53 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
+ by smtp.gmail.com with ESMTPSA id
+ y13sm97917pgp.16.2021.06.02.08.01.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Jun 2021 08:01:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,194 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8e6fa52-9500-49dc-af38-aa66c03b5315
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622647110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D65dpeEgcvshZPY6JSFiSgrHsN2KCrew/EttgjaOezE=;
-	b=PKZ547hI4tyzNwF5/ioezn+9zgFJ3mwfGKzjRVDZEP9dAuhhSz3DHo8e6g7sUxzsBdBZ6M
-	J5CsPwYNWG9IiGEJww1idvRA7meKbDUMIhNGzK0Fs9t/kqDdUkhozk9K8A4Tn70XKvdOUO
-	iF9LhmcqmQYlNsEa+NRJ80zt0IKG4Pg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1622641716; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D65dpeEgcvshZPY6JSFiSgrHsN2KCrew/EttgjaOezE=;
-	b=Xf1y7LK2U3aNSSkECbjoWl4JwYVFqUOMgq4ms1i7f9s1ny6pqrIlAuD3xLx61gIpsGlyEk
-	52B1smfa05IIFqygydKsM0O93/QUyQmGID1lgOfgLsFhJI/piPLx0R1GZp/KwQVa8CaFX3
-	PlESGLFAhKlmDSYRtIaiSZkR4zgG7g4=
-Subject: Re: [PATCH v20210602 02/38] xl: fix description of migrate --debug
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-3-olaf@aepfle.de>
- <20210602143215.3a0cb971.olaf@aepfle.de>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <91cf7800-76f9-245d-b0a0-9c0fe3bf1a02@suse.com>
-Date: Wed, 2 Jun 2021 15:48:35 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 9ddd2621-d8e2-4a24-a7e6-b5585cf0f7e6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=+az3hl/4w22b3I/rRlTcQ1/sSF9KD2GATy/NbYn2SjU=;
+        b=LFh9HsM5N4yAOGzJ85RpIVWyAjUPznHirCf8/j7G4yx59JLH20/Uh4u7wbdu1FOv1R
+         BMS/VcyQyPaNyIBLyV79xaZ6CaUNzIjmBxRj8Fe+1khO8KcH3zpgVSaCPqyrS/mPSxUA
+         SxH1O0RaYnJym4R1ouc54zGTJI9ko785LbI0cE/6JrbOl++1vJMUiWvQ+YxS/x02SX1A
+         GtQ9eZiWdQ81n3fEqhZUgWSVZqHZymyGyts8taigNA7xByYUg2QhaEC1Sqw034dlDQ+n
+         EaQjVI9wbITemQxMjxw+B5xkVM7JxSTIPhVvW43gJtVIEw3fB0lKjLuGjHRyUK5Iy7k4
+         pXzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=+az3hl/4w22b3I/rRlTcQ1/sSF9KD2GATy/NbYn2SjU=;
+        b=CANYxXmLwiZDJ3CvK+FL06c+P1fQ38CmAtBU++onn/lGdP2cgz95BeI+zyxXrQBOis
+         3ZGnJz7Aby8HmoNDbhDP23znSabB2qh0p4RMGfDp6Z6h8iEtTkCyxDCpxo6EUaYBvfsk
+         ZGhqv47doC3EeIdrvh4X1dunluazeZCexdaY8TbkKGb78KpjM2hDfp43f8wHZjmIDGxS
+         8TzDeSCcv+uOxY6VRaDhC8yj8Lm8+ga39VlEwXntZ0+RmxXlM9Bne64OMDKzCTNuGipz
+         aK0XJPpl3ZgCAXHo9KiUNIxjMnkzopgR0x653luPmXaFgk7GBrJNCH6eqsfoI9iXVP6e
+         gM3Q==
+X-Gm-Message-State: AOAM531hMKJuwTWw36qdvCmgqam5dKjbOHOqWzwDBRE8e4S0Hr8tz7Cn
+	dXBiDrtzsJE5Vuo5r2unNUc=
+X-Google-Smtp-Source: ABdhPJztpeXS5x/Q7Ocwttmq+13ab9HvNAwDx8hEcPtnl/lWI6mAldnzn4lX5IPnQcCsuOUMA5JO9w==
+X-Received: by 2002:a62:4e96:0:b029:2ea:2244:5e31 with SMTP id c144-20020a624e960000b02902ea22445e31mr3354423pfb.43.1622646112263;
+        Wed, 02 Jun 2021 08:01:52 -0700 (PDT)
+Subject: Re: [RFC PATCH V3 09/11] HV/IOMMU: Enable swiotlb bounce buffer for
+ Isolation VM
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, kys@microsoft.com,
+ haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ x86@kernel.org, hpa@zytor.com, arnd@arndb.de, dave.hansen@linux.intel.com,
+ luto@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
+ kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
+ cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
+ Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, hch@lst.de,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, jgross@suse.com,
+ sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
+ xen-devel@lists.xenproject.org, davem@davemloft.net, kuba@kernel.org,
+ jejb@linux.ibm.com, martin.petersen@oracle.com
+Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
+ thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
+References: <20210530150628.2063957-1-ltykernel@gmail.com>
+ <20210530150628.2063957-10-ltykernel@gmail.com>
+ <9488c114-81ad-eb67-79c0-5ed319703d3e@oracle.com>
+From: Tianyu Lan <ltykernel@gmail.com>
+Message-ID: <a023ee3f-ce85-b54f-79c3-146926bf3279@gmail.com>
+Date: Wed, 2 Jun 2021 23:01:36 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <20210602143215.3a0cb971.olaf@aepfle.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="wke2dD5zmEQ8GMehUaOe8Sn7Ts71OzDSo"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---wke2dD5zmEQ8GMehUaOe8Sn7Ts71OzDSo
-Content-Type: multipart/mixed; boundary="xPy1LWsPMLA4hsPlCxw6siZ9rz1mrLxHm";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <91cf7800-76f9-245d-b0a0-9c0fe3bf1a02@suse.com>
-Subject: Re: [PATCH v20210602 02/38] xl: fix description of migrate --debug
-References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-3-olaf@aepfle.de>
- <20210602143215.3a0cb971.olaf@aepfle.de>
-In-Reply-To: <20210602143215.3a0cb971.olaf@aepfle.de>
-
---xPy1LWsPMLA4hsPlCxw6siZ9rz1mrLxHm
-Content-Type: multipart/mixed;
- boundary="------------7C7FED5B6629F9435C906E8B"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------7C7FED5B6629F9435C906E8B
+In-Reply-To: <9488c114-81ad-eb67-79c0-5ed319703d3e@oracle.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 02.06.21 14:32, Olaf Hering wrote:
-> xl migrate --debug used to track every pfn in every batch of pages.
-> But these times are gone. The code in xc_domain_save is the consumer
-> of this knob, but it considers it only for the remus and colo case.
->=20
-> Adjust the help text to tell what --debug does today: Nothing.
->=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
->=20
-> v02:
-> - the option has no effect anymore
+Hi Boris:
+	Thanks for your review.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+On 6/2/2021 9:16 AM, Boris Ostrovsky wrote:
+> 
+> On 5/30/21 11:06 AM, Tianyu Lan wrote:
+>> @@ -91,6 +92,6 @@ int pci_xen_swiotlb_init_late(void)
+>>   EXPORT_SYMBOL_GPL(pci_xen_swiotlb_init_late);
+>>   
+>>   IOMMU_INIT_FINISH(2,
+>> -		  NULL,
+>> +		  hyperv_swiotlb_detect,
+>>   		  pci_xen_swiotlb_init,
+>>   		  NULL);
+> 
+> 
+> Could you explain this change?
 
-
-Juergen
-
---------------7C7FED5B6629F9435C906E8B
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------7C7FED5B6629F9435C906E8B--
-
---xPy1LWsPMLA4hsPlCxw6siZ9rz1mrLxHm--
-
---wke2dD5zmEQ8GMehUaOe8Sn7Ts71OzDSo
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC3jDMFAwAAAAAACgkQsN6d1ii/Ey98
-jggAkwsh9HvGSm/pxkKUd2AvYJwv8ig0kFSnNpZMlfQDanEQQuPr4i3rXOgvxQ048FFVJuhRNOFs
-ZldUGM1DDEAbZeYPLKdqVcVsa9pI1EG5Nd3hFVwMMon0RYEu3FpLoCb8ZxivLDYcH2C7rx3kw7I6
-8ZxK4sYmT2/ERm84v2jGtYK+Z5FgFksf2NS6soqbFIw0xl4Q1rSf/wbPWSTU0R9AGorh2TsF5tCD
-s4PLtZdV6YbWRgoUuF/DS3K+cxmNf3i5QXOiQBdPPzZdtUYd5w2uJ3GsrGoF71fIq6t5qEtG+a42
-ZIIh+jcoDB0GeQGqdGJiCdp36xI4CBCjsAb7gSqCQg==
-=97dm
------END PGP SIGNATURE-----
-
---wke2dD5zmEQ8GMehUaOe8Sn7Ts71OzDSo--
+Hyper-V allocates its own swiotlb bounce buffer and the default
+swiotlb buffer should not be allocated. swiotlb_init() in 
+pci_swiotlb_init() is to allocate default swiotlb buffer.
+To achieve this, put hyperv_swiotlb_detect() as the first entry in the 
+iommu_table_entry list. The detect loop in the pci_iommu_alloc() will 
+exit once hyperv_swiotlb_detect() is called in Hyper-V VM and other 
+iommu_table_entry callback will not be called.
 
