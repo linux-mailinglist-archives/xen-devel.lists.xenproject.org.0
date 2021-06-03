@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C5E539A1D3
+	by mail.lfdr.de (Postfix) with ESMTPS id 11DC539A1D2
 	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 15:08:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136440.252969 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.136441.252979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lon4y-0008Nv-4p; Thu, 03 Jun 2021 13:08:08 +0000
+	id 1lon5E-0000IA-EM; Thu, 03 Jun 2021 13:08:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136440.252969; Thu, 03 Jun 2021 13:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 136441.252979; Thu, 03 Jun 2021 13:08:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lon4y-0008LF-1t; Thu, 03 Jun 2021 13:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 136440;
- Thu, 03 Jun 2021 13:08:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lon5E-0000F4-AH; Thu, 03 Jun 2021 13:08:24 +0000
+Received: by outflank-mailman (input) for mailman id 136441;
+ Thu, 03 Jun 2021 13:08:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+9Ry=K5=xen.org=tim@srs-us1.protection.inumbo.net>)
- id 1lon4w-0008L9-G7
- for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 13:08:06 +0000
-Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c2e19d8-ab45-4635-b1a6-3c4acdb313be;
- Thu, 03 Jun 2021 13:08:05 +0000 (UTC)
-Received: from tjd by deinos.phlegethon.org with local (Exim 4.94.2 (FreeBSD))
- (envelope-from <tim@xen.org>)
- id 1lon4t-000MAN-7P; Thu, 03 Jun 2021 13:08:03 +0000
+ (envelope-from <julien@xen.org>) id 1lon5D-0000Er-K7
+ for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 13:08:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lon5C-00067e-Im; Thu, 03 Jun 2021 13:08:22 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lon5C-0004fe-DC; Thu, 03 Jun 2021 13:08:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,49 +39,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c2e19d8-ab45-4635-b1a6-3c4acdb313be
-Date: Thu, 3 Jun 2021 14:08:03 +0100
-From: Tim Deegan <tim@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>
-Subject: [PATCH] MAINTAINERS: adjust x86/mm/shadow maintainers
-Message-ID: <YLjUM0Dzqn0lWA0l@deinos.phlegethon.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=V/LOvSacPDdqLtqOw2ZfOKCaQmjRpIiS9k1Q71jKtt4=; b=54WZDv6fi7pkGFrXvFeXg7yVbt
+	3xL+WPLBmeyC29ndDdCB4KDEUC+pp765HipK7kQXrK34CrwNFzoviffsXnKWOlS5at3sOqiaDB0L8
+	/FpBHZvCZHhOG42D1cXKVJIKz93lD1W0zFFj2FI4fcDwaOuKJmXPVyVHNzDecr/Fbbz0=;
+Subject: Re: [XEN PATCH v2] libxl/arm: provide guests with random seed
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+References: <20210527085233.69917-1-Sergiy_Kibrik@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <78b26e15-a3ca-e218-9afa-9f443e234260@xen.org>
+Date: Thu, 3 Jun 2021 14:08:20 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-X-SA-Known-Good: Yes
-X-SA-Exim-Connect-IP: <locally generated>
-X-SA-Exim-Mail-From: tim@xen.org
-X-SA-Exim-Scanned: No (on deinos.phlegethon.org); SAEximRunCond expanded to false
+In-Reply-To: <20210527085233.69917-1-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Better reflect reality: Andrew and Jan are active maintainers
-and I review patches.  Keep myself as a reviewer so I can help
-with historical context &c.
+Hi,
 
-Signed-off-by: Tim Deegan <tim@xen.org>
----
- MAINTAINERS | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+On 27/05/2021 09:52, Sergiy Kibrik wrote:
+> Pass 128 bytes of random seed via FDT, so that guests' CRNGs are better seeded
+> early at boot. This is larger than ChaCha20 key size of 32, so each byte of
+> CRNG state will be mixed 4 times using this seed. There does not seem to be
+> advantage in larger seed though.
+> 
+> Depending on its configuration Linux can use the seed as device randomness
+> or to just quickly initialize CRNG.
+> In either case this will provide extra randomness to further harden CRNG.
+> 
+> CC: Julien Grall <julien@xen.org>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-diff --git MAINTAINERS MAINTAINERS
-index d46b08a0d2..09a92534bf 100644
---- MAINTAINERS
-+++ MAINTAINERS
-@@ -591,7 +591,9 @@ F:	xen/arch/x86/mm/mem_sharing.c
- F:	tools/tests/mem-sharing/
- 
- X86 SHADOW PAGETABLES
--M:	Tim Deegan <tim@xen.org>
-+M:	Jan Beulich <jbeulich@suse.com>
-+M:	Andrew Cooper <andrew.cooper3@citrix.com>
-+R:	Tim Deegan <tim@xen.org>
- S:	Maintained
- F:	xen/arch/x86/mm/shadow/
- 
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Ian, Wei, can we get an ack for this patch?
+
+Cheers,
+
 -- 
-2.26.2
-
+Julien Grall
 
