@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D3639A4B7
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 17:37:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136481.253032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5970A39A4B9
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 17:37:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136480.253021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lopPX-0006ii-5e; Thu, 03 Jun 2021 15:37:31 +0000
+	id 1lopPR-0006P7-Sy; Thu, 03 Jun 2021 15:37:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136481.253032; Thu, 03 Jun 2021 15:37:31 +0000
+Received: by outflank-mailman (output) from mailman id 136480.253021; Thu, 03 Jun 2021 15:37:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lopPX-0006gM-1U; Thu, 03 Jun 2021 15:37:31 +0000
-Received: by outflank-mailman (input) for mailman id 136481;
- Thu, 03 Jun 2021 15:37:30 +0000
+	id 1lopPR-0006Lz-Oe; Thu, 03 Jun 2021 15:37:25 +0000
+Received: by outflank-mailman (input) for mailman id 136480;
+ Thu, 03 Jun 2021 15:37:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=012H=K5=linaro.org=ulf.hansson@srs-us1.protection.inumbo.net>)
- id 1lopPW-00065X-21
- for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 15:37:30 +0000
-Received: from mail-ua1-x933.google.com (unknown [2607:f8b0:4864:20::933])
+ <SRS0=lPzP=K5=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1lopPR-00065X-1k
+ for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 15:37:25 +0000
+Received: from mail-pf1-x42a.google.com (unknown [2607:f8b0:4864:20::42a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 12a9bbe6-fa12-4fa4-849d-5f39f80d9427;
- Thu, 03 Jun 2021 15:37:23 +0000 (UTC)
-Received: by mail-ua1-x933.google.com with SMTP id l12so3566083uai.0
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jun 2021 08:37:23 -0700 (PDT)
+ id e9c50a91-d304-48dd-becb-79553ea5dde0;
+ Thu, 03 Jun 2021 15:37:21 +0000 (UTC)
+Received: by mail-pf1-x42a.google.com with SMTP id h12so2320071pfe.2
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jun 2021 08:37:21 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:18:efec::4b1])
+ by smtp.gmail.com with ESMTPSA id
+ r10sm3237979pga.48.2021.06.03.08.37.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Jun 2021 08:37:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,134 +42,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12a9bbe6-fa12-4fa4-849d-5f39f80d9427
+X-Inumbo-ID: e9c50a91-d304-48dd-becb-79553ea5dde0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=7DKVf+GiS9951bpd4cfEBh88PiRutTQ//wVEud26id8=;
-        b=XGhrfqnzBbfnTVSNkFDv5GHmpnKX09udhfIYlIGvsHf5udWupM3hEeaCuAp1/iGcK2
-         itxazCeDLeGnN0Ew9V7mjQKrXGASjKXLT43xef2dS4qB5N1wZq329ew5d1FZXKKcqiVw
-         6FD/vr0CrXQkvA5Vx5CUZuiBjtgVFz1ZbiUU7kgR3MEWuPhMcO948V0XjU30zv2QSu9a
-         tohz+jrjUWOtrbk55SyLep3Y8Ie2TFo0EIpc+U1g5ZdabSEhCf2ga/7pzz9IJem82LbC
-         xz7dKg0/t3XaDdcBysnSaVg/DwjADlBkyj4crHUSmvNFlYRf/JXspkWoLbMUskTXooPD
-         5/eQ==
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=BVYx1tfLGUQhuXKxLmm7FvDthvCK68hj9EtKYIRIQHQ=;
+        b=miB2ljSk1RA9tY/uYJGQ9mMwA4UDMc4OP5R2SPNH1XSMN+zppyZP3Jc++5YNxmzOby
+         kALkMRui/3t9gSuqF33Vb3xRJqf9zGMvEy1ThQuUuoC56/3xsrdMaI/j4lWWgNSF2sTJ
+         COY0x0gCbiM503+Xvvp9Nsgl9aAqJhwkWUkCuJddQ5kBPKpL6maIzV4Esr2iyVTK2nDK
+         TGTOiLPti6ZFCSfL7YPGf1T/ifO0Td+1Cseob26JVYcCljKap3dtfQjqMVk0i9iDWAeR
+         pRTkE5bQUe239zrqx8ZeVhOf2I48ijf3+Yv7Odtm6yW32eQYlYwHea3YOPPmHlNYafZU
+         cDkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=7DKVf+GiS9951bpd4cfEBh88PiRutTQ//wVEud26id8=;
-        b=UJYmgyV+pUzWi9x60Lg0CW2CI0CPL1mQhsejmwHyePUEjvkLsMPfava57X9Ld1la4F
-         MGkHJENRW17/iXiAsx6C2AnSGW/mHKIgopYarUnTTCOmrlkjf+EpSHl4okbsVHvqR1pW
-         tb3wvPdaIOVPb7Cqa/f6MBAugDHle2wBHDPCH+25cBEj0v42vvTq5fEukcSoo+gbar0p
-         7ZcvM7wPW9wQ+CqC/2YVqvj4VUGPQQrx+cpi1DHS7fxJIaKGJdnjurPKk2KyOowu9kaY
-         2wdWb7S1dUKGnrDDrNbjEfyfuVxR6XWdtn3Se29cHr4AfWvBTASfvmM13ZSKBxtK3D+g
-         wvxw==
-X-Gm-Message-State: AOAM533F4JzJT89LO6R78ro5HUni8LDnQqXYmb9klIWHH5l8AYr2yE3n
-	dBRaeNTyC+jS2UVENSaziTbOB2ONM+q/BvHnbWSINw==
-X-Google-Smtp-Source: ABdhPJyc/MDglzj7ZqHuKLnfpO6vVPHNJJJjAhghObYaMjdvGQtxzeGy+jhwPjnJIpGZowWwyMtWi1MuD2fSyYUnfEo=
-X-Received: by 2002:ab0:7c5b:: with SMTP id d27mr407242uaw.15.1622734642855;
- Thu, 03 Jun 2021 08:37:22 -0700 (PDT)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=BVYx1tfLGUQhuXKxLmm7FvDthvCK68hj9EtKYIRIQHQ=;
+        b=FVQDDnQhoEcGS5jH7H+QogpCIu/N5fu5w7Qr4PjTGoWeejWhh5GcST2Q9aVcCBN10L
+         cAco7dWZMjY6I3ay26u8Ii7wn3h7jsmu/N2h/Djf1zKsoky6ss1JIKAkbAub6AzOJqMm
+         nqL3fm0xfiiFDsHw6XW5j/C9y6vC4W8KaVhSSC1EifZ7lqM98D/PwGUVVKN4bvymeZRS
+         TiZ4MCqC+49SG9nELtdBi9Sgvc1lkfsBZvK3wLTww8YNneTvc9YKdnWYCwoHjP4Bkrn9
+         U5wlbidOTbUHcAd6Vh06o46RxC8ibsVMd1sYDB8fOTcg3Z1QPCOoV0F0lOSw1WB/VbSt
+         7pTw==
+X-Gm-Message-State: AOAM532JGl4vTaMRlUAUUBmJPDlDlF7UM1Cu7JZF5sPPBL6qJZcKLKAl
+	v4g5IQaqUcBnZqOD2143X7w=
+X-Google-Smtp-Source: ABdhPJyuSSLvdEikeh+Nq/zhDPHcKBsCeWjVlIXCtWnktcvNT96pyk1AlIWziUacbt3mBXpwaDz9WA==
+X-Received: by 2002:aa7:8755:0:b029:2eb:8c8f:d1f1 with SMTP id g21-20020aa787550000b02902eb8c8fd1f1mr271415pfo.11.1622734640422;
+        Thu, 03 Jun 2021 08:37:20 -0700 (PDT)
+Subject: Re: [RFC PATCH V3 09/11] HV/IOMMU: Enable swiotlb bounce buffer for
+ Isolation VM
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, kys@microsoft.com,
+ haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ x86@kernel.org, hpa@zytor.com, arnd@arndb.de, dave.hansen@linux.intel.com,
+ luto@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
+ kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
+ cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
+ Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, hch@lst.de,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, jgross@suse.com,
+ sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
+ xen-devel@lists.xenproject.org, davem@davemloft.net, kuba@kernel.org,
+ jejb@linux.ibm.com, martin.petersen@oracle.com
+Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
+ thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
+References: <20210530150628.2063957-1-ltykernel@gmail.com>
+ <20210530150628.2063957-10-ltykernel@gmail.com>
+ <9488c114-81ad-eb67-79c0-5ed319703d3e@oracle.com>
+ <a023ee3f-ce85-b54f-79c3-146926bf3279@gmail.com>
+ <d6714e8b-dcb6-798b-59a4-5bb68f789564@oracle.com>
+From: Tianyu Lan <ltykernel@gmail.com>
+Message-ID: <1cdf4e6e-6499-e209-d499-7ab82992040b@gmail.com>
+Date: Thu, 3 Jun 2021 23:37:06 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-References: <20210602065345.355274-1-hch@lst.de> <20210602065345.355274-9-hch@lst.de>
-In-Reply-To: <20210602065345.355274-9-hch@lst.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 3 Jun 2021 17:36:45 +0200
-Message-ID: <CAPDyKFoh6HKx2rHHRXvw--Ou53TR2wLFGrKCDuetigxQ8QbvfQ@mail.gmail.com>
-Subject: Re: [PATCH 08/30] mspro: use blk_mq_alloc_disk
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>, 
-	Denis Efremov <efremov@linux.com>, Josef Bacik <josef@toxicpanda.com>, Tim Waugh <tim@cyberelk.net>, 
-	Geoff Levand <geoff@infradead.org>, Ilya Dryomov <idryomov@gmail.com>, 
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>, Jack Wang <jinpu.wang@ionos.com>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Mike Snitzer <snitzer@redhat.com>, Maxim Levitsky <maximlevitsky@gmail.com>, 
-	Alex Dubov <oakad@yahoo.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Christian Borntraeger <borntraeger@de.ibm.com>, dm-devel@redhat.com, 
-	linux-block <linux-block@vger.kernel.org>, nbd@other.debian.org, 
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, ceph-devel@vger.kernel.org, 
-	virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org, 
-	linux-mmc <linux-mmc@vger.kernel.org>, linux-mtd@lists.infradead.org, 
-	linux-s390@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <d6714e8b-dcb6-798b-59a4-5bb68f789564@oracle.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2 Jun 2021 at 08:54, Christoph Hellwig <hch@lst.de> wrote:
->
-> Use the blk_mq_alloc_disk API to simplify the gendisk and request_queue
-> allocation.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+On 6/3/2021 12:02 AM, Boris Ostrovsky wrote:
+> 
+> On 6/2/21 11:01 AM, Tianyu Lan wrote:
+>> Hi Boris:
+>>      Thanks for your review.
+>>
+>> On 6/2/2021 9:16 AM, Boris Ostrovsky wrote:
+>>>
+>>> On 5/30/21 11:06 AM, Tianyu Lan wrote:
+>>>> @@ -91,6 +92,6 @@ int pci_xen_swiotlb_init_late(void)
+>>>>    EXPORT_SYMBOL_GPL(pci_xen_swiotlb_init_late);
+>>>>      IOMMU_INIT_FINISH(2,
+>>>> -          NULL,
+>>>> +          hyperv_swiotlb_detect,
+>>>>              pci_xen_swiotlb_init,
+>>>>              NULL);
+>>>
+>>>
+>>> Could you explain this change?
+>>
+>> Hyper-V allocates its own swiotlb bounce buffer and the default
+>> swiotlb buffer should not be allocated. swiotlb_init() in pci_swiotlb_init() is to allocate default swiotlb buffer.
+>> To achieve this, put hyperv_swiotlb_detect() as the first entry in the iommu_table_entry list. The detect loop in the pci_iommu_alloc() will exit once hyperv_swiotlb_detect() is called in Hyper-V VM and other iommu_table_entry callback will not be called.
+> 
+> 
+> 
+> Right. But pci_xen_swiotlb_detect() will only do something for Xen PV guests, and those guests don't run on hyperV. It's either xen_pv_domain() (i.e. hypervisor_is_type(X86_HYPER_XEN_PV)) or hypervisor_is_type(X86_HYPER_MS_HYPERV) but never both. So I don't think there needs to be a dependency between the two callbacks.
 
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
+Yes, the dependency is between hyperv_swiotlb_detect() and
+pci_swiotlb_detect_override()/pci_swiotlb_detect_4gb(). Now
+pci_swiotlb_detect_override() and pci_swiotlb_detect_4gb() depends on
+pci_xen_swiotlb_detect(). To keep dependency between
+hyperv_swiotlb_detect() and pci_swiotlb_detect_override/4gb(), make 
+pci_xen_swiotlb_detect() depends on hyperv_swiotlb_detect() and just to
+keep order in the IOMMU table. Current iommu_table_entry only has one
+depend callback and this is why I put xen depends on hyperv detect function.
 
-Kind regards
-Uffe
-
-
-> ---
->  drivers/memstick/core/mspro_block.c | 26 +++++++++++---------------
->  1 file changed, 11 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/memstick/core/mspro_block.c b/drivers/memstick/core/mspro_block.c
-> index cf7fe0d58ee7..22778d0e24f5 100644
-> --- a/drivers/memstick/core/mspro_block.c
-> +++ b/drivers/memstick/core/mspro_block.c
-> @@ -1205,21 +1205,17 @@ static int mspro_block_init_disk(struct memstick_dev *card)
->         if (disk_id < 0)
->                 return disk_id;
->
-> -       msb->disk = alloc_disk(1 << MSPRO_BLOCK_PART_SHIFT);
-> -       if (!msb->disk) {
-> -               rc = -ENOMEM;
-> +       rc = blk_mq_alloc_sq_tag_set(&msb->tag_set, &mspro_mq_ops, 2,
-> +                                    BLK_MQ_F_SHOULD_MERGE);
-> +       if (rc)
->                 goto out_release_id;
-> -       }
->
-> -       msb->queue = blk_mq_init_sq_queue(&msb->tag_set, &mspro_mq_ops, 2,
-> -                                               BLK_MQ_F_SHOULD_MERGE);
-> -       if (IS_ERR(msb->queue)) {
-> -               rc = PTR_ERR(msb->queue);
-> -               msb->queue = NULL;
-> -               goto out_put_disk;
-> +       msb->disk = blk_mq_alloc_disk(&msb->tag_set, card);
-> +       if (IS_ERR(msb->disk)) {
-> +               rc = PTR_ERR(msb->disk);
-> +               goto out_free_tag_set;
->         }
-> -
-> -       msb->queue->queuedata = card;
-> +       msb->queue = msb->disk->queue;
->
->         blk_queue_max_hw_sectors(msb->queue, MSPRO_BLOCK_MAX_PAGES);
->         blk_queue_max_segments(msb->queue, MSPRO_BLOCK_MAX_SEGS);
-> @@ -1228,10 +1224,10 @@ static int mspro_block_init_disk(struct memstick_dev *card)
->
->         msb->disk->major = major;
->         msb->disk->first_minor = disk_id << MSPRO_BLOCK_PART_SHIFT;
-> +       msb->disk->minors = 1 << MSPRO_BLOCK_PART_SHIFT;
->         msb->disk->fops = &ms_block_bdops;
->         msb->usage_count = 1;
->         msb->disk->private_data = msb;
-> -       msb->disk->queue = msb->queue;
->
->         sprintf(msb->disk->disk_name, "mspblk%d", disk_id);
->
-> @@ -1247,8 +1243,8 @@ static int mspro_block_init_disk(struct memstick_dev *card)
->         msb->active = 1;
->         return 0;
->
-> -out_put_disk:
-> -       put_disk(msb->disk);
-> +out_free_tag_set:
-> +       blk_mq_free_tag_set(&msb->tag_set);
->  out_release_id:
->         mutex_lock(&mspro_block_disk_lock);
->         idr_remove(&mspro_block_disk_idr, disk_id);
-> --
-> 2.30.2
->
+Thanks.
 
