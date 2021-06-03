@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5340F39A066
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 13:56:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136419.252944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7B339A17D
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 14:51:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136430.252955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lolwS-0001A2-9Z; Thu, 03 Jun 2021 11:55:16 +0000
+	id 1lomoP-0006oW-LY; Thu, 03 Jun 2021 12:51:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136419.252944; Thu, 03 Jun 2021 11:55:16 +0000
+Received: by outflank-mailman (output) from mailman id 136430.252955; Thu, 03 Jun 2021 12:51:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lolwS-00017F-5r; Thu, 03 Jun 2021 11:55:16 +0000
-Received: by outflank-mailman (input) for mailman id 136419;
- Thu, 03 Jun 2021 11:55:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yeTI=K5=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1lolwQ-000179-WC
- for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 11:55:15 +0000
-Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8d3d0e52-4435-4aca-9e4e-94d34855bb16;
- Thu, 03 Jun 2021 11:55:13 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id p17so7621649lfc.6
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jun 2021 04:55:13 -0700 (PDT)
+	id 1lomoP-0006le-Hj; Thu, 03 Jun 2021 12:51:01 +0000
+Received: by outflank-mailman (input) for mailman id 136430;
+ Thu, 03 Jun 2021 12:50:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lomoN-0006lU-LE; Thu, 03 Jun 2021 12:50:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lomoN-0005oX-Ci; Thu, 03 Jun 2021 12:50:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lomoN-00031j-3e; Thu, 03 Jun 2021 12:50:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lomoN-0002M7-2Y; Thu, 03 Jun 2021 12:50:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,252 +42,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d3d0e52-4435-4aca-9e4e-94d34855bb16
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=EpM6Yqr00wTEWuXreXquvTVwpQ5MOp19mRj8EEUbqIk=;
-        b=CwRJuPSeN0OvZ45C85AUDzswzI+YW4S9qQb6poFiff70a6/jZf/CCIy1nl4+D6vJjB
-         98NGxOPP0BUt2U0HXsA4x0bQ79KCjDzeYMxGSXePt2ZgaZC77GRwgVqsdjk4wsbaxuiW
-         Dbb0hYF2A7fiBpZsU66nh1vmyvmmOeN/TCtJwjAb/WbaGnP+i+9SMEjJuxg11PWjatZ2
-         SVxSaEksVgFwzYMNfzP/hOo7NJRupMqB/KwApXMLew8y7lecKzrTcZPIVJW4429M45SR
-         Bg6hOnKe69XZ0mw6VePdDJmkxH05xhG/XroUJwxypuJO+cwi6pbd/vhbxgb3SwtEA3An
-         6VNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=EpM6Yqr00wTEWuXreXquvTVwpQ5MOp19mRj8EEUbqIk=;
-        b=YxcTX/DJb9UYwvX+JtX8YLx0L8VfMJwBMw7FbBWl45mND5gokmXVZ7C2+W9K32YO0S
-         YCWSVhDwRbJwpNx/gEnpDn3hfV4mVGPYbR0NCUGELziZUXHrCqdYvhZxOxxtYZKmUv5N
-         HYki7Ezh1e9PMwg+zwHXHBSs6nF91WnEc+52y2wGZByDB6a2bMjcQIKvxOdJBg6DwPuf
-         z9gjI3U4IlPGGU8tJ8eeKTN6OUCUsBnzFgFtJennt8R+xwm02IPZPJNoQ2/DIe5Tggv0
-         DpulCWWzTy3KQVvQK2wNqrf1ZhpspEwOPvk5i72aOfSxZzsziuMGWIBgQ02Bn0WNtkRe
-         qq/g==
-X-Gm-Message-State: AOAM533cKSGJA7My74WhPA4sM7XcAPfPm6d3JsboRqUs0zdshrwLzHfF
-	OsfPGSw74YDzjl3rMMhPQw8yN9K7bsF6utYDt+I=
-X-Google-Smtp-Source: ABdhPJwyivv+crQ7rx0EYCzqBC39js/ujiICRam711RxBEblvFzPC1Jg/bNWYsjdg1iKUlMIqUoUzF2vPKnDaUGLpgE=
-X-Received: by 2002:a19:ed04:: with SMTP id y4mr10699984lfy.562.1622721312122;
- Thu, 03 Jun 2021 04:55:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210503192810.36084-1-jandryuk@gmail.com> <20210503192810.36084-5-jandryuk@gmail.com>
- <1747789a-ab6c-cdae-ed35-a6b81ac580a9@suse.com> <CAKf6xps4NuBxMpgCo_duWU1ZXB8x8B8uszb3uNyb6kABxUhNHA@mail.gmail.com>
- <2c3400e8-8236-8558-08e4-37c8b1494de7@suse.com>
-In-Reply-To: <2c3400e8-8236-8558-08e4-37c8b1494de7@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 3 Jun 2021 07:55:00 -0400
-Message-ID: <CAKf6xpvCkzHOZsBY2yMQSVxq844_muaAaKd-JZUQfd7UCrXLVg@mail.gmail.com>
-Subject: Re: [PATCH 04/13] cpufreq: Add Hardware P-State (HWP) driver
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel <xen-devel@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7RcLLD23yamX2kgQjZfd6C+MUnJxGxTgNx9uS8MerbU=; b=F0szOEIlk7y26Hiag3aQGmYFPM
+	YrSmjpxpDfZiXXYG2pxw6tlzB52vUvL81KD1Bk53lZCkobQ98ardQPv1wAGocBZqG6mioCXIO0eUv
+	5fw2DIjstYOefPe35tXjIjs7hu4SCmfFboIwgXm2fwjlI5Pg6kduytj15wQbr7itzg6I=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162343-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 162343: tolerable FAIL
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+X-Osstest-Versions-That:
+    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 03 Jun 2021 12:50:59 +0000
 
-On Fri, May 28, 2021 at 2:35 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 27.05.2021 20:50, Jason Andryuk wrote:
-> > On Wed, May 26, 2021 at 11:00 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >>
-> >> On 03.05.2021 21:28, Jason Andryuk wrote:
-> >>> +    hwp_verbose("HWP: FAST_IA32_HWP_REQUEST %ssupported\n",
-> >>> +                eax & CPUID6_EAX_FAST_HWP_MSR ? "" : "not ");
-> >>> +    if ( eax & CPUID6_EAX_FAST_HWP_MSR )
-> >>> +    {
-> >>> +        if ( rdmsr_safe(MSR_FAST_UNCORE_MSRS_CAPABILITY, val) )
-> >>> +            hwp_err("error rdmsr_safe(MSR_FAST_UNCORE_MSRS_CAPABILITY)\n");
-> >>> +
-> >>> +        hwp_verbose("HWP: MSR_FAST_UNCORE_MSRS_CAPABILITY: %016lx\n", val);
-> >>
-> >> Missing "else" above here?
-> >
-> > Are unbalanced braces acceptable or must they be balanced?  Is this acceptable:
-> > if ()
-> >   one;
-> > else {
-> >   two;
-> >   three;
-> > }
->
-> Yes, it is. But I don't see how the question relates to my comment.
-> All that needs to go in the else's body is the hwp_verbose().
+flight 162343 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162343/
 
-'val' shouldn't be used to set features when the rdmsr fails, so the
-following code needs to be within the else.  Unless you want to rely
-on a failed rdmsr returning 0.
+Failures :-/ but no regressions.
 
-> >>> +static void hdc_set_pkg_hdc_ctl(bool val)
-> >>> +{
-> >>> +    uint64_t msr;
-> >>> +
-> >>> +    if ( rdmsr_safe(MSR_IA32_PKG_HDC_CTL, msr) )
-> >>> +    {
-> >>> +        hwp_err("error rdmsr_safe(MSR_IA32_PKG_HDC_CTL)\n");
-> >>
-> >> I'm not convinced of the need of having such log messages after
-> >> failed rdmsr/wrmsr, but I'm definitely against them getting logged
-> >> unconditionally. In verbose mode, maybe.
-> >
-> > We should not fail the rdmsr if our earlier cpuid check passed.  So in
-> > that respect these messages can be removed.  The benefit here is that
-> > you can see which MSR failed.  If you relied on extable_fixup, you
-> > would have to cross reference manually.  How will administors know if
-> > hwp isn't working properly there are no messages?
->
-> This same question would go for various other MSR accesses which
-> might fail, but which aren't accompanied by an explicit log message.
-> I wouldn't mind a single summary message reporting if e.g. HWP
-> setup failed. More detailed analysis of such would be more of a
-> developer's than an administrator's job then anyway.
->
-> > For HWP in general, the SDM says to check CPUID for the availability
-> > of MSRs.  Therefore rdmsr/wrmsr shouldn't fail.  During development, I
-> > saw wrmsr failures when with "Valid Maximum" and other "Valid" bits
-> > set.  I think that was because I hadn't set up the Package Request
-> > MSR.  That has been fixed by not using those bits.  Anyway,
-> > rdmsr/wrmsr shouldn't fail, so how much code should be put into
-> > checking for those failures which shouldn't happen?
->
-> If there's any risk of accesses causing a fault, using *msr_safe()
-> is of course the right choice. Beyond that you will need to consider
-> what the consequences are. Sadly this needs doing on every single
-> case individually. See "Handling unexpected conditions" section of
-> ./CODING_STYLE for guidelines (even if the specific constructs
-> aren't in use here).
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 162337
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 162337
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 162337
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 162337
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 162337
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 162337
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 162337
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 162337
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 162337
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 162337
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 162337
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
 
-Using *msr_safe(), I think the worst case is the users can't set HWP
-in the way they want.  So power/performance may not be what the users
-wanted, but Xen won't crash.  The hardware will throttle itself if
-needed for self-protection, so that should be okay as well.
+version targeted for testing:
+ xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+baseline version:
+ xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
 
-> >>> +static void hdc_set_pm_ctl1(bool val)
-> >>> +{
-> >>> +    uint64_t msr;
-> >>> +
-> >>> +    if ( rdmsr_safe(MSR_IA32_PM_CTL1, msr) )
-> >>> +    {
-> >>> +        hwp_err("error rdmsr_safe(MSR_IA32_PM_CTL1)\n");
-> >>> +
-> >>> +        return;
-> >>> +    }
-> >>> +
-> >>> +    msr = val ? IA32_PM_CTL1_HDC_Allow_Block : 0;
-> >>
-> >> Same here then, and ...
-> >>
-> >>> +static void hwp_fast_uncore_msrs_ctl(bool val)
-> >>> +{
-> >>> +    uint64_t msr;
-> >>> +
-> >>> +    if ( rdmsr_safe(MSR_FAST_UNCORE_MSRS_CTL, msr) )
-> >>> +        hwp_err("error rdmsr_safe(MSR_FAST_UNCORE_MSRS_CTL)\n");
-> >>> +
-> >>> +    msr = val;
-> >>
-> >> ... here (where you imply bit 0 instead of using a proper
-> >> constant).
-> >>
-> >> Also for all three functions I'm not convinced their names are
-> >> in good sync with their parameters being boolean.
-> >
-> > Would you prefer something named closer to the bit names like:
-> > hdc_set_pkg_hdc_ctl -> hdc_set_pkg_enable
-> > hdc_set_pm_ctl1 -> hdc_set_allow_block
-> > hwp_fast_uncore_msrs_ctl -> hwp_fast_request_enable
->
-> My primary request is for function name, purpose, and parameter(s)
-> to be in line. So e.g. if you left the parameters as boolean, then
-> I think your suggested name changes make sense. Alternatively you
-> could make the functions e.g. be full register updating ones, with
-> suitable parameters, which could be a mask-to-set and mask-to-clear.
+Last test of basis   162343  2021-06-03 01:52:42 Z    0 days
+Testing same since                          (not found)         0 attempts
 
-I'm going to use the replacement names while keeping the boolean
-argument.  Those MSRs only have single bits defined today, so
-functions with boolean parameters are simpler.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-> >>> +static void hwp_read_capabilities(void *info)
-> >>> +{
-> >>> +    struct cpufreq_policy *policy = info;
-> >>> +    struct hwp_drv_data *data = hwp_drv_data[policy->cpu];
-> >>> +
-> >>> +    if ( rdmsr_safe(MSR_IA32_HWP_CAPABILITIES, data->hwp_caps) )
-> >>> +    {
-> >>> +        hwp_err("CPU%u: error rdmsr_safe(MSR_IA32_HWP_CAPABILITIES)\n",
-> >>> +                policy->cpu);
-> >>> +
-> >>> +        return;
-> >>> +    }
-> >>> +
-> >>> +    if ( rdmsr_safe(MSR_IA32_HWP_REQUEST, data->curr_req.raw) )
-> >>> +    {
-> >>> +        hwp_err("CPU%u: error rdmsr_safe(MSR_IA32_HWP_REQUEST)\n", policy->cpu);
-> >>> +
-> >>> +        return;
-> >>> +    }
-> >>> +}
-> >>
-> >> This function doesn't indicate failure to its caller(s), so am I
-> >> to understand that failure to read either ofthe MSRs is actually
-> >> benign to the driver?
-> >
-> > They really shouldn't fail since the CPUID check passed during
-> > initialization.  If you can't read/write MSRs, something is broken and
-> > the driver cannot function.  The machine would still run, but HWP
-> > would be uncontrollable.  How much care should be given to
-> > "impossible" situations?
->
-> See above. The main point is to avoid crashing. In the specific
-> case here I think you could simply drop both the log messages and
-> the early return, assuming the caller can deal fine with the zero
-> value(s) that rdmsr_safe() will substitute for the MSR value(s).
-> Bailing early, otoh, calls for handing back an error indicator
-> imo.
 
-I changed it to have failure set curr_req.raw = -1.  Then
-cpufreq_driver.init returns -ENODEV in that case.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> >>> +    policy->governor = &hwp_cpufreq_governor;
-> >>> +
-> >>> +    data = xzalloc(typeof(*data));
-> >>
-> >> Commonly we specify the type explicitly in such cases, rather than using
-> >> typeof(). I will admit though that I'm not entirely certain which one's
-> >> better. But consistency across the code base is perhaps preferable for
-> >> the time being.
-> >
-> > I thought typeof(*data) is always preferable since it will always be
-> > the matching type.  I can change it, but I feel like it's a step
-> > backwards.
->
-> There's exactly one similar use in the entire code base. The original
-> idea with xmalloc() was that one would explicitly specify the intended
-> type, such that without looking elsewhere one can see what exactly is
-> to be allocated. One could further rely on the compiler warning if
-> there was a disagreement between declaration and assignment.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Oh, okay.  Thanks for the explanation of xmalloc().
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> >>> +    if ( feature_hwp_energy_perf )
-> >>> +        data->energy_perf = 0x80;
-> >>> +    else
-> >>> +        data->energy_perf = 7;
-> >>
-> >> Where's this 7 coming from? (You do mention the 0x80 at least in the
-> >> description.)
-> >
-> > When HWP energy performance preference is unavailable, it falls back
-> > to IA32_ENERGY_PERF_BIAS with a 0-15 range.  Per the SDM Vol3 14.3.4,
-> > "A value of 7 roughly translates into a hint to balance performance
-> > with energy consumption."  I will add a comment.
->
-> Actually, as per a comment on a later patch, I'm instead expecting
-> you to add a #define, the name of which will serve as comment.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Yes, sounds good.
 
-Regards,
-Jason
+Published tested tree is already up to date.
+
 
