@@ -2,56 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E7439ABAF
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 22:13:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136555.253124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A3F39ACF4
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jun 2021 23:34:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136562.253134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lothr-0002CF-Td; Thu, 03 Jun 2021 20:12:43 +0000
+	id 1louxa-00010D-Rm; Thu, 03 Jun 2021 21:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136555.253124; Thu, 03 Jun 2021 20:12:43 +0000
+Received: by outflank-mailman (output) from mailman id 136562.253134; Thu, 03 Jun 2021 21:33:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lothr-000297-Pf; Thu, 03 Jun 2021 20:12:43 +0000
-Received: by outflank-mailman (input) for mailman id 136555;
- Thu, 03 Jun 2021 20:12:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1louxa-0000yK-Od; Thu, 03 Jun 2021 21:33:02 +0000
+Received: by outflank-mailman (input) for mailman id 136562;
+ Thu, 03 Jun 2021 21:33:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6GYq=K5=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1lothp-00028u-Tc
- for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 20:12:42 +0000
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2d86aa39-f469-462f-bfd4-53d20955729a;
- Thu, 03 Jun 2021 20:12:40 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 153K98OH141782;
- Thu, 3 Jun 2021 20:11:55 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2130.oracle.com with ESMTP id 38ub4cvd89-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 03 Jun 2021 20:11:55 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 153KA5o2020924;
- Thu, 3 Jun 2021 20:11:54 GMT
-Received: from nam11-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam11lp2171.outbound.protection.outlook.com [104.47.57.171])
- by userp3030.oracle.com with ESMTP id 38uaqyky4r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 03 Jun 2021 20:11:54 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by MN2PR10MB4318.namprd10.prod.outlook.com (2603:10b6:208:1d8::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.20; Thu, 3 Jun
- 2021 20:11:52 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::78a3:67d:a8ca:93cf]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::78a3:67d:a8ca:93cf%7]) with mapi id 15.20.4195.023; Thu, 3 Jun 2021
- 20:11:52 +0000
-Received: from [10.74.96.237] (160.34.88.237) by
- SN6PR01CA0001.prod.exchangelabs.com (2603:10b6:805:b6::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.15 via Frontend Transport; Thu, 3 Jun 2021 20:11:49 +0000
+ <SRS0=pgrk=K5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1louxZ-0000yE-3C
+ for xen-devel@lists.xenproject.org; Thu, 03 Jun 2021 21:33:01 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e6f904b6-5101-45e7-ad9a-d8ea53cf7d79;
+ Thu, 03 Jun 2021 21:33:00 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1B7CC613F8;
+ Thu,  3 Jun 2021 21:32:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,191 +38,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d86aa39-f469-462f-bfd4-53d20955729a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=EzbIaADvFD7uc8vEJGwdT6z9IDFMtlnY18zZuVGI6Co=;
- b=nAgUjNuoL/aHGNAh2P8goeRVyvuOJQNbeW7JVpyZKOwlQZkTQiyP9db7njj9KpzPxYEz
- wItE0rqHPyN6+jwplfVq23F5uGnbNyg841ZMAmryktl08N34Bj4ybYYY4wSRLCAyf5k0
- z4+7zZUIywTym1RKTDN3o1JTR4moLXY796qmG5Syyv7nef/92UpyL4g1LJx6UB0bv77y
- JQ71oCo5KMb15hEiov6sGlf8p5d2+vWPLAr4wxvClkQw6G3WYp/yIMz5GzHr3ovju9kB
- bnYcbISzOLeJ+pZHJMauuSy8u7jLA1bGmzOzI5GHg+G/dFdXX+p1bHJbORyLHwPMtWSs Yg== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hAQEjZccADZazKafFH+jRFLq5CT8qSQ3g1zo9pl4QhxU53CuPRzO+QqYGHsFcL5BlAtB8y3IHotJA/NIOUIlKSpi2XgJuOYbdHnfe05qhegBkPDQU+xPF33wKjZDbICGWWk8p52M/oZt4N2TE5oUL/OGGaXJzlASXm02FMnyUjWd4seITNWiSAeLLfebu/fyg6A/dmyV/O6KaHllbHUEWj4duW/aBTQRJMoWv4naZfNLFp4owHNrmWLLuvyJk4W93/f2LC9TF6fTVERQzSY8NPFTb1oHNSOKUsaJWtnNQY3h83B5QTq9CDuCaAyenvMNrHF9UGZrupPLczTq3Lw9cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EzbIaADvFD7uc8vEJGwdT6z9IDFMtlnY18zZuVGI6Co=;
- b=J5XjqSu2YitBrbNbjHGzYnJWEqc21v+s7dX9xNR5aI6D9lGqMbggfvtwyDiPDuSiNx04gr6vFydZh8DGIPWjdJtTkICHkVF1RO2dpmJ7x7cROou1J24Ldod9XT9+SWNOEwWR/8Qyxstduw+Mgz0W1HpvMP3TvW8OEj+MN9keIjxCvftuZ8u1Z8EwKt24mKHdkxy0U8XkqkPkQhrLxTNoPEtix2Iy1+LCYFL+xz1/QNRg0nfeVc66nwWkpqsUkLbD5Lbv/yk+dID8CdGQRvNQWPEH4vx6Y4D4NwDEZjX6f56ZcglWiNWKWXymhmtScWXP8pCEre/m2mujgwczX/xTDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EzbIaADvFD7uc8vEJGwdT6z9IDFMtlnY18zZuVGI6Co=;
- b=yl/FOAbVew8BMNo6k3rAtZAQijw64kmRFXWWd4MZC0f4s73uyckYNevg0boU+17WGCKVn/WOl178AFiTKXXUy3oEl5b0jl3t/hWoOMXez1kNk54jDsvqO3OtEJQAL8+9by65/j71kncvFqk2ev1KFTmoev4GlimPRD3/bNwiP00=
-Authentication-Results: amazon.co.uk; dkim=none (message not signed)
- header.d=none;amazon.co.uk; dmarc=none action=none header.from=oracle.com;
-Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend
- mode
-To: Anchal Agarwal <anchalag@amazon.com>
-Cc: "tglx@linutronix.de" <tglx@linutronix.de>,
-        "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-        "hpa@zytor.com" <hpa@zytor.com>, "jgross@suse.com" <jgross@suse.com>,
-        "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
-        "linux-mm@kvack.org" <linux-mm@kvack.org>,
-        "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
-        "roger.pau@citrix.com" <roger.pau@citrix.com>,
-        "axboe@kernel.dk" <axboe@kernel.dk>,
-        "davem@davemloft.net" <davem@davemloft.net>,
-        "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
-        "len.brown@intel.com" <len.brown@intel.com>,
-        "pavel@ucw.cz" <pavel@ucw.cz>,
-        "peterz@infradead.org" <peterz@infradead.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        "vkuznets@redhat.com" <vkuznets@redhat.com>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "dwmw@amazon.co.uk" <dwmw@amazon.co.uk>
-References: <20200925222826.GA11755@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
- <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
- <20210521052650.GA19056@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <0b1f0772-d1b1-0e59-8e99-368e54d40fbf@oracle.com>
- <20210526044038.GA16226@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <33380567-f86c-5d85-a79e-c1cd889f8ec2@oracle.com>
- <20210528215008.GA19622@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <1ff91b30-3963-728e-aefb-57944197bdde@oracle.com>
- <20210602193743.GA28861@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <2cb71322-9d3d-395e-293b-24888f5be759@oracle.com>
-Date: Thu, 3 Jun 2021 16:11:46 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.2
-In-Reply-To: <20210602193743.GA28861@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Originating-IP: [160.34.88.237]
-X-ClientProxiedBy: SN6PR01CA0001.prod.exchangelabs.com (2603:10b6:805:b6::14)
- To BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+X-Inumbo-ID: e6f904b6-5101-45e7-ad9a-d8ea53cf7d79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1622755979;
+	bh=7mzKDYQvsKnAd6FcZQrbNzzG+GQurCNinl6HDYlWK+M=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=eqLL0oPVVzDEtiH56rP31crhdoTUgmqMrl2pW3Ys78/QVm446fJQf5eeGvcdYDg63
+	 SHP2CIBtcqz/qEFXkU99axbkOa+Upt1q4AXZok0ukbcmmGVcpOP31dpE/kdnjtuj9I
+	 ivbV5b+dsd3so/0p/hKUXMUZTAWrtURdKb0+C89ZwfnUWCRX+IIhle8G8emkJpFtpL
+	 K97lDLFz2Wut0SZo2xuD7Je4uF63xe31SGu9ex3EflrpsLmbF7PWt1S/TkToMrrHnm
+	 VJKunm/66v28voO4I+zvt2VNeBKs1witeALfE5LSHsz2G8Dpo033HKcrktEuS/aqCm
+	 jtgOaVoJahGyg==
+Date: Thu, 3 Jun 2021 14:32:57 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Penny Zheng <Penny.Zheng@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    nd <nd@arm.com>
+Subject: Re: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
+In-Reply-To: <4251e0e2-fb53-b8a3-0323-f4ce892cf21e@xen.org>
+Message-ID: <alpine.DEB.2.21.2106031408320.7272@sstabellini-ThinkPad-T480s>
+References: <20210518052113.725808-1-penny.zheng@arm.com> <20210518052113.725808-2-penny.zheng@arm.com> <e1b90f06-92d2-11da-c556-4081907124b8@xen.org> <VE1PR08MB521519C6F09E92EDB9C9A1AEF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com> <66e32065-ea2d-d000-1a70-e5598a182b6a@xen.org>
+ <VE1PR08MB5215C1F5041860102BBAD595F72A9@VE1PR08MB5215.eurprd08.prod.outlook.com> <14fb6fe4-c293-6994-8cbc-872d3bd8a3ac@xen.org> <VE1PR08MB52152792B6771236A6DF37E7F73D9@VE1PR08MB5215.eurprd08.prod.outlook.com> <4251e0e2-fb53-b8a3-0323-f4ce892cf21e@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 60065c02-fa52-4d39-8512-08d926cbd37a
-X-MS-TrafficTypeDiagnostic: MN2PR10MB4318:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: 
-	<MN2PR10MB431894FFD732E001F5E3CB598A3C9@MN2PR10MB4318.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	UdR5/lG+KwGp6XcH4A8M2jHkvEPp0v/TCH4IBelX+jopcmHHv8DXNY3o3oI9OgMPNCJjLnJFuYrK0puSCu96ZjWrZoRtQAsxNDHy0z+kUFeJdLXXQ3gSfGcATMaJdYWe14RKZ5qUOZ+dXrip/CBYtzegjpaQ1nRtAeue9H+4/uFkBxdOABrNE3x1mRiKmR3j7uu2cOXcUcSM3Bw2cX+pLpelltThNIbaYnFgnAX4pY+V/R7KQOsiq7PovE8zljPMeYjodULn580nWYoVN9E6NPUNnUMlPfeIIdhPwry1Ez3GZrLYQh8RX0HXKr48s2VnCp2GP7VojXKySHJR0oTrPuZgF7mlKuQI+hhSgMnSCZoGu1dx+ETZGQ15pOdlPONKIj7bSJQIMfpOA+8/GqAOmatDu/5+aACOh6yrfiwDCm4RmttehcJG203QDcf7spZaG/nVEhSIR97jnJqfVpeCRfe8aY2G7YkTlP67XLuMJYzNuN9q8nB7H2LYum7AqhDdrXMtQna1L3j+ClpM7CBLbAN2PcHkilhLBA85P4sdxnD1Q/GanP3Tzc+pGHJ04pR0MCD2/nlCardhHcqXUXet/NwbUnfXnOOUPfgvsyouLGKzWK+Crn5pHSaQdoJj2608cbHNVCKb9uYiFlhTaKjUv+YPuSwTWg83iuIUYC7IbJs=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(376002)(136003)(366004)(396003)(346002)(478600001)(7416002)(316002)(36756003)(66946007)(53546011)(16576012)(44832011)(31686004)(86362001)(2906002)(8936002)(16526019)(6666004)(186003)(4326008)(5660300002)(8676002)(6916009)(66556008)(26005)(66476007)(38100700002)(6486002)(31696002)(83380400001)(54906003)(956004)(2616005)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 
-	=?utf-8?B?OXgvaEU1UkZ0REpFQlhpUUlMbitUeWcrM0haZ29LRk9Za0lPbXJ1bEhBRHVz?=
- =?utf-8?B?V1ZtK3hTZC9SNTJXMnRjcWxmUVlmWmluVWZYS2RreTRhNHprN0tZMlV2elEx?=
- =?utf-8?B?QW1UbklFU2dLdUtFcE55ZmNkL29tQTMzdmxZdkpxcWxNTHpOcTJZTW9JUlFB?=
- =?utf-8?B?RW55MzB1aHR0ZHMzNklJVnBWb0ZvWFphTm9QRnRKY1FCRDBjUjhGcXhzWHBk?=
- =?utf-8?B?OTgxNWZDQ1lKSzVNWkpNV3dnMyt1VlJoVm9MQUdVdXZNVWh5TlNWUndTNzRj?=
- =?utf-8?B?clBuRU4vVFpFaWpEUG00NzdwZndSc3Bkc0ErcmlBVlIydklnSzVpZ3ZjZWtz?=
- =?utf-8?B?UkJKOEU4NXZiVU5WY2VCMWs0dElwYXIydjRaSlNPSVlPMlViMHpVb1ZJdG5C?=
- =?utf-8?B?R0RiRmhSTFJ5VHkxWDdmK2ZibmFRaElYUjYzUDFRTmhoeXo1dXFEbkJUdG04?=
- =?utf-8?B?MXJpaHNOZDNrTFYzYTRWcnFQWjlENlFSa05lUzVkV2NYRWFDeUhUeXdwZy94?=
- =?utf-8?B?eWlQSE5JNlBDdW5OQ09mN090M3Azb0hDYm5VZkVjWG1pNUI0RVVoT282QXRD?=
- =?utf-8?B?S2paS2ZVRU5qNnJHMHlEZ0pUcUlQWTVyK2J0dXFhcFV5eU1ZWEt0a0N6bVQ0?=
- =?utf-8?B?b214T2VqczY5MjB4aTRaMUpBRmRVcE9DZWg4YUdJOEx4U3FjNmRKdDJGZDVs?=
- =?utf-8?B?WVdqUFBCS0dDQ0VlT1VRKzZjRjExM21DWDUxVGNuTFU0LytWdWpzbWRDb25N?=
- =?utf-8?B?Wm1MVTF3dlFTeU52Z0RBSkpBWmxwWUo4VG4zVmZabkM4Vk9QVzQxTnFzbjZr?=
- =?utf-8?B?N0hwVjFvWWd0L0p2RG1YeDlxTEtFWXBGYzl6bkhOMGZ0OGhJTDYydmVuaU0v?=
- =?utf-8?B?SEo4VEdCYlllNi9QdmtBSVZ2WDIvdTBieTRjSDJUTExoL0lLS0dMRkFsQnZS?=
- =?utf-8?B?NE9WSWhTVStiWEJhaEZPc2hsbGhNdkFvLzFPZDh2QldTNzFxSXZ6MnY4MEgz?=
- =?utf-8?B?dkg0akdydEZOS00wNmt4dUtwOEM2MTNZNnpaYnZGNGNJMFN4ZzFFMTU1RjN4?=
- =?utf-8?B?NzFFZUlZRno4eHJIT1BpbFA4M2hSUEkwWWJBQzNFVSsyZjV4YWJVeDdmRVk2?=
- =?utf-8?B?RWQ4M0JvRkszRUNPdllNZXYxLzRvaFRVWENNWWtjMkhtTndRSHY2czR5VG1P?=
- =?utf-8?B?YlpaNXVyTkhRbHlNeE1iVTA4RGZhUkpMZ3NYRGxCblZSZjIySFRGTE1RLy8w?=
- =?utf-8?B?M0RYQ0ZzRlcxazNnRWxZeGx6QmtobWhSYlRBYk5kVzNYcHIza2tUTytEKzRK?=
- =?utf-8?B?c0MweG9zTWZldE5HaUVyUzFVeVBGWmhGbUhrbmY3Tk9mQjBvcE1RYXhDdEpq?=
- =?utf-8?B?dmFPKzJDNzNYNjdoOEJlZ1AzR0s3R3hpdFEweGJYNzdDOG9leU01c1ZUc25v?=
- =?utf-8?B?ZWlUZ1lvRjBtTjhycFpqRldIVitoRlRva0V4NFJvRTVFMC9DZ0d4c2lmbC9T?=
- =?utf-8?B?U3M1bUZLQ090UFRFQzhxVW8vdDlmcFJhSGM0enMvZ0V1dXJmNU1IZkk1eFIw?=
- =?utf-8?B?T1E2NkFhck1NM0ZjL3NRUThPNHZmVHZ2VEdSbGJiZUl2cVRiVHdRODRJM2V3?=
- =?utf-8?B?SC9MaGdCWTJjNVJZWFh1Z1hKeG5FQUtvQnVBeU1udEl5Rmg1ZU9zTU9wVk9K?=
- =?utf-8?B?WlZsZUY2Sk90SlBIUDdhZHdwbWJRdzdNTng5T0lxeTg4ZG5nTnBrM0xxN1p4?=
- =?utf-8?Q?ryW1Q1RtosiCIbXVLd1B4osWXm3COGyGguxAlr8?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60065c02-fa52-4d39-8512-08d926cbd37a
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2021 20:11:52.0453
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VmtzoBFR7zBoFoDClJFpffv91j11nHxxY7Puxp9Qxx7e9L40cQ8X47un1L1vMhq4cnZNWNWwxvIXyj2Ey78Lod6q29Y2FOMEfBeuN5MDStE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4318
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10004 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 bulkscore=0
- suspectscore=0 spamscore=0 adultscore=0 mlxscore=0 phishscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2106030137
-X-Proofpoint-GUID: XdOfLFfusTcYPM6RTxXcOxVnLMyrk-_F
-X-Proofpoint-ORIG-GUID: XdOfLFfusTcYPM6RTxXcOxVnLMyrk-_F
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10004 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 mlxscore=0
- mlxlogscore=999 malwarescore=0 bulkscore=0 phishscore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2106030137
+Content-Type: text/plain; charset=US-ASCII
+
+I have not read most emails in this thread (sorry!) but I spotted this
+discussion about device tree and I would like to reply to that as we
+have discussed something very similar in the context of system device
+tree.
 
 
-On 6/2/21 3:37 PM, Anchal Agarwal wrote:
-> On Tue, Jun 01, 2021 at 10:18:36AM -0400, Boris Ostrovsky wrote:
->>
-> The resume won't fail because in the image the xen_vcpu and xen_vcpu_info are
-> same. These are the same values that got in there during saving of the
-> hibernation image. So whatever xen_vcpu got as a value during boot time registration on resume is
-> essentially lost once the jump into the saved kernel image happens. Interesting
-> part is if KASLR is not enabled boot time vcpup mfn is same as in the image.
+On Thu, 3 Jun 2021, Julien Grall wrote:
+> On 02/06/2021 11:09, Penny Zheng wrote:
+> > Hi Julien
+> > 
+> > > -----Original Message-----
+> > > From: Julien Grall <julien@xen.org>
+> > > Sent: Thursday, May 20, 2021 4:51 PM
+> > > To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+> > > sstabellini@kernel.org
+> > > Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+> > > <Wei.Chen@arm.com>; nd <nd@arm.com>
+> > > Subject: Re: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
+> > > 
+> > > Hi,
+> > > 
+> > > On 20/05/2021 07:07, Penny Zheng wrote:
+> > > > > > It will be consistent with the ones defined in the parent node,
+> > > > > > domUx.
+> > > > > Hmmm... To take the example you provided, the parent would be chosen.
+> > > > > However, from the example, I would expect the property #{address,
+> > > > > size}-cells in domU1 to be used. What did I miss?
+> > > > > 
+> > > > 
+> > > > Yeah, the property #{address, size}-cells in domU1 will be used. And
+> > > > the parent node will be domU1.
+> > > 
+> > > You may have misunderstood what I meant. "domU1" is the node that
+> > > contains the property "xen,static-mem". The parent node would be the one
+> > > above (in our case "chosen").
+> > > 
+> > 
+> > I re-re-reconsider what you meant here, hope this time I get what you mean,
+> > correct me if I'm wrong,
+> > List an example here:
+> > 
+> >      / {
+> >          reserved-memory {
+> >              #address-cells = <2>;
+> >              #size-cells = <2>;
+> > 
+> >              staticmemdomU1: static-memory@0x30000000 {
+> >                  compatible = "xen,static-memory-domain";
+> >                  reg = <0x0 0x30000000 0x0 0x20000000>;
+> >              };
+> >          };
+> > 
+> >          chosen {
+> >              domU1 {
+> >                  compatible = "xen,domain";
+> >                  #address-cells = <0x1>;
+> >                  #size-cells = <0x1>;
+> >                  cpus = <2>;
+> >                  xen,static-mem = <&staticmemdomU1>;
+> > 
+> >                 ...
+> >              };
+> >          };
+> >      };
+> > 
+> > If user gives two different #address-cells and #size-cells in
+> > reserved-memory and domU1, Then when parsing it
+> > through `xen,static-mem`, it may have unexpected answers.
+> 
+> Why are you using the #address-cells and #size-cells from the node domU1 to
+> parse staticmemdomU1?
+> 
+> > I could not think a way to fix it properly in codes, do you have any
+> > suggestion? Or we just put a warning in doc/commits.
+> 
+> The correct approach is to find the parent of staticmemdomU1 (i.e.
+> reserved-memory) and use the #address-cells and #size-cells from there.
+
+Julien is right about how to parse the static-memory.
+
+But I have a suggestion on the new binding. The /reserved-memory node is
+a weird node: it is one of the very few node (the only node aside from
+/chosen) which is about software configurations rather than hardware
+description.
+
+For this reason, in a device tree with multiple domains /reserved-memory
+doesn't make a lot of sense: for which domain is the memory reserved?
+
+This was one of the first points raised by Rob Herring in reviewing
+system device tree.
+
+So the solution we went for is the following: if there is a default
+domain /reserved-memory applies to the default domain. Otherwise, each
+domain is going to have its own reserved-memory. Example:
+
+        domU1 {
+            compatible = "xen,domain";
+            #address-cells = <0x1>;
+            #size-cells = <0x1>;
+            cpus = <2>;
+
+            reserved-memory {
+                #address-cells = <2>;
+                #size-cells = <2>;
+   
+                static-memory@0x30000000 {
+                    compatible = "xen,static-memory-domain";
+                    reg = <0x0 0x30000000 0x0 0x20000000>;
+                };
+            };
+        };
 
 
-Do you start the your guest right after you've hibernated it? What happens if you create (and keep running) a few other guests in-between? mfn would likely be different then I'd think.
+So I don't think we want to use reserved-memory for this, either
+/reserved-memory or /chosen/domU1/reserved-memory. Instead it would be
+good to align it with system device tree and define it as a new property
+under domU1.
+
+In system device tree we would use a property called "memory" to specify
+one or more ranges, e.g.:
+
+    domU1 {
+        memory = <0x0 0x500000 0x0 0x7fb00000>;
+
+Unfortunately for xen,domains we have already defined "memory" to
+specify an amount, rather than a range. That's too bad because the most
+natural way to do this would be:
+
+    domU1 {
+        size = <amount>;
+        memory = <ranges>;
+
+When we'll introduce native system device tree support in Xen we'll be
+able to do that. For now, we need to come up with a different property.
+For instance: "static-memory" (other names are welcome if you have a
+better suggestion).
+
+We use a new property called "static-memory" together with
+#static-memory-address-cells and #static-memory-size-cells to define how
+many cells to use for address and size.
+
+Example:
+
+    domU1 {
+        #static-memory-address-cells = <2>;
+        #static-memory-size-cells = <2>;
+        static-memory = <0x0 0x500000 0x0 0x7fb00000>;
 
 
-> Once you enable KASLR this value changes sometimes and whenever that happens
-> resume gets stuck. Does that make sense?
->
-> No it does not resume successfully if hypercall fails because I was trying to
-> explicitly reset vcpu and invoke hypercall.
-> I am just wondering why does restore logic fails to work here or probably I am
-> missing a critical piece here.
 
-
-If you are not using KASLR then xen_vcpu_info is at the same address every time you boot. So whatever you registered before hibernating stays the same when you boot second time and register again, and so successful comparison in xen_vcpu_setup() works. (Mostly by chance.)
-
-
-But if KASLR is on then this comparison not failing should cause xen_vcpu pointer in the loaded image to become bogus because xen_vcpu is now registered for a different xen_vcpu_info address during boot.
-
-
->>> Another line of thought is something what kexec does to come around this problem
->>> is to abuse soft_reset and issue it during syscore_resume or may be before the image get loaded.
->>> I haven't experimented with that yet as I am assuming there has to be a way to re-register vcpus during resume.
->>
->> Right, that sounds like it should work.
->>
-> You mean soft reset or re-register vcpu?
-
-
-Doing something along the lines of a soft reset. It should allow you to re-register. Not sure how you can use it without Xen changes though. 
-
-
-
--boris
+Another alternative would be to extend the definition of the existing
+"memory" property to potentially handle not just sizes but also address
+and size pairs. There are a couple of ways to do that, including using
+#memory-address-cells = <0>; to specify when memory only has a size, or
+changing compatible string to "xen,domain-v2". But actually I would
+avoid it. I would keep it simple and just introduce a new property like
+"static-memory" (we can come up with a better name).
 
 
