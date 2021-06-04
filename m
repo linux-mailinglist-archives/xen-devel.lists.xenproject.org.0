@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9129139BE83
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jun 2021 19:21:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.136949.253754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74CE339BEE9
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jun 2021 19:36:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.136960.253769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lpDUT-00041b-NH; Fri, 04 Jun 2021 17:20:13 +0000
+	id 1lpDjN-0005X9-0w; Fri, 04 Jun 2021 17:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 136949.253754; Fri, 04 Jun 2021 17:20:13 +0000
+Received: by outflank-mailman (output) from mailman id 136960.253769; Fri, 04 Jun 2021 17:35:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lpDUT-0003zQ-Jv; Fri, 04 Jun 2021 17:20:13 +0000
-Received: by outflank-mailman (input) for mailman id 136949;
- Fri, 04 Jun 2021 17:20:12 +0000
+	id 1lpDjM-0005VE-TU; Fri, 04 Jun 2021 17:35:36 +0000
+Received: by outflank-mailman (input) for mailman id 136960;
+ Fri, 04 Jun 2021 17:35:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lpDUS-0003zG-DC; Fri, 04 Jun 2021 17:20:12 +0000
+ id 1lpDjL-0005V4-9v; Fri, 04 Jun 2021 17:35:35 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lpDUS-0000xN-67; Fri, 04 Jun 2021 17:20:12 +0000
+ id 1lpDjL-0001Cx-58; Fri, 04 Jun 2021 17:35:35 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lpDUR-0000Bw-Rc; Fri, 04 Jun 2021 17:20:11 +0000
+ id 1lpDjK-0000mU-Su; Fri, 04 Jun 2021 17:35:34 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lpDUR-0006rb-P5; Fri, 04 Jun 2021 17:20:11 +0000
+ id 1lpDjK-0004T9-SN; Fri, 04 Jun 2021 17:35:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,48 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ojiWlJS7+qT2utj0qISfMpV7ETK1b+JLPWd0rAGQe4I=; b=5oKCk/h+HppZkz1Y7T67+FFwVu
-	/uqdhUGwNx7/ffiFktAKdNvXRZhbw2BR10YLCLyZmMELT2Pi5jqVZsQEx9QS7MVQW4nTGeIWXUB2t
-	mBRh1kppQFmRUDj040Oq7NUDGBUn7BtoMi+V6KGnb6pEoTjqbZL6pjcs9y75XK9an4G4=;
+	bh=exAT1rBVPOSO6GA3tHCs9ko+p7SZZvz2k274nG+yFL4=; b=Q2u+hfDyKGJjl4Dg/cC+6muzDd
+	HlkcuQJetKRt0QKhQ9QfNMpyN9zkCpeu4wONIM8sQi8k8eH5M7LWxlWLHZy28kWEioi0yUS8W0o5L
+	C/5VtzcVyc4VHqrAlEWQPlZhd69OKJgqhpD1Prc7nkWRIEFoWcKQa4yJeEkKwO4XP2wE=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-162361-mainreport@xen.org>
+Message-ID: <osstest-162368-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [seabios test] 162361: tolerable FAIL - PUSHED
+Subject: [ovmf test] 162368: tolerable trouble: pass/starved - PUSHED
 X-Osstest-Failures:
-    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:hosts-allocate:starved:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
-    seabios=7292e4a0a8f58333ccbd2d0d47242f9865083c9c
+    ovmf=924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0
 X-Osstest-Versions-That:
-    seabios=81433aa8a19b36f9e3d50697608c93d8a28bf772
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Jun 2021 17:20:11 +0000
+Date: Fri, 04 Jun 2021 17:35:34 +0000
 
-flight 162361 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162361/
+flight 162368 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162368/
 
 Failures :-/ but no regressions.
 
 Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 162273
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 162273
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 162273
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 162273
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 162273
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  3 hosts-allocate             starved n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  3 hosts-allocate              starved n/a
 
 version targeted for testing:
- seabios              7292e4a0a8f58333ccbd2d0d47242f9865083c9c
+ ovmf                 924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0
 baseline version:
- seabios              81433aa8a19b36f9e3d50697608c93d8a28bf772
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-Last test of basis   162273  2021-05-31 05:41:03 Z    4 days
-Testing same since   162361  2021-06-04 06:09:59 Z    0 days    1 attempts
+Last test of basis   162359  2021-06-04 03:40:08 Z    0 days
+Testing same since   162368  2021-06-04 15:42:59 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Ni, Ray <ray.ni@intel.com>
+  Ray Ni <ray.ni@intel.com>
 
 jobs:
  build-amd64-xsm                                              pass    
@@ -105,26 +97,8 @@ jobs:
  build-i386-libvirt                                           pass    
  build-amd64-pvops                                            pass    
  build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         starved 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          starved 
 
 
 ------------------------------------------------------------
@@ -145,6 +119,6 @@ Test harness code can be found at
 
 Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   81433aa..7292e4a  7292e4a0a8f58333ccbd2d0d47242f9865083c9c -> xen-tested-master
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c410ad4da4..924c2b847f  924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0 -> xen-tested-master
 
