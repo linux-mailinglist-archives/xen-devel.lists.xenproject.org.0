@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4322E39C38C
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Jun 2021 00:39:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137056.253930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BDB639C49F
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Jun 2021 02:48:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137070.253955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lpISd-0003yU-SK; Fri, 04 Jun 2021 22:38:39 +0000
+	id 1lpKSl-0007ou-UT; Sat, 05 Jun 2021 00:46:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137056.253930; Fri, 04 Jun 2021 22:38:39 +0000
+Received: by outflank-mailman (output) from mailman id 137070.253955; Sat, 05 Jun 2021 00:46:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lpISd-0003vv-OK; Fri, 04 Jun 2021 22:38:39 +0000
-Received: by outflank-mailman (input) for mailman id 137056;
- Fri, 04 Jun 2021 22:38:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lpISc-0003vf-2t; Fri, 04 Jun 2021 22:38:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lpISb-0006Y9-To; Fri, 04 Jun 2021 22:38:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lpISb-0001Go-Ko; Fri, 04 Jun 2021 22:38:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lpISb-0004wo-KH; Fri, 04 Jun 2021 22:38:37 +0000
+	id 1lpKSl-0007lm-Qc; Sat, 05 Jun 2021 00:46:55 +0000
+Received: by outflank-mailman (input) for mailman id 137070;
+ Sat, 05 Jun 2021 00:46:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nsHC=K7=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
+ id 1lpKSk-0007lg-Nq
+ for xen-devel@lists.xenproject.org; Sat, 05 Jun 2021 00:46:55 +0000
+Received: from mail-40133.protonmail.ch (unknown [185.70.40.133])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fa2366c3-c3ec-4ff8-b342-fb619dd8327e;
+ Sat, 05 Jun 2021 00:46:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,211 +36,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=fgOinzt9HCSQYyKLziGNobIBS5/wzvLKSEpXQqtrd5E=; b=BECHT4UwBDFoAwLLOvAsPdC/9y
-	jKrKnnDv/D7VMI83YdMTTn4rh5Zbfb5WeapR4UgR7S8b3csR2+ojxoygEIIE8vpUPt8I0h7rCDW73
-	wESpLCKzb9wsbOS7SkxJTEXh/Z1l6TWW127qQ2tl+hPTnjNH637EqLMq5T45LfI+e+YI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162374-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: fa2366c3-c3ec-4ff8-b342-fb619dd8327e
+Date: Sat, 05 Jun 2021 00:46:49 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail; t=1622854010;
+	bh=LtS95j0B6WfWbjo7dU8GYscPr0kp6+CSg3pWNzHmaAs=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=fvoaA3HjluTyj64ty0hy2yIdg6TU3jgzuK9Ow/QUhY/aGNjPCUfT1dXvl32+QLIzE
+	 6+WYlIFG6BRuwGSdTdwMwXjsZQ8Jam58kksJMV5ZX0sCJoALwiYSirRxLsU26vftEs
+	 uKN/h5v92kBqSj2v+DbbY4buzVrVqpFnvQ0+wb9Q=
+To: Jan Beulich <jbeulich@suse.com>
+From: Dylanger Daly <dylangerdaly@protonmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
+Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
+Message-ID: <10Q_2iTQLicCwiahWeAjyi3C7Db3tcwpkF4dwd8gezGByiwoJpfHNHwHW8gonbgyhQ7LWU8xv1TB_fd18e05-Cy8CYUfFhZbgLneMwbOzNk=@protonmail.com>
+In-Reply-To: <0e963858-6834-96de-4bf2-956f905160b4@suse.com>
+References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com> <815f3bc3a28a165e8fa41c6954a6d00db656e3c3.camel@suse.com> <Y-6A5xIyjtCDwG3tBoyQnWpypF_eebCmuCjyUovcwd-ZD6wgFvNmR8VAdscAiwKp41toxpDxsgeF10FsEBn2Xm14b8bl9cniO_-TRNwm9mI=@protonmail.com> <1fc0e850-8a08-760f-c8cb-ad73dda4a37b@suse.com> <PGn1fJFla-7vPl7QFdkkBX8ASy2cWw-f2HBW7rWE5KgeFEZ_kNUp8Yq5zMaGyS38wMWofVshR75o1jD1rXZeTWtE8XhKQvEq_Dmgsnu-Uy0=@protonmail.com> <4916dec1-1bb9-7e6f-2fe5-577bbab92861@suse.com> <d7aaa4e7fa3083ff5bb18e18c5cd8274194109ba.camel@suse.com> <qcVhNDiGu6deufXzsHKbjEr4n3JuLC2cFNc1ORb02vl1IaPjm-37uFkXANQ-i7v77zP1GFxbYoTEG713C4EyHYBrE5YPvA5bXdPc4Brxg5U=@protonmail.com> <0e963858-6834-96de-4bf2-956f905160b4@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162374: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=75f13e9b221e2c8603f15ee1d53318526cf56113
-X-Osstest-Versions-That:
-    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Jun 2021 22:38:37 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
+	autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-flight 162374 xen-unstable-smoke real [real]
-flight 162377 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162374/
-http://logs.test-lab.xenproject.org/osstest/logs/162377/
+Hi all,
 
-Regressions :-(
+Lenovo released a new UEFI update for the Lenovo X13/T14s, changelog is her=
+e: https://download.lenovo.com/pccbbs/mobiles/r1cuj63wd.txt
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 162327
+It lists "Fixed an issue that Fixed TSC synchronization  failed under linux=
+." as a fix, I can confirm after removing the tsc=3Dunstable CMDLINE everyt=
+hing is functioning perfectly.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+The bottom of this issue was indeed Lenovo's shotty firmware.
 
-version targeted for testing:
- xen                  75f13e9b221e2c8603f15ee1d53318526cf56113
-baseline version:
- xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-
-Last test of basis   162327  2021-06-01 16:01:37 Z    3 days
-Failing since        162370  2021-06-04 17:01:35 Z    0 days    2 attempts
-Testing same since   162374  2021-06-04 20:03:35 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Lindig <christian.lindig@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 75f13e9b221e2c8603f15ee1d53318526cf56113
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:14 2021 +0200
-
-    tools/libs/guest: make some definitions private to libxenguest
-    
-    There are some definitions which are used in libxenguest only now.
-    Move them from libxenctrl over to libxenguest.
-    
-    Remove an unused macro.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 455790573d3bbad6d5a1bb7e9d28b6dd71075693
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:13 2021 +0200
-
-    tools/libs: move xc_core* from libxenctrl to libxenguest
-    
-    The functionality in xc_core* should be part of libxenguest instead
-    of libxenctrl. Users are already either in libxenguest, or in xl.
-    There is one single exception: xc_core_arch_auto_translated_physmap()
-    is being used by xc_domain_memory_mapping(), which is used by qemu.
-    So leave the xc_core_arch_auto_translated_physmap() functionality in
-    libxenctrl.
-    
-    This will make it easier to merge common functionality of xc_core*
-    and xg_sr_save*.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bf1fc18901dfea05a69f661493b934c0db7d3503
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:12 2021 +0200
-
-    tools/libs: move xc_resume.c to libxenguest
-    
-    The guest suspend functionality is already part of libxenguest. Move
-    the resume functionality from libxenctrl to libxenguest, too.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit f183854facad996fe891c086c024bca7cbcdc1e4
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:11 2021 +0200
-
-    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any()
-    
-    Instead of open coding the mapping of the p2m list use the already
-    existing xc_core_arch_map_p2m() call, especially as the current code
-    does not support guests with the linear p2m map. It should be noted
-    that this code is needed for colo/remus only.
-    
-    Switching to xc_core_arch_map_p2m() drops the need to bail out for
-    bitness of tool stack and guest differing.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bd7a29c3d0b937ab542abea06ff1b575abe7247a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:10 2021 +0200
-
-    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m table
-    
-    The core of a pv linux guest produced via "xl dump-core" is nor usable
-    as since kernel 4.14 only the linear p2m table is kept if Xen indicates
-    it is supporting that. Unfortunately xc_core_arch_map_p2m() is still
-    supporting the 3-level p2m tree only.
-    
-    Fix that by copying the functionality of map_p2m() from libxenguest to
-    libxenctrl.
-    
-    Additionally the mapped p2m isn't of a fixed length now, so the
-    interface to the mapping functions needs to be adapted. In order not to
-    add even more parameters, expand struct domain_info_context and use a
-    pointer to that as a parameter.
-    
-    Fixes: dc6d60937121 ("libxc: set flag for support of linear p2m list in domain builder")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:09 2021 +0200
-
-    tools/libs/guest: fix max_pfn setting in map_p2m()
-    
-    When setting the highest pfn used in the guest, don't subtract 1 from
-    the value read from the shared_info data. The value read already is
-    the correct pfn.
-    
-    Fixes: 91e204d37f449 ("libxc: try to find last used pfn when migrating")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
-Author: George Dunlap <george.dunlap@citrix.com>
-Date:   Thu May 6 13:38:02 2021 +0100
-
-    SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
-    
-    The support status of 32-bit guests doesn't seem particularly useful.
-    
-    With it changed to fully unsupported outside of PV-shim, adjust the PV32
-    Kconfig default accordingly.
-    
-    Reported-by: Jann Horn <jannh@google.com>
-    Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+Thank you to everyone.
 
