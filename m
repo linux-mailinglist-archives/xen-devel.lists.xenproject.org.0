@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D4C39C8F5
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Jun 2021 16:04:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137227.254278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DCB739C8F6
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Jun 2021 16:08:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137235.254289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lpWtF-0007AK-24; Sat, 05 Jun 2021 14:03:05 +0000
+	id 1lpWy2-0007rw-MY; Sat, 05 Jun 2021 14:08:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137227.254278; Sat, 05 Jun 2021 14:03:05 +0000
+Received: by outflank-mailman (output) from mailman id 137235.254289; Sat, 05 Jun 2021 14:08:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lpWtE-00078A-Ur; Sat, 05 Jun 2021 14:03:04 +0000
-Received: by outflank-mailman (input) for mailman id 137227;
- Sat, 05 Jun 2021 14:03:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lpWy2-0007p1-I0; Sat, 05 Jun 2021 14:08:02 +0000
+Received: by outflank-mailman (input) for mailman id 137235;
+ Sat, 05 Jun 2021 14:08:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6L7A=K7=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lpWtC-000784-Ql
- for xen-devel@lists.xenproject.org; Sat, 05 Jun 2021 14:03:02 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8b401d8e-98e1-48b9-a154-17b52f48b0fe;
- Sat, 05 Jun 2021 14:03:01 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 8575C6736F; Sat,  5 Jun 2021 16:02:57 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lpWy1-0007or-BW; Sat, 05 Jun 2021 14:08:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lpWy1-0003tt-4r; Sat, 05 Jun 2021 14:08:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lpWy0-0004to-Tl; Sat, 05 Jun 2021 14:08:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lpWy0-0001aQ-TN; Sat, 05 Jun 2021 14:08:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,53 +42,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b401d8e-98e1-48b9-a154-17b52f48b0fe
-Date: Sat, 5 Jun 2021 16:02:57 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Christoph Hellwig <hch@lst.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, jgross@suse.com,
-	Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>,
-	Denis Efremov <efremov@linux.com>,
-	Josef Bacik <josef@toxicpanda.com>, Tim Waugh <tim@cyberelk.net>,
-	Geoff Levand <geoff@infradead.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Mike Snitzer <snitzer@redhat.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@de.ibm.com>, dm-devel@redhat.com,
-	linux-block@vger.kernel.org, nbd@other.debian.org,
-	linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org
-Subject: Re: simplify gendisk and request_queue allocation for blk-mq based
- drivers
-Message-ID: <20210605140257.GA13166@lst.de>
-References: <20210602065345.355274-1-hch@lst.de> <YLpNqiw0LMkYWUyN@0xbeefdead.lan>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XEA5m7USBvAghfbqaNNO0y/9JJFMWY+VE6ymvhEvIXc=; b=3X7FrT7gfpkHtMr18m5wFnweEb
+	bTGsJpSmJ1ZtFmPqB3LmB+P/phz3XeNIlX7maKmua3+yPGFUCSDcC9J/X+Cgv7KMFa0T522oSWKHn
+	JoYvKOTHptHGxav5R5MS9SkqQsmfyWkeMNLXrNvaabGIyCfMe4u+bRyGwhSeww2Rtujs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162400-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YLpNqiw0LMkYWUyN@0xbeefdead.lan>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: [xen-unstable-smoke test] 162400: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=75f13e9b221e2c8603f15ee1d53318526cf56113
+X-Osstest-Versions-That:
+    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 05 Jun 2021 14:08:00 +0000
 
-On Fri, Jun 04, 2021 at 11:58:34AM -0400, Konrad Rzeszutek Wilk wrote:
-> On Wed, Jun 02, 2021 at 09:53:15AM +0300, Christoph Hellwig wrote:
-> > Hi all,
-> 
-> Hi!
-> 
-> You wouldn't have a nice git repo to pull so one can test it easily?
+flight 162400 xen-unstable-smoke real [real]
+flight 162405 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162400/
+http://logs.test-lab.xenproject.org/osstest/logs/162405/
 
-git://git.infradead.org/users/hch/block.git alloc_disk-part2
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 162327
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  75f13e9b221e2c8603f15ee1d53318526cf56113
+baseline version:
+ xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+
+Last test of basis   162327  2021-06-01 16:01:37 Z    3 days
+Failing since        162370  2021-06-04 17:01:35 Z    0 days    6 attempts
+Testing same since   162374  2021-06-04 20:03:35 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Christian Lindig <christian.lindig@citrix.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 75f13e9b221e2c8603f15ee1d53318526cf56113
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:14 2021 +0200
+
+    tools/libs/guest: make some definitions private to libxenguest
+    
+    There are some definitions which are used in libxenguest only now.
+    Move them from libxenctrl over to libxenguest.
+    
+    Remove an unused macro.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 455790573d3bbad6d5a1bb7e9d28b6dd71075693
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:13 2021 +0200
+
+    tools/libs: move xc_core* from libxenctrl to libxenguest
+    
+    The functionality in xc_core* should be part of libxenguest instead
+    of libxenctrl. Users are already either in libxenguest, or in xl.
+    There is one single exception: xc_core_arch_auto_translated_physmap()
+    is being used by xc_domain_memory_mapping(), which is used by qemu.
+    So leave the xc_core_arch_auto_translated_physmap() functionality in
+    libxenctrl.
+    
+    This will make it easier to merge common functionality of xc_core*
+    and xg_sr_save*.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bf1fc18901dfea05a69f661493b934c0db7d3503
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:12 2021 +0200
+
+    tools/libs: move xc_resume.c to libxenguest
+    
+    The guest suspend functionality is already part of libxenguest. Move
+    the resume functionality from libxenctrl to libxenguest, too.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit f183854facad996fe891c086c024bca7cbcdc1e4
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:11 2021 +0200
+
+    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any()
+    
+    Instead of open coding the mapping of the p2m list use the already
+    existing xc_core_arch_map_p2m() call, especially as the current code
+    does not support guests with the linear p2m map. It should be noted
+    that this code is needed for colo/remus only.
+    
+    Switching to xc_core_arch_map_p2m() drops the need to bail out for
+    bitness of tool stack and guest differing.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Christian Lindig <christian.lindig@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bd7a29c3d0b937ab542abea06ff1b575abe7247a
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:10 2021 +0200
+
+    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m table
+    
+    The core of a pv linux guest produced via "xl dump-core" is nor usable
+    as since kernel 4.14 only the linear p2m table is kept if Xen indicates
+    it is supporting that. Unfortunately xc_core_arch_map_p2m() is still
+    supporting the 3-level p2m tree only.
+    
+    Fix that by copying the functionality of map_p2m() from libxenguest to
+    libxenctrl.
+    
+    Additionally the mapped p2m isn't of a fixed length now, so the
+    interface to the mapping functions needs to be adapted. In order not to
+    add even more parameters, expand struct domain_info_context and use a
+    pointer to that as a parameter.
+    
+    Fixes: dc6d60937121 ("libxc: set flag for support of linear p2m list in domain builder")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:09 2021 +0200
+
+    tools/libs/guest: fix max_pfn setting in map_p2m()
+    
+    When setting the highest pfn used in the guest, don't subtract 1 from
+    the value read from the shared_info data. The value read already is
+    the correct pfn.
+    
+    Fixes: 91e204d37f449 ("libxc: try to find last used pfn when migrating")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
+Author: George Dunlap <george.dunlap@citrix.com>
+Date:   Thu May 6 13:38:02 2021 +0100
+
+    SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
+    
+    The support status of 32-bit guests doesn't seem particularly useful.
+    
+    With it changed to fully unsupported outside of PV-shim, adjust the PV32
+    Kconfig default accordingly.
+    
+    Reported-by: Jann Horn <jannh@google.com>
+    Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
