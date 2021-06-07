@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C33939DD75
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 15:17:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137965.255500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2484D39DDB5
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 15:32:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137974.255516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqF7V-0006eF-H1; Mon, 07 Jun 2021 13:16:45 +0000
+	id 1lqFML-0000QW-Rq; Mon, 07 Jun 2021 13:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137965.255500; Mon, 07 Jun 2021 13:16:45 +0000
+Received: by outflank-mailman (output) from mailman id 137974.255516; Mon, 07 Jun 2021 13:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqF7V-0006cC-DI; Mon, 07 Jun 2021 13:16:45 +0000
-Received: by outflank-mailman (input) for mailman id 137965;
- Mon, 07 Jun 2021 13:16:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a/zi=LB=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1lqF7T-0006bn-G4
- for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 13:16:43 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id fee34c0c-2eab-4bd5-9c98-248a601a231d;
- Mon, 07 Jun 2021 13:16:42 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49139143D;
- Mon,  7 Jun 2021 06:16:42 -0700 (PDT)
-Received: from [10.57.3.20] (unknown [10.57.3.20])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 358643F694;
- Mon,  7 Jun 2021 06:16:37 -0700 (PDT)
+	id 1lqFML-0000Ob-Oj; Mon, 07 Jun 2021 13:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 137974;
+ Mon, 07 Jun 2021 13:32:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lqFMK-0000OV-00
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 13:32:04 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lqFM4-0000he-54; Mon, 07 Jun 2021 13:31:48 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lqFM3-0001L6-Ua; Mon, 07 Jun 2021 13:31:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,139 +40,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fee34c0c-2eab-4bd5-9c98-248a601a231d
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Sb5sMBoS0YKi0d11Me0ggEk2+k+yrY92QKm0UHWWpQo=; b=3uhf/I33YQMYlmWLdQYuq9XnOt
+	tuyuG2WiBT5ZumOC5y9x52zQK08JqnUAX5QadeetuykCft9c5SSp1S7ufjkSsaM88twe2apkCGAqo
+	ZC5FRgO9K4X13iExL9khEwypC1/9EJBxtXCMxoLMd1ex6HDjGCrykwz3gyxmlfMjnRsQ=;
 Subject: Re: [PATCH v3 10/10] arm64: Change type of hsr, cpsr, spsr_el1 to
  uint64_t
-To: Jan Beulich <jbeulich@suse.com>
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
  Alexandru Isaila <aisaila@bitdefender.com>,
  Petre Pircalabu <ppircalabu@bitdefender.com>, bertrand.marquis@arm.com,
- wei.chen@arm.com, xen-devel@lists.xenproject.org,
- Julien Grall <julien@xen.org>
+ wei.chen@arm.com
 References: <20210505074308.11016-1-michal.orzel@arm.com>
  <20210505074308.11016-11-michal.orzel@arm.com>
- <c5676e69-a474-d1ad-c7e9-49c03be3ab66@suse.com>
- <1ff4f9fb-0eca-189a-2b47-b910dc6b3639@arm.com>
- <42a998be-2f99-a1b6-ace6-4c5d42af7046@xen.org>
- <54e845e1-f283-d70c-a0c2-73e768e5a56e@suse.com>
- <b8a14892-0290-3aff-c4b5-6d363b884db7@xen.org>
- <f65babea-bd4f-f1fa-07db-78d83727b155@arm.com>
- <c2d72d18-8266-2866-565a-f91ec4e22d84@suse.com>
-From: Michal Orzel <michal.orzel@arm.com>
-Message-ID: <7a50d86c-0637-7c75-6e04-06bdbdd5b9d9@arm.com>
-Date: Mon, 7 Jun 2021 15:16:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+From: Julien Grall <julien@xen.org>
+Message-ID: <d3fa0269-3779-c893-8adb-4db0e22f28c1@xen.org>
+Date: Mon, 7 Jun 2021 14:31:44 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <c2d72d18-8266-2866-565a-f91ec4e22d84@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210505074308.11016-11-michal.orzel@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
-
-On 21.05.2021 09:07, Jan Beulich wrote:
-> On 21.05.2021 08:33, Michal Orzel wrote:
->> On 17.05.2021 18:03, Julien Grall wrote:
->>> On 17/05/2021 08:01, Jan Beulich wrote:
->>>> On 12.05.2021 19:59, Julien Grall wrote:
->>>>> Hi,
->>>>>
->>>>> On 11/05/2021 07:37, Michal Orzel wrote:
->>>>>> On 05.05.2021 10:00, Jan Beulich wrote:
->>>>>>> On 05.05.2021 09:43, Michal Orzel wrote:
->>>>>>>> --- a/xen/include/public/arch-arm.h
->>>>>>>> +++ b/xen/include/public/arch-arm.h
->>>>>>>> @@ -267,10 +267,10 @@ struct vcpu_guest_core_regs
->>>>>>>>           /* Return address and mode */
->>>>>>>>        __DECL_REG(pc64,         pc32);             /* ELR_EL2 */
->>>>>>>> -    uint32_t cpsr;                              /* SPSR_EL2 */
->>>>>>>> +    uint64_t cpsr;                              /* SPSR_EL2 */
->>>>>>>>           union {
->>>>>>>> -        uint32_t spsr_el1;       /* AArch64 */
->>>>>>>> +        uint64_t spsr_el1;       /* AArch64 */
->>>>>>>>            uint32_t spsr_svc;       /* AArch32 */
->>>>>>>>        };
->>>>>>>
->>>>>>> This change affects, besides domctl, also default_initialise_vcpu(),
->>>>>>> which Arm's arch_initialise_vcpu() calls. I realize do_arm_vcpu_op()
->>>>>>> only allows two unrelated VCPUOP_* to pass, but then I don't
->>>>>>> understand why arch_initialise_vcpu() doesn't simply return e.g.
->>>>>>> -EOPNOTSUPP. Hence I suspect I'm missing something.
->>>>>
->>>>> I think it is just an overlooked when reviewing the following commit:
->>>>>
->>>>> commit 192df6f9122ddebc21d0a632c10da3453aeee1c2
->>>>> Author: Roger Pau Monné <roger.pau@citrix.com>
->>>>> Date:   Tue Dec 15 14:12:32 2015 +0100
->>>>>
->>>>>       x86: allow HVM guests to use hypercalls to bring up vCPUs
->>>>>
->>>>>       Allow the usage of the VCPUOP_initialise, VCPUOP_up, VCPUOP_down,
->>>>>       VCPUOP_is_up, VCPUOP_get_physid and VCPUOP_send_nmi hypercalls from HVM
->>>>>       guests.
->>>>>
->>>>>       This patch introduces a new structure (vcpu_hvm_context) that
->>>>> should be used
->>>>>       in conjuction with the VCPUOP_initialise hypercall in order to
->>>>> initialize
->>>>>       vCPUs for HVM guests.
->>>>>
->>>>>       Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>>       Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>       Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>>       Acked-by: Ian Campbell <ian.campbell@citrix.com>
->>>>>
->>>>> On Arm, the structure vcpu_guest_context is not exposed outside of Xen
->>>>> and the tools. Interestingly vcpu_guest_core_regs is but it should only
->>>>> be used within vcpu_guest_context.
->>>>>
->>>>> So as this is not used by stable ABI, it is fine to break it.
->>>>>
->>>>>>>
->>>>>> I agree that do_arm_vcpu_op only allows two VCPUOP* to pass and
->>>>>> arch_initialise_vcpu being called in case of VCPUOP_initialise
->>>>>> has no sense as VCPUOP_initialise is not supported on arm.
->>>>>> It makes sense that it should return -EOPNOTSUPP.
->>>>>> However do_arm_vcpu_op will not accept VCPUOP_initialise and will return
->>>>>> -EINVAL. So arch_initialise_vcpu for arm will not be called.
->>>>>> Do you think that changing this behaviour so that arch_initialise_vcpu returns
->>>>>> -EOPNOTSUPP should be part of this patch?
->>>>>
->>>>> I think this change is unrelated. So it should be handled in a follow-up
->>>>> patch.
->>>>
->>>> My only difference in viewing this is that I'd say the adjustment
->>>> would better be a prereq patch to this one, such that the one here
->>>> ends up being more obviously correct.
->>>
->>> The function is already not reachable so I felt it was unfair to require the clean-up for merging this code.
->>>
->>>> Also, if the function is
->>>> indeed not meant to be reachable, besides making it return
->>>> -EOPNOTSUPP (or alike) it should probably also have
->>>> ASSERT_UNREACHABLE() added.
->>>
->>> +1 on the idea.
->>>
->>> Cheers,
->>>
->> FWICS, all the discussion is about creating the next patch fixing the VCPUOP_initialise function.
->> Is there anything left to do in this patch or are you going to ack it?
+On 05/05/2021 08:43, Michal Orzel wrote:
+> AArch64 registers are 64bit whereas AArch32 registers
+> are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
+> we should get rid of helpers READ/WRITE_SYSREG32
+> in favour of using READ/WRITE_SYSREG.
+> We should also use register_t type when reading sysregs
+> which can correspond to uint64_t or uint32_t.
+> Even though many AArch64 registers have upper 32bit reserved
+> it does not mean that they can't be widen in the future.
 > 
-> Afaic I'd find it quite helpful if that other patch was a prereq to this
-> one, making more obvious that the change here is not going to break
-> anything. But it's Arm stuff, so Arm folks get the final say anyway.
-This change is not going to break anything as the new patch is going to mainly add ASSERT_UNREACHABLE into VCPUOP_initialise which means it'll be a clean-up patch.
-Also the problem was not introduced by this patch so I think it should be merged.
+> Modify type of hsr, cpsr, spsr_el1 to uint64_t.
+> Previously we relied on the padding after SPSR_EL1.
+> As we removed the padding, modify the union to be 64bit so we don't corrupt SPSR_FIQ.
+> No need to modify the assembly code becuase the accesses were based on 64bit
+
+s/becuase/because/
+
+> registers as there was a 32bit padding after SPSR_EL1.
 > 
-> Jan
+> Remove 32bit padding in cpu_user_regs before spsr_fiq
+> as it is no longer needed due to upper union being 64bit now.
+> Add 64bit padding in cpu_user_regs before spsr_el1
+> because offset of spsr_el1 must be a multiple of 8.
+> 
+> Change type of cpsr to uint64_t in the public outside interface
+> "public/arch-arm.h" to allow ABI compatibility between 32bit and 64bit.
+> Increment XEN_DOMCTL_INTERFACE_VERSION.
+> 
+> Change type of cpsr to uint64_t in the public outside interface
+> "public/vm_event.h" to allow ABI compatibility between 32bit and 64bit.
+[...]
+
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index e7384381cc..c8f9773566 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -546,7 +546,7 @@ void inject_undef64_exception(struct cpu_user_regs *regs, int instr_len)
+>           PSR_IRQ_MASK | PSR_DBG_MASK;
+>       regs->pc = handler;
+>   
+> -    WRITE_SYSREG32(esr.bits, ESR_EL1);
+> +    WRITE_SYSREG(esr.bits, ESR_EL1);
+>   }
+>   
+>   /* Inject an abort exception into a 64 bit guest */
+> @@ -580,7 +580,7 @@ static void inject_abt64_exception(struct cpu_user_regs *regs,
+>       regs->pc = handler;
+>   
+>       WRITE_SYSREG(addr, FAR_EL1);
+> -    WRITE_SYSREG32(esr.bits, ESR_EL1);
+> +    WRITE_SYSREG(esr.bits, ESR_EL1);
+>   }
+>   
+>   static void inject_dabt64_exception(struct cpu_user_regs *regs,
+> @@ -717,7 +717,7 @@ struct reg_ctxt {
+>       uint64_t vttbr_el2;
+>   };
+>   
+> -static const char *mode_string(uint32_t cpsr)
+> +static const char *mode_string(register_t cpsr)
+>   {
+>       uint32_t mode;
+>       static const char *mode_strings[] = {
+> @@ -756,14 +756,16 @@ static void show_registers_32(const struct cpu_user_regs *regs,
+>   #ifdef CONFIG_ARM_64
+>       BUG_ON( ! (regs->cpsr & PSR_MODE_BIT) );
+>       printk("PC:     %08"PRIx32"\n", regs->pc32);
+> +    printk("CPSR:   %016"PRIx64" MODE:%s\n", regs->cpsr,
+> +           mode_string(regs->cpsr));
+Why do you now need to duplicate this line? Can't we use PRIregister you 
+did everywhere else a register is printed?
+
+>   #else
+>       printk("PC:     %08"PRIx32, regs->pc);
+>       if ( !guest_mode )
+>           printk(" %pS", _p(regs->pc));
+>       printk("\n");
+> -#endif
+>       printk("CPSR:   %08"PRIx32" MODE:%s\n", regs->cpsr,
+>              mode_string(regs->cpsr));
+> +#endif
+
+[...]
+
+> diff --git a/xen/include/asm-arm/arm64/processor.h b/xen/include/asm-arm/arm64/processor.h
+> index 81dfc5e615..0e86079cbb 100644
+> --- a/xen/include/asm-arm/arm64/processor.h
+> +++ b/xen/include/asm-arm/arm64/processor.h
+> @@ -63,18 +63,19 @@ struct cpu_user_regs
+>   
+>       /* Return address and mode */
+>       __DECL_REG(pc,           pc32);             /* ELR_EL2 */
+> -    uint32_t cpsr;                              /* SPSR_EL2 */
+> -    uint32_t hsr;                               /* ESR_EL2 */
+> +    uint64_t cpsr;                              /* SPSR_EL2 */
+> +    uint64_t hsr;                               /* ESR_EL2 */
+> +
+> +    /* Offset of spsr_el1 must be a multiple of 8 */
+
+I am guessing you are saying it should be 8-byte aligned, right? If so, 
+the field before is a 64-bit value, therefore the offset should already 
+be a multiple of 8. Did I miss anything?
+
+> +    uint64_t pad0;
+>   
+>       /* Outer guest frame only from here on... */
+>   
+>       union {
+> -        uint32_t spsr_el1;       /* AArch64 */
+> +        uint64_t spsr_el1;       /* AArch64 */
+>           uint32_t spsr_svc;       /* AArch32 */
+>       };
+>   
+> -    uint32_t pad1; /* Doubleword-align the user half of the frame */
+> -
+>       /* AArch32 guests only */
+>       uint32_t spsr_fiq, spsr_irq, spsr_und, spsr_abt;
+>   
+> diff --git a/xen/include/asm-arm/hsr.h b/xen/include/asm-arm/hsr.h
+> index 29d4531f40..9b91b28c48 100644
+> --- a/xen/include/asm-arm/hsr.h
+> +++ b/xen/include/asm-arm/hsr.h
+> @@ -16,7 +16,7 @@ enum dabt_size {
+>   };
+>   
+>   union hsr {
+> -    uint32_t bits;
+> +    register_t bits;
+>       struct {
+>           unsigned long iss:25;  /* Instruction Specific Syndrome */
+>           unsigned long len:1;   /* Instruction length */
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index 713fd65317..64a2ca30da 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -267,10 +267,10 @@ struct vcpu_guest_core_regs
+>   
+>       /* Return address and mode */
+>       __DECL_REG(pc64,         pc32);             /* ELR_EL2 */
+> -    uint32_t cpsr;                              /* SPSR_EL2 */
+> +    uint64_t cpsr;                              /* SPSR_EL2 */
+>   
+>       union {
+> -        uint32_t spsr_el1;       /* AArch64 */
+> +        uint64_t spsr_el1;       /* AArch64 */
+>           uint32_t spsr_svc;       /* AArch32 */
+>       };
+>   
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 4dbf107785..d576bfabd6 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -38,7 +38,7 @@
+>   #include "hvm/save.h"
+>   #include "memory.h"
+>   
+> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000013
+> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
+>   
+>   /*
+>    * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
+> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+> index 36135ba4f1..bb003d21d0 100644
+> --- a/xen/include/public/vm_event.h
+> +++ b/xen/include/public/vm_event.h
+> @@ -266,8 +266,7 @@ struct vm_event_regs_arm {
+>       uint64_t ttbr1;
+>       uint64_t ttbcr;
+>       uint64_t pc;
+> -    uint32_t cpsr;
+> -    uint32_t _pad;
+> +    uint64_t cpsr;
+>   };
+>   
+>   /*
 > 
 
-So what is the final say from Arm folks :) ?
-
+-- 
+Julien Grall
 
