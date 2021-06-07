@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7482E39DB0E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 13:20:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137851.255332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C4039DB14
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 13:20:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137856.255345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqDIo-0005Gy-RZ; Mon, 07 Jun 2021 11:20:18 +0000
+	id 1lqDJH-0005mC-5w; Mon, 07 Jun 2021 11:20:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137851.255332; Mon, 07 Jun 2021 11:20:18 +0000
+Received: by outflank-mailman (output) from mailman id 137856.255345; Mon, 07 Jun 2021 11:20:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqDIo-0005ER-NK; Mon, 07 Jun 2021 11:20:18 +0000
-Received: by outflank-mailman (input) for mailman id 137851;
- Mon, 07 Jun 2021 11:20:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lqDJH-0005iB-1i; Mon, 07 Jun 2021 11:20:47 +0000
+Received: by outflank-mailman (input) for mailman id 137856;
+ Mon, 07 Jun 2021 11:20:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqDIm-0005EH-O1; Mon, 07 Jun 2021 11:20:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqDIm-0006mK-Ih; Mon, 07 Jun 2021 11:20:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqDIm-00050r-AK; Mon, 07 Jun 2021 11:20:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lqDIm-00061N-9r; Mon, 07 Jun 2021 11:20:16 +0000
+ (envelope-from <SRS0=kcEO=LB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lqDJF-0005aa-I5
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 11:20:45 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 04639098-c405-4c5e-a4e6-49718097229f;
+ Mon, 07 Jun 2021 11:20:38 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C52801FDA1;
+ Mon,  7 Jun 2021 11:20:37 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 9BDF0118DD;
+ Mon,  7 Jun 2021 11:20:37 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id ulviJAUBvmAcVAAALh3uQQ
+ (envelope-from <jgross@suse.com>); Mon, 07 Jun 2021 11:20:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,211 +46,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=gXc+NcH3dwYYPdLh9vGhYJIyNIelB57gBjcQICQjNB4=; b=Sfhm0EO/TcPSpoaJcPNB5uOkO+
-	fX5cMCz1Q6SmIPuP8i0Oa5zbV49Sl4TPHJW2jEf0+ExZiWOaeQcoWhw+xeGhQxsDRoMqFRMGEIHPm
-	IdaXJC8Bdkjc50JzBoat3R9hKos79DWIt6OXJVkRRcorNctB4OGqyYkTwO8vr6792zIg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162490-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 04639098-c405-4c5e-a4e6-49718097229f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1623064837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/9GCv56hn2ceBq+ibp+voDCt2yOAP9i23fZo/5cnTdE=;
+	b=gmbL+CAAcYWZXnHSroyO+d83cSqBOsNgFhy6xhvqyCeZSULvMKJr8ENTdmxRePytgqc6xi
+	tyi8UewcuqH+3HckLR24vWaj2kLo6FI2X00GGxw9E+VyGTN0pU5j9vr1HghFmbTappkITP
+	EO3GU4NL/l2I1x8qVN+8MKRP4SRVpEE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1623064837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/9GCv56hn2ceBq+ibp+voDCt2yOAP9i23fZo/5cnTdE=;
+	b=gmbL+CAAcYWZXnHSroyO+d83cSqBOsNgFhy6xhvqyCeZSULvMKJr8ENTdmxRePytgqc6xi
+	tyi8UewcuqH+3HckLR24vWaj2kLo6FI2X00GGxw9E+VyGTN0pU5j9vr1HghFmbTappkITP
+	EO3GU4NL/l2I1x8qVN+8MKRP4SRVpEE=
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210607090425.18277-1-jgross@suse.com>
+ <cd954aa7-ee43-1126-f97a-21c213ef053b@citrix.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] tools/libs/guest: fix save and restore of pv domains
+ after 32-bit de-support
+Message-ID: <747ef58e-3b39-89b5-c48d-37313e33c260@suse.com>
+Date: Mon, 7 Jun 2021 13:20:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162490: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=75f13e9b221e2c8603f15ee1d53318526cf56113
-X-Osstest-Versions-That:
-    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Jun 2021 11:20:16 +0000
+In-Reply-To: <cd954aa7-ee43-1126-f97a-21c213ef053b@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="ry2uOR4k0zJd6JcJaWXfMLqEPBVgzEgMI"
 
-flight 162490 xen-unstable-smoke real [real]
-flight 162495 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162490/
-http://logs.test-lab.xenproject.org/osstest/logs/162495/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--ry2uOR4k0zJd6JcJaWXfMLqEPBVgzEgMI
+Content-Type: multipart/mixed; boundary="pIACGx8hhqOjynFkcG9HXxkDgr0NjzDMU";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <747ef58e-3b39-89b5-c48d-37313e33c260@suse.com>
+Subject: Re: [PATCH] tools/libs/guest: fix save and restore of pv domains
+ after 32-bit de-support
+References: <20210607090425.18277-1-jgross@suse.com>
+ <cd954aa7-ee43-1126-f97a-21c213ef053b@citrix.com>
+In-Reply-To: <cd954aa7-ee43-1126-f97a-21c213ef053b@citrix.com>
 
-Regressions :-(
+--pIACGx8hhqOjynFkcG9HXxkDgr0NjzDMU
+Content-Type: multipart/mixed;
+ boundary="------------6ACA3C7A8FB1812A69F8E498"
+Content-Language: en-US
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 162327
+This is a multi-part message in MIME format.
+--------------6ACA3C7A8FB1812A69F8E498
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+On 07.06.21 13:01, Andrew Cooper wrote:
+> On 07/06/2021 10:04, Juergen Gross wrote:
+>> After 32-bit PV-guests have been security de-supported when not runnin=
+g
+>> under PV-shim, the hypervisor will no longer be configured to support
+>> those domains per default when not being built as PV-shim.
+>>
+>> Unfortunately libxenguest will fail saving or restoring a PV domain
+>> due to this restriction, as it is trying to get the compat MFN list
+>> even for 64 bit guests.
+>>
+>> Fix that by obtaining the compat MFN list only for 32-bit PV guests.
+>>
+>> Fixes: 1a0f2fe2297d122a08fe ("SUPPORT.md: Un-shimmed 32-bit PV guests =
+are no longer supported")
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   tools/libs/guest/xg_sr_common_x86_pv.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/tools/libs/guest/xg_sr_common_x86_pv.c b/tools/libs/guest=
+/xg_sr_common_x86_pv.c
+>> index cd33406aab..ad20461e2e 100644
+>> --- a/tools/libs/guest/xg_sr_common_x86_pv.c
+>> +++ b/tools/libs/guest/xg_sr_common_x86_pv.c
+>> @@ -154,6 +154,7 @@ int x86_pv_map_m2p(struct xc_sr_context *ctx)
+>>       ctx->x86.pv.compat_m2p_mfn0 =3D entries[0].mfn;
+>>   #else
+>>       /* 64 bit toolstacks need to ask Xen specially for it */
+>> +    if ( ctx->x86.pv.levels =3D=3D 3 )
+>>       {
+>>           struct xen_machphys_mfn_list xmml =3D {
+>>               .max_extents =3D 1,
+>=20
+> This wants to encompass the whole ifdef block, to avoid having differin=
+g
+> behaviour between compile widths.
+>=20
+> Also the comment next to compat_m2p_mfn0 wants adjusting to say "only
+> set for 32bit PV guests".
 
-version targeted for testing:
- xen                  75f13e9b221e2c8603f15ee1d53318526cf56113
-baseline version:
- xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-
-Last test of basis   162327  2021-06-01 16:01:37 Z    5 days
-Failing since        162370  2021-06-04 17:01:35 Z    2 days   18 attempts
-Testing same since   162374  2021-06-04 20:03:35 Z    2 days   17 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Lindig <christian.lindig@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Okay, together with Jan's suggestion this makes sense.
 
 
-Not pushing.
+Juergen
 
-------------------------------------------------------------
-commit 75f13e9b221e2c8603f15ee1d53318526cf56113
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:14 2021 +0200
+--------------6ACA3C7A8FB1812A69F8E498
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-    tools/libs/guest: make some definitions private to libxenguest
-    
-    There are some definitions which are used in libxenguest only now.
-    Move them from libxenctrl over to libxenguest.
-    
-    Remove an unused macro.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-commit 455790573d3bbad6d5a1bb7e9d28b6dd71075693
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:13 2021 +0200
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-    tools/libs: move xc_core* from libxenctrl to libxenguest
-    
-    The functionality in xc_core* should be part of libxenguest instead
-    of libxenctrl. Users are already either in libxenguest, or in xl.
-    There is one single exception: xc_core_arch_auto_translated_physmap()
-    is being used by xc_domain_memory_mapping(), which is used by qemu.
-    So leave the xc_core_arch_auto_translated_physmap() functionality in
-    libxenctrl.
-    
-    This will make it easier to merge common functionality of xc_core*
-    and xg_sr_save*.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
+--------------6ACA3C7A8FB1812A69F8E498--
 
-commit bf1fc18901dfea05a69f661493b934c0db7d3503
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:12 2021 +0200
+--pIACGx8hhqOjynFkcG9HXxkDgr0NjzDMU--
 
-    tools/libs: move xc_resume.c to libxenguest
-    
-    The guest suspend functionality is already part of libxenguest. Move
-    the resume functionality from libxenctrl to libxenguest, too.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
+--ry2uOR4k0zJd6JcJaWXfMLqEPBVgzEgMI
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-commit f183854facad996fe891c086c024bca7cbcdc1e4
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:11 2021 +0200
+-----BEGIN PGP SIGNATURE-----
 
-    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any()
-    
-    Instead of open coding the mapping of the p2m list use the already
-    existing xc_core_arch_map_p2m() call, especially as the current code
-    does not support guests with the linear p2m map. It should be noted
-    that this code is needed for colo/remus only.
-    
-    Switching to xc_core_arch_map_p2m() drops the need to bail out for
-    bitness of tool stack and guest differing.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC+AQUFAwAAAAAACgkQsN6d1ii/Ey9K
+eAf/SsrdRuYjPVO0O+lO8rM6vdmekTAAsUfJPEc9urgnr3im3liNJcxFddU23rDBwuVJtKXmaop3
+aPnJUI6Dfz3ZsFd+gIwK/fHXI5QePMLlTl2n5XZOn9YjPjquq9ypYhWBVL6mwnPMwpnmGpdLGNwZ
+cxyMwDFOKP7VEcvrEZ010aZTnH8EzKFW47dVr5+Gb2xJTKZVyvONIAnE3x0pbomiDGj5SGSxQV5v
+huxsuvDPin2fk6DOgPMqen/e7a/2SDzFh+XLT5XwL/IiMbGIsvtmMaZsz/wBfennUdAxl6BI/Yy+
+2wQM0cr6ePByd5Rfr6vh6kEE0L/LXS/1SjXnX7BYvA==
+=jpkX
+-----END PGP SIGNATURE-----
 
-commit bd7a29c3d0b937ab542abea06ff1b575abe7247a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:10 2021 +0200
-
-    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m table
-    
-    The core of a pv linux guest produced via "xl dump-core" is nor usable
-    as since kernel 4.14 only the linear p2m table is kept if Xen indicates
-    it is supporting that. Unfortunately xc_core_arch_map_p2m() is still
-    supporting the 3-level p2m tree only.
-    
-    Fix that by copying the functionality of map_p2m() from libxenguest to
-    libxenctrl.
-    
-    Additionally the mapped p2m isn't of a fixed length now, so the
-    interface to the mapping functions needs to be adapted. In order not to
-    add even more parameters, expand struct domain_info_context and use a
-    pointer to that as a parameter.
-    
-    Fixes: dc6d60937121 ("libxc: set flag for support of linear p2m list in domain builder")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:09 2021 +0200
-
-    tools/libs/guest: fix max_pfn setting in map_p2m()
-    
-    When setting the highest pfn used in the guest, don't subtract 1 from
-    the value read from the shared_info data. The value read already is
-    the correct pfn.
-    
-    Fixes: 91e204d37f449 ("libxc: try to find last used pfn when migrating")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
-Author: George Dunlap <george.dunlap@citrix.com>
-Date:   Thu May 6 13:38:02 2021 +0100
-
-    SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
-    
-    The support status of 32-bit guests doesn't seem particularly useful.
-    
-    With it changed to fully unsupported outside of PV-shim, adjust the PV32
-    Kconfig default accordingly.
-    
-    Reported-by: Jann Horn <jannh@google.com>
-    Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+--ry2uOR4k0zJd6JcJaWXfMLqEPBVgzEgMI--
 
