@@ -2,46 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9206039DD42
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 15:05:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137958.255488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C33939DD75
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 15:17:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137965.255500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqEwC-0005CI-Cf; Mon, 07 Jun 2021 13:05:04 +0000
+	id 1lqF7V-0006eF-H1; Mon, 07 Jun 2021 13:16:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137958.255488; Mon, 07 Jun 2021 13:05:04 +0000
+Received: by outflank-mailman (output) from mailman id 137965.255500; Mon, 07 Jun 2021 13:16:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqEwC-00059i-9g; Mon, 07 Jun 2021 13:05:04 +0000
-Received: by outflank-mailman (input) for mailman id 137958;
- Mon, 07 Jun 2021 13:05:03 +0000
+	id 1lqF7V-0006cC-DI; Mon, 07 Jun 2021 13:16:45 +0000
+Received: by outflank-mailman (input) for mailman id 137965;
+ Mon, 07 Jun 2021 13:16:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cRKJ=LB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lqEwB-00059c-9j
- for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 13:05:03 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c2d6d4ee-addf-4745-938a-61118efa6ee1;
- Mon, 07 Jun 2021 13:05:02 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2057.outbound.protection.outlook.com [104.47.13.57]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-36-FVgcdd6zOveW_GnFEucR8g-1; Mon, 07 Jun 2021 15:05:00 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB7024.eurprd04.prod.outlook.com (2603:10a6:800:124::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21; Mon, 7 Jun
- 2021 13:04:58 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 13:04:58 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FR0P281CA0059.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:49::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.9 via Frontend Transport; Mon, 7 Jun 2021 13:04:57 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=a/zi=LB=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1lqF7T-0006bn-G4
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 13:16:43 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id fee34c0c-2eab-4bd5-9c98-248a601a231d;
+ Mon, 07 Jun 2021 13:16:42 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49139143D;
+ Mon,  7 Jun 2021 06:16:42 -0700 (PDT)
+Received: from [10.57.3.20] (unknown [10.57.3.20])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 358643F694;
+ Mon,  7 Jun 2021 06:16:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,163 +42,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2d6d4ee-addf-4745-938a-61118efa6ee1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1623071101;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D4N64f9gsaOrT+9l+Ln3X7OWG+Nl2vmf2fgCMHzvfmY=;
-	b=DeNTnvxgTlPJp9kdU5MfYE1rcCfjMn+kEmEpSgQ8pCJ3ie/K1KnomDuQlh4ADhS/BpsyCg
-	zaQEunZqih3U4XMG/lcosY2S9j5AmtAUkn/7Ivn9Uj/4y7KYOwy92ETsFMqWvZOeo6AAwJ
-	bhe+fu1VMoRdvGgRZuIsi0loGOv5O8Q=
-X-MC-Unique: FVgcdd6zOveW_GnFEucR8g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hz1Lk9Z6TFYcc6j+a5ti3GlZyUTJPPdCex22m7ltiE6byNJJr2hSTeHSyFdrS6r3YSfXMwicyVS4CmIRN8CJnMMPFOPung+JzYx9yy+d7XwLSKPNNpHJHOWynooKuucnE3sIB1RGif8xwhpyaaXANrg0bBWmF3WcqQHUaA8kCmy5MaLSV2GYcTafzcy6m+g0CB0SRg7nrjRTKFy49IQMhMHs9AdEEjtP+8RMcYnIJ4jC64v3S34wXOHnA7zdKg5U8Za9PIrQ54UmbgHHx/Acp1FaTfUbYn1LTaKjEosYSbXWqY9yhC4/p4HYAAVQp7uOd60cFGu9vtnXlWWC2fDgYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D4N64f9gsaOrT+9l+Ln3X7OWG+Nl2vmf2fgCMHzvfmY=;
- b=mBl5lpWs1GqP+BuwOZ8GFzLyhB3lxeq4DQrOt9l4NrR9yt7w7b5gVsBbtCiN1UoWojCbEh1bfug3bww6ZhI8oDUYG9LhC8ywT5Nt6saE3JsCby8z5zpVxYbGVCA6l1AQsjZuG1PWhWSNML8u339/fU6Swpo8crZhJrwRnL79GliqBBnBLryX++ZCV75G21cE+aEWNd4HJ249fh5U5BMlDxXP+M+BmgPCmpVP9QQAfY/RAI9VUrRNijmnzbVKb4ZTOa0z9zK4Fge/QaI1WcTZGIw+88VITFZTckhOiAgsxUOXtugto/UYVvjNHGjAzErJ4V5mlG+jVBn4bR0e1sAPtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH v2] tools/libs/guest: fix save and restore of pv domains
- after 32-bit de-support
-To: Juergen Gross <jgross@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210607130005.5475-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <07fad6f2-3ace-044e-72af-a470f6864c00@suse.com>
-Date: Mon, 7 Jun 2021 15:04:55 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210607130005.5475-1-jgross@suse.com>
+X-Inumbo-ID: fee34c0c-2eab-4bd5-9c98-248a601a231d
+Subject: Re: [PATCH v3 10/10] arm64: Change type of hsr, cpsr, spsr_el1 to
+ uint64_t
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, bertrand.marquis@arm.com,
+ wei.chen@arm.com, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
+References: <20210505074308.11016-1-michal.orzel@arm.com>
+ <20210505074308.11016-11-michal.orzel@arm.com>
+ <c5676e69-a474-d1ad-c7e9-49c03be3ab66@suse.com>
+ <1ff4f9fb-0eca-189a-2b47-b910dc6b3639@arm.com>
+ <42a998be-2f99-a1b6-ace6-4c5d42af7046@xen.org>
+ <54e845e1-f283-d70c-a0c2-73e768e5a56e@suse.com>
+ <b8a14892-0290-3aff-c4b5-6d363b884db7@xen.org>
+ <f65babea-bd4f-f1fa-07db-78d83727b155@arm.com>
+ <c2d72d18-8266-2866-565a-f91ec4e22d84@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <7a50d86c-0637-7c75-6e04-06bdbdd5b9d9@arm.com>
+Date: Mon, 7 Jun 2021 15:16:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <c2d72d18-8266-2866-565a-f91ec4e22d84@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: FR0P281CA0059.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::7) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3e47e1f8-d3e5-40e0-5e8c-08d929b4da2b
-X-MS-TrafficTypeDiagnostic: VI1PR04MB7024:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB7024D203846EA8C8BC748AB0B3389@VI1PR04MB7024.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	OsGiDtZeB2KDgGj4gHuuICZuQJbTgnErZfTV60uMVkJtXWG+msau+DJm5Xv6xEXnDTWDWJOmgs1R3VoPVPaazGzLeUpg99bhTaY9zXeOGONNq9uyjXbyJjo72vH8dxXdZgfGcLw61WV5Fjqrd8MIDExswyAAA/tm6O5yGHZlRUMimjUHvTQHQr+XbofdANjYP6tSH4adTNBaL6zNL6+aAes8v8uZvwPmhTRS+dsu9F2KazLI5wS6o7c0Gep8OlYAkQv45WUVrIlhGH0tx/OI1WE2LJCV5X0WsTt0dX+hSPwDd3OFQZTKxCwjGNm9rQdIIn0U8G3/YiqwKCy/gE+KTRn/Rnzx7CE2hZrtp8cT92hPuHbBJgHbi3ZATflgVJHalkYLsHFHZ9OihMfKM/v+fuVUFDTgTG2HU2yuJTTKKirKd0U4ZiEAFMeKKv42kDLmE/Elnh+xXNxDvf86rz5hPXtV16YWOq7MAfntr6d2WXTfRn4CEPMVPiZ6xX0vGHUHjua5kqNlef+A4/gWPWDep/Z6iDYWw7JDk7aNxAxPUzE5sUJd5DHnTtjO/KeL1ElbNbAKke/4TkfsaJevxFgyl3Pa7B5SinMb/dTQKF1qbFFrIJhCgjRG/6PL7uavceBxZn2uawPvPkILBiQMdT2WhFd4kQ0qlYSimNl/sLywXJ+9pQy71onF498q21lAQHma
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(366004)(396003)(136003)(39850400004)(346002)(478600001)(36756003)(66556008)(66946007)(6636002)(186003)(6486002)(2616005)(31696002)(8936002)(66476007)(2906002)(54906003)(4326008)(31686004)(38100700002)(86362001)(8676002)(53546011)(316002)(26005)(37006003)(16576012)(5660300002)(956004)(6862004)(16526019)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
-	=?utf-8?B?OWhzaVhwc0xsYWthWWJZSmhKbVdIbTNHSHRCSGpGTHpIQW96a2FrOFFNQXRh?=
- =?utf-8?B?M2hOVnA0NUdlb0xGdXgrWUI5T0N5MUJ3bDRWbkpsd3lBUjh6WDZNc1VFd1hv?=
- =?utf-8?B?N1lncEVPSnExT1RoZXBWeHd0NGZzNFNYUTEyZFoydGVVVHZGLzFKY3VVcG01?=
- =?utf-8?B?Um9mTkFtejRmS041QWRHV3BaK09kRlRUeFdUbEQvQTY1UEhYWWVXVXc3bTlW?=
- =?utf-8?B?Z1prWkdZdFoxekZNZVVvOTZCS1Rhd2gwNjVvbnlycFFYZVc2OHZGQ0dhSVgr?=
- =?utf-8?B?V3E3N0ZHTW9LbDhDdkQ0d08rQ2hhb1VENHdFR0dPd0o3UFNSL0FDbjFtemZQ?=
- =?utf-8?B?Q2pCS3FtN1ROaTRjNXlqVE9xTThqaDg2bHVTVnFPN2JneTR2d0d4eHR2NjZ6?=
- =?utf-8?B?Y3oxZ3NLTmtwM2VqOXBGYk1NOXJudGJPMThKTzJGdUl4RTFOaWdxNW0vUElL?=
- =?utf-8?B?ajAwdE5NY1pwRnpQYjU1VG5UWW5jdlRlNytMM0ZTNU13bnVHcnlOVllYVHR5?=
- =?utf-8?B?Tmpza0dZTVZmdEg3Y1VHK0NIMGZpa0NNaGZnR2JVeUs1Z0ROeTMvRTk2MTNI?=
- =?utf-8?B?MWI0ai9Fby9qMUxzYjFxSUUrUnJHTHM4V1o0UkVTamJSTTJ4eXlYMjV6UzN3?=
- =?utf-8?B?dWdTcEZsKzA1V08xbWVWZEtSMWxpMEo5Z3NSaGMvQ3kyeGpjTTB6cHJnUDJF?=
- =?utf-8?B?M2VmbE1BZDdObEpZRSs1MWFWMmhvNExQUDVEQXNqZVgzcFVPWFlGY3BoOGtH?=
- =?utf-8?B?Vm5IeWRSMmpVZU5qNjFGNk9MUUJZOFhySFBpNldHdHRQNVJqcnpIMy9pcjRW?=
- =?utf-8?B?ZUt6NW15eFBpTW5HeGlxOHJDQkpVdlBBa3NQclBJbUtWY0pYYkdwdjIrZ2I4?=
- =?utf-8?B?VXR1aWNFTXIxdWw5dFllaWhUL3JBVHNRM3dGeUJFd2VlSVRmUU1BMkIrenpm?=
- =?utf-8?B?eENoR3h2T0F6RWR3TGRlODA2NG5mQWh2QjAwRFlubWNncFVScWlrL3Q3U2Nh?=
- =?utf-8?B?SVNka0dHZkF6UVNuZTJNRUFUWmI2MHN5RzJDTHVTRTRhODJUbEdod2Q2UEpu?=
- =?utf-8?B?bWdLUjFkL1JsWDYyOTVyN3ZhLy9jaHR3OVRYdGRNeWplaHZSeUx4N3JkcERX?=
- =?utf-8?B?cnZ3NU9wMCttcXZjTk8zRU9wOEtFK2YvaGN0cnNhZkhDeXBrYlUrMjdOVlZZ?=
- =?utf-8?B?akRjcEtGcGR6QjhmL1F2SXRyS0lYN3owcWhiODNzTWI5RU1XZFJFSnVNUWlD?=
- =?utf-8?B?a3pqN0JzYXZtemxGamdmQk1sMmlWNTUwQVdMQjFCSDVKaUN1YW1yeFZ5U0dy?=
- =?utf-8?B?S1FxV1VnK2V0STluQzB3S3VpbmhhbGREU1d3ZjZlaW1SN1QxMmI0eitINERj?=
- =?utf-8?B?T0pKSGtyZGRSc1JrZWxQRXZwQlZHOGovSzM1YTI5U0NxSFZTNHd5Y0xJVzdS?=
- =?utf-8?B?cGtuQkRza0ZlWXZ5UG1YV1Z1aTA0akc4VmNMOHBKd2hwTkRUWXFJNmd0d3Bi?=
- =?utf-8?B?RGExS2QzQy84MVJ4NVQyM3VLemxvZys4TkZRcGdUQnhubDFZOWZodXN0bXZ2?=
- =?utf-8?B?MytNQlRDUGs2SmJPa0ZsWGxFOGM4WnhTN1NtYkRGcStWY25IL2c4b3BMYWJN?=
- =?utf-8?B?ZjQxaFV3TUR5YkdteExUWC8wVHNKYm8xRjJBZ0tLd1JRVEQrbUd1K3Q1bitW?=
- =?utf-8?B?VzNzMkNRNXJYNElydzV4blRkbkZDVjZuQ1luZHhEcnIvcUhKbTY2MzFNOW4y?=
- =?utf-8?Q?tGcytCuyzUvCVSkyFfZJ44a5Q5JDgw9gAgwJsbI?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e47e1f8-d3e5-40e0-5e8c-08d929b4da2b
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 13:04:58.3172
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WWS0Pi1oWeWQ2MJDyFQKSl6p6KbBG8rBKIFutZmDG+I96jInRc4gHKmQkfHbxUv2SZM3DWkbh2/ejbiP8JIwpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7024
+Content-Transfer-Encoding: 8bit
 
-On 07.06.2021 15:00, Juergen Gross wrote:
-> --- a/tools/libs/guest/xg_sr_common_x86_pv.c
-> +++ b/tools/libs/guest/xg_sr_common_x86_pv.c
-> @@ -149,27 +149,32 @@ int x86_pv_map_m2p(struct xc_sr_context *ctx)
->  
->      ctx->x86.pv.nr_m2p_frames = (M2P_CHUNK_SIZE >> PAGE_SHIFT) * m2p_chunks;
->  
-> +    if ( ctx->x86.pv.levels == 3 )
-> +    {
 
-With this opening brace you no longer need ...
 
->  #ifdef __i386__
-> -    /* 32 bit toolstacks automatically get the compat m2p */
-> -    ctx->x86.pv.compat_m2p_mfn0 = entries[0].mfn;
-> +        /* 32 bit toolstacks automatically get the compat m2p */
-> +        ctx->x86.pv.compat_m2p_mfn0 = entries[0].mfn;
->  #else
-> -    /* 64 bit toolstacks need to ask Xen specially for it */
-> -    {
+On 21.05.2021 09:07, Jan Beulich wrote:
+> On 21.05.2021 08:33, Michal Orzel wrote:
+>> On 17.05.2021 18:03, Julien Grall wrote:
+>>> On 17/05/2021 08:01, Jan Beulich wrote:
+>>>> On 12.05.2021 19:59, Julien Grall wrote:
+>>>>> Hi,
+>>>>>
+>>>>> On 11/05/2021 07:37, Michal Orzel wrote:
+>>>>>> On 05.05.2021 10:00, Jan Beulich wrote:
+>>>>>>> On 05.05.2021 09:43, Michal Orzel wrote:
+>>>>>>>> --- a/xen/include/public/arch-arm.h
+>>>>>>>> +++ b/xen/include/public/arch-arm.h
+>>>>>>>> @@ -267,10 +267,10 @@ struct vcpu_guest_core_regs
+>>>>>>>>           /* Return address and mode */
+>>>>>>>>        __DECL_REG(pc64,         pc32);             /* ELR_EL2 */
+>>>>>>>> -    uint32_t cpsr;                              /* SPSR_EL2 */
+>>>>>>>> +    uint64_t cpsr;                              /* SPSR_EL2 */
+>>>>>>>>           union {
+>>>>>>>> -        uint32_t spsr_el1;       /* AArch64 */
+>>>>>>>> +        uint64_t spsr_el1;       /* AArch64 */
+>>>>>>>>            uint32_t spsr_svc;       /* AArch32 */
+>>>>>>>>        };
+>>>>>>>
+>>>>>>> This change affects, besides domctl, also default_initialise_vcpu(),
+>>>>>>> which Arm's arch_initialise_vcpu() calls. I realize do_arm_vcpu_op()
+>>>>>>> only allows two unrelated VCPUOP_* to pass, but then I don't
+>>>>>>> understand why arch_initialise_vcpu() doesn't simply return e.g.
+>>>>>>> -EOPNOTSUPP. Hence I suspect I'm missing something.
+>>>>>
+>>>>> I think it is just an overlooked when reviewing the following commit:
+>>>>>
+>>>>> commit 192df6f9122ddebc21d0a632c10da3453aeee1c2
+>>>>> Author: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> Date:   Tue Dec 15 14:12:32 2015 +0100
+>>>>>
+>>>>>       x86: allow HVM guests to use hypercalls to bring up vCPUs
+>>>>>
+>>>>>       Allow the usage of the VCPUOP_initialise, VCPUOP_up, VCPUOP_down,
+>>>>>       VCPUOP_is_up, VCPUOP_get_physid and VCPUOP_send_nmi hypercalls from HVM
+>>>>>       guests.
+>>>>>
+>>>>>       This patch introduces a new structure (vcpu_hvm_context) that
+>>>>> should be used
+>>>>>       in conjuction with the VCPUOP_initialise hypercall in order to
+>>>>> initialize
+>>>>>       vCPUs for HVM guests.
+>>>>>
+>>>>>       Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>       Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>>       Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>>>       Acked-by: Ian Campbell <ian.campbell@citrix.com>
+>>>>>
+>>>>> On Arm, the structure vcpu_guest_context is not exposed outside of Xen
+>>>>> and the tools. Interestingly vcpu_guest_core_regs is but it should only
+>>>>> be used within vcpu_guest_context.
+>>>>>
+>>>>> So as this is not used by stable ABI, it is fine to break it.
+>>>>>
+>>>>>>>
+>>>>>> I agree that do_arm_vcpu_op only allows two VCPUOP* to pass and
+>>>>>> arch_initialise_vcpu being called in case of VCPUOP_initialise
+>>>>>> has no sense as VCPUOP_initialise is not supported on arm.
+>>>>>> It makes sense that it should return -EOPNOTSUPP.
+>>>>>> However do_arm_vcpu_op will not accept VCPUOP_initialise and will return
+>>>>>> -EINVAL. So arch_initialise_vcpu for arm will not be called.
+>>>>>> Do you think that changing this behaviour so that arch_initialise_vcpu returns
+>>>>>> -EOPNOTSUPP should be part of this patch?
+>>>>>
+>>>>> I think this change is unrelated. So it should be handled in a follow-up
+>>>>> patch.
+>>>>
+>>>> My only difference in viewing this is that I'd say the adjustment
+>>>> would better be a prereq patch to this one, such that the one here
+>>>> ends up being more obviously correct.
+>>>
+>>> The function is already not reachable so I felt it was unfair to require the clean-up for merging this code.
+>>>
+>>>> Also, if the function is
+>>>> indeed not meant to be reachable, besides making it return
+>>>> -EOPNOTSUPP (or alike) it should probably also have
+>>>> ASSERT_UNREACHABLE() added.
+>>>
+>>> +1 on the idea.
+>>>
+>>> Cheers,
+>>>
+>> FWICS, all the discussion is about creating the next patch fixing the VCPUOP_initialise function.
+>> Is there anything left to do in this patch or are you going to ack it?
+> 
+> Afaic I'd find it quite helpful if that other patch was a prereq to this
+> one, making more obvious that the change here is not going to break
+> anything. But it's Arm stuff, so Arm folks get the final say anyway.
+This change is not going to break anything as the new patch is going to mainly add ASSERT_UNREACHABLE into VCPUOP_initialise which means it'll be a clean-up patch.
+Also the problem was not introduced by this patch so I think it should be merged.
+> 
+> Jan
+> 
 
-... this one, and hence you could avoid re-indenting ...
-
-> -        struct xen_machphys_mfn_list xmml = {
-> -            .max_extents = 1,
-> -            .extent_start = { &ctx->x86.pv.compat_m2p_mfn0 },
-> -        };
-> -
-> -        rc = do_memory_op(xch, XENMEM_machphys_compat_mfn_list,
-> -                          &xmml, sizeof(xmml));
-> -        if ( rc || xmml.nr_extents != 1 )
-> +        /* 64 bit toolstacks need to ask Xen specially for it */
->          {
-> -            PERROR("Failed to get compat mfn list from Xen");
-> -            rc = -1;
-> -            goto err;
-> +            struct xen_machphys_mfn_list xmml = {
-> +                .max_extents = 1,
-> +                .extent_start = { &ctx->x86.pv.compat_m2p_mfn0 },
-> +            };
-> +
-> +            rc = do_memory_op(xch, XENMEM_machphys_compat_mfn_list,
-> +                              &xmml, sizeof(xmml));
-> +            if ( rc || xmml.nr_extents != 1 )
-> +            {
-> +                PERROR("Failed to get compat mfn list from Xen");
-> +                rc = -1;
-> +                goto err;
-> +            }
-
-... all of this. Preferably with such reduced code churn,
-still/again:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
+So what is the final say from Arm folks :) ?
 
 
