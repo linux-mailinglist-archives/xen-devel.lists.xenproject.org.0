@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6378639D595
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 09:09:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137723.255133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC74E39D6DD
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 10:16:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137735.255153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lq9NB-0007Z9-CF; Mon, 07 Jun 2021 07:08:33 +0000
+	id 1lqAPN-0006Gy-LY; Mon, 07 Jun 2021 08:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137723.255133; Mon, 07 Jun 2021 07:08:33 +0000
+Received: by outflank-mailman (output) from mailman id 137735.255153; Mon, 07 Jun 2021 08:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lq9NB-0007X6-8C; Mon, 07 Jun 2021 07:08:33 +0000
-Received: by outflank-mailman (input) for mailman id 137723;
- Mon, 07 Jun 2021 07:08:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lq9N9-0007Ww-JP; Mon, 07 Jun 2021 07:08:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lq9N9-0001pQ-96; Mon, 07 Jun 2021 07:08:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lq9N9-0007oR-2T; Mon, 07 Jun 2021 07:08:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lq9N9-0002YY-20; Mon, 07 Jun 2021 07:08:31 +0000
+	id 1lqAPN-0006Eh-IB; Mon, 07 Jun 2021 08:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 137735;
+ Mon, 07 Jun 2021 08:14:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=b+N/=LB=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1lqAPM-0006EZ-1C
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 08:14:52 +0000
+Received: from mail-pl1-x634.google.com (unknown [2607:f8b0:4864:20::634])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9b6dff58-edcb-461c-8dcd-a94c33ce1d6d;
+ Mon, 07 Jun 2021 08:14:51 +0000 (UTC)
+Received: by mail-pl1-x634.google.com with SMTP id x10so8209084plg.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jun 2021 01:14:51 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
+ by smtp.gmail.com with ESMTPSA id
+ r11sm8236573pgl.34.2021.06.07.01.14.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Jun 2021 01:14:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,211 +42,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AtxJNPUZJmpV0vJl9Ulzbp5uggoMeIp4SENKkVrK790=; b=hfB8Blp16hGrrcfxXIqnpX1DpY
-	u1dik6cI5S2SpuNUoeZFZqDExvKfWoNgshA4NZ3jwVX0rStw1SuSdXsj/Ayr+NdySoyEfYNPZ5sMw
-	yP95p2kYGxTtCdMVyvBuZlr/f8gwF+Jo0YIu1t5FQyOnHVG0YtgqmkR4mU6LAdXS+WRg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162480-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9b6dff58-edcb-461c-8dcd-a94c33ce1d6d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=c5tZw1PE5ja1kIfp0A9CThFtz7RTJJ96vn5JKsdn4zo=;
+        b=XoQyLvz24OoCRIOShkQNcu9DiR7bBkokC0zH2y0VsTYjxJfKw7R0siA80dncjT3YUK
+         wAQolPJ8LMP2QAHMUANfaqPmSCX0C5CGSEEQPtRRcQTl1EKUo8gRIPdRN/yizwXOvk7a
+         MyxLl0xOVUFh4CzE2lkyyns1y8zU/3BfW8wnjMepLuBa14dDIuRlcgHvnJy9KhXaOr8X
+         f1b1b3SWDcQzR8oj41QVFoJZ6XqUPNURZphda8kDAwgTk/UUkxjzRis3jA/H1Gt2YM49
+         MOGgQu1k2QTfbhGmrfPyoKrM3mYFHKWoquCiDY9UKYa1vj3gMvLKx5aFnrcD/cKhHcp4
+         J8+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=c5tZw1PE5ja1kIfp0A9CThFtz7RTJJ96vn5JKsdn4zo=;
+        b=PTNP+e+BEbsZgKCbDdK430ywyYvwSCMR4oAVFA1z/bvOjz4A0CwzVrHYEVUTTWjyLP
+         DTfQ6tI87T6cO4x4ExJJxR3SwlTBJuckyfzguFRWJujSsWH4XBFvfAO6RD6PVAxR9re4
+         46Yb/Vj5X1EML1MQHUMbt+RbLNzVZxvbU9yY18v4Numaz9D+++czZfnWzx55ehJ/qJSt
+         fSW3Xp9kbWpMew4FsGCgOW7NlAFazd5UKznHfFR9nbSh5sCXDsP6a2RCMMK0AWIzdCsS
+         W1G3ebF1a0FhS6bSpNP1bCyWjsXuaZErx2HceCh0bike/tlmqeNxC+fEelOtGv0KZsyL
+         Lnfw==
+X-Gm-Message-State: AOAM530oG9LpEYKAiKawgeu8SIv02+ZbLUEqOV3iV56RP9OP9wGTs/Wf
+	mUlXVym6WEt1ktpMy8P3KMo=
+X-Google-Smtp-Source: ABdhPJz5DsUF3lCnv8yQA4dIwCqwn7lOEnqmDAyx9VQ48+J+hBL0/9GZGiwWD3mDm4r9zCHOflaTmA==
+X-Received: by 2002:a17:902:9a42:b029:f5:1cf7:2e52 with SMTP id x2-20020a1709029a42b02900f51cf72e52mr16701852plv.25.1623053690127;
+        Mon, 07 Jun 2021 01:14:50 -0700 (PDT)
+Subject: Re: [RFC PATCH V3 01/11] x86/HV: Initialize GHCB page in Isolation VM
+To: Christoph Hellwig <hch@lst.de>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
+ mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+ arnd@arndb.de, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, akpm@linux-foundation.org,
+ kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
+ cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
+ Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, m.szyprowski@samsung.com,
+ robin.murphy@arm.com, boris.ostrovsky@oracle.com, jgross@suse.com,
+ sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
+ xen-devel@lists.xenproject.org, davem@davemloft.net, kuba@kernel.org,
+ jejb@linux.ibm.com, martin.petersen@oracle.com,
+ iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
+ thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
+References: <20210530150628.2063957-1-ltykernel@gmail.com>
+ <20210530150628.2063957-2-ltykernel@gmail.com>
+ <20210607064142.GA24478@lst.de>
+From: Tianyu Lan <ltykernel@gmail.com>
+Message-ID: <37260f47-bd32-08f7-b006-f75f4d3c408a@gmail.com>
+Date: Mon, 7 Jun 2021 16:14:36 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162480: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=75f13e9b221e2c8603f15ee1d53318526cf56113
-X-Osstest-Versions-That:
-    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Jun 2021 07:08:31 +0000
+In-Reply-To: <20210607064142.GA24478@lst.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 162480 xen-unstable-smoke real [real]
-flight 162486 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162480/
-http://logs.test-lab.xenproject.org/osstest/logs/162486/
+Hi Christoph:
+	Thanks for your review.
 
-Regressions :-(
+On 6/7/2021 2:41 PM, Christoph Hellwig wrote:
+> On Sun, May 30, 2021 at 11:06:18AM -0400, Tianyu Lan wrote:
+>> +	if (ms_hyperv.ghcb_base) {
+>> +		rdmsrl(MSR_AMD64_SEV_ES_GHCB, ghcb_gpa);
+>> +
+>> +		ghcb_va = ioremap_cache(ghcb_gpa, HV_HYP_PAGE_SIZE);
+>> +		if (!ghcb_va)
+>> +			return -ENOMEM;
+> 
+> Can you explain this a bit more?  We've very much deprecated
+> ioremap_cache in favor of memremap.  Why yo you need a __iomem address
+> here?  Why do we need the remap here at all? >
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 162327
+GHCB physical address is an address in extra address space which is 
+above shared gpa boundary reported by Hyper-V CPUID. The addresses below
+shared gpa boundary treated as encrypted and the one above is treated as 
+decrypted. System memory is remapped in the extra address space and it 
+starts from the boundary. The shared memory with host needs to use 
+address in the extra address(pa + shared_gpa_boundary) in Linux guest.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Here is to map ghcb page for the communication operations with 
+Hypervisor(e.g, hypercall and read/write MSR) via GHCB page.
 
-version targeted for testing:
- xen                  75f13e9b221e2c8603f15ee1d53318526cf56113
-baseline version:
- xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+memremap() will go through iomem_resource list and the address in extra 
+address space will not be in the list. So I used ioremap_cache(). I will
+memremap() instead of ioremap() here.
 
-Last test of basis   162327  2021-06-01 16:01:37 Z    5 days
-Failing since        162370  2021-06-04 17:01:35 Z    2 days   17 attempts
-Testing same since   162374  2021-06-04 20:03:35 Z    2 days   16 attempts
+> Does the data structure at this address not have any types that we
+> could use a struct for?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Lindig <christian.lindig@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
+The struct will be added in the following patch. I will refresh the 
+following patch and use the struct hv_ghcb for the mapped point.
+> 
+>> +
+>> +		rdmsrl(MSR_AMD64_SEV_ES_GHCB, ghcb_gpa);
+>> +		ghcb_va = ioremap_cache(ghcb_gpa, HV_HYP_PAGE_SIZE);
+>> +		if (!ghcb_va) {
+> 
+> This seems to duplicate the above code.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
+The above is to map ghcb for BSP and here does the same thing for APs
+Will add a new function to avoid the duplication.
 
+> 
+>> +bool hv_isolation_type_snp(void)
+>> +{
+>> +	return static_branch_unlikely(&isolation_type_snp);
+>> +}
+>> +EXPORT_SYMBOL_GPL(hv_isolation_type_snp);
+> 
+> This probably wants a kerneldoc explaining when it should be used. >
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+OK. I will add.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 75f13e9b221e2c8603f15ee1d53318526cf56113
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:14 2021 +0200
-
-    tools/libs/guest: make some definitions private to libxenguest
-    
-    There are some definitions which are used in libxenguest only now.
-    Move them from libxenctrl over to libxenguest.
-    
-    Remove an unused macro.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 455790573d3bbad6d5a1bb7e9d28b6dd71075693
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:13 2021 +0200
-
-    tools/libs: move xc_core* from libxenctrl to libxenguest
-    
-    The functionality in xc_core* should be part of libxenguest instead
-    of libxenctrl. Users are already either in libxenguest, or in xl.
-    There is one single exception: xc_core_arch_auto_translated_physmap()
-    is being used by xc_domain_memory_mapping(), which is used by qemu.
-    So leave the xc_core_arch_auto_translated_physmap() functionality in
-    libxenctrl.
-    
-    This will make it easier to merge common functionality of xc_core*
-    and xg_sr_save*.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bf1fc18901dfea05a69f661493b934c0db7d3503
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:12 2021 +0200
-
-    tools/libs: move xc_resume.c to libxenguest
-    
-    The guest suspend functionality is already part of libxenguest. Move
-    the resume functionality from libxenctrl to libxenguest, too.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit f183854facad996fe891c086c024bca7cbcdc1e4
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:11 2021 +0200
-
-    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any()
-    
-    Instead of open coding the mapping of the p2m list use the already
-    existing xc_core_arch_map_p2m() call, especially as the current code
-    does not support guests with the linear p2m map. It should be noted
-    that this code is needed for colo/remus only.
-    
-    Switching to xc_core_arch_map_p2m() drops the need to bail out for
-    bitness of tool stack and guest differing.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bd7a29c3d0b937ab542abea06ff1b575abe7247a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:10 2021 +0200
-
-    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m table
-    
-    The core of a pv linux guest produced via "xl dump-core" is nor usable
-    as since kernel 4.14 only the linear p2m table is kept if Xen indicates
-    it is supporting that. Unfortunately xc_core_arch_map_p2m() is still
-    supporting the 3-level p2m tree only.
-    
-    Fix that by copying the functionality of map_p2m() from libxenguest to
-    libxenctrl.
-    
-    Additionally the mapped p2m isn't of a fixed length now, so the
-    interface to the mapping functions needs to be adapted. In order not to
-    add even more parameters, expand struct domain_info_context and use a
-    pointer to that as a parameter.
-    
-    Fixes: dc6d60937121 ("libxc: set flag for support of linear p2m list in domain builder")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:09 2021 +0200
-
-    tools/libs/guest: fix max_pfn setting in map_p2m()
-    
-    When setting the highest pfn used in the guest, don't subtract 1 from
-    the value read from the shared_info data. The value read already is
-    the correct pfn.
-    
-    Fixes: 91e204d37f449 ("libxc: try to find last used pfn when migrating")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
-Author: George Dunlap <george.dunlap@citrix.com>
-Date:   Thu May 6 13:38:02 2021 +0100
-
-    SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
-    
-    The support status of 32-bit guests doesn't seem particularly useful.
-    
-    With it changed to fully unsupported outside of PV-shim, adjust the PV32
-    Kconfig default accordingly.
-    
-    Reported-by: Jann Horn <jannh@google.com>
-    Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
