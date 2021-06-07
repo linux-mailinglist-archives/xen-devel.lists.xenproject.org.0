@@ -2,35 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 752B439D2E5
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 04:26:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.137523.254833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 239A139D310
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 04:44:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.137534.254848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lq4x1-0000ey-41; Mon, 07 Jun 2021 02:25:15 +0000
+	id 1lq5Eu-00031o-Qg; Mon, 07 Jun 2021 02:43:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 137523.254833; Mon, 07 Jun 2021 02:25:15 +0000
+Received: by outflank-mailman (output) from mailman id 137534.254848; Mon, 07 Jun 2021 02:43:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lq4x0-0000cd-UY; Mon, 07 Jun 2021 02:25:14 +0000
-Received: by outflank-mailman (input) for mailman id 137523;
- Mon, 07 Jun 2021 02:25:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lq4wz-0000cT-8S; Mon, 07 Jun 2021 02:25:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lq4wy-0004HX-4L; Mon, 07 Jun 2021 02:25:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lq4wx-00030z-T0; Mon, 07 Jun 2021 02:25:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lq4wx-00044v-SU; Mon, 07 Jun 2021 02:25:11 +0000
+	id 1lq5Eu-0002zo-NU; Mon, 07 Jun 2021 02:43:44 +0000
+Received: by outflank-mailman (input) for mailman id 137534;
+ Mon, 07 Jun 2021 02:43:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MAL7=LB=arm.com=penny.zheng@srs-us1.protection.inumbo.net>)
+ id 1lq5Et-0002zi-6v
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 02:43:43 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
+ [40.107.6.84]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ebaf0d1a-0a28-4a24-adc4-a3ffc5c9c8bd;
+ Mon, 07 Jun 2021 02:43:40 +0000 (UTC)
+Received: from DBBPR09CA0023.eurprd09.prod.outlook.com (2603:10a6:10:c0::35)
+ by AM9PR08MB6228.eurprd08.prod.outlook.com (2603:10a6:20b:281::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Mon, 7 Jun
+ 2021 02:43:38 +0000
+Received: from DB5EUR03FT049.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:c0:cafe::38) by DBBPR09CA0023.outlook.office365.com
+ (2603:10a6:10:c0::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22 via Frontend
+ Transport; Mon, 7 Jun 2021 02:43:38 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT049.mail.protection.outlook.com (10.152.20.191) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4195.21 via Frontend Transport; Mon, 7 Jun 2021 02:43:38 +0000
+Received: ("Tessian outbound bf434e582664:v93");
+ Mon, 07 Jun 2021 02:43:38 +0000
+Received: from 43e9bd8c5705.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 217E8781-6E41-40BB-84C4-EF698A40DA7A.1; 
+ Mon, 07 Jun 2021 02:43:31 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 43e9bd8c5705.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 07 Jun 2021 02:43:31 +0000
+Received: from DU2PR04CA0209.eurprd04.prod.outlook.com (2603:10a6:10:28d::34)
+ by DB7PR08MB3851.eurprd08.prod.outlook.com (2603:10a6:10:7a::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.27; Mon, 7 Jun
+ 2021 02:43:29 +0000
+Received: from DB5EUR03FT018.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:28d:cafe::bf) by DU2PR04CA0209.outlook.office365.com
+ (2603:10a6:10:28d::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.15 via Frontend
+ Transport; Mon, 7 Jun 2021 02:43:29 +0000
+Received: from nebula.arm.com (40.67.248.234) by
+ DB5EUR03FT018.mail.protection.outlook.com (10.152.20.69) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4195.21 via Frontend Transport; Mon, 7 Jun 2021 02:43:29 +0000
+Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX04.Arm.com
+ (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 7 Jun
+ 2021 02:43:27 +0000
+Received: from penny.shanghai.arm.com (10.169.190.66) by mail.arm.com
+ (10.251.24.32) with Microsoft SMTP Server id 15.1.2176.14 via Frontend
+ Transport; Mon, 7 Jun 2021 02:43:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,203 +81,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=gLB/Xq99arg8EtmKesx8MDCoUNOTwi1u7v+KHVzvv/4=; b=cpEpCuIDzURLIzDuoE0uAbzlgy
-	gIsWswF9pSiRYUe3AhT1HrVfq2Je1vxMHzVZOCk2K/k+MDUMkt3ssXVATz2BIi+0G5ZJkGmYE2TND
-	rMTcaVwR1rJiFWatfMXKhm97od1D36zapwaCz8UieZvuAF17/wkAWjICD8ImrhoE7Iro=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-i386-xl-qemuu-ovmf-amd64
-Message-Id: <E1lq4wx-00044v-SU@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Jun 2021 02:25:11 +0000
+X-Inumbo-ID: ebaf0d1a-0a28-4a24-adc4-a3ffc5c9c8bd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0n23ceT40gDkzpSs8YSi62lKBLmssTtyN4ZJ1rsXIaE=;
+ b=64dp+n0zVNx71dEWRz4IPJCmvg2JJzj5bH/rC0JM901HIJ7MtBZcCqf1FrbrQ6m8P2/HglUiJJ0W0zXcvL4xOFGrHYVRF27hNPqcHJ9dpOu8H+0uhygbelu/N7b6wX6BZuwcnPEx//paMFIe5hxkYeu1xq08ICEPxtoKTTKRoTQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 4c6bc1cacb9119fa
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=at3Br/HcUMBCYPgcTQZW1fw/tktcO8oHt/HFnRVJCm+QzkRVy/2NzxpCVeg1VrkXlfWUH75cbO3VLb3m+Vi5cpxv5fhMFO93LbCQ5857S0xOfK3IcMGZis7yI9S7loPhIq1EVzrbEXXvp3YjLHtgtxku6bBp/6hCGYt1xb2Eea4A2Xp0Yaei3WqEVNSP9AGnRpH7yyFl/CMIhOkWnWMoq2VlZm/bx5v5KlVhEm1x42Azeh30PHFRBTHaq3eXxDjfjHeIFSpe2gi3o0s0Lvk+sMhXgbVlaLFF4ZUC80SNjevSvHVbBXTzbVfKkK/ameoE5HLeV0z5khfoG3Uikl2baA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0n23ceT40gDkzpSs8YSi62lKBLmssTtyN4ZJ1rsXIaE=;
+ b=VO2SjmiLccopDdI14GqX0GgjMce0Tf5IYQBtkEVNdqvTj3SFnMvo/5q0MznI9bAtOyuxE3VaIY7K3TlhCL/b98gMdUMb2/yl0mLpuXcqiMTXlqusubJ+/xcc+y8KEz9rbnaL5LAg0dLR0ivsRLmlZQqkfwxDR+YRvFygiHCdoi5PQMMjgcflHj/QKkyBOT+FxgYqit4NNRpVG+8XZD7aTfYxe6aMzJSbCgeFk5RIBNdyY1QXz5OeJ2sW5PI5my080HHXzNPZkE4EV64J87eQkCXB55hXmXQWkIXtlyEeDx3UPmipz2dnEu5JLOQqIyC/eqA24i+OXqr82aIehDyr9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0n23ceT40gDkzpSs8YSi62lKBLmssTtyN4ZJ1rsXIaE=;
+ b=64dp+n0zVNx71dEWRz4IPJCmvg2JJzj5bH/rC0JM901HIJ7MtBZcCqf1FrbrQ6m8P2/HglUiJJ0W0zXcvL4xOFGrHYVRF27hNPqcHJ9dpOu8H+0uhygbelu/N7b6wX6BZuwcnPEx//paMFIe5hxkYeu1xq08ICEPxtoKTTKRoTQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=pass action=none
+ header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=40.67.248.234; helo=nebula.arm.com;
+From: Penny Zheng <penny.zheng@arm.com>
+To: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+	<julien@xen.org>, <jbeulich@suse.com>
+CC: <Bertrand.Marquis@arm.com>, <Penny.Zheng@arm.com>, <Wei.Chen@arm.com>
+Subject: [PATCH V2 0/9] Domain on Static Allocation
+Date: Mon, 7 Jun 2021 02:43:09 +0000
+Message-ID: <20210607024318.3988467-1-penny.zheng@arm.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 053aba55-4f35-4f83-c316-08d9295e0d9a
+X-MS-TrafficTypeDiagnostic: DB7PR08MB3851:|AM9PR08MB6228:
+X-Microsoft-Antispam-PRVS:
+	<AM9PR08MB6228096A547F0D6652B59537F7389@AM9PR08MB6228.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 83ajIFQM5ggxLdmrrc7blmKlMjlOCEoozlkdxv1ZZ8wiQco118C8EkTc2qsnLN0JB5vj/OUphpAiUxL6HhZsX0x/f2ycZ1bVIVG0xJiN3v1pkpaXj528xh3Q+oRXLn0z1ebMWAe0cVcu9eOWiqsiNfrShhHakPaiiuS+9pdxw7B30VuyopjnBpwiZY/eyHQz07ELksySejEIvQmXyfGZwiLYinGoAQtAE7hZOJ8CIr857VMOqc4phL6+5gAFIvok3Sfr8MfSuyhWBWx/dfGm9OQHy7l2ddXpNqK4oUrT0dtpPAfhCx0f0ywtW+EUdR+WhHXMPaUNkLxRcWpEcBNrXpLUIJMvRicFF0PHZnNbOCjr864cwZNLQ1cbJ6CWAax1wBhwtOIreuALcyVbbiW5HX9iJA6Cr/CextCl+aZHTYHThu+xz+GPSsDKwhkv9zE1GMWLHYz71wGNOEaPY4dPkM+DXyReoaKvwuio8+yUPavjNN9Qe0l7JaGi03/NC+PRJ8B2Lz10hp3N1BhigMywN7t5VB3Hj4UFwVv+wuz+Yw9cB13U2+fDcabIOaa79sXL/KPeUTOejH/nq30vT7BHScOKl1j/iXjNgoyddfgO/xPmfxJFrquD95eBawPdy1lLzQdEhQvEiSzxhWvc8TwrZeIq8Ni/RHBV0R4tf3XcHdq6f089le2vFogEhCHrKAWvQBqdfXhcRZWt7d+sZBKavH4yPUh5UaKtlFDPAPnv2sR4VFvlBUXPlLCplX0oKnKX3ocZuZ9gmkWCsB04m/GoJQIVvCHmY9YNdBR6dNa5zi0+7ykXHV514FazfwSi7hY1dnSUUdCo4Loh7iP+UniuWQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(396003)(39860400002)(346002)(136003)(376002)(46966006)(36840700001)(47076005)(426003)(336012)(81166007)(36756003)(6666004)(70586007)(5660300002)(86362001)(70206006)(44832011)(8676002)(82740400003)(36860700001)(2616005)(8936002)(82310400003)(966005)(110136005)(54906003)(4326008)(316002)(26005)(2906002)(83380400001)(356005)(186003)(478600001)(1076003)(7696005)(2101003)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3851
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT049.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	8fdb5ebf-7c35-43ab-e441-08d9295e0842
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Q3nRjMLtj2YhR0g6GtJSLLUNg2dc5ryr64/hlJ0u4MwFrFeZ9XVYsZzZVPqHt5CTbzElmcEB/VeuXH5wfPyQzU9mLxs4vi04X4Y/6ThObeZraPi7gtbHIiC1fB062Gj7uIPODLJzKIFqBPjn1tHvkWy6KpSQINLNyIqXPeXHgQ/F8W6/sx1aj9hk0ulclD/cPHNv4pvFbsPn3cOcsOqo25UcVcEi/n0CNafTZEn7/tsHYUcx8x5JxPa+tuundBWP6/BwGkneYIX5StIGVqLJIU9jrgPN6FG4D7c+msPpR8Hryr2BaPSw+XG5iZ1iM8k4cJxEwe7mT4qxA0YPYq5SXQFsWoA6ay2U418Djm7Lsg4VlzcN9+Qxntd6FlZUBoXHpDHbanuYDZLesGDeVwvp3NQJm33se0DOVUdbNQfPV9Yx7NHOr+Ei+yLaQE0HPwUxu6Xq1ROHNBeHyzgjquZfcOkWeWoAqfypP6JYklG8FEGAXIqbtmeKYPN4VwALTzIFtLqrwJxn/9XO3JGQuXxEjLi3A1kvvDCq/RWIyi6JhJjwLKuggfLFGTPsmwHvwvYzJhkcCHlByJ/7x8qMKa07r1Vb8o0norGpqjLjzY0Kmh9r0lZFJjhpMKhFlLNsqBCOqZ2cwWqfz5d178CaMCv+oOIJ1fS9oQP9mMQ1SUdHPgD630CPltoWIZr6JfwnUSLb9OhThUDmgKP8c3JWhXN5XBnnRXWyVna/JoOwjn5yUUUFW8qDoTgIa4eZGBnQZHJ/9pMOFp53kiRrT3CAO22K1f7mcDhDa4u9jrigENAPUGg=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(136003)(346002)(396003)(39860400002)(46966006)(36840700001)(8676002)(8936002)(4326008)(966005)(70586007)(70206006)(110136005)(54906003)(316002)(1076003)(2906002)(36860700001)(336012)(47076005)(2616005)(86362001)(82310400003)(186003)(44832011)(26005)(81166007)(83380400001)(5660300002)(6666004)(36756003)(426003)(82740400003)(7696005)(478600001)(2101003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 02:43:38.1486
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 053aba55-4f35-4f83-c316-08d9295e0d9a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT049.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6228
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-ovmf-amd64
-testid debian-hvm-install
+Static Allocation refers to system or sub-system(domains) for which memory
+areas are pre-defined by configuration using physical address ranges.
+Those pre-defined memory, -- Static Memory, as parts of RAM reserved in the
+beginning, shall never go to heap allocator or boot allocator for any use.
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+This Patch Serie only talks about Domain on Static Allocation.
 
-*** Found and reproduced problem changeset ***
+ABOUT IMPLEMENTATION ON DEVICE TREE FORMAT OF STAIIC ALLOCATION IS
+STILL UNDER DISCUSSION, AND RELATED CHANGE WILL BE INCLUDED IN PATCH V3.
 
-  Bug is in tree:  ovmf git://xenbits.xen.org/osstest/ovmf.git
-  Bug introduced:  d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64
-  Bug not present: 3357ac73807d83eb212632ee7c2e032a20a49c56
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162473/
+Looking into related [design link](
+https://lists.xenproject.org/archives/html/xen-devel/2021-05/msg00882.html)
+for more details.
 
+The whole design is about Static Allocation and 1:1 direct-map, and this
+Patch Serie only covers parts of it, which are Domain on Static Allocation.
+Other features will be delievered through different patch series.
+---
+changes in v2:
+ - consider reserved-memory binding and use phandle to refer(still in
+discussion)
+ - remove unused reserved field in struct page_info, unused helper
+page_get_reserved_owner and page_set_reserved_owner
+ - introduce CONFIG_STATIC_ALLOCATION to avoid bringing dead codes in
+other archs.
+ - extract common code from free_heap_pages and free_staticmem_pages
+ - introduce new interface assign_pages_nr
+ - change pfn-named to mfn-named
+ - remove meaningless MEMF_no_owner case
+ - leave zone concept out of DMA limitation check
+ - take care of concurrency issue on static memory allocation
+ - ensure the consistency when `xen,static-mem` and `memory` are both defined
+ - fix the scalability issue in allocate_static_memory
+ - allocate static memory when parse
 
-  commit d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64
-  Author: Laszlo Ersek <lersek@redhat.com>
-  Date:   Wed May 26 22:14:24 2021 +0200
-  
-      OvmfPkg/PlatformPei: remove Xen support
-      
-      The "OvmfPkg/PlatformPei/PlatformPei.inf" module is used by the following
-      platform DSCs:
-      
-        OvmfPkg/AmdSev/AmdSevX64.dsc
-        OvmfPkg/OvmfPkgIa32.dsc
-        OvmfPkg/OvmfPkgIa32X64.dsc
-        OvmfPkg/OvmfPkgX64.dsc
-      
-      Remove Xen support from "OvmfPkg/PlatformPei", including any dependencies
-      that now become unused. The basic idea is to substitute FALSE for "mXen".
-      
-      Remove "OvmfPkg/PlatformPei" from the "OvmfPkg: Xen-related modules"
-      section of "Maintainers.txt".
-      
-      This patch is best reviewed with "git show -b -W".
-      
-      Cc: Andrew Fish <afish@apple.com>
-      Cc: Ard Biesheuvel <ardb+tianocore@kernel.org>
-      Cc: Jordan Justen <jordan.l.justen@intel.com>
-      Cc: Leif Lindholm <leif@nuviainc.com>
-      Cc: Michael D Kinney <michael.d.kinney@intel.com>
-      Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2122
-      Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-      Message-Id: <20210526201446.12554-22-lersek@redhat.com>
-      Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-      Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Reviewed-by: Leif Lindholm <leif@nuviainc.com>
+Penny Zheng (9):
+  xen/arm: introduce domain on Static Allocation
+  xen/arm: introduce PGC_reserved
+  xen/arm: introduce CONFIG_STATIC_ALLOCATION
+  xen/arm: static memory initialization
+  xen: introduce assign_pages_nr
+  xen/arm: introduce alloc_staticmem_pages and alloc_domstatic_pages
+  xen/arm: take care of concurrency on static memory allocation
+  xen/arm: check `xen,static-mem` property during domain construction
+  xen/arm: introduce allocate_static_memory
 
+ docs/misc/arm/device-tree/booting.txt |  49 ++++++
+ xen/arch/arm/Kconfig                  |   3 +
+ xen/arch/arm/bootfdt.c                |  12 +-
+ xen/arch/arm/domain_build.c           | 188 +++++++++++++++++++-
+ xen/arch/arm/setup.c                  |  27 +++
+ xen/common/page_alloc.c               | 238 +++++++++++++++++++++++---
+ xen/include/asm-arm/mm.h              |   3 +
+ xen/include/asm-arm/setup.h           |   2 +
+ xen/include/xen/mm.h                  |  18 +-
+ 9 files changed, 507 insertions(+), 33 deletions(-)
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install --summary-out=tmp/162473.bisection-summary --basis-template=152631 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-i386-xl-qemuu-ovmf-amd64 debian-hvm-install
-Searching for failure / basis pass:
- 162454 fail [host=albana1] / 162379 ok.
-Failure / basis pass flights: 162454 / 162379
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ddb3fdbef30de5a2946f9bd51060e8d5b1987aef 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6f398e533f5e259b4f937f4aa9de970f7201d166 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0-ddb3fdbef30de5a2946f9bd51060e8d5b1987aef git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
- 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#1cbd2d914939ee6028e9688d4ba859a528c28405-6f398e533f5e259b4f937f4aa9de970f7201d166 git://xenbits.xen.org/osstest/seabios.git#7292e4a0a8f58333ccbd2d0d47242f9865083c9c-7292e4a0a8f58333ccbd2d0d47242f9865083c9c git://xenbits.xen.org/xen.git#5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1-5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-Loaded 15001 nodes in revision graph
-Searching for test results:
- 162409 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 51adb689e1db695cffdeeacafad218768fbc018c 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6f398e533f5e259b4f937f4aa9de970f7201d166 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162379 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162428 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 924c2b847f0bc4325f6d14e562e2fb2d8acbc4d0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162434 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 51adb689e1db695cffdeeacafad218768fbc018c 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6f398e533f5e259b4f937f4aa9de970f7201d166 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162439 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e120c962f50432199d4125f0b7066a78ccbad6f3 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162443 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d6ba8aa6ef628f5d865865e0aba4a329ee0d0728 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162448 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162429 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 51adb689e1db695cffdeeacafad218768fbc018c 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6f398e533f5e259b4f937f4aa9de970f7201d166 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162452 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4174c5c7874ec21c2e693565d3685cf9f5c2e2e8 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162456 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7641171b6c1f858f3d979c0e8f04d6c12870baa 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162458 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3357ac73807d83eb212632ee7c2e032a20a49c56 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162462 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162465 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3357ac73807d83eb212632ee7c2e032a20a49c56 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162468 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162471 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3357ac73807d83eb212632ee7c2e032a20a49c56 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162454 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ddb3fdbef30de5a2946f9bd51060e8d5b1987aef 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6f398e533f5e259b4f937f4aa9de970f7201d166 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
- 162473 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-Searching for interesting versions
- Result found: flight 162379 (pass), for basis pass
- Result found: flight 162409 (fail), for basis failure (at ancestor ~1)
- Repro found: flight 162428 (pass), for basis pass
- Repro found: flight 162454 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3357ac73807d83eb212632ee7c2e032a20a49c56 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cbd2d914939ee6028e9688d4ba859a528c28405 7292e4a0a8f58333ccbd2d0d47242f9865083c9c 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-No revisions left to test, checking graph state.
- Result found: flight 162458 (pass), for last pass
- Result found: flight 162462 (fail), for first failure
- Repro found: flight 162465 (pass), for last pass
- Repro found: flight 162468 (fail), for first failure
- Repro found: flight 162471 (pass), for last pass
- Repro found: flight 162473 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  ovmf git://xenbits.xen.org/osstest/ovmf.git
-  Bug introduced:  d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64
-  Bug not present: 3357ac73807d83eb212632ee7c2e032a20a49c56
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162473/
-
-
-  commit d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64
-  Author: Laszlo Ersek <lersek@redhat.com>
-  Date:   Wed May 26 22:14:24 2021 +0200
-  
-      OvmfPkg/PlatformPei: remove Xen support
-      
-      The "OvmfPkg/PlatformPei/PlatformPei.inf" module is used by the following
-      platform DSCs:
-      
-        OvmfPkg/AmdSev/AmdSevX64.dsc
-        OvmfPkg/OvmfPkgIa32.dsc
-        OvmfPkg/OvmfPkgIa32X64.dsc
-        OvmfPkg/OvmfPkgX64.dsc
-      
-      Remove Xen support from "OvmfPkg/PlatformPei", including any dependencies
-      that now become unused. The basic idea is to substitute FALSE for "mXen".
-      
-      Remove "OvmfPkg/PlatformPei" from the "OvmfPkg: Xen-related modules"
-      section of "Maintainers.txt".
-      
-      This patch is best reviewed with "git show -b -W".
-      
-      Cc: Andrew Fish <afish@apple.com>
-      Cc: Ard Biesheuvel <ardb+tianocore@kernel.org>
-      Cc: Jordan Justen <jordan.l.justen@intel.com>
-      Cc: Leif Lindholm <leif@nuviainc.com>
-      Cc: Michael D Kinney <michael.d.kinney@intel.com>
-      Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2122
-      Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-      Message-Id: <20210526201446.12554-22-lersek@redhat.com>
-      Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-      Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Reviewed-by: Leif Lindholm <leif@nuviainc.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install.{dot,ps,png,html,svg}.
-----------------------------------------
-162473: tolerable ALL FAIL
-
-flight 162473 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162473/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+2.25.1
 
 
