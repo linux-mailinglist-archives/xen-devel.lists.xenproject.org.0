@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA8C939E586
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 19:32:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138111.255753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2536D39E63E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 20:10:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.138123.255774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqJ5u-0006B8-7r; Mon, 07 Jun 2021 17:31:22 +0000
+	id 1lqJh0-00019w-GK; Mon, 07 Jun 2021 18:09:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138111.255753; Mon, 07 Jun 2021 17:31:22 +0000
+Received: by outflank-mailman (output) from mailman id 138123.255774; Mon, 07 Jun 2021 18:09:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqJ5u-00068T-41; Mon, 07 Jun 2021 17:31:22 +0000
-Received: by outflank-mailman (input) for mailman id 138111;
- Mon, 07 Jun 2021 17:31:21 +0000
+	id 1lqJh0-000181-CG; Mon, 07 Jun 2021 18:09:42 +0000
+Received: by outflank-mailman (input) for mailman id 138123;
+ Mon, 07 Jun 2021 18:09:40 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqJ5t-00068J-5Z; Mon, 07 Jun 2021 17:31:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lqJgy-00017u-DV
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 18:09:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqJ5s-0005Pg-WF; Mon, 07 Jun 2021 17:31:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqJ5s-0001Hc-Nb; Mon, 07 Jun 2021 17:31:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lqJ5s-0000Hj-N7; Mon, 07 Jun 2021 17:31:20 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lqJgy-00067F-7m; Mon, 07 Jun 2021 18:09:40 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lqJgy-0002Ia-1W; Mon, 07 Jun 2021 18:09:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,285 +40,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tEr2elnUdC4D0onB9CVVyh3qYpEdROZ5T+qQgnmWZ0A=; b=JfcsXfn00ePvGAXktlVYpyY9kt
-	a07Bd9ZZ9nVoBNWccKex8kS3cV4VmQ++Xike3DCt9G6qCvscc/f+HnwFulOzPb7UNv4e6E5YVgBE1
-	yIXXaXtzi/BYHYnIwKdiHLOjpc2QbAegdT+dTee0WlOSBjeCNg9yPrlVdcXGvjk1v+TA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162475-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=vgsRX0lG9uOSjZmvwi1ft0z5cXXen+jh/q5I+lX7JWI=; b=V4ddJ4CBT5bHEO7SwAp5KwKgup
+	e7ptOacjwnjYpGiiaCPgwUZ79CxS5+VByHuVvXdfoamehwVf5U7GukGXgpUDIRSLOeI387BvcLe22
+	ylty4RPT2Q4iQYhTaPFK634gaB0DcpHYwF90Lysx5qNwC8K0TA+qqCKkkuzn94lzrpck=;
+Subject: Re: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall.oss@gmail.com>
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ nd <nd@arm.com>
+References: <20210518052113.725808-1-penny.zheng@arm.com>
+ <20210518052113.725808-2-penny.zheng@arm.com>
+ <e1b90f06-92d2-11da-c556-4081907124b8@xen.org>
+ <VE1PR08MB521519C6F09E92EDB9C9A1AEF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+ <66e32065-ea2d-d000-1a70-e5598a182b6a@xen.org>
+ <VE1PR08MB5215C1F5041860102BBAD595F72A9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+ <14fb6fe4-c293-6994-8cbc-872d3bd8a3ac@xen.org>
+ <VE1PR08MB52152792B6771236A6DF37E7F73D9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+ <4251e0e2-fb53-b8a3-0323-f4ce892cf21e@xen.org>
+ <alpine.DEB.2.21.2106031408320.7272@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a234ANQDR7BmtSm4AT0k3jrCn67s4b3zZ+jdkUgBMahbw@mail.gmail.com>
+ <alpine.DEB.2.21.2106031625530.7272@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <113937c2-f1a7-c27f-8e2e-79de729ea3ce@xen.org>
+Date: Mon, 7 Jun 2021 19:09:37 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-Subject: [xen-unstable test] 162475: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-X-Osstest-Versions-That:
-    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Jun 2021 17:31:20 +0000
+In-Reply-To: <alpine.DEB.2.21.2106031625530.7272@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 162475 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162475/
+Hi Stefano,
 
-Failures :-/ but no regressions.
+On 04/06/2021 00:55, Stefano Stabellini wrote:
+> On Thu, 3 Jun 2021, Julien Grall wrote:
+>> On Thu, 3 Jun 2021 at 22:33, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>>> On Thu, 3 Jun 2021, Julien Grall wrote:
+>>>> On 02/06/2021 11:09, Penny Zheng wrote:
+>>>>> I could not think a way to fix it properly in codes, do you have any
+>>>>> suggestion? Or we just put a warning in doc/commits.
+>>>>
+>>>> The correct approach is to find the parent of staticmemdomU1 (i.e.
+>>>> reserved-memory) and use the #address-cells and #size-cells from there.
+>>>
+>>> Julien is right about how to parse the static-memory.
+>>>
+>>> But I have a suggestion on the new binding. The /reserved-memory node is
+>>> a weird node: it is one of the very few node (the only node aside from
+>>> /chosen) which is about software configurations rather than hardware
+>>> description.
+>>>
+>>> For this reason, in a device tree with multiple domains /reserved-memory
+>>> doesn't make a lot of sense: for which domain is the memory reserved?
+>>
+>> IHMO, /reserved-memory refers to the memory that the hypervisor should
+>> not touch. It is just a coincidence that most of the domains are then
+>> passed through to dom0.
+>>
+>> This also matches the fact that the GIC, /memory is consumed by the
+>> hypervisor directly and not the domain..
+> 
+> In system device tree one of the key principles is to distinguish between
+> hardware description and domains configuration. The domains
+> configuration is under /domains (originally it was under /chosen then
+> the DT maintainers requested to move it to its own top-level node), while
+> everything else is for hardware description.
+> 
+> /chosen and /reserved-memory are exceptions. They are top-level nodes
+> but they are for software configurations. In system device tree
+> configurations go under the domain node. This makes sense: Xen, dom0 and
+> domU can all have different reserved-memory and chosen configurations.
+> 
+> /domains/domU1/reserved-memory gives us a clear way to express
+> reserved-memory configurations for domU1.
+> 
+> Which leaves us with /reserved-memory. Who is that for? It is for the
+> default domain.
+> 
+> The default domain is the one receiving all devices by default. In a Xen
+> setting, it is probably Dom0. 
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install  fail pass in 162422
+Let's take an example, let say in the future someone wants to allocate a 
+specific region for the memory used by the GICv3 ITS.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-rtds 18 guest-start/debian.repeat fail in 162422 like 162330
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 162422
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 162422
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 162422
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 162422
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 162422
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 162422
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 162422
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 162422
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 162422
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 162422
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 162422
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ From what you said above, /reserved-memory would be used by dom0. So 
+how would you be able to tell the hypervisor that the region is reserved 
+for itself?
 
-version targeted for testing:
- xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-baseline version:
- xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+> In this case, we don't want to add
+> reserved-memory regions for DomUs to Dom0's list. Dom0's reserved-memory
+> list is for its own drivers. We could also make an argument that the
+> default domain is Xen itself. From a spec perspective, that would be
+> fine too. In this case, /reserved-memory is a list of memory regions
+> reserved for Xen drivers. 
 
-Last test of basis   162475  2021-06-07 01:51:40 Z    0 days
-Testing same since                          (not found)         0 attempts
+We seem to have a different way to read the binding description in [1]. 
+For convenience, I will copy it here:
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+"Reserved memory is specified as a node under the /reserved-memory node.
+The operating system shall exclude reserved memory from normal usage
+one can create child nodes describing particular reserved (excluded from
+normal use) memory regions. Such memory regions are usually designed for
+the special usage by various device drivers.
+"
 
+I read it as this can be used to exclude any memory from the allocator 
+for a specific purpose. They give the example of device drivers, but 
+they don't exclude other purpose. So...
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Either way, I don't think is a great fit for
+> domains memory allocations.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+... I don't really understand why this is not a great fit. The regions 
+have been *reserved* for a purpose.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+>>>
+>>> So I don't think we want to use reserved-memory for this, either
+>>> /reserved-memory or /chosen/domU1/reserved-memory. Instead it would be
+>>> good to align it with system device tree and define it as a new property
+>>> under domU1.
+>>
+>> Do you have any formal documentation of the system device-tree?
+> 
+> It lives here:
+> https://github.com/devicetree-org/lopper/tree/master/specification
+> 
+> Start from specification.md. It is the oldest part of the spec, so it is
+> not yet written with a formal specification language.
+> 
+> FYI there are a number of things in-flight in regards to domains that
+> we discussed in the last call but they are not yet settled, thus, they
+> are not yet committed (access flags definitions and hierarchical
+> domains). However, they don't affect domains memory allocations so from
+> that perspective nothing has changed.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Thanks!
 
+> 
+> 
+>>> In system device tree we would use a property called "memory" to specify
+>>> one or more ranges, e.g.:
+>>>
+>>>      domU1 {
+>>>          memory = <0x0 0x500000 0x0 0x7fb00000>;
+>>>
+>>> Unfortunately for xen,domains we have already defined "memory" to
+>>> specify an amount, rather than a range. That's too bad because the most
+>>> natural way to do this would be:
+>>>
+>>>      domU1 {
+>>>          size = <amount>;
+>>>          memory = <ranges>;
+>>>
+>>> When we'll introduce native system device tree support in Xen we'll be
+>>> able to do that. For now, we need to come up with a different property.
+>>> For instance: "static-memory" (other names are welcome if you have a
+>>> better suggestion).
+>>>
+>>> We use a new property called "static-memory" together with
+>>> #static-memory-address-cells and #static-memory-size-cells to define how
+>>> many cells to use for address and size.
+>>>
+>>> Example:
+>>>
+>>>      domU1 {
+>>>          #static-memory-address-cells = <2>;
+>>>          #static-memory-size-cells = <2>;
+>>>          static-memory = <0x0 0x500000 0x0 0x7fb00000>;
+>>
+>> This is pretty similar to what Penny suggested. But I dislike it
+>> because of the amount of code that needs to be duplicated with the
+>> reserved memory.
+> 
+> Where is the code duplication? In the parsing itself?
 
-Published tested tree is already up to date.
+So the problem is we need an entire new way to parse and walk yet 
+another binding that will describe memory excluded from normal allocator 
+hypervisor.
 
+The code is pretty much the same as parsing /reserved-memory except it 
+will be on a different address cells, size cells, property.
+
+> 
+> If there is code duplication, can we find a way to share some of the
+> code to avoid the duplication?
+
+Feel free to propose one. I suggested to use /reserved-memory because 
+this is the approach that makes the most sense to me (see my reply above).
+
+TBH, even after your explanation, I am still a bit puzzled into why 
+/reserved-memory cannot be leveraged to exclude domain region from the 
+hypervisor allocator.
+
+Cheers,
+
+[1] 
+https://www.kernel.org/doc/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
+
+-- 
+Julien Grall
 
