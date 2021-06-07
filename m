@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D53439DFC7
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 16:57:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138019.255599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6424339DFE0
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jun 2021 17:00:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.138024.255611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqGga-0002FT-LS; Mon, 07 Jun 2021 14:57:04 +0000
+	id 1lqGjU-0003Kz-4Q; Mon, 07 Jun 2021 15:00:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138019.255599; Mon, 07 Jun 2021 14:57:04 +0000
+Received: by outflank-mailman (output) from mailman id 138024.255611; Mon, 07 Jun 2021 15:00:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqGga-0002CY-IC; Mon, 07 Jun 2021 14:57:04 +0000
-Received: by outflank-mailman (input) for mailman id 138019;
- Mon, 07 Jun 2021 14:57:02 +0000
+	id 1lqGjU-0003HQ-0t; Mon, 07 Jun 2021 15:00:04 +0000
+Received: by outflank-mailman (input) for mailman id 138024;
+ Mon, 07 Jun 2021 15:00:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=b+N/=LB=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1lqGgY-0002CS-QZ
- for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 14:57:02 +0000
-Received: from mail-pg1-x536.google.com (unknown [2607:f8b0:4864:20::536])
+ id 1lqGjS-00033i-5I
+ for xen-devel@lists.xenproject.org; Mon, 07 Jun 2021 15:00:02 +0000
+Received: from mail-pg1-x531.google.com (unknown [2607:f8b0:4864:20::531])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bbdd5224-2642-4307-9b44-54896c0b2a61;
- Mon, 07 Jun 2021 14:57:01 +0000 (UTC)
-Received: by mail-pg1-x536.google.com with SMTP id r1so13986639pgk.8
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jun 2021 07:57:01 -0700 (PDT)
+ id 99589562-ee7e-48d1-b6e6-a181daa0355b;
+ Mon, 07 Jun 2021 15:00:01 +0000 (UTC)
+Received: by mail-pg1-x531.google.com with SMTP id l1so14023997pgm.1
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jun 2021 08:00:01 -0700 (PDT)
 Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
  by smtp.gmail.com with ESMTPSA id
- p14sm9148073pgk.6.2021.06.07.07.56.48
+ x6sm8711203pfd.173.2021.06.07.07.59.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Jun 2021 07:57:00 -0700 (PDT)
+ Mon, 07 Jun 2021 08:00:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,37 +42,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbdd5224-2642-4307-9b44-54896c0b2a61
+X-Inumbo-ID: 99589562-ee7e-48d1-b6e6-a181daa0355b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=mkL4psSj+prMNO7AohBJyTx+Q189qdo7fgANRpB5e+4=;
-        b=lhaKoBcNOuAsXD3pTAmPwsFop0hqZ7JU5MLd+d9L1no2Uoec0Qyp3qHl7oh02shWeI
-         Jes/SZ8q3U+KfCNoq9c1Xrlmq8EXws4qXzfcpkEnMBLnTwTeOLVn57/5lNMv0IIQu936
-         eZ7O1rSFr9fTp5zpfxPADKjK5NrHWx5QoMUdi6NsRSJlWsZAOZ1xE13fUHg60coHCGz9
-         L8KTelBvvQsClf1NodL6YCelq4Ol69U2fD2Jwlp+Qg82jWdc6cKvPRG+8Dfwd10h1GXK
-         eJIB1Vu38FzkxJlUAMfqjcOa76EjkPTv6FXCcrF7OHioGvvqCsPHt0hXWXzpcsKlznTI
-         Ov6A==
+        bh=LBQFfB81E+P58yjRe+k2+cx97sDCbuPy/V/8bIJeXkc=;
+        b=d1nEfDWwq7FWKqIFyB7wcvXzmP+qszgIuZNrjkwP3x1/yDu+sQSJ4TgOka8JMFwdpz
+         FbG95ETwwZelyW9y9nYy/fBdQQ5EpoXh41Gbn4eQmQTaoxF5map34fNshbDgQ+GKj1eQ
+         M2HNtozQY8mDF7hXNffuvHHSZK/H+HS3mDWozeDZ1wrNV7N6DSSxBit7yoz2Djn0vKsu
+         PTtFJD9Ofb3TtKRa65oNYY7gKKMzGB1TuT8lxEnUuKWvE9MiqzfZDCghwXldP+Yap8sq
+         BhmGax5uZd/Z3aYrXJPVjrW6XKPjEpwSZcuA8L3oguKgjEhjLQ9bi63V9oWBmfiZKAst
+         VQoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=mkL4psSj+prMNO7AohBJyTx+Q189qdo7fgANRpB5e+4=;
-        b=F7Pv0CiTY2DAHzUbMo0z8YaY/qESPjVDyhO8zJjd1kx1GZ4RnyPOLmBQESwymmBVBx
-         UPGFfUnFiv5RY5Vxu58KU7EGb1ETtgFnsKzfg/ZCF5e4iM8vQypm5W4z/y7UIbCpII1d
-         saymRCVVRLNw/z5SLHl/lerRzZR9X60tjvDJgWdQSaZhuT+gJcj4Pb8GlLCUtX9kH9ut
-         /Wiu9WQrkrJkCfOSaHxMsTo6eEqagLAN9uELuM6zdhx9aDhrBUYPWDkeW7HUacg5vEhK
-         JJ+mm8DtOSOZBBFpuixGDSAHn1wva8oZ+Zl54aCcgrhk7uZHmYI//KzJ97aTYPeZzsHr
-         rydA==
-X-Gm-Message-State: AOAM5310E5VfMVvflZfbENVW8F1XCWUgnrEt5TPTgQ7hA4v8C4bo9LVr
-	M+tBf3EIIx+9/rPNGs8Gc7Q=
-X-Google-Smtp-Source: ABdhPJyAa6AVd7SFvf1Ep4fkh59q91v76tY7vbke901CKM7Z5XY+dbd7TJGFiS7g5cKGjx+7iiHgJA==
-X-Received: by 2002:a65:6a51:: with SMTP id o17mr18093661pgu.170.1623077821197;
-        Mon, 07 Jun 2021 07:57:01 -0700 (PDT)
-Subject: Re: [RFC PATCH V3 08/11] swiotlb: Add bounce buffer remap address
- setting function
+        bh=LBQFfB81E+P58yjRe+k2+cx97sDCbuPy/V/8bIJeXkc=;
+        b=lcU0AdlwlwKyjqXx91ragKAI6QETceAtlwolt1BXPooKOLK/27wgtqAv5rdn7h2AsT
+         6PnjSq5+/7vbmi8wNBL4DL4s7+HDg8UbgmSG8F/qsECEfK1WIvBC/bphUlt3PSfOKKnv
+         Ajp0NoKXUFpEjcr4++PaRnT6eOai32ycU3HO8u3VC4BoowgERmJpenFp0sFSdxNPVcrE
+         O+6qCiUAIm+grJpMhajSB2NJvTmMjkKu2LmLD+GIA5KlFxlkJH8ajBb4T6OTq7CzpJfi
+         seALLMOo5rndidFIb4YsTennoHsb3/0hWo3uhi8a1cauttvlU/gyDgv3Kp1RhzTPcD8E
+         Lhfw==
+X-Gm-Message-State: AOAM5325y6Xc0WzW2kqeXCYbPayDD7jpaVI4Qahw74u2TgRO8u6kG3Tt
+	zq2HaMFXuMYFlpgAhmcm1JU=
+X-Google-Smtp-Source: ABdhPJxA6AxF//BtD4CX3ss9LWnlUG4jgLj+0PRFw+NP8biHDKV1XDA0j2C9BbRScevume4H06cdTA==
+X-Received: by 2002:a63:7d2:: with SMTP id 201mr18504206pgh.14.1623078000846;
+        Mon, 07 Jun 2021 08:00:00 -0700 (PDT)
+Subject: Re: [RFC PATCH V3 11/11] HV/Storvsc: Add Isolation VM support for
+ storvsc driver
 To: Christoph Hellwig <hch@lst.de>
 Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
  wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
@@ -91,52 +91,36 @@ Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
  linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
  thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
 References: <20210530150628.2063957-1-ltykernel@gmail.com>
- <20210530150628.2063957-9-ltykernel@gmail.com>
- <20210607064312.GB24478@lst.de>
+ <20210530150628.2063957-12-ltykernel@gmail.com>
+ <20210607064603.GD24478@lst.de>
 From: Tianyu Lan <ltykernel@gmail.com>
-Message-ID: <48516ce3-564c-419e-b355-0ce53794dcb1@gmail.com>
-Date: Mon, 7 Jun 2021 22:56:47 +0800
+Message-ID: <26c771e5-a64e-f2cc-e245-fa5f130f4b18@gmail.com>
+Date: Mon, 7 Jun 2021 22:59:46 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210607064312.GB24478@lst.de>
+In-Reply-To: <20210607064603.GD24478@lst.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 
-On 6/7/2021 2:43 PM, Christoph Hellwig wrote:
-> On Sun, May 30, 2021 at 11:06:25AM -0400, Tianyu Lan wrote:
->> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
->>
->> For Hyper-V isolation VM with AMD SEV SNP, the bounce buffer(shared memory)
->> needs to be accessed via extra address space(e.g address above bit39).
->> Hyper-V code may remap extra address space outside of swiotlb. swiotlb_
->> bounce() needs to use remap virtual address to copy data from/to bounce
->> buffer. Add new interface swiotlb_set_bounce_remap() to do that.
+
+On 6/7/2021 2:46 PM, Christoph Hellwig wrote:
+> On Sun, May 30, 2021 at 11:06:28AM -0400, Tianyu Lan wrote:
+>> +				for (i = 0; i < request->hvpg_count; i++)
+>> +					dma_unmap_page(&device->device,
+>> +							request->dma_range[i].dma,
+>> +							request->dma_range[i].mapping_size,
+>> +							request->vstor_packet.vm_srb.data_in
+>> +							     == READ_TYPE ?
+>> +							DMA_FROM_DEVICE : DMA_TO_DEVICE);
+>> +				kfree(request->dma_range);
 > 
-> Why can't you use the bus_dma_region ranges to remap to your preferred
-> address?
-> 
+> Unreadably long lines.  You probably want to factor the quoted code into
+> a little readable helper and do the same for the map side.
 
-Thanks for your suggestion.
-
-These addresses in extra address space works as system memory mirror. 
-The shared memory with host in Isolation VM needs to be accessed via 
-extra address space which is above shared gpa boundary. During 
-initializing swiotlb bounce buffer pool, only address bellow shared gpa 
-boundary can be accepted by swiotlb API because it is treated as system 
-memory and managed by memory management. This is why Hyper-V swiotlb 
-bounce buffer pool needs to be allocated in Hyper-V code and map
-associated physical address in extra address space. The patch target is
-to add the new interface to set start virtual address of bounce buffer
-pool and let swiotlb boucne buffer copy function to use right virtual 
-address for extra address space.
-
-bus_dma_region is to translate cpu physical address to dma address.
-It can't modify the virtual address of bounce buffer pool and let
-swiotlb code to copy data with right address. If some thing missed,
-please correct me.
+Good suggestion. Will update.
 
 Thanks.
 
