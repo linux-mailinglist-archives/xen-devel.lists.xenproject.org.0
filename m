@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B94B939F114
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 10:39:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138331.256109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54E5039F155
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 10:46:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.138346.256123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqXG1-0003a2-HM; Tue, 08 Jun 2021 08:38:45 +0000
+	id 1lqXNV-0005FE-Bv; Tue, 08 Jun 2021 08:46:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138331.256109; Tue, 08 Jun 2021 08:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 138346.256123; Tue, 08 Jun 2021 08:46:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqXG1-0003XU-9a; Tue, 08 Jun 2021 08:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 138331;
- Tue, 08 Jun 2021 08:38:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqXFz-0003XE-Sk; Tue, 08 Jun 2021 08:38:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqXFz-0003W3-OS; Tue, 08 Jun 2021 08:38:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lqXFz-0002vE-Df; Tue, 08 Jun 2021 08:38:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lqXFz-0005C4-D7; Tue, 08 Jun 2021 08:38:43 +0000
+	id 1lqXNV-0005Cc-7z; Tue, 08 Jun 2021 08:46:29 +0000
+Received: by outflank-mailman (input) for mailman id 138346;
+ Tue, 08 Jun 2021 08:46:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AOFJ=LC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1lqXNT-0005CW-4z
+ for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 08:46:27 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1a46dd14-7b19-4c99-8ab4-f87176db0d5a;
+ Tue, 08 Jun 2021 08:46:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,365 +36,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Maba7QG5fzHmzS1YQtrw2lPfamiY80RAQpj6/qy9yQ8=; b=TPZt7AcJWuypb0mligCWwXa9rA
-	lsGR/MXUSWF6oeH9OZtYwGrx7nFuVSPTDNbM378FrmWfKHY8ffXZgV0Gjw2dP6i7zbB4l91Ly8ni5
-	REQjya9zFWJyK7sEa5VMCag0bJqEJsKpIyqzhWrPuxHSg4IzalMSF+wpdMTLdlyKdg3A=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162538-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 1a46dd14-7b19-4c99-8ab4-f87176db0d5a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1623141984;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=q4CnpP/8ScgdUckSIVKWIJFlvqHpnSa4umpufSvWRPA=;
+  b=V4i7RXNzjbk8ekUNuyKylW7l9Snfs+w1rWF1gvNCfR6BhcKyE5ki/YOT
+   fjT8GvrFOEzYmysiP0/Hfhn7ShWMEKan08f2YV0bxYchBau/EiZZqdpQP
+   t0VoOMBlHk446ywNS7snWtWyIJuELbNjeHy0I54VBwJE0SS9kEeOvqA54
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: NAj86P/2EFskdlSMZdQhm58RENexc4hoobekvvetm9bSSdKrjkZvOiiMCaLDZkpCnLMooPWWLO
+ vAiqJvbMbYqpZcAX28BRujfQ9zYVWachRaybqsbyUm2WGFkBj0P6wZZL++bDWA66oVykkydS11
+ vQCGZKYA9TSDU4lO3cfxTWqhZpKkDwndOKMd81txmyVSP4LelW+x/alLohERJpXl+yw1oYNnqv
+ DHGvnhwsPAoUHVUn3A07XRtMr5c0kLx5Rn6Z17BDRRd9A+jJq1eoVn3dEHtQnYhX95Ka3QmSI/
+ 5bg=
+X-SBRS: 5.1
+X-MesageID: 45606218
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:/xN+qKkSA3bcR+0cgRppqkYocjnpDfPOimdD5ihNYBxZY6Wkfp
+ +V7ZYmPE7P+VUssS8b+exoYJPwME819fZOkPAs1MSZLXnbUQqTXcJfBOTZskLd8kHFh4lgPI
+ ZbAtVD4dDLZmSS7vyKojVQcexQvuVvmZrA7YuwoRYdKHAPV0gJ1XYkNu/xKDwPeOAyP+tCKH
+ Pq3Ls9m9PPQwVwUi28PBM4tgr4yuHjpdbDW1orFhQn4A6BgXeD87jhCSWV2R8YTndm3aoi2X
+ KtqX292oyT99WAjjPM3W7a6Jpb3PH7zMFYOcCKgs8Jbh3xlweTYph7UbHqhkFwnAjv0idsrD
+ D/mWZ4Ay1B0QKIQohzm2q35+DU6kdp15Yl8y7DvZKsm72leNtwMbszuWsQSGqq16NnhqAi7E
+ sx5RPki3MfN2K1oA3to9fPTB1kjUyyvD4rlvMSlWVWVc8EZKZWtpF3xjIVLH4sJlO01GkcKp
+ ghMCgc3ocdTbqQVQGYgkB/hNi3GngjFBaPRUYP/sac1jRQkXhji1EV38wShDMB84ghQ55P66
+ DFP81T5cZzpw8tHO5A7cI6MICK40D2MFvx2VOpUBna/fs8SgfwQrbMkf0IDc+RCeo18Kc=
+X-IronPort-AV: E=Sophos;i="5.83,257,1616472000"; 
+   d="scan'208";a="45606218"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MRvtSgohSbNM1ztq5fg+V0bCPrECJctSfz0gSswatkdzmKbrleTMPxtRftchv5RzWqflKnXY/phfD57B3xC5PMq4hww9Fi1Qac7Xxj7wccyE3hG/NUXD+3UO2oRTlnh2LUMoDekmX1Ke5uH3mFvru5MZBeKCy7YW0Qco4uwQSrJ7S85hgkA8u/TQIIlCIm161FEFNizFfeL8EwZVCgH/XiOD5Hbax6Dk4iDGBwLs5DRc7Htawc42ZrOnL13sfnTHbvK5aH2SS73ubR0ovoudVQQFmeIqR+X2UWCBjU+3drAWRwwucR93thy/D1GDpPMLGx3wqIgpBbg91NnJc7CYOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xoACm74cXK7DNwzQN0F3UHM9GF591XLrksoHjFW1OZs=;
+ b=IQTiF8gai8K3Pofc4JoIy54u0ItMGHzAj+wKoMc/pp70JGW30p++azRxFNwRfcrUsO+C0RtvvJBDJREw4OYSUueWs1ZmOPG+e04JhEjtWiAUQJsh/5Jb6mdQW40rJGqlsoZz0kq98ZYI2EVsoAoZcDFKcVMzIhgBTkp7D0u8Keh+SYHHce3d3olskaPd91rfbEzm/7msNokHEVhgMMPBidD8Ar7obfeQINguty4AF44mkbzcQYOdNKyQ1IIZgUTAW1haWno0JYW5H+gLTV6EIwif+U13CnEhqQsgVSvdogwdUsH/Q0y+B5sf5zCH9xFYMrBp433gmJDGFm8yk42qOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xoACm74cXK7DNwzQN0F3UHM9GF591XLrksoHjFW1OZs=;
+ b=DxBcDq1KdASb/8UmfpdaV6QNjw4mFhc3gpt9Imvq8VozlBaA4ssHqu0RzYKtvof6xWsydYvkpvqqBy6RkOtKFY5BIGSv/GcD5s6UfSeNBPGZ7GEIDVhQC1pnn1gI8ckL/YkI1/Mpc15jtEQoSEBuzuR1N8kbQA7JFOTAAlAiBXY=
+Subject: Re: [PATCH] x86/cpuid: Drop special_features[]
+To: Jan Beulich <jbeulich@suse.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210607124141.24767-1-andrew.cooper3@citrix.com>
+ <d09c3a27-4b89-be3f-6dea-37f3759df570@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <22ffd522-89da-d9fd-3918-bf07eae1be1a@citrix.com>
+Date: Tue, 8 Jun 2021 09:46:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <d09c3a27-4b89-be3f-6dea-37f3759df570@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0411.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a0::15) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162538: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d21121685fac829c988e432407fb0e4ef9b19331
-X-Osstest-Versions-That:
-    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 08 Jun 2021 08:38:43 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 81563e72-d05b-416a-328b-08d92a59e3be
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3800:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR03MB3800D1E6412003400ABBF126BA379@BYAPR03MB3800.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EQxOIkqYJZvUl7eE4xqIiiyp7DUeVvipDihpJDUtbHmwRvg0YRBNY7Y7kbamQzs1JxektEzTJjfwBZBfItjQO4Tgm/g+uX4Q3qo4ZmS2K7uS4o2HFrYd7d9o33GDY2ePU5AeYnwLqiaDAgjivU1I7xNugU9mWNGAwW41906P4YO1cYG+QHnkS+HDXoKKDn0oX3NuKdwG/sGMYW/c7BxYt3IKYUo76LKd9TJNejbuH4H27bAKILTwDUJDtC0+VJOewEq9F3xsk/fKZw71ZdgHNCXFT3LkkJgqhZuLQFkBfi/T5HS5XHq2v8ufB5PR80dMm4mDgrUzTqhYkXaLGiVStgMjQICYkVlsPwLVvMEyFosaAoqU5Per2xh4B5FUaTB88/timVFMSpNGavbiAgkT4ueuKuJB7yBsYlN5AHUTaHqv0+Dqn7VB5KUQiD9fsWDK2Eu72Zs8LBQMToM9ghTASm1iJ+7MvMfWu/eYFjAajWBbAIYNl62WeQ/6mxR/Qf7xUYIVocc2Yo6no1H0Da8zOcPgfBKyt3a+lcOxae/P7oiFbCTv4tQc1aeeaiMXlxlcjz0Xx+h0EE5F/rx2Ahr8XFUq6Rz6dpsG9TZDISHtaTQLQswmXcIS97e6EJE97dH6GzbFbK4SGJFTwG4NhwXWMksI2fODxFfUA73kYK0nyjixgb2h2X1F1PUuZpWc7WtI
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(136003)(366004)(396003)(39860400002)(376002)(16576012)(54906003)(4326008)(2906002)(316002)(26005)(956004)(66476007)(8676002)(6486002)(83380400001)(31686004)(53546011)(186003)(16526019)(6666004)(86362001)(31696002)(36756003)(66946007)(8936002)(6916009)(2616005)(66556008)(478600001)(38100700002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUp4cDYxMmFqeVFBNGJ6TmtrYk5hY2NOUGhienl3Wm1PaUsrM0s5Y254YTFJ?=
+ =?utf-8?B?eDVKSjVOeVljb0IxL0NjSU0wWGJDUmE3algxbDh3MncyLzd5TzBTTmRyTGpk?=
+ =?utf-8?B?T0FXQU1ZamRJeTEvSm9NUnZLZEtDLzFzNDg1Zi96R3JXTCtsODUyQ2xoQWVN?=
+ =?utf-8?B?UE1IdDI5ZEFNaFlyWXZWRjhlRjdLaFkrck56bnFUZlpuaFAvM2tFU01YUjAz?=
+ =?utf-8?B?Q2xlbGR0V29mMko1Nk96dHhrbSs1SjhURGoycG1scm9aOE14eWd2ZUhOdmF5?=
+ =?utf-8?B?bTl5TE81MlltcUlIODFiek9mc0RPSjkxUWc1eHF5Uk41V3pWNHJDMHNUaGcz?=
+ =?utf-8?B?NldqTXJRVW9GL1IzKzRpQmlkaS96Z2FWN3cvaG1zVkJrcUJBSC9FYitVN0dP?=
+ =?utf-8?B?dXRLUFd3TFZlMXI5NDRPeHdCeDg1bFZvUGFqTkVPQ2NlVE5SVjdwbHAzMitC?=
+ =?utf-8?B?TWp3REc2SjdJK0FCZzdxdDdteGs2RmZxNlloaHB3d2FVWFZRS25COS9hWDc2?=
+ =?utf-8?B?cC9jZXpEL3pObUc3eGEyVVhHQnB6Ym02VHFKcDV6M2JXcmUzeHJ3SmhIaGho?=
+ =?utf-8?B?U1lObU0xdG5jcVZxQStkdHNzNVVNU3QrVTQ3MGhLL2dBSzM1YUF3b0F5MHpr?=
+ =?utf-8?B?TFZNVHZ0eDZNRFJpek94aGpFd2dMbEZ6bEJubG1JakJ6V0V6U1BDVStkZnh6?=
+ =?utf-8?B?d3VZMS9qWUR5VnRwVzJ1ZGt3TW5GMDlSd0lLOGIyS2ZKeWxWempGOXNESSs4?=
+ =?utf-8?B?Wk91MXZSYldDWXh2TVVoemhOeFhSOWFZUkVZS21jWFY0SzV2bHhFbFV0VDBY?=
+ =?utf-8?B?ZVNpalAya1NLSXJ1VjFpeW13N2h5d0c5bGxvVUdGaThtck41QU9NRkpTT0pU?=
+ =?utf-8?B?b3k5aDB0R2UwRU03cnRFSXAxQ2J3NE94QllVZTVtazNXUXBBTnpHR3RETnNz?=
+ =?utf-8?B?eGM5QlozZHlHZVdJUGV1UGF6RUlWZGFJTGIzRFJTeVBBZit2SVVtRjluZUxS?=
+ =?utf-8?B?Q29hNzA4WlM3VEMwRER5RUtvNjJmU2xPMzNqaXE0eFcrcFArK2F0Rm1Sakxo?=
+ =?utf-8?B?M0hBQUF6TE9CS2ozS1J5SnhLL0NuN1Q0RnJtWnNMcW4vUWRydTRLSWxXTUxS?=
+ =?utf-8?B?ekRFNW5aM0d4RUcveWlFakxSY096RC9XajBiWmdxUnNpWkVhcHI4bW1XbU9B?=
+ =?utf-8?B?YUNjT1lIQTBvYWRab1dXYzU2YkFyaDQwZ3Vra1ZGVmZpVU5JNXphVW52clNj?=
+ =?utf-8?B?cjlmL3ZsTU54c2pOTWw1dnR3cS9uMnNLbDlSTUN5NkpoQnhtc2pPNWRPQXpT?=
+ =?utf-8?B?SVZvZTlzeU9aWTF6NVM4OUc2K3VqcXQvcmxQcWNCRyszNUV3T004Tm80VWpS?=
+ =?utf-8?B?Rk1ZbENVdjh0ODc4ODIwdVlXK0ZhNjZBdklyK3F1dzZFbTJQQm9qV0NsamtI?=
+ =?utf-8?B?TWZFVWJOdFB4c3VMbTFXRXdESzI0Qlp3ZlZpUlZUMFRIK01uSGRTQXdpVE9q?=
+ =?utf-8?B?RmZud1M4dEF3cjlPaDcvZEVtMmtCMGxhTE9WTmNxT3IwTEl3QUpFU3gxWWZN?=
+ =?utf-8?B?WHpQcXJ6eXZvSFJWYVVibnNOdnkwbGRscFF5aGpzTGp4bXFoZUgrdFlDMTdO?=
+ =?utf-8?B?cnRIVmQ2V0xaS00xNUVzaGtUQlhMSTd4cVZIQ0FHaHdxTzNYdHcvek12MVpU?=
+ =?utf-8?B?T1B2ZTNZZVFEY0VHejQvRTZXRnBQVDZ5OGtaVUgvc3ZZZ0hrRVZUTDNrNDJa?=
+ =?utf-8?Q?JJ8il83ZUaigCxjfhXygf4yWKeh+j59RIaPmKrm?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81563e72-d05b-416a-328b-08d92a59e3be
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 08:46:21.3113
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kq1oaMke+vwo9lLGCTYWMij5hU+jI8s8N+9xIOeN7+J6C2De+a9XueR84kEhLSR/oBnDI5iZUULNjGFSKGwX708+RT20uiwCY3bof2sNH68=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3800
+X-OriginatorOrg: citrix.com
 
-flight 162538 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162538/
+On 08/06/2021 07:18, Jan Beulich wrote:
+> On 07.06.2021 14:41, Andrew Cooper wrote:
+>> While the ! annotation is useful to indicate that something special is
+>> happening, an array of bits is not.  Drop it, to prevent mistakes.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> ---
+>>  xen/arch/x86/cpuid.c        | 2 --
+>>  xen/include/asm-x86/cpuid.h | 1 -
+>>  xen/tools/gen-cpuid.py      | 3 ---
+>>  3 files changed, 6 deletions(-)
+> As osstest points out this didn't go quite far enough, or too far:
+> Either XC_FEATUREMASK_SPECIAL also needs dropping (including its uses
+> in libxenguest and xen-cpuid) or, considering exposing this
+> information via xen-cpuid isn't entirely without purpose, the script
+> part of the original change needs undoing or making conditional e.g.
+> upon __XEN__.
 
-Regressions :-(
+Yes - Gitlab CI didn't spot, because there is a different breakage from
+PV32 blocking things.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 162327
+I think I'll reinstate the gen-cpuid.py hunks because having xen-cpuid
+print out the bits when asked is helpful.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  d21121685fac829c988e432407fb0e4ef9b19331
-baseline version:
- xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-
-Last test of basis   162327  2021-06-01 16:01:37 Z    6 days
-Failing since        162370  2021-06-04 17:01:35 Z    3 days   24 attempts
-Testing same since   162517  2021-06-07 16:01:28 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit d21121685fac829c988e432407fb0e4ef9b19331
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Jun 7 15:00:05 2021 +0200
-
-    tools/libs/guest: fix save and restore of pv domains after 32-bit de-support
-    
-    After 32-bit PV-guests have been security de-supported when not running
-    under PV-shim, the hypervisor will no longer be configured to support
-    those domains per default when not being built as PV-shim.
-    
-    Unfortunately libxenguest will fail saving or restoring a PV domain
-    due to this restriction, as it is trying to get the compat MFN list
-    even for 64 bit guests.
-    
-    Fix that by obtaining the compat MFN list only for 32-bit PV guests.
-    
-    Fixes: 1a0f2fe2297d122a08fe ("SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 69e1472d21cf7e5cf0795ef38b99d00de78a910e
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jun 7 13:38:53 2021 +0100
-
-    x86/cpuid: Drop special_features[]
-    
-    While the ! annotation is useful to indicate that something special is
-    happening, an array of bits is not.  Drop it, to prevent mistakes.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 60fa12dbf1d4d2c4ffe1ef34b495b24aa7e41aa0
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jun 7 13:25:09 2021 +0100
-
-    x86/cpuid: Fix HLE and RTM handling (again)
-    
-    For reasons which are my fault, but I don't recall why, the
-    FDP_EXCP_ONLY/NO_FPU_SEL adjustment uses the whole special_features[] array
-    element, not the two relevant bits.
-    
-    HLE and RTM were recently added to the list of special features, causing them
-    to be always set in guest view, irrespective of the toolstacks choice on the
-    matter.
-    
-    Rewrite the logic to refer to the features specifically, rather than relying
-    on the contents of the special_features[] array.
-    
-    Fixes: 8fe24090d9 ("x86/cpuid: Rework HLE and RTM handling")
-    Reported-by: Edwin Török <edvin.torok@citrix.com>
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit c4beefcada0a406681dcfb6e89f6cbe4aa368c2d
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Jun 7 15:40:55 2021 +0200
-
-    ﻿docs: release-technician-checklist: update to leaf tree version pinning
-    
-    Our releases look to flip-flop between keeping or discarding the date
-    and title of the referenced qemu-trad commit. I think with the hash
-    replaced by a tag, the commit's date and title would better also be
-    purged.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 89052b9fa24bf976924e40918fc9fa3b1b940e17
-Author: Dario Faggioli <dfaggioli@suse.com>
-Date:   Fri Mar 19 12:14:17 2021 +0000
-
-    xen: credit2: fix per-entity load tracking when continuing running
-    
-    If we schedule, and the current vCPU continues to run, its statistical
-    load is not properly updated, resulting in something like this, even if
-    all the 8 vCPUs are 100% busy:
-    
-    (XEN) Runqueue 0:
-    (XEN) [...]
-    (XEN)   aveload            = 2097152 (~800%)
-    (XEN) [...]
-    (XEN)   Domain: 0 w 256 c 0 v 8
-    (XEN)     1: [0.0] flags=2 cpu=4 credit=9996885 [w=256] load=35 (~0%)
-    (XEN)     2: [0.1] flags=2 cpu=2 credit=9993725 [w=256] load=796 (~0%)
-    (XEN)     3: [0.2] flags=2 cpu=1 credit=9995885 [w=256] load=883 (~0%)
-    (XEN)     4: [0.3] flags=2 cpu=5 credit=9998833 [w=256] load=487 (~0%)
-    (XEN)     5: [0.4] flags=2 cpu=6 credit=9998942 [w=256] load=1595 (~0%)
-    (XEN)     6: [0.5] flags=2 cpu=0 credit=9994669 [w=256] load=22 (~0%)
-    (XEN)     7: [0.6] flags=2 cpu=7 credit=9997706 [w=256] load=0 (~0%)
-    (XEN)     8: [0.7] flags=2 cpu=3 credit=9992440 [w=256] load=0 (~0%)
-    
-    As we can see, the average load of the runqueue as a whole is, instead,
-    computed properly.
-    
-    This issue would, in theory, potentially affect Credit2 load balancing
-    logic. In practice, however, the problem only manifests (at least with
-    these characteristics) when there is only 1 runqueue active in the
-    cpupool, which also means there is no need to do any load-balancing.
-    
-    Hence its real impact is pretty much limited to wrong per-vCPU load
-    percentages, when looking at the output of the 'r' debug-key.
-    
-    With this patch, the load is updated and displayed correctly:
-    
-    (XEN) Runqueue 0:
-    (XEN) [...]
-    (XEN)   aveload            = 2097152 (~800%)
-    (XEN) [...]
-    (XEN) Domain info:
-    (XEN)   Domain: 0 w 256 c 0 v 8
-    (XEN)     1: [0.0] flags=2 cpu=4 credit=9995584 [w=256] load=262144 (~100%)
-    (XEN)     2: [0.1] flags=2 cpu=6 credit=9992992 [w=256] load=262144 (~100%)
-    (XEN)     3: [0.2] flags=2 cpu=3 credit=9998918 [w=256] load=262118 (~99%)
-    (XEN)     4: [0.3] flags=2 cpu=5 credit=9996867 [w=256] load=262144 (~100%)
-    (XEN)     5: [0.4] flags=2 cpu=1 credit=9998912 [w=256] load=262144 (~100%)
-    (XEN)     6: [0.5] flags=2 cpu=2 credit=9997842 [w=256] load=262144 (~100%)
-    (XEN)     7: [0.6] flags=2 cpu=7 credit=9994623 [w=256] load=262144 (~100%)
-    (XEN)     8: [0.7] flags=2 cpu=0 credit=9991815 [w=256] load=262144 (~100%)
-    
-    Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 07b0eb5d0ef0be154606aa46b5b4c5c59b158505
-Author: Dario Faggioli <dfaggioli@suse.com>
-Date:   Fri May 28 17:12:48 2021 +0200
-
-    credit2: make sure we pick a runnable unit from the runq if there is one
-    
-    A !runnable unit (temporarily) present in the runq may cause us to
-    stop scanning the runq itself too early. Of course, we don't run any
-    non-runnable vCPUs, but we end the scan and we fallback to picking
-    the idle unit. In other word, this prevent us to find there and pick
-    the actual unit that we're meant to start running (which might be
-    further ahead in the runq).
-    
-    Depending on the vCPU pinning configuration, this may lead to such
-    unit to be stuck in the runq for long time, causing malfunctioning
-    inside the guest.
-    
-    Fix this by checking runnable/non-runnable status up-front, in the runq
-    scanning function.
-    
-    Reported-by: Michał Leszczyński <michal.leszczynski@cert.pl>
-    Reported-by: Dion Kant <g.w.kant@hunenet.nl>
-    Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 75f13e9b221e2c8603f15ee1d53318526cf56113
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:14 2021 +0200
-
-    tools/libs/guest: make some definitions private to libxenguest
-    
-    There are some definitions which are used in libxenguest only now.
-    Move them from libxenctrl over to libxenguest.
-    
-    Remove an unused macro.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 455790573d3bbad6d5a1bb7e9d28b6dd71075693
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:13 2021 +0200
-
-    tools/libs: move xc_core* from libxenctrl to libxenguest
-    
-    The functionality in xc_core* should be part of libxenguest instead
-    of libxenctrl. Users are already either in libxenguest, or in xl.
-    There is one single exception: xc_core_arch_auto_translated_physmap()
-    is being used by xc_domain_memory_mapping(), which is used by qemu.
-    So leave the xc_core_arch_auto_translated_physmap() functionality in
-    libxenctrl.
-    
-    This will make it easier to merge common functionality of xc_core*
-    and xg_sr_save*.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bf1fc18901dfea05a69f661493b934c0db7d3503
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:12 2021 +0200
-
-    tools/libs: move xc_resume.c to libxenguest
-    
-    The guest suspend functionality is already part of libxenguest. Move
-    the resume functionality from libxenctrl to libxenguest, too.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit f183854facad996fe891c086c024bca7cbcdc1e4
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:11 2021 +0200
-
-    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any()
-    
-    Instead of open coding the mapping of the p2m list use the already
-    existing xc_core_arch_map_p2m() call, especially as the current code
-    does not support guests with the linear p2m map. It should be noted
-    that this code is needed for colo/remus only.
-    
-    Switching to xc_core_arch_map_p2m() drops the need to bail out for
-    bitness of tool stack and guest differing.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bd7a29c3d0b937ab542abea06ff1b575abe7247a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:10 2021 +0200
-
-    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m table
-    
-    The core of a pv linux guest produced via "xl dump-core" is nor usable
-    as since kernel 4.14 only the linear p2m table is kept if Xen indicates
-    it is supporting that. Unfortunately xc_core_arch_map_p2m() is still
-    supporting the 3-level p2m tree only.
-    
-    Fix that by copying the functionality of map_p2m() from libxenguest to
-    libxenctrl.
-    
-    Additionally the mapped p2m isn't of a fixed length now, so the
-    interface to the mapping functions needs to be adapted. In order not to
-    add even more parameters, expand struct domain_info_context and use a
-    pointer to that as a parameter.
-    
-    Fixes: dc6d60937121 ("libxc: set flag for support of linear p2m list in domain builder")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Jun 4 08:02:09 2021 +0200
-
-    tools/libs/guest: fix max_pfn setting in map_p2m()
-    
-    When setting the highest pfn used in the guest, don't subtract 1 from
-    the value read from the shared_info data. The value read already is
-    the correct pfn.
-    
-    Fixes: 91e204d37f449 ("libxc: try to find last used pfn when migrating")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
-Author: George Dunlap <george.dunlap@citrix.com>
-Date:   Thu May 6 13:38:02 2021 +0100
-
-    SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
-    
-    The support status of 32-bit guests doesn't seem particularly useful.
-    
-    With it changed to fully unsupported outside of PV-shim, adjust the PV32
-    Kconfig default accordingly.
-    
-    Reported-by: Jann Horn <jannh@google.com>
-    Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+~Andrew
 
