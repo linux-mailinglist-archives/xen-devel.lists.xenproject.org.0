@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7461F39FA20
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 17:15:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138559.256443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D111039FB4A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 17:56:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.138570.256459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqdQP-0002on-6O; Tue, 08 Jun 2021 15:13:53 +0000
+	id 1lqe4Q-0006nD-AL; Tue, 08 Jun 2021 15:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138559.256443; Tue, 08 Jun 2021 15:13:53 +0000
+Received: by outflank-mailman (output) from mailman id 138570.256459; Tue, 08 Jun 2021 15:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqdQP-0002mZ-3M; Tue, 08 Jun 2021 15:13:53 +0000
-Received: by outflank-mailman (input) for mailman id 138559;
- Tue, 08 Jun 2021 15:13:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Z8W=LC=onlineschubla.de=paul@srs-us1.protection.inumbo.net>)
- id 1lqdQN-0002mT-3W
- for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 15:13:51 +0000
-Received: from DEU01-FR2-obe.outbound.protection.outlook.com (unknown
- [40.107.135.128]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7bc6a98e-1411-40c3-83b9-b55ae9497e28;
- Tue, 08 Jun 2021 15:13:49 +0000 (UTC)
-Received: from FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:45::10)
- by FRYP281MB0376.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:43::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9; Tue, 8 Jun
- 2021 15:13:47 +0000
-Received: from FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM
- ([fe80::184f:c6ec:f202:bf2d]) by FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM
- ([fe80::184f:c6ec:f202:bf2d%8]) with mapi id 15.20.4219.020; Tue, 8 Jun 2021
- 15:13:47 +0000
+	id 1lqe4Q-0006kL-4s; Tue, 08 Jun 2021 15:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 138570;
+ Tue, 08 Jun 2021 15:55:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lqe4O-0006kB-MJ; Tue, 08 Jun 2021 15:55:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lqe4O-0002rr-D1; Tue, 08 Jun 2021 15:55:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lqe4O-0000Jn-4Q; Tue, 08 Jun 2021 15:55:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lqe4O-0001B9-3w; Tue, 08 Jun 2021 15:55:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,138 +42,382 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bc6a98e-1411-40c3-83b9-b55ae9497e28
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V2ZG/Sk6OtTCPNZYAXDqTD7E/4HW7okiULuVMaQgx4/S0QRcPtklnHcAdmfurDVhXCzVlb5pJWbgVS0b5ybhtTma1wsV6q26hK4JkdM+QAiVh3Jp8VoPgxmtg5GnELn/clb0YnIHbn0WZRQkVAnmsjflyTPWEu7gtfu/uQqVBpT8uelVmldKfUG5FV6Da/dlSAGKDZOtTt1r8tCjHShH3GLozUK71QcZrr0K8pezSGEZzm/HyhxhCuQ3yf/mX3PxQ5wlP/cFK06vcSibpNeGscDC/a85kcwjjT1oiyQgiW5SC9iOCnEwBT8fAJw+Ltek7KbgcaUn9dX1nHkyaIMlxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NnTSvAcHGNMyB+mxbNP7yD+WKUhKlPC/vYTDjr7Z3PY=;
- b=BYtEgoFbxZRLBFSlSk5ol9sA2mmrsbX9rOTgXhC2MLotCykscJKIGFfwG32BC64ntc3mBlxgFacOOzz4y+4opYorjpcdjPu/TwVBE585tuSUGD8QgKSfqqPNbFD97emr7FC2/WyjgRgiyzqAorUufhaZ/ZvpFwFk2cZxKN592260OfbVZLOOmL9SgcNmF6w8UwCFTDmtbjEwilQIEPIO3teHGwDhBewJYF8g0BQ57beRymwe7smhfO7/7UsuIzA6ASvS0em1e4ZMaYsmQ3a14dOHtizMe1CDOcDWF6Y9Y6YdqW+mn5zD2yg3syfOBCrkgiffRDg8iQy6hhWdDUWT3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=onlineschubla.de; dmarc=pass action=none
- header.from=onlineschubla.de; dkim=pass header.d=onlineschubla.de; arc=none
-From: Paul Leiber <paul@onlineschubla.de>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: AW: [BUG] Passed through PCI devices lost after Windows HVM DomU
- reboot
-Thread-Topic: [BUG] Passed through PCI devices lost after Windows HVM DomU
- reboot
-Thread-Index: Addb9FwKHMmb5HghTwunCUNmuZyBkwAOovgAABFHM2A=
-Date: Tue, 8 Jun 2021 15:13:47 +0000
-Message-ID:
- <FRYP281MB0582BC1EAE564E396C3316A6B0379@FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM>
-References:
- <FRYP281MB05828EB0C49C963C7954578CB0389@FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM>
- <5f532ea4-4ff4-e163-9492-096d16a316e7@suse.com>
-In-Reply-To: <5f532ea4-4ff4-e163-9492-096d16a316e7@suse.com>
-Accept-Language: en-US
-Content-Language: de-DE
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=onlineschubla.de;
-x-originating-ip: [2003:d2:1f26:12f0:194f:1b:f8b8:323e]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b8c99002-bb3f-4ff5-1e82-08d92a9003a8
-x-ms-traffictypediagnostic: FRYP281MB0376:
-x-microsoft-antispam-prvs:
- <FRYP281MB03760A81E691438827E26249B0379@FRYP281MB0376.DEUP281.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- mvINWgXCmfgOC5u5zemrApjSiLQKHeTq+1GNHSEMd/H6w4xvfcJy/mE06XUS1Qc963qduvRYI7uuJsUT0aAE7Njy9h28Gk4HwAe/bzGz50Ne3l9V0aEO0DH2apK5pxlLHJGTfdc8FepLB7xrVTPLQOMDQfYrWpMR6154HKdHD4qa8rKIO2JvQEJM5guPSOZPTMzJMjhclT7tiN/tvFtPcH6F9348oEmkdNy/FKCUoXWWKBSpHAWAUIEanqdlDLqzce/e0z/V2Fy4Yc4hr234oCUutLNsrH/5VJhu37luoeQFyhfGY4DftEEtCUqjuxPdONeWsYGBYLVzjVQSlKlTFAagpiSeeXsroLlEfnZQp1Sp3wKJxWt2QjqAcyWtctsDhKVu9jIETmW+pflOcjZcxfY4Fw4XP/rmKvwgRu16gNX4L0X0X4Ca7u4j8wau1d5WWmx3puvx5vWzfwOjqSBpgbOdST6G7+47hFsHyc+QOuqmGOGUluGS8UdOlkzA10J5MChPyCNqP5vSx0oCxAuBX/JkUKEP9RvP84dfFmj6MZjEfSpgoU+/VTcQdTjJ3LJ2uRkFymOhIlnMC0nh111WY184/5PzAxp2uSciL2yEtzPcM777xpZ7gNUHoqqIWad9ZJQgTZLlyz1ZI+xr09oUoA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(396003)(136003)(346002)(376002)(39830400003)(366004)(8676002)(7696005)(86362001)(6916009)(33656002)(9686003)(66476007)(66556008)(66946007)(66446008)(64756008)(76116006)(8936002)(122000001)(316002)(38100700002)(55016002)(4326008)(6506007)(53546011)(2906002)(52536014)(5660300002)(83380400001)(186003)(71200400001)(478600001)(21314003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata:
- =?utf-8?B?bWc3VEF2TWx6Y0x0MEFGNVAyK3dIQVNQSFJFakd4TGZlNXcwRUwzY0U0Skdu?=
- =?utf-8?B?SHpQUVA1YzFEN2t2ZUhDZjF3T0NDR0xVK2s1cHczWVpmeDM3QUV5eWJ4UTIy?=
- =?utf-8?B?aG8xSXZhc2JEWHprcW5jdFFua2Z2d0ROSjlMMHRyRWpQdU5uZVhqbkdpaEM2?=
- =?utf-8?B?M1lpb0VNQ2M2TG8va0sxWFZEVncvbHMza1VweUpZZXNLRVplY3dBT2QxcExM?=
- =?utf-8?B?WTFMS1FWcEFnWWsrQS9ZbVdmQ3ZEUmR2bzU0ZEdqc2VJL0hVbEpZcU5aSmtR?=
- =?utf-8?B?Q0JvMXE0NDJGcCtBRCswaFVPb01OMVVkcWJrZE9aNTcyeDJ4a1RMdi9GZkQr?=
- =?utf-8?B?SEM2UjNiR0xxMzBGRjBtRUJENVRBeXEyYlVpOEhsblJ1dElzN3hIMEwvMFRD?=
- =?utf-8?B?MTJVMXhVOWlwamJxei94MExhS1NiUlpxT3hQeVhsbzhrNmhtaFo3eU5ZVXBM?=
- =?utf-8?B?VmFmRDkvVHNXRTRnMXp2ZVlKN2NORG9FaVR4WUplby94VlRyZXFKaHJVazN3?=
- =?utf-8?B?NzBaL2puVWg2cndzQXVrei9JUzZTVVNNTFUxYjlUaVVJUVV5TVFKazdja0dW?=
- =?utf-8?B?VXAwdWtRVk9xNWZEVVM5TGQ1UThwb1VNYnNkeTJiUE9Oa1hSMWhvSUN6RS9n?=
- =?utf-8?B?ZW5PUWliNTAxMm1VWTlNUW5QYm5wRzdCZ3lBU1ZFYVg5VTJkTTNwaG0wZDNj?=
- =?utf-8?B?akh6Ym9KUE9oMlNwdmhETVVuUFlyMWd0VWFjUitXREpCTDVLNmhsUVRTMzc1?=
- =?utf-8?B?eFFiY0pyN01rVUlYSVpIUEpieGlRRlVudnZUVWRUSktwMC9HbE5qWkRKcHNP?=
- =?utf-8?B?SEtwbDd6N3dLYyszTjQ1UHdzdUxlbEt5T3RDeGFmTGdoV3l0N2p1Ty9EZXhr?=
- =?utf-8?B?YWVFL0NQMHFHYWJpVEk2RUYvQnFPVE03WUljQkh3aTFaWW43dzd4THFkYmxz?=
- =?utf-8?B?Y2lVMkpkTVNuSnZUd29LbFNKMWtnQmRwalFPTXJ1eXE3dm1qTHZ4ZitneWor?=
- =?utf-8?B?ZzVQNDJJVTR4R0c2dnJrcDJ2Y2NmbEVObTNKOWFLSzRkZE5LbDJmQ1UwVVkz?=
- =?utf-8?B?MXg3UFdONDU2cmwwM3pDTVQ2NERBNWlBWGFwaC9qYjl2WW1ZK3pFUDI0eFFl?=
- =?utf-8?B?ZGVNZGRIVEVwZHdicVVmRW5vbDUwamdDTDQxN0ZkNUtVVXB1UFFiaVRhdkpU?=
- =?utf-8?B?NHRmM0g1WFkvQk55Um1tcDZXU0pPQWxncisvOEsvTXdsVnhDRUU0MUNrdXAr?=
- =?utf-8?B?bmJTdkt1TUVheVpzUzJpcjVyb3h6K2dXamRhTDdEQmdlTThIb2trdHIrRUtZ?=
- =?utf-8?B?S2t3dDNNeWh6dTVrdUk2Kyt0RG1udGE1TGtSbHgwczdYUUJNQ2hNVXNRRFU5?=
- =?utf-8?B?dURCeTJFVnUwelFwNTRtVS96Y1E5cFlpb3RMZ0RHTFBOUGl6ZkNHMVd4TTBk?=
- =?utf-8?B?akFOaUVubjA5bjZuNnVkWCtDbDBCRW44cU5ETHhoSUZIQjNWV0hJcGxVbmdv?=
- =?utf-8?B?MFh6SCtVbWFvc1MrQnNCWk9hNXBMQStCaTR4QUhFMG1IbjlZUXhhMEUyTTVl?=
- =?utf-8?B?Mk96MnYvY0pmUEtPL1ZDcVVvUy9mNm9kemtQUEE2K1NKZlhveS9wU081N0R1?=
- =?utf-8?B?dzNvaTU5QkoxczJxcElwcE9IRXQ4YkpmWS8vT3Z2WVAyUjN6K3ZxbGZGeDhJ?=
- =?utf-8?B?UlVxZ204R09MdWwvUW8weHBobmNETU5vUGFSemgvc2gzTy92Q25WdU1GVVJ1?=
- =?utf-8?B?YURyd2JTbkw4T2NFUnQ0bEl4YVZFWTNqOEhlZnVLdGNMam83VkVYQzdOUlNQ?=
- =?utf-8?Q?nBYzjtl1Yo+DbzQcXiKWbKNwQS4neUkkCa2WA=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zhdjx57sNDF0uBJWe7V+to8uj4eHe8GlnUQIwxczfgU=; b=LbJ8iY7dSrTZ/2bPJKEPm27tCK
+	7Au+Twm6fCCs8MeVe0QG9WUpC29M2NqDgeEKJt6kbPYHz4eoMkoNXSPcbSMeF8Dn5gSAgzNkHZGko
+	pv3v/hlzRuoR2YdEUP6B0C9JfNsGZP4tsZjKbbxDCCu2pMzsajMkj0kZuHvVNjlMwWWI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162544-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-OriginatorOrg: onlineschubla.de
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: FRYP281MB0582.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8c99002-bb3f-4ff5-1e82-08d92a9003a8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2021 15:13:47.3985
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bfc8b046-4d00-4e98-8679-43c06bdec9db
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cKXEX++N4pMU4AiqCGn7dgZ/H7AUcILZ0wGdSGkFdIUrpE32ta8IJaXyEHugEhB/LlJ8jeV8YO5olmVbNxrJNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRYP281MB0376
+Subject: [xen-unstable-smoke test] 162544: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=aad7b5c11d51d57659978e04702ac970906894e8
+X-Osstest-Versions-That:
+    xen=5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 08 Jun 2021 15:55:12 +0000
 
-PiBWb246IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gR2VzZW5kZXQ6IERpZW5z
-dGFnLCA4LiBKdW5pIDIwMjEgMDg6MjQNCj4gDQo+IE9uIDA4LjA2LjIwMjEgMDE6NDQsIFBhdWwg
-TGVpYmVyIHdyb3RlOg0KPiA+IEFmdGVyIG1vcmUgdGVzdGluZywgSSBoYXZlIGNvbWUgdG8gdGhl
-IGZvbGxvd2luZyBjb25jbHVzaW9uOiBJdCBzZWVtcyB0aGF0DQo+IGV2ZXJ5IHRpbWUgSSBkbyBh
-IF9yZWJvb3RfIGZyb20gd2l0aGluIGEgV2luZG93cyBEb21VLCB0aGUgUENJIGRldmljZQ0KPiBk
-b2VzIG5vdCBnZXQgYXR0YWNoZWQgdG8gdGhlIERvbVUuIEFmdGVyIERvbVUgcmVib290LCBpdCBp
-cyBpbW1lZGlhdGVseQ0KPiBhdmFpbGFibGUgZm9yIGF0dGFjaG1lbnQgaW4gdGhlIERvbTAgd2hl
-biBJIGNoZWNrIGZvciBpdCB3aXRoICJ4bCBwY2ktDQo+IGFzc2lnbmFibGUtbGlzdCIsIGFuZCBJ
-IGNhbiByZWF0dGFjaCBpdCB0byB0aGUgRG9tVSB3aXRoICJ4bCBwY2ktYXR0YWNoIiB3aXRob3V0
-DQo+IGFueSBtYWpvciBwcm9ibGVtcyBiZXNpZGUgc29tZSBhbm5veWluZyBzaWRlIGVmZmVjdHMg
-KGUuIGcuIG5lZWQgdG8gcmVhcHBseQ0KPiBzZXR0aW5ncykuDQo+IA0KPiBBIHdlbGwta25vd24g
-cHJvYmxlbSBvbiAuLi4NCj4gDQo+ID4geGwgaW5mbzoNCj4gPg0KPiA+IGhvc3QgICAgICAgICAg
-ICAgICAgICAgOiB4eHgNCj4gPiByZWxlYXNlICAgICAgICAgICAgICAgIDogNC4xOS4wLTE0LWFt
-ZDY0DQo+ID4gdmVyc2lvbiAgICAgICAgICAgICAgICA6ICMxIFNNUCBEZWJpYW4gNC4xOS4xNzEt
-MiAoMjAyMS0wMS0zMCkNCj4gPiBtYWNoaW5lICAgICAgICAgICAgICAgIDogeDg2XzY0DQo+ID4g
-bnJfY3B1cyAgICAgICAgICAgICAgICA6IDQNCj4gPiBtYXhfY3B1X2lkICAgICAgICAgICAgIDog
-Mw0KPiA+IG5yX25vZGVzICAgICAgICAgICAgICAgOiAxDQo+ID4gY29yZXNfcGVyX3NvY2tldCAg
-ICAgICA6IDQNCj4gPiB0aHJlYWRzX3Blcl9jb3JlICAgICAgIDogMQ0KPiA+IGNwdV9taHogICAg
-ICAgICAgICAgICAgOiAxOTkyLjEwMA0KPiA+IGh3X2NhcHMgICAgICAgICAgICAgICAgOg0KPiBi
-ZmViZmJmZjo3N2ZhZjNmZjoyYzEwMDgwMDowMDAwMDEyMTowMDAwMDAwZjowMDljNmZiZjowMDAw
-MDAwMDowMDAwMDEwMA0KPiA+IHZpcnRfY2FwcyAgICAgICAgICAgICAgOiBodm0gaHZtX2RpcmVj
-dGlvDQo+ID4gdG90YWxfbWVtb3J5ICAgICAgICAgICA6IDMyNTQyDQo+ID4gZnJlZV9tZW1vcnkg
-ICAgICAgICAgICA6IDIwODM2DQo+ID4gc2hhcmluZ19mcmVlZF9tZW1vcnkgICA6IDANCj4gPiBz
-aGFyaW5nX3VzZWRfbWVtb3J5ICAgIDogMA0KPiA+IG91dHN0YW5kaW5nX2NsYWltcyAgICAgOiAw
-DQo+ID4gZnJlZV9jcHVzICAgICAgICAgICAgICA6IDANCj4gPiB4ZW5fbWFqb3IgICAgICAgICAg
-ICAgIDogNA0KPiA+IHhlbl9taW5vciAgICAgICAgICAgICAgOiAxMQ0KPiA+IHhlbl9leHRyYSAg
-ICAgICAgICAgICAgOiAuNA0KPiA+IHhlbl92ZXJzaW9uICAgICAgICAgICAgOiA0LjExLjQNCj4g
-DQo+IC4uLiB0aGlzIG9sZCBYZW4gdmVyc2lvbiwgSSBiZWxpZXZlLiBJIGRvbid0IHJlY2FsbCB3
-aGVuIGV4YWN0bHkgaXQgd2FzDQo+IGZpeGVkIChhbmQgSSBkb24ndCBrbm93IGF0IGFsbCB3aGV0
-aGVyIHRoZSBmaXggd2FzIGJhY2twb3J0ZWQpLCBidXQNCj4gdHJ5aW5nIGEgcmVjZW50IHZlcnNp
-b24gb2YgWGVuIHNob3VsZCBnZXQgeW91IHBhc3QgdGhpcy4gSWYgYSBmdWxseQ0KPiBtYWludGFp
-bmVkIHZlcnNpb24gaXMgc3RpbGwgYWZmZWN0ZWQsIGEgYmFja3BvcnQgY291bGQgYmUgcmVxdWVz
-dGVkLg0KDQpJIHN3aXRjaGVkIHRvIHhlbl92ZXJzaW9uIDQuMTQuMi1wcmUgKHRoZSBzdGFuZGFy
-ZCBwYWNrYWdlIGZyb20gRGViaWFuIGJ1bGxzZXllKSwgcmVzdWx0OiB0aGUgaXNzdWUgaXMgZ29u
-ZS4gVGhlIFBDSSBkZXZpY2UgaXMgYXR0YWNoZWQgcmVsaWFibHkgdG8gdGhlIERvbVUsIGV2ZW4g
-YWZ0ZXIgcmVib290Lg0KDQpJIGhhZCBzZWFyY2hlZCBmb3IgaW5mb3JtYXRpb24gb24gdGhpcyBp
-c3N1ZSBvbiB0aGUgd2ViIG9yIGluIFhlbiBtYWlsaW5nIGxpc3RzLCBidXQgSSBvbmx5IGZvdW5k
-IG9uZSBzdXBlcm9sZCBidWcgcmVwb3J0LCB0aGVyZWZvcmUgSSBkaWRuJ3QgdHJ5IG91dCBhIG1v
-cmUgcmVjZW50IFhlbiB2ZXJzaW9uIG15c2VsZi4gSXQgbm93IHR1cm5zIG91dCBJIHNob3VsZCBo
-YXZlLi4uDQoNCkFueXdheSwgdGhhbmsgeW91IGZvciB5b3VyIHN1cGVyZmFzdCBoZWxwIQ0KDQpQ
-YXVsDQo=
+flight 162544 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162544/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 162327
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  aad7b5c11d51d57659978e04702ac970906894e8
+baseline version:
+ xen                  5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+
+Last test of basis   162327  2021-06-01 16:01:37 Z    6 days
+Failing since        162370  2021-06-04 17:01:35 Z    3 days   26 attempts
+Testing same since   162544  2021-06-08 12:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit aad7b5c11d51d57659978e04702ac970906894e8
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Tue Jun 1 11:28:03 2021 +0100
+
+    tools/firmware/ovmf: Use OvmfXen platform file is exist
+    
+    A platform introduced in EDK II named OvmfXen is now the one to use for
+    Xen instead of OvmfX64. It comes with PVH support.
+    
+    Also, the Xen support in OvmfX64 is deprecated,
+        "deprecation notice: *dynamic* multi-VMM (QEMU vs. Xen) support in OvmfPkg"
+        https://edk2.groups.io/g/devel/message/75498
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit d21121685fac829c988e432407fb0e4ef9b19331
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Jun 7 15:00:05 2021 +0200
+
+    tools/libs/guest: fix save and restore of pv domains after 32-bit de-support
+    
+    After 32-bit PV-guests have been security de-supported when not running
+    under PV-shim, the hypervisor will no longer be configured to support
+    those domains per default when not being built as PV-shim.
+    
+    Unfortunately libxenguest will fail saving or restoring a PV domain
+    due to this restriction, as it is trying to get the compat MFN list
+    even for 64 bit guests.
+    
+    Fix that by obtaining the compat MFN list only for 32-bit PV guests.
+    
+    Fixes: 1a0f2fe2297d122a08fe ("SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 69e1472d21cf7e5cf0795ef38b99d00de78a910e
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jun 7 13:38:53 2021 +0100
+
+    x86/cpuid: Drop special_features[]
+    
+    While the ! annotation is useful to indicate that something special is
+    happening, an array of bits is not.  Drop it, to prevent mistakes.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 60fa12dbf1d4d2c4ffe1ef34b495b24aa7e41aa0
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jun 7 13:25:09 2021 +0100
+
+    x86/cpuid: Fix HLE and RTM handling (again)
+    
+    For reasons which are my fault, but I don't recall why, the
+    FDP_EXCP_ONLY/NO_FPU_SEL adjustment uses the whole special_features[] array
+    element, not the two relevant bits.
+    
+    HLE and RTM were recently added to the list of special features, causing them
+    to be always set in guest view, irrespective of the toolstacks choice on the
+    matter.
+    
+    Rewrite the logic to refer to the features specifically, rather than relying
+    on the contents of the special_features[] array.
+    
+    Fixes: 8fe24090d9 ("x86/cpuid: Rework HLE and RTM handling")
+    Reported-by: Edwin Török <edvin.torok@citrix.com>
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit c4beefcada0a406681dcfb6e89f6cbe4aa368c2d
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jun 7 15:40:55 2021 +0200
+
+    ﻿docs: release-technician-checklist: update to leaf tree version pinning
+    
+    Our releases look to flip-flop between keeping or discarding the date
+    and title of the referenced qemu-trad commit. I think with the hash
+    replaced by a tag, the commit's date and title would better also be
+    purged.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 89052b9fa24bf976924e40918fc9fa3b1b940e17
+Author: Dario Faggioli <dfaggioli@suse.com>
+Date:   Fri Mar 19 12:14:17 2021 +0000
+
+    xen: credit2: fix per-entity load tracking when continuing running
+    
+    If we schedule, and the current vCPU continues to run, its statistical
+    load is not properly updated, resulting in something like this, even if
+    all the 8 vCPUs are 100% busy:
+    
+    (XEN) Runqueue 0:
+    (XEN) [...]
+    (XEN)   aveload            = 2097152 (~800%)
+    (XEN) [...]
+    (XEN)   Domain: 0 w 256 c 0 v 8
+    (XEN)     1: [0.0] flags=2 cpu=4 credit=9996885 [w=256] load=35 (~0%)
+    (XEN)     2: [0.1] flags=2 cpu=2 credit=9993725 [w=256] load=796 (~0%)
+    (XEN)     3: [0.2] flags=2 cpu=1 credit=9995885 [w=256] load=883 (~0%)
+    (XEN)     4: [0.3] flags=2 cpu=5 credit=9998833 [w=256] load=487 (~0%)
+    (XEN)     5: [0.4] flags=2 cpu=6 credit=9998942 [w=256] load=1595 (~0%)
+    (XEN)     6: [0.5] flags=2 cpu=0 credit=9994669 [w=256] load=22 (~0%)
+    (XEN)     7: [0.6] flags=2 cpu=7 credit=9997706 [w=256] load=0 (~0%)
+    (XEN)     8: [0.7] flags=2 cpu=3 credit=9992440 [w=256] load=0 (~0%)
+    
+    As we can see, the average load of the runqueue as a whole is, instead,
+    computed properly.
+    
+    This issue would, in theory, potentially affect Credit2 load balancing
+    logic. In practice, however, the problem only manifests (at least with
+    these characteristics) when there is only 1 runqueue active in the
+    cpupool, which also means there is no need to do any load-balancing.
+    
+    Hence its real impact is pretty much limited to wrong per-vCPU load
+    percentages, when looking at the output of the 'r' debug-key.
+    
+    With this patch, the load is updated and displayed correctly:
+    
+    (XEN) Runqueue 0:
+    (XEN) [...]
+    (XEN)   aveload            = 2097152 (~800%)
+    (XEN) [...]
+    (XEN) Domain info:
+    (XEN)   Domain: 0 w 256 c 0 v 8
+    (XEN)     1: [0.0] flags=2 cpu=4 credit=9995584 [w=256] load=262144 (~100%)
+    (XEN)     2: [0.1] flags=2 cpu=6 credit=9992992 [w=256] load=262144 (~100%)
+    (XEN)     3: [0.2] flags=2 cpu=3 credit=9998918 [w=256] load=262118 (~99%)
+    (XEN)     4: [0.3] flags=2 cpu=5 credit=9996867 [w=256] load=262144 (~100%)
+    (XEN)     5: [0.4] flags=2 cpu=1 credit=9998912 [w=256] load=262144 (~100%)
+    (XEN)     6: [0.5] flags=2 cpu=2 credit=9997842 [w=256] load=262144 (~100%)
+    (XEN)     7: [0.6] flags=2 cpu=7 credit=9994623 [w=256] load=262144 (~100%)
+    (XEN)     8: [0.7] flags=2 cpu=0 credit=9991815 [w=256] load=262144 (~100%)
+    
+    Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
+
+commit 07b0eb5d0ef0be154606aa46b5b4c5c59b158505
+Author: Dario Faggioli <dfaggioli@suse.com>
+Date:   Fri May 28 17:12:48 2021 +0200
+
+    credit2: make sure we pick a runnable unit from the runq if there is one
+    
+    A !runnable unit (temporarily) present in the runq may cause us to
+    stop scanning the runq itself too early. Of course, we don't run any
+    non-runnable vCPUs, but we end the scan and we fallback to picking
+    the idle unit. In other word, this prevent us to find there and pick
+    the actual unit that we're meant to start running (which might be
+    further ahead in the runq).
+    
+    Depending on the vCPU pinning configuration, this may lead to such
+    unit to be stuck in the runq for long time, causing malfunctioning
+    inside the guest.
+    
+    Fix this by checking runnable/non-runnable status up-front, in the runq
+    scanning function.
+    
+    Reported-by: Michał Leszczyński <michal.leszczynski@cert.pl>
+    Reported-by: Dion Kant <g.w.kant@hunenet.nl>
+    Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
+
+commit 75f13e9b221e2c8603f15ee1d53318526cf56113
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:14 2021 +0200
+
+    tools/libs/guest: make some definitions private to libxenguest
+    
+    There are some definitions which are used in libxenguest only now.
+    Move them from libxenctrl over to libxenguest.
+    
+    Remove an unused macro.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 455790573d3bbad6d5a1bb7e9d28b6dd71075693
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:13 2021 +0200
+
+    tools/libs: move xc_core* from libxenctrl to libxenguest
+    
+    The functionality in xc_core* should be part of libxenguest instead
+    of libxenctrl. Users are already either in libxenguest, or in xl.
+    There is one single exception: xc_core_arch_auto_translated_physmap()
+    is being used by xc_domain_memory_mapping(), which is used by qemu.
+    So leave the xc_core_arch_auto_translated_physmap() functionality in
+    libxenctrl.
+    
+    This will make it easier to merge common functionality of xc_core*
+    and xg_sr_save*.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bf1fc18901dfea05a69f661493b934c0db7d3503
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:12 2021 +0200
+
+    tools/libs: move xc_resume.c to libxenguest
+    
+    The guest suspend functionality is already part of libxenguest. Move
+    the resume functionality from libxenctrl to libxenguest, too.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit f183854facad996fe891c086c024bca7cbcdc1e4
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:11 2021 +0200
+
+    tools/libs/ctrl: use common p2m mapping code in xc_domain_resume_any()
+    
+    Instead of open coding the mapping of the p2m list use the already
+    existing xc_core_arch_map_p2m() call, especially as the current code
+    does not support guests with the linear p2m map. It should be noted
+    that this code is needed for colo/remus only.
+    
+    Switching to xc_core_arch_map_p2m() drops the need to bail out for
+    bitness of tool stack and guest differing.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Christian Lindig <christian.lindig@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bd7a29c3d0b937ab542abea06ff1b575abe7247a
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:10 2021 +0200
+
+    tools/libs/ctrl: fix xc_core_arch_map_p2m() to support linear p2m table
+    
+    The core of a pv linux guest produced via "xl dump-core" is nor usable
+    as since kernel 4.14 only the linear p2m table is kept if Xen indicates
+    it is supporting that. Unfortunately xc_core_arch_map_p2m() is still
+    supporting the 3-level p2m tree only.
+    
+    Fix that by copying the functionality of map_p2m() from libxenguest to
+    libxenctrl.
+    
+    Additionally the mapped p2m isn't of a fixed length now, so the
+    interface to the mapping functions needs to be adapted. In order not to
+    add even more parameters, expand struct domain_info_context and use a
+    pointer to that as a parameter.
+    
+    Fixes: dc6d60937121 ("libxc: set flag for support of linear p2m list in domain builder")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Jun 4 08:02:09 2021 +0200
+
+    tools/libs/guest: fix max_pfn setting in map_p2m()
+    
+    When setting the highest pfn used in the guest, don't subtract 1 from
+    the value read from the shared_info data. The value read already is
+    the correct pfn.
+    
+    Fixes: 91e204d37f449 ("libxc: try to find last used pfn when migrating")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
+Author: George Dunlap <george.dunlap@citrix.com>
+Date:   Thu May 6 13:38:02 2021 +0100
+
+    SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
+    
+    The support status of 32-bit guests doesn't seem particularly useful.
+    
+    With it changed to fully unsupported outside of PV-shim, adjust the PV32
+    Kconfig default accordingly.
+    
+    Reported-by: Jann Horn <jannh@google.com>
+    Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
