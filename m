@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F4439F337
+	by mail.lfdr.de (Postfix) with ESMTPS id 2950239F336
 	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 12:09:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138382.256177 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.138387.256189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqYeP-0006Lq-9F; Tue, 08 Jun 2021 10:08:01 +0000
+	id 1lqYes-0006qL-IA; Tue, 08 Jun 2021 10:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138382.256177; Tue, 08 Jun 2021 10:08:01 +0000
+Received: by outflank-mailman (output) from mailman id 138387.256189; Tue, 08 Jun 2021 10:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqYeP-0006J5-5Y; Tue, 08 Jun 2021 10:08:01 +0000
-Received: by outflank-mailman (input) for mailman id 138382;
- Tue, 08 Jun 2021 10:07:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lqYes-0006oS-EO; Tue, 08 Jun 2021 10:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 138387;
+ Tue, 08 Jun 2021 10:08:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q7uu=LC=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lqYeM-0006Ij-Up
- for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 10:07:58 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c717adf9-b2f8-497f-b085-84c805a41c70;
- Tue, 08 Jun 2021 10:07:57 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B972E219C1;
- Tue,  8 Jun 2021 10:07:56 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 8EC2A118DD;
- Tue,  8 Jun 2021 10:07:56 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 72e7IXxBv2DocwAALh3uQQ
- (envelope-from <jgross@suse.com>); Tue, 08 Jun 2021 10:07:56 +0000
+ (envelope-from <julien@xen.org>) id 1lqYer-0006oM-Nm
+ for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 10:08:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lqYeq-0005AG-GO; Tue, 08 Jun 2021 10:08:28 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lqYeq-00027X-6a; Tue, 08 Jun 2021 10:08:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,199 +40,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c717adf9-b2f8-497f-b085-84c805a41c70
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1623146876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=utlI0tXZZAIbFnmopjh1ne0sCSKVNwClx3jm+8aKLSs=;
-	b=tXTsMLr5NyECZfAHS3mVqNmFeFw9Uc/uP8rnztE+C+TZu+XgHvf/ZcYY1T+7BSZ1yRM5Vs
-	13Ryb9Lciao1y/FILAqacvOdiKuzq0LxwswCX/MvtM6iUMvE61bFQBYxb52eVTIHu9k0vP
-	1jSnXj1tv4v5QgSoucZJ1KyxuvA1UT8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1623146876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=utlI0tXZZAIbFnmopjh1ne0sCSKVNwClx3jm+8aKLSs=;
-	b=tXTsMLr5NyECZfAHS3mVqNmFeFw9Uc/uP8rnztE+C+TZu+XgHvf/ZcYY1T+7BSZ1yRM5Vs
-	13Ryb9Lciao1y/FILAqacvOdiKuzq0LxwswCX/MvtM6iUMvE61bFQBYxb52eVTIHu9k0vP
-	1jSnXj1tv4v5QgSoucZJ1KyxuvA1UT8=
-Subject: Re: [PATCH v20210601 08/38] tools: show migration transfer rate in
- send_dirty_pages
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-9-olaf@aepfle.de>
- <42844bc5-da7e-5f6d-1ce0-1ef9e0f9dea6@suse.com>
- <20210608105824.0b0071dd.olaf@aepfle.de>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <1ada4c3b-90a6-3585-b4ab-6ff4b197cddf@suse.com>
-Date: Tue, 8 Jun 2021 12:07:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210608105824.0b0071dd.olaf@aepfle.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="KkE2VY15i2WtqE8xxsLC0C8EdJyQwKRs9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=WWx1c4xCo/kN7OvGQUgBOy+jKZqydcCPkw/e/l7Xqec=; b=6TXhwZyRyHMEsBiAemv6XBy1g5
+	v/xZ+oR3a4SaNDkSLlSMYHVeDF+kBz9eezBhEOQakZsace3vmHiXNloc7Zk9BMhY6aEjdrfZfj8yr
+	ImUr4HhBl7lgcw1h0dHAxxUqCgIYhIrdQ9DLqw03yDh+qEK1AAqq07pkv/S/sTBhu+t8=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] xen/grant-table: Simplify the update to the per-vCPU maptrack freelist
+Date: Tue,  8 Jun 2021 11:08:24 +0100
+Message-Id: <20210608100824.25141-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---KkE2VY15i2WtqE8xxsLC0C8EdJyQwKRs9
-Content-Type: multipart/mixed; boundary="yzJjcQyaJibJkK5iP4hOFbK7PIyq1rJkS";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-Message-ID: <1ada4c3b-90a6-3585-b4ab-6ff4b197cddf@suse.com>
-Subject: Re: [PATCH v20210601 08/38] tools: show migration transfer rate in
- send_dirty_pages
-References: <20210601161118.18986-1-olaf@aepfle.de>
- <20210601161118.18986-9-olaf@aepfle.de>
- <42844bc5-da7e-5f6d-1ce0-1ef9e0f9dea6@suse.com>
- <20210608105824.0b0071dd.olaf@aepfle.de>
-In-Reply-To: <20210608105824.0b0071dd.olaf@aepfle.de>
+From: Julien Grall <jgrall@amazon.com>
 
---yzJjcQyaJibJkK5iP4hOFbK7PIyq1rJkS
-Content-Type: multipart/mixed;
- boundary="------------57CE684910C9F378B3CD8C4D"
-Content-Language: en-US
+Since XSA-228 (commit 02cbeeb62075 "gnttab: split maptrack lock
+to make it fulfill its purpose again"), v->maptrack_head,
+v->maptrack_tail and the content of the freelist are accessed with
+the lock v->maptrack_freelist_lock held.
 
-This is a multi-part message in MIME format.
---------------57CE684910C9F378B3CD8C4D
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Therefore it is not necessary to update the fields using cmpxchg()
+and also read them atomically.
 
-On 08.06.21 10:58, Olaf Hering wrote:
-> Am Wed, 2 Jun 2021 09:10:44 +0200
-> schrieb Juergen Gross <jgross@suse.com>:
->=20
->> MiB_sec =3D ((ctx->save.pages_sent * PAGE_SIZE * 1000) / ms) /
->>             (1024U * 1024U);
->=20
-> I'm not sure: how does this improve the patch?
+Note that there are two cases where v->maptrack_tail is accessed without
+the lock. They both happen in get_maptrack_handle() when initializing
+the free list of the current vCPU. Therefore there is no possible race.
 
-The scattered calculation makes it much harder to verify it (at least
-for me).
+The code is now reworked to remove any use of cmpxch() and read_atomic()
+when accessing the fields v->maptrack_{head, tail} as wel as the
+freelist.
 
-And initializing a variable named "MiB_sec" with a value being clearly
-bytes doesn't help.
+Take the opportunity to add a comment on top of the lock definition
+and explain what it protects.
 
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Juergen
+----
 
---------------57CE684910C9F378B3CD8C4D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+    Changes in v2:
+        - Fix typoes
+        - Update the commit message
+        - Don't use interchangeably MAPTRACK_TAIL and
+        INVALID_MAPTRACK_HANDLE
+---
+ xen/common/grant_table.c | 66 ++++++++++++++++------------------------
+ xen/include/xen/sched.h  |  8 ++++-
+ 2 files changed, 34 insertions(+), 40 deletions(-)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index ab30e2e8cfb6..fab77ab9ccb8 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -543,33 +543,27 @@ double_gt_unlock(struct grant_table *lgt, struct grant_table *rgt)
+ static inline grant_handle_t
+ _get_maptrack_handle(struct grant_table *t, struct vcpu *v)
+ {
+-    unsigned int head, next, prev_head;
++    unsigned int head, next;
+ 
+     spin_lock(&v->maptrack_freelist_lock);
+ 
+-    do {
+-        /* No maptrack pages allocated for this VCPU yet? */
+-        head = read_atomic(&v->maptrack_head);
+-        if ( unlikely(head == MAPTRACK_TAIL) )
+-        {
+-            spin_unlock(&v->maptrack_freelist_lock);
+-            return INVALID_MAPTRACK_HANDLE;
+-        }
+-
+-        /*
+-         * Always keep one entry in the free list to make it easier to
+-         * add free entries to the tail.
+-         */
+-        next = read_atomic(&maptrack_entry(t, head).ref);
+-        if ( unlikely(next == MAPTRACK_TAIL) )
+-        {
+-            spin_unlock(&v->maptrack_freelist_lock);
+-            return INVALID_MAPTRACK_HANDLE;
+-        }
++    /* No maptrack pages allocated for this VCPU yet? */
++    head = v->maptrack_head;
++    if ( unlikely(head == MAPTRACK_TAIL) )
++    {
++        spin_unlock(&v->maptrack_freelist_lock);
++        return INVALID_MAPTRACK_HANDLE;
++    }
+ 
+-        prev_head = head;
+-        head = cmpxchg(&v->maptrack_head, prev_head, next);
+-    } while ( head != prev_head );
++    /*
++     * Always keep one entry in the free list to make it easier to
++     * add free entries to the tail.
++     */
++    next = maptrack_entry(t, head).ref;
++    if ( unlikely(next == MAPTRACK_TAIL) )
++        head = INVALID_MAPTRACK_HANDLE;
++    else
++        v->maptrack_head = next;
+ 
+     spin_unlock(&v->maptrack_freelist_lock);
+ 
+@@ -623,7 +617,7 @@ put_maptrack_handle(
+ {
+     struct domain *currd = current->domain;
+     struct vcpu *v;
+-    unsigned int prev_tail, cur_tail;
++    unsigned int tail;
+ 
+     /* 1. Set entry to be a tail. */
+     maptrack_entry(t, handle).ref = MAPTRACK_TAIL;
+@@ -633,14 +627,11 @@ put_maptrack_handle(
+ 
+     spin_lock(&v->maptrack_freelist_lock);
+ 
+-    cur_tail = read_atomic(&v->maptrack_tail);
+-    do {
+-        prev_tail = cur_tail;
+-        cur_tail = cmpxchg(&v->maptrack_tail, prev_tail, handle);
+-    } while ( cur_tail != prev_tail );
++    tail = v->maptrack_tail;
++    v->maptrack_tail = handle;
+ 
+     /* 3. Update the old tail entry to point to the new entry. */
+-    write_atomic(&maptrack_entry(t, prev_tail).ref, handle);
++    maptrack_entry(t, tail).ref = handle;
+ 
+     spin_unlock(&v->maptrack_freelist_lock);
+ }
+@@ -650,7 +641,7 @@ get_maptrack_handle(
+     struct grant_table *lgt)
+ {
+     struct vcpu          *curr = current;
+-    unsigned int          i, head;
++    unsigned int          i;
+     grant_handle_t        handle;
+     struct grant_mapping *new_mt = NULL;
+ 
+@@ -686,7 +677,7 @@ get_maptrack_handle(
+             maptrack_entry(lgt, handle).ref = MAPTRACK_TAIL;
+             curr->maptrack_tail = handle;
+             if ( curr->maptrack_head == MAPTRACK_TAIL )
+-                write_atomic(&curr->maptrack_head, handle);
++                curr->maptrack_head = handle;
+             spin_unlock(&curr->maptrack_freelist_lock);
+         }
+         return steal_maptrack_handle(lgt, curr);
+@@ -707,7 +698,7 @@ get_maptrack_handle(
+         new_mt[i].vcpu = curr->vcpu_id;
+     }
+ 
+-    /* Set tail directly if this is the first page for this VCPU. */
++    /* Set tail directly if this is the first page for the local vCPU. */
+     if ( curr->maptrack_tail == MAPTRACK_TAIL )
+         curr->maptrack_tail = handle + MAPTRACK_PER_PAGE - 1;
+ 
+@@ -716,13 +707,10 @@ get_maptrack_handle(
+     lgt->maptrack_limit += MAPTRACK_PER_PAGE;
+ 
+     spin_unlock(&lgt->maptrack_lock);
+-    spin_lock(&curr->maptrack_freelist_lock);
+-
+-    do {
+-        new_mt[i - 1].ref = read_atomic(&curr->maptrack_head);
+-        head = cmpxchg(&curr->maptrack_head, new_mt[i - 1].ref, handle + 1);
+-    } while ( head != new_mt[i - 1].ref );
+ 
++    spin_lock(&curr->maptrack_freelist_lock);
++    new_mt[i - 1].ref = curr->maptrack_head;
++    curr->maptrack_head = handle + 1;
+     spin_unlock(&curr->maptrack_freelist_lock);
+ 
+     return handle;
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 3982167144c6..6c52ba2af019 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -255,7 +255,13 @@ struct vcpu
+     /* VCPU paused by system controller. */
+     int              controller_pause_count;
+ 
+-    /* Grant table map tracking. */
++    /*
++     * Grant table map tracking. The lock maptrack_freelist_lock
++     * protects to:
++     *  - The entries in the freelist
++     *  - maptrack_head
++     *  - maptrack_tail
++     */
+     spinlock_t       maptrack_freelist_lock;
+     unsigned int     maptrack_head;
+     unsigned int     maptrack_tail;
+-- 
+2.17.1
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------57CE684910C9F378B3CD8C4D--
-
---yzJjcQyaJibJkK5iP4hOFbK7PIyq1rJkS--
-
---KkE2VY15i2WtqE8xxsLC0C8EdJyQwKRs9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmC/QXsFAwAAAAAACgkQsN6d1ii/Ey/e
-3Af/QOeOGZJV7aA/elkpgZMJc/CBpWhsHWbOtSayXobsZe9+djcQzMvwcowEsMTWns0wZsT3mvqt
-yUrAqXNwQ5jy69IYCWuo3PYB+5wVPUyOvyb8AjgQbdmj+PS7cTx9CrraSo2pcCJ7npw+59NKJRpb
-yFxodxirYqT1Q4yXpDNW5N6n6gncsrMf3MkIVXGvY7VuugtPOd4peXLnli7yEyWKB3vI/zvZUvpv
-wmuIe9YHNOV75bpzxkT3rYEYiBWggAbuL3ljaQJcxYTi2i4GAkwxTeIGrV6zqb8nZMxpFWg+SzNm
-wxgt4uofpoE9jgH6Ex1TC5TvYiyh46/mcrGM2/+xhA==
-=crw0
------END PGP SIGNATURE-----
-
---KkE2VY15i2WtqE8xxsLC0C8EdJyQwKRs9--
 
