@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAAE739FFE4
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 20:45:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138918.257020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9D23A0139
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 21:08:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.138930.257035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqghv-0001uT-D8; Tue, 08 Jun 2021 18:44:11 +0000
+	id 1lqh5E-0004Pr-LN; Tue, 08 Jun 2021 19:08:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138918.257020; Tue, 08 Jun 2021 18:44:11 +0000
+Received: by outflank-mailman (output) from mailman id 138930.257035; Tue, 08 Jun 2021 19:08:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqghv-0001rK-9r; Tue, 08 Jun 2021 18:44:11 +0000
-Received: by outflank-mailman (input) for mailman id 138918;
- Tue, 08 Jun 2021 18:44:10 +0000
+	id 1lqh5E-0004Mv-I6; Tue, 08 Jun 2021 19:08:16 +0000
+Received: by outflank-mailman (input) for mailman id 138930;
+ Tue, 08 Jun 2021 19:08:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vz6+=LC=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1lqghu-0001rE-Do
- for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 18:44:10 +0000
-Received: from mail-oi1-x22b.google.com (unknown [2607:f8b0:4864:20::22b])
+ <SRS0=MP2/=LC=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1lqh5C-0004Mp-W4
+ for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 19:08:15 +0000
+Received: from mail-pg1-x52e.google.com (unknown [2607:f8b0:4864:20::52e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 31d3982a-8049-49bd-93b8-a0f0bc821cac;
- Tue, 08 Jun 2021 18:44:06 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id a26so1829720oie.11;
- Tue, 08 Jun 2021 11:44:06 -0700 (PDT)
+ id 7194ff7a-b54a-4a85-b107-eb451ff6d210;
+ Tue, 08 Jun 2021 19:08:13 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id y12so5470310pgk.6
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jun 2021 12:08:13 -0700 (PDT)
+Received: from [192.168.0.7] ([75.164.44.148])
+ by smtp.gmail.com with ESMTPSA id j9sm15736870pjy.25.2021.06.08.12.08.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Jun 2021 12:08:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,416 +41,335 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31d3982a-8049-49bd-93b8-a0f0bc821cac
+X-Inumbo-ID: 7194ff7a-b54a-4a85-b107-eb451ff6d210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=yMYHVO+ERtPmmmBOaX2eo+ZhIMxbzVu0YuG005cvwe8=;
-        b=liOxfv1Wfeu3baNbBGqOD8Rcbq/Wz6hk3ewjAlBKfw85uynOXPtby3tHnInul6rlVn
-         ZkRe1YByIAU2JtiISG96lPzOfZIKYevFFxJK9EtZexagTW91ULGFpI4eBBrv3Pf+MVRg
-         HyEaODXMDLIUcgUZQFq6E3plHbQyL3UucKxf1OpBeqwqZbpu07T1U5+asBdyD5MhRU3l
-         o096+D0z2yDNAXSC3g3pzP8UXkDKa8CYM2ckTdo1owuxQ26yAafs+Z8tvuWs8AbsPsW1
-         O4DfLbdkUNNqD57nuQ/pFrSEdw8tVGZ+3guZFjuON9MpwLZG/bqMORhZ+tusu9Y3uiRR
-         6FgQ==
+        h=subject:to:cc:references:from:organization:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=uj8cs4tAOqs8gD6/bSimGTktOgMVbmEbSzaXj2omFfo=;
+        b=PExyHtLqwMxsg2nnqp98Cx4LzXn5hX6WVhGa7RvXsbckN/Ed1gqxzLhMNQqDN1P1Dw
+         9d22LApcZBuI9HAnKBMpuT04OnwCsP9W9ri1f8adeMTNLobDsp26EJJx84islV8wUysA
+         axxoTqa7GTB8Q3/UfNfimunuI6Rj5GYS3zO2C1kKk8wiv49Cz6Js4zH/3aOQKBecC+hR
+         VHSeRfiwXFSAVCv4pOaPvm8sWVgFkclpdsrJeEgY1Xih8Tgcg0ahcJVMpUe+X5E9c6Lp
+         6FEhvNtegqurM/FeG0qquArE6jvsGafXAC/r3uBzLuDTpbIZWxZG8tACyZ/1sSUgYq/x
+         3ggw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=yMYHVO+ERtPmmmBOaX2eo+ZhIMxbzVu0YuG005cvwe8=;
-        b=SXooLDoOCq2d5yBKU5/0siSEy/NchYBjSR0kJPDTVpNtAPWV3MdG9hcPQXY1/n3Iyz
-         CzAYm1/QvsOwqZ7paYimyc7hv6urhJ+SEpsF2iv6livbA9WNhVkwFK/VEr1w0GklCH3Q
-         ygxrfA1ksTJ4B/sggL1fSTwFQCoxq0+ae/sv18N/YjB2VQL01BwQAXnfu64DaDOH3YRY
-         i0laptbASWTEdWOT8E5YQ/DOMSHsDbWKUIa8yD5rnmI7qu8M6oM/MRXPIb9o/jgXffoV
-         gGIU+sut841TTyXt6pgPLpZpxFbol6dslb3wyizResqKOcUt1m6pJFeBJu9u1XzRfHs1
-         E/tQ==
-X-Gm-Message-State: AOAM530LeIQV5cdazkWnoThcF4CgrlI64qxSOphvjWoZ+W8BdYjZ8Sip
-	hkcGN1JMkvP1ueIuQLgiQRU6qnrvcut/bxWL/U9ZXqwrcpibrQ==
-X-Google-Smtp-Source: ABdhPJz9pbTtyhnyt9qsUHIxlUmnIvP+pQ89TpXICMW5WfNiJ10uPlkJEPb4KYWioy9tcgEWchfpc4LhajaEyCnsuB0=
-X-Received: by 2002:aca:4554:: with SMTP id s81mr3807985oia.152.1623177845386;
- Tue, 08 Jun 2021 11:44:05 -0700 (PDT)
+        h=x-gm-message-state:subject:to:cc:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=uj8cs4tAOqs8gD6/bSimGTktOgMVbmEbSzaXj2omFfo=;
+        b=V9tXQGPs9/DWpKxZ/trX1IYb1ZKEEAZbhnpPkaQ6+lf7iWCjHnwogJQtd/9RnQyFaf
+         drydzrZ9oXTpD6czhUwpHoQZYYCc//A4SFwvIEYR1ISvsraas7mXDBgCOfJcT3OLY3o7
+         1N9ldqOJO68jDMFSWSQZ/2TtY3yhDncM+t3CWEE3p6cNx7LT30UdWIexPFBf+yMa7dwI
+         HyPRIJW3ZSJcRG58tHJvz1ZjA/ccNo/v4HW4+OiTwtq7phusmkc1kk0gfR7JaTMUGmKR
+         0SBrWiD21RPxQzk1kfazNsTK7py0qFXhgohlGVJdya+amEIO9Ck2kIn+7kTMuLhKlvgg
+         qSQQ==
+X-Gm-Message-State: AOAM533ep5yEZY+VM9Vu0RgMhq6/bUOohXlXMfTbswaH5IVfRHvUTytp
+	FzJJAWlsef6EwVDcFjl0DV0=
+X-Google-Smtp-Source: ABdhPJxrSZvIvsJEYL9r4Iffk1Gex1ZqRlRjpWNKhiDaPtu8gM4rNWFKjI2MMd7xSJ7Lhc168K88Ng==
+X-Received: by 2002:a62:2987:0:b029:2de:b564:648d with SMTP id p129-20020a6229870000b02902deb564648dmr1391028pfp.48.1623179292514;
+        Tue, 08 Jun 2021 12:08:12 -0700 (PDT)
+Subject: Re: [PATCH v8 2/2] xen: Add files needed for minimal riscv build
+To: Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair23@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Alistair Francis <alistair.francis@wdc.com>
+References: <cover.1622772299.git.connojdavis@gmail.com>
+ <4337d3cd6891b34f534d85ca62712bd3b446edf8.1622772299.git.connojdavis@gmail.com>
+From: Bob Eshleman <bobbyeshleman@gmail.com>
+Organization: Vates SAS
+Message-ID: <38ffb102-a403-23d6-8b0b-607a8cd3d515@gmail.com>
+Date: Tue, 8 Jun 2021 12:08:10 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Tue, 8 Jun 2021 11:43:52 -0700
-Message-ID: <CACMJ4Ga47G1UZSiy=Ud=audqDr93+5vF8s-tPtoBiN69ZK=v-Q@mail.gmail.com>
-Subject: Xen Summit Design Session notes: Hyperlaunch
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Daniel Smith <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Stefano Stabellini <stefano.stabellini@xilinx.com>, Julien Grall <jgrall@amazon.com>, 
-	Julien Grall <Julien.grall.oss@gmail.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Rich Persaud <persaur@gmail.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	luca.fancellu@arm.com, paul@xen.org, Adam Schwalm <adam.schwalm@starlab.io>, 
-	Scott Davis <scott.davis@starlab.io>, Christopher Clark <christopher.clark@starlab.io>, 
-	quinnr@ainfosec.com, openxt <openxt@googlegroups.com>, 
-	dgdegra <dgdegra@tycho.nsa.gov>, Artem Mygaiev <artem_mygaiev@epam.com>, 
-	Bruce Ashfield <bruce.ashfield@gmail.com>, demi@invisiblethingslab.com, dfaggioli@suse.com, 
-	mengxu@cis.upenn.edu, josh.whitehead@dornerworks.com, 
-	Stewart Hildebrand <stewart.hildebrand@dornerworks.com>, Juergen Gross <jgross@suse.com>, 
-	trenchboot-devel@googlegroups.com, system-dt@lists.openampproject.org, 
-	minios-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-
-Design Session - Hyperlaunch
---------------------
-Wednesday 26th May, at the Xen Design and Developer Summit 2021
-Session Hosts: Christopher Clark & Daniel Smith
-
-tl;dr:
-- use cases for Hyperlaunch include supporting bare metal apps
-    - latency is a critical requirement for workloads
-        - determines success/failure of the system
-        - scheduling is hard; Xen has options, including RTDS
-- Zephyr in dom0 being explored in the Arm embedded community
-- XSM Roles work is to support flexible deployment structure
-- System Device Tree is important for Hyperlaunch to integrate
-    - migration from dom0less to be supported
-    - Lopper tool translates SDT to traditional Device Trees for domains
-- Boot Domain could run Lopper
-    - could be done as a unikraft unikernel
-- US/EU Supply Chain SBOM need aligns with Hyperlaunch + Trenchboot
-    - options for funding to accelerate the work:
-        - PCI passthrough, Recovery Domain, XSM framework improvements
-- Design docs for Hyperlaunch available [patch posted to merge to Xen tree]
-https://lists.xenproject.org/archives/html/xen-devel/2021-05/pdfq6mIMNPNoM.pdf
-https://lists.xenproject.org/archives/html/xen-devel/2021-05/pdfQlbS0F4suy.pdf
-
-Slides from the Hyperlaunch Keynote:
-https://static.sched.com/hosted_files/xen2021/d7/Hyperlaunch%20-%20Keynote_%20Xen%20Summit%202021%20-%20Clark%2C%20Smith.pdf
-Video: https://www.youtube.com/watch?v=Xwtq2Q0ylj0&list=PLYyw7IQjL-zGcRPN6EjiTuFVGo4A6KCNf&index=21
-
-Slides from the XSM Roles presentation:
-https://static.sched.com/hosted_files/xen2021/75/Tuesday_A%20new%20Role%20model%20XSM-.pdf
-Video: https://www.youtube.com/watch?v=j1fDn8ZbyVE&list=PLYyw7IQjL-zGcRPN6EjiTuFVGo4A6KCNf&index=6
-
-Hyperlaunch at the Xen Project wiki:
-https://wiki.xenproject.org/wiki/Hyperlaunch
-
---------------------
-Open Discussion:
-- floor open for audience requirements, use cases for Hyperlaunch
-
-Stefano:
-    - use case: fast unikernel boot (on embedded known as "bare metal
-      applications")
-        - boot to up as quickly as possible
-
-    - difference between unikernels and bare metal applications:
-        - a bare metal application is a tiny driver for a hardware block
-        - ie. a hardware block in programmable logic so no existing driver
-
-    - a bare metal application: typically just a driver that executes as the
-      "unikernel"
-        - usually only a few of them
-
-    - latency is the biggest concern for bare metal apps
-        - hypervisor scheduling: a concern
-        - priority reason: _must_ respond to hardware action in a very limited
-          amount of time
-        - ie. Latency more important than anything else
-            - losing latency is software failure: disaster happens
-        - consequence: Adding a scheduler makes it a lot harder
-            - not doing any scheduling is typically easier
-            - also need to do cache partitioning, and more
-
-    - a bare metal app doesn't need any PV drivers since it doesn't
-      communicate with any other software, just the hardware block.
-        - access to mmio + an interrupt or two sufficient
-
-Christopher:
-    - use of unikernels aligns with what is wanted for the boot domain:
-        - ie. use short, single-purpose domains for platform services to
-          avoid turning the boot domain into another dom0 by continuing to
-          add functionality
-        - eg. Qubes OS Mirage firewall VM, or something similar from unikraft
-
-Daniel:
-    - design: the hypervisor finishes the system, waits for boot domain to exit
-          and complete the launch
-        - enters 'finalization phase', finishes bringing everything up:
-          eg. unpausing other domains not unpaused by boot domain
-        - boot domain wiped from memory
-
---- topic: Scheduling
-
-Christopher:
-    - For small, single-purpose domains: have a need to schedule these
-
-Stefano:
-    - Illustrative example: 2 domains: dom0 Linux, domU bare metal app
-    - no scheduling, to make sure deadlines not broken
-    - made domU pause dom0 during critical execution:
-        - Interesting inversion of priority.
-
-Point is that domU is the most critical thing on the entire system.
-ie. if domU meets deadlines and dom0 not present, system still functional.
-
-Christopher:
-    - related: Connor's talk at this Summit re: moving scheduling out of
-      Xen into dom0;
-https://xen2021.sched.com/event/jAEs/the-root-vm-a-new-xen-domain-species-connor-davis-ais
-    - also the Bromium architecture, and Daniel's HAT architecture
-https://xen2020.sched.com/event/baXt/design-session-talk-reliable-platform-security-xen-and-the-fidelis-platform-for-hardened-access-terminals-hat
-        - has concept of protection domains
-    - interested in DomU running the fundamental workload but not being
-      Control Domain, doesn't have those permissions
-
-For this use case -- domU pauses dom0 for domU to meet its deadlines --
-permission model must have been changed.
-
-Stefano:
-    - adhoc provision of two hypercalls so domU could pause/unpause dom0
-    - not easy to make generic:
-        - not just vcpu, must pause _everything_ except self
-    - 5 lines of code for a hack, 10 months to do it properly, upstream, etc!
-
-    - Critical section: an interrupt occurs, must act within a very limited
-      amount of time; else the whole thing fails
-
-    - Critical section is way smaller than a slot of the scheduler
-
-    - Make sure everything else is paused, to get the full bandwidth of not just
-      the CPU, but also DDR, no interrupts. Don't screw up those 15 microseconds
-
-George:
-    - how long does it take to pause all the other VMs on the system?
-    - eg: a foreach domain, foreach vcpu, and just pause them, but:
-      involves sending interrupts, waiting for the thing to finish, etc
-
-Stefano:
-    - I knew which event started the critical section, so I made that event the
-      trigger for pausing dom0.
-
-
-[via chat:] Demi Marie: What if we had a hard real-time scheduler like
-seL4 does?
-[via chat:] Artem: RTDS? NULL?
-[via chat:] Andy: yup - those
-[via chat:] Julien: https://wiki.xenproject.org/wiki/RTDS-Based-Scheduler
-[via chat:] Artem: also ARINC653
-[via chat:] Scott: sounds like he wants the hypervisor to disable interrupt
-virtualization and sit in a tight loop running a single guest on certain cores
-[via chat:] Artem: core pooling?
-[via chat:] Demi Marie: IIRC seL4 can do this with the mixed-criticality
-scheduling work
-[via chat:] Artem: RTDS can do that but AFAIK it cannot reschedule slack
-
-Daniel:
-    - you need a scheduler that is aware of these critical interrupts that
-when they occur, it means that that domain has to have exclusivity over the
-system and can take care of ensuring that you get scheduling exclusivity over
-the system.
-
-Stefano: responding to Demi, re: "seL4 can do this with the mixed-criticality
-scheduling work"
-    - Yes, other domains in the past used this technique
-
-George: you don't actually need to pause the other domains;
-    - you just need to make sure that the other CPUs stop doing stuff.
-
-Stefano: what I did: slept in Xen, not even pause the CPU: busy-looping Xen
-
-George: in a sense is correct; similar to core scheduling, sibling cores switch
-to not doing anything
-
-Daniel: yes, lots of academic papers on these problems, eg. implemented in seL4
-and other kernels.
-XSM Roles: was done to help more advanced Hyperlaunch scenarios'
-    - (I don't like this idea but:) you could build a role-based scheduler
-
-Christopher: ARINC653 scheduler mentioned - Artem, have you experience with it?
-
-Artem: no, sticking with RTDS. Also used it with full preemption for Xen.
-- Really interested in RTDS.
-    - want to explore using slack time for domains with best effort priorities
-    - RTDS seems like the best option for future development.
-
-Our scenarios, on Arm:
-- distinguish between: hardware-controlling domain, hardware domains,
-  and controlling domain:
-- using dom0 as a controlling domain, able to recreate domains if needed
-
-- using device tree and don't have ACPI: split hardware between domains
-    - each domain can talk directly to some piece of hardware
-        - ie. they all are, in a sense, hardware domains
-    - each can be independently restarted to deal with faulty hardware drivers
-        - eg. we can restart the GPU from dom0
-
-- dom0 path to safety certifications: working on Zephyr as a dom0
-    - event channels working
-    - an early draft implementation
-
-- aims:
-    - a small RTOS acting as a starter in dom0
-    - don't put other domain kernels in dom0 - instead: a bootloader
-        - dom0 starts a domain, gives a generic bootloader, common for all other
-          domains, and then other domains have their own filesystems
-        - guest domain's know which kernel to use, so dom0 becomes very small
-          and very generic, and not depending on other domain's kernels, etc.
-        - ie. dom0 is purely for control functions
-
---- topic: how does Hyperlaunch help?
-
-Stefano:
-    - domU should not be started from dom0
-        - two domains, no PV drivers at all
-        - a clear use case for dom0less
-    - more detailed XSM policies allows dom0 to not be fully privileged
-    - XSM policy can allows one domU to stop the other domU
-
-
---- topic: request to review the design doc
-
-Daniel:
-    - we want to make sure that we're good on this idea of the boot domain
-    - that we understand how these handoffs are going
-    - the roles work, the subtask to get that integrated in so that we can do
-      these disaggregated boots.
-
-New definitions for Roles within the Xen system:
-    - get away from concepts of 'is_control_domain' and 'is_hardware_domain'
-    - talk about what Role we're asking a domain to do and function as
-    - want a common language for roles
-     (eg. avoid (possibly unaware) misconceptions of current differences in
-     views on what a Control Domain is and what a Hardware Domain is)
-
-Review the design doc, give us some feedback; will be adding a design doc for
-the Roles work as well -- have a draft form of it and just want to flush it out
-further, and hopefully we can get all of that adopted.
-
-
---- topic: Question from Julien: is the plan to completely remove dom0less
-or keep the two together?
-
-Christopher: integrate, so no boundary between the two
-    - Everything with dom0less should continue to work
-
-Daniel: yes
-    - dom0less constructing domains from the hypervisor will continue,
-      become common code, used by both Arm and x86.
-    - biggest difference: migration from dom0less to hyperlaunch trees;
-      not sure what that migration period will be.
-        - much broader Device Tree definition
-        - trying to ensure aligned with System Device Tree
-            - (dom0less today has own specific Device Tree configuration)
-        - for some period of time, the parser for the dom0less Device Tree is
-          going to have to coexist with the Hyperlaunch one
-
-
---- topic: System Device Tree and Lopper
-
-Stefano:
-System Device Tree:
-    - very similar to Hyperlaunch and dom0less
-    - defines 'domains': VMs for Xen, or could be bare metal things
-      running on a coprocessor
-    - next few months: finish cleaning up the definition of domains in
-      System Device Tree, and cover VMs properly
-
-Align Hyperlaunch with the System Device Tree domains.
-- already need migration from dom0less to System Device Tree
-- don't want to do two migrations
-
-System Device Tree comes with a tool called 'Lopper':
-    [ https://github.com/devicetree-org/lopper ]
-
-Lopper takes a single System Device Tree and generates multiple
-traditional Device Trees, one for each domain in the System Device Tree.
-    - Device Tree for VMs can be very different from the one on the host
-    - Device Tree for bare metal domains can be much closer
-
-Lopper supports python plugins
-- eg. a Lopper plugin to convert the System Device Tree format into dom0less
-  format, so works with current Xen parsing
-- changing the Xen parsing eventually would be better
-
-
-Daniel:
-- with Hyperlaunch: could boot with the System Device Tree, and pass it
-  into the Boot Domain, where Lopper runs, and Lopper can generate domain device
-  trees for guest domains to start
-
-Stefano: would be very cool!
-- System Device Tree (and Lopper, in python) so far always used at build time
-
-Daniel: the unikraft project has its micropython unikernel
-- for embedding scripts as a unikernel
-- eg. a unikraft unikernel python domain with Lopper and Boot Domain logic
-    - takes System Device Tree used to construct all the domains, and does
-      the Device Tree generation
-- from a security standpoint: nice: hypervisor's not generating Device Trees
-    - all at runtime in a clean, safe architecture
-
-Christopher: interesting for CI looping as well
-
---- topic: Scope, Funding, Alignment of work
-
-Rich: Q: You said that you were managing the scope, because it could become
-quite big: Could you talk about:
-    - Some of the things that you have left out of scope?
-    - Areas where funding would help?
-    - Areas where other contributors would help?
-    - How Trenchboot is connected to this or just launch integrity in general?
-
-"In both the US and the EU, there is a top-down effort for supply chain
-security, powered by ransomware and bitcoin, so " [ money is available ]
-" to get more integrity in the software stack, and they're
-pushing 'Secure Bill Of Materials (SBOM)', which we saw at the Yocto event.
-So if you have a Secure Bill Of Materials, and your Hyperlaunch system with
-Trenchboot can prove that the thing running matches the manifests, people might
-want to pay money for that, and help drive your roadmap."
-
-Daniel: Yes.
-
-Trenchboot: Correct, the whole idea of this spawned out of the same thoughts
-that created Trenchboot [ https://trenchboot.org/ ]
-
-- proposed back in May/June 2018, driven by:
-  how do we want to use Trenchboot in a Xen launch system where we had the
-  security properties that we're seeking, but without blowing up, in terms of
-  size and code and responsibility, into the hypervisor
-    - ref: talk at Trenchboot Developer Forum
-        - [ https://www.youtube.com/watch?v=qWMRcfQdc6c ]
-
-- standard pattern following with Trenchboot: launch into a kernel that then
-  launches into an integrity measurement system, a security engine
-    - ie. for Xen: we do a DRTM launch into Xen, that starts a Boot Domain,
-      our security engine that runs in a restricted environment that's protected
-      to take measurements of the system that provides you attestable
-      information, attestable evidence, to what's in your system, to the degree
-      that's possible.
-    - at the same time, not everybody wanted to have a capability specifically
-      focussed on that, so there had already been discussions about a bootstrap
-      domain, that we linked to when Daniel De Graaf did the original Hardware
-      Domain - he posted an example Boot Domain capability,
-        - so building all of this as the foundation
-
-Rich: are there things you have wanted to do but have postponed or are there
-tasks where you need external people to help, or external funding sources that
-would allow those features to be addressed?
-
-Christopher:
-    - PCI passthrough is the big one
-        - really important
-        - highly complementary to Hyperlaunch to passthrough PCI devices
-          right from start of all of initial VMs
-        - but complex
-
-    - the Recovery Domain
-        - mentioned in the Design Document
-        - ability to have a VM built, configured, and when failure is
-          detected during host boot - eg. malfunction of a critical VM -
-          can put rescue logic in there to enable recovery
-
-Daniel:
-    - For the Roles work, done the minimum Hyperlaunch needed
-    - but could definitely go much further
-        - get the XSM Framework cleaned up
-        - get Flask in much better position
-        - more advanced Roles
-        - reevaluating all the XSM hooks in terms of Roles and everything
-        - getting all of the security framework in a better state.
-
---------------------
-The recording for this Design Session is available at:
-https://www.youtube.com/watch?v=j75orDMXO2M&list=PLYyw7IQjL-zGcRPN6EjiTuFVGo4A6KCNf&index=13
+In-Reply-To: <4337d3cd6891b34f534d85ca62712bd3b446edf8.1622772299.git.connojdavis@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+
+On 6/3/21 7:14 PM, Connor Davis wrote:
+> Add arch-specific makefiles and configs needed to build for
+> riscv. Also add a minimal head.S that is a simple infinite loop.
+> head.o can be built with
+> 
+> $ make XEN_TARGET_ARCH=riscv64 SUBSYSTEMS=xen -C xen tiny64_defconfig
+> $ make XEN_TARGET_ARCH=riscv64 SUBSYSTEMS=xen -C xen TARGET=riscv64/head.o
+> 
+> No other TARGET is supported at the moment.
+> 
+> Signed-off-by: Connor Davis <connojdavis@gmail.com>
+> Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+> ---
+>  MAINTAINERS                             |  9 +++++
+>  config/riscv64.mk                       |  5 +++
+>  xen/Makefile                            |  8 +++--
+>  xen/arch/riscv/Kconfig                  | 48 +++++++++++++++++++++++++
+>  xen/arch/riscv/Kconfig.debug            |  0
+>  xen/arch/riscv/Makefile                 |  2 ++
+>  xen/arch/riscv/Rules.mk                 |  0
+>  xen/arch/riscv/arch.mk                  | 14 ++++++++
+>  xen/arch/riscv/configs/tiny64_defconfig | 13 +++++++
+>  xen/arch/riscv/riscv64/asm-offsets.c    |  0
+>  xen/arch/riscv/riscv64/head.S           |  6 ++++
+>  xen/include/asm-riscv/config.h          | 47 ++++++++++++++++++++++++
+>  12 files changed, 150 insertions(+), 2 deletions(-)
+>  create mode 100644 config/riscv64.mk
+>  create mode 100644 xen/arch/riscv/Kconfig
+>  create mode 100644 xen/arch/riscv/Kconfig.debug
+>  create mode 100644 xen/arch/riscv/Makefile
+>  create mode 100644 xen/arch/riscv/Rules.mk
+>  create mode 100644 xen/arch/riscv/arch.mk
+>  create mode 100644 xen/arch/riscv/configs/tiny64_defconfig
+>  create mode 100644 xen/arch/riscv/riscv64/asm-offsets.c
+>  create mode 100644 xen/arch/riscv/riscv64/head.S
+>  create mode 100644 xen/include/asm-riscv/config.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d46b08a0d2..5a1f92422a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -456,6 +456,15 @@ F:	tools/libs/light/libxl_nonetbuffer.c
+>  F:	tools/hotplug/Linux/remus-netbuf-setup
+>  F:	tools/hotplug/Linux/block-drbd-probe
+>  
+> +RISCV
+> +M:	Bob Eshleman <bobbyeshleman@gmail.com>
+> +M:	Alistair Francis <alistair.francis@wdc.com>
+> +R:	Connor Davis <connojdavis@gmail.com>
+> +S:	Supported
+> +F:	config/riscv64.mk
+> +F:	xen/arch/riscv/
+> +F:	xen/include/asm-riscv/
+> +
+>  RTDS SCHEDULER
+>  M:	Dario Faggioli <dfaggioli@suse.com>
+>  M:	Meng Xu <mengxu@cis.upenn.edu>
+> diff --git a/config/riscv64.mk b/config/riscv64.mk
+> new file mode 100644
+> index 0000000000..a5a21e5fa2
+> --- /dev/null
+> +++ b/config/riscv64.mk
+> @@ -0,0 +1,5 @@
+> +CONFIG_RISCV := y
+> +CONFIG_RISCV_64 := y
+> +CONFIG_RISCV_$(XEN_OS) := y
+> +
+> +CONFIG_XEN_INSTALL_SUFFIX :=
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 7ce7692354..89879fad4c 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -26,7 +26,9 @@ MAKEFLAGS += -rR
+>  EFI_MOUNTPOINT ?= $(BOOT_DIR)/efi
+>  
+>  ARCH=$(XEN_TARGET_ARCH)
+> -SRCARCH=$(shell echo $(ARCH) | sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g')
+> +SRCARCH=$(shell echo $(ARCH) | \
+> +          sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g' \
+> +              -e s'/riscv.*/riscv/g')
+>  
+>  # Don't break if the build process wasn't called from the top level
+>  # we need XEN_TARGET_ARCH to generate the proper config
+> @@ -35,7 +37,8 @@ include $(XEN_ROOT)/Config.mk
+>  # Set ARCH/SUBARCH appropriately.
+>  export TARGET_SUBARCH  := $(XEN_TARGET_ARCH)
+>  export TARGET_ARCH     := $(shell echo $(XEN_TARGET_ARCH) | \
+> -                            sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g')
+> +                            sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g' \
+> +                                -e s'/riscv.*/riscv/g')
+>  
+>  # Allow someone to change their config file
+>  export KCONFIG_CONFIG ?= .config
+> @@ -335,6 +338,7 @@ _clean: delete-unfresh-files
+>  	$(MAKE) $(clean) xsm
+>  	$(MAKE) $(clean) crypto
+>  	$(MAKE) $(clean) arch/arm
+> +	$(MAKE) $(clean) arch/riscv
+>  	$(MAKE) $(clean) arch/x86
+>  	$(MAKE) $(clean) test
+>  	$(MAKE) -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) clean
+> diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+> new file mode 100644
+> index 0000000000..468e250c86
+> --- /dev/null
+> +++ b/xen/arch/riscv/Kconfig
+> @@ -0,0 +1,48 @@
+> +config RISCV
+> +	def_bool y
+> +
+> +config RISCV_64
+> +	def_bool y
+> +	select 64BIT
+> +
+> +config ARCH_DEFCONFIG
+> +	string
+> +	default "arch/riscv/configs/tiny64_defconfig"
+> +
+> +menu "Architecture Features"
+> +
+> +source "arch/Kconfig"
+> +
+> +endmenu
+> +
+> +menu "ISA Selection"
+> +
+> +choice
+> +	prompt "Base ISA"
+> +	default RISCV_ISA_RV64IMA if RISCV_64
+> +	help
+> +	  This selects the base ISA extensions that Xen will target.
+> +
+> +config RISCV_ISA_RV64IMA
+> +	bool "RV64IMA"
+> +	help
+> +	  Use the RV64I base ISA, plus the "M" and "A" extensions
+> +	  for integer multiply/divide and atomic instructions, respectively.
+> +
+> +endchoice
+> +
+> +config RISCV_ISA_C
+> +	bool "Compressed extension"
+> +	default y
+> +	help
+> +	  Add "C" to the ISA subsets that the toolchain is allowed to
+> +	  emit when building Xen, which results in compressed instructions
+> +	  in the Xen binary.
+> +
+> +	  If unsure, say Y.
+> +
+> +endmenu
+> +
+> +source "common/Kconfig"
+> +
+> +source "drivers/Kconfig"
+> diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.debug
+> new file mode 100644
+> index 0000000000..e69de29bb2
+> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+> new file mode 100644
+> index 0000000000..942e4ffbc1
+> --- /dev/null
+> +++ b/xen/arch/riscv/Makefile
+> @@ -0,0 +1,2 @@
+> +.PHONY: include
+> +include:
+> diff --git a/xen/arch/riscv/Rules.mk b/xen/arch/riscv/Rules.mk
+> new file mode 100644
+> index 0000000000..e69de29bb2
+> diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+> new file mode 100644
+> index 0000000000..53dadb8975
+> --- /dev/null
+> +++ b/xen/arch/riscv/arch.mk
+> @@ -0,0 +1,14 @@
+> +########################################
+> +# RISCV-specific definitions
+> +
+> +CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
+> +
+> +riscv-march-$(CONFIG_RISCV_ISA_RV64IMA) := rv64ima
+> +riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+> +
+> +# Note that -mcmodel=medany is used so that Xen can be mapped
+> +# into the upper half _or_ the lower half of the address space.
+> +# -mcmodel=medlow would force Xen into the lower half.
+> +
+> +CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
+> +CFLAGS += -I$(BASEDIR)/include
+> diff --git a/xen/arch/riscv/configs/tiny64_defconfig b/xen/arch/riscv/configs/tiny64_defconfig
+> new file mode 100644
+> index 0000000000..3c9a2ff941
+> --- /dev/null
+> +++ b/xen/arch/riscv/configs/tiny64_defconfig
+> @@ -0,0 +1,13 @@
+> +# CONFIG_SCHED_CREDIT is not set
+> +# CONFIG_SCHED_RTDS is not set
+> +# CONFIG_SCHED_NULL is not set
+> +# CONFIG_SCHED_ARINC653 is not set
+> +# CONFIG_TRACEBUFFER is not set
+> +# CONFIG_HYPFS is not set
+> +# CONFIG_GRANT_TABLE is not set
+> +# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
+> +
+> +CONFIG_RISCV_64=y
+> +CONFIG_DEBUG=y
+> +CONFIG_DEBUG_INFO=y
+> +CONFIG_EXPERT=y
+> diff --git a/xen/arch/riscv/riscv64/asm-offsets.c b/xen/arch/riscv/riscv64/asm-offsets.c
+> new file mode 100644
+> index 0000000000..e69de29bb2
+> diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
+> new file mode 100644
+> index 0000000000..0dbc27ba75
+> --- /dev/null
+> +++ b/xen/arch/riscv/riscv64/head.S
+> @@ -0,0 +1,6 @@
+> +#include <asm/config.h>
+> +
+> +        .text
+> +
+> +ENTRY(start)
+> +        j  start
+> diff --git a/xen/include/asm-riscv/config.h b/xen/include/asm-riscv/config.h
+> new file mode 100644
+> index 0000000000..e2ae21de61
+> --- /dev/null
+> +++ b/xen/include/asm-riscv/config.h
+> @@ -0,0 +1,47 @@
+> +#ifndef __RISCV_CONFIG_H__
+> +#define __RISCV_CONFIG_H__
+> +
+> +#if defined(CONFIG_RISCV_64)
+> +# define LONG_BYTEORDER 3
+> +# define ELFSIZE 64
+> +# define MAX_VIRT_CPUS 128u
+> +#else
+> +# error "Unsupported RISCV variant"
+> +#endif
+> +
+> +#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
+> +#define BITS_PER_LONG  (BYTES_PER_LONG << 3)
+> +#define POINTER_ALIGN  BYTES_PER_LONG
+> +
+> +#define BITS_PER_LLONG 64
+> +
+> +/* xen_ulong_t is always 64 bits */
+> +#define BITS_PER_XEN_ULONG 64
+> +
+> +#define CONFIG_RISCV_L1_CACHE_SHIFT 6
+> +#define CONFIG_PAGEALLOC_MAX_ORDER  18
+> +#define CONFIG_DOMU_MAX_ORDER       9
+> +#define CONFIG_HWDOM_MAX_ORDER      10
+> +
+> +#define OPT_CONSOLE_STR "dtuart"
+> +#define INVALID_VCPU_ID MAX_VIRT_CPUS
+> +
+> +/* Linkage for RISCV */
+> +#ifdef __ASSEMBLY__
+> +#define ALIGN .align 2
+> +
+> +#define ENTRY(name)                                \
+> +  .globl name;                                     \
+> +  ALIGN;                                           \
+> +  name:
+> +#endif
+> +
+> +#endif /* __RISCV_CONFIG_H__ */
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> 
+
+Acked-by: Bobby Eshleman <bobbyeshleman@gmail.com>
 
