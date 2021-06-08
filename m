@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31CE939F6EA
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 14:37:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.138487.256372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A9039F6EC
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jun 2021 14:38:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.138490.256385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqaz3-0003F3-AZ; Tue, 08 Jun 2021 12:37:29 +0000
+	id 1lqazV-0003qX-Jh; Tue, 08 Jun 2021 12:37:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 138487.256372; Tue, 08 Jun 2021 12:37:29 +0000
+Received: by outflank-mailman (output) from mailman id 138490.256385; Tue, 08 Jun 2021 12:37:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqaz3-0003Co-7e; Tue, 08 Jun 2021 12:37:29 +0000
-Received: by outflank-mailman (input) for mailman id 138487;
- Tue, 08 Jun 2021 12:37:28 +0000
+	id 1lqazV-0003ob-GD; Tue, 08 Jun 2021 12:37:57 +0000
+Received: by outflank-mailman (input) for mailman id 138490;
+ Tue, 08 Jun 2021 12:37:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GltA=LC=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1lqaz2-0003Cd-4b
- for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 12:37:28 +0000
-Received: from mx.upb.ro (unknown [141.85.13.211])
+ id 1lqazT-0003oB-P2
+ for xen-devel@lists.xenproject.org; Tue, 08 Jun 2021 12:37:55 +0000
+Received: from mx.upb.ro (unknown [141.85.13.221])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 92a664cf-c692-4b73-9b62-066090222f5d;
- Tue, 08 Jun 2021 12:37:27 +0000 (UTC)
+ id ff5b33d9-695c-4455-b6d7-e205e78257cc;
+ Tue, 08 Jun 2021 12:37:55 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 7F514B56018F;
- Tue,  8 Jun 2021 15:37:26 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTP id 44D03B560197;
+ Tue,  8 Jun 2021 15:37:54 +0300 (EEST)
 Received: from mx.upb.ro ([127.0.0.1])
  by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 9WbonbmMFQbw; Tue,  8 Jun 2021 15:37:24 +0300 (EEST)
+ with ESMTP id SbO3_Wf98SWC; Tue,  8 Jun 2021 15:37:52 +0300 (EEST)
 Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 5F02EB560197;
- Tue,  8 Jun 2021 15:37:24 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTP id 197E5B560192;
+ Tue,  8 Jun 2021 15:37:52 +0300 (EEST)
 Received: from mx.upb.ro ([127.0.0.1])
  by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id smpOXGdvXI_i; Tue,  8 Jun 2021 15:37:24 +0300 (EEST)
+ with ESMTP id BoNKilAcrpRR; Tue,  8 Jun 2021 15:37:52 +0300 (EEST)
 Received: from [192.168.1.35] (unknown [188.25.174.245])
- by mx.upb.ro (Postfix) with ESMTPSA id 02BFAB560196;
- Tue,  8 Jun 2021 15:37:23 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTPSA id AB7A9B56018F;
+ Tue,  8 Jun 2021 15:37:51 +0300 (EEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,99 +51,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92a664cf-c692-4b73-9b62-066090222f5d
+X-Inumbo-ID: ff5b33d9-695c-4455-b6d7-e205e78257cc
 X-Virus-Scanned: amavisd-new at upb.ro
-Subject: Re: [PATCH v3 3/5] tools/libs/foreignmemory: Fix PAGE_SIZE
- redefinition error
+Subject: Re: [PATCH v3 4/5] tools/libs/gnttab: Fix PAGE_SIZE redefinition
+ error
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <cover.1620633386.git.costin.lupu@cs.pub.ro>
- <2040286fc39b7e1d46376a8e75ac59d8d3be5aff.1620633386.git.costin.lupu@cs.pub.ro>
- <690806fb-e6e2-f61f-d7d6-a17efa6329d9@xen.org>
+ <b1e87eb24dfde3b1f11c5a14a4298531b4a308ad.1620633386.git.costin.lupu@cs.pub.ro>
+ <5603464e-2ef5-9358-d039-cfb1f93340d3@xen.org>
 From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <153d38e4-b5fe-3530-138e-ad116a7c4c4c@cs.pub.ro>
-Date: Tue, 8 Jun 2021 15:37:23 +0300
+Message-ID: <61c4ad59-641a-f169-180b-7aeac1fc4a0b@cs.pub.ro>
+Date: Tue, 8 Jun 2021 15:37:51 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <690806fb-e6e2-f61f-d7d6-a17efa6329d9@xen.org>
+In-Reply-To: <5603464e-2ef5-9358-d039-cfb1f93340d3@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 Hi Julien,
 
-On 5/17/21 9:12 PM, Julien Grall wrote:
+On 5/17/21 9:16 PM, Julien Grall wrote:
 > Hi Costin,
 >=20
 > On 10/05/2021 09:35, Costin Lupu wrote:
->> @@ -168,7 +168,7 @@ void
->> *osdep_xenforeignmemory_map(xenforeignmemory_handle *fmem,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size_t i;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int rc;
->> =C2=A0 -=C2=A0=C2=A0=C2=A0 addr =3D mmap(addr, num << PAGE_SHIFT, prot=
-, flags | MAP_SHARED,
->> +=C2=A0=C2=A0=C2=A0 addr =3D mmap(addr, num << XC_PAGE_SHIFT, prot, fl=
-ags | MAP_SHARED,
+>> If PAGE_SIZE is already defined in the system (e.g. in
+>> /usr/include/limits.h
+>> header) then gcc will trigger a redefinition error because of -Werror.
+>> This
+>> patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order
+>> to avoid
+>> confusion between control domain page granularity (PAGE_* definitions)
+>> and
+>> guest domain page granularity (which is what we are dealing with here)=
+.
+>>
+>> Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+>> ---
+>> =C2=A0 tools/libs/gnttab/freebsd.c | 28 +++++++++++++---------------
+>> =C2=A0 tools/libs/gnttab/linux.c=C2=A0=C2=A0 | 28 +++++++++++++-------=
+--------
+>> =C2=A0 tools/libs/gnttab/netbsd.c=C2=A0 | 23 ++++++++++-------------
+>> =C2=A0 3 files changed, 36 insertions(+), 43 deletions(-)
+>>
+>> diff --git a/tools/libs/gnttab/freebsd.c b/tools/libs/gnttab/freebsd.c
+>> index 768af701c6..e42ac3fbf3 100644
+>> --- a/tools/libs/gnttab/freebsd.c
+>> +++ b/tools/libs/gnttab/freebsd.c
+>> @@ -30,14 +30,11 @@
+>> =C2=A0 =C2=A0 #include <xen/sys/gntdev.h>
+>> =C2=A0 +#include <xenctrl.h>
+>> =C2=A0 #include <xen-tools/libs.h>
+>> =C2=A0 =C2=A0 #include "private.h"
+>> =C2=A0 -#define PAGE_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 12
+>> -#define PAGE_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 (1UL << PAGE_SHIFT)
+>> -#define PAGE_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 (~(PAGE_SIZE-1))
+>> -
+>> =C2=A0 #define DEVXEN "/dev/xen/gntdev"
+>> =C2=A0 =C2=A0 int osdep_gnttab_open(xengnttab_handle *xgt)
+>> @@ -77,10 +74,11 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt=
+,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int domids_stride;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int refs_size =3D ROUNDUP(coun=
+t *
 >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fd, 0);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( addr =3D=3D MAP_FAILED )
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return NULL;
->> @@ -198,9 +198,10 @@ void
->> *osdep_xenforeignmemory_map(xenforeignmemory_handle *fmem,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 privcmd_mmapbat=
-ch_t ioctlx;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen_pfn_t *pfn;
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int pfn_arr_size =
-=3D ROUNDUP((num * sizeof(*pfn)),
->> PAGE_SHIFT);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int pfn_arr_size =
-=3D ROUNDUP((num * sizeof(*pfn)),
->> XC_PAGE_SHIFT);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int os_page_size =3D getpa=
-gesize();
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sizeof(struct
+>> ioctl_gntdev_grant_ref),
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+PAGE_SHIFT);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+XC_PAGE_SHIFT);
+>> +=C2=A0=C2=A0=C2=A0 int os_page_size =3D getpagesize();
 >=20
-> Hmmm... Sorry I only realized now that the manpage suggests that
-> getpagesize() is legacy:
->=20
-> =C2=A0=C2=A0 SVr4, 4.4BSD, SUSv2.=C2=A0 In SUSv2 the getpagesize() call=
- is labeled
-> LEGACY, and in POSIX.1-2001 it has been dropped; HP-UX does not have
-> this call.
->=20
-> And then:
->=20
-> =C2=A0 Portable applications should employ sysconf(_SC_PAGESIZE) instea=
-d of
-> getpagesize():
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #include <unistd=
-.h>
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 long sz =3D sysc=
-onf(_SC_PAGESIZE);
->=20
-> As this is only used by Linux, it is not clear to me whether this is
-> important. Ian, what do you think?
->=20
-
-I think it would be safer to follow the man page indication. I've just
-sent a v4.
-
->> =C2=A0 -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( pfn_arr_size <=
-=3D PAGE_SIZE )
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( pfn_arr_size <=3D os_=
-page_size )
->=20
-> Your commit message suggests we are only s/PAGE_SHIFT/XC_PAGE_SHIFT/ bu=
-t
-> this is using getpagesize() instead. I agree it should be using the OS
-> size. However, this should be clarified in the commit message.
->=20
+> Same remark as for patch #4. This at least want to be explained in the
+> commit message.
 
 Done.
 
-> The rest of the patch looks fine to me .
 
 Thanks,
 Costin
