@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81EC63A14D1
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jun 2021 14:47:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.139324.257663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 867C93A14E8
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Jun 2021 14:50:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.139330.257675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqxbO-0003u0-KJ; Wed, 09 Jun 2021 12:46:34 +0000
+	id 1lqxeC-0004Y4-2c; Wed, 09 Jun 2021 12:49:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 139324.257663; Wed, 09 Jun 2021 12:46:34 +0000
+Received: by outflank-mailman (output) from mailman id 139330.257675; Wed, 09 Jun 2021 12:49:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqxbO-0003rH-GM; Wed, 09 Jun 2021 12:46:34 +0000
-Received: by outflank-mailman (input) for mailman id 139324;
- Wed, 09 Jun 2021 12:46:33 +0000
+	id 1lqxeB-0004VD-UT; Wed, 09 Jun 2021 12:49:27 +0000
+Received: by outflank-mailman (input) for mailman id 139330;
+ Wed, 09 Jun 2021 12:49:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9c7t=LD=8bytes.org=joro@srs-us1.protection.inumbo.net>)
- id 1lqxbN-0003rA-LL
- for xen-devel@lists.xenproject.org; Wed, 09 Jun 2021 12:46:33 +0000
-Received: from theia.8bytes.org (unknown
- [2a01:238:4383:600:38bc:a715:4b6d:a889])
+ id 1lqxeA-0004V5-J1
+ for xen-devel@lists.xenproject.org; Wed, 09 Jun 2021 12:49:26 +0000
+Received: from theia.8bytes.org (unknown [81.169.241.247])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a8e88f73-63c6-4ecb-8f9e-3e754a1751b2;
- Wed, 09 Jun 2021 12:46:32 +0000 (UTC)
+ id e3dfd65d-0368-4fe3-9947-a777fb2dbfff;
+ Wed, 09 Jun 2021 12:49:21 +0000 (UTC)
 Received: by theia.8bytes.org (Postfix, from userid 1000)
- id C211341A; Wed,  9 Jun 2021 14:46:30 +0200 (CEST)
+ id B439236A; Wed,  9 Jun 2021 14:49:20 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,8 +37,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8e88f73-63c6-4ecb-8f9e-3e754a1751b2
-Date: Wed, 9 Jun 2021 14:46:29 +0200
+X-Inumbo-ID: e3dfd65d-0368-4fe3-9947-a777fb2dbfff
+Date: Wed, 9 Jun 2021 14:49:19 +0200
 From: Joerg Roedel <joro@8bytes.org>
 To: Tianyu Lan <ltykernel@gmail.com>
 Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
@@ -60,52 +59,52 @@ Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
 	netdev@vger.kernel.org, vkuznets@redhat.com,
 	thomas.lendacky@amd.com, brijesh.singh@amd.com,
 	sunilmut@microsoft.com
-Subject: Re: [RFC PATCH V3 04/11] HV: Add Write/Read MSR registers via ghcb
-Message-ID: <YMC4JdtYO+eLDKh5@8bytes.org>
+Subject: Re: [RFC PATCH V3 05/11] HV: Add ghcb hvcall support for SNP VM
+Message-ID: <YMC4z6L0PU3+HCTD@8bytes.org>
 References: <20210530150628.2063957-1-ltykernel@gmail.com>
- <20210530150628.2063957-5-ltykernel@gmail.com>
+ <20210530150628.2063957-6-ltykernel@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210530150628.2063957-5-ltykernel@gmail.com>
+In-Reply-To: <20210530150628.2063957-6-ltykernel@gmail.com>
 
-On Sun, May 30, 2021 at 11:06:21AM -0400, Tianyu Lan wrote:
-> +void hv_ghcb_msr_write(u64 msr, u64 value)
+On Sun, May 30, 2021 at 11:06:22AM -0400, Tianyu Lan wrote:
+> +u64 hv_ghcb_hypercall(u64 control, void *input, void *output, u32 input_size)
 > +{
 > +	union hv_ghcb *hv_ghcb;
 > +	void **ghcb_base;
 > +	unsigned long flags;
 > +
 > +	if (!ms_hyperv.ghcb_base)
-> +		return;
+> +		return -EFAULT;
 > +
 > +	local_irq_save(flags);
 > +	ghcb_base = (void **)this_cpu_ptr(ms_hyperv.ghcb_base);
 > +	hv_ghcb = (union hv_ghcb *)*ghcb_base;
 > +	if (!hv_ghcb) {
 > +		local_irq_restore(flags);
-> +		return;
+> +		return -EFAULT;
 > +	}
 > +
 > +	memset(hv_ghcb, 0x00, HV_HYP_PAGE_SIZE);
-> +
 > +	hv_ghcb->ghcb.protocol_version = 1;
-> +	hv_ghcb->ghcb.ghcb_usage = 0;
+> +	hv_ghcb->ghcb.ghcb_usage = 1;
 > +
-> +	ghcb_set_sw_exit_code(&hv_ghcb->ghcb, SVM_EXIT_MSR);
-> +	ghcb_set_rcx(&hv_ghcb->ghcb, msr);
-> +	ghcb_set_rax(&hv_ghcb->ghcb, lower_32_bits(value));
-> +	ghcb_set_rdx(&hv_ghcb->ghcb, value >> 32);
-> +	ghcb_set_sw_exit_info_1(&hv_ghcb->ghcb, 1);
-> +	ghcb_set_sw_exit_info_2(&hv_ghcb->ghcb, 0);
+> +	hv_ghcb->hypercall.outputgpa = (u64)output;
+> +	hv_ghcb->hypercall.hypercallinput.asuint64 = 0;
+> +	hv_ghcb->hypercall.hypercallinput.callcode = control;
+> +
+> +	if (input_size)
+> +		memcpy(hv_ghcb->hypercall.hypercalldata, input, input_size);
 > +
 > +	VMGEXIT();
 
-This is not safe to use from NMI context. You need at least some
-checking or WARN_ON/assertion/whatever to catch cases where this is
-violated. Otherwise it will result in some hard to debug bug reports.
+Also not NMI-safe. When you re-use the existing GHCB setup code from
+from SEV-ES code, you can also use sev_es_get/put_ghcb() which takes
+care of re-using a GHCB already in use.
 
 Regards,
 
 	Joerg
+
 
