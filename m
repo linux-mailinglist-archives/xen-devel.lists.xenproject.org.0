@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF5E3A127D
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jun 2021 13:21:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.139213.257555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C2FF3A1323
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Jun 2021 13:46:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.139210.257518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqwG9-0005dE-S7; Wed, 09 Jun 2021 11:20:33 +0000
+	id 1lqwG0-0004V5-Fk; Wed, 09 Jun 2021 11:20:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 139213.257555; Wed, 09 Jun 2021 11:20:33 +0000
+Received: by outflank-mailman (output) from mailman id 139210.257518; Wed, 09 Jun 2021 11:20:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lqwG9-0005Yo-MF; Wed, 09 Jun 2021 11:20:33 +0000
-Received: by outflank-mailman (input) for mailman id 139213;
- Wed, 09 Jun 2021 11:20:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lqwG0-0004Rc-BA; Wed, 09 Jun 2021 11:20:24 +0000
+Received: by outflank-mailman (input) for mailman id 139210;
+ Wed, 09 Jun 2021 11:20:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FYhx=LD=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1lqwG8-0003db-8X
- for xen-devel@lists.xenproject.org; Wed, 09 Jun 2021 11:20:32 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 804ee5db-524f-4584-91f0-d1a1884814cb;
- Wed, 09 Jun 2021 11:20:20 +0000 (UTC)
+ id 1lqwFz-0003dc-4x
+ for xen-devel@lists.xenproject.org; Wed, 09 Jun 2021 11:20:23 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dd46054f-49bf-4788-b830-e142389e01de;
+ Wed, 09 Jun 2021 11:20:16 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 19DE7219E6;
- Wed,  9 Jun 2021 11:20:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 776951FD3C;
+ Wed,  9 Jun 2021 11:20:15 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 74EFE11A98;
- Wed,  9 Jun 2021 11:20:19 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id CCF60118DD;
+ Wed,  9 Jun 2021 11:20:14 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id SIS9G/OjwGBTUgAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Wed, 09 Jun 2021 11:20:19 +0000
+ id yDM8Me6jwGBTUgAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Wed, 09 Jun 2021 11:20:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,43 +47,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 804ee5db-524f-4584-91f0-d1a1884814cb
+X-Inumbo-ID: dd46054f-49bf-4788-b830-e142389e01de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1623237620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1623237615; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Hk665B6tEfCs3+xiggyrmaaBVgfZTuKVzd+3pkK7Ryg=;
-	b=0riftsnENuEtlKaO45VfMLILTW7CVsIiXdx49o3MHlH7Q+EKEz+QeJkuwWMGzAEhU6UHHH
-	3ts3WOmOU4iussIVGweeahprcgL7L9c+tNdjKY5Dk6n3NaNwC28S1xW4RjYy+UmH7VLOjH
-	k2GIcXr/JV10H9i/R8LvGdlonJJ8RMk=
+	bh=nWjkH2kYcjIAyzh3jD5msWYfe6YCZBpfuuajwa0m0a0=;
+	b=IAtem6UO8ka5vH8Cg0PiSS22RvapW/ocX82RQpxPce0FBd+pNl5jb95flgADByK2rDHLNJ
+	TgWWF4pzyQr9HgUSWj/A+2DROM9qvqfJkHjg5jrOJR73IgD07UeB7RsvawTyl0Rdu6+TSo
+	b6c+g9ojK56kuA4P6Kt5boUu456N7KU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1623237620;
+	s=susede2_ed25519; t=1623237615;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Hk665B6tEfCs3+xiggyrmaaBVgfZTuKVzd+3pkK7Ryg=;
-	b=Wcvg3bkzQ+lyHvS1B+AJdv/5DCMi0f2Em4b89mhyz0mHV8DFPdA7XrbwOT44PzMYlcG3sD
-	mYqnz4K5nYFXyzDg==
+	bh=nWjkH2kYcjIAyzh3jD5msWYfe6YCZBpfuuajwa0m0a0=;
+	b=lXxXVlzUjbUFpw5VOvZWcN4FvwlBG+8u52/vI+U5dqir13Xr1GeRq2LFg+XWZsi3Av4+Y3
+	8D6XS5wGDQOOuBBA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1623237620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1623237615; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Hk665B6tEfCs3+xiggyrmaaBVgfZTuKVzd+3pkK7Ryg=;
-	b=0riftsnENuEtlKaO45VfMLILTW7CVsIiXdx49o3MHlH7Q+EKEz+QeJkuwWMGzAEhU6UHHH
-	3ts3WOmOU4iussIVGweeahprcgL7L9c+tNdjKY5Dk6n3NaNwC28S1xW4RjYy+UmH7VLOjH
-	k2GIcXr/JV10H9i/R8LvGdlonJJ8RMk=
+	bh=nWjkH2kYcjIAyzh3jD5msWYfe6YCZBpfuuajwa0m0a0=;
+	b=IAtem6UO8ka5vH8Cg0PiSS22RvapW/ocX82RQpxPce0FBd+pNl5jb95flgADByK2rDHLNJ
+	TgWWF4pzyQr9HgUSWj/A+2DROM9qvqfJkHjg5jrOJR73IgD07UeB7RsvawTyl0Rdu6+TSo
+	b6c+g9ojK56kuA4P6Kt5boUu456N7KU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1623237620;
+	s=susede2_ed25519; t=1623237615;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Hk665B6tEfCs3+xiggyrmaaBVgfZTuKVzd+3pkK7Ryg=;
-	b=Wcvg3bkzQ+lyHvS1B+AJdv/5DCMi0f2Em4b89mhyz0mHV8DFPdA7XrbwOT44PzMYlcG3sD
-	mYqnz4K5nYFXyzDg==
+	bh=nWjkH2kYcjIAyzh3jD5msWYfe6YCZBpfuuajwa0m0a0=;
+	b=lXxXVlzUjbUFpw5VOvZWcN4FvwlBG+8u52/vI+U5dqir13Xr1GeRq2LFg+XWZsi3Av4+Y3
+	8D6XS5wGDQOOuBBA==
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	mripard@kernel.org,
@@ -121,69 +122,205 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 9/9] drm: Update documentation and TODO of gem_prime_mmap hook
-Date: Wed,  9 Jun 2021 13:20:12 +0200
-Message-Id: <20210609112012.10019-10-tzimmermann@suse.de>
+Subject: [PATCH 2/9] drm/exynox: Implement mmap as GEM object function
+Date: Wed,  9 Jun 2021 13:20:05 +0200
+Message-Id: <20210609112012.10019-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609112012.10019-1-tzimmermann@suse.de>
 References: <20210609112012.10019-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hook gem_prime_mmap in struct drm_driver is deprecated. Document
-the new requirements.
+Moving the driver-specific mmap code into a GEM object function allows
+for using DRM helpers for various mmap callbacks.
+
+The respective exynos functions are being removed. The file_operations
+structure exynos_drm_driver_fops is now being created by the helper macro
+DEFINE_DRM_GEM_FOPS().
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- Documentation/gpu/todo.rst | 11 -----------
- include/drm/drm_drv.h      | 11 +++++++----
- 2 files changed, 7 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_drv.c   | 13 ++-----
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 20 ++---------
+ drivers/gpu/drm/exynos/exynos_drm_gem.c   | 43 +++++------------------
+ drivers/gpu/drm/exynos/exynos_drm_gem.h   |  5 ---
+ 4 files changed, 13 insertions(+), 68 deletions(-)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 12e61869939e..50ad731d579b 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -268,17 +268,6 @@ Contact: Daniel Vetter
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+index e60257f1f24b..1d46751cad02 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+@@ -102,16 +102,7 @@ static const struct drm_ioctl_desc exynos_ioctls[] = {
+ 			DRM_RENDER_ALLOW),
+ };
  
- Level: Intermediate
+-static const struct file_operations exynos_drm_driver_fops = {
+-	.owner		= THIS_MODULE,
+-	.open		= drm_open,
+-	.mmap		= exynos_drm_gem_mmap,
+-	.poll		= drm_poll,
+-	.read		= drm_read,
+-	.unlocked_ioctl	= drm_ioctl,
+-	.compat_ioctl = drm_compat_ioctl,
+-	.release	= drm_release,
+-};
++DEFINE_DRM_GEM_FOPS(exynos_drm_driver_fops);
  
--Clean up mmap forwarding
--------------------------
--
--A lot of drivers forward gem mmap calls to dma-buf mmap for imported buffers.
--And also a lot of them forward dma-buf mmap to the gem mmap implementations.
--There's drm_gem_prime_mmap() for this now, but still needs to be rolled out.
--
--Contact: Daniel Vetter
--
--Level: Intermediate
--
- Generic fbdev defio support
- ---------------------------
+ static const struct drm_driver exynos_drm_driver = {
+ 	.driver_features	= DRIVER_MODESET | DRIVER_GEM
+@@ -124,7 +115,7 @@ static const struct drm_driver exynos_drm_driver = {
+ 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import	= exynos_drm_gem_prime_import,
+ 	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
+-	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
++	.gem_prime_mmap		= drm_gem_prime_mmap,
+ 	.ioctls			= exynos_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
+ 	.fops			= &exynos_drm_driver_fops,
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+index 5147f5929be7..02c97b9ca926 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_prime.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/exynos_drm.h>
  
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index b439ae1921b8..40d93a52cf7a 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -385,11 +385,14 @@ struct drm_driver {
- 	 * mmap hook for GEM drivers, used to implement dma-buf mmap in the
- 	 * PRIME helpers.
- 	 *
--	 * FIXME: There's way too much duplication going on here, and also moved
--	 * to &drm_gem_object_funcs.
-+	 * This hook only exists for historical reasons. Drivers must use
-+	 * drm_gem_prime_mmap() to implement it.
-+	 *
-+	 * FIXME: Convert all drivers to implement mmap in struct
-+	 * &drm_gem_object_funcs and inline drm_gem_prime_mmap() into
-+	 * its callers. This hook should be removed afterwards.
- 	 */
--	int (*gem_prime_mmap)(struct drm_gem_object *obj,
--				struct vm_area_struct *vma);
-+	int (*gem_prime_mmap)(struct drm_gem_object *obj, struct vm_area_struct *vma);
+@@ -39,25 +40,8 @@ static int exynos_drm_fb_mmap(struct fb_info *info,
+ 	struct drm_fb_helper *helper = info->par;
+ 	struct exynos_drm_fbdev *exynos_fbd = to_exynos_fbdev(helper);
+ 	struct exynos_drm_gem *exynos_gem = exynos_fbd->exynos_gem;
+-	unsigned long vm_size;
+-	int ret;
+-
+-	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+-
+-	vm_size = vma->vm_end - vma->vm_start;
+-
+-	if (vm_size > exynos_gem->size)
+-		return -EINVAL;
  
- 	/**
- 	 * @dumb_create:
+-	ret = dma_mmap_attrs(to_dma_dev(helper->dev), vma, exynos_gem->cookie,
+-			     exynos_gem->dma_addr, exynos_gem->size,
+-			     exynos_gem->dma_attrs);
+-	if (ret < 0) {
+-		DRM_DEV_ERROR(to_dma_dev(helper->dev), "failed to mmap.\n");
+-		return ret;
+-	}
+-
+-	return 0;
++	return drm_gem_prime_mmap(&exynos_gem->base, vma);
+ }
+ 
+ static const struct fb_ops exynos_drm_fb_ops = {
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+index 4396224227d1..c4b63902ee7a 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+@@ -17,6 +17,8 @@
+ #include "exynos_drm_drv.h"
+ #include "exynos_drm_gem.h"
+ 
++static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
++
+ static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
+ {
+ 	struct drm_device *dev = exynos_gem->base.dev;
+@@ -135,6 +137,7 @@ static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
+ static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
+ 	.free = exynos_drm_gem_free_object,
+ 	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
++	.mmap = exynos_drm_gem_mmap,
+ 	.vm_ops = &exynos_drm_gem_vm_ops,
+ };
+ 
+@@ -354,12 +357,16 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
+ 	return 0;
+ }
+ 
+-static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
+-				   struct vm_area_struct *vma)
++static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+ {
+ 	struct exynos_drm_gem *exynos_gem = to_exynos_gem(obj);
+ 	int ret;
+ 
++	if (obj->import_attach)
++		return dma_buf_mmap(obj->dma_buf, vma, 0);
++
++	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
++
+ 	DRM_DEV_DEBUG_KMS(to_dma_dev(obj->dev), "flags = 0x%x\n",
+ 			  exynos_gem->flags);
+ 
+@@ -385,26 +392,6 @@ static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
+ 	return ret;
+ }
+ 
+-int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+-{
+-	struct drm_gem_object *obj;
+-	int ret;
+-
+-	/* set vm_area_struct. */
+-	ret = drm_gem_mmap(filp, vma);
+-	if (ret < 0) {
+-		DRM_ERROR("failed to mmap.\n");
+-		return ret;
+-	}
+-
+-	obj = vma->vm_private_data;
+-
+-	if (obj->import_attach)
+-		return dma_buf_mmap(obj->dma_buf, vma, 0);
+-
+-	return exynos_drm_gem_mmap_obj(obj, vma);
+-}
+-
+ /* low-level interface prime helpers */
+ struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
+ 					    struct dma_buf *dma_buf)
+@@ -466,15 +453,3 @@ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
+ 	exynos_gem->sgt = sgt;
+ 	return &exynos_gem->base;
+ }
+-
+-int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
+-			      struct vm_area_struct *vma)
+-{
+-	int ret;
+-
+-	ret = drm_gem_mmap_obj(obj, obj->size, vma);
+-	if (ret < 0)
+-		return ret;
+-
+-	return exynos_drm_gem_mmap_obj(obj, vma);
+-}
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
+index a23272fb96fb..79d7e1a87419 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
++++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
+@@ -96,9 +96,6 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
+ 			       struct drm_device *dev,
+ 			       struct drm_mode_create_dumb *args);
+ 
+-/* set vm_flags and we can change the vm attribute to other one at here. */
+-int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+-
+ /* low-level interface prime helpers */
+ struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
+ 					    struct dma_buf *dma_buf);
+@@ -107,7 +104,5 @@ struct drm_gem_object *
+ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
+ 				     struct dma_buf_attachment *attach,
+ 				     struct sg_table *sgt);
+-int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
+-			      struct vm_area_struct *vma);
+ 
+ #endif
 -- 
 2.31.1
 
