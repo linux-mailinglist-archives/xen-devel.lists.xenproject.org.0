@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEAF73A28CA
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 11:52:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.139796.258424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41E2C3A28E9
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 12:02:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.139806.258439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrHMB-00069u-I9; Thu, 10 Jun 2021 09:52:11 +0000
+	id 1lrHVF-0007kJ-LD; Thu, 10 Jun 2021 10:01:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 139796.258424; Thu, 10 Jun 2021 09:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 139806.258439; Thu, 10 Jun 2021 10:01:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrHMB-00067Y-Eo; Thu, 10 Jun 2021 09:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 139796;
- Thu, 10 Jun 2021 09:52:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lrHVF-0007iD-G9; Thu, 10 Jun 2021 10:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 139806;
+ Thu, 10 Jun 2021 10:01:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Xc/=LE=redhat.com=vkuznets@srs-us1.protection.inumbo.net>)
- id 1lrHMA-00067Q-DC
- for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 09:52:10 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id ee754177-001f-4f96-b3ec-6f579e49f695;
- Thu, 10 Jun 2021 09:52:09 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-p0wckfAgP6mmGgARLGpbkQ-1; Thu, 10 Jun 2021 05:52:05 -0400
-Received: by mail-wm1-f70.google.com with SMTP id
- m33-20020a05600c3b21b02901a44b1d2d87so2856653wms.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jun 2021 02:52:05 -0700 (PDT)
-Received: from vitty.brq.redhat.com (g-server-2.ign.cz. [91.219.240.2])
- by smtp.gmail.com with ESMTPSA id i2sm2324384wmo.40.2021.06.10.02.52.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jun 2021 02:52:03 -0700 (PDT)
+ <SRS0=mVv/=LE=epam.com=prvs=679567fbaa=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1lrHVD-0007hn-5Q
+ for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 10:01:31 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e7b03cec-e9bf-472a-b02f-b38ef5b50a53;
+ Thu, 10 Jun 2021 10:01:30 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15A9xoOX000751; Thu, 10 Jun 2021 10:01:28 GMT
+Received: from eur01-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2052.outbound.protection.outlook.com [104.47.0.52])
+ by mx0b-0039f301.pphosted.com with ESMTP id 393b44gy63-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Jun 2021 10:01:25 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM9PR03MB7347.eurprd03.prod.outlook.com (2603:10a6:20b:268::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Thu, 10 Jun
+ 2021 10:01:16 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::b459:9e8c:964b:a3d1]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::b459:9e8c:964b:a3d1%6]) with mapi id 15.20.4195.031; Thu, 10 Jun 2021
+ 10:01:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,359 +53,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee754177-001f-4f96-b3ec-6f579e49f695
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1623318728;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YoVNk4j9gtFSnQb0D1+J8+G6ag1xYY93rHbDDkf83Y8=;
-	b=V1gi+gIe/1zU+SRWrhqT0At1Tp5bBglWFYq2QaheFcvTn6YdR5DXTVfvaBPuoK8I6elS5U
-	WHoL7oL6P+PgBIt/INkVHy2/b4n/6quUJECLNhTiLao+nASZQoQE9eoswON7nBYnd6t12I
-	CgHxKOZzSNgMU6dRg0613Ht2ehg2I9c=
-X-MC-Unique: p0wckfAgP6mmGgARLGpbkQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
-         :message-id:mime-version;
-        bh=YoVNk4j9gtFSnQb0D1+J8+G6ag1xYY93rHbDDkf83Y8=;
-        b=iX4LA8cIClJtEslGwEa6rCK/WJjzV/hffOqhHuAY9TtFQon+/dK2nAguKIYrgOB70v
-         wmZLIIuLtK6B6lNzkz1f9GF7/IG/YcCB7GN07pmUP1CEW29tl13ioNkHYr35f3pQRRw1
-         ucajssLORYMTkt1MqAEyD3FJNEA5/QTaSIxwZm7f+gcWvUGAyk7bJdY4Agm0ytw9UxXt
-         VB/8yUi9XCO1MCfXp2YOCuzk7MwlgFoNttbo8b4n/3Htkw6p9LPnOnmQaX8Fsr9bJpQT
-         UrafCM2HdJoxaSs07pd5TpOf8B9KxzoH9MqpMGgcsp0hL5wTfEOmwnDPtJghsXExyH0H
-         HSOw==
-X-Gm-Message-State: AOAM533HCyzFoxozpqJruSwWNzM3YjEfDoDToDR0QzR5tipLNENDGk2s
-	e22nCstJpF2UAiYLWxoPpHTtK0bk4LBjvelyuHjRm7J7H5HwJRSLhazizNmtdqULTzsU+78v+mR
-	X2nFMe2KAlAk3OJAsfeQ2WlpMois=
-X-Received: by 2002:a5d:6111:: with SMTP id v17mr4390243wrt.20.1623318724406;
-        Thu, 10 Jun 2021 02:52:04 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJws7/mCqvX4+aPUx81hg5pKpa/fS4mRAQA+Xfvs2mECl/9+zJ/36DfVftBI3zRBfZ+Q7l7Vlw==
-X-Received: by 2002:a5d:6111:: with SMTP id v17mr4390203wrt.20.1623318724162;
-        Thu, 10 Jun 2021 02:52:04 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Tianyu Lan <ltykernel@gmail.com>
-Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
- thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com,
- kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
- arnd@arndb.de, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, akpm@linux-foundation.org,
- kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
- cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
- Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, hch@lst.de,
- m.szyprowski@samsung.com, robin.murphy@arm.com,
- boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
- joro@8bytes.org, will@kernel.org, xen-devel@lists.xenproject.org,
- davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
- martin.petersen@oracle.com
-Subject: Re: [RFC PATCH V3 10/11] HV/Netvsc: Add Isolation VM support for
- netvsc driver
-In-Reply-To: <20210530150628.2063957-11-ltykernel@gmail.com>
-References: <20210530150628.2063957-1-ltykernel@gmail.com>
- <20210530150628.2063957-11-ltykernel@gmail.com>
-Date: Thu, 10 Jun 2021 11:52:01 +0200
-Message-ID: <874ke6yrlq.fsf@vitty.brq.redhat.com>
+X-Inumbo-ID: e7b03cec-e9bf-472a-b02f-b38ef5b50a53
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oUuKFS68aWIdFI6Tyq14vHp5+H1TTWYUYKzevIt07H7I7aE7lBhp/FPUc3OImhzZCeBS6PFGdvPcc5oZH0j20sfLsntwmNvmSVNl3HqHGt7cEahykAlpUD06bRwKTy1ppSovQwSQT0VmAPpMEXmjS7JQkNMvvrWob80L2mfId8wiEsSkEuPZvAnIC8g490aK0SnlMfPOjDBKYag5VY3YlhxK2cvuMkjtmYHV1Bobn5YD6cUxtAeT+isGXFhmPqrDXvvi9YIf/gQUbSvDOf2d2KU8ymacK6G8QFvTq9bDrYpCwWqPytYQMuHMOewQRbI4hQ+koncITKspqmd7Mh4tJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xyG66UZuq8U1OUofAufPfAzsja+kZ1kdTElr5MgJ/Ro=;
+ b=bVNt+Rbxkmcu3EDZndQ4wNj71Ecl3nSWeOA5ZD0vPlIbhO9zNZxWgCtJhD5sT5C0P+qq/hJgqJDyCW78rH6pIZ3OYI3eoAT1dbnGbCsOGREHfZwBrfPr3fbnAClTm5hgaQbp/b6a9ulEp6STsbELf6Sv6/ZIGnvluMIh+wlbzP8EQ0XlcwPrDFcqwqFi2UhFe6vFHTJQdNiw7JwpKUWDAXEcCgX7J4VOIeMAISn1A5LKpOvcoxt8ePodu9npsEa5xwSI25BLDDb6E8uXq1Uu4hldtdZmaYsaRLmiJDQpGKvVFRLicL5pEdaWCi75lLgB0YWZsvjIlTKDuBLXHwolBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xyG66UZuq8U1OUofAufPfAzsja+kZ1kdTElr5MgJ/Ro=;
+ b=tNyCVJ7o/8pYXLa1acsCXmp54foWdHqxDdJgGFALhKYSR0cbiQCFSFgLx/f/ZD4YU9CCSZ9JEBlDPr2L7KEIMcrDREmcj2hTa8EHAOdoJ7uf1Csvp6YuDYQAYmuS2jx3upPBaqrqlHQ3FmTR+CLTskpvDZyDBjrCVWEoL1p2ws4JwajD4b/RPuE07gRNz/Mlb2wE6a5XTOOZ8Vkf0GNLw4cwph2Vw9GDyC1GxOfTL9lU7vXbubhbGxq/uRqhXaBoOh+94woc/gXghIxWgmcAjNM2YaA/r/3iWJVTUNsI5+om+yl505NscJ0G9BxCyZpprx0yQTA7pOC83Xgm00Dpwg==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Jan
+ Beulich <jbeulich@suse.com>
+Subject: Re: SR-IOV: do we need to virtualize in Xen or rely on Dom0?
+Thread-Topic: SR-IOV: do we need to virtualize in Xen or rely on Dom0?
+Thread-Index: AQHXWQwW/O3obtZgqkmpGRvt7ZNDkasM6aMAgAAjXoA=
+Date: Thu, 10 Jun 2021 10:01:16 +0000
+Message-ID: <30955a5b-ee46-60d7-ae56-23dc7c91008c@epam.com>
+References: <c10e16c9-ec42-336f-e838-caca49b39723@epam.com>
+ <YMHFQA1L61ntKNRq@Air-de-Roger>
+In-Reply-To: <YMHFQA1L61ntKNRq@Air-de-Roger>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [185.199.97.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1116bc66-d735-4204-7e66-08d92bf6b020
+x-ms-traffictypediagnostic: AM9PR03MB7347:
+x-microsoft-antispam-prvs: 
+ <AM9PR03MB7347B2F8406C9D98B63DC610E7359@AM9PR03MB7347.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 96NDF7GQkkLXszBWp4tn/RVKE7502UM3iyVEuf+Pm5VdjjibbIHhJUwmoWlBRBplR580GQ2Jj87X2r6inqHsj/ndV0kLa18HPhBUaEw3wUrU6JURObAz16VdrICp92OGM5KU3OJw/5iXk1AFnA4HgWdM93vxEhG3Aq0fWjN6KZ9Wb9cixcdOrJN2206dI2roYNOkpMWGgIngT0eGjr8GjpUv11NGaa92xeIDnbOaz2wPpd3S87kiXfMKDIXtR9sEhW3M4qeJ+XnMrLBAjNqW+XP9G7/250qZIIMlN/w3oNHkfpWfJRFXSsK4j8oHhdiyS+Afgy7uTdx0dz+hdwS8rx1OapVB3StWCmr5nH9yjdkc+H/8ayEEIsjF0jfJlvHTmQb0g1BkKoqiI4kp/c6uMtuS71SIBRMZEfa+i2E4KtFGhscFFIaFGukHansnKDsC8pZG8Mpn8VkP+DdmPJ6DWYuKkO5gW9UuGFORErGpXtlW07/khqsaDP3srDLg7sq94rtf95nxukYnP8A0OPAB/LSg7/TO0mdpr8nzX/CHl7LNc9qDmekKFo5FmX6kLT115zYVyr0fwOgcHNRRvmac8N/ZV8cgmEdrh3gGvpjU5inPx11EVZIuDTUMTmBv3YxHFaa3XPdwr/qvTp+CKZ5bSip3sJp6WNtjA7562O+uYO9XJjYdAxo4IiJnR1mM1an1vIcSi56Dfs0SLjP76S+DLjbLOwZXcyd4b6BYIsMb2v/nLBjMUoCkNdozPEB8p0zDSWKBKh203cLVFDPJT1cRRD4CHjbT8zHzz8/I1dYPVQ0Lh3G679h2yRu/wQ8RaLLWZminuWxqRY/kN1FFROYXRg==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(136003)(376002)(396003)(39860400002)(8936002)(36756003)(31696002)(6486002)(478600001)(6512007)(54906003)(71200400001)(83380400001)(186003)(5660300002)(122000001)(86362001)(4326008)(91956017)(6916009)(316002)(66556008)(66446008)(66476007)(31686004)(64756008)(66946007)(2906002)(53546011)(76116006)(966005)(38100700002)(8676002)(2616005)(6506007)(26005)(21314003)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: 
+ =?utf-8?B?MFNwNTNURFlJZjJWOTcxSmJxQkpoY2RxcWdoOVVHanlneDhUNjVCbnBWYjZn?=
+ =?utf-8?B?ZTNEU0NidGJKWHB6ZFJyT2IvRXc1MHFYNmpuNHN2dTNvT3UvckR1Q1VEZjFX?=
+ =?utf-8?B?bm1oNkRPOEFmU2J2RHVzVUl3VVFHcDZTQ2JCeGJWQ3RWRVFTOTc5dlhlWlZj?=
+ =?utf-8?B?cjdvSFR1ZEFjZDNwbUJxVXZ1bVZTSGJMSXZBLzNDbGt6aTRORHVaN0JrMEhR?=
+ =?utf-8?B?OG5uT3h6Y2ZUUnk0aUx3S1FTQ2pKKzEwelhmSGNLRHVibjFWejkxczNTckhW?=
+ =?utf-8?B?dTZENlBTZXo1amdRUTVsdURoeXBjQUd3WjhMaEFFVUhmR08wenllcjBxTHRo?=
+ =?utf-8?B?M3dUaGU0OWZYY1g0L0dVWTVFU2tQZkc0Njh5NWRldXIvRnpGV2U4a0ZOVC96?=
+ =?utf-8?B?KzNsM3I2N1lOSEYwbTZURUVka2g0L3hycTh4dFlHY25jT3RYSW4xbVduNUJi?=
+ =?utf-8?B?NXhqa1JFQndFNTI1Q01NOHRONklKT3lMdzRPZjFZa3Y0am9JYW5vekhGODk0?=
+ =?utf-8?B?THpYRnozSkhSNTQ3V3VrMko1V2xsQmE2ei83aWh3bGVJdHdVV2pvaE0rYTFq?=
+ =?utf-8?B?Z1FVbGhYL3JJcjYrQm1mZHpDM0lKZ2hpbGx1aUhJdlZpNFNRSnVYTEI5blhr?=
+ =?utf-8?B?SmJYSEdFUVlUeXc1SW5naGgyMGRCOGFtNmdqamVpL0pSNEM0eXdOczhUS1pi?=
+ =?utf-8?B?SVViak92a29nekNUWWJEMmhjTmNhalBDUHVYQWw2V0tOMWxPbHl1d0l3Y1Vr?=
+ =?utf-8?B?VWppT0JFdnhvUDdUTEFodGE3R3B2OUE5VnJ5QlBGVm04L3ltZXpTSGt3akpG?=
+ =?utf-8?B?dEhpejNxNWMrbjZUSmtraGRSdzlLc2ZubVZTcHN1QzV1eXJicmNZZTIvWldQ?=
+ =?utf-8?B?NVZQa2ovTjRrdnRKNTl6emYxTloxbks4N0FkWElkc3ZRT0dJZ2NlYm8zTytT?=
+ =?utf-8?B?TjE5KzE4Q1ZMZ3pRRmFqa3M4dEZaTFpNZklHYmgySWFsWU1Td3JZeEdzNk9a?=
+ =?utf-8?B?dVVUTFJOZ2w3R1JOZ3NGQ2x6QTlPRjdWT2FsR2o3V1F1ODlwQnNXY0llMjh3?=
+ =?utf-8?B?bWx1cmc1em00cGYwWm9tcTgvcWZjTjY2RFNHVUdHSzIrTmNGU1VheDRPR0RJ?=
+ =?utf-8?B?NE5TTFBCZW9ZWUlrU21reTE1ZnFJN1hzQXJSVEgyVlBSRVlFSDl3ZmpPcy9O?=
+ =?utf-8?B?dXdnamVWMUpUdGhxRjJNTUJ2VktUMFB3cy9OTEg2eWczcjhuRWlZanExVEk2?=
+ =?utf-8?B?MWhVODRRdjJBU2NGRWFicmhVVUxobm5oUWVrZzZMUG9CbDE5b2s0N28wbUVN?=
+ =?utf-8?B?V0JKMXVmdUhtcG5FTEJONmlYazl4cDB4Q2dCc2pSNU9oSTlmSGdaODBDWFlU?=
+ =?utf-8?B?cGNqUW1ramJ0MnprLzFpdk9xeUFrOG93TExmQ3NBS3hBS3ZXdm9iZlIrKy9s?=
+ =?utf-8?B?MkQ2anV0R2YvcnJqVy8yZTNsUVJNVWxXSlRYWm1VWFcrN2JOTUpZL3Y5UXBJ?=
+ =?utf-8?B?ZDROanF2Nk1wU1ZrNW9QWEdWTzNGUDJHayswT1drMGRYWG1Dc0FkS2ZOUHY5?=
+ =?utf-8?B?SzdCejJaSWNabWJjeGkrODFlUk96aVpobFBCODUvNTh2QnUyNVdTZE5uM2lm?=
+ =?utf-8?B?L3Q1WWRjVFJORGsxbnYvQ0UwdVE5SWYwNXVleVVCZTdlSFE1YU83UFkvTjNv?=
+ =?utf-8?B?aTlZcS9ja0N0ZWxZSjByaEszcUluN01pVktaRENlc3QrUE5XcUlKWEFFUmFi?=
+ =?utf-8?Q?VZeHVOKGFeN+LpvyzeCf8gAFF7/6/VdXtR28Hkx?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <7745AE2CF679EC44B6EA1AB1ED518C54@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=vkuznets@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1116bc66-d735-4204-7e66-08d92bf6b020
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2021 10:01:16.5220
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EO/HiYIaYSMP7t40Wufajwav7m8YGgh1qe9Ck+wDQQvLo4IUpYwGOYMYQqbVsY0yYCkimKbnQ5l3ydjNG+kFW3ZoDzPG72lUWXHaOBm5GP3Y46dC0LAxY1tYQg1a+fU7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7347
+X-Proofpoint-ORIG-GUID: ysHWm0mYQL2LHm0pwD9Uro7oJpg975tf
+X-Proofpoint-GUID: ysHWm0mYQL2LHm0pwD9Uro7oJpg975tf
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999 clxscore=1015
+ bulkscore=0 mlxscore=0 malwarescore=0 spamscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2106100065
 
-Tianyu Lan <ltykernel@gmail.com> writes:
-
-> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
->
-> In Isolation VM, all shared memory with host needs to mark visible
-> to host via hvcall. vmbus_establish_gpadl() has already done it for
-> netvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-> pagebuffer() still need to handle. Use DMA API to map/umap these
-> memory during sending/receiving packet and Hyper-V DMA ops callback
-> will use swiotlb function to allocate bounce buffer and copy data
-> from/to bounce buffer.
->
-> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
-> ---
->  drivers/net/hyperv/hyperv_net.h   |   6 ++
->  drivers/net/hyperv/netvsc.c       | 125 ++++++++++++++++++++++++++++--
->  drivers/net/hyperv/rndis_filter.c |   3 +
->  include/linux/hyperv.h            |   5 ++
->  4 files changed, 133 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/net/hyperv/hyperv_net.h b/drivers/net/hyperv/hyperv_net.h
-> index b11aa68b44ec..c2fbb9d4df2c 100644
-> --- a/drivers/net/hyperv/hyperv_net.h
-> +++ b/drivers/net/hyperv/hyperv_net.h
-> @@ -164,6 +164,7 @@ struct hv_netvsc_packet {
->  	u32 total_bytes;
->  	u32 send_buf_index;
->  	u32 total_data_buflen;
-> +	struct hv_dma_range *dma_range;
->  };
->  
->  #define NETVSC_HASH_KEYLEN 40
-> @@ -1074,6 +1075,7 @@ struct netvsc_device {
->  
->  	/* Receive buffer allocated by us but manages by NetVSP */
->  	void *recv_buf;
-> +	void *recv_original_buf;
->  	u32 recv_buf_size; /* allocated bytes */
->  	u32 recv_buf_gpadl_handle;
->  	u32 recv_section_cnt;
-> @@ -1082,6 +1084,8 @@ struct netvsc_device {
->  
->  	/* Send buffer allocated by us */
->  	void *send_buf;
-> +	void *send_original_buf;
-> +	u32 send_buf_size;
->  	u32 send_buf_gpadl_handle;
->  	u32 send_section_cnt;
->  	u32 send_section_size;
-> @@ -1729,4 +1733,6 @@ struct rndis_message {
->  #define RETRY_US_HI	10000
->  #define RETRY_MAX	2000	/* >10 sec */
->  
-> +void netvsc_dma_unmap(struct hv_device *hv_dev,
-> +		      struct hv_netvsc_packet *packet);
->  #endif /* _HYPERV_NET_H */
-> diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-> index 7bd935412853..a01740c6c6b8 100644
-> --- a/drivers/net/hyperv/netvsc.c
-> +++ b/drivers/net/hyperv/netvsc.c
-> @@ -153,8 +153,21 @@ static void free_netvsc_device(struct rcu_head *head)
->  	int i;
->  
->  	kfree(nvdev->extension);
-> -	vfree(nvdev->recv_buf);
-> -	vfree(nvdev->send_buf);
-> +
-> +	if (nvdev->recv_original_buf) {
-> +		vunmap(nvdev->recv_buf);
-> +		vfree(nvdev->recv_original_buf);
-> +	} else {
-> +		vfree(nvdev->recv_buf);
-> +	}
-> +
-> +	if (nvdev->send_original_buf) {
-> +		vunmap(nvdev->send_buf);
-> +		vfree(nvdev->send_original_buf);
-> +	} else {
-> +		vfree(nvdev->send_buf);
-> +	}
-> +
->  	kfree(nvdev->send_section_map);
->  
->  	for (i = 0; i < VRSS_CHANNEL_MAX; i++) {
-> @@ -338,8 +351,10 @@ static int netvsc_init_buf(struct hv_device *device,
->  	struct net_device *ndev = hv_get_drvdata(device);
->  	struct nvsp_message *init_packet;
->  	unsigned int buf_size;
-> +	unsigned long *pfns;
->  	size_t map_words;
->  	int i, ret = 0;
-> +	void *vaddr;
->  
->  	/* Get receive buffer area. */
->  	buf_size = device_info->recv_sections * device_info->recv_section_size;
-> @@ -375,6 +390,21 @@ static int netvsc_init_buf(struct hv_device *device,
->  		goto cleanup;
->  	}
->  
-> +	if (hv_isolation_type_snp()) {
-> +		pfns = kcalloc(buf_size / HV_HYP_PAGE_SIZE, sizeof(unsigned long),
-> +			       GFP_KERNEL);
-> +		for (i = 0; i < buf_size / HV_HYP_PAGE_SIZE; i++)
-> +			pfns[i] = virt_to_hvpfn(net_device->recv_buf + i * HV_HYP_PAGE_SIZE) +
-> +				(ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
-> +
-> +		vaddr = vmap_pfn(pfns, buf_size / HV_HYP_PAGE_SIZE, PAGE_KERNEL_IO);
-> +		kfree(pfns);
-> +		if (!vaddr)
-> +			goto cleanup;
-> +		net_device->recv_original_buf = net_device->recv_buf;
-> +		net_device->recv_buf = vaddr;
-> +	}
-> +
->  	/* Notify the NetVsp of the gpadl handle */
->  	init_packet = &net_device->channel_init_pkt;
->  	memset(init_packet, 0, sizeof(struct nvsp_message));
-> @@ -477,6 +507,23 @@ static int netvsc_init_buf(struct hv_device *device,
->  		goto cleanup;
->  	}
->  
-> +	if (hv_isolation_type_snp()) {
-> +		pfns = kcalloc(buf_size / HV_HYP_PAGE_SIZE, sizeof(unsigned long),
-> +			       GFP_KERNEL);
-> +
-> +		for (i = 0; i < buf_size / HV_HYP_PAGE_SIZE; i++)
-> +			pfns[i] = virt_to_hvpfn(net_device->send_buf + i * HV_HYP_PAGE_SIZE)
-> +				+ (ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
-> +
-> +		vaddr = vmap_pfn(pfns, buf_size / HV_HYP_PAGE_SIZE, PAGE_KERNEL_IO);
-> +		kfree(pfns);
-> +		if (!vaddr)
-> +			goto cleanup;
-> +
-> +		net_device->send_original_buf = net_device->send_buf;
-> +		net_device->send_buf = vaddr;
-> +	}
-> +
->  	/* Notify the NetVsp of the gpadl handle */
->  	init_packet = &net_device->channel_init_pkt;
->  	memset(init_packet, 0, sizeof(struct nvsp_message));
-> @@ -767,7 +814,7 @@ static void netvsc_send_tx_complete(struct net_device *ndev,
->  
->  	/* Notify the layer above us */
->  	if (likely(skb)) {
-> -		const struct hv_netvsc_packet *packet
-> +		struct hv_netvsc_packet *packet
->  			= (struct hv_netvsc_packet *)skb->cb;
->  		u32 send_index = packet->send_buf_index;
->  		struct netvsc_stats *tx_stats;
-> @@ -783,6 +830,7 @@ static void netvsc_send_tx_complete(struct net_device *ndev,
->  		tx_stats->bytes += packet->total_bytes;
->  		u64_stats_update_end(&tx_stats->syncp);
->  
-> +		netvsc_dma_unmap(ndev_ctx->device_ctx, packet);
->  		napi_consume_skb(skb, budget);
->  	}
->  
-> @@ -947,6 +995,63 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
->  		memset(dest, 0, padding);
->  }
->  
-> +void netvsc_dma_unmap(struct hv_device *hv_dev,
-> +		      struct hv_netvsc_packet *packet)
-> +{
-> +	u32 page_count = packet->cp_partial ?
-> +		packet->page_buf_cnt - packet->rmsg_pgcnt :
-> +		packet->page_buf_cnt;
-> +	int i;
-> +
-> +	if (!packet->dma_range)
-> +		return;
-> +
-> +	for (i = 0; i < page_count; i++)
-> +		dma_unmap_single(&hv_dev->device, packet->dma_range[i].dma,
-> +				 packet->dma_range[i].mapping_size,
-> +				 DMA_TO_DEVICE);
-> +
-> +	kfree(packet->dma_range);
-> +}
-> +
-> +int netvsc_dma_map(struct hv_device *hv_dev,
-> +		   struct hv_netvsc_packet *packet,
-> +		   struct hv_page_buffer *pb)
-> +{
-> +	u32 page_count =  packet->cp_partial ?
-> +		packet->page_buf_cnt - packet->rmsg_pgcnt :
-> +		packet->page_buf_cnt;
-> +	dma_addr_t dma;
-> +	int i;
-> +
-> +	packet->dma_range = kcalloc(page_count,
-> +				    sizeof(*packet->dma_range),
-> +				    GFP_KERNEL);
-> +	if (!packet->dma_range)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < page_count; i++) {
-> +		char *src = phys_to_virt((pb[i].pfn << HV_HYP_PAGE_SHIFT)
-> +					 + pb[i].offset);
-> +		u32 len = pb[i].len;
-> +
-> +		dma = dma_map_single(&hv_dev->device, src, len,
-> +				     DMA_TO_DEVICE);
-> +		if (dma_mapping_error(&hv_dev->device, dma)) {
-> +			kfree(packet->dma_range);
-> +			return -ENOMEM;
-> +		}
-> +
-> +		packet->dma_range[i].dma = dma;
-> +		packet->dma_range[i].mapping_size = len;
-> +		pb[i].pfn = dma >> HV_HYP_PAGE_SHIFT;
-> +		pb[i].offset = offset_in_hvpage(dma);
-> +		pb[i].len = len;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static inline int netvsc_send_pkt(
->  	struct hv_device *device,
->  	struct hv_netvsc_packet *packet,
-> @@ -987,14 +1092,22 @@ static inline int netvsc_send_pkt(
->  
->  	trace_nvsp_send_pkt(ndev, out_channel, rpkt);
->  
-> +	packet->dma_range = NULL;
->  	if (packet->page_buf_cnt) {
->  		if (packet->cp_partial)
->  			pb += packet->rmsg_pgcnt;
->  
-> +		ret = netvsc_dma_map(ndev_ctx->device_ctx, packet, pb);
-> +		if (ret)
-> +			return ret;
-> +
->  		ret = vmbus_sendpacket_pagebuffer(out_channel,
-> -						  pb, packet->page_buf_cnt,
-> -						  &nvmsg, sizeof(nvmsg),
-> -						  req_id);
-> +					  pb, packet->page_buf_cnt,
-> +					  &nvmsg, sizeof(nvmsg),
-> +					  req_id);
-
-Nitpick: stray change? 
-
-> +
-> +		if (ret)
-> +			netvsc_dma_unmap(ndev_ctx->device_ctx, packet);
->  	} else {
->  		ret = vmbus_sendpacket(out_channel,
->  				       &nvmsg, sizeof(nvmsg),
-> diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
-> index 983bf362466a..448c1ee39246 100644
-> --- a/drivers/net/hyperv/rndis_filter.c
-> +++ b/drivers/net/hyperv/rndis_filter.c
-> @@ -293,6 +293,8 @@ static void rndis_filter_receive_response(struct net_device *ndev,
->  	u32 *req_id = &resp->msg.init_complete.req_id;
->  	struct rndis_device *dev = nvdev->extension;
->  	struct rndis_request *request = NULL;
-> +	struct hv_device *hv_dev = ((struct net_device_context *)
-> +			netdev_priv(ndev))->device_ctx;
->  	bool found = false;
->  	unsigned long flags;
->  
-> @@ -361,6 +363,7 @@ static void rndis_filter_receive_response(struct net_device *ndev,
->  			}
->  		}
->  
-> +		netvsc_dma_unmap(hv_dev, &request->pkt);
->  		complete(&request->wait_event);
->  	} else {
->  		netdev_err(ndev,
-> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-> index babbe19f57e2..90abff664495 100644
-> --- a/include/linux/hyperv.h
-> +++ b/include/linux/hyperv.h
-> @@ -1616,6 +1616,11 @@ struct hyperv_service_callback {
->  	void (*callback)(void *context);
->  };
->  
-> +struct hv_dma_range {
-> +	dma_addr_t dma;
-> +	u32 mapping_size;
-> +};
-> +
->  #define MAX_SRV_VER	0x7ffffff
->  extern bool vmbus_prep_negotiate_resp(struct icmsg_hdr *icmsghdrp, u8 *buf, u32 buflen,
->  				const int *fw_version, int fw_vercnt,
-
--- 
-Vitaly
-
+SGVsbG8sIFJvZ2VyIQ0KDQpPbiAxMC4wNi4yMSAxMDo1NCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90
+ZToNCj4gT24gRnJpLCBKdW4gMDQsIDIwMjEgYXQgMDY6Mzc6MjdBTSArMDAwMCwgT2xla3NhbmRy
+IEFuZHJ1c2hjaGVua28gd3JvdGU6DQo+PiBIaSwgYWxsIQ0KPj4NCj4+IFdoaWxlIHdvcmtpbmcg
+b24gUENJIFNSLUlPViBzdXBwb3J0IGZvciBBUk0gSSBzdGFydGVkIHBvcnRpbmcgWzFdIG9uIHRv
+cA0KPj4gb2YgY3VycmVudCBQQ0kgb24gQVJNIHN1cHBvcnQgWzJdLiBUaGUgcXVlc3Rpb24gSSBo
+YXZlIGZvciB0aGlzIHNlcmllcw0KPj4gaXMgaWYgd2UgcmVhbGx5IG5lZWQgZW11bGF0aW5nIFNS
+LUlPViBjb2RlIGluIFhlbj8NCj4+DQo+PiBJIGhhdmUgaW1wbGVtZW50ZWQgYSBQb0MgZm9yIFNS
+LUlPViBvbiBBUk0gWzNdIChwbGVhc2Ugc2VlIHRoZSB0b3AgMg0KPj4gcGF0Y2hlcykNCj4+IGFu
+ZCBpdCAid29ya3MgZm9yIG1lIjogTVNJIHN1cHBvcnQgaXMgc3RpbGwgV0lQLCBidXQgSSB3YXMg
+YWJsZSB0byBzZWUgdGhhdA0KPj4gVkZzIGFyZSBwcm9wZXJseSBzZWVuIGluIHRoZSBndWVzdCBh
+bmQgQkFScyBhcmUgcHJvcGVybHkgcHJvZ3JhbW1lZCBpbiBwMm0uDQo+Pg0KPj4gV2hhdCBJIGNh
+bid0IGZ1bGx5IHVuZGVyc3RhbmQgaXMgaWYgd2UgY2FuIGxpdmUgd2l0aCB0aGlzIGFwcHJvYWNo
+IG9yIHRoZXJlDQo+PiBhcmUgdXNlLWNhc2VzIEkgY2FuJ3Qgc2VlLg0KPj4NCj4+IFByZXZpb3Vz
+bHkgSSd2ZSBiZWVuIHRvbGQgdGhhdCB0aGlzIGFwcHJvYWNoIG1pZ2h0IG5vdCB3b3JrIG9uIEZy
+ZWVCU0QNCj4+IHJ1bm5pbmcNCj4+IGFzIERvbWFpbi0wLCBidXQgaXMgc2VlbXMgdGhhdCAiUENJ
+IFBhc3N0aHJvdWdoIGlzIG5vdCBzdXBwb3J0ZWQNCj4+IChYZW4vRnJlZUJTRCkiDQo+PiBhbnl3
+YXlzIFs0XS4NCj4gUENJIHBhc3N0aG9yZ2ggaXMgbm90IHN1cHBvcnRlZCBvbiBGcmVlQlNEIGRv
+bTAgYmVjYXVzZSBQQ0kNCj4gcGFzc3Rocm91Z2ggaXMgbm90IHN1cHBvcnRlZCBieSBYZW4gaXRz
+ZWxmIHdoZW4gdXNpbmcgYSBQVkggZG9tMCwgYW5kDQo+IHRoYXQncyB0aGUgb25seSBtb2RlIEZy
+ZWVCU0QgZG9tMCBjYW4gdXNlLg0KDQpTbywgaXQgaXMgc3RpbGwgbm90IGNsZWFyIHRvIG1lOiBo
+b3cgYW5kIGlmIFBDSSBwYXNzdGhyb3VnaCBpcyBzdXBwb3J0ZWQNCg0Kb24gRnJlZUJTRCwgd2hh
+dCBhcmUgdGhlIHNjZW5hcmlvcyBhbmQgcmVxdWlyZW1lbnRzIGZvciB0aGF0Pw0KDQo+DQo+IFBI
+WVNERVZPUF9wY2lfZGV2aWNlX2FkZCBjYW4gYmUgYWRkZWQgdG8gRnJlZUJTRCwgc28gaXQgY291
+bGQgYmUgbWFkZQ0KPiB0byB3b3JrLiBJIGhvd2V2ZXIgdGhpbmsgdGhpcyBpcyBub3QgdGhlIHBy
+b3BlciB3YXkgdG8gaW1wbGVtZW50DQo+IFNSLUlPViBzdXBwb3J0Lg0KDQpJIHdhcyBub3QgYWJs
+ZSB0byBmaW5kIGFueSBzdXBwb3J0IGZvciBQSFlTREVWT1BfWFhYIGluIEZyZWVCU0QgY29kZSwN
+Cg0KY291bGQgeW91IHBsZWFzZSBwb2ludCBtZSB0byB3aGVyZSBhcmUgdGhlc2UgdXNlZD8NCg0K
+SWYgdGhleSBhcmUgbm90LCBzbyBob3cgWGVuIHVuZGVyIEZyZWVCU0Qga25vd3MgYWJvdXQgUENJ
+IGRldmljZXM/DQoNCkkgYW0gdHJ5aW5nIHRvIGV4dHJhcG9sYXRlIG15IGtub3dsZWRnZSBvZiBo
+b3cgTGludXggZG9lcyB0aGF0DQoNCihkdXJpbmcgUENJIGVudW1lcmF0aW9uIGluIERvbWFpbi0w
+IHdlIHVzZSBoeXBlcmNhbGxzKQ0KDQo+DQo+PiBJIGFsc28gc2VlIEFDUk4gaHlwZXJ2aXNvciBb
+NV0gaW1wbGVtZW50cyBTUi1JT1YgaW5zaWRlIGl0IHdoaWNoIG1ha2VzDQo+PiBtZSB0aGluayBJ
+DQo+PiBtaXNzIHNvbWUgaW1wb3J0YW50IHVzZS1jYXNlIG9uIHg4NiB0aG91Z2guDQo+Pg0KPj4g
+SSB3b3VsZCBsaWtlIHRvIGFzayBmb3IgYW55IGFkdmlzZSB3aXRoIFNSLUlPViBpbiBoeXBlcnZp
+c29yIHJlc3BlY3QsDQo+PiBhbnkgcG9pbnRlcnMNCj4+IHRvIGRvY3VtZW50YXRpb24gb3IgYW55
+IG90aGVyIHNvdXJjZSB3aGljaCBtaWdodCBiZSBoYW5keSBpbiBkZWNpZGluZyBpZg0KPj4gd2Ug
+ZG8NCj4+IG5lZWQgU1ItSU9WIGNvbXBsZXhpdHkgaW4gWGVuLg0KPj4NCj4+IEFuZCBpdCBkb2Vz
+IGJyaW5nIGNvbXBsZXhpdHkgaWYgeW91IGNvbXBhcmUgWzFdIGFuZCBbM10pLi4uDQo+Pg0KPj4g
+QSBiaXQgb2YgdGVjaG5pY2FsIGRldGFpbHMgb24gdGhlIGFwcHJvYWNoIGltcGxlbWVudGVkIFsz
+XToNCj4+IDEuIFdlIHJlbHkgb24gUEhZU0RFVk9QX3BjaV9kZXZpY2VfYWRkDQo+PiAyLiBXZSBy
+ZWx5IG9uIERvbWFpbi0wIFNSLUlPViBkcml2ZXJzIHRvIGluc3RhbnRpYXRlIFZGcw0KPj4gMy4g
+QkFScyBhcmUgcHJvZ3JhbW1lZCBpbiBwMm0gaW1wbGVtZW50aW5nIGd1ZXN0IHZpZXcgb24gdGhv
+c2UgKHdlIGhhdmUNCj4+IGV4dGVuZGVkDQo+PiB2UENJIGNvZGUgZm9yIHRoYXQgYW5kIHRoaXMg
+cGF0aCBpcyB1c2VkIGZvciBib3RoICJub3JtYWwiIGRldmljZXMgYW5kDQo+PiBWRnMgdGhlIHNh
+bWUgd2F5KQ0KPj4gNC4gTm8gbmVlZCB0byB0cmFwIFBDSV9TUklPVl9DVFJMDQo+PiA1LiBObyBu
+ZWVkIHRvIHdhaXQgMTAwbXMgaW4gWGVuIGJlZm9yZSBhdHRlbXB0aW5nIHRvIGFjY2VzcyBWRiBy
+ZWdpc3RlcnMNCj4+IHdoZW4NCj4+IGVuYWJsaW5nIHZpcnR1YWwgZnVuY3Rpb25zIG9uIHRoZSBQ
+RiAtIHRoaXMgaXMgaGFuZGxlZCBieSBEb21haW4tMCBpdHNlbGYuDQo+IEkgdGhpbmsgdGhlIFNS
+LUlPViBjYXBhYmlsaXR5IHNob3VsZCBiZSBoYW5kbGVkIGxpa2UgYW55IG90aGVyIFBDSQ0KPiBj
+YXBhYmlsaXR5LCBpZTogbGlrZSB3ZSBjdXJyZW50bHkgaGFuZGxlIE1TSSBvciBNU0ktWCBpbiB2
+UENJLg0KPg0KPiBJdCdzIGxpa2VseSB0aGF0IHVzaW5nIHNvbWUga2luZCBvZiBoeXBlcmNhbGwg
+aW4gb3JkZXIgdG8gZGVhbCB3aXRoDQo+IFNSLUlPViBjb3VsZCBtYWtlIHRoaXMgZWFzaWVyIHRv
+IGltcGxlbWVudCBpbiBYZW4sIGJ1dCB0aGF0IGp1c3QgYWRkcw0KPiBtb3JlIGNvZGUgdG8gYWxs
+IE9TZXMgdGhhdCB3YW50IHRvIHJ1biBhcyB0aGUgaGFyZHdhcmUgZG9tYWluLg0KDQpJIGRpZG4n
+dCBpbnRyb2R1Y2UgYW55IG5ldywgYnV0IFBIWVNERVZPUF9wY2lfZGV2aWNlX2FkZCB3YXMgZW5v
+dWdoLg0KDQpUaGUgcmVzdCBJIGRpZCBpbiBYZW4gaXRzZWxmIHdydCBTUi1JT1YuDQoNCj4NCj4g
+T1RPSCBpZiB3ZSBwcm9wZXJseSB0cmFwIGFjY2Vzc2VzIHRvIHRoZSBTUi1JT1YgY2FwYWJpbGl0
+eSAobGlrZSBpdA0KPiB3YXMgcHJvcG9zZWQgaW4gWzFdIGZyb20geW91ciByZWZlcmVuY2VzKSB3
+ZSB3b24ndCBoYXZlIHRvIG1vZGlmeSBPU2VzDQo+IHRoYXQgd2FudCB0byBydW4gYXMgaGFyZHdh
+cmUgZG9tYWlucyBpbiBvcmRlciB0byBoYW5kbGUgU1ItSU9WIGRldmljZXMuDQoNCk91dCBvZiBj
+dXJpb3NpdHksIGNvdWxkIHlvdSBwbGVhc2UgbmFtZSBhIGZldz8gSSBkbyB1bmRlcnN0YW5kIHRo
+YXQNCg0Kd2UgZG8gd2FudCB0byBzdXBwb3J0IHVubW9kaWZpZWQgT1NlcyBhbmQgdGhpcyBpcyBp
+bmRlZWQgaW1wb3J0YW50Lg0KDQpCdXQsIHN0aWxsIHdoYXQgYXJlIHRoZSBvdGhlciBPU2VzIHdo
+aWNoIGRvIHN1cHBvcnQgWGVuICsgUENJIHBhc3N0aHJvdWdoPw0KDQo+DQo+IElNTyBnb2luZyBm
+b3IgdGhlIGh5cGVyY2FsbCBvcHRpb24gc2VlbXMgZWFzaWVyIG5vdywgYnV0IGFkZHMgYSBidXJk
+ZW4NCj4gdG8gYWxsIE9TZXMgdGhhdCB3YW50IHRvIG1hbmFnZSBTUi1JT1YgZGV2aWNlcyB0aGF0
+IHdpbGwgaHVydCB1cyBsb25nDQo+IHRlcm0uDQoNCkFnYWluLCBJIHdhcyBhYmxlIHRvIG1ha2Ug
+aXQgc29tZXdoYXQgd29yayB3aXRoIFBIWVNERVZPUF9wY2lfZGV2aWNlX2FkZCBvbmx5Lg0KDQo+
+DQo+IFRoYW5rcywgUm9nZXIuDQoNClRoYW5rIHlvdSBmb3IgeW91ciB2YWx1YWJsZSBjb21tZW50
+cywNCg0KT2xla3NhbmRyDQoNCj4NCj4+IFRoYW5rIHlvdSBpbiBhZHZhbmNlLA0KPj4gT2xla3Nh
+bmRyDQo+Pg0KPj4gWzFdDQo+PiBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9s
+aXN0cy54ZW5wcm9qZWN0Lm9yZy9hcmNoaXZlcy9odG1sL3hlbi1kZXZlbC8yMDE4LTA3L21zZzAx
+NDk0Lmh0bWxfXzshIUdGXzI5ZGJjUUlVQlBBIW1JcExFdkJteFJvRldVZ1ljN01GQUYwMzJrREdk
+ODk3TlA5dDZkMWZzYzl1Wm9MSFNXOTdHWDh4QVdLaHZsRkY4Q2V6bXZTWkdnJCBbbGlzdHNbLl14
+ZW5wcm9qZWN0Wy5db3JnXQ0KPj4gWzJdDQo+PiBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19f
+aHR0cHM6Ly9naXRsYWIuY29tL3hlbi1wcm9qZWN0L2Z1c2EveGVuLWludGVncmF0aW9uLy0vdHJl
+ZS9pbnRlZ3JhdGlvbi9wY2ktcGFzc3Rocm91Z2hfXzshIUdGXzI5ZGJjUUlVQlBBIW1JcExFdkJt
+eFJvRldVZ1ljN01GQUYwMzJrREdkODk3TlA5dDZkMWZzYzl1Wm9MSFNXOTdHWDh4QVdLaHZsRkY4
+Q2YzWjhZazd3JCBbZ2l0bGFiWy5dY29tXQ0KPj4gWzNdIGh0dHBzOi8vdXJsZGVmZW5zZS5jb20v
+djMvX19odHRwczovL2dpdGh1Yi5jb20veGVuLXRyb29wcy94ZW4vY29tbWl0cy9wY2lfcGhhc2Uy
+X187ISFHRl8yOWRiY1FJVUJQQSFtSXBMRXZCbXhSb0ZXVWdZYzdNRkFGMDMya0RHZDg5N05QOXQ2
+ZDFmc2M5dVpvTEhTVzk3R1g4eEFXS2h2bEZGOENmbmNJZGd2dyQgW2dpdGh1YlsuXWNvbV0NCj4+
+IFs0XSBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly93aWtpLmZyZWVic2Qub3Jn
+L1hlbl9fOyEhR0ZfMjlkYmNRSVVCUEEhbUlwTEV2Qm14Um9GV1VnWWM3TUZBRjAzMmtER2Q4OTdO
+UDl0NmQxZnNjOXVab0xIU1c5N0dYOHhBV0todmxGRjhDY2VMT1BkeWckIFt3aWtpWy5dZnJlZWJz
+ZFsuXW9yZ10NCj4+IFs1XSBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9wcm9q
+ZWN0YWNybi5naXRodWIuaW8vbGF0ZXN0L3R1dG9yaWFscy9zcmlvdl92aXJ0dWFsaXphdGlvbi5o
+dG1sX187ISFHRl8yOWRiY1FJVUJQQSFtSXBMRXZCbXhSb0ZXVWdZYzdNRkFGMDMya0RHZDg5N05Q
+OXQ2ZDFmc2M5dVpvTEhTVzk3R1g4eEFXS2h2bEZGOENkanFIUHhaUSQgW3Byb2plY3RhY3JuWy5d
+Z2l0aHViWy5daW9d
 
