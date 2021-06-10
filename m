@@ -2,46 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E623A28B3
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 11:49:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.139789.258412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEAF73A28CA
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 11:52:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.139796.258424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrHJG-0004ok-4V; Thu, 10 Jun 2021 09:49:10 +0000
+	id 1lrHMB-00069u-I9; Thu, 10 Jun 2021 09:52:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 139789.258412; Thu, 10 Jun 2021 09:49:10 +0000
+Received: by outflank-mailman (output) from mailman id 139796.258424; Thu, 10 Jun 2021 09:52:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrHJG-0004mG-0i; Thu, 10 Jun 2021 09:49:10 +0000
-Received: by outflank-mailman (input) for mailman id 139789;
- Thu, 10 Jun 2021 09:49:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iP0d=LE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lrHJE-0004mA-ON
- for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 09:49:08 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1c676d11-95af-4097-ae64-13aea946c175;
- Thu, 10 Jun 2021 09:49:07 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2112.outbound.protection.outlook.com [104.47.17.112])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-33-3ZnUP_CJObmNmbl8f2_10Q-1; Thu, 10 Jun 2021 11:49:05 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2333.eurprd04.prod.outlook.com (2603:10a6:800:28::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.29; Thu, 10 Jun
- 2021 09:49:04 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.022; Thu, 10 Jun 2021
- 09:49:04 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4a::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.9 via Frontend Transport; Thu, 10 Jun 2021 09:49:04 +0000
+	id 1lrHMB-00067Y-Eo; Thu, 10 Jun 2021 09:52:11 +0000
+Received: by outflank-mailman (input) for mailman id 139796;
+ Thu, 10 Jun 2021 09:52:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1Xc/=LE=redhat.com=vkuznets@srs-us1.protection.inumbo.net>)
+ id 1lrHMA-00067Q-DC
+ for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 09:52:10 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id ee754177-001f-4f96-b3ec-6f579e49f695;
+ Thu, 10 Jun 2021 09:52:09 +0000 (UTC)
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-511-p0wckfAgP6mmGgARLGpbkQ-1; Thu, 10 Jun 2021 05:52:05 -0400
+Received: by mail-wm1-f70.google.com with SMTP id
+ m33-20020a05600c3b21b02901a44b1d2d87so2856653wms.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jun 2021 02:52:05 -0700 (PDT)
+Received: from vitty.brq.redhat.com (g-server-2.ign.cz. [91.219.240.2])
+ by smtp.gmail.com with ESMTPSA id i2sm2324384wmo.40.2021.06.10.02.52.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Jun 2021 02:52:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,174 +45,359 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c676d11-95af-4097-ae64-13aea946c175
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1623318546;
+X-Inumbo-ID: ee754177-001f-4f96-b3ec-6f579e49f695
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1623318728;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZrWb6uhs+xIbu8V1eJhmX0UnPGTxkFdKLE4tq8T6iho=;
-	b=hW6wS3EryyjXhxx7driX7MxbsMLVwL0pKY1Np3lCC3REe1ESsflIjkE9Umajp3ZjMFmp8n
-	YR63Nb/yGgEioLocD1/ReqUPiB+tzAAaK4efWxcNZb7duXT4iKHI5cOvb3XFL7KWKul7A3
-	yxmbvgjM02bF17GBr1cvdGpvbl/IERc=
-X-MC-Unique: 3ZnUP_CJObmNmbl8f2_10Q-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I5KvKPKR1F21iYqju82ynCLSwyo5OFELbVIhmh2ZY/ZaOvmRv6MpL+3w3fyK7kwjJy0N4GdTx0tHtuYvC27w+Pkvaj5v1YPDQWOIUXX7GvGQ8z6njwVwE+/wKl75yHvq6S6Wbx+y64W84nTw07DlhaR9EcPMY8E00Ynw0HHKQAsMjgyEQaKmjnOeyt723sXWhUZ1CI/1GnwQuHwW963Sz5aaVAaC/aAW6cOrpqf8NxwauXurSVsZ2rkL3eV14BxEZv/XxPjWD9OggpnBf3asGg3hDqHm36HDcrSd+mcmd1O1weu/t/Rw7r8ClLH8U/C3GLLpXEI73G7dAhDuU/07Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZrWb6uhs+xIbu8V1eJhmX0UnPGTxkFdKLE4tq8T6iho=;
- b=LsQglGjQ4/19ow/ADOWdKHF37PMGDaxNRfWBOFW0+NOJX5nfMF3oICnBvK3aV6lOHX7ToeF3rKkibPT0eih3dDuNzhIo3yRjKL2UVXC1N3whwWSJHKLrotnnRO1IPALFRxzVSCKYDIZHh85oyy7YfZCLjiU0n6RJb16S6O8jNaAYx8rfAAXc8WE1ks+/xJFYqtb+T/cMgUce98z75c6plnABeTik4BcsjUEJ7gPF4Vt8pPPnRPVtSyva0lyjrIxSZAZ2FaXVD9EI/BOjWG/sIPewIrpMDgYrb/WV59RvqfTet+sp+jaWOJdXGIYY+TSWLBJGR/ccHpBQJiGej/LMAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH 5/9] xen: introduce assign_pages_nr
-To: Penny Zheng <penny.zheng@arm.com>
-Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
- xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
-References: <20210607024318.3988467-1-penny.zheng@arm.com>
- <20210607024318.3988467-6-penny.zheng@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <41a7389b-630c-6cf4-fa28-7d80cb79176b@suse.com>
-Date: Thu, 10 Jun 2021 11:49:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210607024318.3988467-6-penny.zheng@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::12) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=YoVNk4j9gtFSnQb0D1+J8+G6ag1xYY93rHbDDkf83Y8=;
+	b=V1gi+gIe/1zU+SRWrhqT0At1Tp5bBglWFYq2QaheFcvTn6YdR5DXTVfvaBPuoK8I6elS5U
+	WHoL7oL6P+PgBIt/INkVHy2/b4n/6quUJECLNhTiLao+nASZQoQE9eoswON7nBYnd6t12I
+	CgHxKOZzSNgMU6dRg0613Ht2ehg2I9c=
+X-MC-Unique: p0wckfAgP6mmGgARLGpbkQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
+         :message-id:mime-version;
+        bh=YoVNk4j9gtFSnQb0D1+J8+G6ag1xYY93rHbDDkf83Y8=;
+        b=iX4LA8cIClJtEslGwEa6rCK/WJjzV/hffOqhHuAY9TtFQon+/dK2nAguKIYrgOB70v
+         wmZLIIuLtK6B6lNzkz1f9GF7/IG/YcCB7GN07pmUP1CEW29tl13ioNkHYr35f3pQRRw1
+         ucajssLORYMTkt1MqAEyD3FJNEA5/QTaSIxwZm7f+gcWvUGAyk7bJdY4Agm0ytw9UxXt
+         VB/8yUi9XCO1MCfXp2YOCuzk7MwlgFoNttbo8b4n/3Htkw6p9LPnOnmQaX8Fsr9bJpQT
+         UrafCM2HdJoxaSs07pd5TpOf8B9KxzoH9MqpMGgcsp0hL5wTfEOmwnDPtJghsXExyH0H
+         HSOw==
+X-Gm-Message-State: AOAM533HCyzFoxozpqJruSwWNzM3YjEfDoDToDR0QzR5tipLNENDGk2s
+	e22nCstJpF2UAiYLWxoPpHTtK0bk4LBjvelyuHjRm7J7H5HwJRSLhazizNmtdqULTzsU+78v+mR
+	X2nFMe2KAlAk3OJAsfeQ2WlpMois=
+X-Received: by 2002:a5d:6111:: with SMTP id v17mr4390243wrt.20.1623318724406;
+        Thu, 10 Jun 2021 02:52:04 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJws7/mCqvX4+aPUx81hg5pKpa/fS4mRAQA+Xfvs2mECl/9+zJ/36DfVftBI3zRBfZ+Q7l7Vlw==
+X-Received: by 2002:a5d:6111:: with SMTP id v17mr4390203wrt.20.1623318724162;
+        Thu, 10 Jun 2021 02:52:04 -0700 (PDT)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Tianyu Lan <ltykernel@gmail.com>
+Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
+ thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com,
+ kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
+ mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+ arnd@arndb.de, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, akpm@linux-foundation.org,
+ kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
+ cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
+ Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, hch@lst.de,
+ m.szyprowski@samsung.com, robin.murphy@arm.com,
+ boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
+ joro@8bytes.org, will@kernel.org, xen-devel@lists.xenproject.org,
+ davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
+ martin.petersen@oracle.com
+Subject: Re: [RFC PATCH V3 10/11] HV/Netvsc: Add Isolation VM support for
+ netvsc driver
+In-Reply-To: <20210530150628.2063957-11-ltykernel@gmail.com>
+References: <20210530150628.2063957-1-ltykernel@gmail.com>
+ <20210530150628.2063957-11-ltykernel@gmail.com>
+Date: Thu, 10 Jun 2021 11:52:01 +0200
+Message-ID: <874ke6yrlq.fsf@vitty.brq.redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b870ddec-4941-4a90-6d72-08d92bf4fba8
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2333:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB2333E7F08D1EE67967ED18CAB3359@VI1PR0401MB2333.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	o4pvImjm9xdNSjlb9KU3TAoMSQIJCeTbNiE90SaTmHputqwps7kRxX6wfKb0FR64wJtiztW9p+meZ7+iOCan+gR0hUArqBE+WQMNB3jZwvkqlkUm3PW7TlxymJC92BWXRxR04Pi6IxMow1PiE+Gw1hqnVlk9VkGKbfIbwzvrqfRLYwc8OTfYSeMDdEXKMZAbCY0bVCx6BdNmREyJIP8P6Q8xvnsBNCmlKUNJWDxXl+hJsPMsKb3ujgshVfSu4WUae5NxtG8gsidBkR1cT9o/7Vo3JuR40YzdDkaL5+p1O7go+QRoHY82Vy1ZsibMIaUny4b4hMH4jIfH1Lp9GmS6NX5G2WdA3zR8khqSqSPd56+oBI2vwR7KkRKvkjo35lqKHVezTgKgF4iAi/VRjYjAEPYCuKco4ukimJ2ZLM8BTXDxTS7/c1qmfh8xswpgO8LEat4MtnNFkNzOH5JN6bes70IW4OsUNmoFzNlDOR+fcKdvIGfwkn2zBoS2vokNlUgztZwnmAbWt89k9mPQL5/BNRpOXC1N9ta6mvVoqvTM64gxoNoWdjOAqRvIoWi5nhnK1uheYNWENf1V0Zo7/+34b6Kwdk2eVcPqmJKUNO8fGR0czL+2ikHeqQx5iKkcdltOLDreWBhRiljR2Y7E5YTI0ORLG4U58Ccp2IcbIIkUsKG+15MWn/M79fiUvaTo/KVT
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(376002)(346002)(39850400004)(396003)(136003)(186003)(86362001)(5660300002)(316002)(16576012)(38100700002)(53546011)(6916009)(31696002)(16526019)(8936002)(2906002)(66556008)(4326008)(8676002)(956004)(36756003)(31686004)(2616005)(66476007)(6486002)(66946007)(83380400001)(478600001)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
-	=?utf-8?B?RmY0UmpKYlhFRU9hUWsyZFBDb3R1NnJZWmUyVUo2SXNhNnArNitMcmtiUzcx?=
- =?utf-8?B?UGV3eXM0ZzVpOVM0WTJ2ZkdhanFQOW03SklZTUpZaFNzUzZWOHNUcDBaYkYx?=
- =?utf-8?B?cm92bXRCb0VzRW9OR3pxT1I4b3htTFRKWitzZjJQNGJGa1JyOG11MnA4TklW?=
- =?utf-8?B?YjZ6VEpTVkltZmRNa0RlMWtRTy8zV3ROZ0lVOGM3WWdSc282SjIwSUowdDBD?=
- =?utf-8?B?aERKcFJ0SWgza0dvdzRTZEZ1U2pWNTJKdE9VNEtaWDhTbFBmdDhuRnpBL3NP?=
- =?utf-8?B?NnAwU2wxYjV5L2ZpS0QzODEwQnYrYzFjc0lnZlMzeWI2RkF1WDdkOE45WXAx?=
- =?utf-8?B?R3J3aWlrSHV2bkVsZjZBZ21qTDR5aXB0NUpQUE5YbzE5bzNNcEFsM0xocFFU?=
- =?utf-8?B?a01TTTVQRE9rMGQ4MkRqMWtPZnRaeFkzZGNZaTVFWDlVNGtjRTYwWU9FQlAx?=
- =?utf-8?B?QlJBaXRxdFNGQUlKTFZYRGRXWVVjRjQ1V0hiZUZFU3lTc1Jrem9MS0h2WnJr?=
- =?utf-8?B?Y3Z2SFR5dEVObE9oaU4zZlcwaWQ0SlNnM1hPZ2dRaWt1c1Z5N3kxbTBHajBO?=
- =?utf-8?B?TjR0WlZhMHVOSkFjSEZhUlVOUkw1M3Rud2dTYUptZkFLUUdVN0tLZGJzVHQz?=
- =?utf-8?B?dldwWTFXVmEwbDVidWc3dWlRZkIyczdtMGc3VXBEaVpmczZSd09YSFJOa09j?=
- =?utf-8?B?c2VnV3BranM4cU5FZFdhNUtBWTNCbGorWU0wZytnZHFNUjd3WHg3YzlWNUZ0?=
- =?utf-8?B?SHNGWWVIc0V0WWlMUndsT3VtbjNyZkRqejZBeE4xTG4yZ3FhbjdwT2NvUFFZ?=
- =?utf-8?B?a2Iwd1BrZEl0SmhLV2RxbnRmdkZid1BiSHFPMVFCak9MWVliYW1NL2s3ZHNB?=
- =?utf-8?B?STVNVmJmdThRaGx3TSs5WVZDQW94M24zTVYxcytOY1RjMDZyQ0Z2Nmhic0RT?=
- =?utf-8?B?NE1lbXgvRXBqazBQNjBlYythWGV6akFuVUF0QmI3Y1dXWklFRmlwbTdqdVp0?=
- =?utf-8?B?NlVqS1c4Z2lRQk15WE1jMkdrS2t3OXR2VVhmUUdtdElGd3BhU1praGtUVjV0?=
- =?utf-8?B?SE1XMC9FRHRna0VtcUdnTW13TWt5UC8raUt6MWg4STFrSjl2eGhHVnh1b3lm?=
- =?utf-8?B?U2c3cTJkbUtlWktPZ2Z4MTd5b1hRZDUwMXFJbkNKUW9WdlZlVmF2am0rOUE0?=
- =?utf-8?B?d04yRTR2bGN2dm55aE11K1RtVU1MNFR1VEVpVW5BSCtkYkNKV203ZC9rMlZk?=
- =?utf-8?B?S0hEUmZrSzBkaWVhWmNSL3NKdDFHWGY2cTh3SUhnL0VZL3g1NGQ2MUduNEY0?=
- =?utf-8?B?ek81ZUFUakprSGNLTlc2SVRRR1IzdXlNam9UdzRmQ3BMa3MydVBHMWRyT1pm?=
- =?utf-8?B?NkdFRy9FaWFTclRYT3pwOXN4YkYyZE1rTzM4dzJYcTdRWDhoZUdvcUlEeGpW?=
- =?utf-8?B?STQ1OXB5YUJWMnIvTzVlaG9TQW1jU3RMR2d4TmtTQ3Z2WFRLdzNVMnM3MDh0?=
- =?utf-8?B?Rk83L2Nkczg4TmJ2bTdIbzNITGpkVGhNTTBTOXZZM3NDK0hjSEdnL2dFOWVR?=
- =?utf-8?B?UDVPTTRpNlNyVVlkbDhBTjk2N0NYNU9Td1hBMENHZmVab2JleXh6bmhJZ3pj?=
- =?utf-8?B?YUw2ZHFMYVIyTThmYTlrM3VUSUtIVVdhOHBGVEM0emlpNEtGSExKTk15U0dk?=
- =?utf-8?B?U0NQTnVxSjVZa0lkeER0MUNhSGdzWEFnMmc3aFBaNmNqZDREVlVmd2FwOW1l?=
- =?utf-8?Q?yxOMXAuPWX7uJ2VoFvmyHz2nOd7u9Vzh0IoQBj+?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b870ddec-4941-4a90-6d72-08d92bf4fba8
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2021 09:49:04.4999
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t9IET/Zl4YNKnGpsRQpaIpcpu3OWrQ/0R9XUYAZavPbpNmXG4hGHBZwB2wa6RDXc+I83ImdnmkRI2hI5++QzZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2333
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=vkuznets@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 
-On 07.06.2021 04:43, Penny Zheng wrote:
-> Introduce new interface assign_pages_nr to deal with when page number is
-> not in a power-of-two, which will save the trouble each time user needs
-> to split the size in a power of 2 to use assign_pages.
+Tianyu Lan <ltykernel@gmail.com> writes:
 
-First of all I still don't see why in this one special case it is a
-meaningful burden to do the count-to-order conversion in the caller you
-mean to add, and hence why we really need this new function (to keep it
-simple, you could even have the caller not break down to arbitrary
-power-of-2 chunks, but simply iterate over all individual [order-0]
-pages). The more that I'm not happy with the chosen name, despite it
-having been suggested during v1 review. _If_ we needed two functions,
-imo they ought to be named assign_page() (dealing with a single page of
-the given order) and assign_pages(). Backporting confusion could be
-helped by altering the order of parameters, such that the compiler
-would point out that adjustments at call sites are needed.
-
-Irrespective of this a few remarks on the code change itself:
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -2301,14 +2301,14 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
+> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
+>
+> In Isolation VM, all shared memory with host needs to mark visible
+> to host via hvcall. vmbus_establish_gpadl() has already done it for
+> netvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
+> pagebuffer() still need to handle. Use DMA API to map/umap these
+> memory during sending/receiving packet and Hyper-V DMA ops callback
+> will use swiotlb function to allocate bounce buffer and copy data
+> from/to bounce buffer.
+>
+> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
+> ---
+>  drivers/net/hyperv/hyperv_net.h   |   6 ++
+>  drivers/net/hyperv/netvsc.c       | 125 ++++++++++++++++++++++++++++--
+>  drivers/net/hyperv/rndis_filter.c |   3 +
+>  include/linux/hyperv.h            |   5 ++
+>  4 files changed, 133 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/net/hyperv/hyperv_net.h b/drivers/net/hyperv/hyperv_net.h
+> index b11aa68b44ec..c2fbb9d4df2c 100644
+> --- a/drivers/net/hyperv/hyperv_net.h
+> +++ b/drivers/net/hyperv/hyperv_net.h
+> @@ -164,6 +164,7 @@ struct hv_netvsc_packet {
+>  	u32 total_bytes;
+>  	u32 send_buf_index;
+>  	u32 total_data_buflen;
+> +	struct hv_dma_range *dma_range;
+>  };
+>  
+>  #define NETVSC_HASH_KEYLEN 40
+> @@ -1074,6 +1075,7 @@ struct netvsc_device {
+>  
+>  	/* Receive buffer allocated by us but manages by NetVSP */
+>  	void *recv_buf;
+> +	void *recv_original_buf;
+>  	u32 recv_buf_size; /* allocated bytes */
+>  	u32 recv_buf_gpadl_handle;
+>  	u32 recv_section_cnt;
+> @@ -1082,6 +1084,8 @@ struct netvsc_device {
+>  
+>  	/* Send buffer allocated by us */
+>  	void *send_buf;
+> +	void *send_original_buf;
+> +	u32 send_buf_size;
+>  	u32 send_buf_gpadl_handle;
+>  	u32 send_section_cnt;
+>  	u32 send_section_size;
+> @@ -1729,4 +1733,6 @@ struct rndis_message {
+>  #define RETRY_US_HI	10000
+>  #define RETRY_MAX	2000	/* >10 sec */
+>  
+> +void netvsc_dma_unmap(struct hv_device *hv_dev,
+> +		      struct hv_netvsc_packet *packet);
+>  #endif /* _HYPERV_NET_H */
+> diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
+> index 7bd935412853..a01740c6c6b8 100644
+> --- a/drivers/net/hyperv/netvsc.c
+> +++ b/drivers/net/hyperv/netvsc.c
+> @@ -153,8 +153,21 @@ static void free_netvsc_device(struct rcu_head *head)
+>  	int i;
+>  
+>  	kfree(nvdev->extension);
+> -	vfree(nvdev->recv_buf);
+> -	vfree(nvdev->send_buf);
+> +
+> +	if (nvdev->recv_original_buf) {
+> +		vunmap(nvdev->recv_buf);
+> +		vfree(nvdev->recv_original_buf);
+> +	} else {
+> +		vfree(nvdev->recv_buf);
+> +	}
+> +
+> +	if (nvdev->send_original_buf) {
+> +		vunmap(nvdev->send_buf);
+> +		vfree(nvdev->send_original_buf);
+> +	} else {
+> +		vfree(nvdev->send_buf);
+> +	}
+> +
+>  	kfree(nvdev->send_section_map);
+>  
+>  	for (i = 0; i < VRSS_CHANNEL_MAX; i++) {
+> @@ -338,8 +351,10 @@ static int netvsc_init_buf(struct hv_device *device,
+>  	struct net_device *ndev = hv_get_drvdata(device);
+>  	struct nvsp_message *init_packet;
+>  	unsigned int buf_size;
+> +	unsigned long *pfns;
+>  	size_t map_words;
+>  	int i, ret = 0;
+> +	void *vaddr;
+>  
+>  	/* Get receive buffer area. */
+>  	buf_size = device_info->recv_sections * device_info->recv_section_size;
+> @@ -375,6 +390,21 @@ static int netvsc_init_buf(struct hv_device *device,
+>  		goto cleanup;
+>  	}
+>  
+> +	if (hv_isolation_type_snp()) {
+> +		pfns = kcalloc(buf_size / HV_HYP_PAGE_SIZE, sizeof(unsigned long),
+> +			       GFP_KERNEL);
+> +		for (i = 0; i < buf_size / HV_HYP_PAGE_SIZE; i++)
+> +			pfns[i] = virt_to_hvpfn(net_device->recv_buf + i * HV_HYP_PAGE_SIZE) +
+> +				(ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
+> +
+> +		vaddr = vmap_pfn(pfns, buf_size / HV_HYP_PAGE_SIZE, PAGE_KERNEL_IO);
+> +		kfree(pfns);
+> +		if (!vaddr)
+> +			goto cleanup;
+> +		net_device->recv_original_buf = net_device->recv_buf;
+> +		net_device->recv_buf = vaddr;
+> +	}
+> +
+>  	/* Notify the NetVsp of the gpadl handle */
+>  	init_packet = &net_device->channel_init_pkt;
+>  	memset(init_packet, 0, sizeof(struct nvsp_message));
+> @@ -477,6 +507,23 @@ static int netvsc_init_buf(struct hv_device *device,
+>  		goto cleanup;
+>  	}
+>  
+> +	if (hv_isolation_type_snp()) {
+> +		pfns = kcalloc(buf_size / HV_HYP_PAGE_SIZE, sizeof(unsigned long),
+> +			       GFP_KERNEL);
+> +
+> +		for (i = 0; i < buf_size / HV_HYP_PAGE_SIZE; i++)
+> +			pfns[i] = virt_to_hvpfn(net_device->send_buf + i * HV_HYP_PAGE_SIZE)
+> +				+ (ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
+> +
+> +		vaddr = vmap_pfn(pfns, buf_size / HV_HYP_PAGE_SIZE, PAGE_KERNEL_IO);
+> +		kfree(pfns);
+> +		if (!vaddr)
+> +			goto cleanup;
+> +
+> +		net_device->send_original_buf = net_device->send_buf;
+> +		net_device->send_buf = vaddr;
+> +	}
+> +
+>  	/* Notify the NetVsp of the gpadl handle */
+>  	init_packet = &net_device->channel_init_pkt;
+>  	memset(init_packet, 0, sizeof(struct nvsp_message));
+> @@ -767,7 +814,7 @@ static void netvsc_send_tx_complete(struct net_device *ndev,
+>  
+>  	/* Notify the layer above us */
+>  	if (likely(skb)) {
+> -		const struct hv_netvsc_packet *packet
+> +		struct hv_netvsc_packet *packet
+>  			= (struct hv_netvsc_packet *)skb->cb;
+>  		u32 send_index = packet->send_buf_index;
+>  		struct netvsc_stats *tx_stats;
+> @@ -783,6 +830,7 @@ static void netvsc_send_tx_complete(struct net_device *ndev,
+>  		tx_stats->bytes += packet->total_bytes;
+>  		u64_stats_update_end(&tx_stats->syncp);
+>  
+> +		netvsc_dma_unmap(ndev_ctx->device_ctx, packet);
+>  		napi_consume_skb(skb, budget);
+>  	}
+>  
+> @@ -947,6 +995,63 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
+>  		memset(dest, 0, padding);
 >  }
 >  
+> +void netvsc_dma_unmap(struct hv_device *hv_dev,
+> +		      struct hv_netvsc_packet *packet)
+> +{
+> +	u32 page_count = packet->cp_partial ?
+> +		packet->page_buf_cnt - packet->rmsg_pgcnt :
+> +		packet->page_buf_cnt;
+> +	int i;
+> +
+> +	if (!packet->dma_range)
+> +		return;
+> +
+> +	for (i = 0; i < page_count; i++)
+> +		dma_unmap_single(&hv_dev->device, packet->dma_range[i].dma,
+> +				 packet->dma_range[i].mapping_size,
+> +				 DMA_TO_DEVICE);
+> +
+> +	kfree(packet->dma_range);
+> +}
+> +
+> +int netvsc_dma_map(struct hv_device *hv_dev,
+> +		   struct hv_netvsc_packet *packet,
+> +		   struct hv_page_buffer *pb)
+> +{
+> +	u32 page_count =  packet->cp_partial ?
+> +		packet->page_buf_cnt - packet->rmsg_pgcnt :
+> +		packet->page_buf_cnt;
+> +	dma_addr_t dma;
+> +	int i;
+> +
+> +	packet->dma_range = kcalloc(page_count,
+> +				    sizeof(*packet->dma_range),
+> +				    GFP_KERNEL);
+> +	if (!packet->dma_range)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < page_count; i++) {
+> +		char *src = phys_to_virt((pb[i].pfn << HV_HYP_PAGE_SHIFT)
+> +					 + pb[i].offset);
+> +		u32 len = pb[i].len;
+> +
+> +		dma = dma_map_single(&hv_dev->device, src, len,
+> +				     DMA_TO_DEVICE);
+> +		if (dma_mapping_error(&hv_dev->device, dma)) {
+> +			kfree(packet->dma_range);
+> +			return -ENOMEM;
+> +		}
+> +
+> +		packet->dma_range[i].dma = dma;
+> +		packet->dma_range[i].mapping_size = len;
+> +		pb[i].pfn = dma >> HV_HYP_PAGE_SHIFT;
+> +		pb[i].offset = offset_in_hvpage(dma);
+> +		pb[i].len = len;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static inline int netvsc_send_pkt(
+>  	struct hv_device *device,
+>  	struct hv_netvsc_packet *packet,
+> @@ -987,14 +1092,22 @@ static inline int netvsc_send_pkt(
 >  
-> -int assign_pages(
-> +int assign_pages_nr(
->      struct domain *d,
->      struct page_info *pg,
-> -    unsigned int order,
-> +    unsigned int nr_pfns,
-
-Even leaving the naming aspect of "pfns" aside, I can't see why this
-can't be simply "nr" (of appropriate type, see next remark).
-
->      unsigned int memflags)
->  {
->      int rc = 0;
-> -    unsigned long i;
-> +    unsigned int i;
-
-This is not an acceptable type change, at least not as long as it's not
-justified at all in the description. While both Arm and x86 will be
-fine this way, the code here is supposed to be generic, and hence would
-better remain generally correct.
-
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -131,12 +131,18 @@ int query_page_offline(mfn_t mfn, uint32_t *status);
+>  	trace_nvsp_send_pkt(ndev, out_channel, rpkt);
 >  
->  void heap_init_late(void);
+> +	packet->dma_range = NULL;
+>  	if (packet->page_buf_cnt) {
+>  		if (packet->cp_partial)
+>  			pb += packet->rmsg_pgcnt;
 >  
-> -int assign_pages(
-> +int assign_pages_nr(
->      struct domain *d,
->      struct page_info *pg,
-> -    unsigned int order,
-> +    unsigned int nr_pfns,
->      unsigned int memflags);
+> +		ret = netvsc_dma_map(ndev_ctx->device_ctx, packet, pb);
+> +		if (ret)
+> +			return ret;
+> +
+>  		ret = vmbus_sendpacket_pagebuffer(out_channel,
+> -						  pb, packet->page_buf_cnt,
+> -						  &nvmsg, sizeof(nvmsg),
+> -						  req_id);
+> +					  pb, packet->page_buf_cnt,
+> +					  &nvmsg, sizeof(nvmsg),
+> +					  req_id);
+
+Nitpick: stray change? 
+
+> +
+> +		if (ret)
+> +			netvsc_dma_unmap(ndev_ctx->device_ctx, packet);
+>  	} else {
+>  		ret = vmbus_sendpacket(out_channel,
+>  				       &nvmsg, sizeof(nvmsg),
+> diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
+> index 983bf362466a..448c1ee39246 100644
+> --- a/drivers/net/hyperv/rndis_filter.c
+> +++ b/drivers/net/hyperv/rndis_filter.c
+> @@ -293,6 +293,8 @@ static void rndis_filter_receive_response(struct net_device *ndev,
+>  	u32 *req_id = &resp->msg.init_complete.req_id;
+>  	struct rndis_device *dev = nvdev->extension;
+>  	struct rndis_request *request = NULL;
+> +	struct hv_device *hv_dev = ((struct net_device_context *)
+> +			netdev_priv(ndev))->device_ctx;
+>  	bool found = false;
+>  	unsigned long flags;
 >  
-> + int assign_pages(
-> +     struct domain *d,
-> +     struct page_info *pg,
-> +     unsigned int order,
-> +     unsigned int memflags);
+> @@ -361,6 +363,7 @@ static void rndis_filter_receive_response(struct net_device *ndev,
+>  			}
+>  		}
+>  
+> +		netvsc_dma_unmap(hv_dev, &request->pkt);
+>  		complete(&request->wait_event);
+>  	} else {
+>  		netdev_err(ndev,
+> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+> index babbe19f57e2..90abff664495 100644
+> --- a/include/linux/hyperv.h
+> +++ b/include/linux/hyperv.h
+> @@ -1616,6 +1616,11 @@ struct hyperv_service_callback {
+>  	void (*callback)(void *context);
+>  };
+>  
+> +struct hv_dma_range {
+> +	dma_addr_t dma;
+> +	u32 mapping_size;
+> +};
+> +
+>  #define MAX_SRV_VER	0x7ffffff
+>  extern bool vmbus_prep_negotiate_resp(struct icmsg_hdr *icmsghdrp, u8 *buf, u32 buflen,
+>  				const int *fw_version, int fw_vercnt,
 
-Bogus extra leading space on all lines of this addition.
-
-Jan
+-- 
+Vitaly
 
 
