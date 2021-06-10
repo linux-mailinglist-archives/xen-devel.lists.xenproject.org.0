@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079FA3A2AFA
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 14:02:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.139867.258538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E563A2B76
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 14:25:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.139880.258550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrJNz-0006IB-OW; Thu, 10 Jun 2021 12:02:11 +0000
+	id 1lrJjn-0000Gk-Kf; Thu, 10 Jun 2021 12:24:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 139867.258538; Thu, 10 Jun 2021 12:02:11 +0000
+Received: by outflank-mailman (output) from mailman id 139880.258550; Thu, 10 Jun 2021 12:24:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrJNz-0006FC-KQ; Thu, 10 Jun 2021 12:02:11 +0000
-Received: by outflank-mailman (input) for mailman id 139867;
- Thu, 10 Jun 2021 12:02:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lrJjn-0000Eg-Gg; Thu, 10 Jun 2021 12:24:43 +0000
+Received: by outflank-mailman (input) for mailman id 139880;
+ Thu, 10 Jun 2021 12:24:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iP0d=LE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lrJNy-0006F4-KO
- for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 12:02:10 +0000
+ id 1lrJjm-0000Ea-Ct
+ for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 12:24:42 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f7f6f014-7577-4a11-aa19-9e4b2554b201;
- Thu, 10 Jun 2021 12:02:10 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2109.outbound.protection.outlook.com [104.47.17.109])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-35-n8gypHHqMf2FRq2LMe-L3Q-1; Thu, 10 Jun 2021 14:02:08 +0200
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0c7e5254-1ab2-4cf4-a012-87411542d0c6;
+ Thu, 10 Jun 2021 12:24:40 +0000 (UTC)
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur03lp2054.outbound.protection.outlook.com [104.47.10.54]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-39-qhl7JV2DNMCIVn_qkT6EdQ-1; Thu, 10 Jun 2021 14:24:38 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6175.eurprd04.prod.outlook.com (2603:10a6:803:fb::11)
+ by VI1PR0402MB3935.eurprd04.prod.outlook.com (2603:10a6:803:1f::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21; Thu, 10 Jun
- 2021 12:02:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Thu, 10 Jun
+ 2021 12:24:36 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.022; Thu, 10 Jun 2021
- 12:02:06 +0000
+ 12:24:36 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM4PR07CA0032.eurprd07.prod.outlook.com (2603:10a6:205:1::45) with Microsoft
+ PR3P191CA0024.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:54::29) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.9 via Frontend Transport; Thu, 10 Jun 2021 12:02:06 +0000
+ 15.20.4219.22 via Frontend Transport; Thu, 10 Jun 2021 12:24:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,139 +52,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7f6f014-7577-4a11-aa19-9e4b2554b201
+X-Inumbo-ID: 0c7e5254-1ab2-4cf4-a012-87411542d0c6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1623326529;
+	t=1623327879;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0HTaZgCRt0TkfzbiM60ImI+eb6R3SnEDiFO+kQHa+no=;
-	b=VZsO0ZBocGaAE+pzQOVXbyDYs46cXpPfZKyTOCQEQeNCjNjMXd5Q9zihoVB03Lbi7E71ZW
-	6TKBaOcmYSxMFr0NYhuMIVWejB/A2cyAgroe4FHx3M83X8gGD5OmWS5c0ZHPlkA+S8HruH
-	E+TcHHuLXZ9r2LarcNxGNirAnZTqdhk=
-X-MC-Unique: n8gypHHqMf2FRq2LMe-L3Q-1
+	bh=L/XrWhPHwPf7SqkXDfSvxlHbbTeCx5QQ/CwE9JbO2ic=;
+	b=JgKA2xy13RwU+6Cybb2+Iyd1k3mO3JYJYeqjh0oBXH50BUOJUxg8GHgc6a9zMEDNhqfiE7
+	GezwsBAOuIo7mqp1nIdk4P7A32G0vMIPge/uA0FibmQxUi4MB/3vX/JMInj0IrWgCZfK3x
+	K8RiDxyaNZB2qe7irApd2jG6hGLZ5ls=
+X-MC-Unique: qhl7JV2DNMCIVn_qkT6EdQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SxLDbCkXMrUPDISmgUdSPTN+CHnwN9gX9MC44oLwRNO0VO0fFywAOO23b5tBmvy3BDRSKhnLeUb9zuxmbwx8Jl8njiC+zrJJN5cJKaZ9t4ffkQrp4pAU0srTbSzmRot3fjLuMtsUL07xmyQ9nVbTM7Xdt8j13PHbBEsGDmdx+igxgYrLrKUk4+JG+DL28hppY7fyGPNS366ZAgLXywzt8G9qzg6cORR3mlt8c6adpTYvTXkxCOUH0OJJ9qzT6doXeT+xJd9doQZgfO3WKWXmqACh30p9RajUeg40MW6a+R8se5QO+Q8jc9sG9vINltznvHYRDrQbCtXPBipBefhHFg==
+ b=bpt+rlpaFxMGidkfPJHWmC+E0QYYx6is20OvEUvCRt29WRBtbFn6ZpBJuJtw8IrV5Ie1ZSNktjJSbF2b3rlXufEwr9nareKyFk+1LdROSKbyVPGNC9y9iKosDKtcR73kmnuvDBeVmzAv+z0KDSYLZ8Z0Tct+qAmfjy6K5C2mKWwUYx/TANt6Ox+12sZUQ56B6wMPPtortiW58GfWIQPpz+TgFdJx4qfb6i0c8vvOYqUhmvDBYkWcmYkvZm8bSuKtJy2TNlTtiO4LuL3BBC/3q7UEkKR+0KbQdGK9ivueT4R6KPJ6RS8FJjJev/ZtE+1UFCAz6Vu+8JUjlzIfy6ougg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrqhD6PTMrm4PTQJlWlqfUI4BRXNvGy/TXalfvjz0Ig=;
- b=DCNzE+zJb0lEOy47LkGLQB9zsLBGraRYPuzNwjQ7UIldVnTCrYyjmfGMzEyk8HJRjNDlUIMDW77ZcgbG5SDEtYN/uTSUtWjx4BpryEL4bchreVdl9asu3zbq4WbmTvT/UAmysMK8iav1gLhROvqfM/NN0gZFOvanGloHjSi+krRFEcT5AQej95+/23xJikbRuaqZdU/XZYqEhSblBCuShCYh1JuRou5H3kPs5NHOSKv6SovxWwIxrBF4mOSQMJB4JODD4Aqx4slhsEKrpG+tPwwueK8OXYeMd2SOs7rJcdXbzt7pvx+02A67Ep5gvwbWfaegr3PRC8AObbzKYUcb0Q==
+ bh=Dpw2Tc9J6gCifNz782V1DgMZt/Mp+Jf78OlFyyxmuT8=;
+ b=dgPJmb6DgnsuseWidSMdfPidHf6b8mSy4ClDEET4MLdLAWxc9I+W/QbXtnOtPU/38PbqZUG4ddFizJkSNPgt2e4PSzZqanzqLR5yO/gSY9VYKocWPp5RWcNIo6b16GguxYhd/UocUlkE3ikywFfb7LT+UAWctJzSeJV4Zqidz6OIA7/LFPx7UWObwC6nQ1jucKYmNBaxOlnE1rgZoB5oP85LeR8RhF01ptanLS/iaGuUt3SEXfEZ/6enBONkEMopAublS3dqbLIWjM0iNALdQ1pgTMFWrODdXRHo+sxqEwSFZ0lEWRDt2YPRRPoKwupwcPf2nTMskemrRIArrw4Lww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: SR-IOV: do we need to virtualize in Xen or rely on Dom0?
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <c10e16c9-ec42-336f-e838-caca49b39723@epam.com>
- <YMHFQA1L61ntKNRq@Air-de-Roger>
- <30955a5b-ee46-60d7-ae56-23dc7c91008c@epam.com>
- <0aa4bf61-e08f-6da0-1cda-48e61bf876af@suse.com>
- <38cfe7b7-e5a3-2216-f52e-fdebfc7af517@epam.com>
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 1/9] AMD/IOMMU: redo awaiting of command completion
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Paul Durrant <paul@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <03285055-47ff-ab10-ae76-0553f28f136d@suse.com>
+ <1bb49cce-537e-9fba-80bb-82bf502728d0@suse.com>
+ <1fcb1140-b9b4-5c0b-de6c-e14d33937318@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6b6142fa-3dc7-cd54-a40c-d4b9ef47afad@suse.com>
-Date: Thu, 10 Jun 2021 14:02:04 +0200
+Message-ID: <a6632eec-d64e-5167-2f0c-3ad919620327@suse.com>
+Date: Thu, 10 Jun 2021 14:24:36 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <38cfe7b7-e5a3-2216-f52e-fdebfc7af517@epam.com>
+In-Reply-To: <1fcb1140-b9b4-5c0b-de6c-e14d33937318@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: AM4PR07CA0032.eurprd07.prod.outlook.com
- (2603:10a6:205:1::45) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PR3P191CA0024.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:102:54::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80b7ebd6-3e91-454f-9ed6-08d92c07917f
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6175:
+X-MS-Office365-Filtering-Correlation-Id: 08d67d98-169c-4ec5-c493-08d92c0ab615
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3935:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB61754D367116D5FE2C47A054B3359@VI1PR04MB6175.eurprd04.prod.outlook.com>
+	<VI1PR0402MB39358BC5F7E1258390365156B3359@VI1PR0402MB3935.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	dFP0Wm6/pMbrFvsRA3w446jJk2CfvisohDFDZbWyQo2iZi5PXB07CDkYgvIsoITROuPgZ3WRHEorkOdK/GCSgj2BgtcwzwKrST6veW5UTMOWJmb2AK7DnKP1WAV07GTPXpY24LWuaLUET28e2TF5D6UdfntGa0DKq+IfMKfTg/QsLj0tu23SXJ9Eo/mZfYaeahN6h+Zb1ZXm/U6IJb9iMXrqMsz7iVEI9vczBjrl95uC+e6Acb+1U9p8UMgyGhKYg0piZra0gsVcLiFYQZELDxydSE2jwBW7kjP0Xf2m0p0AOoJFDJNB0sVr16cBKmDapkDYCNdP1KtIXvLJkS3s790iSkt2USiOKevLEAEcsSvGlVqClXUqoeSa/Gkztc921Baj3HWVIgRTHc9ab6d0PWiKeVFosF7QsqFPVveJEwQ2gLN+jVOnbfwmDsguL2tVOaLL2ZUeYMzpN4jbEF5F7OO2uranB+XwIT7WRwhN3xvoKIWL4FRPC6S8LtyLRjWUmX54Qf/MBxS4DeG6kb5luM5gfGeTqElImUTXDs5CmI6s3Jau2z6aRPL+HBcnZSQVCIRg97bco4cjmRVT2VMz1KM3e93oig8ytyvpQwy4c99p3Dc8mzHgPYED093DAt8S/WrJ0KA5o1LsATPPD6I2O85bxPoiQUMkLMZLMbTEChgEeKscxTdVNmeUg5pvT/sUtfJTZ0dd3ur/yB5ELddCDw==
+	PVs3cbZxASXGVvyzCgWIC5a3tTxmT46JRSiLHVYI0FXMmQlxCY8VRr7V4XVXc1ZINAZoM5l39V2EHhhwh0+HN123Ru+8jEjfe1a9ez1+ztFnBZkUzvYyo+pXdQAXwYbDkOWeU2Tw7sSyYi4mbignK6aEjpnh9UtXsC/vITqM4UaN5duUVN/b/JORScKw2tBgINASParROqaqEfbzZL8m3OLHbR5pL4mMqwLLP/IoPZ1WoVKNgDDQPeEaax7N0zyOxudRTIFiLO2/3ave+6y7QCqm2fZ99eX9nC3NlUr3azjj7XU/CrYz1OxJxn7xSGkLgBNpG6ZIrxrAchBqMYkB93ZZn9en1fhr+/xb/0ovozLcWs1nypNoZqlUo8zuT+Wy/lJ0WSB+TbkDQKNiBuoHd1DPY+0d7mZ3C0XpPvSSdvzxE/OFldagb2V2lo967hb96GXZ/oxM0QHTNonulPbGfvippGwCNVJsDdJXpJ/fkjj37OBhxIaDOSPhYR3s3ry2+hL4Naby9Z+w8E+neIkhvNybQk/CKJXsIpAkhSyXRAgZftVkPWaKF9pT8pnHXJlyD/SZYnucp4itDnd7B0g3sxdIDhheWwQ/T+SeKXvjCDssukspi59CYDuN9rFd8dx8xnsL5HB5YE4NBFpR+kp8/WmvZ+xHPV3nekV2PNBg+k7oLGoznFO2CTnd715lTkUQ
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(136003)(366004)(396003)(39860400002)(376002)(83380400001)(186003)(8936002)(16526019)(31686004)(86362001)(316002)(4326008)(36756003)(8676002)(16576012)(31696002)(53546011)(6486002)(66946007)(54906003)(66476007)(26005)(6916009)(66556008)(478600001)(2616005)(956004)(2906002)(38100700002)(5660300002)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(366004)(346002)(39840400004)(136003)(396003)(83380400001)(6916009)(2906002)(31686004)(478600001)(6486002)(86362001)(5660300002)(31696002)(186003)(16576012)(2616005)(66946007)(36756003)(66476007)(54906003)(38100700002)(316002)(16526019)(956004)(26005)(8676002)(8936002)(66556008)(4326008)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData:
-	=?us-ascii?Q?/2TJvnJ9faWA/iGi76VnP45irqOez1ARaYk0cuFdptzvVKPO1+BaZzUuNxKY?=
- =?us-ascii?Q?7WTxyw0rWbG106i/C1B1KWBRKzJkSPkUD5Y82Szvy19XPERArAnc3ysSbg2S?=
- =?us-ascii?Q?HMN3idFxr9EoVkrozSsl9OF5xgKCZhVAK+iXudpiYMFQHmXbv/1qs+FGkz2N?=
- =?us-ascii?Q?PZaNSXSjJSUX+HaJMtQ5Y7YBBRGgARM/lzs0cY1OKPVDiURIoFww/J8PhP+W?=
- =?us-ascii?Q?bOl5uUXuP5tt8izTsdjHdYup3y+b7LAjX3ZgTnBKYHGFkr4xbz39K3dAtAIy?=
- =?us-ascii?Q?aBBISXjsgNkTaL5OiOMSPWpGyhtaZW6V9dW7q90QWwbiGfUxVebmO+FbuHw6?=
- =?us-ascii?Q?FbUSq0wT9qP454gkseI5JIPjeOKAvitSb9VMrw5POAKrZCwGdG6UwIdAPqTk?=
- =?us-ascii?Q?dOEmr0LzrYVwz5rwdcrbjJEc9qMErlnhPjkf1z4e6zAQJcwApL8/B3/NiCDo?=
- =?us-ascii?Q?M8PcGeyRAbumyaP+PttUYtbEQZI63AMTNjNxmpU2770IUXxm4jVEeWT2yWN/?=
- =?us-ascii?Q?bB87l6lrkkkWYGCAKfakZ1snUuTOTOnsehbUev1Iujs6dzS1m1KxCl3ovuCw?=
- =?us-ascii?Q?dTcNnuTL/P+w/MYZ5VqtLW4p9GmacX8GZVilOvdKYH4E3vUnWhkLpHAaDJN5?=
- =?us-ascii?Q?MVroDpcoyAgB0YYKMvVnHvAOYkeNGpFJcUx684sqQn5+4ryPMMTcHLfHazCj?=
- =?us-ascii?Q?EEQTEQ3M9SeYzD/T0BQonbex0oPU8VZB33m/ZMPZFkdT6wbETp6H534cJVfN?=
- =?us-ascii?Q?wRguOAj6wCcqYsGnJgsAR79wQOgGdzTWh+FPepNCUB5prYSuTNJIz9+e4QMY?=
- =?us-ascii?Q?mh9R+ysO2akombfEKwQKdmNw/+2Wa1+enDHilLeOgo+D+G9pZJYncmVuBMTc?=
- =?us-ascii?Q?vedDyg9RBanT5I0uI1gZt7ALMS+Dc5LJImy+XS6ztOjlYYco1iLg31NOMlRl?=
- =?us-ascii?Q?W1vYSGI0X0JKP9WI1QQKekQ/s/ufQ3c2v78titQlkq6Y40DlW6fB3H8aaGpj?=
- =?us-ascii?Q?uM/+za0VMND5VhMTbwxZ8vzGSLKKKoW/0n54bfdX5okgcZnRhGtgXXsN4ddu?=
- =?us-ascii?Q?hBgAHkCRnrYZ8UKycTFV2B97dgSR51ey6jVhSvFgu5j1RvwrlkNaEQnk5FRn?=
- =?us-ascii?Q?ZBzlAKp5oQ6UotFFDQQlcYPDzDNQuiN2HIF4mAiWmAiOSiJkXFKskE+RpFzk?=
- =?us-ascii?Q?i8uAz1IEvlC9FRxVUwiZOPqG0vED35Fnf66dB2TOeKvKt7l34IOFcHYG6afz?=
- =?us-ascii?Q?1eBxsXPVx2XSI5KrYq9MseqGkIo4NfHBkRgTN7LaTwROV7ErHhR4rrZvAfqG?=
- =?us-ascii?Q?QmMgwSvRbOnviDNM9CAyRlnu?=
+	=?us-ascii?Q?ZbhGTUZosnQsR4f/7/zgFTZM94N8y7GFSM83FHqDyNr/2XxyqK3/ghH9WTwX?=
+ =?us-ascii?Q?o+cMfF/Gz32VV+SC9X5TNYG7l88L9e8bzEyqkO08jwpWOyj8VSpz/t62E8Vg?=
+ =?us-ascii?Q?xYipIEXuExlp/8Y1zhfOVCbgs79z4kTQ44ek6vYwTvhLQCDhPbkhe3+EHcrq?=
+ =?us-ascii?Q?psz8qtdjqlKCuX2NlGNmwB78aQOuB5SB8vCCqFKiyFDfaoJcGkd85xCJe7I9?=
+ =?us-ascii?Q?/ZIeq5Pb7AZ2498KlY0iIKuWRu4GTDshn+9EDWpitCBUszkD7dCjVkkW2aOl?=
+ =?us-ascii?Q?F+mpDky5sxBpgOO54/ay84v4n/0nCng+Iso0kNNpZc2RLWXDHV0s5BjbVSrC?=
+ =?us-ascii?Q?OV/+GJa1jby0ePY8vZQwrUrdXr2qCsqgCW0QF9XRC6vuQpRX1VYGEDMC5+DJ?=
+ =?us-ascii?Q?R8sPBa0aS2bM82g7e9jMjEBUuBzl47FyYXzGlkRozTgh6ixkJebVq3RCyoxl?=
+ =?us-ascii?Q?laRBYhMx4YYBrn2lWkdLoncg7l/K1dI5lYAkqXX+wdf37GpA8xoNbXcxo51F?=
+ =?us-ascii?Q?RazWjw6PlgTDkMahmio5sXD1hZdt/UnTQbCLAjCWdDKrf3+Ny3nVKqZ/qg98?=
+ =?us-ascii?Q?u8mWsZ3e32ziL+PA2jhlMsE2YO2hIBLPW+8k8756pAwfQQW7f8HC2jeVsibh?=
+ =?us-ascii?Q?xLfFZwnxaqzK+7O/0BJDFNKxHNa3PqtpGE7W4d3nL08gz2n90nSsOQDNu7UV?=
+ =?us-ascii?Q?xl53AjUzreQyTaQ9Hr5WGHyAhzef7yOMgRV8GOvxvPHoOdhyhtduMS0RTKfs?=
+ =?us-ascii?Q?0sQXEiF2PURAhElaEgFg0WGzXJ5sbHMTreeMbVEcfalQubBJ/bO8ClwXGDe8?=
+ =?us-ascii?Q?BTbxNKlslEnxadBquuOVSPqsC/6Mr3z4MhRnLOuGFJV9SFGQ2SLWVd5+/Rnm?=
+ =?us-ascii?Q?isvgaNjaEfCVIZHZ0g99LOMI2TOzvkeza7UARLXUobArg93sp9h/dbXgc3k8?=
+ =?us-ascii?Q?1V+d6wKpghkoaD+iBNgDpq0Jus19prcxpxp2kl4XlCTyTRf/YkmJey56tX8D?=
+ =?us-ascii?Q?mJsEU4C+7LFeaJXzWn2QjsKi7tlJAhth9oQES4xbBHH4BrEXLahyyYhGQ9NK?=
+ =?us-ascii?Q?arjbjgxTf4ostVWYmMdt07DXMVPZAHOEtterOswpnqRTko/MjLSm5sTRdPUd?=
+ =?us-ascii?Q?i+Z8BFjYg8fbM6nb7chMvb8O2MCiC5bXEtq9KuZ2WVvBVmpi+OywwgOPlQIF?=
+ =?us-ascii?Q?0GTJkr8h+4q3Q3/mrcTA/Eh37UjUQkmAXHd41UYR9sQ9kcRO/x2CUF92ymf1?=
+ =?us-ascii?Q?3tDNFWo74/JL0cR2UmLYuKqRwHqLOFw3nYa8GiP7LrzViXYOh9asfIHPAWyh?=
+ =?us-ascii?Q?+HRNTXON1USUWiq2FKHgPAVR?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80b7ebd6-3e91-454f-9ed6-08d92c07917f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08d67d98-169c-4ec5-c493-08d92c0ab615
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2021 12:02:06.8668
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2021 12:24:36.7540
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nTo2xxdBtiEAJ/IJahV8/GDW8n7i/37+WULG4J+k9LnSDghK1iqRtjHbjMBw17fAyZrfrgIGPdQ8W84zlQyk/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6175
+X-MS-Exchange-CrossTenant-UserPrincipalName: b0ZRbgfmWI70jYTZxwn9m0wMXE4UtO9r1iI1YRDDGwSajjP8eIsWJPD2O9mb37k8wTqv8M6FVOzNn/HpXTMt1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3935
 
-On 10.06.2021 13:45, Oleksandr Andrushchenko wrote:
-> Hi, Jan!
+On 09.06.2021 12:36, Andrew Cooper wrote:
+> On 09/06/2021 10:26, Jan Beulich wrote:
+>> The present abuse of the completion interrupt does not only stand in the
+>> way of, down the road, using it for its actual purpose, but also
+>> requires holding the IOMMU lock while waiting for command completion,
+>> limiting parallelism and keeping interrupts off for non-negligible
+>> periods of time. Have the IOMMU do an ordinary memory write instead of
+>> signaling an otherwise disabled interrupt (by just updating a status
+>> register bit).
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Reviewed-by: Paul Durrant <paul@xen.org>
 >=20
-> On 10.06.21 13:48, Jan Beulich wrote:
->> On 10.06.2021 12:01, Oleksandr Andrushchenko wrote:
->>> On 10.06.21 10:54, Roger Pau Monn=C3=A9 wrote:
->>>> OTOH if we properly trap accesses to the SR-IOV capability (like it
->>>> was proposed in [1] from your references) we won't have to modify OSes
->>>> that want to run as hardware domains in order to handle SR-IOV devices=
-.
->>> Out of curiosity, could you please name a few? I do understand that
->>>
->>> we do want to support unmodified OSes and this is indeed important.
->>>
->>> But, still what are the other OSes which do support Xen + PCI passthrou=
-gh?
->> I think Roger saying "want" meant to cover ones which currently don't,
->> and which would have to undergo more extensive changes if they were to
->> be enabled.
+> While I agree with the direction of the patch, some of the details could
+> do with improvement.
 >=20
-> Fair enough. Do you think we would also need to re-work the existing code
+>>
+>> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+>> @@ -20,6 +20,9 @@
+>>  #include "iommu.h"
+>>  #include "../ats.h"
+>> =20
+>> +#define CMD_COMPLETION_INIT 0
+>> +#define CMD_COMPLETION_DONE 1
+>> +
+>>  static void send_iommu_command(struct amd_iommu *iommu,
+>>                                 const uint32_t cmd[4])
+>>  {
+>> @@ -49,28 +52,31 @@ static void send_iommu_command(struct am
+>>  static void flush_command_buffer(struct amd_iommu *iommu,
+>>                                   unsigned int timeout_base)
+>>  {
+>> +    static DEFINE_PER_CPU(uint64_t, poll_slot);
+>> +    uint64_t *this_poll_slot =3D &this_cpu(poll_slot);
+>> +    paddr_t addr =3D virt_to_maddr(this_poll_slot);
+>>      uint32_t cmd[4];
+>>      s_time_t start, timeout;
+>>      static unsigned int __read_mostly threshold =3D 1;
+>> =20
+>> -    /* RW1C 'ComWaitInt' in status register */
+>> -    writel(IOMMU_STATUS_COMP_WAIT_INT,
+>> -           iommu->mmio_base + IOMMU_STATUS_MMIO_OFFSET);
+>> -
+>> -    /* send an empty COMPLETION_WAIT command to flush command buffer */
+>> -    cmd[3] =3D cmd[2] =3D 0;
+>> -    set_field_in_reg_u32(IOMMU_CMD_COMPLETION_WAIT, 0,
+>> +    ACCESS_ONCE(*this_poll_slot) =3D CMD_COMPLETION_INIT;
+>> +
+>> +    /* send a COMPLETION_WAIT command to flush command buffer */
+>> +    cmd[0] =3D addr;
+>> +    set_field_in_reg_u32(IOMMU_CONTROL_ENABLED, cmd[0],
+>> +                         IOMMU_COMP_WAIT_S_FLAG_MASK,
+>> +                         IOMMU_COMP_WAIT_S_FLAG_SHIFT, &cmd[0]);
 >=20
-> in Xen to support normal devices (not SR-IOV), e.g. we currently rely on
+> set_field_in_reg_u32() is a disaster of a function - both in terms of
+> semantics, and code gen - and needs to be purged from the code.
 >=20
-> PHYSDEVOP_XXX and other Linux specifics.
+> It is a shame we don't have a real struct for objects in the command
+> buffer, but in lieu of that, this is just
+>=20
+> =C2=A0=C2=A0=C2=A0 cmd[0] =3D addr | IOMMU_COMP_WAIT_S_FLAG_MASK;
+>=20
+> which is the direction that previous cleanup has gone.
+>=20
+> There are no current users of IOMMU_COMP_WAIT_S_FLAG_SHIFT, and ...
+>=20
+>> +    cmd[1] =3D addr >> 32;
+>> +    set_field_in_reg_u32(IOMMU_CMD_COMPLETION_WAIT, cmd[1],
+>>                           IOMMU_CMD_OPCODE_MASK,
+>>                           IOMMU_CMD_OPCODE_SHIFT, &cmd[1]);
+>> -    set_field_in_reg_u32(IOMMU_CONTROL_ENABLED, 0,
+>> -                         IOMMU_COMP_WAIT_I_FLAG_MASK,
+>> -                         IOMMU_COMP_WAIT_I_FLAG_SHIFT, &cmd[0]);
+>=20
+> ... this drops the final use of IOMMU_COMP_WAIT_I_FLAG_SHIFT, so both
+> should be dropped.
+>=20
+> As for IOMMU_CMD_OPCODE_SHIFT, that can't be dropped yet, but it would
+> still be better to use
+>=20
+> =C2=A0=C2=A0=C2=A0 cmd[1] =3D (addr >> 32) | MASK_INSR(IOMMU_CMD_COMPLETI=
+ON_WAIT,
+> IOMMU_CMD_COMPLETION_WAIT);
+>=20
+> in the short term.
 
-Yes, work in that area would also be needed. For example we'd need to
-scan buses / segments as they become accessible. Right now we only scan
-segment 0, and even that's only possible because on x86 mmconfig is not
-the only way to access config space.
+Okay, this conversion has indeed saved a single
 
-> And even if SR-IOV is implemented
->=20
-> in Xen this won't allow those OSes to stay unmodified, including FreeBSD.
+	and	$0x0FFFFFFF, %eax
 
-Of course, it's the nature of PVH (as opposed to HVM) that OSes need
-modification. The question is the scope thereof.
+But we're down by two set_field_in_reg_u32() now; only some 30 left.
 
 Jan
 
