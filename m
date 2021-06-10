@@ -2,39 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE323A28AB
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 11:47:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.139783.258399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84E623A28B3
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jun 2021 11:49:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.139789.258412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrHHf-0004CB-OX; Thu, 10 Jun 2021 09:47:31 +0000
+	id 1lrHJG-0004ok-4V; Thu, 10 Jun 2021 09:49:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 139783.258399; Thu, 10 Jun 2021 09:47:31 +0000
+Received: by outflank-mailman (output) from mailman id 139789.258412; Thu, 10 Jun 2021 09:49:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrHHf-00049B-LT; Thu, 10 Jun 2021 09:47:31 +0000
-Received: by outflank-mailman (input) for mailman id 139783;
- Thu, 10 Jun 2021 09:47:30 +0000
+	id 1lrHJG-0004mG-0i; Thu, 10 Jun 2021 09:49:10 +0000
+Received: by outflank-mailman (input) for mailman id 139789;
+ Thu, 10 Jun 2021 09:49:08 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Xc/=LE=redhat.com=vkuznets@srs-us1.protection.inumbo.net>)
- id 1lrHHe-000495-NV
- for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 09:47:30 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 02c1632c-9a8d-4d37-8018-41c79d12818a;
- Thu, 10 Jun 2021 09:47:29 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-586--wodb-1MMF6U25U78ezhWA-1; Thu, 10 Jun 2021 05:47:27 -0400
-Received: by mail-wm1-f71.google.com with SMTP id
- o82-20020a1ca5550000b029019ae053d508so2851437wme.6
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jun 2021 02:47:27 -0700 (PDT)
-Received: from vitty.brq.redhat.com (g-server-2.ign.cz. [91.219.240.2])
- by smtp.gmail.com with ESMTPSA id x125sm2708442wmg.37.2021.06.10.02.47.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jun 2021 02:47:25 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iP0d=LE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lrHJE-0004mA-ON
+ for xen-devel@lists.xenproject.org; Thu, 10 Jun 2021 09:49:08 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1c676d11-95af-4097-ae64-13aea946c175;
+ Thu, 10 Jun 2021 09:49:07 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2112.outbound.protection.outlook.com [104.47.17.112])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-33-3ZnUP_CJObmNmbl8f2_10Q-1; Thu, 10 Jun 2021 11:49:05 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2333.eurprd04.prod.outlook.com (2603:10a6:800:28::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.29; Thu, 10 Jun
+ 2021 09:49:04 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.022; Thu, 10 Jun 2021
+ 09:49:04 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4a::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4242.9 via Frontend Transport; Thu, 10 Jun 2021 09:49:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,438 +53,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02c1632c-9a8d-4d37-8018-41c79d12818a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1623318449;
+X-Inumbo-ID: 1c676d11-95af-4097-ae64-13aea946c175
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1623318546;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6SOXwaEoB1r4wx6rBI6iO/FkwbNbkxuPQhDm99+pms4=;
-	b=DxUbaHr+IR2BJrfcV3lRRTsDMkQD3Eq+/l/GWK74HGbPDkk0sCtsNtCYoH994aTx6IsdIn
-	dl0ESmKY1Is3DZIZJ5YIBKh/oxvDt2K6h3vrSCllkGU9/54XcYuaiBHHu3PSh+UhfMVTOE
-	PegkkPomB14HicD7aUhJrSSyiUbDWRU=
-X-MC-Unique: -wodb-1MMF6U25U78ezhWA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
-         :message-id:mime-version;
-        bh=6SOXwaEoB1r4wx6rBI6iO/FkwbNbkxuPQhDm99+pms4=;
-        b=cBNQR+Xyo0mKLeptCBCf/KE65GeTHXuqOn0qRSNWybi773tWRd2wTBp35HscgQAkQT
-         ixEjZFjeYcgWx0QBcDvx6OZq6PYBpZzecFOkuGg4fm/Nl/vWvdNUCFW54GV6eP8k8KgD
-         mjIVjTgf8cSNilVUJkV7d8RjjdHZx+p57FS24/iOQStFx1ycmuv5/xYWaFqYVqoNBppr
-         i08V299oLP1bgE4DfmJVQ+AAlrXzVDuAoRtW4JwrXv1VAavOUcMoL8uzNc79zohHBbcE
-         QOHPNovyrIY06nuqEH8BKr90Upv3l8LlAXz9DQP4SLY6+S4JQwRyezUpJdnj4r1ID6Tv
-         SvAg==
-X-Gm-Message-State: AOAM5315BzTWw7vPOS6FzBwaMj9fyU9UP0SJ0v5tu4kuyHoRdgn/01Lb
-	HVzLaFDVkL71NwkJ9xP+kP6WW8N64RfnAhgCAUPRN9Mo53GQRyUzqTJwc2Di+ahDU0j0bH/xMhP
-	VRSoY8KNT1HSZykXlw6JbSiqqHHY=
-X-Received: by 2002:a5d:6a02:: with SMTP id m2mr4390681wru.77.1623318446697;
-        Thu, 10 Jun 2021 02:47:26 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx2dUezxzGYnsl/xPnZ5DutUwwD8Qpsl170CTiWMTdnHNIbMR6YpxqB5Zb+USUdHAJsBsFR8g==
-X-Received: by 2002:a5d:6a02:: with SMTP id m2mr4390649wru.77.1623318446473;
-        Thu, 10 Jun 2021 02:47:26 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Tianyu Lan <ltykernel@gmail.com>, kys@microsoft.com,
- haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, arnd@arndb.de, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
- kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
- cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
- Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, hch@lst.de,
- m.szyprowski@samsung.com, robin.murphy@arm.com,
- boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
- joro@8bytes.org, will@kernel.org, xen-devel@lists.xenproject.org,
- davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
- martin.petersen@oracle.com
-Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
- thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
-Subject: Re: [RFC PATCH V3 03/11] x86/Hyper-V: Add new hvcall guest address
- host visibility support
-In-Reply-To: <20210530150628.2063957-4-ltykernel@gmail.com>
-References: <20210530150628.2063957-1-ltykernel@gmail.com>
- <20210530150628.2063957-4-ltykernel@gmail.com>
-Date: Thu, 10 Jun 2021 11:47:23 +0200
-Message-ID: <878s3iyrtg.fsf@vitty.brq.redhat.com>
+	bh=ZrWb6uhs+xIbu8V1eJhmX0UnPGTxkFdKLE4tq8T6iho=;
+	b=hW6wS3EryyjXhxx7driX7MxbsMLVwL0pKY1Np3lCC3REe1ESsflIjkE9Umajp3ZjMFmp8n
+	YR63Nb/yGgEioLocD1/ReqUPiB+tzAAaK4efWxcNZb7duXT4iKHI5cOvb3XFL7KWKul7A3
+	yxmbvgjM02bF17GBr1cvdGpvbl/IERc=
+X-MC-Unique: 3ZnUP_CJObmNmbl8f2_10Q-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I5KvKPKR1F21iYqju82ynCLSwyo5OFELbVIhmh2ZY/ZaOvmRv6MpL+3w3fyK7kwjJy0N4GdTx0tHtuYvC27w+Pkvaj5v1YPDQWOIUXX7GvGQ8z6njwVwE+/wKl75yHvq6S6Wbx+y64W84nTw07DlhaR9EcPMY8E00Ynw0HHKQAsMjgyEQaKmjnOeyt723sXWhUZ1CI/1GnwQuHwW963Sz5aaVAaC/aAW6cOrpqf8NxwauXurSVsZ2rkL3eV14BxEZv/XxPjWD9OggpnBf3asGg3hDqHm36HDcrSd+mcmd1O1weu/t/Rw7r8ClLH8U/C3GLLpXEI73G7dAhDuU/07Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZrWb6uhs+xIbu8V1eJhmX0UnPGTxkFdKLE4tq8T6iho=;
+ b=LsQglGjQ4/19ow/ADOWdKHF37PMGDaxNRfWBOFW0+NOJX5nfMF3oICnBvK3aV6lOHX7ToeF3rKkibPT0eih3dDuNzhIo3yRjKL2UVXC1N3whwWSJHKLrotnnRO1IPALFRxzVSCKYDIZHh85oyy7YfZCLjiU0n6RJb16S6O8jNaAYx8rfAAXc8WE1ks+/xJFYqtb+T/cMgUce98z75c6plnABeTik4BcsjUEJ7gPF4Vt8pPPnRPVtSyva0lyjrIxSZAZ2FaXVD9EI/BOjWG/sIPewIrpMDgYrb/WV59RvqfTet+sp+jaWOJdXGIYY+TSWLBJGR/ccHpBQJiGej/LMAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+Subject: Re: [PATCH 5/9] xen: introduce assign_pages_nr
+To: Penny Zheng <penny.zheng@arm.com>
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
+ xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
+References: <20210607024318.3988467-1-penny.zheng@arm.com>
+ <20210607024318.3988467-6-penny.zheng@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <41a7389b-630c-6cf4-fa28-7d80cb79176b@suse.com>
+Date: Thu, 10 Jun 2021 11:49:04 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210607024318.3988467-6-penny.zheng@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [37.24.206.209]
+X-ClientProxiedBy: FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::12) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=vkuznets@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b870ddec-4941-4a90-6d72-08d92bf4fba8
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2333:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB2333E7F08D1EE67967ED18CAB3359@VI1PR0401MB2333.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	o4pvImjm9xdNSjlb9KU3TAoMSQIJCeTbNiE90SaTmHputqwps7kRxX6wfKb0FR64wJtiztW9p+meZ7+iOCan+gR0hUArqBE+WQMNB3jZwvkqlkUm3PW7TlxymJC92BWXRxR04Pi6IxMow1PiE+Gw1hqnVlk9VkGKbfIbwzvrqfRLYwc8OTfYSeMDdEXKMZAbCY0bVCx6BdNmREyJIP8P6Q8xvnsBNCmlKUNJWDxXl+hJsPMsKb3ujgshVfSu4WUae5NxtG8gsidBkR1cT9o/7Vo3JuR40YzdDkaL5+p1O7go+QRoHY82Vy1ZsibMIaUny4b4hMH4jIfH1Lp9GmS6NX5G2WdA3zR8khqSqSPd56+oBI2vwR7KkRKvkjo35lqKHVezTgKgF4iAi/VRjYjAEPYCuKco4ukimJ2ZLM8BTXDxTS7/c1qmfh8xswpgO8LEat4MtnNFkNzOH5JN6bes70IW4OsUNmoFzNlDOR+fcKdvIGfwkn2zBoS2vokNlUgztZwnmAbWt89k9mPQL5/BNRpOXC1N9ta6mvVoqvTM64gxoNoWdjOAqRvIoWi5nhnK1uheYNWENf1V0Zo7/+34b6Kwdk2eVcPqmJKUNO8fGR0czL+2ikHeqQx5iKkcdltOLDreWBhRiljR2Y7E5YTI0ORLG4U58Ccp2IcbIIkUsKG+15MWn/M79fiUvaTo/KVT
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(376002)(346002)(39850400004)(396003)(136003)(186003)(86362001)(5660300002)(316002)(16576012)(38100700002)(53546011)(6916009)(31696002)(16526019)(8936002)(2906002)(66556008)(4326008)(8676002)(956004)(36756003)(31686004)(2616005)(66476007)(6486002)(66946007)(83380400001)(478600001)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData:
+	=?utf-8?B?RmY0UmpKYlhFRU9hUWsyZFBDb3R1NnJZWmUyVUo2SXNhNnArNitMcmtiUzcx?=
+ =?utf-8?B?UGV3eXM0ZzVpOVM0WTJ2ZkdhanFQOW03SklZTUpZaFNzUzZWOHNUcDBaYkYx?=
+ =?utf-8?B?cm92bXRCb0VzRW9OR3pxT1I4b3htTFRKWitzZjJQNGJGa1JyOG11MnA4TklW?=
+ =?utf-8?B?YjZ6VEpTVkltZmRNa0RlMWtRTy8zV3ROZ0lVOGM3WWdSc282SjIwSUowdDBD?=
+ =?utf-8?B?aERKcFJ0SWgza0dvdzRTZEZ1U2pWNTJKdE9VNEtaWDhTbFBmdDhuRnpBL3NP?=
+ =?utf-8?B?NnAwU2wxYjV5L2ZpS0QzODEwQnYrYzFjc0lnZlMzeWI2RkF1WDdkOE45WXAx?=
+ =?utf-8?B?R3J3aWlrSHV2bkVsZjZBZ21qTDR5aXB0NUpQUE5YbzE5bzNNcEFsM0xocFFU?=
+ =?utf-8?B?a01TTTVQRE9rMGQ4MkRqMWtPZnRaeFkzZGNZaTVFWDlVNGtjRTYwWU9FQlAx?=
+ =?utf-8?B?QlJBaXRxdFNGQUlKTFZYRGRXWVVjRjQ1V0hiZUZFU3lTc1Jrem9MS0h2WnJr?=
+ =?utf-8?B?Y3Z2SFR5dEVObE9oaU4zZlcwaWQ0SlNnM1hPZ2dRaWt1c1Z5N3kxbTBHajBO?=
+ =?utf-8?B?TjR0WlZhMHVOSkFjSEZhUlVOUkw1M3Rud2dTYUptZkFLUUdVN0tLZGJzVHQz?=
+ =?utf-8?B?dldwWTFXVmEwbDVidWc3dWlRZkIyczdtMGc3VXBEaVpmczZSd09YSFJOa09j?=
+ =?utf-8?B?c2VnV3BranM4cU5FZFdhNUtBWTNCbGorWU0wZytnZHFNUjd3WHg3YzlWNUZ0?=
+ =?utf-8?B?SHNGWWVIc0V0WWlMUndsT3VtbjNyZkRqejZBeE4xTG4yZ3FhbjdwT2NvUFFZ?=
+ =?utf-8?B?a2Iwd1BrZEl0SmhLV2RxbnRmdkZid1BiSHFPMVFCak9MWVliYW1NL2s3ZHNB?=
+ =?utf-8?B?STVNVmJmdThRaGx3TSs5WVZDQW94M24zTVYxcytOY1RjMDZyQ0Z2Nmhic0RT?=
+ =?utf-8?B?NE1lbXgvRXBqazBQNjBlYythWGV6akFuVUF0QmI3Y1dXWklFRmlwbTdqdVp0?=
+ =?utf-8?B?NlVqS1c4Z2lRQk15WE1jMkdrS2t3OXR2VVhmUUdtdElGd3BhU1praGtUVjV0?=
+ =?utf-8?B?SE1XMC9FRHRna0VtcUdnTW13TWt5UC8raUt6MWg4STFrSjl2eGhHVnh1b3lm?=
+ =?utf-8?B?U2c3cTJkbUtlWktPZ2Z4MTd5b1hRZDUwMXFJbkNKUW9WdlZlVmF2am0rOUE0?=
+ =?utf-8?B?d04yRTR2bGN2dm55aE11K1RtVU1MNFR1VEVpVW5BSCtkYkNKV203ZC9rMlZk?=
+ =?utf-8?B?S0hEUmZrSzBkaWVhWmNSL3NKdDFHWGY2cTh3SUhnL0VZL3g1NGQ2MUduNEY0?=
+ =?utf-8?B?ek81ZUFUakprSGNLTlc2SVRRR1IzdXlNam9UdzRmQ3BMa3MydVBHMWRyT1pm?=
+ =?utf-8?B?NkdFRy9FaWFTclRYT3pwOXN4YkYyZE1rTzM4dzJYcTdRWDhoZUdvcUlEeGpW?=
+ =?utf-8?B?STQ1OXB5YUJWMnIvTzVlaG9TQW1jU3RMR2d4TmtTQ3Z2WFRLdzNVMnM3MDh0?=
+ =?utf-8?B?Rk83L2Nkczg4TmJ2bTdIbzNITGpkVGhNTTBTOXZZM3NDK0hjSEdnL2dFOWVR?=
+ =?utf-8?B?UDVPTTRpNlNyVVlkbDhBTjk2N0NYNU9Td1hBMENHZmVab2JleXh6bmhJZ3pj?=
+ =?utf-8?B?YUw2ZHFMYVIyTThmYTlrM3VUSUtIVVdhOHBGVEM0emlpNEtGSExKTk15U0dk?=
+ =?utf-8?B?U0NQTnVxSjVZa0lkeER0MUNhSGdzWEFnMmc3aFBaNmNqZDREVlVmd2FwOW1l?=
+ =?utf-8?Q?yxOMXAuPWX7uJ2VoFvmyHz2nOd7u9Vzh0IoQBj+?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b870ddec-4941-4a90-6d72-08d92bf4fba8
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2021 09:49:04.4999
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t9IET/Zl4YNKnGpsRQpaIpcpu3OWrQ/0R9XUYAZavPbpNmXG4hGHBZwB2wa6RDXc+I83ImdnmkRI2hI5++QzZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2333
 
-Tianyu Lan <ltykernel@gmail.com> writes:
+On 07.06.2021 04:43, Penny Zheng wrote:
+> Introduce new interface assign_pages_nr to deal with when page number is
+> not in a power-of-two, which will save the trouble each time user needs
+> to split the size in a power of 2 to use assign_pages.
 
-> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
->
-> Add new hvcall guest address host visibility support. Mark vmbus
-> ring buffer visible to host when create gpadl buffer and mark back
-> to not visible when tear down gpadl buffer.
->
-> Co-developed-by: Sunil Muthuswamy <sunilmut@microsoft.com>
-> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
-> ---
->  arch/x86/hyperv/Makefile           |   2 +-
->  arch/x86/hyperv/ivm.c              | 106 +++++++++++++++++++++++++++++
->  arch/x86/include/asm/hyperv-tlfs.h |  24 +++++++
->  arch/x86/include/asm/mshyperv.h    |   4 +-
->  arch/x86/mm/pat/set_memory.c       |  10 ++-
->  drivers/hv/channel.c               |  38 ++++++++++-
->  include/asm-generic/hyperv-tlfs.h  |   1 +
->  include/linux/hyperv.h             |  10 +++
->  8 files changed, 190 insertions(+), 5 deletions(-)
->  create mode 100644 arch/x86/hyperv/ivm.c
->
-> diff --git a/arch/x86/hyperv/Makefile b/arch/x86/hyperv/Makefile
-> index 48e2c51464e8..5d2de10809ae 100644
-> --- a/arch/x86/hyperv/Makefile
-> +++ b/arch/x86/hyperv/Makefile
-> @@ -1,5 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> -obj-y			:= hv_init.o mmu.o nested.o irqdomain.o
-> +obj-y			:= hv_init.o mmu.o nested.o irqdomain.o ivm.o
->  obj-$(CONFIG_X86_64)	+= hv_apic.o hv_proc.o
->  
->  ifdef CONFIG_X86_64
-> diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
-> new file mode 100644
-> index 000000000000..fad1d3024056
-> --- /dev/null
-> +++ b/arch/x86/hyperv/ivm.c
-> @@ -0,0 +1,106 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Hyper-V Isolation VM interface with paravisor and hypervisor
-> + *
-> + * Author:
-> + *  Tianyu Lan <Tianyu.Lan@microsoft.com>
-> + */
-> +
-> +#include <linux/hyperv.h>
-> +#include <linux/types.h>
-> +#include <linux/bitfield.h>
-> +#include <asm/io.h>
-> +#include <asm/mshyperv.h>
-> +
-> +/*
-> + * hv_mark_gpa_visibility - Set pages visible to host via hvcall.
-> + *
-> + * In Isolation VM, all guest memory is encripted from host and guest
-> + * needs to set memory visible to host via hvcall before sharing memory
-> + * with host.
-> + */
-> +int hv_mark_gpa_visibility(u16 count, const u64 pfn[], u32 visibility)
-> +{
-> +	struct hv_gpa_range_for_visibility **input_pcpu, *input;
-> +	u16 pages_processed;
-> +	u64 hv_status;
-> +	unsigned long flags;
-> +
-> +	/* no-op if partition isolation is not enabled */
-> +	if (!hv_is_isolation_supported())
-> +		return 0;
-> +
-> +	if (count > HV_MAX_MODIFY_GPA_REP_COUNT) {
-> +		pr_err("Hyper-V: GPA count:%d exceeds supported:%lu\n", count,
-> +			HV_MAX_MODIFY_GPA_REP_COUNT);
-> +		return -EINVAL;
-> +	}
-> +
-> +	local_irq_save(flags);
-> +	input_pcpu = (struct hv_gpa_range_for_visibility **)
-> +			this_cpu_ptr(hyperv_pcpu_input_arg);
-> +	input = *input_pcpu;
-> +	if (unlikely(!input)) {
-> +		local_irq_restore(flags);
-> +		return -EINVAL;
-> +	}
-> +
-> +	input->partition_id = HV_PARTITION_ID_SELF;
-> +	input->host_visibility = visibility;
-> +	input->reserved0 = 0;
-> +	input->reserved1 = 0;
-> +	memcpy((void *)input->gpa_page_list, pfn, count * sizeof(*pfn));
-> +	hv_status = hv_do_rep_hypercall(
-> +			HVCALL_MODIFY_SPARSE_GPA_PAGE_HOST_VISIBILITY, count,
-> +			0, input, &pages_processed);
-> +	local_irq_restore(flags);
-> +
-> +	if (!(hv_status & HV_HYPERCALL_RESULT_MASK))
-> +		return 0;
-> +
-> +	return hv_status & HV_HYPERCALL_RESULT_MASK;
-> +}
-> +EXPORT_SYMBOL(hv_mark_gpa_visibility);
-> +
-> +/*
-> + * hv_set_mem_host_visibility - Set specified memory visible to host.
-> + *
-> + * In Isolation VM, all guest memory is encrypted from host and guest
-> + * needs to set memory visible to host via hvcall before sharing memory
-> + * with host. This function works as wrap of hv_mark_gpa_visibility()
-> + * with memory base and size.
-> + */
-> +int hv_set_mem_host_visibility(void *kbuffer, size_t size,
-> +			       enum vmbus_page_visibility visibility)
-> +{
-> +	int pagecount = size >> HV_HYP_PAGE_SHIFT;
-> +	u64 *pfn_array;
-> +	int ret = 0;
-> +	int i, pfn;
-> +
-> +	if (!hv_is_isolation_supported())
-> +		return 0;
-> +
-> +	pfn_array = vzalloc(HV_HYP_PAGE_SIZE);
-> +	if (!pfn_array)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0, pfn = 0; i < pagecount; i++) {
-> +		pfn_array[pfn] = virt_to_hvpfn(kbuffer + i * HV_HYP_PAGE_SIZE);
-> +		pfn++;
-> +
-> +		if (pfn == HV_MAX_MODIFY_GPA_REP_COUNT || i == pagecount - 1) {
-> +			ret |= hv_mark_gpa_visibility(pfn, pfn_array, visibility);
-> +			pfn = 0;
-> +
-> +			if (ret)
-> +				goto err_free_pfn_array;
-> +		}
-> +	}
-> +
-> + err_free_pfn_array:
-> +	vfree(pfn_array);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(hv_set_mem_host_visibility);
-> +
-> diff --git a/arch/x86/include/asm/hyperv-tlfs.h b/arch/x86/include/asm/hyperv-tlfs.h
-> index 606f5cc579b2..632281b91b44 100644
-> --- a/arch/x86/include/asm/hyperv-tlfs.h
-> +++ b/arch/x86/include/asm/hyperv-tlfs.h
-> @@ -262,6 +262,17 @@ enum hv_isolation_type {
->  #define HV_X64_MSR_TIME_REF_COUNT	HV_REGISTER_TIME_REF_COUNT
->  #define HV_X64_MSR_REFERENCE_TSC	HV_REGISTER_REFERENCE_TSC
->  
-> +/* Hyper-V GPA map flags */
-> +#define HV_MAP_GPA_PERMISSIONS_NONE            0x0
-> +#define HV_MAP_GPA_READABLE                    0x1
-> +#define HV_MAP_GPA_WRITABLE                    0x2
-> +
-> +enum vmbus_page_visibility {
-> +	VMBUS_PAGE_NOT_VISIBLE = 0,
-> +	VMBUS_PAGE_VISIBLE_READ_ONLY = 1,
-> +	VMBUS_PAGE_VISIBLE_READ_WRITE = 3
-> +};
-> +
+First of all I still don't see why in this one special case it is a
+meaningful burden to do the count-to-order conversion in the caller you
+mean to add, and hence why we really need this new function (to keep it
+simple, you could even have the caller not break down to arbitrary
+power-of-2 chunks, but simply iterate over all individual [order-0]
+pages). The more that I'm not happy with the chosen name, despite it
+having been suggested during v1 review. _If_ we needed two functions,
+imo they ought to be named assign_page() (dealing with a single page of
+the given order) and assign_pages(). Backporting confusion could be
+helped by altering the order of parameters, such that the compiler
+would point out that adjustments at call sites are needed.
 
-Why do we need both flags and the enum? I don't see HV_MAP_GPA_* being
-used anywhere and VMBUS_PAGE_VISIBLE_READ_WRITE looks like
-HV_MAP_GPA_READABLE | HV_MAP_GPA_WRITABLE.
+Irrespective of this a few remarks on the code change itself:
 
-As this is used to communicate with the host, I'd suggest to avoid using
-enum and just use flags everywhere.
-
->  /*
->   * Declare the MSR used to setup pages used to communicate with the hypervisor.
->   */
-> @@ -561,4 +572,17 @@ enum hv_interrupt_type {
->  
->  #include <asm-generic/hyperv-tlfs.h>
->  
-> +/* All input parameters should be in single page. */
-> +#define HV_MAX_MODIFY_GPA_REP_COUNT		\
-> +	((PAGE_SIZE / sizeof(u64)) - 2)
-> +
-> +/* HvCallModifySparseGpaPageHostVisibility hypercall */
-> +struct hv_gpa_range_for_visibility {
-> +	u64 partition_id;
-> +	u32 host_visibility:2;
-> +	u32 reserved0:30;
-> +	u32 reserved1;
-> +	u64 gpa_page_list[HV_MAX_MODIFY_GPA_REP_COUNT];
-> +} __packed;
-> +
->  #endif
-> diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyperv.h
-> index aeacca7c4da8..6af9d55ffe3b 100644
-> --- a/arch/x86/include/asm/mshyperv.h
-> +++ b/arch/x86/include/asm/mshyperv.h
-> @@ -194,7 +194,9 @@ struct irq_domain *hv_create_pci_msi_domain(void);
->  int hv_map_ioapic_interrupt(int ioapic_id, bool level, int vcpu, int vector,
->  		struct hv_interrupt_entry *entry);
->  int hv_unmap_ioapic_interrupt(int ioapic_id, struct hv_interrupt_entry *entry);
-> -
-> +int hv_mark_gpa_visibility(u16 count, const u64 pfn[], u32 visibility);
-> +int hv_set_mem_host_visibility(void *kbuffer, size_t size,
-> +			       enum vmbus_page_visibility visibility);
->  #else /* CONFIG_HYPERV */
->  static inline void hyperv_init(void) {}
->  static inline void hyperv_setup_mmu_ops(void) {}
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index 156cd235659f..a82975600107 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -29,6 +29,8 @@
->  #include <asm/proto.h>
->  #include <asm/memtype.h>
->  #include <asm/set_memory.h>
-> +#include <asm/hyperv-tlfs.h>
-> +#include <asm/mshyperv.h>
->  
->  #include "../mm_internal.h"
->  
-> @@ -1986,8 +1988,14 @@ static int __set_memory_enc_dec(unsigned long addr, int numpages, bool enc)
->  	int ret;
->  
->  	/* Nothing to do if memory encryption is not active */
-> -	if (!mem_encrypt_active())
-> +	if (hv_is_isolation_supported()) {
-> +		return hv_set_mem_host_visibility((void *)addr,
-> +				numpages * HV_HYP_PAGE_SIZE,
-> +				enc ? VMBUS_PAGE_NOT_VISIBLE
-> +				: VMBUS_PAGE_VISIBLE_READ_WRITE);
-> +	} else if (!mem_encrypt_active()) {
->  		return 0;
-> +	}
->  
->  	/* Should not be working on unaligned addresses */
->  	if (WARN_ONCE(addr & ~PAGE_MASK, "misaligned address: %#lx\n", addr))
-> diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-> index f3761c73b074..01048bb07082 100644
-> --- a/drivers/hv/channel.c
-> +++ b/drivers/hv/channel.c
-> @@ -17,6 +17,7 @@
->  #include <linux/hyperv.h>
->  #include <linux/uio.h>
->  #include <linux/interrupt.h>
-> +#include <linux/set_memory.h>
->  #include <asm/page.h>
->  #include <asm/mshyperv.h>
->  
-> @@ -465,7 +466,7 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
->  	struct list_head *curr;
->  	u32 next_gpadl_handle;
->  	unsigned long flags;
-> -	int ret = 0;
-> +	int ret = 0, index;
->  
->  	next_gpadl_handle =
->  		(atomic_inc_return(&vmbus_connection.next_gpadl_handle) - 1);
-> @@ -474,6 +475,13 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
->  	if (ret)
->  		return ret;
->  
-> +	ret = set_memory_decrypted((unsigned long)kbuffer,
-> +				   HVPFN_UP(size));
-> +	if (ret) {
-> +		pr_warn("Failed to set host visibility.\n");
-> +		return ret;
-> +	}
-> +
->  	init_completion(&msginfo->waitevent);
->  	msginfo->waiting_channel = channel;
->  
-> @@ -539,6 +547,15 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
->  	/* At this point, we received the gpadl created msg */
->  	*gpadl_handle = gpadlmsg->gpadl;
->  
-> +	if (type == HV_GPADL_BUFFER)
-> +		index = 0;
-> +	else
-> +		index = channel->gpadl_range[1].gpadlhandle ? 2 : 1;
-> +
-> +	channel->gpadl_range[index].size = size;
-> +	channel->gpadl_range[index].buffer = kbuffer;
-> +	channel->gpadl_range[index].gpadlhandle = *gpadl_handle;
-> +
->  cleanup:
->  	spin_lock_irqsave(&vmbus_connection.channelmsg_lock, flags);
->  	list_del(&msginfo->msglistentry);
-> @@ -549,6 +566,11 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
->  	}
->  
->  	kfree(msginfo);
-> +
-> +	if (ret)
-> +		set_memory_encrypted((unsigned long)kbuffer,
-> +				     HVPFN_UP(size));
-> +
->  	return ret;
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -2301,14 +2301,14 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
 >  }
 >  
-> @@ -811,7 +833,7 @@ int vmbus_teardown_gpadl(struct vmbus_channel *channel, u32 gpadl_handle)
->  	struct vmbus_channel_gpadl_teardown *msg;
->  	struct vmbus_channel_msginfo *info;
->  	unsigned long flags;
-> -	int ret;
-> +	int ret, i;
 >  
->  	info = kzalloc(sizeof(*info) +
->  		       sizeof(struct vmbus_channel_gpadl_teardown), GFP_KERNEL);
-> @@ -859,6 +881,18 @@ int vmbus_teardown_gpadl(struct vmbus_channel *channel, u32 gpadl_handle)
->  	spin_unlock_irqrestore(&vmbus_connection.channelmsg_lock, flags);
->  
->  	kfree(info);
-> +
-> +	/* Find gpadl buffer virtual address and size. */
-> +	for (i = 0; i < VMBUS_GPADL_RANGE_COUNT; i++)
-> +		if (channel->gpadl_range[i].gpadlhandle == gpadl_handle)
-> +			break;
-> +
-> +	if (set_memory_encrypted((unsigned long)channel->gpadl_range[i].buffer,
-> +			HVPFN_UP(channel->gpadl_range[i].size)))
-> +		pr_warn("Fail to set mem host visibility.\n");
-> +
-> +	channel->gpadl_range[i].gpadlhandle = 0;
-> +
->  	return ret;
->  }
->  EXPORT_SYMBOL_GPL(vmbus_teardown_gpadl);
-> diff --git a/include/asm-generic/hyperv-tlfs.h b/include/asm-generic/hyperv-tlfs.h
-> index 515c3fb06ab3..8a0219255545 100644
-> --- a/include/asm-generic/hyperv-tlfs.h
-> +++ b/include/asm-generic/hyperv-tlfs.h
-> @@ -158,6 +158,7 @@ struct ms_hyperv_tsc_page {
->  #define HVCALL_RETARGET_INTERRUPT		0x007e
->  #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_SPACE 0x00af
->  #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST 0x00b0
-> +#define HVCALL_MODIFY_SPARSE_GPA_PAGE_HOST_VISIBILITY 0x00db
->  
->  /* Extended hypercalls */
->  #define HV_EXT_CALL_QUERY_CAPABILITIES		0x8001
-> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-> index 2e859d2f9609..06eccaba10c5 100644
-> --- a/include/linux/hyperv.h
-> +++ b/include/linux/hyperv.h
-> @@ -809,6 +809,14 @@ struct vmbus_device {
->  
->  #define VMBUS_DEFAULT_MAX_PKT_SIZE 4096
->  
-> +struct vmbus_gpadl_range {
-> +	u32 gpadlhandle;
-> +	u32 size;
-> +	void *buffer;
-> +};
-> +
-> +#define VMBUS_GPADL_RANGE_COUNT		3
-> +
->  struct vmbus_channel {
->  	struct list_head listentry;
->  
-> @@ -829,6 +837,8 @@ struct vmbus_channel {
->  	struct completion rescind_event;
->  
->  	u32 ringbuffer_gpadlhandle;
-> +	/* GPADL_RING and Send/Receive GPADL_BUFFER. */
-> +	struct vmbus_gpadl_range gpadl_range[VMBUS_GPADL_RANGE_COUNT];
->  
->  	/* Allocated memory for ring buffer */
->  	struct page *ringbuffer_page;
+> -int assign_pages(
+> +int assign_pages_nr(
+>      struct domain *d,
+>      struct page_info *pg,
+> -    unsigned int order,
+> +    unsigned int nr_pfns,
 
--- 
-Vitaly
+Even leaving the naming aspect of "pfns" aside, I can't see why this
+can't be simply "nr" (of appropriate type, see next remark).
+
+>      unsigned int memflags)
+>  {
+>      int rc = 0;
+> -    unsigned long i;
+> +    unsigned int i;
+
+This is not an acceptable type change, at least not as long as it's not
+justified at all in the description. While both Arm and x86 will be
+fine this way, the code here is supposed to be generic, and hence would
+better remain generally correct.
+
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -131,12 +131,18 @@ int query_page_offline(mfn_t mfn, uint32_t *status);
+>  
+>  void heap_init_late(void);
+>  
+> -int assign_pages(
+> +int assign_pages_nr(
+>      struct domain *d,
+>      struct page_info *pg,
+> -    unsigned int order,
+> +    unsigned int nr_pfns,
+>      unsigned int memflags);
+>  
+> + int assign_pages(
+> +     struct domain *d,
+> +     struct page_info *pg,
+> +     unsigned int order,
+> +     unsigned int memflags);
+
+Bogus extra leading space on all lines of this addition.
+
+Jan
 
 
