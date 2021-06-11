@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C256C3A39A1
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 04:21:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.140127.258984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36A113A39FA
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 04:56:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.140136.259002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrWnP-0003Lq-1M; Fri, 11 Jun 2021 02:21:19 +0000
+	id 1lrXKU-0006XN-Ps; Fri, 11 Jun 2021 02:55:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 140127.258984; Fri, 11 Jun 2021 02:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 140136.259002; Fri, 11 Jun 2021 02:55:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrWnO-0003JD-Tz; Fri, 11 Jun 2021 02:21:18 +0000
-Received: by outflank-mailman (input) for mailman id 140127;
- Fri, 11 Jun 2021 02:21:17 +0000
+	id 1lrXKU-0006Uu-Lx; Fri, 11 Jun 2021 02:55:30 +0000
+Received: by outflank-mailman (input) for mailman id 140136;
+ Fri, 11 Jun 2021 02:55:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lrWnN-0003J3-Bv; Fri, 11 Jun 2021 02:21:17 +0000
+ id 1lrXKS-0006Uk-RH; Fri, 11 Jun 2021 02:55:28 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lrWnN-00021f-5f; Fri, 11 Jun 2021 02:21:17 +0000
+ id 1lrXKS-0002a4-Kx; Fri, 11 Jun 2021 02:55:28 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lrWnM-0003YN-Qm; Fri, 11 Jun 2021 02:21:16 +0000
+ id 1lrXKS-0005yl-Es; Fri, 11 Jun 2021 02:55:28 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lrWnM-0003Ul-QG; Fri, 11 Jun 2021 02:21:16 +0000
+ id 1lrXKS-0001cb-EL; Fri, 11 Jun 2021 02:55:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,154 +43,80 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=J5QV4Pd9dGls7qGowo77E1k2MZV/5kOo05iFGgWycxw=; b=Gw9/nZ8djNJu+mfiZkUntMtVqq
-	cH2vCejc6iRRD9xko/g6r808oL2J/mKVA+r0JUP9bfpa3K3ZGPexKKoQKXQMyahpLqW9ufOohD7eA
-	jD3/9WqBdKv9PqonQMXhEXx2e52OQVGc3PR5sMwnQAYFqIN1SItdUd0wkMi184HIoFpM=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=kcBk3QPwM/0qJSwmjRWlJ6RFt3+9LRzVNfRlxCWMzkk=; b=CXacyWAIUgP3oTAeZFhauoXfb/
+	3A/DR6kyDJ/KHmTB1jqN9+GMrMdgrYUD9XpqFyY0rTq93rDhKL8UzaGgLqx3+q1MdvHagnOFRQq5Q
+	xkVnWNWII6BA5K8aQfJD5MBzdJGwZ9dXCEDgxD2VmYY38E3hT0TxrJJWc8vJXmc6SxuY=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Subject: [xen-unstable bisection] complete test-xtf-amd64-amd64-4
-Message-Id: <E1lrWnM-0003Ul-QG@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-162626-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 162626: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:heisenbug
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=2bb17a45b1814b0b6aa4646eff58e16f876281fd
+X-Osstest-Versions-That:
+    xen=3e09045991cde360432bc7437103f8f8a6699359
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 11 Jun 2021 02:21:16 +0000
+Date: Fri, 11 Jun 2021 02:55:28 +0000
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-xtf-amd64-amd64-4
-testid xtf/test-pv32pae-selftest
+flight 162626 xen-unstable-smoke real [real]
+flight 162628 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162626/
+http://logs.test-lab.xenproject.org/osstest/logs/162628/
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  1a0f2fe2297d122a08fee2b26de5de995fdeca13
-  Bug not present: 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162627/
-
-
-  commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
-  Author: George Dunlap <george.dunlap@citrix.com>
-  Date:   Thu May 6 13:38:02 2021 +0100
-  
-      SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
-      
-      The support status of 32-bit guests doesn't seem particularly useful.
-      
-      With it changed to fully unsupported outside of PV-shim, adjust the PV32
-      Kconfig default accordingly.
-      
-      Reported-by: Jann Horn <jannh@google.com>
-      Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest --summary-out=tmp/162627.bisection-summary --basis-template=162533 --blessings=real,real-bisect,real-retry xen-unstable test-xtf-amd64-amd64-4 xtf/test-pv32pae-selftest
-Searching for failure / basis pass:
- 162556 fail [host=huxelrebe0] / 162533 [host=fiano1] 162475 [host=godello0] 162422 [host=huxelrebe1] 162385 [host=godello1] 162343 [host=albana0] 162337 [host=chardonnay0] 162330 [host=godello1] 162325 [host=albana1] 162282 [host=elbling0] 162276 ok.
-Failure / basis pass flights: 162556 / 162276
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e4fee66043120c954fc309bbb37813604c1c0eb7 5ead491e36af6cb8681fc1278bd36c756ad62ac2
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38\
- aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#57f68dfd2d111a2ad381df740543c901b41f2299-e4fee66043120c954fc309bbb37813604c1c0eb7 git://xenbits.xen.org/xtf.git#5ead491e36af6cb8681fc1278bd36c756ad62ac2-5ead491e36af6cb8681fc1278bd36c756ad62ac2
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 162276 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162282 [host=elbling0]
- 162325 [host=albana1]
- 162330 [host=godello1]
- 162337 [host=chardonnay0]
- 162343 [host=albana0]
- 162385 [host=godello1]
- 162422 [host=huxelrebe1]
- 162475 [host=godello0]
- 162533 [host=fiano1]
- 162556 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e4fee66043120c954fc309bbb37813604c1c0eb7 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162601 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162617 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162611 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e4fee66043120c954fc309bbb37813604c1c0eb7 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162614 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 d21121685fac829c988e432407fb0e4ef9b19331 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162615 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 455790573d3bbad6d5a1bb7e9d28b6dd71075693 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162619 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162620 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 1a0f2fe2297d122a08fee2b26de5de995fdeca13 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162622 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162624 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 1a0f2fe2297d122a08fee2b26de5de995fdeca13 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162625 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
- 162627 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 1a0f2fe2297d122a08fee2b26de5de995fdeca13 5ead491e36af6cb8681fc1278bd36c756ad62ac2
-Searching for interesting versions
- Result found: flight 162276 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 d21121685fac829c988e432407fb0e4ef9b19331 5ead491e36af6cb8681fc1278bd36c756ad62ac2, results HASH(0x560960afdb60) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895a\
- f2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2, results HASH(0x560960af9cd0) HASH(0x560960b0ee18) HASH(0x560960b0ade0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2, results HASH(0x560960af\
- 5398) HASH(0x560960aeb160) Result found: flight 162556 (fail), for basis failure (at ancestor ~500)
- Repro found: flight 162601 (pass), for basis pass
- Repro found: flight 162611 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
-No revisions left to test, checking graph state.
- Result found: flight 162619 (pass), for last pass
- Result found: flight 162620 (fail), for first failure
- Repro found: flight 162622 (pass), for last pass
- Repro found: flight 162624 (fail), for first failure
- Repro found: flight 162625 (pass), for last pass
- Repro found: flight 162627 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  1a0f2fe2297d122a08fee2b26de5de995fdeca13
-  Bug not present: 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162627/
-
-
-  commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
-  Author: George Dunlap <george.dunlap@citrix.com>
-  Date:   Thu May 6 13:38:02 2021 +0100
-  
-      SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
-      
-      The support status of 32-bit guests doesn't seem particularly useful.
-      
-      With it changed to fully unsupported outside of PV-shim, adjust the PV32
-      Kconfig default accordingly.
-      
-      Reported-by: Jann Horn <jannh@google.com>
-      Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest.{dot,ps,png,html,svg}.
-----------------------------------------
-162627: tolerable all pass
-
-flight 162627 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162627/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-xtf-amd64-amd64-4     19 xtf/test-pv32pae-selftest fail baseline untested
+ test-armhf-armhf-xl 18 guest-start/debian.repeat fail in 162618 REGR. vs. 162574
 
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl          14 guest-start                fail pass in 162618
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl         15 migrate-support-check fail in 162618 never pass
+ test-armhf-armhf-xl     16 saverestore-support-check fail in 162618 never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  2bb17a45b1814b0b6aa4646eff58e16f876281fd
+baseline version:
+ xen                  3e09045991cde360432bc7437103f8f8a6699359
+
+Last test of basis   162574  2021-06-09 14:00:34 Z    1 days
+Failing since        162584  2021-06-10 00:00:27 Z    1 days    7 attempts
+Testing same since   162607  2021-06-10 15:00:30 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Jan Beulich <jbeulich@suse.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
 
 jobs:
- test-xtf-amd64-amd64-4                                       pass    
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
 ------------------------------------------------------------
@@ -208,4 +134,73 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+------------------------------------------------------------
+commit 2bb17a45b1814b0b6aa4646eff58e16f876281fd
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Jun 10 16:56:24 2021 +0200
+
+    x86: please Clang in arch_set_info_guest()
+    
+    Clang 10 reports
+    
+    domain.c:1328:10: error: variable 'cr3_mfn' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+        if ( !compat )
+             ^~~~~~~
+    domain.c:1334:34: note: uninitialized use occurs here
+        cr3_page = get_page_from_mfn(cr3_mfn, d);
+                                     ^~~~~~~
+    domain.c:1328:5: note: remove the 'if' if its condition is always true
+        if ( !compat )
+        ^~~~~~~~~~~~~~
+    domain.c:1042:18: note: initialize the variable 'cr3_mfn' to silence this warning
+        mfn_t cr3_mfn;
+                     ^
+                      = 0
+    domain.c:1189:14: error: variable 'fail' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+            if ( !compat )
+                 ^~~~~~~
+    domain.c:1211:9: note: uninitialized use occurs here
+            fail |= v->arch.pv.gdt_ents != c(gdt_ents);
+            ^~~~
+    domain.c:1189:9: note: remove the 'if' if its condition is always true
+            if ( !compat )
+            ^~~~~~~~~~~~~~
+    domain.c:1187:18: note: initialize the variable 'fail' to silence this warning
+            bool fail;
+                     ^
+                      = false
+    
+    despite this being a build with -O2 in effect, and despite "compat"
+    being constant "false" when CONFIG_COMPAT (and hence CONFIG_PV32) is not
+    defined, as it gets set at the top of the function from the result of
+    is_pv_32bit_domain().
+    
+    Re-arrange the two "offending" if()s such that when COMPAT=n the
+    respective variables will be seen as unconditionally initialized. The
+    original aim was to have the !compat cases first, though.
+    
+    Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit dfcffb128be46a3e413eaa941744536fe53c94b6
+Author: Stefano Stabellini <sstabellini@kernel.org>
+Date:   Wed Jun 9 10:37:59 2021 -0700
+
+    xen/arm32: SPSR_hyp/SPSR
+    
+    SPSR_hyp is not meant to be accessed from Hyp mode (EL2); accesses
+    trigger UNPREDICTABLE behaviour. Xen should read/write SPSR instead.
+    See: ARM DDI 0487D.b page G8-5993.
+    
+    This fixes booting Xen/arm32 on QEMU.
+    
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+    Tested-by: Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+(qemu changes not included)
 
