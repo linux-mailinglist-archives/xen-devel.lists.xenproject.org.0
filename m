@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680213A3965
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 03:50:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.140119.258972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C256C3A39A1
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 04:21:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.140127.258984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrWIX-0007Tq-D4; Fri, 11 Jun 2021 01:49:25 +0000
+	id 1lrWnP-0003Lq-1M; Fri, 11 Jun 2021 02:21:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 140119.258972; Fri, 11 Jun 2021 01:49:25 +0000
+Received: by outflank-mailman (output) from mailman id 140127.258984; Fri, 11 Jun 2021 02:21:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrWIX-0007Sp-7s; Fri, 11 Jun 2021 01:49:25 +0000
-Received: by outflank-mailman (input) for mailman id 140119;
- Fri, 11 Jun 2021 01:49:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C43g=LF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lrWIV-0007Sh-H4
- for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 01:49:23 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd4b84f1-6dd1-4db7-92f0-a54d5e4886f9;
- Fri, 11 Jun 2021 01:49:22 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F1260613B0;
- Fri, 11 Jun 2021 01:49:21 +0000 (UTC)
+	id 1lrWnO-0003JD-Tz; Fri, 11 Jun 2021 02:21:18 +0000
+Received: by outflank-mailman (input) for mailman id 140127;
+ Fri, 11 Jun 2021 02:21:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrWnN-0003J3-Bv; Fri, 11 Jun 2021 02:21:17 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrWnN-00021f-5f; Fri, 11 Jun 2021 02:21:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrWnM-0003YN-Qm; Fri, 11 Jun 2021 02:21:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrWnM-0003Ul-QG; Fri, 11 Jun 2021 02:21:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,113 +42,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd4b84f1-6dd1-4db7-92f0-a54d5e4886f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1623376162;
-	bh=LzqymiWl9W3uKLPJog1kh+tyHSofk1JHiqsNFGP3NRA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aZo0/fuN+9UOLe0Q7uXPSFb93Qu5PdVlN2mgthWsPFNnrkI9CJpdVcAvc5obB2JAp
-	 WACvowRZa7T91OJ4srBOKrE1twBQR7NnOZ9XuhLNHX/zKWKsGdlhVpNSGuRU3/QZkr
-	 zdbjPgJUxDJWYODbyLDxidkFmL9yxeSTvHzaU988PVScxjxVGTRKV76QZiguWiRUbj
-	 uqVIhah/6+MpZ3r7kAXRX0N0fapUW7p1ydMk9eanGkMmy0vVxlfZu395Pdi+OqRJ3Q
-	 yhRENYUrgte6hT8aFIE3NbAqEsicfMbrxqxPcRchtqQriuzjEAcqj/6NgQweJ3Lp6E
-	 tFiJeYywOvYJA==
-Date: Thu, 10 Jun 2021 18:49:21 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    osstest service owner <osstest-admin@xenproject.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [xen-unstable-smoke test] 162597: regressions - FAIL
-In-Reply-To: <E28F5F88-7D8A-46C1-89B8-9841071778D1@arm.com>
-Message-ID: <alpine.DEB.2.21.2106101644340.24906@sstabellini-ThinkPad-T480s>
-References: <osstest-162597-mainreport@xen.org> <6d95cfac-e43c-d1f0-f988-4f11335b104d@suse.com> <E28F5F88-7D8A-46C1-89B8-9841071778D1@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=J5QV4Pd9dGls7qGowo77E1k2MZV/5kOo05iFGgWycxw=; b=Gw9/nZ8djNJu+mfiZkUntMtVqq
+	cH2vCejc6iRRD9xko/g6r808oL2J/mKVA+r0JUP9bfpa3K3ZGPexKKoQKXQMyahpLqW9ufOohD7eA
+	jD3/9WqBdKv9PqonQMXhEXx2e52OQVGc3PR5sMwnQAYFqIN1SItdUd0wkMi184HIoFpM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-xtf-amd64-amd64-4
+Message-Id: <E1lrWnM-0003Ul-QG@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 11 Jun 2021 02:21:16 +0000
 
-On Thu, 10 Jun 2021, Bertrand Marquis wrote:
-> Hi Jan,
-> 
-> > On 10 Jun 2021, at 12:32, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 10.06.2021 12:50, osstest service owner wrote:
-> >> flight 162597 xen-unstable-smoke real [real]
-> >> flight 162602 xen-unstable-smoke real-retest [real]
-> >> http://logs.test-lab.xenproject.org/osstest/logs/162597/
-> >> http://logs.test-lab.xenproject.org/osstest/logs/162602/
-> >> 
-> >> Regressions :-(
-> >> 
-> >> Tests which did not succeed and are blocking,
-> >> including tests which could not be run:
-> >> test-armhf-armhf-xl         18 guest-start/debian.repeat fail REGR. vs. 162574
-> > 
-> > This now being the 3rd failure in a row, I guess there's a fair chance
-> > of there actually being something wrong with ...
-> > 
-> >> commit dfcffb128be46a3e413eaa941744536fe53c94b6
-> >> Author: Stefano Stabellini <sstabellini@kernel.org>
-> >> Date:   Wed Jun 9 10:37:59 2021 -0700
-> >> 
-> >>    xen/arm32: SPSR_hyp/SPSR
-> >> 
-> >>    SPSR_hyp is not meant to be accessed from Hyp mode (EL2); accesses
-> >>    trigger UNPREDICTABLE behaviour. Xen should read/write SPSR instead.
-> >>    See: ARM DDI 0487D.b page G8-5993.
-> >> 
-> >>    This fixes booting Xen/arm32 on QEMU.
-> >> 
-> >>    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> >>    Reviewed-by: Julien Grall <jgrall@amazon.com>
-> >>    Reviewed-by: Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-> >>    Tested-by: Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-> > 
-> > ... this. My Arm-untrained eye couldn't spot anything in the logs.
-> 
-> I am not sure to read the log correctly so do I see it right that dom0 started and it failed then to start a guest ?
+branch xen-unstable
+xenbranch xen-unstable
+job test-xtf-amd64-amd64-4
+testid xtf/test-pv32pae-selftest
 
-Thanks Jan for bringing it to my attention. 
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Tree: xtf git://xenbits.xen.org/xtf.git
 
-I am not an expert in reading OSSTest logs. From the following:
+*** Found and reproduced problem changeset ***
 
-http://logs.test-lab.xenproject.org/osstest/logs/162597/test-armhf-armhf-xl/info.html
-
-I understand that Xen booted and a DomU was started. However,
-"migrate-support-check" and "saverestore-support-check" failed. Is that
-correct?
-
-If so, it would be really strange for SPSR_hyp/SPSR to cause the problem
-because I would expect Xen to hang at boot before Dom0 is started
-instead.
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  1a0f2fe2297d122a08fee2b26de5de995fdeca13
+  Bug not present: 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162627/
 
 
-I don't have any ARMv7 hardware to try to repro this issue, and ARMv7 is
-most certainly required (ARMv8/aarch32 won't repro.)
-
-Could someone more at ease with OSSTest than me arrange for a run with
-this commit reverted to verify that it is the issue?
-
-
-
-In any case, I tried to figure it out. I guessed it could be a compiler
-error. I followed the white rabbit down the ARM ARM hole. I disassebled
-the Xen binary [1] from the failed job. "msr SPSR, r11" is 0x0026a38c.
-
-The encoding should be at B9.3.12 of the ARMv7-A DDI 0406C and F5.1.121
-of ARMv8 DDI 0487D.b. Unfortunately it doesn't seem to match either one
-of them and I don't understand why.
-
-
-The "mrs r11, SPSR" is generated as 0x00262ecc. That should be described
-at F5.1.117 for ARMv8 and B9.3.9 for ARMv7. Also doesn't seem to match.
+  commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
+  Author: George Dunlap <george.dunlap@citrix.com>
+  Date:   Thu May 6 13:38:02 2021 +0100
+  
+      SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
+      
+      The support status of 32-bit guests doesn't seem particularly useful.
+      
+      With it changed to fully unsupported outside of PV-shim, adjust the PV32
+      Kconfig default accordingly.
+      
+      Reported-by: Jann Horn <jannh@google.com>
+      Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 
-I guess I am looking at the wrong encoding but I am not exactly sure why.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest --summary-out=tmp/162627.bisection-summary --basis-template=162533 --blessings=real,real-bisect,real-retry xen-unstable test-xtf-amd64-amd64-4 xtf/test-pv32pae-selftest
+Searching for failure / basis pass:
+ 162556 fail [host=huxelrebe0] / 162533 [host=fiano1] 162475 [host=godello0] 162422 [host=huxelrebe1] 162385 [host=godello1] 162343 [host=albana0] 162337 [host=chardonnay0] 162330 [host=godello1] 162325 [host=albana1] 162282 [host=elbling0] 162276 ok.
+Failure / basis pass flights: 162556 / 162276
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Tree: xtf git://xenbits.xen.org/xtf.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e4fee66043120c954fc309bbb37813604c1c0eb7 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38\
+ aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#57f68dfd2d111a2ad381df740543c901b41f2299-e4fee66043120c954fc309bbb37813604c1c0eb7 git://xenbits.xen.org/xtf.git#5ead491e36af6cb8681fc1278bd36c756ad62ac2-5ead491e36af6cb8681fc1278bd36c756ad62ac2
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 162276 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162282 [host=elbling0]
+ 162325 [host=albana1]
+ 162330 [host=godello1]
+ 162337 [host=chardonnay0]
+ 162343 [host=albana0]
+ 162385 [host=godello1]
+ 162422 [host=huxelrebe1]
+ 162475 [host=godello0]
+ 162533 [host=fiano1]
+ 162556 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e4fee66043120c954fc309bbb37813604c1c0eb7 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162601 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162617 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 7bd8989ab77b6ade3b7a5f4b640a55248d1791a3 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162611 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 e4fee66043120c954fc309bbb37813604c1c0eb7 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162614 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 d21121685fac829c988e432407fb0e4ef9b19331 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162615 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 455790573d3bbad6d5a1bb7e9d28b6dd71075693 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162619 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162620 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 1a0f2fe2297d122a08fee2b26de5de995fdeca13 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162622 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162624 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 1a0f2fe2297d122a08fee2b26de5de995fdeca13 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162625 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+ 162627 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 1a0f2fe2297d122a08fee2b26de5de995fdeca13 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+Searching for interesting versions
+ Result found: flight 162276 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 d21121685fac829c988e432407fb0e4ef9b19331 5ead491e36af6cb8681fc1278bd36c756ad62ac2, results HASH(0x560960afdb60) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895a\
+ f2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2, results HASH(0x560960af9cd0) HASH(0x560960b0ee18) HASH(0x560960b0ade0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 57f68dfd2d111a2ad381df740543c901b41f2299 5ead491e36af6cb8681fc1278bd36c756ad62ac2, results HASH(0x560960af\
+ 5398) HASH(0x560960aeb160) Result found: flight 162556 (fail), for basis failure (at ancestor ~500)
+ Repro found: flight 162601 (pass), for basis pass
+ Repro found: flight 162611 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1 5ead491e36af6cb8681fc1278bd36c756ad62ac2
+No revisions left to test, checking graph state.
+ Result found: flight 162619 (pass), for last pass
+ Result found: flight 162620 (fail), for first failure
+ Repro found: flight 162622 (pass), for last pass
+ Repro found: flight 162624 (fail), for first failure
+ Repro found: flight 162625 (pass), for last pass
+ Repro found: flight 162627 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  1a0f2fe2297d122a08fee2b26de5de995fdeca13
+  Bug not present: 5268b2dcf7e5342c8a51ceb4bed3e7740c69f5c1
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/162627/
 
 
+  commit 1a0f2fe2297d122a08fee2b26de5de995fdeca13
+  Author: George Dunlap <george.dunlap@citrix.com>
+  Date:   Thu May 6 13:38:02 2021 +0100
+  
+      SUPPORT.md: Un-shimmed 32-bit PV guests are no longer supported
+      
+      The support status of 32-bit guests doesn't seem particularly useful.
+      
+      With it changed to fully unsupported outside of PV-shim, adjust the PV32
+      Kconfig default accordingly.
+      
+      Reported-by: Jann Horn <jannh@google.com>
+      Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-[1] http://logs.test-lab.xenproject.org/osstest/logs/162597/build-armhf/build/
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-pv32pae-selftest.{dot,ps,png,html,svg}.
+----------------------------------------
+162627: tolerable all pass
+
+flight 162627 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162627/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-xtf-amd64-amd64-4     19 xtf/test-pv32pae-selftest fail baseline untested
+
+
+jobs:
+ test-xtf-amd64-amd64-4                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
