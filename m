@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 891CA3A3EED
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 11:17:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.140296.259261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D94533A3EF8
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 11:19:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.140302.259272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrdH0-0001Lo-Nq; Fri, 11 Jun 2021 09:16:18 +0000
+	id 1lrdJy-0001ym-5o; Fri, 11 Jun 2021 09:19:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 140296.259261; Fri, 11 Jun 2021 09:16:18 +0000
+Received: by outflank-mailman (output) from mailman id 140302.259272; Fri, 11 Jun 2021 09:19:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrdH0-0001Jc-K8; Fri, 11 Jun 2021 09:16:18 +0000
-Received: by outflank-mailman (input) for mailman id 140296;
- Fri, 11 Jun 2021 09:16:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lrdJy-0001wu-2Z; Fri, 11 Jun 2021 09:19:22 +0000
+Received: by outflank-mailman (input) for mailman id 140302;
+ Fri, 11 Jun 2021 09:19:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0bEB=LF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lrdH0-0001JV-1u
- for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 09:16:18 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 003df88a-39a1-4007-98e4-ddcaf689c4e3;
- Fri, 11 Jun 2021 09:16:16 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2053.outbound.protection.outlook.com [104.47.14.53]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-9-gObRCzchPne2AjneFU1o3Q-1;
- Fri, 11 Jun 2021 11:16:13 +0200
+ id 1lrdJw-0001wl-Ao
+ for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 09:19:20 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ae846314-eb8d-48c1-9257-3b79dd6cd847;
+ Fri, 11 Jun 2021 09:19:18 +0000 (UTC)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2053.outbound.protection.outlook.com [104.47.8.53]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-40-dJbJ-qPhMb2OlkGPv3_6_w-1; Fri, 11 Jun 2021 11:19:17 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB3120.eurprd04.prod.outlook.com (2603:10a6:802:e::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ by VI1PR04MB7038.eurprd04.prod.outlook.com (2603:10a6:800:12d::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.22; Fri, 11 Jun
- 2021 09:16:11 +0000
+ 2021 09:19:16 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.022; Fri, 11 Jun 2021
- 09:16:11 +0000
+ 09:19:16 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR3P189CA0070.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:b4::15) with Microsoft
+ AM0PR03CA0095.eurprd03.prod.outlook.com (2603:10a6:208:69::36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 09:16:11 +0000
+ 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 09:19:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,130 +53,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 003df88a-39a1-4007-98e4-ddcaf689c4e3
+X-Inumbo-ID: ae846314-eb8d-48c1-9257-3b79dd6cd847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1623402974;
+	t=1623403158;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RA/siaUq5mzl60nL+m+UPGxrGbDmbfXqDnjrfT/8wF8=;
-	b=dkQm5ppEA6BVlS1fepTVAIBVo4Yuqw2XVxy6qmvssltXp4dK1hP+x36hx9ZtZJ+Muny5sE
-	wAnq5HotwP78X3HJ9+GKHqShvkFcUP+FK3PnKTZUgjjkLLMkBn9sagY/GUwUsBHZ71/hhE
-	hPU5qHjEQSkDHSf7S4OLRSsibdvSF5o=
-X-MC-Unique: gObRCzchPne2AjneFU1o3Q-1
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=lKEcglE5r0lHaY0ElKUC9DDU4DNKyO6COr+pggkSwLY=;
+	b=KuqnQfFDFIYgOMRiInt2LVQ9LeGdgdigeLiBJ6jcaS+ZNC96PSP9nXbxFKO2la121dUTgR
+	biRxiZKBHfzrivwOcUl4/ayIEA9Ae2sCHjTAF8LF3JLJRPBmC+WhsvkG0pHoWGVGbkkUpt
+	/Rma/hxBGGQ4YNBpNxnG7VDes9ril/U=
+X-MC-Unique: dJbJ-qPhMb2OlkGPv3_6_w-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HIB4FA09p76fXcqjf7fXWqkS2haaYWrqBJe4xlDv4bndTStGSTEm7qQQ1iafqn/yPQUOV+J9xkokx3Gxzjg6twDhhB5i6Ow06EHh9yQ3eU9ldrnLt8ISfM7gF/Lv9gSOg6nk561j5Ah1FH4Icb+RWYyl1aWnxDBY5ZxV/Si9Fnxbk03V309WhpiXCN43Ig6aGe84sHOnCPOl1kkZXzZrLeb9Yv9wa9z3+SK7Hhx7J7nXj4UchOZF3NieefZbifEbrj9L6zr3LkEpRxeBj2z1R48oCjW2HiYxI+2DqsGfffAVfK/oIQ9s8pvtlBr6oKyai4+NbcXMJ17xZt0Qx2u92Q==
+ b=lJsn829xi1UVDXQxOw/Tt+q334wIwpT49Z/GBnklr2FwoMVjNi6iOZ2SbvTUBbakZZ2rkm3q/juC5Kd1Dl68C8d9rX2AHv8ZXdkgZuqlB9evPEvsDyiIimKrZQeUus/204SefofXk9nwI6IDS33O8AewFRg0m7kxJiHBHD9ZZubUts8kt6g2pXDZAam7v0jf23uEb0cKGBXcAI5AvrFNp20BMr9XoJ2AeeaklQeRlK0vM3nC1t1mZnCIQl/E6qcPWcMv8a27ZTGx32Qf876d9rbLSO/hShVu+sLz1eQH7trARAHt6zPEUQ3rzv3YYLnXoCi8GaZa1HJOCdSjv/IKnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RA/siaUq5mzl60nL+m+UPGxrGbDmbfXqDnjrfT/8wF8=;
- b=VZf/ki4PY3YfaRldFBwA4iOhf0M1Dz6ECPO01xNpkVoP2FgCE3W6urYz7bBaFSeYnvFpjN16R27NNpmVeVbrF2xtRxOThbJziJWPE0WZy9NXB8k0nvtJUh9457rS6QgrEh13oDKQN0oM1zkxcxhaqe/G7o3BhDI0+FAqZZ6ER9eB4IvhH/hg+RmWAeQuJ3efnruF6nxb+zeuzL8Yj94AjDxMwVm4pkLBJoRAO+CVTISQR7iFbKo0FYfsaeT705x3H/wBznhflLmJVqEXVC6mSgppY0tj5bwejx7iTcfcArtScoBJP5wekyAMsycal+GAFhiq0i2vTKMyKSzcThj+fA==
+ bh=lKEcglE5r0lHaY0ElKUC9DDU4DNKyO6COr+pggkSwLY=;
+ b=CT1OPRtdzhQp8B1YjYqkJDD64Xg/3JDuVW1sPXFDrxISkqK9tj4Th0PToyIukZDWU3j8uQDsnPqdT/kMEWHc66pKfkLmyLf4YWaumqwCxetyT3dR+cDMpfU3Op4L2BoyAemCyUoMCQyUBAsmII0kcO6s2y0F1tftBj+C1c2KE5YKbs2BTbgVQoommYWqrC4QMKfJuiICW0YmJHhxvEZUxUyfsg+G+CYJcJIc2zF/uy8QU2Y+kxSwvSXZ+i0UdeIxTJUb2CbbKEhOV70raeHsDigaD73uH5WWtPSLoRZH951SZcP/6r/pjEJWtTofC/Or8UjM9AFDYK7AnKRzcZ/0sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH] Arm32: MSR to SPSR needs qualification
-To: Julien Grall <julien.grall.oss@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <e4946a69-bc1a-d54c-dadf-e71feecd99ab@suse.com>
- <CAJ=z9a07v-cnMhK=cVjjdN3-f4t8qGc3oQz17zRdLxOauBp=qA@mail.gmail.com>
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <af2f231a-5130-8e5f-b024-04f74e57d1ad@suse.com>
-Date: Fri, 11 Jun 2021 11:16:10 +0200
+Subject: [PATCH] Arm32: avoid .rodata to be marked as executable
+Message-ID: <25f1b0d2-9270-ba42-d110-2bf14e45b7b8@suse.com>
+Date: Fri, 11 Jun 2021 11:19:15 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <CAJ=z9a07v-cnMhK=cVjjdN3-f4t8qGc3oQz17zRdLxOauBp=qA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: PR3P189CA0070.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:b4::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM0PR03CA0095.eurprd03.prod.outlook.com
+ (2603:10a6:208:69::36) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c1bacd2a-0938-4ef0-cc02-08d92cb98e0c
-X-MS-TrafficTypeDiagnostic: VI1PR04MB3120:
+X-MS-Office365-Filtering-Correlation-Id: 93388112-e2f9-4630-ea58-08d92cb9fc1d
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7038:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB312030C02EB4206E6D37BE71B3349@VI1PR04MB3120.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<VI1PR04MB703856A02732033C1F0EB435B3349@VI1PR04MB7038.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Vw9TL/mD5bxqwLWP54ikmSSkrXr9D2fk2b6OGt5EQHr3B/loAu5MAcTW1UsqsB8xTTKeqruU14S+FI/MUPRoDu7t/lpcyHqekHrCnPQYCywJUj3cUPNzWp2Qt2e0Zcai6OLJ3AD/lUhxTwYGHDYkeckBzpoR9B/5QE3fPRxthp3QdO9GxghEeCg8MsX8pcYsql+FrTpz9JuV15/xRSCau8qoVf7/U2urHVpJCZLQI0A4vW1Vmzv38/b1ytjDqSB71gEbFCReCNBQkl2SGt0E5fbQmr7u2HD1+a62z47SeLPDD0cCLUSSjADyWbHel770T8fyd5xI2cbGGhuhsxQCd6nu3/KI5iarVCjo+JIHrj4VMVigfKZc8oPbxZ4GbAW2dD01GQ9LNAG40V3KHHnqqM9LQESeKLbbgOkusFLj7ueHu277iyX/0HuKZy4Ad+CpShZHxXSKNo0MzIaZKNTc7boVTJXJ5Snlj4xYmtRK5sCY4kl+I9m3mnFB0qRAWnlBgrD34y/cp9jAC9H4y0zEyceBSktFEtxXhXRU++Z7dWcPaeNBeNzt1EDrIz1iKmtlpRFQ9hSLymrEPc9RYi0V3Gx5Rua6+NweYC2Q8iNjxKxdgD6Z6g/PXgvh+QeeRSiwcZHL5rA1Ui4WRuY+WntpLJ94VnnaEXsiOTNMZFWMsQk=
+	3fCoz44NxDb+famBbKn6BPpB1jBH7aENDa28crRfuw6gwDMjyEE7fwUqOPw0d7Ty7YDmPbQFoyxFJQigRjoklO+TG9zxHIv0XOZ+dQzzQGycBmC6vMCTjB0auIxuGeZ606GhYfUXDUy01y0FnEsRUr6+8uFvVeSP8KxKKDy2VyiKdcr/p5aeX7ZNc5OmvXx1lqiDYCxc7BoKD+m2qOsvEH5V2wX6ZHUkZBMxvlTihOHO1oIFKdfbccOVYfIgYr9JofM+5WJDCG+dzqx7IGw338OLVfaJ8xMdbfonOPU7lvGryYi6lSzO93ACch45yiO2biIZcjxnX/z21OO7M+sZ58BPACcBE/8xlJr3X7K41iyaQaqldAmraYOjOf6zP5gG79ZhMU87/Mcu6byt8Mof6BQMAP9ugFZ8c/tdcr9NPlEefRctXFkbQNAr1prhKBgxsn+RBEVJ1cWBnCHd+0Wb9vffytfftv16Q1YgcfLIhleVhw/43fWdSOLqSBhnQVPWP08tIQIiyP42/SVX0SBlKPw6hr4nExukiCTK9yy/vMjT8oDELeaEhqTgBMdnCcfIxaos5nXqVIq88EZZLqgD9kLO6/MYVTwFvKZvsMF28+7qjkjaweZsQSOXD2mbLP+naYMlSCFPeUKZzDEb7Ed6ZrO7PlEBZG18z0lv5QbP8Cao+Nf41slyhAE1eG3o4hC2OVkoQ08zZjYWt+neRXh5HQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(39850400004)(396003)(376002)(136003)(366004)(5660300002)(36756003)(4326008)(16576012)(38100700002)(316002)(86362001)(2906002)(66946007)(66476007)(66556008)(53546011)(54906003)(8676002)(478600001)(31686004)(6486002)(6916009)(8936002)(956004)(31696002)(2616005)(26005)(83380400001)(186003)(16526019)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(346002)(366004)(136003)(39850400004)(396003)(16576012)(316002)(31686004)(956004)(4326008)(6486002)(478600001)(66946007)(86362001)(66556008)(66476007)(38100700002)(36756003)(186003)(16526019)(6916009)(26005)(2906002)(8676002)(5660300002)(83380400001)(8936002)(54906003)(31696002)(2616005)(142923001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?anJUdEswNVh4VDhhNFN4dGFJY3NoZUF0Nmxqa1NBK0loV0RXaTZCTFpZdkdB?=
- =?utf-8?B?RmlNZThvUm11VGNhV2hHRDFBZEp2NUMvampRdFVGS0xlcnFvUzRpcGlXTFBq?=
- =?utf-8?B?aTI1ZzY5dFNpQVBzcllZL2NycnBVbTcvc0taOGVDVjgwVklxSXVvSGVsZkRF?=
- =?utf-8?B?QjFlVG11N09RRmppTmwzSENmV0R0c1lBbi9GVTc4MnZoVlJWaWQybzNYSFBY?=
- =?utf-8?B?azlwODc3SnFtMU9Qd0NjaWdzY2JiRFFSaHFhaFd3SjlOMERpR1BpMkNhRWpq?=
- =?utf-8?B?VVhIQml5Yit4UEdKRXhGNUY1VUErR3hmZGJVLytMRUZoU2gvZXpsU0VQTFQ1?=
- =?utf-8?B?WmpRdXBVKzBzbFBmM2ZPQVVhVm9UZTJqRU8zMUlnNkFpWThqZFV3MVF6ZVFj?=
- =?utf-8?B?OGM3UE9QY3B4L081c0tyWk1uZFI0cU1zWmVCS3gyTE9VMWpGd01idWhyL3BT?=
- =?utf-8?B?U2pCWVBkbmM1VHIwZGtBTlRTdHZZUnFYUTRvQXBPWDIvZ0FmSjQxcjF1ZlF4?=
- =?utf-8?B?enVWUkJVbXlBOExwK0wyWkRTeTM4SjB4RWJyUC9iY2kxSEFLWmdmZ1I5V1M4?=
- =?utf-8?B?dStqeFdMYXlwczRMb0Eya0taWW95TVVWR3hZMkNaYnY0ZEF3SERnaGNERStV?=
- =?utf-8?B?QUdxOTdhTXl6dEVWZG45dmtjNE9IR0lpMWV5Y0puS0ZtVTI5NHRSUnF0Nzg1?=
- =?utf-8?B?c3RaSVlZTjRsYjJ6YlpHUzh1dEVYQVIycmYyYk1veWlYQnp2LytQalhRc2JP?=
- =?utf-8?B?TDR6UDJhSU0yQlB4V3RiRDJnTFhJR3NrM3krbkFoSVN0VHd1d1JBVWtYem1u?=
- =?utf-8?B?WTNqWFJlM2ZrUGxNREZXVDRNWnFsUGFCTHUvYkJEaFlXdE5vdVdXV3gvbzA2?=
- =?utf-8?B?ekdaUk5jSHhrT1BYR3BuZkprMXNiT291dmpXRE1uZGlHT2pxRldsNDRBZjdt?=
- =?utf-8?B?eXR6WDFoOTZGNFBITWZvenY5Z2VmTktnT2R3WVF2MXR0OWpjVGloM3B3MllC?=
- =?utf-8?B?WHFVejZHMTEwYlJTckJWMVFrT0l5eldkOUhPbUYxVFFZRitTYkRWZHdXMGw2?=
- =?utf-8?B?Mmhaekgzd256MzJaTUdHRm9ldGhJTmpVbjViYURROVpONjc3ZTJpYVQwNUtD?=
- =?utf-8?B?NW4yV3ZKY3V4NWExZ29TZGNBY2E4aWs0SUhXR1hjbytKYUlHc2RScnUxR3hU?=
- =?utf-8?B?elY4Vk1LSGFubUQ5QkhTSWVyblhmWGt1Y2dtb29lK3ppM3UwbG5WU01uQzg3?=
- =?utf-8?B?UXY5UkpiWkxvRFhab2xlaWpGVysxL2pXT0kyMFduR1V2dzNrc05aWGJkRnBE?=
- =?utf-8?B?WU5XZTUra2Y4U1BGU3dUUS95T2I0WWZqRXVMa21CZUpuNkZrYkZsM05JcjJt?=
- =?utf-8?B?UUZReXc4eGVndFg2WnZwZUNVRTRXZVdnUEJBWWcxNmhzOEEwcTZralh4VHVC?=
- =?utf-8?B?alVvbWphQTZ0N2NnT1I1c2FoSmRpam0weUZkK1YxSDZjWVlhcWh6S200N0hE?=
- =?utf-8?B?ZWJMWkswQ0Y1STgzdUo3Um9HOTdWZmkzaU1FMklPT2V3bFJPSW5NdW11bkgy?=
- =?utf-8?B?UDh0eUdHZ0tQMlgrVEZNV2kvT1BZV3RmcENSSEFwV2lwbTNCc2hhRDZBSVFD?=
- =?utf-8?B?dFYyUmRSWmFwdnpBZU1wZ1ZnVC9UU0VaN0Q2NE5OUkFmRjZJUUM5YkZFdlJz?=
- =?utf-8?B?alY0QUlDSjNsdjg0NGZzTkJoYy9SWVZzbkpmdG9scHg1YUFBRW5lb0tHaGdH?=
- =?utf-8?Q?+pTVrTkWXeuBsWvkMSjlrXFaGjiB+otkbia/OGw?=
+	=?utf-8?B?ck5xY3U4WFp1SjdXZ3dURjJ1U1R2SXEydVpCKyt1dEh2eks3VlF0QWdnMXdl?=
+ =?utf-8?B?RmpISVY4T1lWNS8yZ0ttY0lxSng1MUkvc2FkaG9mcU9WUEorZUsyWFdQK1Fu?=
+ =?utf-8?B?OHoyUHgramlwemw2UEp2L3dlejZGL3ZoYWdqTFJYMTJHRjdvemhES1htRmpS?=
+ =?utf-8?B?NkMxSUhpMHB5NitJMGxuZ1NLeEYvc3M5MUtJekdWTFIxNmtlWEFkTE5ZNGdV?=
+ =?utf-8?B?QUVGV2RPSk5GTWJ4NU1sZ3pYZnZkblF6N2xwV2h0K0xnSjIrcEdXOFQ2eHU0?=
+ =?utf-8?B?M3BjRjBNRHdRa1dZZWhnMG5CQkRZdS9UaGFPR3l1NWE1WFFYZ09GZ0tuMzZY?=
+ =?utf-8?B?TDBuWVY2YVhFRUFsQ2ZDbG1HMUFTUVBjRDFKYS9XZkV1dlloU1hTSFlCajZq?=
+ =?utf-8?B?cHhkS2tTSU1WdTFsU05iVE1sWmpiYUlXaWl5djZpcE55U0FKblQ0NytWTm1M?=
+ =?utf-8?B?dFRDQTlXci9OQk95WjFueVdBYTUyQndoc1N3Wm96VVNBMnAvQkpSV2NRbDdx?=
+ =?utf-8?B?RVEvWjc0MUpodVhOMThtbmplMm13dlB4enFHQy9XTFg0WVJJV3dNQW01K0tW?=
+ =?utf-8?B?dm1EZEU5TXZKZVVMVEFWRDh0dW9PUi9XbktxRCswaFlFLzR4VkVvaXN0dm16?=
+ =?utf-8?B?MVJ2eHZjUCt6TEl4Rmh0c1BuSU9mNm0rem9MbUszRU9CelQ2QTdvMjRaOGhK?=
+ =?utf-8?B?eVlva2RIalYyYmx4WWExdC9LSHMyblZuZUF2dnhUcVpDMHlINzhuVld0cTlu?=
+ =?utf-8?B?RHdPOExNbVpuTlBDWnFZTVFENHhVcUZnaHd4dHNWN096TjdKUkZHUjVvREJI?=
+ =?utf-8?B?QU1TcmZJamk4MVJwRE01RzBxbnE5ZkMvVGgyc29vaEJYYXpXcmxmVEI4dDdh?=
+ =?utf-8?B?LzA3cEs2ZjFWdGtreGgzcnBINE55OEx1TGRXOVZzNHorR09rY002aklQY000?=
+ =?utf-8?B?WTIwUDJlQ0xGMFRxY3RZbXZSWW1acXE4Yi9aaGpxYytYMkczOWVTV0V3N2JD?=
+ =?utf-8?B?VENMK3VuaE4xTnpwYlBQK0RPS0x1Y1RVaWN2WTV3TTFwWUIwS3VoSk5UY2h5?=
+ =?utf-8?B?RVQwL09pcGRJdFFOK2w1TFEvb1EyNXdsUkVaT2dibkdtZ1pJaiszY3FUSy95?=
+ =?utf-8?B?S0V3em1oa0tRejFWM2J3R2oxQ0Q2NzVOM1Q1cHp6QUJHQ0xFT2lJLzZ3bWFm?=
+ =?utf-8?B?eG1tR3BlN3lhRGpUVXhieFVrc21GaDNNSWVKQVlkOGpvZ0ZtV0hSUTArS1BL?=
+ =?utf-8?B?blRMbnJjL21GaHV5SmoyQTVWc3lna2p4TVRkNjd5eEFOQlBLSE9QZ0R4WTlZ?=
+ =?utf-8?B?c1BOZ0RRM2tZakpFb09NckFCbFQzdE1DRDQ4TnpMNnR0WVZPZVNXQ3kyb2dR?=
+ =?utf-8?B?bStnbExITXAxUjR2L21NYjNHR3FKUkJaRlI2WnFiN2l6czJrUjZrcnE4ZWhL?=
+ =?utf-8?B?QjljQmt3M0Y0UDZZYVQvZ1dNOWtERUZaMWJWTWV6S0ptdENHQk1HcEdZNGlI?=
+ =?utf-8?B?WVdMNGpJL01oaEx6dU9Ba0x6THdwMEtwT1FCTG5WQmt6WUk2RnNTTEZyajNq?=
+ =?utf-8?B?SllPR0c0aDZra0tWd0JwanFGTyt2NStGNUdXY2RBOE16b3dnSmJLSkx5cDhX?=
+ =?utf-8?B?Zmpla1VrNzFMNEloSjY4aWVZZlNRSzRmRGN3NVBXWldFKzlzZmFqcDlFWFFR?=
+ =?utf-8?B?TXVlOEFBbHF0WWdycEFoR2g1N0tKOHdhczkvL2g2STJtWnRuZ2V1MDAzQVJM?=
+ =?utf-8?Q?/FMvZYcHA8g5KqareEW4w7cQ5cAw44JwoQB6sPe?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1bacd2a-0938-4ef0-cc02-08d92cb98e0c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93388112-e2f9-4630-ea58-08d92cb9fc1d
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 09:16:11.4799
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 09:19:16.2225
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0Beh9YUSIOSYZ3KLnjzkCgFcSo/AaaG+X5R82yf7ioj/LT+D1auG8vkjoHfWEI9IIms146ZCjaAXfgXccE++3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3120
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2v05AwhOLPLro/NWMGvkXFwm2Gy9VvtGwkDQuC863dpb2sUYS7+zaX8IyjyWC8NDC+Mc+BAbR0C7rzJi17HQHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7038
 
-On 11.06.2021 10:00, Julien Grall wrote:
-> On Fri, 11 Jun 2021, 08:55 Jan Beulich, <jbeulich@suse.com> wrote:
-> 
->> The Arm ARM's description of MSR doesn't even allow for plain "SPSR"
->> here, and while gas accepts this, it takes it to mean SPSR_cf. Yet
->> surely all of SPSR wants updating on this path, not just the lowest and
->> highest 8 bits.
->>
-> 
-> Can you provide a reference to the Arm Arm? This would help to navigate
-> through the 8000 pages.
+This confuses disassemblers, at the very least. When this data still
+lived in .init.*, this probably didn't matter much, albeit the
+"#execinstr" would have been suspicious to me already then. But the
+latest with their movement to .rodata these attributes should have been
+dropped.
 
-Referencing the instruction page would be enough, I thought (as
-even I, not being an Arm person, have no difficulty locating it).
-If it isn't, how is a canonical doc ref supposed to look like on
-Arm? On x86, we avoid recording document versions, section
-numbers, or even page numbers in code comments or commit messages
-(which isn't to say we have none of these, but we try to avoid
-new ones to appear), as these tend to change with every new
-version of the doc. Therefore, to me, the offending commit's "ARM
-DDI 0487D.b page G8-5993" doesn't look like something I wanted to
-clone from. But if you tell me otherwise, then well - so be it.
+Fixes: 9cbe093b7b84 ("xen/arm: link: Link proc_info_list in .rodata instead of .init.data")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+The PRINT() macro in head.S is another source of such confusion of code
+vs data. While in head.o there are mapping symbols guiding disassemblers,
+these mapping symbols are gone when looking at xen-syms. But I realize
+adr's reach is too limited to allow for a halfway reasonable approach of
+moving those strings (e.g. to, at least, have them all together).
 
-Jan
+--- a/xen/arch/arm/arm32/proc-v7.S
++++ b/xen/arch/arm/arm32/proc-v7.S
+@@ -29,7 +29,7 @@ brahma15mp_init:
+         mcr   CP32(r0, ACTLR)
+         mov   pc, lr
+ 
+-        .section ".proc.info", #alloc, #execinstr
++        .section ".proc.info", #alloc
+         .type __v7_ca15mp_proc_info, #object
+ __v7_ca15mp_proc_info:
+         .long 0x410FC0F0             /* Cortex-A15 */
+@@ -38,7 +38,7 @@ __v7_ca15mp_proc_info:
+         .long caxx_processor
+         .size __v7_ca15mp_proc_info, . - __v7_ca15mp_proc_info
+ 
+-        .section ".proc.info", #alloc, #execinstr
++        .section ".proc.info", #alloc
+         .type __v7_ca7mp_proc_info, #object
+ __v7_ca7mp_proc_info:
+         .long 0x410FC070             /* Cortex-A7 */
+@@ -47,7 +47,7 @@ __v7_ca7mp_proc_info:
+         .long caxx_processor
+         .size __v7_ca7mp_proc_info, . - __v7_ca7mp_proc_info
+ 
+-        .section ".proc.info", #alloc, #execinstr
++        .section ".proc.info", #alloc
+         .type __v7_brahma15mp_proc_info, #object
+ __v7_brahma15mp_proc_info:
+         .long 0x420F00F0             /* Broadcom Brahma-B15 */
 
 
