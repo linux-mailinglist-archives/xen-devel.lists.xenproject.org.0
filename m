@@ -2,45 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAAFA3A3F37
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 11:39:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.140319.259300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD583A3FA6
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 11:56:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.140328.259314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrddR-0004yG-Bt; Fri, 11 Jun 2021 09:39:29 +0000
+	id 1lrdtG-0007DA-OK; Fri, 11 Jun 2021 09:55:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 140319.259300; Fri, 11 Jun 2021 09:39:29 +0000
+Received: by outflank-mailman (output) from mailman id 140328.259314; Fri, 11 Jun 2021 09:55:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrddR-0004vW-8c; Fri, 11 Jun 2021 09:39:29 +0000
-Received: by outflank-mailman (input) for mailman id 140319;
- Fri, 11 Jun 2021 09:39:27 +0000
+	id 1lrdtG-0007BE-Kh; Fri, 11 Jun 2021 09:55:50 +0000
+Received: by outflank-mailman (input) for mailman id 140328;
+ Fri, 11 Jun 2021 09:55:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0bEB=LF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lrddP-0004vQ-My
- for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 09:39:27 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4Erf=LF=gmail.com=rm.skakun@srs-us1.protection.inumbo.net>)
+ id 1lrdtF-0007B8-RM
+ for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 09:55:49 +0000
+Received: from mail-lf1-x132.google.com (unknown [2a00:1450:4864:20::132])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fde5dec2-cbdd-4450-a2d5-0021c32a2572;
- Fri, 11 Jun 2021 09:39:26 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2050.outbound.protection.outlook.com [104.47.14.50]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-25-enljtwdaNdeLgcMk78rXlg-1; Fri, 11 Jun 2021 11:39:24 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3933.eurprd04.prod.outlook.com (2603:10a6:803:24::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Fri, 11 Jun
- 2021 09:39:22 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.022; Fri, 11 Jun 2021
- 09:39:22 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0112.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:19::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 09:39:22 +0000
+ id b2946a7b-4725-4054-861a-dff63ae2b86e;
+ Fri, 11 Jun 2021 09:55:48 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id v22so7728501lfa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Jun 2021 02:55:48 -0700 (PDT)
+Received: from localhost ([178.151.124.169])
+ by smtp.gmail.com with ESMTPSA id r17sm651828ljp.40.2021.06.11.02.55.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 11 Jun 2021 02:55:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,143 +41,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde5dec2-cbdd-4450-a2d5-0021c32a2572
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1623404365;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=5tcyDQtqV243Vt1Pu4MZc3Wx8qSzPD4ZzLi6EoT2Pmo=;
-	b=QcJQtAxxh7LMdnNMvMG7pzqOWLopVzB9xK4SdHWAW9kbvRKyMxLPV1LdRJHBgKXiZqzX72
-	9fDVL08M6kGyh1vMUWw7emXUK3eLF21iC/VYcoC0va2hRULkHKWxFGY5HS60Ou0Q2SxzBx
-	KYAd1QnPET+SjakRm1wwe9YXDvEBpUc=
-X-MC-Unique: enljtwdaNdeLgcMk78rXlg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GcfAy0q1nbDEoq7+LPviz3cpfGEekELTZGCVL2T/rgBIDhjPQBSwxG3Bn2yPE/IhCtWsUDrWw1EQOUgd2DCon35d3Q54OGG8O3U04at/6rDEVZYkWLnTilU85CV+9UTQ8yeofqY+Alw+yIT/C1q0B6EylMoSyiPaZkKcNRok32WrsPaJXKPtrGIG11xNVt8g6d7a+WzDuVtH2+tHY+k8MeIJLh0K562BweTUfqgOVqOCRyFMf7nksSi164ONmS1bSIpIDTIHvEaefeQ4cO71keXjtHqdNKErZhURbT4X4l0869x8/U382Mp/A0TUHbst/JTUoOItm6ySfWh3UwF+5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5tcyDQtqV243Vt1Pu4MZc3Wx8qSzPD4ZzLi6EoT2Pmo=;
- b=mBwroHljrUJAN69Mq04M+Rw3/wWKn5/5nBmaN3554EbjkAUViUqW1FN3wHLk9X48WZrFicMQRsNLAWWf3vzpPYjE2bHiNSku/3E/MXGQ5cxAduTkUPEITNPtfiJnWeTnkiDKVfIV3+3iENsII2MML6SfB9bcGYigkKFUDKn0IwJznEL/XkCrertEznf9Y8oqzPLjYSSdGddeW/BmtipesUp2g7iRnLxN3L83Btdh/Wxk8eQdDM0vjcXMYjtyh2mXvYX9wO3tgZ8HvjqUD47ey5FoNUJVdqoZdueXccHIwqnu0DW+sQKZy65jIs8zEFQcv8jWijCOhnx7bvVjP9ThYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] Arm: avoid .init.data to be marked as executable
-Message-ID: <6837f903-14f6-4438-ed05-b373149984f3@suse.com>
-Date: Fri, 11 Jun 2021 11:39:21 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: PR0P264CA0112.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:19::28) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: b2946a7b-4725-4054-861a-dff63ae2b86e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=L6Nq/3eMJ61O2ppaiV+K5WCKa4wxPQ8pA+EactXa5/Q=;
+        b=ph/XomxAPqIvxyU2lBvMH35+Kz6l15GgxHvCZPiV1EKnsNbwv18k8r3CfcXnDTadvY
+         0HnwK+tCN0fm+FLw08qSlxbWGgLd6GqEV8gP9+/y3mC8mcoEseYaHD7LCYroqq3CWIuc
+         rvV1kJGEsSsa+H0Bu3TBsRdiyQHI4toAKrUIEEeDeNkbUJRQmjgiwHPiHMItUrOZc1Jp
+         W4prezTF9Lefwdpg90MeiDy/5zo0TrVfeIoYveukEK7APT3Exak8EMxXVAcMlp+QDfko
+         P6XaKRDFXiSX8yq0rw+oLRrog118hw6/Wc5k0gg7+VdGPRxrUvhmGPfxUDfyLjcQfPpN
+         E6/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=L6Nq/3eMJ61O2ppaiV+K5WCKa4wxPQ8pA+EactXa5/Q=;
+        b=nLPpMC9vkrEwbDCXbtbppNT6dZAUFunhpLIRU7dESK2EEeKjasKQLwNGijIjQCvqYB
+         nCIGtSYUZMUK4c9uYls5ChhLZkWvWBW1pLkHU3tSFYD4JgOghx5wFTo/ls2+Qb4CfNbz
+         sl19wrcxacqDCLS+MNos2VQcfTFjFNEMlecn9mX9P+MAK8ixxNFua0l117gGIsAIBqwK
+         sjlo/WHXFWCWqGd9rJjD9BgFg8mmreOIQdtg053uui9xYKR23+uGDoyJp151iP+pgE/C
+         CTWwTlLvryjfUMmSoJFO5p56LIDssUSiBPG86luDlgSGNKauNh3ZCtLryffv3phTZ5Kp
+         avQw==
+X-Gm-Message-State: AOAM532Q3PO9B1b8AUqu9jASZ6myKPwGibKDNdt4Mn9NF6RAzvpCaAAn
+	YS1twyxIhYOyNJcxdkGarN0=
+X-Google-Smtp-Source: ABdhPJy8EDHCE1f4s4ZC6KDj2A/UHmJhDH+REBsIFZnu4F/CM9rWslxdJXdDy1hMj7lLIs/rkF7G0w==
+X-Received: by 2002:a19:dc02:: with SMTP id t2mr2158836lfg.261.1623405347760;
+        Fri, 11 Jun 2021 02:55:47 -0700 (PDT)
+From: Roman Skakun <rm.skakun@gmail.com>
+X-Google-Original-From: Roman Skakun <roman_skakun@epam.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	iommu@lists.linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Roman Skakun <rm.skakun@gmail.com>,
+	Roman Skakun <roman_skakun@epam.com>,
+	Andrii Anisov <andrii_anisov@epam.com>
+Subject: [PATCH] swiotlb-xen: override common mmap and get_sgtable dma ops
+Date: Fri, 11 Jun 2021 12:55:28 +0300
+Message-Id: <20210611095528.9230-1-roman_skakun@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6e8b4353-761f-40ed-d1bd-08d92cbccb5b
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3933:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB39338FB33B0A46CC626749E5B3349@VI1PR0402MB3933.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	6ao2bmoqV+PhJW+nZDP2uUEvfGRV2xXSrrq+OX1RL/bFizkiV6zsjnutVQxI8QGZHAMZUsWJ9jKNKiotllVFscMjZUGzJMA3HRgWJmqTzOXZR8t0zgUPMDDyAyhXPUAxbkF8B4TyHSKuHkeVPbGnJggTDxo0EXamTHCjcESlCJ+gvMgzneNaAZBcEVt2qsdcZka6EzJIATK+zs2vbErEabhrXtZtny2SVS/26yh39ox8AxmIXi7GgZH/2lczEO6acFHKsjOQjZtQ14jMxq3Pwamra8MBMjFkAB7jZZp7m5OXIB4opm02gKOIqECZQE+RjACwgCBRTb0hZH8LmmMt3VJya3bkvFYt9x6BD5+kI7h5QY5uoAbF5jq4VxpEb3ZlBVRHFLKw4Id9DD8MsZWUbFGmA03sLddv5/vHhqh/tngE54K1E6GhEz2aCxMnSMMx5hFLta61QFK/9brnbOQwsvW7JJSf1S2/bEmnngviedMNoJ4ZEU3bofPM5m1hK9N9sqcWsnmpKONLgwU6BMG4hOGvrErjCqaUlLpJ7AgM2JsDhaaFG5T65GVOzDc8R/KAP3wGUxCjWXDvPfxKONg8uYKsgBNDlcl5UmmiaaibXe4Rq0ZC6mXjA6ysQ1/sczQf8QdDNnV2Zk2eslPsw3R26/wNJJlw2HYROvReOJ/1ejf+F1hzzYsC8ujqU8I+sWReMJyMSEurI0SWX2rzc3FhOw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(39850400004)(136003)(366004)(346002)(376002)(86362001)(31696002)(66556008)(2906002)(66946007)(478600001)(26005)(36756003)(316002)(54906003)(16576012)(16526019)(2616005)(6486002)(6916009)(4326008)(956004)(83380400001)(8676002)(8936002)(38100700002)(186003)(31686004)(66476007)(5660300002)(142923001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q3RYZlptdlZ6dUMxeUJsQzZTNGZPSlVWbW91NXRiWXVIYU9LNExqY2JMZ2Jy?=
- =?utf-8?B?WUpYNE00TW0rZm1aYlVjbXZOQ3JhMDNNNDJGaHdyOVdzYXcyeklMTUpXWlRO?=
- =?utf-8?B?SHptS3hpdVlwdFlydFl0bmdxdEdwaXhrbzdoQVVuSkVqTE5vNW8zZTVCK2po?=
- =?utf-8?B?dEdpdXFNS2Q3aXBzYkZudnMvS0dqN3o3M29xU0R2MmJxQ2lyVkxFQk9qSEFy?=
- =?utf-8?B?QlpUTWhhS0VOa0pJV3JaQ21scVI4RER2KzEzSzViSlVuYlNoLzFCU2NUMmxX?=
- =?utf-8?B?VzEzdStFSHR1OElhWmc1T2NCeVNLMW9xZGNEL2FGYU5wT3N2OXUwTUdkRzlU?=
- =?utf-8?B?d0xrZkN2TjFFam42ZnlqOXg3T0hQK0VYY1JJa05nQkZkY0ZPbG9IQWNYYzRN?=
- =?utf-8?B?c3I5V2dOWDluMUZ5T3BOZTVCNHR3UnBHa2ZVM2dUZ1B5NkhFcDRpRFV4Y2hQ?=
- =?utf-8?B?VkoyN3M1cy84TCtKNnlWUXdtdHowZFFWYXhuVXIxSmdGN3VVQ0lreXdoRmN2?=
- =?utf-8?B?MVpYMzFDSUJhZUFlZVlIS3ZRVGFJOXdCbkdIakdwNGJ5RnhNQXh4MTB3WGI5?=
- =?utf-8?B?cFNBVFRvM3JMVzh0dFg5S2VXejBVQmkzenhjbzhGOFpTci8rR1dGZXJsdUNH?=
- =?utf-8?B?Y0IzajZtSEpzYzloR24wajVUZyswNWV1VUV0cmFHNDBzRVR1Ni95SFhVaDhv?=
- =?utf-8?B?enZUdzM4RkR3WU9ud1k3d3VnWU9sRE1WRFh1dytUQUJ6Qjdmcklwak9CSVJL?=
- =?utf-8?B?aFExVVRFVEFzaXdoSTV6QlV4ZHZJRzBBNnhjaEVTdTdhQkxYditxZ01UUEll?=
- =?utf-8?B?V1I3cGFRcGVoL3JFOHlBc0V4Ni8zcVRMZVQza0dxT2cramtBTVpqQldCM2h3?=
- =?utf-8?B?SXNFK3QrOHZ6a2hvL3dRSTkvVHFYQUROcHl4Vmk2U1kreS9iQmcxRHNUNmRw?=
- =?utf-8?B?Q1ZpaXJqTjRuYnI5NHpJalU4VFBVWURyZjVlWnpkdnQ2bzdQQmpiMlpxc2k0?=
- =?utf-8?B?dWdXREhrZ2lOYnZmc2JmQVJTSW1CMThIT0tWNHVJbFl2R2U1YkFMZ0VQZ25K?=
- =?utf-8?B?aE41RExmYTBZYlpQUS91R2p0RFlqb0dibjJEM2p4akZsUDF1L1pWVy9mZG1X?=
- =?utf-8?B?Zjg0RHA0aXovOS9zT3gvUWJodGRZYzJYL1RHVlVua1BzSHZRSzVOTEE0dHlX?=
- =?utf-8?B?RXdaRC9zTFJMaTJjYm1RVElROW9hWUtDM0FpeS9wWDg3VENaUTRtU01iYUJW?=
- =?utf-8?B?YVBkb25yOXZEemlKcjA3aVNiOU1RWTZHSnMxS3RWWUxpT3BVTkFTVHI0MENT?=
- =?utf-8?B?L1FlOFlYYWZ4RmE4U0syZVRmNnYyZmQ1OVZmYXdQc0RESnZ2ZHlPeDdLTFBm?=
- =?utf-8?B?ZTRZRlhVYWJWdmlUMEJqL1ZxdHhwaE80S1JjQi9zbmVzcWJTSkFuamxQZ0k0?=
- =?utf-8?B?NExudENLNUtTS2I5MHFqREZneHpRcW1LSUFMNHBKYWY5c3VYQmJiYmk2d2JO?=
- =?utf-8?B?VUR1UW0vZ0Y3b3l3QWkwRjB5UkxiM09OcEVNT2dXYTRnMUEyZ1lvQUpnMTBS?=
- =?utf-8?B?TzRHSUVYQm8vSFhabi9sSWQvTEFjajUzcnlZTnh3dzVINzhydkIwOFNrM0po?=
- =?utf-8?B?aEFta2ZhSHE5U2NwbnBrd0VjZTdIT2pRY2RpMGtQa2tQczcwKzFudVZHNVZC?=
- =?utf-8?B?R01TcEpXRlVUQkRtL3Mra2RCMW10Z2lEbXdzdHVoLzBnUUVxN3UvMy9VeXBV?=
- =?utf-8?Q?J8SDIR4eD8l41xB2HQW8BZdvVE/90I3s2CUB2LB?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e8b4353-761f-40ed-d1bd-08d92cbccb5b
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 09:39:22.8581
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Q4TXC3y3ljy2kr11Qaspk6kogf/LBAYzBsWObz8XaN4rY1PXeh8Jil03aTaTDpuYyUSJXn7J23athmDLWyFEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3933
+Content-Transfer-Encoding: 8bit
 
-This confuses disassemblers, at the very least. Move
-.altinstr_replacement to .init.text, dropping the redundant ALIGN().
+This commit is dedicated to fix incorrect convertion from
+cpu_addr to page address in cases when we get virtual
+address which allocated throught xen_swiotlb_alloc_coherent()
+and can be mapped in the vmalloc range.
+As the result, virt_to_page() cannot convert this address
+properly and return incorrect page address.
 
-Also, to have .altinstr_replacement have consistent attributes in the
-object files, add "x" to the one instance where it was missing.
+Need to detect such cases and obtains the page address using
+vmalloc_to_page() instead.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+The reference code was copied from kernel/dma/ops_helpers.c
+and modified to provide additional detections as described
+above.
+
+Signed-off-by: Roman Skakun <roman_skakun@epam.com>
+Reviewed-by: Andrii Anisov <andrii_anisov@epam.com>
+
 ---
-I'm uncertain whether having .altinstr_replacement inside or outside the
-[_sinittext,_einittext) region is better; I simply followed what we have
-on the x86 side right now.
+Also, I have observed that the original common code didn't 
+make additional checks about contiguity of the memory region
+represented by cpu_addr and size
 
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -147,6 +147,7 @@ SECTIONS
-   .init.text : {
-        _sinittext = .;
-        *(.init.text)
-+       *(.altinstr_replacement)
-        _einittext = .;
-   } :text
-   . = ALIGN(PAGE_SIZE);
-@@ -169,8 +170,6 @@ SECTIONS
-        __alt_instructions = .;
-        *(.altinstructions)
-        __alt_instructions_end = .;
--       . = ALIGN(4);
--       *(.altinstr_replacement)
+May be, this means that these functions can get only physically 
+contiguous memory.
+Is this correct?
+
+Cheers!
+
+---
+ drivers/xen/swiotlb-xen.c | 51 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 49 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index 2b385c1b4a99..f99c98472927 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -563,6 +563,53 @@ xen_swiotlb_dma_supported(struct device *hwdev, u64 mask)
+ 	return xen_virt_to_bus(hwdev, xen_io_tlb_end - 1) <= mask;
+ }
  
- #ifdef CONFIG_DEBUG_LOCK_PROFILE
-        . = ALIGN(POINTER_ALIGN);
---- a/xen/include/asm-arm/alternative.h
-+++ b/xen/include/asm-arm/alternative.h
-@@ -67,7 +67,7 @@ int apply_alternatives(const struct alt_
- 	ALTINSTR_ENTRY(feature,cb)					\
- 	".popsection\n"							\
- 	" .if " __stringify(cb) " == 0\n"				\
--	".pushsection .altinstr_replacement, \"a\"\n"			\
-+	".pushsection .altinstr_replacement, \"ax\"\n"			\
- 	"663:\n\t"							\
- 	newinstr "\n"							\
- 	"664:\n\t"							\
++static int
++xen_swiotlb_dma_mmap(struct device *dev, struct vm_area_struct *vma,
++		void *cpu_addr, dma_addr_t dma_addr, size_t size,
++		unsigned long attrs)
++{
++	unsigned long user_count = vma_pages(vma);
++	unsigned long count = PAGE_ALIGN(size) >> PAGE_SHIFT;
++	unsigned long off = vma->vm_pgoff;
++	struct page *page;
++
++	if (is_vmalloc_addr(cpu_addr))
++		page = vmalloc_to_page(cpu_addr);
++	else
++		page = virt_to_page(cpu_addr);
++
++	vma->vm_page_prot = dma_pgprot(dev, vma->vm_page_prot, attrs);
++
++	if (dma_mmap_from_dev_coherent(dev, vma, cpu_addr, size, &ret))
++		return -ENXIO;
++
++	if (off >= count || user_count > count - off)
++		return -ENXIO;
++
++	return remap_pfn_range(vma, vma->vm_start,
++			page_to_pfn(page) + vma->vm_pgoff,
++			user_count << PAGE_SHIFT, vma->vm_page_prot);
++}
++
++static int
++xen_swiotlb_dma_get_sgtable(struct device *dev, struct sg_table *sgt,
++		 void *cpu_addr, dma_addr_t dma_addr, size_t size,
++		 unsigned long attrs)
++{
++	struct page *page;
++	int ret;
++
++	if (is_vmalloc_addr(cpu_addr))
++		page = vmalloc_to_page(cpu_addr);
++	else
++		page = virt_to_page(cpu_addr);
++
++	ret = sg_alloc_table(sgt, 1, GFP_KERNEL);
++	if (!ret)
++		sg_set_page(sgt->sgl, page, PAGE_ALIGN(size), 0);
++	return ret;
++}
++
+ const struct dma_map_ops xen_swiotlb_dma_ops = {
+ 	.alloc = xen_swiotlb_alloc_coherent,
+ 	.free = xen_swiotlb_free_coherent,
+@@ -575,8 +622,8 @@ const struct dma_map_ops xen_swiotlb_dma_ops = {
+ 	.map_page = xen_swiotlb_map_page,
+ 	.unmap_page = xen_swiotlb_unmap_page,
+ 	.dma_supported = xen_swiotlb_dma_supported,
+-	.mmap = dma_common_mmap,
+-	.get_sgtable = dma_common_get_sgtable,
++	.mmap = xen_swiotlb_dma_mmap,
++	.get_sgtable = xen_swiotlb_dma_get_sgtable,
+ 	.alloc_pages = dma_common_alloc_pages,
+ 	.free_pages = dma_common_free_pages,
+ };
+-- 
+2.27.0
 
 
