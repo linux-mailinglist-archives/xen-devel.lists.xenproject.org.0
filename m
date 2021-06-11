@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834833A42E0
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 15:16:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.140380.259391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 463E73A42F2
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 15:23:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.140389.259405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrh0t-0002Pf-3x; Fri, 11 Jun 2021 13:15:55 +0000
+	id 1lrh7M-0003rG-Vc; Fri, 11 Jun 2021 13:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 140380.259391; Fri, 11 Jun 2021 13:15:55 +0000
+Received: by outflank-mailman (output) from mailman id 140389.259405; Fri, 11 Jun 2021 13:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrh0t-0002N9-04; Fri, 11 Jun 2021 13:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 140380;
- Fri, 11 Jun 2021 13:15:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lrh0r-0002Mz-Kc; Fri, 11 Jun 2021 13:15:53 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lrh0r-00064N-FA; Fri, 11 Jun 2021 13:15:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lrh0r-0007Cn-6P; Fri, 11 Jun 2021 13:15:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lrh0r-0005Rd-5w; Fri, 11 Jun 2021 13:15:53 +0000
+	id 1lrh7M-0003oo-SR; Fri, 11 Jun 2021 13:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 140389;
+ Fri, 11 Jun 2021 13:22:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HBs1=LF=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1lrh7L-0003of-5R
+ for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 13:22:35 +0000
+Received: from mail-ot1-x334.google.com (unknown [2607:f8b0:4864:20::334])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cb131802-6ec8-4e34-8221-a528efc75d6f;
+ Fri, 11 Jun 2021 13:22:34 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ l15-20020a05683016cfb02903fca0eacd15so3099846otr.7
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Jun 2021 06:22:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,186 +38,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wsSOmf/nm+Eqc+TiweUAqjHIVCPXAcHb9eYYRqmx1JU=; b=YPrqcMBuJreMa6Ec1XZMdwaHNP
-	JYe57Kl0NRKtNEZDhhXgzIzr/hK9aLu0eUEcTmrxRoZUX+spu9wyLqZTgEGvOaIjq0jRv4My23zQC
-	Ggm57p7Xrl54rAKBfbKQrqU9a/cKB/G+GT2Q8bm6WbZRd8NYWJLkQUsxWPt/QlWoOs/0=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162642-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: cb131802-6ec8-4e34-8221-a528efc75d6f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=nMkPtLnjfjBcMRUBIpL9t8lGJOfmiK+zsKjRUYJ9MSE=;
+        b=LLLorqJCw5VddTYr7qLEz4B0H1/1vOziV+00oJRaOPGkNOipj8lGLauR1pymXocV95
+         yPkOjjTAx4wutnveJ0pPYmjpdmS2UDlGCd1REjFRmvequPmrRbOdQIJKcQQsTir3SnLm
+         bA4elxmTPRCzhjwZ8AZEz1nxpSJO+6gWPA/IK2bLPo/FXkwjGDVYSHqD6eqlMHpUrFCC
+         DjztbKQujN0JFhq2yYlLlVcVNff4kXuaQKaRMhn+xpV0wGSEPV0FEBH8EaryN1BG324Y
+         mPGt9GqDCVxG+vPSKUlkmKkFP3RBN4oXPVdhAxiv78fRUj851uPklk3C+jVltI1BNY/c
+         cyHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=nMkPtLnjfjBcMRUBIpL9t8lGJOfmiK+zsKjRUYJ9MSE=;
+        b=LPZH4VqnNawlMlGYwOuisV4OYmiaig+fCkx8RBAXei2+Ta1YanNDRVh/2tZMh4GY79
+         G90hE2+G4ZAvSo7Ir27x1chngzMdXbKlR8QbzZqU3AE1lhpUcLwzkIOi0kc2aJ002UOs
+         JgNLW8Rm2usn9Xob5GaB+7Xvf8SkUBR6Cq8DkyKap/4GJQe/EsuQC/CnLrkk8jfqScy8
+         X9eumqiWYVFBV4dxVMHFnT7y56ZxRJ4RxowcPE17GsiENDyBJlUhyIePVLptywztn3xz
+         p1k1h94NruVxgwWry+3WVv+UowJG9UuuRiHf765/eoiUPYyj99GV74VfnyTnvm2utdJ8
+         eOrg==
+X-Gm-Message-State: AOAM532NPlXWKblKELlIIs8VLh9SO1HyLV2XXiWif1wm/W0XLsWSe+Dx
+	4wxcEVfKrwxahn0hasaFLE5t8Q8dWR40P5tK5uQ=
+X-Google-Smtp-Source: ABdhPJzWf8ciN41S0pKlGCesVgGbsXdNWI6G7QUTrlw8FWICn1UmEdx7VU+Kb05zgZONlyMQ5BeKMNLLeiyCnEHjohE=
+X-Received: by 2002:a9d:7682:: with SMTP id j2mr3106147otl.299.1623417753606;
+ Fri, 11 Jun 2021 06:22:33 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162642: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d2cad41defe4e0e9987549fbc8ebdf9ae138f90f
-X-Osstest-Versions-That:
-    xen=3e09045991cde360432bc7437103f8f8a6699359
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 11 Jun 2021 13:15:53 +0000
+References: <e4946a69-bc1a-d54c-dadf-e71feecd99ab@suse.com>
+ <CAJ=z9a07v-cnMhK=cVjjdN3-f4t8qGc3oQz17zRdLxOauBp=qA@mail.gmail.com>
+ <af2f231a-5130-8e5f-b024-04f74e57d1ad@suse.com> <CAF3u54BrJ9MViXnBUMykukaOrpO=SyEV0KwE8Pbs8=tQiLb7wg@mail.gmail.com>
+ <1dca7acd-8f37-b9a0-1ea5-dcd7afc62710@suse.com>
+In-Reply-To: <1dca7acd-8f37-b9a0-1ea5-dcd7afc62710@suse.com>
+From: Julien Grall <julien.grall@gmail.com>
+Date: Fri, 11 Jun 2021 14:22:21 +0100
+Message-ID: <CAF3u54CRe9WnXob8a6-NnT76hfi55a=-9vjoFN2yyePHhQzKOA@mail.gmail.com>
+Subject: Re: [PATCH] Arm32: MSR to SPSR needs qualification
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien.grall.oss@gmail.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/alternative; boundary="000000000000869d1105c47d66d1"
 
-flight 162642 xen-unstable-smoke real [real]
-flight 162646 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162642/
-http://logs.test-lab.xenproject.org/osstest/logs/162646/
+--000000000000869d1105c47d66d1
+Content-Type: text/plain; charset="UTF-8"
 
-Regressions :-(
+On Fri, 11 Jun 2021, 15:02 Jan Beulich, <jbeulich@suse.com> wrote:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl         18 guest-start/debian.repeat fail REGR. vs. 162574
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  d2cad41defe4e0e9987549fbc8ebdf9ae138f90f
-baseline version:
- xen                  3e09045991cde360432bc7437103f8f8a6699359
-
-Last test of basis   162574  2021-06-09 14:00:34 Z    1 days
-Failing since        162584  2021-06-10 00:00:27 Z    1 days   10 attempts
-Testing same since   162642  2021-06-11 10:00:31 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> On 11.06.2021 12:41, Julien Grall wrote:
+> > On Fri, 11 Jun 2021, 11:16 Jan Beulich, <jbeulich@suse.com> wrote:
+> >
+> >> On 11.06.2021 10:00, Julien Grall wrote:
+> >>> On Fri, 11 Jun 2021, 08:55 Jan Beulich, <jbeulich@suse.com> wrote:
+> >>>
+> >>>> The Arm ARM's description of MSR doesn't even allow for plain "SPSR"
+> >>>> here, and while gas accepts this, it takes it to mean SPSR_cf. Yet
+> >>>> surely all of SPSR wants updating on this path, not just the lowest
+> and
+> >>>> highest 8 bits.
+> >>>>
+> >>>
+> >>> Can you provide a reference to the Arm Arm? This would help to navigate
+> >>> through the 8000 pages.
+> >>
+> >> Referencing the instruction page would be enough, I thought (as
+> >> even I, not being an Arm person, have no difficulty locating it).
+> >> If it isn't, how is a canonical doc ref supposed to look like on
+> >> Arm? On x86, we avoid recording document versions, section
+> >> numbers, or even page numbers in code comments or commit messages
+> >> (which isn't to say we have none of these, but we try to avoid
+> >> new ones to appear), as these tend to change with every new
+> >> version of the doc. Therefore, to me, the offending commit's "ARM
+> >> DDI 0487D.b page G8-5993" doesn't look like something I wanted to
+> >> clone from. But if you tell me otherwise, then well - so be it.
+> >
+> >
+> > The Arm website provides a link for nearly every revision on the specs.
+> As
+> > the wording can change between version, it is useful to know which spec
+> the
+> > understanding is based from.
+> >
+> >  Note that for Arm32 we should quote the Armv7 spec and not the Armv8 one
+> > because we only follow the former (there are a few small differences).
+>
+> Thanks for having me dig out an up-to-date Armv7 spec. I find this
+> puzzling in particular because you didn't care to have the earlier
+> commit provide a v7 doc ref. Initially I did intentionally use (a
+> newer version of) the doc that was pointed at there (which I also
+> think is better structured than the v7 one).
 
 
-Not pushing.
+Well Stefano replied past midnight UK time with the reference and committed
+nearly afterwards. So I didn't really have time to object...
 
-------------------------------------------------------------
-commit d2cad41defe4e0e9987549fbc8ebdf9ae138f90f
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed May 12 16:48:32 2021 +0200
+When I asked for the reference I didn't think I needed to mention it should
+be the Armv7 as he should know we only support Armv7 for 32-bit.
 
-    tools/libs/store: cleanup libxenstore interface
-    
-    There are some internals in the libxenstore interface which should be
-    removed.
-    
-    Move those functions into xs_lib.c and the related definitions into
-    xs_lib.h. Remove the functions from the mapfile. Add xs_lib.o to
-    xenstore_client as some of the internal functions are needed there.
-    
-    Bump the libxenstore version to 4.0 as the change is incompatible.
-    Note that the removed functions should not result in any problem as
-    they ought to be used by xenstored or xenstore_client only.
-    
-    Avoid an enum as part of a structure as the size of an enum is
-    compiler implementation dependent.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
+I didn't bother to reply afterwards. But given there is a bug and you
+quoted him, I chose to make clear that reference should be Armv7 only.
 
-commit 2bb17a45b1814b0b6aa4646eff58e16f876281fd
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Jun 10 16:56:24 2021 +0200
+Cheers,
 
-    x86: please Clang in arch_set_info_guest()
-    
-    Clang 10 reports
-    
-    domain.c:1328:10: error: variable 'cr3_mfn' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
-        if ( !compat )
-             ^~~~~~~
-    domain.c:1334:34: note: uninitialized use occurs here
-        cr3_page = get_page_from_mfn(cr3_mfn, d);
-                                     ^~~~~~~
-    domain.c:1328:5: note: remove the 'if' if its condition is always true
-        if ( !compat )
-        ^~~~~~~~~~~~~~
-    domain.c:1042:18: note: initialize the variable 'cr3_mfn' to silence this warning
-        mfn_t cr3_mfn;
-                     ^
-                      = 0
-    domain.c:1189:14: error: variable 'fail' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
-            if ( !compat )
-                 ^~~~~~~
-    domain.c:1211:9: note: uninitialized use occurs here
-            fail |= v->arch.pv.gdt_ents != c(gdt_ents);
-            ^~~~
-    domain.c:1189:9: note: remove the 'if' if its condition is always true
-            if ( !compat )
-            ^~~~~~~~~~~~~~
-    domain.c:1187:18: note: initialize the variable 'fail' to silence this warning
-            bool fail;
-                     ^
-                      = false
-    
-    despite this being a build with -O2 in effect, and despite "compat"
-    being constant "false" when CONFIG_COMPAT (and hence CONFIG_PV32) is not
-    defined, as it gets set at the top of the function from the result of
-    is_pv_32bit_domain().
-    
-    Re-arrange the two "offending" if()s such that when COMPAT=n the
-    respective variables will be seen as unconditionally initialized. The
-    original aim was to have the !compat cases first, though.
-    
-    Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-commit dfcffb128be46a3e413eaa941744536fe53c94b6
-Author: Stefano Stabellini <sstabellini@kernel.org>
-Date:   Wed Jun 9 10:37:59 2021 -0700
 
-    xen/arm32: SPSR_hyp/SPSR
-    
-    SPSR_hyp is not meant to be accessed from Hyp mode (EL2); accesses
-    trigger UNPREDICTABLE behaviour. Xen should read/write SPSR instead.
-    See: ARM DDI 0487D.b page G8-5993.
-    
-    This fixes booting Xen/arm32 on QEMU.
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-    Tested-by: Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-(qemu changes not included)
+> Jan
+>
+>
+
+--000000000000869d1105c47d66d1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Fri, 11 Jun 2021, 15:02 Jan Beulich, &lt;<a href=3D=
+"mailto:jbeulich@suse.com" target=3D"_blank" rel=3D"noreferrer">jbeulich@su=
+se.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 11.06.2021=
+ 12:41, Julien Grall wrote:<br>
+&gt; On Fri, 11 Jun 2021, 11:16 Jan Beulich, &lt;<a href=3D"mailto:jbeulich=
+@suse.com" rel=3D"noreferrer noreferrer" target=3D"_blank">jbeulich@suse.co=
+m</a>&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; On 11.06.2021 10:00, Julien Grall wrote:<br>
+&gt;&gt;&gt; On Fri, 11 Jun 2021, 08:55 Jan Beulich, &lt;<a href=3D"mailto:=
+jbeulich@suse.com" rel=3D"noreferrer noreferrer" target=3D"_blank">jbeulich=
+@suse.com</a>&gt; wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; The Arm ARM&#39;s description of MSR doesn&#39;t even allo=
+w for plain &quot;SPSR&quot;<br>
+&gt;&gt;&gt;&gt; here, and while gas accepts this, it takes it to mean SPSR=
+_cf. Yet<br>
+&gt;&gt;&gt;&gt; surely all of SPSR wants updating on this path, not just t=
+he lowest and<br>
+&gt;&gt;&gt;&gt; highest 8 bits.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Can you provide a reference to the Arm Arm? This would help to=
+ navigate<br>
+&gt;&gt;&gt; through the 8000 pages.<br>
+&gt;&gt;<br>
+&gt;&gt; Referencing the instruction page would be enough, I thought (as<br=
+>
+&gt;&gt; even I, not being an Arm person, have no difficulty locating it).<=
+br>
+&gt;&gt; If it isn&#39;t, how is a canonical doc ref supposed to look like =
+on<br>
+&gt;&gt; Arm? On x86, we avoid recording document versions, section<br>
+&gt;&gt; numbers, or even page numbers in code comments or commit messages<=
+br>
+&gt;&gt; (which isn&#39;t to say we have none of these, but we try to avoid=
+<br>
+&gt;&gt; new ones to appear), as these tend to change with every new<br>
+&gt;&gt; version of the doc. Therefore, to me, the offending commit&#39;s &=
+quot;ARM<br>
+&gt;&gt; DDI 0487D.b page G8-5993&quot; doesn&#39;t look like something I w=
+anted to<br>
+&gt;&gt; clone from. But if you tell me otherwise, then well - so be it.<br=
+>
+&gt; <br>
+&gt; <br>
+&gt; The Arm website provides a link for nearly every revision on the specs=
+. As<br>
+&gt; the wording can change between version, it is useful to know which spe=
+c the<br>
+&gt; understanding is based from.<br>
+&gt; <br>
+&gt;=C2=A0 Note that for Arm32 we should quote the Armv7 spec and not the A=
+rmv8 one<br>
+&gt; because we only follow the former (there are a few small differences).=
+<br>
+<br>
+Thanks for having me dig out an up-to-date Armv7 spec. I find this<br>
+puzzling in particular because you didn&#39;t care to have the earlier<br>
+commit provide a v7 doc ref. Initially I did intentionally use (a<br>
+newer version of) the doc that was pointed at there (which I also<br>
+think is better structured than the v7 one).</blockquote></div></div><div d=
+ir=3D"auto"><br></div><div dir=3D"auto">Well Stefano replied past midnight =
+UK time with the reference and committed nearly afterwards. So I didn&#39;t=
+ really have time to object...</div><div dir=3D"auto"><br></div><div dir=3D=
+"auto">When I asked for the reference I didn&#39;t think I needed to mentio=
+n it should be the Armv7 as he should know we only support Armv7 for 32-bit=
+.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I didn&#39;t bother to=
+ reply afterwards. But given there is a bug and you quoted him, I chose to =
+make clear that reference should be Armv7 only.</div><div dir=3D"auto"><br>=
+</div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><div dir=
+=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex">
+<br>
+Jan<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000869d1105c47d66d1--
 
