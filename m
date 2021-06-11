@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 404733A3D1E
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 09:29:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.140234.259150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA383A3D22
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jun 2021 09:30:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.140240.259162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrbap-0003aT-B5; Fri, 11 Jun 2021 07:28:39 +0000
+	id 1lrbcE-0004qf-OP; Fri, 11 Jun 2021 07:30:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 140234.259150; Fri, 11 Jun 2021 07:28:39 +0000
+Received: by outflank-mailman (output) from mailman id 140240.259162; Fri, 11 Jun 2021 07:30:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lrbap-0003YJ-7y; Fri, 11 Jun 2021 07:28:39 +0000
-Received: by outflank-mailman (input) for mailman id 140234;
- Fri, 11 Jun 2021 07:28:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lrbcE-0004o4-JO; Fri, 11 Jun 2021 07:30:06 +0000
+Received: by outflank-mailman (input) for mailman id 140240;
+ Fri, 11 Jun 2021 07:30:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6eg9=LF=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lrbam-0003YA-NU
- for xen-devel@lists.xenproject.org; Fri, 11 Jun 2021 07:28:37 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.218])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dcfa0988-751b-485f-b586-41cf82c56ad5;
- Fri, 11 Jun 2021 07:28:35 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5B7SSbBd
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 11 Jun 2021 09:28:28 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrbcD-0004ca-09; Fri, 11 Jun 2021 07:30:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrbcC-0007pB-OY; Fri, 11 Jun 2021 07:30:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrbcC-0000pi-HL; Fri, 11 Jun 2021 07:30:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lrbcC-00078z-Gr; Fri, 11 Jun 2021 07:30:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,100 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcfa0988-751b-485f-b586-41cf82c56ad5
-ARC-Seal: i=1; a=rsa-sha256; t=1623396508; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=SXppBXc7jLwi1hjItE1Q6WBIbiKMN0OWpSYpfP3oVVYvUYh/Sj6tKa8VTk2Yq+3bXA
-    6jJKD4AoWAlWToBD1M33zkeVj0OSJ/y1KhCGBNxMC+U/VhiX2pB1fq7ae2a2HmN8Qidy
-    DDybPpEU6rtZn/fUGrKgGMZ560Nv+Wv37dUUtlmvgw77VoVYTu3tOh/fSwBwpBDeGcNr
-    lqfbo7F91HGvFfXHrCAAQXIUtPVzl8lhzByytSAG4bCC9n70cjMLV3OaCXv1DPVHQHz+
-    uYtTOk6KqmCkbgK2nJ8HYt21CMVbtt5Xg+6Z+5ffurXjrTxBa6cQyWQe4co90q1900qq
-    uF9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623396508;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=IwC2SpROjPR4yfqIr6wGKLMyHG7VjnBvkUQAWkc20T8=;
-    b=aMG0hH6giNZDZ/LTSQQ81A/Oyg7hRNkwD9QvenNu/aaQPcynTEZ7Q2tTmE/mnL4yON
-    pIBm6qmRRxGbh4l7/A2Z+57+KiWhfHw4neOCH0Q5Si1bl1M8VwC/jMwFxWxxz8+ljB+p
-    AvuT1GCQlwuP1fLTKOG8jApM2ypJB9nRadVhBu8nDKCYBe3e/QxicaurcFFt+EE8e/DH
-    7klxeilZ9X7L7o73BGp33OA0SjJfh7L49xySBmOwVsXkPlzspZhvOvA4n1/+LuMRivfe
-    ja8eOs83A4VbDLiL0Kxr1DhLgxhyVFCBUxJTzON7vdUY7JzVehSldyzZ1UqO9Kx8PIXS
-    lwHA==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623396508;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=IwC2SpROjPR4yfqIr6wGKLMyHG7VjnBvkUQAWkc20T8=;
-    b=T1xtB8D0PFIt+MxvWwtTG+QP+fJc7rK60HKyqH+gaCZSsBaB1OXNrCQTKkvabd5A63
-    IV/u9oFurFswnXPuMZlazHaBeO5WtWXCvoH39Sz7J38+a1iEyZMQCMQEi5+8d1Srir30
-    OA8OKJNTn4p8SLwCvnqBk8ME4iEtrwEigwEgEixcwf2UmK2mlJh5JGKF5ikUkaE402aa
-    QUm7uTAollT3VIMedB7hMekpc2hI1/I5wBR/iJOvRlWmx089deegZph/VPwZmpiqRPeE
-    GPhKf40x7Fv/VxqwG2FPRrPNO+r8BC8o+klmYnDjssvbW7Y0QwZfHlUIzjXsYueyB3xI
-    6iWw==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF/Ax6Fb03sCxOoTBq7r1dZtjiRLxxzC79Iv3HI"
-X-RZG-CLASS-ID: mo00
-Date: Fri, 11 Jun 2021 09:28:14 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>, Wei
- Liu <wl@xen.org>
-Subject: Re: [PATCH v2 2/2] tools/xenstore: set open file descriptor limit
- for xenstored
-Message-ID: <20210611092814.1c86c350.olaf@aepfle.de>
-In-Reply-To: <fcb0a1d6-c392-e0a1-2ec6-d6cf6a40d6bf@suse.com>
-References: <20210608055839.10313-1-jgross@suse.com>
-	<20210608055839.10313-3-jgross@suse.com>
-	<20210608183833.023551f4.olaf@aepfle.de>
-	<eaf53d99-fee9-0c79-7f29-efd00aae4d16@suse.com>
-	<20210611074616.2a4b96fb.olaf@aepfle.de>
-	<fcb0a1d6-c392-e0a1-2ec6-d6cf6a40d6bf@suse.com>
-X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=C4AcvXJPR99Y7VOdAPdXQdEJFTQNDp6jPP5emt5H44g=; b=BKqjTB5MonjBo6SmtXGgLzHyFM
+	NaQXJrKLSOo8iS+WAn+kVeEFLVYnVpmcCCTgnuVhgcXQOKyB+I0DwLFPmMQxY4rWDl2hTOU7LhR7V
+	5wIqZRcluxwXxUCxAp0nMWQrTx6iL5kf3/y/Tc10AfJvn/l+caxMJhvQbx0AS8MXGAok=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162609-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/8snxwIAzlWmCToxQCgDPaHz";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: [ovmf test] 162609: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=b8649cf2a3e673a4a8cb6c255e394b354b771550
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 11 Jun 2021 07:30:04 +0000
 
---Sig_/8snxwIAzlWmCToxQCgDPaHz
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+flight 162609 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162609/
 
-Am Fri, 11 Jun 2021 09:07:24 +0200
-schrieb Juergen Gross <jgross@suse.com>:
+Regressions :-(
 
-> Isn't that a bug in fillup or the related rpm-macro?=20
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-No. Fillup expects a certain pattern: a bunch of comments and a single key=
-=3Dvar right after that. With such format it might be able to adjust the co=
-mment and leave the key=3Dvar as it is. Without key=3Dvar it will see it as=
- a stale comment, and removes the entire section of comments during the nex=
-t package update.
+version targeted for testing:
+ ovmf                 b8649cf2a3e673a4a8cb6c255e394b354b771550
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-Olaf
+Last test of basis   162359  2021-06-04 03:40:08 Z    7 days
+Failing since        162368  2021-06-04 15:42:59 Z    6 days    7 attempts
+Testing same since   162583  2021-06-09 23:44:58 Z    1 days    2 attempts
 
---Sig_/8snxwIAzlWmCToxQCgDPaHz
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Ni, Ray <ray.ni@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
 
------BEGIN PGP SIGNATURE-----
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDDEI4ACgkQ86SN7mm1
-DoCJxw//ZA0XDNN2hxkZA7DY197qDRjw9N5NXy83isgI0uDdYMlhQKu9YfLd4KoE
-cbJcfZ7kjHGtCPrOt7skMy88gIIUeLxGzNsxczVutc6SvLuNW/0f5RQbZJVhxBP9
-4flPUJBnB6Z1pF2sADYyEvNJ+P+PIduA0NS5b/IcQXUXZ+1RYLezO8SltLTPWlHg
-2DC0wbzUTIVPBZ67dyZxNQL3nHNJStp+Z/ZnYOH9u4hCmwX7GQE2Is03v3rkmMRO
-o4g+M/pCHh/b2KPu9N3kkXc6Pju2eY1rID2q/tR4rUVYlPYsCQXWbcPcDNilMvyc
-VoHJmy8pXdyTBe20q0hdgT+PRbLgHD/HLUvmESwJHhoVcxkwPs6MIYaAiQBvezBs
-HNl1ANhNCxqQPVi2d9xi2+gIcI6ONC91oSgOQE2CuPLKugoS+ExlYpIwqBo3gcfs
-qsyjs8CnoYCTQS+CymHbyx7IdyvNvi4eu4fbBztMNCeP7vn3ThmcZbgtPB8A5jWo
-pQ9ZsvVUz1PC0v8HS+WoAHLuM3o/4fz4Wiy4NDChdYEyyqGd+6sZkpBG/+LWf8no
-NTqy4Ymzd0nxpw1140bGyVw4AvGSCIf0BtrvuqRcerrhe8QnVNDxDf5/AR4YKsc2
-N7Qmq3HhQBALM7mJDXw2XqGZmBg9s+0zTfI/vLmO0BbYRJ5W95A=
-=52NC
------END PGP SIGNATURE-----
 
---Sig_/8snxwIAzlWmCToxQCgDPaHz--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1717 lines long.)
 
