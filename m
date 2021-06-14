@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D343A5D6F
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 09:09:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141231.260955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AC633A5D7F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 09:13:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141237.260967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsgic-0008GS-J3; Mon, 14 Jun 2021 07:09:10 +0000
+	id 1lsglq-0001Hn-3x; Mon, 14 Jun 2021 07:12:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141231.260955; Mon, 14 Jun 2021 07:09:10 +0000
+Received: by outflank-mailman (output) from mailman id 141237.260967; Mon, 14 Jun 2021 07:12:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsgic-0008Dn-F9; Mon, 14 Jun 2021 07:09:10 +0000
-Received: by outflank-mailman (input) for mailman id 141231;
- Mon, 14 Jun 2021 07:09:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lsglp-0001EY-Vk; Mon, 14 Jun 2021 07:12:29 +0000
+Received: by outflank-mailman (input) for mailman id 141237;
+ Mon, 14 Jun 2021 07:12:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aFdS=LI=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lsgia-0008Dd-VC
- for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 07:09:08 +0000
+ id 1lsglo-0001EO-HG
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 07:12:28 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6d6c04c5-087e-4964-8997-ea3e5ae4adff;
- Mon, 14 Jun 2021 07:09:08 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f5ce7fb8-1947-45de-85c0-4b9025f5b1cc;
+ Mon, 14 Jun 2021 07:12:27 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 1F7FB67373; Mon, 14 Jun 2021 09:09:04 +0200 (CEST)
+ id 537CA67373; Mon, 14 Jun 2021 09:12:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,8 +37,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d6c04c5-087e-4964-8997-ea3e5ae4adff
-Date: Mon, 14 Jun 2021 09:09:03 +0200
+X-Inumbo-ID: f5ce7fb8-1947-45de-85c0-4b9025f5b1cc
+Date: Mon, 14 Jun 2021 09:12:23 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Tianyu Lan <ltykernel@gmail.com>
 Cc: Christoph Hellwig <hch@lst.de>, kys@microsoft.com,
@@ -61,25 +60,20 @@ Cc: Christoph Hellwig <hch@lst.de>, kys@microsoft.com,
 	netdev@vger.kernel.org, vkuznets@redhat.com,
 	thomas.lendacky@amd.com, brijesh.singh@amd.com,
 	sunilmut@microsoft.com
-Subject: Re: [RFC PATCH V3 10/11] HV/Netvsc: Add Isolation VM support for
- netvsc driver
-Message-ID: <20210614070903.GA29976@lst.de>
-References: <20210530150628.2063957-1-ltykernel@gmail.com> <20210530150628.2063957-11-ltykernel@gmail.com> <20210607065007.GE24478@lst.de> <279cb4bf-c5b6-6db9-0f1e-9238e902c8f2@gmail.com>
+Subject: Re: [RFC PATCH V3 08/11] swiotlb: Add bounce buffer remap address
+ setting function
+Message-ID: <20210614071223.GA30171@lst.de>
+References: <20210530150628.2063957-1-ltykernel@gmail.com> <20210530150628.2063957-9-ltykernel@gmail.com> <20210607064312.GB24478@lst.de> <48516ce3-564c-419e-b355-0ce53794dcb1@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <279cb4bf-c5b6-6db9-0f1e-9238e902c8f2@gmail.com>
+In-Reply-To: <48516ce3-564c-419e-b355-0ce53794dcb1@gmail.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Mon, Jun 07, 2021 at 11:21:20PM +0800, Tianyu Lan wrote:
->> dma_map_single can only be used on page baked memory, and if this is
->> using page backed memory you wouldn't need to do thee phys_to_virt
->> tricks.  Can someone explain the mess here in more detail?
->
-> Sorry. Could you elaborate the issue? These pages in the pb array are not 
-> allocated by DMA API and using dma_map_single() here is to map these pages' 
-> address to bounce buffer physical address.
+On Mon, Jun 07, 2021 at 10:56:47PM +0800, Tianyu Lan wrote:
+> These addresses in extra address space works as system memory mirror. The 
+> shared memory with host in Isolation VM needs to be accessed via extra 
+> address space which is above shared gpa boundary.
 
-dma_map_single just calls dma_map_page using virt_to_page.  So this
-can't work on addresses not in the kernel linear mapping.
+Why?
 
