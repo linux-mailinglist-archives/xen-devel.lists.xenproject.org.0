@@ -2,46 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37F7E3A66E5
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 14:46:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141413.261216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 856E73A66EC
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 14:47:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141418.261227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lslzH-0005rs-6f; Mon, 14 Jun 2021 12:46:43 +0000
+	id 1lsm0B-0006Vr-FU; Mon, 14 Jun 2021 12:47:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141413.261216; Mon, 14 Jun 2021 12:46:43 +0000
+Received: by outflank-mailman (output) from mailman id 141418.261227; Mon, 14 Jun 2021 12:47:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lslzH-0005p5-2r; Mon, 14 Jun 2021 12:46:43 +0000
-Received: by outflank-mailman (input) for mailman id 141413;
- Mon, 14 Jun 2021 12:46:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lslzG-0005ov-Fo
- for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 12:46:42 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d066a8cc-fa51-4fdb-87a0-31c513bcde15;
- Mon, 14 Jun 2021 12:46:41 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2168.outbound.protection.outlook.com [104.47.17.168])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-22-PY6P7p6AO1-Ohb7iU8Lq5g-1; Mon, 14 Jun 2021 14:46:39 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3390.eurprd04.prod.outlook.com (2603:10a6:803:9::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.23; Mon, 14 Jun
- 2021 12:46:38 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
- 12:46:38 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0050.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1d::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Mon, 14 Jun 2021 12:46:37 +0000
+	id 1lsm0B-0006Tu-CA; Mon, 14 Jun 2021 12:47:39 +0000
+Received: by outflank-mailman (input) for mailman id 141418;
+ Mon, 14 Jun 2021 12:47:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ADML=LI=gmail.com=rm.skakun@srs-us1.protection.inumbo.net>)
+ id 1lsm09-0006Tg-SX
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 12:47:37 +0000
+Received: from mail-lj1-x230.google.com (unknown [2a00:1450:4864:20::230])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b99f9e50-6e2b-486e-8853-e88b39b66002;
+ Mon, 14 Jun 2021 12:47:37 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id k8so3090363lja.4
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Jun 2021 05:47:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,116 +37,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d066a8cc-fa51-4fdb-87a0-31c513bcde15
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1623674800;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sp0QWqMxrfWuXDLB7Yla+HCYh3ElKC2v7yyxRTEoow0=;
-	b=d2hvYctsVDfTZm7uonU5wUzD+tvbIFGZGZexiwBjS3iZbgdV9WM28yf07jt4Yqe9hiyiPB
-	spIBqyFqxLUwPG5K1qFBu7rFczlxf4mRN+3SITXAPQRFC9wo0F18cwOei+G0BkrfXoC1Xz
-	/Kk7G5nsJajzGenHAdrxCQncRGt8EtE=
-X-MC-Unique: PY6P7p6AO1-Ohb7iU8Lq5g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KTrXtgYxDuHfYcGyHJkYzRMsKGdI0bKmn0fZ8T4/EDACoCwf0PaAKSycoVoqWMrEYh9N1HBpYHP4DbDbcoeddBcnvFcy4k1XUMLsiDzgHCrSR6ki5WmblSN0p85JEGGBTQ0MOsG8HGRgPOFBPOMh7B4D0m5yTPiYNS4Q1eT4J0cFfuv7oQpT4rps8Vxd0gksYkcWNnZEDfTCSUC+VLyn1TbYXwCbDVTHuRlxyaafbGBBFBSfsy93UjqoYMOEmu2p1BxvAL9JonYNYr9WqMqxRnR0ZcwJz28sheWrg9kIdPUciEATsUUPrBCGI/OX7KwytQInpGNMvvtQACyVBm4Z+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sp0QWqMxrfWuXDLB7Yla+HCYh3ElKC2v7yyxRTEoow0=;
- b=STvqHVuUmNY2+mt261IJOCwwpu5/GlHCQRmVNfIxPml8f360Z2MTBSDn9TOoNBnNzsyMq52VxcWA/XErF6som1BPBMxYvsn5OVkIXVYRXY4EWyXAT6ogX6pA6yaHHAztQ7iNui5Qv0Zz9fW0i9+kvFiQRFrLBvRXp6wfscsA2tGCJybdy3D40Ay29C40p4lxrLVweUhsmPJHQLjd+CskiHTVCyNyfpI4yErHfdQLE2zgMtSEfRkNdiFGnFbfUke4Aib7WfE9BcBrX0Se9JsBDlEiIo8wuPk8ADEkTEWyJ4kBnVy6J2Xyid7OGtMRkFnXOAFVF6S6zutTKOVX6TYPgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH 2/5] x86/platform: Permit reading the TSX control MSRs via
- XENPF_resource_op
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Igor Druzhinin <igor.druzhinin@citrix.com>,
- Edwin Torok <edvin.torok@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210611163627.4878-1-andrew.cooper3@citrix.com>
- <20210611163627.4878-3-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <44de7fb0-ee20-0d54-5417-9964593b9e0d@suse.com>
-Date: Mon, 14 Jun 2021 14:46:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210611163627.4878-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: PR0P264CA0050.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1d::14) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: b99f9e50-6e2b-486e-8853-e88b39b66002
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=QUObwUNWvgk8Ic1w7m2h32Aq1YfuXrxksajQxqaMrIs=;
+        b=rj6ZqtY0hWRNdi47dSpXnG5VlOgr15kVbYhmu6VWU8u6FjoktZ8tvzKvzlkPnDP+pV
+         XO3nhrT0y6qyTJZjPH5sSQnLiK2So2RyVxzuj8bZTSrohk/KJTgF8P077y+Fvbm3p3MS
+         adrMOeNBlgRIAQ8M4JksRyHAk91ctiTVHRxKE+Ysd4cv7fxq0GrTjF2zot+++owhWgOZ
+         akrE4+2kZBZEEm5a4N3TOZdjIGXh/Ipfb6XTfSeGKR/mE8wojx+WFi//AUD6f13s38T+
+         dh0ynmjkc4C4o/Er1BLAEQaXeS2zTdDzm++TKc2dXCS2gvmp9hROmv+KiK5rYRK9W/Lu
+         mMbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=QUObwUNWvgk8Ic1w7m2h32Aq1YfuXrxksajQxqaMrIs=;
+        b=ovN12n/ebWAg5TXy4rEVmSpTWZCB/HJF1pIBKOrJ6q1eJLBvTMjcA/gG5+UyTKJCxn
+         jnsOkQ8YIVQi0vFQyMSeLu4TwoTDadGAPoAv+MbgVBote+YHM8YUqyaEzhMLbf3NCrjg
+         fFJGCjJclFRUyqOtqxVnpfSjcgnJ5HWtL1eAhN24j+mLIHzhJTcsqgFKAJfQ3ld2lwAv
+         RaxOFn7e1tCR78BMRa7o15/T6vAfxOqjBgeQ40H08QfbIyguo+fZFznMZ6XljomfAo6B
+         FAjSmKhji6nwHhkgYhTcZ4ix0TWkGEcBpWUEbUZa5b0zQv3I04fuGZr7CnWAQbNIxmyd
+         jipg==
+X-Gm-Message-State: AOAM532qHJeq1J2LiTCYOMaKsTaU/J3MemotVDDweGSVUJqgB1EqCf15
+	n/HB4TAfGe43dly9B05cfZBe3feN1wQC3t2SrMs=
+X-Google-Smtp-Source: ABdhPJxC86d8VXC4py9RRymEPfI5ESRE2fKe8HepltlfpWhz75a3A3JMLKsQJcx2NkZi9XGq2Uggz8yzDs460UQlrTk=
+X-Received: by 2002:a2e:b8cc:: with SMTP id s12mr13710166ljp.66.1623674855928;
+ Mon, 14 Jun 2021 05:47:35 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd8ebda8-38c9-4a0b-f061-08d92f327387
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3390:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3390E562713B8863564C17D1B3319@VI1PR0402MB3390.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:428;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	84zvowRRf9hrze0XkDs35O6IeQKLXqvIVIJh0tq0tQkU197NYOtiNpsu1sUb3JjiyhRTQCKUAyEo/z1/BowJ6XDrG+FAaJy2i4cKS2RMNvaIyHUusPJlQYGdD6MlNQaMWct2IwuvZ4msDfqep0g8flAQip10gb66vlgJurbtLh+8WWq5jt5jL1Acr+QKk8tGbosZBDavDZca7Y1n3+aLrGw0wvYuU++atBY9QTfgGFXnG2ouyGHHc5JukuNMAnLRWTNqCfp1DSGJZaCsSM1zi6AmmjZhIMl34lr5yrDbuVvDij60zqcQ8Qwn5oIpuorFDTk9Hkvj+iolC5ABVxMbJidWJjvFBS/3yCs0cyYu72tmYGC03OP3RQ/IzdOKGa5xRzlv/eKzl6aV3y+WTzIMBZHpwLJaO3WUpf6DPnWVC6Egks2uGWPq1dTLZhMAZWohKgD0gLXgdZAS7oFA4ulm/8bAt7Ul7V9ANRiAs1SpowskBE2ESi7gZk4mMekg9SFT+w5ZwIRconrtnSLJgr2Ht9ih1l4rmiWfTOZkSAHxL1vhGwtesmkZsCA/77uq4lD2onrP1M626o7Lt4X/0fq/WZVaHSA7aZkFVMB+0HDbgYB+9lHZk74O7gC2d4wY+fQF02eJi3Q8fDzBGA6IUb1D0f4I969j6lpwugl0dtJtWwMp3uZABv17vF8+U+VK/st8
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(346002)(136003)(366004)(39860400002)(376002)(54906003)(38100700002)(8676002)(86362001)(2906002)(316002)(16576012)(6486002)(5660300002)(478600001)(2616005)(36756003)(16526019)(31686004)(66476007)(66556008)(6916009)(66946007)(8936002)(31696002)(4326008)(558084003)(53546011)(26005)(186003)(956004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUEzS0wxTFI1THdiemF1OTNFZDZYekFldUZjMlpSNXdjY3BWcU5hK0NRNGVC?=
- =?utf-8?B?VkFYOU9EQm9EaHRibjMrTGxNOEZxeDBsYy9SRGlIS2FiNTJJZ2RUcWpqVzho?=
- =?utf-8?B?dGVrSkRxd1hrc29uZThyNUtyS2ZCYW40bWtSVEh3YnlRR0VUYzBNdWFoQTJa?=
- =?utf-8?B?YW41akE3WEpDdUZ3Uk01T044cHhmYlBPM3dBZWpFZjZSZ0RlMUJrU0RvZVlP?=
- =?utf-8?B?LzZFM0h1S09TZmE2d2tmSlliY2h6RXcydmo2VGhjNDFtVmZvbm9pL3gzNC9i?=
- =?utf-8?B?LzlNajcveDVtaGwvaVdubHZ0WVRPM0JpQUo1NzVmSVduMmEzNHQrL2psMEV4?=
- =?utf-8?B?TkxFbGY0dzF2REw0ZGJQd3VpL0ovWW9mNXdRTHg4c1IyYWlCTmU1UGtpWGdF?=
- =?utf-8?B?cHdXcFo0TjdxZWp4R0FsTzNLTDFXbkVoYUdQVWhpSHVGMi9JcGFIT0pPVS84?=
- =?utf-8?B?WE5yZmlIVEpoK3QrWWtHOXUrSjRUOW5xdkVNd1BPSTVBSlh4UTBMdVhyVHda?=
- =?utf-8?B?eGhJSFIrcEZ5MDdZNlIzUjZvamtKUDZNK0tYRFU4aVN1Ynhqbm9CTnRGQ3hm?=
- =?utf-8?B?N0lncmRvVitLQnZUM2gwZ1ZnZUtMZnpuRUJORFBsYWtnQjdSeHFMMHRNaURn?=
- =?utf-8?B?YUN5ZlRvb29MMnJEcS9pa0FmV0lyMzNmL2Y5cEsvSkoxUjNBVEllRmNCUVdy?=
- =?utf-8?B?eFhGRng2aVNsc0lRNy82NnBleGZIdi92T2tiWXZSM1BQc0haK0x2K2NuUkxX?=
- =?utf-8?B?KzF2L0hpVTc0U25wVUY4Q3pqOGNFWG44Znp6SUFqWS9PbnBsOWwrRVlqSEhR?=
- =?utf-8?B?ZEFaZjhZem1rZ2lFOWJvWDVodUNVWDBKR0R1T0dtbmxPRlNTdVBvTkFNQW5D?=
- =?utf-8?B?eHdkRDNsSFRnTk5ySGo2L2c4OUxSVE0zVitoWkZWVDA1YzV4TjFhMGJvVWN2?=
- =?utf-8?B?M0VITW5UNEVCS2k1c09qL3c3bmgweEFtNndkVzBPWmtaUUVZQXgyeC9MN2R5?=
- =?utf-8?B?eWhnMEZWRzFYRDF5TzN5OCtUQkl1YUYzR0FOVmR1VlJ3NnRwcVFCYlZZOWZI?=
- =?utf-8?B?WGl2Y0pDOXg1SEFKODlodEplRzNpN282dGozZFlSZXlOTG9vaTBKbU9jMUVP?=
- =?utf-8?B?VHVzaW9DM3p6cUhoTXlxdzlkY2NqMVNXa0VhNFdmYVZHNW92dU1VWkF3Vm9I?=
- =?utf-8?B?YWNaanNhZ3crSVhrYUxpS2RHWWgvQnZhMjd6Mys1M0IvanEyQnhEblZNRkFx?=
- =?utf-8?B?MnZ5V0NVWEorakJLcW9HN1dQOWdxZnFNL0lIQ3NiYzljcmxSZnB1OEdiVkwz?=
- =?utf-8?B?T2tvbkZuZmVzeVF2R2JOSDh1QXFmQVIzMUQyS3V5cXl1dTBpY0ZnNWV3TXhH?=
- =?utf-8?B?VWJtcm1sVlljdHhucHFkRlB5SzlsenU3d00wM2J2VnVEbEF0Q1p0elNuMXdO?=
- =?utf-8?B?VElhMTZIUndSbWVSZ25qS1hjQ25VV0VMbjNoTThQOGR0ZCtBRnB4a2o5NHl2?=
- =?utf-8?B?dVk2UTBvNGU3MVFqSVZPQjd5bTlKZ1cyWUVRZ3cyVDRBaUtOMWp0TUxqdU04?=
- =?utf-8?B?cUdrMTNOQ1p3SDRpQ2RnRkNITjdPaVBvYnRmWmpoa1NJWVRkZFFqUTBhejRi?=
- =?utf-8?B?UmpRWWdzTFlLUFZMdUFPSHZNMGplSW54MUZzdEt6bFBobW9RSnRDWWp3UEth?=
- =?utf-8?B?Y1BYeFVlbXJEa3VPYjdDR1RROGVXemtURkFxS2djOUl3aG9nMjliQ1ZiTkhY?=
- =?utf-8?Q?To5FJ5JfMYHKOL3YCdz+J3gABukCDCuSjBwNOU3?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd8ebda8-38c9-4a0b-f061-08d92f327387
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 12:46:38.3604
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GjwPldcekurlfcxzbOxxCzQo5R57Lf9BlJPaB/vW17XCPxqGP3wgE4RzHj97o9ld39j2k3eScO9yhkAd0zC0vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3390
+References: <20210611095528.9230-1-roman_skakun@epam.com> <855a58e2-1e03-4763-cb56-81367b73762c@oracle.com>
+In-Reply-To: <855a58e2-1e03-4763-cb56-81367b73762c@oracle.com>
+From: Roman Skakun <rm.skakun@gmail.com>
+Date: Mon, 14 Jun 2021 15:47:25 +0300
+Message-ID: <CADu_u-MqALJkG8RJHrr65vC_sHu-UyvCGwwUfaBong0eir5+hQ@mail.gmail.com>
+Subject: Re: [PATCH] swiotlb-xen: override common mmap and get_sgtable dma ops
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, 
+	iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Roman Skakun <roman_skakun@epam.com>, 
+	Andrii Anisov <andrii_anisov@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11.06.2021 18:36, Andrew Cooper wrote:
-> We are going to want this to write some tests with.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hey, Boris!
+Thanks for the review.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I have an additional question about current implementation that disturbed m=
+e.
+I think, that we can have cases when mapped memory can not be
+physically contiguous.
+In order to proceed this correctly need to apply some additional steps
+to current implementation as well.
 
+In mmap() :
+1. Is the memory region physically contiguous?
+2. Remap multiple ranges if it is not.
+
+In get_sgtable() :
+1. Is the memory region physically contiguous?
+2. Create sgt that will be included multiple contiguous ranges if it is not=
+.
+
+What do you think about it?
+
+Cheers!
+Roman
+
+
+=D0=BF=D1=82, 11 =D0=B8=D1=8E=D0=BD. 2021 =D0=B3. =D0=B2 18:20, Boris Ostro=
+vsky <boris.ostrovsky@oracle.com>:
+>
+>
+> On 6/11/21 5:55 AM, Roman Skakun wrote:
+> >
+> > +static int
+> > +xen_swiotlb_dma_mmap(struct device *dev, struct vm_area_struct *vma,
+> > +             void *cpu_addr, dma_addr_t dma_addr, size_t size,
+> > +             unsigned long attrs)
+> > +{
+> > +     unsigned long user_count =3D vma_pages(vma);
+> > +     unsigned long count =3D PAGE_ALIGN(size) >> PAGE_SHIFT;
+> > +     unsigned long off =3D vma->vm_pgoff;
+> > +     struct page *page;
+> > +
+> > +     if (is_vmalloc_addr(cpu_addr))
+> > +             page =3D vmalloc_to_page(cpu_addr);
+> > +     else
+> > +             page =3D virt_to_page(cpu_addr);
+> > +
+> > +     vma->vm_page_prot =3D dma_pgprot(dev, vma->vm_page_prot, attrs);
+> > +
+> > +     if (dma_mmap_from_dev_coherent(dev, vma, cpu_addr, size, &ret))
+> > +             return -ENXIO;
+> > +
+> > +     if (off >=3D count || user_count > count - off)
+> > +             return -ENXIO;
+> > +
+> > +     return remap_pfn_range(vma, vma->vm_start,
+> > +                     page_to_pfn(page) + vma->vm_pgoff,
+> > +                     user_count << PAGE_SHIFT, vma->vm_page_prot);
+> > +}
+>
+>
+> I suggest you create a helper for computing page value and then revert 92=
+2659ea771b3fd728149262c5ea15608fab9719 and pass result of the helper instea=
+d of cpu_addr. Here and in xen_swiotlb_dma_get_sgtable().
+>
+>
+> And use this new helper in xen_swiotlb_free_coherent() too. I am curious =
+though why this was not a problem when Stefano was looking at the problem t=
+hat introduced this vmalloc check (i.e. 8b1e868f66076490189a36d984fcce286cd=
+d6295). Stefano?
+>
+>
+> -boris
+
+
+
+--=20
+Best Regards, Roman.
 
