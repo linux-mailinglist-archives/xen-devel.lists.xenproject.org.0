@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1D8B3A6B55
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 18:11:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141693.261645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEEF53A6B64
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 18:13:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141698.261656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lspBF-0004ts-Mh; Mon, 14 Jun 2021 16:11:17 +0000
+	id 1lspDP-0005Xh-4d; Mon, 14 Jun 2021 16:13:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141693.261645; Mon, 14 Jun 2021 16:11:17 +0000
+Received: by outflank-mailman (output) from mailman id 141698.261656; Mon, 14 Jun 2021 16:13:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lspBF-0004qO-J9; Mon, 14 Jun 2021 16:11:17 +0000
-Received: by outflank-mailman (input) for mailman id 141693;
- Mon, 14 Jun 2021 16:11:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lspDP-0005UP-0W; Mon, 14 Jun 2021 16:13:31 +0000
+Received: by outflank-mailman (input) for mailman id 141698;
+ Mon, 14 Jun 2021 16:13:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AGyB=LI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lspBE-0004qI-B9
- for xen-devel@lists.xen.org; Mon, 14 Jun 2021 16:11:16 +0000
+ id 1lspDN-0005UJ-2N
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 16:13:29 +0000
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f54a521f-288c-484f-8468-108234d9dc30;
- Mon, 14 Jun 2021 16:11:14 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f61eb937-8f6f-4980-9f41-75c846ff4db0;
+ Mon, 14 Jun 2021 16:13:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,224 +35,715 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f54a521f-288c-484f-8468-108234d9dc30
+X-Inumbo-ID: f61eb937-8f6f-4980-9f41-75c846ff4db0
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1623687074;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=4IXsOE+0doyab0n3YENYho7vANoNoNBsDlgqAt9hDvI=;
-  b=Vo9Z69XeEkhLfOzMjE2rop+f3gM8nuLpAipC75nLUvyy44g/DHOM46Xm
-   g9ISIjbujwHWGK96Ir6oX8VvpMNaB6wdcwoX9bJySWCJU7llisZprSfLQ
-   SB6JIyn2VV3+s5CufGAy9z/C6rjptm0FAOejmHwhcM9f1Mtt4i+7TPsPZ
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: mFPjPqHycggq6xH14w4AXiI7pHdrnpP3SBs9Ok2kDHjaCixgq0QERYHiogCxZrqaSng4iDcwbg
- h85rSOw88IpQgZ4EGdVMT7c5+OKfpsBfQMytes0HZ5mqMgzoXRjvSvT18ZxzvwhCmJldIdFkZY
- EiCs8yhstAvmFQ/wz8utlwkgp2biy6UpPfE4+7ZmtUSDNJ7MRxG30Q5hjCf3xLDxaao3upVgKT
- TuN2FCnmQO+wkdmUoZCGn5vER7cqgbpUwIrvV/eVjbJHWNRWvU/olpB5xUtzLhJcO1XF1BBOfv
- S98=
+  d=citrix.com; s=securemail; t=1623687206;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=U6nTTiuWDOF0zOMLhu5s+oRTjwLaLCyfZOTDhRb6sCA=;
+  b=QAP38MjN82p/EA1fM4zC33BIFpc1i4o64KyuoFig9qKQRH2qbZG1w+4Y
+   Ixe4n2Aqoosw51SGhyRFOQ23AMvibwqJoCA5cfhdh2cvhZF6F3VOKuBic
+   GjN9zy7mW/aT6PDpdbxEhLRo32I1JPlpJH3/9g9YKrvaGFQ2qaaz4K19m
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: tsYCfwGFWn1ro4rbk1X18TXcCR9eHcRIlZDdPckR4ybmP/50t7rBO/L4cmg8AinH1xSU5E7yoO
+ hH1ZLq1xKCiILPIhs9Ctym0FZIXyVaGAXdAIkjyoEPX38pnQ21vKjR5fUl6S+vxGqkzxIBUPoq
+ EmnK1Ha7ATqNzWD5hwOSDqvKwLG0ei4tF73NJtNFzqAv5IlAyfg8rEayemzSBrtHqTdm7kj6KU
+ 1PUJG5u/+LlMMYZIAYtrba++rcPFjTy8rAzcGrKfjfrdRxrqnVwjch9u8yragTG2uHbB0M3unK
+ wYU=
 X-SBRS: 5.1
-X-MesageID: 46087402
+X-MesageID: 46087621
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:ou7RpKxzbtbig5npjnVlKrPxG+skLtp133Aq2lEZdPULSKOlfp
- GV8MjziyWYtN9IYgBcpTiBUJPwJE80hqQFnbX5Wo3SEDUO2VHYYb2KiLGN/9SOIVyGygcw79
- YCT0E6MqyLMbEYt7e03ODbKadZ/DDvysnB7o2+r0uFDzsaEJ2Ihz0JTTpzeXcGIDWucKBJcq
- Z0kfA3wAZIF05nDPiTNz0gZazuttfLnJXpbVotHBg88jSDijuu9frTDwWY9g12aUIA/Z4StU
- z+1yDp7KSqtP+2jjXG0XXI0phQkNz9jvNeGc23jNQPIDmEsHfoWG0hYczDgNkGmpDs1L8Yqq
- iIn/4UBbUx15qeRBDwnfKn4Xie7N9n0Q6d9bbfuwqknSWxfkNKN+NRwY1eaRfX8EwmoZV117
- 9KxXuQs95NAQrHhzmV3amCa/hGrDv8nZMZq59as5Wfa/prVFZbl/1UwKqUKuZ3IMve0vFTLA
- BDNrCu2B9mSyLsU5mChBge/DWFZAVAIiu7
+IronPort-HdrOrdr: A9a23:hZ30Pa4HaBd0Lkov7gPXwDLXdLJyesId70hD6qkQc3FomwKj9/
+ xG/c5rsSMc7Qx6ZJhOo7+90cW7L080lqQFhLX5X43SPzUO0VHARO1fBOPZqAEIcBeOlNK1u5
+ 0AT0B/YueAcGSTj6zBkXWF+wBL+qj5zEiq792usUuEVWtRGsZdB58SMHfhLqVxLjM2Y6YRJd
+ 6nyedsgSGvQngTZtTTPAh+YwCSz+e77a4PeHQ9dmYa1DU=
 X-IronPort-AV: E=Sophos;i="5.83,273,1616472000"; 
-   d="scan'208";a="46087402"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cbONE5NoXo7m1pHQyZhLFz0wcBuIPd4osuum8tUHTYDQil1OykoEcJPwKI7qWRR1srKLtVAxOohk9O461eh4zMouPK7y6pjm2CUVEVHlHm1L1mEWnL+OdbznHCMnrHNJ0+mC/s+tgawKb5bmUFO4DfpJ5EVxw/WTelKip3cFVQK6xS+eufN2UadKZ3V+wOVh4eXvsk4MUsZDBgGe8E6v492fzgp3GpqY5/S/4sMsOjuvWKlPrfg/NbOwujQkMbbnLpuVa1LgoryqAI5KRuB4fOQWYsRHCAnkBCPmFsw2CwryzKg72JEXVxXKPLSqznV1MROq6aoPJ8AJP6/LbDgQAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pSYu2yIruysuaHr2D9ceHUQB+jqmnGD4Yn63V9Hi2o8=;
- b=gCJEDvZCwelzomfSq8fg28/i7UFnHlgtqPKK+J4JEXQcJDH5uxIz/ztEq1Lr4p8fjvW0ZTNxfw39wssKDyGgnnECDq0+VXNr+M9z0xXIaViH1CfF1pjewDyo/a6NeBhYW972DLOgDAN8XdkijHl2ZFNV6wWtyDRJN91rCTJtw/16eLd3reupttSmE6dxk8Kprty7pLEG/MUnpTV0jaAXLkcPotnx0w5I/7yEs/lLUQGrqs+lGYwd7CD8nseQ03g9psIWdN8odYEkAHevuFGFCPsJuxQdGutao+OPA0J/qhRHSGx86afXVm0ArNfyWAPnJf4Yj5A+TxOtE8rhwOw8jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pSYu2yIruysuaHr2D9ceHUQB+jqmnGD4Yn63V9Hi2o8=;
- b=VjIdSpICTtu2h2YD4tbmPdLWn0AW4nhB0qBnL69eJFwm1ZhR8P83XJUpJJyqACsBmNPBisGrXlYO3g3GUPJ+PmrE3+jhyAPXiWZasZMR/u4Mtu1RMe9AS4QCpj6QEKX+yamxlzqo+5wYMdh5wWN5Kip7+76mY5cXOMEObfrh1kE=
-Subject: Re: BUG in 1f3d87c75129 ("x86/vpt: do not take pt_migrate rwlock in
- some cases")
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>
-CC: Igor Druzhinin <igor.druzhinin@citrix.com>, <xen-devel@lists.xen.org>,
-	<boris.ostrovsky@oracle.com>, <stephen.s.brennan@oracle.com>
-References: <0efd0099-49bb-e20c-fe8d-fb97c9de2b63@citrix.com>
- <74378af9-5d04-f95e-3957-918cf5c81ded@suse.com>
- <YMdZKuKOnFKpQ3sg@Air-de-Roger>
- <3e9f4ea8-2fca-bf66-6345-0b73b960cba7@suse.com>
+   d="scan'208";a="46087621"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a7ec2d98-465a-9691-ab73-bef5b45a6cfd@citrix.com>
-Date: Mon, 14 Jun 2021 17:10:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <3e9f4ea8-2fca-bf66-6345-0b73b960cba7@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0206.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::13) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Igor Druzhinin <igor.druzhinin@citrix.com>, Edwin Torok
+	<edvin.torok@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Jan
+ Beulich" <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2 5/5] tests: Introduce a TSX test
+Date: Mon, 14 Jun 2021 17:13:17 +0100
+Message-ID: <20210614161317.31481-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210611163627.4878-6-andrew.cooper3@citrix.com>
+References: <20210611163627.4878-6-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1b47d425-3398-435a-2571-08d92f4f035a
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3493:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB3493436D606F4BCA9FC94C2FBA319@BYAPR03MB3493.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wvNCSFBDgWmgjPhMu0Su6ui/Al32Yj+NEnamql/Sls0odhHPLyMIFAblsiHIXZILjRnxBk8A8i+ZmT07AfYtNuVCSpF7Cuh+Hr04Bor+08GdD9RPH0U03LhXUeUXe6d1v9nMHCGo6iGfYBawj/kRMkHyMVo3TAR7EwLDyvCnwzmDeGzaLj/yDTuBUup6A5XsNp0Ub092Lv25zYPylObOfBD7/DragmL2CediFPdd9e8FgDEXbCphkWN8k8WkTMeFdSSDozFnza9MJm+FmjVKeGalib26DIcbAJrvkSwBkV0E9+vEc97ONDt6HSlD1n17o1pljffYpHx9CZBJsw81jQkB8cSwG0pclOXJNZHcFj7Q6Z3GgG5Ou6ilqmx8FjrKhG+NihllmlhqtRl6khL46MyWyZqPs55hMhLuf48fuJPcJVOW7ZXuSDTMPgjFanMUIqY57/ejPEINy7PHLDsmH9ueo65Fwe3m2wy4VQvSgY130TSdLoOVR7yEdVL9U3265lpFrp77c/U4U9eXUDPwQTpYt8s2k4Yyy3YP54EvKuTm9TdPBCV6jGkx4G4H/gJofJDbAXW0cWKMUnjCi31VPpCJiPUnDm97AcCEDSAo+It1I/TVRMf6iWRHXM1ZVyGDkGHWvYXmJbJqEOPfsEj+GmHBCWhcD0v/c0bPxK6l/KsKmsXyQjVbYQ5tdssHE7TV
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(366004)(39860400002)(396003)(136003)(376002)(4326008)(6636002)(956004)(66556008)(186003)(66476007)(2616005)(31686004)(16526019)(8676002)(16576012)(110136005)(2906002)(66946007)(316002)(26005)(478600001)(38100700002)(53546011)(6486002)(8936002)(5660300002)(6666004)(86362001)(36756003)(31696002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVYzRkM3OEVONWRpdSsvd1V6OWJIQ3BjSExZMUplQ3FxcFFrR1B0ZmhVdG0r?=
- =?utf-8?B?VUJuM0RkY3dNMXVaNk9Gb3p3RVFYb1BWdHJwSXJBdEREbXZ0UGFhN1dMNGJ3?=
- =?utf-8?B?ZVU5SXNoYkdXL3BoSFdKN3AxUHluMXJ6YmtGVy9kTzAzTnovVGNUL2JSVkJn?=
- =?utf-8?B?cS9ocHNCK1FrUERNcDh5dFdFRWw4V1NZaEs2bXVSV2dpRlliZ1I3aTdjaTA3?=
- =?utf-8?B?dmxSSGd5TFBGY2wydWhDMmc3aUFrZWpGU2g0a3h1ZEVtUjZ2ZVUyWFIza0JQ?=
- =?utf-8?B?WTlRR3pTb28vVXR0VXJEMnhsdVc5S2l6UzdxLzBLN2dqSVY3VG9LY0lwbUVQ?=
- =?utf-8?B?MUsvZG1WUnJSTWgzdjZIQ0g1ZEZzUzVhcnBNbnI4dHdoU2YrODFzRE8rOExQ?=
- =?utf-8?B?cjFla0JVRkcxM1VKa2JRSEdWbU5yNHBIMVhaOWR5UUh1WnY1NzZxRjNkWDgx?=
- =?utf-8?B?di96WGJ2RlpqZHNmSWw2WDc0K0xzRWZ6ekw5Tkg3ZEVRZUY5ZVpJeTFhbEU0?=
- =?utf-8?B?OCtydDN0NWJ2WUwvTWtKeDh6T2IrMkFZN1A5ODk1SzZITERZVngzOVo5SnEw?=
- =?utf-8?B?MmdRcUZqdHZHaUFRaXB0OC9IM0gvbzRNRGJoWk1iN214U3U4bHdLMHluSjhI?=
- =?utf-8?B?L3pKaDVDVUlPYkJReFhmbGxUZC9BREl6cVN5Y0U2bmVoUmFyZHNPSXFidnRO?=
- =?utf-8?B?UkwzU0FiU3R3K2F6d0xkVzNWRk1pOFd0T0lMejVMQUFOQlVwVHhqVkNNa3dv?=
- =?utf-8?B?V3ducUlJSzVlTy9XMFZRek5GWmRmVlVubW1SWElrR1oxNDEybW9qckI5Y3Vh?=
- =?utf-8?B?d29jd1Y0ZUxvaktKK015aERkZWhUTEtjQnhZY0k4SXUxYVoyYTQzODArQkxI?=
- =?utf-8?B?bGZFWUJHSFRIQzVLTTlRelZYanFHaXkveGQxeTRvSit6VXJwcGQ5TGd6eVRV?=
- =?utf-8?B?clluYk5YeE92TmVQNUlXc0drM0oxbjJHRUR4aEJMMU16SVAwK2lwd25Vbm1q?=
- =?utf-8?B?dGhqOUI3TGpoTXB1RHJ3K0dmaUdMQmkwV0NHdTIyL1lCWE11R0tsbTlmeU1t?=
- =?utf-8?B?bVMwcUlEc05aY0tZaE1XZDQyVTNQeHlWMFRPWFRwbm9sL0RmcnM0c3JmVElm?=
- =?utf-8?B?eno4SnFTYUtHQ0p1cFdOcGNrYVVTanY0cUVxRlRNYUM3ci94K20wdmo5eThO?=
- =?utf-8?B?ajQ5WjkvODh1REE1by8veHBKTnhtT3hWd1RRRWN6bUVyV3JaUGxpTUh4bEli?=
- =?utf-8?B?NGF4QkxodXVYNGlXQmFyekZoZUVuendKWkJKZzQzWXdKcFpGTGRoTHE1RHpB?=
- =?utf-8?B?aVpXUk04T1NiSGlxazY3bkNaVGhUYit1YmRoZ0xSOW1FQ2pyZy9IU0daMkJy?=
- =?utf-8?B?czdWRG9ISUtKWERkSXRnVkovMkdqMThKVHJTaTdvNUtrZXg5MzluNEw2Ui80?=
- =?utf-8?B?MEFtTll3WWQvcVZudVIyUU90MWpmWU5hYnNGOXl1NjU0K2lLMGR0ZEJBSUNK?=
- =?utf-8?B?OHdSRDJId2YySnV2OG10a2x2Vk9sS0lNL2JNWWlweUk4QkE5cDNyV3RxcjhT?=
- =?utf-8?B?RGNUYkZOM1draUJjVEMvU1p5RE84SENla0w4YW1nRndWaUFSaWJEN0I1eWgz?=
- =?utf-8?B?OURNNVB6SmR2SE1JYU4vaGp6WlIxR242RTl2ZHpQUm54eWZTN2w1QXRCOW5o?=
- =?utf-8?B?MkRrWVF0ZS9UMnBCQXNGdUZSY0tnSzBYR1h2OWtRcDZNSEJ6SVk3L05JL3hN?=
- =?utf-8?Q?ZVdqQb4RdUsE9zSGx7poqZ05jg/BeFX5Q00k+Cq?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b47d425-3398-435a-2571-08d92f4f035a
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 16:11:05.6736
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UzmpuBvs6G57vQEnnWBWNEAJ49awI/8rjU7bcET0CUqe77NmqAb4dVqxlc7+hGEwcte35rC565bYiR9bi17W4ZA11lhkfIgEqQaDegNkG7g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3493
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 14/06/2021 17:01, Jan Beulich wrote:
-> On 14.06.2021 15:27, Roger Pau Monné wrote:
->> On Mon, Jun 14, 2021 at 01:53:09PM +0200, Jan Beulich wrote:
->>> On 14.06.2021 13:15, Igor Druzhinin wrote:
->>>> Hi, Boris, Stephen, Roger,
->>>>
->>>> We have stress tested recent changes on staging-4.13 which includes a
->>>> backport of the subject. Since the backport is identical to the
->>>> master branch and all of the pre-reqs are in place - we have no reason
->>>> to believe the issue is not the same on master.
->>>>
->>>> Here is what we got by running heavy stress testing including multiple
->>>> repeated VM lifecycle operations with storage and network load:
->>>>
->>>>
->>>> Assertion 'timer->status >= TIMER_STATUS_inactive' failed at timer.c:287
->>>> ----[ Xen-4.13.3-10.7-d  x86_64  debug=y   Not tainted ]----
->>>> CPU:    17
->>>> RIP:    e008:[<ffff82d080246b65>] common/timer.c#active_timer+0xc/0x1b
->>>> RFLAGS: 0000000000010046   CONTEXT: hypervisor (d675v0)
->>>> rax: 0000000000000000   rbx: ffff83137a8ed300   rcx: 0000000000000000
->>>> rdx: ffff83303fff7fff   rsi: ffff83303fff2549   rdi: ffff83137a8ed300
->>>> rbp: ffff83303fff7cf8   rsp: ffff83303fff7cf8   r8:  0000000000000001
->>>> r9:  0000000000000000   r10: 0000000000000011   r11: 0000168b0cc08083
->>>> r12: 0000000000000000   r13: ffff82d0805cf300   r14: ffff82d0805cf300
->>>> r15: 0000000000000292   cr0: 0000000080050033   cr4: 00000000000426e0
->>>> cr3: 00000013c1a32000   cr2: 0000000000000000
->>>> fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
->>>> ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
->>>> Xen code around <ffff82d080246b65> (common/timer.c#active_timer+0xc/0x1b):
->>>>   0f b6 47 2a 84 c0 75 02 <0f> 0b 3c 04 76 02 0f 0b 3c 02 0f 97 c0 5d c3 55
->>>> Xen stack trace from rsp=ffff83303fff7cf8:
->>>>     ffff83303fff7d48 ffff82d0802479f1 0000168b0192b846 ffff83137a8ed328
->>>>     000000001d0776eb ffff83137a8ed2c0 ffff83133ee47568 ffff83133ee47000
->>>>     ffff83133ee47560 ffff832b1a0cd000 ffff83303fff7d78 ffff82d08031e74e
->>>>     ffff83102d898000 ffff83133ee47000 ffff83102db8d000 0000000000000011
->>>>     ffff83303fff7dc8 ffff82d08027df19 0000000000000000 ffff83133ee47060
->>>>     ffff82d0805d0088 ffff83102d898000 ffff83133ee47000 0000000000000011
->>>>     0000000000000001 0000000000000011 ffff83303fff7e08 ffff82d0802414e0
->>>>     ffff83303fff7df8 0000168b0192b846 ffff83102d8a4660 0000168b0192b846
->>>>     ffff83102d8a4720 0000000000000011 ffff83303fff7ea8 ffff82d080241d6c
->>>>     ffff83133ee47000 ffff831244137a50 ffff83303fff7e48 ffff82d08031b5b8
->>>>     ffff83133ee47000 ffff832b1a0cd000 ffff83303fff7e68 ffff82d080312b65
->>>>     ffff83133ee47000 0000000000000000 ffff83303fff7ee8 ffff83102d8a4678
->>>>     ffff83303fff7ee8 ffff82d0805d6380 ffff82d0805d5b00 ffffffffffffffff
->>>>     ffff83303fff7fff 0000000000000000 ffff83303fff7ed8 ffff82d0802431f5
->>>>     ffff83133ee47000 0000000000000000 0000000000000000 0000000000000000
->>>>     ffff83303fff7ee8 ffff82d08024324a 00007ccfc00080e7 ffff82d08033930b
->>>>     ffffffffb0ebd5a0 000000000000000d 0000000000000062 0000000000000097
->>>>     000000000000001e 000000000000001f ffffffffb0ebd5ad 0000000000000000
->>>>     0000000000000005 000000000003d91d 0000000000000000 0000000000000000
->>>>     00000000000003d5 000000000000001e 0000000000000000 0000beef0000beef
->>>> Xen call trace:
->>>>     [<ffff82d080246b65>] R common/timer.c#active_timer+0xc/0x1b
->>>>     [<ffff82d0802479f1>] F stop_timer+0xf5/0x188
->>>>     [<ffff82d08031e74e>] F pt_save_timer+0x45/0x8a
->>>>     [<ffff82d08027df19>] F context_switch+0xf9/0xee0
->>>>     [<ffff82d0802414e0>] F common/schedule.c#sched_context_switch+0x146/0x151
->>>>     [<ffff82d080241d6c>] F common/schedule.c#schedule+0x28a/0x299
->>>>     [<ffff82d0802431f5>] F common/softirq.c#__do_softirq+0x85/0x90
->>>>     [<ffff82d08024324a>] F do_softirq+0x13/0x15
->>>>     [<ffff82d08033930b>] F vmx_asm_do_vmentry+0x2b/0x30
->>>>
->>>> ****************************************
->>>> Panic on CPU 17:
->>>> Assertion 'timer->status >= TIMER_STATUS_inactive' failed at timer.c:287
->>>> ****************************************
->>> Since this suggests a timer was found on the list without ever having been
->>> initialized, I've spotted a case where this indeed could now happen. Could
->>> you give the patch below a try?
->>>
->>> Jan
->>>
->>> x86/vpt: fully init timers before putting onto list
->>>
->>> With pt_vcpu_lock() no longer acquiring the pt_migrate lock, parties
->>> iterating the list and acting on the timers of the list entries will no
->>> longer be kept from entering their loops by create_periodic_time()'s
->>> holding of that lock. Therefore at least init_timer() needs calling
->>> ahead of list insertion, but keep this and set_timer() together.
->>>
->>> Fixes: 8113b02f0bf8 ("x86/vpt: do not take pt_migrate rwlock in some cases")
->>> Reported-by: Igor Druzhinin <igor.druzhinin@citrix.com>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Thanks for looking into this so quickly, and sorry for not realizing
->> myself when relaxing the locking. Adding the timer to the list without
->> it being fully initialized was a latent issue even if protected by the
->> lock initially.
->>
->> Provided testing shows the issue is fixed:
-> I guess the change here is needed anyway, even if testing finds there's
-> still something amiss?
+See the comment at the top of test-tsx.c for details.
 
-We've put this patch in for testing, but results will take a while,
-because it only showed up in our weekend stress testing.
+This covers various complexities encountered while trying to address the
+recent TSX deprecation on client parts.
 
-~Andrew
+A sample run on KabyLake with latest microcode and default tsx= looks like
+this:
+
+  root@host# ./test-tsx
+  TSX tests
+    Got 8 CPUs
+  Testing MSR_TSX_FORCE_ABORT consistency
+    CPU0 val 0x3
+  Testing MSR_TSX_CTRL consistency
+  Testing RTM behaviour
+    Got Abort
+  Testing PV default/max policies
+    Max: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+    Def: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+  Testing HVM default/max policies
+    Max: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+    Def: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+  Testing PV guest
+    Created d7
+    Cur: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+    Cur: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+  Testing HVM guest
+    Created d8
+    Cur: RTM 0, HLE 0, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+    Cur: RTM 1, HLE 1, TSX_FORCE_ABORT 0, RTM_ALWAYS_ABORT 0, TSX_CTRL 0
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+
+v2:
+ * Addess all comments.  Fix build with the BSDs.
+v1.1:
+ * Set alternative guest policy, and check.
+ * Cope with !HAP configurations.
+ * Complete the comment at the top of test-tsx.c
+---
+ tools/tests/Makefile       |   1 +
+ tools/tests/tsx/.gitignore |   1 +
+ tools/tests/tsx/Makefile   |  43 ++++
+ tools/tests/tsx/test-tsx.c | 538 +++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 583 insertions(+)
+ create mode 100644 tools/tests/tsx/.gitignore
+ create mode 100644 tools/tests/tsx/Makefile
+ create mode 100644 tools/tests/tsx/test-tsx.c
+
+diff --git a/tools/tests/Makefile b/tools/tests/Makefile
+index 8746aabe6b..25531a984a 100644
+--- a/tools/tests/Makefile
++++ b/tools/tests/Makefile
+@@ -5,6 +5,7 @@ SUBDIRS-y :=
+ SUBDIRS-y += resource
+ SUBDIRS-$(CONFIG_X86) += cpu-policy
+ SUBDIRS-$(CONFIG_X86) += mce-test
++SUBDIRS-$(CONFIG_X86) += tsx
+ ifneq ($(clang),y)
+ SUBDIRS-$(CONFIG_X86) += x86_emulator
+ endif
+diff --git a/tools/tests/tsx/.gitignore b/tools/tests/tsx/.gitignore
+new file mode 100644
+index 0000000000..97ec4db7ff
+--- /dev/null
++++ b/tools/tests/tsx/.gitignore
+@@ -0,0 +1 @@
++test-tsx
+diff --git a/tools/tests/tsx/Makefile b/tools/tests/tsx/Makefile
+new file mode 100644
+index 0000000000..c065a18346
+--- /dev/null
++++ b/tools/tests/tsx/Makefile
+@@ -0,0 +1,43 @@
++XEN_ROOT = $(CURDIR)/../../..
++include $(XEN_ROOT)/tools/Rules.mk
++
++TARGET := test-tsx
++
++.PHONY: all
++all: $(TARGET)
++
++.PHONY: run
++run: $(TARGET)
++	./$(TARGET)
++
++.PHONY: clean
++clean:
++	$(RM) -f -- *.o $(TARGET) $(DEPS_RM)
++
++.PHONY: distclean
++distclean: clean
++	$(RM) -f -- *~
++
++.PHONY: install
++install: all
++
++.PHONY: uninstall
++uninstall:
++
++CFLAGS += -Werror
++CFLAGS += $(CFLAGS_xeninclude)
++CFLAGS += $(CFLAGS_libxenctrl)
++CFLAGS += $(CFLAGS_libxenguest)
++CFLAGS += -I$(XEN_ROOT)/tools/libs/ctrl -I$(XEN_ROOT)/tools/libs/guest
++CFLAGS += $(APPEND_CFLAGS)
++
++LDFLAGS += $(LDLIBS_libxenctrl)
++LDFLAGS += $(LDLIBS_libxenguest)
++LDFLAGS += $(APPEND_LDFLAGS)
++
++test-tsx.o: Makefile
++
++$(TARGET): test-tsx.o
++	$(CC) -o $@ $< $(LDFLAGS)
++
++-include $(DEPS_INCLUDE)
+diff --git a/tools/tests/tsx/test-tsx.c b/tools/tests/tsx/test-tsx.c
+new file mode 100644
+index 0000000000..adbbd70eee
+--- /dev/null
++++ b/tools/tests/tsx/test-tsx.c
+@@ -0,0 +1,538 @@
++/*
++ * TSX settings and consistency tests
++ *
++ * This tests various behaviours and invariants with regards to TSX.  It
++ * ideally wants running for several microcode versions, and all applicable
++ * tsx= commandline settings, on a single CPU, including after an S3
++ * suspend/resume event.
++ *
++ * It tests specifically:
++ *  - The consistency of MSR_TSX_CTRL/MSR_TSX_FORCE_ABORT values across the
++ *    system, and their accessibility WRT data in the host CPU policy.
++ *  - The actual behaviour of RTM on the system.
++ *  - Cross-check the default/max policies based on the actual RTM behaviour.
++ *  - Create some guests, check their defaults, and check that the defaults
++ *    can be changed.
++ */
++
++#define _GNU_SOURCE
++
++#include <err.h>
++#include <errno.h>
++#include <inttypes.h>
++#include <signal.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/mman.h>
++#include <sys/ucontext.h>
++
++#include <xenctrl.h>
++#include <xenguest.h>
++#include <xen-tools/libs.h>
++
++#include "xg_private.h"
++
++enum {
++#define XEN_CPUFEATURE(name, value) X86_FEATURE_##name = value,
++#include <xen/arch-x86/cpufeatureset.h>
++};
++#define bitmaskof(idx)      (1u << ((idx) & 31))
++
++#define MSR_ARCH_CAPABILITIES               0x0000010a
++#define  ARCH_CAPS_TSX_CTRL                 (1 <<  7)
++#define MSR_TSX_FORCE_ABORT                 0x0000010f
++#define MSR_TSX_CTRL                        0x00000122
++
++static unsigned int nr_failures;
++#define fail(fmt, ...)                          \
++({                                              \
++    nr_failures++;                              \
++    (void)printf(fmt, ##__VA_ARGS__);           \
++})
++
++static xc_interface *xch;
++
++/*
++ * Policies, arranged as an array for easy collection of all of them.  We
++ * don't care about the raw policy (index 0) so reuse that for the guest
++ * policy.
++ */
++static struct xc_cpu_policy policies[6];
++#define guest_policy policies[0]
++#define host         policies[XEN_SYSCTL_cpu_policy_host]
++#define pv_max       policies[XEN_SYSCTL_cpu_policy_pv_max]
++#define hvm_max      policies[XEN_SYSCTL_cpu_policy_hvm_max]
++#define pv_default   policies[XEN_SYSCTL_cpu_policy_pv_default]
++#define hvm_default  policies[XEN_SYSCTL_cpu_policy_hvm_default]
++
++static bool xen_has_pv = true, xen_has_hvm = true;
++
++static xc_physinfo_t physinfo;
++
++static enum rtm_behaviour {
++    RTM_UD,
++    RTM_OK,
++    RTM_ABORT,
++} rtm_behaviour;
++
++/*
++ * Test a specific TSX MSR for consistency across the system, taking into
++ * account whether it ought to be accessible or not.
++ *
++ * We can't query offline CPUs, so skip those if encountered.  We don't care
++ * particularly for the exact MSR value, but we do care that it is the same
++ * everywhere.
++ */
++static void test_tsx_msr_consistency(unsigned int msr, bool accessible)
++{
++    uint64_t cpu0_val = ~0;
++
++    for ( unsigned int cpu = 0; cpu <= physinfo.max_cpu_id; ++cpu )
++    {
++        xc_resource_entry_t ent = {
++            .u.cmd = XEN_RESOURCE_OP_MSR_READ,
++            .idx = msr,
++        };
++        xc_resource_op_t op = {
++            .cpu = cpu,
++            .entries = &ent,
++            .nr_entries = 1,
++        };
++        int rc = xc_resource_op(xch, 1, &op);
++
++        if ( rc < 0 )
++        {
++            /* Don't emit a message for offline CPUs */
++            if ( errno != ENODEV )
++                fail("  xc_resource_op() for CPU%u failed: rc %d, errno %d - %s\n",
++                     cpu, rc, errno, strerror(errno));
++            continue;
++        }
++
++        if ( accessible )
++        {
++            if ( rc != 1 )
++            {
++                fail("  Expected 1 result, got %d\n", rc);
++                continue;
++            }
++            if ( ent.u.ret != 0 )
++            {
++                fail("  Expected ok, got %d\n", ent.u.ret);
++                continue;
++            }
++        }
++        else
++        {
++            if ( rc != 0 )
++                fail("  Expected 0 results, got %u\n", rc);
++            else if ( ent.u.ret != -EPERM )
++                fail("  Expected -EPERM, got %d\n", ent.u.ret);
++            continue;
++        }
++
++        if ( cpu == 0 )
++        {
++            cpu0_val = ent.val;
++            printf("  CPU0 val %#"PRIx64"\n", cpu0_val);
++        }
++        else if ( ent.val != cpu0_val )
++            fail("  CPU%u val %#"PRIx64" differs from CPU0 %#"PRIx64"\n",
++                 cpu, ent.val, cpu0_val);
++    }
++}
++
++/*
++ * Check all TSX MSRs, and in particular that their accessibility matches what
++ * is expressed in the host CPU policy.
++ */
++static void test_tsx_msrs(void)
++{
++    printf("Testing MSR_TSX_FORCE_ABORT consistency\n");
++    test_tsx_msr_consistency(
++        MSR_TSX_FORCE_ABORT, host.cpuid.feat.tsx_force_abort);
++
++    printf("Testing MSR_TSX_CTRL consistency\n");
++    test_tsx_msr_consistency(
++        MSR_TSX_CTRL, host.msr.arch_caps.tsx_ctrl);
++}
++
++/*
++ * Probe for how RTM behaves, deliberately not inspecting CPUID.
++ * Distinguishes between "no support at all" (i.e. XBEGIN suffers #UD),
++ * working ok, and appearing to always abort.
++ */
++static enum rtm_behaviour __attribute__((noclone)) probe_rtm_behaviour(void)
++{
++    for ( unsigned int i = 0; i < 1000; ++i )
++    {
++        /*
++         * Opencoding the RTM infrastructure from immintrin.h, because we
++         * still support older versions of GCC.  ALso so we can include #UD
++         * detection logic.
++         */
++#define XBEGIN_STARTED -1
++#define XBEGIN_UD      -2
++        unsigned int status = XBEGIN_STARTED;
++
++        asm volatile ( ".Lxbegin: .byte 0xc7,0xf8,0,0,0,0" /* XBEGIN 1f; 1: */
++                       : "+a" (status) :: "memory" );
++        if ( status == XBEGIN_STARTED )
++        {
++            asm volatile ( ".byte 0x0f,0x01,0xd5" ::: "memory" ); /* XEND */
++            return RTM_OK;
++        }
++        else if ( status == XBEGIN_UD )
++            return RTM_UD;
++    }
++
++    return RTM_ABORT;
++}
++
++static struct sigaction old_sigill;
++
++static void sigill_handler(int signo, siginfo_t *info, void *extra)
++{
++    extern const char xbegin_label[] asm(".Lxbegin");
++
++    if ( info->si_addr == xbegin_label &&
++         memcmp(info->si_addr, "\xc7\xf8\x00\x00\x00\x00", 6) == 0 )
++    {
++        ucontext_t *context = extra;
++
++        /*
++         * Found the XBEGIN instruction.  Step over it, and update `status` to
++         * signal #UD.
++         */
++#if defined(__linux__)
++# ifdef __x86_64__
++        context->uc_mcontext.gregs[REG_RIP] += 6;
++        context->uc_mcontext.gregs[REG_RAX] = XBEGIN_UD;
++# else
++        context->uc_mcontext.gregs[REG_EIP] += 6;
++        context->uc_mcontext.gregs[REG_EAX] = XBEGIN_UD;
++# endif
++
++#elif defined(__FreeBSD__)
++# ifdef __x86_64__
++        context->uc_mcontext.mc_rip += 6;
++        context->uc_mcontext.mc_rax = XBEGIN_UD;
++# else
++        context->uc_mcontext.mc_eip += 6;
++        context->uc_mcontext.mc_eax = XBEGIN_UD;
++# endif
++
++#elif defined(__NetBSD__)
++# ifdef __x86_64__
++        context->uc_mcontext.__gregs[_REG_RIP] += 6;
++        context->uc_mcontext.__gregs[_REG_RAX] = XBEGIN_UD;
++# else
++        context->uc_mcontext.__gregs[_REG_EIP] += 6;
++        context->uc_mcontext.__gregs[_REG_EAX] = XBEGIN_UD;
++# endif
++
++#else
++# error Unknown environment - please adjust
++#endif
++    }
++    else
++    {
++        /*
++         * Not the SIGILL we're looking for...  Restore the old handler and
++         * try again.  Will likely coredump as a result.
++         */
++        sigaction(SIGILL, &old_sigill, NULL);
++    }
++}
++
++static void test_rtm_behaviour(void)
++{
++    struct sigaction new_sigill = {
++        .sa_flags = SA_SIGINFO,
++        .sa_sigaction = sigill_handler,
++    };
++    const char *str;
++
++    printf("Testing RTM behaviour\n");
++
++    /*
++     * Install a custom SIGILL handler while probing for RTM behaviour, as the
++     * XBEGIN instruction might suffer #UD.
++     */
++    sigaction(SIGILL, &new_sigill, &old_sigill);
++    rtm_behaviour = probe_rtm_behaviour();
++    sigaction(SIGILL, &old_sigill, NULL);
++
++    switch ( rtm_behaviour )
++    {
++    case RTM_UD:    str = "#UD";   break;
++    case RTM_OK:    str = "OK";    break;
++    case RTM_ABORT: str = "Abort"; break;
++    default:        str = NULL;    break;
++    }
++
++    if ( str )
++        printf("  Got %s\n", str);
++    else
++        return fail("  Got unexpected behaviour %d\n", rtm_behaviour);
++
++    if ( host.cpuid.feat.rtm )
++    {
++        if ( rtm_behaviour == RTM_UD )
++            fail("  Host reports RTM, but appears unavailable\n");
++    }
++    else
++    {
++        if ( rtm_behaviour != RTM_UD )
++            fail("  Host reports no RTM, but appears available\n");
++    }
++}
++
++static void dump_tsx_details(const struct xc_cpu_policy *p, const char *pref)
++{
++    printf("  %s RTM %u, HLE %u, TSX_FORCE_ABORT %u, RTM_ALWAYS_ABORT %u, TSX_CTRL %u\n",
++           pref,
++           p->cpuid.feat.rtm,
++           p->cpuid.feat.hle,
++           p->cpuid.feat.tsx_force_abort,
++           p->cpuid.feat.rtm_always_abort,
++           p->msr.arch_caps.tsx_ctrl);
++}
++
++/* Sanity test various invariants we expect in the default/max policies. */
++static void test_guest_policies(const struct xc_cpu_policy *max,
++                                const struct xc_cpu_policy *def)
++{
++    const struct cpuid_policy *cm = &max->cpuid;
++    const struct cpuid_policy *cd = &def->cpuid;
++    const struct msr_policy *mm = &max->msr;
++    const struct msr_policy *md = &def->msr;
++
++    dump_tsx_details(max, "Max:");
++    dump_tsx_details(def, "Def:");
++
++    if ( ((cm->feat.raw[0].d | cd->feat.raw[0].d) &
++          (bitmaskof(X86_FEATURE_TSX_FORCE_ABORT) |
++           bitmaskof(X86_FEATURE_RTM_ALWAYS_ABORT))) ||
++         ((mm->arch_caps.raw | md->arch_caps.raw) & ARCH_CAPS_TSX_CTRL) )
++        fail("  Xen-only TSX controls offered to guest\n");
++
++    switch ( rtm_behaviour )
++    {
++    case RTM_UD:
++        if ( (cm->feat.raw[0].b | cd->feat.raw[0].b) &
++             (bitmaskof(X86_FEATURE_HLE) | bitmaskof(X86_FEATURE_RTM)) )
++             fail("  HLE/RTM offered to guests despite not being available\n");
++        break;
++
++    case RTM_ABORT:
++        if ( cd->feat.raw[0].b &
++             (bitmaskof(X86_FEATURE_HLE) | bitmaskof(X86_FEATURE_RTM)) )
++             fail("  HLE/RTM offered to guests by default despite not being usable\n");
++        break;
++
++    case RTM_OK:
++        if ( !cm->feat.rtm || !cd->feat.rtm )
++             fail("  RTM not offered to guests despite being available\n");
++        break;
++    }
++
++    if ( cd->feat.hle )
++        fail("  Fail: HLE offered in default policy\n");
++}
++
++static void test_def_max_policies(void)
++{
++    if ( xen_has_pv )
++    {
++        printf("Testing PV default/max policies\n");
++        test_guest_policies(&pv_max, &pv_default);
++    }
++
++    if ( xen_has_hvm )
++    {
++        printf("Testing HVM default/max policies\n");
++        test_guest_policies(&hvm_max, &hvm_default);
++    }
++}
++
++static void test_guest(struct xen_domctl_createdomain *c)
++{
++    uint32_t domid = 0;
++    int rc;
++
++    rc = xc_domain_create(xch, &domid, c);
++    if ( rc )
++        return fail("  Domain create failure: %d - %s\n",
++                    errno, strerror(errno));
++
++    printf("  Created d%u\n", domid);
++
++    rc = xc_cpu_policy_get_domain(xch, domid, &guest_policy);
++    if ( rc )
++    {
++        fail("  Failed to obtain domain policy: %d - %s\n",
++             errno, strerror(errno));
++        goto out;
++    }
++
++    dump_tsx_details(&guest_policy, "Cur:");
++
++    /*
++     * Check defaults given to the guest.
++     */
++    if ( guest_policy.cpuid.feat.rtm != (rtm_behaviour == RTM_OK) )
++        fail("  RTM %u in guest, despite rtm behaviour\n",
++             guest_policy.cpuid.feat.rtm);
++
++    if ( guest_policy.cpuid.feat.hle ||
++         guest_policy.cpuid.feat.tsx_force_abort ||
++         guest_policy.cpuid.feat.rtm_always_abort ||
++         guest_policy.msr.arch_caps.tsx_ctrl )
++        fail("  Unexpected features advertised\n");
++
++    if ( host.cpuid.feat.rtm )
++    {
++        unsigned int _7b0;
++
++        /*
++         * If host RTM is available, all combinations of guest flags should be
++         * possible.  Flip both HLE/RTM to check non-default settings.
++         */
++        _7b0 = (guest_policy.cpuid.feat.raw[0].b ^=
++                (bitmaskof(X86_FEATURE_HLE) | bitmaskof(X86_FEATURE_RTM)));
++
++        /* Set the new policy. */
++        rc = xc_cpu_policy_set_domain(xch, domid, &guest_policy);
++        if ( rc )
++        {
++            fail("  Failed to set domain policy: %d - %s\n",
++                 errno, strerror(errno));
++            goto out;
++        }
++
++        /* Re-get the new policy. */
++        rc = xc_cpu_policy_get_domain(xch, domid, &guest_policy);
++        if ( rc )
++        {
++            fail("  Failed to obtain domain policy: %d - %s\n",
++                 errno, strerror(errno));
++            goto out;
++        }
++
++        dump_tsx_details(&guest_policy, "Cur:");
++
++        if ( guest_policy.cpuid.feat.raw[0].b != _7b0 )
++        {
++            fail("  Expected CPUID.7[1].b 0x%08x differes from actual 0x%08x\n",
++                 _7b0, guest_policy.cpuid.feat.raw[0].b);
++            goto out;
++        }
++    }
++
++ out:
++    rc = xc_domain_destroy(xch, domid);
++    if ( rc )
++        fail("  Failed to destroy domain: %d - %s\n",
++             errno, strerror(errno));
++}
++
++static void test_guests(void)
++{
++    if ( xen_has_pv )
++    {
++        struct xen_domctl_createdomain c = {
++            .max_vcpus = 1,
++            .max_grant_frames = 1,
++        };
++
++        printf("Testing PV guest\n");
++        test_guest(&c);
++    }
++
++    if ( xen_has_hvm )
++    {
++        struct xen_domctl_createdomain c = {
++            .flags = XEN_DOMCTL_CDF_hvm,
++            .max_vcpus = 1,
++            .max_grant_frames = 1,
++            .arch = {
++                .emulation_flags = XEN_X86_EMU_LAPIC,
++            },
++        };
++
++        if ( physinfo.capabilities & XEN_SYSCTL_PHYSCAP_hap )
++            c.flags |= XEN_DOMCTL_CDF_hap;
++        else if ( !(physinfo.capabilities & XEN_SYSCTL_PHYSCAP_shadow) )
++            return fail("  HVM available, but neither HAP nor Shadow\n");
++
++        printf("Testing HVM guest\n");
++        test_guest(&c);
++    }
++}
++
++/* Obtain some general data, then run the tests. */
++static void test_tsx(void)
++{
++    int rc;
++
++    /* Read all policies except raw. */
++    for ( unsigned int i = XEN_SYSCTL_cpu_policy_host;
++          i <= XEN_SYSCTL_cpu_policy_hvm_default; ++i )
++    {
++        rc = xc_cpu_policy_get_system(xch, i, &policies[i]);
++
++        if ( rc == -1 && errno == EOPNOTSUPP )
++        {
++            /*
++             * Use EOPNOTSUPP to spot Xen missing CONFIG_{PV,HVM}, and adjust
++             * later testing accordingly.
++             */
++            switch ( i )
++            {
++            case XEN_SYSCTL_cpu_policy_pv_max:
++            case XEN_SYSCTL_cpu_policy_pv_default:
++                if ( xen_has_pv )
++                    printf("  Xen doesn't support PV\n");
++                xen_has_pv = false;
++                continue;
++
++            case XEN_SYSCTL_cpu_policy_hvm_max:
++            case XEN_SYSCTL_cpu_policy_hvm_default:
++                if ( xen_has_hvm )
++                    printf("  Xen doesn't support HVM\n");
++                xen_has_hvm = false;
++                continue;
++            }
++        }
++        if ( rc )
++            return fail("Failed to obtain policy[%u]: %d - %s\n",
++                        i, errno, strerror(errno));
++    }
++
++    rc = xc_physinfo(xch, &physinfo);
++    if ( rc )
++        return fail("Failed to obtain physinfo: %d - %s\n",
++                    errno, strerror(errno));
++
++    printf("  Got %u CPUs\n", physinfo.max_cpu_id + 1);
++
++    test_tsx_msrs();
++    test_rtm_behaviour();
++    test_def_max_policies();
++    test_guests();
++}
++
++int main(int argc, char **argv)
++{
++    printf("TSX tests\n");
++
++    xch = xc_interface_open(NULL, NULL, 0);
++
++    if ( !xch )
++        err(1, "xc_interface_open");
++
++    test_tsx();
++
++    return !!nr_failures;
++}
+-- 
+2.11.0
+
 
