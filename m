@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 107CB3A673F
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 14:57:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141430.261244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35B733A673E
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 14:57:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141433.261255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsm98-000883-FJ; Mon, 14 Jun 2021 12:56:54 +0000
+	id 1lsm9R-0000BM-UX; Mon, 14 Jun 2021 12:57:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141430.261244; Mon, 14 Jun 2021 12:56:54 +0000
+Received: by outflank-mailman (output) from mailman id 141433.261255; Mon, 14 Jun 2021 12:57:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsm98-00084s-Bd; Mon, 14 Jun 2021 12:56:54 +0000
-Received: by outflank-mailman (input) for mailman id 141430;
- Mon, 14 Jun 2021 12:56:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lsm9R-00007Q-R3; Mon, 14 Jun 2021 12:57:13 +0000
+Received: by outflank-mailman (input) for mailman id 141433;
+ Mon, 14 Jun 2021 12:57:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lsm97-00084m-6t
- for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 12:56:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lsm97-0004TQ-2r; Mon, 14 Jun 2021 12:56:53 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lsm96-0001mV-R0; Mon, 14 Jun 2021 12:56:53 +0000
+ (envelope-from <SRS0=XszW=LI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lsm9Q-000070-Dg
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 12:57:12 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 58b77765-4781-4ac4-82fc-f5560a254cbb;
+ Mon, 14 Jun 2021 12:57:11 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2177.outbound.protection.outlook.com [104.47.17.177])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-35-UlbjW3WlP5aZkb8YpkqmCw-1; Mon, 14 Jun 2021 14:57:09 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2335.eurprd04.prod.outlook.com (2603:10a6:800:2e::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20; Mon, 14 Jun
+ 2021 12:57:06 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
+ 12:57:06 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM0PR10CA0100.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:e6::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4219.20 via Frontend Transport; Mon, 14 Jun 2021 12:57:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,120 +52,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=XCbiOCDvlqziCIM+eMWN9Mc+pioEDSMSh5sz9jv2GW0=; b=J95Je1q+TddQhwFzfqzuTnn62V
-	mV3fqq+758Nts6XzUcofJz8WnzKgatJf++NVA54f3F2oeDnHhC9j1qifjSuOCqm1nDOKxrf0wiWB1
-	06YfUdNRkssUFoVnQmD+Vwj7BU5KSgzVdygmxbw9Ku7EXZdH1hzn6hUJpKob2JSbN+Ds=;
-Subject: Re: [PATCH] Arm: avoid .init.data to be marked as executable
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <6837f903-14f6-4438-ed05-b373149984f3@suse.com>
- <b7e76787-cdae-ed1a-a741-e5db146fc87e@xen.org>
- <8c5ec03f-5ea1-99f8-a521-3552d0015ac4@suse.com>
- <1b44cb6d-dda6-5297-893b-a53fe7d123d9@xen.org>
- <919ddc45-c6a4-20b3-e1ab-7a16fe1c48d2@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e08a7113-672c-81fc-ff7b-5f58bdf52bb7@xen.org>
-Date: Mon, 14 Jun 2021 14:56:50 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <919ddc45-c6a4-20b3-e1ab-7a16fe1c48d2@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+X-Inumbo-ID: 58b77765-4781-4ac4-82fc-f5560a254cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1623675430;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E88rxmzha68DnX7MDCCamoXuD+jSA9NYX9LK2SOH100=;
+	b=mEnEHJKdblzuNPHdJB2WjMoi/fpPUBcwC4mqWMn6b0nLOZfFBiv8K+VVu5IyAPh5u+V6Mo
+	74sy9ZfvUVDIIhMXKaPfJNgjGHL2HsOdR+SmBA7HsxyHJrzoUTOMc5HnOXXTjaFydLGHPz
+	OxwCergDVNz2QuIdViRs4uJl5mVIXOo=
+X-MC-Unique: UlbjW3WlP5aZkb8YpkqmCw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TQIhAwYUQ0++TmX4+yYQGaax+xmgOU8zk6uV+6KOcwhQEFTmT/qiRc2GCEB3I0aJKNmu8dWoM+H+vr+ZhiCCaNQp7MgxTpd4dckIZzCirQiziY5qxHb4BKNflION0gr8taXWmgwa1QoxxdfRI8bNRfdwcriSWGspu1EMAeUxtwHsF2MIVGH+mhteJgfpH05QbTv+6O6YR7R3nu1rPA6Olda1+uGIAGNjMtcrUV7CnZ8P5moLbcLu3hhwtZ+ZGKYEzRncCQx39Z6Y32a1TG4QhsBkh11HCDsNjN9bL+aM+4ugEA8P3CMH2G9z3NYofE+dqoAqlG99DuEp0sCxEytHkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E88rxmzha68DnX7MDCCamoXuD+jSA9NYX9LK2SOH100=;
+ b=oWU2G/RhwJjCbjUxnTOJJ6v9nvgMijXvwC0SwS35zbMEWA/NYLxXzA0tudZDMVx1m4MW4e7kAY8QwECaDCDxy9x8CWO87Dj8AlpJcU/0tKE3Rnwzq+28kvuWWc1OU5IP6blWCjAtY87QzlLK/0OgJ6mmQRN9cIGF9EqpnfEdgzYBMTlPv+L9sS/JUG6D1b+KxylsWtFlDCq/ZHXZdhpW7IdrfukuPm2PueIz4W78ByFqprryOLqTxeahVRScOa6pyEH+rmPPM2WzR/hHdoK6dBNbzGw3DD1r1YKktcPs50nVzUOF7sEga5McrAI3ifgqyIxLc6mbN6xKKmvmgKqfAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 3/5] x86/msr: Expose MSR_ARCH_CAPS in the raw and host
+ policies
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Igor Druzhinin <igor.druzhinin@citrix.com>,
+ Edwin Torok <edvin.torok@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210611163627.4878-1-andrew.cooper3@citrix.com>
+ <20210611163627.4878-4-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bcb7cacf-f18d-ed74-00b4-854b403bef2e@suse.com>
+Date: Mon, 14 Jun 2021 14:57:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210611163627.4878-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [37.24.206.209]
+X-ClientProxiedBy: AM0PR10CA0100.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:e6::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d2c7c21c-6493-4e7e-fae9-08d92f33e9ef
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2335:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB233528F7B46E203A6D7B9507B3319@VI1PR0401MB2335.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	42KPm/14Xk1TUJgx6zlOsyQiCn8gAXtv33+BCggpCzbQy95J9bdHWDzrzCSQCD9R474gYYVYIcUDmPZFNlI5zbd000q3sXdjYUaPDMkvsTDXE5TgeaJmkLEf3jtQm5yD5Cg8qLPXfsZ6XVO32w6Q3Rx5aDznbGEAUUCRX7TYVvZ3rnMoA8hFVbQonRmClG9kUWFq8I2jXK23Ml4w+UzpduQeYRdUbJzG2bOFgrHEsVfPTlyueTATlZYVm5jy7MD6A8sL5NpUeFbJgN82/qMhb+45jYNcX7OtiWpHtyXy740WdnXW16zHmX3q3j9zwTJTHHIzLQLIqlvrqS8/+J9YhSUwtfs8CHytdMsP6dk+v7YPChQbjhvVF51EVkGV8QPyZ5gSxJxM65qCWK0w5oPj9hWPZ/3uwH+gY+duMG0nTPTfwypMt31U0A1i84wogR6PUTTF0evuBQelG9kituiddc8N4/EHYFSymL1yk+cJjnyS5SvjWWgftQARButAU+kL2TeGxOCM9XJWOBcg85e1U936d85buPgIJmugdGa82s0ocu6IJQWdrNCyxUilU/WUfM0YzsoHGncPYzCD2WMZ9NSvKnUPMC5tyUCOuaDxlXlRPsNEhMbd7tz7Qr8EjZTmZoNymIwlrS10d60lAHSIx1C7lXasum2DR99ykiifQ7HglMsbkfzt3LCYs6BjL43G
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(396003)(39840400004)(376002)(346002)(366004)(478600001)(6916009)(4326008)(83380400001)(36756003)(6486002)(31686004)(2616005)(956004)(8676002)(2906002)(8936002)(186003)(38100700002)(53546011)(5660300002)(54906003)(6666004)(16576012)(31696002)(316002)(86362001)(16526019)(26005)(66476007)(66556008)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dWQrVjJaVmZCQjBOVnZJcE5rNFg2QktGbGh4cFVkSzZsWWZDMXc0dnR6T0Uz?=
+ =?utf-8?B?cDdPdm9FNDdvM0pJR2YyYzl0SEI2ZXZIaTVmT3JLUTRTTlhZY1BFQ1cyT3gz?=
+ =?utf-8?B?V1J1S0N6eUthYkx0YkN4WmFNbWttMDRWZ0dVc0I5RGErV2ZtZXZNdnZiZjFO?=
+ =?utf-8?B?R0pSY0VUZkN1aUZ5TTlQYUF4NUN6Q01GMlN6b2Q2RDBWMHVUdkJ4dmFTUU52?=
+ =?utf-8?B?Zi83N2Z4RmpaUGd1blFlWHlKbGxDSHdoS3dLbWJLcGhLODNubTVQeW5zWnJ5?=
+ =?utf-8?B?eWdZVWNzeFRaRmtPL0d4cDBCQituSURSMWl2NVFUbEpDb2VHV2RiSG5EQ2I5?=
+ =?utf-8?B?SmMwTDArR254enZkUlErV1oreFpaUlNad1VSQjVNL21tdE1scUNyVWJIaG9F?=
+ =?utf-8?B?OUVkeDZ6Z0dVeCtjZWRWaGYza2E4dUVFY2IrdllhMGNHamljWXJpaWVkSWpx?=
+ =?utf-8?B?THh5YVN6bGZtYjhkN3V5VjJ0V00ybGxuWU5tZmRBeUNvZFlmdXVLc2pNZlJh?=
+ =?utf-8?B?bHVRaUEwYmZDR3IwUWo2eXl5VzcwN0V4dWRvK3AweWRTRENHY3AydFA0cHJO?=
+ =?utf-8?B?TVF6My96YlFnczUvY3d6MlVrcmFhRWNUcENWbnVtYzVYdkxqZks3bk43Y2pV?=
+ =?utf-8?B?RFpSUWRONFBLT0FNOXJDdGF1TzRiWlZWQXV4QlhXa05FQmNkUVdpUXJBcmFG?=
+ =?utf-8?B?OWdWbTVhU1NsSTlZTkM2UzhzL0d5dVE4WDc0RDNpSkdxQTVlLzFYVzJjNUdo?=
+ =?utf-8?B?c1ZxV3JQeUpTaUNBblpISzJwMWRJR2RNaFlMOGRSTFN5dkFZOWhqMzVxMDFK?=
+ =?utf-8?B?eEdJbGpNMnpkMWhUUi9YUkNWb21VeUwvRmxlSmtySkI3dWw0Ynl5YzF2MU84?=
+ =?utf-8?B?cU5RK0h0T05QQ21ldjZweWlGZzAyYlM4WWdsWno4dC9scW5aeElLQXhnMWZk?=
+ =?utf-8?B?RGpoSkdVUGtpd1RGMnJpUEZJbmFFZlpmdCtNb0laRzJRVUJ5U2ZWUUhMaHNH?=
+ =?utf-8?B?Y1NzVk9WYko3ZG1MVXNWMlZCNzRubzBIcklHMGtBWkdEZTM0SGNxTHY1SWZl?=
+ =?utf-8?B?MllQNGNibHpQSlZISHFDMGRheDBWRnFMOVVvL1Q5N3lKNENnQVBXRFY2QzI1?=
+ =?utf-8?B?SktKbi9yWVQvTG5KcExyM2FTVS9VSTdRZG1uODkxdkdsUGh4SGVEY2Y3cVJF?=
+ =?utf-8?B?ejhCMmtjWlJ4ajdUUWtxMGU0c2ZIQzRuWlBjeVJOOVljYTlUZStYY2Q4bkU4?=
+ =?utf-8?B?eEZsbXQrdHNYSHd6bkRncUd5OVZuM1p3b1pTa0xhSDI5K0dNN2wzeTRZLytl?=
+ =?utf-8?B?ZXVZTVYxVUNQOWd4WnVuYnRXVkc2ZElFUk5DVER4bWRuS1BqMTFya0srUFpV?=
+ =?utf-8?B?L3pwdFRocklzc2t2UExtRnhLak91alRCdHI0YU04b3BUd1p1a3FoaGZ1QklK?=
+ =?utf-8?B?RW9NczhIYUUrWU5TYmx5N1gvQTcwaUdSdzcrWFZzMm9FK1hJUHlLRHA3WHI3?=
+ =?utf-8?B?TnBqeC9Xd3kzSU5kQ204UWUxUGxZb2lNRDlxNU1wQW1nVERjQlJwT1k0bVcy?=
+ =?utf-8?B?WkxWeHk2MEF3aWlrUVlpRnNoZXY2UFQxdjRZNjhIODVHbWozZTl1TWpxMmo4?=
+ =?utf-8?B?bGFiem11RGczNnJxcHNnb2lINVpZUXRGMzJDb21JUU9odzF3NGFLVy9zcnQ5?=
+ =?utf-8?B?Z1JOcnVKbENkWVc4MWVlT0NyT1I1VHlkbjI3cnYvZUp2WGVUZk1qMzR0d0wz?=
+ =?utf-8?Q?FOOiuXqr0/CFRKymZNAR2IJcRJBwMn/trMs0lIt?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2c7c21c-6493-4e7e-fae9-08d92f33e9ef
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 12:57:06.5251
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: phbzAA+QL8aHQRJt7+OQToV/00TcbwHYyNLZiyk2uTZyahC69DFfYWXBXZVtu9VDwdiJ9pwJa63REmCQEtWWxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2335
 
-Hi Jan,
+On 11.06.2021 18:36, Andrew Cooper wrote:
+> @@ -60,6 +65,11 @@ static void __init calculate_host_policy(void)
+>      /* 0x000000ce  MSR_INTEL_PLATFORM_INFO */
+>      /* probe_cpuid_faulting() sanity checks presence of MISC_FEATURES_ENABLES */
+>      mp->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
+> +
+> +    mp->arch_caps.raw &=
+> +        (ARCH_CAPS_RDCL_NO | ARCH_CAPS_IBRS_ALL | ARCH_CAPS_RSBA |
+> +         ARCH_CAPS_SKIP_L1DFL | ARCH_CAPS_SSB_NO | ARCH_CAPS_MDS_NO |
+> +         ARCH_CAPS_IF_PSCHANGE_MC_NO | ARCH_CAPS_TSX_CTRL | ARCH_CAPS_TAA_NO);
+>  }
 
-On 14/06/2021 14:17, Jan Beulich wrote:
-> On 14.06.2021 12:32, Julien Grall wrote:
->>
->>
->> On 14/06/2021 12:02, Jan Beulich wrote:
->>> On 14.06.2021 11:41, Julien Grall wrote:
->>>> On 11/06/2021 11:39, Jan Beulich wrote:
->>>>> This confuses disassemblers, at the very least. Move
->>>>> .altinstr_replacement to .init.text,
->>>>
->>>> The alternative code was borrowed from Linux. The code has now changed
->>>> to cater very large kernel. They used to keep the .altinstr_replacement
->>>> and altinstructions close to each other (albeit they were both in
->>>> .init.text).
->>>>
->>>> I am not entirely why, but I am a bit worry to separate them. What sort
->>>> of test did you do?
->>>
->>> Well, just build tests, on the assumption that relocation overflows
->>> would be reported by the linker if the sections ended up too far
->>> apart.
->>
->> Hmmm, fair point. They should also not be further than the original
->> instruction. So there ought to be fine.
->>
->>>
->>>>> dropping the redundant ALIGN().
->>>>>
->>>>> Also, to have .altinstr_replacement have consistent attributes in the
->>>>> object files, add "x" to the one instance where it was missing. >
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>> ---
->>>>> I'm uncertain whether having .altinstr_replacement inside or outside the
->>>>> [_sinittext,_einittext) region is better; I simply followed what we have
->>>>> on the x86 side right now.
->>>>
->>>> This means the altinstructions will be marked executable in the
->>>> page-table. They technically should not be executable, so I would move
->>>> them outside _einittext and make sure the section is aligned to a PAGE_SIZE.
->>>
->>> Hmm, are you saying you bother getting attributes right for .init.*
->>> in the page tables? I ask because we don't on x86, and because it
->>> would seem wasteful to me to pad to PAGE_SIZE just for this. But
->>> you're the maintainer, i.e. I'm merely double checking ...
->>
->> So this is a defense in depth. Your assumption is .init.text is going to
->> disappear after boot. However, if there is a bug that would leave
->> .init.text present then this may add more attack surface. So I think it
->> is a good practice to keep the permission correct.
->>
->> However... looking the alternative code again, there is another reason
->> to move this change out of the range _sinitext - _einittext. The
->> function branch_insn_requires_update() will forbid branch target in
->> another alternative instructions.
->>
->> This is first checking that the target is part of an active text. With
->> this change, this will return true because alternative instruction
->> replacement will be between _sinittext and _einittext.
->>
->> So .altinstructions_replacement must outside of the region [_stinittext,
->> _einittext[.
-> 
-> I see. But I'm not sure about the defense-in-depth aspect: By putting
-> it outside [_sinittext,_einittext) it'll get mapped r/w, while I think
-> you were implying that it would become r/o. Not even .init.rodata gets
-> mapped r/o.
+Isn't this a little too simple? For CPUID we consider the host policy
+to be what Xen is using. Taking ARCH_CAPS_SKIP_L1DFL as an example,
+we're not using it unconditionally (depending on opt_md_clear_hvm and
+opt_l1d_flush), i.e. there's command line control over its use just
+like there is over the CPUID bits. Or take ARCH_CAPS_RDCL_NO, which
+we set unilaterally for AMD/Hygon.
 
-Yes it is no r/o and that should be fixed at some point. However, I feel 
-that r/w is better than allowing execution because some the instructions 
-can lead to a DoS if executed on platform not supporting them.
+I don't mind it remaining this simple for the moment, but then at
+least the commit message should state that this is currently over-
+simplifying things. If you agree, then with suitable wording added:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-But that's a matter of opinion and I think this confused the messaging here.
+Jan
 
-> 
-> As a result I'm not convinced yet that you really want me to make the
-> change.
-
-I wrote "must", so I am not sure what else I could say to convince you 
-that I really want to make this change...
-
-To re-iterate, this code will break runtime check in the alternative 
-patching code. So the .altinstruction_replacement **should** be placed 
-after _einittext.
-
-Cheers,
-
--- 
-Julien Grall
 
