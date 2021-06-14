@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 856E73A66EC
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 14:47:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141418.261227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 107CB3A673F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 14:57:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141430.261244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsm0B-0006Vr-FU; Mon, 14 Jun 2021 12:47:39 +0000
+	id 1lsm98-000883-FJ; Mon, 14 Jun 2021 12:56:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141418.261227; Mon, 14 Jun 2021 12:47:39 +0000
+Received: by outflank-mailman (output) from mailman id 141430.261244; Mon, 14 Jun 2021 12:56:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsm0B-0006Tu-CA; Mon, 14 Jun 2021 12:47:39 +0000
-Received: by outflank-mailman (input) for mailman id 141418;
- Mon, 14 Jun 2021 12:47:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ADML=LI=gmail.com=rm.skakun@srs-us1.protection.inumbo.net>)
- id 1lsm09-0006Tg-SX
- for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 12:47:37 +0000
-Received: from mail-lj1-x230.google.com (unknown [2a00:1450:4864:20::230])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b99f9e50-6e2b-486e-8853-e88b39b66002;
- Mon, 14 Jun 2021 12:47:37 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id k8so3090363lja.4
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jun 2021 05:47:37 -0700 (PDT)
+	id 1lsm98-00084s-Bd; Mon, 14 Jun 2021 12:56:54 +0000
+Received: by outflank-mailman (input) for mailman id 141430;
+ Mon, 14 Jun 2021 12:56:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lsm97-00084m-6t
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 12:56:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lsm97-0004TQ-2r; Mon, 14 Jun 2021 12:56:53 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lsm96-0001mV-R0; Mon, 14 Jun 2021 12:56:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,127 +39,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b99f9e50-6e2b-486e-8853-e88b39b66002
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=QUObwUNWvgk8Ic1w7m2h32Aq1YfuXrxksajQxqaMrIs=;
-        b=rj6ZqtY0hWRNdi47dSpXnG5VlOgr15kVbYhmu6VWU8u6FjoktZ8tvzKvzlkPnDP+pV
-         XO3nhrT0y6qyTJZjPH5sSQnLiK2So2RyVxzuj8bZTSrohk/KJTgF8P077y+Fvbm3p3MS
-         adrMOeNBlgRIAQ8M4JksRyHAk91ctiTVHRxKE+Ysd4cv7fxq0GrTjF2zot+++owhWgOZ
-         akrE4+2kZBZEEm5a4N3TOZdjIGXh/Ipfb6XTfSeGKR/mE8wojx+WFi//AUD6f13s38T+
-         dh0ynmjkc4C4o/Er1BLAEQaXeS2zTdDzm++TKc2dXCS2gvmp9hROmv+KiK5rYRK9W/Lu
-         mMbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=QUObwUNWvgk8Ic1w7m2h32Aq1YfuXrxksajQxqaMrIs=;
-        b=ovN12n/ebWAg5TXy4rEVmSpTWZCB/HJF1pIBKOrJ6q1eJLBvTMjcA/gG5+UyTKJCxn
-         jnsOkQ8YIVQi0vFQyMSeLu4TwoTDadGAPoAv+MbgVBote+YHM8YUqyaEzhMLbf3NCrjg
-         fFJGCjJclFRUyqOtqxVnpfSjcgnJ5HWtL1eAhN24j+mLIHzhJTcsqgFKAJfQ3ld2lwAv
-         RaxOFn7e1tCR78BMRa7o15/T6vAfxOqjBgeQ40H08QfbIyguo+fZFznMZ6XljomfAo6B
-         FAjSmKhji6nwHhkgYhTcZ4ix0TWkGEcBpWUEbUZa5b0zQv3I04fuGZr7CnWAQbNIxmyd
-         jipg==
-X-Gm-Message-State: AOAM532qHJeq1J2LiTCYOMaKsTaU/J3MemotVDDweGSVUJqgB1EqCf15
-	n/HB4TAfGe43dly9B05cfZBe3feN1wQC3t2SrMs=
-X-Google-Smtp-Source: ABdhPJxC86d8VXC4py9RRymEPfI5ESRE2fKe8HepltlfpWhz75a3A3JMLKsQJcx2NkZi9XGq2Uggz8yzDs460UQlrTk=
-X-Received: by 2002:a2e:b8cc:: with SMTP id s12mr13710166ljp.66.1623674855928;
- Mon, 14 Jun 2021 05:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=XCbiOCDvlqziCIM+eMWN9Mc+pioEDSMSh5sz9jv2GW0=; b=J95Je1q+TddQhwFzfqzuTnn62V
+	mV3fqq+758Nts6XzUcofJz8WnzKgatJf++NVA54f3F2oeDnHhC9j1qifjSuOCqm1nDOKxrf0wiWB1
+	06YfUdNRkssUFoVnQmD+Vwj7BU5KSgzVdygmxbw9Ku7EXZdH1hzn6hUJpKob2JSbN+Ds=;
+Subject: Re: [PATCH] Arm: avoid .init.data to be marked as executable
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6837f903-14f6-4438-ed05-b373149984f3@suse.com>
+ <b7e76787-cdae-ed1a-a741-e5db146fc87e@xen.org>
+ <8c5ec03f-5ea1-99f8-a521-3552d0015ac4@suse.com>
+ <1b44cb6d-dda6-5297-893b-a53fe7d123d9@xen.org>
+ <919ddc45-c6a4-20b3-e1ab-7a16fe1c48d2@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e08a7113-672c-81fc-ff7b-5f58bdf52bb7@xen.org>
+Date: Mon, 14 Jun 2021 14:56:50 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210611095528.9230-1-roman_skakun@epam.com> <855a58e2-1e03-4763-cb56-81367b73762c@oracle.com>
-In-Reply-To: <855a58e2-1e03-4763-cb56-81367b73762c@oracle.com>
-From: Roman Skakun <rm.skakun@gmail.com>
-Date: Mon, 14 Jun 2021 15:47:25 +0300
-Message-ID: <CADu_u-MqALJkG8RJHrr65vC_sHu-UyvCGwwUfaBong0eir5+hQ@mail.gmail.com>
-Subject: Re: [PATCH] swiotlb-xen: override common mmap and get_sgtable dma ops
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, 
-	iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Roman Skakun <roman_skakun@epam.com>, 
-	Andrii Anisov <andrii_anisov@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <919ddc45-c6a4-20b3-e1ab-7a16fe1c48d2@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Hey, Boris!
-Thanks for the review.
+Hi Jan,
 
-I have an additional question about current implementation that disturbed m=
-e.
-I think, that we can have cases when mapped memory can not be
-physically contiguous.
-In order to proceed this correctly need to apply some additional steps
-to current implementation as well.
+On 14/06/2021 14:17, Jan Beulich wrote:
+> On 14.06.2021 12:32, Julien Grall wrote:
+>>
+>>
+>> On 14/06/2021 12:02, Jan Beulich wrote:
+>>> On 14.06.2021 11:41, Julien Grall wrote:
+>>>> On 11/06/2021 11:39, Jan Beulich wrote:
+>>>>> This confuses disassemblers, at the very least. Move
+>>>>> .altinstr_replacement to .init.text,
+>>>>
+>>>> The alternative code was borrowed from Linux. The code has now changed
+>>>> to cater very large kernel. They used to keep the .altinstr_replacement
+>>>> and altinstructions close to each other (albeit they were both in
+>>>> .init.text).
+>>>>
+>>>> I am not entirely why, but I am a bit worry to separate them. What sort
+>>>> of test did you do?
+>>>
+>>> Well, just build tests, on the assumption that relocation overflows
+>>> would be reported by the linker if the sections ended up too far
+>>> apart.
+>>
+>> Hmmm, fair point. They should also not be further than the original
+>> instruction. So there ought to be fine.
+>>
+>>>
+>>>>> dropping the redundant ALIGN().
+>>>>>
+>>>>> Also, to have .altinstr_replacement have consistent attributes in the
+>>>>> object files, add "x" to the one instance where it was missing. >
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>> ---
+>>>>> I'm uncertain whether having .altinstr_replacement inside or outside the
+>>>>> [_sinittext,_einittext) region is better; I simply followed what we have
+>>>>> on the x86 side right now.
+>>>>
+>>>> This means the altinstructions will be marked executable in the
+>>>> page-table. They technically should not be executable, so I would move
+>>>> them outside _einittext and make sure the section is aligned to a PAGE_SIZE.
+>>>
+>>> Hmm, are you saying you bother getting attributes right for .init.*
+>>> in the page tables? I ask because we don't on x86, and because it
+>>> would seem wasteful to me to pad to PAGE_SIZE just for this. But
+>>> you're the maintainer, i.e. I'm merely double checking ...
+>>
+>> So this is a defense in depth. Your assumption is .init.text is going to
+>> disappear after boot. However, if there is a bug that would leave
+>> .init.text present then this may add more attack surface. So I think it
+>> is a good practice to keep the permission correct.
+>>
+>> However... looking the alternative code again, there is another reason
+>> to move this change out of the range _sinitext - _einittext. The
+>> function branch_insn_requires_update() will forbid branch target in
+>> another alternative instructions.
+>>
+>> This is first checking that the target is part of an active text. With
+>> this change, this will return true because alternative instruction
+>> replacement will be between _sinittext and _einittext.
+>>
+>> So .altinstructions_replacement must outside of the region [_stinittext,
+>> _einittext[.
+> 
+> I see. But I'm not sure about the defense-in-depth aspect: By putting
+> it outside [_sinittext,_einittext) it'll get mapped r/w, while I think
+> you were implying that it would become r/o. Not even .init.rodata gets
+> mapped r/o.
 
-In mmap() :
-1. Is the memory region physically contiguous?
-2. Remap multiple ranges if it is not.
+Yes it is no r/o and that should be fixed at some point. However, I feel 
+that r/w is better than allowing execution because some the instructions 
+can lead to a DoS if executed on platform not supporting them.
 
-In get_sgtable() :
-1. Is the memory region physically contiguous?
-2. Create sgt that will be included multiple contiguous ranges if it is not=
-.
+But that's a matter of opinion and I think this confused the messaging here.
 
-What do you think about it?
+> 
+> As a result I'm not convinced yet that you really want me to make the
+> change.
 
-Cheers!
-Roman
+I wrote "must", so I am not sure what else I could say to convince you 
+that I really want to make this change...
 
+To re-iterate, this code will break runtime check in the alternative 
+patching code. So the .altinstruction_replacement **should** be placed 
+after _einittext.
 
-=D0=BF=D1=82, 11 =D0=B8=D1=8E=D0=BD. 2021 =D0=B3. =D0=B2 18:20, Boris Ostro=
-vsky <boris.ostrovsky@oracle.com>:
->
->
-> On 6/11/21 5:55 AM, Roman Skakun wrote:
-> >
-> > +static int
-> > +xen_swiotlb_dma_mmap(struct device *dev, struct vm_area_struct *vma,
-> > +             void *cpu_addr, dma_addr_t dma_addr, size_t size,
-> > +             unsigned long attrs)
-> > +{
-> > +     unsigned long user_count =3D vma_pages(vma);
-> > +     unsigned long count =3D PAGE_ALIGN(size) >> PAGE_SHIFT;
-> > +     unsigned long off =3D vma->vm_pgoff;
-> > +     struct page *page;
-> > +
-> > +     if (is_vmalloc_addr(cpu_addr))
-> > +             page =3D vmalloc_to_page(cpu_addr);
-> > +     else
-> > +             page =3D virt_to_page(cpu_addr);
-> > +
-> > +     vma->vm_page_prot =3D dma_pgprot(dev, vma->vm_page_prot, attrs);
-> > +
-> > +     if (dma_mmap_from_dev_coherent(dev, vma, cpu_addr, size, &ret))
-> > +             return -ENXIO;
-> > +
-> > +     if (off >=3D count || user_count > count - off)
-> > +             return -ENXIO;
-> > +
-> > +     return remap_pfn_range(vma, vma->vm_start,
-> > +                     page_to_pfn(page) + vma->vm_pgoff,
-> > +                     user_count << PAGE_SHIFT, vma->vm_page_prot);
-> > +}
->
->
-> I suggest you create a helper for computing page value and then revert 92=
-2659ea771b3fd728149262c5ea15608fab9719 and pass result of the helper instea=
-d of cpu_addr. Here and in xen_swiotlb_dma_get_sgtable().
->
->
-> And use this new helper in xen_swiotlb_free_coherent() too. I am curious =
-though why this was not a problem when Stefano was looking at the problem t=
-hat introduced this vmalloc check (i.e. 8b1e868f66076490189a36d984fcce286cd=
-d6295). Stefano?
->
->
-> -boris
+Cheers,
 
-
-
---=20
-Best Regards, Roman.
+-- 
+Julien Grall
 
