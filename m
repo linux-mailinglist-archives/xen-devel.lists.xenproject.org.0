@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC383A683C
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 15:42:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141511.261371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3858D3A6864
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 15:50:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141523.261382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsmr3-0002Z3-1G; Mon, 14 Jun 2021 13:42:17 +0000
+	id 1lsmyP-0003Hd-Sj; Mon, 14 Jun 2021 13:49:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141511.261371; Mon, 14 Jun 2021 13:42:17 +0000
+Received: by outflank-mailman (output) from mailman id 141523.261382; Mon, 14 Jun 2021 13:49:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsmr2-0002Vw-UK; Mon, 14 Jun 2021 13:42:16 +0000
-Received: by outflank-mailman (input) for mailman id 141511;
- Mon, 14 Jun 2021 13:42:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Ibu=LI=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1lsmr1-0002Vq-9W
- for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 13:42:15 +0000
-Received: from mail-pg1-x52c.google.com (unknown [2607:f8b0:4864:20::52c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id deadc58d-8e76-4385-90e2-726bcddf4c1a;
- Mon, 14 Jun 2021 13:42:14 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id t17so8669625pga.5
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jun 2021 06:42:14 -0700 (PDT)
-Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
- by smtp.gmail.com with ESMTPSA id
- s13sm13014226pgi.36.2021.06.14.06.42.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Jun 2021 06:42:13 -0700 (PDT)
+	id 1lsmyP-0003Eh-PX; Mon, 14 Jun 2021 13:49:53 +0000
+Received: by outflank-mailman (input) for mailman id 141523;
+ Mon, 14 Jun 2021 13:49:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lsmyN-0003Eb-OK
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 13:49:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lsmyN-0005Rq-MJ
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 13:49:51 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lsmyN-0006IM-La
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 13:49:51 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lsmyC-0006UC-FL; Mon, 14 Jun 2021 14:49:40 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,93 +41,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: deadc58d-8e76-4385-90e2-726bcddf4c1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=BOH7Vu+778+ln6ekCo+GQvvDaGAsmqLU6p5AWEG4zZQ=;
-        b=UL15DRdkb+5FCOorYR2hP1xNvGKF+hhVpp6Zgl0ZEc/kynMSrJYTv2B24Mo4Twd4OC
-         vrOGM4BGqqMhwnmUjnn22As3rfqICUuSLDNUfN4x055EQkDEP6U8uykZ1ageGPFza6dy
-         jotUZIYfU7sXGQAZHr4kuOdz1HN1DauLgWNH57sKiZSzR0dkndXAb/EFiLKvDgTKoc5n
-         CF/y9pIWqcDDuK8B74SpZxdcaDkimajNnHxGveNvr7r1vPb4MaK8pI1+WDcP5irZNQIO
-         K/ubQwcXeNSCfSAQihAGciweSNRMmdfdrpjGhRR3Ol9hGp7Cim/3jPpHV8NR+c4DzoMz
-         2CfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=BOH7Vu+778+ln6ekCo+GQvvDaGAsmqLU6p5AWEG4zZQ=;
-        b=p9lhIZWdIFc6DT1u/BQJolvEwlezJU8vyMcJWWVuDO9/Lj9Gp6lDcw4I2AVu2iDsX8
-         8micOLf1hLuCJAgxhDJdgJclMLmMI8SePF9g0trWtU3OSMsAVzaKrU92rWiTvtcfkfnB
-         JsbD7ufJVIfDKXNIt6NKqKdMkFBc4mmBz25m7FhRP7l1SVnxEKPd8EEayrGyY1sMJpJs
-         Zl8AuYqzCWNsKWHbm24h6lqd/M42vCyZLfAXo140shU8SBsU/AQsrT7a1eUWcKChbc/u
-         HQeqKUZ93PlehyrLrALamd8afc4MYDF91yIMKQB6M3lPGAQwKf0MEv36IZVV0e0nASCU
-         MsjA==
-X-Gm-Message-State: AOAM532hBrnrpeprYCs0pKjz0/xk4G2pkKFPVGtECaNgLZOuxXzF8qCY
-	n7DV2EAyKw7ZGjjtf+b2qNs=
-X-Google-Smtp-Source: ABdhPJzSD5SSODv3ZNJBk7/EJwQiektVm8x7/VFzAUKIi7xqvpG8L/erou4acHYRKMj3nTXmR0zAfQ==
-X-Received: by 2002:a63:f13:: with SMTP id e19mr16837169pgl.112.1623678133793;
-        Mon, 14 Jun 2021 06:42:13 -0700 (PDT)
-Subject: Re: [RFC PATCH V3 08/11] swiotlb: Add bounce buffer remap address
- setting function
-From: Tianyu Lan <ltykernel@gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
- arnd@arndb.de, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, akpm@linux-foundation.org,
- kirill.shutemov@linux.intel.com, rppt@kernel.org, hannes@cmpxchg.org,
- cai@lca.pw, krish.sadhukhan@oracle.com, saravanand@fb.com,
- Tianyu.Lan@microsoft.com, konrad.wilk@oracle.com, m.szyprowski@samsung.com,
- robin.murphy@arm.com, boris.ostrovsky@oracle.com, jgross@suse.com,
- sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
- xen-devel@lists.xenproject.org, davem@davemloft.net, kuba@kernel.org,
- jejb@linux.ibm.com, martin.petersen@oracle.com,
- iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
- thomas.lendacky@amd.com, brijesh.singh@amd.com, sunilmut@microsoft.com
-References: <20210530150628.2063957-1-ltykernel@gmail.com>
- <20210530150628.2063957-9-ltykernel@gmail.com>
- <20210607064312.GB24478@lst.de>
- <48516ce3-564c-419e-b355-0ce53794dcb1@gmail.com>
- <20210614071223.GA30171@lst.de>
- <3e64e59b-7440-69a5-75c5-43225f3d6c0a@gmail.com>
-Message-ID: <ee3d79ea-f4f9-b886-e1ee-e26b42a88530@gmail.com>
-Date: Mon, 14 Jun 2021 21:42:00 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=7KlJg5qmLnYl1LtfWn96biimdtbJh1Th9pa+aSmotHM=; b=WG3wCI0cOBW/U/gRb2IrCbfo5z
+	VU7DsHy/IRT4L93YsTNplWMrlq2fC84Mc/vVhedF+NWjgJ2bttDCUubE0dBK2IBHtzZ6usGUnC98+
+	1PPA9OwERy5GHgcAkFQRuVjfOGxgk12AbgciVGzeRb5gobofJsmfa3SE6SLWnUF0c0vE=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <3e64e59b-7440-69a5-75c5-43225f3d6c0a@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24775.24180.199869.133786@mariner.uk.xensource.com>
+Date: Mon, 14 Jun 2021 14:49:40 +0100
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+    Igor Druzhinin <igor.druzhinin@citrix.com>,
+    Edwin Torok <edvin.torok@citrix.com>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?=  <roger.pau@citrix.com>,
+    Wei Liu <wl@xen.org>,
+    Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 4/5] libs/guest: Move struct xc_cpu_policy into
+ xg_private.h
+In-Reply-To: <bb85a8ea-c78f-1b94-6d83-224137f21500@suse.com>
+References: <20210611163627.4878-1-andrew.cooper3@citrix.com>
+	<20210611163627.4878-5-andrew.cooper3@citrix.com>
+	<bb85a8ea-c78f-1b94-6d83-224137f21500@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 6/14/2021 9:37 PM, Tianyu Lan wrote:
+Jan Beulich writes ("Re: [PATCH 4/5] libs/guest: Move struct xc_cpu_policy into xg_private.h"):
+> On 11.06.2021 18:36, Andrew Cooper wrote: ... so tests can peek at
+> > the internals, without the structure being generally available to
+> > users of the library.
 > 
-> 
-> On 6/14/2021 3:12 PM, Christoph Hellwig wrote:
->> On Mon, Jun 07, 2021 at 10:56:47PM +0800, Tianyu Lan wrote:
->>> These addresses in extra address space works as system memory mirror. 
->>> The
->>> shared memory with host in Isolation VM needs to be accessed via extra
->>> address space which is above shared gpa boundary.
->>
->> Why?
->>
-> 
-> The shared_gpa_boundary in the AMD SEV SNP spec is called virtual top of
-> memory(vTOM). Memory addresses below vTOM are automatically treated as
-> private while memory above vTOM is treated as shared. Using vTOM to
-> separate memory in this way avoids the need to augment the standard x86
-> page tables with C-bit markings, simplifying guest OS software.
+> I'm not sure whether this slight over-exposure is tolerable in the tools code,
+> so I'd prefer leaving the ack-ing of this change to the tools folks.
 
-Here is the spec link and vTOM description is in the page 14.
-https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf
+I am fine with the change described in the Subject.
 
-Thanks.
+But I haven't reviewed the patch, which wasn't CC'd to me AFAICT.
 
+Ian.
 
