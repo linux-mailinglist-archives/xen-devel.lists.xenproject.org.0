@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 594F33A5CD2
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 08:17:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141135.260802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C85A3A5CD9
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jun 2021 08:17:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141140.260814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsfu1-0002CZ-4L; Mon, 14 Jun 2021 06:16:53 +0000
+	id 1lsfun-0002nY-E2; Mon, 14 Jun 2021 06:17:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141135.260802; Mon, 14 Jun 2021 06:16:53 +0000
+Received: by outflank-mailman (output) from mailman id 141140.260814; Mon, 14 Jun 2021 06:17:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lsfu1-0002Aa-1E; Mon, 14 Jun 2021 06:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 141135;
- Mon, 14 Jun 2021 06:16:52 +0000
+	id 1lsfun-0002lg-Ac; Mon, 14 Jun 2021 06:17:41 +0000
+Received: by outflank-mailman (input) for mailman id 141140;
+ Mon, 14 Jun 2021 06:17:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aFdS=LI=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lsfu0-0002AS-27
- for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 06:16:52 +0000
+ id 1lsfum-0002lS-7c
+ for xen-devel@lists.xenproject.org; Mon, 14 Jun 2021 06:17:40 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 288c6ac7-a198-4808-9768-2ee1eb181037;
- Mon, 14 Jun 2021 06:16:50 +0000 (UTC)
+ id ddf673d7-f830-42c6-afe9-f6a3c39c3825;
+ Mon, 14 Jun 2021 06:17:39 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 6D6E667373; Mon, 14 Jun 2021 08:16:44 +0200 (CEST)
+ id 2951067373; Mon, 14 Jun 2021 08:17:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,8 +37,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 288c6ac7-a198-4808-9768-2ee1eb181037
-Date: Mon, 14 Jun 2021 08:16:44 +0200
+X-Inumbo-ID: ddf673d7-f830-42c6-afe9-f6a3c39c3825
+Date: Mon, 14 Jun 2021 08:17:36 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
 Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
@@ -74,30 +74,38 @@ Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
 	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
 	matthew.auld@intel.com, rodrigo.vivi@intel.com,
 	thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v9 01/14] swiotlb: Refactor swiotlb init functions
-Message-ID: <20210614061644.GA28343@lst.de>
-References: <20210611152659.2142983-1-tientzu@chromium.org> <20210611152659.2142983-2-tientzu@chromium.org>
+Subject: Re: [PATCH v9 02/14] swiotlb: Refactor swiotlb_create_debugfs
+Message-ID: <20210614061736.GB28343@lst.de>
+References: <20210611152659.2142983-1-tientzu@chromium.org> <20210611152659.2142983-3-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210611152659.2142983-2-tientzu@chromium.org>
+In-Reply-To: <20210611152659.2142983-3-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Fri, Jun 11, 2021 at 11:26:46PM +0800, Claire Chang wrote:
-> +	spin_lock_init(&mem->lock);
-> +	for (i = 0; i < mem->nslabs; i++) {
-> +		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
-> +		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
-> +		mem->slots[i].alloc_size = 0;
-> +	}
-> +
-> +	if (memory_decrypted)
-> +		set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT);
-> +	memset(vaddr, 0, bytes);
+On Fri, Jun 11, 2021 at 11:26:47PM +0800, Claire Chang wrote:
+> Split the debugfs creation to make the code reusable for supporting
+> different bounce buffer pools, e.g. restricted DMA pool.
+> 
+> Signed-off-by: Claire Chang <tientzu@chromium.org>
+> ---
+>  kernel/dma/swiotlb.c | 23 ++++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 1a1208c81e85..8a3e2b3b246d 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -64,6 +64,9 @@
+>  enum swiotlb_force swiotlb_force;
+>  
+>  struct io_tlb_mem *io_tlb_default_mem;
+> +#ifdef CONFIG_DEBUG_FS
+> +static struct dentry *debugfs_dir;
+> +#endif
 
-We don't really need to do this call before the memset.  Which means we
-can just move it to the callers that care instead of having a bool
-argument.
+What about moving this declaration into the main CONFIG_DEBUG_FS block
+near the functions using it?
 
 Otherwise looks good:
 
