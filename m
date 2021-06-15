@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879693A870B
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 19:01:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142342.262667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 147093A8740
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 19:13:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142352.262683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltCR2-0002PL-CR; Tue, 15 Jun 2021 17:01:08 +0000
+	id 1ltCc9-0003xL-Ge; Tue, 15 Jun 2021 17:12:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142342.262667; Tue, 15 Jun 2021 17:01:08 +0000
+Received: by outflank-mailman (output) from mailman id 142352.262683; Tue, 15 Jun 2021 17:12:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltCR2-0002NP-8E; Tue, 15 Jun 2021 17:01:08 +0000
-Received: by outflank-mailman (input) for mailman id 142342;
- Tue, 15 Jun 2021 17:01:06 +0000
+	id 1ltCc9-0003uo-Da; Tue, 15 Jun 2021 17:12:37 +0000
+Received: by outflank-mailman (input) for mailman id 142352;
+ Tue, 15 Jun 2021 17:12:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ltCR0-0002NE-Sj; Tue, 15 Jun 2021 17:01:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1ltCc7-0003ui-TE
+ for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 17:12:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ltCR0-0007xg-Kf; Tue, 15 Jun 2021 17:01:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ltCR0-0006Tf-Ap; Tue, 15 Jun 2021 17:01:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ltCR0-0004HV-7y; Tue, 15 Jun 2021 17:01:06 +0000
+ (envelope-from <julien@xen.org>)
+ id 1ltCc5-00088o-GR; Tue, 15 Jun 2021 17:12:33 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ltCc5-0002oZ-8P; Tue, 15 Jun 2021 17:12:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +39,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=d5S5sNq+YqJe7+C652VB3AU0BHiw5yAY9wqpA4/Qz64=; b=PoDBW7IIZah5Sl+dfhGMmLfGja
-	eU+HkAbmGYuBCdz8edxjf2Esfo5ggf25irSnNrixrkGFIY9MnJNUfwPxZb5GbSRKT06RerjGRuaZ5
-	DCIlz+6Dmf9YSYDU240KvJyZnm6A+ei8ke3CCb7wpRn+CHXwcxK8P7cAh+8J/RUchZMk=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162842-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
+	bh=GW5AmU1Yn1mLV0MhHismtI5cS8vL2PV+0Z0rJWlmtzA=; b=obHYWaWeDp3qPeeSAJauHrK2/f
+	keBKFhyADL3h3KJ32oWrRO4YZykQGyAEpBeYGgi5xLhhDkj7cJSrxV9QR3R2EVLXbO9RJiBuh5AZ/
+	2/1h0EIIRvJC8lG9hl+3KuPcuUXKiRc7GhNoXRnC8i7qhGJPblo+9ZJlG+6q8yrZ+nbY=;
+Subject: Re: PING Re: [XEN PATCH] libs/foreignmemory: Fix
+ osdep_xenforeignmemory_map prototype
+From: Julien Grall <julien@xen.org>
+To: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20210601154147.55799-1-anthony.perard@citrix.com>
+ <a5d4f4ae-21b9-9798-5501-2c288a70e7b4@suse.com>
+ <d80b6904-ff5c-33d6-b0e3-6882fe3e8e89@xen.org>
+Message-ID: <1eed05e4-958c-c724-67dc-266cc0011c94@xen.org>
+Date: Tue, 15 Jun 2021 19:12:30 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162842: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=93c5f98296fc78de79d621418a1e62fd413e73d1
-X-Osstest-Versions-That:
-    xen=8c9ed863738ff9e8b91975d6aa4464e7e8324eb7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Jun 2021 17:01:06 +0000
+In-Reply-To: <d80b6904-ff5c-33d6-b0e3-6882fe3e8e89@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 162842 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162842/
+Hi,
 
-Failures :-/ but no regressions.
+On 15/06/2021 15:31, Julien Grall wrote:
+> Hi Ian & Wei,
+> 
+> On 02/06/2021 10:25, Jan Beulich wrote:
+>> On 01.06.2021 17:41, Anthony PERARD wrote:
+>>> Commit cf8c4d3d13b8 made some preparation to have one day
+>>> variable-length-array argument, but didn't declare the array in the
+>>> function prototype the same way as in the function definition. And now
+>>> GCC 11 complains about it.
+>>>
+>>> Fixes: cf8c4d3d13b8 ("tools/libs/foreignmemory: pull array length 
+>>> argument to map forward")
+>>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+>>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> Ian - this (or whichever alternative might be chosen to address gcc11's
+>> valid complaint) also will want backporting.
+> 
+> I was about to commit this patch and noticed that there is still a 
+> missing an ack from the tools maintainers. @Ian, @Wei, can you provide one?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ From an IRC discussion, Ian was happy to follow the rule:
 
-version targeted for testing:
- xen                  93c5f98296fc78de79d621418a1e62fd413e73d1
-baseline version:
- xen                  8c9ed863738ff9e8b91975d6aa4464e7e8324eb7
+"Commit something without the necessary acks if you're reasonably 
+certain that the maintainer would have approved it"
 
-Last test of basis   162811  2021-06-14 17:03:29 Z    0 days
-Testing same since   162842  2021-06-15 14:00:28 Z    0 days    1 attempts
+This doesn't seem to be part of MAINTAINERS, but I will use it for this 
+patch as Ian gave his assent.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
+This is committed now.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Cheers,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   8c9ed86373..93c5f98296  93c5f98296fc78de79d621418a1e62fd413e73d1 -> smoke
+-- 
+Julien Grall
 
