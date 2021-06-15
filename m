@@ -2,62 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5E23A76EE
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 08:12:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141904.262000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6603A7701
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 08:23:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141915.262019 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt2JO-0004Rq-9s; Tue, 15 Jun 2021 06:12:34 +0000
+	id 1lt2TZ-000641-Iy; Tue, 15 Jun 2021 06:23:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141904.262000; Tue, 15 Jun 2021 06:12:34 +0000
+Received: by outflank-mailman (output) from mailman id 141915.262019; Tue, 15 Jun 2021 06:23:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt2JO-0004PW-62; Tue, 15 Jun 2021 06:12:34 +0000
-Received: by outflank-mailman (input) for mailman id 141904;
- Tue, 15 Jun 2021 06:12:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lt2TZ-00061H-E4; Tue, 15 Jun 2021 06:23:05 +0000
+Received: by outflank-mailman (input) for mailman id 141915;
+ Tue, 15 Jun 2021 06:23:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u9s/=LJ=arm.com=wei.chen@srs-us1.protection.inumbo.net>)
- id 1lt2JL-0004PN-U8
- for xen-devel@lists.xen.org; Tue, 15 Jun 2021 06:12:31 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.7.84]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e09f2610-b1de-4dd6-a409-ad54eddad538;
- Tue, 15 Jun 2021 06:12:28 +0000 (UTC)
-Received: from AM6P193CA0139.EURP193.PROD.OUTLOOK.COM (2603:10a6:209:85::44)
- by VI1PR0802MB2575.eurprd08.prod.outlook.com (2603:10a6:800:ad::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15; Tue, 15 Jun
- 2021 06:12:24 +0000
-Received: from AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:85:cafe::14) by AM6P193CA0139.outlook.office365.com
- (2603:10a6:209:85::44) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21 via Frontend
- Transport; Tue, 15 Jun 2021 06:12:24 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT048.mail.protection.outlook.com (10.152.17.177) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Tue, 15 Jun 2021 06:12:23 +0000
-Received: ("Tessian outbound 596959d6512a:v93");
- Tue, 15 Jun 2021 06:12:23 +0000
-Received: from 4fd48cca6d3f.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 3F5C6526-3516-45A3-BC98-AD873FC17A2C.1; 
- Tue, 15 Jun 2021 06:12:11 +0000
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4fd48cca6d3f.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 15 Jun 2021 06:12:11 +0000
-Received: from DB9PR08MB6857.eurprd08.prod.outlook.com (2603:10a6:10:2a2::7)
- by DB7PR08MB3178.eurprd08.prod.outlook.com (2603:10a6:5:24::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.24; Tue, 15 Jun
- 2021 06:12:10 +0000
-Received: from DB9PR08MB6857.eurprd08.prod.outlook.com
- ([fe80::2078:8a4d:fb01:8143]) by DB9PR08MB6857.eurprd08.prod.outlook.com
- ([fe80::2078:8a4d:fb01:8143%6]) with mapi id 15.20.4195.032; Tue, 15 Jun 2021
- 06:12:09 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt2TY-000617-Ct; Tue, 15 Jun 2021 06:23:04 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt2TY-0004Io-7P; Tue, 15 Jun 2021 06:23:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt2TX-0000YM-VC; Tue, 15 Jun 2021 06:23:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt2TX-0005Xc-Ui; Tue, 15 Jun 2021 06:23:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,368 +42,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e09f2610-b1de-4dd6-a409-ad54eddad538
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l8RnEFNFzmyl5Q14B3pkSW06F+C/zg8GMv4IGrZayBs=;
- b=xZ8I+VOCkDW8RfCcM1VpdeGTrjVGR9a7xBoFW4cPK4P9ai7bS9qYwPnAHIi8DtcfKmlbxs2UVxEen4HxKxTPQd5ho/8t08nOyO8r2ThyrDVaFA9i4HfCj2EV10iWtE5uXULeQQPbMygfK6lMq8kZvEZcdcwhE8X9/kyxrEBs7/8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xen.org; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;lists.xen.org; dmarc=pass action=none
- header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OVA9kMe+UmhuIOhF51BpA5e2ee10Lvcd/Fqs/z7xMpHdGJp74H1cQn812xvLIpNRfGRHhO1o2ScpCS1Zy7pGoncpDT3Vp/VnxTqMk2H333lgUzu3jYASt42LROJ7IXHfk9JXNSYB5GnImDdZ8XmlDa/vky9A9hgxMcrw8GmFREhdAyNzUbPCmzWFwmPovmD+gswMaSEZPfZicjiFwlX4R8jrurKnkvh+8Jy0zu149v+T4Q3fNccHBzHWy+uYJtDrS0sis4CoxlZZLUhP1N5YmKDNmqSf9nVFaZ3jV7JV7+dAtrEbG1Snc58yU0hCzj1nlNST75cf4syp01UZi/QQcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l8RnEFNFzmyl5Q14B3pkSW06F+C/zg8GMv4IGrZayBs=;
- b=Y9iWLfwby7aMfozgOIpDzHgF87nMOMthMxig7m0gSAqIHddDRHejGJZPru+j7eVfD4t0oI5I8/Nm1OwtZhgYmok5N31/RiZTszdq9rNegPwO7GVGwiKw2wRQa8DLDLtW4iFAk7UpGcljLmq3TF0xsYh71kHbaPBtSeKce1Jv+y6eV8Z57hlGCl66f9BAMLBaC4CyR2146x4gi+QRb+1Cad103s8aU0vxQ7BURRbY9oyeH/bGYXvF+l7jn5n9vQvRWjeLp6m6Czs6RSeq/73ARqYJpnHMoi7EC7iLI9mLBmzVTV05Z91ZSlnaeTfpTpYqaJwgXvJm8H2t6CBlDsj6mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l8RnEFNFzmyl5Q14B3pkSW06F+C/zg8GMv4IGrZayBs=;
- b=xZ8I+VOCkDW8RfCcM1VpdeGTrjVGR9a7xBoFW4cPK4P9ai7bS9qYwPnAHIi8DtcfKmlbxs2UVxEen4HxKxTPQd5ho/8t08nOyO8r2ThyrDVaFA9i4HfCj2EV10iWtE5uXULeQQPbMygfK6lMq8kZvEZcdcwhE8X9/kyxrEBs7/8=
-From: Wei Chen <Wei.Chen@arm.com>
-To: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xen.org"
-	<xen-devel@lists.xen.org>
-CC: "will@kernel.org" <will@kernel.org>, "jean-philippe@linaro.org"
-	<jean-philippe@linaro.org>, Julien Grall <julien@xen.org>, Andre Przywara
-	<Andre.Przywara@arm.com>, Marc Zyngier <maz@kernel.org>,
-	"julien.thierry.kdev@gmail.com" <julien.thierry.kdev@gmail.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>
-Subject: [Kvmtool] Some thoughts on using kvmtool Virtio for Xen
-Thread-Topic: [Kvmtool] Some thoughts on using kvmtool Virtio for Xen
-Thread-Index: Addhq3Jd+FbZaJt0R6WdbgcPW7X96w==
-Date: Tue, 15 Jun 2021 06:12:08 +0000
-Message-ID:
- <DB9PR08MB6857B375207376D8320AFBA89E309@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 9DF71AC55BCB6443A06FF2F1548551B3.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: vger.kernel.org; dkim=none (message not
- signed) header.d=none;vger.kernel.org; dmarc=none action=none
- header.from=arm.com;
-x-originating-ip: [203.126.0.111]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 3da4bb37-2b79-4a86-38bc-08d92fc48ab6
-x-ms-traffictypediagnostic: DB7PR08MB3178:|VI1PR0802MB2575:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0802MB25756354999F3A959544AC2D9E309@VI1PR0802MB2575.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- yAbx9fQRPoSzBa6DuAwtnUvK6HXeU+iazrkhGR8UB1fECCLwfb5FvKIrmqfeTQGlJET0uxNJbBKMkITHGG4zDE///s6fjCHkvIL5kKZm7oNkERkCMlMNR6A7LDI10UyA7ksDp8BE0l9Z3L22RPPDoGcuAjxeZQnBK1roDXX+f87zvPviSjg1/E6JAICh+BQGVs0C5d045QJu3gWzca4Nw0AMjwz1+7777zXN+oV4nRVjjTC13RnApDjc3BqVlWfg4L0HmYyqYvmvvCwLN713rGj6jS9oRtwlslD9RZL7Ab5fUhlHD0EHKOUzIxJHQNDY9gd9OvARR0NWyUeFZhp5B/9xjaFSRLExbphdBCtiUnRMx7efJJqR7jxhDlBuTO/H6scvwa6U/s2HDGvIAb2/kJxtoFI3UQLhNX1r4d54C4WgG85GHxGvxQJsvxiVlyul+djpYMLspjA0auGUmY3RrNSrfDcyDgG2D7m39wsUJCihdcG7ryqaMlTRKxVZVl8vM78x1kTS0O9FD20KRxDT/gUGSZwGP1V5kHO8QmVBKfE6+E/v43Z/cDu3Ac33RSifL2kPPsYFkpmupQIqx2G6leUgCMzWoQefbRIh1FvOwEbT1ZjmYPkF1g35rsTgd5LTmamHj08cw/qJNo9gugydDWtk/aDohLsdCdioflI78LrKr6UrwkP6lTHzfnyOuwEX+huyb93EvWFhLaT5IdEhSfttWWRF4/u2gPWk9GpvV7s/97IK76UWC8TCB0j4Jcvv
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6857.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(366004)(39850400004)(396003)(136003)(346002)(86362001)(316002)(478600001)(4326008)(8936002)(26005)(2906002)(7696005)(186003)(966005)(54906003)(33656002)(110136005)(83380400001)(9686003)(52536014)(71200400001)(66946007)(66476007)(5660300002)(55016002)(66446008)(66556008)(76116006)(8676002)(64756008)(122000001)(6506007)(38100700002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?KRUEWix+JTKyXsS0ZbEP+t72HKCacCwKRf4CIEZl+BdQCnoZgd2976ZK43NU?=
- =?us-ascii?Q?PK+P+QDIgoQhZks10+xQ7Kh7aUFVKmqp+lBZ7czQz3S8y49UV9/gaZJqzWdD?=
- =?us-ascii?Q?5wouF/YRWpgHiuH4ZqvvTgSL36d3+UTxige0KjONBNkeBh8E9MYWx8RQ4Knh?=
- =?us-ascii?Q?GoOSebLNYMdiFW39r7eV3o234Xe52QVLjUrA52LgUq6ijAVUWENiTJ1MYwqa?=
- =?us-ascii?Q?Lon0h/IAqDRwc0pNcAp2MOOeD2bWOIrLlO1taz8NTVFPf7o3dMD2HwxC8J5z?=
- =?us-ascii?Q?yntx7H15I5egdAElVBS1gHSRBygjpHTUthb2bUjVZIZh89L1Sli7RzEcWGur?=
- =?us-ascii?Q?ZmcllirB4mqU8VnCsA54mT+jESSrA3iuLkGm8WMDG/G3fHLgTWlfklukJSs6?=
- =?us-ascii?Q?8nIVRRQI7pscDJvMA3nmPAkp99FhPAejV5Dt0y8j8sbrGaGsxBQrvw86lfOb?=
- =?us-ascii?Q?tAJZm9F6H2qL99/+ZJbI3PbJ5zepcgzfKfnt3twa0dS+yDIZqoTAiGdx7DPb?=
- =?us-ascii?Q?v1ngnb3LVn/iMPQvHZOy+ISma79pSqKWZmTGoCiyc6fR9GchVKvCc6RPzyaw?=
- =?us-ascii?Q?yO4AgLSpOX5n4zGGeRL9e3PyQP0O/akFvabW5VsuOWIYM1GSgBSAAWtPt18P?=
- =?us-ascii?Q?paksrQq322S7npnXSwo6ADFGFfGQK10ivZPJ+p6ipT5APBBB1c9ZSJKDX9js?=
- =?us-ascii?Q?HATHu/dQAt0HJ8fNp2qsBy5AFeOsJ7REQCSsJqs9p1SZf1lCq1ZyuoM1NxQu?=
- =?us-ascii?Q?7k7wE9IVOwnIoJdkX0OHJxolQM705kccFw/G7MXhntB058ISyEc6N/ImA0vY?=
- =?us-ascii?Q?cSYAErydrVVtw1BPS7IbXfL4YhAOE8NSv5g7jfYi1aAiz7gHkM7ilIQeli8Z?=
- =?us-ascii?Q?fDsmS1xPu2Mr6PFaI5RDKzTSdltaCEY/ufLVD4dx8zz/IsCudUZ8Zma05TE8?=
- =?us-ascii?Q?LUrO8rJKAGOwXKRR1efX110MhMubD98tKZsuhYhLN+tTTIAI84vnq5UYu2dk?=
- =?us-ascii?Q?f5Gl5XDarcOi3GXImabU33OkNvoLB2OEdj3cc5WDA4hItLs2+yNtn6aKgD/R?=
- =?us-ascii?Q?ClJk4Chh+a/Rb5Y+GTHvVOAOYGEdAu/pdRml3CPa2HAEOZO2c4LlOhOjBsU6?=
- =?us-ascii?Q?7EfrzTdRdbz5B85XM8m4P+/stfMjk9L+gojuCGSXLASxzToIUnwfZOQxbLB+?=
- =?us-ascii?Q?fJg+p0d+E2kdS+lIeGqM0efPNjU74mCtcWWLciUXFiw9sW89sevhqQO6H9il?=
- =?us-ascii?Q?Ykv0cTTZUV8jiAOEJyFYaViNfngV8OL6ybHJZxB6XbNSDn/ieKhlgK+0lE/u?=
- =?us-ascii?Q?ChxdtJO8R4Ijh16btzmPCMpl?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cqQ5Pf6RxA8CgntilXMjtN3qyqAboQD2ki5zFRJt6hQ=; b=B7CdfC/ZrletZb1yotfw8pRVxw
+	w2dqujk1w5XFUkAH58QIX6Lxc10akKX7n6/NPTuk2lyqAOeG7NyTVYgpOEK28CK6fQGMVSeBDPZhE
+	BWmJW63w+qmAs7+tcVopUPGgxoqGssFcel5wKOoau4Z1hRGrMbX9XSXG04qbrvt+0tXM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162829-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3178
-Original-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	16fdc8ee-31b8-49c2-8b66-08d92fc481fb
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	EBlKAL1AQPixVk9/HlVAUlPF6u7hi5a1o+dDPNECqt6tuiXhqWD9uxmqJktHRKvzxOqt8yaGfwBkCyuyJKzQLKZhzpkwLClPMTIN01bwoRrdXxZAVUAtnfeWu925ItrvNnYLT4PWklGONMJ2EW6oYmpSiwMuvyIkDGgBKcV5aBhdqwZYv/ZISbTQGGqoppmyuEqXE6bcI32YB1NO8zl+hGtZkG7Znm+py6n2wrp/d67Ze/cIOMUbMg3UONxqrWmiguDVjCAS5zX1KTKraUlAiQYZcfTtxk3u4/adkwnbcgkiXt7fRvXtI3JI0HPFYwSiRdO2X+3AnxNEHJuFjwEfNC+rc/0vqmswFOouThKl79dzqQD/UZ/FQM/PXilaTvpFEVp4cqBcTkBttnwdvCwCm3+EW1H8hSd7pUfloffTUQwbk2DBuPe41ksYi8aMvwNEVKv5fsiw+tuA9SkCH3K5ygHQ9qfrXeZDbW28HAZn+unFSj3NlgIxg9sPtl+MTXxhpenPLNTZp6+r9gY9RHWK0c8EO5TfG+jO643E8/NXYZ+mj0BlXRR1vJzBwGXPV49qSItl342A13ck3zsD0vZQKGfu2gb4W47f2aLBTqOzLYcdV31Z87W6Yce8dShk1CIkOoAcv7WpbPouNxWWXu9HrgpjMwjziP1eXooJEHmZ5GxNKeTtoM246mXRaydvPkMaq84d6r/u9NAwV/566sWWHiqrvHW/4GnfDWiHQU0ph+PBguJK2b6PIZ+ktLv/8uXZBE96QAuNzvvN3ZqOerZta7mcyiZzJovCgIYRF6rPa3XobGusB4kryQbrRN0tIt7+
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(346002)(376002)(136003)(39860400002)(46966006)(36840700001)(186003)(83380400001)(47076005)(36860700001)(4326008)(26005)(107886003)(5660300002)(2906002)(55016002)(8676002)(81166007)(70206006)(966005)(82310400003)(478600001)(86362001)(8936002)(7696005)(9686003)(70586007)(336012)(316002)(6506007)(54906003)(52536014)(110136005)(33656002)(82740400003)(356005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2021 06:12:23.6220
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3da4bb37-2b79-4a86-38bc-08d92fc48ab6
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2575
+Subject: [libvirt test] 162829: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=f14ca48ef42e552d97cac096968e95680b3c75b4
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Jun 2021 06:23:03 +0000
 
-Hi,
+flight 162829 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162829/
 
-I have some thoughts of using kvmtool Virtio implementation
-for Xen. I copied my markdown file to this email. If you have
-time, could you please help me review it?
+Regressions :-(
 
-Any feedback is welcome!
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-# Some thoughts on using kvmtool Virtio for Xen
-## Background
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-Xen community is working on adding VIRTIO capability to Xen. And we're work=
-ing
-on VIRTIO backend of Xen. But except QEMU can support virtio-net for x86-xe=
-n,
-there is not any VIRTIO backend can support Xen. Because of the community's
-strong voice of Out-of-QEMU, we want to find a light weight VIRTIO backend =
-to
-support Xen.
+version targeted for testing:
+ libvirt              f14ca48ef42e552d97cac096968e95680b3c75b4
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-We have an idea of utilizing the virtio implementaton of kvmtool for Xen. A=
-nd
-We know there was some agreement that kvmtool won't try to be a full QEMU
-alternative. So we have written two proposals in following content for
-communities to discuss in public:
+Last test of basis   151777  2020-07-10 04:19:19 Z  340 days
+Failing since        151818  2020-07-11 04:18:52 Z  339 days  332 attempts
+Testing same since   162829  2021-06-15 04:18:47 Z    0 days    1 attempts
 
-## Proposals
-### 1. Introduce a new "dm-only" command
-1. Introduce a new "dm-only" command to provide a pure device model mode. I=
-n
-   this mode, kvmtool only handles IO request. VM creation and initializati=
-on
-   will be bypassed.
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  William Douglas <william.douglas@intel.com>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
-    * We will rework the interface between the virtio code and the rest of
-    kvmtool, to use just the minimal set of information. At the end, there
-    would be MMIO accesses and shared memory that control the device model,
-    so that could be abstracted to do away with any KVM specifics at all. I=
-f
-    this is workable, we will send the first set of patches to introduce th=
-is
-    interface, and adapt the existing kvmtool to it. Then later we will can
-    add Xen support on top of it.
-
-    About Xen support, we will detect the presence of Xen libraries, also
-    allow people to ignore them, as kvmtoll do with optional features like
-    libz or libaio.
-
-    Idealy, we want to move all code replying on Xen libraries to a set of
-    new files. In this case, thes files can only be compiled when Xen
-    libraries are detected. But if we can't decouple this code completely,
-    we may introduce a bit of #ifdefs to protect this code.
-
-    If kvm or other VMM do not need "dm-only" mode. Or "dm-only" can not
-    work without Xen libraries. We will make "dm-only" command depends on
-    the presence of Xen libraries.
-
-    So a normal compile (without the Xen libraries installed) would create
-    a binary as close as possible to the current code, and only the people
-    who having Xen libraries installed would ever generate a "dm-only"
-    capable kvmtool.
-
-### 2. Abstract kvmtool virtio implementation as a library
-1. Add a kvmtool Makefile target to generate a virtio library. In this
-   scenario, not just Xen, but any project else want to provide a
-   userspace virtio backend service can link to this virtio libraris.
-   These users would benefit from the VIRTIO implementation of kvmtool
-   and will participate in improvements, upgrades, and maintenance of
-   the VIRTIO libraries.
-
-    * In this case, Xen part code will not upstream to kvmtool repo,
-      it would then be natural parts of the xen repo, in xen/tools or
-      maintained in other repo.
-
-      We will have a completely separate VIRTIO backend for Xen, just
-      linking to kvmtool's VIRTIO library.
-
-    * The main changes of kvmtool would be:
-        1. Still need to rework the interface between the virtio code
-           and the rest of kvmtool, to abstract the whole virtio
-           implementation into a library
-        2. Modify current build system to add a new virtio library target.
-
-## Reworking the interface is the common work for above proposals
-**In kvmtool, one virtual device can be separated into three layers:**
-
-- A device type layer to provide an abstract
-    - Provide interface to collect and store device configuration.
-        Using block device as an example, kvmtool is using disk_image to
-        -  collect and store disk parameters like:
-            -  backend image format: raw, qcow or block device
-            -  backend block device or file image path
-            -  Readonly, direct and etc
-    - Provide operations to interact with real backend devices or services:
-        - provide backend device operations:
-            - block device operations
-            - raw image operations
-            - qcow image operations
-- Hypervisor interfaces
-    - Guest memory mapping and unmapping interfaces
-    - Virtual device register interface
-        - MMIO/PIO space register
-        - IRQ register
-    - Virtual IRQ inject interface
-    - Hypervisor eventfd interface
-- An implementation layer to handle guest IO request.
-    - Kvmtool provides virtual devices for guest. Some virtual devices two
-      kinds of implementations:
-        - VIRTIO implementation
-        - Real hardware emulation
-
-For example, kvmtool console has virtio console and 8250 serial two kinds
-of implementations. These implementation depends on device type parameters
-to create devices, and depends on device type ops to forward data from/to
-real device. And the implementation will invoke hypervisor interfaces to
-map/unmap resources and notify guest.
-
-In the current kvmtool code, the boundaries between these three layers are
-relatively clear, but there are a few pieces of code that are somewhat
-interleaved, for example:
-- In virtio_blk__init(...) function, the code will use disk_image directly.
-  This data is kvmtool specified. If we want to make VIRTIO implementation
-  become hypervisor agnostic. Such kind of code should be moved to other
-  place. Or we just keep code from virtio_blk__init_one(...) in virtio bloc=
-k
-  implementation, but keep virtio_blk__init(...) in kvmtool specified part
-  code.
-
-However, in the current VIRTIO device creation and data handling process,
-the device type and hypervisor API used are both exclusive to kvmtool and
-KVM. If we want to use current VIRTIO implementation for other device
-models and hypervisors, it is unlikely to work properly.
-
-So, the major work of reworking interface is decoupling VIRTIO implementati=
-on
-from kvmtool and KVM.
-
-**Introduce some intermediate data structures to do decouple:**
-1. Introduce intermedidate type data structures like `virtio_disk_type`,
-   `virtio_net_type`, `virtio_console_type` and etc. These data structures
-   will be the standard device type interfaces between virtio device
-   implementation and hypervisor.  Using virtio_disk_type as an example:
-    ~~~~
-    struct virtio_disk_type {
-        /*
-         * Essential configuration for virtio block device can be got from
-         * kvmtool disk_image. Other hypervisor device model also can use
-         * this data structure to pass necessary parameters for creating
-         * a virtio block device.
-         */
-        struct virtio_blk_cfg vblk_cfg;
-        /*
-         * Virtio block device MMIO address and IRQ line. These two members
-         * are optional. If hypervisor provides allocate_mmio_space and
-         * allocate_irq_line capability and device model doesn't set these
-         * two fields, virtio block implementation will use hypervisor APIs
-         * to allocate MMIO address and IRQ line. If these two fields are
-         * configured, virtio block implementation will use them.
-         */
-        paddr_t addr;
-        uint32_t irq;
-        /*
-         * In kvmtool, this ops will connect to disk_image APIs. Other
-         * hypervisor device model should provide similar APIs for this
-         * ops to interact with real backend device.
-         */
-        struct disk_type_ops {
-            .read
-            .write
-            .flush
-            .wait
-            ...
-        } ops;
-    };
-    ~~~~
-
-2. Introduce a intermediate hypervisor data structure. This data structure
-   provides a set of standard hypervisor API interfaces. In virtio
-   implementation, the KVM specified APIs, like kvm_register_mmio, will not
-   be invoked directly. The virtio implementation will use these interfaces
-   to access hypervisor specified APIs. for example `struct vmm_impl`:
-    ~~~~
-    struct vmm_impl {
-        /*
-         * Pointer that link to real hypervisor handle like `struct kvm *kv=
-m`.
-         * This pointer will be passed to the vmm ops;
-         */
-        void *vmm;
-        allocate_irq_line_fn_t(void* vmm, ...);
-        allocate_mmio_space_fn_t(void* vmm, ...);
-        register_mmio_fn_t(void* vmm, ...);
-        map_guest_page_fn_t(void* vmm, ...);
-        unmap_guest_page_fn_t(void* vmm, ...);
-        virtual_irq_inject_fn_t(void* vmm, ...);
-    };
-    ~~~~
-
-3. After decoupled with kvmtool, any hypervisor can use standard `vmm_impl`
-   and `virtio_xxxx_type` interfaces to invoke standard virtio implementati=
-on
-   interfaces to create virtio devices.
-    ~~~~
-    /* Prepare VMM interface */
-    struct vmm_impl *vmm =3D ...;
-    vmm->register_mmio_fn_t =3D kvm__register_mmio;
-    /* kvm__map_guset_page is a wrapper guest_flat_to_host */
-    vmm->map_guest_page_fn_t =3D kvm__map_guset_page;
-    ...
-
-    /* Prepare virtio_disk_type */
-    struct virtio_disk_type *vdisk_type =3D ...;
-    vdisk_type->vblk_cfg.capacity =3D disk_image->size / SECTOR_SIZE;
-    ...
-    vdisk_type->ops->read =3D disk_image__read;
-    vdisk_type->ops->write =3D disk_image__write;
-    ...
-
-    /* Invoke VIRTIO implementation API to create a virtio block device */
-    virtio_blk__init_one(vmm, vdisk_type);
-    ~~~~
-
-VIRTIO block device simple flow before reworking interface:
-https://drive.google.com/file/d/1k0Grd4RSuCmhKUPktHj9FRamEYrPCFkX/view?usp=
-=3Dsharing
-![image](https://drive.google.com/uc?export=3Dview&id=3D1k0Grd4RSuCmhKUPktH=
-j9FRamEYrPCFkX)
-
-VIRTIO block device simple flow after reworking interface:
-https://drive.google.com/file/d/1rMXRvulwlRO39juWf08Wgk3G1NZtG2nL/view?usp=
-=3Dsharing
-![image](https://drive.google.com/uc?export=3Dview&id=3D1rMXRvulwlRO39juWf0=
-8Wgk3G1NZtG2nL)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
-Thanks,
-Wei Chen
-IMPORTANT NOTICE: The contents of this email and any attachments are confid=
-ential and may also be privileged. If you are not the intended recipient, p=
-lease notify the sender immediately and do not disclose the contents to any=
- other person, use it for any purpose, or store or copy the information in =
-any medium. Thank you.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 61375 lines long.)
 
