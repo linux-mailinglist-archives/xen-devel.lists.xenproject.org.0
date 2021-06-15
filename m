@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D08E03A75AA
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 06:13:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141879.261952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CEF3A768B
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 07:40:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141890.261975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt0R7-0008JL-S3; Tue, 15 Jun 2021 04:12:25 +0000
+	id 1lt1ml-00087y-Am; Tue, 15 Jun 2021 05:38:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141879.261952; Tue, 15 Jun 2021 04:12:25 +0000
+Received: by outflank-mailman (output) from mailman id 141890.261975; Tue, 15 Jun 2021 05:38:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt0R7-0008Fq-Nt; Tue, 15 Jun 2021 04:12:25 +0000
-Received: by outflank-mailman (input) for mailman id 141879;
- Tue, 15 Jun 2021 04:12:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=62sT=LJ=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lt0R5-0008ED-7C
- for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 04:12:23 +0000
-Received: from mail-qk1-x732.google.com (unknown [2607:f8b0:4864:20::732])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05d75952-88cc-43bc-96f8-5116b466ac55;
- Tue, 15 Jun 2021 04:12:22 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id d196so35582471qkg.12
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jun 2021 21:12:22 -0700 (PDT)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com.
- [209.85.160.181])
- by smtp.gmail.com with ESMTPSA id h12sm11014027qtn.44.2021.06.14.21.12.20
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Jun 2021 21:12:21 -0700 (PDT)
-Received: by mail-qt1-f181.google.com with SMTP id 93so10257961qtc.10
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jun 2021 21:12:20 -0700 (PDT)
+	id 1lt1ml-00085c-75; Tue, 15 Jun 2021 05:38:51 +0000
+Received: by outflank-mailman (input) for mailman id 141890;
+ Tue, 15 Jun 2021 05:38:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt1mk-00085R-9u; Tue, 15 Jun 2021 05:38:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt1mk-0003TK-34; Tue, 15 Jun 2021 05:38:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt1mj-0007VM-S4; Tue, 15 Jun 2021 05:38:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lt1mj-0007Om-Rb; Tue, 15 Jun 2021 05:38:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05d75952-88cc-43bc-96f8-5116b466ac55
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=YDA/6rYFbIzGwN3DJJ3v30Ilg60B464lccTuq9RZZyA=;
-        b=fMG07OU4hKhOT0Ejr3qOHcrU08EN3G1+RpniZ8liKpsJESj8tYmvpPMQZbf905Arqa
-         jTNjk7/cw8NTc05aXCrTOb4W4H63TAdnEqedfWvkUqde8aQCNzpKVfF+WTvNV5ptv2qS
-         TsIum45Bdbkm1pBXJPvJDobZEXMxEtOKj24Zc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=YDA/6rYFbIzGwN3DJJ3v30Ilg60B464lccTuq9RZZyA=;
-        b=LxcUUqD0dkI3B55dkNuH608U9NIZyLZrASDEna64bSYRHE1WpnIC712fipHgYf6Vsq
-         A8z+yOtqa5qo5xTmPgcKRdy00zD0SevDagxgdEuutdc6AMhZfL9bRju5lp3nsX0t8OXX
-         tCxUgSUMAQ3iVVTtQMiEafvPxkGsWhRpK3WGtRay4Qd4/b9CoOXoCLrqkfp4/GTTOco/
-         rn28ybVBrxYIhxsKQz1ycCC7Er2hXlSF8DSPNlIIy9xfjki/2CP31GWL+vVTDgTXpMC0
-         EwzbtbunSttX/k1kg9iek6Ycu/m4wAQK8XGkK3DAf0vbsJM6RlgaYGYGxpKQvQg3QV4B
-         2PZw==
-X-Gm-Message-State: AOAM531LSRgxqCsiw8olkPVg274OqOOaBNtP/Bn1kT7JgdBiYhgrRT/R
-	Qr1lb9ybJq2PAYg3pqJslmABaE3ZU3nMhg==
-X-Google-Smtp-Source: ABdhPJw1tsthZg+CGVRrKfhuqpknIqA2AIzt9ELS+wdJnbKf9WsA8tZO3gF8aSYMvGcgHTHXpNFcYw==
-X-Received: by 2002:ae9:c218:: with SMTP id j24mr20030695qkg.94.1623730341641;
-        Mon, 14 Jun 2021 21:12:21 -0700 (PDT)
-X-Received: by 2002:a02:384b:: with SMTP id v11mr19686288jae.90.1623729977741;
- Mon, 14 Jun 2021 21:06:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210611152659.2142983-1-tientzu@chromium.org>
- <20210611152659.2142983-2-tientzu@chromium.org> <20210614061644.GA28343@lst.de>
-In-Reply-To: <20210614061644.GA28343@lst.de>
-From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 15 Jun 2021 12:06:06 +0800
-X-Gmail-Original-Message-ID: <CALiNf29cE-T7xf+nUZF2pjT8osaXj+wb4MibtdSkAU_K13wuMw@mail.gmail.com>
-Message-ID: <CALiNf29cE-T7xf+nUZF2pjT8osaXj+wb4MibtdSkAU_K13wuMw@mail.gmail.com>
-Subject: Re: [PATCH v9 01/14] swiotlb: Refactor swiotlb init functions
-To: Christoph Hellwig <hch@lst.de>
-Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	matthew.auld@intel.com, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=P03ToIk9ICWQya5YiwNxl1k1wTGXn7rYw+vvBBAUUM0=; b=EWY+W/mWrA/Z6y6zju1pa2lS+a
+	NZQ1sy3c/orKgjrW2PXotFWhR5CeFT9m85b00P179DAKMXApNVq6VUXOqPMfWV8PKTlWkE6KPeBvC
+	9tw0JFp+r9VppAmLACw8lVtLIMGDcYHUUMBmc5LvzPV9hZCYRowid4vF3T0BmW01OHxg=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162821-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 162821: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=b8649cf2a3e673a4a8cb6c255e394b354b771550
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Jun 2021 05:38:49 +0000
 
-On Mon, Jun 14, 2021 at 2:16 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> On Fri, Jun 11, 2021 at 11:26:46PM +0800, Claire Chang wrote:
-> > +     spin_lock_init(&mem->lock);
-> > +     for (i = 0; i < mem->nslabs; i++) {
-> > +             mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
-> > +             mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
-> > +             mem->slots[i].alloc_size = 0;
-> > +     }
-> > +
-> > +     if (memory_decrypted)
-> > +             set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT);
-> > +     memset(vaddr, 0, bytes);
->
-> We don't really need to do this call before the memset.  Which means we
-> can just move it to the callers that care instead of having a bool
-> argument.
->
-> Otherwise looks good:
->
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
+flight 162821 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162821/
 
-Thanks for the review. Will wait more days for other reviews and send
-v10 to address the comments in this and other patches.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+
+version targeted for testing:
+ ovmf                 b8649cf2a3e673a4a8cb6c255e394b354b771550
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+
+Last test of basis   162359  2021-06-04 03:40:08 Z   11 days
+Failing since        162368  2021-06-04 15:42:59 Z   10 days   20 attempts
+Testing same since   162583  2021-06-09 23:44:58 Z    5 days   15 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Ni, Ray <ray.ni@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1717 lines long.)
 
