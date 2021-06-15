@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57CA13A809C
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 15:39:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142129.262403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AE143A7FF3
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 15:31:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142061.262257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt9HQ-0002ce-7J; Tue, 15 Jun 2021 13:39:00 +0000
+	id 1lt9AP-0003QT-30; Tue, 15 Jun 2021 13:31:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142129.262403; Tue, 15 Jun 2021 13:39:00 +0000
+Received: by outflank-mailman (output) from mailman id 142061.262257; Tue, 15 Jun 2021 13:31:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt9HQ-0002a4-31; Tue, 15 Jun 2021 13:39:00 +0000
-Received: by outflank-mailman (input) for mailman id 142129;
- Tue, 15 Jun 2021 13:38:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=62sT=LJ=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lt9HO-0002YN-KC
- for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 13:38:58 +0000
-Received: from mail-pl1-x62a.google.com (unknown [2607:f8b0:4864:20::62a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c1adcf2-88d9-43e5-b18b-ae43ba116575;
- Tue, 15 Jun 2021 13:38:57 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id 11so8468032plk.12
- for <xen-devel@lists.xenproject.org>; Tue, 15 Jun 2021 06:38:57 -0700 (PDT)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com.
- [209.85.215.173])
- by smtp.gmail.com with ESMTPSA id o1sm15292214pjf.56.2021.06.15.06.38.56
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Jun 2021 06:38:56 -0700 (PDT)
-Received: by mail-pg1-f173.google.com with SMTP id g22so6386632pgk.1
- for <xen-devel@lists.xenproject.org>; Tue, 15 Jun 2021 06:38:56 -0700 (PDT)
+	id 1lt9AO-0003OP-Vu; Tue, 15 Jun 2021 13:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 142061;
+ Tue, 15 Jun 2021 13:31:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lt9AN-0003OJ-T5
+ for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 13:31:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lt9AL-0003bn-Hs; Tue, 15 Jun 2021 13:31:41 +0000
+Received: from [54.239.6.184] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lt9AL-00065V-9R; Tue, 15 Jun 2021 13:31:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +39,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c1adcf2-88d9-43e5-b18b-ae43ba116575
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=UDZeAXhtUGNxVigPWnCAmqvhZ5xmOZkpwoxu/kotpBc=;
-        b=BkGuougKdpvJFSjPDCYcuDM+EfC9+Z6Iw8t63OKFUyvGcy9WEOaTZOyzUjDtlqxxWx
-         b+f6+GiSSKCn4V8zlclen8CemZkaZyLB8FJKB0g3go6na2Mkb6J76IEsPQg2PB5YFP++
-         oJX8/uFYscqhRRWgaBEXbZGZq7TD88YFqCsf4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=UDZeAXhtUGNxVigPWnCAmqvhZ5xmOZkpwoxu/kotpBc=;
-        b=JnWWfxBtLo036nf7cRtgRPT/c2uHL+WXrwClMIYjTnFuRrQgFNbLCLkihDn+2txY7E
-         uMryeR5B5Mczi4xuBJuOcHPkXs5FKerTviGjbKzDicvByNWqcGH97lksDArXe8uZGA0L
-         hh/T6VGtTQNP+XPyBbFtKzS0Ze8H5cWI8B9BHV8LDcMGJtJFwLmiuVP90R7DV5xrM3bx
-         qsljRTG8QJKwiDP0uLN76Zf0COpqUOtsQjo/Hkdj+qpoZ+aCr/Mgqh6IVtXU0ZgjnoiF
-         wXK5yTqwduvjBKZPMjedaXEqZHu6P0bu1Y2ppYp8iBiPY8ZC4SbtfPjY6iTVs+di//FU
-         NbUw==
-X-Gm-Message-State: AOAM532dLB+gT9vxHOve9U0HSPgd2WZVWhnhoSnZDgWxRL9JCat114XI
-	UrqWRU/4f0jSd30aRKrevFz8HSY0rOHoWQ==
-X-Google-Smtp-Source: ABdhPJzREdBjVFcuSEDrKD4wi73XLP8IRPuoOXW1TWztJPM2WUNXdujWw31IKaeHAzIF3hzfWEYeaw==
-X-Received: by 2002:a17:90a:9488:: with SMTP id s8mr13783063pjo.236.1623764336931;
-        Tue, 15 Jun 2021 06:38:56 -0700 (PDT)
-X-Received: by 2002:a05:6e02:219d:: with SMTP id j29mr17936278ila.64.1623763835517;
- Tue, 15 Jun 2021 06:30:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=xlCqE8Rdy/ipxraYFRkc51wKDzIJqQj3pxs4kIiB+yg=; b=OavsvzG97CH+FSxOHtxP6ftXiA
+	XKLn+PiSFsJA7dwQLB4BYTKlO9PqfpD8OMHkxlsxaa1nSQLu4kAxOTbJo6J4PhT8loisGn9cRFLtt
+	N/9ClsVy5c4XtpYgPRlf5i7EusAIDQolQMLnH6Li+6wAkVx4D9TIuPj+4CPoHwgZg3Ao=;
+Subject: PING Re: [XEN PATCH] libs/foreignmemory: Fix
+ osdep_xenforeignmemory_map prototype
+To: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20210601154147.55799-1-anthony.perard@citrix.com>
+ <a5d4f4ae-21b9-9798-5501-2c288a70e7b4@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <d80b6904-ff5c-33d6-b0e3-6882fe3e8e89@xen.org>
+Date: Tue, 15 Jun 2021 15:31:38 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210611152659.2142983-1-tientzu@chromium.org>
-In-Reply-To: <20210611152659.2142983-1-tientzu@chromium.org>
-From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 15 Jun 2021 21:30:24 +0800
-X-Gmail-Original-Message-ID: <CALiNf28fb4rZ0Afun8wAWRYJY4gqc+-vRvDBZT3x2JgSPL_iVQ@mail.gmail.com>
-Message-ID: <CALiNf28fb4rZ0Afun8wAWRYJY4gqc+-vRvDBZT3x2JgSPL_iVQ@mail.gmail.com>
-Subject: Re: [PATCH v9 00/14] Restricted DMA
-To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	matthew.auld@intel.com, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <a5d4f4ae-21b9-9798-5501-2c288a70e7b4@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-v10 here: https://lore.kernel.org/patchwork/cover/1446882/
+Hi Ian & Wei,
+
+On 02/06/2021 10:25, Jan Beulich wrote:
+> On 01.06.2021 17:41, Anthony PERARD wrote:
+>> Commit cf8c4d3d13b8 made some preparation to have one day
+>> variable-length-array argument, but didn't declare the array in the
+>> function prototype the same way as in the function definition. And now
+>> GCC 11 complains about it.
+>>
+>> Fixes: cf8c4d3d13b8 ("tools/libs/foreignmemory: pull array length argument to map forward")
+>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Ian - this (or whichever alternative might be chosen to address gcc11's
+> valid complaint) also will want backporting.
+
+I was about to commit this patch and noticed that there is still a 
+missing an ack from the tools maintainers. @Ian, @Wei, can you provide one?
+
+Cheers,
+
+-- 
+Julien Grall
 
