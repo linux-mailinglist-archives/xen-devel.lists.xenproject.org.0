@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 111F03A8071
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 15:38:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142116.262369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4093A8091
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 15:38:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142123.262380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt9Gj-00011q-Ch; Tue, 15 Jun 2021 13:38:17 +0000
+	id 1lt9H8-0001oh-Km; Tue, 15 Jun 2021 13:38:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142116.262369; Tue, 15 Jun 2021 13:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 142123.262380; Tue, 15 Jun 2021 13:38:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt9Gj-0000zg-8P; Tue, 15 Jun 2021 13:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 142116;
- Tue, 15 Jun 2021 13:38:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lt9H8-0001ls-HW; Tue, 15 Jun 2021 13:38:42 +0000
+Received: by outflank-mailman (input) for mailman id 142123;
+ Tue, 15 Jun 2021 13:38:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0zBy=LJ=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1lt9Gh-0000z0-Sx
- for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 13:38:15 +0000
+ id 1lt9H7-0001iZ-5l
+ for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 13:38:41 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 37ee2dfa-b77c-47ea-b800-73a825c0616e;
- Tue, 15 Jun 2021 13:38:15 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 06bf06c1-4d25-42f8-bd58-cc20a42abdfe;
+ Tue, 15 Jun 2021 13:38:34 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id CC6DF68AFE; Tue, 15 Jun 2021 15:38:12 +0200 (CEST)
+ id B7C1668B05; Tue, 15 Jun 2021 15:38:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,8 +37,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37ee2dfa-b77c-47ea-b800-73a825c0616e
-Date: Tue, 15 Jun 2021 15:38:12 +0200
+X-Inumbo-ID: 06bf06c1-4d25-42f8-bd58-cc20a42abdfe
+Date: Tue, 15 Jun 2021 15:38:32 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
 Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
@@ -75,20 +74,15 @@ Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
 	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com,
 	matthew.auld@intel.com, rodrigo.vivi@intel.com,
 	thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v10 02/12] swiotlb: Refactor swiotlb_create_debugfs
-Message-ID: <20210615133812.GB20389@lst.de>
-References: <20210615132711.553451-1-tientzu@chromium.org> <20210615132711.553451-3-tientzu@chromium.org>
+Subject: Re: [PATCH v10 03/12] swiotlb: Set dev->dma_io_tlb_mem to the
+ swiotlb pool used
+Message-ID: <20210615133831.GC20389@lst.de>
+References: <20210615132711.553451-1-tientzu@chromium.org> <20210615132711.553451-4-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210615132711.553451-3-tientzu@chromium.org>
+In-Reply-To: <20210615132711.553451-4-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-
-On Tue, Jun 15, 2021 at 09:27:01PM +0800, Claire Chang wrote:
-> Split the debugfs creation to make the code reusable for supporting
-> different bounce buffer pools.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
 
 Looks good,
 
