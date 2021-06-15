@@ -2,63 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25B403A76E9
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 08:08:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.141898.261988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A5E23A76EE
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jun 2021 08:12:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.141904.262000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt2FN-00033H-M1; Tue, 15 Jun 2021 06:08:25 +0000
+	id 1lt2JO-0004Rq-9s; Tue, 15 Jun 2021 06:12:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 141898.261988; Tue, 15 Jun 2021 06:08:25 +0000
+Received: by outflank-mailman (output) from mailman id 141904.262000; Tue, 15 Jun 2021 06:12:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lt2FN-00030v-J0; Tue, 15 Jun 2021 06:08:25 +0000
-Received: by outflank-mailman (input) for mailman id 141898;
- Tue, 15 Jun 2021 06:08:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fd+K=LJ=arm.com=penny.zheng@srs-us1.protection.inumbo.net>)
- id 1lt2FL-00030o-O0
- for xen-devel@lists.xenproject.org; Tue, 15 Jun 2021 06:08:23 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
- [40.107.14.78]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 906bb7b1-cf1e-4f24-9bff-6a39cd948d07;
- Tue, 15 Jun 2021 06:08:22 +0000 (UTC)
-Received: from DBBPR09CA0006.eurprd09.prod.outlook.com (2603:10a6:10:c0::18)
- by DB9PR08MB7024.eurprd08.prod.outlook.com (2603:10a6:10:2cc::14) with
+	id 1lt2JO-0004PW-62; Tue, 15 Jun 2021 06:12:34 +0000
+Received: by outflank-mailman (input) for mailman id 141904;
+ Tue, 15 Jun 2021 06:12:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=u9s/=LJ=arm.com=wei.chen@srs-us1.protection.inumbo.net>)
+ id 1lt2JL-0004PN-U8
+ for xen-devel@lists.xen.org; Tue, 15 Jun 2021 06:12:31 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.7.84]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e09f2610-b1de-4dd6-a409-ad54eddad538;
+ Tue, 15 Jun 2021 06:12:28 +0000 (UTC)
+Received: from AM6P193CA0139.EURP193.PROD.OUTLOOK.COM (2603:10a6:209:85::44)
+ by VI1PR0802MB2575.eurprd08.prod.outlook.com (2603:10a6:800:ad::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.22; Tue, 15 Jun
- 2021 06:08:15 +0000
-Received: from DB5EUR03FT052.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:c0:cafe::8b) by DBBPR09CA0006.outlook.office365.com
- (2603:10a6:10:c0::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20 via Frontend
- Transport; Tue, 15 Jun 2021 06:08:15 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15; Tue, 15 Jun
+ 2021 06:12:24 +0000
+Received: from AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:85:cafe::14) by AM6P193CA0139.outlook.office365.com
+ (2603:10a6:209:85::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21 via Frontend
+ Transport; Tue, 15 Jun 2021 06:12:24 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT052.mail.protection.outlook.com (10.152.21.82) with
+ AM5EUR03FT048.mail.protection.outlook.com (10.152.17.177) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Tue, 15 Jun 2021 06:08:14 +0000
-Received: ("Tessian outbound 9d3d496fabe8:v93");
- Tue, 15 Jun 2021 06:08:14 +0000
-Received: from 8ef54cfc1d8d.1
+ 15.20.4219.21 via Frontend Transport; Tue, 15 Jun 2021 06:12:23 +0000
+Received: ("Tessian outbound 596959d6512a:v93");
+ Tue, 15 Jun 2021 06:12:23 +0000
+Received: from 4fd48cca6d3f.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 6B30C6FE-8B39-46B9-A80D-39D0E1048434.1; 
- Tue, 15 Jun 2021 06:08:06 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8ef54cfc1d8d.1
+ 3F5C6526-3516-45A3-BC98-AD873FC17A2C.1; 
+ Tue, 15 Jun 2021 06:12:11 +0000
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4fd48cca6d3f.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 15 Jun 2021 06:08:06 +0000
-Received: from VE1PR08MB5215.eurprd08.prod.outlook.com (2603:10a6:803:10a::33)
- by VI1PR08MB3728.eurprd08.prod.outlook.com (2603:10a6:803:bf::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.23; Tue, 15 Jun
- 2021 06:08:00 +0000
-Received: from VE1PR08MB5215.eurprd08.prod.outlook.com
- ([fe80::2807:2ff9:e371:2918]) by VE1PR08MB5215.eurprd08.prod.outlook.com
- ([fe80::2807:2ff9:e371:2918%7]) with mapi id 15.20.4219.025; Tue, 15 Jun 2021
- 06:08:00 +0000
+ Tue, 15 Jun 2021 06:12:11 +0000
+Received: from DB9PR08MB6857.eurprd08.prod.outlook.com (2603:10a6:10:2a2::7)
+ by DB7PR08MB3178.eurprd08.prod.outlook.com (2603:10a6:5:24::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.24; Tue, 15 Jun
+ 2021 06:12:10 +0000
+Received: from DB9PR08MB6857.eurprd08.prod.outlook.com
+ ([fe80::2078:8a4d:fb01:8143]) by DB9PR08MB6857.eurprd08.prod.outlook.com
+ ([fe80::2078:8a4d:fb01:8143%6]) with mapi id 15.20.4195.032; Tue, 15 Jun 2021
+ 06:12:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,208 +69,368 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 906bb7b1-cf1e-4f24-9bff-6a39cd948d07
+X-Inumbo-ID: e09f2610-b1de-4dd6-a409-ad54eddad538
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kmvLMnUyXKkeR1agEijox6oairFBDgNT7zNDdvTaZss=;
- b=S623XQ7tp26Lc0+X/oBVj0v8VGN53WzOW31MXXmFVQvy+U6tIY1NHLHeToaeWyVomunmtpfndfA5q5umlM3/s6us+84MMKuIY4QSaPAvTsUAvHLNyVeTTy4RIOJ2beGFfnpzsExizi0mfN2yQokGGeA0v5evdQj2Ql1lbaO/k6A=
+ bh=l8RnEFNFzmyl5Q14B3pkSW06F+C/zg8GMv4IGrZayBs=;
+ b=xZ8I+VOCkDW8RfCcM1VpdeGTrjVGR9a7xBoFW4cPK4P9ai7bS9qYwPnAHIi8DtcfKmlbxs2UVxEen4HxKxTPQd5ho/8t08nOyO8r2ThyrDVaFA9i4HfCj2EV10iWtE5uXULeQQPbMygfK6lMq8kZvEZcdcwhE8X9/kyxrEBs7/8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
+ smtp.mailfrom=arm.com; lists.xen.org; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;lists.xen.org; dmarc=pass action=none
+ header.from=arm.com;
 Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R5FgR+lT2ndvnlB70+E7UDahJhpAuf1FQQrDQQoHkPTVjKfmBacI/gWo7s6U79QfyvfZMioevm3lz4bqrU9irI9annkajcPbaupfEDA79/9zJmAJD+pagUGCSLg/x16WheH4VwOkNsbPEB4kDGq4OwzphID7jWCSeNGtGwJ9bl8/IDSqsIwIie6ep5kA9Ikn70XTXd1wHBB5BR3IUkYjJEPPMAR2ptMt+WtEFM4h/BFNWVThKfXmw5Zcsi2VJrVCVFwjItJYB7ga7YCW0Pq9Ji1pPKxBzD0X44MA+0WmdP5T80mk8RLDvg4UKXuLi9QxY6aGc0sbXHyyZhIByOp84Q==
+ b=OVA9kMe+UmhuIOhF51BpA5e2ee10Lvcd/Fqs/z7xMpHdGJp74H1cQn812xvLIpNRfGRHhO1o2ScpCS1Zy7pGoncpDT3Vp/VnxTqMk2H333lgUzu3jYASt42LROJ7IXHfk9JXNSYB5GnImDdZ8XmlDa/vky9A9hgxMcrw8GmFREhdAyNzUbPCmzWFwmPovmD+gswMaSEZPfZicjiFwlX4R8jrurKnkvh+8Jy0zu149v+T4Q3fNccHBzHWy+uYJtDrS0sis4CoxlZZLUhP1N5YmKDNmqSf9nVFaZ3jV7JV7+dAtrEbG1Snc58yU0hCzj1nlNST75cf4syp01UZi/QQcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kmvLMnUyXKkeR1agEijox6oairFBDgNT7zNDdvTaZss=;
- b=Pj1lTERb8d1E+kUlMx7ILnLDZGB0lhZBgWwFNhN6kNEmbo4ZLEEFV7S9a8yamm/cGcbInsidSAkMjZlqO6Ea1B0kfO9RsNQgfWOCkR2CTF7oHoqT1IONdOBpiKUv9uP5ZwB+R5+CaP356TtaOdfXnhBmHB9a7z9MrDD9q3xsrYWpbwfyHllEnCC9c89nSGGU8tvST/XKwAEIym6o2wqnjFW1yiDlZFfHXvaix4XtiIU2IPWx05gx5muoSeblgKCmzFWT2RIcKbRxlC4/IoE84byqGyQpokADiD6PVUU2PfIrY5kNn05r0AKNbIq7n80c7HGq4WniEDenf1/4V3gXwA==
+ bh=l8RnEFNFzmyl5Q14B3pkSW06F+C/zg8GMv4IGrZayBs=;
+ b=Y9iWLfwby7aMfozgOIpDzHgF87nMOMthMxig7m0gSAqIHddDRHejGJZPru+j7eVfD4t0oI5I8/Nm1OwtZhgYmok5N31/RiZTszdq9rNegPwO7GVGwiKw2wRQa8DLDLtW4iFAk7UpGcljLmq3TF0xsYh71kHbaPBtSeKce1Jv+y6eV8Z57hlGCl66f9BAMLBaC4CyR2146x4gi+QRb+1Cad103s8aU0vxQ7BURRbY9oyeH/bGYXvF+l7jn5n9vQvRWjeLp6m6Czs6RSeq/73ARqYJpnHMoi7EC7iLI9mLBmzVTV05Z91ZSlnaeTfpTpYqaJwgXvJm8H2t6CBlDsj6mQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kmvLMnUyXKkeR1agEijox6oairFBDgNT7zNDdvTaZss=;
- b=S623XQ7tp26Lc0+X/oBVj0v8VGN53WzOW31MXXmFVQvy+U6tIY1NHLHeToaeWyVomunmtpfndfA5q5umlM3/s6us+84MMKuIY4QSaPAvTsUAvHLNyVeTTy4RIOJ2beGFfnpzsExizi0mfN2yQokGGeA0v5evdQj2Ql1lbaO/k6A=
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien.grall.oss@gmail.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>, nd
-	<nd@arm.com>
-Subject: RE: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
-Thread-Topic: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
-Thread-Index:
- AQHXS6WvvFnJG9tHGECWPMZXor2qraro8JyAgAAPtYCAAiGdAIAAuwwggAA2KACAFH+QgIABhnKAgADPmoCAAAmNAIAAHmCAgAXol4CAAprMgIAADkQAgAkaNQA=
-Date: Tue, 15 Jun 2021 06:08:00 +0000
+ bh=l8RnEFNFzmyl5Q14B3pkSW06F+C/zg8GMv4IGrZayBs=;
+ b=xZ8I+VOCkDW8RfCcM1VpdeGTrjVGR9a7xBoFW4cPK4P9ai7bS9qYwPnAHIi8DtcfKmlbxs2UVxEen4HxKxTPQd5ho/8t08nOyO8r2ThyrDVaFA9i4HfCj2EV10iWtE5uXULeQQPbMygfK6lMq8kZvEZcdcwhE8X9/kyxrEBs7/8=
+From: Wei Chen <Wei.Chen@arm.com>
+To: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xen.org"
+	<xen-devel@lists.xen.org>
+CC: "will@kernel.org" <will@kernel.org>, "jean-philippe@linaro.org"
+	<jean-philippe@linaro.org>, Julien Grall <julien@xen.org>, Andre Przywara
+	<Andre.Przywara@arm.com>, Marc Zyngier <maz@kernel.org>,
+	"julien.thierry.kdev@gmail.com" <julien.thierry.kdev@gmail.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>
+Subject: [Kvmtool] Some thoughts on using kvmtool Virtio for Xen
+Thread-Topic: [Kvmtool] Some thoughts on using kvmtool Virtio for Xen
+Thread-Index: Addhq3Jd+FbZaJt0R6WdbgcPW7X96w==
+Date: Tue, 15 Jun 2021 06:12:08 +0000
 Message-ID:
- <VE1PR08MB52152038F1366DA9B8A7D3D8F7309@VE1PR08MB5215.eurprd08.prod.outlook.com>
-References: <20210518052113.725808-1-penny.zheng@arm.com>
- <20210518052113.725808-2-penny.zheng@arm.com>
- <e1b90f06-92d2-11da-c556-4081907124b8@xen.org>
- <VE1PR08MB521519C6F09E92EDB9C9A1AEF72B9@VE1PR08MB5215.eurprd08.prod.outlook.com>
- <66e32065-ea2d-d000-1a70-e5598a182b6a@xen.org>
- <VE1PR08MB5215C1F5041860102BBAD595F72A9@VE1PR08MB5215.eurprd08.prod.outlook.com>
- <14fb6fe4-c293-6994-8cbc-872d3bd8a3ac@xen.org>
- <VE1PR08MB52152792B6771236A6DF37E7F73D9@VE1PR08MB5215.eurprd08.prod.outlook.com>
- <4251e0e2-fb53-b8a3-0323-f4ce892cf21e@xen.org>
- <alpine.DEB.2.21.2106031408320.7272@sstabellini-ThinkPad-T480s>
- <CAJ=z9a234ANQDR7BmtSm4AT0k3jrCn67s4b3zZ+jdkUgBMahbw@mail.gmail.com>
- <alpine.DEB.2.21.2106031625530.7272@sstabellini-ThinkPad-T480s>
- <113937c2-f1a7-c27f-8e2e-79de729ea3ce@xen.org>
- <BAC8BC8D-9CD6-4857-88C0-7DCE9267EF0E@arm.com>
- <e3a81b21-fd11-852c-aed7-25e71e4b5539@xen.org>
-In-Reply-To: <e3a81b21-fd11-852c-aed7-25e71e4b5539@xen.org>
+ <DB9PR08MB6857B375207376D8320AFBA89E309@DB9PR08MB6857.eurprd08.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ts-tracking-id: D79ECCA853884E4E892F233370117AD9.0
+x-ts-tracking-id: 9DF71AC55BCB6443A06FF2F1548551B3.0
 x-checkrecipientchecked: true
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [203.126.0.112]
+Authentication-Results-Original: vger.kernel.org; dkim=none (message not
+ signed) header.d=none;vger.kernel.org; dmarc=none action=none
+ header.from=arm.com;
+x-originating-ip: [203.126.0.111]
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: ebaf0182-e710-4a9c-25f1-08d92fc3f66d
-x-ms-traffictypediagnostic: VI1PR08MB3728:|DB9PR08MB7024:
+X-MS-Office365-Filtering-Correlation-Id: 3da4bb37-2b79-4a86-38bc-08d92fc48ab6
+x-ms-traffictypediagnostic: DB7PR08MB3178:|VI1PR0802MB2575:
 x-ms-exchange-transport-forked: True
 X-Microsoft-Antispam-PRVS:
-	<DB9PR08MB7024ADE32B2E969B2E681B3DF7309@DB9PR08MB7024.eurprd08.prod.outlook.com>
+	<VI1PR0802MB25756354999F3A959544AC2D9E309@VI1PR0802MB2575.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
 x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- vQJ9YZqfMlqViVeILQVcSIr/Zs9KgcjTZAFXhGodO9MmSwsnwUen2ErVjkDaZjf44eAfVZL856/fSYEdEf1ehSc0Yg6i/L/ghGB878BJomfVW+7ubEBhmM21yTk7HhO/BW9RJ6hIo0Oksp9XdYBDiyKVOVkW0ZAz3mVz30gl5CRUnF6VGQbXMFQneV7k3HYyLyuX4Pny9jG8QKBP5g0pBn1gvsuR/R6I6mEqu0gk8+ROBzO6YSJ3YJxfb9omcomUMAcIicQOha+IMII3v6hiyahAZw0yFzXPp/NtNgMFFAmfj5fj2UEr8+an6Oam/mhErbn/zHOZmso6j/fTc9yLbhlB/U1KvJ3fLktkA+YdAd0mejpPK94uJIRSUDd+0USmiqiVExFehXuF9lsD3Lr/ucqpfE8d/OFPtD+HoAP36Elq9fjCHAHUlgi+4PkZy3dbYfIfA/IKc7caBvA0NGTluzEo+n6/CYHZLP+W2WRZgHJzd+tLqsk4MJSZoMKjR8/I8qJj9omforC4AS0XBPjQqArFkG8cJW0im6a7iTIuEro71mD/KkkoogafizXWODUVjA4N4cxXx0gM9t5INdpiIBqE8Hptl8FmUOJhJWVb6Z4=
+ yAbx9fQRPoSzBa6DuAwtnUvK6HXeU+iazrkhGR8UB1fECCLwfb5FvKIrmqfeTQGlJET0uxNJbBKMkITHGG4zDE///s6fjCHkvIL5kKZm7oNkERkCMlMNR6A7LDI10UyA7ksDp8BE0l9Z3L22RPPDoGcuAjxeZQnBK1roDXX+f87zvPviSjg1/E6JAICh+BQGVs0C5d045QJu3gWzca4Nw0AMjwz1+7777zXN+oV4nRVjjTC13RnApDjc3BqVlWfg4L0HmYyqYvmvvCwLN713rGj6jS9oRtwlslD9RZL7Ab5fUhlHD0EHKOUzIxJHQNDY9gd9OvARR0NWyUeFZhp5B/9xjaFSRLExbphdBCtiUnRMx7efJJqR7jxhDlBuTO/H6scvwa6U/s2HDGvIAb2/kJxtoFI3UQLhNX1r4d54C4WgG85GHxGvxQJsvxiVlyul+djpYMLspjA0auGUmY3RrNSrfDcyDgG2D7m39wsUJCihdcG7ryqaMlTRKxVZVl8vM78x1kTS0O9FD20KRxDT/gUGSZwGP1V5kHO8QmVBKfE6+E/v43Z/cDu3Ac33RSifL2kPPsYFkpmupQIqx2G6leUgCMzWoQefbRIh1FvOwEbT1ZjmYPkF1g35rsTgd5LTmamHj08cw/qJNo9gugydDWtk/aDohLsdCdioflI78LrKr6UrwkP6lTHzfnyOuwEX+huyb93EvWFhLaT5IdEhSfttWWRF4/u2gPWk9GpvV7s/97IK76UWC8TCB0j4Jcvv
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5215.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(366004)(346002)(376002)(39860400002)(122000001)(83380400001)(66446008)(33656002)(38100700002)(64756008)(9686003)(66476007)(66946007)(55016002)(76116006)(66556008)(478600001)(2906002)(4326008)(53546011)(6506007)(86362001)(5660300002)(52536014)(6636002)(316002)(71200400001)(8676002)(54906003)(110136005)(8936002)(26005)(7696005)(186003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6857.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(366004)(39850400004)(396003)(136003)(346002)(86362001)(316002)(478600001)(4326008)(8936002)(26005)(2906002)(7696005)(186003)(966005)(54906003)(33656002)(110136005)(83380400001)(9686003)(52536014)(71200400001)(66946007)(66476007)(5660300002)(55016002)(66446008)(66556008)(76116006)(8676002)(64756008)(122000001)(6506007)(38100700002);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?I1L3705etq525jGyGkHEj9vN8X0oxxLgfSx46k4o7X1GUpGzMJp7pkDqlFTb?=
- =?us-ascii?Q?1mLUbO9RbtyQeVQNGbD7mM4EOY5IcFljC73WGC2f/4ExcBzEER37kY4sDhOr?=
- =?us-ascii?Q?AVEO1xqjg8gvuby89J1bXrY/6pLTib8FcbS7Pl6ZyrtS5CbmWKqJ/hdGSUC6?=
- =?us-ascii?Q?DuvsyED8Kf/5lPdzWBDO7Y8hPqtytJnf5GRDreCT6HKZvzGigYzRLX+rj9Wj?=
- =?us-ascii?Q?g7ggCQ2huoGvJKCIpFQx5+fkOffGT8LifvKoxtddVZ4+0CrWxq3bALaHUA9F?=
- =?us-ascii?Q?BHZ06TETSx3cZFKW5ocmwVX0iV9kwuyQu2+xZn0+Z5OhRydR+l96gBrPClbH?=
- =?us-ascii?Q?ZV5+SOSiM5grhD2jy5/Y4y6v9HQ75ff31aQtTW2yK5285EZ7IlVruOxdYTKb?=
- =?us-ascii?Q?2jB6RwEJAe+OTS8PVrX3IJlFpVOqOx/iXPxz4i0/md3c+SNDX3r0IPYKIMvv?=
- =?us-ascii?Q?o960E17wTMyAW5borWGaFNv/9Ot7/fanHE4zvX5ZUkS4IZwf4922TMXSjm/8?=
- =?us-ascii?Q?YF1nlhEygYn592kV2to7dcUU9jYr3gsnU+a8DQ71JrJhwJ926GLcJDaDQWa1?=
- =?us-ascii?Q?a3Yj322DUPezQ/hajkJ7DFnkCNpys/c0dBbVuvUDk1XsoL4QVv91Mqpn/5ng?=
- =?us-ascii?Q?EpJTe/HkugkH3qceLPm7siOlnYTpa0D7RUGA8Q6CrXub9RbKBsnTZpoB69jm?=
- =?us-ascii?Q?njzM3dpoQ0ivnrYzrkho3iT4XNiPsi1cJR2yScAftvNiX1nE6pAw0XXy7AGC?=
- =?us-ascii?Q?2yJt1iUp2ubwNDBRNRvRTm+yUkhZfs4Zg3YiRkNuQh2MJM90HA5gowAWnl3W?=
- =?us-ascii?Q?uxjKwP3dbhjCCXaY/gRdENfTxTBhzNgrV2hLG6BFzC3bs2+K50Hn9xgAGFAk?=
- =?us-ascii?Q?dBqnoU07MupGV3HELz/4X566XeZ8raJ2vLVsRXZdx55PRcy6my8B66YUALGY?=
- =?us-ascii?Q?Y2Y/TQg4HfqFXUO4018bESTKpkv5/HRue6u2CdLxIPIH6wL0BN4pJZ7Je+oG?=
- =?us-ascii?Q?rMfcU8InE0WGn3T32qLHIgavLhdgpv5HXwZsGGNvKWfqUfGPmeItFwOAQX1n?=
- =?us-ascii?Q?kFNaCQDVCcfsYWvJMk34FWXPe8uLsBsgut5Ouanw2lcV4R0l8d4SzCFTsgwF?=
- =?us-ascii?Q?CUsUs3X4aOx6m6C/m1WonQbLJqQQk4mQLQ2cbpXYwwA6oHyzclYhabqkMwp9?=
- =?us-ascii?Q?nj6YdGcSBfpxm39K5bXbivBogY0ImfUuirmneXlWzSBwXr14rA6p0BoobN99?=
- =?us-ascii?Q?ODBx9BomTrI33ft7p7UmMiY0OduCEXPxYOMqjWLqqKt+SThZWZvUr6phpnc2?=
- =?us-ascii?Q?1wY=3D?=
+ =?us-ascii?Q?KRUEWix+JTKyXsS0ZbEP+t72HKCacCwKRf4CIEZl+BdQCnoZgd2976ZK43NU?=
+ =?us-ascii?Q?PK+P+QDIgoQhZks10+xQ7Kh7aUFVKmqp+lBZ7czQz3S8y49UV9/gaZJqzWdD?=
+ =?us-ascii?Q?5wouF/YRWpgHiuH4ZqvvTgSL36d3+UTxige0KjONBNkeBh8E9MYWx8RQ4Knh?=
+ =?us-ascii?Q?GoOSebLNYMdiFW39r7eV3o234Xe52QVLjUrA52LgUq6ijAVUWENiTJ1MYwqa?=
+ =?us-ascii?Q?Lon0h/IAqDRwc0pNcAp2MOOeD2bWOIrLlO1taz8NTVFPf7o3dMD2HwxC8J5z?=
+ =?us-ascii?Q?yntx7H15I5egdAElVBS1gHSRBygjpHTUthb2bUjVZIZh89L1Sli7RzEcWGur?=
+ =?us-ascii?Q?ZmcllirB4mqU8VnCsA54mT+jESSrA3iuLkGm8WMDG/G3fHLgTWlfklukJSs6?=
+ =?us-ascii?Q?8nIVRRQI7pscDJvMA3nmPAkp99FhPAejV5Dt0y8j8sbrGaGsxBQrvw86lfOb?=
+ =?us-ascii?Q?tAJZm9F6H2qL99/+ZJbI3PbJ5zepcgzfKfnt3twa0dS+yDIZqoTAiGdx7DPb?=
+ =?us-ascii?Q?v1ngnb3LVn/iMPQvHZOy+ISma79pSqKWZmTGoCiyc6fR9GchVKvCc6RPzyaw?=
+ =?us-ascii?Q?yO4AgLSpOX5n4zGGeRL9e3PyQP0O/akFvabW5VsuOWIYM1GSgBSAAWtPt18P?=
+ =?us-ascii?Q?paksrQq322S7npnXSwo6ADFGFfGQK10ivZPJ+p6ipT5APBBB1c9ZSJKDX9js?=
+ =?us-ascii?Q?HATHu/dQAt0HJ8fNp2qsBy5AFeOsJ7REQCSsJqs9p1SZf1lCq1ZyuoM1NxQu?=
+ =?us-ascii?Q?7k7wE9IVOwnIoJdkX0OHJxolQM705kccFw/G7MXhntB058ISyEc6N/ImA0vY?=
+ =?us-ascii?Q?cSYAErydrVVtw1BPS7IbXfL4YhAOE8NSv5g7jfYi1aAiz7gHkM7ilIQeli8Z?=
+ =?us-ascii?Q?fDsmS1xPu2Mr6PFaI5RDKzTSdltaCEY/ufLVD4dx8zz/IsCudUZ8Zma05TE8?=
+ =?us-ascii?Q?LUrO8rJKAGOwXKRR1efX110MhMubD98tKZsuhYhLN+tTTIAI84vnq5UYu2dk?=
+ =?us-ascii?Q?f5Gl5XDarcOi3GXImabU33OkNvoLB2OEdj3cc5WDA4hItLs2+yNtn6aKgD/R?=
+ =?us-ascii?Q?ClJk4Chh+a/Rb5Y+GTHvVOAOYGEdAu/pdRml3CPa2HAEOZO2c4LlOhOjBsU6?=
+ =?us-ascii?Q?7EfrzTdRdbz5B85XM8m4P+/stfMjk9L+gojuCGSXLASxzToIUnwfZOQxbLB+?=
+ =?us-ascii?Q?fJg+p0d+E2kdS+lIeGqM0efPNjU74mCtcWWLciUXFiw9sW89sevhqQO6H9il?=
+ =?us-ascii?Q?Ykv0cTTZUV8jiAOEJyFYaViNfngV8OL6ybHJZxB6XbNSDn/ieKhlgK+0lE/u?=
+ =?us-ascii?Q?ChxdtJO8R4Ijh16btzmPCMpl?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3728
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3178
+Original-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	7b274dda-83c1-4092-7a72-08d92fc3eddf
+	16fdc8ee-31b8-49c2-8b66-08d92fc481fb
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	zC8djnkChjvGueQP+5yNARe6+ejdsMS/eLvX7qZ2MlbnJ+i4xKINiIllGpuwohiUCJqMAL4rKABEPL3jPH1TeueHyx8TaXXjwgY56RSheCVWEIgw8FmiVMpQ0l4ZyFa3gBewiUpXi3ntLdvZju/MnoNLPmHxhSVeVJQvCnIYdDKKJsMrn5/kA9HJg70hHLGYHB0HfRL6fI4O2frbTnGlW5mnoFBgYqENODXjeOpy2WOJOdWfSeqjyZ3Ube9Pqz8w2HWModq3SuETb3Cdz5YxxBUIk3Dvetf2o3h1pGqOiWtlXO7WdzkswUbQ5QhSoFtVsf5e2aMjix1NmlFp53XpA0gA0nOVIAf0vWQNyaFubECZNvjbnngd9GDgY3fMmh82aeBC4tVS1rnnYekGGRbgczJI60j3KRuD8eX92abrsefTyKba26jbW8M6FhPPqO5SW0dRZlCnb2Q8SatThOvG8ewI2gdYiMD8czVN/lIEgUOs5cFpq0jXtvJn49V57j0D8NZKnTWj26uGARwZWELYlQ0YYA01v6nXK0BNK+b+HsCZSu2jxhsoPjOo5adeyrVuRy+lDNddOBHN/KQg+vKcQi5fPed19a1a/ed2KkQi6BfRIWeKCw+awdie4nYZwOyDhEK6SEvJxVErFefdFgKUQLIW61F/9CATxhmzbk2hjNw=
+	EBlKAL1AQPixVk9/HlVAUlPF6u7hi5a1o+dDPNECqt6tuiXhqWD9uxmqJktHRKvzxOqt8yaGfwBkCyuyJKzQLKZhzpkwLClPMTIN01bwoRrdXxZAVUAtnfeWu925ItrvNnYLT4PWklGONMJ2EW6oYmpSiwMuvyIkDGgBKcV5aBhdqwZYv/ZISbTQGGqoppmyuEqXE6bcI32YB1NO8zl+hGtZkG7Znm+py6n2wrp/d67Ze/cIOMUbMg3UONxqrWmiguDVjCAS5zX1KTKraUlAiQYZcfTtxk3u4/adkwnbcgkiXt7fRvXtI3JI0HPFYwSiRdO2X+3AnxNEHJuFjwEfNC+rc/0vqmswFOouThKl79dzqQD/UZ/FQM/PXilaTvpFEVp4cqBcTkBttnwdvCwCm3+EW1H8hSd7pUfloffTUQwbk2DBuPe41ksYi8aMvwNEVKv5fsiw+tuA9SkCH3K5ygHQ9qfrXeZDbW28HAZn+unFSj3NlgIxg9sPtl+MTXxhpenPLNTZp6+r9gY9RHWK0c8EO5TfG+jO643E8/NXYZ+mj0BlXRR1vJzBwGXPV49qSItl342A13ck3zsD0vZQKGfu2gb4W47f2aLBTqOzLYcdV31Z87W6Yce8dShk1CIkOoAcv7WpbPouNxWWXu9HrgpjMwjziP1eXooJEHmZ5GxNKeTtoM246mXRaydvPkMaq84d6r/u9NAwV/566sWWHiqrvHW/4GnfDWiHQU0ph+PBguJK2b6PIZ+ktLv/8uXZBE96QAuNzvvN3ZqOerZta7mcyiZzJovCgIYRF6rPa3XobGusB4kryQbrRN0tIt7+
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(46966006)(36840700001)(70586007)(70206006)(478600001)(356005)(6506007)(7696005)(86362001)(336012)(8676002)(83380400001)(53546011)(186003)(81166007)(82740400003)(5660300002)(26005)(47076005)(6636002)(2906002)(4326008)(9686003)(316002)(8936002)(55016002)(54906003)(36860700001)(52536014)(82310400003)(110136005)(33656002);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(346002)(376002)(136003)(39860400002)(46966006)(36840700001)(186003)(83380400001)(47076005)(36860700001)(4326008)(26005)(107886003)(5660300002)(2906002)(55016002)(8676002)(81166007)(70206006)(966005)(82310400003)(478600001)(86362001)(8936002)(7696005)(9686003)(70586007)(336012)(316002)(6506007)(54906003)(52536014)(110136005)(33656002)(82740400003)(356005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2021 06:08:14.9032
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2021 06:12:23.6220
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebaf0182-e710-4a9c-25f1-08d92fc3f66d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3da4bb37-2b79-4a86-38bc-08d92fc48ab6
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7024
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2575
 
-Hi julien
+Hi,
 
-> -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: Wednesday, June 9, 2021 6:47 PM
-> To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
-> <julien.grall.oss@gmail.com>; Penny Zheng <Penny.Zheng@arm.com>; xen-
-> devel@lists.xenproject.org; Wei Chen <Wei.Chen@arm.com>; nd
-> <nd@arm.com>
-> Subject: Re: [PATCH 01/10] xen/arm: introduce domain on Static Allocation
->=20
->=20
->=20
-> On 09/06/2021 10:56, Bertrand Marquis wrote:
-> > Hi All,
->=20
-> Hi,
->=20
-> >> On 7 Jun 2021, at 19:09, Julien Grall <julien@xen.org
-> >> <mailto:julien@xen.org>> wrote:
-> >> Feel free to propose one. I suggested to use /reserved-memory because
-> >> this is the approach that makes the most sense to me (see my reply abo=
-ve).
-> >>
-> >> TBH, even after your explanation, I am still a bit puzzled into why
-> >> /reserved-memory cannot be leveraged to exclude domain region from
-> >> the hypervisor allocator.
-> >
-> > I really tend to think that the original solution from Penny is for
-> > now the easiest and simplest to document.
->=20
-> I can live with Penny's solution so long we don't duplicate the parsing a=
-nd we
-> don't create new datastructure in Xen for the new type of reserved memory=
-.
-> However...
->=20
+I have some thoughts of using kvmtool Virtio implementation
+for Xen. I copied my markdown file to this email. If you have
+time, could you please help me review it?
 
-Just to confirm what I understand here, you are not only worrying about the=
- duplication code imported in
-dt_unreserved_regions, but also must introducing another path in func early=
-_scan_node to parse my first implementation
-"xen,static-mem =3D <...>", right?
+Any feedback is welcome!
 
-On duplication code part, I could think of a way to extract common codes to=
- fix, but for introducing another new path to parse,
-FWIT, it is inevitable if not re-using reserved-memory. ;/
+# Some thoughts on using kvmtool Virtio for Xen
+## Background
 
-> > In the long term, using directly memory and giving in it the address
-> > range directly is the most natural solution but that would clash with
-> > the current usage for it.
->=20
-> ... we are already going to have quite some churn to support the system
-> device-tree. So I don't want yet another binding to be invented in a few
-> months time.
->=20
-> IOW, the new binding should be a long term solution rather than a tempora=
-ry
-> one to fill the gap until we agree on what you call "domain v2".
->=20
-> Cheers,
->=20
-> --
+Xen community is working on adding VIRTIO capability to Xen. And we're work=
+ing
+on VIRTIO backend of Xen. But except QEMU can support virtio-net for x86-xe=
+n,
+there is not any VIRTIO backend can support Xen. Because of the community's
+strong voice of Out-of-QEMU, we want to find a light weight VIRTIO backend =
+to
+support Xen.
 
-Cheers
+We have an idea of utilizing the virtio implementaton of kvmtool for Xen. A=
+nd
+We know there was some agreement that kvmtool won't try to be a full QEMU
+alternative. So we have written two proposals in following content for
+communities to discuss in public:
 
-Penny
-> Julien Grall
+## Proposals
+### 1. Introduce a new "dm-only" command
+1. Introduce a new "dm-only" command to provide a pure device model mode. I=
+n
+   this mode, kvmtool only handles IO request. VM creation and initializati=
+on
+   will be bypassed.
+
+    * We will rework the interface between the virtio code and the rest of
+    kvmtool, to use just the minimal set of information. At the end, there
+    would be MMIO accesses and shared memory that control the device model,
+    so that could be abstracted to do away with any KVM specifics at all. I=
+f
+    this is workable, we will send the first set of patches to introduce th=
+is
+    interface, and adapt the existing kvmtool to it. Then later we will can
+    add Xen support on top of it.
+
+    About Xen support, we will detect the presence of Xen libraries, also
+    allow people to ignore them, as kvmtoll do with optional features like
+    libz or libaio.
+
+    Idealy, we want to move all code replying on Xen libraries to a set of
+    new files. In this case, thes files can only be compiled when Xen
+    libraries are detected. But if we can't decouple this code completely,
+    we may introduce a bit of #ifdefs to protect this code.
+
+    If kvm or other VMM do not need "dm-only" mode. Or "dm-only" can not
+    work without Xen libraries. We will make "dm-only" command depends on
+    the presence of Xen libraries.
+
+    So a normal compile (without the Xen libraries installed) would create
+    a binary as close as possible to the current code, and only the people
+    who having Xen libraries installed would ever generate a "dm-only"
+    capable kvmtool.
+
+### 2. Abstract kvmtool virtio implementation as a library
+1. Add a kvmtool Makefile target to generate a virtio library. In this
+   scenario, not just Xen, but any project else want to provide a
+   userspace virtio backend service can link to this virtio libraris.
+   These users would benefit from the VIRTIO implementation of kvmtool
+   and will participate in improvements, upgrades, and maintenance of
+   the VIRTIO libraries.
+
+    * In this case, Xen part code will not upstream to kvmtool repo,
+      it would then be natural parts of the xen repo, in xen/tools or
+      maintained in other repo.
+
+      We will have a completely separate VIRTIO backend for Xen, just
+      linking to kvmtool's VIRTIO library.
+
+    * The main changes of kvmtool would be:
+        1. Still need to rework the interface between the virtio code
+           and the rest of kvmtool, to abstract the whole virtio
+           implementation into a library
+        2. Modify current build system to add a new virtio library target.
+
+## Reworking the interface is the common work for above proposals
+**In kvmtool, one virtual device can be separated into three layers:**
+
+- A device type layer to provide an abstract
+    - Provide interface to collect and store device configuration.
+        Using block device as an example, kvmtool is using disk_image to
+        -  collect and store disk parameters like:
+            -  backend image format: raw, qcow or block device
+            -  backend block device or file image path
+            -  Readonly, direct and etc
+    - Provide operations to interact with real backend devices or services:
+        - provide backend device operations:
+            - block device operations
+            - raw image operations
+            - qcow image operations
+- Hypervisor interfaces
+    - Guest memory mapping and unmapping interfaces
+    - Virtual device register interface
+        - MMIO/PIO space register
+        - IRQ register
+    - Virtual IRQ inject interface
+    - Hypervisor eventfd interface
+- An implementation layer to handle guest IO request.
+    - Kvmtool provides virtual devices for guest. Some virtual devices two
+      kinds of implementations:
+        - VIRTIO implementation
+        - Real hardware emulation
+
+For example, kvmtool console has virtio console and 8250 serial two kinds
+of implementations. These implementation depends on device type parameters
+to create devices, and depends on device type ops to forward data from/to
+real device. And the implementation will invoke hypervisor interfaces to
+map/unmap resources and notify guest.
+
+In the current kvmtool code, the boundaries between these three layers are
+relatively clear, but there are a few pieces of code that are somewhat
+interleaved, for example:
+- In virtio_blk__init(...) function, the code will use disk_image directly.
+  This data is kvmtool specified. If we want to make VIRTIO implementation
+  become hypervisor agnostic. Such kind of code should be moved to other
+  place. Or we just keep code from virtio_blk__init_one(...) in virtio bloc=
+k
+  implementation, but keep virtio_blk__init(...) in kvmtool specified part
+  code.
+
+However, in the current VIRTIO device creation and data handling process,
+the device type and hypervisor API used are both exclusive to kvmtool and
+KVM. If we want to use current VIRTIO implementation for other device
+models and hypervisors, it is unlikely to work properly.
+
+So, the major work of reworking interface is decoupling VIRTIO implementati=
+on
+from kvmtool and KVM.
+
+**Introduce some intermediate data structures to do decouple:**
+1. Introduce intermedidate type data structures like `virtio_disk_type`,
+   `virtio_net_type`, `virtio_console_type` and etc. These data structures
+   will be the standard device type interfaces between virtio device
+   implementation and hypervisor.  Using virtio_disk_type as an example:
+    ~~~~
+    struct virtio_disk_type {
+        /*
+         * Essential configuration for virtio block device can be got from
+         * kvmtool disk_image. Other hypervisor device model also can use
+         * this data structure to pass necessary parameters for creating
+         * a virtio block device.
+         */
+        struct virtio_blk_cfg vblk_cfg;
+        /*
+         * Virtio block device MMIO address and IRQ line. These two members
+         * are optional. If hypervisor provides allocate_mmio_space and
+         * allocate_irq_line capability and device model doesn't set these
+         * two fields, virtio block implementation will use hypervisor APIs
+         * to allocate MMIO address and IRQ line. If these two fields are
+         * configured, virtio block implementation will use them.
+         */
+        paddr_t addr;
+        uint32_t irq;
+        /*
+         * In kvmtool, this ops will connect to disk_image APIs. Other
+         * hypervisor device model should provide similar APIs for this
+         * ops to interact with real backend device.
+         */
+        struct disk_type_ops {
+            .read
+            .write
+            .flush
+            .wait
+            ...
+        } ops;
+    };
+    ~~~~
+
+2. Introduce a intermediate hypervisor data structure. This data structure
+   provides a set of standard hypervisor API interfaces. In virtio
+   implementation, the KVM specified APIs, like kvm_register_mmio, will not
+   be invoked directly. The virtio implementation will use these interfaces
+   to access hypervisor specified APIs. for example `struct vmm_impl`:
+    ~~~~
+    struct vmm_impl {
+        /*
+         * Pointer that link to real hypervisor handle like `struct kvm *kv=
+m`.
+         * This pointer will be passed to the vmm ops;
+         */
+        void *vmm;
+        allocate_irq_line_fn_t(void* vmm, ...);
+        allocate_mmio_space_fn_t(void* vmm, ...);
+        register_mmio_fn_t(void* vmm, ...);
+        map_guest_page_fn_t(void* vmm, ...);
+        unmap_guest_page_fn_t(void* vmm, ...);
+        virtual_irq_inject_fn_t(void* vmm, ...);
+    };
+    ~~~~
+
+3. After decoupled with kvmtool, any hypervisor can use standard `vmm_impl`
+   and `virtio_xxxx_type` interfaces to invoke standard virtio implementati=
+on
+   interfaces to create virtio devices.
+    ~~~~
+    /* Prepare VMM interface */
+    struct vmm_impl *vmm =3D ...;
+    vmm->register_mmio_fn_t =3D kvm__register_mmio;
+    /* kvm__map_guset_page is a wrapper guest_flat_to_host */
+    vmm->map_guest_page_fn_t =3D kvm__map_guset_page;
+    ...
+
+    /* Prepare virtio_disk_type */
+    struct virtio_disk_type *vdisk_type =3D ...;
+    vdisk_type->vblk_cfg.capacity =3D disk_image->size / SECTOR_SIZE;
+    ...
+    vdisk_type->ops->read =3D disk_image__read;
+    vdisk_type->ops->write =3D disk_image__write;
+    ...
+
+    /* Invoke VIRTIO implementation API to create a virtio block device */
+    virtio_blk__init_one(vmm, vdisk_type);
+    ~~~~
+
+VIRTIO block device simple flow before reworking interface:
+https://drive.google.com/file/d/1k0Grd4RSuCmhKUPktHj9FRamEYrPCFkX/view?usp=
+=3Dsharing
+![image](https://drive.google.com/uc?export=3Dview&id=3D1k0Grd4RSuCmhKUPktH=
+j9FRamEYrPCFkX)
+
+VIRTIO block device simple flow after reworking interface:
+https://drive.google.com/file/d/1rMXRvulwlRO39juWf08Wgk3G1NZtG2nL/view?usp=
+=3Dsharing
+![image](https://drive.google.com/uc?export=3Dview&id=3D1rMXRvulwlRO39juWf0=
+8Wgk3G1NZtG2nL)
+
+
+Thanks,
+Wei Chen
+IMPORTANT NOTICE: The contents of this email and any attachments are confid=
+ential and may also be privileged. If you are not the intended recipient, p=
+lease notify the sender immediately and do not disclose the contents to any=
+ other person, use it for any purpose, or store or copy the information in =
+any medium. Thank you.
 
