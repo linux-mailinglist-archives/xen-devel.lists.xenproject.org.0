@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A903A9B9B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:07:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143025.263867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6238F3A9BAC
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:08:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143080.263922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVGV-0006N6-He; Wed, 16 Jun 2021 13:07:31 +0000
+	id 1ltVHG-0001JH-B6; Wed, 16 Jun 2021 13:08:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143025.263867; Wed, 16 Jun 2021 13:07:31 +0000
+Received: by outflank-mailman (output) from mailman id 143080.263922; Wed, 16 Jun 2021 13:08:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVGV-0006IV-9L; Wed, 16 Jun 2021 13:07:31 +0000
-Received: by outflank-mailman (input) for mailman id 143025;
- Wed, 16 Jun 2021 13:07:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltV2h-00075D-AQ
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:53:15 +0000
-Received: from mo4-p04-ob.smtp.rzone.de (unknown [81.169.146.178])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 91e5a4a4-21aa-4503-93d0-c098ebfb81b5;
- Wed, 16 Jun 2021 12:51:59 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GCpotmW
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 16 Jun 2021 14:51:50 +0200 (CEST)
+	id 1ltVHG-0001Fu-6O; Wed, 16 Jun 2021 13:08:18 +0000
+Received: by outflank-mailman (input) for mailman id 143080;
+ Wed, 16 Jun 2021 13:08:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vOo1=LK=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1ltVHE-0001Bf-K0
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 13:08:16 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5d4303b6-94ca-41b8-9804-d5fc67abc46e;
+ Wed, 16 Jun 2021 13:08:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,765 +35,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91e5a4a4-21aa-4503-93d0-c098ebfb81b5
-ARC-Seal: i=1; a=rsa-sha256; t=1623847911; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=VCr/2PZxuem7ziOl0SvYUxtu2I1JCHZc1ppdDwAIg22ZqdZnYeVyQLbrGR0oQ6uu4H
-    stB2H3kgGsdz5JS00Ia/o1JYHyfQo7LyVBUO8BU3J/6GcYF4A/uM2Xp+A/1Hf68wMiwc
-    Pma3fNeP6mim28jfdA/zwPu2J81jpvN1bPpfhG9lARFQ4sKiqUilwJMMrgN3BjD4zKfc
-    yxgf8qsVwe20OSYhSIiubB3TrzsFhPxdGy9e5SUVUAqWoN4anUTXgrh8jRokFtA3bMeT
-    AcUX3RspEySfbtjqF5b8ryOKpQA3bbIANFgT36sfcThNPduxtY6nTRgVBJeHct1+DWEQ
-    VSJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847911;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=v7F+g3JSzDmZZTOZdDO+rS/XRfxqZ/ug2X6EnF8j6XQ=;
-    b=QPf9+ju5uY2SxuUQDlHbY+HL/uWI2y94DzIjAGALOOCmoL7sl5Z7KI3lQD6qqbPiCl
-    5prcoABg+YJs0xivxuG3uB+P5sxHKTr/DJHwa4s5nyzExpHyHD3jxmyb7iPMYGOCgfDx
-    o3BSytem3D7YCs7EGTgkzuUSXwZvGaLMVmW63r/kwu6vQfrlTt+Hu53Dui8ctMx1zUpl
-    mtv0XAFXgmlD2WYdrWYgwfHqUz1ADGgxU237krCTBvan75mW19OvmiMPZhI17OTmMHcR
-    ZvxnVYICI8U2ro+VaMKSN2212EWxd7dy+aYMQruFfnQqwUeby9Z55DWqknjtCD/iMXn5
-    CR1w==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847910;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=v7F+g3JSzDmZZTOZdDO+rS/XRfxqZ/ug2X6EnF8j6XQ=;
-    b=UGgWGQEPOlSwB3aEFnGTthuNM4J51eERuVa6sFgn5Rn/7eC9HsaPBfZ2O2JGn3MXDH
-    KDjgevsBGd7Gq+BdKhZH3qEH00w8PRhoyS8ey6Ndy81zp5kChWkiGzy8iKJnQHiiQFOu
-    5/evSxKQdDu2jCwVhDzPqEfwBwnZZQzjayjXDR8UT+BCOcw6XZ0qt5lR7OnguZg3somx
-    pdsU66CKlC442tSTeJj9LU1xjz2mOfZNWdsOfo6KSegrLdf13gf6pLVhFTBs2aS3oD5f
-    AqYtRIpjVDVL4RZmCky3uYK4dA/wae8zNl81xo+0hoQTIXzhbUhX2GBAkjGAkDWWmk5P
-    lamQ==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5l+Vz7FJgt8+TgOd9sTrMwXjWWExsBKQCrpnqhqg=="
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v20210616 36/36] tools: use superpages during restore of HVM guest
-Date: Wed, 16 Jun 2021 14:51:29 +0200
-Message-Id: <20210616125129.26563-37-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210616125129.26563-1-olaf@aepfle.de>
-References: <20210616125129.26563-1-olaf@aepfle.de>
+X-Inumbo-ID: 5d4303b6-94ca-41b8-9804-d5fc67abc46e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1623848895;
+  h=to:cc:references:from:subject:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=gfB4WLnnfctfUdDhO9e+GdzqwsHatf4UDHelZqgdt9A=;
+  b=iZQ/dPOEBn/udJuIRsZJiaeVOznir0B/zABmT8inTVMhPKdBaCo0sY+K
+   26zsJ42HzVYeN8U0sXKRVPLnmwN6H3AOVOp7TtsVs3WgrFhg8hCgKcCUn
+   NX0oPZ2jZCa0QU/v1AcF51rJbD63TPYzGL4+asRzwVd9UaH7xT8hBVrW1
+   o=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: ua+CtNaeO+rvzfL/hhXb0jPXAeMPHNCKS6ywtqsyYUPueSJnRazBmBhxZcROrvz5Uzk9rVIXCq
+ vReCZOmLenpNbfm8MmelxKHvlaU5J51bVDbFHv2jfgHiyFo6hXicRilA5Gygm0iJQhec28uE40
+ dHWpkeQd3ZqXDPAUzmV+pxj8e9A8hBM1Ol+eX2wnU+dsITq5Z+SBC0zVTwKRlXXArUoTJaW+ym
+ nwfA8EW3+rMx05QXJa1rSOBNgAc9N2bxINWAA4aOC1fi/SFVRABkPMGZkewCUFTaaxIldAjczs
+ eME=
+X-SBRS: 5.1
+X-MesageID: 46261424
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:w/OMMqmH+a4Gwf8DyLxhQ6xdHBLpDfO1imdD5ihNYBxZY6Wkfp
+ +V8cjzhCWftN9OYhodcIi7SdG9qADnhOVICOgqTP2ftWzd1FdAQ7sSibcKrweAJ8S6zJ8l6U
+ 4CSdkyNDSTNykcsS+S2mDRfLgdKZu8gcaVbIzlvhRQpHRRGsRdBnBCe2Sm+yNNJDVuNN4cLt
+ 6x98BHrz2vdTA8dcKgHEQIWODFupniiI/mSQRuPW9p1CC+yReTrJLqGRmR2RkTFxlVx605zG
+ TDmwvloo2+rvCAzAPG3WO71eUZpDKh8KoDOCW/sLlXFtzesHfrWG2nYczGgNkBmpDu1L/tqq
+ iJn/5vBbU115qbRBDOnfKk4Xic7N9p0Q6v9bbQuwqeneXpAD09EMZPnoRfb1/Q7Fchpsh11O
+ ZR03uerIc/N2K3oM3R3am9a/hRrDvCnZPiq59hs1VPFY8FLLNBp40W+01YVJ8GASLh8YgiVO
+ 1jFtvV6vpaeU6TKymxhBgm/PW8GnAoWhuWSEkLvcKYlzBQgXBi1kMdgMgShG0J+p4xQ4RNo+
+ 7ELqNrnrdTSdJ+V9M1OA7Ae7rDNoXpe2OGDIu/GyWXKEg3AQO+l3es2sRK2AiDQu158HIdou
+ W/bG9l
+X-IronPort-AV: E=Sophos;i="5.83,278,1616472000"; 
+   d="scan'208";a="46261424"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FBbjebTFX3Oun0Ft9HWc0byHl2kpkuMtOcknlQAl8hsmsPWpIxdFSM6pPeVGIdILyOZOxN8v009/NWZxAx4+xAA/Ht8TL/TBCyiHUUoH4Olu5BtgvIJQByZTYxkUm8tec3WnjOEZQWjB5mH5VEEeaKos+EdsHRnt4WtQlR+ZIBKA42oGclcvAXdhKLD3hup+6v0teyO+3aNDeEz6sc0U8jO5SuLsYRkJmI7vj87In1WlWiqu2cFE1Rv0YW2Hu8+r1/elFXER/UOsdj3Mzj4iRWUcEQM/sJn1QYV+ijf6sL/vVBdThQYpgt0LvuNMPbVqvPhEqMBQSSh5mjLk58HH9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5O9mg7xjMiZSLFM8fAN66veyxGTyxu0Qce0UXo8k07I=;
+ b=R87pcTK7GOjdXbWF1Mm4tSriinywPoxleanpry7NnvD33CNxj18qWfcEnxNpUpu11J1ro/t/c5BKQ46LT0TqzzWoZXC9eSTuZFy40ZkhfS9hB/hBt0iAXc7RwMOI4eDgSqXstr/LhtbBKZEeGaGw/M4VhkvfEhMDdlNPBNP+nH6piICRp8naw+flbiYRDN59GyQa9jVP/PRpP9kE6Yo1XYvMTrAMsTo977I4ysWEltIbT8x2ebVv6kGiG4opc/kBnKASJIAItqrqnxptAR81NjxSfJLdMS6wTmieTNKwougrtluE2aWuVe/40LeEAeLWHeetpXD7ocvUTx52ORKeEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5O9mg7xjMiZSLFM8fAN66veyxGTyxu0Qce0UXo8k07I=;
+ b=EsOYUW5e5ClKnfnsE6vRJPGxXTGjXfIdQ5CFSq0DdaWXS/RQE/1gsxHQ3u0Q2t+l9ErC+ogkiW/VHGEMNiJD+E2zK5+txWBAs7ns9xUswh6+dMdFrHIhU+tsQF0CWxaFDcYPxgwWifo6nvvU61rVpaGvRVgUhNwPGiW19KwzT70=
+To: Jan Beulich <jbeulich@suse.com>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Juergen Gross
+	<jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210615161905.9831-1-andrew.cooper3@citrix.com>
+ <20210615161905.9831-3-andrew.cooper3@citrix.com>
+ <c59dae19-2a88-9449-468a-ab22d38fd0e7@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 2/5] tools/tests: Drop run runes
+Message-ID: <4a57467a-36ea-bd5b-7e6a-ed0dfaa33314@citrix.com>
+Date: Wed, 16 Jun 2021 14:08:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <c59dae19-2a88-9449-468a-ab22d38fd0e7@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0376.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a3::28) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 57002e7b-d8b3-4fb3-a4a4-08d930c7cb3c
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3989:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR03MB39898DCBD749EB51D4AC7559BA0F9@BYAPR03MB3989.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EEZwqa9ocIae61Wd9CX5qlL+UH0l8dCU2AjUDYfwtnlIulfTSLJ6eeNPkbq3BJ5DCC4x0G879QIX43zUxBVLQ1fwjFBrbI8WJZ0uPnYvg07RwtkFLMuvmb8AGFE3r1jJFORLDruZezH2FyEDtJUhSMmJFkd65QJEWbuzO+FcmC08tqv8+vm6FqncsScR/WlngS4kIMK8jVBA8GWaWCgsnoONEvSGtU3Dn3znUMeVOstKIuRm36s9QThe4cE6ceJ63rolRK0RxTdoLZdRSYsGTi+0yr/u+mBQSFiOu6CMIKrTnCJ9VWPEYloBWblCoelEaJoJ4tad8EEvhvhHmrbCOfKNcJ/76iO8G8w7WnA2biqM/ubDv6/FpeJPuqG31RMBdtjBDaZP5MyoefdFRPHhDUoLFjhcw3XuwdJbGBCON23A9IiY/GXNYDrt7FrWYSK54y+gb/c63LdjR+tjzuV0h2HFq6UqTnAO8/vvO+cB1H6tAHbfGK3LUDkv2l4LSs89bldi2TCoxrNHQFEAmzRYzJeLwfIfR12EIdL1nFbCgHujf0E22HZSeNPAgb7rFrNsJ7ksu0sJkdJAcDVO+RpxM3HzBMCSUp2TtK4ATwdhSIa+vjjHkz6//Uujj95dT7nzKDT9+ixjVPCwaMP313vQpXQJFLhmaev3mvcMEokUdwufM1hpFnVM4HbLrUOp2YRD
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(396003)(366004)(346002)(136003)(2906002)(38100700002)(4326008)(478600001)(31686004)(83380400001)(6666004)(956004)(2616005)(6916009)(54906003)(8676002)(186003)(5660300002)(16576012)(6486002)(53546011)(16526019)(66946007)(31696002)(26005)(86362001)(36756003)(66556008)(66476007)(316002)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlhjMzd5ZFoyd3pYYmxvNHBYUXRJdW9oS0krQ3hxeWRmc1lkckJpc0FSd2pV?=
+ =?utf-8?B?Q1VEWXdWK0xPVDRJNTR0NkROT05YQjZ5NGdYMDlWZXZHY0RhbWJNdjI5b1pa?=
+ =?utf-8?B?L0drYWUvRFFIY3cwUFhTM1ppdkJPM1VLcHJMMEcrU1ByTXExK1dmT09uYnNL?=
+ =?utf-8?B?ZkVXYzdmY3VPOFVuTW9nYXJSK0thUTVBelpiY2c0VmJjM3ZwMkNDbXplamNL?=
+ =?utf-8?B?Yzc4UGlRVWdrZ0VGdWxqL1VpNU1UNmVOWUpaUGU0SFFWM1piTGp5WE9RaHJJ?=
+ =?utf-8?B?SmR2SkkwVHZBN3l0K0tLZjZZUUhxWGhVa09nRmQvb2p1R3pVNUdlMCtRUmti?=
+ =?utf-8?B?Szh2emN2L0piZ3ZhTEVGTkJkdkNMeXpTZ1pFVTdWOEE4bkpzTGlzY3BERWtp?=
+ =?utf-8?B?a3E4WC9HSm5QS2dyQTJYYk5Nc0ZwZWdINm16RWFFQ3lxdkI0WDN6TkpGSHlJ?=
+ =?utf-8?B?WmlZYnV4enAwSHhxRjM3V0lvZ3UwOHRoQittcnh1RXEwRTlMUjRFWjR3OEla?=
+ =?utf-8?B?TmhWeDVFaEZMWmJOclppSTQxT2c0UXpOTjQzQ2Q1SDBmYng5Zks5eUt6WVBi?=
+ =?utf-8?B?TTRDN0VpUDdLVzlhQnM4OFFMSXhoVWRQZFp0UTBHYnFMMEptczdzQUxZZkQw?=
+ =?utf-8?B?TDlNa2NDTEg1bGJiOFMxaUlYWkxDZVJvYk82RmhJb25acDZKMUVNZWwyVVpX?=
+ =?utf-8?B?NWZtOWZUcmNxeG16c1lMdENyRHdKdFBuTTJZa3podFFUVk14UlFjN0JZeEZQ?=
+ =?utf-8?B?YmxEMThQa2k0eEVFcnY1YytLNlpoUzNlTWE0eHpQQU5zQVdnbDVrc1lGM0Rl?=
+ =?utf-8?B?a094aDBGWmxJamNBd2tWRFRKWStLNCtqRXJUT3FXYW50cnpQS3hudkYrcFRu?=
+ =?utf-8?B?U1h0LzQ1UG1UVUdzYUJHNDAwMld6N3NxV3dGNEd3M01LNnlDTHFXTnhON1pv?=
+ =?utf-8?B?NmRaY3NyNUl2L25ZZzJnMlRLMTR6TkZxaEcvYitSMStOWkdVS1IrLzJKelpO?=
+ =?utf-8?B?TUgwZnRSRTdiK0VLQTE5ZFdWOW0wbWZUUTdkTjBRZWQ0M1BjengyRzBEUGJs?=
+ =?utf-8?B?Sm9wMEtvekxzdHlUZzN2M09sM3kxUUN0OXh2cWRpQklkQUEvcWlqMWVwcXgw?=
+ =?utf-8?B?aUFKWmd5S20xM3N0N1pleFlnVDJDeTVNV3FxbTlocDFXTFk3Nk9vWDE1cjk3?=
+ =?utf-8?B?alJ5SGdRczhsdXI2YWJTUG1TSWkrYVMrTU1yRkFBZjcwNlJPa1QxL3FyaGg5?=
+ =?utf-8?B?aGFUUnBmT2JnVHNRbU1pR3dvaTcra2NpTjBHTFNSNDk3KzMrSGpBUnhFRFFI?=
+ =?utf-8?B?NzZ4SDFZMmhVZVdWT2pFVkp6cUxkdW9yODJwTmprZFVHcldyRnI5bTBibzNt?=
+ =?utf-8?B?MFM3RUduWlZRdTJOS1RDRTZoUUNmdlZ6Z1p1VDk1N0pXOTlZemxpNmR6NC82?=
+ =?utf-8?B?eGl3anFCeU1tT3psbDZ1cXh2cVdGbUtBSUZLK1UyMWhnSzdZZmJLNzYvaTFS?=
+ =?utf-8?B?cE5BbzRxUk44Z00wNnIvTEdVZE0yb3p6a1R3WVpzallTWHk5UUpYbXh0Z0hm?=
+ =?utf-8?B?S241Mk9kZ2hmU3cxdlV5K1NzZ3kwSjZ3RzgyQXZWYVYvblh4RjlrZ2VDOEYw?=
+ =?utf-8?B?eWFuTkcvekpnSGdLdmdxeWNjMDl3VGp3d05MRmd5czYrdk4xTTJHLytyNnpO?=
+ =?utf-8?B?NmxLMVIranQ3L2wrZ2cvVGRxMUVjcmtDd1F3cWhtZmlWc2N3eUQvNE9lWm5M?=
+ =?utf-8?Q?2j4U4vZQGuRRhmzx1VcpmPIyqYA0pVC+COjivYm?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57002e7b-d8b3-4fb3-a4a4-08d930c7cb3c
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2021 13:08:11.9448
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Sb49vt0rfAQivhXI0l3bm7SP5f3Tthhf6FbvVlIM8Ga66hBw6Z4QOZ+3R1EkVzmYT/H4lijlpqYFoWw6kg+LJ2OaTaNUqExLrt9CBlskCAo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3989
+X-OriginatorOrg: citrix.com
 
-During creating of a HVM domU meminit_hvm() tries to map superpages.
-After save/restore or migration this mapping is lost, everything is
-allocated in single pages. This causes a performance degradation after
-migration.
+On 16/06/2021 07:44, Jan Beulich wrote:
+> On 15.06.2021 18:19, Andrew Cooper wrote:
+>> --- a/tools/tests/x86_emulator/Makefile
+>> +++ b/tools/tests/x86_emulator/Makefile
+>> @@ -7,10 +7,6 @@ TARGET :=3D test_x86_emulator
+>>  .PHONY: all
+>>  all:
+>> =20
+>> -.PHONY: run
+>> -run: $(TARGET)
+>> -	./$(TARGET)
+>> -
+>>  # Add libx86 to the build
+>>  vpath %.c $(XEN_ROOT)/xen/lib/x86
+>> =20
+> This is not only incomplete, but actively (specifically here for my
+> own frequent using of it, but other tests I do run occasionally as
+> well, and then also that same way) harming things as long as you
+> don't introduce an alternative way. Note the top-level Makefile
+> making use of these rules, and note also the run32 companion here.
 
-Add neccessary code to preallocate a superpage for an incoming chunk of
-pfns. In case a pfn was not populated on the sending side, it must be
-freed on the receiving side to avoid over-allocation.
+Honestly, this makefile is borderline impossible to follow.=C2=A0 I failed =
+to
+make the install runes work, which is part of why I deferred the
+unit-like tests for now.
 
-The existing code for x86_pv is moved unmodified into its own file.
+But I'm taking this as a strong preference to keep the run target?
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
+TBH, this patch is a little on the side of the rest of the series.=C2=A0 I
+stand by my commit message though - these are inconsistent, and buggy in
+at least one case.
 
-v02:
-- remove xg_ prefix from called functions
----
- tools/libs/guest/xg_dom_x86.c            |   5 -
- tools/libs/guest/xg_private.h            |   5 +
- tools/libs/saverestore/common.c          |   1 -
- tools/libs/saverestore/common.h          |  28 +-
- tools/libs/saverestore/restore.c         |  62 +---
- tools/libs/saverestore/restore_x86_hvm.c | 370 ++++++++++++++++++++++-
- tools/libs/saverestore/restore_x86_pv.c  |  61 +++-
- 7 files changed, 455 insertions(+), 77 deletions(-)
+~Andrew
 
-diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
-index d2eb89ce01..ec0d18fd60 100644
---- a/tools/libs/guest/xg_dom_x86.c
-+++ b/tools/libs/guest/xg_dom_x86.c
-@@ -44,11 +44,6 @@
- 
- #define SUPERPAGE_BATCH_SIZE 512
- 
--#define SUPERPAGE_2MB_SHIFT   9
--#define SUPERPAGE_2MB_NR_PFNS (1UL << SUPERPAGE_2MB_SHIFT)
--#define SUPERPAGE_1GB_SHIFT   18
--#define SUPERPAGE_1GB_NR_PFNS (1UL << SUPERPAGE_1GB_SHIFT)
--
- #define X86_CR0_PE 0x01
- #define X86_CR0_ET 0x10
- 
-diff --git a/tools/libs/guest/xg_private.h b/tools/libs/guest/xg_private.h
-index 28441ee13f..b7372e6bd5 100644
---- a/tools/libs/guest/xg_private.h
-+++ b/tools/libs/guest/xg_private.h
-@@ -179,4 +179,9 @@ struct xc_cpu_policy {
- };
- #endif /* x86 */
- 
-+#define SUPERPAGE_2MB_SHIFT   9
-+#define SUPERPAGE_2MB_NR_PFNS (1UL << SUPERPAGE_2MB_SHIFT)
-+#define SUPERPAGE_1GB_SHIFT   18
-+#define SUPERPAGE_1GB_NR_PFNS (1UL << SUPERPAGE_1GB_SHIFT)
-+
- #endif /* XG_PRIVATE_H */
-diff --git a/tools/libs/saverestore/common.c b/tools/libs/saverestore/common.c
-index 8b4e402df5..5c659aa55b 100644
---- a/tools/libs/saverestore/common.c
-+++ b/tools/libs/saverestore/common.c
-@@ -1,5 +1,4 @@
- #include <assert.h>
--
- #include "common.h"
- 
- #include <xen-tools/libs.h>
-diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
-index 43a31f9aa5..8e67989bbf 100644
---- a/tools/libs/saverestore/common.h
-+++ b/tools/libs/saverestore/common.h
-@@ -219,6 +219,16 @@ struct xc_sr_restore_ops
-      */
-     int (*setup)(struct xc_sr_context *ctx);
- 
-+    /**
-+     * Populate PFNs
-+     *
-+     * Given a set of pfns, obtain memory from Xen to fill the physmap for the
-+     * unpopulated subset.
-+     */
-+    int (*populate_pfns)(struct xc_sr_context *ctx, unsigned count,
-+                         const xen_pfn_t *original_pfns, const uint32_t *types);
-+
-+
-     /**
-      * Process an individual record from the stream.  The caller shall take
-      * care of processing common records (e.g. END, PAGE_DATA).
-@@ -366,6 +376,8 @@ struct xc_sr_context
- 
-             int send_back_fd;
-             unsigned long p2m_size;
-+            unsigned long max_pages;
-+            unsigned long tot_pages;
-             xc_hypercall_buffer_t dirty_bitmap_hbuf;
- 
-             /* From Image Header. */
-@@ -503,6 +515,14 @@ struct xc_sr_context
-                     {
-                         /* HVM context blob. */
-                         struct xc_sr_blob context;
-+
-+                        /* Bitmap of currently allocated PFNs during restore. */
-+                        struct sr_bitmap attempted_1g;
-+                        struct sr_bitmap attempted_2m;
-+                        struct sr_bitmap allocated_pfns;
-+                        xen_pfn_t prev_populated_pfn;
-+                        xen_pfn_t iteration_tracker_pfn;
-+                        unsigned long iteration;
-                     } restore;
-                 };
-             } hvm;
-@@ -567,14 +587,6 @@ int read_record_header(struct xc_sr_context *ctx, int fd, struct xc_sr_rhdr *rhd
- int read_record_data(struct xc_sr_context *ctx, int fd, struct xc_sr_rhdr *rhdr,
-                      struct xc_sr_record *rec);
- 
--/*
-- * This would ideally be private in restore.c, but is needed by
-- * x86_pv_localise_page() if we receive pagetables frames ahead of the
-- * contents of the frames they point at.
-- */
--int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
--                  const xen_pfn_t *original_pfns, const uint32_t *types);
--
- /* Handle a STATIC_DATA_END record. */
- int handle_static_data_end(struct xc_sr_context *ctx);
- 
-diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/restore.c
-index 8f7bce2585..5ad3df49ba 100644
---- a/tools/libs/saverestore/restore.c
-+++ b/tools/libs/saverestore/restore.c
-@@ -71,63 +71,6 @@ static int read_headers(struct xc_sr_context *ctx)
-     return 0;
- }
- 
--/*
-- * Given a set of pfns, obtain memory from Xen to fill the physmap for the
-- * unpopulated subset.  If types is NULL, no page type checking is performed
-- * and all unpopulated pfns are populated.
-- */
--int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
--                  const xen_pfn_t *original_pfns, const uint32_t *types)
--{
--    xc_interface *xch = ctx->xch;
--    xen_pfn_t *mfns = ctx->restore.m->pp_mfns,
--        *pfns = ctx->restore.m->pp_pfns;
--    unsigned int i, nr_pfns = 0;
--    int rc = -1;
--
--    for ( i = 0; i < count; ++i )
--    {
--        if ( (!types ||
--              (types && page_type_has_stream_data(types[i]) == true)) &&
--             !pfn_is_populated(ctx, original_pfns[i]) )
--        {
--            rc = pfn_set_populated(ctx, original_pfns[i]);
--            if ( rc )
--                goto err;
--            pfns[nr_pfns] = mfns[nr_pfns] = original_pfns[i];
--            ++nr_pfns;
--        }
--    }
--
--    if ( nr_pfns )
--    {
--        rc = xc_domain_populate_physmap_exact(
--            xch, ctx->domid, nr_pfns, 0, 0, mfns);
--        if ( rc )
--        {
--            PERROR("Failed to populate physmap");
--            goto err;
--        }
--
--        for ( i = 0; i < nr_pfns; ++i )
--        {
--            if ( mfns[i] == INVALID_MFN )
--            {
--                ERROR("Populate physmap failed for pfn %u", i);
--                rc = -1;
--                goto err;
--            }
--
--            ctx->restore.ops.set_gfn(ctx, pfns[i], mfns[i]);
--        }
--    }
--
--    rc = 0;
--
-- err:
--    return rc;
--}
--
- static int handle_static_data_end_v2(struct xc_sr_context *ctx)
- {
-     int rc = 0;
-@@ -270,7 +213,7 @@ static int map_guest_pages(struct xc_sr_context *ctx,
-     uint32_t i, p;
-     int rc;
- 
--    rc = populate_pfns(ctx, pages->count, m->pfns, m->types);
-+    rc = ctx->restore.ops.populate_pfns(ctx, pages->count, m->pfns, m->types);
-     if ( rc )
-     {
-         ERROR("Failed to populate pfns for batch of %u pages", pages->count);
-@@ -1077,6 +1020,9 @@ int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
-         return -1;
-     }
- 
-+    /* See xc_domain_getinfo */
-+    ctx.restore.max_pages = ctx.dominfo.max_memkb >> (PAGE_SHIFT-10);
-+    ctx.restore.tot_pages = ctx.dominfo.nr_pages;
-     ctx.restore.p2m_size = nr_pfns;
-     ctx.restore.ops = ctx.dominfo.hvm
-         ? restore_ops_x86_hvm : restore_ops_x86_pv;
-diff --git a/tools/libs/saverestore/restore_x86_hvm.c b/tools/libs/saverestore/restore_x86_hvm.c
-index 97e7e0f48c..7ed438e1be 100644
---- a/tools/libs/saverestore/restore_x86_hvm.c
-+++ b/tools/libs/saverestore/restore_x86_hvm.c
-@@ -130,6 +130,25 @@ static int x86_hvm_localise_page(struct xc_sr_context *ctx,
-     return 0;
- }
- 
-+static bool x86_hvm_expand_sp_bitmaps(struct xc_sr_context *ctx, unsigned long max_pfn)
-+{
-+    struct sr_bitmap *bm;
-+
-+    bm = &ctx->x86.hvm.restore.attempted_1g;
-+    if ( !sr_bitmap_expand(bm, max_pfn >> SUPERPAGE_1GB_SHIFT) )
-+        return false;
-+
-+    bm = &ctx->x86.hvm.restore.attempted_2m;
-+    if ( !sr_bitmap_expand(bm, max_pfn >> SUPERPAGE_2MB_SHIFT) )
-+        return false;
-+
-+    bm = &ctx->x86.hvm.restore.allocated_pfns;
-+    if ( !sr_bitmap_expand(bm, max_pfn) )
-+        return false;
-+
-+    return true;
-+}
-+
- /*
-  * restore_ops function. Confirms the stream matches the domain.
-  */
-@@ -164,12 +183,21 @@ static int x86_hvm_setup(struct xc_sr_context *ctx)
- 
-     max_pfn = max(ctx->restore.p2m_size, ctx->dominfo.max_memkb >> (PAGE_SHIFT-10));
-     if ( !sr_bitmap_expand(&ctx->restore.populated_pfns, max_pfn) )
--    {
--        PERROR("Unable to allocate memory for populated_pfns bitmap");
--        return -1;
--    }
-+        goto out;
-+
-+    if ( !x86_hvm_expand_sp_bitmaps(ctx, max_pfn) )
-+        goto out;
-+
-+    /* FIXME: distinguish between PVH and HVM */
-+    /* No superpage in 1st 2MB due to VGA hole */
-+    sr_set_bit(0, &ctx->x86.hvm.restore.attempted_1g);
-+    sr_set_bit(0, &ctx->x86.hvm.restore.attempted_2m);
- 
-     return 0;
-+
-+out:
-+    PERROR("Unable to allocate memory for pfn bitmaps");
-+    return -1;
- }
- 
- /*
-@@ -250,6 +278,9 @@ static int x86_hvm_stream_complete(struct xc_sr_context *ctx)
- static int x86_hvm_cleanup(struct xc_sr_context *ctx)
- {
-     sr_bitmap_free(&ctx->restore.populated_pfns);
-+    sr_bitmap_free(&ctx->x86.hvm.restore.attempted_1g);
-+    sr_bitmap_free(&ctx->x86.hvm.restore.attempted_2m);
-+    sr_bitmap_free(&ctx->x86.hvm.restore.allocated_pfns);
-     free(ctx->x86.hvm.restore.context.ptr);
- 
-     free(ctx->x86.restore.cpuid.ptr);
-@@ -258,6 +289,336 @@ static int x86_hvm_cleanup(struct xc_sr_context *ctx)
-     return 0;
- }
- 
-+/*
-+ * Set a range of pfns as allocated
-+ */
-+static void pfn_set_long_allocated(struct xc_sr_context *ctx, xen_pfn_t base_pfn)
-+{
-+    sr_set_long_bit(base_pfn, &ctx->x86.hvm.restore.allocated_pfns);
-+}
-+
-+static void pfn_set_allocated(struct xc_sr_context *ctx, xen_pfn_t pfn)
-+{
-+    sr_set_bit(pfn, &ctx->x86.hvm.restore.allocated_pfns);
-+}
-+
-+struct x86_hvm_sp {
-+    xen_pfn_t pfn;
-+    xen_pfn_t base_pfn;
-+    unsigned long index;
-+    unsigned long count;
-+};
-+
-+/*
-+ * Try to allocate a 1GB page for this pfn, but avoid Over-allocation.
-+ * If this succeeds, mark the range of 2MB pages as busy.
-+ */
-+static bool x86_hvm_alloc_1g(struct xc_sr_context *ctx, struct x86_hvm_sp *sp)
-+{
-+    xc_interface *xch = ctx->xch;
-+    unsigned int order;
-+    int i, done;
-+    xen_pfn_t extent;
-+
-+    /* Only one attempt to avoid overlapping allocation */
-+    if ( sr_test_and_set_bit(sp->index, &ctx->x86.hvm.restore.attempted_1g) )
-+        return false;
-+
-+    order = SUPERPAGE_1GB_SHIFT;
-+    sp->count = SUPERPAGE_1GB_NR_PFNS;
-+
-+    /* Allocate only if there is room for another superpage */
-+    if ( ctx->restore.tot_pages + sp->count > ctx->restore.max_pages )
-+        return false;
-+
-+    extent = sp->base_pfn = (sp->pfn >> order) << order;
-+    done = xc_domain_populate_physmap(xch, ctx->domid, 1, order, 0, &extent);
-+    if ( done < 0 ) {
-+        PERROR("populate_physmap failed.");
-+        return false;
-+    }
-+    if ( done == 0 )
-+        return false;
-+
-+    DPRINTF("1G %" PRI_xen_pfn "\n", sp->base_pfn);
-+
-+    /* Mark all 2MB pages as done to avoid overlapping allocation */
-+    for ( i = 0; i < (SUPERPAGE_1GB_NR_PFNS/SUPERPAGE_2MB_NR_PFNS); i++ )
-+        sr_set_bit((sp->base_pfn >> SUPERPAGE_2MB_SHIFT) + i, &ctx->x86.hvm.restore.attempted_2m);
-+
-+    return true;
-+}
-+
-+/* Allocate a 2MB page if x86_hvm_alloc_1g failed, avoid Over-allocation. */
-+static bool x86_hvm_alloc_2m(struct xc_sr_context *ctx, struct x86_hvm_sp *sp)
-+{
-+    xc_interface *xch = ctx->xch;
-+    unsigned int order;
-+    int done;
-+    xen_pfn_t extent;
-+
-+    /* Only one attempt to avoid overlapping allocation */
-+    if ( sr_test_and_set_bit(sp->index, &ctx->x86.hvm.restore.attempted_2m) )
-+        return false;
-+
-+    order = SUPERPAGE_2MB_SHIFT;
-+    sp->count = SUPERPAGE_2MB_NR_PFNS;
-+
-+    /* Allocate only if there is room for another superpage */
-+    if ( ctx->restore.tot_pages + sp->count > ctx->restore.max_pages )
-+        return false;
-+
-+    extent = sp->base_pfn = (sp->pfn >> order) << order;
-+    done = xc_domain_populate_physmap(xch, ctx->domid, 1, order, 0, &extent);
-+    if ( done < 0 ) {
-+        PERROR("populate_physmap failed.");
-+        return false;
-+    }
-+    if ( done == 0 )
-+        return false;
-+
-+    DPRINTF("2M %" PRI_xen_pfn "\n", sp->base_pfn);
-+    return true;
-+}
-+
-+/* Allocate a single page if x86_hvm_alloc_2m failed. */
-+static bool x86_hvm_alloc_4k(struct xc_sr_context *ctx, struct x86_hvm_sp *sp)
-+{
-+    xc_interface *xch = ctx->xch;
-+    unsigned int order;
-+    int done;
-+    xen_pfn_t extent;
-+
-+    order = 0;
-+    sp->count = 1UL;
-+
-+    /* Allocate only if there is room for another page */
-+    if ( ctx->restore.tot_pages + sp->count > ctx->restore.max_pages ) {
-+        errno = E2BIG;
-+        return false;
-+    }
-+
-+    extent = sp->base_pfn = (sp->pfn >> order) << order;
-+    done = xc_domain_populate_physmap(xch, ctx->domid, 1, order, 0, &extent);
-+    if ( done < 0 ) {
-+        PERROR("populate_physmap failed.");
-+        return false;
-+    }
-+    if ( done == 0 ) {
-+        errno = ENOMEM;
-+        return false;
-+    }
-+
-+    DPRINTF("4K %" PRI_xen_pfn "\n", sp->base_pfn);
-+    return true;
-+}
-+/*
-+ * Attempt to allocate a superpage where the pfn resides.
-+ */
-+static int x86_hvm_allocate_pfn(struct xc_sr_context *ctx, xen_pfn_t pfn)
-+{
-+    bool success;
-+    unsigned long idx_1g, idx_2m;
-+    struct x86_hvm_sp sp = {
-+        .pfn = pfn
-+    };
-+
-+    if ( sr_test_bit(pfn, &ctx->x86.hvm.restore.allocated_pfns) )
-+        return 0;
-+
-+    idx_1g = pfn >> SUPERPAGE_1GB_SHIFT;
-+    idx_2m = pfn >> SUPERPAGE_2MB_SHIFT;
-+
-+    sp.index = idx_1g;
-+    success = x86_hvm_alloc_1g(ctx, &sp);
-+
-+    if ( success == false ) {
-+        sp.index = idx_2m;
-+        success = x86_hvm_alloc_2m(ctx, &sp);
-+    }
-+
-+    if ( success == false ) {
-+        sp.index = 0;
-+        success = x86_hvm_alloc_4k(ctx, &sp);
-+    }
-+
-+    if ( success == false )
-+        return -1;
-+
-+    do {
-+        if ( sp.count >= BITS_PER_LONG ) {
-+            sp.count -= BITS_PER_LONG;
-+            ctx->restore.tot_pages += BITS_PER_LONG;
-+            pfn_set_long_allocated(ctx, sp.base_pfn + sp.count);
-+        } else {
-+            sp.count--;
-+            ctx->restore.tot_pages++;
-+            pfn_set_allocated(ctx, sp.base_pfn + sp.count);
-+        }
-+    } while ( sp.count );
-+
-+    return 0;
-+}
-+
-+/*
-+ * Deallocate memory.
-+ * There was likely an optimistic superpage allocation.
-+ * This means more pages may have been allocated past gap_end.
-+ * This range is not freed now. Incoming higher pfns will release it.
-+ */
-+static int x86_hvm_punch_hole(struct xc_sr_context *ctx,
-+                               xen_pfn_t gap_start, xen_pfn_t gap_end)
-+{
-+    xc_interface *xch = ctx->xch;
-+    xen_pfn_t _pfn, pfn;
-+    uint32_t domid, freed = 0;
-+    int rc;
-+
-+    pfn = gap_start >> SUPERPAGE_1GB_SHIFT;
-+    do
-+    {
-+        sr_set_bit(pfn, &ctx->x86.hvm.restore.attempted_1g);
-+    } while (++pfn <= gap_end >> SUPERPAGE_1GB_SHIFT);
-+
-+    pfn = gap_start >> SUPERPAGE_2MB_SHIFT;
-+    do
-+    {
-+        sr_set_bit(pfn, &ctx->x86.hvm.restore.attempted_2m);
-+    } while (++pfn <= gap_end >> SUPERPAGE_2MB_SHIFT);
-+
-+    pfn = gap_start;
-+
-+    while ( pfn <= gap_end )
-+    {
-+        if ( sr_test_and_clear_bit(pfn, &ctx->x86.hvm.restore.allocated_pfns) )
-+        {
-+            domid = ctx->domid;
-+            _pfn = pfn;
-+            rc = xc_domain_decrease_reservation_exact(xch, domid, 1, 0, &_pfn);
-+            if ( rc )
-+            {
-+                PERROR("Failed to release pfn %" PRI_xen_pfn, pfn);
-+                return -1;
-+            }
-+            ctx->restore.tot_pages--;
-+            freed++;
-+        }
-+        pfn++;
-+    }
-+    if ( freed )
-+        DPRINTF("freed %u between %" PRI_xen_pfn " %" PRI_xen_pfn "\n",
-+                freed, gap_start, gap_end);
-+    return 0;
-+}
-+
-+static int x86_hvm_unpopulate_page(struct xc_sr_context *ctx, xen_pfn_t pfn)
-+{
-+    sr_clear_bit(pfn, &ctx->restore.populated_pfns);
-+    return x86_hvm_punch_hole(ctx, pfn, pfn);
-+}
-+
-+static int x86_hvm_populate_page(struct xc_sr_context *ctx, xen_pfn_t pfn)
-+{
-+    xen_pfn_t gap_start, gap_end;
-+    bool has_gap, first_iteration;
-+    int rc;
-+
-+    /*
-+     * Check for a gap between the previous populated pfn and this pfn.
-+     * In case a gap exists, it is required to punch a hole to release memory,
-+     * starting after the previous pfn and before this pfn.
-+     *
-+     * But: this can be done only during the first iteration, which is the
-+     * only place there superpage allocations are attempted. All following
-+     * iterations lack the info to properly maintain prev_populated_pfn.
-+     */
-+    has_gap = ctx->x86.hvm.restore.prev_populated_pfn + 1 < pfn;
-+    first_iteration = ctx->x86.hvm.restore.iteration == 0;
-+    if ( has_gap && first_iteration )
-+    {
-+        gap_start = ctx->x86.hvm.restore.prev_populated_pfn + 1;
-+        gap_end = pfn - 1;
-+
-+        rc = x86_hvm_punch_hole(ctx, gap_start, gap_end);
-+        if ( rc )
-+            goto err;
-+    }
-+
-+    rc = x86_hvm_allocate_pfn(ctx, pfn);
-+    if ( rc )
-+        goto err;
-+    pfn_set_populated(ctx, pfn);
-+    ctx->x86.hvm.restore.prev_populated_pfn = pfn;
-+
-+    rc = 0;
-+err:
-+    return rc;
-+}
-+
-+/*
-+ * Try to allocate superpages.
-+ * This works without memory map because the pfns arrive in incremental order.
-+ * All pfn numbers and their type are submitted.
-+ * Only pfns with data will have also pfn content transmitted.
-+ */
-+static int x86_hvm_populate_pfns(struct xc_sr_context *ctx, unsigned count,
-+                                 const xen_pfn_t *original_pfns,
-+                                 const uint32_t *types)
-+{
-+    xc_interface *xch = ctx->xch;
-+    xen_pfn_t pfn, min_pfn, max_pfn;
-+    bool has_data, populated;
-+    unsigned i = count;
-+    int rc = 0;
-+
-+    min_pfn = count ? original_pfns[0] : 0;
-+    max_pfn = count ? original_pfns[count - 1] : 0;
-+    DPRINTF("batch of %u pfns between %" PRI_xen_pfn " %" PRI_xen_pfn "\n",
-+            count, min_pfn, max_pfn);
-+
-+    if ( !x86_hvm_expand_sp_bitmaps(ctx, max_pfn) )
-+    {
-+        ERROR("Unable to allocate memory for pfn bitmaps");
-+        return -1;
-+    }
-+
-+    /*
-+     * There is no indicator for a new iteration.
-+     * Simulate it by checking if a lower pfn is coming in.
-+     * In the end it matters only to know if this iteration is the first one.
-+     */
-+    if ( min_pfn < ctx->x86.hvm.restore.iteration_tracker_pfn )
-+        ctx->x86.hvm.restore.iteration++;
-+    ctx->x86.hvm.restore.iteration_tracker_pfn = min_pfn;
-+
-+    for ( i = 0; i < count; ++i )
-+    {
-+        pfn = original_pfns[i];
-+
-+        has_data = page_type_has_stream_data(types[i]);
-+        populated = pfn_is_populated(ctx, pfn);
-+
-+        /*
-+         * page has data, pfn populated: nothing to do
-+         * page has data, pfn not populated: likely never seen before
-+         * page has no data, pfn populated: likely ballooned out during migration
-+         * page has no data, pfn not populated: nothing to do
-+         */
-+        if ( has_data && !populated )
-+        {
-+            rc = x86_hvm_populate_page(ctx, pfn);
-+        } else if ( !has_data && populated )
-+        {
-+            rc = x86_hvm_unpopulate_page(ctx, pfn);
-+        }
-+        if ( rc )
-+            break;
-+    }
-+
-+    return rc;
-+}
-+
-+
- struct xc_sr_restore_ops restore_ops_x86_hvm =
- {
-     .pfn_is_valid    = x86_hvm_pfn_is_valid,
-@@ -266,6 +627,7 @@ struct xc_sr_restore_ops restore_ops_x86_hvm =
-     .set_page_type   = x86_hvm_set_page_type,
-     .localise_page   = x86_hvm_localise_page,
-     .setup           = x86_hvm_setup,
-+    .populate_pfns   = x86_hvm_populate_pfns,
-     .process_record  = x86_hvm_process_record,
-     .static_data_complete = x86_static_data_complete,
-     .stream_complete = x86_hvm_stream_complete,
-diff --git a/tools/libs/saverestore/restore_x86_pv.c b/tools/libs/saverestore/restore_x86_pv.c
-index c73a3cd99f..244f1da218 100644
---- a/tools/libs/saverestore/restore_x86_pv.c
-+++ b/tools/libs/saverestore/restore_x86_pv.c
-@@ -959,6 +959,64 @@ static void x86_pv_set_gfn(struct xc_sr_context *ctx, xen_pfn_t pfn,
-         ((uint32_t *)ctx->x86.pv.p2m)[pfn] = mfn;
- }
- 
-+/*
-+ * Given a set of pfns, obtain memory from Xen to fill the physmap for the
-+ * unpopulated subset.  If types is NULL, no page type checking is performed
-+ * and all unpopulated pfns are populated.
-+ */
-+static int x86_pv_populate_pfns(struct xc_sr_context *ctx, unsigned count,
-+                                const xen_pfn_t *original_pfns,
-+                                const uint32_t *types)
-+{
-+    xc_interface *xch = ctx->xch;
-+    xen_pfn_t *mfns = ctx->restore.m->pp_mfns,
-+        *pfns = ctx->restore.m->pp_pfns;
-+    unsigned int i, nr_pfns = 0;
-+    int rc = -1;
-+
-+    for ( i = 0; i < count; ++i )
-+    {
-+        if ( (!types ||
-+              (types && page_type_has_stream_data(types[i]) == true)) &&
-+             !pfn_is_populated(ctx, original_pfns[i]) )
-+        {
-+            rc = pfn_set_populated(ctx, original_pfns[i]);
-+            if ( rc )
-+                goto err;
-+            pfns[nr_pfns] = mfns[nr_pfns] = original_pfns[i];
-+            ++nr_pfns;
-+        }
-+    }
-+
-+    if ( nr_pfns )
-+    {
-+        rc = xc_domain_populate_physmap_exact(
-+            xch, ctx->domid, nr_pfns, 0, 0, mfns);
-+        if ( rc )
-+        {
-+            PERROR("Failed to populate physmap");
-+            goto err;
-+        }
-+
-+        for ( i = 0; i < nr_pfns; ++i )
-+        {
-+            if ( mfns[i] == INVALID_MFN )
-+            {
-+                ERROR("Populate physmap failed for pfn %u", i);
-+                rc = -1;
-+                goto err;
-+            }
-+
-+            ctx->restore.ops.set_gfn(ctx, pfns[i], mfns[i]);
-+        }
-+    }
-+
-+    rc = 0;
-+
-+ err:
-+    return rc;
-+}
-+
- /*
-  * restore_ops function.  Convert pfns back to mfns in pagetables.  Possibly
-  * needs to populate new frames if a PTE is found referring to a frame which
-@@ -1003,7 +1061,7 @@ static int x86_pv_localise_page(struct xc_sr_context *ctx,
-         }
-     }
- 
--    if ( to_populate && populate_pfns(ctx, to_populate, pfns, NULL) )
-+    if ( to_populate && x86_pv_populate_pfns(ctx, to_populate, pfns, NULL) )
-         return -1;
- 
-     for ( i = 0; i < (PAGE_SIZE / sizeof(uint64_t)); ++i )
-@@ -1200,6 +1258,7 @@ struct xc_sr_restore_ops restore_ops_x86_pv =
-     .set_gfn         = x86_pv_set_gfn,
-     .localise_page   = x86_pv_localise_page,
-     .setup           = x86_pv_setup,
-+    .populate_pfns   = x86_pv_populate_pfns,
-     .process_record  = x86_pv_process_record,
-     .static_data_complete = x86_static_data_complete,
-     .stream_complete = x86_pv_stream_complete,
 
