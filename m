@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983213A9B17
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 14:52:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142942.263647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5073A9B1C
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 14:52:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142948.263686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltV1N-0000dI-Bh; Wed, 16 Jun 2021 12:51:53 +0000
+	id 1ltV1X-0002ZN-O1; Wed, 16 Jun 2021 12:52:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142942.263647; Wed, 16 Jun 2021 12:51:53 +0000
+Received: by outflank-mailman (output) from mailman id 142948.263686; Wed, 16 Jun 2021 12:52:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltV1N-0000WM-56; Wed, 16 Jun 2021 12:51:53 +0000
-Received: by outflank-mailman (input) for mailman id 142942;
- Wed, 16 Jun 2021 12:51:51 +0000
+	id 1ltV1X-0002SG-5O; Wed, 16 Jun 2021 12:52:03 +0000
+Received: by outflank-mailman (input) for mailman id 142948;
+ Wed, 16 Jun 2021 12:52:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltV1L-0006lZ-0A
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:51:51 +0000
-Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.83])
+ id 1ltV1V-0006lZ-0M
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:52:01 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [81.169.146.171])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 43aa6e05-a993-430c-9968-2ac1ce447547;
- Wed, 16 Jun 2021 12:51:42 +0000 (UTC)
+ id a13aee9a-ffdd-4c72-83ef-ec013995368e;
+ Wed, 16 Jun 2021 12:51:43 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GCpbtlx
+ with ESMTPSA id j0415bx5GCpbtly
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Wed, 16 Jun 2021 14:51:37 +0200 (CEST)
@@ -40,39 +40,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43aa6e05-a993-430c-9968-2ac1ce447547
+X-Inumbo-ID: a13aee9a-ffdd-4c72-83ef-ec013995368e
 ARC-Seal: i=1; a=rsa-sha256; t=1623847897; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=ODGNr+uLUxhmfATeLKkGIHOLU7hPqdY/15IH6h60god/q+pChYN/+cU/VtTjPuTghE
-    jO3D94kvRZV6Ghcif00Qn7nAg5e6aZ24xw5UuRhJneWquP5pzoRrnlrLhyf5ef8fiFM7
-    X00POAishpBGFDOoOnR+wLUfUfGm2WO7MbeDjCnwSQL5G9mm5rsYzh3FfUQv5NiBtmUz
-    E3j2vwEWDaQlZRVeWPnZXFLDYnib22vpQML1mYppvhx/y6dJuAXSW2Bpizg+dgTJKmZF
-    AV8db9yNq6tkbHzr/stXZB7a1DcJYEVGcHxh0E2fhDE6HdRFON18uBiaffB7DKIh3DIR
-    m3oQ==
+    b=DYoFmxn0Dtbm+VbaZKlDCbmsImsyeyVIbmdVja/WYH7Yh7b3VxzyV+95Rv/od0I/cz
+    yz5v+ihbmp6qtr+klmkkX01fY3hxfjDnHfHy82NnPZkcFtuTgOHOvwxSr3wEgXANEMIL
+    9vano6TGgNPAjgJ6A26sqYCTr+FtzFAaLdLlib64ZsvtD8UJGPZ5jWklAtDkf8CqqWgI
+    NhVoMJ9ZxY4oM2AKtBImnUrA5r8MOYK3gWUZgRHbM/zThMNEN5eklers7DqmTQ8MqZAh
+    LEM+/N/41WuijmQ27TTLid+o5rNMAVqVa5eaTZL/7YYlDv/kPRbLuoJqqRObjVrNsn6d
+    6eWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847897;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ex4r4d11Mg1k2Zn9qFLItgRI9LdfJn43Y1sVEepvWiU=;
-    b=ElVLRXcEYGZ3OxVQGsKXyhDRMLIeRmWr/Lkb/L3jeDK4+X10Bth8quN5EG31PNmK6N
-    MT/ImowTtg+rh41UDlCSHPGXI6AMt6Y4dC/zB1xQu5x/nAEg/0SXlxT3c2LfoTDZLSA5
-    hD0cTPXB/a0xPaND1wObq1JViiEJTf1647uG+UON/Wd/YtqRXb5AYPgm1L9p7sa2KUXN
-    4Cn+UgXWFAxZIGhvAKVkIOVJ5wR6M63A9NXClgqGJ1KYJm/LqrgcbOPUsylFop8qU3ah
-    ZeC5i8Qzfd8H6UdET/GYRPRMXR/hbFYy0l6JgKx1+43KGE1PDry4SSMILYrtvgo91F/W
-    zR7w==
+    bh=VuUrMSQO4CJqxpoErSuXThYpl5ESMJog6Ej/du7Jhm8=;
+    b=L7BIenlD2gLFJY33mpjNEtwdvigxvmiQu8kcfsKPRIaLNvBAF0MhNd3rn7RaNc4F+S
+    Iwk3Iff43fgyXwqIo3e+JG/9f8eoWGSR1QVY44AiV42Tv9mn2D+AALn/110YsgRbJF/7
+    HUbWydzTUDZQYMWhV86LHLRjJFdriIlXI5/62DRsel2b3g5ALbiohbzX8yDTbZuG0OYo
+    2vjvgVJOSDRCm9nTNlngBefJc0QYwsrXZUPs5wY/HQYYz6WUNXxIkAB/Inb5b/rQkIHS
+    prRgL18wVgHo1pcWpKYV8SrWVdQHa3RA/NZtYgotR/OEIhwa3QJdaTW+ax+2iOFnWcud
+    Bu6g==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847897;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=ex4r4d11Mg1k2Zn9qFLItgRI9LdfJn43Y1sVEepvWiU=;
-    b=rdPVMskwM4FKzs88imzG5wXXgdzUPInSgw0NFn1sl+Dzq3JBU3VUXKySfJ6qe2EzVz
-    2ZDqzXJOgseB/2eka0fb4Z60lHbMp27kxYSX/UjquR6H8+1xEmwKM1FlI9d4cYQEYCB5
-    IYZK6hnWD4msa5fEnx83JgfMkyLHZSDPrGuGW2y0quwR86rL7jztf+w+kb6X8+uE4E1/
-    ELJWvIJmzCxcPiBOTeR9pR4nZ15S5JF2HEp057EUeAU/TMhUSrBljTT1wpb8NC7StN9u
-    9qYjlaiREmgnFxRnwjvtGuq/LMMcr7FGHcOqx0S20QlqEgdQszkC+65poKZoonPinfQQ
-    ocBQ==
+    bh=VuUrMSQO4CJqxpoErSuXThYpl5ESMJog6Ej/du7Jhm8=;
+    b=fgVuiq6lNo14eMaaSHNN964UZYKMmBml6lOvEjdDo157lZMXSwttn3KdVtF/ybsVr0
+    V/1rNHX9ojTlroR5uczwa5SglFU2HT0cvO3VTN+xnF/kXb7/v3Y86wkExfAhM49LTU44
+    naNCWgKSBgJqtYDjrzEzsPXh7BQnPXNELk2GhIN2qANRGy8XPKq9k/ZlUsPRcwo/WN43
+    HnpOfBzpqr30GsKcBchylGKkbEgiaYju/NEaAGwGZhg4uZorNoAKz0yELULez/AUL/dQ
+    Aa8yILmfNI6g5c4dDmOLKZ3c+S7OQZL7cJpgOAwgErSZoQVwo3IeahqISgUuZWtQ1tGA
+    yZ1w==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5l+Vz7FJgt8+TgOd9sTrMwXjWWExsBKQCrpnqhqg=="
@@ -80,59 +80,158 @@ X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
-	Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v20210616 08/36] tools: use sr_is_known_page_type
-Date: Wed, 16 Jun 2021 14:51:01 +0200
-Message-Id: <20210616125129.26563-9-olaf@aepfle.de>
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v20210616 09/36] tools: unify type checking for data pfns in migration stream
+Date: Wed, 16 Jun 2021 14:51:02 +0200
+Message-Id: <20210616125129.26563-10-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210616125129.26563-1-olaf@aepfle.de>
 References: <20210616125129.26563-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Verify pfn type on sending side, also verify incoming batch of pfns.
+Introduce a helper which decides if a given pfn type has data
+for the migration stream.
+
+No change in behavior intended.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-
-v02:
-- use sr_is_known_page_type instead of xc_is_known_page_type
 ---
- tools/libs/saverestore/restore.c | 3 +--
- tools/libs/saverestore/save.c    | 6 ++++++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ tools/libs/saverestore/common.h  | 17 ++++++++++++++++
+ tools/libs/saverestore/restore.c | 34 +++++---------------------------
+ tools/libs/saverestore/save.c    | 14 ++-----------
+ 3 files changed, 24 insertions(+), 41 deletions(-)
 
+diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
+index c9cc4206e5..08bbe902b9 100644
+--- a/tools/libs/saverestore/common.h
++++ b/tools/libs/saverestore/common.h
+@@ -500,6 +500,23 @@ static inline bool sr_is_known_page_type(xen_pfn_t type)
+     return ret;
+ }
+ 
++static inline bool page_type_has_stream_data(uint32_t type)
++{
++    bool ret;
++
++    switch (type)
++    {
++    case XEN_DOMCTL_PFINFO_XTAB:
++    case XEN_DOMCTL_PFINFO_XALLOC:
++    case XEN_DOMCTL_PFINFO_BROKEN:
++        ret = false;
++        break;
++    default:
++        ret = true;
++        break;
++    }
++    return ret;
++}
+ #endif
+ /*
+  * Local variables:
 diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/restore.c
-index be259a1c6b..324b9050e2 100644
+index 324b9050e2..70c92eaadc 100644
 --- a/tools/libs/saverestore/restore.c
 +++ b/tools/libs/saverestore/restore.c
-@@ -406,8 +406,7 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
+@@ -152,9 +152,8 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
+ 
+     for ( i = 0; i < count; ++i )
+     {
+-        if ( (!types || (types &&
+-                         (types[i] != XEN_DOMCTL_PFINFO_XTAB &&
+-                          types[i] != XEN_DOMCTL_PFINFO_BROKEN))) &&
++        if ( (!types ||
++              (types && page_type_has_stream_data(types[i]) == true)) &&
+              !pfn_is_populated(ctx, original_pfns[i]) )
+         {
+             rc = pfn_set_populated(ctx, original_pfns[i]);
+@@ -233,25 +232,8 @@ static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
+     {
+         ctx->restore.ops.set_page_type(ctx, pfns[i], types[i]);
+ 
+-        switch ( types[i] )
+-        {
+-        case XEN_DOMCTL_PFINFO_NOTAB:
+-
+-        case XEN_DOMCTL_PFINFO_L1TAB:
+-        case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
+-
+-        case XEN_DOMCTL_PFINFO_L2TAB:
+-        case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
+-
+-        case XEN_DOMCTL_PFINFO_L3TAB:
+-        case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
+-
+-        case XEN_DOMCTL_PFINFO_L4TAB:
+-        case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
+-
++        if ( page_type_has_stream_data(types[i]) == true )
+             mfns[nr_pages++] = ctx->restore.ops.pfn_to_gfn(ctx, pfns[i]);
+-            break;
+-        }
+     }
+ 
+     /* Nothing to do? */
+@@ -271,14 +253,8 @@ static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
+ 
+     for ( i = 0, j = 0; i < count; ++i )
+     {
+-        switch ( types[i] )
+-        {
+-        case XEN_DOMCTL_PFINFO_XTAB:
+-        case XEN_DOMCTL_PFINFO_BROKEN:
+-        case XEN_DOMCTL_PFINFO_XALLOC:
+-            /* No page data to deal with. */
++        if ( page_type_has_stream_data(types[i]) == false )
+             continue;
+-        }
+ 
+         if ( map_errs[j] )
+         {
+@@ -413,7 +389,7 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
+             goto err;
          }
  
-         type = (pages->pfn[i] & PAGE_DATA_TYPE_MASK) >> 32;
--        if ( ((type >> XEN_DOMCTL_PFINFO_LTAB_SHIFT) >= 5) &&
--             ((type >> XEN_DOMCTL_PFINFO_LTAB_SHIFT) <= 8) )
-+        if ( sr_is_known_page_type(type) == false )
-         {
-             ERROR("Invalid type %#"PRIx32" for pfn %#"PRIpfn" (index %u)",
-                   type, pfn, i);
+-        if ( type < XEN_DOMCTL_PFINFO_BROKEN )
++        if ( page_type_has_stream_data(type) == true )
+             /* NOTAB and all L1 through L4 tables (including pinned) should
+              * have a page worth of data in the record. */
+             pages_of_data++;
 diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/save.c
-index ae3e8797d0..6f820ea432 100644
+index 6f820ea432..12598bd4e2 100644
 --- a/tools/libs/saverestore/save.c
 +++ b/tools/libs/saverestore/save.c
-@@ -147,6 +147,12 @@ static int write_batch(struct xc_sr_context *ctx)
+@@ -153,13 +153,8 @@ static int write_batch(struct xc_sr_context *ctx)
+             goto err;
+         }
  
-     for ( i = 0; i < nr_pfns; ++i )
-     {
-+        if ( sr_is_known_page_type(types[i]) == false )
-+        {
-+            ERROR("Wrong type %#"PRIpfn" for pfn %#"PRIpfn, types[i], mfns[i]);
-+            goto err;
-+        }
-+
-         switch ( types[i] )
+-        switch ( types[i] )
+-        {
+-        case XEN_DOMCTL_PFINFO_BROKEN:
+-        case XEN_DOMCTL_PFINFO_XALLOC:
+-        case XEN_DOMCTL_PFINFO_XTAB:
++        if ( page_type_has_stream_data(types[i]) == false )
+             continue;
+-        }
+ 
+         mfns[nr_pages++] = mfns[i];
+     }
+@@ -177,13 +172,8 @@ static int write_batch(struct xc_sr_context *ctx)
+ 
+         for ( i = 0, p = 0; i < nr_pfns; ++i )
          {
-         case XEN_DOMCTL_PFINFO_BROKEN:
+-            switch ( types[i] )
+-            {
+-            case XEN_DOMCTL_PFINFO_BROKEN:
+-            case XEN_DOMCTL_PFINFO_XALLOC:
+-            case XEN_DOMCTL_PFINFO_XTAB:
++            if ( page_type_has_stream_data(types[i]) == false )
+                 continue;
+-            }
+ 
+             if ( errors[p] )
+             {
 
