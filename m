@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F412D3A9B94
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:07:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142983.263789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E483E3A9BA9
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:08:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143052.263888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVFk-0002wb-Oq; Wed, 16 Jun 2021 13:06:44 +0000
+	id 1ltVGq-0007xx-81; Wed, 16 Jun 2021 13:07:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142983.263789; Wed, 16 Jun 2021 13:06:44 +0000
+Received: by outflank-mailman (output) from mailman id 143052.263888; Wed, 16 Jun 2021 13:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVFk-0002ui-LU; Wed, 16 Jun 2021 13:06:44 +0000
-Received: by outflank-mailman (input) for mailman id 142983;
- Wed, 16 Jun 2021 13:06:43 +0000
+	id 1ltVGq-0007vg-4P; Wed, 16 Jun 2021 13:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 143052;
+ Wed, 16 Jun 2021 13:07:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltV23-00075D-90
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:52:35 +0000
-Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.175])
+ id 1ltV2N-00075D-9W
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:52:55 +0000
+Received: from mo4-p03-ob.smtp.rzone.de (unknown [85.215.255.103])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1d52c234-137d-4e0e-94cb-eb330f4ac413;
- Wed, 16 Jun 2021 12:51:52 +0000 (UTC)
+ id f2b453df-01fb-4b67-9fad-bdacdf928dd0;
+ Wed, 16 Jun 2021 12:51:55 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GCpltmO
+ with ESMTPSA id j0415bx5GCpltmP
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Wed, 16 Jun 2021 14:51:47 +0200 (CEST)
@@ -41,39 +41,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d52c234-137d-4e0e-94cb-eb330f4ac413
+X-Inumbo-ID: f2b453df-01fb-4b67-9fad-bdacdf928dd0
 ARC-Seal: i=1; a=rsa-sha256; t=1623847907; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=LMTXMECnOOeKSJF1PJhPqO/25SF9NGK1THJsaFw/1J/70Y45J1kHvpSqyapwdqlfjS
-    ipM49hs3lVxcpWlVpQCaMx1E1TVPLYp9rfnlTyD2pCNXF8+Vuw+1xzcx/52WMl/kfAGN
-    OgP2Qz73BnsH4oRTZwDMCwjtrQJde4n0ufC7AJsXyUIJj9fYLbFgXK4whg1f09IH/qaK
-    xKdt58Rs0VEXrFVKRPYARh9Z5lhA5skY6f7Q38KncPPagZtKKsc8O0/c9FFoeX/U4leC
-    n8E57UTQjQOTsXRLzT5CkaJtgyPTbFviN4njGZ3F3D3x0PGKzwIaff3yNtfo3PQfgaJ/
-    URrQ==
+    b=kIuewaBaUo7N4cc0L8a9lIZxZRuflXX7CS3wZNNzDXoBBAFZK8OgO5Vgn7jTiXKbHu
+    F4D58+c7d5+4Z2ezbhWTlNpJF0l0Y6XER3UScRfd52ggzeIE+iaFltig9uXMSEwCAcUm
+    zbPBypeK9qBKXuvulxrB2zYStI+7hi3uA2tYoQ5QfTX/BfskBO8mc7kv1Z2w23zgb2Y1
+    cPPTPHbnbp/qmYBvkvsBfrD+TNmzrBAiEG212yqlb/i/6Cwm6Sas4wKuMxm7GNEvGXl9
+    HUQJl0tzAtosl9LEExc50fO5k+e/W9OxtBsCo/fv+o2BKnjX3HezgR6+2GZSP2GMRMSh
+    PlWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847907;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=YGLyCDpmfEm63K5TIs+xnzmQnbcLd4l6eUuaqJ8OGLg=;
-    b=jXRFafS3o7BXy7rTxn/pEYaFG0E8WY33NmNWTFSQaRBis0744oY8Pyv0hHr/3I2lOZ
-    Gax4JSMzlmxlp04trR7+k6VAmxz6VUKsOZtPKAnIAA4OwzpgUoy13onu4FLzkHz9dPZK
-    KctNTiLN4mKeUK4kJwVt6Q8B35icMQNhdGYzyLQ3hIX0zu3OhSt8Ljr+ccskJijWmSUo
-    7WZfxSyaw6WQhqAmBS4LbMhwVxOX9f2p4CY/NLa+x5HSGqneJetffaJtOIG5LOBllmJJ
-    7s0Go3Fwe9q1wm6WwFohapArhlnDBZ9bqIf+IijghCMYnh7dTWO2M/yLHqlSWVhaJTgC
-    WTLg==
+    bh=am1tugVzg71doIb/LdiNWtayiDvPFoCjZNyMmciOrqY=;
+    b=GqFb2vbB+Jh89wB/deQ9VqUiTbVkXdOAaLyOfBMuvAOeFlEEJQCYaBIfsFIiYwEo7u
+    KAwSemkL/0AstwiAPeaGhNv9uC7QnrUR1TbD+AmUtD6t3n+2PhejtIvKccKBHRz666sw
+    S5iZKwghbJVzONTNoYPeFWNGcl6778xol3DgrXtn2Rcl38Ob7MYxjSc2RAe1aA6qM5G+
+    mZroe03cbZ1o/sCwIXK11WhYdCpIAftpb+gVYC/+oOWjFGAAlMeEIE6F3KVVyy1zvGTJ
+    aB0b2vU1m8I0huk4P3Nu17YIGc4/4bFOxceFvtKNGMLTp4FN1YDWjfrFB23AJ4h7jV+u
+    HUBQ==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847907;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=YGLyCDpmfEm63K5TIs+xnzmQnbcLd4l6eUuaqJ8OGLg=;
-    b=q8THds8HGfoUSPajomJ9wIW1uH8sUibkJEb3bkBcdaOlZUohpfD7m5LcOugPhyFwog
-    104Cp3Lts5G+EAu4WBi+LB4oMuJIeTTdLKuzsXZcWSZaZnzHDbD/bu6D9ivTGM5G8t54
-    5Fxj3RSR5JxEsfQ96QmBUPPTV8fvuY5wALKZV6H7f2aftX7bIgdCeoiAJMMfFIx5Ajpd
-    FLXgzOAsxM7hJ9PUIy9GgapNYw6NSa6sk1Oq3Fd/ICR80oMZdedzBquBzVTfruekinfg
-    2p1op6igS7JFuwBPgKdH/ASiPY56snontUIX+7riJ3KBqSqNcPOF6qVVq9Q2oQCS4yJe
-    R6Og==
+    bh=am1tugVzg71doIb/LdiNWtayiDvPFoCjZNyMmciOrqY=;
+    b=ZyPflmDE/hyYGB/vXZcl7u7B+KonkHuWE4Mfv2YzW2JwqivRJ0Zrfz8oNrJEYVF9xX
+    crKYZV8633x4FUi6IQpDkEKP0/8al9TL6vmmoe5RJgUBirwguDpNMHeEIyhBPTYIP4jC
+    E4ZK+JbnP513hgwumJ504JhFWRvvAJm6fyNyTwbLVicuPejYmqpZFVbjRq5kjUWNLNeg
+    BWTxwa9FWaE7hjzFQVZ5catJMO5nSelGGbvnQW16LaW0+PGZMxyPZNG+10d6tWdGLoP9
+    +oQQ0koGIFuI3mlgF8zRRNRP4gE9jpSyJWV8Sa6GtlX0FOpBVNYH+8CFcBHQu9EbOhCM
+    jpYg==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5l+Vz7FJgt8+TgOd9sTrMwXjWWExsBKQCrpnqhqg=="
@@ -83,93 +83,101 @@ To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v20210616 29/36] tools: change struct precopy_stats to precopy_stats_t
-Date: Wed, 16 Jun 2021 14:51:22 +0200
-Message-Id: <20210616125129.26563-30-olaf@aepfle.de>
+Subject: [PATCH v20210616 30/36] tools: add callback to libxl for precopy_policy and precopy_stats_t
+Date: Wed, 16 Jun 2021 14:51:23 +0200
+Message-Id: <20210616125129.26563-31-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210616125129.26563-1-olaf@aepfle.de>
 References: <20210616125129.26563-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This will help libxl_save_msgs_gen.pl to copy the struct as a region of memory.
+This duplicates simple_precopy_policy. To recap its purpose:
+- do up to 5 iterations of copying dirty domU memory to target,
+  including the initial copying of all domU memory, excluding
+  the final copying while the domU is suspended
+- do fewer iterations in case the domU dirtied less than 50 pages
 
-No change in behavior intented.
+Take the opportunity to also move xen_pfn_t into qw().
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/include/xensaverestore.h  | 7 +++----
- tools/libs/saverestore/common.h | 2 +-
- tools/libs/saverestore/save.c   | 6 +++---
- 3 files changed, 7 insertions(+), 8 deletions(-)
+ tools/libs/light/libxl_dom_save.c       | 19 +++++++++++++++++++
+ tools/libs/light/libxl_internal.h       |  2 ++
+ tools/libs/light/libxl_save_msgs_gen.pl |  3 ++-
+ 3 files changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/tools/include/xensaverestore.h b/tools/include/xensaverestore.h
-index 0410f0469e..dca0134605 100644
---- a/tools/include/xensaverestore.h
-+++ b/tools/include/xensaverestore.h
-@@ -23,18 +23,17 @@
- #define XCFLAGS_DEBUG     (1 << 1)
+diff --git a/tools/libs/light/libxl_dom_save.c b/tools/libs/light/libxl_dom_save.c
+index 32e3cb5a13..3f3cff0342 100644
+--- a/tools/libs/light/libxl_dom_save.c
++++ b/tools/libs/light/libxl_dom_save.c
+@@ -373,6 +373,24 @@ int libxl__save_emulator_xenstore_data(libxl__domain_save_state *dss,
+     return rc;
+ }
  
- /* For save's precopy_policy(). */
--struct precopy_stats
--{
-+typedef struct {
-     unsigned int iteration;
-     unsigned long total_written;
-     long dirty_count; /* -1 if unknown */
--};
-+} precopy_stats_t;
++static int libxl__domain_save_precopy_policy(precopy_stats_t stats, void *user)
++{
++    libxl__save_helper_state *shs = user;
++    libxl__domain_save_state *dss = shs->caller_state;
++    STATE_AO_GC(dss->ao);
++
++    LOGD(DEBUG, shs->domid, "iteration %u dirty_count %ld total_written %lu",
++         stats.iteration, stats.dirty_count, stats.total_written);
++    if (stats.dirty_count >= 0 && stats.dirty_count < LIBXL_XGS_POLICY_TARGET_DIRTY_COUNT)
++        goto stop_copy;
++    if (stats.iteration >= LIBXL_XGS_POLICY_MAX_ITERATIONS)
++        goto stop_copy;
++    return XGS_POLICY_CONTINUE_PRECOPY;
++
++stop_copy:
++    return XGS_POLICY_STOP_AND_COPY;
++}
++
+ /*----- main code for saving, in order of execution -----*/
  
- /*
-  * A precopy_policy callback may not be running in the same address
-  * space as libxc an so precopy_stats is passed by value.
-  */
--typedef int (*precopy_policy_t)(struct precopy_stats, void *);
-+typedef int (*precopy_policy_t)(precopy_stats_t, void *);
+ void libxl__domain_save(libxl__egc *egc, libxl__domain_save_state *dss)
+@@ -430,6 +448,7 @@ void libxl__domain_save(libxl__egc *egc, libxl__domain_save_state *dss)
+         callbacks->suspend = libxl__domain_suspend_callback;
  
- /* callbacks provided by xc_domain_save */
- struct save_callbacks {
-diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
-index 5c440f28ec..60bbba6aa9 100644
---- a/tools/libs/saverestore/common.h
-+++ b/tools/libs/saverestore/common.h
-@@ -283,7 +283,7 @@ struct xc_sr_context
-             size_t pages_sent;
-             size_t overhead_sent;
+     callbacks->switch_qemu_logdirty = libxl__domain_suspend_common_switch_qemu_logdirty;
++    callbacks->precopy_policy = libxl__domain_save_precopy_policy;
  
--            struct precopy_stats stats;
-+            precopy_stats_t stats;
+     dss->sws.ao  = dss->ao;
+     dss->sws.dss = dss;
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index 439c654733..57d7e4b4b8 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -125,6 +125,8 @@
+ #define DOMID_XS_PATH "domid"
+ #define PVSHIM_BASENAME "xen-shim"
+ #define PVSHIM_CMDLINE "pv-shim console=xen,pv"
++#define LIBXL_XGS_POLICY_MAX_ITERATIONS 5
++#define LIBXL_XGS_POLICY_TARGET_DIRTY_COUNT 50
  
-             unsigned int nr_batch_pfns;
-             unsigned long *deferred_pages;
-diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/save.c
-index e486bce96f..537b977ba8 100644
---- a/tools/libs/saverestore/save.c
-+++ b/tools/libs/saverestore/save.c
-@@ -488,7 +488,7 @@ static int update_progress_string(struct xc_sr_context *ctx, char **str)
- #define SPP_MAX_ITERATIONS      5
- #define SPP_TARGET_DIRTY_COUNT 50
+ /* Size macros. */
+ #define __AC(X,Y)   (X##Y)
+diff --git a/tools/libs/light/libxl_save_msgs_gen.pl b/tools/libs/light/libxl_save_msgs_gen.pl
+index f263ee01bb..ab55c81644 100755
+--- a/tools/libs/light/libxl_save_msgs_gen.pl
++++ b/tools/libs/light/libxl_save_msgs_gen.pl
+@@ -23,6 +23,7 @@ our @msgs = (
+                                              STRING doing_what),
+                                             'unsigned long', 'done',
+                                             'unsigned long', 'total'] ],
++    [ 'scxW',   "precopy_policy", ['precopy_stats_t', 'stats'] ],
+     [ 'srcxA',  "suspend", [] ],
+     [ 'srcxA',  "postcopy", [] ],
+     [ 'srcxA',  "checkpoint", [] ],
+@@ -142,7 +143,7 @@ static void bytes_put(unsigned char *const buf, int *len,
  
--static int simple_precopy_policy(struct precopy_stats stats, void *user)
-+static int simple_precopy_policy(precopy_stats_t stats, void *user)
- {
-     return ((stats.dirty_count >= 0 &&
-              stats.dirty_count < SPP_TARGET_DIRTY_COUNT) ||
-@@ -515,13 +515,13 @@ static int send_memory_live(struct xc_sr_context *ctx)
-     precopy_policy_t precopy_policy = ctx->save.callbacks->precopy_policy;
-     void *data = ctx->save.callbacks->data;
+ END
  
--    struct precopy_stats *policy_stats;
-+    precopy_stats_t *policy_stats;
- 
-     rc = update_progress_string(ctx, &progress_str);
-     if ( rc )
-         goto out;
- 
--    ctx->save.stats = (struct precopy_stats){
-+    ctx->save.stats = (precopy_stats_t){
-         .dirty_count = ctx->save.p2m_size,
-     };
-     policy_stats = &ctx->save.stats;
+-foreach my $simpletype (qw(int uint16_t uint32_t unsigned), 'unsigned long', 'xen_pfn_t') {
++foreach my $simpletype (qw(int uint16_t uint32_t unsigned precopy_stats_t xen_pfn_t), 'unsigned long') {
+     my $typeid = typeid($simpletype);
+     $out_body{'callout'} .= <<END;
+ static int ${typeid}_get(const unsigned char **msg,
 
