@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9237C3A9B0E
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 14:51:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142937.263613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91CBB3A9B1A
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 14:52:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142944.263667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltV1E-0007l4-Kk; Wed, 16 Jun 2021 12:51:44 +0000
+	id 1ltV1S-0001Zf-EB; Wed, 16 Jun 2021 12:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142937.263613; Wed, 16 Jun 2021 12:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 142944.263667; Wed, 16 Jun 2021 12:51:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltV1E-0007h6-FV; Wed, 16 Jun 2021 12:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 142937;
- Wed, 16 Jun 2021 12:51:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ltV1S-0001Tj-4Q; Wed, 16 Jun 2021 12:51:58 +0000
+Received: by outflank-mailman (input) for mailman id 142944;
+ Wed, 16 Jun 2021 12:51:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltV1D-00075D-3i
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:51:43 +0000
-Received: from mo4-p02-ob.smtp.rzone.de (unknown [81.169.146.171])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 71b8fcae-6fc2-487b-a5d1-2823a9646c44;
- Wed, 16 Jun 2021 12:51:42 +0000 (UTC)
+ id 1ltV1Q-0006lZ-0A
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:51:56 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.83])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cece85ed-2d27-4fdd-8717-480416772f0b;
+ Wed, 16 Jun 2021 12:51:43 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GCpatlu
+ with ESMTPSA id j0415bx5GCpatlv
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Wed, 16 Jun 2021 14:51:36 +0200 (CEST)
@@ -41,39 +40,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71b8fcae-6fc2-487b-a5d1-2823a9646c44
+X-Inumbo-ID: cece85ed-2d27-4fdd-8717-480416772f0b
 ARC-Seal: i=1; a=rsa-sha256; t=1623847896; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=gg+/47bZpm4YB6I1hv7GH0kgAMdek5epu5Z7Cwt0HbMxD0mv2NJDtrvIS/eJUdH9Qd
-    ZiybM/Yt17xfoQGSa6wYbBmqLbvB/pxNUvndEP6KTGsfIsS2ZG79Dk4RxrTmHibYjcg+
-    8H/ZbGhHgEgAfQpexEViICbi8NheNQKlRTo6bnXMe5tL99sE109F2PIuLdKZ9tnBeqSi
-    wMxb2h9te3iLP/zkRNGQmdCKG1H/zGt/P4NOCkz+VmpUTa83mfwcJ5HTYBZGmm7MaM2F
-    qgOy+5DoQ4CjvBjEszbAb5COq8CDl7PDPyEsrSTM/78MGURuE2fdHQlt6M+Gshkh1Gn5
-    o0RQ==
+    b=dxOtudDpDUxA61h6q5gaxkGxLyyUZ0Qhf56ZBw5pvtCPzZyGAT+05ORT39AQQSr2GL
+    cOJ6ZQ+jCQOg6eWlv4mIPMeZwPXlLrUjhw40KsAgIVPchaLrVNwOSsvZ26CanAJ5GDn1
+    e3lyeeON91UPhwe+gTQpxToQRTj7Tu5bE7Z1CDguN+O3sjVy2cA7OqYNmgp0YIojewEN
+    pXRkAItVbuHNTwsh0MO7jc+G6EnlEJUiFL0TYf+0rFGHHyJ1d60pzWPSjkMrrFRJwAks
+    OqF2ASJoSouRjLhCM4oAeVO3vX123nYGdsINbfyx+CfEUdmh4lb0smVwYK+8JvrcDi3V
+    OMcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847896;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=2reXKEzUM07y7ty9jLpkdpjD7wjbIcJf0B0ZkXQLZnc=;
-    b=noUc6A2hE/RWnNf1+XuBctR6/Mytab/IRCwImeUw18mDKqqnrgPeu+7MzVAvTB03hN
-    rEG688W0NlVcQRBaYy6Lx/ih5DbKkOm7LcTXbawrnGuboA2OvUYtJiSNv8rfA3773O3Q
-    FG+lDUuyEyReBBaa4Wx0tQNf6HoKwYZRl5ftbwll1RvFF45WGuXOLWNDA7sDV0eOtB/1
-    Nb3Ghmo2E8Hnz9q8F66AKHYAHzqT+ZyQbr3Rkh+UI31AP5Iwez/4yF/tGli4H5B66v0d
-    uR4yhi3ZQNL0J6rwVlPstvmlnkuQr7yD9d1V0DbaGaPdXlwd1gR9PhLIhC23bd+t/b0c
-    7qKw==
+    bh=ikZ54MUbm6J0+L4XW5ARSvIze4KQJX0wbR+SClf730w=;
+    b=Li9M5NuoXwVzfog2OtC6dmydfnROU2UPs+KqlXq/sizYlcp2z8JA1F1Fa7HPKCTfQF
+    Cdf6ROhmdEJtMN7UeEf/BOI/r6KYbHTTXegtQksvsO/OIHkAisdDcCZ0tiwPqpuxIs10
+    RrRHP/OMaMfNq47rot0BJL7SU+pSMqi11mCd9W7zZyc8BhS6nSEdtS17beoy3vugwAGF
+    NLEGRJbGP4AkEjtjiuV7PtjA4LPq0lXBRZcGXIRAhxt3zAn/d5vtfdQmU+ggh1AUnJIj
+    x5nM0HhegNmyIaGQENmES70rr4jjGH8tLlPEEjUnN/qTQGzV6unni4r0I3xCKNmFfbNA
+    4JiA==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847896;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=2reXKEzUM07y7ty9jLpkdpjD7wjbIcJf0B0ZkXQLZnc=;
-    b=oQ6Ua7JrtYUy0TVkX1AMIVu4rj1i2r4SR9AoWp9b1P2B8U13DXbBSJMBR1axLkAq/7
-    u968g+YGpSbMeujc1bTK8kmN5rcz9zy5evUojInagHDIigYu2pFDVMZEJwCCsPexyo79
-    gXg6U+cySyKwRQ8VCOD40ZcLDKp5skuPUBwzpVvMC5SJUgdR/jqlX0qfE+1Udjq1azjx
-    MZZWpYrpNJ5HarkwBph81RsEAT8bNLapCjGooGmxCK6eSMdc4Uo+HoiSuw7wbrTCqayh
-    48CKdAPnvWtLLIq96r6KB8UwyBMN2NeOjAPM6NbPzCdRskFRCfz8tI/c9HnhQUG9oXvA
-    irHA==
+    bh=ikZ54MUbm6J0+L4XW5ARSvIze4KQJX0wbR+SClf730w=;
+    b=UIsPIfYTqJ11BJg4cVQSTqrMfNiTuot30qjQsOw8l2Zh0GFtCmMhXoLh+mS7NmkjR9
+    KsOOPifUa9IHi4sxnQPt+CuIlzPk5Z2wpeBspqFbXJQ+T40WPYFOHvzYydzu/PJlU0w+
+    vsqQvAW83UgmmIDfDCo5M5lMQKBF7i24W0tUQp350Omma930GaS4sTbUwQkamAEpnq2O
+    GjjTvU3t8D/spCCn9oP7gPSiZmkjZbRAwnSjhGU9yRtrauVWgB9Ppg15cBkoWlid50jS
+    r5Nfvbm3NyQgxiOdVBb3vHaWh25+ZlhHmP220QJTlJsn0mnlW+noM8fmZXTQhSOAJCVX
+    3IAA==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5l+Vz7FJgt8+TgOd9sTrMwXjWWExsBKQCrpnqhqg=="
@@ -84,114 +83,69 @@ Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v20210616 06/36] tools: add readv_exact to libxenctrl
-Date: Wed, 16 Jun 2021 14:50:59 +0200
-Message-Id: <20210616125129.26563-7-olaf@aepfle.de>
+Subject: [PATCH v20210616 07/36] tools: add sr_is_known_page_type to libsaverestore
+Date: Wed, 16 Jun 2021 14:51:00 +0200
+Message-Id: <20210616125129.26563-8-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210616125129.26563-1-olaf@aepfle.de>
 References: <20210616125129.26563-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Read a batch of iovec's.
-
-Short reads are the common case, finish the trailing iov with read_exact.
+Users of xc_get_pfn_type_batch may want to sanity check the data
+returned by Xen. Add a simple helper for this purpose.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 
-v2:
-- add comment to short-read handling
+v02:
+- rename xc_is_known_page_type to sr_is_known_page_type
+- move from ctrl/xc_private.h to saverestore/common.h (jgross)
 ---
- tools/libs/ctrl/xc_private.c | 57 +++++++++++++++++++++++++++++++++++-
- tools/libs/ctrl/xc_private.h |  1 +
- 2 files changed, 57 insertions(+), 1 deletion(-)
+ tools/libs/saverestore/common.h | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.c
-index d94f846686..da58c3d9ba 100644
---- a/tools/libs/ctrl/xc_private.c
-+++ b/tools/libs/ctrl/xc_private.c
-@@ -659,8 +659,23 @@ int write_exact(int fd, const void *data, size_t size)
+diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
+index ca2eb47a4f..c9cc4206e5 100644
+--- a/tools/libs/saverestore/common.h
++++ b/tools/libs/saverestore/common.h
+@@ -467,6 +467,39 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
+ /* Handle a STATIC_DATA_END record. */
+ int handle_static_data_end(struct xc_sr_context *ctx);
  
- #if defined(__MINIOS__)
++/* Sanitiy check for types returned by Xen */
++static inline bool sr_is_known_page_type(xen_pfn_t type)
++{
++    bool ret;
++
++    switch (type)
++    {
++    case XEN_DOMCTL_PFINFO_NOTAB:
++
++    case XEN_DOMCTL_PFINFO_L1TAB:
++    case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_L2TAB:
++    case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_L3TAB:
++    case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_L4TAB:
++    case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_XTAB:
++    case XEN_DOMCTL_PFINFO_XALLOC:
++    case XEN_DOMCTL_PFINFO_BROKEN:
++        ret = true;
++        break;
++    default:
++        ret = false;
++        break;
++    }
++    return ret;
++}
++
+ #endif
  /*
-- * MiniOS's libc doesn't know about writev(). Implement it as multiple write()s.
-+ * MiniOS's libc doesn't know about readv/writev().
-+ * Implement it as multiple read/write()s.
-  */
-+int readv_exact(int fd, const struct iovec *iov, int iovcnt)
-+{
-+    int rc, i;
-+
-+    for ( i = 0; i < iovcnt; ++i )
-+    {
-+        rc = read_exact(fd, iov[i].iov_base, iov[i].iov_len);
-+        if ( rc )
-+            return rc;
-+    }
-+
-+    return 0;
-+}
-+
- int writev_exact(int fd, const struct iovec *iov, int iovcnt)
- {
-     int rc, i;
-@@ -675,6 +690,46 @@ int writev_exact(int fd, const struct iovec *iov, int iovcnt)
-     return 0;
- }
- #else
-+int readv_exact(int fd, const struct iovec *iov, int iovcnt)
-+{
-+    int rc = 0, idx = 0;
-+    ssize_t len;
-+
-+    while ( idx < iovcnt )
-+    {
-+        len = readv(fd, &iov[idx], min(iovcnt - idx, IOV_MAX));
-+        if ( len == -1 && errno == EINTR )
-+            continue;
-+        if ( len <= 0 )
-+        {
-+            rc = -1;
-+            goto out;
-+        }
-+
-+        /* Finish a potential short read in the last iov */
-+        while ( len > 0 && idx < iovcnt )
-+        {
-+            if ( len >= iov[idx].iov_len )
-+            {
-+                len -= iov[idx].iov_len;
-+            }
-+            else
-+            {
-+                void *p = iov[idx].iov_base + len;
-+                size_t l = iov[idx].iov_len - len;
-+
-+                rc = read_exact(fd, p, l);
-+                if ( rc )
-+                    goto out;
-+                len = 0;
-+            }
-+            idx++;
-+        }
-+    }
-+out:
-+    return rc;
-+}
-+
- int writev_exact(int fd, const struct iovec *iov, int iovcnt)
- {
-     struct iovec *local_iov = NULL;
-diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-index 3e299b943f..66086ef19f 100644
---- a/tools/libs/ctrl/xc_private.h
-+++ b/tools/libs/ctrl/xc_private.h
-@@ -410,6 +410,7 @@ int xc_flush_mmu_updates(xc_interface *xch, struct xc_mmu *mmu);
- 
- /* Return 0 on success; -1 on error setting errno. */
- int read_exact(int fd, void *data, size_t size); /* EOF => -1, errno=0 */
-+int readv_exact(int fd, const struct iovec *iov, int iovcnt);
- int write_exact(int fd, const void *data, size_t size);
- int writev_exact(int fd, const struct iovec *iov, int iovcnt);
- 
+  * Local variables:
 
