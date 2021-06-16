@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFEC53A9BB3
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:08:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143112.263976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F412D3A9B94
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:07:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142983.263789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVHb-0003rW-E8; Wed, 16 Jun 2021 13:08:39 +0000
+	id 1ltVFk-0002wb-Oq; Wed, 16 Jun 2021 13:06:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143112.263976; Wed, 16 Jun 2021 13:08:39 +0000
+Received: by outflank-mailman (output) from mailman id 142983.263789; Wed, 16 Jun 2021 13:06:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVHb-0003oT-8Z; Wed, 16 Jun 2021 13:08:39 +0000
-Received: by outflank-mailman (input) for mailman id 143112;
- Wed, 16 Jun 2021 13:08:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ltVFk-0002ui-LU; Wed, 16 Jun 2021 13:06:44 +0000
+Received: by outflank-mailman (input) for mailman id 142983;
+ Wed, 16 Jun 2021 13:06:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltV2s-0006lZ-3z
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:53:26 +0000
+ id 1ltV23-00075D-90
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:52:35 +0000
 Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 836fdc85-aa4f-4342-9e78-cb0882912229;
- Wed, 16 Jun 2021 12:52:01 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1d52c234-137d-4e0e-94cb-eb330f4ac413;
+ Wed, 16 Jun 2021 12:51:52 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GCpktmN
+ with ESMTPSA id j0415bx5GCpltmO
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Wed, 16 Jun 2021 14:51:46 +0200 (CEST)
+ Wed, 16 Jun 2021 14:51:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,39 +41,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 836fdc85-aa4f-4342-9e78-cb0882912229
-ARC-Seal: i=1; a=rsa-sha256; t=1623847906; cv=none;
+X-Inumbo-ID: 1d52c234-137d-4e0e-94cb-eb330f4ac413
+ARC-Seal: i=1; a=rsa-sha256; t=1623847907; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=Bb02/uYdYI3v3QAK8agr/MyAFv/G7Oa2Bx7a+FYVforjXXtyAQMg+Q0iqz0l0bqefP
-    /lnqy5lhD55+fZcRhOp0dKREn/o1okFQfsRHdNGvHo6Lgex5rGsh0Hitb09cXi4IzRJO
-    eeRMtn40kAnmG6bwOc5iikT2XLb4CRET14Etyez4ckvBL28Ila9AT3boSSqe4sarKbSn
-    Nd+ORIevFXOQPL5BCw1T49q8D7nEU03VzXmzFTXScaRFYrPtyDPo8bdMli/IT6l9895w
-    9+mzysccjy+OQQAnFcj8uaftHeC+lfCqZ8q9QzM6hT5iWOvIMvN4JI6CdfGO6XXQieDG
-    XJgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847906;
+    b=LMTXMECnOOeKSJF1PJhPqO/25SF9NGK1THJsaFw/1J/70Y45J1kHvpSqyapwdqlfjS
+    ipM49hs3lVxcpWlVpQCaMx1E1TVPLYp9rfnlTyD2pCNXF8+Vuw+1xzcx/52WMl/kfAGN
+    OgP2Qz73BnsH4oRTZwDMCwjtrQJde4n0ufC7AJsXyUIJj9fYLbFgXK4whg1f09IH/qaK
+    xKdt58Rs0VEXrFVKRPYARh9Z5lhA5skY6f7Q38KncPPagZtKKsc8O0/c9FFoeX/U4leC
+    n8E57UTQjQOTsXRLzT5CkaJtgyPTbFviN4njGZ3F3D3x0PGKzwIaff3yNtfo3PQfgaJ/
+    URrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847907;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=n0d0gwWXlJ/Ban5eVrK506Di/gOt/MD61K+N2RGQBbA=;
-    b=q1UKio5xKBtR+KdxSh2Yno0DYwGIVeXHUBzHinABh6f2lymqVTcENFragEmMOlCYXj
-    CT8T9OMHy8B/f+qQ9SLFQqraQw73s+ycFM47rF1imI6qwXcZYIINA6gVibgn6ZJa0YTl
-    GRJfy3zeRhgAp8TRyjwNWlyV6FPws6FI/dmpk6swQyFWtG7jVEP+YNV8fjuv18tliD/q
-    +c4WZHqo8nCuuq3ZKcmH6FYuH6Mt9dg1h9Yxgn2lrqwE9g0QSdWTQUeS/6ZGqLp4gFgl
-    drSnIlEoYzFUJKjX1cihsbP5M8MGMjuqEdbiGD/5QgAglMNpmXR/2gLwJs0gXXBy3ZTg
-    bCqA==
+    bh=YGLyCDpmfEm63K5TIs+xnzmQnbcLd4l6eUuaqJ8OGLg=;
+    b=jXRFafS3o7BXy7rTxn/pEYaFG0E8WY33NmNWTFSQaRBis0744oY8Pyv0hHr/3I2lOZ
+    Gax4JSMzlmxlp04trR7+k6VAmxz6VUKsOZtPKAnIAA4OwzpgUoy13onu4FLzkHz9dPZK
+    KctNTiLN4mKeUK4kJwVt6Q8B35icMQNhdGYzyLQ3hIX0zu3OhSt8Ljr+ccskJijWmSUo
+    7WZfxSyaw6WQhqAmBS4LbMhwVxOX9f2p4CY/NLa+x5HSGqneJetffaJtOIG5LOBllmJJ
+    7s0Go3Fwe9q1wm6WwFohapArhlnDBZ9bqIf+IijghCMYnh7dTWO2M/yLHqlSWVhaJTgC
+    WTLg==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847906;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847907;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=n0d0gwWXlJ/Ban5eVrK506Di/gOt/MD61K+N2RGQBbA=;
-    b=g3wCKnOJqhlu289qUqGeYqy9RDAUEaOV7Yw1QOo/Y/prbvl4AlhGdYNtBPV3koqqxd
-    5uXUaYW0z9j7h1+jH/krk/hO4rvCxVYiFzwKxwXbhRAAbcoYRmAQkOOUF/cv5gWVZv0a
-    rJ4Xw08/2hkOEX43CKJG92FbvATCekbqj7nmJUmroaqWmC5QQaZ7YozFKqEMn4Jz5sDC
-    0QR1DWVHXs+N/Jt1GirmjX2M2jfOZ9ep4bXQrC23hrF/yMEDX1vWKUsLPdZcqxtsClgi
-    GC8WwDpJtzxmk1fhYuH1lUXd32BavjwbFcKhyN0pm6Fxxftep1sLkhdd9zNeivGIKxmB
-    U0OA==
+    bh=YGLyCDpmfEm63K5TIs+xnzmQnbcLd4l6eUuaqJ8OGLg=;
+    b=q8THds8HGfoUSPajomJ9wIW1uH8sUibkJEb3bkBcdaOlZUohpfD7m5LcOugPhyFwog
+    104Cp3Lts5G+EAu4WBi+LB4oMuJIeTTdLKuzsXZcWSZaZnzHDbD/bu6D9ivTGM5G8t54
+    5Fxj3RSR5JxEsfQ96QmBUPPTV8fvuY5wALKZV6H7f2aftX7bIgdCeoiAJMMfFIx5Ajpd
+    FLXgzOAsxM7hJ9PUIy9GgapNYw6NSa6sk1Oq3Fd/ICR80oMZdedzBquBzVTfruekinfg
+    2p1op6igS7JFuwBPgKdH/ASiPY56snontUIX+7riJ3KBqSqNcPOF6qVVq9Q2oQCS4yJe
+    R6Og==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5l+Vz7FJgt8+TgOd9sTrMwXjWWExsBKQCrpnqhqg=="
@@ -80,164 +81,95 @@ X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
-	Christian Lindig <christian.lindig@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	David Scott <dave@recoil.org>
-Subject: [PATCH v20210616 28/36] tools: adjust libxl_domain_suspend to receive a struct props
-Date: Wed, 16 Jun 2021 14:51:21 +0200
-Message-Id: <20210616125129.26563-29-olaf@aepfle.de>
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v20210616 29/36] tools: change struct precopy_stats to precopy_stats_t
+Date: Wed, 16 Jun 2021 14:51:22 +0200
+Message-Id: <20210616125129.26563-30-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210616125129.26563-1-olaf@aepfle.de>
 References: <20210616125129.26563-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Upcoming changes will pass more knobs down to xc_domain_save.
-Adjust the libxl_domain_suspend API to allow easy adding of additional knobs.
+This will help libxl_save_msgs_gen.pl to copy the struct as a region of memory.
 
 No change in behavior intented.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
-Acked-by: Christian Lindig <christian.lindig@citrix.com>
 ---
- tools/include/libxl.h                | 26 +++++++++++++++++++++++---
- tools/libs/light/libxl_domain.c      |  7 ++++---
- tools/ocaml/libs/xl/xenlight_stubs.c |  3 ++-
- tools/xl/xl_migrate.c                |  9 ++++++---
- tools/xl/xl_saverestore.c            |  3 ++-
- 5 files changed, 37 insertions(+), 11 deletions(-)
+ tools/include/xensaverestore.h  | 7 +++----
+ tools/libs/saverestore/common.h | 2 +-
+ tools/libs/saverestore/save.c   | 6 +++---
+ 3 files changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 29931626a2..9a4d7514ed 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -1706,12 +1706,32 @@ static inline int libxl_retrieve_domain_configuration_0x041200(
-     libxl_retrieve_domain_configuration_0x041200
- #endif
+diff --git a/tools/include/xensaverestore.h b/tools/include/xensaverestore.h
+index 0410f0469e..dca0134605 100644
+--- a/tools/include/xensaverestore.h
++++ b/tools/include/xensaverestore.h
+@@ -23,18 +23,17 @@
+ #define XCFLAGS_DEBUG     (1 << 1)
  
-+/*
-+ * LIBXL_HAVE_DOMAIN_SUSPEND_PROPS indicates that the
-+ * libxl_domain_suspend_props() function takes a props struct.
-+ */
-+#define LIBXL_HAVE_DOMAIN_SUSPEND_PROPS 1
-+
+ /* For save's precopy_policy(). */
+-struct precopy_stats
+-{
 +typedef struct {
-+    uint32_t flags; /* LIBXL_SUSPEND_* */
-+} libxl_domain_suspend_props;
-+#define LIBXL_SUSPEND_DEBUG 1
-+#define LIBXL_SUSPEND_LIVE 2
-+
- int libxl_domain_suspend(libxl_ctx *ctx, uint32_t domid, int fd,
--                         int flags, /* LIBXL_SUSPEND_* */
-+                         libxl_domain_suspend_props *props,
-                          const libxl_asyncop_how *ao_how)
-                          LIBXL_EXTERNAL_CALLERS_ONLY;
--#define LIBXL_SUSPEND_DEBUG 1
--#define LIBXL_SUSPEND_LIVE 2
-+#if defined(LIBXL_API_VERSION) && LIBXL_API_VERSION < 0x041600
-+static inline int libxl_domain_suspend_0x041500(libxl_ctx *ctx, uint32_t domid,
-+                         int fd, int flags, /* LIBXL_SUSPEND_* */
-+                         const libxl_asyncop_how *ao_how)
-+{
-+    libxl_domain_suspend_props props = { .flags = flags, };
-+    return libxl_domain_suspend(ctx, domid, fd, &props, ao_how);
-+}
-+#define libxl_domain_suspend libxl_domain_suspend_0x041500
-+#endif
+     unsigned int iteration;
+     unsigned long total_written;
+     long dirty_count; /* -1 if unknown */
+-};
++} precopy_stats_t;
  
  /*
-  * Only suspend domain, do not save its state to file, do not destroy it.
-diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
-index c00c36c928..5dbd27900f 100644
---- a/tools/libs/light/libxl_domain.c
-+++ b/tools/libs/light/libxl_domain.c
-@@ -505,7 +505,8 @@ static void domain_suspend_cb(libxl__egc *egc,
+  * A precopy_policy callback may not be running in the same address
+  * space as libxc an so precopy_stats is passed by value.
+  */
+-typedef int (*precopy_policy_t)(struct precopy_stats, void *);
++typedef int (*precopy_policy_t)(precopy_stats_t, void *);
  
- }
+ /* callbacks provided by xc_domain_save */
+ struct save_callbacks {
+diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
+index 5c440f28ec..60bbba6aa9 100644
+--- a/tools/libs/saverestore/common.h
++++ b/tools/libs/saverestore/common.h
+@@ -283,7 +283,7 @@ struct xc_sr_context
+             size_t pages_sent;
+             size_t overhead_sent;
  
--int libxl_domain_suspend(libxl_ctx *ctx, uint32_t domid, int fd, int flags,
-+int libxl_domain_suspend(libxl_ctx *ctx, uint32_t domid, int fd,
-+                         libxl_domain_suspend_props *props,
-                          const libxl_asyncop_how *ao_how)
+-            struct precopy_stats stats;
++            precopy_stats_t stats;
+ 
+             unsigned int nr_batch_pfns;
+             unsigned long *deferred_pages;
+diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/save.c
+index e486bce96f..537b977ba8 100644
+--- a/tools/libs/saverestore/save.c
++++ b/tools/libs/saverestore/save.c
+@@ -488,7 +488,7 @@ static int update_progress_string(struct xc_sr_context *ctx, char **str)
+ #define SPP_MAX_ITERATIONS      5
+ #define SPP_TARGET_DIRTY_COUNT 50
+ 
+-static int simple_precopy_policy(struct precopy_stats stats, void *user)
++static int simple_precopy_policy(precopy_stats_t stats, void *user)
  {
-     AO_CREATE(ctx, domid, ao_how);
-@@ -526,8 +527,8 @@ int libxl_domain_suspend(libxl_ctx *ctx, uint32_t domid, int fd, int flags,
-     dss->domid = domid;
-     dss->fd = fd;
-     dss->type = type;
--    dss->live = flags & LIBXL_SUSPEND_LIVE;
--    dss->debug = flags & LIBXL_SUSPEND_DEBUG;
-+    dss->live = props->flags & LIBXL_SUSPEND_LIVE;
-+    dss->debug = props->flags & LIBXL_SUSPEND_DEBUG;
-     dss->checkpointed_stream = LIBXL_CHECKPOINTED_STREAM_NONE;
+     return ((stats.dirty_count >= 0 &&
+              stats.dirty_count < SPP_TARGET_DIRTY_COUNT) ||
+@@ -515,13 +515,13 @@ static int send_memory_live(struct xc_sr_context *ctx)
+     precopy_policy_t precopy_policy = ctx->save.callbacks->precopy_policy;
+     void *data = ctx->save.callbacks->data;
  
-     rc = libxl__fd_flags_modify_save(gc, dss->fd,
-diff --git a/tools/ocaml/libs/xl/xenlight_stubs.c b/tools/ocaml/libs/xl/xenlight_stubs.c
-index 352a00134d..eaf7bce35a 100644
---- a/tools/ocaml/libs/xl/xenlight_stubs.c
-+++ b/tools/ocaml/libs/xl/xenlight_stubs.c
-@@ -614,10 +614,11 @@ value stub_libxl_domain_suspend(value ctx, value domid, value fd, value async, v
- 	int ret;
- 	uint32_t c_domid = Int_val(domid);
- 	int c_fd = Int_val(fd);
-+    libxl_domain_suspend_props props = {};
- 	libxl_asyncop_how *ao_how = aohow_val(async);
+-    struct precopy_stats *policy_stats;
++    precopy_stats_t *policy_stats;
  
- 	caml_enter_blocking_section();
--	ret = libxl_domain_suspend(CTX, c_domid, c_fd, 0, ao_how);
-+	ret = libxl_domain_suspend(CTX, c_domid, c_fd, &props, ao_how);
- 	caml_leave_blocking_section();
+     rc = update_progress_string(ctx, &progress_str);
+     if ( rc )
+         goto out;
  
- 	free(ao_how);
-diff --git a/tools/xl/xl_migrate.c b/tools/xl/xl_migrate.c
-index b8594f44a5..144890924f 100644
---- a/tools/xl/xl_migrate.c
-+++ b/tools/xl/xl_migrate.c
-@@ -186,7 +186,10 @@ static void migrate_domain(uint32_t domid, int preserve_domid,
-     char *away_domname;
-     char rc_buf;
-     uint8_t *config_data;
--    int config_len, flags = LIBXL_SUSPEND_LIVE;
-+    int config_len;
-+    libxl_domain_suspend_props props = {
-+        .flags = LIBXL_SUSPEND_LIVE,
-+        };
- 
-     save_domain_core_begin(domid, preserve_domid, override_config_file,
-                            &config_data, &config_len);
-@@ -205,8 +208,8 @@ static void migrate_domain(uint32_t domid, int preserve_domid,
-     xtl_stdiostream_adjust_flags(logger, XTL_STDIOSTREAM_HIDE_PROGRESS, 0);
- 
-     if (debug)
--        flags |= LIBXL_SUSPEND_DEBUG;
--    rc = libxl_domain_suspend(ctx, domid, send_fd, flags, NULL);
-+        props.flags |= LIBXL_SUSPEND_DEBUG;
-+    rc = libxl_domain_suspend(ctx, domid, send_fd, &props, NULL);
-     if (rc) {
-         fprintf(stderr, "migration sender: libxl_domain_suspend failed"
-                 " (rc=%d)\n", rc);
-diff --git a/tools/xl/xl_saverestore.c b/tools/xl/xl_saverestore.c
-index 953d791d1a..476d4d9a6a 100644
---- a/tools/xl/xl_saverestore.c
-+++ b/tools/xl/xl_saverestore.c
-@@ -130,6 +130,7 @@ static int save_domain(uint32_t domid, int preserve_domid,
-     int fd;
-     uint8_t *config_data;
-     int config_len;
-+    libxl_domain_suspend_props props = {};
- 
-     save_domain_core_begin(domid, preserve_domid, override_config_file,
-                            &config_data, &config_len);
-@@ -146,7 +147,7 @@ static int save_domain(uint32_t domid, int preserve_domid,
- 
-     save_domain_core_writeconfig(fd, filename, config_data, config_len);
- 
--    int rc = libxl_domain_suspend(ctx, domid, fd, 0, NULL);
-+    int rc = libxl_domain_suspend(ctx, domid, fd, &props, NULL);
-     close(fd);
- 
-     if (rc < 0) {
+-    ctx->save.stats = (struct precopy_stats){
++    ctx->save.stats = (precopy_stats_t){
+         .dirty_count = ctx->save.p2m_size,
+     };
+     policy_stats = &ctx->save.stats;
 
