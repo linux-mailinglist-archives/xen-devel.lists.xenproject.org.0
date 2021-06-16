@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EEA53A97C1
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 12:38:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.142838.263437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AE883A97F2
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 12:43:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.142845.263449 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltSvT-0004Yu-7h; Wed, 16 Jun 2021 10:37:39 +0000
+	id 1ltT14-0005y0-UT; Wed, 16 Jun 2021 10:43:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 142838.263437; Wed, 16 Jun 2021 10:37:39 +0000
+Received: by outflank-mailman (output) from mailman id 142845.263449; Wed, 16 Jun 2021 10:43:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltSvT-0004X0-4M; Wed, 16 Jun 2021 10:37:39 +0000
-Received: by outflank-mailman (input) for mailman id 142838;
- Wed, 16 Jun 2021 10:37:38 +0000
+	id 1ltT14-0005ux-Qr; Wed, 16 Jun 2021 10:43:26 +0000
+Received: by outflank-mailman (input) for mailman id 142845;
+ Wed, 16 Jun 2021 10:43:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=my07=LK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1ltSvS-0004Wu-7t
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 10:37:38 +0000
+ id 1ltT13-0005ur-Dq
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 10:43:25 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e1018128-c766-4f55-a1ec-c891493b5bfb;
- Wed, 16 Jun 2021 10:37:37 +0000 (UTC)
+ id 3c2bd153-6eb0-4245-a224-e0501f2e24a2;
+ Wed, 16 Jun 2021 10:43:24 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2B1DE21A44;
- Wed, 16 Jun 2021 10:37:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B0E78219D6;
+ Wed, 16 Jun 2021 10:43:23 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id D9072118DD;
- Wed, 16 Jun 2021 10:37:35 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 6E6DF118DD;
+ Wed, 16 Jun 2021 10:43:23 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 1+K+M2/UyWC/UgAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 16 Jun 2021 10:37:35 +0000
+ id dDzIGcvVyWD4VQAALh3uQQ
+ (envelope-from <jgross@suse.com>); Wed, 16 Jun 2021 10:43:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,48 +46,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1018128-c766-4f55-a1ec-c891493b5bfb
+X-Inumbo-ID: 3c2bd153-6eb0-4245-a224-e0501f2e24a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1623839856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1623840203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cUDp+bU8nGCF6IWL4hSqRX+diw04+4z08WiV4lCEuww=;
-	b=cdJtvqI6DIqUaTm9tW3iM77vchjUaHIBtvLx66HqJgpSxhx0yu51xv91aqJRrZRd8KIMzY
-	MIKviO/VCL57SzP0YfXxwJVe8J2gN/23y8c7UBn3YcJKN5PeeS8bMF40N/gNZzrCETcon2
-	TPqnrWPu4r4j9cQ3/nBkely36ZmX+Jw=
+	bh=Bb/rTfViqgn/up8wJQ8Yp+8BLgpyC0oL3NZRhwy1EjM=;
+	b=iZJqsfEt4IlOt/DOipSdqvicm54qbRFcmtYCAkNzVbMhGQ6sZ+IWJY2hJqSrH5ePW++wY/
+	gusZGx+7LXRlIiEjEiMqAsMwcQlMnjboE5LfAUQq0+kqnT71lmOvWlS/0gxeW8Sr/nPh07
+	YfHv1BAZQmsynoOETzu8jhG8OQ6kn3M=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1623839856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1623840203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cUDp+bU8nGCF6IWL4hSqRX+diw04+4z08WiV4lCEuww=;
-	b=cdJtvqI6DIqUaTm9tW3iM77vchjUaHIBtvLx66HqJgpSxhx0yu51xv91aqJRrZRd8KIMzY
-	MIKviO/VCL57SzP0YfXxwJVe8J2gN/23y8c7UBn3YcJKN5PeeS8bMF40N/gNZzrCETcon2
-	TPqnrWPu4r4j9cQ3/nBkely36ZmX+Jw=
-Subject: Re: [PATCH 1/2] xen: fix setting of max_pfn in shared_info
+	bh=Bb/rTfViqgn/up8wJQ8Yp+8BLgpyC0oL3NZRhwy1EjM=;
+	b=iZJqsfEt4IlOt/DOipSdqvicm54qbRFcmtYCAkNzVbMhGQ6sZ+IWJY2hJqSrH5ePW++wY/
+	gusZGx+7LXRlIiEjEiMqAsMwcQlMnjboE5LfAUQq0+kqnT71lmOvWlS/0gxeW8Sr/nPh07
+	YfHv1BAZQmsynoOETzu8jhG8OQ6kn3M=
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- stable@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, x86@kernel.org
 References: <20210616073007.5215-1-jgross@suse.com>
- <20210616073007.5215-2-jgross@suse.com>
- <a3674ab9-40d8-c365-d48c-0e1c88814942@suse.com>
+ <20210616073007.5215-3-jgross@suse.com>
+ <8dbeb9ea-56c9-de30-4d5f-fc9c0ced6ac4@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <97de842a-f095-3a12-ab16-beca0f97ba67@suse.com>
-Date: Wed, 16 Jun 2021 12:37:35 +0200
+Subject: Re: [PATCH 2/2] xen: rename wrong named pfn related variables
+Message-ID: <79434ec4-4543-97ad-b010-3f2c1b6a55ad@suse.com>
+Date: Wed, 16 Jun 2021 12:43:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <a3674ab9-40d8-c365-d48c-0e1c88814942@suse.com>
+In-Reply-To: <8dbeb9ea-56c9-de30-4d5f-fc9c0ced6ac4@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="KTsGTPJxuSc8B4hvJibcDyNolPqoBmQJN"
+ boundary="xuNDAfV0ocaoXYJt1qoHabXYUrAOASd1N"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---KTsGTPJxuSc8B4hvJibcDyNolPqoBmQJN
-Content-Type: multipart/mixed; boundary="ap0P46W17IAWxsPrQZNj1vLtTBF2bl8UM";
+--xuNDAfV0ocaoXYJt1qoHabXYUrAOASd1N
+Content-Type: multipart/mixed; boundary="yn2w8Vnh1nN6dHx4ICehFvVeJJ4q41bwl";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
@@ -95,66 +94,70 @@ Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- stable@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
-Message-ID: <97de842a-f095-3a12-ab16-beca0f97ba67@suse.com>
-Subject: Re: [PATCH 1/2] xen: fix setting of max_pfn in shared_info
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, x86@kernel.org
+Message-ID: <79434ec4-4543-97ad-b010-3f2c1b6a55ad@suse.com>
+Subject: Re: [PATCH 2/2] xen: rename wrong named pfn related variables
 References: <20210616073007.5215-1-jgross@suse.com>
- <20210616073007.5215-2-jgross@suse.com>
- <a3674ab9-40d8-c365-d48c-0e1c88814942@suse.com>
-In-Reply-To: <a3674ab9-40d8-c365-d48c-0e1c88814942@suse.com>
+ <20210616073007.5215-3-jgross@suse.com>
+ <8dbeb9ea-56c9-de30-4d5f-fc9c0ced6ac4@suse.com>
+In-Reply-To: <8dbeb9ea-56c9-de30-4d5f-fc9c0ced6ac4@suse.com>
 
---ap0P46W17IAWxsPrQZNj1vLtTBF2bl8UM
+--yn2w8Vnh1nN6dHx4ICehFvVeJJ4q41bwl
 Content-Type: multipart/mixed;
- boundary="------------807AE2AA9ED82DDA23942201"
+ boundary="------------4AEF556428C2D08DB245AC5A"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------807AE2AA9ED82DDA23942201
+--------------4AEF556428C2D08DB245AC5A
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 16.06.21 11:52, Jan Beulich wrote:
+On 16.06.21 11:56, Jan Beulich wrote:
 > On 16.06.2021 09:30, Juergen Gross wrote:
->> Xen PV guests are specifying the highest used PFN via the max_pfn
->> field in shared_info. This value is used by the Xen tools when saving
->> or migrating the guest.
->>
->> Unfortunately this field is misnamed, as in reality it is specifying
->> the number of pages (including any memory holes) of the guest, so it
->> is the highest used PFN + 1. Renaming isn't possible, as this is a
->> public Xen hypervisor interface which needs to be kept stable.
->>
->> The kernel will set the value correctly initially at boot time, but
->> when adding more pages (e.g. due to memory hotplug or ballooning) a
->> real PFN number is stored in max_pfn. This is done when expanding the
->> p2m array, and the PFN stored there is even possibly wrong, as it
->> should be the last possible PFN of the just added P2M frame, and not
->> one which led to the P2M expansion.
->>
->> Fix that by setting shared_info->max_pfn to the last possible PFN + 1.=
-
->>
->> Fixes: 98dd166ea3a3c3 ("x86/xen/p2m: hint at the last populated P2M en=
-try")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> --- a/arch/x86/xen/p2m.c
+>> +++ b/arch/x86/xen/p2m.c
+>> @@ -95,8 +95,8 @@ unsigned long *xen_p2m_addr __read_mostly;
+>>   EXPORT_SYMBOL_GPL(xen_p2m_addr);
+>>   unsigned long xen_p2m_size __read_mostly;
+>>   EXPORT_SYMBOL_GPL(xen_p2m_size);
+>> -unsigned long xen_max_p2m_pfn __read_mostly;
+>> -EXPORT_SYMBOL_GPL(xen_max_p2m_pfn);
+>> +unsigned long xen_p2m_max_size __read_mostly;
+>> +EXPORT_SYMBOL_GPL(xen_p2m_max_size);
 >=20
-> The code change is fine, so
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->=20
-> But I think even before the rename you would want to clarify the commen=
-t
-> next to the variable's definition, to make clear what it really holds.
+> Instead of renaming the exported variable (which will break consumers
+> anyway), how about dropping the apparently unneeded export at this
+> occasion?
 
-It already says: "Number of valid entries in the p2m table(s) ..."
-What do you think is unclear about that? Or do you mean another
-variable?
+Why do you think it isn't needed? It is being referenced via the inline
+function __pfn_to_mfn() in arch/x86/include/asm/xen/page.h. And
+__pfn_to_mfn() is used via lots of other inline functions and macros.
+
+> Further it looks to me as if xen_p2m_size and this variable
+> were actually always kept in sync, so I'd like to put up the question
+> of dropping one of the two.
+
+Hmm, should be possible, yes.
+
+>=20
+>> @@ -121,7 +121,7 @@ static pte_t *p2m_identity_pte;
+>>    * can avoid scanning the whole P2M (which may be sized to account f=
+or
+>>    * hotplugged memory).
+>>    */
+>> -static unsigned long xen_p2m_last_pfn;
+>> +static unsigned long xen_p2m_pfn_limit;
+>=20
+> As to the comment remark in patch 1: You don't alter the comment
+> here either, and "limit" still doesn't make clear whether that's an
+> inclusive or exclusive limit.
+
+Oh, indeed. Will fix that.
 
 
 Juergen
 
---------------807AE2AA9ED82DDA23942201
+--------------4AEF556428C2D08DB245AC5A
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -246,25 +249,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------807AE2AA9ED82DDA23942201--
+--------------4AEF556428C2D08DB245AC5A--
 
---ap0P46W17IAWxsPrQZNj1vLtTBF2bl8UM--
+--yn2w8Vnh1nN6dHx4ICehFvVeJJ4q41bwl--
 
---KTsGTPJxuSc8B4hvJibcDyNolPqoBmQJN
+--xuNDAfV0ocaoXYJt1qoHabXYUrAOASd1N
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDJ1G8FAwAAAAAACgkQsN6d1ii/Ey+H
-Lwf+Ick3/mutcwbdkHo2Pofr1/gJNNwiHCi8f6Z2VRzm/Gs1+KKQRCyPbGYaZpETytNkWhobwgGf
-MD7r0bIaVRXqPGO3poig7sW40S/3o7Aro8DkBCDg6fDspcGuFYsUIw5UtjlEjPEm1wa1b8poGDvO
-qXm80V15BdTfhFc2dshqWnfl2qOmbK25OSRWVGd0JfxaqVZO4XiBDCHR4G+akozbAE/liMTOm5pk
-itPHw03GTCdvhnlQAA0P4UK9WeD1Kfvq7D9pdYXtPoBq76LJeL6WaLGp3mGlOaqD9ey9E4NTqqVA
-rp5MsHZ/zhIe67DTPT+ZCUjYrlrBGnOtfkTLtsv1mw==
-=ND52
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDJ1coFAwAAAAAACgkQsN6d1ii/Ey+E
+xAf+JOLQ5Gtcr4+HH7tJx/skcMTr4v4NFPbV4rcwXsYKzElIbBDOoTQY0X3nndWsvOyYJS0WLjPd
+cwxP5RhuTdgwKi5ReJ0+M25tL/T/5E9WRovxXHi5AyYw8IXJ47XzXQYHIods7ZtlCH9VJwSLblaF
+UfkkBd8jgoCInCkszeD5nYmpm+zV0H0loCLK0QcJCSiHrZy2Hw4w1F5S1v6FZ4/MT/MpOx3OGB/j
+bW0SssPOmlwnXO05w8gLw0TvoJBu2sUVdYDZIePFfxfZkjR1PV8XB//slMiCpoB67XYWidEZ77Sa
+D6jQ3ep2sbqZgTnW+Lx895wXqcneGxSqq51n+beLzQ==
+=cvhV
 -----END PGP SIGNATURE-----
 
---KTsGTPJxuSc8B4hvJibcDyNolPqoBmQJN--
+--xuNDAfV0ocaoXYJt1qoHabXYUrAOASd1N--
 
