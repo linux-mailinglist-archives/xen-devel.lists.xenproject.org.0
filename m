@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D789C3A9ECD
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 17:17:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143396.264303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 057DC3A9ED1
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 17:19:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143401.264313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltXIS-0001WL-1k; Wed, 16 Jun 2021 15:17:40 +0000
+	id 1ltXJh-00028a-Az; Wed, 16 Jun 2021 15:18:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143396.264303; Wed, 16 Jun 2021 15:17:40 +0000
+Received: by outflank-mailman (output) from mailman id 143401.264313; Wed, 16 Jun 2021 15:18:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltXIR-0001UW-U5; Wed, 16 Jun 2021 15:17:39 +0000
-Received: by outflank-mailman (input) for mailman id 143396;
- Wed, 16 Jun 2021 15:17:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltXIQ-0001UQ-PS
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 15:17:38 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.51])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b6824e6-4fc2-4acb-8872-109fa8468554;
- Wed, 16 Jun 2021 15:17:37 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GFHPuZF
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 16 Jun 2021 17:17:25 +0200 (CEST)
+	id 1ltXJh-000267-7v; Wed, 16 Jun 2021 15:18:57 +0000
+Received: by outflank-mailman (input) for mailman id 143401;
+ Wed, 16 Jun 2021 15:18:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NJFi=LK=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1ltXJf-00025t-Nu
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 15:18:55 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5b4fa1b8-3a64-4a02-a784-63879ed1aa02;
+ Wed, 16 Jun 2021 15:18:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,109 +36,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b6824e6-4fc2-4acb-8872-109fa8468554
-ARC-Seal: i=1; a=rsa-sha256; t=1623856646; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=drJV+278tqiI6bSBzkMJO/6Q4r4m65SwApY2ONXqUs0L8escI6k+effrgLcfrXhrSW
-    rDu1l6NeKzISB+1eBGVO6fXic+ifROMhu6wHZ8VmwwmjxiQ4qPx5nVr+5IPniVXHbZOx
-    egQb1+BjRw81+LMrGcSRfhmRzqcEzTumR2LpBn/eCP7bbpoL3Qc7lAkAww0YPIB3FHwV
-    fiuZqXDU9LUz/oiMMVoxExOLPtEneRsVCYf8kx/z0pzBz//ErpeXfEIQVI71a7uUGUez
-    +M7BuZ+Njg73R1P09/NmPAD8RDirYNdnIi4BO/tqEZybZlF6Zbu8TiIRBt1tQ8ZNk7es
-    nutQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623856646;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=rcR3fIihUPNHsD2xDx+zqWqCaDx02jTmSvzpKhcgqHM=;
-    b=hF25v1cPFC7ylRsKrpApG/7ynky1ii3FCAdefe4xYqd3Is57l3DOPeona/5Vz/i5g2
-    q6cTCBjhRcfqsSSKZ9f0VaXDHnq1B4fHrugAq8VEzOwARKf1zBXk4rVd1fQuWlw4fZdc
-    BMYfSSR4tbbZdx6Sn3/Oox8K86RkkLti3NDHH7HDl5D3T0mNvazYL1Jf08kChWfNwtIZ
-    Mdi93nyEXacT6fIp6L6edqqYH+NOOJ8OLy1BOmLSHZhS/TTKfjvzjLAufOptA512ofLi
-    KrfZIzm2DBiABs6U+/Rpr0l0oPxPthZgUMB9/G0him2OZs5usYXmgA93pSy4aUj7+SfV
-    fDjg==
-ARC-Authentication-Results: i=1; strato.com;
-    dkim=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623856646;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=rcR3fIihUPNHsD2xDx+zqWqCaDx02jTmSvzpKhcgqHM=;
-    b=BFOBHfge/qZfI1AmbQ/GJ+HXO7kKgML60qrxT/kQYWIeIoWbTHZz6RZrywumeEStIE
-    0Om4ylhKg3NjPh2M8pGrRbpraPRG4oMxu+UIUQC1A+IuPrGLMG7qNng4KtTTURmsJy43
-    HkTCMsPuO9umU3hytF32Ipj2q5Z3r4QBoR3Hiy+dh0dTNxKKqOpIJ9QaoZcmseOvzjke
-    tYwv6SKdt1xo9gGNhCQ2bi1FlWfYb7dYSUHDmS/s1priebMwJ2YrFbLuINNAZXH20PFs
-    Sm0yFS0ITjBocxjKUM6xoMigdWNSIFBB4XtVg65tjtV5nlvoGjyAA951U//JTBnMNeR8
-    T7JA==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsVxSIbR7sf0kebs4Z3Zpqv+Sabl5o7CzRq+Ps8Q=="
-X-RZG-CLASS-ID: mo00
-Date: Wed, 16 Jun 2021 17:17:18 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George
- Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v20210616 04/36] tools: create libxensaverestore
-Message-ID: <20210616171718.012fbb6a.olaf@aepfle.de>
-In-Reply-To: <20210616125129.26563-5-olaf@aepfle.de>
-References: <20210616125129.26563-1-olaf@aepfle.de>
-	<20210616125129.26563-5-olaf@aepfle.de>
-X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 5b4fa1b8-3a64-4a02-a784-63879ed1aa02
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1623856734;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=bCyomFsR6dtfqKURitc5WY2glFEaC3FgGkeWvNQe234=;
+  b=EDLy1OH9H5LpG7ef8iZlKRXxm1RFt8olK4eryjujgd98w+PjP7vy0skX
+   /BIEHMkq6nmKMA3G/AQ4uHVbLsTsLdkaSev2exb+G4Ht5WCEgMXrdHva/
+   9gIcoL7ToWP+FUDmtRJRl/khIlbDiI7jZErWs55Wimg4p6VOEBnQl2nby
+   U=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: FrowePqB5Fx01UIm359GYqUJBPVN1GEy+GhVhpEi+jq8WLxZAm/4D4KAkt4T5xTpB6W6+5ec0v
+ br7v8eatKp7c1EbBNKgiGblN2ecCGMcuOOuYmVDMfmRWRE8u3yPqo5CvqnGG0iE1yer4Wl1evF
+ jADxRYV7sQrwMx+P36HkfrGn7aODhMV/yRwt73CqaL3VYgjd5jvMdQajOlTtW3jb7DoXK/DnB4
+ tLSafMbl90TcmqRBIDLVnmir0Qfrh8LYihpTeaReDG7gKIQlS0wKI/H/MX/rng1TRjsuawGswX
+ WAo=
+X-SBRS: 5.1
+X-MesageID: 46007795
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:MT5q/qFpBRyI86eYpLqE5seALOsnbusQ8zAXP0AYc31om6uj5q
+ eTdZUgpGbJYVkqKRIdcLy7V5VoIkmskaKdg7NhX4tKNTOO0ADDQe1fBOPZslvd8kbFltK1u5
+ 0PT0EHMqyUMWRH
+X-IronPort-AV: E=Sophos;i="5.83,278,1616472000"; 
+   d="scan'208";a="46007795"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+	<ian.jackson@citrix.com>, Wei Liu <wl@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, "Paul
+ Durrant" <paul@xen.org>, Owen Smith <owen.smith@citrix.com>, "Chandrika
+ Srinivasan" <chandrika.srinivasan@citrix.com>, Christian Lindig
+	<christian.lindig@citrix.com>, Konstantina Chremmou
+	<konstantina.chremmou@citrix.com>, Rob Hoes <Rob.Hoes@citrix.com>, "Li Zhang
+ (3P)" <Li.Zhang@citrix.com>
+Subject: [PATCH] code-of-conduct.rst: Add Stefano Stabellini as a Conduct Team member
+Date: Wed, 16 Jun 2021 16:18:26 +0100
+Message-ID: <20210616151826.224793-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/xLZ=8GvyLqie6N7GGHDqxGe";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
---Sig_/xLZ=8GvyLqie6N7GGHDqxGe
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+With my upcoming leave, Ian will be the only person actively on the
+Conduct Team.  Stefano has volunteered to join the team, so that there
+are at least two members.
 
-Am Wed, 16 Jun 2021 14:50:57 +0200
-schrieb Olaf Hering <olaf@aepfle.de>:
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
+Membership of the Conduct Team is a global XenProject decision,
+and so needs a vote of the leadership of all active projects.
 
-> Move all save/restore related code from libxenguest.so into a separate
-> library libxensaverestore.so.
+Please vote by replying to this email with +2 / +1 / 0 / -1 / -2, in
+accordance with https://xenproject.org/developers/governance/#project-decisions .
 
-This additional change is required to cover non-x86.
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Paul Durrant <paul@xen.org>
+CC: Owen Smith <owen.smith@citrix.com>
+CC: Chandrika Srinivasan <chandrika.srinivasan@citrix.com>,
+CC: Christian Lindig <christian.lindig@citrix.com>
+CC: Konstantina Chremmou <konstantina.chremmou@citrix.com>
+CC: Rob Hoes <Rob.Hoes@citrix.com>
+CC: "Li Zhang (3P)" <Li.Zhang@citrix.com>
+---
+ source/code-of-conduct.rst | 1 +
+ 1 file changed, 1 insertion(+)
 
---- a/tools/libs/saverestore/nomigrate.c
-+++ b/tools/libs/saverestore/nomigrate.c
-@@ -17,8 +17,7 @@
-=20
- #include <inttypes.h>
- #include <errno.h>
--#include <xenctrl.h>
--#include <xenguest.h>
-+#include <xensaverestore.h>
-=20
- int xc_domain_save(xc_interface *xch, int io_fd, uint32_t dom, uint32_t fl=
-ags,
-                    struct save_callbacks *callbacks,
+diff --git a/source/code-of-conduct.rst b/source/code-of-conduct.rst
+index 4cb33da..963d605 100644
+--- a/source/code-of-conduct.rst
++++ b/source/code-of-conduct.rst
+@@ -81,6 +81,7 @@ sub-project. The current list of Conduct Team members is:
+ 
+ * George Dunlap <george dot dunlap at citrix dot com>
+ * Ian Jackson <ian dot jackson at citrix dot com>
++* Stefano Stabellini <sstabellini at kernel dot org>
+ 
+ Conduct Team members are changed by proposing a change to this document,
+ posted on all sub-project lists, followed by a formal global vote as outlined
+-- 
+2.30.2
 
-Olaf
-
---Sig_/xLZ=8GvyLqie6N7GGHDqxGe
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDKFf4ACgkQ86SN7mm1
-DoCRtA/9E6lx9RAuzknFAfSRQe9Iz2NyEjENU+bGkir2e7FdTvp8xnDEMhf1W/kb
-GfycDdiXdFpRAzdhpD4PB6RfrNQL6+gOdASgJ5XT86myHmm+L/kEm07uOocsoVg3
-28m9ePezS1itDa01DoiUQAscnZq+wdGM71uX3dCtj2Fa/c8MrFUtFd7ffnI2J1m6
-ThuDBZqqnXCbblNQvq3zqjvZs47BMCH31PLcktzuXAO7ImsyUA4GuFkMJR+EXZo2
-/p+yhVy4nrWS/YiUPYBayELB2H+v3JDQGSt4QsY7l4BkixWTqUDDgqOwTrGuGa3C
-7HKIX6t+69C9ovbedIK9USR5SfaIesOuXpDdWea8fawawKaiSwt9zfCHfwmYRdwJ
-eEnRSregh5vvVxbDKMPgYrtkfgLLCIUAgCjraFR6hwGi5JhzKyYZrB9/wJznQ7ZP
-9GABSCK3D1i6xEqWhfFEvMrtuu+rQr34J9+4+uTFtt6w66e1Ta4sfhcIIcxVayJD
-a+x9G9/CcjlHQsG5o1oM5OsrASkrHNiDdqV9drDW2V4xPzFnO5jra7IbxYYZAQ0c
-NRMK8l/ThNbs+QsNdZn4mPH+iicp08Zi+cdhjg46bB+GrNJUfine8FB5VJQ1wcpX
-VRGpfdXA5K8f+x/Uo6AP4RWM7do+dMaRgXbgbZXLods28f44ukc=
-=UXx6
------END PGP SIGNATURE-----
-
---Sig_/xLZ=8GvyLqie6N7GGHDqxGe--
 
