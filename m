@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC59F3A9BB5
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:08:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143114.263988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B1F3A9B96
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 15:07:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143004.263823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVHd-0004GD-1l; Wed, 16 Jun 2021 13:08:41 +0000
+	id 1ltVGC-0004Nl-Tq; Wed, 16 Jun 2021 13:07:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143114.263988; Wed, 16 Jun 2021 13:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 143004.263823; Wed, 16 Jun 2021 13:07:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltVHc-00048f-PS; Wed, 16 Jun 2021 13:08:40 +0000
-Received: by outflank-mailman (input) for mailman id 143114;
- Wed, 16 Jun 2021 13:08:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ltVGC-0004Ld-OE; Wed, 16 Jun 2021 13:07:12 +0000
+Received: by outflank-mailman (input) for mailman id 143004;
+ Wed, 16 Jun 2021 13:07:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltV1y-00075D-8o
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:52:30 +0000
-Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a6f8c5a5-da29-4a23-8ff5-586f6ef15fae;
- Wed, 16 Jun 2021 12:51:52 +0000 (UTC)
+ id 1ltV2J-0006lZ-2P
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 12:52:51 +0000
+Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.173])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1066a928-1d2a-49f9-b44c-1f3a18eed590;
+ Wed, 16 Jun 2021 12:51:51 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
- with ESMTPSA id j0415bx5GCpjtmK
+ with ESMTPSA id j0415bx5GCpjtmL
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Wed, 16 Jun 2021 14:51:45 +0200 (CEST)
@@ -41,39 +40,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6f8c5a5-da29-4a23-8ff5-586f6ef15fae
+X-Inumbo-ID: 1066a928-1d2a-49f9-b44c-1f3a18eed590
 ARC-Seal: i=1; a=rsa-sha256; t=1623847905; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=JvlnntSKYv9tF9aoHR4YcbHinXeXv7WSGPTF4iEOj3hEgaZ3rfYK71Z+c1u/P9oqXP
-    ygpI2DAhmADpkQjxV7nIy4Nl6T9C6yg4tDpufy7R5mP+18i3dNBfoIpuVB5DcSmrGKJd
-    Q1JJV1P+F5f53g89lP/qCWI0UeBb/Wi7Okc/ZR9/rFf9vxReF2goTbAb9BapTDPzZbkG
-    uI/8EdXhHw3bnVr9ZSZqbUprSS2+/e1ItAUXhABtzOpSMkWBcn6HkhYKSid34+pM0XVF
-    T4mv1PoEej+efCX4C99jewUswe36nTVWhCbZfO03vAnHEeDEWmCiRxgd5R7C3OIXCfem
-    kGwg==
+    b=bANuIUngkLsBnEZY2I+0vBdL+kR3ZOiAGbA14jWxgDEHBCVpyWfW+yAuoW8rHW1Ez4
+    fh3DD0wY3yoNJcHlGB+NEHaU99w4wtPbY8MCu/tDS0nQGTE3TRjco6g9xmErPuWMFTbD
+    Md8EVmmNEdg3bLfhW8rwOocIF28q5DHxwsALxipzmD4IkN2sHG6exKiiEhLUXDdRkHoA
+    TWuNWfD+zcAVreUHyVOxZkzhlzeCqrKHKrxAt+Zvrxummz3Oy785D8bZ/NF1j8yWXFey
+    szCXCc5WJjS3ShjrdPjH0t/uNX1Ar/bNsRp+XmaXTFsCfddSRbzcDxL/w8kNKyLyq1wN
+    e1Jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847905;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=hD2Ug5waXHQrkHDlWstdnaBGpKn51RUN9z6BofzxctY=;
-    b=NN9G0ZUM6yI8Gy7r02RYTVweKFCGoz1PK1+mndvDLbuszw92lldN86tr8zyviSCxpy
-    ngHevMpvqH004PlVQc2aYk48z8IwTkQsXPBcUTrgtumFCJRtuMF0ExtzkTFjFzoED+tR
-    Ka94LAsMlrlNkzSBCFoF8pvotQFKcMTUOrcpbTOIsuDd5h/5qbm2KIGc7AiRk2QaDvoh
-    ztEwWWiwbFbBxtcVqjGrElq/E7Ggw+XRwlADRbYuyym7DCJ37omw22SFFRQQ5gXVw4fn
-    mgO+8kg8UlwU1Uox7+JdfnmpyW5HDBNnthlUY7y0jZN90DSAM/DceN6aaOGeekRjoJUC
-    Oe6A==
+    bh=XvzNAYL4Bz6FS15Jp93i8O47PVWqmiH8eMe8cuJSWuw=;
+    b=GtJEASD9ixYM8kwE/+pjHDoFO61iRoeMYDGQE7gtB1iAGP3z+P/F/7YErteofWL/2V
+    B3iyQ698+k9IrcOJ5VrOKsd30fgH/qxo1NEPvLPlqM3oPvKnmOVzdHn3gabr+BHmySRd
+    rqGfEhP5eYFtUjBG7HJ+me6ucNS2e8hTyBVTp/9/RaW2CWjTdrPdLPO1DU3+2GWteF8z
+    kRirjomPtwCKL3FO6f+gkLgXPOw5T63Gds/4fg1pQPqANJAHGYXSDE4Dz1NiBNayEaHL
+    ZxhtD1pX88KLyP2lYYsUZqmhRQ9GdaRzhm6vRjTiDx1xb4/v56mcW1ioc2ioXfrT5jvb
+    fDYQ==
 ARC-Authentication-Results: i=1; strato.com;
     dkim=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623847905;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=hD2Ug5waXHQrkHDlWstdnaBGpKn51RUN9z6BofzxctY=;
-    b=oIIgINgdysp5e2Ft3jMn8MxLIF1+rBoIenWMzeKeJJkk9UmTE8HEZ72sknf5SHBHOa
-    vD7+xM6CmoLdF2lXes3AeMGOouESDswyoY5uQdO8wRaVmRj0ScOQ6JzIvdd59fg1WNa/
-    0UJ+UtXbRmyUV+RI+GSyg/E4WZy0r07M7otyy8bzWD2pBr3tVnA75udXorURoU9JU7Uu
-    OoTP0QhMVOyAvJAvG1AXIydMnd++Dy82qX1neuEdXE3WjSaRfCBY5B5Ms566TbprjUrD
-    rJybBnxLw7VQ+MtYmK41GoEeU85HXlKmqxunqTzsT0GgkkTb/yTEzi3xsWmiVhRy51Fu
-    Ou5A==
+    bh=XvzNAYL4Bz6FS15Jp93i8O47PVWqmiH8eMe8cuJSWuw=;
+    b=EXhLBPz/onKs0O5mn7+1kh6DniN7HJd6hIGmA5MmHqQsmZ8tEp9ubhaW9FSyISWoSp
+    gFxMvmLF/lMcVsGZbnCQgGku0AYAEgde1LLnc8lQcOLNgjXl/GB8WcaCvzHDEobu/mfS
+    j2c/Ivbks06pgF2QYlEyiazfcNYzxq5c4rv2ti/AzbaaNC1ufl4ehGV4UY5+CsZIkDSW
+    lXbbQLt/MU1WTDgJvspuAHk7ADM0V45qGnG8g6/KZh9r+jS6oLaJQPb6yVUqfSUJS+l4
+    rWUmEXNz8zwXYNOR0VXzUe/iCRzR1Vai6F81fsA7hh/zj3kiNJ4LhotGoa9CBsXl75El
+    DteA==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5l+Vz7FJgt8+TgOd9sTrMwXjWWExsBKQCrpnqhqg=="
@@ -84,415 +83,129 @@ Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v20210616 25/36] tools: restore: split handle_page_data
-Date: Wed, 16 Jun 2021 14:51:18 +0200
-Message-Id: <20210616125129.26563-26-olaf@aepfle.de>
+Subject: [PATCH v20210616 26/36] tools: restore: write data directly into guest
+Date: Wed, 16 Jun 2021 14:51:19 +0200
+Message-Id: <20210616125129.26563-27-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210616125129.26563-1-olaf@aepfle.de>
 References: <20210616125129.26563-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-handle_page_data must be able to read directly into mapped guest memory.
-This will avoid unneccesary memcpy calls for data that can be consumed verbatim.
-
-Split the various steps of record processing:
-- move processing to handle_buffered_page_data
-- adjust xenforeignmemory_map to set errno in case of failure
-- adjust verify mode to set errno in case of failure
-
-This change is preparation for future changes in handle_page_data,
-no change in behavior is intended.
+Read incoming migration stream directly into the guest memory.
+This avoids the memory allocation and copying, and the resulting
+performance penalty.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/saverestore/common.h  |   9 +
- tools/libs/saverestore/restore.c | 343 ++++++++++++++++++++-----------
- 2 files changed, 231 insertions(+), 121 deletions(-)
+ tools/libs/saverestore/common.h  |   1 +
+ tools/libs/saverestore/restore.c | 132 ++++++++++++++++++++++++++++++-
+ 2 files changed, 129 insertions(+), 4 deletions(-)
 
 diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
-index 2ced6f100d..d479f1a918 100644
+index d479f1a918..5c440f28ec 100644
 --- a/tools/libs/saverestore/common.h
 +++ b/tools/libs/saverestore/common.h
-@@ -242,9 +242,14 @@ struct sr_restore_arrays {
-     /* process_page_data */
+@@ -243,6 +243,7 @@ struct sr_restore_arrays {
      xen_pfn_t mfns[MAX_BATCH_SIZE];
      int map_errs[MAX_BATCH_SIZE];
-+    void *guest_data[MAX_BATCH_SIZE];
-+
+     void *guest_data[MAX_BATCH_SIZE];
++    struct iovec iov[MAX_BATCH_SIZE];
+ 
      /* populate_pfns */
      xen_pfn_t pp_mfns[MAX_BATCH_SIZE];
-     xen_pfn_t pp_pfns[MAX_BATCH_SIZE];
-+
-+    /* Must be the last member */
-+    struct xc_sr_rec_page_data_header pages;
- };
- 
- struct xc_sr_context
-@@ -335,7 +340,11 @@ struct xc_sr_context
- 
-             /* Sender has invoked verify mode on the stream. */
-             bool verify;
-+            void *verify_buf;
-+
-             struct sr_restore_arrays *m;
-+            void *guest_mapping;
-+            uint32_t nr_mapped_pages;
-         } restore;
-     };
- 
 diff --git a/tools/libs/saverestore/restore.c b/tools/libs/saverestore/restore.c
-index 2409c8d603..877fd19a9b 100644
+index 877fd19a9b..d0148606bf 100644
 --- a/tools/libs/saverestore/restore.c
 +++ b/tools/libs/saverestore/restore.c
-@@ -186,123 +186,18 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
+@@ -392,6 +392,122 @@ err:
      return rc;
  }
  
--/*
-- * Given a list of pfns, their types, and a block of page data from the
-- * stream, populate and record their types, map the relevant subset and copy
-- * the data into the guest.
-- */
--static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
--                             xen_pfn_t *pfns, uint32_t *types, void *page_data)
-+static int handle_static_data_end_v2(struct xc_sr_context *ctx)
- {
--    xc_interface *xch = ctx->xch;
--    xen_pfn_t *mfns = ctx->restore.m->mfns;
--    int *map_errs = ctx->restore.m->map_errs;
--    int rc;
--    void *mapping = NULL, *guest_page = NULL;
--    unsigned int i, /* i indexes the pfns from the record. */
--        j,          /* j indexes the subset of pfns we decide to map. */
--        nr_pages = 0;
--
--    rc = populate_pfns(ctx, count, pfns, types);
--    if ( rc )
--    {
--        ERROR("Failed to populate pfns for batch of %u pages", count);
--        goto err;
--    }
--
--    for ( i = 0; i < count; ++i )
--    {
--        ctx->restore.ops.set_page_type(ctx, pfns[i], types[i]);
--
--        if ( page_type_has_stream_data(types[i]) == true )
--            mfns[nr_pages++] = ctx->restore.ops.pfn_to_gfn(ctx, pfns[i]);
--    }
--
--    /* Nothing to do? */
--    if ( nr_pages == 0 )
--        goto done;
--
--    mapping = guest_page = xenforeignmemory_map(
--        xch->fmem, ctx->domid, PROT_READ | PROT_WRITE,
--        nr_pages, mfns, map_errs);
--    if ( !mapping )
--    {
--        rc = -1;
--        PERROR("Unable to map %u mfns for %u pages of data",
--               nr_pages, count);
--        goto err;
--    }
--
--    for ( i = 0, j = 0; i < count; ++i )
--    {
--        if ( page_type_has_stream_data(types[i]) == false )
--            continue;
--
--        if ( map_errs[j] )
--        {
--            rc = -1;
--            ERROR("Mapping pfn %#"PRIpfn" (mfn %#"PRIpfn", type %#"PRIx32") failed with %d",
--                  pfns[i], mfns[j], types[i], map_errs[j]);
--            goto err;
--        }
--
--        /* Undo page normalisation done by the saver. */
--        rc = ctx->restore.ops.localise_page(ctx, types[i], page_data);
--        if ( rc )
--        {
--            ERROR("Failed to localise pfn %#"PRIpfn" (type %#"PRIx32")",
--                  pfns[i], types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
--            goto err;
--        }
--
--        if ( ctx->restore.verify )
--        {
--            /* Verify mode - compare incoming data to what we already have. */
--            if ( memcmp(guest_page, page_data, PAGE_SIZE) )
--                ERROR("verify pfn %#"PRIpfn" failed (type %#"PRIx32")",
--                      pfns[i], types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
--        }
--        else
--        {
--            /* Regular mode - copy incoming data into place. */
--            memcpy(guest_page, page_data, PAGE_SIZE);
--        }
--
--        ++j;
--        guest_page += PAGE_SIZE;
--        page_data += PAGE_SIZE;
--    }
--
-- done:
--    rc = 0;
--
-- err:
--    if ( mapping )
--        xenforeignmemory_unmap(xch->fmem, mapping, nr_pages);
--
--    return rc;
--}
-+    int rc = 0;
- 
--/*
-- * Validate a PAGE_DATA record from the stream, and pass the results to
-- * process_page_data() to actually perform the legwork.
-- */
--static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
--{
-+#if defined(__i386__) || defined(__x86_64__)
-     xc_interface *xch = ctx->xch;
--    struct xc_sr_rec_page_data_header *pages = rec->data;
--    unsigned int i, pages_of_data = 0;
--    int rc = -1;
--
--    xen_pfn_t *pfns = ctx->restore.m->pfns, pfn;
--    uint32_t *types = ctx->restore.m->types, type;
--
-     /*
-      * v2 compatibility only exists for x86 streams.  This is a bit of a
-      * bodge, but it is less bad than duplicating handle_page_data() between
-      * different architectures.
-      */
--#if defined(__i386__) || defined(__x86_64__)
-+
-     /* v2 compat.  Infer the position of STATIC_DATA_END. */
-     if ( ctx->restore.format_version < 3 && !ctx->restore.seen_static_data_end )
-     {
-@@ -320,12 +215,26 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
-         ERROR("No STATIC_DATA_END seen");
-         goto err;
-     }
-+
-+    rc = 0;
-+err:
- #endif
- 
--    if ( rec->length < sizeof(*pages) )
-+    return rc;
-+}
-+
-+static bool verify_rec_page_hdr(struct xc_sr_context *ctx, uint32_t rec_length,
-+                                 struct xc_sr_rec_page_data_header *pages)
-+{
-+    xc_interface *xch = ctx->xch;
-+    bool ret = false;
-+
-+    errno = EINVAL;
-+
-+    if ( rec_length < sizeof(*pages) )
-     {
-         ERROR("PAGE_DATA record truncated: length %u, min %zu",
--              rec->length, sizeof(*pages));
-+              rec_length, sizeof(*pages));
-         goto err;
-     }
- 
-@@ -335,13 +244,35 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
-         goto err;
-     }
- 
--    if ( rec->length < sizeof(*pages) + (pages->count * sizeof(uint64_t)) )
-+    if ( pages->count > MAX_BATCH_SIZE )
-+    {
-+        ERROR("pfn count %u in PAGE_DATA record too large", pages->count);
-+        errno = E2BIG;
-+        goto err;
-+    }
-+
-+    if ( rec_length < sizeof(*pages) + (pages->count * sizeof(uint64_t)) )
-     {
-         ERROR("PAGE_DATA record (length %u) too short to contain %u"
--              " pfns worth of information", rec->length, pages->count);
-+              " pfns worth of information", rec_length, pages->count);
-         goto err;
-     }
- 
-+    ret = true;
-+
-+err:
-+    return ret;
-+}
-+
-+static bool verify_rec_page_pfns(struct xc_sr_context *ctx, uint32_t rec_length,
-+                                 struct xc_sr_rec_page_data_header *pages)
-+{
-+    xc_interface *xch = ctx->xch;
-+    uint32_t i, pages_of_data = 0;
-+    xen_pfn_t pfn;
-+    uint32_t type;
-+    bool ret = false;
-+
-     for ( i = 0; i < pages->count; ++i )
-     {
-         pfn = pages->pfn[i] & PAGE_DATA_PFN_MASK;
-@@ -364,23 +295,183 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
-              * have a page worth of data in the record. */
-             pages_of_data++;
- 
--        pfns[i] = pfn;
--        types[i] = type;
-+        ctx->restore.m->pfns[i] = pfn;
-+        ctx->restore.m->types[i] = type;
-     }
- 
--    if ( rec->length != (sizeof(*pages) +
-+    if ( rec_length != (sizeof(*pages) +
-                          (sizeof(uint64_t) * pages->count) +
-                          (PAGE_SIZE * pages_of_data)) )
-     {
-         ERROR("PAGE_DATA record wrong size: length %u, expected "
--              "%zu + %zu + %lu", rec->length, sizeof(*pages),
-+              "%zu + %zu + %lu", rec_length, sizeof(*pages),
-               (sizeof(uint64_t) * pages->count), (PAGE_SIZE * pages_of_data));
-         goto err;
-     }
- 
--    rc = process_page_data(ctx, pages->count, pfns, types,
--                           &pages->pfn[pages->count]);
-+    ret = true;
-+
-+err:
-+    return ret;
-+}
-+
 +/*
-+ * Populate pfns, if required
-+ * Fill m->guest_data with either mapped address or NULL
-+ * The caller must unmap guest_mapping
-+ */
-+static int map_guest_pages(struct xc_sr_context *ctx,
-+                           struct xc_sr_rec_page_data_header *pages)
-+{
-+    xc_interface *xch = ctx->xch;
-+    struct sr_restore_arrays *m = ctx->restore.m;
-+    uint32_t i, p;
-+    int rc;
-+
-+    rc = populate_pfns(ctx, pages->count, m->pfns, m->types);
-+    if ( rc )
-+    {
-+        ERROR("Failed to populate pfns for batch of %u pages", pages->count);
-+        goto err;
-+    }
-+
-+    ctx->restore.nr_mapped_pages = 0;
-+
-+    for ( i = 0; i < pages->count; i++ )
-+    {
-+        ctx->restore.ops.set_page_type(ctx, m->pfns[i], m->types[i]);
-+
-+        if ( page_type_has_stream_data(m->types[i]) == false )
-+        {
-+            m->guest_data[i] = NULL;
-+            continue;
-+        }
-+
-+        m->mfns[ctx->restore.nr_mapped_pages++] = ctx->restore.ops.pfn_to_gfn(ctx, m->pfns[i]);
-+    }
-+
-+    /* Nothing to do? */
-+    if ( ctx->restore.nr_mapped_pages == 0 )
-+        goto done;
-+
-+    ctx->restore.guest_mapping = xenforeignmemory_map(xch->fmem, ctx->domid,
-+            PROT_READ | PROT_WRITE, ctx->restore.nr_mapped_pages,
-+            m->mfns, m->map_errs);
-+    if ( !ctx->restore.guest_mapping )
-+    {
-+        rc = -1;
-+        PERROR("Unable to map %u mfns for %u pages of data",
-+               ctx->restore.nr_mapped_pages, pages->count);
-+        goto err;
-+    }
-+
-+    /* Verify mapping, and assign address to pfn data */
-+    for ( i = 0, p = 0; i < pages->count; i++ )
-+    {
-+        if ( page_type_has_stream_data(m->types[i]) == false )
-+            continue;
-+
-+        if ( m->map_errs[p] == 0 )
-+        {
-+            m->guest_data[i] = ctx->restore.guest_mapping + (p * PAGE_SIZE);
-+            p++;
-+            continue;
-+        }
-+
-+        errno = m->map_errs[p];
-+        rc = -1;
-+        PERROR("Mapping pfn %#"PRIpfn" (mfn %#"PRIpfn", type %#"PRIx32") failed",
-+              m->pfns[i], m->mfns[p], m->types[i]);
-+        goto err;
-+    }
-+
-+done:
-+    rc = 0;
-+
-+err:
-+    return rc;
-+}
-+
-+/*
-+ * Handle PAGE_DATA record from an existing buffer
++ * Handle PAGE_DATA record from the stream.
 + * Given a list of pfns, their types, and a block of page data from the
 + * stream, populate and record their types, map the relevant subset and copy
 + * the data into the guest.
 + */
-+static int handle_buffered_page_data(struct xc_sr_context *ctx,
-+                                     struct xc_sr_record *rec)
++static int handle_incoming_page_data(struct xc_sr_context *ctx,
++                                     struct xc_sr_rhdr *rhdr)
 +{
 +    xc_interface *xch = ctx->xch;
-+    struct xc_sr_rec_page_data_header *pages = rec->data;
 +    struct sr_restore_arrays *m = ctx->restore.m;
-+    void *p;
++    struct xc_sr_rec_page_data_header *pages = &m->pages;
++    uint64_t *pfn_nums = m->pages.pfn;
 +    uint32_t i;
-+    int rc = -1, idx;
++    int rc, iov_idx;
 +
 +    rc = handle_static_data_end_v2(ctx);
 +    if ( rc )
 +        goto err;
 +
 +    /* First read and verify the header */
-+    if ( verify_rec_page_hdr(ctx, rec->length, pages) == false )
++    rc = read_exact(ctx->fd, pages, sizeof(*pages));
++    if ( rc )
++    {
++        PERROR("Could not read rec_pfn header");
++        goto err;
++    }
++
++    if ( verify_rec_page_hdr(ctx, rhdr->length, pages) == false )
 +    {
 +        rc = -1;
 +        goto err;
 +    }
 +
-+    /* Then read and verify the pfn numbers */
-+    if ( verify_rec_page_pfns(ctx, rec->length, pages) == false )
++    /* Then read and verify the incoming pfn numbers */
++    rc = read_exact(ctx->fd, pfn_nums, sizeof(*pfn_nums) * pages->count);
++    if ( rc )
++    {
++        PERROR("Could not read rec_pfn data");
++        goto err;
++    }
++
++    if ( verify_rec_page_pfns(ctx, rhdr->length, pages) == false )
 +    {
 +        rc = -1;
 +        goto err;
 +    }
 +
-+    /* Map the target pfn */
++    /* Finally read and verify the incoming pfn data */
 +    rc = map_guest_pages(ctx, pages);
 +    if ( rc )
 +        goto err;
 +
-+    for ( i = 0, idx = 0; i < pages->count; i++ )
++    /* Prepare read buffers, either guest or throw away memory */
++    for ( i = 0, iov_idx = 0; i < pages->count; i++ )
 +    {
 +        if ( !m->guest_data[i] )
 +            continue;
 +
-+        p = &pages->pfn[pages->count] + (idx * PAGE_SIZE);
-+        rc = ctx->restore.ops.localise_page(ctx, m->types[i], p);
++        m->iov[iov_idx].iov_len = PAGE_SIZE;
++        if ( ctx->restore.verify )
++            m->iov[iov_idx].iov_base = ctx->restore.verify_buf + i * PAGE_SIZE;
++        else
++            m->iov[iov_idx].iov_base = m->guest_data[i];
++        iov_idx++;
++    }
++
++    if ( !iov_idx )
++        goto done;
++
++    rc = readv_exact(ctx->fd, m->iov, iov_idx);
++    if ( rc )
++    {
++        PERROR("read of %d pages failed", iov_idx);
++        goto err;
++    }
++
++    /* Post-processing of pfn data */
++    for ( i = 0, iov_idx = 0; i < pages->count; i++ )
++    {
++        if ( !m->guest_data[i] )
++            continue;
++
++        rc = ctx->restore.ops.localise_page(ctx, m->types[i], m->iov[iov_idx].iov_base);
 +        if ( rc )
 +        {
 +            ERROR("Failed to localise pfn %#"PRIpfn" (type %#"PRIx32")",
@@ -503,64 +216,53 @@ index 2409c8d603..877fd19a9b 100644
 +
 +        if ( ctx->restore.verify )
 +        {
-+            if ( memcmp(m->guest_data[i], p, PAGE_SIZE) )
++            if ( memcmp(m->guest_data[i], m->iov[iov_idx].iov_base, PAGE_SIZE) )
 +            {
-+                errno = EIO;
 +                ERROR("verify pfn %#"PRIpfn" failed (type %#"PRIx32")",
 +                      m->pfns[i], m->types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
-+                goto err;
 +            }
 +        }
-+        else
-+        {
-+            memcpy(m->guest_data[i], p, PAGE_SIZE);
-+        }
 +
-+        idx++;
++        iov_idx++;
 +    }
 +
++done:
 +    rc = 0;
 +
-  err:
++err:
 +    if ( ctx->restore.guest_mapping )
 +    {
 +        xenforeignmemory_unmap(xch->fmem, ctx->restore.guest_mapping, ctx->restore.nr_mapped_pages);
 +        ctx->restore.guest_mapping = NULL;
 +    }
-     return rc;
++    return rc;
++}
++
+ /*
+  * Handle PAGE_DATA record from an existing buffer
+  * Given a list of pfns, their types, and a block of page data from the
+@@ -773,11 +889,19 @@ static int process_incoming_record_header(struct xc_sr_context *ctx, struct xc_s
+     struct xc_sr_record rec;
+     int rc;
+ 
+-    rc = read_record_data(ctx, ctx->fd, rhdr, &rec);
+-    if ( rc )
+-        return rc;
++    switch ( rhdr->type )
++    {
++    case REC_TYPE_PAGE_DATA:
++        rc = handle_incoming_page_data(ctx, rhdr);
++        break;
++    default:
++        rc = read_record_data(ctx, ctx->fd, rhdr, &rec);
++        if ( rc == 0 )
++            rc = process_buffered_record(ctx, &rec);;
++        break;
++    }
+ 
+-    return process_buffered_record(ctx, &rec);
++    return rc;
  }
  
-@@ -641,12 +732,21 @@ static int process_buffered_record(struct xc_sr_context *ctx, struct xc_sr_recor
-         break;
  
-     case REC_TYPE_PAGE_DATA:
--        rc = handle_page_data(ctx, rec);
-+        rc = handle_buffered_page_data(ctx, rec);
-         break;
- 
-     case REC_TYPE_VERIFY:
-         DPRINTF("Verify mode enabled");
-         ctx->restore.verify = true;
-+        if ( !ctx->restore.verify_buf )
-+        {
-+            ctx->restore.verify_buf = malloc(MAX_BATCH_SIZE * PAGE_SIZE);
-+            if ( !ctx->restore.verify_buf )
-+            {
-+                rc = -1;
-+                PERROR("Unable to allocate verify_buf");
-+            }
-+        }
-         break;
- 
-     case REC_TYPE_CHECKPOINT:
-@@ -725,7 +825,8 @@ static int setup(struct xc_sr_context *ctx)
-     }
-     ctx->restore.allocated_rec_num = DEFAULT_BUF_RECORDS;
- 
--    ctx->restore.m = malloc(sizeof(*ctx->restore.m));
-+    ctx->restore.m = malloc(sizeof(*ctx->restore.m) +
-+            (sizeof(*ctx->restore.m->pages.pfn) * MAX_BATCH_SIZE));
-     if ( !ctx->restore.m ) {
-         ERROR("Unable to allocate memory for arrays");
-         rc = -1;
 
