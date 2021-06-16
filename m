@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682F53A9EC3
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 17:16:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143389.264292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D789C3A9ECD
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jun 2021 17:17:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143396.264303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltXGf-0000q1-Iu; Wed, 16 Jun 2021 15:15:49 +0000
+	id 1ltXIS-0001WL-1k; Wed, 16 Jun 2021 15:17:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143389.264292; Wed, 16 Jun 2021 15:15:49 +0000
+Received: by outflank-mailman (output) from mailman id 143396.264303; Wed, 16 Jun 2021 15:17:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltXGf-0000ng-EQ; Wed, 16 Jun 2021 15:15:49 +0000
-Received: by outflank-mailman (input) for mailman id 143389;
- Wed, 16 Jun 2021 15:15:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ltXIR-0001UW-U5; Wed, 16 Jun 2021 15:17:39 +0000
+Received: by outflank-mailman (input) for mailman id 143396;
+ Wed, 16 Jun 2021 15:17:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=my07=LK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1ltXGe-0000nW-1z
- for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 15:15:48 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 082c210b-e951-4567-8da5-a50e2d2947da;
- Wed, 16 Jun 2021 15:15:46 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C3977219C7;
- Wed, 16 Jun 2021 15:15:45 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 860C4118DD;
- Wed, 16 Jun 2021 15:15:45 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id Om+YH6EVymBadwAALh3uQQ
- (envelope-from <jgross@suse.com>); Wed, 16 Jun 2021 15:15:45 +0000
+ (envelope-from <SRS0=qy3q=LK=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1ltXIQ-0001UQ-PS
+ for xen-devel@lists.xenproject.org; Wed, 16 Jun 2021 15:17:38 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.51])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b6824e6-4fc2-4acb-8872-109fa8468554;
+ Wed, 16 Jun 2021 15:17:37 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.27.2 AUTH)
+ with ESMTPSA id j0415bx5GFHPuZF
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 16 Jun 2021 17:17:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,195 +40,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 082c210b-e951-4567-8da5-a50e2d2947da
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1623856545; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BprycyD/7aFkT8LZPN9lfjXfWwl5CozQZntJN4O3i9Y=;
-	b=WYr88gkwYtFuG+Czlfy7VKwdTcUrd95+8eRKJp2T2mWB3/z8bIZ63rUeAoOJv1Sn1vEXcz
-	RNhnatNsM6lU2Fgfq1T4j5XHz12K8MK+W0Z9FVWjxkSRUDkKdBsIXDIptfnt7GQpogk27+
-	m71HPpl1X1XnhJv5g6nO4lsYaedmFWM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1623856545; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BprycyD/7aFkT8LZPN9lfjXfWwl5CozQZntJN4O3i9Y=;
-	b=WYr88gkwYtFuG+Czlfy7VKwdTcUrd95+8eRKJp2T2mWB3/z8bIZ63rUeAoOJv1Sn1vEXcz
-	RNhnatNsM6lU2Fgfq1T4j5XHz12K8MK+W0Z9FVWjxkSRUDkKdBsIXDIptfnt7GQpogk27+
-	m71HPpl1X1XnhJv5g6nO4lsYaedmFWM=
-Subject: Re: [PATCH 01/10] MAINTAINERS: Add myself as reviewers for
- tools/xenstore
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: raphning@amazon.co.uk, doebel@amazon.de,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20210616144324.31652-1-julien@xen.org>
- <20210616144324.31652-2-julien@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <fb8de6a8-0b94-18cf-9026-7b85b461fb50@suse.com>
-Date: Wed, 16 Jun 2021 17:15:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+X-Inumbo-ID: 1b6824e6-4fc2-4acb-8872-109fa8468554
+ARC-Seal: i=1; a=rsa-sha256; t=1623856646; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=drJV+278tqiI6bSBzkMJO/6Q4r4m65SwApY2ONXqUs0L8escI6k+effrgLcfrXhrSW
+    rDu1l6NeKzISB+1eBGVO6fXic+ifROMhu6wHZ8VmwwmjxiQ4qPx5nVr+5IPniVXHbZOx
+    egQb1+BjRw81+LMrGcSRfhmRzqcEzTumR2LpBn/eCP7bbpoL3Qc7lAkAww0YPIB3FHwV
+    fiuZqXDU9LUz/oiMMVoxExOLPtEneRsVCYf8kx/z0pzBz//ErpeXfEIQVI71a7uUGUez
+    +M7BuZ+Njg73R1P09/NmPAD8RDirYNdnIi4BO/tqEZybZlF6Zbu8TiIRBt1tQ8ZNk7es
+    nutQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1623856646;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=rcR3fIihUPNHsD2xDx+zqWqCaDx02jTmSvzpKhcgqHM=;
+    b=hF25v1cPFC7ylRsKrpApG/7ynky1ii3FCAdefe4xYqd3Is57l3DOPeona/5Vz/i5g2
+    q6cTCBjhRcfqsSSKZ9f0VaXDHnq1B4fHrugAq8VEzOwARKf1zBXk4rVd1fQuWlw4fZdc
+    BMYfSSR4tbbZdx6Sn3/Oox8K86RkkLti3NDHH7HDl5D3T0mNvazYL1Jf08kChWfNwtIZ
+    Mdi93nyEXacT6fIp6L6edqqYH+NOOJ8OLy1BOmLSHZhS/TTKfjvzjLAufOptA512ofLi
+    KrfZIzm2DBiABs6U+/Rpr0l0oPxPthZgUMB9/G0him2OZs5usYXmgA93pSy4aUj7+SfV
+    fDjg==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623856646;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=rcR3fIihUPNHsD2xDx+zqWqCaDx02jTmSvzpKhcgqHM=;
+    b=BFOBHfge/qZfI1AmbQ/GJ+HXO7kKgML60qrxT/kQYWIeIoWbTHZz6RZrywumeEStIE
+    0Om4ylhKg3NjPh2M8pGrRbpraPRG4oMxu+UIUQC1A+IuPrGLMG7qNng4KtTTURmsJy43
+    HkTCMsPuO9umU3hytF32Ipj2q5Z3r4QBoR3Hiy+dh0dTNxKKqOpIJ9QaoZcmseOvzjke
+    tYwv6SKdt1xo9gGNhCQ2bi1FlWfYb7dYSUHDmS/s1priebMwJ2YrFbLuINNAZXH20PFs
+    Sm0yFS0ITjBocxjKUM6xoMigdWNSIFBB4XtVg65tjtV5nlvoGjyAA951U//JTBnMNeR8
+    T7JA==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsVxSIbR7sf0kebs4Z3Zpqv+Sabl5o7CzRq+Ps8Q=="
+X-RZG-CLASS-ID: mo00
+Date: Wed, 16 Jun 2021 17:17:18 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v20210616 04/36] tools: create libxensaverestore
+Message-ID: <20210616171718.012fbb6a.olaf@aepfle.de>
+In-Reply-To: <20210616125129.26563-5-olaf@aepfle.de>
+References: <20210616125129.26563-1-olaf@aepfle.de>
+	<20210616125129.26563-5-olaf@aepfle.de>
+X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20210616144324.31652-2-julien@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ITlDbs2hApUg5AldH4i42oyeXiViPyzZp"
+Content-Type: multipart/signed; boundary="Sig_/xLZ=8GvyLqie6N7GGHDqxGe";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ITlDbs2hApUg5AldH4i42oyeXiViPyzZp
-Content-Type: multipart/mixed; boundary="6lCflRAI8L9zNb7jpakD7eZCMSrzrwVPU";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: raphning@amazon.co.uk, doebel@amazon.de,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <fb8de6a8-0b94-18cf-9026-7b85b461fb50@suse.com>
-Subject: Re: [PATCH 01/10] MAINTAINERS: Add myself as reviewers for
- tools/xenstore
-References: <20210616144324.31652-1-julien@xen.org>
- <20210616144324.31652-2-julien@xen.org>
-In-Reply-To: <20210616144324.31652-2-julien@xen.org>
-
---6lCflRAI8L9zNb7jpakD7eZCMSrzrwVPU
-Content-Type: multipart/mixed;
- boundary="------------EC3D59429543C86D6BD0572D"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------EC3D59429543C86D6BD0572D
-Content-Type: text/plain; charset=utf-8; format=flowed
+--Sig_/xLZ=8GvyLqie6N7GGHDqxGe
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On 16.06.21 16:43, Julien Grall wrote:
-> I would like to help reviewing Xenstored patches. It is more convenient=
+Am Wed, 16 Jun 2021 14:50:57 +0200
+schrieb Olaf Hering <olaf@aepfle.de>:
 
-> to find them if I am CCed.
->=20
-> Signed-off-by: Julien Grall <julien@xen.org>
+> Move all save/restore related code from libxenguest.so into a separate
+> library libxensaverestore.so.
 
-Acked-by: Juergen Gross <jgross@suse.com>
+This additional change is required to cover non-x86.
 
+--- a/tools/libs/saverestore/nomigrate.c
++++ b/tools/libs/saverestore/nomigrate.c
+@@ -17,8 +17,7 @@
+=20
+ #include <inttypes.h>
+ #include <errno.h>
+-#include <xenctrl.h>
+-#include <xenguest.h>
++#include <xensaverestore.h>
+=20
+ int xc_domain_save(xc_interface *xch, int io_fd, uint32_t dom, uint32_t fl=
+ags,
+                    struct save_callbacks *callbacks,
 
-Juergen
+Olaf
 
---------------EC3D59429543C86D6BD0572D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------EC3D59429543C86D6BD0572D--
-
---6lCflRAI8L9zNb7jpakD7eZCMSrzrwVPU--
-
---ITlDbs2hApUg5AldH4i42oyeXiViPyzZp
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--Sig_/xLZ=8GvyLqie6N7GGHDqxGe
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDKFaEFAwAAAAAACgkQsN6d1ii/Ey8j
-Ggf+JdspmkxMsKUfprFzdW/a0S5A5hZLDVZORJyYH+BXyY5Q/IXVqBOdsOZXCwiiEJg5ou6wJzDT
-YoVXqH/sp4YcZ7cXB/2van/FNO5WxgzFQomkbjSAyPkbaHjAimE09XXbOVoltBISpS3VNQDqbQfh
-ddZwJ4zl6wS8D7IjW0UrHtXteq+Yh6Be1iqYIryam8XE0oHegveDpB/r6k3uIsMQXTSkIWKPtHW5
-+1dYKSIfEkcEGKX92kca4DVcOeuY9+Rh9ZCSDHWAB5BGy5LilSLSNBToIguj4hS2T0EwFEsFvGZ0
-YkZsv8fL19SoKB/rLU7B5BwZbyniOqHEcysYsrQ5SQ==
-=Voas
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDKFf4ACgkQ86SN7mm1
+DoCRtA/9E6lx9RAuzknFAfSRQe9Iz2NyEjENU+bGkir2e7FdTvp8xnDEMhf1W/kb
+GfycDdiXdFpRAzdhpD4PB6RfrNQL6+gOdASgJ5XT86myHmm+L/kEm07uOocsoVg3
+28m9ePezS1itDa01DoiUQAscnZq+wdGM71uX3dCtj2Fa/c8MrFUtFd7ffnI2J1m6
+ThuDBZqqnXCbblNQvq3zqjvZs47BMCH31PLcktzuXAO7ImsyUA4GuFkMJR+EXZo2
+/p+yhVy4nrWS/YiUPYBayELB2H+v3JDQGSt4QsY7l4BkixWTqUDDgqOwTrGuGa3C
+7HKIX6t+69C9ovbedIK9USR5SfaIesOuXpDdWea8fawawKaiSwt9zfCHfwmYRdwJ
+eEnRSregh5vvVxbDKMPgYrtkfgLLCIUAgCjraFR6hwGi5JhzKyYZrB9/wJznQ7ZP
+9GABSCK3D1i6xEqWhfFEvMrtuu+rQr34J9+4+uTFtt6w66e1Ta4sfhcIIcxVayJD
+a+x9G9/CcjlHQsG5o1oM5OsrASkrHNiDdqV9drDW2V4xPzFnO5jra7IbxYYZAQ0c
+NRMK8l/ThNbs+QsNdZn4mPH+iicp08Zi+cdhjg46bB+GrNJUfine8FB5VJQ1wcpX
+VRGpfdXA5K8f+x/Uo6AP4RWM7do+dMaRgXbgbZXLods28f44ukc=
+=UXx6
 -----END PGP SIGNATURE-----
 
---ITlDbs2hApUg5AldH4i42oyeXiViPyzZp--
+--Sig_/xLZ=8GvyLqie6N7GGHDqxGe--
 
