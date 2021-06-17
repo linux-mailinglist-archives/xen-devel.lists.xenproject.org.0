@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2C43ABABA
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 19:40:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144108.265313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B29F03ABB26
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 20:03:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144116.265324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltw03-0007Us-6y; Thu, 17 Jun 2021 17:40:19 +0000
+	id 1ltwLe-0001Yo-3I; Thu, 17 Jun 2021 18:02:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144108.265313; Thu, 17 Jun 2021 17:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 144116.265324; Thu, 17 Jun 2021 18:02:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltw03-0007Ru-36; Thu, 17 Jun 2021 17:40:19 +0000
-Received: by outflank-mailman (input) for mailman id 144108;
- Thu, 17 Jun 2021 17:40:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZKGl=LL=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1ltw01-0007Rg-Nx
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 17:40:17 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.217])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd1bfc64-7146-4e82-85c3-6fefdfcb65a1;
- Thu, 17 Jun 2021 17:40:16 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.27.3 AUTH)
- with ESMTPSA id x0a371x5HHeE0cT
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 17 Jun 2021 19:40:14 +0200 (CEST)
+	id 1ltwLd-0001WI-VV; Thu, 17 Jun 2021 18:02:37 +0000
+Received: by outflank-mailman (input) for mailman id 144116;
+ Thu, 17 Jun 2021 18:02:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iG+e=LL=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
+ id 1ltwLc-0001WC-0y
+ for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 18:02:36 +0000
+Received: from server.eikelenboom.it (unknown [91.121.65.215])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 48daf945-e739-46c9-b34b-328a35bdbc7c;
+ Thu, 17 Jun 2021 18:02:34 +0000 (UTC)
+Received: from 76-24-144-85.ftth.glasoperator.nl ([85.144.24.76]:51064
+ helo=[172.16.1.50]) by server.eikelenboom.it with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <linux@eikelenboom.it>)
+ id 1ltwQB-0006fU-Be; Thu, 17 Jun 2021 20:07:19 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,76 +41,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd1bfc64-7146-4e82-85c3-6fefdfcb65a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1623951614;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=XNRiVLz8TCvvIJp6un9U+TyNYA+OhzJ5SZ66SPSgLO8=;
-    b=cLqTeIx4lRwhU4dXlcflnDkymUcj051x1Y/rr18pYmQZfiQq0J5/GoxszwjQhzCSO6
-    hFic/DHD32MNGpqh6wAgE8p73MANNVBVKqT8kGyfhuDDOpozl21hib3qnr27sB9N/yIX
-    8lIwVKvsY8+wRJSf4e4vSNPJ2ykLmjOcjdCTPIw/diaLqhG1/q0VAfwusxoeH1XA4AxB
-    nzpMwMm+vNNd44eajlBqKHCpsbUMDa6IiYSUhhLPqKbbZu2ZAG9qh4QSVjJ+sdOgZDdC
-    ky3lOY4hyXz0sAlgB3fU3wsugIolHu1lAd/VDsiBHUPkWUulaiIiHVH9muXEsdZehvKQ
-    CHDg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsVxSIbR7sf0kebs4Z3Zpqv+Sabl5o7CzRq+Ps8Q=="
-X-RZG-CLASS-ID: mo00
-Date: Thu, 17 Jun 2021 19:40:06 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v20210616 00/36] leftover from 2020
-Message-ID: <20210617194006.2d7f848f.olaf@aepfle.de>
-In-Reply-To: <0bf3f6e7-c45e-c158-21d3-e3b636eb71c5@xen.org>
-References: <20210616125129.26563-1-olaf@aepfle.de>
-	<968713af-3c99-3fe3-8378-9d9c3985098e@citrix.com>
-	<20210616170238.376cb13d.olaf@aepfle.de>
-	<0bf3f6e7-c45e-c158-21d3-e3b636eb71c5@xen.org>
-X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 48daf945-e739-46c9-b34b-328a35bdbc7c
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=PiN3z2mKDdT5442Y+muKtJpynotCbE1hW/7caNM/RJk=; b=SFGTJae2VtNYejTAt/O1zGbbFs
+	WqNBFGLdNgegQgVYtdoSjbl7L5z3kKUVETjdj8jFbq5hVa3nKtFGd0AZvB97rSgiBOzlYFHcPHVIL
+	zua+3fLh2ng3XN3RDLyuLGzPskn7WR6QA31nbq3EZCvvyJkm1lihbSwwq4f6BxAa/Hyo=;
+Subject: Re: Linux 5.13-rc6 regression to 5.12.x: kernel OOM and panic during
+ kernel boot in low memory Xen VM's (256MB assigned memory).
+To: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <ee8bf04c-6e55-1d9b-7bdb-25e6108e8e1e@eikelenboom.it>
+ <CAHk-=wjgg67NMBNG99naEQ1cM0mXBBzdhCJaYFH-kC+mLK+J2g@mail.gmail.com>
+ <9108c22e-3521-9e24-6124-7776d947b788@rasmusvillemoes.dk>
+From: Sander Eikelenboom <linux@eikelenboom.it>
+Message-ID: <0b12f27b-1109-b621-c969-10814b2c1c2f@eikelenboom.it>
+Date: Thu, 17 Jun 2021 20:02:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/n0NHTaKYb3my3i0UyB5.6c=";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+In-Reply-To: <9108c22e-3521-9e24-6124-7776d947b788@rasmusvillemoes.dk>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---Sig_/n0NHTaKYb3my3i0UyB5.6c=
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 17/06/2021 17:37, Rasmus Villemoes wrote:
+> On 17/06/2021 17.01, Linus Torvalds wrote:
+>> On Thu, Jun 17, 2021 at 2:26 AM Sander Eikelenboom <linux@eikelenboom.it> wrote:
+>>>
+>>> I just tried to upgrade and test the linux kernel going from the 5.12 kernel series to 5.13-rc6 on my homeserver with Xen, but ran in some trouble.
+>>>
+>>> Some VM's boot fine (with more than 256MB memory assigned), but the smaller (memory wise) PVH ones crash during kernel boot due to OOM.
+>>> Booting VM's with 5.12(.9) kernel still works fine, also when dom0 is running 5.13-rc6 (but it has more memory assigned, so that is not unexpected).
+>>
+>> Adding Rasmus to the cc, because this looks kind of like the async
+>> roofs population thing that caused some other oom issues too.
+> 
+> Yes, that looks like the same issue.
+> 
+>> Rasmus? Original report here:
+>>
+>>     https://lore.kernel.org/lkml/ee8bf04c-6e55-1d9b-7bdb-25e6108e8e1e@eikelenboom.it/
+>>
+>> I do find it odd that we'd be running out of memory so early..
+> 
+> Indeed. It would be nice to know if these also reproduce with
+> initramfs_async=0 on the command line.
+> 
+> But what is even more curious is that in the other report
+> (https://lore.kernel.org/lkml/20210607144419.GA23706@xsang-OptiPlex-9020/),
+> it seemed to trigger with _more_ memory - though I may be misreading
+> what Oliver was telling me:
+> 
+>> please be noted that we use 'vmalloc=512M' for both parent and this
+> commit.
+>> since it's ok on parent but oom on this commit, we want to send this
+> report
+>> to show the potential problem of the commit on some cases.
+>>
+>> we also tested by changing to use 'vmalloc=128M', it will succeed.
+> 
+> Those tests were done in a VM with 16G memory, and then he also wrote
+> 
+>> we also tried to follow exactly above steps to test on
+>> some local machine (8G memory), but cannot reproduce.
+> 
+> Are there some special rules for what memory pools PID1 versus the
+> kworker threads can dip into?
+> 
+> 
+> Side note: I also had a ppc64 report with different symptoms (the
+> initramfs was corrupted), but that turned out to also reproduce with
+> e7cb072eb98 reverted, so that is likely unrelated. But just FTR that
+> thread is here:
+> https://lore.kernel.org/lkml/CA+QYu4qxf2CYe2gC6EYnOHXPKS-+cEXL=MnUvqRFaN7W1i6ahQ@mail.gmail.com/
+> 
+> Rasmus
+> 
 
-Am Thu, 17 Jun 2021 13:02:39 +0200
-schrieb Julien Grall <julien@xen.org>:
+I choose to first finish the bisection attempt, not so suprising it ends up with:
+e7cb072eb988e46295512617c39d004f9e1c26f8 is the first bad commit
 
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D4210
+So at least that link is confirmed.
 
-Thanks, comments in this bug suggest a workaround like this:
+I also checked out booting with "initramfs_async=0" and now the guest boots with the 5.13-rc6-ish kernel which fails without that.
 
-    new_max |=3D sizeof(unsigned long) > 4 ? new_max >> 32 : 0;
+--
+Sander
 
-This triggers no warning.
-
-Olaf
-
---Sig_/n0NHTaKYb3my3i0UyB5.6c=
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDLiPcACgkQ86SN7mm1
-DoCaTg/+Ktd+Hy3kC7uZ332LVb0oMbCOZ8vFSq8uOwtqgcKqDLHlEpZ2WzgJ2PPN
-boC8GcXK+Pv/X0HbCuycauh3v0CuDRCu9wFmKsUmyAFXV+XgJg7gNSTw0MZ758Ol
-hhywOipWMKybj7rwOBNHE9bFyN4krDdAFhjs+MaFkI89d7RTlVnQ2Rso2liS8tzs
-2D2XcGaNCQUxMRV2CdhpB5e0WC8Br6RCgn0PCWVUBlc6wUC0hH9OGApujVbkfurO
-T3F7x9B4PKnAP0BDcHvaBejpLFJz7I3SMsWEzkuOSk1QxmhGlTKSbaGtqC69H/5z
-6im79Rtg2qfa40I8j8Kk+sPaVGlTG+P0LaVh+lFjOMFj6Cc/+2KL4EnfWRyxhmRe
-WLJ2zBUSbLAMjFl+1PMtT+xT9DEXZOfz90DlZVR+9jdllcdhhxFA0AuBr3UaXc+m
-bQDZLEpDOyghOxphZA2Gnm5BN43D4CDmmRXe36qbs8ZvR2oofva4jPW8f7bLNlEh
-XvcdQ/K6pfdbqpY/MsO7zRyknuUrRF8S0rqSMVcdaOYSQU23+kSddWW997TH0sxz
-YF7gXPFTtlA2rMDQWGWRjY7qDBpzPHOHgZcn/k14S9pVFiwwl98J61JM70hV9qXr
-Uw93P4LZvgFGOPMPU/2ODurJohlPBc6NDnk+Ynre6gYZVH6IRU8=
-=H2y/
------END PGP SIGNATURE-----
-
---Sig_/n0NHTaKYb3my3i0UyB5.6c=--
 
