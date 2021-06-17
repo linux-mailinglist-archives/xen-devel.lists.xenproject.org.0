@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19F893AACB6
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 08:49:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143711.264742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B6DA3AAE57
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 10:01:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143721.264752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltlpo-0003fH-JG; Thu, 17 Jun 2021 06:49:04 +0000
+	id 1ltmwt-0003Nd-Bd; Thu, 17 Jun 2021 08:00:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143711.264742; Thu, 17 Jun 2021 06:49:04 +0000
+Received: by outflank-mailman (output) from mailman id 143721.264752; Thu, 17 Jun 2021 08:00:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltlpo-0003d3-Fq; Thu, 17 Jun 2021 06:49:04 +0000
-Received: by outflank-mailman (input) for mailman id 143711;
- Thu, 17 Jun 2021 06:49:03 +0000
+	id 1ltmwt-0003L0-8D; Thu, 17 Jun 2021 08:00:27 +0000
+Received: by outflank-mailman (input) for mailman id 143721;
+ Thu, 17 Jun 2021 08:00:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V3wh=LL=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1ltlpn-0003cx-9t
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 06:49:03 +0000
-Received: from mail-pl1-x634.google.com (unknown [2607:f8b0:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=k/hY=LL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ltmwr-0003Ku-OM
+ for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 08:00:25 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32eff0be-56c6-4a8a-936c-0ce81a5f744b;
- Thu, 17 Jun 2021 06:49:02 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id x10so2413863plg.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jun 2021 23:49:02 -0700 (PDT)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com.
- [209.85.215.169])
- by smtp.gmail.com with ESMTPSA id o34sm759154pgm.6.2021.06.16.23.49.01
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jun 2021 23:49:01 -0700 (PDT)
-Received: by mail-pg1-f169.google.com with SMTP id e22so4125998pgv.10
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jun 2021 23:49:01 -0700 (PDT)
+ id 89f7646e-446d-4b77-a5d0-4e536b3a58d1;
+ Thu, 17 Jun 2021 08:00:24 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-22-wVyxjQ9RPv6h5x_i8gpiDw-1; Thu, 17 Jun 2021 10:00:22 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB4606.eurprd04.prod.outlook.com (2603:10a6:803:70::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Thu, 17 Jun
+ 2021 08:00:19 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4242.019; Thu, 17 Jun 2021
+ 08:00:19 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0003.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1d::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4264.7 via Frontend Transport; Thu, 17 Jun 2021 08:00:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +52,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32eff0be-56c6-4a8a-936c-0ce81a5f744b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=IqsCA/yjikDS1aCYzllqiH9HoLVcQQhYIn5qSeonABE=;
-        b=GiFPgetacPTJVsGZ3MFWgSvQPnCdoTJhc4FxcdhnTR1mIKLWNYkC5qsclOh1Nu4T0t
-         2JBHLcEHEvZiTaAAwPJzRshEva/oe1afpxIyCNXuS6Yc5SEiWBAid4ULBNFnG08bi+4b
-         5Y3w62S7YQM/biDmcuEcWF0r86zBUuRahetbQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=IqsCA/yjikDS1aCYzllqiH9HoLVcQQhYIn5qSeonABE=;
-        b=mPWP1Kc2tL77A8f7hWt5yRVzjRAMHN689evo9lxfp8Mjyne7cPNWGC7lgxauIGLB5Y
-         X+otdIYTnEMjD88glFo9JHmaxt36LaL6IJK1TCxuAWjsmMqvyNuH82+MzOc9i4/tb/2v
-         6P26uQI/3fvMVKFyG3sOEwW/ZmIzgai05eaH3fhL1P2PAzqNbxiT9tApK+akp7wnD8bo
-         sL0E9g9Iz54qUmuzeQgxD/GjgH90tXtjvFKhsFixzow9ePU7NIPILgOS0WaKP+//RHAG
-         YdDwhQvZhuyuz8mgNUihSQ3CFRIHAo3p98R6Y/qtoSzx5IYaAD3+TUFEqC9vY+Qy8/4b
-         2Nqg==
-X-Gm-Message-State: AOAM533vRMOEhYFlOZFFiHSUGHricsW4ZEsRWJMK6gvfKyux7d/YdYdl
-	mKckziAImTfsg+SuXuD2jzrxWp+VB7Fung==
-X-Google-Smtp-Source: ABdhPJxJXQ84cUseu++86IpuRVDPr4p/6SI3aPiykIMrIlz8fLyXTyibCL6Gcu8XdqmmrDvw5SfHhQ==
-X-Received: by 2002:a17:90a:6e4d:: with SMTP id s13mr3944782pjm.29.1623912541680;
-        Wed, 16 Jun 2021 23:49:01 -0700 (PDT)
-X-Received: by 2002:a05:6602:2344:: with SMTP id r4mr2559955iot.69.1623912068770;
- Wed, 16 Jun 2021 23:41:08 -0700 (PDT)
+X-Inumbo-ID: 89f7646e-446d-4b77-a5d0-4e536b3a58d1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1623916823;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jiTgbx2mu8DbI/5lQiyzCnV3uep143WJcQXwYHB7zAM=;
+	b=m0/0V3AzEO3bvwwziusGccsPnqMsSf5KfuiPP+EvycdRtroaI+2uvd2GFRo+pnOVB34KTj
+	k2S06Z8FOPSCfr9jzcNoktc7MXSH3gS7KyBLY7ukfxuGZKQXaKsr4MMAIq4EL8GnDtN69S
+	uGLS4qTQFwIxe4UvbKp1miQoehP8ifM=
+X-MC-Unique: wVyxjQ9RPv6h5x_i8gpiDw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ci2ojKaN8dZFEXIMo1q3B/jKvrixvsUEnfZz+aQdQidwbMmoSCLySs1ZopGgHgkgwRE85AeSYT7S4qcYlFgyD5dwyhCwQONsB6vk754+0pybF00sWNe1GnhuUG1e6FuCr9QNnkPFmWg/YN3CwpBA+DPOR4BYA6xjzqeYOU/oVnDnoRFP7oc2i+J65Grp/mTy5qKCOzM6DjCiaohqpdHj3Uy1wsD9dGM1At19zL2UbPf66cENvz3ssBX37ql1GCP4TZhnDNPOArwtMks1OmysqaH6qtZPjakRr2pywopKDZXxYhy1yyyVsiu/TClXfpq+u5FsC3OttmfvFXdX3YomhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jiTgbx2mu8DbI/5lQiyzCnV3uep143WJcQXwYHB7zAM=;
+ b=BNy9Fk+Dpm67YdKGsgXHeiwkv5qZgFx24I1VVjQIl6Q27QXQFQ/I8RbRm+MfGP/xghEKbhIzjdm1KmwtHnFLxfSFeN8U3jIhLAbm0sfhUudBHq585UDKuE2yOAcBWwzNkuza8KprwaZ5Plu0h0tbiozXUSDaeDi2K9AKmg2AspHaqBtXyIXDF8oiAWHUcgT4GMMbBs2KuZ2xp+15AQoKDWtyHgEdWpSR538S4HOGfHUOdETM1qLd6MMSxAHdcWm8QRx2CjvpeqH/0jW8ykyc8p3buClTDi7L3pHH1YuTraxh3sLAl12yJNwd+46wPRhXZdLAYwR8Ymgh884rH6LC+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: oracle.com; dkim=none (message not signed)
+ header.d=none;oracle.com; dmarc=none action=none header.from=suse.com;
+Subject: Re: hypercalls with 64-bit results
+To: Juergen Gross <jgross@suse.com>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <71b8a4f1-9c18-36e7-56b1-3f1b1dabddd6@suse.com>
+ <2adfba14-8adb-89d8-3e8b-a25aef6fc2d6@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cf751696-5c9b-b465-67d0-544245d8563f@suse.com>
+Date: Thu, 17 Jun 2021 10:00:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <2adfba14-8adb-89d8-3e8b-a25aef6fc2d6@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [37.24.206.209]
+X-ClientProxiedBy: FR3P281CA0003.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-References: <20210616062157.953777-1-tientzu@chromium.org> <20210616120837.GA22783@willie-the-truck>
-In-Reply-To: <20210616120837.GA22783@willie-the-truck>
-From: Claire Chang <tientzu@chromium.org>
-Date: Thu, 17 Jun 2021 14:40:57 +0800
-X-Gmail-Original-Message-ID: <CALiNf28SSxhs_+9Oq=pyOc7OWWDyWrtZLUqXKQKin6dRyXwo=w@mail.gmail.com>
-Message-ID: <CALiNf28SSxhs_+9Oq=pyOc7OWWDyWrtZLUqXKQKin6dRyXwo=w@mail.gmail.com>
-Subject: Re: [PATCH v12 00/12] Restricted DMA
-To: Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
-	boris.ostrovsky@oracle.com, jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, paulus@samba.org, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
-	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
-	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
-	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	heikki.krogerus@linux.intel.com, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
-	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	matthew.auld@intel.com, rodrigo.vivi@intel.com, 
-	thomas.hellstrom@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 663db20e-9d3d-46af-249a-08d93165f34a
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4606:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB4606ACC9365569514FC73789B30E9@VI1PR04MB4606.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	T313y+74LPXJjwrDh8k1LlcdDHUguoVHBqowv4lOGYrjmQhekoV2LLYm6k206phZm6Y6EqgZiAKcV3mCOpMHrsetolSpxQl8lgyKIP+mlmOf9N0zffCeR28LvmJp6dWCwDA2XBUdIx8v4eDHqMAznQMSCdLukmAoqkoVKJmAorpfSEqPvpLXatcTdPGTOAw98nrwC03oZ/7uovMuASrs3EYVHxTzb/OmWfVEfrhtDiEXp/CDFW/n8S08vWo0Ta47TxciCz72XA+7IruaRleKptJ6p+Oqthwmu3zpFKL1Ucy9/2foYX8ogaPzseCrOzUq0WBPWGeJRqxkOkLzvgGC3id5mxu3UKD272Y+37g5TpE/Ayc15Ot5t3IwEQdxkk0GQPCKND3MjO+bbrtSWZMgAKUP8RuxsRGBDEFFSihyok91Z+S+7NEACRY/F0O9gv4Nkwja3aWYaXM2+SxEUGfXxwr2Srx/HmqY1Snb9YzQWebutHIo42cAyWDtU0CkHTjYkqYStsjGQMdcox2Ssn5KTBfEy7MfkEz8/17ziA313XI8qob7dRtO9EUawbakhHz6pKCblz/eiB7lHv0mwlBMdAkkdi40UMKL/gYxGaYsKUTht2zY748jsOzpRixdrkPpojNofng8t7EC8f7HZGjJOngyS+ycxskCr3+caHyXHSYZYw6hmXYPfqawFKby4SPn
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(396003)(39860400002)(376002)(366004)(136003)(478600001)(66946007)(66556008)(66476007)(16526019)(31686004)(54906003)(38100700002)(316002)(8676002)(186003)(2616005)(6636002)(26005)(8936002)(16576012)(2906002)(5660300002)(37006003)(956004)(4326008)(4744005)(7416002)(6862004)(31696002)(6486002)(53546011)(86362001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bWhuZXA0dFpNVTlDRE5oMkpkYmxKR3dCdmk5K0xWa2ZqdUQvbjE3RWFLbDdT?=
+ =?utf-8?B?RjFESkNYSjFCSzhNUTlKZDdaTnJ3RHZMbTBlSzZKNzRVRERMaGJJSnBIUlB3?=
+ =?utf-8?B?ODR4QW9Tb2diZXZtNzhub3IxRDBmanhBbkdwcEJndVF5TmxVeUpSOUxQNXFI?=
+ =?utf-8?B?OG1nbVhpb2tXWEpLSldMUFcrZTZySGxRVlNEWDB1ck5VSkt2N2h1WDZqWnR6?=
+ =?utf-8?B?T3JneVJkK0t2OGp3QW50L0F6dnhLcUhFc0xCekRtRmFJQ29YUFIveDdwcHpI?=
+ =?utf-8?B?R1V0b3JvNFMrakpvWnhXT2hpZHVuTURSa0FnTnhvT09QMVlzUkF2L3VKT1VG?=
+ =?utf-8?B?dUxBT0EzSjltOTZROG9rZVRSSmRZNFJpTTl0YjhRdVFFa2hMc05kS09qbmVv?=
+ =?utf-8?B?SE5TRWtZQWt6OHRoWjVESHRDRnV0bHVWZGlEblR1UWJzM01LaUFqcHQ2aWQ2?=
+ =?utf-8?B?aXRpaUNHQWFkaGxhVWNMbVE0dXhkTmZUZVdvOC9oejgrcFUvZjUxQUN3Tk5u?=
+ =?utf-8?B?SFlMMVU5UGprV3FRV1FiSitqLytsM1QxanhhTytpL0RNc3dsQzBpdFZLb3VC?=
+ =?utf-8?B?U0pnb2poUkd6ZldhWmlBY2ZhRGxiRVNQZ1FRTTNGTEdqRGZIWmI1Rnkya2xT?=
+ =?utf-8?B?S1puOUhraEZwaW5wZnZ1cGtwMjc1c0FLZE5zMnNOWXd4NU9nVnhXTjVNMHZY?=
+ =?utf-8?B?SlQ5alNTNXpOZUxUZGVGY2JQQlp2VmNZenhKZkkzZ1J2SisyL2FCZXBzVHBi?=
+ =?utf-8?B?S3J1aDkwdDF4a3V4SmNCbXZMWFBlZ0I4L25kZERkcjd3SXNYR2R6WEd2bG16?=
+ =?utf-8?B?dlhlNjFKRTdJNERpN25hOG96ZldPSC83MmRjcktyeGtSSGtQdUFQZXI5QjA4?=
+ =?utf-8?B?NTU1VkJpa1RoVjBURDRsYzFXa0NlZlJ2dEg3cFJGaklzaUREd3JFZzMxWjl4?=
+ =?utf-8?B?eFI3ZDBaYkRvcFNpNURkMEhtSGtLcElnTHljU1MzeFM4Yk1wc0FjbXgzbHlO?=
+ =?utf-8?B?UnNXMEdxN1B5MEtLT3k1Tk5Uc2p0aG9CN0E2L3BheWQyN0I1dVkydWg0Nlpp?=
+ =?utf-8?B?VVo5WDdVZDhuQ3hvMFBwbElxakYreTRuNWVxbzVDSGpYWlNxaGk3NmJ0M2ZU?=
+ =?utf-8?B?eXZkemNRbytzdVc0QlBncWVYRG56TklVMlRnNW9BYWdKclhITFhseUNZVHNY?=
+ =?utf-8?B?WHR0bFk3U04wS3QvbTN6OVIzdDg4SklpUk1jLzBjWHNYUG9oYmpkWEZRV0JD?=
+ =?utf-8?B?YkV4Qzl4MDJISHBzOTRwYXhyRDBwTUpSWUNaOGpLcmdKVExEajlpV2ZSaEw0?=
+ =?utf-8?B?UnkyKzJIYVV0c3BVQnd5MGVLRVhzRlFnU3NuaDNzdjFhYlUwRi85MVJrS3N6?=
+ =?utf-8?B?clVhVE5UYXpGa01ZaFM5Wk1zWWdrejRyVm5PVndySHJXSGxpdjdaSGw4OEo2?=
+ =?utf-8?B?bVNUQWJPc0JHeENzRlhxc002Z0JNbm9hdWJXS3VqNUxDeTNrdHlBSnQzbDVV?=
+ =?utf-8?B?ZlEvcFRFaW5xa1VBcnRMaHhqa2hTQnVBU3hNSzZPNE9TTURnSEppZW44Rmh3?=
+ =?utf-8?B?S0lXUExvTWVIenh5ZWlvbmFkNzVDMWRlalVMU0tqS0JHUHRNdzNZQjZBUGp3?=
+ =?utf-8?B?ZGI1ZkRZdkcxOFllWXBSekNRdkg3UDRHekw0RHpUVWQ0SzFSdG9SRXZUTnhu?=
+ =?utf-8?B?dldQUjd0cm9qZG9SQzQ4MVBVelQ4UjVxMnB1bm1USnNxdS92MHJQU294d3FQ?=
+ =?utf-8?Q?yITpjN9QsnJnY39TbDI/VTAgf62MkSgNZzB6Nny?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 663db20e-9d3d-46af-249a-08d93165f34a
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 08:00:19.4285
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ct1Wx2oi97MkMZruT9xKg1+H722AvLuwkKjnJW1aKPACpXKjg+0GVM0BAJFjYxqH4961MuwcIM9iBXXsb8FBvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4606
 
-v13: https://lore.kernel.org/patchwork/cover/1448001/
+On 17.06.2021 06:55, Juergen Gross wrote:
+> On 16.06.21 18:04, Jan Beulich wrote:
+>> Since hypercalls from the tool stack are based on ioctl(), and since
+>> ioctl() has a return type of "int", I'm afraid there's no way we can
+>> deal with this by adjusting function return types in the libraries.
+>> Instead we appear to need either a new privcmd ioctl or new XENMEM_*
+>> subops (for those cases where potentially large values get returned).
+> 
+> I think we can just use a multicall in libxc to wrap the affected
+> operations.
+
+Hmm, we might, if we're happy for these to then not work in HVM domains
+(PVH Dom0, which still is experimental only, or PVH/HVM DomU-s using
+the libraries for some purpose), or if we finally wire up multicalls in
+the HVM case (there ought to be a reason why they aren't, but I have no
+idea what that is).
+
+Jan
+
 
