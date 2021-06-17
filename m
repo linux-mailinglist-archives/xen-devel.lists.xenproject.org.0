@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C35C33AB444
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 15:05:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143989.265125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 984873AB527
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 15:48:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143998.265137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltriB-00073b-58; Thu, 17 Jun 2021 13:05:35 +0000
+	id 1ltsMU-0002bK-FB; Thu, 17 Jun 2021 13:47:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143989.265125; Thu, 17 Jun 2021 13:05:35 +0000
+Received: by outflank-mailman (output) from mailman id 143998.265137; Thu, 17 Jun 2021 13:47:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltriB-00070y-29; Thu, 17 Jun 2021 13:05:35 +0000
-Received: by outflank-mailman (input) for mailman id 143989;
- Thu, 17 Jun 2021 13:05:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ltsMU-0002YN-Bx; Thu, 17 Jun 2021 13:47:14 +0000
+Received: by outflank-mailman (input) for mailman id 143998;
+ Thu, 17 Jun 2021 13:47:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1ltri9-00070s-KH
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 13:05:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1ltri9-0001BQ-JS
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 13:05:33 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1ltri9-0003b2-IT
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 13:05:33 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1ltri4-0006e3-Nx; Thu, 17 Jun 2021 14:05:28 +0100
+ (envelope-from <SRS0=nXfV=LL=ipxe.org=mcb30@srs-us1.protection.inumbo.net>)
+ id 1ltsMS-0002YH-LP
+ for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 13:47:12 +0000
+Received: from blyat.fensystems.co.uk (unknown
+ [2a05:d018:a4d:6403:2dda:8093:274f:d185])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fa25186d-082c-439d-88c9-47cce3c3273e;
+ Thu, 17 Jun 2021 13:47:10 +0000 (UTC)
+Received: from pudding.home (unknown [213.205.240.250])
+ by blyat.fensystems.co.uk (Postfix) with ESMTPSA id 7D9F644193;
+ Thu, 17 Jun 2021 13:47:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,100 +39,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=ZaBafeIL/+f2W/mLpVvaaOoiNkqJPEN8iiJhO0wIjFA=; b=1nBgI0JMvvsgSY/24xFxeDhMy5
-	1gvUZGgHhwS81Z6yK0Hutidx58ogksFmfp0S3kJ3ndITwf5tk1iDJIZeTQs5STUhiNBJKLXIv3bRc
-	GulEb0LkWgbIBwqdaqId3g4nr8Y/xwzBhxygfV6+zIhwVYJw6KZUYA6XG+hHXr8OZu+E=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24779.18584.523983.904660@mariner.uk.xensource.com>
-Date: Thu, 17 Jun 2021 14:05:28 +0100
-To: Jan Beulich <jbeulich@suse.com>
+X-Inumbo-ID: fa25186d-082c-439d-88c9-47cce3c3273e
+Subject: Re: [PATCH v1] tools: ipxe: update for fixing build with GCC11
+From: Michael Brown <mcb30@ipxe.org>
+To: "Bernhard M. Wiedemann" <bwiedemann@suse.de>, Olaf Hering <olaf@aepfle.de>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-    xen-devel@lists.xenproject.org,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?=  <roger.pau@citrix.com>,
-    "committers\@xenproject.org"  <committers@xenproject.org>
-Subject: Re: Regressed XSA-286, was [xen-unstable test] 161917: regressions -
- FAIL
-In-Reply-To: <99833b7b-f626-fac5-d426-109afd4ffa38@suse.com>
-References: <osstest-161917-mainreport@xen.org>
-	<7cfa28ae-2fbe-0945-8a6c-a965ec52155f@citrix.com>
-	<b57c2120-2f86-caa7-56ec-e215a7ad0529@suse.com>
-	<637ff3c7-afeb-aae4-0f1d-5ae168e01e01@citrix.com>
-	<99833b7b-f626-fac5-d426-109afd4ffa38@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <20210615212613.6270-1-olaf@aepfle.de>
+ <b78ccdf3-9898-c903-4d9f-4d25bd27182e@citrix.com>
+ <20210616145846.305d3ce1.olaf@aepfle.de>
+ <fe5ac73a-6026-6db6-6756-911f803adc5f@suse.de>
+ <d8a47c67-0ff3-4fce-5fe5-d444c4c4f859@ipxe.org>
+Message-ID: <ff98e992-16cb-f4f7-d3ab-5adfcd215b7a@ipxe.org>
+Date: Thu, 17 Jun 2021 14:47:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
+MIME-Version: 1.0
+In-Reply-To: <d8a47c67-0ff3-4fce-5fe5-d444c4c4f859@ipxe.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham autolearn_force=no version=3.4.2
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	blyat.fensystems.co.uk
 
-Firstly, let me try to deal with substance and/or technical merit.
-
-Jan, I am finding it difficult to follow in your message whether you
-are asserting that your disputed change (to Xen) did not introduce a
-vulnerability.
-
-I think you are saying that there is no vulnerability, because in any
-overall configuration where this is a vulnerability, the guest would
-have to be making an unjustified assumption.
-
-If this is your reasoning, I don't think it is sound.  The question is
-not whether the assumption is justified or not (answering which
-question seems to require nigh-incomprehensible exegesis of processor
-documentation).
-
-The question is whether any guest does in fact make that assumption.
-If any do, then there is a vulnerability.  Whether that's a
-vulnerability "in" Xen or "in" the guest is just a question of
-finger-pointing.
-
-If none do then there is no vulnerability.
-
-
-On to process:
-
-Jan Beulich writes ("Re: Regressed XSA-286, was [xen-unstable test] 161917: regressions - FAIL"):
-> On 16.06.2021 17:43, Andrew Cooper wrote:
-> > I am very irritated that you have *twice* recently introduced security
-> > vulnerabilities by bypassing my reviews/objections on patches.
+On 17/06/2021 13:55, Michael Brown wrote:
+>> one way out could be to call objcopy -D $PARAMS || objcopy $PARAMS
 > 
-> I'm sorry, Andrew, but already in my original reply a month ago I did
-> express that I couldn't find any record of you having objected to the
-> changes. It doesn't help that you claim you've objected when you
-> really didn't (which is the impression I get from not finding anything,
-> and which also matches my recollection of what was discussed).
-
-Andrew, can you provide references to your objections ?
-
-> I don't think I know which 2nd instance you're referring to, and hence
-> I can't respond to that aspect.
-
-And, likewise, references for this.
-
-> > In the case of this revert specifically, I did get agreement on IRC
-> > before reverting.
+> Testing on a clean "centos:7" container shows that "objcopy -D" works as 
+> expected (and "objcopy --help" shows the option as existing).
 > 
-> How can I know you did? You didn't even care to reply to my mail from
-> a month ago. And there was no reason to make an emergency out of this
-> and ask on irc. You could have sent mail just like is done for all
-> other normal bug fixes etc. Iirc I was on PTO at that time; it would
-> hence only have been fair to wait until my return.
+> This container environment has /etc/centos-release showing:
+> 
+>    CentOS Linux release 7.6.1810 (Core)
+> 
+> Could you provide a simple environment in which to reproduce the problem?
 
-I think it would be good practice to copy and paste relevant IRC
-discussions into email in this kind of situation.  That email also
-makes space to properly write down what you are doing, that you
-realise it is controversial, who you have consulted, and why you are
-going ahead.
+I've managed to reproduce it using "centos:7.0.1406".  It should be 
+fixed in commit
 
-I looked at one of the two disputed reverts in Xen,
-cb199cc7de987cfda4659fccf51059f210f6ad34, and it does not have any
-tags indicating approval by anyone else.
+   https://github.com/ipxe/ipxe/commit/51c88a4a6
 
-Andy, if you got agreement on IRC, who from ? [1]
+Thanks for the report!
 
-Ian.
-
-[1] This may well have included me.  I do not reliably record this
-kind of information in my wetware.  That is what we have computers
-for.
+Michael
 
