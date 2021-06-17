@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B5313ABF7F
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 01:31:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144203.265501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 418F23ABF67
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 01:30:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144191.265456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lu1TQ-0002wv-HF; Thu, 17 Jun 2021 23:31:00 +0000
+	id 1lu1SF-0000QW-4d; Thu, 17 Jun 2021 23:29:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144203.265501; Thu, 17 Jun 2021 23:31:00 +0000
+Received: by outflank-mailman (output) from mailman id 144191.265456; Thu, 17 Jun 2021 23:29:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lu1TQ-0002tp-Cw; Thu, 17 Jun 2021 23:31:00 +0000
-Received: by outflank-mailman (input) for mailman id 144203;
- Thu, 17 Jun 2021 23:30:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lu1SF-0000Nu-1Q; Thu, 17 Jun 2021 23:29:47 +0000
+Received: by outflank-mailman (input) for mailman id 144191;
+ Thu, 17 Jun 2021 23:29:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uYqS=LL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lu1TO-0002s9-Mw
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 23:30:58 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9187af39-9335-4cea-8bb8-d2342f4342cb;
- Thu, 17 Jun 2021 23:30:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C8E526120A;
- Thu, 17 Jun 2021 23:30:55 +0000 (UTC)
+ <SRS0=uRdX=LL=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1lu1SD-0000No-R9
+ for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 23:29:46 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b2d330fa-39ab-43a1-afab-57eefe836421;
+ Thu, 17 Jun 2021 23:29:44 +0000 (UTC)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1623972570136919.7959647662097;
+ Thu, 17 Jun 2021 16:29:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,248 +39,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9187af39-9335-4cea-8bb8-d2342f4342cb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1623972657;
-	bh=4/LSkdFzmkpBIqOs2lik6bFTOLfsE1vFp3pSPvsIAqo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=KabHsUuSd3hUeQkH5QL2Sast+Pt6XMU4ZN9i3oUCsqYyVMK9whYkZKwQyJXODJVNc
-	 TzO5tFR1BNLnZQ5KkIoC5rq/vVgcjDuaAF80/HtiNb1wOVxm3CppaxT2xY/I4dzpYB
-	 M+Aev1dOzNNy3oC1+YCccgFClj9tP/zQxcmXw1XC5VbZG80dLVkb8zSynKXi4NVwyn
-	 0SJkjSwb2Rhj6hcwYba0AuLzEBy00TQw8hBr3kM6sBHZR9h/6pIWY0zm3Vq8KbPM5Z
-	 6BOc0hRZnL9tnUFnAutTcMrNXIzinS4Gk728uyb268u6n8vujkFE/QAFXn20IgjiLI
-	 HE4nztpznGM9g==
-Date: Thu, 17 Jun 2021 16:30:55 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Claire Chang <tientzu@chromium.org>
-cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, 
-    Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-    Frank Rowand <frowand.list@gmail.com>, 
-    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, 
-    jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
-    Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, 
-    paulus@samba.org, 
-    "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
-    sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>, 
-    grant.likely@arm.com, xypron.glpk@gmx.de, 
-    Thierry Reding <treding@nvidia.com>, mingo@kernel.org, 
-    bauerman@linux.ibm.com, peterz@infradead.org, 
-    Greg KH <gregkh@linuxfoundation.org>, 
-    Saravana Kannan <saravanak@google.com>, 
-    "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-    heikki.krogerus@linux.intel.com, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Randy Dunlap <rdunlap@infradead.org>, 
-    Dan Williams <dan.j.williams@intel.com>, 
-    Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-    linux-devicetree <devicetree@vger.kernel.org>, 
-    lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org, 
-    xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>, 
-    Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org, 
-    bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk, 
-    daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-    intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-    jxgao@google.com, joonas.lahtinen@linux.intel.com, 
-    linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-    matthew.auld@intel.com, rodrigo.vivi@intel.com, 
-    thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v13 04/12] swiotlb: Update is_swiotlb_buffer to add a
- struct device argument
-In-Reply-To: <20210617062635.1660944-5-tientzu@chromium.org>
-Message-ID: <alpine.DEB.2.21.2106171445110.24906@sstabellini-ThinkPad-T480s>
-References: <20210617062635.1660944-1-tientzu@chromium.org> <20210617062635.1660944-5-tientzu@chromium.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: b2d330fa-39ab-43a1-afab-57eefe836421
+ARC-Seal: i=1; a=rsa-sha256; t=1623972571; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=QxO0GJY8DRCnDkKxZKYV7xJanLe7P/YBWo4PsycDOYi9kaed3Nsslnz85pNZdTc65lkqTWR321yVRhVugz6T5XDQr8aqoMNS7knmS5wp+0kKonajeIj+YigRMdZl1DHeyFYMOkzmrj2NT+oJHUl788WqPlQAQ+b31ky5NydyyTA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1623972571; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=WxFwJbkeLx48JJcKKFj8bqNXb8kx5EkWM6kLDvPg1uw=; 
+	b=IxDhegwUJgYTV3yqwUkRcu/lKbb75RGd7sHrI0t16hkkX1MXt0ZVdqShVRNpjE2CAHLGGbHO0P9LREYoGOw6UOlo1rfMQJv8o6642GZQr8NmnmHTyHOT71O09pGulmURMWqi2/nXrH4MijYQEi5p12cyWZJ60Mvc6TOjNNR0vSU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1623972571;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Transfer-Encoding;
+	bh=WxFwJbkeLx48JJcKKFj8bqNXb8kx5EkWM6kLDvPg1uw=;
+	b=LeorGAiZqHjv35c7Kl0p23czVYlFvW9FPu1NjweNlyibyNWCHQ2AbNfhb0lBMo6M
+	NbUrVWLT6ngvSrlOC5iLDZ93FNwil0Vq7kGpG0jSrRAjN/SFhF8x04M/KZ6jTsigNi7
+	9oDFCccVu7HS6XpfzXC31XwQiHLFCTtnUYWJ6rbo=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Tim Deegan <tim@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Paul Durrant <paul@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	persaur@gmail.com,
+	christopher.w.clark@gmail.com,
+	adam.schwalm@starlab.io,
+	scott.davis@starlab.io
+Subject: [PATCH 0/6] xsm: refactoring xsm hooks
+Date: Thu, 17 Jun 2021 19:39:12 -0400
+Message-Id: <20210617233918.10095-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Thu, 17 Jun 2021, Claire Chang wrote:
-> Update is_swiotlb_buffer to add a struct device argument. This will be
-> useful later to allow for different pools.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-> Tested-by: Will Deacon <will@kernel.org>
+Based on feedback from 2021 Xen Developers Summit the xsm-roles RFC
+patch set is being split into two separate patch sets. This is the first
+patch set and is focused purely on the clean up and refactoring of the
+XSM hooks.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+This patch set refactors the xsm_ops wrapper hooks to use the alternative_call
+infrastructure. Then proceeds to move and realign the headers to remove the
+psuedo is/is not enable implementation. The remainder of the changes are clean up
+and removing no longer necessary abstractions.
 
+Daniel P. Smith (6):
+  xsm: refactor xsm_ops handling
+  xsm: decouple xsm header inclusion selection
+  xsm: enabling xsm to always be included
+  xsm: remove xen_defualt_t from hook definitions
+  xsm: expanding function related macros in dummy.h
+  xsm: removing the XSM_ASSERT_ACTION macro
 
-> ---
->  drivers/iommu/dma-iommu.c | 12 ++++++------
->  drivers/xen/swiotlb-xen.c |  2 +-
->  include/linux/swiotlb.h   |  7 ++++---
->  kernel/dma/direct.c       |  6 +++---
->  kernel/dma/direct.h       |  6 +++---
->  5 files changed, 17 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 3087d9fa6065..10997ef541f8 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -507,7 +507,7 @@ static void __iommu_dma_unmap_swiotlb(struct device *dev, dma_addr_t dma_addr,
->  
->  	__iommu_dma_unmap(dev, dma_addr, size);
->  
-> -	if (unlikely(is_swiotlb_buffer(phys)))
-> +	if (unlikely(is_swiotlb_buffer(dev, phys)))
->  		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs);
->  }
->  
-> @@ -578,7 +578,7 @@ static dma_addr_t __iommu_dma_map_swiotlb(struct device *dev, phys_addr_t phys,
->  	}
->  
->  	iova = __iommu_dma_map(dev, phys, aligned_size, prot, dma_mask);
-> -	if (iova == DMA_MAPPING_ERROR && is_swiotlb_buffer(phys))
-> +	if (iova == DMA_MAPPING_ERROR && is_swiotlb_buffer(dev, phys))
->  		swiotlb_tbl_unmap_single(dev, phys, org_size, dir, attrs);
->  	return iova;
->  }
-> @@ -749,7 +749,7 @@ static void iommu_dma_sync_single_for_cpu(struct device *dev,
->  	if (!dev_is_dma_coherent(dev))
->  		arch_sync_dma_for_cpu(phys, size, dir);
->  
-> -	if (is_swiotlb_buffer(phys))
-> +	if (is_swiotlb_buffer(dev, phys))
->  		swiotlb_sync_single_for_cpu(dev, phys, size, dir);
->  }
->  
-> @@ -762,7 +762,7 @@ static void iommu_dma_sync_single_for_device(struct device *dev,
->  		return;
->  
->  	phys = iommu_iova_to_phys(iommu_get_dma_domain(dev), dma_handle);
-> -	if (is_swiotlb_buffer(phys))
-> +	if (is_swiotlb_buffer(dev, phys))
->  		swiotlb_sync_single_for_device(dev, phys, size, dir);
->  
->  	if (!dev_is_dma_coherent(dev))
-> @@ -783,7 +783,7 @@ static void iommu_dma_sync_sg_for_cpu(struct device *dev,
->  		if (!dev_is_dma_coherent(dev))
->  			arch_sync_dma_for_cpu(sg_phys(sg), sg->length, dir);
->  
-> -		if (is_swiotlb_buffer(sg_phys(sg)))
-> +		if (is_swiotlb_buffer(dev, sg_phys(sg)))
->  			swiotlb_sync_single_for_cpu(dev, sg_phys(sg),
->  						    sg->length, dir);
->  	}
-> @@ -800,7 +800,7 @@ static void iommu_dma_sync_sg_for_device(struct device *dev,
->  		return;
->  
->  	for_each_sg(sgl, sg, nelems, i) {
-> -		if (is_swiotlb_buffer(sg_phys(sg)))
-> +		if (is_swiotlb_buffer(dev, sg_phys(sg)))
->  			swiotlb_sync_single_for_device(dev, sg_phys(sg),
->  						       sg->length, dir);
->  
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 4c89afc0df62..0c6ed09f8513 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -100,7 +100,7 @@ static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
->  	 * in our domain. Therefore _only_ check address within our domain.
->  	 */
->  	if (pfn_valid(PFN_DOWN(paddr)))
-> -		return is_swiotlb_buffer(paddr);
-> +		return is_swiotlb_buffer(dev, paddr);
->  	return 0;
->  }
->  
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index 216854a5e513..d1f3d95881cd 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -2,6 +2,7 @@
->  #ifndef __LINUX_SWIOTLB_H
->  #define __LINUX_SWIOTLB_H
->  
-> +#include <linux/device.h>
->  #include <linux/dma-direction.h>
->  #include <linux/init.h>
->  #include <linux/types.h>
-> @@ -101,9 +102,9 @@ struct io_tlb_mem {
->  };
->  extern struct io_tlb_mem *io_tlb_default_mem;
->  
-> -static inline bool is_swiotlb_buffer(phys_addr_t paddr)
-> +static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  {
-> -	struct io_tlb_mem *mem = io_tlb_default_mem;
-> +	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  
->  	return mem && paddr >= mem->start && paddr < mem->end;
->  }
-> @@ -115,7 +116,7 @@ bool is_swiotlb_active(void);
->  void __init swiotlb_adjust_size(unsigned long size);
->  #else
->  #define swiotlb_force SWIOTLB_NO_FORCE
-> -static inline bool is_swiotlb_buffer(phys_addr_t paddr)
-> +static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  {
->  	return false;
->  }
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> index f737e3347059..84c9feb5474a 100644
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -343,7 +343,7 @@ void dma_direct_sync_sg_for_device(struct device *dev,
->  	for_each_sg(sgl, sg, nents, i) {
->  		phys_addr_t paddr = dma_to_phys(dev, sg_dma_address(sg));
->  
-> -		if (unlikely(is_swiotlb_buffer(paddr)))
-> +		if (unlikely(is_swiotlb_buffer(dev, paddr)))
->  			swiotlb_sync_single_for_device(dev, paddr, sg->length,
->  						       dir);
->  
-> @@ -369,7 +369,7 @@ void dma_direct_sync_sg_for_cpu(struct device *dev,
->  		if (!dev_is_dma_coherent(dev))
->  			arch_sync_dma_for_cpu(paddr, sg->length, dir);
->  
-> -		if (unlikely(is_swiotlb_buffer(paddr)))
-> +		if (unlikely(is_swiotlb_buffer(dev, paddr)))
->  			swiotlb_sync_single_for_cpu(dev, paddr, sg->length,
->  						    dir);
->  
-> @@ -504,7 +504,7 @@ size_t dma_direct_max_mapping_size(struct device *dev)
->  bool dma_direct_need_sync(struct device *dev, dma_addr_t dma_addr)
->  {
->  	return !dev_is_dma_coherent(dev) ||
-> -		is_swiotlb_buffer(dma_to_phys(dev, dma_addr));
-> +	       is_swiotlb_buffer(dev, dma_to_phys(dev, dma_addr));
->  }
->  
->  /**
-> diff --git a/kernel/dma/direct.h b/kernel/dma/direct.h
-> index 50afc05b6f1d..13e9e7158d94 100644
-> --- a/kernel/dma/direct.h
-> +++ b/kernel/dma/direct.h
-> @@ -56,7 +56,7 @@ static inline void dma_direct_sync_single_for_device(struct device *dev,
->  {
->  	phys_addr_t paddr = dma_to_phys(dev, addr);
->  
-> -	if (unlikely(is_swiotlb_buffer(paddr)))
-> +	if (unlikely(is_swiotlb_buffer(dev, paddr)))
->  		swiotlb_sync_single_for_device(dev, paddr, size, dir);
->  
->  	if (!dev_is_dma_coherent(dev))
-> @@ -73,7 +73,7 @@ static inline void dma_direct_sync_single_for_cpu(struct device *dev,
->  		arch_sync_dma_for_cpu_all();
->  	}
->  
-> -	if (unlikely(is_swiotlb_buffer(paddr)))
-> +	if (unlikely(is_swiotlb_buffer(dev, paddr)))
->  		swiotlb_sync_single_for_cpu(dev, paddr, size, dir);
->  
->  	if (dir == DMA_FROM_DEVICE)
-> @@ -113,7 +113,7 @@ static inline void dma_direct_unmap_page(struct device *dev, dma_addr_t addr,
->  	if (!(attrs & DMA_ATTR_SKIP_CPU_SYNC))
->  		dma_direct_sync_single_for_cpu(dev, addr, size, dir);
->  
-> -	if (unlikely(is_swiotlb_buffer(phys)))
-> +	if (unlikely(is_swiotlb_buffer(dev, phys)))
->  		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs);
->  }
->  #endif /* _KERNEL_DMA_DIRECT_H */
-> -- 
-> 2.32.0.288.g62a8d224e6-goog
-> 
+ xen/arch/arm/dm.c                     |   2 +-
+ xen/arch/arm/domctl.c                 |   6 +-
+ xen/arch/arm/hvm.c                    |   2 +-
+ xen/arch/arm/mm.c                     |   2 +-
+ xen/arch/arm/platform_hypercall.c     |   2 +-
+ xen/arch/x86/cpu/mcheck/mce.c         |   2 +-
+ xen/arch/x86/cpu/vpmu.c               |   2 +-
+ xen/arch/x86/domctl.c                 |   8 +-
+ xen/arch/x86/hvm/dm.c                 |   2 +-
+ xen/arch/x86/hvm/hvm.c                |  12 +-
+ xen/arch/x86/irq.c                    |   5 +-
+ xen/arch/x86/mm.c                     |  20 +-
+ xen/arch/x86/mm/mem_paging.c          |   2 +-
+ xen/arch/x86/mm/mem_sharing.c         |   9 +-
+ xen/arch/x86/mm/p2m.c                 |   2 +-
+ xen/arch/x86/mm/paging.c              |   4 +-
+ xen/arch/x86/mm/shadow/set.c          |   2 +-
+ xen/arch/x86/msi.c                    |   3 +-
+ xen/arch/x86/pci.c                    |   2 +-
+ xen/arch/x86/physdev.c                |  17 +-
+ xen/arch/x86/platform_hypercall.c     |  10 +-
+ xen/arch/x86/pv/emul-priv-op.c        |   2 +-
+ xen/arch/x86/sysctl.c                 |   4 +-
+ xen/common/Kconfig                    |  55 +-
+ xen/common/domain.c                   |   4 +-
+ xen/common/domctl.c                   |  12 +-
+ xen/common/event_channel.c            |  12 +-
+ xen/common/grant_table.c              |  16 +-
+ xen/common/hypfs.c                    |   2 +-
+ xen/common/kernel.c                   |   2 +-
+ xen/common/kexec.c                    |   2 +-
+ xen/common/mem_access.c               |   2 +-
+ xen/common/memory.c                   |  16 +-
+ xen/common/monitor.c                  |   2 +-
+ xen/common/sched/core.c               |   6 +-
+ xen/common/sysctl.c                   |   8 +-
+ xen/common/vm_event.c                 |   2 +-
+ xen/common/xenoprof.c                 |   2 +-
+ xen/drivers/char/console.c            |   2 +-
+ xen/drivers/passthrough/device_tree.c |   4 +-
+ xen/drivers/passthrough/pci.c         |  12 +-
+ xen/include/xen/sched.h               |   2 +-
+ xen/include/xsm/dummy.h               | 774 --------------------------
+ xen/include/xsm/xsm-core.h            | 236 ++++++++
+ xen/include/xsm/xsm.h                 | 626 +++++++--------------
+ xen/xsm/Makefile                      |   4 +-
+ xen/xsm/dummy.c                       |   7 +-
+ xen/xsm/dummy.h                       | 697 +++++++++++++++++++++++
+ xen/xsm/flask/flask_op.c              |  21 +-
+ xen/xsm/silo.c                        |  18 +-
+ xen/xsm/xsm_core.c                    |  54 +-
+ 51 files changed, 1309 insertions(+), 1413 deletions(-)
+ delete mode 100644 xen/include/xsm/dummy.h
+ create mode 100644 xen/include/xsm/xsm-core.h
+ create mode 100644 xen/xsm/dummy.h
+
+-- 
+2.20.1
+
 
