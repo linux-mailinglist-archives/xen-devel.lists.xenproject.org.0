@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E333AA844
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 02:47:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143577.264534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97D0F3AA8A0
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 03:30:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143585.264546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltgBc-00068O-M6; Thu, 17 Jun 2021 00:47:12 +0000
+	id 1ltgqB-0007Ob-TH; Thu, 17 Jun 2021 01:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143577.264534; Thu, 17 Jun 2021 00:47:12 +0000
+Received: by outflank-mailman (output) from mailman id 143585.264546; Thu, 17 Jun 2021 01:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltgBc-00065D-Ij; Thu, 17 Jun 2021 00:47:12 +0000
-Received: by outflank-mailman (input) for mailman id 143577;
- Thu, 17 Jun 2021 00:47:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uYqS=LL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ltgBb-000657-B8
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 00:47:11 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9f0d39f3-49fa-44d1-855f-fff67277c825;
- Thu, 17 Jun 2021 00:47:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C7A2B613B9;
- Thu, 17 Jun 2021 00:47:07 +0000 (UTC)
+	id 1ltgqB-0007Lq-PN; Thu, 17 Jun 2021 01:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 143585;
+ Thu, 17 Jun 2021 01:29:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltgqA-0007Lg-56; Thu, 17 Jun 2021 01:29:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltgq9-0004lA-VK; Thu, 17 Jun 2021 01:29:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltgq9-0007QP-LX; Thu, 17 Jun 2021 01:29:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltgq9-0005Ac-L3; Thu, 17 Jun 2021 01:29:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,155 +42,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f0d39f3-49fa-44d1-855f-fff67277c825
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1623890829;
-	bh=WCzGPQl/aym123sINb8QnvJYTwJNBRaVx2zLf3Bv1N8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rMohPe+tbKQa0AYXnI+IW3OaFUpO6B0eUu0gZForopqzfrCjPyFI1Ewjobgur6/dk
-	 bLRtb8PIYvryWZweFMXTwAbMWtg0nctMUoV8kxk6uELmUKnBiVw5LeKCqL5SBhOByE
-	 jiTek0nnewDrHmhCidXDSQ3WaahCsU5g4GDabRezUbSedVXgMEydAYEHuXFwzTS91g
-	 cJMCyter7dx77I2E16IUKEfK8pcdYqTSbuwilDTS8T+uuTkXRJvXElaDgqvBEXf5YU
-	 0wAWL6nOk87f0a1jJqezXJtxglL4nvT9peSjxOtxRa83ff4UqBDa3CGXSoXj4TqnFN
-	 tHVw/jZbmu50w==
-Date: Wed, 16 Jun 2021 17:47:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Claire Chang <tientzu@chromium.org>
-cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, 
-    Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-    Frank Rowand <frowand.list@gmail.com>, 
-    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, 
-    jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
-    Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, 
-    paulus@samba.org, 
-    "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
-    sstabellini@kernel.org, Robin Murphy <robin.murphy@arm.com>, 
-    grant.likely@arm.com, xypron.glpk@gmx.de, 
-    Thierry Reding <treding@nvidia.com>, mingo@kernel.org, 
-    bauerman@linux.ibm.com, peterz@infradead.org, 
-    Greg KH <gregkh@linuxfoundation.org>, 
-    Saravana Kannan <saravanak@google.com>, 
-    "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-    heikki.krogerus@linux.intel.com, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Randy Dunlap <rdunlap@infradead.org>, 
-    Dan Williams <dan.j.williams@intel.com>, 
-    Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
-    linux-devicetree <devicetree@vger.kernel.org>, 
-    lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org, 
-    xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>, 
-    Jim Quinlan <james.quinlan@broadcom.com>, tfiga@chromium.org, 
-    bskeggs@redhat.com, bhelgaas@google.com, chris@chris-wilson.co.uk, 
-    daniel@ffwll.ch, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
-    intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
-    jxgao@google.com, joonas.lahtinen@linux.intel.com, 
-    linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-    matthew.auld@intel.com, rodrigo.vivi@intel.com, 
-    thomas.hellstrom@linux.intel.com
-Subject: Re: [PATCH v12 06/12] swiotlb: Use is_swiotlb_force_bounce for
- swiotlb data bouncing
-In-Reply-To: <20210616062157.953777-7-tientzu@chromium.org>
-Message-ID: <alpine.DEB.2.21.2106161711030.24906@sstabellini-ThinkPad-T480s>
-References: <20210616062157.953777-1-tientzu@chromium.org> <20210616062157.953777-7-tientzu@chromium.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=15E0obmRTxPsm/hJLpaQMJG/6mIjdxBj5rycsMWcsVI=; b=g2W0zEIdiU5pcGsQvcKviqP1Yz
+	xm7dg85lePv7UTPQ9NPoW4KifVPZLrGLtcRfCoVAoTCAcVGh3gxL4Esab8Iijm7qeO0H8xWQjMj4H
+	CUq/BlVmZtK9ogtnTwV9nZawqisY4jMOHAh6mNdUU0PTq5oQqgNDUG4mi0MzUdlIx1OQ=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162865-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 162865: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=04ddd1271e9518008bcd899bdaf29c1701f0f7a0
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 17 Jun 2021 01:29:05 +0000
 
-On Wed, 16 Jun 2021, Claire Chang wrote:
-> Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
-> use it to determine whether to bounce the data or not. This will be
-> useful later to allow for different pools.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
-> ---
->  include/linux/swiotlb.h | 11 +++++++++++
->  kernel/dma/direct.c     |  2 +-
->  kernel/dma/direct.h     |  2 +-
->  kernel/dma/swiotlb.c    |  4 ++++
->  4 files changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index dd1c30a83058..8d8855c77d9a 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -84,6 +84,7 @@ extern enum swiotlb_force swiotlb_force;
->   *		unmap calls.
->   * @debugfs:	The dentry to debugfs.
->   * @late_alloc:	%true if allocated using the page allocator
-> + * @force_bounce: %true if swiotlb bouncing is forced
->   */
->  struct io_tlb_mem {
->  	phys_addr_t start;
-> @@ -94,6 +95,7 @@ struct io_tlb_mem {
->  	spinlock_t lock;
->  	struct dentry *debugfs;
->  	bool late_alloc;
-> +	bool force_bounce;
->  	struct io_tlb_slot {
->  		phys_addr_t orig_addr;
->  		size_t alloc_size;
-> @@ -109,6 +111,11 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  	return mem && paddr >= mem->start && paddr < mem->end;
->  }
->  
-> +static inline bool is_swiotlb_force_bounce(struct device *dev)
-> +{
-> +	return dev->dma_io_tlb_mem->force_bounce;
-> +}
->  void __init swiotlb_exit(void);
->  unsigned int swiotlb_max_segment(void);
->  size_t swiotlb_max_mapping_size(struct device *dev);
-> @@ -120,6 +127,10 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  {
->  	return false;
->  }
-> +static inline bool is_swiotlb_force_bounce(struct device *dev)
-> +{
-> +	return false;
-> +}
->  static inline void swiotlb_exit(void)
->  {
->  }
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> index 7a88c34d0867..a92465b4eb12 100644
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -496,7 +496,7 @@ size_t dma_direct_max_mapping_size(struct device *dev)
->  {
->  	/* If SWIOTLB is active, use its maximum mapping size */
->  	if (is_swiotlb_active(dev) &&
-> -	    (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
-> +	    (dma_addressing_limited(dev) || is_swiotlb_force_bounce(dev)))
->  		return swiotlb_max_mapping_size(dev);
->  	return SIZE_MAX;
->  }
-> diff --git a/kernel/dma/direct.h b/kernel/dma/direct.h
-> index 13e9e7158d94..4632b0f4f72e 100644
-> --- a/kernel/dma/direct.h
-> +++ b/kernel/dma/direct.h
-> @@ -87,7 +87,7 @@ static inline dma_addr_t dma_direct_map_page(struct device *dev,
->  	phys_addr_t phys = page_to_phys(page) + offset;
->  	dma_addr_t dma_addr = phys_to_dma(dev, phys);
->  
-> -	if (unlikely(swiotlb_force == SWIOTLB_FORCE))
-> +	if (is_swiotlb_force_bounce(dev))
->  		return swiotlb_map(dev, phys, size, dir, attrs);
->
->  	if (unlikely(!dma_capable(dev, dma_addr, size, true))) {
+flight 162865 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162865/
 
-Should we also make the same change in
-drivers/xen/swiotlb-xen.c:xen_swiotlb_map_page ?
+Regressions :-(
 
-If I make that change, I can see that everything is working as
-expected for a restricted-dma device with Linux running as dom0 on Xen.
-However, is_swiotlb_force_bounce returns non-zero even for normal
-non-restricted-dma devices. That shouldn't happen, right?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-It looks like struct io_tlb_slot is not zeroed on allocation.
-Adding memset(mem, 0x0, struct_size) in swiotlb_late_init_with_tbl
-solves the issue.
+version targeted for testing:
+ ovmf                 04ddd1271e9518008bcd899bdaf29c1701f0f7a0
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-With those two changes, the series passes my tests and you can add my
-tested-by.
+Last test of basis   162359  2021-06-04 03:40:08 Z   12 days
+Failing since        162368  2021-06-04 15:42:59 Z   12 days   27 attempts
+Testing same since   162865  2021-06-16 16:11:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Maurice Ma <maurice.ma@intel.com>
+  Ni, Ray <ray.ni@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2122 lines long.)
 
