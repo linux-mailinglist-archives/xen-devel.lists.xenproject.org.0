@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36EAB3AB194
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 12:44:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143798.264871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9583AB1DC
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 13:03:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143810.264885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltpUy-00079R-FE; Thu, 17 Jun 2021 10:43:48 +0000
+	id 1ltpnH-00015J-Hp; Thu, 17 Jun 2021 11:02:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143798.264871; Thu, 17 Jun 2021 10:43:48 +0000
+Received: by outflank-mailman (output) from mailman id 143810.264885; Thu, 17 Jun 2021 11:02:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltpUy-000769-BR; Thu, 17 Jun 2021 10:43:48 +0000
-Received: by outflank-mailman (input) for mailman id 143798;
- Thu, 17 Jun 2021 10:43:46 +0000
+	id 1ltpnH-00012f-Ek; Thu, 17 Jun 2021 11:02:43 +0000
+Received: by outflank-mailman (input) for mailman id 143810;
+ Thu, 17 Jun 2021 11:02:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ltpUw-00075z-Jg; Thu, 17 Jun 2021 10:43:46 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1ltpnG-00012Z-Qe
+ for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 11:02:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ltpUw-0007B6-Ap; Thu, 17 Jun 2021 10:43:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ltpUw-0008ST-2a; Thu, 17 Jun 2021 10:43:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ltpUw-00049Q-27; Thu, 17 Jun 2021 10:43:46 +0000
+ (envelope-from <julien@xen.org>)
+ id 1ltpnG-0007W7-FQ; Thu, 17 Jun 2021 11:02:42 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ltpnG-0002XK-7i; Thu, 17 Jun 2021 11:02:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +39,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8WIDsyT4dRDCn3tiZiFO2R4+Eun+5HQCs/uiiyiTnlU=; b=oyS2OWo+R9Im5HN6q+jJ21QbWN
-	wzZiSy5GnIr/wsNDdimgBFprq7TUAeU/g274CKrheR8m7jn1g7ajK2yX5D29McG7umwGA34MQDuUL
-	7oz0+6qNZJwzGkVsQUTmR5Jq9yJCjPEa7lP8G8Az7dglV+P/7cKp2BgINSEo4wlMDj+c=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162869-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=4wmRk4AdsuBzMGm2H1KtLqeylc9DvdI3seaWwORVfbg=; b=YWin/4nXpJIppnY5hSEUk43y0G
+	usouYQbvfx1Ppmg1IIb77KLJUj6RO9UrofdyVDcrI8UtUsKKHXF4rwTKcL9WMvWuUE4bbcDtYpgEx
+	ZDV9EJV3u1njzA5aH+WZz4rf6R3PS1zdtvU5Qkrc1A1WCayGYMQbeEpgdticRVpc0vIg=;
+Subject: Re: [PATCH v20210616 00/36] leftover from 2020
+To: Olaf Hering <olaf@aepfle.de>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20210616125129.26563-1-olaf@aepfle.de>
+ <968713af-3c99-3fe3-8378-9d9c3985098e@citrix.com>
+ <20210616170238.376cb13d.olaf@aepfle.de>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0bf3f6e7-c45e-c158-21d3-e3b636eb71c5@xen.org>
+Date: Thu, 17 Jun 2021 13:02:39 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [ovmf test] 162869: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=04ddd1271e9518008bcd899bdaf29c1701f0f7a0
-X-Osstest-Versions-That:
-    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 17 Jun 2021 10:43:46 +0000
+In-Reply-To: <20210616170238.376cb13d.olaf@aepfle.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-flight 162869 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162869/
+Hi Olaf,
 
-Regressions :-(
+On 16/06/2021 17:02, Olaf Hering wrote:
+> Am Wed, 16 Jun 2021 15:50:24 +0100
+> schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
+> 
+>>           new_max |= new_max >> 32;
+> 
+> Lazy compiler? I hoped this is a compile-time constant, which evaluates to zero in 32bit builds.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=4210, this seems to be 
+a known issue on GCC.
 
-version targeted for testing:
- ovmf                 04ddd1271e9518008bcd899bdaf29c1701f0f7a0
-baseline version:
- ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+> 
+>      if ( sizeof(unsigned long) > 4 )
+> 
+> I guess a #ifdef as it is done in old code must be done.
+> 
+> Olaf
+> 
 
-Last test of basis   162359  2021-06-04 03:40:08 Z   13 days
-Failing since        162368  2021-06-04 15:42:59 Z   12 days   28 attempts
-Testing same since   162865  2021-06-16 16:11:15 Z    0 days    2 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jian J Wang <jian.j.wang@intel.com>
-  Kaaira Gupta <kaaira7319@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Maurice Ma <maurice.ma@intel.com>
-  Ni, Ray <ray.ni@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Scottie Kuo <scottie.kuo@intel.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sean Brogan <spbrogan@live.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2122 lines long.)
+-- 
+Julien Grall
 
