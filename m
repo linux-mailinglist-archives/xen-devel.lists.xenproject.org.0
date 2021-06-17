@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85FE83AAC67
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 08:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.143695.264731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19F893AACB6
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 08:49:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.143711.264742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltlZn-0001yK-4r; Thu, 17 Jun 2021 06:32:31 +0000
+	id 1ltlpo-0003fH-JG; Thu, 17 Jun 2021 06:49:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 143695.264731; Thu, 17 Jun 2021 06:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 143711.264742; Thu, 17 Jun 2021 06:49:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltlZn-0001vV-1W; Thu, 17 Jun 2021 06:32:31 +0000
-Received: by outflank-mailman (input) for mailman id 143695;
- Thu, 17 Jun 2021 06:32:30 +0000
+	id 1ltlpo-0003d3-Fq; Thu, 17 Jun 2021 06:49:04 +0000
+Received: by outflank-mailman (input) for mailman id 143711;
+ Thu, 17 Jun 2021 06:49:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=V3wh=LL=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1ltlZl-0000uz-UN
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 06:32:30 +0000
-Received: from mail-il1-x130.google.com (unknown [2607:f8b0:4864:20::130])
+ id 1ltlpn-0003cx-9t
+ for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 06:49:03 +0000
+Received: from mail-pl1-x634.google.com (unknown [2607:f8b0:4864:20::634])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eb68ce8f-68ba-47f5-88f7-095c4c4af3f3;
- Thu, 17 Jun 2021 06:32:24 +0000 (UTC)
-Received: by mail-il1-x130.google.com with SMTP id b9so4482162ilr.2
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jun 2021 23:32:24 -0700 (PDT)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com.
- [209.85.166.48])
- by smtp.gmail.com with ESMTPSA id r11sm2295272ilm.23.2021.06.16.23.32.22
+ id 32eff0be-56c6-4a8a-936c-0ce81a5f744b;
+ Thu, 17 Jun 2021 06:49:02 +0000 (UTC)
+Received: by mail-pl1-x634.google.com with SMTP id x10so2413863plg.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jun 2021 23:49:02 -0700 (PDT)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com.
+ [209.85.215.169])
+ by smtp.gmail.com with ESMTPSA id o34sm759154pgm.6.2021.06.16.23.49.01
  for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jun 2021 23:32:22 -0700 (PDT)
-Received: by mail-io1-f48.google.com with SMTP id s19so1916544ioc.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jun 2021 23:32:22 -0700 (PDT)
+ Wed, 16 Jun 2021 23:49:01 -0700 (PDT)
+Received: by mail-pg1-f169.google.com with SMTP id e22so4125998pgv.10
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jun 2021 23:49:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb68ce8f-68ba-47f5-88f7-095c4c4af3f3
+X-Inumbo-ID: 32eff0be-56c6-4a8a-936c-0ce81a5f744b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
         bh=IqsCA/yjikDS1aCYzllqiH9HoLVcQQhYIn5qSeonABE=;
-        b=kDczImboY2eVAJ3+sYnRR25HrludaTlIxUHPV26t7zvADYlkn+EAot8vmNZFxS6ckk
-         NyqXP6vgSOkhkXMigW38BKTSHGkozev95CT8sd0RyYFWHSEXQf1vzK9yA5xbK5UPbuEq
-         Bn0NNhaz+a2zeBhstpYyx1baPQ8VKdD07y9nQ=
+        b=GiFPgetacPTJVsGZ3MFWgSvQPnCdoTJhc4FxcdhnTR1mIKLWNYkC5qsclOh1Nu4T0t
+         2JBHLcEHEvZiTaAAwPJzRshEva/oe1afpxIyCNXuS6Yc5SEiWBAid4ULBNFnG08bi+4b
+         5Y3w62S7YQM/biDmcuEcWF0r86zBUuRahetbQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
         bh=IqsCA/yjikDS1aCYzllqiH9HoLVcQQhYIn5qSeonABE=;
-        b=IhmNtFX1tIwU9tbSPxClx+seC0UWS8Jlll/Eu/2WdAwKArfgEjFety40FZZwZZuVzM
-         4+q6C1sLow3SarBekhxnGj89u6b4uBGnNNzRvCtgbLfKEE/zeoFbtCCjY3NbAdt0OUCm
-         lGQ/OHfdPzlwJyL7eLl/z869DYGdCLfKph6KK4GocHzhYxrDbPTSw1bK3Z2ktou0t03n
-         bYWjHymvY7RD+BNG2AcOPqQ2s2f135fRPclxfbbfMY+KsbLGqyPI8HUVTBbWGKD5T7uQ
-         C23T+iw8hhhouVofX37ABH2FgZfHVNKrJs2h1UqAT3I+ILz7zZzqAe9hQ1j0t4+tSZwh
-         +jTw==
-X-Gm-Message-State: AOAM532/nbPIbBZEJtptneu6uaJwsv+f4R85M9N60d8nUC0RE0o6YE89
-	551uXtkFAzo98ubqAcV8MwsTCdwQ1wNCgQ==
-X-Google-Smtp-Source: ABdhPJy+Ylvb07m6VZSwygcUX6MU05B4tTk3aXHsBN0R3Jdor4+k4Db742QIvSVsg7bzEzOuXW9mSg==
-X-Received: by 2002:a05:6e02:1e0d:: with SMTP id g13mr2504706ila.178.1623911544015;
-        Wed, 16 Jun 2021 23:32:24 -0700 (PDT)
-X-Received: by 2002:a92:c852:: with SMTP id b18mr352877ilq.18.1623911531698;
- Wed, 16 Jun 2021 23:32:11 -0700 (PDT)
+        b=mPWP1Kc2tL77A8f7hWt5yRVzjRAMHN689evo9lxfp8Mjyne7cPNWGC7lgxauIGLB5Y
+         X+otdIYTnEMjD88glFo9JHmaxt36LaL6IJK1TCxuAWjsmMqvyNuH82+MzOc9i4/tb/2v
+         6P26uQI/3fvMVKFyG3sOEwW/ZmIzgai05eaH3fhL1P2PAzqNbxiT9tApK+akp7wnD8bo
+         sL0E9g9Iz54qUmuzeQgxD/GjgH90tXtjvFKhsFixzow9ePU7NIPILgOS0WaKP+//RHAG
+         YdDwhQvZhuyuz8mgNUihSQ3CFRIHAo3p98R6Y/qtoSzx5IYaAD3+TUFEqC9vY+Qy8/4b
+         2Nqg==
+X-Gm-Message-State: AOAM533vRMOEhYFlOZFFiHSUGHricsW4ZEsRWJMK6gvfKyux7d/YdYdl
+	mKckziAImTfsg+SuXuD2jzrxWp+VB7Fung==
+X-Google-Smtp-Source: ABdhPJxJXQ84cUseu++86IpuRVDPr4p/6SI3aPiykIMrIlz8fLyXTyibCL6Gcu8XdqmmrDvw5SfHhQ==
+X-Received: by 2002:a17:90a:6e4d:: with SMTP id s13mr3944782pjm.29.1623912541680;
+        Wed, 16 Jun 2021 23:49:01 -0700 (PDT)
+X-Received: by 2002:a05:6602:2344:: with SMTP id r4mr2559955iot.69.1623912068770;
+ Wed, 16 Jun 2021 23:41:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210617062635.1660944-1-tientzu@chromium.org>
-In-Reply-To: <20210617062635.1660944-1-tientzu@chromium.org>
+References: <20210616062157.953777-1-tientzu@chromium.org> <20210616120837.GA22783@willie-the-truck>
+In-Reply-To: <20210616120837.GA22783@willie-the-truck>
 From: Claire Chang <tientzu@chromium.org>
-Date: Thu, 17 Jun 2021 14:32:00 +0800
-X-Gmail-Original-Message-ID: <CALiNf2_qF7OY0LHToNYx0E79BWMt2n7=nepPPLf+7YV3=KFEyw@mail.gmail.com>
-Message-ID: <CALiNf2_qF7OY0LHToNYx0E79BWMt2n7=nepPPLf+7YV3=KFEyw@mail.gmail.com>
-Subject: Re: [PATCH v13 00/12] Restricted DMA
-To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: benh@kernel.crashing.org, paulus@samba.org, 
+Date: Thu, 17 Jun 2021 14:40:57 +0800
+X-Gmail-Original-Message-ID: <CALiNf28SSxhs_+9Oq=pyOc7OWWDyWrtZLUqXKQKin6dRyXwo=w@mail.gmail.com>
+Message-ID: <CALiNf28SSxhs_+9Oq=pyOc7OWWDyWrtZLUqXKQKin6dRyXwo=w@mail.gmail.com>
+Subject: Re: [PATCH v12 00/12] Restricted DMA
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
+	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	boris.ostrovsky@oracle.com, jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, paulus@samba.org, 
 	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, sstabellini@kernel.org, 
 	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
 	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
