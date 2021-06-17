@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A3973ABDFD
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 23:27:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144156.265403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EC553ABE63
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jun 2021 23:53:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144165.265414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltzWc-0004Ta-5c; Thu, 17 Jun 2021 21:26:10 +0000
+	id 1ltzwY-0007ZX-Cq; Thu, 17 Jun 2021 21:52:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144156.265403; Thu, 17 Jun 2021 21:26:10 +0000
+Received: by outflank-mailman (output) from mailman id 144165.265414; Thu, 17 Jun 2021 21:52:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ltzWc-0004R5-1u; Thu, 17 Jun 2021 21:26:10 +0000
-Received: by outflank-mailman (input) for mailman id 144156;
- Thu, 17 Jun 2021 21:26:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uYqS=LL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ltzWa-0004Qz-BD
- for xen-devel@lists.xenproject.org; Thu, 17 Jun 2021 21:26:08 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8e94a7df-e5ed-47a2-b64d-528f4f4f049d;
- Thu, 17 Jun 2021 21:26:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 14473613CE;
- Thu, 17 Jun 2021 21:26:05 +0000 (UTC)
+	id 1ltzwY-0007Xb-8t; Thu, 17 Jun 2021 21:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 144165;
+ Thu, 17 Jun 2021 21:52:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltzwX-0007XP-2n; Thu, 17 Jun 2021 21:52:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltzwW-0002NC-UR; Thu, 17 Jun 2021 21:52:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltzwW-0006rV-Mf; Thu, 17 Jun 2021 21:52:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ltzwP-0002o4-L1; Thu, 17 Jun 2021 21:52:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,104 +42,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e94a7df-e5ed-47a2-b64d-528f4f4f049d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1623965166;
-	bh=QHSiuDjkImhfG7EZBqMDRV8+xFAIQX6kPnewyd+S9CY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eGz6Pv8aR0JYpMlb7DSwROkVnxGfU4WxMeu4ogi7VgsJV3WfWw4NMYBTQGNVqPCTL
-	 xCRtJ/YaLHPvhhKe22KhvWgj+jSQ5T6m5jr7YQ8PkFuiTI8Dyn0asKCq1NaRjlfZCJ
-	 bDtL3Pg09pc2QZ32vKKjqz18Dl91bbyEBV4lj8HwGu0PgWEBPBWGyx4GVJd+KMxSNc
-	 YU2tMZ4gROoJG6C/MDXsvOjHUqK3Vk9PqKrr1xKgZ+U1pnKIS4jlykFrMsVmUf8OY0
-	 ZkMgEBKyg4f2B7ojSk7hZcWu0CmJRT95819u9PeNwtfXUZnPCylmoYe9WzGJSXUod9
-	 agzVQ5O6QAYew==
-Date: Thu, 17 Jun 2021 14:26:02 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    "committers@xenproject.org" <committers@xenproject.org>
-Subject: Re: Regressed XSA-286, was [xen-unstable test] 161917: regressions
- - FAIL
-In-Reply-To: <99833b7b-f626-fac5-d426-109afd4ffa38@suse.com>
-Message-ID: <alpine.DEB.2.21.2106171409440.24906@sstabellini-ThinkPad-T480s>
-References: <osstest-161917-mainreport@xen.org> <7cfa28ae-2fbe-0945-8a6c-a965ec52155f@citrix.com> <b57c2120-2f86-caa7-56ec-e215a7ad0529@suse.com> <637ff3c7-afeb-aae4-0f1d-5ae168e01e01@citrix.com> <99833b7b-f626-fac5-d426-109afd4ffa38@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=nfMN2VPezf5qOI1OqFVUfscbJf3Irw5meW5xLqQFp8w=; b=B5+eJGOLxIwEIhgxaUAvfsvMl1
+	ZqsNqDYc+s/p57UGtqZANAaKIk69sgueiKtR5BxtiNLW+dtcQKDNtIpZGb+Xhi2HLe+XC91ocAjvI
+	tpThMpE24tzyJu9yOR8ftduZdRlsJoIqumHx7A5HNRP4oqVtGex7MBCWXA4G3yC2U8yI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-162878-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 162878: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=1162ae8297e1fc9871e615cad7d505d639b7ed0c
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 17 Jun 2021 21:52:49 +0000
 
-On Thu, 17 Jun 2021, Jan Beulich wrote:
-> GitlabCI doesn't tell me anything just yet, unless I go actively poll
-> it. And as mentioned just yesterday on irc, I don't think I can easily
-> navigate my way through those web pages, to find breakage I may have
-> introduced and hence would better go fix. Unlike osstest, where I am
-> told what failed, and I know where to find the corresponding logs.
-> 
-> It's also not clear to me at all in how far GitlabCI would have
-> spotted the issue here, no matter whether it's caused by a hypervisor
-> change or the XTF test being wrong. So far I've seen GitlabCI only
-> spot build issues.
+flight 162878 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162878/
 
-Without getting on the specifics of this problem, I just want to let you
-know that Doug and I gave a little "tour" of GitlabCI at Xen Summit. I
-recommend to watch the video when it becomes available. I find it very
-easy to use and generally easier than other CIs. The very short version
-is the following:
+Regressions :-(
 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-# find the pipeline running for the commits / patch series you care about
+version targeted for testing:
+ ovmf                 1162ae8297e1fc9871e615cad7d505d639b7ed0c
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-Pipelines for staging are here:
-https://gitlab.com/xen-project/xen/-/pipelines
+Last test of basis   162359  2021-06-04 03:40:08 Z   13 days
+Failing since        162368  2021-06-04 15:42:59 Z   13 days   30 attempts
+Testing same since   162875  2021-06-17 10:45:14 Z    0 days    2 attempts
 
-Pipelines for outstanding patch series on xen-devel are here:
-https://gitlab.com/xen-project/patchew/xen/-/pipelines
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Maurice Ma <maurice.ma@intel.com>
+  Ni, Ray <ray.ni@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sumana Venur <sumana.venur@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-I'll pick one of the recent runs for an outstanding series:
-https://gitlab.com/xen-project/patchew/xen/-/pipelines/322112514
-
-you can see what was committed by patchew by clicking on the link "84
-jobs for patchew/20210616144324.31652-1-julien@xen.org in 87 minutes and
-32 seconds (queued for 15 seconds)". The link brings you here where the
-branch with the commits is:
-https://gitlab.com/xen-project/patchew/xen/-/commits/patchew/20210616144324.31652-1-julien@xen.org
-
-
-# find the failed jobs and logs
-
-Look for the red "x" corresponding to individual jobs that failed in the
-pipeline. In this case we have 2 red "x" on the right side which
-correspond to these 2 jobs:
-
-https://gitlab.com/xen-project/patchew/xen/-/jobs/1352370918
-https://gitlab.com/xen-project/patchew/xen/-/jobs/1352370916
-
-To get the full logs in text format simply click on the "document" icon
-just above the black square with the logs. Other binary artifacts are
-available if you click on "Download" on the right side of the screen.
-
-
-
-# find details on the failed job
-
-The jobs are divided into two groups: build jobs and test jobs. The
-build jobs simply build Xen and tools with various compilers and
-options. They are all in the left column in the pipeline page. They are
-straightforward.
-
-The test jobs are actually trying to run something inside QEMU (full
-emulation). The scripts that runs things are:
-
-automation/scripts/qemu-smoke-x86-64.sh
-automation/scripts/qemu-smoke-arm64.sh
-automation/scripts/qemu-alpine-arm64.sh
-
-and their names correspond to the job names. In our example
-qemu-smoke-x86-64.sh is the one that failed and it is running XTF inside
-QEMU.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-I hope this helps! I'd be happy to jump on a call to give you a short
-intro on how to use gitlab-ci, just let me know.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2158 lines long.)
 
