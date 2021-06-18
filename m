@@ -2,45 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F053ACE39
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 17:03:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144736.266360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1E483ACE40
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 17:05:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144742.266371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luG1p-0002bp-5A; Fri, 18 Jun 2021 15:03:29 +0000
+	id 1luG3e-0003CN-HW; Fri, 18 Jun 2021 15:05:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144736.266360; Fri, 18 Jun 2021 15:03:29 +0000
+Received: by outflank-mailman (output) from mailman id 144742.266371; Fri, 18 Jun 2021 15:05:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luG1p-0002a0-26; Fri, 18 Jun 2021 15:03:29 +0000
-Received: by outflank-mailman (input) for mailman id 144736;
- Fri, 18 Jun 2021 15:03:28 +0000
+	id 1luG3e-0003AY-EP; Fri, 18 Jun 2021 15:05:22 +0000
+Received: by outflank-mailman (input) for mailman id 144742;
+ Fri, 18 Jun 2021 15:05:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lC6W=LM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1luG1o-0002Zu-88
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 15:03:28 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CUMw=LM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1luG3d-0003AO-Bg
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 15:05:21 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 976ad0c7-b0f1-48d9-bb1e-321d2a0c2703;
- Fri, 18 Jun 2021 15:03:27 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2058.outbound.protection.outlook.com [104.47.12.58]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-23-_R-csKBsPyaZAbgF_S_9Bw-1; Fri, 18 Jun 2021 17:03:25 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6864.eurprd04.prod.outlook.com (2603:10a6:803:138::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Fri, 18 Jun
- 2021 15:03:22 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4242.021; Fri, 18 Jun 2021
- 15:03:22 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR3P251CA0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:b5::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.18 via Frontend Transport; Fri, 18 Jun 2021 15:03:21 +0000
+ id 338245cc-a8a0-4467-8a96-979c10d41936;
+ Fri, 18 Jun 2021 15:05:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,190 +35,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 976ad0c7-b0f1-48d9-bb1e-321d2a0c2703
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1624028606;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WlrD8dNUb08dzEJ6lrqje5BHcZk1cIHtEk9GCYAygTE=;
-	b=hPWEggYI5cUo7ySfhvOsxbqLHPxTzlJP95fKARF+ciBE/9WH7dO1lR7hWgio74dY6aNPnP
-	rLwvmiaHJZ6RibO08RQb6eZ+Jnqt1HBstJ4MyWuFvPVAJglwLkoB3rYqFwTViHuVUHMyKG
-	ohVvqUF1qoUk2siwLIt2hv66817IxfQ=
-X-MC-Unique: _R-csKBsPyaZAbgF_S_9Bw-1
+X-Inumbo-ID: 338245cc-a8a0-4467-8a96-979c10d41936
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1624028720;
+  h=to:cc:references:from:subject:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KLJmfR8do5vTkflz9Ft7WCK9vvsmW6S1RPOOkiEzXJ0=;
+  b=THiIKvBi8aPcLOH+7fhW1UkLoDgMW9krpttLj4kMZ08L2EzW5BOy8Ss3
+   viPMdQYN8iwV0Bj9ak9gsFLGp3mj3C9ox2d+ebtLQSlJ8mW0SUqQdN75H
+   oiTDUDM8Aa0JYBGYrHwf4SqcagWOopnRxar4JGo9F/h9zMgtgT1TQjSI8
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: RpjsP+j61I9W94Ea/15K25cc/RsRilGUnpYrONBTDqrR1nM9vfFAqcKRPJVNqALAJhu6x5EgWR
+ yEkFPDxgH7fG050xMjt5xORvmmK+UqXSE1y4G0YcSLrUgwalePPtMozHhSUMny+LdVz2gExRNo
+ zVrCS3ed09mvZu7LyCcJZT0R/icS1s2IcRP1WRnQ2JxU/9PaKM2hxT7dXRzUNGtvMW7rTMAoAc
+ FHGlSIn6CJlmYsAWUOubGaDhMxSFuVkv0vG+OvQapP1Xb2r639klfjZsfAmYiWLgDyZ6HuuybT
+ +Ms=
+X-SBRS: 5.1
+X-MesageID: 46469213
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:iT97XavLAIBTcfL2Ypm0hmqH7skDS9V00zEX/kB9WHVpm6yj/f
+ xG785rrSMc7wxhI03I+OrwX5VoJEmwyXcb2/hyAV7PZmjbUQiTXeVfBOnZsljd8kTFn4Y3us
+ ldmsNFeb7N5C1B/L/HCWeDc+rIuOP3lpxAWt2z80tQ
+X-IronPort-AV: E=Sophos;i="5.83,284,1616472000"; 
+   d="scan'208";a="46469213"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B9mOQJUg3ocQM+sAjVKp/qegsHqeJN5qE1S2vwTc1xvUOkuO2BFub40z2/FIuGHnq/NtNkA9VUlIoDG3Dp3F+SVimTdDdrOikti0LirBqFCsuqAEcRF7TBAj8GojbEZDisHozgpaLPUDj//ziLk0xLck/z2oFpmQygeunltXi01fpXK5g9RynrMLmSpTem3HoLVAiFEnloNwmd+ru/sNRAsHQPrtIibGdcw7OlLlvlq3J0heDZIVJ0vttdwGJzhzhhD06TJMIgpBG3DalLcIY4vLdu6rUD+FsNoK0wshBQ2kND6aV+q38K95GVFCmfOlU8xHDMiCRkdAGdzV5cNmfw==
+ b=frNp4RJglU7NZyCmDo2/6p7wV1KmVn3+/1e2fLFHDT9tAhtkreRyPimWrk0EyF2c7rZGvSinZi9b5LmOAg+k5o0pwnO7iBjLp9jMswqSKWuFDC2Qw2faRKMkIMr2eTDyUbDrcm1nqeIdTDTehviGTr5ryUIx9jMvCVL5BHVgi5aQT18dBsCC1b2xKJt7ptKRvtuY/68V5LNmO6gwzvfF2ozrHIMMEEKwHosv5/n+IGmGr0NqKdoeSYasz3HS1O8DS/sjbjoYtzxG/nQdjafjJe2ZYacEa/gdQlt9hxtMbSLyoCaQxaL/clwEMy0EbhVZtwOyhZJ+ALGs6sbN/1ADFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h7IOHcl77rAeJmr6WxTqcnqQq6MeFHQjnF0+tn/5Y2w=;
- b=EmStTkIWqP3bmowKFnDs5/M+7sufxl7VPtLM51mYOaWW0/xQhIAgwA0cxl8J/+53GiTUiFQsp3hTSVab1pFdCGnl2VWrFifqMlgL252ABNmYO6H6zPImj2/BycYF7CWaqXceZyfkUteHP51m/fzm6Xo1RGIO0Bg7EHh4m02sBB+Bsp4cZxlC9GbFJaWku0kopWjof0lh9Z77irTq9NwfKdLsPL3YqOK0jBx+zSPQ3uKTiWpw3PuLWKgP1U79qgU4Wz43Nfr3yUm9E43y3yUGp4LyS+PrGNBCVeWgwuvgYzM6hYU1uFloefYG3oLnP30OyYDSSl6yuJRADTrrMHj3QA==
+ bh=ZDjMWsaj6Rl70hTYyswO6JVzleQNxKz4HMeMONl6Ui0=;
+ b=La1KwRCHkkei5z6elRlEI4BrTpiHivrsf4kBzIG9KaiC9XXJGk/4oeNS2YICu/wzxXXWQctPQJL+GaniVSTC17T0frvWxNRTKxJL9D476TnRWicYnAY+6cSrzfiDpwbkq/QIVx5AJDWwIU2GN4GnnE8hiFqXhZIMMiTxRQxD2WDyFb1nPDsRyJSgfiOjrXC4XuKU5058laeQktiO+OagzYtksjPN+IXE73M2dQC/0pYzlAZ7ZnmDBbW29OJOjMT4vHUixMP9pDNLPRGJb7i0bz8D7C9NLIDubvz5ob5PdnxceSZSwSB9V0qk4Ykd1oqSzNRgDgQZx6FACPApOp56dA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH 3/5] libxencall: introduce variant of xencall2() returning
- long
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZDjMWsaj6Rl70hTYyswO6JVzleQNxKz4HMeMONl6Ui0=;
+ b=LMZLalSO4merkOp/KVjUX1SO8wLkjrd8iBLnZfgFcUBww8nHW0aT3O5sk1D73HJvD1r7aRIL0liE12I7ODAeLXbCWkDmh6AmUXCFfExUa8KBxAbAnVNq0Bz1kAUJpveuLr2MgyToRoD3M+abWnVcQ+b4I27mp8hTr830QgJJ/qo=
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
 CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+	<roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>, Juergen Gross
+	<jgross@suse.com>
 References: <edaf04ec-335f-a156-34c4-5c0385cba08b@suse.com>
- <c7f93b66-bc4d-708a-6936-e0eac9e36cfa@suse.com>
- <0804f068-c016-0099-cebb-dbb8b7f1b794@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <82885eae-ea6f-e463-a966-78a0c753d93e@suse.com>
-Date: Fri, 18 Jun 2021 17:03:19 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ <8a5284e3-a029-27c8-103c-cbc12642d24d@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 4/5] libxc: use multicall for memory-op on Linux (and
+ Solaris)
+Message-ID: <db8662c7-9641-6fb2-54e9-c0e64e03b990@citrix.com>
+Date: Fri, 18 Jun 2021 16:05:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <0804f068-c016-0099-cebb-dbb8b7f1b794@citrix.com>
+In-Reply-To: <8a5284e3-a029-27c8-103c-cbc12642d24d@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: PR3P251CA0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:102:b5::14) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0359.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:d::35) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e450a6a8-99bb-4e56-4ba9-08d9326a3708
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6864:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: fa5c52c4-20bc-43e8-92ee-08d9326a777c
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4117:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB6864D8D6B56B8331EEE278A3B30D9@VI1PR04MB6864.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Microsoft-Antispam-PRVS: <BYAPR03MB41171C2C41C158D138F25211BA0D9@BYAPR03MB4117.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:854;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	h6bHXOy61w2TOkrrqEE/9rLM4KvuLLz82xlxDk1T5R8xORRgUZkIKrySQDA5V7kejAxDAGbcsyPROMuMcNmQK83TaNB3zbcRQp6kg4x9ZY3ZGxY1clBIbLB/ERvssYqiMjM/XS1IVjrnUelqz83rfYOwbsA/4fwtTU9P3oqvh1mLvEspMEL2wo+NeihnHFaqvc7iY1KFrkVArkKmamcWEAPvep1vwaFC/2iSzZABgUQGRhCckclaCXXGXhpc0ioJnKRh9hIoZnMWB7cPQWsmOgML5ndCqq97nM4I7GBT5dieSiTTnOHRWabVXXTOc+qc7OpglfBmtUiALP8G2VuN8nlC8r4u6fwdOkIQKI3KRHu4spMl+jBw5Aonbh2TIk9FE/F3PBt4MX6J7DyDnAzLix3zNkFtqhg62/ZlQeQvWWFvwaCJVp7uTpq7QULFfZdSw86y/xOKSuZ78QQWO6eRc29VA3x/578B1Bgu4LvAqxVyOtg1qJE3sTNgy9luFdyvuHiGgpmYaoERM3/H9SySGqIMsAxsLDwNIrk+Er0ak6e25HPONnNURDlK4gbe7VE18/+4xtdaXEVfqMw+qRwpG94UwYL79TOFWUkgegq40kIzHTF2qdB3K4hw/+zoxnODBU2mjd3I5Tb8L2cJH/VelOjiNj2JhmTq3WroMleLIKTS8U4vdcDsfsXI9w83+D6F
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(346002)(376002)(39850400004)(396003)(136003)(2616005)(956004)(83380400001)(186003)(66946007)(66556008)(6486002)(66476007)(26005)(316002)(6916009)(478600001)(31686004)(16526019)(16576012)(54906003)(38100700002)(2906002)(8936002)(8676002)(4326008)(5660300002)(86362001)(31696002)(53546011)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: oC2NotAPihnZpZuFEZF8uy05S67pU56xmINkjoilY9ZPlXByuMItpSoHZnj08bMrFIG0TS/5L/+HpeL2aoEPrvBRv8gw8ZIJJ9QtrSHrYmeYgLYER2L5vhfzn2CgHQnRJdSni2FRqsbPrzxHKi4pTGKjWc0RDl+hg9ybcXmJodO98IjfkJj8ACBKpDcde4Z1GL0ThB0iustywBfgDDIhNPsWZ9T3e1XCJaNAaRa5b+bR0ZsfdL5/+Cst0u8Xl92NjRRjfvBRXOCq8cvJ6nQDq/WMwDIxW3wTLVgnF+hiKzjEptY0EpksgAKme9TJOM837O0uTtx6cGsWV22KoMmke0cRVy0N3sqEz9WJ3hBWLixVj6pJL4E55L66mu/Sr355aRsxkHY8fXRWlZ5gOWZ4y7aWI7tWqx3qmQCf7+PTRwTtZG0eUD50eCE9L+F1H4NStGxNli95/9ofh7+zvDCzWp08SeP50tp2f9epDF0E+Dm86PhxkdWvITMcBMcMAheGYNH0sMePWaih5ZaVSU0jYKN2yFJubmXAjYpYgW5s9P33Jcd4u1Q0gFPahb+QkHhpOeC8UBWF01hBkq1bOU3TGUYgIW617aPtGf0a+UutPbbuCsKDL1qymoSl0sn5hl+MtxGSthZ8u7Dh0ZOe1mmlLaehL8Lrz+J50Ctyx0rFjFv+T8s4wToIz9zgMg0J6ZH6
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(956004)(36756003)(16576012)(6666004)(110136005)(316002)(54906003)(31686004)(53546011)(6486002)(2616005)(5660300002)(66556008)(66476007)(66946007)(8936002)(4326008)(8676002)(31696002)(2906002)(83380400001)(86362001)(66574015)(478600001)(26005)(186003)(16526019)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CuaGgU804Rjfna0MVPMVEf50XEa8orJMd5MSatZJjJPWj4pxBtptNJ5kakcd?=
- =?us-ascii?Q?wTaaHqT0ylyCQsLdMjZTMomDQ509WKdTd1Eh9rT4Wb1CgcQnXBf4kGzJav3H?=
- =?us-ascii?Q?Q0yZ0EBKxwTkuNw32xlehwyQJy8oQJCBdi5BTDGBIUXmyG+/PJkoB4pMRC5n?=
- =?us-ascii?Q?GiLw6dmz79pu0A0EBLGAWHSwAk6pKvaVqCGRB4w1upgre3S1VDrjc8bMWlkZ?=
- =?us-ascii?Q?hcr+ow+uQR5P7aQCUQhrxhyUhE2/UJl4FhhFdEQPIOqHm5UXe1/8me6j7fE1?=
- =?us-ascii?Q?JQnrxCnU1gF4NTYTTDR2y5oQ8um9BHuaJny/2/aJTt01AS1hiIMGeM/wROMy?=
- =?us-ascii?Q?4ZEpfP/xMUJqTP5XlgoFpJVxvbOsVSmTziSzbf8CS9DL8m/5YeiKgq8Mrc18?=
- =?us-ascii?Q?AW51cZwhEWlqdnWSBjPPmGtxaDQzY0f8Lif40zBMRPNAc89wcBihYWw27laa?=
- =?us-ascii?Q?sNKnCJAbS7015sok8zbahjvHnJ95VxhvvnMdunzdpbXmEQFGOU8rexNyF3oN?=
- =?us-ascii?Q?SywNlD2XRHeK6y4K9yDITAREi3ky2m2BxzZLSC63GV9WWmRflfxNxYXhE242?=
- =?us-ascii?Q?tH8NYxY0zgrcYIu38Gkk5u71DsOclmZwXOR8cjWjRUhIjGsrssUJdr+ZYrJx?=
- =?us-ascii?Q?A36IlRquQuBlr1acdYFTEbtDjkQ/WodYgl178MmvQPSiDLhrJhOoMlHaZGIi?=
- =?us-ascii?Q?AIZrdzdclyvN9mITD4HCLYe89C4aaFFc6iGPx27ALb3cpH8g4jx3TKUvs3Ii?=
- =?us-ascii?Q?DJoK1X70u4FjtTorHw++XZkBeXtFzDrsPwGh//yepw+Ys0fqPjHVUJrUU4CN?=
- =?us-ascii?Q?fo/0UXYFUeKs230sUCYQ/dtLiDFp2RMtsorLxA52SwjIqhLeoOC0U20h13O0?=
- =?us-ascii?Q?53UENfxDfg0iJbS3cTnyOKhWK4M99sXwuPW1fc80RJyYpeIm7iDkyZDDa5lM?=
- =?us-ascii?Q?yUW/jIJkAKwXl/VWPCqk3XT0nhbW6qnCvgKhUvGCbJXi4iSvaZfcJ4WvxsaP?=
- =?us-ascii?Q?yKqnuAuMlNNsZj1dJAb2d9tl6naJFTmyi83N1aLYrALCg66DsuAN3hX18pjp?=
- =?us-ascii?Q?6cpojQ538RUsNP9x7OvZbi8/Mc+0Y0Q5P27APnjPhdUqRXQWMvTXd8Mp3e7X?=
- =?us-ascii?Q?wvfmVI76YlQqQnnZb9vEB0BOoOPRk+GDeIK/6MtcIpskAAyPuuQCfh4eZevF?=
- =?us-ascii?Q?xcdGp90X4iIPza5b9X2WLz6grPc7gUKK4g4d/+8c4W1p3JUHV2kO+dVMIbxD?=
- =?us-ascii?Q?9raCaNiHc/geCBToaA8ZVFot5Dp+x2HLwwwiz2sUgsm9U6bSWoEt+SrbmngL?=
- =?us-ascii?Q?mWG7CoHDRrMoTpTgMGPkqkpJ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e450a6a8-99bb-4e56-4ba9-08d9326a3708
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzBlN2ZESEkwUXR1UWpIK2dpTytxakp1R2k4ZWpWVHp0eXVBR3g1TGtwMU12?=
+ =?utf-8?B?U1dMM25BaW81OXdBVGFjMjRZeEFIR1dTTG52T0lvcTJPSHRPMVdOYU51UzB4?=
+ =?utf-8?B?YlVZd0RPOWtpazY0VDk0N2hMTzBaR1NMdjVoc0VhYlNBanBub3JLVEZmV0c3?=
+ =?utf-8?B?YVB3ZFNTSHJwQlBpVWQrdmtUSEJ0bUZMWXdIdVRDVGNBZFNjQTdPMkF2QmxE?=
+ =?utf-8?B?aGFIMmxacEhvMkFXekNON3o1NytyclVSK09NdDdlS0t0N0YwZHZCNXc5WjdM?=
+ =?utf-8?B?bkJlVUUzSVdwSjFQUGpudkZoYjRqdFRnbnYySmNQNWVjWTZWSko0VDB4S29s?=
+ =?utf-8?B?akI5NGhlYnNCeElyU1F1a3RFSnJrTERLQ1BQS3JUYmxQQlRKZWMwN2E3NHp1?=
+ =?utf-8?B?QWZsZUhFWndhTnhDUy9QRUZLK1pzT09SRDhNUkE1bGxZVTVtSEJrc2dsbVV0?=
+ =?utf-8?B?ZFVabTYzYlRmTXcvaUZCai80Ti9jOFYwUGFZNDRxQW52K3JpY3ZIQnhHWCtn?=
+ =?utf-8?B?MkJQZ0U5TU5ZMHE1cWt3eG8rVnk3ZzB5YVFuV1dlQlJnK3N0MTVsUklLeEdz?=
+ =?utf-8?B?WTkvL1RJaVZpN24zU0k0SCtyUEtjRGpHWFNHNGVhbmFHZDM5TEdxN0VUYmg0?=
+ =?utf-8?B?U2M5aU44K0pNaUIwSEoyYzd4czRqRWgwQUNtOUhKbXR0ZlVFZHFHeGFaT3hG?=
+ =?utf-8?B?NDUxaXhYQ0lLeUcvRSsvSjRSeG5pQW5UM3BVTE5SNnRrb05oa1RranBhKzVW?=
+ =?utf-8?B?TlA4Smt5TTJtWUJ3T3djQXozbysyeHhmWXNXN25zbVB2QzNGZlA3Wjd2U2Z2?=
+ =?utf-8?B?YVRIMEF3SU1rYmpYTzdZbDYvcS8xa1N6a2pzM0NwcnNVaE9xbFJkZlVhUGt3?=
+ =?utf-8?B?ZFd2WGlmUW9hNnNCRHd5dTcyNm9WVUE4SGt2aVBVVjBKa3dYRUIrMWxTdE5Q?=
+ =?utf-8?B?dU5ib2ZRZjJJZHdBZTlzNDlYc09KZlJoU3ovUllUREVnNWV0cXUyMjE1czQy?=
+ =?utf-8?B?V2dwaGJtNno0bHJnQXhjcHExQ05qRG85M1dqK2w3bGhNaGdFbnNtLzJHWmh0?=
+ =?utf-8?B?NjFnRm1qbGNmcldyNjhZNE4zOVRONFJVT3A2ajYxT0dwRGVGSWVtUEhWeHpI?=
+ =?utf-8?B?Q3ZrVkw1bjVpL1VqR2w3ZGY2Yis2TjgwT3NlYlZzbWYwN2lrc2Z1Wi9PblVo?=
+ =?utf-8?B?UkFkZGYwNTRyaTFmMTlieHlvVTFyOW83Z1NLNkF3VjE5WVVPWUM5dEE5Nk81?=
+ =?utf-8?B?U2oxdnFycHVlTlM1dFVucGx0bVpNVWJMb3hzR0Q4b3h0YTY0VlFxMWlTRmE4?=
+ =?utf-8?B?Z3BXTXU3WTNDWDE0Q2FEY3ZlZnU3YlVja21YNHZmY2pWa3FvSWtXL0ZnZGRa?=
+ =?utf-8?B?ci96UHJHVnMyOHEzd0pQWkRxalBpdGRWclRJNFZTSXFOZzB3OVFsV2lxNkdH?=
+ =?utf-8?B?MU5rdzZjUW4zK0Eya3JLUUJIekNqUjlselFXRGJyRlIwTzNFWW5uT2VYL05u?=
+ =?utf-8?B?RTZCemtTcnltM1lTOE9zb0ZwZnd4aWl3dHpXQXRVWXBzbkZsbnhYd0FpTEh1?=
+ =?utf-8?B?MjRNaW0vZmxwbjczM05Db3NVa2kzVkdHVGhOZEdINkdid3NFdkhRQkVZd2dC?=
+ =?utf-8?B?dWZGTC85S2NiaTZYdTNEaUxGZm13UEJ4bGNWbVI2YjdvRWRlV3ljNXFyMzZN?=
+ =?utf-8?B?Wm1vZFlZZU5hb2YxdlVqUDFEcmtiUk5HR2lENzI2cTRlUDA5T3MxMi9MSDlF?=
+ =?utf-8?Q?CwewiCrpF9TD9q8j+v8+vO+sdWepWL7+s8B0HeY?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa5c52c4-20bc-43e8-92ee-08d9326a777c
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 15:03:22.1598
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 15:05:10.4869
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h9aiYPFxFsyWvUZTIOamKmBWv4O07FKqX1R1LqkPFHzOICVg5ySpAhzpK5MJzU1djLirlYurpKX3GajgELWXAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6864
+X-MS-Exchange-CrossTenant-UserPrincipalName: EfHwT8ebIu23BDrByD/MI3wk5bhRd73KLSEyIuRxk9M79oy44VAHhadNoSVwLJWpJPI/MAq60JBVOJ+HWh0H981fItoI7w4AqedMNRYcNEA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4117
+X-OriginatorOrg: citrix.com
 
-On 18.06.2021 15:46, Andrew Cooper wrote:
-> On 18/06/2021 11:24, Jan Beulich wrote:
->> Some hypercalls, memory-op in particular, can return values requiring
->> more than 31 bits to represent. Hence the underlying layers need to make
->> sure they won't truncate such values.
->>
->> While adding the new function to the map file, I noticed the stray
->> xencall6 there. I'm taking the liberty to remove it at this occasion. If
->> such a function would ever appear, it shouldn't lane in version 1.0.
->=20
-> s/lane/land/ ?
+On 18/06/2021 11:24, Jan Beulich wrote:
+> Some sub-functions, XENMEM_maximum_gpfn in particular, can return values
+> requiring more than 31 bits to represent. Hence we cannot issue the
+> hypercall directly when the return value of ioctl() is used to propagate
+> this value (note that this is not the case for the BSDs, and MiniOS
+> already wraps all hypercalls in a multicall).
+>
+> Suggested-by: J=C3=BCrgen Gro=C3=9F <jgross@suse.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> --- a/tools/libs/ctrl/xc_private.c
+> +++ b/tools/libs/ctrl/xc_private.c
+> @@ -337,8 +337,47 @@ long do_memory_op(xc_interface *xch, int
+>          goto out1;
+>      }
+> =20
+> -    ret =3D xencall2(xch->xcall, __HYPERVISOR_memory_op,
+> -                   cmd, HYPERCALL_BUFFER_AS_ARG(arg));
+> +#if defined(__linux__) || defined(__sun__)
+> +    /*
+> +     * Some sub-ops return values which don't fit in "int". On platforms
+> +     * without a specific hypercall return value field in the privcmd
+> +     * interface structure, issue the request as a single-element multic=
+all,
+> +     * to be able to capture the full return value.
+> +     */
+> +    if ( sizeof(long) > sizeof(int) )
 
-Yeah, spotted this already.
+This is very fragile.=C2=A0 I spent a while coming up with
 
-> I'm tempted to suggest spitting this out into a separate change anyway.=
-=C2=A0
-> I'm not sure of the implications on the ABI.
+=C2=A0=C2=A0=C2=A0 __builtin_types_compatible_p(
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 typeof(ioctl) *,
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 long (*)(int, unsigned long, ...=
+));
 
-There are none, as a non-existing symbol can't possibly appear in a
-DSO's symbol table. But well, yes, I can certainly make this a
-separate change; it merely seemed excessive to me because of the
-no-op effect the change has at this point in time.
+(which does work if you change int for long), just to realise that this
+won't actually help.=C2=A0 I'm suck on trying to see whether
+privcmd_hypercall_t has a result member.
 
-> ABI-dumper appears not to have picked anything up, nor has readelf on
-> the object itself, so we're probably ok ABI wise.
->=20
-> That said, I would really have expected a compile/link error for a bad
-> symbol in a map file.
+> +    {
+> +        multicall_entry_t multicall =3D {
+> +            .op =3D __HYPERVISOR_memory_op,
+> +            .args[0] =3D cmd,
+> +            .args[1] =3D HYPERCALL_BUFFER_AS_ARG(arg),
+> +        }, *call =3D &multicall;
+> +        DECLARE_HYPERCALL_BOUNCE(call, sizeof(*call),
+> +                                 XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+> +
+> +        if ( xc_hypercall_bounce_pre(xch, call) )
+> +        {
+> +            PERROR("Could not bounce buffer for memory_op hypercall");
+> +            goto out1;
+> +        }
+> +
+> +        ret =3D do_multicall_op(xch, HYPERCALL_BUFFER(call), 1);
+> +
+> +        xc_hypercall_bounce_post(xch, call);
+> +
+> +        if ( !ret )
+> +        {
+> +            ret =3D multicall.result;
+> +            if ( multicall.result > ~0xfffUL )
 
-So would I, but reality tells us otherwise.
+Wouldn't this be clearer as > -4095 ?
 
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> I wasn't sure whether euqivalents for the other xencall<N>() should also
->> be introduced, and hence went for the minimal solution first. Otoh there
->> is also xencall0() which has no users ...
->>
->> --- a/tools/include/xencall.h
->> +++ b/tools/include/xencall.h
->> @@ -113,6 +113,10 @@ int xencall5(xencall_handle *xcall, unsi
->>               uint64_t arg1, uint64_t arg2, uint64_t arg3,
->>               uint64_t arg4, uint64_t arg5);
->> =20
->> +/* Variant(s) of the above, as needed, returning "long" instead of "int=
-". */
->> +long xencall2L(xencall_handle *xcall, unsigned int op,
->=20
-> If we're fixing ABIs, can we see about not truncate op on the way up?
+~Andrew
 
-You mean making it unsigned long, when I don't see us ever
-gathering enough hypercalls. Even if it were flags to add in, they
-would surely fit in the low 32 bits. I'm afraid there's too much
-code out there assuming the hypercall numbers can be passed in the
-low half of a 64-bit register.
+> +            {
+> +                errno =3D -ret;
+> +                ret =3D -1;
+> +            }
+> +        }
+> +    }
+> +    else
+> +#endif
+> +        ret =3D xencall2L(xch->xcall, __HYPERVISOR_memory_op,
+> +                        cmd, HYPERCALL_BUFFER_AS_ARG(arg));
+> =20
+>      xc_hypercall_bounce_post(xch, arg);
+>   out1:
+>
+>
 
-But of course, if you insist ...
-
->> --- a/tools/libs/call/core.c
->> +++ b/tools/libs/call/core.c
->> @@ -127,6 +127,17 @@ int xencall2(xencall_handle *xcall, unsi
->>      return osdep_hypercall(xcall, &call);
->>  }
->> =20
->> +long xencall2L(xencall_handle *xcall, unsigned int op,
->> +               uint64_t arg1, uint64_t arg2)
->> +{
->> +    privcmd_hypercall_t call =3D {
->> +        .op =3D op,
->> +        .arg =3D { arg1, arg2 },
->> +    };
->> +
->> +    return osdep_hypercall(xcall, &call);
->=20
-> (If we're not changing op), I take it there are no alias tricks we can
-> play to reuse the same implementation?
-
-Re-use would only be possible if we knew that all psABI-s match up
-wrt the treatment of a "long" value becoming the return value of
-a function returning "int". An ABI might require sign-extension to
-register width (leaving aside yet more exotic options). Then, yes,
-the "int" returning one(s) could become alias(es) of the "long"
-returning ones.
-
-Jan
 
 
