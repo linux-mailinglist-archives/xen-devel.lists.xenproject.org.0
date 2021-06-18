@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E6B3ACF19
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 17:32:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144798.266471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043BA3ACF2D
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 17:34:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144805.266482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luGTd-0002sB-RP; Fri, 18 Jun 2021 15:32:13 +0000
+	id 1luGVg-0003Yo-DS; Fri, 18 Jun 2021 15:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144798.266471; Fri, 18 Jun 2021 15:32:13 +0000
+Received: by outflank-mailman (output) from mailman id 144805.266482; Fri, 18 Jun 2021 15:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luGTd-0002pD-O6; Fri, 18 Jun 2021 15:32:13 +0000
-Received: by outflank-mailman (input) for mailman id 144798;
- Fri, 18 Jun 2021 15:32:12 +0000
+	id 1luGVg-0003Wx-9f; Fri, 18 Jun 2021 15:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 144805;
+ Fri, 18 Jun 2021 15:34:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tyHv=LM=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1luGTc-0002p5-3p
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 15:32:12 +0000
-Received: from mail-qv1-xf31.google.com (unknown [2607:f8b0:4864:20::f31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ygMg=LM=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1luGVe-0003Wp-Jq
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 15:34:18 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2cdc3b37-e2b9-4d5c-80e2-3a2cb50d2c5a;
- Fri, 18 Jun 2021 15:32:11 +0000 (UTC)
-Received: by mail-qv1-xf31.google.com with SMTP id 5so3750129qvf.1
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jun 2021 08:32:11 -0700 (PDT)
-Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
- (209-217-208-226.northland.net. [209.217.208.226])
- by smtp.gmail.com with ESMTPSA id y16sm5301877qta.72.2021.06.18.08.32.09
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 18 Jun 2021 08:32:10 -0700 (PDT)
+ id e33be499-6021-454e-b867-f7db4f6a3100;
+ Fri, 18 Jun 2021 15:34:17 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.27.3 AUTH)
+ with ESMTPSA id x0a371x5IFY64tn
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 18 Jun 2021 17:34:06 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +40,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cdc3b37-e2b9-4d5c-80e2-3a2cb50d2c5a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=ufURiA5G+QmMKc3cHR4SDlIUzS0QueFElFdTPdxsl6I=;
-        b=pLj8K+rg1GqSADyz/MIdH86j7yhTw4X6FEllGnEMoZ/+dthKafKcoLXhypthtRHser
-         vLV6/FiEtISL8X/w8Nt+4oeHiw4yZYjfoZI2XZQFIdnXkyMJI53y0y5nIR8EClZ4OOXZ
-         NKernvGFD2j+8S92sCk+7p5MHJpoumABzQYeeRl7OVvAgGltEZD5OAv1Rf2B6vx3HlT2
-         QR+sptNBIC+JqjToSw9koeGiAbk/oUv6AC6oNyQhTVe/TS0GT4wHo5P5Sm3f2ML1i+HC
-         fXGoajQ5D4DM9K3iFrtuWmtGLPC6ZcU/6QEanKrl7jROQomDTSexOy5NDV5o3PhVZXZ7
-         Ge4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=ufURiA5G+QmMKc3cHR4SDlIUzS0QueFElFdTPdxsl6I=;
-        b=RZw5maxCfOoH4H8p1+6oQwgysKvfh1qefhY+iySVMPe7uhV2/mtkbL0VF1jseHIlVr
-         bGEDLtqz5zzjGMNmFFQ3iYcVvhjTVU6sPy1okLKTGkY0RUdlsTUnnxBSp8qvqWGnolPj
-         PB2chumvpbuZ4EdXY1DrOOv+xgqxSYnfsTN4DUzMddOE96UgdTZgKNI0dGeNq2XM5ahi
-         UxkMfC8j8hck/Mn8NH4+3XnuIWgtggbpTGCIPoCCs5Gez5l8AFGCnm6mJoSB/7Tmeyfn
-         vkJVzlFGD+/qeoDMkEJATn4cuVYB+PQUqZyIamdJwz4wJSc9RcPbMH99DTXw2l2NAnYG
-         Hpzw==
-X-Gm-Message-State: AOAM531neZm6LekrDwMBEK/BmLf+o4tKEi88p1R4AT+bfqFvMyiBSFLl
-	/1pGOHXpJZtNUE3Lj9hKbrs=
-X-Google-Smtp-Source: ABdhPJxSFOWwfFoYtUPbRUcO7GndZn7BdNWsH/2tmWfME2elhdpq+/Y1jtxyj0U95+Gr9zv5kAR+cA==
-X-Received: by 2002:a0c:d602:: with SMTP id c2mr6228887qvj.41.1624030331002;
-        Fri, 18 Jun 2021 08:32:11 -0700 (PDT)
-Date: Fri, 18 Jun 2021 11:32:07 -0400
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [RESEND PATCH 11/12] golang/xenlight: do not negate ret when
- converting to Error
-Message-ID: <YMy8d29gPIZl1NxB@FED-nrosbr-BE.crux.rad.ainfosec.com>
-References: <cover.1621887506.git.rosbrookn@ainfosec.com>
- <82bc8b720c3dfb178e52d10ddbebfa8dc5880e7b.1621887506.git.rosbrookn@ainfosec.com>
- <2C77D13E-ABB5-47F2-B466-07CD6652AF33@citrix.com>
+X-Inumbo-ID: e33be499-6021-454e-b867-f7db4f6a3100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1624030447;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=myTPQL8emWIF/wznjYNNFDT7VqB+zmIy2OxGuMP3FCM=;
+    b=qKLzhUMf0wM7kYF4wBEnTlNZYvn0Tf/+9BnOngg47gKsLpfcBSLu1dFdvEOrGXY5Ol
+    Gf/hKLUaIzauHxiqnJAR5LhRYNDAkgN3Ny0OgPfoELs7NYfAn0tzd7zs1i+Il87r1dLs
+    0JFmJ8Jm0kxZULSR7RupVw0Q5CiPJT9Q2oiAbC234I3p0OgH3rbr8T29evvhMVzfwAS4
+    fIxLgNqgMZi0P2ln+oCb8knepUFJ82uNfrg3BtiPCrsZj5TAjaFixLh16HKttm0V3SUi
+    BkR8j2PEWMCOWfXG4dYT4LulYTWP1DHLyaaXxmBI3qy9B++97Dai7ieUuUGZ577dHR1M
+    SOzQ==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsVxSIbR7sf0kebs4Z3Zpqv+Sabl5o7CzRq+Ps8Q=="
+X-RZG-CLASS-ID: mo00
+Date: Fri, 18 Jun 2021 17:33:56 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>, Marek =?UTF-8?B?TWFyY3p5a293c2tpLUc=?=
+ =?UTF-8?B?w7NyZWNraQ==?= <marmarek@invisiblethingslab.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v1] tools: use integer division in convert-legacy-stream
+Message-ID: <20210618173356.108f9935.olaf@aepfle.de>
+In-Reply-To: <8a9be55a-ad6a-d06d-9ddd-0f2d656e4fac@citrix.com>
+References: <20210618093114.1640-1-olaf@aepfle.de>
+	<8a9be55a-ad6a-d06d-9ddd-0f2d656e4fac@citrix.com>
+X-Mailer: Claws Mail 2021.05.24 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2C77D13E-ABB5-47F2-B466-07CD6652AF33@citrix.com>
+Content-Type: multipart/signed; boundary="Sig_/CnFjWk_OTXbOt567kf8w90h";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On Fri, Jun 18, 2021 at 03:13:03PM +0000, George Dunlap wrote:
-> 
-> 
-> > On May 24, 2021, at 9:36 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
-> > 
-> > There are several locations where the return code from calling into C is
-> > negated when being converted to Error. This results in error strings
-> > like "libxl error: <x>", rather than the correct message. Fix all
-> > occurrances of this by running:
-> > 
-> >  gofmt -w -r 'Error(-ret) -> Error(ret)' xenlight.go
-> > 
-> > from tools/golang/xenlight.
-> > 
-> > Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> 
-> Erk.  I’d be tempted to say something more like:
-> 
-> "Commit 871e51d2d4 changed the sign on the xenlight error types (making the values negative, same as the C-generated constants), but failed to remove the code changing the sign before casting to Error().  This results in…”
-> 
-> I can edit this on check-in if you’re OK with it.  Either way:
+--Sig_/CnFjWk_OTXbOt567kf8w90h
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-I would appreciate that. Thanks!
+Am Fri, 18 Jun 2021 10:42:58 +0100
+schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
 
--NR
+> This is a Py2 vs Py3 difference.
 
-> 
-> Acked-by: George Dunlap <george.dunlap@citrix.com>
-> 
+This script is not ready for python 3.
+
+At a first glance it is the usual type confusion.
+It seems the type 'bytearray' exists in both variants.
+Perhaps stream_read() should return such an object, instead of either 'str'=
+ or 'bytes'.
+I'm sure there are more pitfalls.
+
+Olaf
+
+--Sig_/CnFjWk_OTXbOt567kf8w90h
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDMvOQACgkQ86SN7mm1
+DoD/lg//W1f7Ux2wrSZi5WEj0/uMUz+94JH+cdMB2csW8CwgJNKwmqYGTgwFHAp9
+f14Sx/VjZe/FzI5CCT4NwF9ec1CrMn+Pa52QOVNc9guIProT6BMhjzuKgngTIG4p
+0yysTglGeZ0hS6UsLkxQXbCCUZJHg9Z23eQZhOi0wuAwshm6wl6gOPRV6zzVRo2w
+ujdi5v8Fgj5d/uRyAiW7CewhLEhMQJrTQj0WA3nlqETF3dUgTpXXis2IentUa6N6
+quitZY+rk8nTUPLocIFEKiv1MBpP58PSvZ9ZxsUtOcfWDO6rIqBfuhp6lXyuK5E5
+bPOahqDHyLrLkK3RZOUcBQ5u8yjuxI9rY5nk/GNYRKofBPsMWzelOjmXOBOG7VuA
+i676sbX/0sGxyKwWxzw3xg0tzwnLM4UsiP3PdRnVk0DjnyxgZM7kJeh6vYDnxQJM
++SMwEozzVAG+1fwOkpo7jPRpzIzW6/BnL5hgR623hiqndQTnyX/tkE6u2k92CXYL
+AKTx8hgeaZgOSyIhgVC720kd9rEKEG4ENduZl8HKtgtrQpM0dLggHoNCd6EGI9VQ
+vySz3rtcJk2bs83ugd9UooSQk10TuQQXbABDJ50Kx0NGN2CWURYPj458XTxkDFV1
++kKQPO6o0ZQGcM9K8LA2yeBKcV03Mxy9sfyd90zDUcFT9AJu2JE=
+=J7WG
+-----END PGP SIGNATURE-----
+
+--Sig_/CnFjWk_OTXbOt567kf8w90h--
 
