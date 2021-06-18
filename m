@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B30C3AC8B9
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 12:23:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144409.265797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC39B3AC8BA
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 12:24:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144415.265808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luBew-0006Kx-O8; Fri, 18 Jun 2021 10:23:34 +0000
+	id 1luBfQ-0006wn-7t; Fri, 18 Jun 2021 10:24:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144409.265797; Fri, 18 Jun 2021 10:23:34 +0000
+Received: by outflank-mailman (output) from mailman id 144415.265808; Fri, 18 Jun 2021 10:24:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luBew-0006Iw-KP; Fri, 18 Jun 2021 10:23:34 +0000
-Received: by outflank-mailman (input) for mailman id 144409;
- Fri, 18 Jun 2021 10:23:32 +0000
+	id 1luBfQ-0006uV-2W; Fri, 18 Jun 2021 10:24:04 +0000
+Received: by outflank-mailman (input) for mailman id 144415;
+ Fri, 18 Jun 2021 10:24:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lC6W=LM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1luBeu-0006Io-Pw
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 10:23:32 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ id 1luBfP-0006sk-6x
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 10:24:03 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c712d297-e757-4cac-9395-80a200201b2a;
- Fri, 18 Jun 2021 10:23:31 +0000 (UTC)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2053.outbound.protection.outlook.com [104.47.5.53]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-8-DXMgaPD9OluqSot4-rIl6A-1;
- Fri, 18 Jun 2021 12:23:29 +0200
+ id a8e86627-16cc-4c01-b84d-763bcd93f4a1;
+ Fri, 18 Jun 2021 10:24:02 +0000 (UTC)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2056.outbound.protection.outlook.com [104.47.0.56]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-37-TisWPV9fOs6JfCxzx0IXkg-1; Fri, 18 Jun 2021 12:23:59 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6864.eurprd04.prod.outlook.com (2603:10a6:803:138::20)
+ by VI1PR0401MB2607.eurprd04.prod.outlook.com (2603:10a6:800:58::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Fri, 18 Jun
- 2021 10:23:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15; Fri, 18 Jun
+ 2021 10:23:58 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4242.021; Fri, 18 Jun 2021
- 10:23:26 +0000
+ 10:23:58 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FR0P281CA0015.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:15::20) with Microsoft
+ FR0P281CA0003.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:15::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4264.7 via Frontend Transport; Fri, 18 Jun 2021 10:23:26 +0000
+ 15.20.4264.7 via Frontend Transport; Fri, 18 Jun 2021 10:23:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,39 +53,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c712d297-e757-4cac-9395-80a200201b2a
+X-Inumbo-ID: a8e86627-16cc-4c01-b84d-763bcd93f4a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1624011810;
+	t=1624011841;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=am03MNqDtS9SZU1GGRI1+xD+TyxHlgkohOfTvVtAEEs=;
-	b=YovsMkCQXfHQeZH0FxFhejiCgsFhsGxlHVJ/3fwXVgPw+e2eJEBGtuKn47Pb8szKay7Wur
-	wbIAC8Pb0vHH4gNo5jOfwRtSTDADUS8kOBbLABFF9FzFvXHjfwGbcaDHo+UalSLT7TmREI
-	0XhkkBtxbjJFR7QzxepfG5KQPvKD1UM=
-X-MC-Unique: DXMgaPD9OluqSot4-rIl6A-1
+	bh=V7LABsQDsEgnYdE2iTKHmR19AgygtEHLnin18+tzGjg=;
+	b=S7PMwGVY6tHA/YfTCMGq6P3ggea2XACdOXaYuVJb48VFJczsbaCrZjVnJC0feviglMYMvu
+	+tB0yv/YO9/JhZA4+D/0MRWn4tPrp1q/kKyg3lWIKKHp15sl08V3axQ46Br8+38k+Y4ioS
+	UJ4L7h4328JPhDksmN9VBssCj+MqN3M=
+X-MC-Unique: TisWPV9fOs6JfCxzx0IXkg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PiB/hRNMUFVLL4X8PtBjATMaJmhVOiqh6IlIUerfthYw4G/KRXQzFbg4mxNkwM+XWWAv0c0f8i300NwkHgiRFFOvS4pOVFRCAStM+tEYofV7OVgJKbqcvbmvNN9Y+t4gCbQ0ZpirHCv107wek4ywpvz3Uh6HmfCxxt9wzUtsjVKLCa7kcTrQF2wf8boNo60rwU1X1EkKaUW0kFVITouo90xxT3Ubc5vpA0ALLTWCSN/y4oVhaHRepMtwRm2n+dwtwqFtPJtaUugQLrknpqpYbw0nui+DF6KIgKP9S1TOjg8IebED1vzVtO5ghqdLX6/LAUy+mHpe/2ngzDxIAwgiXQ==
+ b=C5PftO1tmGRbFNKFIX6jjW7+0oy5/rJW4KyjNQCOIQcC4uOrMD8FcxzouvBmLcrIOXUsaLK9TGGpiNK6bDfgxNrLaWRe5pa5mwCbXeEe+VxCMOmHbfBLIDbB3v0ZT31migZ7tqo8zOBKmWm6byK3rhTae7/V3Hpau5wNfXrewzg3+WDGgGEeQWh3XWRM0OGFBlAQbK7GUG98qFcAEWbP/LZlpeAf1G6yBb0da9RdSNPKIaRi2F7SDybLOo5h1loFLpQA5NKCQxyfdgzfqnat/n2IWAdgvp4/OZByK4kbRjhyFexiJ6RovrLt50b+HilbX6BkU1+A5xgsnw+1kSexDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=am03MNqDtS9SZU1GGRI1+xD+TyxHlgkohOfTvVtAEEs=;
- b=m/kQyUHT5UKi6rLD6NVF3IO1yNgRpa3Kc+JxpQLA09BGKsbFiL0K1GEOCwGHLf/wUR1SAzmir7lAI7IiVGpd8kRtj0q08ER6Czxyepq3kZJSX6RkmvQt/m6TZVZK/L/14mfdNgUFivVIwiws4fcYQe1EsGFhVId5jjG71VTCVANAecpJuvph3MSiDbt31TiCcTkFs5WGBhYGxIcvjOIJPblerZvvYXNelku+b/gIJV29vJrXKLP5BHyIxc31AatPUphlPnspVtMxuPYq2aiC/chveOUkR0xb3CEIEqiUJRFbj9KS5nsS85u4hXcl11+9iOCsAy6kjbPJT1unwn0GGQ==
+ bh=V7LABsQDsEgnYdE2iTKHmR19AgygtEHLnin18+tzGjg=;
+ b=JV5nxZdf2fi0XGNmnCox4KL1wDvkc0aF2A+XuDnk9ZUiXPRkTvCtivKhCTnVcorSzFeE1DYf2LUeH/eNMyBHQc7diqPy1BuGn5ZBna+RfNpOBZ703fQ30r1o/qMk+eNJH33dK4jObXnBBYIHxARJFC2f5I3GN0RNoDS8Z3MN5XXPxnH7jYnU6V1xtmU3PRtfnl+9UvRb0XH8cozmsHTO0AUcpHItH9fP1Fdd++/ddu/dSnOXEL8MfJLRPGFbbdCEqoP/T1JECexxXQW1CXgfTg39TEs14g3WGUuNGAHPnssqrntHAVIAgyVxBCI1x0fZsbY/CSeUTzUajE8XhY8h4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: suse.com; dkim=none (message not signed)
  header.d=none;suse.com; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH 1/5] x86/HVM: wire up multicalls
+Subject: [PATCH 2/5] libxencall: osdep_hypercall() should return long
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Ian Jackson <iwj@xenproject.org>, Juergen Gross <jgross@suse.com>
 References: <edaf04ec-335f-a156-34c4-5c0385cba08b@suse.com>
-Message-ID: <c3c5df61-32f8-1ffa-aac4-0c83d620d385@suse.com>
-Date: Fri, 18 Jun 2021 12:23:24 +0200
+Message-ID: <798b7eec-e31e-1798-773d-c2865fba4be2@suse.com>
+Date: Fri, 18 Jun 2021 12:23:56 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 In-Reply-To: <edaf04ec-335f-a156-34c4-5c0385cba08b@suse.com>
@@ -93,199 +93,141 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: FR0P281CA0015.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::20) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0003.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::8) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 667b54ce-321f-4e77-ea13-08d932431c26
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6864:
+X-MS-Office365-Filtering-Correlation-Id: 236ba0cd-44f7-44a7-603b-08d932432eee
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2607:
 X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB68646CE29D933180C12C150AB30D9@VI1PR04MB6864.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+	<VI1PR0401MB2607EC5A3721BC0457B3ADF7B30D9@VI1PR0401MB2607.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	SpKeuOYxzfWL62z6QrSobIJ/O7wHY9N7AZJFcj9SQo1yax1TymzwOPOnf0CzhZ75ukxYu366tvF7pSJtQl6EVdGoeHtWbDsJMxgvyT52kjdZoO7IuaBrGVzt72v8j8+Jg5/VZfW+pV+/EWIgsY2XoPDRxFY8VUXcxsRGDY4guPaPzyPediZuERst5aO4NTTL8jnSSYvSUetazwdkEX3TsaBXvzMet7Hf7CuJJz4IpPQycB1LXQsw+WNjfoeLTs2O0tSzAka+IGu7oLlFu/KE4MJr3B9sgMBb2+gUEeA50N89pcqFs4SB+bs7aoXU6aRRRNrw6oqF4EmPlvFbAkCiLiI0ou8OjFG3Ut4uQX2RGAHryvIhp8rNnpFN1oUlXlOc7W0ZiOJ0s8WVzhP6Kb6d/jeuVDgzdiSf/vi2pn2E0Y1BY5gMe4QkObqXOJIRFGkbgRo/Vi1A5cD6EQB7wFCz1HJJdVfIQYpIjBWQRGMwmAk9H+8mp3Nkua254X9osZGSyAifOnW2tLAqsQ4HkWrYviq7jILADectC9MHRnG2WA8uMQ9biTVoWsnQfgJ92cVhwu2tUqBBJyM5kUnU3QyW/PtpF1EQ1Ojv5nzkcoP3iy58yGagx6TLpSFv6mNLmXPoa+7aWRSb16MgDlWmSteR3GZbk4cbpxmUaiy0IbGMtBBCodI/M/JSodRTNiEnrtXs
+	emXe1XBozK77IhQdKbiHdyH2lglCcaxkd8464YkEJCXvJU+gaLBYbdWZLMOlLG+XNaXDKNbmGOLb3yb4ai7KzlEFR8akGON6uxUmqJ0WY0AU8xEkJrT1NEytRyGJN/t1mCoxJxBO6FSaWy5MXpGo/pNF4WBIYAd82gTzdJAeYsX7NBapwXZR2D58Azixt7Q8Ez+EcuMlNZkE5UECzMxFx0fAMpwQzGbITz78MYQBg6t74ew7ICgULFUcJu3Htl5oT+XjYTIJ9YsVlSPuSTz1z/BSgLeTX7Y7m1wIReef/vw4rCiZg/Mf1RBDTnLi/Ixz/JEfYdQgDMOmxUlATYto+mzSffjjySyZm9oET7BAh9UHtPlStsiVv03L5HV7k1gu2/iT0cISjKhdJb9pRMsIUbVkGkLvYHxas51sy6G6+oxmhJpqhqWm/SVTQhmqWcVtBLO7n9z3EKODXrQ7dTxHtIUWJcTLrHrX+g/aR2nCSNV6tsVynqkRi0f7vgiX/Oy+0zNUG/LhovIRe8wHXu7NmieYHEg+iFI30CPp1sXGaxnSM5EsdOkvirwW97TUgyw/ZqHIzej3w9qUXkSvqHOtaxXSuJKEiJDdNDdFGEoSeMvwOYXgJ9QkrYQpFatuEcp75uvjgm0T2piSpH+4Kg83tUW46PukD9CGtzpVSbUEeAUv/Ri3nzQgadvM9BXbbuPD
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(366004)(396003)(376002)(346002)(39860400002)(2616005)(956004)(83380400001)(66946007)(66476007)(66556008)(6486002)(316002)(26005)(186003)(6916009)(16526019)(478600001)(54906003)(16576012)(107886003)(31686004)(38100700002)(2906002)(8936002)(8676002)(4326008)(31696002)(86362001)(5660300002)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(376002)(396003)(366004)(346002)(39860400002)(54906003)(4326008)(38100700002)(478600001)(316002)(2616005)(16526019)(8676002)(2906002)(6916009)(107886003)(66476007)(31696002)(31686004)(86362001)(956004)(66556008)(36756003)(26005)(6486002)(83380400001)(66946007)(8936002)(16576012)(5660300002)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y0FWdUR1R1Nyd0pBNllKdEowM1o1SllXNGp3V29OeWFLQmV3VkRhcnd6cHQ3?=
- =?utf-8?B?SzRDUzZHeXpGbWs3NE9TR0MzalZ2STREc1JKVXlVOVlUYnI5ci9sU01sR3g0?=
- =?utf-8?B?SncwZlBXdDY0UXhQZFp3M3h4VUxhUlhOYWRVQzZ2UXBEcHFyaGY3N2N1MWlq?=
- =?utf-8?B?NFdiSWhSNVlZWnA3YnM1aWY0UjBPUkFiQlRrdXBZei9DZURiODNSZWQvcG5Y?=
- =?utf-8?B?UWR1dXdSMWt6TVVCak9jUHBLN1p1blRlWXFzR3pNdkM4YTZhU1ExaDQ0NHdp?=
- =?utf-8?B?NG1DOE14dmNuUE9VQjVjaHhmNmo1ekRaZlNqdHlBbFlaQUdvR1hEMnFyZml4?=
- =?utf-8?B?WHovSWdraTNjajVJLy81UDNSN0NQTTdEL3NRZ3AxamFiYmVlTkNDSHljbUlR?=
- =?utf-8?B?STVpR3pCUHZWT3pWVm1ZYTVCbzdNN25LR2pZclQ4TWJzQkJmVUx3RnlYeTA0?=
- =?utf-8?B?TmV5dnR4bDA3WnZtTmlBelFvWmJMMzZpampCSU1yS3NSR1YzanhqREJFMFV4?=
- =?utf-8?B?cWlISC9ybXFxV0tQbHFDdUpPM2Fob0NWWWtURFFmOWc4TGl5MXdGWDI0cVNW?=
- =?utf-8?B?ZzJJT0hjNVZQanh4Lzk1aWZ3VVNjZWFkbS90RTg4enRTRUFGcS8vUWJRQW03?=
- =?utf-8?B?RUZ4VkFnKzFDK1VQZnpabmFLZm14SWFaSmtoMUFwbFUzdTlNcm01dzJFUnpr?=
- =?utf-8?B?YVRzNHFQUlFVUHhoZXJWRW4zczczUTdzN2hxYjdzbk5uUHdHdWNaYWY3RHhu?=
- =?utf-8?B?c2NBUE8waXpVeXNESVdlZk1IUE80ZldqU0EyLzA5UHZqOE5sTFJob0V6b001?=
- =?utf-8?B?Z29oZXMyZHJONjd0dTZRMlRsRUFTNHROL0ZMcmNlejEvWHFLSlh4OXdhdk9O?=
- =?utf-8?B?RkhNeDBXOTE4dUEyOVFnOGV5SzhPZ08wcFBVWmRxYmwvbEJER2pTQW52MVRO?=
- =?utf-8?B?b1NsbnhiQmFvME1IVTJTSEJpSkE5UWZiWDhTaXRkajJGUzdhYWpnNXdNTEtV?=
- =?utf-8?B?c2d5dWhvejU5UEE1L3R6SWp1TytTdENuWURVMnRkVmpUc25SckQ3eC9GTUd1?=
- =?utf-8?B?WjZhZUVsN2E2WUtRZENSQmhWdXJXWVBmNllRb1dSWEhSSmk3N3JvVWNReWlv?=
- =?utf-8?B?aDdXdHBMbEJYUE9KTUJEUUMrNGJBNEJhSFArS3ZJTEhSa0d3ZjdUa1BmOXVP?=
- =?utf-8?B?U2IxOFl5dUx5anVWdmdiVUhVTDluSnBwUkdLcVh4R21PUTdkS2poM2UzTEVG?=
- =?utf-8?B?Nkpid29rVE1ncEtiemRtTXFpbFFHbUhPbTVrbCtyUndxV1VZQlJlM0QzdjlH?=
- =?utf-8?B?OHRnbkRSSkM4bEg4Q0E1dzd5eDhGc2UxYy8zVnlmSFF2bUtsVHJuSnB0LzZQ?=
- =?utf-8?B?VkxuaFZ6eU5CTGFpeEwzS2Z1VE1UNzBRWllaMG5wVW9Ec1dhODZvODM1TzB2?=
- =?utf-8?B?QmU2NVMxS2Q0cHgzMlhnRjRLRStIRC9QZC9nTmNRb21lamZnNnJJbXBDYnk0?=
- =?utf-8?B?YTU5ZVkwb1hXRkw2bi9FTmd4b2VpdlkvQkx6NzdKUlBHc1NGbWIzNFc0Qmdp?=
- =?utf-8?B?VjRNSllOOS8vZ2FEeWpUQm9SWFlUYllFTlExSExuSkMwZnZKOUNZSUFQNnRt?=
- =?utf-8?B?bUY3dVdtcVJSc2YrK0YvOEI2Ry83SDAwOUJUR01ja053MmU5TGIrczl3YzR6?=
- =?utf-8?B?SWlJWjNwY2JQRmptZEtJVjQ2SG9MRnFURVA5YWNuVloxR1M1alhpTEhIUDIy?=
- =?utf-8?Q?tuSGY4iwz2cFeN/bEiKG+9cu8WuV++V8VI+N/7D?=
+	=?utf-8?B?NC93SE0wc29IbDJnOVhsalV0SDhMNkpaZExkWEJuem15NXl6aFRFT3JKcDhD?=
+ =?utf-8?B?SjZadTNBb2lTYUVkaGJydEFkTjAvMlhyVnRHZ1M3QkQxMkthNURuZzlSa0U0?=
+ =?utf-8?B?L3habzFHcFlKeUhiYjRpWFo2ZzlWTlpzelRyekpVNm0xK21QVTIwTkdZN2o5?=
+ =?utf-8?B?RDJCYjlOOVcxMU5SVG11VDY2VHJiZG1tSmlIMzhhb2w4Tm5BVFFqQUk5clo5?=
+ =?utf-8?B?VVZyNWt3eWVIRFY2QzFCYnZqd2h2TjhEdktwQ1BVVHpEMFpFRTlvWFNRUml4?=
+ =?utf-8?B?L0dBbWdxRitZN2JjRm9mOVRsT1EyWEVNR1pJUmQvRVF4V1FjcGM1b2JXZ25I?=
+ =?utf-8?B?Q3ZGS1RiZTBUL0o5Skt4RjlxQUYxMXdCRVAwOEhLajY5RHkwc3p0eENBdkhL?=
+ =?utf-8?B?Qno5cFJzUUtyYnBqbjJsVTcwc1dHVjM3bmtVQjZ3MEplellwR3NrMktzbUFt?=
+ =?utf-8?B?YmwxSU5iZmtPd0VOZTBVU0xZSnFXV1l6NFN6amJtRVI0QllMYVNqMFdSczNz?=
+ =?utf-8?B?cmpYbGNkUkRrQTZmWnQvckxtREtoYitWZkt0TEtiazBGQ2tGMHFTV2R2SHJS?=
+ =?utf-8?B?cG1hNUJxS09OK2R1b3l0NERGUGtBZjVpMFJjeURXaGV3VDRuYlU2YTNGd3pS?=
+ =?utf-8?B?anRBcmFWd2VRZXdobUNENnRxa1VqWC93U3ZZSzlxMm81VkNwNE9GajMrY1da?=
+ =?utf-8?B?djRacUM3UkpJSzBGVjQ3UnI5THVGM0ZZTThBVHNGcGE3RWYyeFlLMkV3dFcy?=
+ =?utf-8?B?eUkvYkJTdGEwMThlTTJFZGFNMGhkNmwxK0UyV3dlZUwrVDNuNWRrTWJZSmFI?=
+ =?utf-8?B?WmwzbXNneXRWM3hmeGxscmZiaU0zaWJ4T0FnSVJYVzI1YkNkUGR2ZHpuaEt2?=
+ =?utf-8?B?a1NPaDVXNCtKaWUwSFZacHBZMDZKQXIvekd4WWFoQ2o3VERhRG51Zy9pU2w1?=
+ =?utf-8?B?K1RybkdSQmFLaW9LNTRoSlp5dzV4NGdKVVY1OWVrNDZvZm9ZYkR2ZU5jUXpp?=
+ =?utf-8?B?eG1wczhacHF1YWZEUUJIU1g0emRYZlFOWHVBUEs2S0FMWUFET1VDNTVOOVFO?=
+ =?utf-8?B?MExqVkZ4ZEVGR0lBbTJ2WDZlQi83cy9oOGgwVkFqdXhzVHBsY0ZHK2RKaHNP?=
+ =?utf-8?B?VEpWRElRcHRYS0RWWmZUZmo5cVphb3V3dEt6M2dObHlLL0wzMjRHaE5kYXMy?=
+ =?utf-8?B?a2VORkRGYlFuWUJVWUZDSDRKS0J4RlljS2VEWnJrV0lMa044aDRMN2MxR2h3?=
+ =?utf-8?B?Q0tXVjdOV3VBRnlFK1c0MnpsUWpJcHkrVmIzMmdzQXNnclhHR2YwcWsxeUVE?=
+ =?utf-8?B?TGZXYy9xS05oOWdZTHJ0cERKVi9SQlpLM2l5OUY1TnVsbDQvb3ZMTmJSYWxu?=
+ =?utf-8?B?OFNSRURhTjVWd3ZoRVAyVnNmS0pSQ1VOMm96cVZwQSs5M3Q1dVhjcjhoemI2?=
+ =?utf-8?B?N2lzQmxEcTBZUkQ1WTRJWUF2eVZEcU4zR1NHWGtRakI4c096OWh6c1dpaTR1?=
+ =?utf-8?B?UU5vQVI3dkJneWphWVBHYUtaWC9BaVFyYlFtQWY1eW9IVHVOc3U5QjF0aGpB?=
+ =?utf-8?B?RDJGVk1mM0NHbUpSWDlBZ0lkdjV6THVDWVNkSExPdFpzR01sa2JsUS9XTmtz?=
+ =?utf-8?B?ZFZOMVpZdmxvVnVSbGVpN2FuVithTGRYWE0zT08xVE12cWVJWm1ycGRJNFpv?=
+ =?utf-8?B?NEpwbE0rUU0xNW00M25lSkI1VU1JMWNYMHlEUnJvRXpjQ0FwQ1lROHU0d2w0?=
+ =?utf-8?Q?R+ULyygt8o/XRyIR+1ILlfAsLxzQFWASbsiqKH9?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 667b54ce-321f-4e77-ea13-08d932431c26
+X-MS-Exchange-CrossTenant-Network-Message-Id: 236ba0cd-44f7-44a7-603b-08d932432eee
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 10:23:26.7205
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 10:23:58.2277
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IWuUAzJ6QklGopWelo6pGPVxxX6Yi3uzwXqndQk13mLUTSwVVju5QqlIRWxGnOW1VwYDNP47XWGlDVrj06v4fw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6864
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9GmKam6HL3cAocIxiUQ9zK7BHcI7YgNjWPjMkChZpT915C+PLpby5lzNTN+MKwuSHQPLo2w8Y9WdUgkZ0zFVoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2607
 
-To be able to use them from, in particular, the tool stack, they need to
-be supported for all guest types. Note that xc_resource_op() already
-does, so would not work without this on PVH Dom0.
+Some hypercalls, memory-op in particular, can return values requiring
+more than 31 bits to represent. Hence the underlying layers need to make
+sure they won't truncate such values. (Note that for Solaris the
+function also gets renamed, to match the other OSes.)
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/hvm/hypercall.c
-+++ b/xen/arch/x86/hvm/hypercall.c
-@@ -26,6 +26,7 @@
- #include <asm/hvm/emulate.h>
- #include <asm/hvm/support.h>
- #include <asm/hvm/viridian.h>
-+#include <asm/multicall.h>
- 
- #include <public/hvm/hvm_op.h>
- #include <public/hvm/params.h>
-@@ -125,6 +126,7 @@ static const struct {
-     hypercall_fn_t *native, *compat;
- } hvm_hypercall_table[] = {
-     HVM_CALL(memory_op),
-+    COMPAT_CALL(multicall),
- #ifdef CONFIG_GRANT_TABLE
-     HVM_CALL(grant_table_op),
- #endif
-@@ -334,6 +336,39 @@ int hvm_hypercall(struct cpu_user_regs *
-     return curr->hcall_preempted ? HVM_HCALL_preempted : HVM_HCALL_completed;
+--- a/tools/libs/call/freebsd.c
++++ b/tools/libs/call/freebsd.c
+@@ -62,7 +62,7 @@ int osdep_xencall_close(xencall_handle *
+     return close(fd);
  }
  
-+enum mc_disposition hvm_do_multicall_call(struct mc_state *state)
-+{
-+    struct vcpu *curr = current;
-+    hypercall_fn_t *func = NULL;
-+
-+    if ( hvm_guest_x86_mode(curr) == 8 )
-+    {
-+        struct multicall_entry *call = &state->call;
-+
-+        if ( call->op < ARRAY_SIZE(hvm_hypercall_table) )
-+            func = array_access_nospec(hvm_hypercall_table, call->op).native;
-+        if ( func )
-+            call->result = func(call->args[0], call->args[1], call->args[2],
-+                                call->args[3], call->args[4], call->args[5]);
-+        else
-+            call->result = -ENOSYS;
-+    }
-+    else
-+    {
-+        struct compat_multicall_entry *call = &state->compat_call;
-+
-+        if ( call->op < ARRAY_SIZE(hvm_hypercall_table) )
-+            func = array_access_nospec(hvm_hypercall_table, call->op).compat;
-+        if ( func )
-+            call->result = func(call->args[0], call->args[1], call->args[2],
-+                                call->args[3], call->args[4], call->args[5]);
-+        else
-+            call->result = -ENOSYS;
-+    }
-+
-+    return !hvm_get_cpl(curr) ? mc_continue : mc_preempt;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
---- a/xen/arch/x86/hypercall.c
-+++ b/xen/arch/x86/hypercall.c
-@@ -20,6 +20,7 @@
-  */
- 
- #include <xen/hypercall.h>
-+#include <asm/multicall.h>
- 
- #ifdef CONFIG_COMPAT
- #define ARGS(x, n)                              \
-@@ -273,13 +274,18 @@ int hypercall_xlat_continuation(unsigned
-     return rc;
- }
- 
--#ifndef CONFIG_PV
--/* Stub for arch_do_multicall_call */
--enum mc_disposition arch_do_multicall_call(struct mc_state *mc)
-+enum mc_disposition arch_do_multicall_call(struct mc_state *state)
+-int osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
++long osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
  {
-+    const struct domain *currd = current->domain;
-+
-+    if ( is_pv_domain(currd) )
-+        return pv_do_multicall_call(state);
-+
-+    if ( is_hvm_domain(currd) )
-+        return hvm_do_multicall_call(state);
-+
-     return mc_exit;
- }
--#endif
- 
- /*
-  * Local variables:
---- a/xen/arch/x86/pv/hypercall.c
-+++ b/xen/arch/x86/pv/hypercall.c
-@@ -23,6 +23,7 @@
- #include <xen/hypercall.h>
- #include <xen/nospec.h>
- #include <xen/trace.h>
-+#include <asm/multicall.h>
- #include <irq_vectors.h>
- 
- #ifdef CONFIG_PV32
-@@ -245,7 +246,7 @@ void pv_hypercall(struct cpu_user_regs *
-     perfc_incr(hypercalls);
+     int fd = xcall->fd;
+     int ret;
+--- a/tools/libs/call/linux.c
++++ b/tools/libs/call/linux.c
+@@ -80,7 +80,7 @@ int osdep_xencall_close(xencall_handle *
+     return 0;
  }
  
--enum mc_disposition arch_do_multicall_call(struct mc_state *state)
-+enum mc_disposition pv_do_multicall_call(struct mc_state *state)
+-int osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
++long osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
  {
-     struct vcpu *curr = current;
-     unsigned long op;
---- /dev/null
-+++ b/xen/include/asm-x86/multicall.h
-@@ -0,0 +1,12 @@
-+/******************************************************************************
-+ * asm-x86/multicall.h
-+ */
-+
-+#ifndef __ASM_X86_MULTICALL_H__
-+#define __ASM_X86_MULTICALL_H__
-+
-+#include <xen/multicall.h>
-+
-+typeof(arch_do_multicall_call) pv_do_multicall_call, hvm_do_multicall_call;
-+
-+#endif /* __ASM_X86_MULTICALL_H__ */
+     return ioctl(xcall->fd, IOCTL_PRIVCMD_HYPERCALL, hypercall);
+ }
+--- a/tools/libs/call/minios.c
++++ b/tools/libs/call/minios.c
+@@ -38,7 +38,7 @@ int osdep_xencall_close(xencall_handle *
+     return 0;
+ }
+ 
+-int osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
++long osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
+ {
+     multicall_entry_t call;
+     int i, ret;
+--- a/tools/libs/call/netbsd.c
++++ b/tools/libs/call/netbsd.c
+@@ -96,7 +96,7 @@ void osdep_free_pages(xencall_handle *xc
+     free(ptr);
+ }
+ 
+-int osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
++long osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
+ {
+     int fd = xcall->fd;
+     int error = ioctl(fd, IOCTL_PRIVCMD_HYPERCALL, hypercall);
+--- a/tools/libs/call/private.h
++++ b/tools/libs/call/private.h
+@@ -55,7 +55,7 @@ struct xencall_handle {
+ int osdep_xencall_open(xencall_handle *xcall);
+ int osdep_xencall_close(xencall_handle *xcall);
+ 
+-int osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall);
++long osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall);
+ 
+ void *osdep_alloc_pages(xencall_handle *xcall, size_t nr_pages);
+ void osdep_free_pages(xencall_handle *xcall, void *p, size_t nr_pages);
+--- a/tools/libs/call/solaris.c
++++ b/tools/libs/call/solaris.c
+@@ -80,7 +80,7 @@ void osdep_free_hypercall_buffer(xencall
+     free(ptr);
+ }
+ 
+-int do_xen_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
++long osdep_hypercall(xencall_handle *xcall, privcmd_hypercall_t *hypercall)
+ {
+     int fd = xcall->fd;
+     return ioctl(fd, IOCTL_PRIVCMD_HYPERCALL, hypercall);
 
 
