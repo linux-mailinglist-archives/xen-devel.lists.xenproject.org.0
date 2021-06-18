@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA58F3AD0D4
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 18:59:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144913.266669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75E93AD0D8
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 19:00:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144919.266683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luHq0-0004cJ-D6; Fri, 18 Jun 2021 16:59:24 +0000
+	id 1luHrE-0005wj-NQ; Fri, 18 Jun 2021 17:00:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144913.266669; Fri, 18 Jun 2021 16:59:24 +0000
+Received: by outflank-mailman (output) from mailman id 144919.266683; Fri, 18 Jun 2021 17:00:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luHq0-0004aP-8p; Fri, 18 Jun 2021 16:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 144913;
- Fri, 18 Jun 2021 16:59:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1luHpy-0004aF-Ru; Fri, 18 Jun 2021 16:59:22 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1luHpy-0004wk-Jo; Fri, 18 Jun 2021 16:59:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1luHpy-0007g7-AS; Fri, 18 Jun 2021 16:59:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1luHpy-0006qH-A0; Fri, 18 Jun 2021 16:59:22 +0000
+	id 1luHrE-0005tv-KJ; Fri, 18 Jun 2021 17:00:40 +0000
+Received: by outflank-mailman (input) for mailman id 144919;
+ Fri, 18 Jun 2021 17:00:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tyHv=LM=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1luHrC-0005tn-O9
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 17:00:38 +0000
+Received: from mail-qt1-x82a.google.com (unknown [2607:f8b0:4864:20::82a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0a5e9295-6315-467d-b0a7-5eeab2601abf;
+ Fri, 18 Jun 2021 17:00:37 +0000 (UTC)
+Received: by mail-qt1-x82a.google.com with SMTP id d9so8009112qtp.11
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jun 2021 10:00:37 -0700 (PDT)
+Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
+ (209-217-208-226.northland.net. [209.217.208.226])
+ by smtp.gmail.com with ESMTPSA id g15sm5505947qtx.75.2021.06.18.10.00.36
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 18 Jun 2021 10:00:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,283 +42,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=e5ZE5XZ/01zMJgC+viZWbTnHNtCsRzaho/A/o+DCdKU=; b=jHCRChvKAZIp63xhsRcy8sJaHq
-	wumecY23eT8fh699C/bRGwqGUektiCqVKJY8Ab9MkhjePx2l+OWs5IJV0ItEXKId3ILaASQckcAia
-	4zntTHhI27/WfJ/3/x1zmrD4WtWGSc+Os+2keaPTI8TeJMkqMRJspFvNKvSmV6MiIC+Q=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162888-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0a5e9295-6315-467d-b0a7-5eeab2601abf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=z5zsokqXgiD6bC7McyK/M0FOdguu6oT7x1Jlxm2c+lU=;
+        b=ntlpwJIMtoPglnvfMmUfquAP9465QRaDEybwjBPldd3FLNFFuRBmCz1RQETys4ASwu
+         TfnWA/tqcDquTihzqUc0wjEP9nehanGO3g6xg1f6EEXCFvSRvU4BqetCD7lBOjxmRBXm
+         mU+WffQz9qWQn8NB/kbiuOqpM/ZrMZIxMe/Yql8z6paEG/rhE9zS6Pfp0GLNID83hGf5
+         NZvNfnTiH9XAwTqoNa44qvEfLtq7d/+Zf7eK1pEUTBmPA7/6UO3bPG5Dujivwy5k8npv
+         LyQjfc9Rn/yilQUDi69/UugtrdkIBs+GobBbejowQ0pqGFWmDuMGMTatHt6n9QHyOvjN
+         HTcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=z5zsokqXgiD6bC7McyK/M0FOdguu6oT7x1Jlxm2c+lU=;
+        b=IMEEGffOBoCWEnTk60GU490elafvJcYP1BAoa1MOP+ukPU0fLAVanKETyw0dacPYts
+         ghbt25JXwiPpLXHq2hdbLEzB1xV85dvbrhxygJF7DuCIgLlzT+IisuHWd15KY/zo1qNJ
+         qodbh7jMqWSDknhWYA3yx9ELES9iuvSUYTrCoATFi51sy0fv/qjVmhdIEZSrkc2xnNZA
+         +YWCxCikNkwZLEGMEpXdaUVnW2/gyE1iYphQwlI5j4oAVItmd2scwaMxvhFkGY7aCUV1
+         VrEIumr75uXHeFuB34UnEmUfwnM1/BSLE8kzHl5Z1btiYT8e1BnlDYZFiNFUM7Y3D22Y
+         DSyQ==
+X-Gm-Message-State: AOAM5303G6lwMpH71Rp1S6AFia2G0jf58GNUfzIsvZZM78UHdmJsO9a8
+	YmOHCk8KdXlLvoWzrl1CYaw=
+X-Google-Smtp-Source: ABdhPJzzGzyBvxCbPBAbZwitT73glTef0IpyjPU2hmxF1lekYVNaWi6FVxBrlX9uaK4pwiD8TJjwfA==
+X-Received: by 2002:ac8:7516:: with SMTP id u22mr11404297qtq.160.1624035637474;
+        Fri, 18 Jun 2021 10:00:37 -0700 (PDT)
+Date: Fri, 18 Jun 2021 13:00:34 -0400
+From: Nick Rosbrook <rosbrookn@gmail.com>
+To: George Dunlap <George.Dunlap@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Nick Rosbrook <rosbrookn@ainfosec.com>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [RESEND PATCH 08/12] golang/xenlight: add functional options to
+ configure Context
+Message-ID: <YMzRMlaHapLn7msf@FED-nrosbr-BE.crux.rad.ainfosec.com>
+References: <cover.1621887506.git.rosbrookn@ainfosec.com>
+ <dc5cd6728e8477c9eb3ba75a55c7128da46a86ef.1621887506.git.rosbrookn@ainfosec.com>
+ <EF069373-26FC-4151-9CD9-6B8C48D9AEB0@citrix.com>
+ <YMy29arbPMnPI/+W@FED-nrosbr-BE.crux.rad.ainfosec.com>
+ <8727719E-9548-40CF-A186-14E2ECA3801D@citrix.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 162888: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=68940b3fb3c43b8aa03cb6fd2f1d00b1737c9b2c
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Jun 2021 16:59:22 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8727719E-9548-40CF-A186-14E2ECA3801D@citrix.com>
 
-flight 162888 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162888/
+On Fri, Jun 18, 2021 at 04:18:44PM +0000, George Dunlap wrote:
+> 
+> 
+> > On Jun 18, 2021, at 4:08 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+> > 
+> > On Fri, Jun 18, 2021 at 02:44:15PM +0000, George Dunlap wrote:
+> >> 
+> >> 
+> >>> On May 24, 2021, at 9:36 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+> >>> 
+> >>> Add a ContextOption type to support functional options in NewContext.
+> >>> Then, add a variadic ContextOption parameter to NewContext, which allows
+> >>> callers to specify 0 or more configuration options.
+> >>> 
+> >>> For now, just add the WithLogLevel option so that callers can set the
+> >>> log level of the Context's xentoollog_logger. Future configuration
+> >>> options can be created by adding an appropriate field to the
+> >>> contextOptions struct and creating a With<OptionName> function to return
+> >>> a ContextOption
+> >>> 
+> >>> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+> >>> ---
+> >>> tools/golang/xenlight/xenlight.go | 44 +++++++++++++++++++++++++++++--
+> >>> 1 file changed, 42 insertions(+), 2 deletions(-)
+> >>> 
+> >>> diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
+> >>> index f68d7b6e97..65f93abe32 100644
+> >>> --- a/tools/golang/xenlight/xenlight.go
+> >>> +++ b/tools/golang/xenlight/xenlight.go
+> >>> @@ -136,7 +136,7 @@ func sigchldHandler(ctx *Context) {
+> >>> }
+> >>> 
+> >>> // NewContext returns a new Context.
+> >>> -func NewContext() (ctx *Context, err error) {
+> >>> +func NewContext(opts ...ContextOption) (ctx *Context, err error) {
+> >>> 	ctx = &Context{}
+> >>> 
+> >>> 	defer func() {
+> >>> @@ -146,8 +146,19 @@ func NewContext() (ctx *Context, err error) {
+> >>> 		}
+> >>> 	}()
+> >>> 
+> >>> +	// Set the default context options. These fields may
+> >>> +	// be modified by the provided opts.
+> >>> +	copts := &contextOptions{
+> >>> +		logLevel: LogLevelError,
+> >>> +	}
+> >>> +
+> >>> +	for _, opt := range opts {
+> >>> +		opt.apply(copts)
+> >>> +	}
+> >>> +
+> >>> 	// Create a logger
+> >>> -	ctx.logger = C.xtl_createlogger_stdiostream(C.stderr, C.XTL_ERROR, 0)
+> >>> +	ctx.logger = C.xtl_createlogger_stdiostream(C.stderr,
+> >>> +		C.xentoollog_level(copts.logLevel), 0)
+> >>> 
+> >>> 	// Allocate a context
+> >>> 	ret := C.libxl_ctx_alloc(&ctx.ctx, C.LIBXL_VERSION, 0,
+> >>> @@ -201,6 +212,35 @@ func (ctx *Context) Close() error {
+> >>> 	return nil
+> >>> }
+> >>> 
+> >>> +type contextOptions struct {
+> >>> +	logLevel LogLevel
+> >>> +}
+> >>> +
+> >>> +// ContextOption is used to configure options for a Context.
+> >>> +type ContextOption interface {
+> >>> +	apply(*contextOptions)
+> >>> +}
+> >>> +
+> >>> +type funcContextOption struct {
+> >>> +	f func(*contextOptions)
+> >>> +}
+> >>> +
+> >>> +func (fco *funcContextOption) apply(c *contextOptions) {
+> >>> +	fco.f(c)
+> >>> +}
+> >> 
+> >> Why all this convolution with interfaces and such, rather than just defining ContextOption as a function pointer?  Is it just to keep contextOptions out of the documentation page?
+> > 
+> > Part of the motivation for using functional options is to abstract the
+> > "options" struct, yes. This allows internal defaults to be applied more
+> > easily -- if you require e.g. a ContextOptions struct to be passed by
+> > the caller, how do you know if they intended to override a default, or
+> > if they just didn't set the field? Additionally, using the ContextOption
+> > as an interface allows variadic arguments, which are just convenient for
+> > API users -- the same NewContext function can be used whether you need
+> > to pass 3 options or 0.
+> > 
+> > The reason we use ContextOption as an interface, rather than function
+> > pointer of sorts is for flexibility in the signatures of ContextOption
+> > implementations. E.g., we could have
+> > 
+> > func WithLogLevel(lvl LogLevel) ContextOption
+> > func WithLogContext(s string) ContextOption
+> > func WithFooAndBar(s string, n int) ContextOption
+> > 
+> > See [1] for more background on this pattern.
+> > 
+> > Thanks,
+> > NR
+> > 
+> > [1] https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis
+> 
+> Yes, I frequently use a pattern like the one described in that blog post myself.  But that blog post doesn’t use interfaces — the final slide actually has the “option function” type as an open-coded function pointer type.
+> 
+> So my question was, why not do something like this:
+> 
+> type ContextOption func(*contextOptions) error
+> 
+> func WithLogLevel(level LogLevel) ContextOption {
+>   return func(co *contextOptions) {
+>     co.logLevel = level
+>   }
+> }
+> 
+> ATM the only advantage I can see of defining ContextOption as an interface rather than as a function pointer is that the godoc for ContextOption would look like:
+> 
+> type ContextOption interface {
+>    // contains filtered or unexported fields
+> }
+> 
+> Rather than
+> 
+> type ContextOption func(*contextOptions) error
+> 
+> Which shows you the name of the unexported field.
+> 
+> Is there another reason I missed?
 
-Regressions :-(
+Technically it does allow more flexibility in implementing
+ContextOption, e.g. you could do...
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+func (lvl LogLevel) apply(co *contextOptions) { co.logLevel = lvl }
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+...and then pass a LogLevel directly as a ContextOption. But generally
+everyone implements these things as funcs.
 
-version targeted for testing:
- libvirt              68940b3fb3c43b8aa03cb6fd2f1d00b1737c9b2c
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+I will admit that when it comes to my choice of using the interface
+version instead of function pointers, I am just more familiar with the
+former and encounter it more often in other Go packages I use.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  343 days
-Failing since        151818  2020-07-11 04:18:52 Z  342 days  335 attempts
-Testing same since   162888  2021-06-18 04:20:09 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  William Douglas <william.douglas@intel.com>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 62627 lines long.)
+Thanks,
+NR
 
