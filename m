@@ -2,28 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19A503ACDBF
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 16:44:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144710.266317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E29303ACDD9
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 16:47:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144717.266328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luFjN-0006mp-FY; Fri, 18 Jun 2021 14:44:25 +0000
+	id 1luFmL-0007Va-2r; Fri, 18 Jun 2021 14:47:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144710.266317; Fri, 18 Jun 2021 14:44:25 +0000
+Received: by outflank-mailman (output) from mailman id 144717.266328; Fri, 18 Jun 2021 14:47:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luFjN-0006l0-Bn; Fri, 18 Jun 2021 14:44:25 +0000
-Received: by outflank-mailman (input) for mailman id 144710;
- Fri, 18 Jun 2021 14:44:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WfjP=LM=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1luFjL-0006ku-UJ
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 14:44:24 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1bff9a01-a40b-4e0a-9143-1f90433de55e;
- Fri, 18 Jun 2021 14:44:22 +0000 (UTC)
+	id 1luFmK-0007Sl-Vk; Fri, 18 Jun 2021 14:47:28 +0000
+Received: by outflank-mailman (input) for mailman id 144717;
+ Fri, 18 Jun 2021 14:47:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lC6W=LM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1luFmJ-0007Sf-Ec
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 14:47:27 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7f631ad9-c799-4198-923f-1c708ecad13a;
+ Fri, 18 Jun 2021 14:47:26 +0000 (UTC)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2050.outbound.protection.outlook.com [104.47.12.50]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-15-7GvDr04aO6CJJewxtSDw8A-1; Fri, 18 Jun 2021 16:47:24 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0402MB3936.eurprd04.prod.outlook.com (2603:10a6:803:23::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18; Fri, 18 Jun
+ 2021 14:47:18 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4242.021; Fri, 18 Jun 2021
+ 14:47:18 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0072.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4b::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4264.9 via Frontend Transport; Fri, 18 Jun 2021 14:47:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,198 +53,383 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bff9a01-a40b-4e0a-9143-1f90433de55e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624027462;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=sNRrU3JooVO0gSsGbPQoxrXIpNmNssmD/+IcRU6wfok=;
-  b=VWGXVnJgzLfK0NyjjDsqTRjfr64XlKycy9OIXGoRwnMRm0K2G8Eb2uAz
-   LEpzxWtcYkXwDjiABn2qvkii9zKTehQWBs80R+FDJrEnDZ84O7++rakKT
-   kebSmHp1pSOG8NkHLBo/5U1WjVkghS7code1Z2vn/Dxo7OofciLBX8aSw
-   Q=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: kwYnNaAfvjwum9uiKekYAUzvARgShfKr7QZiiRnIoiJB4A/+PIFHdMtM6JIBDDAkH+oVxW2rDr
- soaNAnNK/IAQtGD2uZyj2CIi82GBCzo2skFdlYHal7kMArkuz8QHifnwyBkGW0Vlwf8wV+JzKo
- qqsfpxbiSgzLSJ9IT1WVfFT8wcSQPy5pDkUU9heAa9raLTY2sMQX2Xtf/o5pZ/IQCqEeJx/s5T
- 4ZpcD/PVpVquSvnaW0L+fAgElgImAAT/Xv4AHF9fqs6EEFFLWMmq0yv7Ut6jPPe2mYQJx5ra8U
- azs=
-X-SBRS: 5.1
-X-MesageID: 46834676
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:lFZnNa5yTCJY3mAp5QPXwDLXdLJyesId70hD6qkQc3FomwKj9/
- xG/c5rsSMc7Qx6ZJhOo7+90cW7L080lqQFhLX5X43SPzUO0VHARO1fBOPZqAEIcBeOlNK1u5
- 0AT0B/YueAcGSTj6zBkXWF+wBL+qj5zEiq792usUuEVWtRGsZdB58SMHfhLqVxLjM2Y6YRJd
- 6nyedsgSGvQngTZtTTPAh+YwCSz+e77a4PeHQ9dmYa1DU=
-X-IronPort-AV: E=Sophos;i="5.83,284,1616472000"; 
-   d="scan'208";a="46834676"
+X-Inumbo-ID: 7f631ad9-c799-4198-923f-1c708ecad13a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1624027645;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNWu5hnyURETxB0XB+avamY+nelrsgtZgfMod+YF+lg=;
+	b=j8OQyS0qB+6L1gWcaSlDjPTrIybryz9EgbLhcW7iU1aa/5iaCiOWMFxPcItJ1lo9UCCaZh
+	YPdtd5mJFDm95TAajijPtxICci0kD1FKVQ1oIIDAFJJSF0+D4LIGzQQkKdewldcKo+zWbM
+	1qn+ubG0MUOi2CtfHyGBOLSisc6rvo0=
+X-MC-Unique: 7GvDr04aO6CJJewxtSDw8A-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eNQ+kjF1n5MbIUbs1QdtGvoAZfnnSnRC3T9n1mSJkqgVKBBredNgGd/Ma182Wp2+oNsDr5LU9KSi3ClqQtOXwKzyEVwwTsuTb2F0Q7IDduXbQ3K122i7l4AV1sB3M/vlR2mEDVseeUmVRyCCGBrwm3MyRaPlaXoA93FDLp8cfETkE7/5qeFk55cw4uRU6t8w0DDx6apIApn/vDrvQ0PcSqtgSovzDoPtfrXO2+VwSkbJ98EwfRL8dCVQb/bt5L+SENvCM7pwx/kcyBaX+NhKBKAaXwRwamazP7JUO/PvBYLYbsMKArMRMi+tcXHefxbEIY86LC2Bx9YBRxMG3FtXOA==
+ b=m3Ct3gdkK/JOx7RvisnqFqKD1zv0OU6JjfxEZwLVJVIrmVEfLRneWfsUm7wIm5GjTal/kfE68pM24I6zMzMxlTL33fxEhaoxjiUVY6uwgrPpxDYmGbZEdqNBuJUJhpkU8BN82LZ1TNjS0Sv7cF/1Mwek6xD3g7ave0ZFHQCwIv06Qfa0GPpjnIns0G9DAYY9UostS/82ukv2BqWEq8WjYqHD4A7znlIqJp3xmAE+gANIuE6FZr7lTGLKZ42ikWiasdsP0PGYHUCF+3YS7OhQ9oKX/L+B+yKjNoTCnwhAxp+mO5breAoQcB/sPaldibxvomh1R3cUDSNRH0bh9Vy2BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MEOa0gxWto6hCpCgiwuSqe8UK1DjdPyCs54qQ16sxMk=;
- b=FaO+jwRpXHAOY++s8fKGB88K4PGU8LyAn0lBqQF4FMqf+2Se34eeiK+dqKRBcpM1MlKIXdHC0tn117wjiYeny5k+qSlfBlvgld1se8ZuklbqEpy89Rs2LS4M4xdGoIev4twv4sxF1skmufo91MQit5PyMKopbquwEvOUvE4DXOZNNRgU39DCYHwiCQ19ZjAcpFLd/o5NmfJ7exHe66vz9m6NP9pZYBP+6sjduvHq+XslTUjRaChQ0miI+KG5YCYZMW7QfFzVWLreOob4E8eJoNaHsEbpbLqykYeuuk4I/SA5IR/Jo0pjfqAnzMyLTqHpKhz5nCW6VMqumo4EPQIaQQ==
+ bh=rNWu5hnyURETxB0XB+avamY+nelrsgtZgfMod+YF+lg=;
+ b=RLVuBLYghuKTmcqMoz06kHg0rImAFLhjGiM9kTZBNCHAdnDn5PKdiwyGbnzfrv2o9z3wmqwUQrKmMOsIdGLteu5ZadQagpzuMNJKv/4LMP1vXoaaMjSLMSi7zGSkKuWI9FjkA1xEsIkOtbekD8S1lWk916io/bhp3YVRrRgxbgDQAZ0bKxdyJKkpSk49FQ5lXMEauR8WNgJ1FkSXGdgHlXcWF8rT5mivUHXPgbfSFz+D6i7E0b1hF099E5DBbtnQnU7D+4mLyqayjSJY08wsVhfB4JSaTgJXSN5b+wsa73p4KKvB+Cptn377n/iBrykRkF70AQCoL1aAG13AU4Pw2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MEOa0gxWto6hCpCgiwuSqe8UK1DjdPyCs54qQ16sxMk=;
- b=aRVbxM7G915ThM788TFhUhQBkHcFSol3JvMegChUqiRCZeCE1d7nVAV0aIK2I4TlvG948w89hcKQrlFOOUD1oWkNfemtyW4ub19qsu29mUzE+bICxohxhUWH4TjjET4AKJX7G49Q6mslj9rULZRNqqgdtJd4znUwTKyKDe4SmvE=
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Nick Rosbrook
-	<rosbrookn@ainfosec.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [RESEND PATCH 08/12] golang/xenlight: add functional options to
- configure Context
-Thread-Topic: [RESEND PATCH 08/12] golang/xenlight: add functional options to
- configure Context
-Thread-Index: AQHXUNzBxrtRVA/FskCGl/j6ZWY3UKsZ/xcA
-Date: Fri, 18 Jun 2021 14:44:15 +0000
-Message-ID: <EF069373-26FC-4151-9CD9-6B8C48D9AEB0@citrix.com>
-References: <cover.1621887506.git.rosbrookn@ainfosec.com>
- <dc5cd6728e8477c9eb3ba75a55c7128da46a86ef.1621887506.git.rosbrookn@ainfosec.com>
-In-Reply-To: <dc5cd6728e8477c9eb3ba75a55c7128da46a86ef.1621887506.git.rosbrookn@ainfosec.com>
-Accept-Language: en-US
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [RFC PATCH 05/10] hardware domain: convert to domain roles
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: sstabellini@kernel.org, julien@xen.org, Volodymyr_Babchuk@epam.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, iwj@xenproject.org,
+ wl@xen.org, roger.pau@citrix.com, tamas@tklengyel.com, tim@xen.org,
+ jgross@suse.com, aisaila@bitdefender.com, ppircalabu@bitdefender.com,
+ dfaggioli@suse.com, paul@xen.org, kevin.tian@intel.com,
+ dgdegra@tycho.nsa.gov, adam.schwalm@starlab.io, scott.davis@starlab.io,
+ xen-devel@lists.xenproject.org
+References: <20210514205437.13661-1-dpsmith@apertussolutions.com>
+ <20210514205437.13661-6-dpsmith@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <dc8f6715-057b-6af8-8846-8b61fba5478d@suse.com>
+Date: Fri, 18 Jun 2021 16:47:15 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210514205437.13661-6-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.60.0.2.21)
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9b9e8795-b770-4600-d196-08d932678b98
-x-ms-traffictypediagnostic: PH0PR03MB5782:
-x-microsoft-antispam-prvs: <PH0PR03MB578260E28685107AD88285EC990D9@PH0PR03MB5782.namprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3Ul3F+uk8HzAF3DN2ohJtxrX2J5nI44ZB6ixUmAUvC0MqFcn8gzsPN/0S/wYDu85Un/qxipz7CRChgQj1ek01q57qcvvptTwLFb1yKjDfy3UBGa4GpBYrAIXtzik9sWPZWBYjuKhPy5yVYy+Xr74qqvv1vdTW+WL/RhjdZmPaPb7SD6XEZaPrg9pmwrvRNaWmL+7bM0ibeTV3tmiSgvGu7cKeWmEILy3KLgJAgKvZohXM64oRMfmx4NTiSRhEPDuKuoUoro6il6mEn/FQclfVN2O0itULOv3FR8ZQurt25HrneKxxYGfKso6iLpslSJfnnnJp2NHEQCUqSwckv4Ygy/8n22O+CwXWSTSFq+CrXHITzIQ54W0nPOYB67+K6X1uNnMbMPJziHaarMydK651+jowkx1OZcm9pw3NH2u7dRwk01/LabVRE+RzTOl94GkiHxneXhHRsYYVeIQoYfejq44dnJVAghF+TuKdqKptp7gswFTIUYfAw9NIjcAHUDNfoTeYEkWnZLRUGeUYR9s7Xmm2CSVgL8JI/kEWwgFdiAW2PyAmLm0YkeDer1Pg6GTIbimJfW1M7aZSoHkOv0O9KGLRIbYRpsQNoZNYcr4x0rO0JtLX3rYMuNvXwgCIAjWleuoDM8zk7Zg7bwEUtE479YDz0R9aBiurUo3MQ/B/DQ=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(396003)(376002)(39860400002)(366004)(136003)(54906003)(316002)(83380400001)(478600001)(6506007)(186003)(2616005)(26005)(53546011)(76116006)(71200400001)(33656002)(4326008)(2906002)(8676002)(8936002)(86362001)(66556008)(5660300002)(64756008)(66446008)(6512007)(66476007)(36756003)(6486002)(6916009)(122000001)(66946007)(38100700002)(91956017)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dL0dINLw/mbw09AQ/5lUe4ljiQov3V+hAVnHYIplUmDwy43cVLMd+ZaYYweS?=
- =?us-ascii?Q?fuo5qwTdyigIAW2altGooNU1WTvSNrJ6hQ0mUqnyoikcjPkYnmTbTC+J+LwU?=
- =?us-ascii?Q?tMXntwRNFNRXoa/GSFVHN3AuevZIyjmJX7RvIUUrM0+UTn3y9KLSfaecLTni?=
- =?us-ascii?Q?qdNqYWqSIeKJnQNUzqwD0NAXcIGCJL9ntL2gInY7bZaiXhDGVmNzc+CFrfEh?=
- =?us-ascii?Q?N18vz4oije5a3E2j+yX8UH5sARvIBlqInS3T4W19sWGZlwKJPIFPVocdLoDY?=
- =?us-ascii?Q?TNOXq/xubq/yAh8ywwguqbrkIJMr05zh495q93LFT3QU4nTMuRipS0vfN4RS?=
- =?us-ascii?Q?khShNhpy6zRksNVAb+cS2dy7gVryRf1fWhAh//rU2OiGgy3gGhcUeyQQHVI7?=
- =?us-ascii?Q?R4LdczdO0j4DI8MMpzrvbTjdcmJTORAOJ5TusDV6JMj2iGybyBXfF8i0FgVg?=
- =?us-ascii?Q?ooHEITr9mqQpFmVqipVoc6368XsnOYcLwU8KKqjN99XsNlGspDg40M3S5x/K?=
- =?us-ascii?Q?TPwMSxVIWKHBv/pcCijzmYYzKhyI0ZSwyhCdN5q7qEEZBi3y7nsJafIJadXZ?=
- =?us-ascii?Q?/eqCY7BZHrgBPetJiLKfL7nwsTQ3mPYlrtuMzHITgPh4B6ypFNiytQEU9zQz?=
- =?us-ascii?Q?Ehk/JPlNXGhTxVYGJ4BSv7EOf7vstngjRvKQefF7EX7i8rDZqcOboon32oyI?=
- =?us-ascii?Q?YQcV4TiwsT0z+0Wt0mo8Eg0bQzHNjzupbjw7Q+vrjR8SwxeRMh0Y5cEwihSV?=
- =?us-ascii?Q?uowctHhAm+UpwWONnbrPgAx+U3Lctlr9HxTrFUNA2OEAyU6LcHpM23U+AHBa?=
- =?us-ascii?Q?OoJ6/SpDH57ayPhj24U5EnMXewE9P9oUBob7GAnmKoBWl91ILKb6RG4L5Qm+?=
- =?us-ascii?Q?mKJpurjJnzIswL0JeknFKxwyCLd0V1Shmw+NC37MivNV1TvjOr18M1aHGxVI?=
- =?us-ascii?Q?U2ROElsY3kLjfLwWRYyoGuyhRiEH0mqpHfhhx+BuHA53ieM2Jn05zv2yIZ4q?=
- =?us-ascii?Q?J2yO2UWgK1QgH6CvcE9IZGUjSskV06Llbae7ZPxJQHG3gQ4yvrnNmy51JTIs?=
- =?us-ascii?Q?zDYkhPcnZU+6bcK78IPLNgOPU+JHk+GGHDBaX754lYTOX5wpa+P+APnSTmQ0?=
- =?us-ascii?Q?zJmdM+AteNil2i+VuoPHI/nnGBhW7kXUwi0zTjhSPm8VjZDfzr31ZVflhING?=
- =?us-ascii?Q?X8eeDx3r9gXLWg9fwkvLZW287eBIhMdjZcDQd3S/6wXZDWbPtvobhMGOVqxe?=
- =?us-ascii?Q?IOVRFI+TLCJLs1j3EG5UXdn90VMTFRw1jvrGUEL3V4GwGxMahLyYuSo+lYwj?=
- =?us-ascii?Q?0MyYtuXTz4UnQYsjnKu5CUD3?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <78F8D6E82E38E54F938BE012BF0E942B@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [37.24.206.209]
+X-ClientProxiedBy: FR3P281CA0072.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bb14c8ad-ff21-454a-6aab-08d93267f875
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3936:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0402MB39368880CD54FCAF563AE9BBB30D9@VI1PR0402MB3936.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fAqa6/VT/vcN+pR19X8HYT+n2nUdEkz6vgjuMwTzunm3vQB2WrV4JlDlwWtvB+M9r49UN2iwyGi1oabeVUPQLej2PZ+INupWX3ENaIwAw9psc1Tq8uNGHkwrLm+3hlB/3i0A3dwNOY45SeqMtrFoZWGusvMGlPCUs3ZuBh074UXNsi6pPEH/oF02wPNEQGupMkhF7lElkjHY0+wFhy4bRVaSODa7nOCYOq620H2Cv7aEhhWdILBp2ERFPBE1cq8a+RK7awBpoUWlsorh0TMdyoQF4tjwBRqTx4Vh8lU7XXCWBBEbSNzS5CU9GJIEAxGfEq5OTmi5HGnfIzSbiOppAzRG6B+nog7wNHP/2RUNrUg42N5gC96KtfZWpxe0ZsMEb0X+SlL7RdcvTmsN8CUD1UlBzBoIg3sszEfBV1n5Pi0UbKyjze21G7L3NSTjOadS1uyVJB6+TpcE2NVpzrA0IpmV4LomUlLmU0NkLSXv7gjS/G7NmhSbij9KGP8xwxfb/atVgiVvwR1L/BOlT0ykdd63TQLH06Imwqyu1emPZqKcWYuiwpYkEC0Y4tFiLMdKIQLh/H33fihqqD2S1KzcEzJCGe+vdkmcc6uPYe4f0TgqdSXkRmCnBIQuzqCMSr98z5zgWxC+5GoKbfji6zLEf6h2Aua8E4PdeSTpTelSmhyFTzWCj/vi6JljFne7I/rw
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(346002)(366004)(39860400002)(396003)(376002)(66946007)(36756003)(16576012)(478600001)(5660300002)(66476007)(38100700002)(53546011)(66556008)(186003)(86362001)(956004)(7416002)(4326008)(6486002)(6916009)(83380400001)(2616005)(316002)(8676002)(2906002)(31696002)(16526019)(31686004)(8936002)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OVcrdmVsZzhZRm9tYVpVS3E2SlY3U0k5SHJkc29mVGx1K1hnbDNvS0s1d3l2?=
+ =?utf-8?B?ZGswZ253UFkzbUsyTCtmUG1jL24xRHllMlk3Wnh2Y2E0SmhLclNCWndjL1VK?=
+ =?utf-8?B?cVdqTUNLMTlVS2EvQ3ExRll0amN5Qm4rVnNXUkM2VkxSS25CWnd4MXR2LzV2?=
+ =?utf-8?B?UFRBR0l3eFYydUoyY0xQVytLb0M4UjVoOXFaYlVPMG9LK2dnd2VpWlVSSHA0?=
+ =?utf-8?B?eTN2bENkaGNmRHBkQmNKYUdlbGp5ZjJyOTBsU20zbExIK2dmT3NST3hYdDRr?=
+ =?utf-8?B?Wkl1VGNad0R4c1lLNEF1ZWxPcHlQWFd4TEFWd2thc2oyQWp5ZmZZUGNQRzNB?=
+ =?utf-8?B?TDFZeXgzMkxjdmZtZUpHNTFBSHEvQVkvU3JJeEVVRDRiNHRxalcxMnRiWURm?=
+ =?utf-8?B?UjVFaXZUb2R1bDFXd2o5UGJ4Szc0QmN6MlhQbktEck9QODIwLytYNHBMdjdu?=
+ =?utf-8?B?dUlDbVdnZ3hFOTl3c3dLMEx5c0xBOSsvNC90WVVuRERPUE1rV0wza1NkcXFa?=
+ =?utf-8?B?SUlZdmJ5dkZjT1NvT21TOTEzaE1xVVg1NjE3cVRXR3FsRWxWakhvM21EZmU4?=
+ =?utf-8?B?K25NNVJkZFlYaUV2eUVhWUN2N2hsaWMrWlJUM21nU01QV2QxNThGbUJzbXFM?=
+ =?utf-8?B?K00xeDIyWE9WM1MxTUtuWURNd0RoNG9OdHNFYThmQjQwdjJCdzJ5MEdPSUlJ?=
+ =?utf-8?B?amVCSUxjdlFoVHRsSjMwNlUwV2xvb296bjc1cGtrTzYwbmJSSk1MVTlsbVZr?=
+ =?utf-8?B?Yi9MNWIzK0dlY1FibmNNdEVCNHZ6YkVuLy9VR1RodUZZRmFlNTR0RFRNdXJX?=
+ =?utf-8?B?Sks3MUsxdTE5QUVRc2VHelVjQkxMdjJrZW04Mk00SkxjNjFlVXBjYVh4NlFF?=
+ =?utf-8?B?bVB5Q3JWbThVWXg4aXFZblU4cUtrSnozV3g0bE1Pb1E2clRGdUxKZUI2TlJQ?=
+ =?utf-8?B?VEx3MFVBUEtwMTJIWHZtOVFsOVl2anpHM3B6VktGZEdHWHZEajZhUzNhNUxD?=
+ =?utf-8?B?aXJKSUNpbUJ1NFBtSS9rVUJ3Sy9YVW03MmJ0cS9vRG45aTRCWkN5Q1ZvZFJF?=
+ =?utf-8?B?SVRONDB2Z2t0RlJzR1c5WFpOTytYeGNlUGgwUloyT0Q2SWRubHA5blJnWXRF?=
+ =?utf-8?B?dEFoNElOdTY1eXBQeWlRY0FXZSs2VkhiOVBxZHlaNXh2NlJwU0E1dlYzV0Vh?=
+ =?utf-8?B?T2NTMUdHZy9GK1gxRldqRHBnUEFJTTIvMXJOdW1SZGNOekFxelZ3aWxGZllF?=
+ =?utf-8?B?VFEzb1lxYkJQNEdJOEwzOTVWUHBFa2U0Y3FaT243anVMTkJsalRUWUV4eHMx?=
+ =?utf-8?B?MFAzbEt0ZHhEVHlCTjZOZU5RUXJ6aXpqM3ByeXBlTnplRGVvRGRzUlAvR2tx?=
+ =?utf-8?B?b3VjY0RGanpiVUxYL3hNc0ZxL0kzZnc2bnZNcTBoM29jVU1ST1d4dEdJeHVv?=
+ =?utf-8?B?WmJoa3MvekZycEUzNFFjWnhhUEdCTTB1WUd3WDJ2NmNSOW5uN2QzQ0NFclJ1?=
+ =?utf-8?B?V1Y5Nlpod3QzTXlSSzBERU1JMjVQSGxRNGp6VSt3TVNqU2dUYm9semxqQnQ2?=
+ =?utf-8?B?N2NvNmVnUGlXZUJUS2FWLzNERlRsdmFxc0NmUFZ3NEo0eDdWZFRhV3hsTDVa?=
+ =?utf-8?B?NWVsUVRGU1BPSDJYeUF0MFpSajFJL3BiQmo4YVdKNDhoaCtyYU5TTjhBWmVU?=
+ =?utf-8?B?UnZsT2hYVFpnc2RNQ25KeDVWZU1Fc2EraUorbjEwbmZxbFk1cXBqSk1rWG55?=
+ =?utf-8?Q?+Vs21komRlWZQeeEoPjB1HJ9fnLyyhtnGi75WVE?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb14c8ad-ff21-454a-6aab-08d93267f875
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b9e8795-b770-4600-d196-08d932678b98
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2021 14:44:15.3539
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 14:47:18.2589
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Z6nkpJS2EaI8rQqvI7RBj7l8ffLtByI0na7DqwD9zZzGTR7dZR5gsgR1l5cF2vbrxgoq4FLHvCrnCCzUDM9k8nJ1dNnAviRF+mhWu9P7Swg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5782
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ImQphL3WqcXkACd2R/7Bt2HKfRHlAiOy7LTk4BvDqFDESYf9Jausiupakz4EyRnIf7hhx3SV0Hav3Zoi1U6lzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3936
 
+On 14.05.2021 22:54, Daniel P. Smith wrote:
+> --- a/xen/arch/x86/cpu/vpmu.c
+> +++ b/xen/arch/x86/cpu/vpmu.c
+> @@ -169,13 +169,14 @@ int vpmu_do_msr(unsigned int msr, uint64_t *msr_content,
+>  static inline struct vcpu *choose_hwdom_vcpu(void)
+>  {
+>      unsigned idx;
+> +    struct domain *hwdom = get_hardware_domain();
 
+When introducing new pointer variables, please make them pointer-
+to-const whenever possible.
 
-> On May 24, 2021, at 9:36 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
->=20
-> Add a ContextOption type to support functional options in NewContext.
-> Then, add a variadic ContextOption parameter to NewContext, which allows
-> callers to specify 0 or more configuration options.
->=20
-> For now, just add the WithLogLevel option so that callers can set the
-> log level of the Context's xentoollog_logger. Future configuration
-> options can be created by adding an appropriate field to the
-> contextOptions struct and creating a With<OptionName> function to return
-> a ContextOption
->=20
-> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> ---
-> tools/golang/xenlight/xenlight.go | 44 +++++++++++++++++++++++++++++--
-> 1 file changed, 42 insertions(+), 2 deletions(-)
->=20
-> diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xe=
-nlight.go
-> index f68d7b6e97..65f93abe32 100644
-> --- a/tools/golang/xenlight/xenlight.go
-> +++ b/tools/golang/xenlight/xenlight.go
-> @@ -136,7 +136,7 @@ func sigchldHandler(ctx *Context) {
-> }
->=20
-> // NewContext returns a new Context.
-> -func NewContext() (ctx *Context, err error) {
-> +func NewContext(opts ...ContextOption) (ctx *Context, err error) {
-> 	ctx =3D &Context{}
->=20
-> 	defer func() {
-> @@ -146,8 +146,19 @@ func NewContext() (ctx *Context, err error) {
-> 		}
-> 	}()
->=20
-> +	// Set the default context options. These fields may
-> +	// be modified by the provided opts.
-> +	copts :=3D &contextOptions{
-> +		logLevel: LogLevelError,
-> +	}
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -4917,7 +4917,7 @@ mfn_t alloc_xen_pagetable_new(void)
+>      {
+>          void *ptr = alloc_xenheap_page();
+>  
+> -        BUG_ON(!hardware_domain && !ptr);
+> +        BUG_ON(!ptr);
+
+This loses an important aspect: We should not crash here anymore once
+we've made it far enough to have started constructing Dom0. As you can
+see ...
+
+>          return ptr ? virt_to_mfn(ptr) : INVALID_MFN;
+
+... here, the case does actually get handled.
+
+If you make behavioral changes in, especially, an otherwise largely
+(seeing its overall size) mechanical change, please make sure you call
+them out in the description.
+
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -776,6 +776,9 @@ static struct domain *__init create_dom0(const module_t *image,
+>      if ( IS_ERR(d) || (alloc_dom0_vcpu0(d) == NULL) )
+>          panic("Error creating domain 0\n");
+>  
+> +    /* Ensure the correct roles are assigned */
+> +    d->xsm_roles = CLASSIC_DOM0_PRIVS;
+
+Didn't an earlier change put this in place already? This shouldn't be
+needed in arch-specific code. The cover letter also doesn't mention
+that you're not touching Arm code in this RFC, so a similar change
+would then be missing there.
+
+> @@ -302,23 +303,50 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+>      return NULL;
+>  }
+>  
+> -static int late_hwdom_init(struct domain *d)
+> +/* pivot_hw_ctl:
+> + *  This is a one-way pivot from existing to new hardware domain. Upon success
+> + *  the domain *next_hwdom will be in control of the hardware and domain
+> + *  *curr_hwdom will no longer have access.
+> + */
+> +static int pivot_hw_ctl(struct domain *next_hwdom)
+>  {
+>  #ifdef CONFIG_LATE_HWDOM
+> -    struct domain *dom0;
+> +    bool already_found = false;
+> +    struct domain **pd = &domain_list, *curr_hwdom = NULL;
+> +    domid_t dom0_id = 0;
+>      int rv;
+>  
+> -    if ( d != hardware_domain || d->domain_id == 0 )
+> +#ifdef CONFIG_PV_SHIM
+> +    /* On PV shim dom0 != 0 */
+> +    dom0_id = get_initial_domain_id();
+> +#endif
+
+The suddent need for shim specific logic here also wants explaining
+in the description (or, if possible, splitting into a separate
+change).
+
+> @@ -559,17 +589,19 @@ struct domain *domain_create(domid_t domid,
+>      /* Sort out our idea of is_control_domain(). */
+>      d->is_privileged = is_priv;
+>  
+> -    if (is_priv)
+> +    /* reality is that is_priv is only set when construction dom0 */
+> +    if (is_priv) {
+>          d->xsm_roles = CLASSIC_DOM0_PRIVS;
+> +        hardware_domain = d;
+> +    }
+>  
+>      /* Sort out our idea of is_hardware_domain(). */
+> -    if ( domid == 0 || domid == hardware_domid )
+> +    if ( domid == hardware_domid )
+
+With this change it looks to me as if ...
+
+>      {
+>          if ( hardware_domid < 0 || hardware_domid >= DOMID_FIRST_RESERVED )
+>              panic("The value of hardware_dom must be a valid domain ID\n");
+
+... this was rendered dead code.
+
+> -        old_hwdom = hardware_domain;
+> -        hardware_domain = d;
+> +        d->xsm_roles = CLASSIC_HWDOM_PRIVS;
+
+Yet another place where this value gets stored. Ideally there would
+be exactly one such place.
+
+> @@ -682,12 +714,14 @@ struct domain *domain_create(domid_t domid,
+>          if ( (err = sched_init_domain(d, 0)) != 0 )
+>              goto fail;
+>  
+> -        if ( (err = late_hwdom_init(d)) != 0 )
+> +        if ( (err = pivot_hw_ctl(d)) != 0 )
+>              goto fail;
+>  
+>          /*
+>           * Must not fail beyond this point, as our caller doesn't know whether
+> -         * the domain has been entered into domain_list or not.
+> +         * the domain has been entered into domain_list or not. Additionally
+> +         * if a hardware control pivot occurred then a failure will leave the
+> +         * platform without access to hardware.
+>           */
+
+s/will/would/, considering the initial "Must not ..."?
+
+> @@ -711,8 +745,6 @@ struct domain *domain_create(domid_t domid,
+>      err = err ?: -EILSEQ; /* Release build safety. */
+>  
+>      d->is_dying = DOMDYING_dead;
+> -    if ( hardware_domain == d )
+> -        hardware_domain = old_hwdom;
+>      atomic_set(&d->refcnt, DOMAIN_DESTROYED);
+>  
+>      sched_destroy_domain(d);
+
+Isn't this dealing with earlier failures, and hence needs if not
+retaining, then replacing?
+
+> @@ -808,6 +840,42 @@ out:
+>  }
+>  
+>  
+
+I realize you've found a pair of blank lines here, but rather than ...
+
+> +bool is_hardware_domain_started()
+> +{
+> +    bool exists = false;
+> +    struct domain **pd = &domain_list;
 > +
-> +	for _, opt :=3D range opts {
-> +		opt.apply(copts)
-> +	}
+> +    if ( *pd != NULL) {
+> +        rcu_read_lock(&domlist_read_lock);
 > +
-> 	// Create a logger
-> -	ctx.logger =3D C.xtl_createlogger_stdiostream(C.stderr, C.XTL_ERROR, 0)
-> +	ctx.logger =3D C.xtl_createlogger_stdiostream(C.stderr,
-> +		C.xentoollog_level(copts.logLevel), 0)
->=20
-> 	// Allocate a context
-> 	ret :=3D C.libxl_ctx_alloc(&ctx.ctx, C.LIBXL_VERSION, 0,
-> @@ -201,6 +212,35 @@ func (ctx *Context) Close() error {
-> 	return nil
-> }
->=20
-> +type contextOptions struct {
-> +	logLevel LogLevel
+> +        for ( ; *pd != NULL; pd = &(*pd)->next_in_list )
+> +            if ( (*pd)->xsm_roles & XSM_HW_CTRL )
+> +                break;
+> +
+> +        rcu_read_unlock(&domlist_read_lock);
+> +
+> +        if ( *pd != NULL )
+> +            exists = true;
+> +    }
+> +
+> +    if (exists)
+> +        ASSERT(*pd == hardware_domain);
+> +
+> +    return exists;
 > +}
 > +
-> +// ContextOption is used to configure options for a Context.
-> +type ContextOption interface {
-> +	apply(*contextOptions)
+> +
+
+... adding more and ...
+
+> +struct domain *get_hardware_domain()
+> +{
+> +    if (hardware_domain == NULL)
+> +        return NULL;
+> +
+> +    ASSERT(hardware_domain->xsm_roles & XSM_HW_CTRL);
+> +
+> +    return hardware_domain;
 > +}
 > +
-> +type funcContextOption struct {
-> +	f func(*contextOptions)
-> +}
 > +
-> +func (fco *funcContextOption) apply(c *contextOptions) {
-> +	fco.f(c)
-> +}
 
-Why all this convolution with interfaces and such, rather than just definin=
-g ContextOption as a function pointer?  Is it just to keep contextOptions o=
-ut of the documentation page?
+... yet more, please insert in the middle of those original two
+blank lines. Patch application (especially when larger offsets
+are involved, e.g. during backporting activities) benefits from
+meaningful context lines rather than many almost identical ones
+(and then even relatively close to each other).
 
- -George
+As to is_hardware_domain_started() - I'm afraid this is too much
+overhead in case there are hundreds or thousands of guests.
+
+> --- a/xen/common/keyhandler.c
+> +++ b/xen/common/keyhandler.c
+> @@ -228,12 +228,12 @@ static void dump_hwdom_registers(unsigned char key)
+>  {
+>      struct vcpu *v;
+>  
+> -    if ( hardware_domain == NULL )
+> +    if ( is_hardware_domain_started() )
+>          return;
+
+Aren't you inverting the original condition?
+
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -776,7 +776,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>      ret = 0;
+>      if ( !pdev->domain )
+>      {
+> -        pdev->domain = hardware_domain;
+> +        pdev->domain = get_hardware_domain();
+>          ret = iommu_add_device(pdev);
+>          if ( ret )
+>          {
+> @@ -784,7 +784,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>              goto out;
+>          }
+>  
+> -        list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+> +        list_add(&pdev->domain_list, &pdev->domain->pdev_list);
+
+It's not immediately obvious that pdev->domain couldn't have changed
+by the time we make it here - did you check? I consider this possible
+in principle, if e.g. in an error case the device got associated
+with the quarantine domain.
+
+> @@ -879,7 +879,7 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+>      if ( ret )
+>          goto out;
+>  
+> -    if ( pdev->domain == hardware_domain  )
+> +    if ( is_hardware_domain(pdev->domain) )
+>          pdev->quarantine = false;
+>  
+>      pdev->fault.count = 0;
+> @@ -1403,7 +1403,7 @@ static int device_assigned(u16 seg, u8 bus, u8 devfn)
+>       * domain or dom_io then it must be assigned to a guest, or be
+>       * hidden (owned by dom_xen).
+>       */
+> -    else if ( pdev->domain != hardware_domain &&
+> +    else if ( !is_hardware_domain(pdev->domain) &&
+>                pdev->domain != dom_io )
+>          rc = -EBUSY;
+
+May I ask that you split out such cleaning up of cases of open-coded
+helpers into a separate (prereq) patch, especially when (like here)
+the containing patch is already a pretty big one?
+
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -475,6 +475,7 @@ struct domain
+>  #define XSM_XENSTORE  (1U<<31) /* Xenstore: domain that can do privileged operations on xenstore */
+>  #define CLASSIC_DOM0_PRIVS (XSM_PLAT_CTRL | XSM_DOM_BUILD | XSM_DOM_SUPER | \
+>  		XSM_DEV_EMUL | XSM_HW_CTRL | XSM_HW_SUPER | XSM_XENSTORE)
+> +#define CLASSIC_HWDOM_PRIVS (XSM_HW_CTRL | XSM_DEV_EMUL)
+
+Oh, maybe I was wrong with saying that the same value gets put in
+place in multiple locations. The fact that you start distinguishing
+Dom0 and hwdom needs calling out in the description. I'm not
+convinced of the inclusion of XSM_DEV_EMUL.
+
+I also think CLASSIC_DOM0_PRIVS then should use CLASSIC_HWDOM_PRIVS
+instead of re-enumerating what the latter contains, unless there's
+a definitive plan for the latter to include bits the former
+shouldn't include.
+
+Jan
 
 
