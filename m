@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75E93AD0D8
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 19:00:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144919.266683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2FC13AD0F2
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 19:08:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144926.266693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luHrE-0005wj-NQ; Fri, 18 Jun 2021 17:00:40 +0000
+	id 1luHy5-0006iq-Fp; Fri, 18 Jun 2021 17:07:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144919.266683; Fri, 18 Jun 2021 17:00:40 +0000
+Received: by outflank-mailman (output) from mailman id 144926.266693; Fri, 18 Jun 2021 17:07:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luHrE-0005tv-KJ; Fri, 18 Jun 2021 17:00:40 +0000
-Received: by outflank-mailman (input) for mailman id 144919;
- Fri, 18 Jun 2021 17:00:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1luHy5-0006g9-CL; Fri, 18 Jun 2021 17:07:45 +0000
+Received: by outflank-mailman (input) for mailman id 144926;
+ Fri, 18 Jun 2021 17:07:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tyHv=LM=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1luHrC-0005tn-O9
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 17:00:38 +0000
-Received: from mail-qt1-x82a.google.com (unknown [2607:f8b0:4864:20::82a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a5e9295-6315-467d-b0a7-5eeab2601abf;
- Fri, 18 Jun 2021 17:00:37 +0000 (UTC)
-Received: by mail-qt1-x82a.google.com with SMTP id d9so8009112qtp.11
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jun 2021 10:00:37 -0700 (PDT)
-Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
- (209-217-208-226.northland.net. [209.217.208.226])
- by smtp.gmail.com with ESMTPSA id g15sm5505947qtx.75.2021.06.18.10.00.36
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 18 Jun 2021 10:00:37 -0700 (PDT)
+ <SRS0=CUMw=LM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1luHy3-0006g1-8o
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 17:07:43 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7dfafc1b-0a62-420c-8f71-3fc762af466f;
+ Fri, 18 Jun 2021 17:07:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,199 +36,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a5e9295-6315-467d-b0a7-5eeab2601abf
+X-Inumbo-ID: 7dfafc1b-0a62-420c-8f71-3fc762af466f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1624036061;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=tdNyLLlSw0qMVJehgjoDsRuNiAn6teHXz8gahh4senc=;
+  b=XDFYNKKMXtEFRN9e8T9buIryi/Xb1JSry5OqchqhlL3JAtoqSMFze/o/
+   lsomEosxYKi6l5RZ8xS62v9WTjCe9NrWpNxuzQvfEGPDKniAcMCTaT9Ev
+   TlT4H98C2H4O6Z0WA4J+g6cwjmgN+1a544XDtVy9Vqcv8QJu0OncaZuCJ
+   k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: RVDpfXBWZVkDUKJoSufMmfybxX0e4lCEfh240PodOF3RyceWNiOg5LQvK/NCBbtmAKu0wSUVZL
+ psFszpP09QmWBgOQ5KUF5LWY+cQHwl88totO64GuwHVCi7Pp9TSrtcGSs4+74PJhBRqe4Bg7l6
+ MtG7EUyB9UG92wqc4wTmol3OnMvqzG6WAhqwHp4DjMxxOAG7ulFSq0EUrG/JR61BrpEwIw/6fm
+ wniGmNZbg9t5nUM+wVHF7t7wnPeNp7mi4olntatSlDwqyIsMVdYud5nJGytNolVXGGrEoZOthO
+ nFs=
+X-SBRS: 5.1
+X-MesageID: 46846757
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:PMKqC6+Jqq7TybXv98tuk+AiI+orL9Y04lQ7vn2ZKSY5TiVXra
+ CTdZUgpHvJYVMqMk3I9uruBEDtex3hHP1OkOws1NWZLWrbUQKTRekP0WKL+Vbd8kbFh4xgPM
+ lbEpSXCLfLfCVHZcSR2njFLz73quP3j5xBho3lvglQpRkBUdAG0+/gYDzraXGfQmN9dPwEPa
+ vZ3OVrjRy6d08aa8yqb0N1JdQq97Xw5evbiQdtPW9e1DWz
+X-IronPort-AV: E=Sophos;i="5.83,284,1616472000"; 
+   d="scan'208";a="46846757"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A+XrbDiJQo7iYfggKY06MvLlxXI62tOJudKV4UcK53ecOKOwnuLAZXfpOO4mU3PcTtyVEt/vpycO0VcTYJoKniibArWd+oWU+Eg0kIi/7GDbAUO/PgWAHbprqeUz+OwDgUmJlkXkN7gNmMBtDV8mCBhOaEfTtmpREiJXBV77TQQ4pYLCeqvamkbrM225JPObIJZ48nHa9J1tPshlt2B+DCYZWbJDLLPEF42c3qXcsGl4h6FaB/jQ9/2aOwuinV644qqNjXOlU6aHn+y+tV51h8jjBfB7kx29mBPBwQ+OL46nbFJcfGYN4xVad7z5gWAw1MOTEmyka9sBJH4f4+FEeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NKgHKUfz7/qH+TdJA7nGfrNDbbvgtfrzWNWzblCR9Ns=;
+ b=VJYhNzxomiE4oX/8BhFz8+NGcE1hIMy+5YZ0EzNnL6VkZUY/Dh/Wadlde63KibtBDsqShaQwoOnsaHl8/9pgu5kLdishSnV/QgsN/UxaHEoDXn9iO8AxjhOCQI9slQekT4RNk7lhGG1qgb+5JfyEwdH80qwPkX1q0VoCDTMmrtEwpe2aWTS/BEWmSuev4hHUGr8XvN0F64MsqT4/MbwjH2HcjT1PFXRDskJxDH3+aefrfhbr5yNk3idRM/VU2sHxVLBzp3qPozxutaFbanJuLbvTZlf4RNkBtn94grK0eZUqNl/AZqLoGa+U6wQwbhYNAUivrLO3GfSGYXlJCkHXjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=z5zsokqXgiD6bC7McyK/M0FOdguu6oT7x1Jlxm2c+lU=;
-        b=ntlpwJIMtoPglnvfMmUfquAP9465QRaDEybwjBPldd3FLNFFuRBmCz1RQETys4ASwu
-         TfnWA/tqcDquTihzqUc0wjEP9nehanGO3g6xg1f6EEXCFvSRvU4BqetCD7lBOjxmRBXm
-         mU+WffQz9qWQn8NB/kbiuOqpM/ZrMZIxMe/Yql8z6paEG/rhE9zS6Pfp0GLNID83hGf5
-         NZvNfnTiH9XAwTqoNa44qvEfLtq7d/+Zf7eK1pEUTBmPA7/6UO3bPG5Dujivwy5k8npv
-         LyQjfc9Rn/yilQUDi69/UugtrdkIBs+GobBbejowQ0pqGFWmDuMGMTatHt6n9QHyOvjN
-         HTcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=z5zsokqXgiD6bC7McyK/M0FOdguu6oT7x1Jlxm2c+lU=;
-        b=IMEEGffOBoCWEnTk60GU490elafvJcYP1BAoa1MOP+ukPU0fLAVanKETyw0dacPYts
-         ghbt25JXwiPpLXHq2hdbLEzB1xV85dvbrhxygJF7DuCIgLlzT+IisuHWd15KY/zo1qNJ
-         qodbh7jMqWSDknhWYA3yx9ELES9iuvSUYTrCoATFi51sy0fv/qjVmhdIEZSrkc2xnNZA
-         +YWCxCikNkwZLEGMEpXdaUVnW2/gyE1iYphQwlI5j4oAVItmd2scwaMxvhFkGY7aCUV1
-         VrEIumr75uXHeFuB34UnEmUfwnM1/BSLE8kzHl5Z1btiYT8e1BnlDYZFiNFUM7Y3D22Y
-         DSyQ==
-X-Gm-Message-State: AOAM5303G6lwMpH71Rp1S6AFia2G0jf58GNUfzIsvZZM78UHdmJsO9a8
-	YmOHCk8KdXlLvoWzrl1CYaw=
-X-Google-Smtp-Source: ABdhPJzzGzyBvxCbPBAbZwitT73glTef0IpyjPU2hmxF1lekYVNaWi6FVxBrlX9uaK4pwiD8TJjwfA==
-X-Received: by 2002:ac8:7516:: with SMTP id u22mr11404297qtq.160.1624035637474;
-        Fri, 18 Jun 2021 10:00:37 -0700 (PDT)
-Date: Fri, 18 Jun 2021 13:00:34 -0400
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [RESEND PATCH 08/12] golang/xenlight: add functional options to
- configure Context
-Message-ID: <YMzRMlaHapLn7msf@FED-nrosbr-BE.crux.rad.ainfosec.com>
-References: <cover.1621887506.git.rosbrookn@ainfosec.com>
- <dc5cd6728e8477c9eb3ba75a55c7128da46a86ef.1621887506.git.rosbrookn@ainfosec.com>
- <EF069373-26FC-4151-9CD9-6B8C48D9AEB0@citrix.com>
- <YMy29arbPMnPI/+W@FED-nrosbr-BE.crux.rad.ainfosec.com>
- <8727719E-9548-40CF-A186-14E2ECA3801D@citrix.com>
-MIME-Version: 1.0
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NKgHKUfz7/qH+TdJA7nGfrNDbbvgtfrzWNWzblCR9Ns=;
+ b=e13TXkyg/HnugXyf+1dSB2mqZaqmBiYi3zKP+6DWKCyfI6oUK0HaJenKxhDotbD3ttOa4iZY9A2tlMiMQrsf7gzJm5cSXVObWWBGOWpZFSPArqcHwNNBXK9jh+RuFI212zJKv6jaH1eBz/jmoDuAssTJ2QZfKqvHmBwvgUaky1A=
+Subject: Re: [PATCH] tools/ocaml/libs/xc: add OCaml stubs to query CPU policy
+To: Edwin Torok <edvin.torok@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Christian Lindig <christian.lindig@citrix.com>, David Scott
+	<dave@recoil.org>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <5fdb7b4cdee69af8e2b9d77b56b1027a8799cf04.1624012999.git.edvin.torok@citrix.com>
+ <4eb5d3fb-db71-5981-e6f5-0503ff896fd9@citrix.com>
+ <5B331E67-0BE9-47DE-8076-EBBE06BDEBF4@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <70ab3e24-7586-b75a-6c88-ac22157d76e9@citrix.com>
+Date: Fri, 18 Jun 2021 18:07:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <5B331E67-0BE9-47DE-8076-EBBE06BDEBF4@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8727719E-9548-40CF-A186-14E2ECA3801D@citrix.com>
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0367.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18e::12) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 55ef8128-a3a6-49e0-f28a-08d9327b926b
+X-MS-TrafficTypeDiagnostic: BY5PR03MB4997:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BY5PR03MB4997D0F865611D23FC83824EBA0D9@BY5PR03MB4997.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QFHXYRX4afRDtWKmOS3dSJEiDqKZlkOt94Gza9Wmdl9fFKK/IcYizCRnb2twCUzWPH0dZiL/8iM0xggCVRXSv6Y+1Fi2qvB8E9frQGgaqQcQBqUWdGiRbPCzDAdTj10l1OvflCfvqkT+EfBWtWFd0W0v9Q/aDtoDEci8+KyBDQrVmrlZx9QcDjrVUpkNY+FAEHeS9Jrs6k5zBFUOP7k+QuI4Nw07u1iRqtxbBFPbl+kURktuN6KUBsgxLzwilT5Tl7k/3CQNJ2GEcgF147XwgnxN8iTiQpMNmJXYLuleruZtmfstArYHNJvbit6U5kGNALuvNhs8GNDZThYl/vo+YHxbQwON3WrrK9SzNuy7SqYFzkshpdF7z89to6XZsAsl2PVGW93fgVWZoE+Q59JAJdl3agWrIGyUVvnUEuVbBVtyhMtaQOrgLxC4zDpN1Cu18UCRtxOPaG/v8et2JIwNEy5wBgsHr8YPwkLP70cJPJOVa1F9jNGfPqoXCyH0b4YLtXXShRseuUB7mh9J/CtGWb53Jngf7pyM5JLFzQfjg780rPIzNWi8n9tf2wQpRvwvqjcbnVyx+3z0WwJl9g3SeX7Yvtv2GrYyiWsL1HwDBxI5Qa/xom0lgwvmY0UAiuZivZjLKLffgOurFfuKACV5XmHylEU1ud62ol0xNXdBzTmYvpkgjvU1l1m1DArWQla7wfnivvVloWGv0T6MORq6hqCrk/8qMD4AoluRtbDWdmsf48lBTmHF95VIUgI3YbMnqHNe8b0dDF75nIxD/N87Ymb+/mmMwQ8p6xaSempSm3nbWSqy7d26cehaRhv1oFkN
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(39860400002)(396003)(346002)(376002)(6486002)(31696002)(66946007)(16526019)(316002)(36756003)(478600001)(6862004)(966005)(66574015)(86362001)(31686004)(6666004)(26005)(186003)(8676002)(53546011)(38100700002)(5660300002)(956004)(6636002)(37006003)(66556008)(4326008)(2906002)(83380400001)(16576012)(54906003)(8936002)(2616005)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azVoWnFFOXRDTTUwN2VSK1dzOEVTU3Zoa3hlZ2hIT0dSTzg4QnFpS2JFdWhl?=
+ =?utf-8?B?dm1abGErK09HTDUrWm92ajhwZmlwejBVQTRKTU8xNjI1U2k4Q25ZMXM2akJo?=
+ =?utf-8?B?cEdvU2t5SWlaTms1UnEyUE1xSHFJYVgvdmF0MUliYk1nRlB3KzR1a1JwSDYw?=
+ =?utf-8?B?WHVjZzd1K3I3TVYyTW11WXlWZVhRaHptK3ZTNjMxYk51OHAvM3RYN2IxYjlS?=
+ =?utf-8?B?Yzg2U2VSYlE3ejkraGZwazRLSjJkeHFibzN1bzZLRFJwN3BxVnkzMThDc0hI?=
+ =?utf-8?B?Tnp2ajIzNTYvN2xUcFdxOE9MQXE4Z25tZVhocUhKWTh4TXlFalc5MUJFY0Rj?=
+ =?utf-8?B?U0M3MnNVUzFVZFZSb0hkU2lzOXFUSUxhc1Q1Q2NhUU1TMmZHcDBzTVB4QzlL?=
+ =?utf-8?B?WVNKbHMvVjNIdXV3TTNUMHNFdmRqUXkrS0hLWE9qMVFZbmJoZExZSllEVlZl?=
+ =?utf-8?B?OEtpbEI5ZHVTa2hoUG8zZGovY0l3emF5enEwYUhXN1VwZXVkT3Nva1RuYThh?=
+ =?utf-8?B?TWg2Ri9YaENxVjhJUTB0clp2SG1BUFdqRS9WWmZuN20yblJRRTNKL1dZUU9T?=
+ =?utf-8?B?TGdmU3pIbFRUajA3VkJmYjFhK3QrR00ySktYQk5zUnMxYzd1OHBKWTZ3dkJn?=
+ =?utf-8?B?YzYrUlRxZWlpV29pQ0ZlcC9XRDNjOFpIRzM4R1NqQ3h1WUt5YmZhdEpoZW45?=
+ =?utf-8?B?VEFmSzVnc3JVbE9KajF6c2lSQVJOeHdUYnZleTIxREZ6WG5ZNllKbGN1RThl?=
+ =?utf-8?B?YWttQzFoZUVuSVVYc1BycUl2Z0FpNmVIMWYyWkZyQUl1Q013MkUvV09TR3gr?=
+ =?utf-8?B?dVhuek12VmVvMm9rYi85RTVDSlVUd083MWJ6K3A5Q3ZXeE1jbnhTMG5Ub0xn?=
+ =?utf-8?B?Wk13TmJvUHcwaVErN1VoQXRkTDg0WmQvVXdWeWJNUzFtYWRHZmsveHIzak5R?=
+ =?utf-8?B?M3lOSHpWLzhlUVZMN0lzMWl2TlZLRnBtamF5bW5vWEZpSDZkUDRKZTRmcUEz?=
+ =?utf-8?B?MkxGSm9VckszamcyTkpnNlk2bG1QYXdBSG1VUHNoNStZbWUvWWVQb1JhajEx?=
+ =?utf-8?B?UnpZZCt2d2llR0pDV0M1cnpkK0RCMldUd2ZhY2RSUmMrMXFSV0R6YXdBdW9L?=
+ =?utf-8?B?ZGYySkIwRm1rVCsvZDdGem5EVFIzYWFhOHZ0QkErc2tIVUNpNHgvVzFlZjBS?=
+ =?utf-8?B?NldaT0k4aHpKckVCL3VIV2p6dlBLUW91eERyUDZlVkVvY09YVjhhM1JscmlM?=
+ =?utf-8?B?Wlg1WkxlV0hLT3p3RGxoMDkzVTIwcTd0R3FSUW5KSUhhVFRyRFM0WUtuQ2lE?=
+ =?utf-8?B?UWtlTU9HdEs3OWZQemtkZ0hYbTBJRDh5YW5STXo4UkJtSDBjTlVIQ2FMTzJp?=
+ =?utf-8?B?WlF6MklMNVc0SWVpakxqanFTa000U1JoYXNiZk9FY2lBOVJSYlk2eFRNRkxX?=
+ =?utf-8?B?K25iL0tRNUNiU08zTHhzYWFsQ2tkdzNPVXZvWHF3NXZtUW8vbFAydUVQbzlR?=
+ =?utf-8?B?c1VCdXYyVkJUT0t5OEhiSzNVKy8yWUpwVjNxcEc1c3VvTDM0SVpmVkZScnRZ?=
+ =?utf-8?B?enQwT0Z5VE9MM2RsOVlyMDMrc1F5amVYb3lFclZHMVZESkJ1QXZlTjlHZlVK?=
+ =?utf-8?B?VERkN2ZiVE5nSjA3cUs2eWd2c29TZFNoSVpnVm1pSk5GSm1OcVNmOUIrUlpC?=
+ =?utf-8?B?ZDlnaTVKSlFLZVBZQ2VnZlJrWSsvMk9lY0MxV2JJMDJmY0gydFI0b3VpMWJ0?=
+ =?utf-8?Q?Ums6GvEQRpZAc11gAINY346qLmFoP8KhQPR+3oA?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55ef8128-a3a6-49e0-f28a-08d9327b926b
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 17:07:37.0528
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7KFOx9Sr7aDqzLMeG8yx9KGh7cpKL+BY6n7X3TbqVYJ8ZRhGPQJ8sS/C7+7AfrqF3dPNr7UeGQL4BlVcUDjWu0n6t0yCT7UWIRKGQZdB6ss=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB4997
+X-OriginatorOrg: citrix.com
 
-On Fri, Jun 18, 2021 at 04:18:44PM +0000, George Dunlap wrote:
-> 
-> 
-> > On Jun 18, 2021, at 4:08 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
-> > 
-> > On Fri, Jun 18, 2021 at 02:44:15PM +0000, George Dunlap wrote:
-> >> 
-> >> 
-> >>> On May 24, 2021, at 9:36 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
-> >>> 
-> >>> Add a ContextOption type to support functional options in NewContext.
-> >>> Then, add a variadic ContextOption parameter to NewContext, which allows
-> >>> callers to specify 0 or more configuration options.
-> >>> 
-> >>> For now, just add the WithLogLevel option so that callers can set the
-> >>> log level of the Context's xentoollog_logger. Future configuration
-> >>> options can be created by adding an appropriate field to the
-> >>> contextOptions struct and creating a With<OptionName> function to return
-> >>> a ContextOption
-> >>> 
-> >>> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> >>> ---
-> >>> tools/golang/xenlight/xenlight.go | 44 +++++++++++++++++++++++++++++--
-> >>> 1 file changed, 42 insertions(+), 2 deletions(-)
-> >>> 
-> >>> diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/xenlight.go
-> >>> index f68d7b6e97..65f93abe32 100644
-> >>> --- a/tools/golang/xenlight/xenlight.go
-> >>> +++ b/tools/golang/xenlight/xenlight.go
-> >>> @@ -136,7 +136,7 @@ func sigchldHandler(ctx *Context) {
-> >>> }
-> >>> 
-> >>> // NewContext returns a new Context.
-> >>> -func NewContext() (ctx *Context, err error) {
-> >>> +func NewContext(opts ...ContextOption) (ctx *Context, err error) {
-> >>> 	ctx = &Context{}
-> >>> 
-> >>> 	defer func() {
-> >>> @@ -146,8 +146,19 @@ func NewContext() (ctx *Context, err error) {
-> >>> 		}
-> >>> 	}()
-> >>> 
-> >>> +	// Set the default context options. These fields may
-> >>> +	// be modified by the provided opts.
-> >>> +	copts := &contextOptions{
-> >>> +		logLevel: LogLevelError,
-> >>> +	}
-> >>> +
-> >>> +	for _, opt := range opts {
-> >>> +		opt.apply(copts)
-> >>> +	}
-> >>> +
-> >>> 	// Create a logger
-> >>> -	ctx.logger = C.xtl_createlogger_stdiostream(C.stderr, C.XTL_ERROR, 0)
-> >>> +	ctx.logger = C.xtl_createlogger_stdiostream(C.stderr,
-> >>> +		C.xentoollog_level(copts.logLevel), 0)
-> >>> 
-> >>> 	// Allocate a context
-> >>> 	ret := C.libxl_ctx_alloc(&ctx.ctx, C.LIBXL_VERSION, 0,
-> >>> @@ -201,6 +212,35 @@ func (ctx *Context) Close() error {
-> >>> 	return nil
-> >>> }
-> >>> 
-> >>> +type contextOptions struct {
-> >>> +	logLevel LogLevel
-> >>> +}
-> >>> +
-> >>> +// ContextOption is used to configure options for a Context.
-> >>> +type ContextOption interface {
-> >>> +	apply(*contextOptions)
-> >>> +}
-> >>> +
-> >>> +type funcContextOption struct {
-> >>> +	f func(*contextOptions)
-> >>> +}
-> >>> +
-> >>> +func (fco *funcContextOption) apply(c *contextOptions) {
-> >>> +	fco.f(c)
-> >>> +}
-> >> 
-> >> Why all this convolution with interfaces and such, rather than just defining ContextOption as a function pointer?  Is it just to keep contextOptions out of the documentation page?
-> > 
-> > Part of the motivation for using functional options is to abstract the
-> > "options" struct, yes. This allows internal defaults to be applied more
-> > easily -- if you require e.g. a ContextOptions struct to be passed by
-> > the caller, how do you know if they intended to override a default, or
-> > if they just didn't set the field? Additionally, using the ContextOption
-> > as an interface allows variadic arguments, which are just convenient for
-> > API users -- the same NewContext function can be used whether you need
-> > to pass 3 options or 0.
-> > 
-> > The reason we use ContextOption as an interface, rather than function
-> > pointer of sorts is for flexibility in the signatures of ContextOption
-> > implementations. E.g., we could have
-> > 
-> > func WithLogLevel(lvl LogLevel) ContextOption
-> > func WithLogContext(s string) ContextOption
-> > func WithFooAndBar(s string, n int) ContextOption
-> > 
-> > See [1] for more background on this pattern.
-> > 
-> > Thanks,
-> > NR
-> > 
-> > [1] https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis
-> 
-> Yes, I frequently use a pattern like the one described in that blog post myself.  But that blog post doesn’t use interfaces — the final slide actually has the “option function” type as an open-coded function pointer type.
-> 
-> So my question was, why not do something like this:
-> 
-> type ContextOption func(*contextOptions) error
-> 
-> func WithLogLevel(level LogLevel) ContextOption {
->   return func(co *contextOptions) {
->     co.logLevel = level
->   }
-> }
-> 
-> ATM the only advantage I can see of defining ContextOption as an interface rather than as a function pointer is that the godoc for ContextOption would look like:
-> 
-> type ContextOption interface {
->    // contains filtered or unexported fields
-> }
-> 
-> Rather than
-> 
-> type ContextOption func(*contextOptions) error
-> 
-> Which shows you the name of the unexported field.
-> 
-> Is there another reason I missed?
+On 18/06/2021 14:46, Edwin Torok wrote:
+>> On 18 Jun 2021, at 14:17, Andrew Cooper <Andrew.Cooper3@citrix.com> wrote:
+>>
+>> On 18/06/2021 11:45, Edwin Török wrote:
+>>> diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
+>>> index d05d7bb30e..4a230de8b7 100644
+>>> --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
+>>> +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
+>>> @@ -34,6 +34,9 @@
+>>> #include <xenctrl.h>
+>>> #include <xen-tools/libs.h>
+>>>
+>>> +#include <xen/lib/x86/cpuid.h>
+>>> +#include <xen/lib/x86/msr.h>
+>> https://gitlab.com/xen-project/patchew/xen/-/jobs/1358403495
+>>
+>> CI says no.  This needs to be behind a suitable ifdef, for non-x86 builds.
+>
+> Should the stubs be disabled completely and raise ENOSYS/failwith on non-x86 (e.g. ARM), or are there plans on doing equivalent CPU policy on ARM at some point?
 
-Technically it does allow more flexibility in implementing
-ContextOption, e.g. you could do...
+No plans.  "CPU Policies" comprising of CPUID and MSR data is entirely
+x86 specific.
 
-func (lvl LogLevel) apply(co *contextOptions) { co.logLevel = lvl }
+ARM do need a logical equivalent, but don't even have migration yet, so
+all there is a stripped-down set of settings done by Xen.
 
-...and then pass a LogLevel directly as a ContextOption. But generally
-everyone implements these things as funcs.
-
-I will admit that when it comes to my choice of using the interface
-version instead of function pointers, I am just more familiar with the
-former and encounter it more often in other Go packages I use.
-
-Thanks,
-NR
+~Andrew
 
