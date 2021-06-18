@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75FFE3AC91B
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 12:47:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144450.265862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E37243AC92B
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 12:51:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144457.265874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luC0t-0003OP-8C; Fri, 18 Jun 2021 10:46:15 +0000
+	id 1luC5m-0004qY-W2; Fri, 18 Jun 2021 10:51:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144450.265862; Fri, 18 Jun 2021 10:46:15 +0000
+Received: by outflank-mailman (output) from mailman id 144457.265874; Fri, 18 Jun 2021 10:51:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luC0t-0003Lu-4n; Fri, 18 Jun 2021 10:46:15 +0000
-Received: by outflank-mailman (input) for mailman id 144450;
- Fri, 18 Jun 2021 10:46:14 +0000
+	id 1luC5m-0004oM-Sn; Fri, 18 Jun 2021 10:51:18 +0000
+Received: by outflank-mailman (input) for mailman id 144457;
+ Fri, 18 Jun 2021 10:51:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=axfQ=LM=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1luC0r-0003Lo-Rg
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 10:46:14 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=WfjP=LM=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1luC5l-0004oG-HI
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 10:51:17 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2421318e-c52e-47bf-8410-e2cc398a69e3;
- Fri, 18 Jun 2021 10:46:11 +0000 (UTC)
+ id a950ffb9-a1d2-4f69-bc5c-18a08af8e13e;
+ Fri, 18 Jun 2021 10:51:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,425 +36,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2421318e-c52e-47bf-8410-e2cc398a69e3
+X-Inumbo-ID: a950ffb9-a1d2-4f69-bc5c-18a08af8e13e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624013170;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9vOeCeFfOggb0WwAvbYfKTPJrxgP0fgM+hFpQdUu6Cw=;
-  b=HDKGAFjkNJUkowY4Elyywh5zx4dnCXXH2K21RoZrWnKTngCGfWlquxKy
-   wLzupSVJsuI+52z16zt6LCxIB2uCx9weGm6xDikAEcmJc0bM3ASGXlL7Y
-   iCRIf5v1Euj6HR76EAA6FZyALpOrP14Hhuwg5antk8wzVE/dut7JIO57D
-   4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: hoguw0MVsLT8mcdRJCBigjaePAd3Wh3nqUxuzzyqPRAv/ydvVp8VL373AnyMKpeobLEcFpeSbd
- vqJedRcA1OXgjgUCI8Ko3h7khmAoPWsYkSIe5ThfXsFaydOVXtRF7TvpyUXOWZEDb8R2b2+NIE
- ppFkKEiLNiCpFaDLa8R4zFkhC5HWFj8gKjbKgQHHkCByrLotjczxWRf48y5svWfb/84YL/Ga84
- 11GA6vs8tMrFA0SLPENTPe6LYuaZChXJFQpajc/KrCjxXzSEUZfRHE/LG67SqmIdwVWkmMoEyB
- Qec=
+  d=citrix.com; s=securemail; t=1624013476;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=LDuMz/juPY5gWNhy1V2tssudSm86+7xqWVv9XlGfvBY=;
+  b=KPlsvQl/Qe0CYHqvLsmBmH1q1yDCzkHBzZepwkPnQUfboMrF27KC9cVH
+   ftrY7M9kYQURAsbhZf2bpYYkE44WEVQV0voHSibdKaIxALjmYIl6usrEp
+   1oCCA8tlkQEMx+q7TWKDbvsxXkSDSEdPnqTKk/4RpTgm3HB/2PEig9KKq
+   k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 1meH1P5UplFF3Qk+CTQUyR3WTiXVVJUBTk3sGZFNPjTNuot4XsS2/Wq3GDwGkRz10IR7+t+JW8
+ EK7y0CaRqI5zKtrx5bMebzvWaV6+naCiYVY+bE6iXaLlgziYYhaHSTUz11NIk0O64vSz+xXc7M
+ wg7/OHYxuZzijRhVnNTF2w+7+erEAgkxLq0B9WtgN4w7FLQ+BQ48Q1lb7LtwMd0XGpgs6xJZIN
+ VTfCOzAMGr4gqXEJvmRR8KBK5LNStywV57MkniyogCBDKm/PIe4n3NbEIL/3XawOsFJxDn3Xfe
+ rWA=
 X-SBRS: 5.1
-X-MesageID: 46518866
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 46176112
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:KfGBEqNtJL/JGcBcTs2jsMiBIKoaSvp037Eqv3oedfUzSL3+qy
- nOpoV+6faaslYssR0b9exoW5PwJE80l6QFgrX5VI3KNGKN1VdARLsSi7cKqAeAJ8SRzIFgPN
- 9bAspDNOE=
+IronPort-HdrOrdr: A9a23:yLLqFa3bKU8BKKGe6jRPPAqjBQxyeYIsimQD101hICG9Lfb2qy
+ n+ppgmPEHP5Qr5AEtQ5OxpOMG7MBbhHQYc2/hRAV7QZnibhILOFvAj0WKC+UyvJ8SazIBgPM
+ hbAtFD4bHLfDtHZIPBkXOF+rUbsZq6GcKT9J/jJh5WJGkAAcAB0+46MHfhLqQffngaOXNTLu
+ v52iMznUvHRZ1hVLXdOpBqZZmgm/T70LbdJTIWDR8u7weDyRmy7qThLhSe1hACFxtS3LYL6w
+ H+4k7Ez5Tml8v+5g7X1mfV4ZgTssDm0MF/CMuFjdVQAinwizyveJ9qV9S5zXUISaCUmRIXee
+ v30lEd1vdImirsl6aO0EPQMjzboXETArnZuASlaDXY0JbErXkBerV8bMpiA2XkAgwbzY1BOe
+ twrhKknosSAhXakCvn4d/UExlsi0qvuHIn1fUelnpFTOIlGfVsRRx2xjIlLH4sJlOz1GkcKp
+ gkMCgc3ocgTXqKK3TC+mV/yt2lWXo+Wh+AX0gZo8SQlzxbhmpwwUcUzNEW2i5ozuNwd7BUo+
+ Dfdqh4nrBHScEbKap7GecaWMOyTmjAWwjFPm6eKUnuUKsHJ3XOoZjq56hd3pDmRHXJ9up6pH
+ 3laiIWiYcfQTOaNSS+5uw8zvmWehTOYd3E8LAr23FWgMyOeIbW
 X-IronPort-AV: E=Sophos;i="5.83,283,1616472000"; 
-   d="scan'208";a="46518866"
-From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Christian
- Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, "Ian
- Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>
-Subject: [PATCH] tools/ocaml/libs/xc: add OCaml stubs to query CPU policy
-Date: Fri, 18 Jun 2021 11:45:15 +0100
-Message-ID: <5fdb7b4cdee69af8e2b9d77b56b1027a8799cf04.1624012999.git.edvin.torok@citrix.com>
-X-Mailer: git-send-email 2.25.1
+   d="scan'208";a="46176112"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oKNdXtHxdc42/GN4zyiLt8lPZ27rOsasvv+PObgXsRGrvCUu4Tf+ric5YqN01C6pEBQmbLagmE87N2fee051aV206dZFh5I/Lak1H7p7kcK/x4p3a7oL6zNOCvwJ7wyjvRwp6LwHwpgnSth5tWG/yVw2drGwtjyzVS8vpfcOR1arNYVcN50GAOV/vIRSqe/FBcVDj1ru9UMWkKJ16Pape0DpclzI74EdIgyq6eeoMMxJZ6IifqDNdMtRQcNvWVZDSVcXRX+WzDxPEDss+Wt39yXLZ9INea/2MC7a5h/i0t01wY/Cs/ZJ7TDJlZmMdnJ498DxzoVKD+K7ym8+tIpcuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LDuMz/juPY5gWNhy1V2tssudSm86+7xqWVv9XlGfvBY=;
+ b=clDwNdx0wwTJO9tmf3cOqQuO0+xjoDnEfDzuKMxpyC15Ay/vH1Hz5bYeH5oI4fWYzwq8nWjOShMZP6hCu5bLBxRPkri4pzXd1wFRU3kOE2ocGdmZbSj4QicILa2aT6ShwEFoYP1DYM20RS+o+Nkpm697Ic4907jducCtYByoJhebHdtcPKcfKoFZPVloAWJxlpDrRXYggkugnh9UXr07+yesdyz26/XiJ9V/eUUMoMlPU40PWExDfWfIsaTrb5eV0lKUvfEATpAw72wBhDYdrCT7EENoXQUegOGjuN/Sx7SWexhUvRr05QjjGrQ8T0pKFadwu3w13+WRzBDJxgDSrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LDuMz/juPY5gWNhy1V2tssudSm86+7xqWVv9XlGfvBY=;
+ b=aTQU1DUA+h5uZvmfOKwwKLcyp0RDidvZ+i8ghRlwcXsi3AyH7D42XXy3kZ/y3OqU0eG6Oy08dVPlbIEKGJ/tYEsvv4oRRxb66bJrcRneZhuLZknP9rz/XsXbNytKBLxfLMgsDLYN2+k+JiLQwKdrq+B21iaKrEvyrXYAYkjJyLM=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Nick Rosbrook <rosbrookn@gmail.com>
+CC: xen-devel <xen-devel@lists.xenproject.org>, Nick Rosbrook
+	<rosbrookn@ainfosec.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [RESEND PATCH 02/12] golang/xenlight: fix StringList toC
+ conversion
+Thread-Topic: [RESEND PATCH 02/12] golang/xenlight: fix StringList toC
+ conversion
+Thread-Index: AQHXUNy7TNv+p7nNOkmLFrh5orF2CasZvfqA
+Date: Fri, 18 Jun 2021 10:51:11 +0000
+Message-ID: <95DDE0E9-E275-4E9D-AAEC-4BD0324F01D4@citrix.com>
+References: <cover.1621887506.git.rosbrookn@ainfosec.com>
+ <0a15ed9eb6cd70416995f5d9805c98572eb6bd50.1621887506.git.rosbrookn@ainfosec.com>
+In-Reply-To: <0a15ed9eb6cd70416995f5d9805c98572eb6bd50.1621887506.git.rosbrookn@ainfosec.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3654.60.0.2.21)
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1c40206c-1673-4358-78bc-08d93246fcac
+x-ms-traffictypediagnostic: PH0PR03MB5782:
+x-microsoft-antispam-prvs: <PH0PR03MB5782B503D3F0C475F5344111990D9@PH0PR03MB5782.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: JX+A0plX2b49jJw9b0i9K6tJgLsnHSLYelotK4AbHFTVCe1D59UxRjG0SeEqNwe0GRCfXOs5koDKRHg86QwXuKu58UUPrpCya7Op9wjHfSTzARMnb++LUv9iF5yV5cHlQst2DhPL+sItERwfrdu2cxp5b9h/ojGhxDcsyjqTRUUJEFiVBMiBldkCaUXnfoJ3Q3Y51sWHL+hYD6KXANMpJz3qmv84J3Bbm92NOFUV7uo/uZCxIPpqyEO/2U0eMmVoA8Xl7h7yt6czvNEy1FbZdnd5E6g8sRIrGUiYmSYHV76Ir4ZOLcRgKLxxqRiAU702i0NN1tC6vINdAcHyxCt83OEIM4134McRVI1/mkaIu+wYOOP2wecq0IcZ3RsIpgF+2T0vqs3xj3Qg0pDuz4NSkl3yR+Lue9sW0OoVB4keADKCGacTk7O92ufDZKXOL6jLKP44bRcvJVM/AS1wz9j9IB105X9WKYIMCppzXZQGMSTv9WqIEGQcmMUkHAUMSs6oSZgaa/u2GqY3QJ4MF9mXDCaNoo52SRswnaOCB0emHBe2eHjLqPK/WEKQ3ZH8sggy3CHoC2X1U5phS7panWsFOgNYHLrjFUCjKHc5rx1hxNZq986wcqHV4Cp6WTgSVGfUEOqr5rjfvx83qu1HOwS5T/nEgKCwzcZjbcDcej/lGOc=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(396003)(376002)(136003)(366004)(39860400002)(54906003)(316002)(83380400001)(478600001)(2616005)(6506007)(186003)(55236004)(26005)(53546011)(76116006)(71200400001)(33656002)(4326008)(2906002)(8676002)(8936002)(86362001)(66556008)(5660300002)(6512007)(64756008)(66446008)(36756003)(66476007)(6486002)(6916009)(122000001)(4744005)(91956017)(38100700002)(66946007)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QOSz9IVzCo72+g+/F0MMQG7XxEjlyY0uWeGOC6/bwJFZD44+7xb1JrYc5wSP?=
+ =?us-ascii?Q?OKlMNcOqGYerpEQBM7dH1+YZ9/6d38FFmgfb78/zydJTR+s8Jp/t4KvYjx6D?=
+ =?us-ascii?Q?1dNbTl+SIiAITm80C/JZNtOx7cHuTtAgxe9eExiM76BJGTxoQJz1BKjal18Y?=
+ =?us-ascii?Q?Q1sJQ/8AZo5yl3HkSIx3T/+FVjRWEuN5JIAeaokiXnF2QC0yudeLSNlDn5+B?=
+ =?us-ascii?Q?tDxVbMEhxtSEL5tRm4244Q976mt7cI4Yy2eag1ZU2Z9ScnHQ6rpcbp89mexV?=
+ =?us-ascii?Q?z0Lp94/SXca0hGe/2JUMvZb/UNRIt7lBJDroVX2RB5MxL1EtAe3nU/GpvIzN?=
+ =?us-ascii?Q?rbnAokCe2Dn4DSLPej67C05/EXHjM54dIahy255G+KGdUCDD0A6Mn3cQqcNo?=
+ =?us-ascii?Q?hZURw4LNDq9JTQr5wyCpNP8us8PtwQmZnhHuuJ51AVXpDIt0SU9dPmhxQRne?=
+ =?us-ascii?Q?K4QSq/sV6bZ7ZK3dSeexVdJFv2TieUP2lPTbHjF8HlYDA3phV3kT76No85Zr?=
+ =?us-ascii?Q?FIN3O8HqHUlqxwi2iyvVZYBtgO22xgdQcvEe8iiFQG+9AwMM3oJUymuereOU?=
+ =?us-ascii?Q?+zO8JXlwyqOGlh5Oa7S+iQT52ixxjxq7D+ynxfE8J6OYJVRSZE9PqjDDDrVN?=
+ =?us-ascii?Q?GUv2uqkqG10CKpRXCxT84ms7iyyPgAK8fQG8TzovG1v+4B9lg3XtCSJyWKo6?=
+ =?us-ascii?Q?YBUMtGk85+xqV8HNIh+Y8YMCWX+3XVbXNNtfmBYSmuGfpNbvrXkak/vPQkJr?=
+ =?us-ascii?Q?dL36KAPpyOjY/8Kar3aX9FjLFymC0hMhv7vP5wsP+c/37IpVqgnDdgzY33sM?=
+ =?us-ascii?Q?GlZsA8F/8zZ9ofeMZNZsOewSZXiccAXbs4l12fN7WlIjSTWWWJeBI8880YsQ?=
+ =?us-ascii?Q?RNiqZk5pUAfN3kJM9kUxRXSeclZBiWbMoYWdNlqGY/VrJzOIAGtp9dZn6aO4?=
+ =?us-ascii?Q?8tkASJ4X7Z3dzgCGhYLYH7YwAXgG/dluxYN27fU9XNoZhEW5XLy1IbDldyll?=
+ =?us-ascii?Q?tjJerTBGhezAl2cMBFvHtFZWh8p0jRfhYZbUq8AarS6xpwwPK1t8VO4eAS9l?=
+ =?us-ascii?Q?f+BENOPOosrtczSJWJieGuENkD6q6zwZBRhTzC9QAxSK+02E3x2m6QG8fggT?=
+ =?us-ascii?Q?z11eDniZHDJCA1rY83AgkDB4X8mJRbNmicKEcy9pViEst20Rekx0CTjI4i6j?=
+ =?us-ascii?Q?mghmNBhN58sluRFWhkjigGWCWVEuw3Cw2iKXC/0A8rL40QDuNrawRsJQJATE?=
+ =?us-ascii?Q?QcEePFuWO/rTI6lWtN31WgYrr6uuilZ76JLPUPhbSeWEbnZAgZ68t5KorEFp?=
+ =?us-ascii?Q?i5VSYLuruRiT7UeMzEUtLSGo3op3JDnf46PIckwdgfEQYw=3D=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <D7EBD2F58C273E4382D6340B00F7A616@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c40206c-1673-4358-78bc-08d93246fcac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2021 10:51:11.7130
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IgI+ixQ4Y14KFU0pG9M7u+jNc06IvqVoUKcvovPEsDf/Pil6HkcHzDmJxd/t1t4X5G24fg0Kat72V3c+B0YfbovcDyoYBZLtyOaevjwnWQI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5782
+X-OriginatorOrg: citrix.com
 
-Introduces following functions in Xenctrl and associated types:
-get_system_cpu_policy
-cpu_policy_to_featureset,
-string_of_xen_cpu_policy_index
 
-These are wrappers around the existing C functions in xenctrl.h,
-that will be used by xenopsd initially.
 
--Wno-declaration-after-statement is disabled to allow mixing
-declarations and code to simplify writing the stubs
-by using variable length arrays on the stack instead of
-allocating/freeing memory
-(which would require additional error-handling logic).
+> On May 24, 2021, at 9:36 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+>=20
+> The current implementation of StringList.toC does not correctly account
+> for how libxl_string_list is expected to be laid out in C, which is clear
+> when one looks at libxl_string_list_length in libxl.c. In particular,
+> StringList.toC does not account for the extra memory that should be
+> allocated for the "sentinel" entry. And, when using the "slice trick" to
+> create a slice that can address C memory, the unsafe.Pointer conversion
+> should be on a C.libxl_string_list, not *C.libxl_string_list.
+>=20
+> Fix these problems by (1) allocating an extra slot in the slice used to
+> address the C memory, and explicity set the last entry to nil so the C
+> memory will be zeroed out, and (2) dereferencing csl in the
+> unsafe.Pointer conversion.
+>=20
+> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 
-Signed-off-by: Edwin Török <edvin.torok@citrix.com>
----
- tools/ocaml/libs/xc/Makefile        |   2 +-
- tools/ocaml/libs/xc/xenctrl.ml      |  37 ++++++
- tools/ocaml/libs/xc/xenctrl.mli     |  71 ++++++++++
- tools/ocaml/libs/xc/xenctrl_stubs.c | 195 ++++++++++++++++++++++++++++
- 4 files changed, 304 insertions(+), 1 deletion(-)
+Reviewed-by: George Dunlap <george.dunlap@citrix.com>
 
-diff --git a/tools/ocaml/libs/xc/Makefile b/tools/ocaml/libs/xc/Makefile
-index b6da4fdbaf..64dca99613 100644
---- a/tools/ocaml/libs/xc/Makefile
-+++ b/tools/ocaml/libs/xc/Makefile
-@@ -3,7 +3,7 @@ XEN_ROOT=$(TOPLEVEL)/../..
- include $(TOPLEVEL)/common.make
- 
- CFLAGS += -I../mmap $(CFLAGS_libxenctrl) $(CFLAGS_libxenguest)
--CFLAGS += $(APPEND_CFLAGS)
-+CFLAGS += $(APPEND_CFLAGS) -Wno-declaration-after-statement
- OCAMLINCLUDE += -I ../mmap
- 
- OBJS = xenctrl
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index a5588c643f..fa2cea5091 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -286,6 +286,43 @@ external version_capabilities: handle -> string =
- type featureset_index = Featureset_raw | Featureset_host | Featureset_pv | Featureset_hvm
- external get_cpu_featureset : handle -> featureset_index -> int64 array = "stub_xc_get_cpu_featureset"
- 
-+(* order must match the order in Val_cpuid_leaf *)
-+type xen_cpuid_leaf = {
-+  leaf: int64;
-+  subleaf: int64;
-+  a: int64;
-+  b: int64;
-+  c: int64;
-+  d: int64;
-+}
-+
-+(* order must match the order in Val_msr_entry *)
-+type xen_msr_entry = {
-+  idx: int64;
-+  flags: int64;
-+  value: int64; (* val is a keyword, using 'value' *)
-+}
-+
-+type xen_cpu_policy = {
-+  leaves: xen_cpuid_leaf array;
-+  msrs: xen_msr_entry array;
-+}
-+
-+(* must match XEN_SYSCTL_cpu_policy* order in xen/include/public/sysctl.h *)
-+type xen_cpu_policy_index = Cpu_policy_raw | Cpu_policy_host | Cpu_policy_pv_max | Cpu_policy_hvm_max | Cpu_policy_pv_default | Cpu_policy_hvm_default
-+
-+let string_of_xen_cpu_policy_index = function
-+  | Cpu_policy_raw -> "Raw"
-+  | Cpu_policy_host -> "Host"
-+  | Cpu_policy_pv_max -> "PV Max"
-+  | Cpu_policy_hvm_max -> "HVM Max"
-+  | Cpu_policy_pv_default -> "PV default"
-+  | Cpu_policy_hvm_default -> "HVM default"
-+
-+external get_system_cpu_policy: handle -> xen_cpu_policy_index -> xen_cpu_policy = "stub_xc_get_system_cpu_policy"
-+
-+external cpu_policy_to_featureset: handle -> xen_cpu_policy -> int64 array = "stub_xc_policy_to_featureset"
-+
- external watchdog : handle -> int -> int32 -> int
-   = "stub_xc_watchdog"
- 
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 6e94940a8a..605adeeec9 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -223,6 +223,77 @@ external version_capabilities : handle -> string
- type featureset_index = Featureset_raw | Featureset_host | Featureset_pv | Featureset_hvm
- external get_cpu_featureset : handle -> featureset_index -> int64 array = "stub_xc_get_cpu_featureset"
- 
-+(** CPUID takes a leaf (EAX) and optional subleaf (ECX) as input and
-+    returns feature information bitset in 4 registers (EAX, EBX, ECX, EDX).
-+    This record captures one such invocation of CPUID.
-+
-+    CPU manuals contain tables explaining the available leaves/subleaves and feature bits:
-+
-+        https://software.intel.com/content/www/us/en/develop/articles/intel-sdm.html
-+          Intel® 64 and IA-32 architectures software developer's  manual volume 2A: Instruction set reference
-+          Chapter 3.2, Table 3-8
-+
-+        https://developer.amd.com/resources/developer-guides-manuals/
-+          AMD64 Architecture Programmer’s Manual Volume 3: General Purpose and System Instructions
-+          Appendix D Instruction Subsets and CPUID Feature Flags
-+ *)
-+type xen_cpuid_leaf = {
-+  leaf: int64; (** initial EAX value *)
-+  subleaf: int64; (** initial ECX value *)
-+  a: int64; (** EAX result *)
-+  b: int64; (** EBX result *)
-+  c: int64; (** ECX result *)
-+  d: int64; (** EDX result *)
-+}
-+
-+(** CPU Model Specific Registers control various aspects of CPU behaviour.
-+
-+    RDMSR takes ECX as input and returns its result in EDX:EAX.
-+    This record captures one invocation of RDMSR.
-+
-+    CPU manuals document the available MSRs and feature bits
-+
-+       https://software.intel.com/content/www/us/en/develop/articles/intel-sdm.html
-+         Intel® 64 and IA-32 architectures software developer's manual volume 4: Model-specific registers
-+         Chapter 2, "Model-Specific Registers (MSRs)"
-+
-+       https://developer.amd.com/resources/developer-guides-manuals/
-+         AMD64 Architecture Programmer’s Manual Volume 2: System Programming
-+         Appendix A "MSR Cross-Reference"
-+ *)
-+type xen_msr_entry = {
-+  idx: int64; (** MSR register - ECX input *)
-+  flags: int64; (** reserved, must be zero *)
-+  value: int64; (** EDX:EAX output *)
-+}
-+
-+(** Xen CPU policy contains the CPUID features and MSRs visible in a domain.
-+    The order of leaves and MSRs is not important, but entries cannot be duplicated.
-+ *)
-+type xen_cpu_policy = {
-+  leaves: xen_cpuid_leaf array; (** Array of CPUID leaves/ *)
-+  msrs: xen_msr_entry array; (** Array of MSRs *)
-+}
-+
-+(** Xen CPU policy to query or set *)
-+type xen_cpu_policy_index =
-+  | Cpu_policy_raw (** as seen on boot *)
-+  | Cpu_policy_host (** features implemented by the host *)
-+  | Cpu_policy_pv_max (** maximum PV features that we can accept in a migration: either implemented natively or emulated *)
-+  | Cpu_policy_hvm_max (** maximum HVM features that we can accept in a migration: either implemented natively or emulated *)
-+  | Cpu_policy_pv_default (** default PV features for newly booted VMs *)
-+  | Cpu_policy_hvm_default (** default HVM features for newly booted VMs *)
-+
-+(** [string_of_xen_cpu_policy_index policy_index] is the name of the [policy_index] policy *)
-+val string_of_xen_cpu_policy_index : xen_cpu_policy_index -> string
-+
-+(** [get_system_cpu_policy xenctrlhandle policy_index] retrieves the [policy_index] policy from the running hypervisor *)
-+external get_system_cpu_policy: handle -> xen_cpu_policy_index -> xen_cpu_policy = "stub_xc_get_system_cpu_policy"
-+
-+(** [cpu_policy_to_featureset xenctrlhandle policy] converts [policy] to a featureset for backwards compatibility
-+    (e.g. accepting incoming migrations in xenopsd from a non-policy-aware xenopsd) *)
-+external cpu_policy_to_featureset: handle -> xen_cpu_policy -> int64 array = "stub_xc_policy_to_featureset"
-+
- external pages_to_kib : int64 -> int64 = "stub_pages_to_kib"
- val pages_to_mib : int64 -> int64
- external watchdog : handle -> int -> int32 -> int
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index d05d7bb30e..4a230de8b7 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -34,6 +34,9 @@
- #include <xenctrl.h>
- #include <xen-tools/libs.h>
- 
-+#include <xen/lib/x86/cpuid.h>
-+#include <xen/lib/x86/msr.h>
-+
- #include "mmap_stubs.h"
- 
- #define PAGE_SHIFT		12
-@@ -1216,6 +1219,198 @@ CAMLprim value stub_xc_watchdog(value xch, value domid, value timeout)
- 	CAMLreturn(Val_int(ret));
- }
- 
-+static CAMLprim value Val_cpuid_leaf(const xen_cpuid_leaf_t *leaf)
-+{
-+    CAMLparam0();
-+    CAMLlocal1(result);
-+    result = caml_alloc_tuple(6);
-+    Store_field(result, 0, caml_copy_int64(leaf->leaf));
-+    Store_field(result, 1, caml_copy_int64(leaf->subleaf));
-+    Store_field(result, 2, caml_copy_int64(leaf->a));
-+    Store_field(result, 3, caml_copy_int64(leaf->b));
-+    Store_field(result, 4, caml_copy_int64(leaf->c));
-+    Store_field(result, 5, caml_copy_int64(leaf->d));
-+
-+    CAMLreturn(result);
-+}
-+
-+static CAMLprim void cpuid_leaf_of_val(xen_cpuid_leaf_t *leaf, value v)
-+{
-+    CAMLparam1(v);
-+    leaf->leaf = Int64_val(Field(v, 0));
-+    leaf->subleaf = Int64_val(Field(v, 1));
-+    leaf->a = Int64_val(Field(v, 2));
-+    leaf->b = Int64_val(Field(v, 3));
-+    leaf->c = Int64_val(Field(v, 4));
-+    leaf->d = Int64_val(Field(v, 5));
-+
-+    CAMLreturn0;
-+}
-+
-+static CAMLprim value Val_msr_entry(const xen_msr_entry_t *msr)
-+{
-+    CAMLparam0();
-+    CAMLlocal1(result);
-+    result = caml_alloc_tuple(3);
-+    Store_field(result, 0, caml_copy_int64(msr->idx));
-+    Store_field(result, 1, caml_copy_int64(msr->flags));
-+    Store_field(result, 2, caml_copy_int64(msr->val));
-+    CAMLreturn(result);
-+}
-+
-+#if 0
-+static CAMLprim void msr_entry_of_val(xen_msr_entry_t *msr, value v)
-+{
-+    CAMLparam1(v);
-+    msr->idx = Int64_val(Field(v, 0));
-+    msr->flags = Int64_val(Field(v, 1));
-+    msr->val = Int64_val(Field(v, 2));
-+    CAMLreturn0;
-+}
-+#endif
-+
-+static CAMLprim value Val_leaves(const xen_cpuid_leaf_t *leaves, uint32_t nr_leaves)
-+{
-+    CAMLparam0();
-+    CAMLlocal1(result);
-+    uint32_t i;
-+
-+    result = caml_alloc(nr_leaves, 0);
-+    for (i=0;i<nr_leaves;i++)
-+        Store_field(result, i, Val_cpuid_leaf(&leaves[i]));
-+
-+    CAMLreturn(result);
-+}
-+
-+static CAMLprim value Val_msrs(const xen_msr_entry_t *msrs, uint32_t nr_msrs)
-+{
-+    CAMLparam0();
-+    CAMLlocal1(result);
-+
-+    result = caml_alloc(nr_msrs, 0);
-+    for (unsigned i=0;i<nr_msrs;i++)
-+        Store_field(result, i, Val_msr_entry(&msrs[i]));
-+    CAMLreturn(result);
-+}
-+
-+static CAMLprim value Val_policy(const xen_cpuid_leaf_t *leaves, uint32_t nr_leaves, const xen_msr_entry_t *msrs, uint32_t nr_msrs)
-+{
-+    CAMLparam0();
-+    CAMLlocal1(result);
-+
-+    result = caml_alloc_tuple(2);
-+    Store_field(result, 0, Val_leaves(leaves, nr_leaves));
-+    Store_field(result, 1, Val_msrs(msrs, nr_msrs));
-+    CAMLreturn(result);
-+}
-+
-+static void cpuid_policy_of_val(struct cpuid_policy *p, value policy)
-+{
-+    CAMLparam1(policy);
-+    CAMLlocal1(cpu_policy);
-+    uint32_t i;
-+
-+    cpu_policy = Field(policy, 0);
-+
-+    uint32_t nr_leaves = caml_array_length(cpu_policy);
-+    xen_cpuid_leaf_t leaves[nr_leaves];
-+    for (i=0;i<nr_leaves;i++)
-+        cpuid_leaf_of_val(&leaves[i], Field(cpu_policy, i));
-+
-+
-+    uint32_t err_leaf=0, err_subleaf=0;
-+    int rc = x86_cpuid_copy_from_buffer(p, leaves, nr_leaves, &err_leaf, &err_subleaf);
-+    if (rc)
-+        caml_failwith("Failed to deserialize CPU policy"); /* TODO: err_leaf/err_subleaf */
-+
-+    CAMLreturn0;
-+}
-+
-+#if 0
-+static void msr_policy_of_val(struct msr_policy *p, value policy)
-+{
-+    CAMLparam1(policy);
-+    CAMLlocal1(msr_policy);
-+    uint32_t i;
-+
-+    msr_policy = Field(policy, 1);
-+
-+    uint32_t nr_msrs = caml_array_length(msr_policy);
-+    xen_msr_entry_t msrs[nr_msrs];
-+    for (i=0;i<nr_msrs;i++)
-+        msr_entry_of_val(&msrs[i], Field(msr_policy, i));
-+
-+    uint32_t err_msr = 0;
-+    int rc = x86_msr_copy_from_buffer(p, msrs, nr_msrs, &err_msr);
-+    if (rc)
-+        caml_failwith("Failed to deserialize CPU policy"); /* TODO: err_msr */
-+
-+    CAMLreturn0;
-+}
-+#endif
-+
-+CAMLprim value stub_xc_get_system_cpu_policy(value xch, value policy_kind)
-+{
-+    CAMLparam2(xch, policy_kind);
-+    CAMLlocal1(result);
-+
-+    uint32_t max_leaves = 0, max_msrs = 0;
-+
-+    if (xc_cpu_policy_get_size(_H(xch), &max_leaves, &max_msrs))
-+            failwith_xc(_H(xch));
-+
-+    xen_cpuid_leaf_t leaves[max_leaves];
-+    xen_msr_entry_t msrs[max_msrs];
-+    memset(leaves, 0, sizeof(leaves));
-+    memset(msrs, 0, sizeof(msrs));
-+
-+    /* It'd be simpler if we could avoid this allocation here,
-+       but the type is private */
-+    xc_cpu_policy_t *policy = xc_cpu_policy_init();
-+    if (!policy)
-+        caml_raise_out_of_memory();
-+
-+    int rc;
-+    rc = xc_cpu_policy_get_system(_H(xch), Int_val(policy_kind), policy) ||
-+         xc_cpu_policy_serialise(_H(xch), policy, leaves, &max_leaves, msrs, &max_msrs);
-+    xc_cpu_policy_destroy(policy);
-+    if (rc)
-+        failwith_xc(_H(xch));
-+
-+    result = Val_policy(leaves, max_leaves, msrs, max_msrs);
-+    CAMLreturn(result);
-+}
-+
-+CAMLprim value stub_xc_policy_to_featureset(value xch, value policy)
-+{
-+    CAMLparam2(xch, policy);
-+    CAMLlocal1(result);
-+    struct cpuid_policy p;
-+
-+    memset(&p, 0, sizeof(p));
-+    cpuid_policy_of_val(&p, policy);
-+
-+    uint32_t fs_len;
-+    int rc = xc_get_cpu_featureset(_H(xch), 0, &fs_len, NULL);
-+    if (rc)
-+        failwith_xc(_H(xch));
-+    /* xenctrl stub is statically linked, xenctrl is dynamically loaded,
-+     * the 2 featureset lengths could be different, but fs_len should be the greater one.
-+     * */
-+    if (fs_len < FEATURESET_NR_ENTRIES)
-+        caml_invalid_argument("cpuid_policy_to_featureset");
-+
-+    uint32_t featureset[fs_len];
-+    memset(featureset, 0, sizeof(featureset));
-+    cpuid_policy_to_featureset(&p, featureset);
-+
-+    result = caml_alloc(fs_len, 0);
-+    for(unsigned i=0; i<fs_len; i++)
-+        Store_field(result, i, caml_copy_int64(featureset[i]));
-+
-+    CAMLreturn(result);
-+}
-+
- /*
-  * Local variables:
-  *  indent-tabs-mode: t
--- 
-2.27.0
+Even as I was making these I thought it might be good to try to get some un=
+it tests of this conversion.
 
 
