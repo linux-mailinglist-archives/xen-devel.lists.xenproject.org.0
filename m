@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990553ACD2F
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 16:10:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.144691.266284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6D13ACD48
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jun 2021 16:15:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.144698.266294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luFBa-0001cY-6t; Fri, 18 Jun 2021 14:09:30 +0000
+	id 1luFGq-00034s-UQ; Fri, 18 Jun 2021 14:14:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 144691.266284; Fri, 18 Jun 2021 14:09:30 +0000
+Received: by outflank-mailman (output) from mailman id 144698.266294; Fri, 18 Jun 2021 14:14:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1luFBa-0001aE-2n; Fri, 18 Jun 2021 14:09:30 +0000
-Received: by outflank-mailman (input) for mailman id 144691;
- Fri, 18 Jun 2021 14:09:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2h6c=LM=amd.com=thomas.lendacky@srs-us1.protection.inumbo.net>)
- id 1luFBY-0001a8-S3
- for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 14:09:29 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (unknown
- [40.107.93.66]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2eca1c6a-880c-43c5-b01e-a62268d1fa5e;
- Fri, 18 Jun 2021 14:09:27 +0000 (UTC)
-Received: from DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) by
- DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22) with
- Microsoft
+	id 1luFGq-00032N-RB; Fri, 18 Jun 2021 14:14:56 +0000
+Received: by outflank-mailman (input) for mailman id 144698;
+ Fri, 18 Jun 2021 14:14:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lC6W=LM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1luFGp-00032H-3f
+ for xen-devel@lists.xenproject.org; Fri, 18 Jun 2021 14:14:55 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c5b58a0b-cd29-485b-8792-1659568ff868;
+ Fri, 18 Jun 2021 14:14:54 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2057.outbound.protection.outlook.com [104.47.14.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-15-IUL3VfimNmyT-TZaOpmkIQ-1; Fri, 18 Jun 2021 16:14:51 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB7151.eurprd04.prod.outlook.com (2603:10a6:800:129::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15; Fri, 18 Jun
+ 2021 14:14:48 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::f06c:6f5d:34d2:1c36%5]) with mapi id 15.20.4242.021; Fri, 18 Jun 2021
+ 14:14:48 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR2P264CA0039.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101:1::27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.19; Fri, 18 Jun 2021 14:09:22 +0000
-Received: from DM5PR12MB1355.namprd12.prod.outlook.com
- ([fe80::6437:2e87:f7dc:a686]) by DM5PR12MB1355.namprd12.prod.outlook.com
- ([fe80::6437:2e87:f7dc:a686%12]) with mapi id 15.20.4219.026; Fri, 18 Jun
- 2021 14:09:22 +0000
-Received: from office-ryzen.texastahm.com (67.79.209.213) by
- SN4PR0601CA0004.namprd06.prod.outlook.com (2603:10b6:803:2f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19 via Frontend
- Transport; Fri, 18 Jun 2021 14:09:19 +0000
+ 15.20.4242.16 via Frontend Transport; Fri, 18 Jun 2021 14:14:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,252 +52,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eca1c6a-880c-43c5-b01e-a62268d1fa5e
+X-Inumbo-ID: c5b58a0b-cd29-485b-8792-1659568ff868
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1624025693;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FCT0rcMlrQlC78D+AYNG+gd8eKcIo81ibv67FimMn3A=;
+	b=COzW6i/bU3H7WI88Z5aWmTbRb0rtsxlTga4eLSJOsr23gSL5v6DQqvS11FA499IplZu5b7
+	dWr3i4sZGDw8b9hq9R4fjBU9AWJv0UIffAT2TCBOyOb13etOOEG0uDi6HbE37QLl3FFSCB
+	X+SeQv3PfTo3rAn0vARViwV9nD2cOSg=
+X-MC-Unique: IUL3VfimNmyT-TZaOpmkIQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YJSsYvboq8gK2ur+DEJF7/J3IbzVkGpEzFSjZTQotrndojQ62R8+OibN05lQOSwpuRc5yfOJDVQ2BVstOZuRkgARLmJEedTW7/rb4NlqIdG/nSgXjlDPcGA1Bt4ylj1XnEo6/nUi+wHUwWTF3JwoVkJYMu7HlE2dU/pgZ8FDqjbAuoOCBKpYqxRKAz3w/ztqSwpT6Vod3rwpqF14EMGOG0qerWCrHKYmtzTohr2Sq2EeN3kg5pCgJZqLJtKOuFE1+piunZKuc1WJ6WPlW3X250BUvk8p2BVkiraXkGlwBmKS2V9lqjQKki18TVvmKpn9vbaH33eQvvuc2iq56sN1Sw==
+ b=UlS5u0VoCVkT6ytFjKvxzL6GncinTGvl2rgkja6c4EHEkJJ4aG1AyAZHMLdFw6U+H9APYbLsoPlEoqK4OM4hSYU/fUWSgw/mROyMJvsIyM3CH+aszCs2QcFvIGWYUx21pK1YaGO789Q7rBixum6jAoW5WVXbD2wQe3bnNaVYyeCX10E5aP1smBDFCyEc5JkwtJxuIrzFViRRwTFGRwjgFJdddP9iuv5l9qiB4tVwf4mrdjpTJqyP4sn9zIYO1GQG3nGtSyZAH0XRT40LRzol1Rh6rjj0uGwAaPVgsmEvRmAhAvWG44MhiQlANG9X/E5EP7Cuq2k8yq5xYiYir3eNew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oLRi1XsPF7LgTrIYyzkEtdY9k36UwfVsdF2v+x/5S7Y=;
- b=TPRxPNpmSTJ/7vN1brX9+s2241iEZh09BhG6JVeUU09lOFXod+A15TqUFVEnNjvSqVI08EutTgspB2uGyk4fOxGW64vkzNmXqYSHoknJoM/xNx9Y8fSVib8DBrhlkTxPCdsmrfcKE4LThxydPppibLHnc7cQ8W/h0YiE+FAROIuH+8TlA/iLle1UkIZOo3BVM6TgRr/dUp1TJNSbBP28UFn7VQaVu2wqYvpnzy7VXoCwBG1zpo1B3AUkbfFtDU5rLW44pTkMKByGlZopoiH6iVwPR32388WBJ7XVHrnPzjuck8iDAf7HLSOv1UL060FuspIg3RA9tI22zAKQZJA+ww==
+ bh=FCT0rcMlrQlC78D+AYNG+gd8eKcIo81ibv67FimMn3A=;
+ b=dIOryjelEevoB/lvHmU1ptcqrgJUqPSVJB9EVT1GNbIt9WI3QdBMEDRYSGvXA+1ivLpLb6fJaDtE0mZvnRn7JGpFrdyPStY8ISjrSaiXhoBVsCJJAvjgTgfA1bjgrVHbD8pgQKGYpFfDJSxqPcj2oXvtihs8ej2L9Zlf2SX+rI8g+VoLZ6Et+YaZi6Fmul4wL38rwDqXmhp5OzP8MMzwlSIO2E7wEKlk3WjwejF0OWcpua6gtmrI7/5tHMVbRWegs2ZlUS/4HS/xCAyyIUJBN7mj1T9rCj4K5S8kFgCzq0Z9Q1xSWn9OzsSCrpCIOyV+GkcX6AD3Eog0rcbjPxyg2w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oLRi1XsPF7LgTrIYyzkEtdY9k36UwfVsdF2v+x/5S7Y=;
- b=QkUKm9sET1rE+gXzqy9H/m4lcTx8io7KEu+5iEyilS9oOa536mQ9CuuzUlzqObo8Aqc/DocZRkn8x5EgNoclnkM+a94e4DFoy3ffNlXcdMSAejySPZ7CV8WK9ZTyTrzXWxITeNJ+c38M9xEbthHMZ/icYFKs5avw+x92jS1O4xU=
-Authentication-Results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
-Subject: Re: [PATCH v13 01/12] swiotlb: Refactor swiotlb init functions
-To: Claire Chang <tientzu@chromium.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Frank Rowand <frowand.list@gmail.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
- jgross@suse.com, Christoph Hellwig <hch@lst.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org,
- paulus@samba.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com,
- xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, mingo@kernel.org,
- bauerman@linux.ibm.com, peterz@infradead.org,
- Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan
- <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- heikki.krogerus@linux.intel.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>, Dan Williams
- <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- linux-devicetree <devicetree@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
- xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, Tomasz Figa <tfiga@chromium.org>,
- bskeggs@redhat.com, Bjorn Helgaas <bhelgaas@google.com>,
- chris@chris-wilson.co.uk, Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- jani.nikula@linux.intel.com, Jianxiong Gao <jxgao@google.com>,
- joonas.lahtinen@linux.intel.com, linux-pci@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com
-References: <20210617062635.1660944-1-tientzu@chromium.org>
- <20210617062635.1660944-2-tientzu@chromium.org>
- <alpine.DEB.2.21.2106171434480.24906@sstabellini-ThinkPad-T480s>
- <CALiNf29SJ0jXirWVDhJw4BUNvkjUeGPyGNJK9m8c30OPX41=5Q@mail.gmail.com>
-From: Tom Lendacky <thomas.lendacky@amd.com>
-Message-ID: <741a34cc-547c-984d-8af4-2f309880acfa@amd.com>
-Date: Fri, 18 Jun 2021 09:09:17 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <CALiNf29SJ0jXirWVDhJw4BUNvkjUeGPyGNJK9m8c30OPX41=5Q@mail.gmail.com>
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [RFC PATCH 04/10] xsm: convert rewrite privilege check function
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: sstabellini@kernel.org, julien@xen.org, Volodymyr_Babchuk@epam.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, iwj@xenproject.org,
+ wl@xen.org, roger.pau@citrix.com, tamas@tklengyel.com, tim@xen.org,
+ jgross@suse.com, aisaila@bitdefender.com, ppircalabu@bitdefender.com,
+ dfaggioli@suse.com, paul@xen.org, kevin.tian@intel.com,
+ dgdegra@tycho.nsa.gov, adam.schwalm@starlab.io, scott.davis@starlab.io,
+ xen-devel@lists.xenproject.org
+References: <20210514205437.13661-1-dpsmith@apertussolutions.com>
+ <20210514205437.13661-5-dpsmith@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bd1f80e9-5d1c-beb5-f255-4351a5f64955@suse.com>
+Date: Fri, 18 Jun 2021 16:14:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210514205437.13661-5-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [67.79.209.213]
-X-ClientProxiedBy: SN4PR0601CA0004.namprd06.prod.outlook.com
- (2603:10b6:803:2f::14) To DM5PR12MB1355.namprd12.prod.outlook.com
- (2603:10b6:3:6e::7)
+X-Originating-IP: [37.24.206.209]
+X-ClientProxiedBy: PR2P264CA0039.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:101:1::27) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f221e95d-4e30-47fa-acd3-08d93262abdb
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1708:
+X-MS-Office365-Filtering-Correlation-Id: 6a07bf44-c21b-4a21-a94c-08d932636dd2
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7151:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<DM5PR12MB17081865F840834BCF17A650EC0D9@DM5PR12MB1708.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+	<VI1PR04MB71512F6B94F180FAA47E98FDB30D9@VI1PR04MB7151.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	W81zqNegGhXtmyGutYcXqZK6WKj93KvXEUQwinaX80I9UREJRH1X5ZjFo1bKCiBISoKjvPxFNrviGDgVpQw4M2gllzpECvkJWY31E4OCRtIQaq/+3i9fVL2/FWbzndFFmn2/y+Y5dZPeDx3ZIjwt6mOIuKijzIrzFQ7L07JWGQYcqmOaeNlKVE4rRh56CXuZQSFnvAy9O88DDyIBhSA15TxXobwBeyTQc3xSDctJrRF5sOM9pXIQNjT5lZWdEQR4xbKUdhtfp05lOLmbPIRSJcZQQwovsa52ZlzKn/NBTrjz5vqID/h+QlQpFRrBnO7I08jU+Z+zsoXIHstg6kSSgQ2UpU4Rqlv1EO4zKV/ShGbXgk2s1K2G0pJ1wpIHGmiRTwe/4FVtjVflUFLZdKECngBqGM4OUHsiEvIw6xj2dLFgkO1T/6vX0rIrWZPxn0eaHxGVv+xfGX6fpFkETbq5u79tnzKR5hgOZg2W85yQYeB8urPkhQEF7InNTbkkk6ZkrP6jjoNlBC/mg9wfDaylrRMM7DCner6q6TQ65AT0vHCMj1zGXzP8mAUQY8fy7AGzIrZAYKE+Q/p2lScDVNETcZNZlpdUzPXuQD4KNWNhh/JqTvD/fctFNKibIOQ0kWQP2L7pdUNyyHHO1WMMu3iAVHU8inHMg9CXJD30R9W34kljaPWy58nsvxvQExo0YNdotgHO21WNgw0xATsJMmODiG0GBp8KgvACKlNj80F4coAEgQWg5shi8PBatp0KTneYofTkP67Va0k2my2pPOGXG/JoKR5pQ4pBlKjmk8U2z4ObHjREhC0onwr2djrKFcQdKQzDyK/vHjjb8/LTdYo3vg==
+	E/rlfmqViW5ab1LO37Xwjcr4aLG0YVU2rf2hfeRkJDBzc5zOBV38IBX3EW+SBpS9Bg76FZd5M4iZu7Q+p/O/Kg7i1UPuRjIahGpvmz1jnKRNqAg1sVEJ3rzjYKTpZjHMc9rKdN4Ws8FSsLtNNagaa1LqGCDKQmzNw9g1rlNKOg0DLTlEPUSSEZFTdr1SjTpMD5XRH8lX6g0QizSF9fTwfK1F9msQLtXs2HzqHxdYb2cjBJXQGFAhsVljvQEaTTMLDKXb4ansrFOFqc/oDHr5TtVIHoUIrP+OnkL9c/kmVEsAJYZ+80y21a/WpdAm6FrA3KZkCXtJNeTYz4a63Bv4OJ8QOuVoquftnQne87yAMI4wD0/2rBdQ8g5LIvjTEpN58EtMxBHuS/9dhoyM5oS9SX/q+9d+JhWImIqGGuCAO7OmKQ2u4EoZd39JvErVF4yje4rarH2I3ai33ixqEWdQgAUAfedJ56MCKKcPxNPoVUhuPKP0igry21TGiB7eCguDPMldoCYZ9iNazpPEBpvlGJOOv5Z86Fmr3HnAa2Rtv/92iRMCoBOGoZ42dub4AEwZm9sb1PneXCGlokNpSpsbK/2kKNtvAusbYk0gTZ4DjvlWjAQKjeo1WeuleeuLGTWD1tGrrbDPqC9m5BGWaAT42iTWWedBY5904ZtRVnIjiYE34es0Rm8kinXFVj5qtztb
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR12MB1355.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(396003)(366004)(39860400002)(136003)(83380400001)(186003)(8936002)(16526019)(26005)(4326008)(6486002)(7416002)(31696002)(66556008)(7366002)(6506007)(5660300002)(53546011)(2906002)(54906003)(38100700002)(8676002)(966005)(86362001)(45080400002)(66946007)(36756003)(478600001)(7406005)(6512007)(66476007)(2616005)(316002)(956004)(110136005)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(39850400004)(376002)(396003)(346002)(366004)(31696002)(6486002)(186003)(36756003)(66476007)(16526019)(66946007)(316002)(478600001)(31686004)(86362001)(26005)(16576012)(38100700002)(5660300002)(6916009)(956004)(7416002)(2616005)(2906002)(83380400001)(66556008)(8936002)(53546011)(4326008)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RTF1VW8zMVRmaGpmRzFsSWRqT08wSW5zbFMvbFp6VGtDQXJpc1ZCT0doNCs3?=
- =?utf-8?B?YkxZMlpmMDFVUTZETXRLU0RsMCtwalpJWHlLaDh1U2ZZL2pCSnVCNXdvdUZQ?=
- =?utf-8?B?NG1nOUJ3bDh2NEkzN1VrempKQUpERzgwZ2dRSWZPcEZLRGhtU2N2Qkw0Q2FH?=
- =?utf-8?B?OTV0RWxiWnBrWmczM2FwWTlvRVYzVzljOW9xYTg4ZWhsc01rVVlodWdFUEx4?=
- =?utf-8?B?UFJzcEpIMjcrbGRVcVBoeFVjL09YemszMFNnd1pPRi84bFhibXIvbGhRSk93?=
- =?utf-8?B?Uis2WHFSakxvUjQ0ZUF1USt2NU05Z2tXZkV6TXZBdzdLL0RqWmpMbUF5K1Zv?=
- =?utf-8?B?TnMvSThpODNDMURUaEVmcG5EVFVEdjdpZ2R4RVlaR01NQVBqOGp3cjhxcnE2?=
- =?utf-8?B?b0daNFlPcVorYzlWV2IrNXJiQTA0R1VRY0FrWjV6UmVrYVM0U0VBUFpMYWMr?=
- =?utf-8?B?V3ZmU1pHSnVlUWpnRkJzOTB2Rkl3MDJnL3lRWVJuMkw0OS9nV3llMHMrSWU4?=
- =?utf-8?B?QkNjbGNIMjNNM002Q0pjeDhxL0E3Z29qVm1GQTdmUEpiajAxMGU1NVVJNFo2?=
- =?utf-8?B?WWYrS0V3QWNkSUFZbjVGRU5pQXg5V2hmTHhCaStPUnF3SVlOTHg1VHJmUjUr?=
- =?utf-8?B?a3FuOVFhYUNmQlk2Rk43aHNQTUo0Z29kQ3N2V3dFVkxnQlh6Z3cvZGtpTTBJ?=
- =?utf-8?B?bytrdDdKTm1iV3UvZnNpcjJkNC9RRCtwZlllUmQzOEs4UnZONytFMzZZNnk3?=
- =?utf-8?B?UDFPSEtwUDBGTGpldEJEVmtSNm42SC9PckxwaGxkaUlJMDU4T3lzWldPTUtM?=
- =?utf-8?B?clUzVlpjcDVuYWk3akYrZ0V1RmNwMXZFWVA5S0p4UzA3eUh6azFKVWtBRE5q?=
- =?utf-8?B?MVorMkVnY3l1dFpjNHRzK3E0YTIrSFRjQWlBRnhoZG01UVJNRGMzZXcrb3RD?=
- =?utf-8?B?Z1BSS3FBNm95bFdQemF0eitMMWZvS3Uva1ZlQWI0ZFd3MTB3cXJaS1FiSnRx?=
- =?utf-8?B?V2xkbGJvRnE1VnpMYUZUYjFvQi9RWmwzODcrajFsQzlDQjJaYWo0dDQ1UVB5?=
- =?utf-8?B?cGhpek5NS3hReDcvUVUvZUpoN2V1Q1pxbGNjMUVqUG44MWhMUU94eml6c2Rl?=
- =?utf-8?B?dmdpQysyVWppaE1qbXp6YUh4U0lyZU5TN1VueFFxazdienhmTDVmV1VyeDlT?=
- =?utf-8?B?dXFrNFgwLzNkeDFqRkdmcUFHNjhjWncwTHdKWkk3YVhJWnlMTGNGNkVNc29r?=
- =?utf-8?B?Z3NzSnZLQW5HRXFTMWZYdWdmT21samhtN0JMdzFzTmNLb21ZaHJyVnVqQnpB?=
- =?utf-8?B?VGVkMnFlTktvcldFQVdZMGxBQ1drNjdLV213N3ZIY3c3UGlCUmZuUXFmeHpF?=
- =?utf-8?B?TEJZRnN0U2hKeUx2S0RjWFVSZjllazZ4ckViUm1VSWQ1U0g1L1ZOZ1ZPL2k3?=
- =?utf-8?B?OG81QlFkK3lnUW5weUFJVnVqSnMyNndCSjdJdi9EazBlekxkYThJYldqMDhr?=
- =?utf-8?B?KzRaUUI3OFE1NlNCV1J3elBEVlNBTUtUdTU0eU5Ld3lQKzFER1oyb1ZEL2c0?=
- =?utf-8?B?aklFUEg1bGR2TXp1NE9Nd3dQVU81ZGJXb0FKUG01Tk5ZYUlPTWRWenpJbnAx?=
- =?utf-8?B?M01vYjh1THg4V0VaNDYvVXl1WDZ6aVI5TTFITlRDNzdTMGRmQ21NOTFOZEpz?=
- =?utf-8?B?eno3RGo1dFhiR2c1ZE1WOHlTVnVGenc3L2QrbHZ0S1diWTJJcDVhWEhUc2Fi?=
- =?utf-8?Q?esIpSlmSoBBKai4kWvfAW6bnueBOslxVkn4yALT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f221e95d-4e30-47fa-acd3-08d93262abdb
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1355.namprd12.prod.outlook.com
+	=?utf-8?B?ODhpSEhHSUI0UTF1UExML1Riay9mR1BldzRycGJCODR4MFoxWEpaMTQwSVFD?=
+ =?utf-8?B?d2R6aVNFamp3ZjBRQnpSWjN3ZEYyanNCQTByVHk3RWFNTmE1cDdRSjNuS1Np?=
+ =?utf-8?B?cWpQck9PcUJKQmxYUWV4WTlGdjJYaUt1aXlwZEwrOU9Iam9sL2hpdWlwNVVO?=
+ =?utf-8?B?b1hMcVFySzZ4djB5WkxHUHR1U01TVUZUZGU3LzFwRG81cHgrNmdRRTFNNW9D?=
+ =?utf-8?B?eCtXZStxRDltcHB3UjYycW9LS0RhcHprR3BNTnhHeS9HZng0bjgrL0krVTM3?=
+ =?utf-8?B?aFZIeW8ydy9aZXlXQ3ZJZk5NdER5THNmMEdEWnVGR1VCUkdpYU43VVVFRmtY?=
+ =?utf-8?B?V05KRUhOS1JKaldHWmlKNkI0VjVoOWF5TTJqRi9PbTljWlF3cXQ3cGFqREhB?=
+ =?utf-8?B?ZUcyZnVGOXVlWU9IdThDdjlodWJqcnhRbkJudm9hUG0zUEcvMEhKaE4zc05w?=
+ =?utf-8?B?ZkhabUIwU21VZ1JpZHdpVGxtZ3VTYlJJQmpnQVNwOVdrdkRRQzZPQWQzWXo3?=
+ =?utf-8?B?VHp6TzFEd29KTWZrbFBMbFhWeGFYZGhQUmRJdlV5MnVLY0VBSGxEUEtRVWs0?=
+ =?utf-8?B?YVNBa1JldUpqelFEUUF0S2c4ZTJ2V21kL1ZXdXZNcG5CcUlYMGVPM3NNUnVK?=
+ =?utf-8?B?b1dQZ1JnQ2FIcEpGOCtHTmdZVEQweC9tdENRc1Fuc0c0VVozUWdVWS8za0tE?=
+ =?utf-8?B?elFlbi9GbDVzYzF0QWJnNHZMbWtia1BzM3JJalR3dmN6ZUtUSWdGVUYvS3ZK?=
+ =?utf-8?B?M1VHOEp4by9qUFMzTE1qSjYvOThJUEU2NVpMa3lHblRIUjVSdUJLek9FWUxm?=
+ =?utf-8?B?bndqaWR3Sm1lOTJRT2NmbHZqMEt2N1RqdHVTRXhoNEdmbDQweEpSR1BWVXNL?=
+ =?utf-8?B?VWlJSTZSVGpTeVBaZGNvZ0FRaFA4VUJmWVZxKzFTQnh6N05KL2grL3JCSGZr?=
+ =?utf-8?B?MThscFNpdTVTdFZsUXdoOFJ5ZTgxU0poZmR0MFY0djY3VWZ0Q25ZK3d1SFpL?=
+ =?utf-8?B?UVM1aDRiTVQ2NDJ3VG5zQjZCSmVYdnB4ZnZON3UydmozaWxkb0NQZXdDTTR0?=
+ =?utf-8?B?cU1VcGR1R1UrU3NkYjFyS0F5b1N4U1VoYXQ1aGlFRk94LzdLTkFRM1VQSmpt?=
+ =?utf-8?B?RzFpcnRHR2UwRjhMTGlwYmZ2c3oxVmdIUXF2MC9CWnBRcmN1YnlUUnZCVm83?=
+ =?utf-8?B?RjY0QWpjZVVucGFHb2tFVnpJdnFDUVR0VWkrS2x1Mm1SRzBIdzh0dGJtU3M0?=
+ =?utf-8?B?d0RIa2VYblFXRCtpbEpBYXBhSGx5MFp2YzFVZHc3MHI5NnFTZE1Ickd3RXNQ?=
+ =?utf-8?B?bUc4dUZiV0VJT3hwM0dHZnRDbnFGT0o3ZGVQVWp3S01rSlRhMC9jblgxdzcy?=
+ =?utf-8?B?N0FHRzFIWXFueVJXTmRGZHd3ZnFwVkROQ2R2MndHNWlLNUNPWHJNREg4bTNk?=
+ =?utf-8?B?U3lyeW82ZFZycXRUSlNxMUNFV3dBL0paMUhJT0ZIaXlIRTBVQytOeTJVNVNn?=
+ =?utf-8?B?bmZWOEZaMksrWGUyUm45L1ptV2lkZDJZdWNKM0Nkd3dOQ3AwSUEyMXJzMlNq?=
+ =?utf-8?B?czhFTHFRcVZBSDRqUUxkS0lidldGbWtvQmpjZUl5UnNqdXZpZGxUcm9NTXlq?=
+ =?utf-8?B?TDRGYTRZOStiaUMrVEVzWGw1TkZGMjZQOVlSbUtVNk5lSTBJYm1DSlNNYjY5?=
+ =?utf-8?B?TnMxYUs0N0tyMFhBT2plMkh3WXU5UEdqLzVoVGJqeUY5ZTkzdUZrN0s0TUdW?=
+ =?utf-8?Q?WgS/v5jo2Wc+P6wuTdV4ukWoZwbTCarhqsad8+C?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a07bf44-c21b-4a21-a94c-08d932636dd2
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 14:09:22.5058
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 14:14:47.7578
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fc+b5bk+EKsqI5tf6Y9m5leX8+yq5/ThpNw9DurxKQTMG6UvMLJkVdybTkyH0xi09bRkLzh9r2w1pSsYiVXV4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1708
+X-MS-Exchange-CrossTenant-UserPrincipalName: Iw4dtkqyKbJ5nIu9CbQiixd23ljlQc3zK/4yA/9AzehleEcrprj8mgnVlON03BzDn3ABNApfAwsQyBWSdYoSIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7151
 
-On 6/18/21 1:25 AM, Claire Chang wrote:
-> On Fri, Jun 18, 2021 at 7:30 AM Stefano Stabellini
-> <sstabellini@kernel.org> wrote:
->>
->> On Thu, 17 Jun 2021, Claire Chang wrote:
->>> Add a new function, swiotlb_init_io_tlb_mem, for the io_tlb_mem struct
->>> initialization to make the code reusable.
->>>
->>> Signed-off-by: Claire Chang <tientzu@chromium.org>
->>> Reviewed-by: Christoph Hellwig <hch@lst.de>
->>> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
->>> Tested-by: Will Deacon <will@kernel.org>
->>> ---
->>>  kernel/dma/swiotlb.c | 50 ++++++++++++++++++++++----------------------
->>>  1 file changed, 25 insertions(+), 25 deletions(-)
->>>
->>> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
->>> index 52e2ac526757..47bb2a766798 100644
->>> --- a/kernel/dma/swiotlb.c
->>> +++ b/kernel/dma/swiotlb.c
->>> @@ -168,9 +168,28 @@ void __init swiotlb_update_mem_attributes(void)
->>>       memset(vaddr, 0, bytes);
->>>  }
->>>
->>> -int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
->>> +static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
->>> +                                 unsigned long nslabs, bool late_alloc)
->>>  {
->>> +     void *vaddr = phys_to_virt(start);
->>>       unsigned long bytes = nslabs << IO_TLB_SHIFT, i;
->>> +
->>> +     mem->nslabs = nslabs;
->>> +     mem->start = start;
->>> +     mem->end = mem->start + bytes;
->>> +     mem->index = 0;
->>> +     mem->late_alloc = late_alloc;
->>> +     spin_lock_init(&mem->lock);
->>> +     for (i = 0; i < mem->nslabs; i++) {
->>> +             mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
->>> +             mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
->>> +             mem->slots[i].alloc_size = 0;
->>> +     }
->>> +     memset(vaddr, 0, bytes);
->>> +}
->>> +
->>> +int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
->>> +{
->>>       struct io_tlb_mem *mem;
->>>       size_t alloc_size;
->>>
->>> @@ -186,16 +205,8 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
->>>       if (!mem)
->>>               panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
->>>                     __func__, alloc_size, PAGE_SIZE);
->>> -     mem->nslabs = nslabs;
->>> -     mem->start = __pa(tlb);
->>> -     mem->end = mem->start + bytes;
->>> -     mem->index = 0;
->>> -     spin_lock_init(&mem->lock);
->>> -     for (i = 0; i < mem->nslabs; i++) {
->>> -             mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
->>> -             mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
->>> -             mem->slots[i].alloc_size = 0;
->>> -     }
->>> +
->>> +     swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
->>>
->>>       io_tlb_default_mem = mem;
->>>       if (verbose)
->>> @@ -282,8 +293,8 @@ swiotlb_late_init_with_default_size(size_t default_size)
->>>  int
->>>  swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
->>>  {
->>> -     unsigned long bytes = nslabs << IO_TLB_SHIFT, i;
->>>       struct io_tlb_mem *mem;
->>> +     unsigned long bytes = nslabs << IO_TLB_SHIFT;
->>>
->>>       if (swiotlb_force == SWIOTLB_NO_FORCE)
->>>               return 0;
->>> @@ -297,20 +308,9 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
->>>       if (!mem)
->>>               return -ENOMEM;
->>>
->>> -     mem->nslabs = nslabs;
->>> -     mem->start = virt_to_phys(tlb);
->>> -     mem->end = mem->start + bytes;
->>> -     mem->index = 0;
->>> -     mem->late_alloc = 1;
->>> -     spin_lock_init(&mem->lock);
->>> -     for (i = 0; i < mem->nslabs; i++) {
->>> -             mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
->>> -             mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
->>> -             mem->slots[i].alloc_size = 0;
->>> -     }
->>> -
->>> +     memset(mem, 0, sizeof(*mem));
->>> +     swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
->>>       set_memory_decrypted((unsigned long)tlb, bytes >> PAGE_SHIFT);
->>> -     memset(tlb, 0, bytes);
->>
->> This is good for swiotlb_late_init_with_tbl. However I have just noticed
->> that mem could also be allocated from swiotlb_init_with_tbl, in which
->> case the zeroing is missing. I think we need another memset in
->> swiotlb_init_with_tbl as well. Or maybe it could be better to have a
->> single memset at the beginning of swiotlb_init_io_tlb_mem instead. Up to
->> you.
-> 
-> swiotlb_init_with_tbl uses memblock_alloc to allocate the io_tlb_mem
-> and memblock_alloc[1] will do memset in memblock_alloc_try_nid[2], so
-> swiotlb_init_with_tbl is also good.
-> I'm happy to add the memset in swiotlb_init_io_tlb_mem if you think
-> it's clearer and safer.
+On 14.05.2021 22:54, Daniel P. Smith wrote:
 
-On x86, if the memset is done before set_memory_decrypted() and memory
-encryption is active, then the memory will look like ciphertext afterwards
-and not be zeroes. If zeroed memory is required, then a memset must be
-done after the set_memory_decrypted() calls.
+In the title, did you mean just one of "convert" or "rewrite", or
+did you omit some punctuation?
 
-Thanks,
-Tom
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -475,6 +475,12 @@ struct domain
+>  #define XSM_XENSTORE  (1U<<31) /* Xenstore: domain that can do privileged operations on xenstore */
+>  #define CLASSIC_DOM0_PRIVS (XSM_PLAT_CTRL | XSM_DOM_BUILD | XSM_DOM_SUPER | \
+>  		XSM_DEV_EMUL | XSM_HW_CTRL | XSM_HW_SUPER | XSM_XENSTORE)
+> +/* Any access for which XSM_DEV_EMUL is the restriction, XSM_DOM_SUPER is an override */
+> +#define DEV_EMU_PRIVS (XSM_DOM_SUPER | XSM_DEV_EMUL)
+> +/* Anytime there is an XSM_TARGET check, XSM_SELF also applies, and XSM_DOM_SUPER is an override */
+> +#define TARGET_PRIVS (XSM_TARGET | XSM_SELF | XSM_DOM_SUPER)
+> +/* Anytime there is an XSM_XENSTORE check, XSM_DOM_SUPER is an override */
+> +#define XENSTORE_PRIVS (XSM_XENSTORE | XSM_DOM_SUPER)
 
-> 
-> [1] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv5.13-rc6%2Fsource%2Finclude%2Flinux%2Fmemblock.h%23L407&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7C3e33e04212b84f9e4ed108d932230511%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637595948355050693%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=TGBDj18KuSHTb45EBz%2Bypfbr4Xgqb1aGTRDCTIpIgJo%3D&amp;reserved=0
-> [2] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv5.13-rc6%2Fsource%2Fmm%2Fmemblock.c%23L1555&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7C3e33e04212b84f9e4ed108d932230511%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637595948355060689%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=K%2FWbN6iKN9JNtwDSkIaKH2BVLdDTWhn8tPfNdCOVkSA%3D&amp;reserved=0
-> 
+I think all of these want to *start* with a common prefix, e.g.
+XSM_PRIVS_*. But of course especially these "override" remarks in
+the comments again show that for now it is unclear what the
+individual bits really mean, and hence whether these combinations
+all make sense.
+
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -65,37 +65,48 @@ void __xsm_action_mismatch_detected(void);
+>  #define XSM_INLINE always_inline
+>  #define XSM_DEFAULT_ARG xsm_default_t action,
+>  #define XSM_DEFAULT_VOID xsm_default_t action
+> -#define XSM_ASSERT_ACTION(def) LINKER_BUG_ON(def != action)
+> +#define XSM_ASSERT_ACTION(def) LINKER_BUG_ON((def) != action)
+>  
+>  #endif /* CONFIG_XSM */
+>  
+>  static always_inline int xsm_default_action(
+>      xsm_default_t action, struct domain *src, struct domain *target)
+>  {
+> -    switch ( action ) {
+> -    case XSM_HOOK:
+> +    /* TODO: these three if's could be squashed into one, decreasing
+> +     *       the readability/logical reason-ability but may decrease the
+> +     *       number of spectre gadgets
+> +     */
+
+Seeing this remark, I'm particularly puzzled by you dropping all
+evaluate_nospec().
+
+> +    if ( action & XSM_NONE )
+>          return 0;
+> -    case XSM_TARGET:
+> -        if ( evaluate_nospec(src == target) )
+> -        {
+> -            return 0;
+> -    case XSM_XS_PRIV:
+> -            if ( evaluate_nospec(is_xenstore_domain(src)) )
+> -                return 0;
+> -        }
+> -        /* fall through */
+> -    case XSM_DM_PRIV:
+> -        if ( target && evaluate_nospec(src->target == target) )
+> -            return 0;
+> -        /* fall through */
+> -    case XSM_PRIV:
+> -        if ( is_control_domain(src) )
+> -            return 0;
+> -        return -EPERM;
+> -    default:
+> -        LINKER_BUG_ON(1);
+> -        return -EPERM;
+> -    }
+> +
+> +    if ( (action & XSM_SELF) && ((!target) || (src == target)) )
+> +        return 0;
+> +
+> +    if ( (action & XSM_TARGET) && ((target) && (src->target == target)) )
+> +        return 0;
+
+This is an inline function - no need to parenthesize individual
+identifiers (also again below). Similarly no need to parenthesize
+!target.
+
+> +    /* XSM_DEV_EMUL is the only domain role with a condition, i.e. the
+> +     * role only applies to a domain's target.
+> +     */
+> +    if ( (action & XSM_DEV_EMUL) && (src->xsm_roles & XSM_DEV_EMUL)
+> +        && (target) && (src->target == target) )
+> +        return 0;
+> +
+> +    /* Mask out SELF, TARGET, and DEV_EMUL as they have been handled */
+> +    action &= ~(XSM_SELF & XSM_TARGET & XSM_DEV_EMUL);
+> +
+> +    /* Checks if the domain has one of the remaining roles set on it:
+> +     *      XSM_PLAT_CTRL
+> +     *      XSM_DOM_BUILD
+> +     *      XSM_DOM_SUPER
+> +     *      XSM_HW_CTRL
+> +     *      XSM_HW_SUPER
+> +     *      XSM_XENSTORE
+> +     */
+> +    if (src->xsm_roles & action)
+
+There are style issues here again. I'm not going to mention such any
+further. As to the comment, I'm seeing the risk of it ending up stale
+the moment yet another role gets added. IOW I'm not convinced you
+should enumerate the remaining ones here.
+
+Jan
+
 
