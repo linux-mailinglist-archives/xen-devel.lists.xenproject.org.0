@@ -2,67 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1BC3AE568
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jun 2021 10:57:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145382.267491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3F4A3AE58E
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jun 2021 11:03:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145388.267501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvFjb-0006Uo-Ps; Mon, 21 Jun 2021 08:56:47 +0000
+	id 1lvFpZ-0007vk-HU; Mon, 21 Jun 2021 09:02:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145382.267491; Mon, 21 Jun 2021 08:56:47 +0000
+Received: by outflank-mailman (output) from mailman id 145388.267501; Mon, 21 Jun 2021 09:02:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvFjb-0006Re-LD; Mon, 21 Jun 2021 08:56:47 +0000
-Received: by outflank-mailman (input) for mailman id 145382;
- Mon, 21 Jun 2021 08:56:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lvFpZ-0007sm-Ds; Mon, 21 Jun 2021 09:02:57 +0000
+Received: by outflank-mailman (input) for mailman id 145388;
+ Mon, 21 Jun 2021 09:02:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YNPZ=LP=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1lvFja-0006RY-Gw
- for xen-devel@lists.xenproject.org; Mon, 21 Jun 2021 08:56:46 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.7.55]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 43b038ea-db58-457f-88fc-df8a44ca6c2e;
- Mon, 21 Jun 2021 08:56:44 +0000 (UTC)
-Received: from DB7PR03CA0086.eurprd03.prod.outlook.com (2603:10a6:10:72::27)
- by AM6PR08MB5125.eurprd08.prod.outlook.com (2603:10a6:20b:e2::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16; Mon, 21 Jun
- 2021 08:56:33 +0000
+ id 1lvFpX-0007sg-U0
+ for xen-devel@lists.xenproject.org; Mon, 21 Jun 2021 09:02:55 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.22.42]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id be28687a-6c61-406a-9fb6-cefaa4c6307b;
+ Mon, 21 Jun 2021 09:02:52 +0000 (UTC)
+Received: from DB8PR06CA0026.eurprd06.prod.outlook.com (2603:10a6:10:100::39)
+ by VI1PR08MB4159.eurprd08.prod.outlook.com (2603:10a6:803:e9::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Mon, 21 Jun
+ 2021 09:02:50 +0000
 Received: from DB5EUR03FT026.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:72:cafe::66) by DB7PR03CA0086.outlook.office365.com
- (2603:10a6:10:72::27) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10a6:10:100:cafe::7d) by DB8PR06CA0026.outlook.office365.com
+ (2603:10a6:10:100::39) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18 via Frontend
- Transport; Mon, 21 Jun 2021 08:56:33 +0000
+ Transport; Mon, 21 Jun 2021 09:02:50 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
  DB5EUR03FT026.mail.protection.outlook.com (10.152.20.159) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 08:56:33 +0000
-Received: ("Tessian outbound f945d55369ce:v96");
- Mon, 21 Jun 2021 08:56:33 +0000
-Received: from 5c0fb2f4340d.1
+ 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 09:02:50 +0000
+Received: ("Tessian outbound f88ae75fbd47:v96");
+ Mon, 21 Jun 2021 09:02:50 +0000
+Received: from 7b6928a2d106.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 8AF347C4-D08C-415E-97F8-44E4AEE21DDF.1; 
- Mon, 21 Jun 2021 08:55:57 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 5c0fb2f4340d.1
+ EC85D21A-38D0-40DB-95B1-09D162C1C02B.1; 
+ Mon, 21 Jun 2021 09:02:12 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7b6928a2d106.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 21 Jun 2021 08:55:57 +0000
+ Mon, 21 Jun 2021 09:02:12 +0000
 Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PA4PR08MB6269.eurprd08.prod.outlook.com (2603:10a6:102:ed::14)
+ by PA4PR08MB6254.eurprd08.prod.outlook.com (2603:10a6:102:f3::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Mon, 21 Jun
- 2021 08:55:55 +0000
+ 2021 09:02:07 +0000
 Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
  ([fe80::7cfd:a8eb:b25a:f025]) by PAXPR08MB6816.eurprd08.prod.outlook.com
  ([fe80::7cfd:a8eb:b25a:f025%8]) with mapi id 15.20.4242.023; Mon, 21 Jun 2021
- 08:55:54 +0000
+ 09:02:07 +0000
 Received: from smtpclient.apple (82.8.129.65) by
- LO4P123CA0086.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:190::19) with Microsoft
+ LNXP265CA0014.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:5e::26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.19 via Frontend Transport; Mon, 21 Jun 2021 08:55:54 +0000
+ 15.20.4242.15 via Frontend Transport; Mon, 21 Jun 2021 09:02:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,12 +73,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43b038ea-db58-457f-88fc-df8a44ca6c2e
+X-Inumbo-ID: be28687a-6c61-406a-9fb6-cefaa4c6307b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yrAjr5G1UUQrp36qRjGeyweSc9U2mkXfIlhg8j21I1Q=;
- b=gK6TsYMnVUmTFMM7OOv5twDkqNtjgm5BaKO5zv9YUlqGoREUYdi3LIliPIdcWMiTrrXaZGZXNXpa4MrCIJE3lKxRcjdpTZFAy7FOB4at2ugJmRYqmi3B67Uywfc+pIW0/x8iCVNH6YnHnIeJohVmLnWemsjN7cwgnwVEYOIG5uw=
+ bh=7C18WQ4WmLiN6bjCWWNLNGvCw4AQ2jUQz27y43G7p7s=;
+ b=26lQoUc1XFqAT+YOr7Ci4JBK7/DArdzPPaARsisX6ir/Oc+JU2EYWUHIzjv3eVR7K7vZ+8WzUPBATtc/gmn2O0D40R8uyzJR7xnHX4xlvHdBAxHM0UUD5Ef5pwBokTDY+JdldqoTLMom/U7Xsgaf+z2UeZJd1EgJUaZLsj5pL0U=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -88,32 +87,32 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 7d035d1fd5171091
+X-CR-MTA-CID: c44f137472fc59e4
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Arr2vYD7lJ7Bxsz5sfUCYhRlaYksr90xhoSo0MilaGCn7i3/Qpk0udrF5qfwGH8cH66vWHToFVGgSkJO4L1/pemHsa01eIBGqH4LD8kK39IaHQwpiEQwr+DOkqWlNxFz21nLdZJjxLtPIibq3qoKCk1WNgMmf6Vz1NYZDzuG7XHkQo+nZqxDcGQ1CJLbPJjd0SK4+12124x0GUaEAR/pb4M+u7udE7GDOyqamD+bdOZ7soUGSc7Yy04nGmiDsOv9ntR6Phm7IMbwIarI9rE1Zk+1LqhvSmn7TiM93VKpNHaEFmUZ3kvVKmSzMcBnRDImjb5OwL/aegVYD7vgrvQYOQ==
+ b=m72A5m7JfUUSWURMcq2lkUIs2hsDxmMfi7A5bSl2ZvPybOEGEpS7oEWtIWoWjICxKnzLXwMmf52dqLFwa4hdlCm+EujFhJY4XHV/l3vYvjaynCHwMTQ3EM0GpCVAgSOvtJ4LEJpLIsyx8bkC8UaqGaWKzcZXUxc7yd4LmMuUQ+nkb78ubA3pUDdVzyRj9Hq4HneQkv2Q7/Xrl7fiGYmSfpl1hTFoc/mSnb+3tzYMtiLd1v9NzHptjQ4P/i4CoLjXqhzJOvfuswyvp8EUhtyLuxbTtM7NDKkoYvqdes7g43Wt3DMGeQzwj7dKNuEOEI1djkF12aQPLgKBLmj/b0yoJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yrAjr5G1UUQrp36qRjGeyweSc9U2mkXfIlhg8j21I1Q=;
- b=hXAbiQf6+1AIvsHYYBaoM5ggs2TE5jPz2zZXGRtdOLVyHT7MgeebPdfh58WsTzuB6uDfEwaaXEglX1HYuiMsCgw90liwbkBQMbBzCvSEaLoYIPsTTsLE9oG+2aIVzNJXb8afd9DasWPO4sfwEcvjUsbqN+l7p09hToUgEI1fzLWYZs0viCQtLbit/l/Muedmr8JEkhaX9eySa38+8/L/1mpyE9Hv1D8mzr/0gDAIdoZiBsyYlv+MmcUC/0qE3bBe8GR0e4XosusIrIUhFc4Pp5arhenN24AkAF8+1Rt6eMaKJawh0E3qobAgh9GU6yQuKoJ9Xoj7mwtDiuFQEJnzeA==
+ bh=7C18WQ4WmLiN6bjCWWNLNGvCw4AQ2jUQz27y43G7p7s=;
+ b=ZY7d6YDD/sZLC3YIm/cx3EVh4Mw2C+6eb+Am7S+/QxViDWUiaNiYQMIWoOm1v3YVJVGosS72r3/e3Xk7Qzfliif9MYwZAqwMX84C6LX7ilXfO290XhwY1CH6z9ZqQ49WTP9idSJ201dTg5gnAY/ngUvESTyO4KrIl6Qu9YJl7W6IAY5i3wAKoWF3Bb8v5s/Uj7PcZuPjWIxLNeC1Fd9DLdMCmsgCikV8bo50jh+ituuxCjuBx7NwB0+w7BQe2HYFOiPJUa+0k489HLdpD9ve2xV1YrOj9W4HLgFG9DxZH8gs0WQmuS9v9z6ZsIN7aMo2LGEwEjeNe0KJ8kk2BPqnHw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yrAjr5G1UUQrp36qRjGeyweSc9U2mkXfIlhg8j21I1Q=;
- b=gK6TsYMnVUmTFMM7OOv5twDkqNtjgm5BaKO5zv9YUlqGoREUYdi3LIliPIdcWMiTrrXaZGZXNXpa4MrCIJE3lKxRcjdpTZFAy7FOB4at2ugJmRYqmi3B67Uywfc+pIW0/x8iCVNH6YnHnIeJohVmLnWemsjN7cwgnwVEYOIG5uw=
+ bh=7C18WQ4WmLiN6bjCWWNLNGvCw4AQ2jUQz27y43G7p7s=;
+ b=26lQoUc1XFqAT+YOr7Ci4JBK7/DArdzPPaARsisX6ir/Oc+JU2EYWUHIzjv3eVR7K7vZ+8WzUPBATtc/gmn2O0D40R8uyzJR7xnHX4xlvHdBAxHM0UUD5Ef5pwBokTDY+JdldqoTLMom/U7Xsgaf+z2UeZJd1EgJUaZLsj5pL0U=
 Authentication-Results-Original: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 Content-Type: text/plain;
 	charset=us-ascii
-Subject: Re: [PATCH 03/10] tools/xenstore: Don't assume conn->in points to the
- LU request
+Subject: Re: [PATCH 04/10] tools/xenstored: Limit the number of requests a
+ connection can delay
 From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <20210616144324.31652-4-julien@xen.org>
-Date: Mon, 21 Jun 2021 09:55:48 +0100
+In-Reply-To: <20210616144324.31652-5-julien@xen.org>
+Date: Mon, 21 Jun 2021 10:02:01 +0100
 Cc: xen-devel@lists.xenproject.org,
  raphning@amazon.co.uk,
  doebel@amazon.de,
@@ -122,80 +121,80 @@ Cc: xen-devel@lists.xenproject.org,
  Wei Liu <wl@xen.org>,
  Juergen Gross <jgross@suse.com>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <4316B0AD-5F89-4D04-8996-00836AE3991A@arm.com>
+Message-Id: <77658E0F-C333-430C-A0E4-13F08E943A8B@arm.com>
 References: <20210616144324.31652-1-julien@xen.org>
- <20210616144324.31652-4-julien@xen.org>
+ <20210616144324.31652-5-julien@xen.org>
 To: Julien Grall <julien@xen.org>
 X-Mailer: Apple Mail (2.3654.100.0.2.22)
 X-Originating-IP: [82.8.129.65]
-X-ClientProxiedBy: LO4P123CA0086.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:190::19) To PAXPR08MB6816.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LNXP265CA0014.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:5e::26) To PAXPR08MB6816.eurprd08.prod.outlook.com
  (2603:10a6:102:130::10)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fff5baee-4c45-4519-2844-08d934927849
-X-MS-TrafficTypeDiagnostic: PA4PR08MB6269:|AM6PR08MB5125:
+X-MS-Office365-Filtering-Correlation-Id: 667018d2-9f5f-4771-57e7-08d934935899
+X-MS-TrafficTypeDiagnostic: PA4PR08MB6254:|VI1PR08MB4159:
 X-Microsoft-Antispam-PRVS:
-	<AM6PR08MB5125AC08B94D9148C84DF9FDE40A9@AM6PR08MB5125.eurprd08.prod.outlook.com>
+	<VI1PR08MB4159A77453A35168BF74FF2DE40A9@VI1PR08MB4159.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;OLM:7219;
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- QOPBLZ1bYBpiIbr1DTbPawQ+d50MPth+nTH2/UGbg8qQ9LoMsZ6/ZhtjpCvoLm2EsDiEreaHeUQSOntwN5OyUHiYZvJDGZVQbOZpqr9p0klXemxeoOmPgnZiJgyfvu1rD0kDDVzBCF2szaQ3IOIKKBg+OJNpCN8dgXJ1x47xEB4B+sqou8EzzEMReE4yHHmMNIL3d8y3zdFnJKmNyNXrbHeG1RonrhnVDQ2KyZ9VjanwqOVCKKDmVaUF3gJZPDyc9YtUiGQs+g7L7/ElOZdjUwm2JLHwUCxE0GWP+e+hInGQztnvlm+VufQGquacyAYlfPOMLub3mSRL/nwwvhkwT/S8ftC8Anxlzk0yl8WCWOTXue/HPLSs3+uH03tveEpHp2N0bXQrZsN01MbToEqDwFJn7VOrM4aP9gA1RShUHnN61CaDAo+d5HDuNgufy7m7RW3u1UF8RapZZAnp+c+ykNuVf93NJSeNS6QggQTt6Yy26pOuP13bYlcVL7HJHSjZEPcfLsYHtyJ9ujjwbA04CnJuXlkcfg0q6WTquAh1wEh7szJvjtpFR/+1F1YhN7bOpNpESZJVqRTHrp98stmKqE74DWTMAfnkP8W3FOy98CS7XETxVrZHIL/XNsalZOX3BbQZw5WY1l+QiinnXYH3hAZrZ4MdiMRlpNSUE3k1WDebutMyz759HdKcI1uxrj5n
+ jRMdJn8WPZOhM/9o6LalQMfZerd+5Hg7bLaKySaPXw7gLPKoeFkD8wxpl8aymxsn5/zIMNl8GKn09/QPqWESemkO3vHap4xfR+nC7ZKBP/ffhLLjZ8+aIl6wuxcvHj3bt72/0thU5+VBgnHvdVbuZHCGE7ZR9XUo86LDsuESMtMWLDjJ91kMK5Pn2tmtN1+3CdsF197fNyld5xKa9DvZHNxGiuSrR5ZuhidBDIMWQhCpQD23zaL6E9ldusSK/zabcWaORg2ZjgVKNM35cmHWYB70g5TCzLWdcx+SMguF8YLd94XaZ4IEx+6PjUx1Hn5XmgfUL96n9Wc14p80TwkV4NATfHVB0lO57ynAZX/4jy0zlmCaKlqPbqmPfDVUey/FcosrTPsZ1kXlcMI88oy3A+hJ8ig/VNx0yBWpCqrbOsJXDqmy3fDcJbzt8QmKr/8ms7TXzUA5cWTLrPk4v4NIayOKt6r7eEQTY+up2ZgzPflSjgzLlYQxC1uRgArCzBxJFrepdwaATA5iys4q9I01F8NmSn2UBBi66lhm6YTGZra0F+VqYZN4ZgSXy4xWxktOZBdNM6ZSWY9hTxGLXx+GE5MPxHV8c8OxJTjNTwU7OIvc7JWcuxo4+WAH8Yl53Jh+L0E9r5fWHOx+YaecRrpyNDpRw7Sr5PWUzfP0i2ZD/q0ZiqSAGxHHS6kp17fX4ylG
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6486002)(36756003)(83380400001)(86362001)(956004)(4326008)(2616005)(38100700002)(16526019)(6916009)(44832011)(6512007)(8936002)(38350700002)(53546011)(8676002)(498600001)(66946007)(66476007)(66556008)(2906002)(26005)(186003)(52116002)(54906003)(6666004)(6506007)(33656002)(5660300002)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(376002)(39860400002)(136003)(396003)(54906003)(8936002)(6666004)(5660300002)(8676002)(316002)(66946007)(66476007)(36756003)(66556008)(52116002)(83380400001)(2616005)(44832011)(478600001)(186003)(6486002)(2906002)(53546011)(6506007)(38350700002)(956004)(38100700002)(4326008)(16526019)(6512007)(26005)(6916009)(86362001)(33656002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?SmkOpIXoV1vrW0UPUVaYmsjc/15FfIgjltaYTA1zY8lhxXUDqGjvziVu4K5y?=
- =?us-ascii?Q?zZaeI7Az6scLD3oKlPUjWDG1oH4aXTWjSrlmjpvoKPhkc5Ox0M31PpGey7xn?=
- =?us-ascii?Q?YySXwVvIYL7+0jMRbL/sgSZxTaRHAfXeCPsMDW1JgMO+VOfZ82AK9tLZ19t0?=
- =?us-ascii?Q?tZGQVrMe4wbAGW503NP7OU1+L/q34LXjVcSJwNt30Tf3WE8J22oXDJJNjAPN?=
- =?us-ascii?Q?PmvyYjygfoRmnDQUHl4UZHwwVmuFvRiqzEik3a3ScwIh7Jk8DjPYooVAK44q?=
- =?us-ascii?Q?uNtiWOyd7hntZ4ARZkTijPiLEjpDkbykDdvKFhKkeHBU3tu/OJSXcW4HMzjo?=
- =?us-ascii?Q?C0mWU75qhwgYWNm8cS6X6rOKKYhEyUnTaFJpGL/rlXCYtLuAZddRm7NQIV0E?=
- =?us-ascii?Q?ZbYiNu/FZXby5vEo/PKW0WOGSO3Tc+yzq3gTdFMUdXoGA0CiOoHvwBZUtnbH?=
- =?us-ascii?Q?s/lRlzMVl8JEGlNCcKExJbnJJrIJLm8Agt7I16zSakKGt04+6bsczwAXyh+z?=
- =?us-ascii?Q?US/S3zBWj6wlABfw09wacR2agkS8fR25nx+iRb4yWmrpbRhxDq6SOP7xmcdD?=
- =?us-ascii?Q?14pgLN9eOZBXLjugectCnhXY+OpURvXUGmSsE3j/VdyY6nrR2aLnpPjSgt4Q?=
- =?us-ascii?Q?d5TXKc4FvtuPd60Du5S3PBCOBfwFovqm9xmuiMylTmfVofNkciwvgBp8N6cG?=
- =?us-ascii?Q?2FIQGoSKzAjOOBkBmJNcXCGYZs8TZ8jLfTLhvwVi9q/jWv7zaugIEQP+Okn4?=
- =?us-ascii?Q?rGKJORwGccEFNT9Yz6F6yFAkA0YL3aBTH0tML8UdYdz2sRI/psbHbrpd9DRy?=
- =?us-ascii?Q?JWw2ZIDvWVCJvX2PiUVtsZxtwc7XdG5lEeIMr/EclU/noaxqxltY/DO2ai3s?=
- =?us-ascii?Q?Pxg3lak1ZBAWq4EzqSpyKKs+46ksSXQ3WoncKXJ976ypf7HGcopqTCsRT/Qg?=
- =?us-ascii?Q?dn30qexwH4fLvCqrvLO4y+8xcAXaINR5dzUZRmnfeOFgi+9S9imLHEfiYMh1?=
- =?us-ascii?Q?t+XyZaxiouJsFcaWxIT1gww6k9owxBS9asLxwGxEqjqVrKLW4O/f8Z4sfbfr?=
- =?us-ascii?Q?kBln4MbYeAdb4VgKbXkyVDrU1C3RVuEyUbM684ult0Dey3NsLk3JxRt25n5z?=
- =?us-ascii?Q?40PBifp5W/EfmqNRsD0Pz0CLzNFJqpbW7orVN2uriLqgwlVOZ7FRasQWk2EL?=
- =?us-ascii?Q?CJLbImUxTbbxxk8/ZJmT0gMzv34TxZ5EBPec6G9Qk4tVLArkpcllTEMFOBCM?=
- =?us-ascii?Q?FunRXmyZaZ66BvolD6MvviF7p71l43YQCff2ki3+4BKBjX2oN5hc/gcnJFKt?=
- =?us-ascii?Q?N0tTWn5gYFWZfLK5SSx0fBZn?=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6269
+ =?us-ascii?Q?ROIEvlReMyIkX/nfRbyc/uae9lm4gUA5YXb9UiRuFNXgyY28TlRTj7bGQbV5?=
+ =?us-ascii?Q?zjNbqg1fVlfRBHyYlR4w07fstQgEMStsRdN0EcsvMc567UdNOHZNwIF0mZF7?=
+ =?us-ascii?Q?6dbIaiFzLRzD+E8THBhRRknOKeXPp8Ga+UgKiZyXQgyIVNRytQ5ovqAxri2u?=
+ =?us-ascii?Q?ThQUxXy/B4JIKbvmCcQDypQ73I1GcXFkc7y+NEniN4Sxky33BR6ejJmyLf5j?=
+ =?us-ascii?Q?opJNRBGhzyKtyXoHoVfeC8GEkS4pVHf9vPEMwv08y7J/+Xgzx6qv0Q7RaPvV?=
+ =?us-ascii?Q?De3plR1OdnL7m3z1lGB+RLKSqYJV4xAc1+14W0Sz1zz0Rc/82hR057mFQXhU?=
+ =?us-ascii?Q?qOtw3bcb42BnujrNpGNKnFnpqI3/4xHhvZSJgCTbbtXC/tasIV2EWrUBOr0M?=
+ =?us-ascii?Q?oVWY5lcRPKvtwNTHRAiDPFT1d4eMlS6SwJLgO6wtm9PDxmYAFbGNvwz7KTCa?=
+ =?us-ascii?Q?lQk6non4wS8ktdDJmPGM8b4QPl3m2zFjq3n6P5iMVR4K+VgnX+PspeY7CNjg?=
+ =?us-ascii?Q?BN1YwmSKle6Fko3H96RxgD1KUn+Ve4qNSqZWIdRQ4SdlYGn8xeHKz2Grk3CK?=
+ =?us-ascii?Q?jiIBAWP363wFDd4HBryhv8gWnUBG81jEso3cFDGaoTakmdA27oegNbdPzjxB?=
+ =?us-ascii?Q?0ySTJOI9+/Tvsrh9coFYxQl/PdDmCzc34fL4Kme27LrY2UwDxfoGhpNgoljd?=
+ =?us-ascii?Q?2f7ImqemJUb5YgBC8mZTAEGY+8v2qVLDX59bn+sPszChaEkTw/IxF521gXnO?=
+ =?us-ascii?Q?eo+IEHP4eY9oPBZWo4TLE8/Ur1+cs6HuxLsJz7XKlyY9MQ6yCU+I2wXDzB8/?=
+ =?us-ascii?Q?k3BYmm/wxQgjQ5oB3uOO9bI7CTOrAnhtV7Tssz3joff6tr0BroxbKpZQowHW?=
+ =?us-ascii?Q?TzTaOIAkQa4O1uL4uiot9DcYK/2gMJ1wUVg/tDeJ9zPbJjjMz0fQeyZgn9hZ?=
+ =?us-ascii?Q?9PBy+awqUBO/IOwyOKfHpVi+NlvrX11RBnx8oUfXQb/dUVxjvzmocIUyHMnU?=
+ =?us-ascii?Q?mAigADfMAdQ17KUma2wfYEudb5/+75EAj5EPij9EyIKShXlSyas1sXG25Vvc?=
+ =?us-ascii?Q?Urt5JjfK6TzD7jX2WAoEazGFT//AwffR4sWP40T+WUSbmKgUtkx0vlJxy2ZX?=
+ =?us-ascii?Q?7DqJSa4pbDTOrB5EOLToJHH6zokPtZl3OYZIPKbb01/ZEr//dbj87IwZpO/0?=
+ =?us-ascii?Q?EItyKOjvbkLd+S7trzB64+8udyut0VpyXZZnmpzStQicslQpPKEGUHsAyXOv?=
+ =?us-ascii?Q?k0hwVk3b0bIiIGeHES5GSdYZ4qQZTjtwwWa/uROzH+44k6MZcvWcTXlG3VbR?=
+ =?us-ascii?Q?1HsgyPaqRYeufee6Er+FcHyX?=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6254
 Original-Authentication-Results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
  DB5EUR03FT026.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	aa27fa23-f775-4cec-8157-08d9349260fe
+	5f22bfca-e19c-4ad7-91cb-08d934933eed
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5sudh+ayAKEgMyUzYYn7B3vhdaHbTgOHjx6ZCJsJ5Q4k/xjxcnWvXEaYuJHU8bEGsvNvl28srHb4uNDZvOAstxkzi6RnS+tmcBumM2J03u+uw8rtvEGKWIrOXZ3v6ZGgzlzG8+vxqwsai28do/3MS7OCwVEuvmZJI6dA2Nm/hRrSzAOsojUYvvLjfHSnEbzjk9o4TGdlZh44bc5T1BoDjYzwpPheeJ5LoUz7IS/vOfTqrKhacnQI0ig92h1T4yFXTXw3rQn8L24dDeaV7iPeNfOnGFkisgQ7W8VEZZj7CCwSdPll8MuCn2jtJydn+W/gmpZYNSq43nHsIMj18bzQuAq8lE6POe/9UawbcGgyzxky4kYsQ0LkpG6nrA+rUwBkyBpS0mo9Zi8lf3EHfqvrCZ+wAQgry9ePPVqcVqfvMiiRODvU3JjrPsIRKVzYO1hmcGr0LZ+1IK0dIXZnLMNFsjNk16o64L1MAUr9wyKsGuF2qXiFZt2e4QZ4diz6xl9CVeFoNOLkKbaG7htyOLfWplkuQ7ZjSNHjVH33oPYITe77evGuIGUul/FayiZgti960N04Ppto+RPWmZseutcI7hRIowfi5iWq4tQ9aAfWj+QndTU0TGYlLQ92Pxu5MNpvkavsl2q0FPelDmw8dJcNyB7gp2TR2pDEQQKDVRIe0kk=
+	/gj2B9AQPKAYiG0Y3KXOHFOOBFLkfuCuT0S1iAToNlgYFpCBSPaBUnq4Cv9XzEEuJIkU95QdSU4CHYiKJOc537fPNUBauTQt7J7O3GrVGcSXQYJa0J5++JSlyR1gB9GKN8bZQq9EO3ju+Xx6Zw6JCxGHApUl/1p9lzIUtcD7R6Qt+re2yfXq58XbWSv43riXJLnkvgofkWZ54X342Kd/cd3Tphi7xg6V5vbxGOmJ0tCyMYyOJLNmZR26MqnPAoUzXhqBIAYlHICjoq7V8+r2KS6Pfybgh8ZVzZmoGP9+q6ssW+gdF0ojwFDTKC3gev4J0Vx0LmEP+AjrIF0qQv4J7E5qZLxoD5+LJQrQ4d5H4r2uCB9eDV00kBKEwS6CU8KCQCggI9qrBUFNYeAGKEVqaPUIs25EGbiNCPqgikhNpORHMOOCoNXG87EBk440zZNC5bI4ikbO1Bb8X6cNY2fA6TazrhwouWwmlICkjtj9YBy43k24aaraTsdU16YUwbCw62YfKF13COWV5+V0Avb4Be06JDYCjHZTy3Qoko6cE1aB79hYRVg4gJfWs14BxHgQ5FJKOJAzgMaSnbb26Zrlnpw6DVqlLq8ixV3aK4lHyKQ0w0WUnUCkQe6/MeeHaDC11hL5ASvymD/1kCAvSn7DNkmZOhx1Pn5a5Z0o36NT35w=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(136003)(376002)(39860400002)(396003)(36840700001)(46966006)(8936002)(53546011)(6506007)(6512007)(82740400003)(70206006)(316002)(70586007)(478600001)(336012)(54906003)(86362001)(4326008)(8676002)(47076005)(83380400001)(36860700001)(2906002)(956004)(44832011)(36756003)(33656002)(107886003)(6666004)(356005)(6862004)(82310400003)(16526019)(186003)(2616005)(6486002)(5660300002)(26005)(81166007);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966006)(36840700001)(82740400003)(36756003)(36860700001)(6512007)(8676002)(44832011)(356005)(70206006)(53546011)(478600001)(5660300002)(83380400001)(47076005)(4326008)(107886003)(186003)(6486002)(26005)(16526019)(70586007)(82310400003)(54906003)(6862004)(86362001)(2616005)(2906002)(8936002)(956004)(6666004)(336012)(33656002)(81166007)(6506007)(316002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 08:56:33.7495
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 09:02:50.0847
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fff5baee-4c45-4519-2844-08d934927849
+X-MS-Exchange-CrossTenant-Network-Message-Id: 667018d2-9f5f-4771-57e7-08d934935899
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	DB5EUR03FT026.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB5125
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4159
 
 
 
@@ -203,203 +202,87 @@ X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB5125
 >=20
 > From: Julien Grall <jgrall@amazon.com>
 >=20
-> call_delayed() is currently assuming that conn->in is NULL when
-> handling delayed request. However, the connection is not paused.
-> Therefore new request can be processed and conn->in may be non-NULL
-> if we have only received a partial request.
+> Currently, only liveupdate request can be delayed. The request can only
+> be performed by a privileged connection (e.g. dom0). So it is fine to
+> have no limits.
 >=20
-> Furthermore, as we overwrite conn->in, the current partial request
-> will not be transferred. This will result to corrupt the connection.
+> In a follow-up patch we will want to delay request for unprivileged
+> connection as well. So it is best to apply a limit.
 >=20
-> Rather than updating conn->in, stash the LU request in lu_status and
-> let each callback for delayed request to update conn->in when
-> necessary.
+> For now and for simplicity, only a single request can be delayed
+> for a given unprivileged connection.
 >=20
-> To keep a sane interface, the code to write the "OK" response the
-> LU request is moved in xenstored_core.c.
+> Take the opportunity to tweak the prototype and provide a way to
+> bypass the quota check. This would be useful when the function
+> is called from the restore code.
 >=20
-> Fixes: c5ca1404b4 ("tools/xenstore: add support for delaying execution of=
- a xenstore request")
-> Fixes: ed6eebf17d ("tools/xenstore: dump the xenstore state for live upda=
-te")
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
->=20
-> ----
->=20
-> This is fixing bugs from two separate commits. I couldn't figure out
-> how to split in two patches without breaking bisection.
+
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+
 > ---
-> tools/xenstore/xenstored_control.c | 41 ++++++++++++++++++++++++++++--
-> tools/xenstore/xenstored_control.h |  3 +++
-> tools/xenstore/xenstored_core.c    | 17 +++----------
-> 3 files changed, 46 insertions(+), 15 deletions(-)
+> tools/xenstore/xenstored_control.c |  2 +-
+> tools/xenstore/xenstored_core.c    | 11 ++++++++++-
+> tools/xenstore/xenstored_core.h    |  3 ++-
+> 3 files changed, 13 insertions(+), 3 deletions(-)
 >=20
 > diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstore=
 d_control.c
-> index d08a2b961432..7acc2d134f9f 100644
+> index 7acc2d134f9f..1c24d4869eab 100644
 > --- a/tools/xenstore/xenstored_control.c
 > +++ b/tools/xenstore/xenstored_control.c
-> @@ -50,6 +50,9 @@ struct live_update {
-> 	/* For verification the correct connection is acting. */
-> 	struct connection *conn;
+> @@ -737,7 +737,7 @@ static const char *lu_start(const void *ctx, struct c=
+onnection *conn,
+> 	lu_status->timeout =3D to;
+> 	lu_status->started_at =3D time(NULL);
 >=20
-> +	/* Pointer to the command used to request LU */
-> +	struct buffered_data *in;
-> +
-> #ifdef __MINIOS__
-> 	void *kernel;
-> 	unsigned int kernel_size;
-> @@ -100,6 +103,7 @@ static const char *lu_begin(struct connection *conn)
-> 	if (!lu_status)
-> 		return "Allocation failure.";
-> 	lu_status->conn =3D conn;
-> +	lu_status->in =3D conn->in;
-> 	talloc_set_destructor(lu_status, lu_destroy);
+> -	errno =3D delay_request(conn, conn->in, do_lu_start, NULL);
+> +	errno =3D delay_request(conn, conn->in, do_lu_start, NULL, false);
 >=20
 > 	return NULL;
-> @@ -110,11 +114,34 @@ struct connection *lu_get_connection(void)
-> 	return lu_status ? lu_status->conn : NULL;
 > }
->=20
-> +unsigned int lu_write_response(FILE *fp)
-> +{
-> +	struct xsd_sockmsg msg;
-> +
-> +	assert(lu_status);
-> +
-> +	msg =3D lu_status->in->hdr.msg;
-> +
-> +	msg.len =3D sizeof("OK");
-> +	if (fp && fwrite(&msg, sizeof(msg), 1, fp) !=3D 1)
-> +		return 0;
-> +	if (fp && fwrite("OK", msg.len, 1, fp) !=3D 1)
-> +		return 0;
-> +
-> +	return sizeof(msg) + msg.len;
-> +}
-> +
-> #else
-> struct connection *lu_get_connection(void)
-> {
-> 	return NULL;
-> }
-> +
-> +unsigned int lu_write_response(FILE *fp)
-> +{
-> +	/* Unsupported */
-> +	return 0;
-> +}
-> #endif
->=20
-> struct cmd_s {
-> @@ -658,6 +685,8 @@ static bool do_lu_start(struct delayed_request *req)
-> {
-> 	time_t now =3D time(NULL);
-> 	const char *ret;
-> +	struct buffered_data *saved_in;
-> +	struct connection *conn =3D lu_status->conn;
->=20
-> 	if (!lu_check_lu_allowed()) {
-> 		if (now < lu_status->started_at + lu_status->timeout)
-> @@ -668,8 +697,9 @@ static bool do_lu_start(struct delayed_request *req)
-> 		}
-> 	}
->=20
-> +	assert(req->in =3D=3D lu_status->in);
-> 	/* Dump out internal state, including "OK" for live update. */
-> -	ret =3D lu_dump_state(req->in, lu_status->conn);
-> +	ret =3D lu_dump_state(req->in, conn);
-> 	if (!ret) {
-> 		/* Perform the activation of new binary. */
-> 		ret =3D lu_activate_binary(req->in);
-> @@ -677,7 +707,14 @@ static bool do_lu_start(struct delayed_request *req)
->=20
-> 	/* We will reach this point only in case of failure. */
->  out:
-> -	send_reply(lu_status->conn, XS_CONTROL, ret, strlen(ret) + 1);
-> +	/*
-> +	 * send_reply() will send the response for conn->in. Save the current
-> +	 * conn->in and restore it afterwards.
-> +	 */
-> +	saved_in =3D conn->in;
-> +	conn->in =3D req->in;
-> +	send_reply(conn, XS_CONTROL, ret, strlen(ret) + 1);
-> +	conn->in =3D saved_in;
-> 	talloc_free(lu_status);
->=20
-> 	return true;
-> diff --git a/tools/xenstore/xenstored_control.h b/tools/xenstore/xenstore=
-d_control.h
-> index 6842b8d88760..27d7f19e4b7f 100644
-> --- a/tools/xenstore/xenstored_control.h
-> +++ b/tools/xenstore/xenstored_control.h
-> @@ -20,3 +20,6 @@ int do_control(struct connection *conn, struct buffered=
-_data *in);
-> void lu_read_state(void);
->=20
-> struct connection *lu_get_connection(void);
-> +
-> +/* Write the "OK" response for the live-update command */
-> +unsigned int lu_write_response(FILE *fp);
 > diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_c=
 ore.c
-> index 607187361d84..41b26d7094c8 100644
+> index 41b26d7094c8..51d210828922 100644
 > --- a/tools/xenstore/xenstored_core.c
 > +++ b/tools/xenstore/xenstored_core.c
-> @@ -272,15 +272,10 @@ static int undelay_request(void *_req)
->=20
-> static void call_delayed(struct connection *conn, struct delayed_request =
-*req)
-
-Here the conn parameter is not needed anymore, or am I missing something?
-
-Cheers,
-Luca
-
-> {
-> -	assert(conn->in =3D=3D NULL);
-> -	conn->in =3D req->in;
-> -
-> 	if (req->func(req)) {
-> 		undelay_request(req);
-> 		talloc_set_destructor(req, NULL);
-> 	}
-> -
-> -	conn->in =3D NULL;
+> @@ -279,10 +279,19 @@ static void call_delayed(struct connection *conn, s=
+truct delayed_request *req)
 > }
 >=20
 > int delay_request(struct connection *conn, struct buffered_data *in,
-> @@ -2375,7 +2370,7 @@ const char *dump_state_buffered_data(FILE *fp, cons=
-t struct connection *c,
-> 	struct buffered_data *out, *in =3D c->in;
-> 	bool partial =3D true;
+> -		  bool (*func)(struct delayed_request *), void *data)
+> +		  bool (*func)(struct delayed_request *), void *data,
+> +		  bool no_quota_check)
+> {
+> 	struct delayed_request *req;
 >=20
-> -	if (in && c !=3D lu_get_connection()) {
-> +	if (in) {
-> 		len =3D in->inhdr ? in->used : sizeof(in->hdr);
-> 		if (fp && fwrite(&in->hdr, len, 1, fp) !=3D 1)
-> 			return "Dump read data error";
-> @@ -2416,16 +2411,12 @@ const char *dump_state_buffered_data(FILE *fp, co=
-nst struct connection *c,
+> +	/*
+> +	 * Only allow one request can be delayed for an unprivileged
+> +	 * connection.
+> +	 */
+> +	if (!no_quota_check && domain_is_unprivileged(conn) &&
+> +	    !list_empty(&conn->delayed))
+> +		return ENOSPC;
+> +
+> 	req =3D talloc(in, struct delayed_request);
+> 	if (!req)
+> 		return ENOMEM;
+> diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_c=
+ore.h
+> index 89ce155e755b..34839b34f6e9 100644
+> --- a/tools/xenstore/xenstored_core.h
+> +++ b/tools/xenstore/xenstored_core.h
+> @@ -213,7 +213,8 @@ char *get_parent(const void *ctx, const char *node);
 >=20
-> 	/* Add "OK" for live-update command. */
-> 	if (c =3D=3D lu_get_connection()) {
-> -		struct xsd_sockmsg msg =3D c->in->hdr.msg;
-> +		unsigned int rc =3D lu_write_response(fp);
+> /* Delay a request. */
+> int delay_request(struct connection *conn, struct buffered_data *in,
+> -		  bool (*func)(struct delayed_request *), void *data);
+> +		  bool (*func)(struct delayed_request *), void *data,
+> +		  bool no_quota_check);
 >=20
-> -		msg.len =3D sizeof("OK");
-> -		if (fp && fwrite(&msg, sizeof(msg), 1, fp) !=3D 1)
-> +		if (!rc)
-> 			return "Dump buffered data error";
-> -		len +=3D sizeof(msg);
-> -		if (fp && fwrite("OK", msg.len, 1, fp) !=3D 1)
->=20
-> -			return "Dump buffered data error";
-> -		len +=3D msg.len;
-> +		len +=3D rc;
-> 	}
->=20
-> 	if (sc)
+> /* Tracing infrastructure. */
+> void trace_create(const void *data, const char *type);
 > --=20
 > 2.17.1
 >=20
