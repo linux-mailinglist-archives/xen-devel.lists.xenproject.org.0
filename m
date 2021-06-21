@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4C03AF486
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jun 2021 20:11:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145663.267865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00283AF524
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jun 2021 20:34:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145671.267886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvOOC-0002AF-5f; Mon, 21 Jun 2021 18:11:16 +0000
+	id 1lvOju-0004VU-9F; Mon, 21 Jun 2021 18:33:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145663.267865; Mon, 21 Jun 2021 18:11:16 +0000
+Received: by outflank-mailman (output) from mailman id 145671.267886; Mon, 21 Jun 2021 18:33:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvOOC-000271-1r; Mon, 21 Jun 2021 18:11:16 +0000
-Received: by outflank-mailman (input) for mailman id 145663;
- Mon, 21 Jun 2021 18:11:15 +0000
+	id 1lvOju-0004SQ-3g; Mon, 21 Jun 2021 18:33:42 +0000
+Received: by outflank-mailman (input) for mailman id 145671;
+ Mon, 21 Jun 2021 18:33:40 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lvOOB-00026r-AG; Mon, 21 Jun 2021 18:11:15 +0000
+ id 1lvOjs-0004SG-O8; Mon, 21 Jun 2021 18:33:40 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lvOOB-0006pF-3P; Mon, 21 Jun 2021 18:11:15 +0000
+ id 1lvOjs-0007CW-Ee; Mon, 21 Jun 2021 18:33:40 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1lvOOA-00068s-PF; Mon, 21 Jun 2021 18:11:14 +0000
+ id 1lvOjs-0006ds-5D; Mon, 21 Jun 2021 18:33:40 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lvOOA-0007Qz-Og; Mon, 21 Jun 2021 18:11:14 +0000
+ id 1lvOjs-0004bs-4h; Mon, 21 Jun 2021 18:33:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +45,301 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=RpFv7o5yp0lZJJTpcgw7X4olTdgGTN7eB8zWrjaffE4=; b=j+RgQGL9bGONWVcaRIyB/ODhBn
-	OI84tFVufJX4aQJ9mF2okx+D9Mgnf+pFSRQjrYS3lfw9aq1gc4FexeUFxa3IHC9jLt4Z48RndgKiX
-	I6H1hx6v1wpQaCaZO91pQIwAYyokAaH232YPgQ4cTtTZRdZvOULi1P7gArG9guIyY2Us=;
+	bh=0wRygpdpcYo4VVOBVA2cFhVPri6i7lGYBGg/v/AZgis=; b=HE5x4nMTp8C68CzsvuuwF8brGK
+	KbdtK+nJMkbrhFkVW7LlWu6sUsTvfAhGAc4EOf+QCI4PWyqlbTPto1EOV5RS8jWjayXXloep4D6vH
+	bDtmNcCm3m17b1mwdzNiF4jkixelhY1gBgWuFGck54vhCxld+kttJZ3q7uDO4nhssnHQ=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-162942-mainreport@xen.org>
+Message-ID: <osstest-162930-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 162942: trouble: blocked/broken/pass
+Subject: [libvirt test] 162930: regressions - trouble: blocked/broken/fail/pass
 X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:<job status>:broken:regression
-    xen-unstable-smoke:build-arm64-xsm:<job status>:broken:regression
-    xen-unstable-smoke:build-amd64:host-install(4):broken:regression
-    xen-unstable-smoke:build-arm64-xsm:host-install(4):broken:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    libvirt:build-amd64:<job status>:broken:regression
+    libvirt:build-amd64-pvops:<job status>:broken:regression
+    libvirt:build-amd64-xsm:<job status>:broken:regression
+    libvirt:build-arm64:<job status>:broken:regression
+    libvirt:build-arm64-pvops:<job status>:broken:regression
+    libvirt:build-arm64-xsm:<job status>:broken:regression
+    libvirt:build-armhf-pvops:<job status>:broken:regression
+    libvirt:build-i386:<job status>:broken:regression
+    libvirt:build-i386-pvops:<job status>:broken:regression
+    libvirt:build-i386-xsm:<job status>:broken:regression
+    libvirt:build-i386-pvops:host-install(4):broken:regression
+    libvirt:build-arm64:host-install(4):broken:regression
+    libvirt:build-i386:host-install(4):broken:regression
+    libvirt:build-arm64-pvops:host-install(4):broken:regression
+    libvirt:build-arm64-xsm:host-install(4):broken:regression
+    libvirt:build-i386-xsm:host-install(4):broken:regression
+    libvirt:build-amd64-xsm:host-install(4):broken:regression
+    libvirt:build-amd64:host-install(4):broken:regression
+    libvirt:build-armhf-pvops:host-install(4):broken:regression
+    libvirt:build-amd64-pvops:host-install(4):broken:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This:
-    xen=c9b59f9032d41be8bade8a25d9148cf6ed203704
+    libvirt=54b602019d7dfa94a6c52ef7aa3abdfaa93ed233
 X-Osstest-Versions-That:
-    xen=8af4b47f061edf6450f2b0a0a8134fdf1c13b3e5
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 21 Jun 2021 18:11:14 +0000
+Date: Mon, 21 Jun 2021 18:33:40 +0000
 
-flight 162942 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162942/
+flight 162930 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/162930/
 
-Failures and problems with tests :-(
+Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
  build-amd64                     <job status>                 broken
+ build-amd64-pvops               <job status>                 broken
+ build-amd64-xsm                 <job status>                 broken
+ build-arm64                     <job status>                 broken
+ build-arm64-pvops               <job status>                 broken
  build-arm64-xsm                 <job status>                 broken
- build-amd64                   4 host-install(4)        broken REGR. vs. 162880
- build-arm64-xsm               4 host-install(4)        broken REGR. vs. 162880
+ build-armhf-pvops               <job status>                 broken
+ build-i386                      <job status>                 broken
+ build-i386-pvops                <job status>                 broken
+ build-i386-xsm                  <job status>                 broken
+ build-i386-pvops              4 host-install(4)        broken REGR. vs. 151777
+ build-arm64                   4 host-install(4)        broken REGR. vs. 151777
+ build-i386                    4 host-install(4)        broken REGR. vs. 151777
+ build-arm64-pvops             4 host-install(4)        broken REGR. vs. 151777
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 151777
+ build-i386-xsm                4 host-install(4)        broken REGR. vs. 151777
+ build-amd64-xsm               4 host-install(4)        broken REGR. vs. 151777
+ build-amd64                   4 host-install(4)        broken REGR. vs. 151777
+ build-armhf-pvops             4 host-install(4)        broken REGR. vs. 151777
+ build-amd64-pvops             4 host-install(4)        broken REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
 Tests which did not succeed, but are not blocking:
  build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
  test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
 version targeted for testing:
- xen                  c9b59f9032d41be8bade8a25d9148cf6ed203704
+ libvirt              54b602019d7dfa94a6c52ef7aa3abdfaa93ed233
 baseline version:
- xen                  8af4b47f061edf6450f2b0a0a8134fdf1c13b3e5
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Last test of basis   162880  2021-06-17 17:00:36 Z    4 days
-Testing same since   162942  2021-06-21 16:00:26 Z    0 days    1 attempts
+Last test of basis   151777  2020-07-10 04:19:19 Z  346 days
+Failing since        151818  2020-07-11 04:18:52 Z  345 days  338 attempts
+Testing same since   162898  2021-06-19 04:19:58 Z    2 days    3 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  George Dunlap <george.dunlap@citrix.com>
-  Nick Rosbrook <rosbrookn@ainfosec.com>
-  Nick Rosbrook <rosbrookn@gmail.com>
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  William Douglas <william.douglas@intel.com>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
 jobs:
+ build-amd64-xsm                                              broken  
  build-arm64-xsm                                              broken  
+ build-i386-xsm                                               broken  
  build-amd64                                                  broken  
+ build-arm64                                                  broken  
  build-armhf                                                  pass    
+ build-i386                                                   broken  
  build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            broken  
+ build-arm64-pvops                                            broken  
+ build-armhf-pvops                                            broken  
+ build-i386-pvops                                             broken  
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
  test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
 ------------------------------------------------------------
@@ -134,163 +358,27 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 broken-job build-amd64 broken
+broken-job build-amd64-pvops broken
+broken-job build-amd64-xsm broken
+broken-job build-arm64 broken
+broken-job build-arm64-pvops broken
 broken-job build-arm64-xsm broken
-broken-step build-amd64 host-install(4)
+broken-job build-armhf-pvops broken
+broken-job build-i386 broken
+broken-job build-i386-pvops broken
+broken-job build-i386-xsm broken
+broken-step build-i386-pvops host-install(4)
+broken-step build-arm64 host-install(4)
+broken-step build-i386 host-install(4)
+broken-step build-arm64-pvops host-install(4)
 broken-step build-arm64-xsm host-install(4)
+broken-step build-i386-xsm host-install(4)
+broken-step build-amd64-xsm host-install(4)
+broken-step build-amd64 host-install(4)
+broken-step build-armhf-pvops host-install(4)
+broken-step build-amd64-pvops host-install(4)
 
 Not pushing.
 
-------------------------------------------------------------
-commit c9b59f9032d41be8bade8a25d9148cf6ed203704
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:52 2021 -0400
-
-    golang/xenlight: do not negate ret when converting to Error
-    
-    Commit 871e51d2d4 changed the sign on the xenlight error types (making
-    the values negative, same as the C-generated constants), but failed to
-    remove the code changing the sign before casting to Error().  This
-    results in error strings like "libxl error: <x>", rather than the
-    correct message. Fix all occurrances of this by running:
-    
-      gofmt -w -r 'Error(-ret) -> Error(ret)' xenlight.go
-    
-    from tools/golang/xenlight.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Acked-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 1d95fd75df18bf25cb445feb47caf62da25c00e8
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:51 2021 -0400
-
-    golang/xenlight: add SendTrigger wrapper
-    
-    Add a warpper around libxl_send_trigger.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 9b6d865e0af56e376740ba03b1ccdf316362a71e
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:50 2021 -0400
-
-    golang/xenlight: add DomainDestroy wrapper
-    
-    Add a wrapper around libxl_domain_destroy.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit c089de0e2fa56d846cfb658b7b5efc3426895973
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:47 2021 -0400
-
-    golang/xenlight: rename Ctx receivers to ctx
-    
-    As a matter of style, it is strange to see capitalized receiver names,
-    due to the significance of capitalized symbols in Go (although there is
-    in fact nothing special about a capitalized receiver name). Fix this in
-    xenlight.go by running:
-    
-      gofmt -w -r 'Ctx -> ctx' xenlight.go
-    
-    from tools/golang/xenlight. There is no functional change.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 1997940ad25e3566d1ab38496b8c7b07a086695a
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:46 2021 -0400
-
-    golang/xenlight: use struct pointers in keyed union fields
-    
-    Currently, when marshalig Go types with keyed union fields, we assign the
-    value of the struct (e.g. DomainBuildInfoTypeUnionHvm) which implements the
-    interface of the keyed union field (e.g. DomainBuildInfoTypeUnion).
-    As-is, this means that if a populated DomainBuildInfo is marshaled to
-    e.g. JSON, unmarshaling back to DomainBuildInfo will fail.
-    
-    When the encoding/json is unmarshaling data into a Go type, and
-    encounters a JSON object, it basically can either marshal the data into
-    an empty interface, a map, or a struct. It cannot, however, marshal data
-    into an interface with at least one method defined on it (e.g.
-    DomainBuildInfoTypeUnion). Before this check is done, however, the
-    decoder will check if the Go type is a pointer, and dereference it if
-    so. It will then use the type of this value as the "target" type.
-    
-    This means that if the TypeUnion field is populated with a
-    DomainBuildInfoTypeUnion, the decoder will see a non-empty interface and
-    fail. If the TypeUnion field is populated with a
-    *DomainBuildInfoTypeUnionHvm, it dereferences the pointer and sees a
-    struct instead, allowing decoding to continue normally.
-    
-    Since there does not appear to be a strict need for NOT using pointers
-    in these fields, update code generation to set keyed union fields to
-    pointers of their implementing structs.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit bc9f632e31ee66be3f1860fc7303fe91a42e56a6
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:45 2021 -0400
-
-    golang/xenlight: export keyed union interface types
-    
-    For structs that have a keyed union, e.g. DomainBuildInfo, the TypeUnion
-    field must be exported so that package users can get/set the fields
-    within. This means that users are aware of the existence of the
-    interface type used in those fields (see [1]), so it is awkward that the
-    interface itself is not exported. However, the single method within the
-    interface must remain unexported so that users cannot mistakenly "implement"
-    those interfaces.
-    
-    Since there seems to be no reason to do otherwise, export the keyed
-    union interface types.
-    
-    [1] https://pkg.go.dev/xenbits.xenproject.org/git-http/xen.git/tools/golang/xenlight?tab=doc#DeviceUsbdev
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 1422d8db1b3dfdf7d9179944e594876e5e356a4b
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:43 2021 -0400
-
-    golang/xenlight: fix StringList toC conversion
-    
-    The current implementation of StringList.toC does not correctly account
-    for how libxl_string_list is expected to be laid out in C, which is clear
-    when one looks at libxl_string_list_length in libxl.c. In particular,
-    StringList.toC does not account for the extra memory that should be
-    allocated for the "sentinel" entry. And, when using the "slice trick" to
-    create a slice that can address C memory, the unsafe.Pointer conversion
-    should be on a C.libxl_string_list, not *C.libxl_string_list.
-    
-    Fix these problems by (1) allocating an extra slot in the slice used to
-    address the C memory, and explicity set the last entry to nil so the C
-    memory will be zeroed out, and (2) dereferencing csl in the
-    unsafe.Pointer conversion.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit b291ce703b9cebef0800267446334e867588354a
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Mon May 24 16:36:42 2021 -0400
-
-    golang/xenlight: update generated code
-    
-    Re-generate code to reflect changes to libxl_types.idl from the
-    following commits:
-    
-    0570d7f276 x86/msr: introduce an option for compatible MSR behavior selection
-    7e5cffcd1e viridian: allow vCPU hotplug for Windows VMs
-    9835246710 viridian: remove implicit limit of 64 VPs per partition
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-(qemu changes not included)
+(No revision log; it would be 62906 lines long.)
 
