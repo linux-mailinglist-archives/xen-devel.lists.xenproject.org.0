@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8659D3AF10E
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jun 2021 18:55:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145637.267825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05343AF38C
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jun 2021 20:00:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145658.267854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvNBV-0001cq-Kn; Mon, 21 Jun 2021 16:54:05 +0000
+	id 1lvOCk-0008JA-1K; Mon, 21 Jun 2021 17:59:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145637.267825; Mon, 21 Jun 2021 16:54:05 +0000
+Received: by outflank-mailman (output) from mailman id 145658.267854; Mon, 21 Jun 2021 17:59:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvNBV-0001aX-HV; Mon, 21 Jun 2021 16:54:05 +0000
-Received: by outflank-mailman (input) for mailman id 145637;
- Mon, 21 Jun 2021 16:54:04 +0000
+	id 1lvOCj-0008HM-U8; Mon, 21 Jun 2021 17:59:25 +0000
+Received: by outflank-mailman (input) for mailman id 145658;
+ Mon, 21 Jun 2021 17:59:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8wfi=LP=rasmusvillemoes.dk=linux@srs-us1.protection.inumbo.net>)
- id 1lvNBU-0001aR-27
- for xen-devel@lists.xenproject.org; Mon, 21 Jun 2021 16:54:04 +0000
-Received: from mail-ej1-x62e.google.com (unknown [2a00:1450:4864:20::62e])
+ <SRS0=rcYN=LP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lvOCi-0008HG-0G
+ for xen-devel@lists.xenproject.org; Mon, 21 Jun 2021 17:59:24 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3b1f2e15-99bd-43c8-89e0-ce801c88abc4;
- Mon, 21 Jun 2021 16:54:02 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id ho18so29939679ejc.8
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jun 2021 09:54:02 -0700 (PDT)
-Received: from [192.168.1.149] ([80.208.64.110])
- by smtp.gmail.com with ESMTPSA id f14sm313127edd.69.2021.06.21.09.54.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jun 2021 09:54:01 -0700 (PDT)
+ id eee13637-5c1e-4326-b4f7-d79d554dd7b3;
+ Mon, 21 Jun 2021 17:59:22 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 94438611CE;
+ Mon, 21 Jun 2021 17:59:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,78 +37,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b1f2e15-99bd-43c8-89e0-ce801c88abc4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rasmusvillemoes.dk; s=google;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=P2Td/+tIipAgfyxPjVHvnCAo9n1WaYveTmTAYM/j+jY=;
-        b=diuj5gabJqISgVVxx3Akhkd9RYmJFByRkUBchT88Z00CkuGWojs+VGfxVUt18Ow1NT
-         iIs9CPaqGh7r/1KD5cILlcpveOUj3CJF4M7DbQqERFA9+ywOFCmKxKF8X0t8+AlKR+tN
-         jXwgDjJn9NupBFYxyzDNQyDRkmzMZohSurPoY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=P2Td/+tIipAgfyxPjVHvnCAo9n1WaYveTmTAYM/j+jY=;
-        b=Q7EZduHsWZnptYf703qVFasm8lDLK8Psk6QpL5o3le9U3IYrvmdCNWXVDJPuIPCG/9
-         +ewzT6uWyA41ZiDO/Wt6a3ryAymNMJbf7LfIeIwBK0WpyCIrT/E/FPyJIkYHUQSsP7ib
-         yAmxBjya1dISb1wjXXmBb1TJVDfHPfdczCcL8LzEYX658KhFLW523SxeJ/NwbfoLsB0Q
-         4OPN5xnmDuZzGSntzv6zn5fdZ5CAmCqooGstI6Zc6CA75dxR9rQw2EuU4mWz+nnCH0FI
-         CNBpuWCRGlHaxVsUWJtAJZ8xF8rlGSoDVMNmrRkjnnO/V3kokx2ZKj+nqU3RgTB/9r65
-         KpDQ==
-X-Gm-Message-State: AOAM5331kkDsYSci9/CR4N2aeQ5Zy7vvl2nr3i9RpFnRNTEZ3NOXBgdB
-	yoVlAANxdyJ0tlKVd9qhn7Km2g==
-X-Google-Smtp-Source: ABdhPJxjYawB6DJpcIRc0YMX54xgWCzAW7ksE8qOaz7mcYqVsYntvbdMZwPqOAEECmQCM421IbYweQ==
-X-Received: by 2002:a17:906:264c:: with SMTP id i12mr25567215ejc.101.1624294441554;
-        Mon, 21 Jun 2021 09:54:01 -0700 (PDT)
-Subject: Re: Linux 5.13-rc6 regression to 5.12.x: kernel OOM and panic during
- kernel boot in low memory Xen VM's (256MB assigned memory).
-To: Sander Eikelenboom <linux@eikelenboom.it>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Juergen Gross <jgross@suse.com>
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- kernel test robot <oliver.sang@intel.com>
-References: <ee8bf04c-6e55-1d9b-7bdb-25e6108e8e1e@eikelenboom.it>
- <CAHk-=wjgg67NMBNG99naEQ1cM0mXBBzdhCJaYFH-kC+mLK+J2g@mail.gmail.com>
- <9108c22e-3521-9e24-6124-7776d947b788@rasmusvillemoes.dk>
- <0b12f27b-1109-b621-c969-10814b2c1c2f@eikelenboom.it>
- <7338064f-10b6-545d-bc6c-843d04aafe28@eikelenboom.it>
- <e7f9c4f8-1669-75ce-b052-1030350a159e@eikelenboom.it>
-From: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Message-ID: <bfdd1d6b-77a3-450b-71f4-63e9cc314ace@rasmusvillemoes.dk>
-Date: Mon, 21 Jun 2021 18:54:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+X-Inumbo-ID: eee13637-5c1e-4326-b4f7-d79d554dd7b3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1624298362;
+	bh=y8attfyCFvmhE/rEq1lKuxtMSlY+L9uu0zEo4FMjkv8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=nVdx/hwygYr/MG4oSfAecQoTkcAWFsVr6dFhXJUhFXwqSbH08hcJcQHHaJ6yNTgwJ
+	 WFFrnk+RLaMbXPz1Xtr0MorwwBCBRCnNVEqXP2tUXHhGV2Usf3U4gjEu3zxeInr5od
+	 B9ktxTxXUHFXTSVy1nFGEpPSBK9O5Aws7oD7ucKaVc2hx8hm7IAXVZOQ8U1l9ZRj62
+	 sEXsTrg9MCBDzVl47wBX5+3xzZhCsWmVRvgAWZv47Xmzv8udI19xFqd0CjGvBvgqzh
+	 BtSw3vV40r9z2Jdokw3+RVbueWCN8P3KLA5YE9ZkG0ZSqiTJvVk9SGjw4FEHT8nF7N
+	 esGUOKjtCMepQ==
+Date: Mon, 21 Jun 2021 10:59:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Christoph Hellwig <hch@lst.de>
+cc: Tom Lendacky <thomas.lendacky@amd.com>, 
+    Claire Chang <tientzu@chromium.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, 
+    Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+    Frank Rowand <frowand.list@gmail.com>, 
+    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com, 
+    jgross@suse.com, Marek Szyprowski <m.szyprowski@samsung.com>, 
+    benh@kernel.crashing.org, paulus@samba.org, 
+    "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
+    Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, 
+    xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, mingo@kernel.org, 
+    bauerman@linux.ibm.com, peterz@infradead.org, 
+    Greg KH <gregkh@linuxfoundation.org>, 
+    Saravana Kannan <saravanak@google.com>, 
+    "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
+    heikki.krogerus@linux.intel.com, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Randy Dunlap <rdunlap@infradead.org>, 
+    Dan Williams <dan.j.williams@intel.com>, 
+    Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
+    linux-devicetree <devicetree@vger.kernel.org>, 
+    lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org, 
+    xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>, 
+    Jim Quinlan <james.quinlan@broadcom.com>, Tomasz Figa <tfiga@chromium.org>, 
+    bskeggs@redhat.com, Bjorn Helgaas <bhelgaas@google.com>, 
+    chris@chris-wilson.co.uk, Daniel Vetter <daniel@ffwll.ch>, 
+    airlied@linux.ie, dri-devel@lists.freedesktop.org, 
+    intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
+    Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
+    linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
+    matthew.auld@intel.com, rodrigo.vivi@intel.com, 
+    thomas.hellstrom@linux.intel.com
+Subject: Re: [PATCH v13 01/12] swiotlb: Refactor swiotlb init functions
+In-Reply-To: <20210618143212.GA19284@lst.de>
+Message-ID: <alpine.DEB.2.21.2106211052270.24906@sstabellini-ThinkPad-T480s>
+References: <20210617062635.1660944-1-tientzu@chromium.org> <20210617062635.1660944-2-tientzu@chromium.org> <alpine.DEB.2.21.2106171434480.24906@sstabellini-ThinkPad-T480s> <CALiNf29SJ0jXirWVDhJw4BUNvkjUeGPyGNJK9m8c30OPX41=5Q@mail.gmail.com>
+ <741a34cc-547c-984d-8af4-2f309880acfa@amd.com> <20210618143212.GA19284@lst.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <e7f9c4f8-1669-75ce-b052-1030350a159e@eikelenboom.it>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 18/06/2021 03.06, Sander Eikelenboom wrote:
-> On 17/06/2021 21:39, Sander Eikelenboom wrote:
-
+On Fri, 18 Jun 2021, Christoph Hellwig wrote:
+> On Fri, Jun 18, 2021 at 09:09:17AM -0500, Tom Lendacky wrote:
+> > > swiotlb_init_with_tbl uses memblock_alloc to allocate the io_tlb_mem
+> > > and memblock_alloc[1] will do memset in memblock_alloc_try_nid[2], so
+> > > swiotlb_init_with_tbl is also good.
+> > > I'm happy to add the memset in swiotlb_init_io_tlb_mem if you think
+> > > it's clearer and safer.
+> > 
+> > On x86, if the memset is done before set_memory_decrypted() and memory
+> > encryption is active, then the memory will look like ciphertext afterwards
+> > and not be zeroes. If zeroed memory is required, then a memset must be
+> > done after the set_memory_decrypted() calls.
 > 
-> OK, done some experimentation and it seems with 256M assigned to the VM
-> it was almost at the edge of OOM with the 5.12 kernel as well in the
-> config I am using it.
-> With v5.12 when I assign 240M it boots, with 230M it doesn't. With 5.13
-> the tipping point seems to be around 265M and 270M, so my config was
-> already quite close to the edge.
-> 
-> The "direct kernel boot" feature I'm using just seems somewhat memory
-> hungry, but using another compression algorithm for the kernel and
-> initramfs already helped in my case.
-> 
-> So sorry for the noise, clearly user-error.
+> Which should be fine - we don't care that the memory is cleared to 0,
+> just that it doesn't leak other data.  Maybe a comment would be useful,
+> though,
 
-Hm, perhaps, but I'm still a bit nervous about that report from Oliver
-Sang/kernel test robot, which was for a VM equipped with 16G of memory.
-But despite quite a few attempts, I haven't been able to reproduce that
-locally, so unfortunately I have no idea what's going on.
+Just as a clarification: I was referring to the zeroing of "mem" in
+swiotlb_late_init_with_tbl and swiotlb_init_with_tbl. While it looks
+like Tom and Christoph are talking about the zeroing of "tlb".
 
-Rasmus
+The zeroing of "mem" is required as some fields of struct io_tlb_mem
+need to be initialized to zero. While the zeroing of "tlb" is not
+required except from the point of view of not leaking sensitive data as
+Christoph mentioned.
+
+Either way, Claire's v14 patch 01/12 looks fine to me.
 
