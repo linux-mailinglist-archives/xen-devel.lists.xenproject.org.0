@@ -2,56 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5DE3B0B7B
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 19:33:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146005.268574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 848E43B0C76
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 20:08:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146011.268585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvkGB-0005Pj-Ad; Tue, 22 Jun 2021 17:32:27 +0000
+	id 1lvkoP-0000GJ-74; Tue, 22 Jun 2021 18:07:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146005.268574; Tue, 22 Jun 2021 17:32:27 +0000
+Received: by outflank-mailman (output) from mailman id 146011.268585; Tue, 22 Jun 2021 18:07:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvkGB-0005NZ-7Y; Tue, 22 Jun 2021 17:32:27 +0000
-Received: by outflank-mailman (input) for mailman id 146005;
- Tue, 22 Jun 2021 17:32:26 +0000
+	id 1lvkoP-0000E0-3G; Tue, 22 Jun 2021 18:07:49 +0000
+Received: by outflank-mailman (input) for mailman id 146011;
+ Tue, 22 Jun 2021 18:07:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cRfs=LQ=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1lvkGA-0005NT-0k
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 17:32:26 +0000
-Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
+ <SRS0=3wlN=LQ=gmail.com=neilsikka@srs-us1.protection.inumbo.net>)
+ id 1lvkoM-0000DV-Vh
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 18:07:47 +0000
+Received: from mail-ed1-x52a.google.com (unknown [2a00:1450:4864:20::52a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b55deedd-7656-4874-a7a0-a3530016ff2a;
- Tue, 22 Jun 2021 17:32:24 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15MHHQkU010365; Tue, 22 Jun 2021 17:32:04 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by mx0b-00069f02.pphosted.com with ESMTP id 39as86ujdq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Jun 2021 17:32:04 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 15MHFqTF173442;
- Tue, 22 Jun 2021 17:32:03 GMT
-Received: from nam02-dm3-obe.outbound.protection.outlook.com
- (mail-dm3nam07lp2042.outbound.protection.outlook.com [104.47.56.42])
- by userp3020.oracle.com with ESMTP id 399tbt3d1n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Jun 2021 17:32:02 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by MN2PR10MB3949.namprd10.prod.outlook.com (2603:10b6:208:186::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Tue, 22 Jun
- 2021 17:32:00 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::78a3:67d:a8ca:93cf]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::78a3:67d:a8ca:93cf%7]) with mapi id 15.20.4264.018; Tue, 22 Jun 2021
- 17:32:00 +0000
-Received: from [10.74.101.176] (160.34.89.176) by
- SA9PR13CA0177.namprd13.prod.outlook.com (2603:10b6:806:28::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4264.9 via Frontend Transport; Tue, 22 Jun 2021 17:31:57 +0000
+ id 2012609d-82fa-4712-9328-f34c21e8bed9;
+ Tue, 22 Jun 2021 18:07:45 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id r7so24874377edv.12
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jun 2021 11:07:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,151 +37,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b55deedd-7656-4874-a7a0-a3530016ff2a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=sF9B9msUqlPodgpOgTK/j2ZCCIDp54oksLKTPM+GdSs=;
- b=GykAkj2D6CJ1tsRQ7U1VWSofxSM8d0qtq5tbVgAz3NR9ESi+s2xSqxZ7fHlJxoUZvzdO
- zWOKZDoEf67FZyRCH6bGUEgyrTtlqq0WQehb2dqdcRRyw8PCeCWcJ4+IUFWM6GsVQxW0
- /joRjbaTUgtCAOetGkqM2mqWIEgW1/JmZHZtcnPcNBMB25IT0zYk+USrrX8jRtFaDvSc
- SanhtuNAIxriphvb0XFdpipSnSkUnoT01gN6a9n2i5Jdn0O7Qk7xXOYvE15tXmBUieWn
- ezebfytcPh8sEtLPo3Yf2KhVHHAndjrEFZGgfwe1WJC6uXBbf9J9Z3eEx7+eU8c35cg/ fA== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CQWuFbq/lPVSfpTZw948PFpsFc3T2BkUDI1mzqDMtsGtRrFA7brLUaDstrTzwkEhtlXOY75znL7dkcnTF9hc9XwTAG5XNbAP4FfM1wMnBwwu1n8ySTGXIwZZ8zngeKaMAjAOcY2nCVmpcaytQwIR9TTstoKngxr49bbk/oq9x1Avyb0Bg0bBAfbmAVzFCtD9Fj2EtL5FeIwI58vlmBRLzda7PmFh18RM7F4wgwqoVzN24FlYSbxmpWiGSWWeRT22RxO9IMkJeSAngXE3vnJ0xr3yJgJqEN3UHt81jhchQgtM2paWUtLobpVD/eCkNXrnvk9ul/Osiv7vVxqSopLrUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sF9B9msUqlPodgpOgTK/j2ZCCIDp54oksLKTPM+GdSs=;
- b=aRT/1LrfyMgmyC/2mSYKvai+JpoeKCOO1yPoQU8hGX6FYfXF0njmZ5eeEAxglNomlYzknMiGBub1zB/n1eH18C0Jbv8Z6V/Gu9q0tEeLuGjMmP8CxhAYjHUjX1n/ypfCwnqkglXYHsSER8MUbCHMlDEl3uClT5RGh5ujep6YV5XNSGKN/ydmiaOSoDSZorO/o2tYhUIWOLZQIwHb0h7OZN19XaVBzEQi8583VLKmWtsoRh9lnXW98P8BiH8iLuM1WyZGwilPpNDfQNIcimIFwyO2KOj7uBIjgFz6TLUgGoiHUWDFvPKAgycCvzMyE0bHEDsXqR6IQrjzsUoXzGwvPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+X-Inumbo-ID: 2012609d-82fa-4712-9328-f34c21e8bed9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sF9B9msUqlPodgpOgTK/j2ZCCIDp54oksLKTPM+GdSs=;
- b=ZUhrK/s/8ExAbRgDCFHBdfTz4nzz+DgUQAsCPaQ6HhJGhVVs117vynu7uI/8p2c6TQuOsa4WlYM9MzMu5d2a6w7Q9WHtIhoBJ43r4zRMzBEHZ0k0+fzBg2gPrnJdPau2qf01SG/oh23jEXoO67DbZl2KiuMY3lSELfF3r4zyohc=
-Authentication-Results: infradead.org; dkim=none (message not signed)
- header.d=none;infradead.org; dmarc=none action=none header.from=oracle.com;
-Subject: Re: [PATCH V7 01/18] perf/core: Use static_call to optimize
- perf_guest_info_callbacks
-To: Zhu Lingshan <lingshan.zhu@intel.com>, lingshan.zhu@live.com
-Cc: Like Xu <like.xu@linux.intel.com>, Will Deacon <will@kernel.org>,
-        Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
-        Nick Hu <nickhu@andestech.com>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
-        linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
-        xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>
-References: <20210622093823.8215-1-lingshan.zhu@intel.com>
- <20210622093823.8215-2-lingshan.zhu@intel.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <92fdf981-68ef-92a2-b1ae-0c5f347ae460@oracle.com>
-Date: Tue, 22 Jun 2021 13:31:54 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
-In-Reply-To: <20210622093823.8215-2-lingshan.zhu@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [160.34.89.176]
-X-ClientProxiedBy: SA9PR13CA0177.namprd13.prod.outlook.com
- (2603:10b6:806:28::32) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=zOAHJHWGJHsn5RVDzqZZ0AJDt6ARJeAKc3ID1hRRB/Y=;
+        b=Bv9aB99aaBeThtB+2eazKlzvjKHsaBXClmNbb2YG9y0VsozXKbakwx5Tq54g8vAwdg
+         Ri83LEkawTngXVVsWAUyuCsq6G3kX8Ak53+zlKTbFioDjfMF78erkMsDgbEXDd2W4++5
+         p+DgN1J0UVGwNLBZ1vR9M/veerChRVtgbO4g4Rrpil9PZMRh1EaNYva7QBpl3M0dYwji
+         3UxiZjU1UKyf3snHr4H3XM2Yzv+X6DdHbRbG5u+AIqj9FCWh6hUuBOTfPtiW9QwUomHV
+         mYNOIJZYUDQffW6Y66RpBVol3SQzGYx6vIwdNpv2CK6LDBaYcucjxkiatLcUkl/KvyY0
+         Zblg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=zOAHJHWGJHsn5RVDzqZZ0AJDt6ARJeAKc3ID1hRRB/Y=;
+        b=OwzIIr0yKxYqOgKBj4KnlAlz5UExbO6xiCi3U03KRfuOzbWHzDnEbWi86aLO/Ttk2j
+         +D3DcLVHZC2OahSKarwpH42tyE6ajCFO+C/kkZ7VynqxZy4d5lIdghsD/QVRS82os9jJ
+         Id/I2Ja/UoPTqtFrIZw5krxpc1uTqRvv5kYEwkOQRotvGEDVcvuHOByu0J3Ak8K8/yUD
+         rsXKX0J+4zHlxC78nl7vkPF0HER9mUJ1nmb7S3r0hGMQHRjSdbd8CH48j0rpH87UHbGZ
+         RFhx0Am/O5P2algYZ3NvsrvxzQtBjRnmeDNecfeK44TqW0b+Xcj3aKb3DZz928X7bAkG
+         Biuw==
+X-Gm-Message-State: AOAM533+VjSpLALZfH2ILU4LeGsEvxPD6E8tZgtXsBN/cxPIH30+t9Wm
+	AhEyoNBIFGuPrjqJCiPEcPf0k20FU3gAz8ElS8A=
+X-Google-Smtp-Source: ABdhPJwPWFij88Efr88aaS3I7q4Qxf18Mf0HwkuRPYF+1jfK5QJQ+6fj2Llua6NVEH7n/rNsTC9VKs3DCYXc7JQIpw4=
+X-Received: by 2002:a05:6402:54c:: with SMTP id i12mr6881031edx.64.1624385264789;
+ Tue, 22 Jun 2021 11:07:44 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1ec7e3d1-b17d-488f-fd04-08d935a3a47f
-X-MS-TrafficTypeDiagnostic: MN2PR10MB3949:
-X-Microsoft-Antispam-PRVS: 
-	<MN2PR10MB3949FCEA45214EAC56C215418A099@MN2PR10MB3949.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	S2TECVWxkXCYnj2uONAjQLYztdX2kYyeQe/02lbuR4XxwbK6hKZn7UmndvLLAtWcsAdHDngPtvDawnUE85tcIlSVyuxvtNpDKptFYxaFA8Hb/jY5oeufKf0pxmt0ALF5MVJb5k/IcVWi/1GtVy3u+TJcrXrlE0P7aMeeArHAvle+ypdnBg64A9r/rPbEOt82rNeZinqjIJ2IEyM0ij6yCJvE3n4q0ITK9GN3TeH8N+QaRIn/pq9J/WnHY9RxuiGPvsxFzrZ/Aoh/oQPLCtqKLaxbdwRLW7b/8s1xmegebER/ET0Or+XFqiGQsogZ3RETrQfT57sOEHpuy5hA/zxFlM65oUkxlqhC7ZjiLCGGcsXBgfbTmgqMf6GglOJpfmlKn9ciK3i1RMYJqzvIcfOzwV9D2rWNd9sWpLshsc85rDZAg5i4do3syTLVlvaGDUNao1epaLZ6gWJM4vgp6Qv8El+WwY6oGzctU/qotfQGmuON3ix/JS2Q5JBnvgLhyK/YibhH0JS6z5mg8PflInW7h9KLb50dCpSoDpMusKhZcR6eznzN3vCUu72wenaBe2XNTVT+naQSxJMKgj3cSsf3OH2YlEGyqZ0Pgz/6xxhRdbsWeLLYP4yq1H1XYWgVUcLLgo23B4YdYFFM1TJMEX5PDnxy4KkB2t9BthLt5dFjVeN8VnR3M5OOXLOymVGMHLjU
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(136003)(346002)(39860400002)(396003)(376002)(2616005)(956004)(478600001)(86362001)(6486002)(31686004)(8676002)(44832011)(6666004)(5660300002)(31696002)(38100700002)(8936002)(53546011)(4744005)(16526019)(186003)(7416002)(316002)(54906003)(66946007)(2906002)(16576012)(66476007)(66556008)(26005)(36756003)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?QSs3OHlvN2hibUlOMDlteWFoaGtvaW5oVFVqUm1UZVZSUmVxckpZRzB2MGlF?=
- =?utf-8?B?WkZmQjI3SlNaVHpTWTJCQ2tybWRaR2FzVkhLenB1TzQ1ZnRvMHRBbDZBWE9q?=
- =?utf-8?B?bDV1K2NBalpVTjQ2TE95bzZuVTVHcm1sd0dNODVjUzJTM0pPK2Jpb2R2V1R6?=
- =?utf-8?B?MFF4SVhsenpZa3h0bFd0U3FNMTY3ZFhxb2xXUG04Ym0xZG9aTDRmcURQN0Ju?=
- =?utf-8?B?MGNJd3BCWURZc3hiZTVsNFFPSEdOc212dHhvR1ZpOFp4MVdQWkI1bHI0UFVt?=
- =?utf-8?B?Yi9RZmFZTnBIZ0VKUHJVbk93Rk5YSFdrRWdZU2lnR3Y0SFE2QTIrVUZjYUJZ?=
- =?utf-8?B?MUt6VVF4V2I2TUZRWlVnSUlvRTZwbklscTN2NnJYc1laMmdpODlIblMyQUFT?=
- =?utf-8?B?R3l5OFNyUG9QM2xucys0N2FiSUwzeWdYOW9wbDZhWFBRTjN4dVo4R1BnSjY3?=
- =?utf-8?B?eVBSSStEc1N4QXRuUkJreDFjNWlLVHYvNlVNb2xlUlMxd2tTUmx4eUxjQWxl?=
- =?utf-8?B?a2tqbXhocDJLQ3VUZjBwOUJlQkxPdENYK3EzMUZBdjJsM2lXYXQ1aVFWVGRO?=
- =?utf-8?B?WWRWSnpiTHJ5RUFMak5KUGw3ck55WlJyM3JXcWZFWnFOUnIwSmppNjFQSmc4?=
- =?utf-8?B?N2xEOXFWSGxtMDV6UkxIU2RNWVJQbUlrNStYTVJoRXo2bmJ3bk5idHZNeFJ4?=
- =?utf-8?B?elFLTXhMMkwzdGFVQktuZkNFZ1NTbk11YXV5aE5DbGlUdTZjVTQrYXlqWHc3?=
- =?utf-8?B?RFN0dUJkc0h3b1UzWGp5cGxQRkF5V3EvY0c5bmFlRnEzdDhCMEk0QVRsNmQ0?=
- =?utf-8?B?VEVCaENUaTJWQk5pSUhUQkZZUW5RbHVwN0hnVWk5ZlVWQWd2UGVYZ3dsUEM0?=
- =?utf-8?B?Z1lYM2RNOWVHbnQ0WmpNZVFCQTBiSGZvbitPWmF0QUdNaGllSVVsVXlJVzRI?=
- =?utf-8?B?dzNIYUZMWnVZdkZHWXdXbnVuRUQxNGdLTkJLV3NJakNZSVZYS2o1UWMxeHNq?=
- =?utf-8?B?QThWVTM5VU4yVVNTMVBtN1ZDREJuVFdTaUFDcTNNN0g2UjFueFdPZ2pua1o4?=
- =?utf-8?B?VFFxWDNQYkxJVGtIVGtjTlQwZndlWW5ySUMrWTEzOFZEWXovU3U5RU9qZlo3?=
- =?utf-8?B?UzVnL2xnVFRoUXFmMnJYKzJhRHpHazMvWGgvakYvci9nU1pQSnYwcFF4c2RH?=
- =?utf-8?B?UUI4YjdoYy9tVHpCdGdEVDBQby9oL3ovQ2hmRElGZml5WlY4S2JyMjNqdEJq?=
- =?utf-8?B?allJbVN4aURuaGZodkxkYklrcnZLekM0SlBsbUF0ZHIyalVyVklSL013a25E?=
- =?utf-8?B?STl2RGpES0FDQnF0aEFQWkcxTXpNcG1wVzB2cGxzYVkwbWI1Wjh6bWtWd0Nx?=
- =?utf-8?B?c1k2WGRYaXdsM0pXUjU5eWlKTDZiQUVQR29HNzFLd1ZlVW00dExFU2hGZVlt?=
- =?utf-8?B?Qy8rdGgrMmZlMkNRNHl2Qm01NmJMYmltZEZsMnRMN0djOXpLZ2VkdHhaQ0w3?=
- =?utf-8?B?aXZ5TFNLeERjWUVlRjRRdFN6cksxL0FpaTdOdE9oRXNuNm9ibHhZUGNNTFFk?=
- =?utf-8?B?MGtwN1k0M3M5S3dxTnFBYlI5OGRPRWhWNW9QUVBEdmNwRStyV3dZNFJpTUhI?=
- =?utf-8?B?dDVwaER3WlBmWGhxUTVzS2gvVUxFdEpoVElJMjZXOWlVMTFUM2pRckh6dGU2?=
- =?utf-8?B?SWQ5SlF1REFmL0xCY1Rta3BqYStWTitRSytOekY0eTZSNU04bGFUcW9jbDhB?=
- =?utf-8?Q?u0hDQz4k9Jzl7q6Wd+MGKOZ7AH9+4fScol5NbUj?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ec7e3d1-b17d-488f-fd04-08d935a3a47f
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 17:32:00.7111
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3YVs+b2Nc31rMRqE2PKtH/74M4K4k0fKBthZ8m1eG3GUPyhbDbT6WoR7GkrDJjLvpoKrLDJpWNDWzXlbsmaVPIPDEkyCDRbZc7vFQYTlpow=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB3949
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10023 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 mlxscore=0
- spamscore=0 mlxlogscore=999 bulkscore=0 suspectscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2106220107
-X-Proofpoint-ORIG-GUID: UXmCLfIhSmGpnCOpGGDyWcShhxKwOCv9
-X-Proofpoint-GUID: UXmCLfIhSmGpnCOpGGDyWcShhxKwOCv9
+References: <CAHPMNWcQgUEvd7aYiNx1U+wphmuJr_Q8JXWw3mE812uN5hEARQ@mail.gmail.com>
+ <CABfawhk4D+30_DX5cwYG-=SthQ=CXLRLL7VeXeVK48Oj0efn2Q@mail.gmail.com>
+ <CAHPMNWd1QFYfbuPdEPZgwKrXE6dhi_X-bqZfPQj4zo4AioL81w@mail.gmail.com> <CABfawh=W92ioejsZ-zu+WVofw_jfxVLteVieC2Ysfxd3Wrs+Og@mail.gmail.com>
+In-Reply-To: <CABfawh=W92ioejsZ-zu+WVofw_jfxVLteVieC2Ysfxd3Wrs+Og@mail.gmail.com>
+From: Neil Sikka <neilsikka@gmail.com>
+Date: Tue, 22 Jun 2021 14:07:33 -0400
+Message-ID: <CAHPMNWcfz+9zUv7gfwu5V6zPVBHiFc-EZDJ70-4DWHjOtyBOHg@mail.gmail.com>
+Subject: Re: Windows 10 Kernel Debugging on Xen
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000afae1705c55eaad2"
+
+--000000000000afae1705c55eaad2
+Content-Type: text/plain; charset="UTF-8"
+
+I tried that, but it seems like I'm getting an interrupt storm on the
+debugger VM (CPU spends all its time in the kernel) when I try to attach
+the debugger. This observation furthers my suspicion that there is
+communication, but there is something wrong with the protocol...
+
+On Tue, Jun 22, 2021 at 12:43 PM Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+wrote:
+
+> I used Xen 4.15 and a pretty new version of Windows 10. It is a bit
+> finicky, you have to run the debug commands on the debugee and then
+> reboot. When the VM is rebooting the domain ID changes so you have to
+> start the serial bridge then. Windbg will attach afterwards. Just make
+> sure both VMs have serial='pty' set in their config file.
+>
+> Tamas
+>
+> On Tue, Jun 22, 2021 at 12:33 PM Neil Sikka <neilsikka@gmail.com> wrote:
+> >
+> > Thanks for the quick response, Tamas. I tried what you said and windbg
+> waits and the debugee hangs when I click the break button in windbg, but I
+> don't see any output in windbg. This means that there is SOME communication
+> over the serial port that causes the debugee to hang when I click break.
+> Could it be a debugger protocol issue? I also tried the guidance here by
+> running the crlf program:
+> > https://www.qubes-os.org/doc/windows-debugging/
+> > But windbg waits and the debugee hangs in a similar manner.
+> >
+> > What versions of WIndows and Xen are you using?
+> >
+> > On Tue, Jun 22, 2021 at 12:10 PM Tamas K Lengyel <
+> tamas.k.lengyel@gmail.com> wrote:
+> >>
+> >> I have managed to get windbg working with a serial bridge between two
+> >> Win10 VMs using the following script:
+> >>
+> https://github.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/serial-bridge.sh
+> .
+> >> The debugee has to enable a couple options so that windbg can attach:
+> >>
+> https://github.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/debug.cmd
+> .
+> >>
+> >> Tamas
+> >>
+> >> On Tue, Jun 22, 2021 at 12:01 PM Neil Sikka <neilsikka@gmail.com>
+> wrote:
+> >> >
+> >> > Hello,
+> >> > Has anyone gotten a Windows10 (Version 1709 of later) kernel debugger
+> attached when running the Windows10 debugger VM and the Windows10 debugee
+> VM on Xen 4.13.0 hypervisor? I am getting a "NIC hardware initialization
+> failed" error. I tried the suggestions in the discussion here (
+> https://bugzilla.redhat.com/show_bug.cgi?id=1947015):
+> >> > -cpu
+> Skylake-Server-IBRS,ss=on,vmx=on,hypervisor=on,tsc-adjust=on,clflushopt=on,umip=on,pku=on,md-clear=on,stibp=on,arch-capabilities=on,ssbd=on,xsaves=on,ibpb=on,amd-ssbd=on,
+> \
+> >> >
+> skip-l1dfl-vmentry=on,mpx=off,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vendor-id=KVMKVMKVM
+> >> >
+> >> > note: i had to remove the following 2 arguments due to errors from
+> QEMU:
+> >> > pschange-mc-no=on
+> >> > hv_vpindex
+> >> >
+> >> > Here was the error:
+> >> > C:\Users\user\Desktop\oldDebuggers\x64>kdnet.exe
+> >> >
+> >> > Network debugging is supported on the following NICs:
+> >> > busparams=0.4.0, Intel(R) PRO/1000 MT Network Connection, Plugged in.
+> >> > The Microsoft hypervisor running this VM does not support KDNET.
+> >> > Please upgrade to the hypervisor shipped in Windows 8 or WS2012 or
+> later.
+> >> >
+> >> > KDNET initialization failed.  Status = 0xC0000182.
+> >> > NIC hardware initialization failed.
+> >> >
+> >> > I am using an Intel e1000 NIC emulated through QEMU because its
+> supposedly a supported NIC for Windows kernel NET debugging.
+> >> >
+> >> > Thanks in Advance!
+> >> >
+> >> > --
+> >> > My Blog: http://www.neilscomputerblog.blogspot.com/
+> >> > Twitter: @neilsikka
+> >
+> >
+> >
+> > --
+> > My Blog: http://www.neilscomputerblog.blogspot.com/
+> > Twitter: @neilsikka
+>
 
 
+-- 
+My Blog: http://www.neilscomputerblog.blogspot.com/
+Twitter: @neilsikka
 
-On 6/22/21 5:38 AM, Zhu Lingshan wrote:
+--000000000000afae1705c55eaad2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> -static int xen_is_user_mode(void)
-> -{
-> -	const struct xen_pmu_data *xenpmu_data = get_xenpmu_data();
-> +	state |= PERF_GUEST_ACTIVE;
->  
-> -	if (!xenpmu_data) {
-> -		pr_warn_once("%s: pmudata not initialized\n", __func__);
-> -		return 0;
-> +	if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_PV) {
-> +		if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_USER)
-> +			state |= PERF_GUEST_USER;
-> +	} else {
-> +		if (!!(xenpmu_data->pmu.r.regs.cpl & 3))
-> +			state |= PERF_GUEST_USER;
+<div dir=3D"ltr">I tried that, but it seems like I&#39;m getting an interru=
+pt storm on the debugger VM (CPU spends all its=C2=A0time in the kernel) wh=
+en I try to attach the debugger. This observation furthers my suspicion tha=
+t there is communication, but there is something wrong with the protocol...=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
+On Tue, Jun 22, 2021 at 12:43 PM Tamas K Lengyel &lt;<a href=3D"mailto:tama=
+s.k.lengyel@gmail.com">tamas.k.lengyel@gmail.com</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">I used Xen 4.15 and a prett=
+y new version of Windows 10. It is a bit<br>
+finicky, you have to run the debug commands on the debugee and then<br>
+reboot. When the VM is rebooting the domain ID changes so you have to<br>
+start the serial bridge then. Windbg will attach afterwards. Just make<br>
+sure both VMs have serial=3D&#39;pty&#39; set in their config file.<br>
+<br>
+Tamas<br>
+<br>
+On Tue, Jun 22, 2021 at 12:33 PM Neil Sikka &lt;<a href=3D"mailto:neilsikka=
+@gmail.com" target=3D"_blank">neilsikka@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Thanks for the quick response, Tamas. I tried what you said and windbg=
+ waits and the debugee hangs when I click the break button in windbg, but I=
+ don&#39;t see any output in windbg. This means that there is SOME communic=
+ation over the serial port that causes the debugee to hang when I click bre=
+ak. Could it be a debugger protocol issue? I also tried the guidance here b=
+y running the crlf program:<br>
+&gt; <a href=3D"https://www.qubes-os.org/doc/windows-debugging/" rel=3D"nor=
+eferrer" target=3D"_blank">https://www.qubes-os.org/doc/windows-debugging/<=
+/a><br>
+&gt; But windbg waits and the debugee hangs in a similar manner.<br>
+&gt;<br>
+&gt; What versions of WIndows and Xen are you using?<br>
+&gt;<br>
+&gt; On Tue, Jun 22, 2021 at 12:10 PM Tamas K Lengyel &lt;<a href=3D"mailto=
+:tamas.k.lengyel@gmail.com" target=3D"_blank">tamas.k.lengyel@gmail.com</a>=
+&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; I have managed to get windbg working with a serial bridge between =
+two<br>
+&gt;&gt; Win10 VMs using the following script:<br>
+&gt;&gt; <a href=3D"https://github.com/intel/kernel-fuzzer-for-xen-project/=
+blob/master/scripts/serial-bridge.sh" rel=3D"noreferrer" target=3D"_blank">=
+https://github.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/=
+serial-bridge.sh</a>.<br>
+&gt;&gt; The debugee has to enable a couple options so that windbg can atta=
+ch:<br>
+&gt;&gt; <a href=3D"https://github.com/intel/kernel-fuzzer-for-xen-project/=
+blob/master/scripts/debug.cmd" rel=3D"noreferrer" target=3D"_blank">https:/=
+/github.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/debug.c=
+md</a>.<br>
+&gt;&gt;<br>
+&gt;&gt; Tamas<br>
+&gt;&gt;<br>
+&gt;&gt; On Tue, Jun 22, 2021 at 12:01 PM Neil Sikka &lt;<a href=3D"mailto:=
+neilsikka@gmail.com" target=3D"_blank">neilsikka@gmail.com</a>&gt; wrote:<b=
+r>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Hello,<br>
+&gt;&gt; &gt; Has anyone gotten a Windows10 (Version 1709 of later) kernel =
+debugger attached when running the Windows10 debugger VM and the Windows10 =
+debugee VM on Xen 4.13.0 hypervisor? I am getting a &quot;NIC hardware init=
+ialization failed&quot; error. I tried the suggestions in the discussion he=
+re (<a href=3D"https://bugzilla.redhat.com/show_bug.cgi?id=3D1947015" rel=
+=3D"noreferrer" target=3D"_blank">https://bugzilla.redhat.com/show_bug.cgi?=
+id=3D1947015</a>):<br>
+&gt;&gt; &gt; -cpu Skylake-Server-IBRS,ss=3Don,vmx=3Don,hypervisor=3Don,tsc=
+-adjust=3Don,clflushopt=3Don,umip=3Don,pku=3Don,md-clear=3Don,stibp=3Don,ar=
+ch-capabilities=3Don,ssbd=3Don,xsaves=3Don,ibpb=3Don,amd-ssbd=3Don, \<br>
+&gt;&gt; &gt; skip-l1dfl-vmentry=3Don,mpx=3Doff,hv-time,hv-relaxed,hv-vapic=
+,hv-spinlocks=3D0x1fff,hv-vendor-id=3DKVMKVMKVM<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; note: i had to remove the following 2 arguments due to errors=
+ from QEMU:<br>
+&gt;&gt; &gt; pschange-mc-no=3Don<br>
+&gt;&gt; &gt; hv_vpindex<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Here was the error:<br>
+&gt;&gt; &gt; C:\Users\user\Desktop\oldDebuggers\x64&gt;kdnet.exe<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Network debugging is supported on the following NICs:<br>
+&gt;&gt; &gt; busparams=3D0.4.0, Intel(R) PRO/1000 MT Network Connection, P=
+lugged in.<br>
+&gt;&gt; &gt; The Microsoft hypervisor running this VM does not support KDN=
+ET.<br>
+&gt;&gt; &gt; Please upgrade to the hypervisor shipped in Windows 8 or WS20=
+12 or later.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; KDNET initialization failed.=C2=A0 Status =3D 0xC0000182.<br>
+&gt;&gt; &gt; NIC hardware initialization failed.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; I am using an Intel e1000 NIC emulated through QEMU because i=
+ts supposedly a supported NIC for Windows kernel NET debugging.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Thanks in Advance!<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; --<br>
+&gt;&gt; &gt; My Blog: <a href=3D"http://www.neilscomputerblog.blogspot.com=
+/" rel=3D"noreferrer" target=3D"_blank">http://www.neilscomputerblog.blogsp=
+ot.com/</a><br>
+&gt;&gt; &gt; Twitter: @neilsikka<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; --<br>
+&gt; My Blog: <a href=3D"http://www.neilscomputerblog.blogspot.com/" rel=3D=
+"noreferrer" target=3D"_blank">http://www.neilscomputerblog.blogspot.com/</=
+a><br>
+&gt; Twitter: @neilsikka<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div>My Blog: <a href=3D"http://www.neilscompute=
+rblog.blogspot.com/" target=3D"_blank">http://www.neilscomputerblog.blogspo=
+t.com/</a></div><div>Twitter: @neilsikka</div></div>
 
-
-
-Please drop "!!", it's not needed here. And use "else if".
-
-
-With that, for Xen bits:
-
-Reviewed-by: Boris Ostrovsky <boris.ostrvsky@oracle.com>
-
--boris
-
+--000000000000afae1705c55eaad2--
 
