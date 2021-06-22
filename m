@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2053B09AA
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 17:56:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145945.268454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 202CB3B09C2
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 18:00:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145950.268465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lviko-0007D8-JV; Tue, 22 Jun 2021 15:55:58 +0000
+	id 1lvipJ-0000gW-58; Tue, 22 Jun 2021 16:00:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145945.268454; Tue, 22 Jun 2021 15:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 145950.268465; Tue, 22 Jun 2021 16:00:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lviko-0007AQ-Fc; Tue, 22 Jun 2021 15:55:58 +0000
-Received: by outflank-mailman (input) for mailman id 145945;
- Tue, 22 Jun 2021 15:55:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lvipJ-0000da-1t; Tue, 22 Jun 2021 16:00:37 +0000
+Received: by outflank-mailman (input) for mailman id 145950;
+ Tue, 22 Jun 2021 16:00:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nQNH=LQ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lvikm-0007AK-K9
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 15:55:56 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e74d563c-3940-4db4-a43c-823ecfc4d455;
- Tue, 22 Jun 2021 15:55:55 +0000 (UTC)
+ <SRS0=3wlN=LQ=gmail.com=neilsikka@srs-us1.protection.inumbo.net>)
+ id 1lvipH-0000dU-EN
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 16:00:35 +0000
+Received: from mail-ed1-x52e.google.com (unknown [2a00:1450:4864:20::52e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 67e9bdca-0f31-4b4b-a7d5-5672d0d329d1;
+ Tue, 22 Jun 2021 16:00:34 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id h17so14458770edw.11
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jun 2021 09:00:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,71 +37,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e74d563c-3940-4db4-a43c-823ecfc4d455
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624377355;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JthbSS9hhfSjxnfO7f8LXXvJ6x04gBBc+yphges23jI=;
-  b=AzUo21cg87x53+/X+NdfN9KhXUkjjsRIs7Fu52W6fabb8d3Dp/ups+G8
-   3pjPPyjbXxY3I0JXpg9yYoMJeTUkViOFfJMUVrL7FLjZiObvTdIT8kySZ
-   YrBrEAVlCAUy4gZjgkTSuaaNpPXalsJ+qWDr5JDs6p0iB83Ha9kvrg04O
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: oMSkGR1CgLKk3ZvGVfsfXbNFiR2xJl+pCqIe8SdpBNrXpIq/EXbKZeLzqU2DX/OiUErGEpKikI
- QAPkjdCbvtoG/QEFIJto2sYygo84Yzqe1CuVpLPSaSXvhYZM7nGMAhm3TrsusHaNjR60xGuPC2
- BQDklCOHeXqMqG3NQRNgNliEROfXpj6niI1RM+G4CDqB8CN8voxO4EkQw6afFkiy4a0St1zMHI
- L9SEZq4W0CooZlaHvHcJYsKscYghVkVEWdr+n3784vqNzFnuk4krdT9i7MCeTifDK/3c1OmFv5
- EWc=
-X-SBRS: 5.1
-X-MesageID: 46689271
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:3d4Si6rbDy9ZZmaQhLsPwM0aV5rReYIsimQD101hICG9Evb0qy
- lhppQmPH7P+VIssRQb8+xoV5PufZqxz/BICOoqTNKftWvdyQiVxehZhOOP/9SJIUbDH4VmpM
- VdmsZFaeEZDTJB/LvHCAvTKadd/DFQmprY+ts3zB1WPH9Xg7kL1XYfNu4CeHcGPzWvA/ACZf
- yhz/sCnRWMU1INYP+2A3EUNtKz3eEixPrdEGc77wdM0nj3sQ+V
-X-IronPort-AV: E=Sophos;i="5.83,291,1616472000"; 
-   d="scan'208";a="46689271"
-Date: Tue, 22 Jun 2021 16:55:46 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
-	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] Revert "tools/firmware/ovmf: Use OvmfXen platform file
- is exist"
-Message-ID: <YNIIAvdClPze2cEg@perard>
-References: <20210622153930.16003-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 67e9bdca-0f31-4b4b-a7d5-5672d0d329d1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=EP9w62tNmtHNt+8DgW/leZX7ZZ1P63XzCfOLOGIqNlY=;
+        b=Yw/FPpD+IFCjfSoDw8jH3eLU1eAgczG/d8yUXfr4QvdFS+Ozh/ZuwYq4Nx/Az3IL9h
+         Pvv/tBGYSPoSXWe/gP91dYwu387OjcvR+U3zHqcmawFUz+QFOEHPyHOglbQuQ98f7dV+
+         oqYXSjZ3Dj20m5xCsjNnGAgKxa765Fb9c8kRxayhR83GoLo+PkZnsLS4Zh31FFmU/Uak
+         brLv0PDvB5YWt5rWGa7r2TfVMXH+SEPboKIZ4ZNNS5ID+f7p6cbgLLvNvqNJFf/dpd5H
+         GQuI2YjBd8sWZ7MdLVKnGncuxQfOm0404VgnVxk5LjphNFDSXb2bS6u7dodpnKoL0gqy
+         OMNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=EP9w62tNmtHNt+8DgW/leZX7ZZ1P63XzCfOLOGIqNlY=;
+        b=iQY6CjG6vfjbxYodF1Oo9ZUBEvwgeF3uCc2+snLr7c3tuIwfpd4NP+yr2Puq+TobKy
+         RJcq72dIXAaiuCX9SGTRl1b3aMn6m2XAHeyxMFOKDJ6GrYJO7ZJaQL1YIRG/7ykMmBxp
+         My6yiFo66mpQF9AnEwknXWxzL11JWyLZdGDb8YCUKHGVToVi71VGeyd7tYDNhEvwu7dG
+         2yuxaNhzGrsDrATHAq48Txng4zPf8+kfuluyoKCwPoJ3JR9LSc36LAK3srtONdZ4DwUm
+         t53mwt6KGYKMWHlDMpfndLP0Pt/seX3PI+ok3+rAmFevOXyWGaPubaYedDVx0h7eEURn
+         1Khw==
+X-Gm-Message-State: AOAM533MWaMTiPYMeqfgTokHaaZQcgHwAlSVLiYR0CygmfZEeu927LfR
+	kcG/9LyJtM8mYTVglMcvB9hsJaXk5ptzUF/14ZumbYiyfAulbg==
+X-Google-Smtp-Source: ABdhPJw+ihHJpO7jlFMgvZVJ3fjjT8YCfR0RIE146Ha1JVHNa0blKAdVVNV4fiYqHugywvLOFWXJ7C5jxff92QH75iw=
+X-Received: by 2002:a05:6402:848:: with SMTP id b8mr5970828edz.44.1624377633510;
+ Tue, 22 Jun 2021 09:00:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210622153930.16003-1-andrew.cooper3@citrix.com>
+From: Neil Sikka <neilsikka@gmail.com>
+Date: Tue, 22 Jun 2021 12:00:22 -0400
+Message-ID: <CAHPMNWcQgUEvd7aYiNx1U+wphmuJr_Q8JXWw3mE812uN5hEARQ@mail.gmail.com>
+Subject: Windows 10 Kernel Debugging on Xen
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000d3973905c55ce399"
 
-On Tue, Jun 22, 2021 at 04:39:30PM +0100, Andrew Cooper wrote:
-> This reverts commit aad7b5c11d51d57659978e04702ac970906894e8.
-> 
-> The change from OvmfX64 to OvmfXen causes a change in behaviour, whereby
-> OvmfXen maps its shared info page at the top of address space.  When trying to
-> migrate such a domain, XENMEM_maximum_gpfn returns a very large value.  This
-> has uncovered multiple issues:
-> 
->  1) The userspace hypercall wrappers truncate all return values to int on
->     Linux and Solaris.  This needs fixing in Xen.
->  2) 32bit toolstacks can't migrate any domain with RAM above the 2^40 mark,
->     because of virtual address constraints.  This needs fixing in OVMF.
-> 
-> Fixes for both of these aren't completely trivial.  Revert the change to
-> unblock staging in the meantime.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--000000000000d3973905c55ce399
+Content-Type: text/plain; charset="UTF-8"
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+Hello,
+Has anyone gotten a Windows10 (Version 1709 of later) kernel debugger
+attached when running the Windows10 debugger VM and the Windows10 debugee
+VM on Xen 4.13.0 hypervisor? I am getting a "NIC hardware initialization
+failed" error. I tried the suggestions in the discussion here (
+https://bugzilla.redhat.com/show_bug.cgi?id=1947015):
+-cpu
+Skylake-Server-IBRS,ss=on,vmx=on,hypervisor=on,tsc-adjust=on,clflushopt=on,umip=on,pku=on,md-clear=on,stibp=on,arch-capabilities=on,ssbd=on,xsaves=on,ibpb=on,amd-ssbd=on,
+\
+skip-l1dfl-vmentry=on,mpx=off,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vendor-id=KVMKVMKVM
 
-Thanks,
+note: i had to remove the following 2 arguments due to errors from QEMU:
+pschange-mc-no=on
+hv_vpindex
+
+Here was the error:
+C:\Users\user\Desktop\oldDebuggers\x64>kdnet.exe
+
+Network debugging is supported on the following NICs:
+busparams=0.4.0, Intel(R) PRO/1000 MT Network Connection, Plugged in.
+The Microsoft hypervisor running this VM does not support KDNET.
+Please upgrade to the hypervisor shipped in Windows 8 or WS2012 or later.
+
+KDNET initialization failed.  Status = 0xC0000182.
+NIC hardware initialization failed.
+
+I am using an Intel e1000 NIC emulated through QEMU because its supposedly
+a supported NIC for Windows kernel NET debugging.
+
+Thanks in Advance!
 
 -- 
-Anthony PERARD
+My Blog: http://www.neilscomputerblog.blogspot.com/
+Twitter: @neilsikka
+
+--000000000000d3973905c55ce399
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,<div>Has anyone gotten a Windows10 (Version 1709 of =
+later) kernel debugger attached when running the Windows10 debugger VM and =
+the Windows10 debugee VM on Xen 4.13.0 hypervisor? I am getting a &quot;NIC=
+ hardware initialization failed&quot; error. I tried the suggestions in the=
+ discussion=C2=A0here (<a href=3D"https://bugzilla.redhat.com/show_bug.cgi?=
+id=3D1947015">https://bugzilla.redhat.com/show_bug.cgi?id=3D1947015</a>):<b=
+r>-cpu Skylake-Server-IBRS,ss=3Don,vmx=3Don,hypervisor=3Don,tsc-adjust=3Don=
+,clflushopt=3Don,umip=3Don,pku=3Don,md-clear=3Don,stibp=3Don,arch-capabilit=
+ies=3Don,ssbd=3Don,xsaves=3Don,ibpb=3Don,amd-ssbd=3Don, \<br>skip-l1dfl-vme=
+ntry=3Don,mpx=3Doff,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=3D0x1fff,hv-ve=
+ndor-id=3DKVMKVMKVM<br><br>note: i had to remove the following 2 arguments =
+due to errors from QEMU:<br>pschange-mc-no=3Don<br>hv_vpindex<br><br>Here w=
+as the error:<br>C:\Users\user\Desktop\oldDebuggers\x64&gt;kdnet.exe<br><br=
+>Network debugging is supported on the following NICs:<br>busparams=3D0.4.0=
+, Intel(R) PRO/1000 MT Network Connection, Plugged in.<br>The Microsoft hyp=
+ervisor running this VM does not support KDNET.<br>Please upgrade to the hy=
+pervisor shipped in Windows 8 or WS2012 or later.<br><br>KDNET initializati=
+on failed.=C2=A0 Status =3D 0xC0000182.<br>NIC hardware initialization fail=
+ed.<br><br>I am using an Intel e1000 NIC emulated through QEMU because its =
+supposedly a supported NIC for Windows kernel NET debugging.<br><br>Thanks =
+in Advance!<br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div>My Blog: <a hr=
+ef=3D"http://www.neilscomputerblog.blogspot.com/" target=3D"_blank">http://=
+www.neilscomputerblog.blogspot.com/</a></div><div>Twitter: @neilsikka</div>=
+</div></div></div>
+
+--000000000000d3973905c55ce399--
 
