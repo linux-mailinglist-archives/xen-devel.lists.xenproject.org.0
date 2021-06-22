@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3FA73B0003
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 11:14:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145779.268120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 134EF3B001E
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 11:24:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145784.268131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvcTb-00075H-7y; Tue, 22 Jun 2021 09:13:47 +0000
+	id 1lvcdA-0008VU-78; Tue, 22 Jun 2021 09:23:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145779.268120; Tue, 22 Jun 2021 09:13:47 +0000
+Received: by outflank-mailman (output) from mailman id 145784.268131; Tue, 22 Jun 2021 09:23:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvcTb-00072h-4m; Tue, 22 Jun 2021 09:13:47 +0000
-Received: by outflank-mailman (input) for mailman id 145779;
- Tue, 22 Jun 2021 09:13:45 +0000
+	id 1lvcdA-0008TA-2e; Tue, 22 Jun 2021 09:23:40 +0000
+Received: by outflank-mailman (input) for mailman id 145784;
+ Tue, 22 Jun 2021 09:23:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P8ns=LQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lvcTZ-00072b-GN
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 09:13:45 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ id 1lvcd8-0008T4-P7
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 09:23:38 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1edd42b3-1de2-4b0b-a114-0d2bf25066b2;
- Tue, 22 Jun 2021 09:13:44 +0000 (UTC)
+ id 2f02d891-5cb1-466d-914f-b9591431af90;
+ Tue, 22 Jun 2021 09:23:36 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7C1CC1FD5F;
- Tue, 22 Jun 2021 09:13:43 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AFD5D2198C;
+ Tue, 22 Jun 2021 09:23:35 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 49660118DD;
- Tue, 22 Jun 2021 09:13:43 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 7E0CE118DD;
+ Tue, 22 Jun 2021 09:23:35 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id FP3LEMep0WDcIwAALh3uQQ
- (envelope-from <jgross@suse.com>); Tue, 22 Jun 2021 09:13:43 +0000
+ id tnypHBes0WAJKQAALh3uQQ
+ (envelope-from <jgross@suse.com>); Tue, 22 Jun 2021 09:23:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,102 +47,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1edd42b3-1de2-4b0b-a114-0d2bf25066b2
+X-Inumbo-ID: 2f02d891-5cb1-466d-914f-b9591431af90
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1624353223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1624353815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5uW1mvwPWJAxbKJxXhY9mWmrSh/sL25QUQ3IwGQ7nSA=;
-	b=i5qQ1IL1cl1ABzHYSualVqG2OtOSlvhHeDe1+Rf5DpUEsf21mDHP9yPKLhkrM0aytyRkXA
-	SCDG/42LlTnRXMFrXcuUqTrAmzod1oRHoufZtCz3qVMNIJyMfWYpK+yiPE7J/Ywns+BCTT
-	DGvEQpj+TFNngjcckDorV2DTj1OeQJw=
+	bh=ZrGILk5TF1Zhl5wMEICap1qzcWtZAIP+G9BYsVDJ00k=;
+	b=GuvXIBgtdSgCuYNvJW4AGUqIOwfkJ9tW4a/n8gh+DXeF+kyGrBWCJnjWs9MRWlPqv2Z0m2
+	qurszEL6mTyB7fZ5N5b1eEVkWVtBlr2SdRTwsyYAQ1HUIYvTi7tWOE14QXzNLF2fAAU8IL
+	9i1HT+hOgBtcHAl/xvWZgKegr5m9iC4=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1624353223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1624353815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5uW1mvwPWJAxbKJxXhY9mWmrSh/sL25QUQ3IwGQ7nSA=;
-	b=i5qQ1IL1cl1ABzHYSualVqG2OtOSlvhHeDe1+Rf5DpUEsf21mDHP9yPKLhkrM0aytyRkXA
-	SCDG/42LlTnRXMFrXcuUqTrAmzod1oRHoufZtCz3qVMNIJyMfWYpK+yiPE7J/Ywns+BCTT
-	DGvEQpj+TFNngjcckDorV2DTj1OeQJw=
+	bh=ZrGILk5TF1Zhl5wMEICap1qzcWtZAIP+G9BYsVDJ00k=;
+	b=GuvXIBgtdSgCuYNvJW4AGUqIOwfkJ9tW4a/n8gh+DXeF+kyGrBWCJnjWs9MRWlPqv2Z0m2
+	qurszEL6mTyB7fZ5N5b1eEVkWVtBlr2SdRTwsyYAQ1HUIYvTi7tWOE14QXzNLF2fAAU8IL
+	9i1HT+hOgBtcHAl/xvWZgKegr5m9iC4=
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien GralL
  <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210617173857.6450-1-julien@xen.org>
- <e7458af5-a128-fc01-21ee-34a02f2fdf9b@suse.com>
- <ba1c16d7-1820-a146-2d64-6d4cc5901f04@xen.org>
 From: Juergen Gross <jgross@suse.com>
 Subject: Re: [PATCH] tools/xenstored: Don't crash xenstored when Live-Update
  is cancelled
-Message-ID: <5f4883a2-fbeb-6bf4-c5ef-46e55c74f5b0@suse.com>
-Date: Tue, 22 Jun 2021 11:13:42 +0200
+Message-ID: <136d6a10-c93d-accd-fc34-62fbaa4742b0@suse.com>
+Date: Tue, 22 Jun 2021 11:23:34 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <ba1c16d7-1820-a146-2d64-6d4cc5901f04@xen.org>
+In-Reply-To: <20210617173857.6450-1-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Tr2iMtsNeS4mT5XmpMmWNGu9mnlpBXBvR"
+ boundary="BM8HYKSk6JU0miiBhsDfUZQ99pUV5IlxA"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Tr2iMtsNeS4mT5XmpMmWNGu9mnlpBXBvR
-Content-Type: multipart/mixed; boundary="XYsNLoGG7uydEIBYAwQNVOcrd4DfoHqT3";
+--BM8HYKSk6JU0miiBhsDfUZQ99pUV5IlxA
+Content-Type: multipart/mixed; boundary="csuHntVeq7SnTgkWBQ8iGcGbjzxcTxVkv";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien GralL
  <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <5f4883a2-fbeb-6bf4-c5ef-46e55c74f5b0@suse.com>
+Message-ID: <136d6a10-c93d-accd-fc34-62fbaa4742b0@suse.com>
 Subject: Re: [PATCH] tools/xenstored: Don't crash xenstored when Live-Update
  is cancelled
 References: <20210617173857.6450-1-julien@xen.org>
- <e7458af5-a128-fc01-21ee-34a02f2fdf9b@suse.com>
- <ba1c16d7-1820-a146-2d64-6d4cc5901f04@xen.org>
-In-Reply-To: <ba1c16d7-1820-a146-2d64-6d4cc5901f04@xen.org>
+In-Reply-To: <20210617173857.6450-1-julien@xen.org>
 
---XYsNLoGG7uydEIBYAwQNVOcrd4DfoHqT3
+--csuHntVeq7SnTgkWBQ8iGcGbjzxcTxVkv
 Content-Type: multipart/mixed;
- boundary="------------E2257B4A84088B714C77AD72"
+ boundary="------------194A444496820619141E8FBE"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------E2257B4A84088B714C77AD72
+--------------194A444496820619141E8FBE
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 22.06.21 10:53, Julien Grall wrote:
-> Hi Juergen,
+On 17.06.21 19:38, Julien Grall wrote:
+> From: Julien GralL <jgrall@amazon.com>
 >=20
-> On 22/06/2021 10:46, Juergen Gross wrote:
->> On 17.06.21 19:38, Julien Grall wrote:
->>> From: Julien GralL <jgrall@amazon.com>
->>>
->>> As Live-Update is asynchronous, it is possible to receive a request t=
-o
->>> cancel it (either on the same connection or from a different one).
->>>
->>> Currently, this will crash xenstored because do_lu_start() assumes
->>> lu_status will be valid. This is not the case when Live-Update has be=
-en
->>> cancelled. This will result to dereference a NULL pointer and
->>> crash Xenstored.
->>
->> Umm, you introduced that bug in "[PATCH 03/10] tools/xenstore: Don't
->> assume conn->in points to the LU request".
+> As Live-Update is asynchronous, it is possible to receive a request to
+> cancel it (either on the same connection or from a different one).
 >=20
-> No. I did reproduced this one without my series. If there are in-flight=20
+> Currently, this will crash xenstored because do_lu_start() assumes
+> lu_status will be valid. This is not the case when Live-Update has been=
 
-> transaction this will crash in lu_check_lu_allowed() otherwise, it will=20
+> cancelled. This will result to dereference a NULL pointer and
+> crash Xenstored.
+>=20
+> Rework do_lu_start() to check if lu_status is NULL and return an
+> error in this case.
+>=20
+> Fixes: af216a99fb ("tools/xenstore: add the basic framework for doing t=
+he live update")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>=20
+> ----
+>=20
+> This is currently based on top of:
+>=20
+> https://lore.kernel.org/xen-devel/20210616144324.31652-1-julien@xen.org=
 
-> crash when calling lu_dump_state().
+>=20
+> This can be re-ordered if necessary.
+> ---
+>   tools/xenstore/xenstored_control.c | 15 +++++++++++++--
+>   1 file changed, 13 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xensto=
+red_control.c
+> index a045f102a420..37a3d39f20b5 100644
+> --- a/tools/xenstore/xenstored_control.c
+> +++ b/tools/xenstore/xenstored_control.c
+> @@ -696,7 +696,18 @@ static bool do_lu_start(struct delayed_request *re=
+q)
+>   	time_t now =3D time(NULL);
+>   	const char *ret;
+>   	struct buffered_data *saved_in;
+> -	struct connection *conn =3D lu_status->conn;
+> +	struct connection *conn =3D req->data;
+> +
+> +	/*
+> +	 * Cancellation may have been requested asynchronously. In this
+> +	 * case, lu_status will be NULL.
+> +	 */
+> +	if (!lu_status) {
+> +		ret =3D "Cancellation was requested";
+> +		conn =3D req->data;
 
-Oh, right, I missed the indirection via delay_request().
+This will set conn to the same value it already has.
 
-Sorry.
+
+Other than that:
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------E2257B4A84088B714C77AD72
+--------------194A444496820619141E8FBE
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -234,25 +259,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------E2257B4A84088B714C77AD72--
+--------------194A444496820619141E8FBE--
 
---XYsNLoGG7uydEIBYAwQNVOcrd4DfoHqT3--
+--csuHntVeq7SnTgkWBQ8iGcGbjzxcTxVkv--
 
---Tr2iMtsNeS4mT5XmpMmWNGu9mnlpBXBvR
+--BM8HYKSk6JU0miiBhsDfUZQ99pUV5IlxA
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDRqcYFAwAAAAAACgkQsN6d1ii/Ey90
-rAf/f4v5o4ocdrlvJ3ohGUU7afDie8X20DcOQrI63WA/XdLfVmkWT9BHveFxjm0NT2JgwvhVnLr/
-WfwBrzzOcplNey0hCn5dNipDP7T0ctxGuWvrBZtVwiEVhy4cwsBUf6CjkRbEmAAOH5LWKhTLiHWr
-7jfeMR70dCKuAMlf/kpomYfRlDX9wd89xJlSphoGBeBayPQzo4sjx2AUh/YrCKGUrY9qV4wGUtSJ
-AXd+RpEAt8JNgxI+XWuHbz07mEk6aWtx6wMUbB580+h5KVWOCQV8r0TTqEt3NTza8duyenZorHc+
-fuSz/Bkneni586pwx31KaUOhbblYdXkkAaeXqjFznQ==
-=8Ga+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDRrBcFAwAAAAAACgkQsN6d1ii/Ey+u
+2wf+JWKqfQB7M4Nd/jEL3m9Nj9NV7U32Mxb3+Xbhtj+vx0nKg7P8dDExh6IkAgvCQp23Ch+kA8OI
+HIVPiPYOA1fEfC6ysWMDOUr//Po67boxROWF3YIHB4WE4aSt4rYzk2BuEOtSnxUImKSRBJbvvGhv
+j/1Ox+EUW4KAqHZFqpcucaXmOTgHPA6KPPDSmKwiC5wduCenU6PBTO7cKMxggKD1eVlB3iJaWYOq
+pKyEENSJrCm3sSQz3Z8eQPx7EO6+Tu8dweMotZx56bRmKFM9ojShFEL6Lhtf2flH2TX1L2l8cd9J
+GEHsDVD7oDl11waIz37i37y04xHoWMQqHSxThW6EtQ==
+=5QqH
 -----END PGP SIGNATURE-----
 
---Tr2iMtsNeS4mT5XmpMmWNGu9mnlpBXBvR--
+--BM8HYKSk6JU0miiBhsDfUZQ99pUV5IlxA--
 
