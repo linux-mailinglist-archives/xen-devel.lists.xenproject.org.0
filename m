@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E08933B0A56
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 18:29:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145973.268509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8633B0A6C
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 18:33:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145977.268519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvjFh-0004wS-9N; Tue, 22 Jun 2021 16:27:53 +0000
+	id 1lvjLE-0006Ib-T1; Tue, 22 Jun 2021 16:33:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145973.268509; Tue, 22 Jun 2021 16:27:53 +0000
+Received: by outflank-mailman (output) from mailman id 145977.268519; Tue, 22 Jun 2021 16:33:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvjFh-0004tp-5G; Tue, 22 Jun 2021 16:27:53 +0000
-Received: by outflank-mailman (input) for mailman id 145973;
- Tue, 22 Jun 2021 16:27:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lvjLE-0006Gi-Pp; Tue, 22 Jun 2021 16:33:36 +0000
+Received: by outflank-mailman (input) for mailman id 145977;
+ Tue, 22 Jun 2021 16:33:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZL//=LQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lvjFf-0004tj-0O
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 16:27:51 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc0bb070-2254-4ae4-8cc3-99988f5ef58d;
- Tue, 22 Jun 2021 16:27:49 +0000 (UTC)
+ <SRS0=3wlN=LQ=gmail.com=neilsikka@srs-us1.protection.inumbo.net>)
+ id 1lvjLE-0006Gc-1S
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 16:33:36 +0000
+Received: from mail-ed1-x533.google.com (unknown [2a00:1450:4864:20::533])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id def03ceb-54a3-4ed3-8bf3-7ddd2bdc0081;
+ Tue, 22 Jun 2021 16:33:35 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id s6so24479173edu.10
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jun 2021 09:33:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,160 +37,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc0bb070-2254-4ae4-8cc3-99988f5ef58d
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624379269;
-  h=to:cc:references:from:subject:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=VtVlYcU6+/wbuJX1pOjnPD5Exirrp4sS0B8dgtDtJ80=;
-  b=HMQK5oxfjSoj7zG0TxqOJI99NnekFhmXuB4GPw+3ab0ameqXhh7/Qq23
-   vWTOLjgx4gWm0ruDOn5AlGf5g3jUQg4B7ts6pXgC1BDuVD6a62uEVBzxW
-   ESr5iTdOcDmY/C/WxUwS/2vk0/vbd+IrwfY4KcFlThi79XRGLn4KmaQBt
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: ioagPGl7N+nv4jQXrGQ8gPeLSnUJaM+5K600rqCKIlW7Up7/EfwrX/nB+vrOX5VxhgAjblbGba
- UohJqLxAyJwT0ZYyYeOD0ybCP4el9Z/162MbUojLiEIZsjeKLXsl0Nf0TNkPPmvhvZ2ICcvdMW
- ddBBg34SGHs4ixIOOB0iHWHyY/vffVUEDvbRvYR+UVP+2+jydggPtLKhU83yT4oqGtwovCo3h5
- /GFOJPZTVzeFRfl5GKlEzSeYxwTziEIjNRNgeMBeNaBKa3B7c+1XAkgfw+enoBzK66VdrRHi4A
- ByM=
-X-SBRS: 5.1
-X-MesageID: 47072762
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:0Xi4xK+LRZLJpZa66HRuk+AiI+orL9Y04lQ7vn2ZKSY5TiVXra
- CTdZUgpHvJYVMqMk3I9uruBEDtex3hHP1OkOws1NWZLWrbUQKTRekP0WKL+Vbd8kbFh4xgPM
- lbEpSXCLfLfCVHZcSR2njFLz73quP3j5xBho3lvglQpRkBUdAG0+/gYDzraXGfQmN9dPwEPa
- vZ3OVrjRy6d08aa8yqb0N1JdQq97Xw5evbiQdtPW9e1DWz
-X-IronPort-AV: E=Sophos;i="5.83,291,1616472000"; 
-   d="scan'208";a="47072762"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E8B/am2kDLy30FrAkr5/+ytjhFRKIzhL5nqr2bY4Td+nl5cMtQz0M4qzory+3jhMxP1t8ZBkK42Fid014L/a9pkC+F5ejCyC+BNxzBD070RfEjUogIh+rOgoBZUuEQWlmF6mUSoTNkDrOT8oG2R+zrNjk8cDn4X2UDU1xUw1bscnjmgGCKrysjflV7HYWgSLxSPDoNWOAdQqWO6IqYn+olEFFgZ/G83dQtH1coWbwWiA73O/4SGdCRM97t3sPTKsAbLIRlFTHj+i8C0TqRUo4l11EZB18KIrfDRSoN2ujT0ra2VO6t4glGIbqVEE+ctLMjKr+Jo1MBCOKdsSDX4MEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fTfSzXv9hlAttnN6XQ5b6pwrnkXJF1fp8R9V9tpTRKM=;
- b=L5+WkHy8UIFwfyRJmyI5tGqW7IFCa8Rdgb/QUUMyYwNslOm45zJyAlVlglB9psXe2Aam8UesvV2znNDzJzpBACxwuh8MDjnCKMLELJs4zRHK9K1Z2GBPMz6n7ru5fMcyJaa6mBXMep07yejDNNjbYSp0UI5Hcyyju7ldQCSzCRwjLN9RFOWkqieY+gnUK+ZFDsCe/46hDDBcWcz1eRT9ZtA+A9lrArW7STPvAFZ9Ow64q1bR+jqPp5h8fXHKRj9AwsrBOTI5fNZ7VaAlR6sUP2OsBhfhsFGgef0xEBaxoLLkvze1q3HnklPdmc7RtWyDiATJbG4BuMhhI5HGDbRzXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: def03ceb-54a3-4ed3-8bf3-7ddd2bdc0081
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fTfSzXv9hlAttnN6XQ5b6pwrnkXJF1fp8R9V9tpTRKM=;
- b=b6bHUgKjBVCA2M9Q2nTRQr788XAerYB9TAsTPTuKBsbKGSdT6GOJhJFnUlF2FIzVGCFMSgWaWMhVsG+z6DTFxR/0nylhU3y4cPkPD8qynUaEj91hUr+T9Y1QCvv50T3JCdKGKvaVPVawGbmAX1PhUwWZWiX6Uy74PQ/R8u1CHnY=
-To: Jan Beulich <jbeulich@suse.com>
-CC: Anthony PERARD <anthony.perard@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210622153930.16003-1-andrew.cooper3@citrix.com>
- <e3104d67-d988-06f7-58e1-92ed3ef739bd@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] Revert "tools/firmware/ovmf: Use OvmfXen platform file is
- exist"
-Message-ID: <58ac70ac-f205-564b-184b-a86c19bd2906@citrix.com>
-Date: Tue, 22 Jun 2021 17:27:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <e3104d67-d988-06f7-58e1-92ed3ef739bd@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0394.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::21) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=EuglMweKhcssS/9eQCqRk+a+i6CIroCO89mBFrjoy0c=;
+        b=Ccz2H5UEbTOmSqA4fi1NzImuW9E++REFeGJiUj8urAcRMnPrGesURZau4g8Ya/DmVQ
+         qP9KXy3TxYlFFepf2C8GCd6iBWH6woavULVaXIyZ3MTiogE2/HGZcaK5fDJxbP7Ucf0q
+         ChW4Pf+vFbG31W6758yHEabWpUkN4UCGe6ryVRR3Ve2hvcP1bCKggTmAnuX56ia3O5C9
+         8y9zpuNzfPL0fvrF8UK/p6+vtIII6TuvsNGqbcgOZUlvnqAxI6OeiLr1m0JwWHFz6tun
+         A+TYcyBniAE3jkoqrW4AKHFlH+/1Ywar9LMkiGYwUZ3j68gkgUtjEqlvxK9R0O2v+NN2
+         gV5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=EuglMweKhcssS/9eQCqRk+a+i6CIroCO89mBFrjoy0c=;
+        b=Cx6f8TKzusK5q42USjiXW/YG7q2+ZlLYzlNSryS4vRoUuaCC4rKL5ecHG9VfLdWtFp
+         i3KTfSRVFRyP9xkOZX+IQntwLhpGKP/XztqOYbGft6cu2ffkujdvPJ6obmDHFErPSZaj
+         BFiWxS3qCyOXNesWzwJ+KCEu7tTWO3HP2l3/dLzOrr+WLbKwke9/DWFaYNYFVsf5sWo0
+         DAloxHiOgYgooDiab6epkumJ/9oIS0cbB4Q7gG4Hz1nD8lLnCt/vL0aCorGT0z8eB7+w
+         /xCt4/reArl0mC0+AxnJ1Pemm7+QdKS0gEhOFsUQfPPAssBx11ESN21tTtBocUTsOJ3U
+         p+sQ==
+X-Gm-Message-State: AOAM531njtU3C6Ia989fvUkPsgOCgxzWAVRn/lPUG/RSM2sCBjRVDbrr
+	InsP7UCiXrqTG4ZEAXyPpodkZO64TpfXHMDgolg=
+X-Google-Smtp-Source: ABdhPJyUReF+2Ti3QzyW55fra8U3V5rCRx9Y6H9k9c6cev5IpJgjuy69FPGtc49tqL4MqTohmxbBo5zevTGefhv+KOs=
+X-Received: by 2002:a05:6402:848:: with SMTP id b8mr6198351edz.44.1624379614001;
+ Tue, 22 Jun 2021 09:33:34 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 11486de7-d4fe-4f98-613b-08d9359aa94a
-X-MS-TrafficTypeDiagnostic: BY5PR03MB5047:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BY5PR03MB5047C0FB5745ACA87C64566EBA099@BY5PR03MB5047.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: v5TZKEgkLXuhYuZ5ilwWaQewSCxGQSrC0tpjAJgqjyjMv37APgJDgiMeq0eF3tD7am5Zozwsy5dc6p3kyLcKJisvOv5WR8IblbE5Zrmigy3QWOnOHukS40qo4Z4ybEuhvlhvqiQjBNfHPO4rgJ7lrTHEKSAq8qlAOSDeRQ6ktXl4SEAsTlSbiwlQ5t8ecphn9sLUgZD1E/Zj2vINTN6RdSKwhqoeffD7s6AICRcDfFLtpLY54mqZx99Inv5kV/saBgHn7EsSjrIJhN162sVFw+Ve0J931U0ua0/A++VOyXyeBBhsqnEYy36KwOft1KypXOxBsvRfPgkQzJ/Gao5Zv9a9Ot49DwhOwgifVvpA5zaIeW+R0J8tagoKpfdqckZx6yLUQ3ljkSSUwv8Cc01pu+m4F6KEW+mfT1Qn9r4NoyGbMDGSePBeToLehIk8OUcFKEn1opXb5ooXax0Vq+pyuFQGgb/n+B9ZUet4QBdWnBUb9nMWU8dvAeZt0j5H/c+tfadBJikQ08YHcS7XTLsMZDnWYK23BCiyN7CpeW1r+yoa5O53JLjUb7EZQcsGw0eSNk7C7U9jw6XE8SyTuWWQ9Mt7rF47bs4gAOkThirLJywbeU9P7/elrb3OWtbzgPCJb0m2eoK/nastB9e3qq6f5x+fKgMO/8OtFqn1eu3SXFloG5g72g5H84kXKPmJSqy+
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(366004)(136003)(346002)(396003)(376002)(36756003)(66476007)(66946007)(956004)(66556008)(2616005)(2906002)(8936002)(8676002)(316002)(16576012)(54906003)(5660300002)(6666004)(86362001)(31696002)(6486002)(16526019)(186003)(53546011)(26005)(83380400001)(31686004)(38100700002)(4326008)(6916009)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T3Y1TlBhYVpBdlozU2NqYyt1WjZhZmxMOVpIRzg5cjJ4TFhMelBvaS9lZ0Vm?=
- =?utf-8?B?ZmdsdkR4VkFXTWNySUNzclRRRFhQSFpDT1NhR01vSm8wNXAxcEo2dC9jS0Rn?=
- =?utf-8?B?R3VjMDJMQkg3bURXY0ZMemJ2eS9TN2JqZXp5Z2I5WHNZUnJqbUVlS0ZodjZ5?=
- =?utf-8?B?NnhBTGtsWDhtakhzRFQ0d2NuK1NnN1Vla3EzQkprTWlvdHVHL3NSR1Z4OXY4?=
- =?utf-8?B?ZFRxTnVMYWY5bkVmZEtYMzVIU2lkWDJ2WWJCNkoxNEFzR1hQKytZbnBoVHZN?=
- =?utf-8?B?OGgxVElzaDA1NEsxOXlvYTgyM1NmUVIrTG00OEZ6OE94OUwzTEFmeHU1aDND?=
- =?utf-8?B?cFpyUG02OGZlRW9yamcyRGhlU0wvL0Z2SVY4NEkwZFBjRWFBMWNDYU0vd2d1?=
- =?utf-8?B?bGFMNkJKSUR0RGNIV1JlM3REVnYxN3dLZnRlUExWZHFlWS9sTkZodWJLU2Jx?=
- =?utf-8?B?L0h3cWN2aFNXSXQwbnhoYWQ5L3g0bXN3cnczV0xFMUZVUWZLUjRZdmp2SnFH?=
- =?utf-8?B?YWtDLzNwRklkZDZ2NEQrd3lCRm5TY0k1UUdCQk55OVNSK0J6b1k2em5PWk52?=
- =?utf-8?B?MWNLcXFsU2ZGVVFHTmovK1U0MHgra21NTnJBYWwrTzJlNmN2RjIzeVBzc2Uw?=
- =?utf-8?B?bFFhNHlVb1VzV1phbm9UdUdMWCtEWURmUGdFT284R0pENXpiYUUyOGlLL0p2?=
- =?utf-8?B?dmtQWE8rMDQyMVFUK3M1Z1MrOFpqQjY2dk5OM01yRnV4Njh1ckpWSEJNak8r?=
- =?utf-8?B?aFpUdFpmQlhpM0paVWlOY3h0aWlMamtyaW91QWlzRVRGa0FTODRVcldoR0F0?=
- =?utf-8?B?eTJpQVFBcWxQTTQrZlkra3JXSmlTMmozT1NiZStzR3l3WlNBK01ZdTJCY1Ry?=
- =?utf-8?B?VG5OMUFOZVI2VUxIUlJJRFFrdVBmTDhQNlNFZkhvQmpTdCt3SitkYVdORkNG?=
- =?utf-8?B?cFFRMGZGMEtQRGV3eGUxUUdUWERodGpIYTU4WXd1YjdoL0lJL1NhZ2g0M0wx?=
- =?utf-8?B?bTNLcEZxRHZ4WW1RbFZEUFhyemtNdkhYUmxpREgvTmlpalB4eERkZi9NYTAz?=
- =?utf-8?B?YWlXMWVpRDFkT1ZSSVJvdjQ3a21IVW9RM0cvTDFoKzVMM3U5QXl3K2pGMUZI?=
- =?utf-8?B?cmkwektsSlM3V3JhYmkrR2VVZmI2RGVLZGlmRkJDQ1dMVjF1YmhLNklibjhK?=
- =?utf-8?B?NEcybTFQSFlHc1U1bDJ4THYyZDFBY0JJaTFydG83UXhtZEFoYllNakJhNGlz?=
- =?utf-8?B?UUxqU0RVeEpjYzJ0MS9sTUl0T0J4NVFicEJ2NlZlOEZhdXcvVFdYR3hLdm16?=
- =?utf-8?B?Zm9EMit4ZVp1RkZGdWlycU4zYkR5SmtVdGFDMEk1NFl0WEZ5ZnlyZ21EaHRi?=
- =?utf-8?B?citkam51TFpHNlVGWU5FbmI1NklyVys4cFhDamRCcElNRWNwc3VmWWF1UWdW?=
- =?utf-8?B?S0lJc2ExeU1OdVUwWThkRTNXOU84NEgwYi9nRjZZKzduUEw1eS85ZVVHNTRO?=
- =?utf-8?B?dFdSejZlaXcrOFlGd01jSnJ5cU9Lb0ZEZWRvQjN6RmlvZWNqczN2NkxkZS91?=
- =?utf-8?B?N1RqY0hvRkc0a01vd01VMXNkWkdLN0ZKMGVVbFkvZ3pFQ2NGTFpHU25LTWpl?=
- =?utf-8?B?ME5vd21QWDM0NXlISXB2bVpmRXloWk5sR2x4bXVhN3MxZGRJOWVTMWFBcHJz?=
- =?utf-8?B?OThnelB0SHd3UCtLNW1nOTIzUHFBU3lIZ1drajQ2ayszNkRYeW5qYkdJSWlj?=
- =?utf-8?Q?fErSOpDSHPG/ipHTr1rwSr5EVi9yHQOvAHJOAe7?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11486de7-d4fe-4f98-613b-08d9359aa94a
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 16:27:43.2924
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xEDSQL3WkLjScBg3YM6j6qW1thQgLA7c0jtTLMnGaFxbMZ6XC3o2YEYGrSs5AGNIxuS9Fv4g5RruzLJE+SYkfVAEwnz4r84x0JL+0x9iS08=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5047
-X-OriginatorOrg: citrix.com
+References: <CAHPMNWcQgUEvd7aYiNx1U+wphmuJr_Q8JXWw3mE812uN5hEARQ@mail.gmail.com>
+ <CABfawhk4D+30_DX5cwYG-=SthQ=CXLRLL7VeXeVK48Oj0efn2Q@mail.gmail.com>
+In-Reply-To: <CABfawhk4D+30_DX5cwYG-=SthQ=CXLRLL7VeXeVK48Oj0efn2Q@mail.gmail.com>
+From: Neil Sikka <neilsikka@gmail.com>
+Date: Tue, 22 Jun 2021 12:33:22 -0400
+Message-ID: <CAHPMNWd1QFYfbuPdEPZgwKrXE6dhi_X-bqZfPQj4zo4AioL81w@mail.gmail.com>
+Subject: Re: Windows 10 Kernel Debugging on Xen
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000df7c3405c55d59a2"
 
-On 22/06/2021 17:10, Jan Beulich wrote:
-> On 22.06.2021 17:39, Andrew Cooper wrote:
->> This reverts commit aad7b5c11d51d57659978e04702ac970906894e8.
->>
->> The change from OvmfX64 to OvmfXen causes a change in behaviour, whereby
->> OvmfXen maps its shared info page at the top of address space.  When try=
-ing to
->> migrate such a domain, XENMEM_maximum_gpfn returns a very large value.  =
-This
->> has uncovered multiple issues:
->>
->>  1) The userspace hypercall wrappers truncate all return values to int o=
-n
->>     Linux and Solaris.  This needs fixing in Xen.
->>  2) 32bit toolstacks can't migrate any domain with RAM above the 2^40 ma=
-rk,
->>     because of virtual address constraints.  This needs fixing in OVMF.
-> And I suspect even that presently enforce boundary of 2^40 is actually
-> too high, and things still wouldn't work when getting close. At the
-> very least the tool stack then depends on a fairly big chunk of memory
-> (2^30 bytes) to be available in one single, virtually contiguous piece.
-> Iirc 32-bit Linux can be configured to not even leave this much space
-> for user mode.
+--000000000000df7c3405c55d59a2
+Content-Type: text/plain; charset="UTF-8"
 
-I tested it once during Migration v2 development, and it worked for me,
-but I do expect that that is as much testing as it has had since...
+Thanks for the quick response, Tamas. I tried what you said and windbg
+waits and the debugee hangs when I click the break button in windbg, but I
+don't see any output in windbg. This means that there is SOME communication
+over the serial port that causes the debugee to hang when I click break.
+Could it be a debugger protocol issue? I also tried the guidance here by
+running the crlf program:
+https://www.qubes-os.org/doc/windows-debugging/
+But windbg waits and the debugee hangs in a similar manner.
 
-A 3G/1G split is the default under multiple 32bit kernels, and the
-allocation is made right at the start, so there is a reasonable chance
-of finding space.=C2=A0 After all, it only needs 4k alignment.
+What versions of WIndows and Xen are you using?
 
-Whether ASLR has changed the chances in the meantime remains to be seen,
-but honestly - 32bit toolstacks on x86 really don't exist in production
-any more, and Arm still hasn't implemented logdirty support, so the
-limit has little practical consequence.
+On Tue, Jun 22, 2021 at 12:10 PM Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+wrote:
 
-~Andrew
+> I have managed to get windbg working with a serial bridge between two
+> Win10 VMs using the following script:
+>
+> https://github.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/serial-bridge.sh
+> .
+> The debugee has to enable a couple options so that windbg can attach:
+>
+> https://github.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/debug.cmd
+> .
+>
+> Tamas
+>
+> On Tue, Jun 22, 2021 at 12:01 PM Neil Sikka <neilsikka@gmail.com> wrote:
+> >
+> > Hello,
+> > Has anyone gotten a Windows10 (Version 1709 of later) kernel debugger
+> attached when running the Windows10 debugger VM and the Windows10 debugee
+> VM on Xen 4.13.0 hypervisor? I am getting a "NIC hardware initialization
+> failed" error. I tried the suggestions in the discussion here (
+> https://bugzilla.redhat.com/show_bug.cgi?id=1947015):
+> > -cpu
+> Skylake-Server-IBRS,ss=on,vmx=on,hypervisor=on,tsc-adjust=on,clflushopt=on,umip=on,pku=on,md-clear=on,stibp=on,arch-capabilities=on,ssbd=on,xsaves=on,ibpb=on,amd-ssbd=on,
+> \
+> >
+> skip-l1dfl-vmentry=on,mpx=off,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,hv-vendor-id=KVMKVMKVM
+> >
+> > note: i had to remove the following 2 arguments due to errors from QEMU:
+> > pschange-mc-no=on
+> > hv_vpindex
+> >
+> > Here was the error:
+> > C:\Users\user\Desktop\oldDebuggers\x64>kdnet.exe
+> >
+> > Network debugging is supported on the following NICs:
+> > busparams=0.4.0, Intel(R) PRO/1000 MT Network Connection, Plugged in.
+> > The Microsoft hypervisor running this VM does not support KDNET.
+> > Please upgrade to the hypervisor shipped in Windows 8 or WS2012 or later.
+> >
+> > KDNET initialization failed.  Status = 0xC0000182.
+> > NIC hardware initialization failed.
+> >
+> > I am using an Intel e1000 NIC emulated through QEMU because its
+> supposedly a supported NIC for Windows kernel NET debugging.
+> >
+> > Thanks in Advance!
+> >
+> > --
+> > My Blog: http://www.neilscomputerblog.blogspot.com/
+> > Twitter: @neilsikka
+>
 
+
+-- 
+My Blog: http://www.neilscomputerblog.blogspot.com/
+Twitter: @neilsikka
+
+--000000000000df7c3405c55d59a2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks for the quick response, Tamas. I tried what you sai=
+d and windbg waits and the debugee hangs when I click the break button in w=
+indbg, but I don&#39;t see any output in windbg. This means that there is S=
+OME communication over the serial port that causes the debugee to hang when=
+ I click break. Could it be a debugger protocol issue? I also tried the gui=
+dance here by running the crlf program:<div><a href=3D"https://www.qubes-os=
+.org/doc/windows-debugging/">https://www.qubes-os.org/doc/windows-debugging=
+/</a><br></div><div>But windbg waits and the debugee hangs in a similar man=
+ner.</div><div><br></div><div>What versions of WIndows and Xen are you usin=
+g?</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
+l_attr">On Tue, Jun 22, 2021 at 12:10 PM Tamas K Lengyel &lt;<a href=3D"mai=
+lto:tamas.k.lengyel@gmail.com">tamas.k.lengyel@gmail.com</a>&gt; wrote:<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">I have managed to g=
+et windbg working with a serial bridge between two<br>
+Win10 VMs using the following script:<br>
+<a href=3D"https://github.com/intel/kernel-fuzzer-for-xen-project/blob/mast=
+er/scripts/serial-bridge.sh" rel=3D"noreferrer" target=3D"_blank">https://g=
+ithub.com/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/serial-br=
+idge.sh</a>.<br>
+The debugee has to enable a couple options so that windbg can attach:<br>
+<a href=3D"https://github.com/intel/kernel-fuzzer-for-xen-project/blob/mast=
+er/scripts/debug.cmd" rel=3D"noreferrer" target=3D"_blank">https://github.c=
+om/intel/kernel-fuzzer-for-xen-project/blob/master/scripts/debug.cmd</a>.<b=
+r>
+<br>
+Tamas<br>
+<br>
+On Tue, Jun 22, 2021 at 12:01 PM Neil Sikka &lt;<a href=3D"mailto:neilsikka=
+@gmail.com" target=3D"_blank">neilsikka@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hello,<br>
+&gt; Has anyone gotten a Windows10 (Version 1709 of later) kernel debugger =
+attached when running the Windows10 debugger VM and the Windows10 debugee V=
+M on Xen 4.13.0 hypervisor? I am getting a &quot;NIC hardware initializatio=
+n failed&quot; error. I tried the suggestions in the discussion here (<a hr=
+ef=3D"https://bugzilla.redhat.com/show_bug.cgi?id=3D1947015" rel=3D"norefer=
+rer" target=3D"_blank">https://bugzilla.redhat.com/show_bug.cgi?id=3D194701=
+5</a>):<br>
+&gt; -cpu Skylake-Server-IBRS,ss=3Don,vmx=3Don,hypervisor=3Don,tsc-adjust=
+=3Don,clflushopt=3Don,umip=3Don,pku=3Don,md-clear=3Don,stibp=3Don,arch-capa=
+bilities=3Don,ssbd=3Don,xsaves=3Don,ibpb=3Don,amd-ssbd=3Don, \<br>
+&gt; skip-l1dfl-vmentry=3Don,mpx=3Doff,hv-time,hv-relaxed,hv-vapic,hv-spinl=
+ocks=3D0x1fff,hv-vendor-id=3DKVMKVMKVM<br>
+&gt;<br>
+&gt; note: i had to remove the following 2 arguments due to errors from QEM=
+U:<br>
+&gt; pschange-mc-no=3Don<br>
+&gt; hv_vpindex<br>
+&gt;<br>
+&gt; Here was the error:<br>
+&gt; C:\Users\user\Desktop\oldDebuggers\x64&gt;kdnet.exe<br>
+&gt;<br>
+&gt; Network debugging is supported on the following NICs:<br>
+&gt; busparams=3D0.4.0, Intel(R) PRO/1000 MT Network Connection, Plugged in=
+.<br>
+&gt; The Microsoft hypervisor running this VM does not support KDNET.<br>
+&gt; Please upgrade to the hypervisor shipped in Windows 8 or WS2012 or lat=
+er.<br>
+&gt;<br>
+&gt; KDNET initialization failed.=C2=A0 Status =3D 0xC0000182.<br>
+&gt; NIC hardware initialization failed.<br>
+&gt;<br>
+&gt; I am using an Intel e1000 NIC emulated through QEMU because its suppos=
+edly a supported NIC for Windows kernel NET debugging.<br>
+&gt;<br>
+&gt; Thanks in Advance!<br>
+&gt;<br>
+&gt; --<br>
+&gt; My Blog: <a href=3D"http://www.neilscomputerblog.blogspot.com/" rel=3D=
+"noreferrer" target=3D"_blank">http://www.neilscomputerblog.blogspot.com/</=
+a><br>
+&gt; Twitter: @neilsikka<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div>My Blog: <a href=3D"http://www.neilscompute=
+rblog.blogspot.com/" target=3D"_blank">http://www.neilscomputerblog.blogspo=
+t.com/</a></div><div>Twitter: @neilsikka</div></div>
+
+--000000000000df7c3405c55d59a2--
 
