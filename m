@@ -2,34 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606673B0AE9
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 18:56:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145998.268558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD5DE3B0B7B
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 19:33:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146005.268574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvjgW-0001RU-DS; Tue, 22 Jun 2021 16:55:36 +0000
+	id 1lvkGB-0005Pj-Ad; Tue, 22 Jun 2021 17:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145998.268558; Tue, 22 Jun 2021 16:55:36 +0000
+Received: by outflank-mailman (output) from mailman id 146005.268574; Tue, 22 Jun 2021 17:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvjgW-0001PL-Aa; Tue, 22 Jun 2021 16:55:36 +0000
-Received: by outflank-mailman (input) for mailman id 145998;
- Tue, 22 Jun 2021 16:55:34 +0000
+	id 1lvkGB-0005NZ-7Y; Tue, 22 Jun 2021 17:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 146005;
+ Tue, 22 Jun 2021 17:32:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bO1Q=LQ=ffwll.ch=daniel.vetter@srs-us1.protection.inumbo.net>)
- id 1lvjgT-0001PF-Tl
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 16:55:34 +0000
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ <SRS0=cRfs=LQ=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1lvkGA-0005NT-0k
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 17:32:26 +0000
+Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 07707264-9625-4264-856a-67d160a0b4b4;
- Tue, 22 Jun 2021 16:55:32 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id f15so9044290wro.8
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jun 2021 09:55:32 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id l23sm3632342wmc.5.2021.06.22.09.55.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jun 2021 09:55:31 -0700 (PDT)
+ id b55deedd-7656-4874-a7a0-a3530016ff2a;
+ Tue, 22 Jun 2021 17:32:24 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15MHHQkU010365; Tue, 22 Jun 2021 17:32:04 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 39as86ujdq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 22 Jun 2021 17:32:04 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 15MHFqTF173442;
+ Tue, 22 Jun 2021 17:32:03 GMT
+Received: from nam02-dm3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07lp2042.outbound.protection.outlook.com [104.47.56.42])
+ by userp3020.oracle.com with ESMTP id 399tbt3d1n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 22 Jun 2021 17:32:02 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by MN2PR10MB3949.namprd10.prod.outlook.com (2603:10b6:208:186::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Tue, 22 Jun
+ 2021 17:32:00 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::78a3:67d:a8ca:93cf]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::78a3:67d:a8ca:93cf%7]) with mapi id 15.20.4264.018; Tue, 22 Jun 2021
+ 17:32:00 +0000
+Received: from [10.74.101.176] (160.34.89.176) by
+ SA9PR13CA0177.namprd13.prod.outlook.com (2603:10b6:806:28::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4264.9 via Frontend Transport; Tue, 22 Jun 2021 17:31:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,273 +63,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07707264-9625-4264-856a-67d160a0b4b4
+X-Inumbo-ID: b55deedd-7656-4874-a7a0-a3530016ff2a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=sF9B9msUqlPodgpOgTK/j2ZCCIDp54oksLKTPM+GdSs=;
+ b=GykAkj2D6CJ1tsRQ7U1VWSofxSM8d0qtq5tbVgAz3NR9ESi+s2xSqxZ7fHlJxoUZvzdO
+ zWOKZDoEf67FZyRCH6bGUEgyrTtlqq0WQehb2dqdcRRyw8PCeCWcJ4+IUFWM6GsVQxW0
+ /joRjbaTUgtCAOetGkqM2mqWIEgW1/JmZHZtcnPcNBMB25IT0zYk+USrrX8jRtFaDvSc
+ SanhtuNAIxriphvb0XFdpipSnSkUnoT01gN6a9n2i5Jdn0O7Qk7xXOYvE15tXmBUieWn
+ ezebfytcPh8sEtLPo3Yf2KhVHHAndjrEFZGgfwe1WJC6uXBbf9J9Z3eEx7+eU8c35cg/ fA== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CQWuFbq/lPVSfpTZw948PFpsFc3T2BkUDI1mzqDMtsGtRrFA7brLUaDstrTzwkEhtlXOY75znL7dkcnTF9hc9XwTAG5XNbAP4FfM1wMnBwwu1n8ySTGXIwZZ8zngeKaMAjAOcY2nCVmpcaytQwIR9TTstoKngxr49bbk/oq9x1Avyb0Bg0bBAfbmAVzFCtD9Fj2EtL5FeIwI58vlmBRLzda7PmFh18RM7F4wgwqoVzN24FlYSbxmpWiGSWWeRT22RxO9IMkJeSAngXE3vnJ0xr3yJgJqEN3UHt81jhchQgtM2paWUtLobpVD/eCkNXrnvk9ul/Osiv7vVxqSopLrUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sF9B9msUqlPodgpOgTK/j2ZCCIDp54oksLKTPM+GdSs=;
+ b=aRT/1LrfyMgmyC/2mSYKvai+JpoeKCOO1yPoQU8hGX6FYfXF0njmZ5eeEAxglNomlYzknMiGBub1zB/n1eH18C0Jbv8Z6V/Gu9q0tEeLuGjMmP8CxhAYjHUjX1n/ypfCwnqkglXYHsSER8MUbCHMlDEl3uClT5RGh5ujep6YV5XNSGKN/ydmiaOSoDSZorO/o2tYhUIWOLZQIwHb0h7OZN19XaVBzEQi8583VLKmWtsoRh9lnXW98P8BiH8iLuM1WyZGwilPpNDfQNIcimIFwyO2KOj7uBIjgFz6TLUgGoiHUWDFvPKAgycCvzMyE0bHEDsXqR6IQrjzsUoXzGwvPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffwll.ch; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=b9Jdr4wtlOOCFldrnFk+zQMEf14dJEiyFw/3fjGC0jA=;
-        b=Df+8Oxx3Gx1nETy5Ci5Z78MEEXbbmKXn04S8kpH8fxaA3WGc7MUpF4hyIdZ4rL7Yr9
-         GFJXVc+kuPYqmtVY6trwYU2hBdMa6rqz2bUh1rvC8BM+79JDQGK97f2T+vvSqzWlrTxc
-         dUnCGNGzWkUB/ubYFJep4xlk9o9DrWfUpEfGU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=b9Jdr4wtlOOCFldrnFk+zQMEf14dJEiyFw/3fjGC0jA=;
-        b=ddtdWUkGFpkz5OGGaX5sLNnk6IyBwRJBIiBF2jGLwaPoyeqUmIYR0d8fqlc5EinkAB
-         rYYY74otwqrmquDZEzdyixNHfO1pTHrPjwOpAFJ8Y0DpMquulZAHRzksUqVwOR/RuiX8
-         8vwc5sPtsmoGe1xUQiczEQJDOQPXOj5IsCoX/pGZ/GmEMI42zB7Jy3XsrxHxaOuAix+s
-         Ez9NFnHe23yMPIY9xwFFoeVtVlTZSn0cqhwmkWoFALXHy4qus6KE32Hd6n5d6hrdMU65
-         CODI618BuEle1MSlHIBFFgAqC7SCqsd3aGbQ68/bLR8WcjxdKrGTfjuxP71itTiWmcfD
-         4mrQ==
-X-Gm-Message-State: AOAM532qrzInn9vSRryr0t61qxtZhHZ6Wjq3f80mjIe2gpLPlqW1/nmr
-	jzk/dSlGBEH3PIaS0XklgIHMGA==
-X-Google-Smtp-Source: ABdhPJxRaQeu5zw+01KaYFtztrrwy3gdY+LcwVsX0y3odT09LLdZWhYYMbIKwOWFsIhlqUJAbbR8qw==
-X-Received: by 2002:a05:6000:188:: with SMTP id p8mr6123747wrx.296.1624380931724;
-        Tue, 22 Jun 2021 09:55:31 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>,
-	David Lechner <david@lechnology.com>,
-	=?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Daniel Vetter <daniel.vetter@intel.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@aj.id.au>,
-	Emma Anholt <emma@anholt.net>,
-	Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 13/15] drm/tiny: drm_gem_simple_display_pipe_prepare_fb is the default
-Date: Tue, 22 Jun 2021 18:55:09 +0200
-Message-Id: <20210622165511.3169559-14-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.32.0.rc2
-In-Reply-To: <20210622165511.3169559-1-daniel.vetter@ffwll.ch>
-References: <20210622165511.3169559-1-daniel.vetter@ffwll.ch>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sF9B9msUqlPodgpOgTK/j2ZCCIDp54oksLKTPM+GdSs=;
+ b=ZUhrK/s/8ExAbRgDCFHBdfTz4nzz+DgUQAsCPaQ6HhJGhVVs117vynu7uI/8p2c6TQuOsa4WlYM9MzMu5d2a6w7Q9WHtIhoBJ43r4zRMzBEHZ0k0+fzBg2gPrnJdPau2qf01SG/oh23jEXoO67DbZl2KiuMY3lSELfF3r4zyohc=
+Authentication-Results: infradead.org; dkim=none (message not signed)
+ header.d=none;infradead.org; dmarc=none action=none header.from=oracle.com;
+Subject: Re: [PATCH V7 01/18] perf/core: Use static_call to optimize
+ perf_guest_info_callbacks
+To: Zhu Lingshan <lingshan.zhu@intel.com>, lingshan.zhu@live.com
+Cc: Like Xu <like.xu@linux.intel.com>, Will Deacon <will@kernel.org>,
+        Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
+        Nick Hu <nickhu@andestech.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
+        linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
+        xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>
+References: <20210622093823.8215-1-lingshan.zhu@intel.com>
+ <20210622093823.8215-2-lingshan.zhu@intel.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <92fdf981-68ef-92a2-b1ae-0c5f347ae460@oracle.com>
+Date: Tue, 22 Jun 2021 13:31:54 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
+In-Reply-To: <20210622093823.8215-2-lingshan.zhu@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [160.34.89.176]
+X-ClientProxiedBy: SA9PR13CA0177.namprd13.prod.outlook.com
+ (2603:10b6:806:28::32) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1ec7e3d1-b17d-488f-fd04-08d935a3a47f
+X-MS-TrafficTypeDiagnostic: MN2PR10MB3949:
+X-Microsoft-Antispam-PRVS: 
+	<MN2PR10MB3949FCEA45214EAC56C215418A099@MN2PR10MB3949.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	S2TECVWxkXCYnj2uONAjQLYztdX2kYyeQe/02lbuR4XxwbK6hKZn7UmndvLLAtWcsAdHDngPtvDawnUE85tcIlSVyuxvtNpDKptFYxaFA8Hb/jY5oeufKf0pxmt0ALF5MVJb5k/IcVWi/1GtVy3u+TJcrXrlE0P7aMeeArHAvle+ypdnBg64A9r/rPbEOt82rNeZinqjIJ2IEyM0ij6yCJvE3n4q0ITK9GN3TeH8N+QaRIn/pq9J/WnHY9RxuiGPvsxFzrZ/Aoh/oQPLCtqKLaxbdwRLW7b/8s1xmegebER/ET0Or+XFqiGQsogZ3RETrQfT57sOEHpuy5hA/zxFlM65oUkxlqhC7ZjiLCGGcsXBgfbTmgqMf6GglOJpfmlKn9ciK3i1RMYJqzvIcfOzwV9D2rWNd9sWpLshsc85rDZAg5i4do3syTLVlvaGDUNao1epaLZ6gWJM4vgp6Qv8El+WwY6oGzctU/qotfQGmuON3ix/JS2Q5JBnvgLhyK/YibhH0JS6z5mg8PflInW7h9KLb50dCpSoDpMusKhZcR6eznzN3vCUu72wenaBe2XNTVT+naQSxJMKgj3cSsf3OH2YlEGyqZ0Pgz/6xxhRdbsWeLLYP4yq1H1XYWgVUcLLgo23B4YdYFFM1TJMEX5PDnxy4KkB2t9BthLt5dFjVeN8VnR3M5OOXLOymVGMHLjU
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(136003)(346002)(39860400002)(396003)(376002)(2616005)(956004)(478600001)(86362001)(6486002)(31686004)(8676002)(44832011)(6666004)(5660300002)(31696002)(38100700002)(8936002)(53546011)(4744005)(16526019)(186003)(7416002)(316002)(54906003)(66946007)(2906002)(16576012)(66476007)(66556008)(26005)(36756003)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?QSs3OHlvN2hibUlOMDlteWFoaGtvaW5oVFVqUm1UZVZSUmVxckpZRzB2MGlF?=
+ =?utf-8?B?WkZmQjI3SlNaVHpTWTJCQ2tybWRaR2FzVkhLenB1TzQ1ZnRvMHRBbDZBWE9q?=
+ =?utf-8?B?bDV1K2NBalpVTjQ2TE95bzZuVTVHcm1sd0dNODVjUzJTM0pPK2Jpb2R2V1R6?=
+ =?utf-8?B?MFF4SVhsenpZa3h0bFd0U3FNMTY3ZFhxb2xXUG04Ym0xZG9aTDRmcURQN0Ju?=
+ =?utf-8?B?MGNJd3BCWURZc3hiZTVsNFFPSEdOc212dHhvR1ZpOFp4MVdQWkI1bHI0UFVt?=
+ =?utf-8?B?Yi9RZmFZTnBIZ0VKUHJVbk93Rk5YSFdrRWdZU2lnR3Y0SFE2QTIrVUZjYUJZ?=
+ =?utf-8?B?MUt6VVF4V2I2TUZRWlVnSUlvRTZwbklscTN2NnJYc1laMmdpODlIblMyQUFT?=
+ =?utf-8?B?R3l5OFNyUG9QM2xucys0N2FiSUwzeWdYOW9wbDZhWFBRTjN4dVo4R1BnSjY3?=
+ =?utf-8?B?eVBSSStEc1N4QXRuUkJreDFjNWlLVHYvNlVNb2xlUlMxd2tTUmx4eUxjQWxl?=
+ =?utf-8?B?a2tqbXhocDJLQ3VUZjBwOUJlQkxPdENYK3EzMUZBdjJsM2lXYXQ1aVFWVGRO?=
+ =?utf-8?B?WWRWSnpiTHJ5RUFMak5KUGw3ck55WlJyM3JXcWZFWnFOUnIwSmppNjFQSmc4?=
+ =?utf-8?B?N2xEOXFWSGxtMDV6UkxIU2RNWVJQbUlrNStYTVJoRXo2bmJ3bk5idHZNeFJ4?=
+ =?utf-8?B?elFLTXhMMkwzdGFVQktuZkNFZ1NTbk11YXV5aE5DbGlUdTZjVTQrYXlqWHc3?=
+ =?utf-8?B?RFN0dUJkc0h3b1UzWGp5cGxQRkF5V3EvY0c5bmFlRnEzdDhCMEk0QVRsNmQ0?=
+ =?utf-8?B?VEVCaENUaTJWQk5pSUhUQkZZUW5RbHVwN0hnVWk5ZlVWQWd2UGVYZ3dsUEM0?=
+ =?utf-8?B?Z1lYM2RNOWVHbnQ0WmpNZVFCQTBiSGZvbitPWmF0QUdNaGllSVVsVXlJVzRI?=
+ =?utf-8?B?dzNIYUZMWnVZdkZHWXdXbnVuRUQxNGdLTkJLV3NJakNZSVZYS2o1UWMxeHNq?=
+ =?utf-8?B?QThWVTM5VU4yVVNTMVBtN1ZDREJuVFdTaUFDcTNNN0g2UjFueFdPZ2pua1o4?=
+ =?utf-8?B?VFFxWDNQYkxJVGtIVGtjTlQwZndlWW5ySUMrWTEzOFZEWXovU3U5RU9qZlo3?=
+ =?utf-8?B?UzVnL2xnVFRoUXFmMnJYKzJhRHpHazMvWGgvakYvci9nU1pQSnYwcFF4c2RH?=
+ =?utf-8?B?UUI4YjdoYy9tVHpCdGdEVDBQby9oL3ovQ2hmRElGZml5WlY4S2JyMjNqdEJq?=
+ =?utf-8?B?allJbVN4aURuaGZodkxkYklrcnZLekM0SlBsbUF0ZHIyalVyVklSL013a25E?=
+ =?utf-8?B?STl2RGpES0FDQnF0aEFQWkcxTXpNcG1wVzB2cGxzYVkwbWI1Wjh6bWtWd0Nx?=
+ =?utf-8?B?c1k2WGRYaXdsM0pXUjU5eWlKTDZiQUVQR29HNzFLd1ZlVW00dExFU2hGZVlt?=
+ =?utf-8?B?Qy8rdGgrMmZlMkNRNHl2Qm01NmJMYmltZEZsMnRMN0djOXpLZ2VkdHhaQ0w3?=
+ =?utf-8?B?aXZ5TFNLeERjWUVlRjRRdFN6cksxL0FpaTdOdE9oRXNuNm9ibHhZUGNNTFFk?=
+ =?utf-8?B?MGtwN1k0M3M5S3dxTnFBYlI5OGRPRWhWNW9QUVBEdmNwRStyV3dZNFJpTUhI?=
+ =?utf-8?B?dDVwaER3WlBmWGhxUTVzS2gvVUxFdEpoVElJMjZXOWlVMTFUM2pRckh6dGU2?=
+ =?utf-8?B?SWQ5SlF1REFmL0xCY1Rta3BqYStWTitRSytOekY0eTZSNU04bGFUcW9jbDhB?=
+ =?utf-8?Q?u0hDQz4k9Jzl7q6Wd+MGKOZ7AH9+4fScol5NbUj?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ec7e3d1-b17d-488f-fd04-08d935a3a47f
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 17:32:00.7111
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3YVs+b2Nc31rMRqE2PKtH/74M4K4k0fKBthZ8m1eG3GUPyhbDbT6WoR7GkrDJjLvpoKrLDJpWNDWzXlbsmaVPIPDEkyCDRbZc7vFQYTlpow=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB3949
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10023 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 mlxscore=0
+ spamscore=0 mlxlogscore=999 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
+ definitions=main-2106220107
+X-Proofpoint-ORIG-GUID: UXmCLfIhSmGpnCOpGGDyWcShhxKwOCv9
+X-Proofpoint-GUID: UXmCLfIhSmGpnCOpGGDyWcShhxKwOCv9
 
-Goes through all the drivers and deletes the default hook since it's
-the default now.
 
-Acked-by: David Lechner <david@lechnology.com>
-Acked-by: Noralf Trønnes <noralf@tronnes.org>
-Acked-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Cc: "Noralf Trønnes" <noralf@tronnes.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Emma Anholt <emma@anholt.net>
-Cc: David Lechner <david@lechnology.com>
-Cc: Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-aspeed@lists.ozlabs.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: xen-devel@lists.xenproject.org
----
- drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c | 1 -
- drivers/gpu/drm/gud/gud_drv.c            | 1 -
- drivers/gpu/drm/mcde/mcde_display.c      | 1 -
- drivers/gpu/drm/pl111/pl111_display.c    | 1 -
- drivers/gpu/drm/tiny/hx8357d.c           | 1 -
- drivers/gpu/drm/tiny/ili9225.c           | 1 -
- drivers/gpu/drm/tiny/ili9341.c           | 1 -
- drivers/gpu/drm/tiny/ili9486.c           | 1 -
- drivers/gpu/drm/tiny/mi0283qt.c          | 1 -
- drivers/gpu/drm/tiny/repaper.c           | 1 -
- drivers/gpu/drm/tiny/st7586.c            | 1 -
- drivers/gpu/drm/tiny/st7735r.c           | 1 -
- drivers/gpu/drm/tve200/tve200_display.c  | 1 -
- drivers/gpu/drm/xen/xen_drm_front_kms.c  | 1 -
- 14 files changed, 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-index 098f96d4d50d..827e62c1daba 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-@@ -220,7 +220,6 @@ static const struct drm_simple_display_pipe_funcs aspeed_gfx_funcs = {
- 	.enable		= aspeed_gfx_pipe_enable,
- 	.disable	= aspeed_gfx_pipe_disable,
- 	.update		= aspeed_gfx_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- 	.enable_vblank	= aspeed_gfx_enable_vblank,
- 	.disable_vblank	= aspeed_gfx_disable_vblank,
- };
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index e8b672dc9832..1925df9c0fb7 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -364,7 +364,6 @@ static void gud_debugfs_init(struct drm_minor *minor)
- static const struct drm_simple_display_pipe_funcs gud_pipe_funcs = {
- 	.check      = gud_pipe_check,
- 	.update	    = gud_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_mode_config_funcs gud_mode_config_funcs = {
-diff --git a/drivers/gpu/drm/mcde/mcde_display.c b/drivers/gpu/drm/mcde/mcde_display.c
-index 4ddc55d58f38..ce12a36e2db4 100644
---- a/drivers/gpu/drm/mcde/mcde_display.c
-+++ b/drivers/gpu/drm/mcde/mcde_display.c
-@@ -1479,7 +1479,6 @@ static struct drm_simple_display_pipe_funcs mcde_display_funcs = {
- 	.update = mcde_display_update,
- 	.enable_vblank = mcde_display_enable_vblank,
- 	.disable_vblank = mcde_display_disable_vblank,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- int mcde_display_init(struct drm_device *drm)
-diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl111/pl111_display.c
-index 6fd7f13f1aca..b5a8859739a2 100644
---- a/drivers/gpu/drm/pl111/pl111_display.c
-+++ b/drivers/gpu/drm/pl111/pl111_display.c
-@@ -440,7 +440,6 @@ static struct drm_simple_display_pipe_funcs pl111_display_funcs = {
- 	.enable = pl111_display_enable,
- 	.disable = pl111_display_disable,
- 	.update = pl111_display_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static int pl111_clk_div_choose_div(struct clk_hw *hw, unsigned long rate,
-diff --git a/drivers/gpu/drm/tiny/hx8357d.c b/drivers/gpu/drm/tiny/hx8357d.c
-index da5df93450de..9b33c05732aa 100644
---- a/drivers/gpu/drm/tiny/hx8357d.c
-+++ b/drivers/gpu/drm/tiny/hx8357d.c
-@@ -184,7 +184,6 @@ static const struct drm_simple_display_pipe_funcs hx8357d_pipe_funcs = {
- 	.enable = yx240qv29_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode yx350hv15_mode = {
-diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
-index 69265d8a3beb..976d3209f164 100644
---- a/drivers/gpu/drm/tiny/ili9225.c
-+++ b/drivers/gpu/drm/tiny/ili9225.c
-@@ -328,7 +328,6 @@ static const struct drm_simple_display_pipe_funcs ili9225_pipe_funcs = {
- 	.enable		= ili9225_pipe_enable,
- 	.disable	= ili9225_pipe_disable,
- 	.update		= ili9225_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode ili9225_mode = {
-diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
-index ad9ce7b4f76f..37e0c33399c8 100644
---- a/drivers/gpu/drm/tiny/ili9341.c
-+++ b/drivers/gpu/drm/tiny/ili9341.c
-@@ -140,7 +140,6 @@ static const struct drm_simple_display_pipe_funcs ili9341_pipe_funcs = {
- 	.enable = yx240qv29_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode yx240qv29_mode = {
-diff --git a/drivers/gpu/drm/tiny/ili9486.c b/drivers/gpu/drm/tiny/ili9486.c
-index 75aa1476c66c..e9a63f4b2993 100644
---- a/drivers/gpu/drm/tiny/ili9486.c
-+++ b/drivers/gpu/drm/tiny/ili9486.c
-@@ -153,7 +153,6 @@ static const struct drm_simple_display_pipe_funcs waveshare_pipe_funcs = {
- 	.enable = waveshare_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode waveshare_mode = {
-diff --git a/drivers/gpu/drm/tiny/mi0283qt.c b/drivers/gpu/drm/tiny/mi0283qt.c
-index 82fd1ad3413f..023de49e7a8e 100644
---- a/drivers/gpu/drm/tiny/mi0283qt.c
-+++ b/drivers/gpu/drm/tiny/mi0283qt.c
-@@ -144,7 +144,6 @@ static const struct drm_simple_display_pipe_funcs mi0283qt_pipe_funcs = {
- 	.enable = mi0283qt_enable,
- 	.disable = mipi_dbi_pipe_disable,
- 	.update = mipi_dbi_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode mi0283qt_mode = {
-diff --git a/drivers/gpu/drm/tiny/repaper.c b/drivers/gpu/drm/tiny/repaper.c
-index 2cee07a2e00b..007d9d59f01c 100644
---- a/drivers/gpu/drm/tiny/repaper.c
-+++ b/drivers/gpu/drm/tiny/repaper.c
-@@ -861,7 +861,6 @@ static const struct drm_simple_display_pipe_funcs repaper_pipe_funcs = {
- 	.enable = repaper_pipe_enable,
- 	.disable = repaper_pipe_disable,
- 	.update = repaper_pipe_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static int repaper_connector_get_modes(struct drm_connector *connector)
-diff --git a/drivers/gpu/drm/tiny/st7586.c b/drivers/gpu/drm/tiny/st7586.c
-index 05db980cc047..1be55bed609a 100644
---- a/drivers/gpu/drm/tiny/st7586.c
-+++ b/drivers/gpu/drm/tiny/st7586.c
-@@ -268,7 +268,6 @@ static const struct drm_simple_display_pipe_funcs st7586_pipe_funcs = {
- 	.enable		= st7586_pipe_enable,
- 	.disable	= st7586_pipe_disable,
- 	.update		= st7586_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct drm_display_mode st7586_mode = {
-diff --git a/drivers/gpu/drm/tiny/st7735r.c b/drivers/gpu/drm/tiny/st7735r.c
-index ec9dc817a2cc..122320db5d38 100644
---- a/drivers/gpu/drm/tiny/st7735r.c
-+++ b/drivers/gpu/drm/tiny/st7735r.c
-@@ -136,7 +136,6 @@ static const struct drm_simple_display_pipe_funcs st7735r_pipe_funcs = {
- 	.enable		= st7735r_pipe_enable,
- 	.disable	= mipi_dbi_pipe_disable,
- 	.update		= mipi_dbi_pipe_update,
--	.prepare_fb	= drm_gem_simple_display_pipe_prepare_fb,
- };
- 
- static const struct st7735r_cfg jd_t18003_t01_cfg = {
-diff --git a/drivers/gpu/drm/tve200/tve200_display.c b/drivers/gpu/drm/tve200/tve200_display.c
-index 50e1fb71869f..17b8c8dd169d 100644
---- a/drivers/gpu/drm/tve200/tve200_display.c
-+++ b/drivers/gpu/drm/tve200/tve200_display.c
-@@ -316,7 +316,6 @@ static const struct drm_simple_display_pipe_funcs tve200_display_funcs = {
- 	.enable = tve200_display_enable,
- 	.disable = tve200_display_disable,
- 	.update = tve200_display_update,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- 	.enable_vblank = tve200_display_enable_vblank,
- 	.disable_vblank = tve200_display_disable_vblank,
- };
-diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm/xen/xen_drm_front_kms.c
-index 371202ebe900..cfda74490765 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
-@@ -302,7 +302,6 @@ static const struct drm_simple_display_pipe_funcs display_funcs = {
- 	.mode_valid = display_mode_valid,
- 	.enable = display_enable,
- 	.disable = display_disable,
--	.prepare_fb = drm_gem_simple_display_pipe_prepare_fb,
- 	.check = display_check,
- 	.update = display_update,
- };
--- 
-2.32.0.rc2
+On 6/22/21 5:38 AM, Zhu Lingshan wrote:
+
+> -static int xen_is_user_mode(void)
+> -{
+> -	const struct xen_pmu_data *xenpmu_data = get_xenpmu_data();
+> +	state |= PERF_GUEST_ACTIVE;
+>  
+> -	if (!xenpmu_data) {
+> -		pr_warn_once("%s: pmudata not initialized\n", __func__);
+> -		return 0;
+> +	if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_PV) {
+> +		if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_USER)
+> +			state |= PERF_GUEST_USER;
+> +	} else {
+> +		if (!!(xenpmu_data->pmu.r.regs.cpl & 3))
+> +			state |= PERF_GUEST_USER;
+
+
+
+Please drop "!!", it's not needed here. And use "else if".
+
+
+With that, for Xen bits:
+
+Reviewed-by: Boris Ostrovsky <boris.ostrvsky@oracle.com>
+
+-boris
 
 
