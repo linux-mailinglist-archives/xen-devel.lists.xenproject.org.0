@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009B93B02B6
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 13:25:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145837.268271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 202493B02E9
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 13:39:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145854.268285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lveWa-0007f0-DS; Tue, 22 Jun 2021 11:25:00 +0000
+	id 1lvejJ-0001KY-K4; Tue, 22 Jun 2021 11:38:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145837.268271; Tue, 22 Jun 2021 11:25:00 +0000
+Received: by outflank-mailman (output) from mailman id 145854.268285; Tue, 22 Jun 2021 11:38:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lveWa-0007bd-8q; Tue, 22 Jun 2021 11:25:00 +0000
-Received: by outflank-mailman (input) for mailman id 145837;
- Tue, 22 Jun 2021 11:24:59 +0000
+	id 1lvejJ-0001Hy-Gw; Tue, 22 Jun 2021 11:38:09 +0000
+Received: by outflank-mailman (input) for mailman id 145854;
+ Tue, 22 Jun 2021 11:38:08 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lveWZ-0007am-6q; Tue, 22 Jun 2021 11:24:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1lvejI-0001Hs-HD
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 11:38:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lveWZ-0001OS-1M; Tue, 22 Jun 2021 11:24:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lveWY-0003VN-OA; Tue, 22 Jun 2021 11:24:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lveWY-0006xt-Ne; Tue, 22 Jun 2021 11:24:58 +0000
+ (envelope-from <iwj@xenproject.org>) id 1lvejI-0001ds-CZ
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 11:38:08 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1lvejI-00028M-Bd
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 11:38:08 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1lvejE-0003Xy-Q3; Tue, 22 Jun 2021 12:38:04 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,137 +42,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=B+P8w1ZmIGclDoeens/X/uml0fqOEiRy8YnpjxFW9ys=; b=CA7VILXGFzs2M0YtAjKnhv3+cA
-	ByOBBP1xNt+hIHP4pX9JYPvugwoKg9P5jVUhM90IJO641T45tXPKP9dYcK3HDd4bMoV2W8J0ZsjZg
-	Ad+NPjailWCtyuaWByGkW1w/QseinX3jGoh7lCfJuiwr/rYvqaXdOf82mhr/J+GTV7kM=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-162956-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=GuDijgEM/gxBLTHzy3G1iP3qZzBVCe1tc04lGY29Sy8=; b=N30Dc9PXAtoVz2r4lnlERSbagP
+	lgEaBLt4pyahPO6AHlk5byJwz7obAzWwJUfOaTCKxQHu2+VF61LLDkxD5KaXbj8fQ0SrKjoj6Yk1f
+	lpqCv7gcuQ1dD0FqHYmm6aWoD5ylcrp/zOvnLPtm5mQGMZAAI/pByl+RYBhW5Dg8nL0A=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Subject: [ovmf test] 162956: trouble: blocked/broken/preparing/queued
-X-Osstest-Failures:
-    ovmf:build-amd64-pvops:<job status>:broken:regression
-    ovmf:build-i386:<job status>:broken:regression
-    ovmf:build-i386-pvops:<job status>:broken:regression
-    ovmf:build-i386-xsm:<job status>:broken:regression
-    ovmf:build-i386:host-install(4):broken:regression
-    ovmf:build-i386-pvops:host-install(4):broken:regression
-    ovmf:build-i386-xsm:host-install(4):broken:regression
-    ovmf:build-amd64-pvops:host-install(4):broken:regression
-    ovmf:build-amd64-libvirt:<none executed>:queued:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:<none executed>:queued:regression
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:<none executed>:queued:regression
-    ovmf:build-amd64-xsm:hosts-allocate:running:regression
-    ovmf:build-amd64:hosts-allocate:running:regression
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=6cfeeb71c43173d657d86d4a38ed655b0fc5f277
-X-Osstest-Versions-That:
-    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 22 Jun 2021 11:24:58 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24785.52124.476428.674630@mariner.uk.xensource.com>
+Date: Tue, 22 Jun 2021 12:38:04 +0100
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    Wei Liu <wl@xen.org>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 3/5] libxencall: introduce variant of xencall2() returning
+ long
+In-Reply-To: <c7f93b66-bc4d-708a-6936-e0eac9e36cfa@suse.com>
+References: <edaf04ec-335f-a156-34c4-5c0385cba08b@suse.com>
+	<c7f93b66-bc4d-708a-6936-e0eac9e36cfa@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-flight 162956 ovmf running [real]
-http://logs.test-lab.xenproject.org/osstest/logs/162956/
+Jan Beulich writes ("[PATCH 3/5] libxencall: introduce variant of xencall2() returning long"):
+> Some hypercalls, memory-op in particular, can return values requiring
+> more than 31 bits to represent. Hence the underlying layers need to make
+> sure they won't truncate such values.
 
-Failures and problems with tests :-(
+Thanks for this.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-pvops               <job status>                 broken
- build-i386                      <job status>                 broken
- build-i386-pvops                <job status>                 broken
- build-i386-xsm                  <job status>                 broken
- build-i386                    4 host-install(4)        broken REGR. vs. 162359
- build-i386-pvops              4 host-install(4)        broken REGR. vs. 162359
- build-i386-xsm                4 host-install(4)        broken REGR. vs. 162359
- build-amd64-pvops             4 host-install(4)        broken REGR. vs. 162359
- build-amd64-libvirt             <none executed>              queued
- test-amd64-amd64-xl-qemuu-ovmf-amd64    <none executed>              queued
- test-amd64-i386-xl-qemuu-ovmf-amd64    <none executed>              queued
- build-amd64-xsm               2 hosts-allocate               running
- build-amd64                   2 hosts-allocate               running
+All 5 patches:
 
-Tests which did not succeed, but are not blocking:
- build-i386-libvirt            1 build-check(1)               blocked  n/a
+Acked-by: Ian Jackson <iwj@xenproject.org>
 
-version targeted for testing:
- ovmf                 6cfeeb71c43173d657d86d4a38ed655b0fc5f277
-baseline version:
- ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+Nit:
 
-Last test of basis   162359  2021-06-04 03:40:08 Z   18 days
-Failing since        162368  2021-06-04 15:42:59 Z   17 days   38 attempts
-Testing same since   162938  2021-06-21 11:33:16 Z    0 days    1 attempts
+> While adding the new function to the map file, I noticed the stray
+> xencall6 there. I'm taking the liberty to remove it at this occasion. If
+> such a function would ever appear, it shouldn't lane in version 1.0.
+                                                  ^^^^
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
-  Daoxiang Li <daoxiang.li@intel.com>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jian J Wang <jian.j.wang@intel.com>
-  Kaaira Gupta <kaaira7319@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Maurice Ma <maurice.ma@intel.com>
-  Ni, Ray <ray.ni@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Scottie Kuo <scottie.kuo@intel.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sean Brogan <spbrogan@live.com>
-  Sumana Venur <sumana.venur@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+Typo for "land", I think.
 
-jobs:
- build-amd64-xsm                                              preparing
- build-i386-xsm                                               broken  
- build-amd64                                                  preparing
- build-i386                                                   broken  
- build-amd64-libvirt                                          queued  
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            broken  
- build-i386-pvops                                             broken  
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         queued  
- test-amd64-i386-xl-qemuu-ovmf-amd64                          queued  
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-amd64-libvirt queued
-broken-job build-amd64-pvops broken
-broken-job build-i386 broken
-broken-job build-i386-pvops broken
-broken-job build-i386-xsm broken
-broken-job test-amd64-amd64-xl-qemuu-ovmf-amd64 queued
-broken-job test-amd64-i386-xl-qemuu-ovmf-amd64 queued
-broken-step build-i386 host-install(4)
-broken-step build-i386-pvops host-install(4)
-broken-step build-i386-xsm host-install(4)
-broken-step build-amd64-pvops host-install(4)
-
-Not pushing.
-
-(No revision log; it would be 2193 lines long.)
+Ian.
 
