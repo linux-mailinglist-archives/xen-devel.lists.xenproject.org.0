@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 583EA3B00A4
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 11:45:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.145790.268148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DF563B00A5
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 11:45:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.145793.268154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvcxr-0002Sc-9g; Tue, 22 Jun 2021 09:45:03 +0000
+	id 1lvcxr-0002Zr-KK; Tue, 22 Jun 2021 09:45:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 145790.268148; Tue, 22 Jun 2021 09:45:03 +0000
+Received: by outflank-mailman (output) from mailman id 145793.268154; Tue, 22 Jun 2021 09:45:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvcxr-0002QO-4V; Tue, 22 Jun 2021 09:45:03 +0000
-Received: by outflank-mailman (input) for mailman id 145790;
- Tue, 22 Jun 2021 09:38:52 +0000
+	id 1lvcxr-0002Sa-EL; Tue, 22 Jun 2021 09:45:03 +0000
+Received: by outflank-mailman (input) for mailman id 145793;
+ Tue, 22 Jun 2021 09:43:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vYqY=LQ=intel.com=lingshan.zhu@srs-us1.protection.inumbo.net>)
- id 1lvcrs-0001c3-8g
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 09:38:52 +0000
+ id 1lvcwJ-0002Ou-3X
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 09:43:27 +0000
 Received: from mga09.intel.com (unknown [134.134.136.24])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dd10bab4-da0c-4e9e-b681-c0e2cc166455;
- Tue, 22 Jun 2021 09:38:48 +0000 (UTC)
+ id 99b49689-23d4-4200-bbf8-82762d7e0451;
+ Tue, 22 Jun 2021 09:43:24 +0000 (UTC)
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2021 02:38:41 -0700
+ 22 Jun 2021 02:43:23 -0700
 Received: from vmm_a4_icx.sh.intel.com (HELO localhost.localdomain)
  ([10.239.53.245])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2021 02:38:37 -0700
+ 22 Jun 2021 02:43:17 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,19 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd10bab4-da0c-4e9e-b681-c0e2cc166455
-IronPort-SDR: WPCN1YEWpq5MG15nMM/dYxBBowaDGo7G+G0/cusFM3LhlBXHojBu4V4Y5841JRXsnLysxJF7sT
- MbRMQlPKuQuw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="206964821"
+X-Inumbo-ID: 99b49689-23d4-4200-bbf8-82762d7e0451
+IronPort-SDR: u9i8JCbWldif/bC6AokQBV/cZ3NR1mmL50esS0L2nvnjMXJUj35kmfday8Vq8N94nPWul15Q3V
+ ywv0f4JAnWzg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="206965396"
 X-IronPort-AV: E=Sophos;i="5.83,291,1616482800"; 
-   d="scan'208";a="206964821"
-IronPort-SDR: YjghSkQQhfpqXchU5FmETDRBEKjg++NYbLVqNiZ3bX2P3p3aIdtsxEvlzAZ3khA29zw8feGTq5
- hSRTxjz0q+eg==
+   d="scan'208";a="206965396"
+IronPort-SDR: YT0UXablTbHFjVGOUphLdQZI3IoiFPL8yBc2UqJr8G7mpfASBqseVxlrWsQj5BcIMDyWLT+dx2
+ b78pMKFrVOjA==
 X-IronPort-AV: E=Sophos;i="5.83,291,1616482800"; 
-   d="scan'208";a="641599201"
+   d="scan'208";a="641600114"
 From: Zhu Lingshan <lingshan.zhu@intel.com>
-To: lingshan.zhu@live.com
-Cc: Like Xu <like.xu@linux.intel.com>,
+To: peterz@infradead.org,
+	pbonzini@redhat.com
+Cc: bp@alien8.de,
+	seanjc@google.com,
+	vkuznets@redhat.com,
+	wanpengli@tencent.com,
+	jmattson@google.com,
+	joro@8bytes.org,
+	weijiang.yang@intel.com,
+	kan.liang@linux.intel.com,
+	ak@linux.intel.com,
+	wei.w.wang@intel.com,
+	eranian@google.com,
+	liuxiangdong5@huawei.com,
+	linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
+	like.xu.linux@gmail.com,
+	Like Xu <like.xu@linux.intel.com>,
 	Will Deacon <will@kernel.org>,
 	Marc Zyngier <maz@kernel.org>,
 	Guo Ren <guoren@kernel.org>,
@@ -67,14 +84,13 @@ Cc: Like Xu <like.xu@linux.intel.com>,
 	linux-csky@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	xen-devel@lists.xenproject.org,
-	Peter Zijlstra <peterz@infradead.org>,
 	Zhu Lingshan <lingshan.zhu@intel.com>
 Subject: [PATCH V7 01/18] perf/core: Use static_call to optimize perf_guest_info_callbacks
-Date: Tue, 22 Jun 2021 17:38:06 +0800
-Message-Id: <20210622093823.8215-2-lingshan.zhu@intel.com>
+Date: Tue, 22 Jun 2021 17:42:49 +0800
+Message-Id: <20210622094306.8336-2-lingshan.zhu@intel.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210622093823.8215-1-lingshan.zhu@intel.com>
-References: <20210622093823.8215-1-lingshan.zhu@intel.com>
+In-Reply-To: <20210622094306.8336-1-lingshan.zhu@intel.com>
+References: <20210622094306.8336-1-lingshan.zhu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
