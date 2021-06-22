@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC8253B0CC3
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 20:21:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146025.268629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6153B0CC5
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jun 2021 20:22:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146026.268640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvl1q-0003bD-D1; Tue, 22 Jun 2021 18:21:42 +0000
+	id 1lvl1v-0003zL-KI; Tue, 22 Jun 2021 18:21:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146025.268629; Tue, 22 Jun 2021 18:21:42 +0000
+Received: by outflank-mailman (output) from mailman id 146026.268640; Tue, 22 Jun 2021 18:21:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lvl1q-0003Z5-8X; Tue, 22 Jun 2021 18:21:42 +0000
-Received: by outflank-mailman (input) for mailman id 146025;
- Tue, 22 Jun 2021 18:21:41 +0000
+	id 1lvl1v-0003x5-Ga; Tue, 22 Jun 2021 18:21:47 +0000
+Received: by outflank-mailman (input) for mailman id 146026;
+ Tue, 22 Jun 2021 18:21:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZL//=LQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lvl1p-0002zl-1t
- for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 18:21:41 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1lvl1u-0002zl-2D
+ for xen-devel@lists.xenproject.org; Tue, 22 Jun 2021 18:21:46 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7030a2c-e0bb-4f1f-b998-596486f30556;
- Tue, 22 Jun 2021 18:21:35 +0000 (UTC)
+ id 502f1c37-ee41-478d-a30e-b37fa28ee278;
+ Tue, 22 Jun 2021 18:21:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,48 +35,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7030a2c-e0bb-4f1f-b998-596486f30556
+X-Inumbo-ID: 502f1c37-ee41-478d-a30e-b37fa28ee278
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624386094;
+  d=citrix.com; s=securemail; t=1624386096;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/W38Qs0N/Kt0Gac/Q7kHnj3/eNBZAqKOdXBUp3mC4Ds=;
-  b=T5jvf/OIzyKMzVrOL37gRBBmwxBj706IDYpeETg9wa3ePMfeId6ljnNY
-   uUIZfRUs7cp27W0Ipl5KuEFiAKSQcW2sficQRFdh4GeCV5QGo9vS1w6Am
-   pjwKsU/QRZiEydA/u1LAWTLmzDBDPpRrPv1i0QrCuRNMpbui77csUcCe3
-   I=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: /4xMhkTIhjDo+FBl+R9uyiEQKfld8a8hmxdUJAiJukp4aXoZCe4GI7NMdoORRk/rRa/uZ3FtRL
- zyn8Jpq1j6OshxBpbOIkSd4Azfp50S71xIBdCVL9Q7Khfl6tRd9+KuGXxXzspJVW+rzIZmfR2G
- 6PjX/C3ddjxH4G9xQ3fO0DHvA9x52JQsAccwlIX1GrPudTDcQrO5lZlR4gXPaE7Iw6e+Jt9slV
- DIYikB/SUpG3t3LHhwP/q4alimHdXDrUh7JHLStuDpK5rip4u8UFFCkNHLlBrSlrcdVNrPn28z
- BNk=
+  bh=FuX/gdX/Z8iVIv8CdPdcrz1kl6FHA1swtRRbhrQEv1c=;
+  b=U9B1y1p3TLadBIoPobG7VilBm0p3/YOsX0pDheUtntruFNOKuQKBoh4M
+   AtYkdII3XozdQmiLzIf6AxTIOcHnt84wZZe4UKpTcOCtB3EfOH9/+jCtU
+   o/7Jhzkahs00b6rirOJVIaBj+5R2pM3VydH8fuphTH3AdMX+WYIyi+Mnn
+   w=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: OGBFqrArpyeROX0zZptHVTRLumLtvycqbI69jAu+cwGqyeLCt4BxrCiuEv1N4fOU7FfvNMSkSW
+ uHj3JGzH4+A+cfXakgdxfYjuFLrMKtI3svo6IopvkNnskwqK6wE2VyNrO4qlRoDY6f3gg5un1c
+ BIwknrx/utyqJ12m6EKPWSfu+EI7SNu5EzOEtLe03rzMyellzY3TGc/dbducKIPWMZFiWEYyla
+ EQak3yGLq3vFabJFNka7EV1SS9RKcnzTlqZoNlegZj5gvKaFgT1XE8QjbkfS819QFHd0b06P3P
+ 6Tg=
 X-SBRS: 5.1
-X-MesageID: 46437179
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 46703313
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:tDpkyqmeE9njscldXpEiZmfQTgHpDfORimdD5ihNYBxZY6Wkfp
- +V7ZEmPE7P+VQssS8b6LO90fG7MADhHZ4c2/hrAV7QZniVhILIFvAn0WKG+VeQfxEWmdQtqp
- uIH5IOceEYSGIK/foSgzPIVOrIouP3jpxA7N22pxwBIW4FCsEQiHYeNu/YKDwGeOAsP+tCKH
- Po3Ls6m9PWQwVrUi3UPAh8Y8Hz4/nw0L72ax8PABAqrCOUiymz1bL8Gx+Emj8DTjJm294ZgC
- 74uj28wp/mn+Cwyxfa2WOWxY9RgsHdxtxKA9HJotQJKw/rlh2jaO1aKuS/VXEO0bmSAWQR4Y
- PxSiQbTplOArTqDz2ISC7WqlLdOfAVmiDfIBGj8CXeSIfCNUcH4oJ69PZkm13imhsdVQZHof
- J2Niuixuxq5R+splWL2/HYEx5tjUa6unwkjKoaiGFeS5IXbPtLoZUY5149KuZCIMvW0vFnLA
- BVNrCd2B+WSyLXU1nJ+m10hNC8VHU6GRmLBkAEp8yOyjBT2HR01VERysATlmoJsMtVcegA28
- 3UdqBz0L1eRM4faqxwQO8HXMusE2TIBRbBKnibL1jrHLwOf3jNt5n06rMo4/zCQu1L8HLzou
- WObLp8jx9+R6vDM7zE4HR7yGGDfIzmZ0Wk9ih33ekyhlTTfsujDRG+
+IronPort-HdrOrdr: A9a23:3mOxfK4tkSdTt2hrAAPXwXWBI+orL9Y04lQ7vn2ZFiYlF/Bwxv
+ re/sjziyWE6wr5AEtQ6uxpOMG7MAjhHO1OkPss1NaZLU3bUQ6TRvAH0WKM+UyeJ8STzJ8l6U
+ 4kSdkPNDSSNyk8sS+Z2njHLz9I+rDum83F6om+rwYLPGdXguNbnnZE422gYzdLrXx9dOYE/e
+ 2nl7d6TlSbCAwqR/X+IkNAc/nIptXNmp6jSwUBHQQb5A6Hii7twKLmEjCDty1uFQ9n8PMHyy
+ zoggb57qKsv7WQ0RnHzVLe6JxQhZ/I1sZDPsqRkcIYQw+c0zpAJb4RA4FqjgpF+t1H22xaze
+ UkZC1QY/ib3kmhJV1dZyGdhDUIngxetUMKgmXo9EcL6faJMA7STfAx1L6xpSGpu3bI9esMpp
+ 6i0w+ixu1qJAKFkyLn69fSURZ20kKyvHo5iOYWy2dSSI0EddZq3M8iFW5uYdY99RjBmcAa+S
+ hVfY3hzecTdUnfY2HSv2FpztDpVnMvHg2eSkxHvsCOyTBZkH1w0kNdnaUk7zI93YN4T4MB6/
+ XPM6xumr0LRsgKbbhlDONERcesEGTCTR/FLWrXK1X6E6MMPW7LtvfMkfcIDSGRCdI1Jb4J6d
+ n8uX9jxCUPknPVeIKzNcdwg1jwqU2GLH7QI+9lltFEhoE=
 X-IronPort-AV: E=Sophos;i="5.83,292,1616472000"; 
-   d="scan'208";a="46437179"
+   d="scan'208";a="46703313"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
 	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Juergen Gross
 	<jgross@suse.com>
-Subject: [PATCH 2/4] tests/resource: Rework Makefile
-Date: Tue, 22 Jun 2021 19:21:22 +0100
-Message-ID: <20210622182124.11571-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/4] tests/cpu-policy: Rework Makefile
+Date: Tue, 22 Jun 2021 19:21:23 +0100
+Message-ID: <20210622182124.11571-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210622182124.11571-1-andrew.cooper3@citrix.com>
 References: <20210622182124.11571-1-andrew.cooper3@citrix.com>
@@ -87,8 +87,9 @@ Content-Transfer-Encoding: 8bit
 In particular, fill in the install/uninstall rules so this test can be
 packaged to be automated sensibly.
 
-Make all object files depend on the Makefile, drop redundant -f's for $(RM),
-and use $(TARGET) when appropriate.
+Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
+unconditional -O3 and use the default instead, and drop CFLAGS from the link
+line but honour APPEND_LDFLAGS.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -99,23 +100,49 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Juergen Gross <jgross@suse.com>
 
 v2:
- * Fix typo in commit message
  * Drop -f's
  * Use %.o rather than *.o for Make level wildcards
 ---
- tools/tests/resource/Makefile | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ tools/tests/cpu-policy/Makefile | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/tools/tests/resource/Makefile b/tools/tests/resource/Makefile
-index 4bef482966..1c3aee4ff7 100644
---- a/tools/tests/resource/Makefile
-+++ b/tools/tests/resource/Makefile
-@@ -12,17 +12,20 @@ run: $(TARGET)
+diff --git a/tools/tests/cpu-policy/Makefile b/tools/tests/cpu-policy/Makefile
+index 70ff154da6..161732ad16 100644
+--- a/tools/tests/cpu-policy/Makefile
++++ b/tools/tests/cpu-policy/Makefile
+@@ -1,21 +1,19 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/Rules.mk
+ 
+-TARGET-y := test-cpu-policy
++TARGETS :=
+ 
+ # For brevity, these tests make extensive use of designated initialisers in
+ # anonymous unions, but GCCs older than 4.6 can't cope.  Ignore the test in
+ # this case.
+-ifneq ($(clang),y)
+-TARGET-$(call cc-ver,$(CC),lt,0x040600) :=
+-endif
+-
+-ifeq ($(TARGET-y),)
++ifneq ($(gcc)$(call cc-ver,$(CC),lt,0x040600),yy)
++TARGETS += test-cpu-policy
++else
+ $(warning Test harness not built, use newer compiler than "$(CC)" (version $(shell $(CC) -dumpversion)))
+ endif
+ 
+ .PHONY: all
+-all: $(TARGET-y)
++all: $(TARGETS)
+ 
+ .PHONY: run
+ run: $(TARGET-y)
+@@ -23,23 +21,32 @@ run: $(TARGET-y)
  
  .PHONY: clean
  clean:
--	$(RM) -f -- *.o $(TARGET) $(DEPS_RM)
-+	$(RM) -- *.o $(TARGET) $(DEPS_RM)
+-	$(RM) -f -- *.o .*.d .*.d2 test-cpu-policy
++	$(RM) -- *.o $(TARGETS) $(DEPS_RM)
  
  .PHONY: distclean
  distclean: clean
@@ -125,23 +152,27 @@ index 4bef482966..1c3aee4ff7 100644
  .PHONY: install
  install: all
 +	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-+	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC_BIN)
++	$(if $(TARGETS),$(INSTALL_PROG) $(TARGETS) $(DESTDIR)$(LIBEXEC_BIN))
  
  .PHONY: uninstall
- uninstall:
-+	$(RM) -- $(DESTDIR)$(LIBEXEC_BIN)/$(TARGET)
++uninstall:
++	$(RM) -- $(addprefix $(DESTDIR)$(LIBEXEC_BIN)/,$(TARGETS))
  
- CFLAGS += -Werror
- CFLAGS += $(CFLAGS_xeninclude)
-@@ -34,7 +37,9 @@ LDFLAGS += $(LDLIBS_libxenctrl)
- LDFLAGS += $(LDLIBS_libxenforeignmemory)
- LDFLAGS += $(APPEND_LDFLAGS)
+-CFLAGS += -Werror $(CFLAGS_xeninclude) -D__XEN_TOOLS__ -O3
++CFLAGS += -Werror -D__XEN_TOOLS__
++CFLAGS += $(CFLAGS_xeninclude)
+ CFLAGS += $(APPEND_CFLAGS)
  
--test-resource: test-resource.o
-+%.o: Makefile
+-vpath %.c ../../../xen/lib/x86
++LDFLAGS += $(APPEND_LDFLAGS)
 +
-+$(TARGET): test-resource.o
- 	$(CC) -o $@ $< $(LDFLAGS)
++vpath %.c $(XEN_ROOT)/xen/lib/x86
++
++%.o: Makefile
+ 
+ test-cpu-policy: test-cpu-policy.o msr.o cpuid.o policy.o
+-	$(CC) $(CFLAGS) $^ -o $@
++	$(CC) $^ -o $@ $(LDFLAGS)
  
  -include $(DEPS_INCLUDE)
 -- 
