@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9992B3B2060
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jun 2021 20:39:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146278.269121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB1DA3B20A3
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jun 2021 20:50:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146285.269132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lw7l1-0007QI-Ej; Wed, 23 Jun 2021 18:37:51 +0000
+	id 1lw7ww-0001AK-KX; Wed, 23 Jun 2021 18:50:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146278.269121; Wed, 23 Jun 2021 18:37:51 +0000
+Received: by outflank-mailman (output) from mailman id 146285.269132; Wed, 23 Jun 2021 18:50:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lw7l1-0007OT-Bd; Wed, 23 Jun 2021 18:37:51 +0000
-Received: by outflank-mailman (input) for mailman id 146278;
- Wed, 23 Jun 2021 18:37:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kcuX=LR=kernel.org=will@srs-us1.protection.inumbo.net>)
- id 1lw7l0-0007ON-5K
- for xen-devel@lists.xenproject.org; Wed, 23 Jun 2021 18:37:50 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8169a997-27df-40f9-8136-c29e1e413bc1;
- Wed, 23 Jun 2021 18:37:49 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3C1E061185;
- Wed, 23 Jun 2021 18:37:40 +0000 (UTC)
+	id 1lw7ww-00018M-GO; Wed, 23 Jun 2021 18:50:10 +0000
+Received: by outflank-mailman (input) for mailman id 146285;
+ Wed, 23 Jun 2021 18:50:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5/Od=LR=gmail.com=salvatore.bonaccorso@srs-us1.protection.inumbo.net>)
+ id 1lw7wv-00018F-1W
+ for xen-devel@lists.xenproject.org; Wed, 23 Jun 2021 18:50:09 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c72ab878-9c9d-428a-b6bb-a016de2846ff;
+ Wed, 23 Jun 2021 18:50:07 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id b3so3755512wrm.6
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jun 2021 11:50:07 -0700 (PDT)
+Received: from eldamar (80-218-24-251.dclient.hispeed.ch. [80.218.24.251])
+ by smtp.gmail.com with ESMTPSA id x10sm848038wru.58.2021.06.23.11.50.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Jun 2021 11:50:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,89 +40,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8169a997-27df-40f9-8136-c29e1e413bc1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1624473468;
-	bh=K9ctSOOXg/HLNG/KMzo+bt+uXbhOKksVK31vHq8QEAc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pew0mCStiOrsU0bWjM0b54f2cDTk0BFJYuT7oL0Hl93RfndilrrpZ00P5EcbMTEX/
-	 /lbkdoUtJfhzG6xhgO6NWycBIcDRvmNhEJGTWAKSFbeL2aFhOe2jpLrVodVSrKGkzr
-	 gHxURUCJo+Bry9z+VHTZDIOT/ABoSs0DN2Tjo7IL/UHU38iukI2V/m5xdJIYc7NUws
-	 7NMVKjT7vcMuSIu2fy0OZOLVI8+LwwecPlMOHv27TBpClMax/sAEQmgzVN3VS5iIlB
-	 HGiL4Uzn3xHn2voW7eTXBh/NjM9NO32LN+GkhPpRHj+kINjyQizH9+P5WDGveYcADU
-	 kFBCzfquuEa8w==
-Date: Wed, 23 Jun 2021 19:37:37 +0100
-From: Will Deacon <will@kernel.org>
-To: Qian Cai <quic_qiancai@quicinc.com>
-Cc: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
-	mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
-	Frank Rowand <frowand.list@gmail.com>,
+X-Inumbo-ID: c72ab878-9c9d-428a-b6bb-a016de2846ff
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=t9g61bv+JZ07tY5UuVmyIiDTVqgatmyK1QRV0XqD+Hc=;
+        b=KLXuHll2RXbwuztCykmE1EQTu6vmTzU1QQjpNTWzNCxaM1/Ps+7XEiFt8zUeOZ1baA
+         xe7gg6HXyDZ4KaB5Rul1MiFZoKZ0NCIbHMmtoCQwOsmnIQiG+kgYk7+D1Nwn5IGm+2zB
+         +ei/17jncOmir+dd9UyMDCtbBeqxpGTR5rZqJk0gYytyX0CnJeaGFqWYDEu6HFskFOOE
+         nDzu6jGbO5UvY6TkF6GoI2grAJpQLbjUvI6cQO7vFjzZCaOOWSL1cuXCzLO2WUEC+XMu
+         tRtnxpuK28KFSNdjX7/SGtxLwQUIkf75kqAgcewqO+eglB9DMfpSiAc0IPNPS5ithG0y
+         BKnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+         :references:mime-version:content-disposition:in-reply-to;
+        bh=t9g61bv+JZ07tY5UuVmyIiDTVqgatmyK1QRV0XqD+Hc=;
+        b=tM2sPUmnd88O5Cnx8N+7I2kLV9hk9S05S+VAVb8zmP+EnRLH0BTV5djFCHojbJo8EH
+         pZg2xp3JGQB13DO3qhrXLL6txdlPu+l4ggtGjC20wEr4QQThbZoXa9qCO/K23GXbi472
+         etCULP0uGpS/QPpCK5kdOQ+9AOPiO8f8UcfndKzEp8EVPBwHy3hgCBaBiVhxI2BVGAie
+         rPUVrFDJRGTZdBwFoSxzrUPkiXfSBHdLs/Qjb0Z+ZbeeXOB7ErIOvnbu5YNA02/PFM+n
+         +ITOcYZFDlJJz+sIdpwLhcXox3K9dQ/CnoCmelflmC3I8hRp/XwXLzowqUBlekBOMN9p
+         DChA==
+X-Gm-Message-State: AOAM533BZtWrHbGB3oR++ZDCTL+S4z80rKZkAtK516b4NJZ/TtxcZdD9
+	ppFzsliPowJmbItpgMq+ZZeZxjRCr7fv+Q==
+X-Google-Smtp-Source: ABdhPJwow7ob1nYUTJTVlm2hcLViMuMJ7U2nNz+pDoNObCJVja/RfxSZArMIJ4rIufME1rWIeSAkvw==
+X-Received: by 2002:a5d:6b91:: with SMTP id n17mr1793938wrx.166.1624474207108;
+        Wed, 23 Jun 2021 11:50:07 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Date: Wed, 23 Jun 2021 20:50:05 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Robin Murphy <robin.murphy@arm.com>, 989778-maintonly@bugs.debian.org
+Cc: =?utf-8?B?5bCP5aSq?= <nospam@kota.moe>,
+	Jianxiong Gao <jxgao@google.com>, Christoph Hellwig <hch@lst.de>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	boris.ostrovsky@oracle.com, jgross@suse.com,
-	Christoph Hellwig <hch@lst.de>,
+	linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
 	Marek Szyprowski <m.szyprowski@samsung.com>,
-	heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
-	peterz@infradead.org, benh@kernel.crashing.org,
-	joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
-	chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
-	mingo@kernel.org, jxgao@google.com, sstabellini@kernel.org,
-	Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
-	linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Thierry Reding <treding@nvidia.com>,
-	intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
-	linux-devicetree <devicetree@vger.kernel.org>, daniel@ffwll.ch,
-	airlied@linux.ie, maarten.lankhorst@linux.intel.com,
-	linuxppc-dev@lists.ozlabs.org, jani.nikula@linux.intel.com,
-	Nicolas Boichat <drinkcat@chromium.org>, rodrigo.vivi@intel.com,
-	bhelgaas@google.com, Dan Williams <dan.j.williams@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	lkml <linux-kernel@vger.kernel.org>,
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
-	Jim Quinlan <james.quinlan@broadcom.com>, thomas.lendacky@amd.com,
-	Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
-Subject: Re: [PATCH v14 06/12] swiotlb: Use is_swiotlb_force_bounce for
- swiotlb data bouncing
-Message-ID: <20210623183736.GA472@willie-the-truck>
-References: <20210619034043.199220-1-tientzu@chromium.org>
- <20210619034043.199220-7-tientzu@chromium.org>
- <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
+	xen-devel@lists.xenproject.org
+Subject: Re: Bug#989778: Regression in at least 5.10.y and mainline: Firewire
+ audio interface fails to work properly (when booted under Xen)
+Message-ID: <YNOCXe1cuNDNAB+Z@eldamar.lan>
+References: <162352833546.2353.230557992597997974.reportbug@home.kota.moe>
+ <YMWl4UnFBAVRDnys@eldamar.lan>
+ <162352833546.2353.230557992597997974.reportbug@home.kota.moe>
+ <2f7c7d36-b6f4-f8ab-756e-a563fa03b9e4@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <2f7c7d36-b6f4-f8ab-756e-a563fa03b9e4@arm.com>
 
-On Wed, Jun 23, 2021 at 12:39:29PM -0400, Qian Cai wrote:
+Hi Robin,
+
+On Mon, Jun 14, 2021 at 02:29:08PM +0100, Robin Murphy wrote:
+> On 2021-06-13 07:29, Salvatore Bonaccorso wrote:
+> > A user in Debian reported the above issue, which was reproducible with
+> > 5.13-rc5 and 5.10.y as packaged in Debian and found that 85a5a6875ca9
+> > ("swiotlb: don't modify orig_addr in swiotlb_tbl_sync_single") that
+> > introduced the issue.
 > 
+> Sounds like it's probably the same thing as being discussed over here:
 > 
-> On 6/18/2021 11:40 PM, Claire Chang wrote:
-> > Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
-> > use it to determine whether to bounce the data or not. This will be
-> > useful later to allow for different pools.
-> > 
-> > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > Reviewed-by: Christoph Hellwig <hch@lst.de>
-> > Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-> > Tested-by: Will Deacon <will@kernel.org>
-> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Reverting the rest of the series up to this patch fixed a boot crash with NVMe on today's linux-next.
+> https://lore.kernel.org/linux-iommu/2e899de2-4b69-c4b6-33a6-09fb8949d2fd@nxp.com/
 
-Hmm, so that makes patch 7 the suspicious one, right?
+Thanks for the pointer, it seems that now it has been fixed upstream
+with 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has
+offset").
 
-Looking at that one more closely, it looks like swiotlb_find_slots() takes
-'alloc_size + offset' as its 'alloc_size' parameter from
-swiotlb_tbl_map_single() and initialises 'mem->slots[i].alloc_size' based
-on 'alloc_size + offset', which looks like a change in behaviour from the
-old code, which didn't include the offset there.
-
-swiotlb_release_slots() then adds the offset back on afaict, so we end up
-accounting for it twice and possibly unmap more than we're supposed to?
-
-Will
+Regards,
+Salvatore
 
