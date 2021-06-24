@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B8733B2723
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 08:06:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146404.269378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F17F93B287D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 09:22:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146409.269389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwIV5-0006ld-MU; Thu, 24 Jun 2021 06:06:07 +0000
+	id 1lwJgL-0005m9-7K; Thu, 24 Jun 2021 07:21:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146404.269378; Thu, 24 Jun 2021 06:06:07 +0000
+Received: by outflank-mailman (output) from mailman id 146409.269389; Thu, 24 Jun 2021 07:21:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwIV5-0006j0-I4; Thu, 24 Jun 2021 06:06:07 +0000
-Received: by outflank-mailman (input) for mailman id 146404;
- Thu, 24 Jun 2021 06:06:05 +0000
+	id 1lwJgL-0005jm-3C; Thu, 24 Jun 2021 07:21:49 +0000
+Received: by outflank-mailman (input) for mailman id 146409;
+ Thu, 24 Jun 2021 07:21:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a5fo=LS=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1lwIV3-0006iu-B0
- for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 06:06:05 +0000
-Received: from mail-pj1-x102b.google.com (unknown [2607:f8b0:4864:20::102b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3ax9=LS=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1lwJgJ-0005jg-7m
+ for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 07:21:47 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1370eef6-39c5-45f3-ab48-7649b53915f5;
- Thu, 24 Jun 2021 06:06:02 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id g24so2828737pji.4
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jun 2021 23:06:02 -0700 (PDT)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com.
- [209.85.215.178])
- by smtp.gmail.com with ESMTPSA id y20sm1783902pfb.207.2021.06.23.23.06.00
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jun 2021 23:06:01 -0700 (PDT)
-Received: by mail-pg1-f178.google.com with SMTP id y14so3823531pgs.12
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jun 2021 23:06:00 -0700 (PDT)
+ id 77837906-0143-41f4-84b6-38507f91367c;
+ Thu, 24 Jun 2021 07:21:45 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A9FB82197E;
+ Thu, 24 Jun 2021 07:21:44 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 694B611A97;
+ Thu, 24 Jun 2021 07:21:44 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id nvMuFogy1GCkewAALh3uQQ
+ (envelope-from <jgross@suse.com>); Thu, 24 Jun 2021 07:21:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +46,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1370eef6-39c5-45f3-ab48-7649b53915f5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=osJqntoZHJL8VeQbE2d8Gx1TrOiajWQXazXH9w70kIY=;
-        b=f09JHaTt6yY9HlwcujpzmyCJbvbUoIE0cZNa0aICkCK68T/rODYze/6/aKRkuFqgtc
-         aQSgGc4CEL1bXaOSKVo+xlBop7hH5m1EqqxXbZi8VyWUJmFL6g6BM4X4ZMkMlYffhkXb
-         itPPZk67YIl+8XjGG/C0lboNwjIIr80wXQ+NM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=osJqntoZHJL8VeQbE2d8Gx1TrOiajWQXazXH9w70kIY=;
-        b=JA9l4y1CQlGzGHurVI/YIDS/dvEfcOL9QrUn5BNIopAh5x7z95mEr7LThxhzzlduvu
-         YUsLG3wiWf66fgNNf3y/qSBBjmohnsOQCzVb1sBPedfyuqM5xc1UC519thyBi/ZRMQ30
-         niHPW/m/NlxQKuk/ZmeCaowWSWqjYjVsui3xjq4MQX9AtO17yWEAAuvBUxjUAvzz9P7q
-         WuzT/KMUmEUdDnUfSGmM6NeuAx+qDN96oTdW+zdGtnTOaC0GnU/6WknbAWuGfV2Wcgr2
-         sk5LGY7V5LI+GB8+g6iDjON6swE5Id/iK0a3vl0sTEGKi6eM0ooSDUdvyMditY7/1Xqo
-         kPEQ==
-X-Gm-Message-State: AOAM531SWFG6nO2zsYXjX123PHvrSoTv58fJosSIysJF5WHmGjqknTWJ
-	XIPZkSw7PNjllBnvVHwSp6iT2YwYy+q4Jw==
-X-Google-Smtp-Source: ABdhPJyYGnGF3hSUN83IvCiIWaDz07IZqEnNlJ+NUuqs7DAGSS0jvxUYounIHck5nwoMhD+4su/b1A==
-X-Received: by 2002:a17:902:bd96:b029:f3:f285:7d8 with SMTP id q22-20020a170902bd96b02900f3f28507d8mr3065723pls.57.1624514761362;
-        Wed, 23 Jun 2021 23:06:01 -0700 (PDT)
-X-Received: by 2002:a92:750c:: with SMTP id q12mr2332407ilc.303.1624514749926;
- Wed, 23 Jun 2021 23:05:49 -0700 (PDT)
+X-Inumbo-ID: 77837906-0143-41f4-84b6-38507f91367c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1624519304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iBMd1VnM1SymcmFQSVpTidkwVIA930Jq4H7AHEVg+ig=;
+	b=QmEhebshPKP0XmlJPbZnZ8R4my8g1HcJPxmTHkvIMclMBLHJ9c42a78SJ2m0kndSDj97BE
+	qlobRTj9n17V5wR8wyMYA49YAD63ChQrJRmRLfb+n5G4wBqRDSTJXyAe0B0BJMWa0+GAGw
+	E3Z8sLYlzAExT+3EKE/tKyDyjeOAI3U=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1624519304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iBMd1VnM1SymcmFQSVpTidkwVIA930Jq4H7AHEVg+ig=;
+	b=QmEhebshPKP0XmlJPbZnZ8R4my8g1HcJPxmTHkvIMclMBLHJ9c42a78SJ2m0kndSDj97BE
+	qlobRTj9n17V5wR8wyMYA49YAD63ChQrJRmRLfb+n5G4wBqRDSTJXyAe0B0BJMWa0+GAGw
+	E3Z8sLYlzAExT+3EKE/tKyDyjeOAI3U=
+Subject: Re: [PATCH 02/10] tools/xenstored: Introduce lu_get_connection() and
+ use it
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
+ <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210616144324.31652-1-julien@xen.org>
+ <20210616144324.31652-3-julien@xen.org>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <e1a65b5b-874c-ae7d-dd7c-9dbf1aea7cbc@suse.com>
+Date: Thu, 24 Jun 2021 09:21:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-References: <20210619034043.199220-1-tientzu@chromium.org> <20210619034043.199220-7-tientzu@chromium.org>
- <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com> <20210623183736.GA472@willie-the-truck>
- <19d4c7a2-744d-21e0-289c-a576e1f0e6f3@quicinc.com> <20210624054315.GA25381@lst.de>
-In-Reply-To: <20210624054315.GA25381@lst.de>
-From: Claire Chang <tientzu@chromium.org>
-Date: Thu, 24 Jun 2021 14:05:39 +0800
-X-Gmail-Original-Message-ID: <CALiNf288ZLMhY3E8E3N+z9rkwi1viWNLm1wwMEwT4rNwh3FfwQ@mail.gmail.com>
-Message-ID: <CALiNf288ZLMhY3E8E3N+z9rkwi1viWNLm1wwMEwT4rNwh3FfwQ@mail.gmail.com>
-Subject: Re: [PATCH v14 06/12] swiotlb: Use is_swiotlb_force_bounce for
- swiotlb data bouncing
-To: Christoph Hellwig <hch@lst.de>
-Cc: Qian Cai <quic_qiancai@quicinc.com>, Will Deacon <will@kernel.org>, 
-	Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
-	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
-	boris.ostrovsky@oracle.com, jgross@suse.com, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, heikki.krogerus@linux.intel.com, 
-	thomas.hellstrom@linux.intel.com, peterz@infradead.org, 
-	benh@kernel.crashing.org, joonas.lahtinen@linux.intel.com, 
-	dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk, 
-	grant.likely@arm.com, paulus@samba.org, mingo@kernel.org, 
-	Jianxiong Gao <jxgao@google.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de, 
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com, linux-pci@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, Thierry Reding <treding@nvidia.com>, 
-	intel-gfx@lists.freedesktop.org, matthew.auld@intel.com, 
-	linux-devicetree <devicetree@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, 
-	maarten.lankhorst@linux.intel.com, linuxppc-dev@lists.ozlabs.org, 
-	jani.nikula@linux.intel.com, Nicolas Boichat <drinkcat@chromium.org>, rodrigo.vivi@intel.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, Dan Williams <dan.j.williams@intel.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Greg KH <gregkh@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>, 
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210616144324.31652-3-julien@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="JrNVaHBkfC78R4iXdvHbqzHJcSDsY0MFe"
 
-On Thu, Jun 24, 2021 at 1:43 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> On Wed, Jun 23, 2021 at 02:44:34PM -0400, Qian Cai wrote:
-> > is_swiotlb_force_bounce at /usr/src/linux-next/./include/linux/swiotlb.h:119
-> >
-> > is_swiotlb_force_bounce() was the new function introduced in this patch here.
-> >
-> > +static inline bool is_swiotlb_force_bounce(struct device *dev)
-> > +{
-> > +     return dev->dma_io_tlb_mem->force_bounce;
-> > +}
->
-> To me the crash looks like dev->dma_io_tlb_mem is NULL.  Can you
-> turn this into :
->
->         return dev->dma_io_tlb_mem && dev->dma_io_tlb_mem->force_bounce;
->
-> for a quick debug check?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--JrNVaHBkfC78R4iXdvHbqzHJcSDsY0MFe
+Content-Type: multipart/mixed; boundary="80XlrZkyMXvqn2dooROfuTJHoqJoEjsuE";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
+ <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <e1a65b5b-874c-ae7d-dd7c-9dbf1aea7cbc@suse.com>
+Subject: Re: [PATCH 02/10] tools/xenstored: Introduce lu_get_connection() and
+ use it
+References: <20210616144324.31652-1-julien@xen.org>
+ <20210616144324.31652-3-julien@xen.org>
+In-Reply-To: <20210616144324.31652-3-julien@xen.org>
 
-I just realized that dma_io_tlb_mem might be NULL like Christoph
-pointed out since swiotlb might not get initialized.
-However,  `Unable to handle kernel paging request at virtual address
-dfff80000000000e` looks more like the address is garbage rather than
-NULL?
-I wonder if that's because dev->dma_io_tlb_mem is not assigned
-properly (which means device_initialize is not called?).
+--80XlrZkyMXvqn2dooROfuTJHoqJoEjsuE
+Content-Type: multipart/mixed;
+ boundary="------------6D551229CDA272F2688C96BD"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------6D551229CDA272F2688C96BD
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 16.06.21 16:43, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> At the moment, dump_state_buffered_data() is taking two connections
+> in parameters (one is the connection to dump, the other is the
+> connection used to request LU). The naming doesn't help to
+> distinguish (c vs conn) them and this already lead to several mistake
+> while modifying the function.
+>=20
+> To remove the confusion, introduce an help lu_get_connection() that
+> will return the connection used to request LU and use it
+> in place of the existing parameter.
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
+
+
+Juergen
+
+--------------6D551229CDA272F2688C96BD
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------6D551229CDA272F2688C96BD--
+
+--80XlrZkyMXvqn2dooROfuTJHoqJoEjsuE--
+
+--JrNVaHBkfC78R4iXdvHbqzHJcSDsY0MFe
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDUMocFAwAAAAAACgkQsN6d1ii/Ey9P
+BQf9GelxsCP2Ywqzrp4y+3SZCeH0PcBv+D2fTMdytq+ktrYQPLW7EJPKypJl7P6lHxdvdtGtN0jl
+WoteWlG2laGbOAnq3FYw4RqGFSyEs2MPeByCIjgojvjEVaRdsX+S/SQJ7IexH5QndmZieYLS5nkC
+NX+lD2XL7XpTzHQGBl90SnsCYsBMX6Spu2VY12AvUoBiF/oqjM/pmDwvlGd8RetKZFAPWFxo/MVB
+xBWEsVHkHQ7XSk8b0UeR9hPdADy+CkbgvIGW90pN7PPqXU0TSaE+WsoPX7rdVJW7L9IHOlBKfxze
++UOb3mI4xaGMUy1ELJgBZuux6OHB3oqYGuzPiKhLfg==
+=Huk+
+-----END PGP SIGNATURE-----
+
+--JrNVaHBkfC78R4iXdvHbqzHJcSDsY0MFe--
 
