@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6FF33B2DA1
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 13:17:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146716.270129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF1813B2DAC
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 13:19:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146730.270141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwNMY-0002iK-TZ; Thu, 24 Jun 2021 11:17:38 +0000
+	id 1lwNO1-0003VO-8m; Thu, 24 Jun 2021 11:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146716.270129; Thu, 24 Jun 2021 11:17:38 +0000
+Received: by outflank-mailman (output) from mailman id 146730.270141; Thu, 24 Jun 2021 11:19:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwNMY-0002e3-QC; Thu, 24 Jun 2021 11:17:38 +0000
-Received: by outflank-mailman (input) for mailman id 146716;
- Thu, 24 Jun 2021 11:17:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lwNO1-0003Sb-5Y; Thu, 24 Jun 2021 11:19:09 +0000
+Received: by outflank-mailman (input) for mailman id 146730;
+ Thu, 24 Jun 2021 11:19:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lwNMX-0002dZ-Ao
- for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 11:17:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lwNMW-00075n-3W; Thu, 24 Jun 2021 11:17:36 +0000
-Received: from [54.239.6.182] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lwNMV-0003Ik-Rq; Thu, 24 Jun 2021 11:17:36 +0000
+ (envelope-from <SRS0=dCk9=LS=kernel.org=will@srs-us1.protection.inumbo.net>)
+ id 1lwNO0-0003SV-CR
+ for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 11:19:08 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 474aa3cb-fcbc-426b-8684-1ae7975d3bed;
+ Thu, 24 Jun 2021 11:19:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6D5C7613C1;
+ Thu, 24 Jun 2021 11:18:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,128 +37,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=6kWFqzhsa6JK4hIY141tjkTi1+pNJaRgyWocBa7rve4=; b=1Q+nD5JhwfYjtwAhSVQpBwxgKP
-	ZoyMJemd2Pfn40YAVuCp6WzuXKJyhScQUmT3lksWQlinlGdoEnPD+XoR2QaV0MFW0kXR5eP2Gz7hZ
-	SELl+un7/rlBwKjYttXLlEdJIw53jvNjVbjHRtz1ch8tkwSmSqDdYP2WeBuZEFr4+xqQ=;
-Subject: Re: [PATCH] tools/xenstored: Don't crash xenstored when Live-Update
- is cancelled
-From: Julien Grall <julien@xen.org>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien GralL
- <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210617173857.6450-1-julien@xen.org>
- <136d6a10-c93d-accd-fc34-62fbaa4742b0@suse.com>
- <325bf694-a30f-558c-ab84-d8a7a1865cc2@xen.org>
- <bcdad74c-393e-0582-6a26-b9a6f45cb30a@suse.com>
- <7f252b19-b84e-b4d3-0c3c-976404b00701@xen.org>
-Message-ID: <fca29482-2e12-67a9-bb7c-cc420e32de9a@xen.org>
-Date: Thu, 24 Jun 2021 13:17:33 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+X-Inumbo-ID: 474aa3cb-fcbc-426b-8684-1ae7975d3bed
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1624533547;
+	bh=fyQk9K7V5mi+iulKCuVouHY96p/8l9exJzzlUIeSpn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bw4AVsGwRrbnlqsX5CZZBCGVkLRWbVSBBROzH0cW0WxgQnoyiN2SkbZT9Y0qsOq8u
+	 JL8IIrlYNHTHfBROv+myGIoSXn3V0Qajeyu6WrQ15CejRET9x4mwWpuBCwWkKgfe+I
+	 +cOMFFna8tPSjLTq48KMyVkK5wGgtDdocNICZALKyCcFBQrrDac4GVZrs41lrwovdH
+	 A7+mTUl4b8SpYL5RZSXQGAdCk4J4xBM23HuRVgN0YiE8QMME9/0wtATNSKneCXnM3U
+	 aM6IUBXxfGBIajg731amXfhwP7wHdtJMySWai/ROQfVX1amjwBJVAnH3akjkMUY271
+	 lYvk5WkbaBLcQ==
+Date: Thu, 24 Jun 2021 12:18:56 +0100
+From: Will Deacon <will@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Claire Chang <tientzu@chromium.org>, Christoph Hellwig <hch@lst.de>,
+	Qian Cai <quic_qiancai@quicinc.com>,
+	Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+	Joerg Roedel <joro@8bytes.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com, jgross@suse.com,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+	peterz@infradead.org, benh@kernel.crashing.org,
+	joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+	chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
+	mingo@kernel.org, Jianxiong Gao <jxgao@google.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+	linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Thierry Reding <treding@nvidia.com>,
+	intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie,
+	maarten.lankhorst@linux.intel.com, linuxppc-dev@lists.ozlabs.org,
+	jani.nikula@linux.intel.com,
+	Nicolas Boichat <drinkcat@chromium.org>, rodrigo.vivi@intel.com,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	lkml <linux-kernel@vger.kernel.org>,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>, bauerman@linux.ibm.com
+Subject: Re: [PATCH v14 06/12] swiotlb: Use is_swiotlb_force_bounce for
+ swiotlb data bouncing
+Message-ID: <20210624111855.GA1382@willie-the-truck>
+References: <20210619034043.199220-1-tientzu@chromium.org>
+ <20210619034043.199220-7-tientzu@chromium.org>
+ <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
+ <20210623183736.GA472@willie-the-truck>
+ <19d4c7a2-744d-21e0-289c-a576e1f0e6f3@quicinc.com>
+ <20210624054315.GA25381@lst.de>
+ <CALiNf288ZLMhY3E8E3N+z9rkwi1viWNLm1wwMEwT4rNwh3FfwQ@mail.gmail.com>
+ <364e6715-eafd-fc4a-e0af-ce2a042756b4@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <7f252b19-b84e-b4d3-0c3c-976404b00701@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <364e6715-eafd-fc4a-e0af-ce2a042756b4@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
+On Thu, Jun 24, 2021 at 12:14:39PM +0100, Robin Murphy wrote:
+> On 2021-06-24 07:05, Claire Chang wrote:
+> > On Thu, Jun 24, 2021 at 1:43 PM Christoph Hellwig <hch@lst.de> wrote:
+> > > 
+> > > On Wed, Jun 23, 2021 at 02:44:34PM -0400, Qian Cai wrote:
+> > > > is_swiotlb_force_bounce at /usr/src/linux-next/./include/linux/swiotlb.h:119
+> > > > 
+> > > > is_swiotlb_force_bounce() was the new function introduced in this patch here.
+> > > > 
+> > > > +static inline bool is_swiotlb_force_bounce(struct device *dev)
+> > > > +{
+> > > > +     return dev->dma_io_tlb_mem->force_bounce;
+> > > > +}
+> > > 
+> > > To me the crash looks like dev->dma_io_tlb_mem is NULL.  Can you
+> > > turn this into :
+> > > 
+> > >          return dev->dma_io_tlb_mem && dev->dma_io_tlb_mem->force_bounce;
+> > > 
+> > > for a quick debug check?
+> > 
+> > I just realized that dma_io_tlb_mem might be NULL like Christoph
+> > pointed out since swiotlb might not get initialized.
+> > However,  `Unable to handle kernel paging request at virtual address
+> > dfff80000000000e` looks more like the address is garbage rather than
+> > NULL?
+> > I wonder if that's because dev->dma_io_tlb_mem is not assigned
+> > properly (which means device_initialize is not called?).
+> 
+> What also looks odd is that the base "address" 0xdfff800000000000 is held in
+> a couple of registers, but the offset 0xe looks too small to match up to any
+> relevant structure member in that dereference chain :/
 
+FWIW, I've managed to trigger a NULL dereference locally when swiotlb hasn't
+been initialised but we dereference 'dev->dma_io_tlb_mem', so I think
+Christoph's suggestion is needed regardless. But I agree that it won't help
+with the issue reported by Qian Cai.
 
-On 24/06/2021 10:18, Julien Grall wrote:
-> Hi Juergen,
-> 
-> On 24/06/2021 10:17, Juergen Gross wrote:
->> On 24.06.21 10:12, Julien Grall wrote:
->>> Hi Juergen,
->>>
->>> On 22/06/2021 11:23, Juergen Gross wrote:
->>>> On 17.06.21 19:38, Julien Grall wrote:
->>>>> From: Julien GralL <jgrall@amazon.com>
->>>>>
->>>>> As Live-Update is asynchronous, it is possible to receive a request to
->>>>> cancel it (either on the same connection or from a different one).
->>>>>
->>>>> Currently, this will crash xenstored because do_lu_start() assumes
->>>>> lu_status will be valid. This is not the case when Live-Update has 
->>>>> been
->>>>> cancelled. This will result to dereference a NULL pointer and
->>>>> crash Xenstored.
->>>>>
->>>>> Rework do_lu_start() to check if lu_status is NULL and return an
->>>>> error in this case.
->>>>>
->>>>> Fixes: af216a99fb ("tools/xenstore: add the basic framework for doing 
->>
->>>>> the live update")
->>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> ----
->>>>>
->>>>> This is currently based on top of:
->>>>>
->>>>> https://lore.kernel.org/xen-devel/20210616144324.31652-1-julien@xen.org 
->>>>>
->>>>>
->>>>> This can be re-ordered if necessary.
->>>>> ---
->>>>>   tools/xenstore/xenstored_control.c | 15 +++++++++++++--
->>>>>   1 file changed, 13 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/tools/xenstore/xenstored_control.c 
->>>>> b/tools/xenstore/xenstored_control.c
->>>>> index a045f102a420..37a3d39f20b5 100644
->>>>> --- a/tools/xenstore/xenstored_control.c
->>>>> +++ b/tools/xenstore/xenstored_control.c
->>>>> @@ -696,7 +696,18 @@ static bool do_lu_start(struct delayed_request 
->>>>> *req)
->>>>>       time_t now = time(NULL);
->>>>>       const char *ret;
->>>>>       struct buffered_data *saved_in;
->>>>> -    struct connection *conn = lu_status->conn;
->>>>> +    struct connection *conn = req->data;
->>>>> +
->>>>> +    /*
->>>>> +     * Cancellation may have been requested asynchronously. In this
->>>>> +     * case, lu_status will be NULL.
->>>>> +     */
->>>>> +    if (!lu_status) {
->>>>> +        ret = "Cancellation was 
->> requested";
->>>>> +        conn = req->data;
->>>>
->>>> This will set conn to the same value it already has.
->>>
->>> Ah yes. I will drop this line.
->>>
->>> Also, I took the opportunity to replace
->>>
->>> } else
->>>   assert(...)
->>>
->>> with just
->>>
->>> assert(...)
->>>
->>> This should improve a bit the readability. Let me know if you want me 
->>> to resend the patch for that.
->>
->> I guess you are planning to do the commit?
-> 
-> That's my plan.
+Qian Cai: please can you share your .config and your command line?
 
-Committed.
+Thanks,
 
-> 
->>
->> If yes, there is no need for resending the patch.
-> 
-> Thanks!
-> 
-> Cheers,
-> 
-
--- 
-Julien Grall
+Will
 
