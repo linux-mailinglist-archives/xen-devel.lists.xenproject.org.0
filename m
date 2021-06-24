@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DB0A3B2D8A
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 13:15:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146705.270090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E3FE3B2D9F
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 13:17:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146713.270118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwNJw-0000j0-Oc; Thu, 24 Jun 2021 11:14:56 +0000
+	id 1lwNM8-0001wT-J8; Thu, 24 Jun 2021 11:17:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146705.270090; Thu, 24 Jun 2021 11:14:56 +0000
+Received: by outflank-mailman (output) from mailman id 146713.270118; Thu, 24 Jun 2021 11:17:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwNJw-0000fr-L7; Thu, 24 Jun 2021 11:14:56 +0000
-Received: by outflank-mailman (input) for mailman id 146705;
- Thu, 24 Jun 2021 11:14:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NXgG=LS=arm.com=robin.murphy@srs-us1.protection.inumbo.net>)
- id 1lwNJu-0000fe-Lm
- for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 11:14:54 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 4f2cbc5d-3bfc-4843-aa33-795018e7cb9a;
- Thu, 24 Jun 2021 11:14:52 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3087531B;
- Thu, 24 Jun 2021 04:14:52 -0700 (PDT)
-Received: from [10.57.9.136] (unknown [10.57.9.136])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 72B7B3F718;
- Thu, 24 Jun 2021 04:14:44 -0700 (PDT)
+	id 1lwNM8-0001tE-Fr; Thu, 24 Jun 2021 11:17:12 +0000
+Received: by outflank-mailman (input) for mailman id 146713;
+ Thu, 24 Jun 2021 11:17:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1lwNM6-0001rV-Mw
+ for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 11:17:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lwNM5-00075S-2s; Thu, 24 Jun 2021 11:17:09 +0000
+Received: from [54.239.6.182] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lwNM4-0003HI-Q8; Thu, 24 Jun 2021 11:17:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,87 +39,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f2cbc5d-3bfc-4843-aa33-795018e7cb9a
-Subject: Re: [PATCH v14 06/12] swiotlb: Use is_swiotlb_force_bounce for
- swiotlb data bouncing
-To: Claire Chang <tientzu@chromium.org>, Christoph Hellwig <hch@lst.de>
-Cc: Qian Cai <quic_qiancai@quicinc.com>, Will Deacon <will@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>, Frank Rowand <frowand.list@gmail.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
- jgross@suse.com, Marek Szyprowski <m.szyprowski@samsung.com>,
- heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- mingo@kernel.org, Jianxiong Gao <jxgao@google.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie,
- maarten.lankhorst@linux.intel.com, linuxppc-dev@lists.ozlabs.org,
- jani.nikula@linux.intel.com, Nicolas Boichat <drinkcat@chromium.org>,
- rodrigo.vivi@intel.com, Bjorn Helgaas <bhelgaas@google.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, bauerman@linux.ibm.com
-References: <20210619034043.199220-1-tientzu@chromium.org>
- <20210619034043.199220-7-tientzu@chromium.org>
- <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
- <20210623183736.GA472@willie-the-truck>
- <19d4c7a2-744d-21e0-289c-a576e1f0e6f3@quicinc.com>
- <20210624054315.GA25381@lst.de>
- <CALiNf288ZLMhY3E8E3N+z9rkwi1viWNLm1wwMEwT4rNwh3FfwQ@mail.gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <364e6715-eafd-fc4a-e0af-ce2a042756b4@arm.com>
-Date: Thu, 24 Jun 2021 12:14:39 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=3x+4zeqoHksbHH2jN8EeTR+Jc1uTXMhfyzCmeIaTJ5g=; b=EUhaXjZX/NS0bWmNTXhAH3ElOg
+	0Vy8/aYj6dqD7QGrv0RxmWGdywMJ+XFBYMLhz6zjitNoUHPZ0ouReuOXTnicBe4A6PayY3AJpadXj
+	VI66PO2vHGq4967Q1pAbv/SmLfNbSs53DtAU611oDq4I6/x5qPnUDH9Yu4Zzn7qxl+4c=;
+Subject: Re: [PATCH 09/10] tools/xenstored: Dump delayed requests
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
+ <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210616144324.31652-1-julien@xen.org>
+ <20210616144324.31652-10-julien@xen.org>
+ <5b6455f3-9b44-2cf3-e53d-1f235977a4e2@suse.com>
+ <d42131c2-ae2d-883b-037d-2ab6370678c3@xen.org>
+ <6e17cbd5-a819-2ed6-6f73-784cda2b9a5c@suse.com>
+ <96cb7350-4f59-a359-5ba4-fee586e73370@xen.org>
+ <0745889a-0142-3139-891a-4fb7a43fec18@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <6130d1f5-f48d-53a7-fe12-de1c358bad32@xen.org>
+Date: Thu, 24 Jun 2021 13:17:06 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <CALiNf288ZLMhY3E8E3N+z9rkwi1viWNLm1wwMEwT4rNwh3FfwQ@mail.gmail.com>
+In-Reply-To: <0745889a-0142-3139-891a-4fb7a43fec18@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2021-06-24 07:05, Claire Chang wrote:
-> On Thu, Jun 24, 2021 at 1:43 PM Christoph Hellwig <hch@lst.de> wrote:
+
+
+On 24/06/2021 13:02, Juergen Gross wrote:
+> On 24.06.21 12:46, Julien Grall wrote:
+>> Hi Juergen,
 >>
->> On Wed, Jun 23, 2021 at 02:44:34PM -0400, Qian Cai wrote:
->>> is_swiotlb_force_bounce at /usr/src/linux-next/./include/linux/swiotlb.h:119
+>> On 24/06/2021 12:45, Juergen Gross wrote:
+>>> On 24.06.21 12:28, Julien Grall wrote:
+>>>> Hi Juergen,
+>>>>
+>>>> On 24/06/2021 10:41, Juergen Gross wrote:
+>>>>> On 16.06.21 16:43, Julien Grall wrote:
+>>>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> Currently, only Live-Update request can be delayed. In a follow-up,
+>>>>>> we will want to delay more requests (e.g. transaction start).
+>>>>>> Therefore we want to preserve delayed requests across Live-Update.
+>>>>>>
+>>>>>> Delayed requests are just complete "in" buffer. So the code is
+>>>>>> refactored to allow sharing the code to dump "in" buffer.
+>>>>>>
+>>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>>>> ---
+>>>>>>   tools/xenstore/xenstored_core.c | 42 
+>>>>>> +++++++++++++++++++++++++--------
+>>>>>>   1 file changed, 32 insertions(+), 10 deletions(-)
+>>>>>>
+>>>>>> diff --git a/tools/xenstore/xenstored_core.c 
+>>>>>> b/tools/xenstore/xenstored_core.c
+>>>>>> index 5b7ab7f74013..9eca58682b51 100644
+>>>>>> --- a/tools/xenstore/xenstored_core.c
+>>>>>> +++ b/tools/xenstore/xenstored_core.c
+>>>>>> @@ -2403,25 +2403,47 @@ const char *dump_state_global(FILE *fp)
+>>>>>>       return NULL;
+>>>>>>   }
+>>>>>> +static const char *dump_input_buffered_data(FILE *fp,
+>>>>>> +                        conststruct buffered_data *in,
+>>>>>> +                        unsigned int *total_len)
+>>>>>> +{
+>>>>>> +    unsigned int hlen = in->inhdr ? in->used : sizeof(in->hdr);
+>>>>>> +
+>>>>>> +    *total_len += hlen;
+>>>>>> +    if (fp && fwrite(&in->hdr, hlen, 1, fp) != 1)
+>>>>>> +        return "Dump read data error";
+>>>>>> +    if (!in->inhdr && in->used) {
+>>>>>> +        *total_len += in->used;
+>>>>>> +        if (fp && fwrite(in->buffer,in->used, 1, fp) != 1)
+>>>>>> + 
+> return "Dump read data error";
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    return NULL;
+>>>>>> +}
+>>>>>> +
+>>>>>>   /* Called twice: first with fp == NULL to get length, then 
+>>> for
+>>>>>> writing data. */
+>>>>>>   const char *dump_state_buffered_data(FILE *fp, const struct 
+>>>>>> connection *c,
+>>>>>>                        struct xs_state_connection *sc)
+>>>>>>   {
+>>>>>>       unsigned int len = 0, used;
+>>>>>> -    struct buffered_data *out, *in = c->in;
+>>>>>> +    struct buffered_data *out;
+>>>>>>       bool partial = true;
+>>>>>> +    struct delayed_request *req;
+>>>>>> +    const char *ret;
+>>>>>> -    if (in) {
+>>>>>> -        len = in->inhdr ? in->used: sizeof(in->hdr);
+>>>>>> -        if (fp && fwrite(&in->hdr,len, 1, fp) != 1)
+>>>>>> - 
+> return "Dump read data error";
+>>>>>> -        if (!in->inhdr && in->used) {
+>>>>>> - 
+> len += in->used;
+>>>>>> - 
+> if(fp && fwrite(in->buffer, in->used, 1, fp) != 1)
+>>>>>> -                return "Dump read data error";
+>>>>>> -        }
+>>>>>> +    /* Dump any command that was delayed */
+>>>>>> +    list_for_each_entry(req, &c->delayed, list) {
+>>>>>
+>>>>> Please add a comment here that the following if() serves especially to
+>>>>> avoid dumping the data for do_lu_start().
+>>>>
+>>>> Would you be happy to give your acked-by/reviewed-by if I add the 
+>>>> following on commit?
+>>>>
+>>>> "
+>>>> We only want to preserve commands that wasn't processed at all. All the 
 >>>
->>> is_swiotlb_force_bounce() was the new function introduced in this patch here.
 >>>
->>> +static inline bool is_swiotlb_force_bounce(struct device *dev)
->>> +{
->>> +     return dev->dma_io_tlb_mem->force_bounce;
->>> +}
+>>> s/wasn't/weren't/
 >>
->> To me the crash looks like dev->dma_io_tlb_mem is NULL.  Can you
->> turn this into :
+>> I will do.
 >>
->>          return dev->dma_io_tlb_mem && dev->dma_io_tlb_mem->force_bounce;
+>>>
+>>>> other delayed requests (such as do_lu_start()) must be processed before 
+>>>
+>>>> Live-Update.
+>>>> "
+>>>
+>>> With that change I'm fine.
 >>
->> for a quick debug check?
+>> Can I translate that to an acked-by? :)
 > 
-> I just realized that dma_io_tlb_mem might be NULL like Christoph
-> pointed out since swiotlb might not get initialized.
-> However,  `Unable to handle kernel paging request at virtual address
-> dfff80000000000e` looks more like the address is garbage rather than
-> NULL?
-> I wonder if that's because dev->dma_io_tlb_mem is not assigned
-> properly (which means device_initialize is not called?).
+> Make it a "Reviewed-by:" :-)
 
-What also looks odd is that the base "address" 0xdfff800000000000 is 
-held in a couple of registers, but the offset 0xe looks too small to 
-match up to any relevant structure member in that dereference chain :/
+Thanks! I have committed it.
 
-Robin.
+Cheers,
+
+-- 
+Julien Grall
 
