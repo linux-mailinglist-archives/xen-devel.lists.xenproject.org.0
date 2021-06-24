@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B5883B2988
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 09:40:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146436.269443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84FE93B299E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 09:44:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146442.269455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwJxd-0001OD-TD; Thu, 24 Jun 2021 07:39:41 +0000
+	id 1lwK29-0002p6-JL; Thu, 24 Jun 2021 07:44:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146436.269443; Thu, 24 Jun 2021 07:39:41 +0000
+Received: by outflank-mailman (output) from mailman id 146442.269455; Thu, 24 Jun 2021 07:44:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwJxd-0001Ln-Pd; Thu, 24 Jun 2021 07:39:41 +0000
-Received: by outflank-mailman (input) for mailman id 146436;
- Thu, 24 Jun 2021 07:39:40 +0000
+	id 1lwK29-0002mq-G2; Thu, 24 Jun 2021 07:44:21 +0000
+Received: by outflank-mailman (input) for mailman id 146442;
+ Thu, 24 Jun 2021 07:44:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3ax9=LS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lwJxb-0001Lh-Ui
- for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 07:39:39 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ id 1lwK28-0002mk-7f
+ for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 07:44:20 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 43eedfa9-54af-4832-89ba-d3571343ac38;
- Thu, 24 Jun 2021 07:39:38 +0000 (UTC)
+ id 3c7dfcb2-38b2-490b-8aa6-24c14a4a6ad5;
+ Thu, 24 Jun 2021 07:44:19 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C52A41FD66;
- Thu, 24 Jun 2021 07:39:37 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B0B432197E;
+ Thu, 24 Jun 2021 07:44:18 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 8618D11A97;
- Thu, 24 Jun 2021 07:39:37 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 576C211A97;
+ Thu, 24 Jun 2021 07:44:18 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id YxJ/H7k21GDRBQAALh3uQQ
- (envelope-from <jgross@suse.com>); Thu, 24 Jun 2021 07:39:37 +0000
+ id gKUoEtI31GCcCAAALh3uQQ
+ (envelope-from <jgross@suse.com>); Thu, 24 Jun 2021 07:44:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,91 +47,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43eedfa9-54af-4832-89ba-d3571343ac38
+X-Inumbo-ID: 3c7dfcb2-38b2-490b-8aa6-24c14a4a6ad5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1624520377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1624520658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=25UwmIJOXDIhmJyv5n0I5nZf7hU2bre0iKAeuX0TwzQ=;
-	b=LmVxR6+pc7fYNVRyUzBi5fRhSh1Q5GmTe3aBmyLZzkEW3zuMUxkC5CKnux90goJmMxA8uY
-	tE2aaDOuVbiWA8wnSY3PBRGCPSpS8jWkcdLrrJDrnk5Iv8ldPpDg/sHYYSJNYEtlmqcRBn
-	09Rib8Fxu/rB960v19mVBOdbkIlfQRQ=
+	bh=SmVArF2TC24guojXUcYTozjOi8Vhs1tk50s8L+Hemeo=;
+	b=I5WGshpqLUkWiEDxMEMjcIbHWCe96jeI+iunh+qlpdxpXaaNEb2XZrGBWiD32v3km1B5Zq
+	T9gAJhmx8hUPZTDv0rDklJYW7DFHSOJILioThDB7dBudxcXy63o9U5lgyzTdoSbjxWUsV0
+	Ia6JGjvmAnTP2PW4c2B/zVZnWyju14s=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1624520377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1624520658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=25UwmIJOXDIhmJyv5n0I5nZf7hU2bre0iKAeuX0TwzQ=;
-	b=LmVxR6+pc7fYNVRyUzBi5fRhSh1Q5GmTe3aBmyLZzkEW3zuMUxkC5CKnux90goJmMxA8uY
-	tE2aaDOuVbiWA8wnSY3PBRGCPSpS8jWkcdLrrJDrnk5Iv8ldPpDg/sHYYSJNYEtlmqcRBn
-	09Rib8Fxu/rB960v19mVBOdbkIlfQRQ=
-Subject: Re: [PATCH 06/10] tools/xenstored: Introduce a wrapper for
- conn->funcs->can_{read, write}
+	bh=SmVArF2TC24guojXUcYTozjOi8Vhs1tk50s8L+Hemeo=;
+	b=I5WGshpqLUkWiEDxMEMjcIbHWCe96jeI+iunh+qlpdxpXaaNEb2XZrGBWiD32v3km1B5Zq
+	T9gAJhmx8hUPZTDv0rDklJYW7DFHSOJILioThDB7dBudxcXy63o9U5lgyzTdoSbjxWUsV0
+	Ia6JGjvmAnTP2PW4c2B/zVZnWyju14s=
+Subject: Re: [PATCH 07/10] tools/xenstored: delay_request: don't assume
+ conn->in == in
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
  <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210616144324.31652-1-julien@xen.org>
- <20210616144324.31652-7-julien@xen.org>
+ <20210616144324.31652-8-julien@xen.org>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <bdd6a6a3-b1ab-0629-9873-a474bd33ef66@suse.com>
-Date: Thu, 24 Jun 2021 09:39:36 +0200
+Message-ID: <30348a8d-aef4-dee4-50ee-f6613da27952@suse.com>
+Date: Thu, 24 Jun 2021 09:44:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210616144324.31652-7-julien@xen.org>
+In-Reply-To: <20210616144324.31652-8-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="OCpk3NuKoPLc9NNh0QJfQscCYI61iPFoO"
+ boundary="raKWHPguZ0q0C7k1mjoZQU57KUNgxylRK"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---OCpk3NuKoPLc9NNh0QJfQscCYI61iPFoO
-Content-Type: multipart/mixed; boundary="bfc1YOU1z0js8oRUL84brIkPJ0449K3aF";
+--raKWHPguZ0q0C7k1mjoZQU57KUNgxylRK
+Content-Type: multipart/mixed; boundary="fNJmfWnaQywy7eZ5ixY8NaRS59dmXA77y";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
  <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <bdd6a6a3-b1ab-0629-9873-a474bd33ef66@suse.com>
-Subject: Re: [PATCH 06/10] tools/xenstored: Introduce a wrapper for
- conn->funcs->can_{read, write}
+Message-ID: <30348a8d-aef4-dee4-50ee-f6613da27952@suse.com>
+Subject: Re: [PATCH 07/10] tools/xenstored: delay_request: don't assume
+ conn->in == in
 References: <20210616144324.31652-1-julien@xen.org>
- <20210616144324.31652-7-julien@xen.org>
-In-Reply-To: <20210616144324.31652-7-julien@xen.org>
+ <20210616144324.31652-8-julien@xen.org>
+In-Reply-To: <20210616144324.31652-8-julien@xen.org>
 
---bfc1YOU1z0js8oRUL84brIkPJ0449K3aF
+--fNJmfWnaQywy7eZ5ixY8NaRS59dmXA77y
 Content-Type: multipart/mixed;
- boundary="------------E99E79B311ABB28A2A6792FA"
+ boundary="------------F442925ECE74C2AC327E7A78"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------E99E79B311ABB28A2A6792FA
+--------------F442925ECE74C2AC327E7A78
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 16.06.21 16:43, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 >=20
-> Currently, the callbacks can_read and can_write are called directly. Th=
-is
-> doesn't allow us to add generic check and therefore requires duplicatio=
-n.
+> delay_request() is currently assuming that the request delayed is
+> always conn->in. This is currently correct, but it is a call for
+> a latent bug as the function allows the caller to specify any request.
 >=20
-> At the moment, one check that could benefit to be common is whether the=
+> To prevent any future surprise, check if the request delayed is the
+> current one.
+>=20
+> Fixes: c5ca1404b4 ("tools/xenstore: add support for delaying execution =
+of a xenstore request")
 
-> connection should ignored. The position is slightly different between
-> domain and socket because for the latter we want to check the state of
-> the file descriptor first.
->=20
-> In follow-up patches, there will be more potential generic checks.
->=20
-> This patch provides wrappers to read/write a connection and move
-> the check ->is_ignored after the callback for everyone.
->=20
-> This also requires to replace the direct call to domain_can_read()
-> and domain_can_write() with the new wrapper. At the same time,
-> both functions can now be static. Note that the implementations need
-> to be moved earlier in the file xenstored_domain.c to avoid
-> declaring the prototype.
->=20
+Is the Fixes: tag really wanted in this patch? Currently there is
+nothing wrong without this patch. So a backport will be needed only if
+e.g. this series will be backported.
+
+I'm fine either way, but I think this should be Ian's call.
+
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 
 Reviewed-by: Juergen Gross <jgross@suse.com>
@@ -139,7 +133,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------E99E79B311ABB28A2A6792FA
+--------------F442925ECE74C2AC327E7A78
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -231,25 +225,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------E99E79B311ABB28A2A6792FA--
+--------------F442925ECE74C2AC327E7A78--
 
---bfc1YOU1z0js8oRUL84brIkPJ0449K3aF--
+--fNJmfWnaQywy7eZ5ixY8NaRS59dmXA77y--
 
---OCpk3NuKoPLc9NNh0QJfQscCYI61iPFoO
+--raKWHPguZ0q0C7k1mjoZQU57KUNgxylRK
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDUNrgFAwAAAAAACgkQsN6d1ii/Ey+h
-ogf+MMMUI5Juxn/ajqDtQuXypfn2zmr61S+rk4VpwJjTWxxVD+td/b9Eq5XRnK1lYXbHQnes9Kgp
-CcxCedtyO4Pk5wc9USyhaj+VxJoxbg3tjTrIyvP/hsnRjagSO3pC+mB2KGgxEdclEHlr060Lookm
-Lh/8iwhYQKqUPIdNjTYvjyWA0Mi5hHed42FWtoKCOHQLbS8qm1C2cQQcMgXMBTSMgULEIk58M/O3
-BVJjm/9Tr6/Wn9IrwVngiwNvo6kA+qhS5NY3Av7vyVwkE4FOpHBABRzjKS8kq4LJrwB+4SnbIF+H
-RFSVSfZ5Vk+MbeSbdLIboBmyZ2sXdzKwT2eKnBGxPw==
-=w7DI
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDUN9EFAwAAAAAACgkQsN6d1ii/Ey9P
+cgf+O/44hhJ4FAxDj5h5sY6hmM1QI6xdPPqisZewcV7Loy8xi0XmDeyqxQYuFK2TDFjbg1foN8hZ
+XLhAsD68ohPyLde7JbJfz3VsXw6twow84YmjfBGtzX4V28kcOFrmBsuoUjM7MZInhW8jI0xmyWqv
+sI8K5L8QOr7ZsjlDAQ3DnlBKLytbfvCmOkoYAJD+/WHe89axNyUzqTt2rUJqnq+qIQ2wwtqFE8Nk
+I9ZiTmRs7BBwt982zAfA1EoOIMO5w2R4H7Sk8ZWcEZPqMt7mfpYqGzr6Yfg6XK19E8vovUF/PgCm
+Hd7FLn6ib49MeeTLny45MM1kdAbxHk/4ssBBFNmmig==
+=gwqu
 -----END PGP SIGNATURE-----
 
---OCpk3NuKoPLc9NNh0QJfQscCYI61iPFoO--
+--raKWHPguZ0q0C7k1mjoZQU57KUNgxylRK--
 
