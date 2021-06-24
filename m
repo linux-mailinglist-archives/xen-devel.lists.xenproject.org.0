@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3FE3B2D9F
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 13:17:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146713.270118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6FF33B2DA1
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 13:17:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146716.270129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwNM8-0001wT-J8; Thu, 24 Jun 2021 11:17:12 +0000
+	id 1lwNMY-0002iK-TZ; Thu, 24 Jun 2021 11:17:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146713.270118; Thu, 24 Jun 2021 11:17:12 +0000
+Received: by outflank-mailman (output) from mailman id 146716.270129; Thu, 24 Jun 2021 11:17:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwNM8-0001tE-Fr; Thu, 24 Jun 2021 11:17:12 +0000
-Received: by outflank-mailman (input) for mailman id 146713;
- Thu, 24 Jun 2021 11:17:10 +0000
+	id 1lwNMY-0002e3-QC; Thu, 24 Jun 2021 11:17:38 +0000
+Received: by outflank-mailman (input) for mailman id 146716;
+ Thu, 24 Jun 2021 11:17:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lwNM6-0001rV-Mw
- for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 11:17:10 +0000
+ (envelope-from <julien@xen.org>) id 1lwNMX-0002dZ-Ao
+ for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 11:17:37 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lwNM5-00075S-2s; Thu, 24 Jun 2021 11:17:09 +0000
+ id 1lwNMW-00075n-3W; Thu, 24 Jun 2021 11:17:36 +0000
 Received: from [54.239.6.182] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lwNM4-0003HI-Q8; Thu, 24 Jun 2021 11:17:09 +0000
+ id 1lwNMV-0003Ik-Rq; Thu, 24 Jun 2021 11:17:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,143 +41,125 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=3x+4zeqoHksbHH2jN8EeTR+Jc1uTXMhfyzCmeIaTJ5g=; b=EUhaXjZX/NS0bWmNTXhAH3ElOg
-	0Vy8/aYj6dqD7QGrv0RxmWGdywMJ+XFBYMLhz6zjitNoUHPZ0ouReuOXTnicBe4A6PayY3AJpadXj
-	VI66PO2vHGq4967Q1pAbv/SmLfNbSs53DtAU611oDq4I6/x5qPnUDH9Yu4Zzn7qxl+4c=;
-Subject: Re: [PATCH 09/10] tools/xenstored: Dump delayed requests
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
- <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210616144324.31652-1-julien@xen.org>
- <20210616144324.31652-10-julien@xen.org>
- <5b6455f3-9b44-2cf3-e53d-1f235977a4e2@suse.com>
- <d42131c2-ae2d-883b-037d-2ab6370678c3@xen.org>
- <6e17cbd5-a819-2ed6-6f73-784cda2b9a5c@suse.com>
- <96cb7350-4f59-a359-5ba4-fee586e73370@xen.org>
- <0745889a-0142-3139-891a-4fb7a43fec18@suse.com>
+	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
+	bh=6kWFqzhsa6JK4hIY141tjkTi1+pNJaRgyWocBa7rve4=; b=1Q+nD5JhwfYjtwAhSVQpBwxgKP
+	ZoyMJemd2Pfn40YAVuCp6WzuXKJyhScQUmT3lksWQlinlGdoEnPD+XoR2QaV0MFW0kXR5eP2Gz7hZ
+	SELl+un7/rlBwKjYttXLlEdJIw53jvNjVbjHRtz1ch8tkwSmSqDdYP2WeBuZEFr4+xqQ=;
+Subject: Re: [PATCH] tools/xenstored: Don't crash xenstored when Live-Update
+ is cancelled
 From: Julien Grall <julien@xen.org>
-Message-ID: <6130d1f5-f48d-53a7-fe12-de1c358bad32@xen.org>
-Date: Thu, 24 Jun 2021 13:17:06 +0200
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien GralL
+ <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210617173857.6450-1-julien@xen.org>
+ <136d6a10-c93d-accd-fc34-62fbaa4742b0@suse.com>
+ <325bf694-a30f-558c-ab84-d8a7a1865cc2@xen.org>
+ <bcdad74c-393e-0582-6a26-b9a6f45cb30a@suse.com>
+ <7f252b19-b84e-b4d3-0c3c-976404b00701@xen.org>
+Message-ID: <fca29482-2e12-67a9-bb7c-cc420e32de9a@xen.org>
+Date: Thu, 24 Jun 2021 13:17:33 +0200
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <0745889a-0142-3139-891a-4fb7a43fec18@suse.com>
+In-Reply-To: <7f252b19-b84e-b4d3-0c3c-976404b00701@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
 
 
-On 24/06/2021 13:02, Juergen Gross wrote:
-> On 24.06.21 12:46, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 24/06/2021 12:45, Juergen Gross wrote:
->>> On 24.06.21 12:28, Julien Grall wrote:
->>>> Hi Juergen,
->>>>
->>>> On 24/06/2021 10:41, Juergen Gross wrote:
->>>>> On 16.06.21 16:43, Julien Grall wrote:
->>>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>>
->>>>>> Currently, only Live-Update request can be delayed. In a follow-up,
->>>>>> we will want to delay more requests (e.g. transaction start).
->>>>>> Therefore we want to preserve delayed requests across Live-Update.
->>>>>>
->>>>>> Delayed requests are just complete "in" buffer. So the code is
->>>>>> refactored to allow sharing the code to dump "in" buffer.
->>>>>>
->>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>> ---
->>>>>>   tools/xenstore/xenstored_core.c | 42 
->>>>>> +++++++++++++++++++++++++--------
->>>>>>   1 file changed, 32 insertions(+), 10 deletions(-)
->>>>>>
->>>>>> diff --git a/tools/xenstore/xenstored_core.c 
->>>>>> b/tools/xenstore/xenstored_core.c
->>>>>> index 5b7ab7f74013..9eca58682b51 100644
->>>>>> --- a/tools/xenstore/xenstored_core.c
->>>>>> +++ b/tools/xenstore/xenstored_core.c
->>>>>> @@ -2403,25 +2403,47 @@ const char *dump_state_global(FILE *fp)
->>>>>>       return NULL;
->>>>>>   }
->>>>>> +static const char *dump_input_buffered_data(FILE *fp,
->>>>>> +                        conststruct buffered_data *in,
->>>>>> +                        unsigned int *total_len)
->>>>>> +{
->>>>>> +    unsigned int hlen = in->inhdr ? in->used : sizeof(in->hdr);
->>>>>> +
->>>>>> +    *total_len += hlen;
->>>>>> +    if (fp && fwrite(&in->hdr, hlen, 1, fp) != 1)
->>>>>> +        return "Dump read data error";
->>>>>> +    if (!in->inhdr && in->used) {
->>>>>> +        *total_len += in->used;
->>>>>> +        if (fp && fwrite(in->buffer,in->used, 1, fp) != 1)
->>>>>> + 
-> return "Dump read data error";
->>>>>> +    }
->>>>>> +
->>>>>> +    return NULL;
->>>>>> +}
->>>>>> +
->>>>>>   /* Called twice: first with fp == NULL to get length, then 
->>> for
->>>>>> writing data. */
->>>>>>   const char *dump_state_buffered_data(FILE *fp, const struct 
->>>>>> connection *c,
->>>>>>                        struct xs_state_connection *sc)
->>>>>>   {
->>>>>>       unsigned int len = 0, used;
->>>>>> -    struct buffered_data *out, *in = c->in;
->>>>>> +    struct buffered_data *out;
->>>>>>       bool partial = true;
->>>>>> +    struct delayed_request *req;
->>>>>> +    const char *ret;
->>>>>> -    if (in) {
->>>>>> -        len = in->inhdr ? in->used: sizeof(in->hdr);
->>>>>> -        if (fp && fwrite(&in->hdr,len, 1, fp) != 1)
->>>>>> - 
-> return "Dump read data error";
->>>>>> -        if (!in->inhdr && in->used) {
->>>>>> - 
-> len += in->used;
->>>>>> - 
-> if(fp && fwrite(in->buffer, in->used, 1, fp) != 1)
->>>>>> -                return "Dump read data error";
->>>>>> -        }
->>>>>> +    /* Dump any command that was delayed */
->>>>>> +    list_for_each_entry(req, &c->delayed, list) {
->>>>>
->>>>> Please add a comment here that the following if() serves especially to
->>>>> avoid dumping the data for do_lu_start().
->>>>
->>>> Would you be happy to give your acked-by/reviewed-by if I add the 
->>>> following on commit?
->>>>
->>>> "
->>>> We only want to preserve commands that wasn't processed at all. All the 
->>>
->>>
->>> s/wasn't/weren't/
->>
->> I will do.
->>
->>>
->>>> other delayed requests (such as do_lu_start()) must be processed before 
->>>
->>>> Live-Update.
->>>> "
->>>
->>> With that change I'm fine.
->>
->> Can I translate that to an acked-by? :)
+On 24/06/2021 10:18, Julien Grall wrote:
+> Hi Juergen,
 > 
-> Make it a "Reviewed-by:" :-)
+> On 24/06/2021 10:17, Juergen Gross wrote:
+>> On 24.06.21 10:12, Julien Grall wrote:
+>>> Hi Juergen,
+>>>
+>>> On 22/06/2021 11:23, Juergen Gross wrote:
+>>>> On 17.06.21 19:38, Julien Grall wrote:
+>>>>> From: Julien GralL <jgrall@amazon.com>
+>>>>>
+>>>>> As Live-Update is asynchronous, it is possible to receive a request to
+>>>>> cancel it (either on the same connection or from a different one).
+>>>>>
+>>>>> Currently, this will crash xenstored because do_lu_start() assumes
+>>>>> lu_status will be valid. This is not the case when Live-Update has 
+>>>>> been
+>>>>> cancelled. This will result to dereference a NULL pointer and
+>>>>> crash Xenstored.
+>>>>>
+>>>>> Rework do_lu_start() to check if lu_status is NULL and return an
+>>>>> error in this case.
+>>>>>
+>>>>> Fixes: af216a99fb ("tools/xenstore: add the basic framework for doing 
+>>
+>>>>> the live update")
+>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>>>
+>>>>> ----
+>>>>>
+>>>>> This is currently based on top of:
+>>>>>
+>>>>> https://lore.kernel.org/xen-devel/20210616144324.31652-1-julien@xen.org 
+>>>>>
+>>>>>
+>>>>> This can be re-ordered if necessary.
+>>>>> ---
+>>>>>   tools/xenstore/xenstored_control.c | 15 +++++++++++++--
+>>>>>   1 file changed, 13 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/tools/xenstore/xenstored_control.c 
+>>>>> b/tools/xenstore/xenstored_control.c
+>>>>> index a045f102a420..37a3d39f20b5 100644
+>>>>> --- a/tools/xenstore/xenstored_control.c
+>>>>> +++ b/tools/xenstore/xenstored_control.c
+>>>>> @@ -696,7 +696,18 @@ static bool do_lu_start(struct delayed_request 
+>>>>> *req)
+>>>>>       time_t now = time(NULL);
+>>>>>       const char *ret;
+>>>>>       struct buffered_data *saved_in;
+>>>>> -    struct connection *conn = lu_status->conn;
+>>>>> +    struct connection *conn = req->data;
+>>>>> +
+>>>>> +    /*
+>>>>> +     * Cancellation may have been requested asynchronously. In this
+>>>>> +     * case, lu_status will be NULL.
+>>>>> +     */
+>>>>> +    if (!lu_status) {
+>>>>> +        ret = "Cancellation was 
+>> requested";
+>>>>> +        conn = req->data;
+>>>>
+>>>> This will set conn to the same value it already has.
+>>>
+>>> Ah yes. I will drop this line.
+>>>
+>>> Also, I took the opportunity to replace
+>>>
+>>> } else
+>>>   assert(...)
+>>>
+>>> with just
+>>>
+>>> assert(...)
+>>>
+>>> This should improve a bit the readability. Let me know if you want me 
+>>> to resend the patch for that.
+>>
+>> I guess you are planning to do the commit?
+> 
+> That's my plan.
 
-Thanks! I have committed it.
+Committed.
 
-Cheers,
+> 
+>>
+>> If yes, there is no need for resending the patch.
+> 
+> Thanks!
+> 
+> Cheers,
+> 
 
 -- 
 Julien Grall
