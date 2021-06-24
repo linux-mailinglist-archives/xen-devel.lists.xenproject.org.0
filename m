@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6AB3B2958
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 09:33:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.146414.269399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 328313B2962
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jun 2021 09:35:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.146421.269411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwJqo-0007EU-8F; Thu, 24 Jun 2021 07:32:38 +0000
+	id 1lwJt3-0007uQ-QI; Thu, 24 Jun 2021 07:34:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 146414.269399; Thu, 24 Jun 2021 07:32:38 +0000
+Received: by outflank-mailman (output) from mailman id 146421.269411; Thu, 24 Jun 2021 07:34:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwJqo-0007CR-55; Thu, 24 Jun 2021 07:32:38 +0000
-Received: by outflank-mailman (input) for mailman id 146414;
- Thu, 24 Jun 2021 07:32:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lwJt3-0007sU-N9; Thu, 24 Jun 2021 07:34:57 +0000
+Received: by outflank-mailman (input) for mailman id 146421;
+ Thu, 24 Jun 2021 07:34:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3ax9=LS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1lwJqm-0007CL-Nq
- for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 07:32:36 +0000
+ id 1lwJt3-0007sO-0N
+ for xen-devel@lists.xenproject.org; Thu, 24 Jun 2021 07:34:57 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 335ab086-46c3-4d6a-a5c6-636657cbd23b;
- Thu, 24 Jun 2021 07:32:36 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 17c0c82c-e658-49b6-9670-536984581418;
+ Thu, 24 Jun 2021 07:34:56 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 25E242197E;
- Thu, 24 Jun 2021 07:32:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 718DB21973;
+ Thu, 24 Jun 2021 07:34:55 +0000 (UTC)
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id E97A011A97;
- Thu, 24 Jun 2021 07:32:34 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 45A4E11A97;
+ Thu, 24 Jun 2021 07:34:55 +0000 (UTC)
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id pV9xNxI11GDFAQAALh3uQQ
- (envelope-from <jgross@suse.com>); Thu, 24 Jun 2021 07:32:34 +0000
+ id dNLdD5811GD5AgAALh3uQQ
+ (envelope-from <jgross@suse.com>); Thu, 24 Jun 2021 07:34:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,99 +46,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 335ab086-46c3-4d6a-a5c6-636657cbd23b
+X-Inumbo-ID: 17c0c82c-e658-49b6-9670-536984581418
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1624519955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1624520095; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TpIF/bILtwA0IBDOGphI5lxgdvfBEarVL1t14bm/ApU=;
-	b=eVdgNX5LiWCXMCxhdUJzAbSYn+VdhWHEJw4wPEMOARY2Y7S3p4Ois5J+YLWQnedrz3Bbxb
-	X020YgHWRorvD+2fVCGRRiUKK9QZgsDqk0UkZ4VxRWbrvIpjeoxP6xH46H/B2VEHp3q7vU
-	c6XngP0WWi5Jvyp/y0pohNbXegMN4+c=
+	bh=MF+fRfPfu7cXOssURgQtzRVhV2H+QCioeeDGHNbBZi4=;
+	b=L/wJdovz3Ruvo4YQv71kLqf4uw725ORa+4lI2VRAYIrf9DFGYQ0gP8cmjyScKULa56MSqF
+	JC634Wrp8HyurSPQPTJfKCQnYJl+Pin4xovSTOWCnRH/7EJ5nzVlhU51dJ1LCYa6/EpKYk
+	1W4FpoCho6+zXs7FxGf2FI645acpQbA=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1624519955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1624520095; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TpIF/bILtwA0IBDOGphI5lxgdvfBEarVL1t14bm/ApU=;
-	b=eVdgNX5LiWCXMCxhdUJzAbSYn+VdhWHEJw4wPEMOARY2Y7S3p4Ois5J+YLWQnedrz3Bbxb
-	X020YgHWRorvD+2fVCGRRiUKK9QZgsDqk0UkZ4VxRWbrvIpjeoxP6xH46H/B2VEHp3q7vU
-	c6XngP0WWi5Jvyp/y0pohNbXegMN4+c=
+	bh=MF+fRfPfu7cXOssURgQtzRVhV2H+QCioeeDGHNbBZi4=;
+	b=L/wJdovz3Ruvo4YQv71kLqf4uw725ORa+4lI2VRAYIrf9DFGYQ0gP8cmjyScKULa56MSqF
+	JC634Wrp8HyurSPQPTJfKCQnYJl+Pin4xovSTOWCnRH/7EJ5nzVlhU51dJ1LCYa6/EpKYk
+	1W4FpoCho6+zXs7FxGf2FI645acpQbA=
 Subject: Re: [PATCH 03/10] tools/xenstore: Don't assume conn->in points to the
  LU request
+From: Juergen Gross <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
  <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210616144324.31652-1-julien@xen.org>
  <20210616144324.31652-4-julien@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <fa249348-e4a0-13d0-03d7-d3536a8b759c@suse.com>
-Date: Thu, 24 Jun 2021 09:32:33 +0200
+ <fa249348-e4a0-13d0-03d7-d3536a8b759c@suse.com>
+Message-ID: <2e28c385-a8ba-1dc3-c41e-8b39f624947c@suse.com>
+Date: Thu, 24 Jun 2021 09:34:54 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210616144324.31652-4-julien@xen.org>
+In-Reply-To: <fa249348-e4a0-13d0-03d7-d3536a8b759c@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="W0ktchS0A5MkVawIUIt96y0jshRyNBOaC"
+ boundary="epcqypj5nb8HsgLoqadsZdaziLUHxe3O2"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---W0ktchS0A5MkVawIUIt96y0jshRyNBOaC
-Content-Type: multipart/mixed; boundary="U2wKpwtlBTcvdhcInmyT3IOmaaeD89RvH";
+--epcqypj5nb8HsgLoqadsZdaziLUHxe3O2
+Content-Type: multipart/mixed; boundary="x4fjtpPDxtWS6C6vTTX4edF0L1fk5lMtr";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: raphning@amazon.co.uk, doebel@amazon.de, Julien Grall
  <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <fa249348-e4a0-13d0-03d7-d3536a8b759c@suse.com>
+Message-ID: <2e28c385-a8ba-1dc3-c41e-8b39f624947c@suse.com>
 Subject: Re: [PATCH 03/10] tools/xenstore: Don't assume conn->in points to the
  LU request
 References: <20210616144324.31652-1-julien@xen.org>
  <20210616144324.31652-4-julien@xen.org>
-In-Reply-To: <20210616144324.31652-4-julien@xen.org>
+ <fa249348-e4a0-13d0-03d7-d3536a8b759c@suse.com>
+In-Reply-To: <fa249348-e4a0-13d0-03d7-d3536a8b759c@suse.com>
 
---U2wKpwtlBTcvdhcInmyT3IOmaaeD89RvH
+--x4fjtpPDxtWS6C6vTTX4edF0L1fk5lMtr
 Content-Type: multipart/mixed;
- boundary="------------48FEEF55307F5316D5CEDD88"
+ boundary="------------5C72CD0924C683B93477CB13"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------48FEEF55307F5316D5CEDD88
+--------------5C72CD0924C683B93477CB13
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 16.06.21 16:43, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> call_delayed() is currently assuming that conn->in is NULL when
-> handling delayed request. However, the connection is not paused.
-> Therefore new request can be processed and conn->in may be non-NULL
-> if we have only received a partial request.
->=20
-> Furthermore, as we overwrite conn->in, the current partial request
-> will not be transferred. This will result to corrupt the connection.
->=20
-> Rather than updating conn->in, stash the LU request in lu_status and
-> let each callback for delayed request to update conn->in when
-> necessary.
->=20
-> To keep a sane interface, the code to write the "OK" response the
-> LU request is moved in xenstored_core.c.
->=20
-> Fixes: c5ca1404b4 ("tools/xenstore: add support for delaying execution =
-of a xenstore request")
-> Fixes: ed6eebf17d ("tools/xenstore: dump the xenstore state for live up=
-date")
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+On 24.06.21 09:32, Juergen Gross wrote:
+> On 16.06.21 16:43, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> call_delayed() is currently assuming that conn->in is NULL when
+>> handling delayed request. However, the connection is not paused.
+>> Therefore new request can be processed and conn->in may be non-NULL
+>> if we have only received a partial request.
+>>
+>> Furthermore, as we overwrite conn->in, the current partial request
+>> will not be transferred. This will result to corrupt the connection.
+>>
+>> Rather than updating conn->in, stash the LU request in lu_status and
+>> let each callback for delayed request to update conn->in when
+>> necessary.
+>>
+>> To keep a sane interface, the code to write the "OK" response the
+>> LU request is moved in xenstored_core.c.
+>>
+>> Fixes: c5ca1404b4 ("tools/xenstore: add support for delaying execution=20
 
-With dropping the conn parameter from call_delayed as already
-mentioned by Luca you can add my:
+>> of a xenstore request")
+>> Fixes: ed6eebf17d ("tools/xenstore: dump the xenstore state for live=20
+>> update")
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>=20
+> With dropping the conn parameter from call_delayed as already
+> mentioned by Luca you can add my:
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Oh, please drop my request to delete the conn parameter, as it is being
+used in patch 4 again.
+
+>=20
+> Reviewed-by: Juergen Gross <jgross@suse.com>
+
+This stands, of course.
 
 
 Juergen
 
---------------48FEEF55307F5316D5CEDD88
+--------------5C72CD0924C683B93477CB13
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -231,25 +240,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------48FEEF55307F5316D5CEDD88--
+--------------5C72CD0924C683B93477CB13--
 
---U2wKpwtlBTcvdhcInmyT3IOmaaeD89RvH--
+--x4fjtpPDxtWS6C6vTTX4edF0L1fk5lMtr--
 
---W0ktchS0A5MkVawIUIt96y0jshRyNBOaC
+--epcqypj5nb8HsgLoqadsZdaziLUHxe3O2
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDUNRIFAwAAAAAACgkQsN6d1ii/Ey8N
-Xgf/btaSB1d4+WNRCDFMT9wx4DLH6rTRv2nMw0lh29THuD/Fj2QuALJF+aAa/ofdE8pBXeyY9jsf
-N7UDHUwsyU4VEdl0LajhlfJsdyCcC6lYeB7SJ0q541yQ8bo3uuZAVfdeMPS9fOAYuE+XRqz6BN0a
-aQv6jcqmhYSXT9txnCbRdkQ3a+S/YI6oziz4R0cKp0nkiU6EjZQy8wczf9HzYa+mBcbVWtBEcx5u
-3QzfMyrUaaHXZDLQt0P5A0fvtDtATHAlg9cjCbCFqnmxkHDVophsdoRSlDIh3DPsMkoCRGpa0u1I
-pkMUcHYHnVa0KmvM3Teo6POLDP9kKdCv7+N+QZPnpA==
-=NXMg
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDUNZ4FAwAAAAAACgkQsN6d1ii/Ey+R
+RQgAh5Qy4Wa+anvob+RYc2xFF6Kk4P6ZPecNPul5PUjwIs9OpQm1rQc8TT97WEqNDpB6H1LMX8Oz
+pzCYYysyjwUZL8rG17U5WJS/aPGazQqklQ9hnEQkGZQFBDz3tFgWpGb43jw2O6XekJ66++G81eBy
+j/uoPomN0iY5/qVQjNlgtywWknHq50tMda56V6laxcZ/YaW0xgqkI+PCnA8OKzpPAvTQPkJ05Q4Y
+bALbLxOtvAKAeb1nz+5N+VJoCt+vrWj2cLHQcHCK2+Wv4MA7FKT6uAWrCKsNC49HN8n2tMUOLTn1
+xTHqXZHpFIxRaVrE21U/qrHPwNHR0NuXldaBIYDe4A==
+=pJdl
 -----END PGP SIGNATURE-----
 
---W0ktchS0A5MkVawIUIt96y0jshRyNBOaC--
+--epcqypj5nb8HsgLoqadsZdaziLUHxe3O2--
 
