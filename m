@@ -2,46 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D256B3B4457
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 15:22:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147219.271223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8276C3B4459
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 15:23:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147222.271234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwlmz-0004vn-RB; Fri, 25 Jun 2021 13:22:33 +0000
+	id 1lwlnU-0005bm-7s; Fri, 25 Jun 2021 13:23:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147219.271223; Fri, 25 Jun 2021 13:22:33 +0000
+Received: by outflank-mailman (output) from mailman id 147222.271234; Fri, 25 Jun 2021 13:23:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwlmz-0004tv-NC; Fri, 25 Jun 2021 13:22:33 +0000
-Received: by outflank-mailman (input) for mailman id 147219;
- Fri, 25 Jun 2021 13:22:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lwlnU-0005Zt-4V; Fri, 25 Jun 2021 13:23:04 +0000
+Received: by outflank-mailman (input) for mailman id 147222;
+ Fri, 25 Jun 2021 13:23:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JBOo=LT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lwlmx-0004tF-Tp
- for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 13:22:31 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 407cb74d-86c4-4300-b14c-b5c7ff87737d;
- Fri, 25 Jun 2021 13:22:30 +0000 (UTC)
+ id 1lwlnR-0005ZZ-VH
+ for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 13:23:02 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6ecbdc7a-0b1f-4419-9918-bb8ef96ef5ec;
+ Fri, 25 Jun 2021 13:23:01 +0000 (UTC)
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2106.outbound.protection.outlook.com [104.47.17.106])
+ (mail-db8eur05lp2113.outbound.protection.outlook.com [104.47.17.113])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-39-_vRuFGULO0ClOZzw-YVGgA-2; Fri, 25 Jun 2021 15:22:28 +0200
+ de-mta-18-frDSjFXnPK6jZigERtBcXQ-1; Fri, 25 Jun 2021 15:22:58 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR0402MB3390.eurprd04.prod.outlook.com (2603:10a6:803:9::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Fri, 25 Jun
- 2021 13:22:25 +0000
+ 2021 13:22:57 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4264.020; Fri, 25 Jun 2021
- 13:22:25 +0000
+ 13:22:57 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR05CA0092.eurprd05.prod.outlook.com (2603:10a6:208:136::32) with
+ AM0PR10CA0001.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:17c::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.19 via Frontend
- Transport; Fri, 25 Jun 2021 13:22:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18 via Frontend
+ Transport; Fri, 25 Jun 2021 13:22:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,40 +54,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 407cb74d-86c4-4300-b14c-b5c7ff87737d
+X-Inumbo-ID: 6ecbdc7a-0b1f-4419-9918-bb8ef96ef5ec
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1624627349;
+	t=1624627380;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QpvgoXH+ELyJQft9Bj0N8UohKEfOlbayQ9hVqUJa1lY=;
-	b=YV+4HC5Av4l5R4BnC7lEcaNRXxty2vO7BosBdswMZqj9YbqV3anhENz6jZV0gSsptfCqnz
-	G2yRG/bgMjqsycapLdaGtpVTwdmAWweqJZQGGHZgxoN1s6PWKa6INQDx9qtYieHq2cMbY/
-	vwbyt7JGj0P254BlXfb6tpPTpxd0gXw=
-X-MC-Unique: _vRuFGULO0ClOZzw-YVGgA-2
+	bh=TOsEQIQ7DC4In8gkn+d6JI6dXDcB4jJx1x6CvkOlsRs=;
+	b=a294FYBBvevlEBSopuYlVQqhszzmfSbTE7t9hBDK8N6rywXNcNLP8S+fxayAh6ziWEsi9c
+	0q9crPVxYmCbTbzzdXVnmploYmvtqKfBtXPC5P5ai0qeRq1LcDamKzneMGb9cgJ27scKiC
+	La1gXC4T5s/hJOT9htu+eT/qqBsBCCA=
+X-MC-Unique: frDSjFXnPK6jZigERtBcXQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HZWde4G1fSO9AiuyLld0MuKlKY//Aj1VwyXj0w44BOTmqGeCvicKQ7idCFXXh5STYYNYKcnjxx0f8D6R2y7xdtzDXu3iwZW8X6qwKd7V9BlvduHN/xaRPlyQJtiRFqnfFFlf06FMeyRttvCV9GlHrs9C1LWYmNzrwz/raBcfx7YCVFsnx0XKmG7XepVjohHa3Fcjh6OcP3uqen0wbIAknri4LGOELdiWqfdHcxYiYIxCg46rtECNmpqmcLLlnCbVOCQSWGl0nl8V6jdLmBISCjyp7O8riINByLgzyPcbCsnIOTU4E4ElKlm/eO6PRlD9P7vR5q/9p0xDwyaDjdzKgQ==
+ b=dcTx8zSM+36hmkBn9SkOeA1y9eGzh77AwAiCevfWZFWyqsKahC6oa3Su8EMpfslsbP4aHVclDh2NG+WxE467GiCMry6fEQsrDs1dEVeFq1ZqJdPyoyTkFg7q31K7lD3Jd2BU620dkjrazEOgv8LjwwKa45vD/s7AjY6c7DGPgzzZzade8NFpK8Mh6Sav/Wdr1WMIF4i1tqZk/lof3G9qwZnfaeMmixGal+gjFsXssFg4VCRGq0n7nzxYke5cskDI9LZC4p3/hKl8BVfyvc2ubzyJZifS/FnNQgPQv/wHANfLm9HWBKEeEjZkItMtWsx9aMFk26cjErh/gbCFUvZZZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QpvgoXH+ELyJQft9Bj0N8UohKEfOlbayQ9hVqUJa1lY=;
- b=bmq/b7RBQdDh/lkJq+IKtGIIebHfb//vMXuBHMh2YNhVEYuzs/YbpQjW4J4OgttP7bbVH4bB9jXwZWi4sJgA6pUnKS3IPfLEiDMxKmBJbNpNOZibfzxr7K1tBBkpxOCPhjt/FIReen2/4Y3taSyicMuI4ggYo0cHo/7dEavual7xLPzorQa+WiRFofuV/8chND1tPUmne4w7coWqoHdhF8qHnk8piiIviCWrAzpqPJjhZNRy9I14L8FanCS2ZptigcBJE/gZqyKqqfn39H9d8PaaDpGxJyxxcvBWXZf0f0js1+H//DqTPILNOf36DygLwx4CQN0PWg97JMixUCwQUQ==
+ bh=TOsEQIQ7DC4In8gkn+d6JI6dXDcB4jJx1x6CvkOlsRs=;
+ b=eqGAmsarqy5g4BLw8UmE2yP/9ADmi6ZcoQKEjyn3SjIHA7s23IAkQQTZvX2Ptr5r5vUifTbqxmQbT5jl8R8Q8vcF1Nj0NHXgOUXz3IRBIj6VHT9Ari5xGPE1fOPQCMAy5WFHowPpy0cd9qoQBNUMJvIe14rjtJnaXAiGbjD1XKtoc1I7rdm6VYTiBBA+hAdT4W5Mp1xXgZs7+C6+UgI/MLMqDSpO+ozM9y4ccJiPrB024dimBcEUYOQ3r3nDrARKo8IpdyhhDbsKUihsVipPiV7kdTUFqW4iIEzmWm7ne4lFokBlDzxZo//gG8s/sjrpOeZ1h7c3//bG1I4EH/wXcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: xenproject.org; dkim=none (message not signed)
- header.d=none;xenproject.org; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH 10/12] x86/mm: update log-dirty bitmap when manipulating P2M
+Authentication-Results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
+Subject: [PATCH 11/12] x86/mm: pull a sanity check earlier in
+ xenmem_add_to_physmap_one()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>
+ George Dunlap <george.dunlap@citrix.com>
 References: <912fa390-f9e9-198a-9aee-39fdb9a28fcc@suse.com>
-Message-ID: <ec2af09e-d69f-3e4f-f913-56d7ec0492e6@suse.com>
-Date: Fri, 25 Jun 2021 15:22:23 +0200
+Message-ID: <e0819038-98b0-2c4c-9176-70d68be39130@suse.com>
+Date: Fri, 25 Jun 2021 15:22:55 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 In-Reply-To: <912fa390-f9e9-198a-9aee-39fdb9a28fcc@suse.com>
@@ -94,244 +95,103 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: AM0PR05CA0092.eurprd05.prod.outlook.com
- (2603:10a6:208:136::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM0PR10CA0001.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:17c::11) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 448d6dd8-472f-43ed-4d41-08d937dc45d8
+X-MS-Office365-Filtering-Correlation-Id: 1ece2f6b-d618-4c8c-3a0f-08d937dc5908
 X-MS-TrafficTypeDiagnostic: VI1PR0402MB3390:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB33904E76808175A66327888EB3069@VI1PR0402MB3390.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+	<VI1PR0402MB3390092CCE375EFA495033AFB3069@VI1PR0402MB3390.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9XXUlu3bSNTc01rvViICxPCky6cT+R8bNZWQHxLLSmKQn8VUy+Bo7e00C4n0Collskbwce+iQ9gfqYCkrWJIqM+QGQ413HZyUJpo7DGE3LHsTxSHZ2WvAIa4mRL5hM3hyBTnkdT5+5uafLcm1qdixoUDL/5Q+BjTPQTo2uuvZdYCZMELun3gmCdNHFpuB9c2OOnJBjPLLX5UDWSDBc13UNt60z5KWGVp0qZyuKLjVlpEfKaSo//PCFT1p1aeLNIrOTtgkFDcEOKrbJNXHNJJ5/d8hErMzfaO4bLgxzGnCagQJuuRoexfyyTeYrL+u+d74oCuR1vV0SGcum6BBo1B8jOz1uLFLiNkqvrTxophNnJicr7DvosuwN8Giu06C+wv7gTf9NPXkzvbE7G8dhnOaDrt20ApOyhjkSBwoH65n4JTqBAPHNTgWlrSqY6lbbnIJ1H7wgiN2swuVhgng7PFny4PTW9cPaBq2UCF/S5LW4C3DHcFxlrRMh4u7qy75zmE+j5Iva2nvEY+ayh6DniXYVw9MhhHhnc5bAy6msFDxtHECrXWe91oXtiAiiPnEvCz9jE0KD9gwbpGWC6Hzfrd0JFM187usSHja9/G2y4d6Jgmnjo+vgCaBneau4TSKpLnomVN4t2+0PgL55FLynvfjHNGSAr9pEX2JK/kv/kXOTZ5VUFyrqTQD9zRaMu97WCvI8j0Bf1aXpee0driOAXEfw==
+	7xyUAR0A/RyvqjdVpfXbO55nZVhV2Nl9kmzv1YUNQjp5k9I9GjwNbRna0aX0hjuUbF6kNvyTx5/5OcMiACRiAkxknMWqjfDsM2qUUqM4bvLJu54Ii7yCNRZKUFYvqUkBi4fSE40SyeyJBp589+FClvzd3e3ALwqXRBRfVG0VaLO6Wid7QsYWFa/XNFedJ7YxZZimJjtzcFbB8NEc5TWC84e8+/AO2hJdlhLExJvldtgrfsOP5JTMHwzytCrkhhoSeyvUEwCFVh216m8QsGURcjGl/ton9NAysRNgYi2VixjaIieLB69mxQbQaSYPv97qRcBz3KaxW17xl5cm9ATCnXKj+k34/jug6g8SKE9OowhuPi3EagnAf6DlETnoc/GZ05yEr5Z/qoaaE6aH5yCp3nzxrJz7qJFD5Gs19/pYuEf3YGO11v3GMyB4PyC5lyuVmTEHVFsUWGb6RYwOuxw92NsQnttrADOiPCVaMZQfFjRU159ntFPQubbeo/4QxHr6hQDcbCQLegi0GbYZeQM7BRi+y12QsPBRAiUGgml/dLm5C8eiJHc0jTKoVRSBHxZt65vQBrY9ZFMDd7cp4Uz22XSfLnHBbKKpDvEsCtYvQASbJVFMAUEckPtr1TCFGg57+k/nedA71Mu9Bi0ActoXu6ot5/MERjrYN461m/EPtKtiMNqu1Fe7mMlZrsZzq5T7
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(136003)(39860400002)(346002)(366004)(396003)(16526019)(36756003)(83380400001)(26005)(4326008)(15650500001)(186003)(31686004)(8936002)(478600001)(54906003)(86362001)(2906002)(66946007)(38100700002)(16576012)(956004)(6486002)(8676002)(5660300002)(6916009)(66556008)(66476007)(31696002)(316002)(2616005)(14143004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(136003)(39860400002)(346002)(366004)(396003)(16526019)(36756003)(83380400001)(26005)(4326008)(186003)(31686004)(8936002)(478600001)(54906003)(86362001)(2906002)(66946007)(38100700002)(16576012)(956004)(6486002)(8676002)(5660300002)(6916009)(66556008)(66476007)(31696002)(316002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXhKdFBHa0JpdktPaTBXWGthZzhHK29mZ3V5RDlXZW12WWtWSTRhRzgvV1hG?=
- =?utf-8?B?azlRa3BIL21zeHg3Y0h1ZHFXUmNGVEhGanJjYnozRG1wUEc1SXNHU01EMDZV?=
- =?utf-8?B?VEtUSzZxODE5SUtTRDZFeHlZUWpOekh5Yjlad0JzV2p4ZzhPeDRUQUhZb05N?=
- =?utf-8?B?b0FzM29DU2x2cFhJcHNGZUtXSmU4anorUEZrMmJEc1BkVGQ4elA2T2Eveno3?=
- =?utf-8?B?Wlh4T0o2UzZiR1VVZVd5NUpzeXNzU2FMS3RlN3JORFNZTkxidFRKb0pNcEFj?=
- =?utf-8?B?TGthcDdPZksvN0E2ZlNDbTk3VUdYeVNsanRyZTRjczJKSWc2dkh6ZWlKSlY2?=
- =?utf-8?B?cHZISzNRY0hQblJpWnZmTzhEbDcwOElOMUljQmJSZzJHL3hiR2JGUE42ZkJI?=
- =?utf-8?B?QVAwTnJWL2lxS0dzNlhXaEM2dlNyK2NmTnBwbkJ0cVRZeHVFMjFKQkw0MW5n?=
- =?utf-8?B?YnZ2RkhNVXAweU9TUVk1THdTeTFkVFR5dG5acHlCSU9BMUk5RVpYd1pLVWNU?=
- =?utf-8?B?NTFLM0FydWEvcE0vRU00RlpRNFhQSGs0RmIzT3ZKK1ozZXJBR29HajBUbHVy?=
- =?utf-8?B?bVNaVXFab2hBRWhRTVRNaTRIUHBqa1NrL1hXMGhqUVNtSTlhNENqeG4zVGZy?=
- =?utf-8?B?SWg4TmZOMityS2MwK24zYmttTHZBRnZYK2hJSVRJcm1kbWlFOFFPbnp2bGVy?=
- =?utf-8?B?YkpGNkRyTElTUDRhRGIwZ1AxU0J2bmhSNWpuaGt4YkVBakJCVEI0T21aR1Bs?=
- =?utf-8?B?NGpYdCtlRmsxOElwMFVFN2J3M2V6YmhiUmdsQ0tyYWFqYTQxc3ZtREJWWFJW?=
- =?utf-8?B?YUpHTnI4bUQvL3haOFA2VFFjS2IwanZDa2VSV1FuWWowTUhCNG15TGNaWlJz?=
- =?utf-8?B?ejB0RVVEMnlPeTVlTGRMSVBhcG5iT0V4Ly95QnVxRExXUGdwVDlmb0djNlFV?=
- =?utf-8?B?WnVuUkFoNVI5dVBnc2trNkswRStFc0V1N3Nmbml2em5MZkpOdStSZmNJUW1C?=
- =?utf-8?B?M3Y2NlFZK0s2bFJFTVVhZkMvTVI3MHVxVFBNOXpMdWxDamFuOTdQVkl2V3p0?=
- =?utf-8?B?OTBKd3dXY1cyLzIrazZBOXNZYXpBTU1BRzBxaTlSenZJMFNmamtGbnBkTFJ0?=
- =?utf-8?B?b1MwZk1tOEFFaENNRnhLZVpMSXVSZnFKVFlyMEFjNllQVisyNDRIZlJvM1NE?=
- =?utf-8?B?ZFRsdXN5eGFNRXoxZ003cXhjdzM3ejlCN1lKK0VmZ2pTNkF6cHRKaFd4NzlJ?=
- =?utf-8?B?TnpTa2pjcW9SSkthQ0k3VHVZRWJCbTB0dko1MzJlcVVzNU9scEd2dG1mL3hu?=
- =?utf-8?B?TGp1b0F1LzczWXFBcGdKNnVrcVR2VXlVR0t3KzM0N2JRdlZZN1VndkozQ0pu?=
- =?utf-8?B?emZYQ1d1dVJQMzdwZjdZZFQrbEtXakltWTU0b0NCbXE5ODZjK3NzeXFrQUVQ?=
- =?utf-8?B?aDY0ajJ5ZmVvVVY4SXQ3QnBmcms0R0FvMU9oZytNbUI3QWVQS2dYWFE3OHZ6?=
- =?utf-8?B?dWZMMkdaZUFVOTJObURtS3lYWDE1blFXMDZqVDF2alg5c3JKVXJBYng3bHBt?=
- =?utf-8?B?aEMyYXRxS2t5SkYvNElTOFVJaFBCZlBkV20ybVk3UmV5TzlaSnpTckFiYnM3?=
- =?utf-8?B?cG5lakhXaVpSOXRBQ3BpSlJSaTFIampoZUFWRE0xTldHRHMvZUF3dFFHb0Uw?=
- =?utf-8?B?cngxVytKYzRqdGZPTTNuNXRpaFVvWDJTbHc4SXRZTk05MUdRTFdCbWJwcmx1?=
- =?utf-8?Q?mMwcJ9JTT2Ps1HH5rnZWF7l+3CAIndwowYnhtsf?=
+	=?utf-8?B?VHRsMEV0Z2kydjZTZTBQTC9RZmNwcUFSQ2lkUHFTS1JLWnk5aTArVytLbUx3?=
+ =?utf-8?B?TUNzcUgyRWl0N0QwZ0lZSkZSODZCTyt4UERQMXhKbFVoNExKOEJjVXFDaWdP?=
+ =?utf-8?B?emdIaHZDbVdXZ2RQVGROdGF4MVFCWnVNNGQ4aWNUNk5qU2tJTnRINnVwQjZt?=
+ =?utf-8?B?RnVjQXJtMmEzVE9NYkFuaXNydTh5Mzl0QUlGN0JrZzNHZWQzMUx2d3FTeVBI?=
+ =?utf-8?B?b2x6bXJ6dE1qd1NDYkhoT3Q5RVgrL1VZSEg4czF0bUNiUzhzSlJMaStpZlcz?=
+ =?utf-8?B?MS92dHZ1eXovUmFZRllINU1uOEtqUlhWQ05mVkcvRGNDRlU3azZWVWhJb3F2?=
+ =?utf-8?B?aGJsdkMxcVpJb1BTanZVUzhWL2ZjWnFqa3h0ZSs2MFgzdmcxM0QyS1NwMUw3?=
+ =?utf-8?B?cWdSR0VzMHZiRTdRUi9NWk1mc09EQlBpWUM1b2IrVE4xMWhLZ3pYcTFWQkth?=
+ =?utf-8?B?bnM2NkhTdWN6M3BuNGY5Yi9tRzdub1ROZ25iNldFdXdzM2J3ZEZUL0E2dEtR?=
+ =?utf-8?B?Z2Jjang4UWpZemY4ekZzTHhETS9XUGZiSy9teXI1d2gvcFhmMStPT3BKMUU0?=
+ =?utf-8?B?OU5NUzdTSWlXb0JoUEd3NGx2d0FLMGlyWHNhb0d1TFFRZ0l6TTEvQU9Eb1VN?=
+ =?utf-8?B?NC9WcDFtdysrWjVMMmltV1VJVW9WWC96dlZFSmNLSjE2YVdyUUwyWTVBRjFT?=
+ =?utf-8?B?YXc5V3dQMXlqc3lZckNiOXVxaFBKWk0zbkx6UDZqUFI2c1JPU1llQXZPMjRF?=
+ =?utf-8?B?TlBUM3BDbGJKVlh1am81elJEUCtOTjdSTmVXMkczT25jL3NoTXdzSDlIRmJN?=
+ =?utf-8?B?YW5mSnNaQndZTURKd240QXA4T0wzSExKNis1czZGZEcva0RtcjgvUldzRUg2?=
+ =?utf-8?B?RlhLRFdhSENheG93N1hXbnJ1ZGpmL3B1bmxOaUZ6elBFRFFjaVdDajlFUzdt?=
+ =?utf-8?B?eUp5cHBUTkpUbGE4STRJYUpqWjdjZ29vakxtZ2UrM0JVbkxocnZDVGFUL2M4?=
+ =?utf-8?B?SVpTaVBqRXArNnVNVUc1RkpsY2VwTWZOeFptOXoxZ2JWczZqOXdRUGp1T0Fi?=
+ =?utf-8?B?TVU1QXZKUXh1N0JUVlRpa0thYTN1d1htcWlIOG5qUTFqK2ErVitGQjl0N3Va?=
+ =?utf-8?B?blVHaHFWYVZydSs2ZERlUWRTLzB4WFFlTW1IdGhSMFJHVDZzaWFXME1Uck5W?=
+ =?utf-8?B?UzgyNzFYYkpuK1hNUGV3cUdTaWRPQ0xDMzFxZTlsckpzbEozRDVKa3Z3d2Vx?=
+ =?utf-8?B?S1FJVmpYOU5YS1pKbDcrT0xESVJCWHVEU3pWYnQ3NU1wQ2FPM0N6Q3FxYnNR?=
+ =?utf-8?B?WVlCdEZ0cExLRGwyTW92cEJTakRpcTFXY0hWbjJVYlRLZU9OczFDbWVNNDdH?=
+ =?utf-8?B?VWlDVzByeGxKY0oySzNTaHJkOE9mMm1obUNKRjRUWHlvWU9PZ0VQOWZRTWw2?=
+ =?utf-8?B?dUorbWRHaHVLUmxzM2RZZnRzMkRGc1UzdTRZMTN5WmVGNVpCdHhTMkhHUklO?=
+ =?utf-8?B?dTRzRFZQM2Rjb1Vyb1BVcjk0RTg1V1FOM05iRHpXSElHeU1wbXNWTHVJNFpq?=
+ =?utf-8?B?aVhuMkpPWTRkQzBTbVB6OHFJZ05obElBYXZEZjNvWjIrVCtBQzZiTU54QzhV?=
+ =?utf-8?B?M1NudVBBL0hlWkd2WXRZcDF5OTNBV25BRVRQbTduZGxnMmh0am9Tby9vSjgv?=
+ =?utf-8?B?OGE5WnBpd3QxK1pkaVBFbjRsZXZkZklkbVpscmhWVERWa2ZDc2I4YjU5T3hF?=
+ =?utf-8?Q?DVIeR4q/txwB1BvyTd5UKFLhTOPuoqxOdnGtUuR?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 448d6dd8-472f-43ed-4d41-08d937dc45d8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ece2f6b-d618-4c8c-3a0f-08d937dc5908
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 13:22:25.5681
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 13:22:57.6699
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0QHPS2XwVlHE9yQaHtMD7ZIHAiDzaTh7HZXHphjMRrtd4OHCNnr694flw7cIypbIwH2Jr8ThJGLWbLsHsF/Jng==
+X-MS-Exchange-CrossTenant-UserPrincipalName: eY9aUD2DFKrcuTfzJRjzpStfP4VfHFj23vi2RhVLzuNtIbgNq+8YsikGeVXm1W3ofXfD7kVIgt//Xy3sw4X31A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3390
 
-Just like for PV guests MMU_MACHPHYS_UPDATE implies marking of the
-respective page as dirty, additions to a HVM guest's P2M should do so.
-
-For HVM the opposite is als true: Pages being removed from the P2M are
-no longer dirty at their prior GFN; there's no point in telling the tool
-stack to try and copy that page, when this will fail anyway (until
-perhaps a new page gets placed there). Introduce paging_mark_pfn_clean()
-(intentionally without a paging_mark_clean() counterpart) to handle
-this. Note that while there is an earlier call to set_gpfn_from_mfn() in
-guest_physmap_add_entry(), but there's little reason to mark the page
-clean there when later in the function it'll be marked dirty. This is
-even more so given that at this point it's only the M2P that gets
-updated, with the P2M still left unchanged.
+We should try to limit the failure reasons after we've started making
+changes.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-guest_physmap_add_entry()'s error handling looks bogus in this regard
-anyway: If an error occurs before an MFN actually gets assciated with
-the new GFN, the M2P entry ought to be restored imo. But of course a
-guest is still hosed if the operation succeeds partially.
-
-Note that I've not even checked mem-paging and mem-sharing code for
-whether they may need similar adjustment. At least the latters is, aiui,
-incompatible with log-dirty mode anyway.
 
 --- a/xen/arch/x86/mm/p2m.c
 +++ b/xen/arch/x86/mm/p2m.c
-@@ -818,7 +818,10 @@ p2m_remove_page(struct p2m_domain *p2m,
-         {
-             p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0, NULL, NULL);
-             if ( !p2m_is_grant(t) && !p2m_is_shared(t) && !p2m_is_foreign(t) )
-+            {
-                 set_gpfn_from_mfn(mfn_x(mfn) + i, INVALID_M2P_ENTRY);
-+                paging_mark_pfn_clean(p2m->domain, _pfn(gfn_x(gfn) + i));
-+            }
-         }
+@@ -2763,6 +2763,15 @@ int xenmem_add_to_physmap_one(
+         goto put_both;
      }
  
-@@ -1027,8 +1030,11 @@ guest_physmap_add_entry(struct domain *d
-         if ( !p2m_is_grant(t) )
-         {
-             for ( i = 0; i < (1UL << page_order); i++ )
-+            {
-                 set_gpfn_from_mfn(mfn_x(mfn_add(mfn, i)),
-                                   gfn_x(gfn_add(gfn, i)));
-+                paging_mark_pfn_dirty(d, _pfn(gfn_x(gfn) + i));
-+            }
-         }
-     }
- 
-@@ -1314,6 +1320,7 @@ static int set_typed_p2m_entry(struct do
-         {
-             ASSERT(mfn_valid(mfn_add(omfn, i)));
-             set_gpfn_from_mfn(mfn_x(omfn) + i, INVALID_M2P_ENTRY);
-+            paging_mark_pfn_clean(d, _pfn(gfn_x(gfn) + i));
-         }
- 
-         ioreq_request_mapcache_invalidate(d);
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -645,7 +645,10 @@ p2m_pod_decrease_reservation(struct doma
-             }
-             p2m_tlb_flush_sync(p2m);
-             for ( j = 0; j < n; ++j )
-+            {
-                 set_gpfn_from_mfn(mfn_x(mfn), INVALID_M2P_ENTRY);
-+                paging_mark_pfn_clean(d, _pfn(gfn_x(gfn) + i + j));
-+            }
-             p2m_pod_cache_add(p2m, page, cur_order);
- 
-             ioreq_request_mapcache_invalidate(d);
---- a/xen/arch/x86/mm/paging.c
-+++ b/xen/arch/x86/mm/paging.c
-@@ -259,7 +259,7 @@ static int paging_log_dirty_disable(stru
- }
- 
- /* Mark a page as dirty, with taking guest pfn as parameter */
--void paging_mark_pfn_dirty(struct domain *d, pfn_t pfn)
-+static void mark_pfn_dirty(struct domain *d, pfn_t pfn, bool dirty)
- {
-     bool changed;
-     mfn_t mfn, *l4, *l3, *l2;
-@@ -290,14 +290,15 @@ void paging_mark_pfn_dirty(struct domain
- 
-     if ( unlikely(!mfn_valid(d->arch.paging.log_dirty.top)) ) 
-     {
--         d->arch.paging.log_dirty.top = paging_new_log_dirty_node(d);
-+         if ( dirty )
-+             d->arch.paging.log_dirty.top = paging_new_log_dirty_node(d);
-          if ( unlikely(!mfn_valid(d->arch.paging.log_dirty.top)) )
-              goto out;
-     }
- 
-     l4 = paging_map_log_dirty_bitmap(d);
-     mfn = l4[i4];
--    if ( !mfn_valid(mfn) )
-+    if ( !mfn_valid(mfn) && dirty )
-         l4[i4] = mfn = paging_new_log_dirty_node(d);
-     unmap_domain_page(l4);
-     if ( !mfn_valid(mfn) )
-@@ -305,7 +306,7 @@ void paging_mark_pfn_dirty(struct domain
- 
-     l3 = map_domain_page(mfn);
-     mfn = l3[i3];
--    if ( !mfn_valid(mfn) )
-+    if ( !mfn_valid(mfn) && dirty )
-         l3[i3] = mfn = paging_new_log_dirty_node(d);
-     unmap_domain_page(l3);
-     if ( !mfn_valid(mfn) )
-@@ -313,21 +314,22 @@ void paging_mark_pfn_dirty(struct domain
- 
-     l2 = map_domain_page(mfn);
-     mfn = l2[i2];
--    if ( !mfn_valid(mfn) )
-+    if ( !mfn_valid(mfn) && dirty )
-         l2[i2] = mfn = paging_new_log_dirty_leaf(d);
-     unmap_domain_page(l2);
-     if ( !mfn_valid(mfn) )
-         goto out;
- 
-     l1 = map_domain_page(mfn);
--    changed = !__test_and_set_bit(i1, l1);
-+    changed = dirty ? !__test_and_set_bit(i1, l1)
-+                    : __test_and_clear_bit(i1, l1);
-     unmap_domain_page(l1);
-     if ( changed )
-     {
-         PAGING_DEBUG(LOGDIRTY,
--                     "d%d: marked mfn %" PRI_mfn " (pfn %" PRI_pfn ")\n",
--                     d->domain_id, mfn_x(mfn), pfn_x(pfn));
--        d->arch.paging.log_dirty.dirty_count++;
-+                     "%pd: marked mfn %" PRI_mfn " (pfn %" PRI_pfn ") %s\n",
-+                     d, mfn_x(mfn), pfn_x(pfn), dirty ? "dirty" : "clean");
-+        d->arch.paging.log_dirty.dirty_count += dirty ? 1 : -1;
-     }
- 
- out:
-@@ -336,6 +338,16 @@ out:
-     return;
- }
- 
-+void paging_mark_pfn_dirty(struct domain *d, pfn_t pfn)
-+{
-+    mark_pfn_dirty(d, pfn, true);
-+}
++    /* XENMAPSPACE_gmfn: Check if the MFN is associated with another GFN. */
++    old_gpfn = get_gpfn_from_mfn(mfn_x(mfn));
++    ASSERT(!SHARED_M2P(old_gpfn));
++    if ( space == XENMAPSPACE_gmfn && old_gpfn != gfn )
++    {
++        rc = -EXDEV;
++        goto put_both;
++    }
 +
-+void paging_mark_pfn_clean(struct domain *d, pfn_t pfn)
-+{
-+    mark_pfn_dirty(d, pfn, false);
-+}
-+
- /* Mark a page as dirty */
- void paging_mark_dirty(struct domain *d, mfn_t gmfn)
- {
-@@ -348,7 +360,7 @@ void paging_mark_dirty(struct domain *d,
-     /* We /really/ mean PFN here, even for non-translated guests. */
-     pfn = _pfn(get_gpfn_from_mfn(mfn_x(gmfn)));
+     /* Remove previously mapped page if it was present. */
+     prev_mfn = get_gfn(d, gfn_x(gpfn), &p2mt);
+     if ( mfn_valid(prev_mfn) )
+@@ -2781,13 +2790,6 @@ int xenmem_add_to_physmap_one(
+         goto put_both;
  
--    paging_mark_pfn_dirty(d, pfn);
-+    mark_pfn_dirty(d, pfn, true);
- }
+     /* Unmap from old location, if any. */
+-    old_gpfn = get_gpfn_from_mfn(mfn_x(mfn));
+-    ASSERT(!SHARED_M2P(old_gpfn));
+-    if ( space == XENMAPSPACE_gmfn && old_gpfn != gfn )
+-    {
+-        rc = -EXDEV;
+-        goto put_both;
+-    }
+     if ( old_gpfn != INVALID_M2P_ENTRY )
+         rc = guest_physmap_remove_page(d, _gfn(old_gpfn), mfn, PAGE_ORDER_4K);
  
- 
---- a/xen/include/asm-x86/paging.h
-+++ b/xen/include/asm-x86/paging.h
-@@ -170,8 +170,9 @@ void paging_log_dirty_init(struct domain
- 
- /* mark a page as dirty */
- void paging_mark_dirty(struct domain *d, mfn_t gmfn);
--/* mark a page as dirty with taking guest pfn as parameter */
-+/* mark a page as dirty/clean with taking guest pfn as parameter */
- void paging_mark_pfn_dirty(struct domain *d, pfn_t pfn);
-+void paging_mark_pfn_clean(struct domain *d, pfn_t pfn);
- 
- /* is this guest page dirty? 
-  * This is called from inside paging code, with the paging lock held. */
 
 
