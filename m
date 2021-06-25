@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F84E3B42FD
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 14:15:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147153.271040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34CAE3B42FE
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 14:15:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147157.271050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwkjm-00073x-9H; Fri, 25 Jun 2021 12:15:10 +0000
+	id 1lwkkE-0007gx-Lb; Fri, 25 Jun 2021 12:15:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147153.271040; Fri, 25 Jun 2021 12:15:10 +0000
+Received: by outflank-mailman (output) from mailman id 147157.271050; Fri, 25 Jun 2021 12:15:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwkjm-00071b-4k; Fri, 25 Jun 2021 12:15:10 +0000
-Received: by outflank-mailman (input) for mailman id 147153;
- Fri, 25 Jun 2021 12:15:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lwkkE-0007ev-Hk; Fri, 25 Jun 2021 12:15:38 +0000
+Received: by outflank-mailman (input) for mailman id 147157;
+ Fri, 25 Jun 2021 12:15:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JBOo=LT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1lwkjk-00071T-Rk
- for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 12:15:08 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 591b26a0-93c5-4044-b7c3-d616942fe692;
- Fri, 25 Jun 2021 12:15:07 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-23-qHcmV0iUMbKdv2YGaMJiIQ-1; Fri, 25 Jun 2021 14:15:05 +0200
+ id 1lwkkC-0007eh-Tg
+ for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 12:15:36 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 77737e35-c514-4c5b-8033-ffa74c5175eb;
+ Fri, 25 Jun 2021 12:15:36 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-12-k6S0ZeH3P7KuM3A_VRj4aQ-1; Fri, 25 Jun 2021 14:15:34 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VE1PR04MB6671.eurprd04.prod.outlook.com (2603:10a6:803:11f::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.20; Fri, 25 Jun
- 2021 12:15:03 +0000
+ 2021 12:15:32 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4264.020; Fri, 25 Jun 2021
- 12:15:03 +0000
+ 12:15:32 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR3P195CA0016.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:b6::21) with Microsoft
+ PR3P195CA0030.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:b6::35) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4264.19 via Frontend Transport; Fri, 25 Jun 2021 12:15:03 +0000
+ 15.20.4264.18 via Frontend Transport; Fri, 25 Jun 2021 12:15:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,37 +53,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 591b26a0-93c5-4044-b7c3-d616942fe692
+X-Inumbo-ID: 77737e35-c514-4c5b-8033-ffa74c5175eb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1624623306;
+	t=1624623335;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HKNAiCAkTEux8snV3/fR8a3Zgbg4iM0MzH/i8v9qTag=;
-	b=ni9lhuVBwkNPhL3uZ3TVeAgrNgO82LFe1cUfqU/uxRpyfIFyvquhog7ZtkkofjCiKV7jC8
-	G9vhOe+6GBy7D0uN0TliR1hIiSZBMif+A1X9Ul6sRPO2HmS6OXdNs6kHKbKj7RvXzrdg28
-	NU1glvRCeXwhI3XM2k7JYSgpLWDz7FA=
-X-MC-Unique: qHcmV0iUMbKdv2YGaMJiIQ-1
+	bh=l2pXfNxThTc3rc087ftHWI5WYIVmApjfFkK2DTveZXM=;
+	b=dHD6+fsghgnOCHvKjPI7ASnazavsm7lVrZ6G61wcRyt0tT+yKQhUi5XwBxxXm9aIcJZx1a
+	iu7RbQR3dviABd3T7f3SQuPUa0CuiM5BSPOzKF3o2dDPw3Xs8aKzc32aM7lujqVnXSl/LG
+	g9eBx2MoCqhBfWixeiBEHsQfhzmy2vo=
+X-MC-Unique: k6S0ZeH3P7KuM3A_VRj4aQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d+/Z/PUx3aonao+Bn2BfVUmUDRCPWgFKL/E0TrW1ZNTu6gx4k50kKcjL/rZk5lYZNHkB/UDVogt86pB4tTSKFl4El8N9caSIJqDgFeQT/qHTpEGC6BFwhuGALGWgKu7Trmv+4Y0FnWbYY3yHXVatBQwknfxW38YsDY3Ik8XkxjGgzm3sTH+qe3IvhHxMJoHNA8fzkOmN/KXqEpeKGh5jsDlELw+Kbgz1PuWwCJzL4UGQ+j+gJS0DKtcRvLvE4NNKxrHEhIwHBHOb8vGsRlT4rOJskf7jNgharvSg6N25gaNjyHErNUlL9UWvkraX1lzwEn1y7hY4eFHK+T4e+4YVbg==
+ b=Fu+HcT6w9YoF4XBMIguuuJP69r5aSDvdazhydS2JnW8S3bTCFNPrxXz3je/W1SzUf25808xjNlfy8jt/0tw9/R6Bs/jJDG7dGSriy2cuCcMxfMlARZHmvmAvP1NfPnPXLouaEKpZzTBAADtwzITsR2gyYbHx8PceX1T9wkHBl8EhDamyjfqYv2YQv0c5GMQiRs/9N6NE0Rdd8yTOjavkJi4tMzmz7tys9IPj4KWHyVU11jHp1MXNhA1+0xd0cNaopTnSR/7nSwfyoSyp3GNR7KqtocUDEuMgt5dp40Q2UqlbzQMmyp8PtllGojXfpc8efxTf1MXoIV8EOMaFM+NW4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HKNAiCAkTEux8snV3/fR8a3Zgbg4iM0MzH/i8v9qTag=;
- b=Duu4Q1Ir0QVpHQEUocabQ0hQhKbk1NhS+vPAsQdiQOG/wjvc+/0mXN826C97OVMW1ViW5SglOU2GvvQDu01s0jugLr6esbj3h5SyqT4m2IDHtYiy4GcH8ub4ajHvYU9XZ7Uf6ANHfdNL4Be+9BKnfxuErtkXfA2tRlJinu6JoFf6aNReN6jqRn5hof8No5gO0oPo872L9BY/crWWc4QP+hsl6D7ylCO79Pcm609KIcqM6ajC/ji6LaTlHDGtwY21hKuYTkUQeZe1A0+4sX2lMvazvp5I5PaxqBxAl2xUw46rnBZ1qjtmSHalWwejJNYjWP7K78b978woOm6pvLbQsg==
+ bh=l2pXfNxThTc3rc087ftHWI5WYIVmApjfFkK2DTveZXM=;
+ b=XzLteRa4jde8HmE0B7VgbklpdTYtKT0ky0No75CvhoNLtl5ElvqiRpj5tIw2aHeALW/B1aogfKLqqBv7f97qdKVGLMJgS3oeOdTwVSQxZHU2ZOMPqMZwhJOqA4jZcLKPgqS7Y9lhy2O12b3bX+1pJj1TfAF2YP0IUSwffwg51OUBNy+Cu9Dkmvd+kgn3Vdo9lRw+mTjUt7hZAPhohMyGlfsARNpoYmdOSCQBImnn19rIQ9zZKyX6lhMUHojIbd5OugQic+hrWaJW5X3FbolGoNiYzBczSGnwhirE6B2vC/51xbFb00thpoboM8oemOdD9EVVxKWmM74fQfnnHtt3TQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: citrix.com; dkim=none (message not signed)
  header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH v2 2/2] AMD/IOMMU: redo awaiting of command completion
+Subject: [PATCH v2 2/2] AMD/IOMMU: re-work locking around sending of commands
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 References: <a6e72235-570b-c426-589c-236f37749e1e@suse.com>
-Message-ID: <506e3a46-2103-26f3-94f1-c3243cf41fd5@suse.com>
-Date: Fri, 25 Jun 2021 14:15:01 +0200
+Message-ID: <80f6365d-4f0d-66b5-b0ab-99dfeb40bd31@suse.com>
+Date: Fri, 25 Jun 2021 14:15:30 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 In-Reply-To: <a6e72235-570b-c426-589c-236f37749e1e@suse.com>
@@ -90,153 +91,325 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: PR3P195CA0016.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:102:b6::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PR3P195CA0030.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:102:b6::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: edacaf42-b2c8-43ee-496a-08d937d2dcb4
+X-MS-Office365-Filtering-Correlation-Id: d93aeae6-ce11-4398-e325-08d937d2edf4
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6671:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB6671FC1D6BF6067C477BC19BB3069@VE1PR04MB6671.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+	<VE1PR04MB66710C608228B89EFF7962A0B3069@VE1PR04MB6671.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ycVQBW22EgcjfFuGl8ksaS6cFxgw4imrke18A0aXNDbG0wbe2UaLyC/nvtlBFHkL/Qi+DbG/SNClyHR+fYoaBlDVDFNuVOrnD0Ooo7+EYgHoL7p4sgJ1UtfXU8IQMb5Kjw5m3kmrb6SnqBF8hLP0lTqzY69sumAxjx5hnBRVkf1DkI6sTnVASORRQXDRZVR4Z+cTK9C56s0azYxRT+U8mQj177j8LjSvJPZfR2CfmM9Td7Mb80nQ6ozLOFKgdznXlmCiq/9WR/d5QzlwKV2rVnELsQnfAP9byXx34FcF1JcXg19Oitd7o2YndLZVB5FbI1WI+xyiwoBOon9m5oDLiqbYlH1nMzrHnLYoZTp9/DH3ZnauvmY5xubOU+OOFXSbe3TDEnL2wHjchNB2hlDU9JOTUzHM4RWzqJm+NX+HaBjd8iLakIwAK51xHfEUrmLKmi6jYGvaOQSqKex3LKrA0zpVEPp7r43siloIY3LNmQ1eT9gHUWceS1jMMdfUNIvEdAhPDOb3N8Gx6g/iZl4spJXbkNJoWEFgL5Qn8qbLMmtJhCAgv/rNvU8GEC7/Z8SaLX1AFrEbvddg6V3FjDROrWzopfVgncnPzqn2TFxz2bnnHQyj8+rX6Ah4zcpZ5JWpqOiBiA2CibVRFsI2UH3WXNpEp02Z2eFgK7GVL0kZasvheLcLcV2jqfkDvltIpdJy
+	ENsAkQuGq6hzi2u5imZ1unHYd9IzvmYKCX2t5RD53u4QBjTp4Xt/9RJLcj+tRAVaQHJl2c7PU6Sfrtn3kX5SnSPIPYiHnz6KnExUkUAOLVJUQhrn/aL4iJ0HQIXBhD4Pqx9chOWdE0TXSPuKVNBD+n3PlqazC1U0OJY1trFcrIq1TnM0TgmrsL5X4RmuwQGGl5jcMYwbg9Mce6zgyQibTi4oaFtBN/MgcYcgOjKHNBjjH2/+xl7IINowiuyVOCkbqkB3L+xkl3LyussOzlqi9uSXufoM6xHCZDOrrKANwQY/9JWwGe5dBuZIrM+uRPGR6/Vv5PPc3ULJpgvlaWRj1+VjmiiMtdKwMh7GcWdMscYG92fhtVm9P5XOACC8e+CfKR3GHKL3cxZOQWN/PCGCBKhmljSMEWIGDZslMMutV2q2t19EEqAVLqku7SQpcToUtIC2MJboKEKBNrd/XtpmM1p8VAhAuKJepG0wU+h4B1DvyXttvWRbVchNAYT7mrCW4d8g7J6Ic7C+TEsl1I7VnrKnWeHX6nJaag1iVLaa/ZHeN846cHFJufKm2GlpHhr7/96zCS2RfWONFaTB2BIY+UVBIFT1gDrby1SR7f0zOaSeu5XxbPRSmvIW9A8KVpFtSNChgeINRJoctSBaL9LOanKrFZjshQ/0XtU+XA3Uix6yg4CWNxY/DzeWkzuNDxld
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(346002)(396003)(136003)(39860400002)(366004)(5660300002)(66946007)(316002)(2616005)(83380400001)(38100700002)(478600001)(66476007)(16526019)(186003)(31696002)(26005)(956004)(66556008)(31686004)(16576012)(8936002)(86362001)(2906002)(6486002)(8676002)(6916009)(54906003)(4326008)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bGsrRGlsZzFDRTFNWGNYWXVTczVwaUZKT0pUQmQxYmkxM2JJaUliZXpsbmlB?=
- =?utf-8?B?ampCYWdxNzJhem5IOXBSRUxndG4wUnpQNExZOEFIME52aHM4OThDUWwraFQz?=
- =?utf-8?B?cHRwaVJDN3FnNkJSaU43M3N6RERZOHA5UHBNTjZCbHUvMGV5QXBhVFhWRWVP?=
- =?utf-8?B?Tm5sbkRZeGdKK1VNaTNxZm5pdDZyWWU5cTNMUVlvVXpUQnlTSGRld2FraCt5?=
- =?utf-8?B?WEhZd2c2LzZPSXhVVCs2VURYekc0c3J2ZU5QYjNxbW84M2UyRTlURXhMZGFK?=
- =?utf-8?B?dzJ3TVNkNVRyWVNHRDhkTFEwMUpYb0gvVjlXdUpLYkFYTFBxWjZLb21HMjdx?=
- =?utf-8?B?ZVlKUlJnN3RrZXlET2FSVzJia293bld1ZWloalRDOUczeUZQQU1jUGtuYXpF?=
- =?utf-8?B?aXo1ZE40Q1hYdXJvR2JQbEh0TTNPRm5NTFpSZlptUENWT1FIYms3V1Bqalp4?=
- =?utf-8?B?V09qZytER2xKNldXRDJ5T05UVzNnRmJtMW9Cc1VONVNnbDZDVUxlRVBLWDhP?=
- =?utf-8?B?MVMwWUtKbE9DS2wyQ1loQlBFVXdtL0k3b0JWdnU4alp3Y2hzcGVTK1Rmd2Fs?=
- =?utf-8?B?d1p6OUVBQjdTbDR0amVTZHBicHVkRzFXNW9DWkFxVlYySmJsOHgrMFVVVDV4?=
- =?utf-8?B?SndZRDlWalVhQTcxSXVRWnhQVTBSa05sL0U0aVViOFNnL2Fwc3M5dDlZVitR?=
- =?utf-8?B?S0xzVHZ6elREQzdFekg0V0VwaUtCd2Q5bW0zK2tkditMSmEyWi9Qa3h3N0l2?=
- =?utf-8?B?THM3Q2lKNEZsL2VuVzNJN2sraXJjOGFQWlh3RENZNVhNMThnRXgxS3o1eXhY?=
- =?utf-8?B?SWlLNWlBUWMySEgrREVmam0vY2RjZndEbVdGYWdCTDZkWVlDVTBGOWFXUmFH?=
- =?utf-8?B?dkliY3Bod2NDZjJIc2k2cmNPNUVhYkFyNHdxSHVNT0dVMXN1TDhDalJReG84?=
- =?utf-8?B?Y2tuSHBZTWtQajN1amR6clBoenM0ODVsa05yOElTc2NTN1VkZ3BKTXlCakt4?=
- =?utf-8?B?QTk0NkV1cHc5Z1J6YUFtZkppdDJSSWUzb1hLcWhjMm1taDdqYlloWVJOcGVr?=
- =?utf-8?B?eDlIeG5HaHBRY25jcUFGaDJHN3BiZVE5bzZTbGczcjJ4YWtWRzByL0R4dHda?=
- =?utf-8?B?eW1EdUF3S2JaZGFpVFl3cktnQmFtNXVoR3RJaEk3bGJqcnM5TDdYTm8zalZQ?=
- =?utf-8?B?NyttRE9XZDE3ajNNU2hSQjliNXlFMTNCelVZd0Q3di9ZcEhhclNjNnc0ZlMy?=
- =?utf-8?B?eS92NHFUeUNFRlVYTFozUGVEVEpCSHVxdkhGbUdJQnpCRXRhbmM5MlErUTV3?=
- =?utf-8?B?YTArdWhIWU5LRlcwVGx2eVQ3WU02cHR2cmJ3Ry9zdDh5cEcxS1RLU2hJVHd4?=
- =?utf-8?B?b0hNQlBsSUJuT3dMNE1JKzZSd1J3TkxrZ3k2Yzl2RUxqS0tOOWZjYUtxd1FL?=
- =?utf-8?B?QTVPbHE0K3VWZ3BybUpNemxuQmF2Y01BTEVCWnk2SmZGc25HRXNhQ3ZhWmRX?=
- =?utf-8?B?NktPblVaUjZYTmtDTUMxRzFKWGh4a2hnNDhHaWoyVGV5cUFyaXRiUXZNTllx?=
- =?utf-8?B?N0xGYUVFQkNXTVBHWmNQUHE5YXJTN1lqRjIzQ3FrZkdHSVFoYnhES2dlZWxu?=
- =?utf-8?B?Um1QTG5Nb1RIc2R2cnhkTG5mNkpJQVdkbGYrVmZFT09TVmlIOWJtWVBJdjgz?=
- =?utf-8?B?dUpJS3NnRXJVSGdpZUxXOGIxRGx5VW16Zi8vbis0TlVLcU5ERTBVQ0NjT2kw?=
- =?utf-8?Q?VKH8N/XDEu7SBwM17yE0TyKzqUQN/YSxNRlyZuq?=
+	=?utf-8?B?MXo0ZEFqVU5NUDVPVFkrRnFwRmE1NEZzaHlPd0Z4M2x6WU5sZjd1U3VBdUdw?=
+ =?utf-8?B?OTB6dXljRCtwcjNOUEJUYlFidmdLUTc1dUtDSlVzZ3V1a2lyZDNkZXVEdm53?=
+ =?utf-8?B?eWpnL21HLzFLakNtVVlFeWFxQmQvU09tSUtOYWFhNVhqTldqTTN6dzY5WTJD?=
+ =?utf-8?B?b0dHbkxnTVZuYjRETTY1SnpFeVlYZUkwRkRWekJLdDU1MXMyMWQrc0Y1U05k?=
+ =?utf-8?B?Sk1iMTh2RWtvM1BhNkZOS1ptc0NTeWtVbTV6R0NpdWE3L3AxdUxYR01ZaGl2?=
+ =?utf-8?B?K0Q0R1FaNUVxWDJFQVdRd21iTHN5QWpBS2swWjd2NUNzRjBFNlZiaGN1R0lB?=
+ =?utf-8?B?OEpmck9QT0hIcG9OZ1orNmVYcmZWbGN2Ky9pb0tiR1E2Qjg0dXRFaVh6ZTJr?=
+ =?utf-8?B?TElSRGliZjlnZS9USkN2Q3FWaXQyMlVydVJWYzVFc2w0NDUrL2hGendjQnNB?=
+ =?utf-8?B?MHY1bzF0SjdZNGM4VWp0RnhBdUw5SnkwNU9qalRoaUQ3S25KZllVYmRsZGk2?=
+ =?utf-8?B?TUlnRU4wNUhVYTZOR1FvbHhHc0ZpK0dWL0l3Q002WWNCMXFyV205R3VpTHJt?=
+ =?utf-8?B?d1pzZndxQ2pOQ3kzRnFML25qVWQrdjJQTllERVNPZEsvb0txVGNBVktQL0NM?=
+ =?utf-8?B?emdjQ21Qd0xBMlhwM0o1dytpdjBDbk5lenJ2aCtwTVQxYmUxRUxwRWdJQ3dl?=
+ =?utf-8?B?aW04UUFZeUtxdm0xYU9pakgrdG9ONGdMZUNQUnQyVTIrZmJMeElHMDhQYWNy?=
+ =?utf-8?B?VmpHbk9oZDNrNytFaDdRenQzU3V3WUE4U0JVbC9wL3cwUkY2RHVjVm9YZnhP?=
+ =?utf-8?B?M3c1V0lzb1VjVmwxMTAyeDNEanBTKzVWUVJ5dGV3L3E2U2diMmZVM1lRRUVX?=
+ =?utf-8?B?K0p4amlycjZjZFhCd1dTS3RrTWsyanJNM25GMmVMK2Q4Tmt3c1BXZVFqUWl3?=
+ =?utf-8?B?VHc2SFpxRGFNRXNLRmlvWlZTdVZtUlZnWjRsYldlQldlNlpJbldKazNtenNx?=
+ =?utf-8?B?MlBuSHl5NlVYTW5IeFVhYjhyWi9pbGFsM0QyL3c0aEQ2SndNY3U1T1k0Y3lT?=
+ =?utf-8?B?cWE1T2pEdzA4Q3hSNmZJZk9KNm0xVHhsckJTREM2L2JEaGJJZE9zVTUvMktS?=
+ =?utf-8?B?Q1AxZ0Erd0c4SHA2Q0NoUmFLNlIzUlhOaC9IRzVLdmo2Qkk0RHRDeDBJMTFM?=
+ =?utf-8?B?YlhuUmRyVGVsL0FEeTI4enA2WVR0emtFL1hneXZzbTdaK241b0ZUVnhrOU1p?=
+ =?utf-8?B?NmJDMTA1YklqNlRGNW0wSldZYW1WTzBpZ0U1Z1FLdDJ2elZsMC9kV08zQ0VG?=
+ =?utf-8?B?LzI4YXhtWURTY0hnNDlxQU1YNGRJcjJzdXJ4QXNQQk12WDVCd3Jnc21nSE5E?=
+ =?utf-8?B?RXA1NUIzNFgxQ1QrYlFtZlNNZW8zUVR2N21GdlBBYjFVenpPZEg1KzZGYXRu?=
+ =?utf-8?B?LzRxcXJVa1AvaHlMbFZTeVM3Q1M4eHlxYXE4NFp0L2g4U0lVdnRneFFTbWNl?=
+ =?utf-8?B?N0R4SDk5WlNiRkVoZVdyRkswL0hSTEpMVXRjazRmWDJsMDdrSG9ZeFdHSFVi?=
+ =?utf-8?B?enpJelExSnlRdVlkaFpYSnkvdHMvN1dkNGZ3b3B0RVRVYlJSdEozOWIxMFlH?=
+ =?utf-8?B?R3V0UVdvMCtjYjBnSUpRb055RU5rS1JEUmNFRzFaYU0vbktYWU5mdjF1YkJQ?=
+ =?utf-8?B?R1NlSU5ycWkwZEkzYkhzeElTbGdReFFia3g3NjBmNTJHTjRRS25DNmcxYXJM?=
+ =?utf-8?Q?4Y7k8JoExA/OkWApouiYofWmvE0uRhlT2JeGO4z?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edacaf42-b2c8-43ee-496a-08d937d2dcb4
+X-MS-Exchange-CrossTenant-Network-Message-Id: d93aeae6-ce11-4398-e325-08d937d2edf4
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 12:15:03.6497
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 12:15:32.6063
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: drw/EOekeG0kCsC+JnTtXTvEJsK6SdsNxIaxCaPC2Mc6yiXFAvxxCkzyKeeOeVgeJr7cvnkr2rPxMwQP9jDstQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: A7Yw0Xy3/Ph4FKkETP5K561FVIbs55WY49hFt/DOQ+zpEY/fon4SK7uh/fk0d8Uh+7n3IfRDcJKP/z1BWzNuJw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6671
 
-The present abuse of the completion interrupt does not only stand in the
-way of, down the road, using it for its actual purpose, but also
-requires holding the IOMMU lock while waiting for command completion,
-limiting parallelism and keeping interrupts off for non-negligible
-periods of time. Have the IOMMU do an ordinary memory write instead of
-signaling an otherwise disabled interrupt (by just updating a status
-register bit).
-
-Since IOMMU_COMP_WAIT_I_FLAG_SHIFT is now unused and
-IOMMU_COMP_WAIT_[FS]_FLAG_SHIFT already were, drop all three of them
-while at it.
+It appears unhelpful to me for flush_command_buffer() to block all
+progress elsewhere for the given IOMMU by holding its lock while waiting
+for command completion. There's no real need for callers of that
+function or of send_iommu_command() to hold the lock. Contain all
+command sending related locking to the latter function.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Paul Durrant <paul@xen.org>
 ---
-v2: Avoid set_field_in_reg_u32(). Drop now unused
-    IOMMU_COMP_WAIT_[FIS]_FLAG_SHIFT.
+v2: Re-work to contain locking to send_iommu_command().
 
---- a/xen/drivers/passthrough/amd/iommu-defs.h
-+++ b/xen/drivers/passthrough/amd/iommu-defs.h
-@@ -178,11 +178,8 @@ struct amd_iommu_dte {
- #define IOMMU_COMP_WAIT_DATA_BUFFER_SIZE	8
- #define IOMMU_COMP_WAIT_DATA_BUFFER_ALIGNMENT	8
- #define IOMMU_COMP_WAIT_S_FLAG_MASK		0x00000001
--#define IOMMU_COMP_WAIT_S_FLAG_SHIFT		0
- #define IOMMU_COMP_WAIT_I_FLAG_MASK		0x00000002
--#define IOMMU_COMP_WAIT_I_FLAG_SHIFT		1
- #define IOMMU_COMP_WAIT_F_FLAG_MASK		0x00000004
--#define IOMMU_COMP_WAIT_F_FLAG_SHIFT		2
- #define IOMMU_COMP_WAIT_ADDR_LOW_MASK		0xFFFFFFF8
- #define IOMMU_COMP_WAIT_ADDR_LOW_SHIFT		3
- #define IOMMU_COMP_WAIT_ADDR_HIGH_MASK		0x000FFFFF
 --- a/xen/drivers/passthrough/amd/iommu_cmd.c
 +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-@@ -20,6 +20,9 @@
- #include "iommu.h"
- #include "../ats.h"
- 
-+#define CMD_COMPLETION_INIT 0
-+#define CMD_COMPLETION_DONE 1
-+
- static void send_iommu_command(struct amd_iommu *iommu,
+@@ -27,6 +27,9 @@ static void send_iommu_command(struct am
                                 const uint32_t cmd[4])
  {
-@@ -49,28 +52,27 @@ static void send_iommu_command(struct am
- static void flush_command_buffer(struct amd_iommu *iommu,
-                                  unsigned int timeout_base)
- {
--    uint32_t cmd[4];
-+    static DEFINE_PER_CPU(uint64_t, poll_slot);
-+    uint64_t *this_poll_slot = &this_cpu(poll_slot);
-+    paddr_t addr = virt_to_maddr(this_poll_slot);
-+    /* send a COMPLETION_WAIT command to flush command buffer */
-+    uint32_t cmd[4] = {
-+        addr | MASK_INSR(IOMMU_CONTROL_ENABLED,
-+                         IOMMU_COMP_WAIT_S_FLAG_MASK),
-+        (addr >> 32) | MASK_INSR(IOMMU_CMD_COMPLETION_WAIT,
-+                                 IOMMU_CMD_OPCODE_MASK),
-+        CMD_COMPLETION_DONE
-+    };
-     s_time_t start, timeout;
-     static unsigned int __read_mostly threshold = 1;
- 
--    /* RW1C 'ComWaitInt' in status register */
--    writel(IOMMU_STATUS_COMP_WAIT_INT,
--           iommu->mmio_base + IOMMU_STATUS_MMIO_OFFSET);
--
--    /* send an empty COMPLETION_WAIT command to flush command buffer */
--    cmd[3] = cmd[2] = 0;
--    set_field_in_reg_u32(IOMMU_CMD_COMPLETION_WAIT, 0,
--                         IOMMU_CMD_OPCODE_MASK,
--                         IOMMU_CMD_OPCODE_SHIFT, &cmd[1]);
--    set_field_in_reg_u32(IOMMU_CONTROL_ENABLED, 0,
--                         IOMMU_COMP_WAIT_I_FLAG_MASK,
--                         IOMMU_COMP_WAIT_I_FLAG_SHIFT, &cmd[0]);
-+    ACCESS_ONCE(*this_poll_slot) = CMD_COMPLETION_INIT;
+     uint32_t tail;
++    unsigned long flags;
 +
-     send_iommu_command(iommu, cmd);
++    spin_lock_irqsave(&iommu->lock, flags);
  
-     start = NOW();
-     timeout = start + (timeout_base ?: 100) * MILLISECS(threshold);
--    while ( !(readl(iommu->mmio_base + IOMMU_STATUS_MMIO_OFFSET) &
--              IOMMU_STATUS_COMP_WAIT_INT) )
-+    while ( ACCESS_ONCE(*this_poll_slot) != CMD_COMPLETION_DONE )
+     tail = iommu->cmd_buffer.tail + sizeof(cmd_entry_t);
+     if ( tail == iommu->cmd_buffer.size )
+@@ -47,6 +50,8 @@ static void send_iommu_command(struct am
+     iommu->cmd_buffer.tail = tail;
+ 
+     writel(tail, iommu->mmio_base + IOMMU_CMD_BUFFER_TAIL_OFFSET);
++
++    spin_unlock_irqrestore(&iommu->lock, flags);
+ }
+ 
+ static void flush_command_buffer(struct amd_iommu *iommu,
+@@ -273,7 +278,6 @@ static void invalidate_iommu_all(struct
+ void amd_iommu_flush_iotlb(u8 devfn, const struct pci_dev *pdev,
+                            daddr_t daddr, unsigned int order)
+ {
+-    unsigned long flags;
+     struct amd_iommu *iommu;
+     unsigned int req_id, queueid, maxpend;
+ 
+@@ -300,10 +304,8 @@ void amd_iommu_flush_iotlb(u8 devfn, con
+     maxpend = pdev->ats.queue_depth & 0xff;
+ 
+     /* send INVALIDATE_IOTLB_PAGES command */
+-    spin_lock_irqsave(&iommu->lock, flags);
+     invalidate_iotlb_pages(iommu, maxpend, 0, queueid, daddr, req_id, order);
+     flush_command_buffer(iommu, iommu_dev_iotlb_timeout);
+-    spin_unlock_irqrestore(&iommu->lock, flags);
+ }
+ 
+ static void amd_iommu_flush_all_iotlbs(struct domain *d, daddr_t daddr,
+@@ -330,17 +332,14 @@ static void amd_iommu_flush_all_iotlbs(s
+ static void _amd_iommu_flush_pages(struct domain *d,
+                                    daddr_t daddr, unsigned int order)
+ {
+-    unsigned long flags;
+     struct amd_iommu *iommu;
+     unsigned int dom_id = d->domain_id;
+ 
+     /* send INVALIDATE_IOMMU_PAGES command */
+     for_each_amd_iommu ( iommu )
      {
-         if ( timeout && NOW() > timeout )
+-        spin_lock_irqsave(&iommu->lock, flags);
+         invalidate_iommu_pages(iommu, daddr, dom_id, order);
+         flush_command_buffer(iommu, 0);
+-        spin_unlock_irqrestore(&iommu->lock, flags);
+     }
+ 
+     if ( ats_enabled )
+@@ -360,37 +359,25 @@ void amd_iommu_flush_pages(struct domain
+ 
+ void amd_iommu_flush_device(struct amd_iommu *iommu, uint16_t bdf)
+ {
+-    ASSERT( spin_is_locked(&iommu->lock) );
+-
+     invalidate_dev_table_entry(iommu, bdf);
+     flush_command_buffer(iommu, 0);
+ }
+ 
+ void amd_iommu_flush_intremap(struct amd_iommu *iommu, uint16_t bdf)
+ {
+-    ASSERT( spin_is_locked(&iommu->lock) );
+-
+     invalidate_interrupt_table(iommu, bdf);
+     flush_command_buffer(iommu, 0);
+ }
+ 
+ void amd_iommu_flush_all_caches(struct amd_iommu *iommu)
+ {
+-    ASSERT( spin_is_locked(&iommu->lock) );
+-
+     invalidate_iommu_all(iommu);
+     flush_command_buffer(iommu, 0);
+ }
+ 
+ void amd_iommu_send_guest_cmd(struct amd_iommu *iommu, u32 cmd[])
+ {
+-    unsigned long flags;
+-
+-    spin_lock_irqsave(&iommu->lock, flags);
+-
+     send_iommu_command(iommu, cmd);
+     /* TBD: Timeout selection may require peeking into cmd[]. */
+     flush_command_buffer(iommu, 0);
+-
+-    spin_unlock_irqrestore(&iommu->lock, flags);
+ }
+--- a/xen/drivers/passthrough/amd/iommu_guest.c
++++ b/xen/drivers/passthrough/amd/iommu_guest.c
+@@ -449,9 +449,10 @@ static int do_invalidate_dte(struct doma
+     spin_lock_irqsave(&iommu->lock, flags);
+     dte_set_gcr3_table(mdte, hdom_id, gcr3_mfn << PAGE_SHIFT, gv, glx);
+ 
+-    amd_iommu_flush_device(iommu, req_id);
+     spin_unlock_irqrestore(&iommu->lock, flags);
+ 
++    amd_iommu_flush_device(iommu, req_id);
++
+     return 0;
+ }
+ 
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -871,7 +871,10 @@ static void enable_iommu(struct amd_iomm
+     spin_lock_irqsave(&iommu->lock, flags);
+ 
+     if ( unlikely(iommu->enabled) )
+-        goto out;
++    {
++        spin_unlock_irqrestore(&iommu->lock, flags);
++        return;
++    }
+ 
+     amd_iommu_erratum_746_workaround(iommu);
+ 
+@@ -921,13 +924,12 @@ static void enable_iommu(struct amd_iomm
+ 
+     set_iommu_translation_control(iommu, IOMMU_CONTROL_ENABLED);
+ 
+-    if ( iommu->features.flds.ia_sup )
+-        amd_iommu_flush_all_caches(iommu);
+-
+     iommu->enabled = 1;
+ 
+- out:
+     spin_unlock_irqrestore(&iommu->lock, flags);
++
++    if ( iommu->features.flds.ia_sup )
++        amd_iommu_flush_all_caches(iommu);
+ }
+ 
+ static void disable_iommu(struct amd_iommu *iommu)
+@@ -1544,7 +1546,6 @@ static int _invalidate_all_devices(
+ {
+     unsigned int bdf; 
+     u16 req_id;
+-    unsigned long flags;
+     struct amd_iommu *iommu;
+ 
+     for ( bdf = 0; bdf < ivrs_bdf_entries; bdf++ )
+@@ -1553,10 +1554,8 @@ static int _invalidate_all_devices(
+         req_id = ivrs_mappings[bdf].dte_requestor_id;
+         if ( iommu )
          {
+-            spin_lock_irqsave(&iommu->lock, flags);
+             amd_iommu_flush_device(iommu, req_id);
+             amd_iommu_flush_intremap(iommu, req_id);
+-            spin_unlock_irqrestore(&iommu->lock, flags);
+         }
+     }
+ 
+--- a/xen/drivers/passthrough/amd/iommu_intr.c
++++ b/xen/drivers/passthrough/amd/iommu_intr.c
+@@ -310,9 +310,7 @@ static int update_intremap_entry_from_io
+         entry.ptr32->flds.remap_en = false;
+         spin_unlock(lock);
+ 
+-        spin_lock(&iommu->lock);
+         amd_iommu_flush_intremap(iommu, req_id);
+-        spin_unlock(&iommu->lock);
+ 
+         spin_lock(lock);
+     }
+@@ -527,11 +525,9 @@ static int update_intremap_entry_from_ms
+ 
+         if ( iommu->enabled )
+         {
+-            spin_lock_irqsave(&iommu->lock, flags);
+             amd_iommu_flush_intremap(iommu, req_id);
+             if ( alias_id != req_id )
+                 amd_iommu_flush_intremap(iommu, alias_id);
+-            spin_unlock_irqrestore(&iommu->lock, flags);
+         }
+ 
+         return 0;
+@@ -567,11 +563,9 @@ static int update_intremap_entry_from_ms
+         entry.ptr32->flds.remap_en = false;
+         spin_unlock(lock);
+ 
+-        spin_lock(&iommu->lock);
+         amd_iommu_flush_intremap(iommu, req_id);
+         if ( alias_id != req_id )
+             amd_iommu_flush_intremap(iommu, alias_id);
+-        spin_unlock(&iommu->lock);
+ 
+         spin_lock(lock);
+     }
+--- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
++++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+@@ -129,6 +129,8 @@ static void amd_iommu_setup_domain_devic
+              iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
+             dte->i = ats_enabled;
+ 
++        spin_unlock_irqrestore(&iommu->lock, flags);
++
+         amd_iommu_flush_device(iommu, req_id);
+ 
+         AMD_IOMMU_DEBUG("Setup I/O page table: device id = %#x, type = %#x, "
+@@ -138,8 +140,8 @@ static void amd_iommu_setup_domain_devic
+                         page_to_maddr(hd->arch.amd.root_table),
+                         domain->domain_id, hd->arch.amd.paging_mode);
+     }
+-
+-    spin_unlock_irqrestore(&iommu->lock, flags);
++    else
++        spin_unlock_irqrestore(&iommu->lock, flags);
+ 
+     ASSERT(pcidevs_locked());
+ 
+@@ -307,6 +309,8 @@ static void amd_iommu_disable_domain_dev
+         smp_wmb();
+         dte->v = true;
+ 
++        spin_unlock_irqrestore(&iommu->lock, flags);
++
+         amd_iommu_flush_device(iommu, req_id);
+ 
+         AMD_IOMMU_DEBUG("Disable: device id = %#x, "
+@@ -314,7 +318,8 @@ static void amd_iommu_disable_domain_dev
+                         req_id,  domain->domain_id,
+                         dom_iommu(domain)->arch.amd.paging_mode);
+     }
+-    spin_unlock_irqrestore(&iommu->lock, flags);
++    else
++        spin_unlock_irqrestore(&iommu->lock, flags);
+ 
+     ASSERT(pcidevs_locked());
+ 
+@@ -455,9 +460,9 @@ static int amd_iommu_add_device(u8 devfn
+             iommu->dev_table.buffer + (bdf * IOMMU_DEV_TABLE_ENTRY_SIZE),
+             ivrs_mappings[bdf].intremap_table, iommu, iommu_intremap);
+ 
+-        amd_iommu_flush_device(iommu, bdf);
+-
+         spin_unlock_irqrestore(&iommu->lock, flags);
++
++        amd_iommu_flush_device(iommu, bdf);
+     }
+ 
+     amd_iommu_setup_domain_device(pdev->domain, iommu, devfn, pdev);
 
 
