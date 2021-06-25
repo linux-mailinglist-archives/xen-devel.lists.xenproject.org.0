@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DBFB3B489C
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 20:09:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147361.271580 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4D5D3B48CC
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 20:31:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147370.271602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwqGL-000094-JZ; Fri, 25 Jun 2021 18:09:09 +0000
+	id 1lwqam-0003Fb-N2; Fri, 25 Jun 2021 18:30:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147361.271580; Fri, 25 Jun 2021 18:09:09 +0000
+Received: by outflank-mailman (output) from mailman id 147370.271602; Fri, 25 Jun 2021 18:30:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwqGL-00007g-Fg; Fri, 25 Jun 2021 18:09:09 +0000
-Received: by outflank-mailman (input) for mailman id 147361;
- Fri, 25 Jun 2021 18:09:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lwqam-0003DW-Jh; Fri, 25 Jun 2021 18:30:16 +0000
+Received: by outflank-mailman (input) for mailman id 147370;
+ Fri, 25 Jun 2021 18:30:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eNyz=LT=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lwqGK-00007Z-Nm
- for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 18:09:08 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee1f386a-1d66-4ec1-b9e7-e6ab92edf1ba;
- Fri, 25 Jun 2021 18:09:07 +0000 (UTC)
+ id 1lwqal-0003DQ-BX
+ for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 18:30:15 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d0dd64d5-8267-400b-81c3-e568e684f3a4;
+ Fri, 25 Jun 2021 18:30:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,221 +36,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee1f386a-1d66-4ec1-b9e7-e6ab92edf1ba
+X-Inumbo-ID: d0dd64d5-8267-400b-81c3-e568e684f3a4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624644547;
+  d=citrix.com; s=securemail; t=1624645814;
   h=to:cc:references:from:subject:message-id:date:
    in-reply-to:content-transfer-encoding:mime-version;
-  bh=DCR9DOjKD8pVtz4qOLegIOjyauoklhVfvRnIVBYfnS4=;
-  b=JyP/OxcqYYiFDIqdxuC2fH6rV9KUN7Fl1lK3A+8Tw+pRRMiRqRL4fclS
-   za2U5fr2VBvvH7nxDo8FwMCbbIMp4pkuL7k4jgU3Cwq59ZXnMzZ2bTaf+
-   mLSLjBV5QwJ6iVUXKgdMNv4kisFzPMKSlnHFbFoeTL+F4I5l/XWq+Qtak
-   0=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 2CFwX7yGZefsnzZOF5Meh2vsn6mi52bWioaIS2CnybiQ4Ag2zz6bFnosrvlbSl9C4BqhmieF1w
- qCj5OHC0C1SeCkuM2lst1Zzx3e3xmV4sYgC6d6g1BD4Pcaoy21OFdY41c3RIO89y2xWTuRImj5
- LzDHVj69i4XdV9UoCXGu697wHGkOi9O72SBBTz8ufaILY4mYLtKhEycW5w4mZ2pH0Gr4de+8/z
- JIIktXVKSw2PdCA5NVsLUx1wOYKG0lPaCwqfUVOCMpvAU6TdkU8dSBWlmACk84ib4wrp8Bnahs
- dq4=
+  bh=rnt3G4VwIadZCl10fkgvQNzuX23lGdCnsgQ1ox9CHuA=;
+  b=hr1ppLj9vX7sWWJyxMHnroiSq1oy9rZuZBFmqG/shUm4eOjl2kgAdWfB
+   0r5t2jwnIkyNcHb81N7kJFXvWgwjnCOB2JXY9Y0bsv+KbFE3RNCFSTehg
+   XYwPHkSkKOGxFu0pRJfsXRcAfHhdAd368noA2gqU7ErQZP/cta8nbd0qt
+   U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: VcNld3m5D5MHLdoI4b6pvA+A92bvhDpVKdMMKk7yMDkq1r5NdigIFdQG2VyfEt34fUnOkeedfy
+ +kDqTJt32v33b5l3Cop99A9a0lFTlhR61atKcDnIDJRf9110tw5aE/uBEWMboVxHCC3OyGUQ0c
+ aMdEMGWIg/xo+1mpDL+OCp+99v314Gr5QmnWvMwHyseqJ7/Vf6BipSFHXXR/YF71+xG91jojm3
+ WGclPMrOI1BX9pVpyjnOQv1HZuug5rekFA1zwwHX6bQfu3wuw31ER2rXsQ0s8PD9OvBVcO4K2Q
+ 8cM=
 X-SBRS: 5.1
-X-MesageID: 46710053
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 46987394
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:bC/JJaypWhvIcxwBjd8QKrPw7b1zdoMgy1knxilNoERuA7elf8
- DHpoV56faGskdqZJhAo6HxBEDuewK6yXcY2+gs1PKZLXHbUWaTR72KjrGSsAEIeReOkNK1vJ
- 0IG8UTZ7PN5BpB/L/HCWKDYrQdKay8gcSVbJDlvhJQpG9RC52I6T0SNu/RKDwKeOAPP+tEKL
- OMos9AoSPIQwVnUiysbkN1INQriee76q7bXQ==
+IronPort-HdrOrdr: A9a23:jRW7g6z2l49B409VEounKrPxyOskLtp133Aq2lEZdPULSKKlfp
+ GV88jziyWZtN9wYhEdcdDpAtjlfZquz+8K3WB3B8bcYOCGghrVEGgG1+rfKlLbalbDH4JmpM
+ Fdmu1FeaDN5DtB/LTHCWuDYq4dKbC8mcjC74qurAYOPHVXguNbnmBE426gYz5LrWJ9dOME/f
+ Snl696TnabCA4qhpPRPAh0YwGPnayEqLvWJTo9QzI34giHij2lrJb8Dhijxx8bFxdC260r/2
+ TpmxHwovzLiYD69jbsk0voq7hGktrozdVOQOSKl8guMz3pziKlfp5oVbGutC085Muv9FEput
+ /RpApIBbUz11rhOkWO5Tf90Qjp1zgjr1X4z0WDvHflqcvlABonFston+tiA17kwntlmOs5/L
+ NA3mqfuZYSJwjHhj7B69/BUAwvvlaooEAljfUYgxVkIMkjgYdq3MsiFX5uYdE99HqQ0vF/LA
+ AuNrCe2B9uSyLfU5iD1VMfmOBFNx8Ib2K7qktrgL3Z79EZpgEj86O0rPZv1kvoz6hNPaWs0d
+ 60eJiApIs+OfP+UpgNTdvpYfHHRlAlEii8f157HzzcZeo60iX22u/KCfMOlbuXRKA=
 X-IronPort-AV: E=Sophos;i="5.83,299,1616472000"; 
-   d="scan'208";a="46710053"
+   d="scan'208";a="46987394"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CW0zvnO0ThZng76EKMu/usQQX2j0KIRa7/awSwXNVxadGCDStmei8HJZF1hnhTtzDg75qnqnmt/DWJlt8q+sKXYqo8n+CIfLG3jzRUSZ34JvSdPVqODdYqyxIbez707ZiF9tQTQL5yZO3ag+w3515NddMO0WuLDrf7HEDry2a50HE0kTpgQMKIZtLwTU1GLdMmKFG14hBj9lQl11E+UgkLiXAkCkf22yK2jKY0xkTC1gQ0xV9+2Ad5gkEJPUD6MLTZitzYIhymAp4jAVPkEfRciVpqxpyS5Sec0c1H8Wi3qONLfw0aoMwlFPJjv9MSAeFoJODF81ZZQj4QdkE0OdXg==
+ b=ZWMElGv2eMI8J0CNeIuXc5AxAkitdAofU2WgaEgHGxYxRr0StW1whpiLja8rz8IT+iV0S1uc5b96mrKeiLcQW7/ofqjMUo4erZiSnjsdkctE2bUXUvmpOoaArAX/NHt0ZWlrfhTgN5zTuu1UvpuFBsfxenr5gUPt7/Naeb6NBBh5nkpsTHa4zRlQ8/Nrbx0AmzjCCQZkMq/nukfA5oD39jGNl2Ll66A9m8ufg8ANSvXnZK/K5V9gljepe71ylHGEzky/K1Usd/8ZrpIdX3rkurGpGNOUbWqYaDf+wiy4mDSP+v4irkyblNrZI2+LzN+9D/N007gOLj+vu1tvWYNmjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WG/EsOZKVfSHR+G9NgGAfbRGt9br8CDW/wU3ZxVJpJQ=;
- b=XM0qGkr2kmJVgbHo8YnlEXTFQTRIeQxeTeSHphOjiMJe0hxmbGz8LaCsi5F0zuhlDIghlfoYr0gSl4omnaUMYWLsX5PsgDWX3TuzqmzbabaoCA9e9DqBEIxJCgv7ZBs3VoLBv1mhg6aZQnKzInCGOgwy5F/HE54J26FJxLhSRD7iNagEQ4OXa7df+nybZ5m61keE3qSMzZeBm9UHZJlFwEuzI1001B4GvEmzwMmFc3jc6gCdPsvVvJAlgJiy2Y9lscL19sVi0v99B8C8UEY+y4qtLm54NHT5sYbldxIrXQghQwT0r0H5q8PJene11SuIaBETxrYMyGwZEJf/UYUucw==
+ bh=1nJvP+9uFsJIXLduVWEcB6WqwnucemD0Bt0vSwzrOb4=;
+ b=hCCPhPuz6MyCaIYFLB7Vgg274P8eabXKO8dw7UIddn3KU/2DNn6iLV1mQCm+O0iC8AKwgqTdJWavNnOmm4pfSBJtzyRYcT/XuQNN6uwXAIM1kRWDZKzNjm05NKYKMXn6kDQTBriAEtCmvUtgnl3Ufoxcun/K6Z23B4eVzxPM9sB54qnPQqoLsbMn6RI3xBJfqgYDNuPje9qBf6GaCMw89NlftzSpBgHq2Tb5up3b2aIYc9B9qpdY+3921wC+HravTIvtB3NjGOuRbE2W+U6MXYN+9zZtknQWaJjXAP+ZR204dEZJsVY7lOmksn7IR8ELt+Dsigktxo9RDvjABx8l8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WG/EsOZKVfSHR+G9NgGAfbRGt9br8CDW/wU3ZxVJpJQ=;
- b=a9Xrus7Gl//Boy3IzP9m9xsrXzQ5tg7PHeuN02lf9S+/tQLD5c/JhFHfEoLlxKOIp6CtXorid4Y5J3iHZCbI/fhTMwDNAT32U6kAWrou+ahG+5oJ6eEeHPaDeQ00TBWCT8svMl01XHaZSgpywOCQpDDD4TvrEVY6ojYjuA39Tf4=
+ bh=1nJvP+9uFsJIXLduVWEcB6WqwnucemD0Bt0vSwzrOb4=;
+ b=EVxozvna1xDl1e/jHooCxmMXEGUgofC1seL18HvzEWUxVdx1BoD0f502u8n9kk8pxhpMNwCqeEy2JW4xXZcgs5dhiu4lw5iqZ7DKYcz2jAVuDtdJ5NGO0hdtVVrvJj3V2JW3mYPrjkjrC3Znc4jS3Va2D5SIfiODVzKBlEdz/V4=
 To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
 	<xen-devel@lists.xenproject.org>
 CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
 	<roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>, George Dunlap
 	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>
 References: <912fa390-f9e9-198a-9aee-39fdb9a28fcc@suse.com>
- <61ff4f26-a9cc-d123-98a0-be6c23f21e9b@suse.com>
+ <0d824d4b-0696-baca-a3ef-95ee641e4d08@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 04/12] libxenguest: avoid allocating unused deferred-pages
- bitmap
-Message-ID: <44825600-c27b-34ac-01b2-1ffb5e0bf0be@citrix.com>
-Date: Fri, 25 Jun 2021 19:08:54 +0100
+Subject: Re: [PATCH 05/12] libxenguest: complete loops in
+ xc_map_domain_meminfo()
+Message-ID: <7cafca96-1d01-db96-8583-b8299aad41fe@citrix.com>
+Date: Fri, 25 Jun 2021 19:30:02 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <61ff4f26-a9cc-d123-98a0-be6c23f21e9b@suse.com>
+In-Reply-To: <0d824d4b-0696-baca-a3ef-95ee641e4d08@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0096.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:8::36) To BYAPR03MB3623.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0078.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:190::11) To BYAPR03MB3623.namprd03.prod.outlook.com
  (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1fc69f1-2aa4-4772-65f1-08d938044fba
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6240:
+X-MS-Office365-Filtering-Correlation-Id: de6349da-ec28-4c4d-ef16-08d9380743a7
+X-MS-TrafficTypeDiagnostic: BY5PR03MB5079:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB6240102E68639ED3E73BA85CBA069@SJ0PR03MB6240.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Microsoft-Antispam-PRVS: <BY5PR03MB50792A73A7420F611F2E0A1DBA069@BY5PR03MB5079.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lrb3Vi2ZtpQlGiOeVUi5j4v7GuzqQZsqNNUs9yVBx/M3EhHXnOQJJVfkNA+KAVdnDT0VORjO/3zl+7C0753zRwKbt2SW01MLWrLOjdfYYjRDjXmvWcKSpanCF6DIXUVDoKhV7Qw/I33dqUwB4iNCWiLzC8yL10EE3reBgK2RdIA4lUAtutvNRue0MTMrr8CPNudpvDJ1McvqCTz0WTmvoYDUvGtfE5uHtp7wViuQjrPDR1LiGc3YTuobedZKQ+0DDOovSBk4b+NOFJanTI2naXpbW40W8iJZ5znSi+mp356OiS/sOlgbyV13GrKK8RkZSuU6FzBuiI3f2myzAML0zk/zW9h8VuXNQzKgfAEu3ngFfOCCRUexWVoXTjZoTtBN2TSkCXmEq1NeTQ7rk5hDqPUqGl4nGO2nryIcAtEmmxmgIiSaUFchmrBs/WLBL1YtP2gu/Yiyv6IsLOCawzlb3RzDKi+ckwtAkpcmvx8H3mg14q+ohka2hBwUT+aZ2/P7jfKWrZiZyYilr47mlzyRanukUddQk367fipdhJYOohIJZQWxsApakSwcUB4bmKqvcdl0Arxle/OlQ74w0VfVw3t7TFm0KPXeqKYO3fImv7dlRKOrWzRa3Er1iqqtc0p0rQbJVnGAM4X7nNG+og/Adep08K2fVN9/mMQGGKTcCus5y+CLh0hBpBVTcO+W2U7fdIwF7yemdExgtbtTKFRNk3FLzdq/9Ckto3o2X5IfDrc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(396003)(39850400004)(346002)(366004)(136003)(83380400001)(4326008)(26005)(316002)(478600001)(16526019)(186003)(66946007)(16576012)(54906003)(5660300002)(31686004)(66556008)(66476007)(110136005)(53546011)(38100700002)(6666004)(2906002)(36756003)(86362001)(956004)(8936002)(31696002)(6486002)(8676002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: J0QbDaOJoXi08q4xWjlaRGdU8vLPAlEO/TPma7gl/zu4WkvZYylFtTIlaSjQLedxohL2Exjv70WVSxg/VPoVLOo2g4sgr2/llk0tLAT/YXO9AP3wWSVYRSSMubvBpEzTZLwUcR6Mb1hYQmS2dKG2oQTbWaBc1rQYJ1ILJLmsiUHu0BkaU1CQ48mCSyU8uV68yx1bxopL2ldgQeBDvWTEhlXr+BMu4fQ2RNHSdjnbzKBO9FQO0/AZjXvKJMoYNwTTJzXaqCgadPn3oj9nAvcFc83b1+PTBP6INMYcmqHHR6UMh1rnN920AcEtOia+ib6j1HaRrJmHnLUOkjXVYbtVKDx97M175gwQA1SLKRjulFQAByNUhnpdko46Ec0T3KOrbLwycm/wpqS0SdXzPfFLnxhVWW47FGbWhntQv3JpJGr6n70S2cu4IsiBWUQ4WuKrOQFqRHE+gakBwsGVYOQBQA68trxhUCab8HDnp6PNoFmX/n6W+3TQY7cdcWUm5fTg5vsyzWIf/r5VoDddpEh3KWHK75GKMwQRGOYWFQV+lPCzLOc3eDjBxCai0M3268KrDkciHalYX5e7lz3ZcvA4o70OWkSthpbcbOd8LXsNt4Wh65Rl7kDnuGsP/0G+jLrsmnSVjRyxTXutImLGNm1fq10CblNjfjSdftxRjnw4aJSMowKknKLxdAbnL9mwYAH6
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(136003)(366004)(376002)(346002)(31686004)(31696002)(38100700002)(53546011)(2906002)(110136005)(16526019)(6666004)(66556008)(66476007)(86362001)(26005)(5660300002)(83380400001)(16576012)(4326008)(8676002)(478600001)(66946007)(186003)(8936002)(2616005)(956004)(36756003)(54906003)(316002)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1F1ZDdPTUwrd1E3Yk93WmVubG1UVzBuOXVTSmtmNm8yS08xQlZnSWdVNE5k?=
- =?utf-8?B?cllzUkRMQWJrNm93VWxxYlF1NUN4T2ZJQnI0UGNpMHBpQkdWNlBndUlDaTJ3?=
- =?utf-8?B?TFJsMUIwd1ZTb1lkWFZJWjNIMlZxOXphdXdzT3B3U0s2YzBhWHUzWHZqR1d5?=
- =?utf-8?B?Rkczb1Nva2ZRQ1VzM3VJSjVQR3VYNnFKWWg4c081SldPVHpOSTkvOUNMUjBT?=
- =?utf-8?B?TStiM010L1hwU2hubHhzeEp5YTZwOU41M2lxVnp1R0FjV3d3Z3JTSmlmNDdO?=
- =?utf-8?B?RnlnTVlQWmlXSmR6d3hYS0tzM2hzdmorSi9JVVVHSmJYTStxeDZMS0FyanZ1?=
- =?utf-8?B?R3Rxd2kxdnhjdzRlaS82dUVhSGNSd2NKeHBISjUwOTJmbFVZTG8zZUZSRFVi?=
- =?utf-8?B?dTBzRU12ZlBPSW9jMnYxcFlHWFBwUjUrTklGNVlYVDN3SEtOZHpKY1Q1U3hW?=
- =?utf-8?B?ZUtkMWJYRGhvc09jMmRZbUdpVDlLaFpUeVJtSS9MOU9sZElLaDNESVVVQTBu?=
- =?utf-8?B?S3VUeThjRXlZOWYrNFJQZXpWYS9hNXM0bm9FYmxwWlVYNDFrZ21VOURZOFZO?=
- =?utf-8?B?QU5RN0tSd052cFhHQU1IMUFJVHhMbnZQbDJaSjN2YjBUZmlXbGo5Tkc4b0w4?=
- =?utf-8?B?endhNXFLVHkrQzFNTzR4QkJhYWF6SnRDQnFjRmtQT3EzbTRnZFdYSWkvaFV4?=
- =?utf-8?B?QlFMck5IUnlWSGhlaDFXOGJzNDQ1TGViZ085c090ak5NOGsrZS9hL1JNQm9H?=
- =?utf-8?B?MzFsOFhHNitpeWNTYlpUZVVvTUJiTDhnVlM0c2dyYnJ2ZTdsUCtQODAwdXNy?=
- =?utf-8?B?VitOV0VvaW12TVdyWGxPU0JXdUJPSE95SjZzUkI0OUpQNEtVZ2Y0VFZTQ3pu?=
- =?utf-8?B?ajBIamVnUXNyMjkzazNPbGVWRERjVzEyK2c5cGhGYTU4TENhaFphQzBqZksw?=
- =?utf-8?B?ZDVqeEJLeWlLQ0hUV1hVTVhiSXlxTE5nUjE4VVp6b3o4cVhYZEY1MnZUK2N1?=
- =?utf-8?B?emNTaUxPT29zSWk4Y3lwa3cyalhOS2lGazBNdlQzQWhWMzdmZ0IrYXp0OWxY?=
- =?utf-8?B?eVpRUjV1YlNqeUJIbkk1ck0zRmkyby9HVVh3N1hsYVo4MjVWTWlHZ3hRYk5p?=
- =?utf-8?B?RkF5QjYvdFJMNXVEUUJISWduejhGTlJaZXowVSsySytZR2UwYWEyZUdMb0sz?=
- =?utf-8?B?Skh4eEVwazkwTUg1c295OWhqTHFzTmg4NVI4dnlVcGxheEhRdndDVHlhU3lO?=
- =?utf-8?B?aHRXN2JmRDhtRy9VM2M5N2xwcFFRVmRSR2lWOEdxbm5ObVloUW14bDRIQ3Ez?=
- =?utf-8?B?WGlQbHZYUXY5SkVJSThmSUNreTJVMzNac2psa1FHQktSWTZwRmJtS2hqVVN3?=
- =?utf-8?B?cC9oU3Y5QUFPaXZEL01IMWhOejUzRXI3ZEpnRDhjbzIyaHlkV0RaZjcyU3dL?=
- =?utf-8?B?YjkwYjBET2M2Q3VBY2pKVXBHVDNpYjk5T0ozYkNUbksrajc5QzZlQ0pUR1h0?=
- =?utf-8?B?RURVZFBCTEZoT0RabFNaUHdkSnZlM3F0SkxkekpiZEc0UnVnNnZtSGJTMFJK?=
- =?utf-8?B?bDEwZ2kzWXJsZFJrdGZQOHNEWXVvNGZQSVp1ZkttR0RPZjhObkFRZ3M5a2J5?=
- =?utf-8?B?RFJGTmIyNVlVcml4SnkyOHR4c2k4NmFyY1QrY1BHTGhUTDdLb2hYT1NMdmZW?=
- =?utf-8?B?S1RSQmlqZitheUEyam1FOGdEcExoMFNpaWh1WjN3OUxERmdUNm1xck5MZE1Y?=
- =?utf-8?Q?oPx27sZSYh9LGERN7MxJWxWMz63ED+rZ9EMqMky?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1fc69f1-2aa4-4772-65f1-08d938044fba
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmpWWUFEb251YWc0VzlOaWwzZzZJdXd3WTdJWkludDlQdVVTTzBwcjJId3B3?=
+ =?utf-8?B?MHlqSWdqRUM3YWd0NHAwOEc2NEFtOUl1ZVU5YXhrUEJocTkyTWR4V2s1RHhM?=
+ =?utf-8?B?NW5RUFJFL1o0dGE5enR0dWQ3SDhDYzZnMXI5dVQrMW42L0hnMThYMnJjTktj?=
+ =?utf-8?B?eGo3SDVCWVYrdkU4NFkxUW4zNktVNldwWWp2dU9ta0FtNGZqa0FqSFo4cmhx?=
+ =?utf-8?B?cUM4cSt1bktha1ZVcVpXd2pZUjZpNDEwczRBTlpqWFQyYk9lenVDc0VLQkZn?=
+ =?utf-8?B?TTBSTW42OEJiQ3NlUVM2ZWhXSGIxYzB5dWRpM0tWekFXZ05IWUFRQUgvSGNQ?=
+ =?utf-8?B?dysweVkxUUVodUNZa3FBVEk4TjVDU3luQmhyYmxUbUI5VG5qbUpsNFhiaGVR?=
+ =?utf-8?B?NDFWdWh3MkQ2SU1ESkFjQVdyRk5oekN3UXdLVXJqQzZtK0ttdmN1b0l3aXYr?=
+ =?utf-8?B?bE9QL3l0STNWNFVpelVKd24vbnpzcTJidXRVSzMyaFZPQmxXZjZMZmR1SHB2?=
+ =?utf-8?B?eFNnVVFSUlRWQzIwb2ZqSG54NFZRcEtNZi82bW9rT1kxQUZabVRnb0FZdXZl?=
+ =?utf-8?B?ODV6UG12SnBRK1NaTlJIZHd2SllQWnZtMWJsUTRoWnFmd0tRWHAvd1lnTXpu?=
+ =?utf-8?B?aTZOMm5ZVmF6T2daamNndmpON3YxaHlteFZKWm8vV0pDUXpOOE55dGdqUzAy?=
+ =?utf-8?B?dStjVVdSZXhuY0xVNGZTZ3FiVmsxNXRib2RXUUk5eUZsV202TUM3alQvMGZ0?=
+ =?utf-8?B?U1JTUnkzcWx2ZlhUcmc4ajZ0aW1CbFhzTEVlOFh3bWVZN0FSdEFKOUdYeW5O?=
+ =?utf-8?B?Ui9ub2RQeTBMOHdjMUVEV3B1WEwrRXVYQlEzSVFPWEFCTzgyM1VZY1c5Zlha?=
+ =?utf-8?B?d2IweEIzWThCb3phK0dKTkU4OG1WMSswVUtvWVpKTXFZWjd1ZG5NUmZTSHJK?=
+ =?utf-8?B?SzUrNHh6S3F4NlpCZUtZek85MmtJWEl3QmJmanZTTCtxbHdlbTJrNkRqT0l4?=
+ =?utf-8?B?M0NoSEszeGZ0L2RLKzF4TjRaVStEL1g2aHJ5NHhaK3FkOE1Tc29VOTRReEZ5?=
+ =?utf-8?B?QWZwZTdMQkp2VTRISW1rQUZidUN5RXY0eFJteHlUQmRyRVZ5WGl4UCtKTUZF?=
+ =?utf-8?B?VG9Wd1l6NnpLS3RmN1hPQjlFcW9HNllrSXNXTjR6MldzNnovclMzMjJud0t0?=
+ =?utf-8?B?UHFON0c2OWtGR1pNaTdmNG9lVnhsOHJldmxSdjlvL2krdHVsNHZsR3dtMUU1?=
+ =?utf-8?B?K2lFcHhHUFp4V0xPK1hDRk55S2NwVGVVbDJ3ZmJqa055UWJFZlJhYzMzZmxM?=
+ =?utf-8?B?QTF6RDBKZlRRQlREaDBKTlNwckVkVUhKK3lIWkROTW84MFdDS3ZKTVRQWmt1?=
+ =?utf-8?B?dDlsZmM3bm5XOG5XUHl2eUFMVC9GSEd4ZExKbmtNRVdJK1JSYVpsRWNHVzhI?=
+ =?utf-8?B?NHQ2V0lXYUVBdGdYNVhHdVp3VWFvVUpLUnBTcUpwb0JyQmlkV0NLTmZRVE45?=
+ =?utf-8?B?d3pOcUNrdThzQlVrT3NFQVFlbjF6d09yU2VJMUUwS0o5TUo4M2dGUzF1NGlD?=
+ =?utf-8?B?OSs5ek8rWSsxOUk0Q3F1NWovTS8rREcreFErNTBDU2xXSklDRDVqS2orZ2JI?=
+ =?utf-8?B?Ym0yNHpWT1U3QldZeUw4S0NyTE12QkdjWjB5VXJqaXlGbGpMSlhRQWJWUUFj?=
+ =?utf-8?B?djZ6cmF0L1RxZElFbTV4M3FFcThFWllPY3pJUUFPUEtNL2loS20zUXZwZmda?=
+ =?utf-8?Q?hjTo9QUoR7WwZOQ2fyxcsZCgEQKBrDiw3bmDLxA?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: de6349da-ec28-4c4d-ef16-08d9380743a7
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 18:09:02.0005
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 18:30:10.1960
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 21HotF01oKWZ893qYv1EBvIrIRBfG3YoWioAWlQTaZmIk5iF0DofFBCgXqWw3TOrvx5zfchdaMUv7dSUZr71+O6t5xVxO8qqZ7TMoC42xS0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6240
+X-MS-Exchange-CrossTenant-UserPrincipalName: A5eoj51ZCH3nxw5pL3dtDTIRvTCu8X/rpq9ciGJDhNd77ebIZl2YGGU0+bli6yB2sr7h8B2j16a4IuF6tB1vXYBHQXtmzefALiRSLHAKRtE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5079
 X-OriginatorOrg: citrix.com
 
 On 25/06/2021 14:19, Jan Beulich wrote:
-> Like for the dirty bitmap, it is unnecessary to allocate the deferred-
-> pages bitmap when all that's ever going to happen is a single all-dirty
-> run.
+> minfo->p2m_size may have more than 31 significant bits. Change the
+> induction variable to unsigned long, and (largely for signed-ness
+> consistency) a helper variable to unsigned int.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> The clearing of the bitmap at the end of suspend_and_send_dirty() also
-> looks unnecessary - am I overlooking anything?
-
-Yes. Remus and COLO.=C2=A0 You don't want accumulate successfully-sent
-deferred pages over checkpoints, otherwise you'll eventually be sending
-the entire VM every checkpoint.
-
-
-Answering out of patch order...
-> @@ -791,24 +797,31 @@ static int setup(struct xc_sr_context *c
->  {
->      xc_interface *xch =3D ctx->xch;
->      int rc;
-> -    DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
-> -                                    &ctx->save.dirty_bitmap_hbuf);
+>
+> --- a/tools/libs/guest/xg_domain.c
+> +++ b/tools/libs/guest/xg_domain.c
+> @@ -40,7 +40,7 @@ int xc_map_domain_meminfo(xc_interface *
+>      xc_dominfo_t info;
+>      shared_info_any_t *live_shinfo;
+>      xen_capabilities_info_t xen_caps =3D "";
+> -    int i;
+> +    unsigned long i;
 > =20
->      rc =3D ctx->save.ops.setup(ctx);
->      if ( rc )
->          goto err;
-> =20
-> -    dirty_bitmap =3D ctx->save.live || ctx->stream_type !=3D XC_STREAM_P=
-LAIN
-> -        ? xc_hypercall_buffer_alloc_pages(
-> -              xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_size)=
-))
-> -        : (void *)-1L;
-> +    if ( ctx->save.live || ctx->stream_type !=3D XC_STREAM_PLAIN )
-> +    {
-> +        DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
-> +                                        &ctx->save.dirty_bitmap_hbuf);
-> +
-> +        dirty_bitmap =3D
-> +            xc_hypercall_buffer_alloc_pages(
-> +                xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_siz=
-e)));
-> +        ctx->save.deferred_pages =3D bitmap_alloc(ctx->save.p2m_size);
-> +
-> +        if ( !dirty_bitmap || !ctx->save.deferred_pages )
-> +            goto enomem;
-> +    }
+>      /* Only be initialized once */
+>      if ( minfo->pfn_type || minfo->p2m_table )
+> @@ -116,12 +116,12 @@ int xc_map_domain_meminfo(xc_interface *
+>      /* Retrieve PFN types in batches */
+>      for ( i =3D 0; i < minfo->p2m_size ; i+=3D1024 )
+>      {
+> -        int count =3D ((minfo->p2m_size - i ) > 1024 ) ?
+> -                        1024: (minfo->p2m_size - i);
+> +        unsigned int count =3D ((minfo->p2m_size - i) > 1024) ?
+> +                             1024 : (minfo->p2m_size - i);
 
-So this is better than the previous patch.=C2=A0 At least we've got a clean
-NULL pointer now.
+min().
 
-I could in principle get on board with the optimisation, except its not
-safe (see below).
+Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> --- a/tools/libs/guest/xg_sr_save.c
-> +++ b/tools/libs/guest/xg_sr_save.c
-> @@ -130,7 +130,7 @@ static int write_batch(struct xc_sr_cont
->                                                        ctx->save.batch_pf=
-ns[i]);
-> =20
->          /* Likely a ballooned page. */
-> -        if ( mfns[i] =3D=3D INVALID_MFN )
-> +        if ( mfns[i] =3D=3D INVALID_MFN && ctx->save.deferred_pages )
->          {
->              set_bit(ctx->save.batch_pfns[i], ctx->save.deferred_pages);
->              ++ctx->save.nr_deferred_pages;
-> @@ -196,8 +196,12 @@ static int write_batch(struct xc_sr_cont
->              {
->                  if ( rc =3D=3D -1 && errno =3D=3D EAGAIN )
->                  {
-> -                    set_bit(ctx->save.batch_pfns[i], ctx->save.deferred_=
-pages);
-> -                    ++ctx->save.nr_deferred_pages;
-> +                    if ( ctx->save.deferred_pages )
-> +                    {
-> +                        set_bit(ctx->save.batch_pfns[i],
-> +                                ctx->save.deferred_pages);
-> +                        ++ctx->save.nr_deferred_pages;
-> +                    }
+This whole infrastructure is almost abandoned, and broken.=C2=A0 Its used b=
+y
+xen-mfndump (debugging only) and xen-hptool mem-offline.
 
-These two blocks are the only two which modify deferred_pages.
+The mem-offline functionally cannot possibly work usefully.=C2=A0 It is PV
+only, despite not having an HVM check, and in particular reads the dead
+page in an attempt to restore the contents elsewhere.=C2=A0 There is also n=
+o
+thought given to writes from outside sources, such as DMA from
+passthrough or a different dom0 foreign mapping.
 
-It occurs to me that this means deferred_pages is PV-only, because of
-the stub implementations of x86_hvm_pfn_to_gfn() and
-x86_hvm_normalise_page().=C2=A0 Furthermore, this is likely to be true for
-any HVM-like domains even on other architectures.
+This is perhaps ok as an academic demonstration of "can I shuffle memory
+behind an alive VM in ideal circumstances", but will be killed by the
+dom0 kernel if you ever try running it to resolve a real memory error on
+a VM, because there is no possibility of recovering the data.
 
-If these instead were hard errors when !deferred_pages, then that at
-least get the logic into an acceptable state.=C2=A0
-
-However, the first hunk demonstrates that deferred_pages gets used even
-in the non-live case.=C2=A0 In particular, it is sensitive to errors with t=
-he
-guests' handling of its own P2M.=C2=A0 Also, I can't obviously spot anythin=
-g
-which will correctly fail migration if deferred pages survive the final
-iteration.
+The mem-offline functionality needs deleting.=C2=A0 It isn't production
+ready, and can't credibly be made so.
 
 ~Andrew
 
