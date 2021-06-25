@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD3EF3B4809
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 19:10:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147338.271516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 666313B4862
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 19:48:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147352.271552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwpL4-0001So-QO; Fri, 25 Jun 2021 17:09:58 +0000
+	id 1lwpvG-0005Yu-A3; Fri, 25 Jun 2021 17:47:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147338.271516; Fri, 25 Jun 2021 17:09:58 +0000
+Received: by outflank-mailman (output) from mailman id 147352.271552; Fri, 25 Jun 2021 17:47:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwpL4-0001Qp-N4; Fri, 25 Jun 2021 17:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 147338;
- Fri, 25 Jun 2021 17:09:57 +0000
+	id 1lwpvG-0005X4-5v; Fri, 25 Jun 2021 17:47:22 +0000
+Received: by outflank-mailman (input) for mailman id 147352;
+ Fri, 25 Jun 2021 17:47:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eNyz=LT=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1lwpL3-0001Qj-BZ
- for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 17:09:57 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=l36E=LT=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lwpvF-0005Wy-9g
+ for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 17:47:21 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cce38ab2-1a13-4edc-b88b-a248d8ef5fc8;
- Fri, 25 Jun 2021 17:09:56 +0000 (UTC)
+ id 351e135f-7696-44e6-b8c0-d18fb6054ae9;
+ Fri, 25 Jun 2021 17:47:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 822FF6157E;
+ Fri, 25 Jun 2021 17:47:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,169 +38,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cce38ab2-1a13-4edc-b88b-a248d8ef5fc8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624640996;
-  h=to:cc:references:from:subject:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=MqkJs+10dOjAdnTgVMK1Et60QKTOIcdAUzMWHRitG3A=;
-  b=X287Nsf+2iM71hYAFi5Ge1xoQwj6eEArrXsfm3RMVa07lBZzLYjpITRX
-   82TOg1Zmfz3erBS0n4Dd16VDk4Y7rmZSMnyQLDzFSvEDkpt3mPIsEFPms
-   kDLTlUwMbmMKpIUlrLZAkDEauZkgkPL+TLRF9z0d9PzCjWCXVnd3uAEOU
-   U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 0v8A0RUI265NXxX552RpXsXZyNEd5NTjWYD1t5olAYWEhG6GVGTleHVa0qvLh+YH+qMOmj8cZs
- NzhEA8k51jYwzbnurvgk3UUCrrmQ8V8BXDCUbU0TLI4ZuK6qony+u29rTAsSMbGI0S/0S9Uia4
- i3Iz/XxtQ9jndkkcClMYoimbh9Y/CwjaRp9IV3EFSf6ROvwAtXtUmRwM5EBCO+PUggXFerYs+S
- dfxOAxKDwFd2juxf52jlBaBdpI7m8YeJ23mvebi7ADJwjvfVRQTxHmrO0fcjdNJ1Q+lWJJI+jU
- ghs=
-X-SBRS: 5.1
-X-MesageID: 46990931
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:5HZMDqOG5mIegMBcTyP155DYdb4zR+YMi2TDiHofdfUFSKClfp
- 6V8cjztSWUtN4QMEtQ/OxoS5PwPk80kqQFnbX5XI3SITUO3VHHEGgM1/qb/9SNIVyYygcZ79
- YbT0EcMqyCMbEZt7eC3ODQKb9Jq7PmgcPY8Ns2jU0dKT2CA5sQnzuRYTzrdHGeKjM2Z6bRWK
- Dsnfau8FGbCAUqh4mAdzY4dtmGg+eOuIPtYBYACRJiwA6SjQmw4Lq/NxSDxB8RXx5G3L9nqA
- H+4k3Ez5Tml8v+5g7X1mfV4ZgTsNz9yuFbDMjJrsQOMD3jhiuheYwkcbyfuzIepv2p9T8R4Z
- fxiiZlG/42x2Laf2mzrxeo8RLnyiwS53jrzkLdqWf/oOTiLQhKSfZptMZ8SF/0+kAgtNZz3O
- ZgxGSCradaChvGgWDU+8XIbRd3jUC5yEBS0tL7t0YvFbf2VYUh6rD2pChuYdE99WPBmcAa+d
- BVfYThDK08SyLCU5ix1VMfsuBFXRwIb127qwY5y5SoO5U/pgEx86Ii/r1pop43zuN3d3B13Z
- WxDk1WrsA5ciY3V9MxOA5Te7r6NoTyKSi8eF56dm6Xap3vfUi98KLK3A==
-X-IronPort-AV: E=Sophos;i="5.83,299,1616472000"; 
-   d="scan'208";a="46990931"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bLXR4XcqgvNDjDWErYcOMg5UHMS35Jk5ouQK7OA0JT0zUetQ0+JcoUg/hBAym4sdo1sGPQgJq8VAoibMd9S03v0aHwK/fSSK6ziEdJYeMLHnREBoIh/rT5cjmVcMPQzC2mmRKed/xZHt5VAAyVZnsJYdZ+8997yBIqfDnQgXjUcRXaI2P/GLW7WleZomv0ZHzf81f5WEXbgkWS3pSsaRoFTChdh25dRApMASW5jUnJqcldwy421cKg1DOSEld8xjpLi217+XDpt2ACWCyEU4jv9ppWPOl1rL+2D6VrHevgDJk7e29fgvl0F0xaSPCoIZGNKTLDy4FjhKCQy01t1Oxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l2YarMUpOQxZRELYwNTJRw5dWIndo6T3fl3kMbrqguU=;
- b=fdPqxlTQmvAfBXsHcIudVr1RpLTLIlhrKSS4RPsKQ/WqtIzupxZ3lsuX2D+tNO66np8WkcGzK6eEMvZZbF08P8IfYOKJy0jv01LOXWpO7emaut95kYj5cpS26aYEKgsq00W7EsqyTJ/bncxDmzG6YZKB8hE65luMtkO8MDqtNs+2wjOBpMrnfnYXNa8oprc4tj9rdbucq+H1/AQQJTj925P3Hy0dYYkKWNjyPXH0G/35IT/x8f2Yif0GxsNG/hdgigeN+uDxOBaZ3WRL6WTh6GU3+j5oe5KIsfGYj2LQy9SENXQq7wHnMlqqQoG4heOH4k2tJzcTg93+S6VIKWXikg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l2YarMUpOQxZRELYwNTJRw5dWIndo6T3fl3kMbrqguU=;
- b=v39WxJ8t7AHh5hi6umMyiGEe9728nWB3Iimnp4Hak94XlqXFYDuhBMbGAli5Wf3gocuN3+2NJpRTU9gXbGB2P/xVOQB7dEDGUAaa/Y9qRdm93QbM53pPyZUiYLi2W42RQjSCiQKa1oepPqS9qa1A8x4ibjlLZlV51FCDf2WeHmQ=
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>
-References: <912fa390-f9e9-198a-9aee-39fdb9a28fcc@suse.com>
- <55875a26-7f1d-a6d9-9384-b03b3b2cb86d@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 03/12] libxenguest: short-circuit "all-dirty" handling
-Message-ID: <60be051f-7751-f15d-ae4d-2c7e9af82693@citrix.com>
-Date: Fri, 25 Jun 2021 18:02:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <55875a26-7f1d-a6d9-9384-b03b3b2cb86d@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: LNXP265CA0059.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:5d::23) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 351e135f-7696-44e6-b8c0-d18fb6054ae9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1624643239;
+	bh=nOVeSVwc3vAa+JVLD6a/lw25Pvfe+iUBs+PTwaec6tU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=SrXsxrd6S6BN8XcXzR1f3GVK+MewsoyV7ruAbm/7cSQ8e5C5wxjmCbI5YOQGnfag8
+	 BxRDNlGTsz2vDZgyGyKGdFGEpYWh+IH7SyHNbf8HPiqMJY5mQQ70cva3n4zz6YIeFF
+	 UKjTEGuU1zB/MQect/A/K7mjiMhy/6h24FguYuQ3RpRGdoptylyCfscaGuNJFmeK11
+	 /9iPE4+pQoAqoUCy72ECKEuIBlo4SnFJmjSTa+3zb1EwTHOL2HlOKffOATABjE7Yfy
+	 uWuTqsvg1rBB/8ArIj6UXV/RzvhS1ijPeKxiPEx/H9PICV2lMAipLgwLcCA03w/CkJ
+	 /dPvmk6bA1zRA==
+Date: Fri, 25 Jun 2021 10:47:18 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com
+Subject: Re: [PATCH] xen/arm: add forward_smc command line option for
+ debugging
+In-Reply-To: <b5ba0757-322f-a77a-2293-111b77b29d35@xen.org>
+Message-ID: <alpine.DEB.2.21.2106251033500.24906@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2106241749310.24906@sstabellini-ThinkPad-T480s> <b5ba0757-322f-a77a-2293-111b77b29d35@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8ef2a7f5-a508-4e39-cdfe-08d937fafc29
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3671:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB36717592933552DD70901238BA069@BYAPR03MB3671.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hLM+f7OgpStp+MUmWFeQj0w6Ll7rs5kYk6kYSkYeInGJ+ei2hGXqpdTkQulvYEZ/Os4aVOlhsox7ASxCrkdZLLjSS8eRUiacXItAAMK1Ef1Nwx686FLNQmk4oeUjFIPF2rxYSzDRRCv8E3dW5fWV6IJ/CqTHEMLRC7onzuJ9YDO7nrJ8jApa8jxVVmUd/tfBAL+XIhf8bPri/8/BizAKbrg0Qr25ra/iJ9FtUXE/Ae2T7bdFo2yA6oD3xaJZcQe8oje/Vd/4orxVApq2X04ZmHLruXL/isPhXHUiPAPmgs75+hZjRl2gQCcYvFeTVR7UBICEEny8W2KWl27+xPWOkhf2szBS6G1BTBGsmNpUX1KhDHt5NUMfrVtcz6hnk7XP3U3+GEn8EcTU/ubtMWZ+56mfMRlDTiam8CQ417pG89tTTDe2LufFr++fYe4YI8tNyKju02sTRJ0Ng46vf8obwiS9jypCn6FoYC01yIjgDPoFHOU7ykGHh/HUTojLmpVDT+rWLhmjmUq5GjE+/zvl89uqnLWMUrZ/D85noPiLo9iuq6bJrvfv8EfUpB2LSuZPERO/vBrcWSfsE5vA+50vYP0lerDemtvfaHhRQUdApmVTkEwmdNwOhrdhFcaMrQFo5V/aolCoX9z9Gi+zZGHwhFobBdR7vBVTX77vr7lp4cbC6awWtvaIux73zISZJgGNcQnjv/s/nGo08GclP7IdqY9zkpWRd1Pa6qaPkQ8qpjrUgPyJt1FvZmxz4AZWhlLT
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(346002)(366004)(376002)(136003)(26005)(478600001)(31696002)(16526019)(5660300002)(53546011)(4326008)(66476007)(31686004)(86362001)(66946007)(186003)(66556008)(16576012)(6666004)(110136005)(36756003)(6486002)(54906003)(2906002)(316002)(2616005)(38100700002)(8936002)(8676002)(956004)(14143004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWVCb3NTQUE5MkhGMUZOMHY3R1BkcGxVSStLTkdhRHVaSHVYdFhsbFVQcnFm?=
- =?utf-8?B?NUU2MWMxSVMybnAvOWVJeFdmMlpRQ1BFUGdEMGhVc2wzN0w5MDBvLzd4ODF5?=
- =?utf-8?B?dm9uQUp2dHNEeXlMYit5ZklKNklZNVVqVjU4dDlqbDlZT0xkekk4TVRVU1o2?=
- =?utf-8?B?SDkwalRadnJPVXZsU2ZFdDJvaDVRbHE1TTFPc05tRzMwM0VsVzlHaFpkcmtB?=
- =?utf-8?B?aytxalBEYTRhYlphN0RBM2djMlpEMGNyak0wRmpMYjlLSEMxMFhqMjV6Y3Q1?=
- =?utf-8?B?NCticHpVQ2Nqd1dVQlpLeWM2YjZ4T2xwM0xKVXNUUmRVN3ZXK3VOWGJNMXZK?=
- =?utf-8?B?Yk42ZStsQU9TZ25ENzdPVWJSWFlGYjQ1aVpZQmJneDJLZFhoTk9IQWQvSC8w?=
- =?utf-8?B?SDZVWWM0a2tnaGpTUjRrOWxucExKVFY3aFV6UEF1cWZWeVdzOGtRTnFEZmRL?=
- =?utf-8?B?ZzNxWng4aGZrN2dMT1dnWm5wYnVvZmlWZy80ZytpOHI0VXRhV3RPQndIT3Zr?=
- =?utf-8?B?a3I3UHdJMVJFaGxYNTREM3hCR24zL2UzWDhhWTVwWWpjN2dZeW1MMlpWbGpk?=
- =?utf-8?B?cExITUpZTTVLbXQrRjU5ck9na3VZLzdNZHp1UU1STytKNWFManZQaW9xeU5H?=
- =?utf-8?B?Rjcyck9mRE8vanlTbHZEbEdpS2xxcWRGR3hVSzkyWkE2dXZnbjgxZ091NVZJ?=
- =?utf-8?B?OUI2VUtHSm83cEViRXQ0VWV5ajZ6cjU2Y2U2Y3RlR0ViWHJWV0NEeHZ4Q2hx?=
- =?utf-8?B?c2FQVHk2SVNzRFgxbHkxNTNLYm9oR0w5bStTek14QU9BTVNOTnpNNjhLeEp5?=
- =?utf-8?B?SG1hSmZTdzJFUWlzZmxrL2xxZVpqb2UxR014cFIvL29vZVg5Z0kwN1UxMjY4?=
- =?utf-8?B?K011SlRSTjVKUHg3eWkyeEFMQnhBSFE3bGlUNnFsRFAxWnlxUTgyKzY0RjBU?=
- =?utf-8?B?UkNWQm44WElvYXFUa1hKNUpkTkJxczRXZ2tWa1k4aVpQamdhYzlaTTFWb1Bm?=
- =?utf-8?B?OXFaL0QvYWszVDBhQzJIbHZCYlRqaWZ2YUd5RVk0RHhTbmFLWXArQ3ZoVHdN?=
- =?utf-8?B?VmhlYytheWNDK21sLzl3NWwrT05haHlYemVVZ05LbWVDbDJOZGtFZjBKUWc5?=
- =?utf-8?B?YXkxbzhnMCtOUkVCZDYyc2VuSXgydEFQdmo0amcyU0dUbjBCMUFyaVo3Vms2?=
- =?utf-8?B?YWdwbWROTSsralBiYmhUSk9vd2pvUThZWk5KZGcwUjBJVXRLdGllTGM3VHJu?=
- =?utf-8?B?WmJTUE5qYWJOOWNrOWZXR3dJeFRYV2x1QTY0M3lZNkIxNEx6YU4wb0pWUU1y?=
- =?utf-8?B?MjNSNzZtOHBwYVdNQXdlOXkva3A0L0s3TW9sRi9mcHVjL05SV2xhenoxNTNU?=
- =?utf-8?B?d29YTW84QlpmVGNJSm0ydUd6UFI1VnRYek90Z3RJNm5WSlNwdkdJQlN4eXZS?=
- =?utf-8?B?R1dsRzlnUEo5c3hudHJZcC9nVWtvR1lBVnlyVmZGL3dvWHc1cGxGVlZXczhV?=
- =?utf-8?B?djd2aU5kRThoSk1lMWhtV1l3RnJTZzhNaEhGc1VoUUhVdGtXQ29qR2Z0aTNW?=
- =?utf-8?B?cG1kTElNMlA0OXNQSkN1Q29uMmRDellQVktLdzYzUW5GalRzYVNDeTJHcm5q?=
- =?utf-8?B?alRpZ1NTcmd4eDRTK2pOZ1daSWtvOFRNMnR6YzRWVWVBTER6UmZaZVlvZ1Rm?=
- =?utf-8?B?cHIyM0VmTllnbzd6MHVKNkZIMUdMcktPTlk1Um9GT240TnZwQ1hjQW9YRjgv?=
- =?utf-8?Q?5CjpEZJdH6MpZFqK68WB7y3wEEr5C16or8MZWzi?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ef2a7f5-a508-4e39-cdfe-08d937fafc29
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 17:02:16.2834
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EpfS6vqw1mNYfbKdtpU4/R6o3uNCCEXnsveL1BKBCsBm97tF/tMil6uNjjD9Cr/zzfQbQsYeqmcPjGN+VXdZqsURyqF+XuNjvtjNmDTHrhI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3671
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=US-ASCII
 
-On 25/06/2021 14:18, Jan Beulich wrote:
-> For one it is unnecessary to fill a perhaps large chunk of memory with
-> all ones. Add a new parameter to send_dirty_pages() for callers to
-> indicate so.
->
-> Then it is further unnecessary to allocate the dirty bitmap altogether
-> when all that's ever going to happen is a single all-dirty run.
+On Fri, 25 Jun 2021, Julien Grall wrote:
+> Hi,
+> 
+> On 25/06/2021 02:51, Stefano Stabellini wrote:
+> > It has become clear that an option to disable trapping SMC calls to Xen
+> > is very useful for debugging user issues.
+> >
+> > Instead of having to provide a
+> > patch to users every time, it would be great if we could just tell them
+> > to add forward_smc=true to the Xen command line.
+> 
+> I can understand this woud be useful to go a bit further in dom0 boot. But I
+> am quite sceptical on the idea of providing an option directly in Xen because:
+> 
+> 1) This breaks other SMC uses in Xen (optee, VM monitor...)
+> 2) There are no guarantee that the SMC call will not wreck Xen. To be clear, I
+> don't refer to a malicious OS here, but a normal OS that boot
+> 3) Very likely the next steps for the user (or better call it the developper
+> because that option should really not be used by a normal user) will be to
+> decide whether they should modify the kernel or implement a mediator in Xen.
+> 
+> > This option is obviously unsafe and unsecure and only meant for
+> > debugging. Make clear in the description that if you pass
+> > forward_smc=true then the system is not security supported.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > diff --git a/docs/misc/xen-command-line.pandoc
+> > b/docs/misc/xen-command-line.pandoc
+> > index 3ece83a427..0833fe80fc 100644
+> > --- a/docs/misc/xen-command-line.pandoc
+> > +++ b/docs/misc/xen-command-line.pandoc
+> > @@ -2501,6 +2501,16 @@ vwfi to `native` reduces irq latency significantly.
+> > It can also lead to
+> >   suboptimal scheduling decisions, but only when the system is
+> >   oversubscribed (i.e., in total there are more vCPUs than pCPUs).
+> >   +### forward_smc (arm)
+> > +> `= <boolean>`
+> > +
+> > +> Default: `false`
+> > +
+> > +If enabled, instead of trapping firmware SMC calls to Xen, allow SMC
+> > +calls from VMs directly to the firmware. This option is UNSAFE and it is
+> > +only meant for debugging. Systems with forward_smc=true are not security
+> > +supported.
+> > +
+> >   ### watchdog (x86)
+> >   > `= force | <boolean>`
+> >   diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> > index e7384381cc..0580ac5762 100644
+> > --- a/xen/arch/arm/traps.c
+> > +++ b/xen/arch/arm/traps.c
+> > @@ -95,11 +95,15 @@ static int __init parse_vwfi(const char *s)
+> >   }
+> >   custom_param("vwfi", parse_vwfi);
+> >   +static bool forward_smc = false;
+> > +boolean_param("forward_smc", forward_smc);
+> > +
+> >   register_t get_default_hcr_flags(void)
+> >   {
+> >       return  (HCR_PTW|HCR_BSU_INNER|HCR_AMO|HCR_IMO|HCR_FMO|HCR_VM|
+> >                (vwfi != NATIVE ? (HCR_TWI|HCR_TWE) : 0) |
+> > -             HCR_TID3|HCR_TSC|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
+> > +             (forward_smc ? 0 : HCR_TSC) |
+> > +             HCR_TID3|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
+> 
+> A system wide option to turn off SMC trapping is a no-go because this would
+> only be usable for debugging dom0 and not a guest.
+> 
+> So at the minimum this should be a per-domain option. Also, I think we still
+> want to integrate with the rest of the SMC users. So Xen should still trap the
+> SMC and the forward should happen in vsmccc_handle_call().
+> 
+> This would cover my first point.
 
-The allocation is deliberate, and does want to stay where it is IMO.
+Yes, you are totally right. I thought about it this morning as well.
+This patch would break even PSCI :-(
 
-Single all-dirty runs are a debugging technique only.=C2=A0 All production
-cases are live, and you don't want to fail midway through because a
-late, large, memory allocation failed.
+It would be best implemented in platform_smc as forward_to_fw (see
+xen/arch/arm/platforms/xilinx-zynqmp-eemi.c:forward_to_fw).
 
 
-As for the send_{dirty,all}_pages() split, that was deliberate to keep
-the logic simple.=C2=A0 The logdirty bitmap is tiny (in comparison to other
-structures) outside of artificial cases like this.
+> For the second and third point, I still like
+> to understand how this is going to help the developer to fully port the
+> board/OS to Xen with this option disabled?
 
-What you've done with this change is rendered send_all_pages()
-redundant, but not actually taken it out of the code, thereby
-complicating it.=C2=A0 At the moment, this doesn't look to be an improvemen=
-t.
+This is meant to help with bug triage only. There are a number of bugs
+that can happen if certain platform SMCs are intercerpted by Xen instead
+of being forwarded to the hardware. I found myself having to provide a
+patch to forward_to_fw all platform SMCs as a first test to
+triage bugs a few times recently. It is never a fix, only a way to
+understand the next step of debugging. Also Alex stumbled across
+something similar on a non-Xilinx board (MacchiatoBin) so I thought it
+was time for a better debugging option.
 
-> @@ -807,8 +798,11 @@ static int setup(struct xc_sr_context *c
->      if ( rc )
->          goto err;
-> =20
-> -    dirty_bitmap =3D xc_hypercall_buffer_alloc_pages(
-> -        xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_size)));
-> +    dirty_bitmap =3D ctx->save.live || ctx->stream_type !=3D XC_STREAM_P=
-LAIN
-> +        ? xc_hypercall_buffer_alloc_pages(
-> +              xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_size)=
-))
-> +        : (void *)-1L;
-
-This is a pointer loaded with a timebomb, which doesn't trigger NULL
-pointer checks, and for which {set,clear}_bit(dirty_bitmap, large_pfn)
-won't fault and will instead corrupt random areas of the address space.
-
-~Andrew
-
+I think for debugging purposes it would be sufficient if all platform
+SMCs were forward_to_fw from all domains. Of course it is totally
+unsafe, but it is just for debugging. But I can also see the value in
+having a command line option to forward_to_fw all platform SMCs from
+dom0 only and maybe a separate patch later to add a per-domain option to
+forward_to_fw platform SMCs for specific domains if needed. That would
+be safer and more flexible but a little more work.
 
