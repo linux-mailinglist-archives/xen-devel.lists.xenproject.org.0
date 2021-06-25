@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06C93B3CCB
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 08:43:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147053.270790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B2B13B3CCE
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jun 2021 08:45:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147056.270801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwfYF-0002yr-IV; Fri, 25 Jun 2021 06:42:55 +0000
+	id 1lwfaj-0003ZU-VU; Fri, 25 Jun 2021 06:45:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147053.270790; Fri, 25 Jun 2021 06:42:55 +0000
+Received: by outflank-mailman (output) from mailman id 147056.270801; Fri, 25 Jun 2021 06:45:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwfYF-0002vT-Em; Fri, 25 Jun 2021 06:42:55 +0000
-Received: by outflank-mailman (input) for mailman id 147053;
- Fri, 25 Jun 2021 06:42:54 +0000
+	id 1lwfaj-0003Xf-SB; Fri, 25 Jun 2021 06:45:29 +0000
+Received: by outflank-mailman (input) for mailman id 147056;
+ Fri, 25 Jun 2021 06:45:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lwfYE-0002vN-P0
- for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 06:42:54 +0000
+ (envelope-from <julien@xen.org>) id 1lwfai-0003XJ-7v
+ for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 06:45:28 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lwfYE-0004Di-Hs; Fri, 25 Jun 2021 06:42:54 +0000
-Received: from [54.239.6.184] (helo=a483e7b01a66.ant.amazon.com)
+ id 1lwfah-0004HU-6i; Fri, 25 Jun 2021 06:45:27 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1lwfYE-0005Mz-A7; Fri, 25 Jun 2021 06:42:54 +0000
+ id 1lwfag-0005fZ-Th; Fri, 25 Jun 2021 06:45:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +41,66 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=BC3HwrowlnMRI5KWlGcyY94VD2SmNqiuRgOC2C/HonI=; b=xjA1Qv1OU9vt7RGWjBgaRgzAq6
-	mey5IRsEwsfo/+OKx+4QejxFz0d76ukdNvNddmdyXLef4q2VOvbEwj0tYmGCx8ppJAGS9IhFC3rpK
-	iXwqVeNiTfbywME6mHzqtxAbXA0uiPXvISARj8qNSg+WlVWAX6GghTrNiN7mYGtQ1Pak=;
-Subject: Re: [PATCH] xen/arm: add forward_smc command line option for
- debugging
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com
-References: <alpine.DEB.2.21.2106241749310.24906@sstabellini-ThinkPad-T480s>
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=dViz5e+lVVEmf0UFlzwNGbarIpZltjnqcKJ8UbE/T+Q=; b=x++TpBpP/R1rEm4Ycr/imAuuW5
+	wLwXKqGPSDBAOAvkTTxx8z/vPWXwgTEMQUgS5aLO4oV9gq5ZD1kubB9vhRxWM4s93P2t0skJwU8QI
+	/Ikc1j5lOZ2uA+dTEXyOe+staFwP/tfIR1+rFywVGnBDWRG90O68mzza89sOtD56EXcc=;
 From: Julien Grall <julien@xen.org>
-Message-ID: <b5ba0757-322f-a77a-2293-111b77b29d35@xen.org>
-Date: Fri, 25 Jun 2021 08:42:51 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2106241749310.24906@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: raphning@amazon.co.uk,
+	doebel@amazon.de,
+	Julien Grall <jgrall@amazon.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH] tools/xenstored: Correctly read the requests header from the stream
+Date: Fri, 25 Jun 2021 07:45:22 +0100
+Message-Id: <20210625064522.24919-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-Hi,
+From: Julien Grall <jgrall@amazon.com>
 
-On 25/06/2021 02:51, Stefano Stabellini wrote:
-> It has become clear that an option to disable trapping SMC calls to Xen
-> is very useful for debugging user issues.
- >
-> Instead of having to provide a
-> patch to users every time, it would be great if we could just tell them
-> to add forward_smc=true to the Xen command line.
+Commit c0fe360f42 ("tools/xenstored: Extend restore code to handle
+multiple input buffer") extend the read_buffered_state() to support
+multiple input buffers. Unfortunately, the commit didn't go far
+enough and still used sc->data (start of the buffers) for retrieving
+the header. This would lead to read the wrong headers for second and
+follow-up commands.
 
-I can understand this woud be useful to go a bit further in dom0 boot. 
-But I am quite sceptical on the idea of providing an option directly in 
-Xen because:
+Use data in place for sc->data for the source of the memcpy()s.
 
-1) This breaks other SMC uses in Xen (optee, VM monitor...)
-2) There are no guarantee that the SMC call will not wreck Xen. To be 
-clear, I don't refer to a malicious OS here, but a normal OS that boot
-3) Very likely the next steps for the user (or better call it the 
-developper because that option should really not be used by a normal 
-user) will be to decide whether they should modify the kernel or 
-implement a mediator in Xen.
+Fixes: c0fe360f42 ("tools/xenstored: Extend restore code to handle multiple input buffer")
+Reported-by: Raphael Ning <raphning@amazon.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-> This option is obviously unsafe and unsecure and only meant for
-> debugging. Make clear in the description that if you pass
-> forward_smc=true then the system is not security supported.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> 
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index 3ece83a427..0833fe80fc 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -2501,6 +2501,16 @@ vwfi to `native` reduces irq latency significantly. It can also lead to
->   suboptimal scheduling decisions, but only when the system is
->   oversubscribed (i.e., in total there are more vCPUs than pCPUs).
->   
-> +### forward_smc (arm)
-> +> `= <boolean>`
-> +
-> +> Default: `false`
-> +
-> +If enabled, instead of trapping firmware SMC calls to Xen, allow SMC
-> +calls from VMs directly to the firmware. This option is UNSAFE and it is
-> +only meant for debugging. Systems with forward_smc=true are not security
-> +supported.
-> +
->   ### watchdog (x86)
->   > `= force | <boolean>`
->   
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index e7384381cc..0580ac5762 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -95,11 +95,15 @@ static int __init parse_vwfi(const char *s)
->   }
->   custom_param("vwfi", parse_vwfi);
->   
-> +static bool forward_smc = false;
-> +boolean_param("forward_smc", forward_smc);
-> +
->   register_t get_default_hcr_flags(void)
->   {
->       return  (HCR_PTW|HCR_BSU_INNER|HCR_AMO|HCR_IMO|HCR_FMO|HCR_VM|
->                (vwfi != NATIVE ? (HCR_TWI|HCR_TWE) : 0) |
-> -             HCR_TID3|HCR_TSC|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
-> +             (forward_smc ? 0 : HCR_TSC) |
-> +             HCR_TID3|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
+----
 
-A system wide option to turn off SMC trapping is a no-go because this 
-would only be usable for debugging dom0 and not a guest.
+I unfortunately didn't spot the issue because I forgot to check whether
+the REQ ID of the responses were unique.
+---
+ tools/xenstore/xenstored_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-So at the minimum this should be a per-domain option. Also, I think we 
-still want to integrate with the rest of the SMC users. So Xen should 
-still trap the SMC and the forward should happen in vsmccc_handle_call().
-
-This would cover my first point. For the second and third point, I still 
-like to understand how this is going to help the developer to fully port 
-the board/OS to Xen with this option disabled?
-
-Cheers,
-
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index cf7297a96cb1..16c856730c55 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -2717,11 +2717,11 @@ void read_state_buffered_data(const void *ctx, struct connection *conn,
+ 		len = sc->data_in_len - (data - sc->data);
+ 		if (len < sizeof(bdata->hdr)) {
+ 			bdata->inhdr = true;
+-			memcpy(&bdata->hdr, sc->data, len);
++			memcpy(&bdata->hdr, data, len);
+ 			bdata->used = len;
+ 		} else {
+ 			bdata->inhdr = false;
+-			memcpy(&bdata->hdr, sc->data, sizeof(bdata->hdr));
++			memcpy(&bdata->hdr, data, sizeof(bdata->hdr));
+ 			if (bdata->hdr.msg.len <= DEFAULT_BUFFER_SIZE)
+ 				bdata->buffer = bdata->default_buffer;
+ 			else
 -- 
-Julien Grall
+2.17.1
+
 
