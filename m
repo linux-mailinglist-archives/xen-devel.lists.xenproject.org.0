@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB68C3B4A5D
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Jun 2021 00:01:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147435.271779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D8743B4A63
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Jun 2021 00:03:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147439.271789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwtsd-0000Zh-Ae; Fri, 25 Jun 2021 22:00:55 +0000
+	id 1lwtuy-0001CY-Nx; Fri, 25 Jun 2021 22:03:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147435.271779; Fri, 25 Jun 2021 22:00:55 +0000
+Received: by outflank-mailman (output) from mailman id 147439.271789; Fri, 25 Jun 2021 22:03:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lwtsd-0000WU-7K; Fri, 25 Jun 2021 22:00:55 +0000
-Received: by outflank-mailman (input) for mailman id 147435;
- Fri, 25 Jun 2021 22:00:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l36E=LT=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1lwtsb-0000WO-V2
- for xen-devel@lists.xenproject.org; Fri, 25 Jun 2021 22:00:53 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d4c80d5c-e5d2-4ac5-95f9-713034929a81;
- Fri, 25 Jun 2021 22:00:53 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9766461613;
- Fri, 25 Jun 2021 22:00:52 +0000 (UTC)
+	id 1lwtuy-0001A7-KU; Fri, 25 Jun 2021 22:03:20 +0000
+Received: by outflank-mailman (input) for mailman id 147439;
+ Fri, 25 Jun 2021 22:03:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lwtuw-00019u-W3; Fri, 25 Jun 2021 22:03:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lwtuw-0004vK-QJ; Fri, 25 Jun 2021 22:03:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lwtuw-0003sB-J0; Fri, 25 Jun 2021 22:03:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lwtuw-0003Wd-IY; Fri, 25 Jun 2021 22:03:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,74 +42,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4c80d5c-e5d2-4ac5-95f9-713034929a81
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1624658452;
-	bh=yyBnq+tOA8an6SOV7Jwguf55yjHun4npbbcJ7i3Wqp4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aiN5qkoQFOqoqiG4h/rMfdEE8q+TcHeX67n4DoJSdOiSvL/abXc00LxU7fLFBVDky
-	 VQ+JqFAV9JZGw4LYIGrlaIrIj+qYvzWkxYs08NBfkSsbnCef+qQwDWrURCwpe6OT2E
-	 o66DTUv4GqRr2FSRaTQkFkWdxgwKz7CtJlvHwEy4bVK+Id1QLGwMw6oeUbGN/G9pUi
-	 gSOMlvx+pgeta1ErPY6+hVrTjPZta7LHhAsLmEthLAdIo07obmNHAEysGKd0woAyF/
-	 k8lWbSQWwoTRo3iTRztXQSlTtmEohhg5JywOowJEXHc9B/8hJp0YZjzIseDhE8UcxR
-	 M86Lit7efG3Ig==
-Date: Fri, 25 Jun 2021 15:00:51 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: smmuv1: Set privileged attr to 'default'
-In-Reply-To: <c6c5e3deb97200baefb75d06ec934d2c6ee5eb62.1624546852.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2106251500400.24906@sstabellini-ThinkPad-T480s>
-References: <612e7f61c19e60019bb7829888342fda95fd36be.1624546532.git.rahul.singh@arm.com> <c6c5e3deb97200baefb75d06ec934d2c6ee5eb62.1624546852.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tEH7yAhY+FJS0oKVeiT2T/kPhxROUFzLKSzugn+KkW4=; b=XUhY2YRe9lsahJ7gFR6OQ/jLDW
+	06N1bBgVCCXSzHs4b5SJtD0SIuPQwBYmkxVFKlTYI53jKDZ17uXv01NhZ1bst6vRUjeLzpCTm+931
+	A7NHyVT79TPzWFiLKNDzVAP1tRhdorlfe5AcqwLL3lBmrMHQWasaTe+/IJRJexViNv5M=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163055-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 163055: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=17143c4837393d42c484b42d1789b85b2cff1aaf
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 25 Jun 2021 22:03:18 +0000
 
-On Fri, 25 Jun 2021, Rahul Singh wrote:
-> Backport commit e19898077cfb642fe151ba22981e795c74d9e114
-> "iommu/arm-smmu: Set privileged attribute to 'default' instead of
-> 'unprivileged'"
-> 
-> Original commit message:
->     Currently the driver sets all the device transactions privileges
->     to UNPRIVILEGED, but there are cases where the iommu masters wants
->     to isolate privileged supervisor and unprivileged user.
->     So don't override the privileged setting to unprivileged, instead
->     set it to default as incoming and let it be controlled by the
->     pagetable settings.
-> 
->     Acked-by: Will Deacon <will.deacon@arm.com>
->     Signed-off-by: Sricharan R <sricharan@codeaurora.org>
->     Signed-off-by: Will Deacon <will.deacon@arm.com>
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+flight 163055 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163055/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+
+version targeted for testing:
+ ovmf                 17143c4837393d42c484b42d1789b85b2cff1aaf
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+
+Last test of basis   162359  2021-06-04 03:40:08 Z   21 days
+Failing since        162368  2021-06-04 15:42:59 Z   21 days   49 attempts
+Testing same since   163028  2021-06-25 07:30:32 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Daoxiang Li <daoxiang.li@intel.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Maurice Ma <maurice.ma@intel.com>
+  Ni, Ray <ray.ni@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sumana Venur <sumana.venur@intel.com>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> ---
->  xen/drivers/passthrough/arm/smmu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-> index 1a68c2ab3b..d9a3a0cbf6 100644
-> --- a/xen/drivers/passthrough/arm/smmu.c
-> +++ b/xen/drivers/passthrough/arm/smmu.c
-> @@ -1566,7 +1566,7 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
->  			continue;
->  
->  		s2cr[idx].type = type ;
-> -		s2cr[idx].privcfg = S2CR_PRIVCFG_UNPRIV;
-> +		s2cr[idx].privcfg = S2CR_PRIVCFG_DEFAULT;
->  		s2cr[idx].cbndx = cbndx;
->  		arm_smmu_write_s2cr(smmu, idx);
->  	}
-> -- 
-> 2.17.1
-> 
+Not pushing.
+
+(No revision log; it would be 2647 lines long.)
 
