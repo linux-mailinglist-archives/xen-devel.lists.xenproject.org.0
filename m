@@ -2,35 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785B93B5A8C
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 10:39:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147745.272638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276BD3B5AAE
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 10:47:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147749.272652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxmmw-0002WZ-7M; Mon, 28 Jun 2021 08:38:42 +0000
+	id 1lxmvF-0003x9-3S; Mon, 28 Jun 2021 08:47:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147745.272638; Mon, 28 Jun 2021 08:38:42 +0000
+Received: by outflank-mailman (output) from mailman id 147749.272652; Mon, 28 Jun 2021 08:47:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxmmw-0002Tq-3Z; Mon, 28 Jun 2021 08:38:42 +0000
-Received: by outflank-mailman (input) for mailman id 147745;
- Mon, 28 Jun 2021 08:38:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1lxmvF-0003uW-08; Mon, 28 Jun 2021 08:47:17 +0000
+Received: by outflank-mailman (input) for mailman id 147749;
+ Mon, 28 Jun 2021 08:47:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lxmmt-0002Tg-SD; Mon, 28 Jun 2021 08:38:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lxmmt-00059h-M7; Mon, 28 Jun 2021 08:38:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lxmmt-0008AX-AQ; Mon, 28 Jun 2021 08:38:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lxmmt-0000vr-9v; Mon, 28 Jun 2021 08:38:39 +0000
+ (envelope-from <SRS0=T4Tg=LW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1lxmvD-0003uQ-PV
+ for xen-devel@lists.xenproject.org; Mon, 28 Jun 2021 08:47:15 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 37800dcc-adce-4e56-8146-34f7112a418e;
+ Mon, 28 Jun 2021 08:47:14 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2053.outbound.protection.outlook.com [104.47.14.53]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-7-gu4uCluIPFGyi0N5Acz6qg-2;
+ Mon, 28 Jun 2021 10:47:12 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB6864.eurprd04.prod.outlook.com (2603:10a6:803:138::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Mon, 28 Jun
+ 2021 08:47:08 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4264.026; Mon, 28 Jun 2021
+ 08:47:08 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR0P264CA0130.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1a::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4264.18 via Frontend Transport; Mon, 28 Jun 2021 08:47:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,284 +53,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eYPSfUejT7H/Nmm1nx/6fwZXFRvTAaI33VPWO6k4fYg=; b=3ZsoYuzdh+wqjhR/VgNBExTl9V
-	W/flag9kYYvllt50cgbymvIxmlDI18CMmHQ6TtBqLhkXId0euKizq/+X9BLDGlS7s5SgC4XyfS1y2
-	qMpgQ+3Q4jDDZOmol7caTrgiWc4nIRAWdEOVK6oUPLgU35lKh2XWw9mktOK2nwuGaXik=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163164-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 37800dcc-adce-4e56-8146-34f7112a418e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1624870033;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gG9mfNJ2KY2KWty3JiJ8dwc56C7sjhBo7TdmiXTQJic=;
+	b=WXKM4tTAZ6MDCVpadbQY3iXeApxdgfRCz6FFtzOTEI40Wmko7JSUO2keM+nO/HlEoEqBDy
+	66964BCy6adLCbdFMzPQtpi8JlhbDDNJxtC95SoYMS8zoWn9OYgPX+0yhp33PUihLYOA4K
+	fr4iGbak++d/wvpbzEwMhOGQqsLXrD8=
+X-MC-Unique: gu4uCluIPFGyi0N5Acz6qg-2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E296JI+XHtI4dtk9eCAcQXRz3qNGM1zaM7b/LA7TpYkEi8MUkKGDP9AbF0BIBZYZhL6lIbyKeEcIKn9/9syPclweEoDsL9FjJFcPwOuhO1ZnMEVTCYLR2ys0ji4med5/TpoKQI+ncBjITXmt930ZbCcRm3FbQ39FknaCvuRb71GbTTAxHsS2yPUGAwO4JUvo7PEh1iLQfNGRy97IaPi6roExBQMATMRoMqY6YwlOttghUIRKTwvjEeYa/sHEaLwljsBA0CEKwQ0kJpu3HIe6jasHXOkTsFaXOSxsfBlAC4nFdoBA2j+B02cfuuh5nea0F8eYXp47hlJAF3P5AoGBqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SZBBbGPOcR6TTLv+d6owWAOPtBvGPLTU0IZO4pqfTLs=;
+ b=l3J4f69GQtoBH2jsC/YfnmEQdvPKHEz9dRfe5cZFRntQlLAAK0dMVLYV9NvFA55XHZ4mEyganAGlyKH3ISqE4TDZSdwZsDZKuRTJT2BOXZ9vELJN6NwzGCrEJBlgozQX+i/s7YOTexh3fVP4s/+sKEU0/uXNzc185hQBFpZOwbpB8R0KjQkoszLy/sYGOkGCm3nMlDOwQqmFHFyKXg2/w0GmOdwaFkva4NMhUhT6M7hypPYVllr3ncZIf2ZRp8Eo3d1G+0CI4YjoM+tt4EeLcNJnCfGOOD4Rfi5ZNMVOKMWkmRHnxl2RZmfAXTIi3eFk1AH4H85rlJzu0iHUN4q39A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 04/12] libxenguest: avoid allocating unused deferred-pages
+ bitmap
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <912fa390-f9e9-198a-9aee-39fdb9a28fcc@suse.com>
+ <61ff4f26-a9cc-d123-98a0-be6c23f21e9b@suse.com>
+ <44825600-c27b-34ac-01b2-1ffb5e0bf0be@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3aea7472-6c1d-f786-db5f-ead60eb03240@suse.com>
+Date: Mon, 28 Jun 2021 10:47:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <44825600-c27b-34ac-01b2-1ffb5e0bf0be@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [37.24.206.209]
+X-ClientProxiedBy: PR0P264CA0130.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1a::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Subject: [libvirt test] 163164: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=7c08141f906e20e730c4b6407bc638e743deea48
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 28 Jun 2021 08:38:39 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1db7e232-a450-4ff4-853f-08d93a115042
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6864:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB6864A72C8C42342DF965AFD2B3039@VI1PR04MB6864.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	WWQhcLw4+GIxILx8saGcvYkxLcqJnVV0lLIYgguqmmGMp67R2JDuizBxnBrCd6bH6SO2TqmPIiHXJIiB+mDLO1X0tyeLSpk5ugQQp69x81iLC4q+epP8BjGkJH1eo2nb/r3paShaYDT7og2KkQOHVmlBfevUQcjRW7/5ZyLFhMO4W4A2xViFiHuPgMXwn2zqibuABHcj8UPL6iHtIp2vZi/yNjoEAp83SofPmnS/BkuF5AyPCpJ89eDnjMZ3K0mn6+SFqB7Q/3Nnb84+aFG93aLCdV5lFqs5x8XHvxvnibzju7QYnIAJAW+9fkqqHNlPYehLuS/E29S81dzQssV5VHCSf40Ubm4yyemLPXmQbsecbwTex7RRD7c2V2Ovo4ok6WZZ8lAI3tJ2E4DYJFna8tp1HiNV+hCYi3E01dLacPMGgXJrMB48hhLlfE5b1CkuFGFKFil6LIvp+viMmkVLvGPSP02yZ523lPehbXjPk+L3rsMK+J7FhYUimbbkqAeqOU82zkwG642MMmB9gzeggu3MiAOoUseSeNnKAjU5vQowrzpevss/mPaRF0fpENnFcZ6z47M4C/ysX6GThG4h+zeixIt1hLRNjPQDdiaf5RlqCXe74Ndf8xFQzSIIU5dG23GbqkmzUbO8P9tX/yK7Of6ba3OPoyJ/ZVvJUEotTcep0Z3mrh33S0vyWZJBNHhNptGeCKrXuMtA57+Byqg6pQu+vWHI2SwWJU44i6RGs7A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(396003)(366004)(136003)(346002)(376002)(6486002)(54906003)(38100700002)(2906002)(66476007)(66556008)(86362001)(66946007)(316002)(2616005)(5660300002)(16576012)(6916009)(26005)(478600001)(31696002)(8676002)(8936002)(83380400001)(186003)(16526019)(36756003)(4326008)(31686004)(956004)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?E3NeHoyUKlUZLP2Kx/FRdLP8dHu31i24/RD3/nDVOsnQaP1UV8P51oOTSHJg?=
+ =?us-ascii?Q?qotPWSaCyLekPFrHerQhNYby//d3Ec0eMRYCIzEy+ZVy+K7WlSf1DsY4F+nj?=
+ =?us-ascii?Q?H0e+Xjl4xBId5lgQcNNcQJaw8PeDZorJFpQ1lCf4qWWrH3g/SCkr0KBTdxV8?=
+ =?us-ascii?Q?Acmw/7PCWOq+yY2kPYzuL6SCc+L0jLmCOmiTtlsN+K/M3XObQKq1xTcX/Gh0?=
+ =?us-ascii?Q?CLzdZVVIVop9jvHcV22Cbqoc+D4yjSil0v3GO0OOUfkiDoO4qNNUiDvvEZY4?=
+ =?us-ascii?Q?IREd5gmAYbZlKiJwIGcRsMHBWQsZCyJgqA+fLEIF1sD2ndi23g7cfzhv0PvN?=
+ =?us-ascii?Q?pVCDKJRPCuhseRjOz44r+GB6+SukiJEgCKQRWA6MmHaSah6NpPmTz+4piTW7?=
+ =?us-ascii?Q?TPKUpUp8fOHm4lvnqgGRFdt6kQe0GdMATuXJPTPvqL4dZhpOR5rAlkonq1Xs?=
+ =?us-ascii?Q?r72Bpg3698hvtP8U/Woa54jeT9LYnHcCwvMiLsn6P9s3AdDfDvAcX+vBUmwD?=
+ =?us-ascii?Q?XViUjNEtO5gaHqMUPsKwkqLQbfvNfwU/gi2TFMHoQMkbQrEl+d8/shauKs5C?=
+ =?us-ascii?Q?+itjnmd3AFENd3vyl5VEjmjvGe/AUc4HpPJO4TcKHZDPmFut/wzui7UDnCP7?=
+ =?us-ascii?Q?O8hpxO0FKHt1SyeCD3rhLTV3iU+G7yPQ73PPZyxYpz0H5/IvXgk2IkAl++fi?=
+ =?us-ascii?Q?gwf4b+I4YPKyTRofYGCK5GQO7tIoLd6vn1ZtNrurpU4+i6Q1f52aL46uQvi0?=
+ =?us-ascii?Q?sw15bKQXYWfnBmRMFP16bmhxYYqaSNAV/dkbpssmHNXROnlcQeFg33ngNsh3?=
+ =?us-ascii?Q?xhcIX9947+8FozTrdhJt6v+CLsqrjpFagp7/zx6ZTVVygzQfQb0QoZgkKwYV?=
+ =?us-ascii?Q?S3yMODc06W9eIxe067W/W0eqAFpUtbwkmIRNZWNbJlv3rxsta0YhDVIXx4HU?=
+ =?us-ascii?Q?gxio37f9oA6NKyXjjqUQrK+uM1ScBCgNRQDNCgsm5zuzP8b+iDaFCzQVG6e4?=
+ =?us-ascii?Q?wb1Jv4D/01On5N1+UqUNglONcbkC0+NJig+oRAwtJXkhFBeN3nz++mFognwX?=
+ =?us-ascii?Q?p/TgyDij3hWMqSia870sBm9abHRM2nXupU0apf0fLG9IFaji1JR6+8ynHtXg?=
+ =?us-ascii?Q?Qn9f46LTo1P8UOfizb035aKg64Q0NKIYsXtmvRAMJsTRNjZ7fhslgR3FWT+g?=
+ =?us-ascii?Q?MbYPBq5t01vGqXfbPi+Q4b/nwjLtEQpLDMkhelth4k++HU17hdqR/775AjhS?=
+ =?us-ascii?Q?WVIVJkup/+NeJYfKdeLihVMkOqQNW6Vc06Cl4wRER/F4np7ZL80A2EudJAlZ?=
+ =?us-ascii?Q?yAvsJo8+PH5xnsZj4PLQUNqm?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1db7e232-a450-4ff4-853f-08d93a115042
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2021 08:47:08.5837
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E8/RGnYqsUq34LXOoWY1rUp7txczqig6P9aJK+CdvpJ642bjY69T/71vtFR4Fc6rIQYZnNUrhjsJgZclAQ8njg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6864
 
-flight 163164 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163164/
+On 25.06.2021 20:08, Andrew Cooper wrote:
+> On 25/06/2021 14:19, Jan Beulich wrote:
+>> Like for the dirty bitmap, it is unnecessary to allocate the deferred-
+>> pages bitmap when all that's ever going to happen is a single all-dirty
+>> run.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> The clearing of the bitmap at the end of suspend_and_send_dirty() also
+>> looks unnecessary - am I overlooking anything?
+>=20
+> Yes. Remus and COLO.=C2=A0 You don't want accumulate successfully-sent
+> deferred pages over checkpoints, otherwise you'll eventually be sending
+> the entire VM every checkpoint.
 
-Regressions :-(
+Oh, so what I've really missed is save() being a loop over these
+functions.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+> Answering out of patch order...
+>> @@ -791,24 +797,31 @@ static int setup(struct xc_sr_context *c
+>>  {
+>>      xc_interface *xch =3D ctx->xch;
+>>      int rc;
+>> -    DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
+>> -                                    &ctx->save.dirty_bitmap_hbuf);
+>> =20
+>>      rc =3D ctx->save.ops.setup(ctx);
+>>      if ( rc )
+>>          goto err;
+>> =20
+>> -    dirty_bitmap =3D ctx->save.live || ctx->stream_type !=3D XC_STREAM_=
+PLAIN
+>> -        ? xc_hypercall_buffer_alloc_pages(
+>> -              xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_size=
+)))
+>> -        : (void *)-1L;
+>> +    if ( ctx->save.live || ctx->stream_type !=3D XC_STREAM_PLAIN )
+>> +    {
+>> +        DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
+>> +                                        &ctx->save.dirty_bitmap_hbuf);
+>> +
+>> +        dirty_bitmap =3D
+>> +            xc_hypercall_buffer_alloc_pages(
+>> +                xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_si=
+ze)));
+>> +        ctx->save.deferred_pages =3D bitmap_alloc(ctx->save.p2m_size);
+>> +
+>> +        if ( !dirty_bitmap || !ctx->save.deferred_pages )
+>> +            goto enomem;
+>> +    }
+>=20
+> So this is better than the previous patch.=C2=A0 At least we've got a cle=
+an
+> NULL pointer now.
+>=20
+> I could in principle get on board with the optimisation, except its not
+> safe (see below).
+>=20
+>> --- a/tools/libs/guest/xg_sr_save.c
+>> +++ b/tools/libs/guest/xg_sr_save.c
+>> @@ -130,7 +130,7 @@ static int write_batch(struct xc_sr_cont
+>>                                                        ctx->save.batch_p=
+fns[i]);
+>> =20
+>>          /* Likely a ballooned page. */
+>> -        if ( mfns[i] =3D=3D INVALID_MFN )
+>> +        if ( mfns[i] =3D=3D INVALID_MFN && ctx->save.deferred_pages )
+>>          {
+>>              set_bit(ctx->save.batch_pfns[i], ctx->save.deferred_pages);
+>>              ++ctx->save.nr_deferred_pages;
+>> @@ -196,8 +196,12 @@ static int write_batch(struct xc_sr_cont
+>>              {
+>>                  if ( rc =3D=3D -1 && errno =3D=3D EAGAIN )
+>>                  {
+>> -                    set_bit(ctx->save.batch_pfns[i], ctx->save.deferred=
+_pages);
+>> -                    ++ctx->save.nr_deferred_pages;
+>> +                    if ( ctx->save.deferred_pages )
+>> +                    {
+>> +                        set_bit(ctx->save.batch_pfns[i],
+>> +                                ctx->save.deferred_pages);
+>> +                        ++ctx->save.nr_deferred_pages;
+>> +                    }
+>=20
+> These two blocks are the only two which modify deferred_pages.
+>=20
+> It occurs to me that this means deferred_pages is PV-only, because of
+> the stub implementations of x86_hvm_pfn_to_gfn() and
+> x86_hvm_normalise_page().=C2=A0 Furthermore, this is likely to be true fo=
+r
+> any HVM-like domains even on other architectures.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+IOW are you suggesting to also avoid allocation for HVM live
+migration, thus effectively making assumptions on the two hooks
+being just stubs in that case, which can't ever fail?
 
-version targeted for testing:
- libvirt              7c08141f906e20e730c4b6407bc638e743deea48
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+> If these instead were hard errors when !deferred_pages, then that at
+> least get the logic into an acceptable state.=C2=A0
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  353 days
-Failing since        151818  2020-07-11 04:18:52 Z  352 days  344 attempts
-Testing same since   163111  2021-06-26 04:20:02 Z    2 days    3 attempts
+But the goal here isn't to change the logic, just to avoid allocating
+memory that's effectively never used. What you suggest could be a
+separate patch, yes, but I'm afraid I'm not feeling confident enough
+in understanding why you think this needs changing, so I'd prefer to
+leave such a change to you. (If I was to apply some guessing to what
+you may mean, I could deduce that you think ->nr_deferred_pages may
+still need maintaining, with it being non-zero at the end of the last
+step causing migration to fail. But there would then still not be any
+need for the bitmap itself in the cases where it no longer gets
+allocated.)
 
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  William Douglas <william.douglas@intel.com>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+> However, the first hunk demonstrates that deferred_pages gets used even
+> in the non-live case.=C2=A0 In particular, it is sensitive to errors with=
+ the
+> guests' handling of its own P2M.=C2=A0 Also, I can't obviously spot anyth=
+ing
+> which will correctly fail migration if deferred pages survive the final
+> iteration.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+How does the first hunk demonstrate this? The question isn't when
+the bitmap gets updated, but under what conditions it gets consumed.
+If the only sending function ever called is suspend_and_send_dirty(),
+then nothing would ever have had a chance to set any bit. And any
+bits set in the course of suspend_and_send_dirty() running will get
+cleared again at the end of suspend_and_send_dirty().
 
+Jan
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 63387 lines long.)
 
