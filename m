@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEC223B5BF5
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 12:03:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147772.272729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04CAC3B5CB1
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 12:46:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147780.272746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxo6D-0006Om-DZ; Mon, 28 Jun 2021 10:02:41 +0000
+	id 1lxolv-0002S9-PH; Mon, 28 Jun 2021 10:45:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147772.272729; Mon, 28 Jun 2021 10:02:41 +0000
+Received: by outflank-mailman (output) from mailman id 147780.272746; Mon, 28 Jun 2021 10:45:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxo6D-0006Lo-9E; Mon, 28 Jun 2021 10:02:41 +0000
-Received: by outflank-mailman (input) for mailman id 147772;
- Mon, 28 Jun 2021 10:02:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fPZa=LW=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lxo6B-0005wp-Gv
- for xen-devel@lists.xenproject.org; Mon, 28 Jun 2021 10:02:39 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef78c4ea-94b6-4a83-90a9-67fc60d55536;
- Mon, 28 Jun 2021 10:02:34 +0000 (UTC)
+	id 1lxolv-0002PX-IN; Mon, 28 Jun 2021 10:45:47 +0000
+Received: by outflank-mailman (input) for mailman id 147780;
+ Mon, 28 Jun 2021 10:45:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxolt-0002PN-AX; Mon, 28 Jun 2021 10:45:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxolt-0007Lo-6r; Mon, 28 Jun 2021 10:45:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxols-0005Yk-TB; Mon, 28 Jun 2021 10:45:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxols-0001uv-Sj; Mon, 28 Jun 2021 10:45:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,69 +42,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef78c4ea-94b6-4a83-90a9-67fc60d55536
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1624874554;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=UFTvpVdfNxrP+bv4AAuRgBxIwdYxDQVjcOfg33auNmM=;
-  b=SPrxiYJ/2NRLD/c1MVWnAm0GakSn4oiEYTE8FPb5yiqv059TqXasGUX3
-   lSBZiMlfzimG9HJmSK7hwNk9+HprKx2d/MbtIQRgTABRF0BcwUV8TnMQ8
-   DtVfeIaI6aOUdayssaovIuRLCRZyAK1M1KdJfnfOMQNB36fSJ43j2BBa6
-   g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 4EIA5kcW1I6IqWbB+qeCtYNw3oo2Q9HJXNiY2CMTTgZnDDEBM/SV7FaV2HZJ+QYny5PXW8Mg9u
- 80tq3JTLTo+MI3tw7fY9RxlYYOT8A1JuChY+OxJCMvv8bYnptTOpeJ6UR4BGSRjz6qR/1xSTKI
- K/T/Zg310ZGzxbnRaDtDFCVY5pUJpZnRuJ1qo72owudqVogHXZWQk9MeiSPZS8INyYbt+qkG+T
- fDWZuJZj83Gx1snThFk3/Mv3569pUL38t7Lb4JmIMn1FXoNP/2Z0h27C5kEUe7xpK9ipXhhrOf
- 1YU=
-X-SBRS: 5.1
-X-MesageID: 46798714
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:UPF/eatQEQe/qgrHq7XYEzf+7skDTtV00zEX/kB9WHVpmszxra
- 6TdZMgpHnJYVcqKQkdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
- YFT0EXMqyIMbEQt6fHCWeDfOrIuOP3kpyVuQ==
-X-IronPort-AV: E=Sophos;i="5.83,305,1616472000"; 
-   d="scan'208";a="46798714"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: [XEN PATCH 2/2] libxl: Fix QEMU cmdline for scsi device
-Date: Mon, 28 Jun 2021 11:01:57 +0100
-Message-ID: <20210628100157.5010-3-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210628100157.5010-1-anthony.perard@citrix.com>
-References: <20210628100157.5010-1-anthony.perard@citrix.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ill0/ZYrkPdIn10F432L/6jIQ8+m+iX4NNExo9muepE=; b=45lMDKwwKDiD3EUoPrlh4F/ppT
+	dz92B/5ho0VDs9uOjexHCjfRC00yaoUVmXbJGjSoDW8XRq8crJd58hHFUQ719dCIp29WVAs6CmYvN
+	V5vXaNEnrmNdX/8vx9Oqv59Lz8IeJeO7t7kIxiRM8dDousC1n0CdzBz1UGcztfsFS6tI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163162-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+MIME-Version: 1.0
+Subject: [ovmf test] 163162: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=17143c4837393d42c484b42d1789b85b2cff1aaf
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 28 Jun 2021 10:45:44 +0000
 
-Usage of 'scsi-disk' device is deprecated and removed from QEMU,
-instead we need to use 'scsi-hd' for hard drives.
-See QEMU 879be3af49 (hw/scsi: remove 'scsi-disk' device)
+flight 163162 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163162/
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
- tools/libs/light/libxl_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Regressions :-(
 
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 7670e403a90f..dbd3c7f278f9 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -1972,7 +1972,7 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
-                                                         &drive_id),
-                     flexarray_vappend(dm_args,
-                         "-drive", drive,
--                        "-device", GCSPRINTF("scsi-disk,drive=%s,scsi-id=%d",
-+                        "-device", GCSPRINTF("scsi-hd,drive=%s,scsi-id=%d",
-                                              drive_id, disk),
-                         NULL);
-                     continue;
--- 
-Anthony PERARD
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
+version targeted for testing:
+ ovmf                 17143c4837393d42c484b42d1789b85b2cff1aaf
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+
+Last test of basis   162359  2021-06-04 03:40:08 Z   24 days
+Failing since        162368  2021-06-04 15:42:59 Z   23 days   59 attempts
+Testing same since   163028  2021-06-25 07:30:32 Z    3 days   12 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Daoxiang Li <daoxiang.li@intel.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Maurice Ma <maurice.ma@intel.com>
+  Ni, Ray <ray.ni@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sumana Venur <sumana.venur@intel.com>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2647 lines long.)
 
