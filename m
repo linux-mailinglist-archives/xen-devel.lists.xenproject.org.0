@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0DB3B6664
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 18:05:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147913.273087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BC153B6681
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 18:15:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147919.273097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxtl6-0007JD-Vi; Mon, 28 Jun 2021 16:05:16 +0000
+	id 1lxtuA-0000QS-W5; Mon, 28 Jun 2021 16:14:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147913.273087; Mon, 28 Jun 2021 16:05:16 +0000
+Received: by outflank-mailman (output) from mailman id 147919.273097; Mon, 28 Jun 2021 16:14:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxtl6-0007GK-OS; Mon, 28 Jun 2021 16:05:16 +0000
-Received: by outflank-mailman (input) for mailman id 147913;
- Mon, 28 Jun 2021 16:05:15 +0000
+	id 1lxtuA-0000Nj-T9; Mon, 28 Jun 2021 16:14:38 +0000
+Received: by outflank-mailman (input) for mailman id 147919;
+ Mon, 28 Jun 2021 16:14:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lxtl4-0007GA-TR; Mon, 28 Jun 2021 16:05:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1lxtuA-0000Nd-3Z
+ for xen-devel@lists.xenproject.org; Mon, 28 Jun 2021 16:14:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lxtl4-0004xM-Kc; Mon, 28 Jun 2021 16:05:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lxtl4-0003WD-Bu; Mon, 28 Jun 2021 16:05:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lxtl4-0006UE-BN; Mon, 28 Jun 2021 16:05:14 +0000
+ (envelope-from <julien@xen.org>)
+ id 1lxtu9-00056W-R5; Mon, 28 Jun 2021 16:14:37 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lxtu9-0003RF-LK; Mon, 28 Jun 2021 16:14:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,256 +40,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=6nVvCxQcD4m+LjsbM6ysOvbYIkRxPYse7m7A9lEwepI=; b=QnW8vY9BjuJgSsx8zSjrzrYM11
-	zwPeKOix4dch+90INV4O78FW/1+YaMco/1oqrIuGahLDZeHRUaRlF4rrehMFCZchyHbx+/1rQSWDE
-	hb8UvWzduiiLEBDdViuZt3iKCUIJER6Rx+5ioFgLtiZb22As2iPHwu/0NzWL5yGkQj/w=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163163-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=EkmHBmybHyhTkWaI7QWBXlFpsguUGKDGOYul6WZWT2c=; b=jEQAsIp817TA3T5MWgnV1fULxa
+	a1Jymj+9skjeEmOaTOyjwBM8cYu4t46DPSJXWDV/SlPYK3vwpQM2n0s49OK4DRXHz5JbRirh2DKiy
+	ZnzLTccPas774k6DUUavAQaDHFpAa/854nhuMdyDH/YH1AsIs0qTD50JBkjCm/clBrZc=;
+Subject: Re: [PATCH] xen/arm: add forward_smc command line option for
+ debugging
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com
+References: <alpine.DEB.2.21.2106241749310.24906@sstabellini-ThinkPad-T480s>
+ <b5ba0757-322f-a77a-2293-111b77b29d35@xen.org>
+ <alpine.DEB.2.21.2106251033500.24906@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <db2405f9-61d2-5d8f-816e-547bc09bb95c@xen.org>
+Date: Mon, 28 Jun 2021 17:14:36 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 163163: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:xen-boot/l1:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:xen-boot/l1:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=e3955ae93f5151ad2e982440b7c8d3776a9afee2
-X-Osstest-Versions-That:
-    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 28 Jun 2021 16:05:14 +0000
+In-Reply-To: <alpine.DEB.2.21.2106251033500.24906@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 163163 qemu-mainline real [real]
-flight 163170 qemu-mainline real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163163/
-http://logs.test-lab.xenproject.org/osstest/logs/163170/
+Hi Stefano,
 
-Regressions :-(
+On 25/06/2021 18:47, Stefano Stabellini wrote:
+> On Fri, 25 Jun 2021, Julien Grall wrote:
+>> Hi,
+>>
+>> On 25/06/2021 02:51, Stefano Stabellini wrote:
+>>> It has become clear that an option to disable trapping SMC calls to Xen
+>>> is very useful for debugging user issues.
+>>>
+>>> Instead of having to provide a
+>>> patch to users every time, it would be great if we could just tell them
+>>> to add forward_smc=true to the Xen command line.
+>>
+>> I can understand this woud be useful to go a bit further in dom0 boot. But I
+>> am quite sceptical on the idea of providing an option directly in Xen because:
+>>
+>> 1) This breaks other SMC uses in Xen (optee, VM monitor...)
+>> 2) There are no guarantee that the SMC call will not wreck Xen. To be clear, I
+>> don't refer to a malicious OS here, but a normal OS that boot
+>> 3) Very likely the next steps for the user (or better call it the developper
+>> because that option should really not be used by a normal user) will be to
+>> decide whether they should modify the kernel or implement a mediator in Xen.
+>>
+>>> This option is obviously unsafe and unsecure and only meant for
+>>> debugging. Make clear in the description that if you pass
+>>> forward_smc=true then the system is not security supported.
+>>>
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>>
+>>> diff --git a/docs/misc/xen-command-line.pandoc
+>>> b/docs/misc/xen-command-line.pandoc
+>>> index 3ece83a427..0833fe80fc 100644
+>>> --- a/docs/misc/xen-command-line.pandoc
+>>> +++ b/docs/misc/xen-command-line.pandoc
+>>> @@ -2501,6 +2501,16 @@ vwfi to `native` reduces irq latency significantly.
+>>> It can also lead to
+>>>    suboptimal scheduling decisions, but only when the system is
+>>>    oversubscribed (i.e., in total there are more vCPUs than pCPUs).
+>>>    +### forward_smc (arm)
+>>> +> `= <boolean>`
+>>> +
+>>> +> Default: `false`
+>>> +
+>>> +If enabled, instead of trapping firmware SMC calls to Xen, allow SMC
+>>> +calls from VMs directly to the firmware. This option is UNSAFE and it is
+>>> +only meant for debugging. Systems with forward_smc=true are not security
+>>> +supported.
+>>> +
+>>>    ### watchdog (x86)
+>>>    > `= force | <boolean>`
+>>>    diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+>>> index e7384381cc..0580ac5762 100644
+>>> --- a/xen/arch/arm/traps.c
+>>> +++ b/xen/arch/arm/traps.c
+>>> @@ -95,11 +95,15 @@ static int __init parse_vwfi(const char *s)
+>>>    }
+>>>    custom_param("vwfi", parse_vwfi);
+>>>    +static bool forward_smc = false;
+>>> +boolean_param("forward_smc", forward_smc);
+>>> +
+>>>    register_t get_default_hcr_flags(void)
+>>>    {
+>>>        return  (HCR_PTW|HCR_BSU_INNER|HCR_AMO|HCR_IMO|HCR_FMO|HCR_VM|
+>>>                 (vwfi != NATIVE ? (HCR_TWI|HCR_TWE) : 0) |
+>>> -             HCR_TID3|HCR_TSC|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
+>>> +             (forward_smc ? 0 : HCR_TSC) |
+>>> +             HCR_TID3|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
+>>
+>> A system wide option to turn off SMC trapping is a no-go because this would
+>> only be usable for debugging dom0 and not a guest.
+>>
+>> So at the minimum this should be a per-domain option. Also, I think we still
+>> want to integrate with the rest of the SMC users. So Xen should still trap the
+>> SMC and the forward should happen in vsmccc_handle_call().
+>>
+>> This would cover my first point.
+> 
+> Yes, you are totally right. I thought about it this morning as well.
+> This patch would break even PSCI :-(
+> 
+> It would be best implemented in platform_smc as forward_to_fw (see
+> xen/arch/arm/platforms/xilinx-zynqmp-eemi.c:forward_to_fw).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-qemuu-nested-amd 16 xen-boot/l1         fail REGR. vs. 152631
- test-amd64-amd64-qemuu-nested-intel 16 xen-boot/l1       fail REGR. vs. 152631
+There is one problem though. How do you know which calling convention to 
+use? IOW, will all the firmware call (in particular on older platform) 
+follow the SMCCC?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+> 
+> 
+>> For the second and third point, I still like
+>> to understand how this is going to help the developer to fully port the
+>> board/OS to Xen with this option disabled?
+> 
+> This is meant to help with bug triage only. There are a number of bugs
+> that can happen if certain platform SMCs are intercerpted by Xen instead
+> of being forwarded to the hardware.
 
-version targeted for testing:
- qemuu                e3955ae93f5151ad2e982440b7c8d3776a9afee2
-baseline version:
- qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
-
-Last test of basis   152631  2020-08-20 09:07:46 Z  312 days
-Failing since        152659  2020-08-21 14:07:39 Z  311 days  571 attempts
-Testing same since   163110  2021-06-26 04:20:02 Z    2 days    5 attempts
-
-------------------------------------------------------------
-549 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+We already print a message informating the user that the SMC call was 
+trapped and terminated in Xen. So I am not entirely sure why you also 
+need to passthrough all the SMC calls to triage it. You already know 
+that the SMC will have to be implemented in Xen...
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> I found myself having to provide a
+> patch to forward_to_fw all platform SMCs as a first test to
+> triage bugs a few times recently. It is never a fix, only a way to
+> understand the next step of debugging. Also Alex stumbled across
+> something similar on a non-Xilinx board (MacchiatoBin) so I thought it
+> was time for a better debugging option.
+> 
+> I think for debugging purposes it would be sufficient if all platform
+> SMCs were forward_to_fw from all domains. Of course it is totally
+> unsafe, but it is just for debugging.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+In order to add a debugging option in Xen, we need to be reasonably 
+confident that the option will not make more damage (I am not speaking 
+about security here...) than it is actually worth it.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I can see how this helps in both your situation to boot dom0. However, I 
+am not sure this can be generalized to every platform. A developper (or 
+user) enabling this debugging option may end up to see corruption/hang 
+because:
+   1) SMC call may pass memory address. A domain would pass a guest 
+physical address but the firmware will interpret as host physical 
+address. This working(ish) for dom0 because both are equivalent, but for 
+other domain this will break.
+  2) SMC call may change the behavior of the system (i.e. turning off 
+the UART)...
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+It would be difficult to pinpoint whether the problem is because an SMC 
+(or else) without implementing each SMC call in Xen.
 
+I don't think it is a lot of work to implement SMCs in Xen as you find 
+them (sooner or later, you will have to do it anyway...). At which 
+point, forwarding all the unknowns SMCs to attempt to boot further is 
+probably more risky than it is worth it.
 
-Not pushing.
+If the problem is re-building, then we could consider to provide a 
+command line option to easily specify which SMC call is passthrough...
 
-(No revision log; it would be 178478 lines long.)
+Cheers,
+
+-- 
+Julien Grall
 
