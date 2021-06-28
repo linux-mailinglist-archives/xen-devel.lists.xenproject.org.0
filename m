@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B925E3B66DB
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 18:36:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.147925.273120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AF23B66FD
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jun 2021 18:49:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.147927.273132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxuEH-0003QT-TI; Mon, 28 Jun 2021 16:35:25 +0000
+	id 1lxuRj-0004wb-6b; Mon, 28 Jun 2021 16:49:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 147925.273120; Mon, 28 Jun 2021 16:35:25 +0000
+Received: by outflank-mailman (output) from mailman id 147927.273132; Mon, 28 Jun 2021 16:49:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lxuEH-0003Ns-PY; Mon, 28 Jun 2021 16:35:25 +0000
-Received: by outflank-mailman (input) for mailman id 147925;
- Mon, 28 Jun 2021 16:35:24 +0000
+	id 1lxuRj-0004uD-2J; Mon, 28 Jun 2021 16:49:19 +0000
+Received: by outflank-mailman (input) for mailman id 147927;
+ Mon, 28 Jun 2021 16:49:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1lxuEG-0003NT-FP
- for xen-devel@lists.xenproject.org; Mon, 28 Jun 2021 16:35:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxuRg-0004u3-TN; Mon, 28 Jun 2021 16:49:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lxuEF-0005Rd-2z; Mon, 28 Jun 2021 16:35:23 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1lxuEE-0000db-RA; Mon, 28 Jun 2021 16:35:23 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxuRg-0005fj-KC; Mon, 28 Jun 2021 16:49:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxuRg-0004wN-Bw; Mon, 28 Jun 2021 16:49:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1lxuRg-0007pX-BQ; Mon, 28 Jun 2021 16:49:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,68 +42,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=hBYLE5N4Wo3TfX/d3Ya7Pvj0xX218GanNazl0aDy9zs=; b=Den0/zUB9VR2GQ0F37wU34T1JW
-	bDtsAFt2QmFTQaghvAt77kUVwfiimf5rc5agC6YcbH4tPzuYYI9Czt0tiuna38RVsaPTm60lmmN62
-	oQJzhr4wz78bAaVeYHtLQkRZN2EFZvZn80TklJKSV7buK15VjE+uWKboZEz9uwEJJiAM=;
-Subject: Re: [PATCH] fully replace mfn_to_gmfn()
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <389f5988-4700-da3e-e628-1513e87eb56a@suse.com>
- <263f1b30-e33d-711c-ff22-64f8acad230d@citrix.com>
- <9138e7a0-f4a0-db77-c09f-4fa6a45652cf@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <6901f742-ee27-aeef-83ed-8c8de08acf75@xen.org>
-Date: Mon, 28 Jun 2021 17:35:19 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GU00fxjsGlNhx0KHZ9VVWL25GKnpZ930UoYafBUxAD8=; b=2bQaotvunn0EK3PsPjXMDk5MG8
+	w5IB9MaGHWa9KGOjDUtkMbo4Q1ffvWgPUmVRBoxiI6wAgSdyZPIFxcjvPrUHYWmCrdrupBigj8CQ4
+	66LxHamCSqYUq2nOapgdzh4UUxtrFLrZYEx4gLIA3VU5eUL0UkOsYKU1t8xfrgGw8aMc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163167-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <9138e7a0-f4a0-db77-c09f-4fa6a45652cf@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 163167: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=17143c4837393d42c484b42d1789b85b2cff1aaf
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 28 Jun 2021 16:49:16 +0000
 
-Hi Jan,
+flight 163167 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163167/
 
-On 28/06/2021 17:15, Jan Beulich wrote:
-> On 28.06.2021 17:42, Andrew Cooper wrote:
->> On 28/06/2021 12:52, Jan Beulich wrote:
->>> Convert the two remaining uses as well as Arm's stub to the properly
->>> named and type-safe mfn_to_gfn(), dropping x86's definition (where we
->>> already have mfn_to_gfn()).
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but ...
-> 
-> Thanks.
-> 
->>> --- a/xen/include/asm-arm/mm.h
->>> +++ b/xen/include/asm-arm/mm.h
->>> @@ -328,8 +328,7 @@ struct page_info *get_page_from_gva(stru
->>>   
->>>   /* Xen always owns P2M on ARM */
->>>   #define set_gpfn_from_mfn(mfn, pfn) do { (void) (mfn), (void)(pfn); } while (0)
->>> -#define mfn_to_gmfn(_d, mfn)  (mfn)
->>> -
->>> +#define mfn_to_gfn(d, mfn) _gfn(mfn_x(mfn))
->>
->> ... surely this wants to be ((void)(d), _gfn(mfn_x(mfn))), even if it's
->> just a latent bug right now?
-> 
-> Well, Julien said he plans to get rid of this anyway. I'll do here
-> whatever the Arm maintainers say is wanted. Julien, Stefano?
+Regressions :-(
 
-I am fine with the change suggested by Andrew.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-Cheers,
+version targeted for testing:
+ ovmf                 17143c4837393d42c484b42d1789b85b2cff1aaf
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
--- 
-Julien Grall
+Last test of basis   162359  2021-06-04 03:40:08 Z   24 days
+Failing since        162368  2021-06-04 15:42:59 Z   24 days   60 attempts
+Testing same since   163028  2021-06-25 07:30:32 Z    3 days   13 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Daoxiang Li <daoxiang.li@intel.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Maurice Ma <maurice.ma@intel.com>
+  Ni, Ray <ray.ni@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sumana Venur <sumana.venur@intel.com>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2647 lines long.)
 
