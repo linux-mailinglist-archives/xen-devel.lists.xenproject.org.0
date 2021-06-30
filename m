@@ -2,31 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF5D33B816E
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jun 2021 13:45:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148178.273795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9B73B817D
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jun 2021 13:53:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148181.273807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyYdQ-0007FG-Kq; Wed, 30 Jun 2021 11:44:04 +0000
+	id 1lyYlz-0000Ew-Hj; Wed, 30 Jun 2021 11:52:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148178.273795; Wed, 30 Jun 2021 11:44:04 +0000
+Received: by outflank-mailman (output) from mailman id 148181.273807; Wed, 30 Jun 2021 11:52:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyYdQ-0007DR-Hj; Wed, 30 Jun 2021 11:44:04 +0000
-Received: by outflank-mailman (input) for mailman id 148178;
- Wed, 30 Jun 2021 11:44:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=muIj=LY=kernel.org=will@srs-us1.protection.inumbo.net>)
- id 1lyYdO-0007DL-Gg
- for xen-devel@lists.xenproject.org; Wed, 30 Jun 2021 11:44:02 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fca5b77a-3425-4845-8bdc-992783a64d56;
- Wed, 30 Jun 2021 11:44:01 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 658936191E;
- Wed, 30 Jun 2021 11:43:52 +0000 (UTC)
+	id 1lyYlz-0000Cy-E6; Wed, 30 Jun 2021 11:52:55 +0000
+Received: by outflank-mailman (input) for mailman id 148181;
+ Wed, 30 Jun 2021 11:52:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=E+GI=LY=epam.com=prvs=7815400710=sergiy_kibrik@srs-us1.protection.inumbo.net>)
+ id 1lyYlx-0000CY-Rk
+ for xen-devel@lists.xenproject.org; Wed, 30 Jun 2021 11:52:54 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 47d5ea32-0d0e-45f8-87c5-11498747ee5e;
+ Wed, 30 Jun 2021 11:52:53 +0000 (UTC)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15UBkj55000314; Wed, 30 Jun 2021 11:52:51 GMT
+Received: from eur01-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2059.outbound.protection.outlook.com [104.47.2.59])
+ by mx0b-0039f301.pphosted.com with ESMTP id 39gr1k80xk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Jun 2021 11:52:51 +0000
+Received: from AM9PR03MB6836.eurprd03.prod.outlook.com (2603:10a6:20b:2d8::8)
+ by VI1PR0302MB3437.eurprd03.prod.outlook.com (2603:10a6:803:20::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.20; Wed, 30 Jun
+ 2021 11:52:48 +0000
+Received: from AM9PR03MB6836.eurprd03.prod.outlook.com
+ ([fe80::24c9:276d:e56c:34d4]) by AM9PR03MB6836.eurprd03.prod.outlook.com
+ ([fe80::24c9:276d:e56c:34d4%5]) with mapi id 15.20.4242.023; Wed, 30 Jun 2021
+ 11:52:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,132 +52,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fca5b77a-3425-4845-8bdc-992783a64d56
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1625053440;
-	bh=T1naDXZ4KL7jQSaB561jHvJlgBOMGMQ3/1PtLxSRV3U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Vw8LJOu5KCD34mYOTCMTaQTWi8sHKQiF+Cb+FRKyG+InGjsh4w5CH8gnw31a5qAII
-	 fdxwWup5a6Ngr850taEcU9ZCSLqJ9xB2i8TJhh5jtbhjxfDnOyNmjKcCavn+Lg4tkH
-	 BT4r0W8tudkIUpIlaA5qcnegOAtKQcX6CJcSCUAclVHoKv4x47CJbH5I8ALtxpamjf
-	 y69MeQSUFUeisr4w4Nt7M+WH4SJ7ztkfgf6rb2x4qemdLyCnbXEMIuY+1x1gvjyIVN
-	 oskCC9GD49xMtxzkxb+rjm1PqbzB1n44Y73LgO/3einGNWpmSI/rVZcsQyguvuwKPI
-	 LyjS1rkSbdFqQ==
-Date: Wed, 30 Jun 2021 12:43:48 +0100
-From: Will Deacon <will@kernel.org>
-To: Claire Chang <tientzu@chromium.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Rob Herring <robh+dt@kernel.org>,
-	mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	boris.ostrovsky@oracle.com, jgross@suse.com,
-	Christoph Hellwig <hch@lst.de>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	benh@kernel.crashing.org, paulus@samba.org,
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com,
-	xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>,
-	mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Saravana Kannan <saravanak@google.com>,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	heikki.krogerus@linux.intel.com,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
-	linux-devicetree <devicetree@vger.kernel.org>,
-	lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	xen-devel@lists.xenproject.org,
-	Nicolas Boichat <drinkcat@chromium.org>,
-	Jim Quinlan <james.quinlan@broadcom.com>,
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com,
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk,
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie,
-	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-	jani.nikula@linux.intel.com, Jianxiong Gao <jxgao@google.com>,
-	joonas.lahtinen@linux.intel.com, linux-pci@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
-	rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Qian Cai <quic_qiancai@quicinc.com>
-Subject: Re: [PATCH v15 06/12] swiotlb: Use is_swiotlb_force_bounce for
- swiotlb data bouncing
-Message-ID: <20210630114348.GA8383@willie-the-truck>
-References: <20210624155526.2775863-1-tientzu@chromium.org>
- <20210624155526.2775863-7-tientzu@chromium.org>
- <YNvMDFWKXSm4LRfZ@Ryzen-9-3900X.localdomain>
- <CALiNf2-a-haQN0-4+gX8+wa++52-0CnO2O4BEkxrQCxoTa_47w@mail.gmail.com>
+X-Inumbo-ID: 47d5ea32-0d0e-45f8-87c5-11498747ee5e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AmehO9Lr4oo4Nl5tSEuqFnl0kPwoooheDdPNp/YpFuHra63brUy4LjqCYcFeWfLG897YWKjZ8IBFfks2siSGMgWcVRCTKT7SniteQzw2H/FywBP1vbBINmjJr7m6ijjrr37LZk3Y0jkBllvlh71fwU/UgJdkG6ifl30My4dLH87kAgQnncRADgEQ8OwYRmowmjLCJ2rOgoonx/VGFKawThO3FlrFwTvR1JwxZGvmXrDnIK0FCIVsXdtrp5zET5I3YsPDlsDbHmRHIVnK1MTbKJ7BEgxxagzKaUzxyuw0EzcFkfDCs2yef2CJrwrYc/ad40nC8A/UoLiiHI1/nYM50g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qkKWOIBLkgshZvIsBGS/x4npvpbIkst102jI46Ov3D4=;
+ b=XsvQDCDhSkvddNqzzfwUsc54n31srq9gFvcqq3OrVHGLqxyjo8kJlGgF5BU6C4ZBPok7eEkuKENnk4IQLapveU1x/C/exAFc1Q9A3IVZN1VGat1JWmrc+XVmyBPtMNEeE33X/Nh0z+pCWsRtJTJ/bt6Pvxjbb3yKVsWObkFUmVNvZEHtvwGyONPSkyZugDV7SVYmTCrzg37cbC86okDb9Wa9B/VXsSdZltHtYw+F7dZ1B1PHiNMTjcqgBGVe3GCxRlZsQGZGxeOyNMaCGMzIRRuWHYIgn9UOaP+oxHcVVvVTRHzURpvigibdZk7mdhrbJ8CuQ8Ty+2V0Yca8g134NA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qkKWOIBLkgshZvIsBGS/x4npvpbIkst102jI46Ov3D4=;
+ b=qlBGvruciRCgf1vC+ndFTFUGYbRBYGKY+4mldZBnfb3ML+VDlsaQJXB1YbyVQIVh0SsnZp5tP1msp36rlVbhXf2LCDlgWtxQDTqMcDizHY2KEV8IY7HE7mSKs2JYSO6tb7dM24YZIGnYjQ8bPllbwMQJyPgAfYIDKVVYY+4DtS/Va1tykeQt1r2WKgybxquEoo5ir1QJa/2Daoi74br4pAUNoTU5zdBUJCbyr8S6mmUPHbTUpGuLzsXs5BaQF4iQ2cgpNlen5ELYilD0kLIKaYAVgbT8QT8WexrT+9732D5TtZ4qG00tN8+0l7B3B8fibawT3+0T7+L31RPbUxQehQ==
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: Julien Grall <julien@xen.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Subject: RE: [XEN PATCH v2] libxl/arm: provide guests with random seed
+Thread-Topic: [XEN PATCH v2] libxl/arm: provide guests with random seed
+Thread-Index: AQHXWHmL+0MzhpKbOUCds4qOsNnv3qssf+sAgAAbmYA=
+Date: Wed, 30 Jun 2021 11:52:48 +0000
+Message-ID: 
+ <AM9PR03MB683611963AAB15208D1EECB3F0019@AM9PR03MB6836.eurprd03.prod.outlook.com>
+References: <20210527085233.69917-1-Sergiy_Kibrik@epam.com>
+ <78b26e15-a3ca-e218-9afa-9f443e234260@xen.org>
+ <658a814d-2a99-00ff-8855-134a1e707e97@xen.org>
+In-Reply-To: <658a814d-2a99-00ff-8855-134a1e707e97@xen.org>
+Accept-Language: en-US
+Content-Language: ru-RU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [91.206.32.135]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 09f24d7b-a22a-4dcd-588a-08d93bbd952b
+x-ms-traffictypediagnostic: VI1PR0302MB3437:
+x-microsoft-antispam-prvs: 
+ <VI1PR0302MB34370564193C1C20A31F6831F0019@VI1PR0302MB3437.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ tzBwWCDvLpxoZLljtnX/W6/b/n/WknhaOYrvPgmAFbWhA0PghIY+/vSR8cOrYFS6vxMve4dL0yHK4fqUKTodBVcFidWZ1QVINf53/CJKRYUdJnk9vFlHyrgnEjAlkpdSpjpvmvrdBq4AKqCR1m8fF+/gGqM1BTWXSFH7dUUEQD3YkVWcidkDkBNF1OI5osO100gortdwX3Pn0Zar7T1wWKoocrKBR9u1B2ENd/4voKNLdFm36y6ZuUYT+S4UwTPVkzy3NK/3jdRQrqX7IeAjvjM2Moh4HvOXrWvhwLcldh/o58dIcB1vsPlRJfEf6EOb+zdrpltGFbd3z8sjYqVVO6ZO6sCdlfuh2B/WJOmG2GfylJtcL+aQRtZdrOV7ehODZZTVhLL2XSP7eHIPqMixYzRh3xJCZM9YffyRlkpgWhCAekhWjCsqkZ6RIY3sIkGlwSYrKSAeNI4hUUxoowt3BPJ46vSfEwe/pBQNr2ff9L45bt2g16HsXrXM9SCvSCkdNxyiuEWyFMq/R6/XOLv+LJwr8xraOQvTTKyT83aqHW7c5iWCaK5aa/31gGiPi01YSn2sBW2S2w0A+exKW4WDEBO/HZ2gflbvD2UIFYLLaZJ/ncBoKyi6k15L/VF/ftroTtHSUaulwWiT9tmTyaKaTQ==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB6836.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(71200400001)(52536014)(6506007)(38100700002)(53546011)(5660300002)(186003)(7696005)(26005)(9686003)(122000001)(55016002)(4326008)(54906003)(110136005)(4744005)(2906002)(316002)(478600001)(8936002)(33656002)(66946007)(76116006)(66556008)(86362001)(64756008)(66446008)(8676002)(66476007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?alV6VHd1cmcyVWZrZ2NMcm0zeFpMOFNTdmpvYll4Tnd0QWc3TmRicnNsWkUw?=
+ =?utf-8?B?Z1dvUHlqdnQ3UVh0K1ZIS20rUjJkM3V6WHdISVpCeGV2UUxURnFSOTdRYzUr?=
+ =?utf-8?B?dXB3WXE2NTM3VldMMzI1VC9kWElsbUl1NVc2SWtEcUhIYUtTNnZqRDlEMlhN?=
+ =?utf-8?B?aTlBN1NRM2xJckdhWmQ5MVFiSmxEMUI1MW9VZ1l6a1BSOFpHVExwK2ViUTNk?=
+ =?utf-8?B?Nk5rSHR4d2JUUVJoTVh4ZGdrWmZYNjNScHlmendkN0c5dWJ3Z2Z5UG1hL2Uy?=
+ =?utf-8?B?cy9aZHBrOWt3VTdLOTJTQ203aERTSVhFVEJZOWExa3lydW4vanpvRldKUXp1?=
+ =?utf-8?B?Qmg1TFhMV3hBQ2wxWFlMZ3BEL0NwV01lWHFzRHZLSVM3N2ErR28vT3laSUlH?=
+ =?utf-8?B?TTFYNDZyWHBIRGRkTkNLYUpOTitNUkdrM2xYRnZlMmpjL1pXclQ0RGhVYUEw?=
+ =?utf-8?B?eTdkUFJkSXM0eGlTalp4M05MeGdySlUyZW95MUFpc0x1QkJoQ2VzUTh5UVZX?=
+ =?utf-8?B?enFHQkFoZWg5YzFqZHhsKzlkelRUSCtMRmV4R2tyVWdIQmpoQWtoRDhXT25J?=
+ =?utf-8?B?S1Z2TDhFTWlOYmJDTDkvOElDcG9TeFIrSkpPSENyYkI5RXVTTXJ3M3IzNlNn?=
+ =?utf-8?B?Sm5naWtRc2x0NlEvZTJXc0JPdHdRb3RpbEZkOWsrbk5zYmFyaXNNVk9hWEZG?=
+ =?utf-8?B?TGtmc0lrWWdyL0NUNjZtVTZkK2F3Q1Z1czFWUktTUTBaTVZ4OTZnWmtNcGI4?=
+ =?utf-8?B?OFBhMklkOHVpM3N4NVJZOGF0M0pkUkRPQjhoVlg5bVdLbmtheW4xc1ZUOFFO?=
+ =?utf-8?B?M0hHbVBHQXNhZnMwbWlPeDlPclRObytncGs3UWlwSzMwbjQxd1lPRlhldFph?=
+ =?utf-8?B?M0NWZWVIV3RwM0dhMW9ab3ErK1FSZXo5cUxjcnZNQnMrZGNSa3p3NGN6SEYx?=
+ =?utf-8?B?aXdHWHo2clRjYXRjS2JkSFZodWoydjJsQlEvMjNFbjFhamFOOXJsWVF1eHo4?=
+ =?utf-8?B?RnV1aEIyME0velduajVwc0NNTkZvem1pR24zbXhGa2liV2NwSTBROHRUZXdW?=
+ =?utf-8?B?dkt2RjJqdEdWcVhXdHdSbm4wUnVKc3QwNzRQR2kyMEhwcUFxTjBFSllGby8w?=
+ =?utf-8?B?bkU4a2QrbWM1c1ZiZkZqeWlJdWZUU0YvUXRlQ2hmdFg1R1RsVDVQVVpsbldz?=
+ =?utf-8?B?ZnNTVlljRnViYUZ6QkRiY0kvcHRyeG0yMTFGaWJ3NmNMZlhYTXdqMGpsazdq?=
+ =?utf-8?B?TjFjdFFnRlhoWXBUOGx1aThMZDhaTWFVVTNObGdaTkFUVW9Iak9nMm53S3RS?=
+ =?utf-8?B?NWs5ZWFaeFRDaXlsWG5RWTBSdXdCRFp6ZTMzTGRQSXRDS1kyalE3RGo3UEQv?=
+ =?utf-8?B?dmgzbHlWRlh1cDRUZS9MeUxmQUFuNXQydndOOUsrUW1LT2g1YU45cjdoYksy?=
+ =?utf-8?B?bmNhbDljZnN4U1BXcjZmOXNhRzV5MDJ0WWEydnJGWmlqejZVT1l4bU1SaFRI?=
+ =?utf-8?B?VVpTRmN2NHM2TUNsV1FhemN5bDZ6OW9iV3g4aVJ1bVVCcWE1QnYzMWI2bXZm?=
+ =?utf-8?B?ZnBNbjFQajh6WHJTMG9QRmZVaTJ3bDBMdE4xOEJDUkt2azJWcndINXh2M1FO?=
+ =?utf-8?B?dU9JU2EwWk5tWXlCaVZrVlZETUYzMUJ6eDVCalZGSkNZbGFlY053eXBTYzNa?=
+ =?utf-8?B?ZFRSZ0svUUVEYUJieXRITGlrWGtheFF6QmkyZVNxSUc4TDZuckIzUVg2OWgy?=
+ =?utf-8?Q?cf1O1ZErGzsxwxZmSw=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALiNf2-a-haQN0-4+gX8+wa++52-0CnO2O4BEkxrQCxoTa_47w@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB6836.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09f24d7b-a22a-4dcd-588a-08d93bbd952b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2021 11:52:48.5785
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2xhRdGyIKZeM4IgQxngF5lD0F+MWkdv2+AGyiKQbHX4l5UqGvy8ubJumgsTJhga6OztzuaWyy9qJZnbWhzx/mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0302MB3437
+X-Proofpoint-ORIG-GUID: ZcP-6ZyxZzfIxUdDgwD4tKvAh3aLn5zY
+X-Proofpoint-GUID: ZcP-6ZyxZzfIxUdDgwD4tKvAh3aLn5zY
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 phishscore=0
+ mlxlogscore=999 mlxscore=0 adultscore=0 bulkscore=0 spamscore=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2106300075
 
-On Wed, Jun 30, 2021 at 05:17:27PM +0800, Claire Chang wrote:
-> On Wed, Jun 30, 2021 at 9:43 AM Nathan Chancellor <nathan@kernel.org> wrote:
-> >
-> > On Thu, Jun 24, 2021 at 11:55:20PM +0800, Claire Chang wrote:
-> > > Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
-> > > use it to determine whether to bounce the data or not. This will be
-> > > useful later to allow for different pools.
-> > >
-> > > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > > Reviewed-by: Christoph Hellwig <hch@lst.de>
-> > > Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > Tested-by: Will Deacon <will@kernel.org>
-> > > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> >
-> > This patch as commit af452ec1b1a3 ("swiotlb: Use is_swiotlb_force_bounce
-> > for swiotlb data bouncing") causes my Ryzen 3 4300G system to fail to
-> > get to an X session consistently (although not every single time),
-> > presumably due to a crash in the AMDGPU driver that I see in dmesg.
-> >
-> > I have attached logs at af452ec1b1a3 and f127c9556a8e and I am happy
-> > to provide any further information, debug, or test patches as necessary.
-> 
-> Are you using swiotlb=force? or the swiotlb_map is called because of
-> !dma_capable? (https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/kernel/dma/direct.h#n93)
-
-The command line is in the dmesg:
-
-  | Kernel command line: initrd=\amd-ucode.img initrd=\initramfs-linux-next-llvm.img root=PARTUUID=8680aa0c-cf09-4a69-8cf3-970478040ee7 rw intel_pstate=no_hwp irqpoll
-
-but I worry that this looks _very_ similar to the issue reported by Qian
-Cai which we thought we had fixed. Nathan -- is the failure deterministic?
-
-> `BUG: unable to handle page fault for address: 00000000003a8290` and
-> the fact it crashed at `_raw_spin_lock_irqsave` look like the memory
-> (maybe dev->dma_io_tlb_mem) was corrupted?
-> The dev->dma_io_tlb_mem should be set here
-> (https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/pci/probe.c#n2528)
-> through device_initialize.
-
-I'm less sure about this. 'dma_io_tlb_mem' should be pointing at
-'io_tlb_default_mem', which is a page-aligned allocation from memblock.
-The spinlock is at offset 0x24 in that structure, and looking at the
-register dump from the crash:
-
-Jun 29 18:28:42 hp-4300G kernel: RSP: 0018:ffffadb4013db9e8 EFLAGS: 00010006
-Jun 29 18:28:42 hp-4300G kernel: RAX: 00000000003a8290 RBX: 0000000000000000 RCX: ffff8900572ad580
-Jun 29 18:28:42 hp-4300G kernel: RDX: ffff89005653f024 RSI: 00000000000c0000 RDI: 0000000000001d17
-Jun 29 18:28:42 hp-4300G kernel: RBP: 000000000a20d000 R08: 00000000000c0000 R09: 0000000000000000
-Jun 29 18:28:42 hp-4300G kernel: R10: 000000000a20d000 R11: ffff89005653f000 R12: 0000000000000212
-Jun 29 18:28:42 hp-4300G kernel: R13: 0000000000001000 R14: 0000000000000002 R15: 0000000000200000
-Jun 29 18:28:42 hp-4300G kernel: FS:  00007f1f8898ea40(0000) GS:ffff890057280000(0000) knlGS:0000000000000000
-Jun 29 18:28:42 hp-4300G kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-Jun 29 18:28:42 hp-4300G kernel: CR2: 00000000003a8290 CR3: 00000001020d0000 CR4: 0000000000350ee0
-Jun 29 18:28:42 hp-4300G kernel: Call Trace:
-Jun 29 18:28:42 hp-4300G kernel:  _raw_spin_lock_irqsave+0x39/0x50
-Jun 29 18:28:42 hp-4300G kernel:  swiotlb_tbl_map_single+0x12b/0x4c0
-
-Then that correlates with R11 holding the 'dma_io_tlb_mem' pointer and
-RDX pointing at the spinlock. Yet RAX is holding junk :/
-
-I agree that enabling KASAN would be a good idea, but I also think we
-probably need to get some more information out of swiotlb_tbl_map_single()
-to see see what exactly is going wrong in there.
-
-Will
+PiBPbiAwMy8wNi8yMDIxIDE0OjA4LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQpbLi5dDQo+IA0KPiBU
+aGlzIGhhcyBiZWVuIHNpdHRpbmcgb24gdGhlIE1MIGZvciBxdWl0ZSBhIHdoaWxlLiBJIHdhcyBn
+b2luZyB0byBjb21taXQgaXQgYXMNCj4gdGhpcyBsb29rcyB1bmNvbnRyb3ZlcnNpYWwgYnV0IHRo
+ZSBwYXRjaCBkb2Vzbid0IGFwcGx5IG9uIHRoZSBsYXN0ZXN0IFhlbg0KPiAodG9vbHMvbGlieGwg
+d2FzIG1vdmVkIGluIHRvb2xzL2xpYnMvbGlnaHQpLg0KPiANCj4gQFNlcmdpeSwgd291bGQgeW91
+IGJlIGFibGUgdG8gcmViYXNlIHRoZSBwYXRjaD8NCj4gDQoNClN1cmUsIEknbGwgcG9zdCByZWJh
+c2VkIHZlcnNpb24uDQoNCi0tDQpSZWdhcmRzLA0KICBTZXJnaXkNCg==
 
