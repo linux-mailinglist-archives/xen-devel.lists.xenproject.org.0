@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680C63B913F
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 13:37:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148637.274675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8566D3B9142
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 13:40:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148641.274686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyuzo-00019G-Ip; Thu, 01 Jul 2021 11:36:40 +0000
+	id 1lyv3G-0002VS-3T; Thu, 01 Jul 2021 11:40:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148637.274675; Thu, 01 Jul 2021 11:36:40 +0000
+Received: by outflank-mailman (output) from mailman id 148641.274686; Thu, 01 Jul 2021 11:40:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyuzo-00016D-FD; Thu, 01 Jul 2021 11:36:40 +0000
-Received: by outflank-mailman (input) for mailman id 148637;
- Thu, 01 Jul 2021 11:36:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lyv3F-0002SJ-VJ; Thu, 01 Jul 2021 11:40:13 +0000
+Received: by outflank-mailman (input) for mailman id 148641;
+ Thu, 01 Jul 2021 11:40:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lvjd=LZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lyuzm-000167-Oy
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 11:36:39 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.50])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e469171b-012d-4977-9272-025a76b7e0f0;
- Thu, 01 Jul 2021 11:36:37 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx61BaZ6AK
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 1 Jul 2021 13:36:35 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1lyv3F-0002SD-52
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 11:40:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lyv3D-0003nr-Qg; Thu, 01 Jul 2021 11:40:11 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1lyv3D-0006D6-KH; Thu, 01 Jul 2021 11:40:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,74 +39,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e469171b-012d-4977-9272-025a76b7e0f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625139396;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=EaTkDCsxmG/5LAoOL5R5PfPFMnYdKWar3UPZ1YO5J0w=;
-    b=hKQzMm0H8qKtThJK/InXZzNpNWjZbVuJEX5fsWtiGnp1nsYyTINWEfhaFtawIBOJcp
-    NRmjKF6DMjoY/4XXzTOTLrAAn9MMo6GhW/R5NlyZ5007Qr274aV0ymAg3c7oh8uR2Bjb
-    fE70EB8VfcdSMLkGA81f5JoujOdPUDO8dxC4zXRayQSU7vuOc27fWdhNv9r56J62IlIz
-    VjcRPb+tSsTAqBgL4rbv5i3R3ceVFfjv7AtK7/7cupCrfFgd+RlIp+FGTun/S9gAn55V
-    /IABpN7o1iflBlwalipOOCVQ93VGmcWWZimtWvZmf3DfgWMPz7W9SX9dJQE17zvC9eqx
-    EK/w==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsBBSIa03sY9BUY2ao0oygRsMfcqA6zjDLeeWXNg=="
-X-RZG-CLASS-ID: mo00
-Date: Thu, 1 Jul 2021 13:36:28 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>
-Subject: Re: XEN_SYSCTL_cpu_policy_hvm_default truncates leaf count
-Message-ID: <20210701133628.1667a344.olaf@aepfle.de>
-In-Reply-To: <20e828c9-e7dc-4401-9307-a6d72eb618d8@citrix.com>
-References: <20210701125623.593fe3ae.olaf@aepfle.de>
-	<20e828c9-e7dc-4401-9307-a6d72eb618d8@citrix.com>
-X-Mailer: Claws Mail 2021.05.27 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=qrHHKDwLGVAwuZ8YDEmJvO1B5Md1+6hA43DjhdVqj5k=; b=cdVZosP6NNW3LlUp4gI+YlaFds
+	A4msxS1TOnxTapS/qF/mqe6pfUwGxn1UZoqn0IFkRrlisJiGQo6CBUwtUmZqWLXltzWWDpribNapr
+	8+je9hJkcReo0/3T1RSa423bI9mWRcHH3f01t0keDjeFU+4FAUiOk6QTaZ4Tq+h1oAZ0=;
+Subject: Re: [PATCH v20210701 08/40] MAINTAINERS: add myself as saverestore
+ maintainer
+To: Olaf Hering <olaf@aepfle.de>, Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210701095635.15648-1-olaf@aepfle.de>
+ <20210701095635.15648-9-olaf@aepfle.de>
+ <13a963c1-639f-5135-734b-9cc1c8d9034e@suse.com>
+ <20210701130143.2b8cfce3.olaf@aepfle.de>
+From: Julien Grall <julien@xen.org>
+Message-ID: <07174c4e-cf39-66c2-c3cb-27b728dc5819@xen.org>
+Date: Thu, 1 Jul 2021 12:40:09 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/V3f5fxObco4H8QqtSU1IZEa";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+In-Reply-To: <20210701130143.2b8cfce3.olaf@aepfle.de>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
---Sig_/V3f5fxObco4H8QqtSU1IZEa
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Hi Olaf,
 
-Am Thu, 1 Jul 2021 12:19:24 +0100
-schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
+On 01/07/2021 12:01, Olaf Hering wrote:
+> Am Thu, 1 Jul 2021 12:39:06 +0200
+> schrieb Jan Beulich <jbeulich@suse.com>:
+> 
+>> I'm afraid this goes too far: This way you remove all prior
+>> (direct) maintainers (see "The meaning of nesting" in
+>> ./MAINTAINERS). And I'm sure Andrew, who has written much of
+>> this, ought to be considered to become the maintainer of this
+>> code then as well.
+> 
+> I think this was copy&paste from some other entry, which would still include the tools/ maintainers when using get_maintainer.pl. I do not remember which one it was.
 
-> This *ought* to be "grab default, edit a few details, send back to
-> Xen".=C2=A0 Where is the 51 leaves coming in?=C2=A0 Do you have cpuid=3D =
-lines in
-> the xl cfg file?
+You are mixing CCing and actual maintainers. You can be CCed without 
+maintaining a directory.
 
-No cpuid=3D or anything in domU.cfg or Xen cmdline.
-If I understand x86_cpuid_copy_to_buffer correctly, it copies all of basic+=
-extd and viridian+xen leaves, which is apparently more than 31.
+Jan's point is tools/ maintainers would not be directly maintaining the 
+library. You would be the sole maintainer of the directory and Jan was 
+referring the following paragraph:
 
-Olaf=20
+1. Under normal circumstances, the Ack of the most specific maintainer
+is both necessary and sufficient to get a change to a given file
+committed.  So a change to xen/arch/x86/mm/shadow/multi.c requires the
+the Ack of the xen/arch/x86/mm/shadow maintainer for that part of the
+patch, but would not require the Ack of the xen/arch/x86 maintainer or
+the xen/arch/x86/mm maintainer.
 
---Sig_/V3f5fxObco4H8QqtSU1IZEa
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+Regarding your proposal to maintain the directory. I don't follow much 
+the tools side and therefore can't judge the merit of the proposal.
 
------BEGIN PGP SIGNATURE-----
+However... this is not new code per-se and therefore the fact you touch 
+last is not sufficient (otherwise I could claim the same tomorrow if I 
+send a patch to the directory ;)).
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDdqL0ACgkQ86SN7mm1
-DoBpUA//SB0yjRi7AFikeKxfZKvWSpI00sf+1jzVHYGWzQEwH7jT5qtRLpRYwgBS
-PQm/nyc34yBQDZN7OJWbzrFBOPifrhM3DkQqp3H9tcg5xfogvUOWRV7x/U+i86iP
-1ibN4h9rwldj+AYQ0EXKHdt1DWMPQ6KIDpDuXNJscLEECE7B5wy8zOyglVOsivYJ
-ZnlnOy13xzPmf1V3B7aW4R5pDLkGu3rO8xxB9bsTLDrEdSMzFoPlAaqjBJgo1fLE
-pj+ycafjcFLXL5W8hrIofJ4cGfJVu8S2DNhuPHRo/D+aO1yESIfUh4sveYItQO2n
-Ds8Q2NwLgcFmRr7wmNYvKFeRDRIemz/F+eQPbH/L0c/2mZxg3mU3rIsPJzLtwbCI
-RDeY1JX2ZLL+CIf0NDilePOeytalJlnfJLlPb9HcgDaAia2qzBY1FEM6Qn0tmc4m
-HeHA6/7Ck0KDTIspfdfrYekH6nBLoAoTOfWQWeI+WVMZna55n17vQFQqFcxQDX0k
-rsjHTnq90HKDTE2uHSnmqoBCq+w2621Bn4ifL/0PGpnEjMeGWPxx5ZHCdrgTU+Bc
-Imrh+xrLq6cCnzgY/WwZRIm10yCw78mkCWBp0p+MuV76/AFrSuaXS+hX+DjmXjMM
-q83aoyRxMggFAYU03oVLUGVj01jB5SVBCof/H2O3NyHOItuhU+I=
-=FgNt
------END PGP SIGNATURE-----
+For the commit message, I would suggest to provide some information 
+about your contribution (including review) to the area. Also, was this 
+discussed with the tools maintainers?
 
---Sig_/V3f5fxObco4H8QqtSU1IZEa--
+Cheers,
+
+-- 
+Julien Grall
 
